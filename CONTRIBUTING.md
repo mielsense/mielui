@@ -14,4 +14,4 @@ Allowed types: `feat`, `fix`, `docs`, `style`, `refactor`, `perf`, `test`, `buil
 
 Run `bun run format:check` and `bun run lint` before committing. CI also checks types, tests, builds, and package installation. Add a changelog entry for user-visible changes.
 
-Release tags use `v<package version>`. The initial `v0.3.3` tag records the imported baseline and retains upstream's version. It does not publish to npm. Before the first npm release, choose the next package version and follow SETUP.md.
+Release tags use `v<package version>`. Mielui starts at `v0.1.0` and versions releases independently of Sivir UI. Creating a tag does not publish to npm. Before the first npm release, choose the next package version and follow SETUP.md.

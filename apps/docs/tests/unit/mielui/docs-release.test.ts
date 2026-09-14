@@ -171,28 +171,25 @@ describe('docs release contracts', () => {
     });
 
     it('serves every release as compiled Markdown for integrations', async () => {
-        expect(changelogVersions).toContain('0.2.1');
-        expect(changelogVersions).toContain('0.2.6');
+        expect(changelogVersions).toEqual(['0.1.0']);
         expect(changelogMarkdown('missing')).toBeUndefined();
+        expect(changelogMarkdown('0.3.3')).toBeUndefined();
 
         const response = (await getChangelog({
-            params: { version: '0.2.1' }
+            params: { version: '0.1.0' }
         } as Parameters<typeof getChangelog>[0])) as Response;
 
         expect(response.headers.get('content-type')).toContain('text/markdown');
-        expect(await response.text()).toContain('# @mielui/svelte 0.2.1 changelog');
-        expect(changelogMarkdown('0.2.1')).toContain('## Feature');
-        expect(changelogMarkdown('0.2.1')).toContain('versioned Markdown changelog');
-        expect(changelogMarkdown('0.2.6')).toContain('inset frame');
-        expect(changelogMarkdown('0.2.6')).toContain('/changelog/0.2.6/llm.md');
-        expect(changelogMarkdown('0.2.6')).not.toContain('## Llm');
-        expect(changelogDocsMarkdown()).toContain('## 0.2.6');
-        expect(changelogDocsMarkdown()).not.toContain(
-            'Do not rebuild these as a flat bordered card'
-        );
-        expect(changelogLlmVersions).toContain('0.2.6');
-        expect(changelogLlmMarkdown('0.2.1')).toBeUndefined();
-        expect(changelogLlmMarkdown('0.2.6')).toContain('mielui-inset-frame');
+        expect(await response.text()).toContain('# @mielui/svelte 0.1.0 changelog');
+        expect(changelogMarkdown('0.1.0')).toContain('## Docs');
+        expect(changelogMarkdown('0.1.0')).toContain('Initialize Mielui');
+        expect(changelogMarkdown('0.1.0')).toContain('/changelog/0.1.0/llm.md');
+        expect(changelogMarkdown('0.1.0')).not.toContain('## Llm');
+        expect(changelogDocsMarkdown()).toContain('## 0.1.0');
+        expect(changelogDocsMarkdown()).not.toContain('## 0.3.3');
+        expect(changelogLlmVersions).toEqual(['0.1.0']);
+        expect(changelogLlmMarkdown('missing')).toBeUndefined();
+        expect(changelogLlmMarkdown('0.1.0')).toContain('independent release numbers');
     });
 
     it('derives LLM references from current component manifests, APIs, and examples', () => {
