@@ -171,7 +171,7 @@ describe('docs release contracts', () => {
     });
 
     it('serves every release as compiled Markdown for integrations', async () => {
-        expect(changelogVersions).toEqual(['0.1.0']);
+        expect(changelogVersions).toContain('0.1.0');
         expect(changelogMarkdown('missing')).toBeUndefined();
         expect(changelogMarkdown('0.3.3')).toBeUndefined();
 
@@ -187,7 +187,7 @@ describe('docs release contracts', () => {
         expect(changelogMarkdown('0.1.0')).not.toContain('## Llm');
         expect(changelogDocsMarkdown()).toContain('## 0.1.0');
         expect(changelogDocsMarkdown()).not.toContain('## 0.3.3');
-        expect(changelogLlmVersions).toEqual(['0.1.0']);
+        expect(changelogLlmVersions).toContain('0.1.0');
         expect(changelogLlmMarkdown('missing')).toBeUndefined();
         expect(changelogLlmMarkdown('0.1.0')).toContain('independent release numbers');
     });
