@@ -1,0 +1,17 @@
+pre-commit:
+    parallel: true
+    commands:
+        biome:
+            glob: '*.{js,ts,svelte,json,css,md,html,yaml,yml}'
+            run: bunx biome check --write --no-errors-on-unmatched {staged_files}
+            stage_fixed: true
+
+pre-push:
+    commands:
+        check:
+            run: bun run check
+
+commit-msg:
+    commands:
+        conventional:
+            run: node scripts/check-commit-message.mjs {1}

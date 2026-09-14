@@ -1,0 +1,161 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Figtree:wght@400;500;600;700&family=Geist:wght@100..900&family=IBM+Plex+Sans:wght@400;500;600;700&family=Instrument+Sans:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=Lato:wght@400;700;900&family=Manrope:wght@400;500;600;700&family=Montserrat:wght@400;500;600;700&family=Noto+Sans:wght@400;500;600;700&family=Nunito:wght@400;500;600;700&family=Open+Sans:wght@400;500;600;700&family=Outfit:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Poppins:wght@400;500;600;700&family=Public+Sans:wght@400;500;600;700&family=Roboto:wght@400;500;700&family=Sora:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&family=Work+Sans:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@400;500;600;700&family=DM+Serif+Text:ital@0;1&family=EB+Garamond:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,400..700&family=Libre+Baskerville:wght@400;700&family=Lora:wght@400;500;600;700&family=Merriweather:wght@400;700&family=Newsreader:opsz,wght@6..72,400..700&family=Playfair+Display:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600;700&family=Geist+Mono:wght@100..900&family=IBM+Plex+Mono:wght@400;500;600;700&family=JetBrains+Mono:wght@100..800&family=Roboto+Mono:wght@400;500;600;700&family=Source+Code+Pro:wght@400;500;600;700&display=swap');
+
+@layer theme, base, components, utilities;
+
+@font-face {
+    font-family: 'SF Mono';
+    src: url('/fonts/SFMono-Light.otf') format('opentype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+html,
+body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    width: 100%;
+}
+
+/* Reserve scrollbar space so opening an overlay (which locks body scroll)
+   never shifts centered content sideways. */
+html {
+    scrollbar-gutter: stable;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+h1,
+h2,
+h3 {
+    text-wrap: balance;
+}
+
+p,
+li,
+figcaption,
+blockquote {
+    text-wrap: pretty;
+}
+
+/* Hide scrollbar on the element itself */
+.hide-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+.hide-scrollbar::-webkit-scrollbar {
+    display: none;
+}
+
+/* Hide scrollbar on the element and all descendants */
+.hide-scrollbar-all,
+.hide-scrollbar-all * {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+.hide-scrollbar-all::-webkit-scrollbar,
+.hide-scrollbar-all *::-webkit-scrollbar {
+    display: none;
+}
+
+@layer base {
+    body {
+        background-color: var(--color-background);
+        color: var(--color-foreground);
+        font-family: var(--font-sans), sans-serif;
+        font-size: var(--font-size-body, 14px);
+        font-weight: var(--font-weight-body, 400);
+        line-height: 1.5;
+        font-synthesis-weight: none;
+        text-rendering: optimizeLegibility;
+    }
+}
+
+::selection {
+    background-color: color-mix(in srgb, var(--color-primary) 32%, transparent);
+}
+
+/* Docs page headers set slightly smaller, with a firmer and larger lead. */
+[data-docs-page] header h1 {
+    font-size: 28px;
+}
+
+[data-docs-page] header p {
+    font-size: 15px;
+    font-weight: 500;
+}
+
+pre {
+    background-color: transparent;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+    [data-docs-page] > :where(header, section) {
+        animation: docs-block-in 280ms var(--ease-out) both;
+        transform-origin: top center;
+    }
+
+    [data-docs-page] > :where(header, section):nth-child(2) {
+        animation-delay: 45ms;
+    }
+
+    [data-docs-page] > :where(header, section):nth-child(3) {
+        animation-delay: 80ms;
+    }
+
+    [data-docs-page] > :where(header, section):nth-child(4) {
+        animation-delay: 115ms;
+    }
+
+    [data-docs-page] > :where(header, section):nth-child(5) {
+        animation-delay: 150ms;
+    }
+
+    [data-docs-page] > :where(header, section):nth-child(n + 6) {
+        animation-delay: 180ms;
+    }
+}
+
+@keyframes docs-block-in {
+    from {
+        opacity: 0;
+        transform: translateY(8px) scale(0.992);
+        filter: blur(5px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+        filter: blur(0);
+    }
+}
+
+@keyframes hero-cloud-drift {
+    from {
+        transform: translateX(0);
+    }
+    to {
+        transform: translateX(-50%);
+    }
+}
+
+::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+}
+
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--color-secondary);
+    border-radius: 999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--color-border-strong);
+}

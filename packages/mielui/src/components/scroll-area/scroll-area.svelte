@@ -1,0 +1,112 @@
+<script lang="ts">
+    import ChevronDown from '@lucide/svelte/icons/chevron-down';
+    import ChevronUp from '@lucide/svelte/icons/chevron-up';
+    import { cn } from '@mielui/svelte/utils';
+    import type { ScrollAreaProps } from '.';
+
+    let {
+        class: className,
+        children,
+        orientation = 'vertical',
+        showCues = true,
+        blur = true,
+        element = $bindable(),
+        onscroll,
+        ...rest
+    }: ScrollAreaProps = $props();
+
+    let scrollTop = $state(0);
+    let scrollHeight = $state(0);
+    let clientHeight = $state(0);
+
+    const atTop = $derived(scrollTop <= 1);
+    const atBottom = $derived(scrollTop + clientHeight >= scrollHeight - 1);
+    const overflows = $derived(scrollHeight - clientHeight > 1);
+    const cuesVisible = $derived(showCues && orientation === 'vertical' && overflows);
+    const blurClass = $derived(blur ? 'backdrop-blur-sm' : undefined);
+
+    function measure() {
+        if (!element) {
+            return;
+        }
+        scrollTop = element.scrollTop;
+        scrollHeight = element.scrollHeight;
+        clientHeight = element.clientHeight;
+    }
+
+    /**
+     * Measure on mount and whenever the content or viewport size changes, so the
+     * edge cues are correct before the first scroll event fires.
+     */
+    $effect(() => {
+        if (!element) {
+            return;
+        }
+        measure();
+        const ro = new ResizeObserver(measure);
+        ro.observe(element);
+        for (const child of Array.from(element.children)) {
+            ro.observe(child);
+        }
+        return () => ro.disconnect();
+    });
+</script>
+
+<div
+    data-ui="scroll-area"
+    data-orientation={orientation}
+    class={cn(className, 'relative flex min-h-0 min-w-0 flex-col overflow-hidden max-h-[inherit] max-w-[inherit]')}
+>
+    <div
+        bind:this={element}
+        data-ui="scroll-area-viewport"
+        class={cn(
+            'relative min-h-0 min-w-0 w-full flex-1 rounded-[inherit] overscroll-contain [scrollbar-color:color-mix(in_srgb,var(--color-foreground)_22%,transparent)_transparent] [scrollbar-width:thin]',
+            '[&::-webkit-scrollbar]:size-2.5 [&::-webkit-scrollbar-track]:bg-transparent',
+            '[&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:border-2 [&::-webkit-scrollbar-thumb]:border-transparent [&::-webkit-scrollbar-thumb]:bg-[color-mix(in_srgb,var(--color-foreground)_18%,transparent)] [&::-webkit-scrollbar-thumb]:bg-clip-padding',
+            '[&::-webkit-scrollbar-thumb:hover]:bg-[color-mix(in_srgb,var(--color-foreground)_32%,transparent)] [&::-webkit-scrollbar-thumb:hover]:bg-clip-padding',
+            orientation === 'horizontal'
+                ? 'max-w-[inherit] overflow-x-auto overflow-y-hidden'
+                : orientation === 'vertical'
+                  ? 'max-h-[inherit] overflow-y-auto overflow-x-hidden'
+                  : 'max-h-[inherit] max-w-[inherit] overflow-auto'
+        )}
+        onscroll={(event) => {
+            measure();
+            onscroll?.(event);
+    }}
+        {...rest}
+    >
+        {#if cuesVisible}
+            <!-- Top edge cue: sticky so it pins to the top of the scrollport. -->
+            <div aria-hidden="true" class="sticky top-0 z-10 h-0">
+                <div
+                    class={cn(
+                        'pointer-events-none absolute inset-x-0 -top-px flex h-7 items-start justify-center rounded-t-[inherit] bg-[linear-gradient(to_bottom,color-mix(in_srgb,var(--color-panel)_96%,transparent),transparent)] [-webkit-mask-image:linear-gradient(to_bottom,black_0%,black_40%,transparent_100%)] [mask-image:linear-gradient(to_bottom,black_0%,black_40%,transparent_100%)] transition-opacity duration-150',
+                        blurClass,
+                        atTop ? 'opacity-0' : 'opacity-100'
+                    )}
+                >
+                    <ChevronUp size={13} class="mt-0.5 text-foreground-muted" />
+                </div>
+            </div>
+        {/if}
+
+        {@render children?.()}
+
+        {#if cuesVisible}
+            <!-- Bottom edge cue: sticky so it pins to the bottom of the scrollport. -->
+            <div aria-hidden="true" class="sticky bottom-0 z-10 h-0">
+                <div
+                    class={cn(
+                        'pointer-events-none absolute inset-x-0 -bottom-px flex h-7 items-end justify-center rounded-b-[inherit] bg-[linear-gradient(to_top,color-mix(in_srgb,var(--color-panel)_96%,transparent),transparent)] [-webkit-mask-image:linear-gradient(to_top,black_0%,black_40%,transparent_100%)] [mask-image:linear-gradient(to_top,black_0%,black_40%,transparent_100%)] transition-opacity duration-150',
+                        blurClass,
+                        atBottom ? 'opacity-0' : 'opacity-100'
+                    )}
+                >
+                    <ChevronDown size={13} class="mb-0.5 text-foreground-muted" />
+                </div>
+            </div>
+        {/if}
+    </div>
+</div>

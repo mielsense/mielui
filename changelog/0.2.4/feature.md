@@ -1,0 +1,1 @@
+- Add an installable `mielui` coding-agent skill with live `llms.txt` API discovery, version-aware package and source-copy workflows, AI component composition guidance, and Mielui design principles. Install it with `npx skills add mielsense/mielui --skill mielui`.

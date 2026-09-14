@@ -1,0 +1,16 @@
+import type { DefaultProps } from '@mielui/svelte/utils';
+import type { Snippet } from 'svelte';
+import type { HTMLAttributes } from 'svelte/elements';
+import ScrollArea from './scroll-area.svelte';
+
+export type ScrollAreaProps = {
+    orientation?: 'vertical' | 'horizontal' | 'both';
+    showCues?: boolean;
+    blur?: boolean;
+    children?: Snippet;
+    element?: HTMLDivElement;
+} & DefaultProps &
+    Omit<HTMLAttributes<HTMLDivElement>, 'children' | 'class'>;
+
+export { ScrollArea };
+export default ScrollArea;

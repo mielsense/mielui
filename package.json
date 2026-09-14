@@ -1,0 +1,46 @@
+{
+    "name": "mielui",
+    "private": true,
+    "type": "module",
+    "packageManager": "bun@1.3.11",
+    "engines": {
+        "bun": ">=1.3.11"
+    },
+    "workspaces": [
+        "apps/*",
+        "packages/*"
+    ],
+    "overrides": {
+        "brace-expansion": "5.0.9",
+        "cookie": "1.1.1",
+        "deepmerge-ts": "8.0.2",
+        "fast-uri": "3.1.6",
+        "mysql2": "3.23.1",
+        "nanoid": "3.3.18",
+        "postcss": "8.5.25",
+        "tar": "7.5.22",
+        "undici": "7.29.0"
+    },
+    "scripts": {
+        "audit": "bun audit",
+        "dev": "turbo run dev",
+        "devnet": "turbo run devnet --filter=docs --filter=installer-lab",
+        "build": "turbo run build",
+        "generate": "turbo run generate",
+        "check": "turbo run check",
+        "lint": "biome lint .",
+        "test": "turbo run test",
+        "format": "biome format --write .",
+        "format:check": "biome format .",
+        "release-gate": "bash scripts/release-gate.sh",
+        "prepare": "lefthook install"
+    },
+    "devDependencies": {
+        "@biomejs/biome": "^2.5.7",
+        "lefthook": "^1.13.6",
+        "turbo": "^2.10.0"
+    },
+    "dependencies": {
+        "opencode-goal-plugin": "^0.7.0"
+    }
+}

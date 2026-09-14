@@ -1,0 +1,11 @@
+import { createContext } from '@mielui/svelte/utils';
+import type { PopoverState } from '.';
+
+export type PopoverContext = {
+    id: string;
+    state: PopoverState;
+};
+
+const { set: setPopoverContext, get: getPopoverContext } = createContext<PopoverContext>('popover');
+
+export { getPopoverContext, setPopoverContext };

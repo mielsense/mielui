@@ -1,0 +1,76 @@
+<script lang="ts">
+    import CircleDot from '@lucide/svelte/icons/circle-dot';
+    import FolderPlus from '@lucide/svelte/icons/folder-plus';
+    import Inbox from '@lucide/svelte/icons/inbox';
+    import MapIcon from '@lucide/svelte/icons/map';
+    import Moon from '@lucide/svelte/icons/moon';
+    import Search from '@lucide/svelte/icons/search';
+    import SquarePen from '@lucide/svelte/icons/square-pen';
+    import Users from '@lucide/svelte/icons/users';
+    import * as Command from '@mielui/svelte/components/command';
+    import Shortcut from '@mielui/svelte/components/shortcut';
+</script>
+
+<div class="flex w-full items-center justify-center">
+    <Command.Root>
+        <Command.Trigger
+            variant="outline"
+            class="w-[16rem] max-w-full justify-between gap-2 px-3 py-2 text-muted-foreground"
+        >
+            <div class="flex min-w-0 items-center gap-2">
+                <Search size={16} />
+                <span class="truncate">Search or jump to…</span>
+            </div>
+            <Shortcut shortcut="cmd+K" class="shrink-0" />
+        </Command.Trigger>
+        <Command.Content>
+            <Command.Header>
+                <span>Command</span>
+                <span class="ml-auto flex items-center gap-1.5">
+                    <Shortcut shortcut="esc" />
+                    close
+                </span>
+            </Command.Header>
+            <Command.Search placeholder="Type a command or search…" />
+            <Command.Results>
+                <Command.Group heading="Jump to">
+                    <Command.Item name="Inbox">
+                        <Inbox size={16} />
+                        Inbox
+                    </Command.Item>
+                    <Command.Item name="My Issues">
+                        <CircleDot size={16} />
+                        My Issues
+                    </Command.Item>
+                    <Command.Item name="Roadmap">
+                        <MapIcon size={16} />
+                        Roadmap
+                    </Command.Item>
+                </Command.Group>
+                <Command.Separator />
+                <Command.Group heading="Create">
+                    <Command.Item name="New issue">
+                        <SquarePen size={16} />
+                        <span class="flex-1">New issue</span>
+                        <Shortcut shortcut="C" />
+                    </Command.Item>
+                    <Command.Item name="New project">
+                        <FolderPlus size={16} />
+                        New project
+                    </Command.Item>
+                </Command.Group>
+                <Command.Separator />
+                <Command.Group heading="Settings">
+                    <Command.Item name="Switch team">
+                        <Users size={16} />
+                        Switch team
+                    </Command.Item>
+                    <Command.Item name="Theme">
+                        <Moon size={16} />
+                        Theme
+                    </Command.Item>
+                </Command.Group>
+            </Command.Results>
+        </Command.Content>
+    </Command.Root>
+</div>

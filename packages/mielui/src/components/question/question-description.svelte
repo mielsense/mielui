@@ -1,0 +1,17 @@
+<script lang="ts">
+    import { cn } from '@mielui/svelte/utils';
+    import type { QuestionDescriptionProps } from '.';
+
+    let { class: className, children, ...rest }: QuestionDescriptionProps = $props();
+</script>
+
+<p
+    {...rest}
+    data-ui="question-description"
+    class={cn(
+        className,
+        'm-0 px-4 pt-1.5 [font-size:var(--font-size-body)] [font-weight:var(--font-weight-body)] [letter-spacing:var(--tracking-body)] leading-relaxed text-foreground-muted'
+    )}
+>
+    {@render children?.()}
+</p>

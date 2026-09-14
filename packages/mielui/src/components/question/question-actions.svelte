@@ -1,0 +1,20 @@
+<script lang="ts">
+    import * as Card from '@mielui/svelte/components/card';
+    import { cn } from '@mielui/svelte/utils';
+    import type { QuestionActionsProps } from '.';
+    import { getQuestionContext } from './context.svelte';
+
+    let { class: className, children, ...rest }: QuestionActionsProps = $props();
+    const context = getQuestionContext();
+</script>
+
+<Card.Footer class="m-0 block p-0">
+    <div
+        {...rest}
+        data-ui="question-actions"
+        data-state={context.status}
+        class={cn(className, 'flex flex-wrap items-center justify-end gap-2 px-3 py-2.5')}
+    >
+        {@render children?.()}
+    </div>
+</Card.Footer>

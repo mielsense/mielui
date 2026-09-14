@@ -1,0 +1,58 @@
+# Local workspaces and notes
+/dev
+/plans
+/audit
+/ignored
+/inspiration
+/temp
+
+# Dependencies and caches
+node_modules/
+.turbo/
+.vite/
+*.tsbuildinfo
+
+# Build and test output
+.output/
+.vercel/
+.netlify/
+.wrangler/
+.svelte-kit/
+**/.svelte-kit/
+build/
+dist/
+.release/
+coverage/
+.vitest-attachments/
+playwright-report/
+test-results/
+.sandbox/
+
+# Generated source
+/apps/registry/prisma/generated/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Environment
+.env
+.env.*
+!.env.example
+!.env.test
+
+# Logs and temporary files
+*.log
+vite.config.js.timestamp-*
+vite.config.ts.timestamp-*
+
+# Local agent state
+/.agents/
+/.claude/
+/.codex/
+/.opencode/
+
+# Browser verification artifacts
+/output/
+/.playwright-cli/
+/.codebase-memory/

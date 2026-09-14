@@ -1,0 +1,1 @@
+- Remove `ApprovalRequest`, its `@mielui/svelte/components/approval-request` entrypoint, and the `mielui add approval-request` CLI target. Compose `AlertDialog` directly for approval workflows.

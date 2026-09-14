@@ -1,0 +1,14 @@
+<script lang="ts">
+    import { cn } from '@mielui/svelte/utils';
+    import { titleClasses } from '../typography/variants';
+    import type { ModalTitleProps } from '.';
+    import { getModalContext } from './context.svelte';
+
+    let { class: className, children, ...rest }: ModalTitleProps = $props();
+
+    const modal = getModalContext();
+</script>
+
+<h1 {...rest} id={`${modal.id}-title`} class={cn(className, titleClasses)}>
+    {@render children?.()}
+</h1>
