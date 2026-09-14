@@ -1,2 +1,3 @@
 - Initialize Mielui from Sivir UI with renamed packages and docs, preserved MIT attribution, and sleeping-cat branding.
 - Start Mielui releases at 0.1.0, independently of upstream Sivir UI versions.
+- Simplify the sleeping-cat favicon and matching logo to a single outline.
