@@ -2,3 +2,4 @@
 - Start Mielui releases at 0.1.0, independently of upstream Sivir UI versions.
 - Simplify the sleeping-cat favicon and matching logo to a single outline.
 - Use a mauve default accent with dark button labels and a lighter hover state.
+- Restore the README’s overview, preview, documentation link, and agent-skill instructions.

@@ -1,5 +1,16 @@
 # Setup
 
+## Local development
+
+Use Bun 1.3.11 or newer and Node 22.
+
+```sh
+bun install --frozen-lockfile
+bun --filter=docs run dev
+```
+
+The docs run at `http://localhost:5173`.
+
 ## GitHub
 
 The repository uses `main` and short-lived feature branches. Pull requests squash into one commit, using their Conventional Commit title. CI runs on pull requests and pushes to `main`. Version tags mark package releases; there is no separate development branch to keep in sync.

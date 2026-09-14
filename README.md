@@ -1,32 +1,31 @@
-# mielui
+# Mielui
 
-Svelte 5 components, built on [Sivir UI](https://github.com/aidan-neel/sivir-ui) by Aidan Neel. Package: `@mielui/svelte`. CLI: `mielui`.
+Svelte components for building interfaces with a shared visual system. Use them as shipped, or copy the source and make them your own.
 
-![Components](https://img.shields.io/badge/Components-57-1f9be6)
+![Components](https://img.shields.io/badge/Components-57-ba7ca5) [![npm version](https://img.shields.io/npm/v/@mielui/svelte?color=ba7ca5)](https://www.npmjs.com/package/@mielui/svelte)
 
-Documentation will live at [ui.miel.my](https://ui.miel.my).
+<img
+  src="apps/docs/static/og-default.png"
+  alt="Mielui homepage with a sleeping cat and mauve accent"
+  style="border: 1px solid hsl(0, 1%, 92%); border-radius: 18px; box-shadow: 0 2px 6px hsl(0 0% 0% / 0.03);"
+/>
 
-## Local development
+## Documentation
 
-Use Bun 1.3.11 or newer and Node 22.
+Visit [ui.miel.my/docs/introduction](https://ui.miel.my/docs/introduction) for the documentation.
+
+## Agent skill
+
+Install the Mielui skill for component guidance, API references, and examples:
 
 ```sh
-bun install --frozen-lockfile
-bun --filter=docs run dev
+npx skills add mielsense/mielui --skill mielui
 ```
 
-The docs run at `http://localhost:5173`. The workspace includes the component package, docs, theme registry, installer lab, tests, Docker setup, and agent skill.
+## Contributing
 
-```sh
-bun run format:check
-bun run lint
-bun run check
-bun run test
-bun run build
-```
+Please open an issue or pull request to contribute. See [CONTRIBUTING.md](CONTRIBUTING.md) for the workflow and [SETUP.md](SETUP.md) for local setup, deployment, and publishing.
 
-See [SETUP.md](SETUP.md) for deployment and releases, and [CONTRIBUTING.md](CONTRIBUTING.md) for branch and commit conventions.
+## License
 
-## Attribution
-
-The original MIT copyright and permission notice are retained in [LICENSE](LICENSE) and the published package. [UPSTREAM.md](UPSTREAM.md) records the source commit and inherited history.
+Licensed under the [MIT license](./LICENSE). Based on [Sivir UI](https://github.com/aidan-neel/sivir-ui) by Aidan Neel. See [UPSTREAM.md](UPSTREAM.md) for attribution.
