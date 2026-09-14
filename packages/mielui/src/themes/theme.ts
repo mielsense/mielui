@@ -109,7 +109,7 @@ export const DEFAULT_THEME: Theme = {
     name: 'Default',
     description: 'Mielui default — a calm, warm-neutral interface system.',
     publisher: 'mielui',
-    brand: '#1e78e6',
+    brand: '#ba7ca5',
     neutral: 'warm',
     radius: 'default',
     density: 'default',
@@ -265,23 +265,11 @@ function brandDeclarations(brand: string, mode: 'light' | 'dark') {
     const isDefault = brand.toLowerCase() === DEFAULT_THEME.brand;
     return [
         `--color-primary: ${brand};`,
-        // Darken the brand itself so hover keeps its hue instead of shifting teal.
-        `--color-primary-hover: color-mix(in srgb, ${brand} 78%, black);`,
+        `--color-primary-hover: color-mix(in srgb, ${brand} ${isDefault ? '88%, white' : '78%, black'});`,
+        `--color-on-primary: ${isDefault ? '#21151e' : '#ffffff'};`,
         `--color-ring: color-mix(in srgb, ${brand} 30%, transparent);`,
-        `--mielui-blue-500: ${
-            isDefault
-                ? mode === 'light'
-                    ? 'hsl(212.2 100% 64.5%)'
-                    : 'hsl(216.6 100% 67.8%)'
-                : brand
-        };`,
-        `--mielui-blue-50: ${
-            isDefault
-                ? mode === 'light'
-                    ? 'hsl(218.8 100% 96.7%)'
-                    : 'hsl(217.1 52.5% 15.7%)'
-                : `color-mix(in srgb, ${brand} 12%, ${mode === 'light' ? 'white' : 'black'})`
-        };`
+        `--mielui-blue-500: ${brand};`,
+        `--mielui-blue-50: color-mix(in srgb, ${brand} 12%, ${mode === 'light' ? 'white' : 'black'});`
     ];
 }
 

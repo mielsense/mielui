@@ -19,6 +19,7 @@ const PARITY_PROPERTIES = [
     '--motion-duration-toast-out',
     '--color-primary',
     '--color-primary-hover',
+    '--color-on-primary',
     '--mielui-blue-50',
     '--mielui-blue-500',
     ...([0, 10, 50, 100, 150, 300, 500, 900].map((step) => `--mielui-neutral-${step}`) as string[])

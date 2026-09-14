@@ -24,8 +24,8 @@
     --mielui-neutral-300: hsl(60 4.4% 82.4%);
     --mielui-neutral-500: hsl(60 3% 41.5%);
     --mielui-neutral-900: hsl(60 5.7% 10.4%);
-    --mielui-blue-50: hsl(218.8 100% 96.7%);
-    --mielui-blue-500: hsl(212.2 100% 64.5%);
+    --mielui-blue-50: color-mix(in srgb, #ba7ca5 12%, white);
+    --mielui-blue-500: #ba7ca5;
     --mielui-success: hsl(148.7 42.2% 42.7%);
     --mielui-warning: hsl(36.1 64.8% 47.8%);
     --mielui-error: hsl(0 57.7% 56.5%);
@@ -142,9 +142,9 @@
     --color-input: var(--mielui-neutral-300);
     --color-foreground: var(--mielui-neutral-900);
     --color-foreground-muted: var(--mielui-neutral-500);
-    --color-primary: #1e78e6;
-    --color-primary-hover: color-mix(in srgb, var(--color-primary) 78%, black);
-    --color-on-primary: hsl(0 0% 100%);
+    --color-primary: #ba7ca5;
+    --color-primary-hover: color-mix(in srgb, var(--color-primary) 88%, white);
+    --color-on-primary: #21151e;
     --color-button-foreground: var(--color-foreground);
     --color-primary-stroke: transparent;
     --color-accent-tint: var(--mielui-blue-50);
@@ -201,8 +201,8 @@
     --mielui-neutral-300: hsl(0 0% 22.7%);
     --mielui-neutral-500: hsl(0 0% 65%);
     --mielui-neutral-900: hsl(0 0% 93%);
-    --mielui-blue-50: hsl(217.1 52.5% 15.7%);
-    --mielui-blue-500: hsl(216.6 100% 67.8%);
+    --mielui-blue-50: color-mix(in srgb, #ba7ca5 12%, black);
+    --mielui-blue-500: #ba7ca5;
     --mielui-success: hsl(149.7 39.4% 49.2%);
     --mielui-warning: hsl(37.3 72.6% 55.7%);
     --mielui-error: hsl(0 66.7% 63.5%);
