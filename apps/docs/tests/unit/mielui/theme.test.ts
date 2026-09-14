@@ -11,7 +11,7 @@ describe('DEFAULT_THEME', () => {
     it('matches the public visual axes baked into ui.css', () => {
         expect(DEFAULT_THEME).toMatchObject({
             version: THEME_VERSION,
-            brand: '#1e78e6',
+            brand: '#ba7ca5',
             neutral: 'warm',
             radius: 'default',
             density: 'default',
@@ -28,7 +28,7 @@ describe('themeToCss', () => {
     it('emits fonts, radii, density, brand, motion, and mode-specific neutrals', () => {
         expect(css).toContain("--font-sans: 'Inter', sans-serif");
         expect(css).toContain('--radius-lg: 10px');
-        expect(css).toContain('--color-primary: #1e78e6');
+        expect(css).toContain('--color-primary: #ba7ca5');
         expect(css).toContain('--mielui-space-unit: 3.6px');
         expect(css).toContain('--motion-duration-menu: 40ms');
         expect(css).toContain(':root {');

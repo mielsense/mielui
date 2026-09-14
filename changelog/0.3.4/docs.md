@@ -1,1 +1,0 @@
-- Initialize Mielui from Sivir UI with renamed packages and docs, preserved MIT attribution, and sleeping-cat branding.

@@ -97,7 +97,7 @@
     },
     "packages/mielui": {
       "name": "@mielui/svelte",
-      "version": "0.3.3",
+      "version": "0.1.0",
       "bin": {
         "mielui": "dist/index.js",
       },

@@ -14,8 +14,8 @@
 - Vercel deploys production from `main` and previews from pull requests.
 - Tag releases on `main` with annotated `v<version>` tags matching
   `packages/mielui/package.json`. Do not move or reuse an existing release tag.
-- The initial `v0.3.3` tag records the imported Sivir UI baseline. It retains
-  upstream's version and does not itself publish an npm package.
+- Mielui starts at `v0.1.0` and versions releases independently of Sivir UI.
+  Creating a tag does not itself publish an npm package.
 - Publishing a GitHub release triggers the npm workflow. Configure npm access
   first and follow `SETUP.md`; do not publish a release merely to create a tag.
 - The initial repository import is one commit. Later tasks use the branch and

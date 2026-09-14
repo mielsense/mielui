@@ -3,9 +3,9 @@
 Mielui is based on [Sivir UI](https://github.com/aidan-neel/sivir-ui) by Aidan Neel.
 
 - Imported commit: `1b71c2a5d00c46a9b74508d08f836fc0e913858c`
-- Imported package version: `0.3.3`, retained for this baseline.
+- Imported package version: `0.3.3`. Mielui starts independently at `0.1.0`.
 - License: MIT. The original copyright and permission notice are retained in the root and package licenses.
 
-The initial import renames the project, packages, CLI, configuration, and documentation links to Mielui. It also adds Mielui branding and repository setup. The inherited changelog describes upstream work; those changes are not original Mielui work.
+The initial import renames the project, packages, CLI, configuration, and documentation links to Mielui. It also adds Mielui branding and repository setup. The inherited changelog is archived in `docs/upstream-changelog/` in the repository. It describes upstream work; those changes are not original Mielui work.
 
 The sleeping-cat ASCII animation is copied from the owner's `www` project.
