@@ -1,11 +1,12 @@
-<svg
-    xmlns="http://www.w3.org/2000/svg"
-    viewBox="0 4 32 28"
-    fill="none"
-    stroke="currentColor"
-    stroke-width="2"
-    stroke-linecap="round"
-    stroke-linejoin="round"
->
-    <path d="M4 18v-8l5 4 5-4v5c6-5 14-1 14 5 0 5-4 7-10 7h-5c-5 0-9-3-9-9Z" />
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="currentColor">
+    <path
+        d="M40 50C58 50 59 41 53 32C49 26 47 22 51 19C55 16 61 20 60 25C60 28 58 30 56 30"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="6"
+        stroke-linecap="round"
+    />
+    <path
+        d="M10 10C9 7 11 6 13 8L22 14C27 12 32 12 36 14L44 8C46 6 48 7 47 10L44 23C46 29 42 33 38 35C41 39 46 44 45 49C44 57 36 60 26 60C15 60 7 56 7 48C7 42 12 38 15 35C9 32 8 28 10 22Z"
+    />
 </svg>

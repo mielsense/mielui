@@ -1,0 +1,1 @@
+- Replace the logo and favicons with the approved compact cat silhouette.
