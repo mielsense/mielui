@@ -5,6 +5,7 @@
     import Sun from '@lucide/svelte/icons/sun';
     import X from '@lucide/svelte/icons/x';
     import { Button } from '@mielui/svelte/components/button';
+    import * as Group from '@mielui/svelte/components/group';
     import * as Sheet from '@mielui/svelte/components/sheet';
     import * as Typography from '@mielui/svelte/components/typography';
     import { mode, toggleMode } from 'mode-watcher';
@@ -66,7 +67,7 @@
     <title>mielui · Themed Svelte components</title>
     <meta
         name="description"
-        content="56 Svelte 5 components. Restyle all of them from a handful of design tokens."
+        content="57 Svelte 5 components. Restyle all of them from a handful of design tokens."
     />
 </svelte:head>
 
@@ -89,44 +90,36 @@
                 <Logo />
             </div>
             <div class="ml-6 flex shrink-0 items-center gap-2">
-                <nav aria-label="Primary" class="hidden items-center gap-2 sm:flex">
-                    <Button
-                        variant="outline"
-                        size="md"
-                        href={resolve('/docs/introduction')}
-                        style="border-radius: var(--radius-md);"
-                    >
-                        <span class="text-label">Docs</span>
-                    </Button>
-
-                    <Button
-                        variant="outline"
-                        size="md"
-                        href={resolve('/studio')}
-                        style="border-radius: var(--radius-md);"
-                    >
-                        <span class="text-label">Studio</span>
-                    </Button>
+                <nav aria-label="Primary" class="hidden sm:block">
+                    <Group.Root aria-label="Resources">
+                        <Button variant="outline" size="md" href={resolve('/docs/introduction')}>
+                            <span class="text-label">Docs</span>
+                        </Button>
+                        <Group.Separator />
+                        <Button variant="outline" size="md" href={resolve('/studio')}>
+                            <span class="text-label">Studio</span>
+                        </Button>
+                        <Group.Separator />
+                        <Button
+                            variant="outline"
+                            size="md"
+                            href="https://github.com/mielsense/mielui"
+                            target="_blank"
+                            rel="noreferrer"
+                            aria-label="Star mielui on GitHub"
+                        >
+                            <img
+                                src={mode.current === 'dark' ? GitHubWhite : GitHubBlack}
+                                alt="GitHub"
+                                class="size-4"
+                            />
+                            <span class="text-label tabular-nums"
+                                >{formatStarCount(data.starCount ?? null)}</span
+                            >
+                        </Button>
+                    </Group.Root>
                 </nav>
                 <div class="flex shrink-0 items-center gap-2">
-                    <Button
-                        variant="outline"
-                        size="md"
-                        style="border-radius: var(--radius-md);"
-                        href="https://github.com/mielsense/mielui"
-                        target="_blank"
-                        rel="noreferrer"
-                        aria-label="Star mielui on GitHub"
-                    >
-                        <img
-                            src={mode.current === 'dark' ? GitHubWhite : GitHubBlack}
-                            alt="GitHub"
-                            class="size-4"
-                        />
-                        <span class="text-label tabular-nums"
-                            >{formatStarCount(data.starCount ?? null)}</span
-                        >
-                    </Button>
                     <Button
                         variant="outline"
                         size="md"
@@ -221,7 +214,7 @@
             class="mt-1 max-w-[38rem] motion-safe:[animation:docs-block-in_280ms_var(--ease-out)_both] motion-safe:[animation-delay:80ms]"
             style="font-size: 18px; font-weight: var(--font-weight-label);"
         >
-            Restyle 56 components from a handful of tokens.
+            Restyle 57 components from a handful of tokens.
         </Typography.Description>
         <div
             class="mt-3 flex w-full flex-col justify-start gap-3 sm:w-auto sm:flex-row sm:flex-wrap motion-safe:[animation:docs-block-in_280ms_var(--ease-out)_both] motion-safe:[animation-delay:115ms]"
@@ -231,7 +224,7 @@
                 size="lg"
                 class="w-full justify-center sm:w-auto"
             >
-                Browse all 56 components
+                Browse all 57 components
                 <ArrowRight size={16} />
             </Button>
             <Button

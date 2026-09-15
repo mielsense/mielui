@@ -224,6 +224,7 @@ export type {
 export * as DropdownMenu from './components/dropdown-menu';
 export type { GaugeProps, GaugeTone } from './components/gauge';
 export { Gauge } from './components/gauge';
+export * as Group from './components/group';
 export type {
     HoverCardContentProps,
     HoverCardProps,

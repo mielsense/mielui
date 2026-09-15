@@ -79,8 +79,8 @@
         onclick={handleRemove}
         class={cn(
             className,
-            'border-border-strong bg-background shadow-[var(--elevation-control)] hover:bg-card cursor-pointer focus-visible:outline-none focus-visible:shadow-[var(--focus-ring)]',
-            'group ml-0.5 h-auto max-w-full gap-1.5 rounded-[var(--radius-md)] px-0 py-1 pr-1.5 pl-2.5 [font-size:var(--font-size-body)] leading-tight [font-weight:var(--font-weight-badge)] [letter-spacing:var(--tracking-body)]',
+            'cursor-pointer focus-visible:outline-none focus-visible:shadow-[var(--focus-ring)]',
+            'group h-auto max-w-full',
             badge({ variant: 'outline' })
         )}
     >
@@ -93,8 +93,7 @@
         data-disabled={context.disabled || undefined}
         class={cn(
             className,
-            'border-border-strong bg-background shadow-[var(--elevation-control)]',
-            'ml-0.5 inline-flex max-w-full items-center gap-1.5 rounded-[var(--radius-md)] py-1 pr-2.5 pl-2.5 [font-size:var(--font-size-body)] leading-tight [font-weight:var(--font-weight-badge)] [letter-spacing:var(--tracking-body)] text-foreground',
+            'max-w-full',
             badge({ variant: 'outline' })
         )}
     >

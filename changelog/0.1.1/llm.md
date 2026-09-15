@@ -20,3 +20,7 @@ Replace Shortcut and ShortcutProps with Kbd and KbdProps. Import Kbd from @mielu
 ## Slider range and direction
 
 Slider keeps a number value by default. With range enabled, bind a typed [number, number] pair; onValueChange receives the same pair shape. Optional thumbLabels supplies separate accessible names. Handles retain minimum and maximum identity and stop at each other. dir="rtl" reverses the visual direction without reversing the pair. Direction can also inherit from a parent. Keep state values ordered and within min/max; rendering normalizes invalid values without emitting a user change callback.
+
+## Group composition
+
+Import Group as a namespace and compose Root, Separator and Text. Put a Separator between adjacent controls, including outline buttons. Root is an accessible group with normal Tab navigation, not a toolbar or toggle-selection manager. Label it with aria-label or aria-labelledby. For vertical groups set Root orientation="vertical" and Separator orientation="horizontal". Text defaults to a div; use as="label" and for to name an input. Nested Roots retain their own corner rounding and receive a gap.

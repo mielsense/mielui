@@ -8,3 +8,5 @@
 - Tag Input badges use stronger borders and a contrasting fill.
 
 - Homepage navigation uses equal button heights and spacing, with the redundant Components button removed.
+
+- Tag Input uses the standard transparent outline Badge styling.

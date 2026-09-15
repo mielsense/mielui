@@ -274,6 +274,11 @@ export const componentAnatomy = {
         { name: 'Tool.Input', description: 'Displays tool input.' },
         { name: 'Tool.Output', description: 'Displays tool output.' }
     ],
+    group: [
+        { name: 'Group.Root', description: 'Connects related controls.' },
+        { name: 'Group.Separator', description: 'Divides adjacent controls.' },
+        { name: 'Group.Text', description: 'Renders a prefix, suffix or label.' }
+    ],
     toolbar: [{ name: 'Toolbar', description: 'Groups related controls.' }],
     tooltip: [
         { name: 'Tooltip.Root', description: 'Controls tooltip state.' },
