@@ -155,6 +155,16 @@
             "types": "./dist/svelte/blocks/show-more/*",
             "svelte": "./dist/svelte/blocks/show-more/*",
             "default": "./dist/svelte/blocks/show-more/*"
+        },
+        "./components/toolbar": {
+            "types": "./dist/svelte/blocks/toolbar/index.d.ts",
+            "svelte": "./dist/svelte/blocks/toolbar/index.js",
+            "default": "./dist/svelte/blocks/toolbar/index.js"
+        },
+        "./components/toolbar/*": {
+            "types": "./dist/svelte/blocks/toolbar/*",
+            "svelte": "./dist/svelte/blocks/toolbar/*",
+            "default": "./dist/svelte/blocks/toolbar/*"
         }
     },
     "publishConfig": {

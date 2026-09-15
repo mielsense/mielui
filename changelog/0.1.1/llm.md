@@ -16,3 +16,7 @@ Toast is now a namespace with Root, Content, Footer, Title, Icon, Actions, Actio
 ## Kbd and Show More
 
 Replace Shortcut and ShortcutProps with Kbd and KbdProps. Import Kbd from @mielui/svelte/components/kbd or the package root. The shortcut string prop and ontrigger callback retain their behavior. The previous components/shortcut entry is removed. Show More is now grouped with Blocks in source and docs; its public import stays @mielui/svelte/components/show-more.
+
+## Slider range and direction
+
+Slider keeps a number value by default. With range enabled, bind a typed [number, number] pair; onValueChange receives the same pair shape. Optional thumbLabels supplies separate accessible names. Handles retain minimum and maximum identity and stop at each other. dir="rtl" reverses the visual direction without reversing the pair. Direction can also inherit from a parent. Keep state values ordered and within min/max; rendering normalizes invalid values without emitting a user change callback.

@@ -99,3 +99,49 @@ describe('Slider -- disabled state', () => {
         expect(container.querySelector('input[type="range"]')).toBeDisabled();
     });
 });
+
+describe('Slider -- range mode', () => {
+    it('stops the lower handle at the upper value and emits an ordered pair', () => {
+        const onValueChange = vi.fn();
+        const { container } = render(Slider, {
+            props: { range: true, value: [20, 70], onValueChange }
+        });
+        const lower = queryRequired<HTMLInputElement>(container, '[data-thumb="0"]');
+        lower.value = '90';
+        lower.dispatchEvent(new Event('input', { bubbles: true }));
+        expect(onValueChange).toHaveBeenCalledExactlyOnceWith([70, 70]);
+        expect(lower.value).toBe('70');
+    });
+
+    it('normalizes rendered values and ARIA without reporting a user change', () => {
+        const onValueChange = vi.fn();
+        const { container } = render(Slider, {
+            props: { range: true, value: [130, -20], min: 0, max: 100, onValueChange }
+        });
+        const lower = queryRequired<HTMLInputElement>(container, '[data-thumb="0"]');
+        const upper = queryRequired<HTMLInputElement>(container, '[data-thumb="1"]');
+        expect(lower.value).toBe('0');
+        expect(upper.value).toBe('100');
+        expect(lower).toHaveAttribute('aria-valuenow', '0');
+        expect(upper).toHaveAttribute('aria-valuenow', '100');
+        expect(onValueChange).not.toHaveBeenCalled();
+    });
+
+    it('preserves endpoint identity and accessible labels in RTL', () => {
+        const { container } = render(Slider, {
+            props: {
+                range: true,
+                value: [20, 70],
+                dir: 'rtl',
+                thumbLabels: ['Minimum price', 'Maximum price']
+            }
+        });
+        expect(container.querySelector('[data-ui="slider"]')).toHaveAttribute('dir', 'rtl');
+        const lower = queryRequired<HTMLInputElement>(container, '[data-thumb="0"]');
+        const upper = queryRequired<HTMLInputElement>(container, '[data-thumb="1"]');
+        expect(lower).toHaveAttribute('aria-label', 'Minimum price');
+        expect(upper).toHaveAttribute('aria-label', 'Maximum price');
+        expect(lower).toHaveAttribute('aria-valuemax', '70');
+        expect(upper).toHaveAttribute('aria-valuemin', '20');
+    });
+});

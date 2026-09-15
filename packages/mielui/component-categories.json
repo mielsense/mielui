@@ -39,11 +39,18 @@
         "toast",
         "toggle",
         "toggle-group",
-        "toolbar",
         "tooltip",
         "typography"
     ],
-    "blocks": ["code-block", "copy-button", "file-diff", "markdown", "show-more", "task-steps"],
+    "blocks": [
+        "code-block",
+        "copy-button",
+        "file-diff",
+        "markdown",
+        "show-more",
+        "task-steps",
+        "toolbar"
+    ],
     "ai-components": [
         "attachment",
         "composer",

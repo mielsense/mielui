@@ -9,6 +9,10 @@
     import DisabledSrc from './examples/disabled.svelte?raw';
     import Hero from './examples/hero.svelte';
     import HeroSrc from './examples/hero.svelte?raw';
+    import Range from './examples/range.svelte';
+    import RangeSrc from './examples/range.svelte?raw';
+    import Rtl from './examples/rtl.svelte';
+    import RtlSrc from './examples/rtl.svelte?raw';
     import Stepped from './examples/stepped.svelte';
     import SteppedSrc from './examples/stepped.svelte?raw';
 
@@ -20,7 +24,10 @@
 
 <svelte:head>
     <title>Mielui · {TITLE}</title>
-    <meta name="description" content="A native range input dressed in the theme." />
+    <meta
+        name="description"
+        content="Single-value and two-handle sliders with keyboard and RTL support."
+    />
 </svelte:head>
 
 <div data-docs-page class="flex flex-col gap-10">
@@ -29,7 +36,8 @@
         <div>
             <Typography.H1>{TITLE}</Typography.H1>
             <Typography.Text variant="lead" class="mt-2 max-w-2xl">
-                A range slider with keyboard and drag support.
+                Select a value or a range with pill-shaped handles, keyboard controls and RTL
+                support.
             </Typography.Text>
         </div>
         <DocsPager />
@@ -82,6 +90,25 @@
             <ComponentPreview code={SteppedSrc}>
                 <Stepped />
             </ComponentPreview>
+        </div>
+
+        <div id="range" class="scroll-mt-20 flex flex-col gap-3">
+            <Typography.H3 class="docs-subsection-heading">Range</Typography.H3>
+            <Typography.Text variant="supporting">
+                Set range and bind a [minimum, maximum] pair. Handles stop at each other.
+                thumbLabels names each handle for assistive technology. onValueChange receives a
+                pair in range mode and a number in single-value mode.
+            </Typography.Text>
+            <ComponentPreview code={RangeSrc}><Range /></ComponentPreview>
+        </div>
+
+        <div id="rtl" class="scroll-mt-20 flex flex-col gap-3">
+            <Typography.H3 class="docs-subsection-heading">Right to left</Typography.H3>
+            <Typography.Text variant="supporting">
+                Set dir="rtl" or inherit direction from a parent. The minimum sits on the right.
+                Values remain ordered from minimum to maximum in either direction.
+            </Typography.Text>
+            <ComponentPreview code={RtlSrc}><Rtl /></ComponentPreview>
         </div>
 
         <!-- Disabled -->

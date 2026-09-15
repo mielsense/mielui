@@ -125,6 +125,8 @@ export type { ShowMoreProps } from './blocks/show-more';
 export { ShowMore } from './blocks/show-more';
 export type { TaskStep, TaskStepStatus, TaskStepsProps } from './blocks/task-steps';
 export { TaskSteps } from './blocks/task-steps';
+export type { ToolbarProps } from './blocks/toolbar';
+export { Toolbar } from './blocks/toolbar';
 export type {
     AccordionContentProps,
     AccordionItemProps,
@@ -306,8 +308,6 @@ export type { ToggleProps } from './components/toggle';
 export { Toggle } from './components/toggle';
 export type { ToggleGroupItemProps, ToggleGroupProps } from './components/toggle-group';
 export * as ToggleGroup from './components/toggle-group';
-export type { ToolbarProps } from './components/toolbar';
-export { Toolbar } from './components/toolbar';
 export type {
     TooltipContentProps,
     TooltipPlacement,

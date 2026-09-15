@@ -2,7 +2,7 @@ import { tick } from 'svelte';
 import { afterEach, describe, expect, it } from 'vitest';
 import { page, userEvent } from 'vitest/browser';
 import { render } from 'vitest-browser-svelte';
-import NestedModalFixture from '../../fixtures/NestedModalFixture.svelte';
+import NestedDialogFixture from '../../fixtures/NestedDialogFixture.svelte';
 
 async function flush() {
     await tick();
@@ -17,7 +17,7 @@ afterEach(() => {
 
 describe('Nested Dialog stacking', () => {
     it('keeps the parent open when nested Cancel is clicked', async () => {
-        render(NestedModalFixture, { outerOpen: true, innerOpen: true });
+        render(NestedDialogFixture, { outerOpen: true, innerOpen: true });
         await flush();
 
         await expect
@@ -40,7 +40,7 @@ describe('Nested Dialog stacking', () => {
     });
 
     it('does not reopen the nested dialog when the parent is opened again', async () => {
-        render(NestedModalFixture);
+        render(NestedDialogFixture);
         await flush();
 
         await page.getByTestId('open-outer').click();
@@ -67,7 +67,7 @@ describe('Nested Dialog stacking', () => {
     });
 
     it('closes only the nested dialog on click-outside', async () => {
-        render(NestedModalFixture, { outerOpen: true, innerOpen: true });
+        render(NestedDialogFixture, { outerOpen: true, innerOpen: true });
         await flush();
 
         const nestedScrim = document.querySelector('[data-ui="dialog-overlay"][data-nested]');
@@ -84,7 +84,7 @@ describe('Nested Dialog stacking', () => {
     });
 
     it('recedes the parent panel and lightens the nested scrim', async () => {
-        render(NestedModalFixture, { outerOpen: true, innerOpen: true });
+        render(NestedDialogFixture, { outerOpen: true, innerOpen: true });
         await flush();
 
         const behind = document.querySelector('[data-ui="dialog-panel"][data-stacked="behind"]');
@@ -95,7 +95,7 @@ describe('Nested Dialog stacking', () => {
     });
 
     it('closes only the nested dialog on Escape', async () => {
-        render(NestedModalFixture, { outerOpen: true, innerOpen: true });
+        render(NestedDialogFixture, { outerOpen: true, innerOpen: true });
         await flush();
 
         await userEvent.keyboard('{Escape}');

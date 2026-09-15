@@ -6,3 +6,5 @@
 - Toast descriptions have more room above a compact title and action row.
 
 - Tag Input badges use stronger borders and a contrasting fill.
+
+- Homepage navigation uses equal button heights and spacing, with the redundant Components button removed.

@@ -88,81 +88,77 @@
                 >
                 <Logo />
             </div>
-            <nav aria-label="Primary" class="ml-6 hidden items-center gap-2 sm:flex">
-                <Button
-                    variant="outline"
-                    size="md"
-                    href={resolve('/docs/introduction')}
-                    style="border-radius: var(--radius-md);"
-                >
-                    <span class="text-label">Docs</span>
-                </Button>
-                <Button
-                    variant="outline"
-                    size="md"
-                    href={resolve('/docs/components')}
-                    style="border-radius: var(--radius-md);"
-                >
-                    <span class="text-label">Components</span>
-                </Button>
-                <Button
-                    variant="outline"
-                    size="md"
-                    href={resolve('/studio')}
-                    style="border-radius: var(--radius-md);"
-                >
-                    <span class="text-label">Studio</span>
-                </Button>
-            </nav>
-            <div class="flex shrink-0 items-center gap-2 bg-background p-1">
-                <Button
-                    variant="outline"
-                    size="md"
-                    style="border-radius: var(--radius-md);"
-                    href="https://github.com/mielsense/mielui"
-                    target="_blank"
-                    rel="noreferrer"
-                    aria-label="Star mielui on GitHub"
-                >
-                    <img
-                        src={mode.current === 'dark' ? GitHubWhite : GitHubBlack}
-                        alt="GitHub"
-                        class="size-4"
-                    />
-                    <span class="text-label tabular-nums"
-                        >{formatStarCount(data.starCount ?? null)}</span
+            <div class="ml-6 flex shrink-0 items-center gap-2">
+                <nav aria-label="Primary" class="hidden items-center gap-2 sm:flex">
+                    <Button
+                        variant="outline"
+                        size="md"
+                        href={resolve('/docs/introduction')}
+                        style="border-radius: var(--radius-md);"
                     >
-                </Button>
-                <Button
-                    variant="outline"
-                    size="icon"
-                    style="border-radius: var(--radius-md);"
-                    onclick={() => {
+                        <span class="text-label">Docs</span>
+                    </Button>
+
+                    <Button
+                        variant="outline"
+                        size="md"
+                        href={resolve('/studio')}
+                        style="border-radius: var(--radius-md);"
+                    >
+                        <span class="text-label">Studio</span>
+                    </Button>
+                </nav>
+                <div class="flex shrink-0 items-center gap-2">
+                    <Button
+                        variant="outline"
+                        size="md"
+                        style="border-radius: var(--radius-md);"
+                        href="https://github.com/mielsense/mielui"
+                        target="_blank"
+                        rel="noreferrer"
+                        aria-label="Star mielui on GitHub"
+                    >
+                        <img
+                            src={mode.current === 'dark' ? GitHubWhite : GitHubBlack}
+                            alt="GitHub"
+                            class="size-4"
+                        />
+                        <span class="text-label tabular-nums"
+                            >{formatStarCount(data.starCount ?? null)}</span
+                        >
+                    </Button>
+                    <Button
+                        variant="outline"
+                        size="md"
+                        class="w-[calc(var(--size-control-md)-var(--size-hairline))] px-0"
+                        style="border-radius: var(--radius-md);"
+                        onclick={() => {
                         toggleMode();
                     }}
-                    aria-label={mode.current === 'dark'
+                        aria-label={mode.current === 'dark'
                     ? 'Switch to light mode'
                     : 'Switch to dark mode'}
-                >
-                    <span class="relative size-4" aria-hidden="true">
-                        <Sun
-                            size="16"
-                            class={`absolute inset-0 transition-[opacity,filter,scale] duration-300 ease-[cubic-bezier(0.2,0,0,1)] motion-reduce:transition-none ${
+                    >
+                        <span class="relative size-4" aria-hidden="true">
+                            <Sun
+                                size="16"
+                                class={`absolute inset-0 transition-[opacity,filter,scale] duration-300 ease-[cubic-bezier(0.2,0,0,1)] motion-reduce:transition-none ${
                             mode.current === 'dark'
                                 ? 'scale-[0.25] opacity-0 blur-[4px]'
                                 : 'scale-100 opacity-100 blur-0'
                         }`}
-                        />
-                        <Moon
-                            size="16"
-                            class={`absolute inset-0 transition-[opacity,filter,scale] duration-300 ease-[cubic-bezier(0.2,0,0,1)] motion-reduce:transition-none ${
+                            />
+                            <Moon
+                                size="16"
+                                class={`absolute inset-0 transition-[opacity,filter,scale] duration-300 ease-[cubic-bezier(0.2,0,0,1)] motion-reduce:transition-none ${
                             mode.current === 'dark'
                                 ? 'scale-100 opacity-100 blur-0'
                                 : 'scale-[0.25] opacity-0 blur-[4px]'
                         }`}
-                        />
-                    </span>
-                </Button>
+                            />
+                        </span>
+                    </Button>
+                </div>
             </div>
         </header>
         <Sheet.Content side="left" class="p-0 sm:hidden">
