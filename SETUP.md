@@ -2,11 +2,11 @@
 
 ## Local development
 
-Use Bun 1.3.11 or newer and Node 22.
+Use Node.js 22.18 or newer. Enable Corepack with `corepack enable`; the root package pins pnpm 10.34.5.
 
 ```sh
-bun install --frozen-lockfile
-bun --filter=docs run dev
+pnpm install --frozen-lockfile
+pnpm --filter=docs run dev
 ```
 
 The docs run at `http://localhost:5173`.
@@ -32,7 +32,7 @@ The renamed package is `@mielui/svelte`, with the `mielui` executable. It is not
 1. Create or obtain access to the `mielui` organization on npm.
 2. Add a publishing token as the GitHub Actions secret `NPM_TOKEN`.
 3. Configure the GitHub `npm` environment and any desired reviewer protection.
-4. Update the package version and lockfile, run `bun run release-gate`, and merge the change.
+4. Update the package version and lockfile, run `pnpm run release-gate`, and merge the change.
 5. Create a matching `v<version>` tag and publish its GitHub release. The publish workflow rechecks and publishes the verified tarball.
 
 The inherited workflow uses npm provenance. Confirm registry and source visibility requirements before publishing from a private repository.

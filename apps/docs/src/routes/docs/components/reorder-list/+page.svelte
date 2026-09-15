@@ -6,7 +6,7 @@
     import Hero from './examples/hero.svelte';
     import HeroSrc from './examples/hero.svelte?raw';
 
-    const installCommand = 'bunx @mielui/svelte add reorder-list';
+    const installCommand = 'pnpm dlx @mielui/svelte add reorder-list';
 </script>
 
 <svelte:head>

@@ -10,14 +10,14 @@
     import SignOut from './examples/sign-out.svelte';
     import SignOutSrc from './examples/sign-out.svelte?raw';
 
-    const installCommand = 'bunx @mielui/svelte add alert-dialog';
+    const installCommand = 'pnpm dlx @mielui/svelte add alert-dialog';
 </script>
 
 <svelte:head>
     <title>Mielui · Alert Dialog</title>
     <meta
         name="description"
-        content="A modal that interrupts the user to confirm a consequential action."
+        content="A dialog that interrupts the user to confirm a consequential action."
     />
 </svelte:head>
 
@@ -27,7 +27,7 @@
         <div>
             <Typography.H1> Alert Dialog </Typography.H1>
             <Typography.Text variant="lead" class="mt-2 max-w-2xl">
-                A modal dialog that interrupts to confirm an action. Use it for destructive or
+                A dialog dialog that interrupts to confirm an action. Use it for destructive or
                 irreversible choices.
             </Typography.Text>
         </div>

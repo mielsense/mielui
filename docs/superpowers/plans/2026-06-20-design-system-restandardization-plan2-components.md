@@ -6,7 +6,7 @@
 
 **Architecture:** Plan 1 left the token layer (`ui.css` Tier 1/2/3) and the v2 engine in place; components still use the OLD variant taxonomy and contain literals. Plan 2 (a) refines token-lint to remove false positives + add an inline-disable, (b) introduces one canonical variant/size vocabulary in a shared module, (c) migrates components in batches to consume only Tier-2/3 tokens via `tailwind-variants`, (d) enforces the lint. Still additive w.r.t. the theme engine — the Studio cull is Plan 3.
 
-**Tech Stack:** Svelte 5, Tailwind v4, `tailwind-variants`, Vitest, Bun.
+**Tech Stack:** Svelte 5, Tailwind v4, `tailwind-variants`, Vitest, pnpm.
 
 **Reference:** spec `docs/superpowers/specs/2026-06-19-design-system-restandardization-design.md` (§5 taxonomy, §7 per-component). Plan 1: `docs/superpowers/plans/2026-06-19-design-system-restandardization-plan1-tokens.md`.
 
@@ -14,8 +14,8 @@
 
 ## Carried context from Plan 1
 
-- **Test location:** ALL `@mielui/svelte` tests live under `apps/docs/tests/unit/mielui/` and run via `cd apps/docs && bunx vitest run --project unit`. Tests under `packages/mielui/src/**` are NOT collected.
-- **Build-safety baseline:** `bun run check` has **3 pre-existing errors** from the user's WIP removing the input `primary` variant. Plan 2 MIGRATES input, which should RESOLVE these (input loses `primary` legitimately, and the tests referencing it get updated). Target by end of Plan 2: **0 check errors**. Intermediate tasks must not exceed 3.
+- **Test location:** ALL `@mielui/svelte` tests live under `apps/docs/tests/unit/mielui/` and run via `cd apps/docs && pnpm dlx vitest run --project unit`. Tests under `packages/mielui/src/**` are NOT collected.
+- **Build-safety baseline:** `pnpm run check` has **3 pre-existing errors** from the user's WIP removing the input `primary` variant. Plan 2 MIGRATES input, which should RESOLVE these (input loses `primary` legitimately, and the tests referencing it get updated). Target by end of Plan 2: **0 check errors**. Intermediate tasks must not exceed 3.
 - **Unit suite:** currently 527 pass / 1 fail (the input `primary` default test — user WIP). Each task must keep the suite green except known-in-progress items it is actively fixing.
 - **Available Tier-2/3 tokens** (the contract — components consume these, never `--mielui-*` primitives directly): see `packages/mielui/src/ui.css`. Key ones: `--color-{background,card,panel,muted,secondary,border,border-strong,input,foreground,foreground-muted,foreground-opposite,primary,primary-hover,on-primary,accent-tint,ring,success,warning,error,overlay}`, `--radius-{sm,md,lg,xl}`, `--button-*`, `--field-*`, `--menu-*`, `--panel-*`, `--card-*`, `--tooltip-*`, `--elevation-{0,1,float}`, `--mielui-space-*` (spacing scale — allowed for sizing) , `--tabs-indicator-height`, `--progress-height`, `--toast-progress-height`, `--separator-thickness`, `--color-picker-area-height`, etc.
 
@@ -81,7 +81,7 @@ it('honors a disable-next-line directive', () => {
 });
 ```
 
-- [ ] **Step 2: Run — expect the new cases to FAIL.** `cd /home/aidan/silk/apps/docs && bunx vitest run ../../tools/token-lint/index.test.ts`
+- [ ] **Step 2: Run — expect the new cases to FAIL.** `cd /home/aidan/silk/apps/docs && pnpm dlx vitest run ../../tools/token-lint/index.test.ts`
 
 - [ ] **Step 3: Implement the refinements in `index.ts`:**
     - Narrow `no-primitive-leak` regex to real primitive families only:
@@ -116,7 +116,7 @@ export function lintSource(file: string, source: string): Violation[] {
 }
 ```
 
-- [ ] **Step 4: Run all token-lint tests — expect PASS.** Then re-baseline: `cd /home/aidan/silk && bun tools/token-lint/index.ts packages/mielui/src/components | tail -1`. Record the new (lower) count in the commit message.
+- [ ] **Step 4: Run all token-lint tests — expect PASS.** Then re-baseline: `cd /home/aidan/silk && pnpm exec tsx tools/token-lint/index.ts packages/mielui/src/components | tail -1`. Record the new (lower) count in the commit message.
 
 - [ ] **Step 5: Commit** — `git add tools/token-lint && git commit -m "feat(token-lint): scope primitive-leak rule + inline-disable directives"`
 
@@ -144,7 +144,7 @@ export type Size = (typeof SIZES)[number];
 
 - [ ] **Step 2** Update the failing tests in `button.test.ts`: default variant `primary`, default size `md` (not `default`); variants are exactly the 5 intents (+ `icon` size); assert no `flat`/`alternate`/`success` button variants remain.
 - [ ] **Step 3** Rewrite `button/variants.ts`: keep `tv`, base WITHOUT the fancy `before:` highlight / `--ui-button-shadow` / `--button-*-shadow` / haptic transform (all removed in Plan 1 tokens). Variants `primary|secondary|ghost|outline|destructive` consuming `--button-{intent}-*` Tier-3 tokens. Sizes `sm|md|lg|icon`, default `md` (height `var(--size-control-md)`), no `text-[13px]` literals (use `text-[length:var(--font-size-button)]` or a token). Set `data-variant`/`data-size` in `button.svelte`. Update `manifest.ts` variant/size lists.
-- [ ] **Step 4** Run `bunx vitest run --project unit mielui/button.test.ts` → green. Run token-lint on the button dir → 0 (or only explicitly-disabled). Run `bun run check` → ≤3.
+- [ ] **Step 4** Run `pnpm dlx vitest run --project unit mielui/button.test.ts` → green. Run token-lint on the button dir → 0 (or only explicitly-disabled). Run `pnpm run check` → ≤3.
 - [ ] **Step 5** Commit `feat(button): unified variant taxonomy on 3-tier tokens`.
 
 ---
@@ -160,7 +160,7 @@ export type Size = (typeof SIZES)[number];
 - `input/variants.ts`: canonical field variants `outline` (default) and `ghost`; remove the stale `primary`/`secondary` mismatch. Consume `--field-*` Tier-3 tokens only. Sizes `sm|md|lg` via `--field-height`/control sizes.
 - `textarea`: reuse the input field recipe; same variants; tokenize `min-height` via `--textarea-min-height` (exists). Remove the non-existent `primary` claim.
 - Update `input.test.ts` and `themes.presets.test.ts:382` (the `input({variant:'primary'})` line) to the new variants — **this clears all 3 baseline check errors**.
-- Gate: `bun run check` → **0 errors**; unit suite fully green; lint 0 on input/textarea dirs. Commit `feat(input,textarea): canonical field variants; clears type baseline`.
+- Gate: `pnpm run check` → **0 errors**; unit suite fully green; lint 0 on input/textarea dirs. Commit `feat(input,textarea): canonical field variants; clears type baseline`.
 
 ---
 
@@ -225,7 +225,7 @@ describe('token-lint enforcement', () => {
 });
 ```
 
-- [ ] Run full unit suite → green. `bun run check` → 0 errors. `bun run build --filter=@mielui/docs` → succeeds.
+- [ ] Run full unit suite → green. `pnpm run check` → 0 errors. `pnpm run build --filter=@mielui/docs` → succeeds.
 - [ ] Visual re-verification (Playwright, as in Plan 1 Task 8): screenshot button/card/input/select/modal/tabs in light+dark; confirm unified flat Notion look, no regressions. Record findings.
 - [ ] Commit `test(token-lint): enforce zero violations across components`.
 

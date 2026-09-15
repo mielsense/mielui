@@ -6,11 +6,11 @@
 
 **Architecture:** Rewrite `packages/mielui/src/ui.css` into three clearly-tiered sections — Tier 1 primitives (the only hand-picked values), Tier 2 semantic tokens (existing public names, new values, mode-aware), Tier 3 component tokens (derived from Tier 2 by recipe). Add a new `themes/theme.ts` engine (new `Theme` type + `themeToCss` v2) **additively** — the old `presets.ts` surface stays so the Studio (rebuilt in Plan 3) keeps compiling. Add a token-lint tool used for enforcement in Plan 2.
 
-**Tech Stack:** Svelte 5, Tailwind v4 (`@theme`), `tailwind-variants`, TypeScript, Vitest, Bun.
+**Tech Stack:** Svelte 5, Tailwind v4 (`@theme`), `tailwind-variants`, TypeScript, Vitest, pnpm.
 
-**Build-safety rule for this plan:** Every task must leave `bun run check` (turbo type-check) with **no new errors beyond the documented baseline**. We only _change CSS values_ and _add_ TS; we do **not** delete any exported TS symbol in Plan 1. The aggressive cull (spec §8: delete styles/transitions/old presets) lands in Plan 3.
+**Build-safety rule for this plan:** Every task must leave `pnpm run check` (turbo type-check) with **no new errors beyond the documented baseline**. We only _change CSS values_ and _add_ TS; we do **not** delete any exported TS symbol in Plan 1. The aggressive cull (spec §8: delete styles/transitions/old presets) lands in Plan 3.
 
-> **Baseline (captured 2026-06-20, commit `3ad4c63`):** `bun run check` already reports **3 errors**, all caused by the user's uncommitted WIP removing the `primary` variant from `input/variants.ts`:
+> **Baseline (captured 2026-06-20, commit `3ad4c63`):** `pnpm run check` already reports **3 errors**, all caused by the user's uncommitted WIP removing the `primary` variant from `input/variants.ts`:
 >
 > - `apps/docs/tests/unit/mielui/input.test.ts:67` — `variant: 'primary'` not assignable
 > - `apps/docs/tests/unit/mielui/themes.presets.test.ts:382` — `input({ variant: 'primary' })` not assignable
@@ -37,7 +37,7 @@
 
 > `ui.css` stays a single file (matches the existing pattern; splitting `@theme` across `@import`ed files adds Tailwind-v4 build risk for no real gain here). Tiers are delineated by comment banners inside it.
 
-> **TEST LOCATION (corrected 2026-06-20):** All Vitest tests for `@mielui/svelte` MUST live under `apps/docs/tests/unit/mielui/` — that's the only path the vitest `unit` project scans (`tests/unit/**/*.test.ts`, cwd = `apps/docs`). Tests placed under `packages/mielui/src/**` are silently NOT collected. So: `ui-css.test.ts` → `apps/docs/tests/unit/mielui/ui-css.test.ts`; `theme.test.ts` → `apps/docs/tests/unit/mielui/theme.test.ts`; `builtin-presets.test.ts` → `apps/docs/tests/unit/mielui/builtin-presets.test.ts`. Tests that read a source file as text resolve it via `resolve(process.cwd(), '../../packages/mielui/src/<file>')`; tests that import code use the `@mielui/svelte/...` alias (e.g. `@mielui/svelte/themes/theme`). Run with `cd apps/docs && bunx vitest run --project unit`.
+> **TEST LOCATION (corrected 2026-06-20):** All Vitest tests for `@mielui/svelte` MUST live under `apps/docs/tests/unit/mielui/` — that's the only path the vitest `unit` project scans (`tests/unit/**/*.test.ts`, cwd = `apps/docs`). Tests placed under `packages/mielui/src/**` are silently NOT collected. So: `ui-css.test.ts` → `apps/docs/tests/unit/mielui/ui-css.test.ts`; `theme.test.ts` → `apps/docs/tests/unit/mielui/theme.test.ts`; `builtin-presets.test.ts` → `apps/docs/tests/unit/mielui/builtin-presets.test.ts`. Tests that read a source file as text resolve it via `resolve(process.cwd(), '../../packages/mielui/src/<file>')`; tests that import code use the `@mielui/svelte/...` alias (e.g. `@mielui/svelte/themes/theme`). Run with `cd apps/docs && pnpm dlx vitest run --project unit`.
 
 ---
 
@@ -92,7 +92,7 @@ describe('lintSource', () => {
 
 - [ ] **Step 2: Run test to verify it fails**
 
-Run: `cd /home/aidan/silk/apps/docs && bunx vitest run ../../tools/token-lint/index.test.ts`
+Run: `cd /home/aidan/silk/apps/docs && pnpm dlx vitest run ../../tools/token-lint/index.test.ts`
 Expected: FAIL — `Cannot find module './index'`.
 
 - [ ] **Step 3: Write minimal implementation**
@@ -123,7 +123,7 @@ export function lintSource(file: string, source: string): Violation[] {
 
 - [ ] **Step 4: Run test to verify it passes**
 
-Run: `cd /home/aidan/silk/apps/docs && bunx vitest run ../../tools/token-lint/index.test.ts`
+Run: `cd /home/aidan/silk/apps/docs && pnpm dlx vitest run ../../tools/token-lint/index.test.ts`
 Expected: PASS (5 tests).
 
 - [ ] **Step 5: Add a CLI entry that scans the component tree in report mode**
@@ -146,7 +146,7 @@ export function lintTree(root: string): Violation[] {
     return walk(root).flatMap((f) => lintSource(f, readFileSync(f, 'utf8')));
 }
 
-// `bun tools/token-lint/index.ts <root>` prints violations; exits 0 in report mode.
+// `pnpm exec tsx tools/token-lint/index.ts <root>` prints violations; exits 0 in report mode.
 if (import.meta.main) {
     const root = process.argv[2] ?? 'packages/mielui/src/components';
     const v = lintTree(root);
@@ -157,7 +157,7 @@ if (import.meta.main) {
 
 - [ ] **Step 6: Run report mode to capture the Plan 2 worklist**
 
-Run: `cd /home/aidan/silk && bun tools/token-lint/index.ts packages/mielui/src/components > /tmp/token-lint-baseline.txt; tail -1 /tmp/token-lint-baseline.txt`
+Run: `cd /home/aidan/silk && pnpm exec tsx tools/token-lint/index.ts packages/mielui/src/components > /tmp/token-lint-baseline.txt; tail -1 /tmp/token-lint-baseline.txt`
 Expected: prints a non-zero violation count (the literals Plan 2 will remove). This is informational; do not fail the build.
 
 - [ ] **Step 7: Commit**
@@ -208,7 +208,7 @@ describe('ui.css Tier 1 primitives', () => {
 
 - [ ] **Step 2: Run to verify it fails**
 
-Run: `cd /home/aidan/silk/apps/docs && bunx vitest run ../../packages/mielui/src/themes/ui-css.test.ts`
+Run: `cd /home/aidan/silk/apps/docs && pnpm dlx vitest run ../../packages/mielui/src/themes/ui-css.test.ts`
 Expected: FAIL — current `ui.css` has no `--mielui-*` primitives.
 
 - [ ] **Step 3: Rewrite the top of `ui.css` with Tier-1 primitives**
@@ -359,7 +359,7 @@ Immediately after Tier 3 closes the `@theme` block (Task 4), the dark block begi
 
 - [ ] **Step 5: Run the presence test (will still fail on Tier-2/3 absence — that's expected)**
 
-Run: `cd /home/aidan/silk/apps/docs && bunx vitest run ../../packages/mielui/src/themes/ui-css.test.ts`
+Run: `cd /home/aidan/silk/apps/docs && pnpm dlx vitest run ../../packages/mielui/src/themes/ui-css.test.ts`
 Expected: the three Tier-1 assertions PASS. (File won't build until Tasks 3–4 close the blocks; do not run the app build yet.)
 
 - [ ] **Step 6: Commit (WIP — file intentionally not yet closed)**
@@ -402,7 +402,7 @@ describe('ui.css Tier 2 semantic', () => {
 
 - [ ] **Step 2: Run to verify it fails**
 
-Run: `cd /home/aidan/silk/apps/docs && bunx vitest run ../../packages/mielui/src/themes/ui-css.test.ts`
+Run: `cd /home/aidan/silk/apps/docs && pnpm dlx vitest run ../../packages/mielui/src/themes/ui-css.test.ts`
 Expected: FAIL on the new `describe('ui.css Tier 2 semantic')` block.
 
 - [ ] **Step 3: Append Tier 2 to the `@theme` block (light)**
@@ -480,7 +480,7 @@ After the Tier-1 dark primitives in the `.dark` block:
 
 - [ ] **Step 5: Run the Tier-2 test**
 
-Run: `cd /home/aidan/silk/apps/docs && bunx vitest run ../../packages/mielui/src/themes/ui-css.test.ts`
+Run: `cd /home/aidan/silk/apps/docs && pnpm dlx vitest run ../../packages/mielui/src/themes/ui-css.test.ts`
 Expected: Tier-1 and Tier-2 assertions PASS.
 
 - [ ] **Step 6: Commit**
@@ -527,7 +527,7 @@ describe('ui.css Tier 3 + structure', () => {
 
 - [ ] **Step 2: Run to verify it fails**
 
-Run: `cd /home/aidan/silk/apps/docs && bunx vitest run ../../packages/mielui/src/themes/ui-css.test.ts`
+Run: `cd /home/aidan/silk/apps/docs && pnpm dlx vitest run ../../packages/mielui/src/themes/ui-css.test.ts`
 Expected: FAIL on the Tier-3 block.
 
 - [ ] **Step 3: Insert Tier 3 inside `@theme` (before the `}` that closed it in Task 3)**
@@ -683,12 +683,12 @@ After the `.dark` block, append the `@layer base { … }` (border-color, `.borde
 
 - [ ] **Step 6: Run the full ui.css test**
 
-Run: `cd /home/aidan/silk/apps/docs && bunx vitest run ../../packages/mielui/src/themes/ui-css.test.ts`
+Run: `cd /home/aidan/silk/apps/docs && pnpm dlx vitest run ../../packages/mielui/src/themes/ui-css.test.ts`
 Expected: all describe blocks PASS.
 
 - [ ] **Step 7: Build the library to prove the CSS is valid**
 
-Run: `cd /home/aidan/silk && bun run build --filter=@mielui/docs 2>&1 | tail -20`
+Run: `cd /home/aidan/silk && pnpm run build --filter=@mielui/docs 2>&1 | tail -20`
 Expected: build succeeds (Tailwind compiles ui.css). If it fails on an unclosed block, fix the brace nesting from Tasks 2–4.
 
 - [ ] **Step 8: Commit**
@@ -765,7 +765,7 @@ describe('themeToCss', () => {
 
 - [ ] **Step 2: Run to verify it fails**
 
-Run: `cd /home/aidan/silk/apps/docs && bunx vitest run --project unit mielui/theme.test.ts`
+Run: `cd /home/aidan/silk/apps/docs && pnpm dlx vitest run --project unit mielui/theme.test.ts`
 Expected: FAIL — `Cannot find module './theme'`.
 
 - [ ] **Step 3: Implement `theme.ts`**
@@ -950,7 +950,7 @@ export function themeToCss(theme: Theme): string {
 
 - [ ] **Step 4: Run tests to verify pass**
 
-Run: `cd /home/aidan/silk/apps/docs && bunx vitest run --project unit mielui/theme.test.ts`
+Run: `cd /home/aidan/silk/apps/docs && pnpm dlx vitest run --project unit mielui/theme.test.ts`
 Expected: PASS (all cases).
 
 - [ ] **Step 5: Commit**
@@ -1006,7 +1006,7 @@ describe('themesV2', () => {
 
 - [ ] **Step 4: Run it**
 
-Run: `cd /home/aidan/silk/apps/docs && bunx vitest run --project unit mielui/builtin-presets.test.ts`
+Run: `cd /home/aidan/silk/apps/docs && pnpm dlx vitest run --project unit mielui/builtin-presets.test.ts`
 Expected: PASS.
 
 - [ ] **Step 5: Point the live CSS route at v2 when given a v2 theme**
@@ -1032,7 +1032,7 @@ if (params.name === 'default') {
 
 - [ ] **Step 6: Type-check the whole repo**
 
-Run: `cd /home/aidan/silk && bun run check 2>&1 | tail -25`
+Run: `cd /home/aidan/silk && pnpm run check 2>&1 | tail -25`
 Expected: green (no TS errors). If the route file’s `@mielui/svelte/themes/theme` import isn’t resolved, confirm the package `exports` map includes `./themes/*`; add it if missing (check `packages/mielui/package.json` — note it currently has no `exports` field, so subpaths resolve via the workspace `src` paths used elsewhere; mirror however `@mielui/svelte/themes/presets` is already imported).
 
 - [ ] **Step 7: Commit**
@@ -1057,7 +1057,7 @@ The old default theme values changed (Linear indigo → soft blue, 16px → 14px
 
 - [ ] **Step 1: Run the full suite to see what breaks**
 
-Run: `cd /home/aidan/silk/apps/docs && bunx vitest run --project unit 2>&1 | tail -40`
+Run: `cd /home/aidan/silk/apps/docs && pnpm dlx vitest run --project unit 2>&1 | tail -40`
 Expected: failures only in tests asserting retired default values (e.g. `#5e6ad2`, `16px`, fancy shadow presence). Note each failing assertion.
 
 - [ ] **Step 2: Update each failing assertion**
@@ -1078,7 +1078,7 @@ it.skip('pins legacy fancy-button shadow (retired in re-standardization Plan 1)'
 
 - [ ] **Step 3: Re-run the unit project**
 
-Run: `cd /home/aidan/silk/apps/docs && bunx vitest run --project unit 2>&1 | tail -20`
+Run: `cd /home/aidan/silk/apps/docs && pnpm dlx vitest run --project unit 2>&1 | tail -20`
 Expected: PASS (0 failures).
 
 - [ ] **Step 4: Commit**
@@ -1099,7 +1099,7 @@ Confirm the default renders the Notion-like aesthetic in both modes.
 
 - [ ] **Step 1: Run the docs app**
 
-Run: `cd /home/aidan/silk && bun run dev --filter=@mielui/docs` (background) and open the components showcase route.
+Run: `cd /home/aidan/silk && pnpm run dev --filter=@mielui/docs` (background) and open the components showcase route.
 
 - [ ] **Step 2: Screenshot light + dark via Playwright MCP**
 
@@ -1121,7 +1121,7 @@ If anything diverges (e.g. a component still shows a fancy shadow because it rea
 
 - [ ] **Step 5: Final green check + commit (docs only if notes added)**
 
-Run: `cd /home/aidan/silk && bun run check && cd apps/docs && bunx vitest run --project unit 2>&1 | tail -5`
+Run: `cd /home/aidan/silk && pnpm run check && cd apps/docs && pnpm dlx vitest run --project unit 2>&1 | tail -5`
 Expected: both green.
 
 ```bash
@@ -1162,6 +1162,6 @@ git commit -m "docs(plan): record Plan 2 carry-over from visual verification"
 Recorded during Task 8 visual verification (2026-06-20). The Notion-like default renders correctly in light + dark with **no broken components** (flat fallbacks resolve cleanly). Items for Plan 2 (component standardization):
 
 1. **Button still ships the old 10-variant taxonomy** — the showcase shows Primary, Secondary, Outlined, Flat, Ghost, Alternate, Success, Warning, Error, Destructive, and size `default`. Plan 1 deliberately did not touch components. Plan 2 unifies to `primary | secondary | ghost | outline | destructive` (+ status only where semantic), renames `Outlined`→`outline`, size `default`→`md`, and removes `flat`/`alternate` (spec §5).
-2. **token-lint baseline: 120 violations** across `packages/mielui/src/components` (captured at `/tmp/token-lint-baseline.txt` during Task 1; regenerate with `bun tools/token-lint/index.ts packages/mielui/src/components`). These hardcoded color/length literals + any Tier-1 leaks are the Plan 2 worklist; enable lint enforcement once cleared.
+2. **token-lint baseline: 120 violations** across `packages/mielui/src/components` (captured at `/tmp/token-lint-baseline.txt` during Task 1; regenerate with `pnpm exec tsx tools/token-lint/index.ts packages/mielui/src/components`). These hardcoded color/length literals + any Tier-1 leaks are the Plan 2 worklist; enable lint enforcement once cleared.
 3. **Verified resolved default tokens** (light): `--color-background #fbfbfa`, `--color-card #ffffff`, `--color-foreground #1c1c19`, `--color-primary #4a8cff`, `--color-border #e2e2df`, `--font-sans Inter`, `--font-size-body 14px`, `--radius-lg 8px`, `--button-primary-shadow` = (unset/flat). Matches spec §3/§4.
 4. **Dark mode is borders-first** as intended: cards/panels render flat with 1px borders, no drop shadow; only floating layers carry `--elevation-float`.

@@ -1,5 +1,5 @@
 <script lang="ts">
-    import * as Modal from '@mielui/svelte/components/modal';
+    import * as Dialog from '@mielui/svelte/components/dialog';
     import { untrack } from 'svelte';
     import type { CommandProps, CommandState } from '.';
     import { resetCommand, setCommandContext } from './context.svelte';
@@ -24,4 +24,4 @@
     });
 </script>
 
-<Modal.Root bind:open {onOpenChange}> {@render children?.()} </Modal.Root>
+<Dialog.Root bind:open {onOpenChange}> {@render children?.()} </Dialog.Root>

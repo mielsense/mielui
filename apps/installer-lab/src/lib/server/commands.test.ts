@@ -16,7 +16,7 @@ describe('installer command construction', () => {
     ] as const)('constructs the %s/%s combination without a shell', (source, installPath) => {
         expect(combinationKey(source, installPath)).toBe(`${source}:${installPath}`);
         const staging = stagingInstallCommand(source, '/tmp/stage', '/tmp/mielui.tgz');
-        expect(staging.bin).toBe('bun');
+        expect(staging.bin).toBe('pnpm');
         expect(staging.args).toEqual([
             'add',
             source === 'local' ? '/tmp/mielui.tgz' : '@mielui/svelte@latest'
@@ -40,7 +40,7 @@ describe('installer command construction', () => {
         expect(commands[1].args).toContain('tailwindcss=plugins:none');
         expect(commands[1].args).toContain('--no-install');
         expect(commands[2]).toMatchObject({
-            bin: 'bun',
+            bin: 'pnpm',
             args: ['add', '@fontsource/inter@5.3.0', '@fontsource/jetbrains-mono@5.3.0']
         });
     });

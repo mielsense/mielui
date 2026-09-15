@@ -74,7 +74,7 @@
     <title>Mielui · Components</title>
     <meta
         name="description"
-        content="Browse all 57 accessible, themeable Svelte 5 components in mielui."
+        content="Browse all 56 accessible, themeable Svelte 5 components in mielui."
     />
 </svelte:head>
 

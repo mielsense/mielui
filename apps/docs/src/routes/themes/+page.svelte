@@ -45,7 +45,7 @@
         });
     }
 
-    // Theme detail modal
+    // Theme detail dialog
     let detailOpen = $state(false);
     let detailTheme = $state<Theme | null>(null);
     let copiedKey = $state<'css' | 'json' | null>(null);
@@ -223,7 +223,7 @@
         {/if}
     </section>
 
-    <!-- Detail Modal -->
+    <!-- Detail Dialog -->
     {#if detailTheme}
         <div
             class={`fixed inset-0 z-50 flex items-center justify-center transition-opacity ${detailOpen ? 'opacity-100' : 'pointer-events-none opacity-0'}`}

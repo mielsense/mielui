@@ -11,7 +11,7 @@
     import States from './examples/states.svelte';
     import StatesSrc from './examples/states.svelte?raw';
 
-    const installCommand = 'bunx @mielui/svelte add message';
+    const installCommand = 'pnpm dlx @mielui/svelte add message';
     const usageSnippet = `import * as Message from '@mielui/svelte/components/message';
 
 <Message.Root from="assistant" status="idle">

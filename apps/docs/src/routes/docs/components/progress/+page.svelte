@@ -12,7 +12,7 @@
     import WithLabel from './examples/with-label.svelte';
     import WithLabelSrc from './examples/with-label.svelte?raw';
 
-    const installCommand = 'bunx @mielui/svelte add progress';
+    const installCommand = 'pnpm dlx @mielui/svelte add progress';
 </script>
 
 <svelte:head>

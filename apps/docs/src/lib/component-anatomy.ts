@@ -129,14 +129,6 @@ export const componentAnatomy = {
         { name: 'FileDiff.Row', description: 'Renders one highlighted diff row.' },
         { name: 'FileDiff.LineNumber', description: 'Renders one gutter line number.' }
     ],
-    'fullscreen-nav': [
-        { name: 'FullscreenNav.Root', description: 'Controls fullscreen navigation state.' },
-        { name: 'FullscreenNav.Trigger', description: 'Opens fullscreen navigation.' },
-        { name: 'FullscreenNav.Content', description: 'Renders navigation content.' },
-        { name: 'FullscreenNav.Close', description: 'Closes fullscreen navigation.' },
-        { name: 'FullscreenNav.Group', description: 'Groups navigation links.' },
-        { name: 'FullscreenNav.Link', description: 'Renders a navigation link.' }
-    ],
     gauge: [{ name: 'Gauge', description: 'Displays a value as a filled arc.' }],
     'hover-card': [
         { name: 'HoverCard.Root', description: 'Controls hover card state.' },
@@ -153,17 +145,17 @@ export const componentAnatomy = {
         { name: 'Message.Content', description: 'Contains message content.' },
         { name: 'Message.Actions', description: 'Groups message actions.' }
     ],
-    modal: [
-        { name: 'Modal.Root', description: 'Controls modal state.' },
-        { name: 'Modal.Trigger', description: 'Opens the modal.' },
-        { name: 'Modal.Content', description: 'Renders the modal surface.' },
-        { name: 'Modal.Title', description: 'Renders the modal title.' },
-        { name: 'Modal.Description', description: 'Renders the modal description.' },
-        { name: 'Modal.Header', description: 'Groups modal heading content.' },
-        { name: 'Modal.Body', description: 'Renders the modal body.' },
-        { name: 'Modal.Close', description: 'Closes the modal.' },
-        { name: 'Modal.Footer', description: 'Groups modal actions.' },
-        { name: 'Modal.Confirm', description: 'Confirms and closes the modal.' }
+    dialog: [
+        { name: 'Dialog.Root', description: 'Controls dialog state.' },
+        { name: 'Dialog.Trigger', description: 'Opens the dialog.' },
+        { name: 'Dialog.Content', description: 'Renders the dialog surface.' },
+        { name: 'Dialog.Title', description: 'Renders the dialog title.' },
+        { name: 'Dialog.Description', description: 'Renders the dialog description.' },
+        { name: 'Dialog.Header', description: 'Groups dialog heading content.' },
+        { name: 'Dialog.Body', description: 'Renders the dialog body.' },
+        { name: 'Dialog.Close', description: 'Closes the dialog.' },
+        { name: 'Dialog.Footer', description: 'Groups dialog actions.' },
+        { name: 'Dialog.Confirm', description: 'Confirms and closes the dialog.' }
     ],
     pagination: [{ name: 'Pagination', description: 'Navigates paginated content.' }],
     popover: [

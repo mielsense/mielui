@@ -4,9 +4,9 @@
     import { resolve } from '$app/paths';
     import DocsPager from '$lib/components/docs/docs-pager.svelte';
 
-    const packageInstall = `bun add @mielui/svelte
+    const packageInstall = `pnpm add @mielui/svelte
 # npm i @mielui/svelte
-# pnpm add @mielui/svelte`;
+# yarn add @mielui/svelte`;
 
     const packageCss = `@import '@mielui/svelte/ui.css';`;
 
@@ -19,8 +19,8 @@
     const cliCss = `/* src/app.css */
 @import './lib/mielui/ui.css';`;
 
-    const cliAdd = `bunx --package @mielui/svelte mielui add button
-bunx --package @mielui/svelte mielui list`;
+    const cliAdd = `pnpm dlx @mielui/svelte add button
+pnpm dlx @mielui/svelte list`;
 
     const cliUse = `<script>
   import { Button } from '$lib/mielui/components/button';
@@ -71,10 +71,10 @@ bunx --package @mielui/svelte mielui list`;
         <CodeBlock code={packageUse} lang="svelte" copy="overlay" />
         <Typography.Text variant="body" class="m-0 max-w-2xl">
             Compound components use a namespace export (for example
-            <Typography.InlineCode>Modal</Typography.InlineCode>
+            <Typography.InlineCode>Dialog</Typography.InlineCode>
             with
-            <Typography.InlineCode>Modal.Root</Typography.InlineCode>,
-            <Typography.InlineCode>Modal.Content</Typography.InlineCode>, …).
+            <Typography.InlineCode>Dialog.Root</Typography.InlineCode>,
+            <Typography.InlineCode>Dialog.Content</Typography.InlineCode>, …).
         </Typography.Text>
     </section>
 
@@ -89,21 +89,17 @@ bunx --package @mielui/svelte mielui list`;
         <Typography.H3 class="m-0 docs-subsection-heading">
             1. Create a project (optional)
         </Typography.H3>
-        <CodeBlock code="bunx sv create my-app" lang="shell" copy="overlay" />
+        <CodeBlock code="pnpm dlx sv create my-app" lang="shell" copy="overlay" />
 
         <Typography.H3 class="m-0 docs-subsection-heading">2. Add Tailwind v4</Typography.H3>
-        <CodeBlock code="cd my-app && bunx sv add tailwindcss" lang="shell" copy="overlay" />
+        <CodeBlock code="cd my-app && pnpm dlx sv add tailwindcss" lang="shell" copy="overlay" />
 
         <Typography.H3 class="m-0 docs-subsection-heading">3. Initialize Mielui</Typography.H3>
         <Typography.Text variant="body" class="m-0 max-w-2xl">
             Creates <Typography.InlineCode>src/lib/mielui/</Typography.InlineCode> (tokens +
             utilities) and <Typography.InlineCode>mielui.json</Typography.InlineCode>.
         </Typography.Text>
-        <CodeBlock
-            code="bunx --package @mielui/svelte mielui init -y"
-            lang="shell"
-            copy="overlay"
-        />
+        <CodeBlock code="pnpm dlx @mielui/svelte init -y" lang="shell" copy="overlay" />
 
         <Typography.H3 class="m-0 docs-subsection-heading">
             4. Import the stylesheet
@@ -135,7 +131,7 @@ bunx --package @mielui/svelte mielui list`;
             <li>
                 Built-in theme presets install with
                 <Typography.InlineCode
-                    >bunx --package @mielui/svelte mielui add theme &lt;slug&gt;</Typography.InlineCode
+                    >pnpm dlx @mielui/svelte add theme &lt;slug&gt;</Typography.InlineCode
                 >
                 (for example <Typography.InlineCode>default</Typography.InlineCode>).
             </li>

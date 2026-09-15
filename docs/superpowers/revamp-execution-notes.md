@@ -2,7 +2,7 @@
 
 > **PROJECT COMPLETE (2026-06-20):** Plans 1–3 done + token-lint enforced (0 violations, guard test). All components (style+motion), all 43 docs pages, constrained 6-control Studio, old 91-field engine culled. Build green: check=0, build 4/4, unit suite green. Sole optional follow-up: migrate the independent `apps/registry` backend schema to the v2 `Theme` shape (DB-coupled — left for an explicit task).
 
-User is AFK. Standing order: apply the established design language + docs flow to **every component and every docs page**, loop until completely done, **ask no more questions**. Keep each step build-green (`bun run check` = 0, unit suite green). Commit per logical chunk. Screenshots go in `mielui/temp/screenshots/` (gitignored).
+User is AFK. Standing order: apply the established design language + docs flow to **every component and every docs page**, loop until completely done, **ask no more questions**. Keep each step build-green (`pnpm run check` = 0, unit suite green). Commit per logical chunk. Screenshots go in `mielui/temp/screenshots/` (gitignored).
 
 ## Design language (components) — established on Button + Input
 
@@ -59,7 +59,7 @@ Per-component page structure:
 
 ## Plan 3 — constrained Studio rebuild + cull (IN PROGRESS)
 
-Goal: replace the old ~91-field `ThemeDraft` engine + 153-knob Studio with the v2 `Theme` (~10 fields) + ~6 controls, and delete the old engine. Execute in build-green phases (verify `bun run build` + `bun run check` + unit tests after each; never commit broken):
+Goal: replace the old ~91-field `ThemeDraft` engine + 153-knob Studio with the v2 `Theme` (~10 fields) + ~6 controls, and delete the old engine. Execute in build-green phases (verify `pnpm run build` + `pnpm run check` + unit tests after each; never commit broken):
 
 - **Phase A — Rebuild Studio/gallery/route on v2 (old engine stays):**
     - Rewrite `apps/docs/src/routes/themes/studio/+page.svelte` SMALL: ~6 controls → v2 `Theme` (brand color, neutral temp, radius, density, motion, fonts) → `themeToCss(theme)` live preview via `applyLiveThemeCss`. KEEP `studio-preview.svelte` (canvas, no old imports). Replace/retire `studio-sidebar.svelte`, `studio-palette-sidebar.svelte`, `spacing-fields.ts` (old 153-knob model).

@@ -10,7 +10,7 @@
     import Hero from './examples/hero.svelte';
     import HeroSrc from './examples/hero.svelte?raw';
 
-    const installCommand = 'bunx @mielui/svelte add conversation';
+    const installCommand = 'pnpm dlx @mielui/svelte add conversation';
     const usageSnippet = `import * as Conversation from '@mielui/svelte/components/conversation';
 import * as Message from '@mielui/svelte/components/message';
 

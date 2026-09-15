@@ -1,9 +1,11 @@
 <script lang="ts">
     import ChevronRight from '@lucide/svelte/icons/chevron-right';
+    import Menu from '@lucide/svelte/icons/menu';
     import Moon from '@lucide/svelte/icons/moon';
     import Sun from '@lucide/svelte/icons/sun';
+    import X from '@lucide/svelte/icons/x';
     import { Button } from '@mielui/svelte/components/button';
-    import * as FullscreenNav from '@mielui/svelte/components/fullscreen-nav';
+    import * as Sheet from '@mielui/svelte/components/sheet';
     import { mode, toggleMode } from 'mode-watcher';
     import { resolve } from '$app/paths';
     import { page } from '$app/state';
@@ -90,12 +92,18 @@
     }
 </script>
 
-<FullscreenNav.Root bind:open={mobileMenuOpen}>
+<Sheet.Root bind:open={mobileMenuOpen}>
     <header
         class="z-20 mx-auto flex h-16 w-full max-w-[960px] items-center justify-between gap-4 px-2 sm:px-5 lg:px-10"
     >
         <div class="flex min-w-0 items-center gap-2 sm:hidden">
-            <FullscreenNav.Trigger class="size-9 rounded-[var(--radius-md)]" />
+            <Sheet.Trigger
+                class="size-9 rounded-[var(--radius-md)]"
+                aria-label="Open navigation menu"
+                variant="quiet"
+                size="icon"
+                ><Menu size={18} /></Sheet.Trigger
+            >
             <Logo />
         </div>
 
@@ -178,39 +186,65 @@
         </div>
     </header>
 
-    <FullscreenNav.Content label="Browse mielui" class="p-0 sm:hidden">
+    <Sheet.Content side="left" class="p-0 sm:hidden">
+        <Sheet.Title class="sr-only">Browse mielui</Sheet.Title>
+        <Sheet.Description class="sr-only"
+            >Documentation and component categories.</Sheet.Description
+        >
         <header class="flex shrink-0 items-center justify-between px-3 py-3">
             <a href={resolve('/')} class="font-semibold tracking-tight text-foreground no-underline"
                 >mielui</a
             >
-            <FullscreenNav.Close />
+            <Sheet.Close aria-label="Close navigation menu" variant="quiet" size="icon"
+                ><X size={18} /></Sheet.Close
+            >
         </header>
 
         <div class="min-h-0 flex-1 overflow-y-auto px-3 py-4">
-            <FullscreenNav.Group heading="Navigate">
+            <section class="flex flex-col gap-2 ">
+                <h2 class="mb-2 text-sm text-foreground-muted">Navigate</h2>
                 {#each navItems as item (item.href)}
-                    <FullscreenNav.Link href={item.href}>{item.label}</FullscreenNav.Link>
+                    <Button
+                        variant="quiet"
+                        class="w-full justify-start"
+                        onclick={() => { mobileMenuOpen = false; }}
+                        href={item.href}
+                        >{item.label}</Button
+                    >
                 {/each}
-            </FullscreenNav.Group>
+            </section>
 
-            <FullscreenNav.Group heading="Getting Started" class="mt-10">
+            <section class="flex flex-col gap-2 mt-10">
+                <h2 class="mb-2 text-sm text-foreground-muted">Getting Started</h2>
                 {#each docsPages as item (item.href)}
-                    <FullscreenNav.Link href={item.href}>{item.title}</FullscreenNav.Link>
+                    <Button
+                        variant="quiet"
+                        class="w-full justify-start"
+                        onclick={() => { mobileMenuOpen = false; }}
+                        href={item.href}
+                        >{item.title}</Button
+                    >
                 {/each}
-            </FullscreenNav.Group>
+            </section>
 
             {#each componentGroups as group (group.id)}
-                <FullscreenNav.Group heading={group.heading} class="mt-10">
+                <section class="mt-10 flex flex-col gap-2">
+                    <h2 class="mb-2 text-sm text-foreground-muted">{group.heading}</h2>
                     {#each group.items as component (component)}
-                        <FullscreenNav.Link href={`/docs/components/${component}`}>
+                        <Button
+                            variant="quiet"
+                            class="w-full justify-start"
+                            onclick={() => { mobileMenuOpen = false; }}
+                            href={`/docs/components/${component}`}
+                        >
                             {sanitizeComponent(component)}
-                        </FullscreenNav.Link>
+                        </Button>
                     {/each}
                     {#if group.items.length === 0}
                         <p class="text-sm text-foreground-muted">No chart components yet.</p>
                     {/if}
-                </FullscreenNav.Group>
+                </section>
             {/each}
         </div>
-    </FullscreenNav.Content>
-</FullscreenNav.Root>
+    </Sheet.Content>
+</Sheet.Root>

@@ -4,7 +4,7 @@ export const manifest: Manifest = {
     name: 'command',
     version: '1.1.0',
     visibility: 'public',
-    description: 'Modal command palette with search, grouped items, and separators.',
+    description: 'Dialog command palette with search, grouped items, and separators.',
     files: [
         'components/command/command.svelte',
         'components/command/command-trigger.svelte',
@@ -20,7 +20,7 @@ export const manifest: Manifest = {
         'components/command/index.ts',
         'components/command/manifest.ts'
     ],
-    components: ['modal', 'button'],
+    components: ['dialog', 'button'],
     shared: ['utils.cn', 'utils.createContext', 'utils.travelingHighlight'],
     peerDependencies: {
         '@lucide/svelte': '^1.0.0',

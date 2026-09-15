@@ -354,7 +354,7 @@
             0 0 0 1px color-mix(in oklab, var(--color-border) 50%, transparent);
     }
 
-    /* Modal/CodeBlock inset frame. Inner radius = outer − border − inset. */
+    /* Dialog/CodeBlock inset frame. Inner radius = outer − border − inset. */
     .mielui-modal-frame,
     .mielui-inset-frame {
         --mielui-modal-inset: var(--spacing);
@@ -373,7 +373,7 @@
         background-color: color-mix(in oklab, var(--color-background) 97%, white);
     }
 
-    .mielui-modal-frame > [data-ui='modal-surface'] {
+    .mielui-modal-frame > [data-ui='dialog-surface'] {
         border: 0;
         border-radius: calc(
             var(--radius-xl) -
@@ -392,7 +392,7 @@
         background-color: var(--color-card);
     }
 
-    .mielui-modal-frame:where(.dark, .dark *) > [data-ui='modal-surface'] {
+    .mielui-modal-frame:where(.dark, .dark *) > [data-ui='dialog-surface'] {
         background-color: var(--color-card);
     }
 
@@ -446,17 +446,17 @@
         transform: translateZ(0);
     }
 
-    [data-ui='modal-panel'] {
+    [data-ui='dialog-panel'] {
         transition-property: scale;
         transition-duration: var(--motion-duration-modal-in);
         transition-timing-function: var(--ease-out);
     }
 
-    [data-ui='modal-panel'][data-stacked='behind'] {
+    [data-ui='dialog-panel'][data-stacked='behind'] {
         scale: 0.925;
     }
 
-    [data-ui='modal-overlay'][data-nested] {
+    [data-ui='dialog-overlay'][data-nested] {
         --overlay-blur: 0px;
     }
 
@@ -550,7 +550,7 @@
     .mielui-item-highlight,
     .mielui-tooltip,
     .mielui-error-notice,
-    [data-ui='modal-panel'] {
+    [data-ui='dialog-panel'] {
         transition: none;
     }
 }

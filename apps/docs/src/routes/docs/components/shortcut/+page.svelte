@@ -14,7 +14,7 @@
 
     const TITLE = 'Shortcut';
 
-    const installCommand = 'bunx @mielui/svelte add shortcut';
+    const installCommand = 'pnpm dlx @mielui/svelte add shortcut';
 </script>
 
 <svelte:head>

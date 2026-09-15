@@ -113,7 +113,7 @@
             "extensions": [".ts", ".tsx", ".js", ".jsx"]
         },
         "svelte": {
-            "command": ["bunx", "--bun", "svelte-language-server", "--stdio"],
+            "command": ["pnpm", "dlx", "svelte-language-server", "--stdio"],
             "extensions": [".svelte"]
         }
     }

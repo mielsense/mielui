@@ -22,7 +22,7 @@
 
     const _TITLE = 'Dropdown Menu';
 
-    const installCommand = 'bunx @mielui/svelte add dropdown-menu';
+    const installCommand = 'pnpm dlx @mielui/svelte add dropdown-menu';
 </script>
 
 <svelte:head>

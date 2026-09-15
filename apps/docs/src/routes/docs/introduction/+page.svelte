@@ -4,12 +4,12 @@
     import { resolve } from '$app/paths';
     import DocsPager from '$lib/components/docs/docs-pager.svelte';
 
-    const packageQuick = `bun add @mielui/svelte
+    const packageQuick = `pnpm add @mielui/svelte
 # then in your CSS:
 # @import '@mielui/svelte/ui.css';`;
 
-    const cliQuick = `bunx --package @mielui/svelte mielui init -y
-bunx --package @mielui/svelte mielui add button`;
+    const cliQuick = `pnpm dlx @mielui/svelte init -y
+pnpm dlx @mielui/svelte add button`;
 </script>
 
 <svelte:head>
@@ -55,8 +55,7 @@ bunx --package @mielui/svelte mielui add button`;
             <li>Tailwind CSS v4</li>
         </ul>
         <Typography.Text variant="body" class="m-0 max-w-2xl">
-            npm, pnpm, and bun all work for consumers. Bun is only required to develop this
-            monorepo.
+            Use pnpm, npm, or Yarn to install the library. This repository uses pnpm and Node.js.
         </Typography.Text>
     </section>
 

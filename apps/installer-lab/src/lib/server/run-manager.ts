@@ -349,10 +349,10 @@ export class RunManager {
             const tarballPath = path.join(stagingRoot, 'mielui.tgz');
             if (source === 'local') {
                 const packageRoot = path.join(repoRoot, 'packages', 'mielui');
-                await this.runCommand({ bin: 'bun', args: ['run', 'build'], cwd: packageRoot });
+                await this.runCommand({ bin: 'pnpm', args: ['run', 'build'], cwd: packageRoot });
                 await this.runCommand({
-                    bin: 'bun',
-                    args: ['pm', 'pack', '--filename', tarballPath, '--quiet'],
+                    bin: 'pnpm',
+                    args: ['pack', '--out', tarballPath],
                     cwd: packageRoot
                 });
             }

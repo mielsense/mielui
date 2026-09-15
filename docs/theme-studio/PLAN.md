@@ -14,7 +14,7 @@ Run is **autonomous** — open decisions are made defensibly and logged in `deci
 - Static layer: `packages/mielui/src/ui.css` (198 declared tokens). Dynamic layer: `themeToCss()` in `presets.ts` (129 emitted). Code consumes 182. **Gaps:** 28 dead, 77 consumed-but-uneditable, 16 emitted-but-unconsumed, plus the Category-C hardcodes — see `gap-report.md`.
 - Live apply: `themes/live.ts` injects `<style id="mielui-live-theme-style">`. Studio state = `$state` runes in `+page.svelte`; `generatedCss = $derived(themeToCss(editorTheme))`; `$effect` re-applies.
 - Tests: Vitest 4 + @testing-library/svelte in `apps/docs/tests/unit/mielui/` (projects: unit/ssr/browser). Baseline: **0 typecheck errors, 573 tests pass, 0 lint errors.**
-- Commands (from `apps/docs`): `bun run check` | `bun run lint` | `bun run test:ci` | `bun run test:browser`; build from root `bun run build`; `bun run dev`. A **lefthook pre-commit** runs Biome formatting and linting; run `bun run format` before committing.
+- Commands (from `apps/docs`): `pnpm run check` | `pnpm run lint` | `pnpm run test:ci` | `pnpm run test:browser`; build from root `pnpm run build`; `pnpm run dev`. A **lefthook pre-commit** runs Biome formatting and linting; run `pnpm run format` before committing.
 
 ## Phases
 
@@ -27,7 +27,7 @@ Run is **autonomous** — open decisions are made defensibly and logged in `deci
 
 ## Verification
 
-Per phase from `apps/docs`: `bun run check && bun run lint && bun run test:ci` (+ `test:browser` where relevant); root `bun run build`; manual drive via `bun run dev` + Playwright MCP. New tests: token emission+consumption (P1), preview group-coverage (P3), control↔token completeness (P4), style-switch (P5).
+Per phase from `apps/docs`: `pnpm run check && pnpm run lint && pnpm run test:ci` (+ `test:browser` where relevant); root `pnpm run build`; manual drive via `pnpm run dev` + Playwright MCP. New tests: token emission+consumption (P1), preview group-coverage (P3), control↔token completeness (P4), style-switch (P5).
 
 ## Circuit breaker
 

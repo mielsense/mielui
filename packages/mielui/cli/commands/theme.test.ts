@@ -1,4 +1,4 @@
-import { afterEach, describe, expect, test } from 'bun:test';
+import { afterEach, describe, expect, test } from 'vitest';
 import { DEFAULT_THEME } from '../../src/themes/theme';
 import { resolveThemeCss } from './theme';
 

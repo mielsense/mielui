@@ -7,6 +7,11 @@ export const componentGroups = [
         items: categories.components
     },
     {
+        id: 'blocks',
+        heading: 'Blocks',
+        items: categories.blocks
+    },
+    {
         id: 'ai-components',
         heading: 'AI components',
         items: categories['ai-components']

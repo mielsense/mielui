@@ -22,13 +22,13 @@ export async function buildManualPlan(
                 'cli-init',
                 'Initialize Mielui',
                 'The lab already links the selected Mielui package into this app.',
-                command('bunx', '--no-install', 'mielui', 'init', '-y')
+                command('pnpm', 'exec', 'mielui', 'init', '-y')
             ),
             step(
                 'cli-add',
                 'Install all components',
                 'Copy every public component and its dependencies in one operation.',
-                command('bunx', '--no-install', 'mielui', 'add', '*', '-y')
+                command('pnpm', 'exec', 'mielui', 'add', '*', '-y')
             )
         );
     } else if (source === 'npm') {
@@ -37,7 +37,7 @@ export async function buildManualPlan(
                 'package-install',
                 'Install Mielui',
                 'Exercise package subpath imports.',
-                command('bun', 'add', '@mielui/svelte@latest')
+                command('pnpm', 'add', '@mielui/svelte@latest')
             )
         );
     }
@@ -47,29 +47,19 @@ export async function buildManualPlan(
             'check',
             'Check types',
             'Run Svelte diagnostics.',
-            command('bunx', 'svelte-check', '--tsconfig', './tsconfig.json')
+            command('pnpm', 'exec', 'svelte-check', '--tsconfig', './tsconfig.json')
         ),
         step(
             'build',
             'Build the app',
             'Run the production compiler.',
-            command('bun', 'run', 'build')
+            command('pnpm', 'run', 'build')
         ),
         step(
             'dev',
             'Launch the app',
             'Keep this command running, then open the printed localhost URL. Cancel stops it.',
-            command(
-                'bun',
-                'run',
-                'dev',
-                '--',
-                '--host',
-                '127.0.0.1',
-                '--port',
-                '5174',
-                '--strictPort'
-            )
+            command('pnpm', 'run', 'dev', '--host', '127.0.0.1', '--port', '5174', '--strictPort')
         )
     );
 

@@ -9,7 +9,7 @@
     import StatusVariants from './examples/status-variants.svelte';
     import StatusVariantsSrc from './examples/status-variants.svelte?raw';
 
-    const installCommand = 'bunx @mielui/svelte add attachment';
+    const installCommand = 'pnpm dlx @mielui/svelte add attachment';
 </script>
 
 <svelte:head>

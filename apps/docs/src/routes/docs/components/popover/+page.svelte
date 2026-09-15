@@ -12,7 +12,7 @@
 
     const _TITLE = 'Popover';
 
-    const installCommand = 'bunx @mielui/svelte add popover';
+    const installCommand = 'pnpm dlx @mielui/svelte add popover';
 </script>
 
 <svelte:head>

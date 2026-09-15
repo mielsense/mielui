@@ -120,37 +120,62 @@
             "types": "./dist/svelte/ai-components/tool/index.d.ts",
             "svelte": "./dist/svelte/ai-components/tool/index.js",
             "default": "./dist/svelte/ai-components/tool/index.js"
+        },
+        "./components/code-block": {
+            "types": "./dist/svelte/blocks/code-block/index.d.ts",
+            "svelte": "./dist/svelte/blocks/code-block/index.js",
+            "default": "./dist/svelte/blocks/code-block/index.js"
+        },
+        "./components/copy-button": {
+            "types": "./dist/svelte/blocks/copy-button/index.d.ts",
+            "svelte": "./dist/svelte/blocks/copy-button/index.js",
+            "default": "./dist/svelte/blocks/copy-button/index.js"
+        },
+        "./components/file-diff": {
+            "types": "./dist/svelte/blocks/file-diff/index.d.ts",
+            "svelte": "./dist/svelte/blocks/file-diff/index.js",
+            "default": "./dist/svelte/blocks/file-diff/index.js"
+        },
+        "./components/markdown": {
+            "types": "./dist/svelte/blocks/markdown/index.d.ts",
+            "svelte": "./dist/svelte/blocks/markdown/index.js",
+            "default": "./dist/svelte/blocks/markdown/index.js"
+        },
+        "./components/task-steps": {
+            "types": "./dist/svelte/blocks/task-steps/index.d.ts",
+            "svelte": "./dist/svelte/blocks/task-steps/index.js",
+            "default": "./dist/svelte/blocks/task-steps/index.js"
         }
     },
     "publishConfig": {
         "access": "public"
     },
     "scripts": {
-        "build:registry": "bun scripts/build-registry.ts",
-        "build": "svelte-package --input src --output dist/svelte --tsconfig tsconfig.package.json && bun run build:registry && bun build cli/index.ts --outdir dist --target node --banner '#!/usr/bin/env node'",
-        "verify:artifact": "bun scripts/verify-packed-consumer.ts",
-        "verify:cli-artifact": "bun scripts/verify-cli-artifact.ts",
-        "prepublishOnly": "bun run build",
-        "check": "bun run check:cli && bun run check:components",
+        "build:registry": "tsx scripts/build-registry.ts",
+        "build": "svelte-package --input src --output dist/svelte --tsconfig tsconfig.package.json && pnpm run build:registry && node scripts/build-cli.mjs",
+        "verify:artifact": "tsx scripts/verify-packed-consumer.ts",
+        "verify:cli-artifact": "tsx scripts/verify-cli-artifact.ts",
+        "prepublishOnly": "pnpm run build",
+        "check": "pnpm run check:cli && pnpm run check:components",
         "check:cli": "tsc --noEmit -p tsconfig.cli.json",
         "check:components": "svelte-check --tsconfig ./tsconfig.components.json",
-        "test": "bun run build:registry && bun test",
-        "sandbox": "bun scripts/sandbox.ts",
+        "test": "pnpm run build:registry && vitest run",
+        "sandbox": "tsx scripts/sandbox.ts",
         "lint": "biome lint ."
     },
     "dependencies": {
-        "@floating-ui/dom": "^1.7.6",
-        "@fontsource/inter": "^5.3.0",
-        "@fontsource/jetbrains-mono": "^5.3.0",
-        "@lucide/svelte": "^1.7.0",
-        "@scritto/core": "^0.1.0",
-        "@scritto/svelte": "^0.1.0",
-        "cnfast": "^0.0.8",
-        "fuse.js": "^7.1.0",
-        "highlight.js": "^11.11.1",
-        "marked": "^18.0.7",
-        "tailwind-merge": "^3.6.0",
-        "tailwind-variants": "^3.2.2"
+        "@floating-ui/dom": "1.7.6",
+        "@fontsource/inter": "5.3.0",
+        "@fontsource/jetbrains-mono": "5.3.0",
+        "@lucide/svelte": "1.16.0",
+        "@scritto/core": "0.1.0",
+        "@scritto/svelte": "0.1.0",
+        "cnfast": "0.0.8",
+        "fuse.js": "7.3.0",
+        "highlight.js": "11.11.1",
+        "marked": "18.0.7",
+        "tailwind-merge": "3.6.0",
+        "tailwind-variants": "3.2.2"
     },
     "peerDependencies": {
         "@sveltejs/kit": "^2.0.0",
@@ -158,13 +183,16 @@
         "tailwindcss": "^4.0.0"
     },
     "devDependencies": {
-        "@clack/prompts": "^0.11.0",
-        "@sveltejs/package": "^2.5.8",
-        "bun-types": "^1.3.14",
-        "commander": "^14.0.2",
-        "picocolors": "^1.1.1",
-        "svelte-check": "^4.4.6",
-        "tailwindcss": "^4.2.2",
-        "typescript": "^5.9.3"
+        "@clack/prompts": "0.11.0",
+        "@sveltejs/package": "2.5.8",
+        "commander": "14.0.3",
+        "picocolors": "1.1.1",
+        "svelte-check": "4.4.8",
+        "tailwindcss": "4.3.0",
+        "typescript": "5.9.3",
+        "@types/node": "22.19.19",
+        "esbuild": "0.28.1",
+        "tsx": "^4.23.13",
+        "vitest": "4.1.11"
     }
 }

@@ -34,7 +34,7 @@
     import VariantSecondary from './examples/variant-secondary.svelte';
     import VariantSecondarySrc from './examples/variant-secondary.svelte?raw';
 
-    const installCommand = 'bunx @mielui/svelte add button';
+    const installCommand = 'pnpm dlx @mielui/svelte add button';
 </script>
 
 <svelte:head>

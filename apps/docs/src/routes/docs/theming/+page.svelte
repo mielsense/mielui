@@ -31,7 +31,7 @@
   text-transform: uppercase;
 }`;
 
-    const sourceExample = `# after: bunx --package @mielui/svelte mielui add button
+    const sourceExample = `# after: pnpm dlx @mielui/svelte add button
 src/lib/mielui/components/button/
 ├── button.svelte
 └── index.ts`;
@@ -169,11 +169,7 @@ src/lib/mielui/components/button/
             With the CLI, install a preset into
             <Typography.InlineCode>theme.css</Typography.InlineCode>:
         </Typography.Text>
-        <CodeBlock
-            code="bunx --package @mielui/svelte mielui add theme open"
-            lang="shell"
-            copy="overlay"
-        />
+        <CodeBlock code="pnpm dlx @mielui/svelte add theme open" lang="shell" copy="overlay" />
         <Typography.Text variant="body" class="m-0 max-w-2xl">
             Import it after <Typography.InlineCode>ui.css</Typography.InlineCode> so it wins:
         </Typography.Text>

@@ -353,7 +353,7 @@ A full row-per-component checklist (variants × sizes × tokens-consumed) will b
 6. Rebuild the constrained Studio UI (§6).
 7. Update all 40 docs component pages + Studio docs to the new surface.
 
-**Verification per step:** visual diff against the reference screenshots (light + dark), `bun run check`, and a token-lint that fails on any literal px/hex in component `.svelte`/`variants.ts` (no value outside the token system).
+**Verification per step:** visual diff against the reference screenshots (light + dark), `pnpm run check`, and a token-lint that fails on any literal px/hex in component `.svelte`/`variants.ts` (no value outside the token system).
 
 ---
 

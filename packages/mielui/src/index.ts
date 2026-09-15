@@ -93,6 +93,37 @@ export type {
 } from './ai-components/tool';
 export * as Tool from './ai-components/tool';
 export type {
+    CodeBlockActionsProps,
+    CodeBlockContentProps,
+    CodeBlockCopyPlacement,
+    CodeBlockCopyProps,
+    CodeBlockHeaderProps,
+    CodeBlockListProps,
+    CodeBlockProps,
+    CodeBlockTab,
+    CodeBlockTheme,
+    CodeBlockTriggerProps
+} from './blocks/code-block';
+export { CodeBlock } from './blocks/code-block';
+export type { CopyButtonProps } from './blocks/copy-button';
+export { CopyButton } from './blocks/copy-button';
+export type {
+    FileDiffChangeType,
+    FileDiffContentProps,
+    FileDiffContext,
+    FileDiffLine,
+    FileDiffLineNumberProps,
+    FileDiffRootProps,
+    FileDiffRowProps,
+    FileDiffTheme,
+    FileDiffTopBarProps
+} from './blocks/file-diff';
+export * as FileDiff from './blocks/file-diff';
+export type { MarkdownProps } from './blocks/markdown';
+export { Markdown } from './blocks/markdown';
+export type { TaskStep, TaskStepStatus, TaskStepsProps } from './blocks/task-steps';
+export { TaskSteps } from './blocks/task-steps';
+export type {
     AccordionContentProps,
     AccordionItemProps,
     AccordionProps,
@@ -137,19 +168,6 @@ export * as Card from './components/card';
 export type { CheckboxProps } from './components/checkbox';
 export { Checkbox } from './components/checkbox';
 export type {
-    CodeBlockActionsProps,
-    CodeBlockContentProps,
-    CodeBlockCopyPlacement,
-    CodeBlockCopyProps,
-    CodeBlockHeaderProps,
-    CodeBlockListProps,
-    CodeBlockProps,
-    CodeBlockTab,
-    CodeBlockTheme,
-    CodeBlockTriggerProps
-} from './components/code-block';
-export { CodeBlock } from './components/code-block';
-export type {
     CollapsibleContentProps,
     CollapsibleProps,
     CollapsibleTriggerProps
@@ -177,8 +195,21 @@ export type {
     ContextMenuTriggerProps
 } from './components/context-menu';
 export * as ContextMenu from './components/context-menu';
-export type { CopyButtonProps } from './components/copy-button';
-export { CopyButton } from './components/copy-button';
+export type {
+    DialogBodyProps,
+    DialogCloseProps,
+    DialogConfirmProps,
+    DialogContentProps,
+    DialogDescriptionProps,
+    DialogFooterProps,
+    DialogHeaderProps,
+    DialogOrientation,
+    DialogProps,
+    DialogSize,
+    DialogTitleProps,
+    DialogTriggerProps
+} from './components/dialog';
+export * as Dialog from './components/dialog';
 export type {
     DropdownMenuCheckboxItemProps,
     DropdownMenuItemProps,
@@ -187,27 +218,6 @@ export type {
     DropdownMenuRadioItemProps
 } from './components/dropdown-menu';
 export * as DropdownMenu from './components/dropdown-menu';
-export type {
-    FileDiffChangeType,
-    FileDiffContentProps,
-    FileDiffContext,
-    FileDiffLine,
-    FileDiffLineNumberProps,
-    FileDiffRootProps,
-    FileDiffRowProps,
-    FileDiffTheme,
-    FileDiffTopBarProps
-} from './components/file-diff';
-export * as FileDiff from './components/file-diff';
-export type {
-    FullscreenNavCloseProps,
-    FullscreenNavContentProps,
-    FullscreenNavGroupProps,
-    FullscreenNavLinkProps,
-    FullscreenNavProps,
-    FullscreenNavTriggerProps
-} from './components/fullscreen-nav';
-export * as FullscreenNav from './components/fullscreen-nav';
 export type { GaugeProps, GaugeTone } from './components/gauge';
 export { Gauge } from './components/gauge';
 export type {
@@ -220,23 +230,6 @@ export type { InputProps } from './components/input';
 export { Input } from './components/input';
 export type { LabelProps } from './components/label';
 export { Label } from './components/label';
-export type { MarkdownProps } from './components/markdown';
-export { Markdown } from './components/markdown';
-export type {
-    ModalBodyProps,
-    ModalCloseProps,
-    ModalConfirmProps,
-    ModalContentProps,
-    ModalDescriptionProps,
-    ModalFooterProps,
-    ModalHeaderProps,
-    ModalOrientation,
-    ModalProps,
-    ModalSize,
-    ModalTitleProps,
-    ModalTriggerProps
-} from './components/modal';
-export * as Modal from './components/modal';
 export type { PaginationProps } from './components/pagination';
 export { Pagination } from './components/pagination';
 export type {
@@ -298,8 +291,6 @@ export type {
     TagInputVariant
 } from './components/tag-input';
 export * as TagInput from './components/tag-input';
-export type { TaskStep, TaskStepStatus, TaskStepsProps } from './components/task-steps';
-export { TaskSteps } from './components/task-steps';
 export type { TextareaProps } from './components/textarea';
 export { Textarea } from './components/textarea';
 export type {

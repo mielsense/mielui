@@ -13,6 +13,11 @@ type ComponentManifest = {
 
 const removedComponents = [
     {
+        name: 'Modal',
+        guidance: 'Rename Modal to Dialog and use the dialog package subpath or CLI target.'
+    },
+    { name: 'Fullscreen Nav', guidance: 'Compose Sheet with navigation links for a mobile menu.' },
+    {
         name: 'Approval Request',
         guidance:
             'Compose `AlertDialog` directly with the review details and confirmation actions required by your workflow.'
@@ -34,11 +39,11 @@ const removedComponents = [
 ] as const;
 
 const manifests = import.meta.glob<{ manifest: ComponentManifest }>(
-    '../../../../packages/mielui/src/{components,ai-components,chart-components}/*/manifest.ts',
+    '../../../../packages/mielui/src/{components,ai-components,blocks,chart-components}/*/manifest.ts',
     { eager: true }
 );
 const indexes = import.meta.glob<string>(
-    '../../../../packages/mielui/src/{components,ai-components,chart-components}/*/index.ts',
+    '../../../../packages/mielui/src/{components,ai-components,blocks,chart-components}/*/index.ts',
     {
         eager: true,
         query: '?raw',
@@ -88,11 +93,11 @@ export function componentMarkdown(component: string): string | undefined {
     const shared = manifest.shared.length ? manifest.shared.join(', ') : 'None';
     const install =
         manifest.visibility === 'public'
-            ? fence('sh', `bunx --package @mielui/svelte mielui add ${component}`)
+            ? fence('sh', `pnpm dlx @mielui/svelte add ${component}`)
             : [
                   'This component is available from the package API but is not a standalone CLI registry target.',
                   '',
-                  fence('sh', 'bun add @mielui/svelte')
+                  fence('sh', 'pnpm add @mielui/svelte')
               ].join('\n');
 
     return [
@@ -140,7 +145,7 @@ export function brandMarkMarkdown(): string {
         '',
         '## Install',
         '',
-        fence('sh', 'bun add @mielui/svelte'),
+        fence('sh', 'pnpm add @mielui/svelte'),
         '',
         '## API',
         '',
@@ -173,14 +178,14 @@ mielui is a Svelte 5 and Tailwind CSS v4 component library. Install it as a pack
 ## Quick start
 
 ~~~~sh
-bun add @mielui/svelte
+pnpm add @mielui/svelte
 # then in your CSS:
 # @import '@mielui/svelte/ui.css';
 ~~~~
 
 ~~~~sh
-bunx --package @mielui/svelte mielui init -y
-bunx --package @mielui/svelte mielui add button
+pnpm dlx @mielui/svelte init -y
+pnpm dlx @mielui/svelte add button
 ~~~~
 `,
     installation: `# Installation
@@ -190,7 +195,7 @@ Install Mielui as a package when you want dependency-managed components, or init
 ## Package
 
 ~~~~sh
-bun add @mielui/svelte
+pnpm add @mielui/svelte
 ~~~~
 
 Add the token sheet to your CSS:
@@ -202,8 +207,8 @@ Add the token sheet to your CSS:
 ## CLI
 
 ~~~~sh
-bunx --package @mielui/svelte mielui init
-bunx --package @mielui/svelte mielui add button
+pnpm dlx @mielui/svelte init
+pnpm dlx @mielui/svelte add button
 ~~~~
 `,
     theming: `# Theming
@@ -246,7 +251,7 @@ export function llmsTxt(origin: string): string {
         '',
         'Svelte 5 and Tailwind CSS v4 component library. Use these Markdown resources for implementation details, public APIs, runnable examples, and version-specific upgrade notes.',
         '',
-        `The current catalog contains ${components.length} components. Brand Mark is a package-only asset. Approval Request, Marquee, Panel, and Separator were removed as standalone components; migration guidance is in the components index.`,
+        `The current catalog contains ${components.length} components. Brand Mark is a package-only asset. Approval Request, Fullscreen Nav, Marquee, Panel, and Separator were removed as standalone components; migration guidance is in the components index.`,
         '',
         '## Agent skill',
         '',

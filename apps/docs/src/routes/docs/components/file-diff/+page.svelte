@@ -12,7 +12,7 @@
     import WithoutLineNumbers from './examples/without-line-numbers.svelte';
     import WithoutLineNumbersSrc from './examples/without-line-numbers.svelte?raw';
 
-    const installCommand = 'bunx @mielui/svelte add file-diff';
+    const installCommand = 'pnpm dlx @mielui/svelte add file-diff';
 
     const usageSnippet = `import * as FileDiff from '$lib/mielui/components/file-diff';
 
@@ -59,7 +59,7 @@
             <Typography.InlineCode>highlight.js</Typography.InlineCode>. Install it if your project
             doesn't have it yet:
         </Typography.Text>
-        <InstallCommand command="bun add highlight.js" />
+        <InstallCommand command="pnpm add highlight.js" />
     </section>
 
     <!-- ─── Usage ─────────────────────────────────────────────────── -->

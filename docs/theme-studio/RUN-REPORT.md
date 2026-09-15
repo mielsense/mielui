@@ -23,11 +23,11 @@
 
 **Phase 2 — Decomposition.** Extracted the ~1,030-line Playground preview into `studio-preview.svelte` (page 4,079 → 2,921 lines); verified pixel-identical. Toolbar/inspector/dialog extraction folded into 3–4 (D2.1); the spacing-control config was also extracted to a module in Phase 4.
 
-**Phase 3 — Preview coverage.** Added a 4th "Gallery" screen rendering a representative component from **every** token group (Controls/Surfaces/Menus/Modals/Transient/Nav-Data), each section tagged `data-group`. +2 coverage tests; verified live.
+**Phase 3 — Preview coverage.** Added a 4th "Gallery" screen rendering a representative component from **every** token group (Controls/Surfaces/Menus/Dialogs/Transient/Nav-Data), each section tagged `data-group`. +2 coverage tests; verified live.
 
 **Phase 4 — Controls.** Surfaced every spacing token (extracted `spacing-fields.ts`, added the 5 new tokens) + a decoupled "Control easing" control; wired `primaryButtonOutline` via CSS `outline` (no layout shift) + toggle. +4 completeness tests enforcing controls == `defaultSpacing` keys 1:1 (no orphan tokens / no dead controls).
 
-**Phase 5 — Style mechanism.** Token-bundle Style presets (`themes/styles/`), auto-registered, separately-installable; `styleToCss` applies a coherent override layer. Shipped Flat/Soft/Sharp on the 5-component reference set (Button/Card/Modal/DropdownMenu/Tooltip), Style picker in the Shape tab. +8 tests. Did **not** exceed the reference set; rollout in `style-rollout.md`.
+**Phase 5 — Style mechanism.** Token-bundle Style presets (`themes/styles/`), auto-registered, separately-installable; `styleToCss` applies a coherent override layer. Shipped Flat/Soft/Sharp on the 5-component reference set (Button/Card/Dialog/DropdownMenu/Tooltip), Style picker in the Shape tab. +8 tests. Did **not** exceed the reference set; rollout in `style-rollout.md`.
 
 ## Decisions
 
@@ -52,4 +52,4 @@ Full log in `decisions.md` (D0.1–D5.2). Notable autonomous calls:
 
 ## How to verify / resume
 
-From `apps/docs`: `bun run check` · `bun run lint` · `bun run test:ci` · (root) `bun run build`. Live: `bun run dev` then `/tmp/mielui-*.mjs` Playwright scripts (chromium) against `/themes/studio` — **restart the dev server fresh before visual checks** (D2.2: accumulated HMR can transiently serve stale content). Scope was kept to the Theme Studio + token system only; no monorepo restructure or CLI build was started (hooks left in `style-rollout.md`).
+From `apps/docs`: `pnpm run check` · `pnpm run lint` · `pnpm run test:ci` · (root) `pnpm run build`. Live: `pnpm run dev` then `/tmp/mielui-*.mjs` Playwright scripts (chromium) against `/themes/studio` — **restart the dev server fresh before visual checks** (D2.2: accumulated HMR can transiently serve stale content). Scope was kept to the Theme Studio + token system only; no monorepo restructure or CLI build was started (hooks left in `style-rollout.md`).

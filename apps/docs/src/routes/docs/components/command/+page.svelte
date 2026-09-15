@@ -13,12 +13,12 @@
     const TITLE = 'Command';
     const SLUG = 'command';
 
-    const installCommand = `bunx @mielui/svelte add ${SLUG}`;
+    const installCommand = `pnpm dlx @mielui/svelte add ${SLUG}`;
 </script>
 
 <svelte:head>
     <title>Mielui · {TITLE}</title>
-    <meta name="description" content="Fast command palette modal with search and grouping." />
+    <meta name="description" content="Fast command palette dialog with search and grouping." />
 </svelte:head>
 
 <div data-docs-page class="flex flex-col gap-10">

@@ -15,9 +15,9 @@ function quoteArgument(argument: string) {
 export function scaffoldCommands(consumerRoot: string): CommandSpec[] {
     return [
         {
-            bin: 'bunx',
+            bin: 'pnpm',
             args: [
-                '--bun',
+                'dlx',
                 'sv',
                 'create',
                 consumerRoot,
@@ -31,9 +31,9 @@ export function scaffoldCommands(consumerRoot: string): CommandSpec[] {
             cwd: consumerRoot.replace(/[/\\]consumer$/, '')
         },
         {
-            bin: 'bunx',
+            bin: 'pnpm',
             args: [
-                '--bun',
+                'dlx',
                 'sv',
                 'add',
                 'tailwindcss=plugins:none',
@@ -45,7 +45,7 @@ export function scaffoldCommands(consumerRoot: string): CommandSpec[] {
             cwd: consumerRoot
         },
         {
-            bin: 'bun',
+            bin: 'pnpm',
             args: ['add', '@fontsource/inter@5.3.0', '@fontsource/jetbrains-mono@5.3.0'],
             cwd: consumerRoot
         }
@@ -54,7 +54,7 @@ export function scaffoldCommands(consumerRoot: string): CommandSpec[] {
 
 export function stagingInstallCommand(source: RunSource, stagingRoot: string, tarballPath: string) {
     return {
-        bin: 'bun',
+        bin: 'pnpm',
         args: ['add', source === 'local' ? tarballPath : '@mielui/svelte@latest'],
         cwd: stagingRoot
     } satisfies CommandSpec;
@@ -67,7 +67,7 @@ export function consumerInstallCommand(
     version: string
 ) {
     return {
-        bin: 'bun',
+        bin: 'pnpm',
         args: ['add', source === 'local' ? tarballPath : `@mielui/svelte@${version}`],
         cwd: consumerRoot
     } satisfies CommandSpec;
@@ -87,27 +87,18 @@ export function cliCommands(binary: string, consumerRoot: string) {
 export function verificationCommands(consumerRoot: string) {
     return {
         check: {
-            bin: 'bunx',
-            args: ['svelte-check', '--tsconfig', './tsconfig.json'],
+            bin: 'pnpm',
+            args: ['exec', 'svelte-check', '--tsconfig', './tsconfig.json'],
             cwd: consumerRoot
         },
-        build: { bin: 'bun', args: ['run', 'build'], cwd: consumerRoot }
+        build: { bin: 'pnpm', args: ['run', 'build'], cwd: consumerRoot }
     } satisfies Record<'check' | 'build', CommandSpec>;
 }
 
 export function previewCommand(consumerRoot: string, port: number) {
     return {
-        bin: 'bun',
-        args: [
-            'run',
-            'preview',
-            '--',
-            '--host',
-            '127.0.0.1',
-            '--port',
-            String(port),
-            '--strictPort'
-        ],
+        bin: 'pnpm',
+        args: ['run', 'preview', '--host', '127.0.0.1', '--port', String(port), '--strictPort'],
         cwd: consumerRoot
     } satisfies CommandSpec;
 }

@@ -27,8 +27,8 @@ Before reporting a change complete, run only the lightweight repository-level
 gates from the repository root:
 
 ```sh
-bun run format:check
-bun run lint
+pnpm run format:check
+pnpm run lint
 ```
 
 Do not run formatting in write mode unless formatting files is part of the
@@ -37,11 +37,11 @@ verification only. Run them only when the user explicitly requests them,
 including before a push or release:
 
 ```sh
-bun run check
-bun run test
-bun run build
-bun --cwd=packages/mielui run verify:artifact
-bun --cwd=packages/mielui run verify:cli-artifact
+pnpm run check
+pnpm run test
+pnpm run build
+pnpm --dir=packages/mielui run verify:artifact
+pnpm --dir=packages/mielui run verify:cli-artifact
 ```
 
 When manual verification has not been requested, state that the full gates were
@@ -50,7 +50,7 @@ not run instead of running them automatically.
 For a pre-release, invoke the `release-gate` skill or run:
 
 ```sh
-bun run release-gate
+pnpm run release-gate
 ```
 
 That is the full publish bar: format, lint, audit, typecheck, unit/SSR tests, docs
@@ -154,8 +154,8 @@ instead of creating another file.
 
 Formatting is part of the code quality bar, not a cleanup task to defer. All
 supported source, configuration, and documentation files must be formatted with
-the repository's Biome configuration before review. Run `bun run format` while
-editing and `bun run format:check` before considering formatting work complete.
+the repository's Biome configuration before review. Run `pnpm run format` while
+editing and `pnpm run format:check` before considering formatting work complete.
 Do not hand-format around Biome or disable it for individual files.
 
 Write code for people to scan, review, debug, and safely modify. Compact code

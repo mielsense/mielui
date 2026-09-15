@@ -13,7 +13,7 @@
 
     const TITLE = 'Sheet';
 
-    const installCommand = 'bunx @mielui/svelte add sheet';
+    const installCommand = 'pnpm dlx @mielui/svelte add sheet';
 </script>
 
 <svelte:head>

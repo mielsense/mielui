@@ -3,7 +3,7 @@
 Start the local-only dashboard from the repository root:
 
 ```sh
-bun --cwd apps/installer-lab dev
+pnpm --dir apps/installer-lab dev
 ```
 
 Open the printed `127.0.0.1` URL. The dashboard has two modes:

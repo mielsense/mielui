@@ -6,7 +6,7 @@
 <CodeBlock.Root value="sh">
     <CodeBlock.Content
         value="sh"
-        code="bunx @mielui/svelte add code-block"
+        code="pnpm dlx @mielui/svelte add code-block"
         lang="bash"
         copyPlacement="inline"
     />

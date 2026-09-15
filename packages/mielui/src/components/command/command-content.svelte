@@ -1,5 +1,5 @@
 <script lang="ts">
-    import * as Modal from '@mielui/svelte/components/modal';
+    import * as Dialog from '@mielui/svelte/components/dialog';
     import { cn } from '@mielui/svelte/utils';
     import type { Snippet } from 'svelte';
 
@@ -19,7 +19,7 @@
     }: Props = $props();
 </script>
 
-<Modal.Content
+<Dialog.Content
     {allowClickOutside}
     size="xl"
     showClose={false}
@@ -37,4 +37,4 @@
     {...rest}
 >
     {@render children?.()}
-</Modal.Content>
+</Dialog.Content>

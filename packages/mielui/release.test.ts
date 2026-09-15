@@ -1,5 +1,5 @@
-import { describe, expect, test } from 'bun:test';
 import { readdir, readFile } from 'node:fs/promises';
+import { describe, expect, test } from 'vitest';
 
 import packageJson from './package.json';
 
@@ -43,7 +43,7 @@ describe('publishable package contract', () => {
      * (`.mielui-menu-item`, `.mielui-card-*`, `.mielui-tooltip*`). Those moved here
      * out of shared TypeScript class strings. The collection highlight adds one
      * more shared contract instead of repeating geometry CSS in five families.
-     * Independent menu/modal movement controls and the code/file-diff syntax
+     * Independent menu/dialog movement controls and the code/file-diff syntax
      * theme are token contracts too. Treat further growth as a signal that
      * private styling is leaking here.
      */
@@ -51,7 +51,7 @@ describe('publishable package contract', () => {
         const css = await readFile(new URL('./src/ui.css', import.meta.url), 'utf8');
         const normalizedCss = css.replace(/\s+/g, ' ').trim();
         const privatePrefix =
-            /^\s*--(?:button|badge|field|panel|card|menu|command|tooltip|switch|checkbox|toast|tabs|progress|modal|sheet|textarea|breadcrumb|toggle|shortcut|slider)-/m;
+            /^\s*--(?:button|badge|field|panel|card|menu|command|tooltip|switch|checkbox|toast|tabs|progress|dialog|sheet|textarea|breadcrumb|toggle|shortcut|slider)-/m;
 
         expect(css.split('\n').length).toBeLessThanOrEqual(557);
         expect(Buffer.byteLength(normalizedCss)).toBeLessThanOrEqual(18 * 1024);
@@ -70,7 +70,7 @@ describe('publishable package contract', () => {
         const animationFiles = [
             './src/components/button/button.svelte',
             './src/components/progress/progress.svelte',
-            './src/components/task-steps/task-steps.svelte',
+            './src/blocks/task-steps/task-steps.svelte',
             './src/components/toast/toast.svelte'
         ] as const;
         const source = (

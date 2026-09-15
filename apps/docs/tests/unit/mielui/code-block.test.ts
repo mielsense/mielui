@@ -129,7 +129,7 @@ describe('CodeBlock broad language support', () => {
     });
 
     it('colorizes package-manager one-liners', () => {
-        const html = highlight('bunx @mielui/svelte add code-block', 'bash');
+        const html = highlight('pnpm dlx @mielui/svelte add code-block', 'bash');
 
         expect(html).toContain('hljs-built_in');
         expect(html).toContain('hljs-keyword');

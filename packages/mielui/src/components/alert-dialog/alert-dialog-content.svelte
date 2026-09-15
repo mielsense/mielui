@@ -1,5 +1,5 @@
 <script lang="ts">
-    import * as Modal from '@mielui/svelte/components/modal';
+    import * as Dialog from '@mielui/svelte/components/dialog';
     import { cn, type DefaultProps } from '@mielui/svelte/utils';
 
     type Props = {
@@ -19,7 +19,7 @@
     }: Props = $props();
 </script>
 
-<Modal.Content
+<Dialog.Content
     {allowEscape}
     {size}
     allowClickOutside={false}
@@ -32,4 +32,4 @@
     {...rest}
 >
     {@render children?.()}
-</Modal.Content>
+</Dialog.Content>

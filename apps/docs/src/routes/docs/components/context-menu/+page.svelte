@@ -14,7 +14,7 @@
 
     const _TITLE = 'Context Menu';
 
-    const installCommand = 'bunx @mielui/svelte add context-menu';
+    const installCommand = 'pnpm dlx @mielui/svelte add context-menu';
 </script>
 
 <svelte:head>

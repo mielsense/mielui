@@ -34,7 +34,17 @@
                 "./src/ai-components/response-stream/*"
             ],
             "@mielui/svelte/components/tool": ["./src/ai-components/tool/index.ts"],
-            "@mielui/svelte/components/tool/*": ["./src/ai-components/tool/*"]
+            "@mielui/svelte/components/tool/*": ["./src/ai-components/tool/*"],
+            "@mielui/svelte/components/code-block": ["./src/blocks/code-block/index.ts"],
+            "@mielui/svelte/components/code-block/*": ["./src/blocks/code-block/*"],
+            "@mielui/svelte/components/copy-button": ["./src/blocks/copy-button/index.ts"],
+            "@mielui/svelte/components/copy-button/*": ["./src/blocks/copy-button/*"],
+            "@mielui/svelte/components/file-diff": ["./src/blocks/file-diff/index.ts"],
+            "@mielui/svelte/components/file-diff/*": ["./src/blocks/file-diff/*"],
+            "@mielui/svelte/components/markdown": ["./src/blocks/markdown/index.ts"],
+            "@mielui/svelte/components/markdown/*": ["./src/blocks/markdown/*"],
+            "@mielui/svelte/components/task-steps": ["./src/blocks/task-steps/index.ts"],
+            "@mielui/svelte/components/task-steps/*": ["./src/blocks/task-steps/*"]
         }
     },
     "include": ["check.d.ts", "src/**/*.ts", "src/**/*.svelte"]

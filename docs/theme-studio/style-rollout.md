@@ -6,7 +6,7 @@ The Style mechanism (Flat / Soft / Sharp) shipped in Phase 5 is **bounded to a r
 | --------- | ------------------- |
 | Controls  | Button              |
 | Surfaces  | Card                |
-| Modals    | Modal               |
+| Dialogs    | Dialog               |
 | Menus     | DropdownMenu        |
 | Transient | Tooltip             |
 
@@ -35,7 +35,7 @@ A style is _primarily_ a token preset. Where a style genuinely needs markup vari
 
 These widen "change the entire look" and pair naturally with styles; add them as new token groups, then let styles set them:
 
-- **Per-group radius scales** — `--control-radius`, `--menu-radius`, `--surface-radius`, `--modal-radius` with `var(--component, var(--group, var(--radius-*)))` fallback, so a style (or the sidebar) can round menus differently from cards.
+- **Per-group radius scales** — `--control-radius`, `--menu-radius`, `--surface-radius`, `--dialog-radius` with `var(--component, var(--group, var(--radius-*)))` fallback, so a style (or the sidebar) can round menus differently from cards.
 - **Per-group elevation scales** — `--{group}-elevation` mapping to the `--shadow-*` ramp.
 - **Per-group focus-ring treatment** — width/offset/color per group.
 - **Density / scale tokens** — a per-group multiplier on heights/padding.

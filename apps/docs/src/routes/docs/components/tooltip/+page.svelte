@@ -14,7 +14,7 @@
 
     const TITLE = 'Tooltip';
 
-    const installCommand = 'bunx @mielui/svelte add tooltip';
+    const installCommand = 'pnpm dlx @mielui/svelte add tooltip';
 </script>
 
 <svelte:head>

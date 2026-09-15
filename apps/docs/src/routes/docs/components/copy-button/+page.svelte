@@ -12,7 +12,7 @@
 
     const _TITLE = 'Copy Button';
 
-    const installCommand = 'bunx @mielui/svelte add copy-button';
+    const installCommand = 'pnpm dlx @mielui/svelte add copy-button';
 </script>
 
 <svelte:head>
@@ -55,7 +55,7 @@
             Import Copy Button and pass the text to copy:
         </Typography.Text>
         <CodeBlock
-            code={`import { CopyButton } from '$lib/mielui/components/copy-button';\n\n<CopyButton text="bun add @mielui/svelte" />\n<CopyButton text={apiKey} label="Copy key" variant="outline" />`}
+            code={`import { CopyButton } from '$lib/mielui/components/copy-button';\n\n<CopyButton text="pnpm add @mielui/svelte" />\n<CopyButton text={apiKey} label="Copy key" variant="outline" />`}
             lang="svelte"
             copy="overlay"
         />

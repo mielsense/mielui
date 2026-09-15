@@ -16,7 +16,7 @@
     import ToolbarInset from './examples/toolbar-inset.svelte';
     import ToolbarInsetSrc from './examples/toolbar-inset.svelte?raw';
 
-    const installCommand = 'bunx @mielui/svelte add composer';
+    const installCommand = 'pnpm dlx @mielui/svelte add composer';
 </script>
 
 <svelte:head>

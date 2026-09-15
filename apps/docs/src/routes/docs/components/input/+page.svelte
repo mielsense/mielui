@@ -15,7 +15,7 @@
     import VariantSecondary from './examples/variant-secondary.svelte';
     import VariantSecondarySrc from './examples/variant-secondary.svelte?raw';
 
-    const installCommand = 'bunx @mielui/svelte add input';
+    const installCommand = 'pnpm dlx @mielui/svelte add input';
 </script>
 
 <svelte:head>

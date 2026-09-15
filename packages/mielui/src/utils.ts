@@ -367,7 +367,7 @@ export function inertOutside(activeRoots: HTMLElement[]) {
 /**
  * Locks document scrolling and returns a disposer.
  *
- * The lock is refcounted and shared by modal, sheet, and popover so nested
+ * The lock is refcounted and shared by dialog, sheet, and popover so nested
  * overlays cannot clear each other's lock on teardown -- only the last active
  * lock restores the original overflow and scrollbar padding. Overlay roots keep
  * their own overflow so dialog surfaces can still scroll.
@@ -533,7 +533,7 @@ function ensureEscapeListener() {
 
 /**
  * Registers a close handler while a layer is open and returns a disposer.
- * Modal, sheet, and popover push on open and pop on teardown.
+ * Dialog, sheet, and popover push on open and pop on teardown.
  */
 export function pushEscapeLayer(close: () => void, element?: Element, rank = 0) {
     if (typeof document === 'undefined') {
@@ -1106,12 +1106,12 @@ function overlayRootFromEvent(event: Event, path: EventTarget[]) {
  *
  * Nested overlays portal as sibling `[data-overlay-root]` hosts. A click inside
  * a different overlay root belongs to that layer, so this listener must not
- * treat it as an outside dismiss — otherwise Cancel on a nested modal closes
+ * treat it as an outside dismiss — otherwise Cancel on a nested dialog closes
  * the parent too.
  *
  * Select, Combobox, and Dropdown Menu dismiss on pointerdown. That unmounts
  * their dismiss scrim before the following `click`, which would otherwise hit
- * the parent Modal overlay and close it. One pointer gesture peels one layer.
+ * the parent Dialog overlay and close it. One pointer gesture peels one layer.
  */
 export function clickOutside(node: Node, callback: () => void, exclude: Node[] = []) {
     let destroyed = false;

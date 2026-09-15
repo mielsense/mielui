@@ -3,11 +3,9 @@ import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import { registryFilePath, rewriteImports } from '../registry';
 
-export type PackageManager = 'bun' | 'pnpm' | 'yarn' | 'npm';
+export type PackageManager = 'pnpm' | 'yarn' | 'npm';
 
 export function detectPackageManager(cwd: string): PackageManager {
-    if (existsSync(path.join(cwd, 'bun.lock')) || existsSync(path.join(cwd, 'bun.lockb')))
-        return 'bun';
     if (existsSync(path.join(cwd, 'pnpm-lock.yaml'))) return 'pnpm';
     if (existsSync(path.join(cwd, 'yarn.lock'))) return 'yarn';
     return 'npm';

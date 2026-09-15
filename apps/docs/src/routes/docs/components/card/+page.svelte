@@ -16,7 +16,7 @@
     import Panel from './examples/panel.svelte';
     import PanelSrc from './examples/panel.svelte?raw';
 
-    const installCommand = 'bunx @mielui/svelte add card';
+    const installCommand = 'pnpm dlx @mielui/svelte add card';
 </script>
 
 <svelte:head>

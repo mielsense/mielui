@@ -12,7 +12,7 @@
     import Validation from './examples/validation.svelte';
     import ValidationSrc from './examples/validation.svelte?raw';
 
-    const installCommand = 'bunx @mielui/svelte add tag-input';
+    const installCommand = 'pnpm dlx @mielui/svelte add tag-input';
 
     const usageSnippet = `import * as TagInput from '$lib/mielui/components/tag-input';
 

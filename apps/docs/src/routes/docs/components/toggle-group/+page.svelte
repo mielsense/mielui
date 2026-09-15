@@ -14,7 +14,7 @@
     const TITLE = 'Toggle Group';
     const SLUG = 'toggle-group';
 
-    const installCommand = `bunx @mielui/svelte add ${SLUG}`;
+    const installCommand = `pnpm dlx @mielui/svelte add ${SLUG}`;
 </script>
 
 <svelte:head>

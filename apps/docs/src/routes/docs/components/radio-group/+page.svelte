@@ -12,7 +12,7 @@
 
     const _TITLE = 'Radio Group';
 
-    const installCommand = 'bunx @mielui/svelte add radio-group';
+    const installCommand = 'pnpm dlx @mielui/svelte add radio-group';
 </script>
 
 <svelte:head>

@@ -1,15 +1,16 @@
 /**
  * Phase 2 §1 — lock the public API.
  *
- * Frozen catalog: 57 components. Named exports hang off the package root as
+ * Frozen catalog: 56 components. Named exports hang off the package root as
  * identifiers; namespace exports hang off a PascalCase object (AlertDialog.Root).
  * Every public component is also reachable at @mielui/svelte/components/<slug>.
  */
-import { describe, expect, test } from 'bun:test';
+
 import { existsSync } from 'node:fs';
 import { readdir, readFile } from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { describe, expect, test } from 'vitest';
 import { loadRegistryIndex } from './cli/registry';
 import categories from './component-categories.json';
 
@@ -55,7 +56,7 @@ const NAMED = {
     toolbar: ['Toolbar']
 } as const;
 
-/** Compound components: `import { Modal } from '@mielui/svelte'` then `<Modal.Root>`. */
+/** Compound components: `import { Dialog } from '@mielui/svelte'` then `<Dialog.Root>`. */
 const NAMESPACED = {
     accordion: ['Root', 'Item', 'Trigger', 'Content'],
     alert: ['Root', 'Title', 'Description'],
@@ -101,11 +102,10 @@ const NAMESPACED = {
         'SubContent',
         'SubTrigger'
     ], // cone: Root → Sub → nested Sub
-    'fullscreen-nav': ['Root', 'Trigger', 'Content', 'Close', 'Group', 'Link'],
     'file-diff': ['Root', 'TopBar', 'Content', 'Row', 'LineNumber'],
     'hover-card': ['Root', 'Trigger', 'Content', 'Title', 'Description'],
     message: ['Root', 'Content', 'Actions'],
-    modal: [
+    dialog: [
         'Root',
         'Trigger',
         'Content',
@@ -167,7 +167,14 @@ const FROZEN = [...Object.keys(NAMED), ...Object.keys(NAMESPACED)].sort((a, b) =
 const NON_INSTALLABLE = ['toolbar'];
 const INSTALLABLE = FROZEN.filter((name) => !NON_INSTALLABLE.includes(name));
 
-const REMOVED = ['approval-request', 'marquee', 'panel', 'separator'] as const;
+const REMOVED = [
+    'modal',
+    'fullscreen-nav',
+    'approval-request',
+    'marquee',
+    'panel',
+    'separator'
+] as const;
 
 function toPascalCase(slug: string) {
     return slug
@@ -205,9 +212,9 @@ function parseExportedNames(source: string): string[] {
 }
 
 describe('public API contract (v1 freeze)', () => {
-    test('frozen catalog is exactly 57 components with no overlap', () => {
-        expect(FROZEN).toHaveLength(57);
-        expect(new Set(FROZEN).size).toBe(57);
+    test('frozen catalog is exactly 56 components with no overlap', () => {
+        expect(FROZEN).toHaveLength(56);
+        expect(new Set(FROZEN).size).toBe(56);
         for (const slug of Object.keys(NAMED)) {
             expect(NAMESPACED).not.toHaveProperty(slug);
         }
@@ -287,11 +294,11 @@ describe('public API contract (v1 freeze)', () => {
             svelte: './dist/svelte/components/*/index.js',
             default: './dist/svelte/components/*/index.js'
         });
-        for (const slug of categories['ai-components']) {
+        for (const slug of [...categories['ai-components'], ...categories.blocks]) {
             expect(packageJson.exports[`./components/${slug}`]).toMatchObject({
-                types: `./dist/svelte/ai-components/${slug}/index.d.ts`,
-                svelte: `./dist/svelte/ai-components/${slug}/index.js`,
-                default: `./dist/svelte/ai-components/${slug}/index.js`
+                types: `./dist/svelte/${categoryFor(slug)}/${slug}/index.d.ts`,
+                svelte: `./dist/svelte/${categoryFor(slug)}/${slug}/index.js`,
+                default: `./dist/svelte/${categoryFor(slug)}/${slug}/index.js`
             });
         }
         expect(packageJson.exports['.']).toBeTruthy();
@@ -324,7 +331,7 @@ describe('public API contract (v1 freeze)', () => {
         const css = await readFile(path.join(packageRoot, 'src/ui.css'), 'utf8');
         const cardRoot = await readFile(path.join(componentsDir, 'card/card.svelte'), 'utf8');
         const codeBlock = await readFile(
-            path.join(componentsDir, 'code-block/code-block.svelte'),
+            path.join(componentPath('code-block'), 'code-block.svelte'),
             'utf8'
         );
 

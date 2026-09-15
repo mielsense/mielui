@@ -29,15 +29,15 @@ run() {
 	return 1
 }
 
-run "format" bun run format:check
-run "lint" bun run lint
-run "audit" bun run audit
-run "typecheck" bun run check
-run "unit/ssr tests" bun run test
-run "browser tests" bun --cwd=apps/docs run test:browser
-run "build" bun run build
-run "packed consumer artifact" bun --cwd=packages/mielui run verify:artifact
-run "CLI artifact" bun --cwd=packages/mielui run verify:cli-artifact
+run "format" pnpm run format:check
+run "lint" pnpm run lint
+run "audit" pnpm run audit
+run "typecheck" pnpm run check
+run "unit/ssr tests" pnpm run test
+run "browser tests" pnpm --dir=apps/docs run test:browser
+run "build" pnpm run build
+run "packed consumer artifact" pnpm --dir=packages/mielui run verify:artifact
+run "CLI artifact" pnpm --dir=packages/mielui run verify:cli-artifact
 
 echo
 if [ "$fail" -ne 0 ]; then

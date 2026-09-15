@@ -1,7 +1,7 @@
-import { afterEach, describe, expect, test } from 'bun:test';
 import { mkdir, mkdtemp, readFile, rm, writeFile } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import path from 'node:path';
+import { afterEach, describe, expect, test } from 'vitest';
 
 import { declaredDependencies, detectPackageManager, installFile } from './project';
 
@@ -19,8 +19,6 @@ afterEach(async () => {
 
 describe('detectPackageManager', () => {
     for (const [file, expected] of [
-        ['bun.lock', 'bun'],
-        ['bun.lockb', 'bun'],
         ['pnpm-lock.yaml', 'pnpm'],
         ['yarn.lock', 'yarn']
     ] as const) {

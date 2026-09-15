@@ -17,7 +17,7 @@
     const TITLE = 'Combobox';
     const SLUG = 'combobox';
 
-    const installCommand = `bunx @mielui/svelte add ${SLUG}`;
+    const installCommand = `pnpm dlx @mielui/svelte add ${SLUG}`;
 </script>
 
 <svelte:head>

@@ -19,7 +19,7 @@
 
     /**
      * Portal to `<body>` so the sheet escapes ancestor stacking contexts, the same
-     * pattern Modal uses, and the slide always paints over the page.
+     * pattern Dialog uses, and the slide always paints over the page.
      */
     $effect(() => {
         if (!portalEl || typeof document === 'undefined') {

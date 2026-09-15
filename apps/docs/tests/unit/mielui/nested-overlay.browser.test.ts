@@ -15,21 +15,21 @@ afterEach(() => {
     document.body.style.paddingRight = '';
 });
 
-describe('Sibling Modal + Popover body lock', () => {
-    it('keeps body locked when modal closes while popover stays open', async () => {
+describe('Sibling Dialog + Popover body lock', () => {
+    it('keeps body locked when dialog closes while popover stays open', async () => {
         // Controlled open avoids click-outside / full-screen overlay fighting the
         // sibling trigger. This is the nested-lock contract: two independent
         // layers, one shared refcount.
         const view = render(NestedOverlayFixture, { modalOpen: true, popoverOpen: true });
         await flush();
 
-        await expect.element(page.getByText('Sibling modal')).toBeInTheDocument();
+        await expect.element(page.getByText('Sibling dialog')).toBeInTheDocument();
         await expect.element(page.getByTestId('popover-body')).toBeInTheDocument();
         expect(document.body.style.overflow).toBe('hidden');
 
         await view.rerender({ modalOpen: false, popoverOpen: true });
         await flush();
-        await expect.element(page.getByText('Sibling modal')).not.toBeInTheDocument();
+        await expect.element(page.getByText('Sibling dialog')).not.toBeInTheDocument();
         await expect.element(page.getByTestId('popover-body')).toBeInTheDocument();
         expect(document.body.style.overflow).toBe('hidden');
     });
@@ -37,13 +37,13 @@ describe('Sibling Modal + Popover body lock', () => {
     it('unlocks body only after both layers close', async () => {
         const view = render(NestedOverlayFixture, { modalOpen: true, popoverOpen: true });
         await flush();
-        await expect.element(page.getByText('Sibling modal')).toBeInTheDocument();
+        await expect.element(page.getByText('Sibling dialog')).toBeInTheDocument();
         await expect.element(page.getByTestId('popover-body')).toBeInTheDocument();
         expect(document.body.style.overflow).toBe('hidden');
 
         await view.rerender({ modalOpen: false, popoverOpen: true });
         await flush();
-        await expect.element(page.getByText('Sibling modal')).not.toBeInTheDocument();
+        await expect.element(page.getByText('Sibling dialog')).not.toBeInTheDocument();
         await expect.element(page.getByTestId('popover-body')).toBeInTheDocument();
         expect(document.body.style.overflow).toBe('hidden');
 

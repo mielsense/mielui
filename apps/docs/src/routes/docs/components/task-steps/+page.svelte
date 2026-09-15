@@ -8,7 +8,7 @@
     import Hero from './examples/hero.svelte';
     import HeroSrc from './examples/hero.svelte?raw';
 
-    const installCommand = 'bunx @mielui/svelte add task-steps';
+    const installCommand = 'pnpm dlx @mielui/svelte add task-steps';
 </script>
 
 <svelte:head>

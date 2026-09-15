@@ -37,12 +37,12 @@ describe('Command -- open and close', () => {
         await expect.element(page.getByPlaceholder('Search commands')).toBeInTheDocument();
     });
 
-    it('uses Modal overlay and dialog motion', async () => {
+    it('uses Dialog overlay and dialog motion', async () => {
         render(CommandFixture, {});
         await flush();
         await openCommand();
 
-        const overlay = document.querySelector('[data-ui="modal-overlay"]');
+        const overlay = document.querySelector('[data-ui="dialog-overlay"]');
         const dialog = document.querySelector('[data-ui="command-content"]');
         expect(overlay).toBeInTheDocument();
         expect(dialog).toBeInTheDocument();
@@ -96,7 +96,7 @@ describe('Command -- open and close', () => {
         await flush();
         await new Promise((r) => setTimeout(r, 20));
 
-        (document.querySelector('[data-ui="modal-overlay"]') as HTMLElement).click();
+        (document.querySelector('[data-ui="dialog-overlay"]') as HTMLElement).click();
         await flush();
         await expect.element(page.getByTestId('cmd-profile')).toBeInTheDocument();
 

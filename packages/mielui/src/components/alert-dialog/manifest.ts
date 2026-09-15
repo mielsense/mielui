@@ -20,7 +20,7 @@ export const manifest: Manifest = {
         'components/alert-dialog/index.ts',
         'components/alert-dialog/manifest.ts'
     ],
-    components: ['modal', 'button'],
+    components: ['dialog', 'button'],
     shared: ['utils.cn'],
     peerDependencies: {
         cnfast: '^0.0.8',

@@ -24,8 +24,6 @@ function run(command: string, args: string[], cwd: string) {
             LEFTHOOK: '0',
             CI: '1',
             TMPDIR: process.env.TMPDIR ?? tmpdir(),
-            BUN_INSTALL_CACHE_DIR:
-                process.env.BUN_INSTALL_CACHE_DIR ?? path.join(tmpdir(), 'mielui-bun-cache'),
             npm_config_cache:
                 process.env.npm_config_cache ?? path.join(tmpdir(), 'mielui-npm-cache')
         }
@@ -131,19 +129,19 @@ async function writeCliConsumer(cwd: string, tarball: string) {
         path.join(cwd, 'src/routes/+page.svelte'),
         `<script lang="ts">
 	import { Button } from '$lib/mielui/components/button';
-	import * as Modal from '$lib/mielui/components/modal';
+	import * as Dialog from '$lib/mielui/components/dialog';
 </script>
 
 <main>
 	<h1>CLI artifact consumer</h1>
 	<Button>Primary</Button>
-	<Modal.Root>
-		<Modal.Trigger>Open</Modal.Trigger>
-		<Modal.Content>
-			<Modal.Title>From CLI source copy</Modal.Title>
-			<Modal.Description>Installed via the packed mielui binary.</Modal.Description>
-		</Modal.Content>
-	</Modal.Root>
+	<Dialog.Root>
+		<Dialog.Trigger>Open</Dialog.Trigger>
+		<Dialog.Content>
+			<Dialog.Title>From CLI source copy</Dialog.Title>
+			<Dialog.Description>Installed via the packed mielui binary.</Dialog.Description>
+		</Dialog.Content>
+	</Dialog.Root>
 </main>
 `
     );
@@ -185,7 +183,7 @@ const tarball = path.join(releaseDir, artifacts[0]);
 const consumer = await mkdtemp(path.join(tmpdir(), 'mielui-cli-artifact-'));
 try {
     await writeCliConsumer(consumer, tarball);
-    run('bun', ['install', '--ignore-scripts'], consumer);
+    run('pnpm', ['install', '--ignore-scripts'], consumer);
 
     // Must use the installed package binary, never packages/mielui/dist from the monorepo.
     const bin = mieluiBin(consumer);
@@ -196,7 +194,7 @@ try {
     runMielui(consumer, ['init', '--yes']);
     runMielui(consumer, ['list']);
     runMielui(consumer, ['add', 'button', '--yes']);
-    runMielui(consumer, ['add', 'modal', '--yes']);
+    runMielui(consumer, ['add', 'dialog', '--yes']);
     runMielui(consumer, ['add', 'theme', 'default']);
 
     const config = JSON.parse(await readFile(path.join(consumer, 'mielui.json'), 'utf8')) as {
@@ -212,7 +210,7 @@ try {
         'src/lib/mielui/ui.css',
         'src/lib/mielui/utils.ts',
         'src/lib/mielui/components/button/button.svelte',
-        'src/lib/mielui/components/modal/modal.svelte',
+        'src/lib/mielui/components/dialog/dialog.svelte',
         'src/lib/mielui/theme.css'
     ];
     for (const file of requiredFiles) {
@@ -224,8 +222,8 @@ try {
     // Idempotent re-add should not fail.
     runMielui(consumer, ['add', 'button', '--yes']);
 
-    run('bun', ['run', 'check'], consumer);
-    run('bun', ['run', 'build'], consumer);
+    run('pnpm', ['run', 'check'], consumer);
+    run('pnpm', ['run', 'build'], consumer);
 } finally {
     await rm(consumer, { recursive: true, force: true });
 }

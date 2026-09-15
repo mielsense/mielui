@@ -1,15 +1,15 @@
 <script lang="ts">
     import { cn, type DefaultProps } from '@mielui/svelte/utils';
-    import { getModalContext } from '../modal/context.svelte';
+    import { getDialogContext } from '../dialog/context.svelte';
 
     let { class: className, children, ...rest }: DefaultProps = $props();
 
-    const modal = getModalContext();
+    const dialog = getDialogContext();
 </script>
 
 <h1
     {...rest}
-    id={`${modal.id}-title`}
+    id={`${dialog.id}-title`}
     class={cn(
         className,
         'font-[family-name:var(--font-header)] text-xl font-[var(--font-weight-header)] tracking-[var(--tracking-header)] leading-snug text-balance text-foreground'

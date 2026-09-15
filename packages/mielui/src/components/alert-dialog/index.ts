@@ -1,5 +1,5 @@
 import type { ButtonProps } from '@mielui/svelte/components/button';
-import type { ModalOrientation, ModalSize } from '@mielui/svelte/components/modal';
+import type { DialogOrientation, DialogSize } from '@mielui/svelte/components/dialog';
 import type { DefaultProps } from '@mielui/svelte/utils';
 import type { Snippet } from 'svelte';
 import Root from './alert-dialog.svelte';
@@ -23,14 +23,14 @@ export type AlertDialogProps = {
     /** Sets supported browser chrome to red while the alert dialog is open. */
     error?: boolean;
     /** Controls the default width and action layout. Defaults to `vertical`. */
-    orientation?: ModalOrientation;
+    orientation?: DialogOrientation;
     children?: Snippet;
 };
 
 export type AlertDialogContentProps = {
     allowEscape?: boolean;
     /** Width preset. Vertical layouts remain compact; horizontal layouts are one step wider. */
-    size?: ModalSize;
+    size?: DialogSize;
 } & DefaultProps;
 
 export type AlertDialogActionProps = {

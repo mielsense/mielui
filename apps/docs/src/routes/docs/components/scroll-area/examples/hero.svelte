@@ -15,7 +15,7 @@
         { id: 8, date: 'Previous 7 days', title: 'Toast queue logic' },
         { id: 9, date: 'Previous 7 days', title: 'Color picker math' },
         { id: 10, date: 'Previous 7 days', title: 'Button loading states' },
-        { id: 11, date: 'Previous 7 days', title: 'Modal scroll behavior' },
+        { id: 11, date: 'Previous 7 days', title: 'Dialog scroll behavior' },
         { id: 12, date: 'Previous 7 days', title: 'Badge variant system' },
         { id: 13, date: 'Previous 7 days', title: 'Breadcrumb navigation' },
         { id: 14, date: 'Previous 7 days', title: 'Dropdown menu icons' },

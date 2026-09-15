@@ -17,7 +17,14 @@ import { GET as getRobots } from '../../../src/routes/robots.txt/+server';
 import { GET as getSitemap } from '../../../src/routes/sitemap.xml/+server';
 
 const root = resolve(process.cwd(), '../..');
-const removedComponents = ['approval-request', 'marquee', 'panel', 'separator'];
+const removedComponents = [
+    'modal',
+    'fullscreen-nav',
+    'approval-request',
+    'marquee',
+    'panel',
+    'separator'
+];
 
 function directoryNames(path: string): string[] {
     return readdirSync(path, { withFileTypes: true })
@@ -40,7 +47,7 @@ describe('docs release contracts', () => {
         ).filter((name) => !name.startsWith('['));
 
         expect([...components].sort((a, b) => a.localeCompare(b))).toEqual(packageComponents);
-        expect(componentGroups.map((group) => group.items.length)).toEqual([49, 8, 0]);
+        expect(componentGroups.map((group) => group.items.length)).toEqual([43, 5, 8, 0]);
         expect(routeComponents).toEqual(packageComponents);
     });
 
@@ -156,7 +163,7 @@ describe('docs release contracts', () => {
         expect(brandMark).toContain("import { BrandMark } from '@mielui/svelte'");
         expect(brandMark).toContain('`label?: string`');
         expect(toolbar).toContain('not a standalone CLI registry target');
-        expect(toolbar).toContain('bun add @mielui/svelte');
+        expect(toolbar).toContain('pnpm add @mielui/svelte');
         expect(toolbar).not.toContain('mielui add toolbar');
         expect(componentIndex).toContain('**Approval Request:**');
         expect(componentIndex).toContain('Compose `AlertDialog` directly');
@@ -223,8 +230,8 @@ describe('docs release contracts', () => {
         ];
         for (const page of pages) {
             const source = readFileSync(resolve(root, page), 'utf8');
-            expect(source, page).not.toContain('bunx @mielui/svelte init');
-            expect(source, page).not.toContain('bunx @mielui/svelte add');
+            expect(source, page).not.toContain('pnpm dlx mielui init');
+            expect(source, page).not.toContain('pnpm dlx mielui add');
             expect(source, page).not.toContain('/docs/styling');
         }
         // The theming guide documents the visual theme builder; the install
@@ -237,8 +244,8 @@ describe('docs release contracts', () => {
             resolve(root, 'apps/docs/src/routes/docs/installation/+page.svelte'),
             'utf8'
         );
-        expect(install).toContain('bunx --package @mielui/svelte mielui init');
-        expect(install).toContain('bun add @mielui/svelte');
+        expect(install).toContain('pnpm dlx @mielui/svelte init');
+        expect(install).toContain('pnpm add @mielui/svelte');
         const stylingRedirect = readFileSync(
             resolve(root, 'apps/docs/src/routes/docs/styling/+page.ts'),
             'utf8'
@@ -255,10 +262,10 @@ describe('docs release contracts', () => {
 
         // Compose still wires registry for local full-stack dev; v1 public docs do not require it.
         expect(compose).toContain("THEME_REGISTRY_URL: 'http://registry:4100'");
-        expect(dockerfile).toContain('FROM oven/bun:1.3.11');
+        expect(dockerfile).toContain('FROM node:22-bookworm-slim');
         expect(dockerfile).toContain('ENV DOCS_ADAPTER=node');
         expect(dockerfile).toContain('ENV LEFTHOOK=0');
-        expect(dockerfile).toContain('bun install --frozen-lockfile --ignore-scripts');
+        expect(dockerfile).toContain('pnpm install --frozen-lockfile --ignore-scripts');
         expect(dockerfile).toContain('COPY apps/installer-lab/package.json');
         expect(dockerfile).not.toContain('/repo/node_modules ./node_modules');
         expect(config).toContain("process.env.DOCS_ADAPTER === 'node'");
@@ -266,9 +273,9 @@ describe('docs release contracts', () => {
             "noExternal: ['@floating-ui/dom', 'clsx', 'tailwind-variants']"
         );
         expect(registryDockerfile).toContain('COPY packages/mielui ./packages/mielui');
-        expect(registryDockerfile).toContain('FROM oven/bun:1.3.11');
+        expect(registryDockerfile).toContain('FROM node:22-bookworm-slim');
         expect(registryDockerfile).toContain('ENV LEFTHOOK=0');
-        expect(registryDockerfile).toContain('bun install --frozen-lockfile --ignore-scripts');
+        expect(registryDockerfile).toContain('pnpm install --frozen-lockfile --ignore-scripts');
         expect(registryDockerfile).toContain("--filter='registry' --filter='@mielui/svelte'");
         expect(registryDockerfile).toContain('COPY --from=build');
         expect(registryDockerfile).toContain('COPY apps/installer-lab/package.json');

@@ -1,13 +1,13 @@
 <script lang="ts">
     import { cn } from '@mielui/svelte/utils';
     import { untrack } from 'svelte';
-    import { getModalContext } from '../modal/context.svelte';
+    import { getDialogContext } from '../dialog/context.svelte';
     import type { CommandHeaderProps } from '.';
 
     let { class: className, children, ...rest }: CommandHeaderProps = $props();
-    const modal = getModalContext();
+    const dialog = getDialogContext();
 
-    modal.headerSlot = untrack(() => ({
+    dialog.headerSlot = untrack(() => ({
         get children() {
             return children;
         },

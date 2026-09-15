@@ -4,12 +4,12 @@
  * For CLI developers; not shipped to library users (scripts/ is outside the
  * published `files`).
  *
- *   bun run sandbox                  # build, then run the full check suite
- *   bun run sandbox run add button   # run one mielui command in the sandbox app
- *   bun run sandbox reset [--bare]   # recreate the app (bare = omit peer deps)
- *   bun run sandbox clean            # delete the sandbox
+ *   pnpm run sandbox                  # build, then run the full check suite
+ *   pnpm run sandbox run add button   # run one mielui command in the sandbox app
+ *   pnpm run sandbox reset [--bare]   # recreate the app (bare = omit peer deps)
+ *   pnpm run sandbox clean            # delete the sandbox
  *
- * Prepend --no-build to skip rebuilding the CLI first (`bun run sandbox --no-build`).
+ * Prepend --no-build to skip rebuilding the CLI first (`pnpm run sandbox --no-build`).
  *
  * The check suite exercises every command and guard by invoking the real binary
  * against a fresh install and asserting on the result; it exits non-zero if any
@@ -97,8 +97,8 @@ function createApp(bare: boolean) {
         '/** Fixture for the mielui CLI sandbox -- its presence satisfies `mielui init`. */\nexport default {};\n'
     );
 
-    // Empty lockfile so the CLI detects bun as the package manager.
-    writeFileSync(path.join(appDir, 'bun.lock'), '');
+    // Empty lockfile so the CLI detects pnpm as the package manager.
+    writeFileSync(path.join(appDir, 'pnpm-lock.yaml'), '');
 
     writeFileSync(
         path.join(appDir, 'src/app.css'),
@@ -118,7 +118,7 @@ function createApp(bare: boolean) {
             '',
             'Ephemeral SvelteKit-shaped project for exercising the local `mielui` build.',
             'Created and reset by `packages/mielui/scripts/sandbox.ts`; everything under',
-            '`.sandbox/` is gitignored. Edits here are disposable -- `bun run sandbox reset`',
+            '`.sandbox/` is gitignored. Edits here are disposable -- `pnpm run sandbox reset`',
             'recreates it from scratch.',
             ''
         ].join('\n')
@@ -142,7 +142,7 @@ function buildCli(noBuild: boolean) {
         }
         return;
     }
-    const result = spawnSync('bun', ['run', 'build'], { cwd: cliRoot, stdio: 'inherit' });
+    const result = spawnSync('pnpm', ['run', 'build'], { cwd: cliRoot, stdio: 'inherit' });
     if (result.status !== 0) {
         console.error(pc.red('✖ CLI build failed.'));
         process.exit(result.status ?? 1);
@@ -159,9 +159,6 @@ function mielui(args: string[]): { status: number; out: string } {
     const output = openSync(outputFile, 'w');
     let result: ReturnType<typeof spawnSync>;
     try {
-        // Bun 1.3 can drop output when a Bun process captures a nested Node
-        // process through pipes. A real file descriptor keeps this a Node-runtime
-        // CLI test while preserving output for assertions.
         result = spawnSync('node', [distEntry, ...args], {
             cwd: appDir,
             stdio: ['ignore', output, output]
@@ -246,13 +243,13 @@ const CHECKS: Check[] = [
         }
     },
     {
-        label: 'add resolves transitive deps (command → modal, button)',
+        label: 'add resolves transitive deps (command → dialog, button)',
         run: () => {
             const f: string[] = [];
             initApp();
             const r = mielui(['add', 'command']);
             if (r.status !== 0) f.push(`add command exited ${r.status}`);
-            for (const name of ['command', 'modal', 'button']) {
+            for (const name of ['command', 'dialog', 'button']) {
                 if (!exists(`${MIELUI}/components/${name}`))
                     f.push(`missing component dir ${name}`);
                 if (!config().components?.[name]) f.push(`mielui.json missing ${name}`);
@@ -261,16 +258,17 @@ const CHECKS: Check[] = [
         }
     },
     {
-        label: 'add pulls internal deps (modal → _internal/overlay)',
+        label: 'add pulls internal deps (dialog → _internal/overlay)',
         run: () => {
             const f: string[] = [];
             initApp();
-            const r = mielui(['add', 'modal']);
-            if (r.status !== 0) f.push(`add modal exited ${r.status}`);
+            const r = mielui(['add', 'dialog']);
+            if (r.status !== 0) f.push(`add dialog exited ${r.status}`);
             if (!exists(`${MIELUI}/components/_internal/overlay/overlay.svelte.ts`)) {
                 f.push('internal overlay not installed');
             }
-            if (!exists(`${MIELUI}/components/modal/modal.svelte`)) f.push('modal not installed');
+            if (!exists(`${MIELUI}/components/dialog/dialog.svelte`))
+                f.push('dialog not installed');
             return f;
         }
     },
@@ -418,7 +416,7 @@ function verify(noBuild: boolean) {
     console.log();
     if (failed > 0) {
         console.log(`  ${pc.red(`${failed} of ${CHECKS.length} checks failed`)}`);
-        dim('reproduce a command with: bun run sandbox run <args>');
+        dim('reproduce a command with: pnpm run sandbox run <args>');
         process.exit(1);
     }
     console.log(`  ${pc.green(`all ${CHECKS.length} checks passed`)}`);
@@ -442,15 +440,15 @@ function printHelp() {
     console.log('  Run the local mielui build against a throwaway project and verify it works.');
     console.log();
     console.log(
-        `  ${pc.cyan('bun run sandbox')}                  run the full check suite (default)`
+        `  ${pc.cyan('pnpm run sandbox')}                  run the full check suite (default)`
     );
     console.log(
-        `  ${pc.cyan('bun run sandbox run <args>')}       run one mielui command in the app`
+        `  ${pc.cyan('pnpm run sandbox run <args>')}       run one mielui command in the app`
     );
     console.log(
-        `  ${pc.cyan('bun run sandbox reset [--bare]')}   recreate the app (bare omits peers)`
+        `  ${pc.cyan('pnpm run sandbox reset [--bare]')}   recreate the app (bare omits peers)`
     );
-    console.log(`  ${pc.cyan('bun run sandbox clean')}            delete the sandbox`);
+    console.log(`  ${pc.cyan('pnpm run sandbox clean')}            delete the sandbox`);
     console.log();
     dim('prepend --no-build to skip rebuilding the CLI first');
     console.log();

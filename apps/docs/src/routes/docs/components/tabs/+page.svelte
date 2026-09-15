@@ -15,7 +15,7 @@
     import Vertical from './examples/vertical.svelte';
     import VerticalSrc from './examples/vertical.svelte?raw';
 
-    const installCommand = 'bunx @mielui/svelte add tabs';
+    const installCommand = 'pnpm dlx @mielui/svelte add tabs';
 </script>
 
 <svelte:head>

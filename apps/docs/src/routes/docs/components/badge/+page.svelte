@@ -27,7 +27,7 @@
     import VariantWarning from './examples/variant-warning.svelte';
     import VariantWarningSrc from './examples/variant-warning.svelte?raw';
 
-    const installCommand = 'bunx @mielui/svelte add badge';
+    const installCommand = 'pnpm dlx @mielui/svelte add badge';
 </script>
 
 <svelte:head>

@@ -11,7 +11,7 @@
     import ReadyState from './examples/ready-state.svelte';
     import ReadyStateSrc from './examples/ready-state.svelte?raw';
 
-    const installCommand = 'bunx @mielui/svelte add spinner';
+    const installCommand = 'pnpm dlx @mielui/svelte add spinner';
 </script>
 
 <svelte:head>

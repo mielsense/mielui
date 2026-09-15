@@ -56,7 +56,7 @@ describe('CodeBlock copy buttons are CopyButton', () => {
 
     it('inline placement renders one CopyButton', () => {
         const { container } = render(CodeBlock.Root, {
-            props: { code: 'bunx mielui add code-block', lang: 'bash', copy: 'inline' }
+            props: { code: 'pnpm dlx mielui add code-block', lang: 'bash', copy: 'inline' }
         });
 
         const buttons = copyButtons(container);

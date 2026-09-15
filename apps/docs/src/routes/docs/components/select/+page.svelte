@@ -10,7 +10,7 @@
     import Scrollable from './examples/scrollable.svelte';
     import ScrollableSrc from './examples/scrollable.svelte?raw';
 
-    const installCommand = 'bunx @mielui/svelte add select';
+    const installCommand = 'pnpm dlx @mielui/svelte add select';
 </script>
 
 <svelte:head>

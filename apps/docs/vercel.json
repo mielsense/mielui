@@ -1,6 +1,6 @@
 {
     "$schema": "https://openapi.vercel.sh/vercel.json",
     "framework": "sveltekit",
-    "installCommand": "cd ../.. && bun install --frozen-lockfile",
-    "buildCommand": "cd ../.. && bunx turbo run build --filter=docs"
+    "installCommand": "cd ../.. && pnpm install --frozen-lockfile",
+    "buildCommand": "cd ../.. && pnpm exec turbo run build --filter=docs"
 }

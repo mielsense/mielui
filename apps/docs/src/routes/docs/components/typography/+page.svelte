@@ -13,7 +13,7 @@
     import TextRoles from './examples/text-roles.svelte';
     import TextRolesSrc from './examples/text-roles.svelte?raw';
 
-    const installCommand = 'bunx @mielui/svelte add typography';
+    const installCommand = 'pnpm dlx @mielui/svelte add typography';
     const usage = `import * as Typography from '@mielui/svelte/components/typography';
 
 <Typography.H2>Account settings</Typography.H2>

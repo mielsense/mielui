@@ -1,5 +1,5 @@
-import { describe, expect, test } from 'bun:test';
 import { existsSync, readFileSync } from 'node:fs';
+import { describe, expect, test } from 'vitest';
 import {
     BASE_PEER_DEPENDENCIES,
     installableFiles,
@@ -41,7 +41,7 @@ describe('resolveInstallPlan', () => {
             peerDependencies: { 'fuse.js': '^7.0.0' }
         }),
         component({ name: '_internal/overlay', visibility: 'internal' }),
-        component({ name: 'modal', components: ['button', '_internal/overlay'] })
+        component({ name: 'dialog', components: ['button', '_internal/overlay'] })
     ]);
 
     test('resolves transitive dependencies once', () => {
@@ -50,7 +50,7 @@ describe('resolveInstallPlan', () => {
     });
 
     test('pulls internal components as dependencies', () => {
-        const plan = resolveInstallPlan(fixture, ['modal']);
+        const plan = resolveInstallPlan(fixture, ['dialog']);
         expect(plan.components.map((c) => c.name)).toContain('_internal/overlay');
     });
 
@@ -73,7 +73,7 @@ describe('resolveInstallPlan', () => {
             'button',
             'popover',
             'command',
-            'modal',
+            'dialog',
             '_internal/overlay'
         ]);
     });
@@ -145,7 +145,7 @@ describe('registry snapshot', () => {
         expect(plan.components.map((component) => component.name)).toContain('scroll-area');
     });
 
-    test.each(['card', 'markdown', 'message', 'modal'])(
+    test.each(['card', 'markdown', 'message', 'dialog'])(
         'installs Typography with %s',
         async (name) => {
             const snapshot = await loadRegistryIndex();

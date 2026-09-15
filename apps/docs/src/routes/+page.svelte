@@ -1,9 +1,11 @@
 <script lang="ts">
     import ArrowRight from '@lucide/svelte/icons/arrow-right';
+    import Menu from '@lucide/svelte/icons/menu';
     import Moon from '@lucide/svelte/icons/moon';
     import Sun from '@lucide/svelte/icons/sun';
+    import X from '@lucide/svelte/icons/x';
     import { Button } from '@mielui/svelte/components/button';
-    import * as FullscreenNav from '@mielui/svelte/components/fullscreen-nav';
+    import * as Sheet from '@mielui/svelte/components/sheet';
     import * as Typography from '@mielui/svelte/components/typography';
     import { mode, toggleMode } from 'mode-watcher';
     import { resolve } from '$app/paths';
@@ -64,7 +66,7 @@
     <title>mielui · Themed Svelte components</title>
     <meta
         name="description"
-        content="57 Svelte 5 components. Restyle all of them from a handful of design tokens."
+        content="56 Svelte 5 components. Restyle all of them from a handful of design tokens."
     />
 </svelte:head>
 
@@ -72,12 +74,18 @@
     class="relative flex h-full flex-col overflow-hidden bg-background"
     aria-label="mielui introduction"
 >
-    <FullscreenNav.Root bind:open={mobileMenuOpen}>
+    <Sheet.Root bind:open={mobileMenuOpen}>
         <header
             class="relative z-10 flex w-full items-center justify-between px-4 py-3 sm:px-8 sm:py-4 motion-safe:[animation:docs-block-in_280ms_var(--ease-out)_both]"
         >
             <div class="flex min-w-0 flex-1 items-center gap-2">
-                <FullscreenNav.Trigger class="sm:hidden" />
+                <Sheet.Trigger
+                    class="sm:hidden"
+                    aria-label="Open navigation menu"
+                    variant="quiet"
+                    size="icon"
+                    ><Menu size={18} /></Sheet.Trigger
+                >
                 <Logo />
             </div>
             <nav aria-label="Primary" class="ml-6 hidden items-center gap-2 sm:flex">
@@ -157,7 +165,11 @@
                 </Button>
             </div>
         </header>
-        <FullscreenNav.Content label="Browse mielui" class="p-0 sm:hidden">
+        <Sheet.Content side="left" class="p-0 sm:hidden">
+            <Sheet.Title class="sr-only">Browse mielui</Sheet.Title>
+            <Sheet.Description class="sr-only"
+                >Documentation and component categories.</Sheet.Description
+            >
             <header class="flex shrink-0 items-center justify-between px-3 py-3">
                 <a
                     href={resolve('/')}
@@ -165,21 +177,40 @@
                 >
                     mielui
                 </a>
-                <FullscreenNav.Close />
+                <Sheet.Close aria-label="Close navigation menu" variant="quiet" size="icon"
+                    ><X size={18} /></Sheet.Close
+                >
             </header>
             <div class="min-h-0 flex-1 overflow-y-auto px-3 py-4">
-                <FullscreenNav.Group heading="Navigate">
-                    <FullscreenNav.Link href={resolve('/docs/introduction')}>
+                <section class="flex flex-col gap-2 ">
+                    <h2 class="mb-2 text-sm text-foreground-muted">Navigate</h2>
+                    <Button
+                        variant="quiet"
+                        class="w-full justify-start"
+                        onclick={() => { mobileMenuOpen = false; }}
+                        href={resolve('/docs/introduction')}
+                    >
                         Docs
-                    </FullscreenNav.Link>
-                    <FullscreenNav.Link href={resolve('/docs/components')}>
+                    </Button>
+                    <Button
+                        variant="quiet"
+                        class="w-full justify-start"
+                        onclick={() => { mobileMenuOpen = false; }}
+                        href={resolve('/docs/components')}
+                    >
                         Components
-                    </FullscreenNav.Link>
-                    <FullscreenNav.Link href={resolve('/studio')}>Studio</FullscreenNav.Link>
-                </FullscreenNav.Group>
+                    </Button>
+                    <Button
+                        variant="quiet"
+                        class="w-full justify-start"
+                        onclick={() => { mobileMenuOpen = false; }}
+                        href={resolve('/studio')}
+                        >Studio</Button
+                    >
+                </section>
             </div>
-        </FullscreenNav.Content>
-    </FullscreenNav.Root>
+        </Sheet.Content>
+    </Sheet.Root>
     <div
         class="relative flex w-full flex-1 flex-col items-start justify-end px-4 pt-8 pb-8 text-left sm:px-8 sm:pt-16 sm:pb-16"
     >
@@ -194,7 +225,7 @@
             class="mt-1 max-w-[38rem] motion-safe:[animation:docs-block-in_280ms_var(--ease-out)_both] motion-safe:[animation-delay:80ms]"
             style="font-size: 18px; font-weight: var(--font-weight-label);"
         >
-            Restyle 57 components from a handful of tokens.
+            Restyle 56 components from a handful of tokens.
         </Typography.Description>
         <div
             class="mt-3 flex w-full flex-col justify-start gap-3 sm:w-auto sm:flex-row sm:flex-wrap motion-safe:[animation:docs-block-in_280ms_var(--ease-out)_both] motion-safe:[animation-delay:115ms]"
@@ -204,7 +235,7 @@
                 size="lg"
                 class="w-full justify-center sm:w-auto"
             >
-                Browse all 57 components
+                Browse all 56 components
                 <ArrowRight size={16} />
             </Button>
             <Button

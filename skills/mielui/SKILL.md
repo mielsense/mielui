@@ -70,7 +70,7 @@ Before implementation:
 2. Fetch each selected component page from the links in `llms.txt`.
 3. Confirm exports, required props, bindable state, event signatures, dependencies, and examples.
 4. Reject removed components listed in the current components index and follow its migration guidance.
-5. Keep compound components in their documented namespace shape, such as `Modal.Root` and `Modal.Content`.
+5. Keep compound components in their documented namespace shape, such as `Dialog.Root` and `Dialog.Content`.
 
 Examples are API evidence, not page templates. Adapt their state model and composition to the user's real content.
 
@@ -83,12 +83,12 @@ When Mielui is absent, choose with the user unless the requested mode is already
 | Package | The project wants dependency-managed updates and imports from `@mielui/svelte`. |
 | Source copy | The project wants to own and modify component source. |
 
-Use the project's package manager. Translate the documentation's Bun examples when needed.
+Use the project's package manager. Translate the documentation's pnpm examples when needed.
 
 For package mode:
 
 ```sh
-bun add @mielui/svelte
+pnpm add @mielui/svelte
 ```
 
 Import the token sheet once in the application's global CSS:
@@ -102,8 +102,8 @@ Ignore the `mielui add` command in a component page when using package mode. Tha
 For source-copy mode:
 
 ```sh
-bunx --package @mielui/svelte mielui init -y
-bunx --package @mielui/svelte mielui add <component-slug>
+pnpm dlx @mielui/svelte init -y
+pnpm dlx @mielui/svelte add <component-slug>
 ```
 
 Import the generated token sheet once and use the aliases recorded in `mielui.json`; do not assume the default path if configuration already exists. Let the CLI resolve transitive Mielui dependencies. Add only components required by the design.

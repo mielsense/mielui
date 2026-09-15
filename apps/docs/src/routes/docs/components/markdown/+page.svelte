@@ -11,7 +11,7 @@
     import Streaming from './examples/streaming.svelte';
     import StreamingSrc from './examples/streaming.svelte?raw';
 
-    const installCommand = 'bunx @mielui/svelte add markdown';
+    const installCommand = 'pnpm dlx @mielui/svelte add markdown';
     const usageSnippet = `import { Markdown } from '@mielui/svelte/components/markdown';
 
 const content = [

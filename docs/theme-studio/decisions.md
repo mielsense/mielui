@@ -16,18 +16,18 @@ The branch `github-workflows` had **188 files / +9,291 lines** of pre-existing u
 
 Adopted, with components mapped:
 
-- **Modals:** Modal, AlertDialog.
+- **Dialogs:** Dialog, AlertDialog.
 - **Menus:** DropdownMenu, ContextMenu, Select, Combobox, Command, Popover, (HoverCard anchored).
 - **Controls:** Button, Input, Textarea, Checkbox, Switch, Toggle, ToggleGroup, Slider, RadioGroup, Badge, Label.
 - **Surfaces:** Card, Sheet, Accordion, Collapsible, ScrollArea, Skeleton, Separator.
 - **Transient:** Toast, Tooltip, HoverCard.
 - **Nav/Data:** Tabs, Breadcrumb, Pagination, Calendar, ColorPicker, Avatar, Progress, Marquee, Shortcut.
 
-**Rationale:** matches the brief's groups; Nav/Data added because the inventory has components (Tabs, Breadcrumb, Pagination, Calendar, etc.) that fit none of the five. A component may draw from multiple groups (e.g. ColorPicker is Nav/Data + uses Menu popover tokens); non-interactive members (Badge, Separator, Skeleton) carry no state tokens. **No Table component exists** (the inventory's "Table" was a false expectation). Group-scoped token prefixes: `--modal-*`, `--menu-*`, `--control-*`, `--surface-*`, `--transient-*`, `--nav-*`, with component tokens falling back via `var(--<component>-x, var(--<group>-x))`.
+**Rationale:** matches the brief's groups; Nav/Data added because the inventory has components (Tabs, Breadcrumb, Pagination, Calendar, etc.) that fit none of the five. A component may draw from multiple groups (e.g. ColorPicker is Nav/Data + uses Menu popover tokens); non-interactive members (Badge, Separator, Skeleton) carry no state tokens. **No Table component exists** (the inventory's "Table" was a false expectation). Group-scoped token prefixes: `--dialog-*`, `--menu-*`, `--control-*`, `--surface-*`, `--transient-*`, `--nav-*`, with component tokens falling back via `var(--<component>-x, var(--<group>-x))`.
 
 ### D0.4 — Scope of "make every token editable"
 
-Not all 77 Category-B tokens become controls. **Decision:** exclude B1 runtime/mechanism vars (`--ui-*`, `--popover-available-*`, `--mielui-marquee-*`); promote all B3 (genuine missing axes) and a curated B2 subset (one representative override per variant family, plus all surface/menu/transient color anchors) into the schema. **Rationale:** "a control that exists must do something" cuts both ways — exposing runtime vars as controls would create dead/confusing controls. Full per-variant color override is delivered through the existing Advanced Colors modal pattern, not the primary sidebar.
+Not all 77 Category-B tokens become controls. **Decision:** exclude B1 runtime/mechanism vars (`--ui-*`, `--popover-available-*`, `--mielui-marquee-*`); promote all B3 (genuine missing axes) and a curated B2 subset (one representative override per variant family, plus all surface/menu/transient color anchors) into the schema. **Rationale:** "a control that exists must do something" cuts both ways — exposing runtime vars as controls would create dead/confusing controls. Full per-variant color override is delivered through the existing Advanced Colors dialog pattern, not the primary sidebar.
 
 ### D0.5 — Half-wired `invertedPanels` feature
 
@@ -37,7 +37,7 @@ Not all 77 Category-B tokens become controls. **Decision:** exclude B1 runtime/m
 
 ### D1.1 — "No hardcoded values" interpreted as theme-level, not every pixel
 
-Tokenized values that represent a **theme decision** (padding, radius, color, timing, scalable sizes) and wired/resolved dead tokens. **Treated as acceptable component-structural constants (left as literals, listed here):** fixed overlay insets and `max-w-[25rem]` (Sheet), modal z-indices, the consistent `3px` focus-ring width, color-picker internal type sizes, avatar size variants (already variant-scoped), `ring-offset`/`ring-1` widths. **Rationale:** the thesis is "change the entire look," which is served by theme tokens — not by exposing every internal pixel as a control (which would create dead/confusing controls, violating principle #3). Exhaustive structural tokenization adds churn and control-surface noise without widening look-changes.
+Tokenized values that represent a **theme decision** (padding, radius, color, timing, scalable sizes) and wired/resolved dead tokens. **Treated as acceptable component-structural constants (left as literals, listed here):** fixed overlay insets and `max-w-[25rem]` (Sheet), dialog z-indices, the consistent `3px` focus-ring width, color-picker internal type sizes, avatar size variants (already variant-scoped), `ring-offset`/`ring-1` widths. **Rationale:** the thesis is "change the entire look," which is served by theme tokens — not by exposing every internal pixel as a control (which would create dead/confusing controls, violating principle #3). Exhaustive structural tokenization adds churn and control-surface noise without widening look-changes.
 
 ### D1.2 — Defer inert-flag wiring and group radius/elevation to Phase 4
 
@@ -81,7 +81,7 @@ Extracted the Padding-tab control config to `spacing-fields.ts` and added the fi
 
 ### D5.1 — Style = token-bundle layer applied via shared tokens; reference set bounded to 5 components
 
-A Style is a coherent named bundle of CSS-variable overrides (`StylePreset`) shipped one-file-per-style under `packages/mielui/src/themes/styles/`, auto-registered by an `import.meta.glob` registry (mirrors transitions) so the future CLI can install a subset. `styleToCss(style)` serializes the bundle into a trailing `:root, .dark { … }` block appended to the theme CSS so it wins the cascade in both modes. **Coherence is achieved through shared tokens** (radius scale, elevation, padding) that all reference components consume — so a "Sharp" button matches a "Sharp" card with no per-component code. Shipped Flat/Soft/Sharp on the 5-component reference set (Button/Card/Modal/DropdownMenu/Tooltip), exposed as a Style picker in the Shape tab, verified live (Soft visibly rounds the Card). **Did NOT exceed the reference set** (per brief). Rollout + deferred per-group token directions documented in `style-rollout.md`.
+A Style is a coherent named bundle of CSS-variable overrides (`StylePreset`) shipped one-file-per-style under `packages/mielui/src/themes/styles/`, auto-registered by an `import.meta.glob` registry (mirrors transitions) so the future CLI can install a subset. `styleToCss(style)` serializes the bundle into a trailing `:root, .dark { … }` block appended to the theme CSS so it wins the cascade in both modes. **Coherence is achieved through shared tokens** (radius scale, elevation, padding) that all reference components consume — so a "Sharp" button matches a "Sharp" card with no per-component code. Shipped Flat/Soft/Sharp on the 5-component reference set (Button/Card/Dialog/DropdownMenu/Tooltip), exposed as a Style picker in the Shape tab, verified live (Soft visibly rounds the Card). **Did NOT exceed the reference set** (per brief). Rollout + deferred per-group token directions documented in `style-rollout.md`.
 
 ### D5.2 — Style selection not persisted / not in undo-redo (bounded)
 

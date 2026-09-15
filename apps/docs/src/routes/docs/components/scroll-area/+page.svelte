@@ -12,7 +12,7 @@
 
     const TITLE = 'Scroll Area';
 
-    const installCommand = 'bunx @mielui/svelte add scroll-area';
+    const installCommand = 'pnpm dlx @mielui/svelte add scroll-area';
 </script>
 
 <svelte:head>

@@ -575,7 +575,7 @@ export const animationTokenDefinitions = [
     },
     {
         name: '--motion-duration-modal-in',
-        label: 'Modal open',
+        label: 'Dialog open',
         group: 'Speed',
         fallback: '180ms',
         kind: 'duration',
@@ -585,7 +585,7 @@ export const animationTokenDefinitions = [
     },
     {
         name: '--motion-duration-modal-out',
-        label: 'Modal close',
+        label: 'Dialog close',
         group: 'Speed',
         fallback: '110ms',
         kind: 'duration',
@@ -665,7 +665,7 @@ export const animationTokenDefinitions = [
     },
     {
         name: '--motion-modal-y',
-        label: 'Modal offset',
+        label: 'Dialog offset',
         group: 'Movement',
         fallback: '4px',
         kind: 'length',
@@ -675,7 +675,7 @@ export const animationTokenDefinitions = [
     },
     {
         name: '--motion-modal-scale-start',
-        label: 'Modal start scale',
+        label: 'Dialog start scale',
         group: 'Movement',
         fallback: '0.93',
         kind: 'scale',
@@ -685,7 +685,7 @@ export const animationTokenDefinitions = [
     },
     {
         name: '--motion-modal-blur',
-        label: 'Modal blur',
+        label: 'Dialog blur',
         group: 'Movement',
         fallback: '2px',
         kind: 'length',

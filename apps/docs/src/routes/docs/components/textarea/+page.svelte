@@ -14,7 +14,7 @@
 
     const TITLE = 'Textarea';
 
-    const installCommand = 'bunx @mielui/svelte add textarea';
+    const installCommand = 'pnpm dlx @mielui/svelte add textarea';
 </script>
 
 <svelte:head>

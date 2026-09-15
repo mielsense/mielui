@@ -14,7 +14,7 @@
 
     const TITLE = 'Skeleton';
 
-    const installCommand = 'bunx @mielui/svelte add skeleton';
+    const installCommand = 'pnpm dlx @mielui/svelte add skeleton';
 </script>
 
 <svelte:head>

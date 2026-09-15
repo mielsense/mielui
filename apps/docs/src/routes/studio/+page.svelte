@@ -26,10 +26,10 @@
     import * as Command from '@mielui/svelte/components/command';
     import * as ContextMenu from '@mielui/svelte/components/context-menu';
     import { CopyButton } from '@mielui/svelte/components/copy-button';
+    import * as Dialog from '@mielui/svelte/components/dialog';
     import * as DropdownMenu from '@mielui/svelte/components/dropdown-menu';
     import { Gauge } from '@mielui/svelte/components/gauge';
     import { Input } from '@mielui/svelte/components/input';
-    import * as Modal from '@mielui/svelte/components/modal';
     import { Pagination } from '@mielui/svelte/components/pagination';
     import * as Popover from '@mielui/svelte/components/popover';
     import { Progress, type ProgressProps } from '@mielui/svelte/components/progress';
@@ -1452,16 +1452,16 @@
 {/snippet}
 
 {#snippet modalDoneFooter()}
-    <Modal.Footer class="shrink-0">
-        <Modal.Close>
+    <Dialog.Footer class="shrink-0">
+        <Dialog.Close>
             Cancel
             <Shortcut shortcut="esc" />
-        </Modal.Close>
-        <Modal.Confirm>
+        </Dialog.Close>
+        <Dialog.Confirm>
             Done
             <Shortcut shortcut="enter" />
-        </Modal.Confirm>
-    </Modal.Footer>
+        </Dialog.Confirm>
+    </Dialog.Footer>
 {/snippet}
 
 {#snippet inspector()}
@@ -2176,19 +2176,19 @@
                                 Review, remind, and record payment.
                             </Typography.Description>
                         </div>
-                        <Modal.Root bind:open={invoiceModalOpen}>
-                            <Modal.Trigger>
+                        <Dialog.Root bind:open={invoiceModalOpen}>
+                            <Dialog.Trigger>
                                 <Plus size={15} />
                                 New invoice
-                            </Modal.Trigger>
-                            <Modal.Content>
-                                <Modal.Header>
-                                    <Modal.Title>New invoice</Modal.Title>
-                                    <Modal.Description>
+                            </Dialog.Trigger>
+                            <Dialog.Content>
+                                <Dialog.Header>
+                                    <Dialog.Title>New invoice</Dialog.Title>
+                                    <Dialog.Description>
                                         Draft a customer invoice. You can add line items later.
-                                    </Modal.Description>
-                                </Modal.Header>
-                                <Modal.Body class="gap-4">
+                                    </Dialog.Description>
+                                </Dialog.Header>
+                                <Dialog.Body class="gap-4">
                                     <Input
                                         bind:value={newInvoiceCustomer}
                                         label="Customer"
@@ -2200,19 +2200,19 @@
                                         placeholder="Optional context for the draft"
                                         autoresize
                                     />
-                                </Modal.Body>
-                                <Modal.Footer>
-                                    <Modal.Close>
+                                </Dialog.Body>
+                                <Dialog.Footer>
+                                    <Dialog.Close>
                                         Cancel
                                         <Shortcut shortcut="esc" />
-                                    </Modal.Close>
-                                    <Modal.Confirm onclick={createInvoice}>
+                                    </Dialog.Close>
+                                    <Dialog.Confirm onclick={createInvoice}>
                                         Create draft
                                         <Shortcut shortcut="enter" />
-                                    </Modal.Confirm>
-                                </Modal.Footer>
-                            </Modal.Content>
-                        </Modal.Root>
+                                    </Dialog.Confirm>
+                                </Dialog.Footer>
+                            </Dialog.Content>
+                        </Dialog.Root>
                     </div>
                     <Toolbar class="gap-2 p-0">
                         <Combobox.Root bind:value={invoiceQuery}>
@@ -2471,20 +2471,20 @@
         </Sheet.Content>
     </Sheet.Root>
 
-    <Modal.Root bind:open={colorsModalOpen} orientation="vertical">
-        <Modal.Content
+    <Dialog.Root bind:open={colorsModalOpen} orientation="vertical">
+        <Dialog.Content
             size="xl"
             contentClass="!h-[min(44rem,calc(var(--mielui-viewport-height)-2rem))] !max-h-[min(44rem,calc(var(--mielui-viewport-height)-2rem))] !max-w-5xl"
             surfaceClass="!overflow-hidden"
         >
-            <Modal.Header class="shrink-0">
-                <Modal.Title>Colors</Modal.Title>
-                <Modal.Description>
+            <Dialog.Header class="shrink-0">
+                <Dialog.Title>Colors</Dialog.Title>
+                <Dialog.Description>
                     Fine-tune every color token. Changes override the sidebar controls and the
                     selected preset.
-                </Modal.Description>
-            </Modal.Header>
-            <Modal.Body class="flex min-h-0 flex-1 flex-col gap-3 overflow-hidden">
+                </Dialog.Description>
+            </Dialog.Header>
+            <Dialog.Body class="flex min-h-0 flex-1 flex-col gap-3 overflow-hidden">
                 <div class="flex shrink-0 items-center justify-between gap-3">
                     <p class="text-sm text-foreground-muted">
                         Editing {formatChoice(appMode)} mode
@@ -2526,25 +2526,25 @@
                         {/each}
                     </div>
                 </ScrollArea>
-            </Modal.Body>
+            </Dialog.Body>
             {@render modalDoneFooter()}
-        </Modal.Content>
-    </Modal.Root>
+        </Dialog.Content>
+    </Dialog.Root>
 
-    <Modal.Root bind:open={spacingModalOpen} orientation="vertical">
-        <Modal.Content
+    <Dialog.Root bind:open={spacingModalOpen} orientation="vertical">
+        <Dialog.Content
             size="xl"
             contentClass="!h-[min(44rem,calc(var(--mielui-viewport-height)-2rem))] !max-h-[min(44rem,calc(var(--mielui-viewport-height)-2rem))] !max-w-5xl"
             surfaceClass="!overflow-hidden"
         >
-            <Modal.Header class="shrink-0">
-                <Modal.Title>Spacing</Modal.Title>
-                <Modal.Description>
+            <Dialog.Header class="shrink-0">
+                <Dialog.Title>Spacing</Dialog.Title>
+                <Dialog.Description>
                     Fine-tune spacing, controls, corners, and borders. Changes override the sidebar
                     controls and the selected preset.
-                </Modal.Description>
-            </Modal.Header>
-            <Modal.Body class="min-h-0 flex-1 overflow-hidden">
+                </Dialog.Description>
+            </Dialog.Header>
+            <Dialog.Body class="min-h-0 flex-1 overflow-hidden">
                 <ScrollArea class="min-h-0 flex-1 pr-2">
                     <div class="flex flex-col gap-5 pb-2">
                         {#each spacingTokenGroups as group (group.label)}
@@ -2576,25 +2576,25 @@
                         {/each}
                     </div>
                 </ScrollArea>
-            </Modal.Body>
+            </Dialog.Body>
             {@render modalDoneFooter()}
-        </Modal.Content>
-    </Modal.Root>
+        </Dialog.Content>
+    </Dialog.Root>
 
-    <Modal.Root bind:open={animationModalOpen} orientation="vertical">
-        <Modal.Content
+    <Dialog.Root bind:open={animationModalOpen} orientation="vertical">
+        <Dialog.Content
             size="xl"
             contentClass="!h-[min(44rem,calc(var(--mielui-viewport-height)-2rem))] !max-h-[min(44rem,calc(var(--mielui-viewport-height)-2rem))] !max-w-5xl"
             surfaceClass="!overflow-hidden"
         >
-            <Modal.Header class="shrink-0">
-                <Modal.Title>Motion</Modal.Title>
-                <Modal.Description>
-                    Fine-tune speeds and menu versus modal movement. Changes override the sidebar
+            <Dialog.Header class="shrink-0">
+                <Dialog.Title>Motion</Dialog.Title>
+                <Dialog.Description>
+                    Fine-tune speeds and menu versus dialog movement. Changes override the sidebar
                     controls and the selected preset.
-                </Modal.Description>
-            </Modal.Header>
-            <Modal.Body class="min-h-0 flex-1 overflow-hidden">
+                </Dialog.Description>
+            </Dialog.Header>
+            <Dialog.Body class="min-h-0 flex-1 overflow-hidden">
                 <ScrollArea class="min-h-0 flex-1 pr-2">
                     <div class="flex flex-col gap-5 pb-2">
                         {#each animationTokenGroups as group (group.label)}
@@ -2642,10 +2642,10 @@
                         {/each}
                     </div>
                 </ScrollArea>
-            </Modal.Body>
+            </Dialog.Body>
             {@render modalDoneFooter()}
-        </Modal.Content>
-    </Modal.Root>
+        </Dialog.Content>
+    </Dialog.Root>
 
     <AlertDialog.Root bind:open={presetDialogOpen} orientation="vertical">
         <AlertDialog.Content>

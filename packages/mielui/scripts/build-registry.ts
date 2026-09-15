@@ -1,7 +1,7 @@
 /**
  * Snapshots the mielui component registry into `registry/`.
  *
- * Run with bun from packages/mielui (`bun run build:registry`). Imports every
+ * Run with pnpm from packages/mielui (`pnpm run build:registry`). Imports every
  * `manifest.ts` under the component category folders, validates that the
  * files each manifest references exist, then writes:
  *
@@ -47,7 +47,10 @@ function registrySource(source: string, file: string): string {
         (_match, prefix: string, specifier: string, quote: string) => {
             const target = path.resolve(path.dirname(sourcePath(file)), specifier);
             const relative = path.relative(mieluiSrc, target).replaceAll(path.sep, '/');
-            const logical = relative.replace(/^(ai-components|chart-components)\//, 'components/');
+            const logical = relative.replace(
+                /^(ai-components|blocks|chart-components)\//,
+                'components/'
+            );
             const rewritten = path.posix.relative(path.posix.dirname(file), logical);
             return `${prefix}${rewritten.startsWith('.') ? rewritten : `./${rewritten}`}${quote}`;
         }

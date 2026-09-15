@@ -8,7 +8,7 @@ import type { Component } from 'svelte';
 import { render } from 'svelte/server';
 import { beforeEach, describe, expect, it } from 'vitest';
 import CommandFixture from '../../fixtures/CommandFixture.svelte';
-import ModalFixture from '../../fixtures/ModalFixture.svelte';
+import DialogFixture from '../../fixtures/DialogFixture.svelte';
 import SheetFixture from '../../fixtures/SheetFixture.svelte';
 
 type Fixture = Component<Record<string, unknown>>;
@@ -24,14 +24,14 @@ function renderAsync(component: unknown, props: Record<string, unknown>) {
 describe('Scoped component state -- concurrent SSR', () => {
     it('keeps open and closed instances independent across concurrent renders', async () => {
         const [closedModal, openModal, closedSheet, openSheet] = await Promise.all([
-            renderAsync(ModalFixture, { open: false }),
-            renderAsync(ModalFixture, { open: true }),
+            renderAsync(DialogFixture, { open: false }),
+            renderAsync(DialogFixture, { open: true }),
             renderAsync(SheetFixture, { open: false }),
             renderAsync(SheetFixture, { open: true })
         ]);
 
-        expect(closedModal.body).not.toContain('Modal Title');
-        expect(openModal.body).toContain('Modal Title');
+        expect(closedModal.body).not.toContain('Dialog Title');
+        expect(openModal.body).toContain('Dialog Title');
         expect(closedSheet.body).not.toContain('Sheet Title');
         expect(openSheet.body).toContain('Sheet Title');
     });
@@ -40,7 +40,7 @@ describe('Scoped component state -- concurrent SSR', () => {
         const renders = Array.from({ length: 60 }, (_, index) => {
             const open = index % 2 === 0;
             const fixture =
-                index % 3 === 0 ? CommandFixture : index % 3 === 1 ? ModalFixture : SheetFixture;
+                index % 3 === 0 ? CommandFixture : index % 3 === 1 ? DialogFixture : SheetFixture;
             return renderAsync(fixture, { open }).then((result) => ({
                 index,
                 open,
@@ -54,7 +54,7 @@ describe('Scoped component state -- concurrent SSR', () => {
                 index % 3 === 0
                     ? 'data-testid="cmd-profile"'
                     : index % 3 === 1
-                      ? 'Modal Title'
+                      ? 'Dialog Title'
                       : 'Sheet Title';
             expect(body.includes(marker)).toBe(open);
         }

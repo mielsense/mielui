@@ -12,7 +12,7 @@
     import MultipleChoice from './examples/multiple-choice.svelte';
     import MultipleChoiceSrc from './examples/multiple-choice.svelte?raw';
 
-    const installCommand = 'bunx --package @mielui/svelte mielui add question';
+    const installCommand = 'pnpm dlx @mielui/svelte add question';
     const usageSnippet = `import * as Question from '@mielui/svelte/components/question';
 import type { QuestionAnswer } from '@mielui/svelte/components/question';
 

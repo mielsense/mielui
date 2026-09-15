@@ -78,7 +78,7 @@ export function lintTree(root: string): Violation[] {
     return walk(root).flatMap((f) => lintSource(f, readFileSync(f, 'utf8')));
 }
 
-// `bun tools/token-lint/index.ts [root...]` prints violations; exits 0 in report mode.
+// `pnpm exec tsx tools/token-lint/index.ts [root...]` prints violations; exits 0 in report mode.
 // Accepts MULTIPLE roots so batch checks cover every directory passed (not just the first).
 if (import.meta.main) {
     const roots = process.argv.slice(2);
@@ -86,6 +86,7 @@ if (import.meta.main) {
         roots.push(
             'packages/mielui/src/components',
             'packages/mielui/src/ai-components',
+            'packages/mielui/src/blocks',
             'packages/mielui/src/chart-components'
         );
     }

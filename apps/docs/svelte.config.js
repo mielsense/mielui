@@ -15,10 +15,12 @@ const config = {
         adapter: deploymentAdapter,
         alias: {
             ...Object.fromEntries(
-                categories['ai-components'].map((component) => [
-                    `@mielui/svelte/components/${component}`,
-                    `../../packages/mielui/src/ai-components/${component}`
-                ])
+                Object.entries(categories).flatMap(([category, components]) =>
+                    components.map((component) => [
+                        `@mielui/svelte/components/${component}`,
+                        `../../packages/mielui/src/${category}/${component}`
+                    ])
+                )
             ),
             '@mielui/svelte/brand-mark': '../../packages/mielui/src/brand-mark.svelte',
             '@mielui/svelte': '../../packages/mielui/src',

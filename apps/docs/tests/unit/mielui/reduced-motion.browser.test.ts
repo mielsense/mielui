@@ -6,8 +6,8 @@ import AccordionFixture from '../../fixtures/AccordionFixture.svelte';
 import AlertDialogFixture from '../../fixtures/AlertDialogFixture.svelte';
 import CollapsibleFixture from '../../fixtures/CollapsibleFixture.svelte';
 import CommandFixture from '../../fixtures/CommandFixture.svelte';
+import DialogFixture from '../../fixtures/DialogFixture.svelte';
 import DropdownMenuFixture from '../../fixtures/DropdownMenuFixture.svelte';
-import ModalFixture from '../../fixtures/ModalFixture.svelte';
 import PopoverFixture from '../../fixtures/PopoverFixture.svelte';
 import SheetFixture from '../../fixtures/SheetFixture.svelte';
 
@@ -86,14 +86,14 @@ describe('Reduced motion -- content visible within 50ms of open action under pre
         window.matchMedia = originalMatchMedia;
     });
 
-    it('modal -- content present immediately on open (~no transition)', async () => {
+    it('dialog -- content present immediately on open (~no transition)', async () => {
         const start = performance.now();
-        render(ModalFixture, { open: true });
+        render(DialogFixture, { open: true });
         await flush();
 
         const elapsed = performance.now() - start;
         const title = document.querySelector('h1');
-        expect(title?.textContent).toMatch(/Modal Title/);
+        expect(title?.textContent).toMatch(/Dialog Title/);
 
         // Threshold is permissive -- we want to catch animations that take
         // hundreds of ms, not micro-jitter from the test setup itself.

@@ -2,7 +2,7 @@
 
 SvelteKit component library inspired by shadcn/ui. **Svelte 5 + Tailwind v4.**
 
-This package is the importable library: `bun add @mielui/svelte` and import components
+This package is the importable library: `pnpm add @mielui/svelte` and import components
 directly. (If you'd rather own the source in your own repo, shadcn-style, use the
 `mielui` CLI's `add` command instead. This package is the "install it" path.)
 
@@ -11,14 +11,14 @@ directly. (If you'd rather own the source in your own repo, shadcn-style, use th
 - **Svelte 5** and **Tailwind v4** (peer dependencies). The easiest base is a
   SvelteKit app with Tailwind already set up:
     ```sh
-    bunx sv create my-app          # pick Skeleton + TypeScript
-    cd my-app && bunx sv add tailwindcss
+    pnpm dlx sv create my-app          # pick Skeleton + TypeScript
+    cd my-app && pnpm dlx sv add tailwindcss
     ```
 
 ## Install
 
 ```sh
-bun add @mielui/svelte
+pnpm add @mielui/svelte
 # or: npm i @mielui/svelte / pnpm add @mielui/svelte
 ```
 
@@ -116,7 +116,7 @@ import {Button} from '@mielui/svelte/components/button'; import * as AlertDialog
 - **Namespaced:** `Accordion`, `Alert`, `AlertDialog`, `Attachment`, `Avatar`,
   `Breadcrumb`, `Card` (includes `variant="panel"`), `Collapsible`, `ColorPicker`,
   `Combobox`, `Command`, `ContextMenu`, `Conversation`, `DropdownMenu`,
-  `FullscreenNav`, `HoverCard`, `Message`, `Modal`, `Popover`, `Composer`,
+  `HoverCard`, `Message`, `Dialog`, `Popover`, `Composer`,
   `RadioGroup`, `Select`, `Sheet`, `Tabs`, `ToggleGroup`, `Tool`, `Tooltip`.
 
 ## License

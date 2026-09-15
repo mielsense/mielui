@@ -9,7 +9,7 @@
     import HeroSrc from './examples/hero.svelte?raw';
 
     const TITLE = 'Show More';
-    const installCommand = 'bunx @mielui/svelte add show-more';
+    const installCommand = 'pnpm dlx @mielui/svelte add show-more';
 </script>
 
 <svelte:head>

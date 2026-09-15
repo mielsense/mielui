@@ -1,7 +1,7 @@
 <script lang="ts">
     import { Button, type ButtonProps } from '@mielui/svelte/components/button';
     import { cn, type DefaultProps } from '@mielui/svelte/utils';
-    import { getModalContext } from '../modal/context.svelte';
+    import { getDialogContext } from '../dialog/context.svelte';
 
     type Props = {
         closeOnClick?: boolean;
@@ -9,7 +9,7 @@
     } & DefaultProps &
         ButtonProps;
 
-    const modal = getModalContext();
+    const dialog = getDialogContext();
     let {
         class: className,
         children,
@@ -18,11 +18,11 @@
         variant,
         ...rest
     }: Props = $props();
-    const confirmVariant = $derived(variant ?? (modal.state.error ? 'destructive' : 'primary'));
+    const confirmVariant = $derived(variant ?? (dialog.state.error ? 'destructive' : 'primary'));
 
     function handleClick(event: MouseEvent) {
         if (closeOnClick) {
-            modal.state.open = false;
+            dialog.state.open = false;
         }
         onclick?.(event);
     }

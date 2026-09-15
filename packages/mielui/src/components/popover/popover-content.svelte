@@ -223,7 +223,7 @@
     /**
      * Locks body scroll whenever the popover is open.
      *
-     * The scroll lock is shared with Modal and Sheet so a nested teardown cannot
+     * The scroll lock is shared with Dialog and Sheet so a nested teardown cannot
      * clear another layer's lock. This must not gate on `popover` existing -- a
      * controlled `open=true` has to lock even before the wrapper finishes binding.
      */
@@ -241,7 +241,7 @@
 
     /**
      * Traps Tab focus inside the panel while open. Hoverable surfaces (tooltip,
-     * hover-card) are excluded: they are not keyboard-modal, and stealing focus
+     * hover-card) are excluded: they are not keyboard-dialog, and stealing focus
      * would fight their pointer-driven open/close.
      */
     $effect(() => {

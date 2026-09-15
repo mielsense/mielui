@@ -10,7 +10,7 @@
     import WithRequired from './examples/with-required.svelte';
     import WithRequiredSrc from './examples/with-required.svelte?raw';
 
-    const installCommand = 'bunx @mielui/svelte add label';
+    const installCommand = 'pnpm dlx @mielui/svelte add label';
 </script>
 
 <svelte:head>

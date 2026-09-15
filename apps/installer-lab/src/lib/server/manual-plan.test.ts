@@ -16,21 +16,21 @@ describe('manual command plan', () => {
                 expect(commands.some((value) => value.includes('@fontsource/dm-sans'))).toBe(false);
                 expect(commands.some((value) => value.startsWith('cd '))).toBe(false);
                 for (const value of commands) expect(value).not.toContain(manualRoot);
-                expect(commands).toContain('bunx svelte-check --tsconfig ./tsconfig.json');
-                expect(commands).toContain('bun run build');
+                expect(commands).toContain('pnpm exec svelte-check --tsconfig ./tsconfig.json');
+                expect(commands).toContain('pnpm run build');
                 expect(commands.at(-1)).toContain('--host 127.0.0.1');
 
                 if (installPath === 'cli') {
                     expect(commands).toHaveLength(5);
-                    expect(commands[0]).toBe('bunx --no-install mielui init -y');
-                    expect(commands[1]).toBe('bunx --no-install mielui add * -y');
+                    expect(commands[0]).toBe('pnpm exec mielui init -y');
+                    expect(commands[1]).toBe('pnpm exec mielui add * -y');
                     expect(commands.join('\n')).not.toContain('../staging');
                 } else if (source === 'local') {
                     expect(commands).toHaveLength(3);
                     expect(commands.join('\n')).not.toContain('../staging');
                 } else {
                     expect(commands).toHaveLength(4);
-                    expect(commands[0]).toBe('bun add @mielui/svelte@latest');
+                    expect(commands[0]).toBe('pnpm add @mielui/svelte@latest');
                 }
             });
         }

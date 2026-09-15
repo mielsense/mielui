@@ -16,8 +16,6 @@ function run(command: string, args: string[], cwd: string) {
             ...process.env,
             LEFTHOOK: '0',
             TMPDIR: process.env.TMPDIR ?? tmpdir(),
-            BUN_INSTALL_CACHE_DIR:
-                process.env.BUN_INSTALL_CACHE_DIR ?? path.join(tmpdir(), 'mielui-bun-cache'),
             npm_config_cache:
                 process.env.npm_config_cache ?? path.join(tmpdir(), 'mielui-npm-cache')
         }
@@ -112,7 +110,7 @@ async function writeConsumer(cwd: string, tarball: string) {
     await writeFile(
         path.join(cwd, 'src/routes/+page.svelte'),
         `<script lang="ts">
-	import { Button, CodeBlock, Input, Modal, Select, Toaster } from '@mielui/svelte';
+	import { Button, CodeBlock, Input, Dialog, Select, Toaster } from '@mielui/svelte';
 	let selected = $state('alpha');
 </script>
 
@@ -123,13 +121,13 @@ async function writeConsumer(cwd: string, tarball: string) {
 	<Button>Primary action</Button>
 	<CodeBlock code="const value = 1;" lang="ts" />
 	<Input label="Email" type="email" />
-	<Modal.Root>
-		<Modal.Trigger>Open dialog</Modal.Trigger>
-		<Modal.Content>
-			<Modal.Title>Package smoke dialog</Modal.Title>
-			<Modal.Description>Installed from the packed tarball.</Modal.Description>
-		</Modal.Content>
-	</Modal.Root>
+	<Dialog.Root>
+		<Dialog.Trigger>Open dialog</Dialog.Trigger>
+		<Dialog.Content>
+			<Dialog.Title>Package smoke dialog</Dialog.Title>
+			<Dialog.Description>Installed from the packed tarball.</Dialog.Description>
+		</Dialog.Content>
+	</Dialog.Root>
 	<Select.Root bind:value={selected}>
 		<Select.Trigger>Choose an option</Select.Trigger>
 		<Select.Content>
@@ -143,7 +141,7 @@ async function writeConsumer(cwd: string, tarball: string) {
     );
 }
 
-run('bun', ['run', 'build'], packageRoot);
+run('pnpm', ['run', 'build'], packageRoot);
 await rm(releaseDir, { recursive: true, force: true });
 await mkdir(releaseDir, { recursive: true });
 
@@ -187,10 +185,10 @@ for (const file of paths) {
 const consumer = await mkdtemp(path.join(tmpdir(), 'mielui-packed-consumer-'));
 try {
     await writeConsumer(consumer, tarball);
-    run('bun', ['install', '--ignore-scripts'], consumer);
-    run('bun', ['run', 'check'], consumer);
-    run('bun', ['run', 'optimize'], consumer);
-    run('bun', ['run', 'build'], consumer);
+    run('pnpm', ['install', '--ignore-scripts'], consumer);
+    run('pnpm', ['run', 'check'], consumer);
+    run('pnpm', ['run', 'optimize'], consumer);
+    run('pnpm', ['run', 'build'], consumer);
 } finally {
     await rm(consumer, { recursive: true, force: true });
 }

@@ -2,7 +2,7 @@
     import { Button, type ButtonProps } from '@mielui/svelte/components/button';
     import { cn, type DefaultProps } from '@mielui/svelte/utils';
     import { onMount } from 'svelte';
-    import { getModalContext } from '../modal/context.svelte';
+    import { getDialogContext } from '../dialog/context.svelte';
 
     type Props = {
         closeOnClick?: boolean;
@@ -12,12 +12,12 @@
 
     let { class: className, children, onclick, closeOnClick = true, ...rest }: Props = $props();
 
-    const modal = getModalContext();
+    const dialog = getDialogContext();
     let element = $state<HTMLButtonElement | HTMLAnchorElement | undefined>(undefined);
 
     function handleClick(event: MouseEvent) {
         if (closeOnClick) {
-            modal.state.open = false;
+            dialog.state.open = false;
         }
         onclick?.(event);
     }

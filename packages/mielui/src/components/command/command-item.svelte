@@ -2,12 +2,12 @@
     import { Button } from '@mielui/svelte/components/button';
     import { cn } from '@mielui/svelte/utils';
     import { onMount } from 'svelte';
-    import { getModalContext } from '../modal/context.svelte';
+    import { getDialogContext } from '../dialog/context.svelte';
     import type { CommandItem, CommandItemProps } from '.';
     import { getCommandContext } from './context.svelte';
 
     const command = getCommandContext();
-    const modal = getModalContext();
+    const dialog = getDialogContext();
     const localId = $props.id();
     const itemId = `${command.id}-option-${localId}`;
 
@@ -60,7 +60,7 @@
         if (disabled) {
             return;
         }
-        modal.state.open = false;
+        dialog.state.open = false;
         callback?.();
         onclick?.();
     }

@@ -24,7 +24,7 @@
     import Single from './examples/single.svelte';
     import SingleSrc from './examples/single.svelte?raw';
 
-    const installCommand = 'bunx @mielui/svelte add code-block';
+    const installCommand = 'pnpm dlx @mielui/svelte add code-block';
 
     const usageSnippet = `import { CodeBlock } from '$lib/mielui/components/code-block';
 
@@ -78,7 +78,7 @@ import { CodeBlock } from '$lib/mielui/components/code-block';
             <Typography.InlineCode>highlight.js</Typography.InlineCode>. Install it if your project
             doesn't have it yet:
         </Typography.Text>
-        <InstallCommand command="bun add highlight.js" />
+        <InstallCommand command="pnpm add highlight.js" />
     </section>
 
     <!-- ─── Usage ─────────────────────────────────────────────────── -->

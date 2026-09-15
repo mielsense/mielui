@@ -15,7 +15,7 @@ export const BASE_PEER_DEPENDENCIES = [
 
 /**
  * The registry snapshot lives at the package root (next to dist/), so it
- * resolves from both src (bun test) and the bundled dist entry.
+ * resolves from both src (pnpm test) and the bundled dist entry.
  */
 const registryDir = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../registry');
 

@@ -1,11 +1,10 @@
+import { node } from '@elysia/node';
 import { openapi } from '@elysiajs/openapi';
 import { Elysia } from 'elysia';
 
 import { themesController } from './services/themes';
 
-const port = Number(process.env.PORT ?? 4100);
-
-export const app = new Elysia({ serve: { maxRequestBodySize: 128 * 1024 } })
+export const app = new Elysia({ adapter: node(), serve: { maxRequestBodySize: 128 * 1024 } })
     .onError(({ code, error, set }) => {
         if (
             code === 'VALIDATION' ||
@@ -38,8 +37,3 @@ export const app = new Elysia({ serve: { maxRequestBodySize: 128 * 1024 } })
     .get('/', () => 'Mielui theme registry');
 
 export default app;
-
-if (import.meta.main) {
-    app.listen(port);
-    console.log(`Mielui registry listening at ${app.server?.hostname}:${app.server?.port}`);
-}

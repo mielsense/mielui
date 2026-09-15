@@ -14,8 +14,8 @@ Use this guide to narrow candidates, then read each candidate's current Markdown
 | Run or discover commands | Command | Use for an application command palette, not ordinary form selection. |
 | Show contextual actions | Dropdown Menu or Context Menu | Dropdown Menu has an explicit trigger; Context Menu is secondary pointer context and needs another accessible path. |
 | Collect short or long text | Input or Textarea | Use the component's integrated label, description, and validation API when available. |
-| Confirm a consequential action | Alert Dialog | Use Modal for general tasks; reserve Alert Dialog for decisions that need explicit interruption and confirmation. |
-| Complete a focused task in place | Modal | Use Sheet when preserving more page context or a side-oriented workflow matters. |
+| Confirm a consequential action | Alert Dialog | Use Dialog for general tasks; reserve Alert Dialog for decisions that need explicit interruption and confirmation. |
+| Complete a focused task in place | Dialog | Use Sheet when preserving more page context or a side-oriented workflow matters. |
 | Show anchored supplemental UI | Popover or Hover Card | Popover is interactive; Hover Card is preview information and must not hold essential actions. |
 | Communicate persistent inline state | Alert | Keep it next to the content or action it qualifies. |
 | Confirm a transient action | Toast | Do not use a toast for errors or decisions that require immediate action. |
@@ -23,7 +23,7 @@ Use this guide to narrow candidates, then read each candidate's current Markdown
 | Show indeterminate work | Spinner or Skeleton | Spinner marks compact activity; Skeleton reserves the shape of incoming content. |
 | Organize related content | Card | Use only when a surface communicates a real grouping or interactive object better than spacing. |
 | Reveal optional detail | Collapsible, Accordion, or Show More | Collapsible controls one region, Accordion manages peer sections, and Show More clamps long prose. |
-| Navigate peers or hierarchy | Tabs, Breadcrumb, Pagination, or Fullscreen Nav | Match the information model; do not use Tabs as a generic layout switch when controls or links are more accurate. |
+| Navigate peers or hierarchy | Tabs, Breadcrumb, Pagination, or Sheet with navigation links | Match the information model; do not use Tabs as a generic layout switch when controls or links are more accurate. |
 
 ## Compose AI Interfaces
 
@@ -61,8 +61,8 @@ Render `Question` as a temporary takeover when the agent cannot continue without
 
 | Choice | Decision |
 | --- | --- |
-| Modal vs Alert Dialog | Modal supports a task; Alert Dialog blocks on a consequential decision. |
-| Modal vs Sheet | Modal concentrates attention; Sheet preserves more spatial relationship to the page. |
+| Dialog vs Alert Dialog | Dialog supports a task; Alert Dialog blocks on a consequential decision. |
+| Dialog vs Sheet | Dialog concentrates attention; Sheet preserves more spatial relationship to the page. |
 | Select vs Combobox | Select is compact lookup; Combobox adds search. |
 | Combobox vs Command | Combobox produces a field value; Command invokes application actions. |
 | Alert vs Toast | Alert persists in context; Toast is transient confirmation. |

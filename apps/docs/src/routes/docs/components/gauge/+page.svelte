@@ -10,7 +10,7 @@
     import UsageLimit from './examples/usage-limit.svelte';
     import UsageLimitSrc from './examples/usage-limit.svelte?raw';
 
-    const installCommand = 'bunx --package @mielui/svelte mielui add gauge';
+    const installCommand = 'pnpm dlx @mielui/svelte add gauge';
 </script>
 
 <svelte:head>

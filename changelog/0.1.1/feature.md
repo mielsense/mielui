@@ -1,2 +1,1 @@
-
-- Group the source and docs into Components, AI components, and an empty Chart components category. Existing imports and docs URLs stay available.
+- Group components into Components, Blocks, AI components, and an empty Chart components category. Existing imports and docs URLs stay available.

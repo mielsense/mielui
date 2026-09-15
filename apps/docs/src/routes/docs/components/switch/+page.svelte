@@ -14,7 +14,7 @@
 
     const TITLE = 'Switch';
 
-    const installCommand = 'bunx @mielui/svelte add switch';
+    const installCommand = 'pnpm dlx @mielui/svelte add switch';
 </script>
 
 <svelte:head>

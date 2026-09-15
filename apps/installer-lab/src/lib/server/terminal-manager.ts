@@ -340,10 +340,14 @@ export class TerminalManager {
 
             if (source === 'local') {
                 const packageRoot = path.join(repoRoot, 'packages', 'mielui');
-                await this.prepareCommand({ bin: 'bun', args: ['run', 'build'], cwd: packageRoot });
                 await this.prepareCommand({
-                    bin: 'bun',
-                    args: ['pm', 'pack', '--filename', manualTarballPath, '--quiet'],
+                    bin: 'pnpm',
+                    args: ['run', 'build'],
+                    cwd: packageRoot
+                });
+                await this.prepareCommand({
+                    bin: 'pnpm',
+                    args: ['pack', '--out', manualTarballPath],
                     cwd: packageRoot
                 });
             }
