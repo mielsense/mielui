@@ -1,6 +1,6 @@
 <script lang="ts">
     import { Button } from '@mielui/svelte/components/button';
-    import Shortcut from '@mielui/svelte/components/shortcut';
+    import Kbd from '@mielui/svelte/components/kbd';
     import { toast } from '@mielui/svelte/components/toast';
 
     function ontrigger() {
@@ -16,11 +16,11 @@
 <div class="flex flex-wrap items-center justify-center gap-3">
     <Button variant="ghost">
         Cancel
-        <Shortcut shortcut="esc" />
+        <Kbd shortcut="esc" />
     </Button>
     <Button>
         Save
-        <Shortcut shortcut="enter" />
+        <Kbd shortcut="enter" />
     </Button>
-    <Shortcut shortcut="K" {ontrigger} />
+    <Kbd shortcut="K" {ontrigger} />
 </div>

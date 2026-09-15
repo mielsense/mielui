@@ -21,8 +21,8 @@
     variant={action.variant ?? 'outline'}
     size="sm"
     data-ui="toast-action"
-    class={cn('shrink-0', className)}
-    onclick={(event) => {
+    class={cn(className, 'shrink-0')}
+    onclick={(event: MouseEvent) => {
         onclick?.(event as MouseEvent & { currentTarget: EventTarget & HTMLButtonElement });
         if (event.defaultPrevented) {
             return;

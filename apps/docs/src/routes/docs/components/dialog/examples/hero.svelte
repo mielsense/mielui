@@ -2,7 +2,7 @@
     import Globe from '@lucide/svelte/icons/globe';
     import * as Dialog from '@mielui/svelte/components/dialog';
     import { Input } from '@mielui/svelte/components/input';
-    import Shortcut from '@mielui/svelte/components/shortcut';
+    import Kbd from '@mielui/svelte/components/kbd';
 
     let open = $state(false);
     let domain = $state('');
@@ -29,11 +29,11 @@
         <Dialog.Footer>
             <Dialog.Close>
                 Cancel
-                <Shortcut shortcut="esc" />
+                <Kbd shortcut="esc" />
             </Dialog.Close>
             <Dialog.Confirm>
                 Add
-                <Shortcut shortcut="enter" />
+                <Kbd shortcut="enter" />
             </Dialog.Confirm>
         </Dialog.Footer>
     </Dialog.Content>

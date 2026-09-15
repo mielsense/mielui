@@ -4,3 +4,5 @@
 - Toast timers pause during keyboard interaction, and close buttons remain visible.
 
 - Toast descriptions have more room above a compact title and action row.
+
+- Tag Input badges use stronger borders and a contrasting fill.

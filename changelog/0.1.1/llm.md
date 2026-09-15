@@ -12,3 +12,7 @@ Replace `Modal` with `Dialog` in imports and composed parts. Use `@mielui/svelte
 ## Toast composition
 
 Toast is now a namespace with Root, Content, Footer, Title, Icon, Actions, Action, and Close. Replace `<Toast toast={item} />` with `<Toast.Root toast={item} />`. Toaster and toast.success() keep their existing imports and behavior. Root without children uses these public parts. With children, it renders only the supplied composition. Put description or custom content in Content and place Title and Actions inside Footer. Actions defaults to the toast actions; custom Action parts take an action object with label, callback, and optional variant. Close calls the toast exit callback. Root itself does not register a toast or create a portal. Use toast() and Toaster for timed, portaled notifications. Use persistent: true for a decision that must wait for a user. There is no progress bar. Hover and keyboard focus both pause timed notifications.
+
+## Kbd and Show More
+
+Replace Shortcut and ShortcutProps with Kbd and KbdProps. Import Kbd from @mielui/svelte/components/kbd or the package root. The shortcut string prop and ontrigger callback retain their behavior. The previous components/shortcut entry is removed. Show More is now grouped with Blocks in source and docs; its public import stays @mielui/svelte/components/show-more.

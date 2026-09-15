@@ -121,6 +121,8 @@ export type {
 export * as FileDiff from './blocks/file-diff';
 export type { MarkdownProps } from './blocks/markdown';
 export { Markdown } from './blocks/markdown';
+export type { ShowMoreProps } from './blocks/show-more';
+export { ShowMore } from './blocks/show-more';
 export type { TaskStep, TaskStepStatus, TaskStepsProps } from './blocks/task-steps';
 export { TaskSteps } from './blocks/task-steps';
 export type {
@@ -228,6 +230,8 @@ export type {
 export * as HoverCard from './components/hover-card';
 export type { InputProps } from './components/input';
 export { Input } from './components/input';
+export type { KbdProps } from './components/kbd';
+export { Kbd } from './components/kbd';
 export type { LabelProps } from './components/label';
 export { Label } from './components/label';
 export type { PaginationProps } from './components/pagination';
@@ -261,10 +265,6 @@ export type {
     SheetTriggerProps
 } from './components/sheet';
 export * as Sheet from './components/sheet';
-export type { ShortcutProps } from './components/shortcut';
-export { Shortcut } from './components/shortcut';
-export type { ShowMoreProps } from './components/show-more';
-export { ShowMore } from './components/show-more';
 export type { SkeletonProps, SkeletonSwapProps } from './components/skeleton';
 export { Skeleton, SkeletonSwap } from './components/skeleton';
 export type { SliderProps } from './components/slider';

@@ -1,6 +1,6 @@
 <script lang="ts">
     import * as Dialog from '@mielui/svelte/components/dialog';
-    import Shortcut from '@mielui/svelte/components/shortcut';
+    import Kbd from '@mielui/svelte/components/kbd';
 
     let open = $state(false);
     let nestedOpen = $state(false);
@@ -28,11 +28,11 @@
                     <Dialog.Footer>
                         <Dialog.Close>
                             Cancel
-                            <Shortcut shortcut="esc" />
+                            <Kbd shortcut="esc" />
                         </Dialog.Close>
                         <Dialog.Confirm>
                             Transfer
-                            <Shortcut shortcut="enter" />
+                            <Kbd shortcut="enter" />
                         </Dialog.Confirm>
                     </Dialog.Footer>
                 </Dialog.Content>
@@ -41,11 +41,11 @@
         <Dialog.Footer>
             <Dialog.Close>
                 Cancel
-                <Shortcut shortcut="esc" />
+                <Kbd shortcut="esc" />
             </Dialog.Close>
             <Dialog.Confirm>
                 Save
-                <Shortcut shortcut="enter" />
+                <Kbd shortcut="enter" />
             </Dialog.Confirm>
         </Dialog.Footer>
     </Dialog.Content>

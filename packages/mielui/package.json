@@ -145,6 +145,16 @@
             "types": "./dist/svelte/blocks/task-steps/index.d.ts",
             "svelte": "./dist/svelte/blocks/task-steps/index.js",
             "default": "./dist/svelte/blocks/task-steps/index.js"
+        },
+        "./components/show-more": {
+            "types": "./dist/svelte/blocks/show-more/index.d.ts",
+            "svelte": "./dist/svelte/blocks/show-more/index.js",
+            "default": "./dist/svelte/blocks/show-more/index.js"
+        },
+        "./components/show-more/*": {
+            "types": "./dist/svelte/blocks/show-more/*",
+            "svelte": "./dist/svelte/blocks/show-more/*",
+            "default": "./dist/svelte/blocks/show-more/*"
         }
     },
     "publishConfig": {

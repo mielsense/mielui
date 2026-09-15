@@ -1,6 +1,6 @@
 <script lang="ts">
     import { CodeBlock } from '@mielui/svelte/components/code-block';
-    import Shortcut from '@mielui/svelte/components/shortcut';
+    import Kbd from '@mielui/svelte/components/kbd';
     import * as Typography from '@mielui/svelte/components/typography';
     import { ComponentPreview, InstallCommand } from '$lib/components/docs';
     import DocsPager from '$lib/components/docs/docs-pager.svelte';
@@ -30,7 +30,7 @@
             </Typography.H1>
             <Typography.Text variant="lead" class="mt-2 max-w-2xl">
                 A command palette with fuzzy search and grouped results. Often opened with
-                <Shortcut shortcut="cmd+K" />.
+                <Kbd shortcut="cmd+K" />.
             </Typography.Text>
         </div>
         <DocsPager />

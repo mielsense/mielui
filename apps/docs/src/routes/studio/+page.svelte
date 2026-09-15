@@ -30,6 +30,7 @@
     import * as DropdownMenu from '@mielui/svelte/components/dropdown-menu';
     import { Gauge } from '@mielui/svelte/components/gauge';
     import { Input } from '@mielui/svelte/components/input';
+    import Kbd from '@mielui/svelte/components/kbd';
     import { Pagination } from '@mielui/svelte/components/pagination';
     import * as Popover from '@mielui/svelte/components/popover';
     import { Progress, type ProgressProps } from '@mielui/svelte/components/progress';
@@ -37,7 +38,6 @@
     import { ScrollArea } from '@mielui/svelte/components/scroll-area';
     import * as Select from '@mielui/svelte/components/select';
     import * as Sheet from '@mielui/svelte/components/sheet';
-    import Shortcut from '@mielui/svelte/components/shortcut';
     import { Slider, type SliderProps } from '@mielui/svelte/components/slider';
     import { Switch } from '@mielui/svelte/components/switch';
     import * as Tabs from '@mielui/svelte/components/tabs';
@@ -1455,11 +1455,11 @@
     <Dialog.Footer class="shrink-0">
         <Dialog.Close>
             Cancel
-            <Shortcut shortcut="esc" />
+            <Kbd shortcut="esc" />
         </Dialog.Close>
         <Dialog.Confirm>
             Done
-            <Shortcut shortcut="enter" />
+            <Kbd shortcut="enter" />
         </Dialog.Confirm>
     </Dialog.Footer>
 {/snippet}
@@ -1970,14 +1970,14 @@
                                     <User size={13} />
                                     Profile
                                 </span>
-                                <Shortcut shortcut="shift+cmd+P" />
+                                <Kbd shortcut="shift+cmd+P" />
                             </DropdownMenu.Item>
                             <DropdownMenu.Item callback={() => (studioView = 'settings')}>
                                 <span class="flex items-center gap-2">
                                     <Settings size={13} />
                                     Preferences
                                 </span>
-                                <Shortcut shortcut="cmd+," />
+                                <Kbd shortcut="cmd+," />
                             </DropdownMenu.Item>
                             <DropdownMenu.Item
                                 callback={() =>
@@ -1990,7 +1990,7 @@
                                     <CreditCard size={13} />
                                     Billing
                                 </span>
-                                <Shortcut shortcut="cmd+B" />
+                                <Kbd shortcut="cmd+B" />
                             </DropdownMenu.Item>
                             <DropdownMenu.Separator />
                             <DropdownMenu.Item
@@ -2013,7 +2013,7 @@
                                     <LogOut size={13} />
                                     Sign out
                                 </span>
-                                <Shortcut shortcut="shift+cmd+Q" />
+                                <Kbd shortcut="shift+cmd+Q" />
                             </DropdownMenu.Item>
                         </DropdownMenu.Content>
                     </DropdownMenu.Root>
@@ -2036,7 +2036,7 @@
                                 <Search size={14} />
                                 <span class="truncate">Search</span>
                             </span>
-                            <Shortcut
+                            <Kbd
                                 shortcut="cmd+k"
                                 class="shrink-0"
                                 ontrigger={() => {
@@ -2204,11 +2204,11 @@
                                 <Dialog.Footer>
                                     <Dialog.Close>
                                         Cancel
-                                        <Shortcut shortcut="esc" />
+                                        <Kbd shortcut="esc" />
                                     </Dialog.Close>
                                     <Dialog.Confirm onclick={createInvoice}>
                                         Create draft
-                                        <Shortcut shortcut="enter" />
+                                        <Kbd shortcut="enter" />
                                     </Dialog.Confirm>
                                 </Dialog.Footer>
                             </Dialog.Content>
@@ -2661,11 +2661,11 @@
             <AlertDialog.Footer>
                 <AlertDialog.Exit onclick={() => (pendingPreset = null)}>
                     Keep draft
-                    <Shortcut shortcut="esc" />
+                    <Kbd shortcut="esc" />
                 </AlertDialog.Exit>
                 <AlertDialog.Confirm onclick={confirmPresetChange}>
                     Replace draft
-                    <Shortcut shortcut="enter" />
+                    <Kbd shortcut="enter" />
                 </AlertDialog.Confirm>
             </AlertDialog.Footer>
         </AlertDialog.Content>

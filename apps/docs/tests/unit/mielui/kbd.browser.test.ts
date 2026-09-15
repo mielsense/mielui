@@ -2,7 +2,7 @@ import { tick } from 'svelte';
 import { describe, expect, it, vi } from 'vitest';
 import { render } from 'vitest-browser-svelte';
 
-import ShortcutFixture from '../../fixtures/ShortcutFixture.svelte';
+import KbdFixture from '../../fixtures/KbdFixture.svelte';
 import { queryRequired } from '../../test-utils';
 
 type KeyOptions = Pick<KeyboardEventInit, 'metaKey' | 'ctrlKey' | 'shiftKey' | 'altKey' | 'repeat'>;
@@ -19,10 +19,10 @@ async function press(key: string, options: KeyOptions = {}, target: HTMLElement 
     return event;
 }
 
-describe('Shortcut -- activation', () => {
+describe('Kbd -- activation', () => {
     it('activates its nearest Button and prevents the matched key event', async () => {
         const onactivate = vi.fn();
-        render(ShortcutFixture, { shortcut: 'cmd+k', onactivate });
+        render(KbdFixture, { shortcut: 'cmd+k', onactivate });
 
         const event = await press('k', { metaKey: true });
 
@@ -31,7 +31,7 @@ describe('Shortcut -- activation', () => {
     });
 
     it('opens a Command palette through its native Trigger click', async () => {
-        render(ShortcutFixture, { mode: 'command', shortcut: 'ctrl+k' });
+        render(KbdFixture, { mode: 'command', shortcut: 'ctrl+k' });
 
         await press('k', { ctrlKey: true });
 
@@ -40,7 +40,7 @@ describe('Shortcut -- activation', () => {
 
     it('supports standalone ontrigger activation', async () => {
         const onactivate = vi.fn();
-        render(ShortcutFixture, { mode: 'standalone', shortcut: 'option+return', onactivate });
+        render(KbdFixture, { mode: 'standalone', shortcut: 'option+return', onactivate });
 
         await press('Enter', { altKey: true });
 
@@ -49,7 +49,7 @@ describe('Shortcut -- activation', () => {
 
     it('requires exact modifiers', async () => {
         const onactivate = vi.fn();
-        render(ShortcutFixture, { shortcut: 'ctrl+k', onactivate });
+        render(KbdFixture, { shortcut: 'ctrl+k', onactivate });
 
         const missing = await press('k');
         const extra = await press('k', { ctrlKey: true, shiftKey: true });
@@ -61,7 +61,7 @@ describe('Shortcut -- activation', () => {
 
     it('ignores editable targets, repeats, and disabled owners', async () => {
         const editableActivate = vi.fn();
-        render(ShortcutFixture, { shortcut: 'k', onactivate: editableActivate });
+        render(KbdFixture, { shortcut: 'k', onactivate: editableActivate });
         const input = queryRequired<HTMLInputElement>(document, '[data-testid="editable"]');
 
         await press('k', {}, input);
@@ -69,7 +69,7 @@ describe('Shortcut -- activation', () => {
         expect(editableActivate).not.toHaveBeenCalled();
 
         const disabledActivate = vi.fn();
-        render(ShortcutFixture, {
+        render(KbdFixture, {
             shortcut: 'ctrl+d',
             disabled: true,
             onactivate: disabledActivate
@@ -82,7 +82,7 @@ describe('Shortcut -- activation', () => {
 
     it('removes its listener when unmounted', async () => {
         const onactivate = vi.fn();
-        const view = render(ShortcutFixture, { mode: 'standalone', shortcut: 'k', onactivate });
+        const view = render(KbdFixture, { mode: 'standalone', shortcut: 'k', onactivate });
         view.unmount();
 
         await press('k');
@@ -91,7 +91,7 @@ describe('Shortcut -- activation', () => {
     });
 });
 
-describe('Shortcut -- parsing and display', () => {
+describe('Kbd -- parsing and display', () => {
     const cases: Array<{
         shortcut: string;
         key: string;
@@ -126,7 +126,7 @@ describe('Shortcut -- parsing and display', () => {
     for (const testCase of cases) {
         it(`uses one normalized contract for ${testCase.shortcut}`, async () => {
             const onactivate = vi.fn();
-            const view = render(ShortcutFixture, {
+            const view = render(KbdFixture, {
                 mode: 'standalone',
                 shortcut: testCase.shortcut,
                 onactivate
@@ -144,7 +144,7 @@ describe('Shortcut -- parsing and display', () => {
     it('fails safely for empty, unknown, and multiple base keys', async () => {
         for (const invalid of ['', 'hyper', 'k+x']) {
             const onactivate = vi.fn();
-            const view = render(ShortcutFixture, {
+            const view = render(KbdFixture, {
                 mode: 'standalone',
                 shortcut: invalid,
                 onactivate

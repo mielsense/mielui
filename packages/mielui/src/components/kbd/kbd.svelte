@@ -1,9 +1,9 @@
 <script lang="ts">
     import { cn } from '@mielui/svelte/utils';
     import { onMount } from 'svelte';
-    import type { ShortcutProps } from '.';
+    import type { KbdProps } from '.';
 
-    let { children, class: className, shortcut = '', ontrigger, ...rest }: ShortcutProps = $props();
+    let { children, class: className, shortcut = '', ontrigger, ...rest }: KbdProps = $props();
     let element: HTMLElement;
 
     /** Maps keybinding tokens to the glyphs people recognise from native menus. */

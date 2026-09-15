@@ -7,8 +7,8 @@
     import * as Avatar from '@mielui/svelte/components/avatar';
     import { Badge } from '@mielui/svelte/components/badge';
     import { Button } from '@mielui/svelte/components/button';
+    import Kbd from '@mielui/svelte/components/kbd';
     import * as Sheet from '@mielui/svelte/components/sheet';
-    import Shortcut from '@mielui/svelte/components/shortcut';
 
     let open = $state(false);
     let current = $state('home');
@@ -72,7 +72,7 @@
         <Sheet.Footer>
             <Sheet.Close class="w-full" variant="outline">
                 Close
-                <Shortcut shortcut="esc" />
+                <Kbd shortcut="esc" />
             </Sheet.Close>
         </Sheet.Footer>
     </Sheet.Content>

@@ -9,10 +9,10 @@
     import * as Avatar from '@mielui/svelte/components/avatar';
     import { Button } from '@mielui/svelte/components/button';
     import { Input } from '@mielui/svelte/components/input';
+    import Kbd from '@mielui/svelte/components/kbd';
     import { Label } from '@mielui/svelte/components/label';
     import * as Select from '@mielui/svelte/components/select';
     import * as Sheet from '@mielui/svelte/components/sheet';
-    import Shortcut from '@mielui/svelte/components/shortcut';
     import { Textarea } from '@mielui/svelte/components/textarea';
 
     let open = $state(false);
@@ -186,11 +186,11 @@
             <Sheet.Footer>
                 <Sheet.Close onclick={reset}>
                     Cancel
-                    <Shortcut shortcut="esc" />
+                    <Kbd shortcut="esc" />
                 </Sheet.Close>
                 <Button onclick={() => createIssue()}>
                     Create issue
-                    <Shortcut shortcut="enter" />
+                    <Kbd shortcut="enter" />
                 </Button>
             </Sheet.Footer>
         </Sheet.Content>

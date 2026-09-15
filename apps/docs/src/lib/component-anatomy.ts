@@ -227,7 +227,7 @@ export const componentAnatomy = {
         { name: 'Sheet.Content', description: 'Renders the sheet surface.' },
         { name: 'Sheet.Close', description: 'Closes the sheet.' }
     ],
-    shortcut: [{ name: 'Shortcut', description: 'Displays a keyboard shortcut.' }],
+    kbd: [{ name: 'Kbd', description: 'Displays a keyboard shortcut.' }],
     skeleton: [
         { name: 'Skeleton', description: 'Displays a static loading placeholder.' },
         { name: 'SkeletonSwap', description: 'Swaps a delayed placeholder into reserved content.' }

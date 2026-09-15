@@ -1,7 +1,7 @@
 <script lang="ts">
     import Trash from '@lucide/svelte/icons/trash-2';
     import * as AlertDialog from '@mielui/svelte/components/alert-dialog';
-    import Shortcut from '@mielui/svelte/components/shortcut';
+    import Kbd from '@mielui/svelte/components/kbd';
 </script>
 
 <div class="grid place-items-center">
@@ -24,11 +24,11 @@
             <AlertDialog.Footer>
                 <AlertDialog.Exit>
                     Cancel
-                    <Shortcut shortcut="esc" />
+                    <Kbd shortcut="esc" />
                 </AlertDialog.Exit>
                 <AlertDialog.Confirm>
                     Delete
-                    <Shortcut shortcut="enter" />
+                    <Kbd shortcut="enter" />
                 </AlertDialog.Confirm>
             </AlertDialog.Footer>
         </AlertDialog.Content>

@@ -3,10 +3,10 @@
     import { Badge } from '@mielui/svelte/components/badge';
     import { Button } from '@mielui/svelte/components/button';
     import { Checkbox } from '@mielui/svelte/components/checkbox';
+    import Kbd from '@mielui/svelte/components/kbd';
     import { Label } from '@mielui/svelte/components/label';
     import * as Select from '@mielui/svelte/components/select';
     import * as Sheet from '@mielui/svelte/components/sheet';
-    import Shortcut from '@mielui/svelte/components/shortcut';
     import { Switch } from '@mielui/svelte/components/switch';
 
     let open = $state(false);
@@ -96,14 +96,14 @@
         <Sheet.Footer>
             <Sheet.Close variant="ghost" onclick={reset}>
                 Reset
-                <Shortcut shortcut="esc" />
+                <Kbd shortcut="esc" />
             </Sheet.Close>
             <Button onclick={() => apply()}>
                 Apply filters
                 {#if activeCount > 0}
                     <Badge variant="secondary">{activeCount}</Badge>
                 {/if}
-                <Shortcut shortcut="enter" />
+                <Kbd shortcut="enter" />
             </Button>
         </Sheet.Footer>
     </Sheet.Content>

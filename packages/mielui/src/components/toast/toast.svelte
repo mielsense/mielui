@@ -49,7 +49,7 @@
     role="status"
     aria-live="polite"
     aria-atomic="true"
-    class={cn('mielui-inset-frame relative flex w-full flex-col text-foreground shadow-[var(--elevation-float)]', className)}
+    class={cn(className, 'mielui-inset-frame relative flex w-full flex-col text-foreground shadow-[var(--elevation-float)]')}
     onmouseenter={(event) => {
         hovered = true;
         syncTimer();

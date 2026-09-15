@@ -12,7 +12,7 @@
     <div
         {...rest}
         data-ui="toast-actions"
-        class={cn('ml-auto flex flex-wrap items-center gap-2', className)}
+        class={cn(className, 'ml-auto flex flex-wrap items-center gap-2')}
     >
         {#if children}
             {@render children()}

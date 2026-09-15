@@ -8,7 +8,7 @@
     import SquarePen from '@lucide/svelte/icons/square-pen';
     import Users from '@lucide/svelte/icons/users';
     import * as Command from '@mielui/svelte/components/command';
-    import Shortcut from '@mielui/svelte/components/shortcut';
+    import Kbd from '@mielui/svelte/components/kbd';
 </script>
 
 <div class="flex w-full items-center justify-center">
@@ -21,13 +21,13 @@
                 <Search size={16} />
                 <span class="truncate">Search or jump to…</span>
             </div>
-            <Shortcut shortcut="cmd+K" class="shrink-0" />
+            <Kbd shortcut="cmd+K" class="shrink-0" />
         </Command.Trigger>
         <Command.Content>
             <Command.Header>
                 <span>Command</span>
                 <span class="ml-auto flex items-center gap-1.5">
-                    <Shortcut shortcut="esc" />
+                    <Kbd shortcut="esc" />
                     close
                 </span>
             </Command.Header>
@@ -52,7 +52,7 @@
                     <Command.Item name="New issue">
                         <SquarePen size={16} />
                         <span class="flex-1">New issue</span>
-                        <Shortcut shortcut="C" />
+                        <Kbd shortcut="C" />
                     </Command.Item>
                     <Command.Item name="New project">
                         <FolderPlus size={16} />

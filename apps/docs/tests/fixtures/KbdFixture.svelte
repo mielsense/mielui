@@ -1,7 +1,7 @@
 <script lang="ts">
     import Button from '@mielui/svelte/components/button';
     import * as Command from '@mielui/svelte/components/command';
-    import Shortcut from '@mielui/svelte/components/shortcut';
+    import Kbd from '@mielui/svelte/components/kbd';
 
     let {
         mode = 'button',
@@ -20,7 +20,7 @@
     <Command.Root>
         <Command.Trigger data-testid="command-trigger">
             Open command
-            <Shortcut {shortcut} data-testid="shortcut" />
+            <Kbd {shortcut} data-testid="shortcut" />
         </Command.Trigger>
         <Command.Content>
             <Command.Search placeholder="Search commands" />
@@ -28,11 +28,11 @@
         </Command.Content>
     </Command.Root>
 {:else if mode === 'standalone'}
-    <Shortcut {shortcut} ontrigger={onactivate} data-testid="shortcut" />
+    <Kbd {shortcut} ontrigger={onactivate} data-testid="shortcut" />
 {:else}
     <Button onclick={onactivate} {disabled} data-testid="owner">
         Run action
-        <Shortcut {shortcut} data-testid="shortcut" />
+        <Kbd {shortcut} data-testid="shortcut" />
     </Button>
 {/if}
 

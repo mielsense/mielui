@@ -13,7 +13,7 @@
     {...rest}
     type="button"
     data-ui="toast-close"
-    class={cn('inline-flex size-7 shrink-0 items-center justify-center rounded-[var(--radius-md)] text-foreground-muted transition-colors [transition-duration:var(--motion-duration-hover)] ease-[var(--ease-out)] hover:bg-secondary hover:text-foreground focus-visible:outline-none focus-visible:shadow-[var(--focus-ring)] motion-reduce:transition-none', className)}
+    class={cn(className, 'inline-flex size-7 shrink-0 items-center justify-center rounded-[var(--radius-md)] text-foreground-muted transition-colors [transition-duration:var(--motion-duration-hover)] ease-[var(--ease-out)] hover:bg-secondary hover:text-foreground focus-visible:outline-none focus-visible:shadow-[var(--focus-ring)] motion-reduce:transition-none')}
     onclick={(event) => {
         onclick?.(event);
         if (!event.defaultPrevented) {

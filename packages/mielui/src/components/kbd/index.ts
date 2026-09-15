@@ -1,12 +1,12 @@
 import type { Snippet } from 'svelte';
 import type { HTMLAttributes } from 'svelte/elements';
-import Shortcut from './shortcut.svelte';
+import Kbd from './kbd.svelte';
 
-export type ShortcutProps = Omit<HTMLAttributes<HTMLElement>, 'children'> & {
+export type KbdProps = Omit<HTMLAttributes<HTMLElement>, 'children'> & {
     children?: Snippet;
     shortcut: string;
     ontrigger?: (event: KeyboardEvent) => void;
 };
 
-export { Shortcut };
-export default Shortcut;
+export { Kbd };
+export default Kbd;

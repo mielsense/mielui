@@ -1,7 +1,7 @@
 <script lang="ts">
     import * as Dialog from '@mielui/svelte/components/dialog';
+    import Kbd from '@mielui/svelte/components/kbd';
     import * as Select from '@mielui/svelte/components/select';
-    import Shortcut from '@mielui/svelte/components/shortcut';
 
     let open = $state(false);
     let role = $state('editor');
@@ -44,11 +44,11 @@
         <Dialog.Footer>
             <Dialog.Close>
                 Cancel
-                <Shortcut shortcut="esc" />
+                <Kbd shortcut="esc" />
             </Dialog.Close>
             <Dialog.Confirm>
                 Invite
-                <Shortcut shortcut="enter" />
+                <Kbd shortcut="enter" />
             </Dialog.Confirm>
         </Dialog.Footer>
     </Dialog.Content>

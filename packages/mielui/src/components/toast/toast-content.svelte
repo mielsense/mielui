@@ -10,7 +10,7 @@
 <div
     {...rest}
     data-ui="toast-content"
-    class={cn('mielui-inset-surface flex min-h-18 min-w-0 flex-col justify-center px-4 py-4 text-[length:var(--font-size-body)] leading-body text-foreground-muted break-words', className)}
+    class={cn(className, 'mielui-inset-surface flex min-h-18 min-w-0 flex-col justify-center px-4 py-4 text-[length:var(--font-size-body)] leading-body text-foreground-muted break-words')}
 >
     {#if children}
         {@render children()}

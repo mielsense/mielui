@@ -1,6 +1,6 @@
 <script lang="ts">
     import * as ContextMenu from '@mielui/svelte/components/context-menu';
-    import Shortcut from '@mielui/svelte/components/shortcut';
+    import Kbd from '@mielui/svelte/components/kbd';
 </script>
 
 <div class="flex items-center justify-center">
@@ -16,15 +16,15 @@
         <ContextMenu.Content class="min-w-[13rem]">
             <ContextMenu.Item callback={() => {}}>
                 Copy
-                <Shortcut shortcut="cmd+C" />
+                <Kbd shortcut="cmd+C" />
             </ContextMenu.Item>
             <ContextMenu.Item callback={() => {}}>
                 Paste
-                <Shortcut shortcut="cmd+V" />
+                <Kbd shortcut="cmd+V" />
             </ContextMenu.Item>
             <ContextMenu.Item callback={() => {}}>
                 Duplicate
-                <Shortcut shortcut="cmd+D" />
+                <Kbd shortcut="cmd+D" />
             </ContextMenu.Item>
 
             <ContextMenu.Separator />
@@ -34,11 +34,11 @@
                 <ContextMenu.SubContent class="min-w-[12rem]">
                     <ContextMenu.Item callback={() => {}}>
                         Bring to front
-                        <Shortcut shortcut="cmd+]" />
+                        <Kbd shortcut="cmd+]" />
                     </ContextMenu.Item>
                     <ContextMenu.Item callback={() => {}}>
                         Send to back
-                        <Shortcut shortcut="cmd+[" />
+                        <Kbd shortcut="cmd+[" />
                     </ContextMenu.Item>
                 </ContextMenu.SubContent>
             </ContextMenu.Sub>
@@ -47,7 +47,7 @@
 
             <ContextMenu.Item callback={() => {}}>
                 <span class="text-[var(--color-error)]">Delete</span>
-                <Shortcut shortcut="backspace" />
+                <Kbd shortcut="backspace" />
             </ContextMenu.Item>
         </ContextMenu.Content>
     </ContextMenu.Root>

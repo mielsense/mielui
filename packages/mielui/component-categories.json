@@ -19,6 +19,7 @@
         "gauge",
         "hover-card",
         "input",
+        "kbd",
         "label",
         "pagination",
         "popover",
@@ -28,8 +29,6 @@
         "scroll-area",
         "select",
         "sheet",
-        "shortcut",
-        "show-more",
         "skeleton",
         "slider",
         "spinner",
@@ -44,7 +43,7 @@
         "tooltip",
         "typography"
     ],
-    "blocks": ["code-block", "copy-button", "file-diff", "markdown", "task-steps"],
+    "blocks": ["code-block", "copy-button", "file-diff", "markdown", "show-more", "task-steps"],
     "ai-components": [
         "attachment",
         "composer",

@@ -10,7 +10,7 @@
 <p
     {...rest}
     data-ui="toast-title"
-    class={cn('min-w-0 flex-1 text-[length:var(--font-size-label)] font-[number:var(--font-weight-label)] leading-snug text-foreground break-words', className)}
+    class={cn(className, 'min-w-0 flex-1 text-[length:var(--font-size-label)] font-[number:var(--font-weight-label)] leading-snug text-foreground break-words')}
 >
     {#if children}
         {@render children()}

@@ -5,7 +5,7 @@
     import PenTool from '@lucide/svelte/icons/pen-tool';
     import Square from '@lucide/svelte/icons/square';
     import Type from '@lucide/svelte/icons/type';
-    import Shortcut from '@mielui/svelte/components/shortcut';
+    import Kbd from '@mielui/svelte/components/kbd';
     import * as Tooltip from '@mielui/svelte/components/tooltip';
 
     let activeTool = $state<string>('move');
@@ -43,7 +43,7 @@
                 <Tooltip.Content>
                     <div class="flex items-center gap-2">
                         <span>{tool.label}</span>
-                        <Shortcut shortcut={tool.shortcut} />
+                        <Kbd shortcut={tool.shortcut} />
                     </div>
                 </Tooltip.Content>
             </Tooltip.Root>

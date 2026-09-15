@@ -110,7 +110,7 @@ import {Button} from '@mielui/svelte/components/button'; import * as AlertDialog
 
 - **Named:** `Badge`, `Button`, `Checkbox`, `CodeBlock`,
   `CopyButton`, `Input`, `Label`, `Markdown`, `Pagination`, `Progress`, `Reasoning`,
-  `ReorderList`, `ResponseStream`, `ScrollArea`, `Shortcut`, `Skeleton`, `SkeletonSwap`,
+  `ReorderList`, `ResponseStream`, `ScrollArea`, `Kbd`, `Skeleton`, `SkeletonSwap`,
   `Slider`, `Spinner`, `Switch`, `TaskSteps`, `Textarea`, `Toggle`, `Toolbar`, and the toast API (`Toast`, `Toaster`,
   `toast`, `getToastUIState`).
 - **Namespaced:** `Accordion`, `Alert`, `AlertDialog`, `Attachment`, `Avatar`,

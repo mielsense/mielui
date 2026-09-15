@@ -5,7 +5,7 @@
     import Pencil from '@lucide/svelte/icons/pencil';
     import Trash from '@lucide/svelte/icons/trash-2';
     import * as DropdownMenu from '@mielui/svelte/components/dropdown-menu';
-    import Shortcut from '@mielui/svelte/components/shortcut';
+    import Kbd from '@mielui/svelte/components/kbd';
 </script>
 
 <DropdownMenu.Root>
@@ -18,7 +18,7 @@
         </DropdownMenu.Item>
         <DropdownMenu.Item>
             <span class="flex items-center gap-2"><Copy2 size={13} /> Duplicate</span>
-            <Shortcut shortcut="cmd+D" />
+            <Kbd shortcut="cmd+D" />
         </DropdownMenu.Item>
         <DropdownMenu.Item>
             <span class="flex items-center gap-2"><Archive size={13} /> Archive</span>
@@ -29,7 +29,7 @@
                 <Trash size={13} />
                 Delete
             </span>
-            <Shortcut shortcut="backspace" />
+            <Kbd shortcut="backspace" />
         </DropdownMenu.Item>
     </DropdownMenu.Content>
 </DropdownMenu.Root>

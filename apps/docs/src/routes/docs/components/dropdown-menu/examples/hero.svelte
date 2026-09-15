@@ -6,7 +6,7 @@
     import Settings from '@lucide/svelte/icons/settings';
     import User from '@lucide/svelte/icons/user';
     import * as DropdownMenu from '@mielui/svelte/components/dropdown-menu';
-    import Shortcut from '@mielui/svelte/components/shortcut';
+    import Kbd from '@mielui/svelte/components/kbd';
 </script>
 
 <DropdownMenu.Root>
@@ -20,15 +20,15 @@
         </DropdownMenu.Label>
         <DropdownMenu.Item>
             <span class="flex items-center gap-2"><User size={13} /> Profile</span>
-            <Shortcut shortcut="shift+cmd+P" />
+            <Kbd shortcut="shift+cmd+P" />
         </DropdownMenu.Item>
         <DropdownMenu.Item>
             <span class="flex items-center gap-2"><CreditCard size={13} /> Billing</span>
-            <Shortcut shortcut="cmd+B" />
+            <Kbd shortcut="cmd+B" />
         </DropdownMenu.Item>
         <DropdownMenu.Item>
             <span class="flex items-center gap-2"><Settings size={13} /> Settings</span>
-            <Shortcut shortcut="cmd+," />
+            <Kbd shortcut="cmd+," />
         </DropdownMenu.Item>
         <DropdownMenu.Separator />
         <DropdownMenu.Item>
@@ -39,7 +39,7 @@
                 <LogOut size={13} />
                 Sign out
             </span>
-            <Shortcut shortcut="shift+cmd+Q" />
+            <Kbd shortcut="shift+cmd+Q" />
         </DropdownMenu.Item>
     </DropdownMenu.Content>
 </DropdownMenu.Root>

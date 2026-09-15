@@ -12,9 +12,9 @@
     import Modifiers from './examples/modifiers.svelte';
     import ModifiersSrc from './examples/modifiers.svelte?raw';
 
-    const TITLE = 'Shortcut';
+    const TITLE = 'Kbd';
 
-    const installCommand = 'pnpm dlx @mielui/svelte add shortcut';
+    const installCommand = 'pnpm dlx @mielui/svelte add kbd';
 </script>
 
 <svelte:head>
@@ -51,10 +51,10 @@
     <section id="usage" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Usage</Typography.H2>
         <Typography.Text variant="supporting">
-            Import Shortcut and pass a keyboard shortcut string:
+            Import Kbd and pass a keyboard shortcut string:
         </Typography.Text>
         <CodeBlock
-            code={`import Shortcut from '$lib/mielui/components/shortcut';\n\n<Shortcut shortcut="cmd+K" />\n<Shortcut shortcut="shift+/" />`}
+            code={`import Kbd from '$lib/mielui/components/kbd';\n\n<Kbd shortcut="cmd+K" />\n<Kbd shortcut="shift+/" />`}
             lang="svelte"
             copy="overlay"
         />
@@ -65,7 +65,7 @@
         <div>
             <Typography.H2 class="docs-section-heading">Examples</Typography.H2>
             <Typography.Text variant="supporting" class="mt-2">
-                Shortcut in various compositions and contexts.
+                Kbd in various compositions and contexts.
             </Typography.Text>
         </div>
 

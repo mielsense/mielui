@@ -1,7 +1,7 @@
 <script lang="ts">
     import Square from '@lucide/svelte/icons/square';
     import { Button } from '@mielui/svelte/components/button';
-    import Shortcut from '@mielui/svelte/components/shortcut';
+    import Kbd from '@mielui/svelte/components/kbd';
     import { cn } from '@mielui/svelte/utils';
     import type { ComposerSubmitProps } from '.';
     import { getComposerContext } from './context.svelte';
@@ -76,6 +76,6 @@
         Stop
     {:else}
         Send
-        <Shortcut shortcut="enter" />
+        <Kbd shortcut="enter" />
     {/if}
 </Button>

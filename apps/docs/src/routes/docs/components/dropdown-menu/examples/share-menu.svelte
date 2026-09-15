@@ -5,7 +5,7 @@
     import Send from '@lucide/svelte/icons/send';
     import User from '@lucide/svelte/icons/user';
     import * as DropdownMenu from '@mielui/svelte/components/dropdown-menu';
-    import Shortcut from '@mielui/svelte/components/shortcut';
+    import Kbd from '@mielui/svelte/components/kbd';
 </script>
 
 <DropdownMenu.Root>
@@ -21,7 +21,7 @@
         </DropdownMenu.Item>
         <DropdownMenu.Item>
             <span class="flex items-center gap-2"><Copy2 size={13} /> Copy link</span>
-            <Shortcut shortcut="shift+cmd+C" />
+            <Kbd shortcut="shift+cmd+C" />
         </DropdownMenu.Item>
         <DropdownMenu.Separator />
         <DropdownMenu.Label>Public</DropdownMenu.Label>

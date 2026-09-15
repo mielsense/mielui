@@ -58,7 +58,7 @@
             Import Dialog and use it in your component:
         </Typography.Text>
         <CodeBlock
-            code={`import * as Dialog from '$lib/mielui/components/dialog';\nimport Shortcut from '$lib/mielui/components/shortcut';\n\n<Dialog.Root open={isOpen} orientation="horizontal">\n  <Dialog.Trigger>Open</Dialog.Trigger>\n  <Dialog.Content>\n    <Dialog.Header>\n      <Dialog.Title>Title</Dialog.Title>\n    </Dialog.Header>\n    <Dialog.Footer>\n      <Dialog.Close>Cancel <Shortcut shortcut="esc" /></Dialog.Close>\n      <Dialog.Confirm>Save <Shortcut shortcut="enter" /></Dialog.Confirm>\n    </Dialog.Footer>\n  </Dialog.Content>\n</Dialog.Root>`}
+            code={`import * as Dialog from '$lib/mielui/components/dialog';\nimport Kbd from '$lib/mielui/components/kbd';\n\n<Dialog.Root open={isOpen} orientation="horizontal">\n  <Dialog.Trigger>Open</Dialog.Trigger>\n  <Dialog.Content>\n    <Dialog.Header>\n      <Dialog.Title>Title</Dialog.Title>\n    </Dialog.Header>\n    <Dialog.Footer>\n      <Dialog.Close>Cancel <Kbd shortcut="esc" /></Dialog.Close>\n      <Dialog.Confirm>Save <Kbd shortcut="enter" /></Dialog.Confirm>\n    </Dialog.Footer>\n  </Dialog.Content>\n</Dialog.Root>`}
             lang="svelte"
             copy="overlay"
         />

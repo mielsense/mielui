@@ -43,7 +43,7 @@ const NAMED = {
     'reorder-list': ['ReorderList'],
     'scroll-area': ['ScrollArea'],
     'show-more': ['ShowMore'],
-    shortcut: ['Shortcut'],
+    kbd: ['Kbd'],
     skeleton: ['Skeleton', 'SkeletonSwap'],
     slider: ['Slider'],
     spinner: ['Spinner'],
@@ -182,6 +182,7 @@ const NON_INSTALLABLE = ['toolbar'];
 const INSTALLABLE = FROZEN.filter((name) => !NON_INSTALLABLE.includes(name));
 
 const REMOVED = [
+    'shortcut',
     'modal',
     'fullscreen-nav',
     'approval-request',

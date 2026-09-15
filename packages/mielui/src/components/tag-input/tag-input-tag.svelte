@@ -78,10 +78,10 @@
         title={`Remove ${value}`}
         onclick={handleRemove}
         class={cn(
-            badge({ variant: 'outline' }),
-            'bg-card hover:bg-secondary cursor-pointer focus-visible:outline-none focus-visible:shadow-[var(--focus-ring)]',
+            className,
+            'border-border-strong bg-background shadow-[var(--elevation-control)] hover:bg-card cursor-pointer focus-visible:outline-none focus-visible:shadow-[var(--focus-ring)]',
             'group ml-0.5 h-auto max-w-full gap-1.5 rounded-[var(--radius-md)] px-0 py-1 pr-1.5 pl-2.5 [font-size:var(--font-size-body)] leading-tight [font-weight:var(--font-weight-badge)] [letter-spacing:var(--tracking-body)]',
-            className
+            badge({ variant: 'outline' })
         )}
     >
         {@render label()}
@@ -92,10 +92,10 @@
         data-ui="tag-input-tag"
         data-disabled={context.disabled || undefined}
         class={cn(
-            badge({ variant: 'outline' }),
-            'bg-card',
+            className,
+            'border-border-strong bg-background shadow-[var(--elevation-control)]',
             'ml-0.5 inline-flex max-w-full items-center gap-1.5 rounded-[var(--radius-md)] py-1 pr-2.5 pl-2.5 [font-size:var(--font-size-body)] leading-tight [font-weight:var(--font-weight-badge)] [letter-spacing:var(--tracking-body)] text-foreground',
-            className
+            badge({ variant: 'outline' })
         )}
     >
         {@render label()}

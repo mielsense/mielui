@@ -1,6 +1,6 @@
 <script lang="ts">
     import * as AlertDialog from '@mielui/svelte/components/alert-dialog';
-    import Shortcut from '@mielui/svelte/components/shortcut';
+    import Kbd from '@mielui/svelte/components/kbd';
 </script>
 
 <div class="grid place-items-center">
@@ -16,11 +16,11 @@
             <AlertDialog.Footer>
                 <AlertDialog.Exit>
                     Stay
-                    <Shortcut shortcut="esc" />
+                    <Kbd shortcut="esc" />
                 </AlertDialog.Exit>
                 <AlertDialog.Confirm>
                     Sign out
-                    <Shortcut shortcut="enter" />
+                    <Kbd shortcut="enter" />
                 </AlertDialog.Confirm>
             </AlertDialog.Footer>
         </AlertDialog.Content>

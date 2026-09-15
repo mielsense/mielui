@@ -43,7 +43,9 @@
             "@mielui/svelte/components/markdown": ["./src/blocks/markdown/index.ts"],
             "@mielui/svelte/components/markdown/*": ["./src/blocks/markdown/*"],
             "@mielui/svelte/components/task-steps": ["./src/blocks/task-steps/index.ts"],
-            "@mielui/svelte/components/task-steps/*": ["./src/blocks/task-steps/*"]
+            "@mielui/svelte/components/task-steps/*": ["./src/blocks/task-steps/*"],
+            "@mielui/svelte/components/show-more": ["./src/blocks/show-more/index.ts"],
+            "@mielui/svelte/components/show-more/*": ["./src/blocks/show-more/*"]
         }
     },
     "include": ["check.d.ts", "src/**/*.ts", "src/**/*.svelte"]

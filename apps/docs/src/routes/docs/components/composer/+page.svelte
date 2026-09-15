@@ -1,6 +1,6 @@
 <script lang="ts">
     import { CodeBlock } from '@mielui/svelte/components/code-block';
-    import Shortcut from '@mielui/svelte/components/shortcut';
+    import Kbd from '@mielui/svelte/components/kbd';
     import * as Typography from '@mielui/svelte/components/typography';
     import { ComponentPreview, InstallCommand } from '$lib/components/docs';
     import DocsPager from '$lib/components/docs/docs-pager.svelte';
@@ -78,8 +78,8 @@ async function sendPrompt(prompt: string) {
             copy="overlay"
         />
         <Typography.Text variant="supporting">
-            By default, <Shortcut shortcut="enter" /> submits and
-            <Shortcut shortcut="shift+enter" />
+            By default, <Kbd shortcut="enter" /> submits and
+            <Kbd shortcut="shift+enter" />
             inserts a new line. Set
             <Typography.InlineCode>submitOnEnter={false}</Typography.InlineCode>
             on

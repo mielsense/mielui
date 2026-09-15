@@ -1,9 +1,9 @@
 <script lang="ts">
     import { Button } from '@mielui/svelte/components/button';
-    import Shortcut from '@mielui/svelte/components/shortcut';
+    import Kbd from '@mielui/svelte/components/kbd';
 </script>
 
 <Button variant="outline">
     Open command menu
-    <Shortcut shortcut="cmd+K" />
+    <Kbd shortcut="cmd+K" />
 </Button>

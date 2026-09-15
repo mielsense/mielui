@@ -27,7 +27,7 @@
         {...rest}
         data-ui="toast-icon"
         aria-hidden="true"
-        class={cn('inline-flex size-4 shrink-0 items-center justify-center', toastIcon({ type: context.toast.type }), className)}
+        class={cn(className, 'inline-flex size-4 shrink-0 items-center justify-center', toastIcon({ type: context.toast.type }))}
     >
         {#if children}
             {@render children()}
