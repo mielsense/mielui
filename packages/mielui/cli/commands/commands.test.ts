@@ -99,7 +99,7 @@ describe('theme command', () => {
         await addTheme('default', { cwd });
 
         const css = await readFile(path.join(cwd, DEFAULT_CONFIG.dir, 'theme.css'), 'utf8');
-        expect(css).toStartWith('/* mielui theme: default */');
+        expect(css.startsWith('/* mielui theme: default */')).toBe(true);
         expect(css).toContain(':root');
     });
 
@@ -113,7 +113,7 @@ describe('theme command', () => {
 
         await addTheme('remote', { cwd });
         const css = await readFile(path.join(cwd, DEFAULT_CONFIG.dir, 'theme.css'), 'utf8');
-        expect(css).toStartWith('/* mielui theme: remote */');
+        expect(css.startsWith('/* mielui theme: remote */')).toBe(true);
         expect(css).toContain('--color-primary: #0066cc');
     });
 
