@@ -9,15 +9,12 @@
     const { state: toastState, hostId } = setToastUIState();
     const isPrimary = $derived(getToastPrimaryHostId() === hostId);
 
-    let expanded = $state(false);
+    let hovered = $state(false);
+    let focused = $state(false);
+    const expanded = $derived(hovered || focused);
     let heights = $state<Record<number, number>>({} as Record<number, number>);
     let portalEl = $state<HTMLDivElement>();
 
-    /**
-     * Portal to `<body>` so `position: fixed` stays viewport-relative even when a
-     * Toaster is mounted under transformed or overflow-clipped ancestors, as in
-     * docs previews and nested page hosts.
-     */
     $effect(() => {
         if (!portalEl || typeof document === 'undefined') {
             return;
@@ -41,7 +38,7 @@
         'pointer-events-none fixed inset-x-0 top-[var(--mielui-viewport-top)] z-200 flex h-[var(--mielui-viewport-height)] items-end justify-center px-[max(1rem,env(safe-area-inset-right))] pb-[max(1rem,env(safe-area-inset-bottom))] pt-[max(1.5rem,env(safe-area-inset-top))] sm:justify-end sm:p-6';
     const stackClass =
         // token-lint-disable-next-line no-literal-length: toast stack max width
-        'pointer-events-auto relative w-full max-w-[min(100%,26rem)] transition-[height] duration-[460ms] ease-[cubic-bezier(0.22,1,0.36,1)] sm:max-w-90';
+        'pointer-events-auto relative w-full max-w-[min(100%,26rem)] transition-[height] [transition-duration:var(--motion-duration-toast-in)] ease-[var(--ease-out)] motion-reduce:transition-none sm:max-w-90';
 
     function getExpandedY(index: number): number {
         let y = 0;
@@ -121,27 +118,29 @@
             aria-label="Notifications"
             class={stackClass}
             style:height={`${containerHeight}px`}
-            onmouseenter={() => (expanded = true)}
-            onmouseleave={() => (expanded = false)}
+            onmouseenter={() => {
+                hovered = true;
+            }}
+            onmouseleave={() => {
+                hovered = false;
+            }}
+            onfocusin={() => {
+                focused = true;
+            }}
+            onfocusout={(event) => {
+                focused = event.relatedTarget instanceof Node && event.currentTarget.contains(event.relatedTarget);
+            }}
         >
             {#each reversedToasts as toast, i (toast.id)}
-                <!--
-					Stacking wrapper: only CSS transitions, NO Svelte in/out.
-					Owns the position/scale/opacity for the stack effect.
-				-->
                 <div
-                    class="absolute bottom-0 w-full transition-[transform,opacity] [transition-duration:460ms,340ms] [transition-timing-function:cubic-bezier(0.22,1,0.36,1),ease] will-change-transform"
+                    inert={!expanded && i >= MAX_VISIBLE}
+                    class="absolute bottom-0 w-full transition-[transform,opacity] [transition-duration:var(--motion-duration-toast-in)] ease-[var(--ease-out)] motion-reduce:transition-none"
                     style:transform={getTransform(i)}
                     style:opacity={getOpacity(i)}
                     style:z-index={reversedToasts.length - i}
                     style:pointer-events={i < MAX_VISIBLE || expanded ? 'auto' : 'none'}
                     bind:clientHeight={heights[toast.id ?? -1]}
                 >
-                    <!--
-						Transition wrapper: only Svelte in/out, NO CSS transform transitions.
-						Enter slides up and sharpens from blur. Exit blurs and fades.
-						Completely independent of the stacking layer above.
-					-->
                     <div in:toastIn|global out:toastOut|global>
                         <Toast {toast} />
                     </div>

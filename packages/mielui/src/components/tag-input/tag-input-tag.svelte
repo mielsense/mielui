@@ -3,6 +3,7 @@
     import { Button } from '@mielui/svelte/components/button';
     import { cn } from '@mielui/svelte/utils';
     import type { HTMLAttributes } from 'svelte/elements';
+    import { badge } from '../badge/variants';
     import type { TagInputTagProps } from '.';
     import { getTagInputContext } from './context.svelte';
 
@@ -70,15 +71,17 @@
     <Button
         {...rest}
         type="button"
-        variant="secondary"
+        unstyled
         size="sm"
         data-ui="tag-input-tag"
         aria-label={`Remove ${value}`}
         title={`Remove ${value}`}
         onclick={handleRemove}
         class={cn(
-            className,
-            'group ml-0.5 h-auto max-w-full gap-1.5 rounded-[var(--radius-md)] px-0 py-1 pr-1.5 pl-2.5 [font-size:var(--font-size-body)] leading-tight [font-weight:var(--font-weight-badge)] [letter-spacing:var(--tracking-body)]'
+            badge({ variant: 'outline' }),
+            'bg-card hover:bg-secondary cursor-pointer focus-visible:outline-none focus-visible:shadow-[var(--focus-ring)]',
+            'group ml-0.5 h-auto max-w-full gap-1.5 rounded-[var(--radius-md)] px-0 py-1 pr-1.5 pl-2.5 [font-size:var(--font-size-body)] leading-tight [font-weight:var(--font-weight-badge)] [letter-spacing:var(--tracking-body)]',
+            className
         )}
     >
         {@render label()}
@@ -89,8 +92,10 @@
         data-ui="tag-input-tag"
         data-disabled={context.disabled || undefined}
         class={cn(
-            className,
-            'ml-0.5 inline-flex max-w-full items-center gap-1.5 rounded-[var(--radius-md)] bg-secondary py-1 pr-2.5 pl-2.5 [font-size:var(--font-size-body)] leading-tight [font-weight:var(--font-weight-badge)] [letter-spacing:var(--tracking-body)] text-foreground'
+            badge({ variant: 'outline' }),
+            'bg-card',
+            'ml-0.5 inline-flex max-w-full items-center gap-1.5 rounded-[var(--radius-md)] py-1 pr-2.5 pl-2.5 [font-size:var(--font-size-body)] leading-tight [font-weight:var(--font-weight-badge)] [letter-spacing:var(--tracking-body)] text-foreground',
+            className
         )}
     >
         {@render label()}

@@ -38,8 +38,8 @@ let tags = $state(['svelte']);
         <div>
             <Typography.H1> Tag Input </Typography.H1>
             <Typography.Text variant="lead" class="mt-2 max-w-2xl">
-                A field that turns typed text into removable tags. Type a value, press Enter, and
-                keep going.
+                A field that turns typed text into removable tags with badge outlines. Type a value,
+                press Enter, and keep going.
             </Typography.Text>
         </div>
         <DocsPager />

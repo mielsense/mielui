@@ -1,5 +1,5 @@
 import { getToastUIState, toast } from './lib.svelte';
-import Toast from './toast.svelte';
+import * as Toast from './parts';
 import Toaster from './toaster.svelte';
 
 export type {
@@ -9,4 +9,5 @@ export type {
     ToastState,
     ToastUIState
 } from './lib.svelte';
+export { Action, Actions, Close, Content, Footer, Icon, Root, Title } from './parts';
 export { getToastUIState, Toast, Toaster, toast };

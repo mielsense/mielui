@@ -3,8 +3,12 @@
     import * as Typography from '@mielui/svelte/components/typography';
     import { ComponentPreview, InstallCommand } from '$lib/components/docs';
     import DocsPager from '$lib/components/docs/docs-pager.svelte';
+    import Actions from './examples/actions.svelte';
+    import ActionsSrc from './examples/actions.svelte?raw';
     import AllTypes from './examples/all-types.svelte';
     import AllTypesSrc from './examples/all-types.svelte?raw';
+    import Composition from './examples/composition.svelte';
+    import CompositionSrc from './examples/composition.svelte?raw';
     import Hero from './examples/hero.svelte';
     import HeroSrc from './examples/hero.svelte?raw';
 
@@ -45,13 +49,37 @@
     <section id="usage" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Usage</Typography.H2>
         <Typography.Text variant="supporting">
-            Import and fire toasts from your component:
+            Mount Toaster once in your app layout, then fire notifications with toast. Descriptions
+            appear in the upper inset; the footer contains the title and action buttons.
         </Typography.Text>
         <CodeBlock
             code={`import { toast } from '$lib/mielui/components/toast';\n\ntoast.success('Profile updated', {\n  description: 'Your changes have been saved.'\n});\ntoast.error('Request failed', {\n  description: 'Could not connect.'\n});`}
             lang="svelte"
             copy="overlay"
         />
+    </section>
+
+    <section id="composition" class="scroll-mt-20 flex flex-col gap-4">
+        <Typography.H2 class="docs-section-heading">Composition</Typography.H2>
+        <Typography.Text variant="supporting">
+            Toast.Root accepts a toast object and optional children. Without children, it renders
+            Content, Footer, Icon, Title, Actions, and Close. Compose these same parts to omit,
+            reorder, or restyle a region. This example omits actions and the close button.
+        </Typography.Text>
+        <ComponentPreview code={CompositionSrc}><Composition /></ComponentPreview>
+        <Typography.Text variant="supporting">
+            Content and Title use the toast description and title unless you supply children.
+            Actions renders the toast actions, or your own Toast.Action parts. Each Action takes an
+            action object with label, callback, and optional variant. It runs the callback and then
+            dismisses the toast. Close uses the toast exit callback. All parts accept native element
+            attributes and class. Action and Close render buttons.
+        </Typography.Text>
+        <Typography.Text variant="supporting">
+            Use persistent: true for decisions that should wait for the user. Timed notifications
+            pause while hovered or focused. Toast.Root alone does not register a timer or portal;
+            Toaster handles those for notifications created with toast(). The previous standalone
+            Toast component is now Toast.Root.
+        </Typography.Text>
     </section>
 
     <!-- ─── Examples ──────────────────────────────────────────────── -->
@@ -61,6 +89,11 @@
             <Typography.Text variant="supporting" class="mt-2">
                 Toast variants for different notification types.
             </Typography.Text>
+        </div>
+
+        <div id="actions" class="scroll-mt-20 flex flex-col gap-3">
+            <Typography.H3 class="docs-subsection-heading">Action buttons</Typography.H3>
+            <ComponentPreview code={ActionsSrc}><Actions /></ComponentPreview>
         </div>
 
         <div id="types" class="scroll-mt-20 flex flex-col gap-3">

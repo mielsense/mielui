@@ -15,7 +15,7 @@ import type { Manifest } from '@mielui/svelte/_manifest/types';
  */
 export const manifest: Manifest = {
     name: 'toast',
-    version: '2.1.0',
+    version: '3.0.0',
     visibility: 'public',
     description:
         'Toast notification system with body-portaled Toaster, free-function toast() API, and a shared client stack (SSR-safe).',
@@ -24,6 +24,15 @@ export const manifest: Manifest = {
         'components/toast/toaster.svelte',
         'components/toast/toast.svelte',
         'components/toast/variants.ts',
+        'components/toast/context.svelte.ts',
+        'components/toast/parts.ts',
+        'components/toast/toast-content.svelte',
+        'components/toast/toast-footer.svelte',
+        'components/toast/toast-title.svelte',
+        'components/toast/toast-icon.svelte',
+        'components/toast/toast-actions.svelte',
+        'components/toast/toast-action.svelte',
+        'components/toast/toast-close.svelte',
         'components/toast/index.ts',
         'components/toast/manifest.ts'
     ],

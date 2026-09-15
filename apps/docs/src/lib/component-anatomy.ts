@@ -250,7 +250,17 @@ export const componentAnatomy = {
     ],
     textarea: [{ name: 'Textarea', description: 'Accepts a multi-line value.' }],
     toast: [
-        { name: 'Toast', description: 'Renders a notification.' },
+        {
+            name: 'Toast.Root',
+            description: 'Owns one notification and pauses its timer during interaction.'
+        },
+        { name: 'Toast.Content', description: 'Renders the upper inset content.' },
+        { name: 'Toast.Footer', description: 'Groups the title and controls below the inset.' },
+        { name: 'Toast.Title', description: 'Renders the notification title.' },
+        { name: 'Toast.Icon', description: 'Renders the status icon.' },
+        { name: 'Toast.Actions', description: 'Groups action buttons.' },
+        { name: 'Toast.Action', description: 'Runs one action and dismisses the toast.' },
+        { name: 'Toast.Close', description: 'Dismisses the notification.' },
         { name: 'Toaster', description: 'Renders the notification region.' }
     ],
     toggle: [{ name: 'Toggle', description: 'Toggles a pressed state.' }],

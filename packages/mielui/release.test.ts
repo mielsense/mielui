@@ -70,8 +70,7 @@ describe('publishable package contract', () => {
         const animationFiles = [
             './src/components/button/button.svelte',
             './src/components/progress/progress.svelte',
-            './src/blocks/task-steps/task-steps.svelte',
-            './src/components/toast/toast.svelte'
+            './src/blocks/task-steps/task-steps.svelte'
         ] as const;
         const source = (
             await Promise.all(
@@ -79,12 +78,7 @@ describe('publishable package contract', () => {
             )
         ).join('\n');
 
-        for (const name of [
-            'mielui-button-spin',
-            'mielui-progress-slide',
-            'mielui-task-spin',
-            'mielui-toast-progress'
-        ]) {
+        for (const name of ['mielui-button-spin', 'mielui-progress-slide', 'mielui-task-spin']) {
             expect(source.match(new RegExp(`@keyframes\\s+${name}\\b`, 'g'))).toHaveLength(1);
             expect(source.split(name).length).toBeGreaterThanOrEqual(3);
         }

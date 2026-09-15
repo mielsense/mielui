@@ -23,7 +23,7 @@ export const manifest: Manifest = {
         'components/tag-input/index.ts',
         'components/tag-input/manifest.ts'
     ],
-    components: ['button'],
+    components: ['button', 'badge'],
     shared: ['utils.cn', 'utils.createContext'],
     peerDependencies: {
         '@lucide/svelte': '^1.0.0',

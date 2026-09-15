@@ -156,6 +156,20 @@ const NAMESPACED = {
 
 /** Parts available on the direct path even when the barrel only re-exports a shorthand. */
 const DIRECT_PARTS = {
+    toast: [
+        'Root',
+        'Content',
+        'Footer',
+        'Title',
+        'Icon',
+        'Actions',
+        'Action',
+        'Close',
+        'Toast',
+        'Toaster',
+        'toast',
+        'getToastUIState'
+    ],
     ...NAMESPACED,
     'code-block': ['Root', 'Header', 'List', 'Trigger', 'Actions', 'Copy', 'Content', 'CodeBlock'],
     card: ['Root', 'Title', 'Header', 'Footer', 'Description', 'Content']
