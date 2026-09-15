@@ -1,5 +1,5 @@
 import { changelogLlmVersions, changelogVersions } from '$lib/changelog';
-import { components, sanitizeComponent } from '$lib/components';
+import { componentGroups, components, sanitizeComponent } from '$lib/components';
 import { mieluiGuideMarkdown } from '$lib/skill';
 
 type ComponentManifest = {
@@ -34,14 +34,17 @@ const removedComponents = [
 ] as const;
 
 const manifests = import.meta.glob<{ manifest: ComponentManifest }>(
-    '../../../../packages/mielui/src/components/*/manifest.ts',
+    '../../../../packages/mielui/src/{components,ai-components,chart-components}/*/manifest.ts',
     { eager: true }
 );
-const indexes = import.meta.glob<string>('../../../../packages/mielui/src/components/*/index.ts', {
-    eager: true,
-    query: '?raw',
-    import: 'default'
-});
+const indexes = import.meta.glob<string>(
+    '../../../../packages/mielui/src/{components,ai-components,chart-components}/*/index.ts',
+    {
+        eager: true,
+        query: '?raw',
+        import: 'default'
+    }
+);
 const examples = import.meta.glob<string>('../routes/docs/components/*/examples/*.svelte', {
     eager: true,
     query: '?raw',
@@ -50,7 +53,7 @@ const examples = import.meta.glob<string>('../routes/docs/components/*/examples/
 
 function sourceFor(sources: Record<string, string>, component: string, suffix: string): string {
     const entry = Object.entries(sources).find(([path]) =>
-        path.endsWith(`/components/${component}/${suffix}`)
+        path.endsWith(`/${component}/${suffix}`)
     );
     if (!entry) throw new Error(`Missing ${suffix} for ${component}`);
     return entry[1];
@@ -73,7 +76,7 @@ export function componentMarkdown(component: string): string | undefined {
     if (!components.includes(component as (typeof components)[number])) return undefined;
 
     const manifestEntry = Object.entries(manifests).find(([path]) =>
-        path.endsWith(`/components/${component}/manifest.ts`)
+        path.endsWith(`/${component}/manifest.ts`)
     );
     if (!manifestEntry) throw new Error(`Missing manifest for ${component}`);
 
@@ -270,9 +273,16 @@ export function componentsMarkdown(): string {
         '',
         'Each component reference is generated at build time from its package manifest, public API source, and Svelte examples. Published Markdown reflects changes to those canonical sources.',
         '',
-        ...components.map(
-            (component) => `- [${sanitizeComponent(component)}](/docs/components/${component}.md)`
-        ),
+        ...componentGroups.flatMap((group) => [
+            `## ${group.heading}`,
+            '',
+            ...group.items.map(
+                (component) =>
+                    `- [${sanitizeComponent(component)}](/docs/components/${component}.md)`
+            ),
+            ...(group.items.length === 0 ? ['No chart components yet.'] : []),
+            ''
+        ]),
         '',
         '## Package assets',
         '',

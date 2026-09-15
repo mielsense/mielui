@@ -9,7 +9,7 @@
     import { page } from '$app/stores';
     import GitHubBlack from '$lib/assets/GitHub_Invertocat_Black.svg';
     import GitHubWhite from '$lib/assets/GitHub_Invertocat_White.svg';
-    import { components, sanitizeComponent } from '$lib/components';
+    import { componentGroups, sanitizeComponent } from '$lib/components';
     import Logo from './logo.svelte';
     import Navbutton from './navbutton.svelte';
 
@@ -42,9 +42,6 @@
         { title: 'Changelog', href: resolve('/docs/changelog') },
         { title: 'Components', href: resolve('/docs/components') }
     ];
-    const sortedComponents = $derived(
-        [...components].sort((a, b) => sanitizeComponent(a).localeCompare(sanitizeComponent(b)))
-    );
 
     onMount(() => {
         const updateScroll = () => {
@@ -164,13 +161,18 @@
                 {/each}
             </FullscreenNav.Group>
 
-            <FullscreenNav.Group heading="Components" class="mt-10">
-                {#each sortedComponents as component (component)}
-                    <FullscreenNav.Link href={`/docs/components/${component}`}>
-                        {sanitizeComponent(component)}
-                    </FullscreenNav.Link>
-                {/each}
-            </FullscreenNav.Group>
+            {#each componentGroups as group (group.id)}
+                <FullscreenNav.Group heading={group.heading} class="mt-10">
+                    {#each group.items as component (component)}
+                        <FullscreenNav.Link href={`/docs/components/${component}`}>
+                            {sanitizeComponent(component)}
+                        </FullscreenNav.Link>
+                    {/each}
+                    {#if group.items.length === 0}
+                        <p class="text-sm text-foreground-muted">No chart components yet.</p>
+                    {/if}
+                </FullscreenNav.Group>
+            {/each}
         </div>
     </FullscreenNav.Content>
 </FullscreenNav.Root>

@@ -8,7 +8,7 @@ import {
     changelogMarkdown,
     changelogVersions
 } from '$lib/changelog';
-import { components } from '$lib/components';
+import { componentGroups, components } from '$lib/components';
 import { brandMarkMarkdown, componentMarkdown, componentsMarkdown } from '$lib/llms';
 import { mieluiGuideMarkdown, skillMarkdown } from '$lib/skill';
 import { GET as getChangelog } from '../../../src/routes/changelog/[version].md/+server';
@@ -28,12 +28,19 @@ function directoryNames(path: string): string[] {
 
 describe('docs release contracts', () => {
     it('keeps package components, explicit routes, and navigation in sync', () => {
-        const packageComponents = directoryNames(resolve(root, 'packages/mielui/src/components'));
+        const packageComponents = componentGroups
+            .flatMap((group) => {
+                const names = directoryNames(resolve(root, 'packages/mielui/src', group.id));
+                expect(names).toEqual([...group.items].sort((a, b) => a.localeCompare(b)));
+                return names;
+            })
+            .sort((a, b) => a.localeCompare(b));
         const routeComponents = directoryNames(
             resolve(root, 'apps/docs/src/routes/docs/components')
         ).filter((name) => !name.startsWith('['));
 
-        expect(components).toEqual(packageComponents);
+        expect([...components].sort((a, b) => a.localeCompare(b))).toEqual(packageComponents);
+        expect(componentGroups.map((group) => group.items.length)).toEqual([49, 8, 0]);
         expect(routeComponents).toEqual(packageComponents);
     });
 
@@ -141,6 +148,10 @@ describe('docs release contracts', () => {
         const brandMark = brandMarkMarkdown();
         const toolbar = componentMarkdown('toolbar');
         const componentIndex = componentsMarkdown();
+        for (const group of componentGroups) {
+            expect(componentIndex).toContain(`## ${group.heading}`);
+        }
+        expect(componentIndex).toContain('No chart components yet.');
 
         expect(brandMark).toContain("import { BrandMark } from '@mielui/svelte'");
         expect(brandMark).toContain('`label?: string`');

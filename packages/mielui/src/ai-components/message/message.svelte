@@ -1,6 +1,6 @@
 <script lang="ts">
     import { cn } from '@mielui/svelte/utils';
-    import { metadataClasses } from '../typography/variants';
+    import { metadataClasses } from '../../components/typography/variants';
     import type { MessageRootProps } from '.';
     import { type MessageContext, setMessageContext } from './context.svelte';
 

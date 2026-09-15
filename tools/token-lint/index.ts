@@ -82,7 +82,13 @@ export function lintTree(root: string): Violation[] {
 // Accepts MULTIPLE roots so batch checks cover every directory passed (not just the first).
 if (import.meta.main) {
     const roots = process.argv.slice(2);
-    if (roots.length === 0) roots.push('packages/mielui/src/components');
+    if (roots.length === 0) {
+        roots.push(
+            'packages/mielui/src/components',
+            'packages/mielui/src/ai-components',
+            'packages/mielui/src/chart-components'
+        );
+    }
     const v = roots.flatMap((r) => lintTree(r));
     for (const x of v) console.log(`${x.file}:${x.line} [${x.rule}] ${x.text}`);
     console.log(`\n${v.length} violations (report mode — enforced in Plan 2)`);

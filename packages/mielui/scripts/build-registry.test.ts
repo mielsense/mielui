@@ -38,6 +38,16 @@ describe('built registry output schema', () => {
         );
     });
 
+    test('preserves installed AI paths and relative dependencies', async () => {
+        const message = await readFile(
+            path.join(registryRoot, 'files/components/message/message.svelte'),
+            'utf8'
+        );
+        expect(message).toContain("from '../typography/variants'");
+        expect(message).not.toContain('../../components/');
+        expect(existsSync(path.join(registryRoot, 'files/ai-components'))).toBe(false);
+    });
+
     test('emits usable built-in theme records', async () => {
         const themes = JSON.parse(
             await readFile(path.join(registryRoot, 'themes.json'), 'utf8')

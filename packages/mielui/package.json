@@ -80,6 +80,46 @@
             "types": "./dist/svelte/components/*/index.d.ts",
             "svelte": "./dist/svelte/components/*/index.js",
             "default": "./dist/svelte/components/*/index.js"
+        },
+        "./components/attachment": {
+            "types": "./dist/svelte/ai-components/attachment/index.d.ts",
+            "svelte": "./dist/svelte/ai-components/attachment/index.js",
+            "default": "./dist/svelte/ai-components/attachment/index.js"
+        },
+        "./components/composer": {
+            "types": "./dist/svelte/ai-components/composer/index.d.ts",
+            "svelte": "./dist/svelte/ai-components/composer/index.js",
+            "default": "./dist/svelte/ai-components/composer/index.js"
+        },
+        "./components/conversation": {
+            "types": "./dist/svelte/ai-components/conversation/index.d.ts",
+            "svelte": "./dist/svelte/ai-components/conversation/index.js",
+            "default": "./dist/svelte/ai-components/conversation/index.js"
+        },
+        "./components/message": {
+            "types": "./dist/svelte/ai-components/message/index.d.ts",
+            "svelte": "./dist/svelte/ai-components/message/index.js",
+            "default": "./dist/svelte/ai-components/message/index.js"
+        },
+        "./components/question": {
+            "types": "./dist/svelte/ai-components/question/index.d.ts",
+            "svelte": "./dist/svelte/ai-components/question/index.js",
+            "default": "./dist/svelte/ai-components/question/index.js"
+        },
+        "./components/reasoning": {
+            "types": "./dist/svelte/ai-components/reasoning/index.d.ts",
+            "svelte": "./dist/svelte/ai-components/reasoning/index.js",
+            "default": "./dist/svelte/ai-components/reasoning/index.js"
+        },
+        "./components/response-stream": {
+            "types": "./dist/svelte/ai-components/response-stream/index.d.ts",
+            "svelte": "./dist/svelte/ai-components/response-stream/index.js",
+            "default": "./dist/svelte/ai-components/response-stream/index.js"
+        },
+        "./components/tool": {
+            "types": "./dist/svelte/ai-components/tool/index.d.ts",
+            "svelte": "./dist/svelte/ai-components/tool/index.js",
+            "default": "./dist/svelte/ai-components/tool/index.js"
         }
     },
     "publishConfig": {

@@ -9,103 +9,8 @@
     import type { HTMLAttributes } from 'svelte/elements';
     import { goto } from '$app/navigation';
     import { resolve } from '$app/paths';
-    import { components, sanitizeComponent } from '$lib/components';
+    import { componentGroups, components, sanitizeComponent } from '$lib/components';
     import DocsPager from '$lib/components/docs/docs-pager.svelte';
-
-    type Group = {
-        id: string;
-        heading: string;
-        items: string[];
-    };
-
-    const groups: Group[] = [
-        {
-            id: 'inputs',
-            heading: 'Inputs',
-            items: [
-                'button',
-                'checkbox',
-                'color-picker',
-                'combobox',
-                'input',
-                'label',
-                'radio-group',
-                'select',
-                'slider',
-                'switch',
-                'tag-input',
-                'textarea',
-                'toggle',
-                'toggle-group'
-            ]
-        },
-        {
-            id: 'overlays',
-            heading: 'Overlays',
-            items: [
-                'alert-dialog',
-                'command',
-                'context-menu',
-                'dropdown-menu',
-                'hover-card',
-                'modal',
-                'popover',
-                'sheet',
-                'tooltip'
-            ]
-        },
-        {
-            id: 'feedback',
-            heading: 'Feedback',
-            items: [
-                'alert',
-                'badge',
-                'gauge',
-                'progress',
-                'skeleton',
-                'spinner',
-                'task-steps',
-                'toast'
-            ]
-        },
-        {
-            id: 'navigation',
-            heading: 'Navigation',
-            items: ['breadcrumb', 'fullscreen-nav', 'pagination', 'tabs', 'toolbar']
-        },
-        {
-            id: 'layout',
-            heading: 'Layout',
-            items: [
-                'accordion',
-                'avatar',
-                'card',
-                'collapsible',
-                'reorder-list',
-                'scroll-area',
-                'show-more'
-            ]
-        },
-        {
-            id: 'content',
-            heading: 'Content',
-            items: ['code-block', 'copy-button', 'file-diff', 'markdown', 'shortcut', 'typography']
-        },
-        {
-            id: 'ai',
-            heading: 'AI',
-            items: [
-                'attachment',
-                'conversation',
-                'message',
-                'composer',
-                'question',
-                'reasoning',
-                'response-stream',
-                'tool'
-            ]
-        }
-    ];
 
     const ROLL_TRANSITION = { duration: 300 };
 
@@ -147,9 +52,9 @@
     }
 
     const visibleGroups = $derived(
-        groups
+        componentGroups
             .map((group) => ({ ...group, items: group.items.filter(matches) }))
-            .filter((group) => group.items.length > 0)
+            .filter((group) => group.items.length > 0 || query.trim() === '')
     );
     const visibleTotal = $derived(
         visibleGroups.reduce((sum, group) => sum + group.items.length, 0)
@@ -260,6 +165,9 @@
                     </li>
                 {/each}
             </ul>
+            {#if group.items.length === 0}
+                <p class="text-sm text-foreground-muted">No chart components yet.</p>
+            {/if}
         </section>
     {/each}
 </div>

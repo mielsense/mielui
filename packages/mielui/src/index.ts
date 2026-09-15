@@ -23,6 +23,76 @@ export type BrandMarkProps = {
 };
 
 export type {
+    AttachmentItemProps,
+    AttachmentListProps,
+    AttachmentProps,
+    AttachmentRejection,
+    AttachmentRejectionCode,
+    AttachmentStatus,
+    AttachmentTriggerProps
+} from './ai-components/attachment';
+export * as Attachment from './ai-components/attachment';
+export type {
+    ComposerActionsProps,
+    ComposerInputProps,
+    ComposerProps,
+    ComposerStatus,
+    ComposerSubmitAction,
+    ComposerSubmitProps,
+    ComposerSubmitState,
+    ComposerToolbarProps
+} from './ai-components/composer';
+export * as Composer from './ai-components/composer';
+export type {
+    ConversationContentProps,
+    ConversationEmptyProps,
+    ConversationRootProps,
+    ConversationScrollButtonProps
+} from './ai-components/conversation';
+export * as Conversation from './ai-components/conversation';
+export type {
+    MessageActionsProps,
+    MessageContentProps,
+    MessageFrom,
+    MessageRootProps,
+    MessageStatus
+} from './ai-components/message';
+export * as Message from './ai-components/message';
+export type {
+    QuestionActionProps,
+    QuestionActionsProps,
+    QuestionAnswer,
+    QuestionDescriptionProps,
+    QuestionInputProps,
+    QuestionOptionProps,
+    QuestionOptionsProps,
+    QuestionProps,
+    QuestionStatus,
+    QuestionSubmitProps,
+    QuestionTitleProps,
+    QuestionType
+} from './ai-components/question';
+export * as Question from './ai-components/question';
+export type {
+    ReasoningContentProps,
+    ReasoningRootProps,
+    ReasoningTriggerProps,
+    ReasoningTriggerState
+} from './ai-components/reasoning';
+export * as Reasoning from './ai-components/reasoning';
+export type { ResponseStreamProps } from './ai-components/response-stream';
+export { ResponseStream } from './ai-components/response-stream';
+export type {
+    ToolInputProps,
+    ToolItemProps,
+    ToolOutputProps,
+    ToolProps,
+    ToolState,
+    ToolTriggerState,
+    ToolVariant
+} from './ai-components/tool';
+export * as Tool from './ai-components/tool';
+export type {
     AccordionContentProps,
     AccordionItemProps,
     AccordionProps,
@@ -43,16 +113,6 @@ export type {
     AlertDialogProps
 } from './components/alert-dialog';
 export * as AlertDialog from './components/alert-dialog';
-export type {
-    AttachmentItemProps,
-    AttachmentListProps,
-    AttachmentProps,
-    AttachmentRejection,
-    AttachmentRejectionCode,
-    AttachmentStatus,
-    AttachmentTriggerProps
-} from './components/attachment';
-export * as Attachment from './components/attachment';
 export type { AvatarFallbackProps, AvatarImageProps, AvatarProps } from './components/avatar';
 export * as Avatar from './components/avatar';
 export type { BadgeProps, BadgeVariant } from './components/badge';
@@ -106,17 +166,6 @@ export * as Combobox from './components/combobox';
 export type { CommandItem, CommandItemProps, CommandProps } from './components/command';
 export * as Command from './components/command';
 export type {
-    ComposerActionsProps,
-    ComposerInputProps,
-    ComposerProps,
-    ComposerStatus,
-    ComposerSubmitAction,
-    ComposerSubmitProps,
-    ComposerSubmitState,
-    ComposerToolbarProps
-} from './components/composer';
-export * as Composer from './components/composer';
-export type {
     ContextMenuCheckboxItemProps,
     ContextMenuContentProps,
     ContextMenuItemProps,
@@ -128,13 +177,6 @@ export type {
     ContextMenuTriggerProps
 } from './components/context-menu';
 export * as ContextMenu from './components/context-menu';
-export type {
-    ConversationContentProps,
-    ConversationEmptyProps,
-    ConversationRootProps,
-    ConversationScrollButtonProps
-} from './components/conversation';
-export * as Conversation from './components/conversation';
 export type { CopyButtonProps } from './components/copy-button';
 export { CopyButton } from './components/copy-button';
 export type {
@@ -181,14 +223,6 @@ export { Label } from './components/label';
 export type { MarkdownProps } from './components/markdown';
 export { Markdown } from './components/markdown';
 export type {
-    MessageActionsProps,
-    MessageContentProps,
-    MessageFrom,
-    MessageRootProps,
-    MessageStatus
-} from './components/message';
-export * as Message from './components/message';
-export type {
     ModalBodyProps,
     ModalCloseProps,
     ModalConfirmProps,
@@ -215,34 +249,10 @@ export type {
 export * as Popover from './components/popover';
 export type { ProgressProps } from './components/progress';
 export { Progress } from './components/progress';
-export type {
-    QuestionActionProps,
-    QuestionActionsProps,
-    QuestionAnswer,
-    QuestionDescriptionProps,
-    QuestionInputProps,
-    QuestionOptionProps,
-    QuestionOptionsProps,
-    QuestionProps,
-    QuestionStatus,
-    QuestionSubmitProps,
-    QuestionTitleProps,
-    QuestionType
-} from './components/question';
-export * as Question from './components/question';
 export type { RadioGroupItemProps, RadioGroupProps } from './components/radio-group';
 export * as RadioGroup from './components/radio-group';
-export type {
-    ReasoningContentProps,
-    ReasoningRootProps,
-    ReasoningTriggerProps,
-    ReasoningTriggerState
-} from './components/reasoning';
-export * as Reasoning from './components/reasoning';
 export type { ReorderListProps } from './components/reorder-list';
 export { ReorderList } from './components/reorder-list';
-export type { ResponseStreamProps } from './components/response-stream';
-export { ResponseStream } from './components/response-stream';
 export type { ScrollAreaProps } from './components/scroll-area';
 export { ScrollArea } from './components/scroll-area';
 export type { SelectItemProps, SelectProps, SelectValueProps } from './components/select';
@@ -305,16 +315,6 @@ export type { ToggleProps } from './components/toggle';
 export { Toggle } from './components/toggle';
 export type { ToggleGroupItemProps, ToggleGroupProps } from './components/toggle-group';
 export * as ToggleGroup from './components/toggle-group';
-export type {
-    ToolInputProps,
-    ToolItemProps,
-    ToolOutputProps,
-    ToolProps,
-    ToolState,
-    ToolTriggerState,
-    ToolVariant
-} from './components/tool';
-export * as Tool from './components/tool';
 export type { ToolbarProps } from './components/toolbar';
 export { Toolbar } from './components/toolbar';
 export type {

@@ -10,11 +10,21 @@ import { existsSync } from 'node:fs';
 import { readdir, readFile } from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-
 import { loadRegistryIndex } from './cli/registry';
+import categories from './component-categories.json';
 
 const packageRoot = path.dirname(fileURLToPath(import.meta.url));
 const componentsDir = path.join(packageRoot, 'src/components');
+function categoryFor(slug: string): string {
+    return (
+        Object.entries(categories).find(([, components]) =>
+            components.some((component) => component === slug)
+        )?.[0] ?? 'components'
+    );
+}
+function componentPath(slug: string): string {
+    return path.join(packageRoot, 'src', categoryFor(slug), slug);
+}
 
 /** Single-element components: `import { Button } from '@mielui/svelte'`. */
 const NAMED = {
@@ -204,9 +214,19 @@ describe('public API contract (v1 freeze)', () => {
     });
 
     test('package component directories match the frozen catalog', async () => {
-        const dirs = (await readdir(componentsDir, { withFileTypes: true }))
-            .filter((entry) => entry.isDirectory() && !entry.name.startsWith('_'))
-            .map((entry) => entry.name)
+        const dirs = (
+            await Promise.all(
+                Object.keys(categories).map(async (category) => {
+                    const entries = await readdir(path.join(packageRoot, 'src', category), {
+                        withFileTypes: true
+                    });
+                    return entries
+                        .filter((entry) => entry.isDirectory() && !entry.name.startsWith('_'))
+                        .map((entry) => entry.name);
+                })
+            )
+        )
+            .flat()
             .sort((a, b) => a.localeCompare(b));
 
         expect(dirs).toEqual(FROZEN);
@@ -223,7 +243,7 @@ describe('public API contract (v1 freeze)', () => {
             for (const symbol of symbols) {
                 expect(barrel).toMatch(
                     new RegExp(
-                        `export\\s*\\{[^}]*\\b${symbol}\\b[^}]*\\}\\s*from\\s*['"]\\./components/${slug}['"]`
+                        `export\\s*\\{[^}]*\\b${symbol}\\b[^}]*\\}\\s*from\\s*['"]\\./${categoryFor(slug)}/${slug}['"]`
                     )
                 );
             }
@@ -231,7 +251,7 @@ describe('public API contract (v1 freeze)', () => {
 
         for (const slug of Object.keys(NAMESPACED)) {
             const pascal = toPascalCase(slug);
-            expect(barrel).toContain(`export * as ${pascal} from './components/${slug}'`);
+            expect(barrel).toContain(`export * as ${pascal} from './${categoryFor(slug)}/${slug}'`);
         }
 
         for (const removed of REMOVED) {
@@ -241,7 +261,7 @@ describe('public API contract (v1 freeze)', () => {
 
     test('direct component entrypoints export the locked public parts', async () => {
         for (const slug of FROZEN) {
-            const indexPath = path.join(componentsDir, slug, 'index.ts');
+            const indexPath = path.join(componentPath(slug), 'index.ts');
             expect(existsSync(indexPath)).toBe(true);
             const source = await readFile(indexPath, 'utf8');
             const exported = parseExportedNames(source);
@@ -267,11 +287,18 @@ describe('public API contract (v1 freeze)', () => {
             svelte: './dist/svelte/components/*/index.js',
             default: './dist/svelte/components/*/index.js'
         });
+        for (const slug of categories['ai-components']) {
+            expect(packageJson.exports[`./components/${slug}`]).toMatchObject({
+                types: `./dist/svelte/ai-components/${slug}/index.d.ts`,
+                svelte: `./dist/svelte/ai-components/${slug}/index.js`,
+                default: `./dist/svelte/ai-components/${slug}/index.js`
+            });
+        }
         expect(packageJson.exports['.']).toBeTruthy();
         expect(packageJson.exports['./ui.css']).toBe('./dist/svelte/ui.css');
 
         for (const slug of FROZEN) {
-            expect(existsSync(path.join(componentsDir, slug, 'index.ts'))).toBe(true);
+            expect(existsSync(path.join(componentPath(slug), 'index.ts'))).toBe(true);
         }
     });
 

@@ -13,7 +13,27 @@
         "baseUrl": ".",
         "paths": {
             "@mielui/svelte": ["./src/index.ts"],
-            "@mielui/svelte/*": ["./src/*"]
+            "@mielui/svelte/*": ["./src/*"],
+            "@mielui/svelte/components/attachment": ["./src/ai-components/attachment/index.ts"],
+            "@mielui/svelte/components/attachment/*": ["./src/ai-components/attachment/*"],
+            "@mielui/svelte/components/composer": ["./src/ai-components/composer/index.ts"],
+            "@mielui/svelte/components/composer/*": ["./src/ai-components/composer/*"],
+            "@mielui/svelte/components/conversation": ["./src/ai-components/conversation/index.ts"],
+            "@mielui/svelte/components/conversation/*": ["./src/ai-components/conversation/*"],
+            "@mielui/svelte/components/message": ["./src/ai-components/message/index.ts"],
+            "@mielui/svelte/components/message/*": ["./src/ai-components/message/*"],
+            "@mielui/svelte/components/question": ["./src/ai-components/question/index.ts"],
+            "@mielui/svelte/components/question/*": ["./src/ai-components/question/*"],
+            "@mielui/svelte/components/reasoning": ["./src/ai-components/reasoning/index.ts"],
+            "@mielui/svelte/components/reasoning/*": ["./src/ai-components/reasoning/*"],
+            "@mielui/svelte/components/response-stream": [
+                "./src/ai-components/response-stream/index.ts"
+            ],
+            "@mielui/svelte/components/response-stream/*": [
+                "./src/ai-components/response-stream/*"
+            ],
+            "@mielui/svelte/components/tool": ["./src/ai-components/tool/index.ts"],
+            "@mielui/svelte/components/tool/*": ["./src/ai-components/tool/*"]
         }
     },
     "include": ["check.d.ts", "src/**/*.ts", "src/**/*.svelte"]
