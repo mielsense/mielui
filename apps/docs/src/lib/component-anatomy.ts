@@ -1,6 +1,4 @@
-import type { components } from './components';
-
-export type ComponentSlug = (typeof components)[number];
+export type ComponentSlug = keyof typeof componentAnatomy;
 
 export type ComponentPart = {
     name: string;
@@ -293,4 +291,4 @@ export const componentAnatomy = {
         { name: 'Typography.Description', description: 'Renders supporting text.' },
         { name: 'Typography.Metadata', description: 'Renders compact secondary information.' }
     ]
-} satisfies Record<ComponentSlug, ComponentPart[]>;
+} satisfies Record<string, ComponentPart[]>;
