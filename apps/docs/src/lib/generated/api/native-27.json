@@ -1,7 +1,7 @@
 [
     {
         "name": "ontouchcancelcapture",
-        "type": "TouchEventHandler<HTMLTableRowElement> | null | undefined",
+        "type": "TouchEventHandler<HTMLTableCaptionElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -10,7 +10,7 @@
     },
     {
         "name": "on:touchend",
-        "type": "TouchEventHandler<HTMLTableRowElement> | null | undefined",
+        "type": "TouchEventHandler<HTMLTableCaptionElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -19,7 +19,7 @@
     },
     {
         "name": "ontouchend",
-        "type": "TouchEventHandler<HTMLTableRowElement> | null | undefined",
+        "type": "TouchEventHandler<HTMLTableCaptionElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -28,7 +28,7 @@
     },
     {
         "name": "ontouchendcapture",
-        "type": "TouchEventHandler<HTMLTableRowElement> | null | undefined",
+        "type": "TouchEventHandler<HTMLTableCaptionElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -37,7 +37,7 @@
     },
     {
         "name": "on:touchmove",
-        "type": "TouchEventHandler<HTMLTableRowElement> | null | undefined",
+        "type": "TouchEventHandler<HTMLTableCaptionElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -46,7 +46,7 @@
     },
     {
         "name": "ontouchmove",
-        "type": "TouchEventHandler<HTMLTableRowElement> | null | undefined",
+        "type": "TouchEventHandler<HTMLTableCaptionElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -55,7 +55,7 @@
     },
     {
         "name": "ontouchmovecapture",
-        "type": "TouchEventHandler<HTMLTableRowElement> | null | undefined",
+        "type": "TouchEventHandler<HTMLTableCaptionElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -64,7 +64,7 @@
     },
     {
         "name": "on:touchstart",
-        "type": "TouchEventHandler<HTMLTableRowElement> | null | undefined",
+        "type": "TouchEventHandler<HTMLTableCaptionElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -73,7 +73,7 @@
     },
     {
         "name": "ontouchstart",
-        "type": "TouchEventHandler<HTMLTableRowElement> | null | undefined",
+        "type": "TouchEventHandler<HTMLTableCaptionElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -82,7 +82,7 @@
     },
     {
         "name": "ontouchstartcapture",
-        "type": "TouchEventHandler<HTMLTableRowElement> | null | undefined",
+        "type": "TouchEventHandler<HTMLTableCaptionElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -91,7 +91,7 @@
     },
     {
         "name": "on:gotpointercapture",
-        "type": "PointerEventHandler<HTMLTableRowElement> | null | undefined",
+        "type": "PointerEventHandler<HTMLTableCaptionElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -100,7 +100,7 @@
     },
     {
         "name": "ongotpointercapture",
-        "type": "PointerEventHandler<HTMLTableRowElement> | null | undefined",
+        "type": "PointerEventHandler<HTMLTableCaptionElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -109,7 +109,7 @@
     },
     {
         "name": "ongotpointercapturecapture",
-        "type": "PointerEventHandler<HTMLTableRowElement> | null | undefined",
+        "type": "PointerEventHandler<HTMLTableCaptionElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -118,7 +118,7 @@
     },
     {
         "name": "on:pointercancel",
-        "type": "PointerEventHandler<HTMLTableRowElement> | null | undefined",
+        "type": "PointerEventHandler<HTMLTableCaptionElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -127,7 +127,7 @@
     },
     {
         "name": "onpointercancel",
-        "type": "PointerEventHandler<HTMLTableRowElement> | null | undefined",
+        "type": "PointerEventHandler<HTMLTableCaptionElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -136,7 +136,7 @@
     },
     {
         "name": "onpointercancelcapture",
-        "type": "PointerEventHandler<HTMLTableRowElement> | null | undefined",
+        "type": "PointerEventHandler<HTMLTableCaptionElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -145,7 +145,7 @@
     },
     {
         "name": "on:pointerdown",
-        "type": "PointerEventHandler<HTMLTableRowElement> | null | undefined",
+        "type": "PointerEventHandler<HTMLTableCaptionElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -154,7 +154,7 @@
     },
     {
         "name": "onpointerdown",
-        "type": "PointerEventHandler<HTMLTableRowElement> | null | undefined",
+        "type": "PointerEventHandler<HTMLTableCaptionElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -163,7 +163,7 @@
     },
     {
         "name": "onpointerdowncapture",
-        "type": "PointerEventHandler<HTMLTableRowElement> | null | undefined",
+        "type": "PointerEventHandler<HTMLTableCaptionElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -172,7 +172,7 @@
     },
     {
         "name": "on:pointerenter",
-        "type": "PointerEventHandler<HTMLTableRowElement> | null | undefined",
+        "type": "PointerEventHandler<HTMLTableCaptionElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -181,7 +181,7 @@
     },
     {
         "name": "onpointerenter",
-        "type": "PointerEventHandler<HTMLTableRowElement> | null | undefined",
+        "type": "PointerEventHandler<HTMLTableCaptionElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -190,7 +190,7 @@
     },
     {
         "name": "onpointerentercapture",
-        "type": "PointerEventHandler<HTMLTableRowElement> | null | undefined",
+        "type": "PointerEventHandler<HTMLTableCaptionElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -199,7 +199,7 @@
     },
     {
         "name": "on:pointerleave",
-        "type": "PointerEventHandler<HTMLTableRowElement> | null | undefined",
+        "type": "PointerEventHandler<HTMLTableCaptionElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -208,7 +208,7 @@
     },
     {
         "name": "onpointerleave",
-        "type": "PointerEventHandler<HTMLTableRowElement> | null | undefined",
+        "type": "PointerEventHandler<HTMLTableCaptionElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -217,7 +217,7 @@
     },
     {
         "name": "onpointerleavecapture",
-        "type": "PointerEventHandler<HTMLTableRowElement> | null | undefined",
+        "type": "PointerEventHandler<HTMLTableCaptionElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -226,7 +226,7 @@
     },
     {
         "name": "on:pointermove",
-        "type": "PointerEventHandler<HTMLTableRowElement> | null | undefined",
+        "type": "PointerEventHandler<HTMLTableCaptionElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -235,7 +235,7 @@
     },
     {
         "name": "onpointermove",
-        "type": "PointerEventHandler<HTMLTableRowElement> | null | undefined",
+        "type": "PointerEventHandler<HTMLTableCaptionElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -244,7 +244,7 @@
     },
     {
         "name": "onpointermovecapture",
-        "type": "PointerEventHandler<HTMLTableRowElement> | null | undefined",
+        "type": "PointerEventHandler<HTMLTableCaptionElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -253,7 +253,7 @@
     },
     {
         "name": "on:pointerout",
-        "type": "PointerEventHandler<HTMLTableRowElement> | null | undefined",
+        "type": "PointerEventHandler<HTMLTableCaptionElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -262,7 +262,7 @@
     },
     {
         "name": "onpointerout",
-        "type": "PointerEventHandler<HTMLTableRowElement> | null | undefined",
+        "type": "PointerEventHandler<HTMLTableCaptionElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -271,7 +271,7 @@
     },
     {
         "name": "onpointeroutcapture",
-        "type": "PointerEventHandler<HTMLTableRowElement> | null | undefined",
+        "type": "PointerEventHandler<HTMLTableCaptionElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -280,7 +280,7 @@
     },
     {
         "name": "on:pointerover",
-        "type": "PointerEventHandler<HTMLTableRowElement> | null | undefined",
+        "type": "PointerEventHandler<HTMLTableCaptionElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -289,7 +289,7 @@
     },
     {
         "name": "onpointerover",
-        "type": "PointerEventHandler<HTMLTableRowElement> | null | undefined",
+        "type": "PointerEventHandler<HTMLTableCaptionElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -298,7 +298,7 @@
     },
     {
         "name": "onpointerovercapture",
-        "type": "PointerEventHandler<HTMLTableRowElement> | null | undefined",
+        "type": "PointerEventHandler<HTMLTableCaptionElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -307,7 +307,7 @@
     },
     {
         "name": "on:pointerup",
-        "type": "PointerEventHandler<HTMLTableRowElement> | null | undefined",
+        "type": "PointerEventHandler<HTMLTableCaptionElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -316,7 +316,7 @@
     },
     {
         "name": "onpointerup",
-        "type": "PointerEventHandler<HTMLTableRowElement> | null | undefined",
+        "type": "PointerEventHandler<HTMLTableCaptionElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -325,7 +325,7 @@
     },
     {
         "name": "onpointerupcapture",
-        "type": "PointerEventHandler<HTMLTableRowElement> | null | undefined",
+        "type": "PointerEventHandler<HTMLTableCaptionElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -334,7 +334,7 @@
     },
     {
         "name": "on:lostpointercapture",
-        "type": "PointerEventHandler<HTMLTableRowElement> | null | undefined",
+        "type": "PointerEventHandler<HTMLTableCaptionElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -343,7 +343,7 @@
     },
     {
         "name": "onlostpointercapture",
-        "type": "PointerEventHandler<HTMLTableRowElement> | null | undefined",
+        "type": "PointerEventHandler<HTMLTableCaptionElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -352,7 +352,7 @@
     },
     {
         "name": "onlostpointercapturecapture",
-        "type": "PointerEventHandler<HTMLTableRowElement> | null | undefined",
+        "type": "PointerEventHandler<HTMLTableCaptionElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -361,7 +361,7 @@
     },
     {
         "name": "on:gamepadconnected",
-        "type": "GamepadEventHandler<HTMLTableRowElement> | null | undefined",
+        "type": "GamepadEventHandler<HTMLTableCaptionElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -370,7 +370,7 @@
     },
     {
         "name": "ongamepadconnected",
-        "type": "GamepadEventHandler<HTMLTableRowElement> | null | undefined",
+        "type": "GamepadEventHandler<HTMLTableCaptionElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -379,7 +379,7 @@
     },
     {
         "name": "on:gamepaddisconnected",
-        "type": "GamepadEventHandler<HTMLTableRowElement> | null | undefined",
+        "type": "GamepadEventHandler<HTMLTableCaptionElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -388,7 +388,7 @@
     },
     {
         "name": "ongamepaddisconnected",
-        "type": "GamepadEventHandler<HTMLTableRowElement> | null | undefined",
+        "type": "GamepadEventHandler<HTMLTableCaptionElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -397,7 +397,7 @@
     },
     {
         "name": "on:scroll",
-        "type": "UIEventHandler<HTMLTableRowElement> | null | undefined",
+        "type": "UIEventHandler<HTMLTableCaptionElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -406,7 +406,7 @@
     },
     {
         "name": "onscroll",
-        "type": "UIEventHandler<HTMLTableRowElement> | null | undefined",
+        "type": "UIEventHandler<HTMLTableCaptionElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -415,7 +415,7 @@
     },
     {
         "name": "onscrollcapture",
-        "type": "UIEventHandler<HTMLTableRowElement> | null | undefined",
+        "type": "UIEventHandler<HTMLTableCaptionElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -424,7 +424,7 @@
     },
     {
         "name": "on:scrollend",
-        "type": "UIEventHandler<HTMLTableRowElement> | null | undefined",
+        "type": "UIEventHandler<HTMLTableCaptionElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -433,7 +433,7 @@
     },
     {
         "name": "onscrollend",
-        "type": "UIEventHandler<HTMLTableRowElement> | null | undefined",
+        "type": "UIEventHandler<HTMLTableCaptionElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -442,7 +442,7 @@
     },
     {
         "name": "onscrollendcapture",
-        "type": "UIEventHandler<HTMLTableRowElement> | null | undefined",
+        "type": "UIEventHandler<HTMLTableCaptionElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -451,7 +451,7 @@
     },
     {
         "name": "on:resize",
-        "type": "UIEventHandler<HTMLTableRowElement> | null | undefined",
+        "type": "UIEventHandler<HTMLTableCaptionElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -460,7 +460,7 @@
     },
     {
         "name": "onresize",
-        "type": "UIEventHandler<HTMLTableRowElement> | null | undefined",
+        "type": "UIEventHandler<HTMLTableCaptionElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -469,7 +469,7 @@
     },
     {
         "name": "onresizecapture",
-        "type": "UIEventHandler<HTMLTableRowElement> | null | undefined",
+        "type": "UIEventHandler<HTMLTableCaptionElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -478,7 +478,7 @@
     },
     {
         "name": "on:wheel",
-        "type": "WheelEventHandler<HTMLTableRowElement> | null | undefined",
+        "type": "WheelEventHandler<HTMLTableCaptionElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -487,7 +487,7 @@
     },
     {
         "name": "onwheel",
-        "type": "WheelEventHandler<HTMLTableRowElement> | null | undefined",
+        "type": "WheelEventHandler<HTMLTableCaptionElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -496,7 +496,7 @@
     },
     {
         "name": "onwheelcapture",
-        "type": "WheelEventHandler<HTMLTableRowElement> | null | undefined",
+        "type": "WheelEventHandler<HTMLTableCaptionElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -505,7 +505,7 @@
     },
     {
         "name": "on:animationstart",
-        "type": "AnimationEventHandler<HTMLTableRowElement> | null | undefined",
+        "type": "AnimationEventHandler<HTMLTableCaptionElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -514,7 +514,7 @@
     },
     {
         "name": "onanimationstart",
-        "type": "AnimationEventHandler<HTMLTableRowElement> | null | undefined",
+        "type": "AnimationEventHandler<HTMLTableCaptionElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -523,7 +523,7 @@
     },
     {
         "name": "onanimationstartcapture",
-        "type": "AnimationEventHandler<HTMLTableRowElement> | null | undefined",
+        "type": "AnimationEventHandler<HTMLTableCaptionElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -532,7 +532,7 @@
     },
     {
         "name": "on:animationend",
-        "type": "AnimationEventHandler<HTMLTableRowElement> | null | undefined",
+        "type": "AnimationEventHandler<HTMLTableCaptionElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -541,7 +541,7 @@
     },
     {
         "name": "onanimationend",
-        "type": "AnimationEventHandler<HTMLTableRowElement> | null | undefined",
+        "type": "AnimationEventHandler<HTMLTableCaptionElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -550,7 +550,7 @@
     },
     {
         "name": "onanimationendcapture",
-        "type": "AnimationEventHandler<HTMLTableRowElement> | null | undefined",
+        "type": "AnimationEventHandler<HTMLTableCaptionElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -559,7 +559,7 @@
     },
     {
         "name": "on:animationiteration",
-        "type": "AnimationEventHandler<HTMLTableRowElement> | null | undefined",
+        "type": "AnimationEventHandler<HTMLTableCaptionElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -568,7 +568,7 @@
     },
     {
         "name": "onanimationiteration",
-        "type": "AnimationEventHandler<HTMLTableRowElement> | null | undefined",
+        "type": "AnimationEventHandler<HTMLTableCaptionElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -577,7 +577,7 @@
     },
     {
         "name": "onanimationiterationcapture",
-        "type": "AnimationEventHandler<HTMLTableRowElement> | null | undefined",
+        "type": "AnimationEventHandler<HTMLTableCaptionElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -586,7 +586,7 @@
     },
     {
         "name": "on:transitionstart",
-        "type": "TransitionEventHandler<HTMLTableRowElement> | null | undefined",
+        "type": "TransitionEventHandler<HTMLTableCaptionElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -595,7 +595,7 @@
     },
     {
         "name": "ontransitionstart",
-        "type": "TransitionEventHandler<HTMLTableRowElement> | null | undefined",
+        "type": "TransitionEventHandler<HTMLTableCaptionElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -604,7 +604,7 @@
     },
     {
         "name": "ontransitionstartcapture",
-        "type": "TransitionEventHandler<HTMLTableRowElement> | null | undefined",
+        "type": "TransitionEventHandler<HTMLTableCaptionElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -613,7 +613,7 @@
     },
     {
         "name": "on:transitionrun",
-        "type": "TransitionEventHandler<HTMLTableRowElement> | null | undefined",
+        "type": "TransitionEventHandler<HTMLTableCaptionElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -622,7 +622,7 @@
     },
     {
         "name": "ontransitionrun",
-        "type": "TransitionEventHandler<HTMLTableRowElement> | null | undefined",
+        "type": "TransitionEventHandler<HTMLTableCaptionElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -631,7 +631,7 @@
     },
     {
         "name": "ontransitionruncapture",
-        "type": "TransitionEventHandler<HTMLTableRowElement> | null | undefined",
+        "type": "TransitionEventHandler<HTMLTableCaptionElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -640,7 +640,7 @@
     },
     {
         "name": "on:transitionend",
-        "type": "TransitionEventHandler<HTMLTableRowElement> | null | undefined",
+        "type": "TransitionEventHandler<HTMLTableCaptionElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -649,7 +649,7 @@
     },
     {
         "name": "ontransitionend",
-        "type": "TransitionEventHandler<HTMLTableRowElement> | null | undefined",
+        "type": "TransitionEventHandler<HTMLTableCaptionElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -658,7 +658,7 @@
     },
     {
         "name": "ontransitionendcapture",
-        "type": "TransitionEventHandler<HTMLTableRowElement> | null | undefined",
+        "type": "TransitionEventHandler<HTMLTableCaptionElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -667,7 +667,7 @@
     },
     {
         "name": "on:transitioncancel",
-        "type": "TransitionEventHandler<HTMLTableRowElement> | null | undefined",
+        "type": "TransitionEventHandler<HTMLTableCaptionElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -676,7 +676,7 @@
     },
     {
         "name": "ontransitioncancel",
-        "type": "TransitionEventHandler<HTMLTableRowElement> | null | undefined",
+        "type": "TransitionEventHandler<HTMLTableCaptionElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -685,7 +685,7 @@
     },
     {
         "name": "ontransitioncancelcapture",
-        "type": "TransitionEventHandler<HTMLTableRowElement> | null | undefined",
+        "type": "TransitionEventHandler<HTMLTableCaptionElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -694,7 +694,7 @@
     },
     {
         "name": "on:outrostart",
-        "type": "EventHandler<CustomEvent<null>, HTMLTableRowElement> | null | undefined",
+        "type": "EventHandler<CustomEvent<null>, HTMLTableCaptionElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -703,7 +703,7 @@
     },
     {
         "name": "onoutrostart",
-        "type": "EventHandler<CustomEvent<null>, HTMLTableRowElement> | null | undefined",
+        "type": "EventHandler<CustomEvent<null>, HTMLTableCaptionElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -712,7 +712,7 @@
     },
     {
         "name": "onoutrostartcapture",
-        "type": "EventHandler<CustomEvent<null>, HTMLTableRowElement> | null | undefined",
+        "type": "EventHandler<CustomEvent<null>, HTMLTableCaptionElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -721,7 +721,7 @@
     },
     {
         "name": "on:outroend",
-        "type": "EventHandler<CustomEvent<null>, HTMLTableRowElement> | null | undefined",
+        "type": "EventHandler<CustomEvent<null>, HTMLTableCaptionElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -730,7 +730,7 @@
     },
     {
         "name": "onoutroend",
-        "type": "EventHandler<CustomEvent<null>, HTMLTableRowElement> | null | undefined",
+        "type": "EventHandler<CustomEvent<null>, HTMLTableCaptionElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -739,7 +739,7 @@
     },
     {
         "name": "onoutroendcapture",
-        "type": "EventHandler<CustomEvent<null>, HTMLTableRowElement> | null | undefined",
+        "type": "EventHandler<CustomEvent<null>, HTMLTableCaptionElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -748,7 +748,7 @@
     },
     {
         "name": "on:introstart",
-        "type": "EventHandler<CustomEvent<null>, HTMLTableRowElement> | null | undefined",
+        "type": "EventHandler<CustomEvent<null>, HTMLTableCaptionElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -757,7 +757,7 @@
     },
     {
         "name": "onintrostart",
-        "type": "EventHandler<CustomEvent<null>, HTMLTableRowElement> | null | undefined",
+        "type": "EventHandler<CustomEvent<null>, HTMLTableCaptionElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -766,7 +766,7 @@
     },
     {
         "name": "onintrostartcapture",
-        "type": "EventHandler<CustomEvent<null>, HTMLTableRowElement> | null | undefined",
+        "type": "EventHandler<CustomEvent<null>, HTMLTableCaptionElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -775,7 +775,7 @@
     },
     {
         "name": "on:introend",
-        "type": "EventHandler<CustomEvent<null>, HTMLTableRowElement> | null | undefined",
+        "type": "EventHandler<CustomEvent<null>, HTMLTableCaptionElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -784,7 +784,7 @@
     },
     {
         "name": "onintroend",
-        "type": "EventHandler<CustomEvent<null>, HTMLTableRowElement> | null | undefined",
+        "type": "EventHandler<CustomEvent<null>, HTMLTableCaptionElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -793,7 +793,7 @@
     },
     {
         "name": "onintroendcapture",
-        "type": "EventHandler<CustomEvent<null>, HTMLTableRowElement> | null | undefined",
+        "type": "EventHandler<CustomEvent<null>, HTMLTableCaptionElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -802,7 +802,7 @@
     },
     {
         "name": "on:message",
-        "type": "MessageEventHandler<HTMLTableRowElement> | null | undefined",
+        "type": "MessageEventHandler<HTMLTableCaptionElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -811,7 +811,7 @@
     },
     {
         "name": "onmessage",
-        "type": "MessageEventHandler<HTMLTableRowElement> | null | undefined",
+        "type": "MessageEventHandler<HTMLTableCaptionElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -820,7 +820,7 @@
     },
     {
         "name": "onmessagecapture",
-        "type": "MessageEventHandler<HTMLTableRowElement> | null | undefined",
+        "type": "MessageEventHandler<HTMLTableCaptionElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -829,7 +829,7 @@
     },
     {
         "name": "on:messageerror",
-        "type": "MessageEventHandler<HTMLTableRowElement> | null | undefined",
+        "type": "MessageEventHandler<HTMLTableCaptionElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -838,7 +838,7 @@
     },
     {
         "name": "onmessageerror",
-        "type": "MessageEventHandler<HTMLTableRowElement> | null | undefined",
+        "type": "MessageEventHandler<HTMLTableCaptionElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -847,7 +847,7 @@
     },
     {
         "name": "onmessageerrorcapture",
-        "type": "MessageEventHandler<HTMLTableRowElement> | null | undefined",
+        "type": "MessageEventHandler<HTMLTableCaptionElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -856,7 +856,7 @@
     },
     {
         "name": "on:visibilitychange",
-        "type": "EventHandler<Event, HTMLTableRowElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLTableCaptionElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -865,7 +865,7 @@
     },
     {
         "name": "onvisibilitychange",
-        "type": "EventHandler<Event, HTMLTableRowElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLTableCaptionElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -874,7 +874,7 @@
     },
     {
         "name": "onvisibilitychangecapture",
-        "type": "EventHandler<Event, HTMLTableRowElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLTableCaptionElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -883,7 +883,7 @@
     },
     {
         "name": "on:beforematch",
-        "type": "EventHandler<Event, HTMLTableRowElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLTableCaptionElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -892,7 +892,7 @@
     },
     {
         "name": "onbeforematch",
-        "type": "EventHandler<Event, HTMLTableRowElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLTableCaptionElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -901,7 +901,7 @@
     },
     {
         "name": "onbeforematchcapture",
-        "type": "EventHandler<Event, HTMLTableRowElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLTableCaptionElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -910,7 +910,7 @@
     },
     {
         "name": "on:cancel",
-        "type": "EventHandler<Event, HTMLTableRowElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLTableCaptionElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -919,7 +919,7 @@
     },
     {
         "name": "oncancel",
-        "type": "EventHandler<Event, HTMLTableRowElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLTableCaptionElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -928,7 +928,7 @@
     },
     {
         "name": "oncancelcapture",
-        "type": "EventHandler<Event, HTMLTableRowElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLTableCaptionElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -937,7 +937,7 @@
     },
     {
         "name": "on:close",
-        "type": "EventHandler<Event, HTMLTableRowElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLTableCaptionElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -946,7 +946,7 @@
     },
     {
         "name": "onclose",
-        "type": "EventHandler<Event, HTMLTableRowElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLTableCaptionElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -955,7 +955,7 @@
     },
     {
         "name": "onclosecapture",
-        "type": "EventHandler<Event, HTMLTableRowElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLTableCaptionElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -964,7 +964,7 @@
     },
     {
         "name": "on:fullscreenchange",
-        "type": "EventHandler<Event, HTMLTableRowElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLTableCaptionElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -973,7 +973,7 @@
     },
     {
         "name": "onfullscreenchange",
-        "type": "EventHandler<Event, HTMLTableRowElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLTableCaptionElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -982,7 +982,7 @@
     },
     {
         "name": "onfullscreenchangecapture",
-        "type": "EventHandler<Event, HTMLTableRowElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLTableCaptionElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -991,7 +991,7 @@
     },
     {
         "name": "on:fullscreenerror",
-        "type": "EventHandler<Event, HTMLTableRowElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLTableCaptionElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1000,7 +1000,7 @@
     },
     {
         "name": "onfullscreenerror",
-        "type": "EventHandler<Event, HTMLTableRowElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLTableCaptionElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1009,7 +1009,7 @@
     },
     {
         "name": "onfullscreenerrorcapture",
-        "type": "EventHandler<Event, HTMLTableRowElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLTableCaptionElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1057,13 +1057,22 @@
         "type": "\"row\" | \"rowgroup\" | \"col\" | \"colgroup\" | null | undefined",
         "required": false,
         "bindable": false,
-        "default": "'col'",
+        "default": null,
         "description": "",
         "inherited": true
     },
     {
         "name": "abbr",
         "type": "string | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "valign",
+        "type": "\"top\" | \"bottom\" | \"middle\" | \"baseline\" | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -2233,15 +2242,6 @@
     },
     {
         "name": "on:timeupdate",
-        "type": "EventHandler<Event, HTMLTableCellElement> | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
-        "name": "ontimeupdate",
         "type": "EventHandler<Event, HTMLTableCellElement> | null | undefined",
         "required": false,
         "bindable": false,

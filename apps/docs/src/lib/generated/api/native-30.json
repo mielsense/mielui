@@ -1,7 +1,7 @@
 [
     {
         "name": "onfullscreenchange",
-        "type": "EventHandler<Event, HTMLTableCaptionElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLTableRowElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -10,7 +10,7 @@
     },
     {
         "name": "onfullscreenchangecapture",
-        "type": "EventHandler<Event, HTMLTableCaptionElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLTableRowElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -19,7 +19,7 @@
     },
     {
         "name": "on:fullscreenerror",
-        "type": "EventHandler<Event, HTMLTableCaptionElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLTableRowElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -28,7 +28,7 @@
     },
     {
         "name": "onfullscreenerror",
-        "type": "EventHandler<Event, HTMLTableCaptionElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLTableRowElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -37,7 +37,7 @@
     },
     {
         "name": "onfullscreenerrorcapture",
-        "type": "EventHandler<Event, HTMLTableCaptionElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLTableRowElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,

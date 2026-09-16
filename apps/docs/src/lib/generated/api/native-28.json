@@ -1,5 +1,14 @@
 [
     {
+        "name": "ontimeupdate",
+        "type": "EventHandler<Event, HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
         "name": "ontimeupdatecapture",
         "type": "EventHandler<Event, HTMLTableCellElement> | null | undefined",
         "required": false,
@@ -1678,22 +1687,13 @@
         "type": "\"row\" | \"rowgroup\" | \"col\" | \"colgroup\" | null | undefined",
         "required": false,
         "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
-        "name": "valign",
-        "type": "\"top\" | \"bottom\" | \"middle\" | \"baseline\" | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
+        "default": "'col'",
         "description": "",
         "inherited": true
     },
     {
         "name": "on:copy",
-        "type": "ClipboardEventHandler<HTMLTableCaptionElement> | null | undefined",
+        "type": "ClipboardEventHandler<HTMLTableRowElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1702,7 +1702,7 @@
     },
     {
         "name": "oncopy",
-        "type": "ClipboardEventHandler<HTMLTableCaptionElement> | null | undefined",
+        "type": "ClipboardEventHandler<HTMLTableRowElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1711,7 +1711,7 @@
     },
     {
         "name": "oncopycapture",
-        "type": "ClipboardEventHandler<HTMLTableCaptionElement> | null | undefined",
+        "type": "ClipboardEventHandler<HTMLTableRowElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1720,7 +1720,7 @@
     },
     {
         "name": "on:cut",
-        "type": "ClipboardEventHandler<HTMLTableCaptionElement> | null | undefined",
+        "type": "ClipboardEventHandler<HTMLTableRowElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1729,7 +1729,7 @@
     },
     {
         "name": "oncut",
-        "type": "ClipboardEventHandler<HTMLTableCaptionElement> | null | undefined",
+        "type": "ClipboardEventHandler<HTMLTableRowElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1738,7 +1738,7 @@
     },
     {
         "name": "oncutcapture",
-        "type": "ClipboardEventHandler<HTMLTableCaptionElement> | null | undefined",
+        "type": "ClipboardEventHandler<HTMLTableRowElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1747,7 +1747,7 @@
     },
     {
         "name": "on:paste",
-        "type": "ClipboardEventHandler<HTMLTableCaptionElement> | null | undefined",
+        "type": "ClipboardEventHandler<HTMLTableRowElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1756,7 +1756,7 @@
     },
     {
         "name": "onpaste",
-        "type": "ClipboardEventHandler<HTMLTableCaptionElement> | null | undefined",
+        "type": "ClipboardEventHandler<HTMLTableRowElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1765,7 +1765,7 @@
     },
     {
         "name": "onpastecapture",
-        "type": "ClipboardEventHandler<HTMLTableCaptionElement> | null | undefined",
+        "type": "ClipboardEventHandler<HTMLTableRowElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1774,7 +1774,7 @@
     },
     {
         "name": "on:compositionend",
-        "type": "CompositionEventHandler<HTMLTableCaptionElement> | null | undefined",
+        "type": "CompositionEventHandler<HTMLTableRowElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1783,7 +1783,7 @@
     },
     {
         "name": "oncompositionend",
-        "type": "CompositionEventHandler<HTMLTableCaptionElement> | null | undefined",
+        "type": "CompositionEventHandler<HTMLTableRowElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1792,7 +1792,7 @@
     },
     {
         "name": "oncompositionendcapture",
-        "type": "CompositionEventHandler<HTMLTableCaptionElement> | null | undefined",
+        "type": "CompositionEventHandler<HTMLTableRowElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1801,7 +1801,7 @@
     },
     {
         "name": "on:compositionstart",
-        "type": "CompositionEventHandler<HTMLTableCaptionElement> | null | undefined",
+        "type": "CompositionEventHandler<HTMLTableRowElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1810,7 +1810,7 @@
     },
     {
         "name": "oncompositionstart",
-        "type": "CompositionEventHandler<HTMLTableCaptionElement> | null | undefined",
+        "type": "CompositionEventHandler<HTMLTableRowElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1819,7 +1819,7 @@
     },
     {
         "name": "oncompositionstartcapture",
-        "type": "CompositionEventHandler<HTMLTableCaptionElement> | null | undefined",
+        "type": "CompositionEventHandler<HTMLTableRowElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1828,7 +1828,7 @@
     },
     {
         "name": "on:compositionupdate",
-        "type": "CompositionEventHandler<HTMLTableCaptionElement> | null | undefined",
+        "type": "CompositionEventHandler<HTMLTableRowElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1837,7 +1837,7 @@
     },
     {
         "name": "oncompositionupdate",
-        "type": "CompositionEventHandler<HTMLTableCaptionElement> | null | undefined",
+        "type": "CompositionEventHandler<HTMLTableRowElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1846,7 +1846,7 @@
     },
     {
         "name": "oncompositionupdatecapture",
-        "type": "CompositionEventHandler<HTMLTableCaptionElement> | null | undefined",
+        "type": "CompositionEventHandler<HTMLTableRowElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1855,7 +1855,7 @@
     },
     {
         "name": "on:focus",
-        "type": "FocusEventHandler<HTMLTableCaptionElement> | null | undefined",
+        "type": "FocusEventHandler<HTMLTableRowElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1864,7 +1864,7 @@
     },
     {
         "name": "onfocus",
-        "type": "FocusEventHandler<HTMLTableCaptionElement> | null | undefined",
+        "type": "FocusEventHandler<HTMLTableRowElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1873,7 +1873,7 @@
     },
     {
         "name": "onfocuscapture",
-        "type": "FocusEventHandler<HTMLTableCaptionElement> | null | undefined",
+        "type": "FocusEventHandler<HTMLTableRowElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1882,7 +1882,7 @@
     },
     {
         "name": "on:focusin",
-        "type": "FocusEventHandler<HTMLTableCaptionElement> | null | undefined",
+        "type": "FocusEventHandler<HTMLTableRowElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1891,7 +1891,7 @@
     },
     {
         "name": "onfocusin",
-        "type": "FocusEventHandler<HTMLTableCaptionElement> | null | undefined",
+        "type": "FocusEventHandler<HTMLTableRowElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1900,7 +1900,7 @@
     },
     {
         "name": "onfocusincapture",
-        "type": "FocusEventHandler<HTMLTableCaptionElement> | null | undefined",
+        "type": "FocusEventHandler<HTMLTableRowElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1909,7 +1909,7 @@
     },
     {
         "name": "on:focusout",
-        "type": "FocusEventHandler<HTMLTableCaptionElement> | null | undefined",
+        "type": "FocusEventHandler<HTMLTableRowElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1918,7 +1918,7 @@
     },
     {
         "name": "onfocusout",
-        "type": "FocusEventHandler<HTMLTableCaptionElement> | null | undefined",
+        "type": "FocusEventHandler<HTMLTableRowElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1927,7 +1927,7 @@
     },
     {
         "name": "onfocusoutcapture",
-        "type": "FocusEventHandler<HTMLTableCaptionElement> | null | undefined",
+        "type": "FocusEventHandler<HTMLTableRowElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1936,7 +1936,7 @@
     },
     {
         "name": "on:blur",
-        "type": "FocusEventHandler<HTMLTableCaptionElement> | null | undefined",
+        "type": "FocusEventHandler<HTMLTableRowElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1945,7 +1945,7 @@
     },
     {
         "name": "onblur",
-        "type": "FocusEventHandler<HTMLTableCaptionElement> | null | undefined",
+        "type": "FocusEventHandler<HTMLTableRowElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1954,7 +1954,7 @@
     },
     {
         "name": "onblurcapture",
-        "type": "FocusEventHandler<HTMLTableCaptionElement> | null | undefined",
+        "type": "FocusEventHandler<HTMLTableRowElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1963,7 +1963,7 @@
     },
     {
         "name": "on:change",
-        "type": "FormEventHandler<HTMLTableCaptionElement> | null | undefined",
+        "type": "FormEventHandler<HTMLTableRowElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1972,7 +1972,7 @@
     },
     {
         "name": "onchange",
-        "type": "FormEventHandler<HTMLTableCaptionElement> | null | undefined",
+        "type": "FormEventHandler<HTMLTableRowElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1981,7 +1981,7 @@
     },
     {
         "name": "onchangecapture",
-        "type": "FormEventHandler<HTMLTableCaptionElement> | null | undefined",
+        "type": "FormEventHandler<HTMLTableRowElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1990,7 +1990,7 @@
     },
     {
         "name": "on:beforeinput",
-        "type": "EventHandler<InputEvent, HTMLTableCaptionElement> | null | undefined",
+        "type": "EventHandler<InputEvent, HTMLTableRowElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1999,7 +1999,7 @@
     },
     {
         "name": "onbeforeinput",
-        "type": "EventHandler<InputEvent, HTMLTableCaptionElement> | null | undefined",
+        "type": "EventHandler<InputEvent, HTMLTableRowElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -2008,7 +2008,7 @@
     },
     {
         "name": "onbeforeinputcapture",
-        "type": "EventHandler<InputEvent, HTMLTableCaptionElement> | null | undefined",
+        "type": "EventHandler<InputEvent, HTMLTableRowElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -2017,7 +2017,7 @@
     },
     {
         "name": "on:input",
-        "type": "FormEventHandler<HTMLTableCaptionElement> | null | undefined",
+        "type": "FormEventHandler<HTMLTableRowElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -2026,7 +2026,7 @@
     },
     {
         "name": "oninput",
-        "type": "FormEventHandler<HTMLTableCaptionElement> | null | undefined",
+        "type": "FormEventHandler<HTMLTableRowElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -2035,7 +2035,7 @@
     },
     {
         "name": "oninputcapture",
-        "type": "FormEventHandler<HTMLTableCaptionElement> | null | undefined",
+        "type": "FormEventHandler<HTMLTableRowElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -2044,7 +2044,7 @@
     },
     {
         "name": "on:reset",
-        "type": "FormEventHandler<HTMLTableCaptionElement> | null | undefined",
+        "type": "FormEventHandler<HTMLTableRowElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -2053,7 +2053,7 @@
     },
     {
         "name": "onreset",
-        "type": "FormEventHandler<HTMLTableCaptionElement> | null | undefined",
+        "type": "FormEventHandler<HTMLTableRowElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -2062,7 +2062,7 @@
     },
     {
         "name": "onresetcapture",
-        "type": "FormEventHandler<HTMLTableCaptionElement> | null | undefined",
+        "type": "FormEventHandler<HTMLTableRowElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -2071,7 +2071,7 @@
     },
     {
         "name": "on:submit",
-        "type": "EventHandler<SubmitEvent, HTMLTableCaptionElement> | null | undefined",
+        "type": "EventHandler<SubmitEvent, HTMLTableRowElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -2080,7 +2080,7 @@
     },
     {
         "name": "onsubmit",
-        "type": "EventHandler<SubmitEvent, HTMLTableCaptionElement> | null | undefined",
+        "type": "EventHandler<SubmitEvent, HTMLTableRowElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -2089,7 +2089,7 @@
     },
     {
         "name": "onsubmitcapture",
-        "type": "EventHandler<SubmitEvent, HTMLTableCaptionElement> | null | undefined",
+        "type": "EventHandler<SubmitEvent, HTMLTableRowElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -2098,7 +2098,7 @@
     },
     {
         "name": "on:invalid",
-        "type": "EventHandler<Event, HTMLTableCaptionElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLTableRowElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -2107,7 +2107,7 @@
     },
     {
         "name": "oninvalid",
-        "type": "EventHandler<Event, HTMLTableCaptionElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLTableRowElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -2116,7 +2116,7 @@
     },
     {
         "name": "oninvalidcapture",
-        "type": "EventHandler<Event, HTMLTableCaptionElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLTableRowElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -2125,7 +2125,7 @@
     },
     {
         "name": "on:formdata",
-        "type": "EventHandler<FormDataEvent, HTMLTableCaptionElement> | null | undefined",
+        "type": "EventHandler<FormDataEvent, HTMLTableRowElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -2134,7 +2134,7 @@
     },
     {
         "name": "onformdata",
-        "type": "EventHandler<FormDataEvent, HTMLTableCaptionElement> | null | undefined",
+        "type": "EventHandler<FormDataEvent, HTMLTableRowElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -2143,7 +2143,7 @@
     },
     {
         "name": "onformdatacapture",
-        "type": "EventHandler<FormDataEvent, HTMLTableCaptionElement> | null | undefined",
+        "type": "EventHandler<FormDataEvent, HTMLTableRowElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -2152,7 +2152,7 @@
     },
     {
         "name": "on:beforetoggle",
-        "type": "ToggleEventHandler<HTMLTableCaptionElement> | null | undefined",
+        "type": "ToggleEventHandler<HTMLTableRowElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -2161,7 +2161,7 @@
     },
     {
         "name": "onbeforetoggle",
-        "type": "ToggleEventHandler<HTMLTableCaptionElement> | null | undefined",
+        "type": "ToggleEventHandler<HTMLTableRowElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -2170,7 +2170,7 @@
     },
     {
         "name": "onbeforetogglecapture",
-        "type": "ToggleEventHandler<HTMLTableCaptionElement> | null | undefined",
+        "type": "ToggleEventHandler<HTMLTableRowElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -2179,7 +2179,7 @@
     },
     {
         "name": "on:toggle",
-        "type": "ToggleEventHandler<HTMLTableCaptionElement> | null | undefined",
+        "type": "ToggleEventHandler<HTMLTableRowElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -2188,7 +2188,7 @@
     },
     {
         "name": "ontoggle",
-        "type": "ToggleEventHandler<HTMLTableCaptionElement> | null | undefined",
+        "type": "ToggleEventHandler<HTMLTableRowElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -2197,7 +2197,7 @@
     },
     {
         "name": "ontogglecapture",
-        "type": "ToggleEventHandler<HTMLTableCaptionElement> | null | undefined",
+        "type": "ToggleEventHandler<HTMLTableRowElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -2206,7 +2206,7 @@
     },
     {
         "name": "on:contentvisibilityautostatechange",
-        "type": "ContentVisibilityAutoStateChangeEventHandler<HTMLTableCaptionElement> | null | undefined",
+        "type": "ContentVisibilityAutoStateChangeEventHandler<HTMLTableRowElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -2215,7 +2215,7 @@
     },
     {
         "name": "oncontentvisibilityautostatechange",
-        "type": "ContentVisibilityAutoStateChangeEventHandler<HTMLTableCaptionElement> | null | undefined",
+        "type": "ContentVisibilityAutoStateChangeEventHandler<HTMLTableRowElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -2224,7 +2224,7 @@
     },
     {
         "name": "oncontentvisibilityautostatechangecapture",
-        "type": "ContentVisibilityAutoStateChangeEventHandler<HTMLTableCaptionElement> | null | undefined",
+        "type": "ContentVisibilityAutoStateChangeEventHandler<HTMLTableRowElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -2233,7 +2233,7 @@
     },
     {
         "name": "on:keydown",
-        "type": "KeyboardEventHandler<HTMLTableCaptionElement> | null | undefined",
+        "type": "KeyboardEventHandler<HTMLTableRowElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -2242,7 +2242,7 @@
     },
     {
         "name": "onkeydown",
-        "type": "KeyboardEventHandler<HTMLTableCaptionElement> | null | undefined",
+        "type": "KeyboardEventHandler<HTMLTableRowElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
