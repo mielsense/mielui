@@ -14,7 +14,6 @@
         "context-menu",
         "dialog",
         "dropdown-menu",
-        "gauge",
         "group",
         "hover-card",
         "input",
@@ -62,5 +61,8 @@
         "response-stream",
         "tool"
     ],
-    "chart-components": []
+    "chart-components": [
+        "gauge",
+        "heatmap"
+    ]
 }

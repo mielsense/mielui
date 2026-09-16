@@ -1,4 +1,5 @@
 <script lang="ts">
+    import { onMount } from 'svelte';
     import { cn } from '@mielui/svelte/utils';
     import type { GaugeProps, GaugeTone } from '.';
 
@@ -21,13 +22,35 @@
         warning: 'text-warning',
         error: 'text-error'
     };
-    const safeMax = $derived(Math.max(max, 1));
-    const safeSize = $derived(Math.max(size, 16));
-    const safeStrokeWidth = $derived(Math.min(Math.max(strokeWidth, 1), safeSize / 2));
-    const clamped = $derived(Math.min(Math.max(value, 0), safeMax));
+    const safeMax = $derived(Number.isFinite(max) && max > 0 ? max : 100);
+    const safeSize = $derived(Number.isFinite(size) ? Math.max(size, 16) : 28);
+    const safeStrokeWidth = $derived(
+        Number.isFinite(strokeWidth) ? Math.min(Math.max(strokeWidth, 1), safeSize / 2) : 2
+    );
+    const clamped = $derived(Number.isFinite(value) ? Math.min(Math.max(value, 0), safeMax) : 0);
     const radius = $derived((safeSize - safeStrokeWidth) / 2);
     const circumference = $derived(2 * Math.PI * radius);
     const offset = $derived(circumference * (1 - clamped / safeMax));
+    let arc: SVGCircleElement;
+    onMount(() => {
+        const preference = window.matchMedia('(prefers-reduced-motion: reduce)');
+        const themeDuration = getComputedStyle(arc).getPropertyValue('--motion-duration-panel');
+        if (preference.matches || Number.parseFloat(themeDuration) === 0) {
+            return;
+        }
+        const animation = arc.animate(
+            [{ strokeDashoffset: String(circumference) }, { strokeDashoffset: String(offset) }],
+            { duration: 650, easing: 'cubic-bezier(0.2,0,0,1)', fill: 'backwards' }
+        );
+        function cancel() {
+            animation.cancel();
+        }
+        preference.addEventListener('change', cancel);
+        return () => {
+            cancel();
+            preference.removeEventListener('change', cancel);
+        };
+    });
     const accessibleLabel = $derived(label ?? `${clamped} of ${safeMax}`);
 </script>
 
@@ -63,6 +86,7 @@
             fill="none"
             stroke-width={safeStrokeWidth}
             stroke-linecap="round"
+            bind:this={arc}
             stroke-dasharray={circumference}
             stroke-dashoffset={offset}
             class={cn(

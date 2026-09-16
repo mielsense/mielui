@@ -222,8 +222,8 @@ export type {
     DropdownMenuRadioItemProps
 } from './components/dropdown-menu';
 export * as DropdownMenu from './components/dropdown-menu';
-export type { GaugeProps, GaugeTone } from './components/gauge';
-export { Gauge } from './components/gauge';
+export type { GaugeProps, GaugeTone } from './chart-components/gauge';
+export { Gauge } from './chart-components/gauge';
 export * as Group from './components/group';
 export type {
     HoverCardContentProps,
@@ -330,3 +330,5 @@ export type {
 export * as Typography from './components/typography';
 
 export { default as HugeiconsIcon } from './hugeicons-icon.svelte';
+
+export * as Heatmap from './chart-components/heatmap';

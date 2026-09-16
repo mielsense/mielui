@@ -1,0 +1,11 @@
+export { default as Root } from './heatmap.svelte';
+export { default as Header } from './heatmap-header.svelte';
+export { default as Summary } from './heatmap-summary.svelte';
+export { default as Calendar } from './heatmap-calendar.svelte';
+export { default as MonthLabels } from './heatmap-month-labels.svelte';
+export { default as WeekdayLabels } from './heatmap-weekday-labels.svelte';
+export { default as Grid } from './heatmap-grid.svelte';
+export { default as Cell } from './heatmap-cell.svelte';
+export { default as Detail } from './heatmap-detail.svelte';
+export { default as Legend } from './heatmap-legend.svelte';
+export { default as Footer } from './heatmap-footer.svelte';

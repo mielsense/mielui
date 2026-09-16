@@ -24,7 +24,7 @@
 <div data-docs-page class="flex flex-col gap-10">
     <header class="flex items-start justify-between gap-4">
         <div>
-            <Typography.H1> Gauge </Typography.H1>
+            <Typography.H1>Gauge</Typography.H1>
             <Typography.Text variant="lead" class="mt-2 max-w-2xl">
                 A compact circular meter for bounded quantities such as context remaining, API
                 usage, storage, and seats.
@@ -34,18 +34,19 @@
     </header>
 
     <section id="hero" class="scroll-mt-20 flex flex-col gap-4">
-        <ComponentPreview code={HeroSrc}><Hero /></ComponentPreview>
+        <ComponentPreview refreshable code={HeroSrc}><Hero /></ComponentPreview>
     </section>
 
     <section id="installation" class="scroll-mt-20 flex flex-col gap-4">
-        <Typography.H2 class="docs-section-heading"> Installation </Typography.H2>
+        <Typography.H2 class="docs-section-heading">Installation</Typography.H2>
         <InstallCommand command={installCommand} />
     </section>
 
     <section id="usage" class="scroll-mt-20 flex flex-col gap-4">
-        <Typography.H2 class="docs-section-heading"> Usage </Typography.H2>
+        <Typography.H2 class="docs-section-heading">Usage</Typography.H2>
         <Typography.Text variant="supporting">
-            Use <Typography.InlineCode>value</Typography.InlineCode> and
+            Use{' '}
+            <Typography.InlineCode>value</Typography.InlineCode> and
             <Typography.InlineCode>max</Typography.InlineCode>
             for the filled portion. Provide
             <Typography.InlineCode>label</Typography.InlineCode>
@@ -64,20 +65,22 @@
 
     <section id="examples" class="scroll-mt-20 flex flex-col gap-10">
         <div>
-            <Typography.H2 class="docs-section-heading"> Examples </Typography.H2>
+            <Typography.H2 class="docs-section-heading">Examples</Typography.H2>
             <Typography.Text variant="supporting" class="mt-2">
                 Use Gauge for agent context and product limits.
             </Typography.Text>
         </div>
 
         <div id="context-window" class="scroll-mt-20 flex flex-col gap-3">
-            <Typography.H3 class="docs-subsection-heading"> Context window </Typography.H3>
-            <ComponentPreview code={ContextWindowSrc}><ContextWindow /></ComponentPreview>
+            <Typography.H3 class="docs-subsection-heading">Context window</Typography.H3>
+            <ComponentPreview refreshable code={ContextWindowSrc}>
+                <ContextWindow />
+            </ComponentPreview>
         </div>
 
         <div id="usage-limit" class="scroll-mt-20 flex flex-col gap-3">
-            <Typography.H3 class="docs-subsection-heading"> Usage limit </Typography.H3>
-            <ComponentPreview code={UsageLimitSrc}><UsageLimit /></ComponentPreview>
+            <Typography.H3 class="docs-subsection-heading">Usage limit</Typography.H3>
+            <ComponentPreview refreshable code={UsageLimitSrc}><UsageLimit /></ComponentPreview>
         </div>
     </section>
 </div>
