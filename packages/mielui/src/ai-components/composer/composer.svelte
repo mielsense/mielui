@@ -1,5 +1,7 @@
 <script lang="ts">
-    import CircleAlert from '@lucide/svelte/icons/circle-alert';
+    import { overlaySurface } from '../../components/_internal/surface';
+    import HugeiconsIcon from '../../hugeicons-icon.svelte';
+    import CircleAlert from '@hugeicons/core-free-icons/AlertCircleIcon';
     import { cn } from '@mielui/svelte/utils';
     import type { ComposerProps, ComposerStatus } from '.';
     import { setComposerContext } from './context.svelte';
@@ -7,6 +9,7 @@
     let {
         value = $bindable(''),
         status = 'idle',
+        surface = 'solid',
         generating,
         disabled = false,
         allowEmpty = false,
@@ -106,7 +109,7 @@
             class={errorNoticeClass}
             data-state={effectiveStatus}
         >
-            <CircleAlert size={14} strokeWidth={2} aria-hidden="true" />
+            <HugeiconsIcon icon={CircleAlert} size={14} strokeWidth={2} aria-hidden="true" />
             <span>Message could not be sent.</span>
         </div>
     </div>
@@ -115,6 +118,7 @@
         bind:this={form}
         {...rest}
         data-ui="composer-form"
+        data-surface={surface}
         data-state={effectiveStatus}
         data-disabled={disabled || undefined}
         data-generating={generating || undefined}
@@ -122,6 +126,7 @@
         onsubmit={handleSubmit}
         class={cn(
             className,
+            overlaySurface(surface),
             'mielui-modal-frame flex w-full flex-col overflow-hidden text-foreground shadow-[var(--elevation-1)] [--mielui-modal-inset:calc(var(--spacing)*0.5)] transition-[background-color,border-color,box-shadow] [transition-duration:var(--motion-duration-press)] ease-[var(--ease-out)] motion-reduce:transition-none focus-within:border-primary focus-within:shadow-[var(--focus-ring),var(--elevation-1)] data-[state=error]:border-[color-mix(in_srgb,var(--color-error)_70%,transparent)] data-[state=error]:shadow-[0_0_0_calc(var(--border-size)*2)_color-mix(in_srgb,var(--color-error)_25%,transparent),var(--elevation-1)]'
         )}
     >

@@ -22,6 +22,7 @@ export type SheetHeaderProps = DefaultProps;
 export type SheetFooterProps = DefaultProps;
 export type SheetDescriptionProps = DefaultProps;
 export type SheetContentProps = {
+    surface?: 'solid' | 'glass';
     allowClickOutside?: boolean;
     side?: 'left' | 'right';
 } & DefaultProps;

@@ -25,7 +25,8 @@
     "files": [
         "dist",
         "registry",
-        "UPSTREAM.md"
+        "UPSTREAM.md",
+        "LICENSE-COSS"
     ],
     "bin": {
         "mielui": "dist/index.js"
@@ -165,6 +166,59 @@
             "types": "./dist/svelte/blocks/toolbar/*",
             "svelte": "./dist/svelte/blocks/toolbar/*",
             "default": "./dist/svelte/blocks/toolbar/*"
+        },
+        "./hugeicons-icon": {
+            "types": "./dist/svelte/hugeicons-icon.svelte.d.ts",
+            "svelte": "./dist/svelte/hugeicons-icon.svelte",
+            "default": "./dist/svelte/hugeicons-icon.svelte"
+        },
+        "./actions/morph": {
+            "types": "./dist/svelte/actions/morph/index.d.ts",
+            "default": "./dist/svelte/actions/morph/index.js"
+        },
+        "./actions/shimmer": {
+            "types": "./dist/svelte/actions/shimmer/index.d.ts",
+            "default": "./dist/svelte/actions/shimmer/index.js"
+        },
+        "./components/reorder-list": {
+            "types": "./dist/svelte/blocks/reorder-list/index.d.ts",
+            "svelte": "./dist/svelte/blocks/reorder-list/index.js",
+            "default": "./dist/svelte/blocks/reorder-list/index.js"
+        },
+        "./components/reorder-list/*": {
+            "types": "./dist/svelte/blocks/reorder-list/*",
+            "svelte": "./dist/svelte/blocks/reorder-list/*",
+            "default": "./dist/svelte/blocks/reorder-list/*"
+        },
+        "./components/command": {
+            "types": "./dist/svelte/blocks/command/index.d.ts",
+            "svelte": "./dist/svelte/blocks/command/index.js",
+            "default": "./dist/svelte/blocks/command/index.js"
+        },
+        "./components/command/*": {
+            "types": "./dist/svelte/blocks/command/*",
+            "svelte": "./dist/svelte/blocks/command/*",
+            "default": "./dist/svelte/blocks/command/*"
+        },
+        "./components/color-picker": {
+            "types": "./dist/svelte/blocks/color-picker/index.d.ts",
+            "svelte": "./dist/svelte/blocks/color-picker/index.js",
+            "default": "./dist/svelte/blocks/color-picker/index.js"
+        },
+        "./components/color-picker/*": {
+            "types": "./dist/svelte/blocks/color-picker/*",
+            "svelte": "./dist/svelte/blocks/color-picker/*",
+            "default": "./dist/svelte/blocks/color-picker/*"
+        },
+        "./components/toast": {
+            "types": "./dist/svelte/blocks/toast/index.d.ts",
+            "svelte": "./dist/svelte/blocks/toast/index.js",
+            "default": "./dist/svelte/blocks/toast/index.js"
+        },
+        "./components/toast/*": {
+            "types": "./dist/svelte/blocks/toast/*",
+            "svelte": "./dist/svelte/blocks/toast/*",
+            "default": "./dist/svelte/blocks/toast/*"
         }
     },
     "publishConfig": {
@@ -187,7 +241,7 @@
         "@floating-ui/dom": "1.7.6",
         "@fontsource/inter": "5.3.0",
         "@fontsource/jetbrains-mono": "5.3.0",
-        "@lucide/svelte": "1.16.0",
+        "@hugeicons/core-free-icons": "^4.3.3",
         "@scritto/core": "0.1.0",
         "@scritto/svelte": "0.1.0",
         "cnfast": "0.0.8",
@@ -199,20 +253,20 @@
     },
     "peerDependencies": {
         "@sveltejs/kit": "^2.0.0",
-        "svelte": "^5.0.0",
+        "svelte": "^5.29.0",
         "tailwindcss": "^4.0.0"
     },
     "devDependencies": {
         "@clack/prompts": "0.11.0",
         "@sveltejs/package": "2.5.8",
+        "@types/node": "22.19.19",
         "commander": "14.0.3",
+        "esbuild": "0.28.1",
         "picocolors": "1.1.1",
         "svelte-check": "4.4.8",
         "tailwindcss": "4.3.0",
-        "typescript": "5.9.3",
-        "@types/node": "22.19.19",
-        "esbuild": "0.28.1",
         "tsx": "^4.23.13",
+        "typescript": "5.9.3",
         "vitest": "4.1.11"
     }
 }

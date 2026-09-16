@@ -5,4 +5,4 @@
     let { class: className, children, ...rest }: DefaultProps = $props();
 </script>
 
-<Dialog.Footer class={className} {...rest}> {@render children?.()} </Dialog.Footer>
+<Dialog.Footer class={className} {...rest}>{@render children?.()} </Dialog.Footer>

@@ -1,6 +1,7 @@
 <!-- token-lint-disable-file -->
 <script lang="ts">
-    import Check from '@lucide/svelte/icons/check';
+    import HugeiconsIcon from '../../hugeicons-icon.svelte';
+    import Check from '@hugeicons/core-free-icons/Tick02Icon';
     import * as Popover from '@mielui/svelte/components/popover';
     import { cn } from '@mielui/svelte/utils';
     import { getColorPickerContext } from './context';
@@ -13,6 +14,8 @@
         isValidHex,
         rgbToHex
     } from './conversions';
+
+    let { surface = 'solid' }: { surface?: 'solid' | 'glass' } = $props();
 
     const ctx = getColorPickerContext();
 
@@ -237,7 +240,7 @@
 
 <svelte:window onpointerup={(e) => finishDrag(e)} onpointercancel={(e) => finishDrag(e, false)} />
 
-<Popover.Content class="w-[244px] select-none" surfaceClass="overflow-hidden !p-0">
+<Popover.Content {surface} class="w-[244px] select-none" surfaceClass="overflow-hidden !p-0">
     <!-- SB picker (large) -->
     <div
         bind:this={sbEl}
@@ -343,7 +346,8 @@
                     <span
                         class="w-9 shrink-0 text-right font-mono text-[0.66rem] tabular-nums text-foreground"
                     >
-                        {channel.value}{channel.unit}
+                        {channel.value}
+                        {channel.unit}
                     </span>
                 </div>
             {/each}
@@ -352,8 +356,9 @@
                 <div class="flex items-center gap-2">
                     <span
                         class="w-3 shrink-0 font-mono [font-size:var(--font-size-body)] [font-weight:var(--font-weight-body)] [letter-spacing:var(--tracking-body)] text-foreground-muted"
-                        >{channel.label}</span
                     >
+                        {channel.label}
+                    </span>
                     <input
                         type="range"
                         min="0"
@@ -371,8 +376,9 @@
                     />
                     <span
                         class="w-9 shrink-0 text-right font-mono text-[0.66rem] tabular-nums text-foreground"
-                        >{channel.value}</span
                     >
+                        {channel.value}
+                    </span>
                 </div>
             {/each}
         {:else}
@@ -380,8 +386,9 @@
                 <div class="flex items-center gap-2">
                     <span
                         class="w-3 shrink-0 font-mono [font-size:var(--font-size-body)] [font-weight:var(--font-weight-body)] [letter-spacing:var(--tracking-body)] text-foreground-muted"
-                        >{channel.label}</span
                     >
+                        {channel.label}
+                    </span>
                     <input
                         type="range"
                         min="0"
@@ -405,8 +412,10 @@
                     />
                     <span
                         class="w-9 shrink-0 text-right font-mono text-[0.66rem] tabular-nums text-foreground"
-                        >{channel.value}{channel.unit}</span
                     >
+                        {channel.value}
+                        {channel.unit}
+                    </span>
                 </div>
             {/each}
         {/if}
@@ -426,7 +435,8 @@
                     style:background={opt.value}
                 >
                     {#if isActive}
-                        <Check
+                        <HugeiconsIcon
+                            icon={Check}
                             size={12}
                             class="text-white drop-shadow-[0_1px_1px_rgb(0_0_0_/_0.6)]"
                         />

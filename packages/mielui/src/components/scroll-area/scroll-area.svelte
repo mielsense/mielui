@@ -1,6 +1,7 @@
 <script lang="ts">
-    import ChevronDown from '@lucide/svelte/icons/chevron-down';
-    import ChevronUp from '@lucide/svelte/icons/chevron-up';
+    import HugeiconsIcon from '../../hugeicons-icon.svelte';
+    import ChevronDown from '@hugeicons/core-free-icons/ArrowDown01Icon';
+    import ChevronUp from '@hugeicons/core-free-icons/ArrowUp01Icon';
     import { cn } from '@mielui/svelte/utils';
     import type { ScrollAreaProps } from '.';
 
@@ -87,7 +88,11 @@
                         atTop ? 'opacity-0' : 'opacity-100'
                     )}
                 >
-                    <ChevronUp size={13} class="mt-0.5 text-foreground-muted" />
+                    <HugeiconsIcon
+                        icon={ChevronUp}
+                        size={13}
+                        class="mt-0.5 text-foreground-muted"
+                    />
                 </div>
             </div>
         {/if}
@@ -104,7 +109,11 @@
                         atBottom ? 'opacity-0' : 'opacity-100'
                     )}
                 >
-                    <ChevronDown size={13} class="mb-0.5 text-foreground-muted" />
+                    <HugeiconsIcon
+                        icon={ChevronDown}
+                        size={13}
+                        class="mb-0.5 text-foreground-muted"
+                    />
                 </div>
             </div>
         {/if}

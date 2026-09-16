@@ -1,5 +1,6 @@
 <script lang="ts">
-    import Square from '@lucide/svelte/icons/square';
+    import HugeiconsIcon from '../../hugeicons-icon.svelte';
+    import Square from '@hugeicons/core-free-icons/SquareIcon';
     import { Button } from '@mielui/svelte/components/button';
     import Kbd from '@mielui/svelte/components/kbd';
     import { cn } from '@mielui/svelte/utils';
@@ -67,15 +68,15 @@
     {loadingLabel}
     aria-label={actionLabel}
     onclick={handleClick}
-    class={cn(className, 'shrink-0 px-3')}
+    class={cn(className, 'w-fit shrink-0 px-3 [&_.mielui-button-face[data-active=false]]:absolute')}
 >
     {#if children}
         {@render children({ action, generating: context.generating ?? false, empty })}
     {:else if action === 'stop'}
-        <Square size={8} fill="currentColor" aria-hidden="true" />
-        Stop
+        <HugeiconsIcon icon={Square} size={8} fill="currentColor" aria-hidden="true" />
+        {stopLabel}
     {:else}
-        Send
+        {actionLabel}
         <Kbd shortcut="enter" />
     {/if}
 </Button>

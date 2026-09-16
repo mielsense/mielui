@@ -31,6 +31,7 @@ export type DialogCloseProps = ButtonProps;
 export type DialogDescriptionProps = DefaultProps;
 
 export type DialogContentProps = {
+    surface?: 'solid' | 'glass';
     allowClickOutside?: boolean;
     allowEscape?: boolean;
     role?: 'dialog' | 'alertdialog';

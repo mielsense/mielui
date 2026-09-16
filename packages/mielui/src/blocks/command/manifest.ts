@@ -21,9 +21,9 @@ export const manifest: Manifest = {
         'components/command/manifest.ts'
     ],
     components: ['dialog', 'button'],
-    shared: ['utils.cn', 'utils.createContext', 'utils.travelingHighlight'],
+    shared: ['hugeicons-icon', 'utils.cn', 'utils.createContext', 'utils.travelingHighlight'],
     peerDependencies: {
-        '@lucide/svelte': '^1.0.0',
+        '@hugeicons/core-free-icons': '^4.3.0',
         cnfast: '^0.0.8',
         'fuse.js': '^7.1.0',
         svelte: '^5.0.0'

@@ -15,9 +15,9 @@ export const manifest: Manifest = {
         'components/tool/manifest.ts'
     ],
     components: ['spinner'],
-    shared: ['utils.cn', 'utils.pressable', 'transition'],
+    shared: ['hugeicons-icon', 'utils.cn', 'utils.pressable', 'transition'],
     peerDependencies: {
-        '@lucide/svelte': '^1.0.0',
+        '@hugeicons/core-free-icons': '^4.3.0',
         cnfast: '^0.0.8',
         svelte: '^5.0.0',
         'tailwind-merge': '^3.0.0'

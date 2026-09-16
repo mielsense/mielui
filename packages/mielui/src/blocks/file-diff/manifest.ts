@@ -20,9 +20,9 @@ export const manifest: Manifest = {
         'components/file-diff/manifest.ts'
     ],
     components: ['_internal/highlight'],
-    shared: ['utils.cn'],
+    shared: ['hugeicons-icon', 'utils.cn'],
     peerDependencies: {
-        '@lucide/svelte': '^1.7.0',
+        '@hugeicons/core-free-icons': '^4.3.0',
         'highlight.js': '^11.0.0',
         cnfast: '^0.0.8',
         svelte: '^5.0.0'

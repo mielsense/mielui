@@ -1,8 +1,9 @@
 <script lang="ts">
-    import CircleAlert from '@lucide/svelte/icons/circle-alert';
-    import CircleCheck from '@lucide/svelte/icons/circle-check';
-    import FileText from '@lucide/svelte/icons/file-text';
-    import X from '@lucide/svelte/icons/x';
+    import HugeiconsIcon from '../../hugeicons-icon.svelte';
+    import CircleAlert from '@hugeicons/core-free-icons/AlertCircleIcon';
+    import CircleCheck from '@hugeicons/core-free-icons/CheckmarkCircle02Icon';
+    import FileText from '@hugeicons/core-free-icons/File01Icon';
+    import X from '@hugeicons/core-free-icons/Cancel01Icon';
     import { Button } from '@mielui/svelte/components/button';
     import { Spinner } from '@mielui/svelte/components/spinner';
     import { cn } from '@mielui/svelte/utils';
@@ -77,7 +78,7 @@
         {#if file.type.startsWith('image/')}
             <img {@attach preview} alt="" draggable="false" class="size-full object-cover" />
         {:else}
-            <FileText size={18} strokeWidth={1.75} aria-hidden="true" />
+            <HugeiconsIcon icon={FileText} size={18} strokeWidth={1.75} aria-hidden="true" />
             <span
                 class="absolute inset-x-0 bottom-0 truncate bg-card/90 px-1 py-0.5 text-center text-xs [font-weight:var(--font-weight-header)] leading-none text-foreground-muted"
             >
@@ -88,9 +89,9 @@
 
     <div class={cn('flex min-w-0 flex-1 flex-col', status === 'uploading' ? 'gap-2' : 'gap-1')}>
         <div class="flex min-w-0 items-baseline gap-2">
-            <span class="min-w-0 flex-1 truncate text-sm font-label" title={file.name}
-                >{file.name}</span
-            >
+            <span class="min-w-0 flex-1 truncate text-sm font-label" title={file.name}>
+                {file.name}
+            </span>
             <span
                 class="flex shrink-0 items-center gap-1 text-xs tabular-nums text-foreground-muted"
             >
@@ -114,9 +115,19 @@
                 )}
             >
                 {#if status === 'complete'}
-                    <CircleCheck size={12} strokeWidth={2} aria-hidden="true" />
+                    <HugeiconsIcon
+                        icon={CircleCheck}
+                        size={12}
+                        strokeWidth={2}
+                        aria-hidden="true"
+                    />
                 {:else if status === 'error'}
-                    <CircleAlert size={12} strokeWidth={2} aria-hidden="true" />
+                    <HugeiconsIcon
+                        icon={CircleAlert}
+                        size={12}
+                        strokeWidth={2}
+                        aria-hidden="true"
+                    />
                 {/if}
                 <span class="truncate">{statusText}</span>
             </div>
@@ -150,7 +161,7 @@
             onclick={() => onRemove(file)}
             class="shrink-0 rounded-full text-foreground-muted hover:text-foreground"
         >
-            <X size={15} strokeWidth={2} aria-hidden="true" />
+            <HugeiconsIcon icon={X} size={15} strokeWidth={2} aria-hidden="true" />
         </Button>
     {/if}
 </div>

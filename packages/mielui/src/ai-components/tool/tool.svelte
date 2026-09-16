@@ -1,5 +1,6 @@
 <script lang="ts">
-    import ChevronDown from '@lucide/svelte/icons/chevron-down';
+    import HugeiconsIcon from '../../hugeicons-icon.svelte';
+    import ChevronDown from '@hugeicons/core-free-icons/ArrowDown01Icon';
     import { Spinner } from '@mielui/svelte/components/spinner';
     import { themedSlide } from '@mielui/svelte/transition';
     import { cn, pressable } from '@mielui/svelte/utils';
@@ -103,7 +104,8 @@
         {#if trigger}
             {@render trigger({ open, state, name, duration })}
         {:else}
-            <ChevronDown
+            <HugeiconsIcon
+                icon={ChevronDown}
                 size={14}
                 aria-hidden="true"
                 class={`shrink-0 text-foreground-muted transition-transform [transition-duration:var(--motion-duration-hover)] ${open ? '' : '-rotate-90'}`}
@@ -117,13 +119,14 @@
                     state === 'complete' && 'font-[var(--font-weight-label)]',
                     state === 'running' && 'mielui-tool-running'
                 )}
-                >{label}</span
             >
+                {label}
+            </span>
             <span class="min-w-0 flex-1 truncate text-foreground-muted">{name}</span>
             {#if duration}
-                <span class="ml-2 shrink-0 font-mono text-xs tabular-nums text-foreground-muted"
-                    >{duration}</span
-                >
+                <span class="ml-2 shrink-0 font-mono text-xs tabular-nums text-foreground-muted">
+                    {duration}
+                </span>
             {/if}
         {/if}
     </button>

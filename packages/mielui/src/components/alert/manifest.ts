@@ -15,9 +15,9 @@ export const manifest: Manifest = {
         'components/alert/manifest.ts'
     ],
     components: [],
-    shared: ['utils.cn'],
+    shared: ['hugeicons-icon', 'utils.cn'],
     peerDependencies: {
-        '@lucide/svelte': '^1.0.0',
+        '@hugeicons/core-free-icons': '^4.3.0',
         cnfast: '^0.0.8',
         'tailwind-merge': '^3.0.0',
         'tailwind-variants': '^3.0.0',

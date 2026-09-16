@@ -1,4 +1,5 @@
 <script lang="ts">
+    import { overlaySurface } from '../_internal/surface';
     import { useOverlay } from '@mielui/svelte/components/_internal/overlay';
     import { overlayIn, overlayOut, sheetIn, sheetOut } from '@mielui/svelte/transition';
     import { cn, visualViewportBounds } from '@mielui/svelte/utils';
@@ -7,6 +8,7 @@
 
     let {
         class: className,
+        surface = 'solid',
         allowClickOutside = true,
         children,
         side = 'right',
@@ -62,6 +64,7 @@
             <div
                 bind:this={element}
                 data-ui="sheet-content"
+                data-surface={surface}
                 data-side={side}
                 data-motion="sheet"
                 data-orientation="vertical"
@@ -69,6 +72,7 @@
                 out:sheetOut={{ side }}
                 class={cn(
                     className,
+                    overlaySurface(surface),
                     // token-lint-disable-next-line no-literal-length
                     `fixed top-[calc(var(--mielui-viewport-top)+0.5rem)] bottom-auto z-50 flex h-[calc(var(--mielui-viewport-height)-1rem)] w-[calc(100%-1rem)] max-w-sm flex-col overflow-hidden text-foreground shadow-[var(--elevation-float)] will-change-transform [backface-visibility:hidden] ${
                         side === 'left' ? 'left-2' : 'right-2'

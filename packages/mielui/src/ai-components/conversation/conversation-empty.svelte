@@ -1,5 +1,6 @@
 <script lang="ts">
-    import MessageCircle from '@lucide/svelte/icons/message-circle';
+    import HugeiconsIcon from '../../hugeicons-icon.svelte';
+    import MessageCircle from '@hugeicons/core-free-icons/BubbleChatIcon';
     import { cn } from '@mielui/svelte/utils';
     import type { ConversationEmptyProps } from '.';
 
@@ -30,7 +31,12 @@
                 {#if icon}
                     {@render icon()}
                 {:else}
-                    <MessageCircle size={18} strokeWidth={1.75} aria-hidden="true" />
+                    <HugeiconsIcon
+                        icon={MessageCircle}
+                        size={18}
+                        strokeWidth={1.75}
+                        aria-hidden="true"
+                    />
                 {/if}
             </div>
             {#if title}

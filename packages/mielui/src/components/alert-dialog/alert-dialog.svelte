@@ -11,4 +11,4 @@
     }: AlertDialogProps = $props();
 </script>
 
-<Dialog.Root bind:open {onOpenChange} {error} {orientation}> {@render children?.()} </Dialog.Root>
+<Dialog.Root bind:open {onOpenChange} {error} {orientation}>{@render children?.()} </Dialog.Root>

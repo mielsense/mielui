@@ -4,6 +4,7 @@
     import type { Snippet } from 'svelte';
 
     type Props = {
+        surface?: 'solid' | 'glass';
         children?: Snippet;
         class?: string;
         allowClickOutside?: boolean;

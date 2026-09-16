@@ -43,7 +43,7 @@
     });
 
     let element: HTMLDivElement;
-    let inputs: HTMLInputElement[] = [];
+    let inputs = $state<HTMLInputElement[]>([]);
     let activeThumb = $state(0);
     let dragging = $state<number | null>(null);
     let pointerId: number | undefined;

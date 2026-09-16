@@ -1,5 +1,6 @@
 <script lang="ts">
-    import Paperclip from '@lucide/svelte/icons/paperclip';
+    import HugeiconsIcon from '../../hugeicons-icon.svelte';
+    import Paperclip from '@hugeicons/core-free-icons/Attachment01Icon';
     import { cn } from '@mielui/svelte/utils';
     import type { AttachmentProps, AttachmentRejection } from '.';
     import { setAttachmentContext } from './context.svelte';
@@ -226,7 +227,7 @@
             <span
                 class="flex items-center gap-2 rounded-full bg-card/90 px-3 py-1.5 text-sm font-label shadow-[var(--elevation-control)]"
             >
-                <Paperclip size={16} strokeWidth={2} />
+                <HugeiconsIcon icon={Paperclip} size={16} strokeWidth={2} />
                 Drop files to attach
             </span>
         </div>

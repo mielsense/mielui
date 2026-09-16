@@ -5,4 +5,4 @@
     let { class: className, children, onclick, ...rest }: ButtonProps = $props();
 </script>
 
-<Dialog.Trigger {onclick} class={className} {...rest}> {@render children?.()} </Dialog.Trigger>
+<Dialog.Trigger {onclick} class={className} {...rest}>{@render children?.()} </Dialog.Trigger>

@@ -9,6 +9,7 @@ import Title from './popover-title.svelte';
 import Trigger from './popover-trigger.svelte';
 
 export type PopoverContentProps = {
+    surface?: 'solid' | 'glass';
     children: Snippet;
     class?: string;
     /** Classes for the inset surface (where children live) — padding, layout,

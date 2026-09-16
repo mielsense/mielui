@@ -4,6 +4,7 @@
     import type { Snippet } from 'svelte';
 
     type Props = {
+        surface?: 'solid' | 'glass';
         children: Snippet;
         class?: string;
         dynamic?: boolean;
@@ -17,6 +18,7 @@
     tabindex={-1}
     data-ui="dropdown-submenu-content"
     class={props.class}
+    surface={props.surface}
     surfaceClass="p-0"
 >
     <div

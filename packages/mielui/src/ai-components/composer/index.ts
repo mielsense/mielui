@@ -15,6 +15,7 @@ import Toolbar from './composer-toolbar.svelte';
 export type ComposerStatus = 'idle' | 'submitting' | 'error';
 
 export type ComposerProps = {
+    surface?: 'solid' | 'glass';
     value?: string;
     status?: ComposerStatus;
     /** Whether a response is being generated independently of submission state. */

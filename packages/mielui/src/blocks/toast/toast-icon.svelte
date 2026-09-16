@@ -1,9 +1,10 @@
 <script lang="ts">
-    import Check from '@lucide/svelte/icons/circle-check';
-    import CircleX from '@lucide/svelte/icons/circle-x';
-    import Info from '@lucide/svelte/icons/info';
-    import Loader from '@lucide/svelte/icons/loader-circle';
-    import Warning from '@lucide/svelte/icons/triangle-alert';
+    import HugeiconsIcon from '../../hugeicons-icon.svelte';
+    import Check from '@hugeicons/core-free-icons/CheckmarkCircle02Icon';
+    import CircleX from '@hugeicons/core-free-icons/CancelCircleIcon';
+    import Info from '@hugeicons/core-free-icons/InformationCircleIcon';
+    import Loader from '@hugeicons/core-free-icons/Loading03Icon';
+    import Warning from '@hugeicons/core-free-icons/Alert02Icon';
     import { cn } from '@mielui/svelte/utils';
     import type { HTMLAttributes } from 'svelte/elements';
     import { getToastContext } from './context.svelte';
@@ -32,7 +33,8 @@
         {#if children}
             {@render children()}
         {:else if Icon}
-            <Icon
+            <HugeiconsIcon
+                icon={Icon}
                 size={16}
                 class={context.toast.type === 'loading' ? 'animate-spin motion-reduce:animate-none' : ''}
             />

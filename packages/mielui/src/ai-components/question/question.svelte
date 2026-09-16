@@ -1,5 +1,6 @@
 <script lang="ts">
-    import CircleAlert from '@lucide/svelte/icons/circle-alert';
+    import HugeiconsIcon from '../../hugeicons-icon.svelte';
+    import CircleAlert from '@hugeicons/core-free-icons/AlertCircleIcon';
     import * as Card from '@mielui/svelte/components/card';
     import { cn } from '@mielui/svelte/utils';
     import { untrack } from 'svelte';
@@ -242,7 +243,7 @@
             class={errorNoticeClass}
             data-state={displayStatus}
         >
-            <CircleAlert size={14} strokeWidth={2} aria-hidden="true" />
+            <HugeiconsIcon icon={CircleAlert} size={14} strokeWidth={2} aria-hidden="true" />
             <span>{displayErrorMessage}</span>
         </div>
     </div>

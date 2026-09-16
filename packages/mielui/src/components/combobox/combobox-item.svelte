@@ -1,5 +1,6 @@
 <script lang="ts">
-    import Check from '@lucide/svelte/icons/check';
+    import HugeiconsIcon from '../../hugeicons-icon.svelte';
+    import Check from '@hugeicons/core-free-icons/Tick02Icon';
     import { Button, type ButtonProps } from '@mielui/svelte/components/button';
     import { cn } from '@mielui/svelte/utils';
     import { onMount } from 'svelte';
@@ -73,7 +74,7 @@
     {label}
     {#if comboboxState.selected?.value === item.value}
         <div aria-hidden="true">
-            <Check />
+            <HugeiconsIcon icon={Check} />
         </div>
     {/if}
 </Button>

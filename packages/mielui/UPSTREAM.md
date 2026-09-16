@@ -9,3 +9,7 @@ Mielui is based on [Sivir UI](https://github.com/aidan-neel/sivir-ui) by Aidan N
 The initial import renames the project, packages, CLI, configuration, and documentation links to Mielui. It also adds Mielui branding and repository setup. The inherited changelog is archived in `docs/upstream-changelog/` in the repository. It describes upstream work; those changes are not original Mielui work.
 
 The sleeping-cat ASCII animation is copied from the owner's `www` project.
+
+## COSS for Svelte
+
+The SSR-safe Hugeicons renderer is adapted from [COSS for Svelte](https://github.com/mielsense/coss-sv), packages/ui/src/lib/hugeicons-icon.svelte. Its MIT notice is retained in LICENSE-COSS. Group composition follows the same project’s documented pattern, adapted to Mielui controls.

@@ -1,5 +1,6 @@
 <script lang="ts">
-    import Paperclip from '@lucide/svelte/icons/paperclip';
+    import HugeiconsIcon from '../../hugeicons-icon.svelte';
+    import Paperclip from '@hugeicons/core-free-icons/Attachment01Icon';
     import { Button } from '@mielui/svelte/components/button';
     import { cn } from '@mielui/svelte/utils';
     import type { AttachmentTriggerProps } from '.';
@@ -38,6 +39,6 @@
     }}
     class={cn(className, 'rounded-[var(--radius-md)] text-foreground-muted hover:text-foreground')}
 >
-    <Paperclip size={17} strokeWidth={2} aria-hidden="true" />
+    <HugeiconsIcon icon={Paperclip} size={17} strokeWidth={2} aria-hidden="true" />
     {@render children?.()}
 </Button>

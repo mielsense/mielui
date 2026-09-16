@@ -1,15 +1,16 @@
 <script lang="ts">
+    import { overlaySurface } from '../_internal/surface';
     import { getContext, onMount } from 'svelte';
     import type { TooltipContentProps, TooltipState } from '.';
 
-    let { children, class: className }: TooltipContentProps = $props();
+    let { children, class: className, surface = 'solid' }: TooltipContentProps = $props();
 
     const tip = getContext('mielui-tooltip') as TooltipState;
 
     let el = $state<HTMLElement>();
 
     $effect(() => {
-        tip.className = className ?? '';
+        tip.className = [overlaySurface(surface), className ?? ''].join(' ');
     });
 
     onMount(() => {
@@ -26,4 +27,4 @@
     });
 </script>
 
-<span bind:this={el} aria-hidden="true" class="sr-only"> {@render children?.()} </span>
+<span bind:this={el} aria-hidden="true" class="sr-only">{@render children?.()} </span>

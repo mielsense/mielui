@@ -1,5 +1,6 @@
 <script lang="ts">
-    import X from '@lucide/svelte/icons/x';
+    import HugeiconsIcon from '../../hugeicons-icon.svelte';
+    import X from '@hugeicons/core-free-icons/Cancel01Icon';
     import { cn } from '@mielui/svelte/utils';
     import type { HTMLButtonAttributes } from 'svelte/elements';
     import { getToastContext } from './context.svelte';
@@ -24,6 +25,6 @@
     {#if children}
         {@render children()}
     {:else}
-        <X size={14} aria-hidden="true" />
+        <HugeiconsIcon icon={X} size={14} aria-hidden="true" />
     {/if}
 </button>

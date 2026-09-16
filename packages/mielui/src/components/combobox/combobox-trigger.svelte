@@ -1,6 +1,7 @@
 <script lang="ts">
-    import ChevronDown from '@lucide/svelte/icons/chevron-down';
-    import X from '@lucide/svelte/icons/x';
+    import HugeiconsIcon from '../../hugeicons-icon.svelte';
+    import ChevronDown from '@hugeicons/core-free-icons/ArrowDown01Icon';
+    import X from '@hugeicons/core-free-icons/Cancel01Icon';
     import type { PopoverTriggerProps } from '@mielui/svelte/components/popover';
     import { cn } from '@mielui/svelte/utils';
     import Fuse from 'fuse.js';
@@ -281,7 +282,7 @@
                 clearSearch();
             }}
         >
-            <X size={16} aria-hidden="true" />
+            <HugeiconsIcon icon={X} size={16} aria-hidden="true" />
         </button>
     {:else if trailing}
         <span
@@ -295,7 +296,8 @@
             {@render trailing()}
         </span>
     {:else if !isInputAppearance}
-        <ChevronDown
+        <HugeiconsIcon
+            icon={ChevronDown}
             size={18}
             class="pointer-events-none absolute top-1/2 right-3 shrink-0 -translate-y-1/2 text-foreground-muted"
             aria-hidden="true"

@@ -4,6 +4,7 @@ import Skeleton from './skeleton.svelte';
 import SkeletonSwap from './skeleton-swap.svelte';
 
 export type SkeletonProps = {
+    variant?: 'default' | 'shimmer';
     children?: Snippet;
     class?: string;
     w?: number;

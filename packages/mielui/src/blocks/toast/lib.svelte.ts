@@ -43,6 +43,7 @@ export interface ToastAction {
 }
 
 export interface Toast {
+    surface?: 'solid' | 'glass';
     title: string;
     duration?: number;
     description?: string;

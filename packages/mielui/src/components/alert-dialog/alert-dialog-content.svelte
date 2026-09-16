@@ -3,6 +3,7 @@
     import { cn, type DefaultProps } from '@mielui/svelte/utils';
 
     type Props = {
+        surface?: 'solid' | 'glass';
         allowEscape?: boolean;
         ariaBusy?: boolean;
         /** Max-width preset. Defaults to `sm`. */

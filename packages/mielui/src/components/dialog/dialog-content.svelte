@@ -1,5 +1,7 @@
 <script lang="ts">
-    import X from '@lucide/svelte/icons/x';
+    import { overlaySurface } from '../_internal/surface';
+    import HugeiconsIcon from '../../hugeicons-icon.svelte';
+    import X from '@hugeicons/core-free-icons/Cancel01Icon';
     import { useOverlay } from '@mielui/svelte/components/_internal/overlay';
     import { dialogIn, dialogOut, overlayIn, overlayOut } from '@mielui/svelte/transition';
     import { cn, visualViewportBounds } from '@mielui/svelte/utils';
@@ -8,6 +10,7 @@
 
     let {
         class: className,
+        surface = 'solid',
         allowClickOutside = true,
         allowEscape = true,
         role = 'dialog',
@@ -99,6 +102,7 @@
                 class={cn(
                     contentClass,
                     className,
+                    overlaySurface(surface),
                     'mielui-modal-frame origin-center text-foreground shadow-[var(--elevation-modal)]',
                     // token-lint-disable-next-line no-literal-length
                     'fixed top-[var(--mielui-viewport-center)] left-1/2 z-[120] m-auto flex min-h-20 w-[calc(100%-var(--overlay-gutter))] -translate-x-1/2 -translate-y-1/2 flex-col overflow-hidden md:top-[calc(var(--mielui-viewport-center)-3rem)] md:w-full max-h-[calc(var(--mielui-viewport-height)-var(--overlay-gutter))]',
@@ -106,6 +110,7 @@
                 )}
                 {role}
                 data-ui="dialog-panel"
+                data-surface={surface}
                 data-orientation={dialog.state.orientation}
                 data-destructive={isDestructiveAlert || undefined}
                 aria-modal="true"
@@ -145,7 +150,7 @@
                             aria-label="Close"
                             class="absolute top-3 right-3 z-[2] inline-flex size-8 items-center justify-center rounded-[var(--radius-md)] text-foreground-muted transition-colors hover:text-foreground focus-visible:outline-none focus-visible:shadow-[var(--focus-ring)]"
                         >
-                            <X size={16} />
+                            <HugeiconsIcon icon={X} size={16} />
                         </button>
                     {/if}
                     {@render children?.()}

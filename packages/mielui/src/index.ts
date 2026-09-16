@@ -181,12 +181,12 @@ export type {
     ColorFormat,
     ColorOption,
     ColorPickerProps
-} from './components/color-picker';
-export * as ColorPicker from './components/color-picker';
+} from './blocks/color-picker';
+export * as ColorPicker from './blocks/color-picker';
 export type { ComboboxItem, ComboboxRootProps, ComboboxTriggerProps } from './components/combobox';
 export * as Combobox from './components/combobox';
-export type { CommandItem, CommandItemProps, CommandProps } from './components/command';
-export * as Command from './components/command';
+export type { CommandItem, CommandItemProps, CommandProps } from './blocks/command';
+export * as Command from './blocks/command';
 export type {
     ContextMenuCheckboxItemProps,
     ContextMenuContentProps,
@@ -251,8 +251,8 @@ export type { ProgressProps } from './components/progress';
 export { Progress } from './components/progress';
 export type { RadioGroupItemProps, RadioGroupProps } from './components/radio-group';
 export * as RadioGroup from './components/radio-group';
-export type { ReorderListProps } from './components/reorder-list';
-export { ReorderList } from './components/reorder-list';
+export type { ReorderListProps } from './blocks/reorder-list';
+export { ReorderList } from './blocks/reorder-list';
 export type { ScrollAreaProps } from './components/scroll-area';
 export { ScrollArea } from './components/scroll-area';
 export type { SelectItemProps, SelectProps, SelectValueProps } from './components/select';
@@ -302,9 +302,9 @@ export type {
     ToastState,
     ToastType,
     ToastUIState
-} from './components/toast';
+} from './blocks/toast';
 // Toast ships a component plus its imperative helpers.
-export { getToastUIState, Toast, Toaster, toast } from './components/toast';
+export { getToastUIState, Toast, Toaster, toast } from './blocks/toast';
 export type { ToggleProps } from './components/toggle';
 export { Toggle } from './components/toggle';
 export type { ToggleGroupItemProps, ToggleGroupProps } from './components/toggle-group';
@@ -328,3 +328,5 @@ export type {
     TypographyTitleProps
 } from './components/typography';
 export * as Typography from './components/typography';
+
+export { default as HugeiconsIcon } from './hugeicons-icon.svelte';

@@ -1,8 +1,9 @@
 <script lang="ts">
-    import Check from '@lucide/svelte/icons/circle-check';
-    import X from '@lucide/svelte/icons/circle-x';
-    import Info from '@lucide/svelte/icons/info';
-    import Warning from '@lucide/svelte/icons/triangle-alert';
+    import HugeiconsIcon from '../../hugeicons-icon.svelte';
+    import Check from '@hugeicons/core-free-icons/CheckmarkCircle02Icon';
+    import X from '@hugeicons/core-free-icons/CancelCircleIcon';
+    import Info from '@hugeicons/core-free-icons/InformationCircleIcon';
+    import Warning from '@hugeicons/core-free-icons/Alert02Icon';
     import { cn } from '@mielui/svelte/utils';
     import type { AlertProps } from '.';
     import { alert, alertIcon } from './variants';
@@ -20,9 +21,13 @@
     );
 </script>
 
-<div role="alert" {...rest} class={cn(classProp, alert())}>
-    <Icon class={alertIcon({ variant })} size={16} strokeWidth={2.25} aria-hidden="true" />
-    <div class="flex min-w-0 flex-1 flex-col gap-0.5">
-        {@render children?.()}
-    </div>
+<div role="alert" data-ui="alert" {...rest} class={cn(classProp, alert())}>
+    <HugeiconsIcon
+        icon={Icon}
+        class={alertIcon({ variant })}
+        size={16}
+        strokeWidth={2.25}
+        aria-hidden="true"
+    />
+    {@render children?.()}
 </div>

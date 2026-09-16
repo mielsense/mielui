@@ -62,14 +62,16 @@
             {#if label}
                 <span
                     class="[font-size:var(--font-size-label)] [font-weight:var(--font-weight-label)] [letter-spacing:var(--tracking-label)] text-foreground"
-                    >{label}</span
                 >
+                    {label}
+                </span>
             {/if}
             {#if description}
                 <span
                     class="[font-size:var(--font-size-body)] [font-weight:var(--font-weight-body)] [letter-spacing:var(--tracking-body)] text-foreground-muted"
-                    >{description}</span
                 >
+                    {description}
+                </span>
             {/if}
         </span>
     {/if}

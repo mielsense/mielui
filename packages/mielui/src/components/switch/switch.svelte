@@ -22,7 +22,7 @@
     const descriptionId = `${id}-description`;
 
     const buttonClasses =
-        'group relative inline-flex h-5 w-9 shrink-0 items-center rounded-full border-[length:var(--border-size)] p-0.5 transition-[background-color,border-color,box-shadow] [transition-duration:var(--motion-duration-panel)] ease-[var(--ease-out)] motion-reduce:transition-none focus-visible:outline-none focus-visible:ring-0 focus-visible:shadow-[var(--focus-ring)] disabled:cursor-not-allowed disabled:opacity-[var(--opacity-disabled)]';
+        'group relative inline-flex h-5 w-11 shrink-0 items-center rounded-full border-[length:var(--border-size)] p-0.5 transition-[background-color,border-color,box-shadow] [transition-duration:var(--motion-duration-panel)] ease-[var(--ease-out)] motion-reduce:transition-none focus-visible:outline-none focus-visible:ring-0 focus-visible:shadow-[var(--focus-ring)] disabled:cursor-not-allowed disabled:opacity-[var(--opacity-disabled)]';
 
     function toggle(event: Event) {
         if (disabled) {
@@ -65,16 +65,16 @@
             aria-hidden="true"
             data-state={isOn ? 'checked' : 'unchecked'}
             class={cn(
-                'block size-3.5 rounded-full bg-[var(--color-on-primary)] ring-1 ring-inset ring-[color-mix(in_srgb,var(--color-foreground)_8%,transparent)] will-change-transform transition-transform [transition-duration:var(--motion-duration-panel)] ease-[var(--ease-out)] motion-reduce:transition-none',
-                isOn ? 'translate-x-4' : 'translate-x-0',
-                !disabled && 'group-active:scale-x-125 motion-reduce:group-active:scale-x-100'
+                'block h-3.5 w-6 shrink-0 rounded-full bg-[var(--color-on-primary)] ring-1 ring-inset ring-[color-mix(in_srgb,var(--color-foreground)_8%,transparent)] will-change-transform transition-transform [transition-duration:var(--motion-duration-panel)] ease-[var(--ease-out)] motion-reduce:transition-none',
+                isOn ? 'translate-x-3.5 rtl:-translate-x-3.5' : 'translate-x-0',
+                !disabled && 'group-active:scale-x-110 motion-reduce:group-active:scale-x-100'
             )}
         ></span>
     </button>
 
     {#if label || description}
         <div
-            class={`flex min-w-0 flex-col gap-0.5 pt-px select-none ${disabled ? 'cursor-not-allowed opacity-60' : 'cursor-[var(--ui-cursor-interactive)]'}`}
+            class={`flex min-w-0 flex-col gap-0.5 select-none ${disabled ? 'cursor-not-allowed opacity-60' : 'cursor-[var(--ui-cursor-interactive)]'}`}
             onclick={toggle}
             onkeydown={(e) => {
                 if (disabled) {
@@ -91,7 +91,7 @@
             {#if label}
                 <span
                     id={labelId}
-                    class="[font-size:var(--font-size-label)] [font-weight:var(--font-weight-label)] [letter-spacing:var(--tracking-label)] text-foreground [font-family:var(--font-sans),sans-serif]"
+                    class="leading-5 [font-size:var(--font-size-label)] [font-weight:var(--font-weight-label)] [letter-spacing:var(--tracking-label)] text-foreground [font-family:var(--font-sans),sans-serif]"
                 >
                     {label}
                 </span>

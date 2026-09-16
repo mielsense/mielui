@@ -2,7 +2,7 @@
     import { Button } from '@mielui/svelte/components/button';
     import { cn } from '@mielui/svelte/utils';
     import { onMount } from 'svelte';
-    import { getDialogContext } from '../dialog/context.svelte';
+    import { getDialogContext } from '../../components/dialog/context.svelte';
     import type { CommandItem, CommandItemProps } from '.';
     import { getCommandContext } from './context.svelte';
 

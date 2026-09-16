@@ -1,5 +1,6 @@
 <script lang="ts">
-    import Check from '@lucide/svelte/icons/check';
+    import HugeiconsIcon from '../../hugeicons-icon.svelte';
+    import Check from '@hugeicons/core-free-icons/Tick02Icon';
     import * as DropdownMenu from '@mielui/svelte/components/dropdown-menu';
     import { cn } from '@mielui/svelte/utils';
     import { onMount } from 'svelte';
@@ -89,7 +90,7 @@
 
     {#if selectState.value === value}
         <div aria-hidden="true">
-            <Check />
+            <HugeiconsIcon icon={Check} />
         </div>
     {/if}
 </DropdownMenu.Item>

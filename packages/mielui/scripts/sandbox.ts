@@ -53,7 +53,7 @@ const COMPONENT_PEERS: Record<string, string> = {
     'tailwind-merge': '^3.0.0',
     'tailwind-variants': '^3.0.0',
     '@floating-ui/dom': '^1.0.0',
-    '@lucide/svelte': '^1.0.0',
+    '@hugeicons/core-free-icons': '^4.3.0',
     'fuse.js': '^7.0.0'
 };
 

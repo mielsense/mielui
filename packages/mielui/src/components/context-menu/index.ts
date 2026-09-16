@@ -13,7 +13,7 @@ import SubTrigger from './context-menu-sub-trigger.svelte';
 import Trigger from './context-menu-trigger.svelte';
 
 export type ContextMenuProps = { children?: Snippet };
-export type ContextMenuContentProps = DefaultProps;
+export type ContextMenuContentProps = DefaultProps & { surface?: 'solid' | 'glass' };
 
 export type ContextMenuItemProps = {
     callback?: () => void;
@@ -28,7 +28,7 @@ export type ContextMenuCheckboxItemProps = {
 } & ButtonProps;
 
 export type ContextMenuSeparatorProps = DefaultProps;
-export type ContextMenuSubContentProps = DefaultProps;
+export type ContextMenuSubContentProps = DefaultProps & { surface?: 'solid' | 'glass' };
 
 export type ContextMenuSubTriggerProps = {
     inset?: boolean;

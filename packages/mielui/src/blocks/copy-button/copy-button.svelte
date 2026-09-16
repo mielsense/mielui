@@ -1,6 +1,7 @@
 <script lang="ts">
-    import Check from '@lucide/svelte/icons/check';
-    import Copy from '@lucide/svelte/icons/copy';
+    import HugeiconsIcon from '../../hugeicons-icon.svelte';
+    import Check from '@hugeicons/core-free-icons/Tick02Icon';
+    import Copy from '@hugeicons/core-free-icons/Copy01Icon';
     import { Button } from '@mielui/svelte/components/button';
     import * as Tooltip from '@mielui/svelte/components/tooltip';
     import { cn } from '@mielui/svelte/utils';
@@ -82,13 +83,15 @@
 			     Tailwind v4 animates rotate/scale as their own properties, so they
 			     must be named in the transition alongside transform and opacity. -->
             <span class="relative grid size-4 place-items-center">
-                <Copy
+                <HugeiconsIcon
+                    icon={Copy}
                     size={15}
                     class={`col-start-1 row-start-1 transition-[transform,translate,scale,rotate,opacity] [transition-duration:var(--motion-duration-panel)] ease-[var(--ease-out)] ${
                         copied ? '-rotate-90 scale-50 opacity-0' : 'rotate-0 scale-100 opacity-100'
                     }`}
                 />
-                <Check
+                <HugeiconsIcon
+                    icon={Check}
                     size={15}
                     class={`col-start-1 row-start-1 text-[var(--color-success)] transition-[transform,translate,scale,rotate,opacity] [transition-duration:var(--motion-duration-panel)] ease-[var(--ease-out)] ${
                         copied ? 'rotate-0 scale-100 opacity-100' : 'rotate-90 scale-50 opacity-0'

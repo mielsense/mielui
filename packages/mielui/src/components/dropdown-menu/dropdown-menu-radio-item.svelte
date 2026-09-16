@@ -1,5 +1,6 @@
 <script lang="ts">
-    import Check from '@lucide/svelte/icons/check';
+    import HugeiconsIcon from '../../hugeicons-icon.svelte';
+    import Check from '@hugeicons/core-free-icons/Tick02Icon';
     import { Button } from '@mielui/svelte/components/button';
     import { closeMenuLayers, cn } from '@mielui/svelte/utils';
     import { getPopoverContext } from '../popover/context.svelte';
@@ -46,7 +47,7 @@
 >
     <span class="grid size-4 shrink-0 place-items-center" aria-hidden="true">
         {#if checked}
-            <Check size={13} strokeWidth={2.25} />
+            <HugeiconsIcon icon={Check} size={13} strokeWidth={2.25} />
         {/if}
     </span>
     {@render children?.()}

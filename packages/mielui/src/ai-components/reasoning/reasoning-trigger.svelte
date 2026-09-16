@@ -1,5 +1,6 @@
 <script lang="ts">
-    import ChevronDown from '@lucide/svelte/icons/chevron-down';
+    import HugeiconsIcon from '../../hugeicons-icon.svelte';
+    import ChevronDown from '@hugeicons/core-free-icons/ArrowDown01Icon';
     import { Button } from '@mielui/svelte/components/button';
     import { cn } from '@mielui/svelte/utils';
     import type { ReasoningTriggerProps } from '.';
@@ -37,12 +38,14 @@
                     'font-[var(--font-weight-label)]',
                     reasoning.streaming ? 'mielui-reasoning-shimmer' : 'text-foreground-muted'
                 )}
-                >{reasoning.streaming ? 'Thinking' : 'Thought'}</span
             >
+                {reasoning.streaming ? 'Thinking' : 'Thought'}
+            </span>
             {#if !reasoning.streaming && duration}
-                <span class="text-foreground-muted">for {duration}</span>
+                <span class="text-foreground-muted">for{duration}</span>
             {/if}
-            <ChevronDown
+            <HugeiconsIcon
+                icon={ChevronDown}
                 size={14}
                 aria-hidden="true"
                 class={cn(

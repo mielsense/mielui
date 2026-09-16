@@ -65,7 +65,7 @@ async function writeCliConsumer(cwd: string, tarball: string) {
                     svelte: versions.svelte,
                     tailwindcss: versions.tailwindcss,
                     '@floating-ui/dom': '^1.7.6',
-                    '@lucide/svelte': '^1.7.0',
+                    '@hugeicons/core-free-icons': '^4.3.0',
                     cnfast: '^0.0.8',
                     'fuse.js': '^7.1.0',
                     'highlight.js': '^11.11.1',

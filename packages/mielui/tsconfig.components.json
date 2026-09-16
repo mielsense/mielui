@@ -48,7 +48,19 @@
             "@mielui/svelte/components/show-more": ["./src/blocks/show-more/index.ts"],
             "@mielui/svelte/components/show-more/*": ["./src/blocks/show-more/*"],
             "@mielui/svelte/components/toolbar": ["./src/blocks/toolbar/index.ts"],
-            "@mielui/svelte/components/toolbar/*": ["./src/blocks/toolbar/*"]
+            "@mielui/svelte/components/toolbar/*": ["./src/blocks/toolbar/*"],
+            "@mielui/svelte/hugeicons-icon": ["./src/hugeicons-icon.svelte"],
+            "@mielui/svelte/components/gauge": ["./src/chart-components/gauge/index.ts"],
+            "@mielui/svelte/components/gauge/*": ["./src/chart-components/gauge/*"],
+            "@mielui/svelte/components/heatmap": ["./src/chart-components/heatmap/index.ts"],
+            "@mielui/svelte/components/reorder-list": ["./src/blocks/reorder-list/index.ts"],
+            "@mielui/svelte/components/reorder-list/*": ["./src/blocks/reorder-list/*"],
+            "@mielui/svelte/components/command": ["./src/blocks/command/index.ts"],
+            "@mielui/svelte/components/command/*": ["./src/blocks/command/*"],
+            "@mielui/svelte/components/color-picker": ["./src/blocks/color-picker/index.ts"],
+            "@mielui/svelte/components/color-picker/*": ["./src/blocks/color-picker/*"],
+            "@mielui/svelte/components/toast": ["./src/blocks/toast/index.ts"],
+            "@mielui/svelte/components/toast/*": ["./src/blocks/toast/*"]
         }
     },
     "include": ["check.d.ts", "src/**/*.ts", "src/**/*.svelte"]

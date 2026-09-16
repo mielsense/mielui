@@ -1,7 +1,7 @@
 <script lang="ts">
     import { cn } from '@mielui/svelte/utils';
     import { untrack } from 'svelte';
-    import { getDialogContext } from '../dialog/context.svelte';
+    import { getDialogContext } from '../../components/dialog/context.svelte';
     import type { CommandHeaderProps } from '.';
 
     let { class: className, children, ...rest }: CommandHeaderProps = $props();

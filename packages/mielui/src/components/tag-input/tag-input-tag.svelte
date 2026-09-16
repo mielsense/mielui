@@ -1,5 +1,6 @@
 <script lang="ts">
-    import X from '@lucide/svelte/icons/x';
+    import HugeiconsIcon from '../../hugeicons-icon.svelte';
+    import X from '@hugeicons/core-free-icons/Cancel01Icon';
     import { Button } from '@mielui/svelte/components/button';
     import { cn } from '@mielui/svelte/utils';
     import type { HTMLAttributes } from 'svelte/elements';
@@ -62,7 +63,13 @@
             aria-hidden="true"
             class="grid size-5 shrink-0 place-items-center rounded-full text-foreground-muted transition-colors group-hover:text-foreground"
         >
-            <X size={12} strokeWidth={2.25} aria-hidden="true" class="size-3" />
+            <HugeiconsIcon
+                icon={X}
+                size={12}
+                strokeWidth={2.25}
+                aria-hidden="true"
+                class="size-3"
+            />
         </span>
     {/if}
 {/snippet}

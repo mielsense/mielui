@@ -1,4 +1,5 @@
 <script lang="ts">
+    import { overlaySurface } from '../_internal/surface';
     import { parentOverlayDepth } from '@mielui/svelte/components/_internal/overlay';
     import { panelIn, panelOut } from '@mielui/svelte/transition';
     import {
@@ -19,6 +20,7 @@
     const {
         children,
         class: classProp,
+        surface = 'solid',
         surfaceClass,
         allowClickOutside = true,
         dismissLayer = true,
@@ -348,8 +350,10 @@
                   : undefined}
             {tabindex}
             data-ui="popover-content"
+            data-surface={surface}
             class={cn(
                 classProp,
+                    overlaySurface(surface),
                 'm-auto flex origin-top-left flex-col overflow-hidden text-sm text-[var(--color-foreground)]',
                 'mielui-modal-frame shadow-[var(--elevation-float)] [--mielui-modal-inset:calc(var(--spacing)*0.5)]',
                 'max-w-[min(var(--popover-available-width,calc(100vw-2*var(--popover-viewport-margin))),calc(100vw-2*var(--popover-viewport-margin)))] max-h-[min(var(--popover-available-height,calc(100vh-2*var(--popover-viewport-margin))),calc(100vh-2*var(--popover-viewport-margin)))]'

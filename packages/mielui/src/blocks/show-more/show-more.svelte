@@ -105,12 +105,12 @@
             class="mt-2 inline-flex min-h-[var(--size-control-sm)] items-center gap-1.5 rounded-[var(--radius-md)] px-2 [font-size:var(--font-size-button)] [font-weight:var(--font-weight-button)] text-foreground-muted transition-[background-color,color] duration-[var(--motion-duration-press)] ease-[var(--ease-press)] hover:bg-secondary hover:text-foreground focus-visible:outline-none focus-visible:shadow-[var(--focus-ring)] motion-reduce:transition-none"
         >
             <span class="grid text-left">
-                <span class="mielui-show-more-label col-start-1 row-start-1" data-active={!open}
-                    >{moreLabel}</span
-                >
-                <span class="mielui-show-more-label col-start-1 row-start-1" data-active={open}
-                    >{lessLabel}</span
-                >
+                <span class="mielui-show-more-label col-start-1 row-start-1" data-active={!open}>
+                    {moreLabel}
+                </span>
+                <span class="mielui-show-more-label col-start-1 row-start-1" data-active={open}>
+                    {lessLabel}
+                </span>
             </span>
             <svg
                 aria-hidden="true"

@@ -1,5 +1,6 @@
 <script lang="ts">
-    import ChevronDown from '@lucide/svelte/icons/chevron-down';
+    import HugeiconsIcon from '../../hugeicons-icon.svelte';
+    import ChevronDown from '@hugeicons/core-free-icons/ArrowDown01Icon';
     import { cn, pressable } from '@mielui/svelte/utils';
     import { getContext } from 'svelte';
     import type { AccordionContext, AccordionTriggerProps } from '.';
@@ -28,7 +29,8 @@
     {...rest}
 >
     {@render children?.()}
-    <ChevronDown
+    <HugeiconsIcon
+        icon={ChevronDown}
         size={16}
         class={cn(
             'shrink-0 text-foreground-muted transition-transform [transition-duration:var(--motion-duration-panel)] ease-out',

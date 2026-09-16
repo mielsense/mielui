@@ -50,4 +50,4 @@
     });
 </script>
 
-<DropdownMenu.Root bind:open {onOpenChange}> {@render children?.()} </DropdownMenu.Root>
+<DropdownMenu.Root bind:open {onOpenChange}>{@render children?.()} </DropdownMenu.Root>

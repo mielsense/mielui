@@ -1,5 +1,6 @@
 <script lang="ts">
-    import ArrowRight from '@lucide/svelte/icons/arrow-right';
+    import HugeiconsIcon from '../../hugeicons-icon.svelte';
+    import ArrowRight from '@hugeicons/core-free-icons/ArrowRight02Icon';
     import { Button } from '@mielui/svelte/components/button';
     import { Spinner } from '@mielui/svelte/components/spinner';
     import type { QuestionSubmitProps } from '.';
@@ -48,6 +49,6 @@
         {@render children()}
     {:else}
         {label}
-        <ArrowRight size={14} strokeWidth={2} aria-hidden="true" />
+        <HugeiconsIcon icon={ArrowRight} size={14} strokeWidth={2} aria-hidden="true" />
     {/if}
 </Button>

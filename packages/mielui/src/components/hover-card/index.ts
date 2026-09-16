@@ -19,6 +19,7 @@ export type HoverCardTriggerProps = {
 } & DefaultProps;
 
 export type HoverCardContentProps = {
+    surface?: 'solid' | 'glass';
     side?: 'top' | 'bottom' | 'left' | 'right';
     align?: 'start' | 'center' | 'end';
     children?: Snippet;

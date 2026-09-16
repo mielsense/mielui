@@ -14,9 +14,10 @@
 
 <p
     {...rest}
+    data-ui="alert-description"
     class={cn(
         classProp,
-        'm-0 [font-size:var(--font-size-body)] leading-body [font-weight:var(--font-weight-body)] [letter-spacing:var(--tracking-body)] text-pretty text-foreground-muted'
+        'mielui-inset-surface col-span-2 row-start-1 m-0 flex min-h-18 min-w-0 flex-col justify-center px-4 py-4 [font-size:var(--font-size-body)] leading-body [font-weight:var(--font-weight-body)] [letter-spacing:var(--tracking-body)] break-words text-foreground-muted'
     )}
 >
     {@render children?.()}

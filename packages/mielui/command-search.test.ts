@@ -1,6 +1,6 @@
 import { describe, expect, test } from 'vitest';
-import type { CommandItem } from './src/components/command';
-import { searchCommandItems } from './src/components/command/search';
+import type { CommandItem } from './src/blocks/command';
+import { searchCommandItems } from './src/blocks/command/search';
 
 function item(name: string, id = ''): CommandItem {
     return { id: id || name, name, callback: undefined, ref: undefined, disabled: false };

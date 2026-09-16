@@ -1,5 +1,6 @@
 <script lang="ts">
-    import Search from '@lucide/svelte/icons/search';
+    import HugeiconsIcon from '../../hugeicons-icon.svelte';
+    import Search from '@hugeicons/core-free-icons/Search01Icon';
     import { cn } from '@mielui/svelte/utils';
     import { onMount } from 'svelte';
     import type { HTMLInputAttributes } from 'svelte/elements';
@@ -123,7 +124,12 @@
 <div
     class="flex h-[var(--size-touch)] w-full items-center gap-2.5 border-b-[length:var(--border-size)] border-border px-3"
 >
-    <Search size={15} strokeWidth={1.75} class="shrink-0 text-foreground-muted" />
+    <HugeiconsIcon
+        icon={Search}
+        size={15}
+        strokeWidth={1.75}
+        class="shrink-0 text-foreground-muted"
+    />
     <input
         bind:this={searchInput}
         bind:value={command.searchContent}

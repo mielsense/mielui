@@ -19,5 +19,6 @@
         toneClass
     )}
     {...rest}
-    >{value ?? ''}</span
 >
+    {value ?? ''}
+</span>

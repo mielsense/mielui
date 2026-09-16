@@ -78,7 +78,7 @@ async function collectManifestPaths() {
 /** Resolves a manifest `shared` entry to source files relative to mielui src. */
 function sharedToFiles(entry: string): string[] {
     if (entry.startsWith('utils.')) return ['utils.ts'];
-    for (const candidate of [`${entry}.ts`, `${entry}.svelte.ts`]) {
+    for (const candidate of [`${entry}.ts`, `${entry}.svelte.ts`, `${entry}.svelte`]) {
         if (existsSync(path.join(mieluiSrc, candidate))) return [candidate];
     }
     throw new Error(`shared entry "${entry}" resolves to no file under ${mieluiSrc}`);

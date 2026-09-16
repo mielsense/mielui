@@ -10,12 +10,13 @@ export const manifest: Manifest = {
         'components/skeleton/skeleton.svelte',
         'components/skeleton/skeleton-swap.svelte',
         'components/skeleton/index.ts',
-        'components/skeleton/manifest.ts'
+        'components/skeleton/manifest.ts',
+        'actions/shimmer/index.ts'
     ],
     components: [],
     shared: ['utils.cn'],
     peerDependencies: {
         cnfast: '^0.0.8',
-        svelte: '^5.0.0'
+        svelte: '^5.29.0'
     }
 };

@@ -1,5 +1,6 @@
 <script lang="ts">
-    import Check from '@lucide/svelte/icons/check';
+    import HugeiconsIcon from '../../hugeicons-icon.svelte';
+    import Check from '@hugeicons/core-free-icons/Tick02Icon';
     import { cn } from '@mielui/svelte/utils';
     import type { QuestionOptionProps } from '.';
     import { getQuestionContext } from './context.svelte';
@@ -64,7 +65,8 @@
             aria-hidden="true"
         >
             {#if context.type === 'multiple'}
-                <Check
+                <HugeiconsIcon
+                    icon={Check}
                     size={11}
                     strokeWidth={2.5}
                     class={cn(

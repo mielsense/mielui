@@ -1,4 +1,5 @@
 <script lang="ts">
+    import { overlaySurface } from '../../components/_internal/surface';
     import { cn } from '@mielui/svelte/utils';
     import type { HTMLAttributes } from 'svelte/elements';
     import { setToastContext } from './context.svelte';
@@ -12,6 +13,7 @@
 
     let {
         toast,
+        surface = toast.surface ?? 'solid',
         children,
         class: className,
         onmouseenter,
@@ -19,7 +21,7 @@
         onfocusin,
         onfocusout,
         ...rest
-    }: HTMLAttributes<HTMLDivElement> & { toast: Toast } = $props();
+    }: HTMLAttributes<HTMLDivElement> & { toast: Toast; surface?: 'solid' | 'glass' } = $props();
 
     let hovered = false;
     let focused = false;
@@ -45,11 +47,12 @@
 <div
     {...rest}
     data-ui="toast"
+    data-surface={surface}
     data-type={toast.type ?? 'default'}
     role="status"
     aria-live="polite"
     aria-atomic="true"
-    class={cn(className, 'mielui-inset-frame relative flex w-full flex-col text-foreground shadow-[var(--elevation-float)]')}
+    class={cn(className, overlaySurface(surface), 'mielui-inset-frame relative flex w-full flex-col text-foreground shadow-[var(--elevation-float)]')}
     onmouseenter={(event) => {
         hovered = true;
         syncTimer();

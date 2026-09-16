@@ -17,7 +17,7 @@ export type TooltipTriggerProps = {
     showOnClick?: boolean;
 } & DefaultProps;
 
-export type TooltipContentProps = DefaultProps;
+export type TooltipContentProps = DefaultProps & { surface?: 'solid' | 'glass' };
 
 export type TooltipState = {
     text: string;

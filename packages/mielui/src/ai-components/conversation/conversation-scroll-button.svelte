@@ -1,5 +1,6 @@
 <script lang="ts">
-    import ArrowDown from '@lucide/svelte/icons/arrow-down';
+    import HugeiconsIcon from '../../hugeicons-icon.svelte';
+    import ArrowDown from '@hugeicons/core-free-icons/ArrowDown02Icon';
     import { cn, pressable } from '@mielui/svelte/utils';
     import type { ConversationScrollButtonProps } from '.';
     import { getConversationContext } from './context.svelte';
@@ -41,6 +42,6 @@
             onclick?.(event);
         }}
     >
-        <ArrowDown size={16} strokeWidth={2} aria-hidden="true" />
+        <HugeiconsIcon icon={ArrowDown} size={16} strokeWidth={2} aria-hidden="true" />
     </button>
 </div>

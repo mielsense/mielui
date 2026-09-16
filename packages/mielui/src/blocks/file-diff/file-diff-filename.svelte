@@ -1,5 +1,6 @@
 <script lang="ts">
-    import FileDiffIcon from '@lucide/svelte/icons/file-diff';
+    import HugeiconsIcon from '../../hugeicons-icon.svelte';
+    import FileDiffIcon from '@hugeicons/core-free-icons/FileDiffIcon';
     import { cn } from '@mielui/svelte/utils';
     import { getContext } from 'svelte';
     import type { FileDiffContext, FileDiffFilenameProps } from '.';
@@ -15,7 +16,12 @@
     class={cn(className, 'flex min-w-0 flex-1 items-center gap-2')}
     {...rest}
 >
-    <FileDiffIcon size={14} class="shrink-0 text-foreground-muted" aria-hidden="true" />
+    <HugeiconsIcon
+        icon={FileDiffIcon}
+        size={14}
+        class="shrink-0 text-foreground-muted"
+        aria-hidden="true"
+    />
     <span
         class="min-w-0 flex-1 truncate font-mono text-[length:var(--font-size-label)] font-medium text-foreground"
     >

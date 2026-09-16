@@ -1,5 +1,6 @@
 <script lang="ts">
-    import ChevronDown from '@lucide/svelte/icons/chevron-down';
+    import HugeiconsIcon from '../../hugeicons-icon.svelte';
+    import ChevronDown from '@hugeicons/core-free-icons/ArrowDown01Icon';
     import type { ButtonVariant } from '@mielui/svelte/components/button';
     import * as Popover from '@mielui/svelte/components/popover';
     import { cn } from '@mielui/svelte/utils';
@@ -51,5 +52,5 @@
             <SelectValue />
         {/if}
     </div>
-    <ChevronDown aria-hidden="true" class="shrink-0 text-foreground-muted" />
+    <HugeiconsIcon icon={ChevronDown} aria-hidden="true" class="shrink-0 text-foreground-muted" />
 </Popover.Trigger>

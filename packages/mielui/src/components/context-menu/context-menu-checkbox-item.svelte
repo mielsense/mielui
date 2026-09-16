@@ -1,5 +1,6 @@
 <script lang="ts">
-    import Check from '@lucide/svelte/icons/check';
+    import HugeiconsIcon from '../../hugeicons-icon.svelte';
+    import Check from '@hugeicons/core-free-icons/Tick02Icon';
     import { Button } from '@mielui/svelte/components/button';
     import { closeMenuLayers, cn } from '@mielui/svelte/utils';
     import { untrack } from 'svelte';
@@ -56,7 +57,7 @@
 >
     <div class="absolute left-2 h-4 w-4">
         {#if internalChecked}
-            <Check class="text-foreground" />
+            <HugeiconsIcon icon={Check} class="text-foreground" />
         {/if}
     </div>
     {@render children?.()}

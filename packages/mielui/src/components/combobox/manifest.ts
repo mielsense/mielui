@@ -34,9 +34,9 @@ export const manifest: Manifest = {
         'components/combobox/manifest.ts'
     ],
     components: ['popover', 'button', 'input', 'scroll-area'],
-    shared: ['utils.cn', 'utils.createContext'],
+    shared: ['hugeicons-icon', 'utils.cn', 'utils.createContext'],
     peerDependencies: {
-        '@lucide/svelte': '^1.0.0',
+        '@hugeicons/core-free-icons': '^4.3.0',
         'fuse.js': '^7.0.0',
         cnfast: '^0.0.8',
         svelte: '^5.0.0'

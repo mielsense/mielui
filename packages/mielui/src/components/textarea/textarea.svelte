@@ -91,13 +91,14 @@
     {#if description}
         <span
             class="[font-size:var(--font-size-body)] [font-weight:var(--font-weight-body)] [letter-spacing:var(--tracking-body)] text-foreground-muted"
-            >{description}</span
         >
+            {description}
+        </span>
     {/if}
 {/snippet}
 
 {#if label}
-    <label class="flex flex-col gap-1"> {@render meta()} </label>
+    <label class="flex flex-col gap-1">{@render meta()} </label>
 {:else if description}
     <div class="flex flex-col gap-1">
         {@render meta()}

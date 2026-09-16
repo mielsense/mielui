@@ -1,7 +1,8 @@
 <script lang="ts">
-    import Document from '@lucide/svelte/icons/file-text';
-    import Magnifer from '@lucide/svelte/icons/search';
-    import Command from '@lucide/svelte/icons/wrench';
+    import HugeiconsIcon from '../../hugeicons-icon.svelte';
+    import Document from '@hugeicons/core-free-icons/File01Icon';
+    import Magnifer from '@hugeicons/core-free-icons/Search01Icon';
+    import Command from '@hugeicons/core-free-icons/Wrench01Icon';
     import { cn } from '@mielui/svelte/utils';
     import type { ToolItemProps } from '.';
 
@@ -19,7 +20,12 @@
     class={cn(className, 'flex min-w-0 items-center gap-2')}
     {...rest}
 >
-    <Icon size={14} aria-hidden="true" class="shrink-0 text-foreground-muted" />
+    <HugeiconsIcon
+        icon={Icon}
+        size={14}
+        aria-hidden="true"
+        class="shrink-0 text-foreground-muted"
+    />
     <span class={`shrink-0 font-[var(--font-weight-label)] ${color}`}>{name}</span>
     {#if detail}
         <span class="min-w-0 truncate font-mono text-xs text-foreground-muted">{detail}</span>

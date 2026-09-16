@@ -6,6 +6,7 @@
     const { state: popoverState } = getPopoverContext();
 
     type Props = {
+        surface?: 'solid' | 'glass';
         children: Snippet;
         class?: string;
         dynamic?: boolean;
@@ -67,6 +68,7 @@
     data-ui="select-content"
     class={props.class}
     dynamic={props.dynamic ?? false}
+    surface={props.surface}
     onkeydown={handleKeydown}
 >
     {@render props.children?.()}

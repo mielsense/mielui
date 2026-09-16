@@ -1,7 +1,8 @@
 <script lang="ts">
-    import ChevronLeft from '@lucide/svelte/icons/chevron-left';
-    import ChevronRight from '@lucide/svelte/icons/chevron-right';
-    import MoreHorizontal from '@lucide/svelte/icons/more-horizontal';
+    import HugeiconsIcon from '../../hugeicons-icon.svelte';
+    import ChevronLeft from '@hugeicons/core-free-icons/ArrowLeft01Icon';
+    import ChevronRight from '@hugeicons/core-free-icons/ArrowRight01Icon';
+    import MoreHorizontal from '@hugeicons/core-free-icons/MoreHorizontalIcon';
     import { cn } from '@mielui/svelte/utils';
     import type { PaginationProps } from '.';
 
@@ -58,7 +59,7 @@
         onclick={() => go(page - 1)}
         class="inline-flex size-[var(--size-icon-md)] items-center justify-center rounded-[var(--radius-md)] text-foreground-muted transition-colors hover:bg-secondary hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-ring)] disabled:cursor-not-allowed disabled:opacity-[var(--opacity-disabled)]"
     >
-        <ChevronLeft size={15} />
+        <HugeiconsIcon icon={ChevronLeft} size={15} />
     </button>
 
     {#each pages as p, i (i)}
@@ -67,7 +68,7 @@
                 aria-hidden="true"
                 class="inline-flex size-[var(--size-icon-md)] items-center justify-center text-foreground-muted"
             >
-                <MoreHorizontal size={14} />
+                <HugeiconsIcon icon={MoreHorizontal} size={14} />
             </span>
         {:else}
             <button
@@ -93,6 +94,6 @@
         onclick={() => go(page + 1)}
         class="inline-flex size-[var(--size-icon-md)] items-center justify-center rounded-[var(--radius-md)] text-foreground-muted transition-colors hover:bg-secondary hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-ring)] disabled:cursor-not-allowed disabled:opacity-[var(--opacity-disabled)]"
     >
-        <ChevronRight size={15} />
+        <HugeiconsIcon icon={ChevronRight} size={15} />
     </button>
 </nav>

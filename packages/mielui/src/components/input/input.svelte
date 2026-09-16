@@ -125,20 +125,22 @@
     {#if label}
         <span
             class="mb-0.5 select-none [font-size:var(--font-size-label)] [font-weight:var(--font-weight-label)] [letter-spacing:var(--tracking-label)] leading-none text-foreground [font-family:var(--font-sans),sans-serif]"
-            >{label}</span
         >
+            {label}
+        </span>
     {/if}
     {@render field()}
     {#if description}
         <span
             class="[font-size:var(--font-size-body)] [font-weight:var(--font-weight-body)] [letter-spacing:var(--tracking-body)] text-foreground-muted"
-            >{description}</span
         >
+            {description}
+        </span>
     {/if}
 {/snippet}
 
 {#if label}
-    <label class="flex w-full flex-col gap-1"> {@render meta()} </label>
+    <label class="flex w-full flex-col gap-1">{@render meta()} </label>
 {:else if description}
     <div class="flex w-full flex-col gap-1">
         {@render meta()}

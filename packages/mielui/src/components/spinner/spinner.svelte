@@ -1,6 +1,7 @@
 <script lang="ts">
-    import Check from '@lucide/svelte/icons/check';
-    import LoaderCircle from '@lucide/svelte/icons/loader-circle';
+    import HugeiconsIcon from '../../hugeicons-icon.svelte';
+    import Check from '@hugeicons/core-free-icons/Tick02Icon';
+    import LoaderCircle from '@hugeicons/core-free-icons/Loading03Icon';
     import { getCssDuration } from '@mielui/svelte/transition';
     import { cn } from '@mielui/svelte/utils';
 
@@ -87,7 +88,8 @@
         style:height={`${size}px`}
         style:width={collapsed ? '0px' : `${size}px`}
     >
-        <LoaderCircle
+        <HugeiconsIcon
+            icon={LoaderCircle}
             {size}
             aria-hidden="true"
             class={`absolute inset-0 m-auto ${curved ? 'animate-[mielui-spinner-spin_linear_infinite]' : 'animate-spin'} transition-[filter,opacity,transform] duration-[var(--motion-duration-panel)] ease-[var(--ease-out)] motion-reduce:animate-none motion-reduce:transition-none ${
@@ -97,7 +99,8 @@
             }`}
             style={`filter: ${loaderBlur}; animation-duration: ${spinDuration};`}
         />
-        <Check
+        <HugeiconsIcon
+            icon={Check}
             {size}
             aria-hidden="true"
             class={`absolute inset-0 m-auto transition-[filter,opacity,transform] duration-[var(--motion-duration-panel)] ease-[var(--ease-out)] motion-reduce:transition-none ${
