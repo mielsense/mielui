@@ -19,7 +19,7 @@ export const manifest: Manifest = {
         'components/file-diff/index.ts',
         'components/file-diff/manifest.ts'
     ],
-    components: ['_internal/highlight'],
+    components: ['_internal/utils', '_internal/highlight'],
     shared: ['hugeicons-icon', 'utils.cn'],
     peerDependencies: {
         '@floating-ui/dom': '1.7.6',

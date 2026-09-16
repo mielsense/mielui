@@ -58,6 +58,11 @@
             item to be cleared; multiple mode keeps an array of selected values.
         </Typography.Text>
 
+        <Typography.Text variant="supporting">
+            Single mode uses a string value and reports undefined when cleared. With
+            type="multiple", bind a string array; clearing all selections reports an empty array.
+            The value and onValueChange types follow the selected mode.
+        </Typography.Text>
         <CodeBlock
             code={`import * as ToggleGroup from '$lib/mielui/components/toggle-group';\n\n<ToggleGroup.Root type="single" bind:value={alignment}>\n  <ToggleGroup.Item value="left">Left</ToggleGroup.Item>\n  <ToggleGroup.Item value="center">Center</ToggleGroup.Item>\n  <ToggleGroup.Item value="right">Right</ToggleGroup.Item>\n</ToggleGroup.Root>`}
             lang="svelte"

@@ -122,13 +122,14 @@
         popoverState.open && !popoverState.hoverable && popoverState.inert && 'relative z-[130]'
     )}
     {style}
-    onclick={() => {
+    onclick={(event) => {
+        onclick?.(event);
+        if (event.defaultPrevented) { return; }
         if (popoverState.open) {
             closePopover(0);
         } else {
             openPopover();
         }
-        onclick?.();
     }}
     onmouseenter={handleEnter}
     onmouseleave={handleLeave}

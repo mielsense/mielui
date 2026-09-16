@@ -1,9 +1,9 @@
 <script lang="ts">
-    import * as Popover from '@mielui/svelte/components/popover';
+    import { Combobox as ComboboxPrimitive } from 'bits-ui';
     import { untrack } from 'svelte';
-    import { SvelteSet } from 'svelte/reactivity';
-    import type { ComboboxItem, ComboboxRootProps, ComboboxState } from '.';
+    import type { ComboboxRootProps } from '.';
     import { setComboboxContext } from './context.svelte';
+    import { createComboboxController } from './controller.svelte';
 
     let {
         children,
@@ -13,91 +13,68 @@
         value = $bindable<string | undefined>(undefined),
         onValueChange,
         onOpenChange,
-        ...rest
+        placement = 'bottom',
+        inert = true,
+        hoverable = false,
+        delay = 0,
+        closeDelay = 150
     }: ComboboxRootProps = $props();
 
     const generatedKey = $props.id();
-    const key = untrack(() => stateKey ?? state_key ?? generatedKey);
-    const comboboxState = $state<ComboboxState>({
-        open: untrack(() => open),
-        items: new SvelteSet(),
-        results: new SvelteSet(),
-        searchContent: '',
-        searchPlacement: 'trigger',
-        threshold: 0.28,
-        appearance: 'button',
-        activeValue: undefined
+    const id = untrack(() => stateKey ?? state_key ?? generatedKey);
+    const controller = createComboboxController({
+        getValue() {
+            return value;
+        },
+        setValue(next) {
+            value = next;
+            onValueChange?.(next);
+        },
+        getOpen() {
+            return open;
+        },
+        setOpen(next) {
+            open = next;
+            onOpenChange?.(next);
+        },
+        getPlacement() {
+            return placement;
+        },
+        getInert() {
+            return inert;
+        },
+        getHoverable() {
+            return hoverable;
+        },
+        getDelay() {
+            return Math.max(0, delay);
+        },
+        getCloseDelay() {
+            return Math.max(0, closeDelay);
+        }
     });
-    let syncedOpen = $state(untrack(() => open));
+    const context = Object.assign(controller, { id });
+    setComboboxContext(context);
 
-    function selectItem(item: ComboboxItem) {
-        comboboxState.selected = item;
-        comboboxState.activeValue = item.value;
-        comboboxState.open = false;
-        value = item.value;
-        onValueChange?.(item.value);
-        item.callback?.();
+    function getValue() {
+        return value ?? '';
     }
 
-    function clearSelection() {
-        comboboxState.selected = undefined;
-        comboboxState.activeValue = undefined;
-        comboboxState.searchContent = '';
-        comboboxState.results = new SvelteSet();
-        value = '';
-        onValueChange?.('');
+    function getOpen() {
+        return open;
     }
-
-    setComboboxContext({ id: key, state: comboboxState, selectItem, clearSelection });
-
-    $effect(() => {
-        if (comboboxState.open && comboboxState.appearance !== 'input') {
-            comboboxState.searchContent = '';
-            comboboxState.activeValue = untrack(() => comboboxState.selected?.value);
-        }
-    });
-    $effect(() => {
-        if (open !== syncedOpen) {
-            syncedOpen = open;
-            comboboxState.open = open;
-        }
-    });
-    $effect(() => {
-        if (comboboxState.open !== syncedOpen) {
-            syncedOpen = comboboxState.open;
-            open = comboboxState.open;
-        }
-    });
-
-    $effect(() => {
-        const next = value;
-        const selected = comboboxState.selected?.value;
-        if (next === undefined || next === '') {
-            if (selected !== undefined) {
-                comboboxState.selected = undefined;
-            }
-            return;
-        }
-        for (const item of comboboxState.items) {
-            if (item.value === next) {
-                if (comboboxState.selected !== item) {
-                    comboboxState.selected = item;
-                }
-                return;
-            }
-        }
-        if (selected !== next) {
-            comboboxState.selected = { id: '', value: next, label: next, ref: undefined };
-        }
-    });
 </script>
 
-<Popover.Root
-    {...rest}
-    state_key={key}
-    stateKey={key}
-    bind:open={comboboxState.open}
-    {onOpenChange}
+<ComboboxPrimitive.Root
+    type="single"
+    bind:value={getValue, controller.commitValue}
+    bind:open={getOpen, controller.setOpen}
+    inputValue={controller.inputValue}
+    items={controller.items}
+    disabled={controller.disabled}
+    name={controller.name}
+    allowDeselect={false}
+    loop
 >
     {@render children?.()}
-</Popover.Root>
+</ComboboxPrimitive.Root>

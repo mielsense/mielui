@@ -10,10 +10,16 @@ export const manifest: Manifest = {
         'components/message/message-content.svelte',
         'components/message/message-actions.svelte',
         'components/message/context.svelte.ts',
+        'components/message/message-avatar.svelte',
+        'components/message/message-body.svelte',
+        'components/message/message-metadata.svelte',
+        'components/message/message-name.svelte',
+        'components/message/message-time.svelte',
+        'components/message/message-status.svelte',
         'components/message/index.ts',
         'components/message/manifest.ts'
     ],
-    components: ['typography'],
+    components: ['_internal/utils', 'typography'],
     shared: ['utils.cn', 'utils.createContext'],
     peerDependencies: {
         '@floating-ui/dom': '1.7.6',

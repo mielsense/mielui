@@ -1,5 +1,6 @@
 import type { DefaultProps } from '@mielui/svelte/utils';
 import type { Snippet } from 'svelte';
+import type { HTMLInputAttributes } from 'svelte/elements';
 import Root from './command.svelte';
 import Content from './command-content.svelte';
 import Group from './command-group.svelte';
@@ -34,6 +35,17 @@ export type CommandItemProps = {
 } & DefaultProps;
 
 export type CommandHeaderProps = DefaultProps;
+
+export type CommandSearchProps = Omit<HTMLInputAttributes, 'children'> & {
+    threshold?: number;
+    icon?: Snippet;
+    count?: Snippet<[count: number]>;
+    announcement?: Snippet<[message: string]>;
+};
+
+export type CommandResultsProps = DefaultProps & {
+    empty?: Snippet;
+};
 
 export type CommandState = {
     id: string;

@@ -45,6 +45,13 @@
     </section>
 
     <!-- ─── Installation ──────────────────────────────────────────── -->
+    <Typography.Text>
+        Shortcut chips use familiar Mac menu glyphs; their accessible names expand these to words.
+        Command means the Meta key and Control means Control on every platform. An active shortcut
+        invokes its enclosing enabled button or link, or ontrigger when supplied. Hidden or inert
+        controls, composing input, repeated keys, consumed events, and controls outside the focused
+        overlay do not activate.
+    </Typography.Text>
     <section id="installation" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Installation</Typography.H2>
         <InstallCommand command={installCommand} />

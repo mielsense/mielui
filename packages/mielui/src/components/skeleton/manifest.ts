@@ -9,11 +9,12 @@ export const manifest: Manifest = {
     files: [
         'components/skeleton/skeleton.svelte',
         'components/skeleton/skeleton-swap.svelte',
+        'components/skeleton/delayed-presence.svelte.ts',
         'components/skeleton/index.ts',
         'components/skeleton/manifest.ts',
         'actions/shimmer/index.ts'
     ],
-    components: [],
+    components: ['_internal/utils'],
     shared: ['utils.cn'],
     peerDependencies: {
         '@floating-ui/dom': '1.7.6',

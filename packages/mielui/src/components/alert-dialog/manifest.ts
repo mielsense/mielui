@@ -20,7 +20,7 @@ export const manifest: Manifest = {
         'components/alert-dialog/index.ts',
         'components/alert-dialog/manifest.ts'
     ],
-    components: ['dialog', 'button'],
+    components: ['_internal/utils', 'dialog', 'button'],
     shared: ['utils.cn'],
     peerDependencies: {
         '@floating-ui/dom': '1.7.6',

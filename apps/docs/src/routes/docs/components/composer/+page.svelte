@@ -54,26 +54,22 @@
         <Typography.H2 class="docs-section-heading">Usage</Typography.H2>
         <Typography.Text variant="supporting">
             Bind the prompt value and handle submission on the root. The component awaits async
-            handlers and shows its submitting state automatically. Catch failures in your handler
-            and set status to error; the application owns error reporting and retry behavior.
+            handlers and shows its submitting state automatically. Rejections preserve the prompt
+            and display errorMessage until the next attempt. Use onError to report the failure;
+            retry with the same submit action. An explicit error status remains
+            application-controlled.
         </Typography.Text>
         <CodeBlock
             code={`import * as Composer from '@mielui/svelte/components/composer';
 
 let value = $state('');
-let status = $state<'idle' | 'error'>('idle');
 
 async function sendPrompt(prompt: string) {
-  status = 'idle';
-  try {
-    await saveMessage(prompt);
-    value = '';
-  } catch {
-    status = 'error';
-  }
+  await saveMessage(prompt);
+  value = '';
 }
 
-<Composer.Root bind:value {status} onSubmit={sendPrompt}>
+<Composer.Root bind:value onSubmit={sendPrompt} onError={reportError}>
   <Composer.Input placeholder="Ask anything..." />
   <Composer.Toolbar>
     <Composer.Actions>

@@ -31,7 +31,7 @@ export const manifest: Manifest = {
         'components/sheet/index.ts',
         'components/sheet/manifest.ts'
     ],
-    components: ['button', '_internal/overlay'],
+    components: ['_internal/utils', 'button', '_internal/overlay'],
     shared: [
         'components/_internal/surface',
         'hugeicons-icon',

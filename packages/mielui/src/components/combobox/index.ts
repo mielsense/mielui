@@ -1,5 +1,4 @@
-import type { PopoverProps } from '@mielui/svelte/components/popover';
-import type { DefaultProps } from '@mielui/svelte/utils';
+import type { PopoverProps, PopoverTriggerProps } from '@mielui/svelte/components/popover';
 import type { Snippet } from 'svelte';
 import Root from './combobox.svelte';
 import Content from './combobox-content.svelte';
@@ -33,13 +32,16 @@ export type ComboboxRootProps = PopoverProps & {
     onValueChange?: (value: string) => void;
 };
 
-export type ComboboxTriggerProps = {
-    class?: string;
+export type ComboboxTriggerProps = Omit<
+    PopoverTriggerProps,
+    'children' | 'element' | 'value' | 'type'
+> & {
     trailing?: Snippet;
     placeholder?: string;
     searchPlacement?: 'trigger' | 'menu';
     threshold?: number;
     appearance?: 'button' | 'input';
-} & DefaultProps;
+    element?: HTMLInputElement | HTMLButtonElement;
+};
 
 export { Content, Item, Label, Results, Root, Trigger };

@@ -65,6 +65,11 @@
             to false keeps the active single item open.
         </Typography.Text>
 
+        <Typography.Text variant="supporting">
+            Single mode uses a string value and reports undefined when cleared. With
+            type="multiple", bind a string array; clearing all selections reports an empty array.
+            The value and onValueChange types follow the selected mode.
+        </Typography.Text>
         <CodeBlock
             code={`import * as Accordion from '$lib/mielui/components/accordion';\n\n<Accordion.Root type="single">\n  <Accordion.Item value="a">\n    <Accordion.Trigger>Trigger</Accordion.Trigger>\n    <Accordion.Content>Content</Accordion.Content>\n  </Accordion.Item>\n</Accordion.Root>`}
             lang="svelte"

@@ -8,6 +8,7 @@ export const manifest: Manifest = {
         'Validated local-file picker with drag and drop, previews, status, and progress display.',
     files: [
         'components/attachment/attachment.svelte',
+        'components/attachment/validation.ts',
         'components/attachment/attachment-trigger.svelte',
         'components/attachment/attachment-list.svelte',
         'components/attachment/attachment-item.svelte',
@@ -15,7 +16,7 @@ export const manifest: Manifest = {
         'components/attachment/index.ts',
         'components/attachment/manifest.ts'
     ],
-    components: ['button'],
+    components: ['_internal/utils', 'button'],
     shared: ['hugeicons-icon', 'utils.cn', 'utils.createContext', 'transition'],
     peerDependencies: {
         '@floating-ui/dom': '1.7.6',

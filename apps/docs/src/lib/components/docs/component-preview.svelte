@@ -25,6 +25,30 @@
 
     let value = $state<string>('preview');
     let previewVersion = $state(0);
+    let activated = $state(false);
+
+    function activatePreview(node: HTMLElement) {
+        if (typeof IntersectionObserver === 'undefined') {
+            activated = true;
+            return;
+        }
+        const observer = new IntersectionObserver(
+            (entries) => {
+                if (entries.some((entry) => entry.isIntersecting)) {
+                    activated = true;
+                    observer.disconnect();
+                }
+            },
+            { rootMargin: '300px' }
+        );
+        observer.observe(node);
+        return {
+            destroy() {
+                observer.disconnect();
+            }
+        };
+    }
+
     let refreshVersion = $state(0);
 
     function refreshPreview() {
@@ -33,7 +57,7 @@
     }
 </script>
 
-<div class="flex flex-col gap-3.5" data-component-preview>
+<div use:activatePreview class="flex flex-col gap-3.5" data-component-preview>
     <!-- Tabs (using library Tabs component; segmented = pill-on-track switcher) -->
     <div class="flex items-center justify-between gap-3">
         <Tabs.Root bind:value variant="segmented">
@@ -82,7 +106,9 @@
                 class={cn(refreshable && "mielui-inset-surface", "flex min-h-[20rem] w-full items-center justify-center overflow-hidden p-6 sm:p-10 focus:outline-none")}
             >
                 {#key previewVersion}
-                    {@render children?.()}
+                    {#if activated}
+                        {@render children?.()}
+                    {/if}
                 {/key}
             </div>
         </Card.Root>

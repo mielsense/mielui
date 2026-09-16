@@ -62,7 +62,16 @@
     <!-- ─── Usage ─────────────────────────────────────────────────── -->
     <section id="usage" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Usage</Typography.H2>
-        <Typography.Text variant="supporting">Import Slider and bind its value:</Typography.Text>
+        <Typography.Text variant="supporting">
+            Import Slider and bind its value. Bits UI owns slider semantics and keyboard behavior;
+            Mielui retains the pill handles, range constraints, and a pointer adapter that preserves
+            the grabbed handle when thumbs overlap. Set name to submit a value, or two ordered
+            values for range mode with FormData.getAll. Disabled sliders are omitted. The form prop
+            targets an external form; reset restores the initial value. Use id and bind:element for
+            the wrapper, and aria-label, aria-labelledby, or aria-describedby to name the handles.
+            Style the rail, fill or handles through data-ui="slider-track", data-ui="slider-range"
+            and data-ui="slider-thumb" selectors on your wrapper class.
+        </Typography.Text>
         <CodeBlock
             code={`import { Slider } from '$lib/mielui/components/slider';\n\n<Slider bind:value={volume} label="Volume" />`}
             lang="svelte"

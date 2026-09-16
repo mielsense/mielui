@@ -12,7 +12,7 @@ export const manifest: Manifest = {
         'components/native-select/native-select.svelte',
         'components/native-select/manifest.ts'
     ],
-    components: [],
+    components: ['_internal/utils'],
     shared: ['utils.cn'],
     peerDependencies: {
         '@floating-ui/dom': '1.7.6',

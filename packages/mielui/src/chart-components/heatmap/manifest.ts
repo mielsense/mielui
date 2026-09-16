@@ -21,7 +21,7 @@ export const manifest: Manifest = {
         'components/heatmap/heatmap-weekday-labels.svelte',
         'components/heatmap/manifest.ts'
     ],
-    components: [],
+    components: ['_internal/utils'],
     shared: ['utils.cn'],
     peerDependencies: {
         '@floating-ui/dom': '1.7.6',

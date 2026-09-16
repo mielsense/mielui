@@ -4,7 +4,8 @@ export const manifest: Manifest = {
     name: 'alert',
     version: '1.0.0',
     visibility: 'public',
-    description: 'Inline status callout with 4 variants (info, success, warning, error).',
+    description:
+        'Inset callout with separate visual variant and optional polite or assertive announcements.',
     role: 'alert',
     files: [
         'components/alert/alert.svelte',
@@ -14,7 +15,7 @@ export const manifest: Manifest = {
         'components/alert/index.ts',
         'components/alert/manifest.ts'
     ],
-    components: [],
+    components: ['_internal/utils'],
     shared: ['hugeicons-icon', 'utils.cn'],
     peerDependencies: {
         '@floating-ui/dom': '1.7.6',

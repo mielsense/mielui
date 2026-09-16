@@ -8,14 +8,17 @@ export const manifest: Manifest = {
         'Compact, expandable AI tool calls for chat transcripts. Use variant="quiet" for a low-emphasis, no-hover-fill task summary.',
     files: [
         'components/tool/tool.svelte',
+        'components/tool/tool-trigger.svelte',
+        'components/tool/tool-content.svelte',
+        'components/tool/context.svelte.ts',
         'components/tool/tool-item.svelte',
         'components/tool/tool-input.svelte',
         'components/tool/tool-output.svelte',
         'components/tool/index.ts',
         'components/tool/manifest.ts'
     ],
-    components: ['spinner'],
-    shared: ['hugeicons-icon', 'utils.cn', 'utils.pressable', 'transition'],
+    components: ['_internal/utils', '_internal/disclosure', 'spinner'],
+    shared: ['hugeicons-icon', 'utils.cn', 'utils.pressable', 'utils.createContext', 'transition'],
     peerDependencies: {
         '@floating-ui/dom': '1.7.6',
         '@hugeicons/core-free-icons': '^4.3.0',

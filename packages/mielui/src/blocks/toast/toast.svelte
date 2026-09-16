@@ -1,7 +1,8 @@
 <script lang="ts">
-    import { overlaySurface } from '../../components/_internal/surface';
     import { cn } from '@mielui/svelte/utils';
+    import { onDestroy } from 'svelte';
     import type { HTMLAttributes } from 'svelte/elements';
+    import { overlaySurface } from '../../components/_internal/surface';
     import { setToastContext } from './context.svelte';
     import { pauseToast, resumeToast, type Toast } from './lib.svelte';
     import Actions from './toast-actions.svelte';
@@ -29,6 +30,12 @@
     setToastContext({
         get toast() {
             return toast;
+        }
+    });
+
+    onDestroy(() => {
+        if (toast.id !== undefined && (hovered || focused)) {
+            resumeToast(toast.id);
         }
     });
 

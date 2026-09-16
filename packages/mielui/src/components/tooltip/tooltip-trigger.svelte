@@ -2,17 +2,13 @@
     import { cn } from '@mielui/svelte/utils';
     import { getContext, onDestroy, onMount } from 'svelte';
     import type { TooltipState, TooltipTriggerProps } from '.';
-    import {
-        flashTooltip,
-        hideTooltip,
-        isActiveTooltip,
-        showTooltip,
-        updateTooltipClass,
-        updateTooltipText
-    } from './shared-tooltip';
+    import { getTooltipManager, type TooltipContentState } from './manager-context';
+
+    const manager = getTooltipManager();
 
     let { children, class: className, showOnClick = false }: TooltipTriggerProps = $props();
 
+    const content = getContext<TooltipContentState>('mielui-tooltip-content');
     const tip = getContext('mielui-tooltip') as TooltipState;
 
     let el = $state<HTMLElement>();
@@ -75,33 +71,55 @@
 
     function open() {
         if (el) {
-            showTooltip(el, tip.text, tip.placement, tip.delay, tip.className);
+            manager.showTooltip(
+                el,
+                tip.text,
+                tip.placement,
+                tip.delay,
+                tip.className,
+                content.rich ? content.node : undefined
+            );
         }
     }
     function close() {
-        hideTooltip(el ?? null, tip.closeDelay);
+        manager.hideTooltip(el ?? null, tip.closeDelay);
     }
     function clickOpen() {
         if (showOnClick && el) {
-            flashTooltip(el, tip.text, tip.placement, 1500, tip.className);
+            manager.flashTooltip(
+                el,
+                tip.text,
+                tip.placement,
+                1500,
+                tip.className,
+                content.rich ? content.node : undefined
+            );
         }
     }
 
     $effect(() => {
         const text = tip.text;
-        if (el && isActiveTooltip(el)) {
-            updateTooltipText(el, text);
+        if (el && manager.isActiveTooltip(el)) {
+            manager.updateTooltipText(el, text);
         }
     });
 
     $effect(() => {
         const bubbleClass = tip.className;
-        if (el && isActiveTooltip(el)) {
-            updateTooltipClass(el, bubbleClass);
+        if (el && manager.isActiveTooltip(el)) {
+            manager.updateTooltipClass(el, bubbleClass);
         }
     });
 
-    onDestroy(() => hideTooltip(el ?? null, 0));
+    $effect(() => {
+        content.revision;
+        const source = content.rich ? content.node : undefined;
+        if (el) {
+            manager.updateTooltipContent(el, source);
+        }
+    });
+
+    onDestroy(() => manager.hideTooltip(el ?? null, 0));
 </script>
 
 <span

@@ -31,6 +31,34 @@
         <ComponentPreview code={HeroSrc} refreshable><Hero /></ComponentPreview>
     </section>
 
+    <section id="composable-parts" class="flex flex-col gap-4">
+        <Typography.H2>Composable parts</Typography.H2>
+        <Typography.Text>
+            Use the named parts when rows need a different layout. Root passes the same normalized
+            rows, completed count, total, and summary used by the data-driven form. Indices are
+            truncated and clamped; a failure at completion marks the last row as failed. Empty lists
+            announce “No steps.”
+        </Typography.Text>
+        <CodeBlock
+            code={`import * as TaskSteps from '@mielui/svelte/components/task-steps';
+
+<TaskSteps.Root {steps} {current}>
+  {#snippet children(progress)}
+    <TaskSteps.Summary class="text-sm" />
+    <TaskSteps.List>
+      {#each progress.rows as row (row.id)}
+        <TaskSteps.Item status={row.status}>
+          <TaskSteps.Meta>{row.meta}</TaskSteps.Meta>
+          <TaskSteps.Label>{row.label}</TaskSteps.Label>
+        </TaskSteps.Item>
+      {/each}
+    </TaskSteps.List>
+  {/snippet}
+</TaskSteps.Root>`}
+            lang="svelte"
+            copy="overlay"
+        />
+    </section>
     <section id="installation" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Installation</Typography.H2>
         <InstallCommand command={installCommand} />

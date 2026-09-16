@@ -23,8 +23,13 @@ export const manifest: Manifest = {
         'components/tag-input/index.ts',
         'components/tag-input/manifest.ts'
     ],
-    components: ['button', 'badge'],
-    shared: ['hugeicons-icon', 'utils.cn', 'utils.createContext'],
+    components: ['_internal/utils', 'button', 'badge'],
+    shared: [
+        'components/_internal/field-metadata',
+        'hugeicons-icon',
+        'utils.cn',
+        'utils.createContext'
+    ],
     peerDependencies: {
         '@floating-ui/dom': '1.7.6',
         '@hugeicons/core-free-icons': '^4.3.0',

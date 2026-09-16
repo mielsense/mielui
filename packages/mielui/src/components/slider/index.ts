@@ -8,6 +8,13 @@ type SliderBaseProps = {
     disabled?: boolean;
     label?: string;
     dir?: 'ltr' | 'rtl';
+    id?: string;
+    name?: string;
+    form?: string;
+    element?: HTMLDivElement;
+    'aria-label'?: string;
+    'aria-labelledby'?: string;
+    'aria-describedby'?: string;
 } & DefaultProps;
 
 export type SliderProps = SliderBaseProps &

@@ -42,6 +42,10 @@
     </section>
 
     <!-- ─── Installation ──────────────────────────────────────────── -->
+    <Typography.Text>
+        Trigger onclick receives the native mouse event before changing open state. Call
+        preventDefault to cancel opening or closing.
+    </Typography.Text>
     <section id="installation" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Installation</Typography.H2>
         <InstallCommand command={installCommand} />

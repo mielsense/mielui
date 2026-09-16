@@ -1,10 +1,10 @@
 <script lang="ts">
-    import { ArrowDown01Icon as ChevronDown } from '@hugeicons/core-free-icons';
-    import { Spinner } from '@mielui/svelte/components/spinner';
-    import { themedSlide } from '@mielui/svelte/transition';
-    import { cn, pressable } from '@mielui/svelte/utils';
-    import HugeiconsIcon from '../../hugeicons-icon.svelte';
+    import { createDisclosureLifecycle } from '@mielui/svelte/components/_internal/disclosure';
+    import { cn } from '@mielui/svelte/utils';
     import type { ToolProps } from '.';
+    import { setToolContext } from './context.svelte';
+    import Content from './tool-content.svelte';
+    import Trigger from './tool-trigger.svelte';
 
     let {
         name,
@@ -14,6 +14,7 @@
         open = $bindable(true),
         onOpenChange,
         onOpenChangeComplete,
+        composed = false,
         trigger,
         children,
         class: className,
@@ -21,57 +22,38 @@
     }: ToolProps = $props();
 
     const id = $props.id();
-    const label = $derived(
-        state === 'running'
-            ? 'Task running'
-            : state === 'complete'
-              ? 'Task completed'
-              : 'Task failed'
-    );
-    let initialized = false;
-    let previousOpen = open;
-    let revision = 0;
-    let pending: { open: boolean; revision: number } | undefined;
-    let transitionRevision = 0;
-
-    function complete(nextOpen: boolean, completedRevision: number) {
-        if (pending?.open !== nextOpen || pending.revision !== completedRevision) {
-            return;
+    const lifecycle = createDisclosureLifecycle({
+        get open() {
+            return open;
+        },
+        get onOpenChange() {
+            return onOpenChange;
+        },
+        get onOpenChangeComplete() {
+            return onOpenChangeComplete;
         }
-        pending = undefined;
-        if (nextOpen) {
-            onOpenChangeComplete?.(true);
-            return;
-        }
-        queueMicrotask(() => {
-            if (!pending) {
-                onOpenChangeComplete?.(false);
-            }
-        });
-    }
-
-    $effect(() => {
-        if (!initialized) {
-            initialized = true;
-            previousOpen = open;
-            return;
-        }
-        if (open === previousOpen) {
-            return;
-        }
-        previousOpen = open;
-        revision += 1;
-        pending = { open, revision };
-        onOpenChange?.(open);
-        if (!open) {
-            return;
-        }
-        const completion = pending;
-        queueMicrotask(() => {
-            if (pending === completion && !open) {
-                complete(completion.open, completion.revision);
-            }
-        });
+    });
+    setToolContext({
+        id,
+        get open() {
+            return open;
+        },
+        set open(value) {
+            open = value;
+        },
+        get name() {
+            return name;
+        },
+        get duration() {
+            return duration;
+        },
+        get state() {
+            return state;
+        },
+        get variant() {
+            return variant;
+        },
+        ...lifecycle
     });
 </script>
 
@@ -88,71 +70,10 @@
     )}
     {...rest}
 >
-    <button
-        type="button"
-        use:pressable
-        aria-expanded={open}
-        aria-controls={`tool-${id}`}
-        onclick={() => (open = !open)}
-        class={cn(
-            'mielui-press flex min-h-8 w-full items-center gap-1.5 text-left transition-[background-color,color,transform,scale] [transition-duration:var(--motion-duration-hover),var(--motion-duration-press)] ease-[var(--ease-press)] focus-visible:outline-none focus-visible:shadow-[var(--focus-ring)]',
-            variant === 'quiet'
-                ? 'min-h-6 w-auto max-w-full px-0 py-0 text-foreground hover:bg-transparent'
-                : 'rounded-[var(--radius-md)] px-3 py-1.5 hover:bg-secondary/60'
-        )}
-    >
-        {#if trigger}
-            {@render trigger({ open, state, name, duration })}
-        {:else}
-            <HugeiconsIcon
-                icon={ChevronDown}
-                size={14}
-                aria-hidden="true"
-                class={`shrink-0 text-foreground-muted transition-transform [transition-duration:var(--motion-duration-hover)] ${open ? '' : '-rotate-90'}`}
-            />
-            {#if state === 'running'}
-                <Spinner size={14} aria-hidden="true" class="text-foreground-muted" />
-            {/if}
-            <span
-                class={cn(
-                    variant === 'quiet' ? 'text-current' : 'text-foreground',
-                    state === 'complete' && 'font-[var(--font-weight-label)]'
-                )}
-            >
-                {label}
-            </span>
-            <span class="min-w-0 flex-1 truncate text-foreground-muted">{name}</span>
-            {#if duration}
-                <span class="ml-2 shrink-0 font-mono text-xs tabular-nums text-foreground-muted">
-                    {duration}
-                </span>
-            {/if}
-        {/if}
-    </button>
-    {#if open}
-        <div
-            id={`tool-${id}`}
-            inert={!open}
-            aria-hidden={!open}
-            transition:themedSlide={{ durationVar: '--motion-duration-panel', fallback: 220 }}
-            onintrostart={() => {
-                transitionRevision = pending?.revision ?? revision;
-            }}
-            onintroend={() => {
-                complete(true, transitionRevision);
-            }}
-            onoutrostart={() => {
-                transitionRevision = pending?.revision ?? revision;
-            }}
-            onoutroend={() => {
-                complete(false, transitionRevision);
-            }}
-            class={cn(
-                'mt-1 flex flex-col gap-1.5 pb-1',
-                variant === 'quiet' ? 'ml-0 px-0' : 'ml-5 px-3'
-            )}
-        >
-            {@render children?.()}
-        </div>
+    {#if composed}
+        {@render children?.()}
+    {:else}
+        <Trigger children={trigger} />
+        <Content>{@render children?.()}</Content>
     {/if}
 </section>

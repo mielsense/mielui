@@ -6,13 +6,17 @@
 
     let {
         class: className,
-        type = 'single',
         value = $bindable<string | string[] | undefined>(),
         collapsible = true,
-        onValueChange,
         children,
-        ...rest
+        ...mode
     }: AccordionProps = $props();
+
+    const type = $derived(mode.type ?? 'single');
+    const attributes = $derived.by(() => {
+        const { type, onValueChange, ...rest } = mode;
+        return rest;
+    });
 
     function isOpen(itemValue: string) {
         if (type === 'multiple') {
@@ -29,8 +33,20 @@
         if (type === 'single' && next === '' && !collapsible) {
             return;
         }
-        value = next === '' ? undefined : next;
-        onValueChange?.(value);
+        if (mode.type === 'multiple') {
+            if (!Array.isArray(next)) {
+                return;
+            }
+            value = next;
+            mode.onValueChange?.(next);
+        } else {
+            if (Array.isArray(next)) {
+                return;
+            }
+            const selected = next === '' ? undefined : next;
+            value = selected;
+            mode.onValueChange?.(selected);
+        }
     }
 
     const ctx: AccordionContext = { isOpen, toggle: updateValue };
@@ -48,7 +64,7 @@
         className,
         'divide-y-[length:var(--border-size)] divide-border'
     )}
-        {...rest}
+        {...attributes}
     >
         {@render children?.()}
     </BitsAccordion.Root>
@@ -62,7 +78,7 @@
         className,
         'divide-y-[length:var(--border-size)] divide-border'
     )}
-        {...rest}
+        {...attributes}
     >
         {@render children?.()}
     </BitsAccordion.Root>

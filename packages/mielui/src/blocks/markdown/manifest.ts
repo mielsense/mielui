@@ -13,7 +13,7 @@ export const manifest: Manifest = {
         'components/markdown/index.ts',
         'components/markdown/manifest.ts'
     ],
-    components: ['code-block', 'typography'],
+    components: ['_internal/utils', 'code-block', 'typography'],
     shared: ['utils.cn'],
     peerDependencies: {
         '@floating-ui/dom': '1.7.6',

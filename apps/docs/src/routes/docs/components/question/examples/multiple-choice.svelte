@@ -1,8 +1,7 @@
 <script lang="ts">
-    import type { QuestionAnswer } from '@mielui/svelte/components/question';
     import * as Question from '@mielui/svelte/components/question';
 
-    let answer = $state<QuestionAnswer>([]);
+    let answer = $state<string[]>([]);
     let summary = $state('');
 </script>
 

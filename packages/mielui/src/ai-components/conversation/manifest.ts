@@ -7,6 +7,7 @@ export const manifest: Manifest = {
     description: 'Auto-following conversation transcript with empty and jump-to-latest states.',
     files: [
         'components/conversation/conversation.svelte',
+        'components/conversation/follow.svelte.ts',
         'components/conversation/conversation-content.svelte',
         'components/conversation/conversation-empty.svelte',
         'components/conversation/conversation-scroll-button.svelte',
@@ -14,7 +15,7 @@ export const manifest: Manifest = {
         'components/conversation/index.ts',
         'components/conversation/manifest.ts'
     ],
-    components: ['scroll-area'],
+    components: ['_internal/utils', 'scroll-area'],
     shared: ['hugeicons-icon', 'utils.cn', 'utils.createContext', 'utils.pressable'],
     peerDependencies: {
         '@floating-ui/dom': '1.7.6',

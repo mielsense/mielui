@@ -4,14 +4,17 @@ export const manifest: Manifest = {
     name: 'response-stream',
     version: '2.0.0',
     visibility: 'public',
-    description: 'Animated AI response text that rolls arrivals in and eases height as lines wrap.',
+    description:
+        'Streaming AI response text with bounded arrival motion and natural line wrapping.',
     role: 'status',
     files: [
         'components/response-stream/response-stream.svelte',
+        'components/response-stream/stream.svelte.ts',
+        'components/response-stream/stream-utils.ts',
         'components/response-stream/index.ts',
         'components/response-stream/manifest.ts'
     ],
-    components: [],
+    components: ['_internal/utils'],
     shared: ['transition', 'utils.cn'],
     peerDependencies: {
         '@floating-ui/dom': '1.7.6',

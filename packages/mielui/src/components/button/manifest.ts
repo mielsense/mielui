@@ -49,7 +49,7 @@ export const manifest: Manifest = {
         'components/button/variants.ts',
         'components/button/manifest.ts'
     ],
-    components: [],
+    components: ['_internal/utils'],
     shared: ['utils.cn', 'utils.Intent'],
     peerDependencies: {
         '@floating-ui/dom': '1.7.6',

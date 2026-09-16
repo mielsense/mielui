@@ -48,3 +48,14 @@
 - Reset Avatar loading state on source changes and preserve native image callbacks.
 - Keep skeleton placeholders inert, normalize pagination bounds, and prevent silent inset Card footer replacement.
 - Add keyboard navigation to Toolbar and improve Color Picker labels, pointer ownership, and reduced motion.
+
+- Preserve Slider handle identity while adopting Bits UI keyboard behavior and adding named form values and reset support.
+- Use Bits UI for Combobox navigation and selection while preserving fuzzy search and Mielui styling.
+- Show submission errors without losing Composer drafts or Question answers, and ignore obsolete completions.
+- Keep disabled Button links from navigating and preserve native Input checkbox, radio, and file semantics.
+- Repair active tabs after removal or disabling, and keep Command results synchronized during collection changes.
+- Keep IME confirmation and canceled click handlers from activating commands or opening selection popups.
+- Give toasts one visual exit and stop long response streams from animating every character.
+- Preserve Group variant styling with a single joined divider.
+- Forward overlay action refs and keep cancel actions from stealing focus after opening.
+- Defer offscreen documentation previews while preserving mounted preview state.

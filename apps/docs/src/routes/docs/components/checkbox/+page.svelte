@@ -60,7 +60,10 @@
         <Typography.H2 class="docs-section-heading">Usage</Typography.H2>
         <Typography.Text>
             Native input attributes such as name, value, required, form, id, and aria-describedby
-            are forwarded to the checkbox input. A supplied description is linked automatically.
+            are forwarded to the checkbox input. The visible label names the checkbox; description
+            text is linked separately and does not become part of its name. Explicit aria-label or
+            aria-labelledby naming takes priority. Description IDs are deduplicated and conditional
+            descriptions are linked only while rendered.
         </Typography.Text>
 
         <CodeBlock

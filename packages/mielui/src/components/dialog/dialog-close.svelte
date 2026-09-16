@@ -4,10 +4,15 @@
     import type { DialogCloseProps } from '.';
     import { getDialogContext } from './context.svelte';
 
-    let { class: className, children, onclick, ...rest }: DialogCloseProps = $props();
+    let {
+        class: className,
+        children,
+        element = $bindable(),
+        onclick,
+        ...rest
+    }: DialogCloseProps = $props();
 
     const dialog = getDialogContext();
-    let element = $state<HTMLButtonElement | HTMLAnchorElement | undefined>(undefined);
 </script>
 
 <Button

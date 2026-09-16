@@ -10,8 +10,8 @@ export const manifest: Manifest = {
         'components/textarea/index.ts',
         'components/textarea/manifest.ts'
     ],
-    components: ['input'],
-    shared: ['utils.cn'],
+    components: ['_internal/utils', 'input'],
+    shared: ['components/_internal/field-metadata', 'utils.cn'],
     peerDependencies: {
         '@floating-ui/dom': '1.7.6',
         cnfast: '^0.0.8',

@@ -1,4 +1,6 @@
 import type { DefaultProps } from '@mielui/svelte/utils';
+import type { HTMLAttributes } from 'svelte/elements';
+import type { HeadingLevel } from '../typography';
 import Root from './card.svelte';
 import Content from './card-content.svelte';
 import Description from './card-description.svelte';
@@ -11,7 +13,11 @@ export type CardProps = {
 } & DefaultProps;
 
 export type CardHeaderProps = DefaultProps;
-export type CardTitleProps = DefaultProps;
+export type CardTitleProps = DefaultProps &
+    HTMLAttributes<HTMLHeadingElement> & {
+        /** Heading level in the surrounding document. Defaults to 2. */
+        level?: HeadingLevel;
+    };
 export type CardDescriptionProps = DefaultProps;
 export type CardContentProps = DefaultProps;
 export type CardFooterProps = DefaultProps;

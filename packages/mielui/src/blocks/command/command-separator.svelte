@@ -3,7 +3,7 @@
     import type { Snippet } from 'svelte';
     import { getCommandContext } from './context.svelte';
 
-    const command = getCommandContext();
+    const { state: command } = getCommandContext();
 
     type Props = {
         children?: Snippet;

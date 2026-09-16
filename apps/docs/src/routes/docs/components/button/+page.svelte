@@ -66,6 +66,12 @@
     </section>
 
     <!-- ─── Installation ──────────────────────────────────────────── -->
+    <Typography.Text>
+        A Button with href renders a link, including an empty href. Disabled links have no
+        navigation destination and leave the Tab sequence; aria-disabled also blocks activation.
+        Loading controls remain focusable but cannot activate. Native button and link attributes are
+        selected by href.
+    </Typography.Text>
     <section id="installation" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Installation</Typography.H2>
         <InstallCommand command={installCommand} />

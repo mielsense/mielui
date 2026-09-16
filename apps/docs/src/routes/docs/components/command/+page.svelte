@@ -59,8 +59,35 @@
     <section id="usage" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Usage</Typography.H2>
 
+        <Typography.Text>
+            The palette opens and closes without an entrance or exit animation so repeated keyboard
+            invocation stays immediate. Dialog still manages focus, dismissal and background
+            isolation. Search keeps matching rows and the active command in sync when items are
+            added, removed, renamed or disabled while a query is active.
+        </Typography.Text>
+        <Typography.Text>
+            Search composes native input and keyboard handlers; preventDefault in onkeydown cancels
+            command navigation or activation. Enter during text composition confirms the text
+            without running a command. Item forwards data attributes to its button or link.
+        </Typography.Text>
         <CodeBlock
             code={`import * as Command from '$lib/mielui/components/command';\n\n<Command.Root>\n  <Command.Trigger>Open palette</Command.Trigger>\n  <Command.Content>\n    <Command.Header>\n      <span>Command</span>\n    </Command.Header>\n    <Command.Search placeholder="Search..." />\n    <Command.Results>\n      <Command.Item name="search">Item</Command.Item>\n    </Command.Results>\n  </Command.Content>\n</Command.Root>`}
+            lang="svelte"
+            copy="overlay"
+        />
+    </section>
+
+    <section id="slots" class="scroll-mt-20 flex flex-col gap-4">
+        <Typography.H2 class="docs-section-heading">Search and empty-state slots</Typography.H2>
+        <Typography.Text>
+            Search accepts icon, count(total) and announcement(message) snippets. The count is
+            decorative; announcement stays inside the shared polite live region. Results accepts an
+            empty snippet. Omit any slot to retain its default, or supply an empty snippet to hide
+            its content. These slots use the same filtered result count and announcement as the
+            built-in rendering.
+        </Typography.Text>
+        <CodeBlock
+            code={`<Command.Search placeholder="Find a command">\n  {#snippet icon()}<span aria-hidden="true">⌘</span>{/snippet}\n  {#snippet count(total)}{total} matches{/snippet}\n  {#snippet announcement(message)}{message}{/snippet}\n</Command.Search>\n<Command.Results>\n  {#snippet empty()}<p>Try a different search.</p>{/snippet}\n  <Command.Item value="settings">Open settings</Command.Item>\n</Command.Results>`}
             lang="svelte"
             copy="overlay"
         />

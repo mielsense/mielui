@@ -64,7 +64,9 @@ let tags = $state(['svelte']);
         <Typography.Text>
             Disabled Tag Input fields omit their hidden values from native form submission. Keyboard
             composition does not commit tags. Native input callbacks run before internal handling
-            and can cancel it with preventDefault; external descriptions are preserved.
+            and can cancel it with preventDefault. External description IDs from Root and Input are
+            merged without duplicates. Only the rendered description or error is linked; an error
+            replaces the built-in description until it clears.
         </Typography.Text>
         <Typography.Text variant="supporting">
             Bind{' '}

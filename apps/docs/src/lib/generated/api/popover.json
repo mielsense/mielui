@@ -725,7 +725,7 @@
             },
             {
                 "name": "onclick",
-                "type": "(() => void) | undefined",
+                "type": "((event: MouseEvent) => void) | undefined",
                 "required": false,
                 "bindable": false,
                 "default": null,
@@ -757,8 +757,8 @@
             66,
             69,
             73,
-            3344,
-            2365,
+            3979,
+            3000,
             1070,
             1071
         ]

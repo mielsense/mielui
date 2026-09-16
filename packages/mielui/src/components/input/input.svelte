@@ -1,6 +1,8 @@
 <script lang="ts">
     import { cn } from '@mielui/svelte/utils';
+    import { fieldMetadata } from '../_internal/field-metadata';
     import type { InputProps } from '.';
+    import { radioChecked } from './radio';
     import { input } from './variants';
 
     const nonAdornableInputTypes = new Set([
@@ -28,7 +30,8 @@
         leading,
         trailing,
         element = $bindable<HTMLInputElement>(),
-        value = $bindable<string | number | boolean | FileList | undefined>(),
+        value = $bindable<string | number | undefined>(),
+        oninput,
         checked = $bindable<boolean | undefined>(),
         files = $bindable<FileList | undefined>(),
         id: idProp,
@@ -37,11 +40,13 @@
     }: InputProps = $props();
 
     const generatedId = $props.id();
-    const controlId = $derived(idProp ?? `field-${generatedId}`);
-    const descriptionId = `${generatedId}-description`;
-    const describedBy = $derived(
-        [externalDescription, description ? descriptionId : undefined].filter(Boolean).join(' ') ||
-            undefined
+    const metadata = $derived(
+        fieldMetadata({
+            id: idProp ?? `field-${generatedId}`,
+            metadataId: generatedId,
+            description,
+            describedBy: externalDescription
+        })
     );
 
     const normalizedType = $derived(type.toLowerCase());
@@ -76,9 +81,10 @@
 
             <input
                 bind:this={element}
-                id={controlId}
-                aria-describedby={describedBy}
+                id={metadata.controlId}
+                aria-describedby={metadata.describedBy}
                 bind:value
+                {oninput}
                 {type}
                 data-ui="input"
                 data-variant={variant}
@@ -99,10 +105,10 @@
     {:else if normalizedType === 'file'}
         <input
             bind:this={element}
-            id={controlId}
-            aria-describedby={describedBy}
-            bind:value
+            id={metadata.controlId}
+            aria-describedby={metadata.describedBy}
             bind:files
+            {oninput}
             type="file"
             data-ui="input"
             data-variant={variant}
@@ -113,9 +119,11 @@
     {:else if normalizedType === 'checkbox'}
         <input
             bind:this={element}
-            id={controlId}
-            aria-describedby={describedBy}
+            id={metadata.controlId}
+            aria-describedby={metadata.describedBy}
             bind:checked
+            {value}
+            {oninput}
             type="checkbox"
             data-ui="input"
             data-variant={variant}
@@ -123,12 +131,33 @@
             {...rest}
             {placeholder}
         />
+    {:else if normalizedType === 'radio'}
+        <input
+            bind:this={element}
+            id={metadata.controlId}
+            aria-describedby={metadata.describedBy}
+            type="radio"
+            use:radioChecked={{
+                checked,
+                update(next) {
+                    checked = next;
+                }
+            }}
+            {value}
+            {checked}
+            {oninput}
+            data-ui="input"
+            data-variant={variant}
+            class={cn(classProp, input({ variant }))}
+            {...rest}
+        />
     {:else}
         <input
             bind:this={element}
-            id={controlId}
-            aria-describedby={describedBy}
+            id={metadata.controlId}
+            aria-describedby={metadata.describedBy}
             bind:value
+            {oninput}
             {type}
             data-ui="input"
             data-variant={variant}
@@ -142,7 +171,7 @@
 {#snippet meta()}
     {#if label}
         <label
-            for={controlId}
+            for={metadata.controlId}
             class="mb-0.5 select-none [font-size:var(--font-size-label)] [font-weight:var(--font-weight-label)] [letter-spacing:var(--tracking-label)] leading-none text-foreground [font-family:var(--font-sans),sans-serif]"
         >
             {label}
@@ -151,7 +180,7 @@
     {@render field()}
     {#if description}
         <span
-            id={descriptionId}
+            id={metadata.descriptionId}
             class="[font-size:var(--font-size-body)] [font-weight:var(--font-weight-body)] [letter-spacing:var(--tracking-body)] text-foreground-muted"
         >
             {description}

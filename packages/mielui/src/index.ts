@@ -52,10 +52,16 @@ export type {
 export * as Conversation from './ai-components/conversation';
 export type {
     MessageActionsProps,
+    MessageAvatarProps,
+    MessageBodyProps,
     MessageContentProps,
     MessageFrom,
+    MessageMetadataProps,
+    MessageNameProps,
     MessageRootProps,
-    MessageStatus
+    MessageStatus,
+    MessageStatusProps,
+    MessageTimeProps
 } from './ai-components/message';
 export * as Message from './ai-components/message';
 export type {
@@ -83,11 +89,13 @@ export * as Reasoning from './ai-components/reasoning';
 export type { ResponseStreamProps } from './ai-components/response-stream';
 export { ResponseStream } from './ai-components/response-stream';
 export type {
+    ToolContentProps,
     ToolInputProps,
     ToolItemProps,
     ToolOutputProps,
     ToolProps,
     ToolState,
+    ToolTriggerProps,
     ToolTriggerState,
     ToolVariant
 } from './ai-components/tool';
@@ -108,10 +116,23 @@ export { CodeBlock } from './blocks/code-block';
 export type {
     ColorFormat,
     ColorOption,
+    ColorPickerChannelsProps,
+    ColorPickerContentProps,
+    ColorPickerHexInputProps,
+    ColorPickerHueProps,
+    ColorPickerPlaneProps,
+    ColorPickerPresetsProps,
+    ColorPickerPreviewProps,
     ColorPickerProps
 } from './blocks/color-picker';
 export * as ColorPicker from './blocks/color-picker';
-export type { CommandItem, CommandItemProps, CommandProps } from './blocks/command';
+export type {
+    CommandItem,
+    CommandItemProps,
+    CommandProps,
+    CommandResultsProps,
+    CommandSearchProps
+} from './blocks/command';
 export * as Command from './blocks/command';
 export type { CopyButtonProps } from './blocks/copy-button';
 export { CopyButton } from './blocks/copy-button';
@@ -129,11 +150,27 @@ export type {
 export * as FileDiff from './blocks/file-diff';
 export type { MarkdownProps } from './blocks/markdown';
 export { Markdown } from './blocks/markdown';
-export type { ReorderListProps } from './blocks/reorder-list';
+export type {
+    ReorderListContentProps,
+    ReorderListHandleProps,
+    ReorderListItemProps,
+    ReorderListProps
+} from './blocks/reorder-list';
 export { ReorderList } from './blocks/reorder-list';
 export type { ShowMoreProps } from './blocks/show-more';
 export { ShowMore } from './blocks/show-more';
-export type { TaskStep, TaskStepStatus, TaskStepsProps } from './blocks/task-steps';
+export type {
+    TaskStep,
+    TaskStepStatus,
+    TaskStepsIndicatorProps,
+    TaskStepsItemProps,
+    TaskStepsLabelProps,
+    TaskStepsListProps,
+    TaskStepsMetaProps,
+    TaskStepsProps,
+    TaskStepsState,
+    TaskStepsSummaryProps
+} from './blocks/task-steps';
 export { TaskSteps } from './blocks/task-steps';
 export type {
     ToastAction,
@@ -316,6 +353,7 @@ export type {
     TooltipContentProps,
     TooltipPlacement,
     TooltipProps,
+    TooltipProviderProps,
     TooltipTriggerProps
 } from './components/tooltip';
 export * as Tooltip from './components/tooltip';

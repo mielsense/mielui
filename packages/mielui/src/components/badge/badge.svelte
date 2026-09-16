@@ -1,5 +1,6 @@
 <script lang="ts">
     import { cn } from '@mielui/svelte/utils';
+    import type { HTMLAnchorAttributes, HTMLAttributes } from 'svelte/elements';
     import type { BadgeProps } from '.';
     import { badge } from './variants';
 
@@ -29,18 +30,23 @@
     {@render children?.()}
 {/snippet}
 
-{#if href}
+{#if href !== undefined}
     <a
         data-ui="badge"
         data-variant={variant}
         {href}
         class={cn(classProp, badge({ variant }))}
-        {...rest}
+        {...rest as HTMLAnchorAttributes}
     >
         {@render inner()}
     </a>
 {:else}
-    <div data-ui="badge" data-variant={variant} class={cn(classProp, badge({ variant }))} {...rest}>
+    <div
+        data-ui="badge"
+        data-variant={variant}
+        class={cn(classProp, badge({ variant }))}
+        {...rest as HTMLAttributes<HTMLDivElement>}
+    >
         {@render inner()}
     </div>
 {/if}

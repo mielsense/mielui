@@ -3,6 +3,7 @@
     import { dialogIn, dialogOut, overlayIn, overlayOut } from '@mielui/svelte/transition';
     import { cn, visualViewportBounds } from '@mielui/svelte/utils';
     import { Dialog as DialogPrimitive } from 'bits-ui';
+    import type { TransitionConfig } from 'svelte/transition';
     import HugeiconsIcon from '../../hugeicons-icon.svelte';
     import { overlaySurface } from '../_internal/surface';
     import type { DialogContentProps } from '.';
@@ -25,6 +26,11 @@
     }: DialogContentProps = $props();
 
     const dialog = getDialogContext();
+
+    function dialogMotion(node: Element, transition: (node: Element) => TransitionConfig) {
+        return dialog.motion === 'none' ? { duration: 0 } : transition(node);
+    }
+
     const resolvedSize = $derived(
         size ?? (dialog.state.orientation === 'horizontal' ? 'lg' : 'md')
     );
@@ -102,8 +108,8 @@
                     class="fixed inset-x-0 top-[var(--mielui-viewport-top)] z-[115] h-[var(--mielui-viewport-height)]"
                 >
                     <div
-                        in:overlayIn
-                        out:overlayOut
+                        in:dialogMotion={overlayIn}
+                        out:dialogMotion={overlayOut}
                         data-ui="dialog-overlay"
                         class={cn(
                     overlayClass,
@@ -111,11 +117,11 @@
                 )}
                     ></div>
                     <div
-                        in:dialogIn
-                        out:dialogOut
+                        in:dialogMotion={dialogIn}
+                        out:dialogMotion={dialogOut}
                         {...props}
                         bind:this={element}
-                        data-motion="dialog"
+                        data-motion={dialog.motion === 'none' ? 'none' : 'dialog'}
                         class={cn(
                     contentClass,
                     className,

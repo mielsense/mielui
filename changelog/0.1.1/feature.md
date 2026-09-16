@@ -17,3 +17,9 @@
 - Add site-wide documentation search with Command-K and Control-K.
 
 - Add a glass Composer surface and a Thinking text example for Shimmer.
+
+- Add composable Task Steps rows and summaries, Reorder List handles and content, and Message metadata parts.
+- Add separate Tool trigger/content parts, Color Picker surfaces, and Show More preview/trigger slots.
+- Add Command search/result slots, optional Alert icons, and an optional Sheet header close control.
+- Add controlled Context Menu state and manual tab activation.
+- Add scoped Tooltip providers and noninteractive rich descriptions.

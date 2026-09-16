@@ -1,7 +1,6 @@
 <script lang="ts">
     import { ArrowLeft02Icon as ArrowLeft } from '@hugeicons/core-free-icons';
     import { Button } from '@mielui/svelte/components/button';
-    import type { QuestionAnswer } from '@mielui/svelte/components/question';
     import * as Question from '@mielui/svelte/components/question';
     import HugeiconsIcon from '@mielui/svelte/hugeicons-icon';
 
@@ -71,7 +70,7 @@
         }
     ];
     let step = $state(0);
-    let answers = $state<QuestionAnswer[]>(['', '', '']);
+    let answers = $state<string[]>(['', '', '']);
     const complete = $derived(step === questions.length);
     const question = $derived(questions[Math.min(step, questions.length - 1)]);
 

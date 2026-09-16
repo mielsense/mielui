@@ -53,13 +53,18 @@
     <section id="usage" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Usage</Typography.H2>
         <Typography.Text variant="supporting">
+            Card.Title defaults to an h2. Set level to match the surrounding heading outline;
+            styling stays the same. Native heading attributes, including id and aria-describedby,
+            reach the heading. Set level to 1 only when the card supplies the page title.
+        </Typography.Text>
+        <Typography.Text variant="supporting">
             An inset Card accepts one Footer and places it beneath the inset surface. Put multiple
             actions or footer sections inside that single Footer. Other variants render Footer where
             it appears in the composition.
         </Typography.Text>
 
         <CodeBlock
-            code={`import * as Card from '$lib/mielui/components/card';\n\n<Card.Root>\n  <Card.Header>\n    <Card.Title>Title</Card.Title>\n  </Card.Header>\n  <Card.Content>Content here</Card.Content>\n  <Card.Footer>\n    <Button>Action</Button>\n  </Card.Footer>\n</Card.Root>`}
+            code={`import * as Card from '$lib/mielui/components/card';\n\n<Card.Root>\n  <Card.Header>\n    <Card.Title level={2}>Title</Card.Title>\n  </Card.Header>\n  <Card.Content>Content here</Card.Content>\n  <Card.Footer>\n    <Button>Action</Button>\n  </Card.Footer>\n</Card.Root>`}
             lang="svelte"
             copy="overlay"
         />

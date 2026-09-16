@@ -2,7 +2,7 @@ import type { Manifest } from '@mielui/svelte/_manifest/types';
 
 export const manifest: Manifest = {
     name: 'toggle-group',
-    version: '1.1.0',
+    version: '1.2.0',
     visibility: 'public',
     description: 'Single or multiple-select toggle group with bindable value (string or string[]).',
     files: [
@@ -11,7 +11,7 @@ export const manifest: Manifest = {
         'components/toggle-group/index.ts',
         'components/toggle-group/manifest.ts'
     ],
-    components: [],
+    components: ['_internal/utils'],
     shared: ['utils.cn', 'utils.travelingHighlight'],
     peerDependencies: {
         '@floating-ui/dom': '1.7.6',

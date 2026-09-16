@@ -56,8 +56,14 @@
     <section id="usage" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Usage</Typography.H2>
         <Typography.Text>
-            Arrow keys follow the tab orientation and document direction, while Home and End select
-            the first and last enabled tabs. Inactive panels unmount unless forceMount is set.
+            By default, focusing a trigger selects its panel. Set activationMode="manual" to move
+            focus with arrow keys, Home, and End without changing panels; Enter or Space selects the
+            focused tab. This is useful for panels with expensive content. Arrow keys follow the tab
+            orientation and document direction, while Home and End select the first and last enabled
+            tabs. If the selected trigger is removed, disabled, or changes value, selection moves to
+            the first enabled trigger in DOM order and onValueChange reports the repaired value.
+            With no enabled triggers, the value becomes an empty string. This repair does not move
+            focus from another control. Inactive panels unmount unless forceMount is set.
         </Typography.Text>
 
         <CodeBlock

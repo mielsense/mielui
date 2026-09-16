@@ -33,7 +33,7 @@ export const manifest: Manifest = {
         'components/dropdown-menu/index.ts',
         'components/dropdown-menu/manifest.ts'
     ],
-    components: ['popover', 'button', 'scroll-area'],
+    components: ['_internal/utils', 'popover', 'button', 'scroll-area'],
     shared: [
         'transition',
         'components/_internal/surface',

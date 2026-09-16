@@ -6,7 +6,7 @@
     import type { SheetHeaderProps } from '.';
     import { getSheetContext } from './context.svelte';
 
-    let { class: className, children, ...rest }: SheetHeaderProps = $props();
+    let { class: className, children, close = true, ...rest }: SheetHeaderProps = $props();
 
     const { state: sheetState } = getSheetContext();
 </script>
@@ -18,14 +18,16 @@
     class={cn(className, 'flex flex-col gap-1.5')}
 >
     {@render children?.()}
-    <Button
-        onclick={() => {
+    {#if close}
+        <Button
+            onclick={() => {
             sheetState.open = false;
         }}
-        class="absolute top-1.5 right-1.5 size-[var(--size-touch)] text-foreground-muted md:top-3 md:right-3 md:size-8"
-        variant="ghost"
-        aria-label="Close"
-    >
-        <HugeiconsIcon icon={X} />
-    </Button>
+            class="absolute top-1.5 right-1.5 size-[var(--size-touch)] text-foreground-muted md:top-3 md:right-3 md:size-8"
+            variant="ghost"
+            aria-label="Close"
+        >
+            <HugeiconsIcon icon={X} />
+        </Button>
+    {/if}
 </div>

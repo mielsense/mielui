@@ -2,7 +2,8 @@
     import * as Popover from '@mielui/svelte/components/popover';
     import { cn } from '@mielui/svelte/utils';
     import type { ColorPickerProps } from '.';
-    import { setColorPickerContext } from './context';
+    import { type ColorPickerContext, setColorPickerContext } from './context';
+    import { createColorPickerController, setColorPickerController } from './controller.svelte';
 
     let {
         label,
@@ -16,7 +17,7 @@
 
     const labelId = $props.id();
 
-    setColorPickerContext({
+    const context: ColorPickerContext = {
         labelId,
         get label() {
             return label;
@@ -35,7 +36,9 @@
             value = next;
             onValueChange?.(next);
         }
-    });
+    };
+    setColorPickerContext(context);
+    setColorPickerController(createColorPickerController(context));
 </script>
 
 <div class={cn(className, 'space-y-1')}>

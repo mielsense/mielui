@@ -14,7 +14,7 @@ export const manifest: Manifest = {
         'components/reasoning/index.ts',
         'components/reasoning/manifest.ts'
     ],
-    components: ['button'],
+    components: ['_internal/utils', '_internal/disclosure', 'button'],
     shared: ['hugeicons-icon', 'utils.cn', 'utils.createContext', 'transition'],
     peerDependencies: {
         '@floating-ui/dom': '1.7.6',

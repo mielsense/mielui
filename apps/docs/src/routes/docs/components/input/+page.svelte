@@ -47,6 +47,12 @@
     </section>
 
     <!-- ─── Installation ──────────────────────────────────────────── -->
+    <Typography.Text>
+        Input preserves native checkbox and radio submission values and checked state. Bind files
+        for file inputs; do not bind a file input's value. Text and numeric input values are strings
+        or numbers. Use Checkbox and RadioGroup for styled selection controls and shared radio
+        selection state.
+    </Typography.Text>
     <section id="installation" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Installation</Typography.H2>
         <InstallCommand command={installCommand} />
@@ -55,9 +61,17 @@
     <!-- ─── Usage ─────────────────────────────────────────────────── -->
     <section id="usage" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Usage</Typography.H2>
+        <Typography.Text variant="supporting">
+            For native radios, bind checked separately on each input. Radios with the same name and
+            form owner synchronize their bound values when selection changes; form resets
+            synchronize them to the browser's default state. Radios in other forms remain
+            independent. Use RadioGroup when you want one shared selection value.
+        </Typography.Text>
         <Typography.Text>
             Labels point to the native control, and descriptions are linked with aria-describedby.
-            An external aria-describedby value is preserved alongside the built-in description.
+            External aria-describedby IDs are preserved and deduplicated alongside the built-in
+            description. Conditional descriptions are linked only while rendered, with stable
+            metadata IDs across changes to the control id.
         </Typography.Text>
 
         <CodeBlock

@@ -70,6 +70,11 @@ import { CodeBlock } from '$lib/mielui/components/code-block';
     </section>
 
     <!-- ─── Installation ──────────────────────────────────────────── -->
+    <Typography.Text>
+        Dynamic tab collections follow the current trigger order, including custom compositions.
+        Removing or disabling the active trigger selects the first enabled trigger; copy actions and
+        panel direction follow that selection.
+    </Typography.Text>
     <section id="installation" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Installation</Typography.H2>
         <InstallCommand command={installCommand} />

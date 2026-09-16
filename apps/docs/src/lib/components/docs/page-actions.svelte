@@ -48,7 +48,7 @@
                 class="text-foreground-muted"
                 aria-hidden="true"
             />
-            <Breadcrumb.Item>{title}</Breadcrumb.Item>
+            <Breadcrumb.Item current>{title}</Breadcrumb.Item>
         </Breadcrumb.Root>
     </div>
 {:else}

@@ -4,13 +4,14 @@ export const manifest: Manifest = {
     name: 'show-more',
     version: '1.0.0',
     visibility: 'public',
-    description: 'Clamps long content to a set number of lines and expands it on demand.',
+    description:
+        'Clips text or composes separate preview, full-content, and trigger snippets for an accessible disclosure.',
     files: [
         'components/show-more/show-more.svelte',
         'components/show-more/index.ts',
         'components/show-more/manifest.ts'
     ],
-    components: [],
+    components: ['_internal/utils'],
     shared: ['utils.cn'],
     peerDependencies: {
         '@floating-ui/dom': '1.7.6',

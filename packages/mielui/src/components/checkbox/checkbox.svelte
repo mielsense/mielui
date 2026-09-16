@@ -2,6 +2,7 @@
     import { MinusSignIcon as MinusIcon } from '@hugeicons/core-free-icons';
     import { cn, pressable } from '@mielui/svelte/utils';
     import HugeiconsIcon from '../../hugeicons-icon.svelte';
+    import { fieldMetadata } from '../_internal/field-metadata';
     import type { CheckboxProps } from '.';
     import { checkbox, checkboxBox, checkboxText } from './variants';
 
@@ -19,7 +20,17 @@
     }: CheckboxProps = $props();
 
     const generatedId = $props.id();
-    const inputId = $derived(id ?? generatedId);
+    const metadata = $derived(
+        fieldMetadata({
+            id: id ?? generatedId,
+            metadataId: generatedId,
+            label,
+            description,
+            ariaLabel: rest['aria-label'],
+            labelledBy: rest['aria-labelledby'],
+            describedBy: rest['aria-describedby']
+        })
+    );
 
     function handleChange(event: Event & { currentTarget: EventTarget & HTMLInputElement }) {
         oninput?.(event);
@@ -33,7 +44,7 @@
 </script>
 
 <label
-    for={inputId}
+    for={metadata.controlId}
     class={cn(
         classProp,
         'min-h-[var(--size-touch)] md:min-h-0',
@@ -42,14 +53,14 @@
 >
     <input
         {...rest}
-        id={inputId}
+        id={metadata.controlId}
         type="checkbox"
         class="peer absolute size-4 opacity-0"
         {disabled}
         {checked}
         aria-label={rest['aria-label']}
-        aria-labelledby={rest['aria-labelledby']}
-        aria-describedby={[rest['aria-describedby'], description ? `${inputId}-description` : undefined].filter(Boolean).join(' ') || undefined}
+        aria-labelledby={metadata.labelledBy}
+        aria-describedby={metadata.describedBy}
         aria-checked={checked}
         oninput={handleChange}
     />
@@ -76,13 +87,17 @@
         <div class="flex flex-col justify-center">
             <!-- token-lint-disable-next-line no-literal-length: fine-tuning vertical alignment of label -->
             {#if label}
-                <span class={cn(checkboxText(), 'mt-[-0.2rem]')} role="presentation">
+                <span
+                    id={metadata.labelId}
+                    class={cn(checkboxText(), 'mt-[-0.2rem]')}
+                    role="presentation"
+                >
                     {label}
                 </span>
             {/if}
             {#if description}
                 <span
-                    id={`${inputId}-description`}
+                    id={metadata.descriptionId}
                     class="text-text [font-size:var(--font-size-body)] [font-weight:var(--font-weight-body)] [letter-spacing:var(--tracking-body)] text-foreground-muted"
                 >
                     {description}

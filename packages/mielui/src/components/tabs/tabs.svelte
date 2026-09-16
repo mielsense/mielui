@@ -10,6 +10,7 @@
         value = $bindable(''),
         onValueChange,
         orientation = 'horizontal',
+        activationMode = 'automatic',
         variant = 'default',
         ...rest
     }: TabsProps = $props();
@@ -28,6 +29,8 @@
         }
     });
 
+    setContext('tabs-selection', updateValue);
+
     function updateValue(next: string) {
         value = next;
         onValueChange?.(next);
@@ -37,6 +40,7 @@
 <BitsTabs.Root
     {value}
     {orientation}
+    {activationMode}
     loop
     onValueChange={updateValue}
     class={cn(className, orientation === 'vertical' && 'flex items-start gap-4')}

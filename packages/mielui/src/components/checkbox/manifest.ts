@@ -11,8 +11,8 @@ export const manifest: Manifest = {
         'components/checkbox/index.ts',
         'components/checkbox/manifest.ts'
     ],
-    components: [],
-    shared: ['hugeicons-icon', 'utils.cn', 'transition'],
+    components: ['_internal/utils'],
+    shared: ['components/_internal/field-metadata', 'hugeicons-icon', 'utils.cn', 'transition'],
     peerDependencies: {
         '@floating-ui/dom': '1.7.6',
         '@hugeicons/core-free-icons': '^4.3.0',

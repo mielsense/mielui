@@ -23,12 +23,13 @@ export const manifest: Manifest = {
         'Text input wrapping a native <input>. Supports labels, descriptions, adornments, 2 variants, and native input types.',
     files: [
         'components/input/input.svelte',
+        'components/input/radio.ts',
         'components/input/variants.ts',
         'components/input/index.ts',
         'components/input/manifest.ts'
     ],
-    components: [],
-    shared: ['utils.cn'],
+    components: ['_internal/utils'],
+    shared: ['components/_internal/field-metadata', 'utils.cn'],
     peerDependencies: {
         '@floating-ui/dom': '1.7.6',
         cnfast: '^0.0.8',

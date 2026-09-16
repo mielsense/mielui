@@ -54,6 +54,10 @@
     </section>
 
     <!-- ─── Installation ──────────────────────────────────────────── -->
+    <Typography.Text>
+        Use icon=&#123;false&#125; to omit the default icon, or supply an icon snippet to replace it
+        while keeping Title and Description independent.
+    </Typography.Text>
     <section id="installation" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Installation</Typography.H2>
         <InstallCommand command={installCommand} />
@@ -62,9 +66,16 @@
     <!-- ─── Usage ─────────────────────────────────────────────────── -->
     <section id="usage" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Usage</Typography.H2>
+        <Typography.Text variant="supporting">
+            Appearance and announcement urgency are independent. announcement="off" is the default
+            for static notices. Use announcement="polite" for routine updates such as successful
+            saves, and announcement="assertive" only for urgent changes that should interrupt. Keep
+            the live region mounted while its content changes. Choosing variant="error" alone does
+            not make a notice interruptive.
+        </Typography.Text>
 
         <CodeBlock
-            code={`import * as Alert from '$lib/mielui/components/alert';\n\n<Alert.Root>\n  <Alert.Title>Title</Alert.Title>\n  <Alert.Description>Description</Alert.Description>\n</Alert.Root>`}
+            code={`import * as Alert from '$lib/mielui/components/alert';\n\n<Alert.Root announcement="polite">\n  <Alert.Title>Title</Alert.Title>\n  <Alert.Description>Description</Alert.Description>\n</Alert.Root>`}
             lang="svelte"
             copy="overlay"
         />

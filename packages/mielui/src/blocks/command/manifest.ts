@@ -2,7 +2,7 @@ import type { Manifest } from '@mielui/svelte/_manifest/types';
 
 export const manifest: Manifest = {
     name: 'command',
-    version: '1.1.0',
+    version: '1.2.0',
     visibility: 'public',
     description: 'Dialog command palette with search, grouped items, and separators.',
     files: [
@@ -17,10 +17,11 @@ export const manifest: Manifest = {
         'components/command/command-header.svelte',
         'components/command/command-separator.svelte',
         'components/command/context.svelte.ts',
+        'components/command/controller.svelte.ts',
         'components/command/index.ts',
         'components/command/manifest.ts'
     ],
-    components: ['dialog', 'button'],
+    components: ['_internal/utils', 'dialog', 'button'],
     shared: ['hugeicons-icon', 'utils.cn', 'utils.createContext', 'utils.travelingHighlight'],
     peerDependencies: {
         '@floating-ui/dom': '1.7.6',

@@ -14,7 +14,7 @@ export const manifest: Manifest = {
         'components/avatar/index.ts',
         'components/avatar/manifest.ts'
     ],
-    components: [],
+    components: ['_internal/utils'],
     shared: ['utils.createContext', 'utils.cn'],
     peerDependencies: {
         '@floating-ui/dom': '1.7.6',

@@ -40,7 +40,7 @@ export const manifest: Manifest = {
         'components/hover-card/index.ts',
         'components/hover-card/manifest.ts'
     ],
-    components: ['popover'],
+    components: ['_internal/utils', 'popover'],
     shared: ['transition', 'components/_internal/surface', 'utils.cn'],
     peerDependencies: {
         '@floating-ui/dom': '1.7.6',

@@ -1,21 +1,16 @@
 <script lang="ts">
     import * as Dialog from '@mielui/svelte/components/dialog';
     import { untrack } from 'svelte';
-    import type { CommandProps, CommandState } from '.';
+    import type { CommandProps } from '.';
     import { resetCommand, setCommandContext } from './context.svelte';
+    import { createCommandController } from './controller.svelte';
 
     let { open = $bindable(false), onOpenChange, children }: CommandProps = $props();
     const id = $props.id();
 
-    const command = $state<CommandState>({
-        id,
-        items: [],
-        results: [],
-        searchContent: '',
-        activeId: undefined,
-        itemsVersion: 0
-    });
-    setCommandContext(command);
+    const controller = createCommandController(id);
+    const command = controller.state;
+    setCommandContext(controller);
 
     $effect(() => {
         if (open) {

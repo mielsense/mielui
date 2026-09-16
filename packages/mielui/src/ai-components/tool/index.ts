@@ -1,10 +1,12 @@
 import type { DefaultProps } from '@mielui/svelte/utils';
 import type { Snippet } from 'svelte';
-import type { HTMLAttributes } from 'svelte/elements';
+import type { HTMLAttributes, HTMLButtonAttributes } from 'svelte/elements';
 import Root from './tool.svelte';
+import Content from './tool-content.svelte';
 import Input from './tool-input.svelte';
 import Item from './tool-item.svelte';
 import Output from './tool-output.svelte';
+import Trigger from './tool-trigger.svelte';
 
 export type ToolState = 'running' | 'complete' | 'error';
 export type ToolVariant = 'default' | 'quiet';
@@ -21,6 +23,8 @@ export type ToolProps = {
     open?: boolean;
     onOpenChange?: (open: boolean) => void;
     onOpenChangeComplete?: (open: boolean) => void;
+    /** Render explicit Trigger and Content parts through children. */
+    composed?: boolean;
     trigger?: Snippet<[ToolTriggerState]>;
     children?: Snippet;
 } & DefaultProps &
@@ -51,4 +55,12 @@ export type ToolOutputProps = {
 } & DefaultProps &
     Omit<HTMLAttributes<HTMLDivElement>, 'children'>;
 
-export { Input, Item, Output, Root };
+export type ToolTriggerProps = {
+    children?: Snippet<[ToolTriggerState]>;
+} & Omit<HTMLButtonAttributes, 'children'>;
+
+export type ToolContentProps = {
+    children?: Snippet;
+} & Omit<HTMLAttributes<HTMLDivElement>, 'children'>;
+
+export { Content, Input, Item, Output, Root, Trigger };

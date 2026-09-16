@@ -19,7 +19,7 @@ export const manifest: Manifest = {
         'components/code-block/index.ts',
         'components/code-block/manifest.ts'
     ],
-    components: ['tabs', 'copy-button', 'card', '_internal/highlight'],
+    components: ['_internal/utils', 'tabs', 'copy-button', 'card', '_internal/highlight'],
     shared: ['utils.cn'],
     peerDependencies: {
         '@floating-ui/dom': '1.7.6',

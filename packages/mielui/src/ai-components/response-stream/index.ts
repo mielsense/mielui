@@ -9,6 +9,7 @@ export type ResponseStreamProps = {
     streaming?: boolean;
     /** 1 is slowest and 100 is fastest: reveal pace for static strings, roll duration for arrivals. Live chunks render on arrival. */
     speed?: number;
+    /** Whole graphemes revealed per step; finite values are rounded down with a minimum of one. */
     characterChunkSize?: number;
     onComplete?: () => void;
     onError?: (error: unknown) => void;

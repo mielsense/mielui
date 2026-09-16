@@ -1,8 +1,13 @@
 <script lang="ts">
     import { cn } from '@mielui/svelte/utils';
-    import { metadataClasses } from '../../components/typography/variants';
     import type { MessageRootProps } from '.';
     import { type MessageContext, setMessageContext } from './context.svelte';
+    import Avatar from './message-avatar.svelte';
+    import Body from './message-body.svelte';
+    import Metadata from './message-metadata.svelte';
+    import Name from './message-name.svelte';
+    import Status from './message-status.svelte';
+    import Time from './message-time.svelte';
 
     let {
         from = 'assistant',
@@ -10,12 +15,22 @@
         name,
         timestamp,
         avatar,
+        layout,
         children,
         class: className,
         ...rest
     }: MessageRootProps = $props();
 
     const message: MessageContext = {
+        get name() {
+            return name;
+        },
+        get timestamp() {
+            return timestamp;
+        },
+        get avatar() {
+            return avatar;
+        },
         get from() {
             return from;
         },
@@ -43,50 +58,27 @@
               : 'items-start'
     )}
 >
-    {#if avatar}
-        <div data-ui="message-avatar" class="mt-0.5 shrink-0">
-            {@render avatar()}
-        </div>
-    {/if}
-
-    <div
-        class={cn(
-            'flex min-w-0 max-w-full flex-col gap-1.5',
-            from === 'user'
-                ? 'max-w-[90%] items-end sm:max-w-2xl'
-                : from === 'system'
-                  ? 'w-full max-w-3xl items-center text-center'
-                  : 'flex-1 items-start'
-        )}
-    >
-        {#if name || timestamp || status === 'error'}
-            <header
-                data-ui="message-metadata"
-                class={cn(
-                    'flex max-w-full flex-wrap items-center gap-x-2 gap-y-0.5 px-0.5',
-                    metadataClasses,
-                    from === 'user' && 'justify-end',
-                    from === 'system' && 'justify-center'
-                )}
-            >
-                {#if name}
-                    <span class="truncate font-[var(--font-weight-label)]">{name}</span>
-                {/if}
-                {#if timestamp}
-                    <time class="shrink-0 tabular-nums">{timestamp}</time>
-                {/if}
-                {#if status === 'error'}
-                    <span
-                        data-ui="message-error"
-                        class="inline-flex items-center gap-1 text-[var(--color-error)]"
-                    >
-                        <span aria-hidden="true">!</span>
-                        Failed
-                    </span>
-                {/if}
-            </header>
+    {#if layout}
+        {@render layout()}
+    {:else}
+        {#if avatar}
+            <Avatar />
         {/if}
-
-        {@render children?.()}
-    </div>
+        <Body>
+            {#if name || timestamp || status === 'error'}
+                <Metadata>
+                    {#if name}
+                        <Name />
+                    {/if}
+                    {#if timestamp}
+                        <Time />
+                    {/if}
+                    {#if status === 'error'}
+                        <Status />
+                    {/if}
+                </Metadata>
+            {/if}
+            {@render children?.()}
+        </Body>
+    {/if}
 </article>

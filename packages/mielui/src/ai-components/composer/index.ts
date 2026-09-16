@@ -23,6 +23,8 @@ export type ComposerProps = {
     disabled?: boolean;
     allowEmpty?: boolean;
     onSubmit: (value: string, event: SubmitEvent) => void | Promise<void>;
+    errorMessage?: string;
+    onError?: (error: unknown) => void;
     onStop?: () => void;
     class?: string;
     children?: Snippet;

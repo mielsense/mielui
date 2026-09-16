@@ -8,11 +8,16 @@ export const manifest: Manifest = {
         'Accessible sortable list with pointer dragging, keyboard grab and move, cancellation, and commit announcements.',
     files: [
         'components/reorder-list/reorder-list.svelte',
+        'components/reorder-list/gesture.svelte.ts',
+        'components/reorder-list/reorder-list-item.svelte',
+        'components/reorder-list/reorder-list-handle.svelte',
+        'components/reorder-list/reorder-list-content.svelte',
+        'components/reorder-list/context.svelte.ts',
         'components/reorder-list/index.ts',
         'components/reorder-list/manifest.ts'
     ],
-    components: [],
-    shared: ['utils.cn'],
+    components: ['_internal/utils'],
+    shared: ['utils.cn', 'utils.createContext', 'transition'],
     peerDependencies: {
         '@floating-ui/dom': '1.7.6',
         cnfast: '^0.0.8',

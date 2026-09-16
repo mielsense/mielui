@@ -47,6 +47,10 @@
     </section>
 
     <!-- ─── Installation ──────────────────────────────────────────── -->
+    <Typography.Text>
+        Bind open to observe or close the root menu, and use onOpenChange for interaction callbacks.
+        Pointer and keyboard opening keep the same state.
+    </Typography.Text>
     <section id="installation" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Installation</Typography.H2>
         <InstallCommand command={installCommand} />

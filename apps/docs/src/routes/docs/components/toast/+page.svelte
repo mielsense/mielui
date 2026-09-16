@@ -53,7 +53,9 @@
         <Typography.Text variant="supporting">
             Changing duration restarts the dismissal countdown, while paused toasts remain paused.
             Persistent toasts have no dismissal timer. Promise results do not reopen a toast that
-            was dismissed.
+            was dismissed. Dismissal removes a toast from the active stack immediately; its local
+            exit transition controls visual removal. Reduced motion skips that transition, and
+            changing Toaster hosts does not replay exiting notifications.
         </Typography.Text>
         <Typography.Text variant="supporting">
             Mount Toaster once in your app layout, then fire notifications with toast. Descriptions

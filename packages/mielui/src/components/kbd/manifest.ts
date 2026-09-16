@@ -7,7 +7,7 @@ export const manifest: Manifest = {
     description:
         'Keyboard shortcut indicator. Activates its nearest interactive owner or an explicit ontrigger callback.',
     files: ['components/kbd/kbd.svelte', 'components/kbd/index.ts', 'components/kbd/manifest.ts'],
-    components: [],
+    components: ['_internal/utils'],
     shared: ['utils.cn'],
     peerDependencies: {
         '@floating-ui/dom': '1.7.6',

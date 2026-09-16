@@ -15,6 +15,7 @@
 <Tabs.Trigger
     {value}
     {disabled}
+    data-code-block-value={value}
     data-ui="code-block-trigger"
     class={cn(className, 'text-[length:var(--font-size-label)] min-h-[var(--size-control-sm)] py-0')}
     {...rest}

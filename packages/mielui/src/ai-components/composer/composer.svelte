@@ -1,6 +1,7 @@
 <script lang="ts">
     import { AlertCircleIcon as CircleAlert } from '@hugeicons/core-free-icons';
     import { cn } from '@mielui/svelte/utils';
+    import { createSubmission } from '../../components/_internal/submission.svelte';
     import { overlaySurface } from '../../components/_internal/surface';
     import HugeiconsIcon from '../../hugeicons-icon.svelte';
     import type { ComposerProps, ComposerStatus } from '.';
@@ -13,7 +14,9 @@
         generating,
         disabled = false,
         allowEmpty = false,
+        errorMessage = 'Message could not be sent.',
         onSubmit,
+        onError,
         onStop,
         class: className,
         children,
@@ -21,10 +24,11 @@
     }: ComposerProps = $props();
 
     let form: HTMLFormElement | undefined;
-    let pending = $state(false);
+    const submission = createSubmission();
+    const pending = $derived(submission.pending);
     let insetToolbar = $state(false);
     const effectiveStatus = $derived<ComposerStatus>(
-        status === 'submitting' || pending ? 'submitting' : status
+        status === 'submitting' || pending ? 'submitting' : submission.failed ? 'error' : status
     );
     const errorNoticeClass = 'mielui-error-notice';
 
@@ -81,12 +85,7 @@
             return;
         }
 
-        pending = true;
-        try {
-            await onSubmit?.(context.value, event);
-        } finally {
-            pending = false;
-        }
+        await submission.run(() => onSubmit?.(context.value, event), onError);
     }
 </script>
 
@@ -110,7 +109,7 @@
             data-state={effectiveStatus}
         >
             <HugeiconsIcon icon={CircleAlert} size={14} strokeWidth={2} aria-hidden="true" />
-            <span>Message could not be sent.</span>
+            <span>{errorMessage}</span>
         </div>
     </div>
 

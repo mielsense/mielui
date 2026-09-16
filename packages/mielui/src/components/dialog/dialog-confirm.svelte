@@ -5,11 +5,19 @@
     import { getDialogContext } from './context.svelte';
 
     const dialog = getDialogContext();
-    let { class: className, children, onclick, variant, ...rest }: DialogConfirmProps = $props();
+    let {
+        class: className,
+        children,
+        element = $bindable(),
+        onclick,
+        variant,
+        ...rest
+    }: DialogConfirmProps = $props();
     const confirmVariant = $derived(variant ?? (dialog.state.error ? 'destructive' : 'primary'));
 </script>
 
 <Button
+    bind:element
     {...rest}
     variant={confirmVariant}
     onclick={(event: MouseEvent) => {

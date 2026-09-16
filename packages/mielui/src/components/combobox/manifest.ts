@@ -18,7 +18,7 @@ import type { Manifest } from '@mielui/svelte/_manifest/types';
  */
 export const manifest: Manifest = {
     name: 'combobox',
-    version: '2.3.0',
+    version: '2.4.0',
     visibility: 'public',
     description: 'Searchable popover-based picker with fuzzy results via fuse.js.',
     files: [
@@ -30,16 +30,25 @@ export const manifest: Manifest = {
         'components/combobox/combobox-item.svelte',
         'components/combobox/combobox-label.svelte',
         'components/combobox/context.svelte.ts',
+        'components/combobox/controller.svelte.ts',
         'components/combobox/index.ts',
         'components/combobox/manifest.ts'
     ],
-    components: ['popover', 'button', 'input', 'scroll-area'],
-    shared: ['hugeicons-icon', 'utils.cn', 'utils.createContext'],
+    components: ['_internal/utils', 'popover', 'button', 'input', 'scroll-area'],
+    shared: [
+        'components/_internal/surface',
+        'hugeicons-icon',
+        'utils.cn',
+        'utils.createContext',
+        'utils.inertOutside',
+        'utils.travelingHighlight'
+    ],
     peerDependencies: {
         '@floating-ui/dom': '1.7.6',
         '@hugeicons/core-free-icons': '^4.3.0',
         'fuse.js': '^7.0.0',
+        'bits-ui': '^2.19.2',
         cnfast: '^0.0.8',
-        svelte: '^5.0.0'
+        svelte: '^5.33.0'
     }
 };

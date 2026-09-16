@@ -1,7 +1,9 @@
 import { createContext } from '@mielui/svelte/utils';
 import type { CommandState } from '.';
+import type { createCommandController } from './controller.svelte';
 
-const { set: setCommandContext, get: getCommandContext } = createContext<CommandState>('command');
+const { set: setCommandContext, get: getCommandContext } =
+    createContext<ReturnType<typeof createCommandController>>('command');
 
 export { getCommandContext, setCommandContext };
 

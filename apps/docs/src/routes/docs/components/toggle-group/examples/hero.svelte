@@ -7,7 +7,7 @@
     import * as ToggleGroup from '@mielui/svelte/components/toggle-group';
     import HugeiconsIcon from '@mielui/svelte/hugeicons-icon';
 
-    let alignment = $state('center');
+    let alignment = $state<string | undefined>('center');
 </script>
 
 <ToggleGroup.Root type="single" bind:value={alignment}>

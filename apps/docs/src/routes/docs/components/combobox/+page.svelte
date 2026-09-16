@@ -63,11 +63,21 @@
         <Typography.Text>
             Pointer selection and Enter in either search placement update bind:value and call
             onValueChange. Disabled options are skipped by keyboard navigation. Item label changes
-            refresh the selected label without replacing the text currently being searched.
+            refresh the selected label without replacing the text currently being searched. Bits UI
+            manages the combobox interactions; Mielui owns filtering, styling and motion.
+        </Typography.Text>
+        <Typography.Text>
+            Set name on Trigger to submit the selected value with a form. Search text and labels are
+            not submitted. Trigger renders an input by default and a button when
+            searchPlacement="menu"; bind:element follows that element type. Item callback runs when
+            that option changes the selection. Re-selecting the current option closes the menu
+            without reporting another value change. Trigger onclick receives the mouse event;
+            preventDefault cancels click activation. Input appearance also opens independently on
+            focus or typing.
         </Typography.Text>
 
         <CodeBlock
-            code={`import * as Combobox from '$lib/mielui/components/combobox';\n\nlet selected = $state('next');\n\n<Combobox.Root>\n  <Combobox.Trigger>{selected}</Combobox.Trigger>\n  <Combobox.Content>\n    <Combobox.Results>\n      <Combobox.Item value="next" label="Next.js" callback={() => (selected = 'next')} />\n    </Combobox.Results>\n  </Combobox.Content>\n</Combobox.Root>`}
+            code={`import * as Combobox from '$lib/mielui/components/combobox';\n\nlet selected = $state('next');\n\n<Combobox.Root bind:value={selected}>\n  <Combobox.Trigger placeholder="Framework" />\n  <Combobox.Content>\n    <Combobox.Results>\n      <Combobox.Item value="next" label="Next.js" />\n    </Combobox.Results>\n  </Combobox.Content>\n</Combobox.Root>`}
             lang="svelte"
             copy="overlay"
         />

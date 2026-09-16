@@ -14,5 +14,5 @@
     data-ui="group-separator"
     data-orientation={orientation}
     aria-hidden="true"
-    class={cn(className, 'pointer-events-none z-1 shrink-0 self-stretch bg-border has-[+[data-ui=input]:focus-visible]:bg-primary [[data-ui=input]:focus-visible+&]:bg-primary has-[+[data-ui=input-control]:focus-within]:bg-primary [[data-ui=input-control]:focus-within+&]:bg-primary', orientation === 'vertical' ? 'w-[var(--border-size)]' : 'h-[var(--border-size)]')}
+    class={cn(className, 'pointer-events-none z-1 shrink-0 self-stretch bg-border has-[+[data-ui=input]:focus-visible]:bg-primary [[data-ui=input]:focus-visible+&]:bg-primary has-[+[data-ui=input-control]:focus-within]:bg-primary [[data-ui=input-control]:focus-within+&]:bg-primary', orientation === 'vertical' ? '-mx-[var(--border-size)] w-[var(--border-size)]' : '-my-[var(--border-size)] h-[var(--border-size)]')}
 ></div>

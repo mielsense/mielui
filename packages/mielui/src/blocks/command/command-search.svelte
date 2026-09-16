@@ -2,65 +2,40 @@
     import { Search01Icon as Search } from '@hugeicons/core-free-icons';
     import { cn } from '@mielui/svelte/utils';
     import { onMount } from 'svelte';
-    import type { HTMLInputAttributes } from 'svelte/elements';
     import HugeiconsIcon from '../../hugeicons-icon.svelte';
+    import type { CommandSearchProps } from '.';
     import { getCommandContext, getCommandResults } from './context.svelte';
-    import { DEFAULT_COMMAND_SEARCH_THRESHOLD, searchCommandItems } from './search';
+    import { DEFAULT_COMMAND_SEARCH_THRESHOLD } from './search';
 
-    const command = getCommandContext();
-
-    type Props = {
-        threshold?: number;
-    } & HTMLInputAttributes;
+    const controller = getCommandContext();
+    const { state: command } = controller;
 
     let searchInput = $state<HTMLInputElement | undefined>();
-    let searchTimeout: ReturnType<typeof setTimeout> | undefined;
+    let composing = false;
     let spoken = $state('');
 
     const {
         class: classProp,
         threshold = DEFAULT_COMMAND_SEARCH_THRESHOLD,
+        icon,
+        count,
+        announcement,
+        oninput,
+        onkeydown,
+        oncompositionstart,
+        oncompositionend,
         ...rest
-    }: Props = $props();
+    }: CommandSearchProps = $props();
 
     onMount(() => {
         if (searchInput) {
             searchInput.focus();
         }
-
-        return () => {
-            if (searchTimeout) {
-                clearTimeout(searchTimeout);
-            }
-        };
     });
 
-    function updateResults(query: string) {
-        searchTimeout = undefined;
-
-        const q = query.trim();
-        if (q === '') {
-            command.results = [...command.items];
-        } else {
-            command.results = searchCommandItems(command.items, q, threshold);
-        }
-        command.activeId = getCommandResults(command)[0]?.id;
-    }
-
-    function handleInput() {
-        if (searchTimeout) {
-            clearTimeout(searchTimeout);
-        }
-        searchTimeout = setTimeout(() => void updateResults(command.searchContent), 50);
-    }
-
-    function flushSearch() {
-        if (!searchTimeout) {
-            return;
-        }
-        clearTimeout(searchTimeout);
-        void updateResults(command.searchContent);
-    }
+    $effect(() => {
+        controller.threshold = threshold;
+    });
 
     function setActive(index: number) {
         const results = getCommandResults(command);
@@ -73,9 +48,15 @@
         item.ref?.scrollIntoView?.({ block: 'nearest' });
     }
 
-    function handleKeydown(event: KeyboardEvent) {
+    function handleKeydown(
+        event: KeyboardEvent & { currentTarget: EventTarget & HTMLInputElement }
+    ) {
+        onkeydown?.(event);
+        if (event.defaultPrevented || event.isComposing || composing || event.keyCode === 229) {
+            return;
+        }
         if (['ArrowDown', 'ArrowUp', 'Home', 'End', 'Enter'].includes(event.key)) {
-            flushSearch();
+            controller.reconcile();
         }
         const results = getCommandResults(command);
         const activeIndex = results.findIndex((item) => item.id === command.activeId);
@@ -121,20 +102,30 @@
     });
 </script>
 
-<div
-    class="flex h-[var(--size-touch)] w-full items-center gap-2.5 border-b-[length:var(--border-size)] border-border px-3"
->
+{#snippet defaultIcon()}
     <HugeiconsIcon
         icon={Search}
         size={15}
         strokeWidth={1.75}
         class="shrink-0 text-foreground-muted"
     />
+{/snippet}
+
+{#snippet defaultCount(total: number)}
+    {total}
+{/snippet}
+
+{#snippet defaultAnnouncement(message: string)}
+    {message}
+{/snippet}
+
+<div
+    class="flex h-[var(--size-touch)] w-full items-center gap-2.5 border-b-[length:var(--border-size)] border-border px-3"
+>
+    {@render (icon ?? defaultIcon)()}
     <input
         bind:this={searchInput}
         bind:value={command.searchContent}
-        oninput={handleInput}
-        onkeydown={handleKeydown}
         class={cn(
             classProp,
             'min-w-0 flex-1 bg-transparent text-[length:var(--font-size-body)] [font-weight:var(--font-weight-body)] [letter-spacing:var(--tracking-body)] text-foreground placeholder:text-foreground-muted focus-visible:outline-none'
@@ -147,12 +138,29 @@
         aria-controls={`${command.id}-listbox`}
         aria-activedescendant={command.activeId}
         {...rest}
+        oninput={(event) => {
+            oninput?.(event);
+            if (!event.defaultPrevented) {
+                command.searchContent = event.currentTarget.value;
+            }
+        }}
+        onkeydown={handleKeydown}
+        oncompositionstart={(event) => {
+            composing = true;
+            oncompositionstart?.(event);
+        }}
+        oncompositionend={(event) => {
+            composing = false;
+            oncompositionend?.(event);
+        }}
     />
     <span
         class="min-w-[3ch] text-right font-mono text-[length:var(--font-size-meta)] tabular-nums text-foreground-muted"
         aria-hidden="true"
     >
-        {getCommandResults(command).length}
+        {@render (count ?? defaultCount)(getCommandResults(command).length)}
     </span>
-    <span role="status" aria-live="polite" class="sr-only">{spoken}</span>
+    <span role="status" aria-live="polite" class="sr-only">
+        {@render (announcement ?? defaultAnnouncement)(spoken)}
+    </span>
 </div>

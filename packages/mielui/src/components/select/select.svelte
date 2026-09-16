@@ -28,7 +28,22 @@
             labels.set(value, next);
         }
     };
-    const context: SelectContext = { id, state, labels, values };
+    const context: SelectContext = {
+        id,
+        state,
+        labels,
+        values,
+        get open() {
+            return open;
+        },
+        setOpen(next) {
+            if (next === open) {
+                return;
+            }
+            open = next;
+            updateOpen(next);
+        }
+    };
     setSelectContext(context);
 
     function updateOpen(next: boolean) {

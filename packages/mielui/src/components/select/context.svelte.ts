@@ -4,6 +4,8 @@ import type { SelectState } from '.';
 export type SelectContext = {
     id: string;
     onTriggerOpen?: () => void;
+    readonly open: boolean;
+    setOpen: (open: boolean) => void;
     state: SelectState;
     labels: Map<string, string>;
     values: Set<string>;

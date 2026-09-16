@@ -51,9 +51,10 @@
         <Typography.Text>
             Use Select.Value for a trigger label that follows the selection. Use bind:value or
             onValueChange on Select.Root to react to both pointer and keyboard selection; an item
-            onclick handler only observes native clicks. Arrow keys, Home, End, and typing navigate
-            options; disabled items are skipped. Before an option label is mounted, a preselected
-            value is displayed as its value string.
+            onclick handler only observes native clicks. Trigger onclick receives the mouse event
+            before click activation; preventDefault cancels that activation. Arrow keys, Home, End,
+            and typing navigate options; disabled items are skipped. Before an option label is
+            mounted, a preselected value is displayed as its value string.
         </Typography.Text>
 
         <CodeBlock

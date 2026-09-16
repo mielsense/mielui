@@ -36,7 +36,7 @@ export const manifest: Manifest = {
         'components/toast/index.ts',
         'components/toast/manifest.ts'
     ],
-    components: ['button'],
+    components: ['_internal/utils', 'button'],
     shared: ['components/_internal/surface', 'hugeicons-icon', 'utils.cn', 'transition'],
     peerDependencies: {
         '@floating-ui/dom': '1.7.6',

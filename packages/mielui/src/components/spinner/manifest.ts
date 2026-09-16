@@ -10,7 +10,7 @@ export const manifest: Manifest = {
         'components/spinner/index.ts',
         'components/spinner/manifest.ts'
     ],
-    components: [],
+    components: ['_internal/utils'],
     shared: ['hugeicons-icon', 'utils.cn', 'transition'],
     peerDependencies: {
         '@floating-ui/dom': '1.7.6',

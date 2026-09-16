@@ -1,12 +1,15 @@
 <script lang="ts">
     import { cn } from '@mielui/svelte/utils';
+    import type { HeadingTag } from '../typography';
     import { titleClasses } from '../typography/variants';
     import type { CardTitleProps } from '.';
 
-    let { children, class: classProp, ...rest }: CardTitleProps = $props();
+    let { children, level = 2, class: classProp, ...rest }: CardTitleProps = $props();
+    const tag = $derived(`h${level}` as HeadingTag);
 </script>
 
-<h1
+<svelte:element
+    this={tag}
     {...rest}
     class={cn(
         classProp,
@@ -15,4 +18,4 @@
     )}
 >
     {@render children?.()}
-</h1>
+</svelte:element>

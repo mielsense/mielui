@@ -5,13 +5,20 @@ import Content from './accordion-content.svelte';
 import Item from './accordion-item.svelte';
 import Trigger from './accordion-trigger.svelte';
 
-export type AccordionProps = {
-    type?: 'single' | 'multiple';
-    value?: string | string[];
+export type AccordionProps = DefaultProps & {
     collapsible?: boolean;
-    onValueChange?: (value: string | string[] | undefined) => void;
-    children?: Snippet;
-} & DefaultProps;
+} & (
+        | {
+              type?: 'single';
+              value?: string;
+              onValueChange?: (value: string | undefined) => void;
+          }
+        | {
+              type: 'multiple';
+              value?: string[];
+              onValueChange?: (value: string[]) => void;
+          }
+    );
 
 export type AccordionItemProps = {
     value: string;

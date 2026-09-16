@@ -48,6 +48,30 @@
         <ComponentPreview code={HeroSrc}><Hero /></ComponentPreview>
     </section>
 
+    <section id="composable-parts" class="flex flex-col gap-4">
+        <Typography.H2>Composable parts</Typography.H2>
+        <Typography.Text>
+            The default layout renders the exported Avatar, Body, Metadata, Name, Time, and Status
+            parts. Supply the layout snippet to omit or reorder these regions. Names, timestamps,
+            avatars, and status fall back to Root context; native attributes such as Time's datetime
+            remain available.
+        </Typography.Text>
+        <CodeBlock
+            code={`<Message.Root name="Assistant" timestamp="12:30">
+  {#snippet layout()}
+    <Message.Body>
+      <Message.Metadata>
+        <Message.Time datetime="2026-09-17T12:30:00+02:00" />
+        <Message.Name />
+      </Message.Metadata>
+      <Message.Content>Ready to review.</Message.Content>
+    </Message.Body>
+  {/snippet}
+</Message.Root>`}
+            lang="svelte"
+            copy="overlay"
+        />
+    </section>
     <section id="installation" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Installation</Typography.H2>
         <InstallCommand command={installCommand} />

@@ -3,6 +3,8 @@
     import * as Typography from '@mielui/svelte/components/typography';
     import { ComponentPreview, InstallCommand } from '$lib/components/docs';
     import DocsPager from '$lib/components/docs/docs-pager.svelte';
+    import Composition from './examples/composition.svelte';
+    import CompositionSrc from './examples/composition.svelte?raw';
     import Default from './examples/default.svelte';
     import DefaultSrc from './examples/default.svelte?raw';
     import Formats from './examples/formats.svelte';
@@ -62,7 +64,9 @@
         <Typography.Text>
             The hex field and every color channel have accessible names. Channel sliders provide a
             keyboard alternative to the pointer plane. The root label names the trigger, and preset
-            selection respects reduced motion.
+            selection respects reduced motion. The plane also exposes saturation and brightness to
+            keyboard users. Hue adjustments preserve zero saturation; increase saturation to reveal
+            the selected hue.
         </Typography.Text>
         <Typography.Text variant="supporting">
             Compose the Color Picker from its{' '}
@@ -84,6 +88,17 @@
     <section id="examples" class="scroll-mt-20 flex flex-col gap-10">
         <div>
             <Typography.H2 class="docs-section-heading">Examples</Typography.H2>
+        </div>
+
+        <div id="composition" class="scroll-mt-20 flex flex-col gap-3">
+            <Typography.H3 class="docs-subsection-heading">Custom composition</Typography.H3>
+            <Typography.Text variant="supporting">
+                Content defaults to Plane, Preview, Hue, HexInput, Channels, and Presets. Supply
+                children to omit, reorder, or style those same parts. Every part reads one shared
+                color state from Root. Here, presets come first and the plane and hue strip are
+                omitted. Channels uses the Root format; Presets uses its options.
+            </Typography.Text>
+            <ComponentPreview code={CompositionSrc}><Composition /></ComponentPreview>
         </div>
 
         <!-- Default -->

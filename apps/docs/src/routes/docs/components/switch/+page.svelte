@@ -52,6 +52,11 @@
 
     <!-- ─── Usage ─────────────────────────────────────────────────── -->
     <section id="usage" class="scroll-mt-20 flex flex-col gap-4">
+        <Typography.Text>
+            The visible label names the switch; descriptions are linked separately. Explicit
+            aria-label or aria-labelledby naming takes priority. External description IDs are
+            preserved and deduplicated, and conditional descriptions are linked only while rendered.
+        </Typography.Text>
         <Typography.H2 class="docs-section-heading">Usage</Typography.H2>
         <Typography.Text>
             Use name and value to include a checked switch in form submission. Both checked and the

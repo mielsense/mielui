@@ -67,6 +67,38 @@
         />
     </section>
 
+    <section id="composition" class="scroll-mt-20 flex flex-col gap-4">
+        <Typography.H2 class="docs-section-heading">Composition</Typography.H2>
+        <Typography.Text variant="supporting">
+            Root renders Trigger and Content automatically. Set composed to place those parts
+            yourself, omit a region, or restyle it. Trigger accepts native button attributes and a
+            children snippet receiving open, state, name, and duration. Its click handler may
+            preventDefault to cancel toggling. Content accepts native div attributes and children;
+            use at most one Content per Root. Both parts read their state from Root.
+        </Typography.Text>
+        <CodeBlock
+            code={`<Tool.Root name="Read source" state="complete" composed>
+  <Tool.Content class="ml-0 px-0">
+    <Tool.Item name="Read" detail="src/main.ts" kind="read" />
+  </Tool.Content>
+  <Tool.Trigger class="px-0">
+    {#snippet children({ open })}
+      {open ? 'Hide details' : 'Show details'}
+    {/snippet}
+  </Tool.Trigger>
+</Tool.Root>`}
+            lang="svelte"
+            copy="overlay"
+        />
+        <Typography.Text variant="supporting">
+            Bind open to control expansion. onOpenChange reports state changes; onOpenChangeComplete
+            runs after the current transition completes. Interrupted transitions do not report stale
+            completion. When Content is omitted, completion follows the state change without
+            animation. Closing content is inert during its exit. The trigger snippet on Root remains
+            supported for customizing the automatic trigger.
+        </Typography.Text>
+    </section>
+
     <section id="examples" class="scroll-mt-20 flex flex-col gap-10">
         <div>
             <Typography.H2 class="docs-section-heading">Examples</Typography.H2>

@@ -39,7 +39,7 @@ export const manifest: Manifest = {
         'components/dialog/index.ts',
         'components/dialog/manifest.ts'
     ],
-    components: ['button', '_internal/overlay', 'typography'],
+    components: ['_internal/utils', 'button', '_internal/overlay', 'typography'],
     shared: [
         'components/_internal/surface',
         'hugeicons-icon',

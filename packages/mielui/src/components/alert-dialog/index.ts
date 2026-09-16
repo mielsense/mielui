@@ -28,6 +28,8 @@ export type AlertDialogProps = {
 };
 
 export type AlertDialogContentProps = {
+    surface?: 'solid' | 'glass';
+    ariaBusy?: boolean;
     allowEscape?: boolean;
     /** Width preset. Vertical layouts remain compact; horizontal layouts are one step wider. */
     size?: DialogSize;

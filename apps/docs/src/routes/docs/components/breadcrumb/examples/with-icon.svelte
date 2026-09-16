@@ -15,6 +15,6 @@
         <Breadcrumb.Separator><HugeiconsIcon icon={ChevronRight} size={12} /></Breadcrumb.Separator>
         <Breadcrumb.Item href="/docs">Docs</Breadcrumb.Item>
         <Breadcrumb.Separator><HugeiconsIcon icon={ChevronRight} size={12} /></Breadcrumb.Separator>
-        <Breadcrumb.Item>Components</Breadcrumb.Item>
+        <Breadcrumb.Item current>Components</Breadcrumb.Item>
     </Breadcrumb.Root>
 </div>

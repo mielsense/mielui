@@ -24,22 +24,32 @@ export type QuestionStatus = 'idle' | 'submitting' | 'error';
 
 export type QuestionProps = {
     variant?: 'default' | 'inset';
-    type?: QuestionType;
-    value?: QuestionAnswer;
     status?: QuestionStatus;
     disabled?: boolean;
     required?: boolean;
     autofocus?: boolean;
     name?: string;
     errorMessage?: string;
-    onSubmit: (answer: QuestionAnswer, event: SubmitEvent) => void | Promise<void>;
+    onError?: (error: unknown) => void;
     onCancel?: (event: MouseEvent) => void;
     class?: string;
     children?: Snippet;
 } & Omit<
     HTMLFormAttributes,
     'children' | 'class' | 'onsubmit' | 'action' | 'method' | 'target' | 'enctype' | 'name'
->;
+> &
+    (
+        | {
+              type?: 'single' | 'text';
+              value?: string;
+              onSubmit: (answer: string, event: SubmitEvent) => void | Promise<void>;
+          }
+        | {
+              type: 'multiple';
+              value?: string[];
+              onSubmit: (answer: string[], event: SubmitEvent) => void | Promise<void>;
+          }
+    );
 
 export type QuestionContentProps = {
     class?: string;

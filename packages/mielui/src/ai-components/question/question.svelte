@@ -3,6 +3,7 @@
     import * as Card from '@mielui/svelte/components/card';
     import { cn } from '@mielui/svelte/utils';
     import { untrack } from 'svelte';
+    import { createSubmission } from '../../components/_internal/submission.svelte';
     import HugeiconsIcon from '../../hugeicons-icon.svelte';
     import type { QuestionAnswer, QuestionProps, QuestionStatus, QuestionType } from '.';
     import { setQuestionContext } from './context.svelte';
@@ -18,6 +19,7 @@
         name = 'answer',
         errorMessage = 'Answer could not be submitted.',
         onSubmit,
+        onError,
         onCancel,
         class: className,
         children,
@@ -28,14 +30,15 @@
     value = normalizeAnswer(initialType, value);
 
     let form: HTMLFormElement | undefined;
-    let pending = $state(false);
+    const submission = createSubmission();
+    const pending = $derived(submission.pending);
     let validationAttempt = $state<{ type: QuestionType; revision: number }>();
     let focused = false;
     let previousType = initialType;
     let modeRevision = 0;
 
     const effectiveStatus = $derived<QuestionStatus>(
-        status === 'submitting' || pending ? 'submitting' : status
+        status === 'submitting' || pending ? 'submitting' : submission.failed ? 'error' : status
     );
     const answer = $derived.by<QuestionAnswer>(() => normalizeAnswer(type, value));
     const hasAnswer = $derived(
@@ -126,6 +129,7 @@
         if (type !== previousType) {
             previousType = type;
             modeRevision += 1;
+            submission.reset();
             value = type === 'multiple' ? [] : '';
             focused = false;
             return;
@@ -195,12 +199,19 @@
         }
 
         validationAttempt = undefined;
-        pending = true;
-        try {
-            await onSubmit(context.answer, event);
-        } finally {
-            pending = false;
-        }
+        const submittedAnswer = context.answer;
+        await submission.run(() => {
+            if (type === 'multiple') {
+                return (onSubmit as (answer: string[], event: SubmitEvent) => void | Promise<void>)(
+                    Array.isArray(submittedAnswer) ? submittedAnswer : [],
+                    event
+                );
+            }
+            return (onSubmit as (answer: string, event: SubmitEvent) => void | Promise<void>)(
+                typeof submittedAnswer === 'string' ? submittedAnswer : '',
+                event
+            );
+        }, onError);
     }
 
     function normalizeAnswer(

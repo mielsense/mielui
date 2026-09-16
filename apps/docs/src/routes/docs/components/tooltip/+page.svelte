@@ -16,6 +16,9 @@
 
     const TITLE = 'Tooltip';
 
+    import Rich from './examples/rich.svelte';
+    import RichSrc from './examples/rich.svelte?raw';
+
     const installCommand = 'pnpm dlx @mielui/svelte add tooltip';
 </script>
 
@@ -47,6 +50,11 @@
     </section>
 
     <!-- ─── Installation ──────────────────────────────────────────── -->
+    <Typography.Text>
+        Content supplies a plain-text description to the shared moving bubble. Formatting is reduced
+        to text unless rich is enabled; use Popover for interactive content. The hidden description
+        cannot add offscreen focus targets.
+    </Typography.Text>
     <section id="installation" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Installation</Typography.H2>
         <InstallCommand command={installCommand} />
@@ -54,6 +62,20 @@
 
     <!-- ─── Usage ─────────────────────────────────────────────────── -->
     <section id="usage" class="scroll-mt-20 flex flex-col gap-4">
+        <Typography.Text>
+            Tooltips share one moving bubble by default. Wrap a region in Tooltip.Provider to give
+            its tooltips an independent bubble and lifetime; unmounting the provider cleans up its
+            positioning, listeners, and timers.
+        </Typography.Text>
+        <Typography.Text>
+            Content is plain text by default. Set rich to preserve noninteractive formatting and SVG
+            icons in the visible bubble. Rich content is a passive visual clone of the rendered
+            hidden description: IDs, ARIA references, inline handlers, and form participation are
+            removed. Custom elements, media, and controls are reduced to their text/formatting
+            children. Keep links, buttons, inputs, and stateful interactive content in HoverCard or
+            Popover. Both modes retain the trigger’s accessible description and shared motion
+            treatment.
+        </Typography.Text>
         <Typography.H2 class="docs-section-heading">Usage</Typography.H2>
         <Typography.Text>
             Tooltip text describes the actual focusable controls inside Trigger, while the shared
@@ -69,6 +91,11 @@
             lang="svelte"
             copy="overlay"
         />
+    </section>
+
+    <section id="rich" class="scroll-mt-20 flex flex-col gap-4">
+        <Typography.H2 class="docs-section-heading">Rich content and scoped sharing</Typography.H2>
+        <ComponentPreview code={RichSrc}><Rich /></ComponentPreview>
     </section>
 
     <!-- ─── Examples ──────────────────────────────────────────────── -->

@@ -3,16 +3,15 @@
     import * as Composer from '@mielui/svelte/components/composer';
     import * as Conversation from '@mielui/svelte/components/conversation';
     import * as Message from '@mielui/svelte/components/message';
-    import type { QuestionAnswer } from '@mielui/svelte/components/question';
     import * as Question from '@mielui/svelte/components/question';
 
     let asking = $state(true);
-    let answer = $state<QuestionAnswer>();
+    let answer = $state('');
     let draft = $state('Keep the migration reversible.');
     let sentPrompt = $state('');
     let shouldFocusQuestion = $state(false);
 
-    function answerQuestion(value: QuestionAnswer) {
+    function answerQuestion(value: string) {
         answer = value;
         asking = false;
     }

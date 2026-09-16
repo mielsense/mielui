@@ -57,6 +57,69 @@
                 "inherited": false
             },
             {
+                "name": "id",
+                "type": "string | undefined",
+                "required": false,
+                "bindable": false,
+                "default": "generatedId",
+                "description": "",
+                "inherited": false
+            },
+            {
+                "name": "name",
+                "type": "string | undefined",
+                "required": false,
+                "bindable": false,
+                "default": null,
+                "description": "",
+                "inherited": false
+            },
+            {
+                "name": "form",
+                "type": "string | undefined",
+                "required": false,
+                "bindable": false,
+                "default": null,
+                "description": "",
+                "inherited": false
+            },
+            {
+                "name": "element",
+                "type": "HTMLDivElement | undefined",
+                "required": false,
+                "bindable": true,
+                "default": null,
+                "description": "",
+                "inherited": false
+            },
+            {
+                "name": "aria-label",
+                "type": "string | undefined",
+                "required": false,
+                "bindable": false,
+                "default": null,
+                "description": "",
+                "inherited": false
+            },
+            {
+                "name": "aria-labelledby",
+                "type": "string | undefined",
+                "required": false,
+                "bindable": false,
+                "default": null,
+                "description": "",
+                "inherited": false
+            },
+            {
+                "name": "aria-describedby",
+                "type": "string | undefined",
+                "required": false,
+                "bindable": false,
+                "default": null,
+                "description": "",
+                "inherited": false
+            },
+            {
                 "name": "class",
                 "type": "string | undefined",
                 "required": false,

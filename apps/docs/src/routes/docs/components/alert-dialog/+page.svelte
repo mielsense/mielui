@@ -50,6 +50,12 @@
 
     <!-- ─── Usage ─────────────────────────────────────────────────── -->
     <section id="usage" class="scroll-mt-20 flex flex-col gap-4">
+        <Typography.Text>
+            Confirm and Exit call onclick before closing. Prevent default to keep the alert dialog
+            open, or set closeOnClick to false for asynchronous work. Both forward bind:element.
+            Exit supplies the initial cancel-focus target; mounting another Exit later does not
+            steal focus. Content accepts ariaBusy while confirmation is pending.
+        </Typography.Text>
         <Typography.H2 class="docs-section-heading">Usage</Typography.H2>
 
         <CodeBlock

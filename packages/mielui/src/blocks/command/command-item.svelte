@@ -6,7 +6,8 @@
     import type { CommandItem, CommandItemProps } from '.';
     import { getCommandContext } from './context.svelte';
 
-    const command = getCommandContext();
+    const controller = getCommandContext();
+    const { state: command } = controller;
     const dialog = getDialogContext();
     const localId = $props.id();
     const itemId = `${command.id}-option-${localId}`;
@@ -19,7 +20,8 @@
         callback,
         disabled = false,
         href,
-        onclick
+        onclick,
+        ...rest
     }: CommandItemProps = $props();
 
     const resolvedName = $derived(value ?? name ?? '');
@@ -38,22 +40,10 @@
         get disabled() {
             return disabled;
         }
-    } as CommandItem;
+    } satisfies CommandItem;
 
     onMount(() => {
-        command.items.push(item);
-        command.results = [...command.items];
-        command.itemsVersion += 1;
-        command.activeId ??= command.items.find((candidate) => !candidate.disabled)?.id;
-
-        return () => {
-            command.items = command.items.filter((candidate) => candidate.id !== item.id);
-            command.results = command.results.filter((candidate) => candidate.id !== item.id);
-            command.itemsVersion += 1;
-            if (command.activeId === item.id) {
-                command.activeId = command.items.find((candidate) => !candidate.disabled)?.id;
-            }
-        };
+        return controller.register(item);
     });
 
     function activate() {
@@ -71,6 +61,7 @@
 </script>
 
 <Button
+    {...rest}
     id={itemId}
     role="option"
     aria-selected={command.activeId === itemId}
@@ -79,10 +70,10 @@
     tabindex={-1}
     bind:element={el}
     {disabled}
-    {href}
+    {...(href === undefined ? { href: undefined } : { href })}
     hidden={filteredOut}
     onmouseenter={() => {
-        if (!disabled) {
+        if (!disabled && !filteredOut) {
             command.activeId = itemId;
         }
     }}

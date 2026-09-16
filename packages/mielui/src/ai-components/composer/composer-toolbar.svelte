@@ -1,5 +1,6 @@
 <script lang="ts">
     import { cn } from '@mielui/svelte/utils';
+    import { toolbarNavigation } from '../../blocks/toolbar/navigation';
     import type { ComposerToolbarProps } from '.';
     import { getComposerContext } from './context.svelte';
 
@@ -25,6 +26,7 @@
 </script>
 
 <div
+    use:toolbarNavigation
     {...rest}
     data-ui="composer-toolbar"
     data-variant={variant}

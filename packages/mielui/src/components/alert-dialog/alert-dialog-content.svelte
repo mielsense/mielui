@@ -1,14 +1,8 @@
 <script lang="ts">
     import * as Dialog from '@mielui/svelte/components/dialog';
-    import { cn, type DefaultProps } from '@mielui/svelte/utils';
+    import { cn } from '@mielui/svelte/utils';
 
-    type Props = {
-        surface?: 'solid' | 'glass';
-        allowEscape?: boolean;
-        ariaBusy?: boolean;
-        /** Max-width preset. Defaults to `sm`. */
-        size?: 'sm' | 'md' | 'lg' | 'xl';
-    } & DefaultProps;
+    import type { AlertDialogContentProps } from '.';
 
     let {
         class: className,
@@ -17,7 +11,7 @@
         size = 'sm',
         children,
         ...rest
-    }: Props = $props();
+    }: AlertDialogContentProps = $props();
 </script>
 
 <Dialog.Content

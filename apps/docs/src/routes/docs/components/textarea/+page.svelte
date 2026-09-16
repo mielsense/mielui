@@ -55,8 +55,9 @@
         <Typography.H2 class="docs-section-heading">Usage</Typography.H2>
         <Typography.Text>
             Labels and descriptions are connected to the native textarea, preserving external
-            aria-describedby references. Autoresize responds to value and width changes, includes
-            border-box sizing, and restores the previous inline height when removed.
+            aria-describedby references without duplicate IDs. Conditional descriptions are linked
+            only while rendered. Autoresize responds to value and width changes, includes border-box
+            sizing, and restores the previous inline height when removed.
         </Typography.Text>
         <Typography.Text variant="supporting">
             Import Textarea and bind its value. Add

@@ -64,6 +64,12 @@
     <section id="usage" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Usage</Typography.H2>
         <Typography.Text variant="supporting">
+            Providing href renders a link and accepts native anchor attributes such as target, rel,
+            and download. Without href, Badge renders a div and accepts div attributes. An empty
+            href still renders a link. Narrow optional URLs before choosing the linked or static
+            form.
+        </Typography.Text>
+        <Typography.Text variant="supporting">
             Badges are static metadata by default. Add role="status" explicitly only when changing
             badge text should be announced as a status update.
         </Typography.Text>

@@ -1,7 +1,8 @@
 <script lang="ts">
     import { cn } from '@mielui/svelte/utils';
     import type { ConversationRootProps } from '.';
-    import { type ConversationContext, setConversationContext } from './context.svelte';
+    import { setConversationContext } from './context.svelte';
+    import { createConversationFollow } from './follow.svelte';
 
     let {
         follow = $bindable(true),
@@ -11,11 +12,7 @@
         ...rest
     }: ConversationRootProps = $props();
 
-    let atBottom = $state(true);
-    let scrollingToBottom = $state(false);
-    let viewport = $state<HTMLDivElement>();
-
-    const conversation: ConversationContext = {
+    const conversation = createConversationFollow({
         get follow() {
             return follow;
         },
@@ -24,36 +21,8 @@
         },
         get threshold() {
             return threshold;
-        },
-        get atBottom() {
-            return atBottom;
-        },
-        set atBottom(value) {
-            atBottom = value;
-        },
-        get scrollingToBottom() {
-            return scrollingToBottom;
-        },
-        set scrollingToBottom(value) {
-            scrollingToBottom = value;
-        },
-        get viewport() {
-            return viewport;
-        },
-        set viewport(value) {
-            viewport = value;
-        },
-        scrollToBottom(behavior = 'auto') {
-            follow = true;
-            scrollingToBottom = behavior === 'smooth';
-            if (!viewport) {
-                scrollingToBottom = false;
-                return;
-            }
-            viewport.scrollTo({ top: viewport.scrollHeight, behavior });
         }
-    };
-
+    });
     setConversationContext(conversation);
 </script>
 

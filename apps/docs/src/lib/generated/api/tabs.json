@@ -67,6 +67,15 @@
         "name": "Root",
         "properties": [
             {
+                "name": "activationMode",
+                "type": "\"manual\" | \"automatic\" | undefined",
+                "required": false,
+                "bindable": false,
+                "default": "'automatic'",
+                "description": "",
+                "inherited": false
+            },
+            {
                 "name": "value",
                 "type": "string | undefined",
                 "required": false,

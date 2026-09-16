@@ -12,7 +12,11 @@ import SubContent from './context-menu-sub-content.svelte';
 import SubTrigger from './context-menu-sub-trigger.svelte';
 import Trigger from './context-menu-trigger.svelte';
 
-export type ContextMenuProps = { children?: Snippet };
+export type ContextMenuProps = {
+    children?: Snippet;
+    open?: boolean;
+    onOpenChange?: (open: boolean) => void;
+};
 export type ContextMenuContentProps = DefaultProps & { surface?: 'solid' | 'glass' };
 
 export type ContextMenuItemProps = {

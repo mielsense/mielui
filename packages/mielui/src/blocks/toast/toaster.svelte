@@ -94,7 +94,9 @@
     });
 
     function toastIn(node: Element): TransitionConfig {
-        const duration = getCssDuration(node, '--motion-duration-toast-in', 440);
+        const duration = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches
+            ? 0
+            : getCssDuration(node, '--motion-duration-toast-in', 440);
         return {
             duration,
             easing: quartOut,
@@ -108,7 +110,9 @@
     }
 
     function toastOut(node: Element): TransitionConfig {
-        const duration = getCssDuration(node, '--motion-duration-toast-out', 340);
+        const duration = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches
+            ? 0
+            : getCssDuration(node, '--motion-duration-toast-out', 340);
         return {
             duration,
             easing: cubicOut,
@@ -153,7 +157,13 @@
                     style:pointer-events={i < MAX_VISIBLE || expanded ? 'auto' : 'none'}
                     bind:clientHeight={heights[toast.id ?? -1]}
                 >
-                    <div in:toastIn|global out:toastOut|global>
+                    <div
+                        in:toastIn
+                        out:toastOut
+                        onoutrostart={(event) => {
+                            event.currentTarget.inert = true;
+                        }}
+                    >
                         <Toast {toast} />
                     </div>
                 </div>

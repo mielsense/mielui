@@ -80,7 +80,25 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Full content. With preview, this subtree is hidden and inert while collapsed.",
+                "inherited": false
+            },
+            {
+                "name": "preview",
+                "type": "Snippet<[]> | undefined",
+                "required": false,
+                "bindable": false,
+                "default": null,
+                "description": "Separate collapsed content for disclosures containing interactive controls.",
+                "inherited": false
+            },
+            {
+                "name": "trigger",
+                "type": "Snippet<[{ expanded: boolean; props: Pick<HTMLButtonAttributes, \"id\" | \"aria-controls\" | \"aria-expanded\" | \"onclick\" | \"type\">; }]> | undefined",
+                "required": false,
+                "bindable": false,
+                "default": null,
+                "description": "Custom control. Forward props to its native button to preserve disclosure semantics.",
                 "inherited": false
             },
             {

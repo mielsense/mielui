@@ -46,6 +46,10 @@
     </section>
 
     <!-- ─── Installation ──────────────────────────────────────────── -->
+    <Typography.Text>
+        Set close=&#123;false&#125; on Header to omit its default close button; place Sheet.Close
+        wherever the layout needs it. Close forwards bind:element and supports click cancellation.
+    </Typography.Text>
     <section id="installation" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Installation</Typography.H2>
         <InstallCommand command={installCommand} />

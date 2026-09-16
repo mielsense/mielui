@@ -2,7 +2,7 @@ import type { Manifest } from '@mielui/svelte/_manifest/types';
 
 export const manifest: Manifest = {
     name: 'slider',
-    version: '1.1.0',
+    version: '1.2.0',
     visibility: 'public',
     description:
         'Single-value and two-handle range slider with pill handles, keyboard controls, and RTL support.',
@@ -13,11 +13,12 @@ export const manifest: Manifest = {
         'components/slider/index.ts',
         'components/slider/manifest.ts'
     ],
-    components: [],
+    components: ['_internal/utils'],
     shared: ['utils.cn'],
     peerDependencies: {
         '@floating-ui/dom': '1.7.6',
+        'bits-ui': '^2.19.2',
         cnfast: '^0.0.8',
-        svelte: '^5.0.0'
+        svelte: '^5.33.0'
     }
 };

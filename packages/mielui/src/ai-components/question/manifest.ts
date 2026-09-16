@@ -21,8 +21,14 @@ export const manifest: Manifest = {
         'components/question/index.ts',
         'components/question/manifest.ts'
     ],
-    components: ['card', 'button', 'spinner', 'textarea'],
-    shared: ['hugeicons-icon', 'utils.cn', 'utils.createContext', 'transition'],
+    components: ['_internal/utils', 'card', 'button', 'spinner', 'textarea'],
+    shared: [
+        'components/_internal/submission.svelte',
+        'hugeicons-icon',
+        'utils.cn',
+        'utils.createContext',
+        'transition'
+    ],
     peerDependencies: {
         '@floating-ui/dom': '1.7.6',
         '@hugeicons/core-free-icons': '^4.3.0',

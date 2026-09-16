@@ -1,6 +1,7 @@
 <script lang="ts">
     import { cn } from '@mielui/svelte/utils';
     import type { SkeletonSwapProps } from '.';
+    import { delayedPresence } from './delayed-presence.svelte';
 
     let {
         ready,
@@ -20,20 +21,24 @@
     const widths = [100, 93, 97, 88, 95, 91] as const;
     let shell = $state<HTMLDivElement>();
     let body = $state<HTMLDivElement>();
-    let showSkeleton = $state(false);
-    let shownAt = 0;
+    const presence = delayedPresence({
+        get active() {
+            return !ready;
+        },
+        get delay() {
+            return delay;
+        },
+        get minVisible() {
+            return minVisible;
+        }
+    });
+    const showSkeleton = $derived(presence.visible);
     let scrollable = $state(false);
     const lineCount = $derived(
         Number.isFinite(lines) ? Math.min(1000, Math.max(0, Math.floor(lines))) : 3
     );
     const safeLineHeight = $derived(Number.isFinite(lineHeight) ? Math.max(0, lineHeight) : 21);
     const safeBarHeight = $derived(Number.isFinite(barHeight) ? Math.max(0, barHeight) : 9);
-    const safeDelay = $derived(
-        Number.isFinite(delay) ? Math.min(2_147_483_647, Math.max(0, delay)) : 120
-    );
-    const safeMinVisible = $derived(
-        Number.isFinite(minVisible) ? Math.min(2_147_483_647, Math.max(0, minVisible)) : 380
-    );
     const boxHeight = $derived(
         reserve !== undefined && Number.isFinite(reserve)
             ? Math.max(0, reserve)
@@ -49,28 +54,6 @@
         }
         return widths[(index * 7 + 3) % widths.length];
     }
-
-    $effect(() => {
-        if (!ready) {
-            if (showSkeleton) {
-                return;
-            }
-            const timer = setTimeout(() => {
-                shownAt = performance.now();
-                showSkeleton = true;
-            }, safeDelay);
-            return () => clearTimeout(timer);
-        }
-
-        if (!showSkeleton) {
-            return;
-        }
-        const remaining = Math.max(0, safeMinVisible - (performance.now() - shownAt));
-        const timer = setTimeout(() => {
-            showSkeleton = false;
-        }, remaining);
-        return () => clearTimeout(timer);
-    });
 
     $effect(() => {
         if (!shell) {

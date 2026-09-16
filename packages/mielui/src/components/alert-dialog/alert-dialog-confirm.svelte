@@ -1,13 +1,9 @@
 <script lang="ts">
-    import { Button, type ButtonProps } from '@mielui/svelte/components/button';
-    import { cn, type DefaultProps } from '@mielui/svelte/utils';
+    import { Button } from '@mielui/svelte/components/button';
+    import { cn } from '@mielui/svelte/utils';
     import { getDialogContext } from '../dialog/context.svelte';
 
-    type Props = {
-        closeOnClick?: boolean;
-        onclick?: (event: MouseEvent) => void;
-    } & DefaultProps &
-        ButtonProps;
+    import type { AlertDialogActionProps } from '.';
 
     const dialog = getDialogContext();
     let {
@@ -15,21 +11,23 @@
         children,
         onclick,
         closeOnClick = true,
+        element = $bindable<HTMLButtonElement | HTMLAnchorElement>(),
         variant,
         ...rest
-    }: Props = $props();
+    }: AlertDialogActionProps = $props();
     const confirmVariant = $derived(variant ?? (dialog.state.error ? 'destructive' : 'primary'));
 
     function handleClick(event: MouseEvent) {
-        if (closeOnClick) {
+        onclick?.(event);
+        if (closeOnClick && !event.defaultPrevented) {
             dialog.state.open = false;
         }
-        onclick?.(event);
     }
 </script>
 
 <Button
     {...rest}
+    bind:element
     variant={confirmVariant}
     onclick={handleClick}
     class={cn(className, 'ml-auto flex flex-row items-center justify-center gap-2')}

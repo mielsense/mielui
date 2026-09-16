@@ -29,6 +29,29 @@
         <ComponentPreview code={HeroSrc}><Hero /></ComponentPreview>
     </section>
 
+    <section id="composition" class="flex flex-col gap-4">
+        <Typography.H2>Separate handles and content</Typography.H2>
+        <Typography.Text>
+            Drag the handle or focus it and press Space to pick up a row. Content remains selectable
+            and may contain links or controls. The default data form uses Item, Handle, and Content.
+            Supply row to rearrange those same parts; every row needs an Item with its stable id and
+            accessible label.
+        </Typography.Text>
+        <CodeBlock
+            code={`import * as ReorderList from '@mielui/svelte/components/reorder-list';
+
+<ReorderList.Root bind:items getId={(item) => item.id} getLabel={(item) => item.name} label="Priority">
+  {#snippet row(item)}
+    <ReorderList.Item id={item.id} label={item.name}>
+      <ReorderList.Content>{item.name}</ReorderList.Content>
+      <ReorderList.Handle />
+    </ReorderList.Item>
+  {/snippet}
+</ReorderList.Root>`}
+            lang="svelte"
+            copy="overlay"
+        />
+    </section>
     <section id="installation" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Installation</Typography.H2>
         <InstallCommand command={installCommand} />
@@ -44,8 +67,8 @@
         <Typography.Text variant="supporting">
             Bind the controlled array for live movement. Use
             <Typography.InlineCode>onCommit</Typography.InlineCode>
-            for persistence so a drag writes once rather than on every crossing. Drag anywhere on a
-            row with a mouse, pen, or touch. Hover highlights the row; a grabbed row keeps its
+            for persistence so a drag writes once rather than on every crossing. Drag the handle
+            with a mouse, pen, or touch. Row content remains interactive; a grabbed row keeps its
             raised surface and primary border until dropped.
         </Typography.Text>
         <CodeBlock

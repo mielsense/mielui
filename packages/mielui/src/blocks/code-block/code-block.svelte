@@ -23,6 +23,8 @@
         ...rest
     }: CodeBlockProps = $props();
 
+    let element = $state<HTMLDivElement>();
+
     const SINGLE = '__single__';
 
     /**
@@ -98,9 +100,41 @@
                       : [];
         }
     });
+    $effect(() => {
+        if (isHighLevel || !element) {
+            return;
+        }
+        const root = element;
+        function reconcileOrder() {
+            const triggers = Array.from(
+                root.querySelectorAll<HTMLButtonElement>('[data-code-block-value]')
+            ).filter((trigger) => trigger.closest('[data-ui="code-block"]') === root);
+            const order = triggers.map((trigger) => trigger.dataset.codeBlockValue ?? '');
+            if (
+                order.length !== registry.order.length ||
+                order.some((entry, index) => entry !== registry.order[index])
+            ) {
+                registry.order = order;
+            }
+            const enabled = triggers.filter((trigger) => !trigger.disabled);
+            if (!enabled.some((trigger) => trigger.dataset.codeBlockValue === value)) {
+                value = enabled[0]?.dataset.codeBlockValue ?? '';
+            }
+        }
+        const observer = new MutationObserver(reconcileOrder);
+        observer.observe(root, {
+            childList: true,
+            subtree: true,
+            attributes: true,
+            attributeFilter: ['data-code-block-value', 'disabled']
+        });
+        untrack(reconcileOrder);
+        return () => observer.disconnect();
+    });
 </script>
 
 <div
+    bind:this={element}
     data-ui="code-block"
     class={cn(
         className,

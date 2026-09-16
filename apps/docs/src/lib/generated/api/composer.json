@@ -994,6 +994,24 @@
                 "inherited": false
             },
             {
+                "name": "errorMessage",
+                "type": "string | undefined",
+                "required": false,
+                "bindable": false,
+                "default": "'Message could not be sent.'",
+                "description": "",
+                "inherited": false
+            },
+            {
+                "name": "onError",
+                "type": "((error: unknown) => void) | undefined",
+                "required": false,
+                "bindable": false,
+                "default": null,
+                "description": "",
+                "inherited": false
+            },
+            {
                 "name": "onStop",
                 "type": "(() => void) | undefined",
                 "required": false,

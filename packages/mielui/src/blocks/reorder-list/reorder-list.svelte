@@ -1,15 +1,21 @@
 <script lang="ts" generics="T">
+    import { getCssDuration } from '@mielui/svelte/transition';
     import { cn } from '@mielui/svelte/utils';
-    import { tick, untrack } from 'svelte';
     import { flip } from 'svelte/animate';
     import { cubicOut } from 'svelte/easing';
     import type { ReorderListProps } from '.';
+    import { setReorderList } from './context.svelte';
+    import { createReorderGesture } from './gesture.svelte';
+    import Content from './reorder-list-content.svelte';
+    import Handle from './reorder-list-handle.svelte';
+    import Item from './reorder-list-item.svelte';
 
     let {
         items = $bindable(),
         getId,
         getLabel,
         children,
+        row,
         label,
         disabled = false,
         onReorder,
@@ -20,342 +26,59 @@
     const uid = $props.id();
 
     let listElement = $state<HTMLOListElement>();
-    let grabbed = $state<string>();
-    let dragging = $state<string>();
-    let spoken = $state('');
-    let reduced = $state(false);
-    let snapshot: T[] | undefined;
-    let gestureOrder: string[] | undefined;
-    let pointerSession:
-        | {
-              id: string;
-              node: HTMLButtonElement;
-              pointerId: number;
-              startY: number;
-              currentY: number;
-              startListTop: number;
-              grabOffset: number;
-              centers: { id: string; center: number }[];
-          }
-        | undefined;
-    const dragThreshold = 5;
-
-    $effect(() => {
-        if (typeof window.matchMedia !== 'function') {
-            return;
-        }
-        const query = window.matchMedia('(prefers-reduced-motion: reduce)');
-        const update = () => {
-            reduced = query.matches;
-        };
-        update();
-        query.addEventListener('change', update);
-        return () => query.removeEventListener('change', update);
-    });
-
-    $effect(() => {
-        if (disabled) {
-            untrack(cancelInterruptedGesture);
+    const gesture = createReorderGesture({
+        get items() {
+            return items;
+        },
+        set items(next) {
+            items = next;
+        },
+        get getId() {
+            return getId;
+        },
+        get getLabel() {
+            return getLabel;
+        },
+        get disabled() {
+            return disabled;
+        },
+        get element() {
+            return listElement;
+        },
+        hintId: `${uid}-hint`,
+        get onReorder() {
+            return onReorder;
+        },
+        get onCommit() {
+            return onCommit;
         }
     });
+    setReorderList(gesture);
 
-    $effect(() => {
-        const currentOrder = items.map(getId);
-        untrack(() => {
-            if (
-                !snapshot ||
-                !gestureOrder ||
-                (currentOrder.length === gestureOrder.length &&
-                    currentOrder.every((id, index) => id === gestureOrder?.[index]))
-            ) {
-                return;
-            }
-            snapshot = undefined;
-            gestureOrder = undefined;
-            grabbed = undefined;
-            dragging = undefined;
-            clearPointerSession();
-            spoken = 'Reorder cancelled because the list changed.';
+    function animateRow(
+        node: HTMLElement,
+        positions: { from: DOMRect; to: DOMRect },
+        lifted: boolean
+    ) {
+        return flip(node, positions, {
+            duration:
+                gesture.reduced || lifted ? 0 : getCssDuration(node, '--motion-duration-item', 180),
+            easing: cubicOut
         });
-    });
-
-    function moveItem(list: T[], from: number, to: number) {
-        const next = [...list];
-        const [item] = next.splice(from, 1);
-        next.splice(to, 0, item);
-        return next;
-    }
-
-    function emit(next: T[]) {
-        gestureOrder = next.map(getId);
-        items = next;
-        onReorder?.(next);
-    }
-
-    function indexOf(id: string) {
-        return items.findIndex((item) => getId(item) === id);
-    }
-
-    function announcePosition(id: string) {
-        const index = indexOf(id);
-        if (index < 0) {
-            return;
-        }
-        const item = items[index];
-        spoken = `${getLabel(item)}, position ${index + 1} of ${items.length}.`;
-    }
-
-    function announceDrop(id: string) {
-        const index = indexOf(id);
-        if (index < 0) {
-            return;
-        }
-        const item = items[index];
-        spoken = `${getLabel(item)} dropped at position ${index + 1}.`;
-    }
-
-    function grab(id: string) {
-        if (disabled || pointerSession) {
-            return;
-        }
-        snapshot = [...items];
-        gestureOrder = items.map(getId);
-        grabbed = id;
-        const index = indexOf(id);
-        if (index < 0) {
-            return;
-        }
-        const item = items[index];
-        spoken = `${getLabel(item)} grabbed, position ${index + 1} of ${items.length}.`;
-    }
-
-    function drop(id: string) {
-        grabbed = undefined;
-        snapshot = undefined;
-        announceDrop(id);
-        onCommit?.([...items]);
-    }
-
-    function clearPointerSession(settle = false) {
-        const session = pointerSession;
-        pointerSession = undefined;
-        if (!session) {
-            return;
-        }
-        if (listElement?.hasPointerCapture?.(session.pointerId)) {
-            listElement.releasePointerCapture?.(session.pointerId);
-        }
-        if (settle && !reduced) {
-            session.node.style.removeProperty('transition-property');
-            void session.node.offsetWidth;
-        }
-        session.node.style.translate = '';
-        session.node.style.removeProperty('transition-property');
-        session.node.style.removeProperty('will-change');
-    }
-
-    function cancel() {
-        if (!snapshot) {
-            return;
-        }
-        const currentById = new Map(items.map((item) => [getId(item), item]));
-        const original: T[] = [];
-        for (const item of snapshot) {
-            const id = getId(item);
-            if (currentById.has(id)) {
-                original.push(currentById.get(id) as T);
-                currentById.delete(id);
-            }
-        }
-        original.push(...currentById.values());
-        const active = Boolean(dragging || grabbed);
-        snapshot = undefined;
-        grabbed = undefined;
-        dragging = undefined;
-        clearPointerSession();
-        if (active) {
-            emit(original);
-            spoken = 'Reorder cancelled, original order restored.';
-        }
-    }
-
-    function step(id: string, delta: -1 | 1) {
-        const from = indexOf(id);
-        const to = from + delta;
-        if (from < 0 || to < 0 || to >= items.length) {
-            return;
-        }
-        emit(moveItem(items, from, to));
-        announcePosition(id);
-        void tick().then(() => {
-            const row = Array.from(
-                listElement?.querySelectorAll<HTMLButtonElement>('[data-reorder-id]') ?? []
-            ).find((candidate) => candidate.dataset.reorderId === id);
-            row?.focus({ preventScroll: true });
-        });
-    }
-
-    function onRowKeydown(event: KeyboardEvent, id: string) {
-        if (disabled || event.target !== event.currentTarget) {
-            return;
-        }
-        const held = grabbed === id;
-        if (event.key === ' ' || event.key === 'Enter') {
-            event.preventDefault();
-            if (held) {
-                drop(id);
-            } else {
-                grab(id);
-            }
-            return;
-        }
-        if (held && (event.key === 'ArrowUp' || event.key === 'ArrowDown')) {
-            event.preventDefault();
-            step(id, event.key === 'ArrowUp' ? -1 : 1);
-            return;
-        }
-        if (held && event.key === 'Escape') {
-            event.preventDefault();
-            cancel();
-        }
-    }
-
-    function startPointer(event: PointerEvent, id: string) {
-        if (disabled || grabbed || pointerSession || event.button !== 0) {
-            return;
-        }
-        const node = event.currentTarget as HTMLButtonElement;
-        snapshot = [...items];
-        gestureOrder = items.map(getId);
-        const rect = node.getBoundingClientRect();
-        pointerSession = {
-            id,
-            node,
-            pointerId: event.pointerId,
-            startY: event.clientY,
-            currentY: event.clientY,
-            startListTop: listElement?.getBoundingClientRect().top ?? 0,
-            grabOffset: event.clientY - rect.top,
-            centers: Array.from(
-                listElement?.querySelectorAll<HTMLButtonElement>('[data-reorder-id]') ?? []
-            ).map((candidate) => {
-                const candidateRect = candidate.getBoundingClientRect();
-                return {
-                    id: candidate.dataset.reorderId ?? '',
-                    center: candidateRect.top + candidateRect.height / 2
-                };
-            })
-        };
-        event.preventDefault();
-        node.focus({ preventScroll: true });
-        listElement?.setPointerCapture?.(event.pointerId);
-    }
-
-    function positionDraggedRow(session: NonNullable<typeof pointerSession>) {
-        const rowTop = session.node.parentElement?.getBoundingClientRect().top;
-        if (rowTop === undefined) {
-            return;
-        }
-        session.node.style.translate = `0 ${session.currentY - session.grabOffset - rowTop}px`;
-    }
-
-    function movePointer(event: PointerEvent) {
-        const session = pointerSession;
-        if (!session || session.pointerId !== event.pointerId || !listElement) {
-            return;
-        }
-        if (disabled) {
-            cancel();
-            return;
-        }
-        if (!dragging) {
-            if (Math.abs(event.clientY - session.startY) < dragThreshold) {
-                return;
-            }
-            dragging = session.id;
-            session.node.style.setProperty(
-                'transition-property',
-                'background-color, border-color, box-shadow'
-            );
-            session.node.style.setProperty('will-change', 'translate');
-        }
-        if (dragging !== session.id) {
-            return;
-        }
-        session.currentY = event.clientY;
-        positionDraggedRow(session);
-
-        const from = indexOf(session.id);
-        const pointerCenter = event.clientY + (session.node.offsetHeight / 2 - session.grabOffset);
-        const scrollDelta = listElement.getBoundingClientRect().top - session.startListTop;
-        const to = session.centers
-            .filter((entry) => entry.id !== session.id)
-            .filter((entry) => pointerCenter > entry.center + scrollDelta).length;
-        if (from >= 0 && to !== from) {
-            emit(moveItem(items, from, to));
-            void tick().then(() => {
-                if (pointerSession === session) {
-                    positionDraggedRow(session);
-                }
-            });
-        }
-    }
-
-    function finishPointer(event: PointerEvent) {
-        const session = pointerSession;
-        if (!session || session.pointerId !== event.pointerId) {
-            return;
-        }
-        if (disabled) {
-            cancel();
-            return;
-        }
-        const moved = dragging === session.id;
-        dragging = undefined;
-        snapshot = undefined;
-        clearPointerSession(moved);
-        if (moved) {
-            announceDrop(session.id);
-            onCommit?.([...items]);
-        }
-    }
-
-    function cancelPointer(event: PointerEvent) {
-        if (pointerSession?.pointerId === event.pointerId) {
-            cancel();
-        }
-    }
-
-    function losePointerCapture(event: PointerEvent) {
-        if (event.target === listElement) {
-            cancelPointer(event);
-        }
-    }
-
-    function scrollPointer() {
-        if (pointerSession && dragging) {
-            positionDraggedRow(pointerSession);
-        }
-    }
-
-    function cancelInterruptedGesture() {
-        if (pointerSession || dragging || grabbed) {
-            cancel();
-        }
     }
 </script>
 
 <svelte:window
-    onpointermove={movePointer}
-    onpointerup={finishPointer}
-    onpointercancel={cancelPointer}
-    onblur={cancelInterruptedGesture}
-    onscrollcapture={scrollPointer}
+    onpointermove={gesture.movePointer}
+    onpointerup={gesture.finishPointer}
+    onpointercancel={gesture.cancelPointer}
+    onblur={gesture.cancelInterruptedGesture}
+    onscrollcapture={gesture.scrollPointer}
 />
 <svelte:document
     onvisibilitychange={() => {
         if (document.hidden) {
-            cancelInterruptedGesture();
+            gesture.cancelInterruptedGesture();
         }
     }}
 />
@@ -364,60 +87,27 @@
     <ol
         bind:this={listElement}
         aria-label={label}
-        onlostpointercapture={losePointerCapture}
+        onlostpointercapture={gesture.losePointerCapture}
         class="m-0 list-none space-y-1.5 p-0"
     >
         {#each items as item (getId(item))}
             {@const id = getId(item)}
-            {@const held = grabbed === id}
-            {@const lifted = held || dragging === id}
-            <li animate:flip={{ duration: reduced || lifted ? 0 : 180, easing: cubicOut }}>
-                <button
-                    type="button"
-                    data-reorder-id={id}
-                    data-lifted={lifted}
-                    aria-pressed={lifted}
-                    aria-describedby={`${uid}-hint`}
-                    {disabled}
-                    onkeydown={(event) => onRowKeydown(event, id)}
-                    onpointerdown={(event) => startPointer(event, id)}
-                    ondragstart={(event) => event.preventDefault()}
-                    onblur={() => {
-                        if (held) {
-                            cancel();
-                        }
-                    }}
-                    class={cn(
-                        lifted
-                            ? 'z-10 cursor-grabbing border-primary bg-secondary shadow-[var(--elevation-float)] [&>svg]:text-foreground'
-                            : 'cursor-grab border-border bg-card enabled:hover:border-border-strong enabled:hover:bg-secondary enabled:hover:[&>svg]:text-foreground enabled:active:cursor-grabbing enabled:active:bg-foreground/[0.08]',
-                        'relative flex w-full touch-pinch-zoom select-none items-center gap-3 rounded-[var(--radius-md)] border-[length:var(--border-size)] px-3 py-2.5 text-left text-sm text-foreground outline-none transition-[background-color,border-color,box-shadow,color,translate] [transition-duration:var(--motion-duration-item)] ease-[var(--ease-out)] motion-reduce:transition-none',
-                        'focus-visible:shadow-[var(--focus-ring)] disabled:cursor-not-allowed disabled:opacity-[var(--opacity-disabled)]'
-                    )}
-                >
-                    <svg
-                        aria-hidden="true"
-                        viewBox="0 0 10 14"
-                        class="h-3.5 w-2.5 shrink-0 fill-current text-foreground-muted transition-colors [transition-duration:var(--motion-duration-item)] motion-reduce:transition-none"
-                    >
-                        <circle cx="2.5" cy="2.5" r="1.2" />
-                        <circle cx="7.5" cy="2.5" r="1.2" />
-                        <circle cx="2.5" cy="7" r="1.2" />
-                        <circle cx="7.5" cy="7" r="1.2" />
-                        <circle cx="2.5" cy="11.5" r="1.2" />
-                        <circle cx="7.5" cy="11.5" r="1.2" />
-                    </svg>
-                    <span class="sr-only">{getLabel(item)}</span>
-                    <span aria-hidden="true" class="min-w-0 flex-1">
-                        {@render children(item)}
-                    </span>
-                </button>
+            {@const lifted = gesture.lifted(id)}
+            <li animate:animateRow={lifted}>
+                {#if row}
+                    {@render row(item)}
+                {:else}
+                    <Item {id} label={getLabel(item)}>
+                        <Handle />
+                        <Content>{@render children?.(item)}</Content>
+                    </Item>
+                {/if}
             </li>
         {/each}
     </ol>
     <span id={`${uid}-hint`} class="sr-only">
-        Drag to reorder. With the keyboard, Space or Enter grabs the row, the arrow keys move it,
-        Space or Enter drops it, and Escape restores the original order.
+        Drag to reorder. With the handle focused, Space or Enter grabs the row, the arrow keys move
+        it, Space or Enter drops it, and Escape restores the original order.
     </span>
-    <span role="status" aria-live="polite" class="sr-only">{spoken}</span>
+    <span role="status" aria-live="polite" class="sr-only">{gesture.spoken}</span>
 </div>

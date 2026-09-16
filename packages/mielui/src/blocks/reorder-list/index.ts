@@ -1,12 +1,16 @@
 import type { Snippet } from 'svelte';
-import type { HTMLAttributes } from 'svelte/elements';
+import type { HTMLAttributes, HTMLButtonAttributes } from 'svelte/elements';
 import ReorderList from './reorder-list.svelte';
+import Content from './reorder-list-content.svelte';
+import Handle from './reorder-list-handle.svelte';
+import Item from './reorder-list-item.svelte';
 
 export type ReorderListProps<T> = {
     items: T[];
     getId: (item: T) => string;
     getLabel: (item: T) => string;
-    children: Snippet<[T]>;
+    children?: Snippet<[T]>;
+    row?: Snippet<[T]>;
     label: string;
     disabled?: boolean;
     onReorder?: (items: T[]) => void;
@@ -14,5 +18,11 @@ export type ReorderListProps<T> = {
     class?: string;
 } & Omit<HTMLAttributes<HTMLDivElement>, 'children'>;
 
-export { ReorderList };
+export type ReorderListItemProps = HTMLAttributes<HTMLDivElement> & {
+    id: string;
+    label: string;
+};
+export type ReorderListHandleProps = Omit<HTMLButtonAttributes, 'type'>;
+export type ReorderListContentProps = HTMLAttributes<HTMLDivElement>;
+export { Content, Handle, Item, ReorderList, ReorderList as Root };
 export default ReorderList;

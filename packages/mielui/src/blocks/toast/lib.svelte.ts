@@ -6,7 +6,6 @@ const toastTimeouts = new Map<
     number,
     { timeout: ReturnType<typeof setTimeout>; state: ToastState }
 >();
-const TOAST_EXIT_DURATION = 340;
 let nextToastId = 0;
 
 /**
@@ -95,7 +94,7 @@ function clearToastTimeout(id: number) {
     toastTimeouts.delete(id);
 }
 
-/** Starts the exit lifecycle for a toast and removes it after the exit duration. */
+/** Removes a toast from state; its mounted host owns the visual exit. */
 function dismissToastForState(state: ToastState | undefined, id: number) {
     if (!state?.data) {
         return;
@@ -109,13 +108,7 @@ function dismissToastForState(state: ToastState | undefined, id: number) {
     }
     current.leaving = true;
     clearToastTimeout(id);
-    toastTimeouts.set(id, {
-        state,
-        timeout: setTimeout(() => {
-            state.data.toasts = state.data.toasts.filter((t) => t.id !== id);
-            toastTimeouts.delete(id);
-        }, TOAST_EXIT_DURATION)
-    });
+    state.data.toasts = state.data.toasts.filter((toast) => toast.id !== id);
 }
 
 function dismissToast(id: number) {

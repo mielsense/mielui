@@ -1,8 +1,11 @@
 <script lang="ts">
     import { cn } from '@mielui/svelte/utils';
-    import { untrack } from 'svelte';
+    import { Slider as SliderPrimitive } from 'bits-ui';
+    import { onMount, tick, untrack } from 'svelte';
     import type { SliderProps } from '.';
-    import { normalizeValue, valuePercent } from './range';
+    import { normalizeValue } from './range';
+
+    const generatedId = $props.id();
 
     let {
         class: className,
@@ -12,6 +15,13 @@
         step = 1,
         disabled = false,
         label,
+        id = generatedId,
+        name,
+        form,
+        element = $bindable(),
+        'aria-label': ariaLabel,
+        'aria-labelledby': labelledBy,
+        'aria-describedby': describedBy,
         dir,
         ...mode
     }: SliderProps = $props();
@@ -35,161 +45,316 @@
             normalizeValue(typeof value === 'number' ? value : minimum, minimum, maximum, increment)
         ];
     });
-    const start = $derived(mode.range ? valuePercent(values[0], minimum, maximum) : 0);
-    const end = $derived(valuePercent(values[values.length - 1], minimum, maximum));
 
     value ??= untrack((): number | [number, number] => {
         return mode.range ? [values[0], values[1]] : values[0];
     });
 
-    let element: HTMLDivElement;
-    let inputs = $state<HTMLInputElement[]>([]);
+    const initialValue = untrack(() => (Array.isArray(value) ? [...value] : value));
+    let formInput = $state<HTMLInputElement>();
+    let inheritedDirection = $state<'ltr' | 'rtl'>('ltr');
     let activeThumb = $state(0);
-    let dragging = $state<number | null>(null);
-    let pointerId: number | undefined;
-    let grabOffset = 0;
-
+    let dragPointer = $state<number | undefined>();
+    let dragOffset = 0;
+    let pointerPosition: number | undefined;
+    let pointerThumb: number | undefined;
+    let interactionRevision = $state(0);
+    const direction = $derived(dir ?? inheritedDirection);
     const thumbClasses =
-        'absolute inset-x-0 top-1/2 m-0 h-6 w-full -translate-y-1/2 appearance-none bg-transparent outline-none pointer-events-none disabled:cursor-not-allowed [&::-webkit-slider-runnable-track]:bg-transparent [&::-moz-range-track]:bg-transparent [&::-webkit-slider-thumb]:pointer-events-auto [&::-webkit-slider-thumb]:h-4 [&::-webkit-slider-thumb]:w-6 [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:border-[length:var(--border-size)] [&::-webkit-slider-thumb]:border-border-strong [&::-webkit-slider-thumb]:bg-background dark:[&::-webkit-slider-thumb]:bg-foreground [&::-webkit-slider-thumb]:shadow-[var(--elevation-control)] [&::-webkit-slider-thumb]:cursor-grab [&::-webkit-slider-thumb]:transition-shadow [&::-webkit-slider-thumb]:[transition-duration:var(--motion-duration-press)] [&::-webkit-slider-thumb]:ease-[var(--ease-out)] motion-reduce:[&::-webkit-slider-thumb]:transition-none [&:focus-visible::-webkit-slider-thumb]:shadow-[var(--focus-ring)] [&[data-dragging]::-webkit-slider-thumb]:cursor-grabbing [&[data-dragging]::-webkit-slider-thumb]:shadow-[var(--focus-ring)] [&:disabled::-webkit-slider-thumb]:cursor-not-allowed [&::-moz-range-thumb]:pointer-events-auto [&::-moz-range-thumb]:h-4 [&::-moz-range-thumb]:w-6 [&::-moz-range-thumb]:box-border [&::-moz-range-thumb]:rounded-full [&::-moz-range-thumb]:border-[length:var(--border-size)] [&::-moz-range-thumb]:border-border-strong [&::-moz-range-thumb]:bg-background dark:[&::-moz-range-thumb]:bg-foreground [&::-moz-range-thumb]:shadow-[var(--elevation-control)] [&::-moz-range-thumb]:cursor-grab [&::-moz-range-thumb]:transition-shadow [&::-moz-range-thumb]:[transition-duration:var(--motion-duration-press)] [&::-moz-range-thumb]:ease-[var(--ease-out)] motion-reduce:[&::-moz-range-thumb]:transition-none [&:focus-visible::-moz-range-thumb]:shadow-[var(--focus-ring)] [&[data-dragging]::-moz-range-thumb]:cursor-grabbing [&[data-dragging]::-moz-range-thumb]:shadow-[var(--focus-ring)] [&:disabled::-moz-range-thumb]:cursor-not-allowed';
+        'h-4 w-6 shrink-0 cursor-grab rounded-full border-[length:var(--border-size)] border-border-strong bg-background shadow-[var(--elevation-control)] outline-none transition-shadow [transition-duration:var(--motion-duration-press)] ease-[var(--ease-out)] dark:bg-foreground focus-visible:shadow-[var(--focus-ring)] data-active:cursor-grabbing data-active:shadow-[var(--focus-ring)] data-disabled:cursor-not-allowed motion-reduce:transition-none';
 
-    function commit(index: number, candidate: number) {
-        if (unavailable) {
+    onMount(() => {
+        function updateDirection() {
+            if (element) {
+                inheritedDirection = getComputedStyle(element).direction === 'rtl' ? 'rtl' : 'ltr';
+            }
+        }
+        updateDirection();
+        const observer = new MutationObserver(updateDirection);
+        observer.observe(document.documentElement, {
+            attributes: true,
+            subtree: true,
+            attributeFilter: ['dir']
+        });
+        return () => {
+            observer.disconnect();
+        };
+    });
+
+    function singleValue() {
+        return values[0];
+    }
+
+    function rangeValue() {
+        return values;
+    }
+
+    function updateSingle(next: number) {
+        const normalized = normalizeValue(pointerPosition ?? next, minimum, maximum, increment);
+        if (unavailable || mode.range || normalized === values[0]) {
             return;
         }
-        const next = normalizeValue(candidate, minimum, maximum, increment);
-        if (mode.range) {
-            const pair: [number, number] = [values[0], values[1]];
-            pair[index] = index === 0 ? Math.min(next, pair[1]) : Math.max(next, pair[0]);
-            if (pair[0] === values[0] && pair[1] === values[1]) {
-                return;
-            }
-            value = pair;
-            mode.onValueChange?.(pair);
-        } else {
-            if (next === values[0]) {
-                return;
-            }
-            value = next;
-            mode.onValueChange?.(next);
+        value = normalized;
+        mode.onValueChange?.(normalized);
+    }
+
+    function updateRange(next: number[]) {
+        if (unavailable || !mode.range) {
+            return;
         }
+        const changedIndex = pointerThumb ?? (next[0] !== values[0] ? 0 : 1);
+        const candidate = normalizeValue(
+            pointerPosition ?? next[changedIndex],
+            minimum,
+            maximum,
+            increment
+        );
+        const pair: [number, number] = [values[0], values[1]];
+        pair[changedIndex] =
+            changedIndex === 0 ? Math.min(candidate, pair[1]) : Math.max(candidate, pair[0]);
+        if (pair[0] === values[0] && pair[1] === values[1]) {
+            return;
+        }
+        value = pair;
+        mode.onValueChange?.(pair);
     }
 
-    function pointerValue(clientX: number) {
-        const rect = element.getBoundingClientRect();
-        const inset = inputs[0]?.offsetHeight / 2 || 12;
-        const width = Math.max(rect.width - inset * 2, 1);
-        const ratio = Math.min(1, Math.max(0, (clientX - rect.left - inset) / width));
-        const logical = getComputedStyle(element).direction === 'rtl' ? 1 - ratio : ratio;
-        return minimum + logical * (maximum - minimum);
-    }
-
-    function startDrag(event: PointerEvent) {
+    function startPointer(event: PointerEvent) {
         if (
+            event.defaultPrevented ||
             unavailable ||
-            dragging !== null ||
-            (event.button !== undefined && event.button !== 0)
+            event.button !== 0 ||
+            dragPointer !== undefined
         ) {
             return;
         }
-        const target = event.target;
-        const candidate =
-            typeof event.clientX === 'number' ? pointerValue(event.clientX) : values[0];
-        let index = target instanceof HTMLInputElement ? Number(target.dataset.thumb) : activeThumb;
-        if (mode.range && !(target instanceof HTMLInputElement)) {
-            const firstDistance = Math.abs(candidate - values[0]);
-            const secondDistance = Math.abs(candidate - values[1]);
-            if (firstDistance !== secondDistance) {
-                index = firstDistance < secondDistance ? 0 : 1;
-            } else if (values[0] === values[1]) {
-                index = candidate > values[0] ? 1 : 0;
+        dragPointer = event.pointerId;
+        const thumb =
+            event.target instanceof Element
+                ? event.target.closest<HTMLElement>('[data-thumb]')
+                : null;
+        const track = element?.querySelector<HTMLElement>('[data-slider-root]');
+        dragOffset = 0;
+        if (thumb && track) {
+            pointerThumb = Number(thumb.dataset.thumb);
+            activeThumb = pointerThumb;
+            const rect = track.getBoundingClientRect();
+            const percent = (event.clientX - rect.left) / Math.max(rect.width, 1);
+            const logical = direction === 'rtl' ? 1 - percent : percent;
+            dragOffset = minimum + logical * (maximum - minimum) - values[activeThumb];
+        }
+        if (!thumb && track) {
+            const handles = Array.from(track.querySelectorAll<HTMLElement>('[data-thumb]'));
+            const distances = handles.map((handle) => {
+                const rect = handle.getBoundingClientRect();
+                return Math.abs(event.clientX - (rect.left + rect.right) / 2);
+            });
+            pointerThumb = distances.indexOf(Math.min(...distances));
+        }
+        updatePointerPosition(event);
+        element?.setPointerCapture(event.pointerId);
+    }
+
+    function updatePointerPosition(event: PointerEvent) {
+        if (dragPointer !== event.pointerId) {
+            return;
+        }
+        const rect = element
+            ?.querySelector<HTMLElement>('[data-slider-root]')
+            ?.getBoundingClientRect();
+        if (!rect) {
+            return;
+        }
+        const percent = (event.clientX - rect.left) / Math.max(rect.width, 1);
+        const logical = direction === 'rtl' ? 1 - percent : percent;
+        pointerPosition = minimum + logical * (maximum - minimum) - dragOffset;
+        if (mode.range) {
+            updateRange(values);
+        } else {
+            updateSingle(values[0]);
+        }
+        const index = pointerThumb ?? 0;
+        void tick().then(() => {
+            if (dragPointer === event.pointerId) {
+                element
+                    ?.querySelector<HTMLElement>(`[data-thumb="${index}"]`)
+                    ?.focus({ preventScroll: true });
             }
+        });
+    }
+
+    function finishPointer(event: PointerEvent) {
+        if (event.pointerId !== dragPointer) {
+            return;
         }
-        grabOffset = target instanceof HTMLInputElement ? candidate - values[index] : 0;
-        dragging = index;
-        activeThumb = index;
-        pointerId = event.pointerId;
-        inputs[index]?.setAttribute('data-dragging', '');
-        inputs[index]?.focus({ preventScroll: true });
-        if (pointerId !== undefined) {
-            element.setPointerCapture?.(pointerId);
-        }
-        event.preventDefault();
-        if (typeof event.clientX === 'number' && !(target instanceof HTMLInputElement)) {
-            commit(index, candidate);
+        dragPointer = undefined;
+        dragOffset = 0;
+        pointerPosition = undefined;
+        pointerThumb = undefined;
+        if (element?.hasPointerCapture(event.pointerId)) {
+            element.releasePointerCapture(event.pointerId);
         }
     }
 
-    function moveDrag(event: PointerEvent) {
-        if (dragging !== null && event.pointerId === pointerId) {
-            commit(dragging, pointerValue(event.clientX) - grabOffset);
+    function cancelPointer(event?: PointerEvent) {
+        if (dragPointer === undefined || (event && event.pointerId !== dragPointer)) {
+            return;
         }
-    }
-
-    function endDrag() {
-        for (const input of inputs) {
-            input?.removeAttribute('data-dragging');
+        const shouldRestoreFocus = element?.contains(document.activeElement) ?? false;
+        const pointer = dragPointer;
+        dragPointer = undefined;
+        dragOffset = 0;
+        pointerPosition = undefined;
+        pointerThumb = undefined;
+        if (pointer !== undefined && element?.hasPointerCapture(pointer)) {
+            element.releasePointerCapture(pointer);
         }
-        dragging = null;
-        if (pointerId !== undefined && element?.hasPointerCapture?.(pointerId)) {
-            element.releasePointerCapture(pointerId);
+        interactionRevision += 1;
+        if (shouldRestoreFocus && !unavailable) {
+            void tick().then(() => {
+                element
+                    ?.querySelector<HTMLElement>(`[data-thumb="${activeThumb}"]`)
+                    ?.focus({ preventScroll: true });
+            });
         }
-        pointerId = undefined;
     }
 
     $effect(() => {
+        const owner =
+            formInput?.form ?? (form ? document.getElementById(form) : element?.closest('form'));
+        if (!(owner instanceof HTMLFormElement)) {
+            return;
+        }
+        function reset(event: Event) {
+            queueMicrotask(() => {
+                if (event.defaultPrevented) {
+                    return;
+                }
+                cancelPointer();
+                value = mode.range
+                    ? Array.isArray(initialValue)
+                        ? [initialValue[0], initialValue[1]]
+                        : [minimum, maximum]
+                    : typeof initialValue === 'number'
+                      ? initialValue
+                      : minimum;
+            });
+        }
+        owner.addEventListener('reset', reset);
+        return () => {
+            owner.removeEventListener('reset', reset);
+        };
+    });
+
+    $effect(() => {
         if (unavailable) {
-            endDrag();
+            cancelPointer();
         }
     });
 </script>
 
+{#snippet track()}
+    <span
+        data-ui="slider-track"
+        aria-hidden="true"
+        class="relative h-1.5 w-full overflow-hidden rounded-full bg-secondary"
+    >
+        <SliderPrimitive.Range
+            data-ui="slider-range"
+            class="absolute inset-y-0 rounded-full bg-primary"
+        />
+    </span>
+    {#each values as current, index (index)}
+        <SliderPrimitive.Thumb {index}>
+            {#snippet child({ props, active })}
+                <span
+                    {...props}
+                    aria-label={mode.range ? (mode.thumbLabels?.[index] ?? `${ariaLabel ?? label ?? 'Range'} ${index === 0 ? 'minimum' : 'maximum'}`) : (ariaLabel ?? label)}
+                    aria-labelledby={labelledBy ? (mode.range ? `${labelledBy} ${id}-label-${index}` : labelledBy) : undefined}
+                    aria-describedby={describedBy}
+                    aria-valuemin={mode.range && index === 1 ? values[0] : minimum}
+                    aria-valuemax={mode.range && index === 0 ? values[1] : maximum}
+                    aria-valuenow={current}
+                    data-ui="slider-thumb"
+                    data-thumb={index}
+                    data-active={(dragPointer !== undefined ? pointerThumb === index : active) || undefined}
+                    data-dragging={(dragPointer !== undefined && pointerThumb === index) || undefined}
+                    style:z-index={activeThumb === index ? 2 : 1}
+                    onfocus={() => {
+                        activeThumb = index;
+                    }}
+                    class={thumbClasses}
+                ></span>
+            {/snippet}
+        </SliderPrimitive.Thumb>
+        {#if mode.range && labelledBy}
+            <span id={`${id}-label-${index}`} class="sr-only">
+                {mode.thumbLabels?.[index] ?? (index === 0 ? 'minimum' : 'maximum')}
+            </span>
+        {/if}
+    {/each}
+{/snippet}
+
 <div
     {...rootAttributes}
     bind:this={element}
+    {id}
     {dir}
     data-ui="slider"
     data-range={mode.range || undefined}
-    class={cn(className, 'relative flex min-h-[var(--size-touch)] w-full touch-pan-y select-none items-center md:min-h-6', unavailable && 'opacity-50')}
-    onpointerdown={startDrag}
-    onpointermove={moveDrag}
-    onpointerup={endDrag}
-    onpointercancel={endDrag}
-    onlostpointercapture={endDrag}
+    class={cn(className, 'w-full px-3', unavailable && 'opacity-50')}
+    onpointerdown={startPointer}
+    onpointermove={updatePointerPosition}
+    onpointerup={finishPointer}
+    onpointercancel={cancelPointer}
+    onlostpointercapture={cancelPointer}
+    onkeydowncapture={() => {
+        cancelPointer();
+    }}
 >
-    <div
-        aria-hidden="true"
-        class="relative mx-3 h-1.5 flex-1 overflow-hidden rounded-full bg-secondary"
-    >
-        <div
-            class="absolute inset-y-0 rounded-full bg-primary"
-            style:inset-inline-start={`${start}%`}
-            style:width={`${end - start}%`}
-        ></div>
-    </div>
-    {#each values as current, index (index)}
+    {#if name}
         <input
-            bind:this={inputs[index]}
-            type="range"
-            min={minimum}
-            max={maximum}
-            step={increment}
+            bind:this={formInput}
+            type="hidden"
+            {name}
+            {form}
             disabled={unavailable}
-            value={current}
-            aria-label={mode.range ? (mode.thumbLabels?.[index] ?? `${label ?? 'Range'} ${index === 0 ? 'minimum' : 'maximum'}`) : label}
-            aria-valuemin={mode.range && index === 1 ? values[0] : minimum}
-            aria-valuemax={mode.range && index === 0 ? values[1] : maximum}
-            aria-valuenow={current}
-            data-thumb={index}
-            data-dragging={dragging === index || undefined}
-            style:z-index={activeThumb === index ? 2 : 1}
-            onfocus={() => {
-                activeThumb = index;
-            }}
-            oninput={(event) => {
-                commit(index, Number(event.currentTarget.value));
-                event.currentTarget.value = String(values[index]);
-            }}
-            class={thumbClasses}
+            value={values[0]}
         />
-    {/each}
+        {#if mode.range}
+            <input type="hidden" {name} {form} disabled={unavailable} value={values[1]} />
+        {/if}
+    {/if}
+    {#key interactionRevision}
+        {#if mode.range}
+            <SliderPrimitive.Root
+                type="multiple"
+                bind:value={rangeValue, updateRange}
+                autoSort={false}
+                min={minimum}
+                max={maximum}
+                step={increment}
+                disabled={unavailable}
+                dir={direction}
+                thumbPositioning="exact"
+                class="relative flex min-h-[var(--size-touch)] w-full select-none items-center md:min-h-6"
+            >
+                {@render track()}
+            </SliderPrimitive.Root>
+        {:else}
+            <SliderPrimitive.Root
+                type="single"
+                bind:value={singleValue, updateSingle}
+                min={minimum}
+                max={maximum}
+                step={increment}
+                disabled={unavailable}
+                dir={direction}
+                thumbPositioning="exact"
+                class="relative flex min-h-[var(--size-touch)] w-full select-none items-center md:min-h-6"
+            >
+                {@render track()}
+            </SliderPrimitive.Root>
+        {/if}
+    {/key}
 </div>

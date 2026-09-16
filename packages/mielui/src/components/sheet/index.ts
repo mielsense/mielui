@@ -18,7 +18,7 @@ export type SheetProps = {
 
 export type SheetTriggerProps = ButtonProps;
 export type SheetTitleProps = DefaultProps;
-export type SheetHeaderProps = DefaultProps;
+export type SheetHeaderProps = DefaultProps & { close?: boolean };
 export type SheetFooterProps = DefaultProps;
 export type SheetDescriptionProps = DefaultProps;
 export type SheetContentProps = {

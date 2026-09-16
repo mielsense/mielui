@@ -19,8 +19,9 @@ export const manifest: Manifest = {
     version: '1.0.0',
     visibility: 'internal',
     description:
-        'Shared highlight.js grammars (Svelte template, enhanced Python) consumed by the code-block and file-diff highlighters; not directly installable.',
+        'Shared syntax highlighting, language registration, and escaping for code blocks and file diffs; not directly installable.',
     files: [
+        'components/_internal/highlight/highlight.ts',
         'components/_internal/highlight/svelte.ts',
         'components/_internal/highlight/python.ts',
         'components/_internal/highlight/index.ts',

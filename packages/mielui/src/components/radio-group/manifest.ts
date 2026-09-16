@@ -12,7 +12,7 @@ export const manifest: Manifest = {
         'components/radio-group/index.ts',
         'components/radio-group/manifest.ts'
     ],
-    components: [],
+    components: ['_internal/utils'],
     shared: ['utils.cn'],
     peerDependencies: {
         '@floating-ui/dom': '1.7.6',

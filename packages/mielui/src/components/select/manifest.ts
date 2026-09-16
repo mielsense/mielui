@@ -11,7 +11,7 @@ import type { Manifest } from '@mielui/svelte/_manifest/types';
  */
 export const manifest: Manifest = {
     name: 'select',
-    version: '2.2.0',
+    version: '2.3.0',
     visibility: 'public',
     description: 'Listbox-based single-select with bindable value and Item/Label/Content subparts.',
     role: 'listbox',
@@ -26,7 +26,7 @@ export const manifest: Manifest = {
         'components/select/index.ts',
         'components/select/manifest.ts'
     ],
-    components: ['popover', 'button', 'scroll-area'],
+    components: ['_internal/utils', 'popover', 'button', 'scroll-area'],
     shared: [
         'components/_internal/surface',
         'hugeicons-icon',

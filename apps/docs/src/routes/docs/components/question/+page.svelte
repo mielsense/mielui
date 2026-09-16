@@ -14,21 +14,14 @@
 
     const installCommand = 'pnpm dlx @mielui/svelte add question';
     const usageSnippet = `import * as Question from '@mielui/svelte/components/question';
-import type { QuestionAnswer } from '@mielui/svelte/components/question';
 
-let answer = $state<QuestionAnswer>();
-let status = $state<'idle' | 'error'>('idle');
+let answer = $state('');
 
-async function submitAnswer(value: QuestionAnswer) {
-  status = 'idle';
-  try {
-    await continueAgent(value);
-  } catch {
-    status = 'error';
-  }
+async function submitAnswer(value: string) {
+  await continueAgent(value);
 }
 
-<Question.Root variant="inset" bind:value={answer} {status} onSubmit={submitAnswer}>
+<Question.Root variant="inset" bind:value={answer} onSubmit={submitAnswer} onError={reportError}>
   <Question.Content>
     <Question.Title>Which environment should I use?</Question.Title>
     <Question.Description>Your prompt draft remains untouched.</Question.Description>
@@ -91,11 +84,12 @@ async function submitAnswer(value: QuestionAnswer) {
             <Typography.InlineCode>type="text"</Typography.InlineCode>
             with
             <Typography.InlineCode>Question.Input</Typography.InlineCode>
-            . Async submit handlers are awaited and cannot run twice while unresolved. Catch
-            rejected submissions in your handler and set status to error to show the error message.
-            Changing
+            . Async submit handlers are awaited and cannot run twice while unresolved. Rejected
+            submissions retain the answer and show errorMessage until the next attempt. Use onError
+            for reporting. Changing mode or unmounting ignores obsolete completions. Changing
             <Typography.InlineCode>type</Typography.InlineCode>
-            resets the bound answer to the new mode's empty value.
+            resets the bound answer to the new mode's empty value. Single and text modes accept a
+            string; multiple mode accepts a string array, with a matching onSubmit argument.
         </Typography.Text>
     </section>
 

@@ -1,5 +1,6 @@
 <script lang="ts">
     import { cn } from '@mielui/svelte/utils';
+    import { mergeDescriptionIds } from '../_internal/field-metadata';
     import type { TagInputInputProps } from '.';
     import { getTagInputContext } from './context.svelte';
 
@@ -162,7 +163,7 @@
     {placeholder}
     {disabled}
     aria-label={ariaLabel ?? (context.hasLabel ? undefined : placeholder)}
-    aria-describedby={[externalDescription, context.describedBy].filter(Boolean).join(' ') || undefined}
+    aria-describedby={mergeDescriptionIds(externalDescription, context.describedBy)}
     oninput={handleInput}
     onkeydown={handleKeydown}
     onpaste={handlePaste}

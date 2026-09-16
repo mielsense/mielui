@@ -59,12 +59,17 @@
     <section id="usage" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Usage</Typography.H2>
         <Typography.Text variant="supporting">
-            The root is a labeled navigation landmark. The item matching the current pathname
-            exposes aria-current="page", and separators are decorative.
+            Breadcrumb is router independent. Set current on the item representing the active page;
+            it controls both styling and aria-current="page". The final item may omit href. Root
+            accepts native navigation attributes, including aria-label for a translated or distinct
+            navigation name.
+        </Typography.Text>
+        <Typography.Text variant="supporting">
+            The root is a labeled navigation landmark, and separators are decorative.
         </Typography.Text>
 
         <CodeBlock
-            code={`import * as Breadcrumb from '$lib/mielui/components/breadcrumb';\n\n<Breadcrumb.Root>\n  <Breadcrumb.Item href="/">Home</Breadcrumb.Item>\n  <Breadcrumb.Separator>/</Breadcrumb.Separator>\n  <Breadcrumb.Item>Current</Breadcrumb.Item>\n</Breadcrumb.Root>`}
+            code={`import * as Breadcrumb from '$lib/mielui/components/breadcrumb';\n\n<Breadcrumb.Root>\n  <Breadcrumb.Item href="/">Home</Breadcrumb.Item>\n  <Breadcrumb.Separator>/</Breadcrumb.Separator>\n  <Breadcrumb.Item current>Current</Breadcrumb.Item>\n</Breadcrumb.Root>`}
             lang="svelte"
             copy="overlay"
         />

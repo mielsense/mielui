@@ -17,7 +17,10 @@
         Mielui ·{' '}
         {TITLE}
     </title>
-    <meta name="description" content="Rolling AI response text that eases open as lines wrap." />
+    <meta
+        name="description"
+        content="AI response text with bounded arrival motion and natural line wrapping."
+    />
 </svelte:head>
 
 <div data-docs-page class="flex flex-col gap-10">
@@ -43,6 +46,18 @@
 
     <section id="usage" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Usage</Typography.H2>
+        <Typography.Text variant="supporting">
+            Responses up to 4,000 UTF-16 code units use rolling text. Longer responses render as
+            plain text to keep streaming work bounded as the answer grows. Reduced motion also
+            renders plain text. Source delivery, completion callbacks, wrapping, and accessible live
+            status are the same in both modes.
+        </Typography.Text>
+        <Typography.Text variant="supporting">
+            Static text reveals whole graphemes, including emoji and combining marks. Arrival motion
+            stays within the theme's panel duration, independently of reveal speed. Lines take their
+            natural height as text wraps. Reduced motion displays static text immediately; live
+            sources still update as chunks arrive.
+        </Typography.Text>
         <Typography.Text variant="supporting">
             Replacing a source or removing the component invalidates pending chunks, completion, and
             errors from that source. The component requests iterator cleanup; cancel the underlying

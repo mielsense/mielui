@@ -35,15 +35,22 @@
     });
 </script>
 
-<BitsSelect.Trigger
-    {...rest}
-    onclick={() => {
-        onclick?.();
-    }}
->
+<BitsSelect.Trigger {...rest}>
     {#snippet child({ props })}
         <Button
             {...mergeProps(rest, props)}
+            onpointerdown={undefined}
+            onpointerup={undefined}
+            onclick={(event) => {
+                onclick?.(event);
+                if (event.defaultPrevented || rest.disabled) {
+                    return;
+                }
+                if (event.currentTarget instanceof HTMLElement) {
+                    event.currentTarget.focus();
+                }
+                context.setOpen(!context.open);
+            }}
             {variant}
             class={cn(className, 'flex flex-row items-center justify-between focus-visible:shadow-[var(--focus-ring)]')}
         >

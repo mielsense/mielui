@@ -2,6 +2,7 @@
     import { cn } from '@mielui/svelte/utils';
     import { Switch as BitsSwitch } from 'bits-ui';
     import type { HTMLButtonAttributes } from 'svelte/elements';
+    import { fieldMetadata } from '../_internal/field-metadata';
     import type { SwitchProps } from '.';
 
     let {
@@ -20,8 +21,17 @@
     const isOn = $derived(checked ?? switched ?? false);
 
     const id = $props.id();
-    const labelId = `${id}-label`;
-    const descriptionId = `${id}-description`;
+    const metadata = $derived(
+        fieldMetadata({
+            id: suppliedId ?? id,
+            metadataId: id,
+            label,
+            description,
+            ariaLabel: rest['aria-label'],
+            labelledBy: rest['aria-labelledby'],
+            describedBy: rest['aria-describedby']
+        })
+    );
 
     const buttonClasses =
         'group relative inline-flex h-5 w-11 shrink-0 items-center rounded-full border-[length:var(--border-size)] p-0.5 transition-[background-color,border-color,box-shadow] [transition-duration:var(--motion-duration-panel)] ease-[var(--ease-out)] motion-reduce:transition-none focus-visible:outline-none focus-visible:ring-0 focus-visible:shadow-[var(--focus-ring)] disabled:cursor-not-allowed disabled:opacity-[var(--opacity-disabled)]';
@@ -49,14 +59,14 @@
         bind:ref={getElement, setElement}
         checked={isOn}
         onCheckedChange={updateChecked}
-        id={suppliedId ?? id}
+        id={metadata.controlId}
         {...rest as HTMLButtonAttributes}
         type={(rest as HTMLButtonAttributes).type ?? 'button'}
         role="switch"
         aria-label={rest['aria-label']}
         aria-checked={isOn}
-        aria-labelledby={rest['aria-labelledby'] ?? (label ? labelId : undefined)}
-        aria-describedby={[rest['aria-describedby'], description ? descriptionId : undefined].filter(Boolean).join(' ') || undefined}
+        aria-labelledby={metadata.labelledBy}
+        aria-describedby={metadata.describedBy}
         data-ui="switch"
         data-state={isOn ? 'checked' : 'unchecked'}
         {disabled}
@@ -82,12 +92,12 @@
 
     {#if label || description}
         <label
-            for={suppliedId ?? id}
+            for={metadata.controlId}
             class={`flex min-w-0 flex-col gap-0.5 select-none ${disabled ? 'cursor-not-allowed opacity-60' : 'cursor-[var(--ui-cursor-interactive)]'}`}
         >
             {#if label}
                 <span
-                    id={labelId}
+                    id={metadata.labelId}
                     class="leading-5 [font-size:var(--font-size-label)] [font-weight:var(--font-weight-label)] [letter-spacing:var(--tracking-label)] text-foreground [font-family:var(--font-sans),sans-serif]"
                 >
                     {label}
@@ -95,7 +105,7 @@
             {/if}
             {#if description}
                 <span
-                    id={descriptionId}
+                    id={metadata.descriptionId}
                     class="leading-body [font-size:var(--font-size-body)] [font-weight:var(--font-weight-body)] [letter-spacing:var(--tracking-body)] text-foreground-muted"
                 >
                     {description}

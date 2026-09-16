@@ -33,7 +33,7 @@ export const manifest: Manifest = {
         'components/_internal/overlay/index.ts',
         'components/_internal/overlay/manifest.ts'
     ],
-    components: [],
+    components: ['_internal/utils'],
     shared: [
         'utils.clickOutside',
         'utils.getFocusableElements',

@@ -2,6 +2,7 @@ import type { DefaultProps } from '@mielui/svelte/utils';
 import type { Snippet } from 'svelte';
 import Root from './tooltip.svelte';
 import Content from './tooltip-content.svelte';
+import Provider from './tooltip-provider.svelte';
 import Trigger from './tooltip-trigger.svelte';
 
 export type TooltipPlacement = 'top' | 'left' | 'bottom' | 'right';
@@ -17,7 +18,9 @@ export type TooltipTriggerProps = {
     showOnClick?: boolean;
 } & DefaultProps;
 
-export type TooltipContentProps = DefaultProps & { surface?: 'solid' | 'glass' };
+export type TooltipContentProps = DefaultProps & { surface?: 'solid' | 'glass'; rich?: boolean };
+
+export type TooltipProviderProps = { children?: Snippet };
 
 export type TooltipState = {
     text: string;
@@ -27,4 +30,4 @@ export type TooltipState = {
     className: string;
 };
 
-export { Content, Root, Trigger };
+export { Content, Provider, Root, Trigger };

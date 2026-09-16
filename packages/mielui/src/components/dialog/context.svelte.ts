@@ -10,6 +10,7 @@ export type DialogFooterSlot = {
 
 export type DialogContext = {
     id: string;
+    motion?: 'none';
     titleId?: string;
     descriptionId?: string;
     contentId: string;

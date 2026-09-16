@@ -28,6 +28,29 @@
                 "default": "'solid'",
                 "description": "",
                 "inherited": false
+            },
+            {
+                "name": "rich",
+                "type": "boolean | undefined",
+                "required": false,
+                "bindable": false,
+                "default": "false",
+                "description": "",
+                "inherited": false
+            }
+        ]
+    },
+    {
+        "name": "Provider",
+        "properties": [
+            {
+                "name": "children",
+                "type": "Snippet<[]> | undefined",
+                "required": false,
+                "bindable": false,
+                "default": null,
+                "description": "",
+                "inherited": false
             }
         ]
     },

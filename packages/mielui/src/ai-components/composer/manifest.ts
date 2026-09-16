@@ -16,8 +16,14 @@ export const manifest: Manifest = {
         'components/composer/index.ts',
         'components/composer/manifest.ts'
     ],
-    components: ['button', 'kbd'],
-    shared: ['components/_internal/surface', 'hugeicons-icon', 'utils.cn', 'utils.createContext'],
+    components: ['_internal/utils', 'button', 'kbd', 'toolbar'],
+    shared: [
+        'components/_internal/submission.svelte',
+        'components/_internal/surface',
+        'hugeicons-icon',
+        'utils.cn',
+        'utils.createContext'
+    ],
     peerDependencies: {
         '@floating-ui/dom': '1.7.6',
         '@hugeicons/core-free-icons': '^4.3.0',

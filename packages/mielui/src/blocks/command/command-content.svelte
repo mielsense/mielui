@@ -2,6 +2,10 @@
     import * as Dialog from '@mielui/svelte/components/dialog';
     import { cn } from '@mielui/svelte/utils';
     import type { Snippet } from 'svelte';
+    import { getDialogContext } from '../../components/dialog/context.svelte';
+
+    const dialog = getDialogContext();
+    dialog.motion = 'none';
 
     type Props = {
         surface?: 'solid' | 'glass';

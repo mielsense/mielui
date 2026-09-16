@@ -10,7 +10,14 @@
     import type { AlertProps } from '.';
     import { alert, alertIcon } from './variants';
 
-    let { variant = 'info', children, class: classProp, ...rest }: AlertProps = $props();
+    let {
+        variant = 'info',
+        icon,
+        announcement = 'off',
+        children,
+        class: classProp,
+        ...rest
+    }: AlertProps = $props();
 
     const Icon = $derived(
         variant === 'success'
@@ -23,13 +30,24 @@
     );
 </script>
 
-<div role="alert" data-ui="alert" {...rest} class={cn(classProp, alert())}>
-    <HugeiconsIcon
-        icon={Icon}
-        class={alertIcon({ variant })}
-        size={16}
-        strokeWidth={2.25}
-        aria-hidden="true"
-    />
+<div
+    {...rest}
+    role={announcement === 'assertive' ? 'alert' : announcement === 'polite' ? 'status' : undefined}
+    aria-live={announcement === 'off' ? undefined : announcement}
+    aria-atomic={announcement === 'off' ? undefined : true}
+    data-ui="alert"
+    class={cn(classProp, alert())}
+>
+    {#if icon}
+        {@render icon()}
+    {:else if icon !== false}
+        <HugeiconsIcon
+            icon={Icon}
+            class={alertIcon({ variant })}
+            size={16}
+            strokeWidth={2.25}
+            aria-hidden="true"
+        />
+    {/if}
     {@render children?.()}
 </div>

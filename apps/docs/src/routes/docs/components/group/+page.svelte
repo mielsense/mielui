@@ -46,7 +46,8 @@
         <Typography.Text>
             Compose Group.Root with controls as direct children. Put Group.Separator between each
             control, including outline buttons. Label the root with aria-label or aria-labelledby.
-            Tab moves between controls normally.
+            Tab moves between controls normally. Separators own the visible dividers; Group only
+            joins the control edges and keeps focused controls above their neighbors.
         </Typography.Text>
         <Typography.Text>
             Use Group for actions and ToggleGroup for controls that select a state. Group does not
@@ -88,9 +89,11 @@
     <section id="composition" class="flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Composition</Typography.H2>
         <Typography.Text>
-            Text is optional. Controls keep their own sizes, variants, events and disabled states.
-            Nested Group.Root elements retain separate rounded ends with a gap between groups. Set
-            class on any part to restyle it.
+            Text is optional. Controls keep their own sizes, variants, borders, shadows, focus
+            rings, events and disabled states. Group does not replace a variant’s surface treatment.
+            Hidden form inputs do not affect which visible control receives rounded ends. Nested
+            Group.Root elements retain separate rounded ends with a gap between groups. Set class on
+            any part to restyle it.
         </Typography.Text>
         <Typography.Text>
             Root and Separator accept orientation="horizontal" or "vertical". Separator defaults to

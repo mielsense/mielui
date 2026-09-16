@@ -1,5 +1,6 @@
 <script lang="ts">
     import { cn } from '@mielui/svelte/utils';
+    import { fieldMetadata } from '../_internal/field-metadata';
     import type { TagInputProps, TagInputRejection } from '.';
     import { setTagInputContext } from './context.svelte';
 
@@ -34,13 +35,14 @@
 
     const generatedId = $props.id();
     const rootId = $derived(idProp ?? `tag-input-${generatedId}`);
-    const inputId = $derived(`${rootId}-input`);
-    const descriptionId = $derived(`${rootId}-description`);
-    const errorId = $derived(`${rootId}-error`);
-    const describedBy = $derived(
-        [description && !error ? descriptionId : undefined, error ? errorId : undefined]
-            .filter(Boolean)
-            .join(' ') || undefined
+    const metadata = $derived(
+        fieldMetadata({
+            id: `${rootId}-input`,
+            metadataId: generatedId,
+            description,
+            error,
+            describedBy: rest['aria-describedby']
+        })
     );
 
     let inputElement = $state<HTMLInputElement | undefined>(undefined);
@@ -208,7 +210,7 @@
             return disabled;
         },
         get inputId() {
-            return inputId;
+            return metadata.controlId;
         },
         get draft() {
             return query;
@@ -226,7 +228,7 @@
             return addOnPaste;
         },
         get describedBy() {
-            return describedBy;
+            return metadata.describedBy;
         },
         get hasLabel() {
             return label !== undefined && label !== '';
@@ -274,7 +276,7 @@
 {#snippet meta()}
     {#if label}
         <label
-            for={inputId}
+            for={metadata.controlId}
             class="mb-0.5 select-none [font-size:var(--font-size-label)] [font-weight:var(--font-weight-label)] [letter-spacing:var(--tracking-label)] leading-none text-foreground [font-family:var(--font-sans),sans-serif]"
         >
             {label}
@@ -283,7 +285,7 @@
     {@render field()}
     {#if error}
         <span
-            id={errorId}
+            id={metadata.errorId}
             role="alert"
             class="[font-size:var(--font-size-body)] [font-weight:var(--font-weight-body)] text-[var(--color-error)]"
         >
@@ -291,7 +293,7 @@
         </span>
     {:else if description}
         <span
-            id={descriptionId}
+            id={metadata.descriptionId}
             class="[font-size:var(--font-size-body)] [font-weight:var(--font-weight-body)] [letter-spacing:var(--tracking-body)] text-foreground-muted"
         >
             {description}

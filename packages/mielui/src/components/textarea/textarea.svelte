@@ -1,6 +1,7 @@
 <script lang="ts">
     import { input } from '@mielui/svelte/components/input/variants';
     import { cn } from '@mielui/svelte/utils';
+    import { fieldMetadata } from '../_internal/field-metadata';
     import type { TextareaProps } from '.';
 
     let {
@@ -20,11 +21,13 @@
     }: TextareaProps = $props();
 
     const generatedId = $props.id();
-    const controlId = $derived(idProp ?? `field-${generatedId}`);
-    const descriptionId = `${generatedId}-description`;
-    const describedBy = $derived(
-        [externalDescription, description ? descriptionId : undefined].filter(Boolean).join(' ') ||
-            undefined
+    const metadata = $derived(
+        fieldMetadata({
+            id: idProp ?? `field-${generatedId}`,
+            metadataId: generatedId,
+            description,
+            describedBy: externalDescription
+        })
     );
 
     function resize() {
@@ -82,8 +85,8 @@
 {#snippet field()}
     <textarea
         bind:this={element}
-        id={controlId}
-        aria-describedby={describedBy}
+        id={metadata.controlId}
+        aria-describedby={metadata.describedBy}
         bind:value
         oninput={(event) => {
             oninput?.(event);
@@ -124,7 +127,7 @@
 {#snippet meta()}
     {#if label}
         <label
-            for={controlId}
+            for={metadata.controlId}
             class="[font-size:var(--font-size-label)] [font-weight:var(--font-weight-label)] [letter-spacing:var(--tracking-label)] text-foreground [font-family:var(--font-sans),sans-serif]"
         >
             {label}
@@ -133,7 +136,7 @@
     {@render control()}
     {#if description}
         <span
-            id={descriptionId}
+            id={metadata.descriptionId}
             class="[font-size:var(--font-size-body)] [font-weight:var(--font-weight-body)] [letter-spacing:var(--tracking-body)] text-foreground-muted"
         >
             {description}

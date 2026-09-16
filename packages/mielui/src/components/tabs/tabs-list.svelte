@@ -6,6 +6,7 @@
 
     let { children, class: className, ...rest }: TabsListProps = $props();
     const tabsState = getContext<TabsState>('tabs');
+    const select = getContext<(value: string) => void>('tabs-selection');
 
     type Rect = { left: number; top: number; width: number; height: number };
 
@@ -41,6 +42,18 @@
             width: rect.width,
             height: rect.height
         };
+    }
+
+    function repairSelection() {
+        if (!listEl || !tabsState.value) {
+            return;
+        }
+        const enabled = Array.from(
+            listEl.querySelectorAll<HTMLButtonElement>('[role="tab"]')
+        ).filter((trigger) => !trigger.disabled);
+        if (!enabled.some((trigger) => trigger.dataset.value === tabsState.value)) {
+            select(enabled[0]?.dataset.value ?? '');
+        }
     }
 
     function measureIndicator() {
@@ -79,13 +92,21 @@
     $effect(() => {
         const _value = tabsState.value;
         const _orientation = tabsState.orientation;
+        let disposed = false;
         untrack(() => {
             queueMicrotask(() => {
+                if (disposed) {
+                    return;
+                }
+                repairSelection();
                 measureIndicator();
                 measureHover();
                 ready = true;
             });
         });
+        return () => {
+            disposed = true;
+        };
     });
 
     $effect(() => {
@@ -96,14 +117,39 @@
             measureIndicator();
             measureHover();
         });
-        ro.observe(listEl);
-        const triggers = listEl.querySelectorAll<HTMLElement>('[role="tab"]');
-        triggers.forEach((el) => {
-            ro.observe(el);
+        const host = listEl;
+        const observed = new Set<HTMLElement>();
+        ro.observe(host);
+        function syncTriggers() {
+            const triggers = new Set(host.querySelectorAll<HTMLElement>('[role="tab"]'));
+            for (const trigger of observed) {
+                if (!triggers.has(trigger)) {
+                    ro.unobserve(trigger);
+                    observed.delete(trigger);
+                }
+            }
+            for (const trigger of triggers) {
+                if (!observed.has(trigger)) {
+                    ro.observe(trigger);
+                    observed.add(trigger);
+                }
+            }
+            repairSelection();
+            measureIndicator();
+            measureHover();
+        }
+        syncTriggers();
+        const mutations = new MutationObserver(syncTriggers);
+        mutations.observe(host, {
+            childList: true,
+            subtree: true,
+            attributes: true,
+            attributeFilter: ['disabled', 'data-value']
         });
         window.addEventListener('resize', measureIndicator);
         return () => {
             ro.disconnect();
+            mutations.disconnect();
             window.removeEventListener('resize', measureIndicator);
         };
     });

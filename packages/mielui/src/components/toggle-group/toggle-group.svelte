@@ -6,13 +6,17 @@
 
     let {
         class: className,
-        type = 'single',
         value = $bindable<string | string[] | undefined>(),
         disabled = false,
-        onValueChange,
         children,
-        ...rest
+        ...mode
     }: ToggleGroupProps = $props();
+
+    const type = $derived(mode.type ?? 'single');
+    const attributes = $derived.by(() => {
+        const { type, onValueChange, ...rest } = mode;
+        return rest;
+    });
 
     function isActive(itemValue: string) {
         if (type === 'multiple') {
@@ -22,8 +26,20 @@
     }
 
     function updateValue(next: string | string[]) {
-        value = next === '' ? undefined : next;
-        onValueChange?.(value);
+        if (mode.type === 'multiple') {
+            if (!Array.isArray(next)) {
+                return;
+            }
+            value = next;
+            mode.onValueChange?.(next);
+        } else {
+            if (Array.isArray(next)) {
+                return;
+            }
+            const selected = next === '' ? undefined : next;
+            value = selected;
+            mode.onValueChange?.(selected);
+        }
     }
 
     const ctx: ToggleGroupContext = {
@@ -45,7 +61,7 @@
         value={Array.isArray(value) ? value : []}
         onValueChange={updateValue}
         {disabled}
-        {...rest}
+        {...attributes}
     >
         {#snippet child({ props })}
             <div
@@ -64,7 +80,7 @@
         value={typeof value === 'string' ? value : ''}
         onValueChange={updateValue}
         {disabled}
-        {...rest}
+        {...attributes}
     >
         {#snippet child({ props })}
             <div
