@@ -32,3 +32,5 @@
 - Document component reuse and accessible interaction motion in the design guidelines.
 
 - Group Reorder List, Command, Color Picker, and Toast under Blocks while preserving their imports and documentation links.
+
+- Include motion actions in the component catalog and keep its counts and search in sync with navigation.

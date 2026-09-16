@@ -12,7 +12,7 @@
     import type { HTMLAttributes } from 'svelte/elements';
     import { goto } from '$app/navigation';
     import { resolve } from '$app/paths';
-    import { componentGroups, components, sanitizeComponent } from '$lib/components';
+    import { components, navigationGroups, sanitizeComponent } from '$lib/components';
     import DocsPager from '$lib/components/docs/docs-pager.svelte';
 
     const ROLL_TRANSITION = { duration: 300 };
@@ -55,21 +55,25 @@
     }
 
     const visibleGroups = $derived(
-        componentGroups
+        navigationGroups
             .map((group) => ({ ...group, items: group.items.filter(matches) }))
             .filter((group) => group.items.length > 0 || query.trim() === '')
     );
     const visibleTotal = $derived(
         visibleGroups.reduce((sum, group) => sum + group.items.length, 0)
     );
+    const actions = navigationGroups.find((group) => group.id === 'actions')?.items ?? [];
+    const catalogTotal = components.length + actions.length;
     const countLabel = $derived(
         query.trim() === ''
-            ? `${components.length} components`
-            : `${visibleTotal} of ${components.length} components`
+            ? `${components.length} components · ${actions.length} actions`
+            : `${visibleTotal} of ${catalogTotal} entries`
     );
 
     function componentHref(component: string): string {
-        return `/docs/components/${component}`;
+        return actions.includes(component)
+            ? `/docs/actions/${component}`
+            : `/docs/components/${component}`;
     }
 </script>
 
@@ -77,7 +81,7 @@
     <title>Mielui · Components</title>
     <meta
         name="description"
-        content="Browse all 56 accessible, themeable Svelte 5 components in mielui."
+        content={`Browse ${components.length} Svelte 5 components and ${actions.length} motion actions in mielui.`}
     />
 </svelte:head>
 
@@ -87,18 +91,18 @@
             <Typography.H1 class="m-0">Components</Typography.H1>
 
             <Typography.Text variant="lead" class="mt-2 max-w-2xl">
-                Browse components and their examples.
+                Browse components, blocks, charts, and motion actions.
             </Typography.Text>
         </div>
         <DocsPager />
     </header>
 
-    <section aria-label="Search components" class="flex flex-col gap-3">
+    <section aria-label="Search components and actions" class="flex flex-col gap-3">
         <div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
             <Combobox.Root bind:value={query}>
                 <Combobox.Trigger
                     appearance="input"
-                    placeholder="Search components"
+                    placeholder="Search components and actions"
                     class="w-full sm:max-w-sm"
                 >
                     {#snippet trailing()}
@@ -134,7 +138,7 @@
     {#if visibleTotal === 0}
         <section aria-label="No matching components" class="flex flex-col items-start gap-3">
             <Typography.Text variant="supporting">
-                No components match “{query.trim()}
+                No entries match “{query.trim()}
                 ”.
             </Typography.Text>
             <Button variant="outline" size="md" onclick={() => (query = '')}>Clear search</Button>
@@ -155,7 +159,7 @@
                     >
                         <a
                             href={resolve(
-                                `/docs/components/${component}` as '/docs/components/accordion'
+                                componentHref(component) as '/docs/components/accordion'
                             )}
                             class="group flex min-h-16 items-center justify-between gap-4 rounded-[var(--radius-lg)] border border-border bg-card px-4 py-3 text-foreground transition-[border-color,background-color] duration-200 hover:border-border-strong hover:bg-secondary/45 motion-reduce:transition-none"
                         >
@@ -170,9 +174,6 @@
                     </li>
                 {/each}
             </ul>
-            {#if group.items.length === 0}
-                <p class="text-sm text-foreground-muted">No chart components yet.</p>
-            {/if}
         </section>
     {/each}
 </div>
