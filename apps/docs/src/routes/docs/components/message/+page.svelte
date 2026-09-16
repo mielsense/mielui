@@ -56,6 +56,10 @@
     <section id="usage" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Usage</Typography.H2>
         <Typography.Text variant="supporting">
+            Actions form a labeled group of ordinary controls. Tab moves between actions in document
+            order; the group does not impose toolbar arrow-key navigation.
+        </Typography.Text>
+        <Typography.Text variant="supporting">
             <Typography.InlineCode>Content</Typography.InlineCode>
             adapts its layout to{' '}
             <Typography.InlineCode>from</Typography.InlineCode>

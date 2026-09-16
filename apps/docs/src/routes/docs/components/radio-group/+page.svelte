@@ -48,6 +48,11 @@
     <!-- ─── Usage ─────────────────────────────────────────────────── -->
     <section id="usage" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Usage</Typography.H2>
+        <Typography.Text>
+            Each group owns its keyboard selection and generated item IDs. Set name when the
+            selected value should be submitted with a form. Descriptions are linked to their inputs,
+            and keyboard focus appears on the visible radio.
+        </Typography.Text>
         <Typography.Text variant="supporting">
             Import RadioGroup and compose it with Item sub-components:
         </Typography.Text>

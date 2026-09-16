@@ -8,7 +8,7 @@
 
     const searchClass =
         'mx-1 mt-1 flex h-[calc(var(--size-control-sm)+var(--spacing))] shrink-0 items-center gap-2 rounded-[var(--radius-lg)] border-[length:var(--border-size)] border-transparent bg-secondary px-3';
-    const { id, state: comboboxState } = getComboboxContext();
+    const { id, state: comboboxState, selectItem } = getComboboxContext();
 
     let inputElement = $state<HTMLInputElement>();
     const fuse = $derived(
@@ -19,6 +19,11 @@
             minMatchCharLength: 1
         })
     );
+    $effect(() => {
+        const text = comboboxState.searchContent;
+        const results = text ? fuse.search(text).map((result) => result.item) : [];
+        comboboxState.results = new Set<ComboboxItem>(results);
+    });
     const available = $derived(
         comboboxState.searchContent
             ? Array.from(comboboxState.results)
@@ -37,6 +42,9 @@
     }
 
     function handleKeydown(event: KeyboardEvent) {
+        if (event.isComposing || event.defaultPrevented) {
+            return;
+        }
         const activeIndex = available.findIndex((item) => item.value === comboboxState.activeValue);
         if (
             event.key === 'ArrowDown' ||
@@ -65,9 +73,7 @@
             const active =
                 available.find((item) => item.value === comboboxState.activeValue) ?? available[0];
             if (active) {
-                comboboxState.selected = active;
-                comboboxState.open = false;
-                active.callback?.();
+                selectItem(active);
             }
         }
     }

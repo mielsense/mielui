@@ -41,6 +41,10 @@
 
     <section id="usage" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Usage</Typography.H2>
+        <Typography.Text>
+            Success and exit feedback use the shared motion duration for opacity, scale, and
+            rotation. Reduced motion removes transitions and continuous rotation.
+        </Typography.Text>
         <Typography.Text variant="supporting">
             Use Spinner for work with an unknown duration. Set
             <Typography.InlineCode>aria-hidden</Typography.InlineCode>

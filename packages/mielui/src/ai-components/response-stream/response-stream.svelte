@@ -28,6 +28,7 @@
     let previousSnapshot = '';
     let animationFrame: number | undefined;
     let abortController: AbortController | undefined;
+    let activeIterator: AsyncIterator<string> | undefined;
 
     type ScrittoComponent = Component<ScrittoProps & HTMLAttributes<HTMLElement>>;
     let Scritto = $state<ScrittoComponent | null>(null);
@@ -48,11 +49,17 @@
             return;
         }
         let cancelled = false;
-        import('@scritto/svelte').then((module) => {
-            if (!cancelled) {
-                Scritto = module.default as ScrittoComponent;
-            }
-        });
+        import('@scritto/svelte')
+            .then((module) => {
+                if (!cancelled) {
+                    Scritto = module.default as ScrittoComponent;
+                }
+            })
+            .catch(() => {
+                if (!cancelled) {
+                    Scritto = null;
+                }
+            });
 
         return () => {
             cancelled = true;
@@ -146,12 +153,22 @@
     }
 
     function stopStreaming() {
-        if (animationFrame) {
+        streamId += 1;
+        if (animationFrame !== undefined) {
             cancelAnimationFrame(animationFrame);
         }
         animationFrame = undefined;
         abortController?.abort();
         abortController = undefined;
+        const iterator = activeIterator;
+        activeIterator = undefined;
+        if (iterator?.return) {
+            try {
+                void Promise.resolve(iterator.return()).catch(() => {});
+            } catch {
+                return;
+            }
+        }
     }
 
     function reset() {
@@ -200,20 +217,30 @@
         abortController = controller;
 
         try {
-            for await (const chunk of stream) {
+            const iterator = stream[Symbol.asyncIterator]();
+            activeIterator = iterator;
+            while (!controller.signal.aborted && id === streamId) {
+                const result = await iterator.next();
                 if (controller.signal.aborted || id !== streamId) {
                     return;
                 }
-                displayedText += chunk;
+                if (result.done) {
+                    activeIterator = undefined;
+                    complete();
+                    return;
+                }
+                displayedText += result.value;
                 if (displayedText.length > 0) {
                     isWaiting = false;
                 }
             }
-            complete();
         } catch (error) {
-            if (!controller.signal.aborted) {
+            if (!controller.signal.aborted && id === streamId) {
+                activeIterator = undefined;
                 onError?.(error);
-                complete();
+                if (!controller.signal.aborted && id === streamId) {
+                    complete();
+                }
             }
         }
     }

@@ -28,6 +28,7 @@
         id: idProp,
         class: className,
         children,
+        onclick,
         ...rest
     }: TagInputProps = $props();
 
@@ -37,7 +38,7 @@
     const descriptionId = $derived(`${rootId}-description`);
     const errorId = $derived(`${rootId}-error`);
     const describedBy = $derived(
-        [description ? descriptionId : undefined, error ? errorId : undefined]
+        [description && !error ? descriptionId : undefined, error ? errorId : undefined]
             .filter(Boolean)
             .join(' ') || undefined
     );
@@ -168,7 +169,11 @@
         inputElement?.focus({ preventScroll: true });
     }
 
-    function handleFieldClick(event: MouseEvent) {
+    function handleFieldClick(event: MouseEvent & { currentTarget: EventTarget & HTMLDivElement }) {
+        onclick?.(event);
+        if (event.defaultPrevented) {
+            return;
+        }
         const target = event.target as HTMLElement | null;
 
         if (target?.closest('[data-ui="tag-input-tag-remove"]')) {
@@ -260,7 +265,7 @@
     </div>
     {#if name}
         {#each safeTags as tag, index (`${tag}-${index}`)}
-            <input type="hidden" {name} value={tag} />
+            <input type="hidden" {name} {disabled} value={tag} />
         {/each}
     {/if}
     <span role="status" aria-live="polite" class="sr-only">{spoken}</span>

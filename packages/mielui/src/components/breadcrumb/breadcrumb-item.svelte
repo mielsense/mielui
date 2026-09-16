@@ -9,6 +9,7 @@
 <a
     {...rest}
     {href}
+    aria-current={page.url.pathname === href ? 'page' : undefined}
     class={cn(
         className,
         `${page.url.pathname === href ? 'text-foreground [font-size:var(--font-size-body)] [font-weight:var(--font-weight-header)] [letter-spacing:var(--tracking-body)]' : 'text-foreground-muted hover:text-foreground [transition-duration:var(--motion-duration-panel)]'} [font-size:var(--font-size-body)]`

@@ -66,11 +66,37 @@
         theme: untrack(() => theme)
     } as CodeBlockRegistry);
     setContext('code-block', registry);
+    setContext('code-block-panel', {
+        get tabbed() {
+            return !isHighLevel || hasTabRow;
+        }
+    });
+
+    $effect.pre(() => {
+        if (!isHighLevel) {
+            return;
+        }
+        const available = resolvedTabs.map((tab) => tab.value as string);
+        if (available.length === 0 && code != null) {
+            available.push(SINGLE);
+        }
+        if (available.length > 0 && !available.includes(value ?? '')) {
+            value = available[0];
+        }
+    });
 
     $effect(() => {
         registry.active = value ?? '';
         registry.contained = isHighLevel;
         registry.theme = theme;
+        if (isHighLevel) {
+            registry.order =
+                resolvedTabs.length > 0
+                    ? resolvedTabs.map((tab) => tab.value as string)
+                    : code != null
+                      ? [SINGLE]
+                      : [];
+        }
     });
 </script>
 

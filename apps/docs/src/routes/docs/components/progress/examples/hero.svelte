@@ -18,10 +18,10 @@
             <span>Uploading…</span>
             <span>{val}%</span>
         </div>
-        <Progress value={val} />
+        <Progress aria-label="Upload progress" value={val} />
     </div>
     <div class="flex flex-col gap-2">
         <span class="text-[0.78rem] text-foreground-muted">Indeterminate</span>
-        <Progress indeterminate />
+        <Progress aria-label="Upload progress" indeterminate />
     </div>
 </div>

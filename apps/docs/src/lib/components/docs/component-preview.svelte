@@ -44,7 +44,7 @@
         </Tabs.Root>
     </div>
 
-    {#if value === 'preview'}
+    <div hidden={value !== 'preview'} inert={value !== 'preview'}>
         <!-- Preview sits on Card's panel surface. -->
         <Card.Root
             {...rest}
@@ -86,7 +86,8 @@
                 {/key}
             </div>
         </Card.Root>
-    {:else}
+    </div>
+    {#if value === 'code'}
         <!-- Code is a CodeBlock — it carries its own panel frame, so it stands alone. -->
         <CodeBlock.Root
             {...rest}

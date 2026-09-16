@@ -55,6 +55,10 @@
     <!-- ─── Usage ─────────────────────────────────────────────────── -->
     <section id="usage" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Usage</Typography.H2>
+        <Typography.Text>
+            Labels point to the native control, and descriptions are linked with aria-describedby.
+            An external aria-describedby value is preserved alongside the built-in description.
+        </Typography.Text>
 
         <CodeBlock
             code={`import { Input } from '$lib/mielui/components/input';\n\n<Input label="Email" placeholder="you@example.com" />`}

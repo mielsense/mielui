@@ -1,17 +1,10 @@
 <script lang="ts">
     import { cn } from '@mielui/svelte/utils';
-    import type { Snippet } from 'svelte';
     import { untrack } from 'svelte';
+    import type { CardFooterProps } from '.';
     import { type CardFooterSlot, getCardContext } from './context.svelte';
 
-    let {
-        children,
-        class: classProp,
-        ...rest
-    }: {
-        children: Snippet;
-        class?: string;
-    } = $props();
+    let { children, class: classProp, ...rest }: CardFooterProps = $props();
 
     function readCardContext() {
         try {
@@ -35,15 +28,27 @@
         }
     });
 
-    if (inInsetChrome && card) {
+    function registerFooter() {
+        if (!card) {
+            return;
+        }
+        if (card.footerSlot && card.footerSlot !== footerSlot) {
+            throw new Error(
+                'An inset Card supports one Card.Footer. Combine footer content inside that part.'
+            );
+        }
         card.footerSlot = footerSlot;
+    }
+
+    if (inInsetChrome && card) {
+        untrack(registerFooter);
     }
 
     $effect(() => {
         if (!card || !inInsetChrome) {
             return;
         }
-        card.footerSlot = footerSlot;
+        untrack(registerFooter);
         return () => {
             untrack(() => {
                 if (card.footerSlot === footerSlot) {

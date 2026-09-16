@@ -51,6 +51,11 @@
     <section id="usage" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Usage</Typography.H2>
         <Typography.Text variant="supporting">
+            Changing duration restarts the dismissal countdown, while paused toasts remain paused.
+            Persistent toasts have no dismissal timer. Promise results do not reopen a toast that
+            was dismissed.
+        </Typography.Text>
+        <Typography.Text variant="supporting">
             Mount Toaster once in your app layout, then fire notifications with toast. Descriptions
             appear in the upper inset; the footer contains the title and action buttons.
         </Typography.Text>

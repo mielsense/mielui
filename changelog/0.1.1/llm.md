@@ -64,3 +64,21 @@ Skeleton accepts variant="default" or variant="shimmer". The default remains sta
 Composer.Root also accepts surface="solid" or surface="glass". Keep Input and Toolbar as public parts; the glass frame retains the darker inset. Shimmer also detects plain-text containers and clips the moving highlight to their letters.
 
 Gauge preserves any positive finite max, including fractions. An invalid max falls back to 100; a non-finite value falls back to zero. Values are clamped to the effective range.
+
+## Bits UI interaction ownership
+
+Mielui wrappers now depend on Bits UI 2.19.2, requiring Svelte 5.33 or newer. Source-copy manifests include Bits UI and the shared transition/surface helpers. Keep importing Mielui parts; do not replace them with styled upstream examples or add a second focus trap, Escape listener, or outside-click controller around a Bits-backed overlay. Mielui still owns styling, inset surfaces, and motion tokens. Combobox retains its custom searchable collection behavior inside the shared Bits-backed Popover, and Slider retains its native range/crossing contract.
+
+Menus use Bits collection navigation, including arrows, typeahead, disabled items, submenus, and Context Menu long press. Consumer click handlers run before internal activation where supported, and preventDefault cancels that activation. Conditional overlay titles, descriptions, and footers release their registrations when removed. Select keeps its closed item tree inert to register labels before first opening; do not put unbounded background work in option snippets.
+
+## Lifecycle and accessibility corrections
+
+A replaced or unmounted Response Stream cannot complete a later run. Reorder cancellation preserves the latest item payloads and membership instead of restoring an obsolete array. Toast updates reconcile persistence and duration and preserve interaction pauses. Application-owned asynchronous submission handlers should catch failures and present their controlled error status, as the Composer and Question examples demonstrate.
+
+Input and Textarea descriptions merge with external aria-describedby references. Tag Input excludes disabled hidden fields from form data and ignores IME confirmation while composing. Tooltip descriptions attach to focusable descendants and the moving shared bubble is decorative. Kbd ignores consumed/composing events and inactive owners. Progress supports native naming attributes and finite fractional ranges. Docs previews remain mounted while their source is shown, so consumers of preview examples should still clean up timers and observers normally.
+
+## Static semantics and composition boundaries
+
+Badge no longer announces every instance as a status region. Set role="status" explicitly for a changing status badge that should be announced. Message.Actions is a group with ordinary Tab navigation. Toolbar implements roving keyboard focus, including orientation, RTL, Home, and End, and leaves text-editing keys to nested fields.
+
+An inset Card accepts one Footer at a time. Multiple Footer instances now throw a clear composition error instead of silently replacing content. Conditionally remove the previous Footer before mounting another. Avatar resets loaded/error state when its source changes and ignores late events from previous images. Skeleton placeholders are inert, including delayed placeholders. Pagination normalizes invalid counts/pages and bounds the sibling window.

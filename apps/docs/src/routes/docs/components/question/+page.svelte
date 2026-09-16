@@ -17,8 +17,18 @@
 import type { QuestionAnswer } from '@mielui/svelte/components/question';
 
 let answer = $state<QuestionAnswer>();
+let status = $state<'idle' | 'error'>('idle');
 
-<Question.Root variant="inset" bind:value={answer} onSubmit={(value) => continueAgent(value)}>
+async function submitAnswer(value: QuestionAnswer) {
+  status = 'idle';
+  try {
+    await continueAgent(value);
+  } catch {
+    status = 'error';
+  }
+}
+
+<Question.Root variant="inset" bind:value={answer} {status} onSubmit={submitAnswer}>
   <Question.Content>
     <Question.Title>Which environment should I use?</Question.Title>
     <Question.Description>Your prompt draft remains untouched.</Question.Description>
@@ -81,7 +91,9 @@ let answer = $state<QuestionAnswer>();
             <Typography.InlineCode>type="text"</Typography.InlineCode>
             with
             <Typography.InlineCode>Question.Input</Typography.InlineCode>
-            . Async submit handlers are awaited and cannot run twice while unresolved. Changing
+            . Async submit handlers are awaited and cannot run twice while unresolved. Catch
+            rejected submissions in your handler and set status to error to show the error message.
+            Changing
             <Typography.InlineCode>type</Typography.InlineCode>
             resets the bound answer to the new mode's empty value.
         </Typography.Text>

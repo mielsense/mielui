@@ -8,12 +8,13 @@
 </script>
 
 {#if children}
-    {@render children?.()}
+    <span aria-hidden="true" class={className} {...rest}>{@render children?.()}</span>
 {:else}
     <HugeiconsIcon
         icon={ChevronRight}
         {...rest}
         size={14}
+        aria-hidden="true"
         class={cn(className, `text-foreground-muted`)}
     />
 {/if}

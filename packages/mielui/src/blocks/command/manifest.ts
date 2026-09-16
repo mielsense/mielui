@@ -23,6 +23,7 @@ export const manifest: Manifest = {
     components: ['dialog', 'button'],
     shared: ['hugeicons-icon', 'utils.cn', 'utils.createContext', 'utils.travelingHighlight'],
     peerDependencies: {
+        '@floating-ui/dom': '1.7.6',
         '@hugeicons/core-free-icons': '^4.3.0',
         cnfast: '^0.0.8',
         'fuse.js': '^7.1.0',

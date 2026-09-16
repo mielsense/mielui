@@ -476,7 +476,7 @@
             428,
             1063,
             3344,
-            2365,
+            1064,
             1065,
             1066,
             1067,
@@ -542,7 +542,7 @@
                 "type": "number | undefined",
                 "required": false,
                 "bindable": false,
-                "default": null,
+                "default": "-1",
                 "description": "",
                 "inherited": false
             },
@@ -970,7 +970,7 @@
                 "type": "\"solid\" | \"glass\" | undefined",
                 "required": false,
                 "bindable": false,
-                "default": null,
+                "default": "'solid'",
                 "description": "",
                 "inherited": false
             },
@@ -979,7 +979,7 @@
                 "type": "boolean | undefined",
                 "required": false,
                 "bindable": false,
-                "default": null,
+                "default": "true",
                 "description": "",
                 "inherited": false
             },
@@ -988,7 +988,7 @@
                 "type": "boolean | undefined",
                 "required": false,
                 "bindable": false,
-                "default": null,
+                "default": "true",
                 "description": "Render the full-viewport dismiss layer under the panel while open.\nDefaults to `true`. Set to `false` for triggers that must stay\nclickable while open (e.g. an input-style combobox trigger);\noutside pointer dismissal still applies via `allowClickOutside`.",
                 "inherited": false
             },
@@ -997,7 +997,7 @@
                 "type": "boolean | undefined",
                 "required": false,
                 "bindable": false,
-                "default": null,
+                "default": "true",
                 "description": "",
                 "inherited": false
             },
@@ -1015,7 +1015,7 @@
                 "type": "boolean | undefined",
                 "required": false,
                 "bindable": false,
-                "default": null,
+                "default": "false",
                 "description": "Trap Tab focus inside the panel while open. Defaults to `true`.",
                 "inherited": false
             },
@@ -1024,7 +1024,7 @@
                 "type": "boolean | undefined",
                 "required": false,
                 "bindable": false,
-                "default": null,
+                "default": "false",
                 "description": "Lock document scrolling while the panel is open. Defaults to `true`.",
                 "inherited": false
             }
@@ -1613,7 +1613,7 @@
                 "type": "string | undefined",
                 "required": false,
                 "bindable": true,
-                "default": null,
+                "default": "''",
                 "description": "",
                 "inherited": false
             },
@@ -2105,7 +2105,7 @@
             428,
             1063,
             3344,
-            2365,
+            1064,
             1065,
             1066,
             1067,
@@ -2195,7 +2195,7 @@
                 "type": "\"solid\" | \"glass\" | undefined",
                 "required": false,
                 "bindable": false,
-                "default": null,
+                "default": "'solid'",
                 "description": "",
                 "inherited": false
             },
@@ -2222,7 +2222,7 @@
                 "type": "boolean | undefined",
                 "required": false,
                 "bindable": false,
-                "default": null,
+                "default": "false",
                 "description": "",
                 "inherited": false
             }

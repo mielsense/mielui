@@ -1,16 +1,9 @@
 <script lang="ts">
     import { cn } from '@mielui/svelte/utils';
-    import type { Snippet } from 'svelte';
     import { titleClasses } from '../typography/variants';
+    import type { CardTitleProps } from '.';
 
-    let {
-        children,
-        class: classProp,
-        ...rest
-    }: {
-        children: Snippet;
-        class?: string;
-    } = $props();
+    let { children, class: classProp, ...rest }: CardTitleProps = $props();
 </script>
 
 <h1

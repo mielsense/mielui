@@ -21,6 +21,8 @@
     });
 
     setContext('mielui-tooltip', tip);
+    const id = $props.id();
+    setContext('mielui-tooltip-id', `tooltip-${id}`);
 </script>
 
 {@render children?.()}

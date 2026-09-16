@@ -138,7 +138,7 @@
     }
 
     function handleKey(event: KeyboardEvent) {
-        if (!parsed || event.repeat) {
+        if (!parsed || event.repeat || event.defaultPrevented || event.isComposing) {
             return;
         }
 
@@ -160,6 +160,35 @@
             return;
         }
 
+        const anchor =
+            element.closest<HTMLElement>('button, a[href], [role="button"]') ??
+            element.parentElement;
+        if (
+            !anchor ||
+            anchor.matches(':disabled') ||
+            anchor.getAttribute('aria-disabled') === 'true' ||
+            anchor.closest('[inert], [hidden], [aria-hidden="true"]')
+        ) {
+            return;
+        }
+        const style = getComputedStyle(anchor);
+        if (
+            style.visibility === 'hidden' ||
+            style.display === 'none' ||
+            anchor.getClientRects().length === 0
+        ) {
+            return;
+        }
+        const focused = document.activeElement;
+        const activeLayer =
+            focused instanceof Element
+                ? focused.closest(
+                      '[data-overlay-root], [data-floating-content], [data-dialog-content], [data-alert-dialog-content], [data-popover-content], [data-dropdown-menu-content], [data-context-menu-content], [data-select-content], [data-menu-content], [data-menu-sub-content], [data-link-preview-content]'
+                  )
+                : null;
+        if (activeLayer && !activeLayer.contains(anchor)) {
+            return;
+        }
         const owner = ontrigger ? undefined : getOwner();
         if (!ontrigger && !owner) {
             return;

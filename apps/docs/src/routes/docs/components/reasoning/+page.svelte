@@ -48,6 +48,10 @@
     <section id="usage" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Usage</Typography.H2>
         <Typography.Text variant="supporting">
+            Reasoning starts expanded. Set open to false for an initially compact trace. The
+            thinking label remains still while content streams.
+        </Typography.Text>
+        <Typography.Text variant="supporting">
             Use{' '}
             <Typography.InlineCode>streaming</Typography.InlineCode> while the model is thinking;
             use{' '}

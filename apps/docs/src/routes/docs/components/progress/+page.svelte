@@ -29,7 +29,7 @@
         <div>
             <Typography.H1>Progress</Typography.H1>
             <Typography.Text variant="lead" class="mt-2 max-w-2xl">
-                A progress bar. Omit the value for an indeterminate, looping state.
+                A progress bar. Set indeterminate for tasks with an unknown duration.
             </Typography.Text>
         </div>
         <DocsPager />
@@ -51,6 +51,12 @@
     <!-- ─── Usage ─────────────────────────────────────────────────── -->
     <section id="usage" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Usage</Typography.H2>
+        <Typography.Text>
+            Progress accepts native div attributes, including aria-label and aria-labelledby.
+            Positive fractional ranges are supported; invalid maximums fall back to 100 and
+            non-finite values display zero. Determinate updates animate the indicator transform and
+            respect reduced motion.
+        </Typography.Text>
 
         <CodeBlock
             code={`import { Progress } from '$lib/mielui/components/progress';\n\n<Progress value={28} />\n<Progress indeterminate />`}

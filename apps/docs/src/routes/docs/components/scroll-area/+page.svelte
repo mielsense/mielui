@@ -52,6 +52,11 @@
     <!-- ─── Usage ─────────────────────────────────────────────────── -->
     <section id="usage" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Usage</Typography.H2>
+        <Typography.Text>
+            Edge cues update when content is inserted, removed, or resized. Their fade follows the
+            shared hover duration and reduced-motion preference. The class prop styles the shell;
+            native attributes and element target the scroll viewport.
+        </Typography.Text>
         <Typography.Text variant="supporting">
             Import the Scroll Area and use it to wrap content:
         </Typography.Text>

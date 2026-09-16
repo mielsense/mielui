@@ -1197,6 +1197,15 @@
         "inherited": true
     },
     {
+        "name": "for",
+        "type": "string | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
         "name": "on:copy",
         "type": "ClipboardEventHandler<HTMLLabelElement> | null | undefined",
         "required": false,
@@ -2233,15 +2242,6 @@
     },
     {
         "name": "onratechange",
-        "type": "EventHandler<Event, HTMLLabelElement> | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
-        "name": "onratechangecapture",
         "type": "EventHandler<Event, HTMLLabelElement> | null | undefined",
         "required": false,
         "bindable": false,

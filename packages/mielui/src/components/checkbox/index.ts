@@ -1,5 +1,5 @@
 import type { DefaultProps } from '@mielui/svelte/utils';
-import type { HTMLLabelAttributes } from 'svelte/elements';
+import type { HTMLInputAttributes } from 'svelte/elements';
 import Checkbox from './checkbox.svelte';
 
 export type CheckboxProps = {
@@ -10,7 +10,7 @@ export type CheckboxProps = {
     variant?: 'default' | 'primary';
     onCheckedChange?: (checked: boolean) => void;
 } & DefaultProps &
-    Omit<HTMLLabelAttributes, 'children'>;
+    Omit<HTMLInputAttributes, 'children' | 'type' | 'checked'>;
 
 export { Checkbox };
 export default Checkbox;

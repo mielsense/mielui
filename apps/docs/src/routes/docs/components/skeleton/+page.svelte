@@ -57,6 +57,12 @@
     <section id="usage" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Usage</Typography.H2>
         <Typography.Text variant="supporting">
+            SkeletonSwap keeps real children mounted while loading, but makes them inert until
+            visible. Custom placeholder snippets are always inert and should contain no functional
+            controls. Line counts are rounded down and capped at 1,000; negative counts and
+            dimensions become zero, and nonfinite numbers use the defaults.
+        </Typography.Text>
+        <Typography.Text variant="supporting">
             Use{' '}
             <Typography.InlineCode>SkeletonSwap</Typography.InlineCode> around asynchronous content.
             Fast responses skip the placeholder; once shown, it stays visible long enough to avoid a

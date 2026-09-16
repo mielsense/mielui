@@ -51,6 +51,11 @@
     <section id="usage" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Usage</Typography.H2>
         <Typography.Text variant="supporting">
+            Running tools use a spinner and a readable status label. Tool.Item renders supplied
+            children in place of its detail text, so you can compose a link or custom detail without
+            replacing its name and icon.
+        </Typography.Text>
+        <Typography.Text variant="supporting">
             Use{' '}
             <Typography.InlineCode>Item</Typography.InlineCode> to list the commands, searches, and
             reads completed within a task.

@@ -3,17 +3,17 @@
         "name": "Content",
         "properties": [
             {
-                "name": "children",
-                "type": "Snippet<[]>",
-                "required": true,
+                "name": "class",
+                "type": "string | undefined",
+                "required": false,
                 "bindable": false,
                 "default": null,
                 "description": "",
                 "inherited": false
             },
             {
-                "name": "class",
-                "type": "string | undefined",
+                "name": "children",
+                "type": "Snippet<[]> | undefined",
                 "required": false,
                 "bindable": false,
                 "default": null,
@@ -26,17 +26,17 @@
         "name": "Description",
         "properties": [
             {
-                "name": "children",
-                "type": "Snippet<[]>",
-                "required": true,
+                "name": "class",
+                "type": "string | undefined",
+                "required": false,
                 "bindable": false,
                 "default": null,
                 "description": "",
                 "inherited": false
             },
             {
-                "name": "class",
-                "type": "string | undefined",
+                "name": "children",
+                "type": "Snippet<[]> | undefined",
                 "required": false,
                 "bindable": false,
                 "default": null,
@@ -49,17 +49,17 @@
         "name": "Footer",
         "properties": [
             {
-                "name": "children",
-                "type": "Snippet<[]>",
-                "required": true,
+                "name": "class",
+                "type": "string | undefined",
+                "required": false,
                 "bindable": false,
                 "default": null,
                 "description": "",
                 "inherited": false
             },
             {
-                "name": "class",
-                "type": "string | undefined",
+                "name": "children",
+                "type": "Snippet<[]> | undefined",
                 "required": false,
                 "bindable": false,
                 "default": null,
@@ -72,17 +72,17 @@
         "name": "Header",
         "properties": [
             {
-                "name": "children",
-                "type": "Snippet<[]>",
-                "required": true,
+                "name": "class",
+                "type": "string | undefined",
+                "required": false,
                 "bindable": false,
                 "default": null,
                 "description": "",
                 "inherited": false
             },
             {
-                "name": "class",
-                "type": "string | undefined",
+                "name": "children",
+                "type": "Snippet<[]> | undefined",
                 "required": false,
                 "bindable": false,
                 "default": null,
@@ -127,17 +127,17 @@
         "name": "Title",
         "properties": [
             {
-                "name": "children",
-                "type": "Snippet<[]>",
-                "required": true,
+                "name": "class",
+                "type": "string | undefined",
+                "required": false,
                 "bindable": false,
                 "default": null,
                 "description": "",
                 "inherited": false
             },
             {
-                "name": "class",
-                "type": "string | undefined",
+                "name": "children",
+                "type": "Snippet<[]> | undefined",
                 "required": false,
                 "bindable": false,
                 "default": null,

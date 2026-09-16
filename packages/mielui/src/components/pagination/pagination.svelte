@@ -17,8 +17,20 @@
         ...rest
     }: PaginationProps = $props();
 
+    const totalPages = $derived(
+        Number.isFinite(total)
+            ? Math.min(Number.MAX_SAFE_INTEGER, Math.max(1, Math.floor(total)))
+            : 1
+    );
+    const currentPage = $derived(
+        Number.isFinite(page) ? Math.min(totalPages, Math.max(1, Math.floor(page))) : 1
+    );
+    const siblingCount = $derived(
+        Number.isFinite(siblings) ? Math.min(100, Math.max(0, Math.floor(siblings))) : 1
+    );
+
     function go(next: number) {
-        const clamped = Math.min(Math.max(next, 1), total);
+        const clamped = Math.min(Math.max(next, 1), totalPages);
         if (clamped === page) {
             return;
         }
@@ -28,8 +40,8 @@
 
     const pages = $derived.by(() => {
         const result: (number | 'ellipsis')[] = [];
-        const start = Math.max(2, page - siblings);
-        const end = Math.min(total - 1, page + siblings);
+        const start = Math.max(2, currentPage - siblingCount);
+        const end = Math.min(totalPages - 1, currentPage + siblingCount);
 
         result.push(1);
         if (start > 2) {
@@ -38,11 +50,11 @@
         for (let i = start; i <= end; i++) {
             result.push(i);
         }
-        if (end < total - 1) {
+        if (end < totalPages - 1) {
             result.push('ellipsis');
         }
-        if (total > 1) {
-            result.push(total);
+        if (totalPages > 1) {
+            result.push(totalPages);
         }
         return result;
     });
@@ -57,8 +69,8 @@
     <button
         type="button"
         aria-label="Previous page"
-        disabled={page <= 1}
-        onclick={() => go(page - 1)}
+        disabled={currentPage <= 1}
+        onclick={() => go(currentPage - 1)}
         class="inline-flex size-[var(--size-icon-md)] items-center justify-center rounded-[var(--radius-md)] text-foreground-muted transition-colors hover:bg-secondary hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-ring)] disabled:cursor-not-allowed disabled:opacity-[var(--opacity-disabled)]"
     >
         <HugeiconsIcon icon={ChevronLeft} size={15} />
@@ -75,11 +87,11 @@
         {:else}
             <button
                 type="button"
-                aria-current={p === page ? 'page' : undefined}
+                aria-current={p === currentPage ? 'page' : undefined}
                 onclick={() => go(p)}
                 class={cn(
                     'inline-flex size-[var(--size-icon-md)] items-center justify-center rounded-[var(--radius-md)] text-[length:var(--font-size-label)] tabular-nums [font-weight:var(--font-weight-button)] [letter-spacing:var(--tracking-button)] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-ring)]',
-                    p === page
+                    p === currentPage
                         ? 'bg-card text-foreground shadow-[var(--elevation-control)] hover:bg-secondary'
                         : 'text-foreground-muted hover:bg-secondary hover:text-foreground'
                 )}
@@ -92,8 +104,8 @@
     <button
         type="button"
         aria-label="Next page"
-        disabled={page >= total}
-        onclick={() => go(page + 1)}
+        disabled={currentPage >= totalPages}
+        onclick={() => go(currentPage + 1)}
         class="inline-flex size-[var(--size-icon-md)] items-center justify-center rounded-[var(--radius-md)] text-foreground-muted transition-colors hover:bg-secondary hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-ring)] disabled:cursor-not-allowed disabled:opacity-[var(--opacity-disabled)]"
     >
         <HugeiconsIcon icon={ChevronRight} size={15} />

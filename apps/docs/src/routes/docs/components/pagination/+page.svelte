@@ -48,6 +48,11 @@
     <!-- ─── Usage ─────────────────────────────────────────────────── -->
     <section id="usage" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Usage</Typography.H2>
+        <Typography.Text variant="supporting">
+            Page counts and page numbers are rounded down and clamped to at least one. The displayed
+            page stays within the current total; invalid nonfinite totals or pages fall back to one.
+            Siblings is clamped between zero and 100, with nonfinite values falling back to one.
+        </Typography.Text>
 
         <CodeBlock
             code={`import { Pagination } from '$lib/mielui/components/pagination';\n\nlet page = $state(1);\n\n<Pagination bind:page total={20} />`}

@@ -35,3 +35,16 @@
 - Preserve fractional Gauge ranges and normalize invalid numeric values.
 
 - Fix preview deployment type checks for icon imports, native controls, table captions, and documentation examples.
+
+- Use Bits UI for dialogs, sheets, popovers, menus, selection controls, tabs, disclosures, switches, and toggles while retaining Mielui styling and motion.
+- Add menu keyboard navigation, typeahead, nested dismissal, and touch long-press behavior.
+- Preserve canceled events, optional overlay labels, and conditional dialog actions.
+- Keep option labels and disabled selections synchronized as collections change.
+- Prevent obsolete streams, clipboard requests, and canceled reorder gestures from overwriting newer state.
+- Reconcile toast persistence, durations, paused timers, and visible notification limits.
+- Connect field and tooltip descriptions to their controls, and ignore inactive or composing shortcuts.
+- Update scroll cues after content changes and support fractional progress ranges.
+- Preserve preview state when switching to source code and reduce redundant status animation.
+- Reset Avatar loading state on source changes and preserve native image callbacks.
+- Keep skeleton placeholders inert, normalize pagination bounds, and prevent silent inset Card footer replacement.
+- Add keyboard navigation to Toolbar and improve Color Picker labels, pointer ownership, and reduced motion.

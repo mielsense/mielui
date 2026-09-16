@@ -60,6 +60,11 @@
     <!-- ─── Usage ─────────────────────────────────────────────────── -->
     <section id="usage" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Usage</Typography.H2>
+        <Typography.Text>
+            Pointer selection and Enter in either search placement update bind:value and call
+            onValueChange. Disabled options are skipped by keyboard navigation. Item label changes
+            refresh the selected label without replacing the text currently being searched.
+        </Typography.Text>
 
         <CodeBlock
             code={`import * as Combobox from '$lib/mielui/components/combobox';\n\nlet selected = $state('next');\n\n<Combobox.Root>\n  <Combobox.Trigger>{selected}</Combobox.Trigger>\n  <Combobox.Content>\n    <Combobox.Results>\n      <Combobox.Item value="next" label="Next.js" callback={() => (selected = 'next')} />\n    </Combobox.Results>\n  </Combobox.Content>\n</Combobox.Root>`}

@@ -17,7 +17,7 @@
 
 {#snippet inner()}
     {#if Icon}
-        <Icon size={iconSize} class="text-foreground-muted" />
+        <Icon size={iconSize} class="text-current" />
     {/if}
     {#if dot}
         <span
@@ -40,13 +40,7 @@
         {@render inner()}
     </a>
 {:else}
-    <div
-        data-ui="badge"
-        data-variant={variant}
-        role="status"
-        class={cn(classProp, badge({ variant }))}
-        {...rest}
-    >
+    <div data-ui="badge" data-variant={variant} class={cn(classProp, badge({ variant }))} {...rest}>
         {@render inner()}
     </div>
 {/if}

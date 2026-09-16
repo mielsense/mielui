@@ -8,7 +8,14 @@
     import HugeiconsIcon from '../../hugeicons-icon.svelte';
     import type { ToolItemProps } from '.';
 
-    let { name, detail, kind = 'command', class: className, ...rest }: ToolItemProps = $props();
+    let {
+        name,
+        detail,
+        kind = 'command',
+        children,
+        class: className,
+        ...rest
+    }: ToolItemProps = $props();
 
     const Icon = $derived(kind === 'search' ? Magnifer : kind === 'read' ? Document : Command);
     const color = $derived(
@@ -29,7 +36,9 @@
         class="shrink-0 text-foreground-muted"
     />
     <span class={`shrink-0 font-[var(--font-weight-label)] ${color}`}>{name}</span>
-    {#if detail}
+    {#if children}
+        {@render children()}
+    {:else if detail}
         <span class="min-w-0 truncate font-mono text-xs text-foreground-muted">{detail}</span>
     {/if}
 </div>

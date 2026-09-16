@@ -49,6 +49,8 @@
         {...rest}
         id={`reasoning-${reasoning.id}`}
         data-ui="reasoning-content"
+        inert={!reasoning.open}
+        aria-hidden={!reasoning.open}
         transition:themedSlide={{ durationVar: '--motion-duration-panel', fallback: 220 }}
         onintrostart={handleIntroStart}
         onintroend={handleIntroEnd}

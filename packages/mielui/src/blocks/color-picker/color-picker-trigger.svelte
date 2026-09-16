@@ -20,12 +20,17 @@
     );
 </script>
 
-<Popover.Trigger {variant} class={cn(className, 'group w-full justify-start gap-2 pl-2.5 pr-2.5')}>
+<Popover.Trigger
+    aria-labelledby={ctx.label ? ctx.labelId : undefined}
+    aria-label={ctx.label ? undefined : (selectedLabel ?? (ctx.value || 'Choose color'))}
+    {variant}
+    class={cn(className, 'group w-full justify-start gap-2 pl-2.5 pr-2.5')}
+>
     <span
         class="size-5 shrink-0 self-center rounded-full ring-1 ring-inset ring-[color-mix(in_srgb,var(--color-foreground)_10%,transparent)]"
         style:background={isValidHex(ctx.value) ? ctx.value : '#888888'}
     ></span>
     <span class="min-w-0 flex-1 truncate text-left font-mono text-[0.78rem] text-foreground">
-        {selectedLabel ?? ctx.value}
+        {selectedLabel ?? (ctx.value || 'Choose color')}
     </span>
 </Popover.Trigger>

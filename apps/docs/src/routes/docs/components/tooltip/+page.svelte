@@ -55,6 +55,12 @@
     <!-- ─── Usage ─────────────────────────────────────────────────── -->
     <section id="usage" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Usage</Typography.H2>
+        <Typography.Text>
+            Tooltip text describes the actual focusable controls inside Trigger, while the shared
+            moving bubble remains decorative. Existing aria-describedby references are preserved.
+            Escape dismisses visible or pending help, and reduced motion prevents rolling label
+            animation.
+        </Typography.Text>
         <Typography.Text variant="supporting">
             Import Tooltip and wrap a trigger element:
         </Typography.Text>

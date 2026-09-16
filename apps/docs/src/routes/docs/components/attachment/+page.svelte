@@ -44,6 +44,10 @@
     <section id="usage" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Usage</Typography.H2>
         <Typography.Text variant="supporting">
+            Disabling the root clears an active drag highlight. Re-enabling it starts with no
+            pending drag operation.
+        </Typography.Text>
+        <Typography.Text variant="supporting">
             Bind selected files on the root and report rejected files from
             <Typography.InlineCode>onReject</Typography.InlineCode>
             . Selection is local only; your application owns uploading and upload state.

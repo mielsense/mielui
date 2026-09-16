@@ -709,7 +709,7 @@
                 "name": "element",
                 "type": "HTMLButtonElement | HTMLAnchorElement | undefined",
                 "required": false,
-                "bindable": false,
+                "bindable": true,
                 "default": null,
                 "description": "",
                 "inherited": false

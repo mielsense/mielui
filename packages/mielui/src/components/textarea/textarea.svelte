@@ -14,16 +14,56 @@
         element = $bindable<HTMLTextAreaElement>(),
         value = $bindable<string | number | null | undefined>(),
         oninput,
+        id: idProp,
+        'aria-describedby': externalDescription,
         ...rest
     }: TextareaProps = $props();
+
+    const generatedId = $props.id();
+    const controlId = $derived(idProp ?? `field-${generatedId}`);
+    const descriptionId = `${generatedId}-description`;
+    const describedBy = $derived(
+        [externalDescription, description ? descriptionId : undefined].filter(Boolean).join(' ') ||
+            undefined
+    );
 
     function resize() {
         if (!autoresize || !element) {
             return;
         }
         element.style.height = 'auto';
-        element.style.height = `${element.scrollHeight}px`;
+        const style = getComputedStyle(element);
+        const border =
+            style.boxSizing === 'border-box'
+                ? (Number.parseFloat(style.borderTopWidth) || 0) +
+                  (Number.parseFloat(style.borderBottomWidth) || 0)
+                : -(
+                      (Number.parseFloat(style.paddingTop) || 0) +
+                      (Number.parseFloat(style.paddingBottom) || 0)
+                  );
+        element.style.height = `${element.scrollHeight + border}px`;
     }
+
+    $effect(() => {
+        const node = element;
+        if (!autoresize || !node) {
+            return;
+        }
+        const originalHeight = node.style.height;
+        let width = node.clientWidth;
+        const observer = new ResizeObserver(() => {
+            if (node.clientWidth !== width) {
+                width = node.clientWidth;
+                resize();
+            }
+        });
+        observer.observe(node);
+        resize();
+        return () => {
+            observer.disconnect();
+            node.style.height = originalHeight;
+        };
+    });
 
     $effect(() => {
         if (autoresize) {
@@ -42,6 +82,8 @@
 {#snippet field()}
     <textarea
         bind:this={element}
+        id={controlId}
+        aria-describedby={describedBy}
         bind:value
         oninput={(event) => {
             oninput?.(event);
@@ -81,15 +123,17 @@
 
 {#snippet meta()}
     {#if label}
-        <span
+        <label
+            for={controlId}
             class="[font-size:var(--font-size-label)] [font-weight:var(--font-weight-label)] [letter-spacing:var(--tracking-label)] text-foreground [font-family:var(--font-sans),sans-serif]"
         >
             {label}
-        </span>
+        </label>
     {/if}
     {@render control()}
     {#if description}
         <span
+            id={descriptionId}
             class="[font-size:var(--font-size-body)] [font-weight:var(--font-weight-body)] [letter-spacing:var(--tracking-body)] text-foreground-muted"
         >
             {description}
@@ -98,7 +142,7 @@
 {/snippet}
 
 {#if label}
-    <label class="flex flex-col gap-1">{@render meta()} </label>
+    <div class="flex flex-col gap-1">{@render meta()} </div>
 {:else if description}
     <div class="flex flex-col gap-1">
         {@render meta()}

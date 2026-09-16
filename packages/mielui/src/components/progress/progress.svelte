@@ -10,8 +10,8 @@
         ...rest
     }: ProgressProps = $props();
 
-    const safeMax = $derived(Math.max(max, 1));
-    const clamped = $derived(Math.min(Math.max(value, 0), safeMax));
+    const safeMax = $derived(Number.isFinite(max) && max > 0 ? max : 100);
+    const clamped = $derived(Number.isFinite(value) ? Math.min(Math.max(value, 0), safeMax) : 0);
     const pct = $derived((clamped / safeMax) * 100);
 </script>
 
@@ -26,12 +26,12 @@
 >
     {#if indeterminate}
         <div
-            class="absolute inset-y-0 left-0 w-1/3 animate-[mielui-progress-slide_1.4s_cubic-bezier(0.4,0,0.2,1)_infinite] rounded-full bg-primary motion-reduce:animate-none"
+            class="absolute inset-y-0 left-0 w-1/3 animate-[mielui-progress-slide_1.4s_linear_infinite] rounded-full bg-primary motion-reduce:animate-none"
         ></div>
     {:else}
         <div
-            class="h-full rounded-full bg-primary transition-[width] [transition-duration:var(--motion-duration-panel)] ease-out motion-reduce:transition-none"
-            style:width={`${pct}%`}
+            class="h-full w-full origin-left rtl:origin-right rounded-full bg-primary transition-transform [transition-duration:var(--motion-duration-panel)] ease-out motion-reduce:transition-none"
+            style:transform={`scaleX(${pct / 100})`}
         ></div>
     {/if}
 </div>

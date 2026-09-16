@@ -31,8 +31,18 @@
         value = $bindable<string | number | boolean | FileList | undefined>(),
         checked = $bindable<boolean | undefined>(),
         files = $bindable<FileList | undefined>(),
+        id: idProp,
+        'aria-describedby': externalDescription,
         ...rest
     }: InputProps = $props();
+
+    const generatedId = $props.id();
+    const controlId = $derived(idProp ?? `field-${generatedId}`);
+    const descriptionId = `${generatedId}-description`;
+    const describedBy = $derived(
+        [externalDescription, description ? descriptionId : undefined].filter(Boolean).join(' ') ||
+            undefined
+    );
 
     const normalizedType = $derived(type.toLowerCase());
     const hasAdornment = $derived(
@@ -66,6 +76,8 @@
 
             <input
                 bind:this={element}
+                id={controlId}
+                aria-describedby={describedBy}
                 bind:value
                 {type}
                 data-ui="input"
@@ -87,6 +99,8 @@
     {:else if normalizedType === 'file'}
         <input
             bind:this={element}
+            id={controlId}
+            aria-describedby={describedBy}
             bind:value
             bind:files
             type="file"
@@ -99,6 +113,8 @@
     {:else if normalizedType === 'checkbox'}
         <input
             bind:this={element}
+            id={controlId}
+            aria-describedby={describedBy}
             bind:checked
             type="checkbox"
             data-ui="input"
@@ -110,6 +126,8 @@
     {:else}
         <input
             bind:this={element}
+            id={controlId}
+            aria-describedby={describedBy}
             bind:value
             {type}
             data-ui="input"
@@ -123,15 +141,17 @@
 
 {#snippet meta()}
     {#if label}
-        <span
+        <label
+            for={controlId}
             class="mb-0.5 select-none [font-size:var(--font-size-label)] [font-weight:var(--font-weight-label)] [letter-spacing:var(--tracking-label)] leading-none text-foreground [font-family:var(--font-sans),sans-serif]"
         >
             {label}
-        </span>
+        </label>
     {/if}
     {@render field()}
     {#if description}
         <span
+            id={descriptionId}
             class="[font-size:var(--font-size-body)] [font-weight:var(--font-weight-body)] [letter-spacing:var(--tracking-body)] text-foreground-muted"
         >
             {description}
@@ -140,7 +160,7 @@
 {/snippet}
 
 {#if label}
-    <label class="flex w-full flex-col gap-1">{@render meta()} </label>
+    <div class="flex w-full flex-col gap-1">{@render meta()} </div>
 {:else if description}
     <div class="flex w-full flex-col gap-1">
         {@render meta()}

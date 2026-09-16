@@ -43,6 +43,12 @@
 
     <section id="usage" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Usage</Typography.H2>
+        <Typography.Text variant="supporting">
+            Replacing a source or removing the component invalidates pending chunks, completion, and
+            errors from that source. The component requests iterator cleanup; cancel the underlying
+            network request in your application. Plain text remains available if the optional text
+            renderer cannot load.
+        </Typography.Text>
         <div class="flex flex-col gap-3">
             <div>
                 <Typography.H3>Live responses</Typography.H3>

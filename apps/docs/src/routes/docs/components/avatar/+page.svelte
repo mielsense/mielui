@@ -57,6 +57,11 @@
     <!-- ─── Usage ─────────────────────────────────────────────────── -->
     <section id="usage" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Usage</Typography.H2>
+        <Typography.Text variant="supporting">
+            Changing Image src, srcset, or sizes starts a new image request. Fallback remains
+            available while images load or fail, and returns when the loaded Image is removed.
+            Native onload and onerror callbacks run alongside the internal state updates.
+        </Typography.Text>
 
         <CodeBlock
             code={`import * as Avatar from '$lib/mielui/components/avatar';\n\n<Avatar.Root>\n  <Avatar.Image src="/avatar.jpg" alt="User" />\n  <Avatar.Fallback>AB</Avatar.Fallback>\n</Avatar.Root>`}

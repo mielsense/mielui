@@ -14,6 +14,7 @@ export const manifest: Manifest = {
     components: [],
     shared: ['utils.cn'],
     peerDependencies: {
+        '@floating-ui/dom': '1.7.6',
         cnfast: '^0.0.8',
         svelte: '^5.0.0'
     }

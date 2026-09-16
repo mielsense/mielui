@@ -85,6 +85,11 @@ import { CodeBlock } from '$lib/mielui/components/code-block';
     <section id="usage" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Usage</Typography.H2>
         <Typography.Text variant="supporting">
+            When the tab collection changes, a missing active selection falls back to the first
+            available tab. Single snippets are named code regions; tab panels are used when tab
+            controls are present.
+        </Typography.Text>
+        <Typography.Text variant="supporting">
             Pass a{' '}
             <Typography.InlineCode>tabs</Typography.InlineCode> array for the multi-language form,
             or{' '}

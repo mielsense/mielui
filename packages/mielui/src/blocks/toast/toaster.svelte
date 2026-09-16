@@ -1,6 +1,7 @@
 <script lang="ts">
     import { getCssDuration } from '@mielui/svelte/transition';
     import { visualViewportBounds } from '@mielui/svelte/utils';
+    import { untrack } from 'svelte';
     import { cubicOut, quartOut } from 'svelte/easing';
     import type { TransitionConfig } from 'svelte/transition';
     import { getToastPrimaryHostId, setToastUIState } from './lib.svelte';
@@ -32,6 +33,17 @@
     const EXPANDED_GAP = 10;
 
     const reversedToasts = $derived([...toastState.data.toasts].reverse());
+
+    $effect(() => {
+        const liveIds = new Set(toastState.data.toasts.map((toast) => String(toast.id)));
+        untrack(() => {
+            for (const id of Object.keys(heights)) {
+                if (!liveIds.has(id)) {
+                    delete heights[Number(id)];
+                }
+            }
+        });
+    });
 
     const viewportClass =
         // token-lint-disable-next-line no-literal-length: safe-area fallbacks

@@ -23,11 +23,28 @@
     let showSkeleton = $state(false);
     let shownAt = 0;
     let scrollable = $state(false);
-    const boxHeight = $derived(reserve ?? lines * lineHeight);
+    const lineCount = $derived(
+        Number.isFinite(lines) ? Math.min(1000, Math.max(0, Math.floor(lines))) : 3
+    );
+    const safeLineHeight = $derived(Number.isFinite(lineHeight) ? Math.max(0, lineHeight) : 21);
+    const safeBarHeight = $derived(Number.isFinite(barHeight) ? Math.max(0, barHeight) : 9);
+    const safeDelay = $derived(
+        Number.isFinite(delay) ? Math.min(2_147_483_647, Math.max(0, delay)) : 120
+    );
+    const safeMinVisible = $derived(
+        Number.isFinite(minVisible) ? Math.min(2_147_483_647, Math.max(0, minVisible)) : 380
+    );
+    const boxHeight = $derived(
+        reserve !== undefined && Number.isFinite(reserve)
+            ? Math.max(0, reserve)
+            : Number.isFinite(lineCount * safeLineHeight)
+              ? lineCount * safeLineHeight
+              : lineCount * 21
+    );
     const contentVisible = $derived(ready && !showSkeleton);
 
     function widthFor(index: number) {
-        if (lines > 1 && index === lines - 1) {
+        if (lineCount > 1 && index === lineCount - 1) {
             return 62;
         }
         return widths[(index * 7 + 3) % widths.length];
@@ -41,14 +58,14 @@
             const timer = setTimeout(() => {
                 shownAt = performance.now();
                 showSkeleton = true;
-            }, delay);
+            }, safeDelay);
             return () => clearTimeout(timer);
         }
 
         if (!showSkeleton) {
             return;
         }
-        const remaining = Math.max(0, minVisible - (performance.now() - shownAt));
+        const remaining = Math.max(0, safeMinVisible - (performance.now() - shownAt));
         const timer = setTimeout(() => {
             showSkeleton = false;
         }, remaining);
@@ -101,6 +118,7 @@
 
     <div
         aria-hidden="true"
+        inert
         data-visible={showSkeleton}
         class="mielui-skeleton-placeholder pointer-events-none col-start-1 row-start-1 w-full self-start"
     >
@@ -108,11 +126,11 @@
             {@render skeleton()}
         {:else}
             <div class="w-full">
-                {#each Array(lines) as _, index (index)}
-                    <div class="flex items-center" style:height={`${lineHeight}px`}>
+                {#each Array(lineCount) as _, index (index)}
+                    <div class="flex items-center" style:height={`${safeLineHeight}px`}>
                         <div
                             class="rounded-[var(--radius-sm)] bg-secondary"
-                            style:height={`${barHeight}px`}
+                            style:height={`${safeBarHeight}px`}
                             style:width={`${widthFor(index)}%`}
                         ></div>
                     </div>

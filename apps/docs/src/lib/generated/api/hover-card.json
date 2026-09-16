@@ -7,7 +7,7 @@
                 "type": "\"solid\" | \"glass\" | undefined",
                 "required": false,
                 "bindable": false,
-                "default": null,
+                "default": "'solid'",
                 "description": "",
                 "inherited": false
             },
@@ -16,7 +16,7 @@
                 "type": "\"top\" | \"bottom\" | \"left\" | \"right\" | undefined",
                 "required": false,
                 "bindable": false,
-                "default": null,
+                "default": "'bottom'",
                 "description": "",
                 "inherited": false
             },
@@ -25,7 +25,7 @@
                 "type": "\"start\" | \"center\" | \"end\" | undefined",
                 "required": false,
                 "bindable": false,
-                "default": null,
+                "default": "'center'",
                 "description": "",
                 "inherited": false
             },

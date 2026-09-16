@@ -63,6 +63,10 @@
     <!-- ─── Usage ─────────────────────────────────────────────────── -->
     <section id="usage" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Usage</Typography.H2>
+        <Typography.Text variant="supporting">
+            Badges are static metadata by default. Add role="status" explicitly only when changing
+            badge text should be announced as a status update.
+        </Typography.Text>
 
         <CodeBlock
             code={`import { Badge } from '$lib/mielui/components/badge';\n\n<Badge>New</Badge>\n<Badge variant="outline" dot>Label</Badge>\n<Badge variant="success">Active</Badge>\n<Badge variant="error">Failed</Badge>`}

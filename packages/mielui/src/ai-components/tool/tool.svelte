@@ -116,8 +116,7 @@
             <span
                 class={cn(
                     variant === 'quiet' ? 'text-current' : 'text-foreground',
-                    state === 'complete' && 'font-[var(--font-weight-label)]',
-                    state === 'running' && 'mielui-tool-running'
+                    state === 'complete' && 'font-[var(--font-weight-label)]'
                 )}
             >
                 {label}
@@ -133,6 +132,8 @@
     {#if open}
         <div
             id={`tool-${id}`}
+            inert={!open}
+            aria-hidden={!open}
             transition:themedSlide={{ durationVar: '--motion-duration-panel', fallback: 220 }}
             onintrostart={() => {
                 transitionRevision = pending?.revision ?? revision;
@@ -155,35 +156,3 @@
         </div>
     {/if}
 </section>
-
-<style>
-    .mielui-tool-running {
-        background: linear-gradient(
-            110deg,
-            var(--color-foreground-muted) 35%,
-            var(--color-foreground) 50%,
-            var(--color-foreground-muted) 65%
-        );
-        background-size: 200% 100%;
-        background-clip: text;
-        color: transparent;
-        animation: mielui-tool-shimmer 1.6s linear infinite;
-    }
-
-    @keyframes mielui-tool-shimmer {
-        from {
-            background-position: 200% 0;
-        }
-        to {
-            background-position: -200% 0;
-        }
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-        .mielui-tool-running {
-            animation: none;
-            background: none;
-            color: var(--color-foreground);
-        }
-    }
-</style>

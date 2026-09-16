@@ -22,6 +22,7 @@ export const manifest: Manifest = {
     components: ['tabs', 'copy-button', 'card', '_internal/highlight'],
     shared: ['utils.cn'],
     peerDependencies: {
+        '@floating-ui/dom': '1.7.6',
         'highlight.js': '^11.0.0',
         cnfast: '^0.0.8',
         svelte: '^5.0.0'

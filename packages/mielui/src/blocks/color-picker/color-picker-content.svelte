@@ -3,6 +3,7 @@
     import { Tick02Icon as Check } from '@hugeicons/core-free-icons';
     import * as Popover from '@mielui/svelte/components/popover';
     import { cn } from '@mielui/svelte/utils';
+    import { onDestroy } from 'svelte';
     import HugeiconsIcon from '../../hugeicons-icon.svelte';
     import { getColorPickerContext } from './context';
     import {
@@ -158,11 +159,18 @@
     }
 
     /** Saturation/brightness square drag handling. */
+    let activePointer: number | undefined;
+    let releaseClickCleanup: (() => void) | undefined;
+    onDestroy(() => {
+        releaseClickCleanup?.();
+    });
+
     let draggingSb = false;
     let draggingHue = false;
     let draggingSlider = false;
 
     function suppressReleaseClick() {
+        releaseClickCleanup?.();
         let timeout: ReturnType<typeof setTimeout> | undefined;
         const preventClose = (event: MouseEvent) => {
             event.stopImmediatePropagation();
@@ -172,11 +180,15 @@
             }
         };
         document.addEventListener('click', preventClose, true);
-        timeout = setTimeout(() => document.removeEventListener('click', preventClose, true), 0);
+        releaseClickCleanup = () => {
+            document.removeEventListener('click', preventClose, true);
+            clearTimeout(timeout);
+        };
+        timeout = setTimeout(releaseClickCleanup, 0);
     }
 
     function finishDrag(e: PointerEvent, suppressClick = true) {
-        if (!draggingSb && !draggingHue && !draggingSlider) {
+        if (activePointer !== e.pointerId || (!draggingSb && !draggingHue && !draggingSlider)) {
             return;
         }
         if (draggingSb && sbEl?.hasPointerCapture(e.pointerId)) {
@@ -185,6 +197,7 @@
         if (draggingHue && hueEl?.hasPointerCapture(e.pointerId)) {
             hueEl.releasePointerCapture(e.pointerId);
         }
+        activePointer = undefined;
         draggingSb = false;
         draggingHue = false;
         draggingSlider = false;
@@ -204,12 +217,17 @@
     }
 
     function onSbDown(e: PointerEvent) {
+        if (e.button !== 0 || activePointer !== undefined) {
+            return;
+        }
+        activePointer = e.pointerId;
+        e.preventDefault();
         draggingSb = true;
         sbEl?.setPointerCapture(e.pointerId);
         sbEventToSV(e);
     }
     function onSbMove(e: PointerEvent) {
-        if (draggingSb) {
+        if (draggingSb && activePointer === e.pointerId) {
             sbEventToSV(e);
         }
     }
@@ -224,16 +242,22 @@
     }
 
     function onHueDown(e: PointerEvent) {
+        if (e.button !== 0 || activePointer !== undefined) {
+            return;
+        }
+        activePointer = e.pointerId;
+        e.preventDefault();
         draggingHue = true;
         hueEl?.setPointerCapture(e.pointerId);
         hueEventToH(e);
     }
     function onHueMove(e: PointerEvent) {
-        if (draggingHue) {
+        if (draggingHue && activePointer === e.pointerId) {
             hueEventToH(e);
         }
     }
-    function startSliderDrag() {
+    function startSliderDrag(event: PointerEvent) {
+        activePointer = event.pointerId;
         draggingSlider = true;
     }
 </script>
@@ -244,10 +268,11 @@
     <!-- SB picker (large) -->
     <div
         bind:this={sbEl}
-        class="relative h-[148px] w-full cursor-crosshair overflow-hidden rounded-b-[var(--radius-md)] bg-[linear-gradient(to_bottom,transparent,#000),linear-gradient(to_right,#fff,var(--picker-hue))]"
+        class="relative touch-none h-[148px] w-full cursor-crosshair overflow-hidden rounded-b-[var(--radius-md)] bg-[linear-gradient(to_bottom,transparent,#000),linear-gradient(to_right,#fff,var(--picker-hue))]"
         style:--picker-hue={hueColor}
         onpointerdown={onSbDown}
         onpointermove={onSbMove}
+        onlostpointercapture={(event) => finishDrag(event, false)}
         role="presentation"
     >
         <div
@@ -270,9 +295,10 @@
         <div class="min-w-0 flex-1 space-y-1.5">
             <div
                 bind:this={hueEl}
-                class="relative h-2.5 w-full cursor-ew-resize overflow-hidden rounded-full bg-[linear-gradient(to_right,#f00,#ff0,#0f0,#0ff,#00f,#f0f,#f00)]"
+                class="relative touch-none h-2.5 w-full cursor-ew-resize overflow-hidden rounded-full bg-[linear-gradient(to_right,#f00,#ff0,#0f0,#0ff,#00f,#f0f,#f00)]"
                 onpointerdown={onHueDown}
                 onpointermove={onHueMove}
+                onlostpointercapture={(event) => finishDrag(event, false)}
                 role="presentation"
             >
                 <div
@@ -289,11 +315,12 @@
                     class="h-6 min-w-0 flex-1 select-text bg-transparent font-mono text-[0.78rem] uppercase text-foreground outline-none"
                     value={hexInput.replace(/^#/, '')}
                     placeholder="000000"
+                    aria-label="Hex color"
                     spellcheck={false}
                     autocomplete="off"
                     oninput={(e) => handleHexInput((e.currentTarget as HTMLInputElement).value)}
                     onkeydown={(e) => {
-                        if (e.key === 'Enter') {
+                        if (e.key === 'Enter' && !e.isComposing) {
                             applyHex(hexInput);
                         }
                     }}
@@ -315,7 +342,7 @@
         )}
     >
         {#if ctx.format === 'hsl'}
-            {#each [{ key: 'h', label: 'H', max: 360, value: hslH, unit: '°' }, { key: 's', label: 'S', max: 100, value: hslS, unit: '%' }, { key: 'l', label: 'L', max: 100, value: hslL, unit: '%' }] as channel (channel.key)}
+            {#each [{ key: 'h', label: 'H', name: 'Hue', max: 360, value: hslH, unit: '°' }, { key: 's', label: 'S', name: 'Saturation', max: 100, value: hslS, unit: '%' }, { key: 'l', label: 'L', name: 'Lightness', max: 100, value: hslL, unit: '%' }] as channel (channel.key)}
                 {@const thumbBg =
                     channel.key === 'h'
                         ? `hsl(${channel.value}, ${hslS}%, ${hslL}%)`
@@ -330,6 +357,7 @@
                     </span>
                     <input
                         type="range"
+                        aria-label={channel.name}
                         min="0"
                         max={channel.max}
                         step="1"
@@ -352,7 +380,7 @@
                 </div>
             {/each}
         {:else if ctx.format === 'rgb'}
-            {#each [{ key: 'r', label: 'R', value: rgbR }, { key: 'g', label: 'G', value: rgbG }, { key: 'b', label: 'B', value: rgbB }] as channel (channel.key)}
+            {#each [{ key: 'r', label: 'R', name: 'Red', value: rgbR }, { key: 'g', label: 'G', name: 'Green', value: rgbG }, { key: 'b', label: 'B', name: 'Blue', value: rgbB }] as channel (channel.key)}
                 <div class="flex items-center gap-2">
                     <span
                         class="w-3 shrink-0 font-mono [font-size:var(--font-size-body)] [font-weight:var(--font-weight-body)] [letter-spacing:var(--tracking-body)] text-foreground-muted"
@@ -361,6 +389,7 @@
                     </span>
                     <input
                         type="range"
+                        aria-label={channel.name}
                         min="0"
                         max="255"
                         step="1"
@@ -382,7 +411,7 @@
                 </div>
             {/each}
         {:else}
-            {#each [{ key: 'h', label: 'H', max: 360, value: hue, unit: '°' }, { key: 's', label: 'S', max: 100, value: sat, unit: '%' }, { key: 'v', label: 'V', max: 100, value: val, unit: '%' }] as channel (channel.key)}
+            {#each [{ key: 'h', label: 'H', name: 'Hue', max: 360, value: hue, unit: '°' }, { key: 's', label: 'S', name: 'Saturation', max: 100, value: sat, unit: '%' }, { key: 'v', label: 'V', name: 'Brightness', max: 100, value: val, unit: '%' }] as channel (channel.key)}
                 <div class="flex items-center gap-2">
                     <span
                         class="w-3 shrink-0 font-mono [font-size:var(--font-size-body)] [font-weight:var(--font-weight-body)] [letter-spacing:var(--tracking-body)] text-foreground-muted"
@@ -391,6 +420,7 @@
                     </span>
                     <input
                         type="range"
+                        aria-label={channel.name}
                         min="0"
                         max={channel.max}
                         step="1"
@@ -431,7 +461,8 @@
                     onclick={() => applyHex(opt.value)}
                     title={opt.label}
                     aria-label={opt.label}
-                    class="group relative grid size-6 place-items-center rounded-md ring-1 ring-inset ring-[color-mix(in_srgb,var(--color-foreground)_10%,transparent)] transition-[transform,box-shadow] hover:scale-110 focus:outline-none focus:ring-2 focus:ring-primary"
+                    aria-pressed={isActive}
+                    class="group relative grid size-6 place-items-center rounded-md ring-1 ring-inset ring-[color-mix(in_srgb,var(--color-foreground)_10%,transparent)] transition-[transform,box-shadow] [transition-duration:var(--motion-duration-press)] ease-[var(--ease-out)] hover:scale-110 motion-reduce:transition-none motion-reduce:hover:scale-100 focus:outline-none focus:ring-2 focus:ring-primary"
                     style:background={opt.value}
                 >
                     {#if isActive}

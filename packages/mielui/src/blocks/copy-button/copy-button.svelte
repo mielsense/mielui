@@ -17,57 +17,81 @@
         class: className,
         children,
         oncopy,
+        onclick,
         ...rest
     }: CopyButtonProps = $props();
 
     let copied = $state(false);
     let timer: ReturnType<typeof setTimeout> | undefined;
 
-    function fallbackCopy() {
+    let disposed = false;
+    let requestId = 0;
+
+    function fallbackCopy(value: string) {
         if (typeof document === 'undefined' || typeof document.execCommand !== 'function') {
             return false;
         }
 
+        const focused = document.activeElement;
         const textarea = document.createElement('textarea');
-        textarea.value = text;
+        textarea.value = value;
         textarea.style.position = 'fixed';
         textarea.style.opacity = '0';
         document.body.appendChild(textarea);
-        textarea.select();
-        const copied = document.execCommand('copy');
-        textarea.remove();
-        return copied;
+        try {
+            textarea.select();
+            return document.execCommand('copy');
+        } catch {
+            return false;
+        } finally {
+            textarea.remove();
+            if (focused instanceof HTMLElement && focused.isConnected) {
+                focused.focus({ preventScroll: true });
+            }
+        }
     }
 
-    async function copy() {
+    async function copy(event: MouseEvent) {
+        onclick?.(event as MouseEvent & { currentTarget: EventTarget & HTMLButtonElement });
+        if (event.defaultPrevented) {
+            return;
+        }
+        const requestedText = text;
+        const id = ++requestId;
         let didCopy = false;
         if (typeof navigator !== 'undefined' && navigator.clipboard) {
             try {
-                await navigator.clipboard.writeText(text);
+                await navigator.clipboard.writeText(requestedText);
                 didCopy = true;
             } catch {
-                didCopy = fallbackCopy();
+                if (disposed || id !== requestId) {
+                    return;
+                }
+                didCopy = fallbackCopy(requestedText);
             }
         } else {
-            didCopy = fallbackCopy();
+            didCopy = fallbackCopy(requestedText);
         }
-        if (!didCopy) {
+        if (!didCopy || disposed || id !== requestId) {
             return;
         }
 
         copied = true;
-        oncopy?.(text);
         clearTimeout(timer);
-        timer = setTimeout(() => (copied = false), duration);
+        timer = setTimeout(() => {
+            copied = false;
+        }, duration);
+        oncopy?.(requestedText);
     }
 
-    onDestroy(() => clearTimeout(timer));
+    onDestroy(() => {
+        disposed = true;
+        requestId += 1;
+        clearTimeout(timer);
+    });
 </script>
 
 <Tooltip.Root placement="top" delay={125} closeDelay={80}>
-    <!-- Positioning/layout lives on the trigger wrapper so the tooltip anchors to
-	     the same box the button actually renders in (e.g. an absolutely-placed
-	     copy button in a code block). -->
     <Tooltip.Trigger showOnClick class={cn(className, '[&_button]:w-full')}>
         <Button
             {...rest}
@@ -77,23 +101,19 @@
             aria-label={copied ? copiedLabel : label}
             onclick={copy}
         >
-            <!-- Copy ↔ Check morph: the two icons share one grid cell and cross-fade
-			     with a scale + quarter-turn so one twists out as the other twists in.
-			     Tailwind v4 animates rotate/scale as their own properties, so they
-			     must be named in the transition alongside transform and opacity. -->
             <span class="relative grid size-4 place-items-center">
                 <HugeiconsIcon
                     icon={Copy}
                     size={15}
                     class={`col-start-1 row-start-1 transition-[transform,translate,scale,rotate,opacity] [transition-duration:var(--motion-duration-panel)] ease-[var(--ease-out)] ${
-                        copied ? '-rotate-90 scale-50 opacity-0' : 'rotate-0 scale-100 opacity-100'
+                        copied ? 'scale-90 opacity-0' : 'scale-100 opacity-100'
                     }`}
                 />
                 <HugeiconsIcon
                     icon={Check}
                     size={15}
                     class={`col-start-1 row-start-1 text-[var(--color-success)] transition-[transform,translate,scale,rotate,opacity] [transition-duration:var(--motion-duration-panel)] ease-[var(--ease-out)] ${
-                        copied ? 'rotate-0 scale-100 opacity-100' : 'rotate-90 scale-50 opacity-0'
+                        copied ? 'scale-100 opacity-100' : 'scale-90 opacity-0'
                     }`}
                 />
             </span>

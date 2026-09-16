@@ -26,6 +26,13 @@
     let dragDepth = 0;
     let dragging = $state(false);
 
+    $effect(() => {
+        if (disabled) {
+            dragDepth = 0;
+            dragging = false;
+        }
+    });
+
     function fileKey(file: File) {
         return `${file.name}\u0000${file.size}\u0000${file.lastModified}`;
     }

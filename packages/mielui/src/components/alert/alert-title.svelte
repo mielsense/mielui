@@ -1,15 +1,8 @@
 <script lang="ts">
     import { cn } from '@mielui/svelte/utils';
-    import type { Snippet } from 'svelte';
+    import type { AlertTitleProps } from '.';
 
-    let {
-        children,
-        class: classProp,
-        ...rest
-    }: {
-        children: Snippet;
-        class?: string;
-    } = $props();
+    let { children, class: classProp, ...rest }: AlertTitleProps = $props();
 </script>
 
 <p

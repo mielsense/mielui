@@ -2,7 +2,7 @@
     import { Tick02Icon as Check } from '@hugeicons/core-free-icons';
     import { Button, type ButtonProps } from '@mielui/svelte/components/button';
     import { cn } from '@mielui/svelte/utils';
-    import { onMount } from 'svelte';
+    import { untrack } from 'svelte';
     import HugeiconsIcon from '../../hugeicons-icon.svelte';
     import { getPopoverContext } from '../popover/context.svelte';
     import type { ComboboxItem } from '.';
@@ -20,7 +20,7 @@
         callback?: () => void;
     } & ButtonProps;
 
-    let { label, value, class: className, callback, ...rest }: Props = $props();
+    let { label, value, class: className, callback, onclick, disabled, ...rest }: Props = $props();
     let el = $state<HTMLButtonElement | HTMLAnchorElement | undefined>();
     let item: ComboboxItem = $derived({
         id: optionId,
@@ -29,22 +29,29 @@
         callback: callback,
         ref: el
     }) as ComboboxItem;
-    const visible = $derived(
-        comboboxState.searchContent === '' ||
-            Array.from(comboboxState.results).some((result) => result.value === item.value)
-    );
+    const visible = $derived(comboboxState.searchContent === '' || comboboxState.results.has(item));
 
-    function close() {
+    function close(event: MouseEvent) {
+        onclick?.(event);
+        if (disabled || event.defaultPrevented) {
+            return;
+        }
         selectItem(item);
         popoverState.buttonRef?.focus();
     }
 
-    onMount(() => {
+    $effect(() => {
         const added = item;
-        comboboxState.items.add(added);
-        if (comboboxState.open && comboboxState.activeValue === undefined) {
-            comboboxState.activeValue = added.value;
+        const available = !disabled;
+        if (!available) {
+            return;
         }
+        comboboxState.items.add(added);
+        untrack(() => {
+            if (comboboxState.open && comboboxState.activeValue === undefined) {
+                comboboxState.activeValue = added.value;
+            }
+        });
         return () => {
             comboboxState.items.delete(added);
         };
@@ -53,6 +60,7 @@
 
 <Button
     bind:element={el}
+    {disabled}
     id={optionId}
     role="option"
     aria-selected={comboboxState.selected?.value === item.value}
@@ -67,7 +75,7 @@
     onclick={close}
     class={cn(
         className,
-        'mielui-menu-item flex-row gap-3 overflow-hidden text-sm opacity-100 transition-[height,opacity,border-width] [transition-duration:var(--motion-duration-hover)] ease-[var(--ease-out)] motion-reduce:transition-none data-[visible=false]:h-0 data-[visible=false]:border-y-0 data-[visible=false]:opacity-0'
+        'mielui-menu-item flex-row gap-3 overflow-hidden text-sm data-[visible=false]:hidden'
     )}
     unstyled
 >

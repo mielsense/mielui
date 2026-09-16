@@ -59,6 +59,11 @@
     <!-- ─── Usage ─────────────────────────────────────────────────── -->
     <section id="usage" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Usage</Typography.H2>
+        <Typography.Text>
+            The hex field and every color channel have accessible names. Channel sliders provide a
+            keyboard alternative to the pointer plane. The root label names the trigger, and preset
+            selection respects reduced motion.
+        </Typography.Text>
         <Typography.Text variant="supporting">
             Compose the Color Picker from its{' '}
             <Typography.InlineCode>Root</Typography.InlineCode>

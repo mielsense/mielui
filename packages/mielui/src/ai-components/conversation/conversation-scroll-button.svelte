@@ -38,8 +38,10 @@
             visible ? 'translate-y-0 opacity-100' : 'pointer-events-none translate-y-1.5 opacity-0'
         )}
         onclick={(event) => {
-            scrollToBottom();
             onclick?.(event);
+            if (!event.defaultPrevented) {
+                scrollToBottom();
+            }
         }}
     >
         <HugeiconsIcon icon={ArrowDown} size={16} strokeWidth={2} aria-hidden="true" />

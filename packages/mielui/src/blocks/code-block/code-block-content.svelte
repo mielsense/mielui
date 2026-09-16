@@ -22,6 +22,7 @@
 
     const registry = getContext<CodeBlockRegistry>('code-block');
     const tabs = getContext<TabsState>('tabs');
+    const panel = getContext<{ readonly tabbed: boolean } | undefined>('code-block-panel');
 
     if (registry) {
         untrack(() => {
@@ -33,22 +34,37 @@
         });
     }
 
-    /**
-     * Registers the raw code -- Copy reads the active one -- and records source
-     * order so the slide direction can be derived from tab position.
-     */
     $effect(() => {
         if (!registry) {
             return;
         }
-        registry.codes[value] = code;
-        registry.langs[value] = lang ?? '';
-        if (!registry.order.includes(value)) {
-            registry.order = [...registry.order, value];
+        const registeredValue = value;
+        const registeredCode = code;
+        const registeredLang = lang ?? '';
+        untrack(() => {
+            registry.codes[registeredValue] = registeredCode;
+            registry.langs[registeredValue] = registeredLang;
+        });
+    });
+
+    $effect(() => {
+        if (!registry) {
+            return;
         }
+        const registeredValue = value;
+        untrack(() => {
+            if (!registry.order.includes(registeredValue)) {
+                registry.order = [...registry.order, registeredValue];
+            }
+        });
         return () => {
-            delete registry.codes[value];
-            delete registry.langs[value];
+            untrack(() => {
+                delete registry.codes[registeredValue];
+                delete registry.langs[registeredValue];
+                if (!registry.contained) {
+                    registry.order = registry.order.filter((entry) => entry !== registeredValue);
+                }
+            });
         };
     });
 
@@ -69,12 +85,18 @@
     const shift = $derived(isActive ? 0 : myIndex < activeIndex ? -1 : 1);
     const newline = '\n';
 
-    const panelId = $derived(tabs ? `${tabs.id}-content-${toTabIdPart(value)}` : undefined);
-    const tabId = $derived(tabs ? `${tabs.id}-trigger-${toTabIdPart(value)}` : undefined);
+    const isTabbed = $derived(panel?.tabbed ?? Boolean(tabs));
+    const panelId = $derived(
+        isTabbed && tabs ? `${tabs.id}-content-${toTabIdPart(value)}` : undefined
+    );
+    const tabId = $derived(
+        isTabbed && tabs ? `${tabs.id}-trigger-${toTabIdPart(value)}` : undefined
+    );
 </script>
 
 <div
-    role="tabpanel"
+    role={isTabbed ? 'tabpanel' : 'region'}
+    aria-label={isTabbed ? undefined : 'Code'}
     id={panelId}
     aria-labelledby={tabId}
     data-ui="code-block-content"

@@ -7,7 +7,7 @@
                 "type": "\"solid\" | \"glass\" | undefined",
                 "required": false,
                 "bindable": false,
-                "default": null,
+                "default": "'solid'",
                 "description": "",
                 "inherited": false
             },
@@ -34,7 +34,7 @@
                 "type": "boolean | undefined",
                 "required": false,
                 "bindable": false,
-                "default": null,
+                "default": "false",
                 "description": "",
                 "inherited": false
             }
@@ -101,7 +101,7 @@
                 "name": "element",
                 "type": "HTMLButtonElement | HTMLAnchorElement | undefined",
                 "required": false,
-                "bindable": false,
+                "bindable": true,
                 "default": null,
                 "description": "Bindable reference to the rendered DOM element. Type is the union of\nthe two possible element types -- narrow at the use site:",
                 "inherited": false

@@ -13,10 +13,19 @@
         variant = 'default',
         class: classProp,
         onCheckedChange,
+        oninput,
+        id,
         ...rest
     }: CheckboxProps = $props();
 
-    function handleChange(event: Event) {
+    const generatedId = $props.id();
+    const inputId = $derived(id ?? generatedId);
+
+    function handleChange(event: Event & { currentTarget: EventTarget & HTMLInputElement }) {
+        oninput?.(event);
+        if (event.defaultPrevented) {
+            return;
+        }
         const next = (event.currentTarget as HTMLInputElement).checked;
         checked = next;
         onCheckedChange?.(next);
@@ -24,7 +33,7 @@
 </script>
 
 <label
-    {...rest}
+    for={inputId}
     class={cn(
         classProp,
         'min-h-[var(--size-touch)] md:min-h-0',
@@ -32,13 +41,15 @@
     )}
 >
     <input
+        {...rest}
+        id={inputId}
         type="checkbox"
         class="peer absolute size-4 opacity-0"
         {disabled}
         {checked}
         aria-label={rest['aria-label']}
         aria-labelledby={rest['aria-labelledby']}
-        aria-describedby={rest['aria-describedby']}
+        aria-describedby={[rest['aria-describedby'], description ? `${inputId}-description` : undefined].filter(Boolean).join(' ') || undefined}
         aria-checked={checked}
         oninput={handleChange}
     />
@@ -61,14 +72,17 @@
         />
     </span>
 
-    {#if label}
+    {#if label || description}
         <div class="flex flex-col justify-center">
             <!-- token-lint-disable-next-line no-literal-length: fine-tuning vertical alignment of label -->
-            <span class={cn(checkboxText(), 'mt-[-0.2rem]')} role="presentation">
-                {label}
-            </span>
+            {#if label}
+                <span class={cn(checkboxText(), 'mt-[-0.2rem]')} role="presentation">
+                    {label}
+                </span>
+            {/if}
             {#if description}
                 <span
+                    id={`${inputId}-description`}
                     class="text-text [font-size:var(--font-size-body)] [font-weight:var(--font-weight-body)] [letter-spacing:var(--tracking-body)] text-foreground-muted"
                 >
                     {description}

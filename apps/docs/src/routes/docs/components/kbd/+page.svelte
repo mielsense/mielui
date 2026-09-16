@@ -53,6 +53,11 @@
     <!-- ─── Usage ─────────────────────────────────────────────────── -->
     <section id="usage" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Usage</Typography.H2>
+        <Typography.Text>
+            Executable shortcuts ignore consumed, repeated, and composing key events. Shortcuts in
+            hidden or inert owners do not activate, and an active overlay limits activation to its
+            own controls.
+        </Typography.Text>
         <Typography.Text variant="supporting">
             Import Kbd and pass a keyboard shortcut string:
         </Typography.Text>

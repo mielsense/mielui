@@ -12,8 +12,9 @@ export const manifest: Manifest = {
         'components/response-stream/manifest.ts'
     ],
     components: [],
-    shared: ['utils.cn'],
+    shared: ['transition', 'utils.cn'],
     peerDependencies: {
+        '@floating-ui/dom': '1.7.6',
         '@scritto/core': '^0.1.0',
         '@scritto/svelte': '^0.1.0',
         cnfast: '^0.0.8',

@@ -78,14 +78,16 @@
             }
             return;
         }
-        if (selected === next) {
-            return;
-        }
         for (const item of comboboxState.items) {
             if (item.value === next) {
-                comboboxState.selected = item;
+                if (comboboxState.selected !== item) {
+                    comboboxState.selected = item;
+                }
                 return;
             }
+        }
+        if (selected !== next) {
+            comboboxState.selected = { id: '', value: next, label: next, ref: undefined };
         }
     });
 </script>

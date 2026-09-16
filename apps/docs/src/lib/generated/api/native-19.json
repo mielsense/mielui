@@ -1,5 +1,14 @@
 [
     {
+        "name": "onratechangecapture",
+        "type": "EventHandler<Event, HTMLLabelElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
         "name": "on:seeked",
         "type": "EventHandler<Event, HTMLLabelElement> | null | undefined",
         "required": false,
@@ -1793,15 +1802,6 @@
     {
         "name": "onfullscreenerrorcapture",
         "type": "EventHandler<Event, HTMLLabelElement> | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
-        "name": "for",
-        "type": "string | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,

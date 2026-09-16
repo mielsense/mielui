@@ -24,6 +24,7 @@ let currentClass = '';
 let visible = false;
 let currentText = '';
 let activeRef: HTMLElement | null = null;
+let pendingRef: HTMLElement | null = null;
 let lastCenter = 'translateX(-50%)';
 let openTimer: ReturnType<typeof setTimeout> | undefined;
 let closeTimer: ReturnType<typeof setTimeout> | undefined;
@@ -53,6 +54,10 @@ function supportsRoll(): boolean {
  * word layout.
  */
 function setLabel(text: string, animate: boolean) {
+    const reduced =
+        typeof window !== 'undefined' &&
+        window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
+    animate = animate && !reduced;
     if (!label) {
         return;
     }
@@ -87,7 +92,7 @@ function ensure() {
 
     const el = document.createElement('div');
     el.setAttribute('data-mielui-tooltip', '');
-    el.setAttribute('role', 'tooltip');
+    el.setAttribute('aria-hidden', 'true');
     el.className = 'mielui-tooltip';
     el.style.transform = `translateX(-50%) ${HIDE}`;
 
@@ -101,6 +106,7 @@ function ensure() {
     m.className = 'mielui-tooltip-measure';
     document.body.appendChild(m);
 
+    document.addEventListener('keydown', handleEscape);
     bubble = el;
     measurer = m;
     label = span;
@@ -206,9 +212,10 @@ function trackPosition(ref: HTMLElement, placement: Placement) {
 
 /** Shows the bubble for `ref`; when one is already up it morphs to this label. */
 function present(ref: HTMLElement, text: string, placement: Placement, className = '') {
-    if (!bubble || !label) {
+    if (!bubble || !label || !ref.isConnected) {
         return;
     }
+    pendingRef = null;
     clearTimeout(closeTimer);
     const morph = visible;
     activeRef = ref;
@@ -233,6 +240,7 @@ export function showTooltip(
         return;
     }
     ensure();
+    pendingRef = ref;
     clearTimeout(openTimer);
     clearTimeout(closeTimer);
     if (visible || delay <= 0) {
@@ -272,12 +280,22 @@ export function flashTooltip(
         return;
     }
     ensure();
+    pendingRef = ref;
     clearTimeout(openTimer);
     present(ref, text, placement, className);
     const hovered = typeof ref.matches === 'function' && ref.matches(':hover');
     if (!hovered) {
         clearTimeout(closeTimer);
         closeTimer = setTimeout(dismiss, holdMs);
+    }
+}
+
+function handleEscape(event: KeyboardEvent) {
+    if (event.key === 'Escape' && (visible || pendingRef)) {
+        clearTimeout(openTimer);
+        clearTimeout(closeTimer);
+        pendingRef = null;
+        dismiss();
     }
 }
 
@@ -295,7 +313,10 @@ function dismiss() {
 
 /** Leave/blur a trigger: schedule a hide, ignored if a different trigger took over. */
 export function hideTooltip(ref: HTMLElement | null, closeDelay = 100) {
-    clearTimeout(openTimer);
+    if (!ref || pendingRef === ref) {
+        clearTimeout(openTimer);
+        pendingRef = null;
+    }
     if (ref && activeRef && ref !== activeRef) {
         return;
     }
@@ -309,6 +330,10 @@ export function hideTooltip(ref: HTMLElement | null, closeDelay = 100) {
  * into the next.
  */
 export function resetSharedTooltipForTests() {
+    if (typeof document !== 'undefined') {
+        document.removeEventListener('keydown', handleEscape);
+    }
+    pendingRef = null;
     clearTimeout(openTimer);
     clearTimeout(closeTimer);
     stopTracking?.();

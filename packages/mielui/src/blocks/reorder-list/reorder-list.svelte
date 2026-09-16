@@ -25,6 +25,7 @@
     let spoken = $state('');
     let reduced = $state(false);
     let snapshot: T[] | undefined;
+    let gestureOrder: string[] | undefined;
     let pointerSession:
         | {
               id: string;
@@ -58,6 +59,26 @@
         }
     });
 
+    $effect(() => {
+        const currentOrder = items.map(getId);
+        untrack(() => {
+            if (
+                !snapshot ||
+                !gestureOrder ||
+                (currentOrder.length === gestureOrder.length &&
+                    currentOrder.every((id, index) => id === gestureOrder?.[index]))
+            ) {
+                return;
+            }
+            snapshot = undefined;
+            gestureOrder = undefined;
+            grabbed = undefined;
+            dragging = undefined;
+            clearPointerSession();
+            spoken = 'Reorder cancelled because the list changed.';
+        });
+    });
+
     function moveItem(list: T[], from: number, to: number) {
         const next = [...list];
         const [item] = next.splice(from, 1);
@@ -66,6 +87,7 @@
     }
 
     function emit(next: T[]) {
+        gestureOrder = next.map(getId);
         items = next;
         onReorder?.(next);
     }
@@ -97,6 +119,7 @@
             return;
         }
         snapshot = [...items];
+        gestureOrder = items.map(getId);
         grabbed = id;
         const index = indexOf(id);
         if (index < 0) {
@@ -135,7 +158,16 @@
         if (!snapshot) {
             return;
         }
-        const original = snapshot;
+        const currentById = new Map(items.map((item) => [getId(item), item]));
+        const original: T[] = [];
+        for (const item of snapshot) {
+            const id = getId(item);
+            if (currentById.has(id)) {
+                original.push(currentById.get(id) as T);
+                currentById.delete(id);
+            }
+        }
+        original.push(...currentById.values());
         const active = Boolean(dragging || grabbed);
         snapshot = undefined;
         grabbed = undefined;
@@ -194,6 +226,7 @@
         }
         const node = event.currentTarget as HTMLButtonElement;
         snapshot = [...items];
+        gestureOrder = items.map(getId);
         const rect = node.getBoundingClientRect();
         pointerSession = {
             id,

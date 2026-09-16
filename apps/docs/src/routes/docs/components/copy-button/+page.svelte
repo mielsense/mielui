@@ -52,6 +52,11 @@
     <section id="usage" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Usage</Typography.H2>
         <Typography.Text variant="supporting">
+            The click handler runs before copying; call preventDefault() to cancel. The oncopy
+            callback receives the exact text requested by the latest successful copy. Pending copies
+            are ignored after the button is removed.
+        </Typography.Text>
+        <Typography.Text variant="supporting">
             Import Copy Button and pass the text to copy:
         </Typography.Text>
         <CodeBlock

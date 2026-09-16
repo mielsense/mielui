@@ -5,6 +5,6 @@
     let { class: className, children, ...rest }: BreadcrumbProps = $props();
 </script>
 
-<div {...rest} class={cn(className, 'flex flex-row items-center gap-2')}>
+<nav aria-label="Breadcrumb" {...rest} class={cn(className, 'flex flex-row items-center gap-2')}>
     {@render children?.()}
-</div>
+</nav>

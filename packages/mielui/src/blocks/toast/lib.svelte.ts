@@ -141,7 +141,7 @@ function pauseToast(id: number) {
         return;
     }
     const current = state.data.toasts.find((t) => t.id === id);
-    if (!current || current.persistent || current.paused || current.leaving) {
+    if (!current || current.paused || current.leaving) {
         return;
     }
     current.paused = true;
@@ -157,10 +157,13 @@ function resumeToast(id: number) {
         return;
     }
     const current = state.data.toasts.find((t) => t.id === id);
-    if (!current || current.persistent || !current.paused || current.leaving) {
+    if (!current?.paused || current.leaving) {
         return;
     }
     current.paused = false;
+    if (current.persistent) {
+        return;
+    }
     current.createdAt = Date.now();
     scheduleToastRemoval(id, current.remaining ?? current.duration ?? 4200);
 }
@@ -174,12 +177,23 @@ function updateToastForState(state: ToastState | undefined, id: number, updates:
     if (!current) {
         return;
     }
-    Object.assign(current, updates);
-    if (updates.leaving === false) {
-        current.leaving = false;
+    if (current.leaving && updates.leaving !== false) {
+        return;
     }
-    if (!updates.persistent && updates.duration !== undefined) {
-        scheduleToastRemoval(id, updates.duration, state);
+    const wasPersistent = current.persistent;
+    const wasLeaving = current.leaving;
+    Object.assign(current, updates);
+    if (current.persistent) {
+        clearToastTimeout(id);
+        return;
+    }
+    if (updates.duration !== undefined || wasPersistent || wasLeaving) {
+        clearToastTimeout(id);
+        current.remaining = current.duration ?? 5600;
+        current.createdAt = Date.now();
+        if (!current.paused) {
+            scheduleToastRemoval(id, current.remaining, state);
+        }
     }
 }
 
@@ -212,8 +226,9 @@ function createToast(toastData: ToastInput, state = activeState): Toast {
     nextToast.exit = () => dismissToastForState(state, toastId);
     nextToast.update = (updates: Partial<Toast>) => updateToastForState(state, toastId, updates);
 
-    if (state.data.toasts.length >= 5) {
-        const oldest = state.data.toasts[0];
+    const visibleToasts = state.data.toasts.filter((item) => !item.leaving);
+    if (visibleToasts.length >= 5) {
+        const oldest = visibleToasts[0];
         if (oldest?.id !== undefined) {
             dismissToastForState(state, oldest.id);
         }
@@ -262,11 +277,8 @@ function toastPromise<T>(promise: Promise<T>, messages: PromiseMessages<T>): Toa
                 duration: 4200,
                 exitable: true,
                 createdAt: Date.now(),
-                remaining: 4200,
-                paused: false,
-                leaving: false
+                remaining: 4200
             });
-            scheduleToastRemoval(t.id, 4200, state);
         })
         .catch((err) => {
             if (t.id === undefined) {
@@ -287,11 +299,8 @@ function toastPromise<T>(promise: Promise<T>, messages: PromiseMessages<T>): Toa
                 duration: 4200,
                 exitable: true,
                 createdAt: Date.now(),
-                remaining: 4200,
-                paused: false,
-                leaving: false
+                remaining: 4200
             });
-            scheduleToastRemoval(t.id, 4200, state);
         });
 
     return t;

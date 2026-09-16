@@ -9,6 +9,8 @@
         class: className,
         disabled: disabledProp,
         'aria-label': ariaLabel,
+        oninput,
+        'aria-describedby': externalDescription,
         onblur,
         onkeydown,
         onpaste,
@@ -27,7 +29,11 @@
         };
     }
 
-    function handleInput(event: Event) {
+    function handleInput(event: Event & { currentTarget: EventTarget & HTMLInputElement }) {
+        oninput?.(event);
+        if (event.defaultPrevented || disabled) {
+            return;
+        }
         context.setDraft((event.currentTarget as HTMLInputElement).value);
     }
 
@@ -36,7 +42,7 @@
     ) {
         onkeydown?.(event);
 
-        if (event.defaultPrevented || disabled) {
+        if (event.defaultPrevented || event.isComposing || disabled) {
             return;
         }
 
@@ -156,7 +162,7 @@
     {placeholder}
     {disabled}
     aria-label={ariaLabel ?? (context.hasLabel ? undefined : placeholder)}
-    aria-describedby={context.describedBy}
+    aria-describedby={[externalDescription, context.describedBy].filter(Boolean).join(' ') || undefined}
     oninput={handleInput}
     onkeydown={handleKeydown}
     onpaste={handlePaste}

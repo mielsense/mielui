@@ -43,6 +43,8 @@ export const manifest: Manifest = {
         'utils.pushEscapeLayer'
     ],
     peerDependencies: {
+        cnfast: '0.0.8',
+        '@floating-ui/dom': '1.7.6',
         svelte: '^5.0.0'
     }
 };

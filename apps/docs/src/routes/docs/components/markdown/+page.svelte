@@ -59,6 +59,10 @@ const content = [
     <section id="usage" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Usage</Typography.H2>
         <Typography.Text variant="supporting">
+            Growing streamed blocks keep their rendered identity while their type and position
+            remain stable, preserving nested controls as text arrives.
+        </Typography.Text>
+        <Typography.Text variant="supporting">
             The GFM lexer supports tables, task lists, and strikethrough. Fenced code is rendered
             with Mielui{' '}
             <Typography.InlineCode>CodeBlock</Typography.InlineCode>

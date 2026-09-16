@@ -61,6 +61,11 @@ let tags = $state(['svelte']);
     <!-- ─── Usage ─────────────────────────────────────────────────── -->
     <section id="usage" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Usage</Typography.H2>
+        <Typography.Text>
+            Disabled Tag Input fields omit their hidden values from native form submission. Keyboard
+            composition does not commit tags. Native input callbacks run before internal handling
+            and can cancel it with preventDefault; external descriptions are preserved.
+        </Typography.Text>
         <Typography.Text variant="supporting">
             Bind{' '}
             <Typography.InlineCode>tags</Typography.InlineCode> for the tag list. Compose

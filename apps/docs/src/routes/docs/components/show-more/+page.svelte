@@ -45,6 +45,10 @@
     <section id="usage" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Usage</Typography.H2>
         <Typography.Text variant="supporting">
+            Keyboard focus entering the preview expands it so interactive content stays visible. The
+            toggle announces only its current action.
+        </Typography.Text>
+        <Typography.Text variant="supporting">
             The disclosure is shown only when content exceeds
             <Typography.InlineCode>lines</Typography.InlineCode>
             . Bind

@@ -14,6 +14,7 @@ export const manifest: Manifest = {
     components: [],
     shared: ['hugeicons-icon', 'utils.cn', 'transition'],
     peerDependencies: {
+        '@floating-ui/dom': '1.7.6',
         '@hugeicons/core-free-icons': '^4.3.0',
         cnfast: '^0.0.8',
         'tailwind-merge': '^3.0.0',

@@ -5,14 +5,12 @@
 
     let { children, class: classProp, variant = 'default', ...rest }: CardProps = $props();
     const card = $state({
-        variant,
+        get variant() {
+            return variant;
+        },
         footerSlot: undefined as CardFooterSlot | undefined
     });
     setCardContext(card);
-
-    $effect(() => {
-        card.variant = variant;
-    });
 </script>
 
 {#if variant === 'inset'}

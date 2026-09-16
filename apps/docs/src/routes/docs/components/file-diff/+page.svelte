@@ -66,6 +66,10 @@
     <section id="usage" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Usage</Typography.H2>
         <Typography.Text variant="supporting">
+            Each row announces whether its code was added, removed, or unchanged. When line numbers
+            are shown, the announcement includes the relevant source line.
+        </Typography.Text>
+        <Typography.Text variant="supporting">
             Pass a{' '}
             <Typography.InlineCode>diff</Typography.InlineCode> array for the high-level form, or
             compose

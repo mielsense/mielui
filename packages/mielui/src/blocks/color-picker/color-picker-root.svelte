@@ -14,7 +14,13 @@
         children
     }: ColorPickerProps = $props();
 
+    const labelId = $props.id();
+
     setColorPickerContext({
+        labelId,
+        get label() {
+            return label;
+        },
         get value() {
             return value;
         },
@@ -34,7 +40,7 @@
 
 <div class={cn(className, 'space-y-1')}>
     {#if label}
-        <p class="text-sm text-foreground-muted">{label}</p>
+        <p id={labelId} class="text-sm text-foreground-muted">{label}</p>
     {/if}
 
     <Popover.Root placement="bottom">{@render children?.()} </Popover.Root>

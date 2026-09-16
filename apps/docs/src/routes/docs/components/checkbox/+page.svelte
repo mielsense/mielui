@@ -58,6 +58,10 @@
     <!-- ─── Usage ─────────────────────────────────────────────────── -->
     <section id="usage" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Usage</Typography.H2>
+        <Typography.Text>
+            Native input attributes such as name, value, required, form, id, and aria-describedby
+            are forwarded to the checkbox input. A supplied description is linked automatically.
+        </Typography.Text>
 
         <CodeBlock
             code={`import { Checkbox } from '$lib/mielui/components/checkbox';\n\nlet checked = $state();\n\n<Checkbox bind:checked label="Accept" />`}

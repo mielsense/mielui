@@ -55,6 +55,11 @@
             minMatchCharLength: 1
         })
     );
+    $effect(() => {
+        const text = comboboxState.searchContent;
+        const results = text ? fuse.search(text).map((result) => result.item) : [];
+        comboboxState.results = new Set<ComboboxItem>(results);
+    });
     const available = $derived(
         comboboxState.searchContent
             ? Array.from(comboboxState.results)
@@ -155,6 +160,9 @@
     }
 
     function handleInputKeydown(event: KeyboardEvent) {
+        if (event.isComposing || event.defaultPrevented) {
+            return;
+        }
         const activeIndex = available.findIndex((item) => item.value === comboboxState.activeValue);
         if (
             event.key === 'ArrowDown' ||
@@ -244,7 +252,7 @@
         aria-autocomplete="list"
         aria-controls={`combobox-${id}-listbox`}
         aria-expanded={comboboxState.open}
-        aria-activedescendant={activeDescendant}
+        aria-activedescendant={comboboxState.open ? activeDescendant : undefined}
         onclick={(event) => {
             event.stopPropagation();
             if (isInputAppearance) {

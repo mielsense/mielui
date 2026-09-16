@@ -39,6 +39,10 @@
     <section id="usage" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Usage</Typography.H2>
         <Typography.Text variant="supporting">
+            Completion markers use a subtle scale and opacity change; task progress remains readable
+            during rapid updates.
+        </Typography.Text>
+        <Typography.Text variant="supporting">
             Set{' '}
             <Typography.InlineCode>current</Typography.InlineCode> to the running step. Values
             before it are complete; the array length means the whole run is complete.

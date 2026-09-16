@@ -37,6 +37,11 @@
     <section id="usage" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Usage</Typography.H2>
         <Typography.Text variant="supporting">
+            External changes to list membership or order cancel the active gesture. Cancel restores
+            the original order of items that still exist. It preserves updated item data and keeps
+            items added during the gesture.
+        </Typography.Text>
+        <Typography.Text variant="supporting">
             Bind the controlled array for live movement. Use
             <Typography.InlineCode>onCommit</Typography.InlineCode>
             for persistence so a drag writes once rather than on every crossing. Drag anywhere on a

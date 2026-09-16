@@ -57,6 +57,10 @@ let follow = $state(true);
     <section id="usage" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Usage</Typography.H2>
         <Typography.Text variant="supporting">
+            The scroll button runs your click handler first. Call preventDefault() to keep the
+            current scroll position and follow state.
+        </Typography.Text>
+        <Typography.Text variant="supporting">
             Give{' '}
             <Typography.InlineCode>Root</Typography.InlineCode> a bounded height so
             <Typography.InlineCode>Content</Typography.InlineCode>

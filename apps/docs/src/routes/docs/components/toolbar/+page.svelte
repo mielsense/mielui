@@ -40,6 +40,11 @@
 
     <section id="usage" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Usage</Typography.H2>
+        <Typography.Text>
+            Action buttons share one tab stop. Arrow keys move between enabled actions, following
+            aria-orientation and document direction; Home and End move to the first and last action.
+            Text inputs retain their native tab stops and editing keys.
+        </Typography.Text>
         <Typography.Text variant="supporting">
             Place Toolbar inside Textarea to create one composer surface. Give the Toolbar an
             accessible label that describes its actions.

@@ -17,7 +17,7 @@
     data-ui="message-actions"
     data-from={message.from}
     data-state={message.status}
-    role="toolbar"
+    role="group"
     aria-label={ariaLabel}
     class={cn(
         className,

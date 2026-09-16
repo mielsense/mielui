@@ -66,6 +66,11 @@
         {sign}
     </span>
     <span class="min-w-0 overflow-x-auto py-0.5 pr-4 whitespace-pre">
+        <span class="sr-only">
+            {type === 'add' ? 'Added' : type === 'remove' ? 'Removed' : 'Unchanged'}
+            {showLineNumbers && (newLine ?? oldLine) != null ? ` line ${type === 'remove' ? oldLine : (newLine ?? oldLine)}` : ''}
+            :
+        </span>
         {#if children}
             {@render children?.()}
         {:else}

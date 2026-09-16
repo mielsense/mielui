@@ -73,18 +73,15 @@
     }
 
     function tokenKey(token: MarkdownToken, index: number) {
-        return `${index}:${token.type}:${(token.raw ?? token.text ?? '').slice(0, 80)}`;
+        return `${index}:${token.type}`;
     }
 
-    function cellKey(cell: MarkdownTableCell, index: number) {
-        return `${index}:${(cell.text ?? '').slice(0, 80)}`;
+    function cellKey(_cell: MarkdownTableCell, index: number) {
+        return index;
     }
 
-    function rowKey(row: MarkdownTableCell[], index: number) {
-        return `${index}:${row
-            .map((cell) => cell.text ?? '')
-            .join('|')
-            .slice(0, 120)}`;
+    function rowKey(_row: MarkdownTableCell[], index: number) {
+        return index;
     }
 </script>
 
