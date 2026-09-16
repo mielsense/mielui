@@ -35,3 +35,8 @@ export const sanitizeComponent = (name: string) => {
         .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
         .join(' ');
 };
+
+export const navigationGroups = [
+    ...componentGroups,
+    { id: 'actions', heading: 'Actions', items: ['morph', 'shimmer'] }
+];

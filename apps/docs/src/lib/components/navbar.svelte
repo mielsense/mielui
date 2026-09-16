@@ -1,17 +1,20 @@
 <script lang="ts">
-    import Menu from '@lucide/svelte/icons/menu';
-    import Moon from '@lucide/svelte/icons/moon';
-    import Sun from '@lucide/svelte/icons/sun';
-    import X from '@lucide/svelte/icons/x';
+    import X from '@hugeicons/core-free-icons/Cancel01Icon';
+    import Menu from '@hugeicons/core-free-icons/Menu01Icon';
+    import Moon from '@hugeicons/core-free-icons/Moon02Icon';
+    import Sun from '@hugeicons/core-free-icons/Sun03Icon';
+    import { morph } from '@mielui/svelte/actions/morph';
     import Button from '@mielui/svelte/components/button';
     import * as Sheet from '@mielui/svelte/components/sheet';
+    import HugeiconsIcon from '@mielui/svelte/hugeicons-icon';
     import { mode, toggleMode } from 'mode-watcher';
     import { onMount } from 'svelte';
     import { resolve } from '$app/paths';
-    import { page } from '$app/stores';
+    import { page } from '$app/state';
     import GitHubBlack from '$lib/assets/GitHub_Invertocat_Black.svg';
     import GitHubWhite from '$lib/assets/GitHub_Invertocat_White.svg';
-    import { componentGroups, sanitizeComponent } from '$lib/components';
+    import { navigationGroups, sanitizeComponent } from '$lib/components';
+    import SearchButton from '$lib/components/search/trigger.svelte';
     import Logo from './logo.svelte';
     import Navbutton from './navbutton.svelte';
 
@@ -29,7 +32,7 @@
     let scrolled = $state(false);
     let mobileMenuOpen = $state(false);
     const isDocs = $derived(
-        $page.url.pathname.startsWith('/docs') || $page.url.pathname.startsWith('/fonts')
+        page.url.pathname.startsWith('/docs') || page.url.pathname.startsWith('/fonts')
     );
 
     const navItems = [
@@ -41,6 +44,7 @@
         { title: 'Introduction', href: resolve('/docs/introduction') },
         { title: 'Installation', href: resolve('/docs/installation') },
         { title: 'Theming', href: resolve('/docs/theming') },
+        { title: 'Agent skill', href: resolve('/docs/agent-skill') },
         { title: 'Changelog', href: resolve('/docs/changelog') },
         { title: 'Components', href: resolve('/docs/components') }
     ];
@@ -80,8 +84,9 @@
                     aria-label="Open navigation menu"
                     variant="quiet"
                     size="icon"
-                    ><Menu size={18} /></Sheet.Trigger
                 >
+                    <HugeiconsIcon icon={Menu} size={18} />
+                </Sheet.Trigger>
                 <a
                     href={resolve('/')}
                     class="font-semibold tracking-tight text-foreground no-underline md:hidden"
@@ -99,6 +104,7 @@
             </div>
 
             <div class="flex flex-row items-center gap-1.5">
+                <SearchButton />
                 <Button
                     class="size-9 rounded-[var(--radius-md)]"
                     variant="outline"
@@ -110,23 +116,12 @@
                         ? 'Switch to light mode'
                         : 'Switch to dark mode'}
                 >
-                    <span class="relative size-4" aria-hidden="true">
-                        <Sun
-                            size="16"
-                            class={`absolute inset-0 transition-[opacity,filter,scale] duration-300 ease-[cubic-bezier(0.2,0,0,1)] motion-reduce:transition-none ${
-                                mode.current === 'dark'
-                                    ? 'scale-[0.25] opacity-0 blur-[4px]'
-                                    : 'scale-100 opacity-100 blur-0'
-                            }`}
-                        />
-                        <Moon
-                            size="16"
-                            class={`absolute inset-0 transition-[opacity,filter,scale] duration-300 ease-[cubic-bezier(0.2,0,0,1)] motion-reduce:transition-none ${
-                                mode.current === 'dark'
-                                    ? 'scale-100 opacity-100 blur-0'
-                                    : 'scale-[0.25] opacity-0 blur-[4px]'
-                            }`}
-                        />
+                    <span
+                        class="inline-flex size-4"
+                        aria-hidden="true"
+                        use:morph={{ key: mode.current }}
+                    >
+                        <HugeiconsIcon icon={mode.current === 'dark' ? Moon : Sun} size={16} />
                     </span>
                 </Button>
                 <Button
@@ -137,11 +132,8 @@
                     rel="noreferrer"
                     aria-label="Star mielui on GitHub"
                 >
-                    <img
-                        src={mode.current === 'dark' ? GitHubWhite : GitHubBlack}
-                        alt="GitHub"
-                        class="size-4 flex items-center justify-center"
-                    />
+                    <img src={GitHubBlack} alt="" class="size-4 dark:hidden" />
+                    <img src={GitHubWhite} alt="" class="hidden size-4 dark:block" />
                     <span>{formatStarCount(starCount)}</span>
                 </Button>
             </div>
@@ -150,16 +142,19 @@
 
     <Sheet.Content side="left" class="p-0 md:hidden">
         <Sheet.Title class="sr-only">Browse mielui</Sheet.Title>
-        <Sheet.Description class="sr-only"
-            >Documentation and component categories.</Sheet.Description
-        >
+        <Sheet.Description class="sr-only">
+            Documentation and component categories.
+        </Sheet.Description>
         <header class="flex shrink-0 items-center justify-between px-3 py-3">
-            <a href={resolve('/')} class="font-semibold tracking-tight text-foreground no-underline"
-                >mielui</a
+            <a
+                href={resolve('/')}
+                class="font-semibold tracking-tight text-foreground no-underline"
             >
-            <Sheet.Close aria-label="Close navigation menu" variant="quiet" size="icon"
-                ><X size={18} /></Sheet.Close
-            >
+                mielui
+            </a>
+            <Sheet.Close aria-label="Close navigation menu" variant="quiet" size="icon">
+                <HugeiconsIcon icon={X} size={18} />
+            </Sheet.Close>
         </header>
 
         <div class="min-h-0 flex-1 overflow-y-auto px-3 py-4">
@@ -171,8 +166,9 @@
                         class="w-full justify-start"
                         onclick={() => { mobileMenuOpen = false; }}
                         href={item.href}
-                        >{item.label}</Button
                     >
+                        {item.label}
+                    </Button>
                 {/each}
             </section>
 
@@ -184,12 +180,13 @@
                         class="w-full justify-start"
                         onclick={() => { mobileMenuOpen = false; }}
                         href={item.href}
-                        >{item.title}</Button
                     >
+                        {item.title}
+                    </Button>
                 {/each}
             </section>
 
-            {#each componentGroups as group (group.id)}
+            {#each navigationGroups as group (group.id)}
                 <section class="mt-10 flex flex-col gap-2">
                     <h2 class="mb-2 text-sm text-foreground-muted">{group.heading}</h2>
                     {#each group.items as component (component)}
@@ -197,7 +194,7 @@
                             variant="quiet"
                             class="w-full justify-start"
                             onclick={() => { mobileMenuOpen = false; }}
-                            href={`/docs/components/${component}`}
+                            href={`/docs/${group.id === 'actions' ? 'actions' : 'components'}/${component}`}
                         >
                             {sanitizeComponent(component)}
                         </Button>

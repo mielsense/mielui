@@ -1,18 +1,21 @@
 <script lang="ts">
-    import ChevronRight from '@lucide/svelte/icons/chevron-right';
-    import Menu from '@lucide/svelte/icons/menu';
-    import Moon from '@lucide/svelte/icons/moon';
-    import Sun from '@lucide/svelte/icons/sun';
-    import X from '@lucide/svelte/icons/x';
+    import ChevronRight from '@hugeicons/core-free-icons/ArrowRight01Icon';
+    import X from '@hugeicons/core-free-icons/Cancel01Icon';
+    import Home from '@hugeicons/core-free-icons/Home01Icon';
+    import Menu from '@hugeicons/core-free-icons/Menu01Icon';
+    import Moon from '@hugeicons/core-free-icons/Moon02Icon';
+    import Sun from '@hugeicons/core-free-icons/Sun03Icon';
+    import { morph } from '@mielui/svelte/actions/morph';
     import { Button } from '@mielui/svelte/components/button';
     import * as Sheet from '@mielui/svelte/components/sheet';
+    import HugeiconsIcon from '@mielui/svelte/hugeicons-icon';
     import { mode, toggleMode } from 'mode-watcher';
     import { resolve } from '$app/paths';
     import { page } from '$app/state';
-
     import GitHubBlack from '$lib/assets/GitHub_Invertocat_Black.svg';
     import GitHubWhite from '$lib/assets/GitHub_Invertocat_White.svg';
-    import { componentGroups, sanitizeComponent } from '$lib/components';
+    import { navigationGroups, sanitizeComponent } from '$lib/components';
+    import SearchButton from '$lib/components/search/trigger.svelte';
     import Logo from '../logo.svelte';
 
     const { starCount = null }: { starCount?: number | null } = $props();
@@ -32,6 +35,7 @@
         { title: 'Introduction', href: resolve('/docs/introduction') },
         { title: 'Installation', href: resolve('/docs/installation') },
         { title: 'Theming', href: resolve('/docs/theming') },
+        { title: 'Agent skill', href: resolve('/docs/agent-skill') },
         { title: 'Changelog', href: resolve('/docs/changelog') },
         { title: 'Components', href: resolve('/docs/components') }
     ];
@@ -43,13 +47,13 @@
         const basePath = isDocsPath ? '/docs' : '';
         const category =
             segments[0] === 'components'
-                ? componentGroups.find((group) =>
+                ? navigationGroups.find((group) =>
                       group.items.some((component) => component === segments[1])
                   )
                 : undefined;
 
         return [
-            { href: '/', label: 'mielui' },
+            { href: '/', label: 'Home' },
             ...segments.map((segment, index) => ({
                 href:
                     index === 0 && category
@@ -77,6 +81,10 @@
             .join(' ');
     }
 
+    function closeMobileMenu() {
+        mobileMenuOpen = false;
+    }
+
     function formatStarCount(count: number | null): string {
         if (count === null || Number.isNaN(count)) {
             return 'Star';
@@ -94,53 +102,72 @@
 
 <Sheet.Root bind:open={mobileMenuOpen}>
     <header
-        class="z-20 mx-auto flex h-16 w-full max-w-[960px] items-center justify-between gap-4 px-2 sm:px-5 lg:px-10"
+        class="relative z-20 after:pointer-events-none after:absolute after:inset-x-0 after:top-full after:h-5 after:bg-linear-to-b after:from-background after:to-transparent mx-auto flex h-16 w-full items-center justify-between gap-4 px-3 sm:px-8 lg:px-10 xl:grid xl:grid-cols-[minmax(0,1fr)_13rem] xl:gap-16 xl:pr-14 2xl:gap-20 2xl:pr-16"
     >
-        <div class="flex min-w-0 items-center gap-2 sm:hidden">
-            <Sheet.Trigger
-                class="size-9 rounded-[var(--radius-md)]"
-                aria-label="Open navigation menu"
-                variant="quiet"
-                size="icon"
-                ><Menu size={18} /></Sheet.Trigger
+        <div class="mx-auto flex w-full min-w-0 max-w-[960px] items-center justify-between gap-4">
+            <div class="flex min-w-0 items-center gap-2 sm:hidden">
+                <Sheet.Trigger
+                    class="size-9 rounded-[var(--radius-md)]"
+                    aria-label="Open navigation menu"
+                    variant="quiet"
+                    size="icon"
+                >
+                    <HugeiconsIcon icon={Menu} size={18} />
+                </Sheet.Trigger>
+                <Logo />
+            </div>
+
+            <nav
+                aria-label="Breadcrumb"
+                class="mx-auto hidden w-full min-w-0 max-w-[960px] sm:block"
             >
-            <Logo />
+                <ol
+                    class="flex min-w-0 items-center gap-1 overflow-hidden text-sm text-foreground-muted [font-weight:var(--font-weight-label,500)]"
+                >
+                    {#each breadcrumbs as breadcrumb, index (breadcrumb.href)}
+                        <li class="flex min-w-0 items-center gap-1">
+                            {#if index < breadcrumbs.length - 1}
+                                <a
+                                    href={breadcrumb.href}
+                                    class="truncate transition-colors hover:text-foreground focus-visible:rounded-sm focus-visible:outline-none focus-visible:shadow-[var(--focus-ring)]"
+                                >
+                                    {#if index === 0}
+                                        <HugeiconsIcon icon={Home} size={16} />
+                                        <span class="sr-only">Home</span>
+                                    {:else}
+                                        {breadcrumb.label}
+                                    {/if}
+                                </a>
+                            {:else}
+                                <span class="truncate text-foreground" aria-current="page">
+                                    {breadcrumb.label}
+                                </span>
+                            {/if}
+                            {#if index < breadcrumbs.length - 1}
+                                <HugeiconsIcon
+                                    icon={ChevronRight}
+                                    size={14}
+                                    class="shrink-0"
+                                    aria-hidden="true"
+                                />
+                            {/if}
+                        </li>
+                    {/each}
+                </ol>
+            </nav>
+
+            <div class="flex shrink-0 items-center justify-end gap-1.5">
+                <SearchButton />
+                <Button
+                    class="h-9 rounded-[var(--radius-md)] px-2.5 text-[0.8125rem]"
+                    variant="outline"
+                    href={resolve('/studio')}
+                >
+                    Studio
+                </Button>
+            </div>
         </div>
-
-        <nav aria-label="Breadcrumb" class="hidden min-w-0 sm:block">
-            <ol
-                class="flex min-w-0 items-center gap-1 overflow-hidden text-sm text-foreground-muted [font-weight:var(--font-weight-label,500)]"
-            >
-                {#each breadcrumbs as breadcrumb, index (breadcrumb.href)}
-                    <li class="flex min-w-0 items-center gap-1">
-                        {#if index < breadcrumbs.length - 1}
-                            <a
-                                href={breadcrumb.href}
-                                class="truncate transition-colors hover:text-foreground focus-visible:rounded-sm focus-visible:outline-none focus-visible:shadow-[var(--focus-ring)]"
-                            >
-                                {breadcrumb.label}
-                            </a>
-                        {:else}
-                            <span class="truncate text-foreground" aria-current="page"
-                                >{breadcrumb.label}</span
-                            >
-                        {/if}
-                        {#if index < breadcrumbs.length - 1}
-                            <ChevronRight size={14} class="shrink-0" aria-hidden="true" />
-                        {/if}
-                    </li>
-                {/each}
-            </ol>
-        </nav>
-
-        <div class="flex shrink-0 items-center gap-1.5">
-            <Button
-                class="h-9 rounded-[var(--radius-md)] px-2.5 text-[0.8125rem]"
-                variant="outline"
-                href={resolve('/studio')}
-            >
-                Studio
-            </Button>
+        <div class="flex shrink-0 items-center gap-1.5 xl:justify-start">
             <Button
                 class="h-9 gap-1.5 rounded-[var(--radius-md)] px-2.5 text-[0.8125rem] tabular-nums"
                 variant="outline"
@@ -151,11 +178,8 @@
                     ? 'Star mielui on GitHub'
                     : `${formatStarCount(starCount)} GitHub stars`}
             >
-                <img
-                    src={mode.current === 'dark' ? GitHubWhite : GitHubBlack}
-                    alt=""
-                    class="size-[0.9375rem]"
-                />
+                <img src={GitHubBlack} alt="" class="size-[0.9375rem] dark:hidden" />
+                <img src={GitHubWhite} alt="" class="size-[0.9375rem] hidden dark:block" />
                 <span>{formatStarCount(starCount)}</span>
             </Button>
 
@@ -168,19 +192,12 @@
                 size="icon"
                 aria-label={mode.current === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
             >
-                <span class="relative block size-4" aria-hidden="true">
-                    <Sun
-                        size={16}
-                        class={mode.current === 'dark'
-                            ? 'absolute inset-0 scale-[0.25] opacity-0 blur-[4px] transition-[filter,opacity,scale] duration-300 ease-[cubic-bezier(0.2,0,0,1)] motion-reduce:transition-none'
-                            : 'absolute inset-0 transition-[filter,opacity,scale] duration-300 ease-[cubic-bezier(0.2,0,0,1)] motion-reduce:transition-none'}
-                    />
-                    <Moon
-                        size={16}
-                        class={mode.current === 'dark'
-                            ? 'absolute inset-0 transition-[filter,opacity,scale] duration-300 ease-[cubic-bezier(0.2,0,0,1)] motion-reduce:transition-none'
-                            : 'absolute inset-0 scale-[0.25] opacity-0 blur-[4px] transition-[filter,opacity,scale] duration-300 ease-[cubic-bezier(0.2,0,0,1)] motion-reduce:transition-none'}
-                    />
+                <span
+                    class="inline-flex size-4"
+                    aria-hidden="true"
+                    use:morph={{ key: mode.current }}
+                >
+                    <HugeiconsIcon icon={mode.current === 'dark' ? Moon : Sun} size={16} />
                 </span>
             </Button>
         </div>
@@ -188,16 +205,19 @@
 
     <Sheet.Content side="left" class="p-0 sm:hidden">
         <Sheet.Title class="sr-only">Browse mielui</Sheet.Title>
-        <Sheet.Description class="sr-only"
-            >Documentation and component categories.</Sheet.Description
-        >
+        <Sheet.Description class="sr-only">
+            Documentation and component categories.
+        </Sheet.Description>
         <header class="flex shrink-0 items-center justify-between px-3 py-3">
-            <a href={resolve('/')} class="font-semibold tracking-tight text-foreground no-underline"
-                >mielui</a
+            <a
+                href={resolve('/')}
+                class="font-semibold tracking-tight text-foreground no-underline"
             >
-            <Sheet.Close aria-label="Close navigation menu" variant="quiet" size="icon"
-                ><X size={18} /></Sheet.Close
-            >
+                mielui
+            </a>
+            <Sheet.Close aria-label="Close navigation menu" variant="quiet" size="icon">
+                <HugeiconsIcon icon={X} size={18} />
+            </Sheet.Close>
         </header>
 
         <div class="min-h-0 flex-1 overflow-y-auto px-3 py-4">
@@ -207,10 +227,11 @@
                     <Button
                         variant="quiet"
                         class="w-full justify-start"
-                        onclick={() => { mobileMenuOpen = false; }}
+                        onclick={closeMobileMenu}
                         href={item.href}
-                        >{item.label}</Button
                     >
+                        {item.label}
+                    </Button>
                 {/each}
             </section>
 
@@ -220,22 +241,23 @@
                     <Button
                         variant="quiet"
                         class="w-full justify-start"
-                        onclick={() => { mobileMenuOpen = false; }}
+                        onclick={closeMobileMenu}
                         href={item.href}
-                        >{item.title}</Button
                     >
+                        {item.title}
+                    </Button>
                 {/each}
             </section>
 
-            {#each componentGroups as group (group.id)}
+            {#each navigationGroups as group (group.id)}
                 <section class="mt-10 flex flex-col gap-2">
                     <h2 class="mb-2 text-sm text-foreground-muted">{group.heading}</h2>
                     {#each group.items as component (component)}
                         <Button
                             variant="quiet"
                             class="w-full justify-start"
-                            onclick={() => { mobileMenuOpen = false; }}
-                            href={`/docs/components/${component}`}
+                            onclick={closeMobileMenu}
+                            href={`/docs/${group.id === 'actions' ? 'actions' : 'components'}/${component}`}
                         >
                             {sanitizeComponent(component)}
                         </Button>

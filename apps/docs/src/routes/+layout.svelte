@@ -5,24 +5,29 @@
     import DocsToolbar from '$lib/components/docs/docs-toolbar.svelte';
     import SideNavbar from '$lib/components/docs/side-navbar.svelte';
     import Navbar from '$lib/components/navbar.svelte';
+    import { setSearch } from '$lib/components/search/context';
+    import SiteSearch from '$lib/components/search/palette.svelte';
     import '@mielui/svelte/ui.css';
     import '../app.css';
     import { injectAnalytics } from '@vercel/analytics/sveltekit';
     import { onMount, type Snippet } from 'svelte';
     import { dev } from '$app/environment';
     import { afterNavigate } from '$app/navigation';
-    import { page } from '$app/stores';
+    import { page } from '$app/state';
     import { DEFAULT_FONT, fonts, selectedFont } from '$lib/fonts.svelte';
 
     import type { LayoutData } from './$types';
+
+    const search = $state({ open: false });
+    setSearch(search);
 
     injectAnalytics({ mode: dev ? 'development' : 'production' });
 
     const { children, data }: { children: Snippet; data: LayoutData } = $props();
 
-    const isHome = $derived($page.url.pathname === '/');
-    const isDocs = $derived($page.url.pathname.startsWith('/docs'));
-    const isThemeStudio = $derived($page.url.pathname.startsWith('/studio'));
+    const isHome = $derived(page.url.pathname === '/');
+    const isDocs = $derived(page.url.pathname.startsWith('/docs'));
+    const isThemeStudio = $derived(page.url.pathname.startsWith('/studio'));
 
     // `--font-header` defaults to `var(--font-sans)`, so one custom property re-skins every page.
     $effect(() => {
@@ -43,6 +48,9 @@
     let docsScrollEl = $state<HTMLDivElement>();
 
     afterNavigate(() => {
+        if (window.location.hash) {
+            return;
+        }
         docsScrollEl?.scrollTo({ top: 0, behavior: 'instant' as ScrollBehavior });
         window.scrollTo({ top: 0, behavior: 'instant' as ScrollBehavior });
     });
@@ -50,10 +58,10 @@
 
 <svelte:head>
     <title>{dev ? 'mielui - Dev' : 'mielui'}</title>
-    <link rel="canonical" href={`${data.origin}${$page.url.pathname}`} />
+    <link rel="canonical" href={`${data.origin}${page.url.pathname}`} />
     <meta property="og:site_name" content="mielui" />
     <meta property="og:type" content="website" />
-    <meta property="og:url" content={`${data.origin}${$page.url.pathname}`} />
+    <meta property="og:url" content={`${data.origin}${page.url.pathname}`} />
     <meta property="og:image" content={`${data.origin}/og-default.png`} />
     <meta property="og:image:secure_url" content={`${data.origin}/og-default.png`} />
     <meta property="og:image:type" content="image/png" />
@@ -73,6 +81,7 @@
 
 <ModeWatcher />
 <Toaster />
+<SiteSearch />
 
 <main
     class={`w-screen bg-background ${isDocs ? 'h-[100svh] overflow-hidden p-0 sm:p-3' : isThemeStudio ? 'h-[100svh] overflow-hidden' : isHome ? 'h-[100svh] overflow-hidden' : 'min-h-screen p-3'}`}
@@ -86,7 +95,11 @@
             <SideNavbar class="hidden h-full w-[17.5rem] shrink-0 px-3 pt-5 lg:flex" />
             <div class="flex min-w-0 flex-1 flex-col overflow-hidden">
                 <DocsToolbar starCount={data?.starCount ?? null} />
-                <div bind:this={docsScrollEl} class="min-h-0 flex-1 overflow-y-auto">
+                <div
+                    bind:this={docsScrollEl}
+                    data-docs-scroll
+                    class="min-h-0 flex-1 overflow-y-auto"
+                >
                     {@render children?.()}
                 </div>
             </div>

@@ -1,18 +1,19 @@
 <script lang="ts">
     import { Button } from '@mielui/svelte/components/button';
     import { travelingHighlight } from '@mielui/svelte/utils';
-    import { page } from '$app/stores';
-    import { componentGroups, sanitizeComponent } from '$lib/components';
+    import { page } from '$app/state';
+    import { navigationGroups, sanitizeComponent } from '$lib/components';
     import Logo from '$lib/components/logo.svelte';
 
     let { class: classProp = '', onNavigate }: { class?: string; onNavigate?: () => void } =
         $props();
-    const pageName = $derived($page.url.pathname);
+    const pageName = $derived(page.url.pathname);
 
     const gettingStartedItems = [
         { href: '/docs/introduction', label: 'Introduction' },
         { href: '/docs/installation', label: 'Installation' },
         { href: '/docs/theming', label: 'Theming' },
+        { href: '/docs/agent-skill', label: 'Agent skill' },
         { href: '/docs/changelog', label: 'Changelog' },
         { href: '/studio', label: 'Studio' },
         { href: '/docs/components', label: 'Components' }
@@ -34,7 +35,10 @@
         <h3 class="px-2 text-xs text-foreground-muted [font-weight:var(--font-weight-label,500)]">
             Getting Started
         </h3>
-        <div use:travelingHighlight class="ml-2 flex flex-col border-l border-border pl-2">
+        <div
+            use:travelingHighlight
+            class="ml-2 flex flex-col border-l border-dashed border-border pl-2"
+        >
             {#each gettingStartedItems as item (item.href)}
                 {@const active = isActive(item.href)}
                 <Button
@@ -57,7 +61,7 @@
         </div>
     </section>
 
-    {#each componentGroups as group (group.id)}
+    {#each navigationGroups as group (group.id)}
         <section class="mt-5 flex flex-col gap-2">
             <div class="flex items-center justify-between px-2">
                 <h3
@@ -65,17 +69,20 @@
                 >
                     {group.heading}
                 </h3>
-                <span class="text-[11px] tabular-nums text-foreground-muted/70"
-                    >{group.items.length}</span
-                >
+                <span class="text-[11px] tabular-nums text-foreground-muted/70">
+                    {group.items.length}
+                </span>
             </div>
-            <div use:travelingHighlight class="ml-2 flex flex-col border-l border-border pl-2">
+            <div
+                use:travelingHighlight
+                class="ml-2 flex flex-col border-l border-dashed border-border pl-2"
+            >
                 {#each group.items as component (component)}
-                    {@const active = pageName === `/docs/components/${component}`}
+                    {@const active = pageName === `/docs/${group.id === 'actions' ? 'actions' : 'components'}/${component}`}
                     <Button
                         variant="quiet"
                         size="md"
-                        href={`/docs/components/${component}`}
+                        href={`/docs/${group.id === 'actions' ? 'actions' : 'components'}/${component}`}
                         onclick={onNavigate}
                         aria-current={active ? 'page' : undefined}
                         data-collection-item
