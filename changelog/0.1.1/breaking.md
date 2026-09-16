@@ -4,3 +4,5 @@
 - Replace standalone Toast usage with Toast.Root and its composable parts. Toast progress bars have been removed.
 
 - Renamed Shortcut to Kbd, including its import path and prop type.
+
+- Require Svelte 5.29 or newer for attachment support.

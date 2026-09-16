@@ -5,3 +5,15 @@
 - Slider adds pill-shaped handles, a two-handle range mode, and right-to-left support.
 
 - Group connects related controls with separators and optional text, in horizontal or vertical layouts.
+
+- Add Heatmap with composable calendar, labels, summary, detail, legend, and keyboard navigation.
+- Add Morph for SVG geometry transitions and text changes, including the theme switch.
+- Add optional glass surfaces to overlays, menus, tooltips, selection popups, and toasts.
+- Add a centered component preview and wide or narrow canvases to Theme Studio.
+- Animate Heatmap cells and Gauge arcs on entry, with reduced-motion support.
+
+- Add Table with default and inset variants, plus Native Select with grouped and multiple options.
+- Add the Shimmer action and a shimmer variant for Skeleton.
+- Add site-wide documentation search with Command-K and Control-K.
+
+- Add a glass Composer surface and a Thinking text example for Shimmer.

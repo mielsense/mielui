@@ -24,3 +24,43 @@ Slider keeps a number value by default. With range enabled, bind a typed [number
 ## Group composition
 
 Import Group as a namespace and compose Root, Separator and Text. Put a Separator between adjacent controls, including outline buttons. Root is an accessible group with normal Tab navigation, not a toolbar or toggle-selection manager. Label it with aria-label or aria-labelledby. For vertical groups set Root orientation="vertical" and Separator orientation="horizontal". Text defaults to a div; use as="label" and for to name an input. Nested Roots retain their own corner rounding and receive a gap.
+
+## Overlay surfaces and Alert layout
+
+Set surface="glass" on the Content part of Dialog, AlertDialog, Sheet, Popover, HoverCard, Tooltip, Command, Select, Combobox, ColorPicker, DropdownMenu, and ContextMenu. Set it separately on SubContent for submenus. Solid remains the default. Toast.Root accepts surface, and toast options accept the same value. The shared glass treatment belongs on the overlay frame; its inset child must stay translucent so an opaque card does not hide the blur.
+
+Alert keeps Root, Title, and Description. Description now occupies the upper inset and Title appears in the lower status row next to the icon. Do not add another opaque wrapper around these parts.
+
+## Hugeicons
+
+HugeiconsIcon is available from the package root or as the default export of @mielui/svelte/hugeicons-icon. Pass icon data from an @hugeicons/core-free-icons subpath. The renderer emits SVG children during SSR. Icon data is not a Svelte component, so render it through HugeiconsIcon instead of passing it to component-valued icon slots. Copied components need the shared renderer as well as the icon-data dependency.
+
+## Heatmap and Morph
+
+Heatmap's default rendering uses the same exported parts as custom compositions. Root children receive computed days and total. Grid children receive the computed day list; pass one of those days to Cell. Counts and levels use only visible dates, dates use UTC, duplicate dates use the final input entry, and missing dates become zero. Explicit endDate avoids a moving empty-data range.
+
+Morph is a Svelte action imported from @mielui/svelte/actions/morph. Apply use:morph={{ key, duration: 220 }} to a visual span inside an existing control. It samples SVG geometry with matching viewBox values and crossfades text or incompatible SVGs. Keep interactive controls and their accessible names outside the animated wrapper.
+
+## Heatmap entrance direction
+
+Heatmap.Root accepts animation="rows" | "columns" | "none", defaulting to rows. Reduced-motion preferences disable the entrance regardless of this value. Remount the example to replay; changing the animation selection in the docs also remounts the chart.
+
+## Glass inset contrast
+
+Glass overlays retain a darker translucent inset inside the frosted outer frame. Do not clear the inner panel background when composing Dialog, Command, Sheet, Toast, or Popover surfaces.
+
+## Documentation access
+
+Use /llms.txt to discover component, action, skill, and release-note Markdown. /llms-full.txt combines these references. The rendered component API tables and Markdown prop tables are extracted from component source types; regenerate them with the docs generate:api script when changing a contract.
+
+## Table, Native Select, and Skeleton
+
+Compose Table with Root, Header, Body, Footer, Row, Head, Cell, Caption, and an optional ScrollArea around Root. Root's inset variant changes presentation only. Use native scope and aria-sort attributes and compose sorting, selection, and pagination with existing controls. Table does not own those states.
+
+NativeSelect.Root wraps a real select element. Bind a string for a single selection and a string array when multiple is true. Its size prop is the native visible-row count, not a visual size name. Compose Option and OptGroup inside Root.
+
+Skeleton accepts variant="default" or variant="shimmer". The default remains static. The standalone shimmer action takes no options; apply it to a non-void visual container. It owns and removes an inert visual overlay, respects reduced motion, and stops its animation on destroy. Mielui now requires Svelte 5.29 or newer because Skeleton uses an attachment internally.
+
+Composer.Root also accepts surface="solid" or surface="glass". Keep Input and Toolbar as public parts; the glass frame retains the darker inset. Shimmer also detects plain-text containers and clips the moving highlight to their letters.
+
+Gauge preserves any positive finite max, including fractions. An invalid max falls back to 100; a non-finite value falls back to zero. Values are clamped to the effective range.

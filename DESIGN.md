@@ -145,3 +145,24 @@ theme. Revise in this order:
 7. Are semantics, focus, labels, contrast, and interaction states sound?
 
 Fix the highest-impact structural problem first, then inspect again.
+
+## Component reuse and interaction feedback
+
+Use Mielui's own components whenever they cover the interaction. Documentation,
+Studio, and examples should demonstrate the same components consumers install.
+Use Collapsible for disclosures, Command for search, Table for tabular data,
+and the existing Button, Badge, and input components instead of custom lookalikes.
+Compose or restyle existing parts before introducing another implementation.
+
+Add micro-interactions throughout the interface where users change state:
+expand and collapse disclosures, move selection indicators, acknowledge copying,
+and transition between icons. Keep controls a stable size and preserve focus.
+Motion should respond immediately, reverse or continue cleanly when interrupted,
+and clean up when a component unmounts.
+
+Reuse the component's built-in animation or Mielui's motion actions first.
+For interactions that need coordinated layout, springs, or presence transitions,
+prefer the Humanspeak Svelte Motion port. Check its current documentation before
+using an API. Simple hover and focus changes can remain Tailwind transitions.
+Respect reduced motion and the theme's motion settings. Do not delay input,
+navigation, or content visibility to finish an animation.

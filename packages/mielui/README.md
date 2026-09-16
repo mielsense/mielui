@@ -121,4 +121,4 @@ import {Button} from '@mielui/svelte/components/button'; import * as AlertDialog
 
 ## License
 
-[MIT](../../LICENSE) © Aidan Neel.
+Maintained by [mielsense](https://github.com/mielsense). [MIT](../../LICENSE). See [upstream attribution](../../UPSTREAM.md).
