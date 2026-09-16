@@ -105,6 +105,14 @@ export type {
     CodeBlockTriggerProps
 } from './blocks/code-block';
 export { CodeBlock } from './blocks/code-block';
+export type {
+    ColorFormat,
+    ColorOption,
+    ColorPickerProps
+} from './blocks/color-picker';
+export * as ColorPicker from './blocks/color-picker';
+export type { CommandItem, CommandItemProps, CommandProps } from './blocks/command';
+export * as Command from './blocks/command';
 export type { CopyButtonProps } from './blocks/copy-button';
 export { CopyButton } from './blocks/copy-button';
 export type {
@@ -121,12 +129,26 @@ export type {
 export * as FileDiff from './blocks/file-diff';
 export type { MarkdownProps } from './blocks/markdown';
 export { Markdown } from './blocks/markdown';
+export type { ReorderListProps } from './blocks/reorder-list';
+export { ReorderList } from './blocks/reorder-list';
 export type { ShowMoreProps } from './blocks/show-more';
 export { ShowMore } from './blocks/show-more';
 export type { TaskStep, TaskStepStatus, TaskStepsProps } from './blocks/task-steps';
 export { TaskSteps } from './blocks/task-steps';
+export type {
+    ToastAction,
+    ToastFn,
+    ToastState,
+    ToastType,
+    ToastUIState
+} from './blocks/toast';
+// Toast ships a component plus its imperative helpers.
+export { getToastUIState, Toast, Toaster, toast } from './blocks/toast';
 export type { ToolbarProps } from './blocks/toolbar';
 export { Toolbar } from './blocks/toolbar';
+export type { GaugeProps, GaugeTone } from './chart-components/gauge';
+export { Gauge } from './chart-components/gauge';
+export * as Heatmap from './chart-components/heatmap';
 export type {
     AccordionContentProps,
     AccordionItemProps,
@@ -177,16 +199,8 @@ export type {
     CollapsibleTriggerProps
 } from './components/collapsible';
 export * as Collapsible from './components/collapsible';
-export type {
-    ColorFormat,
-    ColorOption,
-    ColorPickerProps
-} from './blocks/color-picker';
-export * as ColorPicker from './blocks/color-picker';
 export type { ComboboxItem, ComboboxRootProps, ComboboxTriggerProps } from './components/combobox';
 export * as Combobox from './components/combobox';
-export type { CommandItem, CommandItemProps, CommandProps } from './blocks/command';
-export * as Command from './blocks/command';
 export type {
     ContextMenuCheckboxItemProps,
     ContextMenuContentProps,
@@ -222,8 +236,6 @@ export type {
     DropdownMenuRadioItemProps
 } from './components/dropdown-menu';
 export * as DropdownMenu from './components/dropdown-menu';
-export type { GaugeProps, GaugeTone } from './chart-components/gauge';
-export { Gauge } from './chart-components/gauge';
 export * as Group from './components/group';
 export type {
     HoverCardContentProps,
@@ -237,6 +249,7 @@ export type { KbdProps } from './components/kbd';
 export { Kbd } from './components/kbd';
 export type { LabelProps } from './components/label';
 export { Label } from './components/label';
+export * as NativeSelect from './components/native-select';
 export type { PaginationProps } from './components/pagination';
 export { Pagination } from './components/pagination';
 export type {
@@ -251,8 +264,6 @@ export type { ProgressProps } from './components/progress';
 export { Progress } from './components/progress';
 export type { RadioGroupItemProps, RadioGroupProps } from './components/radio-group';
 export * as RadioGroup from './components/radio-group';
-export type { ReorderListProps } from './blocks/reorder-list';
-export { ReorderList } from './blocks/reorder-list';
 export type { ScrollAreaProps } from './components/scroll-area';
 export { ScrollArea } from './components/scroll-area';
 export type { SelectItemProps, SelectProps, SelectValueProps } from './components/select';
@@ -276,6 +287,7 @@ export type { SpinnerProps } from './components/spinner';
 export { Spinner } from './components/spinner';
 export type { SwitchProps } from './components/switch';
 export { Switch } from './components/switch';
+export * as Table from './components/table';
 export type {
     TabsContentProps,
     TabsListProps,
@@ -296,15 +308,6 @@ export type {
 export * as TagInput from './components/tag-input';
 export type { TextareaProps } from './components/textarea';
 export { Textarea } from './components/textarea';
-export type {
-    ToastAction,
-    ToastFn,
-    ToastState,
-    ToastType,
-    ToastUIState
-} from './blocks/toast';
-// Toast ships a component plus its imperative helpers.
-export { getToastUIState, Toast, Toaster, toast } from './blocks/toast';
 export type { ToggleProps } from './components/toggle';
 export { Toggle } from './components/toggle';
 export type { ToggleGroupItemProps, ToggleGroupProps } from './components/toggle-group';
@@ -328,7 +331,4 @@ export type {
     TypographyTitleProps
 } from './components/typography';
 export * as Typography from './components/typography';
-
 export { default as HugeiconsIcon } from './hugeicons-icon.svelte';
-
-export * as Heatmap from './chart-components/heatmap';

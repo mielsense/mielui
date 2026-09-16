@@ -122,7 +122,7 @@ describe('rewriteImports', () => {
     });
 
     test('leaves unrelated imports alone', () => {
-        const source = "import Search from '@lucide/svelte/icons/search';";
+        const source = "import Search from '@hugeicons/core-free-icons/Search01Icon';";
         expect(rewriteImports(source, '$lib/mielui')).toBe(source);
     });
 });

@@ -19,6 +19,7 @@
         "input",
         "kbd",
         "label",
+        "native-select",
         "pagination",
         "popover",
         "progress",
@@ -30,6 +31,7 @@
         "slider",
         "spinner",
         "switch",
+        "table",
         "tabs",
         "tag-input",
         "textarea",
@@ -61,8 +63,5 @@
         "response-stream",
         "tool"
     ],
-    "chart-components": [
-        "gauge",
-        "heatmap"
-    ]
+    "chart-components": ["gauge", "heatmap"]
 }

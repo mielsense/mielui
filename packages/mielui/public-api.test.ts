@@ -1,7 +1,7 @@
 /**
  * Phase 2 §1 — lock the public API.
  *
- * Frozen catalog: 57 components. Named exports hang off the package root as
+ * Frozen catalog: 60 components. Named exports hang off the package root as
  * identifiers; namespace exports hang off a PascalCase object (AlertDialog.Root).
  * Every public component is also reachable at @mielui/svelte/components/<slug>.
  */
@@ -58,6 +58,21 @@ const NAMED = {
 
 /** Compound components: `import { Dialog } from '@mielui/svelte'` then `<Dialog.Root>`. */
 const NAMESPACED = {
+    table: ['Root', 'ScrollArea', 'Header', 'Body', 'Footer', 'Row', 'Head', 'Cell', 'Caption'],
+    'native-select': ['Root', 'Option', 'OptGroup'],
+    heatmap: [
+        'Root',
+        'Header',
+        'Summary',
+        'Calendar',
+        'MonthLabels',
+        'WeekdayLabels',
+        'Grid',
+        'Cell',
+        'Detail',
+        'Legend',
+        'Footer'
+    ],
     group: ['Root', 'Separator', 'Text'],
     accordion: ['Root', 'Item', 'Trigger', 'Content'],
     alert: ['Root', 'Title', 'Description'],
@@ -228,9 +243,9 @@ function parseExportedNames(source: string): string[] {
 }
 
 describe('public API contract (v1 freeze)', () => {
-    test('frozen catalog is exactly 57 components with no overlap', () => {
-        expect(FROZEN).toHaveLength(57);
-        expect(new Set(FROZEN).size).toBe(57);
+    test('frozen catalog is exactly 60 components with no overlap', () => {
+        expect(FROZEN).toHaveLength(60);
+        expect(new Set(FROZEN).size).toBe(60);
         for (const slug of Object.keys(NAMED)) {
             expect(NAMESPACED).not.toHaveProperty(slug);
         }
@@ -310,7 +325,11 @@ describe('public API contract (v1 freeze)', () => {
             svelte: './dist/svelte/components/*/index.js',
             default: './dist/svelte/components/*/index.js'
         });
-        for (const slug of [...categories['ai-components'], ...categories.blocks]) {
+        for (const slug of [
+            ...categories['ai-components'],
+            ...categories.blocks,
+            ...categories['chart-components']
+        ]) {
             expect(packageJson.exports[`./components/${slug}`]).toMatchObject({
                 types: `./dist/svelte/${categoryFor(slug)}/${slug}/index.d.ts`,
                 svelte: `./dist/svelte/${categoryFor(slug)}/${slug}/index.js`,
