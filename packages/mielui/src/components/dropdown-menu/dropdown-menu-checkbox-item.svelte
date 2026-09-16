@@ -1,8 +1,8 @@
 <script lang="ts">
-    import HugeiconsIcon from '../../hugeicons-icon.svelte';
-    import Check from '@hugeicons/core-free-icons/Tick02Icon';
+    import { Tick02Icon as Check } from '@hugeicons/core-free-icons';
     import { Button } from '@mielui/svelte/components/button';
     import { closeMenuLayers, cn } from '@mielui/svelte/utils';
+    import HugeiconsIcon from '../../hugeicons-icon.svelte';
     import { getPopoverContext } from '../popover/context.svelte';
     import type { DropdownMenuCheckboxItemProps } from '.';
     import { getDropdownMenuContext } from './context.svelte';

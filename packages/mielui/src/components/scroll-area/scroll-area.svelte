@@ -1,8 +1,10 @@
 <script lang="ts">
-    import HugeiconsIcon from '../../hugeicons-icon.svelte';
-    import ChevronDown from '@hugeicons/core-free-icons/ArrowDown01Icon';
-    import ChevronUp from '@hugeicons/core-free-icons/ArrowUp01Icon';
+    import {
+        ArrowDown01Icon as ChevronDown,
+        ArrowUp01Icon as ChevronUp
+    } from '@hugeicons/core-free-icons';
     import { cn } from '@mielui/svelte/utils';
+    import HugeiconsIcon from '../../hugeicons-icon.svelte';
     import type { ScrollAreaProps } from '.';
 
     let {

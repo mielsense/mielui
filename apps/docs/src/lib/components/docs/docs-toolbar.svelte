@@ -1,10 +1,12 @@
 <script lang="ts">
-    import ChevronRight from '@hugeicons/core-free-icons/ArrowRight01Icon';
-    import X from '@hugeicons/core-free-icons/Cancel01Icon';
-    import Home from '@hugeicons/core-free-icons/Home01Icon';
-    import Menu from '@hugeicons/core-free-icons/Menu01Icon';
-    import Moon from '@hugeicons/core-free-icons/Moon02Icon';
-    import Sun from '@hugeicons/core-free-icons/Sun03Icon';
+    import {
+        ArrowRight01Icon as ChevronRight,
+        Home01Icon as Home,
+        Menu01Icon as Menu,
+        Moon02Icon as Moon,
+        Sun03Icon as Sun,
+        Cancel01Icon as X
+    } from '@hugeicons/core-free-icons';
     import { morph } from '@mielui/svelte/actions/morph';
     import { Button } from '@mielui/svelte/components/button';
     import * as Sheet from '@mielui/svelte/components/sheet';

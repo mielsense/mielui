@@ -1,8 +1,10 @@
 <script lang="ts">
-    import Plus from '@hugeicons/core-free-icons/Add01Icon';
-    import Search from '@hugeicons/core-free-icons/Search01Icon';
-    import Settings from '@hugeicons/core-free-icons/Settings01Icon';
-    import Users from '@hugeicons/core-free-icons/UserGroupIcon';
+    import {
+        Add01Icon as Plus,
+        Search01Icon as Search,
+        Settings01Icon as Settings,
+        UserGroupIcon as Users
+    } from '@hugeicons/core-free-icons';
     import * as Command from '@mielui/svelte/components/command';
     import HugeiconsIcon from '@mielui/svelte/hugeicons-icon';
 </script>

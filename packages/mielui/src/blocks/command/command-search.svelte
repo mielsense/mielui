@@ -1,9 +1,9 @@
 <script lang="ts">
-    import HugeiconsIcon from '../../hugeicons-icon.svelte';
-    import Search from '@hugeicons/core-free-icons/Search01Icon';
+    import { Search01Icon as Search } from '@hugeicons/core-free-icons';
     import { cn } from '@mielui/svelte/utils';
     import { onMount } from 'svelte';
     import type { HTMLInputAttributes } from 'svelte/elements';
+    import HugeiconsIcon from '../../hugeicons-icon.svelte';
     import { getCommandContext, getCommandResults } from './context.svelte';
     import { DEFAULT_COMMAND_SEARCH_THRESHOLD, searchCommandItems } from './search';
 

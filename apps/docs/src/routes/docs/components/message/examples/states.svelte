@@ -1,5 +1,5 @@
 <script lang="ts">
-    import RotateCcw from '@hugeicons/core-free-icons/RotateLeft01Icon';
+    import { RotateLeft01Icon as RotateCcw } from '@hugeicons/core-free-icons';
     import { Button } from '@mielui/svelte/components/button';
     import { Markdown } from '@mielui/svelte/components/markdown';
     import * as Message from '@mielui/svelte/components/message';

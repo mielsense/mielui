@@ -1,11 +1,13 @@
 <script lang="ts">
-    import ChevronDown from '@hugeicons/core-free-icons/ArrowDown01Icon';
-    import CreditCard from '@hugeicons/core-free-icons/CreditCardIcon';
-    import Folder from '@hugeicons/core-free-icons/FolderGitTwoIcon';
-    import HelpCircle from '@hugeicons/core-free-icons/HelpCircleIcon';
-    import LogOut from '@hugeicons/core-free-icons/Logout01Icon';
-    import Settings from '@hugeicons/core-free-icons/Settings01Icon';
-    import User from '@hugeicons/core-free-icons/UserIcon';
+    import {
+        ArrowDown01Icon as ChevronDown,
+        CreditCardIcon as CreditCard,
+        FolderGitTwoIcon as Folder,
+        HelpCircleIcon as HelpCircle,
+        Logout01Icon as LogOut,
+        Settings01Icon as Settings,
+        UserIcon as User
+    } from '@hugeicons/core-free-icons';
     import * as DropdownMenu from '@mielui/svelte/components/dropdown-menu';
     import HugeiconsIcon from '@mielui/svelte/hugeicons-icon';
 </script>

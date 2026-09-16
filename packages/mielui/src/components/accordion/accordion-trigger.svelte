@@ -1,8 +1,8 @@
 <script lang="ts">
-    import HugeiconsIcon from '../../hugeicons-icon.svelte';
-    import ChevronDown from '@hugeicons/core-free-icons/ArrowDown01Icon';
+    import { ArrowDown01Icon as ChevronDown } from '@hugeicons/core-free-icons';
     import { cn, pressable } from '@mielui/svelte/utils';
     import { getContext } from 'svelte';
+    import HugeiconsIcon from '../../hugeicons-icon.svelte';
     import type { AccordionContext, AccordionTriggerProps } from '.';
 
     let { class: className, children, ...rest }: AccordionTriggerProps = $props();

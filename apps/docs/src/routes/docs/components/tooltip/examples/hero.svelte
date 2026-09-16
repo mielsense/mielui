@@ -1,10 +1,12 @@
 <script lang="ts">
-    import MessageCircle from '@hugeicons/core-free-icons/BubbleChatIcon';
-    import Frame from '@hugeicons/core-free-icons/FrameIcon';
-    import MousePointer2 from '@hugeicons/core-free-icons/MousePointer01Icon';
-    import PenTool from '@hugeicons/core-free-icons/PenTool01Icon';
-    import Square from '@hugeicons/core-free-icons/SquareIcon';
-    import Type from '@hugeicons/core-free-icons/TextFontIcon';
+    import {
+        FrameIcon as Frame,
+        BubbleChatIcon as MessageCircle,
+        MousePointer01Icon as MousePointer2,
+        PenTool01Icon as PenTool,
+        SquareIcon as Square,
+        TextFontIcon as Type
+    } from '@hugeicons/core-free-icons';
     import Kbd from '@mielui/svelte/components/kbd';
     import * as Tooltip from '@mielui/svelte/components/tooltip';
     import HugeiconsIcon from '@mielui/svelte/hugeicons-icon';

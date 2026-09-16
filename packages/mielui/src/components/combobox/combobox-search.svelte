@@ -1,8 +1,8 @@
 <script lang="ts">
-    import HugeiconsIcon from '../../hugeicons-icon.svelte';
-    import Search from '@hugeicons/core-free-icons/Search01Icon';
+    import { Search01Icon as Search } from '@hugeicons/core-free-icons';
     import Fuse from 'fuse.js';
     import { tick } from 'svelte';
+    import HugeiconsIcon from '../../hugeicons-icon.svelte';
     import type { ComboboxItem } from '.';
     import { getComboboxContext } from './context.svelte';
 

@@ -1,6 +1,5 @@
 <script lang="ts">
-    import ArrowLeft01Icon from '@hugeicons/core-free-icons/ArrowLeft01Icon';
-    import ArrowRight01Icon from '@hugeicons/core-free-icons/ArrowRight01Icon';
+    import { ArrowLeft01Icon, ArrowRight01Icon } from '@hugeicons/core-free-icons';
     import { Button } from '@mielui/svelte/components/button';
     import * as Group from '@mielui/svelte/components/group';
     import HugeiconsIcon from '@mielui/svelte/hugeicons-icon';

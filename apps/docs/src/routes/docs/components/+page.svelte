@@ -1,6 +1,8 @@
 <script lang="ts">
-    import ArrowRight from '@hugeicons/core-free-icons/ArrowRight02Icon';
-    import Search from '@hugeicons/core-free-icons/Search01Icon';
+    import {
+        ArrowRight02Icon as ArrowRight,
+        Search01Icon as Search
+    } from '@hugeicons/core-free-icons';
     import { Button } from '@mielui/svelte/components/button';
     import * as Combobox from '@mielui/svelte/components/combobox';
     import * as Typography from '@mielui/svelte/components/typography';

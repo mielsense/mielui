@@ -1,8 +1,10 @@
 <script lang="ts">
-    import ChevronDown from '@hugeicons/core-free-icons/ArrowDown01Icon';
-    import ShieldCheck from '@hugeicons/core-free-icons/ShieldCheckIcon';
-    import Check from '@hugeicons/core-free-icons/Tick02Icon';
-    import Workflow from '@hugeicons/core-free-icons/WorkflowSquare01Icon';
+    import {
+        Tick02Icon as Check,
+        ArrowDown01Icon as ChevronDown,
+        ShieldCheckIcon as ShieldCheck,
+        WorkflowSquare01Icon as Workflow
+    } from '@hugeicons/core-free-icons';
     import * as Composer from '@mielui/svelte/components/composer';
     import * as DropdownMenu from '@mielui/svelte/components/dropdown-menu';
     import * as Select from '@mielui/svelte/components/select';

@@ -1,7 +1,9 @@
 <script lang="ts">
-    import AlignCenter from '@hugeicons/core-free-icons/TextAlignCenterIcon';
-    import AlignLeft from '@hugeicons/core-free-icons/TextAlignLeftIcon';
-    import AlignRight from '@hugeicons/core-free-icons/TextAlignRightIcon';
+    import {
+        TextAlignCenterIcon as AlignCenter,
+        TextAlignLeftIcon as AlignLeft,
+        TextAlignRightIcon as AlignRight
+    } from '@hugeicons/core-free-icons';
     import * as ToggleGroup from '@mielui/svelte/components/toggle-group';
     import HugeiconsIcon from '@mielui/svelte/hugeicons-icon';
 </script>

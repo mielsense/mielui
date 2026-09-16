@@ -1,6 +1,8 @@
 <script lang="ts">
-    import ChevronDown from '@hugeicons/core-free-icons/ArrowDown01Icon';
-    import Check from '@hugeicons/core-free-icons/Tick02Icon';
+    import {
+        Tick02Icon as Check,
+        ArrowDown01Icon as ChevronDown
+    } from '@hugeicons/core-free-icons';
     import * as DropdownMenu from '@mielui/svelte/components/dropdown-menu';
     import HugeiconsIcon from '@mielui/svelte/hugeicons-icon';
 

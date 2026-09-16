@@ -1,9 +1,9 @@
 <script lang="ts">
-    import HugeiconsIcon from '../../hugeicons-icon.svelte';
-    import Check from '@hugeicons/core-free-icons/Tick02Icon';
+    import { Tick02Icon as Check } from '@hugeicons/core-free-icons';
     import { Button, type ButtonProps } from '@mielui/svelte/components/button';
     import { cn } from '@mielui/svelte/utils';
     import { onMount } from 'svelte';
+    import HugeiconsIcon from '../../hugeicons-icon.svelte';
     import { getPopoverContext } from '../popover/context.svelte';
     import type { ComboboxItem } from '.';
     import { getComboboxContext } from './context.svelte';

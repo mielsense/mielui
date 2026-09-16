@@ -1,7 +1,9 @@
 <script lang="ts">
-    import ArrowDownIcon from '@hugeicons/core-free-icons/ArrowDown01Icon';
-    import CopyIcon from '@hugeicons/core-free-icons/Copy01Icon';
-    import CheckIcon from '@hugeicons/core-free-icons/Tick02Icon';
+    import {
+        ArrowDown01Icon as ArrowDownIcon,
+        Tick02Icon as CheckIcon,
+        Copy01Icon as CopyIcon
+    } from '@hugeicons/core-free-icons';
     import { Button } from '@mielui/svelte/components/button';
     import * as Group from '@mielui/svelte/components/group';
     import * as Popover from '@mielui/svelte/components/popover';

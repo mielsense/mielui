@@ -1,5 +1,5 @@
 <script lang="ts">
-    import External from '@hugeicons/core-free-icons/LinkSquare02Icon';
+    import { LinkSquare02Icon as External } from '@hugeicons/core-free-icons';
     import { Button } from '@mielui/svelte/components/button';
     import HugeiconsIcon from '@mielui/svelte/hugeicons-icon';
 </script>

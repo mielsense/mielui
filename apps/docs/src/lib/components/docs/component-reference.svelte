@@ -1,5 +1,5 @@
 <script lang="ts">
-    import Chevron from '@hugeicons/core-free-icons/ArrowRight01Icon';
+    import { ArrowRight01Icon as Chevron } from '@hugeicons/core-free-icons';
     import * as Collapsible from '@mielui/svelte/components/collapsible';
     import HugeiconsIcon from '@mielui/svelte/hugeicons-icon';
     import type { ComponentPart } from '$lib/component-anatomy';

@@ -3,10 +3,12 @@
 </script>
 
 <script lang="ts">
-    import Accessibility from '@hugeicons/core-free-icons/AccessibilityIcon';
-    import ChevronRight from '@hugeicons/core-free-icons/ArrowRight01Icon';
-    import FileCode from '@hugeicons/core-free-icons/FileScriptIcon';
-    import MessageSquareWarning from '@hugeicons/core-free-icons/MessageCircleWarningIcon';
+    import {
+        AccessibilityIcon as Accessibility,
+        ArrowRight01Icon as ChevronRight,
+        FileScriptIcon as FileCode,
+        MessageCircleWarningIcon as MessageSquareWarning
+    } from '@hugeicons/core-free-icons';
     import { Badge } from '@mielui/svelte/components/badge';
     import * as Breadcrumb from '@mielui/svelte/components/breadcrumb';
     import HugeiconsIcon from '@mielui/svelte/hugeicons-icon';

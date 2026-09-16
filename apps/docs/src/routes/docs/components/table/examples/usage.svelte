@@ -2,7 +2,7 @@
     import * as Table from '@mielui/svelte/components/table';
 </script>
 
-<Table.ScrollArea tabindex="0" aria-label="Invoices">
+<Table.ScrollArea tabindex={0} aria-label="Invoices">
     <Table.Root variant="inset">
         <Table.Caption>September invoices</Table.Caption>
         <Table.Header>

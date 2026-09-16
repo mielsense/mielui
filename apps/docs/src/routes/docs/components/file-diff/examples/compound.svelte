@@ -1,5 +1,5 @@
 <script lang="ts">
-    import Expand from '@hugeicons/core-free-icons/ArrowExpandIcon';
+    import { ArrowExpandIcon as Expand } from '@hugeicons/core-free-icons';
     import { Button } from '@mielui/svelte/components/button';
     import * as FileDiff from '@mielui/svelte/components/file-diff';
     import HugeiconsIcon from '@mielui/svelte/hugeicons-icon';

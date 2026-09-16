@@ -1,8 +1,8 @@
 <script lang="ts">
-    import HugeiconsIcon from '../../hugeicons-icon.svelte';
-    import ChevronDown from '@hugeicons/core-free-icons/ArrowDown01Icon';
+    import { ArrowDown01Icon as ChevronDown } from '@hugeicons/core-free-icons';
     import { Button } from '@mielui/svelte/components/button';
     import { cn } from '@mielui/svelte/utils';
+    import HugeiconsIcon from '../../hugeicons-icon.svelte';
     import type { ReasoningTriggerProps } from '.';
     import { getReasoningContext } from './context.svelte';
 

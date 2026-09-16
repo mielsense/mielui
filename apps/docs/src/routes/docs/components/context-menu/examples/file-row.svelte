@@ -1,7 +1,9 @@
 <script lang="ts">
-    import Trash from '@hugeicons/core-free-icons/Delete02Icon';
-    import FolderOpen from '@hugeicons/core-free-icons/FolderOpenIcon';
-    import Pencil from '@hugeicons/core-free-icons/PencilEdit01Icon';
+    import {
+        FolderOpenIcon as FolderOpen,
+        PencilEdit01Icon as Pencil,
+        Delete02Icon as Trash
+    } from '@hugeicons/core-free-icons';
     import * as ContextMenu from '@mielui/svelte/components/context-menu';
     import HugeiconsIcon from '@mielui/svelte/hugeicons-icon';
 </script>

@@ -1,5 +1,5 @@
 <script lang="ts">
-    import Check from '@hugeicons/core-free-icons/Tick02Icon';
+    import { Tick02Icon as Check } from '@hugeicons/core-free-icons';
     import * as DropdownMenu from '@mielui/svelte/components/dropdown-menu';
     import HugeiconsIcon from '@mielui/svelte/hugeicons-icon';
 

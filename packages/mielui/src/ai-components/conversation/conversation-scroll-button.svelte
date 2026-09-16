@@ -1,7 +1,7 @@
 <script lang="ts">
-    import HugeiconsIcon from '../../hugeicons-icon.svelte';
-    import ArrowDown from '@hugeicons/core-free-icons/ArrowDown02Icon';
+    import { ArrowDown02Icon as ArrowDown } from '@hugeicons/core-free-icons';
     import { cn, pressable } from '@mielui/svelte/utils';
+    import HugeiconsIcon from '../../hugeicons-icon.svelte';
     import type { ConversationScrollButtonProps } from '.';
     import { getConversationContext } from './context.svelte';
 

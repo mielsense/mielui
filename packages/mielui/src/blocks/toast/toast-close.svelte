@@ -1,8 +1,8 @@
 <script lang="ts">
-    import HugeiconsIcon from '../../hugeicons-icon.svelte';
-    import X from '@hugeicons/core-free-icons/Cancel01Icon';
+    import { Cancel01Icon as X } from '@hugeicons/core-free-icons';
     import { cn } from '@mielui/svelte/utils';
     import type { HTMLButtonAttributes } from 'svelte/elements';
+    import HugeiconsIcon from '../../hugeicons-icon.svelte';
     import { getToastContext } from './context.svelte';
 
     let { children, class: className, onclick, ...rest }: HTMLButtonAttributes = $props();

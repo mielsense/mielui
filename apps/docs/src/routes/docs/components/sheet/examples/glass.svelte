@@ -1,11 +1,13 @@
 <script lang="ts">
-    import CircleAlert from '@hugeicons/core-free-icons/AlertCircleIcon';
-    import Circle from '@hugeicons/core-free-icons/CircleIcon';
-    import SquarePen from '@hugeicons/core-free-icons/Edit01Icon';
-    import Minus from '@hugeicons/core-free-icons/MinusSignIcon';
-    import SignalHigh from '@hugeicons/core-free-icons/SignalHighIcon';
-    import SignalLow from '@hugeicons/core-free-icons/SignalLow01Icon';
-    import SignalMedium from '@hugeicons/core-free-icons/SignalMedium01Icon';
+    import {
+        CircleIcon as Circle,
+        AlertCircleIcon as CircleAlert,
+        MinusSignIcon as Minus,
+        SignalHighIcon as SignalHigh,
+        SignalLow01Icon as SignalLow,
+        SignalMedium01Icon as SignalMedium,
+        Edit01Icon as SquarePen
+    } from '@hugeicons/core-free-icons';
     import * as Avatar from '@mielui/svelte/components/avatar';
     import { Button } from '@mielui/svelte/components/button';
     import { Input } from '@mielui/svelte/components/input';

@@ -1,5 +1,5 @@
 <script lang="ts">
-    import ArrowLeft from '@hugeicons/core-free-icons/ArrowLeft02Icon';
+    import { ArrowLeft02Icon as ArrowLeft } from '@hugeicons/core-free-icons';
     import { Button } from '@mielui/svelte/components/button';
     import HugeiconsIcon from '@mielui/svelte/hugeicons-icon';
     import { resolve } from '$app/paths';

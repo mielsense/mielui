@@ -1,8 +1,8 @@
 <script lang="ts">
-    import HugeiconsIcon from '../../hugeicons-icon.svelte';
-    import X from '@hugeicons/core-free-icons/Cancel01Icon';
+    import { Cancel01Icon as X } from '@hugeicons/core-free-icons';
     import Button from '@mielui/svelte/components/button';
     import { cn } from '@mielui/svelte/utils';
+    import HugeiconsIcon from '../../hugeicons-icon.svelte';
     import type { SheetHeaderProps } from '.';
     import { getSheetContext } from './context.svelte';
 

@@ -1,8 +1,10 @@
 <script lang="ts">
-    import ArrowUp from '@hugeicons/core-free-icons/ArrowUp02Icon';
-    import AtSign from '@hugeicons/core-free-icons/AtIcon';
-    import ImagePlus from '@hugeicons/core-free-icons/ImageAdd01Icon';
-    import SmilePlus from '@hugeicons/core-free-icons/SmileIcon';
+    import {
+        ArrowUp02Icon as ArrowUp,
+        AtIcon as AtSign,
+        ImageAdd01Icon as ImagePlus,
+        SmileIcon as SmilePlus
+    } from '@hugeicons/core-free-icons';
     import { Button } from '@mielui/svelte/components/button';
     import * as DropdownMenu from '@mielui/svelte/components/dropdown-menu';
     import { Textarea } from '@mielui/svelte/components/textarea';

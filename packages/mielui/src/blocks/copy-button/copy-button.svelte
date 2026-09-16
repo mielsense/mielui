@@ -1,11 +1,10 @@
 <script lang="ts">
-    import HugeiconsIcon from '../../hugeicons-icon.svelte';
-    import Check from '@hugeicons/core-free-icons/Tick02Icon';
-    import Copy from '@hugeicons/core-free-icons/Copy01Icon';
+    import { Tick02Icon as Check, Copy01Icon as Copy } from '@hugeicons/core-free-icons';
     import { Button } from '@mielui/svelte/components/button';
     import * as Tooltip from '@mielui/svelte/components/tooltip';
     import { cn } from '@mielui/svelte/utils';
     import { onDestroy } from 'svelte';
+    import HugeiconsIcon from '../../hugeicons-icon.svelte';
     import type { CopyButtonProps } from '.';
 
     let {

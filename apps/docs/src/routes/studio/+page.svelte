@@ -1,18 +1,20 @@
 <script lang="ts">
-    import Plus from '@hugeicons/core-free-icons/Add01Icon';
-    import ChevronDown from '@hugeicons/core-free-icons/ArrowDown01Icon';
-    import Palette from '@hugeicons/core-free-icons/ColorPickerIcon';
-    import CreditCard from '@hugeicons/core-free-icons/CreditCardIcon';
-    import FileText from '@hugeicons/core-free-icons/File01Icon';
-    import LayoutDashboard from '@hugeicons/core-free-icons/LayoutDashboardIcon';
-    import LifeBuoy from '@hugeicons/core-free-icons/LifebuoyIcon';
-    import LogOut from '@hugeicons/core-free-icons/Logout01Icon';
-    import MoreHorizontal from '@hugeicons/core-free-icons/MoreHorizontalIcon';
-    import Bell from '@hugeicons/core-free-icons/Notification03Icon';
-    import RotateCcw from '@hugeicons/core-free-icons/RotateLeft01Icon';
-    import Search from '@hugeicons/core-free-icons/Search01Icon';
-    import Settings from '@hugeicons/core-free-icons/Settings01Icon';
-    import User from '@hugeicons/core-free-icons/UserIcon';
+    import {
+        Notification03Icon as Bell,
+        ArrowDown01Icon as ChevronDown,
+        CreditCardIcon as CreditCard,
+        File01Icon as FileText,
+        LayoutDashboardIcon as LayoutDashboard,
+        LifebuoyIcon as LifeBuoy,
+        Logout01Icon as LogOut,
+        MoreHorizontalIcon as MoreHorizontal,
+        ColorPickerIcon as Palette,
+        Add01Icon as Plus,
+        RotateLeft01Icon as RotateCcw,
+        Search01Icon as Search,
+        Settings01Icon as Settings,
+        UserIcon as User
+    } from '@hugeicons/core-free-icons';
     import * as Accordion from '@mielui/svelte/components/accordion';
     import * as Alert from '@mielui/svelte/components/alert';
     import * as AlertDialog from '@mielui/svelte/components/alert-dialog';
@@ -2418,14 +2420,11 @@
                                     </RadioGroup.Root>
                                     {#if reminderCadence === 'due'}
                                         <Slider
-                                            value={reminderDays}
+                                            bind:value={reminderDays}
                                             min={1}
                                             max={14}
                                             step={1}
                                             label={`Remind ${reminderDays} days before due`}
-                                            onValueChange={(value) => {
-                                            reminderDays = value;
-                                        }}
                                         />
                                     {/if}
                                 </div>
@@ -2450,16 +2449,20 @@
         <div class="flex min-h-0 min-w-0 flex-1 flex-col gap-3 px-3 pb-3 min-[1100px]:pl-0">
             <div class="flex flex-wrap items-center justify-between gap-3">
                 <Tabs.Root bind:value={previewMode}>
-                    <Tabs.List aria-label="Preview content">
-                        <Tabs.Trigger value="components">Components</Tabs.Trigger>
-                        <Tabs.Trigger value="app">App preview</Tabs.Trigger>
-                    </Tabs.List>
+                    <div role="group" aria-label="Preview content">
+                        <Tabs.List>
+                            <Tabs.Trigger value="components">Components</Tabs.Trigger>
+                            <Tabs.Trigger value="app">App preview</Tabs.Trigger>
+                        </Tabs.List>
+                    </div>
                 </Tabs.Root>
                 <Tabs.Root bind:value={previewWidth}>
-                    <Tabs.List aria-label="Preview width">
-                        <Tabs.Trigger value="wide">Wide</Tabs.Trigger>
-                        <Tabs.Trigger value="narrow">Narrow</Tabs.Trigger>
-                    </Tabs.List>
+                    <div role="group" aria-label="Preview width">
+                        <Tabs.List>
+                            <Tabs.Trigger value="wide">Wide</Tabs.Trigger>
+                            <Tabs.Trigger value="narrow">Narrow</Tabs.Trigger>
+                        </Tabs.List>
+                    </div>
                 </Tabs.Root>
             </div>
             <div

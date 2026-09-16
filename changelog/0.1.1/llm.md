@@ -33,7 +33,7 @@ Alert keeps Root, Title, and Description. Description now occupies the upper ins
 
 ## Hugeicons
 
-HugeiconsIcon is available from the package root or as the default export of @mielui/svelte/hugeicons-icon. Pass icon data from an @hugeicons/core-free-icons subpath. The renderer emits SVG children during SSR. Icon data is not a Svelte component, so render it through HugeiconsIcon instead of passing it to component-valued icon slots. Copied components need the shared renderer as well as the icon-data dependency.
+HugeiconsIcon is available from the package root or as the default export of @mielui/svelte/hugeicons-icon. Import icon data as named exports from @hugeicons/core-free-icons. Version 4.3.3 does not ship declarations for individual icon subpaths, so those paths fail strict TypeScript checks. The renderer emits SVG children during SSR. Icon data is not a Svelte component, so render it through HugeiconsIcon instead of passing it to component-valued icon slots. Copied components need the shared renderer as well as the icon-data dependency.
 
 ## Heatmap and Morph
 

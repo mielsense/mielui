@@ -1,14 +1,16 @@
 <script lang="ts">
     import * as Tabs from '@mielui/svelte/components/tabs';
+
     let animation = $state<'rows' | 'columns' | 'none'>('rows');
-    import * as Typography from '@mielui/svelte/components/typography';
+
     import { CodeBlock } from '@mielui/svelte/components/code-block';
+    import * as Typography from '@mielui/svelte/components/typography';
     import { ComponentPreview, InstallCommand } from '$lib/components/docs';
     import DocsPager from '$lib/components/docs/docs-pager.svelte';
-    import Hero from './examples/hero.svelte';
-    import HeroSrc from './examples/hero.svelte?raw';
     import Composed from './examples/composed.svelte';
     import ComposedSrc from './examples/composed.svelte?raw';
+    import Hero from './examples/hero.svelte';
+    import HeroSrc from './examples/hero.svelte?raw';
 </script>
 <svelte:head>
     <title>Mielui · Heatmap</title>
@@ -31,11 +33,13 @@
                 onValueChange={(value) => { if (value === 'rows' || value === 'columns' || value === 'none') { animation = value; } }}
                 variant="ghost"
             >
-                <Tabs.List aria-label="Entrance direction">
-                    <Tabs.Trigger value="rows">Rows</Tabs.Trigger>
-                    <Tabs.Trigger value="columns">Columns</Tabs.Trigger>
-                    <Tabs.Trigger value="none">None</Tabs.Trigger>
-                </Tabs.List>
+                <div role="group" aria-label="Entrance direction">
+                    <Tabs.List>
+                        <Tabs.Trigger value="rows">Rows</Tabs.Trigger>
+                        <Tabs.Trigger value="columns">Columns</Tabs.Trigger>
+                        <Tabs.Trigger value="none">None</Tabs.Trigger>
+                    </Tabs.List>
+                </div>
             </Tabs.Root>
         {/snippet}
         <Hero {animation} />

@@ -1,9 +1,11 @@
 <script lang="ts">
-    import ChevronDown from '@hugeicons/core-free-icons/ArrowDown01Icon';
-    import Copy2 from '@hugeicons/core-free-icons/Files01Icon';
-    import Send from '@hugeicons/core-free-icons/SentIcon';
-    import User from '@hugeicons/core-free-icons/UserIcon';
-    import EyeOff from '@hugeicons/core-free-icons/ViewOffIcon';
+    import {
+        ArrowDown01Icon as ChevronDown,
+        Files01Icon as Copy2,
+        ViewOffIcon as EyeOff,
+        SentIcon as Send,
+        UserIcon as User
+    } from '@hugeicons/core-free-icons';
     import * as DropdownMenu from '@mielui/svelte/components/dropdown-menu';
     import Kbd from '@mielui/svelte/components/kbd';
     import HugeiconsIcon from '@mielui/svelte/hugeicons-icon';

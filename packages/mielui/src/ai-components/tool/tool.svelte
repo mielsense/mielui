@@ -1,9 +1,9 @@
 <script lang="ts">
-    import HugeiconsIcon from '../../hugeicons-icon.svelte';
-    import ChevronDown from '@hugeicons/core-free-icons/ArrowDown01Icon';
+    import { ArrowDown01Icon as ChevronDown } from '@hugeicons/core-free-icons';
     import { Spinner } from '@mielui/svelte/components/spinner';
     import { themedSlide } from '@mielui/svelte/transition';
     import { cn, pressable } from '@mielui/svelte/utils';
+    import HugeiconsIcon from '../../hugeicons-icon.svelte';
     import type { ToolProps } from '.';
 
     let {

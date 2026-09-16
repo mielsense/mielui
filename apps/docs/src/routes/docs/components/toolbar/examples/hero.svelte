@@ -1,7 +1,9 @@
 <script lang="ts">
-    import ArrowUp from '@hugeicons/core-free-icons/ArrowUp02Icon';
-    import Code2 from '@hugeicons/core-free-icons/SourceCodeIcon';
-    import Sparkles from '@hugeicons/core-free-icons/SparklesIcon';
+    import {
+        ArrowUp02Icon as ArrowUp,
+        SourceCodeIcon as Code2,
+        SparklesIcon as Sparkles
+    } from '@hugeicons/core-free-icons';
     import { Button } from '@mielui/svelte/components/button';
     import { Textarea } from '@mielui/svelte/components/textarea';
     import { Toolbar } from '@mielui/svelte/components/toolbar';

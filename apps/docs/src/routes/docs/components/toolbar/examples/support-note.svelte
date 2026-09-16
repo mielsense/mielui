@@ -1,7 +1,9 @@
 <script lang="ts">
-    import ArrowUp from '@hugeicons/core-free-icons/ArrowUp02Icon';
-    import Paperclip from '@hugeicons/core-free-icons/Attachment01Icon';
-    import BookOpen from '@hugeicons/core-free-icons/BookOpen01Icon';
+    import {
+        ArrowUp02Icon as ArrowUp,
+        BookOpen01Icon as BookOpen,
+        Attachment01Icon as Paperclip
+    } from '@hugeicons/core-free-icons';
     import { Button } from '@mielui/svelte/components/button';
     import { Textarea } from '@mielui/svelte/components/textarea';
     import { Toolbar } from '@mielui/svelte/components/toolbar';

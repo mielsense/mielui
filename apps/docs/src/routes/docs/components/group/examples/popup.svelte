@@ -1,5 +1,5 @@
 <script lang="ts">
-    import Settings01Icon from '@hugeicons/core-free-icons/Settings01Icon';
+    import { Settings01Icon } from '@hugeicons/core-free-icons';
     import { Button } from '@mielui/svelte/components/button';
     import * as Group from '@mielui/svelte/components/group';
     import { Input } from '@mielui/svelte/components/input';

@@ -1,5 +1,5 @@
 <script lang="ts">
-    import RefreshCw from '@hugeicons/core-free-icons/RefreshIcon';
+    import { RefreshIcon as RefreshCw } from '@hugeicons/core-free-icons';
     import Button from '@mielui/svelte/components/button';
     import * as Card from '@mielui/svelte/components/card';
     import * as CodeBlock from '@mielui/svelte/components/code-block';

@@ -73,16 +73,15 @@
                 variant="ghost"
                 class="min-w-0"
             >
-                <Tabs.List
-                    aria-label="Installation files"
-                    class="max-w-full justify-start overflow-x-auto"
-                >
-                    {#each source.files as file (file.path)}
-                        <Tabs.Trigger value={file.path} class="shrink-0 font-mono text-xs">
-                            {file.path.replace('src/lib/mielui/', '')}
-                        </Tabs.Trigger>
-                    {/each}
-                </Tabs.List>
+                <div role="group" aria-label="Installation files">
+                    <Tabs.List class="max-w-full justify-start overflow-x-auto">
+                        {#each source.files as file (file.path)}
+                            <Tabs.Trigger value={file.path} class="shrink-0 font-mono text-xs">
+                                {file.path.replace('src/lib/mielui/', '')}
+                            </Tabs.Trigger>
+                        {/each}
+                    </Tabs.List>
+                </div>
             </Tabs.Root>
             {#if activeFile}
                 <div

@@ -1,6 +1,5 @@
 <script lang="ts">
-    import Moon from '@hugeicons/core-free-icons/Moon02Icon';
-    import Sun from '@hugeicons/core-free-icons/Sun03Icon';
+    import { Moon02Icon as Moon, Sun03Icon as Sun } from '@hugeicons/core-free-icons';
     import { morph } from '@mielui/svelte/actions/morph';
     import { Button } from '@mielui/svelte/components/button';
     import HugeiconsIcon from '@mielui/svelte/hugeicons-icon';

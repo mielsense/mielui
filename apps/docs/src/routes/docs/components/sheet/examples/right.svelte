@@ -1,5 +1,5 @@
 <script lang="ts">
-    import SlidersHorizontal from '@hugeicons/core-free-icons/SlidersHorizontalIcon';
+    import { SlidersHorizontalIcon as SlidersHorizontal } from '@hugeicons/core-free-icons';
     import { Badge } from '@mielui/svelte/components/badge';
     import { Button } from '@mielui/svelte/components/button';
     import { Checkbox } from '@mielui/svelte/components/checkbox';

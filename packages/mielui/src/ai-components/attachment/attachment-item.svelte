@@ -1,12 +1,14 @@
 <script lang="ts">
-    import HugeiconsIcon from '../../hugeicons-icon.svelte';
-    import CircleAlert from '@hugeicons/core-free-icons/AlertCircleIcon';
-    import CircleCheck from '@hugeicons/core-free-icons/CheckmarkCircle02Icon';
-    import FileText from '@hugeicons/core-free-icons/File01Icon';
-    import X from '@hugeicons/core-free-icons/Cancel01Icon';
+    import {
+        AlertCircleIcon as CircleAlert,
+        CheckmarkCircle02Icon as CircleCheck,
+        File01Icon as FileText,
+        Cancel01Icon as X
+    } from '@hugeicons/core-free-icons';
     import { Button } from '@mielui/svelte/components/button';
     import { Spinner } from '@mielui/svelte/components/spinner';
     import { cn } from '@mielui/svelte/utils';
+    import HugeiconsIcon from '../../hugeicons-icon.svelte';
     import type { AttachmentItemProps } from '.';
 
     let {

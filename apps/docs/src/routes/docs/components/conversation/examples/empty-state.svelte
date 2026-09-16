@@ -1,5 +1,5 @@
 <script lang="ts">
-    import FileText from '@hugeicons/core-free-icons/File01Icon';
+    import { File01Icon as FileText } from '@hugeicons/core-free-icons';
     import { Button } from '@mielui/svelte/components/button';
     import * as Conversation from '@mielui/svelte/components/conversation';
     import * as Message from '@mielui/svelte/components/message';

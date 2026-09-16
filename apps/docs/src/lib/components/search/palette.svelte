@@ -1,5 +1,5 @@
 <script lang="ts">
-    import FileIcon from '@hugeicons/core-free-icons/File01Icon';
+    import { File01Icon as FileIcon } from '@hugeicons/core-free-icons';
     import * as Command from '@mielui/svelte/components/command';
     import Kbd from '@mielui/svelte/components/kbd';
     import HugeiconsIcon from '@mielui/svelte/hugeicons-icon';

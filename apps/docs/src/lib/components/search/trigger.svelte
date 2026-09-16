@@ -1,5 +1,5 @@
 <script lang="ts">
-    import SearchIcon from '@hugeicons/core-free-icons/Search01Icon';
+    import { Search01Icon as SearchIcon } from '@hugeicons/core-free-icons';
     import { Button } from '@mielui/svelte/components/button';
     import Kbd from '@mielui/svelte/components/kbd';
     import HugeiconsIcon from '@mielui/svelte/hugeicons-icon';

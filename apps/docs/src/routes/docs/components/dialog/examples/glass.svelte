@@ -1,5 +1,5 @@
 <script lang="ts">
-    import Globe from '@hugeicons/core-free-icons/Globe02Icon';
+    import { Globe02Icon as Globe } from '@hugeicons/core-free-icons';
     import * as Dialog from '@mielui/svelte/components/dialog';
     import { Input } from '@mielui/svelte/components/input';
     import Kbd from '@mielui/svelte/components/kbd';

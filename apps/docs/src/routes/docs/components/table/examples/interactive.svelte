@@ -1,5 +1,5 @@
 <script lang="ts">
-    import SortIcon from '@hugeicons/core-free-icons/ArrowUpDownIcon';
+    import { ArrowUpDownIcon as SortIcon } from '@hugeicons/core-free-icons';
     import { Button } from '@mielui/svelte/components/button';
     import { Checkbox } from '@mielui/svelte/components/checkbox';
     import * as Table from '@mielui/svelte/components/table';
@@ -37,7 +37,7 @@
 </script>
 
 <div class="flex w-full max-w-xl flex-col gap-3">
-    <Table.ScrollArea tabindex="0" aria-label="Projects">
+    <Table.ScrollArea tabindex={0} aria-label="Projects">
         <Table.Root>
             <Table.Header>
                 <Table.Row>

@@ -1,5 +1,5 @@
 <script lang="ts">
-    import Heart from '@hugeicons/core-free-icons/FavouriteIcon';
+    import { FavouriteIcon as Heart } from '@hugeicons/core-free-icons';
     import { Button } from '@mielui/svelte/components/button';
     import HugeiconsIcon from '@mielui/svelte/hugeicons-icon';
 </script>

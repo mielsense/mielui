@@ -1,10 +1,12 @@
 <script lang="ts">
-    import HugeiconsIcon from '../../hugeicons-icon.svelte';
-    import Check from '@hugeicons/core-free-icons/CheckmarkCircle02Icon';
-    import X from '@hugeicons/core-free-icons/CancelCircleIcon';
-    import Info from '@hugeicons/core-free-icons/InformationCircleIcon';
-    import Warning from '@hugeicons/core-free-icons/Alert02Icon';
+    import {
+        CheckmarkCircle02Icon as Check,
+        InformationCircleIcon as Info,
+        Alert02Icon as Warning,
+        CancelCircleIcon as X
+    } from '@hugeicons/core-free-icons';
     import { cn } from '@mielui/svelte/utils';
+    import HugeiconsIcon from '../../hugeicons-icon.svelte';
     import type { AlertProps } from '.';
     import { alert, alertIcon } from './variants';
 

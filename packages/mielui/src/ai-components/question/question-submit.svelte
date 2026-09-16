@@ -1,8 +1,8 @@
 <script lang="ts">
-    import HugeiconsIcon from '../../hugeicons-icon.svelte';
-    import ArrowRight from '@hugeicons/core-free-icons/ArrowRight02Icon';
+    import { ArrowRight02Icon as ArrowRight } from '@hugeicons/core-free-icons';
     import { Button } from '@mielui/svelte/components/button';
     import { Spinner } from '@mielui/svelte/components/spinner';
+    import HugeiconsIcon from '../../hugeicons-icon.svelte';
     import type { QuestionSubmitProps } from '.';
     import { getQuestionContext } from './context.svelte';
 

@@ -1,6 +1,8 @@
 <script lang="ts">
-    import ChevronLeft from '@hugeicons/core-free-icons/ArrowLeft01Icon';
-    import ChevronRight from '@hugeicons/core-free-icons/ArrowRight01Icon';
+    import {
+        ArrowLeft01Icon as ChevronLeft,
+        ArrowRight01Icon as ChevronRight
+    } from '@hugeicons/core-free-icons';
     import { Button } from '@mielui/svelte/components/button';
     import HugeiconsIcon from '@mielui/svelte/hugeicons-icon';
     import { page } from '$app/state';

@@ -1,9 +1,11 @@
 <script lang="ts">
-    import FolderKanban from '@hugeicons/core-free-icons/FolderKanbanIcon';
-    import Home from '@hugeicons/core-free-icons/Home01Icon';
-    import Inbox from '@hugeicons/core-free-icons/InboxIcon';
-    import Menu from '@hugeicons/core-free-icons/Menu01Icon';
-    import Settings from '@hugeicons/core-free-icons/Settings01Icon';
+    import {
+        FolderKanbanIcon as FolderKanban,
+        Home01Icon as Home,
+        InboxIcon as Inbox,
+        Menu01Icon as Menu,
+        Settings01Icon as Settings
+    } from '@hugeicons/core-free-icons';
     import * as Avatar from '@mielui/svelte/components/avatar';
     import { Badge } from '@mielui/svelte/components/badge';
     import { Button } from '@mielui/svelte/components/button';

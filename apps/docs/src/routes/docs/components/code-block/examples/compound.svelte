@@ -1,5 +1,5 @@
 <script lang="ts">
-    import Download from '@hugeicons/core-free-icons/Download01Icon';
+    import { Download01Icon as Download } from '@hugeicons/core-free-icons';
     import { Button } from '@mielui/svelte/components/button';
     import * as CodeBlock from '@mielui/svelte/components/code-block';
     import HugeiconsIcon from '@mielui/svelte/hugeicons-icon';

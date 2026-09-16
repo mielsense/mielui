@@ -1,12 +1,14 @@
 <script lang="ts">
-    import CircleDot from '@hugeicons/core-free-icons/CircleDotIcon';
-    import SquarePen from '@hugeicons/core-free-icons/Edit01Icon';
-    import FolderPlus from '@hugeicons/core-free-icons/FolderAddIcon';
-    import Inbox from '@hugeicons/core-free-icons/InboxIcon';
-    import MapIcon from '@hugeicons/core-free-icons/MapsIcon';
-    import Moon from '@hugeicons/core-free-icons/Moon02Icon';
-    import Search from '@hugeicons/core-free-icons/Search01Icon';
-    import Users from '@hugeicons/core-free-icons/UserGroupIcon';
+    import {
+        CircleDotIcon as CircleDot,
+        FolderAddIcon as FolderPlus,
+        InboxIcon as Inbox,
+        MapsIcon as MapIcon,
+        Moon02Icon as Moon,
+        Search01Icon as Search,
+        Edit01Icon as SquarePen,
+        UserGroupIcon as Users
+    } from '@hugeicons/core-free-icons';
     import * as Command from '@mielui/svelte/components/command';
     import Kbd from '@mielui/svelte/components/kbd';
     import HugeiconsIcon from '@mielui/svelte/hugeicons-icon';

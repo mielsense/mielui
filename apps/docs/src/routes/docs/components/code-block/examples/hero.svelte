@@ -1,6 +1,8 @@
 <script lang="ts">
-    import Info from '@hugeicons/core-free-icons/InformationCircleIcon';
-    import Sparkles from '@hugeicons/core-free-icons/SparklesIcon';
+    import {
+        InformationCircleIcon as Info,
+        SparklesIcon as Sparkles
+    } from '@hugeicons/core-free-icons';
     import { Button } from '@mielui/svelte/components/button';
     import * as CodeBlock from '@mielui/svelte/components/code-block';
     import * as Tooltip from '@mielui/svelte/components/tooltip';

@@ -1,10 +1,10 @@
 <script lang="ts">
-    import { overlaySurface } from '../_internal/surface';
-    import HugeiconsIcon from '../../hugeicons-icon.svelte';
-    import X from '@hugeicons/core-free-icons/Cancel01Icon';
+    import { Cancel01Icon as X } from '@hugeicons/core-free-icons';
     import { useOverlay } from '@mielui/svelte/components/_internal/overlay';
     import { dialogIn, dialogOut, overlayIn, overlayOut } from '@mielui/svelte/transition';
     import { cn, visualViewportBounds } from '@mielui/svelte/utils';
+    import HugeiconsIcon from '../../hugeicons-icon.svelte';
+    import { overlaySurface } from '../_internal/surface';
     import type { DialogContentProps } from '.';
     import { getDialogContext } from './context.svelte';
 

@@ -1,9 +1,9 @@
 <script lang="ts">
-    import HugeiconsIcon from '../../hugeicons-icon.svelte';
-    import ChevronRight from '@hugeicons/core-free-icons/ArrowRight01Icon';
+    import { ArrowRight01Icon as ChevronRight } from '@hugeicons/core-free-icons';
     import * as Popover from '@mielui/svelte/components/popover';
     import { cn } from '@mielui/svelte/utils';
     import { onDestroy, type Snippet } from 'svelte';
+    import HugeiconsIcon from '../../hugeicons-icon.svelte';
     import { getPopoverContext } from '../popover/context.svelte';
     import { getDropdownMenuContext } from './context.svelte';
 

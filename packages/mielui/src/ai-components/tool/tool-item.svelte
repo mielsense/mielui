@@ -1,9 +1,11 @@
 <script lang="ts">
-    import HugeiconsIcon from '../../hugeicons-icon.svelte';
-    import Document from '@hugeicons/core-free-icons/File01Icon';
-    import Magnifer from '@hugeicons/core-free-icons/Search01Icon';
-    import Command from '@hugeicons/core-free-icons/Wrench01Icon';
+    import {
+        Wrench01Icon as Command,
+        File01Icon as Document,
+        Search01Icon as Magnifer
+    } from '@hugeicons/core-free-icons';
     import { cn } from '@mielui/svelte/utils';
+    import HugeiconsIcon from '../../hugeicons-icon.svelte';
     import type { ToolItemProps } from '.';
 
     let { name, detail, kind = 'command', class: className, ...rest }: ToolItemProps = $props();

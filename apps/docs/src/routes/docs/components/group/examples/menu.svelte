@@ -1,5 +1,5 @@
 <script lang="ts">
-    import ArrowDown01Icon from '@hugeicons/core-free-icons/ArrowDown01Icon';
+    import { ArrowDown01Icon } from '@hugeicons/core-free-icons';
     import { Button } from '@mielui/svelte/components/button';
     import * as DropdownMenu from '@mielui/svelte/components/dropdown-menu';
     import * as Group from '@mielui/svelte/components/group';

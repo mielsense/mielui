@@ -1,9 +1,9 @@
 <script lang="ts">
-    import HugeiconsIcon from '../../hugeicons-icon.svelte';
-    import CircleAlert from '@hugeicons/core-free-icons/AlertCircleIcon';
+    import { AlertCircleIcon as CircleAlert } from '@hugeicons/core-free-icons';
     import * as Card from '@mielui/svelte/components/card';
     import { cn } from '@mielui/svelte/utils';
     import { untrack } from 'svelte';
+    import HugeiconsIcon from '../../hugeicons-icon.svelte';
     import type { QuestionAnswer, QuestionProps, QuestionStatus, QuestionType } from '.';
     import { setQuestionContext } from './context.svelte';
 

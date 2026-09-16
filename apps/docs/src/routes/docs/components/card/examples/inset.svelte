@@ -1,5 +1,5 @@
 <script lang="ts">
-    import GitBranch from '@hugeicons/core-free-icons/GitBranchIcon';
+    import { GitBranchIcon as GitBranch } from '@hugeicons/core-free-icons';
     import { Badge } from '@mielui/svelte/components/badge';
     import { Button } from '@mielui/svelte/components/button';
     import * as Card from '@mielui/svelte/components/card';

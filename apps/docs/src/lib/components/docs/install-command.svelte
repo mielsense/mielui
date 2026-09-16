@@ -12,10 +12,12 @@
 
 {#if component}
     <Tabs.Root bind:value={method} variant="ghost" class="flex min-w-0 flex-col gap-4">
-        <Tabs.List aria-label="Installation method" class="w-fit">
-            <Tabs.Trigger value="cli">CLI</Tabs.Trigger>
-            <Tabs.Trigger value="manual">Manual</Tabs.Trigger>
-        </Tabs.List>
+        <div role="group" aria-label="Installation method">
+            <Tabs.List class="w-fit">
+                <Tabs.Trigger value="cli">CLI</Tabs.Trigger>
+                <Tabs.Trigger value="manual">Manual</Tabs.Trigger>
+            </Tabs.List>
+        </div>
         <Tabs.Content value="cli"><PackageCommand {command} /></Tabs.Content>
         <Tabs.Content value="manual"><ManualInstall name={component} /></Tabs.Content>
     </Tabs.Root>

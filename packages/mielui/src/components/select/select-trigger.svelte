@@ -1,10 +1,10 @@
 <script lang="ts">
-    import HugeiconsIcon from '../../hugeicons-icon.svelte';
-    import ChevronDown from '@hugeicons/core-free-icons/ArrowDown01Icon';
+    import { ArrowDown01Icon as ChevronDown } from '@hugeicons/core-free-icons';
     import type { ButtonVariant } from '@mielui/svelte/components/button';
     import * as Popover from '@mielui/svelte/components/popover';
     import { cn } from '@mielui/svelte/utils';
     import type { Snippet } from 'svelte';
+    import HugeiconsIcon from '../../hugeicons-icon.svelte';
     import { getPopoverContext } from '../popover/context.svelte';
     import { getSelectContext } from './context.svelte';
     import SelectValue from './select-value.svelte';

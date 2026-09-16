@@ -1,11 +1,10 @@
 <script lang="ts">
-    import HugeiconsIcon from '../../hugeicons-icon.svelte';
-    import ChevronDown from '@hugeicons/core-free-icons/ArrowDown01Icon';
-    import X from '@hugeicons/core-free-icons/Cancel01Icon';
+    import { ArrowDown01Icon as ChevronDown, Cancel01Icon as X } from '@hugeicons/core-free-icons';
     import type { PopoverTriggerProps } from '@mielui/svelte/components/popover';
     import { cn } from '@mielui/svelte/utils';
     import Fuse from 'fuse.js';
     import { onMount, type Snippet, tick } from 'svelte';
+    import HugeiconsIcon from '../../hugeicons-icon.svelte';
     import { button } from '../button/variants';
     import { input } from '../input/variants';
     import { getPopoverContext } from '../popover/context.svelte';

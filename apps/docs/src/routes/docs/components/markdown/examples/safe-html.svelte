@@ -1,5 +1,5 @@
 <script lang="ts">
-    import ShieldCheck from '@hugeicons/core-free-icons/ShieldCheckIcon';
+    import { ShieldCheckIcon as ShieldCheck } from '@hugeicons/core-free-icons';
     import { Markdown } from '@mielui/svelte/components/markdown';
     import HugeiconsIcon from '@mielui/svelte/hugeicons-icon';
 

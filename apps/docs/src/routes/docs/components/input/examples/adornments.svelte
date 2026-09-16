@@ -1,5 +1,5 @@
 <script lang="ts">
-    import GitBranch from '@hugeicons/core-free-icons/GitBranchIcon';
+    import { GitBranchIcon as GitBranch } from '@hugeicons/core-free-icons';
     import { Input } from '@mielui/svelte/components/input';
     import HugeiconsIcon from '@mielui/svelte/hugeicons-icon';
 </script>

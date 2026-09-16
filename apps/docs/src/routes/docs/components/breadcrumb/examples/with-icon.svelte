@@ -1,6 +1,8 @@
 <script lang="ts">
-    import ChevronRight from '@hugeicons/core-free-icons/ArrowRight01Icon';
-    import Home from '@hugeicons/core-free-icons/Home01Icon';
+    import {
+        ArrowRight01Icon as ChevronRight,
+        Home01Icon as Home
+    } from '@hugeicons/core-free-icons';
     import * as Breadcrumb from '@mielui/svelte/components/breadcrumb';
     import HugeiconsIcon from '@mielui/svelte/hugeicons-icon';
 </script>

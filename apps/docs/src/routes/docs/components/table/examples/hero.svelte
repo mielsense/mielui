@@ -10,7 +10,7 @@
     ];
 </script>
 
-<Table.ScrollArea class="max-w-2xl" tabindex="0" aria-label="Invoices">
+<Table.ScrollArea class="max-w-2xl" tabindex={0} aria-label="Invoices">
     <Table.Root {variant} class="min-w-[30rem]">
         <Table.Caption>Invoices for September.</Table.Caption>
         <Table.Header>

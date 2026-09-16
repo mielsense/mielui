@@ -1,10 +1,12 @@
 <script lang="ts">
-    import ChevronDown from '@hugeicons/core-free-icons/ArrowDown01Icon';
-    import CreditCard from '@hugeicons/core-free-icons/CreditCardIcon';
-    import LifeBuoy from '@hugeicons/core-free-icons/LifebuoyIcon';
-    import LogOut from '@hugeicons/core-free-icons/Logout01Icon';
-    import Settings from '@hugeicons/core-free-icons/Settings01Icon';
-    import User from '@hugeicons/core-free-icons/UserIcon';
+    import {
+        ArrowDown01Icon as ChevronDown,
+        CreditCardIcon as CreditCard,
+        LifebuoyIcon as LifeBuoy,
+        Logout01Icon as LogOut,
+        Settings01Icon as Settings,
+        UserIcon as User
+    } from '@hugeicons/core-free-icons';
     import * as DropdownMenu from '@mielui/svelte/components/dropdown-menu';
     import Kbd from '@mielui/svelte/components/kbd';
     import HugeiconsIcon from '@mielui/svelte/hugeicons-icon';

@@ -1,12 +1,14 @@
 <script lang="ts">
-    import HugeiconsIcon from '../../hugeicons-icon.svelte';
-    import Check from '@hugeicons/core-free-icons/CheckmarkCircle02Icon';
-    import CircleX from '@hugeicons/core-free-icons/CancelCircleIcon';
-    import Info from '@hugeicons/core-free-icons/InformationCircleIcon';
-    import Loader from '@hugeicons/core-free-icons/Loading03Icon';
-    import Warning from '@hugeicons/core-free-icons/Alert02Icon';
+    import {
+        CheckmarkCircle02Icon as Check,
+        CancelCircleIcon as CircleX,
+        InformationCircleIcon as Info,
+        Loading03Icon as Loader,
+        Alert02Icon as Warning
+    } from '@hugeicons/core-free-icons';
     import { cn } from '@mielui/svelte/utils';
     import type { HTMLAttributes } from 'svelte/elements';
+    import HugeiconsIcon from '../../hugeicons-icon.svelte';
     import { getToastContext } from './context.svelte';
     import { toastIcon } from './variants';
 

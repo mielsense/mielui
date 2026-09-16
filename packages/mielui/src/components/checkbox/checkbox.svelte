@@ -1,7 +1,7 @@
 <script lang="ts">
-    import MinusIcon from '@hugeicons/core-free-icons/MinusSignIcon';
-    import HugeiconsIcon from '../../hugeicons-icon.svelte';
+    import { MinusSignIcon as MinusIcon } from '@hugeicons/core-free-icons';
     import { cn, pressable } from '@mielui/svelte/utils';
+    import HugeiconsIcon from '../../hugeicons-icon.svelte';
     import type { CheckboxProps } from '.';
     import { checkbox, checkboxBox, checkboxText } from './variants';
 

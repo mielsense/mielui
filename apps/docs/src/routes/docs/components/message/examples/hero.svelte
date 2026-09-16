@@ -1,5 +1,5 @@
 <script lang="ts">
-    import ThumbsUp from '@hugeicons/core-free-icons/ThumbsUpIcon';
+    import { ThumbsUpIcon as ThumbsUp } from '@hugeicons/core-free-icons';
     import { Button } from '@mielui/svelte/components/button';
     import { CopyButton } from '@mielui/svelte/components/copy-button';
     import { Markdown } from '@mielui/svelte/components/markdown';

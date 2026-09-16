@@ -1,9 +1,9 @@
 <!-- token-lint-disable-file -->
 <script lang="ts">
-    import HugeiconsIcon from '../../hugeicons-icon.svelte';
-    import Check from '@hugeicons/core-free-icons/Tick02Icon';
+    import { Tick02Icon as Check } from '@hugeicons/core-free-icons';
     import * as Popover from '@mielui/svelte/components/popover';
     import { cn } from '@mielui/svelte/utils';
+    import HugeiconsIcon from '../../hugeicons-icon.svelte';
     import { getColorPickerContext } from './context';
     import {
         hexToHsl,

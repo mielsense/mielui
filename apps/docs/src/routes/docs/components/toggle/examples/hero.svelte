@@ -1,5 +1,5 @@
 <script lang="ts">
-    import Bold from '@hugeicons/core-free-icons/TextBoldIcon';
+    import { TextBoldIcon as Bold } from '@hugeicons/core-free-icons';
     import { Toggle } from '@mielui/svelte/components/toggle';
     import HugeiconsIcon from '@mielui/svelte/hugeicons-icon';
 

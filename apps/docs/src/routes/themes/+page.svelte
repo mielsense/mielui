@@ -1,7 +1,9 @@
 <script lang="ts">
-    import X from '@hugeicons/core-free-icons/Cancel01Icon';
-    import Search from '@hugeicons/core-free-icons/Search01Icon';
-    import Sparkles from '@hugeicons/core-free-icons/SparklesIcon';
+    import {
+        Search01Icon as Search,
+        SparklesIcon as Sparkles,
+        Cancel01Icon as X
+    } from '@hugeicons/core-free-icons';
     import { Button } from '@mielui/svelte/components/button';
     import { CopyButton } from '@mielui/svelte/components/copy-button';
     import { Input } from '@mielui/svelte/components/input';

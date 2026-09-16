@@ -1,7 +1,7 @@
 <script lang="ts">
-    import HugeiconsIcon from '../../hugeicons-icon.svelte';
-    import ChevronRight from '@hugeicons/core-free-icons/ArrowRight01Icon';
+    import { ArrowRight01Icon as ChevronRight } from '@hugeicons/core-free-icons';
     import { cn } from '@mielui/svelte/utils';
+    import HugeiconsIcon from '../../hugeicons-icon.svelte';
     import type { BreadcrumbSeparatorProps } from '.';
 
     let { class: className, children, ...rest }: BreadcrumbSeparatorProps = $props();

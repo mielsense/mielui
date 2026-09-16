@@ -122,7 +122,7 @@ describe('rewriteImports', () => {
     });
 
     test('leaves unrelated imports alone', () => {
-        const source = "import Search from '@hugeicons/core-free-icons/Search01Icon';";
+        const source = "import { Search01Icon as Search } from '@hugeicons/core-free-icons';";
         expect(rewriteImports(source, '$lib/mielui')).toBe(source);
     });
 });

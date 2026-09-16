@@ -1,6 +1,5 @@
 <script lang="ts">
-    import Copy from '@hugeicons/core-free-icons/Copy01Icon';
-    import Download from '@hugeicons/core-free-icons/Download01Icon';
+    import { Copy01Icon as Copy, Download01Icon as Download } from '@hugeicons/core-free-icons';
     import * as ContextMenu from '@mielui/svelte/components/context-menu';
     import HugeiconsIcon from '@mielui/svelte/hugeicons-icon';
 </script>

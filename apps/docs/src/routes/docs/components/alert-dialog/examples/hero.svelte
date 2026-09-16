@@ -1,5 +1,5 @@
 <script lang="ts">
-    import Trash from '@hugeicons/core-free-icons/Delete02Icon';
+    import { Delete02Icon as Trash } from '@hugeicons/core-free-icons';
     import * as AlertDialog from '@mielui/svelte/components/alert-dialog';
     import Kbd from '@mielui/svelte/components/kbd';
     import HugeiconsIcon from '@mielui/svelte/hugeicons-icon';

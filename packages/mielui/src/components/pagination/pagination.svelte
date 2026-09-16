@@ -1,9 +1,11 @@
 <script lang="ts">
-    import HugeiconsIcon from '../../hugeicons-icon.svelte';
-    import ChevronLeft from '@hugeicons/core-free-icons/ArrowLeft01Icon';
-    import ChevronRight from '@hugeicons/core-free-icons/ArrowRight01Icon';
-    import MoreHorizontal from '@hugeicons/core-free-icons/MoreHorizontalIcon';
+    import {
+        ArrowLeft01Icon as ChevronLeft,
+        ArrowRight01Icon as ChevronRight,
+        MoreHorizontalIcon as MoreHorizontal
+    } from '@hugeicons/core-free-icons';
     import { cn } from '@mielui/svelte/utils';
+    import HugeiconsIcon from '../../hugeicons-icon.svelte';
     import type { PaginationProps } from '.';
 
     let {

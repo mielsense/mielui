@@ -1,5 +1,5 @@
 <script lang="ts">
-    import Info from '@hugeicons/core-free-icons/InformationCircleIcon';
+    import { InformationCircleIcon as Info } from '@hugeicons/core-free-icons';
     import { Button } from '@mielui/svelte/components/button';
     import * as Tooltip from '@mielui/svelte/components/tooltip';
     import HugeiconsIcon from '@mielui/svelte/hugeicons-icon';

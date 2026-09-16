@@ -1,9 +1,9 @@
 <script lang="ts">
-    import HugeiconsIcon from '../../hugeicons-icon.svelte';
-    import Check from '@hugeicons/core-free-icons/Tick02Icon';
+    import { Tick02Icon as Check } from '@hugeicons/core-free-icons';
     import { Button } from '@mielui/svelte/components/button';
     import { closeMenuLayers, cn } from '@mielui/svelte/utils';
     import { untrack } from 'svelte';
+    import HugeiconsIcon from '../../hugeicons-icon.svelte';
     import type { ContextMenuCheckboxItemProps } from '.';
     import { getContextMenuContext } from './context.svelte';
 

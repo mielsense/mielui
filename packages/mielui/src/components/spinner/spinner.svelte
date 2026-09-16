@@ -1,9 +1,8 @@
 <script lang="ts">
-    import HugeiconsIcon from '../../hugeicons-icon.svelte';
-    import Check from '@hugeicons/core-free-icons/Tick02Icon';
-    import LoaderCircle from '@hugeicons/core-free-icons/Loading03Icon';
+    import { Tick02Icon as Check, Loading03Icon as LoaderCircle } from '@hugeicons/core-free-icons';
     import { getCssDuration } from '@mielui/svelte/transition';
     import { cn } from '@mielui/svelte/utils';
+    import HugeiconsIcon from '../../hugeicons-icon.svelte';
 
     import type { SpinnerProps } from '.';
 

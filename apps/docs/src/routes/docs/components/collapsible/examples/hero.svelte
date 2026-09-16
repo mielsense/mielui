@@ -1,5 +1,5 @@
 <script lang="ts">
-    import ChevronDown from '@hugeicons/core-free-icons/ArrowDown01Icon';
+    import { ArrowDown01Icon as ChevronDown } from '@hugeicons/core-free-icons';
     import * as Collapsible from '@mielui/svelte/components/collapsible';
     import HugeiconsIcon from '@mielui/svelte/hugeicons-icon';
 

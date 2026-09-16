@@ -1,7 +1,9 @@
 <script lang="ts">
-    import Building from '@hugeicons/core-free-icons/Building03Icon';
-    import MapPin from '@hugeicons/core-free-icons/Location01Icon';
-    import Users from '@hugeicons/core-free-icons/UserGroupIcon';
+    import {
+        Building03Icon as Building,
+        Location01Icon as MapPin,
+        UserGroupIcon as Users
+    } from '@hugeicons/core-free-icons';
     import * as Avatar from '@mielui/svelte/components/avatar';
     import { Button } from '@mielui/svelte/components/button';
     import * as HoverCard from '@mielui/svelte/components/hover-card';

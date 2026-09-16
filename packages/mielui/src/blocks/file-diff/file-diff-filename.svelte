@@ -1,8 +1,8 @@
 <script lang="ts">
-    import HugeiconsIcon from '../../hugeicons-icon.svelte';
-    import FileDiffIcon from '@hugeicons/core-free-icons/FileDiffIcon';
+    import { FileDiffIcon } from '@hugeicons/core-free-icons';
     import { cn } from '@mielui/svelte/utils';
     import { getContext } from 'svelte';
+    import HugeiconsIcon from '../../hugeicons-icon.svelte';
     import type { FileDiffContext, FileDiffFilenameProps } from '.';
 
     let { class: className, file, ...rest }: FileDiffFilenameProps = $props();

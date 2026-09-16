@@ -1,8 +1,8 @@
 <script lang="ts">
+    import { AlertCircleIcon as CircleAlert } from '@hugeicons/core-free-icons';
+    import { cn } from '@mielui/svelte/utils';
     import { overlaySurface } from '../../components/_internal/surface';
     import HugeiconsIcon from '../../hugeicons-icon.svelte';
-    import CircleAlert from '@hugeicons/core-free-icons/AlertCircleIcon';
-    import { cn } from '@mielui/svelte/utils';
     import type { ComposerProps, ComposerStatus } from '.';
     import { setComposerContext } from './context.svelte';
 

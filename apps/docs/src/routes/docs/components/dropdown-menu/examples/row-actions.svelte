@@ -1,9 +1,11 @@
 <script lang="ts">
-    import Archive from '@hugeicons/core-free-icons/ArchiveIcon';
-    import Trash from '@hugeicons/core-free-icons/Delete02Icon';
-    import Copy2 from '@hugeicons/core-free-icons/Files01Icon';
-    import MoreHorizontal from '@hugeicons/core-free-icons/MoreHorizontalIcon';
-    import Pencil from '@hugeicons/core-free-icons/PencilEdit01Icon';
+    import {
+        ArchiveIcon as Archive,
+        Files01Icon as Copy2,
+        MoreHorizontalIcon as MoreHorizontal,
+        PencilEdit01Icon as Pencil,
+        Delete02Icon as Trash
+    } from '@hugeicons/core-free-icons';
     import * as DropdownMenu from '@mielui/svelte/components/dropdown-menu';
     import Kbd from '@mielui/svelte/components/kbd';
     import HugeiconsIcon from '@mielui/svelte/hugeicons-icon';

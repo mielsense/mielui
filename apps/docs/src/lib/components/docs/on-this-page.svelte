@@ -71,7 +71,7 @@
             active = current;
         }
         function collect() {
-            if (disposed) {
+            if (disposed || !root) {
                 return;
             }
             const found = [...root.querySelectorAll<HTMLElement>('h2, h3')].filter(
@@ -141,7 +141,7 @@
         }
         let disposed = false;
         function measure() {
-            if (disposed) {
+            if (disposed || !element) {
                 return;
             }
             const next: Record<string, number> = {};

@@ -1,7 +1,9 @@
 <script lang="ts">
-    import Pencil from '@hugeicons/core-free-icons/PencilEdit01Icon';
-    import Share from '@hugeicons/core-free-icons/Share08Icon';
-    import Check from '@hugeicons/core-free-icons/Tick02Icon';
+    import {
+        Tick02Icon as Check,
+        PencilEdit01Icon as Pencil,
+        Share08Icon as Share
+    } from '@hugeicons/core-free-icons';
     import * as ContextMenu from '@mielui/svelte/components/context-menu';
     import HugeiconsIcon from '@mielui/svelte/hugeicons-icon';
 </script>

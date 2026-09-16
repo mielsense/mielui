@@ -1,7 +1,9 @@
 <script lang="ts">
-    import Trash from '@hugeicons/core-free-icons/Delete02Icon';
-    import Download from '@hugeicons/core-free-icons/Download01Icon';
-    import Send from '@hugeicons/core-free-icons/SentIcon';
+    import {
+        Download01Icon as Download,
+        SentIcon as Send,
+        Delete02Icon as Trash
+    } from '@hugeicons/core-free-icons';
     import { Button } from '@mielui/svelte/components/button';
     import HugeiconsIcon from '@mielui/svelte/hugeicons-icon';
 </script>

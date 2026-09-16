@@ -1,7 +1,7 @@
 <script lang="ts">
+    import { cn } from '@mielui/svelte/utils';
     import { fromAction } from 'svelte/attachments';
     import { shimmer } from '../../actions/shimmer';
-    import { cn } from '@mielui/svelte/utils';
     import type { SkeletonProps } from '.';
 
     let {
@@ -17,7 +17,7 @@
 
 <!-- token-lint-disable-next-line -->
 <div
-    {@attach variant === 'shimmer' && fromAction(shimmer)}
+    {@attach variant === 'shimmer' && fromAction(shimmer, () => undefined)}
     data-ui="skeleton"
     data-variant={variant}
     {...rest}

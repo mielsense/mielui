@@ -33,3 +33,5 @@
 - Size Composer submission controls to their visible content and respect custom action labels.
 
 - Preserve fractional Gauge ranges and normalize invalid numeric values.
+
+- Fix preview deployment type checks for icon imports, native controls, table captions, and documentation examples.

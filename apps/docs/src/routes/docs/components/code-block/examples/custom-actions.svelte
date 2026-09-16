@@ -1,6 +1,8 @@
 <script lang="ts">
-    import ExternalLink from '@hugeicons/core-free-icons/LinkSquare02Icon';
-    import RefreshCw from '@hugeicons/core-free-icons/RefreshIcon';
+    import {
+        LinkSquare02Icon as ExternalLink,
+        RefreshIcon as RefreshCw
+    } from '@hugeicons/core-free-icons';
     import { Button } from '@mielui/svelte/components/button';
     import * as CodeBlock from '@mielui/svelte/components/code-block';
     import * as Tooltip from '@mielui/svelte/components/tooltip';

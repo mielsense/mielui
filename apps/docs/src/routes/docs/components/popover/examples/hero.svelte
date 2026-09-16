@@ -1,6 +1,5 @@
 <script lang="ts">
-    import Link from '@hugeicons/core-free-icons/Link01Icon';
-    import Share2 from '@hugeicons/core-free-icons/Share08Icon';
+    import { Link01Icon as Link, Share08Icon as Share2 } from '@hugeicons/core-free-icons';
     import * as Avatar from '@mielui/svelte/components/avatar';
     import { Button } from '@mielui/svelte/components/button';
     import { Input } from '@mielui/svelte/components/input';

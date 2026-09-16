@@ -1,9 +1,9 @@
 <script lang="ts">
-    import HugeiconsIcon from '../../hugeicons-icon.svelte';
-    import Square from '@hugeicons/core-free-icons/SquareIcon';
+    import { SquareIcon as Square } from '@hugeicons/core-free-icons';
     import { Button } from '@mielui/svelte/components/button';
     import Kbd from '@mielui/svelte/components/kbd';
     import { cn } from '@mielui/svelte/utils';
+    import HugeiconsIcon from '../../hugeicons-icon.svelte';
     import type { ComposerSubmitProps } from '.';
     import { getComposerContext } from './context.svelte';
 

@@ -1,8 +1,8 @@
 <script lang="ts">
-    import HugeiconsIcon from '../../hugeicons-icon.svelte';
-    import Paperclip from '@hugeicons/core-free-icons/Attachment01Icon';
+    import { Attachment01Icon as Paperclip } from '@hugeicons/core-free-icons';
     import { Button } from '@mielui/svelte/components/button';
     import { cn } from '@mielui/svelte/utils';
+    import HugeiconsIcon from '../../hugeicons-icon.svelte';
     import type { AttachmentTriggerProps } from '.';
     import { getAttachmentContext } from './context.svelte';
 
