@@ -6,6 +6,10 @@ export const htmlDocPaths = [
     '/docs/introduction',
     '/docs/installation',
     '/docs/theming',
+    '/docs/agent-skill',
+    '/docs/actions',
+    '/docs/actions/morph',
+    '/docs/actions/shimmer',
     '/docs/changelog',
     '/docs/components',
     '/studio',
@@ -14,6 +18,11 @@ export const htmlDocPaths = [
 
 export const llmDocPaths = [
     '/llms.txt',
+    '/llms-full.txt',
+    '/docs/agent-skill.md',
+    '/docs/actions.md',
+    '/docs/actions/morph.md',
+    '/docs/actions/shimmer.md',
     '/docs/introduction.md',
     '/docs/installation.md',
     '/docs/theming.md',

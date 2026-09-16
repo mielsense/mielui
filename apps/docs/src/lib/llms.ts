@@ -1,5 +1,6 @@
 import { changelogLlmVersions, changelogVersions } from '$lib/changelog';
 import { componentGroups, components, sanitizeComponent } from '$lib/components';
+import { componentReference } from '$lib/server/api-reference';
 import { mieluiGuideMarkdown } from '$lib/skill';
 
 type ComponentManifest = {
@@ -60,7 +61,9 @@ function sourceFor(sources: Record<string, string>, component: string, suffix: s
     const entry = Object.entries(sources).find(([path]) =>
         path.endsWith(`/${component}/${suffix}`)
     );
-    if (!entry) throw new Error(`Missing ${suffix} for ${component}`);
+    if (!entry) {
+        throw new Error(`Missing ${suffix} for ${component}`);
+    }
     return entry[1];
 }
 
@@ -78,12 +81,16 @@ function titleFromFile(path: string): string {
 }
 
 export function componentMarkdown(component: string): string | undefined {
-    if (!components.includes(component as (typeof components)[number])) return undefined;
+    if (!components.includes(component as (typeof components)[number])) {
+        return undefined;
+    }
 
     const manifestEntry = Object.entries(manifests).find(([path]) =>
         path.endsWith(`/${component}/manifest.ts`)
     );
-    if (!manifestEntry) throw new Error(`Missing manifest for ${component}`);
+    if (!manifestEntry) {
+        throw new Error(`Missing manifest for ${component}`);
+    }
 
     const manifest = manifestEntry[1].manifest;
     const componentExamples = Object.entries(examples)
@@ -117,6 +124,26 @@ export function componentMarkdown(component: string): string | undefined {
         '## API',
         '',
         'This reference is generated at build time from the component manifest, public `index.ts`, and documentation examples below. Changes to those source files are reflected here in the published Markdown. Standard Svelte and HTML attributes accepted by the exported prop types are supported.',
+        '',
+        ...componentReference(component).flatMap((part) => [
+            '',
+            `### ${part.name}`,
+            '',
+            '| Prop | Type | Default | Required | Bindable |',
+            '| --- | --- | --- | --- | --- |',
+            ...part.properties
+                .filter((property) => !property.inherited)
+                .map(
+                    (property) =>
+                        `| ${property.name} | ${property.type.replaceAll('|', '\\|')} | ${(property.default ?? '—').replaceAll('|', '\\|')} | ${property.required ? 'Yes' : 'No'} | ${property.bindable ? 'Yes' : 'No'} |`
+                ),
+            '',
+            part.properties.some((property) => property.inherited)
+                ? 'Also accepts the native HTML attributes and events listed in the rendered API reference.'
+                : ''
+        ]),
+        '',
+        '### Public types',
         '',
         fence('ts', sourceFor(indexes, component, 'index.ts')),
         ...(componentExamples.length
@@ -225,6 +252,11 @@ export function coreMarkdown(page: keyof typeof coreDocs): string {
 
 export function llmsTxt(origin: string): string {
     const links = [
+        ['Complete documentation', '/llms-full.txt'],
+        ['Agent skill', '/docs/agent-skill.md'],
+        ['Actions', '/docs/actions.md'],
+        ['Morph', '/docs/actions/morph.md'],
+        ['Shimmer', '/docs/actions/shimmer.md'],
         ['Introduction', '/docs/introduction.md'],
         ['Installation', '/docs/installation.md'],
         ['Theming', '/docs/theming.md'],

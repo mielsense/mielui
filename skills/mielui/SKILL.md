@@ -37,7 +37,7 @@ Load documentation progressively:
 | Upgrading or resolving an API mismatch | Installed version, the compiled changelog, the LLM changelog page when linked, and component pages |
 | Visual design or review | `references/design-language.md` from this skill |
 
-Each generated component page contains its current version, dependencies, install command, public `index.ts` API, and runnable examples. Read the exact page before using a component that is new to the project. Never invent a part, prop, event, variant, slot/snippet contract, or import path.
+Each generated component page contains its current version, dependencies, install command, prop tables for exported parts, public `index.ts` API, and runnable examples. `/llms-full.txt` combines the full reference; prefer individual pages for focused tasks. Read the exact page before using a component that is new to the project. Never invent a part, prop, event, variant, slot/snippet contract, or import path.
 
 Use this authority order when sources disagree:
 
@@ -142,3 +142,21 @@ Before finishing, confirm:
 - The implementation uses real product content and covers relevant non-happy states.
 
 Report the Mielui components added, integration mode, verification performed, and any version or documentation limitation.
+
+## Current composition contracts
+
+The catalog separates Components, Blocks, AI components, Chart components, and Actions. Public component imports remain under `@mielui/svelte/components/<slug>` even when source folders use another category. Gauge and Heatmap are charts; Morph is imported from `@mielui/svelte/actions/morph`.
+
+Use Dialog instead of Modal, Kbd instead of Shortcut, and HugeiconsIcon with Hugeicons glyph data. Group connects real Button, Input, and trigger components; include Group.Separator between controls. Tag Input uses outline badges.
+
+Toast is composable through Root, Content, Footer, Title, Icon, Actions, Action, and Close. The description occupies the upper inset and the compact title/actions row sits below. The toast helpers render these same parts. Overlay surfaces accept `surface="solid" | "glass"` on the documented owning part; do not apply glass independently to nested surfaces.
+
+Heatmap.Root accepts `animation="rows" | "columns" | "none"`, defaulting to rows. Reduced motion disables entrances. Slider range mode binds a pair of numbers, accepts thumbLabels, and supports dir="rtl". Read each page before using these APIs, particularly when the locked package predates the unreleased changelog.
+
+## Tables, native selects, and loading placeholders
+
+Compose Table.Root with Header, Body, Row, Head, and Cell. Caption, Footer, and ScrollArea are optional. Use variant="inset" for a recessed table. Sorting and selection remain application state; use native aria-sort and existing Button or Checkbox controls.
+
+NativeSelect.Root renders a native select. Bind a string for single selection or a string array with multiple. Its size prop is the native number of visible options. Compose Option and OptGroup inside it.
+
+Apply use:shimmer from @mielui/svelte/actions/shimmer to a loading container, or set variant="shimmer" on Skeleton. Shimmer takes no options and disables itself for reduced motion. Label the loading region; the visual highlight is hidden from assistive technology.
