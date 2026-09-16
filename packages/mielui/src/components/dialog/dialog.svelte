@@ -45,7 +45,7 @@
 </script>
 
 <script lang="ts">
-    import { onDestroy } from 'svelte';
+    import { Dialog as DialogPrimitive } from 'bits-ui';
     import type { DialogProps, DialogState } from '.';
     import { type DialogFooterSlot, setDialogContext } from './context.svelte';
 
@@ -60,11 +60,13 @@
 
     const modalState = $state<DialogState>({
         open,
-        error: false,
-        orientation: 'horizontal'
+        error,
+        orientation
     });
     const modalContext = $state({
         id,
+        titleId: undefined as string | undefined,
+        descriptionId: undefined as string | undefined,
         contentId: `dialog-${id}`,
         returnFocusEl: undefined as HTMLElement | undefined,
         state: modalState,
@@ -112,15 +114,8 @@
         applyErrorThemeColor();
         return restoreThemeColor;
     });
-
-    onDestroy(() => {
-        if (!open && !modalState.open) {
-            return;
-        }
-        modalState.open = false;
-        open = false;
-        onOpenChange?.(false);
-    });
 </script>
 
-{@render children?.()}
+<DialogPrimitive.Root bind:open={modalState.open}>
+    {@render children?.()}
+</DialogPrimitive.Root>

@@ -1,5 +1,6 @@
 <script lang="ts">
     import { cn } from '@mielui/svelte/utils';
+    import { Tabs as BitsTabs } from 'bits-ui';
     import { getContext } from 'svelte';
     import type { TabsContentProps, TabsState } from '.';
     import { toTabIdPart } from './id';
@@ -14,20 +15,18 @@
 
     const tabsState = getContext<TabsState>('tabs');
 
-    const triggerId = $derived(`${tabsState.id}-trigger-${toTabIdPart(value)}`);
-    const contentId = $derived(`${tabsState.id}-content-${toTabIdPart(value)}`);
     const active = $derived(tabsState.value === value);
 </script>
 
 {#if forceMount || active}
-    <div
-        role="tabpanel"
-        id={contentId}
-        aria-labelledby={triggerId}
+    <BitsTabs.Content
+        id={`${tabsState.id}-content-${toTabIdPart(value)}`}
+        aria-labelledby={`${tabsState.id}-trigger-${toTabIdPart(value)}`}
+        {value}
         data-ui="tabs-content"
         data-state={active ? 'active' : 'inactive'}
         hidden={!active}
-        tabindex="0"
+        tabindex={0}
         class={cn(
             className,
             tabsState.orientation === 'vertical' && 'min-w-0 flex-1',
@@ -36,5 +35,5 @@
         {...rest}
     >
         {@render children?.()}
-    </div>
+    </BitsTabs.Content>
 {/if}

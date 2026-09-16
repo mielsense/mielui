@@ -1,4 +1,5 @@
 <script lang="ts">
+    import { Dialog as DialogPrimitive } from 'bits-ui';
     import type { SheetProps, SheetState } from '.';
     import { setSheetContext } from './context.svelte';
 
@@ -10,7 +11,13 @@
         triggerRef: null
     });
     let syncedOpen = $state(open);
-    setSheetContext({ id, state: sheetState });
+    const context = $state({
+        id,
+        state: sheetState,
+        titleId: undefined as string | undefined,
+        descriptionId: undefined as string | undefined
+    });
+    setSheetContext(context);
 
     $effect(() => {
         if (open !== syncedOpen) {
@@ -28,4 +35,6 @@
     });
 </script>
 
-{@render children?.()}
+<DialogPrimitive.Root bind:open={sheetState.open}>
+    {@render children?.()}
+</DialogPrimitive.Root>

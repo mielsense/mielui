@@ -1,5 +1,6 @@
 <script lang="ts">
     import { cn } from '@mielui/svelte/utils';
+    import { Switch as BitsSwitch } from 'bits-ui';
     import type { HTMLButtonAttributes } from 'svelte/elements';
     import type { SwitchProps } from '.';
 
@@ -12,6 +13,7 @@
         class: className,
         element = $bindable<HTMLButtonElement>(),
         onclick: userOnclick,
+        id: suppliedId,
         ...rest
     }: SwitchProps & { onclick?: (e: MouseEvent) => void } = $props();
 
@@ -24,31 +26,37 @@
     const buttonClasses =
         'group relative inline-flex h-5 w-11 shrink-0 items-center rounded-full border-[length:var(--border-size)] p-0.5 transition-[background-color,border-color,box-shadow] [transition-duration:var(--motion-duration-panel)] ease-[var(--ease-out)] motion-reduce:transition-none focus-visible:outline-none focus-visible:ring-0 focus-visible:shadow-[var(--focus-ring)] disabled:cursor-not-allowed disabled:opacity-[var(--opacity-disabled)]';
 
-    function toggle(event: Event) {
-        if (disabled) {
-            return;
-        }
-        const next = !isOn;
+    function getElement() {
+        return element ?? null;
+    }
+
+    function setElement(next: HTMLButtonElement | null) {
+        element = next ?? undefined;
+    }
+
+    function updateChecked(next: boolean) {
         if (checked !== undefined || switched === undefined) {
             checked = next;
         }
-        if (switched !== undefined || checked === undefined) {
+        if (switched !== undefined) {
             switched = next;
         }
-        userOnclick?.(event as MouseEvent);
     }
 </script>
 
 <div class="flex min-h-[var(--size-touch)] flex-row items-start gap-2.5 md:min-h-0">
-    <button
-        bind:this={element}
+    <BitsSwitch.Root
+        bind:ref={getElement, setElement}
+        checked={isOn}
+        onCheckedChange={updateChecked}
+        id={suppliedId ?? id}
         {...rest as HTMLButtonAttributes}
         type={(rest as HTMLButtonAttributes).type ?? 'button'}
         role="switch"
-        aria-label={!label ? (rest as HTMLButtonAttributes)['aria-label'] : undefined}
+        aria-label={rest['aria-label']}
         aria-checked={isOn}
-        aria-labelledby={label ? labelId : undefined}
-        aria-describedby={description ? descriptionId : undefined}
+        aria-labelledby={rest['aria-labelledby'] ?? (label ? labelId : undefined)}
+        aria-describedby={[rest['aria-describedby'], description ? descriptionId : undefined].filter(Boolean).join(' ') || undefined}
         data-ui="switch"
         data-state={isOn ? 'checked' : 'unchecked'}
         {disabled}
@@ -59,7 +67,7 @@
                 ? 'border-[var(--color-primary-hover)] bg-primary'
                 : 'border-[color-mix(in_srgb,var(--color-border-strong)_88%,transparent)] bg-[color-mix(in_srgb,var(--color-foreground)_18%,transparent)] dark:bg-[color-mix(in_srgb,var(--color-foreground)_24%,transparent)]'
         )}
-        onclick={toggle}
+        onclick={userOnclick}
     >
         <span
             aria-hidden="true"
@@ -70,23 +78,12 @@
                 !disabled && 'group-active:scale-x-110 motion-reduce:group-active:scale-x-100'
             )}
         ></span>
-    </button>
+    </BitsSwitch.Root>
 
     {#if label || description}
-        <div
+        <label
+            for={suppliedId ?? id}
             class={`flex min-w-0 flex-col gap-0.5 select-none ${disabled ? 'cursor-not-allowed opacity-60' : 'cursor-[var(--ui-cursor-interactive)]'}`}
-            onclick={toggle}
-            onkeydown={(e) => {
-                if (disabled) {
-                    return;
-                }
-                if (e.key === 'Enter' || e.key === ' ') {
-                    e.preventDefault();
-                    toggle(e);
-                    element?.focus();
-                }
-            }}
-            role="presentation"
         >
             {#if label}
                 <span
@@ -104,6 +101,6 @@
                     {description}
                 </span>
             {/if}
-        </div>
+        </label>
     {/if}
 </div>

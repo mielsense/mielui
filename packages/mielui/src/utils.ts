@@ -30,16 +30,54 @@ export function cn(...inputs: ClassValue[]) {
     return twMerge(clsx(inputs.reverse()));
 }
 
+function ownedStyles(node: HTMLElement, names: string[]) {
+    const original = new Map(
+        names.map((name) => [
+            name,
+            {
+                value: node.style.getPropertyValue(name),
+                priority: node.style.getPropertyPriority(name)
+            }
+        ])
+    );
+    const written = new Map<string, string>();
+    return {
+        set(name: string, value: string) {
+            node.style.setProperty(name, value);
+            written.set(name, node.style.getPropertyValue(name));
+        },
+        restore() {
+            for (const [name, value] of written) {
+                if (node.style.getPropertyValue(name) !== value) {
+                    continue;
+                }
+                const previous = original.get(name);
+                if (previous?.value) {
+                    node.style.setProperty(name, previous.value, previous.priority);
+                } else {
+                    node.style.removeProperty(name);
+                }
+            }
+            written.clear();
+        }
+    };
+}
+
 /** Keeps fixed overlays within the browser's visual viewport, including above an on-screen keyboard. */
 export function visualViewportBounds(node: HTMLElement) {
+    const styles = ownedStyles(node, [
+        '--mielui-viewport-top',
+        '--mielui-viewport-height',
+        '--mielui-viewport-center'
+    ]);
     const update = () => {
         const viewport = window.visualViewport;
         const top = viewport?.offsetTop ?? 0;
         const height = viewport?.height ?? window.innerHeight;
 
-        node.style.setProperty('--mielui-viewport-top', `${top}px`);
-        node.style.setProperty('--mielui-viewport-height', `${height}px`);
-        node.style.setProperty('--mielui-viewport-center', `${top + height / 2}px`);
+        styles.set('--mielui-viewport-top', `${top}px`);
+        styles.set('--mielui-viewport-height', `${height}px`);
+        styles.set('--mielui-viewport-center', `${top + height / 2}px`);
     };
 
     update();
@@ -49,6 +87,7 @@ export function visualViewportBounds(node: HTMLElement) {
 
     return {
         destroy() {
+            styles.restore();
             window.visualViewport?.removeEventListener('resize', update);
             window.visualViewport?.removeEventListener('scroll', update);
             window.removeEventListener('resize', update);
@@ -90,19 +129,8 @@ export function createContext<T>(name: string) {
 export function closeMenuLayers(current: { open: boolean }, ancestors: { open: boolean }[]) {
     current.open = false;
 
-    // Let the selected submenu begin its normal exit before its parents follow.
-    for (let index = ancestors.length - 1; index >= 0; index -= 1) {
-        const ancestor = ancestors[index];
-        if (!ancestor) {
-            continue;
-        }
-
-        setTimeout(
-            () => {
-                ancestor.open = false;
-            },
-            (ancestors.length - 1 - index) * 16 + 16
-        );
+    for (const ancestor of ancestors) {
+        ancestor.open = false;
     }
 }
 
@@ -356,7 +384,12 @@ export function inertOutside(activeRoots: HTMLElement[]) {
         subtree: true
     });
 
+    let released = false;
     return () => {
+        if (released) {
+            return;
+        }
+        released = true;
         observer.disconnect();
         for (const element of retained) {
             releaseInert(element);
@@ -388,7 +421,7 @@ export function lockBodyScroll() {
         body,
         scrollbarWidth > 0
             ? {
-                  paddingRight: `${scrollbarWidth}px`
+                  paddingRight: `${(Number.parseFloat(getComputedStyle(body).paddingRight) || 0) + scrollbarWidth}px`
               }
             : undefined
     );
@@ -402,7 +435,7 @@ export function lockBodyScroll() {
             if (isOverlayRoot(child)) {
                 continue;
             }
-            if (hasScrollableOverflow(child)) {
+            if (overflowLocks.has(child) || hasScrollableOverflow(child)) {
                 retainOverflowLock(child);
                 locked.push(child);
             }
@@ -411,7 +444,12 @@ export function lockBodyScroll() {
     };
     walk(body);
 
+    let released = false;
     return () => {
+        if (released) {
+            return;
+        }
+        released = true;
         for (const element of locked) {
             releaseOverflowLock(element);
         }
@@ -573,21 +611,61 @@ const FOCUSABLE_SELECTOR = [
     '[tabindex]:not([tabindex="-1"])'
 ].join(', ');
 
-/** Returns the visible, interactive descendants inside a container. */
+/** Returns visible tabbable descendants in native tab order. */
 export function getFocusableElements(container: HTMLElement) {
-    return Array.from(container.querySelectorAll<HTMLElement>(FOCUSABLE_SELECTOR)).filter((el) => {
-        if (el.hasAttribute('disabled')) {
+    const candidates = Array.from(
+        container.querySelectorAll<HTMLElement>(FOCUSABLE_SELECTOR)
+    ).filter((element) => {
+        if (
+            element.tabIndex < 0 ||
+            element.matches(':disabled') ||
+            element.closest('[inert], [hidden], [aria-hidden="true"]')
+        ) {
             return false;
         }
-        if (el.getAttribute('aria-hidden') === 'true') {
-            return false;
+        for (
+            let ancestor: HTMLElement | null = element;
+            ancestor;
+            ancestor = ancestor.parentElement
+        ) {
+            const style = getComputedStyle(ancestor);
+            if (
+                style.display === 'none' ||
+                style.visibility === 'hidden' ||
+                style.visibility === 'collapse'
+            ) {
+                return false;
+            }
         }
-        return !(
-            el.offsetParent === null &&
-            getComputedStyle(el).position !== 'fixed' &&
-            getComputedStyle(el).position !== 'sticky'
+        return (
+            element.offsetParent !== null ||
+            ['fixed', 'sticky'].includes(getComputedStyle(element).position)
         );
     });
+    return candidates
+        .filter((element) => {
+            if (
+                !(element instanceof HTMLInputElement) ||
+                element.type !== 'radio' ||
+                !element.name
+            ) {
+                return true;
+            }
+            const group = candidates.filter((candidate): candidate is HTMLInputElement => {
+                return (
+                    candidate instanceof HTMLInputElement &&
+                    candidate.type === 'radio' &&
+                    candidate.name === element.name &&
+                    candidate.form === element.form
+                );
+            });
+            return element === (group.find((candidate) => candidate.checked) ?? group[0]);
+        })
+        .sort((first, second) => {
+            const firstOrder = first.tabIndex > 0 ? first.tabIndex : Number.MAX_SAFE_INTEGER;
+            const secondOrder = second.tabIndex > 0 ? second.tabIndex : Number.MAX_SAFE_INTEGER;
+            return firstOrder - secondOrder;
+        });
 }
 
 /** Focuses the first focusable descendant when one exists. */
@@ -606,6 +684,7 @@ export function trapFocus(
         return;
     }
 
+    let active = true;
     const previouslyFocused =
         options?.returnFocus ??
         (document.activeElement instanceof HTMLElement ? document.activeElement : null);
@@ -660,6 +739,9 @@ export function trapFocus(
     document.addEventListener('focusin', handleFocusIn, true);
 
     queueMicrotask(() => {
+        if (!active || !dialogEl.isConnected) {
+            return;
+        }
         if (options?.initialFocus) {
             options.initialFocus.focus();
         } else if (!focusFirstDescendant(dialogEl)) {
@@ -668,6 +750,10 @@ export function trapFocus(
     });
 
     return () => {
+        if (!active) {
+            return;
+        }
+        active = false;
         document.removeEventListener('keydown', handleKeydown, true);
         document.removeEventListener('focusin', handleFocusIn, true);
         const restore = previouslyFocused;
@@ -691,14 +777,16 @@ const PRESS_FLOOR = 0.94;
  * before `:active` paints.
  */
 export function pressable(node: HTMLElement) {
+    const styles = ownedStyles(node, ['--mielui-press-sx', '--mielui-press-sy']);
     function measure() {
         const raw = getComputedStyle(node).getPropertyValue('--motion-press-px').trim();
-        const px = Number.parseFloat(raw) || 2;
+        const parsed = Number.parseFloat(raw);
+        const px = Number.isFinite(parsed) ? Math.max(0, parsed) : 2;
         const { width, height } = node.getBoundingClientRect();
         const sx = width > 0 ? Math.max((width - px) / width, PRESS_FLOOR) : 0.98;
         const sy = height > 0 ? Math.max((height - px) / height, PRESS_FLOOR) : 0.98;
-        node.style.setProperty('--mielui-press-sx', sx.toFixed(4));
-        node.style.setProperty('--mielui-press-sy', sy.toFixed(4));
+        styles.set('--mielui-press-sx', sx.toFixed(4));
+        styles.set('--mielui-press-sy', sy.toFixed(4));
     }
 
     function onKeyDown(e: KeyboardEvent) {
@@ -711,6 +799,7 @@ export function pressable(node: HTMLElement) {
     node.addEventListener('keydown', onKeyDown);
     return {
         destroy() {
+            styles.restore();
             node.removeEventListener('pointerdown', measure, true);
             node.removeEventListener('keydown', onKeyDown);
         }
@@ -752,6 +841,7 @@ export function travelingHighlight(node: HTMLElement, options: TravelingHighligh
     let frame = 0;
     let readyFrame = 0;
     let ready = false;
+    let disposed = false;
     let observedTarget: HTMLElement | undefined;
     const resizeObserver = new ResizeObserver(() => schedule(current ?? restingTarget()));
     resizeObserver.observe(node);
@@ -786,6 +876,9 @@ export function travelingHighlight(node: HTMLElement, options: TravelingHighligh
     }
 
     function measure(target: HTMLElement | undefined) {
+        if (disposed) {
+            return;
+        }
         cancelAnimationFrame(frame);
         current = target;
         if (!target?.isConnected || target.hidden) {
@@ -823,6 +916,9 @@ export function travelingHighlight(node: HTMLElement, options: TravelingHighligh
     }
 
     function schedule(target: HTMLElement | undefined) {
+        if (disposed) {
+            return;
+        }
         cancelAnimationFrame(frame);
         frame = requestAnimationFrame(() => measure(target));
     }
@@ -890,6 +986,7 @@ export function travelingHighlight(node: HTMLElement, options: TravelingHighligh
 
     return {
         destroy() {
+            disposed = true;
             cancelAnimationFrame(frame);
             cancelAnimationFrame(readyFrame);
             resizeObserver.disconnect();
@@ -928,6 +1025,10 @@ export function dynamicWidth(node: HTMLElement, options: DynamicWidthOptions = {
 
     let frame = 0;
     let applied = '';
+    let disposed = false;
+    const settleFrames = new Set<number>();
+    const target = panel();
+    const originalWidth = target.style.width;
     const observed = new Set<HTMLElement>();
     const resizeObserver =
         typeof ResizeObserver === 'function' ? new ResizeObserver(() => schedule()) : undefined;
@@ -935,7 +1036,11 @@ export function dynamicWidth(node: HTMLElement, options: DynamicWidthOptions = {
         typeof MutationObserver === 'function' ? new MutationObserver(() => schedule()) : undefined;
 
     function panel() {
-        return node.closest<HTMLElement>('[data-ui="popover-content"]') ?? node;
+        return (
+            node.closest<HTMLElement>(
+                '[data-ui="popover-content"], [data-ui="select-content"], [data-ui="dropdown-menu-content"], [data-ui="dropdown-menu-sub-content"], [data-ui="context-menu-content"], [data-ui="context-menu-sub-content"]'
+            ) ?? node
+        );
     }
 
     function collect() {
@@ -968,12 +1073,16 @@ export function dynamicWidth(node: HTMLElement, options: DynamicWidthOptions = {
 
     function measure() {
         frame = 0;
-        const target = panel();
+        if (disposed) {
+            return;
+        }
         const items = enabled ? collect() : [];
         syncItemObservers(items);
         if (items.length === 0) {
             if (applied) {
-                target.style.removeProperty('width');
+                if (target.style.width === applied) {
+                    target.style.width = originalWidth;
+                }
                 applied = '';
             }
             return;
@@ -1002,16 +1111,32 @@ export function dynamicWidth(node: HTMLElement, options: DynamicWidthOptions = {
     }
 
     function schedule() {
+        if (disposed) {
+            return;
+        }
         cancelAnimationFrame(frame);
         frame = requestAnimationFrame(measure);
+    }
+
+    function settleFrame(callback: () => void) {
+        if (disposed) {
+            return;
+        }
+        const id = requestAnimationFrame(() => {
+            settleFrames.delete(id);
+            if (!disposed) {
+                callback();
+            }
+        });
+        settleFrames.add(id);
     }
 
     function settle() {
         queueMicrotask(() => {
             schedule();
-            requestAnimationFrame(() => {
+            settleFrame(() => {
                 schedule();
-                requestAnimationFrame(() => schedule());
+                settleFrame(schedule);
             });
         });
     }
@@ -1038,12 +1163,19 @@ export function dynamicWidth(node: HTMLElement, options: DynamicWidthOptions = {
             }
         },
         destroy() {
+            disposed = true;
             cancelAnimationFrame(frame);
+            for (const id of settleFrames) {
+                cancelAnimationFrame(id);
+            }
+            settleFrames.clear();
             mutationObserver?.disconnect();
             resizeObserver?.disconnect();
             observed.clear();
             if (applied) {
-                panel().style.removeProperty('width');
+                if (target.style.width === applied) {
+                    target.style.width = originalWidth;
+                }
                 applied = '';
             }
         }

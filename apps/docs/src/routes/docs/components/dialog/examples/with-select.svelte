@@ -27,13 +27,13 @@
                 <span class="text-sm [font-weight:var(--font-weight-label,500)] text-foreground">
                     Role
                 </span>
-                <Select.Root value={role}>
+                <Select.Root bind:value={role}>
                     <Select.Trigger class="w-full" variant="outline" size="md">
                         {selected?.label ?? 'Select role'}
                     </Select.Trigger>
                     <Select.Content>
                         {#each roles as option (option.value)}
-                            <Select.Item value={option.value} onclick={() => (role = option.value)}>
+                            <Select.Item value={option.value}>
                                 {option.label}
                             </Select.Item>
                         {/each}

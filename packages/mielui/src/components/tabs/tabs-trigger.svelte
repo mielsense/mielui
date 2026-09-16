@@ -1,5 +1,6 @@
 <script lang="ts">
     import { cn, pressable } from '@mielui/svelte/utils';
+    import { Tabs as BitsTabs } from 'bits-ui';
     import { getContext } from 'svelte';
     import type { TabsState, TabsTriggerProps } from '.';
     import { toTabIdPart } from './id';
@@ -14,19 +15,9 @@
 
     const tabsState = getContext<TabsState>('tabs');
 
-    const triggerId = $derived(`${tabsState.id}-trigger-${toTabIdPart(value)}`);
-    const contentId = $derived(`${tabsState.id}-content-${toTabIdPart(value)}`);
     const active = $derived(tabsState.value === value);
-    /**
-     * `ghost` has no active pill or underline, so a heavier weight -- plus the
-     * text-colour shift below -- is what marks the active tab.
-     */
     const ghostActive = $derived(active && tabsState.variant === 'ghost');
 
-    /**
-     * Segmented pills sit taller than their text padding, so the extra
-     * flex-centring below keeps the label vertically centred inside the taller pill.
-     */
     const segmented = $derived(tabsState.variant === 'segmented');
     const vertical = $derived(tabsState.orientation === 'vertical');
     const radiusClass = $derived(
@@ -34,18 +25,22 @@
     );
 </script>
 
-<button
-    type="button"
-    use:pressable
-    role="tab"
-    id={triggerId}
-    aria-selected={active}
-    aria-controls={contentId}
-    tabindex={active ? 0 : -1}
-    data-ui="tabs-trigger"
-    data-state={active ? 'active' : 'inactive'}
+<BitsTabs.Trigger
+    id={`${tabsState.id}-trigger-${toTabIdPart(value)}`}
+    aria-controls={`${tabsState.id}-content-${toTabIdPart(value)}`}
+    {value}
     {disabled}
-    class={cn(
+    {...rest}
+>
+    {#snippet child({ props })}
+        <button
+            {...props}
+            type="button"
+            use:pressable
+            data-ui="tabs-trigger"
+            data-state={active ? 'active' : 'inactive'}
+            {disabled}
+            class={cn(
         className,
         radiusClass,
         vertical && 'w-full justify-start text-left',
@@ -54,12 +49,8 @@
         ghostActive && '[font-weight:var(--font-weight-header)]',
         segmented && 'inline-flex min-h-8 items-center justify-center'
     )}
-    onclick={() => {
-        if (!disabled) {
-            tabsState.value = value;
-        }
-    }}
-    {...rest}
->
-    {@render children?.()}
-</button>
+        >
+            {@render children?.()}
+        </button>
+    {/snippet}
+</BitsTabs.Trigger>

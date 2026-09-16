@@ -1,25 +1,39 @@
 <script lang="ts">
-    import * as Popover from '@mielui/svelte/components/popover';
-    import { travelingHighlight } from '@mielui/svelte/utils';
-    import type { ContextMenuContentProps } from '.';
-    import { getContextMenuContext } from './context.svelte';
+    import { panelIn, panelOut } from '@mielui/svelte/transition';
+    import { cn, travelingHighlight } from '@mielui/svelte/utils';
+    import { ContextMenu as MenuPrimitive } from 'bits-ui';
+    import { overlaySurface } from '../_internal/surface';
+    import type { ContextMenuContentProps as Props } from '.';
 
-    const { state: contextMenuState } = getContextMenuContext();
-
-    let { class: className, children, ...rest }: ContextMenuContentProps = $props();
+    let { children, class: className, surface = 'solid', ...rest }: Props = $props();
 </script>
 
-<Popover.Content
-    role="menu"
-    tabindex={-1}
-    data-ui="context-menu-content"
-    refElement={contextMenuState.virtualElement}
-    focusTrap={false}
-    {...rest}
-    class={className}
-    surfaceClass="p-0"
->
-    <div use:travelingHighlight class="flex flex-col gap-0 p-1">
-        {@render children?.()}
-    </div>
-</Popover.Content>
+<MenuPrimitive.Portal>
+    <MenuPrimitive.Content {...rest} forceMount sideOffset={4} align="start">
+        {#snippet child({ props, wrapperProps, open })}
+            {#if open}
+                <div {...wrapperProps} data-overlay-root class="z-[130]">
+                    <div
+                        {...props}
+                        in:panelIn
+                        out:panelOut
+                        data-ui="context-menu-content"
+                        data-surface={surface}
+                        class={cn(
+                            className,
+                            overlaySurface(surface),
+                            'mielui-modal-frame flex max-h-[var(--bits-context-menu-content-available-height)] max-w-[var(--bits-context-menu-content-available-width)] min-w-44 origin-[var(--bits-context-menu-content-transform-origin)] flex-col overflow-hidden text-sm text-foreground outline-none shadow-[var(--elevation-float)] [--mielui-modal-inset:calc(var(--spacing)*0.5)]'
+                        )}
+                    >
+                        <div
+                            use:travelingHighlight
+                            class="mielui-inset-surface flex min-h-0 flex-col overflow-auto overscroll-contain p-1"
+                        >
+                            {@render children?.()}
+                        </div>
+                    </div>
+                </div>
+            {/if}
+        {/snippet}
+    </MenuPrimitive.Content>
+</MenuPrimitive.Portal>

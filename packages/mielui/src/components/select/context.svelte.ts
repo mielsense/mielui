@@ -3,8 +3,8 @@ import type { SelectState } from '.';
 
 export type SelectContext = {
     id: string;
+    onTriggerOpen?: () => void;
     state: SelectState;
-    /** Plain registries — never put these inside $state. */
     labels: Map<string, string>;
     values: Set<string>;
 };

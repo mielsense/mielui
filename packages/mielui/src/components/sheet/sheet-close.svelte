@@ -3,14 +3,18 @@
     import type { SheetCloseProps } from '.';
     import { getSheetContext } from './context.svelte';
 
-    let { class: className, children, ...rest }: SheetCloseProps = $props();
+    let { class: className, children, onclick, ...rest }: SheetCloseProps = $props();
 
     const { state: sheetState } = getSheetContext();
 </script>
 
 <Button
     variant="outline"
-    onclick={() => {
+    onclick={(event) => {
+        onclick?.(event);
+        if (event.defaultPrevented) {
+            return;
+        }
         sheetState.open = false;
     }}
     class={className}

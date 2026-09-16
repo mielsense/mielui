@@ -7,6 +7,7 @@
         class: className,
         children,
         element = $bindable(),
+        onclick,
         ...rest
     }: SheetTriggerProps = $props();
 
@@ -18,7 +19,11 @@
     aria-haspopup="dialog"
     aria-expanded={sheetState.open}
     aria-controls={`sheet-${id}`}
-    onclick={() => {
+    onclick={(event) => {
+        onclick?.(event);
+        if (event.defaultPrevented) {
+            return;
+        }
         sheetState.triggerRef = element;
         sheetState.open = !sheetState.open;
     }}

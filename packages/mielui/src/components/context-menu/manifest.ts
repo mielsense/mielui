@@ -23,6 +23,8 @@ export const manifest: Manifest = {
     ],
     components: ['popover', 'button'],
     shared: [
+        'transition',
+        'components/_internal/surface',
         'hugeicons-icon',
         'utils.closeMenuLayers',
         'utils.cn',
@@ -30,9 +32,10 @@ export const manifest: Manifest = {
         'utils.travelingHighlight'
     ],
     peerDependencies: {
+        'bits-ui': '^2.19.2',
         '@floating-ui/dom': '^1.0.0',
         '@hugeicons/core-free-icons': '^4.3.0',
         cnfast: '^0.0.8',
-        svelte: '^5.0.0'
+        svelte: '^5.33.0'
     }
 };

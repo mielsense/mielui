@@ -6,17 +6,17 @@
         positionFloatingPanel,
         submenuPanelOffset
     } from '@mielui/svelte/utils';
-    import { onMount, tick } from 'svelte';
+    import { tick } from 'svelte';
     import type { Placement, PopoverTriggerProps } from '.';
     import { getPopoverContext } from './context.svelte';
 
     const { id: key, state: popoverState } = getPopoverContext();
 
-    let element = $state<HTMLButtonElement | undefined>();
     type Props = PopoverTriggerProps;
 
     let {
         children,
+        element = $bindable(),
         class: classProp,
         onclick,
         onopen,
@@ -28,7 +28,7 @@
         ...rest
     }: Props = $props();
 
-    onMount(() => {
+    $effect(() => {
         popoverState.buttonRef = element ?? null;
     });
 

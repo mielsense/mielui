@@ -59,6 +59,11 @@
     <!-- ─── Usage ─────────────────────────────────────────────────── -->
     <section id="usage" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Usage</Typography.H2>
+        <Typography.Text>
+            Arrow keys move between enabled headers; Home and End jump to the first and last header.
+            Each accordion instance generates its own trigger and content IDs. Setting collapsible
+            to false keeps the active single item open.
+        </Typography.Text>
 
         <CodeBlock
             code={`import * as Accordion from '$lib/mielui/components/accordion';\n\n<Accordion.Root type="single">\n  <Accordion.Item value="a">\n    <Accordion.Trigger>Trigger</Accordion.Trigger>\n    <Accordion.Content>Content</Accordion.Content>\n  </Accordion.Item>\n</Accordion.Root>`}

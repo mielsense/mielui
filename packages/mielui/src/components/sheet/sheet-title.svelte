@@ -1,19 +1,31 @@
 <script lang="ts">
     import { cn } from '@mielui/svelte/utils';
+    import { Dialog as DialogPrimitive } from 'bits-ui';
     import type { SheetTitleProps } from '.';
     import { getSheetContext } from './context.svelte';
 
     let { class: className, children, ...rest }: SheetTitleProps = $props();
-    const { id } = getSheetContext();
+    const context = getSheetContext();
+    const id = `${context.id}-title`;
+
+    $effect(() => {
+        context.titleId = id;
+        return () => {
+            if (context.titleId === id) {
+                context.titleId = undefined;
+            }
+        };
+    });
 </script>
 
-<h1
+<DialogPrimitive.Title
+    {id}
+    level={1}
     {...rest}
-    id={`${id}-title`}
     class={cn(
         className,
         `[font-family:var(--font-header)] [font-size:var(--font-size-header)] [font-weight:var(--font-weight-header)] [letter-spacing:var(--tracking-header)] text-balance`
     )}
 >
     {@render children?.()}
-</h1>
+</DialogPrimitive.Title>

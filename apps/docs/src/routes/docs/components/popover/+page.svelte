@@ -50,6 +50,12 @@
     <!-- ─── Usage ─────────────────────────────────────────────────── -->
     <section id="usage" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Usage</Typography.H2>
+        <Typography.Text variant="supporting">
+            Popover coordinates focus and Escape with dialogs and nested floating controls. Include
+            Title or give Content an aria-label when it has a dialog role. Set focusTrap and
+            lockScroll to false for a non-modal composition; set inert to false on Root when outside
+            content should remain interactive.
+        </Typography.Text>
 
         <Typography.Text variant="supporting">
             Open non-hover popovers make outside document content inert by default. Set

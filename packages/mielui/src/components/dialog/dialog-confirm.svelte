@@ -13,8 +13,10 @@
     {...rest}
     variant={confirmVariant}
     onclick={(event: MouseEvent) => {
-        dialog.state.open = false;
         onclick?.(event);
+        if (!event.defaultPrevented) {
+            dialog.state.open = false;
+        }
     }}
     class={cn(className, 'ml-auto flex flex-row items-center justify-center gap-2')}
 >

@@ -1,19 +1,30 @@
 <script lang="ts">
     import { cn } from '@mielui/svelte/utils';
+    import { Dialog as DialogPrimitive } from 'bits-ui';
     import type { SheetDescriptionProps } from '.';
     import { getSheetContext } from './context.svelte';
 
     let { class: className, children, ...rest }: SheetDescriptionProps = $props();
-    const { id } = getSheetContext();
+    const context = getSheetContext();
+    const id = `${context.id}-description`;
+
+    $effect(() => {
+        context.descriptionId = id;
+        return () => {
+            if (context.descriptionId === id) {
+                context.descriptionId = undefined;
+            }
+        };
+    });
 </script>
 
-<p
+<DialogPrimitive.Description
+    {id}
     {...rest}
-    id={`${id}-desc`}
     class={cn(
         className,
         '[font-size:var(--font-size-body)] [font-weight:var(--font-weight-body)] [letter-spacing:var(--tracking-body)] text-pretty text-foreground-muted'
     )}
 >
     {@render children?.()}
-</p>
+</DialogPrimitive.Description>

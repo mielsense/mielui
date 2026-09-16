@@ -53,6 +53,11 @@
     <!-- ─── Usage ─────────────────────────────────────────────────── -->
     <section id="usage" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Usage</Typography.H2>
+        <Typography.Text>
+            Use name and value to include a checked switch in form submission. Both checked and the
+            switched alias remain bindable. A label activates the switch, and supplied ARIA
+            relationships are preserved.
+        </Typography.Text>
         <Typography.Text variant="supporting">Import Switch and bind its state:</Typography.Text>
         <CodeBlock
             code={`import { Switch } from '$lib/mielui/components/switch';\n\n<Switch bind:switched={enabled} label="Notifications" />`}

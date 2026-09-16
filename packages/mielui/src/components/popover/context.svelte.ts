@@ -4,6 +4,7 @@ import type { PopoverState } from '.';
 export type PopoverContext = {
     id: string;
     state: PopoverState;
+    titleId?: string;
 };
 
 const { set: setPopoverContext, get: getPopoverContext } = createContext<PopoverContext>('popover');

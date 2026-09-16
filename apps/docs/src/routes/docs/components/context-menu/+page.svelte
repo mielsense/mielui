@@ -56,6 +56,12 @@
     <section id="usage" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Usage</Typography.H2>
         <Typography.Text variant="supporting">
+            Open the menu with a right-click, a touch long-press, or the Context Menu key or
+            Shift+F10 on its focused trigger. Arrow keys, Home, End, and typing navigate items;
+            submenus support directional keys. An item onclick handler can call
+            event.preventDefault() to cancel selection and dismissal.
+        </Typography.Text>
+        <Typography.Text variant="supporting">
             Import and compose with Root, Trigger, Content, and Item:
         </Typography.Text>
         <CodeBlock

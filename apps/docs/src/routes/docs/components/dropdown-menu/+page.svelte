@@ -63,6 +63,12 @@
     <!-- ─── Usage ─────────────────────────────────────────────────── -->
     <section id="usage" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Usage</Typography.H2>
+        <Typography.Text variant="supporting">
+            Use Arrow keys, Home, End, or type a label to move between enabled items. Submenus
+            support directional keyboard navigation. Items close the menu after selection; an
+            onclick handler can call event.preventDefault() to cancel selection and dismissal. Bind
+            checked or value to retain selections outside the mounted menu.
+        </Typography.Text>
 
         <CodeBlock
             code={`import * as DropdownMenu from '$lib/mielui/components/dropdown-menu';\nimport Kbd from '$lib/mielui/components/kbd';\n\n<DropdownMenu.Root>\n  <DropdownMenu.Trigger>Menu</DropdownMenu.Trigger>\n  <DropdownMenu.Content>\n    <DropdownMenu.Item callback={handleClick}>\n      Action\n      <Kbd shortcut="cmd+K" />\n    </DropdownMenu.Item>\n  </DropdownMenu.Content>\n</DropdownMenu.Root>`}

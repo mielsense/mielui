@@ -10,6 +10,8 @@ export type DialogFooterSlot = {
 
 export type DialogContext = {
     id: string;
+    titleId?: string;
+    descriptionId?: string;
     contentId: string;
     returnFocusEl: HTMLElement | undefined;
     state: DialogState;

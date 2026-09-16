@@ -52,6 +52,10 @@
     <!-- ─── Usage ─────────────────────────────────────────────────── -->
     <section id="usage" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Usage</Typography.H2>
+        <Typography.Text>
+            The trigger respects disabled, exposes the content relationship, and keeps the existing
+            reduced-motion-aware content transition.
+        </Typography.Text>
 
         <CodeBlock
             code={`import * as Collapsible from '$lib/mielui/components/collapsible';\n\nlet open = $state();\n\n<Collapsible.Root bind:open>\n  <Collapsible.Trigger>Trigger</Collapsible.Trigger>\n  <Collapsible.Content>Content</Collapsible.Content>\n</Collapsible.Root>`}

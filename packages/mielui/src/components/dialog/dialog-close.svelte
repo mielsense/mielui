@@ -1,7 +1,6 @@
 <script lang="ts">
     import { Button } from '@mielui/svelte/components/button';
     import { cn } from '@mielui/svelte/utils';
-    import { onMount } from 'svelte';
     import type { DialogCloseProps } from '.';
     import { getDialogContext } from './context.svelte';
 
@@ -9,17 +8,16 @@
 
     const dialog = getDialogContext();
     let element = $state<HTMLButtonElement | HTMLAnchorElement | undefined>(undefined);
-
-    onMount(() => {
-        element?.focus();
-    });
 </script>
 
 <Button
     bind:element
+    data-dialog-cancel
     onclick={(event: MouseEvent) => {
-        dialog.state.open = false;
         onclick?.(event);
+        if (!event.defaultPrevented) {
+            dialog.state.open = false;
+        }
     }}
     variant="ghost"
     {...rest}

@@ -1,4 +1,4 @@
-import { cubicIn, cubicOut, quintOut } from 'svelte/easing';
+import { cubicOut, quintOut } from 'svelte/easing';
 import { type EasingFunction, fade, type TransitionConfig } from 'svelte/transition';
 
 /**
@@ -65,6 +65,24 @@ function sampleBezier(t: number, p1: number, p2: number) {
 /** iOS-like drawer curve: cubic-bezier(0.32, 0.72, 0, 1) */
 const drawerEase = cubicBezier(0.32, 0.72, 0, 1);
 
+function readCssEasing(node: Element, fallback: EasingFunction): EasingFunction {
+    const value = getComputedStyle(node).getPropertyValue('--ease-out').trim();
+    const match =
+        /^cubic-bezier\(\s*([-+.\d]+)\s*,\s*([-+.\d]+)\s*,\s*([-+.\d]+)\s*,\s*([-+.\d]+)\s*\)$/.exec(
+            value
+        );
+    if (match) {
+        const [x1, y1, x2, y2] = match.slice(1).map(Number);
+        if ([x1, y1, x2, y2].every(Number.isFinite) && x1 >= 0 && x1 <= 1 && x2 >= 0 && x2 <= 1) {
+            return cubicBezier(x1, y1, x2, y2);
+        }
+    }
+    if (value === 'linear') {
+        return (value) => value;
+    }
+    return fallback;
+}
+
 function readCssNumber(node: Element, names: string[], fallback: number) {
     const style = getComputedStyle(node);
     for (const name of names) {
@@ -123,7 +141,7 @@ function panelTransition(
 
     return {
         duration: getCssDuration(node, durationVariable, fallbackDuration),
-        easing: options?.easing ?? cubicOut,
+        easing: readCssEasing(node, options?.easing ?? cubicOut),
         css: (t) => {
             return `opacity:${(opacityStart + (1 - opacityStart) * t) * opacity};transform:${baseTransform} translateY(${(1 - t) * offsetY}px) scale(${endScale + (1 - endScale) * t});filter:${baseFilter} blur(${(1 - t) * blur}px)`;
         }
@@ -175,7 +193,7 @@ export function dialogIn(node: Element) {
 export function dialogOut(node: Element) {
     return panelTransition(node, '--motion-duration-modal-out', 110, {
         ...MODAL_MOVEMENT,
-        easing: cubicIn,
+        easing: cubicOut,
         exit: true
     });
 }
@@ -243,7 +261,7 @@ export const themedSlide = (node: Element, params: ThemedSlideParams = {}): Tran
     return {
         duration,
         delay: 0,
-        easing: cubicOut,
+        easing: readCssEasing(node, cubicOut),
         css: (t) => {
             return (
                 `overflow: hidden;` +

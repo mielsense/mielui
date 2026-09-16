@@ -3,6 +3,8 @@ import type { SheetState } from '.';
 
 export type SheetContext = {
     id: string;
+    titleId?: string;
+    descriptionId?: string;
     state: SheetState;
 };
 

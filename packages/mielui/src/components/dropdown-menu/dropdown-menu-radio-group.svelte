@@ -1,20 +1,10 @@
 <script lang="ts">
+    import { DropdownMenu as MenuPrimitive } from 'bits-ui';
     import type { DropdownMenuRadioGroupProps } from '.';
-    import { setDropdownMenuRadioGroupContext } from './radio-group-context.svelte';
 
-    let { value = $bindable(), onValueChange, children }: DropdownMenuRadioGroupProps = $props();
-
-    setDropdownMenuRadioGroupContext({
-        get value() {
-            return value;
-        },
-        set value(next) {
-            value = next;
-        },
-        get onValueChange() {
-            return onValueChange;
-        }
-    });
+    let { value = $bindable(''), onValueChange, children }: DropdownMenuRadioGroupProps = $props();
 </script>
 
-{@render children?.()}
+<MenuPrimitive.RadioGroup bind:value {onValueChange}>
+    {@render children?.()}
+</MenuPrimitive.RadioGroup>

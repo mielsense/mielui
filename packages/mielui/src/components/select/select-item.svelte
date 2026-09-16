@@ -1,96 +1,71 @@
 <script lang="ts">
     import { Tick02Icon as Check } from '@hugeicons/core-free-icons';
-    import * as DropdownMenu from '@mielui/svelte/components/dropdown-menu';
+    import { Button } from '@mielui/svelte/components/button';
     import { cn } from '@mielui/svelte/utils';
-    import { onMount } from 'svelte';
+    import { Select as BitsSelect, mergeProps } from 'bits-ui';
     import HugeiconsIcon from '../../hugeicons-icon.svelte';
-    import { getPopoverContext } from '../popover/context.svelte';
     import type { SelectItemProps } from '.';
     import { getSelectContext } from './context.svelte';
 
-    const { id, state: selectState, labels, values } = getSelectContext();
-    const { state: popoverState } = getPopoverContext();
-
+    const { labels, values } = getSelectContext();
     let {
         children,
         class: className,
         value,
         label,
-        onclick: userOnclick,
+        onclick,
+        disabled,
+        element = $bindable(),
         ...rest
     }: SelectItemProps = $props();
-    let element = $state<HTMLButtonElement | HTMLAnchorElement | undefined>();
+    let resolvedLabel = $state('');
 
-    function resolveLabel() {
-        if (label) {
-            return label;
-        }
-        const fromAttr = element
-            ?.querySelector<HTMLElement>('[data-select-label]')
-            ?.textContent?.trim();
-        if (fromAttr) {
-            return fromAttr;
-        }
-        return element?.textContent?.trim() ?? '';
-    }
-
-    /**
-     * Registers the item's value and display label with the Select root.
-     *
-     * This records the display label only -- it must never write
-     * `selectState.selectedLabel`, because doing so on menu open made
-     * pre-filled triggers jump the moment labels resolved. When the label is not
-     * in the DOM yet, one animation frame is given for it to appear.
-     */
-    onMount(() => {
+    $effect(() => {
         const itemValue = value;
         values.add(itemValue);
-
-        const resolved = resolveLabel();
-        if (resolved) {
-            labels.set(itemValue, resolved);
-        } else {
-            const raf = requestAnimationFrame(() => {
-                const again = resolveLabel();
-                if (again) {
-                    labels.set(itemValue, again);
-                }
-            });
-            return () => {
-                cancelAnimationFrame(raf);
-                values.delete(itemValue);
-            };
+        const node = element;
+        function updateLabel() {
+            resolvedLabel =
+                label ||
+                node?.querySelector('[data-select-label]')?.textContent?.trim() ||
+                node?.textContent?.trim() ||
+                itemValue;
+            labels.set(itemValue, resolvedLabel);
         }
-
+        updateLabel();
+        const observer = new MutationObserver(updateLabel);
+        if (node) {
+            observer.observe(node, { childList: true, characterData: true, subtree: true });
+        }
         return () => {
+            observer.disconnect();
             values.delete(itemValue);
+            labels.delete(itemValue);
         };
     });
 </script>
 
-<DropdownMenu.Item
-    bind:element
-    id={`select-${id}-option-${value}`}
-    role="option"
-    aria-selected={selectState.value === value}
-    tabindex={-1}
-    {...rest}
-    callback={() => {
-        const resolved = resolveLabel() || labels.get(value) || value;
-        labels.set(value, resolved);
-        selectState.value = value;
-        selectState.selectedLabel = resolved;
-        popoverState.buttonRef?.focus();
-    }}
-    onclick={userOnclick}
-    class={cn(className, 'mielui-menu-item')}
-    unstyled
+<BitsSelect.Item
+    id={rest.id ?? undefined}
+    {value}
+    label={label || resolvedLabel || value}
+    {disabled}
+    {onclick}
 >
-    {@render children?.()}
-
-    {#if selectState.value === value}
-        <div aria-hidden="true">
-            <HugeiconsIcon icon={Check} />
-        </div>
-    {/if}
-</DropdownMenu.Item>
+    {#snippet child({ props, selected })}
+        <Button
+            {...mergeProps(rest, props)}
+            data-collection-item
+            data-collection-active={selected}
+            bind:element
+            {disabled}
+            unstyled
+            class={cn(className, 'mielui-menu-item data-highlighted:bg-secondary data-highlighted:text-foreground')}
+        >
+            {@render children?.()}
+            {#if selected}
+                <span aria-hidden="true"><HugeiconsIcon icon={Check} /></span>
+            {/if}
+        </Button>
+    {/snippet}
+</BitsSelect.Item>

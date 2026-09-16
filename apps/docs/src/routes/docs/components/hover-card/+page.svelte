@@ -54,6 +54,12 @@
     <!-- ─── Usage ─────────────────────────────────────────────────── -->
     <section id="usage" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Usage</Typography.H2>
+        <Typography.Text>
+            Hover Card uses Bits UI LinkPreview for pointer grace, keyboard focus, dismissal, and
+            collision-aware positioning. Mielui retains its inset surface, placement props, and
+            motion tokens. Link triggers retain normal navigation; triggers without href render a
+            native button.
+        </Typography.Text>
 
         <CodeBlock
             code={`import * as HoverCard from '$lib/mielui/components/hover-card';\nimport * as Avatar from '$lib/mielui/components/avatar';\n\n<HoverCard.Root>\n  <HoverCard.Trigger>@username</HoverCard.Trigger>\n  <HoverCard.Content>\n    <HoverCard.Title>Full name</HoverCard.Title>\n    <HoverCard.Description>Bio or description</HoverCard.Description>\n  </HoverCard.Content>\n</HoverCard.Root>`}

@@ -1,75 +1,46 @@
 <script lang="ts">
-    import * as DropdownMenu from '@mielui/svelte/components/dropdown-menu';
-    import { type Snippet, tick } from 'svelte';
-    import { getPopoverContext } from '../popover/context.svelte';
+    import { cn, dynamicWidth, travelingHighlight } from '@mielui/svelte/utils';
+    import { Select as BitsSelect } from 'bits-ui';
+    import type { Snippet } from 'svelte';
+    import { overlaySurface } from '../_internal/surface';
 
-    const { state: popoverState } = getPopoverContext();
-
-    type Props = {
+    let {
+        surface = 'solid',
+        children,
+        class: className,
+        dynamic = false
+    }: {
         surface?: 'solid' | 'glass';
         children: Snippet;
         class?: string;
         dynamic?: boolean;
-    };
-
-    let props: Props = $props();
-
-    $effect(() => {
-        if (!popoverState.open) {
-            return;
-        }
-
-        void tick().then(() => {
-            const content = popoverState.popoverRef;
-            if (!content) {
-                return;
-            }
-
-            const selected =
-                content.querySelector<HTMLElement>('[role="option"][aria-selected="true"]') ??
-                content.querySelector<HTMLElement>('[role="option"]');
-            selected?.focus();
-        });
-    });
-
-    function moveFocus(current: HTMLElement, direction: 1 | -1) {
-        const options = Array.from(
-            current
-                .closest('[role="listbox"]')
-                ?.querySelectorAll<HTMLElement>('[role="option"]:not(:disabled)') ?? []
-        );
-        const index = options.indexOf(current);
-        options[(index + direction + options.length) % options.length]?.focus();
-    }
-
-    function handleKeydown(event: KeyboardEvent) {
-        const target = event.target;
-        if (!(target instanceof HTMLElement) || target.getAttribute('role') !== 'option') {
-            return;
-        }
-        const listbox = target.closest('[role="listbox"]');
-        if (!listbox) {
-            return;
-        }
-        if (event.key === 'ArrowDown' || event.key === 'ArrowUp') {
-            event.preventDefault();
-            moveFocus(target, event.key === 'ArrowDown' ? 1 : -1);
-        } else if (event.key === 'Home' || event.key === 'End') {
-            event.preventDefault();
-            const options = listbox.querySelectorAll<HTMLElement>('[role="option"]:not(:disabled)');
-            options[event.key === 'Home' ? 0 : options.length - 1]?.focus();
-        }
-    }
+    } = $props();
 </script>
 
-<DropdownMenu.Content
-    role="listbox"
-    tabindex={-1}
-    data-ui="select-content"
-    class={props.class}
-    dynamic={props.dynamic ?? false}
-    surface={props.surface}
-    onkeydown={handleKeydown}
->
-    {@render props.children?.()}
-</DropdownMenu.Content>
+<BitsSelect.Portal>
+    <BitsSelect.Content forceMount sideOffset={6} align="start">
+        {#snippet child({ props, wrapperProps, open })}
+            <div {...wrapperProps} data-overlay-root class="z-[130]">
+                <div
+                    {...props}
+                    data-ui="select-content"
+                    inert={!open}
+                    aria-hidden={!open || undefined}
+                    data-state={open ? 'open' : 'closed'}
+                    class={cn(className, 'mielui-modal-frame z-[130] flex min-w-[var(--bits-select-anchor-width)] max-h-[var(--bits-select-content-available-height)] flex-col overflow-hidden text-sm text-foreground shadow-[var(--elevation-float)] [--mielui-modal-inset:calc(var(--spacing)*0.5)] outline-none origin-[var(--bits-select-content-transform-origin)] transition-[opacity,scale,filter,visibility] [transition-duration:var(--motion-duration-panel)] ease-[var(--ease-out)] motion-reduce:transition-none',
+                        open ? 'visible scale-100 opacity-100 blur-none' : 'invisible scale-[0.98] opacity-0 blur-[2px]', overlaySurface(surface))}
+                >
+                    <div
+                        use:travelingHighlight
+                        use:dynamicWidth={{ enabled: dynamic }}
+                        class="mielui-inset-surface min-h-0 flex-1 overflow-auto overscroll-contain p-1"
+                    >
+                        <BitsSelect.Viewport>
+                            {@render children?.()}
+                        </BitsSelect.Viewport>
+                    </div>
+                </div>
+            </div>
+        {/snippet}
+    </BitsSelect.Content>
+</BitsSelect.Portal>

@@ -1,18 +1,14 @@
 <script lang="ts">
-    import { overlaySurface } from '../_internal/surface';
-    import { parentOverlayDepth } from '@mielui/svelte/components/_internal/overlay';
     import { panelIn, panelOut } from '@mielui/svelte/transition';
     import {
-        clickOutside,
         cn,
         isPointInSubmenuTriangle,
-        lockBodyScroll,
         positionFloatingPanel,
-        pushEscapeLayer,
-        submenuPanelOffset,
-        trapFocus
+        submenuPanelOffset
     } from '@mielui/svelte/utils';
+    import { Popover as PopoverPrimitive } from 'bits-ui';
     import { onDestroy, onMount } from 'svelte';
+    import { overlaySurface } from '../_internal/surface';
     import type { Placement, PopoverContentProps } from '.';
     import { getPopoverContext } from './context.svelte';
     import { inertOutsidePopover } from './inert';
@@ -35,12 +31,10 @@
         ...rest
     }: PopoverContentProps = $props();
 
-    const { id: key, state: popoverState } = getPopoverContext();
-
-    const escapeRank = parentOverlayDepth() + 1;
+    const context = getPopoverContext();
+    const { id: key, state: popoverState } = context;
 
     let popover = $state<HTMLElement | undefined>();
-    let panelEl = $state<HTMLElement | undefined>();
     let dismissEl = $state<HTMLElement | undefined>();
     let positionFrame: number | undefined;
     let mounted = false;
@@ -167,20 +161,6 @@
         };
     });
 
-    $effect(() => {
-        if (!popoverState.open || !allowClickOutside || !popover) {
-            return;
-        }
-        const outside = clickOutside(
-            popover,
-            () => {
-                popoverState.open = false;
-            },
-            popoverState.buttonRef ? [popoverState.buttonRef] : []
-        );
-        return outside.destroy;
-    });
-
     function cancelClose() {
         if (popoverState.closeTimeout) {
             if (popoverState.hoverable) {
@@ -222,39 +202,6 @@
         }, delay);
     }
 
-    /**
-     * Locks body scroll whenever the popover is open.
-     *
-     * The scroll lock is shared with Dialog and Sheet so a nested teardown cannot
-     * clear another layer's lock. This must not gate on `popover` existing -- a
-     * controlled `open=true` has to lock even before the wrapper finishes binding.
-     */
-    $effect(() => {
-        if (typeof document === 'undefined') {
-            return;
-        }
-        if (popoverState.open && !popoverState.hoverable && lockScroll) {
-            const releaseScroll = lockBodyScroll();
-            return () => {
-                releaseScroll();
-            };
-        }
-    });
-
-    /**
-     * Traps Tab focus inside the panel while open. Hoverable surfaces (tooltip,
-     * hover-card) are excluded: they are not keyboard-dialog, and stealing focus
-     * would fight their pointer-driven open/close.
-     */
-    $effect(() => {
-        if (popoverState.open && panelEl && !popoverState.hoverable && focusTrap) {
-            const cleanup = trapFocus(panelEl, {
-                returnFocus: popoverState.buttonRef
-            });
-            return cleanup;
-        }
-    });
-
     $effect(() => {
         if (
             typeof document === 'undefined' ||
@@ -267,26 +214,6 @@
         }
 
         return inertOutsidePopover(popover, popoverState.buttonRef);
-    });
-
-    /**
-     * Escape peels one layer of the submenu cone. Hoverable layers still register,
-     * so Escape closes the deepest open submenu before the parent menu.
-     */
-    $effect(() => {
-        if (typeof document === 'undefined') {
-            return;
-        }
-        if (!popoverState.open) {
-            return;
-        }
-        return pushEscapeLayer(
-            () => {
-                popoverState.open = false;
-            },
-            popover,
-            escapeRank
-        );
     });
 
     /**
@@ -332,42 +259,67 @@
     onmouseenter={cancelClose}
     onmouseleave={scheduleClose}
 >
-    {#if popoverState.open}
-        <!-- svelte-ignore a11y_no_noninteractive_tabindex -->
-        <div
-            {...rest}
-            in:panelIn
-            out:panelOut
-            bind:this={panelEl}
-            id={id ?? `popover-${String(key)}-content`}
-            {role}
-            aria-modal={ariaModalProp ??
-                (role === 'dialog' || role === 'alertdialog' ? 'true' : undefined)}
-            aria-labelledby={rest['aria-label']
+    <PopoverPrimitive.ContentStatic
+        {...rest}
+        forceMount
+        id={id ?? `popover-${String(key)}-content`}
+        trapFocus={!popoverState.hoverable && focusTrap}
+        preventScroll={!popoverState.hoverable && lockScroll}
+        onInteractOutside={(event) => {
+            if (!allowClickOutside || (event.target instanceof Node && popoverState.buttonRef?.contains(event.target))) {
+                event.preventDefault();
+            }
+        }}
+        onOpenAutoFocus={(event) => {
+            if (popoverState.hoverable || !focusTrap) {
+                event.preventDefault();
+            }
+        }}
+        onCloseAutoFocus={(event) => {
+            event.preventDefault();
+            if (!popoverState.hoverable && popoverState.buttonRef?.isConnected) {
+                popoverState.buttonRef.focus({ preventScroll: true });
+            }
+        }}
+    >
+        {#snippet child({ props, open })}
+            {#if open}
+                <!-- svelte-ignore a11y_no_noninteractive_tabindex -->
+                <div
+                    {...props}
+                    in:panelIn
+                    out:panelOut
+                    id={id ?? `popover-${String(key)}-content`}
+                    {role}
+                    aria-modal={ariaModalProp ??
+                ((role === 'dialog' || role === 'alertdialog') && !popoverState.hoverable && popoverState.inert && focusTrap ? 'true' : undefined)}
+                    aria-labelledby={rest['aria-labelledby'] ?? (rest['aria-label']
                 ? undefined
                 : role === 'dialog' || role === 'alertdialog'
-                  ? `popover-${String(key)}-title`
-                  : undefined}
-            {tabindex}
-            data-ui="popover-content"
-            data-surface={surface}
-            class={cn(
+                  ? context.titleId
+                  : undefined)}
+                    {tabindex}
+                    data-ui="popover-content"
+                    data-surface={surface}
+                    class={cn(
                 classProp,
                     overlaySurface(surface),
                 'm-auto flex origin-top-left flex-col overflow-hidden text-sm text-[var(--color-foreground)]',
                 'mielui-modal-frame shadow-[var(--elevation-float)] [--mielui-modal-inset:calc(var(--spacing)*0.5)]',
                 'max-w-[min(var(--popover-available-width,calc(100vw-2*var(--popover-viewport-margin))),calc(100vw-2*var(--popover-viewport-margin)))] max-h-[min(var(--popover-available-height,calc(100vh-2*var(--popover-viewport-margin))),calc(100vh-2*var(--popover-viewport-margin)))]'
             )}
-        >
-            <!-- The inset surface: children live here, on the card fill. -->
-            <div
-                class={cn(
+                >
+                    <!-- The inset surface: children live here, on the card fill. -->
+                    <div
+                        class={cn(
                     surfaceClass,
                     'min-h-0 max-h-[inherit] flex-1 overflow-auto overscroll-contain mielui-inset-surface p-3'
                 )}
-            >
-                {@render children?.()}
-            </div>
-        </div>
-    {/if}
+                    >
+                        {@render children?.()}
+                    </div>
+                </div>
+            {/if}
+        {/snippet}
+    </PopoverPrimitive.ContentStatic>
 </div>

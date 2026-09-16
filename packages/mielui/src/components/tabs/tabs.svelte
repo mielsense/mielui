@@ -1,7 +1,8 @@
 <script lang="ts">
     import { cn } from '@mielui/svelte/utils';
-    import { setContext, untrack } from 'svelte';
-    import type { TabsProps, TabsVariant } from '.';
+    import { Tabs as BitsTabs } from 'bits-ui';
+    import { setContext } from 'svelte';
+    import type { TabsProps } from '.';
 
     let {
         children,
@@ -13,55 +14,31 @@
         ...rest
     }: TabsProps = $props();
 
-    /**
-     * Seeded from the props so the very first (SSR) render is already correct,
-     * rather than starting on the defaults and waiting for the effects below to
-     * sync after hydration.
-     */
-    const tabsState = $state({
-        id: `tabs-${Math.random().toString(36).slice(2)}`,
-        value: value ?? '',
-
-        orientation: untrack(() => orientation),
-        variant: untrack(() => variant)
-    } as {
-        id: string;
-        value: string;
-        orientation: 'horizontal' | 'vertical';
-        variant: TabsVariant;
-    });
-
-    setContext('tabs', tabsState);
-
-    let syncedValue = $state(untrack(() => value ?? ''));
-
-    $effect(() => {
-        tabsState.orientation = orientation;
-    });
-
-    $effect(() => {
-        tabsState.variant = variant;
-    });
-
-    $effect(() => {
-        const nextValue = value ?? '';
-        if (nextValue !== syncedValue) {
-            syncedValue = nextValue;
-            tabsState.value = nextValue;
+    const id = $props.id();
+    setContext('tabs', {
+        id,
+        get value() {
+            return value;
+        },
+        get orientation() {
+            return orientation;
+        },
+        get variant() {
+            return variant;
         }
     });
 
-    $effect(() => {
-        const nextValue = tabsState.value ?? '';
-        if (nextValue !== syncedValue) {
-            syncedValue = nextValue;
-            value = nextValue;
-            onValueChange?.(nextValue);
-        }
-    });
+    function updateValue(next: string) {
+        value = next;
+        onValueChange?.(next);
+    }
 </script>
 
-<div
+<BitsTabs.Root
+    {value}
+    {orientation}
+    loop
+    onValueChange={updateValue}
     class={cn(className, orientation === 'vertical' && 'flex items-start gap-4')}
     data-ui="tabs"
     data-orientation={orientation}
@@ -69,4 +46,4 @@
     {...rest}
 >
     {@render children?.()}
-</div>
+</BitsTabs.Root>

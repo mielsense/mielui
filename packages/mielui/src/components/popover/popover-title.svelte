@@ -3,7 +3,15 @@
     import type { PopoverTitleProps } from '.';
     import { getPopoverContext } from './context.svelte';
 
-    const { id: key } = getPopoverContext();
+    const popover = getPopoverContext();
+    const key = popover.id;
+
+    $effect(() => {
+        popover.titleId = `popover-${String(key)}-title`;
+        return () => {
+            popover.titleId = undefined;
+        };
+    });
 
     let { children, class: classProp, ...rest }: PopoverTitleProps = $props();
 </script>

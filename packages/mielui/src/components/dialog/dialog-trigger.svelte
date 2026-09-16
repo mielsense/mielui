@@ -20,9 +20,12 @@
     aria-expanded={dialog.state.open}
     aria-controls={dialog.contentId}
     onclick={(event: MouseEvent) => {
+        onclick?.(event);
+        if (event.defaultPrevented) {
+            return;
+        }
         dialog.returnFocusEl = element;
         dialog.state.open = true;
-        onclick?.(event);
     }}
     class={className}
     {...rest}

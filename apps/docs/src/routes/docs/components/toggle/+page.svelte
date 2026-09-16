@@ -56,6 +56,10 @@
     <!-- ─── Usage ─────────────────────────────────────────────────── -->
     <section id="usage" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Usage</Typography.H2>
+        <Typography.Text>
+            Keyboard activation and pointer activation update pressed through the same control. A
+            consumer event handler can prevent the default action before the pressed state changes.
+        </Typography.Text>
         <Typography.Text variant="supporting">
             Import Toggle and bind its pressed state:
         </Typography.Text>

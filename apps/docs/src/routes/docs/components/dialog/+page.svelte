@@ -56,6 +56,12 @@
     <!-- ─── Usage ─────────────────────────────────────────────────── -->
     <section id="usage" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Usage</Typography.H2>
+        <Typography.Text variant="supporting">
+            Focus, Escape, and outside interactions are coordinated with nested overlays. Include a
+            Title or give Content an aria-label. Description is optional; removing it also removes
+            its accessible relationship. Trigger, Close, and Confirm click handlers can prevent the
+            default state change with event.preventDefault().
+        </Typography.Text>
 
         <CodeBlock
             code={`import * as Dialog from '$lib/mielui/components/dialog';\nimport Kbd from '$lib/mielui/components/kbd';\n\n<Dialog.Root open={isOpen} orientation="horizontal">\n  <Dialog.Trigger>Open</Dialog.Trigger>\n  <Dialog.Content>\n    <Dialog.Header>\n      <Dialog.Title>Title</Dialog.Title>\n    </Dialog.Header>\n    <Dialog.Footer>\n      <Dialog.Close>Cancel <Kbd shortcut="esc" /></Dialog.Close>\n      <Dialog.Confirm>Save <Kbd shortcut="enter" /></Dialog.Confirm>\n    </Dialog.Footer>\n  </Dialog.Content>\n</Dialog.Root>`}

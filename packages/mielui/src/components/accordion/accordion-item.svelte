@@ -1,5 +1,6 @@
 <script lang="ts">
     import { cn } from '@mielui/svelte/utils';
+    import { Accordion as BitsAccordion } from 'bits-ui';
     import { setContext } from 'svelte';
     import type { AccordionItemProps } from '.';
 
@@ -10,10 +11,6 @@
         children,
         ...rest
     }: AccordionItemProps = $props();
-    /**
-     * Getters, so trigger and content see the current prop values reactively
-     * instead of the initial-mount snapshot.
-     */
     setContext('accordion-item', {
         get value() {
             return value;
@@ -24,7 +21,9 @@
     });
 </script>
 
-<div
+<BitsAccordion.Item
+    {value}
+    {disabled}
     data-ui="accordion-item"
     data-value={value}
     data-disabled={disabled ? '' : undefined}
@@ -32,4 +31,4 @@
     {...rest}
 >
     {@render children?.()}
-</div>
+</BitsAccordion.Item>

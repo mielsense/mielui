@@ -1,4 +1,5 @@
 <script lang="ts">
+    import { Popover as PopoverPrimitive } from 'bits-ui';
     import { onDestroy, onMount, untrack } from 'svelte';
     import type { PopoverProps, PopoverState } from '.';
     import { setPopoverContext } from './context.svelte';
@@ -44,7 +45,12 @@
     const key = initial.key;
     let syncedOpen = $state(open);
 
-    setPopoverContext({ id: key, state: popoverState });
+    const context = $state({
+        id: key,
+        state: popoverState,
+        titleId: undefined as string | undefined
+    });
+    setPopoverContext(context);
 
     onMount(() => {
         popoverState.placement = placement;
@@ -87,4 +93,6 @@
     });
 </script>
 
-{@render children?.()}
+<PopoverPrimitive.Root bind:open={popoverState.open}>
+    {@render children?.()}
+</PopoverPrimitive.Root>

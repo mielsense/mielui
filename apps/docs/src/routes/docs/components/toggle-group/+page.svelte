@@ -53,6 +53,10 @@
     <!-- ─── Usage ─────────────────────────────────────────────────── -->
     <section id="usage" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Usage</Typography.H2>
+        <Typography.Text>
+            Arrow keys navigate enabled items with a single tab stop. Single mode allows the active
+            item to be cleared; multiple mode keeps an array of selected values.
+        </Typography.Text>
 
         <CodeBlock
             code={`import * as ToggleGroup from '$lib/mielui/components/toggle-group';\n\n<ToggleGroup.Root type="single" bind:value={alignment}>\n  <ToggleGroup.Item value="left">Left</ToggleGroup.Item>\n  <ToggleGroup.Item value="center">Center</ToggleGroup.Item>\n  <ToggleGroup.Item value="right">Right</ToggleGroup.Item>\n</ToggleGroup.Root>`}

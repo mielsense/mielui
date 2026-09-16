@@ -32,7 +32,7 @@
         <div>
             <Typography.H1>{TITLE}</Typography.H1>
             <Typography.Text variant="lead" class="mt-2 max-w-2xl">
-                A drawer that slides in from any side of the screen.
+                A drawer that slides in from the left or right of the screen.
             </Typography.Text>
         </div>
         <DocsPager />
@@ -54,6 +54,11 @@
     <!-- ─── Usage ─────────────────────────────────────────────────── -->
     <section id="usage" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Usage</Typography.H2>
+        <Typography.Text variant="supporting">
+            Sheets open from the left or right. Focus stays within the open sheet and returns to its
+            trigger when it closes. Include Title and optionally Description; click handlers on
+            Trigger and Close can cancel the state change with event.preventDefault().
+        </Typography.Text>
 
         <CodeBlock
             code={`import * as Sheet from '$lib/mielui/components/sheet';\nimport Kbd from '$lib/mielui/components/kbd';\n\n<Sheet.Root bind:open>\n  <Sheet.Trigger>Open</Sheet.Trigger>\n  <Sheet.Content side="right">\n    <Sheet.Header>\n      <Sheet.Title>Title</Sheet.Title>\n      <Sheet.Description>Describe what lives here.</Sheet.Description>\n    </Sheet.Header>\n    {/* content */}\n    <Sheet.Footer>\n      <Sheet.Close>Cancel <Kbd shortcut="esc" /></Sheet.Close>\n      <Button>Save <Kbd shortcut="enter" /></Button>\n    </Sheet.Footer>\n  </Sheet.Content>\n</Sheet.Root>`}

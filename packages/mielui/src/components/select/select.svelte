@@ -1,9 +1,8 @@
 <script lang="ts">
-    import * as DropdownMenu from '@mielui/svelte/components/dropdown-menu';
+    import { Select as BitsSelect } from 'bits-ui';
+    import { SvelteMap } from 'svelte/reactivity';
     import type { SelectProps } from '.';
-    import { setSelectContext } from './context.svelte';
-
-    const key = $props.id();
+    import { type SelectContext, setSelectContext } from './context.svelte';
 
     let {
         children,
@@ -12,42 +11,34 @@
         onValueChange,
         onOpenChange
     }: SelectProps = $props();
-
-    /**
-     * Plain Maps and Sets live on context, never inside `$state`, so item
-     * registration can mutate them freely without invalidating reactive effects.
-     */
-    const labels = new Map<string, string>();
+    const id = $props.id();
+    const labels = new SvelteMap<string, string>();
     const values = new Set<string>();
+    const state = {
+        get value() {
+            return value;
+        },
+        set value(next: string) {
+            value = next;
+        },
+        get selectedLabel() {
+            return labels.get(value) ?? value;
+        },
+        set selectedLabel(next: string) {
+            labels.set(value, next);
+        }
+    };
+    const context: SelectContext = { id, state, labels, values };
+    setSelectContext(context);
 
-    const selectState = $state({
-        value: value ?? '',
-        selectedLabel: ''
-    });
-    let syncedValue = $state(value ?? '');
-    setSelectContext({ id: key, state: selectState, labels, values });
-
-    if (value && value !== '') {
-        selectState.value = value;
+    function updateOpen(next: boolean) {
+        if (next) {
+            context.onTriggerOpen?.();
+        }
+        onOpenChange?.(next);
     }
-
-    $effect(() => {
-        const nextValue = value ?? '';
-        if (nextValue !== syncedValue) {
-            syncedValue = nextValue;
-            selectState.value = nextValue;
-            selectState.selectedLabel = nextValue ? (labels.get(nextValue) ?? '') : '';
-        }
-    });
-
-    $effect(() => {
-        const nextValue = selectState.value;
-        if (nextValue !== syncedValue) {
-            syncedValue = nextValue;
-            value = nextValue;
-            onValueChange?.(nextValue);
-        }
-    });
 </script>
 
-<DropdownMenu.Root bind:open {onOpenChange}>{@render children?.()} </DropdownMenu.Root>
+<BitsSelect.Root type="single" bind:value bind:open {onValueChange} onOpenChange={updateOpen}>
+    {@render children?.()}
+</BitsSelect.Root>

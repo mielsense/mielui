@@ -1,31 +1,29 @@
 <script lang="ts">
     import { themedSlide } from '@mielui/svelte/transition';
     import { cn } from '@mielui/svelte/utils';
-    import { getContext } from 'svelte';
-    import type { AccordionContentProps, AccordionContext } from '.';
+    import { Accordion as BitsAccordion } from 'bits-ui';
+    import type { AccordionContentProps } from '.';
 
     let { class: className, children, ...rest }: AccordionContentProps = $props();
-    const ctx = getContext<AccordionContext>('accordion');
-    const item = getContext<{ value: string; disabled: boolean }>('accordion-item');
-    const open = $derived(ctx.isOpen(item.value));
 </script>
 
-{#if open}
-    <div
-        id={`accordion-content-${item.value}`}
-        role="region"
-        aria-labelledby={`accordion-trigger-${item.value}`}
-        data-ui="accordion-content"
-        data-state="open"
-        transition:themedSlide={{ durationVar: '--motion-duration-panel', fallback: 220 }}
-        class={cn(
+<BitsAccordion.Content forceMount {...rest}>
+    {#snippet child({ props, open })}
+        {#if open}
+            <div
+                {...props}
+                data-ui="accordion-content"
+                data-state="open"
+                transition:themedSlide={{ durationVar: '--motion-duration-panel', fallback: 220 }}
+                class={cn(
             className,
             'overflow-hidden [font-size:var(--font-size-body)] [font-weight:var(--font-weight-body)] [letter-spacing:var(--tracking-body)] text-foreground-muted'
         )}
-        {...rest}
-    >
-        <div class="pb-4">
-            {@render children?.()}
-        </div>
-    </div>
-{/if}
+            >
+                <div class="pb-4">
+                    {@render children?.()}
+                </div>
+            </div>
+        {/if}
+    {/snippet}
+</BitsAccordion.Content>
