@@ -8,9 +8,9 @@
 
     import { getSearch } from './context';
 
-    const search = getSearch();
-
     import { pages } from './pages';
+
+    const search = getSearch();
 
     function handleKeydown(event: KeyboardEvent) {
         if (
