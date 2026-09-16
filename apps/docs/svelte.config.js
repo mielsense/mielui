@@ -9,7 +9,7 @@ const deploymentAdapter = process.env.DOCS_ADAPTER === 'node' ? adapterNode() : 
 const config = {
     // Consult https://svelte.dev/docs/kit/integrations
     // for more information about preprocessors
-    preprocess: vitePreprocess(),
+    preprocess: vitePreprocess({ script: true }),
 
     kit: {
         adapter: deploymentAdapter,
@@ -22,6 +22,7 @@ const config = {
                     ])
                 )
             ),
+            '@mielui/svelte/hugeicons-icon': '../../packages/mielui/src/hugeicons-icon.svelte',
             '@mielui/svelte/brand-mark': '../../packages/mielui/src/brand-mark.svelte',
             '@mielui/svelte': '../../packages/mielui/src',
             '@mielui/svelte/*': '../../packages/mielui/src/*'

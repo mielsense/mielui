@@ -59,7 +59,8 @@
         "formatter": {
             "enabled": true,
             "indentScriptAndStyle": true,
-            "selfCloseVoidElements": "always"
+            "selfCloseVoidElements": "always",
+            "whitespaceSensitivity": "ignore"
         }
     },
     "linter": {

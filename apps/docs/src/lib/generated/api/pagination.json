@@ -1,0 +1,61 @@
+[
+    {
+        "name": "Pagination",
+        "properties": [
+            {
+                "name": "page",
+                "type": "number | undefined",
+                "required": false,
+                "bindable": true,
+                "default": "1",
+                "description": "",
+                "inherited": false
+            },
+            {
+                "name": "total",
+                "type": "number",
+                "required": true,
+                "bindable": false,
+                "default": null,
+                "description": "",
+                "inherited": false
+            },
+            {
+                "name": "siblings",
+                "type": "number | undefined",
+                "required": false,
+                "bindable": false,
+                "default": "1",
+                "description": "",
+                "inherited": false
+            },
+            {
+                "name": "onPageChange",
+                "type": "((page: number) => void) | undefined",
+                "required": false,
+                "bindable": false,
+                "default": null,
+                "description": "",
+                "inherited": false
+            },
+            {
+                "name": "class",
+                "type": "string | undefined",
+                "required": false,
+                "bindable": false,
+                "default": null,
+                "description": "",
+                "inherited": false
+            },
+            {
+                "name": "children",
+                "type": "Snippet<[]> | undefined",
+                "required": false,
+                "bindable": false,
+                "default": null,
+                "description": "",
+                "inherited": false
+            }
+        ]
+    }
+]

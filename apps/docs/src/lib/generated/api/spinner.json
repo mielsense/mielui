@@ -1,0 +1,70 @@
+[
+    {
+        "name": "Spinner",
+        "properties": [
+            {
+                "name": "size",
+                "type": "number | undefined",
+                "required": false,
+                "bindable": false,
+                "default": "16",
+                "description": "",
+                "inherited": false
+            },
+            {
+                "name": "ready",
+                "type": "boolean | undefined",
+                "required": false,
+                "bindable": false,
+                "default": "false",
+                "description": "",
+                "inherited": false
+            },
+            {
+                "name": "speed",
+                "type": "number | undefined",
+                "required": false,
+                "bindable": false,
+                "default": "1",
+                "description": "",
+                "inherited": false
+            },
+            {
+                "name": "curved",
+                "type": "boolean | undefined",
+                "required": false,
+                "bindable": false,
+                "default": "false",
+                "description": "",
+                "inherited": false
+            },
+            {
+                "name": "class",
+                "type": "string | undefined",
+                "required": false,
+                "bindable": false,
+                "default": null,
+                "description": "",
+                "inherited": false
+            },
+            {
+                "name": "aria-label",
+                "type": "string | undefined",
+                "required": false,
+                "bindable": false,
+                "default": null,
+                "description": "",
+                "inherited": false
+            },
+            {
+                "name": "aria-hidden",
+                "type": "boolean | \"true\" | \"false\" | undefined",
+                "required": false,
+                "bindable": false,
+                "default": null,
+                "description": "",
+                "inherited": false
+            }
+        ]
+    }
+]

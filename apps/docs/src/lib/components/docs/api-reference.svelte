@@ -23,7 +23,8 @@
         >
             <span class="text-foreground-muted">
                 {title}
-            </span>.<span
+            </span>
+            .<span
                 class="[font-weight:var(--font-weight-label,600)] [letter-spacing:var(--tracking-label,0em)]"
             >
                 {component}
@@ -76,9 +77,10 @@
                                 </span>
                             </td>
                             <td class="p-3 align-top text-sm">
-                                {description}<br />
+                                {description}
+                                <br />
                                 <span class="font-mono text-foreground-muted text-sm mt-2">
-                                    Default: {defaults ?? '-'}
+                                    Default:{defaults ?? '-'}
                                 </span>
                             </td>
                         </tr>

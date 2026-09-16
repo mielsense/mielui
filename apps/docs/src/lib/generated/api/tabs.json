@@ -1,0 +1,166 @@
+[
+    {
+        "name": "Content",
+        "properties": [
+            {
+                "name": "value",
+                "type": "string",
+                "required": true,
+                "bindable": false,
+                "default": null,
+                "description": "",
+                "inherited": false
+            },
+            {
+                "name": "forceMount",
+                "type": "boolean | undefined",
+                "required": false,
+                "bindable": false,
+                "default": "false",
+                "description": "",
+                "inherited": false
+            },
+            {
+                "name": "class",
+                "type": "string | undefined",
+                "required": false,
+                "bindable": false,
+                "default": null,
+                "description": "",
+                "inherited": false
+            },
+            {
+                "name": "children",
+                "type": "Snippet<[]> | undefined",
+                "required": false,
+                "bindable": false,
+                "default": null,
+                "description": "",
+                "inherited": false
+            }
+        ]
+    },
+    {
+        "name": "List",
+        "properties": [
+            {
+                "name": "class",
+                "type": "string | undefined",
+                "required": false,
+                "bindable": false,
+                "default": null,
+                "description": "",
+                "inherited": false
+            },
+            {
+                "name": "children",
+                "type": "Snippet<[]> | undefined",
+                "required": false,
+                "bindable": false,
+                "default": null,
+                "description": "",
+                "inherited": false
+            }
+        ]
+    },
+    {
+        "name": "Root",
+        "properties": [
+            {
+                "name": "value",
+                "type": "string | undefined",
+                "required": false,
+                "bindable": true,
+                "default": "''",
+                "description": "",
+                "inherited": false
+            },
+            {
+                "name": "onValueChange",
+                "type": "((value: string) => void) | undefined",
+                "required": false,
+                "bindable": false,
+                "default": null,
+                "description": "",
+                "inherited": false
+            },
+            {
+                "name": "orientation",
+                "type": "\"horizontal\" | \"vertical\" | undefined",
+                "required": false,
+                "bindable": false,
+                "default": "'horizontal'",
+                "description": "",
+                "inherited": false
+            },
+            {
+                "name": "variant",
+                "type": "TabsVariant | undefined",
+                "required": false,
+                "bindable": false,
+                "default": "'default'",
+                "description": "",
+                "inherited": false
+            },
+            {
+                "name": "class",
+                "type": "string | undefined",
+                "required": false,
+                "bindable": false,
+                "default": null,
+                "description": "",
+                "inherited": false
+            },
+            {
+                "name": "children",
+                "type": "Snippet<[]> | undefined",
+                "required": false,
+                "bindable": false,
+                "default": null,
+                "description": "",
+                "inherited": false
+            }
+        ]
+    },
+    {
+        "name": "Trigger",
+        "properties": [
+            {
+                "name": "value",
+                "type": "string",
+                "required": true,
+                "bindable": false,
+                "default": null,
+                "description": "",
+                "inherited": false
+            },
+            {
+                "name": "disabled",
+                "type": "boolean | undefined",
+                "required": false,
+                "bindable": false,
+                "default": "false",
+                "description": "",
+                "inherited": false
+            },
+            {
+                "name": "class",
+                "type": "string | undefined",
+                "required": false,
+                "bindable": false,
+                "default": null,
+                "description": "",
+                "inherited": false
+            },
+            {
+                "name": "children",
+                "type": "Snippet<[]> | undefined",
+                "required": false,
+                "bindable": false,
+                "default": null,
+                "description": "",
+                "inherited": false
+            }
+        ]
+    }
+]

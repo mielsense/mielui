@@ -1,0 +1,79 @@
+[
+    {
+        "name": "Gauge",
+        "properties": [
+            {
+                "name": "value",
+                "type": "number",
+                "required": true,
+                "bindable": false,
+                "default": null,
+                "description": "The bounded quantity shown by the filled arc.",
+                "inherited": false
+            },
+            {
+                "name": "max",
+                "type": "number | undefined",
+                "required": false,
+                "bindable": false,
+                "default": "100",
+                "description": "",
+                "inherited": false
+            },
+            {
+                "name": "label",
+                "type": "string | undefined",
+                "required": false,
+                "bindable": false,
+                "default": null,
+                "description": "Describes the quantity, such as \"Context remaining\" or \"Monthly API usage\".",
+                "inherited": false
+            },
+            {
+                "name": "size",
+                "type": "number | undefined",
+                "required": false,
+                "bindable": false,
+                "default": "28",
+                "description": "",
+                "inherited": false
+            },
+            {
+                "name": "strokeWidth",
+                "type": "number | undefined",
+                "required": false,
+                "bindable": false,
+                "default": "2",
+                "description": "",
+                "inherited": false
+            },
+            {
+                "name": "tone",
+                "type": "GaugeTone | undefined",
+                "required": false,
+                "bindable": false,
+                "default": "'primary'",
+                "description": "",
+                "inherited": false
+            },
+            {
+                "name": "class",
+                "type": "string | undefined",
+                "required": false,
+                "bindable": false,
+                "default": null,
+                "description": "",
+                "inherited": false
+            },
+            {
+                "name": "children",
+                "type": "Snippet<[]> | undefined",
+                "required": false,
+                "bindable": false,
+                "default": null,
+                "description": "",
+                "inherited": false
+            }
+        ]
+    }
+]

@@ -1,0 +1,171 @@
+[
+    {
+        "name": "Content",
+        "properties": [
+            {
+                "name": "surface",
+                "type": "\"solid\" | \"glass\" | undefined",
+                "required": false,
+                "bindable": false,
+                "default": null,
+                "description": "",
+                "inherited": false
+            },
+            {
+                "name": "side",
+                "type": "\"top\" | \"bottom\" | \"left\" | \"right\" | undefined",
+                "required": false,
+                "bindable": false,
+                "default": null,
+                "description": "",
+                "inherited": false
+            },
+            {
+                "name": "align",
+                "type": "\"start\" | \"center\" | \"end\" | undefined",
+                "required": false,
+                "bindable": false,
+                "default": null,
+                "description": "",
+                "inherited": false
+            },
+            {
+                "name": "children",
+                "type": "Snippet<[]> | undefined",
+                "required": false,
+                "bindable": false,
+                "default": null,
+                "description": "",
+                "inherited": false
+            },
+            {
+                "name": "class",
+                "type": "string | undefined",
+                "required": false,
+                "bindable": false,
+                "default": null,
+                "description": "",
+                "inherited": false
+            }
+        ]
+    },
+    {
+        "name": "Description",
+        "properties": [
+            {
+                "name": "children",
+                "type": "Snippet<[]>",
+                "required": true,
+                "bindable": false,
+                "default": null,
+                "description": "",
+                "inherited": false
+            },
+            {
+                "name": "class",
+                "type": "string | undefined",
+                "required": false,
+                "bindable": false,
+                "default": null,
+                "description": "",
+                "inherited": false
+            }
+        ]
+    },
+    {
+        "name": "Root",
+        "properties": [
+            {
+                "name": "open",
+                "type": "boolean | undefined",
+                "required": false,
+                "bindable": true,
+                "default": "false",
+                "description": "",
+                "inherited": false
+            },
+            {
+                "name": "openDelay",
+                "type": "number | undefined",
+                "required": false,
+                "bindable": false,
+                "default": "200",
+                "description": "",
+                "inherited": false
+            },
+            {
+                "name": "closeDelay",
+                "type": "number | undefined",
+                "required": false,
+                "bindable": false,
+                "default": "150",
+                "description": "",
+                "inherited": false
+            },
+            {
+                "name": "children",
+                "type": "Snippet<[]> | undefined",
+                "required": false,
+                "bindable": false,
+                "default": null,
+                "description": "",
+                "inherited": false
+            }
+        ]
+    },
+    {
+        "name": "Title",
+        "properties": [
+            {
+                "name": "children",
+                "type": "Snippet<[]>",
+                "required": true,
+                "bindable": false,
+                "default": null,
+                "description": "",
+                "inherited": false
+            },
+            {
+                "name": "class",
+                "type": "string | undefined",
+                "required": false,
+                "bindable": false,
+                "default": null,
+                "description": "",
+                "inherited": false
+            }
+        ]
+    },
+    {
+        "name": "Trigger",
+        "properties": [
+            {
+                "name": "href",
+                "type": "string | undefined",
+                "required": false,
+                "bindable": false,
+                "default": null,
+                "description": "",
+                "inherited": false
+            },
+            {
+                "name": "children",
+                "type": "Snippet<[]> | undefined",
+                "required": false,
+                "bindable": false,
+                "default": null,
+                "description": "",
+                "inherited": false
+            },
+            {
+                "name": "class",
+                "type": "string | undefined",
+                "required": false,
+                "bindable": false,
+                "default": null,
+                "description": "",
+                "inherited": false
+            }
+        ]
+    }
+]

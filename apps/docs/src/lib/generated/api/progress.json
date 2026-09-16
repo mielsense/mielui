@@ -1,0 +1,52 @@
+[
+    {
+        "name": "Progress",
+        "properties": [
+            {
+                "name": "value",
+                "type": "number | undefined",
+                "required": false,
+                "bindable": false,
+                "default": "0",
+                "description": "",
+                "inherited": false
+            },
+            {
+                "name": "max",
+                "type": "number | undefined",
+                "required": false,
+                "bindable": false,
+                "default": "100",
+                "description": "",
+                "inherited": false
+            },
+            {
+                "name": "indeterminate",
+                "type": "boolean | undefined",
+                "required": false,
+                "bindable": false,
+                "default": "false",
+                "description": "",
+                "inherited": false
+            },
+            {
+                "name": "class",
+                "type": "string | undefined",
+                "required": false,
+                "bindable": false,
+                "default": null,
+                "description": "",
+                "inherited": false
+            },
+            {
+                "name": "children",
+                "type": "Snippet<[]> | undefined",
+                "required": false,
+                "bindable": false,
+                "default": null,
+                "description": "",
+                "inherited": false
+            }
+        ]
+    }
+]

@@ -1,0 +1,107 @@
+[
+    {
+        "name": "Content",
+        "properties": [
+            {
+                "name": "surface",
+                "type": "\"solid\" | \"glass\" | undefined",
+                "required": false,
+                "bindable": false,
+                "default": "'solid'",
+                "description": "",
+                "inherited": false
+            }
+        ]
+    },
+    {
+        "name": "Root",
+        "properties": [
+            {
+                "name": "label",
+                "type": "string | undefined",
+                "required": false,
+                "bindable": false,
+                "default": null,
+                "description": "",
+                "inherited": false
+            },
+            {
+                "name": "value",
+                "type": "string | undefined",
+                "required": false,
+                "bindable": true,
+                "default": "''",
+                "description": "",
+                "inherited": false
+            },
+            {
+                "name": "onValueChange",
+                "type": "((value: string) => void) | undefined",
+                "required": false,
+                "bindable": false,
+                "default": null,
+                "description": "",
+                "inherited": false
+            },
+            {
+                "name": "options",
+                "type": "ColorOption[] | undefined",
+                "required": false,
+                "bindable": false,
+                "default": "[]",
+                "description": "",
+                "inherited": false
+            },
+            {
+                "name": "format",
+                "type": "ColorFormat | undefined",
+                "required": false,
+                "bindable": false,
+                "default": "'hsl'",
+                "description": "",
+                "inherited": false
+            },
+            {
+                "name": "children",
+                "type": "Snippet<[]> | undefined",
+                "required": false,
+                "bindable": false,
+                "default": null,
+                "description": "",
+                "inherited": false
+            },
+            {
+                "name": "class",
+                "type": "string | undefined",
+                "required": false,
+                "bindable": false,
+                "default": null,
+                "description": "",
+                "inherited": false
+            }
+        ]
+    },
+    {
+        "name": "Trigger",
+        "properties": [
+            {
+                "name": "variant",
+                "type": "\"secondary\" | \"ghost\" | \"outline\" | undefined",
+                "required": false,
+                "bindable": false,
+                "default": "'outline'",
+                "description": "Trigger style -- matches Button variants. Defaults to outlined.",
+                "inherited": false
+            },
+            {
+                "name": "class",
+                "type": "string | undefined",
+                "required": false,
+                "bindable": false,
+                "default": null,
+                "description": "",
+                "inherited": false
+            }
+        ]
+    }
+]

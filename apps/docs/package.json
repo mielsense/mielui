@@ -4,9 +4,9 @@
     "version": "0.0.1",
     "type": "module",
     "scripts": {
-        "dev": "node --max-old-space-size=4096 node_modules/vite/bin/vite.js dev",
-        "devnet": "node --max-old-space-size=4096 node_modules/vite/bin/vite.js dev --host 0.0.0.0",
-        "build": "vite build",
+        "dev": "node scripts/generate-api-reference.mjs && node --max-old-space-size=4096 node_modules/vite/bin/vite.js dev",
+        "devnet": "node scripts/generate-api-reference.mjs && node --max-old-space-size=4096 node_modules/vite/bin/vite.js dev --host 0.0.0.0",
+        "build": "node scripts/generate-api-reference.mjs && vite build",
         "preview": "vite preview",
         "prepare": "svelte-kit sync || echo ''",
         "check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
@@ -17,7 +17,8 @@
         "test:all": "vitest run",
         "test:ci": "vitest run --project unit --project ssr",
         "test:browser": "vitest run --project browser --project browser-reduced",
-        "test:watch": "vitest"
+        "test:watch": "vitest",
+        "generate:api": "node scripts/generate-api-reference.mjs"
     },
     "devDependencies": {
         "@sveltejs/adapter-node": "5.5.7",
@@ -45,10 +46,10 @@
     },
     "dependencies": {
         "@floating-ui/dom": "1.7.6",
-        "@lucide/svelte": "1.16.0",
+        "@hugeicons/core-free-icons": "^4.3.3",
+        "@mielui/svelte": "workspace:*",
         "@scritto/core": "0.1.0",
         "@scritto/svelte": "0.1.0",
-        "@mielui/svelte": "workspace:*",
         "@vercel/analytics": "2.0.1",
         "clsx": "2.1.1",
         "mode-watcher": "1.1.0",

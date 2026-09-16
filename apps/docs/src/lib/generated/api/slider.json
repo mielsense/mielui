@@ -1,0 +1,115 @@
+[
+    {
+        "name": "Slider",
+        "properties": [
+            {
+                "name": "min",
+                "type": "number | undefined",
+                "required": false,
+                "bindable": false,
+                "default": "0",
+                "description": "",
+                "inherited": false
+            },
+            {
+                "name": "max",
+                "type": "number | undefined",
+                "required": false,
+                "bindable": false,
+                "default": "100",
+                "description": "",
+                "inherited": false
+            },
+            {
+                "name": "step",
+                "type": "number | undefined",
+                "required": false,
+                "bindable": false,
+                "default": "1",
+                "description": "",
+                "inherited": false
+            },
+            {
+                "name": "disabled",
+                "type": "boolean | undefined",
+                "required": false,
+                "bindable": false,
+                "default": "false",
+                "description": "",
+                "inherited": false
+            },
+            {
+                "name": "label",
+                "type": "string | undefined",
+                "required": false,
+                "bindable": false,
+                "default": null,
+                "description": "",
+                "inherited": false
+            },
+            {
+                "name": "dir",
+                "type": "\"ltr\" | \"rtl\" | undefined",
+                "required": false,
+                "bindable": false,
+                "default": null,
+                "description": "",
+                "inherited": false
+            },
+            {
+                "name": "class",
+                "type": "string | undefined",
+                "required": false,
+                "bindable": false,
+                "default": null,
+                "description": "",
+                "inherited": false
+            },
+            {
+                "name": "children",
+                "type": "Snippet<[]> | undefined",
+                "required": false,
+                "bindable": false,
+                "default": null,
+                "description": "",
+                "inherited": false
+            },
+            {
+                "name": "range",
+                "type": "boolean | undefined",
+                "required": false,
+                "bindable": false,
+                "default": null,
+                "description": "",
+                "inherited": false
+            },
+            {
+                "name": "value",
+                "type": "number | [number, number] | undefined",
+                "required": false,
+                "bindable": true,
+                "default": null,
+                "description": "",
+                "inherited": false
+            },
+            {
+                "name": "thumbLabels",
+                "type": "[string, string] | undefined",
+                "required": false,
+                "bindable": false,
+                "default": null,
+                "description": "",
+                "inherited": false
+            },
+            {
+                "name": "onValueChange",
+                "type": "((value: number) => void) | ((value: [number, number]) => void) | undefined",
+                "required": false,
+                "bindable": false,
+                "default": null,
+                "description": "",
+                "inherited": false
+            }
+        ]
+    }
+]

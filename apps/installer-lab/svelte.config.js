@@ -16,6 +16,7 @@ export default {
                     ])
                 )
             ),
+            '@mielui/svelte/hugeicons-icon': '../../packages/mielui/src/hugeicons-icon.svelte',
             '@mielui/svelte/brand-mark': '../../packages/mielui/src/brand-mark.svelte',
             '@mielui/svelte': '../../packages/mielui/src',
             '@mielui/svelte/*': '../../packages/mielui/src/*'
