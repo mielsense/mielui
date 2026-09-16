@@ -1,18 +1,18 @@
 <script lang="ts">
-    import Bell from '@lucide/svelte/icons/bell';
-    import ChevronDown from '@lucide/svelte/icons/chevron-down';
-    import CreditCard from '@lucide/svelte/icons/credit-card';
-    import FileText from '@lucide/svelte/icons/file-text';
-    import LayoutDashboard from '@lucide/svelte/icons/layout-dashboard';
-    import LifeBuoy from '@lucide/svelte/icons/life-buoy';
-    import LogOut from '@lucide/svelte/icons/log-out';
-    import MoreHorizontal from '@lucide/svelte/icons/more-horizontal';
-    import Palette from '@lucide/svelte/icons/palette';
-    import Plus from '@lucide/svelte/icons/plus';
-    import RotateCcw from '@lucide/svelte/icons/rotate-ccw';
-    import Search from '@lucide/svelte/icons/search';
-    import Settings from '@lucide/svelte/icons/settings';
-    import User from '@lucide/svelte/icons/user';
+    import Plus from '@hugeicons/core-free-icons/Add01Icon';
+    import ChevronDown from '@hugeicons/core-free-icons/ArrowDown01Icon';
+    import Palette from '@hugeicons/core-free-icons/ColorPickerIcon';
+    import CreditCard from '@hugeicons/core-free-icons/CreditCardIcon';
+    import FileText from '@hugeicons/core-free-icons/File01Icon';
+    import LayoutDashboard from '@hugeicons/core-free-icons/LayoutDashboardIcon';
+    import LifeBuoy from '@hugeicons/core-free-icons/LifebuoyIcon';
+    import LogOut from '@hugeicons/core-free-icons/Logout01Icon';
+    import MoreHorizontal from '@hugeicons/core-free-icons/MoreHorizontalIcon';
+    import Bell from '@hugeicons/core-free-icons/Notification03Icon';
+    import RotateCcw from '@hugeicons/core-free-icons/RotateLeft01Icon';
+    import Search from '@hugeicons/core-free-icons/Search01Icon';
+    import Settings from '@hugeicons/core-free-icons/Settings01Icon';
+    import User from '@hugeicons/core-free-icons/UserIcon';
     import * as Accordion from '@mielui/svelte/components/accordion';
     import * as Alert from '@mielui/svelte/components/alert';
     import * as AlertDialog from '@mielui/svelte/components/alert-dialog';
@@ -47,6 +47,7 @@
     import { Toolbar } from '@mielui/svelte/components/toolbar';
     import * as Tooltip from '@mielui/svelte/components/tooltip';
     import * as Typography from '@mielui/svelte/components/typography';
+    import HugeiconsIcon from '@mielui/svelte/hugeicons-icon';
     import { builtInThemePresets } from '@mielui/svelte/themes/builtin-presets';
     import {
         applyLiveThemeCss,
@@ -89,6 +90,7 @@
         spacingTokenDefinitions,
         spacingTokenGroups
     } from '$lib/studio-advanced-tokens';
+    import ComponentPreview from './component-preview.svelte';
 
     type FoundationPalette = {
         base: string;
@@ -173,7 +175,7 @@
     const cursorChoices = ['default', 'pointer'] as const;
 
     const brandSwatches = [
-        { label: 'Mielui blue', value: '#1e78e6' },
+        { label: 'Mielui', value: DEFAULT_THEME.brand },
         { label: 'Graphite', value: '#4d607f' },
         { label: 'Grove', value: '#2f7a54' },
         { label: 'Linen', value: '#a44a2f' },
@@ -342,11 +344,14 @@
         name: 'Midnight Ledger'
     });
     let baseTheme = $state<Theme>({ ...DEFAULT_THEME });
+    let previewMode = $state('components');
+    let previewWidth = $state('wide');
+
     let selectedPreset = $state(DEFAULT_THEME.slug);
     let previousPreset = $state(DEFAULT_THEME.slug);
-    let previousRadius: Theme['radius'] = theme.radius;
-    let previousDensity: Theme['density'] = theme.density;
-    let previousMotion: Theme['motion'] = theme.motion;
+    let previousRadius: Theme['radius'] = DEFAULT_THEME.radius;
+    let previousDensity: Theme['density'] = DEFAULT_THEME.density;
+    let previousMotion: Theme['motion'] = DEFAULT_THEME.motion;
     let selectedSans = $state('inter');
     let previousSans = $state('inter');
     let selectedHeader = $state('same-as-sans');
@@ -361,7 +366,10 @@
         dark: { ...DEFAULT_FOUNDATION_COLORS.dark }
     });
     let advancedTokens = $state<AdvancedTokens>(emptyAdvancedTokens());
-    let brandColors = $state<BrandColors>({ light: '#1e78e6', dark: '#1e78e6' });
+    let brandColors = $state<BrandColors>({
+        light: DEFAULT_THEME.brand,
+        dark: DEFAULT_THEME.brand
+    });
     let surfaceShadows = $state(true);
     let controlShadows = $state(true);
     let dialogShadows = $state(true);
@@ -658,17 +666,6 @@
 
     function isMotionFeel(value: string): value is Theme['motion'] {
         return (motionFeels as readonly string[]).includes(value);
-    }
-
-    function valueBinding<T extends string>(value: T, onChange: (value: T) => void) {
-        return {
-            get value() {
-                return value;
-            },
-            set value(nextValue: T) {
-                onChange(nextValue);
-            }
-        };
     }
 
     function findSansKey(value: string) {
@@ -1177,9 +1174,9 @@
             syncFontSelections(theme);
         }
         loadStudioExtensions();
-        previousRadius = theme.radius;
-        previousDensity = theme.density;
-        previousMotion = theme.motion;
+        previousRadius = DEFAULT_THEME.radius;
+        previousDensity = DEFAULT_THEME.density;
+        previousMotion = DEFAULT_THEME.motion;
         hydrated = true;
         const root = document.documentElement;
         appliedDark = root.classList.contains('dark');
@@ -1206,9 +1203,9 @@
 
     $effect(() => {
         if (!hydrated) {
-            previousRadius = theme.radius;
-            previousDensity = theme.density;
-            previousMotion = theme.motion;
+            previousRadius = DEFAULT_THEME.radius;
+            previousDensity = DEFAULT_THEME.density;
+            previousMotion = DEFAULT_THEME.motion;
             return;
         }
         const radiusChanged = theme.radius !== previousRadius;
@@ -1217,9 +1214,9 @@
         if (!radiusChanged && !densityChanged && !motionChanged) {
             return;
         }
-        previousRadius = theme.radius;
-        previousDensity = theme.density;
-        previousMotion = theme.motion;
+        previousRadius = DEFAULT_THEME.radius;
+        previousDensity = DEFAULT_THEME.density;
+        previousMotion = DEFAULT_THEME.motion;
         const nextSpacing = { ...advancedTokens.spacing };
         const nextAnimation = { ...advancedTokens.animation };
         let changed = false;
@@ -1302,9 +1299,8 @@
     label: string,
     onChange: (value: string) => void
 )}
-    {@const selection = valueBinding(value, onChange)}
     <div role="group" aria-label={label}>
-        <Tabs.Root bind:value={selection.value} variant="segmented" class="w-full">
+        <Tabs.Root {value} onValueChange={onChange} variant="segmented" class="w-full">
             <Tabs.List
                 class={`grid w-full ${values.length === 2 ? 'grid-cols-2' : values.length === 4 ? 'grid-cols-4' : 'grid-cols-3'}`}
             >
@@ -1366,15 +1362,19 @@
         value: FontWeight,
         onChange: (value: FontWeight) => void
     )}
-    {@const selection = valueBinding(value, onChange)}
     <div class="flex items-center gap-2" role="group" aria-label={`${label} weight`}>
         <span class="w-[76px] shrink-0 text-[13px] font-medium text-foreground-muted">{label}</span>
-        <Tabs.Root bind:value={selection.value} variant="ghost" class="min-w-0 flex-1">
+        <Tabs.Root
+            {value}
+            onValueChange={(next) => onChange(next as FontWeight)}
+            variant="ghost"
+            class="min-w-0 flex-1"
+        >
             <Tabs.List class="grid w-full grid-cols-4">
                 {#each fontWeights as weight (weight)}
-                    <Tabs.Trigger value={weight} class="min-h-7 w-full px-1 py-0 text-xs"
-                        >{weight}</Tabs.Trigger
-                    >
+                    <Tabs.Trigger value={weight} class="min-h-7 w-full px-1 py-0 text-xs">
+                        {weight}
+                    </Tabs.Trigger>
                 {/each}
             </Tabs.List>
         </Tabs.Root>
@@ -1665,9 +1665,9 @@
                             >
                                 <Select.Label>Sans serif</Select.Label>
                                 {#each sansFonts as font (font.key)}
-                                    <Select.Item value={font.key} label={font.label}
-                                        >{font.label}</Select.Item
-                                    >
+                                    <Select.Item value={font.key} label={font.label}>
+                                        {font.label}
+                                    </Select.Item>
                                 {/each}
                             </Select.Content>
                         </Select.Root>
@@ -1728,9 +1728,9 @@
                         >
                             <Select.Label>Mono</Select.Label>
                             {#each monoFonts as font (font.key)}
-                                <Select.Item value={font.key} label={font.label}
-                                    >{font.label}</Select.Item
-                                >
+                                <Select.Item value={font.key} label={font.label}>
+                                    {font.label}
+                                </Select.Item>
                             {/each}
                         </Select.Content>
                     </Select.Root>
@@ -1797,7 +1797,7 @@
                         onclick={resetTheme}
                         aria-label="Reset theme to selected preset"
                     >
-                        <RotateCcw size={15} />
+                        <HugeiconsIcon icon={RotateCcw} size={15} />
                     </Button>
                 </div>
                 <div class="grid grid-cols-2 gap-2">
@@ -1855,7 +1855,7 @@
 
 {#snippet dashboardPreview()}
     <ScrollArea class="h-full min-h-0" showCues={false}>
-        <div class="mx-auto flex w-full max-w-4xl flex-col gap-8 px-6 pt-2 pb-8">
+        <div class="mx-auto flex w-full max-w-4xl flex-col gap-8 px-6 py-8">
             <Toolbar class="gap-2 p-0">
                 <DropdownMenu.Root>
                     <DropdownMenu.Trigger variant="quiet" class="min-w-0 justify-start px-0">
@@ -1865,7 +1865,7 @@
                         <Typography.Text variant="supporting" class="truncate text-foreground">
                             {companyName}
                         </Typography.Text>
-                        <ChevronDown size={14} class="text-foreground-muted" />
+                        <HugeiconsIcon icon={ChevronDown} size={14} class="text-foreground-muted" />
                     </DropdownMenu.Trigger>
                     <DropdownMenu.Content>
                         <DropdownMenu.Label>Workspace</DropdownMenu.Label>
@@ -1891,7 +1891,7 @@
                             class="relative"
                             aria-label="Notifications"
                         >
-                            <Bell size={16} />
+                            <HugeiconsIcon icon={Bell} size={16} />
                             {#if unreadNotificationCount > 0}
                                 <Badge
                                     variant="error"
@@ -1967,14 +1967,14 @@
                             </DropdownMenu.Label>
                             <DropdownMenu.Item callback={() => (studioView = 'settings')}>
                                 <span class="flex items-center gap-2">
-                                    <User size={13} />
+                                    <HugeiconsIcon icon={User} size={13} />
                                     Profile
                                 </span>
                                 <Kbd shortcut="shift+cmd+P" />
                             </DropdownMenu.Item>
                             <DropdownMenu.Item callback={() => (studioView = 'settings')}>
                                 <span class="flex items-center gap-2">
-                                    <Settings size={13} />
+                                    <HugeiconsIcon icon={Settings} size={13} />
                                     Preferences
                                 </span>
                                 <Kbd shortcut="cmd+," />
@@ -1987,7 +1987,7 @@
                                     )}
                             >
                                 <span class="flex items-center gap-2">
-                                    <CreditCard size={13} />
+                                    <HugeiconsIcon icon={CreditCard} size={13} />
                                     Billing
                                 </span>
                                 <Kbd shortcut="cmd+B" />
@@ -2001,7 +2001,7 @@
                                     )}
                             >
                                 <span class="flex items-center gap-2">
-                                    <LifeBuoy size={13} />
+                                    <HugeiconsIcon icon={LifeBuoy} size={13} />
                                     Help & feedback
                                 </span>
                             </DropdownMenu.Item>
@@ -2010,7 +2010,7 @@
                                     runDashboardAction('Signed out', 'The session ended.')}
                             >
                                 <span class="flex items-center gap-2 text-[var(--color-error)]">
-                                    <LogOut size={13} />
+                                    <HugeiconsIcon icon={LogOut} size={13} />
                                     Sign out
                                 </span>
                                 <Kbd shortcut="shift+cmd+Q" />
@@ -2033,7 +2033,7 @@
                             class="ml-auto min-w-0 w-52 shrink-0 justify-between gap-2"
                         >
                             <span class="flex min-w-0 items-center gap-2">
-                                <Search size={14} />
+                                <HugeiconsIcon icon={Search} size={14} />
                                 <span class="truncate">Search</span>
                             </span>
                             <Kbd
@@ -2054,7 +2054,7 @@
                                             studioView = 'overview';
                                         }}
                                     >
-                                        <LayoutDashboard size={14} />
+                                        <HugeiconsIcon icon={LayoutDashboard} size={14} />
                                         Overview
                                     </Command.Item>
                                     <Command.Item
@@ -2063,7 +2063,7 @@
                                             studioView = 'invoices';
                                         }}
                                     >
-                                        <FileText size={14} />
+                                        <HugeiconsIcon icon={FileText} size={14} />
                                         Invoices
                                     </Command.Item>
                                     <Command.Item
@@ -2072,7 +2072,7 @@
                                             studioView = 'settings';
                                         }}
                                     >
-                                        <Settings size={14} />
+                                        <HugeiconsIcon icon={Settings} size={14} />
                                         Settings
                                     </Command.Item>
                                 </Command.Group>
@@ -2085,7 +2085,7 @@
                                             invoiceModalOpen = true;
                                         }}
                                     >
-                                        <Plus size={14} />
+                                        <HugeiconsIcon icon={Plus} size={14} />
                                         New invoice
                                     </Command.Item>
                                 </Command.Group>
@@ -2114,7 +2114,8 @@
                     <div>
                         <Typography.Title level={1}>Overview</Typography.Title>
                         <Typography.Description>
-                            Cash on hand and collection risk for {companyName}.
+                            Cash on hand and collection risk for{companyName}
+                            .
                         </Typography.Description>
                     </div>
                     <Tabs.Root bind:value={dashboardRange} variant="ghost">
@@ -2151,7 +2152,8 @@
                                 tone="success"
                                 size={72}
                             >
-                                {coverageValue}%
+                                {coverageValue}
+                                %
                             </Gauge>
                             <Progress {...progressProps(coverageValue)} />
                             <Switch
@@ -2178,7 +2180,7 @@
                         </div>
                         <Dialog.Root bind:open={invoiceModalOpen}>
                             <Dialog.Trigger>
-                                <Plus size={15} />
+                                <HugeiconsIcon icon={Plus} size={15} />
                                 New invoice
                             </Dialog.Trigger>
                             <Dialog.Content>
@@ -2222,7 +2224,7 @@
                                 class="min-w-0 flex-1"
                             >
                                 {#snippet trailing()}
-                                    <Search size={16} />
+                                    <HugeiconsIcon icon={Search} size={16} />
                                 {/snippet}
                             </Combobox.Trigger>
                             <Combobox.Content>
@@ -2276,7 +2278,7 @@
                                                 {invoice.status}
                                             </Badge>
                                         </Tooltip.Trigger>
-                                        <Tooltip.Content>Due {invoice.due}</Tooltip.Content>
+                                        <Tooltip.Content>Due{invoice.due}</Tooltip.Content>
                                     </Tooltip.Root>
                                     <Typography.Metadata
                                         class="w-16 shrink-0 text-right tabular-nums"
@@ -2293,7 +2295,7 @@
                                             size="icon"
                                             aria-label={`Actions for ${invoice.reference}`}
                                         >
-                                            <MoreHorizontal size={16} />
+                                            <HugeiconsIcon icon={MoreHorizontal} size={16} />
                                         </DropdownMenu.Trigger>
                                         <DropdownMenu.Content>
                                             <DropdownMenu.Item
@@ -2361,7 +2363,9 @@
                     {/each}
                     <Toolbar class="p-0">
                         <Typography.Metadata>
-                            Showing {pagedInvoices.length} of {visibleInvoices.length}
+                            Showing{' '}
+                            {pagedInvoices.length} of{' '}
+                            {visibleInvoices.length}
                         </Typography.Metadata>
                         <Pagination bind:page={invoicePage} total={invoicePageCount} />
                     </Toolbar>
@@ -2443,12 +2447,34 @@
             {@render inspector()}
         </aside>
 
-        <div class="min-w-0 flex-1 pr-3 pb-3 pl-0">
+        <div class="flex min-h-0 min-w-0 flex-1 flex-col gap-3 px-3 pb-3 min-[1100px]:pl-0">
+            <div class="flex flex-wrap items-center justify-between gap-3">
+                <Tabs.Root bind:value={previewMode}>
+                    <Tabs.List aria-label="Preview content">
+                        <Tabs.Trigger value="components">Components</Tabs.Trigger>
+                        <Tabs.Trigger value="app">App preview</Tabs.Trigger>
+                    </Tabs.List>
+                </Tabs.Root>
+                <Tabs.Root bind:value={previewWidth}>
+                    <Tabs.List aria-label="Preview width">
+                        <Tabs.Trigger value="wide">Wide</Tabs.Trigger>
+                        <Tabs.Trigger value="narrow">Narrow</Tabs.Trigger>
+                    </Tabs.List>
+                </Tabs.Root>
+            </div>
             <div
-                class="h-full min-h-0 overflow-hidden rounded-[var(--radius-xl)] border border-border bg-background font-[var(--font-sans)] text-foreground"
-                id="theme-preview"
+                class="flex min-h-0 flex-1 justify-center overflow-hidden rounded-[var(--radius-xl)] bg-secondary/30 p-2 sm:p-4"
             >
-                {@render dashboardPreview()}
+                <div
+                    class={`h-full min-h-0 w-full overflow-hidden rounded-[var(--radius-xl)] border border-border bg-background font-[var(--font-sans)] text-foreground ${previewWidth === 'narrow' ? 'max-w-[390px]' : 'max-w-[1200px]'}`}
+                    id="theme-preview"
+                >
+                    {#if previewMode === 'components'}
+                        <ComponentPreview />
+                    {:else}
+                        {@render dashboardPreview()}
+                    {/if}
+                </div>
             </div>
         </div>
     </section>
@@ -2457,7 +2483,7 @@
         <Sheet.Trigger
             class="fixed bottom-5 right-5 z-30 shadow-[var(--elevation-float)] min-[1100px]:hidden"
         >
-            <Palette size={15} />
+            <HugeiconsIcon icon={Palette} size={15} />
             Customize
         </Sheet.Trigger>
         <Sheet.Content side="left" class="p-0 min-[1100px]:hidden">
@@ -2487,16 +2513,17 @@
             <Dialog.Body class="flex min-h-0 flex-1 flex-col gap-3 overflow-hidden">
                 <div class="flex shrink-0 items-center justify-between gap-3">
                     <p class="text-sm text-foreground-muted">
-                        Editing {formatChoice(appMode)} mode
+                        Editing{' '}
+                        {formatChoice(appMode)} mode
                     </p>
                     <Tabs.Root bind:value={appModeBinding.value} variant="ghost">
                         <Tabs.List>
-                            <Tabs.Trigger value="light" class="min-h-7 px-2 py-0 text-xs"
-                                >Light</Tabs.Trigger
-                            >
-                            <Tabs.Trigger value="dark" class="min-h-7 px-2 py-0 text-xs"
-                                >Dark</Tabs.Trigger
-                            >
+                            <Tabs.Trigger value="light" class="min-h-7 px-2 py-0 text-xs">
+                                Light
+                            </Tabs.Trigger>
+                            <Tabs.Trigger value="dark" class="min-h-7 px-2 py-0 text-xs">
+                                Dark
+                            </Tabs.Trigger>
                         </Tabs.List>
                     </Tabs.Root>
                 </div>
