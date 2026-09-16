@@ -24,7 +24,7 @@
     <!-- ─── Header ────────────────────────────────────────────────── -->
     <header class="flex items-start justify-between gap-4">
         <div>
-            <Typography.H1> Pagination </Typography.H1>
+            <Typography.H1>Pagination</Typography.H1>
             <Typography.Text variant="lead" class="mt-2 max-w-2xl">
                 A compact pager that truncates long ranges with an ellipsis.
             </Typography.Text>
@@ -48,9 +48,7 @@
     <!-- ─── Usage ─────────────────────────────────────────────────── -->
     <section id="usage" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Usage</Typography.H2>
-        <Typography.Text variant="supporting">
-            Import the Pagination component and use it:
-        </Typography.Text>
+
         <CodeBlock
             code={`import { Pagination } from '$lib/mielui/components/pagination';\n\nlet page = $state(1);\n\n<Pagination bind:page total={20} />`}
             lang="svelte"

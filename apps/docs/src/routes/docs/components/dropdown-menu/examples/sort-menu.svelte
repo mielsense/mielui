@@ -1,8 +1,9 @@
 <script lang="ts">
-    import Check from '@lucide/svelte/icons/check';
-    import ChevronDown from '@lucide/svelte/icons/chevron-down';
-    import Star from '@lucide/svelte/icons/star';
+    import ChevronDown from '@hugeicons/core-free-icons/ArrowDown01Icon';
+    import Star from '@hugeicons/core-free-icons/StarIcon';
+    import Check from '@hugeicons/core-free-icons/Tick02Icon';
     import * as DropdownMenu from '@mielui/svelte/components/dropdown-menu';
+    import HugeiconsIcon from '@mielui/svelte/hugeicons-icon';
 
     const options = ['Most starred', 'Recently updated', 'Alphabetical', 'Oldest first'];
     let selected = $state(options[0]);
@@ -10,16 +11,16 @@
 
 <DropdownMenu.Root>
     <DropdownMenu.Trigger variant="ghost" size="md">
-        <Star size={13} />
+        <HugeiconsIcon icon={Star} size={13} />
         {selected}
-        <ChevronDown size={11} class="text-foreground-muted" />
+        <HugeiconsIcon icon={ChevronDown} size={11} class="text-foreground-muted" />
     </DropdownMenu.Trigger>
     <DropdownMenu.Content class="min-w-[12rem]">
         {#each options as option (option)}
             <DropdownMenu.Item callback={() => (selected = option)}>
                 <span>{option}</span>
                 {#if selected === option}
-                    <Check size={12} class="ml-auto text-primary" />
+                    <HugeiconsIcon icon={Check} size={12} class="ml-auto text-primary" />
                 {/if}
             </DropdownMenu.Item>
         {/each}

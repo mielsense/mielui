@@ -23,7 +23,10 @@
 </script>
 
 <svelte:head>
-    <title>Mielui · {TITLE}</title>
+    <title>
+        Mielui ·{' '}
+        {TITLE}
+    </title>
     <meta
         name="description"
         content="Single-value and two-handle sliders with keyboard and RTL support."
@@ -71,9 +74,6 @@
     <section id="examples" class="scroll-mt-20 flex flex-col gap-10">
         <div>
             <Typography.H2 class="docs-section-heading">Examples</Typography.H2>
-            <Typography.Text variant="supporting" class="mt-2">
-                Slider with different configurations.
-            </Typography.Text>
         </div>
 
         <!-- Basic -->

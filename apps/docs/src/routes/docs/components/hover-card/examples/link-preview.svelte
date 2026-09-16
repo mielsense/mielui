@@ -6,8 +6,8 @@
     <HoverCard.Trigger href="https://ui.miel.my">mielui</HoverCard.Trigger>
     <HoverCard.Content>
         <HoverCard.Title>mielui</HoverCard.Title>
-        <HoverCard.Description
-            >An unstyled, accessible Svelte component library.</HoverCard.Description
-        >
+        <HoverCard.Description>
+            An unstyled, accessible Svelte component library.
+        </HoverCard.Description>
     </HoverCard.Content>
 </HoverCard.Root>

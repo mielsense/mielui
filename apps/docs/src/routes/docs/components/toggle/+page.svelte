@@ -21,7 +21,10 @@
 </script>
 
 <svelte:head>
-    <title>Mielui · {TITLE}</title>
+    <title>
+        Mielui ·{' '}
+        {TITLE}
+    </title>
     <meta name="description" content="A two-state button that is pressed or unpressed." />
 </svelte:head>
 
@@ -67,9 +70,6 @@
     <section id="examples" class="scroll-mt-20 flex flex-col gap-10">
         <div>
             <Typography.H2 class="docs-section-heading">Examples</Typography.H2>
-            <Typography.Text variant="supporting" class="mt-2">
-                Toggle in different sizes and variants.
-            </Typography.Text>
         </div>
 
         <!-- Icon toggle -->

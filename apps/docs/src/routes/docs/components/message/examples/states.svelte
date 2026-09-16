@@ -1,8 +1,9 @@
 <script lang="ts">
-    import RotateCcw from '@lucide/svelte/icons/rotate-ccw';
+    import RotateCcw from '@hugeicons/core-free-icons/RotateLeft01Icon';
     import { Button } from '@mielui/svelte/components/button';
     import { Markdown } from '@mielui/svelte/components/markdown';
     import * as Message from '@mielui/svelte/components/message';
+    import HugeiconsIcon from '@mielui/svelte/hugeicons-icon';
 
     let retrying = $state(false);
 
@@ -34,7 +35,7 @@
         {#if !retrying}
             <Message.Actions aria-label="Failed response actions">
                 <Button variant="ghost" size="md" onclick={() => (retrying = true)}>
-                    <RotateCcw size={14} aria-hidden="true" />
+                    <HugeiconsIcon icon={RotateCcw} size={14} aria-hidden="true" />
                     Retry response
                 </Button>
             </Message.Actions>

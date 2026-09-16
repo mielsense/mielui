@@ -22,8 +22,8 @@ pnpm dlx @mielui/svelte add button`;
         <div>
             <Typography.H1 class="m-0">Introduction</Typography.H1>
             <Typography.Text variant="lead" class="mt-2 max-w-2xl">
-                mielui is a component library for Svelte 5 and Tailwind v4. It ships 55 components,
-                a CSS token sheet, and a small CLI.
+                mielui is a component library for Svelte 5 and Tailwind v4. It includes 60
+                components, a CSS token sheet, and a small CLI.
             </Typography.Text>
         </div>
         <DocsPager />
@@ -73,18 +73,20 @@ pnpm dlx @mielui/svelte add button`;
             <a
                 class="text-foreground underline underline-offset-2"
                 href={resolve('/docs/installation')}
-                >Installation</a
             >
+                Installation
+            </a>
             ·
-            <a class="text-foreground underline underline-offset-2" href={resolve('/docs/theming')}
-                >Theming</a
-            >
+            <a class="text-foreground underline underline-offset-2" href={resolve('/docs/theming')}>
+                Theming
+            </a>
             ·
             <a
                 class="text-foreground underline underline-offset-2"
                 href={resolve('/docs/components')}
-                >Components</a
             >
+                Components
+            </a>
         </Typography.Text>
     </section>
 </div>

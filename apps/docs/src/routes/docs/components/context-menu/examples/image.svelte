@@ -1,7 +1,8 @@
 <script lang="ts">
-    import Copy from '@lucide/svelte/icons/copy';
-    import Download from '@lucide/svelte/icons/download';
+    import Copy from '@hugeicons/core-free-icons/Copy01Icon';
+    import Download from '@hugeicons/core-free-icons/Download01Icon';
     import * as ContextMenu from '@mielui/svelte/components/context-menu';
+    import HugeiconsIcon from '@mielui/svelte/hugeicons-icon';
 </script>
 
 <div class="flex items-center justify-center">
@@ -15,10 +16,16 @@
         </ContextMenu.Trigger>
         <ContextMenu.Content>
             <ContextMenu.Item callback={() => {}}>
-                <span class="flex items-center gap-2"><Download size={14} /> Save image</span>
+                <span class="flex items-center gap-2">
+                    <HugeiconsIcon icon={Download} size={14} />
+                    Save image
+                </span>
             </ContextMenu.Item>
             <ContextMenu.Item callback={() => {}}>
-                <span class="flex items-center gap-2"><Copy size={14} /> Copy image</span>
+                <span class="flex items-center gap-2">
+                    <HugeiconsIcon icon={Copy} size={14} />
+                    Copy image
+                </span>
             </ContextMenu.Item>
             <ContextMenu.Separator />
             <ContextMenu.Item callback={() => {}}>Open in new tab</ContextMenu.Item>

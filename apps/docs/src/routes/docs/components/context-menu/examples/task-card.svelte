@@ -1,8 +1,9 @@
 <script lang="ts">
-    import Check from '@lucide/svelte/icons/check';
-    import Pencil from '@lucide/svelte/icons/pencil';
-    import Share from '@lucide/svelte/icons/share-2';
+    import Pencil from '@hugeicons/core-free-icons/PencilEdit01Icon';
+    import Share from '@hugeicons/core-free-icons/Share08Icon';
+    import Check from '@hugeicons/core-free-icons/Tick02Icon';
     import * as ContextMenu from '@mielui/svelte/components/context-menu';
+    import HugeiconsIcon from '@mielui/svelte/hugeicons-icon';
 </script>
 
 <div class="flex items-center justify-center">
@@ -16,14 +17,23 @@
         </ContextMenu.Trigger>
         <ContextMenu.Content>
             <ContextMenu.Item callback={() => {}}>
-                <span class="flex items-center gap-2"><Pencil size={14} /> Edit</span>
+                <span class="flex items-center gap-2">
+                    <HugeiconsIcon icon={Pencil} size={14} />
+                    Edit
+                </span>
             </ContextMenu.Item>
             <ContextMenu.Item callback={() => {}}>
-                <span class="flex items-center gap-2"><Share size={14} /> Share</span>
+                <span class="flex items-center gap-2">
+                    <HugeiconsIcon icon={Share} size={14} />
+                    Share
+                </span>
             </ContextMenu.Item>
             <ContextMenu.Separator />
             <ContextMenu.Item callback={() => {}}>
-                <span class="flex items-center gap-2"><Check size={14} /> Mark complete</span>
+                <span class="flex items-center gap-2">
+                    <HugeiconsIcon icon={Check} size={14} />
+                    Mark complete
+                </span>
             </ContextMenu.Item>
         </ContextMenu.Content>
     </ContextMenu.Root>

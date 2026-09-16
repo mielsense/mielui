@@ -25,7 +25,7 @@
     <!-- ─── Header ────────────────────────────────────────────────── -->
     <header class="flex items-start justify-between gap-4">
         <div>
-            <Typography.H1> Label </Typography.H1>
+            <Typography.H1>Label</Typography.H1>
             <Typography.Text variant="lead" class="mt-2 max-w-2xl">
                 A form label that pairs with any input and dims when the field is disabled.
             </Typography.Text>
@@ -42,13 +42,13 @@
 
     <!-- ─── Installation ──────────────────────────────────────────── -->
     <section id="installation" class="scroll-mt-20 flex flex-col gap-4">
-        <Typography.H2 class="docs-section-heading"> Installation </Typography.H2>
+        <Typography.H2 class="docs-section-heading">Installation</Typography.H2>
         <InstallCommand command={installCommand} />
     </section>
 
     <!-- ─── Usage ─────────────────────────────────────────────────── -->
     <section id="usage" class="scroll-mt-20 flex flex-col gap-4">
-        <Typography.H2 class="docs-section-heading"> Usage </Typography.H2>
+        <Typography.H2 class="docs-section-heading">Usage</Typography.H2>
         <Typography.Text variant="supporting">
             Import Label and pair it with an input:
         </Typography.Text>
@@ -62,7 +62,7 @@
     <!-- ─── Examples ──────────────────────────────────────────────── -->
     <section id="examples" class="scroll-mt-20 flex flex-col gap-10">
         <div>
-            <Typography.H2 class="docs-section-heading"> Examples </Typography.H2>
+            <Typography.H2 class="docs-section-heading">Examples</Typography.H2>
             <Typography.Text variant="supporting" class="mt-2">
                 Common usage patterns for Label with form fields.
             </Typography.Text>
@@ -70,7 +70,7 @@
 
         <!-- Basic -->
         <div id="basic" class="scroll-mt-20 flex flex-col gap-3">
-            <Typography.H3 class="docs-subsection-heading"> With email input </Typography.H3>
+            <Typography.H3 class="docs-subsection-heading">With email input</Typography.H3>
             <ComponentPreview code={HeroSrc}>
                 <Hero />
             </ComponentPreview>
@@ -78,7 +78,7 @@
 
         <!-- Required indicator -->
         <div id="required" class="scroll-mt-20 flex flex-col gap-3">
-            <Typography.H3 class="docs-subsection-heading"> With required indicator </Typography.H3>
+            <Typography.H3 class="docs-subsection-heading">With required indicator</Typography.H3>
             <ComponentPreview code={WithRequiredSrc}>
                 <WithRequired />
             </ComponentPreview>
@@ -86,7 +86,7 @@
 
         <!-- Disabled state -->
         <div id="disabled" class="scroll-mt-20 flex flex-col gap-3">
-            <Typography.H3 class="docs-subsection-heading"> Disabled field </Typography.H3>
+            <Typography.H3 class="docs-subsection-heading">Disabled field</Typography.H3>
             <ComponentPreview code={DisabledSrc}>
                 <Disabled />
             </ComponentPreview>

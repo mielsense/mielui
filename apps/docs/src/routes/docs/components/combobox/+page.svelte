@@ -5,6 +5,8 @@
     import DocsPager from '$lib/components/docs/docs-pager.svelte';
     import Basic from './examples/basic.svelte';
     import BasicSrc from './examples/basic.svelte?raw';
+    import Glass from './examples/glass.svelte';
+    import GlassSrc from './examples/glass.svelte?raw';
     import Hero from './examples/hero.svelte';
     import HeroSrc from './examples/hero.svelte?raw';
     import InputSearch from './examples/input-search.svelte';
@@ -21,7 +23,10 @@
 </script>
 
 <svelte:head>
-    <title>Mielui · {TITLE}</title>
+    <title>
+        Mielui ·{' '}
+        {TITLE}
+    </title>
     <meta name="description" content="Searchable select dropdown with fuzzy matching." />
 </svelte:head>
 
@@ -48,16 +53,14 @@
 
     <!-- ─── Installation ──────────────────────────────────────────── -->
     <section id="installation" class="scroll-mt-20 flex flex-col gap-4">
-        <Typography.H2 class="docs-section-heading"> Installation </Typography.H2>
+        <Typography.H2 class="docs-section-heading">Installation</Typography.H2>
         <InstallCommand command={installCommand} />
     </section>
 
     <!-- ─── Usage ─────────────────────────────────────────────────── -->
     <section id="usage" class="scroll-mt-20 flex flex-col gap-4">
-        <Typography.H2 class="docs-section-heading"> Usage </Typography.H2>
-        <Typography.Text variant="supporting">
-            Import and use the Combobox components:
-        </Typography.Text>
+        <Typography.H2 class="docs-section-heading">Usage</Typography.H2>
+
         <CodeBlock
             code={`import * as Combobox from '$lib/mielui/components/combobox';\n\nlet selected = $state('next');\n\n<Combobox.Root>\n  <Combobox.Trigger>{selected}</Combobox.Trigger>\n  <Combobox.Content>\n    <Combobox.Results>\n      <Combobox.Item value="next" label="Next.js" callback={() => (selected = 'next')} />\n    </Combobox.Results>\n  </Combobox.Content>\n</Combobox.Root>`}
             lang="svelte"
@@ -68,23 +71,24 @@
     <!-- ─── Examples ──────────────────────────────────────────────── -->
     <section id="examples" class="scroll-mt-20 flex flex-col gap-10">
         <div>
-            <Typography.H2 class="docs-section-heading"> Examples </Typography.H2>
+            <Typography.H2 class="docs-section-heading">Examples</Typography.H2>
         </div>
 
         <!-- Basic -->
         <div id="basic" class="scroll-mt-20 flex flex-col gap-3">
-            <Typography.H3 class="docs-subsection-heading"> Basic usage </Typography.H3>
+            <Typography.H3 class="docs-subsection-heading">Basic usage</Typography.H3>
             <ComponentPreview code={BasicSrc}>
                 <Basic />
             </ComponentPreview>
         </div>
 
         <div id="input-search" class="scroll-mt-20 flex flex-col gap-3">
-            <Typography.H3 class="docs-subsection-heading"> Input search </Typography.H3>
+            <Typography.H3 class="docs-subsection-heading">Input search</Typography.H3>
             <Typography.Text variant="supporting">
-                Set <Typography.InlineCode>appearance="input"</Typography.InlineCode> for a
-                field-styled trigger that stays editable and opens on focus or typing instead of
-                click-toggle. Pass a
+                Set{' '}
+                <Typography.InlineCode>appearance="input"</Typography.InlineCode> for a field-styled
+                trigger that stays editable and opens on focus or typing instead of click-toggle.
+                Pass a
                 <Typography.InlineCode>trailing</Typography.InlineCode>
                 snippet for an adornment; there is no chevron by default.
             </Typography.Text>
@@ -94,7 +98,7 @@
         </div>
 
         <div id="menu-search" class="scroll-mt-20 flex flex-col gap-3">
-            <Typography.H3 class="docs-subsection-heading"> Search in the menu </Typography.H3>
+            <Typography.H3 class="docs-subsection-heading">Search in the menu</Typography.H3>
             <Typography.Text variant="supporting">
                 Keep the trigger select-like and place the search field in the menu.
             </Typography.Text>
@@ -104,7 +108,7 @@
         </div>
 
         <div id="scrollable" class="scroll-mt-20 flex flex-col gap-3">
-            <Typography.H3 class="docs-subsection-heading"> Scrollable </Typography.H3>
+            <Typography.H3 class="docs-subsection-heading">Scrollable</Typography.H3>
             <Typography.Text variant="supporting">
                 Long result lists stay in a height-capped menu and scroll inside it.
             </Typography.Text>
@@ -112,5 +116,14 @@
                 <Scrollable />
             </ComponentPreview>
         </div>
+    </section>
+    <section id="glass" class="flex flex-col gap-4">
+        <Typography.H2 class="docs-section-heading">Glass surface</Typography.H2>
+        <Typography.Text variant="supporting">
+            Set surface="glass" on Combobox.Content for a translucent background with blur. Solid
+            remains the default. The glass surface keeps an opaque fallback when backdrop filtering
+            is unavailable and respects reduced-transparency preferences.
+        </Typography.Text>
+        <ComponentPreview code={GlassSrc}><Glass /></ComponentPreview>
     </section>
 </div>

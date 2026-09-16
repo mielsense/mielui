@@ -13,7 +13,10 @@
 </script>
 
 <svelte:head>
-    <title>Mielui · {TITLE}</title>
+    <title>
+        Mielui ·{' '}
+        {TITLE}
+    </title>
     <meta name="description" content="Rolling AI response text that eases open as lines wrap." />
 </svelte:head>
 

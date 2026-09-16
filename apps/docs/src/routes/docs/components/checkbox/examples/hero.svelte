@@ -21,7 +21,7 @@
         <h3 class="text-foreground [font-weight:var(--font-weight-label,500)]">Launch checklist</h3>
         <span class="text-sm text-foreground-muted [font-weight:var(--font-weight-label,500)]">
             {completedCount}
-            / {totalCount}
+            /{totalCount}
         </span>
     </div>
 

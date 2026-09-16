@@ -1,8 +1,9 @@
 <script lang="ts">
-    import Plus from '@lucide/svelte/icons/plus';
+    import Plus from '@hugeicons/core-free-icons/Add01Icon';
     import { Button } from '@mielui/svelte/components/button';
     import * as Conversation from '@mielui/svelte/components/conversation';
     import * as Message from '@mielui/svelte/components/message';
+    import HugeiconsIcon from '@mielui/svelte/hugeicons-icon';
 
     let follow = $state(true);
     let output = $state([
@@ -39,7 +40,7 @@
             {followLabel}
         </p>
         <Button variant="ghost" size="md" onclick={appendOutput}>
-            <Plus size={14} aria-hidden="true" />
+            <HugeiconsIcon icon={Plus} size={14} aria-hidden="true" />
             Append output
         </Button>
     </div>

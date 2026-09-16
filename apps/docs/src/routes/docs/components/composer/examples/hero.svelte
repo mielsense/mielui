@@ -1,11 +1,12 @@
 <script lang="ts">
-    import Check from '@lucide/svelte/icons/check';
-    import ChevronDown from '@lucide/svelte/icons/chevron-down';
-    import ShieldCheck from '@lucide/svelte/icons/shield-check';
-    import Workflow from '@lucide/svelte/icons/workflow';
+    import ChevronDown from '@hugeicons/core-free-icons/ArrowDown01Icon';
+    import ShieldCheck from '@hugeicons/core-free-icons/ShieldCheckIcon';
+    import Check from '@hugeicons/core-free-icons/Tick02Icon';
+    import Workflow from '@hugeicons/core-free-icons/WorkflowSquare01Icon';
     import * as Composer from '@mielui/svelte/components/composer';
     import * as DropdownMenu from '@mielui/svelte/components/dropdown-menu';
     import * as Select from '@mielui/svelte/components/select';
+    import HugeiconsIcon from '@mielui/svelte/hugeicons-icon';
     import { onDestroy } from 'svelte';
 
     const models = ['Mielui 3.1', 'Mielui Mini'];
@@ -59,7 +60,7 @@
             <Composer.Actions>
                 <Select.Root bind:value={mode}>
                     <Select.Trigger variant="ghost" class="w-auto max-w-32">
-                        <Workflow size={14} aria-hidden="true" />
+                        <HugeiconsIcon icon={Workflow} size={14} aria-hidden="true" />
                         <span class="truncate">{mode}</span>
                     </Select.Trigger>
                     <Select.Content dynamic>
@@ -72,7 +73,7 @@
 
                 <Select.Root bind:value={permission}>
                     <Select.Trigger variant="ghost" class="w-auto max-w-44">
-                        <ShieldCheck size={14} aria-hidden="true" />
+                        <HugeiconsIcon icon={ShieldCheck} size={14} aria-hidden="true" />
                         <span class="truncate">{permission}</span>
                     </Select.Trigger>
                     <Select.Content dynamic>
@@ -91,7 +92,8 @@
                             <span class="truncate">{model}</span>
                             <span class="text-foreground-muted">{effort}</span>
                         </span>
-                        <ChevronDown
+                        <HugeiconsIcon
+                            icon={ChevronDown}
                             size={12}
                             class="ml-auto shrink-0 text-foreground-muted"
                             aria-hidden="true"
@@ -106,7 +108,11 @@
                                     <DropdownMenu.Item callback={() => (model = option)}>
                                         <span class="flex-1">{option}</span>
                                         {#if model === option}
-                                            <Check size={13} aria-hidden="true" />
+                                            <HugeiconsIcon
+                                                icon={Check}
+                                                size={13}
+                                                aria-hidden="true"
+                                            />
                                         {/if}
                                     </DropdownMenu.Item>
                                 {/each}
@@ -119,7 +125,11 @@
                                     <DropdownMenu.Item callback={() => (effort = option)}>
                                         <span class="flex-1">{option}</span>
                                         {#if effort === option}
-                                            <Check size={13} aria-hidden="true" />
+                                            <HugeiconsIcon
+                                                icon={Check}
+                                                size={13}
+                                                aria-hidden="true"
+                                            />
                                         {/if}
                                     </DropdownMenu.Item>
                                 {/each}

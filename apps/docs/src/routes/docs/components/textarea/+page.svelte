@@ -18,7 +18,10 @@
 </script>
 
 <svelte:head>
-    <title>Mielui · {TITLE}</title>
+    <title>
+        Mielui ·{' '}
+        {TITLE}
+    </title>
     <meta name="description" content="Multi-line text input that shares Input's grammar." />
 </svelte:head>
 
@@ -66,9 +69,6 @@
     <section id="examples" class="scroll-mt-20 flex flex-col gap-10">
         <div>
             <Typography.H2 class="docs-section-heading">Examples</Typography.H2>
-            <Typography.Text variant="supporting" class="mt-2">
-                Textarea in different configurations.
-            </Typography.Text>
         </div>
 
         <!-- Basic -->

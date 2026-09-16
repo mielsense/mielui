@@ -1,14 +1,15 @@
 <script lang="ts">
-    import CircleDot from '@lucide/svelte/icons/circle-dot';
-    import FolderPlus from '@lucide/svelte/icons/folder-plus';
-    import Inbox from '@lucide/svelte/icons/inbox';
-    import MapIcon from '@lucide/svelte/icons/map';
-    import Moon from '@lucide/svelte/icons/moon';
-    import Search from '@lucide/svelte/icons/search';
-    import SquarePen from '@lucide/svelte/icons/square-pen';
-    import Users from '@lucide/svelte/icons/users';
+    import CircleDot from '@hugeicons/core-free-icons/CircleDotIcon';
+    import SquarePen from '@hugeicons/core-free-icons/Edit01Icon';
+    import FolderPlus from '@hugeicons/core-free-icons/FolderAddIcon';
+    import Inbox from '@hugeicons/core-free-icons/InboxIcon';
+    import MapIcon from '@hugeicons/core-free-icons/MapsIcon';
+    import Moon from '@hugeicons/core-free-icons/Moon02Icon';
+    import Search from '@hugeicons/core-free-icons/Search01Icon';
+    import Users from '@hugeicons/core-free-icons/UserGroupIcon';
     import * as Command from '@mielui/svelte/components/command';
     import Kbd from '@mielui/svelte/components/kbd';
+    import HugeiconsIcon from '@mielui/svelte/hugeicons-icon';
 </script>
 
 <div class="flex w-full items-center justify-center">
@@ -18,7 +19,7 @@
             class="w-[16rem] max-w-full justify-between gap-2 px-3 py-2 text-muted-foreground"
         >
             <div class="flex min-w-0 items-center gap-2">
-                <Search size={16} />
+                <HugeiconsIcon icon={Search} size={16} />
                 <span class="truncate">Search or jump to…</span>
             </div>
             <Kbd shortcut="cmd+K" class="shrink-0" />
@@ -35,38 +36,38 @@
             <Command.Results>
                 <Command.Group heading="Jump to">
                     <Command.Item name="Inbox">
-                        <Inbox size={16} />
+                        <HugeiconsIcon icon={Inbox} size={16} />
                         Inbox
                     </Command.Item>
                     <Command.Item name="My Issues">
-                        <CircleDot size={16} />
+                        <HugeiconsIcon icon={CircleDot} size={16} />
                         My Issues
                     </Command.Item>
                     <Command.Item name="Roadmap">
-                        <MapIcon size={16} />
+                        <HugeiconsIcon icon={MapIcon} size={16} />
                         Roadmap
                     </Command.Item>
                 </Command.Group>
                 <Command.Separator />
                 <Command.Group heading="Create">
                     <Command.Item name="New issue">
-                        <SquarePen size={16} />
+                        <HugeiconsIcon icon={SquarePen} size={16} />
                         <span class="flex-1">New issue</span>
                         <Kbd shortcut="C" />
                     </Command.Item>
                     <Command.Item name="New project">
-                        <FolderPlus size={16} />
+                        <HugeiconsIcon icon={FolderPlus} size={16} />
                         New project
                     </Command.Item>
                 </Command.Group>
                 <Command.Separator />
                 <Command.Group heading="Settings">
                     <Command.Item name="Switch team">
-                        <Users size={16} />
+                        <HugeiconsIcon icon={Users} size={16} />
                         Switch team
                     </Command.Item>
                     <Command.Item name="Theme">
-                        <Moon size={16} />
+                        <HugeiconsIcon icon={Moon} size={16} />
                         Theme
                     </Command.Item>
                 </Command.Group>

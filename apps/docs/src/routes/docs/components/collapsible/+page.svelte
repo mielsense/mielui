@@ -15,7 +15,10 @@
 </script>
 
 <svelte:head>
-    <title>Mielui · {TITLE}</title>
+    <title>
+        Mielui ·{' '}
+        {TITLE}
+    </title>
     <meta name="description" content="A single collapsible panel with open/close toggle." />
 </svelte:head>
 
@@ -42,16 +45,14 @@
 
     <!-- ─── Installation ──────────────────────────────────────────── -->
     <section id="installation" class="scroll-mt-20 flex flex-col gap-4">
-        <Typography.H2 class="docs-section-heading"> Installation </Typography.H2>
+        <Typography.H2 class="docs-section-heading">Installation</Typography.H2>
         <InstallCommand command={installCommand} />
     </section>
 
     <!-- ─── Usage ─────────────────────────────────────────────────── -->
     <section id="usage" class="scroll-mt-20 flex flex-col gap-4">
-        <Typography.H2 class="docs-section-heading"> Usage </Typography.H2>
-        <Typography.Text variant="supporting">
-            Import the Collapsible components and use them:
-        </Typography.Text>
+        <Typography.H2 class="docs-section-heading">Usage</Typography.H2>
+
         <CodeBlock
             code={`import * as Collapsible from '$lib/mielui/components/collapsible';\n\nlet open = $state();\n\n<Collapsible.Root bind:open>\n  <Collapsible.Trigger>Trigger</Collapsible.Trigger>\n  <Collapsible.Content>Content</Collapsible.Content>\n</Collapsible.Root>`}
             lang="svelte"
@@ -62,12 +63,12 @@
     <!-- ─── Examples ──────────────────────────────────────────────── -->
     <section id="examples" class="scroll-mt-20 flex flex-col gap-10">
         <div>
-            <Typography.H2 class="docs-section-heading"> Examples </Typography.H2>
+            <Typography.H2 class="docs-section-heading">Examples</Typography.H2>
         </div>
 
         <!-- Default -->
         <div id="default" class="scroll-mt-20 flex flex-col gap-3">
-            <Typography.H3 class="docs-subsection-heading"> Default </Typography.H3>
+            <Typography.H3 class="docs-subsection-heading">Default</Typography.H3>
             <ComponentPreview code={DefaultSrc}>
                 <Default />
             </ComponentPreview>

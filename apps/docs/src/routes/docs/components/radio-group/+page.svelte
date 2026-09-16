@@ -24,7 +24,7 @@
     <!-- ─── Header ────────────────────────────────────────────────── -->
     <header class="flex items-start justify-between gap-4">
         <div>
-            <Typography.H1> Radio Group </Typography.H1>
+            <Typography.H1>Radio Group</Typography.H1>
             <Typography.Text variant="lead" class="mt-2 max-w-2xl">
                 A group of radio buttons for selecting one option.
             </Typography.Text>
@@ -62,9 +62,6 @@
     <section id="examples" class="scroll-mt-20 flex flex-col gap-10">
         <div>
             <Typography.H2 class="docs-section-heading">Examples</Typography.H2>
-            <Typography.Text variant="supporting" class="mt-2">
-                RadioGroup in different configurations.
-            </Typography.Text>
         </div>
 
         <!-- With descriptions -->

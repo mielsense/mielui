@@ -28,7 +28,7 @@
     <!-- ─── Header ────────────────────────────────────────────────── -->
     <header class="flex items-start justify-between gap-4">
         <div>
-            <Typography.H1> Card </Typography.H1>
+            <Typography.H1>Card</Typography.H1>
             <Typography.Text variant="lead" class="mt-2 max-w-2xl">
                 A surface for grouping related content, composed of header, content, and footer.
             </Typography.Text>
@@ -45,16 +45,14 @@
 
     <!-- ─── Installation ──────────────────────────────────────────── -->
     <section id="installation" class="scroll-mt-20 flex flex-col gap-4">
-        <Typography.H2 class="docs-section-heading"> Installation </Typography.H2>
+        <Typography.H2 class="docs-section-heading">Installation</Typography.H2>
         <InstallCommand command={installCommand} />
     </section>
 
     <!-- ─── Usage ─────────────────────────────────────────────────── -->
     <section id="usage" class="scroll-mt-20 flex flex-col gap-4">
-        <Typography.H2 class="docs-section-heading"> Usage </Typography.H2>
-        <Typography.Text variant="supporting">
-            Import Card and compose it with sub-components:
-        </Typography.Text>
+        <Typography.H2 class="docs-section-heading">Usage</Typography.H2>
+
         <CodeBlock
             code={`import * as Card from '$lib/mielui/components/card';\n\n<Card.Root>\n  <Card.Header>\n    <Card.Title>Title</Card.Title>\n  </Card.Header>\n  <Card.Content>Content here</Card.Content>\n  <Card.Footer>\n    <Button>Action</Button>\n  </Card.Footer>\n</Card.Root>`}
             lang="svelte"
@@ -65,42 +63,39 @@
     <!-- ─── Examples ──────────────────────────────────────────────── -->
     <section id="examples" class="scroll-mt-20 flex flex-col gap-10">
         <div>
-            <Typography.H2 class="docs-section-heading"> Examples </Typography.H2>
-            <Typography.Text variant="supporting" class="mt-2">
-                Card with different structures and compositions.
-            </Typography.Text>
+            <Typography.H2 class="docs-section-heading">Examples</Typography.H2>
         </div>
 
         <div id="full" class="scroll-mt-20 flex flex-col gap-3">
-            <Typography.H3 class="docs-subsection-heading"> Full composition </Typography.H3>
+            <Typography.H3 class="docs-subsection-heading">Full composition</Typography.H3>
             <ComponentPreview code={FullSrc}>
                 <Full />
             </ComponentPreview>
         </div>
 
         <div id="content-only" class="scroll-mt-20 flex flex-col gap-3">
-            <Typography.H3 class="docs-subsection-heading"> Content only </Typography.H3>
+            <Typography.H3 class="docs-subsection-heading">Content only</Typography.H3>
             <ComponentPreview code={ContentOnlySrc}>
                 <ContentOnly />
             </ComponentPreview>
         </div>
 
         <div id="header-footer" class="scroll-mt-20 flex flex-col gap-3">
-            <Typography.H3 class="docs-subsection-heading"> Header and footer </Typography.H3>
+            <Typography.H3 class="docs-subsection-heading">Header and footer</Typography.H3>
             <ComponentPreview code={HeaderFooterSrc}>
                 <HeaderFooter />
             </ComponentPreview>
         </div>
 
         <div id="panel" class="scroll-mt-20 flex flex-col gap-3">
-            <Typography.H3 class="docs-subsection-heading"> Panel frame </Typography.H3>
+            <Typography.H3 class="docs-subsection-heading">Panel frame</Typography.H3>
             <ComponentPreview code={PanelSrc}>
                 <Panel />
             </ComponentPreview>
         </div>
 
         <div id="inset" class="scroll-mt-20 flex flex-col gap-3">
-            <Typography.H3 class="docs-subsection-heading"> Inset frame </Typography.H3>
+            <Typography.H3 class="docs-subsection-heading">Inset frame</Typography.H3>
             <ComponentPreview code={InsetSrc}>
                 <Inset />
             </ComponentPreview>

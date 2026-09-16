@@ -1,6 +1,7 @@
 <script lang="ts">
-    import ArrowLeft from '@lucide/svelte/icons/arrow-left';
+    import ArrowLeft from '@hugeicons/core-free-icons/ArrowLeft02Icon';
     import { Button } from '@mielui/svelte/components/button';
+    import HugeiconsIcon from '@mielui/svelte/hugeicons-icon';
     import { resolve } from '$app/paths';
     import { page } from '$app/state';
 </script>
@@ -42,7 +43,8 @@
             size="lg"
             class="w-full justify-center sm:w-auto"
         >
-            <ArrowLeft size={16} />Back to docs
+            <HugeiconsIcon icon={ArrowLeft} size={16} />
+            Back to docs
         </Button>
         <Button
             href={resolve('/')}

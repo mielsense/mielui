@@ -38,7 +38,7 @@ const content = [
 <div data-docs-page class="flex flex-col gap-10">
     <header class="flex items-start justify-between gap-4">
         <div>
-            <Typography.H1> Markdown </Typography.H1>
+            <Typography.H1>Markdown</Typography.H1>
             <Typography.Text variant="lead" class="mt-2 max-w-2xl">
                 Render structured agent output with safe links, useful typography, and first-class
                 code blocks.
@@ -52,35 +52,36 @@ const content = [
     </section>
 
     <section id="installation" class="scroll-mt-20 flex flex-col gap-4">
-        <Typography.H2 class="docs-section-heading"> Installation </Typography.H2>
+        <Typography.H2 class="docs-section-heading">Installation</Typography.H2>
         <InstallCommand command={installCommand} />
     </section>
 
     <section id="usage" class="scroll-mt-20 flex flex-col gap-4">
-        <Typography.H2 class="docs-section-heading"> Usage </Typography.H2>
+        <Typography.H2 class="docs-section-heading">Usage</Typography.H2>
         <Typography.Text variant="supporting">
             The GFM lexer supports tables, task lists, and strikethrough. Fenced code is rendered
-            with Mielui <Typography.InlineCode>CodeBlock</Typography.InlineCode>, and raw HTML is
-            always displayed as text instead of being injected into the page.
+            with Mielui{' '}
+            <Typography.InlineCode>CodeBlock</Typography.InlineCode>
+            , and raw HTML is always displayed as text instead of being injected into the page.
         </Typography.Text>
         <CodeBlock code={usageSnippet} lang="svelte" copy="overlay" />
     </section>
 
     <section id="examples" class="scroll-mt-20 flex flex-col gap-10">
         <div>
-            <Typography.H2 class="docs-section-heading"> Examples </Typography.H2>
+            <Typography.H2 class="docs-section-heading">Examples</Typography.H2>
             <Typography.Text variant="supporting" class="mt-2">
                 Show incomplete output honestly and keep untrusted model content inert.
             </Typography.Text>
         </div>
 
         <div id="streaming" class="scroll-mt-20 flex flex-col gap-3">
-            <Typography.H3 class="docs-subsection-heading"> Streaming response </Typography.H3>
+            <Typography.H3 class="docs-subsection-heading">Streaming response</Typography.H3>
             <ComponentPreview code={StreamingSrc}><Streaming /></ComponentPreview>
         </div>
 
         <div id="safe-html" class="scroll-mt-20 flex flex-col gap-3">
-            <Typography.H3 class="docs-subsection-heading"> Raw HTML safety </Typography.H3>
+            <Typography.H3 class="docs-subsection-heading">Raw HTML safety</Typography.H3>
             <ComponentPreview code={SafeHtmlSrc}><SafeHtml /></ComponentPreview>
         </div>
     </section>

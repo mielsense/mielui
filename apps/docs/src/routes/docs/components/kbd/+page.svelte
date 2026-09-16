@@ -18,7 +18,10 @@
 </script>
 
 <svelte:head>
-    <title>Mielui · {TITLE}</title>
+    <title>
+        Mielui ·{' '}
+        {TITLE}
+    </title>
     <meta name="description" content="Inline keyboard-shortcut badge." />
 </svelte:head>
 

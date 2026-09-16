@@ -9,6 +9,8 @@
     import AllTypesSrc from './examples/all-types.svelte?raw';
     import Composition from './examples/composition.svelte';
     import CompositionSrc from './examples/composition.svelte?raw';
+    import Glass from './examples/glass.svelte';
+    import GlassSrc from './examples/glass.svelte?raw';
     import Hero from './examples/hero.svelte';
     import HeroSrc from './examples/hero.svelte?raw';
 
@@ -24,7 +26,7 @@
     <!-- ─── Header ────────────────────────────────────────────────── -->
     <header class="flex items-start justify-between gap-4">
         <div>
-            <Typography.H1> Toast </Typography.H1>
+            <Typography.H1>Toast</Typography.H1>
             <Typography.Text variant="lead" class="mt-2 max-w-2xl">
                 A notification that stacks, auto-dismisses, and can carry an action.
             </Typography.Text>
@@ -102,5 +104,14 @@
                 <AllTypes />
             </ComponentPreview>
         </div>
+    </section>
+    <section id="glass" class="flex flex-col gap-4">
+        <Typography.H2 class="docs-section-heading">Glass surface</Typography.H2>
+        <Typography.Text variant="supporting">
+            Set surface="glass" on Toast.Root or pass surface: "glass" to toast(). Solid remains the
+            default. The glass surface keeps an opaque fallback when backdrop filtering is
+            unavailable and respects reduced-transparency preferences.
+        </Typography.Text>
+        <ComponentPreview code={GlassSrc}><Glass /></ComponentPreview>
     </section>
 </div>

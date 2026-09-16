@@ -45,7 +45,7 @@ let answer = $state<QuestionAnswer>();
 <div data-docs-page class="flex flex-col gap-10">
     <header class="flex items-start justify-between gap-4">
         <div>
-            <Typography.H1> Question </Typography.H1>
+            <Typography.H1>Question</Typography.H1>
             <Typography.Text variant="lead" class="mt-2 max-w-2xl">
                 A focused question in an inset Card. Collect an answer or guide someone through a
                 few decisions, one at a time.
@@ -66,19 +66,22 @@ let answer = $state<QuestionAnswer>();
     <section id="usage" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Usage</Typography.H2>
         <Typography.Text variant="supporting">
-            Render <Typography.InlineCode>Question.Root</Typography.InlineCode> in the same layout
-            slot as <Typography.InlineCode>Composer.Root</Typography.InlineCode>. Keep the prompt
-            value in their shared parent so swapping the forms never clears an unsent draft.
+            Render{' '}
+            <Typography.InlineCode>Question.Root</Typography.InlineCode> in the same layout slot as{' '}
+            <Typography.InlineCode>Composer.Root</Typography.InlineCode>
+            . Keep the prompt value in their shared parent so swapping the forms never clears an
+            unsent draft.
         </Typography.Text>
         <CodeBlock code={usageSnippet} lang="svelte" copy="overlay" />
         <Typography.Text variant="supporting">
-            Use <Typography.InlineCode>type="single"</Typography.InlineCode> for one option,
+            Use{' '}
+            <Typography.InlineCode>type="single"</Typography.InlineCode> for one option,
             <Typography.InlineCode>type="multiple"</Typography.InlineCode>
             for several, or
             <Typography.InlineCode>type="text"</Typography.InlineCode>
             with
-            <Typography.InlineCode>Question.Input</Typography.InlineCode>. Async submit handlers are
-            awaited and cannot run twice while unresolved. Changing
+            <Typography.InlineCode>Question.Input</Typography.InlineCode>
+            . Async submit handlers are awaited and cannot run twice while unresolved. Changing
             <Typography.InlineCode>type</Typography.InlineCode>
             resets the bound answer to the new mode's empty value.
         </Typography.Text>
@@ -87,7 +90,8 @@ let answer = $state<QuestionAnswer>();
     <section id="composition" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Composition</Typography.H2>
         <Typography.Text variant="supporting">
-            Set <Typography.InlineCode>variant="inset"</Typography.InlineCode> on
+            Set{' '}
+            <Typography.InlineCode>variant="inset"</Typography.InlineCode> on
             <Typography.InlineCode>Question.Root</Typography.InlineCode>
             for the shared Card frame and recessed content surface. The default variant uses a plain
             Card. Place
@@ -129,7 +133,7 @@ let answer = $state<QuestionAnswer>();
             keeps changes without resetting answers or managing navigation. Keep a flow within one
             answer type, or key the Root per question when mixing types: changing the type on an
             existing Root clears its answer. When using Cancel as Back, prevent its default behavior
-            to avoid calling the Root’s cancellation handler.
+            to avoid calling the Root's cancellation handler.
         </Typography.Text>
     </section>
 

@@ -1,15 +1,16 @@
 <script lang="ts">
-    import Plus from '@lucide/svelte/icons/plus';
-    import Search from '@lucide/svelte/icons/search';
-    import Settings from '@lucide/svelte/icons/settings';
-    import Users from '@lucide/svelte/icons/users';
+    import Plus from '@hugeicons/core-free-icons/Add01Icon';
+    import Search from '@hugeicons/core-free-icons/Search01Icon';
+    import Settings from '@hugeicons/core-free-icons/Settings01Icon';
+    import Users from '@hugeicons/core-free-icons/UserGroupIcon';
     import * as Command from '@mielui/svelte/components/command';
+    import HugeiconsIcon from '@mielui/svelte/hugeicons-icon';
 </script>
 
 <div class="flex items-center justify-center">
     <Command.Root>
         <Command.Trigger>
-            <Search size={14} />
+            <HugeiconsIcon icon={Search} size={14} />
             Open palette
         </Command.Trigger>
         <Command.Content>
@@ -17,17 +18,17 @@
             <Command.Results>
                 <Command.Group heading="Actions">
                     <Command.Item name="New project">
-                        <Plus size={14} />
+                        <HugeiconsIcon icon={Plus} size={14} />
                         New project
                     </Command.Item>
                     <Command.Item name="Settings">
-                        <Settings size={14} />
+                        <HugeiconsIcon icon={Settings} size={14} />
                         Settings
                     </Command.Item>
                 </Command.Group>
                 <Command.Group heading="Users">
                     <Command.Item name="Team">
-                        <Users size={14} />
+                        <HugeiconsIcon icon={Users} size={14} />
                         Team
                     </Command.Item>
                 </Command.Group>

@@ -1,15 +1,16 @@
 <script lang="ts">
-    import Link from '@lucide/svelte/icons/link';
-    import Share2 from '@lucide/svelte/icons/share-2';
+    import Link from '@hugeicons/core-free-icons/Link01Icon';
+    import Share2 from '@hugeicons/core-free-icons/Share08Icon';
     import * as Avatar from '@mielui/svelte/components/avatar';
     import { Button } from '@mielui/svelte/components/button';
     import { Input } from '@mielui/svelte/components/input';
     import * as Popover from '@mielui/svelte/components/popover';
+    import HugeiconsIcon from '@mielui/svelte/hugeicons-icon';
 </script>
 
 <Popover.Root placement="bottom">
     <Popover.Trigger variant="outline">
-        <Share2 size={14} />
+        <HugeiconsIcon icon={Share2} size={14} />
         Share
     </Popover.Trigger>
     <Popover.Content class="w-[26rem] max-w-[calc(100vw-2rem)]">
@@ -35,10 +36,10 @@
                             <p
                                 class="m-0 truncate text-sm [font-weight:var(--font-weight-label,500)]"
                             >
-                                Aidan Neel
+                                mielsense
                             </p>
                             <p class="m-0 truncate text-xs text-foreground-muted">
-                                aidan@ui.miel.my
+                                mielsense@ui.miel.my
                             </p>
                         </div>
                     </div>
@@ -76,7 +77,7 @@
                     <p class="m-0 text-xs text-foreground-muted">Can view</p>
                 </div>
                 <Button size="md" variant="ghost" class="flex-shrink-0">
-                    <Link size={14} />
+                    <HugeiconsIcon icon={Link} size={14} />
                     Copy link
                 </Button>
             </div>

@@ -13,7 +13,10 @@
 </script>
 
 <svelte:head>
-    <title>Mielui · {TITLE}</title>
+    <title>
+        Mielui ·{' '}
+        {TITLE}
+    </title>
     <meta name="description" content="Clamp long content and reveal the rest on demand." />
 </svelte:head>
 
@@ -43,7 +46,8 @@
         <Typography.H2 class="docs-section-heading">Usage</Typography.H2>
         <Typography.Text variant="supporting">
             The disclosure is shown only when content exceeds
-            <Typography.InlineCode>lines</Typography.InlineCode>. Bind
+            <Typography.InlineCode>lines</Typography.InlineCode>
+            . Bind
             <Typography.InlineCode>expanded</Typography.InlineCode>
             when another control needs to coordinate the state.
         </Typography.Text>
@@ -69,8 +73,8 @@ let expanded = $state(false);
             <Typography.H3 class="docs-subsection-heading">Capped content</Typography.H3>
             <Typography.Text variant="supporting">
                 When expanded content exceeds
-                <Typography.InlineCode>maxHeight</Typography.InlineCode>, it becomes a
-                keyboard-focusable scroll region.
+                <Typography.InlineCode>maxHeight</Typography.InlineCode>
+                , it becomes a keyboard-focusable scroll region.
             </Typography.Text>
             <ComponentPreview code={CappedSrc}>
                 <Capped />

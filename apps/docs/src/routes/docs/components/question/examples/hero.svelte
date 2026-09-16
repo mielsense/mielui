@@ -1,8 +1,9 @@
 <script lang="ts">
-    import ArrowLeft from '@lucide/svelte/icons/arrow-left';
+    import ArrowLeft from '@hugeicons/core-free-icons/ArrowLeft02Icon';
     import { Button } from '@mielui/svelte/components/button';
     import type { QuestionAnswer } from '@mielui/svelte/components/question';
     import * as Question from '@mielui/svelte/components/question';
+    import HugeiconsIcon from '@mielui/svelte/hugeicons-icon';
 
     const questions = [
         {
@@ -125,7 +126,7 @@
                     step -= 1;
                 }}
             >
-                <ArrowLeft size={14} aria-hidden="true" />
+                <HugeiconsIcon icon={ArrowLeft} size={14} aria-hidden="true" />
                 Back
             </Question.Cancel>
             {#if complete}

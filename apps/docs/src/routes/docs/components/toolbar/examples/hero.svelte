@@ -1,10 +1,11 @@
 <script lang="ts">
-    import ArrowUp from '@lucide/svelte/icons/arrow-up';
-    import Code2 from '@lucide/svelte/icons/code-2';
-    import Sparkles from '@lucide/svelte/icons/sparkles';
+    import ArrowUp from '@hugeicons/core-free-icons/ArrowUp02Icon';
+    import Code2 from '@hugeicons/core-free-icons/SourceCodeIcon';
+    import Sparkles from '@hugeicons/core-free-icons/SparklesIcon';
     import { Button } from '@mielui/svelte/components/button';
     import { Textarea } from '@mielui/svelte/components/textarea';
     import { Toolbar } from '@mielui/svelte/components/toolbar';
+    import HugeiconsIcon from '@mielui/svelte/hugeicons-icon';
 
     let message = $state('');
 
@@ -28,15 +29,17 @@
                     size="md"
                     class="size-7 rounded-[var(--radius-md)] p-0"
                     aria-label="Add code"
-                    ><Code2 size={14} /></Button
                 >
+                    <HugeiconsIcon icon={Code2} size={14} />
+                </Button>
                 <Button
                     variant="ghost"
                     size="md"
                     class="size-7 rounded-[var(--radius-md)] p-0"
                     aria-label="Improve with AI"
-                    ><Sparkles size={14} /></Button
                 >
+                    <HugeiconsIcon icon={Sparkles} size={14} />
+                </Button>
             </div>
             <Button
                 type="submit"
@@ -45,8 +48,9 @@
                 class="size-7 rounded-full p-0"
                 aria-label="Send message"
                 disabled={!message.trim()}
-                ><ArrowUp size={14} /></Button
             >
+                <HugeiconsIcon icon={ArrowUp} size={14} />
+            </Button>
         </Toolbar>
     </Textarea>
 </form>

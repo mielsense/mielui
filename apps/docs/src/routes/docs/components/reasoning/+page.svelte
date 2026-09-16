@@ -15,7 +15,10 @@
 </script>
 
 <svelte:head>
-    <title>Mielui · {TITLE}</title>
+    <title>
+        Mielui ·{' '}
+        {TITLE}
+    </title>
     <meta
         name="description"
         content="A concise, expandable reasoning trace for AI assistant responses."
@@ -27,8 +30,7 @@
         <div>
             <Typography.H1>{TITLE}</Typography.H1>
             <Typography.Text variant="lead" class="mt-2 max-w-2xl">
-                Give users useful visibility into an assistant’s work without placing its trace
-                ahead of the answer. Reasoning stays compact until someone chooses to inspect it.
+                Show an assistant's progress in a collapsible section.
             </Typography.Text>
         </div>
         <DocsPager />
@@ -46,8 +48,10 @@
     <section id="usage" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Usage</Typography.H2>
         <Typography.Text variant="supporting">
-            Use <Typography.InlineCode>streaming</Typography.InlineCode> while the model is
-            thinking; use <Typography.InlineCode>duration</Typography.InlineCode> when it completes.
+            Use{' '}
+            <Typography.InlineCode>streaming</Typography.InlineCode> while the model is thinking;
+            use{' '}
+            <Typography.InlineCode>duration</Typography.InlineCode> when it completes.
         </Typography.Text>
         <CodeBlock
             code={`import * as Reasoning from '@mielui/svelte/components/reasoning';

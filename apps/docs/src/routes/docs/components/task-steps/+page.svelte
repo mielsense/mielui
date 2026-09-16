@@ -19,9 +19,9 @@
 <div data-docs-page class="flex flex-col gap-10">
     <header class="flex items-start justify-between gap-4">
         <div>
-            <Typography.H1> Task Steps </Typography.H1>
+            <Typography.H1>Task Steps</Typography.H1>
             <Typography.Text variant="lead" class="mt-2 max-w-2xl">
-                The system narrates its work one settled step at a time.
+                Show the current step and completed steps in a task.
             </Typography.Text>
         </div>
         <DocsPager />
@@ -39,7 +39,8 @@
     <section id="usage" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Usage</Typography.H2>
         <Typography.Text variant="supporting">
-            Set <Typography.InlineCode>current</Typography.InlineCode> to the running step. Values
+            Set{' '}
+            <Typography.InlineCode>current</Typography.InlineCode> to the running step. Values
             before it are complete; the array length means the whole run is complete.
         </Typography.Text>
         <CodeBlock
@@ -59,7 +60,7 @@
         <div>
             <Typography.H2 class="docs-section-heading">Examples</Typography.H2>
             <Typography.Text variant="supporting" class="mt-2">
-                Task Steps rendered on its own, without card chrome.
+                Render the steps without a surrounding card.
             </Typography.Text>
         </div>
 

@@ -18,7 +18,10 @@
 </script>
 
 <svelte:head>
-    <title>Mielui · {TITLE}</title>
+    <title>
+        Mielui ·{' '}
+        {TITLE}
+    </title>
     <meta
         name="description"
         content="Stacked collapsible sections with single- and multi-open modes."
@@ -49,16 +52,14 @@
 
     <!-- ─── Installation ──────────────────────────────────────────── -->
     <section id="installation" class="scroll-mt-20 flex flex-col gap-4">
-        <Typography.H2 class="docs-section-heading"> Installation </Typography.H2>
+        <Typography.H2 class="docs-section-heading">Installation</Typography.H2>
         <InstallCommand command={installCommand} />
     </section>
 
     <!-- ─── Usage ─────────────────────────────────────────────────── -->
     <section id="usage" class="scroll-mt-20 flex flex-col gap-4">
-        <Typography.H2 class="docs-section-heading"> Usage </Typography.H2>
-        <Typography.Text variant="supporting">
-            Import the Accordion components and use them:
-        </Typography.Text>
+        <Typography.H2 class="docs-section-heading">Usage</Typography.H2>
+
         <CodeBlock
             code={`import * as Accordion from '$lib/mielui/components/accordion';\n\n<Accordion.Root type="single">\n  <Accordion.Item value="a">\n    <Accordion.Trigger>Trigger</Accordion.Trigger>\n    <Accordion.Content>Content</Accordion.Content>\n  </Accordion.Item>\n</Accordion.Root>`}
             lang="svelte"
@@ -69,12 +70,12 @@
     <!-- ─── Examples ──────────────────────────────────────────────── -->
     <section id="examples" class="scroll-mt-20 flex flex-col gap-10">
         <div>
-            <Typography.H2 class="docs-section-heading"> Examples </Typography.H2>
+            <Typography.H2 class="docs-section-heading">Examples</Typography.H2>
         </div>
 
         <!-- Single mode -->
         <div id="single-mode" class="scroll-mt-20 flex flex-col gap-3">
-            <Typography.H3 class="docs-subsection-heading"> Single mode </Typography.H3>
+            <Typography.H3 class="docs-subsection-heading">Single mode</Typography.H3>
             <ComponentPreview code={SingleModeSrc}>
                 <SingleMode />
             </ComponentPreview>
@@ -82,7 +83,7 @@
 
         <!-- Multiple mode -->
         <div id="multiple-mode" class="scroll-mt-20 flex flex-col gap-3">
-            <Typography.H3 class="docs-subsection-heading"> Multiple mode </Typography.H3>
+            <Typography.H3 class="docs-subsection-heading">Multiple mode</Typography.H3>
             <ComponentPreview code={MultipleModeSrc}>
                 <MultipleMode />
             </ComponentPreview>

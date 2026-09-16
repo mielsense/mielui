@@ -21,7 +21,10 @@
 </script>
 
 <svelte:head>
-    <title>Mielui · {TITLE}</title>
+    <title>
+        Mielui ·{' '}
+        {TITLE}
+    </title>
     <meta name="description" content="A binary option presented as a labeled box." />
 </svelte:head>
 
@@ -33,7 +36,7 @@
                 {TITLE}
             </Typography.H1>
             <Typography.Text variant="lead" class="mt-2 max-w-2xl">
-                A checkbox with an optional label and description. Bindable and disableable.
+                A checkbox with a bindable checked state, optional label, and description.
             </Typography.Text>
         </div>
         <DocsPager />
@@ -48,16 +51,14 @@
 
     <!-- ─── Installation ──────────────────────────────────────────── -->
     <section id="installation" class="scroll-mt-20 flex flex-col gap-4">
-        <Typography.H2 class="docs-section-heading"> Installation </Typography.H2>
+        <Typography.H2 class="docs-section-heading">Installation</Typography.H2>
         <InstallCommand command={installCommand} />
     </section>
 
     <!-- ─── Usage ─────────────────────────────────────────────────── -->
     <section id="usage" class="scroll-mt-20 flex flex-col gap-4">
-        <Typography.H2 class="docs-section-heading"> Usage </Typography.H2>
-        <Typography.Text variant="supporting">
-            Import and use the Checkbox component:
-        </Typography.Text>
+        <Typography.H2 class="docs-section-heading">Usage</Typography.H2>
+
         <CodeBlock
             code={`import { Checkbox } from '$lib/mielui/components/checkbox';\n\nlet checked = $state();\n\n<Checkbox bind:checked label="Accept" />`}
             lang="svelte"
@@ -68,12 +69,12 @@
     <!-- ─── Examples ──────────────────────────────────────────────── -->
     <section id="examples" class="scroll-mt-20 flex flex-col gap-10">
         <div>
-            <Typography.H2 class="docs-section-heading"> Examples </Typography.H2>
+            <Typography.H2 class="docs-section-heading">Examples</Typography.H2>
         </div>
 
         <!-- Label only -->
         <div id="label-only" class="scroll-mt-20 flex flex-col gap-3">
-            <Typography.H3 class="docs-subsection-heading"> Label only </Typography.H3>
+            <Typography.H3 class="docs-subsection-heading">Label only</Typography.H3>
             <ComponentPreview code={LabelOnlySrc}>
                 <LabelOnly />
             </ComponentPreview>
@@ -81,7 +82,7 @@
 
         <!-- With description -->
         <div id="with-description" class="scroll-mt-20 flex flex-col gap-3">
-            <Typography.H3 class="docs-subsection-heading"> With description </Typography.H3>
+            <Typography.H3 class="docs-subsection-heading">With description</Typography.H3>
             <ComponentPreview code={WithDescriptionSrc}>
                 <WithDescription />
             </ComponentPreview>
@@ -89,7 +90,7 @@
 
         <!-- Disabled -->
         <div id="disabled" class="scroll-mt-20 flex flex-col gap-3">
-            <Typography.H3 class="docs-subsection-heading"> Disabled </Typography.H3>
+            <Typography.H3 class="docs-subsection-heading">Disabled</Typography.H3>
             <ComponentPreview code={DisabledSrc}>
                 <Disabled />
             </ComponentPreview>
@@ -97,7 +98,7 @@
 
         <!-- Checked -->
         <div id="checked" class="scroll-mt-20 flex flex-col gap-3">
-            <Typography.H3 class="docs-subsection-heading"> Checked </Typography.H3>
+            <Typography.H3 class="docs-subsection-heading">Checked</Typography.H3>
             <ComponentPreview code={CheckedSrc}>
                 <Checked />
             </ComponentPreview>

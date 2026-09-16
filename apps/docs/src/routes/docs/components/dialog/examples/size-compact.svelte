@@ -10,9 +10,9 @@
     <Dialog.Content size="sm">
         <Dialog.Header>
             <Dialog.Title>Quick action</Dialog.Title>
-            <Dialog.Description
-                >Keep short confirmations focused with the compact size.</Dialog.Description
-            >
+            <Dialog.Description>
+                Keep short confirmations focused with the compact size.
+            </Dialog.Description>
         </Dialog.Header>
         <Dialog.Footer>
             <Dialog.Close>

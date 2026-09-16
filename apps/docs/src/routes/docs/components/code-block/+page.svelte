@@ -54,7 +54,7 @@ import { CodeBlock } from '$lib/mielui/components/code-block';
     <!-- ─── Header ────────────────────────────────────────────────── -->
     <header class="flex items-start justify-between gap-4">
         <div>
-            <Typography.H1> Code Block </Typography.H1>
+            <Typography.H1>Code Block</Typography.H1>
             <Typography.Text variant="lead" class="mt-2 max-w-2xl">
                 A code viewer with syntax highlighting, a language switcher, and a copy button.
             </Typography.Text>
@@ -71,22 +71,24 @@ import { CodeBlock } from '$lib/mielui/components/code-block';
 
     <!-- ─── Installation ──────────────────────────────────────────── -->
     <section id="installation" class="scroll-mt-20 flex flex-col gap-4">
-        <Typography.H2 class="docs-section-heading"> Installation </Typography.H2>
+        <Typography.H2 class="docs-section-heading">Installation</Typography.H2>
         <InstallCommand command={installCommand} />
         <Typography.Text variant="supporting">
             The component depends on
-            <Typography.InlineCode>highlight.js</Typography.InlineCode>. Install it if your project
-            doesn't have it yet:
+            <Typography.InlineCode>highlight.js</Typography.InlineCode>
+            . Install it if your project doesn't have it yet:
         </Typography.Text>
         <InstallCommand command="pnpm add highlight.js" />
     </section>
 
     <!-- ─── Usage ─────────────────────────────────────────────────── -->
     <section id="usage" class="scroll-mt-20 flex flex-col gap-4">
-        <Typography.H2 class="docs-section-heading"> Usage </Typography.H2>
+        <Typography.H2 class="docs-section-heading">Usage</Typography.H2>
         <Typography.Text variant="supporting">
-            Pass a <Typography.InlineCode>tabs</Typography.InlineCode> array for the multi-language
-            form, or <Typography.InlineCode>code</Typography.InlineCode>
+            Pass a{' '}
+            <Typography.InlineCode>tabs</Typography.InlineCode> array for the multi-language form,
+            or{' '}
+            <Typography.InlineCode>code</Typography.InlineCode>
             +
             <Typography.InlineCode>lang</Typography.InlineCode>
             for a single snippet:
@@ -98,7 +100,7 @@ import { CodeBlock } from '$lib/mielui/components/code-block';
             <Typography.InlineCode>highlight.js</Typography.InlineCode>
             theme, set
             <Typography.InlineCode>theme="custom"</Typography.InlineCode>
-            and load its stylesheet — the component skips its own token colors:
+            and load its stylesheet. the component skips its own token colors:
         </Typography.Text>
         <CodeBlock code={customThemeSnippet} lang="svelte" copy="overlay" />
     </section>
@@ -106,73 +108,68 @@ import { CodeBlock } from '$lib/mielui/components/code-block';
     <!-- ─── Examples ──────────────────────────────────────────────── -->
     <section id="examples" class="scroll-mt-20 flex flex-col gap-10">
         <div>
-            <Typography.H2 class="docs-section-heading"> Examples </Typography.H2>
-            <Typography.Text variant="supporting" class="mt-2">
-                From a single highlighted snippet to fully composed, multi-language blocks.
-            </Typography.Text>
+            <Typography.H2 class="docs-section-heading">Examples</Typography.H2>
         </div>
 
         <div id="single" class="scroll-mt-20 flex flex-col gap-3">
-            <Typography.H3 class="docs-subsection-heading"> Single snippet </Typography.H3>
+            <Typography.H3 class="docs-subsection-heading">Single snippet</Typography.H3>
             <ComponentPreview code={SingleSrc}>
                 <Single />
             </ComponentPreview>
         </div>
 
         <div id="multi-language" class="scroll-mt-20 flex flex-col gap-3">
-            <Typography.H3 class="docs-subsection-heading"> Multiple languages </Typography.H3>
+            <Typography.H3 class="docs-subsection-heading">Multiple languages</Typography.H3>
             <ComponentPreview code={MultiLanguageSrc}>
                 <MultiLanguage />
             </ComponentPreview>
         </div>
 
         <div id="line-numbers" class="scroll-mt-20 flex flex-col gap-3">
-            <Typography.H3 class="docs-subsection-heading"> Line numbers </Typography.H3>
+            <Typography.H3 class="docs-subsection-heading">Line numbers</Typography.H3>
             <ComponentPreview code={LineNumbersSrc}>
                 <LineNumbers />
             </ComponentPreview>
         </div>
 
         <div id="custom-actions" class="scroll-mt-20 flex flex-col gap-3">
-            <Typography.H3 class="docs-subsection-heading"> Custom actions </Typography.H3>
+            <Typography.H3 class="docs-subsection-heading">Custom actions</Typography.H3>
             <ComponentPreview code={CustomActionsSrc}>
                 <CustomActions />
             </ComponentPreview>
         </div>
 
         <div id="copy-overlay" class="scroll-mt-20 flex flex-col gap-3">
-            <Typography.H3 class="docs-subsection-heading"> Copy placement: overlay </Typography.H3>
+            <Typography.H3 class="docs-subsection-heading">Copy placement: overlay</Typography.H3>
             <ComponentPreview code={CopyOverlaySrc}>
                 <CopyOverlay />
             </ComponentPreview>
         </div>
 
         <div id="copy-inline" class="scroll-mt-20 flex flex-col gap-3">
-            <Typography.H3 class="docs-subsection-heading"> Copy placement: inline </Typography.H3>
+            <Typography.H3 class="docs-subsection-heading">Copy placement: inline</Typography.H3>
             <ComponentPreview code={CopyInlineSrc}>
                 <CopyInline />
             </ComponentPreview>
         </div>
 
         <div id="compound" class="scroll-mt-20 flex flex-col gap-3">
-            <Typography.H3 class="docs-subsection-heading"> Compound API </Typography.H3>
+            <Typography.H3 class="docs-subsection-heading">Compound API</Typography.H3>
             <ComponentPreview code={CompoundSrc}>
                 <Compound />
             </ComponentPreview>
         </div>
 
         <div id="custom-theme-stylesheet" class="scroll-mt-20 flex flex-col gap-3">
-            <Typography.H3 class="docs-subsection-heading">
-                Custom theme: stylesheet
-            </Typography.H3>
+            <Typography.H3 class="docs-subsection-heading">Custom theme: stylesheet</Typography.H3>
             <Typography.Text variant="supporting">
                 With
                 <Typography.InlineCode>theme="custom"</Typography.InlineCode>
                 the block paints no token colors itself, so a stock
                 <Typography.InlineCode>highlight.js</Typography.InlineCode>
-                stylesheet — or your own
+                stylesheet. or your own
                 <Typography.InlineCode>hljs-*</Typography.InlineCode>
-                rules, like the One Dark / One Light ones below — takes over.
+                rules, like the One Dark / One Light ones below. takes over.
             </Typography.Text>
             <ComponentPreview code={CustomThemeStylesheetSrc}>
                 <CustomThemeStylesheet />
@@ -180,7 +177,7 @@ import { CodeBlock } from '$lib/mielui/components/code-block';
         </div>
 
         <div id="custom-theme-variables" class="scroll-mt-20 flex flex-col gap-3">
-            <Typography.H3 class="docs-subsection-heading"> Custom theme: variables </Typography.H3>
+            <Typography.H3 class="docs-subsection-heading">Custom theme: variables</Typography.H3>
             <Typography.Text variant="supporting">
                 To keep the built-in palette and only shift its hues, override the
                 <Typography.InlineCode>--code-block-token-*</Typography.InlineCode>

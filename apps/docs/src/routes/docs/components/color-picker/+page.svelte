@@ -7,6 +7,8 @@
     import DefaultSrc from './examples/default.svelte?raw';
     import Formats from './examples/formats.svelte';
     import FormatsSrc from './examples/formats.svelte?raw';
+    import Glass from './examples/glass.svelte';
+    import GlassSrc from './examples/glass.svelte?raw';
     import Hero from './examples/hero.svelte';
     import HeroSrc from './examples/hero.svelte?raw';
     import WithPresets from './examples/with-presets.svelte';
@@ -19,7 +21,10 @@
 </script>
 
 <svelte:head>
-    <title>Mielui · {TITLE}</title>
+    <title>
+        Mielui ·{' '}
+        {TITLE}
+    </title>
     <meta name="description" content="Inline hex color picker with optional presets." />
 </svelte:head>
 
@@ -47,16 +52,19 @@
 
     <!-- ─── Installation ──────────────────────────────────────────── -->
     <section id="installation" class="scroll-mt-20 flex flex-col gap-4">
-        <Typography.H2 class="docs-section-heading"> Installation </Typography.H2>
+        <Typography.H2 class="docs-section-heading">Installation</Typography.H2>
         <InstallCommand command={installCommand} />
     </section>
 
     <!-- ─── Usage ─────────────────────────────────────────────────── -->
     <section id="usage" class="scroll-mt-20 flex flex-col gap-4">
-        <Typography.H2 class="docs-section-heading"> Usage </Typography.H2>
+        <Typography.H2 class="docs-section-heading">Usage</Typography.H2>
         <Typography.Text variant="supporting">
-            Compose the Color Picker from its <Typography.InlineCode>Root</Typography.InlineCode>,
-            <Typography.InlineCode>Trigger</Typography.InlineCode>, and
+            Compose the Color Picker from its{' '}
+            <Typography.InlineCode>Root</Typography.InlineCode>
+            ,
+            <Typography.InlineCode>Trigger</Typography.InlineCode>
+            , and
             <Typography.InlineCode>Content</Typography.InlineCode>
             parts:
         </Typography.Text>
@@ -70,12 +78,12 @@
     <!-- ─── Examples ──────────────────────────────────────────────── -->
     <section id="examples" class="scroll-mt-20 flex flex-col gap-10">
         <div>
-            <Typography.H2 class="docs-section-heading"> Examples </Typography.H2>
+            <Typography.H2 class="docs-section-heading">Examples</Typography.H2>
         </div>
 
         <!-- Default -->
         <div id="default" class="scroll-mt-20 flex flex-col gap-3">
-            <Typography.H3 class="docs-subsection-heading"> Default </Typography.H3>
+            <Typography.H3 class="docs-subsection-heading">Default</Typography.H3>
             <ComponentPreview code={DefaultSrc}>
                 <Default />
             </ComponentPreview>
@@ -83,7 +91,7 @@
 
         <!-- Channel formats -->
         <div id="formats" class="scroll-mt-20 flex flex-col gap-3">
-            <Typography.H3 class="docs-subsection-heading"> Channel formats </Typography.H3>
+            <Typography.H3 class="docs-subsection-heading">Channel formats</Typography.H3>
             <ComponentPreview code={FormatsSrc}>
                 <Formats />
             </ComponentPreview>
@@ -91,10 +99,19 @@
 
         <!-- With presets -->
         <div id="with-presets" class="scroll-mt-20 flex flex-col gap-3">
-            <Typography.H3 class="docs-subsection-heading"> With preset swatches </Typography.H3>
+            <Typography.H3 class="docs-subsection-heading">With preset swatches</Typography.H3>
             <ComponentPreview code={WithPresetsSrc}>
                 <WithPresets />
             </ComponentPreview>
         </div>
+    </section>
+    <section id="glass" class="flex flex-col gap-4">
+        <Typography.H2 class="docs-section-heading">Glass surface</Typography.H2>
+        <Typography.Text variant="supporting">
+            Set surface="glass" on ColorPicker.Content for a translucent background with blur. Solid
+            remains the default. The glass surface keeps an opaque fallback when backdrop filtering
+            is unavailable and respects reduced-transparency preferences.
+        </Typography.Text>
+        <ComponentPreview code={GlassSrc}><Glass /></ComponentPreview>
     </section>
 </div>

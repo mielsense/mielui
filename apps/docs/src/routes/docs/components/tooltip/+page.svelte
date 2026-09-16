@@ -5,6 +5,8 @@
     import DocsPager from '$lib/components/docs/docs-pager.svelte';
     import Bottom from './examples/bottom.svelte';
     import BottomSrc from './examples/bottom.svelte?raw';
+    import Glass from './examples/glass.svelte';
+    import GlassSrc from './examples/glass.svelte?raw';
     import Hero from './examples/hero.svelte';
     import HeroSrc from './examples/hero.svelte?raw';
     import Right from './examples/right.svelte';
@@ -18,7 +20,10 @@
 </script>
 
 <svelte:head>
-    <title>Mielui · {TITLE}</title>
+    <title>
+        Mielui ·{' '}
+        {TITLE}
+    </title>
     <meta name="description" content="Brief explanatory text on hover or focus." />
 </svelte:head>
 
@@ -64,9 +69,6 @@
     <section id="examples" class="scroll-mt-20 flex flex-col gap-10">
         <div>
             <Typography.H2 class="docs-section-heading">Examples</Typography.H2>
-            <Typography.Text variant="supporting" class="mt-2">
-                Tooltip in different placements and compositions.
-            </Typography.Text>
         </div>
 
         <!-- Top placement -->
@@ -92,5 +94,14 @@
                 <Bottom />
             </ComponentPreview>
         </div>
+    </section>
+    <section id="glass" class="flex flex-col gap-4">
+        <Typography.H2 class="docs-section-heading">Glass surface</Typography.H2>
+        <Typography.Text variant="supporting">
+            Set surface="glass" on Tooltip.Content for a translucent background with blur. Solid
+            remains the default. The glass surface keeps an opaque fallback when backdrop filtering
+            is unavailable and respects reduced-transparency preferences.
+        </Typography.Text>
+        <ComponentPreview code={GlassSrc}><Glass /></ComponentPreview>
     </section>
 </div>

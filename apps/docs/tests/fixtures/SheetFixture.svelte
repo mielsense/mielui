@@ -21,7 +21,7 @@
             <button type="button" data-testid="inside-1">Inside one</button>
             <button type="button" data-testid="inside-2">Inside two</button>
             {#each Array(rows) as _, index (index)}
-                <div class="h-10">Scrollable row {index + 1}</div>
+                <div class="h-10">Scrollable row{index + 1}</div>
             {/each}
         </div>
         <Sheet.Footer>

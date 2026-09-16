@@ -23,7 +23,7 @@
 <div data-docs-page class="flex flex-col gap-10">
     <header class="flex items-start justify-between gap-4">
         <div>
-            <Typography.H1> Toolbar </Typography.H1>
+            <Typography.H1>Toolbar</Typography.H1>
             <Typography.Text variant="lead" class="mt-2 max-w-2xl">
                 A semantic action row for the controls beneath a message composer, reply field, or
                 note editor.

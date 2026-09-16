@@ -1,20 +1,21 @@
 <script lang="ts">
-    import AlignCenter from '@lucide/svelte/icons/align-center';
-    import AlignLeft from '@lucide/svelte/icons/align-left';
-    import AlignRight from '@lucide/svelte/icons/align-right';
+    import AlignCenter from '@hugeicons/core-free-icons/TextAlignCenterIcon';
+    import AlignLeft from '@hugeicons/core-free-icons/TextAlignLeftIcon';
+    import AlignRight from '@hugeicons/core-free-icons/TextAlignRightIcon';
     import * as ToggleGroup from '@mielui/svelte/components/toggle-group';
+    import HugeiconsIcon from '@mielui/svelte/hugeicons-icon';
 
     let alignment = $state('center');
 </script>
 
 <ToggleGroup.Root type="single" bind:value={alignment}>
     <ToggleGroup.Item value="left" aria-label="Align left">
-        <AlignLeft size={14} />
+        <HugeiconsIcon icon={AlignLeft} size={14} />
     </ToggleGroup.Item>
     <ToggleGroup.Item value="center" aria-label="Align center">
-        <AlignCenter size={14} />
+        <HugeiconsIcon icon={AlignCenter} size={14} />
     </ToggleGroup.Item>
     <ToggleGroup.Item value="right" aria-label="Align right">
-        <AlignRight size={14} />
+        <HugeiconsIcon icon={AlignRight} size={14} />
     </ToggleGroup.Item>
 </ToggleGroup.Root>

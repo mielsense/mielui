@@ -5,6 +5,8 @@
     import DocsPager from '$lib/components/docs/docs-pager.svelte';
     import Basic from './examples/basic.svelte';
     import BasicSrc from './examples/basic.svelte?raw';
+    import Glass from './examples/glass.svelte';
+    import GlassSrc from './examples/glass.svelte?raw';
     import Hero from './examples/hero.svelte';
     import HeroSrc from './examples/hero.svelte?raw';
     import Nested from './examples/nested.svelte';
@@ -30,7 +32,7 @@
     <!-- ─── Header ────────────────────────────────────────────────── -->
     <header class="flex items-start justify-between gap-4">
         <div>
-            <Typography.H1> Dialog </Typography.H1>
+            <Typography.H1>Dialog</Typography.H1>
             <Typography.Text variant="lead" class="mt-2 max-w-2xl">
                 Show a focused task, form, or details above the current page.
             </Typography.Text>
@@ -47,16 +49,14 @@
 
     <!-- ─── Installation ──────────────────────────────────────────── -->
     <section id="installation" class="scroll-mt-20 flex flex-col gap-4">
-        <Typography.H2 class="docs-section-heading"> Installation </Typography.H2>
+        <Typography.H2 class="docs-section-heading">Installation</Typography.H2>
         <InstallCommand command={installCommand} />
     </section>
 
     <!-- ─── Usage ─────────────────────────────────────────────────── -->
     <section id="usage" class="scroll-mt-20 flex flex-col gap-4">
-        <Typography.H2 class="docs-section-heading"> Usage </Typography.H2>
-        <Typography.Text variant="supporting">
-            Import Dialog and use it in your component:
-        </Typography.Text>
+        <Typography.H2 class="docs-section-heading">Usage</Typography.H2>
+
         <CodeBlock
             code={`import * as Dialog from '$lib/mielui/components/dialog';\nimport Kbd from '$lib/mielui/components/kbd';\n\n<Dialog.Root open={isOpen} orientation="horizontal">\n  <Dialog.Trigger>Open</Dialog.Trigger>\n  <Dialog.Content>\n    <Dialog.Header>\n      <Dialog.Title>Title</Dialog.Title>\n    </Dialog.Header>\n    <Dialog.Footer>\n      <Dialog.Close>Cancel <Kbd shortcut="esc" /></Dialog.Close>\n      <Dialog.Confirm>Save <Kbd shortcut="enter" /></Dialog.Confirm>\n    </Dialog.Footer>\n  </Dialog.Content>\n</Dialog.Root>`}
             lang="svelte"
@@ -67,28 +67,25 @@
     <!-- ─── Examples ──────────────────────────────────────────────── -->
     <section id="examples" class="scroll-mt-20 flex flex-col gap-10">
         <div>
-            <Typography.H2 class="docs-section-heading"> Examples </Typography.H2>
-            <Typography.Text variant="supporting" class="mt-2">
-                Dialog with various structures.
-            </Typography.Text>
+            <Typography.H2 class="docs-section-heading">Examples</Typography.H2>
         </div>
 
         <div id="basic" class="scroll-mt-20 flex flex-col gap-3">
-            <Typography.H3 class="docs-subsection-heading"> Basic </Typography.H3>
+            <Typography.H3 class="docs-subsection-heading">Basic</Typography.H3>
             <ComponentPreview code={BasicSrc}>
                 <Basic />
             </ComponentPreview>
         </div>
 
         <div id="nested" class="scroll-mt-20 flex flex-col gap-3">
-            <Typography.H3 class="docs-subsection-heading"> Nested </Typography.H3>
+            <Typography.H3 class="docs-subsection-heading">Nested</Typography.H3>
             <ComponentPreview code={NestedSrc}>
                 <Nested />
             </ComponentPreview>
         </div>
 
         <div id="with-select" class="scroll-mt-20 flex flex-col gap-3">
-            <Typography.H3 class="docs-subsection-heading"> With select </Typography.H3>
+            <Typography.H3 class="docs-subsection-heading">With select</Typography.H3>
             <Typography.Text variant="supporting">
                 A Select inside a dialog keeps its own layer: Escape closes the menu first and only
                 then the dialog.
@@ -99,24 +96,33 @@
         </div>
 
         <div id="size-compact" class="scroll-mt-20 flex flex-col gap-3">
-            <Typography.H3 class="docs-subsection-heading"> Compact </Typography.H3>
+            <Typography.H3 class="docs-subsection-heading">Compact</Typography.H3>
             <ComponentPreview code={CompactSrc}>
                 <Compact />
             </ComponentPreview>
         </div>
 
         <div id="size-large" class="scroll-mt-20 flex flex-col gap-3">
-            <Typography.H3 class="docs-subsection-heading"> Large </Typography.H3>
+            <Typography.H3 class="docs-subsection-heading">Large</Typography.H3>
             <ComponentPreview code={LargeSrc}>
                 <Large />
             </ComponentPreview>
         </div>
 
         <div id="size-wide" class="scroll-mt-20 flex flex-col gap-3">
-            <Typography.H3 class="docs-subsection-heading"> Wide </Typography.H3>
+            <Typography.H3 class="docs-subsection-heading">Wide</Typography.H3>
             <ComponentPreview code={WideSrc}>
                 <Wide />
             </ComponentPreview>
         </div>
+    </section>
+    <section id="glass" class="flex flex-col gap-4">
+        <Typography.H2 class="docs-section-heading">Glass surface</Typography.H2>
+        <Typography.Text variant="supporting">
+            Set surface="glass" on Dialog.Content for a translucent background with blur. Solid
+            remains the default. The glass surface keeps an opaque fallback when backdrop filtering
+            is unavailable and respects reduced-transparency preferences.
+        </Typography.Text>
+        <ComponentPreview code={GlassSrc}><Glass /></ComponentPreview>
     </section>
 </div>

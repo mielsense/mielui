@@ -78,7 +78,7 @@
 <div data-docs-page class="flex flex-col gap-10">
     <header class="flex items-start justify-between gap-4">
         <div>
-            <Typography.H1> Typography </Typography.H1>
+            <Typography.H1>Typography</Typography.H1>
             <Typography.Text variant="lead" class="mt-2 max-w-2xl">
                 Semantic text roles that keep visual hierarchy separate from document structure.
             </Typography.Text>
@@ -111,7 +111,7 @@
         <div>
             <Typography.H2 class="docs-section-heading">Role reference</Typography.H2>
             <Typography.Text variant="supporting" class="mt-2 max-w-2xl">
-                Each primitive owns typography and color, but never margins or surrounding layout.
+                Each component sets typography and color. Set margins and layout on its parent.
             </Typography.Text>
         </div>
 
@@ -147,7 +147,9 @@
             <Typography.H3 class="docs-subsection-heading">Heading levels</Typography.H3>
             <Typography.Text variant="supporting" class="m-0 max-w-2xl">
                 Use the heading that matches the document outline. Compact component titles remain
-                available through <Typography.InlineCode>Typography.Title</Typography.InlineCode>.
+                available through{' '}
+                <Typography.InlineCode>Typography.Title</Typography.InlineCode>
+                .
             </Typography.Text>
             <ComponentPreview code={HeadingLevelsSrc}>
                 <HeadingLevels />
@@ -168,7 +170,8 @@
         <div id="numeric-metadata" class="scroll-mt-20 flex flex-col gap-3">
             <Typography.H3 class="docs-subsection-heading">Numeric metadata</Typography.H3>
             <Typography.Text variant="supporting" class="m-0 max-w-2xl">
-                Add <Typography.InlineCode>tabular-nums</Typography.InlineCode> when readers compare
+                Add{' '}
+                <Typography.InlineCode>tabular-nums</Typography.InlineCode> when readers compare
                 values in a column.
             </Typography.Text>
             <ComponentPreview code={MetadataSrc}>

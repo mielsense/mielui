@@ -5,6 +5,8 @@
     import DocsPager from '$lib/components/docs/docs-pager.svelte';
     import DynamicWidth from './examples/dynamic-width.svelte';
     import DynamicWidthSrc from './examples/dynamic-width.svelte?raw';
+    import Glass from './examples/glass.svelte';
+    import GlassSrc from './examples/glass.svelte?raw';
     import Hero from './examples/hero.svelte';
     import HeroSrc from './examples/hero.svelte?raw';
     import Scrollable from './examples/scrollable.svelte';
@@ -22,7 +24,7 @@
     <!-- ─── Header ────────────────────────────────────────────────── -->
     <header class="flex items-start justify-between gap-4">
         <div>
-            <Typography.H1> Select </Typography.H1>
+            <Typography.H1>Select</Typography.H1>
             <Typography.Text variant="lead" class="mt-2 max-w-2xl">
                 A dropdown for choosing one option from a short list.
             </Typography.Text>
@@ -46,9 +48,7 @@
     <!-- ─── Usage ─────────────────────────────────────────────────── -->
     <section id="usage" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Usage</Typography.H2>
-        <Typography.Text variant="supporting">
-            Import Select and use it in your component:
-        </Typography.Text>
+
         <CodeBlock
             code={`import * as Select from '$lib/mielui/components/select';\n\n<Select.Root value={role}>\n  <Select.Trigger>Designer</Select.Trigger>\n  <Select.Content>\n    <Select.Item value="designer">Designer</Select.Item>\n  </Select.Content>\n</Select.Root>`}
             lang="svelte"
@@ -60,9 +60,6 @@
     <section id="examples" class="scroll-mt-20 flex flex-col gap-10">
         <div>
             <Typography.H2 class="docs-section-heading">Examples</Typography.H2>
-            <Typography.Text variant="supporting" class="mt-2">
-                Select in common configurations.
-            </Typography.Text>
         </div>
 
         <div id="basic" class="scroll-mt-20 flex flex-col gap-3">
@@ -92,5 +89,14 @@
                 <DynamicWidth />
             </ComponentPreview>
         </div>
+    </section>
+    <section id="glass" class="flex flex-col gap-4">
+        <Typography.H2 class="docs-section-heading">Glass surface</Typography.H2>
+        <Typography.Text variant="supporting">
+            Set surface="glass" on Select.Content for a translucent background with blur. Solid
+            remains the default. The glass surface keeps an opaque fallback when backdrop filtering
+            is unavailable and respects reduced-transparency preferences.
+        </Typography.Text>
+        <ComponentPreview code={GlassSrc}><Glass /></ComponentPreview>
     </section>
 </div>

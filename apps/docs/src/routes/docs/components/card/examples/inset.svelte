@@ -1,8 +1,9 @@
 <script lang="ts">
-    import GitBranch from '@lucide/svelte/icons/git-branch';
+    import GitBranch from '@hugeicons/core-free-icons/GitBranchIcon';
     import { Badge } from '@mielui/svelte/components/badge';
     import { Button } from '@mielui/svelte/components/button';
     import * as Card from '@mielui/svelte/components/card';
+    import HugeiconsIcon from '@mielui/svelte/hugeicons-icon';
 </script>
 
 <Card.Root variant="inset" class="w-full max-w-[28rem]">
@@ -29,12 +30,12 @@
 
             <!-- Commit Row -->
             <div class="flex items-center gap-2 rounded-[var(--radius-md)] bg-secondary px-3 py-2">
-                <GitBranch class="h-4 w-4 shrink-0 text-foreground-muted" />
+                <HugeiconsIcon icon={GitBranch} class="h-4 w-4 shrink-0 text-foreground-muted" />
                 <span class="text-sm font-medium text-foreground">main</span>
-                <span class="truncate text-xs text-foreground-muted"
-                    >feat(studio): restore original styling</span
-                >
-                <span class="ml-auto shrink-0 text-xs text-foreground-muted">aidan-neel</span>
+                <span class="truncate text-xs text-foreground-muted">
+                    feat(studio): restore original styling
+                </span>
+                <span class="ml-auto shrink-0 text-xs text-foreground-muted">mielsense</span>
             </div>
         </div>
     </Card.Content>

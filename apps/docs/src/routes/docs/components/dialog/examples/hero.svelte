@@ -1,8 +1,9 @@
 <script lang="ts">
-    import Globe from '@lucide/svelte/icons/globe';
+    import Globe from '@hugeicons/core-free-icons/Globe02Icon';
     import * as Dialog from '@mielui/svelte/components/dialog';
     import { Input } from '@mielui/svelte/components/input';
     import Kbd from '@mielui/svelte/components/kbd';
+    import HugeiconsIcon from '@mielui/svelte/hugeicons-icon';
 
     let open = $state(false);
     let domain = $state('');
@@ -13,7 +14,7 @@
     <Dialog.Content>
         <Dialog.Header>
             <div class="flex items-center gap-2.5">
-                <Globe size={18} class="text-foreground-muted" />
+                <HugeiconsIcon icon={Globe} size={18} class="text-foreground-muted" />
                 <Dialog.Title>Add a domain</Dialog.Title>
             </div>
             <Dialog.Description>Add an existing domain to your mielui project.</Dialog.Description>

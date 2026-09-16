@@ -36,7 +36,7 @@ let tags = $state(['svelte']);
     <!-- ─── Header ────────────────────────────────────────────────── -->
     <header class="flex items-start justify-between gap-4">
         <div>
-            <Typography.H1> Tag Input </Typography.H1>
+            <Typography.H1>Tag Input</Typography.H1>
             <Typography.Text variant="lead" class="mt-2 max-w-2xl">
                 A field that turns typed text into removable tags with badge outlines. Type a value,
                 press Enter, and keep going.
@@ -54,20 +54,22 @@ let tags = $state(['svelte']);
 
     <!-- ─── Installation ──────────────────────────────────────────── -->
     <section id="installation" class="scroll-mt-20 flex flex-col gap-4">
-        <Typography.H2 class="docs-section-heading"> Installation </Typography.H2>
+        <Typography.H2 class="docs-section-heading">Installation</Typography.H2>
         <InstallCommand command={installCommand} />
     </section>
 
     <!-- ─── Usage ─────────────────────────────────────────────────── -->
     <section id="usage" class="scroll-mt-20 flex flex-col gap-4">
-        <Typography.H2 class="docs-section-heading"> Usage </Typography.H2>
+        <Typography.H2 class="docs-section-heading">Usage</Typography.H2>
         <Typography.Text variant="supporting">
-            Bind <Typography.InlineCode>tags</Typography.InlineCode> for the tag list. Compose
+            Bind{' '}
+            <Typography.InlineCode>tags</Typography.InlineCode> for the tag list. Compose
             <Typography.InlineCode>List</Typography.InlineCode>
             for the tokens and
             <Typography.InlineCode>Input</Typography.InlineCode>
             for entry inside
-            <Typography.InlineCode>Root</Typography.InlineCode>.
+            <Typography.InlineCode>Root</Typography.InlineCode>
+            .
         </Typography.Text>
         <CodeBlock code={usageSnippet} lang="svelte" copy="overlay" />
     </section>
@@ -75,7 +77,7 @@ let tags = $state(['svelte']);
     <!-- ─── Examples ──────────────────────────────────────────────── -->
     <section id="examples" class="scroll-mt-20 flex flex-col gap-10">
         <div>
-            <Typography.H2 class="docs-section-heading"> Examples </Typography.H2>
+            <Typography.H2 class="docs-section-heading">Examples</Typography.H2>
             <Typography.Text variant="supporting" class="mt-2">
                 Read changes through callbacks, guard the list with validation, and cap it with a
                 maximum.
@@ -83,7 +85,7 @@ let tags = $state(['svelte']);
         </div>
 
         <div id="controlled" class="scroll-mt-20 flex flex-col gap-3">
-            <Typography.H3 class="docs-subsection-heading"> Responding to changes </Typography.H3>
+            <Typography.H3 class="docs-subsection-heading">Responding to changes</Typography.H3>
             <Typography.Text variant="supporting">
                 <Typography.InlineCode>onAdd</Typography.InlineCode>
                 and
@@ -98,9 +100,10 @@ let tags = $state(['svelte']);
         </div>
 
         <div id="validation" class="scroll-mt-20 flex flex-col gap-3">
-            <Typography.H3 class="docs-subsection-heading"> Validation </Typography.H3>
+            <Typography.H3 class="docs-subsection-heading">Validation</Typography.H3>
             <Typography.Text variant="supporting">
-                Return <Typography.InlineCode>false</Typography.InlineCode> or an error message from
+                Return{' '}
+                <Typography.InlineCode>false</Typography.InlineCode> or an error message from
                 <Typography.InlineCode>validate</Typography.InlineCode>
                 to reject a tag. Rejections arrive through
                 <Typography.InlineCode>onReject</Typography.InlineCode>
@@ -112,7 +115,7 @@ let tags = $state(['svelte']);
         </div>
 
         <div id="max-tags" class="scroll-mt-20 flex flex-col gap-3">
-            <Typography.H3 class="docs-subsection-heading"> Limiting tags </Typography.H3>
+            <Typography.H3 class="docs-subsection-heading">Limiting tags</Typography.H3>
             <Typography.Text variant="supporting">
                 <Typography.InlineCode>max</Typography.InlineCode>
                 caps the list. Extra tags are rejected with a

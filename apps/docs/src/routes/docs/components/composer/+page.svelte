@@ -5,6 +5,8 @@
     import { ComponentPreview, InstallCommand } from '$lib/components/docs';
     import DocsPager from '$lib/components/docs/docs-pager.svelte';
 
+    import Glass from './examples/glass.svelte';
+    import GlassSource from './examples/glass.svelte?raw';
     import Hero from './examples/hero.svelte';
     import HeroSrc from './examples/hero.svelte?raw';
     import Idle from './examples/idle.svelte';
@@ -30,11 +32,10 @@
 <div data-docs-page class="flex flex-col gap-10">
     <header class="flex items-start justify-between gap-4">
         <div>
-            <Typography.H1> Composer </Typography.H1>
+            <Typography.H1>Composer</Typography.H1>
 
             <Typography.Text variant="lead" class="mt-2 max-w-2xl">
-                A focused prompt surface with growing input, composable actions, and submission
-                state.
+                A prompt input that grows with its content and tracks submission state.
             </Typography.Text>
         </div>
         <DocsPager />
@@ -78,7 +79,7 @@ async function sendPrompt(prompt: string) {
             copy="overlay"
         />
         <Typography.Text variant="supporting">
-            By default, <Kbd shortcut="enter" /> submits and
+            By default,<Kbd shortcut="enter" /> submits and
             <Kbd shortcut="shift+enter" />
             inserts a new line. Set
             <Typography.InlineCode>submitOnEnter={false}</Typography.InlineCode>
@@ -88,6 +89,14 @@ async function sendPrompt(prompt: string) {
         </Typography.Text>
     </section>
 
+    <section id="glass-surface" class="flex flex-col gap-4">
+        <Typography.H2>Glass surface</Typography.H2>
+        <Typography.Text>
+            Set surface="glass" on Composer.Root for a frosted frame with a darker input well. Solid
+            remains the default.
+        </Typography.Text>
+        <ComponentPreview code={GlassSource}><Glass /></ComponentPreview>
+    </section>
     <section id="examples" class="scroll-mt-20 flex flex-col gap-10">
         <div>
             <Typography.H2 class="docs-section-heading">Examples</Typography.H2>

@@ -17,9 +17,9 @@
 <div data-docs-page class="flex flex-col gap-10">
     <header class="flex items-start justify-between gap-4">
         <div>
-            <Typography.H1> Reorder List </Typography.H1>
+            <Typography.H1>Reorder List</Typography.H1>
             <Typography.Text variant="lead" class="mt-2 max-w-2xl">
-                The gap the neighboring rows open is the drop target.
+                Reorder rows by dragging them into the gap between neighboring items.
             </Typography.Text>
         </div>
         <DocsPager />

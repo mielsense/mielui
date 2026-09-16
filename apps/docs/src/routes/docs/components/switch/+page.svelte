@@ -18,7 +18,10 @@
 </script>
 
 <svelte:head>
-    <title>Mielui · {TITLE}</title>
+    <title>
+        Mielui ·{' '}
+        {TITLE}
+    </title>
     <meta name="description" content="On/off toggle for system-level settings." />
 </svelte:head>
 
@@ -62,9 +65,6 @@
     <section id="examples" class="scroll-mt-20 flex flex-col gap-10">
         <div>
             <Typography.H2 class="docs-section-heading">Examples</Typography.H2>
-            <Typography.Text variant="supporting" class="mt-2">
-                Switch in different states and compositions.
-            </Typography.Text>
         </div>
 
         <!-- Basic -->

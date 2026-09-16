@@ -1,7 +1,8 @@
 <script lang="ts">
-    import Download from '@lucide/svelte/icons/download';
+    import Download from '@hugeicons/core-free-icons/Download01Icon';
     import { Button } from '@mielui/svelte/components/button';
     import * as CodeBlock from '@mielui/svelte/components/code-block';
+    import HugeiconsIcon from '@mielui/svelte/hugeicons-icon';
 
     const sh = `npm install @mielui/svelte
 npx mielui add code-block`;
@@ -24,7 +25,7 @@ jobs:
         </CodeBlock.List>
         <CodeBlock.Actions>
             <Button variant="ghost" size="icon" aria-label="Download">
-                <Download size={15} />
+                <HugeiconsIcon icon={Download} size={15} />
             </Button>
         </CodeBlock.Actions>
     </CodeBlock.Header>

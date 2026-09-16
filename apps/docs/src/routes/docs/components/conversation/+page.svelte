@@ -37,10 +37,9 @@ let follow = $state(true);
 <div data-docs-page class="flex flex-col gap-10">
     <header class="flex items-start justify-between gap-4">
         <div>
-            <Typography.H1> Conversation </Typography.H1>
+            <Typography.H1>Conversation</Typography.H1>
             <Typography.Text variant="lead" class="mt-2 max-w-2xl">
-                Keep live agent transcripts readable while respecting where someone has chosen to
-                scroll.
+                Display a live transcript. Follow new messages until the user scrolls away.
             </Typography.Text>
         </div>
         <DocsPager />
@@ -51,14 +50,15 @@ let follow = $state(true);
     </section>
 
     <section id="installation" class="scroll-mt-20 flex flex-col gap-4">
-        <Typography.H2 class="docs-section-heading"> Installation </Typography.H2>
+        <Typography.H2 class="docs-section-heading">Installation</Typography.H2>
         <InstallCommand command={installCommand} />
     </section>
 
     <section id="usage" class="scroll-mt-20 flex flex-col gap-4">
-        <Typography.H2 class="docs-section-heading"> Usage </Typography.H2>
+        <Typography.H2 class="docs-section-heading">Usage</Typography.H2>
         <Typography.Text variant="supporting">
-            Give <Typography.InlineCode>Root</Typography.InlineCode> a bounded height so
+            Give{' '}
+            <Typography.InlineCode>Root</Typography.InlineCode> a bounded height so
             <Typography.InlineCode>Content</Typography.InlineCode>
             can scroll. Bind
             <Typography.InlineCode>follow</Typography.InlineCode>
@@ -69,19 +69,19 @@ let follow = $state(true);
 
     <section id="examples" class="scroll-mt-20 flex flex-col gap-10">
         <div>
-            <Typography.H2 class="docs-section-heading"> Examples </Typography.H2>
+            <Typography.H2 class="docs-section-heading">Examples</Typography.H2>
             <Typography.Text variant="supporting" class="mt-2">
                 Compose the viewport around an empty start or continuously arriving output.
             </Typography.Text>
         </div>
 
         <div id="empty-state" class="scroll-mt-20 flex flex-col gap-3">
-            <Typography.H3 class="docs-subsection-heading"> Empty state </Typography.H3>
+            <Typography.H3 class="docs-subsection-heading">Empty state</Typography.H3>
             <ComponentPreview code={EmptyStateSrc}><EmptyState /></ComponentPreview>
         </div>
 
         <div id="follow-output" class="scroll-mt-20 flex flex-col gap-3">
-            <Typography.H3 class="docs-subsection-heading"> Follow live output </Typography.H3>
+            <Typography.H3 class="docs-subsection-heading">Follow live output</Typography.H3>
             <ComponentPreview code={FollowOutputSrc}><FollowOutput /></ComponentPreview>
         </div>
     </section>

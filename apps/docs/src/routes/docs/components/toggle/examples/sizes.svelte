@@ -1,16 +1,17 @@
 <script lang="ts">
-    import Bold from '@lucide/svelte/icons/bold';
+    import Bold from '@hugeicons/core-free-icons/TextBoldIcon';
     import { Toggle } from '@mielui/svelte/components/toggle';
+    import HugeiconsIcon from '@mielui/svelte/hugeicons-icon';
 </script>
 
 <div class="flex gap-2">
     <Toggle size="sm">
-        <Bold size={12} />
+        <HugeiconsIcon icon={Bold} size={12} />
     </Toggle>
     <Toggle>
-        <Bold size={14} />
+        <HugeiconsIcon icon={Bold} size={14} />
     </Toggle>
     <Toggle size="lg">
-        <Bold size={16} />
+        <HugeiconsIcon icon={Bold} size={16} />
     </Toggle>
 </div>

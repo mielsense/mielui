@@ -1,8 +1,9 @@
 <script lang="ts">
-    import ArrowRight from '@lucide/svelte/icons/arrow-right';
-    import RotateCcw from '@lucide/svelte/icons/rotate-ccw';
+    import ArrowRight from '@hugeicons/core-free-icons/ArrowRight02Icon';
+    import RotateCcw from '@hugeicons/core-free-icons/RotateLeft01Icon';
     import { Button } from '@mielui/svelte/components/button';
     import { Markdown } from '@mielui/svelte/components/markdown';
+    import HugeiconsIcon from '@mielui/svelte/hugeicons-icon';
 
     const chunks = [
         '### Incident update\n\nThe elevated error rate is isolated to image transformations in `fra1`.',
@@ -33,9 +34,9 @@
         <Button variant="ghost" size="md" onclick={advance}>
             {#if streaming}
                 Stream next chunk
-                <ArrowRight size={14} aria-hidden="true" />
+                <HugeiconsIcon icon={ArrowRight} size={14} aria-hidden="true" />
             {:else}
-                <RotateCcw size={14} aria-hidden="true" />
+                <HugeiconsIcon icon={RotateCcw} size={14} aria-hidden="true" />
                 Restart stream
             {/if}
         </Button>

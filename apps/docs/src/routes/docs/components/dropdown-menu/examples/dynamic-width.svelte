@@ -1,6 +1,7 @@
 <script lang="ts">
-    import Check from '@lucide/svelte/icons/check';
+    import Check from '@hugeicons/core-free-icons/Tick02Icon';
     import * as DropdownMenu from '@mielui/svelte/components/dropdown-menu';
+    import HugeiconsIcon from '@mielui/svelte/hugeicons-icon';
 
     const densities = ['Compact', 'Comfortable', 'Spacious'];
     let density = $state(densities[1]);
@@ -18,7 +19,7 @@
                     <DropdownMenu.Item callback={() => (density = option)}>
                         <span class="flex-1">{option}</span>
                         {#if density === option}
-                            <Check size={13} aria-hidden="true" />
+                            <HugeiconsIcon icon={Check} size={13} aria-hidden="true" />
                         {/if}
                     </DropdownMenu.Item>
                 {/each}

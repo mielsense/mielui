@@ -39,7 +39,7 @@
     <!-- ─── Header ────────────────────────────────────────────────── -->
     <header class="flex items-start justify-between gap-4">
         <div>
-            <Typography.H1> Badge </Typography.H1>
+            <Typography.H1>Badge</Typography.H1>
             <Typography.Text variant="lead" class="mt-2 max-w-2xl">
                 A compact label for status, counts, and tags.
             </Typography.Text>
@@ -56,16 +56,14 @@
 
     <!-- ─── Installation ──────────────────────────────────────────── -->
     <section id="installation" class="scroll-mt-20 flex flex-col gap-4">
-        <Typography.H2 class="docs-section-heading"> Installation </Typography.H2>
+        <Typography.H2 class="docs-section-heading">Installation</Typography.H2>
         <InstallCommand command={installCommand} />
     </section>
 
     <!-- ─── Usage ─────────────────────────────────────────────────── -->
     <section id="usage" class="scroll-mt-20 flex flex-col gap-4">
-        <Typography.H2 class="docs-section-heading"> Usage </Typography.H2>
-        <Typography.Text variant="supporting">
-            Import the Badge and use it in your component:
-        </Typography.Text>
+        <Typography.H2 class="docs-section-heading">Usage</Typography.H2>
+
         <CodeBlock
             code={`import { Badge } from '$lib/mielui/components/badge';\n\n<Badge>New</Badge>\n<Badge variant="outline" dot>Label</Badge>\n<Badge variant="success">Active</Badge>\n<Badge variant="error">Failed</Badge>`}
             lang="svelte"
@@ -76,14 +74,11 @@
     <!-- ─── Examples ──────────────────────────────────────────────── -->
     <section id="examples" class="scroll-mt-20 flex flex-col gap-10">
         <div>
-            <Typography.H2 class="docs-section-heading"> Examples </Typography.H2>
-            <Typography.Text variant="supporting" class="mt-2">
-                Explore Badge variants and shapes for different use cases.
-            </Typography.Text>
+            <Typography.H2 class="docs-section-heading">Examples</Typography.H2>
         </div>
 
         <div id="shapes" class="scroll-mt-20 flex flex-col gap-3">
-            <Typography.H3 class="docs-subsection-heading"> Shapes </Typography.H3>
+            <Typography.H3 class="docs-subsection-heading">Shapes</Typography.H3>
             <Typography.Text variant="supporting">
                 Pill, circular, square-ish, and a rounded square with a 1px border.
             </Typography.Text>
@@ -93,63 +88,63 @@
         </div>
 
         <div id="variant-primary" class="scroll-mt-20 flex flex-col gap-3">
-            <Typography.H3 class="docs-subsection-heading"> Primary </Typography.H3>
+            <Typography.H3 class="docs-subsection-heading">Primary</Typography.H3>
             <ComponentPreview code={VariantPrimarySrc}>
                 <VariantPrimary />
             </ComponentPreview>
         </div>
 
         <div id="variant-secondary" class="scroll-mt-20 flex flex-col gap-3">
-            <Typography.H3 class="docs-subsection-heading"> Secondary </Typography.H3>
+            <Typography.H3 class="docs-subsection-heading">Secondary</Typography.H3>
             <ComponentPreview code={VariantSecondarySrc}>
                 <VariantSecondary />
             </ComponentPreview>
         </div>
 
         <div id="variant-ghost" class="scroll-mt-20 flex flex-col gap-3">
-            <Typography.H3 class="docs-subsection-heading"> Ghost </Typography.H3>
+            <Typography.H3 class="docs-subsection-heading">Ghost</Typography.H3>
             <ComponentPreview code={VariantGhostSrc}>
                 <VariantGhost />
             </ComponentPreview>
         </div>
 
         <div id="variant-outline" class="scroll-mt-20 flex flex-col gap-3">
-            <Typography.H3 class="docs-subsection-heading"> Outline </Typography.H3>
+            <Typography.H3 class="docs-subsection-heading">Outline</Typography.H3>
             <ComponentPreview code={VariantOutlineSrc}>
                 <VariantOutline />
             </ComponentPreview>
         </div>
 
         <div id="variant-destructive" class="scroll-mt-20 flex flex-col gap-3">
-            <Typography.H3 class="docs-subsection-heading"> Destructive </Typography.H3>
+            <Typography.H3 class="docs-subsection-heading">Destructive</Typography.H3>
             <ComponentPreview code={VariantDestructiveSrc}>
                 <VariantDestructive />
             </ComponentPreview>
         </div>
 
         <div id="variant-info" class="scroll-mt-20 flex flex-col gap-3">
-            <Typography.H3 class="docs-subsection-heading"> Info </Typography.H3>
+            <Typography.H3 class="docs-subsection-heading">Info</Typography.H3>
             <ComponentPreview code={VariantInfoSrc}>
                 <VariantInfo />
             </ComponentPreview>
         </div>
 
         <div id="variant-success" class="scroll-mt-20 flex flex-col gap-3">
-            <Typography.H3 class="docs-subsection-heading"> Success </Typography.H3>
+            <Typography.H3 class="docs-subsection-heading">Success</Typography.H3>
             <ComponentPreview code={VariantSuccessSrc}>
                 <VariantSuccess />
             </ComponentPreview>
         </div>
 
         <div id="variant-warning" class="scroll-mt-20 flex flex-col gap-3">
-            <Typography.H3 class="docs-subsection-heading"> Warning </Typography.H3>
+            <Typography.H3 class="docs-subsection-heading">Warning</Typography.H3>
             <ComponentPreview code={VariantWarningSrc}>
                 <VariantWarning />
             </ComponentPreview>
         </div>
 
         <div id="variant-error" class="scroll-mt-20 flex flex-col gap-3">
-            <Typography.H3 class="docs-subsection-heading"> Error </Typography.H3>
+            <Typography.H3 class="docs-subsection-heading">Error</Typography.H3>
             <ComponentPreview code={VariantErrorSrc}>
                 <VariantError />
             </ComponentPreview>

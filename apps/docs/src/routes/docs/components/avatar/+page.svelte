@@ -20,7 +20,10 @@
 </script>
 
 <svelte:head>
-    <title>Mielui · {TITLE}</title>
+    <title>
+        Mielui ·{' '}
+        {TITLE}
+    </title>
     <meta name="description" content="An image with graceful fallback to initials." />
 </svelte:head>
 
@@ -47,14 +50,14 @@
 
     <!-- ─── Installation ──────────────────────────────────────────── -->
     <section id="installation" class="scroll-mt-20 flex flex-col gap-4">
-        <Typography.H2 class="docs-section-heading"> Installation </Typography.H2>
+        <Typography.H2 class="docs-section-heading">Installation</Typography.H2>
         <InstallCommand command={installCommand} />
     </section>
 
     <!-- ─── Usage ─────────────────────────────────────────────────── -->
     <section id="usage" class="scroll-mt-20 flex flex-col gap-4">
-        <Typography.H2 class="docs-section-heading"> Usage </Typography.H2>
-        <Typography.Text variant="supporting">Import and use the Avatar component:</Typography.Text>
+        <Typography.H2 class="docs-section-heading">Usage</Typography.H2>
+
         <CodeBlock
             code={`import * as Avatar from '$lib/mielui/components/avatar';\n\n<Avatar.Root>\n  <Avatar.Image src="/avatar.jpg" alt="User" />\n  <Avatar.Fallback>AB</Avatar.Fallback>\n</Avatar.Root>`}
             lang="svelte"
@@ -65,12 +68,12 @@
     <!-- ─── Examples ──────────────────────────────────────────────── -->
     <section id="examples" class="scroll-mt-20 flex flex-col gap-10">
         <div>
-            <Typography.H2 class="docs-section-heading"> Examples </Typography.H2>
+            <Typography.H2 class="docs-section-heading">Examples</Typography.H2>
         </div>
 
         <!-- Sizes -->
         <div id="sizes" class="scroll-mt-20 flex flex-col gap-3">
-            <Typography.H3 class="docs-subsection-heading"> Sizes </Typography.H3>
+            <Typography.H3 class="docs-subsection-heading">Sizes</Typography.H3>
             <ComponentPreview code={SizesSrc}>
                 <Sizes />
             </ComponentPreview>
@@ -78,7 +81,7 @@
 
         <!-- Shapes -->
         <div id="shapes" class="scroll-mt-20 flex flex-col gap-3">
-            <Typography.H3 class="docs-subsection-heading"> Shapes </Typography.H3>
+            <Typography.H3 class="docs-subsection-heading">Shapes</Typography.H3>
             <ComponentPreview code={ShapesSrc}>
                 <Shapes />
             </ComponentPreview>
@@ -86,7 +89,7 @@
 
         <!-- With image -->
         <div id="with-image" class="scroll-mt-20 flex flex-col gap-3">
-            <Typography.H3 class="docs-subsection-heading"> With image </Typography.H3>
+            <Typography.H3 class="docs-subsection-heading">With image</Typography.H3>
             <ComponentPreview code={WithImageSrc}>
                 <WithImage />
             </ComponentPreview>

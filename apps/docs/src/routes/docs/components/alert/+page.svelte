@@ -22,7 +22,10 @@
 </script>
 
 <svelte:head>
-    <title>Mielui · {TITLE}</title>
+    <title>
+        Mielui ·{' '}
+        {TITLE}
+    </title>
     <meta
         name="description"
         content="Tinted callouts for inline status, confirmation, and warnings."
@@ -37,7 +40,7 @@
                 {TITLE}
             </Typography.H1>
             <Typography.Text variant="lead" class="mt-2 max-w-2xl">
-                An inline callout for contextual messages. Comes in four variants.
+                An inset callout with the description above a compact status row.
             </Typography.Text>
         </div>
         <DocsPager />
@@ -52,14 +55,14 @@
 
     <!-- ─── Installation ──────────────────────────────────────────── -->
     <section id="installation" class="scroll-mt-20 flex flex-col gap-4">
-        <Typography.H2 class="docs-section-heading"> Installation </Typography.H2>
+        <Typography.H2 class="docs-section-heading">Installation</Typography.H2>
         <InstallCommand command={installCommand} />
     </section>
 
     <!-- ─── Usage ─────────────────────────────────────────────────── -->
     <section id="usage" class="scroll-mt-20 flex flex-col gap-4">
-        <Typography.H2 class="docs-section-heading"> Usage </Typography.H2>
-        <Typography.Text variant="supporting">Import and use the Alert components:</Typography.Text>
+        <Typography.H2 class="docs-section-heading">Usage</Typography.H2>
+
         <CodeBlock
             code={`import * as Alert from '$lib/mielui/components/alert';\n\n<Alert.Root>\n  <Alert.Title>Title</Alert.Title>\n  <Alert.Description>Description</Alert.Description>\n</Alert.Root>`}
             lang="svelte"
@@ -70,33 +73,33 @@
     <!-- ─── Examples ──────────────────────────────────────────────── -->
     <section id="examples" class="scroll-mt-20 flex flex-col gap-10">
         <div>
-            <Typography.H2 class="docs-section-heading"> Examples </Typography.H2>
+            <Typography.H2 class="docs-section-heading">Examples</Typography.H2>
         </div>
 
         <!-- Variants — each its own example piece -->
         <div id="variant-info" class="scroll-mt-20 flex flex-col gap-3">
-            <Typography.H3 class="docs-subsection-heading"> Info </Typography.H3>
+            <Typography.H3 class="docs-subsection-heading">Info</Typography.H3>
             <ComponentPreview code={VariantInfoSrc}>
                 <VariantInfo />
             </ComponentPreview>
         </div>
 
         <div id="variant-success" class="scroll-mt-20 flex flex-col gap-3">
-            <Typography.H3 class="docs-subsection-heading"> Success </Typography.H3>
+            <Typography.H3 class="docs-subsection-heading">Success</Typography.H3>
             <ComponentPreview code={VariantSuccessSrc}>
                 <VariantSuccess />
             </ComponentPreview>
         </div>
 
         <div id="variant-warning" class="scroll-mt-20 flex flex-col gap-3">
-            <Typography.H3 class="docs-subsection-heading"> Warning </Typography.H3>
+            <Typography.H3 class="docs-subsection-heading">Warning</Typography.H3>
             <ComponentPreview code={VariantWarningSrc}>
                 <VariantWarning />
             </ComponentPreview>
         </div>
 
         <div id="variant-error" class="scroll-mt-20 flex flex-col gap-3">
-            <Typography.H3 class="docs-subsection-heading"> Error </Typography.H3>
+            <Typography.H3 class="docs-subsection-heading">Error</Typography.H3>
             <ComponentPreview code={VariantErrorSrc}>
                 <VariantError />
             </ComponentPreview>

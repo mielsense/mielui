@@ -1,12 +1,13 @@
 <script lang="ts">
-    import Frame from '@lucide/svelte/icons/frame';
-    import MessageCircle from '@lucide/svelte/icons/message-circle';
-    import MousePointer2 from '@lucide/svelte/icons/mouse-pointer-2';
-    import PenTool from '@lucide/svelte/icons/pen-tool';
-    import Square from '@lucide/svelte/icons/square';
-    import Type from '@lucide/svelte/icons/type';
+    import MessageCircle from '@hugeicons/core-free-icons/BubbleChatIcon';
+    import Frame from '@hugeicons/core-free-icons/FrameIcon';
+    import MousePointer2 from '@hugeicons/core-free-icons/MousePointer01Icon';
+    import PenTool from '@hugeicons/core-free-icons/PenTool01Icon';
+    import Square from '@hugeicons/core-free-icons/SquareIcon';
+    import Type from '@hugeicons/core-free-icons/TextFontIcon';
     import Kbd from '@mielui/svelte/components/kbd';
     import * as Tooltip from '@mielui/svelte/components/tooltip';
+    import HugeiconsIcon from '@mielui/svelte/hugeicons-icon';
 
     let activeTool = $state<string>('move');
 
@@ -37,7 +38,7 @@
                         onclick={() => (activeTool = tool.id)}
                         aria-label={tool.label}
                     >
-                        <Icon size={16} />
+                        <HugeiconsIcon icon={Icon} size={16} />
                     </button>
                 </Tooltip.Trigger>
                 <Tooltip.Content>

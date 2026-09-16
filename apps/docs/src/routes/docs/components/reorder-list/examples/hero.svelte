@@ -25,9 +25,9 @@
         {#snippet children(item)}
             <span class="flex min-w-0 items-center justify-between gap-4">
                 <span class="truncate text-sm font-medium">{item.name}</span>
-                <span class="shrink-0 text-xs tabular-nums text-foreground-muted"
-                    >{item.duration}</span
-                >
+                <span class="shrink-0 text-xs tabular-nums text-foreground-muted">
+                    {item.duration}
+                </span>
             </span>
         {/snippet}
     </ReorderList>

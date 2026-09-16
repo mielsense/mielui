@@ -1,8 +1,9 @@
 <script lang="ts">
-    import FolderOpen from '@lucide/svelte/icons/folder-open';
-    import Pencil from '@lucide/svelte/icons/pencil';
-    import Trash from '@lucide/svelte/icons/trash-2';
+    import Trash from '@hugeicons/core-free-icons/Delete02Icon';
+    import FolderOpen from '@hugeicons/core-free-icons/FolderOpenIcon';
+    import Pencil from '@hugeicons/core-free-icons/PencilEdit01Icon';
     import * as ContextMenu from '@mielui/svelte/components/context-menu';
+    import HugeiconsIcon from '@mielui/svelte/hugeicons-icon';
 </script>
 
 <div class="flex items-center justify-center">
@@ -16,15 +17,21 @@
         </ContextMenu.Trigger>
         <ContextMenu.Content>
             <ContextMenu.Item callback={() => {}}>
-                <span class="flex items-center gap-2"><FolderOpen size={14} /> Open</span>
+                <span class="flex items-center gap-2">
+                    <HugeiconsIcon icon={FolderOpen} size={14} />
+                    Open
+                </span>
             </ContextMenu.Item>
             <ContextMenu.Item callback={() => {}}>
-                <span class="flex items-center gap-2"><Pencil size={14} /> Rename</span>
+                <span class="flex items-center gap-2">
+                    <HugeiconsIcon icon={Pencil} size={14} />
+                    Rename
+                </span>
             </ContextMenu.Item>
             <ContextMenu.Separator />
             <ContextMenu.Item callback={() => {}}>
                 <span class="flex items-center gap-2 text-[var(--color-error)]">
-                    <Trash size={14} />
+                    <HugeiconsIcon icon={Trash} size={14} />
                     Delete
                 </span>
             </ContextMenu.Item>

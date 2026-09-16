@@ -1,42 +1,55 @@
 <script lang="ts">
-    import ChevronDown from '@lucide/svelte/icons/chevron-down';
-    import CreditCard from '@lucide/svelte/icons/credit-card';
-    import LifeBuoy from '@lucide/svelte/icons/life-buoy';
-    import LogOut from '@lucide/svelte/icons/log-out';
-    import Settings from '@lucide/svelte/icons/settings';
-    import User from '@lucide/svelte/icons/user';
+    import ChevronDown from '@hugeicons/core-free-icons/ArrowDown01Icon';
+    import CreditCard from '@hugeicons/core-free-icons/CreditCardIcon';
+    import LifeBuoy from '@hugeicons/core-free-icons/LifebuoyIcon';
+    import LogOut from '@hugeicons/core-free-icons/Logout01Icon';
+    import Settings from '@hugeicons/core-free-icons/Settings01Icon';
+    import User from '@hugeicons/core-free-icons/UserIcon';
     import * as DropdownMenu from '@mielui/svelte/components/dropdown-menu';
     import Kbd from '@mielui/svelte/components/kbd';
+    import HugeiconsIcon from '@mielui/svelte/hugeicons-icon';
 </script>
 
 <DropdownMenu.Root>
     <DropdownMenu.Trigger variant="outline" size="md">
         My Account
-        <ChevronDown size={16} class="text-foreground-muted" />
+        <HugeiconsIcon icon={ChevronDown} size={16} class="text-foreground-muted" />
     </DropdownMenu.Trigger>
     <DropdownMenu.Content class="min-w-[16rem]">
         <DropdownMenu.Label>
-            <span class="text-[0.7rem] text-foreground-muted">aidan@ui.miel.my</span>
+            <span class="text-[0.7rem] text-foreground-muted">mielsense@ui.miel.my</span>
         </DropdownMenu.Label>
         <DropdownMenu.Item>
-            <span class="flex items-center gap-2"><User size={13} /> Profile</span>
+            <span class="flex items-center gap-2">
+                <HugeiconsIcon icon={User} size={13} />
+                Profile
+            </span>
             <Kbd shortcut="shift+cmd+P" />
         </DropdownMenu.Item>
         <DropdownMenu.Item>
-            <span class="flex items-center gap-2"><CreditCard size={13} /> Billing</span>
+            <span class="flex items-center gap-2">
+                <HugeiconsIcon icon={CreditCard} size={13} />
+                Billing
+            </span>
             <Kbd shortcut="cmd+B" />
         </DropdownMenu.Item>
         <DropdownMenu.Item>
-            <span class="flex items-center gap-2"><Settings size={13} /> Settings</span>
+            <span class="flex items-center gap-2">
+                <HugeiconsIcon icon={Settings} size={13} />
+                Settings
+            </span>
             <Kbd shortcut="cmd+," />
         </DropdownMenu.Item>
         <DropdownMenu.Separator />
         <DropdownMenu.Item>
-            <span class="flex items-center gap-2"><LifeBuoy size={13} /> Help & feedback</span>
+            <span class="flex items-center gap-2">
+                <HugeiconsIcon icon={LifeBuoy} size={13} />
+                Help & feedback
+            </span>
         </DropdownMenu.Item>
         <DropdownMenu.Item>
             <span class="flex items-center gap-2 text-[var(--color-error)]">
-                <LogOut size={13} />
+                <HugeiconsIcon icon={LogOut} size={13} />
                 Sign out
             </span>
             <Kbd shortcut="shift+cmd+Q" />

@@ -1,9 +1,10 @@
 <script lang="ts">
-    import ExternalLink from '@lucide/svelte/icons/external-link';
-    import RefreshCw from '@lucide/svelte/icons/refresh-cw';
+    import ExternalLink from '@hugeicons/core-free-icons/LinkSquare02Icon';
+    import RefreshCw from '@hugeicons/core-free-icons/RefreshIcon';
     import { Button } from '@mielui/svelte/components/button';
     import * as CodeBlock from '@mielui/svelte/components/code-block';
     import * as Tooltip from '@mielui/svelte/components/tooltip';
+    import HugeiconsIcon from '@mielui/svelte/hugeicons-icon';
 
     const code = `SELECT id, email, created_at
 FROM users
@@ -18,7 +19,7 @@ LIMIT 50;`;
             <Tooltip.Root>
                 <Tooltip.Trigger>
                     <Button variant="ghost" size="icon" aria-label="Run query">
-                        <RefreshCw size={15} />
+                        <HugeiconsIcon icon={RefreshCw} size={15} />
                     </Button>
                 </Tooltip.Trigger>
                 <Tooltip.Content>Run query</Tooltip.Content>
@@ -26,7 +27,7 @@ LIMIT 50;`;
             <Tooltip.Root>
                 <Tooltip.Trigger>
                     <Button variant="ghost" size="icon" aria-label="Open in editor">
-                        <ExternalLink size={15} />
+                        <HugeiconsIcon icon={ExternalLink} size={15} />
                     </Button>
                 </Tooltip.Trigger>
                 <Tooltip.Content>Open in editor</Tooltip.Content>

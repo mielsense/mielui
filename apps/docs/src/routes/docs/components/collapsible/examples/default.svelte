@@ -7,8 +7,8 @@
 <div class="w-full max-w-md">
     <Collapsible.Root bind:open>
         <Collapsible.Trigger>Open panel</Collapsible.Trigger>
-        <Collapsible.Content
-            >This content is revealed when the trigger is clicked.</Collapsible.Content
-        >
+        <Collapsible.Content>
+            This content is revealed when the trigger is clicked.
+        </Collapsible.Content>
     </Collapsible.Root>
 </div>

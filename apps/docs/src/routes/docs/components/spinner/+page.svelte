@@ -22,10 +22,9 @@
 <div data-docs-page class="flex flex-col gap-10">
     <header class="flex items-start justify-between gap-4">
         <div>
-            <Typography.H1> Spinner </Typography.H1>
+            <Typography.H1>Spinner</Typography.H1>
             <Typography.Text variant="lead" class="mt-2 max-w-2xl">
-                A compact loading indicator with a paced rotation that keeps indeterminate work
-                feeling active.
+                A rotating loading indicator that can transition to a completion checkmark.
             </Typography.Text>
         </div>
         <DocsPager />
@@ -59,7 +58,8 @@
     <section id="pace" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Speed and curved rotation</Typography.H2>
         <Typography.Text variant="supporting">
-            Pass <Typography.InlineCode>speed</Typography.InlineCode> to scale the rotation pace, or
+            Pass{' '}
+            <Typography.InlineCode>speed</Typography.InlineCode> to scale the rotation pace, or
             <Typography.InlineCode>curved</Typography.InlineCode>
             for a varying-speed rotation that never stalls. The default stays a continuous spin.
         </Typography.Text>
@@ -69,8 +69,9 @@
     <section id="ready-state" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Completion state</Typography.H2>
         <Typography.Text variant="supporting">
-            Pass <Typography.InlineCode>ready</Typography.InlineCode> after a successful operation.
-            The spinner resolves to a checkmark, holds it for two seconds, then blurs and collapses
+            Pass{' '}
+            <Typography.InlineCode>ready</Typography.InlineCode> after a successful operation. The
+            spinner resolves to a checkmark, holds it for two seconds, then blurs and collapses
             without requiring parent state to unmount it.
         </Typography.Text>
         <ComponentPreview code={ReadyStateSrc}><ReadyState /></ComponentPreview>

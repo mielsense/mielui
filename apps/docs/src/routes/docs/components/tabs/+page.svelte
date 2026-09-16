@@ -30,7 +30,7 @@
     <!-- ─── Header ────────────────────────────────────────────────── -->
     <header class="flex items-start justify-between gap-4">
         <div>
-            <Typography.H1> Tabs </Typography.H1>
+            <Typography.H1>Tabs</Typography.H1>
             <Typography.Text variant="lead" class="mt-2 max-w-2xl">
                 A horizontal or vertical switcher for views that share a context. Comes in three
                 variants.
@@ -55,9 +55,7 @@
     <!-- ─── Usage ─────────────────────────────────────────────────── -->
     <section id="usage" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Usage</Typography.H2>
-        <Typography.Text variant="supporting"
-            >Import Tabs and use it in your component:</Typography.Text
-        >
+
         <CodeBlock
             code={`import * as Tabs from '$lib/mielui/components/tabs';\n\n<Tabs.Root bind:value={tab}>\n  <Tabs.List>\n    <Tabs.Trigger value="tab1">Tab 1</Tabs.Trigger>\n    <Tabs.Trigger value="tab2">Tab 2</Tabs.Trigger>\n  </Tabs.List>\n  <Tabs.Content value="tab1">Content 1</Tabs.Content>\n  <Tabs.Content value="tab2">Content 2</Tabs.Content>\n</Tabs.Root>`}
             lang="svelte"
@@ -69,9 +67,6 @@
     <section id="examples" class="scroll-mt-20 flex flex-col gap-10">
         <div>
             <Typography.H2 class="docs-section-heading">Examples</Typography.H2>
-            <Typography.Text variant="supporting" class="mt-2">
-                Explore Tabs in different variants and orientations.
-            </Typography.Text>
         </div>
 
         <div id="variant-default" class="scroll-mt-20 flex flex-col gap-3">
@@ -99,7 +94,8 @@
             <div>
                 <Typography.H3 class="docs-subsection-heading">Vertical</Typography.H3>
                 <Typography.Text variant="supporting" class="mt-2">
-                    Set <Typography.InlineCode>orientation="vertical"</Typography.InlineCode> for a
+                    Set{' '}
+                    <Typography.InlineCode>orientation="vertical"</Typography.InlineCode> for a
                     side-by-side layout. Use Up and Down Arrow to move between tabs; Home and End
                     jump to the first and last tab.
                 </Typography.Text>

@@ -17,7 +17,10 @@
 </script>
 
 <svelte:head>
-    <title>Mielui · {TITLE}</title>
+    <title>
+        Mielui ·{' '}
+        {TITLE}
+    </title>
     <meta
         name="description"
         content="Expandable AI tool calls designed for inline chat transcripts."
@@ -48,8 +51,9 @@
     <section id="usage" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Usage</Typography.H2>
         <Typography.Text variant="supporting">
-            Use <Typography.InlineCode>Item</Typography.InlineCode> to list the commands, searches,
-            and reads completed within a task.
+            Use{' '}
+            <Typography.InlineCode>Item</Typography.InlineCode> to list the commands, searches, and
+            reads completed within a task.
         </Typography.Text>
         <CodeBlock
             code={`import * as Tool from '@mielui/svelte/components/tool';\n\n<Tool.Root name="1 file, 1 search, and 1 command" state="complete" duration="6s" variant="quiet">\n  <Tool.Item name="Bash" detail="pnpm lint" />\n  <Tool.Item name="Grep" detail="InputBar" kind="search" />\n  <Tool.Item name="Read" detail="/lib/input-bar.tsx" kind="read" />\n</Tool.Root>`}
@@ -75,7 +79,8 @@
         <div id="quiet" class="scroll-mt-20 flex flex-col gap-3">
             <Typography.H3 class="docs-subsection-heading">Quiet</Typography.H3>
             <Typography.Text variant="supporting">
-                Use <Typography.InlineCode>variant="quiet"</Typography.InlineCode> when tool details
+                Use{' '}
+                <Typography.InlineCode>variant="quiet"</Typography.InlineCode> when tool details
                 should stay visually secondary to the response.
             </Typography.Text>
             <ComponentPreview code={QuietSrc}><Quiet /></ComponentPreview>

@@ -1,8 +1,9 @@
 <script lang="ts">
-    import ChevronLeft from '@lucide/svelte/icons/chevron-left';
-    import ChevronRight from '@lucide/svelte/icons/chevron-right';
+    import ChevronLeft from '@hugeicons/core-free-icons/ArrowLeft01Icon';
+    import ChevronRight from '@hugeicons/core-free-icons/ArrowRight01Icon';
     import { Button } from '@mielui/svelte/components/button';
-    import { page } from '$app/stores';
+    import HugeiconsIcon from '@mielui/svelte/hugeicons-icon';
+    import { page } from '$app/state';
     import { components, sanitizeComponent } from '$lib/components';
 
     type Page = { href: string; label: string };
@@ -22,7 +23,7 @@
             label: sanitizeComponent(component)
         }))
     ]);
-    const pageIndex = $derived(pages.findIndex((item) => item.href === $page.url.pathname));
+    const pageIndex = $derived(pages.findIndex((item) => item.href === page.url.pathname));
     const prevPage = $derived<Page | undefined>(pageIndex > 0 ? pages[pageIndex - 1] : undefined);
     const nextPage = $derived<Page | undefined>(pageIndex >= 0 ? pages[pageIndex + 1] : undefined);
 </script>
@@ -38,7 +39,7 @@
                 aria-label={`Previous: ${prevPage.label}`}
                 title={`Previous: ${prevPage.label}`}
             >
-                <ChevronLeft size={16} />
+                <HugeiconsIcon icon={ChevronLeft} size={16} />
             </Button>
         {/if}
         {#if nextPage}
@@ -50,7 +51,7 @@
                 aria-label={`Next: ${nextPage.label}`}
                 title={`Next: ${nextPage.label}`}
             >
-                <ChevronRight size={16} />
+                <HugeiconsIcon icon={ChevronRight} size={16} />
             </Button>
         {/if}
     </nav>

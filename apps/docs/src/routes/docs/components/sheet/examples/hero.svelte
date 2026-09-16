@@ -1,11 +1,11 @@
 <script lang="ts">
-    import Circle from '@lucide/svelte/icons/circle';
-    import CircleAlert from '@lucide/svelte/icons/circle-alert';
-    import Minus from '@lucide/svelte/icons/minus';
-    import SignalHigh from '@lucide/svelte/icons/signal-high';
-    import SignalLow from '@lucide/svelte/icons/signal-low';
-    import SignalMedium from '@lucide/svelte/icons/signal-medium';
-    import SquarePen from '@lucide/svelte/icons/square-pen';
+    import CircleAlert from '@hugeicons/core-free-icons/AlertCircleIcon';
+    import Circle from '@hugeicons/core-free-icons/CircleIcon';
+    import SquarePen from '@hugeicons/core-free-icons/Edit01Icon';
+    import Minus from '@hugeicons/core-free-icons/MinusSignIcon';
+    import SignalHigh from '@hugeicons/core-free-icons/SignalHighIcon';
+    import SignalLow from '@hugeicons/core-free-icons/SignalLow01Icon';
+    import SignalMedium from '@hugeicons/core-free-icons/SignalMedium01Icon';
     import * as Avatar from '@mielui/svelte/components/avatar';
     import { Button } from '@mielui/svelte/components/button';
     import { Input } from '@mielui/svelte/components/input';
@@ -14,6 +14,7 @@
     import * as Select from '@mielui/svelte/components/select';
     import * as Sheet from '@mielui/svelte/components/sheet';
     import { Textarea } from '@mielui/svelte/components/textarea';
+    import HugeiconsIcon from '@mielui/svelte/hugeicons-icon';
 
     let open = $state(false);
     let issueTitle = $state('');
@@ -37,7 +38,7 @@
     ];
 
     const assignees = [
-        { value: 'an', label: 'Aidan N.', initials: 'AN' },
+        { value: 'an', label: 'mielsense', initials: 'AN' },
         { value: 'sk', label: 'Sam K.', initials: 'SK' },
         { value: 'unassigned', label: 'Unassigned', initials: '?' }
     ];
@@ -67,13 +68,13 @@
 <div class="flex items-center justify-center">
     <Sheet.Root bind:open>
         <Sheet.Trigger>
-            <SquarePen size={16} />
+            <HugeiconsIcon icon={SquarePen} size={16} />
             New issue
         </Sheet.Trigger>
         <Sheet.Content side="right">
             <Sheet.Header>
                 <div class="flex items-center gap-2.5">
-                    <SquarePen size={18} class="text-foreground-muted" />
+                    <HugeiconsIcon icon={SquarePen} size={18} class="text-foreground-muted" />
                     <Sheet.Title>New issue</Sheet.Title>
                 </div>
                 <Sheet.Description>Create a new issue in Engineering.</Sheet.Description>
@@ -103,7 +104,8 @@
                             <Select.Trigger class="w-full" variant="outline" size="md">
                                 <span class="flex min-w-0 items-center gap-2">
                                     {#if statusMeta}
-                                        <statusMeta.icon
+                                        <HugeiconsIcon
+                                            icon={statusMeta.icon}
                                             size={14}
                                             class="shrink-0 text-foreground-muted"
                                         />
@@ -115,7 +117,11 @@
                                 {#each statuses as item (item.value)}
                                     <Select.Item value={item.value} label={item.label}>
                                         <span class="flex items-center gap-2">
-                                            <item.icon size={14} class="text-foreground-muted" />
+                                            <HugeiconsIcon
+                                                icon={item.icon}
+                                                size={14}
+                                                class="text-foreground-muted"
+                                            />
                                             {item.label}
                                         </span>
                                     </Select.Item>
@@ -130,7 +136,8 @@
                             <Select.Trigger class="w-full" variant="outline" size="md">
                                 <span class="flex min-w-0 items-center gap-2">
                                     {#if priorityMeta}
-                                        <priorityMeta.icon
+                                        <HugeiconsIcon
+                                            icon={priorityMeta.icon}
                                             size={14}
                                             class="shrink-0 text-foreground-muted"
                                         />
@@ -142,7 +149,11 @@
                                 {#each priorities as item (item.value)}
                                     <Select.Item value={item.value} label={item.label}>
                                         <span class="flex items-center gap-2">
-                                            <item.icon size={14} class="text-foreground-muted" />
+                                            <HugeiconsIcon
+                                                icon={item.icon}
+                                                size={14}
+                                                class="text-foreground-muted"
+                                            />
                                             {item.label}
                                         </span>
                                     </Select.Item>
@@ -158,9 +169,9 @@
                                 <span class="flex min-w-0 items-center gap-2">
                                     {#if assigneeMeta}
                                         <Avatar.Root size="sm" class="size-5 shrink-0 text-[10px]">
-                                            <Avatar.Fallback
-                                                >{assigneeMeta.initials}</Avatar.Fallback
-                                            >
+                                            <Avatar.Fallback>
+                                                {assigneeMeta.initials}
+                                            </Avatar.Fallback>
                                         </Avatar.Root>
                                     {/if}
                                     <Select.Value placeholder="Assignee" />

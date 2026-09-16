@@ -59,12 +59,14 @@ pnpm dlx @mielui/svelte list`;
         <Typography.H2 class="docs-section-heading">Option A: Package import</Typography.H2>
         <Typography.Text variant="body" class="m-0 max-w-2xl">
             Install the library and import components from
-            <Typography.InlineCode>@mielui/svelte</Typography.InlineCode>.
+            <Typography.InlineCode>@mielui/svelte</Typography.InlineCode>
+            .
         </Typography.Text>
         <CodeBlock code={packageInstall} lang="shell" copy="overlay" />
         <Typography.Text variant="body" class="m-0 max-w-2xl">
             Import the stylesheet once (for example in
-            <Typography.InlineCode>src/app.css</Typography.InlineCode>):
+            <Typography.InlineCode>src/app.css</Typography.InlineCode>
+            ):
         </Typography.Text>
         <CodeBlock code={packageCss} lang="css" copy="overlay" />
         <Typography.Text variant="body" class="m-0 max-w-2xl">Use a component:</Typography.Text>
@@ -73,8 +75,10 @@ pnpm dlx @mielui/svelte list`;
             Compound components use a namespace export (for example
             <Typography.InlineCode>Dialog</Typography.InlineCode>
             with
-            <Typography.InlineCode>Dialog.Root</Typography.InlineCode>,
-            <Typography.InlineCode>Dialog.Content</Typography.InlineCode>, …).
+            <Typography.InlineCode>Dialog.Root</Typography.InlineCode>
+            ,
+            <Typography.InlineCode>Dialog.Content</Typography.InlineCode>
+            , …).
         </Typography.Text>
     </section>
 
@@ -82,8 +86,10 @@ pnpm dlx @mielui/svelte list`;
         <Typography.H2 class="docs-section-heading">Option B: CLI source copy</Typography.H2>
         <Typography.Text variant="body" class="m-0 max-w-2xl">
             The CLI copies source into your project. The package name is
-            <Typography.InlineCode>@mielui/svelte</Typography.InlineCode>; the binary is
-            <Typography.InlineCode>mielui</Typography.InlineCode>.
+            <Typography.InlineCode>@mielui/svelte</Typography.InlineCode>
+            ; the binary is
+            <Typography.InlineCode>mielui</Typography.InlineCode>
+            .
         </Typography.Text>
 
         <Typography.H3 class="m-0 docs-subsection-heading">
@@ -96,14 +102,14 @@ pnpm dlx @mielui/svelte list`;
 
         <Typography.H3 class="m-0 docs-subsection-heading">3. Initialize Mielui</Typography.H3>
         <Typography.Text variant="body" class="m-0 max-w-2xl">
-            Creates <Typography.InlineCode>src/lib/mielui/</Typography.InlineCode> (tokens +
-            utilities) and <Typography.InlineCode>mielui.json</Typography.InlineCode>.
+            Creates{' '}
+            <Typography.InlineCode>src/lib/mielui/</Typography.InlineCode> (tokens + utilities) and{' '}
+            <Typography.InlineCode>mielui.json</Typography.InlineCode>
+            .
         </Typography.Text>
         <CodeBlock code="pnpm dlx @mielui/svelte init -y" lang="shell" copy="overlay" />
 
-        <Typography.H3 class="m-0 docs-subsection-heading">
-            4. Import the stylesheet
-        </Typography.H3>
+        <Typography.H3 class="m-0 docs-subsection-heading">4. Import the stylesheet</Typography.H3>
         <CodeBlock code={cliCss} lang="css" copy="overlay" />
 
         <Typography.H3 class="m-0 docs-subsection-heading">5. Add components</Typography.H3>
@@ -122,18 +128,21 @@ pnpm dlx @mielui/svelte list`;
                 Tailwind v3 is not supported. Mielui needs v4
                 <Typography.InlineCode>@theme</Typography.InlineCode>
                 and
-                <Typography.InlineCode>color-mix</Typography.InlineCode>.
+                <Typography.InlineCode>color-mix</Typography.InlineCode>
+                .
             </li>
             <li>
-                Dark mode uses a <Typography.InlineCode>.dark</Typography.InlineCode> class on
-                <Typography.InlineCode>&lt;html&gt;</Typography.InlineCode>.
+                Dark mode uses a<Typography.InlineCode>.dark</Typography.InlineCode> class on
+                <Typography.InlineCode>&lt;html&gt;</Typography.InlineCode>
+                .
             </li>
             <li>
                 Built-in theme presets install with
-                <Typography.InlineCode
-                    >pnpm dlx @mielui/svelte add theme &lt;slug&gt;</Typography.InlineCode
-                >
-                (for example <Typography.InlineCode>default</Typography.InlineCode>).
+                <Typography.InlineCode>
+                    pnpm dlx @mielui/svelte add theme &lt;slug&gt;
+                </Typography.InlineCode>
+                (for example<Typography.InlineCode>default</Typography.InlineCode>
+                ).
             </li>
         </ul>
     </section>
@@ -141,15 +150,16 @@ pnpm dlx @mielui/svelte list`;
     <section id="next" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Next</Typography.H2>
         <Typography.Text variant="body" class="m-0">
-            <a class="text-foreground underline underline-offset-2" href={resolve('/docs/theming')}
-                >Theming</a
-            >
+            <a class="text-foreground underline underline-offset-2" href={resolve('/docs/theming')}>
+                Theming
+            </a>
             ·
             <a
                 class="text-foreground underline underline-offset-2"
                 href={resolve('/docs/components')}
-                >Components</a
             >
+                Components
+            </a>
         </Typography.Text>
     </section>
 </div>

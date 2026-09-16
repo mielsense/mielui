@@ -42,7 +42,8 @@
             {#if answer}
                 <Message.Root from="user">
                     <Message.Content>
-                        Use {Array.isArray(answer) ? answer.join(', ') : answer}.
+                        Use{Array.isArray(answer) ? answer.join(', ') : answer}
+                        .
                     </Message.Content>
                 </Message.Root>
             {/if}
@@ -82,9 +83,9 @@
                     </Question.Options>
                 </Question.Content>
                 <Question.Actions>
-                    <Question.Cancel onclick={() => (asking = false)}
-                        >Skip question</Question.Cancel
-                    >
+                    <Question.Cancel onclick={() => (asking = false)}>
+                        Skip question
+                    </Question.Cancel>
                     <Question.Submit />
                 </Question.Actions>
             </Question.Root>

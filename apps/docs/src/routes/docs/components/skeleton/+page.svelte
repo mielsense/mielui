@@ -12,13 +12,19 @@
     import Rectangle from './examples/rectangle.svelte';
     import RectangleSrc from './examples/rectangle.svelte?raw';
 
+    import Shimmer from './examples/shimmer.svelte';
+    import ShimmerSrc from './examples/shimmer.svelte?raw';
+
     const TITLE = 'Skeleton';
 
     const installCommand = 'pnpm dlx @mielui/svelte add skeleton';
 </script>
 
 <svelte:head>
-    <title>Mielui · {TITLE}</title>
+    <title>
+        Mielui ·{' '}
+        {TITLE}
+    </title>
     <meta name="description" content="Loading content without flicker or layout shift." />
 </svelte:head>
 
@@ -51,9 +57,10 @@
     <section id="usage" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Usage</Typography.H2>
         <Typography.Text variant="supporting">
-            Use <Typography.InlineCode>SkeletonSwap</Typography.InlineCode> around asynchronous
-            content. Fast responses skip the placeholder; once shown, it stays visible long enough
-            to avoid a flash.
+            Use{' '}
+            <Typography.InlineCode>SkeletonSwap</Typography.InlineCode> around asynchronous content.
+            Fast responses skip the placeholder; once shown, it stays visible long enough to avoid a
+            flash.
         </Typography.Text>
         <CodeBlock
             code={`import { SkeletonSwap } from '$lib/mielui/components/skeleton';
@@ -71,8 +78,17 @@
         <div>
             <Typography.H2 class="docs-section-heading">Examples</Typography.H2>
             <Typography.Text variant="supporting" class="mt-2">
-                Use the static Skeleton primitive when you need to compose a custom placeholder.
+                Combine Skeleton shapes to match the content being loaded.
             </Typography.Text>
+        </div>
+
+        <div class="flex flex-col gap-3">
+            <Typography.H3>Shimmer</Typography.H3>
+            <Typography.Text>
+                Set variant="shimmer" for an animated highlight. The default stays still. Reduced
+                motion disables the highlight.
+            </Typography.Text>
+            <ComponentPreview code={ShimmerSrc}><Shimmer /></ComponentPreview>
         </div>
 
         <!-- Rectangle -->

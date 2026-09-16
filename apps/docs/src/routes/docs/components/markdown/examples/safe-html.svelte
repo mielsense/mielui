@@ -1,6 +1,7 @@
 <script lang="ts">
-    import ShieldCheck from '@lucide/svelte/icons/shield-check';
+    import ShieldCheck from '@hugeicons/core-free-icons/ShieldCheckIcon';
     import { Markdown } from '@mielui/svelte/components/markdown';
+    import HugeiconsIcon from '@mielui/svelte/hugeicons-icon';
 
     const untrustedOutput = [
         '## Imported model output',
@@ -18,7 +19,7 @@
         <div
             class="flex size-8 shrink-0 items-center justify-center rounded-[var(--radius-lg)] bg-secondary text-foreground-muted"
         >
-            <ShieldCheck size={16} strokeWidth={1.8} aria-hidden="true" />
+            <HugeiconsIcon icon={ShieldCheck} size={16} strokeWidth={1.8} aria-hidden="true" />
         </div>
         <div>
             <p class="font-[var(--font-weight-label)] text-foreground">

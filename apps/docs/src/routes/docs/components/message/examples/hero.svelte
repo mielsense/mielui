@@ -1,10 +1,11 @@
 <script lang="ts">
-    import ThumbsUp from '@lucide/svelte/icons/thumbs-up';
+    import ThumbsUp from '@hugeicons/core-free-icons/ThumbsUpIcon';
     import { Button } from '@mielui/svelte/components/button';
     import { CopyButton } from '@mielui/svelte/components/copy-button';
     import { Markdown } from '@mielui/svelte/components/markdown';
     import * as Message from '@mielui/svelte/components/message';
     import * as Reasoning from '@mielui/svelte/components/reasoning';
+    import HugeiconsIcon from '@mielui/svelte/hugeicons-icon';
 
     const response = [
         '### Billing API v2',
@@ -60,7 +61,12 @@
                 aria-pressed={helpful}
                 onclick={() => (helpful = !helpful)}
             >
-                <ThumbsUp size={15} fill={helpful ? 'currentColor' : 'none'} aria-hidden="true" />
+                <HugeiconsIcon
+                    icon={ThumbsUp}
+                    size={15}
+                    fill={helpful ? 'currentColor' : 'none'}
+                    aria-hidden="true"
+                />
             </Button>
         </Message.Actions>
     </Message.Root>

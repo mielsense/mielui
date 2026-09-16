@@ -67,7 +67,8 @@
             to drop the cues entirely, or
             <Typography.InlineCode>{'blur={false}'}</Typography.InlineCode>
             to keep the fade and chevrons without the
-            <Typography.InlineCode>backdrop-filter</Typography.InlineCode>.
+            <Typography.InlineCode>backdrop-filter</Typography.InlineCode>
+            .
         </Typography.Text>
     </section>
 
@@ -93,8 +94,8 @@
                 The cue blurs the content passing under it. Pass
                 <Typography.InlineCode>{'blur={false}'}</Typography.InlineCode>
                 to keep the fade and chevrons without the
-                <Typography.InlineCode>backdrop-filter</Typography.InlineCode>, which is worth doing
-                over long or animated content.
+                <Typography.InlineCode>backdrop-filter</Typography.InlineCode>
+                , which is worth doing over long or animated content.
             </Typography.Text>
             <ComponentPreview code={BlurSrc}>
                 <Blur />

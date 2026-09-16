@@ -18,7 +18,10 @@
 </script>
 
 <svelte:head>
-    <title>Mielui · {TITLE}</title>
+    <title>
+        Mielui ·{' '}
+        {TITLE}
+    </title>
     <meta
         name="description"
         content="A trail of links showing the user's position in a hierarchy."
@@ -48,16 +51,14 @@
 
     <!-- ─── Installation ──────────────────────────────────────────── -->
     <section id="installation" class="scroll-mt-20 flex flex-col gap-4">
-        <Typography.H2 class="docs-section-heading"> Installation </Typography.H2>
+        <Typography.H2 class="docs-section-heading">Installation</Typography.H2>
         <InstallCommand command={installCommand} />
     </section>
 
     <!-- ─── Usage ─────────────────────────────────────────────────── -->
     <section id="usage" class="scroll-mt-20 flex flex-col gap-4">
-        <Typography.H2 class="docs-section-heading"> Usage </Typography.H2>
-        <Typography.Text variant="supporting">
-            Import and use the Breadcrumb components:
-        </Typography.Text>
+        <Typography.H2 class="docs-section-heading">Usage</Typography.H2>
+
         <CodeBlock
             code={`import * as Breadcrumb from '$lib/mielui/components/breadcrumb';\n\n<Breadcrumb.Root>\n  <Breadcrumb.Item href="/">Home</Breadcrumb.Item>\n  <Breadcrumb.Separator>/</Breadcrumb.Separator>\n  <Breadcrumb.Item>Current</Breadcrumb.Item>\n</Breadcrumb.Root>`}
             lang="svelte"
@@ -68,12 +69,12 @@
     <!-- ─── Examples ──────────────────────────────────────────────── -->
     <section id="examples" class="scroll-mt-20 flex flex-col gap-10">
         <div>
-            <Typography.H2 class="docs-section-heading"> Examples </Typography.H2>
+            <Typography.H2 class="docs-section-heading">Examples</Typography.H2>
         </div>
 
         <!-- Separator styles -->
         <div id="separators" class="scroll-mt-20 flex flex-col gap-3">
-            <Typography.H3 class="docs-subsection-heading"> Separator styles </Typography.H3>
+            <Typography.H3 class="docs-subsection-heading">Separator styles</Typography.H3>
             <ComponentPreview code={SeparatorsSrc}>
                 <Separators />
             </ComponentPreview>
@@ -81,7 +82,7 @@
 
         <!-- With home icon -->
         <div id="with-icon" class="scroll-mt-20 flex flex-col gap-3">
-            <Typography.H3 class="docs-subsection-heading"> With home icon </Typography.H3>
+            <Typography.H3 class="docs-subsection-heading">With home icon</Typography.H3>
             <ComponentPreview code={WithIconSrc}>
                 <WithIcon />
             </ComponentPreview>

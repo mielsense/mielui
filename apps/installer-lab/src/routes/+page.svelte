@@ -373,15 +373,17 @@
                             size="sm"
                             disabled={terminalBusy}
                             onclick={() => (mode = 'automatic')}
-                            >Automatic</Button
                         >
+                            Automatic
+                        </Button>
                         <Button
                             variant={mode === 'manual' ? 'secondary' : 'ghost'}
                             size="sm"
                             disabled={active}
                             onclick={() => (mode = 'manual')}
-                            >Manual terminal</Button
                         >
+                            Manual terminal
+                        </Button>
                     </div>
                 </div>
 
@@ -393,15 +395,17 @@
                             size="sm"
                             disabled={controlsDisabled}
                             onclick={() => (source = 'local')}
-                            >Local working tree</Button
                         >
+                            Local working tree
+                        </Button>
                         <Button
                             variant={source === 'npm' ? 'secondary' : 'ghost'}
                             size="sm"
                             disabled={controlsDisabled}
                             onclick={() => (source = 'npm')}
-                            >npm latest</Button
                         >
+                            npm latest
+                        </Button>
                     </div>
                 </div>
 
@@ -413,15 +417,17 @@
                             size="sm"
                             disabled={controlsDisabled}
                             onclick={() => (installPath = 'cli')}
-                            >CLI source-copy</Button
                         >
+                            CLI source-copy
+                        </Button>
                         <Button
                             variant={installPath === 'package' ? 'secondary' : 'ghost'}
                             size="sm"
                             disabled={controlsDisabled}
                             onclick={() => (installPath = 'package')}
-                            >Package imports</Button
                         >
+                            Package imports
+                        </Button>
                     </div>
                 </div>
 
@@ -441,8 +447,9 @@
                             size="sm"
                             disabled={terminalBusy}
                             onclick={() => prepareTerminal(true)}
-                            >Recreate app</Button
                         >
+                            Recreate app
+                        </Button>
                     {:else if active}
                         <Button variant="destructive" onclick={cancelRun}>Cancel</Button>
                     {:else}
@@ -521,9 +528,9 @@
                     <div class="manual-heading">
                         <div>
                             <span class="manual-title">Command guide</span>
-                            <span class="manual-description"
-                                >App setup is automatic. Choose a Mielui command, then run it.</span
-                            >
+                            <span class="manual-description">
+                                App setup is automatic. Choose a Mielui command, then run it.
+                            </span>
                         </div>
                         <code>{manualPlan?.workspace ?? 'Preparing workspace…'}</code>
                     </div>
@@ -539,14 +546,14 @@
                                             disabled={!terminalReady || terminalBusy}
                                             onclick={() => selectManualCommand(step.command)}
                                         >
-                                            <span class="step-index tabular"
-                                                >{String(index + 1).padStart(2, '0')}</span
-                                            >
+                                            <span class="step-index tabular">
+                                                {String(index + 1).padStart(2, '0')}
+                                            </span>
                                             <span class="step-copy">
                                                 <span class="step-title">{step.title}</span>
-                                                <span class="step-description"
-                                                    >{step.description}</span
-                                                >
+                                                <span class="step-description">
+                                                    {step.description}
+                                                </span>
                                                 <code>{step.command}</code>
                                             </span>
                                         </Button>
@@ -595,12 +602,13 @@
                                     variant="destructive"
                                     size="sm"
                                     onclick={cancelTerminal}
-                                    >Cancel</Button
                                 >
+                                    Cancel
+                                </Button>
                             {:else}
-                                <Button type="submit" size="sm" disabled={!terminalInput.trim()}
-                                    >Run</Button
-                                >
+                                <Button type="submit" size="sm" disabled={!terminalInput.trim()}>
+                                    Run
+                                </Button>
                             {/if}
                         </form>
                     </Card.Root>

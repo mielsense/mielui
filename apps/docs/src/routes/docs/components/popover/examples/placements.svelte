@@ -8,7 +8,7 @@
             <Popover.Trigger size="md" variant="outline">{placement}</Popover.Trigger>
             <Popover.Content class="w-48">
                 <div class="p-3">
-                    <p class="m-0 text-sm text-foreground-muted">Anchored to {placement}</p>
+                    <p class="m-0 text-sm text-foreground-muted">Anchored to{placement}</p>
                 </div>
             </Popover.Content>
         </Popover.Root>

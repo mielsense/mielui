@@ -1,9 +1,10 @@
 <script lang="ts">
-    import ArrowRight from '@lucide/svelte/icons/arrow-right';
-    import Search from '@lucide/svelte/icons/search';
+    import ArrowRight from '@hugeicons/core-free-icons/ArrowRight02Icon';
+    import Search from '@hugeicons/core-free-icons/Search01Icon';
     import { Button } from '@mielui/svelte/components/button';
     import * as Combobox from '@mielui/svelte/components/combobox';
     import * as Typography from '@mielui/svelte/components/typography';
+    import HugeiconsIcon from '@mielui/svelte/hugeicons-icon';
     import type { ScrittoProps } from '@scritto/core';
     import type { Component } from 'svelte';
     import type { HTMLAttributes } from 'svelte/elements';
@@ -84,7 +85,7 @@
             <Typography.H1 class="m-0">Components</Typography.H1>
 
             <Typography.Text variant="lead" class="mt-2 max-w-2xl">
-                Build with easy-to-style UI components.
+                Browse components and their examples.
             </Typography.Text>
         </div>
         <DocsPager />
@@ -99,7 +100,7 @@
                     class="w-full sm:max-w-sm"
                 >
                     {#snippet trailing()}
-                        <Search size={16} />
+                        <HugeiconsIcon icon={Search} size={16} />
                     {/snippet}
                 </Combobox.Trigger>
                 <Combobox.Content class="max-h-56">
@@ -131,7 +132,8 @@
     {#if visibleTotal === 0}
         <section aria-label="No matching components" class="flex flex-col items-start gap-3">
             <Typography.Text variant="supporting">
-                No components match “{query.trim()}”.
+                No components match “{query.trim()}
+                ”.
             </Typography.Text>
             <Button variant="outline" size="md" onclick={() => (query = '')}>Clear search</Button>
         </section>
@@ -156,7 +158,8 @@
                             class="group flex min-h-16 items-center justify-between gap-4 rounded-[var(--radius-lg)] border border-border bg-card px-4 py-3 text-foreground transition-[border-color,background-color] duration-200 hover:border-border-strong hover:bg-secondary/45 motion-reduce:transition-none"
                         >
                             <span class="font-medium">{sanitizeComponent(component)}</span>
-                            <ArrowRight
+                            <HugeiconsIcon
+                                icon={ArrowRight}
                                 size={15}
                                 class="text-foreground-muted transition-transform duration-200 group-hover:translate-x-0.5 motion-reduce:transition-none"
                                 aria-hidden="true"
