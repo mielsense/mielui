@@ -71,14 +71,14 @@
                         class={cn(
                             className,
                             overlaySurface(surface),
-                            'mielui-modal-frame flex max-h-[var(--bits-dropdown-menu-content-available-height)] max-w-[var(--bits-dropdown-menu-content-available-width)] min-w-44 origin-[var(--bits-dropdown-menu-content-transform-origin)] flex-col overflow-hidden text-sm text-foreground outline-none shadow-[var(--elevation-float)] [--mielui-modal-inset:calc(var(--spacing)*0.5)]',
-                            'min-w-[var(--bits-dropdown-menu-anchor-width)]'
+                            'mielui-modal-frame z-[130] flex max-h-[var(--bits-floating-available-height)] max-w-[var(--bits-floating-available-width)] min-w-44 origin-[var(--bits-floating-transform-origin)] flex-col overflow-hidden text-sm text-foreground outline-none shadow-[var(--elevation-float)] [--mielui-modal-inset:calc(var(--spacing)*0.5)]',
+                            'min-w-[var(--bits-floating-anchor-width)]'
                         )}
                     >
                         <div
                             use:travelingHighlight
                             use:dynamicWidth={{ enabled: dynamic }}
-                            class="mielui-inset-surface flex min-h-0 flex-col overflow-auto overscroll-contain p-1"
+                            class="mielui-inset-surface flex min-h-0 flex-col overflow-auto overscroll-contain p-1 [&>*]:shrink-0"
                         >
                             {@render children?.()}
                         </div>

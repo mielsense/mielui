@@ -1,23 +1,5 @@
 [
     {
-        "name": "ondragover",
-        "type": "DragEventHandler<HTMLAnchorElement> | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
-        "name": "ondragovercapture",
-        "type": "DragEventHandler<HTMLAnchorElement> | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
         "name": "on:dragstart",
         "type": "DragEventHandler<HTMLAnchorElement> | null | undefined",
         "required": false,
@@ -1359,17 +1341,116 @@
         "inherited": true
     },
     {
-        "name": "aria-label",
+        "name": "type",
         "type": "string | null | undefined",
         "required": false,
         "bindable": false,
-        "default": "'Breadcrumb'",
-        "description": "Defines a string value that labels the current element.",
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "href",
+        "type": "string | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "crossorigin",
+        "type": "\"\" | \"anonymous\" | \"use-credentials\" | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "decoding",
+        "type": "\"auto\" | \"async\" | \"sync\" | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "fetchpriority",
+        "type": "\"auto\" | \"high\" | \"low\" | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "ismap",
+        "type": "boolean | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "loading",
+        "type": "\"eager\" | \"lazy\" | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "sizes",
+        "type": "string | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "srcset",
+        "type": "string | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "usemap",
+        "type": "string | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "bind:naturalWidth",
+        "type": "number | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "bind:naturalHeight",
+        "type": "number | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
         "inherited": true
     },
     {
         "name": "on:copy",
-        "type": "ClipboardEventHandler<HTMLHeadingElement> | null | undefined",
+        "type": "ClipboardEventHandler<HTMLImageElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1378,7 +1459,7 @@
     },
     {
         "name": "oncopy",
-        "type": "ClipboardEventHandler<HTMLHeadingElement> | null | undefined",
+        "type": "ClipboardEventHandler<HTMLImageElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1387,7 +1468,7 @@
     },
     {
         "name": "oncopycapture",
-        "type": "ClipboardEventHandler<HTMLHeadingElement> | null | undefined",
+        "type": "ClipboardEventHandler<HTMLImageElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1396,7 +1477,7 @@
     },
     {
         "name": "on:cut",
-        "type": "ClipboardEventHandler<HTMLHeadingElement> | null | undefined",
+        "type": "ClipboardEventHandler<HTMLImageElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1405,7 +1486,7 @@
     },
     {
         "name": "oncut",
-        "type": "ClipboardEventHandler<HTMLHeadingElement> | null | undefined",
+        "type": "ClipboardEventHandler<HTMLImageElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1414,7 +1495,7 @@
     },
     {
         "name": "oncutcapture",
-        "type": "ClipboardEventHandler<HTMLHeadingElement> | null | undefined",
+        "type": "ClipboardEventHandler<HTMLImageElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1423,7 +1504,7 @@
     },
     {
         "name": "on:paste",
-        "type": "ClipboardEventHandler<HTMLHeadingElement> | null | undefined",
+        "type": "ClipboardEventHandler<HTMLImageElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1432,7 +1513,7 @@
     },
     {
         "name": "onpaste",
-        "type": "ClipboardEventHandler<HTMLHeadingElement> | null | undefined",
+        "type": "ClipboardEventHandler<HTMLImageElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1441,7 +1522,7 @@
     },
     {
         "name": "onpastecapture",
-        "type": "ClipboardEventHandler<HTMLHeadingElement> | null | undefined",
+        "type": "ClipboardEventHandler<HTMLImageElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1450,7 +1531,7 @@
     },
     {
         "name": "on:compositionend",
-        "type": "CompositionEventHandler<HTMLHeadingElement> | null | undefined",
+        "type": "CompositionEventHandler<HTMLImageElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1459,7 +1540,7 @@
     },
     {
         "name": "oncompositionend",
-        "type": "CompositionEventHandler<HTMLHeadingElement> | null | undefined",
+        "type": "CompositionEventHandler<HTMLImageElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1468,7 +1549,7 @@
     },
     {
         "name": "oncompositionendcapture",
-        "type": "CompositionEventHandler<HTMLHeadingElement> | null | undefined",
+        "type": "CompositionEventHandler<HTMLImageElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1477,7 +1558,7 @@
     },
     {
         "name": "on:compositionstart",
-        "type": "CompositionEventHandler<HTMLHeadingElement> | null | undefined",
+        "type": "CompositionEventHandler<HTMLImageElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1486,7 +1567,7 @@
     },
     {
         "name": "oncompositionstart",
-        "type": "CompositionEventHandler<HTMLHeadingElement> | null | undefined",
+        "type": "CompositionEventHandler<HTMLImageElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1495,7 +1576,7 @@
     },
     {
         "name": "oncompositionstartcapture",
-        "type": "CompositionEventHandler<HTMLHeadingElement> | null | undefined",
+        "type": "CompositionEventHandler<HTMLImageElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1504,7 +1585,7 @@
     },
     {
         "name": "on:compositionupdate",
-        "type": "CompositionEventHandler<HTMLHeadingElement> | null | undefined",
+        "type": "CompositionEventHandler<HTMLImageElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1513,7 +1594,7 @@
     },
     {
         "name": "oncompositionupdate",
-        "type": "CompositionEventHandler<HTMLHeadingElement> | null | undefined",
+        "type": "CompositionEventHandler<HTMLImageElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1522,7 +1603,7 @@
     },
     {
         "name": "oncompositionupdatecapture",
-        "type": "CompositionEventHandler<HTMLHeadingElement> | null | undefined",
+        "type": "CompositionEventHandler<HTMLImageElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1531,7 +1612,7 @@
     },
     {
         "name": "on:focus",
-        "type": "FocusEventHandler<HTMLHeadingElement> | null | undefined",
+        "type": "FocusEventHandler<HTMLImageElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1540,7 +1621,7 @@
     },
     {
         "name": "onfocus",
-        "type": "FocusEventHandler<HTMLHeadingElement> | null | undefined",
+        "type": "FocusEventHandler<HTMLImageElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1549,7 +1630,7 @@
     },
     {
         "name": "onfocuscapture",
-        "type": "FocusEventHandler<HTMLHeadingElement> | null | undefined",
+        "type": "FocusEventHandler<HTMLImageElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1558,7 +1639,7 @@
     },
     {
         "name": "on:focusin",
-        "type": "FocusEventHandler<HTMLHeadingElement> | null | undefined",
+        "type": "FocusEventHandler<HTMLImageElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1567,7 +1648,7 @@
     },
     {
         "name": "onfocusin",
-        "type": "FocusEventHandler<HTMLHeadingElement> | null | undefined",
+        "type": "FocusEventHandler<HTMLImageElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1576,7 +1657,7 @@
     },
     {
         "name": "onfocusincapture",
-        "type": "FocusEventHandler<HTMLHeadingElement> | null | undefined",
+        "type": "FocusEventHandler<HTMLImageElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1585,7 +1666,7 @@
     },
     {
         "name": "on:focusout",
-        "type": "FocusEventHandler<HTMLHeadingElement> | null | undefined",
+        "type": "FocusEventHandler<HTMLImageElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1594,7 +1675,7 @@
     },
     {
         "name": "onfocusout",
-        "type": "FocusEventHandler<HTMLHeadingElement> | null | undefined",
+        "type": "FocusEventHandler<HTMLImageElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1603,7 +1684,7 @@
     },
     {
         "name": "onfocusoutcapture",
-        "type": "FocusEventHandler<HTMLHeadingElement> | null | undefined",
+        "type": "FocusEventHandler<HTMLImageElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1612,7 +1693,7 @@
     },
     {
         "name": "on:blur",
-        "type": "FocusEventHandler<HTMLHeadingElement> | null | undefined",
+        "type": "FocusEventHandler<HTMLImageElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1621,7 +1702,7 @@
     },
     {
         "name": "onblur",
-        "type": "FocusEventHandler<HTMLHeadingElement> | null | undefined",
+        "type": "FocusEventHandler<HTMLImageElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1630,7 +1711,7 @@
     },
     {
         "name": "onblurcapture",
-        "type": "FocusEventHandler<HTMLHeadingElement> | null | undefined",
+        "type": "FocusEventHandler<HTMLImageElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1639,7 +1720,7 @@
     },
     {
         "name": "on:change",
-        "type": "FormEventHandler<HTMLHeadingElement> | null | undefined",
+        "type": "FormEventHandler<HTMLImageElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1648,7 +1729,7 @@
     },
     {
         "name": "onchange",
-        "type": "FormEventHandler<HTMLHeadingElement> | null | undefined",
+        "type": "FormEventHandler<HTMLImageElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1657,7 +1738,7 @@
     },
     {
         "name": "onchangecapture",
-        "type": "FormEventHandler<HTMLHeadingElement> | null | undefined",
+        "type": "FormEventHandler<HTMLImageElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1666,7 +1747,7 @@
     },
     {
         "name": "on:beforeinput",
-        "type": "EventHandler<InputEvent, HTMLHeadingElement> | null | undefined",
+        "type": "EventHandler<InputEvent, HTMLImageElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1675,7 +1756,7 @@
     },
     {
         "name": "onbeforeinput",
-        "type": "EventHandler<InputEvent, HTMLHeadingElement> | null | undefined",
+        "type": "EventHandler<InputEvent, HTMLImageElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1684,7 +1765,7 @@
     },
     {
         "name": "onbeforeinputcapture",
-        "type": "EventHandler<InputEvent, HTMLHeadingElement> | null | undefined",
+        "type": "EventHandler<InputEvent, HTMLImageElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1693,7 +1774,7 @@
     },
     {
         "name": "on:input",
-        "type": "FormEventHandler<HTMLHeadingElement> | null | undefined",
+        "type": "FormEventHandler<HTMLImageElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1702,7 +1783,7 @@
     },
     {
         "name": "oninput",
-        "type": "FormEventHandler<HTMLHeadingElement> | null | undefined",
+        "type": "FormEventHandler<HTMLImageElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1711,7 +1792,7 @@
     },
     {
         "name": "oninputcapture",
-        "type": "FormEventHandler<HTMLHeadingElement> | null | undefined",
+        "type": "FormEventHandler<HTMLImageElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1720,7 +1801,7 @@
     },
     {
         "name": "on:reset",
-        "type": "FormEventHandler<HTMLHeadingElement> | null | undefined",
+        "type": "FormEventHandler<HTMLImageElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1729,7 +1810,7 @@
     },
     {
         "name": "onreset",
-        "type": "FormEventHandler<HTMLHeadingElement> | null | undefined",
+        "type": "FormEventHandler<HTMLImageElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1738,7 +1819,7 @@
     },
     {
         "name": "onresetcapture",
-        "type": "FormEventHandler<HTMLHeadingElement> | null | undefined",
+        "type": "FormEventHandler<HTMLImageElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1747,7 +1828,7 @@
     },
     {
         "name": "on:submit",
-        "type": "EventHandler<SubmitEvent, HTMLHeadingElement> | null | undefined",
+        "type": "EventHandler<SubmitEvent, HTMLImageElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1756,7 +1837,7 @@
     },
     {
         "name": "onsubmit",
-        "type": "EventHandler<SubmitEvent, HTMLHeadingElement> | null | undefined",
+        "type": "EventHandler<SubmitEvent, HTMLImageElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1765,7 +1846,7 @@
     },
     {
         "name": "onsubmitcapture",
-        "type": "EventHandler<SubmitEvent, HTMLHeadingElement> | null | undefined",
+        "type": "EventHandler<SubmitEvent, HTMLImageElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1774,7 +1855,7 @@
     },
     {
         "name": "on:invalid",
-        "type": "EventHandler<Event, HTMLHeadingElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLImageElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1783,7 +1864,7 @@
     },
     {
         "name": "oninvalid",
-        "type": "EventHandler<Event, HTMLHeadingElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLImageElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1792,7 +1873,7 @@
     },
     {
         "name": "oninvalidcapture",
-        "type": "EventHandler<Event, HTMLHeadingElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLImageElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1801,7 +1882,7 @@
     },
     {
         "name": "on:formdata",
-        "type": "EventHandler<FormDataEvent, HTMLHeadingElement> | null | undefined",
+        "type": "EventHandler<FormDataEvent, HTMLImageElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1810,7 +1891,7 @@
     },
     {
         "name": "onformdata",
-        "type": "EventHandler<FormDataEvent, HTMLHeadingElement> | null | undefined",
+        "type": "EventHandler<FormDataEvent, HTMLImageElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1819,7 +1900,7 @@
     },
     {
         "name": "onformdatacapture",
-        "type": "EventHandler<FormDataEvent, HTMLHeadingElement> | null | undefined",
+        "type": "EventHandler<FormDataEvent, HTMLImageElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1828,7 +1909,7 @@
     },
     {
         "name": "on:beforetoggle",
-        "type": "ToggleEventHandler<HTMLHeadingElement> | null | undefined",
+        "type": "ToggleEventHandler<HTMLImageElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1837,7 +1918,7 @@
     },
     {
         "name": "onbeforetoggle",
-        "type": "ToggleEventHandler<HTMLHeadingElement> | null | undefined",
+        "type": "ToggleEventHandler<HTMLImageElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1846,7 +1927,7 @@
     },
     {
         "name": "onbeforetogglecapture",
-        "type": "ToggleEventHandler<HTMLHeadingElement> | null | undefined",
+        "type": "ToggleEventHandler<HTMLImageElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1855,7 +1936,7 @@
     },
     {
         "name": "on:toggle",
-        "type": "ToggleEventHandler<HTMLHeadingElement> | null | undefined",
+        "type": "ToggleEventHandler<HTMLImageElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1864,7 +1945,7 @@
     },
     {
         "name": "ontoggle",
-        "type": "ToggleEventHandler<HTMLHeadingElement> | null | undefined",
+        "type": "ToggleEventHandler<HTMLImageElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1873,7 +1954,7 @@
     },
     {
         "name": "ontogglecapture",
-        "type": "ToggleEventHandler<HTMLHeadingElement> | null | undefined",
+        "type": "ToggleEventHandler<HTMLImageElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1882,7 +1963,7 @@
     },
     {
         "name": "on:contentvisibilityautostatechange",
-        "type": "ContentVisibilityAutoStateChangeEventHandler<HTMLHeadingElement> | null | undefined",
+        "type": "ContentVisibilityAutoStateChangeEventHandler<HTMLImageElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1891,7 +1972,7 @@
     },
     {
         "name": "oncontentvisibilityautostatechange",
-        "type": "ContentVisibilityAutoStateChangeEventHandler<HTMLHeadingElement> | null | undefined",
+        "type": "ContentVisibilityAutoStateChangeEventHandler<HTMLImageElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1900,7 +1981,7 @@
     },
     {
         "name": "oncontentvisibilityautostatechangecapture",
-        "type": "ContentVisibilityAutoStateChangeEventHandler<HTMLHeadingElement> | null | undefined",
+        "type": "ContentVisibilityAutoStateChangeEventHandler<HTMLImageElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1909,7 +1990,7 @@
     },
     {
         "name": "on:keydown",
-        "type": "KeyboardEventHandler<HTMLHeadingElement> | null | undefined",
+        "type": "KeyboardEventHandler<HTMLImageElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1918,7 +1999,7 @@
     },
     {
         "name": "onkeydown",
-        "type": "KeyboardEventHandler<HTMLHeadingElement> | null | undefined",
+        "type": "KeyboardEventHandler<HTMLImageElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1927,7 +2008,7 @@
     },
     {
         "name": "onkeydowncapture",
-        "type": "KeyboardEventHandler<HTMLHeadingElement> | null | undefined",
+        "type": "KeyboardEventHandler<HTMLImageElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1936,7 +2017,7 @@
     },
     {
         "name": "on:keypress",
-        "type": "KeyboardEventHandler<HTMLHeadingElement> | null | undefined",
+        "type": "KeyboardEventHandler<HTMLImageElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1945,7 +2026,7 @@
     },
     {
         "name": "onkeypress",
-        "type": "KeyboardEventHandler<HTMLHeadingElement> | null | undefined",
+        "type": "KeyboardEventHandler<HTMLImageElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1954,7 +2035,7 @@
     },
     {
         "name": "onkeypresscapture",
-        "type": "KeyboardEventHandler<HTMLHeadingElement> | null | undefined",
+        "type": "KeyboardEventHandler<HTMLImageElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1963,7 +2044,7 @@
     },
     {
         "name": "on:keyup",
-        "type": "KeyboardEventHandler<HTMLHeadingElement> | null | undefined",
+        "type": "KeyboardEventHandler<HTMLImageElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1972,7 +2053,7 @@
     },
     {
         "name": "onkeyup",
-        "type": "KeyboardEventHandler<HTMLHeadingElement> | null | undefined",
+        "type": "KeyboardEventHandler<HTMLImageElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1981,7 +2062,7 @@
     },
     {
         "name": "onkeyupcapture",
-        "type": "KeyboardEventHandler<HTMLHeadingElement> | null | undefined",
+        "type": "KeyboardEventHandler<HTMLImageElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1990,7 +2071,7 @@
     },
     {
         "name": "on:abort",
-        "type": "EventHandler<Event, HTMLHeadingElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLImageElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1999,7 +2080,7 @@
     },
     {
         "name": "onabort",
-        "type": "EventHandler<Event, HTMLHeadingElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLImageElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -2008,7 +2089,7 @@
     },
     {
         "name": "onabortcapture",
-        "type": "EventHandler<Event, HTMLHeadingElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLImageElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -2017,7 +2098,7 @@
     },
     {
         "name": "on:canplay",
-        "type": "EventHandler<Event, HTMLHeadingElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLImageElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -2026,7 +2107,7 @@
     },
     {
         "name": "oncanplay",
-        "type": "EventHandler<Event, HTMLHeadingElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLImageElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -2035,7 +2116,7 @@
     },
     {
         "name": "oncanplaycapture",
-        "type": "EventHandler<Event, HTMLHeadingElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLImageElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -2044,7 +2125,7 @@
     },
     {
         "name": "on:canplaythrough",
-        "type": "EventHandler<Event, HTMLHeadingElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLImageElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -2053,7 +2134,7 @@
     },
     {
         "name": "oncanplaythrough",
-        "type": "EventHandler<Event, HTMLHeadingElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLImageElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -2062,7 +2143,7 @@
     },
     {
         "name": "oncanplaythroughcapture",
-        "type": "EventHandler<Event, HTMLHeadingElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLImageElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -2071,7 +2152,7 @@
     },
     {
         "name": "on:cuechange",
-        "type": "EventHandler<Event, HTMLHeadingElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLImageElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -2080,7 +2161,7 @@
     },
     {
         "name": "oncuechange",
-        "type": "EventHandler<Event, HTMLHeadingElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLImageElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -2089,7 +2170,7 @@
     },
     {
         "name": "oncuechangecapture",
-        "type": "EventHandler<Event, HTMLHeadingElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLImageElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -2098,7 +2179,7 @@
     },
     {
         "name": "on:durationchange",
-        "type": "EventHandler<Event, HTMLHeadingElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLImageElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -2107,7 +2188,7 @@
     },
     {
         "name": "ondurationchange",
-        "type": "EventHandler<Event, HTMLHeadingElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLImageElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -2116,7 +2197,7 @@
     },
     {
         "name": "ondurationchangecapture",
-        "type": "EventHandler<Event, HTMLHeadingElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLImageElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -2125,7 +2206,7 @@
     },
     {
         "name": "on:emptied",
-        "type": "EventHandler<Event, HTMLHeadingElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLImageElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -2134,7 +2215,7 @@
     },
     {
         "name": "onemptied",
-        "type": "EventHandler<Event, HTMLHeadingElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLImageElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -2143,7 +2224,7 @@
     },
     {
         "name": "onemptiedcapture",
-        "type": "EventHandler<Event, HTMLHeadingElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLImageElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -2152,7 +2233,7 @@
     },
     {
         "name": "on:encrypted",
-        "type": "EventHandler<Event, HTMLHeadingElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLImageElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -2161,88 +2242,7 @@
     },
     {
         "name": "onencrypted",
-        "type": "EventHandler<Event, HTMLHeadingElement> | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
-        "name": "onencryptedcapture",
-        "type": "EventHandler<Event, HTMLHeadingElement> | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
-        "name": "on:ended",
-        "type": "EventHandler<Event, HTMLHeadingElement> | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
-        "name": "onended",
-        "type": "EventHandler<Event, HTMLHeadingElement> | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
-        "name": "onendedcapture",
-        "type": "EventHandler<Event, HTMLHeadingElement> | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
-        "name": "on:loadeddata",
-        "type": "EventHandler<Event, HTMLHeadingElement> | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
-        "name": "onloadeddata",
-        "type": "EventHandler<Event, HTMLHeadingElement> | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
-        "name": "onloadeddatacapture",
-        "type": "EventHandler<Event, HTMLHeadingElement> | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
-        "name": "on:loadedmetadata",
-        "type": "EventHandler<Event, HTMLHeadingElement> | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
-        "name": "onloadedmetadata",
-        "type": "EventHandler<Event, HTMLHeadingElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLImageElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,

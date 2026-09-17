@@ -26,6 +26,10 @@ export const componentGroups = [
 export const components = componentGroups.flatMap((group) => group.items);
 
 export const sanitizeComponent = (name: string) => {
+    if (name === 'otp-field') {
+        return 'OTP Field';
+    }
+
     if (name === 'composer') {
         return 'Composer';
     }

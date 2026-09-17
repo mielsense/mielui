@@ -47,14 +47,17 @@
     "dependencies": {
         "@floating-ui/dom": "1.7.6",
         "@hugeicons/core-free-icons": "^4.3.3",
+        "@internationalized/date": "3.12.0",
         "@mielui/svelte": "workspace:*",
         "@scritto/core": "0.1.0",
         "@scritto/svelte": "0.1.0",
+        "@tanstack/svelte-table": "9.2.4",
         "@vercel/analytics": "2.0.1",
         "clsx": "2.1.1",
         "mode-watcher": "1.1.0",
         "ogl": "1.0.11",
         "svelte-persisted-state": "1.4.1",
-        "tailwind-variants": "3.2.2"
+        "tailwind-variants": "3.2.2",
+        "valibot": "^1.5.0"
     }
 }

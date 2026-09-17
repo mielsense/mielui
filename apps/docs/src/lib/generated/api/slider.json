@@ -139,7 +139,7 @@
             },
             {
                 "name": "range",
-                "type": "boolean | undefined",
+                "type": "false | undefined | true",
                 "required": false,
                 "bindable": false,
                 "default": null,
@@ -148,7 +148,7 @@
             },
             {
                 "name": "value",
-                "type": "number | [number, number] | undefined",
+                "type": "number | undefined | [number, number] | undefined",
                 "required": false,
                 "bindable": true,
                 "default": null,
@@ -157,7 +157,7 @@
             },
             {
                 "name": "thumbLabels",
-                "type": "[string, string] | undefined",
+                "type": "undefined | [string, string] | undefined",
                 "required": false,
                 "bindable": false,
                 "default": null,
@@ -166,7 +166,7 @@
             },
             {
                 "name": "onValueChange",
-                "type": "((value: number) => void) | ((value: [number, number]) => void) | undefined",
+                "type": "((value: number) => void) | undefined | ((value: [number, number]) => void) | undefined",
                 "required": false,
                 "bindable": false,
                 "default": null,

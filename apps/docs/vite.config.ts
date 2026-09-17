@@ -7,6 +7,7 @@ export default defineConfig({
     ssr: {
         noExternal: [
             'bits-ui',
+            '@tanstack/svelte-table',
             ...(process.env.DOCS_ADAPTER === 'node'
                 ? ['@floating-ui/dom', 'clsx', 'tailwind-variants']
                 : [])

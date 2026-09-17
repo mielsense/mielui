@@ -3861,7 +3861,7 @@
             1726,
             {
                 "name": "type",
-                "type": "\"text\" | \"multiple\" | \"single\" | undefined",
+                "type": "\"text\" | \"single\" | undefined | \"multiple\"",
                 "required": false,
                 "bindable": false,
                 "default": "'single'",
@@ -3870,7 +3870,7 @@
             },
             {
                 "name": "value",
-                "type": "string | string[] | undefined",
+                "type": "string | undefined | string[] | undefined",
                 "required": false,
                 "bindable": true,
                 "default": null,
@@ -3879,7 +3879,7 @@
             },
             {
                 "name": "onSubmit",
-                "type": "((answer: string, event: SubmitEvent) => void | Promise<void>) | ((answer: string[], event: SubmitEvent) => void | Promise<void>)",
+                "type": "(answer: string, event: SubmitEvent) => void | Promise<void> | (answer: string[], event: SubmitEvent) => void | Promise<void>",
                 "required": true,
                 "bindable": false,
                 "default": null,

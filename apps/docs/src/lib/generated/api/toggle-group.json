@@ -512,7 +512,7 @@
             },
             {
                 "name": "type",
-                "type": "\"multiple\" | \"single\" | undefined",
+                "type": "\"single\" | undefined | \"multiple\"",
                 "required": false,
                 "bindable": false,
                 "default": null,
@@ -521,7 +521,7 @@
             },
             {
                 "name": "value",
-                "type": "string | string[] | undefined",
+                "type": "string | undefined | string[] | undefined",
                 "required": false,
                 "bindable": true,
                 "default": null,
@@ -530,7 +530,7 @@
             },
             {
                 "name": "onValueChange",
-                "type": "((value: string | undefined) => void) | ((value: string[]) => void) | undefined",
+                "type": "((value: string | undefined) => void) | undefined | ((value: string[]) => void) | undefined",
                 "required": false,
                 "bindable": false,
                 "default": null,

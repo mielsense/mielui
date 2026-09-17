@@ -74,7 +74,7 @@
                 "description": "",
                 "inherited": false
             },
-            4299,
+            4622,
             0,
             1,
             2,
@@ -545,7 +545,7 @@
             3661,
             {
                 "name": "type",
-                "type": "\"number\" | \"hidden\" | \"color\" | \"search\" | \"button\" | \"checkbox\" | \"radio\" | \"text\" | \"tel\" | \"url\" | \"email\" | \"date\" | \"time\" | \"submit\" | \"reset\" | \"image\" | \"datetime-local\" | \"file\" | \"month\" | \"password\" | \"range\" | \"week\" | undefined",
+                "type": "\"file\" | \"checkbox\" | \"radio\" | \"number\" | \"hidden\" | \"color\" | \"search\" | \"button\" | \"text\" | \"tel\" | \"url\" | \"email\" | \"date\" | \"time\" | \"submit\" | \"reset\" | \"image\" | \"datetime-local\" | \"month\" | \"password\" | \"range\" | \"week\" | undefined",
                 "required": false,
                 "bindable": false,
                 "default": "'text'",
@@ -554,7 +554,7 @@
             },
             {
                 "name": "files",
-                "type": "FileList | undefined",
+                "type": "FileList | undefined | undefined",
                 "required": false,
                 "bindable": true,
                 "default": null,
@@ -563,7 +563,7 @@
             },
             {
                 "name": "value",
-                "type": "string | number | undefined",
+                "type": "undefined | string | number | undefined",
                 "required": false,
                 "bindable": true,
                 "default": null,
@@ -572,7 +572,7 @@
             },
             {
                 "name": "checked",
-                "type": "boolean | undefined",
+                "type": "undefined | boolean | undefined",
                 "required": false,
                 "bindable": true,
                 "default": null,

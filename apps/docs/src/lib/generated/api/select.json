@@ -45,7 +45,7 @@
         "properties": [
             {
                 "name": "value",
-                "type": "string | (string & string[])",
+                "type": "string | string | (string & string[])",
                 "required": true,
                 "bindable": false,
                 "default": null,
@@ -615,7 +615,25 @@
             426,
             427,
             428,
-            4298
+            4298,
+            4299,
+            4300,
+            4301,
+            4302,
+            1723,
+            4303,
+            4304,
+            1063,
+            1065,
+            1066,
+            1067,
+            1068,
+            1069,
+            1070,
+            1072,
+            1073,
+            1074,
+            1075
         ]
     },
     {

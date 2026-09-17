@@ -22,12 +22,12 @@
                         class={cn(
                             className,
                             overlaySurface(surface),
-                            'mielui-modal-frame flex max-h-[var(--bits-context-menu-content-available-height)] max-w-[var(--bits-context-menu-content-available-width)] min-w-44 origin-[var(--bits-context-menu-content-transform-origin)] flex-col overflow-hidden text-sm text-foreground outline-none shadow-[var(--elevation-float)] [--mielui-modal-inset:calc(var(--spacing)*0.5)]'
+                            'mielui-modal-frame z-[130] flex max-h-[var(--bits-floating-available-height)] max-w-[var(--bits-floating-available-width)] min-w-44 origin-[var(--bits-floating-transform-origin)] flex-col overflow-hidden text-sm text-foreground outline-none shadow-[var(--elevation-float)] [--mielui-modal-inset:calc(var(--spacing)*0.5)]'
                         )}
                     >
                         <div
                             use:travelingHighlight
-                            class="mielui-inset-surface flex min-h-0 flex-col overflow-auto overscroll-contain p-1"
+                            class="mielui-inset-surface flex min-h-0 flex-col overflow-auto overscroll-contain p-1 [&>*]:shrink-0"
                         >
                             {@render children?.()}
                         </div>

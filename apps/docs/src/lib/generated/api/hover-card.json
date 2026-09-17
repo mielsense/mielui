@@ -13,7 +13,7 @@
             },
             {
                 "name": "side",
-                "type": "\"top\" | \"bottom\" | \"left\" | \"right\" | undefined",
+                "type": "\"left\" | \"right\" | \"top\" | \"bottom\" | undefined",
                 "required": false,
                 "bindable": false,
                 "default": "'bottom'",
@@ -22,7 +22,7 @@
             },
             {
                 "name": "align",
-                "type": "\"start\" | \"center\" | \"end\" | undefined",
+                "type": "\"center\" | \"start\" | \"end\" | undefined",
                 "required": false,
                 "bindable": false,
                 "default": "'center'",

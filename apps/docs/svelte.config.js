@@ -1,7 +1,15 @@
+import { readFileSync } from 'node:fs';
 import adapterNode from '@sveltejs/adapter-node';
 import adapter from '@sveltejs/adapter-vercel';
 import { vitePreprocess } from '@sveltejs/vite-plugin-svelte';
-import categories from '../../packages/mielui/component-categories.json' with { type: 'json' };
+
+/** @type {Record<string, string[]>} */
+const categories = JSON.parse(
+    readFileSync(
+        new URL('../../packages/mielui/component-categories.json', import.meta.url),
+        'utf8'
+    )
+);
 
 const deploymentAdapter = process.env.DOCS_ADAPTER === 'node' ? adapterNode() : adapter();
 
@@ -11,7 +19,10 @@ const config = {
     // for more information about preprocessors
     preprocess: vitePreprocess({ script: true }),
 
+    compilerOptions: { experimental: { async: true } },
+
     kit: {
+        experimental: { remoteFunctions: true },
         adapter: deploymentAdapter,
         alias: {
             ...Object.fromEntries(

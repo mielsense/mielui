@@ -18,7 +18,9 @@ function visitFiles(directory) {
 const files = visitFiles(sourceRoot);
 for (const file of files.filter((file) => file.endsWith('.svelte'))) {
     const source = fs.readFileSync(file, 'utf8');
-    const script = [...source.matchAll(/<script\b[^>]*>([\s\S]*?)<\/script>/g)]
+    const script = [
+        ...source.matchAll(/<script\b(?:[^>"']|"[^"]*"|'[^']*')*>([\s\S]*?)<\/script>/g)
+    ]
         .map((match) => match[1])
         .join('\n');
     const parsed = ts.createSourceFile(
@@ -67,12 +69,20 @@ for (const file of files.filter((file) => file.endsWith('.svelte'))) {
     }
     visit(parsed);
     const generic = source.match(/generics="([^"]+)"/)?.[1];
-    const genericAliases = generic
-        ? generic
-              .split(',')
-              .map((item) => `type ${item.trim().split(/\s/)[0]} = unknown;`)
-              .join('\n')
-        : '';
+    const genericSource = ts.createSourceFile(
+        `${file}.generics.ts`,
+        generic ? `function __DocsGeneric<${generic}>() {}` : '',
+        ts.ScriptTarget.Latest,
+        true,
+        ts.ScriptKind.TS
+    );
+    const genericDeclaration = genericSource.statements.find(ts.isFunctionDeclaration);
+    const genericAliases = (genericDeclaration?.typeParameters ?? [])
+        .map((parameter) => {
+            const fallback = parameter.default ?? parameter.constraint;
+            return `type ${parameter.name.text} = ${fallback?.getText(genericSource) ?? 'unknown'};`;
+        })
+        .join('\n');
     const text = `${script}\n${genericAliases}\nexport type __DocsProps = ${props ?? '{}'};\ndeclare const __DocsComponent: import('svelte').Component<__DocsProps>;\nexport default __DocsComponent;`;
     virtual.set(`${file}.docs.ts`, text);
     metadata.set(file, { defaults, bindings, declared: !!props });
@@ -145,24 +155,41 @@ for (const index of indexes) {
         );
         const type = checker.getTypeAtLocation(alias);
         const meta = metadata.get(file);
-        const properties = checker.getPropertiesOfType(type).map((property) => {
-            const declarations = property.declarations ?? [];
+        const variants = type.isUnion() ? type.types : [type];
+        const propertiesByName = new Map();
+        for (const variant of variants) {
+            for (const property of checker.getPropertiesOfType(variant)) {
+                const entries = propertiesByName.get(property.name) ?? [];
+                entries.push(property);
+                propertiesByName.set(property.name, entries);
+            }
+        }
+        const properties = [...propertiesByName.values()].map((entries) => {
+            const property = entries[0];
+            const declarations = entries.flatMap((entry) => entry.declarations ?? []);
             const inherited =
                 declarations.length > 0 &&
                 declarations.every((node) =>
-                    node.getSourceFile().fileName.includes('/node_modules/')
+                    /\/svelte\/elements\.d\.ts$|\/typescript\/lib\/lib\.dom\.d\.ts$/.test(
+                        node.getSourceFile().fileName
+                    )
                 );
-            const propertyType = checker.getTypeOfSymbolAtLocation(property, alias);
-            const entry = {
-                name: property.name,
-                type: checker
+            const propertyTypes = entries.map((entry) => {
+                const propertyType = checker.getTypeOfSymbolAtLocation(entry, alias);
+                return checker
                     .typeToString(
                         propertyType,
                         undefined,
                         ts.TypeFormatFlags.NoTruncation | ts.TypeFormatFlags.InTypeAlias
                     )
-                    .replace(/import\("[^"]+"\)\./g, ''),
-                required: !(property.flags & ts.SymbolFlags.Optional),
+                    .replace(/import\("[^"]+"\)\./g, '');
+            });
+            const entry = {
+                name: property.name,
+                type: [...new Set(propertyTypes)].join(' | '),
+                required:
+                    entries.length === variants.length &&
+                    entries.every((entry) => !(entry.flags & ts.SymbolFlags.Optional)),
                 bindable: meta.bindings.has(property.name),
                 default: meta.defaults[property.name] ?? null,
                 description: ts

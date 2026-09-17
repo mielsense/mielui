@@ -1,7 +1,34 @@
 [
     {
+        "name": "on:pointerover",
+        "type": "PointerEventHandler<HTMLOListElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onpointerover",
+        "type": "PointerEventHandler<HTMLOListElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onpointerovercapture",
+        "type": "PointerEventHandler<HTMLOListElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
         "name": "on:pointerup",
-        "type": "PointerEventHandler<HTMLDivElement> | PointerEventHandler<HTMLAnchorElement> | null | undefined",
+        "type": "PointerEventHandler<HTMLOListElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -10,7 +37,7 @@
     },
     {
         "name": "onpointerup",
-        "type": "PointerEventHandler<HTMLDivElement> | PointerEventHandler<HTMLAnchorElement> | null | undefined",
+        "type": "PointerEventHandler<HTMLOListElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -19,7 +46,7 @@
     },
     {
         "name": "onpointerupcapture",
-        "type": "PointerEventHandler<HTMLDivElement> | PointerEventHandler<HTMLAnchorElement> | null | undefined",
+        "type": "PointerEventHandler<HTMLOListElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -28,7 +55,7 @@
     },
     {
         "name": "on:lostpointercapture",
-        "type": "PointerEventHandler<HTMLDivElement> | PointerEventHandler<HTMLAnchorElement> | null | undefined",
+        "type": "PointerEventHandler<HTMLOListElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -37,7 +64,7 @@
     },
     {
         "name": "onlostpointercapture",
-        "type": "PointerEventHandler<HTMLDivElement> | PointerEventHandler<HTMLAnchorElement> | null | undefined",
+        "type": "PointerEventHandler<HTMLOListElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -46,7 +73,7 @@
     },
     {
         "name": "onlostpointercapturecapture",
-        "type": "PointerEventHandler<HTMLDivElement> | PointerEventHandler<HTMLAnchorElement> | null | undefined",
+        "type": "PointerEventHandler<HTMLOListElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -55,7 +82,7 @@
     },
     {
         "name": "on:gamepadconnected",
-        "type": "GamepadEventHandler<HTMLDivElement> | GamepadEventHandler<HTMLAnchorElement> | null | undefined",
+        "type": "GamepadEventHandler<HTMLOListElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -64,7 +91,7 @@
     },
     {
         "name": "ongamepadconnected",
-        "type": "GamepadEventHandler<HTMLDivElement> | GamepadEventHandler<HTMLAnchorElement> | null | undefined",
+        "type": "GamepadEventHandler<HTMLOListElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -73,7 +100,7 @@
     },
     {
         "name": "on:gamepaddisconnected",
-        "type": "GamepadEventHandler<HTMLDivElement> | GamepadEventHandler<HTMLAnchorElement> | null | undefined",
+        "type": "GamepadEventHandler<HTMLOListElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -82,7 +109,7 @@
     },
     {
         "name": "ongamepaddisconnected",
-        "type": "GamepadEventHandler<HTMLDivElement> | GamepadEventHandler<HTMLAnchorElement> | null | undefined",
+        "type": "GamepadEventHandler<HTMLOListElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -91,7 +118,7 @@
     },
     {
         "name": "on:scroll",
-        "type": "UIEventHandler<HTMLDivElement> | UIEventHandler<HTMLAnchorElement> | null | undefined",
+        "type": "UIEventHandler<HTMLOListElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -100,7 +127,7 @@
     },
     {
         "name": "onscroll",
-        "type": "UIEventHandler<HTMLDivElement> | UIEventHandler<HTMLAnchorElement> | null | undefined",
+        "type": "UIEventHandler<HTMLOListElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -109,7 +136,7 @@
     },
     {
         "name": "onscrollcapture",
-        "type": "UIEventHandler<HTMLDivElement> | UIEventHandler<HTMLAnchorElement> | null | undefined",
+        "type": "UIEventHandler<HTMLOListElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -118,7 +145,7 @@
     },
     {
         "name": "on:scrollend",
-        "type": "UIEventHandler<HTMLDivElement> | UIEventHandler<HTMLAnchorElement> | null | undefined",
+        "type": "UIEventHandler<HTMLOListElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -127,7 +154,7 @@
     },
     {
         "name": "onscrollend",
-        "type": "UIEventHandler<HTMLDivElement> | UIEventHandler<HTMLAnchorElement> | null | undefined",
+        "type": "UIEventHandler<HTMLOListElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -136,7 +163,7 @@
     },
     {
         "name": "onscrollendcapture",
-        "type": "UIEventHandler<HTMLDivElement> | UIEventHandler<HTMLAnchorElement> | null | undefined",
+        "type": "UIEventHandler<HTMLOListElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -145,7 +172,7 @@
     },
     {
         "name": "on:resize",
-        "type": "UIEventHandler<HTMLDivElement> | UIEventHandler<HTMLAnchorElement> | null | undefined",
+        "type": "UIEventHandler<HTMLOListElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -154,7 +181,7 @@
     },
     {
         "name": "onresize",
-        "type": "UIEventHandler<HTMLDivElement> | UIEventHandler<HTMLAnchorElement> | null | undefined",
+        "type": "UIEventHandler<HTMLOListElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -163,7 +190,7 @@
     },
     {
         "name": "onresizecapture",
-        "type": "UIEventHandler<HTMLDivElement> | UIEventHandler<HTMLAnchorElement> | null | undefined",
+        "type": "UIEventHandler<HTMLOListElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -172,7 +199,7 @@
     },
     {
         "name": "on:wheel",
-        "type": "WheelEventHandler<HTMLDivElement> | WheelEventHandler<HTMLAnchorElement> | null | undefined",
+        "type": "WheelEventHandler<HTMLOListElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -181,7 +208,7 @@
     },
     {
         "name": "onwheel",
-        "type": "WheelEventHandler<HTMLDivElement> | WheelEventHandler<HTMLAnchorElement> | null | undefined",
+        "type": "WheelEventHandler<HTMLOListElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -190,7 +217,7 @@
     },
     {
         "name": "onwheelcapture",
-        "type": "WheelEventHandler<HTMLDivElement> | WheelEventHandler<HTMLAnchorElement> | null | undefined",
+        "type": "WheelEventHandler<HTMLOListElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -199,7 +226,7 @@
     },
     {
         "name": "on:animationstart",
-        "type": "AnimationEventHandler<HTMLDivElement> | AnimationEventHandler<HTMLAnchorElement> | null | undefined",
+        "type": "AnimationEventHandler<HTMLOListElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -208,7 +235,7 @@
     },
     {
         "name": "onanimationstart",
-        "type": "AnimationEventHandler<HTMLDivElement> | AnimationEventHandler<HTMLAnchorElement> | null | undefined",
+        "type": "AnimationEventHandler<HTMLOListElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -217,7 +244,7 @@
     },
     {
         "name": "onanimationstartcapture",
-        "type": "AnimationEventHandler<HTMLDivElement> | AnimationEventHandler<HTMLAnchorElement> | null | undefined",
+        "type": "AnimationEventHandler<HTMLOListElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -226,7 +253,7 @@
     },
     {
         "name": "on:animationend",
-        "type": "AnimationEventHandler<HTMLDivElement> | AnimationEventHandler<HTMLAnchorElement> | null | undefined",
+        "type": "AnimationEventHandler<HTMLOListElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -235,7 +262,7 @@
     },
     {
         "name": "onanimationend",
-        "type": "AnimationEventHandler<HTMLDivElement> | AnimationEventHandler<HTMLAnchorElement> | null | undefined",
+        "type": "AnimationEventHandler<HTMLOListElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -244,7 +271,7 @@
     },
     {
         "name": "onanimationendcapture",
-        "type": "AnimationEventHandler<HTMLDivElement> | AnimationEventHandler<HTMLAnchorElement> | null | undefined",
+        "type": "AnimationEventHandler<HTMLOListElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -253,7 +280,7 @@
     },
     {
         "name": "on:animationiteration",
-        "type": "AnimationEventHandler<HTMLDivElement> | AnimationEventHandler<HTMLAnchorElement> | null | undefined",
+        "type": "AnimationEventHandler<HTMLOListElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -262,7 +289,7 @@
     },
     {
         "name": "onanimationiteration",
-        "type": "AnimationEventHandler<HTMLDivElement> | AnimationEventHandler<HTMLAnchorElement> | null | undefined",
+        "type": "AnimationEventHandler<HTMLOListElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -271,7 +298,7 @@
     },
     {
         "name": "onanimationiterationcapture",
-        "type": "AnimationEventHandler<HTMLDivElement> | AnimationEventHandler<HTMLAnchorElement> | null | undefined",
+        "type": "AnimationEventHandler<HTMLOListElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -280,7 +307,7 @@
     },
     {
         "name": "on:transitionstart",
-        "type": "TransitionEventHandler<HTMLDivElement> | TransitionEventHandler<HTMLAnchorElement> | null | undefined",
+        "type": "TransitionEventHandler<HTMLOListElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -289,7 +316,7 @@
     },
     {
         "name": "ontransitionstart",
-        "type": "TransitionEventHandler<HTMLDivElement> | TransitionEventHandler<HTMLAnchorElement> | null | undefined",
+        "type": "TransitionEventHandler<HTMLOListElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -298,7 +325,7 @@
     },
     {
         "name": "ontransitionstartcapture",
-        "type": "TransitionEventHandler<HTMLDivElement> | TransitionEventHandler<HTMLAnchorElement> | null | undefined",
+        "type": "TransitionEventHandler<HTMLOListElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -307,7 +334,7 @@
     },
     {
         "name": "on:transitionrun",
-        "type": "TransitionEventHandler<HTMLDivElement> | TransitionEventHandler<HTMLAnchorElement> | null | undefined",
+        "type": "TransitionEventHandler<HTMLOListElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -316,7 +343,7 @@
     },
     {
         "name": "ontransitionrun",
-        "type": "TransitionEventHandler<HTMLDivElement> | TransitionEventHandler<HTMLAnchorElement> | null | undefined",
+        "type": "TransitionEventHandler<HTMLOListElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -325,7 +352,7 @@
     },
     {
         "name": "ontransitionruncapture",
-        "type": "TransitionEventHandler<HTMLDivElement> | TransitionEventHandler<HTMLAnchorElement> | null | undefined",
+        "type": "TransitionEventHandler<HTMLOListElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -334,7 +361,7 @@
     },
     {
         "name": "on:transitionend",
-        "type": "TransitionEventHandler<HTMLDivElement> | TransitionEventHandler<HTMLAnchorElement> | null | undefined",
+        "type": "TransitionEventHandler<HTMLOListElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -343,7 +370,7 @@
     },
     {
         "name": "ontransitionend",
-        "type": "TransitionEventHandler<HTMLDivElement> | TransitionEventHandler<HTMLAnchorElement> | null | undefined",
+        "type": "TransitionEventHandler<HTMLOListElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -352,7 +379,7 @@
     },
     {
         "name": "ontransitionendcapture",
-        "type": "TransitionEventHandler<HTMLDivElement> | TransitionEventHandler<HTMLAnchorElement> | null | undefined",
+        "type": "TransitionEventHandler<HTMLOListElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -361,7 +388,7 @@
     },
     {
         "name": "on:transitioncancel",
-        "type": "TransitionEventHandler<HTMLDivElement> | TransitionEventHandler<HTMLAnchorElement> | null | undefined",
+        "type": "TransitionEventHandler<HTMLOListElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -370,7 +397,7 @@
     },
     {
         "name": "ontransitioncancel",
-        "type": "TransitionEventHandler<HTMLDivElement> | TransitionEventHandler<HTMLAnchorElement> | null | undefined",
+        "type": "TransitionEventHandler<HTMLOListElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -379,7 +406,7 @@
     },
     {
         "name": "ontransitioncancelcapture",
-        "type": "TransitionEventHandler<HTMLDivElement> | TransitionEventHandler<HTMLAnchorElement> | null | undefined",
+        "type": "TransitionEventHandler<HTMLOListElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -388,7 +415,7 @@
     },
     {
         "name": "on:outrostart",
-        "type": "EventHandler<CustomEvent<null>, HTMLDivElement> | EventHandler<CustomEvent<null>, HTMLAnchorElement> | null | undefined",
+        "type": "EventHandler<CustomEvent<null>, HTMLOListElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -397,7 +424,7 @@
     },
     {
         "name": "onoutrostart",
-        "type": "EventHandler<CustomEvent<null>, HTMLDivElement> | EventHandler<CustomEvent<null>, HTMLAnchorElement> | null | undefined",
+        "type": "EventHandler<CustomEvent<null>, HTMLOListElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -406,7 +433,7 @@
     },
     {
         "name": "onoutrostartcapture",
-        "type": "EventHandler<CustomEvent<null>, HTMLDivElement> | EventHandler<CustomEvent<null>, HTMLAnchorElement> | null | undefined",
+        "type": "EventHandler<CustomEvent<null>, HTMLOListElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -415,7 +442,7 @@
     },
     {
         "name": "on:outroend",
-        "type": "EventHandler<CustomEvent<null>, HTMLDivElement> | EventHandler<CustomEvent<null>, HTMLAnchorElement> | null | undefined",
+        "type": "EventHandler<CustomEvent<null>, HTMLOListElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -424,7 +451,7 @@
     },
     {
         "name": "onoutroend",
-        "type": "EventHandler<CustomEvent<null>, HTMLDivElement> | EventHandler<CustomEvent<null>, HTMLAnchorElement> | null | undefined",
+        "type": "EventHandler<CustomEvent<null>, HTMLOListElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -433,7 +460,7 @@
     },
     {
         "name": "onoutroendcapture",
-        "type": "EventHandler<CustomEvent<null>, HTMLDivElement> | EventHandler<CustomEvent<null>, HTMLAnchorElement> | null | undefined",
+        "type": "EventHandler<CustomEvent<null>, HTMLOListElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -442,7 +469,7 @@
     },
     {
         "name": "on:introstart",
-        "type": "EventHandler<CustomEvent<null>, HTMLDivElement> | EventHandler<CustomEvent<null>, HTMLAnchorElement> | null | undefined",
+        "type": "EventHandler<CustomEvent<null>, HTMLOListElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -451,7 +478,7 @@
     },
     {
         "name": "onintrostart",
-        "type": "EventHandler<CustomEvent<null>, HTMLDivElement> | EventHandler<CustomEvent<null>, HTMLAnchorElement> | null | undefined",
+        "type": "EventHandler<CustomEvent<null>, HTMLOListElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -460,7 +487,7 @@
     },
     {
         "name": "onintrostartcapture",
-        "type": "EventHandler<CustomEvent<null>, HTMLDivElement> | EventHandler<CustomEvent<null>, HTMLAnchorElement> | null | undefined",
+        "type": "EventHandler<CustomEvent<null>, HTMLOListElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -469,7 +496,7 @@
     },
     {
         "name": "on:introend",
-        "type": "EventHandler<CustomEvent<null>, HTMLDivElement> | EventHandler<CustomEvent<null>, HTMLAnchorElement> | null | undefined",
+        "type": "EventHandler<CustomEvent<null>, HTMLOListElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -478,7 +505,7 @@
     },
     {
         "name": "onintroend",
-        "type": "EventHandler<CustomEvent<null>, HTMLDivElement> | EventHandler<CustomEvent<null>, HTMLAnchorElement> | null | undefined",
+        "type": "EventHandler<CustomEvent<null>, HTMLOListElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -487,7 +514,7 @@
     },
     {
         "name": "onintroendcapture",
-        "type": "EventHandler<CustomEvent<null>, HTMLDivElement> | EventHandler<CustomEvent<null>, HTMLAnchorElement> | null | undefined",
+        "type": "EventHandler<CustomEvent<null>, HTMLOListElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -496,7 +523,7 @@
     },
     {
         "name": "on:message",
-        "type": "MessageEventHandler<HTMLDivElement> | MessageEventHandler<HTMLAnchorElement> | null | undefined",
+        "type": "MessageEventHandler<HTMLOListElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -505,7 +532,7 @@
     },
     {
         "name": "onmessage",
-        "type": "MessageEventHandler<HTMLDivElement> | MessageEventHandler<HTMLAnchorElement> | null | undefined",
+        "type": "MessageEventHandler<HTMLOListElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -514,7 +541,7 @@
     },
     {
         "name": "onmessagecapture",
-        "type": "MessageEventHandler<HTMLDivElement> | MessageEventHandler<HTMLAnchorElement> | null | undefined",
+        "type": "MessageEventHandler<HTMLOListElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -523,7 +550,7 @@
     },
     {
         "name": "on:messageerror",
-        "type": "MessageEventHandler<HTMLDivElement> | MessageEventHandler<HTMLAnchorElement> | null | undefined",
+        "type": "MessageEventHandler<HTMLOListElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -532,7 +559,7 @@
     },
     {
         "name": "onmessageerror",
-        "type": "MessageEventHandler<HTMLDivElement> | MessageEventHandler<HTMLAnchorElement> | null | undefined",
+        "type": "MessageEventHandler<HTMLOListElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -541,7 +568,7 @@
     },
     {
         "name": "onmessageerrorcapture",
-        "type": "MessageEventHandler<HTMLDivElement> | MessageEventHandler<HTMLAnchorElement> | null | undefined",
+        "type": "MessageEventHandler<HTMLOListElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -550,7 +577,7 @@
     },
     {
         "name": "on:visibilitychange",
-        "type": "EventHandler<Event, HTMLDivElement> | EventHandler<Event, HTMLAnchorElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLOListElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -559,7 +586,7 @@
     },
     {
         "name": "onvisibilitychange",
-        "type": "EventHandler<Event, HTMLDivElement> | EventHandler<Event, HTMLAnchorElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLOListElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -568,7 +595,7 @@
     },
     {
         "name": "onvisibilitychangecapture",
-        "type": "EventHandler<Event, HTMLDivElement> | EventHandler<Event, HTMLAnchorElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLOListElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -577,7 +604,7 @@
     },
     {
         "name": "on:beforematch",
-        "type": "EventHandler<Event, HTMLDivElement> | EventHandler<Event, HTMLAnchorElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLOListElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -586,7 +613,7 @@
     },
     {
         "name": "onbeforematch",
-        "type": "EventHandler<Event, HTMLDivElement> | EventHandler<Event, HTMLAnchorElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLOListElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -595,7 +622,7 @@
     },
     {
         "name": "onbeforematchcapture",
-        "type": "EventHandler<Event, HTMLDivElement> | EventHandler<Event, HTMLAnchorElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLOListElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -604,7 +631,7 @@
     },
     {
         "name": "on:cancel",
-        "type": "EventHandler<Event, HTMLDivElement> | EventHandler<Event, HTMLAnchorElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLOListElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -613,7 +640,7 @@
     },
     {
         "name": "oncancel",
-        "type": "EventHandler<Event, HTMLDivElement> | EventHandler<Event, HTMLAnchorElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLOListElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -622,7 +649,7 @@
     },
     {
         "name": "oncancelcapture",
-        "type": "EventHandler<Event, HTMLDivElement> | EventHandler<Event, HTMLAnchorElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLOListElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -631,7 +658,7 @@
     },
     {
         "name": "on:close",
-        "type": "EventHandler<Event, HTMLDivElement> | EventHandler<Event, HTMLAnchorElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLOListElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -640,7 +667,7 @@
     },
     {
         "name": "onclose",
-        "type": "EventHandler<Event, HTMLDivElement> | EventHandler<Event, HTMLAnchorElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLOListElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -649,7 +676,7 @@
     },
     {
         "name": "onclosecapture",
-        "type": "EventHandler<Event, HTMLDivElement> | EventHandler<Event, HTMLAnchorElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLOListElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -658,7 +685,7 @@
     },
     {
         "name": "on:fullscreenchange",
-        "type": "EventHandler<Event, HTMLDivElement> | EventHandler<Event, HTMLAnchorElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLOListElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -667,7 +694,7 @@
     },
     {
         "name": "onfullscreenchange",
-        "type": "EventHandler<Event, HTMLDivElement> | EventHandler<Event, HTMLAnchorElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLOListElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -676,7 +703,7 @@
     },
     {
         "name": "onfullscreenchangecapture",
-        "type": "EventHandler<Event, HTMLDivElement> | EventHandler<Event, HTMLAnchorElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLOListElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -685,7 +712,7 @@
     },
     {
         "name": "on:fullscreenerror",
-        "type": "EventHandler<Event, HTMLDivElement> | EventHandler<Event, HTMLAnchorElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLOListElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -694,7 +721,7 @@
     },
     {
         "name": "onfullscreenerror",
-        "type": "EventHandler<Event, HTMLDivElement> | EventHandler<Event, HTMLAnchorElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLOListElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -703,52 +730,7 @@
     },
     {
         "name": "onfullscreenerrorcapture",
-        "type": "EventHandler<Event, HTMLDivElement> | EventHandler<Event, HTMLAnchorElement> | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
-        "name": "download",
-        "type": "any",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
-        "name": "hreflang",
-        "type": "string | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
-        "name": "media",
-        "type": "string | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
-        "name": "ping",
-        "type": "string | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
-        "name": "target",
-        "type": "HTMLAttributeAnchorTarget | null | undefined",
+        "type": "EventHandler<Event, HTMLOListElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -2242,6 +2224,24 @@
     },
     {
         "name": "on:dragover",
+        "type": "DragEventHandler<HTMLAnchorElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "ondragover",
+        "type": "DragEventHandler<HTMLAnchorElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "ondragovercapture",
         "type": "DragEventHandler<HTMLAnchorElement> | null | undefined",
         "required": false,
         "bindable": false,

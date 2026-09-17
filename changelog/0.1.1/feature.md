@@ -23,3 +23,11 @@
 - Add Command search/result slots, optional Alert icons, and an optional Sheet header close control.
 - Add controlled Context Menu state and manual tab activation.
 - Add scoped Tooltip providers and noninteractive rich descriptions.
+
+- Add composable Field, Fieldset, and Form components with accessible errors and SvelteKit remote-form examples.
+- Add Calendar, Range Calendar, Date Picker, and Date Range Picker with keyboard navigation and date constraints.
+- Add Number Field and OTP Field with native form submission and reset support.
+- Add Separator and a public composable Toolbar with keyboard navigation.
+- Add a swipe-dismissable Drawer with modal focus management.
+
+- Add a composable Data Table powered by TanStack Table v9, with explicit sort menus, editable filter chips, selection, and pagination.

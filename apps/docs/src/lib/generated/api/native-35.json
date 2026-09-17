@@ -1,7 +1,142 @@
 [
     {
+        "name": "on:transitioncancel",
+        "type": "TransitionEventHandler<HTMLOptionElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "ontransitioncancel",
+        "type": "TransitionEventHandler<HTMLOptionElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "ontransitioncancelcapture",
+        "type": "TransitionEventHandler<HTMLOptionElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "on:outrostart",
+        "type": "EventHandler<CustomEvent<null>, HTMLOptionElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onoutrostart",
+        "type": "EventHandler<CustomEvent<null>, HTMLOptionElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onoutrostartcapture",
+        "type": "EventHandler<CustomEvent<null>, HTMLOptionElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "on:outroend",
+        "type": "EventHandler<CustomEvent<null>, HTMLOptionElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onoutroend",
+        "type": "EventHandler<CustomEvent<null>, HTMLOptionElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onoutroendcapture",
+        "type": "EventHandler<CustomEvent<null>, HTMLOptionElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "on:introstart",
+        "type": "EventHandler<CustomEvent<null>, HTMLOptionElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onintrostart",
+        "type": "EventHandler<CustomEvent<null>, HTMLOptionElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onintrostartcapture",
+        "type": "EventHandler<CustomEvent<null>, HTMLOptionElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "on:introend",
+        "type": "EventHandler<CustomEvent<null>, HTMLOptionElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onintroend",
+        "type": "EventHandler<CustomEvent<null>, HTMLOptionElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onintroendcapture",
+        "type": "EventHandler<CustomEvent<null>, HTMLOptionElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
         "name": "on:message",
-        "type": "MessageEventHandler<HTMLTableRowElement> | null | undefined",
+        "type": "MessageEventHandler<HTMLOptionElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -10,7 +145,7 @@
     },
     {
         "name": "onmessage",
-        "type": "MessageEventHandler<HTMLTableRowElement> | null | undefined",
+        "type": "MessageEventHandler<HTMLOptionElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -19,7 +154,7 @@
     },
     {
         "name": "onmessagecapture",
-        "type": "MessageEventHandler<HTMLTableRowElement> | null | undefined",
+        "type": "MessageEventHandler<HTMLOptionElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -28,7 +163,7 @@
     },
     {
         "name": "on:messageerror",
-        "type": "MessageEventHandler<HTMLTableRowElement> | null | undefined",
+        "type": "MessageEventHandler<HTMLOptionElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -37,7 +172,7 @@
     },
     {
         "name": "onmessageerror",
-        "type": "MessageEventHandler<HTMLTableRowElement> | null | undefined",
+        "type": "MessageEventHandler<HTMLOptionElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -46,7 +181,7 @@
     },
     {
         "name": "onmessageerrorcapture",
-        "type": "MessageEventHandler<HTMLTableRowElement> | null | undefined",
+        "type": "MessageEventHandler<HTMLOptionElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -55,7 +190,7 @@
     },
     {
         "name": "on:visibilitychange",
-        "type": "EventHandler<Event, HTMLTableRowElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLOptionElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -64,7 +199,7 @@
     },
     {
         "name": "onvisibilitychange",
-        "type": "EventHandler<Event, HTMLTableRowElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLOptionElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -73,7 +208,7 @@
     },
     {
         "name": "onvisibilitychangecapture",
-        "type": "EventHandler<Event, HTMLTableRowElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLOptionElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -82,7 +217,7 @@
     },
     {
         "name": "on:beforematch",
-        "type": "EventHandler<Event, HTMLTableRowElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLOptionElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -91,7 +226,7 @@
     },
     {
         "name": "onbeforematch",
-        "type": "EventHandler<Event, HTMLTableRowElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLOptionElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -100,7 +235,7 @@
     },
     {
         "name": "onbeforematchcapture",
-        "type": "EventHandler<Event, HTMLTableRowElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLOptionElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -109,7 +244,7 @@
     },
     {
         "name": "on:cancel",
-        "type": "EventHandler<Event, HTMLTableRowElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLOptionElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -118,7 +253,7 @@
     },
     {
         "name": "oncancel",
-        "type": "EventHandler<Event, HTMLTableRowElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLOptionElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -127,7 +262,7 @@
     },
     {
         "name": "oncancelcapture",
-        "type": "EventHandler<Event, HTMLTableRowElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLOptionElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -136,7 +271,7 @@
     },
     {
         "name": "on:close",
-        "type": "EventHandler<Event, HTMLTableRowElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLOptionElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -145,7 +280,7 @@
     },
     {
         "name": "onclose",
-        "type": "EventHandler<Event, HTMLTableRowElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLOptionElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -154,7 +289,7 @@
     },
     {
         "name": "onclosecapture",
-        "type": "EventHandler<Event, HTMLTableRowElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLOptionElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -163,7 +298,7 @@
     },
     {
         "name": "on:fullscreenchange",
-        "type": "EventHandler<Event, HTMLTableRowElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLOptionElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -172,7 +307,7 @@
     },
     {
         "name": "onfullscreenchange",
-        "type": "EventHandler<Event, HTMLTableRowElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLOptionElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -181,7 +316,7 @@
     },
     {
         "name": "onfullscreenchangecapture",
-        "type": "EventHandler<Event, HTMLTableRowElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLOptionElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -190,7 +325,7 @@
     },
     {
         "name": "on:fullscreenerror",
-        "type": "EventHandler<Event, HTMLTableRowElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLOptionElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -199,7 +334,7 @@
     },
     {
         "name": "onfullscreenerror",
-        "type": "EventHandler<Event, HTMLTableRowElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLOptionElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -208,10 +343,37 @@
     },
     {
         "name": "onfullscreenerrorcapture",
-        "type": "EventHandler<Event, HTMLTableRowElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLOptionElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "selected",
+        "type": "boolean | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "pattern",
+        "type": "string | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": "REGEXP_ONLY_DIGITS",
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "scope",
+        "type": "\"row\" | \"rowgroup\" | \"col\" | \"colgroup\" | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": "'col'",
         "description": "",
         "inherited": true
     },

@@ -137,6 +137,27 @@ export * as Command from './blocks/command';
 export type { CopyButtonProps } from './blocks/copy-button';
 export { CopyButton } from './blocks/copy-button';
 export type {
+    DataTableBodyProps,
+    DataTableColumnHeaderProps,
+    DataTableEmptyProps,
+    DataTableFacetProps,
+    DataTableFilterClause,
+    DataTableFilterDefinition,
+    DataTableFilterProps,
+    DataTableFiltersProps,
+    DataTableHeaderProps,
+    DataTablePaginationProps,
+    DataTableProps,
+    DataTableSelectionProps,
+    DataTableSortProps,
+    DataTableState,
+    DataTableSummaryProps,
+    DataTableToolbarProps,
+    DataTableViewProps
+} from './blocks/data-table';
+export * as DataTable from './blocks/data-table';
+export { dataTableFilter } from './blocks/data-table';
+export type {
     FileDiffChangeType,
     FileDiffContentProps,
     FileDiffContext,
@@ -181,7 +202,14 @@ export type {
 } from './blocks/toast';
 // Toast ships a component plus its imperative helpers.
 export { getToastUIState, Toast, Toaster, toast } from './blocks/toast';
-export type { ToolbarProps } from './blocks/toolbar';
+export type {
+    ToolbarButtonProps,
+    ToolbarGroupProps,
+    ToolbarItemProps,
+    ToolbarLinkProps,
+    ToolbarProps,
+    ToolbarRootProps
+} from './blocks/toolbar';
 export { Toolbar } from './blocks/toolbar';
 export type { GaugeProps, GaugeTone } from './chart-components/gauge';
 export { Gauge } from './chart-components/gauge';
@@ -219,6 +247,8 @@ export type {
 export * as Breadcrumb from './components/breadcrumb';
 export type { ButtonProps, ButtonStatus, ButtonVariant } from './components/button';
 export { Button } from './components/button';
+export type { CalendarMonthProps, CalendarProps } from './components/calendar';
+export * as Calendar from './components/calendar';
 export type {
     CardContentProps,
     CardDescriptionProps,
@@ -250,6 +280,10 @@ export type {
     ContextMenuTriggerProps
 } from './components/context-menu';
 export * as ContextMenu from './components/context-menu';
+export type { DatePickerContentProps, DatePickerProps } from './components/date-picker';
+export * as DatePicker from './components/date-picker';
+export type { DateRangePickerProps } from './components/date-range-picker';
+export * as DateRangePicker from './components/date-range-picker';
 export type {
     DialogBodyProps,
     DialogCloseProps,
@@ -266,6 +300,19 @@ export type {
 } from './components/dialog';
 export * as Dialog from './components/dialog';
 export type {
+    DrawerCloseProps,
+    DrawerContentProps,
+    DrawerDescriptionProps,
+    DrawerHandleProps,
+    DrawerOverlayProps,
+    DrawerPortalProps,
+    DrawerRegionProps,
+    DrawerRootProps,
+    DrawerTitleProps,
+    DrawerTriggerProps
+} from './components/drawer';
+export * as Drawer from './components/drawer';
+export type {
     DropdownMenuCheckboxItemProps,
     DropdownMenuItemProps,
     DropdownMenuProps,
@@ -273,6 +320,33 @@ export type {
     DropdownMenuRadioItemProps
 } from './components/dropdown-menu';
 export * as DropdownMenu from './components/dropdown-menu';
+export type {
+    FieldContentProps,
+    FieldControlAttributes,
+    FieldControlProps,
+    FieldDescriptionProps,
+    FieldErrorProps,
+    FieldGroupProps,
+    FieldIssue,
+    FieldLabelProps,
+    FieldProps
+} from './components/field';
+export * as Field from './components/field';
+export type {
+    FieldsetDescriptionProps,
+    FieldsetLegendProps,
+    FieldsetProps
+} from './components/fieldset';
+export * as Fieldset from './components/fieldset';
+export type {
+    FormActionsProps,
+    FormErrorSummaryProps,
+    FormIssue,
+    FormProps,
+    FormStatusProps,
+    FormSubmitProps
+} from './components/form';
+export * as Form from './components/form';
 export * as Group from './components/group';
 export type {
     HoverCardContentProps,
@@ -287,6 +361,22 @@ export { Kbd } from './components/kbd';
 export type { LabelProps } from './components/label';
 export { Label } from './components/label';
 export * as NativeSelect from './components/native-select';
+export type {
+    NumberFieldGroupProps,
+    NumberFieldInputProps,
+    NumberFieldLabelProps,
+    NumberFieldProps,
+    NumberFieldStepperProps
+} from './components/number-field';
+export * as NumberField from './components/number-field';
+export type {
+    OTPFieldCellProps,
+    OTPFieldCellState,
+    OTPFieldGroupProps,
+    OTPFieldProps,
+    OTPFieldSeparatorProps
+} from './components/otp-field';
+export * as OTPField from './components/otp-field';
 export type { PaginationProps } from './components/pagination';
 export { Pagination } from './components/pagination';
 export type {
@@ -301,10 +391,14 @@ export type { ProgressProps } from './components/progress';
 export { Progress } from './components/progress';
 export type { RadioGroupItemProps, RadioGroupProps } from './components/radio-group';
 export * as RadioGroup from './components/radio-group';
+export type { RangeCalendarMonthProps, RangeCalendarProps } from './components/range-calendar';
+export * as RangeCalendar from './components/range-calendar';
 export type { ScrollAreaProps } from './components/scroll-area';
 export { ScrollArea } from './components/scroll-area';
 export type { SelectItemProps, SelectProps, SelectValueProps } from './components/select';
 export * as Select from './components/select';
+export type { SeparatorProps } from './components/separator';
+export { Separator } from './components/separator';
 export type {
     SheetCloseProps,
     SheetContentProps,

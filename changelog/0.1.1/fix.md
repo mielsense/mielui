@@ -59,3 +59,11 @@
 - Preserve Group variant styling with a single joined divider.
 - Forward overlay action refs and keep cancel actions from stealing focus after opening.
 - Defer offscreen documentation previews while preserving mounted preview state.
+
+- Remove the resting shadow from outline buttons while retaining their border and keyboard focus indicator.
+
+- Show invalid input borders and reveal field errors with interruptible, reduced-motion-aware transitions.
+
+- Restore pointer hover and selection in menus and floating panels by keeping their content above dismissal layers.
+- Keep top and bottom drawers full width in the examples and give nested drawers separate backdrops and focus boundaries, with cancelled swipes returning to rest.
+- Prevent date segments from overlapping on narrow screens and keep calendar popups above surrounding navigation.

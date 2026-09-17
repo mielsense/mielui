@@ -2098,7 +2098,7 @@
     },
     {
         "name": "on:copy",
-        "type": "ClipboardEventHandler<HTMLButtonElement> | ClipboardEventHandler<HTMLAnchorElement> | null | undefined",
+        "type": "ClipboardEventHandler<HTMLAnchorElement> | null | undefined | ClipboardEventHandler<HTMLButtonElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -2107,7 +2107,7 @@
     },
     {
         "name": "oncopy",
-        "type": "ClipboardEventHandler<HTMLButtonElement> | ClipboardEventHandler<HTMLAnchorElement> | null | undefined",
+        "type": "ClipboardEventHandler<HTMLAnchorElement> | null | undefined | ClipboardEventHandler<HTMLButtonElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -2116,7 +2116,7 @@
     },
     {
         "name": "oncopycapture",
-        "type": "ClipboardEventHandler<HTMLButtonElement> | ClipboardEventHandler<HTMLAnchorElement> | null | undefined",
+        "type": "ClipboardEventHandler<HTMLAnchorElement> | null | undefined | ClipboardEventHandler<HTMLButtonElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -2125,7 +2125,7 @@
     },
     {
         "name": "on:cut",
-        "type": "ClipboardEventHandler<HTMLButtonElement> | ClipboardEventHandler<HTMLAnchorElement> | null | undefined",
+        "type": "ClipboardEventHandler<HTMLAnchorElement> | null | undefined | ClipboardEventHandler<HTMLButtonElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -2134,7 +2134,7 @@
     },
     {
         "name": "oncut",
-        "type": "ClipboardEventHandler<HTMLButtonElement> | ClipboardEventHandler<HTMLAnchorElement> | null | undefined",
+        "type": "ClipboardEventHandler<HTMLAnchorElement> | null | undefined | ClipboardEventHandler<HTMLButtonElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -2143,7 +2143,7 @@
     },
     {
         "name": "oncutcapture",
-        "type": "ClipboardEventHandler<HTMLButtonElement> | ClipboardEventHandler<HTMLAnchorElement> | null | undefined",
+        "type": "ClipboardEventHandler<HTMLAnchorElement> | null | undefined | ClipboardEventHandler<HTMLButtonElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -2152,7 +2152,7 @@
     },
     {
         "name": "on:paste",
-        "type": "ClipboardEventHandler<HTMLButtonElement> | ClipboardEventHandler<HTMLAnchorElement> | null | undefined",
+        "type": "ClipboardEventHandler<HTMLAnchorElement> | null | undefined | ClipboardEventHandler<HTMLButtonElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -2161,7 +2161,7 @@
     },
     {
         "name": "onpaste",
-        "type": "ClipboardEventHandler<HTMLButtonElement> | ClipboardEventHandler<HTMLAnchorElement> | null | undefined",
+        "type": "ClipboardEventHandler<HTMLAnchorElement> | null | undefined | ClipboardEventHandler<HTMLButtonElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -2170,7 +2170,7 @@
     },
     {
         "name": "onpastecapture",
-        "type": "ClipboardEventHandler<HTMLButtonElement> | ClipboardEventHandler<HTMLAnchorElement> | null | undefined",
+        "type": "ClipboardEventHandler<HTMLAnchorElement> | null | undefined | ClipboardEventHandler<HTMLButtonElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -2179,7 +2179,7 @@
     },
     {
         "name": "on:compositionend",
-        "type": "CompositionEventHandler<HTMLButtonElement> | CompositionEventHandler<HTMLAnchorElement> | null | undefined",
+        "type": "CompositionEventHandler<HTMLAnchorElement> | null | undefined | CompositionEventHandler<HTMLButtonElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -2188,7 +2188,7 @@
     },
     {
         "name": "oncompositionend",
-        "type": "CompositionEventHandler<HTMLButtonElement> | CompositionEventHandler<HTMLAnchorElement> | null | undefined",
+        "type": "CompositionEventHandler<HTMLAnchorElement> | null | undefined | CompositionEventHandler<HTMLButtonElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -2197,7 +2197,7 @@
     },
     {
         "name": "oncompositionendcapture",
-        "type": "CompositionEventHandler<HTMLButtonElement> | CompositionEventHandler<HTMLAnchorElement> | null | undefined",
+        "type": "CompositionEventHandler<HTMLAnchorElement> | null | undefined | CompositionEventHandler<HTMLButtonElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -2206,7 +2206,7 @@
     },
     {
         "name": "on:compositionstart",
-        "type": "CompositionEventHandler<HTMLButtonElement> | CompositionEventHandler<HTMLAnchorElement> | null | undefined",
+        "type": "CompositionEventHandler<HTMLAnchorElement> | null | undefined | CompositionEventHandler<HTMLButtonElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -2215,7 +2215,7 @@
     },
     {
         "name": "oncompositionstart",
-        "type": "CompositionEventHandler<HTMLButtonElement> | CompositionEventHandler<HTMLAnchorElement> | null | undefined",
+        "type": "CompositionEventHandler<HTMLAnchorElement> | null | undefined | CompositionEventHandler<HTMLButtonElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -2224,7 +2224,7 @@
     },
     {
         "name": "oncompositionstartcapture",
-        "type": "CompositionEventHandler<HTMLButtonElement> | CompositionEventHandler<HTMLAnchorElement> | null | undefined",
+        "type": "CompositionEventHandler<HTMLAnchorElement> | null | undefined | CompositionEventHandler<HTMLButtonElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -2233,7 +2233,7 @@
     },
     {
         "name": "on:compositionupdate",
-        "type": "CompositionEventHandler<HTMLButtonElement> | CompositionEventHandler<HTMLAnchorElement> | null | undefined",
+        "type": "CompositionEventHandler<HTMLAnchorElement> | null | undefined | CompositionEventHandler<HTMLButtonElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -2242,7 +2242,7 @@
     },
     {
         "name": "oncompositionupdate",
-        "type": "CompositionEventHandler<HTMLButtonElement> | CompositionEventHandler<HTMLAnchorElement> | null | undefined",
+        "type": "CompositionEventHandler<HTMLAnchorElement> | null | undefined | CompositionEventHandler<HTMLButtonElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
