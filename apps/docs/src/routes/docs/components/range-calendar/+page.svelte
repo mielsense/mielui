@@ -60,12 +60,11 @@
     <section id="examples" class="scroll-mt-20 flex flex-col gap-8">
         <Typography.H2 class="docs-section-heading">Examples</Typography.H2>
         <div id="two-months" class="scroll-mt-20 flex flex-col gap-3">
-            <Typography.H3 class="docs-subsection-heading">
-                Two months and range limits
-            </Typography.H3>
+            <Typography.H3 class="docs-subsection-heading">Across months</Typography.H3>
             <Typography.Text variant="supporting">
                 numberOfMonths controls the visible months. pagedNavigation advances a page at a
-                time. minDays and maxDays constrain the selected range.
+                time. This example has no range-length limit. Optional minDays and maxDays count
+                both endpoints; an out-of-range second selection becomes a new start date.
             </Typography.Text>
             <ComponentPreview code={Example0Src}><Example0 /></ComponentPreview>
         </div>

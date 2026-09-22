@@ -1,11 +1,12 @@
 <script lang="ts">
     import * as Drawer from '@mielui/svelte/components/drawer';
 </script>
-<Drawer.Root dismissible={false}>
-    <Drawer.Trigger>Required action</Drawer.Trigger>
+<Drawer.Root>
+    <Drawer.Trigger>Review changes</Drawer.Trigger>
     <Drawer.Portal>
         <Drawer.Overlay />
         <Drawer.Content>
+            <Drawer.Handle />
             <Drawer.Header class="mx-auto w-full max-w-xl">
                 <Drawer.Title>Review changes</Drawer.Title>
                 <Drawer.Description>
@@ -32,6 +33,7 @@
                     <Drawer.Portal>
                         <Drawer.Overlay />
                         <Drawer.Content>
+                            <Drawer.Handle />
                             <Drawer.Header class="mx-auto w-full max-w-xl">
                                 <Drawer.Title>Change details</Drawer.Title>
                                 <Drawer.Description>

@@ -1,7 +1,7 @@
 <script lang="ts">
-    import { SquareIcon as Square } from '@hugeicons/core-free-icons';
+    import { ArrowUp02Icon, SquareIcon as Square } from '@hugeicons/core-free-icons';
     import { Button } from '@mielui/svelte/components/button';
-    import Kbd from '@mielui/svelte/components/kbd';
+    import { Spinner } from '@mielui/svelte/components/spinner';
     import { cn } from '@mielui/svelte/utils';
     import HugeiconsIcon from '../../hugeicons-icon.svelte';
     import type { ComposerSubmitProps } from '.';
@@ -63,20 +63,19 @@
     variant="primary"
     data-ui="composer-submit"
     data-state={action}
-    disabled={isDisabled}
-    loading={isPending}
-    {loadingLabel}
+    disabled={isDisabled || isPending}
+    aria-busy={isPending}
     aria-label={actionLabel}
     onclick={handleClick}
-    class={cn(className, 'w-fit shrink-0 px-3 [&_.mielui-button-face[data-active=false]]:absolute')}
+    class={cn(className, 'size-9 shrink-0 rounded-full p-0')}
 >
     {#if children}
         {@render children({ action, generating: context.generating ?? false, empty })}
+    {:else if isPending}
+        <Spinner size={16} aria-hidden="true" />
     {:else if action === 'stop'}
         <HugeiconsIcon icon={Square} size={8} fill="currentColor" aria-hidden="true" />
-        {stopLabel}
     {:else}
-        {actionLabel}
-        <Kbd shortcut="enter" />
+        <HugeiconsIcon icon={ArrowUp02Icon} size={16} aria-hidden="true" />
     {/if}
 </Button>

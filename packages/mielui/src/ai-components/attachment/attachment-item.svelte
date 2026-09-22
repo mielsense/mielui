@@ -64,7 +64,7 @@
     <div
         class="relative grid size-[var(--size-touch)] shrink-0 place-items-center overflow-hidden rounded-[var(--radius-md)] bg-secondary text-foreground-muted ring-1 ring-inset ring-[color-mix(in_srgb,var(--color-foreground)_10%,transparent)]"
     >
-        {#if file.type.startsWith('image/')}
+        {#if file.type.startsWith('image/') && status !== 'error'}
             <img {@attach preview} alt="" draggable="false" class="size-full object-cover" />
         {:else}
             <HugeiconsIcon icon={FileText} size={18} strokeWidth={1.75} aria-hidden="true" />
@@ -118,7 +118,7 @@
                         aria-hidden="true"
                     />
                 {/if}
-                <span class="truncate">{statusText}</span>
+                <span class="min-w-0 break-words">{statusText}</span>
             </div>
         {/if}
 

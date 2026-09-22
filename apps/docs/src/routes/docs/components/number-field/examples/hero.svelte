@@ -6,7 +6,7 @@
 <div class="w-full max-w-56">
     <NumberField.Root bind:value={quantity} min={1} max={12} name="quantity">
         <NumberField.Label>Seats</NumberField.Label>
-        <NumberField.Group>
+        <NumberField.Group class="w-36 max-w-full">
             <NumberField.Decrement />
             <NumberField.Input aria-describedby="seats-hint" />
             <NumberField.Increment />

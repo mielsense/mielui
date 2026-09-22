@@ -8,7 +8,12 @@
     const tabsState = getContext<TabsState>('tabs');
     const select = getContext<(value: string) => void>('tabs-selection');
 
-    type Rect = { left: number; top: number; width: number; height: number };
+    type Rect = {
+        left: number;
+        top: number;
+        width: number;
+        height: number;
+    };
 
     const variant = $derived(tabsState.variant);
     const vertical = $derived(tabsState.orientation === 'vertical');
@@ -33,14 +38,19 @@
                 height: el.offsetHeight
             };
         }
-        const hostRect = host.getBoundingClientRect();
-        const rect = el.getBoundingClientRect();
-
+        let left = el.offsetLeft;
+        let top = el.offsetTop;
+        let parent = el.offsetParent;
+        while (parent instanceof HTMLElement && parent !== host) {
+            left += parent.offsetLeft;
+            top += parent.offsetTop;
+            parent = parent.offsetParent;
+        }
         return {
-            left: rect.left - hostRect.left - host.clientLeft + host.scrollLeft,
-            top: rect.top - hostRect.top - host.clientTop + host.scrollTop,
-            width: rect.width,
-            height: rect.height
+            left,
+            top,
+            width: el.offsetWidth,
+            height: el.offsetHeight
         };
     }
 

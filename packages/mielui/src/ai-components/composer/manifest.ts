@@ -16,7 +16,7 @@ export const manifest: Manifest = {
         'components/composer/index.ts',
         'components/composer/manifest.ts'
     ],
-    components: ['_internal/utils', 'button', 'kbd', 'toolbar'],
+    components: ['_internal/utils', 'button', 'spinner', 'toolbar'],
     shared: [
         'components/_internal/submission.svelte',
         'components/_internal/surface',

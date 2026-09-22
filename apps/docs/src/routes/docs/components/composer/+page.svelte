@@ -53,10 +53,11 @@
     <section id="usage" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Usage</Typography.H2>
         <Typography.Text variant="supporting">
-            Bind the prompt value and handle submission on the root. The component awaits async
-            handlers and shows its submitting state automatically. Rejections preserve the prompt
-            and display errorMessage until the next attempt. Use onError to report the failure;
-            retry with the same submit action. An explicit error status remains
+            Submit uses a round icon button with an accessible Send, Queue message, or Stop response
+            label. Bind the prompt value and handle submission on the root. The component awaits
+            async handlers and shows its submitting state automatically. Rejections preserve the
+            prompt and display errorMessage until the next attempt. Use onError to report the
+            failure; retry with the same submit action. An explicit error status remains
             application-controlled.
         </Typography.Text>
         <CodeBlock

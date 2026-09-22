@@ -29,7 +29,11 @@
     </section>
 
     <section id="nested" class="flex flex-col gap-4">
-        <Typography.H2>Nested confirmation</Typography.H2>
+        <Typography.H2>Nested review</Typography.H2>
+        <Typography.Text>
+            Open the details from the review panel. Close the details to return to the review; each
+            drawer has its own handle and close action.
+        </Typography.Text>
         <ComponentPreview code={NestedSrc}><Nested /></ComponentPreview>
     </section>
     <section id="installation" class="flex flex-col gap-4">

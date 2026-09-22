@@ -23,7 +23,7 @@
     disabled={disabled || context.disabled}
     data-ui="date-picker-trigger"
     aria-label={ariaLabel ?? (children ? undefined : 'Choose date')}
-    class={cn(className, button({ variant: 'outline', size: children ? 'md' : 'icon' }), 'shrink-0')}
+    class={cn(className, 'shrink-0 hover:bg-[color-mix(in_srgb,var(--color-secondary)_88%,var(--color-foreground))] data-[state=open]:bg-[color-mix(in_srgb,var(--color-secondary)_88%,var(--color-foreground))]', !children && 'h-[var(--size-control-md)] w-[var(--size-control-md)]', button({ variant: 'outline', size: children ? 'md' : 'icon' }))}
 >
     {#if children}
         {@render children()}
