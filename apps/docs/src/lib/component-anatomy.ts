@@ -28,6 +28,22 @@ export const componentAnatomy = {
         { name: 'AlertDialog.Footer', description: 'Groups dialog actions.' },
         { name: 'AlertDialog.Confirm', description: 'Confirms and closes the dialog.' }
     ],
+    'file-upload': [
+        {
+            name: 'FileUpload.Root',
+            description: 'Validates selections and manages upload requests.'
+        },
+        { name: 'FileUpload.Dropzone', description: 'Displays the drop target.' },
+        { name: 'FileUpload.Trigger', description: 'Opens the file picker.' },
+        { name: 'FileUpload.List', description: 'Lists files and exposes each item to a snippet.' },
+        { name: 'FileUpload.Item', description: 'Provides one upload state to its parts.' },
+        { name: 'FileUpload.Preview', description: 'Shows an image preview or file icon.' },
+        { name: 'FileUpload.Details', description: 'Shows filename and size.' },
+        { name: 'FileUpload.Progress', description: 'Displays progress during upload.' },
+        { name: 'FileUpload.Status', description: 'Announces uploading, success, and errors.' },
+        { name: 'FileUpload.Remove', description: 'Cancels the request and removes its item.' },
+        { name: 'FileUpload.Retry', description: 'Retries a failed request.' }
+    ],
     attachment: [
         { name: 'Attachment.Root', description: 'Manages selected files.' },
         { name: 'Attachment.Trigger', description: 'Opens the file picker.' },

@@ -339,6 +339,16 @@ export type {
 } from './components/fieldset';
 export * as Fieldset from './components/fieldset';
 export type {
+    FileUploadButtonProps,
+    FileUploadEntry,
+    FileUploadItemProps,
+    FileUploadListProps,
+    FileUploadPartProps,
+    FileUploadProps,
+    FileUploadSummary
+} from './components/file-upload';
+export * as FileUpload from './components/file-upload';
+export type {
     FormActionsProps,
     FormErrorSummaryProps,
     FormIssue,
