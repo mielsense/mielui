@@ -1,13 +1,41 @@
-import { existsSync } from 'node:fs';
+import { existsSync, readFileSync } from 'node:fs';
 import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import { registryFilePath, rewriteImports } from '../registry';
 
-export type PackageManager = 'pnpm' | 'yarn' | 'npm';
+export type PackageManager = 'pnpm' | 'yarn' | 'npm' | 'bun';
 
 export function detectPackageManager(cwd: string): PackageManager {
-    if (existsSync(path.join(cwd, 'pnpm-lock.yaml'))) return 'pnpm';
-    if (existsSync(path.join(cwd, 'yarn.lock'))) return 'yarn';
+    try {
+        const manifest: unknown = JSON.parse(readFileSync(path.join(cwd, 'package.json'), 'utf8'));
+        if (
+            typeof manifest === 'object' &&
+            manifest !== null &&
+            'packageManager' in manifest &&
+            typeof manifest.packageManager === 'string'
+        ) {
+            const manager = manifest.packageManager.split('@')[0];
+            if (
+                manager === 'pnpm' ||
+                manager === 'npm' ||
+                manager === 'yarn' ||
+                manager === 'bun'
+            ) {
+                return manager;
+            }
+        }
+    } catch {
+        // A missing or malformed manifest does not prevent lockfile detection.
+    }
+    if (existsSync(path.join(cwd, 'pnpm-lock.yaml'))) {
+        return 'pnpm';
+    }
+    if (existsSync(path.join(cwd, 'yarn.lock'))) {
+        return 'yarn';
+    }
+    if (existsSync(path.join(cwd, 'bun.lock')) || existsSync(path.join(cwd, 'bun.lockb'))) {
+        return 'bun';
+    }
     return 'npm';
 }
 
@@ -19,7 +47,9 @@ export function installCommand(pm: PackageManager, packages: string[]) {
 /** Dependencies declared anywhere in the consumer's package.json. */
 export async function declaredDependencies(cwd: string): Promise<Set<string>> {
     const file = path.join(cwd, 'package.json');
-    if (!existsSync(file)) return new Set();
+    if (!existsSync(file)) {
+        return new Set();
+    }
     let pkg: Record<string, Record<string, unknown> | undefined>;
     try {
         pkg = JSON.parse(await readFile(file, 'utf8'));
@@ -53,7 +83,9 @@ export async function installFile(
         throw new Error(`unsafe registry file path: ${file}`);
     }
     const exists = existsSync(target);
-    if (exists && !overwrite) return 'skipped';
+    if (exists && !overwrite) {
+        return 'skipped';
+    }
     const source = await readFile(registryFilePath(file), 'utf8');
     await mkdir(path.dirname(target), { recursive: true });
     await writeFile(target, rewriteImports(source, alias));
