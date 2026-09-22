@@ -1,19 +1,5 @@
+import { fetchStarCount } from '$lib/server/github';
 import type { LayoutServerLoad } from './$types';
-
-const GITHUB_REPO = 'mielsense/mielui';
-
-async function fetchStarCount(fetchImpl: typeof fetch): Promise<number | null> {
-    try {
-        const response = await fetchImpl(`https://api.github.com/repos/${GITHUB_REPO}`, {
-            headers: { accept: 'application/vnd.github+json' }
-        });
-        if (!response.ok) return null;
-        const data = (await response.json()) as { stargazers_count?: number };
-        return typeof data.stargazers_count === 'number' ? data.stargazers_count : null;
-    } catch {
-        return null;
-    }
-}
 
 export const load: LayoutServerLoad = async ({ fetch, setHeaders, url }) => {
     const starCount = await fetchStarCount(fetch);

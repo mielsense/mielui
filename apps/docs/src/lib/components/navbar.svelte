@@ -18,19 +18,11 @@
     import GitHubWhite from '$lib/assets/GitHub_Invertocat_White.svg';
     import { navigationGroups, sanitizeComponent } from '$lib/components';
     import SearchButton from '$lib/components/search/trigger.svelte';
+    import { formatStarCount } from '$lib/github';
     import Logo from './logo.svelte';
     import Navbutton from './navbutton.svelte';
 
     const { starCount = null }: { starCount?: number | null } = $props();
-
-    function formatStarCount(n: number | null): string {
-        if (n === null || Number.isNaN(n)) return 'Star';
-        if (n >= 1000) {
-            const k = n / 1000;
-            return `${k >= 10 ? Math.round(k) : k.toFixed(1)}k`;
-        }
-        return String(n);
-    }
 
     let scrolled = $state(false);
     let mobileMenuOpen = $state(false);

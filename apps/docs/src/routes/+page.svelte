@@ -20,24 +20,11 @@
     import { components } from '$lib/components';
     import Logo from '$lib/components/logo.svelte';
     import SleepingCat from '$lib/components/sleeping-cat.svelte';
+    import { formatStarCount } from '$lib/github';
 
     import type { PageData } from './$types';
 
     const { data }: { data: PageData } = $props();
-
-    function formatStarCount(n: number | null): string {
-        if (n === null || Number.isNaN(n)) {
-            return 'Star';
-        }
-
-        if (n >= 1000) {
-            const k = n / 1000;
-
-            return `${k >= 10 ? Math.round(k) : k.toFixed(1)}k`;
-        }
-
-        return String(n);
-    }
 
     function pascalCase(slug: string): string {
         return slug
@@ -216,7 +203,7 @@
             class="mt-1 max-w-[38rem] motion-safe:[animation:docs-block-in_280ms_var(--ease-out)_both] motion-safe:[animation-delay:80ms]"
             style="font-size: 18px; font-weight: var(--font-weight-label);"
         >
-            Restyle 60 components from a handful of tokens.
+            Restyle{components.length} components from a handful of tokens.
         </Typography.Description>
         <div
             class="mt-3 flex w-full flex-col justify-start gap-3 sm:w-auto sm:flex-row sm:flex-wrap motion-safe:[animation:docs-block-in_280ms_var(--ease-out)_both] motion-safe:[animation-delay:115ms]"
@@ -226,7 +213,7 @@
                 size="lg"
                 class="w-full justify-center sm:w-auto"
             >
-                Browse all 60 components
+                Browse all{components.length} components
                 <HugeiconsIcon icon={ArrowRight} size={16} />
             </Button>
             <Button
