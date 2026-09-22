@@ -132,3 +132,4 @@
 
 - Notch side actions unfold with synchronized shape and button motion, including interrupted hover changes.
 - Morph and Shimmer stop active effects when inherited theme motion is disabled and clean up their theme observers on removal.
+- Stopping a controlled Composer response no longer submits the preserved prompt again when the control returns to Send.

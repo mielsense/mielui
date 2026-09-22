@@ -52,6 +52,7 @@
     function handleClick(event: MouseEvent) {
         onclick?.(event);
         if (!event.defaultPrevented && action === 'stop') {
+            event.preventDefault();
             context.stop();
         }
     }
