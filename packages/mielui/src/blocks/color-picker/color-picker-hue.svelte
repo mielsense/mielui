@@ -17,7 +17,7 @@
         label="Hue"
         max={360}
         value={controller.state.hue}
-        onValueChange={(next) => {
+        onValueChange={(next: number) => {
             controller.setHsvChannel('h', next);
         }}
     />

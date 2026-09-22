@@ -20,7 +20,7 @@ export const manifest: Manifest = {
         'components/copy-button/manifest.ts'
     ],
     components: ['_internal/utils', 'button', 'tooltip'],
-    shared: ['hugeicons-icon', 'utils.cn'],
+    shared: ['components/_internal/button-attributes', 'hugeicons-icon', 'utils.cn'],
     peerDependencies: {
         '@floating-ui/dom': '1.7.6',
         '@hugeicons/core-free-icons': '^4.3.0',

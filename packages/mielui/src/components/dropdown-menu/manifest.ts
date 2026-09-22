@@ -35,6 +35,7 @@ export const manifest: Manifest = {
     ],
     components: ['_internal/utils', 'popover', 'button', 'scroll-area'],
     shared: [
+        'components/_internal/button-attributes',
         'transition',
         'components/_internal/surface',
         'hugeicons-icon',

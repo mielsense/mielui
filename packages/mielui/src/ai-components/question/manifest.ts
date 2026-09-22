@@ -23,6 +23,7 @@ export const manifest: Manifest = {
     ],
     components: ['_internal/utils', 'card', 'button', 'spinner', 'textarea'],
     shared: [
+        'components/_internal/button-attributes',
         'components/_internal/submission.svelte',
         'hugeicons-icon',
         'utils.cn',

@@ -17,7 +17,7 @@ export const manifest: Manifest = {
         'components/number-field/manifest.ts'
     ],
     components: ['_internal/utils', 'button'],
-    shared: ['utils.cn', 'utils.createContext'],
+    shared: ['components/_internal/button-attributes', 'utils.cn', 'utils.createContext'],
     peerDependencies: {
         svelte: '^5.33.0',
         cnfast: '^0.0.8'

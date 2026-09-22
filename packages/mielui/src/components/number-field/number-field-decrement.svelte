@@ -1,5 +1,6 @@
 <script lang="ts">
     import { Button } from '@mielui/svelte/components/button';
+    import { buttonAttributes } from '../_internal/button-attributes';
     import type { NumberFieldStepperProps } from '.';
     import { getNumberFieldContext } from './context';
 
@@ -19,7 +20,7 @@
     }
 </script>
 <Button
-    {...rest}
+    {...buttonAttributes(rest)}
     bind:element={() => element, setElement}
     href={undefined}
     variant="ghost"

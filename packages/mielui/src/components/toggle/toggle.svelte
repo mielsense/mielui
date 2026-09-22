@@ -20,7 +20,7 @@
     );
 </script>
 
-<BitsToggle.Root bind:pressed {disabled} {onPressedChange} {...rest}>
+<BitsToggle.Root bind:pressed {disabled} {onPressedChange} {...rest} id={rest.id ?? undefined}>
     {#snippet child({ props })}
         <button
             {...props}

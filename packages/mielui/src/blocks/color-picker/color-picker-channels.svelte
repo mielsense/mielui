@@ -54,7 +54,7 @@
                 label={channel.name}
                 max={channel.max}
                 value={channel.value}
-                onValueChange={(next) => {
+                onValueChange={(next: number) => {
             update(channel.key, next);
         }}
             />

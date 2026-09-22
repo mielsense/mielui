@@ -4,6 +4,8 @@
     import type * as Popover from '@mielui/svelte/components/popover';
     import { DropdownMenu as MenuPrimitive, mergeProps } from 'bits-ui';
     import type { Snippet } from 'svelte';
+    import type { HTMLButtonAttributes } from 'svelte/elements';
+    import { buttonAttributes } from '../_internal/button-attributes';
     import { getDropdownMenuContext } from './context.svelte';
 
     type Props = {
@@ -27,7 +29,11 @@
 
 <MenuPrimitive.Trigger id={rest.id ?? undefined} disabled={rest.disabled} {onclick}>
     {#snippet child({ props })}
-        <Button {...mergeProps(rest, props)} class={className} {variant}>
+        <Button
+            {...buttonAttributes(mergeProps(rest, { ...props as HTMLButtonAttributes }))}
+            class={className}
+            {variant}
+        >
             {@render children?.()}
         </Button>
     {/snippet}

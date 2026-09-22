@@ -3,7 +3,9 @@
     import { Button } from '@mielui/svelte/components/button';
     import { cn } from '@mielui/svelte/utils';
     import { DropdownMenu as MenuPrimitive, mergeProps } from 'bits-ui';
+    import type { HTMLButtonAttributes } from 'svelte/elements';
     import HugeiconsIcon from '../../hugeicons-icon.svelte';
+    import { buttonAttributes } from '../_internal/button-attributes';
     import type { DropdownMenuRadioItemProps } from '.';
 
     let {
@@ -20,16 +22,16 @@
 <MenuPrimitive.RadioItem
     id={rest.id ?? undefined}
     {value}
-    {disabled}
+    disabled={disabled ?? undefined}
     onclick={(event) => {
-        userOnclick?.(event as MouseEvent & { currentTarget: EventTarget & HTMLButtonElement });
+        buttonAttributes({ onclick: userOnclick }).onclick?.(event);
     }}
 >
     {#snippet child({ props, checked })}
         <Button
-            {...mergeProps(rest, props)}
+            {...buttonAttributes(mergeProps(rest, { ...props as HTMLButtonAttributes }))}
             bind:element
-            {disabled}
+            disabled={disabled ?? undefined}
             data-collection-item
             class={cn(className, 'mielui-menu-item flex-row gap-3 text-sm')}
             unstyled

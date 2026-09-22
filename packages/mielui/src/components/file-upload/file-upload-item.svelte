@@ -16,6 +16,7 @@
 </script>
 <motion.div
     {...rest}
+    style={rest.style ?? undefined}
     layout
     initial={{ opacity: 0, y: root.duration ? 8 : 0 }}
     animate={{ opacity: 1, y: 0 }}

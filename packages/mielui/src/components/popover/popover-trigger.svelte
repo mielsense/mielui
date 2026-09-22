@@ -7,6 +7,7 @@
         submenuPanelOffset
     } from '@mielui/svelte/utils';
     import { tick } from 'svelte';
+    import { buttonAttributes } from '../_internal/button-attributes';
     import type { Placement, PopoverTriggerProps } from '.';
     import { getPopoverContext } from './context.svelte';
 
@@ -116,7 +117,7 @@
 
 <Button
     bind:element
-    {...rest}
+    {...buttonAttributes(rest)}
     class={cn(
         classProp,
         popoverState.open && !popoverState.hoverable && popoverState.inert && 'relative z-[130]'

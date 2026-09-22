@@ -69,6 +69,7 @@
 
 <motion.div
     {...rest}
+    style={rest.style ?? undefined}
     bind:ref={element}
     layout
     layoutDependency={`${toast.type}:${toast.title}:${toast.description}`}
@@ -86,22 +87,22 @@
         !toast.description && !toast.actions?.length && 'w-fit max-w-full',
         'mielui-inset-frame relative ml-auto flex w-full flex-col text-foreground shadow-[var(--elevation-float)] has-[[data-ui=toast-close]]:[&_[data-ui=toast-content]]:pr-11'
     )}
-    onmouseenter={(event) => {
+    onmouseenter={(event: MouseEvent & { currentTarget: EventTarget & HTMLDivElement }) => {
         hovered = true;
         syncTimer();
         onmouseenter?.(event);
     }}
-    onmouseleave={(event) => {
+    onmouseleave={(event: MouseEvent & { currentTarget: EventTarget & HTMLDivElement }) => {
         hovered = false;
         syncTimer();
         onmouseleave?.(event);
     }}
-    onfocusin={(event) => {
+    onfocusin={(event: FocusEvent & { currentTarget: EventTarget & HTMLDivElement }) => {
         focused = true;
         syncTimer();
         onfocusin?.(event);
     }}
-    onfocusout={(event) => {
+    onfocusout={(event: FocusEvent & { currentTarget: EventTarget & HTMLDivElement }) => {
         focused = event.relatedTarget instanceof Node && event.currentTarget.contains(event.relatedTarget);
         syncTimer();
         onfocusout?.(event);

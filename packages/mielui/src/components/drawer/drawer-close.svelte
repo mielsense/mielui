@@ -13,7 +13,7 @@
         ...rest
     }: DrawerCloseProps = $props();
     const drawer = getDrawerContext();
-    function activate(event: MouseEvent) {
+    function activate(event: MouseEvent & { currentTarget: EventTarget & HTMLButtonElement }) {
         onclick?.(event);
         if (!event.defaultPrevented) {
             drawer.close();

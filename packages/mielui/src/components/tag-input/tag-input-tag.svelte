@@ -4,6 +4,7 @@
     import { cn } from '@mielui/svelte/utils';
     import type { HTMLAttributes } from 'svelte/elements';
     import HugeiconsIcon from '../../hugeicons-icon.svelte';
+    import { buttonAttributes } from '../_internal/button-attributes';
     import { badge } from '../badge/variants';
     import type { TagInputTagProps } from '.';
     import { getTagInputContext } from './context.svelte';
@@ -76,7 +77,7 @@
 
 {#if canRemove}
     <Button
-        {...rest}
+        {...buttonAttributes(rest)}
         type="button"
         unstyled
         size="sm"

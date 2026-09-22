@@ -52,6 +52,7 @@ export const manifest: Manifest = {
     ],
     components: ['_internal/utils', 'button', '_internal/overlay'],
     shared: [
+        'components/_internal/button-attributes',
         'components/_internal/surface',
         'utils.clickOutside',
         'utils.cn',

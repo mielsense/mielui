@@ -46,7 +46,7 @@
         const resizeObserver = new ResizeObserver(measure);
         resizeObserver.observe(viewport);
 
-        function syncChildren() {
+        const syncChildren = () => {
             for (const child of observed) {
                 if (child.parentElement !== viewport) {
                     resizeObserver.unobserve(child);
@@ -60,7 +60,7 @@
                 }
             }
             measure();
-        }
+        };
 
         const mutationObserver = new MutationObserver(syncChildren);
         mutationObserver.observe(viewport, { childList: true, subtree: true, characterData: true });

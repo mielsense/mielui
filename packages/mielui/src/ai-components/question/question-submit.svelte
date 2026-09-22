@@ -2,6 +2,7 @@
     import { ArrowRight02Icon as ArrowRight } from '@hugeicons/core-free-icons';
     import { Button } from '@mielui/svelte/components/button';
     import { Spinner } from '@mielui/svelte/components/spinner';
+    import { buttonAttributes } from '../../components/_internal/button-attributes';
     import HugeiconsIcon from '../../hugeicons-icon.svelte';
     import type { QuestionSubmitProps } from '.';
     import { getQuestionContext } from './context.svelte';
@@ -24,12 +25,12 @@
 
 <Button
     bind:element
-    {...rest}
+    {...buttonAttributes(rest)}
     type="submit"
     variant="primary"
     size="md"
     data-ui="question-submit"
-    disabled={context.disabled || disabled}
+    disabled={context.disabled || !!disabled}
     class={className}
     aria-busy={submitting || undefined}
     aria-disabled={submitting || ariaDisabled}

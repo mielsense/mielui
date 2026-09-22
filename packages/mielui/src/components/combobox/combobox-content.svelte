@@ -67,6 +67,7 @@
     {/if}
     <ComboboxPrimitive.Content
         {...rest}
+        dir={rest.dir === 'auto' ? undefined : rest.dir ?? undefined}
         id={id ?? undefined}
         forceMount
         {side}
@@ -87,6 +88,7 @@
                 <div
                     {...mergeProps(props, { onmouseenter: context.cancelHover, onmouseleave: context.hoverLeave })}
                     bind:this={context.panel}
+                    dir={rest.dir}
                     {role}
                     {tabindex}
                     inert={!open}

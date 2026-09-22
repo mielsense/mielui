@@ -41,6 +41,8 @@
 <MenuPrimitive.Portal disabled={!portal}>
     <MenuPrimitive.Content
         {...rest}
+        dir={rest.dir === 'auto' ? undefined : rest.dir ?? undefined}
+        id={rest.id ?? undefined}
         forceMount
         sideOffset={4}
         side={refElement ? 'right' : 'bottom'}
@@ -62,6 +64,7 @@
                 <div {...wrapperProps} data-overlay-root class="z-[130]">
                     <div
                         {...props}
+                        dir={rest.dir}
                         {role}
                         {tabindex}
                         in:panelIn

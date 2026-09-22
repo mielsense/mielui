@@ -3,7 +3,9 @@
     import { Button } from '@mielui/svelte/components/button';
     import { cn } from '@mielui/svelte/utils';
     import { ContextMenu as MenuPrimitive, mergeProps } from 'bits-ui';
+    import type { HTMLButtonAttributes } from 'svelte/elements';
     import HugeiconsIcon from '../../hugeicons-icon.svelte';
+    import { buttonAttributes } from '../_internal/button-attributes';
     import type { ContextMenuSubTriggerProps } from '.';
 
     let {
@@ -17,7 +19,7 @@
 <MenuPrimitive.SubTrigger>
     {#snippet child({ props })}
         <Button
-            {...mergeProps(rest, props)}
+            {...buttonAttributes(mergeProps(rest, { ...props as HTMLButtonAttributes }))}
             role="menuitem"
             aria-haspopup="menu"
             data-collection-item

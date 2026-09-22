@@ -38,6 +38,7 @@ export const manifest: Manifest = {
     ],
     components: ['_internal/utils', 'button'],
     shared: [
+        'components/_internal/button-attributes',
         'components/_internal/surface',
         'hugeicons-icon',
         'utils.cn',

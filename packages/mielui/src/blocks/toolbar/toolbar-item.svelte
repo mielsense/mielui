@@ -12,7 +12,7 @@
     }: ToolbarItemProps = $props();
 </script>
 <Primitive.GroupItem {...rest} bind:ref={element}>
-    {#snippet child({ props })}
+    {#snippet child({ props, pressed })}
         <button
             type="button"
             {...props}
@@ -20,7 +20,7 @@
             data-ui="toolbar-item"
             class={cn(className, button({ variant: 'quiet', size: 'sm' }), 'data-[state=on]:bg-secondary data-[state=on]:text-foreground')}
         >
-            {@render children?.()}
+            {@render children?.({ pressed })}
         </button>
     {/snippet}
 </Primitive.GroupItem>

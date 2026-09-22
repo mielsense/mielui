@@ -23,7 +23,7 @@ export function connectFieldMetadata(control: HTMLElement) {
             .filter((id) => id && !owned.includes(id));
     }
 
-    function sync() {
+    const sync = () => {
         const external = externalIds();
         const metadata = Array.from(
             root.querySelectorAll<HTMLElement>('[data-field-description], [data-field-error]')
@@ -37,7 +37,7 @@ export function connectFieldMetadata(control: HTMLElement) {
         });
         owned = metadata.map((node) => node.id);
         writeDescription([...new Set([...external, ...owned])]);
-    }
+    };
 
     sync();
     const observer = new MutationObserver(sync);

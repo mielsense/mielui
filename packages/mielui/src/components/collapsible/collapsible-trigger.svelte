@@ -6,7 +6,7 @@
     let { class: className, children, ...rest }: CollapsibleTriggerProps = $props();
 </script>
 
-<BitsCollapsible.Trigger {...rest}>
+<BitsCollapsible.Trigger {...rest} id={rest.id ?? undefined}>
     {#snippet child({ props })}
         <button
             {...props}

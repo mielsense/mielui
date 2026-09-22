@@ -28,7 +28,7 @@
         label="Saturation"
         max={100}
         value={controller.state.sat}
-        onValueChange={(next) => {
+        onValueChange={(next: number) => {
             controller.setHsvChannel('s', next);
         }}
     />
@@ -37,7 +37,7 @@
         label="Brightness"
         max={100}
         value={controller.state.val}
-        onValueChange={(next) => {
+        onValueChange={(next: number) => {
             controller.setHsvChannel('v', next);
         }}
     />

@@ -3,7 +3,9 @@
     import { Button } from '@mielui/svelte/components/button';
     import { cn } from '@mielui/svelte/utils';
     import { Select as BitsSelect, mergeProps } from 'bits-ui';
+    import type { HTMLButtonAttributes } from 'svelte/elements';
     import HugeiconsIcon from '../../hugeicons-icon.svelte';
+    import { buttonAttributes } from '../_internal/button-attributes';
     import type { SelectItemProps } from '.';
     import { getSelectContext } from './context.svelte';
 
@@ -49,16 +51,16 @@
     id={rest.id ?? undefined}
     {value}
     label={label || resolvedLabel || value}
-    {disabled}
+    disabled={disabled ?? undefined}
     {onclick}
 >
     {#snippet child({ props, selected })}
         <Button
-            {...mergeProps(rest, props)}
+            {...buttonAttributes(mergeProps(rest, { ...props as HTMLButtonAttributes }))}
             data-collection-item
             data-collection-active={selected}
             bind:element
-            {disabled}
+            disabled={disabled ?? undefined}
             unstyled
             class={cn(className, 'mielui-menu-item data-highlighted:bg-secondary data-highlighted:text-foreground')}
         >

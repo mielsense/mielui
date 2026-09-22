@@ -2,6 +2,7 @@
     import Button from '@mielui/svelte/components/button';
     import { cn } from '@mielui/svelte/utils';
     import type { HTMLButtonAttributes } from 'svelte/elements';
+    import { buttonAttributes } from '../../components/_internal/button-attributes';
     import { getToastContext } from './context.svelte';
     import type { ToastAction } from './lib.svelte';
 
@@ -16,7 +17,7 @@
 </script>
 
 <Button
-    {...rest}
+    {...buttonAttributes(rest)}
     type="button"
     variant={action.variant ?? 'outline'}
     size="sm"

@@ -3,6 +3,7 @@
     import { Button } from '@mielui/svelte/components/button';
     import { Spinner } from '@mielui/svelte/components/spinner';
     import { cn } from '@mielui/svelte/utils';
+    import { buttonAttributes } from '../../components/_internal/button-attributes';
     import HugeiconsIcon from '../../hugeicons-icon.svelte';
     import type { ComposerSubmitProps } from '.';
     import { getComposerContext } from './context.svelte';
@@ -58,7 +59,7 @@
 
 <Button
     bind:element
-    {...rest}
+    {...buttonAttributes(rest)}
     type={action === 'stop' || isPending ? 'button' : 'submit'}
     variant="primary"
     data-ui="composer-submit"

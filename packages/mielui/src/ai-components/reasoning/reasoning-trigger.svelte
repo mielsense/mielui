@@ -2,6 +2,7 @@
     import { ArrowDown01Icon as ChevronDown } from '@hugeicons/core-free-icons';
     import { Button } from '@mielui/svelte/components/button';
     import { cn } from '@mielui/svelte/utils';
+    import { buttonAttributes } from '../../components/_internal/button-attributes';
     import HugeiconsIcon from '../../hugeicons-icon.svelte';
     import type { ReasoningTriggerProps } from '.';
     import { getReasoningContext } from './context.svelte';
@@ -17,7 +18,7 @@
 </script>
 
 <Button
-    {...rest}
+    {...buttonAttributes(rest)}
     type="button"
     variant="quiet"
     data-ui="reasoning-trigger"

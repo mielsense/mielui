@@ -4,7 +4,9 @@
     import { cn } from '@mielui/svelte/utils';
     import { ContextMenu as MenuPrimitive, mergeProps } from 'bits-ui';
     import { untrack } from 'svelte';
+    import type { HTMLButtonAttributes } from 'svelte/elements';
     import HugeiconsIcon from '../../hugeicons-icon.svelte';
+    import { buttonAttributes } from '../_internal/button-attributes';
     import type { ContextMenuCheckboxItemProps } from '.';
     import { getContextMenuContext } from './context.svelte';
 
@@ -20,8 +22,8 @@
         value,
         ...rest
     }: ContextMenuCheckboxItemProps = $props();
-    const { state } = getContextMenuContext();
-    let internalChecked = $state(untrack(() => state.checkboxItems.get(value) ?? checked));
+    const { state: menuState } = getContextMenuContext();
+    let internalChecked = $state(untrack(() => menuState.checkboxItems.get(value) ?? checked));
     let syncedChecked = $state(untrack(() => checked));
 
     $effect(() => {
@@ -29,14 +31,14 @@
             syncedChecked = checked;
             internalChecked = checked;
         }
-        state.checkboxItems.set(value, internalChecked);
+        menuState.checkboxItems.set(value, internalChecked);
     });
 
     function updateChecked(next: boolean) {
         internalChecked = next;
         checked = next;
         syncedChecked = next;
-        state.checkboxItems.set(value, next);
+        menuState.checkboxItems.set(value, next);
     }
 </script>
 
@@ -45,9 +47,9 @@
     checked={internalChecked}
     onCheckedChange={updateChecked}
     {value}
-    {disabled}
+    disabled={disabled ?? undefined}
     onclick={(event) => {
-        userOnclick?.(event as MouseEvent & { currentTarget: EventTarget & HTMLButtonElement });
+        buttonAttributes({ onclick: userOnclick }).onclick?.(event);
     }}
     onSelect={() => {
         callback?.();
@@ -55,9 +57,9 @@
 >
     {#snippet child({ props })}
         <Button
-            {...mergeProps(rest, props)}
+            {...buttonAttributes(mergeProps(rest, { ...props as HTMLButtonAttributes }))}
             bind:element
-            {disabled}
+            disabled={disabled ?? undefined}
             data-collection-item
             class={cn(className, 'mielui-menu-item flex-row gap-3 text-sm', inset && 'pl-8')}
             unstyled

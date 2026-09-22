@@ -4,7 +4,9 @@
     import { cn } from '@mielui/svelte/utils';
     import { Combobox as ComboboxPrimitive, mergeProps } from 'bits-ui';
     import { onMount } from 'svelte';
+    import type { HTMLButtonAttributes } from 'svelte/elements';
     import HugeiconsIcon from '../../hugeicons-icon.svelte';
+    import { buttonAttributes } from '../_internal/button-attributes';
     import { getComboboxContext } from './context.svelte';
     import type { RegisteredComboboxItem } from './controller.svelte';
 
@@ -54,16 +56,16 @@
         id={rest.id ?? optionId}
         {value}
         {label}
-        {disabled}
+        disabled={disabled ?? undefined}
         onHighlight={() => {
             context.state.activeValue = value;
         }}
     >
         {#snippet child({ props, selected, highlighted })}
             <Button
-                {...mergeProps(rest, props)}
+                {...buttonAttributes(mergeProps(rest, { ...props as HTMLButtonAttributes }))}
                 bind:element
-                {disabled}
+                disabled={disabled ?? undefined}
                 data-collection-item
                 data-collection-active={highlighted}
                 data-combobox-value={value}

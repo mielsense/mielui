@@ -4,12 +4,12 @@ type FieldMetadataOptions = {
     label?: string;
     description?: string;
     error?: string;
-    ariaLabel?: string;
-    labelledBy?: string;
-    describedBy?: string;
+    ariaLabel?: string | null;
+    labelledBy?: string | null;
+    describedBy?: string | null;
 };
 
-export function mergeDescriptionIds(...values: Array<string | undefined>) {
+export function mergeDescriptionIds(...values: Array<string | null | undefined>) {
     const ids = values.flatMap((value) => value?.trim().split(/\s+/).filter(Boolean) ?? []);
     return [...new Set(ids)].join(' ') || undefined;
 }

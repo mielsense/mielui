@@ -6,7 +6,9 @@
     import { cn } from '@mielui/svelte/utils';
     import { Select as BitsSelect, mergeProps } from 'bits-ui';
     import type { Snippet } from 'svelte';
+    import type { HTMLButtonAttributes } from 'svelte/elements';
     import HugeiconsIcon from '../../hugeicons-icon.svelte';
+    import { buttonAttributes } from '../_internal/button-attributes';
     import { getSelectContext } from './context.svelte';
     import SelectValue from './select-value.svelte';
 
@@ -35,10 +37,10 @@
     });
 </script>
 
-<BitsSelect.Trigger {...rest}>
+<BitsSelect.Trigger {...rest} id={rest.id ?? undefined}>
     {#snippet child({ props })}
         <Button
-            {...mergeProps(rest, props)}
+            {...buttonAttributes(mergeProps(rest, { ...props as HTMLButtonAttributes }))}
             onpointerdown={undefined}
             onpointerup={undefined}
             onclick={(event) => {

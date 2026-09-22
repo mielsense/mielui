@@ -46,8 +46,8 @@
         combobox.searchPlacement = searchPlacement;
         combobox.threshold = threshold;
         combobox.appearance = appearance;
-        context.disabled = disabled;
-        context.name = name;
+        context.disabled = !!disabled;
+        context.name = name ?? undefined;
         context.beforeOpen = onopen;
     });
 

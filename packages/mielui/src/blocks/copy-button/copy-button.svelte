@@ -4,6 +4,7 @@
     import * as Tooltip from '@mielui/svelte/components/tooltip';
     import { cn } from '@mielui/svelte/utils';
     import { onDestroy } from 'svelte';
+    import { buttonAttributes } from '../../components/_internal/button-attributes';
     import HugeiconsIcon from '../../hugeicons-icon.svelte';
     import type { CopyButtonProps } from '.';
 
@@ -94,7 +95,7 @@
 <Tooltip.Root placement="top" delay={125} closeDelay={80}>
     <Tooltip.Trigger showOnClick class={cn(className, '[&_button]:w-full')}>
         <Button
-            {...rest}
+            {...buttonAttributes(rest)}
             type="button"
             {variant}
             {size}

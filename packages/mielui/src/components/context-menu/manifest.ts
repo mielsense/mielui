@@ -23,6 +23,7 @@ export const manifest: Manifest = {
     ],
     components: ['_internal/utils', 'popover', 'button'],
     shared: [
+        'components/_internal/button-attributes',
         'transition',
         'components/_internal/surface',
         'hugeicons-icon',

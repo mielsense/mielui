@@ -5,7 +5,9 @@
     import { cn } from '@mielui/svelte/utils';
     import { DropdownMenu as MenuPrimitive, mergeProps } from 'bits-ui';
     import type { Snippet } from 'svelte';
+    import type { HTMLButtonAttributes } from 'svelte/elements';
     import HugeiconsIcon from '../../hugeicons-icon.svelte';
+    import { buttonAttributes } from '../_internal/button-attributes';
     import { getDropdownMenuContext } from './context.svelte';
 
     type SubTriggerProps = {
@@ -26,10 +28,10 @@
     });
 </script>
 
-<MenuPrimitive.SubTrigger id={rest.id ?? undefined} disabled={rest.disabled} {onclick}>
+<MenuPrimitive.SubTrigger id={rest.id ?? undefined} disabled={rest.disabled ?? undefined} {onclick}>
     {#snippet child({ props })}
         <Button
-            {...mergeProps(rest, props)}
+            {...buttonAttributes(mergeProps(rest, { ...props as HTMLButtonAttributes }))}
             role="menuitem"
             aria-haspopup="menu"
             data-collection-item

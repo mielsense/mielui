@@ -9,7 +9,7 @@
     }: {
         name?: string;
         form?: string;
-        field: HTMLDivElement | null;
+        field: HTMLElement | null;
         type?: 'start' | 'end';
     } = $props();
     const context = getDatePickerContext();

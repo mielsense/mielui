@@ -21,7 +21,7 @@
         ...rest
     }: DataTableViewProps<TFeatures, TData> = $props();
 </script>
-<Table.ScrollArea tabindex="0" role="region" aria-label={caption ?? 'Data table'}>
+<Table.ScrollArea tabindex={0} role="region" aria-label={caption ?? 'Data table'}>
     <Table.Root
         {...rest}
         aria-busy={loading || undefined}

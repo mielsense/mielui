@@ -261,6 +261,7 @@
 >
     <PopoverPrimitive.ContentStatic
         {...rest}
+        dir={rest.dir === 'auto' ? undefined : rest.dir ?? undefined}
         forceMount
         id={id ?? `popover-${String(key)}-content`}
         trapFocus={!popoverState.hoverable && focusTrap}
@@ -290,6 +291,7 @@
                     in:panelIn
                     out:panelOut
                     id={id ?? `popover-${String(key)}-content`}
+                    dir={rest.dir}
                     {role}
                     aria-modal={ariaModalProp ??
                 ((role === 'dialog' || role === 'alertdialog') && !popoverState.hoverable && popoverState.inert && focusTrap ? 'true' : undefined)}

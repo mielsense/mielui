@@ -87,3 +87,5 @@
 - Studio uses full-width previews, a denser component gallery, and joined preset and copy controls.
 
 - Studio shows a year of heatmap activity and pairs a full-width conversation with the narrower Composer layout used in its documentation.
+
+- Fix TypeScript errors in composed controls, upload and toast motion, and documentation examples while preserving native event handlers and refs.

@@ -46,5 +46,8 @@ export type FileUploadItemProps = FileUploadPartProps & { item: FileUploadEntry 
 export type FileUploadListProps = Omit<HTMLAttributes<HTMLUListElement>, 'children'> & {
     children?: Snippet<[FileUploadEntry]>;
 };
-export type FileUploadButtonProps = Omit<ButtonProps, 'href' | 'type'>;
+export type FileUploadButtonProps = Omit<
+    Extract<ButtonProps, { href?: undefined }>,
+    'href' | 'type'
+>;
 export { Details, Dropzone, Item, List, Preview, Progress, Remove, Retry, Root, Status, Trigger };

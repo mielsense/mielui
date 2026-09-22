@@ -11,7 +11,7 @@
     const isDisabled = $derived(disabled || ctx.disabled);
 </script>
 
-<BitsToggleGroup.Item {value} disabled={isDisabled} {...rest}>
+<BitsToggleGroup.Item {value} disabled={isDisabled} {...rest} id={rest.id ?? undefined}>
     {#snippet child({ props })}
         <button
             {...props}

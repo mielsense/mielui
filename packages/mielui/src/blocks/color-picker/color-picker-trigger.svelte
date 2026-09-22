@@ -21,8 +21,7 @@
 </script>
 
 <Popover.Trigger
-    aria-labelledby={ctx.label ? ctx.labelId : undefined}
-    aria-label={ctx.label ? undefined : (selectedLabel ?? (ctx.value || 'Choose color'))}
+    aria-label={ctx.label ?? selectedLabel ?? (ctx.value || 'Choose color')}
     {variant}
     class={cn(className, 'group w-full justify-start gap-2 pl-2.5 pr-2.5')}
 >

@@ -25,6 +25,7 @@ export const manifest: Manifest = {
     ],
     components: ['_internal/utils', 'button', 'badge'],
     shared: [
+        'components/_internal/button-attributes',
         'components/_internal/field-metadata',
         'hugeicons-icon',
         'utils.cn',

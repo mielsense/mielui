@@ -12,7 +12,7 @@
         description,
         disabled = false,
         class: className,
-        element = $bindable<HTMLButtonElement>(),
+        element = $bindable<HTMLButtonElement | undefined>(),
         onclick: userOnclick,
         id: suppliedId,
         ...rest
@@ -60,7 +60,9 @@
         checked={isOn}
         onCheckedChange={updateChecked}
         id={metadata.controlId}
-        {...rest as HTMLButtonAttributes}
+        {...rest}
+        name={rest.name ?? undefined}
+        value={rest.value ?? undefined}
         type={(rest as HTMLButtonAttributes).type ?? 'button'}
         role="switch"
         aria-label={rest['aria-label']}

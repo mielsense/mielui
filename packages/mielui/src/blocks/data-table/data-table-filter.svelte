@@ -3,6 +3,7 @@
     generics="TFeatures extends import('@tanstack/svelte-table').TableFeatures, TData extends import('@tanstack/svelte-table').RowData"
 >
     import { Input } from '../../components/input';
+    import { cn } from '../../utils';
     import type { DataTableFilterProps } from '.';
     import { filterableColumn } from './features';
 
@@ -13,6 +14,8 @@
 </script>
 <Input
     {...rest}
+    placeholder={rest.placeholder ?? undefined}
+    class={cn(rest.class)}
     type="search"
     aria-label={label}
     value={typeof value === 'string' ? value : ''}
