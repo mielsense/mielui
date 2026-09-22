@@ -2,6 +2,7 @@
     lang="ts"
     generics="TFeatures extends import('@tanstack/svelte-table').TableFeatures, TData extends import('@tanstack/svelte-table').RowData"
 >
+    import { cn } from '@mielui/svelte/utils';
     import * as Table from '../../components/table';
     import type { DataTableHeaderProps } from '.';
     import ColumnHeader from './data-table-column-header.svelte';
@@ -10,6 +11,7 @@
 
     let {
         table,
+        class: className,
         selectable = false,
         header: content,
         ...rest
@@ -17,7 +19,7 @@
     const selectionApi = $derived(selection(table));
     const canSelect = $derived(selectable && !!selectionApi.toggleAllPageRowsSelected);
 </script>
-<Table.Header {...rest}>
+<Table.Header {...rest} class={cn(className, '[&_th]:py-1.5')}>
     {#each table.getHeaderGroups() as group, groupIndex (group.id)}
         <Table.Row>
             {#if canSelect && groupIndex === 0}

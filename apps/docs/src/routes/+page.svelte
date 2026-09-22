@@ -58,7 +58,7 @@
     <title>mielui · Themed Svelte components</title>
     <meta
         name="description"
-        content="58 Svelte 5 components. Restyle all of them from a handful of design tokens."
+        content={`${components.length} Svelte 5 components. Restyle all of them from a handful of design tokens.`}
     />
 </svelte:head>
 
@@ -203,7 +203,7 @@
             class="mt-1 max-w-[38rem] motion-safe:[animation:docs-block-in_280ms_var(--ease-out)_both] motion-safe:[animation-delay:80ms]"
             style="font-size: 18px; font-weight: var(--font-weight-label);"
         >
-            Restyle{components.length} components from a handful of tokens.
+            {`Restyle ${components.length} components from a handful of tokens.`}
         </Typography.Description>
         <div
             class="mt-3 flex w-full flex-col justify-start gap-3 sm:w-auto sm:flex-row sm:flex-wrap motion-safe:[animation:docs-block-in_280ms_var(--ease-out)_both] motion-safe:[animation-delay:115ms]"
@@ -213,7 +213,7 @@
                 size="lg"
                 class="w-full justify-center sm:w-auto"
             >
-                Browse all{components.length} components
+                {`Browse all ${components.length} components`}
                 <HugeiconsIcon icon={ArrowRight} size={16} />
             </Button>
             <Button

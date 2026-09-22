@@ -11,9 +11,11 @@ import {
     rgbToHex
 } from './conversions';
 
+const defaultHsvHex = '#000000';
+
 export function createColorPickerController(context: ColorPickerContext) {
     const initial = untrack(() =>
-        isValidHex(context.value) ? context.value.toLowerCase() : '#000000'
+        isValidHex(context.value) ? context.value.toLowerCase() : defaultHsvHex
     );
     const hsv = hexToHsv(initial);
     const hsl = hexToHsl(initial);

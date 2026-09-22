@@ -1,26 +1,26 @@
 <script lang="ts">
     import * as Accordion from '@mielui/svelte/components/accordion';
     import * as Avatar from '@mielui/svelte/components/avatar';
+    import { Badge } from '@mielui/svelte/components/badge';
+    import { Button } from '@mielui/svelte/components/button';
     import * as Calendar from '@mielui/svelte/components/calendar';
     import * as Card from '@mielui/svelte/components/card';
     import { Checkbox } from '@mielui/svelte/components/checkbox';
-    import { Progress } from '@mielui/svelte/components/progress';
-    import * as Tabs from '@mielui/svelte/components/tabs';
-    import { Textarea } from '@mielui/svelte/components/textarea';
-
-    let reviewed = $state(true);
-    let tested = $state(false);
-    let notes = $state('A quieter workspace for the next release.');
-
-    import { Badge } from '@mielui/svelte/components/badge';
-    import { Button } from '@mielui/svelte/components/button';
+    import * as EmptyState from '@mielui/svelte/components/empty-state';
     import * as Group from '@mielui/svelte/components/group';
     import { Input } from '@mielui/svelte/components/input';
+    import { Progress } from '@mielui/svelte/components/progress';
     import { ScrollArea } from '@mielui/svelte/components/scroll-area';
     import * as Select from '@mielui/svelte/components/select';
     import { Slider } from '@mielui/svelte/components/slider';
     import { Switch } from '@mielui/svelte/components/switch';
+    import * as Tabs from '@mielui/svelte/components/tabs';
+    import { Textarea } from '@mielui/svelte/components/textarea';
     import { toast } from '@mielui/svelte/components/toast';
+
+    let reviewed = $state(true);
+    let tested = $state(false);
+    let notes = $state('A quieter workspace for the next release.');
 
     const uid = $props.id();
     let slug = $state('');
@@ -239,9 +239,16 @@
                             </div>
                         </Tabs.Content>
                         <Tabs.Content value="archived">
-                            <p class="py-4 text-sm text-foreground-muted">
-                                No archived notifications.
-                            </p>
+                            <EmptyState.Root class="px-0 py-6">
+                                <EmptyState.Header>
+                                    <EmptyState.Title level={3}>
+                                        Nothing archived yet
+                                    </EmptyState.Title>
+                                    <EmptyState.Description>
+                                        Notifications you archive will appear here.
+                                    </EmptyState.Description>
+                                </EmptyState.Header>
+                            </EmptyState.Root>
                         </Tabs.Content>
                     </Tabs.Root>
                 </Card.Content>

@@ -24,6 +24,7 @@
 <Table.ScrollArea tabindex={0} role="region" aria-label={caption ?? 'Data table'}>
     <Table.Root
         {...rest}
+        variant="inset"
         aria-busy={loading || undefined}
         class={cn(className, '[&_th]:whitespace-nowrap [&_td]:whitespace-nowrap')}
     >

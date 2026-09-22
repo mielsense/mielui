@@ -23,7 +23,8 @@
         <div>
             <Typography.H1>Data Table</Typography.H1>
             <Typography.Text variant="lead" class="mt-2 max-w-2xl">
-                A table you can sort, filter, and compose around your data.
+                Sort, filter, and select rows in an inset table. Compose the toolbar and footer
+                around your data.
             </Typography.Text>
         </div>
         <DocsPager />

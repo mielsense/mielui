@@ -6,12 +6,14 @@
 
     let { class: className, ...rest }: ColorPickerHueProps = $props();
     const controller = getColorPickerController();
+    const hueSpectrum = ['#f00', '#ff0', '#0f0', '#0ff', '#00f', '#f0f', '#f00'];
 </script>
 
 <div
     {...rest}
     data-ui="color-picker-hue"
-    class={cn(className, 'min-w-0 [&_[data-ui=slider-track]]:bg-[linear-gradient(to_right,#f00,#ff0,#0f0,#0ff,#00f,#f0f,#f00)] [&_[data-ui=slider-range]]:bg-transparent')}
+    style:--picker-spectrum={`linear-gradient(to right, ${hueSpectrum.join(',')})`}
+    class={cn(className, 'min-w-0 [&_[data-ui=slider-track]]:bg-[var(--picker-spectrum)] [&_[data-ui=slider-range]]:bg-transparent')}
 >
     <Slider
         label="Hue"

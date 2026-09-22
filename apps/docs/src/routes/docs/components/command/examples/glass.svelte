@@ -18,7 +18,7 @@
     <Command.Root>
         <Command.Trigger
             variant="outline"
-            class="w-[16rem] max-w-full justify-between gap-2 px-3 py-2 text-muted-foreground"
+            class="w-[16rem] max-w-full justify-between gap-2 px-3 py-2 text-foreground-muted"
         >
             <div class="flex min-w-0 items-center gap-2">
                 <HugeiconsIcon icon={Search} size={16} />

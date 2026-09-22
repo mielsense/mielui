@@ -44,6 +44,11 @@
     <section id="usage" class="flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Usage and accessibility</Typography.H2>
         <Typography.Text>
+            Horizontal groups align input and trigger heights to their button size. Use the same
+            size for every trigger in a group; fields follow that size. Add Group.Separator between
+            controls to keep a single seam.
+        </Typography.Text>
+        <Typography.Text>
             Compose Group.Root with controls as direct children. Put Group.Separator between each
             control, including outline buttons. Label the root with aria-label or aria-labelledby.
             Tab moves between controls normally. Separators own the visible dividers; Group only
