@@ -75,21 +75,53 @@ src/lib/mielui/components/button/
             <a class="text-foreground underline underline-offset-2" href={resolve('/studio')}>
                 Theme Studio
             </a>
-            is the visual way to build a theme. Start from a built-in preset and adjust the shared
-            axes. brand, neutral temperature, radius, density, motion, and fonts. plus typography
-            (header size and per-role weights for body, label, button, badge, and description),
-            per-mode foundation colors, and chrome flags (surface, control, and dialog shadows, the
-            traveling highlight, primary stroke, and the interactive cursor). The Advanced section
-            overrides individual color, spacing, and animation tokens per light and dark mode.
+            lets you start from a preset and adjust colors, fonts, spacing, motion, and surface
+            effects. Use the cog beside Color for individual color tokens. The other sections
+            contain typography, sizing, and animation controls. Your draft is saved locally.
         </Typography.Text>
         <Typography.Text variant="body" class="m-0 max-w-2xl">
-            Copy the generated{' '}
-            <Typography.InlineCode>theme.css</Typography.InlineCode> to use the theme in your app,
-            or copy the theme JSON to share it. The studio keeps your draft in local storage between
-            visits.
+            Choose Use theme, download mielui-theme.json into your project root, and run the command
+            for a new or existing Mielui setup. The JSON includes both color modes and all Studio
+            overrides. New setups get styles.css, which imports ui.css followed by theme.css. Load
+            that stylesheet in your root layout. Fonts must also be loaded by your app.
         </Typography.Text>
+        <CodeBlock
+            lang="bash"
+            copy="overlay"
+            code="pnpm dlx @mielui/svelte init --preset ./mielui-theme.json"
+        />
+        <Typography.Text variant="body" class="m-0 max-w-2xl">
+            For an existing setup, run the command below. It replaces theme.css. Built-in preset
+            slugs, such as default, can be used in place of the JSON path.
+        </Typography.Text>
+        <CodeBlock
+            lang="bash"
+            copy="overlay"
+            code="pnpm dlx @mielui/svelte add theme ./mielui-theme.json"
+        />
     </section>
 
+    <section id="glass-surfaces" class="scroll-mt-20 flex flex-col gap-5">
+        <Typography.H2 class="docs-section-heading">Global glass surfaces</Typography.H2>
+        <Typography.Text variant="body" class="m-0 max-w-2xl">
+            Enable Glass surfaces under Effects in Studio, or set --mielui-surface: glass on :root.
+            Components with surface support inherit that choice when the prop is omitted. Set
+            surface="solid" or surface="glass" on one component to override the theme. Put the
+            variable on :root so portaled menus and dialogs inherit it too.
+        </Typography.Text>
+        <CodeBlock
+            lang="css"
+            copy="overlay"
+            code={`:root {
+  --mielui-surface: glass;
+}`}
+        />
+        <Typography.Text variant="body" class="m-0 max-w-2xl">
+            The global setting uses CSS style queries. Browsers without style-query support retain
+            solid surfaces. Explicit surface="glass" still works with backdrop-filter support.
+            Reduced transparency keeps an opaque background and removes blur.
+        </Typography.Text>
+    </section>
     <section id="override-tokens" class="scroll-mt-20 flex flex-col gap-5">
         <Typography.H2 class="docs-section-heading">Override tokens</Typography.H2>
         <Typography.Text variant="body" class="m-0 max-w-2xl">

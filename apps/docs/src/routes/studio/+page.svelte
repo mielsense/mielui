@@ -16,32 +16,30 @@
         UserIcon as User
     } from '@hugeicons/core-free-icons';
     import * as Accordion from '@mielui/svelte/components/accordion';
-    import * as Alert from '@mielui/svelte/components/alert';
     import * as AlertDialog from '@mielui/svelte/components/alert-dialog';
     import * as Avatar from '@mielui/svelte/components/avatar';
     import { Badge } from '@mielui/svelte/components/badge';
     import { Button } from '@mielui/svelte/components/button';
-    import * as Card from '@mielui/svelte/components/card';
     import { Checkbox } from '@mielui/svelte/components/checkbox';
+    import { CodeBlock } from '@mielui/svelte/components/code-block';
+    import * as Collapsible from '@mielui/svelte/components/collapsible';
     import * as ColorPicker from '@mielui/svelte/components/color-picker';
-    import * as Combobox from '@mielui/svelte/components/combobox';
     import * as Command from '@mielui/svelte/components/command';
-    import * as ContextMenu from '@mielui/svelte/components/context-menu';
     import { CopyButton } from '@mielui/svelte/components/copy-button';
     import * as Dialog from '@mielui/svelte/components/dialog';
     import * as DropdownMenu from '@mielui/svelte/components/dropdown-menu';
-    import { Gauge } from '@mielui/svelte/components/gauge';
+    import * as Group from '@mielui/svelte/components/group';
     import { Input } from '@mielui/svelte/components/input';
     import Kbd from '@mielui/svelte/components/kbd';
     import { Pagination } from '@mielui/svelte/components/pagination';
     import * as Popover from '@mielui/svelte/components/popover';
-    import { Progress, type ProgressProps } from '@mielui/svelte/components/progress';
     import * as RadioGroup from '@mielui/svelte/components/radio-group';
     import { ScrollArea } from '@mielui/svelte/components/scroll-area';
     import * as Select from '@mielui/svelte/components/select';
     import * as Sheet from '@mielui/svelte/components/sheet';
     import { Slider, type SliderProps } from '@mielui/svelte/components/slider';
     import { Switch } from '@mielui/svelte/components/switch';
+    import * as Table from '@mielui/svelte/components/table';
     import * as Tabs from '@mielui/svelte/components/tabs';
     import { TaskSteps } from '@mielui/svelte/components/task-steps';
     import { Textarea } from '@mielui/svelte/components/textarea';
@@ -66,6 +64,7 @@
     } from '@mielui/svelte/themes/theme';
     import { mode, setMode } from 'mode-watcher';
     import { onMount } from 'svelte';
+    import PackageCommand from '$lib/components/docs/package-command.svelte';
     import { fonts } from '$lib/fonts.svelte';
     import {
         type AnimationTokenDefinition,
@@ -92,6 +91,8 @@
         spacingTokenDefinitions,
         spacingTokenGroups
     } from '$lib/studio-advanced-tokens';
+    import AiPreview from './ai-preview.svelte';
+    import ChartPreview from './chart-preview.svelte';
     import ComponentPreview from './component-preview.svelte';
 
     type FoundationPalette = {
@@ -129,6 +130,7 @@
         controlShadows: boolean;
         dialogShadows: boolean;
         travelingHighlight: boolean;
+        glassSurfaces?: boolean;
         primaryStroke: boolean;
         interactiveCursor: InteractiveCursor;
     };
@@ -375,6 +377,7 @@
     let surfaceShadows = $state(true);
     let controlShadows = $state(true);
     let dialogShadows = $state(true);
+    let glassSurfaces = $state(false);
     let travelingHighlight = $state(true);
     let primaryStroke = $state(false);
     let interactiveCursor = $state<InteractiveCursor>('default');
@@ -480,7 +483,6 @@
     const coverageValue = $derived(
         dashboardRange === '7d' ? 54 : dashboardRange === 'Quarter' ? 81 : 72
     );
-    const customers = $derived([...new Set(invoices.map((invoice) => invoice.client))].sort());
     const collectionSteps = [
         { id: 'scan', label: 'Scan overdue', meta: 'Open invoices' },
         { id: 'remind', label: 'Send reminders', meta: 'Today' },
@@ -528,37 +530,67 @@
             (dialogShadows ? 0 : 1) +
             (travelingHighlight ? 0 : 1) +
             (primaryStroke ? 1 : 0) +
+            (glassSurfaces ? 1 : 0) +
             (interactiveCursor === 'default' ? 0 : 1)
     );
     const dirty = $derived(changedAxisCount > 0);
-    const generatedCss = $derived(
-        `${themeToCss(theme)}\n:root,\n.dark {\n\t--font-size-header: ${headerSize}px;\n\t--font-weight-header: ${headerWeight};\n\t--font-weight-body: ${roleWeights.body};\n\t--font-weight-label: ${roleWeights.label};\n\t--font-weight-button: ${roleWeights.button};\n\t--font-weight-badge: ${roleWeights.badge};\n\t--font-weight-description: ${roleWeights.description};\n}\n${brandCssBlock(':root:not(.dark)', brandColors.light)}${brandCssBlock('.dark', brandColors.dark)}${foundationCssBlock(':root:not(.dark)', foundationColors.light)}${foundationCssBlock('.dark', foundationColors.dark)}${tokenOverridesCssBlock(':root:not(.dark)', advancedTokens.colors.light)}${tokenOverridesCssBlock('.dark', advancedTokens.colors.dark)}${tokenOverridesCssBlock(':root,\n.dark', advancedTokens.spacing)}${tokenOverridesCssBlock(':root,\n.dark', advancedTokens.animation)}${chromeCssBlock()}`
-    );
-    const generatedJson = $derived(
-        JSON.stringify(
-            {
-                ...theme,
-                studio: {
-                    presetSlug: selectedPreset,
-                    headerSize,
-                    headerWeight,
-                    roleWeights,
-                    brandColors,
-                    foundationColors,
-                    advancedTokens,
-                    surfaceShadows,
-                    controlShadows,
-                    dialogShadows,
-                    travelingHighlight,
-                    primaryStroke,
-                    interactiveCursor
-                },
-                css: generatedCss
+    let setupOpen = $state(false);
+    let setupMode = $state('new');
+    const exportedTheme: Theme = $derived({
+        ...theme,
+        version: 4,
+        foundation: foundationColors,
+        typography: { headerSize, headerWeight, roleWeights },
+        chrome: {
+            surfaceShadows,
+            controlShadows,
+            dialogShadows,
+            travelingHighlight: travelingHighlight ? undefined : false,
+            primaryStroke,
+            interactiveCursor
+        },
+        tokens: {
+            shared: {
+                ...cleanTokens(advancedTokens.spacing),
+                ...cleanTokens(advancedTokens.animation),
+                '--mielui-surface': glassSurfaces ? 'glass' : 'solid'
             },
-            null,
-            2
-        )
+            light: {
+                ...brandTokens(brandColors.light),
+                ...cleanTokens(advancedTokens.colors.light)
+            },
+            dark: { ...brandTokens(brandColors.dark), ...cleanTokens(advancedTokens.colors.dark) }
+        }
+    });
+    const generatedCss = $derived(themeToCss(exportedTheme));
+    const generatedJson = $derived(JSON.stringify(exportedTheme, null, 2));
+    const setupCommand = $derived(
+        setupMode === 'new'
+            ? 'pnpm dlx @mielui/svelte init --preset ./mielui-theme.json'
+            : 'pnpm dlx @mielui/svelte add theme ./mielui-theme.json'
     );
+    function downloadTheme() {
+        const url = URL.createObjectURL(new Blob([generatedJson], { type: 'application/json' }));
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = 'mielui-theme.json';
+        link.click();
+        window.setTimeout(() => URL.revokeObjectURL(url), 1000);
+    }
+    function brandTokens(color: string) {
+        return {
+            '--color-primary': color,
+            '--color-primary-hover': `color-mix(in srgb, ${color} 78%, black)`,
+            '--color-ring': `color-mix(in srgb, ${color} 30%, transparent)`
+        };
+    }
+    function cleanTokens(overrides: Partial<Record<string, string>>): Record<string, string> {
+        return Object.fromEntries(
+            Object.entries(overrides).filter((entry): entry is [string, string] =>
+                Boolean(entry[1]?.trim())
+            )
+        );
+    }
 
     function emptyAdvancedTokens(): AdvancedTokens {
         return {
@@ -571,84 +603,6 @@
     function countTokenOverrides<T extends string>(overrides: Partial<Record<T, string>>) {
         return (Object.values(overrides) as (string | undefined)[]).filter((value) => value?.trim())
             .length;
-    }
-
-    function foundationCssBlock(selector: string, colors: FoundationPalette) {
-        const declarations = [
-            `--color-card: ${colors.base};`,
-            `--color-panel: ${colors.base};`,
-            `--color-border: ${colors.border};`,
-            `--color-input: ${colors.border};`,
-            `--color-background: ${colors.background};`,
-            `--color-secondary: ${colors.secondary};`,
-            `--color-foreground: ${colors.foreground};`,
-            `--color-foreground-muted: ${colors.foregroundMuted};`,
-            `--color-on-primary: ${colors.onPrimary};`,
-            `--color-button-foreground: ${colors.buttonForeground};`
-        ];
-
-        return `${selector} {\n${declarations.map((declaration) => `\t${declaration}`).join('\n')}\n}\n`;
-    }
-
-    function brandCssBlock(selector: string, color: string) {
-        const declarations = [
-            `--color-primary: ${color};`,
-            `--color-primary-hover: color-mix(in srgb, ${color} 78%, black);`,
-            `--color-ring: color-mix(in srgb, ${color} 30%, transparent);`
-        ];
-
-        return `${selector} {\n${declarations.map((declaration) => `\t${declaration}`).join('\n')}\n}\n`;
-    }
-
-    function chromeCssBlock() {
-        const shared = [`--ui-cursor-interactive: ${interactiveCursor};`];
-        if (!surfaceShadows) {
-            shared.push('--elevation-1: none;', '--elevation-float: none;');
-        }
-        if (!dialogShadows) {
-            shared.push('--elevation-modal: none;');
-        }
-        if (!controlShadows) {
-            shared.push(
-                '--elevation-control: inset 0 0 0 var(--border-size) var(--color-border);',
-                '--elevation-button-outline: inset 0 0 0 var(--border-size) var(--color-border);'
-            );
-        }
-        if (!travelingHighlight) {
-            shared.push('--mielui-traveling-highlight: none;');
-        }
-        const light = [
-            `--color-primary-stroke: ${
-                primaryStroke ? 'color-mix(in srgb, black 14%, transparent)' : 'transparent'
-            };`,
-            ...shared
-        ];
-        const dark = [
-            `--color-primary-stroke: ${
-                primaryStroke ? 'color-mix(in srgb, white 24%, transparent)' : 'transparent'
-            };`,
-            ...shared
-        ];
-
-        return `:root:not(.dark) {\n${light.map((declaration) => `\t${declaration}`).join('\n')}\n}\n.dark {\n${dark.map((declaration) => `\t${declaration}`).join('\n')}\n}\n`;
-    }
-
-    function tokenOverridesCssBlock<T extends string>(
-        selector: string,
-        overrides: Partial<Record<T, string>>
-    ) {
-        const entries = Object.entries(overrides) as [string, string | undefined][];
-        const declarations = entries
-            .filter(
-                (entry): entry is [string, string] =>
-                    typeof entry[1] === 'string' && entry[1].trim().length > 0
-            )
-            .map(([name, value]) => `${name}: ${value.trim()};`);
-        if (declarations.length === 0) {
-            return '';
-        }
-
-        return `${selector} {\n${declarations.map((declaration) => `\t${declaration}`).join('\n')}\n}\n`;
     }
 
     function formatChoice(value: string) {
@@ -773,6 +727,9 @@
             } else if (shadowsOff) {
                 dialogShadows = false;
             }
+            if (typeof value.glassSurfaces === 'boolean') {
+                glassSurfaces = value.glassSurfaces;
+            }
             if (typeof value.travelingHighlight === 'boolean') {
                 travelingHighlight = value.travelingHighlight;
             }
@@ -810,6 +767,7 @@
             controlShadows,
             dialogShadows,
             travelingHighlight,
+            glassSurfaces,
             primaryStroke,
             interactiveCursor
         };
@@ -841,6 +799,7 @@
         controlShadows =
             preset.chrome?.shadows !== false && preset.chrome?.controlShadows !== false;
         dialogShadows = preset.chrome?.shadows !== false && preset.chrome?.dialogShadows !== false;
+        glassSurfaces = preset.tokens?.shared?.['--mielui-surface'] === 'glass';
         travelingHighlight = preset.chrome?.travelingHighlight !== false;
         primaryStroke = false;
         interactiveCursor = 'default';
@@ -869,6 +828,7 @@
             baseTheme.chrome?.shadows !== false && baseTheme.chrome?.controlShadows !== false;
         dialogShadows =
             baseTheme.chrome?.shadows !== false && baseTheme.chrome?.dialogShadows !== false;
+        glassSurfaces = baseTheme.tokens?.shared?.['--mielui-surface'] === 'glass';
         travelingHighlight = baseTheme.chrome?.travelingHighlight !== false;
         primaryStroke = false;
         interactiveCursor = 'default';
@@ -1061,13 +1021,6 @@
         };
     }
 
-    function progressProps(value: number, destructive = false): ProgressProps {
-        return {
-            value,
-            class: destructive ? '[&>div]:bg-[var(--color-error)]' : ''
-        };
-    }
-
     function confirmPresetChange() {
         if (!pendingPreset) return;
         previousPreset = pendingPreset;
@@ -1176,9 +1129,9 @@
             syncFontSelections(theme);
         }
         loadStudioExtensions();
-        previousRadius = DEFAULT_THEME.radius;
-        previousDensity = DEFAULT_THEME.density;
-        previousMotion = DEFAULT_THEME.motion;
+        previousRadius = theme.radius;
+        previousDensity = theme.density;
+        previousMotion = theme.motion;
         hydrated = true;
         const root = document.documentElement;
         appliedDark = root.classList.contains('dark');
@@ -1205,9 +1158,9 @@
 
     $effect(() => {
         if (!hydrated) {
-            previousRadius = DEFAULT_THEME.radius;
-            previousDensity = DEFAULT_THEME.density;
-            previousMotion = DEFAULT_THEME.motion;
+            previousRadius = theme.radius;
+            previousDensity = theme.density;
+            previousMotion = theme.motion;
             return;
         }
         const radiusChanged = theme.radius !== previousRadius;
@@ -1216,9 +1169,9 @@
         if (!radiusChanged && !densityChanged && !motionChanged) {
             return;
         }
-        previousRadius = DEFAULT_THEME.radius;
-        previousDensity = DEFAULT_THEME.density;
-        previousMotion = DEFAULT_THEME.motion;
+        previousRadius = theme.radius;
+        previousDensity = theme.density;
+        previousMotion = theme.motion;
         const nextSpacing = { ...advancedTokens.spacing };
         const nextAnimation = { ...advancedTokens.animation };
         let changed = false;
@@ -1284,15 +1237,20 @@
 </svelte:head>
 
 {#snippet advancedButton(label: string, onClick: () => void)}
-    <Button
-        variant="ghost"
-        size="sm"
-        class="shrink-0 text-foreground-muted"
-        onclick={onClick}
-        aria-label={label}
-    >
-        {label}
-    </Button>
+    <Tooltip.Root>
+        <Tooltip.Trigger>
+            <Button
+                variant="outline"
+                size="icon"
+                class="size-[var(--size-control-md)] shrink-0 rounded-s-none border-s-0 text-foreground-muted"
+                onclick={onClick}
+                aria-label={label}
+            >
+                <HugeiconsIcon icon={Settings} size={16} aria-hidden="true" />
+            </Button>
+        </Tooltip.Trigger>
+        <Tooltip.Content>{label}</Tooltip.Content>
+    </Tooltip.Root>
 {/snippet}
 
 {#snippet segmentedChoice(
@@ -1325,37 +1283,31 @@
     )}
     <div class="flex min-w-0 flex-col gap-2">
         <Typography.Metadata>{label}</Typography.Metadata>
-        <Select.Root
-            {value}
-            onValueChange={(next) => {
-                    if (next === 'advanced') {
-                        openAdvanced();
-                        return;
-                    }
-                    onChange(next);
-                }}
-        >
-            <Select.Trigger
-                class="h-[34px] min-w-0 px-[9px] text-[13px]"
-                variant="outline"
-                aria-label={label}
-            >
-                <span class="truncate">{formatChoice(value)}</span>
-            </Select.Trigger>
-            <Select.Content class="min-w-[max(16rem,var(--popover-trigger-width))]">
-                {#each options as option (option)}
-                    <Select.Item value={option} label={formatChoice(option)}>
-                        {formatChoice(option)}
-                    </Select.Item>
-                {/each}
-                {#if !options.includes(value)}
-                    <Select.Item {value} label={formatChoice(value)}>
-                        {formatChoice(value)}
-                    </Select.Item>
-                {/if}
-                <Select.Item value="advanced" label="Advanced…">Advanced…</Select.Item>
-            </Select.Content>
-        </Select.Root>
+        <Group.Root class="w-full" aria-label={label}>
+            <Select.Root {value} onValueChange={onChange}>
+                <Select.Trigger
+                    class="h-[var(--size-control-md)] min-w-0 flex-1"
+                    variant="outline"
+                    aria-label={label}
+                >
+                    <span class="truncate">{formatChoice(value)}</span>
+                </Select.Trigger>
+                <Select.Content class="min-w-[max(16rem,var(--popover-trigger-width))]">
+                    {#each options as option (option)}
+                        <Select.Item value={option} label={formatChoice(option)}>
+                            {formatChoice(option)}
+                        </Select.Item>
+                    {/each}
+                    {#if !options.includes(value)}
+                        <Select.Item {value} label={formatChoice(value)}>
+                            {formatChoice(value)}
+                        </Select.Item>
+                    {/if}
+                </Select.Content>
+            </Select.Root>
+            <Group.Separator />
+            {@render advancedButton(`Advanced ${label.toLowerCase()}`, openAdvanced)}
+        </Group.Root>
     </div>
 {/snippet}
 
@@ -1386,7 +1338,10 @@
 {#snippet colorPickerControl(
     label: string,
     value: string,
-    options: { label: string; value: string }[],
+    options: {
+    label: string;
+    value: string;
+}[],
     onChange: (value: string) => void
 )}
     <div class="flex min-w-0 flex-col gap-2" role="group" aria-label={`${label} color`}>
@@ -1467,23 +1422,33 @@
 {/snippet}
 
 {#snippet inspector()}
-    <ScrollArea class="hide-scrollbar-all h-full min-h-0 flex-1 bg-background" showCues={false}>
-        <div class="flex min-h-full flex-col gap-8 px-2 pb-4">
-            <div class="flex flex-col gap-4">
-                <div class="flex items-center justify-between gap-2">
-                    <Typography.Title level={3}>Color</Typography.Title>
-                    {@render advancedButton('Advanced', () => {
-                        colorsModalOpen = true;
-                    })}
-                </div>
-                <div class="grid grid-cols-2 gap-2">
-                    {@render colorPickerControl(
+    <div class="flex min-h-0 flex-1 flex-col">
+        <ScrollArea class="hide-scrollbar-all h-full min-h-0 flex-1 bg-background" showCues={false}>
+            <div class="flex min-h-full flex-col gap-2 px-2 pb-4">
+                <Collapsible.Root open>
+                    <section class="border-b border-border pb-3">
+                        <div class="flex items-center gap-2">
+                            <Collapsible.Trigger
+                                class="group flex min-h-10 flex-1 justify-between rounded-[var(--radius-md)] text-sm font-medium"
+                            >
+                                <span>Color</span>
+                                <HugeiconsIcon
+                                    icon={ChevronDown}
+                                    size={14}
+                                    aria-hidden="true"
+                                    class="text-foreground-muted transition-transform [transition-duration:var(--motion-duration-press)] group-data-[state=open]:rotate-180 motion-reduce:transition-none"
+                                />
+                            </Collapsible.Trigger>
+                        </div>
+                        <Collapsible.Content class="flex flex-col gap-4 pt-3 pb-2">
+                            <div class="grid grid-cols-2 gap-2">
+                                {@render colorPickerControl(
                         'Brand',
                         brandColors[appMode],
                         brandSwatches,
                         updateBrand
                     )}
-                    {@render colorPickerControl(
+                                {@render colorPickerControl(
                         'On brand',
                         foundationColors[appMode].onPrimary,
                         onPrimarySwatches,
@@ -1491,9 +1456,9 @@
                             updateFoundationColor('onPrimary', value);
                         }
                     )}
-                </div>
-                <div class="grid grid-cols-2 gap-2">
-                    {@render colorPickerControl(
+                            </div>
+                            <div class="grid grid-cols-2 gap-2">
+                                {@render colorPickerControl(
                         'Base',
                         foundationColors[appMode].base,
                         baseSwatches,
@@ -1501,7 +1466,7 @@
                             updateFoundationColor('base', value);
                         }
                     )}
-                    {@render colorPickerControl(
+                                {@render colorPickerControl(
                         'Border',
                         foundationColors[appMode].border,
                         borderSwatches,
@@ -1509,9 +1474,9 @@
                             updateFoundationColor('border', value);
                         }
                     )}
-                </div>
-                <div class="grid grid-cols-2 gap-2">
-                    {@render colorPickerControl(
+                            </div>
+                            <div class="grid grid-cols-2 gap-2">
+                                {@render colorPickerControl(
                         'Background',
                         foundationColors[appMode].background,
                         backgroundSwatches,
@@ -1519,7 +1484,7 @@
                             updateFoundationColor('background', value);
                         }
                     )}
-                    {@render colorPickerControl(
+                                {@render colorPickerControl(
                         'Secondary',
                         foundationColors[appMode].secondary,
                         secondarySwatches,
@@ -1527,9 +1492,9 @@
                             updateFoundationColor('secondary', value);
                         }
                     )}
-                </div>
-                <div class="grid grid-cols-2 gap-2">
-                    {@render colorPickerControl(
+                            </div>
+                            <div class="grid grid-cols-2 gap-2">
+                                {@render colorPickerControl(
                         'Muted text',
                         foundationColors[appMode].foregroundMuted,
                         foregroundSwatches,
@@ -1537,7 +1502,7 @@
                             updateFoundationColor('foregroundMuted', value);
                         }
                     )}
-                    {@render colorPickerControl(
+                                {@render colorPickerControl(
                         'Foreground',
                         foundationColors[appMode].foreground,
                         foregroundSwatches,
@@ -1545,9 +1510,9 @@
                             updateFoundationColor('foreground', value);
                         }
                     )}
-                </div>
-                <div class="grid grid-cols-2 gap-2">
-                    {@render colorPickerControl(
+                            </div>
+                            <div class="grid grid-cols-2 gap-2">
+                                {@render colorPickerControl(
                         'Button text',
                         foundationColors[appMode].buttonForeground,
                         foregroundSwatches,
@@ -1555,41 +1520,50 @@
                             updateFoundationColor('buttonForeground', value);
                         }
                     )}
-                </div>
-            </div>
+                            </div>
+                            <Button
+                                variant="outline"
+                                class="w-full"
+                                onclick={() => {
+                                    colorsModalOpen = true;
+                                }}
+                            >
+                                Advanced colors
+                            </Button>
+                        </Collapsible.Content>
+                    </section>
+                </Collapsible.Root>
 
-            <div class="flex flex-col gap-4">
-                <div class="flex items-center justify-between gap-2">
-                    <Typography.Title level={3}>Shape & density</Typography.Title>
-                </div>
-                <Switch
-                    bind:checked={surfaceShadows}
-                    label="Card & menu shadows"
-                    description="Lift on cards, selects, dropdowns, and popovers."
-                />
-                <Switch
-                    bind:checked={controlShadows}
-                    label="Control shadows"
-                    description="Depth on inputs, buttons, and alerts."
-                />
-                <Switch
-                    bind:checked={dialogShadows}
-                    label="Dialog shadows"
-                    description="Lift on modals and sheets."
-                />
-                <Switch
-                    bind:checked={travelingHighlight}
-                    label="Traveling highlight"
-                    description="Slide the hover highlight between items. Off keeps the fill without the motion."
-                />
-                <Switch
-                    bind:checked={primaryStroke}
-                    label="Primary stroke"
-                    description="A light inset edge on primary buttons."
-                />
-                <div class="flex flex-col gap-2">
-                    <Typography.Metadata>Hover cursor</Typography.Metadata>
-                    {@render segmentedChoice(
+                <Collapsible.Root>
+                    <section class="border-b border-border pb-3">
+                        <div class="flex items-center gap-2">
+                            <Collapsible.Trigger
+                                class="group flex min-h-10 flex-1 justify-between rounded-[var(--radius-md)] text-sm font-medium"
+                            >
+                                <span>Effects</span>
+                                <HugeiconsIcon
+                                    icon={ChevronDown}
+                                    size={14}
+                                    aria-hidden="true"
+                                    class="text-foreground-muted transition-transform [transition-duration:var(--motion-duration-press)] group-data-[state=open]:rotate-180 motion-reduce:transition-none"
+                                />
+                            </Collapsible.Trigger>
+                        </div>
+                        <Collapsible.Content class="flex flex-col gap-4 pt-3 pb-2">
+                            <Switch
+                                bind:checked={glassSurfaces}
+                                label="Glass surfaces"
+                                description="Use glass for menus, dialogs, and other supported surfaces."
+                            />
+
+                            <Switch bind:checked={surfaceShadows} label="Card & menu shadows" />
+                            <Switch bind:checked={controlShadows} label="Control shadows" />
+                            <Switch bind:checked={dialogShadows} label="Dialog shadows" />
+                            <Switch bind:checked={travelingHighlight} label="Traveling highlight" />
+                            <Switch bind:checked={primaryStroke} label="Primary stroke" />
+                            <div class="flex flex-col gap-2">
+                                <Typography.Metadata>Hover cursor</Typography.Metadata>
+                                {@render segmentedChoice(
                         cursorChoices,
                         interactiveCursor,
                         'Hover cursor',
@@ -1599,14 +1573,28 @@
                             }
                         }
                     )}
-                </div>
-            </div>
+                            </div>
+                        </Collapsible.Content>
+                    </section>
+                </Collapsible.Root>
 
-            <div class="flex flex-col gap-4">
-                <div class="flex items-center justify-between gap-2">
-                    <Typography.Title level={3}>Feel</Typography.Title>
-                </div>
-                {@render feelSelect(
+                <Collapsible.Root>
+                    <section class="border-b border-border pb-3">
+                        <div class="flex items-center gap-2">
+                            <Collapsible.Trigger
+                                class="group flex min-h-10 flex-1 justify-between rounded-[var(--radius-md)] text-sm font-medium"
+                            >
+                                <span>Shape & motion</span>
+                                <HugeiconsIcon
+                                    icon={ChevronDown}
+                                    size={14}
+                                    aria-hidden="true"
+                                    class="text-foreground-muted transition-transform [transition-duration:var(--motion-duration-press)] group-data-[state=open]:rotate-180 motion-reduce:transition-none"
+                                />
+                            </Collapsible.Trigger>
+                        </div>
+                        <Collapsible.Content class="flex flex-col gap-4 pt-3 pb-2">
+                            {@render feelSelect(
                     'Radius',
                     theme.radius,
                     radiusScales,
@@ -1619,7 +1607,7 @@
                         }
                     }
                 )}
-                {@render feelSelect(
+                            {@render feelSelect(
                     'Density',
                     theme.density,
                     densities,
@@ -1632,7 +1620,7 @@
                         }
                     }
                 )}
-                {@render feelSelect(
+                            {@render feelSelect(
                     'Movement',
                     theme.motion,
                     movementPresets,
@@ -1645,219 +1633,257 @@
                         }
                     }
                 )}
-            </div>
+                        </Collapsible.Content>
+                    </section>
+                </Collapsible.Root>
 
-            <div class="flex flex-col gap-4">
-                <Typography.Title level={3}>Typography</Typography.Title>
-                <div class="grid grid-cols-2 gap-2">
-                    <div class="flex min-w-0 flex-col gap-2">
-                        <Typography.Metadata>Sans</Typography.Metadata>
-                        <Select.Root bind:value={selectedSans}>
-                            <Select.Trigger
-                                class="h-[34px] min-w-0 px-[9px] text-[13px]"
-                                variant="outline"
-                                aria-label="Sans font"
+                <Collapsible.Root>
+                    <section class="pb-3">
+                        <div class="flex items-center gap-2">
+                            <Collapsible.Trigger
+                                class="group flex min-h-10 flex-1 justify-between rounded-[var(--radius-md)] text-sm font-medium"
                             >
-                                <span class="truncate">
-                                    {sansFonts.find((font) => font.key === selectedSans)?.label}
-                                </span>
-                            </Select.Trigger>
-                            <Select.Content
-                                class="max-h-56 min-w-[max(16rem,var(--popover-trigger-width))]"
-                            >
-                                <Select.Label>Sans serif</Select.Label>
-                                {#each sansFonts as font (font.key)}
-                                    <Select.Item value={font.key} label={font.label}>
-                                        {font.label}
-                                    </Select.Item>
-                                {/each}
-                            </Select.Content>
-                        </Select.Root>
-                    </div>
-                    <div class="flex min-w-0 flex-col gap-2">
-                        <Typography.Metadata>Header</Typography.Metadata>
-                        <Select.Root bind:value={selectedHeader}>
-                            <Select.Trigger
-                                class="h-[34px] min-w-0 px-[9px] text-[13px]"
-                                variant="outline"
-                                aria-label="Header font"
-                            >
-                                <span
-                                    class="truncate"
-                                    style:font-family={headerFonts.find(
+                                <span>Typography</span>
+                                <HugeiconsIcon
+                                    icon={ChevronDown}
+                                    size={14}
+                                    aria-hidden="true"
+                                    class="text-foreground-muted transition-transform [transition-duration:var(--motion-duration-press)] group-data-[state=open]:rotate-180 motion-reduce:transition-none"
+                                />
+                            </Collapsible.Trigger>
+                        </div>
+                        <Collapsible.Content class="flex flex-col gap-4 pt-3 pb-2">
+                            <div class="grid grid-cols-2 gap-2">
+                                <div class="flex min-w-0 flex-col gap-2">
+                                    <Typography.Metadata>Sans</Typography.Metadata>
+                                    <Select.Root bind:value={selectedSans}>
+                                        <Select.Trigger
+                                            class="h-[34px] min-w-0 px-[9px] text-[13px]"
+                                            variant="outline"
+                                            aria-label="Sans font"
+                                        >
+                                            <span class="truncate">
+                                                {sansFonts.find((font) => font.key === selectedSans)?.label}
+                                            </span>
+                                        </Select.Trigger>
+                                        <Select.Content
+                                            class="max-h-56 min-w-[max(16rem,var(--popover-trigger-width))]"
+                                        >
+                                            <Select.Label>Sans serif</Select.Label>
+                                            {#each sansFonts as font (font.key)}
+                                                <Select.Item value={font.key} label={font.label}>
+                                                    {font.label}
+                                                </Select.Item>
+                                            {/each}
+                                        </Select.Content>
+                                    </Select.Root>
+                                </div>
+                                <div class="flex min-w-0 flex-col gap-2">
+                                    <Typography.Metadata>Header</Typography.Metadata>
+                                    <Select.Root bind:value={selectedHeader}>
+                                        <Select.Trigger
+                                            class="h-[34px] min-w-0 px-[9px] text-[13px]"
+                                            variant="outline"
+                                            aria-label="Header font"
+                                        >
+                                            <span
+                                                class="truncate"
+                                                style:font-family={headerFonts.find(
                                             (font) => font.key === selectedHeader
                                         )?.value}
-                                >
-                                    {headerFonts.find((font) => font.key === selectedHeader)?.label}
-                                </span>
-                            </Select.Trigger>
-                            <Select.Content
-                                class="max-h-56 min-w-[max(16rem,var(--popover-trigger-width))]"
-                            >
-                                <Select.Item value="same-as-sans" label="Same as sans">
-                                    <span style:font-family="var(--font-sans)">Same as sans</span>
-                                </Select.Item>
-                                <Select.Label>Serif</Select.Label>
-                                {#each serifFonts as font (font.key)}
-                                    <Select.Item value={font.key} label={font.label}>
-                                        <span style:font-family={font.value}>{font.label}</span>
-                                    </Select.Item>
-                                {/each}
-                                <Select.Label>Sans serif</Select.Label>
-                                {#each sansFonts as font (font.key)}
-                                    <Select.Item value={font.key} label={font.label}>
-                                        <span style:font-family={font.value}>{font.label}</span>
-                                    </Select.Item>
-                                {/each}
-                            </Select.Content>
-                        </Select.Root>
-                    </div>
-                </div>
-                <div class="flex min-w-0 flex-col gap-2">
-                    <Typography.Metadata>Mono</Typography.Metadata>
-                    <Select.Root bind:value={selectedMono}>
-                        <Select.Trigger
-                            class="h-[34px] min-w-0 px-[9px] font-mono text-[13px]"
-                            variant="outline"
-                            aria-label="Monospace font"
-                        >
-                            <span class="truncate">
-                                {monoFonts.find((font) => font.key === selectedMono)?.label}
-                            </span>
-                        </Select.Trigger>
-                        <Select.Content
-                            class="h-56 min-w-[max(16rem,var(--popover-trigger-width))]"
-                        >
-                            <Select.Label>Mono</Select.Label>
-                            {#each monoFonts as font (font.key)}
-                                <Select.Item value={font.key} label={font.label}>
-                                    {font.label}
-                                </Select.Item>
-                            {/each}
-                        </Select.Content>
-                    </Select.Root>
-                </div>
-                <div class="flex flex-col gap-2">
-                    <div class="flex items-baseline justify-between gap-2">
-                        <Typography.Metadata>Header size</Typography.Metadata>
-                        <Typography.Metadata>{headerSize}px</Typography.Metadata>
-                    </div>
-                    <Slider {...headerSliderProps()} />
-                </div>
-                <div class="flex flex-col gap-2.5">
-                    <Typography.Metadata>Font weights</Typography.Metadata>
-                    {@render weightControl('Header', headerWeight, (value) => {
+                                            >
+                                                {headerFonts.find((font) => font.key === selectedHeader)?.label}
+                                            </span>
+                                        </Select.Trigger>
+                                        <Select.Content
+                                            class="max-h-56 min-w-[max(16rem,var(--popover-trigger-width))]"
+                                        >
+                                            <Select.Item value="same-as-sans" label="Same as sans">
+                                                <span style:font-family="var(--font-sans)">
+                                                    Same as sans
+                                                </span>
+                                            </Select.Item>
+                                            <Select.Label>Serif</Select.Label>
+                                            {#each serifFonts as font (font.key)}
+                                                <Select.Item value={font.key} label={font.label}>
+                                                    <span style:font-family={font.value}>
+                                                        {font.label}
+                                                    </span>
+                                                </Select.Item>
+                                            {/each}
+                                            <Select.Label>Sans serif</Select.Label>
+                                            {#each sansFonts as font (font.key)}
+                                                <Select.Item value={font.key} label={font.label}>
+                                                    <span style:font-family={font.value}>
+                                                        {font.label}
+                                                    </span>
+                                                </Select.Item>
+                                            {/each}
+                                        </Select.Content>
+                                    </Select.Root>
+                                </div>
+                            </div>
+                            <div class="flex min-w-0 flex-col gap-2">
+                                <Typography.Metadata>Mono</Typography.Metadata>
+                                <Select.Root bind:value={selectedMono}>
+                                    <Select.Trigger
+                                        class="h-[34px] min-w-0 px-[9px] font-mono text-[13px]"
+                                        variant="outline"
+                                        aria-label="Monospace font"
+                                    >
+                                        <span class="truncate">
+                                            {monoFonts.find((font) => font.key === selectedMono)?.label}
+                                        </span>
+                                    </Select.Trigger>
+                                    <Select.Content
+                                        class="h-56 min-w-[max(16rem,var(--popover-trigger-width))]"
+                                    >
+                                        <Select.Label>Mono</Select.Label>
+                                        {#each monoFonts as font (font.key)}
+                                            <Select.Item value={font.key} label={font.label}>
+                                                {font.label}
+                                            </Select.Item>
+                                        {/each}
+                                    </Select.Content>
+                                </Select.Root>
+                            </div>
+                            <div class="flex flex-col gap-2">
+                                <div class="flex items-baseline justify-between gap-2">
+                                    <Typography.Metadata>Header size</Typography.Metadata>
+                                    <Typography.Metadata>{headerSize}px</Typography.Metadata>
+                                </div>
+                                <Slider {...headerSliderProps()} />
+                            </div>
+                            <div class="flex flex-col gap-2.5">
+                                <Typography.Metadata>Font weights</Typography.Metadata>
+                                {@render weightControl('Header', headerWeight, (value) => {
                             headerWeight = value;
                         })}
-                    {@render weightControl('Body', roleWeights.body, (value) => {
+                                {@render weightControl('Body', roleWeights.body, (value) => {
                             updateRoleWeight('body', value);
                         })}
-                    {@render weightControl('Label', roleWeights.label, (value) => {
+                                {@render weightControl('Label', roleWeights.label, (value) => {
                             updateRoleWeight('label', value);
                         })}
-                    {@render weightControl('Button', roleWeights.button, (value) => {
+                                {@render weightControl('Button', roleWeights.button, (value) => {
                             updateRoleWeight('button', value);
                         })}
-                    {@render weightControl('Badge', roleWeights.badge, (value) => {
+                                {@render weightControl('Badge', roleWeights.badge, (value) => {
                             updateRoleWeight('badge', value);
                         })}
-                    {@render weightControl('Description', roleWeights.description, (value) => {
+                                {@render weightControl('Description', roleWeights.description, (value) => {
                             updateRoleWeight('description', value);
                         })}
-                </div>
+                            </div>
+                        </Collapsible.Content>
+                    </section>
+                </Collapsible.Root>
             </div>
-
-            <div class="flex shrink-0 flex-col gap-2">
-                <div class="flex items-center gap-2">
-                    <Select.Root bind:value={selectedPreset}>
-                        <Select.Trigger
-                            class="h-[34px] min-w-0 flex-1 px-3 text-sm"
-                            variant="outline"
-                            aria-label="Theme starting point"
-                        >
-                            <span class="truncate">
-                                {builtInThemePresets.find(
+        </ScrollArea>
+        <div class="flex shrink-0 flex-col gap-2 px-2 pt-4 pb-2">
+            <Group.Root class="w-full" aria-label="Theme preset">
+                <Select.Root bind:value={selectedPreset}>
+                    <Select.Trigger
+                        class="h-[34px] min-w-0 flex-1 px-3 text-sm"
+                        variant="outline"
+                        aria-label="Theme starting point"
+                    >
+                        <span class="truncate">
+                            {builtInThemePresets.find(
                                     (preset) => preset.slug === selectedPreset
                                 )?.name ?? 'Default'}
-                                · mielui
-                            </span>
-                        </Select.Trigger>
-                        <Select.Content
-                            class="max-h-56 min-w-[max(16rem,var(--popover-trigger-width))]"
+                            · mielui
+                        </span>
+                    </Select.Trigger>
+                    <Select.Content
+                        class="max-h-56 min-w-[max(16rem,var(--popover-trigger-width))]"
+                    >
+                        {#each builtInThemePresets as preset (preset.slug)}
+                            <Select.Item value={preset.slug} label={preset.name}>
+                                {preset.name}
+                            </Select.Item>
+                        {/each}
+                    </Select.Content>
+                </Select.Root>
+                <Group.Separator />
+                <Tooltip.Root>
+                    <Tooltip.Trigger>
+                        <Button
+                            variant="outline"
+                            size="icon"
+                            class="size-[34px] shrink-0 rounded-s-none border-s-0"
+                            onclick={resetTheme}
+                            aria-label="Reset theme to selected preset"
                         >
-                            {#each builtInThemePresets as preset (preset.slug)}
-                                <Select.Item value={preset.slug} label={preset.name}>
-                                    {preset.name}
-                                </Select.Item>
-                            {/each}
-                        </Select.Content>
-                    </Select.Root>
-                    <Button
-                        variant="outline"
-                        size="icon"
-                        class="size-[34px] shrink-0"
-                        onclick={resetTheme}
-                        aria-label="Reset theme to selected preset"
-                    >
-                        <HugeiconsIcon icon={RotateCcw} size={15} />
-                    </Button>
-                </div>
-                <div class="grid grid-cols-2 gap-2">
-                    <CopyButton
-                        text={generatedJson}
-                        label="Copy JSON"
-                        variant="outline"
-                        size="md"
-                        class="w-full"
-                        oncopy={() => {
-                            copiedKey = 'json';
-                            toast({
-                                title: 'JSON copied',
-                                description: 'The draft is ready to paste into your project.',
-                                type: 'success',
-                                duration: 1600
-                            });
-                            window.setTimeout(() => {
-                                if (copiedKey === 'json') {
-                                    copiedKey = null;
-                                }
-                            }, 1200);
-                        }}
-                    >
-                        {copiedKey === 'json' ? 'Copied' : 'Copy JSON'}
-                    </CopyButton>
-                    <CopyButton
-                        text={generatedCss}
-                        label="Copy CSS"
-                        variant="outline"
-                        size="md"
-                        class="w-full"
-                        oncopy={() => {
-                            copiedKey = 'css';
-                            toast({
-                                title: 'CSS copied',
-                                description: 'The draft is ready to paste into your project.',
-                                type: 'success',
-                                duration: 1600
-                            });
-                            window.setTimeout(() => {
-                                if (copiedKey === 'css') {
-                                    copiedKey = null;
-                                }
-                            }, 1200);
-                        }}
-                    >
-                        {copiedKey === 'css' ? 'Copied' : 'Copy CSS'}
-                    </CopyButton>
-                </div>
-            </div>
+                            <HugeiconsIcon icon={RotateCcw} size={15} />
+                        </Button>
+                    </Tooltip.Trigger>
+                    <Tooltip.Content>Reset to selected preset</Tooltip.Content>
+                </Tooltip.Root>
+            </Group.Root>
+            <Button
+                onclick={() => {
+                    setupOpen = true;
+                }}
+            >
+                Use theme
+            </Button>
+            <Group.Root class="w-full" aria-label="Copy theme">
+                <CopyButton
+                    text={generatedJson}
+                    label="Copy JSON"
+                    variant="outline"
+                    size="md"
+                    class="min-w-0 flex-1 [&_button]:rounded-e-none [&_button]:border-e-0"
+                    oncopy={() => {
+                        copiedKey = 'json';
+                        toast({
+                            title: 'JSON copied',
+                            description: 'The draft is ready to paste into your project.',
+                            type: 'success',
+                            duration: 1600
+                        });
+                        window.setTimeout(() => {
+                            if (copiedKey === 'json') {
+                                copiedKey = null;
+                            }
+                        }, 1200);
+                    }}
+                >
+                    {copiedKey === 'json' ? 'Copied' : 'Copy JSON'}
+                </CopyButton>
+                <Group.Separator />
+                <CopyButton
+                    text={generatedCss}
+                    label="Copy CSS"
+                    variant="outline"
+                    size="md"
+                    class="min-w-0 flex-1 [&_button]:rounded-s-none [&_button]:border-s-0"
+                    oncopy={() => {
+                        copiedKey = 'css';
+                        toast({
+                            title: 'CSS copied',
+                            description: 'The draft is ready to paste into your project.',
+                            type: 'success',
+                            duration: 1600
+                        });
+                        window.setTimeout(() => {
+                            if (copiedKey === 'css') {
+                                copiedKey = null;
+                            }
+                        }, 1200);
+                    }}
+                >
+                    {copiedKey === 'css' ? 'Copied' : 'Copy CSS'}
+                </CopyButton>
+            </Group.Root>
         </div>
-    </ScrollArea>
+    </div>
 {/snippet}
 
 {#snippet dashboardPreview()}
     <ScrollArea class="h-full min-h-0" showCues={false}>
-        <div class="mx-auto flex w-full max-w-4xl flex-col gap-8 px-6 py-8">
+        <div class="@container flex w-full flex-col gap-6 p-5 @min-[640px]:p-8">
             <Toolbar class="gap-2 p-0">
                 <DropdownMenu.Root>
                     <DropdownMenu.Trigger variant="quiet" class="min-w-0 justify-start px-0">
@@ -1887,22 +1913,27 @@
                 </DropdownMenu.Root>
                 <div class="ml-auto flex items-center gap-1">
                     <Popover.Root placement="bottom-end" inert={false}>
-                        <Popover.Trigger
-                            variant="ghost"
-                            size="icon"
-                            class="relative"
-                            aria-label="Notifications"
-                        >
-                            <HugeiconsIcon icon={Bell} size={16} />
-                            {#if unreadNotificationCount > 0}
-                                <Badge
-                                    variant="error"
-                                    class="pointer-events-none absolute top-0.5 right-0.5 size-3.5 min-w-3.5 bg-[var(--color-error)] p-0 text-[length:var(--font-size-meta)] text-[var(--color-on-primary)] leading-none"
+                        <Tooltip.Root>
+                            <Tooltip.Trigger>
+                                <Popover.Trigger
+                                    variant="ghost"
+                                    size="icon"
+                                    class="relative"
+                                    aria-label="Notifications"
                                 >
-                                    {unreadNotificationCount}
-                                </Badge>
-                            {/if}
-                        </Popover.Trigger>
+                                    <HugeiconsIcon icon={Bell} size={16} />
+                                    {#if unreadNotificationCount > 0}
+                                        <Badge
+                                            variant="error"
+                                            class="pointer-events-none absolute top-0.5 right-0.5 size-3.5 min-w-3.5 bg-[var(--color-error)] p-0 text-[length:var(--font-size-meta)] text-[var(--color-on-primary)] leading-none"
+                                        >
+                                            {unreadNotificationCount}
+                                        </Badge>
+                                    {/if}
+                                </Popover.Trigger>
+                            </Tooltip.Trigger>
+                            <Tooltip.Content>Notifications</Tooltip.Content>
+                        </Tooltip.Root>
                         <Popover.Content class="w-80" surfaceClass="p-2" lockScroll={false}>
                             <div class="flex items-center justify-between px-2 pt-1 pb-1.5">
                                 <Popover.Title
@@ -1952,15 +1983,20 @@
                         </Popover.Content>
                     </Popover.Root>
                     <DropdownMenu.Root>
-                        <DropdownMenu.Trigger
-                            variant="quiet"
-                            size="icon"
-                            aria-label="Open profile menu"
-                        >
-                            <Avatar.Root size="sm">
-                                <Avatar.Fallback>AN</Avatar.Fallback>
-                            </Avatar.Root>
-                        </DropdownMenu.Trigger>
+                        <Tooltip.Root>
+                            <Tooltip.Trigger>
+                                <DropdownMenu.Trigger
+                                    variant="quiet"
+                                    size="icon"
+                                    aria-label="Open profile menu"
+                                >
+                                    <Avatar.Root size="sm">
+                                        <Avatar.Fallback>AN</Avatar.Fallback>
+                                    </Avatar.Root>
+                                </DropdownMenu.Trigger>
+                            </Tooltip.Trigger>
+                            <Tooltip.Content>Profile menu</Tooltip.Content>
+                        </Tooltip.Root>
                         <DropdownMenu.Content class="min-w-[16rem]">
                             <DropdownMenu.Label>
                                 <span class="text-[0.7rem] text-foreground-muted">
@@ -2112,64 +2148,75 @@
                     </Command.Root>
                 </div>
 
-                <Tabs.Content value="overview" class="flex flex-col gap-6 pt-6">
-                    <div>
-                        <Typography.Title level={1}>Overview</Typography.Title>
-                        <Typography.Description>
-                            Cash on hand and collection risk for{companyName}
-                            .
-                        </Typography.Description>
-                    </div>
-                    <Tabs.Root bind:value={dashboardRange} variant="ghost">
-                        <Tabs.List class="w-fit">
-                            <Tabs.Trigger value="7d">7 days</Tabs.Trigger>
-                            <Tabs.Trigger value="30d">30 days</Tabs.Trigger>
-                            <Tabs.Trigger value="Quarter">Quarter</Tabs.Trigger>
-                        </Tabs.List>
-                    </Tabs.Root>
-                    {#if overdueCount > 0}
-                        <Alert.Root variant="warning">
-                            <Alert.Title>
-                                {overdueCount}
-                                {overdueCount === 1 ? 'invoice is' : 'invoices are'}
-                                overdue
-                            </Alert.Title>
-                            <Alert.Description>
-                                ${outstandingTotal.toLocaleString('en-US')}
-                                is still open. The next collection run starts tomorrow at 9:00 AM.
-                            </Alert.Description>
-                        </Alert.Root>
-                    {/if}
-                    <Card.Root>
-                        <Card.Header>
-                            <Typography.Title level={2}>Cash coverage</Typography.Title>
+                <Tabs.Content value="overview" class="flex flex-col gap-8 pt-6">
+                    <div class="flex flex-wrap items-start justify-between gap-4">
+                        <div>
+                            <Typography.Title level={1}>Collection overview</Typography.Title>
                             <Typography.Description>
-                                Funds available for the selected range.
+                                Track unpaid invoices and upcoming collections.
                             </Typography.Description>
-                        </Card.Header>
-                        <Card.Content class="flex flex-col gap-4">
-                            <Gauge
-                                value={coverageValue}
-                                label="Cash coverage"
-                                tone="success"
-                                size={72}
-                            >
+                        </div>
+                        <Tabs.Root bind:value={dashboardRange} variant="segmented">
+                            <Tabs.List>
+                                <Tabs.Trigger value="7d">7 days</Tabs.Trigger>
+                                <Tabs.Trigger value="30d">30 days</Tabs.Trigger>
+                                <Tabs.Trigger value="Quarter">Quarter</Tabs.Trigger>
+                            </Tabs.List>
+                        </Tabs.Root>
+                    </div>
+                    <dl class="grid grid-cols-2 gap-6 border-y border-border py-6 @2xl:grid-cols-3">
+                        <div>
+                            <dt class="text-sm text-foreground-muted">Outstanding</dt>
+                            <dd class="mt-2 text-2xl font-semibold tabular-nums">
+                                ${outstandingTotal.toLocaleString('en-US')}
+                            </dd>
+                        </div>
+                        <div>
+                            <dt class="text-sm text-foreground-muted">Overdue invoices</dt>
+                            <dd class="mt-2 text-2xl font-semibold tabular-nums">{overdueCount}</dd>
+                        </div>
+                        <div>
+                            <dt class="text-sm text-foreground-muted">Cash coverage</dt>
+                            <dd class="mt-2 text-2xl font-semibold tabular-nums">
                                 {coverageValue}
                                 %
-                            </Gauge>
-                            <Progress {...progressProps(coverageValue)} />
-                            <Switch
-                                bind:checked={autoReconcile}
-                                label="Auto-reconcile"
-                                description="Match confirmed bank payments as they arrive."
-                            />
+                            </dd>
+                        </div>
+                    </dl>
+                    <div class="grid gap-8 @2xl:grid-cols-[1fr_18rem]">
+                        <section class="min-w-0">
+                            <h2 class="mb-4 text-base font-semibold">Needs attention</h2>
+                            {#each invoices.filter((invoice) => invoice.status === 'Overdue') as invoice (invoice.reference)}
+                                <div
+                                    class="flex flex-wrap items-center justify-between gap-3 border-b border-border py-4"
+                                >
+                                    <div>
+                                        <p class="text-sm font-medium">{invoice.client}</p>
+                                        <p class="mt-1 text-sm text-foreground-muted">
+                                            {invoice.reference} ·{invoice.amount}
+                                        </p>
+                                    </div>
+                                    <Button
+                                        variant="outline"
+                                        onclick={() => markInvoicePaid(invoice.reference)}
+                                    >
+                                        Record payment
+                                    </Button>
+                                </div>
+                            {:else}
+                                <p class="text-sm text-foreground-muted">No overdue invoices.</p>
+                            {/each}
+                        </section>
+                        <section class="flex flex-col gap-5 rounded-[var(--radius-lg)] bg-card p-5">
+                            <h2 class="text-base font-semibold">Collection run</h2>
                             <TaskSteps
                                 label="Collection run"
                                 steps={collectionSteps}
                                 current={collectionStep}
                             />
-                        </Card.Content>
-                    </Card.Root>
+                            <Switch bind:checked={autoReconcile} label="Auto-reconcile" />
+                        </section>
+                    </div>
                 </Tabs.Content>
 
                 <Tabs.Content value="invoices" class="flex flex-col gap-6 pt-6">
@@ -2218,151 +2265,125 @@
                             </Dialog.Content>
                         </Dialog.Root>
                     </div>
-                    <Toolbar class="gap-2 p-0">
-                        <Combobox.Root bind:value={invoiceQuery}>
-                            <Combobox.Trigger
-                                appearance="input"
-                                placeholder="Search customer"
-                                class="min-w-0 flex-1"
-                            >
-                                {#snippet trailing()}
-                                    <HugeiconsIcon icon={Search} size={16} />
-                                {/snippet}
-                            </Combobox.Trigger>
-                            <Combobox.Content>
-                                <Combobox.Results>
-                                    {#each customers as customer (customer)}
-                                        <Combobox.Item value={customer} label={customer} />
-                                    {/each}
-                                </Combobox.Results>
-                            </Combobox.Content>
-                        </Combobox.Root>
+                    <Group.Root aria-label="Invoice filters" class="w-full max-w-lg">
+                        <Input
+                            bind:value={invoiceQuery}
+                            aria-label="Search invoices"
+                            placeholder="Search customer or invoice…"
+                            class="min-w-0 flex-1"
+                        />
+                        <Group.Separator />
                         <Select.Root bind:value={invoiceStatus}>
-                            <Select.Trigger variant="outline" aria-label="Invoice status">
-                                {invoiceStatus === 'all'
-                                    ? 'All statuses'
-                                    : invoiceStatus === 'open'
-                                      ? 'Open'
-                                      : formatChoice(invoiceStatus)}
+                            <Select.Trigger
+                                variant="outline"
+                                aria-label="Invoice status"
+                                class="w-auto shrink-0"
+                            >
+                                {invoiceStatus === 'all' ? 'All statuses' : formatChoice(invoiceStatus)}
                             </Select.Trigger>
                             <Select.Content>
-                                <Select.Item value="all" label="All statuses">
-                                    All statuses
-                                </Select.Item>
-                                <Select.Item value="open" label="Open">Open</Select.Item>
-                                <Select.Item value="paid" label="Paid">Paid</Select.Item>
-                                <Select.Item value="overdue" label="Overdue">Overdue</Select.Item>
+                                <Select.Item value="all">All statuses</Select.Item>
+                                <Select.Item value="open">Open</Select.Item>
+                                <Select.Item value="paid">Paid</Select.Item>
+                                <Select.Item value="overdue">Overdue</Select.Item>
                             </Select.Content>
                         </Select.Root>
-                    </Toolbar>
-                    {#if pagedInvoices.length > 0}
-                        <Checkbox
-                            checked={allVisibleSelected}
-                            label="Select visible invoices"
-                            onCheckedChange={toggleSelectAll}
-                        />
-                    {/if}
-                    {#each pagedInvoices as invoice (invoice.reference)}
-                        <ContextMenu.Root>
-                            <ContextMenu.Trigger class="block">
-                                <div
-                                    class="flex items-center gap-3 border-b border-border py-3 last:border-b-0"
-                                >
-                                    <Checkbox
-                                        bind:checked={selectedInvoices[invoice.reference]}
-                                        label={invoice.client}
-                                        description={`${invoice.reference} · due ${invoice.due}`}
-                                        class="min-w-0 flex-1"
-                                    />
-                                    <Tooltip.Root>
-                                        <Tooltip.Trigger class="ml-auto shrink-0">
+                    </Group.Root>
+                    <Table.ScrollArea class="rounded-[var(--radius-lg)] border border-border">
+                        <Table.Root>
+                            <Table.Header>
+                                <Table.Row>
+                                    <Table.Head class="w-10">
+                                        <Checkbox
+                                            checked={allVisibleSelected}
+                                            aria-label="Select visible invoices"
+                                            onCheckedChange={toggleSelectAll}
+                                        />
+                                    </Table.Head>
+                                    <Table.Head>Customer</Table.Head>
+                                    <Table.Head>Invoice</Table.Head>
+                                    <Table.Head>Status</Table.Head>
+                                    <Table.Head class="text-right">Amount</Table.Head>
+                                    <Table.Head><span class="sr-only">Actions</span></Table.Head>
+                                </Table.Row>
+                            </Table.Header>
+                            <Table.Body>
+                                {#each pagedInvoices as invoice (invoice.reference)}
+                                    <Table.Row>
+                                        <Table.Cell>
+                                            <Checkbox
+                                                bind:checked={selectedInvoices[invoice.reference]}
+                                                aria-label={`Select ${invoice.reference}`}
+                                            />
+                                        </Table.Cell>
+                                        <Table.Cell class="whitespace-nowrap font-medium">
+                                            {invoice.client}
+                                            <p
+                                                class="mt-1 text-xs font-normal text-foreground-muted"
+                                            >
+                                                Due{' '}
+                                                {invoice.due}
+                                            </p>
+                                        </Table.Cell>
+                                        <Table.Cell class="whitespace-nowrap text-foreground-muted">
+                                            {invoice.reference}
+                                        </Table.Cell>
+                                        <Table.Cell>
                                             <Badge variant={invoiceBadgeVariant(invoice.status)}>
                                                 {invoice.status}
                                             </Badge>
-                                        </Tooltip.Trigger>
-                                        <Tooltip.Content>Due{invoice.due}</Tooltip.Content>
-                                    </Tooltip.Root>
-                                    <Typography.Metadata
-                                        class="w-16 shrink-0 text-right tabular-nums"
-                                    >
-                                        {invoice.amount}
-                                    </Typography.Metadata>
-                                    <CopyButton
-                                        text={invoice.reference}
-                                        label="Copy invoice number"
-                                    />
-                                    <DropdownMenu.Root>
-                                        <DropdownMenu.Trigger
-                                            variant="ghost"
-                                            size="icon"
-                                            aria-label={`Actions for ${invoice.reference}`}
+                                        </Table.Cell>
+                                        <Table.Cell class="text-right tabular-nums">
+                                            {invoice.amount}
+                                        </Table.Cell>
+                                        <Table.Cell>
+                                            <DropdownMenu.Root>
+                                                <Tooltip.Root>
+                                                    <Tooltip.Trigger>
+                                                        <DropdownMenu.Trigger
+                                                            variant="ghost"
+                                                            size="icon"
+                                                            aria-label={`Actions for ${invoice.reference}`}
+                                                        >
+                                                            <HugeiconsIcon
+                                                                icon={MoreHorizontal}
+                                                                size={16}
+                                                            />
+                                                        </DropdownMenu.Trigger>
+                                                    </Tooltip.Trigger>
+                                                    <Tooltip.Content>
+                                                        Invoice actions
+                                                    </Tooltip.Content>
+                                                </Tooltip.Root>
+                                                <DropdownMenu.Content>
+                                                    <DropdownMenu.Item
+                                                        disabled={invoice.status === 'Paid'}
+                                                        callback={() => markInvoicePaid(invoice.reference)}
+                                                    >
+                                                        Record payment
+                                                    </DropdownMenu.Item>
+                                                    <DropdownMenu.Item
+                                                        callback={() => navigator.clipboard.writeText(invoice.reference)}
+                                                    >
+                                                        Copy invoice number
+                                                    </DropdownMenu.Item>
+                                                </DropdownMenu.Content>
+                                            </DropdownMenu.Root>
+                                        </Table.Cell>
+                                    </Table.Row>
+                                {:else}
+                                    <Table.Row>
+                                        <Table.Cell
+                                            colspan={6}
+                                            class="py-12 text-center text-foreground-muted"
                                         >
-                                            <HugeiconsIcon icon={MoreHorizontal} size={16} />
-                                        </DropdownMenu.Trigger>
-                                        <DropdownMenu.Content>
-                                            <DropdownMenu.Item
-                                                callback={() =>
-                                                    runDashboardAction(
-                                                        'Reminder sent',
-                                                        `${invoice.client} will be notified.`
-                                                    )}
-                                            >
-                                                Send reminder
-                                            </DropdownMenu.Item>
-                                            <DropdownMenu.Item
-                                                callback={() => markInvoicePaid(invoice.reference)}
-                                            >
-                                                Record payment
-                                            </DropdownMenu.Item>
-                                            <DropdownMenu.Separator />
-                                            <DropdownMenu.Item
-                                                callback={() =>
-                                                    runDashboardAction(
-                                                        'Invoice duplicated',
-                                                        `${invoice.reference} copied as a draft.`
-                                                    )}
-                                            >
-                                                Duplicate
-                                            </DropdownMenu.Item>
-                                        </DropdownMenu.Content>
-                                    </DropdownMenu.Root>
-                                </div>
-                            </ContextMenu.Trigger>
-                            <ContextMenu.Content>
-                                <ContextMenu.Item
-                                    callback={() =>
-                                        runDashboardAction(
-                                            'Reminder sent',
-                                            `${invoice.client} will be notified.`
-                                        )}
-                                >
-                                    Send reminder
-                                </ContextMenu.Item>
-                                <ContextMenu.Item
-                                    callback={() => markInvoicePaid(invoice.reference)}
-                                >
-                                    Record payment
-                                </ContextMenu.Item>
-                                <ContextMenu.Separator />
-                                <ContextMenu.Item
-                                    callback={() =>
-                                        runDashboardAction(
-                                            'Invoice duplicated',
-                                            `${invoice.reference} copied as a draft.`
-                                        )}
-                                >
-                                    Duplicate
-                                </ContextMenu.Item>
-                            </ContextMenu.Content>
-                        </ContextMenu.Root>
-                    {:else}
-                        <Alert.Root variant="info">
-                            <Alert.Title>No invoices found</Alert.Title>
-                            <Alert.Description>
-                                Change the search or status filter to see more invoices.
-                            </Alert.Description>
-                        </Alert.Root>
-                    {/each}
+                                            No invoices match your filters.
+                                        </Table.Cell>
+                                    </Table.Row>
+                                {/each}
+                            </Table.Body>
+                        </Table.Root>
+                    </Table.ScrollArea>
                     <Toolbar class="p-0">
                         <Typography.Metadata>
                             Showing{' '}
@@ -2448,15 +2469,17 @@
 
         <div class="flex min-h-0 min-w-0 flex-1 flex-col gap-3 px-3 pb-3 min-[1100px]:pl-0">
             <div class="flex flex-wrap items-center justify-between gap-3">
-                <Tabs.Root bind:value={previewMode}>
+                <Tabs.Root bind:value={previewMode} variant="segmented">
                     <div role="group" aria-label="Preview content">
                         <Tabs.List>
                             <Tabs.Trigger value="components">Components</Tabs.Trigger>
+                            <Tabs.Trigger value="charts">Charts</Tabs.Trigger>
+                            <Tabs.Trigger value="ai">AI components</Tabs.Trigger>
                             <Tabs.Trigger value="app">App preview</Tabs.Trigger>
                         </Tabs.List>
                     </div>
                 </Tabs.Root>
-                <Tabs.Root bind:value={previewWidth}>
+                <Tabs.Root bind:value={previewWidth} variant="segmented">
                     <div role="group" aria-label="Preview width">
                         <Tabs.List>
                             <Tabs.Trigger value="wide">Wide</Tabs.Trigger>
@@ -2469,11 +2492,15 @@
                 class="flex min-h-0 flex-1 justify-center overflow-hidden rounded-[var(--radius-xl)] bg-secondary/30 p-2 sm:p-4"
             >
                 <div
-                    class={`h-full min-h-0 w-full overflow-hidden rounded-[var(--radius-xl)] border border-border bg-background font-[var(--font-sans)] text-foreground ${previewWidth === 'narrow' ? 'max-w-[390px]' : 'max-w-[1200px]'}`}
+                    class={`h-full min-h-0 w-full overflow-hidden font-[var(--font-sans)] text-foreground ${previewWidth === 'narrow' ? 'max-w-[390px]' : 'max-w-none'}`}
                     id="theme-preview"
                 >
                     {#if previewMode === 'components'}
                         <ComponentPreview />
+                    {:else if previewMode === 'charts'}
+                        <ChartPreview />
+                    {:else if previewMode === 'ai'}
+                        <AiPreview />
                     {:else}
                         {@render dashboardPreview()}
                     {/if}
@@ -2499,6 +2526,57 @@
             </div>
         </Sheet.Content>
     </Sheet.Root>
+
+    <Dialog.Root bind:open={setupOpen}>
+        <Dialog.Content class="w-full max-w-xl">
+            <Dialog.Header>
+                <Dialog.Title>Use your theme</Dialog.Title>
+                <Dialog.Description>
+                    Bring the colors, typography, spacing, and motion you chose into your Svelte
+                    project.
+                </Dialog.Description>
+            </Dialog.Header>
+            <div class="flex min-w-0 flex-col gap-5">
+                <Tabs.Root bind:value={setupMode} variant="segmented">
+                    <Tabs.List>
+                        <Tabs.Trigger value="new">Initialize Mielui</Tabs.Trigger>
+                        <Tabs.Trigger value="existing">Existing setup</Tabs.Trigger>
+                    </Tabs.List>
+                </Tabs.Root>
+                <div class="flex flex-col gap-2">
+                    <p class="text-sm font-medium">1. Save the preset in your project root</p>
+                    <Button variant="outline" class="w-fit" onclick={downloadTheme}>
+                        Download mielui-theme.json
+                    </Button>
+                    <p class="text-sm text-foreground-muted">
+                        This file includes your current light and dark settings. You can keep it in
+                        version control.
+                    </p>
+                </div>
+                <div class="flex min-w-0 flex-col gap-2">
+                    <p class="text-sm font-medium">2. Run from your Svelte project</p>
+                    <PackageCommand command={setupCommand} />
+                    {#if setupMode === 'existing'}
+                        <p class="text-sm text-foreground-muted">
+                            Replaces the generated theme.css. Save any manual changes first.
+                        </p>
+                    {/if}
+                </div>
+                <div class="flex flex-col gap-2">
+                    <p class="text-sm font-medium">3. Load the stylesheet in your root layout</p>
+                    <CodeBlock
+                        lang="ts"
+                        copy="overlay"
+                        code={setupMode === 'new' ? "import '$lib/mielui/styles.css';" : "import '$lib/mielui/ui.css';\nimport '$lib/mielui/theme.css';"}
+                    />
+                    <p class="text-sm text-foreground-muted">
+                        Paths above use the default directory. The CLI prints your configured path.
+                        Load your chosen fonts in the app as well.
+                    </p>
+                </div>
+            </div>
+        </Dialog.Content>
+    </Dialog.Root>
 
     <Dialog.Root bind:open={colorsModalOpen} orientation="vertical">
         <Dialog.Content
