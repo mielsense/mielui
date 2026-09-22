@@ -4,12 +4,7 @@
     import type { TooltipContentProps, TooltipState } from '.';
     import type { TooltipContentState } from './manager-context';
 
-    let {
-        children,
-        class: className,
-        surface = 'solid',
-        rich = false
-    }: TooltipContentProps = $props();
+    let { children, class: className, surface, rich = false }: TooltipContentProps = $props();
 
     const tip = getContext('mielui-tooltip') as TooltipState;
 

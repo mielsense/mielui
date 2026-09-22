@@ -12,13 +12,7 @@
         dynamic?: boolean;
     };
 
-    let {
-        children,
-        class: className,
-        surface = 'solid',
-        dynamic = false,
-        ...rest
-    }: Props = $props();
+    let { children, class: className, surface, dynamic = false, ...rest }: Props = $props();
 </script>
 
 <MenuPrimitive.Portal>

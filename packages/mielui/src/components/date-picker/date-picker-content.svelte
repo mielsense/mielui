@@ -9,7 +9,7 @@
         children,
         class: className,
         ref = $bindable(null),
-        surface = 'solid',
+        surface,
         portal = true,
         sideOffset = 6,
         align = 'start',

@@ -10,7 +10,7 @@
         children,
         id,
         class: className,
-        surface = 'solid',
+        surface,
         surfaceClass,
         allowClickOutside = true,
         dismissLayer = true,

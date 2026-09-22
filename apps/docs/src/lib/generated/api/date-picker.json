@@ -7083,7 +7083,7 @@
                 "type": "\"solid\" | \"glass\" | undefined",
                 "required": false,
                 "bindable": false,
-                "default": "'solid'",
+                "default": null,
                 "description": "",
                 "inherited": false
             },

@@ -15,7 +15,7 @@
     let {
         children,
         class: className,
-        surface = 'solid',
+        surface,
         dynamic = false,
         allowClickOutside = true,
         portal = true,

@@ -16,7 +16,7 @@
     const {
         children,
         class: classProp,
-        surface = 'solid',
+        surface,
         surfaceClass,
         allowClickOutside = true,
         dismissLayer = true,

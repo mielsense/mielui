@@ -11,7 +11,7 @@
 
     let {
         class: className,
-        surface = 'solid',
+        surface,
         allowClickOutside = true,
         allowEscape = true,
         role = 'dialog',
@@ -168,8 +168,8 @@
                                 <button
                                     type="button"
                                     onclick={() => {
-                                dialog.state.open = false;
-                            }}
+                                        dialog.state.open = false;
+                                    }}
                                     aria-label="Close"
                                     class="absolute top-3 right-3 z-[2] inline-flex size-8 items-center justify-center rounded-[var(--radius-md)] text-foreground-muted transition-colors hover:text-foreground focus-visible:outline-none focus-visible:shadow-[var(--focus-ring)]"
                                 >

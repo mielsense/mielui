@@ -10,7 +10,7 @@
     let {
         value = $bindable(''),
         status = 'idle',
-        surface = 'solid',
+        surface,
         generating,
         disabled = false,
         allowEmpty = false,

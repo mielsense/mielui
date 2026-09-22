@@ -5,7 +5,7 @@
     import { overlaySurface } from '../_internal/surface';
 
     let {
-        surface = 'solid',
+        surface,
         children,
         class: className,
         dynamic = false

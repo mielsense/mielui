@@ -5,7 +5,7 @@
     import { overlaySurface } from '../_internal/surface';
     import type { ContextMenuSubContentProps as Props } from '.';
 
-    let { children, class: className, surface = 'solid', ...rest }: Props = $props();
+    let { children, class: className, surface, ...rest }: Props = $props();
 </script>
 
 <MenuPrimitive.Portal>

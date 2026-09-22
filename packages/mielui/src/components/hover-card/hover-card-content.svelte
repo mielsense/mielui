@@ -11,12 +11,16 @@
         children,
         side = 'bottom',
         align = 'center',
-        surface = 'solid',
+        surface,
         ...rest
     }: HoverCardContentProps = $props();
-    const context = getContext<{ id: string; state: { title: boolean; description: boolean } }>(
-        'mielui-hover-card'
-    );
+    const context = getContext<{
+        id: string;
+        state: {
+            title: boolean;
+            description: boolean;
+        };
+    }>('mielui-hover-card');
 </script>
 
 <LinkPreview.Portal>

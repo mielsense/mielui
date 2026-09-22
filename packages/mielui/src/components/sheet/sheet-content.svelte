@@ -8,7 +8,7 @@
 
     let {
         class: className,
-        surface = 'solid',
+        surface,
         allowClickOutside = true,
         children,
         side = 'right',

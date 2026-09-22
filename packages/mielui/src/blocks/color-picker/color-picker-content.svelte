@@ -11,7 +11,7 @@
     import { getColorPickerContext } from './context';
 
     let {
-        surface = 'solid',
+        surface,
         children,
         class: className,
         surfaceClass,
