@@ -56,3 +56,7 @@ vite.config.ts.timestamp-*
 /output/
 /.playwright-cli/
 /.codebase-memory/
+
+# Browser failure captures, not visual assertion baselines
+/apps/docs/tests/unit/mielui/__screenshots__/
+/.playwright-mcp/
