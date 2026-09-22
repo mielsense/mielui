@@ -2,7 +2,6 @@
     import * as Accordion from '@mielui/svelte/components/accordion';
     import * as Avatar from '@mielui/svelte/components/avatar';
     import * as Calendar from '@mielui/svelte/components/calendar';
-
     import * as Card from '@mielui/svelte/components/card';
     import { Checkbox } from '@mielui/svelte/components/checkbox';
     import { Progress } from '@mielui/svelte/components/progress';
