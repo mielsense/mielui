@@ -31,3 +31,16 @@
 - Add a swipe-dismissable Drawer with modal focus management.
 
 - Add a composable Data Table powered by TanStack Table v9, with explicit sort menus, editable filter chips, selection, and pagination.
+
+- Data Table filters accept a search control as children and align filter and sort buttons with inputs.
+- Form error summaries accept validation paths directly and focus after unsuccessful submissions.
+
+- Add File Upload with validation, progress, cancellation, retries, and animated completion.
+- Initialize Mielui from a Studio JSON preset with `init --preset`, or apply it with `add theme`.
+- Set glass surfaces globally from Studio or the `--mielui-surface` CSS variable.
+
+- Studio’s AI workspace demonstrates streamed Markdown, reasoning, tool activity, file attachments, and an overlaid composer with stop and replay controls.
+
+- Studio’s component preview centers interactive mini cards for controls, checklists, team members, and disclosures.
+
+- Checkbox supports small, medium, and large sizes, with a larger 18px default.

@@ -128,4 +128,34 @@ Bits floating wrappers copy the computed z-index of their inner content node. Se
 
 ### Data Table state and filters
 
+DataTable.Filters accepts an optional children snippet. Place DataTable.Filter inside it to join the search input and filter picker with Group. Active facets and Reset render outside the joined control. Omit children when no joined input is needed. The picker stays visible but disabled when every available filter is shown. Filter, facet, reset, and sort controls use the normal control height.
+
 Create the TanStack Table v9 instance in application code with explicit features and row models, then pass it to DataTable.Root and its parts. Use the same instance for Sort, ColumnHeader, Filter, Filters, Facet, View, Summary, and Pagination. Sorting menus set explicit field/direction choices rather than cycling on a header click. Filter is a plain string column search; Filters and Facet store discriminated clauses. Assign dataTableFilter as the filterFn for columns using the supplied facet editors, or provide a custom editor and matching application filterFn. Date facets use ISO calendar-date strings, not JavaScript Date objects. Manual server filtering and sorting remain application-owned; validate any persisted or remote filter input server-side. Supply stable getRowId values for selection across pages. The header selection control selects only the current page. Public snippets allow changing cell content, summaries, and empty states without replacing table state or writing a second rendering path.
+
+## Composer submit buttons
+
+Composer.Submit now renders a round icon button by default. Send, queue, stop, and loading states keep their accessible action labels. Use the existing children snippet for custom content. The Root, Input, Toolbar, and Actions composition and Toolbar's chrome/inset variants are unchanged.
+
+## Form validation summaries
+
+Pass remote validation issues directly to Form.ErrorSummary. An issue path resolves to native field names, including dot-separated object paths and bracketed array indices. controlId remains available for explicit DOM links. Form-level issues have no target. Keep Root pending connected to the request state: ErrorSummary focuses after a submission settles with errors, once per submission, but does not steal focus for initial errors. Use focusOnError={false} to retain application-owned focus. Standalone summaries outside Form.Root do not automatically focus.
+
+## Toast dismiss placement
+
+Toast.Close defaults to absolute placement at the top-right of Toast.Root. The root reserves message space when Close is present, including custom compositions. Do not allocate a trailing footer column for Close; place it directly inside Root unless you intentionally override its position.
+
+## File uploads
+
+FileUpload.Root owns selection validation and per-file upload state. Supply an onUpload promise callback and pass its AbortSignal to the transport. Resolve only after the server accepts the file. Report actual progress through onProgress; omitting it leaves progress indeterminate. Remove aborts an active request and removes the local item, but does not delete server files. List exposes each entry; Item supplies context for Preview, Details, Progress, Status, Retry, and Remove. Rejected selections stay visible and cannot retry. Humanspeak Svelte Motion is a required dependency.
+
+## Studio presets and inherited surfaces
+
+Studio JSON now uses the public Theme format for all overrides. Run init --preset ./mielui-theme.json for a new setup and import the generated styles.css, which loads ui.css before theme.css. Existing setups use add theme with the same file and retain their stylesheet imports. The CLI validates local JSON before generating CSS; it does not execute the file's contents.
+
+Omitting surface now inherits --mielui-surface through CSS style queries. Set the variable to glass on :root for global glass, including portals. Explicit surface="solid" opts out; explicit surface="glass" opts in. Browsers without style-query support retain solid defaults. Export the variable in Theme.tokens.shared.
+
+Title-only toasts render Icon and Title inside Content. Description toasts keep Content above Footer. Use the same parts in custom compositions. Toast now requires Humanspeak Svelte Motion for layout changes and shares the morph action for status icons.
+
+## Checkbox sizes
+
+Checkbox now accepts size="sm" | "md" | "lg" for 14, 18, and 22px boxes. The default is md (18px); use sm explicitly for dense layouts. Size controls the visible box and indicator, while the label remains part of the click target. Native input size is no longer forwarded.

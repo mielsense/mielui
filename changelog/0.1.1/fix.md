@@ -67,3 +67,23 @@
 - Restore pointer hover and selection in menus and floating panels by keeping their content above dismissal layers.
 - Keep top and bottom drawers full width in the examples and give nested drawers separate backdrops and focus boundaries, with cancelled swipes returning to rest.
 - Prevent date segments from overlapping on narrow screens and keep calendar popups above surrounding navigation.
+
+- Keep advanced Studio spacing and motion overrides until their corresponding preset changes.
+- Match date-picker trigger heights to their inputs and keep hover feedback distinct.
+- Position Toast dismiss buttons at the top-right without covering the message.
+
+- Use round send and stop icons in Composer without changing its toolbar variants.
+
+- Show rejected attachments in compact error cards without decoding oversized image previews.
+- Animate promise toast resizing in 50 ms and place title-only messages inside a fitted inset panel.
+- Preserve Studio color, typography, spacing, and motion choices in CLI-compatible theme exports.
+
+- Keep tab highlights aligned while their dialog or other parent animates in.
+
+- Studio places advanced colors below the color controls and groups shape and motion presets with labeled advanced-settings buttons.
+
+- Studio previews share one surface, with dedicated Charts and AI tabs and flush joins on advanced-setting controls.
+
+- Studio uses full-width previews, a denser component gallery, and joined preset and copy controls.
+
+- Studio shows a year of heatmap activity and pairs a full-width conversation with the narrower Composer layout used in its documentation.
