@@ -37,8 +37,16 @@ export const manifest: Manifest = {
         'components/toast/manifest.ts'
     ],
     components: ['_internal/utils', 'button'],
-    shared: ['components/_internal/surface', 'hugeicons-icon', 'utils.cn', 'transition'],
+    shared: [
+        'components/_internal/surface',
+        'hugeicons-icon',
+        'utils.cn',
+        'transition',
+        'actions/morph/index',
+        'actions/morph/geometry'
+    ],
     peerDependencies: {
+        '@humanspeak/svelte-motion': '^1.2.1',
         '@floating-ui/dom': '1.7.6',
         '@hugeicons/core-free-icons': '^4.3.0',
         cnfast: '^0.0.8',

@@ -1,4 +1,12 @@
 <script lang="ts">
+    import { panelIn } from '@mielui/svelte/transition';
+    import { prefersReducedMotion } from 'svelte/motion';
+
+    function enter(node: Element) {
+        const config = panelIn(node);
+        return { ...config, duration: prefersReducedMotion.current ? 0 : config.duration };
+    }
+
     import { cn } from '@mielui/svelte/utils';
     import type { HTMLAttributes } from 'svelte/elements';
     import { getToastContext } from './context.svelte';
@@ -15,6 +23,8 @@
     {#if children}
         {@render children()}
     {:else}
-        {context.toast.title}
+        {#key context.toast.title}
+            <span class="block" in:enter>{context.toast.title}</span>
+        {/key}
     {/if}
 </p>

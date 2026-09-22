@@ -14,6 +14,9 @@
     import Hero from './examples/hero.svelte';
     import HeroSrc from './examples/hero.svelte?raw';
 
+    import PromiseExample from './examples/promise.svelte';
+    import PromiseSrc from './examples/promise.svelte?raw';
+
     const installCommand = 'pnpm dlx @mielui/svelte add toast';
 </script>
 
@@ -80,8 +83,9 @@
             Content and Title use the toast description and title unless you supply children.
             Actions renders the toast actions, or your own Toast.Action parts. Each Action takes an
             action object with label, callback, and optional variant. It runs the callback and then
-            dismisses the toast. Close uses the toast exit callback. All parts accept native element
-            attributes and class. Action and Close render buttons.
+            dismisses the toast. Close sits at the top-right; the content reserves room when it is
+            present. Close uses the toast exit callback. All parts accept native element attributes
+            and class. Action and Close render buttons.
         </Typography.Text>
         <Typography.Text variant="supporting">
             Use persistent: true for decisions that should wait for the user. Timed notifications
@@ -105,6 +109,16 @@
             <ComponentPreview code={ActionsSrc}><Actions /></ComponentPreview>
         </div>
 
+        <div id="promise" class="scroll-mt-20 flex flex-col gap-3">
+            <Typography.H3 class="docs-subsection-heading">Promise</Typography.H3>
+            <Typography.Text variant="supporting">
+                Pass a promise and loading, success, and error messages to toast.promise. One
+                notification updates as the request settles. Success and error messages can be
+                functions of the result or error. The helper returns the toast handle; await the
+                original promise when subsequent work depends on it.
+            </Typography.Text>
+            <ComponentPreview code={PromiseSrc}><PromiseExample /></ComponentPreview>
+        </div>
         <div id="types" class="scroll-mt-20 flex flex-col gap-3">
             <Typography.H3 class="docs-subsection-heading">All types</Typography.H3>
             <ComponentPreview code={AllTypesSrc}>

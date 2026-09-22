@@ -1,4 +1,6 @@
 <script lang="ts">
+    import { motion, useReducedMotion } from '@humanspeak/svelte-motion';
+    import { getCssDuration } from '@mielui/svelte/transition';
     import { cn } from '@mielui/svelte/utils';
     import { onDestroy } from 'svelte';
     import type { HTMLAttributes } from 'svelte/elements';
@@ -14,7 +16,7 @@
 
     let {
         toast,
-        surface = toast.surface ?? 'solid',
+        surface = toast.surface,
         children,
         class: className,
         onmouseenter,
@@ -22,8 +24,22 @@
         onfocusin,
         onfocusout,
         ...rest
-    }: HTMLAttributes<HTMLDivElement> & { toast: Toast; surface?: 'solid' | 'glass' } = $props();
+    }: HTMLAttributes<HTMLDivElement> & {
+        toast: Toast;
+        surface?: 'solid' | 'glass';
+    } = $props();
 
+    let element = $state<HTMLElement | null>(null);
+    const reduced = useReducedMotion();
+    let duration = $state(0);
+    $effect.pre(() => {
+        void toast.title;
+        void toast.description;
+        if (element) {
+            duration =
+                Math.min(50, getCssDuration(element, '--motion-duration-toast-in', 50)) / 1000;
+        }
+    });
     let hovered = false;
     let focused = false;
 
@@ -51,15 +67,25 @@
     }
 </script>
 
-<div
+<motion.div
     {...rest}
+    bind:ref={element}
+    layout
+    layoutDependency={`${toast.type}:${toast.title}:${toast.description}`}
+    initial={false}
+    transition={{ duration: reduced.current ? 0 : duration, ease: [0.22, 1, 0.36, 1] }}
     data-ui="toast"
     data-surface={surface}
     data-type={toast.type ?? 'default'}
     role="status"
     aria-live="polite"
     aria-atomic="true"
-    class={cn(className, overlaySurface(surface), 'mielui-inset-frame relative flex w-full flex-col text-foreground shadow-[var(--elevation-float)]')}
+    class={cn(
+        className,
+        overlaySurface(surface),
+        !toast.description && !toast.actions?.length && 'w-fit max-w-full',
+        'mielui-inset-frame relative ml-auto flex w-full flex-col text-foreground shadow-[var(--elevation-float)] has-[[data-ui=toast-close]]:[&_[data-ui=toast-content]]:pr-11'
+    )}
     onmouseenter={(event) => {
         hovered = true;
         syncTimer();
@@ -86,14 +112,22 @@
     {:else}
         {#if toast.description}
             <Content />
-        {/if}
-        <Footer>
-            <Icon />
-            <Title />
-            <Actions />
-            {#if toast.exitable}
-                <Close />
+            <Footer>
+                <Icon />
+                <Title />
+                <Actions />
+            </Footer>
+        {:else}
+            <Content class="flex min-h-14 flex-row items-center gap-2 px-4 py-4">
+                <Icon />
+                <Title />
+            </Content>
+            {#if toast.actions?.length}
+                <Footer><Actions /></Footer>
             {/if}
-        </Footer>
+        {/if}
+        {#if toast.exitable}
+            <Close />
+        {/if}
     {/if}
-</div>
+</motion.div>
