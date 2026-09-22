@@ -128,7 +128,7 @@
 <Popover.Root bind:open {onOpenChange} inert={false} placement="bottom-start">
     <Popover.Trigger
         variant="outline"
-        size="sm"
+        size="md"
         class={cn(className, 'max-w-full gap-2')}
         disabled={!column?.getCanFilter?.()}
     >
@@ -154,8 +154,8 @@
                 aria-label={`${filter.label} operator`}
                 value={operator}
                 onchange={(event) => {
-                changeOperator(event.currentTarget.value);
-            }}
+                    changeOperator(event.currentTarget.value);
+                }}
             >
                 {#each operators as item (item.value)}
                     <NativeSelect.Option value={item.value}>{item.label}</NativeSelect.Option>
@@ -167,8 +167,8 @@
                     placeholder={filter.placeholder ?? 'Enter a value…'}
                     value={typeof value === 'string' ? value : ''}
                     oninput={(event) => {
-                commit(event.currentTarget.value);
-            }}
+                        commit(event.currentTarget.value);
+                    }}
                 />
             {:else if filter.type === 'select'}
                 <div class="flex max-h-60 flex-col gap-1 overflow-auto">
@@ -180,11 +180,11 @@
                             checked={selected}
                             onCheckedChange={(checked) => {
                                 const current = Array.isArray(value)
-                                    ? value.filter((item): item is string => typeof item === 'string')
-                                    : [];
+                                ? value.filter((item): item is string => typeof item === 'string')
+                                : [];
                                 commit(checked
-                                    ? [...current, option.value]
-                                    : current.filter((item) => item !== option.value));
+                                ? [...current, option.value]
+                                : current.filter((item) => item !== option.value));
                             }}
                         />
                     {/each}
@@ -201,8 +201,8 @@
                             step={filter.step ?? 'any'}
                             value={Array.isArray(value) ? value[0] : undefined}
                             oninput={(event) => {
-                numericValue(event.currentTarget, 0);
-            }}
+                                numericValue(event.currentTarget, 0);
+                            }}
                         />
                         <Input
                             type="number"
@@ -213,8 +213,8 @@
                             step={filter.step ?? 'any'}
                             value={Array.isArray(value) ? value[1] : undefined}
                             oninput={(event) => {
-                numericValue(event.currentTarget, 1);
-            }}
+                                numericValue(event.currentTarget, 1);
+                            }}
                         />
                     </div>
                 {:else}
@@ -226,8 +226,8 @@
                         step={filter.step ?? 'any'}
                         value={typeof value === 'number' ? value : undefined}
                         oninput={(event) => {
-                numericValue(event.currentTarget);
-            }}
+                            numericValue(event.currentTarget);
+                        }}
                     />
                 {/if}
             {:else}

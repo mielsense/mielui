@@ -7,12 +7,18 @@
     import { tick } from 'svelte';
     import { Button } from '../../components/button';
     import * as Menu from '../../components/dropdown-menu';
+    import * as Group from '../../components/group';
     import HugeiconsIcon from '../../hugeicons-icon.svelte';
     import type { DataTableFiltersProps } from '.';
     import Facet from './data-table-facet.svelte';
     import { filterableColumn } from './features';
 
-    let { table, filters, class: className }: DataTableFiltersProps<TFeatures, TData> = $props();
+    let {
+        table,
+        filters,
+        children,
+        class: className
+    }: DataTableFiltersProps<TFeatures, TData> = $props();
     let shown = $state<string[]>([]);
     let opened = $state<string>();
     let pickerOpen = $state(false);
@@ -64,6 +70,30 @@
     data-ui="data-table-filters"
     class={cn(className, 'flex min-w-0 flex-wrap items-center gap-2')}
 >
+    <Group.Root aria-label="Table filters" class={children ? 'w-full max-w-sm' : undefined}>
+        {@render children?.()}
+        {#if children}
+            <Group.Separator />
+        {/if}
+        <Menu.Root bind:open={pickerOpen}>
+            <Menu.Trigger variant="outline" size="md" disabled={hidden.length === 0}>
+                <HugeiconsIcon icon={FilterIcon} size={14} />
+                Filter
+            </Menu.Trigger>
+            <Menu.Content>
+                <Menu.Label>Filter by</Menu.Label>
+                {#each hidden as filter (filter.column)}
+                    <Menu.Item
+                        onclick={() => {
+                            void reveal(filter.column);
+                        }}
+                    >
+                        {filter.label}
+                    </Menu.Item>
+                {/each}
+            </Menu.Content>
+        </Menu.Root>
+    </Group.Root>
     {#each visible as filter (filter.column)}
         <Facet
             {table}
@@ -78,28 +108,8 @@
             }}
         />
     {/each}
-    {#if hidden.length > 0}
-        <Menu.Root bind:open={pickerOpen}>
-            <Menu.Trigger variant="outline" size="sm">
-                <HugeiconsIcon icon={FilterIcon} size={14} />
-                Filter
-            </Menu.Trigger>
-            <Menu.Content>
-                <Menu.Label>Filter by</Menu.Label>
-                {#each hidden as filter (filter.column)}
-                    <Menu.Item
-                        onclick={() => {
-                void reveal(filter.column);
-            }}
-                    >
-                        {filter.label}
-                    </Menu.Item>
-                {/each}
-            </Menu.Content>
-        </Menu.Root>
-    {/if}
     {#if visible.length > 0}
-        <Button variant="ghost" size="sm" onclick={reset}>
+        <Button variant="ghost" size="md" onclick={reset}>
             Reset<HugeiconsIcon icon={Cancel01Icon} size={14} />
         </Button>
     {/if}

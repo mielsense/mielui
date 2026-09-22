@@ -153,6 +153,7 @@ export type DataTableFilterDefinition = {
 export type DataTableFiltersProps<TFeatures extends TableFeatures, TData extends RowData> = {
     table: Table<TFeatures, TData>;
     filters: readonly DataTableFilterDefinition[];
+    children?: Snippet;
     class?: string;
 };
 export type DataTableFacetProps<TFeatures extends TableFeatures, TData extends RowData> = {

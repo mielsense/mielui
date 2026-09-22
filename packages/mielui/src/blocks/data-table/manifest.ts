@@ -29,6 +29,7 @@ export const manifest: Manifest = {
         '_internal/utils',
         'table',
         'input',
+        'group',
         'button',
         'checkbox',
         'dropdown-menu',

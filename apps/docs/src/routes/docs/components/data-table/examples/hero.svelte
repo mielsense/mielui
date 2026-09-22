@@ -18,14 +18,15 @@
 <DataTable.Root {table} class="w-full">
     {#snippet children()}
         <DataTable.Toolbar>
-            <DataTable.Filter
-                {table}
-                column="name"
-                label="Filter members by name"
-                placeholder="Filter members…"
-                class="max-w-xs"
-            />
-            <DataTable.Filters {table} {filters} />
+            <DataTable.Filters {table} {filters} class="min-w-0 flex-1">
+                <DataTable.Filter
+                    {table}
+                    column="name"
+                    label="Filter members by name"
+                    placeholder="Filter members…"
+                    class="min-w-0 flex-1"
+                />
+            </DataTable.Filters>
             <DataTable.Sort {table} class="ml-auto" />
         </DataTable.Toolbar>
         <DataTable.View

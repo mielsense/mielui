@@ -81,6 +81,12 @@
     <section id="filters" class="flex flex-col gap-4">
         <Typography.H2>Search and filter</Typography.H2>
         <Typography.Text>
+            Place Filter inside Filters to join the search input and Filter button with Group. The
+            optional children snippet renders before the button. Active facets and Reset stay
+            outside that group. Omit children for a standalone filter picker. The picker stays
+            visible and disables itself when every available filter is shown.
+        </Typography.Text>
+        <Typography.Text>
             Filter is a labeled search input for a string column filter, such as name with
             includesString. Filters accepts a list of definitions with column, label, and type:
             text, select, number, or date. Its menu reveals editable chips; selecting a field opens

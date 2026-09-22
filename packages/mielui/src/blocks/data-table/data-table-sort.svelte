@@ -31,7 +31,7 @@
 <Menu.Root>
     <Menu.Trigger
         variant="outline"
-        size="sm"
+        size="md"
         class={className}
         disabled={!api.setSorting || options.length === 0}
         aria-label="Sort results"
@@ -67,8 +67,8 @@
             <Menu.Separator />
             <Menu.Item
                 onclick={() => {
-                api.setSorting?.([]);
-            }}
+                    api.setSorting?.([]);
+                }}
             >
                 Clear sorting
             </Menu.Item>
