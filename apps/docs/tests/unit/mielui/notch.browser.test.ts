@@ -203,13 +203,17 @@ it('shows curved action arcs at rest and reveals their buttons on keyboard focus
     await page.getByRole('button', { name: 'Toggle notch' }).click();
     const action = page.getByRole('button', { name: 'Next task' });
     await expect.element(action).toBeInTheDocument();
-    await expect.poll(() => getComputedStyle(action.element()).opacity).toBe('0');
-    const host = action.element().parentElement as HTMLElement;
+    await expect
+        .poll(() => getComputedStyle(action.element().parentElement as HTMLElement).opacity)
+        .toBe('0');
+    const host = action.element().closest('[data-ui=notch-side-action]') as HTMLElement;
     expect(host.querySelector('circle')).toHaveAttribute('stroke-dasharray', '25 75');
     const bounds = host.getBoundingClientRect();
     expect(bounds.top).toBeGreaterThanOrEqual(0);
     expect(bounds.top).toBeLessThan(16);
     (action.element() as HTMLButtonElement).focus();
-    await expect.poll(() => getComputedStyle(action.element()).opacity).toBe('1');
+    await expect
+        .poll(() => getComputedStyle(action.element().parentElement as HTMLElement).opacity)
+        .toBe('1');
     await expect.element(action).toHaveFocus();
 });

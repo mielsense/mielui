@@ -129,3 +129,5 @@
 - Dialogs restore focus when removed while open without interrupting a newly opened dialog.
 
 - Escape closes only the deepest open dropdown or context submenu, keeping its parent menu available.
+
+- Notch side actions unfold with synchronized shape and button motion, including interrupted hover changes.

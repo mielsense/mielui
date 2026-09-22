@@ -24,6 +24,11 @@
     let shown = $state(false);
     let revealed = $state(false);
     let duration = $state(0);
+    let easing = $state<[number, number, number, number]>([0.23, 1, 0.32, 1]);
+    const unfoldTransition = $derived({
+        duration: reduced.current ? 0 : duration,
+        ease: easing
+    });
     let actionWidth = $state(32);
     let actionHeight = $state(32);
     let gap = $state(4);
@@ -66,7 +71,13 @@
             return;
         }
         duration = getCssDuration(node, '--motion-duration-panel', 180) / 1000;
-        const spacingToken = getComputedStyle(node).getPropertyValue('--spacing').trim();
+        const style = getComputedStyle(node);
+        const curve = style.getPropertyValue('--ease-out').match(/cubic-bezier\(([^)]+)\)/);
+        const points = curve?.[1].split(',').map(Number);
+        if (points?.length === 4 && points.every(Number.isFinite)) {
+            easing = [points[0], points[1], points[2], points[3]];
+        }
+        const spacingToken = style.getPropertyValue('--spacing').trim();
         const spacing = Number.parseFloat(spacingToken);
         const rootSize = Number.parseFloat(getComputedStyle(document.documentElement).fontSize);
         gap = Number.isFinite(spacing)
@@ -209,8 +220,8 @@
         viewBox="0 0 40 40"
         class="pointer-events-none absolute inset-0 size-full overflow-visible"
         initial={false}
-        animate={{ opacity: revealed ? 0 : 1, scale: revealed ? 0.86 : 1 }}
-        transition={{ duration: reduced.current ? 0 : Math.min(duration, 0.18) }}
+        animate={{ opacity: revealed ? 0 : 1, scale: revealed ? 0.92 : 1 }}
+        transition={unfoldTransition}
     >
         <g transform={`rotate(${arcRotation} 20 20)`}>
             <circle
@@ -237,17 +248,22 @@
             />
         </g>
     </motion.svg>
-    <Button
-        {...rest}
-        bind:element
-        {size}
-        {variant}
-        class={cn(className, variant === 'panel' ? overlaySurface(context.surface) : undefined, 'rounded-full transition-opacity [transition-duration:var(--motion-duration-hover)] motion-reduce:transition-none', !revealed && 'opacity-0')}
+    <motion.div
+        initial={false}
+        animate={{ opacity: revealed ? 1 : 0, scale: revealed ? 1 : 0.86 }}
+        transition={unfoldTransition}
+        class="origin-center"
     >
-        <span
-            class={cn('inline-flex items-center justify-center transition-opacity [transition-duration:var(--motion-duration-hover)] motion-reduce:transition-none', !revealed && 'opacity-0')}
+        <Button
+            {...rest}
+            bind:element
+            {size}
+            {variant}
+            class={cn(className, variant === 'panel' ? overlaySurface(context.surface) : undefined, 'rounded-full')}
         >
-            {@render children?.()}
-        </span>
-    </Button>
+            <span class="inline-flex items-center justify-center">
+                {@render children?.()}
+            </span>
+        </Button>
+    </motion.div>
 </motion.div>
