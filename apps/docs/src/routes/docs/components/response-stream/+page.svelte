@@ -10,6 +10,9 @@
     const TITLE = 'Response Stream';
     const SLUG = 'response-stream';
     const installCommand = `pnpm dlx @mielui/svelte add ${SLUG}`;
+
+    import Additional from './examples/complete.svelte';
+    import AdditionalSrc from './examples/complete.svelte?raw';
 </script>
 
 <svelte:head>
@@ -94,5 +97,9 @@
                 copy="overlay"
             />
         </div>
+    </section>
+    <section id="complete" class="scroll-mt-20 flex flex-col gap-4">
+        <Typography.H2 class="docs-section-heading">Complete text</Typography.H2>
+        <ComponentPreview code={AdditionalSrc}><Additional /></ComponentPreview>
     </section>
 </div>

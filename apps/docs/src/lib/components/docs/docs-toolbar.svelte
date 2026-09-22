@@ -10,6 +10,7 @@
     import { morph } from '@mielui/svelte/actions/morph';
     import { Button } from '@mielui/svelte/components/button';
     import * as Sheet from '@mielui/svelte/components/sheet';
+    import * as Tooltip from '@mielui/svelte/components/tooltip';
     import HugeiconsIcon from '@mielui/svelte/hugeicons-icon';
     import { mode, toggleMode } from 'mode-watcher';
     import { resolve } from '$app/paths';
@@ -30,7 +31,6 @@
 
     const navItems = [
         { href: '/docs/introduction', label: 'Docs' },
-        { href: '/docs/components', label: 'Components' },
         { href: '/studio', label: 'Studio' }
     ];
     const docsPages = [
@@ -108,14 +108,19 @@
     >
         <div class="mx-auto flex w-full min-w-0 max-w-[960px] items-center justify-between gap-4">
             <div class="flex min-w-0 items-center gap-2 sm:hidden">
-                <Sheet.Trigger
-                    class="size-9 rounded-[var(--radius-md)]"
-                    aria-label="Open navigation menu"
-                    variant="quiet"
-                    size="icon"
-                >
-                    <HugeiconsIcon icon={Menu} size={18} />
-                </Sheet.Trigger>
+                <Tooltip.Root>
+                    <Tooltip.Trigger>
+                        <Sheet.Trigger
+                            class="size-9 rounded-[var(--radius-md)]"
+                            aria-label="Open navigation menu"
+                            variant="quiet"
+                            size="icon"
+                        >
+                            <HugeiconsIcon icon={Menu} size={18} />
+                        </Sheet.Trigger>
+                    </Tooltip.Trigger>
+                    <Tooltip.Content>Open navigation menu</Tooltip.Content>
+                </Tooltip.Root>
                 <Logo />
             </div>
 
@@ -185,23 +190,30 @@
                 <span>{formatStarCount(starCount)}</span>
             </Button>
 
-            <Button
-                class="size-9 rounded-[var(--radius-md)]"
-                variant="outline"
-                onclick={() => {
-                    toggleMode();
-                }}
-                size="icon"
-                aria-label={mode.current === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
-            >
-                <span
-                    class="inline-flex size-4"
-                    aria-hidden="true"
-                    use:morph={{ key: mode.current }}
-                >
-                    <HugeiconsIcon icon={mode.current === 'dark' ? Moon : Sun} size={16} />
-                </span>
-            </Button>
+            <Tooltip.Root>
+                <Tooltip.Trigger>
+                    <Button
+                        class="size-9 rounded-[var(--radius-md)]"
+                        variant="outline"
+                        onclick={() => {
+                            toggleMode();
+                        }}
+                        size="icon"
+                        aria-label={mode.current === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
+                    >
+                        <span
+                            class="inline-flex size-4"
+                            aria-hidden="true"
+                            use:morph={{ key: mode.current }}
+                        >
+                            <HugeiconsIcon icon={mode.current === 'dark' ? Moon : Sun} size={16} />
+                        </span>
+                    </Button>
+                </Tooltip.Trigger>
+                <Tooltip.Content>
+                    {mode.current === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
+                </Tooltip.Content>
+            </Tooltip.Root>
         </div>
     </header>
 
@@ -217,9 +229,14 @@
             >
                 mielui
             </a>
-            <Sheet.Close aria-label="Close navigation menu" variant="quiet" size="icon">
-                <HugeiconsIcon icon={X} size={18} />
-            </Sheet.Close>
+            <Tooltip.Root>
+                <Tooltip.Trigger>
+                    <Sheet.Close aria-label="Close navigation menu" variant="quiet" size="icon">
+                        <HugeiconsIcon icon={X} size={18} />
+                    </Sheet.Close>
+                </Tooltip.Trigger>
+                <Tooltip.Content>Close navigation menu</Tooltip.Content>
+            </Tooltip.Root>
         </header>
 
         <div class="min-h-0 flex-1 overflow-y-auto px-3 py-4">

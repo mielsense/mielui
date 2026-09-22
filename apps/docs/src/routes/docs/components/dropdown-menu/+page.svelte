@@ -148,8 +148,10 @@
         <Typography.H2 class="docs-section-heading">Glass surface</Typography.H2>
         <Typography.Text variant="supporting">
             Set surface="glass" on DropdownMenu.Content for a translucent background with blur.
-            Solid remains the default. The glass surface keeps an opaque fallback when backdrop
-            filtering is unavailable and respects reduced-transparency preferences.
+            Without a surface prop, the component follows --mielui-surface. An unset variable keeps
+            it solid; surface="solid" overrides a global glass theme. The glass surface keeps an
+            opaque fallback when backdrop filtering is unavailable and respects reduced-transparency
+            preferences.
         </Typography.Text>
         <ComponentPreview code={GlassSrc}><Glass /></ComponentPreview>
     </section>

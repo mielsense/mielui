@@ -7,6 +7,9 @@
     import HeroSrc from './examples/hero.svelte?raw';
 
     const installCommand = 'pnpm dlx @mielui/svelte add reorder-list';
+
+    import Additional from './examples/handles.svelte';
+    import AdditionalSrc from './examples/handles.svelte?raw';
 </script>
 
 <svelte:head>
@@ -80,5 +83,9 @@
   {/snippet}
 </ReorderList>`}
         />
+    </section>
+    <section id="handles" class="scroll-mt-20 flex flex-col gap-4">
+        <Typography.H2 class="docs-section-heading">Handle after content</Typography.H2>
+        <ComponentPreview code={AdditionalSrc}><Additional /></ComponentPreview>
     </section>
 </div>

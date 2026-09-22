@@ -8,6 +8,7 @@
     import { morph } from '@mielui/svelte/actions/morph';
     import Button from '@mielui/svelte/components/button';
     import * as Sheet from '@mielui/svelte/components/sheet';
+    import * as Tooltip from '@mielui/svelte/components/tooltip';
     import HugeiconsIcon from '@mielui/svelte/hugeicons-icon';
     import { mode, toggleMode } from 'mode-watcher';
     import { onMount } from 'svelte';
@@ -39,7 +40,6 @@
 
     const navItems = [
         { href: '/docs/introduction', label: 'Docs' },
-        { href: '/docs/components', label: 'Components' },
         { href: '/studio', label: 'Studio' }
     ];
     const docsPages = [
@@ -81,14 +81,19 @@
             }`}
         >
             <div class="flex min-w-0 flex-row items-center gap-2 md:gap-5">
-                <Sheet.Trigger
-                    class="size-9 rounded-lg md:hidden"
-                    aria-label="Open navigation menu"
-                    variant="quiet"
-                    size="icon"
-                >
-                    <HugeiconsIcon icon={Menu} size={18} />
-                </Sheet.Trigger>
+                <Tooltip.Root>
+                    <Tooltip.Trigger>
+                        <Sheet.Trigger
+                            class="size-9 rounded-lg md:hidden"
+                            aria-label="Open navigation menu"
+                            variant="quiet"
+                            size="icon"
+                        >
+                            <HugeiconsIcon icon={Menu} size={18} />
+                        </Sheet.Trigger>
+                    </Tooltip.Trigger>
+                    <Tooltip.Content>Open navigation menu</Tooltip.Content>
+                </Tooltip.Root>
                 <a
                     href={resolve('/')}
                     class="font-semibold tracking-tight text-foreground no-underline md:hidden"
@@ -107,25 +112,35 @@
 
             <div class="flex flex-row items-center gap-1.5">
                 <SearchButton />
-                <Button
-                    class="size-9 rounded-[var(--radius-md)]"
-                    variant="outline"
-                    onclick={() => {
-                        toggleMode();
-                    }}
-                    size="icon"
-                    aria-label={mode.current === 'dark'
+                <Tooltip.Root>
+                    <Tooltip.Trigger>
+                        <Button
+                            class="size-9 rounded-[var(--radius-md)]"
+                            variant="outline"
+                            onclick={() => {
+                                toggleMode();
+                            }}
+                            size="icon"
+                            aria-label={mode.current === 'dark'
                         ? 'Switch to light mode'
                         : 'Switch to dark mode'}
-                >
-                    <span
-                        class="inline-flex size-4"
-                        aria-hidden="true"
-                        use:morph={{ key: mode.current }}
-                    >
-                        <HugeiconsIcon icon={mode.current === 'dark' ? Moon : Sun} size={16} />
-                    </span>
-                </Button>
+                        >
+                            <span
+                                class="inline-flex size-4"
+                                aria-hidden="true"
+                                use:morph={{ key: mode.current }}
+                            >
+                                <HugeiconsIcon
+                                    icon={mode.current === 'dark' ? Moon : Sun}
+                                    size={16}
+                                />
+                            </span>
+                        </Button>
+                    </Tooltip.Trigger>
+                    <Tooltip.Content>
+                        {mode.current === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
+                    </Tooltip.Content>
+                </Tooltip.Root>
                 <Button
                     class="h-9 gap-1.5 rounded-[var(--radius-md)] px-2.5 text-[0.8125rem] tabular-nums"
                     variant="outline"
@@ -154,9 +169,14 @@
             >
                 mielui
             </a>
-            <Sheet.Close aria-label="Close navigation menu" variant="quiet" size="icon">
-                <HugeiconsIcon icon={X} size={18} />
-            </Sheet.Close>
+            <Tooltip.Root>
+                <Tooltip.Trigger>
+                    <Sheet.Close aria-label="Close navigation menu" variant="quiet" size="icon">
+                        <HugeiconsIcon icon={X} size={18} />
+                    </Sheet.Close>
+                </Tooltip.Trigger>
+                <Tooltip.Content>Close navigation menu</Tooltip.Content>
+            </Tooltip.Root>
         </header>
 
         <div class="min-h-0 flex-1 overflow-y-auto px-3 py-4">
@@ -166,7 +186,9 @@
                     <Button
                         variant="quiet"
                         class="w-full justify-start"
-                        onclick={() => { mobileMenuOpen = false; }}
+                        onclick={() => {
+                            mobileMenuOpen = false;
+                        }}
                         href={item.href}
                     >
                         {item.label}
@@ -180,7 +202,9 @@
                     <Button
                         variant="quiet"
                         class="w-full justify-start"
-                        onclick={() => { mobileMenuOpen = false; }}
+                        onclick={() => {
+                            mobileMenuOpen = false;
+                        }}
                         href={item.href}
                     >
                         {item.title}
@@ -195,7 +219,9 @@
                         <Button
                             variant="quiet"
                             class="w-full justify-start"
-                            onclick={() => { mobileMenuOpen = false; }}
+                            onclick={() => {
+                                mobileMenuOpen = false;
+                            }}
                             href={`/docs/${group.id === 'actions' ? 'actions' : 'components'}/${component}`}
                         >
                             {sanitizeComponent(component)}

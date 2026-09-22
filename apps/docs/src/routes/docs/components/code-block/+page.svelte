@@ -110,7 +110,7 @@ import { CodeBlock } from '$lib/mielui/components/code-block';
             <Typography.InlineCode>highlight.js</Typography.InlineCode>
             theme, set
             <Typography.InlineCode>theme="custom"</Typography.InlineCode>
-            and load its stylesheet. the component skips its own token colors:
+            and load its stylesheet. The component skips its own token colors:
         </Typography.Text>
         <CodeBlock code={customThemeSnippet} lang="svelte" copy="overlay" />
     </section>

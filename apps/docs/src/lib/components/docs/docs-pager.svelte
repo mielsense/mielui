@@ -4,11 +4,15 @@
         ArrowRight01Icon as ChevronRight
     } from '@hugeicons/core-free-icons';
     import { Button } from '@mielui/svelte/components/button';
+    import * as Tooltip from '@mielui/svelte/components/tooltip';
     import HugeiconsIcon from '@mielui/svelte/hugeicons-icon';
     import { page } from '$app/state';
     import { components, sanitizeComponent } from '$lib/components';
 
-    type Page = { href: string; label: string };
+    type Page = {
+        href: string;
+        label: string;
+    };
 
     const docsPages: Page[] = [
         { href: '/docs/introduction', label: 'Introduction' },
@@ -33,28 +37,36 @@
 {#if prevPage || nextPage}
     <nav class="flex items-center gap-1.5">
         {#if prevPage}
-            <Button
-                href={prevPage.href}
-                variant="outline"
-                size="icon"
-                class="size-8"
-                aria-label={`Previous: ${prevPage.label}`}
-                title={`Previous: ${prevPage.label}`}
-            >
-                <HugeiconsIcon icon={ChevronLeft} size={16} />
-            </Button>
+            <Tooltip.Root>
+                <Tooltip.Trigger>
+                    <Button
+                        href={prevPage.href}
+                        variant="outline"
+                        size="icon"
+                        class="size-8"
+                        aria-label={`Previous: ${prevPage.label}`}
+                    >
+                        <HugeiconsIcon icon={ChevronLeft} size={16} />
+                    </Button>
+                </Tooltip.Trigger>
+                <Tooltip.Content>{`Previous: ${prevPage.label}`}</Tooltip.Content>
+            </Tooltip.Root>
         {/if}
         {#if nextPage}
-            <Button
-                href={nextPage.href}
-                variant="outline"
-                size="icon"
-                class="size-8"
-                aria-label={`Next: ${nextPage.label}`}
-                title={`Next: ${nextPage.label}`}
-            >
-                <HugeiconsIcon icon={ChevronRight} size={16} />
-            </Button>
+            <Tooltip.Root>
+                <Tooltip.Trigger>
+                    <Button
+                        href={nextPage.href}
+                        variant="outline"
+                        size="icon"
+                        class="size-8"
+                        aria-label={`Next: ${nextPage.label}`}
+                    >
+                        <HugeiconsIcon icon={ChevronRight} size={16} />
+                    </Button>
+                </Tooltip.Trigger>
+                <Tooltip.Content>{`Next: ${nextPage.label}`}</Tooltip.Content>
+            </Tooltip.Root>
         {/if}
     </nav>
 {/if}

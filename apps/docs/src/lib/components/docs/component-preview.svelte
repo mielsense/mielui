@@ -4,6 +4,7 @@
     import * as Card from '@mielui/svelte/components/card';
     import * as CodeBlock from '@mielui/svelte/components/code-block';
     import * as Tabs from '@mielui/svelte/components/tabs';
+    import * as Tooltip from '@mielui/svelte/components/tooltip';
     import HugeiconsIcon from '@mielui/svelte/hugeicons-icon';
     import { cn } from '@mielui/svelte/utils';
     import type { Snippet } from 'svelte';
@@ -84,21 +85,26 @@
                     {#if controls}
                         <div class="mr-auto">{@render controls()}</div>
                     {/if}
-                    <Button
-                        size="icon"
-                        variant="ghost"
-                        class="size-7 rounded-md"
-                        aria-label="Replay preview"
-                        onclick={refreshPreview}
-                    >
-                        {#key refreshVersion}
-                            <HugeiconsIcon
-                                icon={RefreshCw}
-                                size={14}
-                                class={refreshVersion > 0 ? 'animate-[spin_360ms_ease-out_1] motion-reduce:animate-none' : undefined}
-                            />
-                        {/key}
-                    </Button>
+                    <Tooltip.Root>
+                        <Tooltip.Trigger>
+                            <Button
+                                size="icon"
+                                variant="ghost"
+                                class="size-7 rounded-md"
+                                aria-label="Replay preview"
+                                onclick={refreshPreview}
+                            >
+                                {#key refreshVersion}
+                                    <HugeiconsIcon
+                                        icon={RefreshCw}
+                                        size={14}
+                                        class={refreshVersion > 0 ? 'animate-[spin_360ms_ease-out_1] motion-reduce:animate-none' : undefined}
+                                    />
+                                {/key}
+                            </Button>
+                        </Tooltip.Trigger>
+                        <Tooltip.Content>Replay preview</Tooltip.Content>
+                    </Tooltip.Root>
                 </Card.Header>
             {/if}
             <div

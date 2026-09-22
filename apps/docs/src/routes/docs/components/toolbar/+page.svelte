@@ -2,6 +2,8 @@
     import * as Typography from '@mielui/svelte/components/typography';
     import { ComponentPreview, InstallCommand } from '$lib/components/docs';
     import DocsPager from '$lib/components/docs/docs-pager.svelte';
+    import Additional from './examples/formatting.svelte';
+    import AdditionalSrc from './examples/formatting.svelte?raw';
     import Hero from './examples/hero.svelte';
     import HeroSrc from './examples/hero.svelte?raw';
 </script>
@@ -52,5 +54,9 @@
             available for existing integrations; new compositions use Toolbar.Root from the
             component subpath.
         </Typography.Text>
+    </section>
+    <section id="formatting" class="scroll-mt-20 flex flex-col gap-4">
+        <Typography.H2 class="docs-section-heading">Multiple selections</Typography.H2>
+        <ComponentPreview code={AdditionalSrc}><Additional /></ComponentPreview>
     </section>
 </div>
