@@ -9,6 +9,8 @@ describe('builtInThemePresets', () => {
         expect(new Set(builtInThemePresets.map((theme) => theme.slug)).size).toBe(
             builtInThemePresets.length
         );
-        for (const theme of builtInThemePresets) expect(parseTheme(theme)).toEqual(theme);
+        for (const theme of builtInThemePresets) {
+            expect(parseTheme(theme)).toEqual(theme);
+        }
     });
 });

@@ -153,7 +153,9 @@ function mieluiBin(cwd: string) {
         path.join(cwd, 'node_modules', '@mielui', 'ui', 'dist', 'index.js')
     ];
     for (const candidate of candidates) {
-        if (existsSync(candidate)) return candidate;
+        if (existsSync(candidate)) {
+            return candidate;
+        }
     }
     throw new Error('packed consumer did not install the mielui binary');
 }

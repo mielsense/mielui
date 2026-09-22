@@ -212,8 +212,9 @@ describe('registry snapshot', () => {
                             specifier.startsWith('.') ||
                             specifier.startsWith('$') ||
                             specifier.startsWith('@mielui/svelte')
-                        )
+                        ) {
                             continue;
+                        }
                         imported.add(packageName(specifier));
                     }
                 }

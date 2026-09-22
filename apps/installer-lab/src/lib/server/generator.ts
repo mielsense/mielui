@@ -42,7 +42,9 @@ function htmlEscape(value: string) {
 async function selectFixture(componentDirectory: string) {
     const examplesDirectory = path.join(componentDirectory, 'examples');
     const hero = path.join(examplesDirectory, 'hero.svelte');
-    if (existsSync(hero)) return hero;
+    if (existsSync(hero)) {
+        return hero;
+    }
 
     const page = path.join(componentDirectory, '+page.svelte');
     if (existsSync(page)) {
@@ -50,7 +52,9 @@ async function selectFixture(componentDirectory: string) {
         const match = pageSource.match(/from\s+['"]\.\/examples\/([^'"]+\.svelte)['"]/);
         if (match) {
             const documented = path.join(examplesDirectory, match[1]);
-            if (existsSync(documented)) return documented;
+            if (existsSync(documented)) {
+                return documented;
+            }
         }
     }
 
@@ -58,7 +62,9 @@ async function selectFixture(componentDirectory: string) {
         const first = (await readdir(examplesDirectory))
             .filter((entry) => entry.endsWith('.svelte'))
             .sort()[0];
-        if (first) return path.join(examplesDirectory, first);
+        if (first) {
+            return path.join(examplesDirectory, first);
+        }
     }
 
     throw new Error(`No usable example fixture found under ${examplesDirectory}`);
@@ -66,7 +72,9 @@ async function selectFixture(componentDirectory: string) {
 
 async function copyFixtureAssets(sourceDirectory: string, targetDirectory: string) {
     for (const entry of await readdir(sourceDirectory, { withFileTypes: true })) {
-        if (entry.name.endsWith('.svelte')) continue;
+        if (entry.name.endsWith('.svelte')) {
+            continue;
+        }
         const source = path.join(sourceDirectory, entry.name);
         const target = path.join(targetDirectory, entry.name);
         if (entry.isDirectory()) {
@@ -80,7 +88,9 @@ async function copyFixtureAssets(sourceDirectory: string, targetDirectory: strin
 }
 
 export function rewriteFixtureImports(source: string, installPath: InstallPath) {
-    if (installPath === 'package') return source;
+    if (installPath === 'package') {
+        return source;
+    }
     return source.replaceAll('@mielui/svelte/components/', '$lib/mielui/components/');
 }
 
@@ -199,8 +209,9 @@ export async function generateShowcase(options: {
     const publicComponents = registry.components
         .filter((component) => component.visibility === 'public')
         .sort((a, b) => a.name.localeCompare(b.name));
-    if (publicComponents.length === 0)
+    if (publicComponents.length === 0) {
         throw new Error('The staged registry has no public components');
+    }
 
     const tsconfigPath = path.join(consumerRoot, 'tsconfig.json');
     if (existsSync(tsconfigPath)) {

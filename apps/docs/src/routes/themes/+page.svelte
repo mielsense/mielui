@@ -30,7 +30,9 @@
     const filteredThemes = $derived.by(() => {
         const needle = searchQuery.trim().toLowerCase();
         return themes.filter((theme) => {
-            if (!needle) return true;
+            if (!needle) {
+                return true;
+            }
             const haystack = [theme.name, theme.description, theme.publisher ?? '']
                 .join(' ')
                 .toLowerCase();
@@ -68,7 +70,9 @@
             type: 'success'
         });
         setTimeout(() => {
-            if (copiedKey === key) copiedKey = null;
+            if (copiedKey === key) {
+                copiedKey = null;
+            }
         }, 1600);
     }
 
@@ -234,7 +238,9 @@
             style={`background: rgba(0, 0, 0, ${detailOpen ? '0.5' : '0'})`}
             onclick={() => (detailOpen = false)}
             onkeydown={(e) => {
-                if (e.key === 'Escape') detailOpen = false;
+                if (e.key === 'Escape') {
+                    detailOpen = false;
+                }
             }}
             role="dialog"
             aria-modal="true"

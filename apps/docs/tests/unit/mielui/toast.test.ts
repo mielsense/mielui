@@ -25,7 +25,9 @@ import { required } from '../../test-utils';
 // with the production accessor when refactors happen later.
 function toastUIState(): ToastState {
     const s = __getActiveToastStateForTests();
-    if (!s) throw new Error('No active toast state in test -- beforeEach setup missing?');
+    if (!s) {
+        throw new Error('No active toast state in test -- beforeEach setup missing?');
+    }
     return s;
 }
 
@@ -163,7 +165,9 @@ describe('toast -- max 5 toasts', () => {
         const ids: number[] = [];
         for (let i = 0; i < 6; i++) {
             const t = toast({ title: `t${i}`, persistent: true });
-            if (t.id !== undefined) ids.push(t.id);
+            if (t.id !== undefined) {
+                ids.push(t.id);
+            }
         }
         // Advance the exit duration so the oldest is fully removed.
         vi.advanceTimersByTime(340);

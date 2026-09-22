@@ -17,10 +17,14 @@ export class RegistryRequestError extends Error {
 
 function getRegistryBaseUrl() {
     const configured = env.THEME_REGISTRY_URL?.trim();
-    if (configured) return configured.replace(/\/+$/, '');
+    if (configured) {
+        return configured.replace(/\/+$/, '');
+    }
     // Local full-stack default only. v1 public docs do not require a registry;
     // callers should catch and fall back (see themes/+page.server.ts).
-    if (dev) return DEFAULT_REGISTRY_URL;
+    if (dev) {
+        return DEFAULT_REGISTRY_URL;
+    }
     throw new RegistryRequestError(503, 'Theme registry is not configured.');
 }
 
@@ -57,8 +61,9 @@ export async function listRegistryThemes(fetchImpl: typeof fetch) {
     }
 
     const data: unknown = await response.json();
-    if (!Array.isArray(data))
+    if (!Array.isArray(data)) {
         throw new RegistryRequestError(502, 'Theme registry returned no list.');
+    }
     try {
         return data.map(parseRegistryTheme).sort((a, b) => a.name.localeCompare(b.name));
     } catch (error) {

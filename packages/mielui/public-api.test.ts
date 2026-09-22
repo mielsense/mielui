@@ -219,7 +219,9 @@ function parseExportedNames(source: string): string[] {
     for (const block of source.matchAll(/export\s*\{([^}]+)\}/g)) {
         for (const part of block[1].split(',')) {
             let cleaned = part.replace(/\btype\b/g, '').trim();
-            if (!cleaned) continue;
+            if (!cleaned) {
+                continue;
+            }
             // `default as CodeBlock` / `Foo as Bar` → public name is the right-hand side.
             if (/\bas\b/.test(cleaned)) {
                 cleaned =
@@ -230,7 +232,9 @@ function parseExportedNames(source: string): string[] {
             } else {
                 cleaned = cleaned.replace(/\bdefault\b/g, '').trim();
             }
-            if (cleaned) names.add(cleaned);
+            if (cleaned) {
+                names.add(cleaned);
+            }
         }
     }
     for (const match of source.matchAll(/export\s+(?:async\s+)?function\s+([A-Za-z0-9_]+)/g)) {

@@ -38,7 +38,9 @@ describe('themeToCss', () => {
     it('never emits a custom property that references itself', () => {
         for (const line of css.split('\n')) {
             const declaration = line.match(/^\s*(--[\w-]+):\s*(.+);$/);
-            if (!declaration) continue;
+            if (!declaration) {
+                continue;
+            }
             expect(declaration[2]).not.toContain(`var(${declaration[1]})`);
         }
     });

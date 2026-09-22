@@ -28,7 +28,9 @@ async function openMenu() {
 function rowFor(testId: string) {
     const label = document.querySelector<HTMLElement>(`[data-testid="${testId}"]`);
     const row = label?.closest<HTMLElement>('.mielui-menu-item');
-    if (!row) throw new Error(`no .mielui-menu-item ancestor for ${testId}`);
+    if (!row) {
+        throw new Error(`no .mielui-menu-item ancestor for ${testId}`);
+    }
     return row;
 }
 

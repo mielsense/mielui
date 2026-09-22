@@ -21,7 +21,9 @@ async function flush(ms = 30) {
 
 function visibleLabel() {
     const el = document.querySelector('[data-mielui-tooltip]') as HTMLElement | null;
-    if (!el) return '';
+    if (!el) {
+        return '';
+    }
     const faces = el.querySelectorAll('.char-face');
     if (faces.length) {
         return Array.from(faces)

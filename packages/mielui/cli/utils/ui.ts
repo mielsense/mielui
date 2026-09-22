@@ -10,12 +10,16 @@ function lerp(from: number, to: number, t: number) {
 
 /** Colors a single line with a horizontal truecolor gradient. */
 export function gradientLine(line: string) {
-    if (!pc.isColorSupported) return line;
+    if (!pc.isColorSupported) {
+        return line;
+    }
     const chars = [...line];
     const last = Math.max(chars.length - 1, 1);
     return chars
         .map((char, i) => {
-            if (char.trim() === '') return char;
+            if (char.trim() === '') {
+                return char;
+            }
             const t = i / last;
             const r = lerp(GRADIENT_FROM[0], GRADIENT_TO[0], t);
             const g = lerp(GRADIENT_FROM[1], GRADIENT_TO[1], t);
@@ -36,7 +40,9 @@ export const BANNER = [
 /** Prints the mielui banner with tagline. */
 export function banner(version: string) {
     console.log();
-    for (const line of BANNER) console.log(gradientLine(line));
+    for (const line of BANNER) {
+        console.log(gradientLine(line));
+    }
     console.log();
     console.log(
         `  ${pc.bold('mielui')} ${pc.dim(`v${version}`)} ${pc.dim('·')} ${pc.dim('Svelte components you own')}`

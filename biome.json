@@ -68,6 +68,7 @@
         "includes": ["**", "!**/*.svg"],
         "rules": {
             "preset": "recommended",
+            "style": { "useBlockStatements": "error" },
             "suspicious": {
                 "noImplicitAnyLet": "off"
             }

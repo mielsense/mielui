@@ -15,7 +15,9 @@ describe('manual command plan', () => {
                 expect(commands.some((value) => value.includes('sv create'))).toBe(false);
                 expect(commands.some((value) => value.includes('@fontsource/dm-sans'))).toBe(false);
                 expect(commands.some((value) => value.startsWith('cd '))).toBe(false);
-                for (const value of commands) expect(value).not.toContain(manualRoot);
+                for (const value of commands) {
+                    expect(value).not.toContain(manualRoot);
+                }
                 expect(commands).toContain('pnpm exec svelte-check --tsconfig ./tsconfig.json');
                 expect(commands).toContain('pnpm run build');
                 expect(commands.at(-1)).toContain('--host 127.0.0.1');

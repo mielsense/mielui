@@ -38,7 +38,9 @@
         const font =
             fonts.find((entry) => entry.name === selectedFont.current) ??
             fonts.find((entry) => entry.name === DEFAULT_FONT);
-        if (font) document.documentElement.style.setProperty('--font-sans', font.family);
+        if (font) {
+            document.documentElement.style.setProperty('--font-sans', font.family);
+        }
     });
 
     onMount(() => {

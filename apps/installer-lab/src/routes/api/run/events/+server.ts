@@ -17,8 +17,11 @@ export const GET: RequestHandler = async (event) => {
                 );
             };
             unsubscribe = runManager.subscribe((runEvent) => {
-                if (runEvent.type === 'log') send('log', { chunk: runEvent.chunk });
-                else send('snapshot', runEvent.snapshot);
+                if (runEvent.type === 'log') {
+                    send('log', { chunk: runEvent.chunk });
+                } else {
+                    send('snapshot', runEvent.snapshot);
+                }
             });
             heartbeat = setInterval(() => {
                 try {

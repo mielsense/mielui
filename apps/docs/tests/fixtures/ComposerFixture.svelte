@@ -14,7 +14,9 @@
 
     async function submit() {
         submitCount += 1;
-        if (!asyncSubmit) return;
+        if (!asyncSubmit) {
+            return;
+        }
 
         await new Promise<void>((resolve) => {
             settle = resolve;

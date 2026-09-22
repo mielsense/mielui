@@ -193,20 +193,30 @@ const CHECKS: Check[] = [
         run: () => {
             const f: string[] = [];
             const r = initApp();
-            if (r.status !== 0) f.push(`init exited ${r.status}`);
+            if (r.status !== 0) {
+                f.push(`init exited ${r.status}`);
+            }
             for (const file of [
                 'mielui.json',
                 `${MIELUI}/ui.css`,
                 `${MIELUI}/utils.ts`,
                 `${MIELUI}/transition.ts`
             ]) {
-                if (!exists(file)) f.push(`missing ${file}`);
+                if (!exists(file)) {
+                    f.push(`missing ${file}`);
+                }
             }
             if (exists('mielui.json')) {
                 const cfg = config();
-                if (cfg.dir !== 'src/lib/mielui') f.push(`mielui.json dir = ${String(cfg.dir)}`);
-                if (cfg.alias !== '$lib/mielui') f.push(`mielui.json alias = ${String(cfg.alias)}`);
-                if (!cfg.registry) f.push('mielui.json missing registry');
+                if (cfg.dir !== 'src/lib/mielui') {
+                    f.push(`mielui.json dir = ${String(cfg.dir)}`);
+                }
+                if (cfg.alias !== '$lib/mielui') {
+                    f.push(`mielui.json alias = ${String(cfg.alias)}`);
+                }
+                if (!cfg.registry) {
+                    f.push('mielui.json missing registry');
+                }
             }
             return f;
         }
@@ -217,8 +227,12 @@ const CHECKS: Check[] = [
             const f: string[] = [];
             initApp();
             const r = mielui(['init', '-y']);
-            if (r.status !== 0) f.push(`second init exited ${r.status}`);
-            if (!r.out.includes('already exists')) f.push('no "already exists" notice');
+            if (r.status !== 0) {
+                f.push(`second init exited ${r.status}`);
+            }
+            if (!r.out.includes('already exists')) {
+                f.push('no "already exists" notice');
+            }
             return f;
         }
     },
@@ -228,17 +242,26 @@ const CHECKS: Check[] = [
             const f: string[] = [];
             initApp();
             const r = mielui(['add', 'button']);
-            if (r.status !== 0) f.push(`add button exited ${r.status}`);
+            if (r.status !== 0) {
+                f.push(`add button exited ${r.status}`);
+            }
             for (const file of ['button.svelte', 'index.ts', 'variants.ts']) {
-                if (!exists(`${MIELUI}/components/button/${file}`))
+                if (!exists(`${MIELUI}/components/button/${file}`)) {
                     f.push(`missing button/${file}`);
+                }
             }
             if (exists(`${MIELUI}/components/button/button.svelte`)) {
                 const src = read(`${MIELUI}/components/button/button.svelte`);
-                if (!src.includes('$lib/mielui')) f.push('imports not rewritten to alias');
-                if (src.includes('@mielui/svelte')) f.push('stale @mielui/svelte import remains');
+                if (!src.includes('$lib/mielui')) {
+                    f.push('imports not rewritten to alias');
+                }
+                if (src.includes('@mielui/svelte')) {
+                    f.push('stale @mielui/svelte import remains');
+                }
             }
-            if (!config().components?.button) f.push('mielui.json did not record button');
+            if (!config().components?.button) {
+                f.push('mielui.json did not record button');
+            }
             return f;
         }
     },
@@ -248,11 +271,16 @@ const CHECKS: Check[] = [
             const f: string[] = [];
             initApp();
             const r = mielui(['add', 'command']);
-            if (r.status !== 0) f.push(`add command exited ${r.status}`);
+            if (r.status !== 0) {
+                f.push(`add command exited ${r.status}`);
+            }
             for (const name of ['command', 'dialog', 'button']) {
-                if (!exists(`${MIELUI}/components/${name}`))
+                if (!exists(`${MIELUI}/components/${name}`)) {
                     f.push(`missing component dir ${name}`);
-                if (!config().components?.[name]) f.push(`mielui.json missing ${name}`);
+                }
+                if (!config().components?.[name]) {
+                    f.push(`mielui.json missing ${name}`);
+                }
             }
             return f;
         }
@@ -263,12 +291,15 @@ const CHECKS: Check[] = [
             const f: string[] = [];
             initApp();
             const r = mielui(['add', 'dialog']);
-            if (r.status !== 0) f.push(`add dialog exited ${r.status}`);
+            if (r.status !== 0) {
+                f.push(`add dialog exited ${r.status}`);
+            }
             if (!exists(`${MIELUI}/components/_internal/overlay/overlay.svelte.ts`)) {
                 f.push('internal overlay not installed');
             }
-            if (!exists(`${MIELUI}/components/dialog/dialog.svelte`))
+            if (!exists(`${MIELUI}/components/dialog/dialog.svelte`)) {
                 f.push('dialog not installed');
+            }
             return f;
         }
     },
@@ -278,9 +309,13 @@ const CHECKS: Check[] = [
             const f: string[] = [];
             initApp();
             const r = mielui(['add', 'accordion', 'badge']);
-            if (r.status !== 0) f.push(`add exited ${r.status}`);
+            if (r.status !== 0) {
+                f.push(`add exited ${r.status}`);
+            }
             for (const name of ['accordion', 'badge']) {
-                if (!config().components?.[name]) f.push(`mielui.json missing ${name}`);
+                if (!config().components?.[name]) {
+                    f.push(`mielui.json missing ${name}`);
+                }
             }
             return f;
         }
@@ -292,8 +327,12 @@ const CHECKS: Check[] = [
             initApp();
             mielui(['add', 'button']);
             const r = mielui(['add', 'button']);
-            if (r.status !== 0) f.push(`re-add exited ${r.status}`);
-            if (!r.out.includes('already existed')) f.push('no skip notice on re-add');
+            if (r.status !== 0) {
+                f.push(`re-add exited ${r.status}`);
+            }
+            if (!r.out.includes('already existed')) {
+                f.push('no skip notice on re-add');
+            }
             return f;
         }
     },
@@ -306,10 +345,16 @@ const CHECKS: Check[] = [
             const target = `${MIELUI}/components/button/button.svelte`;
             writeFileSync(path.join(appDir, target), '// tampered\n');
             const r = mielui(['add', 'button', '--overwrite']);
-            if (r.status !== 0) f.push(`overwrite exited ${r.status}`);
+            if (r.status !== 0) {
+                f.push(`overwrite exited ${r.status}`);
+            }
             const src = exists(target) ? read(target) : '';
-            if (src.includes('// tampered')) f.push('file not overwritten');
-            if (!src.includes('$lib/mielui')) f.push('overwritten file missing rewritten imports');
+            if (src.includes('// tampered')) {
+                f.push('file not overwritten');
+            }
+            if (!src.includes('$lib/mielui')) {
+                f.push('overwritten file missing rewritten imports');
+            }
             return f;
         }
     },
@@ -319,8 +364,12 @@ const CHECKS: Check[] = [
             const f: string[] = [];
             createApp(false); // deliberately skip init
             const r = mielui(['add', 'button']);
-            if (r.status === 0) f.push('expected non-zero exit');
-            if (!r.out.includes('mielui init')) f.push('no "mielui init" guidance');
+            if (r.status === 0) {
+                f.push('expected non-zero exit');
+            }
+            if (!r.out.includes('mielui init')) {
+                f.push('no "mielui init" guidance');
+            }
             return f;
         }
     },
@@ -330,9 +379,15 @@ const CHECKS: Check[] = [
             const f: string[] = [];
             initApp();
             const r = mielui(['add', 'buton']);
-            if (r.status === 0) f.push('expected non-zero exit');
-            if (!r.out.includes('did you mean')) f.push('no suggestion offered');
-            if (!r.out.includes('button')) f.push('did not suggest "button"');
+            if (r.status === 0) {
+                f.push('expected non-zero exit');
+            }
+            if (!r.out.includes('did you mean')) {
+                f.push('no suggestion offered');
+            }
+            if (!r.out.includes('button')) {
+                f.push('did not suggest "button"');
+            }
             return f;
         }
     },
@@ -342,8 +397,12 @@ const CHECKS: Check[] = [
             const f: string[] = [];
             initApp();
             const r = mielui(['add', '_internal/overlay']);
-            if (r.status === 0) f.push('expected non-zero exit');
-            if (!r.out.includes('internal')) f.push('no "internal" explanation');
+            if (r.status === 0) {
+                f.push('expected non-zero exit');
+            }
+            if (!r.out.includes('internal')) {
+                f.push('no "internal" explanation');
+            }
             return f;
         }
     },
@@ -353,10 +412,14 @@ const CHECKS: Check[] = [
             const f: string[] = [];
             initApp();
             const r = mielui(['add', 'theme', 'default']);
-            if (r.status !== 0) f.push(`add theme exited ${r.status}`);
-            if (!exists(`${MIELUI}/theme.css`)) f.push('theme.css not written');
-            else if (!read(`${MIELUI}/theme.css`).includes(':root'))
+            if (r.status !== 0) {
+                f.push(`add theme exited ${r.status}`);
+            }
+            if (!exists(`${MIELUI}/theme.css`)) {
+                f.push('theme.css not written');
+            } else if (!read(`${MIELUI}/theme.css`).includes(':root')) {
                 f.push('theme.css missing :root');
+            }
             return f;
         }
     },
@@ -365,9 +428,15 @@ const CHECKS: Check[] = [
         run: () => {
             const f: string[] = [];
             const r = mielui(['list']);
-            if (r.status !== 0) f.push(`list exited ${r.status}`);
-            if (!r.out.includes('button')) f.push('list missing "button"');
-            if (!r.out.includes('default')) f.push('list missing "default" theme');
+            if (r.status !== 0) {
+                f.push(`list exited ${r.status}`);
+            }
+            if (!r.out.includes('button')) {
+                f.push('list missing "button"');
+            }
+            if (!r.out.includes('default')) {
+                f.push('list missing "default" theme');
+            }
             return f;
         }
     },
@@ -376,7 +445,9 @@ const CHECKS: Check[] = [
         run: () => {
             const f: string[] = [];
             const r = mielui(['--version']);
-            if (r.status !== 0) f.push(`--version exited ${r.status}`);
+            if (r.status !== 0) {
+                f.push(`--version exited ${r.status}`);
+            }
             if (r.out.trim() !== pkg.version) {
                 f.push(`printed "${r.out.trim()}", expected ${pkg.version}`);
             }
@@ -388,8 +459,12 @@ const CHECKS: Check[] = [
         run: () => {
             const f: string[] = [];
             const r = initApp(true);
-            if (r.status !== 0) f.push(`init exited ${r.status}`);
-            if (!r.out.includes('missing peer dependencies')) f.push('no missing-peer warning');
+            if (r.status !== 0) {
+                f.push(`init exited ${r.status}`);
+            }
+            if (!r.out.includes('missing peer dependencies')) {
+                f.push('no missing-peer warning');
+            }
             return f;
         }
     }
@@ -409,7 +484,9 @@ function verify(noBuild: boolean) {
         } else {
             failed++;
             console.log(`  ${pc.red('✖')} ${check.label}`);
-            for (const failure of failures) console.log(`    ${pc.red(failure)}`);
+            for (const failure of failures) {
+                console.log(`    ${pc.red(failure)}`);
+            }
         }
     }
 

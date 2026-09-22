@@ -140,7 +140,9 @@ describe('publishable package contract', () => {
             /^@mielui\/svelte(?:\/(?:ui\.css|brand-mark|utils|transition|is-dark\.svelte\.ts|_manifest\/types|themes\/[^/]+|components\/(?:input\/variants|_internal\/[^/]+|[^/]+)))?$/;
 
         expect(selfReferences.length).toBeGreaterThan(0);
-        for (const specifier of selfReferences) expect(specifier).toMatch(exportedPath);
+        for (const specifier of selfReferences) {
+            expect(specifier).toMatch(exportedPath);
+        }
     });
 
     test('ships the repository license byte-for-byte', async () => {

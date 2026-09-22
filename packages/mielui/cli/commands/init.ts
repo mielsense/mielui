@@ -26,7 +26,9 @@ export async function baseFiles() {
     const index = await loadRegistryIndex();
     const files = new Set<string>(['ui.css']);
     for (const component of index.components) {
-        for (const file of component.sharedFiles) files.add(file);
+        for (const file of component.sharedFiles) {
+            files.add(file);
+        }
     }
     return [...files].sort();
 }

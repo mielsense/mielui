@@ -19,7 +19,9 @@ export function configPath(cwd: string) {
 /** Reads mielui.json from the project root, or null when not initialized. */
 export async function loadConfig(cwd: string): Promise<MieluiConfig | null> {
     const file = configPath(cwd);
-    if (!existsSync(file)) return null;
+    if (!existsSync(file)) {
+        return null;
+    }
     const parsed = JSON.parse(await readFile(file, 'utf8')) as Partial<MieluiConfig>;
     return { ...DEFAULT_CONFIG, ...parsed, components: parsed.components ?? {} };
 }

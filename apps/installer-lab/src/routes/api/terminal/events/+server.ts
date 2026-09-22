@@ -17,9 +17,13 @@ export const GET: RequestHandler = async (event) => {
                 );
             };
             unsubscribe = terminalManager.subscribe((terminalEvent) => {
-                if (terminalEvent.type === 'log') send('log', { chunk: terminalEvent.chunk });
-                else if (terminalEvent.type === 'clear') send('clear', {});
-                else send('snapshot', terminalEvent.snapshot);
+                if (terminalEvent.type === 'log') {
+                    send('log', { chunk: terminalEvent.chunk });
+                } else if (terminalEvent.type === 'clear') {
+                    send('clear', {});
+                } else {
+                    send('snapshot', terminalEvent.snapshot);
+                }
             });
             heartbeat = setInterval(() => {
                 try {

@@ -19,7 +19,9 @@ export const POST: RequestHandler = async (event) => {
         error(400, 'Expected a JSON request body.');
     }
     const command = (body as { command?: unknown })?.command;
-    if (typeof command !== 'string') error(400, 'command must be a string.');
+    if (typeof command !== 'string') {
+        error(400, 'command must be a string.');
+    }
     if (isActivePhase((await runManager.getSnapshot()).phase)) {
         error(409, 'Cancel the automatic installer run before using the manual terminal.');
     }

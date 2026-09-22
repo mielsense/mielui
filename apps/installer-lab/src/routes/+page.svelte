@@ -130,8 +130,12 @@
     const elapsed = $derived(formatElapsed(elapsedMs));
     const statusLabel = $derived(phaseLabel(snapshot.phase));
     const progress = $derived.by(() => {
-        if (snapshot.phase === 'idle') return 0;
-        if (snapshot.phase === 'ready') return 100;
+        if (snapshot.phase === 'idle') {
+            return 0;
+        }
+        if (snapshot.phase === 'ready') {
+            return 100;
+        }
         const effectivePhase = snapshot.failure?.phase ?? snapshot.phase;
         const index = phases.indexOf(effectivePhase);
         return index < 0 ? 0 : Math.round(((index + 1) / phases.length) * 100);
@@ -171,32 +175,45 @@
     );
 
     $effect(() => {
-        if (mode !== 'manual') return;
+        if (mode !== 'manual') {
+            return;
+        }
         const request = ++planRequest;
         planLoading = true;
         void fetch(
             `/api/terminal/plan?source=${encodeURIComponent(source)}&installPath=${encodeURIComponent(installPath)}`
         )
             .then(async (response) => {
-                if (!response.ok) throw new Error(await response.text());
+                if (!response.ok) {
+                    throw new Error(await response.text());
+                }
                 return response.json() as Promise<{ plan: ManualPlan }>;
             })
             .then((data) => {
-                if (request === planRequest) manualPlan = data.plan;
+                if (request === planRequest) {
+                    manualPlan = data.plan;
+                }
             })
             .catch((error) => {
-                if (request === planRequest)
+                if (request === planRequest) {
                     requestError = error instanceof Error ? error.message : String(error);
+                }
             })
             .finally(() => {
-                if (request === planRequest) planLoading = false;
+                if (request === planRequest) {
+                    planLoading = false;
+                }
             });
     });
 
     $effect(() => {
-        if (mode !== 'manual') return;
+        if (mode !== 'manual') {
+            return;
+        }
         const key = `${source}:${installPath}`;
-        if (terminalReady || terminalBusy || preparationRequest === key) return;
+        if (terminalReady || terminalBusy || preparationRequest === key) {
+            return;
+        }
         preparationRequest = key;
         void prepareTerminal(false);
     });
@@ -211,7 +228,9 @@
         void fetch('/api/run')
             .then((response) => response.json())
             .then((data: { snapshot: RunSnapshot }) => {
-                if (disposed) return;
+                if (disposed) {
+                    return;
+                }
                 snapshot = data.snapshot;
                 source = data.snapshot.source;
                 installPath = data.snapshot.installPath;
@@ -224,7 +243,9 @@
         void fetch('/api/terminal')
             .then((response) => response.json())
             .then((data: { snapshot: TerminalSnapshot }) => {
-                if (!disposed) terminal = data.snapshot;
+                if (!disposed) {
+                    terminal = data.snapshot;
+                }
             });
         const terminalEvents = new EventSource('/api/terminal/events');
         terminalEvents.addEventListener('snapshot', (event) => {
@@ -252,7 +273,9 @@
 
     function formatElapsed(milliseconds: number) {
         const seconds = Math.max(0, milliseconds) / 1000;
-        if (seconds < 60) return `${seconds.toFixed(1)}s`;
+        if (seconds < 60) {
+            return `${seconds.toFixed(1)}s`;
+        }
         const minutes = Math.floor(seconds / 60);
         return `${minutes}m ${(seconds % 60).toFixed(0).padStart(2, '0')}s`;
     }
@@ -284,7 +307,9 @@
                 headers: { 'content-type': 'application/json' },
                 body: JSON.stringify({ source, installPath })
             });
-            if (!response.ok) throw new Error(await response.text());
+            if (!response.ok) {
+                throw new Error(await response.text());
+            }
             const data = (await response.json()) as { snapshot: RunSnapshot };
             snapshot = data.snapshot;
         } catch (error) {
@@ -297,7 +322,9 @@
     async function cancelRun() {
         requestError = null;
         const response = await fetch('/api/run/cancel', { method: 'POST' });
-        if (!response.ok) requestError = await response.text();
+        if (!response.ok) {
+            requestError = await response.text();
+        }
     }
 
     function selectManualCommand(command: string) {
@@ -307,7 +334,9 @@
 
     async function executeTerminal() {
         const command = terminalInput.trim();
-        if (!command || terminalBusy) return;
+        if (!command || terminalBusy) {
+            return;
+        }
         requestError = null;
         try {
             const response = await fetch('/api/terminal', {
@@ -315,7 +344,9 @@
                 headers: { 'content-type': 'application/json' },
                 body: JSON.stringify({ command })
             });
-            if (!response.ok) throw new Error(await response.text());
+            if (!response.ok) {
+                throw new Error(await response.text());
+            }
             terminalInput = '';
         } catch (error) {
             requestError = error instanceof Error ? error.message : String(error);
@@ -326,7 +357,9 @@
         requestError = null;
         try {
             const response = await fetch('/api/terminal/cancel', { method: 'POST' });
-            if (!response.ok) throw new Error(await response.text());
+            if (!response.ok) {
+                throw new Error(await response.text());
+            }
         } catch (error) {
             requestError = error instanceof Error ? error.message : String(error);
         }
@@ -340,12 +373,16 @@
                 headers: { 'content-type': 'application/json' },
                 body: JSON.stringify({ source, installPath })
             });
-            if (!response.ok) throw new Error(await response.text());
+            if (!response.ok) {
+                throw new Error(await response.text());
+            }
             const data = (await response.json()) as { snapshot: TerminalSnapshot };
             terminal = data.snapshot;
         } catch (error) {
             requestError = error instanceof Error ? error.message : String(error);
-            if (!force) preparationRequest = null;
+            if (!force) {
+                preparationRequest = null;
+            }
         }
     }
 </script>

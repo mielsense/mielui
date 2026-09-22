@@ -77,9 +77,13 @@ async function collectManifestPaths() {
 
 /** Resolves a manifest `shared` entry to source files relative to mielui src. */
 function sharedToFiles(entry: string): string[] {
-    if (entry.startsWith('utils.')) return ['utils.ts'];
+    if (entry.startsWith('utils.')) {
+        return ['utils.ts'];
+    }
     for (const candidate of [`${entry}.ts`, `${entry}.svelte.ts`, `${entry}.svelte`]) {
-        if (existsSync(path.join(mieluiSrc, candidate))) return [candidate];
+        if (existsSync(path.join(mieluiSrc, candidate))) {
+            return [candidate];
+        }
     }
     throw new Error(`shared entry "${entry}" resolves to no file under ${mieluiSrc}`);
 }
@@ -96,7 +100,9 @@ async function buildThemes(): Promise<RegistryTheme[]> {
 const manifests: Manifest[] = [];
 for (const manifestPath of await collectManifestPaths()) {
     const module = (await import(manifestPath)) as { manifest: Manifest };
-    if (!module.manifest?.name) throw new Error(`${manifestPath} exports no manifest`);
+    if (!module.manifest?.name) {
+        throw new Error(`${manifestPath} exports no manifest`);
+    }
     manifests.push(module.manifest);
 }
 
@@ -108,7 +114,9 @@ for (const manifest of manifests) {
             throw new Error(`${manifest.name} depends on unknown component "${dep}"`);
         }
     }
-    for (const file of manifest.files) fileSet.add(file);
+    for (const file of manifest.files) {
+        fileSet.add(file);
+    }
     for (const entry of manifest.shared) {
         sharedToFiles(entry).forEach((file) => {
             fileSet.add(file);

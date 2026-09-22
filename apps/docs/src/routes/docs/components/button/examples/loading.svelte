@@ -6,7 +6,9 @@
     let timer: ReturnType<typeof setTimeout> | undefined;
 
     function publish() {
-        if (status === 'loading') return;
+        if (status === 'loading') {
+            return;
+        }
         clearTimeout(timer);
         status = 'loading';
         timer = setTimeout(() => {

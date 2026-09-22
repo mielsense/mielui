@@ -168,7 +168,9 @@ const required = [
     'dist/svelte/ui.css'
 ];
 for (const file of required) {
-    if (!paths.includes(file)) throw new Error(`packed artifact is missing ${file}`);
+    if (!paths.includes(file)) {
+        throw new Error(`packed artifact is missing ${file}`);
+    }
 }
 if (!paths.some((file) => file.startsWith('registry/files/'))) {
     throw new Error('packed artifact has no installable registry files');

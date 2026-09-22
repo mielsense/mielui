@@ -11,7 +11,9 @@
     let border = $state('');
 
     $effect(() => {
-        if (!css) return;
+        if (!css) {
+            return;
+        }
 
         const {
             background: bg,
@@ -39,7 +41,9 @@
             : /@theme\s*{([^}]*)}/s;
 
         const match = css.match(themeRegex);
-        if (!match) return result;
+        if (!match) {
+            return result;
+        }
 
         const body = match[1];
 

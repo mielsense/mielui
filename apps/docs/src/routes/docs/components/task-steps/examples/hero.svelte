@@ -15,7 +15,9 @@
     onMount(() => {
         timer = setInterval(() => {
             current += 1;
-            if (current >= steps.length) clearInterval(timer);
+            if (current >= steps.length) {
+                clearInterval(timer);
+            }
         }, 900);
         return () => clearInterval(timer);
     });
