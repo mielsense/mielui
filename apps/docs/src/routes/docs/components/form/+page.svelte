@@ -7,6 +7,8 @@
     import HeroSrc from './examples/hero.svelte?raw';
     import Remote from './examples/remote.svelte';
     import RemoteSrc from './examples/remote.svelte?raw';
+    import RemoteBasic from './examples/remote-basic.svelte';
+    import RemoteBasicSrc from './examples/remote-basic.svelte?raw';
 
     const RemoteServerSrc =
         "import { invalid } from '@sveltejs/kit';\nimport { form } from '$app/server';\nimport * as v from 'valibot';\n\nexport const validateProfile = form(\n    v.object({\n        username: v.pipe(\n            v.string(),\n            v.trim(),\n            v.minLength(3, 'Use at least 3 characters.'),\n            v.maxLength(40, 'Use at most 40 characters.')\n        ),\n        email: v.pipe(v.string(), v.email('Enter a valid email address.')),\n        intent: v.picklist(['validate', 'validate-reset'])\n    }),\n    async ({ username, intent }, issue) => {\n        await new Promise((resolve) => setTimeout(resolve, 350));\n        if (username.toLowerCase() === 'admin') {\n            invalid(issue.username('This username is reserved. Choose another one.'));\n        }\n        if (username.toLowerCase() === 'system') {\n            invalid('This profile cannot be validated right now. Choose another demo username.');\n        }\n        return { username, intent };\n    }\n);\n";
@@ -80,28 +82,30 @@ export default config;`;
     <section id="error-summary" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">A complete error summary</Typography.H2>
         <Typography.Text variant="supporting">
-            ErrorSummary accepts issues containing message and an optional controlId. It renders
-            nothing when empty, links directly to known controls, and keeps cross-field or
-            form-level messages visible without inventing a target. Override its heading snippet or
-            children(issues) snippet to compose your own summary body. The summary does not announce
-            or move focus automatically; bind:element lets your submission handler focus it
-            deliberately after tick(). Field.Error announces local changes politely, while Status
-            owns pending and submission feedback.
+            Pass validation issues directly to ErrorSummary. Each issue needs a message and may
+            include a path or controlId. Paths resolve against native field names within the form;
+            form-level issues remain text. Nested paths use names such as profile.email or
+            members[0].email. After a submission finishes with issues, the summary receives focus.
+            Set focusOnError={false} when your application manages focus. Initial server-rendered
+            errors do not steal focus. Override heading or children(issues) to customize the
+            content.
         </Typography.Text>
     </section>
     <section id="remote-forms" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">SvelteKit remote forms</Typography.H2>
         <Typography.Text variant="supporting">
             This live example uses SvelteKit’s experimental remote-form API. Schema errors appear
-            beside each control. A reserved username is rejected on the server. The second submitter
-            resets only after a successful response; validation and network failures keep the draft.
+            beside each control. A reserved username is rejected on the server. Validation and
+            network failures keep the draft.
         </Typography.Text>
-        <ComponentPreview code={RemoteSrc} class="max-h-none"><Remote /></ComponentPreview>
+        <ComponentPreview code={RemoteBasicSrc} class="max-h-none">
+            <RemoteBasic />
+        </ComponentPreview>
         <Typography.Text variant="supporting">
             The docs application opts in to remote functions and async compilation. Mielui itself
             imports no Kit runtime and requires no experimental flag. To run this example in your
             own Kit 2 application, explicitly enable both options and install Valibot (pnpm add
-            valibot). These examples target Kit 2.70 or later and Svelte 5.33 or later. See the<a
+            valibot). These examples target Kit 2.70 or later and Svelte 5.39 or later. See the<a
                 href="https://svelte.dev/docs/kit/remote-functions"
                 class="underline underline-offset-4"
             >
@@ -133,15 +137,16 @@ export default config;`;
             enhance receives a form instance. Await instance.submit(): false means validation
             failed; thrown errors are transport or application failures. A successful enhanced
             submission does not reset automatically. Call instance.element.reset() deliberately
-            after success. The example catches failures, announces a useful message, and focuses the
-            error summary after rendering its issues. The summary links to fields with known IDs;
+            after success. The examples use toast.promise for pending, success, and failure
+            feedback. Mount Toaster once in your app layout. ErrorSummary focuses the error summary
+            after rendering its issues. The summary resolves issue paths to the form’s named fields;
             form-level issues remain readable text.
         </Typography.Text>
         <Typography.Text variant="supporting">
             Use field.issues() for local feedback, fields.issues() for form-level issues, and
             fields.allIssues() for a full summary. Pass local issues to Field.Root and render
             Field.Error. Pass all issues to Form.ErrorSummary, including root-level issues without a
-            controlId. Validation is not triggered on every keystroke by Form; choose validate() or
+            path. Validation is not triggered on every keystroke by Form; choose validate() or
             preflight(schema) when your application needs that policy.
         </Typography.Text>
         <Typography.H3 class="docs-subsection-heading">
@@ -157,9 +162,18 @@ export default config;`;
     </section>
     <Typography.Text variant="supporting">
         For server validation returned without JavaScript, declare stable describedBy and errorId
-        values on Field.Control and matching IDs on Description and Error. The remote example uses
-        $props.id() so those relationships work before hydration.
+        values on Field.Control and matching IDs on Description and Error. The multiple-action
+        example uses $props.id() so those relationships work before hydration. The basic example
+        lets Field associate descriptions and errors after hydration.
     </Typography.Text>
+    <section id="multiple-actions" class="scroll-mt-20 flex flex-col gap-4">
+        <Typography.H2 class="docs-section-heading">Multiple actions and reset</Typography.H2>
+        <Typography.Text variant="supporting">
+            Use submitter values when the server needs to distinguish actions. This example resets
+            only after successful validation; errors preserve the draft.
+        </Typography.Text>
+        <ComponentPreview code={RemoteSrc} class="max-h-none"><Remote /></ComponentPreview>
+    </section>
     <section id="form-actions" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Stable SvelteKit form actions</Typography.H2>
         <Typography.Text variant="supporting">

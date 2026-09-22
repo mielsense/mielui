@@ -1,5 +1,4 @@
 <script lang="ts">
-    import { Button } from '@mielui/svelte/components/button';
     import * as Field from '@mielui/svelte/components/field';
     import * as Fieldset from '@mielui/svelte/components/fieldset';
     import * as Form from '@mielui/svelte/components/form';
@@ -21,9 +20,6 @@
                 throw new Error('Review the highlighted fields.');
             }
             const result = instance.result;
-            if (result?.intent === 'validate-reset') {
-                instance.element.reset();
-            }
             return result;
         });
         toast.promise(request, {
@@ -43,16 +39,9 @@
             issue, or “system” for a form-level issue.
         </Fieldset.Description>
         <Field.Group>
-            <Field.Root
-                controlId={`${uid}-username`}
-                required
-                issues={draft.fields.username.issues()}
-            >
+            <Field.Root required issues={draft.fields.username.issues()}>
                 <Field.Label>Username</Field.Label>
-                <Field.Control
-                    describedBy={`${uid}-username-hint`}
-                    errorId={`${uid}-username-error`}
-                >
+                <Field.Control>
                     {#snippet children(control)}
                         <Input
                             {...control}
@@ -62,14 +51,12 @@
                         />
                     {/snippet}
                 </Field.Control>
-                <Field.Description id={`${uid}-username-hint`}>
-                    Between 3 and 40 characters.
-                </Field.Description>
-                <Field.Error aria-live="off" id={`${uid}-username-error`} />
+                <Field.Description>Between 3 and 40 characters.</Field.Description>
+                <Field.Error aria-live="off" />
             </Field.Root>
-            <Field.Root controlId={`${uid}-email`} required issues={draft.fields.email.issues()}>
+            <Field.Root required issues={draft.fields.email.issues()}>
                 <Field.Label>Email</Field.Label>
-                <Field.Control errorId={`${uid}-email-error`}>
+                <Field.Control>
                     {#snippet children(control)}
                         <Input
                             {...control}
@@ -79,7 +66,7 @@
                         />
                     {/snippet}
                 </Field.Control>
-                <Field.Error aria-live="off" id={`${uid}-email-error`} />
+                <Field.Error aria-live="off" />
             </Field.Root>
         </Field.Group>
     </Fieldset.Root>
@@ -87,13 +74,5 @@
         <Form.Submit {...draft.fields.intent.as('submit', 'validate')} loadingLabel="Checking">
             Validate draft
         </Form.Submit>
-        <Form.Submit
-            {...draft.fields.intent.as('submit', 'validate-reset')}
-            variant="outline"
-            loadingLabel="Checking"
-        >
-            Validate and reset
-        </Form.Submit>
-        <Button type="reset" variant="ghost" disabled={draft.pending > 0}>Reset</Button>
     </Form.Actions>
 </Form.Root>

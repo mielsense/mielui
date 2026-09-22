@@ -870,10 +870,19 @@
             428,
             {
                 "name": "issues",
-                "type": "readonly Readonly<{ message: string; controlId?: string | undefined; }>[] | undefined",
+                "type": "readonly Readonly<{ message: string; controlId?: string | undefined; path?: readonly (string | number)[] | undefined; }>[] | undefined",
                 "required": false,
                 "bindable": false,
                 "default": "[]",
+                "description": "",
+                "inherited": false
+            },
+            {
+                "name": "focusOnError",
+                "type": "boolean | undefined",
+                "required": false,
+                "bindable": false,
+                "default": "true",
                 "description": "",
                 "inherited": false
             },
@@ -888,7 +897,7 @@
             },
             {
                 "name": "children",
-                "type": "Snippet<[readonly Readonly<{ message: string; controlId?: string | undefined; }>[]]> | undefined",
+                "type": "Snippet<[readonly Readonly<{ message: string; controlId?: string | undefined; path?: readonly (string | number)[] | undefined; }>[]]> | undefined",
                 "required": false,
                 "bindable": false,
                 "default": null,

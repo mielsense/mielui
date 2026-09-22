@@ -4,17 +4,31 @@
     import * as Fieldset from '@mielui/svelte/components/fieldset';
     import * as Form from '@mielui/svelte/components/form';
     import { Input } from '@mielui/svelte/components/input';
+    import { toast } from '@mielui/svelte/components/toast';
 
-    let message = $state('');
+    let pending = $state(false);
 
     function submit(event: SubmitEvent & { currentTarget: EventTarget & HTMLFormElement }) {
         event.preventDefault();
         const data = new FormData(event.currentTarget, event.submitter);
-        message = `Ready to save ${String(data.get('displayName')).trim()}. This preview keeps your data in the browser.`;
+        const name = String(data.get('displayName')).trim();
+        pending = true;
+        const request = new Promise<string>((resolve) => {
+            setTimeout(() => {
+                pending = false;
+                resolve(name);
+            }, 800);
+        });
+        toast.promise(request, {
+            loading: 'Checking profile…',
+            success: (name) => `${name} is ready to save.`,
+            successDescription: 'This preview keeps your data in the browser.',
+            error: 'Could not check your profile'
+        });
     }
 </script>
 
-<Form.Root class="w-full max-w-md" onsubmit={submit} onreset={() => { message = ''; }}>
+<Form.Root class="w-full max-w-md" onsubmit={submit} {pending}>
     <Fieldset.Root>
         <Fieldset.Legend>Profile details</Fieldset.Legend>
         <Field.Group>
@@ -52,5 +66,4 @@
         <Form.Submit>Save profile</Form.Submit>
         <Button type="reset" variant="ghost">Reset</Button>
     </Form.Actions>
-    <Form.Status class="min-h-5">{message}</Form.Status>
 </Form.Root>

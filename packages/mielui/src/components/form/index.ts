@@ -20,9 +20,11 @@ export type FormSubmitProps = Omit<Extract<ButtonProps, { href?: undefined }>, '
 export type FormIssue = Readonly<{
     message: string;
     controlId?: string;
+    path?: readonly (string | number)[];
 }>;
 export type FormErrorSummaryProps = Omit<HTMLAttributes<HTMLDivElement>, 'children'> & {
     issues?: readonly FormIssue[];
+    focusOnError?: boolean;
     heading?: Snippet;
     children?: Snippet<[readonly FormIssue[]]>;
     element?: HTMLDivElement;
