@@ -131,3 +131,4 @@
 - Escape closes only the deepest open dropdown or context submenu, keeping its parent menu available.
 
 - Notch side actions unfold with synchronized shape and button motion, including interrupted hover changes.
+- Morph and Shimmer stop active effects when inherited theme motion is disabled and clean up their theme observers on removal.

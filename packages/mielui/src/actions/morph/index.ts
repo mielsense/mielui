@@ -1,5 +1,5 @@
-import type { Action } from 'svelte/action';
 import { tick } from 'svelte';
+import type { Action } from 'svelte/action';
 import { svgTransition } from './geometry';
 
 type Options = {
@@ -183,6 +183,20 @@ export const morph: Action<HTMLElement, Options> = (node, initial) => {
         render(read());
     }
 
+    let themeDuration = getComputedStyle(node).getPropertyValue('--motion-duration-panel');
+    const themeObserver = new MutationObserver(() => {
+        const nextDuration = getComputedStyle(node).getPropertyValue('--motion-duration-panel');
+        if (nextDuration !== themeDuration) {
+            themeDuration = nextDuration;
+            settle();
+        }
+    });
+    let ancestor: HTMLElement | null = node;
+    while (ancestor) {
+        themeObserver.observe(ancestor, { attributes: true, attributeFilter: ['class', 'style'] });
+        ancestor = ancestor.parentElement;
+    }
+
     reduced.addEventListener('change', settle);
     return {
         update(next) {
@@ -193,6 +207,7 @@ export const morph: Action<HTMLElement, Options> = (node, initial) => {
             }
         },
         destroy() {
+            themeObserver.disconnect();
             disposed = true;
             revision += 1;
             cancelAnimationFrame(frame);

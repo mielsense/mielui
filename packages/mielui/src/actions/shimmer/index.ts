@@ -57,10 +57,25 @@ export const shimmer: Action<HTMLElement> = (node) => {
         );
     }
 
+    let themeDuration = getComputedStyle(node).getPropertyValue('--motion-duration-panel');
+    const themeObserver = new MutationObserver(() => {
+        const nextDuration = getComputedStyle(node).getPropertyValue('--motion-duration-panel');
+        if (nextDuration !== themeDuration) {
+            themeDuration = nextDuration;
+            sync();
+        }
+    });
+    let ancestor: HTMLElement | null = node;
+    while (ancestor) {
+        themeObserver.observe(ancestor, { attributes: true, attributeFilter: ['class', 'style'] });
+        ancestor = ancestor.parentElement;
+    }
+
     reduced.addEventListener('change', sync);
     sync();
     return {
         destroy() {
+            themeObserver.disconnect();
             observer?.disconnect();
             animation?.cancel();
             overlay.remove();

@@ -45,11 +45,13 @@ it.each(['top', 'bottom', 'left', 'right'] as const)(
 );
 
 it('pauses automatic dismissal while an accessory control has focus', async () => {
-    render(Fixture, { duration: 300 });
+    const view = render(Fixture, { duration: 0 });
     await page.getByRole('button', { name: 'Toggle accessory' }).click();
     const counter = page.getByRole('button', { name: '3 of 5' });
     await expect.element(counter).toBeVisible();
     (counter.element() as HTMLButtonElement).focus();
+    await expect.element(counter).toHaveFocus();
+    await view.rerender({ duration: 300 });
     await new Promise((resolve) => setTimeout(resolve, 400));
     await expect.element(counter).toBeVisible();
     (page.getByRole('button', { name: 'Toggle accessory' }).element() as HTMLButtonElement).focus();
