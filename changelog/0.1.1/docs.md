@@ -62,3 +62,8 @@
 - Simplify the top navigation to Docs and Studio.
 
 - Replace machine-specific paths in the design-system implementation plans.
+
+- Derive homepage component counts from the catalog and check each catalog entry's category, examples, and API reference.
+- Document controlled overlays, upload cancellation and retry, and theme storage limitations.
+- Add a live File Diff example and refresh generated component prop tables.
+- Use shared border, radius, and elevation tokens in legacy API tables.

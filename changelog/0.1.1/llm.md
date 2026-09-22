@@ -159,3 +159,9 @@ Title-only toasts render Icon and Title inside Content. Description toasts keep 
 ## Checkbox sizes
 
 Checkbox now accepts size="sm" | "md" | "lg" for 14, 18, and 22px boxes. The default is md (18px); use sm explicitly for dense layouts. Size controls the visible box and indicator, while the label remains part of the click target. Native input size is no longer forwarded.
+
+## Overlay state and nesting
+
+Dialog, Sheet, and Popover context reads the bound open value directly. Internal interaction setters update the binding and call onOpenChange once. Do not mirror these props into a second state object with effects in both directions.
+
+Bits UI owns focus trapping and dismissal. Dialog and Sheet use the internal overlay presentation helper for nesting order, parent recession, and one Escape dismissal per event. Background scroll locks are shared and reference counted with Popover. Keep Bits preventScroll disabled when using that shared lock, and restore trigger focus after the inert-background cleanup has finished. Do not attach a second focus trap or click-outside listener to these components.

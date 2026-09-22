@@ -89,3 +89,13 @@
 - Studio shows a year of heatmap activity and pairs a full-width conversation with the narrower Composer layout used in its documentation.
 
 - Fix TypeScript errors in composed controls, upload and toast motion, and documentation examples while preserving native event handlers and refs.
+
+- Update the docs and installer workspace to Svelte 5.57.1 and SvelteKit 2.70.3, with svelte-check 4.7.6.
+
+- Honor a consumer project's declared package manager and recognize Bun lockfiles in the CLI.
+- Keep theme editing usable when browser storage is blocked or full, and report failed theme saves.
+- Keep upload image previews stable as progress changes.
+- Keep Dialog, Sheet, Popover, and File Diff state synchronized with their bound values and current props.
+- Restore nested dialog stacking, single-layer dismissal, focus return, and shared background scroll locks.
+- Cache the GitHub star count and retain the last valid count during temporary API failures.
+- Preserve invoice-preview state when switching Studio tabs.
