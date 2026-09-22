@@ -7,8 +7,9 @@
 
     let { children, class: className, ...rest }: FileUploadPartProps = $props();
     const item = getItem();
+    const file = $derived(item().file);
     function preview(node: HTMLImageElement) {
-        const url = URL.createObjectURL(item().file);
+        const url = URL.createObjectURL(file);
         node.src = url;
         return () => URL.revokeObjectURL(url);
     }

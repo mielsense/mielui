@@ -9,6 +9,40 @@ const LEGACY_KEYS = ['mielui-theme-studio-state', 'mielui-saved-themes'];
 
 export type SavedTheme = Theme & { id: string; savedAt: string };
 
+function readStored(key: string): string | null {
+    if (!browser) {
+        return null;
+    }
+    try {
+        return localStorage.getItem(key);
+    } catch {
+        return null;
+    }
+}
+
+function writeStored(key: string, value: string): boolean {
+    if (!browser) {
+        return false;
+    }
+    try {
+        localStorage.setItem(key, value);
+        return true;
+    } catch {
+        return false;
+    }
+}
+
+function removeStored(key: string) {
+    if (!browser) {
+        return;
+    }
+    try {
+        localStorage.removeItem(key);
+    } catch {
+        return;
+    }
+}
+
 function getStyleTag() {
     if (!browser) {
         return null;
@@ -32,14 +66,14 @@ export function applyLiveThemeCss(css: string) {
         return;
     }
     tag.textContent = css;
-    localStorage.setItem(STORAGE_KEY, css);
+    writeStored(STORAGE_KEY, css);
 }
 
 export function hydrateLiveThemeCss() {
     if (!browser) {
         return;
     }
-    const stored = localStorage.getItem(STORAGE_KEY);
+    const stored = readStored(STORAGE_KEY);
     if (!stored) {
         return;
     }
@@ -50,14 +84,14 @@ export function hydrateLiveThemeCss() {
 }
 
 export function getStoredLiveThemeCss() {
-    return browser ? localStorage.getItem(STORAGE_KEY) : null;
+    return browser ? readStored(STORAGE_KEY) : null;
 }
 
 export function clearLiveThemeCss() {
     if (!browser) {
         return;
     }
-    localStorage.removeItem(STORAGE_KEY);
+    removeStored(STORAGE_KEY);
     document.getElementById(STYLE_ID)?.remove();
 }
 
@@ -79,7 +113,7 @@ export function saveStudioTheme(theme: Theme) {
     if (!browser) {
         return;
     }
-    localStorage.setItem(STUDIO_THEME_KEY, JSON.stringify(currentTheme(theme)));
+    writeStored(STUDIO_THEME_KEY, JSON.stringify(currentTheme(theme)));
 }
 
 export function loadStudioTheme(): Theme | null {
@@ -87,16 +121,16 @@ export function loadStudioTheme(): Theme | null {
         return null;
     }
     for (const key of LEGACY_KEYS) {
-        localStorage.removeItem(key);
+        removeStored(key);
     }
-    const stored = localStorage.getItem(STUDIO_THEME_KEY);
+    const stored = readStored(STUDIO_THEME_KEY);
     if (!stored) {
         return null;
     }
     try {
         return currentTheme(JSON.parse(stored));
     } catch {
-        localStorage.removeItem(STUDIO_THEME_KEY);
+        removeStored(STUDIO_THEME_KEY);
         return null;
     }
 }
@@ -105,7 +139,7 @@ export function getSavedThemes(): SavedTheme[] {
     if (!browser) {
         return [];
     }
-    const stored = localStorage.getItem(SAVED_THEMES_KEY);
+    const stored = readStored(SAVED_THEMES_KEY);
     if (!stored) {
         return [];
     }
@@ -131,7 +165,7 @@ export function getSavedThemes(): SavedTheme[] {
             })
             .sort((a, b) => b.savedAt.localeCompare(a.savedAt));
     } catch {
-        localStorage.removeItem(SAVED_THEMES_KEY);
+        removeStored(SAVED_THEMES_KEY);
         return [];
     }
 }
@@ -146,7 +180,11 @@ export function saveLocalTheme(theme: Theme, existingId?: string): SavedTheme {
         return entry;
     }
     const next = [entry, ...getSavedThemes().filter((candidate) => candidate.id !== entry.id)];
-    localStorage.setItem(SAVED_THEMES_KEY, JSON.stringify(next));
+    if (!writeStored(SAVED_THEMES_KEY, JSON.stringify(next))) {
+        throw new Error(
+            'Could not save themes on this device. Check browser storage permissions and available space.'
+        );
+    }
     return entry;
 }
 
@@ -155,5 +193,9 @@ export function deleteLocalTheme(id: string) {
         return;
     }
     const next = getSavedThemes().filter((theme) => theme.id !== id);
-    localStorage.setItem(SAVED_THEMES_KEY, JSON.stringify(next));
+    if (!writeStored(SAVED_THEMES_KEY, JSON.stringify(next))) {
+        throw new Error(
+            'Could not save themes on this device. Check browser storage permissions and available space.'
+        );
+    }
 }

@@ -72,7 +72,9 @@ describe('Nested Dialog stacking', () => {
 
         const nestedScrim = document.querySelector('[data-ui="dialog-overlay"][data-nested]');
         expect(nestedScrim).toBeTruthy();
-        (nestedScrim as HTMLElement).click();
+        await userEvent.click(nestedScrim as HTMLElement, {
+            position: { x: 10, y: window.innerHeight - 20 }
+        });
         await flush();
 
         await expect

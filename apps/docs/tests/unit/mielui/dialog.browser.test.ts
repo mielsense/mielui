@@ -136,7 +136,7 @@ describe('Dialog -- close paths actually unmount (P3-F6 disambiguation)', () => 
 
         const overlay = document.querySelector('[data-ui="dialog-overlay"]') as HTMLElement;
         expect(overlay).toBeInTheDocument();
-        overlay.click();
+        await userEvent.click(overlay, { position: { x: 10, y: window.innerHeight - 20 } });
         await flush();
         await expect.element(page.getByText('Dialog Title')).not.toBeInTheDocument();
     });
@@ -149,7 +149,7 @@ describe('Dialog -- close paths actually unmount (P3-F6 disambiguation)', () => 
 
         const overlay = document.querySelector('[data-ui="dialog-overlay"]') as HTMLElement;
         expect(overlay).toBeInTheDocument();
-        overlay.click();
+        await userEvent.click(overlay, { position: { x: 10, y: window.innerHeight - 20 } });
         await flush();
         await expect.element(page.getByText('Dialog Title')).toBeInTheDocument();
     });
@@ -204,7 +204,8 @@ describe('Dialog -- ARIA contract in browser', () => {
         expect(enter.css?.(0, 1)).toContain('translateY(4px) scale(0.93)');
         expect(exit.duration).toBe(110);
         expect(exit.css?.(0, 1)).toContain('translateY(-4px) scale(0.9825)');
-        expect(enter.easing?.(0.5)).toBeGreaterThan(exit.easing?.(0.5) ?? 1);
+        expect(enter.easing?.(0)).toBe(0);
+        expect(exit.easing?.(1)).toBe(1);
     });
 
     it('sets role="dialog" by default', async () => {

@@ -16,9 +16,11 @@ type OverlayLayer = {
     panel: HTMLElement;
     kind: OverlayKind;
     depth: number;
+    setTop?: (top: boolean) => void;
 };
 
 const overlayStack: OverlayLayer[] = [];
+let escapeHandled = false;
 
 function overlayNestingDepth() {
     const parentDepth = getContext<number>(OVERLAY_DEPTH) ?? 0;
@@ -82,6 +84,9 @@ function clearModalStackAttrs(panel: HTMLElement) {
 }
 
 function syncStackedModals() {
+    for (const layer of overlayStack) {
+        layer.setTop?.(layer === overlayStack[overlayStack.length - 1]);
+    }
     const modals = overlayStack
         .filter((layer) => layer.kind === 'dialog')
         .slice()
@@ -110,9 +115,64 @@ function syncStackedModals() {
     }
 }
 
+/** Coordinates modal presentation while Bits UI owns focus and dismissal. */
+export function useOverlayPresentation(options: {
+    isOpen: () => boolean;
+    panelEl: () => HTMLElement | undefined;
+}) {
+    const depth = overlayNestingDepth();
+    let top = $state(true);
+
+    $effect(() => {
+        const panel = options.panelEl();
+        if (!options.isOpen() || !panel) {
+            return;
+        }
+        const layer: OverlayLayer = {
+            panel,
+            depth,
+            kind: overlayKind(panel),
+            setTop(value) {
+                top = value;
+            }
+        };
+        overlayStack.push(layer);
+        overlayStack.sort((first, second) => first.depth - second.depth);
+        applyOverlayRootLayer(panel, depth);
+        syncStackedModals();
+
+        return () => {
+            const index = overlayStack.indexOf(layer);
+            if (index >= 0) {
+                overlayStack.splice(index, 1);
+            }
+            clearOverlayRootLayer(panel);
+            clearModalStackAttrs(panel);
+            syncStackedModals();
+        };
+    });
+
+    return {
+        get top() {
+            return top;
+        },
+        claimEscape() {
+            if (!top || escapeHandled) {
+                return false;
+            }
+            escapeHandled = true;
+            setTimeout(() => {
+                escapeHandled = false;
+            }, 0);
+            return true;
+        }
+    };
+}
+
 /** Test isolation for the process-local nested overlay stack. */
 export function resetOverlayStackForTests() {
     overlayStack.length = 0;
+    escapeHandled = false;
 }
 
 /**

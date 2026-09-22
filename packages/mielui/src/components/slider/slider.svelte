@@ -57,7 +57,7 @@
     let dragPointer = $state<number | undefined>();
     let dragOffset = 0;
     let pointerPosition: number | undefined;
-    let pointerThumb: number | undefined;
+    let pointerThumb = $state<number | undefined>();
     let interactionRevision = $state(0);
     const direction = $derived(dir ?? inheritedDirection);
     const thumbClasses =

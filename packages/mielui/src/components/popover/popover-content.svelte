@@ -3,6 +3,7 @@
     import {
         cn,
         isPointInSubmenuTriangle,
+        lockBodyScroll,
         positionFloatingPanel,
         submenuPanelOffset
     } from '@mielui/svelte/utils';
@@ -237,6 +238,11 @@
             updatePosition();
         }
     });
+    $effect(() => {
+        if (popoverState.open && !popoverState.hoverable && lockScroll) {
+            return lockBodyScroll();
+        }
+    });
 </script>
 
 {#if popoverState.open && !popoverState.hoverable && popoverState.inert && allowClickOutside && dismissLayer}
@@ -265,7 +271,7 @@
         forceMount
         id={id ?? `popover-${String(key)}-content`}
         trapFocus={!popoverState.hoverable && focusTrap}
-        preventScroll={!popoverState.hoverable && lockScroll}
+        preventScroll={false}
         onInteractOutside={(event) => {
             if (!allowClickOutside || (event.target instanceof Node && popoverState.buttonRef?.contains(event.target))) {
                 event.preventDefault();

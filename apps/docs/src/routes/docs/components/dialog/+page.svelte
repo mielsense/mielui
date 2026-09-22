@@ -61,6 +61,12 @@
     <section id="usage" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Usage</Typography.H2>
         <Typography.Text variant="supporting">
+            Bind open on Root when another control needs to open or close the panel. Use
+            onOpenChange to respond to changes initiated inside the component. Updating your bound
+            value directly does not call that callback again. Each Root keeps its own state, so
+            opening one instance does not change another.
+        </Typography.Text>
+        <Typography.Text variant="supporting">
             Focus, Escape, and outside interactions are coordinated with nested overlays. Include a
             Title or give Content an aria-label. Description is optional; removing it also removes
             its accessible relationship. Trigger, Close, and Confirm click handlers can prevent the

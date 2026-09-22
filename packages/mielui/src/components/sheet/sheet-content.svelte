@@ -1,7 +1,9 @@
 <script lang="ts">
     import { overlayIn, overlayOut, sheetIn, sheetOut } from '@mielui/svelte/transition';
-    import { cn, visualViewportBounds } from '@mielui/svelte/utils';
+    import { cn, inertOutside, lockBodyScroll, visualViewportBounds } from '@mielui/svelte/utils';
     import { Dialog as DialogPrimitive } from 'bits-ui';
+    import { tick } from 'svelte';
+    import { useOverlayPresentation } from '../_internal/overlay/overlay.svelte';
     import { overlaySurface } from '../_internal/surface';
     import type { SheetContentProps } from '.';
     import { getSheetContext } from './context.svelte';
@@ -18,6 +20,11 @@
     const sheet = getSheetContext();
     const { id, state: sheetState } = sheet;
     let portalEl = $state<HTMLDivElement>();
+    let element = $state<HTMLDivElement>();
+    const layer = useOverlayPresentation({
+        isOpen: () => sheetState.open,
+        panelEl: () => element
+    });
 
     /**
      * Portal to `<body>` so the sheet escapes ancestor stacking contexts, the same
@@ -32,13 +39,33 @@
             portalEl?.remove();
         };
     });
+    $effect(() => {
+        if (!sheetState.open || !portalEl) {
+            return;
+        }
+        const releaseScroll = lockBodyScroll();
+        const releaseInert = inertOutside([portalEl]);
+        return () => {
+            releaseInert();
+            releaseScroll();
+        };
+    });
 </script>
 
 <!-- Keep the host in body before opening so Safari does not reparent active transitions. -->
 <div bind:this={portalEl} use:visualViewportBounds data-overlay-root>
     <DialogPrimitive.Content
+        preventScroll={false}
+        trapFocus={layer.top}
+        escapeKeydownBehavior={layer.top ? 'close' : 'defer-otherwise-close'}
+        interactOutsideBehavior={layer.top ? 'close' : 'defer-otherwise-close'}
         id={`sheet-${id}`}
         forceMount
+        onEscapeKeydown={(event) => {
+            if (!layer.claimEscape()) {
+                event.preventDefault();
+            }
+        }}
         onInteractOutside={(event) => {
             if (!allowClickOutside) {
                 event.preventDefault();
@@ -47,7 +74,11 @@
         onCloseAutoFocus={(event) => {
             if (sheetState.triggerRef?.isConnected) {
                 event.preventDefault();
-                sheetState.triggerRef?.focus({ preventScroll: true });
+                void tick().then(() => {
+                    if (!sheetState.open && sheetState.triggerRef?.isConnected) {
+                        sheetState.triggerRef.focus({ preventScroll: true });
+                    }
+                });
             }
         }}
     >
@@ -68,6 +99,7 @@
                     ></div>
                     <div
                         {...props}
+                        bind:this={element}
                         data-ui="sheet-content"
                         data-surface={surface}
                         data-side={side}

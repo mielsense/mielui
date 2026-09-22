@@ -1,10 +1,12 @@
 <script lang="ts">
     import { Cancel01Icon as X } from '@hugeicons/core-free-icons';
     import { dialogIn, dialogOut, overlayIn, overlayOut } from '@mielui/svelte/transition';
-    import { cn, visualViewportBounds } from '@mielui/svelte/utils';
+    import { cn, inertOutside, lockBodyScroll, visualViewportBounds } from '@mielui/svelte/utils';
     import { Dialog as DialogPrimitive } from 'bits-ui';
+    import { tick } from 'svelte';
     import type { TransitionConfig } from 'svelte/transition';
     import HugeiconsIcon from '../../hugeicons-icon.svelte';
+    import { useOverlayPresentation } from '../_internal/overlay/overlay.svelte';
     import { overlaySurface } from '../_internal/surface';
     import type { DialogContentProps } from '.';
     import { getDialogContext } from './context.svelte';
@@ -53,6 +55,10 @@
     const contentId = $derived(`${panelIdPrefix}-${dialog.id}`);
     let element = $state<HTMLDivElement>();
     let portalEl = $state<HTMLDivElement>();
+    const layer = useOverlayPresentation({
+        isOpen: () => dialog.state.open,
+        panelEl: () => element
+    });
 
     $effect(() => {
         dialog.contentId = contentId;
@@ -71,11 +77,26 @@
             portalEl?.remove();
         };
     });
+    $effect(() => {
+        if (!dialog.state.open || !portalEl) {
+            return;
+        }
+        const releaseScroll = lockBodyScroll();
+        const releaseInert = inertOutside([portalEl]);
+        return () => {
+            releaseInert();
+            releaseScroll();
+        };
+    });
 </script>
 
 <!-- Keep the host in body before opening so Safari does not reparent active transitions. -->
 <div bind:this={portalEl} use:visualViewportBounds data-overlay-root>
     <DialogPrimitive.Content
+        preventScroll={false}
+        trapFocus={layer.top}
+        escapeKeydownBehavior={layer.top ? 'close' : 'defer-otherwise-close'}
+        interactOutsideBehavior={layer.top ? 'close' : 'defer-otherwise-close'}
         id={contentId}
         forceMount
         onInteractOutside={(event) => {
@@ -84,7 +105,7 @@
             }
         }}
         onEscapeKeydown={(event) => {
-            if (!allowEscape) {
+            if (!layer.claimEscape() || !allowEscape) {
                 event.preventDefault();
             }
         }}
@@ -98,7 +119,11 @@
         onCloseAutoFocus={(event) => {
             if (dialog.returnFocusEl?.isConnected) {
                 event.preventDefault();
-                dialog.returnFocusEl?.focus({ preventScroll: true });
+                void tick().then(() => {
+                    if (!dialog.state.open && dialog.returnFocusEl?.isConnected) {
+                        dialog.returnFocusEl.focus({ preventScroll: true });
+                    }
+                });
             }
         }}
     >

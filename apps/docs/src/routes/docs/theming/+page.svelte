@@ -77,7 +77,9 @@ src/lib/mielui/components/button/
             </a>
             lets you start from a preset and adjust colors, fonts, spacing, motion, and surface
             effects. Use the cog beside Color for individual color tokens. The other sections
-            contain typography, sizing, and animation controls. Your draft is saved locally.
+            contain typography, sizing, and animation controls. Your draft is saved locally when
+            browser storage is available. If storage is blocked or full, you can keep editing and
+            download the theme JSON from Studio to preserve your changes.
         </Typography.Text>
         <Typography.Text variant="body" class="m-0 max-w-2xl">
             Choose Use theme, download mielui-theme.json into your project root, and run the command

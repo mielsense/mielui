@@ -27,24 +27,27 @@
     );
     const isHighLevel = $derived(diff != null);
 
-    const context = $state({
-        lang,
-        showLineNumbers,
-        file,
-        additions: resolvedAdditions,
-        deletions: resolvedDeletions,
-        theme
-    } satisfies FileDiffContext);
+    const context: FileDiffContext = {
+        get lang() {
+            return lang;
+        },
+        get showLineNumbers() {
+            return showLineNumbers;
+        },
+        get file() {
+            return file;
+        },
+        get additions() {
+            return resolvedAdditions;
+        },
+        get deletions() {
+            return resolvedDeletions;
+        },
+        get theme() {
+            return theme;
+        }
+    };
     setContext('file-diff', context);
-
-    $effect(() => {
-        context.lang = lang;
-        context.showLineNumbers = showLineNumbers;
-        context.file = file;
-        context.additions = resolvedAdditions;
-        context.deletions = resolvedDeletions;
-        context.theme = theme;
-    });
 </script>
 
 <div

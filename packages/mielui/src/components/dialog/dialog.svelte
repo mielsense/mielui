@@ -58,11 +58,24 @@
     }: DialogProps = $props();
     const id = $props.id();
 
-    const modalState = $state<DialogState>({
-        open,
-        error,
-        orientation
-    });
+    const modalState: DialogState = {
+        get open() {
+            return open;
+        },
+        set open(value: boolean) {
+            if (open === value) {
+                return;
+            }
+            open = value;
+            onOpenChange?.(value);
+        },
+        get error() {
+            return error;
+        },
+        get orientation() {
+            return orientation;
+        }
+    };
     const modalContext = $state({
         id,
         titleId: undefined as string | undefined,
@@ -73,7 +86,6 @@
         footerSlot: undefined as DialogFooterSlot | undefined,
         headerSlot: undefined as DialogFooterSlot | undefined
     });
-    let syncedOpen = $state(open);
     let wasOpen = $state(false);
     setDialogContext(modalContext);
 
@@ -88,23 +100,6 @@
             modalContext.returnFocusEl = document.activeElement;
         }
         wasOpen = modalState.open;
-    });
-
-    $effect(() => {
-        modalState.error = error;
-        modalState.orientation = orientation;
-        if (open !== syncedOpen) {
-            syncedOpen = open;
-            modalState.open = open;
-        }
-    });
-
-    $effect(() => {
-        if (modalState.open !== syncedOpen) {
-            syncedOpen = modalState.open;
-            open = modalState.open;
-            onOpenChange?.(modalState.open);
-        }
     });
 
     $effect(() => {

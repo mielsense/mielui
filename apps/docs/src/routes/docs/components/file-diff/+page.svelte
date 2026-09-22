@@ -7,6 +7,8 @@
     import CompoundSrc from './examples/compound.svelte?raw';
     import Hero from './examples/hero.svelte';
     import HeroSrc from './examples/hero.svelte?raw';
+    import Live from './examples/live.svelte';
+    import LiveSrc from './examples/live.svelte?raw';
     import Stacked from './examples/stacked.svelte';
     import StackedSrc from './examples/stacked.svelte?raw';
     import WithoutLineNumbers from './examples/without-line-numbers.svelte';
@@ -98,6 +100,16 @@
     <section id="examples" class="scroll-mt-20 flex flex-col gap-10">
         <div>
             <Typography.H2 class="docs-section-heading">Examples</Typography.H2>
+        </div>
+
+        <div id="changing-diff" class="scroll-mt-20 flex flex-col gap-3">
+            <Typography.H3 class="docs-subsection-heading">Changing a diff</Typography.H3>
+            <Typography.Text variant="supporting">
+                Replace the diff array when a new patch arrives. The filename, highlighted rows, and
+                derived counts update from Root. Explicit additions and deletions continue to
+                override the calculated counts until you remove those props.
+            </Typography.Text>
+            <ComponentPreview code={LiveSrc}><Live /></ComponentPreview>
         </div>
 
         <div id="compound" class="scroll-mt-20 flex flex-col gap-3">

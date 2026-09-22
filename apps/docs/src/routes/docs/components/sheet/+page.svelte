@@ -59,6 +59,12 @@
     <section id="usage" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Usage</Typography.H2>
         <Typography.Text variant="supporting">
+            Bind open on Root when another control needs to open or close the panel. Use
+            onOpenChange to respond to changes initiated inside the component. Updating your bound
+            value directly does not call that callback again. Each Root keeps its own state, so
+            opening one instance does not change another.
+        </Typography.Text>
+        <Typography.Text variant="supporting">
             Sheets open from the left or right. Focus stays within the open sheet and returns to its
             trigger when it closes. Include Title and optionally Description; click handlers on
             Trigger and Close can cancel the state change with event.preventDefault().

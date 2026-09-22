@@ -40,7 +40,7 @@
         card.footerSlot = footerSlot;
     }
 
-    if (inInsetChrome && card) {
+    if (untrack(() => card?.variant === 'inset')) {
         untrack(registerFooter);
     }
 

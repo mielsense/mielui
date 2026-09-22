@@ -7,10 +7,18 @@
 
     const id = $props.id();
     const sheetState = $state<SheetState>({
-        open,
+        get open() {
+            return open;
+        },
+        set open(value: boolean) {
+            if (open === value) {
+                return;
+            }
+            open = value;
+            onOpenChange?.(value);
+        },
         triggerRef: null
     });
-    let syncedOpen = $state(open);
     const context = $state({
         id,
         state: sheetState,
@@ -18,20 +26,19 @@
         descriptionId: undefined as string | undefined
     });
     setSheetContext(context);
+    let wasOpen = $state(false);
 
-    $effect(() => {
-        if (open !== syncedOpen) {
-            syncedOpen = open;
-            sheetState.open = open;
+    $effect.pre(() => {
+        if (
+            open &&
+            !wasOpen &&
+            typeof document !== 'undefined' &&
+            document.activeElement instanceof HTMLElement &&
+            document.activeElement !== document.body
+        ) {
+            sheetState.triggerRef = document.activeElement;
         }
-    });
-
-    $effect(() => {
-        if (sheetState.open !== syncedOpen) {
-            syncedOpen = sheetState.open;
-            open = sheetState.open;
-            onOpenChange?.(sheetState.open);
-        }
+        wasOpen = open;
     });
 </script>
 

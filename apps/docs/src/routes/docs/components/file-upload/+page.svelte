@@ -51,7 +51,9 @@
         <CodeBlock
             lang="svelte"
             copy="overlay"
-            code={`<FileUpload.Root
+            code={`import * as FileUpload from '$lib/mielui/components/file-upload';
+
+<FileUpload.Root
   accept="image/*,.pdf"
   maxSize={10 * 1024 * 1024}
   maxFiles={3}
@@ -110,6 +112,21 @@
             completion state. Animation respects reduced motion and the theme's panel duration.
             Choose files works with a keyboard; status changes are announced, and icon actions
             include tooltips.
+        </Typography.Text>
+    </section>
+    <section id="retry-and-cancel" class="scroll-mt-20 flex flex-col gap-4">
+        <Typography.H2 class="docs-section-heading">Retry and cancellation</Typography.H2>
+        <Typography.Text variant="supporting">
+            In the first example, turn on Fail the next upload before choosing a file. Retry keeps
+            the original file and starts a new request. Remove cancels a pending upload and removes
+            its card. Your upload handler must pass the supplied signal to fetch or abort its own
+            transport when the signal fires.
+        </Typography.Text>
+        <Typography.Text variant="supporting">
+            Progress measures bytes sent, not server acceptance. Keep the promise pending until the
+            server confirms completion. An image preview stays attached to the same file during
+            progress updates and releases its object URL when removed. A rejected oversized image is
+            shown as an error without decoding a preview.
         </Typography.Text>
     </section>
     <section id="compact" class="scroll-mt-20 flex flex-col gap-4">
