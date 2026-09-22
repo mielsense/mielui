@@ -9,12 +9,10 @@
     const slug = $derived(page.url.pathname.split('/').at(-1) as ComponentSlug);
     const anatomy = $derived(componentAnatomy[slug]);
     const title = $derived(
-        slug === 'otp-field'
-            ? 'OTPField'
-            : slug
-                  .split('-')
-                  .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-                  .join('')
+        slug
+            .split('-')
+            .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+            .join('')
     );
 </script>
 

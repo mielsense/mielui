@@ -1,11 +1,12 @@
 <script lang="ts">
+    import type { InputProps } from '@mielui/svelte/components/input';
     import Input from '@mielui/svelte/components/input/input.svelte';
 
     let {
         type = 'text',
         class: classProp
     }: {
-        type?: string;
+        type?: Exclude<InputProps['type'], 'file' | 'checkbox' | 'radio'>;
         class?: string;
     } = $props();
 </script>

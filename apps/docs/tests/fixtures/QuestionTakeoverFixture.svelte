@@ -5,7 +5,7 @@
     import * as Question from '@mielui/svelte/components/question';
 
     let asking = $state(true);
-    let answer = $state<string | string[]>();
+    let answer = $state<string>();
     let draft = $state('Keep this draft');
 </script>
 
@@ -20,6 +20,7 @@
 
     {#if asking}
         <Question.Root
+            type="single"
             bind:value={answer}
             onSubmit={() => {
                 asking = false;

@@ -6,7 +6,15 @@
         QuestionType
     } from '@mielui/svelte/components/question';
     import * as Question from '@mielui/svelte/components/question';
-    import { untrack } from 'svelte';
+    import { type Component, untrack } from 'svelte';
+
+    // This fixture deliberately sends incompatible answers and changes modes to test runtime normalization.
+    type RuntimeQuestionProps = Omit<QuestionProps, 'type' | 'value' | 'onSubmit'> & {
+        type: QuestionType;
+        value?: QuestionAnswer;
+        onSubmit: (answer: QuestionAnswer) => Promise<void>;
+    };
+    const RuntimeQuestion = Question.Root as Component<RuntimeQuestionProps>;
 
     let {
         variant = 'default',
@@ -59,7 +67,7 @@
     }
 </script>
 
-<Question.Root
+<RuntimeQuestion
     bind:value
     {type}
     {variant}
@@ -103,7 +111,7 @@
             />
         </Question.Actions>
     {/if}
-</Question.Root>
+</RuntimeQuestion>
 
 <p data-testid="question-value">{JSON.stringify(value)}</p>
 <p data-testid="submitted-answer">{JSON.stringify(submittedAnswer)}</p>

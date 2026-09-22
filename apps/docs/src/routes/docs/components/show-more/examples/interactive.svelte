@@ -8,7 +8,16 @@
         <p>Project details include the setup guide and support contact.</p>
     {/snippet}
     {#snippet trigger({ expanded, props })}
-        <Button {...props} variant="outline" class="mt-3">
+        <Button
+            {...props}
+            onclick={(event) => {
+                if (event.currentTarget instanceof HTMLButtonElement) {
+                    props.onclick?.(event as MouseEvent & { currentTarget: HTMLButtonElement });
+                }
+            }}
+            variant="outline"
+            class="mt-3"
+        >
             {expanded ? 'Hide project details' : 'View project details'}
         </Button>
     {/snippet}

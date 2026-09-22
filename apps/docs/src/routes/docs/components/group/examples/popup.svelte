@@ -6,7 +6,7 @@
     import * as Popover from '@mielui/svelte/components/popover';
     import HugeiconsIcon from '@mielui/svelte/hugeicons-icon';
 
-    let width = $state<string | number | boolean | FileList | undefined>('1200');
+    let width = $state<string | number | undefined>('1200');
     let open = $state(false);
     let message = $state('');
 </script>

@@ -140,7 +140,8 @@ describe('Input -- adornments', () => {
 
     it('matches native case-insensitive input type behavior', () => {
         const { container } = render(InputAdornments, {
-            props: { type: 'TEXT' }
+            // Deliberately bypass the lowercase type union to exercise native normalization.
+            props: { type: 'TEXT' as 'text' }
         });
 
         expect(container.querySelector('[data-ui="input-control"]')).toBeInTheDocument();
