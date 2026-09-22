@@ -171,6 +171,7 @@ export type {
 export * as FileDiff from './blocks/file-diff';
 export type { MarkdownProps } from './blocks/markdown';
 export { Markdown } from './blocks/markdown';
+export * as Notch from './blocks/notch';
 export type {
     ReorderListContentProps,
     ReorderListHandleProps,
@@ -211,9 +212,11 @@ export type {
     ToolbarRootProps
 } from './blocks/toolbar';
 export { Toolbar } from './blocks/toolbar';
+export * as Chart from './chart-components/chart';
 export type { GaugeProps, GaugeTone } from './chart-components/gauge';
 export { Gauge } from './chart-components/gauge';
 export * as Heatmap from './chart-components/heatmap';
+export * as PieChart from './chart-components/pie-chart';
 export type {
     AccordionContentProps,
     AccordionItemProps,
@@ -320,6 +323,7 @@ export type {
     DropdownMenuRadioItemProps
 } from './components/dropdown-menu';
 export * as DropdownMenu from './components/dropdown-menu';
+export * as EmptyState from './components/empty-state';
 export type {
     FieldContentProps,
     FieldControlAttributes,

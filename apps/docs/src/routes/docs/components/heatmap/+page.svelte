@@ -69,9 +69,28 @@
         <Typography.H2>Custom composition</Typography.H2>
         <Typography.Text>
             This example omits weekday labels, moves the legend before the detail, and reads the
-            same total as Summary. Select a day with Enter, Space, or a click.
+            same total as Summary. Tooltip follows the hovered or focused cell. Select a day with
+            Enter, Space, or a click.
         </Typography.Text>
         <ComponentPreview refreshable code={ComposedSrc}><Composed /></ComponentPreview>
+    </section>
+    <section class="flex flex-col gap-4">
+        <Typography.H2>Without a tooltip</Typography.H2>
+        <Typography.Text>
+            The automatic layout includes Tooltip. In a custom layout, omit it to keep native
+            browser titles instead. Every cell retains its accessible date and count label.
+        </Typography.Text>
+        <CodeBlock
+            lang="svelte"
+            code={`<Heatmap.Root {days} weeks={12} endDate="2026-09-15">
+    <Heatmap.Calendar>
+        <Heatmap.MonthLabels />
+        <Heatmap.WeekdayLabels />
+        <Heatmap.Grid />
+    </Heatmap.Calendar>
+    <Heatmap.Detail />
+</Heatmap.Root>`}
+        />
     </section>
     <section class="flex flex-col gap-4">
         <Typography.H2>Data and range</Typography.H2>
@@ -120,8 +139,9 @@
             cell announces its full date and count, so color is not the only source of information.
         </Typography.Text>
         <Typography.Text>
-            Hover or focus updates Detail. Activation calls onDaySelect with the computed day. The
-            chart scrolls horizontally when its cells cannot fit the available width.
+            Hover or focus updates Detail and opens Tooltip. Escape dismisses the tooltip.
+            Activation calls onDaySelect with the computed day. The chart scrolls horizontally when
+            its cells cannot fit the available width.
         </Typography.Text>
     </section>
 </div>

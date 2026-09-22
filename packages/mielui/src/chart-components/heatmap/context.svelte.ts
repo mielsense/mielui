@@ -1,7 +1,10 @@
 import { getContext, setContext } from 'svelte';
-import type { calendar, Cell } from './calendar';
+import type { Cell, calendar } from './calendar';
 
 type Context = {
+    tooltipCount: number;
+    hoveredElement: HTMLButtonElement | undefined;
+    focusedElement: HTMLButtonElement | undefined;
     readonly animation: 'rows' | 'columns' | 'none';
     readonly model: ReturnType<typeof calendar>;
     readonly active: Cell | undefined;

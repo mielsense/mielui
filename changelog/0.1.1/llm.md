@@ -165,3 +165,52 @@ Checkbox now accepts size="sm" | "md" | "lg" for 14, 18, and 22px boxes. The def
 Dialog, Sheet, and Popover context reads the bound open value directly. Internal interaction setters update the binding and call onOpenChange once. Do not mirror these props into a second state object with effects in both directions.
 
 Bits UI owns focus trapping and dismissal. Dialog and Sheet use the internal overlay presentation helper for nesting order, parent recession, and one Escape dismissal per event. Background scroll locks are shared and reference counted with Popover. Keep Bits preventScroll disabled when using that shared lock, and restore trigger focus after the inert-background cleanup has finished. Do not attach a second focus trap or click-outside listener to these components.
+
+
+## Charts and edge activities
+
+Chart and PieChart are composable namespaces backed by LayerChart. Import them from the public `components/chart` and `components/pie-chart` paths. Place marks inside Plot and compose the Legend and Tooltip separately. A Cartesian mark's key identifies a configured data series; pie data uses category keys and numeric values. Use animation="live" for ongoing highlights on the actual geometry, "reveal" for entry and value updates, or "none" to disable animation. Live highlights do not change values.
+
+Notch.Root owns controlled open state, side, and surface. It starts closed and is nonmodal. Place arbitrary content inside Notch.Content; Header, Title, Description, Actions, and Close remain optional. An omitted surface inherits the global surface setting. For notifications, replace the existing Toaster with `<Toaster variant="notch" side="top" />`; do not add a second host, since the first mounted host owns the shared notification store. Existing toast calls, promise updates, actions, and dismissal timers still apply.
+
+
+Notch's triggered mode auto-dismisses after 5000ms by default, pausing while hovered or focused. Set duration={0} for indefinite activities. In mode="peek", a collapsed edge handle stays visible and expands on hover, focus, or tap; optional Notch.Peek supplies its noninteractive content as a sibling of Content. Notch toasts disable the Notch timer and retain the existing toast timer policy, so loading promises remain persistent. Swipe toward the attached edge or use Escape to dismiss; Close is an optional part, not required structure. Compose narrow vertical content for side placements and horizontal content for top or bottom.
+
+## Control and surface edges
+
+Filled controls use `--elevation-control-edge` for a top highlight and lower inset shade. This token does not draw a perimeter border: keep the semantic border on outlined fields and controls, and keep primary buttons’ optional stroke tied to `--color-primary-stroke`. Compose the edge with `--focus-ring` during keyboard focus rather than replacing the edge or recoloring it. Ghost and quiet buttons remain flat. Do not use `--elevation-control` as a replacement for this edge on grouped controls: its full inset border would draw extra seams.
+
+The shared surface elevations include `--elevation-surface-edge`, so popovers, menus, cards, and dialogs inherit the same subtle top light in both solid and glass modes. Continue using their existing elevation tokens instead of adding local white rings or pseudo-elements. The existing master, control, surface, and dialog shadow settings disable the relevant decoration.
+
+
+## Gauge sizing
+
+Gauge defaults to 120px rather than 28px. Set size explicitly for inline indicators and compact activity panels. When strokeWidth is omitted, the arc scales with size; explicit strokeWidth retains caller control. Existing value, max, tone, label, and children compositions remain available.
+
+Disabled elevation tokens use a transparent zero-size shadow rather than `none`, so composed focus-ring shadows remain valid. Apply the control edge to the outer field wrapper only; nested inputs must use `shadow-none`. Flat ghost controls and unselected text tabs stay flat.
+
+## Edge highlight strength
+
+Theme JSON accepts `chrome.edgeHighlight`, a finite number from 0 to 1. Missing
+values use 0.5, so existing themes get half-strength light-catching inset edges.
+The generated CSS writes `--mielui-edge-highlight` and resolves the existing
+control and surface elevation tokens in both modes. Keep composing those elevation
+tokens rather than hardcoding white inset shadows. Kbd uses the same control edge.
+This setting leaves border, focus, dark inset shading, and cast-shadow opacity
+unchanged. The existing shadow switches take precedence over edge strength.
+
+
+## Notch side actions and notification navigation
+
+Compose `Notch.SideAction` beside `Notch.Content` under the same Root. `side="start"`
+and `side="end"` place normal Button content left/right of a horizontal notch or
+above/below a lateral notch. Icon-only actions need an accessible label. Actions
+retract until the notch is hovered, focused, or tapped; keyboard focus can reach
+and reveal them. Keep Content mounted so the measured geometry can position them.
+
+The notch Toaster renders only the selected notification. New arrivals become
+selected, and detached previous/next controls cycle existing active notifications.
+Navigation does not recreate notifications or restart their timers. Hidden
+notifications retain their original lifetime; persistent loading remains active.
+Escape and swipe dismiss the selected item, then reveal another active notification.
+Do not mount a separate Toast or live region for every hidden carousel item.

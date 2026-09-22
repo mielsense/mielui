@@ -1,4 +1,4 @@
-- Group components into Components, Blocks, AI components, and an empty Chart components category. Existing imports and docs URLs stay available.
+- Group components into Components, Blocks, AI components, and Chart components. Existing imports and docs URLs stay available.
 
 - Toast notifications use an inset content area with a title and action buttons in the footer.
 
@@ -44,3 +44,19 @@
 - Studio’s component preview centers interactive mini cards for controls, checklists, team members, and disclosures.
 
 - Checkbox supports small, medium, and large sizes, with a larger 18px default.
+
+- Add composable bar, line, area, mixed, pie, and donut charts powered by LayerChart, with tooltips, legends, and animated data updates.
+- Charts offer entry reveals and ongoing live highlights that respect reduced motion and pause offscreen.
+- Add a composable Empty State for first-use screens, empty search results, and completed work.
+- Add Notch for custom activities at any screen edge, with solid and glass surfaces and animated expansion.
+- Toast notifications can use a shared Notch surface through the Toaster variant.
+
+- Notch offers a persistent peek rail, timed notifications, and swipe dismissal, with timers paused during interaction.
+
+- Heatmap includes a shared tooltip for hovered and keyboard-focused days, with an optional Tooltip part for custom layouts.
+
+- Adjust edge highlight strength in Studio or theme presets. Controls, keycaps, and raised surfaces now use half strength by default.
+
+- Notch supports detached side actions that unfold on hover or focus. Notch notifications show one item at a time with previous and next controls.
+
+- Place counters or custom content outside a Notch with Accessory; notification counts now use this separate part.

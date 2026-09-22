@@ -49,7 +49,7 @@
             },
             {
                 "name": "unit",
-                "type": "\"em\" | \"px\" | \"rem\" | \"%\" | \"vh\" | \"vw\" | \"vmin\" | \"vmax\" | \"ch\" | \"ex\" | \"cm\" | \"mm\" | \"in\" | \"pt\" | \"pc\" | undefined",
+                "type": "\"em\" | \"in\" | \"px\" | \"rem\" | \"%\" | \"vh\" | \"vw\" | \"vmin\" | \"vmax\" | \"ch\" | \"ex\" | \"cm\" | \"mm\" | \"pt\" | \"pc\" | undefined",
                 "required": false,
                 "bindable": false,
                 "default": "'px'",

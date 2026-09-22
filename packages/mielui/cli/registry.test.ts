@@ -135,7 +135,9 @@ describe('registry snapshot', () => {
         expect(resolveInstallPlan(snapshot, ['card']).components[0]?.name).toBe('card');
         expect(snapshot.components.some((component) => component.name === 'panel')).toBe(false);
         expect(snapshot.components.some((component) => component.name === 'marquee')).toBe(false);
-        expect(snapshot.components.some((component) => component.name === 'separator')).toBe(false);
+        expect(
+            snapshot.components.find((component) => component.name === 'separator')?.visibility
+        ).toBe('public');
     });
 
     test('installs Scroll Area with Conversation', async () => {
@@ -174,7 +176,9 @@ describe('registry snapshot', () => {
         expect(plan.components.map((component) => component.name)).toEqual(
             expect.arrayContaining(publicNames)
         );
-        expect(plan.components.some((component) => component.name === 'toolbar')).toBe(false);
+        expect(plan.components.find((component) => component.name === 'toolbar')?.visibility).toBe(
+            'public'
+        );
     });
 
     test('every isolated install declares its external imports', async () => {

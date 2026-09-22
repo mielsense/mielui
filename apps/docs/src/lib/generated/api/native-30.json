@@ -1,700 +1,7 @@
 [
     {
-        "name": "on:cancel",
-        "type": "EventHandler<Event, HTMLSelectElement> | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
-        "name": "oncancel",
-        "type": "EventHandler<Event, HTMLSelectElement> | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
-        "name": "oncancelcapture",
-        "type": "EventHandler<Event, HTMLSelectElement> | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
-        "name": "on:close",
-        "type": "EventHandler<Event, HTMLSelectElement> | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
-        "name": "onclose",
-        "type": "EventHandler<Event, HTMLSelectElement> | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
-        "name": "onclosecapture",
-        "type": "EventHandler<Event, HTMLSelectElement> | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
-        "name": "on:fullscreenchange",
-        "type": "EventHandler<Event, HTMLSelectElement> | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
-        "name": "onfullscreenchange",
-        "type": "EventHandler<Event, HTMLSelectElement> | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
-        "name": "onfullscreenchangecapture",
-        "type": "EventHandler<Event, HTMLSelectElement> | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
-        "name": "on:fullscreenerror",
-        "type": "EventHandler<Event, HTMLSelectElement> | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
-        "name": "onfullscreenerror",
-        "type": "EventHandler<Event, HTMLSelectElement> | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
-        "name": "onfullscreenerrorcapture",
-        "type": "EventHandler<Event, HTMLSelectElement> | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
-        "name": "on:copy",
-        "type": "ClipboardEventHandler<HTMLHeadingElement> | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
-        "name": "oncopy",
-        "type": "ClipboardEventHandler<HTMLHeadingElement> | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
-        "name": "oncopycapture",
-        "type": "ClipboardEventHandler<HTMLHeadingElement> | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
-        "name": "on:cut",
-        "type": "ClipboardEventHandler<HTMLHeadingElement> | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
-        "name": "oncut",
-        "type": "ClipboardEventHandler<HTMLHeadingElement> | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
-        "name": "oncutcapture",
-        "type": "ClipboardEventHandler<HTMLHeadingElement> | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
-        "name": "on:paste",
-        "type": "ClipboardEventHandler<HTMLHeadingElement> | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
-        "name": "onpaste",
-        "type": "ClipboardEventHandler<HTMLHeadingElement> | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
-        "name": "onpastecapture",
-        "type": "ClipboardEventHandler<HTMLHeadingElement> | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
-        "name": "on:compositionend",
-        "type": "CompositionEventHandler<HTMLHeadingElement> | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
-        "name": "oncompositionend",
-        "type": "CompositionEventHandler<HTMLHeadingElement> | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
-        "name": "oncompositionendcapture",
-        "type": "CompositionEventHandler<HTMLHeadingElement> | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
-        "name": "on:compositionstart",
-        "type": "CompositionEventHandler<HTMLHeadingElement> | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
-        "name": "oncompositionstart",
-        "type": "CompositionEventHandler<HTMLHeadingElement> | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
-        "name": "oncompositionstartcapture",
-        "type": "CompositionEventHandler<HTMLHeadingElement> | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
-        "name": "on:compositionupdate",
-        "type": "CompositionEventHandler<HTMLHeadingElement> | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
-        "name": "oncompositionupdate",
-        "type": "CompositionEventHandler<HTMLHeadingElement> | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
-        "name": "oncompositionupdatecapture",
-        "type": "CompositionEventHandler<HTMLHeadingElement> | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
-        "name": "on:focus",
-        "type": "FocusEventHandler<HTMLHeadingElement> | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
-        "name": "onfocus",
-        "type": "FocusEventHandler<HTMLHeadingElement> | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
-        "name": "onfocuscapture",
-        "type": "FocusEventHandler<HTMLHeadingElement> | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
-        "name": "on:focusin",
-        "type": "FocusEventHandler<HTMLHeadingElement> | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
-        "name": "onfocusin",
-        "type": "FocusEventHandler<HTMLHeadingElement> | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
-        "name": "onfocusincapture",
-        "type": "FocusEventHandler<HTMLHeadingElement> | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
-        "name": "on:focusout",
-        "type": "FocusEventHandler<HTMLHeadingElement> | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
-        "name": "onfocusout",
-        "type": "FocusEventHandler<HTMLHeadingElement> | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
-        "name": "onfocusoutcapture",
-        "type": "FocusEventHandler<HTMLHeadingElement> | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
-        "name": "on:blur",
-        "type": "FocusEventHandler<HTMLHeadingElement> | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
-        "name": "onblur",
-        "type": "FocusEventHandler<HTMLHeadingElement> | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
-        "name": "onblurcapture",
-        "type": "FocusEventHandler<HTMLHeadingElement> | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
-        "name": "on:change",
-        "type": "FormEventHandler<HTMLHeadingElement> | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
-        "name": "onchange",
-        "type": "FormEventHandler<HTMLHeadingElement> | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
-        "name": "onchangecapture",
-        "type": "FormEventHandler<HTMLHeadingElement> | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
-        "name": "on:beforeinput",
-        "type": "EventHandler<InputEvent, HTMLHeadingElement> | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
-        "name": "onbeforeinput",
-        "type": "EventHandler<InputEvent, HTMLHeadingElement> | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
-        "name": "onbeforeinputcapture",
-        "type": "EventHandler<InputEvent, HTMLHeadingElement> | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
-        "name": "on:input",
-        "type": "FormEventHandler<HTMLHeadingElement> | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
-        "name": "oninput",
-        "type": "FormEventHandler<HTMLHeadingElement> | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
-        "name": "oninputcapture",
-        "type": "FormEventHandler<HTMLHeadingElement> | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
-        "name": "on:reset",
-        "type": "FormEventHandler<HTMLHeadingElement> | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
-        "name": "onreset",
-        "type": "FormEventHandler<HTMLHeadingElement> | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
-        "name": "onresetcapture",
-        "type": "FormEventHandler<HTMLHeadingElement> | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
-        "name": "on:submit",
-        "type": "EventHandler<SubmitEvent, HTMLHeadingElement> | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
-        "name": "onsubmit",
-        "type": "EventHandler<SubmitEvent, HTMLHeadingElement> | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
-        "name": "onsubmitcapture",
-        "type": "EventHandler<SubmitEvent, HTMLHeadingElement> | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
-        "name": "on:invalid",
-        "type": "EventHandler<Event, HTMLHeadingElement> | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
-        "name": "oninvalid",
-        "type": "EventHandler<Event, HTMLHeadingElement> | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
-        "name": "oninvalidcapture",
-        "type": "EventHandler<Event, HTMLHeadingElement> | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
-        "name": "on:formdata",
-        "type": "EventHandler<FormDataEvent, HTMLHeadingElement> | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
-        "name": "onformdata",
-        "type": "EventHandler<FormDataEvent, HTMLHeadingElement> | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
-        "name": "onformdatacapture",
-        "type": "EventHandler<FormDataEvent, HTMLHeadingElement> | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
-        "name": "on:beforetoggle",
-        "type": "ToggleEventHandler<HTMLHeadingElement> | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
-        "name": "onbeforetoggle",
-        "type": "ToggleEventHandler<HTMLHeadingElement> | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
-        "name": "onbeforetogglecapture",
-        "type": "ToggleEventHandler<HTMLHeadingElement> | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
-        "name": "on:toggle",
-        "type": "ToggleEventHandler<HTMLHeadingElement> | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
-        "name": "ontoggle",
-        "type": "ToggleEventHandler<HTMLHeadingElement> | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
-        "name": "ontogglecapture",
-        "type": "ToggleEventHandler<HTMLHeadingElement> | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
-        "name": "on:contentvisibilityautostatechange",
-        "type": "ContentVisibilityAutoStateChangeEventHandler<HTMLHeadingElement> | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
-        "name": "oncontentvisibilityautostatechange",
-        "type": "ContentVisibilityAutoStateChangeEventHandler<HTMLHeadingElement> | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
-        "name": "oncontentvisibilityautostatechangecapture",
-        "type": "ContentVisibilityAutoStateChangeEventHandler<HTMLHeadingElement> | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
-        "name": "on:keydown",
-        "type": "KeyboardEventHandler<HTMLHeadingElement> | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
-        "name": "onkeydown",
-        "type": "KeyboardEventHandler<HTMLHeadingElement> | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
-        "name": "onkeydowncapture",
-        "type": "KeyboardEventHandler<HTMLHeadingElement> | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
-        "name": "on:keypress",
-        "type": "KeyboardEventHandler<HTMLHeadingElement> | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
-        "name": "onkeypress",
-        "type": "KeyboardEventHandler<HTMLHeadingElement> | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
         "name": "onkeypresscapture",
-        "type": "KeyboardEventHandler<HTMLHeadingElement> | null | undefined",
+        "type": "KeyboardEventHandler<HTMLTableCellElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -703,7 +10,7 @@
     },
     {
         "name": "on:keyup",
-        "type": "KeyboardEventHandler<HTMLHeadingElement> | null | undefined",
+        "type": "KeyboardEventHandler<HTMLTableCellElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -712,7 +19,7 @@
     },
     {
         "name": "onkeyup",
-        "type": "KeyboardEventHandler<HTMLHeadingElement> | null | undefined",
+        "type": "KeyboardEventHandler<HTMLTableCellElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -721,7 +28,7 @@
     },
     {
         "name": "onkeyupcapture",
-        "type": "KeyboardEventHandler<HTMLHeadingElement> | null | undefined",
+        "type": "KeyboardEventHandler<HTMLTableCellElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -730,7 +37,7 @@
     },
     {
         "name": "on:abort",
-        "type": "EventHandler<Event, HTMLHeadingElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLTableCellElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -739,7 +46,7 @@
     },
     {
         "name": "onabort",
-        "type": "EventHandler<Event, HTMLHeadingElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLTableCellElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -748,7 +55,7 @@
     },
     {
         "name": "onabortcapture",
-        "type": "EventHandler<Event, HTMLHeadingElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLTableCellElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -757,7 +64,7 @@
     },
     {
         "name": "on:canplay",
-        "type": "EventHandler<Event, HTMLHeadingElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLTableCellElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -766,7 +73,7 @@
     },
     {
         "name": "oncanplay",
-        "type": "EventHandler<Event, HTMLHeadingElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLTableCellElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -775,7 +82,7 @@
     },
     {
         "name": "oncanplaycapture",
-        "type": "EventHandler<Event, HTMLHeadingElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLTableCellElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -784,7 +91,7 @@
     },
     {
         "name": "on:canplaythrough",
-        "type": "EventHandler<Event, HTMLHeadingElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLTableCellElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -793,7 +100,7 @@
     },
     {
         "name": "oncanplaythrough",
-        "type": "EventHandler<Event, HTMLHeadingElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLTableCellElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -802,7 +109,7 @@
     },
     {
         "name": "oncanplaythroughcapture",
-        "type": "EventHandler<Event, HTMLHeadingElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLTableCellElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -811,7 +118,7 @@
     },
     {
         "name": "on:cuechange",
-        "type": "EventHandler<Event, HTMLHeadingElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLTableCellElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -820,7 +127,7 @@
     },
     {
         "name": "oncuechange",
-        "type": "EventHandler<Event, HTMLHeadingElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLTableCellElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -829,7 +136,7 @@
     },
     {
         "name": "oncuechangecapture",
-        "type": "EventHandler<Event, HTMLHeadingElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLTableCellElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -838,7 +145,7 @@
     },
     {
         "name": "on:durationchange",
-        "type": "EventHandler<Event, HTMLHeadingElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLTableCellElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -847,7 +154,7 @@
     },
     {
         "name": "ondurationchange",
-        "type": "EventHandler<Event, HTMLHeadingElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLTableCellElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -856,7 +163,7 @@
     },
     {
         "name": "ondurationchangecapture",
-        "type": "EventHandler<Event, HTMLHeadingElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLTableCellElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -865,7 +172,7 @@
     },
     {
         "name": "on:emptied",
-        "type": "EventHandler<Event, HTMLHeadingElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLTableCellElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -874,7 +181,7 @@
     },
     {
         "name": "onemptied",
-        "type": "EventHandler<Event, HTMLHeadingElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLTableCellElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -883,7 +190,7 @@
     },
     {
         "name": "onemptiedcapture",
-        "type": "EventHandler<Event, HTMLHeadingElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLTableCellElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -892,7 +199,7 @@
     },
     {
         "name": "on:encrypted",
-        "type": "EventHandler<Event, HTMLHeadingElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLTableCellElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -901,7 +208,7 @@
     },
     {
         "name": "onencrypted",
-        "type": "EventHandler<Event, HTMLHeadingElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLTableCellElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -910,7 +217,7 @@
     },
     {
         "name": "onencryptedcapture",
-        "type": "EventHandler<Event, HTMLHeadingElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLTableCellElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -919,7 +226,7 @@
     },
     {
         "name": "on:ended",
-        "type": "EventHandler<Event, HTMLHeadingElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLTableCellElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -928,7 +235,7 @@
     },
     {
         "name": "onended",
-        "type": "EventHandler<Event, HTMLHeadingElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLTableCellElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -937,7 +244,7 @@
     },
     {
         "name": "onendedcapture",
-        "type": "EventHandler<Event, HTMLHeadingElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLTableCellElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -946,7 +253,7 @@
     },
     {
         "name": "on:loadeddata",
-        "type": "EventHandler<Event, HTMLHeadingElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLTableCellElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -955,7 +262,7 @@
     },
     {
         "name": "onloadeddata",
-        "type": "EventHandler<Event, HTMLHeadingElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLTableCellElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -964,7 +271,7 @@
     },
     {
         "name": "onloadeddatacapture",
-        "type": "EventHandler<Event, HTMLHeadingElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLTableCellElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -973,7 +280,7 @@
     },
     {
         "name": "on:loadedmetadata",
-        "type": "EventHandler<Event, HTMLHeadingElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLTableCellElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -982,7 +289,7 @@
     },
     {
         "name": "onloadedmetadata",
-        "type": "EventHandler<Event, HTMLHeadingElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLTableCellElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -991,7 +298,7 @@
     },
     {
         "name": "onloadedmetadatacapture",
-        "type": "EventHandler<Event, HTMLHeadingElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLTableCellElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1000,7 +307,7 @@
     },
     {
         "name": "on:loadstart",
-        "type": "EventHandler<Event, HTMLHeadingElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLTableCellElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1009,7 +316,7 @@
     },
     {
         "name": "onloadstart",
-        "type": "EventHandler<Event, HTMLHeadingElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLTableCellElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1018,7 +325,7 @@
     },
     {
         "name": "onloadstartcapture",
-        "type": "EventHandler<Event, HTMLHeadingElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLTableCellElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1027,7 +334,7 @@
     },
     {
         "name": "on:pause",
-        "type": "EventHandler<Event, HTMLHeadingElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLTableCellElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1036,7 +343,7 @@
     },
     {
         "name": "onpause",
-        "type": "EventHandler<Event, HTMLHeadingElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLTableCellElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1045,7 +352,7 @@
     },
     {
         "name": "onpausecapture",
-        "type": "EventHandler<Event, HTMLHeadingElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLTableCellElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1054,7 +361,7 @@
     },
     {
         "name": "on:play",
-        "type": "EventHandler<Event, HTMLHeadingElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLTableCellElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1063,7 +370,7 @@
     },
     {
         "name": "onplay",
-        "type": "EventHandler<Event, HTMLHeadingElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLTableCellElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1072,7 +379,7 @@
     },
     {
         "name": "onplaycapture",
-        "type": "EventHandler<Event, HTMLHeadingElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLTableCellElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1081,7 +388,7 @@
     },
     {
         "name": "on:playing",
-        "type": "EventHandler<Event, HTMLHeadingElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLTableCellElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1090,7 +397,7 @@
     },
     {
         "name": "onplaying",
-        "type": "EventHandler<Event, HTMLHeadingElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLTableCellElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1099,7 +406,7 @@
     },
     {
         "name": "onplayingcapture",
-        "type": "EventHandler<Event, HTMLHeadingElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLTableCellElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1108,7 +415,7 @@
     },
     {
         "name": "on:progress",
-        "type": "EventHandler<Event, HTMLHeadingElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLTableCellElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1117,7 +424,7 @@
     },
     {
         "name": "onprogress",
-        "type": "EventHandler<Event, HTMLHeadingElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLTableCellElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1126,7 +433,7 @@
     },
     {
         "name": "onprogresscapture",
-        "type": "EventHandler<Event, HTMLHeadingElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLTableCellElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1135,7 +442,7 @@
     },
     {
         "name": "on:ratechange",
-        "type": "EventHandler<Event, HTMLHeadingElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLTableCellElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1144,7 +451,7 @@
     },
     {
         "name": "onratechange",
-        "type": "EventHandler<Event, HTMLHeadingElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLTableCellElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1153,7 +460,7 @@
     },
     {
         "name": "onratechangecapture",
-        "type": "EventHandler<Event, HTMLHeadingElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLTableCellElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1162,7 +469,7 @@
     },
     {
         "name": "on:seeked",
-        "type": "EventHandler<Event, HTMLHeadingElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLTableCellElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1171,7 +478,7 @@
     },
     {
         "name": "onseeked",
-        "type": "EventHandler<Event, HTMLHeadingElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLTableCellElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1180,7 +487,7 @@
     },
     {
         "name": "onseekedcapture",
-        "type": "EventHandler<Event, HTMLHeadingElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLTableCellElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1189,7 +496,7 @@
     },
     {
         "name": "on:seeking",
-        "type": "EventHandler<Event, HTMLHeadingElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLTableCellElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1198,7 +505,7 @@
     },
     {
         "name": "onseeking",
-        "type": "EventHandler<Event, HTMLHeadingElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLTableCellElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1207,7 +514,7 @@
     },
     {
         "name": "onseekingcapture",
-        "type": "EventHandler<Event, HTMLHeadingElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLTableCellElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1216,7 +523,7 @@
     },
     {
         "name": "on:stalled",
-        "type": "EventHandler<Event, HTMLHeadingElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLTableCellElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1225,7 +532,7 @@
     },
     {
         "name": "onstalled",
-        "type": "EventHandler<Event, HTMLHeadingElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLTableCellElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1234,7 +541,7 @@
     },
     {
         "name": "onstalledcapture",
-        "type": "EventHandler<Event, HTMLHeadingElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLTableCellElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1243,7 +550,7 @@
     },
     {
         "name": "on:suspend",
-        "type": "EventHandler<Event, HTMLHeadingElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLTableCellElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1252,7 +559,7 @@
     },
     {
         "name": "onsuspend",
-        "type": "EventHandler<Event, HTMLHeadingElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLTableCellElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1261,7 +568,7 @@
     },
     {
         "name": "onsuspendcapture",
-        "type": "EventHandler<Event, HTMLHeadingElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLTableCellElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1270,7 +577,7 @@
     },
     {
         "name": "on:timeupdate",
-        "type": "EventHandler<Event, HTMLHeadingElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLTableCellElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1279,7 +586,7 @@
     },
     {
         "name": "ontimeupdate",
-        "type": "EventHandler<Event, HTMLHeadingElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLTableCellElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1288,7 +595,7 @@
     },
     {
         "name": "ontimeupdatecapture",
-        "type": "EventHandler<Event, HTMLHeadingElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLTableCellElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1297,7 +604,7 @@
     },
     {
         "name": "on:volumechange",
-        "type": "EventHandler<Event, HTMLHeadingElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLTableCellElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1306,7 +613,7 @@
     },
     {
         "name": "onvolumechange",
-        "type": "EventHandler<Event, HTMLHeadingElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLTableCellElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1315,7 +622,7 @@
     },
     {
         "name": "onvolumechangecapture",
-        "type": "EventHandler<Event, HTMLHeadingElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLTableCellElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1324,7 +631,7 @@
     },
     {
         "name": "on:waiting",
-        "type": "EventHandler<Event, HTMLHeadingElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLTableCellElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1333,7 +640,7 @@
     },
     {
         "name": "onwaiting",
-        "type": "EventHandler<Event, HTMLHeadingElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLTableCellElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1342,7 +649,7 @@
     },
     {
         "name": "onwaitingcapture",
-        "type": "EventHandler<Event, HTMLHeadingElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLTableCellElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1351,7 +658,7 @@
     },
     {
         "name": "on:auxclick",
-        "type": "MouseEventHandler<HTMLHeadingElement> | null | undefined",
+        "type": "MouseEventHandler<HTMLTableCellElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1360,7 +667,7 @@
     },
     {
         "name": "onauxclick",
-        "type": "MouseEventHandler<HTMLHeadingElement> | null | undefined",
+        "type": "MouseEventHandler<HTMLTableCellElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1369,7 +676,7 @@
     },
     {
         "name": "onauxclickcapture",
-        "type": "MouseEventHandler<HTMLHeadingElement> | null | undefined",
+        "type": "MouseEventHandler<HTMLTableCellElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1378,7 +685,7 @@
     },
     {
         "name": "on:click",
-        "type": "MouseEventHandler<HTMLHeadingElement> | null | undefined",
+        "type": "MouseEventHandler<HTMLTableCellElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1387,7 +694,7 @@
     },
     {
         "name": "onclick",
-        "type": "MouseEventHandler<HTMLHeadingElement> | null | undefined",
+        "type": "MouseEventHandler<HTMLTableCellElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1396,7 +703,7 @@
     },
     {
         "name": "onclickcapture",
-        "type": "MouseEventHandler<HTMLHeadingElement> | null | undefined",
+        "type": "MouseEventHandler<HTMLTableCellElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1405,7 +712,7 @@
     },
     {
         "name": "on:contextmenu",
-        "type": "MouseEventHandler<HTMLHeadingElement> | null | undefined",
+        "type": "MouseEventHandler<HTMLTableCellElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1414,7 +721,7 @@
     },
     {
         "name": "oncontextmenu",
-        "type": "MouseEventHandler<HTMLHeadingElement> | null | undefined",
+        "type": "MouseEventHandler<HTMLTableCellElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1423,7 +730,7 @@
     },
     {
         "name": "oncontextmenucapture",
-        "type": "MouseEventHandler<HTMLHeadingElement> | null | undefined",
+        "type": "MouseEventHandler<HTMLTableCellElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1432,7 +739,7 @@
     },
     {
         "name": "on:dblclick",
-        "type": "MouseEventHandler<HTMLHeadingElement> | null | undefined",
+        "type": "MouseEventHandler<HTMLTableCellElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1441,7 +748,7 @@
     },
     {
         "name": "ondblclick",
-        "type": "MouseEventHandler<HTMLHeadingElement> | null | undefined",
+        "type": "MouseEventHandler<HTMLTableCellElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1450,7 +757,7 @@
     },
     {
         "name": "ondblclickcapture",
-        "type": "MouseEventHandler<HTMLHeadingElement> | null | undefined",
+        "type": "MouseEventHandler<HTMLTableCellElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1459,7 +766,7 @@
     },
     {
         "name": "on:drag",
-        "type": "DragEventHandler<HTMLHeadingElement> | null | undefined",
+        "type": "DragEventHandler<HTMLTableCellElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1468,7 +775,7 @@
     },
     {
         "name": "ondrag",
-        "type": "DragEventHandler<HTMLHeadingElement> | null | undefined",
+        "type": "DragEventHandler<HTMLTableCellElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1477,7 +784,7 @@
     },
     {
         "name": "ondragcapture",
-        "type": "DragEventHandler<HTMLHeadingElement> | null | undefined",
+        "type": "DragEventHandler<HTMLTableCellElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1486,7 +793,7 @@
     },
     {
         "name": "on:dragend",
-        "type": "DragEventHandler<HTMLHeadingElement> | null | undefined",
+        "type": "DragEventHandler<HTMLTableCellElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1495,7 +802,7 @@
     },
     {
         "name": "ondragend",
-        "type": "DragEventHandler<HTMLHeadingElement> | null | undefined",
+        "type": "DragEventHandler<HTMLTableCellElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1504,7 +811,7 @@
     },
     {
         "name": "ondragendcapture",
-        "type": "DragEventHandler<HTMLHeadingElement> | null | undefined",
+        "type": "DragEventHandler<HTMLTableCellElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1513,7 +820,7 @@
     },
     {
         "name": "on:dragenter",
-        "type": "DragEventHandler<HTMLHeadingElement> | null | undefined",
+        "type": "DragEventHandler<HTMLTableCellElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1522,7 +829,7 @@
     },
     {
         "name": "ondragenter",
-        "type": "DragEventHandler<HTMLHeadingElement> | null | undefined",
+        "type": "DragEventHandler<HTMLTableCellElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1531,7 +838,7 @@
     },
     {
         "name": "ondragentercapture",
-        "type": "DragEventHandler<HTMLHeadingElement> | null | undefined",
+        "type": "DragEventHandler<HTMLTableCellElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1540,7 +847,7 @@
     },
     {
         "name": "on:dragexit",
-        "type": "DragEventHandler<HTMLHeadingElement> | null | undefined",
+        "type": "DragEventHandler<HTMLTableCellElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1549,7 +856,7 @@
     },
     {
         "name": "ondragexit",
-        "type": "DragEventHandler<HTMLHeadingElement> | null | undefined",
+        "type": "DragEventHandler<HTMLTableCellElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1558,7 +865,7 @@
     },
     {
         "name": "ondragexitcapture",
-        "type": "DragEventHandler<HTMLHeadingElement> | null | undefined",
+        "type": "DragEventHandler<HTMLTableCellElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1567,7 +874,7 @@
     },
     {
         "name": "on:dragleave",
-        "type": "DragEventHandler<HTMLHeadingElement> | null | undefined",
+        "type": "DragEventHandler<HTMLTableCellElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1576,7 +883,7 @@
     },
     {
         "name": "ondragleave",
-        "type": "DragEventHandler<HTMLHeadingElement> | null | undefined",
+        "type": "DragEventHandler<HTMLTableCellElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1585,7 +892,7 @@
     },
     {
         "name": "ondragleavecapture",
-        "type": "DragEventHandler<HTMLHeadingElement> | null | undefined",
+        "type": "DragEventHandler<HTMLTableCellElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1594,7 +901,7 @@
     },
     {
         "name": "on:dragover",
-        "type": "DragEventHandler<HTMLHeadingElement> | null | undefined",
+        "type": "DragEventHandler<HTMLTableCellElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1603,7 +910,7 @@
     },
     {
         "name": "ondragover",
-        "type": "DragEventHandler<HTMLHeadingElement> | null | undefined",
+        "type": "DragEventHandler<HTMLTableCellElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1612,7 +919,7 @@
     },
     {
         "name": "ondragovercapture",
-        "type": "DragEventHandler<HTMLHeadingElement> | null | undefined",
+        "type": "DragEventHandler<HTMLTableCellElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1621,7 +928,7 @@
     },
     {
         "name": "on:dragstart",
-        "type": "DragEventHandler<HTMLHeadingElement> | null | undefined",
+        "type": "DragEventHandler<HTMLTableCellElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1630,7 +937,7 @@
     },
     {
         "name": "ondragstart",
-        "type": "DragEventHandler<HTMLHeadingElement> | null | undefined",
+        "type": "DragEventHandler<HTMLTableCellElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1639,7 +946,7 @@
     },
     {
         "name": "ondragstartcapture",
-        "type": "DragEventHandler<HTMLHeadingElement> | null | undefined",
+        "type": "DragEventHandler<HTMLTableCellElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1648,7 +955,7 @@
     },
     {
         "name": "on:drop",
-        "type": "DragEventHandler<HTMLHeadingElement> | null | undefined",
+        "type": "DragEventHandler<HTMLTableCellElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1657,7 +964,7 @@
     },
     {
         "name": "ondrop",
-        "type": "DragEventHandler<HTMLHeadingElement> | null | undefined",
+        "type": "DragEventHandler<HTMLTableCellElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1666,7 +973,7 @@
     },
     {
         "name": "ondropcapture",
-        "type": "DragEventHandler<HTMLHeadingElement> | null | undefined",
+        "type": "DragEventHandler<HTMLTableCellElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1675,7 +982,7 @@
     },
     {
         "name": "on:mousedown",
-        "type": "MouseEventHandler<HTMLHeadingElement> | null | undefined",
+        "type": "MouseEventHandler<HTMLTableCellElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1684,7 +991,7 @@
     },
     {
         "name": "onmousedown",
-        "type": "MouseEventHandler<HTMLHeadingElement> | null | undefined",
+        "type": "MouseEventHandler<HTMLTableCellElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1693,7 +1000,7 @@
     },
     {
         "name": "onmousedowncapture",
-        "type": "MouseEventHandler<HTMLHeadingElement> | null | undefined",
+        "type": "MouseEventHandler<HTMLTableCellElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1702,7 +1009,7 @@
     },
     {
         "name": "on:mouseenter",
-        "type": "MouseEventHandler<HTMLHeadingElement> | null | undefined",
+        "type": "MouseEventHandler<HTMLTableCellElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1711,7 +1018,7 @@
     },
     {
         "name": "onmouseenter",
-        "type": "MouseEventHandler<HTMLHeadingElement> | null | undefined",
+        "type": "MouseEventHandler<HTMLTableCellElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1720,7 +1027,7 @@
     },
     {
         "name": "on:mouseleave",
-        "type": "MouseEventHandler<HTMLHeadingElement> | null | undefined",
+        "type": "MouseEventHandler<HTMLTableCellElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1729,7 +1036,7 @@
     },
     {
         "name": "onmouseleave",
-        "type": "MouseEventHandler<HTMLHeadingElement> | null | undefined",
+        "type": "MouseEventHandler<HTMLTableCellElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1738,7 +1045,7 @@
     },
     {
         "name": "on:mousemove",
-        "type": "MouseEventHandler<HTMLHeadingElement> | null | undefined",
+        "type": "MouseEventHandler<HTMLTableCellElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1747,7 +1054,7 @@
     },
     {
         "name": "onmousemove",
-        "type": "MouseEventHandler<HTMLHeadingElement> | null | undefined",
+        "type": "MouseEventHandler<HTMLTableCellElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1756,7 +1063,7 @@
     },
     {
         "name": "onmousemovecapture",
-        "type": "MouseEventHandler<HTMLHeadingElement> | null | undefined",
+        "type": "MouseEventHandler<HTMLTableCellElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1765,7 +1072,7 @@
     },
     {
         "name": "on:mouseout",
-        "type": "MouseEventHandler<HTMLHeadingElement> | null | undefined",
+        "type": "MouseEventHandler<HTMLTableCellElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1774,7 +1081,7 @@
     },
     {
         "name": "onmouseout",
-        "type": "MouseEventHandler<HTMLHeadingElement> | null | undefined",
+        "type": "MouseEventHandler<HTMLTableCellElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1783,7 +1090,7 @@
     },
     {
         "name": "onmouseoutcapture",
-        "type": "MouseEventHandler<HTMLHeadingElement> | null | undefined",
+        "type": "MouseEventHandler<HTMLTableCellElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1792,7 +1099,7 @@
     },
     {
         "name": "on:mouseover",
-        "type": "MouseEventHandler<HTMLHeadingElement> | null | undefined",
+        "type": "MouseEventHandler<HTMLTableCellElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1801,7 +1108,7 @@
     },
     {
         "name": "onmouseover",
-        "type": "MouseEventHandler<HTMLHeadingElement> | null | undefined",
+        "type": "MouseEventHandler<HTMLTableCellElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1810,7 +1117,7 @@
     },
     {
         "name": "onmouseovercapture",
-        "type": "MouseEventHandler<HTMLHeadingElement> | null | undefined",
+        "type": "MouseEventHandler<HTMLTableCellElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1819,7 +1126,7 @@
     },
     {
         "name": "on:mouseup",
-        "type": "MouseEventHandler<HTMLHeadingElement> | null | undefined",
+        "type": "MouseEventHandler<HTMLTableCellElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1828,7 +1135,7 @@
     },
     {
         "name": "onmouseup",
-        "type": "MouseEventHandler<HTMLHeadingElement> | null | undefined",
+        "type": "MouseEventHandler<HTMLTableCellElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1837,7 +1144,7 @@
     },
     {
         "name": "onmouseupcapture",
-        "type": "MouseEventHandler<HTMLHeadingElement> | null | undefined",
+        "type": "MouseEventHandler<HTMLTableCellElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1846,7 +1153,7 @@
     },
     {
         "name": "on:select",
-        "type": "EventHandler<Event, HTMLHeadingElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLTableCellElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1855,7 +1162,7 @@
     },
     {
         "name": "onselect",
-        "type": "EventHandler<Event, HTMLHeadingElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLTableCellElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1864,7 +1171,7 @@
     },
     {
         "name": "onselectcapture",
-        "type": "EventHandler<Event, HTMLHeadingElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLTableCellElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1873,7 +1180,7 @@
     },
     {
         "name": "on:selectionchange",
-        "type": "EventHandler<Event, HTMLHeadingElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLTableCellElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1882,7 +1189,7 @@
     },
     {
         "name": "onselectionchange",
-        "type": "EventHandler<Event, HTMLHeadingElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLTableCellElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1891,7 +1198,7 @@
     },
     {
         "name": "onselectionchangecapture",
-        "type": "EventHandler<Event, HTMLHeadingElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLTableCellElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1900,7 +1207,7 @@
     },
     {
         "name": "on:selectstart",
-        "type": "EventHandler<Event, HTMLHeadingElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLTableCellElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1909,7 +1216,7 @@
     },
     {
         "name": "onselectstart",
-        "type": "EventHandler<Event, HTMLHeadingElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLTableCellElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1918,7 +1225,7 @@
     },
     {
         "name": "onselectstartcapture",
-        "type": "EventHandler<Event, HTMLHeadingElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLTableCellElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1927,7 +1234,7 @@
     },
     {
         "name": "on:touchcancel",
-        "type": "TouchEventHandler<HTMLHeadingElement> | null | undefined",
+        "type": "TouchEventHandler<HTMLTableCellElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1936,7 +1243,7 @@
     },
     {
         "name": "ontouchcancel",
-        "type": "TouchEventHandler<HTMLHeadingElement> | null | undefined",
+        "type": "TouchEventHandler<HTMLTableCellElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1945,7 +1252,7 @@
     },
     {
         "name": "ontouchcancelcapture",
-        "type": "TouchEventHandler<HTMLHeadingElement> | null | undefined",
+        "type": "TouchEventHandler<HTMLTableCellElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1954,7 +1261,7 @@
     },
     {
         "name": "on:touchend",
-        "type": "TouchEventHandler<HTMLHeadingElement> | null | undefined",
+        "type": "TouchEventHandler<HTMLTableCellElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1963,7 +1270,7 @@
     },
     {
         "name": "ontouchend",
-        "type": "TouchEventHandler<HTMLHeadingElement> | null | undefined",
+        "type": "TouchEventHandler<HTMLTableCellElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1972,7 +1279,7 @@
     },
     {
         "name": "ontouchendcapture",
-        "type": "TouchEventHandler<HTMLHeadingElement> | null | undefined",
+        "type": "TouchEventHandler<HTMLTableCellElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1981,7 +1288,7 @@
     },
     {
         "name": "on:touchmove",
-        "type": "TouchEventHandler<HTMLHeadingElement> | null | undefined",
+        "type": "TouchEventHandler<HTMLTableCellElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1990,7 +1297,7 @@
     },
     {
         "name": "ontouchmove",
-        "type": "TouchEventHandler<HTMLHeadingElement> | null | undefined",
+        "type": "TouchEventHandler<HTMLTableCellElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1999,7 +1306,7 @@
     },
     {
         "name": "ontouchmovecapture",
-        "type": "TouchEventHandler<HTMLHeadingElement> | null | undefined",
+        "type": "TouchEventHandler<HTMLTableCellElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -2008,7 +1315,7 @@
     },
     {
         "name": "on:touchstart",
-        "type": "TouchEventHandler<HTMLHeadingElement> | null | undefined",
+        "type": "TouchEventHandler<HTMLTableCellElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -2017,7 +1324,7 @@
     },
     {
         "name": "ontouchstart",
-        "type": "TouchEventHandler<HTMLHeadingElement> | null | undefined",
+        "type": "TouchEventHandler<HTMLTableCellElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -2026,7 +1333,7 @@
     },
     {
         "name": "ontouchstartcapture",
-        "type": "TouchEventHandler<HTMLHeadingElement> | null | undefined",
+        "type": "TouchEventHandler<HTMLTableCellElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -2035,7 +1342,7 @@
     },
     {
         "name": "on:gotpointercapture",
-        "type": "PointerEventHandler<HTMLHeadingElement> | null | undefined",
+        "type": "PointerEventHandler<HTMLTableCellElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -2044,7 +1351,7 @@
     },
     {
         "name": "ongotpointercapture",
-        "type": "PointerEventHandler<HTMLHeadingElement> | null | undefined",
+        "type": "PointerEventHandler<HTMLTableCellElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -2053,7 +1360,7 @@
     },
     {
         "name": "ongotpointercapturecapture",
-        "type": "PointerEventHandler<HTMLHeadingElement> | null | undefined",
+        "type": "PointerEventHandler<HTMLTableCellElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -2062,7 +1369,7 @@
     },
     {
         "name": "on:pointercancel",
-        "type": "PointerEventHandler<HTMLHeadingElement> | null | undefined",
+        "type": "PointerEventHandler<HTMLTableCellElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -2071,7 +1378,7 @@
     },
     {
         "name": "onpointercancel",
-        "type": "PointerEventHandler<HTMLHeadingElement> | null | undefined",
+        "type": "PointerEventHandler<HTMLTableCellElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -2080,7 +1387,7 @@
     },
     {
         "name": "onpointercancelcapture",
-        "type": "PointerEventHandler<HTMLHeadingElement> | null | undefined",
+        "type": "PointerEventHandler<HTMLTableCellElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -2089,7 +1396,7 @@
     },
     {
         "name": "on:pointerdown",
-        "type": "PointerEventHandler<HTMLHeadingElement> | null | undefined",
+        "type": "PointerEventHandler<HTMLTableCellElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -2098,7 +1405,7 @@
     },
     {
         "name": "onpointerdown",
-        "type": "PointerEventHandler<HTMLHeadingElement> | null | undefined",
+        "type": "PointerEventHandler<HTMLTableCellElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -2107,7 +1414,7 @@
     },
     {
         "name": "onpointerdowncapture",
-        "type": "PointerEventHandler<HTMLHeadingElement> | null | undefined",
+        "type": "PointerEventHandler<HTMLTableCellElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -2116,7 +1423,7 @@
     },
     {
         "name": "on:pointerenter",
-        "type": "PointerEventHandler<HTMLHeadingElement> | null | undefined",
+        "type": "PointerEventHandler<HTMLTableCellElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -2125,7 +1432,7 @@
     },
     {
         "name": "onpointerenter",
-        "type": "PointerEventHandler<HTMLHeadingElement> | null | undefined",
+        "type": "PointerEventHandler<HTMLTableCellElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -2134,7 +1441,7 @@
     },
     {
         "name": "onpointerentercapture",
-        "type": "PointerEventHandler<HTMLHeadingElement> | null | undefined",
+        "type": "PointerEventHandler<HTMLTableCellElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -2143,7 +1450,7 @@
     },
     {
         "name": "on:pointerleave",
-        "type": "PointerEventHandler<HTMLHeadingElement> | null | undefined",
+        "type": "PointerEventHandler<HTMLTableCellElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -2152,7 +1459,7 @@
     },
     {
         "name": "onpointerleave",
-        "type": "PointerEventHandler<HTMLHeadingElement> | null | undefined",
+        "type": "PointerEventHandler<HTMLTableCellElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -2161,7 +1468,7 @@
     },
     {
         "name": "onpointerleavecapture",
-        "type": "PointerEventHandler<HTMLHeadingElement> | null | undefined",
+        "type": "PointerEventHandler<HTMLTableCellElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -2170,7 +1477,7 @@
     },
     {
         "name": "on:pointermove",
-        "type": "PointerEventHandler<HTMLHeadingElement> | null | undefined",
+        "type": "PointerEventHandler<HTMLTableCellElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -2179,7 +1486,7 @@
     },
     {
         "name": "onpointermove",
-        "type": "PointerEventHandler<HTMLHeadingElement> | null | undefined",
+        "type": "PointerEventHandler<HTMLTableCellElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -2188,7 +1495,7 @@
     },
     {
         "name": "onpointermovecapture",
-        "type": "PointerEventHandler<HTMLHeadingElement> | null | undefined",
+        "type": "PointerEventHandler<HTMLTableCellElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -2197,7 +1504,7 @@
     },
     {
         "name": "on:pointerout",
-        "type": "PointerEventHandler<HTMLHeadingElement> | null | undefined",
+        "type": "PointerEventHandler<HTMLTableCellElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -2206,7 +1513,7 @@
     },
     {
         "name": "onpointerout",
-        "type": "PointerEventHandler<HTMLHeadingElement> | null | undefined",
+        "type": "PointerEventHandler<HTMLTableCellElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -2215,7 +1522,7 @@
     },
     {
         "name": "onpointeroutcapture",
-        "type": "PointerEventHandler<HTMLHeadingElement> | null | undefined",
+        "type": "PointerEventHandler<HTMLTableCellElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -2224,7 +1531,7 @@
     },
     {
         "name": "on:pointerover",
-        "type": "PointerEventHandler<HTMLHeadingElement> | null | undefined",
+        "type": "PointerEventHandler<HTMLTableCellElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -2233,7 +1540,7 @@
     },
     {
         "name": "onpointerover",
-        "type": "PointerEventHandler<HTMLHeadingElement> | null | undefined",
+        "type": "PointerEventHandler<HTMLTableCellElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -2242,7 +1549,700 @@
     },
     {
         "name": "onpointerovercapture",
-        "type": "PointerEventHandler<HTMLHeadingElement> | null | undefined",
+        "type": "PointerEventHandler<HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "on:pointerup",
+        "type": "PointerEventHandler<HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onpointerup",
+        "type": "PointerEventHandler<HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onpointerupcapture",
+        "type": "PointerEventHandler<HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "on:lostpointercapture",
+        "type": "PointerEventHandler<HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onlostpointercapture",
+        "type": "PointerEventHandler<HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onlostpointercapturecapture",
+        "type": "PointerEventHandler<HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "on:gamepadconnected",
+        "type": "GamepadEventHandler<HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "ongamepadconnected",
+        "type": "GamepadEventHandler<HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "on:gamepaddisconnected",
+        "type": "GamepadEventHandler<HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "ongamepaddisconnected",
+        "type": "GamepadEventHandler<HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "on:scroll",
+        "type": "UIEventHandler<HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onscroll",
+        "type": "UIEventHandler<HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onscrollcapture",
+        "type": "UIEventHandler<HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "on:scrollend",
+        "type": "UIEventHandler<HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onscrollend",
+        "type": "UIEventHandler<HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onscrollendcapture",
+        "type": "UIEventHandler<HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "on:resize",
+        "type": "UIEventHandler<HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onresize",
+        "type": "UIEventHandler<HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onresizecapture",
+        "type": "UIEventHandler<HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "on:wheel",
+        "type": "WheelEventHandler<HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onwheel",
+        "type": "WheelEventHandler<HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onwheelcapture",
+        "type": "WheelEventHandler<HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "on:animationstart",
+        "type": "AnimationEventHandler<HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onanimationstart",
+        "type": "AnimationEventHandler<HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onanimationstartcapture",
+        "type": "AnimationEventHandler<HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "on:animationend",
+        "type": "AnimationEventHandler<HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onanimationend",
+        "type": "AnimationEventHandler<HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onanimationendcapture",
+        "type": "AnimationEventHandler<HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "on:animationiteration",
+        "type": "AnimationEventHandler<HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onanimationiteration",
+        "type": "AnimationEventHandler<HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onanimationiterationcapture",
+        "type": "AnimationEventHandler<HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "on:transitionstart",
+        "type": "TransitionEventHandler<HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "ontransitionstart",
+        "type": "TransitionEventHandler<HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "ontransitionstartcapture",
+        "type": "TransitionEventHandler<HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "on:transitionrun",
+        "type": "TransitionEventHandler<HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "ontransitionrun",
+        "type": "TransitionEventHandler<HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "ontransitionruncapture",
+        "type": "TransitionEventHandler<HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "on:transitionend",
+        "type": "TransitionEventHandler<HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "ontransitionend",
+        "type": "TransitionEventHandler<HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "ontransitionendcapture",
+        "type": "TransitionEventHandler<HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "on:transitioncancel",
+        "type": "TransitionEventHandler<HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "ontransitioncancel",
+        "type": "TransitionEventHandler<HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "ontransitioncancelcapture",
+        "type": "TransitionEventHandler<HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "on:outrostart",
+        "type": "EventHandler<CustomEvent<null>, HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onoutrostart",
+        "type": "EventHandler<CustomEvent<null>, HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onoutrostartcapture",
+        "type": "EventHandler<CustomEvent<null>, HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "on:outroend",
+        "type": "EventHandler<CustomEvent<null>, HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onoutroend",
+        "type": "EventHandler<CustomEvent<null>, HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onoutroendcapture",
+        "type": "EventHandler<CustomEvent<null>, HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "on:introstart",
+        "type": "EventHandler<CustomEvent<null>, HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onintrostart",
+        "type": "EventHandler<CustomEvent<null>, HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onintrostartcapture",
+        "type": "EventHandler<CustomEvent<null>, HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "on:introend",
+        "type": "EventHandler<CustomEvent<null>, HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onintroend",
+        "type": "EventHandler<CustomEvent<null>, HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onintroendcapture",
+        "type": "EventHandler<CustomEvent<null>, HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "on:message",
+        "type": "MessageEventHandler<HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onmessage",
+        "type": "MessageEventHandler<HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onmessagecapture",
+        "type": "MessageEventHandler<HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "on:messageerror",
+        "type": "MessageEventHandler<HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onmessageerror",
+        "type": "MessageEventHandler<HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onmessageerrorcapture",
+        "type": "MessageEventHandler<HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "on:visibilitychange",
+        "type": "EventHandler<Event, HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onvisibilitychange",
+        "type": "EventHandler<Event, HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onvisibilitychangecapture",
+        "type": "EventHandler<Event, HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "on:beforematch",
+        "type": "EventHandler<Event, HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onbeforematch",
+        "type": "EventHandler<Event, HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onbeforematchcapture",
+        "type": "EventHandler<Event, HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "on:cancel",
+        "type": "EventHandler<Event, HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "oncancel",
+        "type": "EventHandler<Event, HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "oncancelcapture",
+        "type": "EventHandler<Event, HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "on:close",
+        "type": "EventHandler<Event, HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onclose",
+        "type": "EventHandler<Event, HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onclosecapture",
+        "type": "EventHandler<Event, HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "on:fullscreenchange",
+        "type": "EventHandler<Event, HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onfullscreenchange",
+        "type": "EventHandler<Event, HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onfullscreenchangecapture",
+        "type": "EventHandler<Event, HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "on:fullscreenerror",
+        "type": "EventHandler<Event, HTMLTableCellElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,

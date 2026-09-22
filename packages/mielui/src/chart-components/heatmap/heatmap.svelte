@@ -2,17 +2,18 @@
     import type { Snippet } from 'svelte';
     import type { HTMLAttributes } from 'svelte/elements';
     import { cn } from '../../utils';
-    import { calendar, type Day, type Cell } from './calendar';
+    import { type Cell, calendar, type Day } from './calendar';
     import { provide } from './context.svelte';
-    import Header from './heatmap-header.svelte';
-    import Summary from './heatmap-summary.svelte';
     import Calendar from './heatmap-calendar.svelte';
-    import MonthLabels from './heatmap-month-labels.svelte';
-    import WeekdayLabels from './heatmap-weekday-labels.svelte';
-    import Grid from './heatmap-grid.svelte';
     import Detail from './heatmap-detail.svelte';
-    import Legend from './heatmap-legend.svelte';
     import Footer from './heatmap-footer.svelte';
+    import Grid from './heatmap-grid.svelte';
+    import Header from './heatmap-header.svelte';
+    import Legend from './heatmap-legend.svelte';
+    import MonthLabels from './heatmap-month-labels.svelte';
+    import Summary from './heatmap-summary.svelte';
+    import Tooltip from './heatmap-tooltip.svelte';
+    import WeekdayLabels from './heatmap-weekday-labels.svelte';
 
     type Props = Omit<HTMLAttributes<HTMLDivElement>, 'children'> & {
         days: readonly Day[];
@@ -37,12 +38,33 @@
         ...props
     }: Props = $props();
     const model = $derived(calendar(days, weeks, endDate, weekStartsOn, locale));
+    let tooltipCount = $state(0);
+    let hoveredElement = $state<HTMLButtonElement>();
+    let focusedElement = $state<HTMLButtonElement>();
     let activeDate = $state('');
     let focusedDate = $state('');
     const active = $derived(
         model.cells.find((day) => day.date === activeDate) ?? model.cells.at(-1)
     );
     provide({
+        get tooltipCount() {
+            return tooltipCount;
+        },
+        set tooltipCount(value) {
+            tooltipCount = value;
+        },
+        get hoveredElement() {
+            return hoveredElement;
+        },
+        set hoveredElement(value) {
+            hoveredElement = value;
+        },
+        get focusedElement() {
+            return focusedElement;
+        },
+        set focusedElement(value) {
+            focusedElement = value;
+        },
         get animation() {
             return animation;
         },
@@ -84,6 +106,7 @@
             <WeekdayLabels />
             <Grid />
         </Calendar>
+        <Tooltip />
         <Footer>
             <Detail />
             <Legend />

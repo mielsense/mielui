@@ -3,6 +3,7 @@
     import * as Typography from '@mielui/svelte/components/typography';
     import { ComponentPreview, InstallCommand } from '$lib/components/docs';
     import DocsPager from '$lib/components/docs/docs-pager.svelte';
+    import ViewportPreview from '$lib/components/docs/viewport-preview.svelte';
     import Actions from './examples/actions.svelte';
     import ActionsSrc from './examples/actions.svelte?raw';
     import AllTypes from './examples/all-types.svelte';
@@ -13,6 +14,7 @@
     import GlassSrc from './examples/glass.svelte?raw';
     import Hero from './examples/hero.svelte';
     import HeroSrc from './examples/hero.svelte?raw';
+    import NotchSrc from './examples/notch.svelte?raw';
 
     import PromiseExample from './examples/promise.svelte';
     import PromiseSrc from './examples/promise.svelte?raw';
@@ -134,5 +136,34 @@
             unavailable and respects reduced-transparency preferences.
         </Typography.Text>
         <ComponentPreview code={GlassSrc}><Glass /></ComponentPreview>
+    </section>
+    <section id="notch" class="flex flex-col gap-4">
+        <Typography.H2 class="docs-section-heading">Notch notifications</Typography.H2>
+        <Typography.Text variant="supporting">
+            Mount one Toaster with variant="notch" to deliver notifications from the center of a
+            screen edge. Choose top, bottom, left, or right with side. Calls to toast and
+            toast.promise keep the same timers, actions, and dismissal behavior. Multiple
+            notifications share the expanding surface. Pass surface: "glass" to toast to use a glass
+            surface; otherwise the notch follows your global surface setting.
+        </Typography.Text>
+        <Typography.Text variant="supporting">
+            The newest notification appears first. With several active notifications, the detached
+            previous and next actions rest as curved arcs beside the attached edge and unfold when
+            you hover or focus the notch. They switch the visible item without restarting its timer.
+            Hover or focus pauses the selected item; hidden items keep their original lifetimes.
+            Escape or a swipe toward the attached edge dismisses only the selected notification.
+        </Typography.Text>
+        <ComponentPreview code={NotchSrc} class="[&_[tabindex]]:p-0">
+            <ViewportPreview example="toast/notch" title="Notch notification preview" />
+        </ComponentPreview>
+        <Typography.Text variant="supporting">
+            Replace your existing Toaster rather than adding a second host. The first mounted host
+            owns notifications. For custom live activity content, compose the<a
+                class="underline underline-offset-4"
+                href="/docs/components/notch"
+            >
+                Notch component
+            </a> directly.
+        </Typography.Text>
     </section>
 </div>

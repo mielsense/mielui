@@ -1,61 +1,7 @@
 [
     {
-        "name": "on:transitionrun",
-        "type": "TransitionEventHandler<HTMLAnchorElement> | null | undefined | TransitionEventHandler<HTMLDivElement> | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
-        "name": "ontransitionrun",
-        "type": "TransitionEventHandler<HTMLAnchorElement> | null | undefined | TransitionEventHandler<HTMLDivElement> | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
-        "name": "ontransitionruncapture",
-        "type": "TransitionEventHandler<HTMLAnchorElement> | null | undefined | TransitionEventHandler<HTMLDivElement> | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
-        "name": "on:transitionend",
-        "type": "TransitionEventHandler<HTMLAnchorElement> | null | undefined | TransitionEventHandler<HTMLDivElement> | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
-        "name": "ontransitionend",
-        "type": "TransitionEventHandler<HTMLAnchorElement> | null | undefined | TransitionEventHandler<HTMLDivElement> | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
-        "name": "ontransitionendcapture",
-        "type": "TransitionEventHandler<HTMLAnchorElement> | null | undefined | TransitionEventHandler<HTMLDivElement> | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
         "name": "on:transitioncancel",
-        "type": "TransitionEventHandler<HTMLAnchorElement> | null | undefined | TransitionEventHandler<HTMLDivElement> | null | undefined",
+        "type": "TransitionEventHandler<SVGTextElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -64,7 +10,7 @@
     },
     {
         "name": "ontransitioncancel",
-        "type": "TransitionEventHandler<HTMLAnchorElement> | null | undefined | TransitionEventHandler<HTMLDivElement> | null | undefined",
+        "type": "TransitionEventHandler<SVGTextElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -73,7 +19,7 @@
     },
     {
         "name": "ontransitioncancelcapture",
-        "type": "TransitionEventHandler<HTMLAnchorElement> | null | undefined | TransitionEventHandler<HTMLDivElement> | null | undefined",
+        "type": "TransitionEventHandler<SVGTextElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -82,7 +28,7 @@
     },
     {
         "name": "on:outrostart",
-        "type": "EventHandler<CustomEvent<null>, HTMLAnchorElement> | null | undefined | EventHandler<CustomEvent<null>, HTMLDivElement> | null | undefined",
+        "type": "EventHandler<CustomEvent<null>, SVGTextElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -91,7 +37,7 @@
     },
     {
         "name": "onoutrostart",
-        "type": "EventHandler<CustomEvent<null>, HTMLAnchorElement> | null | undefined | EventHandler<CustomEvent<null>, HTMLDivElement> | null | undefined",
+        "type": "EventHandler<CustomEvent<null>, SVGTextElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -100,7 +46,7 @@
     },
     {
         "name": "onoutrostartcapture",
-        "type": "EventHandler<CustomEvent<null>, HTMLAnchorElement> | null | undefined | EventHandler<CustomEvent<null>, HTMLDivElement> | null | undefined",
+        "type": "EventHandler<CustomEvent<null>, SVGTextElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -109,7 +55,7 @@
     },
     {
         "name": "on:outroend",
-        "type": "EventHandler<CustomEvent<null>, HTMLAnchorElement> | null | undefined | EventHandler<CustomEvent<null>, HTMLDivElement> | null | undefined",
+        "type": "EventHandler<CustomEvent<null>, SVGTextElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -118,7 +64,7 @@
     },
     {
         "name": "onoutroend",
-        "type": "EventHandler<CustomEvent<null>, HTMLAnchorElement> | null | undefined | EventHandler<CustomEvent<null>, HTMLDivElement> | null | undefined",
+        "type": "EventHandler<CustomEvent<null>, SVGTextElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -127,7 +73,7 @@
     },
     {
         "name": "onoutroendcapture",
-        "type": "EventHandler<CustomEvent<null>, HTMLAnchorElement> | null | undefined | EventHandler<CustomEvent<null>, HTMLDivElement> | null | undefined",
+        "type": "EventHandler<CustomEvent<null>, SVGTextElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -136,7 +82,7 @@
     },
     {
         "name": "on:introstart",
-        "type": "EventHandler<CustomEvent<null>, HTMLAnchorElement> | null | undefined | EventHandler<CustomEvent<null>, HTMLDivElement> | null | undefined",
+        "type": "EventHandler<CustomEvent<null>, SVGTextElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -145,7 +91,7 @@
     },
     {
         "name": "onintrostart",
-        "type": "EventHandler<CustomEvent<null>, HTMLAnchorElement> | null | undefined | EventHandler<CustomEvent<null>, HTMLDivElement> | null | undefined",
+        "type": "EventHandler<CustomEvent<null>, SVGTextElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -154,7 +100,7 @@
     },
     {
         "name": "onintrostartcapture",
-        "type": "EventHandler<CustomEvent<null>, HTMLAnchorElement> | null | undefined | EventHandler<CustomEvent<null>, HTMLDivElement> | null | undefined",
+        "type": "EventHandler<CustomEvent<null>, SVGTextElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -163,7 +109,7 @@
     },
     {
         "name": "on:introend",
-        "type": "EventHandler<CustomEvent<null>, HTMLAnchorElement> | null | undefined | EventHandler<CustomEvent<null>, HTMLDivElement> | null | undefined",
+        "type": "EventHandler<CustomEvent<null>, SVGTextElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -172,7 +118,7 @@
     },
     {
         "name": "onintroend",
-        "type": "EventHandler<CustomEvent<null>, HTMLAnchorElement> | null | undefined | EventHandler<CustomEvent<null>, HTMLDivElement> | null | undefined",
+        "type": "EventHandler<CustomEvent<null>, SVGTextElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -181,7 +127,7 @@
     },
     {
         "name": "onintroendcapture",
-        "type": "EventHandler<CustomEvent<null>, HTMLAnchorElement> | null | undefined | EventHandler<CustomEvent<null>, HTMLDivElement> | null | undefined",
+        "type": "EventHandler<CustomEvent<null>, SVGTextElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -190,7 +136,7 @@
     },
     {
         "name": "on:message",
-        "type": "MessageEventHandler<HTMLAnchorElement> | null | undefined | MessageEventHandler<HTMLDivElement> | null | undefined",
+        "type": "MessageEventHandler<SVGTextElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -199,7 +145,7 @@
     },
     {
         "name": "onmessage",
-        "type": "MessageEventHandler<HTMLAnchorElement> | null | undefined | MessageEventHandler<HTMLDivElement> | null | undefined",
+        "type": "MessageEventHandler<SVGTextElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -208,7 +154,7 @@
     },
     {
         "name": "onmessagecapture",
-        "type": "MessageEventHandler<HTMLAnchorElement> | null | undefined | MessageEventHandler<HTMLDivElement> | null | undefined",
+        "type": "MessageEventHandler<SVGTextElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -217,7 +163,7 @@
     },
     {
         "name": "on:messageerror",
-        "type": "MessageEventHandler<HTMLAnchorElement> | null | undefined | MessageEventHandler<HTMLDivElement> | null | undefined",
+        "type": "MessageEventHandler<SVGTextElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -226,7 +172,7 @@
     },
     {
         "name": "onmessageerror",
-        "type": "MessageEventHandler<HTMLAnchorElement> | null | undefined | MessageEventHandler<HTMLDivElement> | null | undefined",
+        "type": "MessageEventHandler<SVGTextElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -235,7 +181,7 @@
     },
     {
         "name": "onmessageerrorcapture",
-        "type": "MessageEventHandler<HTMLAnchorElement> | null | undefined | MessageEventHandler<HTMLDivElement> | null | undefined",
+        "type": "MessageEventHandler<SVGTextElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -244,7 +190,7 @@
     },
     {
         "name": "on:visibilitychange",
-        "type": "EventHandler<Event, HTMLAnchorElement> | null | undefined | EventHandler<Event, HTMLDivElement> | null | undefined",
+        "type": "EventHandler<Event, SVGTextElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -253,7 +199,7 @@
     },
     {
         "name": "onvisibilitychange",
-        "type": "EventHandler<Event, HTMLAnchorElement> | null | undefined | EventHandler<Event, HTMLDivElement> | null | undefined",
+        "type": "EventHandler<Event, SVGTextElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -262,7 +208,7 @@
     },
     {
         "name": "onvisibilitychangecapture",
-        "type": "EventHandler<Event, HTMLAnchorElement> | null | undefined | EventHandler<Event, HTMLDivElement> | null | undefined",
+        "type": "EventHandler<Event, SVGTextElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -271,7 +217,7 @@
     },
     {
         "name": "on:beforematch",
-        "type": "EventHandler<Event, HTMLAnchorElement> | null | undefined | EventHandler<Event, HTMLDivElement> | null | undefined",
+        "type": "EventHandler<Event, SVGTextElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -280,7 +226,7 @@
     },
     {
         "name": "onbeforematch",
-        "type": "EventHandler<Event, HTMLAnchorElement> | null | undefined | EventHandler<Event, HTMLDivElement> | null | undefined",
+        "type": "EventHandler<Event, SVGTextElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -289,7 +235,7 @@
     },
     {
         "name": "onbeforematchcapture",
-        "type": "EventHandler<Event, HTMLAnchorElement> | null | undefined | EventHandler<Event, HTMLDivElement> | null | undefined",
+        "type": "EventHandler<Event, SVGTextElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -298,7 +244,7 @@
     },
     {
         "name": "on:cancel",
-        "type": "EventHandler<Event, HTMLAnchorElement> | null | undefined | EventHandler<Event, HTMLDivElement> | null | undefined",
+        "type": "EventHandler<Event, SVGTextElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -307,7 +253,7 @@
     },
     {
         "name": "oncancel",
-        "type": "EventHandler<Event, HTMLAnchorElement> | null | undefined | EventHandler<Event, HTMLDivElement> | null | undefined",
+        "type": "EventHandler<Event, SVGTextElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -316,7 +262,7 @@
     },
     {
         "name": "oncancelcapture",
-        "type": "EventHandler<Event, HTMLAnchorElement> | null | undefined | EventHandler<Event, HTMLDivElement> | null | undefined",
+        "type": "EventHandler<Event, SVGTextElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -325,7 +271,7 @@
     },
     {
         "name": "on:close",
-        "type": "EventHandler<Event, HTMLAnchorElement> | null | undefined | EventHandler<Event, HTMLDivElement> | null | undefined",
+        "type": "EventHandler<Event, SVGTextElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -334,7 +280,7 @@
     },
     {
         "name": "onclose",
-        "type": "EventHandler<Event, HTMLAnchorElement> | null | undefined | EventHandler<Event, HTMLDivElement> | null | undefined",
+        "type": "EventHandler<Event, SVGTextElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -343,7 +289,7 @@
     },
     {
         "name": "onclosecapture",
-        "type": "EventHandler<Event, HTMLAnchorElement> | null | undefined | EventHandler<Event, HTMLDivElement> | null | undefined",
+        "type": "EventHandler<Event, SVGTextElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -352,7 +298,7 @@
     },
     {
         "name": "on:fullscreenchange",
-        "type": "EventHandler<Event, HTMLAnchorElement> | null | undefined | EventHandler<Event, HTMLDivElement> | null | undefined",
+        "type": "EventHandler<Event, SVGTextElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -361,7 +307,7 @@
     },
     {
         "name": "onfullscreenchange",
-        "type": "EventHandler<Event, HTMLAnchorElement> | null | undefined | EventHandler<Event, HTMLDivElement> | null | undefined",
+        "type": "EventHandler<Event, SVGTextElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -370,7 +316,7 @@
     },
     {
         "name": "onfullscreenchangecapture",
-        "type": "EventHandler<Event, HTMLAnchorElement> | null | undefined | EventHandler<Event, HTMLDivElement> | null | undefined",
+        "type": "EventHandler<Event, SVGTextElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -379,7 +325,7 @@
     },
     {
         "name": "on:fullscreenerror",
-        "type": "EventHandler<Event, HTMLAnchorElement> | null | undefined | EventHandler<Event, HTMLDivElement> | null | undefined",
+        "type": "EventHandler<Event, SVGTextElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -388,7 +334,7 @@
     },
     {
         "name": "onfullscreenerror",
-        "type": "EventHandler<Event, HTMLAnchorElement> | null | undefined | EventHandler<Event, HTMLDivElement> | null | undefined",
+        "type": "EventHandler<Event, SVGTextElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -397,61 +343,7 @@
     },
     {
         "name": "onfullscreenerrorcapture",
-        "type": "EventHandler<Event, HTMLAnchorElement> | null | undefined | EventHandler<Event, HTMLDivElement> | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
-        "name": "type",
-        "type": "string | null | undefined | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
-        "name": "download",
-        "type": "any | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
-        "name": "hreflang",
-        "type": "string | null | undefined | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
-        "name": "media",
-        "type": "string | null | undefined | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
-        "name": "ping",
-        "type": "string | null | undefined | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
-        "name": "rel",
-        "type": "string | null | undefined | undefined",
+        "type": "EventHandler<Event, SVGTextElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -460,34 +352,142 @@
     },
     {
         "name": "target",
-        "type": "HTMLAttributeAnchorTarget | null | undefined | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
-        "name": "referrerpolicy",
-        "type": "ReferrerPolicy | null | undefined | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
-        "name": "aria-label",
         "type": "string | null | undefined",
         "required": false,
         "bindable": false,
-        "default": "'Breadcrumb'",
-        "description": "Defines a string value that labels the current element.",
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "method",
+        "type": "\"align\" | \"stretch\" | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "filter",
+        "type": "string | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "mask",
+        "type": "string | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "path",
+        "type": "string | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "origin",
+        "type": "string | number | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "end",
+        "type": "string | number | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "orientation",
+        "type": "string | number | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "className",
+        "type": "string | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "crossorigin",
+        "type": "\"\" | \"anonymous\" | \"use-credentials\" | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "accent-height",
+        "type": "string | number | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "accumulate",
+        "type": "\"none\" | \"sum\" | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "additive",
+        "type": "\"sum\" | \"replace\" | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "alignment-baseline",
+        "type": "\"inherit\" | \"auto\" | \"alphabetic\" | \"hanging\" | \"ideographic\" | \"mathematical\" | \"baseline\" | \"before-edge\" | \"text-before-edge\" | \"middle\" | \"central\" | \"after-edge\" | \"text-after-edge\" | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "allowReorder",
+        "type": "\"yes\" | \"no\" | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
         "inherited": true
     },
     {
-        "name": "on:copy",
-        "type": "ClipboardEventHandler<HTMLTableCellElement> | null | undefined",
+        "name": "alphabetic",
+        "type": "string | number | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -495,8 +495,8 @@
         "inherited": true
     },
     {
-        "name": "oncopy",
-        "type": "ClipboardEventHandler<HTMLTableCellElement> | null | undefined",
+        "name": "amplitude",
+        "type": "string | number | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -504,8 +504,8 @@
         "inherited": true
     },
     {
-        "name": "oncopycapture",
-        "type": "ClipboardEventHandler<HTMLTableCellElement> | null | undefined",
+        "name": "arabic-form",
+        "type": "\"initial\" | \"medial\" | \"terminal\" | \"isolated\" | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -513,8 +513,8 @@
         "inherited": true
     },
     {
-        "name": "on:cut",
-        "type": "ClipboardEventHandler<HTMLTableCellElement> | null | undefined",
+        "name": "ascent",
+        "type": "string | number | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -522,8 +522,8 @@
         "inherited": true
     },
     {
-        "name": "oncut",
-        "type": "ClipboardEventHandler<HTMLTableCellElement> | null | undefined",
+        "name": "attributeName",
+        "type": "string | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -531,8 +531,8 @@
         "inherited": true
     },
     {
-        "name": "oncutcapture",
-        "type": "ClipboardEventHandler<HTMLTableCellElement> | null | undefined",
+        "name": "attributeType",
+        "type": "string | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -540,8 +540,8 @@
         "inherited": true
     },
     {
-        "name": "on:paste",
-        "type": "ClipboardEventHandler<HTMLTableCellElement> | null | undefined",
+        "name": "autoReverse",
+        "type": "string | number | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -549,8 +549,8 @@
         "inherited": true
     },
     {
-        "name": "onpaste",
-        "type": "ClipboardEventHandler<HTMLTableCellElement> | null | undefined",
+        "name": "azimuth",
+        "type": "string | number | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -558,8 +558,8 @@
         "inherited": true
     },
     {
-        "name": "onpastecapture",
-        "type": "ClipboardEventHandler<HTMLTableCellElement> | null | undefined",
+        "name": "baseFrequency",
+        "type": "string | number | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -567,8 +567,8 @@
         "inherited": true
     },
     {
-        "name": "on:compositionend",
-        "type": "CompositionEventHandler<HTMLTableCellElement> | null | undefined",
+        "name": "baseline-shift",
+        "type": "string | number | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -576,8 +576,8 @@
         "inherited": true
     },
     {
-        "name": "oncompositionend",
-        "type": "CompositionEventHandler<HTMLTableCellElement> | null | undefined",
+        "name": "baseProfile",
+        "type": "string | number | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -585,8 +585,8 @@
         "inherited": true
     },
     {
-        "name": "oncompositionendcapture",
-        "type": "CompositionEventHandler<HTMLTableCellElement> | null | undefined",
+        "name": "bbox",
+        "type": "string | number | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -594,8 +594,8 @@
         "inherited": true
     },
     {
-        "name": "on:compositionstart",
-        "type": "CompositionEventHandler<HTMLTableCellElement> | null | undefined",
+        "name": "begin",
+        "type": "string | number | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -603,8 +603,8 @@
         "inherited": true
     },
     {
-        "name": "oncompositionstart",
-        "type": "CompositionEventHandler<HTMLTableCellElement> | null | undefined",
+        "name": "bias",
+        "type": "string | number | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -612,8 +612,8 @@
         "inherited": true
     },
     {
-        "name": "oncompositionstartcapture",
-        "type": "CompositionEventHandler<HTMLTableCellElement> | null | undefined",
+        "name": "by",
+        "type": "string | number | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -621,8 +621,8 @@
         "inherited": true
     },
     {
-        "name": "on:compositionupdate",
-        "type": "CompositionEventHandler<HTMLTableCellElement> | null | undefined",
+        "name": "calcMode",
+        "type": "string | number | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -630,8 +630,8 @@
         "inherited": true
     },
     {
-        "name": "oncompositionupdate",
-        "type": "CompositionEventHandler<HTMLTableCellElement> | null | undefined",
+        "name": "cap-height",
+        "type": "string | number | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -639,8 +639,8 @@
         "inherited": true
     },
     {
-        "name": "oncompositionupdatecapture",
-        "type": "CompositionEventHandler<HTMLTableCellElement> | null | undefined",
+        "name": "clip",
+        "type": "string | number | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -648,8 +648,8 @@
         "inherited": true
     },
     {
-        "name": "on:focus",
-        "type": "FocusEventHandler<HTMLTableCellElement> | null | undefined",
+        "name": "clip-path",
+        "type": "string | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -657,8 +657,8 @@
         "inherited": true
     },
     {
-        "name": "onfocus",
-        "type": "FocusEventHandler<HTMLTableCellElement> | null | undefined",
+        "name": "clipPathUnits",
+        "type": "string | number | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -666,8 +666,8 @@
         "inherited": true
     },
     {
-        "name": "onfocuscapture",
-        "type": "FocusEventHandler<HTMLTableCellElement> | null | undefined",
+        "name": "clip-rule",
+        "type": "string | number | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -675,8 +675,8 @@
         "inherited": true
     },
     {
-        "name": "on:focusin",
-        "type": "FocusEventHandler<HTMLTableCellElement> | null | undefined",
+        "name": "color-interpolation",
+        "type": "string | number | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -684,8 +684,8 @@
         "inherited": true
     },
     {
-        "name": "onfocusin",
-        "type": "FocusEventHandler<HTMLTableCellElement> | null | undefined",
+        "name": "color-interpolation-filters",
+        "type": "\"inherit\" | \"auto\" | \"sRGB\" | \"linearRGB\" | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -693,8 +693,8 @@
         "inherited": true
     },
     {
-        "name": "onfocusincapture",
-        "type": "FocusEventHandler<HTMLTableCellElement> | null | undefined",
+        "name": "color-profile",
+        "type": "string | number | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -702,8 +702,8 @@
         "inherited": true
     },
     {
-        "name": "on:focusout",
-        "type": "FocusEventHandler<HTMLTableCellElement> | null | undefined",
+        "name": "color-rendering",
+        "type": "string | number | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -711,8 +711,8 @@
         "inherited": true
     },
     {
-        "name": "onfocusout",
-        "type": "FocusEventHandler<HTMLTableCellElement> | null | undefined",
+        "name": "contentScriptType",
+        "type": "string | number | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -720,8 +720,8 @@
         "inherited": true
     },
     {
-        "name": "onfocusoutcapture",
-        "type": "FocusEventHandler<HTMLTableCellElement> | null | undefined",
+        "name": "contentStyleType",
+        "type": "string | number | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -729,8 +729,8 @@
         "inherited": true
     },
     {
-        "name": "on:blur",
-        "type": "FocusEventHandler<HTMLTableCellElement> | null | undefined",
+        "name": "cursor",
+        "type": "string | number | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -738,8 +738,8 @@
         "inherited": true
     },
     {
-        "name": "onblur",
-        "type": "FocusEventHandler<HTMLTableCellElement> | null | undefined",
+        "name": "cx",
+        "type": "string | number | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -747,8 +747,8 @@
         "inherited": true
     },
     {
-        "name": "onblurcapture",
-        "type": "FocusEventHandler<HTMLTableCellElement> | null | undefined",
+        "name": "cy",
+        "type": "string | number | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -756,8 +756,8 @@
         "inherited": true
     },
     {
-        "name": "on:change",
-        "type": "FormEventHandler<HTMLTableCellElement> | null | undefined",
+        "name": "d",
+        "type": "string | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -765,8 +765,8 @@
         "inherited": true
     },
     {
-        "name": "onchange",
-        "type": "FormEventHandler<HTMLTableCellElement> | null | undefined",
+        "name": "decelerate",
+        "type": "string | number | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -774,8 +774,8 @@
         "inherited": true
     },
     {
-        "name": "onchangecapture",
-        "type": "FormEventHandler<HTMLTableCellElement> | null | undefined",
+        "name": "descent",
+        "type": "string | number | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -783,8 +783,8 @@
         "inherited": true
     },
     {
-        "name": "on:beforeinput",
-        "type": "EventHandler<InputEvent, HTMLTableCellElement> | null | undefined",
+        "name": "diffuseConstant",
+        "type": "string | number | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -792,8 +792,8 @@
         "inherited": true
     },
     {
-        "name": "onbeforeinput",
-        "type": "EventHandler<InputEvent, HTMLTableCellElement> | null | undefined",
+        "name": "direction",
+        "type": "string | number | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -801,8 +801,8 @@
         "inherited": true
     },
     {
-        "name": "onbeforeinputcapture",
-        "type": "EventHandler<InputEvent, HTMLTableCellElement> | null | undefined",
+        "name": "display",
+        "type": "string | number | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -810,8 +810,8 @@
         "inherited": true
     },
     {
-        "name": "on:input",
-        "type": "FormEventHandler<HTMLTableCellElement> | null | undefined",
+        "name": "divisor",
+        "type": "string | number | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -819,8 +819,8 @@
         "inherited": true
     },
     {
-        "name": "oninput",
-        "type": "FormEventHandler<HTMLTableCellElement> | null | undefined",
+        "name": "dominant-baseline",
+        "type": "string | number | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -828,8 +828,8 @@
         "inherited": true
     },
     {
-        "name": "oninputcapture",
-        "type": "FormEventHandler<HTMLTableCellElement> | null | undefined",
+        "name": "dur",
+        "type": "string | number | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -837,8 +837,8 @@
         "inherited": true
     },
     {
-        "name": "on:reset",
-        "type": "FormEventHandler<HTMLTableCellElement> | null | undefined",
+        "name": "dx",
+        "type": "string | number | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -846,8 +846,8 @@
         "inherited": true
     },
     {
-        "name": "onreset",
-        "type": "FormEventHandler<HTMLTableCellElement> | null | undefined",
+        "name": "dy",
+        "type": "string | number | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -855,8 +855,8 @@
         "inherited": true
     },
     {
-        "name": "onresetcapture",
-        "type": "FormEventHandler<HTMLTableCellElement> | null | undefined",
+        "name": "edgeMode",
+        "type": "string | number | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -864,8 +864,8 @@
         "inherited": true
     },
     {
-        "name": "on:submit",
-        "type": "EventHandler<SubmitEvent, HTMLTableCellElement> | null | undefined",
+        "name": "elevation",
+        "type": "string | number | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -873,8 +873,8 @@
         "inherited": true
     },
     {
-        "name": "onsubmit",
-        "type": "EventHandler<SubmitEvent, HTMLTableCellElement> | null | undefined",
+        "name": "enable-background",
+        "type": "string | number | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -882,8 +882,8 @@
         "inherited": true
     },
     {
-        "name": "onsubmitcapture",
-        "type": "EventHandler<SubmitEvent, HTMLTableCellElement> | null | undefined",
+        "name": "exponent",
+        "type": "string | number | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -891,8 +891,8 @@
         "inherited": true
     },
     {
-        "name": "on:invalid",
-        "type": "EventHandler<Event, HTMLTableCellElement> | null | undefined",
+        "name": "externalResourcesRequired",
+        "type": "string | number | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -900,8 +900,8 @@
         "inherited": true
     },
     {
-        "name": "oninvalid",
-        "type": "EventHandler<Event, HTMLTableCellElement> | null | undefined",
+        "name": "fill",
+        "type": "string | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -909,8 +909,8 @@
         "inherited": true
     },
     {
-        "name": "oninvalidcapture",
-        "type": "EventHandler<Event, HTMLTableCellElement> | null | undefined",
+        "name": "fill-opacity",
+        "type": "string | number | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -918,8 +918,8 @@
         "inherited": true
     },
     {
-        "name": "on:formdata",
-        "type": "EventHandler<FormDataEvent, HTMLTableCellElement> | null | undefined",
+        "name": "fill-rule",
+        "type": "\"inherit\" | \"nonzero\" | \"evenodd\" | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -927,8 +927,8 @@
         "inherited": true
     },
     {
-        "name": "onformdata",
-        "type": "EventHandler<FormDataEvent, HTMLTableCellElement> | null | undefined",
+        "name": "filterRes",
+        "type": "string | number | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -936,8 +936,8 @@
         "inherited": true
     },
     {
-        "name": "onformdatacapture",
-        "type": "EventHandler<FormDataEvent, HTMLTableCellElement> | null | undefined",
+        "name": "filterUnits",
+        "type": "string | number | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -945,8 +945,8 @@
         "inherited": true
     },
     {
-        "name": "on:beforetoggle",
-        "type": "ToggleEventHandler<HTMLTableCellElement> | null | undefined",
+        "name": "flood-color",
+        "type": "string | number | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -954,8 +954,8 @@
         "inherited": true
     },
     {
-        "name": "onbeforetoggle",
-        "type": "ToggleEventHandler<HTMLTableCellElement> | null | undefined",
+        "name": "flood-opacity",
+        "type": "string | number | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -963,8 +963,8 @@
         "inherited": true
     },
     {
-        "name": "onbeforetogglecapture",
-        "type": "ToggleEventHandler<HTMLTableCellElement> | null | undefined",
+        "name": "focusable",
+        "type": "string | number | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -972,8 +972,8 @@
         "inherited": true
     },
     {
-        "name": "on:toggle",
-        "type": "ToggleEventHandler<HTMLTableCellElement> | null | undefined",
+        "name": "font-family",
+        "type": "string | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -981,8 +981,8 @@
         "inherited": true
     },
     {
-        "name": "ontoggle",
-        "type": "ToggleEventHandler<HTMLTableCellElement> | null | undefined",
+        "name": "font-size",
+        "type": "string | number | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -990,8 +990,8 @@
         "inherited": true
     },
     {
-        "name": "ontogglecapture",
-        "type": "ToggleEventHandler<HTMLTableCellElement> | null | undefined",
+        "name": "font-size-adjust",
+        "type": "string | number | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -999,8 +999,8 @@
         "inherited": true
     },
     {
-        "name": "on:contentvisibilityautostatechange",
-        "type": "ContentVisibilityAutoStateChangeEventHandler<HTMLTableCellElement> | null | undefined",
+        "name": "font-stretch",
+        "type": "string | number | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1008,8 +1008,8 @@
         "inherited": true
     },
     {
-        "name": "oncontentvisibilityautostatechange",
-        "type": "ContentVisibilityAutoStateChangeEventHandler<HTMLTableCellElement> | null | undefined",
+        "name": "font-style",
+        "type": "string | number | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1017,8 +1017,8 @@
         "inherited": true
     },
     {
-        "name": "oncontentvisibilityautostatechangecapture",
-        "type": "ContentVisibilityAutoStateChangeEventHandler<HTMLTableCellElement> | null | undefined",
+        "name": "font-variant",
+        "type": "string | number | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1026,8 +1026,8 @@
         "inherited": true
     },
     {
-        "name": "on:keydown",
-        "type": "KeyboardEventHandler<HTMLTableCellElement> | null | undefined",
+        "name": "font-weight",
+        "type": "string | number | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1035,8 +1035,8 @@
         "inherited": true
     },
     {
-        "name": "onkeydown",
-        "type": "KeyboardEventHandler<HTMLTableCellElement> | null | undefined",
+        "name": "format",
+        "type": "string | number | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1044,8 +1044,8 @@
         "inherited": true
     },
     {
-        "name": "onkeydowncapture",
-        "type": "KeyboardEventHandler<HTMLTableCellElement> | null | undefined",
+        "name": "fr",
+        "type": "string | number | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1053,8 +1053,8 @@
         "inherited": true
     },
     {
-        "name": "on:keypress",
-        "type": "KeyboardEventHandler<HTMLTableCellElement> | null | undefined",
+        "name": "from",
+        "type": "string | number | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1062,8 +1062,8 @@
         "inherited": true
     },
     {
-        "name": "onkeypress",
-        "type": "KeyboardEventHandler<HTMLTableCellElement> | null | undefined",
+        "name": "fx",
+        "type": "string | number | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1071,8 +1071,8 @@
         "inherited": true
     },
     {
-        "name": "onkeypresscapture",
-        "type": "KeyboardEventHandler<HTMLTableCellElement> | null | undefined",
+        "name": "fy",
+        "type": "string | number | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1080,8 +1080,8 @@
         "inherited": true
     },
     {
-        "name": "on:keyup",
-        "type": "KeyboardEventHandler<HTMLTableCellElement> | null | undefined",
+        "name": "g1",
+        "type": "string | number | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1089,8 +1089,8 @@
         "inherited": true
     },
     {
-        "name": "onkeyup",
-        "type": "KeyboardEventHandler<HTMLTableCellElement> | null | undefined",
+        "name": "g2",
+        "type": "string | number | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1098,8 +1098,8 @@
         "inherited": true
     },
     {
-        "name": "onkeyupcapture",
-        "type": "KeyboardEventHandler<HTMLTableCellElement> | null | undefined",
+        "name": "glyph-name",
+        "type": "string | number | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1107,8 +1107,8 @@
         "inherited": true
     },
     {
-        "name": "on:abort",
-        "type": "EventHandler<Event, HTMLTableCellElement> | null | undefined",
+        "name": "glyph-orientation-horizontal",
+        "type": "string | number | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1116,8 +1116,8 @@
         "inherited": true
     },
     {
-        "name": "onabort",
-        "type": "EventHandler<Event, HTMLTableCellElement> | null | undefined",
+        "name": "glyph-orientation-vertical",
+        "type": "string | number | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1125,8 +1125,8 @@
         "inherited": true
     },
     {
-        "name": "onabortcapture",
-        "type": "EventHandler<Event, HTMLTableCellElement> | null | undefined",
+        "name": "glyphRef",
+        "type": "string | number | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1134,8 +1134,8 @@
         "inherited": true
     },
     {
-        "name": "on:canplay",
-        "type": "EventHandler<Event, HTMLTableCellElement> | null | undefined",
+        "name": "gradientTransform",
+        "type": "string | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1143,8 +1143,8 @@
         "inherited": true
     },
     {
-        "name": "oncanplay",
-        "type": "EventHandler<Event, HTMLTableCellElement> | null | undefined",
+        "name": "gradientUnits",
+        "type": "string | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1152,8 +1152,8 @@
         "inherited": true
     },
     {
-        "name": "oncanplaycapture",
-        "type": "EventHandler<Event, HTMLTableCellElement> | null | undefined",
+        "name": "hanging",
+        "type": "string | number | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1161,8 +1161,8 @@
         "inherited": true
     },
     {
-        "name": "on:canplaythrough",
-        "type": "EventHandler<Event, HTMLTableCellElement> | null | undefined",
+        "name": "horiz-adv-x",
+        "type": "string | number | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1170,8 +1170,8 @@
         "inherited": true
     },
     {
-        "name": "oncanplaythrough",
-        "type": "EventHandler<Event, HTMLTableCellElement> | null | undefined",
+        "name": "horiz-origin-x",
+        "type": "string | number | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1179,8 +1179,8 @@
         "inherited": true
     },
     {
-        "name": "oncanplaythroughcapture",
-        "type": "EventHandler<Event, HTMLTableCellElement> | null | undefined",
+        "name": "ideographic",
+        "type": "string | number | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1188,8 +1188,8 @@
         "inherited": true
     },
     {
-        "name": "on:cuechange",
-        "type": "EventHandler<Event, HTMLTableCellElement> | null | undefined",
+        "name": "image-rendering",
+        "type": "string | number | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1197,8 +1197,8 @@
         "inherited": true
     },
     {
-        "name": "oncuechange",
-        "type": "EventHandler<Event, HTMLTableCellElement> | null | undefined",
+        "name": "in2",
+        "type": "string | number | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1206,8 +1206,8 @@
         "inherited": true
     },
     {
-        "name": "oncuechangecapture",
-        "type": "EventHandler<Event, HTMLTableCellElement> | null | undefined",
+        "name": "in",
+        "type": "string | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1215,8 +1215,8 @@
         "inherited": true
     },
     {
-        "name": "on:durationchange",
-        "type": "EventHandler<Event, HTMLTableCellElement> | null | undefined",
+        "name": "intercept",
+        "type": "string | number | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1224,8 +1224,8 @@
         "inherited": true
     },
     {
-        "name": "ondurationchange",
-        "type": "EventHandler<Event, HTMLTableCellElement> | null | undefined",
+        "name": "k1",
+        "type": "string | number | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1233,8 +1233,8 @@
         "inherited": true
     },
     {
-        "name": "ondurationchangecapture",
-        "type": "EventHandler<Event, HTMLTableCellElement> | null | undefined",
+        "name": "k2",
+        "type": "string | number | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1242,8 +1242,8 @@
         "inherited": true
     },
     {
-        "name": "on:emptied",
-        "type": "EventHandler<Event, HTMLTableCellElement> | null | undefined",
+        "name": "k3",
+        "type": "string | number | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1251,8 +1251,8 @@
         "inherited": true
     },
     {
-        "name": "onemptied",
-        "type": "EventHandler<Event, HTMLTableCellElement> | null | undefined",
+        "name": "k4",
+        "type": "string | number | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1260,8 +1260,8 @@
         "inherited": true
     },
     {
-        "name": "onemptiedcapture",
-        "type": "EventHandler<Event, HTMLTableCellElement> | null | undefined",
+        "name": "k",
+        "type": "string | number | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1269,8 +1269,8 @@
         "inherited": true
     },
     {
-        "name": "on:encrypted",
-        "type": "EventHandler<Event, HTMLTableCellElement> | null | undefined",
+        "name": "kernelMatrix",
+        "type": "string | number | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1278,8 +1278,8 @@
         "inherited": true
     },
     {
-        "name": "onencrypted",
-        "type": "EventHandler<Event, HTMLTableCellElement> | null | undefined",
+        "name": "kernelUnitLength",
+        "type": "string | number | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1287,8 +1287,8 @@
         "inherited": true
     },
     {
-        "name": "onencryptedcapture",
-        "type": "EventHandler<Event, HTMLTableCellElement> | null | undefined",
+        "name": "kerning",
+        "type": "string | number | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1296,8 +1296,8 @@
         "inherited": true
     },
     {
-        "name": "on:ended",
-        "type": "EventHandler<Event, HTMLTableCellElement> | null | undefined",
+        "name": "keyPoints",
+        "type": "string | number | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1305,8 +1305,8 @@
         "inherited": true
     },
     {
-        "name": "onended",
-        "type": "EventHandler<Event, HTMLTableCellElement> | null | undefined",
+        "name": "keySplines",
+        "type": "string | number | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1314,8 +1314,8 @@
         "inherited": true
     },
     {
-        "name": "onendedcapture",
-        "type": "EventHandler<Event, HTMLTableCellElement> | null | undefined",
+        "name": "keyTimes",
+        "type": "string | number | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1323,8 +1323,8 @@
         "inherited": true
     },
     {
-        "name": "on:loadeddata",
-        "type": "EventHandler<Event, HTMLTableCellElement> | null | undefined",
+        "name": "lengthAdjust",
+        "type": "string | number | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1332,8 +1332,8 @@
         "inherited": true
     },
     {
-        "name": "onloadeddata",
-        "type": "EventHandler<Event, HTMLTableCellElement> | null | undefined",
+        "name": "letter-spacing",
+        "type": "string | number | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1341,8 +1341,8 @@
         "inherited": true
     },
     {
-        "name": "onloadeddatacapture",
-        "type": "EventHandler<Event, HTMLTableCellElement> | null | undefined",
+        "name": "lighting-color",
+        "type": "string | number | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1350,8 +1350,8 @@
         "inherited": true
     },
     {
-        "name": "on:loadedmetadata",
-        "type": "EventHandler<Event, HTMLTableCellElement> | null | undefined",
+        "name": "limitingConeAngle",
+        "type": "string | number | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1359,8 +1359,8 @@
         "inherited": true
     },
     {
-        "name": "onloadedmetadata",
-        "type": "EventHandler<Event, HTMLTableCellElement> | null | undefined",
+        "name": "local",
+        "type": "string | number | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1368,8 +1368,8 @@
         "inherited": true
     },
     {
-        "name": "onloadedmetadatacapture",
-        "type": "EventHandler<Event, HTMLTableCellElement> | null | undefined",
+        "name": "marker-end",
+        "type": "string | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1377,8 +1377,8 @@
         "inherited": true
     },
     {
-        "name": "on:loadstart",
-        "type": "EventHandler<Event, HTMLTableCellElement> | null | undefined",
+        "name": "markerHeight",
+        "type": "string | number | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1386,8 +1386,8 @@
         "inherited": true
     },
     {
-        "name": "onloadstart",
-        "type": "EventHandler<Event, HTMLTableCellElement> | null | undefined",
+        "name": "marker-mid",
+        "type": "string | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1395,8 +1395,8 @@
         "inherited": true
     },
     {
-        "name": "onloadstartcapture",
-        "type": "EventHandler<Event, HTMLTableCellElement> | null | undefined",
+        "name": "marker-start",
+        "type": "string | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1404,8 +1404,8 @@
         "inherited": true
     },
     {
-        "name": "on:pause",
-        "type": "EventHandler<Event, HTMLTableCellElement> | null | undefined",
+        "name": "markerUnits",
+        "type": "string | number | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1413,8 +1413,8 @@
         "inherited": true
     },
     {
-        "name": "onpause",
-        "type": "EventHandler<Event, HTMLTableCellElement> | null | undefined",
+        "name": "markerWidth",
+        "type": "string | number | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1422,8 +1422,8 @@
         "inherited": true
     },
     {
-        "name": "onpausecapture",
-        "type": "EventHandler<Event, HTMLTableCellElement> | null | undefined",
+        "name": "maskContentUnits",
+        "type": "string | number | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1431,8 +1431,8 @@
         "inherited": true
     },
     {
-        "name": "on:play",
-        "type": "EventHandler<Event, HTMLTableCellElement> | null | undefined",
+        "name": "maskUnits",
+        "type": "string | number | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1440,8 +1440,8 @@
         "inherited": true
     },
     {
-        "name": "onplay",
-        "type": "EventHandler<Event, HTMLTableCellElement> | null | undefined",
+        "name": "mathematical",
+        "type": "string | number | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1449,8 +1449,8 @@
         "inherited": true
     },
     {
-        "name": "onplaycapture",
-        "type": "EventHandler<Event, HTMLTableCellElement> | null | undefined",
+        "name": "mode",
+        "type": "string | number | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1458,8 +1458,8 @@
         "inherited": true
     },
     {
-        "name": "on:playing",
-        "type": "EventHandler<Event, HTMLTableCellElement> | null | undefined",
+        "name": "numOctaves",
+        "type": "string | number | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1467,8 +1467,8 @@
         "inherited": true
     },
     {
-        "name": "onplaying",
-        "type": "EventHandler<Event, HTMLTableCellElement> | null | undefined",
+        "name": "offset",
+        "type": "string | number | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1476,8 +1476,8 @@
         "inherited": true
     },
     {
-        "name": "onplayingcapture",
-        "type": "EventHandler<Event, HTMLTableCellElement> | null | undefined",
+        "name": "opacity",
+        "type": "string | number | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1485,8 +1485,8 @@
         "inherited": true
     },
     {
-        "name": "on:progress",
-        "type": "EventHandler<Event, HTMLTableCellElement> | null | undefined",
+        "name": "operator",
+        "type": "string | number | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1494,8 +1494,8 @@
         "inherited": true
     },
     {
-        "name": "onprogress",
-        "type": "EventHandler<Event, HTMLTableCellElement> | null | undefined",
+        "name": "order",
+        "type": "string | number | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1503,8 +1503,8 @@
         "inherited": true
     },
     {
-        "name": "onprogresscapture",
-        "type": "EventHandler<Event, HTMLTableCellElement> | null | undefined",
+        "name": "orient",
+        "type": "string | number | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1512,8 +1512,8 @@
         "inherited": true
     },
     {
-        "name": "on:ratechange",
-        "type": "EventHandler<Event, HTMLTableCellElement> | null | undefined",
+        "name": "overflow",
+        "type": "string | number | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1521,8 +1521,8 @@
         "inherited": true
     },
     {
-        "name": "onratechange",
-        "type": "EventHandler<Event, HTMLTableCellElement> | null | undefined",
+        "name": "overline-position",
+        "type": "string | number | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1530,8 +1530,8 @@
         "inherited": true
     },
     {
-        "name": "onratechangecapture",
-        "type": "EventHandler<Event, HTMLTableCellElement> | null | undefined",
+        "name": "overline-thickness",
+        "type": "string | number | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1539,8 +1539,8 @@
         "inherited": true
     },
     {
-        "name": "on:seeked",
-        "type": "EventHandler<Event, HTMLTableCellElement> | null | undefined",
+        "name": "paint-order",
+        "type": "string | number | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1548,8 +1548,8 @@
         "inherited": true
     },
     {
-        "name": "onseeked",
-        "type": "EventHandler<Event, HTMLTableCellElement> | null | undefined",
+        "name": "panose-1",
+        "type": "string | number | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1557,8 +1557,8 @@
         "inherited": true
     },
     {
-        "name": "onseekedcapture",
-        "type": "EventHandler<Event, HTMLTableCellElement> | null | undefined",
+        "name": "pathLength",
+        "type": "string | number | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1566,8 +1566,8 @@
         "inherited": true
     },
     {
-        "name": "on:seeking",
-        "type": "EventHandler<Event, HTMLTableCellElement> | null | undefined",
+        "name": "patternContentUnits",
+        "type": "string | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1575,8 +1575,8 @@
         "inherited": true
     },
     {
-        "name": "onseeking",
-        "type": "EventHandler<Event, HTMLTableCellElement> | null | undefined",
+        "name": "patternTransform",
+        "type": "string | number | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1584,8 +1584,8 @@
         "inherited": true
     },
     {
-        "name": "onseekingcapture",
-        "type": "EventHandler<Event, HTMLTableCellElement> | null | undefined",
+        "name": "patternUnits",
+        "type": "string | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1593,8 +1593,8 @@
         "inherited": true
     },
     {
-        "name": "on:stalled",
-        "type": "EventHandler<Event, HTMLTableCellElement> | null | undefined",
+        "name": "pointer-events",
+        "type": "string | number | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1602,8 +1602,8 @@
         "inherited": true
     },
     {
-        "name": "onstalled",
-        "type": "EventHandler<Event, HTMLTableCellElement> | null | undefined",
+        "name": "points",
+        "type": "string | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1611,8 +1611,8 @@
         "inherited": true
     },
     {
-        "name": "onstalledcapture",
-        "type": "EventHandler<Event, HTMLTableCellElement> | null | undefined",
+        "name": "pointsAtX",
+        "type": "string | number | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1620,8 +1620,8 @@
         "inherited": true
     },
     {
-        "name": "on:suspend",
-        "type": "EventHandler<Event, HTMLTableCellElement> | null | undefined",
+        "name": "pointsAtY",
+        "type": "string | number | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1629,8 +1629,8 @@
         "inherited": true
     },
     {
-        "name": "onsuspend",
-        "type": "EventHandler<Event, HTMLTableCellElement> | null | undefined",
+        "name": "pointsAtZ",
+        "type": "string | number | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1638,8 +1638,8 @@
         "inherited": true
     },
     {
-        "name": "onsuspendcapture",
-        "type": "EventHandler<Event, HTMLTableCellElement> | null | undefined",
+        "name": "preserveAlpha",
+        "type": "string | number | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1647,8 +1647,8 @@
         "inherited": true
     },
     {
-        "name": "on:timeupdate",
-        "type": "EventHandler<Event, HTMLTableCellElement> | null | undefined",
+        "name": "preserveAspectRatio",
+        "type": "string | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1656,8 +1656,8 @@
         "inherited": true
     },
     {
-        "name": "ontimeupdate",
-        "type": "EventHandler<Event, HTMLTableCellElement> | null | undefined",
+        "name": "primitiveUnits",
+        "type": "string | number | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1665,8 +1665,8 @@
         "inherited": true
     },
     {
-        "name": "ontimeupdatecapture",
-        "type": "EventHandler<Event, HTMLTableCellElement> | null | undefined",
+        "name": "r",
+        "type": "string | number | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1674,8 +1674,8 @@
         "inherited": true
     },
     {
-        "name": "on:volumechange",
-        "type": "EventHandler<Event, HTMLTableCellElement> | null | undefined",
+        "name": "radius",
+        "type": "string | number | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1683,8 +1683,8 @@
         "inherited": true
     },
     {
-        "name": "onvolumechange",
-        "type": "EventHandler<Event, HTMLTableCellElement> | null | undefined",
+        "name": "refX",
+        "type": "string | number | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1692,8 +1692,8 @@
         "inherited": true
     },
     {
-        "name": "onvolumechangecapture",
-        "type": "EventHandler<Event, HTMLTableCellElement> | null | undefined",
+        "name": "refY",
+        "type": "string | number | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1701,8 +1701,8 @@
         "inherited": true
     },
     {
-        "name": "on:waiting",
-        "type": "EventHandler<Event, HTMLTableCellElement> | null | undefined",
+        "name": "rendering-intent",
+        "type": "string | number | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1710,8 +1710,8 @@
         "inherited": true
     },
     {
-        "name": "onwaiting",
-        "type": "EventHandler<Event, HTMLTableCellElement> | null | undefined",
+        "name": "repeatCount",
+        "type": "string | number | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1719,8 +1719,8 @@
         "inherited": true
     },
     {
-        "name": "onwaitingcapture",
-        "type": "EventHandler<Event, HTMLTableCellElement> | null | undefined",
+        "name": "repeatDur",
+        "type": "string | number | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1728,8 +1728,8 @@
         "inherited": true
     },
     {
-        "name": "on:auxclick",
-        "type": "MouseEventHandler<HTMLTableCellElement> | null | undefined",
+        "name": "requiredExtensions",
+        "type": "string | number | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1737,8 +1737,8 @@
         "inherited": true
     },
     {
-        "name": "onauxclick",
-        "type": "MouseEventHandler<HTMLTableCellElement> | null | undefined",
+        "name": "requiredFeatures",
+        "type": "string | number | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1746,8 +1746,8 @@
         "inherited": true
     },
     {
-        "name": "onauxclickcapture",
-        "type": "MouseEventHandler<HTMLTableCellElement> | null | undefined",
+        "name": "restart",
+        "type": "string | number | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1755,8 +1755,8 @@
         "inherited": true
     },
     {
-        "name": "on:click",
-        "type": "MouseEventHandler<HTMLTableCellElement> | null | undefined",
+        "name": "result",
+        "type": "string | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1764,8 +1764,8 @@
         "inherited": true
     },
     {
-        "name": "onclick",
-        "type": "MouseEventHandler<HTMLTableCellElement> | null | undefined",
+        "name": "rotate",
+        "type": "string | number | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1773,8 +1773,8 @@
         "inherited": true
     },
     {
-        "name": "onclickcapture",
-        "type": "MouseEventHandler<HTMLTableCellElement> | null | undefined",
+        "name": "rx",
+        "type": "string | number | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1782,8 +1782,8 @@
         "inherited": true
     },
     {
-        "name": "on:contextmenu",
-        "type": "MouseEventHandler<HTMLTableCellElement> | null | undefined",
+        "name": "ry",
+        "type": "string | number | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1791,8 +1791,8 @@
         "inherited": true
     },
     {
-        "name": "oncontextmenu",
-        "type": "MouseEventHandler<HTMLTableCellElement> | null | undefined",
+        "name": "scale",
+        "type": "string | number | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1800,8 +1800,8 @@
         "inherited": true
     },
     {
-        "name": "oncontextmenucapture",
-        "type": "MouseEventHandler<HTMLTableCellElement> | null | undefined",
+        "name": "seed",
+        "type": "string | number | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1809,8 +1809,8 @@
         "inherited": true
     },
     {
-        "name": "on:dblclick",
-        "type": "MouseEventHandler<HTMLTableCellElement> | null | undefined",
+        "name": "shape-rendering",
+        "type": "string | number | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1818,8 +1818,8 @@
         "inherited": true
     },
     {
-        "name": "ondblclick",
-        "type": "MouseEventHandler<HTMLTableCellElement> | null | undefined",
+        "name": "slope",
+        "type": "string | number | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1827,8 +1827,8 @@
         "inherited": true
     },
     {
-        "name": "ondblclickcapture",
-        "type": "MouseEventHandler<HTMLTableCellElement> | null | undefined",
+        "name": "spacing",
+        "type": "string | number | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1836,8 +1836,8 @@
         "inherited": true
     },
     {
-        "name": "on:drag",
-        "type": "DragEventHandler<HTMLTableCellElement> | null | undefined",
+        "name": "specularConstant",
+        "type": "string | number | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1845,8 +1845,8 @@
         "inherited": true
     },
     {
-        "name": "ondrag",
-        "type": "DragEventHandler<HTMLTableCellElement> | null | undefined",
+        "name": "specularExponent",
+        "type": "string | number | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1854,8 +1854,8 @@
         "inherited": true
     },
     {
-        "name": "ondragcapture",
-        "type": "DragEventHandler<HTMLTableCellElement> | null | undefined",
+        "name": "speed",
+        "type": "string | number | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1863,8 +1863,8 @@
         "inherited": true
     },
     {
-        "name": "on:dragend",
-        "type": "DragEventHandler<HTMLTableCellElement> | null | undefined",
+        "name": "spreadMethod",
+        "type": "string | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1872,8 +1872,8 @@
         "inherited": true
     },
     {
-        "name": "ondragend",
-        "type": "DragEventHandler<HTMLTableCellElement> | null | undefined",
+        "name": "startOffset",
+        "type": "string | number | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1881,8 +1881,8 @@
         "inherited": true
     },
     {
-        "name": "ondragendcapture",
-        "type": "DragEventHandler<HTMLTableCellElement> | null | undefined",
+        "name": "stdDeviation",
+        "type": "string | number | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1890,8 +1890,8 @@
         "inherited": true
     },
     {
-        "name": "on:dragenter",
-        "type": "DragEventHandler<HTMLTableCellElement> | null | undefined",
+        "name": "stemh",
+        "type": "string | number | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1899,8 +1899,8 @@
         "inherited": true
     },
     {
-        "name": "ondragenter",
-        "type": "DragEventHandler<HTMLTableCellElement> | null | undefined",
+        "name": "stemv",
+        "type": "string | number | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1908,8 +1908,8 @@
         "inherited": true
     },
     {
-        "name": "ondragentercapture",
-        "type": "DragEventHandler<HTMLTableCellElement> | null | undefined",
+        "name": "stitchTiles",
+        "type": "string | number | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1917,8 +1917,8 @@
         "inherited": true
     },
     {
-        "name": "on:dragexit",
-        "type": "DragEventHandler<HTMLTableCellElement> | null | undefined",
+        "name": "stop-color",
+        "type": "string | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1926,8 +1926,8 @@
         "inherited": true
     },
     {
-        "name": "ondragexit",
-        "type": "DragEventHandler<HTMLTableCellElement> | null | undefined",
+        "name": "stop-opacity",
+        "type": "string | number | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1935,8 +1935,8 @@
         "inherited": true
     },
     {
-        "name": "ondragexitcapture",
-        "type": "DragEventHandler<HTMLTableCellElement> | null | undefined",
+        "name": "strikethrough-position",
+        "type": "string | number | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1944,8 +1944,8 @@
         "inherited": true
     },
     {
-        "name": "on:dragleave",
-        "type": "DragEventHandler<HTMLTableCellElement> | null | undefined",
+        "name": "strikethrough-thickness",
+        "type": "string | number | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1953,8 +1953,8 @@
         "inherited": true
     },
     {
-        "name": "ondragleave",
-        "type": "DragEventHandler<HTMLTableCellElement> | null | undefined",
+        "name": "stroke",
+        "type": "string | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1962,8 +1962,8 @@
         "inherited": true
     },
     {
-        "name": "ondragleavecapture",
-        "type": "DragEventHandler<HTMLTableCellElement> | null | undefined",
+        "name": "stroke-dasharray",
+        "type": "string | number | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1971,8 +1971,8 @@
         "inherited": true
     },
     {
-        "name": "on:dragover",
-        "type": "DragEventHandler<HTMLTableCellElement> | null | undefined",
+        "name": "stroke-dashoffset",
+        "type": "string | number | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1980,8 +1980,8 @@
         "inherited": true
     },
     {
-        "name": "ondragover",
-        "type": "DragEventHandler<HTMLTableCellElement> | null | undefined",
+        "name": "stroke-linecap",
+        "type": "\"inherit\" | \"butt\" | \"round\" | \"square\" | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1989,8 +1989,8 @@
         "inherited": true
     },
     {
-        "name": "ondragovercapture",
-        "type": "DragEventHandler<HTMLTableCellElement> | null | undefined",
+        "name": "stroke-linejoin",
+        "type": "\"inherit\" | \"round\" | \"arcs\" | \"miter-clip\" | \"miter\" | \"bevel\" | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1998,8 +1998,8 @@
         "inherited": true
     },
     {
-        "name": "on:dragstart",
-        "type": "DragEventHandler<HTMLTableCellElement> | null | undefined",
+        "name": "stroke-miterlimit",
+        "type": "string | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -2007,8 +2007,8 @@
         "inherited": true
     },
     {
-        "name": "ondragstart",
-        "type": "DragEventHandler<HTMLTableCellElement> | null | undefined",
+        "name": "stroke-opacity",
+        "type": "string | number | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -2016,8 +2016,8 @@
         "inherited": true
     },
     {
-        "name": "ondragstartcapture",
-        "type": "DragEventHandler<HTMLTableCellElement> | null | undefined",
+        "name": "stroke-width",
+        "type": "string | number | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -2025,8 +2025,8 @@
         "inherited": true
     },
     {
-        "name": "on:drop",
-        "type": "DragEventHandler<HTMLTableCellElement> | null | undefined",
+        "name": "surfaceScale",
+        "type": "string | number | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -2034,8 +2034,8 @@
         "inherited": true
     },
     {
-        "name": "ondrop",
-        "type": "DragEventHandler<HTMLTableCellElement> | null | undefined",
+        "name": "systemLanguage",
+        "type": "string | number | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -2043,8 +2043,8 @@
         "inherited": true
     },
     {
-        "name": "ondropcapture",
-        "type": "DragEventHandler<HTMLTableCellElement> | null | undefined",
+        "name": "tableValues",
+        "type": "string | number | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -2052,8 +2052,8 @@
         "inherited": true
     },
     {
-        "name": "on:mousedown",
-        "type": "MouseEventHandler<HTMLTableCellElement> | null | undefined",
+        "name": "targetX",
+        "type": "string | number | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -2061,8 +2061,8 @@
         "inherited": true
     },
     {
-        "name": "onmousedown",
-        "type": "MouseEventHandler<HTMLTableCellElement> | null | undefined",
+        "name": "targetY",
+        "type": "string | number | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -2070,8 +2070,8 @@
         "inherited": true
     },
     {
-        "name": "onmousedowncapture",
-        "type": "MouseEventHandler<HTMLTableCellElement> | null | undefined",
+        "name": "text-anchor",
+        "type": "string | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -2079,8 +2079,8 @@
         "inherited": true
     },
     {
-        "name": "on:mouseenter",
-        "type": "MouseEventHandler<HTMLTableCellElement> | null | undefined",
+        "name": "text-decoration",
+        "type": "string | number | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -2088,8 +2088,8 @@
         "inherited": true
     },
     {
-        "name": "onmouseenter",
-        "type": "MouseEventHandler<HTMLTableCellElement> | null | undefined",
+        "name": "textLength",
+        "type": "string | number | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -2097,8 +2097,8 @@
         "inherited": true
     },
     {
-        "name": "on:mouseleave",
-        "type": "MouseEventHandler<HTMLTableCellElement> | null | undefined",
+        "name": "text-rendering",
+        "type": "string | number | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -2106,8 +2106,8 @@
         "inherited": true
     },
     {
-        "name": "onmouseleave",
-        "type": "MouseEventHandler<HTMLTableCellElement> | null | undefined",
+        "name": "to",
+        "type": "string | number | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -2115,8 +2115,8 @@
         "inherited": true
     },
     {
-        "name": "on:mousemove",
-        "type": "MouseEventHandler<HTMLTableCellElement> | null | undefined",
+        "name": "transform",
+        "type": "string | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -2124,8 +2124,8 @@
         "inherited": true
     },
     {
-        "name": "onmousemove",
-        "type": "MouseEventHandler<HTMLTableCellElement> | null | undefined",
+        "name": "transform-origin",
+        "type": "string | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -2133,8 +2133,8 @@
         "inherited": true
     },
     {
-        "name": "onmousemovecapture",
-        "type": "MouseEventHandler<HTMLTableCellElement> | null | undefined",
+        "name": "u1",
+        "type": "string | number | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -2142,8 +2142,8 @@
         "inherited": true
     },
     {
-        "name": "on:mouseout",
-        "type": "MouseEventHandler<HTMLTableCellElement> | null | undefined",
+        "name": "u2",
+        "type": "string | number | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -2151,8 +2151,8 @@
         "inherited": true
     },
     {
-        "name": "onmouseout",
-        "type": "MouseEventHandler<HTMLTableCellElement> | null | undefined",
+        "name": "underline-position",
+        "type": "string | number | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -2160,8 +2160,8 @@
         "inherited": true
     },
     {
-        "name": "onmouseoutcapture",
-        "type": "MouseEventHandler<HTMLTableCellElement> | null | undefined",
+        "name": "underline-thickness",
+        "type": "string | number | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -2169,8 +2169,8 @@
         "inherited": true
     },
     {
-        "name": "on:mouseover",
-        "type": "MouseEventHandler<HTMLTableCellElement> | null | undefined",
+        "name": "unicode",
+        "type": "string | number | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -2178,8 +2178,8 @@
         "inherited": true
     },
     {
-        "name": "onmouseover",
-        "type": "MouseEventHandler<HTMLTableCellElement> | null | undefined",
+        "name": "unicode-bidi",
+        "type": "string | number | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -2187,8 +2187,8 @@
         "inherited": true
     },
     {
-        "name": "onmouseovercapture",
-        "type": "MouseEventHandler<HTMLTableCellElement> | null | undefined",
+        "name": "unicode-range",
+        "type": "string | number | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -2196,8 +2196,8 @@
         "inherited": true
     },
     {
-        "name": "on:mouseup",
-        "type": "MouseEventHandler<HTMLTableCellElement> | null | undefined",
+        "name": "units-per-em",
+        "type": "string | number | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -2205,8 +2205,8 @@
         "inherited": true
     },
     {
-        "name": "onmouseup",
-        "type": "MouseEventHandler<HTMLTableCellElement> | null | undefined",
+        "name": "v-alphabetic",
+        "type": "string | number | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -2214,8 +2214,8 @@
         "inherited": true
     },
     {
-        "name": "onmouseupcapture",
-        "type": "MouseEventHandler<HTMLTableCellElement> | null | undefined",
+        "name": "values",
+        "type": "string | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -2223,8 +2223,8 @@
         "inherited": true
     },
     {
-        "name": "on:select",
-        "type": "EventHandler<Event, HTMLTableCellElement> | null | undefined",
+        "name": "vector-effect",
+        "type": "string | number | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -2232,8 +2232,8 @@
         "inherited": true
     },
     {
-        "name": "onselect",
-        "type": "EventHandler<Event, HTMLTableCellElement> | null | undefined",
+        "name": "version",
+        "type": "string | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -2241,8 +2241,8 @@
         "inherited": true
     },
     {
-        "name": "onselectcapture",
-        "type": "EventHandler<Event, HTMLTableCellElement> | null | undefined",
+        "name": "vert-adv-y",
+        "type": "string | number | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,

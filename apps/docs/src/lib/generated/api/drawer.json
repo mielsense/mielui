@@ -3861,6 +3861,15 @@
                 "inherited": false
             },
             {
+                "name": "direction",
+                "type": "\"left\" | \"right\" | \"top\" | \"bottom\" | undefined",
+                "required": false,
+                "bindable": false,
+                "default": null,
+                "description": "Direction of the drawer. Can be `top` or `bottom`, `left`, `right`.",
+                "inherited": false
+            },
+            {
                 "name": "open",
                 "type": "boolean | undefined",
                 "required": false,
@@ -3903,15 +3912,6 @@
                 "bindable": false,
                 "default": "true",
                 "description": "When `false` dragging, clicking outside, pressing esc, etc. will not close the drawer.\nUse this in combination with the `open` prop, otherwise you won't be able to open/close the drawer.",
-                "inherited": false
-            },
-            {
-                "name": "direction",
-                "type": "\"left\" | \"right\" | \"top\" | \"bottom\" | undefined",
-                "required": false,
-                "bindable": false,
-                "default": null,
-                "description": "Direction of the drawer. Can be `top` or `bottom`, `left`, `right`.",
                 "inherited": false
             },
             {

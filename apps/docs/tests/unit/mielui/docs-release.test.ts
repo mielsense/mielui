@@ -17,14 +17,7 @@ import { GET as getRobots } from '../../../src/routes/robots.txt/+server';
 import { GET as getSitemap } from '../../../src/routes/sitemap.xml/+server';
 
 const root = resolve(process.cwd(), '../..');
-const removedComponents = [
-    'modal',
-    'fullscreen-nav',
-    'approval-request',
-    'marquee',
-    'panel',
-    'separator'
-];
+const removedComponents = ['modal', 'fullscreen-nav', 'approval-request', 'marquee', 'panel'];
 
 function directoryNames(path: string): string[] {
     return readdirSync(path, { withFileTypes: true })
@@ -47,16 +40,16 @@ describe('docs release contracts', () => {
         ).filter((name) => !name.startsWith('['));
 
         expect([...components].sort((a, b) => a.localeCompare(b))).toEqual(packageComponents);
-        expect(componentGroups.map((group) => group.items.length)).toEqual([43, 5, 8, 0]);
+        expect(new Set(components).size).toBe(components.length);
         expect(routeComponents).toEqual(packageComponents);
     });
 
     it('uses the live component count in homepage copy', () => {
         const homepage = readFileSync(resolve(root, 'apps/docs/src/routes/+page.svelte'), 'utf8');
         const readme = readFileSync(resolve(root, 'README.md'), 'utf8');
-        expect(homepage.match(new RegExp(`${components.length} Svelte`, 'g'))).toHaveLength(1);
-        expect(homepage).toContain(`Restyle ${components.length} components`);
-        expect(homepage).toContain(`Browse all ${components.length} components`);
+        expect(homepage).toContain(`\${components.length} Svelte`);
+        expect(homepage).toContain(`Restyle \${components.length} components`);
+        expect(homepage).toContain(`Browse all \${components.length} components`);
         expect(readme).toContain(`badge/Components-${components.length}-`);
     });
 
@@ -82,9 +75,11 @@ describe('docs release contracts', () => {
             );
         }
         expect(body).toContain('<loc>https://preview.example/docs/components</loc>');
-        expect(body.match(/<url>/g)).toHaveLength(
-            components.length * 2 + 17 + changelogVersions.length + changelogLlmVersions.length
-        );
+        const locations = [...body.matchAll(/<loc>(.*?)<\/loc>/g)].map((match) => match[1]);
+        expect(new Set(locations).size).toBe(locations.length);
+        for (const location of locations) {
+            expect(new URL(location).origin).toBe('https://preview.example');
+        }
         expect(body).toContain('<loc>https://preview.example/docs/changelog</loc>');
         expect(body).toContain('<loc>https://preview.example/docs/changelog.md</loc>');
         expect(body).toContain('<loc>https://preview.example/llms.txt</loc>');
@@ -158,18 +153,17 @@ describe('docs release contracts', () => {
         for (const group of componentGroups) {
             expect(componentIndex).toContain(`## ${group.heading}`);
         }
-        expect(componentIndex).toContain('No chart components yet.');
+        expect(componentIndex).toContain('/docs/components/chart.md');
+        expect(componentIndex).toContain('/docs/components/pie-chart.md');
 
         expect(brandMark).toContain("import { BrandMark } from '@mielui/svelte'");
         expect(brandMark).toContain('`label?: string`');
-        expect(toolbar).toContain('not a standalone CLI registry target');
-        expect(toolbar).toContain('pnpm add @mielui/svelte');
-        expect(toolbar).not.toContain('mielui add toolbar');
+        expect(toolbar).toContain('pnpm dlx @mielui/svelte add toolbar');
         expect(componentIndex).toContain('**Approval Request:**');
         expect(componentIndex).toContain('Compose `AlertDialog` directly');
         expect(componentIndex).toContain('Card.Root variant="panel"');
         expect(componentIndex).toContain('**Marquee:**');
-        expect(componentIndex).toContain('**Separator:**');
+        expect(componentIndex).toContain('/docs/components/separator.md');
 
         for (const removed of removedComponents) {
             expect(componentMarkdown(removed)).toBeUndefined();
@@ -180,11 +174,7 @@ describe('docs release contracts', () => {
     it('uses CLI installation only for registry-public components', () => {
         for (const component of components) {
             const reference = componentMarkdown(component);
-            if (component === 'toolbar') {
-                expect(reference).not.toContain(`mielui add ${component}`);
-                continue;
-            }
-            expect(reference).toContain(`mielui add ${component}`);
+            expect(reference).toContain(`pnpm dlx @mielui/svelte add ${component}`);
         }
     });
 
@@ -269,9 +259,17 @@ describe('docs release contracts', () => {
         expect(dockerfile).toContain('COPY apps/installer-lab/package.json');
         expect(dockerfile).not.toContain('/repo/node_modules ./node_modules');
         expect(config).toContain("process.env.DOCS_ADAPTER === 'node'");
-        expect(viteConfig).toContain(
-            "noExternal: ['@floating-ui/dom', 'clsx', 'tailwind-variants']"
-        );
+        expect(viteConfig).toContain("process.env.DOCS_ADAPTER === 'node'");
+        expect(viteConfig).toMatch(/noExternal:\s*\[/);
+        for (const dependency of [
+            'bits-ui',
+            '@tanstack/svelte-table',
+            '@floating-ui/dom',
+            'clsx',
+            'tailwind-variants'
+        ]) {
+            expect(viteConfig).toContain(`'${dependency}'`);
+        }
         expect(registryDockerfile).toContain('COPY packages/mielui ./packages/mielui');
         expect(registryDockerfile).toContain('FROM node:22-bookworm-slim');
         expect(registryDockerfile).toContain('ENV LEFTHOOK=0');

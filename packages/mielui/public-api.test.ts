@@ -1,7 +1,5 @@
 /**
- * Phase 2 §1 — lock the public API.
- *
- * Frozen catalog: 60 components. Named exports hang off the package root as
+ * Catalog-backed public component contracts. Named exports hang off the package root as
  * identifiers; namespace exports hang off a PascalCase object (AlertDialog.Root).
  * Every public component is also reachable at @mielui/svelte/components/<slug>.
  */
@@ -42,6 +40,7 @@ const NAMED = {
     progress: ['Progress'],
     'reorder-list': ['ReorderList'],
     'scroll-area': ['ScrollArea'],
+    separator: ['Separator'],
     'show-more': ['ShowMore'],
     kbd: ['Kbd'],
     skeleton: ['Skeleton', 'SkeletonSwap'],
@@ -58,144 +57,335 @@ const NAMED = {
 
 /** Compound components: `import { Dialog } from '@mielui/svelte'` then `<Dialog.Root>`. */
 const NAMESPACED = {
-    table: ['Root', 'ScrollArea', 'Header', 'Body', 'Footer', 'Row', 'Head', 'Cell', 'Caption'],
-    'native-select': ['Root', 'Option', 'OptGroup'],
-    heatmap: [
-        'Root',
-        'Header',
-        'Summary',
-        'Calendar',
-        'MonthLabels',
-        'WeekdayLabels',
-        'Grid',
-        'Cell',
-        'Detail',
-        'Legend',
-        'Footer'
-    ],
-    group: ['Root', 'Separator', 'Text'],
-    accordion: ['Root', 'Item', 'Trigger', 'Content'],
-    alert: ['Root', 'Title', 'Description'],
+    accordion: ['Content', 'Item', 'Root', 'Trigger'],
+    alert: ['Description', 'Root', 'Title'],
     'alert-dialog': [
-        'Root',
-        'Trigger',
+        'Confirm',
         'Content',
-        'Header',
-        'Title',
         'Description',
         'Exit',
         'Footer',
-        'Confirm'
-    ],
-    attachment: ['Root', 'Trigger', 'List', 'Item'],
-    avatar: ['Root', 'Image', 'Fallback'],
-    breadcrumb: ['Root', 'Item', 'Separator'],
-    card: ['Root', 'Title', 'Header', 'Footer', 'Description', 'Content'],
-    collapsible: ['Root', 'Trigger', 'Content'],
-    'color-picker': ['Root', 'Trigger', 'Content'],
-    combobox: ['Root', 'Content', 'Trigger', 'Results', 'Item', 'Label'],
-    command: ['Root', 'Content', 'Trigger', 'Separator', 'Results', 'Search', 'Item', 'Group'],
-    conversation: ['Root', 'Content', 'Empty', 'ScrollButton'],
-    'context-menu': [
+        'Header',
         'Root',
+        'Title',
+        'Trigger'
+    ],
+    attachment: ['Item', 'List', 'Root', 'Trigger'],
+    avatar: ['Fallback', 'Image', 'Root'],
+    breadcrumb: ['Item', 'Root', 'Separator'],
+    calendar: [
+        'Cell',
+        'Day',
+        'Grid',
+        'GridBody',
+        'GridHead',
+        'GridRow',
+        'HeadCell',
+        'Header',
+        'Heading',
+        'Month',
+        'MonthSelect',
+        'NextButton',
+        'PrevButton',
+        'Root',
+        'YearSelect'
+    ],
+    card: ['Content', 'Description', 'Footer', 'Header', 'Root', 'Title'],
+    chart: ['Area', 'Bar', 'Grid', 'Legend', 'Line', 'Plot', 'Root', 'Tooltip', 'XAxis', 'YAxis'],
+    collapsible: ['Content', 'Root', 'Trigger'],
+    'color-picker': [
+        'Channels',
         'Content',
-        'CheckboxItem',
+        'HexInput',
+        'Hue',
+        'Plane',
+        'Presets',
+        'Preview',
+        'Root',
+        'Trigger'
+    ],
+    combobox: ['Content', 'Item', 'Label', 'Results', 'Root', 'Trigger'],
+    command: [
+        'Content',
+        'Group',
+        'Header',
         'Item',
+        'Results',
+        'Root',
+        'Search',
         'Separator',
+        'Trigger'
+    ],
+    composer: ['Actions', 'Input', 'Root', 'Submit', 'Toolbar'],
+    'context-menu': [
+        'CheckboxItem',
+        'Content',
+        'Item',
+        'Root',
+        'Separator',
+        'Sub',
         'SubContent',
         'SubTrigger',
-        'Sub',
+        'Trigger'
+    ],
+    conversation: ['Content', 'Empty', 'Root', 'ScrollButton'],
+    'data-table': [
+        'Body',
+        'ColumnHeader',
+        'Empty',
+        'Facet',
+        'Filter',
+        'Filters',
+        'Header',
+        'Pagination',
+        'Root',
+        'Selection',
+        'Sort',
+        'Summary',
+        'Toolbar',
+        'View',
+        'dataTableFilter'
+    ],
+    'date-picker': [
+        'Calendar',
+        'Cell',
+        'Content',
+        'Day',
+        'Grid',
+        'GridBody',
+        'GridHead',
+        'GridRow',
+        'HeadCell',
+        'Header',
+        'Heading',
+        'Input',
+        'Label',
+        'Month',
+        'MonthSelect',
+        'NextButton',
+        'PrevButton',
+        'Root',
+        'Segment',
+        'Trigger',
+        'YearSelect'
+    ],
+    'date-range-picker': [
+        'Calendar',
+        'Cell',
+        'Content',
+        'Day',
+        'Grid',
+        'GridBody',
+        'GridHead',
+        'GridRow',
+        'HeadCell',
+        'Header',
+        'Heading',
+        'Input',
+        'Label',
+        'Month',
+        'MonthSelect',
+        'NextButton',
+        'PrevButton',
+        'Root',
+        'Segment',
+        'Trigger',
+        'YearSelect'
+    ],
+    dialog: [
+        'Body',
+        'Close',
+        'Confirm',
+        'Content',
+        'Description',
+        'Footer',
+        'Header',
+        'Root',
+        'Title',
+        'Trigger'
+    ],
+    drawer: [
+        'Body',
+        'Close',
+        'Content',
+        'Description',
+        'Footer',
+        'Handle',
+        'Header',
+        'Overlay',
+        'Portal',
+        'Root',
+        'Title',
         'Trigger'
     ],
     'dropdown-menu': [
-        'Root',
-        'Trigger',
-        'Label',
-        'Item',
+        'CheckboxItem',
         'Content',
+        'Item',
+        'Label',
+        'RadioGroup',
+        'RadioItem',
+        'Root',
         'Separator',
         'Sub',
         'SubContent',
-        'SubTrigger'
-    ], // cone: Root → Sub → nested Sub
-    'file-diff': ['Root', 'TopBar', 'Content', 'Row', 'LineNumber'],
-    'hover-card': ['Root', 'Trigger', 'Content', 'Title', 'Description'],
-    message: ['Root', 'Content', 'Actions'],
-    dialog: [
+        'SubTrigger',
+        'Trigger'
+    ],
+    'empty-state': ['Actions', 'Content', 'Description', 'Header', 'Media', 'Root', 'Title'],
+    field: ['Content', 'Control', 'Description', 'Error', 'Group', 'Label', 'Root'],
+    fieldset: ['Description', 'Legend', 'Root'],
+    'file-diff': ['Content', 'Filename', 'LineNumber', 'PlusMinus', 'Root', 'Row', 'TopBar'],
+    'file-upload': [
+        'Details',
+        'Dropzone',
+        'Item',
+        'List',
+        'Preview',
+        'Progress',
+        'Remove',
+        'Retry',
         'Root',
-        'Trigger',
+        'Status',
+        'Trigger'
+    ],
+    form: ['Actions', 'ErrorSummary', 'Root', 'Status', 'Submit'],
+    group: ['Root', 'Separator', 'Text'],
+    heatmap: [
+        'Calendar',
+        'Cell',
+        'Detail',
+        'Footer',
+        'Grid',
+        'Header',
+        'Legend',
+        'MonthLabels',
+        'Root',
+        'Summary',
+        'WeekdayLabels',
+        'Tooltip'
+    ],
+    'hover-card': ['Content', 'Description', 'Root', 'Title', 'Trigger'],
+    message: ['Actions', 'Avatar', 'Body', 'Content', 'Metadata', 'Name', 'Root', 'Status', 'Time'],
+    'native-select': ['OptGroup', 'Option', 'Root'],
+    notch: [
+        'Accessory',
+        'Actions',
+        'Close',
         'Content',
-        'Title',
         'Description',
         'Header',
-        'Body',
-        'Close',
-        'Footer',
-        'Confirm'
-    ],
-    popover: ['Root', 'Trigger', 'Content', 'Title'],
-    composer: ['Root', 'Input', 'Toolbar', 'Actions', 'Submit'],
-    question: [
+        'Peek',
         'Root',
-        'Title',
-        'Description',
-        'Options',
-        'Option',
-        'Input',
+        'SideAction',
+        'Title'
+    ],
+    'number-field': ['Decrement', 'Group', 'Increment', 'Input', 'Label', 'Root'],
+    'otp-field': ['Cell', 'Group', 'Root', 'Separator'],
+    'pie-chart': ['Arc', 'Label', 'Legend', 'Plot', 'Root', 'Tooltip'],
+    popover: ['Content', 'Root', 'Title', 'Trigger'],
+    question: [
         'Actions',
         'Cancel',
-        'Submit'
+        'Content',
+        'Description',
+        'Input',
+        'Option',
+        'Options',
+        'Root',
+        'Submit',
+        'Title'
     ],
-    'radio-group': ['Root', 'Item'],
-    reasoning: ['Root', 'Trigger', 'Content'],
-    select: ['Root', 'Trigger', 'Value', 'Label', 'Item', 'Content'],
-    sheet: ['Root', 'Trigger', 'Title', 'Header', 'Footer', 'Description', 'Content', 'Close'],
-    tabs: ['Root', 'List', 'Trigger', 'Content'],
-    'tag-input': ['Root', 'List', 'Tag', 'Input'],
-    tool: ['Root', 'Item', 'Input', 'Output'],
-    'toggle-group': ['Root', 'Item'],
-    tooltip: ['Root', 'Content', 'Trigger'],
+    'radio-group': ['Item', 'Root'],
+    'range-calendar': [
+        'Cell',
+        'Day',
+        'Grid',
+        'GridBody',
+        'GridHead',
+        'GridRow',
+        'HeadCell',
+        'Header',
+        'Heading',
+        'Month',
+        'MonthSelect',
+        'NextButton',
+        'PrevButton',
+        'Root',
+        'YearSelect'
+    ],
+    reasoning: ['Content', 'Root', 'Trigger'],
+    select: ['Content', 'Item', 'Label', 'Root', 'Trigger', 'Value'],
+    sheet: ['Close', 'Content', 'Description', 'Footer', 'Header', 'Root', 'Title', 'Trigger'],
+    table: ['Body', 'Caption', 'Cell', 'Footer', 'Head', 'Header', 'Root', 'Row', 'ScrollArea'],
+    tabs: ['Content', 'List', 'Root', 'Trigger'],
+    'tag-input': ['Input', 'List', 'Root', 'Tag'],
+    'toggle-group': ['Item', 'Root'],
+    tool: ['Content', 'Input', 'Item', 'Output', 'Root', 'Trigger'],
+    tooltip: ['Content', 'Provider', 'Root', 'Trigger'],
     typography: [
-        'Title',
+        'Description',
         'H1',
         'H2',
         'H3',
         'H4',
         'H5',
         'H6',
-        'Text',
         'InlineCode',
-        'Description',
-        'Metadata'
+        'Metadata',
+        'Text',
+        'Title'
     ]
 } as const;
 
 /** Parts available on the direct path even when the barrel only re-exports a shorthand. */
 const DIRECT_PARTS = {
+    ...NAMESPACED,
+    badge: ['Badge'],
+    button: ['Button'],
+    checkbox: ['Checkbox'],
+    'code-block': ['Actions', 'CodeBlock', 'Content', 'Copy', 'Header', 'List', 'Root', 'Trigger'],
+    'copy-button': ['CopyButton'],
+    gauge: ['Gauge'],
+    input: ['Input'],
+    kbd: ['Kbd'],
+    label: ['Label'],
+    markdown: ['Markdown'],
+    pagination: ['Pagination'],
+    progress: ['Progress'],
+    'reorder-list': ['Content', 'Handle', 'Item', 'ReorderList', 'Root'],
+    'response-stream': ['ResponseStream'],
+    'scroll-area': ['ScrollArea'],
+    separator: ['Separator'],
+    'show-more': ['ShowMore'],
+    skeleton: ['Skeleton', 'SkeletonSwap'],
+    slider: ['Slider'],
+    spinner: ['Spinner'],
+    switch: ['Switch'],
+    'task-steps': ['Indicator', 'Item', 'Label', 'List', 'Meta', 'Root', 'Summary', 'TaskSteps'],
+    textarea: ['Textarea'],
     toast: [
-        'Root',
+        'Action',
+        'Actions',
+        'Close',
         'Content',
         'Footer',
-        'Title',
         'Icon',
-        'Actions',
-        'Action',
-        'Close',
+        'Root',
+        'Title',
         'Toast',
         'Toaster',
-        'toast',
-        'getToastUIState'
+        'getToastUIState',
+        'toast'
     ],
-    ...NAMESPACED,
-    'code-block': ['Root', 'Header', 'List', 'Trigger', 'Actions', 'Copy', 'Content', 'CodeBlock'],
-    card: ['Root', 'Title', 'Header', 'Footer', 'Description', 'Content']
+    toggle: ['Toggle'],
+    toolbar: ['Button', 'Group', 'Item', 'Link', 'Root', 'Separator', 'Toolbar']
 } as const;
 
-const FROZEN = [...Object.keys(NAMED), ...Object.keys(NAMESPACED)].sort((a, b) =>
+const PUBLIC_COMPONENTS = [...Object.keys(NAMED), ...Object.keys(NAMESPACED)].sort((a, b) =>
     a.localeCompare(b)
 );
-const NON_INSTALLABLE = ['toolbar'];
-const INSTALLABLE = FROZEN.filter((name) => !NON_INSTALLABLE.includes(name));
+const INSTALLABLE = PUBLIC_COMPONENTS;
 
 const REMOVED = [
     'shortcut',
@@ -203,11 +393,13 @@ const REMOVED = [
     'fullscreen-nav',
     'approval-request',
     'marquee',
-    'panel',
-    'separator'
+    'panel'
 ] as const;
 
 function toPascalCase(slug: string) {
+    if (slug === 'otp-field') {
+        return 'OTPField';
+    }
     return slug
         .split('-')
         .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
@@ -218,7 +410,10 @@ function parseExportedNames(source: string): string[] {
     const names = new Set<string>();
     for (const block of source.matchAll(/export\s*\{([^}]+)\}/g)) {
         for (const part of block[1].split(',')) {
-            let cleaned = part.replace(/\btype\b/g, '').trim();
+            let cleaned = part.trim();
+            if (/^type\s/.test(cleaned)) {
+                continue;
+            }
             if (!cleaned) {
                 continue;
             }
@@ -246,16 +441,21 @@ function parseExportedNames(source: string): string[] {
     return [...names].sort((a, b) => a.localeCompare(b));
 }
 
-describe('public API contract (v1 freeze)', () => {
-    test('frozen catalog is exactly 60 components with no overlap', () => {
-        expect(FROZEN).toHaveLength(60);
-        expect(new Set(FROZEN).size).toBe(60);
+describe('public API contract', () => {
+    test('public catalog contains exactly 77 components with no overlap', () => {
+        expect(PUBLIC_COMPONENTS).toHaveLength(77);
+        expect(new Set(PUBLIC_COMPONENTS).size).toBe(77);
+        expect(
+            Object.values(categories)
+                .flat()
+                .sort((a, b) => a.localeCompare(b))
+        ).toEqual(PUBLIC_COMPONENTS);
         for (const slug of Object.keys(NAMED)) {
             expect(NAMESPACED).not.toHaveProperty(slug);
         }
     });
 
-    test('package component directories match the frozen catalog', async () => {
+    test('package component directories match the public catalog', async () => {
         const dirs = (
             await Promise.all(
                 Object.keys(categories).map(async (category) => {
@@ -271,7 +471,7 @@ describe('public API contract (v1 freeze)', () => {
             .flat()
             .sort((a, b) => a.localeCompare(b));
 
-        expect(dirs).toEqual(FROZEN);
+        expect(dirs).toEqual(PUBLIC_COMPONENTS);
         for (const removed of REMOVED) {
             expect(dirs).not.toContain(removed);
             expect(existsSync(path.join(componentsDir, removed))).toBe(false);
@@ -296,13 +496,15 @@ describe('public API contract (v1 freeze)', () => {
             expect(barrel).toContain(`export * as ${pascal} from './${categoryFor(slug)}/${slug}'`);
         }
 
+        expect(barrel).toContain("export { dataTableFilter } from './blocks/data-table'");
+
         for (const removed of REMOVED) {
             expect(barrel).not.toContain(`./components/${removed}`);
         }
     });
 
     test('direct component entrypoints export the locked public parts', async () => {
-        for (const slug of FROZEN) {
+        for (const slug of PUBLIC_COMPONENTS) {
             const indexPath = path.join(componentPath(slug), 'index.ts');
             expect(existsSync(indexPath)).toBe(true);
             const source = await readFile(indexPath, 'utf8');
@@ -313,9 +515,9 @@ describe('public API contract (v1 freeze)', () => {
             if (!expected) {
                 throw new Error(`Missing public API contract for ${slug}`);
             }
-            for (const part of expected) {
-                expect(exported, `${slug} missing ${part}`).toContain(part);
-            }
+            expect(exported, `${slug} exported parts`).toEqual(
+                [...expected].sort((a, b) => a.localeCompare(b))
+            );
         }
     });
 
@@ -343,12 +545,12 @@ describe('public API contract (v1 freeze)', () => {
         expect(packageJson.exports['.']).toBeTruthy();
         expect(packageJson.exports['./ui.css']).toBe('./dist/svelte/ui.css');
 
-        for (const slug of FROZEN) {
+        for (const slug of PUBLIC_COMPONENTS) {
             expect(existsSync(path.join(componentPath(slug), 'index.ts'))).toBe(true);
         }
     });
 
-    test('CLI registry public list matches the frozen catalog', async () => {
+    test('CLI registry public list matches the public catalog', async () => {
         const snapshot = await loadRegistryIndex();
         const publicNames = snapshot.components
             .filter((component) => component.visibility === 'public')
@@ -407,7 +609,10 @@ describe('public API contract (v1 freeze)', () => {
             'dropdown-menu/dropdown-menu-sub-trigger.svelte'
         ];
         for (const file of menuRows) {
-            const source = await readFile(path.join(componentsDir, file), 'utf8');
+            const source = await readFile(
+                path.join(componentPath(file.split('/')[0]), path.basename(file)),
+                'utf8'
+            );
             expect(source, file).toContain('mielui-menu-item');
             expect(source, file).toContain('unstyled');
             expect(source, file).not.toContain('MENU_ITEM');

@@ -5,7 +5,16 @@
     import { cubicOut, quartOut } from 'svelte/easing';
     import type { TransitionConfig } from 'svelte/transition';
     import { getToastPrimaryHostId, setToastUIState } from './lib.svelte';
+    import NotchHost from './notch-host.svelte';
     import Toast from './toast.svelte';
+
+    let {
+        variant = 'default',
+        side = 'top'
+    }: {
+        variant?: 'default' | 'notch';
+        side?: 'top' | 'bottom' | 'left' | 'right';
+    } = $props();
 
     const { state: toastState, hostId } = setToastUIState();
     const isPrimary = $derived(getToastPrimaryHostId() === hostId);
@@ -127,7 +136,9 @@
     }
 </script>
 
-{#if isPrimary && toastState.data}
+{#if isPrimary && variant === 'notch'}
+    <NotchHost toasts={toastState.data.toasts} {side} />
+{:else if isPrimary && toastState.data}
     <div bind:this={portalEl} use:visualViewportBounds class={viewportClass}>
         <div
             role="region"

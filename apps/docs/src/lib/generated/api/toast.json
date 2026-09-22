@@ -3544,6 +3544,25 @@
     },
     {
         "name": "Toaster",
-        "properties": []
+        "properties": [
+            {
+                "name": "variant",
+                "type": "\"default\" | \"notch\" | undefined",
+                "required": false,
+                "bindable": false,
+                "default": "'default'",
+                "description": "",
+                "inherited": false
+            },
+            {
+                "name": "side",
+                "type": "\"left\" | \"right\" | \"top\" | \"bottom\" | undefined",
+                "required": false,
+                "bindable": false,
+                "default": "'top'",
+                "description": "",
+                "inherited": false
+            }
+        ]
     }
 ]

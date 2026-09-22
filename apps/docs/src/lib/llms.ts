@@ -31,11 +31,6 @@ const removedComponents = [
     {
         name: 'Panel',
         guidance: 'Use `Card.Root variant="panel"` for the former framed panel treatment.'
-    },
-    {
-        name: 'Separator',
-        guidance:
-            'Use a semantic `<hr>` or a Tailwind border utility. Compound component separator parts remain available where documented.'
     }
 ] as const;
 
@@ -283,7 +278,7 @@ export function llmsTxt(origin: string): string {
         '',
         'Svelte 5 and Tailwind CSS v4 component library. Use these Markdown resources for implementation details, public APIs, runnable examples, and version-specific upgrade notes.',
         '',
-        `The current catalog contains ${components.length} components. Brand Mark is a package-only asset. Approval Request, Fullscreen Nav, Marquee, Panel, and Separator were removed as standalone components; migration guidance is in the components index.`,
+        `The current catalog contains ${components.length} components. Brand Mark is a package-only asset. Approval Request, Fullscreen Nav, Marquee, and Panel were removed as standalone components; migration guidance is in the components index.`,
         '',
         '## Agent skill',
         '',

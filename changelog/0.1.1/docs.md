@@ -67,3 +67,7 @@
 - Document controlled overlays, upload cancellation and retry, and theme storage limitations.
 - Add a live File Diff example and refresh generated component prop tables.
 - Use shared border, radius, and elevation tokens in legacy API tables.
+
+- Document shared edge, inset, focus, and motion rules for component contributions.
+- Keep Notch and notch notification examples inside their preview frames.
+- Make chart state and period-switching examples easier to adapt with named event handlers.

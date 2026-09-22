@@ -129,10 +129,10 @@ describe('installFile', () => {
 
     test('rejects traversal and absolute registry paths', async () => {
         const cwd = await tempDir();
-        expect(
+        await expect(
             installFile(cwd, 'src/lib/mielui', '../../evil.txt', '$lib/mielui', false)
         ).rejects.toThrow('unsafe registry file path');
-        expect(
+        await expect(
             installFile(
                 cwd,
                 'src/lib/mielui',

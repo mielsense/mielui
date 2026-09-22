@@ -18,6 +18,7 @@
         "dialog",
         "drawer",
         "dropdown-menu",
+        "empty-state",
         "field",
         "fieldset",
         "file-upload",
@@ -60,6 +61,7 @@
         "data-table",
         "file-diff",
         "markdown",
+        "notch",
         "reorder-list",
         "show-more",
         "task-steps",
@@ -76,5 +78,5 @@
         "response-stream",
         "tool"
     ],
-    "chart-components": ["gauge", "heatmap"]
+    "chart-components": ["chart", "gauge", "heatmap", "pie-chart"]
 }

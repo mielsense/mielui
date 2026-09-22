@@ -239,6 +239,26 @@
             "types": "./dist/svelte/blocks/data-table/index.d.ts",
             "svelte": "./dist/svelte/blocks/data-table/index.js",
             "default": "./dist/svelte/blocks/data-table/index.js"
+        },
+        "./components/chart": {
+            "types": "./dist/svelte/chart-components/chart/index.d.ts",
+            "svelte": "./dist/svelte/chart-components/chart/index.js",
+            "default": "./dist/svelte/chart-components/chart/index.js"
+        },
+        "./components/pie-chart": {
+            "types": "./dist/svelte/chart-components/pie-chart/index.d.ts",
+            "svelte": "./dist/svelte/chart-components/pie-chart/index.js",
+            "default": "./dist/svelte/chart-components/pie-chart/index.js"
+        },
+        "./components/empty-state": {
+            "types": "./dist/svelte/components/empty-state/index.d.ts",
+            "svelte": "./dist/svelte/components/empty-state/index.js",
+            "default": "./dist/svelte/components/empty-state/index.js"
+        },
+        "./components/notch": {
+            "types": "./dist/svelte/blocks/notch/index.d.ts",
+            "svelte": "./dist/svelte/blocks/notch/index.js",
+            "default": "./dist/svelte/blocks/notch/index.js"
         }
     },
     "publishConfig": {
@@ -271,6 +291,7 @@
         "cnfast": "0.0.8",
         "fuse.js": "7.3.0",
         "highlight.js": "11.11.1",
+        "layerchart": "2.5.0",
         "marked": "18.0.7",
         "tailwind-merge": "3.6.0",
         "tailwind-variants": "3.2.2",

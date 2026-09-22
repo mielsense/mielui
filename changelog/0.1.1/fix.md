@@ -99,3 +99,33 @@
 - Restore nested dialog stacking, single-layer dismissal, focus return, and shared background scroll locks.
 - Cache the GitHub star count and retain the last valid count during temporary API failures.
 - Preserve invoice-preview state when switching Studio tabs.
+
+- Buttons, fields, selects, and floating surfaces share subtle light-catching edges that follow the theme’s shadow settings.
+
+- Gauge defaults to a larger 120px display with proportional arcs and labels, and smoothly animates value changes.
+
+- Pie chart tooltips use opaque inset surfaces, and live highlights remain visible as they travel around each slice.
+
+- Menus, overlays, tooltips, conversation scrolling, and response text respect reduced motion and the theme’s disabled-motion setting.
+
+- Accordion triggers retain their content relationships, and focus traversal includes editable text regions.
+
+- Joined inputs, selects, and buttons share one control height across sizes. Table badges fit their labels instead of filling the cell.
+
+- Segmented tabs keep even rail padding at fractional spacing and inside scaled containers.
+
+- Keep inset Cards stable when their footer is removed during a state change.
+
+- Studio groups edge highlight strength under its switch and restores the previous strength when re-enabled.
+
+- Data Table uses the shared inset Table surface with a compact header.
+
+- Alert dialogs announce their title and description. Select triggers and option lists now expose linked combobox semantics and accessible names.
+
+- Combobox results collapse smoothly when filtered and stop locking page scroll as soon as the menu closes.
+
+- Give Notch content more padding and keep its detached actions close to the panel.
+
+- Dialogs restore focus when removed while open without interrupting a newly opened dialog.
+
+- Escape closes only the deepest open dropdown or context submenu, keeping its parent menu available.

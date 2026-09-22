@@ -1,6 +1,7 @@
 <script lang="ts">
     import type { HTMLAttributes } from 'svelte/elements';
     import { cn } from '../../utils';
+
     let { children, class: className, ...props }: HTMLAttributes<HTMLDivElement> = $props();
     const levels = [
         'bg-secondary',
@@ -22,7 +23,7 @@
         {#each levels as level}
             <span
                 aria-hidden="true"
-                class={cn(level, 'size-2.5 rounded-[3px] ring-1 ring-inset ring-foreground/5')}
+                class={cn(level, 'size-2.5 rounded-[calc(var(--radius-xs)*1.5)] ring-1 ring-inset ring-foreground/5')}
             ></span>
         {/each}
         <span class="ml-1">More</span>

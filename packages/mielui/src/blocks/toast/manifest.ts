@@ -22,6 +22,7 @@ export const manifest: Manifest = {
     files: [
         'components/toast/lib.svelte.ts',
         'components/toast/toaster.svelte',
+        'components/toast/notch-host.svelte',
         'components/toast/toast.svelte',
         'components/toast/variants.ts',
         'components/toast/context.svelte.ts',
@@ -36,7 +37,7 @@ export const manifest: Manifest = {
         'components/toast/index.ts',
         'components/toast/manifest.ts'
     ],
-    components: ['_internal/utils', 'button'],
+    components: ['_internal/utils', 'button', 'notch'],
     shared: [
         'components/_internal/button-attributes',
         'components/_internal/surface',

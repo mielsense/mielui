@@ -17,7 +17,7 @@
     <title>Mielui · Gauge</title>
     <meta
         name="description"
-        content="A compact circular meter for context, usage limits, storage, seats, and other bounded quantities."
+        content="A circular meter for context, usage limits, storage, seats, and other bounded quantities."
     />
 </svelte:head>
 
@@ -26,8 +26,8 @@
         <div>
             <Typography.H1>Gauge</Typography.H1>
             <Typography.Text variant="lead" class="mt-2 max-w-2xl">
-                A compact circular meter for bounded quantities such as context remaining, API
-                usage, storage, and seats.
+                A circular meter for bounded quantities such as context remaining, API usage,
+                storage, and seats.
             </Typography.Text>
         </div>
         <DocsPager />
@@ -63,16 +63,24 @@
         />
     </section>
 
+    <Typography.Text variant="supporting">
+        The default diameter is 120px. Set size explicitly for compact toolbar meters; the arc and
+        center text scale with it. strokeWidth overrides the proportional arc thickness. Values are
+        clamped between zero and max. A nonpositive or nonfinite max falls back to 100, and
+        nonfinite values display zero. Entry and value changes animate unless the theme disables
+        motion or the user requests reduced motion.
+    </Typography.Text>
+
     <section id="examples" class="scroll-mt-20 flex flex-col gap-10">
         <div>
             <Typography.H2 class="docs-section-heading">Examples</Typography.H2>
             <Typography.Text variant="supporting" class="mt-2">
-                Use Gauge for agent context and product limits.
+                Compare bounded quantities with explicit units and a label beside each meter.
             </Typography.Text>
         </div>
 
         <div id="context-window" class="scroll-mt-20 flex flex-col gap-3">
-            <Typography.H3 class="docs-subsection-heading">Context window</Typography.H3>
+            <Typography.H3 class="docs-subsection-heading">Compact and detailed</Typography.H3>
             <ComponentPreview refreshable code={ContextWindowSrc}>
                 <ContextWindow />
             </ComponentPreview>

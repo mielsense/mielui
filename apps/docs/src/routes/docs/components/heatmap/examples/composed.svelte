@@ -1,6 +1,7 @@
 <script lang="ts">
     import * as Heatmap from '@mielui/svelte/components/heatmap';
     import { days } from './data';
+
     let selected = $state('Choose a day');
 </script>
 <Heatmap.Root
@@ -20,6 +21,7 @@
             <Heatmap.MonthLabels />
             <Heatmap.Grid />
         </Heatmap.Calendar>
+        <Heatmap.Tooltip />
         <Heatmap.Footer>
             <Heatmap.Legend />
             <Heatmap.Detail />

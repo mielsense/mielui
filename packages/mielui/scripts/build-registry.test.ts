@@ -43,7 +43,13 @@ describe('built registry output schema', () => {
             path.join(registryRoot, 'files/components/message/message.svelte'),
             'utf8'
         );
-        expect(message).toContain("from '../typography/variants'");
+        expect(message).toContain("from './message-body.svelte'");
+        const metadata = await readFile(
+            path.join(registryRoot, 'files/components/message/message-metadata.svelte'),
+            'utf8'
+        );
+        expect(metadata).toContain("from '../typography/variants'");
+        expect(metadata).not.toContain('../../components/');
         expect(message).not.toContain('../../components/');
         expect(existsSync(path.join(registryRoot, 'files/ai-components'))).toBe(false);
     });

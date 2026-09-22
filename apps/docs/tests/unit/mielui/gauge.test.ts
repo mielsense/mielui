@@ -21,4 +21,27 @@ describe('Gauge', () => {
         expect(container.querySelector('[data-ui="gauge"]')).toHaveTextContent('72');
         expect(container.querySelector('.text-warning')).toBeInTheDocument();
     });
+    it('normalizes invalid inputs without invalid SVG geometry', () => {
+        const { getByRole, container } = render(Gauge, {
+            props: { value: Number.NaN, max: -10, size: Number.NaN, strokeWidth: Number.NaN }
+        });
+        const meter = getByRole('meter');
+        expect(meter).toHaveAttribute('aria-valuenow', '0');
+        expect(meter).toHaveAttribute('aria-valuemax', '100');
+        expect(meter).toHaveStyle({ width: '120px', height: '120px' });
+        const arc = container.querySelector('circle.stroke-current');
+        expect(arc).toHaveAttribute('stroke-width', '8');
+        expect(arc).toHaveAttribute('opacity', '0');
+    });
+
+    it('scales compact gauges and clamps oversized strokes', () => {
+        const { getByRole, container } = render(Gauge, {
+            props: { value: 24, max: 32, size: 32, strokeWidth: 100 }
+        });
+        expect(getByRole('meter')).toHaveStyle({ width: '32px' });
+        expect(container.querySelector('circle.stroke-current')).toHaveAttribute(
+            'stroke-width',
+            '16'
+        );
+    });
 });

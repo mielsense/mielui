@@ -1,14 +1,14 @@
 <script lang="ts">
-    import { onMount } from 'svelte';
     import { cn } from '@mielui/svelte/utils';
+    import { onMount, untrack } from 'svelte';
     import type { GaugeProps, GaugeTone } from '.';
 
     let {
         value,
         max = 100,
         label,
-        size = 28,
-        strokeWidth = 2,
+        size = 120,
+        strokeWidth,
         tone = 'primary',
         children,
         class: className,
@@ -23,33 +23,75 @@
         error: 'text-error'
     };
     const safeMax = $derived(Number.isFinite(max) && max > 0 ? max : 100);
-    const safeSize = $derived(Number.isFinite(size) ? Math.max(size, 16) : 28);
+    const safeSize = $derived(Number.isFinite(size) ? Math.max(size, 16) : 120);
     const safeStrokeWidth = $derived(
-        Number.isFinite(strokeWidth) ? Math.min(Math.max(strokeWidth, 1), safeSize / 2) : 2
+        typeof strokeWidth === 'number' && Number.isFinite(strokeWidth)
+            ? Math.min(Math.max(strokeWidth, 1), safeSize / 2)
+            : Math.max(2, safeSize / 15)
     );
     const clamped = $derived(Number.isFinite(value) ? Math.min(Math.max(value, 0), safeMax) : 0);
     const radius = $derived((safeSize - safeStrokeWidth) / 2);
-    const circumference = $derived(2 * Math.PI * radius);
-    const offset = $derived(circumference * (1 - clamped / safeMax));
+    const offset = $derived(100 * (1 - clamped / safeMax));
+    const fontSize = $derived(Math.max(10, safeSize * 0.24));
     let arc: SVGCircleElement;
+    let mounted = $state(false);
+    let duration = $state(0);
+    let animation: Animation | undefined;
+    let previousOffset = 100;
+    let entered = false;
+
     onMount(() => {
-        const preference = window.matchMedia('(prefers-reduced-motion: reduce)');
-        const themeDuration = getComputedStyle(arc).getPropertyValue('--motion-duration-panel');
-        if (preference.matches || Number.parseFloat(themeDuration) === 0) {
+        const preference = window.matchMedia?.('(prefers-reduced-motion: reduce)');
+        function refreshMotion() {
+            const token = getComputedStyle(arc).getPropertyValue('--motion-duration-panel').trim();
+            const amount = Number.parseFloat(token);
+            const milliseconds = token.endsWith('ms') ? amount : amount * 1000;
+            duration = preference?.matches
+                ? 0
+                : Number.isFinite(milliseconds)
+                  ? milliseconds * 2
+                  : 480;
+        }
+        refreshMotion();
+        mounted = true;
+        preference?.addEventListener('change', refreshMotion);
+        const observer = new MutationObserver(refreshMotion);
+        let ancestor: Element | null = arc.parentElement;
+        while (ancestor) {
+            observer.observe(ancestor, { attributes: true, attributeFilter: ['class', 'style'] });
+            ancestor = ancestor.parentElement;
+        }
+        return () => {
+            animation?.cancel();
+            observer.disconnect();
+            preference?.removeEventListener('change', refreshMotion);
+        };
+    });
+
+    $effect(() => {
+        const target = offset;
+        const milliseconds = duration;
+        if (!mounted) {
             return;
         }
-        const animation = arc.animate(
-            [{ strokeDashoffset: String(circumference) }, { strokeDashoffset: String(offset) }],
-            { duration: 650, easing: 'cubic-bezier(0.2,0,0,1)', fill: 'backwards' }
-        );
-        function cancel() {
-            animation.cancel();
-        }
-        preference.addEventListener('change', cancel);
-        return () => {
-            cancel();
-            preference.removeEventListener('change', cancel);
-        };
+        untrack(() => {
+            const from =
+                animation && animation.playState !== 'finished'
+                    ? Number.parseFloat(getComputedStyle(arc).strokeDashoffset)
+                    : entered
+                      ? previousOffset
+                      : 100;
+            animation?.cancel();
+            arc.setAttribute('stroke-dashoffset', String(target));
+            if (milliseconds > 0 && from !== target && typeof arc.animate === 'function') {
+                animation = arc.animate(
+                    [{ strokeDashoffset: String(from) }, { strokeDashoffset: String(target) }],
+                    { duration: milliseconds, easing: 'cubic-bezier(0.2,0,0,1)' }
+                );
+            }
+            previousOffset = target;
+            entered = true;
+        });
     });
     const accessibleLabel = $derived(label ?? `${clamped} of ${safeMax}`);
 </script>
@@ -87,17 +129,20 @@
             stroke-width={safeStrokeWidth}
             stroke-linecap="round"
             bind:this={arc}
-            stroke-dasharray={circumference}
+            pathLength={100}
+            stroke-dasharray="100"
             stroke-dashoffset={offset}
+            opacity={clamped === 0 ? 0 : 1}
             class={cn(
                 toneClasses[tone],
-                'stroke-current transition-[stroke-dashoffset] [transition-duration:var(--motion-duration-panel)] ease-out motion-reduce:transition-none'
+                'stroke-current'
             )}
         />
     </svg>
     <span
         aria-hidden="true"
-        class="relative text-[length:var(--font-size-badge)] leading-none text-foreground-muted tabular-nums [font-weight:var(--font-weight-label)]"
+        class="relative grid max-w-[72%] place-items-center leading-none tracking-tight text-foreground tabular-nums [font-weight:var(--font-weight-heading)]"
+        style:font-size={`${fontSize}px`}
     >
         {#if children}
             {@render children()}
