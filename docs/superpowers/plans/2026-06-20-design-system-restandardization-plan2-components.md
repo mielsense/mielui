@@ -81,7 +81,7 @@ it('honors a disable-next-line directive', () => {
 });
 ```
 
-- [ ] **Step 2: Run — expect the new cases to FAIL.** `cd /home/aidan/silk/apps/docs && pnpm dlx vitest run ../../tools/token-lint/index.test.ts`
+- [ ] **Step 2: Run — expect the new cases to FAIL.** `cd /path/to/mielui/apps/docs && pnpm dlx vitest run ../../tools/token-lint/index.test.ts`
 
 - [ ] **Step 3: Implement the refinements in `index.ts`:**
     - Narrow `no-primitive-leak` regex to real primitive families only:
@@ -116,7 +116,7 @@ export function lintSource(file: string, source: string): Violation[] {
 }
 ```
 
-- [ ] **Step 4: Run all token-lint tests — expect PASS.** Then re-baseline: `cd /home/aidan/silk && pnpm exec tsx tools/token-lint/index.ts packages/mielui/src/components | tail -1`. Record the new (lower) count in the commit message.
+- [ ] **Step 4: Run all token-lint tests — expect PASS.** Then re-baseline: `cd /path/to/mielui && pnpm exec tsx tools/token-lint/index.ts packages/mielui/src/components | tail -1`. Record the new (lower) count in the commit message.
 
 - [ ] **Step 5: Commit** — `git add tools/token-lint && git commit -m "feat(token-lint): scope primitive-leak rule + inline-disable directives"`
 

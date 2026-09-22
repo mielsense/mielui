@@ -92,7 +92,7 @@ describe('lintSource', () => {
 
 - [ ] **Step 2: Run test to verify it fails**
 
-Run: `cd /home/aidan/silk/apps/docs && pnpm dlx vitest run ../../tools/token-lint/index.test.ts`
+Run: `cd /path/to/mielui/apps/docs && pnpm dlx vitest run ../../tools/token-lint/index.test.ts`
 Expected: FAIL — `Cannot find module './index'`.
 
 - [ ] **Step 3: Write minimal implementation**
@@ -123,7 +123,7 @@ export function lintSource(file: string, source: string): Violation[] {
 
 - [ ] **Step 4: Run test to verify it passes**
 
-Run: `cd /home/aidan/silk/apps/docs && pnpm dlx vitest run ../../tools/token-lint/index.test.ts`
+Run: `cd /path/to/mielui/apps/docs && pnpm dlx vitest run ../../tools/token-lint/index.test.ts`
 Expected: PASS (5 tests).
 
 - [ ] **Step 5: Add a CLI entry that scans the component tree in report mode**
@@ -157,13 +157,13 @@ if (import.meta.main) {
 
 - [ ] **Step 6: Run report mode to capture the Plan 2 worklist**
 
-Run: `cd /home/aidan/silk && pnpm exec tsx tools/token-lint/index.ts packages/mielui/src/components > /tmp/token-lint-baseline.txt; tail -1 /tmp/token-lint-baseline.txt`
+Run: `cd /path/to/mielui && pnpm exec tsx tools/token-lint/index.ts packages/mielui/src/components > /tmp/token-lint-baseline.txt; tail -1 /tmp/token-lint-baseline.txt`
 Expected: prints a non-zero violation count (the literals Plan 2 will remove). This is informational; do not fail the build.
 
 - [ ] **Step 7: Commit**
 
 ```bash
-cd /home/aidan/silk
+cd /path/to/mielui
 git add tools/token-lint
 git commit -m "feat(tokens): add token-lint tool (report mode)"
 ```
@@ -208,7 +208,7 @@ describe('ui.css Tier 1 primitives', () => {
 
 - [ ] **Step 2: Run to verify it fails**
 
-Run: `cd /home/aidan/silk/apps/docs && pnpm dlx vitest run ../../packages/mielui/src/themes/ui-css.test.ts`
+Run: `cd /path/to/mielui/apps/docs && pnpm dlx vitest run ../../packages/mielui/src/themes/ui-css.test.ts`
 Expected: FAIL — current `ui.css` has no `--mielui-*` primitives.
 
 - [ ] **Step 3: Rewrite the top of `ui.css` with Tier-1 primitives**
@@ -359,13 +359,13 @@ Immediately after Tier 3 closes the `@theme` block (Task 4), the dark block begi
 
 - [ ] **Step 5: Run the presence test (will still fail on Tier-2/3 absence — that's expected)**
 
-Run: `cd /home/aidan/silk/apps/docs && pnpm dlx vitest run ../../packages/mielui/src/themes/ui-css.test.ts`
+Run: `cd /path/to/mielui/apps/docs && pnpm dlx vitest run ../../packages/mielui/src/themes/ui-css.test.ts`
 Expected: the three Tier-1 assertions PASS. (File won't build until Tasks 3–4 close the blocks; do not run the app build yet.)
 
 - [ ] **Step 6: Commit (WIP — file intentionally not yet closed)**
 
 ```bash
-cd /home/aidan/silk
+cd /path/to/mielui
 git add packages/mielui/src/ui.css packages/mielui/src/themes/ui-css.test.ts
 git commit -m "feat(tokens): Tier 1 primitives in ui.css [WIP, closed in next tasks]"
 ```
@@ -402,7 +402,7 @@ describe('ui.css Tier 2 semantic', () => {
 
 - [ ] **Step 2: Run to verify it fails**
 
-Run: `cd /home/aidan/silk/apps/docs && pnpm dlx vitest run ../../packages/mielui/src/themes/ui-css.test.ts`
+Run: `cd /path/to/mielui/apps/docs && pnpm dlx vitest run ../../packages/mielui/src/themes/ui-css.test.ts`
 Expected: FAIL on the new `describe('ui.css Tier 2 semantic')` block.
 
 - [ ] **Step 3: Append Tier 2 to the `@theme` block (light)**
@@ -480,13 +480,13 @@ After the Tier-1 dark primitives in the `.dark` block:
 
 - [ ] **Step 5: Run the Tier-2 test**
 
-Run: `cd /home/aidan/silk/apps/docs && pnpm dlx vitest run ../../packages/mielui/src/themes/ui-css.test.ts`
+Run: `cd /path/to/mielui/apps/docs && pnpm dlx vitest run ../../packages/mielui/src/themes/ui-css.test.ts`
 Expected: Tier-1 and Tier-2 assertions PASS.
 
 - [ ] **Step 6: Commit**
 
 ```bash
-cd /home/aidan/silk
+cd /path/to/mielui
 git add packages/mielui/src/ui.css packages/mielui/src/themes/ui-css.test.ts
 git commit -m "feat(tokens): Tier 2 semantic tokens + retired-name aliases"
 ```
@@ -527,7 +527,7 @@ describe('ui.css Tier 3 + structure', () => {
 
 - [ ] **Step 2: Run to verify it fails**
 
-Run: `cd /home/aidan/silk/apps/docs && pnpm dlx vitest run ../../packages/mielui/src/themes/ui-css.test.ts`
+Run: `cd /path/to/mielui/apps/docs && pnpm dlx vitest run ../../packages/mielui/src/themes/ui-css.test.ts`
 Expected: FAIL on the Tier-3 block.
 
 - [ ] **Step 3: Insert Tier 3 inside `@theme` (before the `}` that closed it in Task 3)**
@@ -683,18 +683,18 @@ After the `.dark` block, append the `@layer base { … }` (border-color, `.borde
 
 - [ ] **Step 6: Run the full ui.css test**
 
-Run: `cd /home/aidan/silk/apps/docs && pnpm dlx vitest run ../../packages/mielui/src/themes/ui-css.test.ts`
+Run: `cd /path/to/mielui/apps/docs && pnpm dlx vitest run ../../packages/mielui/src/themes/ui-css.test.ts`
 Expected: all describe blocks PASS.
 
 - [ ] **Step 7: Build the library to prove the CSS is valid**
 
-Run: `cd /home/aidan/silk && pnpm run build --filter=@mielui/docs 2>&1 | tail -20`
+Run: `cd /path/to/mielui && pnpm run build --filter=@mielui/docs 2>&1 | tail -20`
 Expected: build succeeds (Tailwind compiles ui.css). If it fails on an unclosed block, fix the brace nesting from Tasks 2–4.
 
 - [ ] **Step 8: Commit**
 
 ```bash
-cd /home/aidan/silk
+cd /path/to/mielui
 git add packages/mielui/src/ui.css packages/mielui/src/themes/ui-css.test.ts
 git commit -m "feat(tokens): Tier 3 derived component tokens; ui.css 3-tier complete"
 ```
@@ -765,7 +765,7 @@ describe('themeToCss', () => {
 
 - [ ] **Step 2: Run to verify it fails**
 
-Run: `cd /home/aidan/silk/apps/docs && pnpm dlx vitest run --project unit mielui/theme.test.ts`
+Run: `cd /path/to/mielui/apps/docs && pnpm dlx vitest run --project unit mielui/theme.test.ts`
 Expected: FAIL — `Cannot find module './theme'`.
 
 - [ ] **Step 3: Implement `theme.ts`**
@@ -950,13 +950,13 @@ export function themeToCss(theme: Theme): string {
 
 - [ ] **Step 4: Run tests to verify pass**
 
-Run: `cd /home/aidan/silk/apps/docs && pnpm dlx vitest run --project unit mielui/theme.test.ts`
+Run: `cd /path/to/mielui/apps/docs && pnpm dlx vitest run --project unit mielui/theme.test.ts`
 Expected: PASS (all cases).
 
 - [ ] **Step 5: Commit**
 
 ```bash
-cd /home/aidan/silk
+cd /path/to/mielui
 git add packages/mielui/src/themes/theme.ts apps/docs/tests/unit/mielui/theme.test.ts
 git commit -m "feat(themes): constrained Theme engine (themeToCss v2), additive"
 ```
@@ -974,7 +974,7 @@ Expose the new default as the one built-in, and wire the live custom-theme CSS r
 
 - [ ] **Step 1: Inspect both files**
 
-Run: `cd /home/aidan/silk && sed -n '1,40p' packages/mielui/src/themes/builtin-presets.ts && echo '---' && cat apps/docs/src/routes/themes/\[name\].css/+server.ts`
+Run: `cd /path/to/mielui && sed -n '1,40p' packages/mielui/src/themes/builtin-presets.ts && echo '---' && cat apps/docs/src/routes/themes/\[name\].css/+server.ts`
 Expected: see how built-ins are aggregated and how the route serializes a theme to CSS.
 
 - [ ] **Step 2: Add a v2 export to `builtin-presets.ts` (additive)**
@@ -1006,7 +1006,7 @@ describe('themesV2', () => {
 
 - [ ] **Step 4: Run it**
 
-Run: `cd /home/aidan/silk/apps/docs && pnpm dlx vitest run --project unit mielui/builtin-presets.test.ts`
+Run: `cd /path/to/mielui/apps/docs && pnpm dlx vitest run --project unit mielui/builtin-presets.test.ts`
 Expected: PASS.
 
 - [ ] **Step 5: Point the live CSS route at v2 when given a v2 theme**
@@ -1032,13 +1032,13 @@ if (params.name === 'default') {
 
 - [ ] **Step 6: Type-check the whole repo**
 
-Run: `cd /home/aidan/silk && pnpm run check 2>&1 | tail -25`
+Run: `cd /path/to/mielui && pnpm run check 2>&1 | tail -25`
 Expected: green (no TS errors). If the route file’s `@mielui/svelte/themes/theme` import isn’t resolved, confirm the package `exports` map includes `./themes/*`; add it if missing (check `packages/mielui/package.json` — note it currently has no `exports` field, so subpaths resolve via the workspace `src` paths used elsewhere; mirror however `@mielui/svelte/themes/presets` is already imported).
 
 - [ ] **Step 7: Commit**
 
 ```bash
-cd /home/aidan/silk
+cd /path/to/mielui
 git add packages/mielui/src/themes/builtin-presets.ts apps/docs/tests/unit/mielui/builtin-presets.test.ts "apps/docs/src/routes/themes/[name].css/+server.ts"
 git commit -m "feat(themes): reseed single default; serve default via v2 engine"
 ```
@@ -1057,7 +1057,7 @@ The old default theme values changed (Linear indigo → soft blue, 16px → 14px
 
 - [ ] **Step 1: Run the full suite to see what breaks**
 
-Run: `cd /home/aidan/silk/apps/docs && pnpm dlx vitest run --project unit 2>&1 | tail -40`
+Run: `cd /path/to/mielui/apps/docs && pnpm dlx vitest run --project unit 2>&1 | tail -40`
 Expected: failures only in tests asserting retired default values (e.g. `#5e6ad2`, `16px`, fancy shadow presence). Note each failing assertion.
 
 - [ ] **Step 2: Update each failing assertion**
@@ -1078,13 +1078,13 @@ it.skip('pins legacy fancy-button shadow (retired in re-standardization Plan 1)'
 
 - [ ] **Step 3: Re-run the unit project**
 
-Run: `cd /home/aidan/silk/apps/docs && pnpm dlx vitest run --project unit 2>&1 | tail -20`
+Run: `cd /path/to/mielui/apps/docs && pnpm dlx vitest run --project unit 2>&1 | tail -20`
 Expected: PASS (0 failures).
 
 - [ ] **Step 4: Commit**
 
 ```bash
-cd /home/aidan/silk
+cd /path/to/mielui
 git add apps/docs/tests/unit/mielui/themes.presets.test.ts
 git commit -m "test(themes): reconcile engine tests with new neutral default"
 ```
@@ -1099,7 +1099,7 @@ Confirm the default renders the Notion-like aesthetic in both modes.
 
 - [ ] **Step 1: Run the docs app**
 
-Run: `cd /home/aidan/silk && pnpm run dev --filter=@mielui/docs` (background) and open the components showcase route.
+Run: `cd /path/to/mielui && pnpm run dev --filter=@mielui/docs` (background) and open the components showcase route.
 
 - [ ] **Step 2: Screenshot light + dark via Playwright MCP**
 
@@ -1121,11 +1121,11 @@ If anything diverges (e.g. a component still shows a fancy shadow because it rea
 
 - [ ] **Step 5: Final green check + commit (docs only if notes added)**
 
-Run: `cd /home/aidan/silk && pnpm run check && cd apps/docs && pnpm dlx vitest run --project unit 2>&1 | tail -5`
+Run: `cd /path/to/mielui && pnpm run check && cd apps/docs && pnpm dlx vitest run --project unit 2>&1 | tail -5`
 Expected: both green.
 
 ```bash
-cd /home/aidan/silk
+cd /path/to/mielui
 git add docs/superpowers/plans/2026-06-19-design-system-restandardization-plan1-tokens.md
 git commit -m "docs(plan): record Plan 2 carry-over from visual verification"
 ```
