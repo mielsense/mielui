@@ -288,7 +288,7 @@
         "commander": "14.0.3",
         "esbuild": "0.28.1",
         "picocolors": "1.1.1",
-        "svelte-check": "4.4.8",
+        "svelte-check": "4.7.6",
         "tailwindcss": "4.3.0",
         "tsx": "^4.23.13",
         "typescript": "5.9.3",
