@@ -140,7 +140,7 @@ function escapeHtml(input: string): string {
     return input.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 }
 
-const PM_RUNNERS = new Set(['pnpm', 'npm', 'npx', 'yarn']);
+const PM_RUNNERS = new Set(['pnpm', 'npm', 'npx', 'yarn', 'bun', 'bunx']);
 const PM_SUBCOMMANDS = new Set([
     'add',
     'i',
@@ -165,7 +165,7 @@ const PM_SUBCOMMANDS = new Set([
  * known runner; anything else stays escaped plain text.
  */
 function highlightPmCommand(code: string): string {
-    if (!/^\s*(pnpm|npm|npx|yarn)\b/.test(code)) {
+    if (!/^\s*(pnpm|npm|npx|yarn|bun|bunx)\b/.test(code)) {
         return escapeHtml(code);
     }
     let seen = 0;
