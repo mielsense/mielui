@@ -12,9 +12,10 @@
         onOpenChange
     }: SelectProps = $props();
     const id = $props.id();
+    let triggerId = $state(`${id}-trigger`);
     const labels = new SvelteMap<string, string>();
     const values = new Set<string>();
-    const state = {
+    const selectionState = {
         get value() {
             return value;
         },
@@ -30,7 +31,13 @@
     };
     const context: SelectContext = {
         id,
-        state,
+        get triggerId() {
+            return triggerId;
+        },
+        set triggerId(value) {
+            triggerId = value;
+        },
+        state: selectionState,
         labels,
         values,
         get open() {

@@ -66,7 +66,7 @@
             data-ui="input-control"
             data-variant={variant}
             class={cn(
-                'flex min-h-[var(--size-control-md)] w-full items-center gap-2 rounded-[var(--radius-lg)] border-[length:var(--border-size)] px-3 text-[var(--color-field-foreground)] transition-[background-color,border-color,box-shadow] [transition-duration:var(--motion-duration-press)] ease-[var(--ease-out)] motion-reduce:transition-none has-[:focus-visible]:shadow-[var(--focus-ring)] has-[[aria-invalid=true]]:border-error has-[[aria-invalid=true]]:has-[:focus-visible]:border-error has-[input:disabled]:cursor-not-allowed has-[input:disabled]:opacity-[var(--opacity-disabled)]',
+                'flex min-h-[calc(var(--size-control-md)-var(--size-hairline))] w-full items-center gap-2 rounded-[var(--radius-lg)] border-[length:var(--border-size)] px-3 text-[var(--color-field-foreground)] transition-[background-color,border-color,box-shadow] [transition-duration:var(--motion-duration-press)] ease-[var(--ease-out)] motion-reduce:transition-none shadow-[var(--elevation-control-edge)] has-[:focus-visible]:shadow-[var(--focus-ring),var(--elevation-control-edge)] has-[[aria-invalid=true]]:border-error has-[[aria-invalid=true]]:has-[:focus-visible]:border-error has-[input:disabled]:cursor-not-allowed has-[input:disabled]:opacity-[var(--opacity-disabled)]',
                 controlClass
             )}
         >

@@ -28,29 +28,56 @@
 
     const ghostRect = $derived(hovering && hover ? hover : indicator);
 
+    function borderBox(el: HTMLElement) {
+        const style = getComputedStyle(el);
+        const horizontal =
+            style.boxSizing === 'border-box'
+                ? 0
+                : parseFloat(style.paddingLeft) +
+                  parseFloat(style.paddingRight) +
+                  parseFloat(style.borderLeftWidth) +
+                  parseFloat(style.borderRightWidth);
+        const vertical =
+            style.boxSizing === 'border-box'
+                ? 0
+                : parseFloat(style.paddingTop) +
+                  parseFloat(style.paddingBottom) +
+                  parseFloat(style.borderTopWidth) +
+                  parseFloat(style.borderBottomWidth);
+        return {
+            width: parseFloat(style.width) + horizontal,
+            height: parseFloat(style.height) + vertical,
+            borderLeft: parseFloat(style.borderLeftWidth),
+            borderTop: parseFloat(style.borderTopWidth)
+        };
+    }
+
     function rectOf(el: HTMLElement): Rect {
+        const bounds = el.getBoundingClientRect();
+        const size = borderBox(el);
         const host = listEl;
         if (!host) {
-            return {
-                left: el.offsetLeft,
-                top: el.offsetTop,
-                width: el.offsetWidth,
-                height: el.offsetHeight
-            };
+            return { left: 0, top: 0, width: size.width, height: size.height };
         }
-        let left = el.offsetLeft;
-        let top = el.offsetTop;
-        let parent = el.offsetParent;
-        while (parent instanceof HTMLElement && parent !== host) {
-            left += parent.offsetLeft;
-            top += parent.offsetTop;
-            parent = parent.offsetParent;
-        }
+        const hostBounds = host.getBoundingClientRect();
+        const hostSize = borderBox(host);
+        const scaleX =
+            hostSize.width > 0 && hostBounds.width > 0 ? hostBounds.width / hostSize.width : 1;
+        const scaleY =
+            hostSize.height > 0 && hostBounds.height > 0 ? hostBounds.height / hostSize.height : 1;
         return {
-            left,
-            top,
-            width: el.offsetWidth,
-            height: el.offsetHeight
+            left:
+                (bounds.left + bounds.width / 2 - hostBounds.left) / scaleX -
+                size.width / 2 +
+                host.scrollLeft -
+                hostSize.borderLeft,
+            top:
+                (bounds.top + bounds.height / 2 - hostBounds.top) / scaleY -
+                size.height / 2 +
+                host.scrollTop -
+                hostSize.borderTop,
+            width: size.width,
+            height: size.height
         };
     }
 
@@ -226,7 +253,7 @@
         {:else if variant === 'segmented'}
             <div
                 aria-hidden="true"
-                class="pointer-events-none absolute rounded-[calc(var(--radius-xl)-var(--spacing))] bg-card ring-1 ring-border/50 transition-[left,top,width,height] [transition-duration:var(--motion-duration-panel)] ease-[var(--ease-out)] motion-reduce:transition-none"
+                class="pointer-events-none absolute rounded-[calc(var(--radius-xl)-var(--spacing))] bg-card shadow-[var(--elevation-control-edge)] ring-1 ring-border/50 transition-[left,top,width,height] [transition-duration:var(--motion-duration-panel)] ease-[var(--ease-out)] motion-reduce:transition-none"
                 style:left={`${indicator.left}px`}
                 style:top={`${indicator.top}px`}
                 style:width={`${indicator.width}px`}

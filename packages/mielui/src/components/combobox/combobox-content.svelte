@@ -74,7 +74,7 @@
         {align}
         sideOffset={6}
         customAnchor={anchor}
-        preventScroll={lockScroll && !context.hoverable}
+        preventScroll={state.open && lockScroll && !context.hoverable}
         onInteractOutside={(event) => {
             if (!allowClickOutside || (event.target instanceof Node && context.anchor?.contains(event.target))) {
                 event.preventDefault();
@@ -99,7 +99,7 @@
                         className,
                         overlaySurface(surface),
                         'mielui-modal-frame z-[130] flex max-h-[var(--bits-combobox-content-available-height)] max-w-[var(--bits-combobox-content-available-width)] w-[var(--bits-combobox-anchor-width)] min-w-[var(--bits-combobox-anchor-width)] flex-col overflow-hidden text-sm text-foreground shadow-[var(--elevation-float)] [--mielui-modal-inset:calc(var(--spacing)*0.5)] outline-none origin-[var(--bits-combobox-content-transform-origin)] [transition-duration:var(--motion-duration-panel)] ease-[var(--ease-out)] motion-reduce:transition-none',
-                        open ? 'visible scale-100 opacity-100 blur-none transition-[opacity,scale,filter]' : 'invisible scale-[0.98] opacity-0 blur-[2px] transition-[opacity,scale,filter,visibility]'
+                        open ? 'visible scale-100 opacity-100 blur-none transition-[opacity,scale,filter]' : 'invisible scale-[0.98] opacity-0 blur-[var(--motion-menu-blur)] transition-[opacity,scale,filter,visibility]'
                     )}
                 >
                     <div

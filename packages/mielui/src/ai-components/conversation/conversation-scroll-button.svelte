@@ -1,5 +1,6 @@
 <script lang="ts">
     import { ArrowDown02Icon as ArrowDown } from '@hugeicons/core-free-icons';
+    import { getCssDuration } from '@mielui/svelte/transition';
     import { cn, pressable } from '@mielui/svelte/utils';
     import HugeiconsIcon from '../../hugeicons-icon.svelte';
     import type { ConversationScrollButtonProps } from '.';
@@ -15,8 +16,10 @@
     const conversation = getConversationContext();
     const visible = $derived(!conversation.follow && !conversation.atBottom);
 
-    function scrollToBottom() {
-        const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    function scrollToBottom(button: HTMLButtonElement) {
+        const reducedMotion =
+            window.matchMedia?.('(prefers-reduced-motion: reduce)').matches ||
+            getCssDuration(button, '--motion-duration-panel', 180) === 0;
         conversation.scrollToBottom(reducedMotion ? 'auto' : 'smooth');
     }
 </script>
@@ -40,7 +43,7 @@
         onclick={(event) => {
             onclick?.(event);
             if (!event.defaultPrevented) {
-                scrollToBottom();
+                scrollToBottom(event.currentTarget);
             }
         }}
     >

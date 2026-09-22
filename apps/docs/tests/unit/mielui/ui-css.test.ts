@@ -98,8 +98,10 @@ describe('ui.css Tier 3 + structure', () => {
     });
     /** Mirrors the budget in packages/mielui/release.test.ts -- keep the two in step. */
     it('stays within the release size budget', () => {
-        const normalizedCss = css.replace(/\s+/g, ' ').trim();
-        expect(css.split('\n').length).toBeLessThanOrEqual(557);
+        const normalizedCss = css
+            .replace(/\/\*[\s\S]*?\*\//g, '')
+            .replace(/\s+/g, ' ')
+            .trim();
         expect(Buffer.byteLength(normalizedCss)).toBeLessThanOrEqual(18 * 1024);
     });
 

@@ -9,7 +9,13 @@
 </script>
 
 <MenuPrimitive.Portal>
-    <MenuPrimitive.SubContent {...rest} forceMount sideOffset={4} align="start">
+    <MenuPrimitive.SubContent
+        {...rest}
+        forceMount
+        escapeKeydownBehavior="close"
+        sideOffset={4}
+        align="start"
+    >
         {#snippet child({ props, wrapperProps, open })}
             {#if open}
                 <div {...wrapperProps} data-overlay-root class="z-[130]">

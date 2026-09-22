@@ -5,10 +5,11 @@ export const toggle = tv({
     variants: {
         variant: {
             default: '',
-            outlined: 'border-[length:var(--border-size)] border-border'
+            outlined:
+                'border-[length:var(--border-size)] border-border shadow-[var(--elevation-control-edge)] focus-visible:shadow-[var(--focus-ring),var(--elevation-control-edge)]'
         },
         pressed: {
-            true: 'bg-secondary text-foreground hover:bg-secondary',
+            true: 'bg-secondary text-foreground hover:bg-secondary shadow-[var(--elevation-control-edge)] focus-visible:shadow-[var(--focus-ring),var(--elevation-control-edge)]',
             false: 'bg-transparent text-foreground-muted hover:bg-secondary/60 hover:text-foreground'
         },
         size: {

@@ -1,11 +1,16 @@
-import { act, render } from '@testing-library/svelte';
-import { describe, expect, it, vi } from 'vitest';
+import { render } from '@testing-library/svelte';
+import { flushSync } from 'svelte';
+import { afterEach, describe, expect, it, vi } from 'vitest';
 import SkeletonSwapFixture from '../../fixtures/SkeletonSwapFixture.svelte';
 import { queryRequired } from '../../test-utils';
 
+afterEach(() => {
+    vi.useRealTimers();
+});
+
 describe('SkeletonSwap', () => {
     it('delays the placeholder and reserves the content box', async () => {
-        vi.useFakeTimers();
+        vi.useFakeTimers({ toFake: ['setTimeout', 'clearTimeout', 'Date', 'performance'] });
         const { container } = render(SkeletonSwapFixture, { props: { ready: false } });
         const shell = queryRequired(container, '[data-ui="skeleton-swap"]');
         const placeholder = queryRequired(container, '.mielui-skeleton-placeholder');
@@ -13,15 +18,15 @@ describe('SkeletonSwap', () => {
         expect(shell).toHaveStyle({ height: '42px' });
         expect(placeholder).toHaveAttribute('data-visible', 'false');
 
-        await act(() => vi.advanceTimersByTime(20));
+        flushSync(() => vi.advanceTimersByTime(20));
         expect(placeholder).toHaveAttribute('data-visible', 'true');
         vi.useRealTimers();
     });
 
     it('keeps a shown placeholder for its minimum visible time', async () => {
-        vi.useFakeTimers();
+        vi.useFakeTimers({ toFake: ['setTimeout', 'clearTimeout', 'Date', 'performance'] });
         const view = render(SkeletonSwapFixture, { props: { ready: false } });
-        await act(() => vi.advanceTimersByTime(20));
+        flushSync(() => vi.advanceTimersByTime(20));
         await view.rerender({ ready: true });
         const shell = queryRequired(view.container, '[data-ui="skeleton-swap"]');
         const placeholder = queryRequired(view.container, '.mielui-skeleton-placeholder');
@@ -29,9 +34,9 @@ describe('SkeletonSwap', () => {
         expect(shell).toHaveAttribute('aria-busy', 'true');
         expect(view.container.querySelector('[role="status"]')).toHaveTextContent('');
 
-        await act(() => vi.advanceTimersByTime(39));
+        flushSync(() => vi.advanceTimersByTime(39));
         expect(placeholder).toHaveAttribute('data-visible', 'true');
-        await act(() => vi.advanceTimersByTime(1));
+        flushSync(() => vi.advanceTimersByTime(1));
         expect(placeholder).toHaveAttribute('data-visible', 'false');
         expect(shell).toHaveAttribute('aria-busy', 'false');
         expect(view.container.querySelector('[role="status"]')).toHaveTextContent('Profile loaded');

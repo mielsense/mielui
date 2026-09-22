@@ -31,6 +31,21 @@
     }: ComboboxTriggerProps = $props();
 
     const isInputAppearance = $derived(appearance === 'input');
+    const focusClasses = $derived.by(() => {
+        if (isInputAppearance) {
+            return 'items-center gap-2 focus-within:shadow-[var(--focus-ring),var(--elevation-control-edge)]';
+        }
+        if (variant === 'ghost' || variant === 'quiet') {
+            return 'focus-within:shadow-[var(--focus-ring)]';
+        }
+        if (variant === 'primary') {
+            return 'focus-within:shadow-[var(--focus-ring),var(--elevation-control-edge),inset_0_0_0_var(--border-size)_var(--color-primary-stroke)]';
+        }
+        if (variant === 'panel') {
+            return 'focus-within:shadow-[var(--focus-ring),var(--elevation-1)]';
+        }
+        return 'focus-within:shadow-[var(--focus-ring),var(--elevation-control-edge)]';
+    });
     const inputClasses = $derived(
         cn(
             'min-w-0 flex-1 bg-transparent text-left text-[length:var(--font-size-button)] [font-weight:var(--font-weight-button)] [letter-spacing:var(--tracking-button)] outline-none placeholder:text-foreground-muted',
@@ -87,6 +102,8 @@
 
 <div
     bind:this={context.anchor}
+    data-ui="combobox-trigger"
+    data-size={size}
     data-state={combobox.open ? 'open' : 'closed'}
     data-appearance={appearance}
     onmouseenter={context.hoverEnter}
@@ -96,7 +113,7 @@
         className,
         isInputAppearance ? input({ variant: variant === 'secondary' ? 'secondary' : 'outline' }) : button({ variant, size }),
         'relative select-none',
-        isInputAppearance ? 'items-center gap-2 focus-within:shadow-[var(--focus-ring)]' : 'focus-within:shadow-[var(--focus-ring),var(--elevation-button-outline)]',
+        focusClasses,
         disabled && 'pointer-events-none opacity-40'
     )}
 >

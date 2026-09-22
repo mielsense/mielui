@@ -211,3 +211,14 @@ async account() {
   };
 }
 ```
+
+
+# Shared design contracts
+
+Every component and example must follow DESIGN.md's "Required shared appearance
+and interaction contracts" section. Reuse shared control-edge, elevation, inset,
+focus, press, and motion implementations. Do not invent a local replacement for
+an existing contract. When a change establishes a shared rule, update DESIGN.md
+and the relevant changelog guidance in the same change. Review both themes,
+shadow toggles, reduced motion, and grouped-control seams before reporting visual
+work complete.

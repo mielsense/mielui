@@ -15,7 +15,7 @@
     const classes = $derived(
         cn(
             className,
-            'w-full min-w-0 appearance-auto rounded-[var(--radius-lg)] border-[length:var(--border-size)] border-[var(--color-input)] bg-[var(--color-field)] px-3 text-[length:var(--font-size-body)] text-[var(--color-field-foreground)] [color-scheme:light] dark:[color-scheme:dark] transition-[border-color,box-shadow] [transition-duration:var(--motion-duration-press)] motion-reduce:transition-none focus-visible:border-primary focus-visible:outline-none focus-visible:shadow-[var(--focus-ring)] disabled:cursor-not-allowed disabled:opacity-[var(--opacity-disabled)] aria-invalid:border-[var(--color-error)]',
+            'w-full min-w-0 appearance-auto rounded-[var(--radius-lg)] border-[length:var(--border-size)] border-[var(--color-input)] bg-[var(--color-field)] px-3 text-[length:var(--font-size-body)] text-[var(--color-field-foreground)] [color-scheme:light] dark:[color-scheme:dark] shadow-[var(--elevation-control-edge)] transition-[background-color,border-color,box-shadow] ease-[var(--ease-press)] enabled:hover:bg-[var(--color-field-hover)] [transition-duration:var(--motion-duration-press)] motion-reduce:transition-none focus-visible:border-primary focus-visible:outline-none focus-visible:shadow-[var(--focus-ring),var(--elevation-control-edge)] disabled:cursor-not-allowed disabled:opacity-[var(--opacity-disabled)] aria-invalid:border-[var(--color-error)]',
             multiple || (size != null && size > 1) ? 'min-h-24 py-1' : 'h-[var(--size-control-md)]'
         )
     );

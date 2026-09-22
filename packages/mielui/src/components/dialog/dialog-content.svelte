@@ -3,7 +3,7 @@
     import { dialogIn, dialogOut, overlayIn, overlayOut } from '@mielui/svelte/transition';
     import { cn, inertOutside, lockBodyScroll, visualViewportBounds } from '@mielui/svelte/utils';
     import { Dialog as DialogPrimitive } from 'bits-ui';
-    import { tick } from 'svelte';
+    import { onDestroy, tick } from 'svelte';
     import type { TransitionConfig } from 'svelte/transition';
     import HugeiconsIcon from '../../hugeicons-icon.svelte';
     import { useOverlayPresentation } from '../_internal/overlay/overlay.svelte';
@@ -28,6 +28,11 @@
     }: DialogContentProps = $props();
 
     const dialog = getDialogContext();
+    let destroyed = false;
+
+    onDestroy(() => {
+        destroyed = true;
+    });
 
     function dialogMotion(node: Element, transition: (node: Element) => TransitionConfig) {
         return dialog.motion === 'none' ? { duration: 0 } : transition(node);
@@ -120,8 +125,12 @@
             if (dialog.returnFocusEl?.isConnected) {
                 event.preventDefault();
                 void tick().then(() => {
-                    if (!dialog.state.open && dialog.returnFocusEl?.isConnected) {
-                        dialog.returnFocusEl.focus({ preventScroll: true });
+                    const target = dialog.returnFocusEl;
+                    const active = document.activeElement;
+                    const canRestore = active === document.body || active === target ||
+                        (active instanceof Node && element?.contains(active));
+                    if ((destroyed || !dialog.state.open) && target?.isConnected && canRestore) {
+                        target.focus({ preventScroll: true });
                     }
                 });
             }
@@ -196,7 +205,7 @@
                                         dialog.state.open = false;
                                     }}
                                     aria-label="Close"
-                                    class="absolute top-3 right-3 z-[2] inline-flex size-8 items-center justify-center rounded-[var(--radius-md)] text-foreground-muted transition-colors hover:text-foreground focus-visible:outline-none focus-visible:shadow-[var(--focus-ring)]"
+                                    class="absolute top-3 right-3 z-[2] inline-flex size-8 items-center justify-center rounded-[var(--radius-md)] text-foreground-muted transition-colors [transition-duration:var(--motion-duration-press)] ease-[var(--ease-press)] motion-reduce:transition-none hover:text-foreground focus-visible:outline-none focus-visible:shadow-[var(--focus-ring)]"
                                 >
                                     <HugeiconsIcon icon={X} size={16} />
                                 </button>

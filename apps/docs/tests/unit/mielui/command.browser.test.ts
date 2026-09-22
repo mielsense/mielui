@@ -3,6 +3,7 @@ import { afterEach, describe, expect, it, vi } from 'vitest';
 import { page, userEvent } from 'vitest/browser';
 import { render } from 'vitest-browser-svelte';
 import CommandFixture from '../../fixtures/CommandFixture.svelte';
+import DialogFixture from '../../fixtures/DialogFixture.svelte';
 import { required } from '../../test-utils';
 
 async function flush() {
@@ -37,7 +38,7 @@ describe('Command -- open and close', () => {
         await expect.element(page.getByPlaceholder('Search commands')).toBeInTheDocument();
     });
 
-    it('uses Dialog overlay and dialog motion', async () => {
+    it('uses a modal Dialog overlay without entrance motion', async () => {
         render(CommandFixture, {});
         await flush();
         await openCommand();
@@ -48,7 +49,8 @@ describe('Command -- open and close', () => {
         expect(dialog).toBeInTheDocument();
 
         const className = dialog?.getAttribute('class') ?? '';
-        expect(dialog?.getAttribute('data-motion')).toBe('dialog');
+        expect(dialog?.getAttribute('data-motion')).toBe('none');
+        expect(dialog?.getAttribute('aria-modal')).toBe('true');
         expect(className).toContain('origin-center');
     });
 
@@ -122,6 +124,18 @@ describe('Command -- open and close', () => {
         await flush();
         expect(document.body.style.overflow).toBe('');
         expect(document.activeElement).toBe(trigger);
+    });
+
+    it('does not steal focus from another dialog when destroyed', async () => {
+        const command = render(CommandFixture, { open: true });
+        await flush();
+        command.unmount();
+        render(DialogFixture, { open: true });
+        await flush();
+
+        const dialog = document.querySelector('[data-ui="dialog-panel"]');
+        expect(dialog).toBeInTheDocument();
+        expect(dialog).toContainElement(document.activeElement as HTMLElement);
     });
 
     it('restores body scroll when destroyed while open', async () => {
@@ -228,7 +242,7 @@ describe('Command -- search input', () => {
         expect(onLogout).toHaveBeenCalledTimes(1);
     });
 
-    it('keeps filtered results hidden during the close animation after Enter', async () => {
+    it('removes results after selecting a filtered command', async () => {
         render(CommandFixture, { open: true });
         await flush();
 
@@ -238,7 +252,8 @@ describe('Command -- search input', () => {
         await userEvent.keyboard('{Enter}');
         await tick();
 
-        await expect.element(page.getByTestId('cmd-profile')).not.toBeVisible();
+        await expect.element(page.getByTestId('cmd-profile')).not.toBeInTheDocument();
+        await expect.element(page.getByTestId('command-open-state')).toHaveTextContent('false');
     });
 
     it('matches one-character queries', async () => {

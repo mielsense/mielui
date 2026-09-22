@@ -1,6 +1,6 @@
 import { render, screen, waitFor } from '@testing-library/svelte';
 import userEvent from '@testing-library/user-event';
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
 import AccordionFixture from '../../fixtures/AccordionFixture.svelte';
 import { required } from '../../test-utils';
 
@@ -115,9 +115,10 @@ describe('Accordion -- ARIA', () => {
         expect(trigB.getAttribute('aria-expanded')).toBe('false');
     });
 
-    it('aria-controls points to a content element when the item is open', () => {
+    it('aria-controls points to a content element when the item is open', async () => {
         render(AccordionFixture, { props: { type: 'single', value: 'a' } });
         const trigA = required(screen.getByTestId('trig-a').closest('button'));
+        await vi.waitFor(() => expect(trigA).toHaveAttribute('aria-controls'));
         const ariaControls = trigA.getAttribute('aria-controls');
         expect(ariaControls).toBeTruthy();
         expect(document.getElementById(required(ariaControls))).toBeTruthy();

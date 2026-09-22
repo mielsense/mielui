@@ -16,12 +16,12 @@ describe('Message', () => {
         }
     );
 
-    it('renders author metadata and an accessible actions toolbar', () => {
+    it('renders author metadata and an accessible actions group', () => {
         render(MessageFixture);
 
         expect(screen.getByText('Mielui')).toBeInTheDocument();
         expect(screen.getByText('14:32').tagName).toBe('TIME');
-        const toolbar = screen.getByRole('toolbar', { name: 'Response actions' });
+        const toolbar = screen.getByRole('group', { name: 'Response actions' });
         expect(within(toolbar).getByRole('button', { name: 'Copy response' })).toBeInTheDocument();
     });
 

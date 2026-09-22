@@ -37,3 +37,8 @@ describe('theme persistence failures', () => {
         expect(() => saveLocalTheme(DEFAULT_THEME)).toThrow('Could not save themes on this device');
     });
 });
+
+it('preserves edge highlight through a saved studio draft', () => {
+    saveStudioTheme({ ...DEFAULT_THEME, chrome: { edgeHighlight: 0.23 } });
+    expect(loadStudioTheme()?.chrome?.edgeHighlight).toBe(0.23);
+});

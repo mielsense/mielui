@@ -166,3 +166,75 @@ prefer the Humanspeak Svelte Motion port. Check its current documentation before
 using an API. Simple hover and focus changes can remain Tailwind transitions.
 Respect reduced motion and the theme's motion settings. Do not delay input,
 navigation, or content visibility to finish an animation.
+
+
+## Required shared appearance and interaction contracts
+
+These rules apply to every component and every docs or Studio example. Reuse the
+existing implementation before adding local styling. A new component must follow
+the same contracts; a visual exception must have a specific functional reason.
+
+### Edges and surfaces
+
+- Filled controls use `--elevation-control-edge` for the subtle top highlight and
+  lower inset shading. This includes primary, secondary, outline, and destructive
+  buttons, text fields, and selection triggers. Keep ghost, quiet, and plain text
+  controls flat until their existing hover or selected state calls for a fill.
+- Preserve the primary button's optional `--color-primary-stroke`. The light edge
+  does not enable a perimeter border when Studio's primary stroke is disabled.
+- Floating panels use `--elevation-float`; dialogs use `--elevation-modal`; raised
+  cards use `--elevation-1`. These tokens include the shared surface highlight.
+  Do not add a separate hardcoded white border or shadow to reproduce it.
+- Use the shared `mielui-modal-frame` or `mielui-inset-frame` and
+  `mielui-inset-surface` composition for double edges. Keep inner corners concentric
+  with the outer frame. A frame attached to a viewport edge stays flush on that
+  edge; its inset appears only along exposed edges.
+- Glass uses the shared surface helper and inherited theme setting. Keep the
+  inner panel translucent enough to reveal the backdrop. Explicit solid surfaces
+  remain opaque, including chart tooltips.
+- Compose focus rings with the existing edge or elevation instead of replacing
+  it. Disabling shadows must remove decorative relief while preserving borders,
+  validation states, and visible keyboard focus.
+- Joined controls have one seam and flat adjoining corners. Use Group and its
+  Separator; do not layer separate rounded borders through the shared seam.
+- Read colors from semantic `--color-*` tokens. Use `--border-size` for frame
+  thickness. Light, dark, and scoped Studio themes must share the same geometry.
+
+### Micro-interactions
+
+- Buttons and clickable controls reuse the shared pressable behavior and variant
+  styles. Disabled and pending controls retain their existing interaction rules;
+  decorative feedback must not re-enable them or change layout dimensions.
+- Hover, press, selection, panel, and sheet motion use the corresponding theme
+  duration and easing tokens. Do not copy one fixed duration across every action.
+- Collection selection uses the existing traveling highlight. Overlay wrappers
+  retain the shared transition and focus-management helpers. Do not add another
+  animation or dismissal controller around an existing primitive.
+- Size changes and interruptible entry or exit use the established Humanspeak
+  motion implementation. Continue from the current rendered state when reversed.
+  Avoid restarting a reveal from zero when data changes during an animation.
+- Honor reduced motion and zero-duration theme settings, including preference
+  changes after mount. Cancel animation frames, observers, and timers on teardown.
+  Continuous chart effects pause offscreen and in hidden documents; they never
+  alter values or make a static dataset appear to change.
+- Keep interaction feedback local. A documentation example must not cover the
+  surrounding page with a viewport-bound activity or notification. Use the shared
+  isolated preview for Notch and other global overlays.
+
+### Review requirements
+
+Before calling a component visually complete, inspect its ordinary, hovered,
+focused, pressed, disabled, invalid, and open states where applicable. Check
+light and dark themes, shadows disabled, reduced motion, narrow layouts, and
+joined-control seams. Use the repository's verification policy for automated
+checks. Record new shared contracts here and explain consumer-facing changes in
+the changelog; do not leave the next agent to infer them from one example.
+
+## Edge highlight strength
+
+Use the shared elevation tokens for light-catching inset edges, including keycaps.
+The theme setting `chrome.edgeHighlight` accepts 0 to 1 and defaults to 0.5.
+Studio presents it as a percentage under Effects. Scale only the light inset edge;
+keep structural borders, focus rings, dark inset shading, and cast shadows intact.
+Do not add fixed white inset shadows to individual components. Shadow switches
+still disable their corresponding elevation effects.

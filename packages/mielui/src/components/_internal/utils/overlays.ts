@@ -420,7 +420,10 @@ export function getFocusableElements(container: HTMLElement) {
         container.querySelectorAll<HTMLElement>(FOCUSABLE_SELECTOR)
     ).filter((element) => {
         if (
-            element.tabIndex < 0 ||
+            (element.tabIndex < 0 &&
+                !(
+                    element.matches('[contenteditable="true"]') && !element.hasAttribute('tabindex')
+                )) ||
             element.matches(':disabled') ||
             element.closest('[inert], [hidden], [aria-hidden="true"]')
         ) {

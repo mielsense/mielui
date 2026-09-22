@@ -99,6 +99,7 @@
         brandColors: BrandColors;
         foundationColors: FoundationColors;
         advancedTokens: AdvancedTokens;
+        edgeHighlight: number;
         surfaceShadows: boolean;
         controlShadows: boolean;
         dialogShadows: boolean;
@@ -269,6 +270,19 @@
         light: DEFAULT_THEME.brand,
         dark: DEFAULT_THEME.brand
     });
+    let edgeHighlight = $state(0.5);
+    let rememberedEdgeHighlight = $state(0.5);
+
+    function setEdgeHighlightEnabled(enabled: boolean) {
+        if (enabled) {
+            edgeHighlight = rememberedEdgeHighlight;
+        } else {
+            if (edgeHighlight > 0) {
+                rememberedEdgeHighlight = edgeHighlight;
+            }
+            edgeHighlight = 0;
+        }
+    }
     let surfaceShadows = $state(true);
     let controlShadows = $state(true);
     let dialogShadows = $state(true);
@@ -329,6 +343,7 @@
             (headerSize === 16 ? 0 : 1) +
             (headerWeight === '600' ? 0 : 1) +
             roleWeightChanges +
+            (edgeHighlight === (baseTheme.chrome?.edgeHighlight ?? 0.5) ? 0 : 1) +
             (surfaceShadows ? 0 : 1) +
             (controlShadows ? 0 : 1) +
             (dialogShadows ? 0 : 1) +
@@ -345,6 +360,7 @@
         foundation: foundationColors,
         typography: { headerSize, headerWeight, roleWeights },
         chrome: {
+            edgeHighlight,
             surfaceShadows,
             controlShadows,
             dialogShadows,
@@ -513,6 +529,14 @@
                     dark: value.brandColors.dark ?? baseTheme.brand
                 };
             }
+            if (
+                typeof value.edgeHighlight === 'number' &&
+                Number.isFinite(value.edgeHighlight) &&
+                value.edgeHighlight >= 0 &&
+                value.edgeHighlight <= 1
+            ) {
+                edgeHighlight = value.edgeHighlight;
+            }
             const shadowsOff = (value as { shadows?: unknown }).shadows === false;
             if (typeof value.surfaceShadows === 'boolean') {
                 surfaceShadows = value.surfaceShadows;
@@ -565,6 +589,7 @@
                 spacing: { ...advancedTokens.spacing },
                 animation: { ...advancedTokens.animation }
             },
+            edgeHighlight,
             surfaceShadows,
             controlShadows,
             dialogShadows,
@@ -598,6 +623,7 @@
         };
         advancedTokens = emptyAdvancedTokens();
         brandColors = { light: preset.brand, dark: preset.brand };
+        edgeHighlight = preset.chrome?.edgeHighlight ?? 0.5;
         surfaceShadows =
             preset.chrome?.shadows !== false && preset.chrome?.surfaceShadows !== false;
         controlShadows =
@@ -626,6 +652,7 @@
         };
         advancedTokens = emptyAdvancedTokens();
         brandColors = { light: baseTheme.brand, dark: baseTheme.brand };
+        edgeHighlight = baseTheme.chrome?.edgeHighlight ?? 0.5;
         surfaceShadows =
             baseTheme.chrome?.shadows !== false && baseTheme.chrome?.surfaceShadows !== false;
         controlShadows =
@@ -839,6 +866,7 @@
         const storedTheme = loadStudioTheme();
         if (storedTheme) {
             theme = { ...storedTheme };
+            edgeHighlight = storedTheme.chrome?.edgeHighlight ?? 0.5;
             syncFontSelections(theme);
         }
         loadStudioExtensions();
@@ -955,7 +983,7 @@
         const css = generatedCss;
         document.documentElement.style.removeProperty('--font-sans');
         applyLiveThemeCss(css);
-        saveStudioTheme({ ...theme });
+        saveStudioTheme(exportedTheme);
         saveStudioExtensions();
     });
 </script>
@@ -1273,13 +1301,42 @@
                                 />
                             </Collapsible.Trigger>
                         </div>
-                        <Collapsible.Content class="flex flex-col gap-4 pt-3 pb-2">
-                            <Switch
-                                bind:checked={glassSurfaces}
-                                label="Glass surfaces"
-                                description="Use glass for menus, dialogs, and other supported surfaces."
-                            />
-
+                        <Collapsible.Content class="flex flex-col gap-3 pt-3 pb-2">
+                            <Switch bind:checked={glassSurfaces} label="Glass surfaces" />
+                            <div class="flex flex-col gap-1.5">
+                                <div class="flex items-center justify-between gap-2">
+                                    <Switch
+                                        bind:checked={
+                                            () => edgeHighlight > 0,
+                                            setEdgeHighlightEnabled
+                                        }
+                                        label="Edge highlight"
+                                    />
+                                    {#if edgeHighlight > 0}
+                                        <span
+                                            class="font-mono text-xs tabular-nums text-foreground-muted"
+                                        >
+                                            {Math.round(edgeHighlight * 100)}
+                                            %
+                                        </span>
+                                    {/if}
+                                </div>
+                                {#if edgeHighlight > 0}
+                                    <div class="ps-[calc(var(--spacing)*13.5)]">
+                                        <Slider
+                                            value={Math.round(edgeHighlight * 100)}
+                                            min={1}
+                                            max={100}
+                                            step={1}
+                                            label="Edge highlight strength"
+                                            class="h-4"
+                                            onValueChange={(value: number) => {
+                                                edgeHighlight = value / 100;
+                                            }}
+                                        />
+                                    </div>
+                                {/if}
+                            </div>
                             <Switch bind:checked={surfaceShadows} label="Card & menu shadows" />
                             <Switch bind:checked={controlShadows} label="Control shadows" />
                             <Switch bind:checked={dialogShadows} label="Dialog shadows" />

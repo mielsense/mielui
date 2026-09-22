@@ -1,4 +1,7 @@
-import { resetSharedTooltipForTests } from '@mielui/svelte/components/tooltip/shared-tooltip';
+import {
+    createTooltipManager,
+    resetSharedTooltipForTests
+} from '@mielui/svelte/components/tooltip/shared-tooltip';
 import { tick } from 'svelte';
 import { beforeEach, describe, expect, it } from 'vitest';
 import { page } from 'vitest/browser';
@@ -52,4 +55,21 @@ describe('Tooltip -- swapping triggers', () => {
         // Instant swap => fully "Bravo" already. A roll would still be interleaving.
         expect(visibleLabel()).toBe('Bravo');
     });
+});
+
+it('replaces tooltip labels without rolling when the trigger disables motion', () => {
+    const manager = createTooltipManager();
+    const trigger = document.createElement('button');
+    trigger.style.setProperty('--motion-duration-panel', '0ms');
+    document.body.appendChild(trigger);
+    try {
+        manager.showTooltip(trigger, 'Copy', 'top', 0);
+        manager.updateTooltipText(trigger, 'Copied');
+        const label = document.querySelector('.mielui-tooltip-label');
+        expect(label?.textContent).toBe('Copied');
+        expect(label?.querySelector('scritto-text')).toBeNull();
+    } finally {
+        manager.destroy();
+        trigger.remove();
+    }
 });

@@ -76,14 +76,18 @@ describe('ReorderList pointer reordering', () => {
             })
         );
 
-        await expect.element(first).toHaveAttribute('data-lifted', 'true');
+        const row = first.closest<HTMLElement>('[data-ui="reorder-list-item"]');
+        if (!row) {
+            throw new Error('Missing dragged row');
+        }
+        await expect.element(row).toHaveAttribute('data-lifted', 'true');
         await expect
             .element(page.getByRole('status', { name: 'Order' }))
             .toHaveTextContent('two,three,one');
 
         window.dispatchEvent(new PointerEvent('pointerup', { pointerId }));
 
-        await expect.element(first).toHaveAttribute('data-lifted', 'false');
+        await expect.element(row).toHaveAttribute('data-lifted', 'false');
         await expect.element(page.getByRole('status', { name: 'Commits' })).toHaveTextContent('1');
     });
 

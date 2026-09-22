@@ -4,18 +4,6 @@ import { page } from 'vitest/browser';
 import { render } from 'vitest-browser-svelte';
 import HoverCardFixture from '../../fixtures/HoverCardFixture.svelte';
 
-/*
- * HoverCard is now a popover wrapper post-F-29 collapse.
- * Tests assert only the wrapper-distinctive surface:
- *   - role="dialog" with aria-modal="false" on the rendered content
- *   - hover-to-open with the wrapper's openDelay
- *   - hover-end-to-close with closeDelay
- *   - trigger renders as <a> when href is passed, <span> otherwise
- *   - Title and Description sub-components render
- *
- * Popover's general behaviors are covered in popover.browser.test.ts.
- */
-
 async function flush() {
     await tick();
     await tick();
@@ -50,7 +38,7 @@ describe('HoverCard -- hover opens after openDelay', () => {
         await new Promise((r) => setTimeout(r, 80));
         await flush();
 
-        const dialog = document.querySelector('[data-ui="popover-content"]');
+        const dialog = document.querySelector('[data-ui="hover-card-content"]');
         expect(dialog).toBeInTheDocument();
         expect(dialog?.getAttribute('role')).toBe('dialog');
         expect(dialog?.getAttribute('aria-modal')).toBe('false');
@@ -89,11 +77,12 @@ describe('HoverCard -- leave closes after closeDelay', () => {
 });
 
 describe('HoverCard -- trigger element shape', () => {
-    it('renders trigger as <span> when no href', async () => {
+    it('renders a keyboard-focusable button when no href', async () => {
         render(HoverCardFixture, { openDelay: 10, closeDelay: 10 });
         await flush();
         const wrapper = document.querySelector('[data-testid="hovercard-trigger"]')?.parentElement;
-        expect(wrapper?.tagName.toLowerCase()).toBe('span');
+        expect(wrapper?.tagName.toLowerCase()).toBe('button');
+        expect((wrapper as HTMLButtonElement).tabIndex).toBe(0);
     });
 
     it('renders trigger as <a> when href is provided', async () => {

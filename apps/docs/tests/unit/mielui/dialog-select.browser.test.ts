@@ -1,6 +1,6 @@
 import { tick } from 'svelte';
 import { afterEach, describe, expect, it } from 'vitest';
-import { page, userEvent } from 'vitest/browser';
+import { page } from 'vitest/browser';
 import { render } from 'vitest-browser-svelte';
 import DialogSelectFixture from '../../fixtures/DialogSelectFixture.svelte';
 
@@ -28,7 +28,7 @@ describe('Select inside Dialog', () => {
         await expect
             .element(page.getByText('Choose an owner for this project.'))
             .toBeInTheDocument();
-        await expect.element(page.getByText('Ada')).toBeInTheDocument();
+        await expect.element(page.getByTestId('select-trigger')).toHaveTextContent('Ada');
     });
 
     it('keeps the dialog open when clicking outside the Select', async () => {
@@ -39,12 +39,10 @@ describe('Select inside Dialog', () => {
         await flush();
         await expect.element(page.getByTestId('opt-ada')).toBeInTheDocument();
 
-        const dismiss = document.querySelector('[data-ui="popover-dismiss"]') as HTMLElement;
-        expect(dismiss).toBeTruthy();
-        await userEvent.click(dismiss);
+        await page.getByText('Choose an owner for this project.').click();
         await flush();
 
-        await expect.element(page.getByTestId('opt-ada')).not.toBeInTheDocument();
+        await expect.element(page.getByTestId('opt-ada')).not.toBeVisible();
         await expect
             .element(page.getByText('Choose an owner for this project.'))
             .toBeInTheDocument();

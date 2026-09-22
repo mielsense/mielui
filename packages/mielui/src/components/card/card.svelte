@@ -31,14 +31,14 @@
         </div>
         {#if card.footerSlot}
             <div
-                {...card.footerSlot.rest}
+                {...card.footerSlot?.rest}
                 data-ui="card-footer"
                 class={cn(
-                    card.footerSlot.className,
+                    card.footerSlot?.className,
                     'flex w-full flex-row items-center justify-end gap-2 px-1 py-1.5'
                 )}
             >
-                {@render card.footerSlot.children?.()}
+                {@render card.footerSlot?.children?.()}
             </div>
         {/if}
     </div>

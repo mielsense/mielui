@@ -20,7 +20,7 @@
     name=""
     bind:ref
     data-ui="date-picker-input"
-    class={cn(className, input({ variant: 'outline' }), 'inline-flex w-auto min-w-max flex-1 items-center gap-0.5 py-1 focus-within:shadow-[var(--focus-ring)] data-disabled:opacity-[var(--opacity-disabled)] data-invalid:border-error')}
+    class={cn(className, input({ variant: 'outline' }), 'inline-flex w-auto min-w-max flex-1 items-center gap-0.5 py-1 focus-within:shadow-[var(--focus-ring),var(--elevation-control-edge)] data-disabled:opacity-[var(--opacity-disabled)] data-invalid:border-error')}
 >
     {#snippet children(data)}
         {#if content}

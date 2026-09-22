@@ -13,7 +13,7 @@ import { required } from '../../test-utils';
 
 /*
  * Toast tests use fake timers. The library's lifecycle is timer-driven
- * (default duration, exit duration, pause/resume).
+ * (default duration and pause/resume). Mounted hosts own visual exit timing.
  *
  * Post-P3-F12 fix: toast state is per-mount, not a module singleton.
  * Tests register a fresh state per test via __setActiveToastStateForTests
@@ -107,19 +107,13 @@ describe('toast.success / .error / .warning / .info / .loading', () => {
 });
 
 describe('toast -- auto-dismiss', () => {
-    it('removes the toast after the duration + exit duration elapses', async () => {
-        const t = toast({ title: 'auto', duration: 1000 });
-        expect(toastUIState().data.toasts.length).toBe(1);
-
-        // Advance past the auto-dismiss timeout.
-        vi.advanceTimersByTime(1000);
-        // Now the toast is marked leaving=true with a 340ms exit duration.
-        const current = toastUIState().data.toasts.find((x) => x.id === t.id);
-        expect(current?.leaving).toBe(true);
-
-        // Advance past the exit duration (340ms).
-        vi.advanceTimersByTime(340);
-        expect(toastUIState().data.toasts.find((x) => x.id === t.id)).toBeUndefined();
+    it('removes expired toasts from active state while the host owns their exit', () => {
+        const item = toast({ title: 'auto', duration: 1000 });
+        vi.advanceTimersByTime(999);
+        expect(toastUIState().data.toasts).toContain(item);
+        vi.advanceTimersByTime(1);
+        expect(toastUIState().data.toasts.find((toast) => toast.id === item.id)).toBeUndefined();
+        expect(item.leaving).toBe(true);
     });
 
     it('does not auto-dismiss persistent toasts', () => {
@@ -132,20 +126,19 @@ describe('toast -- auto-dismiss', () => {
 });
 
 describe('toast.dismiss', () => {
-    it('removes a toast by id after the exit duration', () => {
+    it('removes a toast by id immediately', () => {
         const t = toast({ title: 'x', persistent: true });
         expect(toastUIState().data.toasts.length).toBe(1);
 
         toast.dismiss(t.id);
-        // Advance past the exit duration.
-        vi.advanceTimersByTime(340);
         expect(toastUIState().data.toasts.length).toBe(0);
     });
 
     it('marks the toast leaving=true immediately', () => {
         const t = toast({ title: 'x', persistent: true });
         toast.dismiss(t.id);
-        expect(toastUIState().data.toasts.find((x) => x.id === t.id)?.leaving).toBe(true);
+        expect(t.leaving).toBe(true);
+        expect(toastUIState().data.toasts).not.toContain(t);
     });
 
     it('dismisses all toasts when called with no id', () => {
@@ -155,7 +148,6 @@ describe('toast.dismiss', () => {
         expect(toastUIState().data.toasts.length).toBe(3);
 
         toast.dismiss();
-        vi.advanceTimersByTime(340);
         expect(toastUIState().data.toasts.length).toBe(0);
     });
 });
@@ -169,8 +161,6 @@ describe('toast -- max 5 toasts', () => {
                 ids.push(t.id);
             }
         }
-        // Advance the exit duration so the oldest is fully removed.
-        vi.advanceTimersByTime(340);
         expect(toastUIState().data.toasts.length).toBeLessThanOrEqual(5);
         // The first toast added should be the one that got dismissed.
         expect(toastUIState().data.toasts.find((t) => t.id === ids[0])).toBeUndefined();
@@ -206,8 +196,6 @@ describe('pauseToast / resumeToast', () => {
         expect(remainingAfterResume).toBeGreaterThan(0);
 
         vi.advanceTimersByTime(remainingAfterResume);
-        // Now it's marked leaving; advance the exit duration.
-        vi.advanceTimersByTime(340);
         expect(toastUIState().data.toasts.find((x) => x.id === t.id)).toBeUndefined();
     });
 });

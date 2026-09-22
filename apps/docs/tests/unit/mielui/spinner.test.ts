@@ -1,6 +1,11 @@
 import Spinner from '@mielui/svelte/components/spinner/spinner.svelte';
-import { act, render } from '@testing-library/svelte';
-import { describe, expect, it, vi } from 'vitest';
+import { render } from '@testing-library/svelte';
+import { flushSync } from 'svelte';
+import { afterEach, describe, expect, it, vi } from 'vitest';
+
+afterEach(() => {
+    vi.useRealTimers();
+});
 
 describe('Spinner', () => {
     it('renders a LoaderCircle icon with a continuous spin at the default speed', () => {
@@ -25,7 +30,7 @@ describe('Spinner', () => {
     });
 
     it('holds the checkmark, then collapses before unmounting when ready', async () => {
-        vi.useFakeTimers();
+        vi.useFakeTimers({ toFake: ['setTimeout', 'clearTimeout', 'Date'] });
         const view = render(Spinner, { props: { ready: false } });
         const spinner = view.container.querySelector<HTMLElement>('[data-ui="spinner"]');
         if (!spinner) {
@@ -38,16 +43,16 @@ describe('Spinner', () => {
         await view.rerender({ ready: true });
         expect(spinner).toHaveAttribute('data-phase', 'success');
 
-        await act(() => vi.advanceTimersByTime(1999));
+        flushSync(() => vi.advanceTimersByTime(1999));
         expect(spinner).toHaveAttribute('data-phase', 'success');
 
-        await act(() => vi.advanceTimersByTime(1));
+        flushSync(() => vi.advanceTimersByTime(1));
         expect(spinner).toHaveAttribute('data-phase', 'exiting');
         expect(spinner).toHaveStyle({ width: '0px' });
 
-        await act(() => vi.advanceTimersByTime(179));
+        flushSync(() => vi.advanceTimersByTime(179));
         expect(spinner).toBeInTheDocument();
-        await act(() => vi.advanceTimersByTime(1));
+        flushSync(() => vi.advanceTimersByTime(1));
         expect(view.container.querySelector('[data-ui="spinner"]')).not.toBeInTheDocument();
         vi.useRealTimers();
     });

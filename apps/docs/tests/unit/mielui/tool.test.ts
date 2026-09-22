@@ -6,7 +6,9 @@ describe('Tool', () => {
     it('shows a spinner while running', () => {
         const { container } = render(ToolFixture, { props: { state: 'running' } });
         expect(container.querySelector('[data-ui="spinner"]')).toBeInTheDocument();
-        expect(container.querySelector('.mielui-tool-running')).toHaveTextContent('Task running');
+        expect(container.querySelector('[data-ui="tool-trigger"]')).toHaveTextContent(
+            'Task running'
+        );
         expect(container.querySelector('[data-ui="tool"]')).toHaveAttribute('aria-busy', 'true');
     });
 

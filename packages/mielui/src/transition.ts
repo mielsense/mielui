@@ -25,6 +25,16 @@ export function getCssDuration(node: Element, variableName: string, fallback: nu
     return Number.isFinite(parsed) ? parsed : fallback;
 }
 
+function motionDuration(node: Element, variableName: string, fallback: number) {
+    if (
+        typeof window !== 'undefined' &&
+        window.matchMedia?.('(prefers-reduced-motion: reduce)').matches
+    ) {
+        return 0;
+    }
+    return getCssDuration(node, variableName, fallback);
+}
+
 /**
  * Unit-interval cubic-bezier easing with CSS-compatible control points.
  * Used for the iOS drawer curve, which Svelte's built-in easings cannot express.
@@ -140,7 +150,7 @@ function panelTransition(
     );
 
     return {
-        duration: getCssDuration(node, durationVariable, fallbackDuration),
+        duration: motionDuration(node, durationVariable, fallbackDuration),
         easing: readCssEasing(node, options?.easing ?? cubicOut),
         css: (t) => {
             return `opacity:${(opacityStart + (1 - opacityStart) * t) * opacity};transform:${baseTransform} translateY(${(1 - t) * offsetY}px) scale(${endScale + (1 - endScale) * t});filter:${baseFilter} blur(${(1 - t) * blur}px)`;
@@ -200,7 +210,7 @@ export function dialogOut(node: Element) {
 
 export function overlayIn(node: Element) {
     return fade(node, {
-        duration: getCssDuration(node, '--motion-duration-overlay', 120)
+        duration: motionDuration(node, '--motion-duration-overlay', 120)
     });
 }
 
@@ -219,7 +229,7 @@ function sheetSlide(
     const baseTransform = style.transform === 'none' ? '' : style.transform;
 
     return {
-        duration: getCssDuration(node, durationVariable, fallbackDuration),
+        duration: motionDuration(node, durationVariable, fallbackDuration),
         easing: drawerEase,
         css: (t) => {
             return `transform:${baseTransform} translate3d(${(1 - t) * 100 * dir}%, 0, 0)`;
@@ -244,7 +254,7 @@ type ThemedSlideParams = {
 
 /** Vertical slide that reads its duration from a CSS motion variable. */
 export const themedSlide = (node: Element, params: ThemedSlideParams = {}): TransitionConfig => {
-    const duration = getCssDuration(
+    const duration = motionDuration(
         node,
         params.durationVar ?? '--motion-duration-panel',
         params.fallback ?? 220

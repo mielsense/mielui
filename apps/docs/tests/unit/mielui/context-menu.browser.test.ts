@@ -40,13 +40,19 @@ describe('ContextMenu -- open via right-click', () => {
         expect(document.querySelectorAll('[role="menu"] .mielui-item-highlight')).toHaveLength(1);
     });
 
-    it('opens from a touch pointer interaction', async () => {
+    it('opens after a touch long press', async () => {
         render(ContextMenuFixture, {});
         await flush();
 
         const trigger = document.querySelector('[data-testid="ctx-trigger"]') as HTMLElement;
         trigger.dispatchEvent(
-            new PointerEvent('pointerup', { bubbles: true, button: 0, pointerType: 'touch' })
+            new PointerEvent('pointerdown', {
+                bubbles: true,
+                button: 0,
+                pointerType: 'touch',
+                clientX: 100,
+                clientY: 100
+            })
         );
         await flush();
 
@@ -72,14 +78,16 @@ describe('ContextMenu -- open via right-click', () => {
         const outside = document.createElement('button');
         outside.textContent = 'outside';
         outside.style.position = 'fixed';
+        outside.style.pointerEvents = 'auto';
         outside.style.left = '8px';
         outside.style.top = '8px';
         document.body.append(outside);
-        await new Promise((r) => setTimeout(r, 20));
-        outside.click();
-        await flush();
-        await expect.element(page.getByTestId('ctx-copy')).not.toBeInTheDocument();
-        outside.remove();
+        try {
+            await userEvent.click(outside);
+            await expect.element(page.getByTestId('ctx-copy')).not.toBeInTheDocument();
+        } finally {
+            outside.remove();
+        }
     });
 });
 
@@ -102,9 +110,9 @@ describe('ContextMenu -- positioning', () => {
         await flush();
         await openContextMenu();
 
-        const content = document.querySelector('[data-floating-content]') as HTMLElement;
+        const content = document.querySelector('[data-ui="context-menu-content"]') as HTMLElement;
         expect(content).toBeInTheDocument();
-        expect(content.style.left).not.toBe('');
-        expect(content.style.top).not.toBe('');
+        await expect.poll(() => content.getBoundingClientRect().left).toBeGreaterThanOrEqual(95);
+        expect(content.getBoundingClientRect().top).toBeGreaterThanOrEqual(95);
     });
 });

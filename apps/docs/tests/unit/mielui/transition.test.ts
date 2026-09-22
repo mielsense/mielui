@@ -1,5 +1,16 @@
-import { cubicBezier, getCssDuration, sheetIn, sheetOut } from '@mielui/svelte/transition';
-import { beforeEach, describe, expect, it } from 'vitest';
+import {
+    cubicBezier,
+    dialogIn,
+    dialogOut,
+    getCssDuration,
+    overlayIn,
+    panelIn,
+    panelOut,
+    sheetIn,
+    sheetOut,
+    themedSlide
+} from '@mielui/svelte/transition';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
 
 /*
  * getCssDuration reads CSS custom properties via getComputedStyle.
@@ -103,5 +114,44 @@ describe('sheetIn / sheetOut', () => {
         const exit = sheetOut(node);
         expect(enter.duration).toBe(320);
         expect(exit.duration).toBe(220);
+    });
+});
+
+describe('motion preferences', () => {
+    it('disables transitions despite explicit nonzero scoped motion tokens', () => {
+        const original = window.matchMedia;
+        window.matchMedia = vi.fn().mockReturnValue({ matches: true });
+        const node = document.createElement('div');
+        document.body.appendChild(node);
+        for (const token of [
+            'panel-in',
+            'panel-out',
+            'modal-in',
+            'modal-out',
+            'overlay',
+            'sheet',
+            'sheet-out',
+            'panel'
+        ]) {
+            node.style.setProperty(`--motion-duration-${token}`, '900ms');
+        }
+        try {
+            for (const transition of [
+                panelIn,
+                panelOut,
+                dialogIn,
+                dialogOut,
+                overlayIn,
+                sheetIn,
+                sheetOut,
+                themedSlide
+            ]) {
+                expect(transition(node).duration).toBe(0);
+            }
+            expect(getCssDuration(node, '--motion-duration-panel', 180)).toBe(900);
+        } finally {
+            window.matchMedia = original;
+            node.remove();
+        }
     });
 });

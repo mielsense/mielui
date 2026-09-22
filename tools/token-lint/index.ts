@@ -15,6 +15,21 @@ const RULES: { rule: string; re: RegExp }[] = [
     }
 ];
 
+/** HSV coordinates are color data; theme colors would corrupt the selectable gamut. */
+function isColorCoordinate(file: string, line: string): boolean {
+    const relative = file.replaceAll('\\', '/');
+    const declarations: Record<string, readonly string[]> = {
+        'color-picker-hue.svelte': [
+            "const hueSpectrum = ['#f00', '#ff0', '#0f0', '#0ff', '#00f', '#f0f', '#f00'];"
+        ],
+        'color-picker-plane.svelte': ["const hsvBlack = '#000';", "const hsvWhite = '#fff';"],
+        'controller.svelte.ts': ["const defaultHsvHex = '#000000';"]
+    };
+    return Object.entries(declarations).some(([name, allowed]) => {
+        return relative.endsWith(`/blocks/color-picker/${name}`) && allowed.includes(line.trim());
+    });
+}
+
 export function lintSource(file: string, source: string): Violation[] {
     // File-level opt-out: a `token-lint-disable-file` directive anywhere skips the
     // whole file. For components inherently built on raw literals (e.g. a color
@@ -63,7 +78,8 @@ export function lintSource(file: string, source: string): Violation[] {
         const stripped = stripVars(text);
         for (const { rule, re } of RULES) {
             const target = rule === 'no-primitive-leak' ? text : stripped;
-            if (re.test(target) && !disabledFor(text, prev, rule)) {
+            const colorCoordinate = rule === 'no-literal-color' && isColorCoordinate(file, text);
+            if (re.test(target) && !colorCoordinate && !disabledFor(text, prev, rule)) {
                 out.push({ file, line: i + 1, rule, text: text.trim() });
             }
         }

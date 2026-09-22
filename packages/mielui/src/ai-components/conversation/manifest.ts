@@ -16,7 +16,7 @@ export const manifest: Manifest = {
         'components/conversation/manifest.ts'
     ],
     components: ['_internal/utils', 'scroll-area'],
-    shared: ['hugeicons-icon', 'utils.cn', 'utils.createContext', 'utils.pressable'],
+    shared: ['transition', 'hugeicons-icon', 'utils.cn', 'utils.createContext', 'utils.pressable'],
     peerDependencies: {
         '@floating-ui/dom': '1.7.6',
         '@hugeicons/core-free-icons': '^4.3.0',

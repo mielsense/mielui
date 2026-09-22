@@ -1,9 +1,11 @@
 <script lang="ts">
     import * as Select from '@mielui/svelte/components/select';
+
+    let { triggerId }: { triggerId?: string } = $props();
 </script>
 
 <Select.Root>
-    <Select.Trigger>
+    <Select.Trigger id={triggerId}>
         <span data-testid="select-trigger">
             <Select.Value placeholder="Select an option" />
         </span>

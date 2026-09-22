@@ -11,7 +11,22 @@
         children,
         ...rest
     }: AccordionItemProps = $props();
+    const uid = $props.id();
+    let triggerId = $state(`${uid}-trigger`);
+    let contentId = $state(`${uid}-content`);
     setContext('accordion-item', {
+        get triggerId() {
+            return triggerId;
+        },
+        set triggerId(value: string) {
+            triggerId = value;
+        },
+        get contentId() {
+            return contentId;
+        },
+        set contentId(value: string) {
+            contentId = value;
+        },
         get value() {
             return value;
         },

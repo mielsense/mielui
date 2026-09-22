@@ -29,6 +29,9 @@
         onclick,
         ...rest
     }: Props = $props();
+    $effect.pre(() => {
+        context.triggerId = rest.id ?? `${context.id}-trigger`;
+    });
     $effect(() => {
         context.onTriggerOpen = onopen;
         return () => {
@@ -37,10 +40,13 @@
     });
 </script>
 
-<BitsSelect.Trigger {...rest} id={rest.id ?? undefined}>
+<BitsSelect.Trigger {...rest} id={rest.id ?? `${context.id}-trigger`}>
     {#snippet child({ props })}
         <Button
             {...buttonAttributes(mergeProps(rest, { ...props as HTMLButtonAttributes }))}
+            role="combobox"
+            aria-labelledby={rest['aria-label'] ? undefined : `${context.id}-value`}
+            aria-controls={`${context.id}-content`}
             onpointerdown={undefined}
             onpointerup={undefined}
             onclick={(event) => {
@@ -54,9 +60,10 @@
                 context.setOpen(!context.open);
             }}
             {variant}
-            class={cn(className, 'flex flex-row items-center justify-between focus-visible:shadow-[var(--focus-ring)]')}
+            class={cn(className, 'flex flex-row items-center justify-between')}
         >
             <div
+                id={`${context.id}-value`}
                 class={cn(
             'flex min-w-0 flex-1 items-center gap-2 overflow-hidden pr-2 text-left [&_svg]:shrink-0',
             state.value !== '' ? 'text-foreground' : 'text-foreground-muted'

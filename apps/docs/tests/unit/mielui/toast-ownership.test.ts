@@ -4,9 +4,22 @@ import {
     toast
 } from '@mielui/svelte/components/toast/lib.svelte.ts';
 import { cleanup, render } from '@testing-library/svelte';
-import { afterEach, beforeEach, describe, expect, it } from 'vitest';
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import NestedToasterFixture from '../../fixtures/NestedToasterFixture.svelte';
 import ToasterFixture from '../../fixtures/ToasterFixture.svelte';
+
+vi.hoisted(() => {
+    window.matchMedia ??= vi.fn().mockImplementation((media: string) => ({
+        matches: false,
+        media,
+        onchange: null,
+        addListener: vi.fn(),
+        removeListener: vi.fn(),
+        addEventListener: vi.fn(),
+        removeEventListener: vi.fn(),
+        dispatchEvent: vi.fn()
+    }));
+});
 
 beforeEach(() => {
     cleanup();

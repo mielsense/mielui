@@ -6,8 +6,17 @@
     let { class: className, children, ...rest }: DefaultProps = $props();
 
     const dialog = getDialogContext();
+    const id = `${dialog.id}-desc`;
+    $effect(() => {
+        dialog.descriptionId = id;
+        return () => {
+            if (dialog.descriptionId === id) {
+                dialog.descriptionId = undefined;
+            }
+        };
+    });
 </script>
 
-<p {...rest} id={`${dialog.id}-desc`} class={cn(className, descriptionClasses)}>
+<p {...rest} {id} class={cn(className, descriptionClasses)}>
     {@render children?.()}
 </p>

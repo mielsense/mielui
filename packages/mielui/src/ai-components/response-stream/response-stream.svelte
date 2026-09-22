@@ -2,7 +2,7 @@
     import { getCssDuration } from '@mielui/svelte/transition';
     import { cn } from '@mielui/svelte/utils';
     import type { ScrittoProps } from '@scritto/core';
-    import type { Component } from 'svelte';
+    import { type Component, onMount } from 'svelte';
     import type { HTMLAttributes } from 'svelte/elements';
     import { prefersReducedMotion } from 'svelte/motion';
     import type { ResponseStreamProps } from '.';
@@ -21,6 +21,9 @@
         ...rest
     }: ResponseStreamProps = $props();
 
+    let motionDuration = $state(180);
+    const instant = $derived(prefersReducedMotion.current || motionDuration === 0);
+
     const stream = createResponseStream({
         get textStream() {
             return textStream;
@@ -35,7 +38,7 @@
             return characterChunkSize;
         },
         get instant() {
-            return prefersReducedMotion.current;
+            return instant;
         },
         get onComplete() {
             return onComplete;
@@ -45,6 +48,28 @@
         }
     });
     let box = $state<HTMLElement>();
+
+    onMount(() => {
+        if (!box) {
+            return;
+        }
+        const element = box;
+        function updateMotion() {
+            motionDuration = getCssDuration(element, '--motion-duration-panel', 180);
+        }
+        updateMotion();
+        const observer = new MutationObserver(updateMotion);
+        for (
+            let ancestor: HTMLElement | null = element;
+            ancestor;
+            ancestor = ancestor.parentElement
+        ) {
+            observer.observe(ancestor, { attributes: true, attributeFilter: ['class', 'style'] });
+        }
+        return () => {
+            observer.disconnect();
+        };
+    });
 
     type ScrittoComponent = Component<ScrittoProps & HTMLAttributes<HTMLElement>>;
     let Scritto = $state<ScrittoComponent | null>(null);
@@ -56,12 +81,7 @@
         typeof Element.prototype.getAnimations === 'function';
 
     const rollTransition = $derived({
-        duration: prefersReducedMotion.current
-            ? 0
-            : Math.min(
-                  getRollDuration(speed),
-                  box ? getCssDuration(box, '--motion-duration-panel', 180) : 180
-              ),
+        duration: instant ? 0 : Math.min(getRollDuration(speed), motionDuration),
         easing: 'cubic-bezier(0.23, 1, 0.32, 1)'
     });
 
@@ -101,7 +121,7 @@
     )}
     {...rest}
 >
-    {#if Scritto && !prefersReducedMotion.current && stream.text.length <= 4000}
+    {#if Scritto && !instant && stream.text.length <= 4000}
         <Scritto value={stream.text} transition={rollTransition} />
     {:else}
         {stream.text}
@@ -110,6 +130,7 @@
         <span
             aria-hidden="true"
             data-ui="response-stream-caret"
+            style:animation={instant ? 'none' : undefined}
             class="mielui-response-stream-caret ms-0.5 inline-block h-4 w-px -translate-y-px bg-foreground-muted align-middle"
         ></span>
     {/if}

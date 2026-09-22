@@ -49,7 +49,7 @@
         data-ui="radio-group-item"
         data-state={selected ? 'checked' : 'unchecked'}
         class={cn(
-            'mielui-press mt-0.5 flex size-4 shrink-0 items-center justify-center rounded-full border-[length:var(--border-size)] bg-background transition-[background-color,border-color,box-shadow,transform,scale] [transition-duration:var(--motion-duration-press)] ease-[var(--ease-press)] motion-reduce:transition-none peer-focus-visible:shadow-[var(--focus-ring)]',
+            'mielui-press mt-0.5 flex size-4 shrink-0 items-center justify-center rounded-full border-[length:var(--border-size)] bg-background transition-[background-color,border-color,box-shadow,transform,scale] [transition-duration:var(--motion-duration-press)] ease-[var(--ease-press)] motion-reduce:transition-none shadow-[var(--elevation-control-edge)] peer-focus-visible:shadow-[var(--focus-ring),var(--elevation-control-edge)]',
             selected ? 'border-primary' : 'border-border',
             !isDisabled && !selected && 'hover:border-primary'
         )}

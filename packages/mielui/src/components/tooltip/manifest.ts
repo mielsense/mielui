@@ -25,7 +25,7 @@ export const manifest: Manifest = {
         'components/tooltip/manifest.ts'
     ],
     components: ['_internal/utils'],
-    shared: ['components/_internal/surface', 'utils.cn'],
+    shared: ['transition', 'components/_internal/surface', 'utils.cn'],
     peerDependencies: {
         '@floating-ui/dom': '^1.0.0',
         '@scritto/core': '^0.1.0',

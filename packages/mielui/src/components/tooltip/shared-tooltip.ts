@@ -13,6 +13,7 @@
  */
 import { autoUpdate, computePosition, flip, offset, type Placement, shift } from '@floating-ui/dom';
 import '@scritto/core';
+import { getCssDuration } from '@mielui/svelte/transition';
 import type { Scritto as ScrittoElement } from '@scritto/core';
 
 export function createTooltipManager() {
@@ -30,6 +31,7 @@ export function createTooltipManager() {
     let lastCenter = 'translateX(-50%)';
     let openTimer: ReturnType<typeof setTimeout> | undefined;
     let closeTimer: ReturnType<typeof setTimeout> | undefined;
+    let stopMotionTracking: (() => void) | undefined;
     let stopTracking: (() => void) | undefined;
 
     const SHOW = 'scale(1)';
@@ -143,7 +145,10 @@ export function createTooltipManager() {
         const reduced =
             typeof window !== 'undefined' &&
             window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
-        animate = animate && !reduced;
+        const duration = activeRef
+            ? getCssDuration(activeRef, '--motion-duration-panel', 180)
+            : 180;
+        animate = animate && !reduced && duration > 0;
         if (!label) {
             return;
         }
@@ -151,7 +156,8 @@ export function createTooltipManager() {
             cloneVisual(currentSource, label);
             return;
         }
-        if (roller && !/\s/.test(text)) {
+        if (roller && !reduced && duration > 0 && !/\s/.test(text)) {
+            roller.setOptions({ transition: { duration } });
             if (roller.parentNode !== label) {
                 label.replaceChildren(roller);
             }
@@ -205,7 +211,6 @@ export function createTooltipManager() {
 
         if (supportsRoll()) {
             const host = document.createElement('scritto-text') as ScrittoElement;
-            host.setOptions({ transition: { duration: 300 } });
             span.appendChild(host);
             roller = host;
         }
@@ -306,6 +311,31 @@ export function createTooltipManager() {
         });
     }
 
+    function trackMotion(ref: HTMLElement) {
+        stopMotionTracking?.();
+        const preference = window.matchMedia?.('(prefers-reduced-motion: reduce)');
+        function refreshMotion() {
+            if (!bubble || activeRef !== ref) {
+                return;
+            }
+            for (const token of ['--motion-duration-panel', '--motion-duration-hover']) {
+                const duration = preference?.matches ? 0 : getCssDuration(ref, token, 180);
+                bubble.style.setProperty(token, `${duration}ms`);
+            }
+            setLabel(currentText, false);
+        }
+        refreshMotion();
+        const observer = new MutationObserver(refreshMotion);
+        for (let ancestor: HTMLElement | null = ref; ancestor; ancestor = ancestor.parentElement) {
+            observer.observe(ancestor, { attributes: true, attributeFilter: ['style', 'class'] });
+        }
+        preference?.addEventListener('change', refreshMotion);
+        stopMotionTracking = () => {
+            observer.disconnect();
+            preference?.removeEventListener('change', refreshMotion);
+        };
+    }
+
     /** Shows the bubble for `ref`; when one is already up it morphs to this label. */
     function present(
         ref: HTMLElement,
@@ -324,6 +354,7 @@ export function createTooltipManager() {
         currentSource = source;
         setLabel(text, false);
         currentText = text;
+        trackMotion(ref);
         applyBubbleClass(className);
         applyWidth(text);
         reposition(ref, placement, morph);
@@ -410,6 +441,8 @@ export function createTooltipManager() {
         }
         stopTracking?.();
         stopTracking = undefined;
+        stopMotionTracking?.();
+        stopMotionTracking = undefined;
         visible = false;
         activeRef = null;
         currentSource = undefined;
@@ -444,6 +477,8 @@ export function createTooltipManager() {
         clearTimeout(closeTimer);
         stopTracking?.();
         stopTracking = undefined;
+        stopMotionTracking?.();
+        stopMotionTracking = undefined;
         openTimer = undefined;
         closeTimer = undefined;
         visible = false;

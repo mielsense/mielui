@@ -13,5 +13,5 @@
     {...rest}
     bind:ref
     data-ui="calendar-year-select"
-    class={cn(className, 'h-[var(--size-control-sm)] rounded-[var(--radius-md)] border-[length:var(--border-size)] border-border bg-background px-2 text-sm tabular-nums outline-none focus-visible:shadow-[var(--focus-ring)] disabled:opacity-[var(--opacity-disabled)]')}
+    class={cn(className, 'h-[var(--size-control-sm)] rounded-[var(--radius-md)] border-[length:var(--border-size)] border-border bg-background px-2 text-sm tabular-nums outline-none shadow-[var(--elevation-control-edge)] focus-visible:shadow-[var(--focus-ring),var(--elevation-control-edge)] transition-[background-color,border-color,box-shadow] [transition-duration:var(--motion-duration-press)] ease-[var(--ease-press)] motion-reduce:transition-none enabled:hover:bg-secondary disabled:opacity-[var(--opacity-disabled)]')}
 />

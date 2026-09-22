@@ -20,7 +20,7 @@ describe('Select -- open and close', () => {
     it('hides options initially', async () => {
         render(SelectFixture, {});
         await flush();
-        await expect.element(page.getByTestId('opt-apple')).not.toBeInTheDocument();
+        await expect.element(page.getByTestId('opt-apple')).not.toBeVisible();
     });
 
     it('shows options after opening', async () => {
@@ -43,7 +43,7 @@ describe('Select -- open and close', () => {
 
         await userEvent.keyboard('{Escape}');
         await flush();
-        await expect.element(page.getByTestId('opt-apple')).not.toBeInTheDocument();
+        await expect.element(page.getByTestId('opt-apple')).not.toBeVisible();
     });
 
     it('closes on click outside', async () => {
@@ -55,14 +55,17 @@ describe('Select -- open and close', () => {
         const outside = document.createElement('button');
         outside.textContent = 'outside';
         outside.style.position = 'fixed';
-        outside.style.left = '8px';
-        outside.style.top = '8px';
+        outside.style.right = '8px';
+        outside.style.bottom = '8px';
         document.body.append(outside);
         await new Promise((r) => setTimeout(r, 20));
-        outside.click();
-        await flush();
-        await expect.element(page.getByTestId('opt-apple')).not.toBeInTheDocument();
-        outside.remove();
+        try {
+            await userEvent.click(outside);
+            await flush();
+            await expect.element(page.getByTestId('opt-apple')).not.toBeVisible();
+        } finally {
+            outside.remove();
+        }
     });
 });
 
@@ -83,19 +86,21 @@ describe('Select -- selection behavior', () => {
 
         await page.getByTestId('opt-banana').click();
         await flush();
-        await expect.element(page.getByTestId('opt-apple')).not.toBeInTheDocument();
+        await expect.element(page.getByTestId('opt-apple')).not.toBeVisible();
     });
 
-    it('sets aria-selected on the clicked option while it remains visible', async () => {
+    it('marks only the chosen option selected when reopened', async () => {
         render(SelectFixture, {});
         await flush();
         await openSelect();
 
-        // Verify all options start unselected.
-        const unselectedAtOpen = document.querySelectorAll(
-            '[role="option"][aria-selected="false"]'
-        );
-        expect(unselectedAtOpen.length).toBe(3);
+        expect(document.querySelectorAll('[role="option"][aria-selected="true"]')).toHaveLength(0);
+        await page.getByTestId('opt-banana').click();
+        await flush();
+        await openSelect();
+        const selected = document.querySelectorAll('[role="option"][aria-selected="true"]');
+        expect(selected).toHaveLength(1);
+        expect(selected[0].textContent).toContain('Banana');
     });
 
     it('updates the underlying state.value to the clicked option', async () => {
@@ -128,8 +133,8 @@ describe('Select -- max-h-56 scrolling without explicit height', () => {
         await page.getByTestId('select-scrollable-trigger').click();
         await flush();
 
-        const root = document.querySelector<HTMLElement>('[data-ui="scroll-area"]');
-        const viewport = document.querySelector<HTMLElement>('[data-ui="scroll-area-viewport"]');
+        const root = document.querySelector<HTMLElement>('[data-ui="select-content"]');
+        const viewport = root?.querySelector<HTMLElement>('.mielui-inset-surface');
         expect(root).not.toBeNull();
         expect(viewport).not.toBeNull();
         if (!root || !viewport) {
@@ -145,4 +150,16 @@ describe('Select -- max-h-56 scrolling without explicit height', () => {
         await flush();
         expect(viewport.scrollTop).toBeGreaterThan(0);
     });
+});
+
+it('connects the select-only combobox to its labelled listbox with a custom trigger ID', async () => {
+    render(SelectFixture, { triggerId: 'choose-fruit' });
+    await flush();
+    await page.getByTestId('select-trigger').click();
+    await flush();
+    const trigger = document.getElementById('choose-fruit');
+    expect(trigger?.getAttribute('role')).toBe('combobox');
+    const listbox = document.querySelector('[role="listbox"]');
+    expect(listbox?.getAttribute('aria-labelledby')).toBe('choose-fruit');
+    expect(trigger?.getAttribute('aria-controls')).toBe(listbox?.id);
 });

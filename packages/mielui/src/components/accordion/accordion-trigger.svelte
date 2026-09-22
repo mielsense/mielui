@@ -9,16 +9,22 @@
     let { class: className, children, ...rest }: AccordionTriggerProps = $props();
 
     const ctx = getContext<AccordionContext>('accordion');
-    const item = getContext<{ value: string; disabled: boolean }>('accordion-item');
+    const item = getContext<{
+        value: string;
+        disabled: boolean;
+        triggerId: string;
+        contentId: string;
+    }>('accordion-item');
     const open = $derived(ctx.isOpen(item.value));
 </script>
 
 <BitsAccordion.Header>
-    <BitsAccordion.Trigger {...rest}>
+    <BitsAccordion.Trigger id={item.triggerId} {...rest}>
         {#snippet child({ props })}
             <button
                 {...props}
                 type="button"
+                aria-controls={open ? item.contentId : undefined}
                 use:pressable
                 data-ui="accordion-trigger"
                 data-state={open ? 'open' : 'closed'}

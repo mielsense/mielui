@@ -11,27 +11,6 @@ import DropdownMenuFixture from '../../fixtures/DropdownMenuFixture.svelte';
 import PopoverFixture from '../../fixtures/PopoverFixture.svelte';
 import SheetFixture from '../../fixtures/SheetFixture.svelte';
 
-/*
- * Reduced-motion tier -- strategy Sec.14.1 reduced-motion row,
- * pattern guide Sec.14.1.
- *
- * Components with transitions must honor the user's
- * `prefers-reduced-motion: reduce` preference. The shared assertion:
- *
- *   When `prefers-reduced-motion: reduce` is active, the component is
- *   interactive at its post-transition state within ~50ms of the open
- *   action -- effectively no animation. The exact 50ms threshold is
- *   permissive but small enough that any animation > one frame would
- *   fail.
- *
- * Implementation note: mielui's transitions read motion durations from
- * CSS variables (`--motion-duration-panel`, etc.). For reduced motion
- * to work, either (a) the library detects the media query and zeroes
- * the durations, OR (b) consumers' CSS sets those variables to 0
- * under `@media (prefers-reduced-motion: reduce)`. Neither is
- * currently implemented in mielui -- see P3-F14 below.
- */
-
 let originalMatchMedia: typeof window.matchMedia;
 
 async function flush() {
@@ -41,7 +20,6 @@ async function flush() {
 }
 
 describe('Reduced motion -- content visible within 50ms of open action under prefers-reduced-motion: reduce', () => {
-    // Emulate reduced motion via Playwright's CDP media override before each test.
     beforeEach(async () => {
         await page.viewport(1024, 768);
         // vitest-browser's `userEvent` doesn't expose emulateMedia. Apply via
@@ -92,8 +70,11 @@ describe('Reduced motion -- content visible within 50ms of open action under pre
         await flush();
 
         const elapsed = performance.now() - start;
-        const title = document.querySelector('h1');
-        expect(title?.textContent).toMatch(/Dialog Title/);
+        await expect.element(page.getByRole('heading', { name: 'Dialog Title' })).toBeVisible();
+        const dialog = document.querySelector('[data-ui="dialog-panel"]');
+        expect(
+            dialog?.getAnimations().filter((animation) => animation.playState === 'running')
+        ).toHaveLength(0);
 
         // Threshold is permissive -- we want to catch animations that take
         // hundreds of ms, not micro-jitter from the test setup itself.
@@ -106,8 +87,6 @@ describe('Reduced motion -- content visible within 50ms of open action under pre
         await flush();
         const elapsed = performance.now() - start;
 
-        // Sheet has an outro `visible` flag tied to animationend, but for the
-        // INTRO with reduced motion the content should be present.
         const panel = document.querySelector('[data-ui="sheet-content"]');
         expect(panel).toBeInTheDocument();
         expect(elapsed).toBeLessThan(500);

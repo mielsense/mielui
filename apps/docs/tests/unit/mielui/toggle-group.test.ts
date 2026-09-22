@@ -23,8 +23,8 @@ describe('ToggleGroup -- single mode', () => {
         const buttons = Array.from(container.querySelectorAll<HTMLButtonElement>('button'));
         const italic = required(buttons.find((button) => button.textContent === 'I'));
         const bold = required(buttons.find((button) => button.textContent === 'B'));
-        expect(italic.getAttribute('aria-pressed')).toBe('true');
-        expect(bold.getAttribute('aria-pressed')).toBe('false');
+        expect(italic.getAttribute('aria-checked')).toBe('true');
+        expect(bold.getAttribute('aria-checked')).toBe('false');
     });
 
     it('replaces the active item on click', async () => {
@@ -37,8 +37,8 @@ describe('ToggleGroup -- single mode', () => {
 
         const user = userEvent.setup();
         await user.click(underline);
-        expect(underline.getAttribute('aria-pressed')).toBe('true');
-        expect(bold.getAttribute('aria-pressed')).toBe('false');
+        expect(underline.getAttribute('aria-checked')).toBe('true');
+        expect(bold.getAttribute('aria-checked')).toBe('false');
     });
 
     it('exactly one item is active at a time after interactions', async () => {
@@ -51,7 +51,7 @@ describe('ToggleGroup -- single mode', () => {
         await user.click(buttons[1]);
         await user.click(buttons[2]);
 
-        const active = buttons.filter((b) => b.getAttribute('aria-pressed') === 'true');
+        const active = buttons.filter((b) => b.getAttribute('aria-checked') === 'true');
         expect(active.length).toBe(1);
         expect(active[0].textContent).toBe('U');
     });

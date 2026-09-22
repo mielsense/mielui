@@ -57,6 +57,8 @@ export type ThemeTypography = {
 
 export type ThemeChrome = {
     shadows?: boolean;
+    /** Strength of light-catching inset edges, from 0 to 1. Defaults to 0.5. */
+    edgeHighlight?: number;
     /** Shadows on cards, floating menus, and other surfaces (`--elevation-1`, `--elevation-float`). */
     surfaceShadows?: boolean;
     /** Shadows on inputs, buttons, and similar controls (`--elevation-control`, `--elevation-button-outline`). */
@@ -343,6 +345,28 @@ function typographyDeclarations(typography: ThemeTypography | undefined): string
     return declarations;
 }
 
+function elevationDeclarations(mode: 'light' | 'dark'): string[] {
+    return mode === 'light'
+        ? [
+              '--elevation-control-edge: inset 0 1px 0 0 rgb(255 255 255 / calc(0.38 * var(--mielui-edge-highlight))), inset 0 -1px 0 0 rgb(15 15 16 / 0.06);',
+              '--elevation-surface-edge: inset 0 1px 0 0 rgb(255 255 255 / calc(0.55 * var(--mielui-edge-highlight)));',
+              '--elevation-1: var(--elevation-surface-edge), 0 4px 2px rgb(0 0 0 / 0.04);',
+              '--elevation-float: var(--elevation-surface-edge), 0 8px 24px -8px rgb(0 0 0 / 0.12), 0 2px 6px rgb(0 0 0 / 0.06);',
+              '--elevation-modal: var(--elevation-surface-edge), 0 16px 40px -16px rgb(0 0 0 / 0.28), 0 4px 12px -6px rgb(0 0 0 / 0.14);',
+              '--elevation-control: inset 0 0 0 var(--border-size) var(--color-border), inset 0 -2px 3px -2px rgb(15 15 16 / 0.08), inset 0 1px 0 0 rgb(255 255 255 / calc(0.4 * var(--mielui-edge-highlight)));',
+              '--elevation-button-outline: inset 0 0 0 var(--border-size) var(--color-border), inset 0 -2px 3px -2px rgb(15 15 16 / 0.08), inset 0 1px 0 0 rgb(255 255 255 / calc(0.45 * var(--mielui-edge-highlight))), 0 1px 1px rgb(28 25 23 / 0.06), 0 2px 4px -4px rgb(28 25 23 / 0.22);'
+          ]
+        : [
+              '--elevation-control-edge: inset 0 1px 0 0 rgb(255 255 255 / calc(0.07 * var(--mielui-edge-highlight))), inset 0 -1px 0 0 rgb(0 0 0 / 0.22);',
+              '--elevation-surface-edge: inset 0 1px 0 0 rgb(255 255 255 / calc(0.07 * var(--mielui-edge-highlight)));',
+              '--elevation-1: var(--elevation-surface-edge), 0 1px 2px rgb(0 0 0 / 0.4);',
+              '--elevation-float: var(--elevation-surface-edge), 0 8px 24px -8px rgb(0 0 0 / 0.12), 0 2px 6px rgb(0 0 0 / 0.06);',
+              '--elevation-modal: var(--elevation-surface-edge), 0 16px 40px -16px rgb(0 0 0 / 0.28), 0 4px 12px -6px rgb(0 0 0 / 0.14);',
+              '--elevation-control: inset 0 0 0 var(--border-size) var(--color-border), inset 0 -2px 3px -2px rgb(0 0 0 / 0.32), inset 0 1px 0 0 rgb(255 255 255 / calc(0.05 * var(--mielui-edge-highlight)));',
+              '--elevation-button-outline: inset 0 0 0 var(--border-size) var(--color-border), inset 0 -2px 3px -2px rgb(0 0 0 / 0.32), inset 0 1px 0 0 rgb(255 255 255 / calc(0.05 * var(--mielui-edge-highlight))), 0 1px 2px rgb(0 0 0 / 0.3);'
+          ];
+}
+
 function chromeBlocks(chrome: ThemeChrome | undefined): string {
     if (!chrome) {
         return '';
@@ -353,13 +377,17 @@ function chromeBlocks(chrome: ThemeChrome | undefined): string {
     const dialogShadows = masterShadows && chrome.dialogShadows !== false;
     const elevationOff: string[] = [];
     if (!surfaceShadows) {
-        elevationOff.push('--elevation-1: none;', '--elevation-float: none;');
+        elevationOff.push(
+            '--elevation-1: 0 0 0 0 transparent;',
+            '--elevation-float: 0 0 0 0 transparent;'
+        );
     }
     if (!dialogShadows) {
-        elevationOff.push('--elevation-modal: none;');
+        elevationOff.push('--elevation-modal: 0 0 0 0 transparent;');
     }
     if (!controlShadows) {
         elevationOff.push(
+            '--elevation-control-edge: 0 0 0 0 transparent;',
             '--elevation-control: inset 0 0 0 var(--border-size) var(--color-border);',
             '--elevation-button-outline: inset 0 0 0 var(--border-size) var(--color-border);'
         );
@@ -401,6 +429,7 @@ export function themeToCss(themeInput: Theme): string {
     const [radiusSm, radiusMd, radiusLg, radiusXl] = RADII[theme.radius];
     const motion = MOTION[theme.motion];
     const shared = [
+        `--mielui-edge-highlight: ${theme.chrome?.edgeHighlight ?? 0.5};`,
         `--font-sans: ${theme.fontSans};`,
         `--font-mono: ${theme.fontMono};`,
         `--font-header: ${theme.fontHeader};`,
@@ -433,11 +462,13 @@ export function themeToCss(themeInput: Theme): string {
         block(':root,\n.dark', shared) +
         block(':root', [
             ...brandDeclarations(theme.brand, 'light'),
-            ...neutralDeclarations(NEUTRALS[theme.neutral].light)
+            ...neutralDeclarations(NEUTRALS[theme.neutral].light),
+            ...elevationDeclarations('light')
         ]) +
         block('.dark', [
             ...brandDeclarations(theme.brand, 'dark'),
-            ...neutralDeclarations(NEUTRALS[theme.neutral].dark)
+            ...neutralDeclarations(NEUTRALS[theme.neutral].dark),
+            ...elevationDeclarations('dark')
         ]);
 
     const typography = typographyDeclarations(theme.typography);
@@ -637,6 +668,19 @@ function optionalChrome(value: unknown): ThemeChrome | undefined {
         throw new TypeError('Invalid theme: chrome must be an object.');
     }
     const chrome: ThemeChrome = {};
+    if (value.edgeHighlight !== undefined) {
+        if (
+            typeof value.edgeHighlight !== 'number' ||
+            !Number.isFinite(value.edgeHighlight) ||
+            value.edgeHighlight < 0 ||
+            value.edgeHighlight > 1
+        ) {
+            throw new TypeError(
+                'Invalid theme: chrome.edgeHighlight must be a finite number from 0 to 1.'
+            );
+        }
+        chrome.edgeHighlight = value.edgeHighlight;
+    }
     if (value.shadows !== undefined) {
         if (typeof value.shadows !== 'boolean') {
             throw new TypeError('Invalid theme: chrome.shadows must be a boolean.');

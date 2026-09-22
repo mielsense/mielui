@@ -11,7 +11,7 @@
     bind:ref
     aria-hidden="true"
     data-ui="otp-field-cell"
-    class={cn(className, 'relative flex size-[var(--size-control-lg)] shrink-0 items-center justify-center rounded-[var(--radius-md)] border-[length:var(--border-size)] border-[var(--color-input)] bg-[var(--color-field)] text-foreground tabular-nums [font-size:var(--font-size-body)] transition-[border-color,box-shadow] [transition-duration:var(--motion-duration-press)] data-active:border-primary data-active:shadow-[var(--focus-ring)] motion-reduce:transition-none')}
+    class={cn(className, 'relative flex size-[var(--size-control-lg)] shrink-0 items-center justify-center rounded-[var(--radius-md)] border-[length:var(--border-size)] border-[var(--color-input)] bg-[var(--color-field)] text-foreground tabular-nums [font-size:var(--font-size-body)] transition-[border-color,box-shadow] ease-[var(--ease-press)] [transition-duration:var(--motion-duration-press)] data-active:border-primary shadow-[var(--elevation-control-edge)] data-active:shadow-[var(--focus-ring),var(--elevation-control-edge)] motion-reduce:transition-none')}
 >
     {cell.char ?? ''}
     {#if cell.hasFakeCaret}

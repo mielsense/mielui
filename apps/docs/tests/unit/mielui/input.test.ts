@@ -171,25 +171,22 @@ describe('Input -- attribute spreading', () => {
 });
 
 describe('Input -- label/input coupling', () => {
-    it('wraps the input in a label so clicking the label focuses the input', async () => {
+    it('associates a sibling label with the native input', () => {
         const { container } = render(Input, { props: { label: 'Email' } });
-        const label = queryRequired(container, 'label');
-        const input = queryRequired(label, 'input');
-        expect(input).toBeInTheDocument();
-        // Click label, input gets focus via native label/input semantics.
-        label.click();
-        // jsdom: clicking label does not auto-focus; but the input is wrapped
-        // so the implicit-label relationship works in real browsers.
-        // We verify the structural relationship instead.
-        expect(label.contains(input)).toBe(true);
+        const label = queryRequired<HTMLLabelElement>(container, 'label');
+        const input = queryRequired<HTMLInputElement>(container, 'input');
+        expect(label.control).toBe(input);
+        expect(label.contains(input)).toBe(false);
+        expect(input).toHaveAccessibleName('Email');
     });
 
-    it('renders label and description as siblings of the input', () => {
+    it('keeps the description separate from the accessible name', () => {
         const { container } = render(Input, {
             props: { label: 'Field', description: 'A description' }
         });
-        const label = queryRequired(container, 'label');
-        expect(label.textContent).toContain('Field');
-        expect(label.textContent).toContain('A description');
+        const input = queryRequired<HTMLInputElement>(container, 'input');
+        expect(input).toHaveAccessibleName('Field');
+        expect(input).toHaveAccessibleDescription('A description');
+        expect(queryRequired(container, 'label')).not.toHaveTextContent('A description');
     });
 });

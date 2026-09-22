@@ -67,12 +67,14 @@ describe('ColorPicker -- channel formats', () => {
         await flush();
         await openPicker();
         expect(
-            document.querySelectorAll('[data-ui="popover-content"] input[type="range"]')
+            document.querySelectorAll('[data-ui="color-picker-channels"] [role="slider"]')
         ).toHaveLength(3);
         expect(
-            document.querySelector<HTMLInputElement>(
-                '[data-ui="popover-content"] input[type="range"]'
-            )?.max
+            document
+                .querySelector<HTMLInputElement>(
+                    '[data-ui="color-picker-channels"] [role="slider"]'
+                )
+                ?.getAttribute('aria-valuemax')
         ).toBe('360');
     });
 
@@ -81,10 +83,10 @@ describe('ColorPicker -- channel formats', () => {
         await flush();
         await openPicker();
         const channels = document.querySelectorAll<HTMLInputElement>(
-            '[data-ui="popover-content"] input[type="range"]'
+            '[data-ui="color-picker-channels"] [role="slider"]'
         );
         expect(channels).toHaveLength(3);
-        expect(channels[0]?.max).toBe('255');
+        expect(channels[0]?.getAttribute('aria-valuemax')).toBe('255');
     });
 });
 
@@ -106,11 +108,9 @@ describe('ColorPicker -- surface dividers', () => {
         await openPicker();
 
         const sliders = required(
-            document
-                .querySelector<HTMLElement>('[data-ui="popover-content"] input[type="range"]')
-                ?.closest('div.flex-col')
+            document.querySelector<HTMLElement>('[data-ui="color-picker-channels"]')
         );
-        expect(sliders.className).toContain('border-b-[length:var(--border-size)]');
+        expect(parseFloat(getComputedStyle(sliders).borderBottomWidth)).toBeGreaterThan(0);
     });
 
     it('drops that divider without options so no hairline strands above the rounded edge', async () => {
@@ -119,11 +119,9 @@ describe('ColorPicker -- surface dividers', () => {
         await openPicker();
 
         const sliders = required(
-            document
-                .querySelector<HTMLElement>('[data-ui="popover-content"] input[type="range"]')
-                ?.closest('div.flex-col')
+            document.querySelector<HTMLElement>('[data-ui="color-picker-channels"]')
         );
-        expect(sliders.className).not.toContain('border-b-[length:var(--border-size)]');
+        expect(getComputedStyle(sliders).borderBottomWidth).toBe('0px');
     });
 });
 
@@ -171,7 +169,7 @@ describe('ColorPicker -- Hue drag', () => {
         await openPicker();
 
         const hue = document.querySelector(
-            '[data-ui="popover-content"] .cursor-ew-resize'
+            '[data-ui="color-picker-hue"] [data-ui="slider-track"]'
         ) as HTMLElement;
         expect(hue).toBeInTheDocument();
 

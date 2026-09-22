@@ -306,9 +306,10 @@ src/lib/mielui/components/button/
             <Typography.InlineCode>tokens.dark</Typography.InlineCode>
             (for example per-mode primary colors overriding
             <Typography.InlineCode>--color-primary</Typography.InlineCode>
-            ), and chrome flags under
+            ), and chrome settings under
             <Typography.InlineCode>chrome</Typography.InlineCode>
             :
+            <Typography.InlineCode>edgeHighlight</Typography.InlineCode> from 0 to 1,
             <Typography.InlineCode>surfaceShadows</Typography.InlineCode>
             ,
             <Typography.InlineCode>controlShadows</Typography.InlineCode>
@@ -359,6 +360,29 @@ src/lib/mielui/components/button/
         <CodeBlock code={sourceExample} lang="shell" copy="overlay" />
     </section>
 
+    <section class="flex flex-col gap-4">
+        <Typography.H2>Edge highlights</Typography.H2>
+        <Typography.Text>
+            Set chrome.edgeHighlight to adjust the thin light-catching edges on controls, keycaps,
+            and raised surfaces. The default is 0.5, half the previous strength. Use 0 to remove
+            that light or 1 for full strength. Focus rings, borders, and drop shadows keep their
+            existing colors and opacity. Shadow switches still take precedence.
+        </Typography.Text>
+        <CodeBlock
+            lang="typescript"
+            code={`const theme = {
+    ...DEFAULT_THEME,
+    chrome: { edgeHighlight: 0.5 }
+};
+
+const css = themeToCss(theme);`}
+        />
+        <Typography.Text>
+            Studio exposes Edge highlight under Effects. Turn it off to remove the highlight, or
+            adjust its strength while enabled. Turning it back on restores the last strength used in
+            that session. Preset JSON, copied CSS, saved drafts, and CLI theme imports preserve it.
+        </Typography.Text>
+    </section>
     <section id="next" class="scroll-mt-20 flex flex-col gap-5">
         <Typography.H2 class="docs-section-heading">Next</Typography.H2>
         <Typography.Text variant="body" class="m-0">

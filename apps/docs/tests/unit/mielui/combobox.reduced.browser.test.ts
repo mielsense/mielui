@@ -8,7 +8,10 @@ it('disables result filtering motion when reduced motion is requested', async ()
     render(ComboboxFixture, {});
     await page.getByTestId('combobox-trigger').click();
 
-    const apple = page.getByText('Apple').element() as HTMLElement;
+    const apple = page.getByText('Apple').element().closest<HTMLElement>('[data-combobox-result]');
+    if (!apple) {
+        throw new Error('Missing result motion wrapper');
+    }
     const search = page.getByPlaceholder('Search fruits').element() as HTMLInputElement;
     search.value = 'cherry';
     search.dispatchEvent(new InputEvent('input', { bubbles: true, data: 'cherry' }));
