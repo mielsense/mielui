@@ -11,6 +11,8 @@
     import HeroSrc from './examples/hero.svelte?raw';
     import LabelOnly from './examples/label-only.svelte';
     import LabelOnlySrc from './examples/label-only.svelte?raw';
+    import Sizes from './examples/sizes.svelte';
+    import SizesSrc from './examples/sizes.svelte?raw';
     import WithDescription from './examples/with-description.svelte';
     import WithDescriptionSrc from './examples/with-description.svelte?raw';
 
@@ -79,6 +81,14 @@
             <Typography.H2 class="docs-section-heading">Examples</Typography.H2>
         </div>
 
+        <div id="sizes" class="scroll-mt-20 flex flex-col gap-3">
+            <Typography.H3 class="docs-subsection-heading">Sizes</Typography.H3>
+            <Typography.Text>
+                Use size="sm", "md", or "lg" for a 14, 18, or 22px box. Medium is the default. The
+                label remains clickable at every size.
+            </Typography.Text>
+            <ComponentPreview code={SizesSrc}><Sizes /></ComponentPreview>
+        </div>
         <!-- Label only -->
         <div id="label-only" class="scroll-mt-20 flex flex-col gap-3">
             <Typography.H3 class="docs-subsection-heading">Label only</Typography.H3>

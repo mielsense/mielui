@@ -12,6 +12,7 @@
         description,
         disabled,
         variant = 'default',
+        size = 'md',
         class: classProp,
         onCheckedChange,
         oninput,
@@ -45,9 +46,11 @@
 
 <label
     for={metadata.controlId}
+    data-size={size}
     class={cn(
         classProp,
         'min-h-[var(--size-touch)] md:min-h-0',
+        !description && 'items-center',
         checkbox({ variant, disabled: disabled ?? false, checked: checked ?? false })
     )}
 >
@@ -69,7 +72,7 @@
         use:pressable
         data-ui="checkbox-box"
         data-state={checked ? 'checked' : 'unchecked'}
-        class={checkboxBox({ checked: checked ?? false })}
+        class={checkboxBox({ checked: checked ?? false, size })}
         aria-hidden="true"
     >
         <HugeiconsIcon
@@ -85,13 +88,8 @@
 
     {#if label || description}
         <div class="flex flex-col justify-center">
-            <!-- token-lint-disable-next-line no-literal-length: fine-tuning vertical alignment of label -->
             {#if label}
-                <span
-                    id={metadata.labelId}
-                    class={cn(checkboxText(), 'mt-[-0.2rem]')}
-                    role="presentation"
-                >
+                <span id={metadata.labelId} class={checkboxText()} role="presentation">
                     {label}
                 </span>
             {/if}

@@ -31,8 +31,13 @@ export const checkbox = tv({
 });
 
 export const checkboxBox = tv({
-    base: 'mielui-press flex size-4 shrink-0 items-center justify-center rounded-[var(--radius-sm)] border-[length:var(--border-size)] p-0 transition-[background-color,border-color,box-shadow,transform,scale] [transition-duration:var(--motion-duration-press)] ease-[var(--ease-press)] motion-reduce:transition-none peer-focus-visible:shadow-[var(--focus-ring)]',
+    base: 'mielui-press flex shrink-0 items-center justify-center rounded-[var(--radius-sm)] border-[length:var(--border-size)] p-0 transition-[background-color,border-color,box-shadow,transform,scale] [transition-duration:var(--motion-duration-press)] ease-[var(--ease-press)] motion-reduce:transition-none peer-focus-visible:shadow-[var(--focus-ring)]',
     variants: {
+        size: {
+            sm: 'size-[14px] [&_svg]:size-[10px]',
+            md: 'size-[18px] [&_svg]:size-[12px]',
+            lg: 'size-[22px] [&_svg]:size-[16px]'
+        },
         checked: {
             true: 'border-primary bg-primary',
             false: 'border-border bg-[var(--color-field)] peer-hover:bg-[var(--color-field-hover)] peer-focus-visible:bg-[var(--color-field-hover)]'

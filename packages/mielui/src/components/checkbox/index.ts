@@ -8,9 +8,10 @@ export type CheckboxProps = {
     description?: string;
     disabled?: boolean;
     variant?: 'default' | 'primary';
+    size?: 'sm' | 'md' | 'lg';
     onCheckedChange?: (checked: boolean) => void;
 } & DefaultProps &
-    Omit<HTMLInputAttributes, 'children' | 'type' | 'checked'>;
+    Omit<HTMLInputAttributes, 'children' | 'type' | 'checked' | 'size'>;
 
 export { Checkbox };
 export default Checkbox;

@@ -48,6 +48,15 @@
                 "inherited": false
             },
             {
+                "name": "size",
+                "type": "\"sm\" | \"md\" | \"lg\" | undefined",
+                "required": false,
+                "bindable": false,
+                "default": "'md'",
+                "description": "",
+                "inherited": false
+            },
+            {
                 "name": "onCheckedChange",
                 "type": "((checked: boolean) => void) | undefined",
                 "required": false,
@@ -514,7 +523,6 @@
             1069,
             1070,
             3981,
-            3638,
             1395,
             1397,
             1398,
