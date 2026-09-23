@@ -52,6 +52,11 @@
     <!-- ─── Usage ─────────────────────────────────────────────────── -->
     <section id="usage" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Usage</Typography.H2>
+        <Typography.Text variant="supporting">
+            The theme setting chrome.borders chooses "single" or "double" framing. Double is the
+            default. Single removes the extra frame while preserving content padding, composition,
+            and inset variants.
+        </Typography.Text>
         <Typography.Text>
             Bind value to the selected option. Single selection is the default. Clicking an option
             or pressing Enter updates value and calls onValueChange. Keyboard navigation skips

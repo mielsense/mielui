@@ -43,6 +43,7 @@ export type StudioExtensions = {
     brandColors: BrandColors;
     foundationColors: FoundationColors;
     advancedTokens: AdvancedTokens;
+    borders: 'double' | 'single';
     edgeHighlight: number;
     surfaceShadows: boolean;
     controlShadows: boolean;

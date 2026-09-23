@@ -90,6 +90,9 @@ export function createThemeEditorStorage(state: ThemeEditorState) {
             ) {
                 state.edgeHighlight = value.edgeHighlight;
             }
+            if (value.borders === 'single' || value.borders === 'double') {
+                state.borders = value.borders;
+            }
             const shadowsOff = (value as { shadows?: unknown }).shadows === false;
             if (typeof value.surfaceShadows === 'boolean') {
                 state.surfaceShadows = value.surfaceShadows;
@@ -142,6 +145,7 @@ export function createThemeEditorStorage(state: ThemeEditorState) {
                 spacing: { ...state.advancedTokens.spacing },
                 animation: { ...state.advancedTokens.animation }
             },
+            borders: state.borders,
             edgeHighlight: state.edgeHighlight,
             surfaceShadows: state.surfaceShadows,
             controlShadows: state.controlShadows,

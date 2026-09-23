@@ -33,6 +33,11 @@
     <section id="usage" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Usage</Typography.H2>
         <Typography.Text variant="supporting">
+            The theme setting chrome.borders chooses "single" or "double" framing. Double is the
+            default. Single removes the extra frame while preserving content padding, composition,
+            and inset variants.
+        </Typography.Text>
+        <Typography.Text variant="supporting">
             Bind open on Root. Content holds arbitrary children, stays centered on the chosen
             viewport edge, and animates as its content changes size. Header, Title, Description,
             Actions, Close, SideAction, and Accessory are optional. Close, swipe dismissal, and the

@@ -64,6 +64,17 @@
         />
     </section>
 
+    <section id="borders" class="flex flex-col gap-4">
+        <Typography.H2 class="docs-section-heading">Borders</Typography.H2>
+        <Typography.Text variant="supporting">
+            Set chrome.borders to "single" in your theme to remove the extra frame from inset and
+            panel cards. Use "double", the default, to keep it. Content padding and footer
+            composition stay intact. Default cards already have one border. This setting also
+            applies to dialogs, sheets, menus, Notch, Toast, and other framed surfaces; shadows and
+            edge highlights remain independent.
+        </Typography.Text>
+    </section>
+
     <!-- ─── Examples ──────────────────────────────────────────────── -->
     <section id="examples" class="scroll-mt-20 flex flex-col gap-10">
         <div>

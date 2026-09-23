@@ -318,7 +318,9 @@ export function themeToCss(themeInput: Theme): string {
     const theme = parseTheme(themeInput);
     const [radiusSm, radiusMd, radiusLg, radiusXl] = RADII[theme.radius];
     const motion = MOTION[theme.motion];
+    const borderInsetScale = theme.chrome?.borders === 'single' ? 0 : 1;
     const shared = [
+        `--mielui-border-inset-scale: ${borderInsetScale};`,
         `--mielui-edge-highlight: ${theme.chrome?.edgeHighlight ?? 0.5};`,
         `--font-sans: ${theme.fontSans};`,
         `--font-mono: ${theme.fontMono};`,

@@ -1,7 +1,9 @@
 <script lang="ts">
     import { Slider } from '@mielui/svelte/components/slider';
     import { Switch } from '@mielui/svelte/components/switch';
+    import * as Typography from '@mielui/svelte/components/typography';
     import { getThemeEditor } from './context';
+    import { toggleChoice } from './controls.svelte';
     import EditorSection from './section.svelte';
 
     const editor = getThemeEditor();
@@ -9,6 +11,19 @@
 
 <EditorSection title="Appearance" bodyClass="gap-5">
     <div class="flex flex-col gap-3">
+        <div class="flex flex-col gap-2">
+            <Typography.Metadata>Borders</Typography.Metadata>
+            {@render toggleChoice(
+                ['single', 'double'],
+                editor.state.borders,
+                'Borders',
+                (value) => {
+                    if (value === 'single' || value === 'double') {
+                        editor.state.borders = value;
+                    }
+                }
+            )}
+        </div>
         <Switch bind:checked={editor.state.glassSurfaces} label="Glass surfaces" />
     </div>
     <div class="flex flex-col gap-3 border-t border-border pt-4">

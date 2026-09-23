@@ -1,1 +1,2 @@
+- Choose single or double borders across framed surfaces, including cards, dialogs, menus, Notch, and Toast in themes and Studio.
 - Organize Studio appearance and interaction settings, with toggle buttons for value choices and a compact Advanced colors action in the Color header.

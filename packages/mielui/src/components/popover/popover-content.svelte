@@ -304,7 +304,7 @@
                 classProp,
                     overlaySurface(surface),
                 'm-auto flex origin-top-left flex-col overflow-hidden text-sm text-[var(--color-foreground)]',
-                'mielui-modal-frame shadow-[var(--elevation-float)] [--mielui-modal-inset:calc(var(--spacing)*0.5)]',
+                'mielui-modal-frame shadow-[var(--elevation-float)] [--mielui-modal-inset:calc(var(--spacing)*0.5*var(--mielui-border-inset-scale,1))]',
                 'max-w-[min(var(--popover-available-width,calc(100vw-2*var(--popover-viewport-margin))),calc(100vw-2*var(--popover-viewport-margin)))] max-h-[min(var(--popover-available-height,calc(100vh-2*var(--popover-viewport-margin))),calc(100vh-2*var(--popover-viewport-margin)))]'
             )}
                 >

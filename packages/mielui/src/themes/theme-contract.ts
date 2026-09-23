@@ -59,6 +59,7 @@ export type ThemeChrome = {
     shadows?: boolean;
     /** Strength of light-catching inset edges, from 0 to 1. Defaults to 0.5. */
     edgeHighlight?: number;
+    borders?: 'double' | 'single';
     /** Shadows on cards, floating menus, and other surfaces (`--elevation-1`, `--elevation-float`). */
     surfaceShadows?: boolean;
     /** Shadows on inputs, buttons, and similar controls (`--elevation-control`, `--elevation-button-outline`). */

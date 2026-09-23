@@ -360,7 +360,7 @@
 
     /* Card concentric frame: hairline border + foreground-tinted fill. */
     .mielui-card-frame {
-        padding: calc(var(--spacing) * 0.5);
+        padding: calc(var(--spacing) * 0.5 * var(--mielui-border-inset-scale, 1));
         border: var(--border-size) solid var(--color-border);
         border-radius: var(--radius-lg);
         background-color: color-mix(in oklab, var(--color-foreground) 3%, var(--color-card));
@@ -373,17 +373,24 @@
     /* Inset surface for the frame above. Radius is the frame radius minus the
 	   2px frame inset so the corners stay concentric. Bring your own padding. */
     .mielui-card-surface {
-        border-radius: calc(var(--radius-lg) - var(--size-hairline));
+        border-radius: calc(
+            var(--radius-lg) -
+            var(--border-size) -
+            var(--spacing) *
+            0.5 *
+            var(--mielui-border-inset-scale, 1)
+        );
         background-color: var(--color-card);
         box-shadow:
             var(--elevation-1),
-            0 0 0 1px color-mix(in oklab, var(--color-border) 50%, transparent);
+            0 0 0 calc(1px * var(--mielui-border-inset-scale, 1))
+            color-mix(in oklab, var(--color-border) 50%, transparent);
     }
 
     /* Dialog/CodeBlock inset frame. Inner radius = outer − border − inset. */
     .mielui-modal-frame,
     .mielui-inset-frame {
-        --mielui-modal-inset: var(--spacing);
+        --mielui-modal-inset: calc(var(--spacing) * var(--mielui-border-inset-scale, 1));
         gap: var(--mielui-modal-inset);
         padding: var(--mielui-modal-inset);
         border: var(--border-size) solid var(--color-border);

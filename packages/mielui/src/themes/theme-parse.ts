@@ -172,6 +172,9 @@ function optionalChrome(value: unknown): ThemeChrome | undefined {
         throw new TypeError('Invalid theme: chrome must be an object.');
     }
     const chrome: ThemeChrome = {};
+    if (value.borders !== undefined) {
+        chrome.borders = enumValue(value.borders, 'chrome.borders', ['double', 'single'] as const);
+    }
     if (value.edgeHighlight !== undefined) {
         if (
             typeof value.edgeHighlight !== 'number' ||

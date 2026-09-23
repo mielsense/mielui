@@ -31,7 +31,7 @@
                     inert={!open}
                     aria-hidden={!open || undefined}
                     data-state={open ? 'open' : 'closed'}
-                    class={cn(className, 'mielui-modal-frame z-[130] flex min-w-[var(--bits-select-anchor-width)] max-h-[var(--bits-select-content-available-height)] flex-col overflow-hidden text-sm text-foreground shadow-[var(--elevation-float)] [--mielui-modal-inset:calc(var(--spacing)*0.5)] outline-none origin-[var(--bits-select-content-transform-origin)] transition-[opacity,scale,filter,visibility] [transition-duration:var(--motion-duration-panel)] ease-[var(--ease-out)] motion-reduce:transition-none',
+                    class={cn(className, 'mielui-modal-frame z-[130] flex min-w-[var(--bits-select-anchor-width)] max-h-[var(--bits-select-content-available-height)] flex-col overflow-hidden text-sm text-foreground shadow-[var(--elevation-float)] [--mielui-modal-inset:calc(var(--spacing)*0.5*var(--mielui-border-inset-scale,1))] outline-none origin-[var(--bits-select-content-transform-origin)] transition-[opacity,scale,filter,visibility] [transition-duration:var(--motion-duration-panel)] ease-[var(--ease-out)] motion-reduce:transition-none',
                         open ? 'visible scale-100 opacity-100 blur-none' : 'invisible scale-[0.98] opacity-0 blur-[var(--motion-menu-blur)]', overlaySurface(surface))}
                 >
                     <div
