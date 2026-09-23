@@ -1,9 +1,10 @@
 <script lang="ts">
-    import External from '@lucide/svelte/icons/external-link';
+    import { LinkSquare02Icon as External } from '@hugeicons/core-free-icons';
     import { Button } from '@mielui/svelte/components/button';
+    import HugeiconsIcon from '@mielui/svelte/hugeicons-icon';
 </script>
 
 <Button href="/docs" variant="outline">
-    <External size={13} />
+    <HugeiconsIcon icon={External} size={13} />
     Open docs
 </Button>

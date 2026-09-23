@@ -22,7 +22,7 @@ import type { Manifest } from '@mielui/svelte/_manifest/types';
  *          spread attribute path if they need them).
  * 3.0.0 -- Popover.Root gained inert outside-document behavior, enabled by
  *          default for non-hover popovers and safe across nested and portaled
- *          layers. Set inert={false} to preserve non-modal outside interaction.
+ *          layers. Set inert={false} to preserve non-dialog outside interaction.
  * 3.0.1 -- Inert, focus trap, and scroll lock share the overlay primitives so
  *          nested page overflow containers lock and sibling overlay roots stay
  *          interactive.
@@ -30,7 +30,7 @@ import type { Manifest } from '@mielui/svelte/_manifest/types';
  *          triggers that must stay clickable while open; outside pointer
  *          dismissal still applies via `allowClickOutside`.
  * 3.2.0 -- Content registers its Escape layer one rank above the enclosing
- *          overlay, so menus opened inside a modal or sheet peel before
+ *          overlay, so menus opened inside a dialog or sheet peel before
  *          their host instead of closing it.
  */
 export const manifest: Manifest = {
@@ -50,8 +50,10 @@ export const manifest: Manifest = {
         'components/popover/index.ts',
         'components/popover/manifest.ts'
     ],
-    components: ['button', '_internal/overlay'],
+    components: ['_internal/utils', 'button', '_internal/overlay'],
     shared: [
+        'components/_internal/button-attributes',
+        'components/_internal/surface',
         'utils.clickOutside',
         'utils.cn',
         'utils.createContext',
@@ -65,8 +67,9 @@ export const manifest: Manifest = {
         'transition'
     ],
     peerDependencies: {
+        'bits-ui': '^2.19.2',
         '@floating-ui/dom': '^1.0.0',
         cnfast: '^0.0.8',
-        svelte: '^5.0.0'
+        svelte: '^5.56.0'
     }
 };

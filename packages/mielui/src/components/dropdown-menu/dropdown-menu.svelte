@@ -1,17 +1,21 @@
 <script lang="ts">
-    import * as Popover from '@mielui/svelte/components/popover';
+    import { DropdownMenu as MenuPrimitive } from 'bits-ui';
     import type { DropdownMenuProps } from '.';
-    import { setDropdownMenuContext } from './context.svelte';
+    import { type DropdownMenuContext, setDropdownMenuContext } from './context.svelte';
 
     let { children, open = $bindable(false), onOpenChange }: DropdownMenuProps = $props();
-
-    /**
-     * Must run during init: Content reads this via `getContext()` while it
-     * initializes, which happens before any `$effect` fires.
-     */
-    setDropdownMenuContext({ ancestors: [], submenus: [] });
+    const menu = $state<DropdownMenuContext>({});
+    setDropdownMenuContext(menu);
 </script>
 
-<Popover.Root placement="bottom-start" bind:open {onOpenChange}>
+<MenuPrimitive.Root
+    bind:open
+    onOpenChange={(next) => {
+    if (next) {
+        menu.beforeOpen?.();
+    }
+    onOpenChange?.(next);
+}}
+>
     {@render children?.()}
-</Popover.Root>
+</MenuPrimitive.Root>

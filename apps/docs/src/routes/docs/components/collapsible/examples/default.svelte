@@ -6,9 +6,11 @@
 
 <div class="w-full max-w-md">
     <Collapsible.Root bind:open>
-        <Collapsible.Trigger>Open panel</Collapsible.Trigger>
-        <Collapsible.Content
-            >This content is revealed when the trigger is clicked.</Collapsible.Content
-        >
+        <Collapsible.Trigger>
+            {open ? 'Hide delivery details' : 'Show delivery details'}
+        </Collapsible.Trigger>
+        <Collapsible.Content>
+            Delivery takes 3 to 5 business days. A tracking link appears here after the order ships.
+        </Collapsible.Content>
     </Collapsible.Root>
 </div>

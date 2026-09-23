@@ -14,15 +14,28 @@ export type BadgeVariant =
     | 'warning'
     | 'error';
 
-export type BadgeProps = {
+type BadgeSharedProps = {
     variant?: BadgeVariant;
-    href?: string;
     icon?: Component<{ size?: number | string; class?: string }>;
     iconSize?: number | string;
     dot?: boolean;
     children?: Snippet;
-} & DefaultProps &
-    Partial<HTMLAnchorAttributes & HTMLAttributes<HTMLDivElement>>;
+} & DefaultProps;
+
+type BadgeLinkProps = BadgeSharedProps & {
+    href: string;
+} & Omit<HTMLAnchorAttributes, keyof BadgeSharedProps | 'href'>;
+
+type BadgeStaticProps = BadgeSharedProps & {
+    href?: undefined;
+} & Omit<HTMLAttributes<HTMLDivElement>, keyof BadgeSharedProps> & {
+        [Attribute in Exclude<
+            keyof HTMLAnchorAttributes,
+            keyof HTMLAttributes<HTMLDivElement>
+        >]?: never;
+    };
+
+export type BadgeProps = BadgeLinkProps | BadgeStaticProps;
 
 export { Badge };
 export default Badge;

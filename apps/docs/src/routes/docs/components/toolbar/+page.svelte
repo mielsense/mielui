@@ -1,76 +1,64 @@
 <script lang="ts">
-    import { CodeBlock } from '@mielui/svelte/components/code-block';
     import * as Typography from '@mielui/svelte/components/typography';
-    import { ComponentPreview } from '$lib/components/docs';
-    import DocsPager from '$lib/components/docs/docs-pager.svelte';
-
+    import { ComponentPreview, InstallCommand } from '$lib/components/docs';
+    import PageIntro from '$lib/components/docs/page-intro.svelte';
+    import Additional from './examples/formatting.svelte';
+    import AdditionalSrc from './examples/formatting.svelte?raw';
     import Hero from './examples/hero.svelte';
     import HeroSrc from './examples/hero.svelte?raw';
-    import Reply from './examples/reply.svelte';
-    import ReplySrc from './examples/reply.svelte?raw';
-    import SupportNote from './examples/support-note.svelte';
-    import SupportNoteSrc from './examples/support-note.svelte?raw';
 </script>
-
 <svelte:head>
     <title>Mielui · Toolbar</title>
     <meta
         name="description"
-        content="A semantic action row for message composers, replies, and other text entry surfaces."
+        content="Composable keyboard toolbar with buttons, links, and selectable groups."
     />
 </svelte:head>
-
 <div data-docs-page class="flex flex-col gap-10">
-    <header class="flex items-start justify-between gap-4">
-        <div>
-            <Typography.H1> Toolbar </Typography.H1>
-            <Typography.Text variant="lead" class="mt-2 max-w-2xl">
-                A semantic action row for the controls beneath a message composer, reply field, or
-                note editor.
-            </Typography.Text>
-        </div>
-        <DocsPager />
-    </header>
-
-    <section id="hero" class="scroll-mt-20 flex flex-col gap-4">
-        <ComponentPreview code={HeroSrc}>
-            <Hero />
-        </ComponentPreview>
+    <PageIntro title="Toolbar">
+        Composable keyboard toolbar with buttons, links, and selectable groups.
+    </PageIntro>
+    <section id="hero" class="flex flex-col gap-4">
+        <ComponentPreview code={HeroSrc}><Hero /></ComponentPreview>
     </section>
-
-    <section id="usage" class="scroll-mt-20 flex flex-col gap-4">
-        <Typography.H2 class="docs-section-heading">Usage</Typography.H2>
-        <Typography.Text variant="supporting">
-            Place Toolbar inside Textarea to create one composer surface. Give the Toolbar an
-            accessible label that describes its actions.
+    <section id="installation" class="flex flex-col gap-4">
+        <Typography.H2>Installation</Typography.H2>
+        <InstallCommand command="pnpm dlx @mielui/svelte add toolbar" />
+    </section>
+    <section id="usage" class="flex flex-col gap-4">
+        <Typography.H2>Usage</Typography.H2>
+        <Typography.Text>
+            Import the component subpath as a namespace. Root owns one roving keyboard collection:
+            compose Button, Link, Separator, and Group containing Item. Give Root an aria-label or
+            aria-labelledby. Set orientation to vertical for vertical arrow navigation, and loop to
+            false to stop at the ends. Disabled items are skipped. Each interactive part forwards
+            native attributes and bind:element.
         </Typography.Text>
-        <CodeBlock
-            code={`import { Textarea } from '@mielui/svelte/components/textarea';\nimport { Toolbar } from '@mielui/svelte/components/toolbar';\n\n<Textarea autoresize aria-label="New message">\n\t<Toolbar aria-label="Message actions">\n\t\t<!-- Icon actions and send control -->\n\t</Toolbar>\n</Textarea>`}
-            lang="svelte"
-            copy="overlay"
-        />
+        <Typography.Text>
+            Group is a selectable group: use type="single" with a string value, or type="multiple"
+            with a string array. Both support bind:value, onValueChange, and disabled. Item requires
+            a value and renders a pressed button. Plain visual grouping can use a div without
+            introducing another keyboard collection. Separator automatically runs perpendicular to
+            the toolbar.
+        </Typography.Text>
+        <Typography.Text>
+            Omit a group, reorder Link before Button, or restyle any part with class. Use the
+            toolbar's Item for selections instead of nesting an independent ToggleGroup keyboard
+            collection. The existing callable Toolbar export and composer navigation remain
+            available for existing integrations; new compositions use Toolbar.Root from the
+            component subpath.
+        </Typography.Text>
     </section>
-
-    <section id="examples" class="scroll-mt-20 flex flex-col gap-10">
-        <div>
-            <Typography.H2 class="docs-section-heading">Examples</Typography.H2>
-            <Typography.Text variant="supporting" class="mt-2">
-                Compose the action row with the controls your workflow needs.
-            </Typography.Text>
-        </div>
-
-        <div id="issue-reply" class="scroll-mt-20 flex flex-col gap-3">
-            <Typography.H3 class="docs-subsection-heading">Issue reply</Typography.H3>
-            <ComponentPreview code={ReplySrc}>
-                <Reply />
-            </ComponentPreview>
-        </div>
-
-        <div id="support-reply" class="scroll-mt-20 flex flex-col gap-3">
-            <Typography.H3 class="docs-subsection-heading">Support reply</Typography.H3>
-            <ComponentPreview code={SupportNoteSrc}>
-                <SupportNote />
-            </ComponentPreview>
-        </div>
+    <section id="formatting" class="scroll-mt-20 flex flex-col gap-4">
+        <Typography.H2 class="docs-section-heading">Multiple selections</Typography.H2>
+        <ComponentPreview code={AdditionalSrc}><Additional /></ComponentPreview>
+    </section>
+    <section id="working-example" class="flex scroll-mt-20 flex-col gap-4">
+        <Typography.H2 class="docs-section-heading">Selection and commands</Typography.H2>
+        <Typography.Text>
+            Use Item inside a single or multiple Group for persistent choices. Use Toolbar.Button
+            for a one-time action such as Clear. Label the toolbar and each icon-only control; the
+            examples display the selected tool or apply formatting to a sample sentence.
+        </Typography.Text>
     </section>
 </div>

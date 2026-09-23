@@ -10,10 +10,18 @@ function makeButton(
     opts: { id?: string; text?: string; disabled?: boolean; ariaHidden?: boolean } = {}
 ) {
     const btn = document.createElement('button');
-    if (opts.id) btn.id = opts.id;
-    if (opts.text) btn.textContent = opts.text;
-    if (opts.disabled) btn.setAttribute('disabled', '');
-    if (opts.ariaHidden) btn.setAttribute('aria-hidden', 'true');
+    if (opts.id) {
+        btn.id = opts.id;
+    }
+    if (opts.text) {
+        btn.textContent = opts.text;
+    }
+    if (opts.disabled) {
+        btn.setAttribute('disabled', '');
+    }
+    if (opts.ariaHidden) {
+        btn.setAttribute('aria-hidden', 'true');
+    }
     parent.appendChild(btn);
     return btn;
 }
@@ -28,7 +36,9 @@ function makeAnchor(parent: HTMLElement, href: string) {
 function makeInput(parent: HTMLElement, type: string, opts: { disabled?: boolean } = {}) {
     const input = document.createElement('input');
     input.setAttribute('type', type);
-    if (opts.disabled) input.setAttribute('disabled', '');
+    if (opts.disabled) {
+        input.setAttribute('disabled', '');
+    }
     parent.appendChild(input);
     return input;
 }

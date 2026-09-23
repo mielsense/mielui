@@ -86,7 +86,7 @@ describe('Sheet -- close paths', () => {
 
         const backdrop = document.querySelector('[data-ui="sheet-overlay"]') as HTMLElement;
         expect(backdrop).toBeInTheDocument();
-        backdrop.click();
+        await userEvent.click(backdrop, { position: { x: 10, y: window.innerHeight - 20 } });
         await waitForClose();
         await expect.element(page.getByText('Sheet Title')).not.toBeInTheDocument();
     });
@@ -99,7 +99,7 @@ describe('Sheet -- close paths', () => {
 
         const backdrop = document.querySelector('[data-ui="sheet-overlay"]') as HTMLElement;
         expect(backdrop).toBeInTheDocument();
-        backdrop.click();
+        await userEvent.click(backdrop, { position: { x: 10, y: window.innerHeight - 20 } });
         await flush();
         await expect.element(page.getByText('Sheet Title')).toBeInTheDocument();
     });

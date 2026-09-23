@@ -16,9 +16,10 @@ export const manifest: Manifest = {
         'components/card/index.ts',
         'components/card/manifest.ts'
     ],
-    components: ['typography'],
+    components: ['_internal/utils', 'typography'],
     shared: ['utils.cn', 'utils.createContext'],
     peerDependencies: {
+        '@floating-ui/dom': '1.7.6',
         cnfast: '^0.0.8',
         svelte: '^5.0.0'
     }

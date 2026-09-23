@@ -2,14 +2,21 @@
     import * as Tool from '@mielui/svelte/components/tool';
     import { onMount } from 'svelte';
 
-    let elapsedTenths = $state(21);
+    let elapsedTenths = $state(0);
+    let running = $state(true);
     let elapsed = $derived(`${(elapsedTenths / 10).toFixed(1)}s`);
 
     onMount(() => {
         const id = setInterval(() => {
             elapsedTenths += 1;
+            if (elapsedTenths >= 24) {
+                running = false;
+                clearInterval(id);
+            }
         }, 100);
-        return () => clearInterval(id);
+        return () => {
+            clearInterval(id);
+        };
     });
 </script>
 
@@ -18,7 +25,7 @@
         <Tool.Item name="Grep" detail="cus_4f81" kind="search" />
         <Tool.Item name="Read" detail="refund status" kind="read" />
     </Tool.Root>
-    <Tool.Root name="1 recipient" state="running" duration={elapsed}>
-        <Tool.Item name="Bash" detail="send resolution email" />
+    <Tool.Root name="1 recipient" state={running ? 'running' : 'complete'} duration={elapsed}>
+        <Tool.Item name="Bash" detail="validate recipient address" />
     </Tool.Root>
 </div>

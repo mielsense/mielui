@@ -1,63 +1,75 @@
 <script lang="ts">
-    import Check from '@lucide/svelte/icons/check';
+    import { Tick02Icon as Check } from '@hugeicons/core-free-icons';
     import { Button } from '@mielui/svelte/components/button';
-    import { closeMenuLayers, cn } from '@mielui/svelte/utils';
+    import { cn } from '@mielui/svelte/utils';
+    import { ContextMenu as MenuPrimitive, mergeProps } from 'bits-ui';
     import { untrack } from 'svelte';
+    import type { HTMLButtonAttributes } from 'svelte/elements';
+    import HugeiconsIcon from '../../hugeicons-icon.svelte';
+    import { buttonAttributes } from '../_internal/button-attributes';
     import type { ContextMenuCheckboxItemProps } from '.';
     import { getContextMenuContext } from './context.svelte';
 
-    const { state: contextMenuState, ancestors } = getContextMenuContext();
-
     let {
-        class: className,
         children,
-        value,
-        checked = $bindable(false),
-        callback,
+        class: className,
+        disabled = false,
+        onclick: userOnclick,
+        element = $bindable(),
         inset = false,
+        callback,
+        checked = $bindable(false),
+        value,
         ...rest
     }: ContextMenuCheckboxItemProps = $props();
-
-    let internalChecked = $state(
-        untrack(() => contextMenuState.checkboxItems.get(value) ?? checked)
-    );
-    let syncedChecked = $state(untrack(() => internalChecked));
-    untrack(() => contextMenuState.checkboxItems.set(value, internalChecked));
+    const { state: menuState } = getContextMenuContext();
+    let internalChecked = $state(untrack(() => menuState.checkboxItems.get(value) ?? checked));
+    let syncedChecked = $state(untrack(() => checked));
 
     $effect(() => {
         if (checked !== syncedChecked) {
             syncedChecked = checked;
             internalChecked = checked;
         }
-    });
-    $effect(() => {
-        contextMenuState.checkboxItems.set(value, internalChecked);
-        if (internalChecked !== syncedChecked) {
-            syncedChecked = internalChecked;
-            checked = syncedChecked;
-        }
+        menuState.checkboxItems.set(value, internalChecked);
     });
 
-    function toggle() {
-        internalChecked = !internalChecked;
-        closeMenuLayers(contextMenuState, ancestors);
-        callback?.();
+    function updateChecked(next: boolean) {
+        internalChecked = next;
+        checked = next;
+        syncedChecked = next;
+        menuState.checkboxItems.set(value, next);
     }
 </script>
 
-<Button
-    {...rest}
-    role="menuitemcheckbox"
-    aria-checked={internalChecked}
-    data-collection-item
-    onclick={toggle}
-    class={cn(className, 'mielui-menu-item relative', inset && 'pl-8')}
-    unstyled
+<MenuPrimitive.CheckboxItem
+    id={rest.id ?? undefined}
+    checked={internalChecked}
+    onCheckedChange={updateChecked}
+    {value}
+    disabled={disabled ?? undefined}
+    onclick={(event) => {
+        buttonAttributes({ onclick: userOnclick }).onclick?.(event);
+    }}
+    onSelect={() => {
+        callback?.();
+    }}
 >
-    <div class="absolute left-2 h-4 w-4">
-        {#if internalChecked}
-            <Check class="text-foreground" />
-        {/if}
-    </div>
-    {@render children?.()}
-</Button>
+    {#snippet child({ props })}
+        <Button
+            {...buttonAttributes(mergeProps(rest, { ...props as HTMLButtonAttributes }))}
+            bind:element
+            disabled={disabled ?? undefined}
+            data-collection-item
+            class={cn(className, 'mielui-menu-item flex-row gap-3 text-sm', inset && 'pl-8')}
+            unstyled
+        >
+            <span class="grid size-4 shrink-0 place-items-center" aria-hidden="true">
+                {#if internalChecked}
+                    <HugeiconsIcon icon={Check} size={13} strokeWidth={2.25} />
+                {/if}
+            </span>
+            {@render children?.()}
+        </Button>
+    {/snippet}
+</MenuPrimitive.CheckboxItem>

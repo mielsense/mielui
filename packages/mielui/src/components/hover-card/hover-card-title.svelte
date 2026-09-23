@@ -1,6 +1,6 @@
 <script lang="ts">
     import { cn } from '@mielui/svelte/utils';
-    import type { Snippet } from 'svelte';
+    import { getContext, onMount, type Snippet } from 'svelte';
 
     let {
         children,
@@ -10,9 +10,19 @@
         children: Snippet;
         class?: string;
     } = $props();
+    const context = getContext<{ id: string; state: { title: boolean; description: boolean } }>(
+        'mielui-hover-card'
+    );
+    onMount(() => {
+        context.state.title = true;
+        return () => {
+            context.state.title = false;
+        };
+    });
 </script>
 
 <h4
+    id={`${context.id}-title`}
     {...rest}
     class={cn(
         classProp,

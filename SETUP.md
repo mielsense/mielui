@@ -2,11 +2,11 @@
 
 ## Local development
 
-Use Bun 1.3.11 or newer and Node 22.
+Use Node.js 22.18 or newer. Enable Corepack with `corepack enable`; the root package pins pnpm 10.34.5.
 
 ```sh
-bun install --frozen-lockfile
-bun --filter=docs run dev
+pnpm install --frozen-lockfile
+pnpm --filter=docs run dev
 ```
 
 The docs run at `http://localhost:5173`.
@@ -27,18 +27,79 @@ No database or secret is required for the docs. Leave `DOCS_ADAPTER` unset so th
 
 ## npm publishing
 
-The renamed package is `@mielui/svelte`, with the `mielui` executable. It is not published by this import.
+The package is `@mielui/svelte`, with the `mielui` executable. Package versions and releases are managed independently of Sivir UI.
 
-1. Create or obtain access to the `mielui` organization on npm.
-2. Add a publishing token as the GitHub Actions secret `NPM_TOKEN`.
-3. Configure the GitHub `npm` environment and any desired reviewer protection.
-4. Update the package version and lockfile, run `bun run release-gate`, and merge the change.
-5. Create a matching `v<version>` tag and publish its GitHub release. The publish workflow rechecks and publishes the verified tarball.
+### One-time npm authorization
 
-The inherited workflow uses npm provenance. Confirm registry and source visibility requirements before publishing from a private repository.
+Your local `npm login` authenticates your computer. GitHub Actions needs its own publishing authorization.
+
+For a package that already exists on npm, configure a **Trusted Publisher** in its npm package settings:
+
+- Provider: GitHub Actions
+- Organization or user: `mielsense`
+- Repository: `mielui`
+- Workflow filename: `publish.yml`
+- Environment: `npm`
+- Allow direct publishing with `npm publish`.
+
+The workflow uses OpenID Connect and npm 11.20.0. Once trusted publishing is configured, it does not need an `NPM_TOKEN` secret. See [npm trusted publishing](https://docs.npmjs.com/trusted-publishers/).
+
+### First publication: bootstrap, then trusted publishing
+
+An unpublished package has no trusted-publisher configuration. A `404 Not Found` from `POST /-/package/@mielui%2fsvelte/trust` after authentication means the package must be published first. Repeating `npm login` or `npm trust` will not create it.
+
+To make the first publication through GitHub Actions:
+
+1. In [npm access-token settings](https://www.npmjs.com/settings/honeycallme/tokens), create a short-lived granular token. Under **Packages and scopes**, grant **Read and write** to the `@mielui` scope, including creation of new packages. Enable **Bypass two-factor authentication** for CI publishing. Organization-management permissions alone do not grant package publishing access. See [npm's token instructions](https://docs.npmjs.com/creating-and-viewing-access-tokens).
+2. Store it as `NPM_TOKEN` in the GitHub `npm` environment. This command prompts for the value without placing it in shell history:
+
+   ```sh
+   gh secret set NPM_TOKEN --env npm --repo mielsense/mielui
+   ```
+
+   Alternatively, use [GitHub environment settings](https://github.com/mielsense/mielui/settings/environments). Do not paste the token into chat, a commit, or release notes.
+
+3. Follow **Release a version** below. The workflow uses the bootstrap token to publish its verified tarball.
+4. Once `@mielui/svelte` exists on npm, configure the trusted publisher from its package settings or run this command in an interactive terminal and complete npm's browser/2FA approval:
+
+   ```sh
+   npx --yes npm@11.20.0 trust github @mielui/svelte \
+     --file publish.yml \
+     --repo mielsense/mielui \
+     --env npm \
+     --allow-publish \
+     --yes
+   ```
+
+5. Confirm the trusted-publisher settings, delete `NPM_TOKEN` from GitHub's `npm` environment, and revoke the bootstrap token on npm. Later releases use OpenID Connect without a stored npm publishing token.
+
+### Release a version
+
+1. Update `packages/mielui/package.json` to the version you intend to publish, update the lockfile if needed, and finish that version's notes under `changelog/<version>/`.
+2. Run `pnpm run release-gate`, let the pull request checks pass, and merge the release changes into `main`. Read the current package version and existing tags/releases; the version below is an example, not a value to reuse.
+3. From an up-to-date checkout of `main`, create an annotated tag matching the package version. For `0.1.1`:
+
+   ```sh
+   git switch main
+   git pull --ff-only
+   git tag -a v0.1.1 -m "Release v0.1.1"
+   git push origin v0.1.1
+   ```
+
+   Use a new version for every subsequent release. Never move or reuse a published version tag.
+
+4. Open [GitHub Releases](https://github.com/mielsense/mielui/releases/new), select the existing `v0.1.1` tag, set the title to `v0.1.1`, and add release notes.
+5. Click **Publish release**. This is the action that tells GitHub to run the npm publishing workflow. Saving a draft or pushing a tag alone does not publish the package.
+6. Watch [the Publish workflow](https://github.com/mielsense/mielui/actions/workflows/publish.yml). It checks that the tag matches the package version, runs the complete CI suite, and publishes that run's verified tarball to npm with provenance.
+
+7. Confirm the workflow succeeded and verify the published version with `npm view @mielui/svelte@0.1.1 version` and the channel with `npm view @mielui/svelte dist-tags --json`. Report the GitHub release URL and `npm install @mielui/svelte@0.1.1`. If publishing fails, check whether npm already contains that version before retrying the workflow.
+
+For a later release, replace `0.1.1` with the new package version throughout these steps. Editing a GitHub release title does not change the npm version.
+
+The current workflow publishes to npm's `latest` channel, including when a GitHub release is marked as a prerelease. Use this procedure for stable releases only until a separate prerelease channel is configured.
 
 ## Optional theme registry
 
 The CLI installs component source from the package's bundled registry. Built-in themes also ship in the package. The separate `apps/registry` service stores shared themes and requires PostgreSQL.
 
-For shared themes, copy `apps/registry/.env.example` to `.env`, set `DATABASE_URL` and `DIRECT_URL`, run migrations, and deploy the registry service with the included Docker setup. The renamed default endpoint is `https://registry.ui.miel.my`; configure that domain when deploying the service. It is not deployed with the Vercel docs.
+For shared themes, copy `apps/registry/.env.example` to `.env`, set `DATABASE_URL` and `DIRECT_URL`, run migrations, and deploy the registry service with the included Docker setup. The default endpoint is `https://registry.ui.miel.my`; configure that domain when deploying the service. It is not deployed with the Vercel docs.

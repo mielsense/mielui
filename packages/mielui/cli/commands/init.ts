@@ -1,4 +1,5 @@
 import { existsSync } from 'node:fs';
+import { writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import * as clack from '@clack/prompts';
 import pc from 'picocolors';
@@ -8,13 +9,17 @@ import {
     declaredDependencies,
     detectPackageManager,
     installCommand,
-    installFile
+    installFile,
+    installNotices
 } from '../utils/project';
 import { ok, warn } from '../utils/ui';
+
+import { resolveThemeCss } from './theme';
 
 export type InitOptions = {
     cwd: string;
     yes: boolean;
+    preset?: string;
 };
 
 /** Shared files every mielui project needs before any component lands. */
@@ -22,7 +27,9 @@ export async function baseFiles() {
     const index = await loadRegistryIndex();
     const files = new Set<string>(['ui.css']);
     for (const component of index.components) {
-        for (const file of component.sharedFiles) files.add(file);
+        for (const file of component.sharedFiles) {
+            files.add(file);
+        }
     }
     return [...files].sort();
 }
@@ -77,11 +84,32 @@ export async function init(options: InitOptions) {
     }
 
     const config = { ...DEFAULT_CONFIG, dir, alias, components: {} };
+    const preset = options.preset
+        ? await resolveThemeCss(options.preset, config.registry, cwd)
+        : undefined;
+    if (
+        preset &&
+        (existsSync(path.join(cwd, dir, 'theme.css')) ||
+            existsSync(path.join(cwd, dir, 'styles.css')))
+    ) {
+        throw new Error(
+            'theme.css or styles.css already exists. Move these files before initializing with a preset.'
+        );
+    }
 
     const spinner = clack.spinner();
     spinner.start('Installing theme tokens and shared utilities');
+    await installNotices(cwd, dir);
     for (const file of await baseFiles()) {
         await installFile(cwd, dir, file, alias, false);
+    }
+    if (preset) {
+        await writeFile(path.join(cwd, dir, 'theme.css'), `${preset.css}\n`, { flag: 'wx' });
+        await writeFile(
+            path.join(cwd, dir, 'styles.css'),
+            "@import './ui.css';\n@import './theme.css';\n",
+            { flag: 'wx' }
+        );
     }
     await saveConfig(cwd, config);
     spinner.stop(
@@ -96,7 +124,9 @@ export async function init(options: InitOptions) {
         console.log(`  install with ${pc.cyan(installCommand(pm, missing))}`);
     }
 
-    ok(`import ${pc.cyan(`${dir}/ui.css`)} in your root layout or app stylesheet.`);
+    ok(
+        `import ${pc.cyan(`${dir}/${preset ? 'styles' : 'ui'}.css`)} in your root layout or app stylesheet.`
+    );
     clack.outro(
         `Ready -- run ${pc.cyan('mielui add button')} to install a component, or ${pc.cyan('mielui add *')} for all components.`
     );

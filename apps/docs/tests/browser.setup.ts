@@ -11,7 +11,9 @@ import { userEvent } from 'vitest/browser';
 
 function pointerParkingTarget() {
     let target = document.querySelector<HTMLElement>('[data-pointer-parking-target]');
-    if (target) return target;
+    if (target) {
+        return target;
+    }
 
     target = document.createElement('div');
     target.dataset.pointerParkingTarget = '';

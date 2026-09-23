@@ -1,7 +1,10 @@
 <script lang="ts">
-    import ChevronDown from '@lucide/svelte/icons/chevron-down';
-    import ChevronUp from '@lucide/svelte/icons/chevron-up';
+    import {
+        ArrowDown01Icon as ChevronDown,
+        ArrowUp01Icon as ChevronUp
+    } from '@hugeicons/core-free-icons';
     import { cn } from '@mielui/svelte/utils';
+    import HugeiconsIcon from '../../hugeicons-icon.svelte';
     import type { ScrollAreaProps } from '.';
 
     let {
@@ -34,21 +37,38 @@
         clientHeight = element.clientHeight;
     }
 
-    /**
-     * Measure on mount and whenever the content or viewport size changes, so the
-     * edge cues are correct before the first scroll event fires.
-     */
     $effect(() => {
-        if (!element) {
+        const viewport = element;
+        if (!viewport) {
             return;
         }
-        measure();
-        const ro = new ResizeObserver(measure);
-        ro.observe(element);
-        for (const child of Array.from(element.children)) {
-            ro.observe(child);
-        }
-        return () => ro.disconnect();
+        const observed = new Set<Element>();
+        const resizeObserver = new ResizeObserver(measure);
+        resizeObserver.observe(viewport);
+
+        const syncChildren = () => {
+            for (const child of observed) {
+                if (child.parentElement !== viewport) {
+                    resizeObserver.unobserve(child);
+                    observed.delete(child);
+                }
+            }
+            for (const child of Array.from(viewport.children)) {
+                if (!observed.has(child)) {
+                    observed.add(child);
+                    resizeObserver.observe(child);
+                }
+            }
+            measure();
+        };
+
+        const mutationObserver = new MutationObserver(syncChildren);
+        mutationObserver.observe(viewport, { childList: true, subtree: true, characterData: true });
+        syncChildren();
+        return () => {
+            mutationObserver.disconnect();
+            resizeObserver.disconnect();
+        };
     });
 </script>
 
@@ -78,16 +98,19 @@
         {...rest}
     >
         {#if cuesVisible}
-            <!-- Top edge cue: sticky so it pins to the top of the scrollport. -->
             <div aria-hidden="true" class="sticky top-0 z-10 h-0">
                 <div
                     class={cn(
-                        'pointer-events-none absolute inset-x-0 -top-px flex h-7 items-start justify-center rounded-t-[inherit] bg-[linear-gradient(to_bottom,color-mix(in_srgb,var(--color-panel)_96%,transparent),transparent)] [-webkit-mask-image:linear-gradient(to_bottom,black_0%,black_40%,transparent_100%)] [mask-image:linear-gradient(to_bottom,black_0%,black_40%,transparent_100%)] transition-opacity duration-150',
+                        'pointer-events-none absolute inset-x-0 -top-px flex h-7 items-start justify-center rounded-t-[inherit] bg-[linear-gradient(to_bottom,color-mix(in_srgb,var(--color-panel)_96%,transparent),transparent)] [-webkit-mask-image:linear-gradient(to_bottom,black_0%,black_40%,transparent_100%)] [mask-image:linear-gradient(to_bottom,black_0%,black_40%,transparent_100%)] transition-opacity [transition-duration:var(--motion-duration-hover)] motion-reduce:transition-none',
                         blurClass,
                         atTop ? 'opacity-0' : 'opacity-100'
                     )}
                 >
-                    <ChevronUp size={13} class="mt-0.5 text-foreground-muted" />
+                    <HugeiconsIcon
+                        icon={ChevronUp}
+                        size={13}
+                        class="mt-0.5 text-foreground-muted"
+                    />
                 </div>
             </div>
         {/if}
@@ -95,16 +118,19 @@
         {@render children?.()}
 
         {#if cuesVisible}
-            <!-- Bottom edge cue: sticky so it pins to the bottom of the scrollport. -->
             <div aria-hidden="true" class="sticky bottom-0 z-10 h-0">
                 <div
                     class={cn(
-                        'pointer-events-none absolute inset-x-0 -bottom-px flex h-7 items-end justify-center rounded-b-[inherit] bg-[linear-gradient(to_top,color-mix(in_srgb,var(--color-panel)_96%,transparent),transparent)] [-webkit-mask-image:linear-gradient(to_top,black_0%,black_40%,transparent_100%)] [mask-image:linear-gradient(to_top,black_0%,black_40%,transparent_100%)] transition-opacity duration-150',
+                        'pointer-events-none absolute inset-x-0 -bottom-px flex h-7 items-end justify-center rounded-b-[inherit] bg-[linear-gradient(to_top,color-mix(in_srgb,var(--color-panel)_96%,transparent),transparent)] [-webkit-mask-image:linear-gradient(to_top,black_0%,black_40%,transparent_100%)] [mask-image:linear-gradient(to_top,black_0%,black_40%,transparent_100%)] transition-opacity [transition-duration:var(--motion-duration-hover)] motion-reduce:transition-none',
                         blurClass,
                         atBottom ? 'opacity-0' : 'opacity-100'
                     )}
                 >
-                    <ChevronDown size={13} class="mb-0.5 text-foreground-muted" />
+                    <HugeiconsIcon
+                        icon={ChevronDown}
+                        size={13}
+                        class="mb-0.5 text-foreground-muted"
+                    />
                 </div>
             </div>
         {/if}

@@ -31,12 +31,16 @@ export class TerminalEventHub {
 
     subscribe(callback: (event: TerminalEvent) => void) {
         this.subscribers.add(callback);
-        if (this.log) callback({ type: 'log', chunk: this.log });
+        if (this.log) {
+            callback({ type: 'log', chunk: this.log });
+        }
         callback({ type: 'snapshot', snapshot: this.snapshot });
         return () => this.subscribers.delete(callback);
     }
 
     private broadcast(event: TerminalEvent) {
-        for (const subscriber of this.subscribers) subscriber(event);
+        for (const subscriber of this.subscribers) {
+            subscriber(event);
+        }
     }
 }

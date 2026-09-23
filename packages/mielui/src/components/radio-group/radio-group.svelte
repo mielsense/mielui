@@ -13,6 +13,8 @@
         ...rest
     }: RadioGroupProps = $props();
 
+    const generatedName = $props.id();
+
     function isSelected(itemValue: string) {
         return value === itemValue;
     }
@@ -26,7 +28,7 @@
 
     const ctx: RadioGroupContext = {
         get name() {
-            return name;
+            return name ?? generatedName;
         },
         get disabled() {
             return disabled;

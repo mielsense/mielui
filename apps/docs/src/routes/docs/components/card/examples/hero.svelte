@@ -1,48 +1,31 @@
 <script lang="ts">
-    import GitBranch from '@lucide/svelte/icons/git-branch';
+    import { Badge } from '@mielui/svelte/components/badge';
     import { Button } from '@mielui/svelte/components/button';
     import * as Card from '@mielui/svelte/components/card';
 </script>
 
-<Card.Root class="w-full max-w-[28rem]">
+<Card.Root class="w-full max-w-md">
     <Card.Header>
-        <div class="flex items-center justify-between mb-2">
-            <Card.Title>mielui</Card.Title>
-            <span
-                class="inline-flex items-center rounded-full bg-blue-50 px-2 py-1 text-xs font-medium text-blue-700"
-            >
-                Next.js
-            </span>
+        <div class="flex items-center justify-between gap-3">
+            <Card.Title>Team handbook</Card.Title>
+            <Badge variant="success">Published</Badge>
         </div>
-        <Card.Description>vercel.com/mielsense/mielui</Card.Description>
+        <Card.Description>The policies and guides your team uses every day.</Card.Description>
     </Card.Header>
     <Card.Content>
-        <div class="space-y-4">
-            <!-- Status Row -->
-            <div class="flex items-center justify-between">
-                <div class="flex items-center gap-2">
-                    <div class="h-2 w-2 rounded-full bg-emerald-500"></div>
-                    <span class="text-sm font-medium text-foreground">Ready</span>
-                </div>
-                <div class="flex items-center gap-3">
-                    <span class="text-xs text-foreground-muted">Production</span>
-                    <span class="text-xs text-foreground-muted">Deployed 2h ago</span>
-                </div>
+        <dl class="grid grid-cols-2 gap-4 text-sm">
+            <div>
+                <dt class="text-foreground-muted">Framework</dt>
+                <dd class="mt-1">SvelteKit</dd>
             </div>
-
-            <!-- Commit Row -->
-            <div class="flex items-center gap-2 rounded-sm bg-secondary px-3 py-2">
-                <GitBranch class="h-4 w-4 text-foreground-muted flex-shrink-0" />
-                <span class="text-sm font-medium text-foreground">main</span>
-                <span class="text-xs text-foreground-muted truncate"
-                    >feat(studio): restore original styling</span
-                >
-                <span class="ml-auto text-xs text-foreground-muted flex-shrink-0">aidan-neel</span>
+            <div>
+                <dt class="text-foreground-muted">Last update</dt>
+                <dd class="mt-1">Today</dd>
             </div>
-        </div>
+        </dl>
     </Card.Content>
-    <Card.Footer class="flex-col sm:flex-row">
-        <Button variant="outline" class="w-full sm:w-auto">Visit</Button>
-        <Button class="w-full sm:w-auto">View Deployment</Button>
+    <Card.Footer>
+        <Button variant="secondary" href="/docs/components/typography">Read the guide</Button>
+        <Button href="/studio">Customize theme</Button>
     </Card.Footer>
 </Card.Root>

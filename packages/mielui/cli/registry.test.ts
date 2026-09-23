@@ -1,5 +1,5 @@
-import { describe, expect, test } from 'bun:test';
 import { existsSync, readFileSync } from 'node:fs';
+import { describe, expect, test } from 'vitest';
 import {
     BASE_PEER_DEPENDENCIES,
     installableFiles,
@@ -41,7 +41,7 @@ describe('resolveInstallPlan', () => {
             peerDependencies: { 'fuse.js': '^7.0.0' }
         }),
         component({ name: '_internal/overlay', visibility: 'internal' }),
-        component({ name: 'modal', components: ['button', '_internal/overlay'] })
+        component({ name: 'dialog', components: ['button', '_internal/overlay'] })
     ]);
 
     test('resolves transitive dependencies once', () => {
@@ -50,7 +50,7 @@ describe('resolveInstallPlan', () => {
     });
 
     test('pulls internal components as dependencies', () => {
-        const plan = resolveInstallPlan(fixture, ['modal']);
+        const plan = resolveInstallPlan(fixture, ['dialog']);
         expect(plan.components.map((c) => c.name)).toContain('_internal/overlay');
     });
 
@@ -73,7 +73,7 @@ describe('resolveInstallPlan', () => {
             'button',
             'popover',
             'command',
-            'modal',
+            'dialog',
             '_internal/overlay'
         ]);
     });
@@ -122,7 +122,7 @@ describe('rewriteImports', () => {
     });
 
     test('leaves unrelated imports alone', () => {
-        const source = "import Search from '@lucide/svelte/icons/search';";
+        const source = "import { Search01Icon as Search } from '@hugeicons/core-free-icons';";
         expect(rewriteImports(source, '$lib/mielui')).toBe(source);
     });
 });
@@ -135,7 +135,9 @@ describe('registry snapshot', () => {
         expect(resolveInstallPlan(snapshot, ['card']).components[0]?.name).toBe('card');
         expect(snapshot.components.some((component) => component.name === 'panel')).toBe(false);
         expect(snapshot.components.some((component) => component.name === 'marquee')).toBe(false);
-        expect(snapshot.components.some((component) => component.name === 'separator')).toBe(false);
+        expect(
+            snapshot.components.find((component) => component.name === 'separator')?.visibility
+        ).toBe('public');
     });
 
     test('installs Scroll Area with Conversation', async () => {
@@ -145,7 +147,7 @@ describe('registry snapshot', () => {
         expect(plan.components.map((component) => component.name)).toContain('scroll-area');
     });
 
-    test.each(['card', 'markdown', 'message', 'modal'])(
+    test.each(['card', 'markdown', 'message', 'dialog'])(
         'installs Typography with %s',
         async (name) => {
             const snapshot = await loadRegistryIndex();
@@ -174,7 +176,9 @@ describe('registry snapshot', () => {
         expect(plan.components.map((component) => component.name)).toEqual(
             expect.arrayContaining(publicNames)
         );
-        expect(plan.components.some((component) => component.name === 'toolbar')).toBe(false);
+        expect(plan.components.find((component) => component.name === 'toolbar')?.visibility).toBe(
+            'public'
+        );
     });
 
     test('every isolated install declares its external imports', async () => {
@@ -212,8 +216,9 @@ describe('registry snapshot', () => {
                             specifier.startsWith('.') ||
                             specifier.startsWith('$') ||
                             specifier.startsWith('@mielui/svelte')
-                        )
+                        ) {
                             continue;
+                        }
                         imported.add(packageName(specifier));
                     }
                 }

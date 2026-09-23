@@ -1,0 +1,325 @@
+[
+    {
+        "name": "CodeBlock",
+        "properties": [
+            {
+                "name": "value",
+                "type": "string | undefined",
+                "required": false,
+                "bindable": true,
+                "default": null,
+                "description": "Active tab id (bindable). Defaults to the first tab.",
+                "inherited": false
+            },
+            {
+                "name": "tabs",
+                "type": "CodeBlockTab[] | undefined",
+                "required": false,
+                "bindable": false,
+                "default": null,
+                "description": "High-level multi-language form.",
+                "inherited": false
+            },
+            {
+                "name": "code",
+                "type": "string | undefined",
+                "required": false,
+                "bindable": false,
+                "default": null,
+                "description": "Single-snippet shorthand (ignored when `tabs` is set).",
+                "inherited": false
+            },
+            {
+                "name": "lang",
+                "type": "string | undefined",
+                "required": false,
+                "bindable": false,
+                "default": null,
+                "description": "Language for the single-snippet shorthand.",
+                "inherited": false
+            },
+            {
+                "name": "showLineNumbers",
+                "type": "boolean | undefined",
+                "required": false,
+                "bindable": false,
+                "default": "false",
+                "description": "Render a line-number gutter.",
+                "inherited": false
+            },
+            {
+                "name": "copy",
+                "type": "CodeBlockCopyPlacement | undefined",
+                "required": false,
+                "bindable": false,
+                "default": "'actionbar'",
+                "description": "Copy button placement:\n- `actionbar` (default): in the header's action cluster.\n- `overlay`: pinned to the top-right of the code body.\n- `inline`: a single-line body with the copy centered on the far right.",
+                "inherited": false
+            },
+            {
+                "name": "actions",
+                "type": "Snippet<[]> | undefined",
+                "required": false,
+                "bindable": false,
+                "default": null,
+                "description": "Extra buttons placed left of the built-in copy button (high-level form).",
+                "inherited": false
+            },
+            {
+                "name": "theme",
+                "type": "CodeBlockTheme | undefined",
+                "required": false,
+                "bindable": false,
+                "default": "'mielui'",
+                "description": "Syntax paint:\n- `mielui` (default): the built-in GitHub palette.\n- `custom`: no token colors; load any `highlight.js/styles/*` theme instead.",
+                "inherited": false
+            },
+            {
+                "name": "class",
+                "type": "string | undefined",
+                "required": false,
+                "bindable": false,
+                "default": null,
+                "description": "",
+                "inherited": false
+            },
+            {
+                "name": "children",
+                "type": "Snippet<[]> | undefined",
+                "required": false,
+                "bindable": false,
+                "default": null,
+                "description": "",
+                "inherited": false
+            }
+        ]
+    },
+    {
+        "name": "Actions",
+        "properties": [
+            {
+                "name": "copy",
+                "type": "boolean | undefined",
+                "required": false,
+                "bindable": false,
+                "default": "true",
+                "description": "Append the built-in copy button after `children`.",
+                "inherited": false
+            },
+            {
+                "name": "class",
+                "type": "string | undefined",
+                "required": false,
+                "bindable": false,
+                "default": null,
+                "description": "",
+                "inherited": false
+            },
+            {
+                "name": "children",
+                "type": "Snippet<[]> | undefined",
+                "required": false,
+                "bindable": false,
+                "default": null,
+                "description": "",
+                "inherited": false
+            }
+        ]
+    },
+    {
+        "name": "Content",
+        "properties": [
+            {
+                "name": "value",
+                "type": "string | undefined",
+                "required": false,
+                "bindable": false,
+                "default": "'default'",
+                "description": "Tab id this panel belongs to.",
+                "inherited": false
+            },
+            {
+                "name": "code",
+                "type": "string",
+                "required": true,
+                "bindable": false,
+                "default": null,
+                "description": "",
+                "inherited": false
+            },
+            {
+                "name": "lang",
+                "type": "string | undefined",
+                "required": false,
+                "bindable": false,
+                "default": null,
+                "description": "",
+                "inherited": false
+            },
+            {
+                "name": "showLineNumbers",
+                "type": "boolean | undefined",
+                "required": false,
+                "bindable": false,
+                "default": "false",
+                "description": "",
+                "inherited": false
+            },
+            {
+                "name": "copyPlacement",
+                "type": "\"inline\" | \"overlay\" | undefined",
+                "required": false,
+                "bindable": false,
+                "default": null,
+                "description": "Render the copy button in/over this panel (`overlay` or `inline`).",
+                "inherited": false
+            },
+            {
+                "name": "class",
+                "type": "string | undefined",
+                "required": false,
+                "bindable": false,
+                "default": null,
+                "description": "",
+                "inherited": false
+            },
+            {
+                "name": "children",
+                "type": "Snippet<[]> | undefined",
+                "required": false,
+                "bindable": false,
+                "default": null,
+                "description": "",
+                "inherited": false
+            }
+        ]
+    },
+    {
+        "name": "Copy",
+        "properties": [
+            {
+                "name": "label",
+                "type": "string | undefined",
+                "required": false,
+                "bindable": false,
+                "default": "'Copy code'",
+                "description": "",
+                "inherited": false
+            },
+            {
+                "name": "copiedLabel",
+                "type": "string | undefined",
+                "required": false,
+                "bindable": false,
+                "default": "'Copied'",
+                "description": "",
+                "inherited": false
+            },
+            {
+                "name": "class",
+                "type": "string | undefined",
+                "required": false,
+                "bindable": false,
+                "default": null,
+                "description": "",
+                "inherited": false
+            },
+            {
+                "name": "children",
+                "type": "Snippet<[]> | undefined",
+                "required": false,
+                "bindable": false,
+                "default": null,
+                "description": "",
+                "inherited": false
+            }
+        ]
+    },
+    {
+        "name": "Header",
+        "properties": [
+            {
+                "name": "class",
+                "type": "string | undefined",
+                "required": false,
+                "bindable": false,
+                "default": null,
+                "description": "",
+                "inherited": false
+            },
+            {
+                "name": "children",
+                "type": "Snippet<[]> | undefined",
+                "required": false,
+                "bindable": false,
+                "default": null,
+                "description": "",
+                "inherited": false
+            }
+        ]
+    },
+    {
+        "name": "List",
+        "properties": [
+            {
+                "name": "class",
+                "type": "string | undefined",
+                "required": false,
+                "bindable": false,
+                "default": null,
+                "description": "",
+                "inherited": false
+            },
+            {
+                "name": "children",
+                "type": "Snippet<[]> | undefined",
+                "required": false,
+                "bindable": false,
+                "default": null,
+                "description": "",
+                "inherited": false
+            }
+        ]
+    },
+    {
+        "name": "Trigger",
+        "properties": [
+            {
+                "name": "value",
+                "type": "string",
+                "required": true,
+                "bindable": false,
+                "default": null,
+                "description": "Tab id; matches a `Content` value.",
+                "inherited": false
+            },
+            {
+                "name": "disabled",
+                "type": "boolean | undefined",
+                "required": false,
+                "bindable": false,
+                "default": "false",
+                "description": "",
+                "inherited": false
+            },
+            {
+                "name": "class",
+                "type": "string | undefined",
+                "required": false,
+                "bindable": false,
+                "default": null,
+                "description": "",
+                "inherited": false
+            },
+            {
+                "name": "children",
+                "type": "Snippet<[]> | undefined",
+                "required": false,
+                "bindable": false,
+                "default": null,
+                "description": "",
+                "inherited": false
+            }
+        ]
+    }
+]

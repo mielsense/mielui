@@ -1,0 +1,26 @@
+<script lang="ts">
+    import { cn, pressable } from '@mielui/svelte/utils';
+    import { Toolbar as Primitive } from 'bits-ui';
+    import { button } from '../../components/button/variants';
+    import type { ToolbarItemProps } from '.';
+
+    let {
+        element = $bindable(null),
+        children,
+        class: className,
+        ...rest
+    }: ToolbarItemProps = $props();
+</script>
+<Primitive.GroupItem {...rest} bind:ref={element}>
+    {#snippet child({ props, pressed })}
+        <button
+            type="button"
+            {...props}
+            use:pressable
+            data-ui="toolbar-item"
+            class={cn(className, button({ variant: 'quiet', size: 'sm' }), 'data-[state=on]:bg-secondary data-[state=on]:text-foreground')}
+        >
+            {@render children?.({ pressed })}
+        </button>
+    {/snippet}
+</Primitive.GroupItem>

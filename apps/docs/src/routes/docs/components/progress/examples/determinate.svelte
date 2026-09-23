@@ -3,5 +3,5 @@
 </script>
 
 <div class="w-full max-w-md">
-    <Progress value={45} />
+    <Progress aria-label="Upload progress" value={45} />
 </div>

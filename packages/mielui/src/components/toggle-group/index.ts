@@ -4,13 +4,20 @@ import type { HTMLButtonAttributes } from 'svelte/elements';
 import Root from './toggle-group.svelte';
 import Item from './toggle-group-item.svelte';
 
-export type ToggleGroupProps = {
-    type?: 'single' | 'multiple';
-    value?: string | string[];
+export type ToggleGroupProps = DefaultProps & {
     disabled?: boolean;
-    onValueChange?: (value: string | string[] | undefined) => void;
-    children?: Snippet;
-} & DefaultProps;
+} & (
+        | {
+              type?: 'single';
+              value?: string;
+              onValueChange?: (value: string | undefined) => void;
+          }
+        | {
+              type: 'multiple';
+              value?: string[];
+              onValueChange?: (value: string[]) => void;
+          }
+    );
 
 export type ToggleGroupItemProps = {
     value: string;

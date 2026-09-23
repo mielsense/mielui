@@ -1,5 +1,5 @@
 {
     "$schema": "https://openapi.vercel.sh/vercel.json",
-    "bunVersion": "1.x",
-    "buildCommand": "bun run migrate:deploy && bun run build"
+    "buildCommand": "pnpm run migrate:deploy && pnpm run build",
+    "installCommand": "cd ../.. && pnpm install --frozen-lockfile"
 }

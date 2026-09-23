@@ -130,8 +130,12 @@
     const elapsed = $derived(formatElapsed(elapsedMs));
     const statusLabel = $derived(phaseLabel(snapshot.phase));
     const progress = $derived.by(() => {
-        if (snapshot.phase === 'idle') return 0;
-        if (snapshot.phase === 'ready') return 100;
+        if (snapshot.phase === 'idle') {
+            return 0;
+        }
+        if (snapshot.phase === 'ready') {
+            return 100;
+        }
         const effectivePhase = snapshot.failure?.phase ?? snapshot.phase;
         const index = phases.indexOf(effectivePhase);
         return index < 0 ? 0 : Math.round(((index + 1) / phases.length) * 100);
@@ -171,32 +175,45 @@
     );
 
     $effect(() => {
-        if (mode !== 'manual') return;
+        if (mode !== 'manual') {
+            return;
+        }
         const request = ++planRequest;
         planLoading = true;
         void fetch(
             `/api/terminal/plan?source=${encodeURIComponent(source)}&installPath=${encodeURIComponent(installPath)}`
         )
             .then(async (response) => {
-                if (!response.ok) throw new Error(await response.text());
+                if (!response.ok) {
+                    throw new Error(await response.text());
+                }
                 return response.json() as Promise<{ plan: ManualPlan }>;
             })
             .then((data) => {
-                if (request === planRequest) manualPlan = data.plan;
+                if (request === planRequest) {
+                    manualPlan = data.plan;
+                }
             })
             .catch((error) => {
-                if (request === planRequest)
+                if (request === planRequest) {
                     requestError = error instanceof Error ? error.message : String(error);
+                }
             })
             .finally(() => {
-                if (request === planRequest) planLoading = false;
+                if (request === planRequest) {
+                    planLoading = false;
+                }
             });
     });
 
     $effect(() => {
-        if (mode !== 'manual') return;
+        if (mode !== 'manual') {
+            return;
+        }
         const key = `${source}:${installPath}`;
-        if (terminalReady || terminalBusy || preparationRequest === key) return;
+        if (terminalReady || terminalBusy || preparationRequest === key) {
+            return;
+        }
         preparationRequest = key;
         void prepareTerminal(false);
     });
@@ -211,7 +228,9 @@
         void fetch('/api/run')
             .then((response) => response.json())
             .then((data: { snapshot: RunSnapshot }) => {
-                if (disposed) return;
+                if (disposed) {
+                    return;
+                }
                 snapshot = data.snapshot;
                 source = data.snapshot.source;
                 installPath = data.snapshot.installPath;
@@ -224,7 +243,9 @@
         void fetch('/api/terminal')
             .then((response) => response.json())
             .then((data: { snapshot: TerminalSnapshot }) => {
-                if (!disposed) terminal = data.snapshot;
+                if (!disposed) {
+                    terminal = data.snapshot;
+                }
             });
         const terminalEvents = new EventSource('/api/terminal/events');
         terminalEvents.addEventListener('snapshot', (event) => {
@@ -252,7 +273,9 @@
 
     function formatElapsed(milliseconds: number) {
         const seconds = Math.max(0, milliseconds) / 1000;
-        if (seconds < 60) return `${seconds.toFixed(1)}s`;
+        if (seconds < 60) {
+            return `${seconds.toFixed(1)}s`;
+        }
         const minutes = Math.floor(seconds / 60);
         return `${minutes}m ${(seconds % 60).toFixed(0).padStart(2, '0')}s`;
     }
@@ -284,7 +307,9 @@
                 headers: { 'content-type': 'application/json' },
                 body: JSON.stringify({ source, installPath })
             });
-            if (!response.ok) throw new Error(await response.text());
+            if (!response.ok) {
+                throw new Error(await response.text());
+            }
             const data = (await response.json()) as { snapshot: RunSnapshot };
             snapshot = data.snapshot;
         } catch (error) {
@@ -297,7 +322,9 @@
     async function cancelRun() {
         requestError = null;
         const response = await fetch('/api/run/cancel', { method: 'POST' });
-        if (!response.ok) requestError = await response.text();
+        if (!response.ok) {
+            requestError = await response.text();
+        }
     }
 
     function selectManualCommand(command: string) {
@@ -307,7 +334,9 @@
 
     async function executeTerminal() {
         const command = terminalInput.trim();
-        if (!command || terminalBusy) return;
+        if (!command || terminalBusy) {
+            return;
+        }
         requestError = null;
         try {
             const response = await fetch('/api/terminal', {
@@ -315,7 +344,9 @@
                 headers: { 'content-type': 'application/json' },
                 body: JSON.stringify({ command })
             });
-            if (!response.ok) throw new Error(await response.text());
+            if (!response.ok) {
+                throw new Error(await response.text());
+            }
             terminalInput = '';
         } catch (error) {
             requestError = error instanceof Error ? error.message : String(error);
@@ -326,7 +357,9 @@
         requestError = null;
         try {
             const response = await fetch('/api/terminal/cancel', { method: 'POST' });
-            if (!response.ok) throw new Error(await response.text());
+            if (!response.ok) {
+                throw new Error(await response.text());
+            }
         } catch (error) {
             requestError = error instanceof Error ? error.message : String(error);
         }
@@ -340,12 +373,16 @@
                 headers: { 'content-type': 'application/json' },
                 body: JSON.stringify({ source, installPath })
             });
-            if (!response.ok) throw new Error(await response.text());
+            if (!response.ok) {
+                throw new Error(await response.text());
+            }
             const data = (await response.json()) as { snapshot: TerminalSnapshot };
             terminal = data.snapshot;
         } catch (error) {
             requestError = error instanceof Error ? error.message : String(error);
-            if (!force) preparationRequest = null;
+            if (!force) {
+                preparationRequest = null;
+            }
         }
     }
 </script>
@@ -373,15 +410,17 @@
                             size="sm"
                             disabled={terminalBusy}
                             onclick={() => (mode = 'automatic')}
-                            >Automatic</Button
                         >
+                            Automatic
+                        </Button>
                         <Button
                             variant={mode === 'manual' ? 'secondary' : 'ghost'}
                             size="sm"
                             disabled={active}
                             onclick={() => (mode = 'manual')}
-                            >Manual terminal</Button
                         >
+                            Manual terminal
+                        </Button>
                     </div>
                 </div>
 
@@ -393,15 +432,17 @@
                             size="sm"
                             disabled={controlsDisabled}
                             onclick={() => (source = 'local')}
-                            >Local working tree</Button
                         >
+                            Local working tree
+                        </Button>
                         <Button
                             variant={source === 'npm' ? 'secondary' : 'ghost'}
                             size="sm"
                             disabled={controlsDisabled}
                             onclick={() => (source = 'npm')}
-                            >npm latest</Button
                         >
+                            npm latest
+                        </Button>
                     </div>
                 </div>
 
@@ -413,15 +454,17 @@
                             size="sm"
                             disabled={controlsDisabled}
                             onclick={() => (installPath = 'cli')}
-                            >CLI source-copy</Button
                         >
+                            CLI source-copy
+                        </Button>
                         <Button
                             variant={installPath === 'package' ? 'secondary' : 'ghost'}
                             size="sm"
                             disabled={controlsDisabled}
                             onclick={() => (installPath = 'package')}
-                            >Package imports</Button
                         >
+                            Package imports
+                        </Button>
                     </div>
                 </div>
 
@@ -441,8 +484,9 @@
                             size="sm"
                             disabled={terminalBusy}
                             onclick={() => prepareTerminal(true)}
-                            >Recreate app</Button
                         >
+                            Recreate app
+                        </Button>
                     {:else if active}
                         <Button variant="destructive" onclick={cancelRun}>Cancel</Button>
                     {:else}
@@ -521,9 +565,9 @@
                     <div class="manual-heading">
                         <div>
                             <span class="manual-title">Command guide</span>
-                            <span class="manual-description"
-                                >App setup is automatic. Choose a Mielui command, then run it.</span
-                            >
+                            <span class="manual-description">
+                                App setup is automatic. Choose a Mielui command, then run it.
+                            </span>
                         </div>
                         <code>{manualPlan?.workspace ?? 'Preparing workspace…'}</code>
                     </div>
@@ -539,14 +583,14 @@
                                             disabled={!terminalReady || terminalBusy}
                                             onclick={() => selectManualCommand(step.command)}
                                         >
-                                            <span class="step-index tabular"
-                                                >{String(index + 1).padStart(2, '0')}</span
-                                            >
+                                            <span class="step-index tabular">
+                                                {String(index + 1).padStart(2, '0')}
+                                            </span>
                                             <span class="step-copy">
                                                 <span class="step-title">{step.title}</span>
-                                                <span class="step-description"
-                                                    >{step.description}</span
-                                                >
+                                                <span class="step-description">
+                                                    {step.description}
+                                                </span>
                                                 <code>{step.command}</code>
                                             </span>
                                         </Button>
@@ -595,12 +639,13 @@
                                     variant="destructive"
                                     size="sm"
                                     onclick={cancelTerminal}
-                                    >Cancel</Button
                                 >
+                                    Cancel
+                                </Button>
                             {:else}
-                                <Button type="submit" size="sm" disabled={!terminalInput.trim()}
-                                    >Run</Button
-                                >
+                                <Button type="submit" size="sm" disabled={!terminalInput.trim()}>
+                                    Run
+                                </Button>
                             {/if}
                         </form>
                     </Card.Root>

@@ -1,7 +1,10 @@
 <script lang="ts">
-    import Check from '@lucide/svelte/icons/check';
-    import ChevronDown from '@lucide/svelte/icons/chevron-down';
+    import {
+        Tick02Icon as Check,
+        ArrowDown01Icon as ChevronDown
+    } from '@hugeicons/core-free-icons';
     import * as DropdownMenu from '@mielui/svelte/components/dropdown-menu';
+    import HugeiconsIcon from '@mielui/svelte/hugeicons-icon';
 
     let model = $state('GPT-5.6 Sol');
     let effort = $state('High');
@@ -11,7 +14,7 @@
 <DropdownMenu.Root>
     <DropdownMenu.Trigger variant="outline" size="md" class="min-w-[11rem] justify-between">
         <span>Configuration</span>
-        <ChevronDown size={15} class="text-foreground-muted" />
+        <HugeiconsIcon icon={ChevronDown} size={15} class="text-foreground-muted" />
     </DropdownMenu.Trigger>
     <DropdownMenu.Content class="min-w-[11rem]">
         <DropdownMenu.Label>Configuration</DropdownMenu.Label>
@@ -21,13 +24,13 @@
                 <DropdownMenu.Item callback={() => (model = 'GPT-5.6 Sol')}>
                     <span>GPT-5.6 Sol</span>
                     {#if model === 'GPT-5.6 Sol'}
-                        <Check size={16} class="ml-auto" />
+                        <HugeiconsIcon icon={Check} size={16} class="ml-auto" />
                     {/if}
                 </DropdownMenu.Item>
                 <DropdownMenu.Item callback={() => (model = 'Opus 4.6')}>
                     <span>Opus 4.6</span>
                     {#if model === 'Opus 4.6'}
-                        <Check size={16} class="ml-auto" />
+                        <HugeiconsIcon icon={Check} size={16} class="ml-auto" />
                     {/if}
                 </DropdownMenu.Item>
             </DropdownMenu.SubContent>
@@ -39,7 +42,7 @@
                     <DropdownMenu.Item callback={() => (effort = option)}>
                         <span>{option}</span>
                         {#if effort === option}
-                            <Check size={16} class="ml-auto" />
+                            <HugeiconsIcon icon={Check} size={16} class="ml-auto" />
                         {/if}
                     </DropdownMenu.Item>
                 {/each}
@@ -52,7 +55,7 @@
                     <DropdownMenu.Item callback={() => (speed = option)}>
                         <span>{option}</span>
                         {#if speed === option}
-                            <Check size={16} class="ml-auto" />
+                            <HugeiconsIcon icon={Check} size={16} class="ml-auto" />
                         {/if}
                     </DropdownMenu.Item>
                 {/each}

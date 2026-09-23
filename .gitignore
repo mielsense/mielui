@@ -2,6 +2,11 @@
 /dev
 /plans
 /audit
+/audits/
+/docs/reviews/
+/docs/research/
+/docs/superpowers/
+/docs/theme-studio/
 /ignored
 /inspiration
 /temp
@@ -50,9 +55,12 @@ vite.config.ts.timestamp-*
 /.agents/
 /.claude/
 /.codex/
-/.opencode/
 
 # Browser verification artifacts
 /output/
 /.playwright-cli/
 /.codebase-memory/
+
+# Browser failure captures, not visual assertion baselines
+/apps/docs/tests/unit/mielui/__screenshots__/
+/.playwright-mcp/

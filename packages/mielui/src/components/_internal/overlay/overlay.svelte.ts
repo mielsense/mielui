@@ -8,7 +8,7 @@ import {
 } from '@mielui/svelte/utils';
 import { getContext, setContext } from 'svelte';
 
-type OverlayKind = 'modal' | 'sheet' | 'other';
+type OverlayKind = 'dialog' | 'sheet' | 'other';
 
 const OVERLAY_DEPTH = Symbol('mielui-overlay-depth');
 
@@ -16,9 +16,11 @@ type OverlayLayer = {
     panel: HTMLElement;
     kind: OverlayKind;
     depth: number;
+    setTop?: (top: boolean) => void;
 };
 
 const overlayStack: OverlayLayer[] = [];
+let escapeHandled = false;
 
 function overlayNestingDepth() {
     const parentDepth = getContext<number>(OVERLAY_DEPTH) ?? 0;
@@ -31,7 +33,7 @@ function overlayNestingDepth() {
  * Depth of the overlay enclosing the caller's component subtree.
  *
  * Portaled content (popover menus, select lists) keeps its component-tree
- * position when its DOM moves to `<body>`, so a menu opened inside a modal
+ * position when its DOM moves to `<body>`, so a menu opened inside a dialog
  * still reads depth 1 here. Floating layers register their Escape handler
  * one rank above this depth so they peel before their enclosing overlay.
  * Call during component init; `getContext` is init-scoped.
@@ -60,8 +62,8 @@ function clearOverlayRootLayer(panel: HTMLElement) {
 
 function overlayKind(panel: HTMLElement): OverlayKind {
     const ui = panel.dataset.ui;
-    if (ui === 'modal-panel') {
-        return 'modal';
+    if (ui === 'dialog-panel') {
+        return 'dialog';
     }
     if (ui === 'sheet-content') {
         return 'sheet';
@@ -72,7 +74,7 @@ function overlayKind(panel: HTMLElement): OverlayKind {
 function modalScrim(panel: HTMLElement) {
     return panel
         .closest('[data-overlay-root]')
-        ?.querySelector<HTMLElement>('[data-ui="modal-overlay"]');
+        ?.querySelector<HTMLElement>('[data-ui="dialog-overlay"]');
 }
 
 function clearModalStackAttrs(panel: HTMLElement) {
@@ -82,8 +84,11 @@ function clearModalStackAttrs(panel: HTMLElement) {
 }
 
 function syncStackedModals() {
+    for (const layer of overlayStack) {
+        layer.setTop?.(layer === overlayStack[overlayStack.length - 1]);
+    }
     const modals = overlayStack
-        .filter((layer) => layer.kind === 'modal')
+        .filter((layer) => layer.kind === 'dialog')
         .slice()
         .sort((a, b) => a.depth - b.depth);
     for (const layer of modals) {
@@ -110,13 +115,68 @@ function syncStackedModals() {
     }
 }
 
+/** Coordinates modal presentation while Bits UI owns focus and dismissal. */
+export function useOverlayPresentation(options: {
+    isOpen: () => boolean;
+    panelEl: () => HTMLElement | undefined;
+}) {
+    const depth = overlayNestingDepth();
+    let top = $state(true);
+
+    $effect(() => {
+        const panel = options.panelEl();
+        if (!options.isOpen() || !panel) {
+            return;
+        }
+        const layer: OverlayLayer = {
+            panel,
+            depth,
+            kind: overlayKind(panel),
+            setTop(value) {
+                top = value;
+            }
+        };
+        overlayStack.push(layer);
+        overlayStack.sort((first, second) => first.depth - second.depth);
+        applyOverlayRootLayer(panel, depth);
+        syncStackedModals();
+
+        return () => {
+            const index = overlayStack.indexOf(layer);
+            if (index >= 0) {
+                overlayStack.splice(index, 1);
+            }
+            clearOverlayRootLayer(panel);
+            clearModalStackAttrs(panel);
+            syncStackedModals();
+        };
+    });
+
+    return {
+        get top() {
+            return top;
+        },
+        claimEscape() {
+            if (!top || escapeHandled) {
+                return false;
+            }
+            escapeHandled = true;
+            setTimeout(() => {
+                escapeHandled = false;
+            }, 0);
+            return true;
+        }
+    };
+}
+
 /** Test isolation for the process-local nested overlay stack. */
 export function resetOverlayStackForTests() {
     overlayStack.length = 0;
+    escapeHandled = false;
 }
 
 /**
- * Shared overlay primitive for modal-content and sheet-content.
+ * Shared overlay primitive for dialog-content and sheet-content.
  *
  * Owns the cross-cutting overlay concerns:
  *   - Focus trap (initial focus on first focusable, Tab cycling).
@@ -124,7 +184,7 @@ export function resetOverlayStackForTests() {
  *   - Escape key handler (panel-scoped, fires onClose).
  *   - Body scroll lock while open (shared refcount with Popover).
  *   - Inert background while open (shared refcount with Popover).
- *   - Nested modal stacking (recede the earlier panel, lighter nested scrim).
+ *   - Nested dialog stacking (recede the earlier panel, lighter nested scrim).
  *
  * Consumer owns:
  *   - The panel DOM element (bind via `panelEl` getter).
@@ -132,7 +192,7 @@ export function resetOverlayStackForTests() {
  *   - The animation surface (transitions on the consumer's own elements).
  *
  * Internal primitive per pattern guide Sec.2.5 -- not consumer-installable.
- * Modal and sheet auto-pull this; consumers cannot `npx mielui add overlay`.
+ * Dialog and sheet auto-pull this; consumers cannot `npx mielui add overlay`.
  */
 export type OverlayOptions = {
     /** Reactive getter for the open state. */

@@ -1,4 +1,4 @@
-import { afterEach, describe, expect, test } from 'bun:test';
+import { afterEach, describe, expect, test } from 'vitest';
 import { DEFAULT_THEME } from '../../src/themes/theme';
 import { resolveThemeCss } from './theme';
 
@@ -26,7 +26,7 @@ describe('resolveThemeCss', () => {
                 new Response(JSON.stringify({ slug: 'legacy-theme' }))
             )) as unknown as typeof fetch;
 
-        expect(resolveThemeCss('legacy-theme', 'https://registry.example')).rejects.toThrow(
+        await expect(resolveThemeCss('legacy-theme', 'https://registry.example')).rejects.toThrow(
             /invalid theme/
         );
     });

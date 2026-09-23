@@ -1,12 +1,38 @@
 <script lang="ts">
     import type { Snippet } from 'svelte';
+    import '$lib/components/docs/docs-layout.css';
+    import { magneticHeadings } from '$lib/components/docs/magnetic-headings';
+    import OnThisPage from '$lib/components/docs/on-this-page.svelte';
+    import SectionIntersections from '$lib/components/docs/section-intersections.svelte';
 
     const { children }: { children: Snippet } = $props();
+    const settleHeading = magneticHeadings(
+        '[data-docs-page] > section:not([data-docs-toolbar]), #api-reference'
+    );
+    let content = $state<HTMLDivElement>();
+    let viewport = $state<HTMLDivElement>();
 </script>
 
 <div
-    class="mx-auto flex min-h-[calc(100svh-6.5rem)] w-full max-w-[960px] flex-col px-3 pt-8 sm:px-8 lg:px-10 lg:pt-10"
+    class="grid h-full min-h-0 w-full grid-cols-[minmax(0,1fr)] gap-0 xl:grid-cols-[minmax(0,1fr)_18rem]"
 >
-    {@render children?.()}
-    <div class="h-32 shrink-0" aria-hidden="true"></div>
+    <div class="flex min-h-0 min-w-0 flex-col">
+        <div
+            bind:this={viewport}
+            {@attach settleHeading}
+            data-docs-scroll
+            class="min-h-0 flex-1 bg-[var(--docs-content)] overflow-y-auto overscroll-none [container-type:inline-size] [--docs-gutter:calc((var(--spacing)*5+2rem)/2)]"
+        >
+            <div bind:this={content} class="docs-article w-full min-w-0">
+                {@render children?.()}
+            </div>
+        </div>
+    </div>
+    <aside
+        class="hidden min-h-0 min-w-0 overflow-y-auto overscroll-none border-l-[length:var(--border-size)] border-[var(--docs-rule)] bg-[var(--docs-chrome)] xl:block"
+    >
+        <OnThisPage {content} />
+    </aside>
 </div>
+
+<SectionIntersections {content} {viewport} />

@@ -1,13 +1,8 @@
 <script lang="ts">
-    import * as Modal from '@mielui/svelte/components/modal';
-    import { cn, type DefaultProps } from '@mielui/svelte/utils';
+    import * as Dialog from '@mielui/svelte/components/dialog';
+    import { cn } from '@mielui/svelte/utils';
 
-    type Props = {
-        allowEscape?: boolean;
-        ariaBusy?: boolean;
-        /** Max-width preset. Defaults to `sm`. */
-        size?: 'sm' | 'md' | 'lg' | 'xl';
-    } & DefaultProps;
+    import type { AlertDialogContentProps } from '.';
 
     let {
         class: className,
@@ -16,10 +11,10 @@
         size = 'sm',
         children,
         ...rest
-    }: Props = $props();
+    }: AlertDialogContentProps = $props();
 </script>
 
-<Modal.Content
+<Dialog.Content
     {allowEscape}
     {size}
     allowClickOutside={false}
@@ -32,4 +27,4 @@
     {...rest}
 >
     {@render children?.()}
-</Modal.Content>
+</Dialog.Content>

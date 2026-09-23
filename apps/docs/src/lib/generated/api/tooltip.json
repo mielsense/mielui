@@ -1,0 +1,130 @@
+[
+    {
+        "name": "Content",
+        "properties": [
+            {
+                "name": "class",
+                "type": "string | undefined",
+                "required": false,
+                "bindable": false,
+                "default": null,
+                "description": "",
+                "inherited": false
+            },
+            {
+                "name": "children",
+                "type": "Snippet<[]> | undefined",
+                "required": false,
+                "bindable": false,
+                "default": null,
+                "description": "",
+                "inherited": false
+            },
+            {
+                "name": "surface",
+                "type": "\"solid\" | \"glass\" | undefined",
+                "required": false,
+                "bindable": false,
+                "default": null,
+                "description": "",
+                "inherited": false
+            },
+            {
+                "name": "rich",
+                "type": "boolean | undefined",
+                "required": false,
+                "bindable": false,
+                "default": "false",
+                "description": "",
+                "inherited": false
+            }
+        ]
+    },
+    {
+        "name": "Provider",
+        "properties": [
+            {
+                "name": "children",
+                "type": "Snippet<[]> | undefined",
+                "required": false,
+                "bindable": false,
+                "default": null,
+                "description": "",
+                "inherited": false
+            }
+        ]
+    },
+    {
+        "name": "Root",
+        "properties": [
+            {
+                "name": "delay",
+                "type": "number | undefined",
+                "required": false,
+                "bindable": false,
+                "default": "125",
+                "description": "",
+                "inherited": false
+            },
+            {
+                "name": "closeDelay",
+                "type": "number | undefined",
+                "required": false,
+                "bindable": false,
+                "default": "100",
+                "description": "",
+                "inherited": false
+            },
+            {
+                "name": "placement",
+                "type": "TooltipPlacement | undefined",
+                "required": false,
+                "bindable": false,
+                "default": "'top'",
+                "description": "",
+                "inherited": false
+            },
+            {
+                "name": "children",
+                "type": "Snippet<[]> | undefined",
+                "required": false,
+                "bindable": false,
+                "default": null,
+                "description": "",
+                "inherited": false
+            }
+        ]
+    },
+    {
+        "name": "Trigger",
+        "properties": [
+            {
+                "name": "showOnClick",
+                "type": "boolean | undefined",
+                "required": false,
+                "bindable": false,
+                "default": "false",
+                "description": "",
+                "inherited": false
+            },
+            {
+                "name": "class",
+                "type": "string | undefined",
+                "required": false,
+                "bindable": false,
+                "default": null,
+                "description": "",
+                "inherited": false
+            },
+            {
+                "name": "children",
+                "type": "Snippet<[]> | undefined",
+                "required": false,
+                "bindable": false,
+                "default": null,
+                "description": "",
+                "inherited": false
+            }
+        ]
+    }
+]

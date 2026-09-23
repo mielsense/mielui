@@ -2,14 +2,14 @@
     import { CodeBlock } from '@mielui/svelte/components/code-block';
     import * as Typography from '@mielui/svelte/components/typography';
     import { resolve } from '$app/paths';
-    import DocsPager from '$lib/components/docs/docs-pager.svelte';
+    import PageIntro from '$lib/components/docs/page-intro.svelte';
 
     const overrideCss = `@theme {
   --color-primary: #155eef;
   --color-background: #fcfcfd;
   --color-foreground: #101828;
   --radius-lg: 0.55rem;
-    --font-sans: 'DM Sans', sans-serif;
+  --font-sans: 'DM Sans', sans-serif;
 }
 
 .dark {
@@ -31,7 +31,7 @@
   text-transform: uppercase;
 }`;
 
-    const sourceExample = `# after: bunx --package @mielui/svelte mielui add button
+    const sourceExample = `# after: pnpm dlx @mielui/svelte add button
 src/lib/mielui/components/button/
 ├── button.svelte
 └── index.ts`;
@@ -46,54 +46,87 @@ src/lib/mielui/components/button/
 </svelte:head>
 
 <div data-docs-page class="flex flex-col gap-16">
-    <header class="flex items-start justify-between gap-4">
-        <div>
-            <Typography.H1 class="m-0">Theming</Typography.H1>
-            <Typography.Text variant="lead" class="mt-2 max-w-2xl">
-                Components read CSS variables. Change tokens for system-wide look, or override a
-                single component with classes and selectors.
-            </Typography.Text>
-        </div>
-        <DocsPager />
-    </header>
+    <PageIntro title="Theming">
+        Components read CSS variables. Change tokens for system-wide look, or override a single
+        component with classes and selectors.
+    </PageIntro>
 
     <section id="where-tokens-live" class="scroll-mt-20 flex flex-col gap-5">
         <Typography.H2 class="docs-section-heading">Where tokens live</Typography.H2>
-        <Typography.Text variant="body" class="m-0 max-w-2xl">
+        <Typography.Text variant="body" class="m-0">
             Package installs use
-            <Typography.InlineCode>@mielui/svelte/ui.css</Typography.InlineCode>. CLI installs use
-            <Typography.InlineCode>src/lib/mielui/ui.css</Typography.InlineCode>. Both define the
-            same public axes: color, type, radius, and motion.
+            <Typography.InlineCode>@mielui/svelte/ui.css</Typography.InlineCode>
+            . CLI installs use
+            <Typography.InlineCode>src/lib/mielui/ui.css</Typography.InlineCode>
+            . Both define the same color, typography, radius, and motion tokens.
         </Typography.Text>
     </section>
 
     <section id="theme-studio" class="scroll-mt-20 flex flex-col gap-5">
         <Typography.H2 class="docs-section-heading">Theme Studio</Typography.H2>
-        <Typography.Text variant="body" class="m-0 max-w-2xl">
+        <Typography.Text variant="body" class="m-0">
             The
-            <a class="text-foreground underline underline-offset-2" href={resolve('/studio')}
-                >Theme Studio</a
-            >
-            is the visual way to build a theme. Start from a built-in preset and adjust the shared
-            axes — brand, neutral temperature, radius, density, motion, and fonts — plus typography
-            (header size and per-role weights for body, label, button, badge, and description),
-            per-mode foundation colors, and chrome flags (surface, control, and dialog shadows, the
-            traveling highlight, primary stroke, and the interactive cursor). The Advanced section
-            overrides individual color, spacing, and animation tokens per light and dark mode.
+            <a class="text-foreground underline underline-offset-2" href={resolve('/studio')}>
+                Theme Studio
+            </a>
+            lets you start from a preset and adjust colors, fonts, spacing, motion, and surface
+            effects. Open Advanced colors for individual color tokens.
         </Typography.Text>
-        <Typography.Text variant="body" class="m-0 max-w-2xl">
-            Copy the generated <Typography.InlineCode>theme.css</Typography.InlineCode> to use the
-            theme in your app, or copy the theme JSON to share it. The studio keeps your draft in
-            local storage between visits.
+        <Typography.Text variant="body" class="m-0">
+            Studio saves your draft locally when browser storage is available. If storage is blocked
+            or full, download the theme JSON to preserve your changes.
         </Typography.Text>
+        <Typography.Text variant="body" class="m-0">
+            Choose Use theme, download mielui-theme.json into your project root, and run the command
+            for a new or existing Mielui setup. The JSON includes both color modes and all Studio
+            overrides. New setups get styles.css, which imports ui.css followed by theme.css. Load
+            that stylesheet in your root layout. Fonts must also be loaded by your app.
+        </Typography.Text>
+        <CodeBlock
+            lang="bash"
+            copy="overlay"
+            code="pnpm dlx @mielui/svelte init --preset ./mielui-theme.json"
+        />
+        <Typography.Text variant="body" class="m-0">
+            For an existing setup, run the command below. It replaces theme.css. Built-in preset
+            slugs, such as default, can be used in place of the JSON path.
+        </Typography.Text>
+        <CodeBlock
+            lang="bash"
+            copy="overlay"
+            code="pnpm dlx @mielui/svelte add theme ./mielui-theme.json"
+        />
     </section>
 
+    <section id="glass-surfaces" class="scroll-mt-20 flex flex-col gap-5">
+        <Typography.H2 class="docs-section-heading">Global glass surfaces</Typography.H2>
+        <Typography.Text variant="body" class="m-0">
+            Enable Glass surfaces under Effects in Studio, or set --mielui-surface: glass on :root.
+            Components with surface support inherit that choice when the prop is omitted. Set
+            surface="solid" or surface="glass" on one component to override the theme. Put the
+            variable on :root so portaled menus and dialogs inherit it too.
+        </Typography.Text>
+        <CodeBlock
+            lang="css"
+            copy="overlay"
+            code={`:root {
+  --mielui-surface: glass;
+}`}
+        />
+        <Typography.Text variant="body" class="m-0">
+            The global setting uses CSS style queries. Browsers without style-query support retain
+            solid surfaces. Explicit surface="glass" still works with backdrop-filter support.
+            Reduced transparency keeps an opaque background and removes blur.
+        </Typography.Text>
+    </section>
     <section id="override-tokens" class="scroll-mt-20 flex flex-col gap-5">
         <Typography.H2 class="docs-section-heading">Override tokens</Typography.H2>
-        <Typography.Text variant="body" class="m-0 max-w-2xl">
-            Set values in your app CSS after importing Mielui’s sheet. Light defaults go in
-            <Typography.InlineCode>@theme</Typography.InlineCode>. Dark values go under
-            <Typography.InlineCode>.dark</Typography.InlineCode>.
+        <Typography.Text variant="body" class="m-0">
+            Set values in your app CSS after importing Mielui's sheet. Light defaults go in
+            <Typography.InlineCode>@theme</Typography.InlineCode>
+            . Dark values go under
+            <Typography.InlineCode>.dark</Typography.InlineCode>
+            .
         </Typography.Text>
         <CodeBlock code={overrideCss} lang="css" copy="overlay" />
     </section>
@@ -105,49 +138,78 @@ src/lib/mielui/components/button/
         >
             <li>
                 Color:
-                <Typography.InlineCode>--color-background</Typography.InlineCode>,
-                <Typography.InlineCode>--color-card</Typography.InlineCode>,
-                <Typography.InlineCode>--color-panel</Typography.InlineCode>,
-                <Typography.InlineCode>--color-secondary</Typography.InlineCode>,
-                <Typography.InlineCode>--color-foreground</Typography.InlineCode>,
-                <Typography.InlineCode>--color-foreground-muted</Typography.InlineCode>,
-                <Typography.InlineCode>--color-primary</Typography.InlineCode>,
-                <Typography.InlineCode>--color-on-primary</Typography.InlineCode>,
-                <Typography.InlineCode>--color-button-foreground</Typography.InlineCode>,
-                <Typography.InlineCode>--color-border</Typography.InlineCode>,
-                <Typography.InlineCode>--color-input</Typography.InlineCode>,
+                <Typography.InlineCode>--color-background</Typography.InlineCode>
+                ,
+                <Typography.InlineCode>--color-card</Typography.InlineCode>
+                ,
+                <Typography.InlineCode>--color-panel</Typography.InlineCode>
+                ,
+                <Typography.InlineCode>--color-secondary</Typography.InlineCode>
+                ,
+                <Typography.InlineCode>--color-foreground</Typography.InlineCode>
+                ,
+                <Typography.InlineCode>--color-foreground-muted</Typography.InlineCode>
+                ,
+                <Typography.InlineCode>--color-primary</Typography.InlineCode>
+                ,
+                <Typography.InlineCode>--color-on-primary</Typography.InlineCode>
+                ,
+                <Typography.InlineCode>--color-button-foreground</Typography.InlineCode>
+                ,
+                <Typography.InlineCode>--color-border</Typography.InlineCode>
+                ,
+                <Typography.InlineCode>--color-input</Typography.InlineCode>
+                ,
                 <Typography.InlineCode>--color-ring</Typography.InlineCode>
             </li>
             <li>
                 Type:
-                <Typography.InlineCode>--font-sans</Typography.InlineCode>,
-                <Typography.InlineCode>--font-mono</Typography.InlineCode>,
-                <Typography.InlineCode>--font-header</Typography.InlineCode>,
-                <Typography.InlineCode>--font-size-header</Typography.InlineCode>, and role weights
-                like <Typography.InlineCode>--font-weight-body</Typography.InlineCode>,
-                <Typography.InlineCode>--font-weight-label</Typography.InlineCode>,
+                <Typography.InlineCode>--font-sans</Typography.InlineCode>
+                ,
+                <Typography.InlineCode>--font-mono</Typography.InlineCode>
+                ,
+                <Typography.InlineCode>--font-header</Typography.InlineCode>
+                ,
+                <Typography.InlineCode>--font-size-header</Typography.InlineCode>
+                , and role weights like<Typography.InlineCode>
+                    --font-weight-body
+                </Typography.InlineCode>
+                ,
+                <Typography.InlineCode>--font-weight-label</Typography.InlineCode>
+                ,
                 <Typography.InlineCode>--font-weight-button</Typography.InlineCode>
             </li>
             <li>
                 Radius and density:
-                <Typography.InlineCode>--radius-sm</Typography.InlineCode>,
-                <Typography.InlineCode>--radius-md</Typography.InlineCode>,
-                <Typography.InlineCode>--radius-lg</Typography.InlineCode>,
-                <Typography.InlineCode>--radius-xl</Typography.InlineCode>, and the base spacing
-                unit <Typography.InlineCode>--mielui-space-unit</Typography.InlineCode>
+                <Typography.InlineCode>--radius-sm</Typography.InlineCode>
+                ,
+                <Typography.InlineCode>--radius-md</Typography.InlineCode>
+                ,
+                <Typography.InlineCode>--radius-lg</Typography.InlineCode>
+                ,
+                <Typography.InlineCode>--radius-xl</Typography.InlineCode>
+                , and the base spacing unit<Typography.InlineCode>
+                    --mielui-space-unit
+                </Typography.InlineCode>
             </li>
             <li>
                 Motion:
-                <Typography.InlineCode>--motion-duration-hover</Typography.InlineCode>,
-                <Typography.InlineCode>--motion-duration-menu</Typography.InlineCode>,
-                <Typography.InlineCode>--motion-duration-panel</Typography.InlineCode>,
+                <Typography.InlineCode>--motion-duration-hover</Typography.InlineCode>
+                ,
+                <Typography.InlineCode>--motion-duration-menu</Typography.InlineCode>
+                ,
+                <Typography.InlineCode>--motion-duration-panel</Typography.InlineCode>
+                ,
                 <Typography.InlineCode>--motion-duration-sheet</Typography.InlineCode>
             </li>
             <li>
                 Elevation:
-                <Typography.InlineCode>--elevation-1</Typography.InlineCode>,
-                <Typography.InlineCode>--elevation-float</Typography.InlineCode>,
-                <Typography.InlineCode>--elevation-control</Typography.InlineCode>,
+                <Typography.InlineCode>--elevation-1</Typography.InlineCode>
+                ,
+                <Typography.InlineCode>--elevation-float</Typography.InlineCode>
+                ,
+                <Typography.InlineCode>--elevation-control</Typography.InlineCode>
+                ,
                 <Typography.InlineCode>--elevation-modal</Typography.InlineCode>
             </li>
         </ul>
@@ -155,124 +217,158 @@ src/lib/mielui/components/button/
 
     <section id="built-in-presets" class="scroll-mt-20 flex flex-col gap-5">
         <Typography.H2 class="docs-section-heading">Built-in presets</Typography.H2>
-        <Typography.Text variant="body" class="m-0 max-w-2xl">
-            Five presets ship with Mielui: <Typography.InlineCode>default</Typography.InlineCode>,
-            <Typography.InlineCode>magic</Typography.InlineCode>,
-            <Typography.InlineCode>bitsy</Typography.InlineCode>,
-            <Typography.InlineCode>open</Typography.InlineCode>, and
-            <Typography.InlineCode>functional</Typography.InlineCode>. Preview them live on the
-            <a class="text-foreground underline underline-offset-2" href={resolve('/themes')}
-                >themes page</a
-            >, where you can copy each preset’s CSS or JSON.
+        <Typography.Text variant="body" class="m-0">
+            Five presets ship with Mielui:{' '}
+            <Typography.InlineCode>default</Typography.InlineCode>
+            ,
+            <Typography.InlineCode>magic</Typography.InlineCode>
+            ,
+            <Typography.InlineCode>bitsy</Typography.InlineCode>
+            ,
+            <Typography.InlineCode>open</Typography.InlineCode>
+            , and
+            <Typography.InlineCode>functional</Typography.InlineCode>
+            . Preview them live on the
+            <a class="text-foreground underline underline-offset-2" href={resolve('/themes')}>
+                themes page
+            </a>
+            , where you can copy each preset's CSS or JSON.
         </Typography.Text>
-        <Typography.Text variant="body" class="m-0 max-w-2xl">
+        <Typography.Text variant="body" class="m-0">
             With the CLI, install a preset into
-            <Typography.InlineCode>theme.css</Typography.InlineCode>:
+            <Typography.InlineCode>theme.css</Typography.InlineCode>
+            :
         </Typography.Text>
-        <CodeBlock
-            code="bunx --package @mielui/svelte mielui add theme open"
-            lang="shell"
-            copy="overlay"
-        />
-        <Typography.Text variant="body" class="m-0 max-w-2xl">
-            Import it after <Typography.InlineCode>ui.css</Typography.InlineCode> so it wins:
+        <CodeBlock code="pnpm dlx @mielui/svelte add theme open" lang="shell" copy="overlay" />
+        <Typography.Text variant="body" class="m-0">
+            Import it after{' '}
+            <Typography.InlineCode>ui.css</Typography.InlineCode> to apply its overrides:
         </Typography.Text>
         <CodeBlock code={themeImport} lang="css" copy="overlay" />
-        <Typography.Text variant="body" class="m-0 max-w-2xl">
+        <Typography.Text variant="body" class="m-0">
             <Typography.InlineCode>mielui list</Typography.InlineCode>
-            shows available built-in theme slugs. Community theme registry hosting is not part of
-            v1.
+            shows available built-in theme slugs.
         </Typography.Text>
     </section>
 
     <section id="dark-mode" class="scroll-mt-20 flex flex-col gap-5">
         <Typography.H2 class="docs-section-heading">Dark mode</Typography.H2>
-        <Typography.Text variant="body" class="m-0 max-w-2xl">
-            Toggle a <Typography.InlineCode>.dark</Typography.InlineCode> class on
-            <Typography.InlineCode>&lt;html&gt;</Typography.InlineCode>. Components do not manage
-            the class for you.
+        <Typography.Text variant="body" class="m-0">
+            Toggle a{' '}
+            <Typography.InlineCode>.dark</Typography.InlineCode> class on
+            <Typography.InlineCode>&lt;html&gt;</Typography.InlineCode>
+            . Components do not manage the class for you.
         </Typography.Text>
     </section>
 
     <section id="theme-json" class="scroll-mt-20 flex flex-col gap-5">
         <Typography.H2 class="docs-section-heading">Theme JSON</Typography.H2>
-        <Typography.Text variant="body" class="m-0 max-w-2xl">
-            Theme JSON (version 4) captures a theme as data, so the studio, the CLI, and the theme
-            registry all speak the same format. Beyond the shared axes, theme JSON accepts per-mode
-            surfaces in <Typography.InlineCode>foundation.light</Typography.InlineCode>
-            /
-            <Typography.InlineCode>foundation.dark</Typography.InlineCode>
-            (<Typography.InlineCode>base</Typography.InlineCode>,
-            <Typography.InlineCode>border</Typography.InlineCode>,
-            <Typography.InlineCode>background</Typography.InlineCode>,
-            <Typography.InlineCode>secondary</Typography.InlineCode>,
-            <Typography.InlineCode>foreground</Typography.InlineCode>,
-            <Typography.InlineCode>foregroundMuted</Typography.InlineCode>,
-            <Typography.InlineCode>onPrimary</Typography.InlineCode>), typography under
-            <Typography.InlineCode>typography</Typography.InlineCode>
-            (<Typography.InlineCode>headerSize</Typography.InlineCode>,
-            <Typography.InlineCode>headerWeight</Typography.InlineCode>, and
-            <Typography.InlineCode>roleWeights</Typography.InlineCode>
-            for body, label, button, badge, and description), raw token overrides under
-            <Typography.InlineCode>tokens.shared</Typography.InlineCode>
-            /
-            <Typography.InlineCode>tokens.light</Typography.InlineCode>
-            /
-            <Typography.InlineCode>tokens.dark</Typography.InlineCode>
-            (for example per-mode primary colors overriding
-            <Typography.InlineCode>--color-primary</Typography.InlineCode>), and chrome flags under
-            <Typography.InlineCode>chrome</Typography.InlineCode>:
-            <Typography.InlineCode>surfaceShadows</Typography.InlineCode>,
-            <Typography.InlineCode>controlShadows</Typography.InlineCode>,
-            <Typography.InlineCode>dialogShadows</Typography.InlineCode>,
-            <Typography.InlineCode>travelingHighlight: false</Typography.InlineCode>
-            (item fill stays, the slide does not),
-            <Typography.InlineCode>primaryStroke</Typography.InlineCode>, and
-            <Typography.InlineCode>interactiveCursor</Typography.InlineCode>. Setting
-            <Typography.InlineCode>motion: "none"</Typography.InlineCode>
-            disables every animation, including dialogs, menus, and the traveling highlight.
+        <Typography.Text variant="body" class="m-0">
+            Theme JSON version 4 is the format shared by Studio and the CLI. Export it from Studio
+            to preserve both color modes and your overrides.
+        </Typography.Text>
+        <ul class="m-0 flex list-disc flex-col gap-3 pl-5 text-sm leading-relaxed">
+            <li>
+                <Typography.InlineCode>foundation.light</Typography.InlineCode> and
+                <Typography.InlineCode>foundation.dark</Typography.InlineCode> hold each mode's
+                base, border, background, secondary, foreground, foregroundMuted, and onPrimary
+                colors.
+            </li>
+            <li>
+                <Typography.InlineCode>typography</Typography.InlineCode> contains headerSize,
+                headerWeight, and roleWeights for body, label, button, badge, and description text.
+            </li>
+            <li>
+                <Typography.InlineCode>tokens.shared</Typography.InlineCode>
+                ,
+                <Typography.InlineCode>tokens.light</Typography.InlineCode>
+                , and
+                <Typography.InlineCode>tokens.dark</Typography.InlineCode> hold raw token overrides,
+                including per-mode values for<Typography.InlineCode>
+                    --color-primary
+                </Typography.InlineCode>
+                .
+            </li>
+            <li>
+                <Typography.InlineCode>chrome</Typography.InlineCode> controls edgeHighlight,
+                surfaceShadows, controlShadows, dialogShadows, travelingHighlight, primaryStroke,
+                and interactiveCursor. Turning off travelingHighlight keeps the selected fill and
+                removes its movement.
+            </li>
+        </ul>
+        <Typography.Text variant="body" class="m-0">
+            Set<Typography.InlineCode>motion: "none"</Typography.InlineCode> to disable animations,
+            including dialogs, menus, and the traveling highlight. Edge highlight strength ranges
+            from 0 to 1.
         </Typography.Text>
     </section>
 
     <section id="class-prop" class="scroll-mt-20 flex flex-col gap-5">
-        <Typography.H2 class="docs-section-heading">class prop</Typography.H2>
-        <Typography.Text variant="body" class="m-0 max-w-2xl">
-            Every primitive accepts <Typography.InlineCode>class</Typography.InlineCode>. Use
-            Tailwind utilities or your own classes for one-off tweaks.
+        <Typography.H2 class="docs-section-heading">Class overrides</Typography.H2>
+        <Typography.Text variant="body" class="m-0">
+            Styled components accept{' '}
+            <Typography.InlineCode>class</Typography.InlineCode>
+            . Use Tailwind utilities or your own classes for one-off tweaks.
         </Typography.Text>
         <CodeBlock code={classExample} lang="svelte" copy="overlay" />
     </section>
 
     <section id="data-ui" class="scroll-mt-20 flex flex-col gap-5">
-        <Typography.H2 class="docs-section-heading">data-ui selectors</Typography.H2>
-        <Typography.Text variant="body" class="m-0 max-w-2xl">
-            Components render <Typography.InlineCode>data-ui</Typography.InlineCode> (and often
+        <Typography.H2 class="docs-section-heading">Component selectors</Typography.H2>
+        <Typography.Text variant="body" class="m-0">
+            Components render{' '}
+            <Typography.InlineCode>data-ui</Typography.InlineCode> (and often
             <Typography.InlineCode>data-variant</Typography.InlineCode>
             /
-            <Typography.InlineCode>data-size</Typography.InlineCode>). Scope CSS to a family without
-            forking files.
+            <Typography.InlineCode>data-size</Typography.InlineCode>
+            ). Scope CSS to a family without forking files.
         </Typography.Text>
         <CodeBlock code={dataUiExample} lang="css" copy="overlay" />
     </section>
 
     <section id="edit-source" class="scroll-mt-20 flex flex-col gap-5">
         <Typography.H2 class="docs-section-heading">Edit the source</Typography.H2>
-        <Typography.Text variant="body" class="m-0 max-w-2xl">
+        <Typography.Text variant="body" class="m-0">
             With the CLI path, files live under
-            <Typography.InlineCode>src/lib/mielui/components/&lt;name&gt;/</Typography.InlineCode>.
-            Edit them when you need behavior changes, not just style.
+            <Typography.InlineCode>src/lib/mielui/components/&lt;name&gt;/</Typography.InlineCode>
+            . Edit them when you need behavior changes, not just style.
         </Typography.Text>
         <CodeBlock code={sourceExample} lang="shell" copy="overlay" />
     </section>
 
+    <section class="flex flex-col gap-4">
+        <Typography.H2>Edge highlights</Typography.H2>
+        <Typography.Text>
+            Set chrome.edgeHighlight to adjust the thin light-catching edges on controls, keycaps,
+            and raised surfaces. The default is 0.5. Use 0 to remove that light or 1 for full
+            strength. Focus rings, borders, and drop shadows keep their existing colors and opacity.
+            Shadow switches still take precedence.
+        </Typography.Text>
+        <CodeBlock
+            copy="overlay"
+            lang="typescript"
+            code={`const theme = {
+    ...DEFAULT_THEME,
+    chrome: { edgeHighlight: 0.5 }
+};
+
+const css = themeToCss(theme);`}
+        />
+        <Typography.Text>
+            Studio exposes Edge highlight under Effects. Turn it off to remove the highlight, or
+            adjust its strength while enabled. Turning it back on restores the last strength used in
+            that session. Preset JSON, copied CSS, saved drafts, and CLI theme imports preserve it.
+        </Typography.Text>
+    </section>
     <section id="next" class="scroll-mt-20 flex flex-col gap-5">
         <Typography.H2 class="docs-section-heading">Next</Typography.H2>
         <Typography.Text variant="body" class="m-0">
             <a
                 class="text-foreground underline underline-offset-2"
                 href={resolve('/docs/components')}
-                >Components</a
             >
+                Components
+            </a>
         </Typography.Text>
     </section>
 </div>

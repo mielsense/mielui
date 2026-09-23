@@ -4,12 +4,12 @@
  * For CLI developers; not shipped to library users (scripts/ is outside the
  * published `files`).
  *
- *   bun run sandbox                  # build, then run the full check suite
- *   bun run sandbox run add button   # run one mielui command in the sandbox app
- *   bun run sandbox reset [--bare]   # recreate the app (bare = omit peer deps)
- *   bun run sandbox clean            # delete the sandbox
+ *   pnpm run sandbox                  # build, then run the full check suite
+ *   pnpm run sandbox run add button   # run one mielui command in the sandbox app
+ *   pnpm run sandbox reset [--bare]   # recreate the app (bare = omit peer deps)
+ *   pnpm run sandbox clean            # delete the sandbox
  *
- * Prepend --no-build to skip rebuilding the CLI first (`bun run sandbox --no-build`).
+ * Prepend --no-build to skip rebuilding the CLI first (`pnpm run sandbox --no-build`).
  *
  * The check suite exercises every command and guard by invoking the real binary
  * against a fresh install and asserting on the result; it exits non-zero if any
@@ -53,7 +53,7 @@ const COMPONENT_PEERS: Record<string, string> = {
     'tailwind-merge': '^3.0.0',
     'tailwind-variants': '^3.0.0',
     '@floating-ui/dom': '^1.0.0',
-    '@lucide/svelte': '^1.0.0',
+    '@hugeicons/core-free-icons': '^4.3.0',
     'fuse.js': '^7.0.0'
 };
 
@@ -97,8 +97,8 @@ function createApp(bare: boolean) {
         '/** Fixture for the mielui CLI sandbox -- its presence satisfies `mielui init`. */\nexport default {};\n'
     );
 
-    // Empty lockfile so the CLI detects bun as the package manager.
-    writeFileSync(path.join(appDir, 'bun.lock'), '');
+    // Empty lockfile so the CLI detects pnpm as the package manager.
+    writeFileSync(path.join(appDir, 'pnpm-lock.yaml'), '');
 
     writeFileSync(
         path.join(appDir, 'src/app.css'),
@@ -118,7 +118,7 @@ function createApp(bare: boolean) {
             '',
             'Ephemeral SvelteKit-shaped project for exercising the local `mielui` build.',
             'Created and reset by `packages/mielui/scripts/sandbox.ts`; everything under',
-            '`.sandbox/` is gitignored. Edits here are disposable -- `bun run sandbox reset`',
+            '`.sandbox/` is gitignored. Edits here are disposable -- `pnpm run sandbox reset`',
             'recreates it from scratch.',
             ''
         ].join('\n')
@@ -142,7 +142,7 @@ function buildCli(noBuild: boolean) {
         }
         return;
     }
-    const result = spawnSync('bun', ['run', 'build'], { cwd: cliRoot, stdio: 'inherit' });
+    const result = spawnSync('pnpm', ['run', 'build'], { cwd: cliRoot, stdio: 'inherit' });
     if (result.status !== 0) {
         console.error(pc.red('✖ CLI build failed.'));
         process.exit(result.status ?? 1);
@@ -159,9 +159,6 @@ function mielui(args: string[]): { status: number; out: string } {
     const output = openSync(outputFile, 'w');
     let result: ReturnType<typeof spawnSync>;
     try {
-        // Bun 1.3 can drop output when a Bun process captures a nested Node
-        // process through pipes. A real file descriptor keeps this a Node-runtime
-        // CLI test while preserving output for assertions.
         result = spawnSync('node', [distEntry, ...args], {
             cwd: appDir,
             stdio: ['ignore', output, output]
@@ -196,20 +193,30 @@ const CHECKS: Check[] = [
         run: () => {
             const f: string[] = [];
             const r = initApp();
-            if (r.status !== 0) f.push(`init exited ${r.status}`);
+            if (r.status !== 0) {
+                f.push(`init exited ${r.status}`);
+            }
             for (const file of [
                 'mielui.json',
                 `${MIELUI}/ui.css`,
                 `${MIELUI}/utils.ts`,
                 `${MIELUI}/transition.ts`
             ]) {
-                if (!exists(file)) f.push(`missing ${file}`);
+                if (!exists(file)) {
+                    f.push(`missing ${file}`);
+                }
             }
             if (exists('mielui.json')) {
                 const cfg = config();
-                if (cfg.dir !== 'src/lib/mielui') f.push(`mielui.json dir = ${String(cfg.dir)}`);
-                if (cfg.alias !== '$lib/mielui') f.push(`mielui.json alias = ${String(cfg.alias)}`);
-                if (!cfg.registry) f.push('mielui.json missing registry');
+                if (cfg.dir !== 'src/lib/mielui') {
+                    f.push(`mielui.json dir = ${String(cfg.dir)}`);
+                }
+                if (cfg.alias !== '$lib/mielui') {
+                    f.push(`mielui.json alias = ${String(cfg.alias)}`);
+                }
+                if (!cfg.registry) {
+                    f.push('mielui.json missing registry');
+                }
             }
             return f;
         }
@@ -220,8 +227,12 @@ const CHECKS: Check[] = [
             const f: string[] = [];
             initApp();
             const r = mielui(['init', '-y']);
-            if (r.status !== 0) f.push(`second init exited ${r.status}`);
-            if (!r.out.includes('already exists')) f.push('no "already exists" notice');
+            if (r.status !== 0) {
+                f.push(`second init exited ${r.status}`);
+            }
+            if (!r.out.includes('already exists')) {
+                f.push('no "already exists" notice');
+            }
             return f;
         }
     },
@@ -231,46 +242,64 @@ const CHECKS: Check[] = [
             const f: string[] = [];
             initApp();
             const r = mielui(['add', 'button']);
-            if (r.status !== 0) f.push(`add button exited ${r.status}`);
+            if (r.status !== 0) {
+                f.push(`add button exited ${r.status}`);
+            }
             for (const file of ['button.svelte', 'index.ts', 'variants.ts']) {
-                if (!exists(`${MIELUI}/components/button/${file}`))
+                if (!exists(`${MIELUI}/components/button/${file}`)) {
                     f.push(`missing button/${file}`);
+                }
             }
             if (exists(`${MIELUI}/components/button/button.svelte`)) {
                 const src = read(`${MIELUI}/components/button/button.svelte`);
-                if (!src.includes('$lib/mielui')) f.push('imports not rewritten to alias');
-                if (src.includes('@mielui/svelte')) f.push('stale @mielui/svelte import remains');
+                if (!src.includes('$lib/mielui')) {
+                    f.push('imports not rewritten to alias');
+                }
+                if (src.includes('@mielui/svelte')) {
+                    f.push('stale @mielui/svelte import remains');
+                }
             }
-            if (!config().components?.button) f.push('mielui.json did not record button');
+            if (!config().components?.button) {
+                f.push('mielui.json did not record button');
+            }
             return f;
         }
     },
     {
-        label: 'add resolves transitive deps (command → modal, button)',
+        label: 'add resolves transitive deps (command → dialog, button)',
         run: () => {
             const f: string[] = [];
             initApp();
             const r = mielui(['add', 'command']);
-            if (r.status !== 0) f.push(`add command exited ${r.status}`);
-            for (const name of ['command', 'modal', 'button']) {
-                if (!exists(`${MIELUI}/components/${name}`))
+            if (r.status !== 0) {
+                f.push(`add command exited ${r.status}`);
+            }
+            for (const name of ['command', 'dialog', 'button']) {
+                if (!exists(`${MIELUI}/components/${name}`)) {
                     f.push(`missing component dir ${name}`);
-                if (!config().components?.[name]) f.push(`mielui.json missing ${name}`);
+                }
+                if (!config().components?.[name]) {
+                    f.push(`mielui.json missing ${name}`);
+                }
             }
             return f;
         }
     },
     {
-        label: 'add pulls internal deps (modal → _internal/overlay)',
+        label: 'add pulls internal deps (dialog → _internal/overlay)',
         run: () => {
             const f: string[] = [];
             initApp();
-            const r = mielui(['add', 'modal']);
-            if (r.status !== 0) f.push(`add modal exited ${r.status}`);
+            const r = mielui(['add', 'dialog']);
+            if (r.status !== 0) {
+                f.push(`add dialog exited ${r.status}`);
+            }
             if (!exists(`${MIELUI}/components/_internal/overlay/overlay.svelte.ts`)) {
                 f.push('internal overlay not installed');
             }
-            if (!exists(`${MIELUI}/components/modal/modal.svelte`)) f.push('modal not installed');
+            if (!exists(`${MIELUI}/components/dialog/dialog.svelte`)) {
+                f.push('dialog not installed');
+            }
             return f;
         }
     },
@@ -280,9 +309,13 @@ const CHECKS: Check[] = [
             const f: string[] = [];
             initApp();
             const r = mielui(['add', 'accordion', 'badge']);
-            if (r.status !== 0) f.push(`add exited ${r.status}`);
+            if (r.status !== 0) {
+                f.push(`add exited ${r.status}`);
+            }
             for (const name of ['accordion', 'badge']) {
-                if (!config().components?.[name]) f.push(`mielui.json missing ${name}`);
+                if (!config().components?.[name]) {
+                    f.push(`mielui.json missing ${name}`);
+                }
             }
             return f;
         }
@@ -294,8 +327,12 @@ const CHECKS: Check[] = [
             initApp();
             mielui(['add', 'button']);
             const r = mielui(['add', 'button']);
-            if (r.status !== 0) f.push(`re-add exited ${r.status}`);
-            if (!r.out.includes('already existed')) f.push('no skip notice on re-add');
+            if (r.status !== 0) {
+                f.push(`re-add exited ${r.status}`);
+            }
+            if (!r.out.includes('already existed')) {
+                f.push('no skip notice on re-add');
+            }
             return f;
         }
     },
@@ -308,10 +345,16 @@ const CHECKS: Check[] = [
             const target = `${MIELUI}/components/button/button.svelte`;
             writeFileSync(path.join(appDir, target), '// tampered\n');
             const r = mielui(['add', 'button', '--overwrite']);
-            if (r.status !== 0) f.push(`overwrite exited ${r.status}`);
+            if (r.status !== 0) {
+                f.push(`overwrite exited ${r.status}`);
+            }
             const src = exists(target) ? read(target) : '';
-            if (src.includes('// tampered')) f.push('file not overwritten');
-            if (!src.includes('$lib/mielui')) f.push('overwritten file missing rewritten imports');
+            if (src.includes('// tampered')) {
+                f.push('file not overwritten');
+            }
+            if (!src.includes('$lib/mielui')) {
+                f.push('overwritten file missing rewritten imports');
+            }
             return f;
         }
     },
@@ -321,8 +364,12 @@ const CHECKS: Check[] = [
             const f: string[] = [];
             createApp(false); // deliberately skip init
             const r = mielui(['add', 'button']);
-            if (r.status === 0) f.push('expected non-zero exit');
-            if (!r.out.includes('mielui init')) f.push('no "mielui init" guidance');
+            if (r.status === 0) {
+                f.push('expected non-zero exit');
+            }
+            if (!r.out.includes('mielui init')) {
+                f.push('no "mielui init" guidance');
+            }
             return f;
         }
     },
@@ -332,9 +379,15 @@ const CHECKS: Check[] = [
             const f: string[] = [];
             initApp();
             const r = mielui(['add', 'buton']);
-            if (r.status === 0) f.push('expected non-zero exit');
-            if (!r.out.includes('did you mean')) f.push('no suggestion offered');
-            if (!r.out.includes('button')) f.push('did not suggest "button"');
+            if (r.status === 0) {
+                f.push('expected non-zero exit');
+            }
+            if (!r.out.includes('did you mean')) {
+                f.push('no suggestion offered');
+            }
+            if (!r.out.includes('button')) {
+                f.push('did not suggest "button"');
+            }
             return f;
         }
     },
@@ -344,8 +397,12 @@ const CHECKS: Check[] = [
             const f: string[] = [];
             initApp();
             const r = mielui(['add', '_internal/overlay']);
-            if (r.status === 0) f.push('expected non-zero exit');
-            if (!r.out.includes('internal')) f.push('no "internal" explanation');
+            if (r.status === 0) {
+                f.push('expected non-zero exit');
+            }
+            if (!r.out.includes('internal')) {
+                f.push('no "internal" explanation');
+            }
             return f;
         }
     },
@@ -355,10 +412,14 @@ const CHECKS: Check[] = [
             const f: string[] = [];
             initApp();
             const r = mielui(['add', 'theme', 'default']);
-            if (r.status !== 0) f.push(`add theme exited ${r.status}`);
-            if (!exists(`${MIELUI}/theme.css`)) f.push('theme.css not written');
-            else if (!read(`${MIELUI}/theme.css`).includes(':root'))
+            if (r.status !== 0) {
+                f.push(`add theme exited ${r.status}`);
+            }
+            if (!exists(`${MIELUI}/theme.css`)) {
+                f.push('theme.css not written');
+            } else if (!read(`${MIELUI}/theme.css`).includes(':root')) {
                 f.push('theme.css missing :root');
+            }
             return f;
         }
     },
@@ -367,9 +428,15 @@ const CHECKS: Check[] = [
         run: () => {
             const f: string[] = [];
             const r = mielui(['list']);
-            if (r.status !== 0) f.push(`list exited ${r.status}`);
-            if (!r.out.includes('button')) f.push('list missing "button"');
-            if (!r.out.includes('default')) f.push('list missing "default" theme');
+            if (r.status !== 0) {
+                f.push(`list exited ${r.status}`);
+            }
+            if (!r.out.includes('button')) {
+                f.push('list missing "button"');
+            }
+            if (!r.out.includes('default')) {
+                f.push('list missing "default" theme');
+            }
             return f;
         }
     },
@@ -378,7 +445,9 @@ const CHECKS: Check[] = [
         run: () => {
             const f: string[] = [];
             const r = mielui(['--version']);
-            if (r.status !== 0) f.push(`--version exited ${r.status}`);
+            if (r.status !== 0) {
+                f.push(`--version exited ${r.status}`);
+            }
             if (r.out.trim() !== pkg.version) {
                 f.push(`printed "${r.out.trim()}", expected ${pkg.version}`);
             }
@@ -390,8 +459,12 @@ const CHECKS: Check[] = [
         run: () => {
             const f: string[] = [];
             const r = initApp(true);
-            if (r.status !== 0) f.push(`init exited ${r.status}`);
-            if (!r.out.includes('missing peer dependencies')) f.push('no missing-peer warning');
+            if (r.status !== 0) {
+                f.push(`init exited ${r.status}`);
+            }
+            if (!r.out.includes('missing peer dependencies')) {
+                f.push('no missing-peer warning');
+            }
             return f;
         }
     }
@@ -411,14 +484,16 @@ function verify(noBuild: boolean) {
         } else {
             failed++;
             console.log(`  ${pc.red('✖')} ${check.label}`);
-            for (const failure of failures) console.log(`    ${pc.red(failure)}`);
+            for (const failure of failures) {
+                console.log(`    ${pc.red(failure)}`);
+            }
         }
     }
 
     console.log();
     if (failed > 0) {
         console.log(`  ${pc.red(`${failed} of ${CHECKS.length} checks failed`)}`);
-        dim('reproduce a command with: bun run sandbox run <args>');
+        dim('reproduce a command with: pnpm run sandbox run <args>');
         process.exit(1);
     }
     console.log(`  ${pc.green(`all ${CHECKS.length} checks passed`)}`);
@@ -442,15 +517,15 @@ function printHelp() {
     console.log('  Run the local mielui build against a throwaway project and verify it works.');
     console.log();
     console.log(
-        `  ${pc.cyan('bun run sandbox')}                  run the full check suite (default)`
+        `  ${pc.cyan('pnpm run sandbox')}                  run the full check suite (default)`
     );
     console.log(
-        `  ${pc.cyan('bun run sandbox run <args>')}       run one mielui command in the app`
+        `  ${pc.cyan('pnpm run sandbox run <args>')}       run one mielui command in the app`
     );
     console.log(
-        `  ${pc.cyan('bun run sandbox reset [--bare]')}   recreate the app (bare omits peers)`
+        `  ${pc.cyan('pnpm run sandbox reset [--bare]')}   recreate the app (bare omits peers)`
     );
-    console.log(`  ${pc.cyan('bun run sandbox clean')}            delete the sandbox`);
+    console.log(`  ${pc.cyan('pnpm run sandbox clean')}            delete the sandbox`);
     console.log();
     dim('prepend --no-build to skip rebuilding the CLI first');
     console.log();

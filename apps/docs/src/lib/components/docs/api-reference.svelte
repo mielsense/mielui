@@ -23,7 +23,8 @@
         >
             <span class="text-foreground-muted">
                 {title}
-            </span>.<span
+            </span>
+            .<span
                 class="[font-weight:var(--font-weight-label,600)] [letter-spacing:var(--tracking-label,0em)]"
             >
                 {component}
@@ -36,11 +37,11 @@
 
     {#if items.length !== 0}
         <div
-            class="w-full overflow-x-auto rounded-[1rem] border border-border bg-card shadow-[var(--elevation-1)] ring-1 ring-inset ring-white/30 dark:ring-white/5"
+            class="w-full overflow-x-auto rounded-[var(--radius-xl)] border-[length:var(--border-size)] border-border bg-card shadow-[var(--elevation-card)]"
         >
             <table class="min-w-[42rem] w-full border-collapse text-left">
                 <thead>
-                    <tr class="border-b">
+                    <tr class="border-b-[length:var(--border-size)] border-border">
                         <th
                             class="p-3 [font-weight:var(--font-weight-label,500)] [letter-spacing:var(--tracking-label,0em)]"
                         >
@@ -60,7 +61,7 @@
                 </thead>
                 <tbody>
                     {#each items as { property, type, description, defaults } (property)}
-                        <tr class="border-t">
+                        <tr class="border-t-[length:var(--border-size)] border-border">
                             <td class="w-[11rem] p-3 font-mono align-top">
                                 <span
                                     class="bg-secondary px-2 p-1 rounded-lg [font-weight:var(--font-weight-label,500)] [letter-spacing:var(--tracking-label,0em)] text-sm"
@@ -76,9 +77,10 @@
                                 </span>
                             </td>
                             <td class="p-3 align-top text-sm">
-                                {description}<br />
+                                {description}
+                                <br />
                                 <span class="font-mono text-foreground-muted text-sm mt-2">
-                                    Default: {defaults ?? '-'}
+                                    Default:{defaults ?? '-'}
                                 </span>
                             </td>
                         </tr>

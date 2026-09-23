@@ -10,19 +10,15 @@ export const button = tv({
              * is open.
              */
             primary:
-                'bg-primary text-[var(--color-on-primary)] shadow-[inset_0_0_0_var(--border-size)_var(--color-primary-stroke)] hover:bg-[var(--color-primary-hover)] data-[state=open]:bg-[var(--color-primary-hover)]',
+                'bg-primary text-[var(--color-on-primary)] shadow-[var(--elevation-control-edge),inset_0_0_0_var(--border-size)_var(--color-primary-stroke)] focus-visible:shadow-[var(--focus-ring),var(--elevation-control-edge),inset_0_0_0_var(--border-size)_var(--color-primary-stroke)] hover:bg-[var(--color-primary-hover)] data-[state=open]:bg-[var(--color-primary-hover)]',
             secondary:
-                'bg-secondary text-[var(--color-button-foreground)] hover:bg-[color-mix(in_srgb,var(--color-secondary)_92%,var(--color-foreground))] data-[state=open]:bg-[color-mix(in_srgb,var(--color-secondary)_92%,var(--color-foreground))]',
+                'shadow-[var(--elevation-control-edge)] focus-visible:shadow-[var(--focus-ring),var(--elevation-control-edge)] bg-secondary text-[var(--color-button-foreground)] hover:bg-[color-mix(in_srgb,var(--color-secondary)_92%,var(--color-foreground))] data-[state=open]:bg-[color-mix(in_srgb,var(--color-secondary)_92%,var(--color-foreground))]',
             ghost: 'bg-transparent text-[var(--color-button-foreground)] hover:bg-foreground/[0.08] data-[state=open]:bg-foreground/[0.08]',
             quiet: 'bg-transparent text-[var(--color-button-foreground)]',
-            /**
-             * Outline keeps the soft raised shadow. Focus composes the ring on top
-             * of the lift so the raised look survives focus.
-             */
             outline:
-                'bg-card text-[var(--color-button-foreground)] shadow-[var(--elevation-button-outline)] hover:bg-secondary data-[state=open]:bg-secondary focus-visible:shadow-[var(--focus-ring),var(--elevation-button-outline)]',
+                'border-[length:var(--border-size)] border-[var(--color-input)] bg-card text-[var(--color-button-foreground)] shadow-[var(--elevation-control-edge)] hover:bg-secondary data-[state=open]:bg-secondary focus-visible:shadow-[var(--focus-ring),var(--elevation-control-edge)]',
             destructive:
-                'bg-error-soft text-[var(--color-error)] hover:bg-[color-mix(in_srgb,var(--color-error)_20%,transparent)] data-[state=open]:bg-[color-mix(in_srgb,var(--color-error)_20%,transparent)]',
+                'shadow-[var(--elevation-control-edge)] focus-visible:shadow-[var(--focus-ring),var(--elevation-control-edge)] bg-error-soft text-[var(--color-error)] hover:bg-[color-mix(in_srgb,var(--color-error)_20%,transparent)] data-[state=open]:bg-[color-mix(in_srgb,var(--color-error)_20%,transparent)]',
             /**
              * A clickable Panel: the same interaction as `outline` wearing Panel's
              * concentric frame -- the semantic border outside and the inset surface

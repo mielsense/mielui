@@ -1,22 +1,16 @@
 <script lang="ts">
     import { cn } from '@mielui/svelte/utils';
-    import type { Snippet } from 'svelte';
+    import type { AlertTitleProps } from '.';
 
-    let {
-        children,
-        class: classProp,
-        ...rest
-    }: {
-        children: Snippet;
-        class?: string;
-    } = $props();
+    let { children, class: classProp, ...rest }: AlertTitleProps = $props();
 </script>
 
 <p
     {...rest}
+    data-ui="alert-title"
     class={cn(
         classProp,
-        `m-0 [font-family:var(--font-header)] text-[length:var(--font-size-header)] [font-weight:var(--font-weight-header)] [letter-spacing:var(--tracking-header)] text-balance leading-tight text-foreground`
+        `col-start-2 row-start-2 flex min-h-9 min-w-0 items-center py-1 pr-2 m-0 text-[length:var(--font-size-label)] font-[number:var(--font-weight-label)] leading-snug text-foreground`
     )}
 >
     {@render children?.()}

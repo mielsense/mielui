@@ -2,7 +2,8 @@
     import { CodeBlock } from '@mielui/svelte/components/code-block';
     import * as Typography from '@mielui/svelte/components/typography';
     import { ComponentPreview, InstallCommand } from '$lib/components/docs';
-    import DocsPager from '$lib/components/docs/docs-pager.svelte';
+    import PageIntro from '$lib/components/docs/page-intro.svelte';
+    import SectionHeading from '$lib/components/docs/section-heading.svelte';
 
     import Hero from './examples/hero.svelte';
     import HeroSrc from './examples/hero.svelte?raw';
@@ -14,25 +15,22 @@
     const TITLE = 'Toggle Group';
     const SLUG = 'toggle-group';
 
-    const installCommand = `bunx @mielui/svelte add ${SLUG}`;
+    const installCommand = `pnpm dlx @mielui/svelte add ${SLUG}`;
 </script>
 
 <svelte:head>
-    <title>Mielui · {TITLE}</title>
+    <title>
+        Mielui ·{' '}
+        {TITLE}
+    </title>
     <meta name="description" content="A row of toggles with shared selection state." />
 </svelte:head>
 
 <div data-docs-page class="flex flex-col gap-10">
     <!-- ─── Header ────────────────────────────────────────────────── -->
-    <header class="flex items-start justify-between gap-4">
-        <div>
-            <Typography.H1>{TITLE}</Typography.H1>
-            <Typography.Text variant="lead" class="mt-2 max-w-2xl">
-                A row of toggles with shared selection, for single or multiple choice.
-            </Typography.Text>
-        </div>
-        <DocsPager />
-    </header>
+    <PageIntro title={TITLE}>
+        A row of toggles with shared selection, for single or multiple choice.
+    </PageIntro>
 
     <!-- ─── Hero Example ──────────────────────────────────────────── -->
     <section id="hero" class="scroll-mt-20 flex flex-col gap-4">
@@ -50,8 +48,15 @@
     <!-- ─── Usage ─────────────────────────────────────────────────── -->
     <section id="usage" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Usage</Typography.H2>
+        <Typography.Text>
+            Arrow keys navigate enabled items with a single tab stop. Single mode allows the active
+            item to be cleared; multiple mode keeps an array of selected values.
+        </Typography.Text>
+
         <Typography.Text variant="supporting">
-            Import Toggle Group and compose it with Item components:
+            Single mode uses a string value and reports undefined when cleared. With
+            type="multiple", bind a string array; clearing all selections reports an empty array.
+            The value and onValueChange types follow the selected mode.
         </Typography.Text>
         <CodeBlock
             code={`import * as ToggleGroup from '$lib/mielui/components/toggle-group';\n\n<ToggleGroup.Root type="single" bind:value={alignment}>\n  <ToggleGroup.Item value="left">Left</ToggleGroup.Item>\n  <ToggleGroup.Item value="center">Center</ToggleGroup.Item>\n  <ToggleGroup.Item value="right">Right</ToggleGroup.Item>\n</ToggleGroup.Root>`}
@@ -62,12 +67,11 @@
 
     <!-- ─── Examples ──────────────────────────────────────────────── -->
     <section id="examples" class="scroll-mt-20 flex flex-col gap-10">
-        <div>
-            <Typography.H2 class="docs-section-heading">Examples</Typography.H2>
-            <Typography.Text variant="supporting" class="mt-2">
+        <SectionHeading title="Examples">
+            {#snippet description()}
                 Toggle Group in single and multiple modes.
-            </Typography.Text>
-        </div>
+            {/snippet}
+        </SectionHeading>
 
         <!-- Single select -->
         <div id="single" class="scroll-mt-20 flex flex-col gap-3">

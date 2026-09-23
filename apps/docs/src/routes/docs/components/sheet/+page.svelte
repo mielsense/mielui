@@ -2,7 +2,9 @@
     import { CodeBlock } from '@mielui/svelte/components/code-block';
     import * as Typography from '@mielui/svelte/components/typography';
     import { ComponentPreview, InstallCommand } from '$lib/components/docs';
-    import DocsPager from '$lib/components/docs/docs-pager.svelte';
+    import PageIntro from '$lib/components/docs/page-intro.svelte';
+    import Glass from './examples/glass.svelte';
+    import GlassSrc from './examples/glass.svelte?raw';
 
     import Hero from './examples/hero.svelte';
     import HeroSrc from './examples/hero.svelte?raw';
@@ -13,7 +15,7 @@
 
     const TITLE = 'Sheet';
 
-    const installCommand = 'bunx @mielui/svelte add sheet';
+    const installCommand = 'pnpm dlx @mielui/svelte add sheet';
 </script>
 
 <svelte:head>
@@ -26,15 +28,9 @@
 
 <div data-docs-page class="flex flex-col gap-10">
     <!-- ─── Header ────────────────────────────────────────────────── -->
-    <header class="flex items-start justify-between gap-4">
-        <div>
-            <Typography.H1>{TITLE}</Typography.H1>
-            <Typography.Text variant="lead" class="mt-2 max-w-2xl">
-                A drawer that slides in from any side of the screen.
-            </Typography.Text>
-        </div>
-        <DocsPager />
-    </header>
+    <PageIntro title={TITLE}>
+        A drawer that slides in from the left or right of the screen.
+    </PageIntro>
 
     <!-- ─── Hero Example ──────────────────────────────────────────── -->
     <section id="hero" class="scroll-mt-20 flex flex-col gap-4">
@@ -53,10 +49,24 @@
     <section id="usage" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Usage</Typography.H2>
         <Typography.Text variant="supporting">
-            Import Sheet and compose it with sub-components:
+            Set close=&#123;false&#125; on Header to omit its default close button; place
+            Sheet.Close wherever the layout needs it. Close forwards bind:element and supports click
+            cancellation.
         </Typography.Text>
+        <Typography.Text variant="supporting">
+            Bind open on Root when another control needs to open or close the panel. Use
+            onOpenChange to respond to changes initiated inside the component. Updating your bound
+            value directly does not call that callback again. Each Root keeps its own state, so
+            opening one instance does not change another.
+        </Typography.Text>
+        <Typography.Text variant="supporting">
+            Sheets open from the left or right. Focus stays within the open sheet and returns to its
+            trigger when it closes. Include Title and optionally Description; click handlers on
+            Trigger and Close can cancel the state change with event.preventDefault().
+        </Typography.Text>
+
         <CodeBlock
-            code={`import * as Sheet from '$lib/mielui/components/sheet';\nimport Shortcut from '$lib/mielui/components/shortcut';\n\n<Sheet.Root bind:open>\n  <Sheet.Trigger>Open</Sheet.Trigger>\n  <Sheet.Content side="right">\n    <Sheet.Header>\n      <Sheet.Title>Title</Sheet.Title>\n      <Sheet.Description>Describe what lives here.</Sheet.Description>\n    </Sheet.Header>\n    {/* content */}\n    <Sheet.Footer>\n      <Sheet.Close>Cancel <Shortcut shortcut="esc" /></Sheet.Close>\n      <Button>Save <Shortcut shortcut="enter" /></Button>\n    </Sheet.Footer>\n  </Sheet.Content>\n</Sheet.Root>`}
+            code={`import * as Sheet from '$lib/mielui/components/sheet';\nimport Kbd from '$lib/mielui/components/kbd';\nimport { Button } from '$lib/mielui/components/button';\n\n<Sheet.Root bind:open>\n  <Sheet.Trigger>Open</Sheet.Trigger>\n  <Sheet.Content side="right">\n    <Sheet.Header>\n      <Sheet.Title>Title</Sheet.Title>\n      <Sheet.Description>Describe what lives here.</Sheet.Description>\n    </Sheet.Header>\n    <!-- Panel content -->\n    <Sheet.Footer>\n      <Sheet.Close>Cancel <Kbd shortcut="esc" /></Sheet.Close>\n      <Button>Save <Kbd shortcut="enter" /></Button>\n    </Sheet.Footer>\n  </Sheet.Content>\n</Sheet.Root>`}
             lang="svelte"
             copy="overlay"
         />
@@ -66,9 +76,6 @@
     <section id="examples" class="scroll-mt-20 flex flex-col gap-10">
         <div>
             <Typography.H2 class="docs-section-heading">Examples</Typography.H2>
-            <Typography.Text variant="supporting" class="mt-2">
-                Sheet with different sides and compositions.
-            </Typography.Text>
         </div>
 
         <!-- Left side -->
@@ -86,5 +93,15 @@
                 <Right />
             </ComponentPreview>
         </div>
+    </section>
+    <section id="glass" class="flex flex-col gap-4">
+        <Typography.H2 class="docs-section-heading">Glass surface</Typography.H2>
+        <Typography.Text variant="supporting">
+            Set surface="glass" on Sheet.Content for a translucent background with blur. Omit
+            surface to inherit --mielui-surface from your theme, or set surface="solid" to override
+            it. The glass surface keeps an opaque fallback when backdrop filtering is unavailable
+            and respects reduced-transparency preferences.
+        </Typography.Text>
+        <ComponentPreview code={GlassSrc}><Glass /></ComponentPreview>
     </section>
 </div>

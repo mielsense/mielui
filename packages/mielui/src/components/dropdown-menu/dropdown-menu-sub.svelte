@@ -1,25 +1,19 @@
 <script lang="ts">
-    import * as Popover from '@mielui/svelte/components/popover';
+    import { DropdownMenu as MenuPrimitive } from 'bits-ui';
     import type { Snippet } from 'svelte';
-    import { getPopoverContext } from '../popover/context.svelte';
-    import { getDropdownMenuContext, setDropdownMenuContext } from './context.svelte';
+    import { type DropdownMenuContext, setDropdownMenuContext } from './context.svelte';
 
-    const { state: parentState } = getPopoverContext();
-    const parentMenu = getDropdownMenuContext();
-    /** Extend the cone: ancestors are the path from root through this sub's parent. */
-    setDropdownMenuContext({
-        ancestors: [...parentMenu.ancestors, parentState],
-        submenus: [],
-        parentSubmenus: parentMenu.submenus
-    });
-
-    type Props = {
-        children?: Snippet;
-    };
-
-    let { children }: Props = $props();
+    let { children }: { children?: Snippet } = $props();
+    const menu = $state<DropdownMenuContext>({});
+    setDropdownMenuContext(menu);
 </script>
 
-<Popover.Root hoverable={true} closeDelay={300} placement="right">
+<MenuPrimitive.Sub
+    onOpenChange={(next) => {
+    if (next) {
+        menu.beforeOpen?.();
+    }
+}}
+>
     {@render children?.()}
-</Popover.Root>
+</MenuPrimitive.Sub>

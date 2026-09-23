@@ -2,7 +2,8 @@
     import { CodeBlock } from '@mielui/svelte/components/code-block';
     import * as Typography from '@mielui/svelte/components/typography';
     import { ComponentPreview, InstallCommand } from '$lib/components/docs';
-    import DocsPager from '$lib/components/docs/docs-pager.svelte';
+    import PageIntro from '$lib/components/docs/page-intro.svelte';
+    import SectionHeading from '$lib/components/docs/section-heading.svelte';
 
     import Hero from './examples/hero.svelte';
     import HeroSrc from './examples/hero.svelte?raw';
@@ -11,7 +12,7 @@
     import Streaming from './examples/streaming.svelte';
     import StreamingSrc from './examples/streaming.svelte?raw';
 
-    const installCommand = 'bunx @mielui/svelte add markdown';
+    const installCommand = 'pnpm dlx @mielui/svelte add markdown';
     const usageSnippet = `import { Markdown } from '@mielui/svelte/components/markdown';
 
 const content = [
@@ -36,52 +37,59 @@ const content = [
 </svelte:head>
 
 <div data-docs-page class="flex flex-col gap-10">
-    <header class="flex items-start justify-between gap-4">
-        <div>
-            <Typography.H1> Markdown </Typography.H1>
-            <Typography.Text variant="lead" class="mt-2 max-w-2xl">
-                Render structured agent output with safe links, useful typography, and first-class
-                code blocks.
-            </Typography.Text>
-        </div>
-        <DocsPager />
-    </header>
+    <PageIntro title="Markdown">
+        Render structured agent output with safe links, useful typography, and first-class code
+        blocks.
+    </PageIntro>
 
     <section id="hero" class="scroll-mt-20 flex flex-col gap-4">
         <ComponentPreview code={HeroSrc}><Hero /></ComponentPreview>
     </section>
 
     <section id="installation" class="scroll-mt-20 flex flex-col gap-4">
-        <Typography.H2 class="docs-section-heading"> Installation </Typography.H2>
+        <Typography.H2 class="docs-section-heading">Installation</Typography.H2>
         <InstallCommand command={installCommand} />
     </section>
 
     <section id="usage" class="scroll-mt-20 flex flex-col gap-4">
-        <Typography.H2 class="docs-section-heading"> Usage </Typography.H2>
+        <Typography.H2 class="docs-section-heading">Usage</Typography.H2>
+        <Typography.Text variant="supporting">
+            Pass Markdown text through content. Set streaming while more text is arriving. Existing
+            controls keep their state while the surrounding block keeps the same type and position.
+        </Typography.Text>
         <Typography.Text variant="supporting">
             The GFM lexer supports tables, task lists, and strikethrough. Fenced code is rendered
-            with Mielui <Typography.InlineCode>CodeBlock</Typography.InlineCode>, and raw HTML is
-            always displayed as text instead of being injected into the page.
+            with Mielui{' '}
+            <Typography.InlineCode>CodeBlock</Typography.InlineCode>
+            , and raw HTML is displayed as text. Links allow HTTP, HTTPS, mailto, and relative URLs.
+            Images use relative paths; external image URLs render their alt text.
         </Typography.Text>
         <CodeBlock code={usageSnippet} lang="svelte" copy="overlay" />
     </section>
 
     <section id="examples" class="scroll-mt-20 flex flex-col gap-10">
-        <div>
-            <Typography.H2 class="docs-section-heading"> Examples </Typography.H2>
-            <Typography.Text variant="supporting" class="mt-2">
+        <SectionHeading title="Examples">
+            {#snippet description()}
                 Show incomplete output honestly and keep untrusted model content inert.
-            </Typography.Text>
-        </div>
+            {/snippet}
+        </SectionHeading>
 
         <div id="streaming" class="scroll-mt-20 flex flex-col gap-3">
-            <Typography.H3 class="docs-subsection-heading"> Streaming response </Typography.H3>
+            <Typography.H3 class="docs-subsection-heading">Streaming response</Typography.H3>
             <ComponentPreview code={StreamingSrc}><Streaming /></ComponentPreview>
         </div>
 
         <div id="safe-html" class="scroll-mt-20 flex flex-col gap-3">
-            <Typography.H3 class="docs-subsection-heading"> Raw HTML safety </Typography.H3>
+            <Typography.H3 class="docs-subsection-heading">Raw HTML safety</Typography.H3>
             <ComponentPreview code={SafeHtmlSrc}><SafeHtml /></ComponentPreview>
         </div>
+    </section>
+    <section id="working-example" class="flex scroll-mt-20 flex-col gap-4">
+        <Typography.H2 class="docs-section-heading">Stream partial content</Typography.H2>
+        <Typography.Text>
+            Append text to content while streaming is true, then set streaming to false when the
+            response ends or is stopped. The example sends small chunks through headings, lists, a
+            table, and a code block. It clears its timer when the example unmounts.
+        </Typography.Text>
     </section>
 </div>

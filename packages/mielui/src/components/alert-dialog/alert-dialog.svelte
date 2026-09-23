@@ -1,5 +1,5 @@
 <script lang="ts">
-    import * as Modal from '@mielui/svelte/components/modal';
+    import * as Dialog from '@mielui/svelte/components/dialog';
     import type { AlertDialogProps } from '.';
 
     let {
@@ -11,4 +11,4 @@
     }: AlertDialogProps = $props();
 </script>
 
-<Modal.Root bind:open {onOpenChange} {error} {orientation}> {@render children?.()} </Modal.Root>
+<Dialog.Root bind:open {onOpenChange} {error} {orientation}>{@render children?.()} </Dialog.Root>

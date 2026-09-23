@@ -1,5 +1,6 @@
 <script lang="ts">
     import { cn } from '@mielui/svelte/utils';
+    import { mergeDescriptionIds } from '../_internal/field-metadata';
     import type { TagInputInputProps } from '.';
     import { getTagInputContext } from './context.svelte';
 
@@ -9,6 +10,8 @@
         class: className,
         disabled: disabledProp,
         'aria-label': ariaLabel,
+        oninput,
+        'aria-describedby': externalDescription,
         onblur,
         onkeydown,
         onpaste,
@@ -16,7 +19,7 @@
     }: TagInputInputProps = $props();
 
     const context = getTagInputContext();
-    const disabled = $derived(disabledProp ?? context.disabled);
+    const disabled = $derived(disabledProp || context.disabled);
 
     function register(node: HTMLInputElement) {
         element = node;
@@ -27,7 +30,11 @@
         };
     }
 
-    function handleInput(event: Event) {
+    function handleInput(event: Event & { currentTarget: EventTarget & HTMLInputElement }) {
+        oninput?.(event);
+        if (event.defaultPrevented || disabled) {
+            return;
+        }
         context.setDraft((event.currentTarget as HTMLInputElement).value);
     }
 
@@ -36,12 +43,10 @@
     ) {
         onkeydown?.(event);
 
-        if (event.defaultPrevented || disabled) {
+        if (event.defaultPrevented || event.isComposing || disabled) {
             return;
         }
 
-        // Only swallow Enter when there is a draft to commit. Preventing it
-        // unconditionally would stop Enter ever submitting an enclosing form.
         if (event.key === 'Enter') {
             if (context.draft.trim() === '') {
                 return;
@@ -156,7 +161,9 @@
     {placeholder}
     {disabled}
     aria-label={ariaLabel ?? (context.hasLabel ? undefined : placeholder)}
-    aria-describedby={context.describedBy}
+    aria-describedby={mergeDescriptionIds(externalDescription, context.describedBy)}
+    aria-invalid={rest['aria-invalid'] ?? (context.invalid || undefined)}
+    aria-required={rest['aria-required'] ?? (context.required || undefined)}
     oninput={handleInput}
     onkeydown={handleKeydown}
     onpaste={handlePaste}

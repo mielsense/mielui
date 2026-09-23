@@ -6,13 +6,13 @@ import AlertDialogFixture from '../../fixtures/AlertDialogFixture.svelte';
 import { queryRequired, required } from '../../test-utils';
 
 /*
- * AlertDialog is a thin modal wrapper post-collapse-safe per pattern
+ * AlertDialog is a thin dialog wrapper post-collapse-safe per pattern
  * guide Sec.16.2 -- it asserts role="alertdialog", defaults allowClickOutside
  * to false, and exposes Exit/Confirm (no close affordance). Tests focus on the
- * distinctive wrapper contract, not modal behavior already covered in
- * modal.browser.test.ts.
+ * distinctive wrapper contract, not dialog behavior already covered in
+ * dialog.browser.test.ts.
  *
- * Browser-runner justified per strategy Sec.7.1: same as modal (portal
+ * Browser-runner justified per strategy Sec.7.1: same as dialog (portal
  * mount/unmount, focus trap, click-outside, real keyboard).
  */
 
@@ -53,7 +53,7 @@ describe('AlertDialog -- open/closed mount', () => {
 });
 
 describe('AlertDialog -- error browser chrome', () => {
-    it('passes error through to the modal root', async () => {
+    it('passes error through to the dialog root', async () => {
         const themeColor = document.createElement('meta');
         themeColor.name = 'theme-color';
         themeColor.content = '#ffffff';
@@ -119,14 +119,14 @@ describe('AlertDialog -- distinctive ARIA contract (role="alertdialog")', () => 
     });
 });
 
-describe('AlertDialog -- non-dismissible backdrop (distinctive from Modal)', () => {
+describe('AlertDialog -- non-dismissible backdrop (distinctive from Dialog)', () => {
     it('does NOT close on backdrop click with default props', async () => {
         render(AlertDialogFixture, { open: true });
         await flush();
         await new Promise((r) => setTimeout(r, 20));
         await expect.element(page.getByText('Delete project?')).toBeInTheDocument();
 
-        const overlay = document.querySelector('[data-ui="modal-overlay"]') as HTMLElement;
+        const overlay = document.querySelector('[data-ui="dialog-overlay"]') as HTMLElement;
         expect(overlay).toBeInTheDocument();
         overlay.click();
         await flush();
@@ -139,7 +139,7 @@ describe('AlertDialog -- non-dismissible backdrop (distinctive from Modal)', () 
         await flush();
         await new Promise((r) => setTimeout(r, 20));
 
-        const overlay = document.querySelector('[data-ui="modal-overlay"]') as HTMLElement;
+        const overlay = document.querySelector('[data-ui="dialog-overlay"]') as HTMLElement;
         overlay.click();
         await flush();
 
@@ -175,7 +175,7 @@ describe('AlertDialog -- urgency and layout', () => {
     });
 });
 
-describe('AlertDialog -- Exit and Confirm buttons (distinctive from Modal Close/Confirm)', () => {
+describe('AlertDialog -- Exit and Confirm buttons (distinctive from Dialog Close/Confirm)', () => {
     it('Exit button closes the dialog', async () => {
         render(AlertDialogFixture, { open: true });
         await flush();
@@ -211,7 +211,7 @@ describe('AlertDialog -- Escape still closes', () => {
     });
 });
 
-describe('AlertDialog -- body scroll lock (inherited from modal)', () => {
+describe('AlertDialog -- body scroll lock (inherited from dialog)', () => {
     it('locks body scroll when open', async () => {
         render(AlertDialogFixture, { open: true });
         await flush();

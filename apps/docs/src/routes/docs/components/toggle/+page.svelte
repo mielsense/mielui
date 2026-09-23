@@ -2,7 +2,7 @@
     import { CodeBlock } from '@mielui/svelte/components/code-block';
     import * as Typography from '@mielui/svelte/components/typography';
     import { ComponentPreview, InstallCommand } from '$lib/components/docs';
-    import DocsPager from '$lib/components/docs/docs-pager.svelte';
+    import PageIntro from '$lib/components/docs/page-intro.svelte';
     import Disabled from './examples/disabled.svelte';
     import DisabledSrc from './examples/disabled.svelte?raw';
     import Hero from './examples/hero.svelte';
@@ -17,25 +17,22 @@
     const TITLE = 'Toggle';
     const SLUG = 'toggle';
 
-    const installCommand = `bunx @mielui/svelte add ${SLUG}`;
+    const installCommand = `pnpm dlx @mielui/svelte add ${SLUG}`;
 </script>
 
 <svelte:head>
-    <title>Mielui · {TITLE}</title>
+    <title>
+        Mielui ·{' '}
+        {TITLE}
+    </title>
     <meta name="description" content="A two-state button that is pressed or unpressed." />
 </svelte:head>
 
 <div data-docs-page class="flex flex-col gap-10">
     <!-- ─── Header ────────────────────────────────────────────────── -->
-    <header class="flex items-start justify-between gap-4">
-        <div>
-            <Typography.H1>{TITLE}</Typography.H1>
-            <Typography.Text variant="lead" class="mt-2 max-w-2xl">
-                A button with an on/off pressed state. Comes in several sizes.
-            </Typography.Text>
-        </div>
-        <DocsPager />
-    </header>
+    <PageIntro title={TITLE}>
+        A button with an on/off pressed state. Comes in several sizes.
+    </PageIntro>
 
     <!-- ─── Hero Example ──────────────────────────────────────────── -->
     <section id="hero" class="scroll-mt-20 flex flex-col gap-4">
@@ -53,6 +50,10 @@
     <!-- ─── Usage ─────────────────────────────────────────────────── -->
     <section id="usage" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Usage</Typography.H2>
+        <Typography.Text>
+            Keyboard activation and pointer activation update pressed through the same control. A
+            consumer event handler can prevent the default action before the pressed state changes.
+        </Typography.Text>
         <Typography.Text variant="supporting">
             Import Toggle and bind its pressed state:
         </Typography.Text>
@@ -67,9 +68,6 @@
     <section id="examples" class="scroll-mt-20 flex flex-col gap-10">
         <div>
             <Typography.H2 class="docs-section-heading">Examples</Typography.H2>
-            <Typography.Text variant="supporting" class="mt-2">
-                Toggle in different sizes and variants.
-            </Typography.Text>
         </div>
 
         <!-- Icon toggle -->

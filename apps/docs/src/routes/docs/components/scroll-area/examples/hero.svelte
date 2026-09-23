@@ -15,7 +15,7 @@
         { id: 8, date: 'Previous 7 days', title: 'Toast queue logic' },
         { id: 9, date: 'Previous 7 days', title: 'Color picker math' },
         { id: 10, date: 'Previous 7 days', title: 'Button loading states' },
-        { id: 11, date: 'Previous 7 days', title: 'Modal scroll behavior' },
+        { id: 11, date: 'Previous 7 days', title: 'Dialog scroll behavior' },
         { id: 12, date: 'Previous 7 days', title: 'Badge variant system' },
         { id: 13, date: 'Previous 7 days', title: 'Breadcrumb navigation' },
         { id: 14, date: 'Previous 7 days', title: 'Dropdown menu icons' },
@@ -36,22 +36,21 @@
     );
 </script>
 
-<div class="flex items-center justify-center p-10">
+<div class="flex w-full min-w-0 items-center justify-center p-2 sm:p-6">
     <ScrollArea
         aria-label="Recent chats"
-        class="h-72 w-72 rounded-[var(--radius-lg)] border border-border bg-panel"
+        class="h-72 w-full max-w-72 rounded-[var(--radius-lg)] border border-border bg-panel"
     >
         <div class="flex flex-col p-2">
             {#each groupedChats as group (group.date)}
-                <div
-                    class="px-2 py-2 pt-3 text-[0.7rem] font-semibold uppercase tracking-wider text-foreground-muted"
-                >
+                <div class="px-2 py-2 pt-3 text-xs font-medium text-foreground-muted">
                     {group.date}
                 </div>
 
                 {#each group.items as chat (chat.id)}
                     <button
                         type="button"
+                        aria-pressed={activeChatId === chat.id}
                         onclick={() => (activeChatId = chat.id)}
                         class="w-full truncate rounded-[var(--radius-md)] px-3 py-2 text-left text-[0.85rem] transition-colors {activeChatId ===
                             chat.id

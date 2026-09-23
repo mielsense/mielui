@@ -3,12 +3,15 @@
 </script>
 
 <script lang="ts">
-    import Accessibility from '@lucide/svelte/icons/accessibility';
-    import ChevronRight from '@lucide/svelte/icons/chevron-right';
-    import FileCode from '@lucide/svelte/icons/file-code';
-    import MessageSquareWarning from '@lucide/svelte/icons/message-square-warning';
+    import {
+        AccessibilityIcon as Accessibility,
+        ArrowRight01Icon as ChevronRight,
+        FileScriptIcon as FileCode,
+        MessageCircleWarningIcon as MessageSquareWarning
+    } from '@hugeicons/core-free-icons';
     import { Badge } from '@mielui/svelte/components/badge';
     import * as Breadcrumb from '@mielui/svelte/components/breadcrumb';
+    import HugeiconsIcon from '@mielui/svelte/hugeicons-icon';
     import { resolve } from '$app/paths';
 
     let {
@@ -32,30 +35,38 @@
     <div class="flex flex-col gap-1 pb-6">
         <Breadcrumb.Root>
             <Breadcrumb.Item href={resolve('/docs/introduction')}>Docs</Breadcrumb.Item>
-            <ChevronRight size={14} class="text-foreground-muted" aria-hidden="true" />
+            <HugeiconsIcon
+                icon={ChevronRight}
+                size={14}
+                class="text-foreground-muted"
+                aria-hidden="true"
+            />
             <Breadcrumb.Item href={resolve('/docs/components')}>Components</Breadcrumb.Item>
-            <ChevronRight size={14} class="text-foreground-muted" aria-hidden="true" />
-            <Breadcrumb.Item>{title}</Breadcrumb.Item>
+            <HugeiconsIcon
+                icon={ChevronRight}
+                size={14}
+                class="text-foreground-muted"
+                aria-hidden="true"
+            />
+            <Breadcrumb.Item current>{title}</Breadcrumb.Item>
         </Breadcrumb.Root>
     </div>
 {:else}
     <div class="flex flex-row flex-wrap items-center gap-2 pt-1 pb-6">
         {#if source}
-            <Badge variant="outline" href={source} icon={FileCode} class="gap-1.5 text-xs"
-                >Source</Badge
-            >
+            <Badge variant="outline" href={source} class="gap-1.5 text-xs">
+                <HugeiconsIcon icon={FileCode} size={14} />
+                Source
+            </Badge>
         {/if}
         {#if ariaUrl}
-            <Badge variant="outline" href={ariaUrl} icon={Accessibility} class="gap-1.5 text-xs">
+            <Badge variant="outline" href={ariaUrl} class="gap-1.5 text-xs">
+                <HugeiconsIcon icon={Accessibility} size={14} />
                 WAI-ARIA
             </Badge>
         {/if}
-        <Badge
-            variant="outline"
-            href={issueUrl}
-            icon={MessageSquareWarning}
-            class="gap-1.5 text-xs"
-        >
+        <Badge variant="outline" href={issueUrl} class="gap-1.5 text-xs">
+            <HugeiconsIcon icon={MessageSquareWarning} size={14} />
             Report issue
         </Badge>
     </div>

@@ -26,10 +26,14 @@ export async function waitForHttpReady(
     const deadline = Date.now() + timeoutMs;
     let lastError: unknown;
     while (Date.now() < deadline) {
-        if (options.signal?.aborted) throw options.signal.reason ?? new Error('Cancelled');
+        if (options.signal?.aborted) {
+            throw options.signal.reason ?? new Error('Cancelled');
+        }
         try {
             const response = await fetch(url, { signal: options.signal });
-            if (response.ok) return;
+            if (response.ok) {
+                return;
+            }
             lastError = new Error(`Preview returned HTTP ${response.status}`);
         } catch (error) {
             lastError = error;

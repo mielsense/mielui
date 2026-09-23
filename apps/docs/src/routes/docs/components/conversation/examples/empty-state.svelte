@@ -1,18 +1,22 @@
 <script lang="ts">
-    import FileText from '@lucide/svelte/icons/file-text';
+    import { File01Icon as FileText } from '@hugeicons/core-free-icons';
     import { Button } from '@mielui/svelte/components/button';
     import * as Conversation from '@mielui/svelte/components/conversation';
     import * as Message from '@mielui/svelte/components/message';
+    import HugeiconsIcon from '@mielui/svelte/hugeicons-icon';
 
     let started = $state(false);
+    function start() {
+        started = true;
+    }
 </script>
 
 {#snippet emptyIcon()}
-    <FileText size={18} strokeWidth={1.75} aria-hidden="true" />
+    <HugeiconsIcon icon={FileText} size={18} strokeWidth={1.75} aria-hidden="true" />
 {/snippet}
 
 {#snippet startAction()}
-    <Button size="md" onclick={() => (started = true)}>Draft a release plan</Button>
+    <Button size="md" onclick={start}>Draft a release plan</Button>
 {/snippet}
 
 <Conversation.Root
@@ -21,9 +25,9 @@
     <Conversation.Content aria-label="Release planning conversation">
         {#if started}
             <Message.Root from="user">
-                <Message.Content
-                    >Draft a release plan for the checkout reliability fix.</Message.Content
-                >
+                <Message.Content>
+                    Draft a release plan for the checkout reliability fix.
+                </Message.Content>
             </Message.Root>
             <Message.Root from="assistant">
                 <Message.Content>

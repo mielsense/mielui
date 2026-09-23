@@ -1,23 +1,30 @@
 <script lang="ts">
+    import { Button } from '@mielui/svelte/components/button';
     import { SkeletonSwap } from '@mielui/svelte/components/skeleton';
-    import { onMount } from 'svelte';
+    import { onDestroy } from 'svelte';
 
-    let ready = $state(false);
+    let ready = $state(true);
     let timer: ReturnType<typeof setTimeout> | undefined;
-
-    onMount(() => {
-        timer = setTimeout(() => (ready = true), 850);
-        return () => clearTimeout(timer);
+    function reload() {
+        clearTimeout(timer);
+        ready = false;
+        timer = setTimeout(() => {
+            ready = true;
+        }, 1200);
+    }
+    onDestroy(() => {
+        clearTimeout(timer);
     });
 </script>
 
-<div class="w-full max-w-sm">
-    <SkeletonSwap {ready} lines={3} lineHeight={21} label="Profile">
+<div class="flex w-full max-w-sm flex-col gap-4">
+    <SkeletonSwap {ready} lines={3} lineHeight={24} label="Workspace summary">
         {#if ready}
-            <p class="text-sm leading-[21px] text-foreground-muted">
-                Design systems work best when their loading states reserve the same space as the
-                content that replaces them.
+            <p class="text-sm leading-6 text-foreground-muted">
+                Your workspace has 12 active projects. Three are ready for review, and the next team
+                check-in is on Friday.
             </p>
         {/if}
     </SkeletonSwap>
+    <Button variant="secondary" onclick={reload} disabled={!ready}>Reload summary</Button>
 </div>

@@ -1,0 +1,33 @@
+import type { Manifest } from '@mielui/svelte/_manifest/types';
+
+export const manifest: Manifest = {
+    name: 'command',
+    version: '1.2.0',
+    visibility: 'public',
+    description: 'Dialog command palette with search, grouped items, and separators.',
+    files: [
+        'components/command/command.svelte',
+        'components/command/command-trigger.svelte',
+        'components/command/command-content.svelte',
+        'components/command/command-results.svelte',
+        'components/command/command-search.svelte',
+        'components/command/search.ts',
+        'components/command/command-item.svelte',
+        'components/command/command-group.svelte',
+        'components/command/command-header.svelte',
+        'components/command/command-separator.svelte',
+        'components/command/context.svelte.ts',
+        'components/command/controller.svelte.ts',
+        'components/command/index.ts',
+        'components/command/manifest.ts'
+    ],
+    components: ['_internal/utils', 'dialog', 'button'],
+    shared: ['hugeicons-icon', 'utils.cn', 'utils.createContext', 'utils.travelingHighlight'],
+    peerDependencies: {
+        '@floating-ui/dom': '1.7.6',
+        '@hugeicons/core-free-icons': '^4.3.0',
+        cnfast: '^0.0.8',
+        'fuse.js': '^7.1.0',
+        svelte: '^5.0.0'
+    }
+};

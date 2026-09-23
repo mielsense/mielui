@@ -11,15 +11,15 @@ Vitest is configured with three projects in [`../vitest.config.ts`](../vitest.co
 ## Running locally
 
 ```bash
-bun --filter='docs' run test:ci       # unit + ssr (fast, no browser)
-bun --filter='docs' run test:browser  # browser project (Chromium)
-bun --filter='docs' run test          # everything
+pnpm --filter='docs' run test:ci       # unit + ssr (fast, no browser)
+pnpm --filter='docs' run test:browser  # browser project (Chromium)
+pnpm --filter='docs' run test          # everything
 ```
 
 The browser project needs Playwright's Chromium. Install it once:
 
 ```bash
-bunx playwright install --with-deps chromium
+pnpm --filter docs exec playwright install --with-deps chromium
 ```
 
 > Note: the Chromium download can fail behind restrictive proxies/sandboxes. CI
@@ -31,7 +31,7 @@ bunx playwright install --with-deps chromium
 The [`Browser Tests`](../../../.github/workflows/browser-tests.yml) workflow runs
 the `browser` project on every pull request to `main` and on pushes to `main`
 (previously it was opt-in behind a label, so it almost always reported
-`skipped`). It installs Chromium and runs `bun --filter='docs' run test:browser`.
+`skipped`). It installs Chromium and runs `pnpm --filter='docs' run test:browser`.
 
 These tests cover behavior that only a real browser can validate: floating
 positioning, focus trapping across portalled content, click-outside through
@@ -56,7 +56,7 @@ Generate/refresh the reference images on the **same platform CI uses** (Chromium
 on Linux) so they stay stable, then commit them:
 
 ```bash
-bun --filter='docs' run test:browser -- --update
+pnpm --filter='docs' run test:browser --update
 ```
 
 Because font hinting and antialiasing differ per platform, baselines captured on

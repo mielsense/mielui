@@ -1,13 +1,14 @@
 <script lang="ts">
-    import SlidersHorizontal from '@lucide/svelte/icons/sliders-horizontal';
+    import { SlidersHorizontalIcon as SlidersHorizontal } from '@hugeicons/core-free-icons';
     import { Badge } from '@mielui/svelte/components/badge';
     import { Button } from '@mielui/svelte/components/button';
     import { Checkbox } from '@mielui/svelte/components/checkbox';
+    import Kbd from '@mielui/svelte/components/kbd';
     import { Label } from '@mielui/svelte/components/label';
     import * as Select from '@mielui/svelte/components/select';
     import * as Sheet from '@mielui/svelte/components/sheet';
-    import Shortcut from '@mielui/svelte/components/shortcut';
     import { Switch } from '@mielui/svelte/components/switch';
+    import HugeiconsIcon from '@mielui/svelte/hugeicons-icon';
 
     let open = $state(false);
     let status = $state('all');
@@ -46,7 +47,7 @@
 
 <Sheet.Root bind:open>
     <Sheet.Trigger variant="outline">
-        <SlidersHorizontal size={14} />
+        <HugeiconsIcon icon={SlidersHorizontal} size={14} />
         Filters
         {#if activeCount > 0}
             <Badge variant="secondary">{activeCount}</Badge>
@@ -62,9 +63,9 @@
             <div class="flex flex-col gap-1.5">
                 <Label>Status</Label>
                 <Select.Root bind:value={status}>
-                    <Select.Trigger class="w-full" variant="outline" size="md"
-                        >{statusLabel}</Select.Trigger
-                    >
+                    <Select.Trigger class="w-full" variant="outline" size="md">
+                        {statusLabel}
+                    </Select.Trigger>
                     <Select.Content>
                         {#each statuses as item (item.value)}
                             <Select.Item value={item.value}>{item.label}</Select.Item>
@@ -96,14 +97,14 @@
         <Sheet.Footer>
             <Sheet.Close variant="ghost" onclick={reset}>
                 Reset
-                <Shortcut shortcut="esc" />
+                <Kbd shortcut="esc" />
             </Sheet.Close>
             <Button onclick={() => apply()}>
                 Apply filters
                 {#if activeCount > 0}
                     <Badge variant="secondary">{activeCount}</Badge>
                 {/if}
-                <Shortcut shortcut="enter" />
+                <Kbd shortcut="enter" />
             </Button>
         </Sheet.Footer>
     </Sheet.Content>

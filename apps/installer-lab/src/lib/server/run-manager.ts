@@ -83,24 +83,37 @@ const initialSnapshot = (): RunSnapshot => ({
 
 function killPid(pid: number, signal: NodeJS.Signals) {
     try {
-        if (process.platform === 'win32') process.kill(pid, signal);
-        else process.kill(-pid, signal);
+        if (process.platform === 'win32') {
+            process.kill(pid, signal);
+        } else {
+            process.kill(-pid, signal);
+        }
         return true;
     } catch (error) {
-        if ((error as NodeJS.ErrnoException).code !== 'ESRCH') throw error;
+        if ((error as NodeJS.ErrnoException).code !== 'ESRCH') {
+            throw error;
+        }
         return false;
     }
 }
 
 export async function terminateProcess(child: ChildProcess | null, graceMs = 1_500) {
-    if (!child?.pid || child.exitCode !== null || child.signalCode !== null) return;
+    if (!child?.pid || child.exitCode !== null || child.signalCode !== null) {
+        return;
+    }
     const exited = new Promise<void>((resolve) => child.once('close', () => resolve()));
-    if (process.platform === 'win32') child.kill('SIGTERM');
-    else killPid(child.pid, 'SIGTERM');
+    if (process.platform === 'win32') {
+        child.kill('SIGTERM');
+    } else {
+        killPid(child.pid, 'SIGTERM');
+    }
     await Promise.race([exited, new Promise((resolve) => setTimeout(resolve, graceMs))]);
     if (child.exitCode === null && child.signalCode === null) {
-        if (process.platform === 'win32') child.kill('SIGKILL');
-        else killPid(child.pid, 'SIGKILL');
+        if (process.platform === 'win32') {
+            child.kill('SIGKILL');
+        } else {
+            killPid(child.pid, 'SIGKILL');
+        }
     }
 }
 
@@ -118,10 +131,15 @@ export class RunManager {
     constructor() {
         process.once('exit', () => {
             for (const child of [this.activeProcess, this.previewProcess]) {
-                if (!child?.pid) continue;
+                if (!child?.pid) {
+                    continue;
+                }
                 try {
-                    if (process.platform === 'win32') child.kill('SIGTERM');
-                    else process.kill(-child.pid, 'SIGTERM');
+                    if (process.platform === 'win32') {
+                        child.kill('SIGTERM');
+                    } else {
+                        process.kill(-child.pid, 'SIGTERM');
+                    }
                 } catch {
                     // The child already exited.
                 }
@@ -130,22 +148,30 @@ export class RunManager {
     }
 
     async initialize() {
-        if (this.initialized) return;
-        if (this.initializePromise) return this.initializePromise;
+        if (this.initialized) {
+            return;
+        }
+        if (this.initializePromise) {
+            return this.initializePromise;
+        }
         this.initializePromise = this.restore();
         await this.initializePromise;
         this.initialized = true;
     }
 
     private async restore() {
-        if (!existsSync(snapshotPath)) return;
+        if (!existsSync(snapshotPath)) {
+            return;
+        }
         try {
             this.snapshot = {
                 ...initialSnapshot(),
                 ...JSON.parse(await readFile(snapshotPath, 'utf8'))
             };
             this.rawLog = existsSync(logPath) ? await readFile(logPath, 'utf8') : '';
-            if (this.snapshot.previewPid) killPid(this.snapshot.previewPid, 'SIGTERM');
+            if (this.snapshot.previewPid) {
+                killPid(this.snapshot.previewPid, 'SIGTERM');
+            }
             if (isActivePhase(this.snapshot.phase)) {
                 this.snapshot = {
                     ...this.snapshot,
@@ -217,7 +243,9 @@ export class RunManager {
     }
 
     private async log(chunk: string) {
-        if (!chunk) return;
+        if (!chunk) {
+            return;
+        }
         this.rawLog += chunk;
         await ensureCurrentRoot();
         await appendFile(logPath, chunk);
@@ -259,8 +287,9 @@ export class RunManager {
 
     async cancel() {
         await this.initialize();
-        if (!this.activeRun || TERMINAL_PHASES.has(this.snapshot.phase))
+        if (!this.activeRun || TERMINAL_PHASES.has(this.snapshot.phase)) {
             return this.currentSnapshot();
+        }
         this.abortController?.abort(new CancelledError());
         await terminateProcess(this.activeProcess);
         return this.currentSnapshot();
@@ -285,7 +314,9 @@ export class RunManager {
     }
 
     private throwIfCancelled() {
-        if (this.abortController?.signal.aborted) throw new CancelledError();
+        if (this.abortController?.signal.aborted) {
+            throw new CancelledError();
+        }
     }
 
     private async runCommand(command: CommandSpec) {
@@ -312,7 +343,9 @@ export class RunManager {
         ).catch((error) => {
             throw new CommandError(String(error), summary, null, null, output);
         });
-        if (this.activeProcess === child) this.activeProcess = null;
+        if (this.activeProcess === child) {
+            this.activeProcess = null;
+        }
         await this.patchSnapshot({ activeCommand: null });
         this.throwIfCancelled();
         if (result.code !== 0) {
@@ -334,7 +367,9 @@ export class RunManager {
             );
             await this.setPhase('scaffolding');
             await mkdir(path.dirname(consumerRoot), { recursive: true });
-            for (const command of scaffoldCommands(consumerRoot)) await this.runCommand(command);
+            for (const command of scaffoldCommands(consumerRoot)) {
+                await this.runCommand(command);
+            }
 
             await this.setPhase('resolving-artifact');
             await mkdir(stagingRoot, { recursive: true });
@@ -349,10 +384,10 @@ export class RunManager {
             const tarballPath = path.join(stagingRoot, 'mielui.tgz');
             if (source === 'local') {
                 const packageRoot = path.join(repoRoot, 'packages', 'mielui');
-                await this.runCommand({ bin: 'bun', args: ['run', 'build'], cwd: packageRoot });
+                await this.runCommand({ bin: 'pnpm', args: ['run', 'build'], cwd: packageRoot });
                 await this.runCommand({
-                    bin: 'bun',
-                    args: ['pm', 'pack', '--filename', tarballPath, '--quiet'],
+                    bin: 'pnpm',
+                    args: ['pack', '--out', tarballPath],
                     cwd: packageRoot
                 });
             }
@@ -366,8 +401,9 @@ export class RunManager {
                 registryPath,
                 path.join(artifactRoot, 'src')
             ]) {
-                if (!existsSync(required))
+                if (!existsSync(required)) {
                     throw new Error(`Staged artifact is missing ${required}`);
+                }
             }
             const packageJson = JSON.parse(await readFile(packageJsonPath, 'utf8')) as {
                 version?: string;
@@ -375,7 +411,9 @@ export class RunManager {
                 exports?: Record<string, unknown>;
             };
             const registry = JSON.parse(await readFile(registryPath, 'utf8')) as RegistryIndex;
-            if (!packageJson.version) throw new Error('Staged artifact has no package version');
+            if (!packageJson.version) {
+                throw new Error('Staged artifact has no package version');
+            }
             if (!packageJson.bin?.mielui || !existsSync(binaryPath)) {
                 throw new Error('Staged artifact does not expose an executable mielui binary');
             }
@@ -456,7 +494,9 @@ export class RunManager {
                 (chunk) => void this.log(stripVTControlCharacters(chunk.toString()))
             );
             preview.once('close', (code, signal) => {
-                if (this.previewProcess === preview) this.previewProcess = null;
+                if (this.previewProcess === preview) {
+                    this.previewProcess = null;
+                }
                 if (this.snapshot.phase === 'ready') {
                     void this.fail({
                         message: `Preview exited unexpectedly (${code ?? signal ?? 'unknown status'}).`,

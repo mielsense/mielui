@@ -1,6 +1,4 @@
-import type { components } from './components';
-
-export type ComponentSlug = (typeof components)[number];
+export type ComponentSlug = keyof typeof componentAnatomy;
 
 export type ComponentPart = {
     name: string;
@@ -29,6 +27,22 @@ export const componentAnatomy = {
         { name: 'AlertDialog.Exit', description: 'Closes the dialog without confirming.' },
         { name: 'AlertDialog.Footer', description: 'Groups dialog actions.' },
         { name: 'AlertDialog.Confirm', description: 'Confirms and closes the dialog.' }
+    ],
+    'file-upload': [
+        {
+            name: 'FileUpload.Root',
+            description: 'Validates selections and manages upload requests.'
+        },
+        { name: 'FileUpload.Dropzone', description: 'Displays the drop target.' },
+        { name: 'FileUpload.Trigger', description: 'Opens the file picker.' },
+        { name: 'FileUpload.List', description: 'Lists files and exposes each item to a snippet.' },
+        { name: 'FileUpload.Item', description: 'Provides one upload state to its parts.' },
+        { name: 'FileUpload.Preview', description: 'Shows an image preview or file icon.' },
+        { name: 'FileUpload.Details', description: 'Shows filename and size.' },
+        { name: 'FileUpload.Progress', description: 'Displays progress during upload.' },
+        { name: 'FileUpload.Status', description: 'Announces uploading, success, and errors.' },
+        { name: 'FileUpload.Remove', description: 'Cancels the request and removes its item.' },
+        { name: 'FileUpload.Retry', description: 'Retries a failed request.' }
     ],
     attachment: [
         { name: 'Attachment.Root', description: 'Manages selected files.' },
@@ -131,14 +145,6 @@ export const componentAnatomy = {
         { name: 'FileDiff.Row', description: 'Renders one highlighted diff row.' },
         { name: 'FileDiff.LineNumber', description: 'Renders one gutter line number.' }
     ],
-    'fullscreen-nav': [
-        { name: 'FullscreenNav.Root', description: 'Controls fullscreen navigation state.' },
-        { name: 'FullscreenNav.Trigger', description: 'Opens fullscreen navigation.' },
-        { name: 'FullscreenNav.Content', description: 'Renders navigation content.' },
-        { name: 'FullscreenNav.Close', description: 'Closes fullscreen navigation.' },
-        { name: 'FullscreenNav.Group', description: 'Groups navigation links.' },
-        { name: 'FullscreenNav.Link', description: 'Renders a navigation link.' }
-    ],
     gauge: [{ name: 'Gauge', description: 'Displays a value as a filled arc.' }],
     'hover-card': [
         { name: 'HoverCard.Root', description: 'Controls hover card state.' },
@@ -155,17 +161,17 @@ export const componentAnatomy = {
         { name: 'Message.Content', description: 'Contains message content.' },
         { name: 'Message.Actions', description: 'Groups message actions.' }
     ],
-    modal: [
-        { name: 'Modal.Root', description: 'Controls modal state.' },
-        { name: 'Modal.Trigger', description: 'Opens the modal.' },
-        { name: 'Modal.Content', description: 'Renders the modal surface.' },
-        { name: 'Modal.Title', description: 'Renders the modal title.' },
-        { name: 'Modal.Description', description: 'Renders the modal description.' },
-        { name: 'Modal.Header', description: 'Groups modal heading content.' },
-        { name: 'Modal.Body', description: 'Renders the modal body.' },
-        { name: 'Modal.Close', description: 'Closes the modal.' },
-        { name: 'Modal.Footer', description: 'Groups modal actions.' },
-        { name: 'Modal.Confirm', description: 'Confirms and closes the modal.' }
+    dialog: [
+        { name: 'Dialog.Root', description: 'Controls dialog state.' },
+        { name: 'Dialog.Trigger', description: 'Opens the dialog.' },
+        { name: 'Dialog.Content', description: 'Renders the dialog surface.' },
+        { name: 'Dialog.Title', description: 'Renders the dialog title.' },
+        { name: 'Dialog.Description', description: 'Renders the dialog description.' },
+        { name: 'Dialog.Header', description: 'Groups dialog heading content.' },
+        { name: 'Dialog.Body', description: 'Renders the dialog body.' },
+        { name: 'Dialog.Close', description: 'Closes the dialog.' },
+        { name: 'Dialog.Footer', description: 'Groups dialog actions.' },
+        { name: 'Dialog.Confirm', description: 'Confirms and closes the dialog.' }
     ],
     pagination: [{ name: 'Pagination', description: 'Navigates paginated content.' }],
     popover: [
@@ -237,7 +243,7 @@ export const componentAnatomy = {
         { name: 'Sheet.Content', description: 'Renders the sheet surface.' },
         { name: 'Sheet.Close', description: 'Closes the sheet.' }
     ],
-    shortcut: [{ name: 'Shortcut', description: 'Displays a keyboard shortcut.' }],
+    kbd: [{ name: 'Kbd', description: 'Displays a keyboard shortcut.' }],
     skeleton: [
         { name: 'Skeleton', description: 'Displays a static loading placeholder.' },
         { name: 'SkeletonSwap', description: 'Swaps a delayed placeholder into reserved content.' }
@@ -260,7 +266,17 @@ export const componentAnatomy = {
     ],
     textarea: [{ name: 'Textarea', description: 'Accepts a multi-line value.' }],
     toast: [
-        { name: 'Toast', description: 'Renders a notification.' },
+        {
+            name: 'Toast.Root',
+            description: 'Owns one notification and pauses its timer during interaction.'
+        },
+        { name: 'Toast.Content', description: 'Renders the upper inset content.' },
+        { name: 'Toast.Footer', description: 'Groups the title and controls below the inset.' },
+        { name: 'Toast.Title', description: 'Renders the notification title.' },
+        { name: 'Toast.Icon', description: 'Renders the status icon.' },
+        { name: 'Toast.Actions', description: 'Groups action buttons.' },
+        { name: 'Toast.Action', description: 'Runs one action and dismisses the toast.' },
+        { name: 'Toast.Close', description: 'Dismisses the notification.' },
         { name: 'Toaster', description: 'Renders the notification region.' }
     ],
     toggle: [{ name: 'Toggle', description: 'Toggles a pressed state.' }],
@@ -273,6 +289,11 @@ export const componentAnatomy = {
         { name: 'Tool.Item', description: 'Displays one tool call.' },
         { name: 'Tool.Input', description: 'Displays tool input.' },
         { name: 'Tool.Output', description: 'Displays tool output.' }
+    ],
+    group: [
+        { name: 'Group.Root', description: 'Connects related controls.' },
+        { name: 'Group.Separator', description: 'Divides adjacent controls.' },
+        { name: 'Group.Text', description: 'Renders a prefix, suffix or label.' }
     ],
     toolbar: [{ name: 'Toolbar', description: 'Groups related controls.' }],
     tooltip: [
@@ -293,4 +314,4 @@ export const componentAnatomy = {
         { name: 'Typography.Description', description: 'Renders supporting text.' },
         { name: 'Typography.Metadata', description: 'Renders compact secondary information.' }
     ]
-} satisfies Record<ComponentSlug, ComponentPart[]>;
+} satisfies Record<string, ComponentPart[]>;

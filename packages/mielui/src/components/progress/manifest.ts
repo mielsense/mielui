@@ -11,9 +11,10 @@ export const manifest: Manifest = {
         'components/progress/index.ts',
         'components/progress/manifest.ts'
     ],
-    components: [],
-    shared: ['utils.cn'],
+    components: ['_internal/utils'],
+    shared: ['components/_internal/motion-loop', 'utils.cn', 'transition'],
     peerDependencies: {
+        '@floating-ui/dom': '1.7.6',
         cnfast: '^0.0.8',
         svelte: '^5.0.0'
     }

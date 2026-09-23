@@ -2,7 +2,7 @@
     import { CodeBlock } from '@mielui/svelte/components/code-block';
     import * as Typography from '@mielui/svelte/components/typography';
     import { ComponentPreview, InstallCommand } from '$lib/components/docs';
-    import DocsPager from '$lib/components/docs/docs-pager.svelte';
+    import PageIntro from '$lib/components/docs/page-intro.svelte';
     import ContentOnly from './examples/content-only.svelte';
     import ContentOnlySrc from './examples/content-only.svelte?raw';
     import Full from './examples/full.svelte';
@@ -16,7 +16,7 @@
     import Panel from './examples/panel.svelte';
     import PanelSrc from './examples/panel.svelte?raw';
 
-    const installCommand = 'bunx @mielui/svelte add card';
+    const installCommand = 'pnpm dlx @mielui/svelte add card';
 </script>
 
 <svelte:head>
@@ -26,15 +26,9 @@
 
 <div data-docs-page class="flex flex-col gap-10">
     <!-- ─── Header ────────────────────────────────────────────────── -->
-    <header class="flex items-start justify-between gap-4">
-        <div>
-            <Typography.H1> Card </Typography.H1>
-            <Typography.Text variant="lead" class="mt-2 max-w-2xl">
-                A surface for grouping related content, composed of header, content, and footer.
-            </Typography.Text>
-        </div>
-        <DocsPager />
-    </header>
+    <PageIntro title="Card">
+        A surface for grouping related content, composed of header, content, and footer.
+    </PageIntro>
 
     <!-- ─── Hero Example ──────────────────────────────────────────── -->
     <section id="hero" class="scroll-mt-20 flex flex-col gap-4">
@@ -45,18 +39,26 @@
 
     <!-- ─── Installation ──────────────────────────────────────────── -->
     <section id="installation" class="scroll-mt-20 flex flex-col gap-4">
-        <Typography.H2 class="docs-section-heading"> Installation </Typography.H2>
+        <Typography.H2 class="docs-section-heading">Installation</Typography.H2>
         <InstallCommand command={installCommand} />
     </section>
 
     <!-- ─── Usage ─────────────────────────────────────────────────── -->
     <section id="usage" class="scroll-mt-20 flex flex-col gap-4">
-        <Typography.H2 class="docs-section-heading"> Usage </Typography.H2>
+        <Typography.H2 class="docs-section-heading">Usage</Typography.H2>
         <Typography.Text variant="supporting">
-            Import Card and compose it with sub-components:
+            Card.Title defaults to an h2. Set level to match the surrounding heading outline;
+            styling stays the same. Native heading attributes, including id and aria-describedby,
+            reach the heading. Set level to 1 only when the card supplies the page title.
         </Typography.Text>
+        <Typography.Text variant="supporting">
+            An inset Card accepts one Footer and places it beneath the inset surface. Put multiple
+            actions or footer sections inside that single Footer. Other variants render Footer where
+            it appears in the composition.
+        </Typography.Text>
+
         <CodeBlock
-            code={`import * as Card from '$lib/mielui/components/card';\n\n<Card.Root>\n  <Card.Header>\n    <Card.Title>Title</Card.Title>\n  </Card.Header>\n  <Card.Content>Content here</Card.Content>\n  <Card.Footer>\n    <Button>Action</Button>\n  </Card.Footer>\n</Card.Root>`}
+            code={`import * as Card from '$lib/mielui/components/card';\nimport { Button } from '$lib/mielui/components/button';\n\n<Card.Root>\n  <Card.Header>\n    <Card.Title level={2}>Title</Card.Title>\n  </Card.Header>\n  <Card.Content>Content here</Card.Content>\n  <Card.Footer>\n    <Button>Action</Button>\n  </Card.Footer>\n</Card.Root>`}
             lang="svelte"
             copy="overlay"
         />
@@ -65,42 +67,39 @@
     <!-- ─── Examples ──────────────────────────────────────────────── -->
     <section id="examples" class="scroll-mt-20 flex flex-col gap-10">
         <div>
-            <Typography.H2 class="docs-section-heading"> Examples </Typography.H2>
-            <Typography.Text variant="supporting" class="mt-2">
-                Card with different structures and compositions.
-            </Typography.Text>
+            <Typography.H2 class="docs-section-heading">Examples</Typography.H2>
         </div>
 
         <div id="full" class="scroll-mt-20 flex flex-col gap-3">
-            <Typography.H3 class="docs-subsection-heading"> Full composition </Typography.H3>
+            <Typography.H3 class="docs-subsection-heading">Full composition</Typography.H3>
             <ComponentPreview code={FullSrc}>
                 <Full />
             </ComponentPreview>
         </div>
 
         <div id="content-only" class="scroll-mt-20 flex flex-col gap-3">
-            <Typography.H3 class="docs-subsection-heading"> Content only </Typography.H3>
+            <Typography.H3 class="docs-subsection-heading">Content only</Typography.H3>
             <ComponentPreview code={ContentOnlySrc}>
                 <ContentOnly />
             </ComponentPreview>
         </div>
 
         <div id="header-footer" class="scroll-mt-20 flex flex-col gap-3">
-            <Typography.H3 class="docs-subsection-heading"> Header and footer </Typography.H3>
+            <Typography.H3 class="docs-subsection-heading">Header and footer</Typography.H3>
             <ComponentPreview code={HeaderFooterSrc}>
                 <HeaderFooter />
             </ComponentPreview>
         </div>
 
         <div id="panel" class="scroll-mt-20 flex flex-col gap-3">
-            <Typography.H3 class="docs-subsection-heading"> Panel frame </Typography.H3>
+            <Typography.H3 class="docs-subsection-heading">Panel frame</Typography.H3>
             <ComponentPreview code={PanelSrc}>
                 <Panel />
             </ComponentPreview>
         </div>
 
         <div id="inset" class="scroll-mt-20 flex flex-col gap-3">
-            <Typography.H3 class="docs-subsection-heading"> Inset frame </Typography.H3>
+            <Typography.H3 class="docs-subsection-heading">Inset frame</Typography.H3>
             <ComponentPreview code={InsetSrc}>
                 <Inset />
             </ComponentPreview>

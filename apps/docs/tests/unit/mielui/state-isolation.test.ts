@@ -18,22 +18,10 @@ afterEach(() => {
 
 describe('Compound component context boundaries', () => {
     it.each([
-        [
-            'Collapsible',
-            CollapsibleTrigger,
-            'Collapsible components must be used within <Collapsible.Root>.'
-        ],
+        ['Collapsible', CollapsibleTrigger, 'Context "Collapsible.Root" not found'],
         ['Combobox', ComboboxTrigger, 'Combobox components must be used within <Combobox.Root>.'],
-        [
-            'ContextMenu',
-            ContextMenuContent,
-            'ContextMenu components must be used within <ContextMenu.Root>.'
-        ],
-        [
-            'DropdownMenu',
-            DropdownMenuContent,
-            'DropdownMenu components must be used within <DropdownMenu.Root>.'
-        ],
+        ['ContextMenu', ContextMenuContent, 'Context "Menu.Root | Menu.Sub" not found'],
+        ['DropdownMenu', DropdownMenuContent, 'Context "Menu.Root | Menu.Sub" not found'],
         ['Popover', PopoverTrigger, 'Popover components must be used within <Popover.Root>.'],
         ['Select', SelectTrigger, 'Select components must be used within <Select.Root>.'],
         ['Sheet', SheetTrigger, 'Sheet components must be used within <Sheet.Root>.']

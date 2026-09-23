@@ -1,7 +1,11 @@
 <script lang="ts">
-    import ChevronRight from '@lucide/svelte/icons/chevron-right';
-    import * as Popover from '@mielui/svelte/components/popover';
+    import { ArrowRight01Icon as ChevronRight } from '@hugeicons/core-free-icons';
+    import { Button } from '@mielui/svelte/components/button';
     import { cn } from '@mielui/svelte/utils';
+    import { ContextMenu as MenuPrimitive, mergeProps } from 'bits-ui';
+    import type { HTMLButtonAttributes } from 'svelte/elements';
+    import HugeiconsIcon from '../../hugeicons-icon.svelte';
+    import { buttonAttributes } from '../_internal/button-attributes';
     import type { ContextMenuSubTriggerProps } from '.';
 
     let {
@@ -12,14 +16,22 @@
     }: ContextMenuSubTriggerProps = $props();
 </script>
 
-<Popover.Trigger
-    {...rest}
-    role="menuitem"
-    aria-haspopup="menu"
-    data-collection-item
-    class={cn(className, 'mielui-menu-item', inset && 'pl-8')}
-    unstyled
->
-    <span class="min-w-0 flex-1 text-left"> {@render children?.()} </span>
-    <ChevronRight class="ml-2 shrink-0 text-foreground-muted" size={18} />
-</Popover.Trigger>
+<MenuPrimitive.SubTrigger>
+    {#snippet child({ props })}
+        <Button
+            {...buttonAttributes(mergeProps(rest, { ...props as HTMLButtonAttributes }))}
+            role="menuitem"
+            aria-haspopup="menu"
+            data-collection-item
+            class={cn(className, 'mielui-menu-item', inset && 'pl-8')}
+            unstyled
+        >
+            <span class="min-w-0 flex-1 text-left">{@render children?.()} </span>
+            <HugeiconsIcon
+                icon={ChevronRight}
+                class="ml-2 shrink-0 text-foreground-muted"
+                size={18}
+            />
+        </Button>
+    {/snippet}
+</MenuPrimitive.SubTrigger>

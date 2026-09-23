@@ -1,0 +1,2252 @@
+[
+    {
+        "name": "onkeypresscapture",
+        "type": "KeyboardEventHandler<HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "on:keyup",
+        "type": "KeyboardEventHandler<HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onkeyup",
+        "type": "KeyboardEventHandler<HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onkeyupcapture",
+        "type": "KeyboardEventHandler<HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "on:abort",
+        "type": "EventHandler<Event, HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onabort",
+        "type": "EventHandler<Event, HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onabortcapture",
+        "type": "EventHandler<Event, HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "on:canplay",
+        "type": "EventHandler<Event, HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "oncanplay",
+        "type": "EventHandler<Event, HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "oncanplaycapture",
+        "type": "EventHandler<Event, HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "on:canplaythrough",
+        "type": "EventHandler<Event, HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "oncanplaythrough",
+        "type": "EventHandler<Event, HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "oncanplaythroughcapture",
+        "type": "EventHandler<Event, HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "on:cuechange",
+        "type": "EventHandler<Event, HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "oncuechange",
+        "type": "EventHandler<Event, HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "oncuechangecapture",
+        "type": "EventHandler<Event, HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "on:durationchange",
+        "type": "EventHandler<Event, HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "ondurationchange",
+        "type": "EventHandler<Event, HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "ondurationchangecapture",
+        "type": "EventHandler<Event, HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "on:emptied",
+        "type": "EventHandler<Event, HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onemptied",
+        "type": "EventHandler<Event, HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onemptiedcapture",
+        "type": "EventHandler<Event, HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "on:encrypted",
+        "type": "EventHandler<Event, HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onencrypted",
+        "type": "EventHandler<Event, HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onencryptedcapture",
+        "type": "EventHandler<Event, HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "on:ended",
+        "type": "EventHandler<Event, HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onended",
+        "type": "EventHandler<Event, HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onendedcapture",
+        "type": "EventHandler<Event, HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "on:loadeddata",
+        "type": "EventHandler<Event, HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onloadeddata",
+        "type": "EventHandler<Event, HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onloadeddatacapture",
+        "type": "EventHandler<Event, HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "on:loadedmetadata",
+        "type": "EventHandler<Event, HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onloadedmetadata",
+        "type": "EventHandler<Event, HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onloadedmetadatacapture",
+        "type": "EventHandler<Event, HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "on:loadstart",
+        "type": "EventHandler<Event, HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onloadstart",
+        "type": "EventHandler<Event, HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onloadstartcapture",
+        "type": "EventHandler<Event, HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "on:pause",
+        "type": "EventHandler<Event, HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onpause",
+        "type": "EventHandler<Event, HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onpausecapture",
+        "type": "EventHandler<Event, HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "on:play",
+        "type": "EventHandler<Event, HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onplay",
+        "type": "EventHandler<Event, HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onplaycapture",
+        "type": "EventHandler<Event, HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "on:playing",
+        "type": "EventHandler<Event, HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onplaying",
+        "type": "EventHandler<Event, HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onplayingcapture",
+        "type": "EventHandler<Event, HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "on:progress",
+        "type": "EventHandler<Event, HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onprogress",
+        "type": "EventHandler<Event, HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onprogresscapture",
+        "type": "EventHandler<Event, HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "on:ratechange",
+        "type": "EventHandler<Event, HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onratechange",
+        "type": "EventHandler<Event, HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onratechangecapture",
+        "type": "EventHandler<Event, HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "on:seeked",
+        "type": "EventHandler<Event, HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onseeked",
+        "type": "EventHandler<Event, HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onseekedcapture",
+        "type": "EventHandler<Event, HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "on:seeking",
+        "type": "EventHandler<Event, HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onseeking",
+        "type": "EventHandler<Event, HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onseekingcapture",
+        "type": "EventHandler<Event, HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "on:stalled",
+        "type": "EventHandler<Event, HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onstalled",
+        "type": "EventHandler<Event, HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onstalledcapture",
+        "type": "EventHandler<Event, HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "on:suspend",
+        "type": "EventHandler<Event, HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onsuspend",
+        "type": "EventHandler<Event, HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onsuspendcapture",
+        "type": "EventHandler<Event, HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "on:timeupdate",
+        "type": "EventHandler<Event, HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "ontimeupdate",
+        "type": "EventHandler<Event, HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "ontimeupdatecapture",
+        "type": "EventHandler<Event, HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "on:volumechange",
+        "type": "EventHandler<Event, HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onvolumechange",
+        "type": "EventHandler<Event, HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onvolumechangecapture",
+        "type": "EventHandler<Event, HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "on:waiting",
+        "type": "EventHandler<Event, HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onwaiting",
+        "type": "EventHandler<Event, HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onwaitingcapture",
+        "type": "EventHandler<Event, HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "on:auxclick",
+        "type": "MouseEventHandler<HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onauxclick",
+        "type": "MouseEventHandler<HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onauxclickcapture",
+        "type": "MouseEventHandler<HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "on:click",
+        "type": "MouseEventHandler<HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onclick",
+        "type": "MouseEventHandler<HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onclickcapture",
+        "type": "MouseEventHandler<HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "on:contextmenu",
+        "type": "MouseEventHandler<HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "oncontextmenu",
+        "type": "MouseEventHandler<HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "oncontextmenucapture",
+        "type": "MouseEventHandler<HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "on:dblclick",
+        "type": "MouseEventHandler<HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "ondblclick",
+        "type": "MouseEventHandler<HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "ondblclickcapture",
+        "type": "MouseEventHandler<HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "on:drag",
+        "type": "DragEventHandler<HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "ondrag",
+        "type": "DragEventHandler<HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "ondragcapture",
+        "type": "DragEventHandler<HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "on:dragend",
+        "type": "DragEventHandler<HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "ondragend",
+        "type": "DragEventHandler<HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "ondragendcapture",
+        "type": "DragEventHandler<HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "on:dragenter",
+        "type": "DragEventHandler<HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "ondragenter",
+        "type": "DragEventHandler<HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "ondragentercapture",
+        "type": "DragEventHandler<HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "on:dragexit",
+        "type": "DragEventHandler<HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "ondragexit",
+        "type": "DragEventHandler<HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "ondragexitcapture",
+        "type": "DragEventHandler<HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "on:dragleave",
+        "type": "DragEventHandler<HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "ondragleave",
+        "type": "DragEventHandler<HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "ondragleavecapture",
+        "type": "DragEventHandler<HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "on:dragover",
+        "type": "DragEventHandler<HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "ondragover",
+        "type": "DragEventHandler<HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "ondragovercapture",
+        "type": "DragEventHandler<HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "on:dragstart",
+        "type": "DragEventHandler<HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "ondragstart",
+        "type": "DragEventHandler<HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "ondragstartcapture",
+        "type": "DragEventHandler<HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "on:drop",
+        "type": "DragEventHandler<HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "ondrop",
+        "type": "DragEventHandler<HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "ondropcapture",
+        "type": "DragEventHandler<HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "on:mousedown",
+        "type": "MouseEventHandler<HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onmousedown",
+        "type": "MouseEventHandler<HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onmousedowncapture",
+        "type": "MouseEventHandler<HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "on:mouseenter",
+        "type": "MouseEventHandler<HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onmouseenter",
+        "type": "MouseEventHandler<HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "on:mouseleave",
+        "type": "MouseEventHandler<HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onmouseleave",
+        "type": "MouseEventHandler<HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "on:mousemove",
+        "type": "MouseEventHandler<HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onmousemove",
+        "type": "MouseEventHandler<HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onmousemovecapture",
+        "type": "MouseEventHandler<HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "on:mouseout",
+        "type": "MouseEventHandler<HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onmouseout",
+        "type": "MouseEventHandler<HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onmouseoutcapture",
+        "type": "MouseEventHandler<HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "on:mouseover",
+        "type": "MouseEventHandler<HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onmouseover",
+        "type": "MouseEventHandler<HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onmouseovercapture",
+        "type": "MouseEventHandler<HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "on:mouseup",
+        "type": "MouseEventHandler<HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onmouseup",
+        "type": "MouseEventHandler<HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onmouseupcapture",
+        "type": "MouseEventHandler<HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "on:select",
+        "type": "EventHandler<Event, HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onselect",
+        "type": "EventHandler<Event, HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onselectcapture",
+        "type": "EventHandler<Event, HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "on:selectionchange",
+        "type": "EventHandler<Event, HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onselectionchange",
+        "type": "EventHandler<Event, HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onselectionchangecapture",
+        "type": "EventHandler<Event, HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "on:selectstart",
+        "type": "EventHandler<Event, HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onselectstart",
+        "type": "EventHandler<Event, HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onselectstartcapture",
+        "type": "EventHandler<Event, HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "on:touchcancel",
+        "type": "TouchEventHandler<HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "ontouchcancel",
+        "type": "TouchEventHandler<HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "ontouchcancelcapture",
+        "type": "TouchEventHandler<HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "on:touchend",
+        "type": "TouchEventHandler<HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "ontouchend",
+        "type": "TouchEventHandler<HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "ontouchendcapture",
+        "type": "TouchEventHandler<HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "on:touchmove",
+        "type": "TouchEventHandler<HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "ontouchmove",
+        "type": "TouchEventHandler<HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "ontouchmovecapture",
+        "type": "TouchEventHandler<HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "on:touchstart",
+        "type": "TouchEventHandler<HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "ontouchstart",
+        "type": "TouchEventHandler<HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "ontouchstartcapture",
+        "type": "TouchEventHandler<HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "on:gotpointercapture",
+        "type": "PointerEventHandler<HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "ongotpointercapture",
+        "type": "PointerEventHandler<HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "ongotpointercapturecapture",
+        "type": "PointerEventHandler<HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "on:pointercancel",
+        "type": "PointerEventHandler<HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onpointercancel",
+        "type": "PointerEventHandler<HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onpointercancelcapture",
+        "type": "PointerEventHandler<HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "on:pointerdown",
+        "type": "PointerEventHandler<HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onpointerdown",
+        "type": "PointerEventHandler<HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onpointerdowncapture",
+        "type": "PointerEventHandler<HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "on:pointerenter",
+        "type": "PointerEventHandler<HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onpointerenter",
+        "type": "PointerEventHandler<HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onpointerentercapture",
+        "type": "PointerEventHandler<HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "on:pointerleave",
+        "type": "PointerEventHandler<HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onpointerleave",
+        "type": "PointerEventHandler<HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onpointerleavecapture",
+        "type": "PointerEventHandler<HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "on:pointermove",
+        "type": "PointerEventHandler<HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onpointermove",
+        "type": "PointerEventHandler<HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onpointermovecapture",
+        "type": "PointerEventHandler<HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "on:pointerout",
+        "type": "PointerEventHandler<HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onpointerout",
+        "type": "PointerEventHandler<HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onpointeroutcapture",
+        "type": "PointerEventHandler<HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "on:pointerover",
+        "type": "PointerEventHandler<HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onpointerover",
+        "type": "PointerEventHandler<HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onpointerovercapture",
+        "type": "PointerEventHandler<HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "on:pointerup",
+        "type": "PointerEventHandler<HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onpointerup",
+        "type": "PointerEventHandler<HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onpointerupcapture",
+        "type": "PointerEventHandler<HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "on:lostpointercapture",
+        "type": "PointerEventHandler<HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onlostpointercapture",
+        "type": "PointerEventHandler<HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onlostpointercapturecapture",
+        "type": "PointerEventHandler<HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "on:gamepadconnected",
+        "type": "GamepadEventHandler<HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "ongamepadconnected",
+        "type": "GamepadEventHandler<HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "on:gamepaddisconnected",
+        "type": "GamepadEventHandler<HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "ongamepaddisconnected",
+        "type": "GamepadEventHandler<HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "on:scroll",
+        "type": "UIEventHandler<HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onscroll",
+        "type": "UIEventHandler<HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onscrollcapture",
+        "type": "UIEventHandler<HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "on:scrollend",
+        "type": "UIEventHandler<HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onscrollend",
+        "type": "UIEventHandler<HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onscrollendcapture",
+        "type": "UIEventHandler<HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "on:resize",
+        "type": "UIEventHandler<HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onresize",
+        "type": "UIEventHandler<HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onresizecapture",
+        "type": "UIEventHandler<HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "on:wheel",
+        "type": "WheelEventHandler<HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onwheel",
+        "type": "WheelEventHandler<HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onwheelcapture",
+        "type": "WheelEventHandler<HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "on:animationstart",
+        "type": "AnimationEventHandler<HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onanimationstart",
+        "type": "AnimationEventHandler<HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onanimationstartcapture",
+        "type": "AnimationEventHandler<HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "on:animationend",
+        "type": "AnimationEventHandler<HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onanimationend",
+        "type": "AnimationEventHandler<HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onanimationendcapture",
+        "type": "AnimationEventHandler<HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "on:animationiteration",
+        "type": "AnimationEventHandler<HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onanimationiteration",
+        "type": "AnimationEventHandler<HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onanimationiterationcapture",
+        "type": "AnimationEventHandler<HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "on:transitionstart",
+        "type": "TransitionEventHandler<HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "ontransitionstart",
+        "type": "TransitionEventHandler<HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "ontransitionstartcapture",
+        "type": "TransitionEventHandler<HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "on:transitionrun",
+        "type": "TransitionEventHandler<HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "ontransitionrun",
+        "type": "TransitionEventHandler<HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "ontransitionruncapture",
+        "type": "TransitionEventHandler<HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "on:transitionend",
+        "type": "TransitionEventHandler<HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "ontransitionend",
+        "type": "TransitionEventHandler<HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "ontransitionendcapture",
+        "type": "TransitionEventHandler<HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "on:transitioncancel",
+        "type": "TransitionEventHandler<HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "ontransitioncancel",
+        "type": "TransitionEventHandler<HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "ontransitioncancelcapture",
+        "type": "TransitionEventHandler<HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "on:outrostart",
+        "type": "EventHandler<CustomEvent<null>, HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onoutrostart",
+        "type": "EventHandler<CustomEvent<null>, HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onoutrostartcapture",
+        "type": "EventHandler<CustomEvent<null>, HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "on:outroend",
+        "type": "EventHandler<CustomEvent<null>, HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onoutroend",
+        "type": "EventHandler<CustomEvent<null>, HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onoutroendcapture",
+        "type": "EventHandler<CustomEvent<null>, HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "on:introstart",
+        "type": "EventHandler<CustomEvent<null>, HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onintrostart",
+        "type": "EventHandler<CustomEvent<null>, HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onintrostartcapture",
+        "type": "EventHandler<CustomEvent<null>, HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "on:introend",
+        "type": "EventHandler<CustomEvent<null>, HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onintroend",
+        "type": "EventHandler<CustomEvent<null>, HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onintroendcapture",
+        "type": "EventHandler<CustomEvent<null>, HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "on:message",
+        "type": "MessageEventHandler<HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onmessage",
+        "type": "MessageEventHandler<HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onmessagecapture",
+        "type": "MessageEventHandler<HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "on:messageerror",
+        "type": "MessageEventHandler<HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onmessageerror",
+        "type": "MessageEventHandler<HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onmessageerrorcapture",
+        "type": "MessageEventHandler<HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "on:visibilitychange",
+        "type": "EventHandler<Event, HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onvisibilitychange",
+        "type": "EventHandler<Event, HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onvisibilitychangecapture",
+        "type": "EventHandler<Event, HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "on:beforematch",
+        "type": "EventHandler<Event, HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onbeforematch",
+        "type": "EventHandler<Event, HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onbeforematchcapture",
+        "type": "EventHandler<Event, HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "on:cancel",
+        "type": "EventHandler<Event, HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "oncancel",
+        "type": "EventHandler<Event, HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "oncancelcapture",
+        "type": "EventHandler<Event, HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "on:close",
+        "type": "EventHandler<Event, HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onclose",
+        "type": "EventHandler<Event, HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onclosecapture",
+        "type": "EventHandler<Event, HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "on:fullscreenchange",
+        "type": "EventHandler<Event, HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onfullscreenchange",
+        "type": "EventHandler<Event, HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onfullscreenchangecapture",
+        "type": "EventHandler<Event, HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "on:fullscreenerror",
+        "type": "EventHandler<Event, HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    }
+]

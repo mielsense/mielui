@@ -1,0 +1,2252 @@
+[
+    {
+        "name": "on:click",
+        "type": "MouseEventHandler<HTMLAnchorElement> | null | undefined | MouseEventHandler<HTMLDivElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onclick",
+        "type": "MouseEventHandler<HTMLAnchorElement> | null | undefined | MouseEventHandler<HTMLDivElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onclickcapture",
+        "type": "MouseEventHandler<HTMLAnchorElement> | null | undefined | MouseEventHandler<HTMLDivElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "on:contextmenu",
+        "type": "MouseEventHandler<HTMLAnchorElement> | null | undefined | MouseEventHandler<HTMLDivElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "oncontextmenu",
+        "type": "MouseEventHandler<HTMLAnchorElement> | null | undefined | MouseEventHandler<HTMLDivElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "oncontextmenucapture",
+        "type": "MouseEventHandler<HTMLAnchorElement> | null | undefined | MouseEventHandler<HTMLDivElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "on:dblclick",
+        "type": "MouseEventHandler<HTMLAnchorElement> | null | undefined | MouseEventHandler<HTMLDivElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "ondblclick",
+        "type": "MouseEventHandler<HTMLAnchorElement> | null | undefined | MouseEventHandler<HTMLDivElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "ondblclickcapture",
+        "type": "MouseEventHandler<HTMLAnchorElement> | null | undefined | MouseEventHandler<HTMLDivElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "on:drag",
+        "type": "DragEventHandler<HTMLAnchorElement> | null | undefined | DragEventHandler<HTMLDivElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "ondrag",
+        "type": "DragEventHandler<HTMLAnchorElement> | null | undefined | DragEventHandler<HTMLDivElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "ondragcapture",
+        "type": "DragEventHandler<HTMLAnchorElement> | null | undefined | DragEventHandler<HTMLDivElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "on:dragend",
+        "type": "DragEventHandler<HTMLAnchorElement> | null | undefined | DragEventHandler<HTMLDivElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "ondragend",
+        "type": "DragEventHandler<HTMLAnchorElement> | null | undefined | DragEventHandler<HTMLDivElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "ondragendcapture",
+        "type": "DragEventHandler<HTMLAnchorElement> | null | undefined | DragEventHandler<HTMLDivElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "on:dragenter",
+        "type": "DragEventHandler<HTMLAnchorElement> | null | undefined | DragEventHandler<HTMLDivElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "ondragenter",
+        "type": "DragEventHandler<HTMLAnchorElement> | null | undefined | DragEventHandler<HTMLDivElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "ondragentercapture",
+        "type": "DragEventHandler<HTMLAnchorElement> | null | undefined | DragEventHandler<HTMLDivElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "on:dragexit",
+        "type": "DragEventHandler<HTMLAnchorElement> | null | undefined | DragEventHandler<HTMLDivElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "ondragexit",
+        "type": "DragEventHandler<HTMLAnchorElement> | null | undefined | DragEventHandler<HTMLDivElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "ondragexitcapture",
+        "type": "DragEventHandler<HTMLAnchorElement> | null | undefined | DragEventHandler<HTMLDivElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "on:dragleave",
+        "type": "DragEventHandler<HTMLAnchorElement> | null | undefined | DragEventHandler<HTMLDivElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "ondragleave",
+        "type": "DragEventHandler<HTMLAnchorElement> | null | undefined | DragEventHandler<HTMLDivElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "ondragleavecapture",
+        "type": "DragEventHandler<HTMLAnchorElement> | null | undefined | DragEventHandler<HTMLDivElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "on:dragover",
+        "type": "DragEventHandler<HTMLAnchorElement> | null | undefined | DragEventHandler<HTMLDivElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "ondragover",
+        "type": "DragEventHandler<HTMLAnchorElement> | null | undefined | DragEventHandler<HTMLDivElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "ondragovercapture",
+        "type": "DragEventHandler<HTMLAnchorElement> | null | undefined | DragEventHandler<HTMLDivElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "on:dragstart",
+        "type": "DragEventHandler<HTMLAnchorElement> | null | undefined | DragEventHandler<HTMLDivElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "ondragstart",
+        "type": "DragEventHandler<HTMLAnchorElement> | null | undefined | DragEventHandler<HTMLDivElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "ondragstartcapture",
+        "type": "DragEventHandler<HTMLAnchorElement> | null | undefined | DragEventHandler<HTMLDivElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "on:drop",
+        "type": "DragEventHandler<HTMLAnchorElement> | null | undefined | DragEventHandler<HTMLDivElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "ondrop",
+        "type": "DragEventHandler<HTMLAnchorElement> | null | undefined | DragEventHandler<HTMLDivElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "ondropcapture",
+        "type": "DragEventHandler<HTMLAnchorElement> | null | undefined | DragEventHandler<HTMLDivElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "on:mousedown",
+        "type": "MouseEventHandler<HTMLAnchorElement> | null | undefined | MouseEventHandler<HTMLDivElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onmousedown",
+        "type": "MouseEventHandler<HTMLAnchorElement> | null | undefined | MouseEventHandler<HTMLDivElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onmousedowncapture",
+        "type": "MouseEventHandler<HTMLAnchorElement> | null | undefined | MouseEventHandler<HTMLDivElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "on:mouseenter",
+        "type": "MouseEventHandler<HTMLAnchorElement> | null | undefined | MouseEventHandler<HTMLDivElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onmouseenter",
+        "type": "MouseEventHandler<HTMLAnchorElement> | null | undefined | MouseEventHandler<HTMLDivElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "on:mouseleave",
+        "type": "MouseEventHandler<HTMLAnchorElement> | null | undefined | MouseEventHandler<HTMLDivElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onmouseleave",
+        "type": "MouseEventHandler<HTMLAnchorElement> | null | undefined | MouseEventHandler<HTMLDivElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "on:mousemove",
+        "type": "MouseEventHandler<HTMLAnchorElement> | null | undefined | MouseEventHandler<HTMLDivElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onmousemove",
+        "type": "MouseEventHandler<HTMLAnchorElement> | null | undefined | MouseEventHandler<HTMLDivElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onmousemovecapture",
+        "type": "MouseEventHandler<HTMLAnchorElement> | null | undefined | MouseEventHandler<HTMLDivElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "on:mouseout",
+        "type": "MouseEventHandler<HTMLAnchorElement> | null | undefined | MouseEventHandler<HTMLDivElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onmouseout",
+        "type": "MouseEventHandler<HTMLAnchorElement> | null | undefined | MouseEventHandler<HTMLDivElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onmouseoutcapture",
+        "type": "MouseEventHandler<HTMLAnchorElement> | null | undefined | MouseEventHandler<HTMLDivElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "on:mouseover",
+        "type": "MouseEventHandler<HTMLAnchorElement> | null | undefined | MouseEventHandler<HTMLDivElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onmouseover",
+        "type": "MouseEventHandler<HTMLAnchorElement> | null | undefined | MouseEventHandler<HTMLDivElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onmouseovercapture",
+        "type": "MouseEventHandler<HTMLAnchorElement> | null | undefined | MouseEventHandler<HTMLDivElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "on:mouseup",
+        "type": "MouseEventHandler<HTMLAnchorElement> | null | undefined | MouseEventHandler<HTMLDivElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onmouseup",
+        "type": "MouseEventHandler<HTMLAnchorElement> | null | undefined | MouseEventHandler<HTMLDivElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onmouseupcapture",
+        "type": "MouseEventHandler<HTMLAnchorElement> | null | undefined | MouseEventHandler<HTMLDivElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "on:select",
+        "type": "EventHandler<Event, HTMLAnchorElement> | null | undefined | EventHandler<Event, HTMLDivElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onselect",
+        "type": "EventHandler<Event, HTMLAnchorElement> | null | undefined | EventHandler<Event, HTMLDivElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onselectcapture",
+        "type": "EventHandler<Event, HTMLAnchorElement> | null | undefined | EventHandler<Event, HTMLDivElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "on:selectionchange",
+        "type": "EventHandler<Event, HTMLAnchorElement> | null | undefined | EventHandler<Event, HTMLDivElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onselectionchange",
+        "type": "EventHandler<Event, HTMLAnchorElement> | null | undefined | EventHandler<Event, HTMLDivElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onselectionchangecapture",
+        "type": "EventHandler<Event, HTMLAnchorElement> | null | undefined | EventHandler<Event, HTMLDivElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "on:selectstart",
+        "type": "EventHandler<Event, HTMLAnchorElement> | null | undefined | EventHandler<Event, HTMLDivElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onselectstart",
+        "type": "EventHandler<Event, HTMLAnchorElement> | null | undefined | EventHandler<Event, HTMLDivElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onselectstartcapture",
+        "type": "EventHandler<Event, HTMLAnchorElement> | null | undefined | EventHandler<Event, HTMLDivElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "on:touchcancel",
+        "type": "TouchEventHandler<HTMLAnchorElement> | null | undefined | TouchEventHandler<HTMLDivElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "ontouchcancel",
+        "type": "TouchEventHandler<HTMLAnchorElement> | null | undefined | TouchEventHandler<HTMLDivElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "ontouchcancelcapture",
+        "type": "TouchEventHandler<HTMLAnchorElement> | null | undefined | TouchEventHandler<HTMLDivElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "on:touchend",
+        "type": "TouchEventHandler<HTMLAnchorElement> | null | undefined | TouchEventHandler<HTMLDivElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "ontouchend",
+        "type": "TouchEventHandler<HTMLAnchorElement> | null | undefined | TouchEventHandler<HTMLDivElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "ontouchendcapture",
+        "type": "TouchEventHandler<HTMLAnchorElement> | null | undefined | TouchEventHandler<HTMLDivElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "on:touchmove",
+        "type": "TouchEventHandler<HTMLAnchorElement> | null | undefined | TouchEventHandler<HTMLDivElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "ontouchmove",
+        "type": "TouchEventHandler<HTMLAnchorElement> | null | undefined | TouchEventHandler<HTMLDivElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "ontouchmovecapture",
+        "type": "TouchEventHandler<HTMLAnchorElement> | null | undefined | TouchEventHandler<HTMLDivElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "on:touchstart",
+        "type": "TouchEventHandler<HTMLAnchorElement> | null | undefined | TouchEventHandler<HTMLDivElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "ontouchstart",
+        "type": "TouchEventHandler<HTMLAnchorElement> | null | undefined | TouchEventHandler<HTMLDivElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "ontouchstartcapture",
+        "type": "TouchEventHandler<HTMLAnchorElement> | null | undefined | TouchEventHandler<HTMLDivElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "on:gotpointercapture",
+        "type": "PointerEventHandler<HTMLAnchorElement> | null | undefined | PointerEventHandler<HTMLDivElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "ongotpointercapture",
+        "type": "PointerEventHandler<HTMLAnchorElement> | null | undefined | PointerEventHandler<HTMLDivElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "ongotpointercapturecapture",
+        "type": "PointerEventHandler<HTMLAnchorElement> | null | undefined | PointerEventHandler<HTMLDivElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "on:pointercancel",
+        "type": "PointerEventHandler<HTMLAnchorElement> | null | undefined | PointerEventHandler<HTMLDivElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onpointercancel",
+        "type": "PointerEventHandler<HTMLAnchorElement> | null | undefined | PointerEventHandler<HTMLDivElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onpointercancelcapture",
+        "type": "PointerEventHandler<HTMLAnchorElement> | null | undefined | PointerEventHandler<HTMLDivElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "on:pointerdown",
+        "type": "PointerEventHandler<HTMLAnchorElement> | null | undefined | PointerEventHandler<HTMLDivElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onpointerdown",
+        "type": "PointerEventHandler<HTMLAnchorElement> | null | undefined | PointerEventHandler<HTMLDivElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onpointerdowncapture",
+        "type": "PointerEventHandler<HTMLAnchorElement> | null | undefined | PointerEventHandler<HTMLDivElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "on:pointerenter",
+        "type": "PointerEventHandler<HTMLAnchorElement> | null | undefined | PointerEventHandler<HTMLDivElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onpointerenter",
+        "type": "PointerEventHandler<HTMLAnchorElement> | null | undefined | PointerEventHandler<HTMLDivElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onpointerentercapture",
+        "type": "PointerEventHandler<HTMLAnchorElement> | null | undefined | PointerEventHandler<HTMLDivElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "on:pointerleave",
+        "type": "PointerEventHandler<HTMLAnchorElement> | null | undefined | PointerEventHandler<HTMLDivElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onpointerleave",
+        "type": "PointerEventHandler<HTMLAnchorElement> | null | undefined | PointerEventHandler<HTMLDivElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onpointerleavecapture",
+        "type": "PointerEventHandler<HTMLAnchorElement> | null | undefined | PointerEventHandler<HTMLDivElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "on:pointermove",
+        "type": "PointerEventHandler<HTMLAnchorElement> | null | undefined | PointerEventHandler<HTMLDivElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onpointermove",
+        "type": "PointerEventHandler<HTMLAnchorElement> | null | undefined | PointerEventHandler<HTMLDivElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onpointermovecapture",
+        "type": "PointerEventHandler<HTMLAnchorElement> | null | undefined | PointerEventHandler<HTMLDivElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "on:pointerout",
+        "type": "PointerEventHandler<HTMLAnchorElement> | null | undefined | PointerEventHandler<HTMLDivElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onpointerout",
+        "type": "PointerEventHandler<HTMLAnchorElement> | null | undefined | PointerEventHandler<HTMLDivElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onpointeroutcapture",
+        "type": "PointerEventHandler<HTMLAnchorElement> | null | undefined | PointerEventHandler<HTMLDivElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "on:pointerover",
+        "type": "PointerEventHandler<HTMLAnchorElement> | null | undefined | PointerEventHandler<HTMLDivElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onpointerover",
+        "type": "PointerEventHandler<HTMLAnchorElement> | null | undefined | PointerEventHandler<HTMLDivElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onpointerovercapture",
+        "type": "PointerEventHandler<HTMLAnchorElement> | null | undefined | PointerEventHandler<HTMLDivElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "on:pointerup",
+        "type": "PointerEventHandler<HTMLAnchorElement> | null | undefined | PointerEventHandler<HTMLDivElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onpointerup",
+        "type": "PointerEventHandler<HTMLAnchorElement> | null | undefined | PointerEventHandler<HTMLDivElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onpointerupcapture",
+        "type": "PointerEventHandler<HTMLAnchorElement> | null | undefined | PointerEventHandler<HTMLDivElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "on:lostpointercapture",
+        "type": "PointerEventHandler<HTMLAnchorElement> | null | undefined | PointerEventHandler<HTMLDivElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onlostpointercapture",
+        "type": "PointerEventHandler<HTMLAnchorElement> | null | undefined | PointerEventHandler<HTMLDivElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onlostpointercapturecapture",
+        "type": "PointerEventHandler<HTMLAnchorElement> | null | undefined | PointerEventHandler<HTMLDivElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "on:gamepadconnected",
+        "type": "GamepadEventHandler<HTMLAnchorElement> | null | undefined | GamepadEventHandler<HTMLDivElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "ongamepadconnected",
+        "type": "GamepadEventHandler<HTMLAnchorElement> | null | undefined | GamepadEventHandler<HTMLDivElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "on:gamepaddisconnected",
+        "type": "GamepadEventHandler<HTMLAnchorElement> | null | undefined | GamepadEventHandler<HTMLDivElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "ongamepaddisconnected",
+        "type": "GamepadEventHandler<HTMLAnchorElement> | null | undefined | GamepadEventHandler<HTMLDivElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "on:scroll",
+        "type": "UIEventHandler<HTMLAnchorElement> | null | undefined | UIEventHandler<HTMLDivElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onscroll",
+        "type": "UIEventHandler<HTMLAnchorElement> | null | undefined | UIEventHandler<HTMLDivElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onscrollcapture",
+        "type": "UIEventHandler<HTMLAnchorElement> | null | undefined | UIEventHandler<HTMLDivElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "on:scrollend",
+        "type": "UIEventHandler<HTMLAnchorElement> | null | undefined | UIEventHandler<HTMLDivElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onscrollend",
+        "type": "UIEventHandler<HTMLAnchorElement> | null | undefined | UIEventHandler<HTMLDivElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onscrollendcapture",
+        "type": "UIEventHandler<HTMLAnchorElement> | null | undefined | UIEventHandler<HTMLDivElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "on:resize",
+        "type": "UIEventHandler<HTMLAnchorElement> | null | undefined | UIEventHandler<HTMLDivElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onresize",
+        "type": "UIEventHandler<HTMLAnchorElement> | null | undefined | UIEventHandler<HTMLDivElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onresizecapture",
+        "type": "UIEventHandler<HTMLAnchorElement> | null | undefined | UIEventHandler<HTMLDivElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "on:wheel",
+        "type": "WheelEventHandler<HTMLAnchorElement> | null | undefined | WheelEventHandler<HTMLDivElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onwheel",
+        "type": "WheelEventHandler<HTMLAnchorElement> | null | undefined | WheelEventHandler<HTMLDivElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onwheelcapture",
+        "type": "WheelEventHandler<HTMLAnchorElement> | null | undefined | WheelEventHandler<HTMLDivElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "on:animationstart",
+        "type": "AnimationEventHandler<HTMLAnchorElement> | null | undefined | AnimationEventHandler<HTMLDivElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onanimationstart",
+        "type": "AnimationEventHandler<HTMLAnchorElement> | null | undefined | AnimationEventHandler<HTMLDivElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onanimationstartcapture",
+        "type": "AnimationEventHandler<HTMLAnchorElement> | null | undefined | AnimationEventHandler<HTMLDivElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "on:animationend",
+        "type": "AnimationEventHandler<HTMLAnchorElement> | null | undefined | AnimationEventHandler<HTMLDivElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onanimationend",
+        "type": "AnimationEventHandler<HTMLAnchorElement> | null | undefined | AnimationEventHandler<HTMLDivElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onanimationendcapture",
+        "type": "AnimationEventHandler<HTMLAnchorElement> | null | undefined | AnimationEventHandler<HTMLDivElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "on:animationiteration",
+        "type": "AnimationEventHandler<HTMLAnchorElement> | null | undefined | AnimationEventHandler<HTMLDivElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onanimationiteration",
+        "type": "AnimationEventHandler<HTMLAnchorElement> | null | undefined | AnimationEventHandler<HTMLDivElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onanimationiterationcapture",
+        "type": "AnimationEventHandler<HTMLAnchorElement> | null | undefined | AnimationEventHandler<HTMLDivElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "on:transitionstart",
+        "type": "TransitionEventHandler<HTMLAnchorElement> | null | undefined | TransitionEventHandler<HTMLDivElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "ontransitionstart",
+        "type": "TransitionEventHandler<HTMLAnchorElement> | null | undefined | TransitionEventHandler<HTMLDivElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "ontransitionstartcapture",
+        "type": "TransitionEventHandler<HTMLAnchorElement> | null | undefined | TransitionEventHandler<HTMLDivElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "on:transitionrun",
+        "type": "TransitionEventHandler<HTMLAnchorElement> | null | undefined | TransitionEventHandler<HTMLDivElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "ontransitionrun",
+        "type": "TransitionEventHandler<HTMLAnchorElement> | null | undefined | TransitionEventHandler<HTMLDivElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "ontransitionruncapture",
+        "type": "TransitionEventHandler<HTMLAnchorElement> | null | undefined | TransitionEventHandler<HTMLDivElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "on:transitionend",
+        "type": "TransitionEventHandler<HTMLAnchorElement> | null | undefined | TransitionEventHandler<HTMLDivElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "ontransitionend",
+        "type": "TransitionEventHandler<HTMLAnchorElement> | null | undefined | TransitionEventHandler<HTMLDivElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "ontransitionendcapture",
+        "type": "TransitionEventHandler<HTMLAnchorElement> | null | undefined | TransitionEventHandler<HTMLDivElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "on:transitioncancel",
+        "type": "TransitionEventHandler<HTMLAnchorElement> | null | undefined | TransitionEventHandler<HTMLDivElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "ontransitioncancel",
+        "type": "TransitionEventHandler<HTMLAnchorElement> | null | undefined | TransitionEventHandler<HTMLDivElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "ontransitioncancelcapture",
+        "type": "TransitionEventHandler<HTMLAnchorElement> | null | undefined | TransitionEventHandler<HTMLDivElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "on:outrostart",
+        "type": "EventHandler<CustomEvent<null>, HTMLAnchorElement> | null | undefined | EventHandler<CustomEvent<null>, HTMLDivElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onoutrostart",
+        "type": "EventHandler<CustomEvent<null>, HTMLAnchorElement> | null | undefined | EventHandler<CustomEvent<null>, HTMLDivElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onoutrostartcapture",
+        "type": "EventHandler<CustomEvent<null>, HTMLAnchorElement> | null | undefined | EventHandler<CustomEvent<null>, HTMLDivElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "on:outroend",
+        "type": "EventHandler<CustomEvent<null>, HTMLAnchorElement> | null | undefined | EventHandler<CustomEvent<null>, HTMLDivElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onoutroend",
+        "type": "EventHandler<CustomEvent<null>, HTMLAnchorElement> | null | undefined | EventHandler<CustomEvent<null>, HTMLDivElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onoutroendcapture",
+        "type": "EventHandler<CustomEvent<null>, HTMLAnchorElement> | null | undefined | EventHandler<CustomEvent<null>, HTMLDivElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "on:introstart",
+        "type": "EventHandler<CustomEvent<null>, HTMLAnchorElement> | null | undefined | EventHandler<CustomEvent<null>, HTMLDivElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onintrostart",
+        "type": "EventHandler<CustomEvent<null>, HTMLAnchorElement> | null | undefined | EventHandler<CustomEvent<null>, HTMLDivElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onintrostartcapture",
+        "type": "EventHandler<CustomEvent<null>, HTMLAnchorElement> | null | undefined | EventHandler<CustomEvent<null>, HTMLDivElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "on:introend",
+        "type": "EventHandler<CustomEvent<null>, HTMLAnchorElement> | null | undefined | EventHandler<CustomEvent<null>, HTMLDivElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onintroend",
+        "type": "EventHandler<CustomEvent<null>, HTMLAnchorElement> | null | undefined | EventHandler<CustomEvent<null>, HTMLDivElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onintroendcapture",
+        "type": "EventHandler<CustomEvent<null>, HTMLAnchorElement> | null | undefined | EventHandler<CustomEvent<null>, HTMLDivElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "on:message",
+        "type": "MessageEventHandler<HTMLAnchorElement> | null | undefined | MessageEventHandler<HTMLDivElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onmessage",
+        "type": "MessageEventHandler<HTMLAnchorElement> | null | undefined | MessageEventHandler<HTMLDivElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onmessagecapture",
+        "type": "MessageEventHandler<HTMLAnchorElement> | null | undefined | MessageEventHandler<HTMLDivElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "on:messageerror",
+        "type": "MessageEventHandler<HTMLAnchorElement> | null | undefined | MessageEventHandler<HTMLDivElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onmessageerror",
+        "type": "MessageEventHandler<HTMLAnchorElement> | null | undefined | MessageEventHandler<HTMLDivElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onmessageerrorcapture",
+        "type": "MessageEventHandler<HTMLAnchorElement> | null | undefined | MessageEventHandler<HTMLDivElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "on:visibilitychange",
+        "type": "EventHandler<Event, HTMLAnchorElement> | null | undefined | EventHandler<Event, HTMLDivElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onvisibilitychange",
+        "type": "EventHandler<Event, HTMLAnchorElement> | null | undefined | EventHandler<Event, HTMLDivElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onvisibilitychangecapture",
+        "type": "EventHandler<Event, HTMLAnchorElement> | null | undefined | EventHandler<Event, HTMLDivElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "on:beforematch",
+        "type": "EventHandler<Event, HTMLAnchorElement> | null | undefined | EventHandler<Event, HTMLDivElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onbeforematch",
+        "type": "EventHandler<Event, HTMLAnchorElement> | null | undefined | EventHandler<Event, HTMLDivElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onbeforematchcapture",
+        "type": "EventHandler<Event, HTMLAnchorElement> | null | undefined | EventHandler<Event, HTMLDivElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "on:cancel",
+        "type": "EventHandler<Event, HTMLAnchorElement> | null | undefined | EventHandler<Event, HTMLDivElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "oncancel",
+        "type": "EventHandler<Event, HTMLAnchorElement> | null | undefined | EventHandler<Event, HTMLDivElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "oncancelcapture",
+        "type": "EventHandler<Event, HTMLAnchorElement> | null | undefined | EventHandler<Event, HTMLDivElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "on:close",
+        "type": "EventHandler<Event, HTMLAnchorElement> | null | undefined | EventHandler<Event, HTMLDivElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onclose",
+        "type": "EventHandler<Event, HTMLAnchorElement> | null | undefined | EventHandler<Event, HTMLDivElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onclosecapture",
+        "type": "EventHandler<Event, HTMLAnchorElement> | null | undefined | EventHandler<Event, HTMLDivElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "on:fullscreenchange",
+        "type": "EventHandler<Event, HTMLAnchorElement> | null | undefined | EventHandler<Event, HTMLDivElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onfullscreenchange",
+        "type": "EventHandler<Event, HTMLAnchorElement> | null | undefined | EventHandler<Event, HTMLDivElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onfullscreenchangecapture",
+        "type": "EventHandler<Event, HTMLAnchorElement> | null | undefined | EventHandler<Event, HTMLDivElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "on:fullscreenerror",
+        "type": "EventHandler<Event, HTMLAnchorElement> | null | undefined | EventHandler<Event, HTMLDivElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onfullscreenerror",
+        "type": "EventHandler<Event, HTMLAnchorElement> | null | undefined | EventHandler<Event, HTMLDivElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onfullscreenerrorcapture",
+        "type": "EventHandler<Event, HTMLAnchorElement> | null | undefined | EventHandler<Event, HTMLDivElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "type",
+        "type": "string | null | undefined | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "download",
+        "type": "any | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "hreflang",
+        "type": "string | null | undefined | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "media",
+        "type": "string | null | undefined | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "ping",
+        "type": "string | null | undefined | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "rel",
+        "type": "string | null | undefined | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "target",
+        "type": "HTMLAttributeAnchorTarget | null | undefined | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "referrerpolicy",
+        "type": "ReferrerPolicy | null | undefined | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "aria-label",
+        "type": "string | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": "'Breadcrumb'",
+        "description": "Defines a string value that labels the current element.",
+        "inherited": true
+    },
+    {
+        "name": "on:copy",
+        "type": "ClipboardEventHandler<HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "oncopy",
+        "type": "ClipboardEventHandler<HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "oncopycapture",
+        "type": "ClipboardEventHandler<HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "on:cut",
+        "type": "ClipboardEventHandler<HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "oncut",
+        "type": "ClipboardEventHandler<HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "oncutcapture",
+        "type": "ClipboardEventHandler<HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "on:paste",
+        "type": "ClipboardEventHandler<HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onpaste",
+        "type": "ClipboardEventHandler<HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onpastecapture",
+        "type": "ClipboardEventHandler<HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "on:compositionend",
+        "type": "CompositionEventHandler<HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "oncompositionend",
+        "type": "CompositionEventHandler<HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "oncompositionendcapture",
+        "type": "CompositionEventHandler<HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "on:compositionstart",
+        "type": "CompositionEventHandler<HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "oncompositionstart",
+        "type": "CompositionEventHandler<HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "oncompositionstartcapture",
+        "type": "CompositionEventHandler<HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "on:compositionupdate",
+        "type": "CompositionEventHandler<HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "oncompositionupdate",
+        "type": "CompositionEventHandler<HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "oncompositionupdatecapture",
+        "type": "CompositionEventHandler<HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "on:focus",
+        "type": "FocusEventHandler<HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onfocus",
+        "type": "FocusEventHandler<HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onfocuscapture",
+        "type": "FocusEventHandler<HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "on:focusin",
+        "type": "FocusEventHandler<HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onfocusin",
+        "type": "FocusEventHandler<HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onfocusincapture",
+        "type": "FocusEventHandler<HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "on:focusout",
+        "type": "FocusEventHandler<HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onfocusout",
+        "type": "FocusEventHandler<HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onfocusoutcapture",
+        "type": "FocusEventHandler<HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "on:blur",
+        "type": "FocusEventHandler<HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onblur",
+        "type": "FocusEventHandler<HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onblurcapture",
+        "type": "FocusEventHandler<HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "on:change",
+        "type": "FormEventHandler<HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onchange",
+        "type": "FormEventHandler<HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onchangecapture",
+        "type": "FormEventHandler<HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "on:beforeinput",
+        "type": "EventHandler<InputEvent, HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onbeforeinput",
+        "type": "EventHandler<InputEvent, HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onbeforeinputcapture",
+        "type": "EventHandler<InputEvent, HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "on:input",
+        "type": "FormEventHandler<HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "oninput",
+        "type": "FormEventHandler<HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "oninputcapture",
+        "type": "FormEventHandler<HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "on:reset",
+        "type": "FormEventHandler<HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onreset",
+        "type": "FormEventHandler<HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onresetcapture",
+        "type": "FormEventHandler<HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "on:submit",
+        "type": "EventHandler<SubmitEvent, HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onsubmit",
+        "type": "EventHandler<SubmitEvent, HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onsubmitcapture",
+        "type": "EventHandler<SubmitEvent, HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "on:invalid",
+        "type": "EventHandler<Event, HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "oninvalid",
+        "type": "EventHandler<Event, HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "oninvalidcapture",
+        "type": "EventHandler<Event, HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "on:formdata",
+        "type": "EventHandler<FormDataEvent, HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onformdata",
+        "type": "EventHandler<FormDataEvent, HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onformdatacapture",
+        "type": "EventHandler<FormDataEvent, HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "on:beforetoggle",
+        "type": "ToggleEventHandler<HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onbeforetoggle",
+        "type": "ToggleEventHandler<HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onbeforetogglecapture",
+        "type": "ToggleEventHandler<HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "on:toggle",
+        "type": "ToggleEventHandler<HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "ontoggle",
+        "type": "ToggleEventHandler<HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "ontogglecapture",
+        "type": "ToggleEventHandler<HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "on:contentvisibilityautostatechange",
+        "type": "ContentVisibilityAutoStateChangeEventHandler<HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "oncontentvisibilityautostatechange",
+        "type": "ContentVisibilityAutoStateChangeEventHandler<HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "oncontentvisibilityautostatechangecapture",
+        "type": "ContentVisibilityAutoStateChangeEventHandler<HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "on:keydown",
+        "type": "KeyboardEventHandler<HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onkeydown",
+        "type": "KeyboardEventHandler<HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onkeydowncapture",
+        "type": "KeyboardEventHandler<HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "on:keypress",
+        "type": "KeyboardEventHandler<HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onkeypress",
+        "type": "KeyboardEventHandler<HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    }
+]

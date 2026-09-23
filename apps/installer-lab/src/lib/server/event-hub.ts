@@ -26,12 +26,16 @@ export class RunEventHub {
 
     subscribe(callback: (event: RunEvent) => void) {
         this.subscribers.add(callback);
-        if (this.log) callback({ type: 'log', chunk: this.log });
+        if (this.log) {
+            callback({ type: 'log', chunk: this.log });
+        }
         callback({ type: 'snapshot', snapshot: this.snapshot });
         return () => this.subscribers.delete(callback);
     }
 
     private broadcast(event: RunEvent) {
-        for (const subscriber of this.subscribers) subscriber(event);
+        for (const subscriber of this.subscribers) {
+            subscriber(event);
+        }
     }
 }

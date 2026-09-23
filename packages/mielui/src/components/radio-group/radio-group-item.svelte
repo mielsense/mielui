@@ -10,13 +10,15 @@
         label,
         description,
         id,
+        onchange,
         ...rest
     }: RadioGroupItemProps = $props();
 
     const ctx = getContext<RadioGroupContext>('radio-group');
     const selected = $derived(ctx.isSelected(value));
     const isDisabled = $derived(disabled || ctx.disabled);
-    const inputId = $derived(id ?? `radio-${value}`);
+    const generatedId = $props.id();
+    const inputId = $derived(id ?? generatedId);
 </script>
 
 <label
@@ -27,13 +29,29 @@
         isDisabled && 'cursor-not-allowed opacity-50'
     )}
 >
-    <!-- Single ring: border crossfades; dot scales in (same motion as checkbox). -->
+    <input
+        {...rest}
+        type="radio"
+        id={inputId}
+        name={ctx.name}
+        {value}
+        checked={selected}
+        disabled={isDisabled}
+        aria-describedby={[rest['aria-describedby'], description ? `${inputId}-description` : undefined].filter(Boolean).join(' ') || undefined}
+        onchange={(event) => {
+            onchange?.(event);
+            if (!event.defaultPrevented) {
+                ctx.setValue(value);
+            }
+        }}
+        class="peer sr-only"
+    />
     <span
         use:pressable
         data-ui="radio-group-item"
         data-state={selected ? 'checked' : 'unchecked'}
         class={cn(
-            'mielui-press mt-0.5 flex size-4 shrink-0 items-center justify-center rounded-full border-[length:var(--border-size)] bg-background transition-[background-color,border-color,box-shadow,transform,scale] [transition-duration:var(--motion-duration-press)] ease-[var(--ease-press)] motion-reduce:transition-none focus-visible:shadow-[var(--focus-ring)]',
+            'mielui-press mt-0.5 flex size-4 shrink-0 items-center justify-center rounded-full border-[length:var(--border-size)] bg-background transition-[background-color,border-color,box-shadow,transform,scale] [transition-duration:var(--motion-duration-press)] ease-[var(--ease-press)] motion-reduce:transition-none shadow-[var(--elevation-control-edge)] peer-focus-visible:shadow-[var(--focus-ring),var(--elevation-control-edge)]',
             selected ? 'border-primary' : 'border-border',
             !isDisabled && !selected && 'hover:border-primary'
         )}
@@ -46,30 +64,22 @@
             )}
         ></span>
     </span>
-    <input
-        type="radio"
-        id={inputId}
-        name={ctx.name}
-        {value}
-        checked={selected}
-        disabled={isDisabled}
-        onchange={() => ctx.setValue(value)}
-        class="sr-only"
-        {...rest}
-    />
     {#if label || description}
         <span class="flex flex-col gap-0.5 leading-tight">
             {#if label}
                 <span
                     class="[font-size:var(--font-size-label)] [font-weight:var(--font-weight-label)] [letter-spacing:var(--tracking-label)] text-foreground"
-                    >{label}</span
                 >
+                    {label}
+                </span>
             {/if}
             {#if description}
                 <span
+                    id={`${inputId}-description`}
                     class="[font-size:var(--font-size-body)] [font-weight:var(--font-weight-body)] [letter-spacing:var(--tracking-body)] text-foreground-muted"
-                    >{description}</span
                 >
+                    {description}
+                </span>
             {/if}
         </span>
     {/if}

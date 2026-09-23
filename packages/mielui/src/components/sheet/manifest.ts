@@ -31,11 +31,19 @@ export const manifest: Manifest = {
         'components/sheet/index.ts',
         'components/sheet/manifest.ts'
     ],
-    components: ['button', '_internal/overlay'],
-    shared: ['utils.cn', 'utils.createContext', 'transition'],
+    components: ['_internal/utils', 'button', '_internal/overlay'],
+    shared: [
+        'components/_internal/surface',
+        'hugeicons-icon',
+        'utils.cn',
+        'utils.createContext',
+        'transition'
+    ],
     peerDependencies: {
-        '@lucide/svelte': '^1.0.0',
+        '@floating-ui/dom': '1.7.6',
+        'bits-ui': '^2.19.2',
+        '@hugeicons/core-free-icons': '^4.3.0',
         cnfast: '^0.0.8',
-        svelte: '^5.0.0'
+        svelte: '^5.56.0'
     }
 };

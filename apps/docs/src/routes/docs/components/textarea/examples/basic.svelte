@@ -3,5 +3,5 @@
 </script>
 
 <div class="w-full max-w-sm">
-    <Textarea placeholder="Enter your message..." />
+    <Textarea label="Message" placeholder="Enter your message..." />
 </div>

@@ -2,13 +2,15 @@
     import { CodeBlock } from '@mielui/svelte/components/code-block';
     import * as Typography from '@mielui/svelte/components/typography';
     import { ComponentPreview, InstallCommand } from '$lib/components/docs';
-    import DocsPager from '$lib/components/docs/docs-pager.svelte';
+    import PageIntro from '$lib/components/docs/page-intro.svelte';
     import BasicMenu from './examples/basic-menu.svelte';
     import BasicMenuSrc from './examples/basic-menu.svelte?raw';
     import Configuration from './examples/configuration.svelte';
     import ConfigurationSrc from './examples/configuration.svelte?raw';
     import DynamicWidth from './examples/dynamic-width.svelte';
     import DynamicWidthSrc from './examples/dynamic-width.svelte?raw';
+    import Glass from './examples/glass.svelte';
+    import GlassSrc from './examples/glass.svelte?raw';
     import Hero from './examples/hero.svelte';
     import HeroSrc from './examples/hero.svelte?raw';
     import RowActions from './examples/row-actions.svelte';
@@ -20,9 +22,7 @@
     import UserMenu from './examples/user-menu.svelte';
     import UserMenuSrc from './examples/user-menu.svelte?raw';
 
-    const _TITLE = 'Dropdown Menu';
-
-    const installCommand = 'bunx @mielui/svelte add dropdown-menu';
+    const installCommand = 'pnpm dlx @mielui/svelte add dropdown-menu';
 </script>
 
 <svelte:head>
@@ -35,15 +35,7 @@
 
 <div data-docs-page class="flex flex-col gap-10">
     <!-- ─── Header ────────────────────────────────────────────────── -->
-    <header class="flex items-start justify-between gap-4">
-        <div>
-            <Typography.H1> Dropdown Menu </Typography.H1>
-            <Typography.Text variant="lead" class="mt-2 max-w-2xl">
-                A menu of actions anchored to a button.
-            </Typography.Text>
-        </div>
-        <DocsPager />
-    </header>
+    <PageIntro title="Dropdown Menu">A menu of actions anchored to a button.</PageIntro>
 
     <!-- ─── Hero Example ──────────────────────────────────────────── -->
     <section id="hero" class="scroll-mt-20 flex flex-col gap-4">
@@ -54,18 +46,22 @@
 
     <!-- ─── Installation ──────────────────────────────────────────── -->
     <section id="installation" class="scroll-mt-20 flex flex-col gap-4">
-        <Typography.H2 class="docs-section-heading"> Installation </Typography.H2>
+        <Typography.H2 class="docs-section-heading">Installation</Typography.H2>
         <InstallCommand command={installCommand} />
     </section>
 
     <!-- ─── Usage ─────────────────────────────────────────────────── -->
     <section id="usage" class="scroll-mt-20 flex flex-col gap-4">
-        <Typography.H2 class="docs-section-heading"> Usage </Typography.H2>
+        <Typography.H2 class="docs-section-heading">Usage</Typography.H2>
         <Typography.Text variant="supporting">
-            Import Dropdown Menu and compose it with sub-components:
+            Use Arrow keys, Home, End, or type a label to move between enabled items. Submenus
+            support directional keyboard navigation. Items close the menu after selection; an
+            onclick handler can call event.preventDefault() to cancel selection and dismissal. Bind
+            checked or value to retain selections outside the mounted menu.
         </Typography.Text>
+
         <CodeBlock
-            code={`import * as DropdownMenu from '$lib/mielui/components/dropdown-menu';\nimport Shortcut from '$lib/mielui/components/shortcut';\n\n<DropdownMenu.Root>\n  <DropdownMenu.Trigger>Menu</DropdownMenu.Trigger>\n  <DropdownMenu.Content>\n    <DropdownMenu.Item callback={handleClick}>\n      Action\n      <Shortcut shortcut="cmd+K" />\n    </DropdownMenu.Item>\n  </DropdownMenu.Content>\n</DropdownMenu.Root>`}
+            code={`import * as DropdownMenu from '$lib/mielui/components/dropdown-menu';\nimport Kbd from '$lib/mielui/components/kbd';\n\n<DropdownMenu.Root>\n  <DropdownMenu.Trigger>Menu</DropdownMenu.Trigger>\n  <DropdownMenu.Content>\n    <DropdownMenu.Item callback={handleClick}>\n      Action\n      <Kbd shortcut="cmd+K" />\n    </DropdownMenu.Item>\n  </DropdownMenu.Content>\n</DropdownMenu.Root>`}
             lang="svelte"
             copy="overlay"
         />
@@ -74,15 +70,12 @@
     <!-- ─── Examples ──────────────────────────────────────────────── -->
     <section id="examples" class="scroll-mt-20 flex flex-col gap-10">
         <div>
-            <Typography.H2 class="docs-section-heading"> Examples </Typography.H2>
-            <Typography.Text variant="supporting" class="mt-2">
-                Dropdown menus in common patterns and real-world use cases.
-            </Typography.Text>
+            <Typography.H2 class="docs-section-heading">Examples</Typography.H2>
         </div>
 
         <!-- Basic menu -->
         <div id="basic-menu" class="scroll-mt-20 flex flex-col gap-3">
-            <Typography.H3 class="docs-subsection-heading"> Basic menu </Typography.H3>
+            <Typography.H3 class="docs-subsection-heading">Basic menu</Typography.H3>
             <ComponentPreview code={BasicMenuSrc}>
                 <BasicMenu />
             </ComponentPreview>
@@ -90,7 +83,7 @@
 
         <!-- Grouped (user) menu -->
         <div id="user-menu" class="scroll-mt-20 flex flex-col gap-3">
-            <Typography.H3 class="docs-subsection-heading"> Grouped items </Typography.H3>
+            <Typography.H3 class="docs-subsection-heading">Grouped items</Typography.H3>
             <ComponentPreview code={UserMenuSrc}>
                 <UserMenu />
             </ComponentPreview>
@@ -98,7 +91,7 @@
 
         <!-- Row actions -->
         <div id="row-actions" class="scroll-mt-20 flex flex-col gap-3">
-            <Typography.H3 class="docs-subsection-heading"> Row actions </Typography.H3>
+            <Typography.H3 class="docs-subsection-heading">Row actions</Typography.H3>
             <ComponentPreview code={RowActionsSrc}>
                 <RowActions />
             </ComponentPreview>
@@ -106,7 +99,7 @@
 
         <!-- Share menu -->
         <div id="share-menu" class="scroll-mt-20 flex flex-col gap-3">
-            <Typography.H3 class="docs-subsection-heading"> Share menu </Typography.H3>
+            <Typography.H3 class="docs-subsection-heading">Share menu</Typography.H3>
             <ComponentPreview code={ShareMenuSrc}>
                 <ShareMenu />
             </ComponentPreview>
@@ -114,14 +107,14 @@
 
         <!-- Sort menu -->
         <div id="sort-menu" class="scroll-mt-20 flex flex-col gap-3">
-            <Typography.H3 class="docs-subsection-heading"> Sort menu </Typography.H3>
+            <Typography.H3 class="docs-subsection-heading">Sort menu</Typography.H3>
             <ComponentPreview code={SortMenuSrc}>
                 <SortMenu />
             </ComponentPreview>
         </div>
 
         <div id="configuration-menu" class="scroll-mt-20 flex flex-col gap-3">
-            <Typography.H3 class="docs-subsection-heading"> Configuration submenu </Typography.H3>
+            <Typography.H3 class="docs-subsection-heading">Configuration submenu</Typography.H3>
             <Typography.Text variant="supporting">
                 Nested choices for configuring a model, effort level, and response speed.
             </Typography.Text>
@@ -131,7 +124,7 @@
         </div>
 
         <div id="dynamic-width" class="scroll-mt-20 flex flex-col gap-3">
-            <Typography.H3 class="docs-subsection-heading"> Dynamic width </Typography.H3>
+            <Typography.H3 class="docs-subsection-heading">Dynamic width</Typography.H3>
             <Typography.Text variant="supporting">
                 Menus and submenus size to their longest item plus a buffer instead of hugging the
                 trigger.
@@ -140,5 +133,16 @@
                 <DynamicWidth />
             </ComponentPreview>
         </div>
+    </section>
+    <section id="glass" class="flex flex-col gap-4">
+        <Typography.H2 class="docs-section-heading">Glass surface</Typography.H2>
+        <Typography.Text variant="supporting">
+            Set surface="glass" on DropdownMenu.Content for a translucent background with blur.
+            Without a surface prop, the component follows --mielui-surface. An unset variable keeps
+            it solid; surface="solid" overrides a global glass theme. The glass surface keeps an
+            opaque fallback when backdrop filtering is unavailable and respects reduced-transparency
+            preferences.
+        </Typography.Text>
+        <ComponentPreview code={GlassSrc}><Glass /></ComponentPreview>
     </section>
 </div>

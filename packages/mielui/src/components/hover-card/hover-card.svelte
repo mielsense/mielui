@@ -1,7 +1,6 @@
 <script lang="ts">
-    import * as Popover from '@mielui/svelte/components/popover';
+    import { LinkPreview } from 'bits-ui';
     import { setContext } from 'svelte';
-    import type { Placement } from '../popover';
     import type { HoverCardProps } from '.';
 
     let {
@@ -10,16 +9,20 @@
         closeDelay = 150,
         children
     }: HoverCardProps = $props();
-
-    let placement = $state<Placement>('bottom');
-
+    const id = $props.id();
+    const state = $state({ title: false, description: false });
     setContext('mielui-hover-card', {
-        setPlacement(next: Placement) {
-            placement = next;
+        id,
+        state,
+        get open() {
+            return open;
+        },
+        set open(next: boolean) {
+            open = next;
         }
     });
 </script>
 
-<Popover.Root bind:open hoverable delay={openDelay} {closeDelay} {placement}>
+<LinkPreview.Root bind:open {openDelay} {closeDelay}>
     {@render children?.()}
-</Popover.Root>
+</LinkPreview.Root>

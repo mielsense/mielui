@@ -1,16 +1,19 @@
 <script lang="ts">
-    import ArrowUp from '@lucide/svelte/icons/arrow-up';
-    import AtSign from '@lucide/svelte/icons/at-sign';
-    import ImagePlus from '@lucide/svelte/icons/image-plus';
-    import SmilePlus from '@lucide/svelte/icons/smile-plus';
+    import {
+        ArrowUp02Icon as ArrowUp,
+        AtIcon as AtSign,
+        ImageAdd01Icon as ImagePlus,
+        SmileIcon as SmilePlus
+    } from '@hugeicons/core-free-icons';
     import { Button } from '@mielui/svelte/components/button';
     import * as DropdownMenu from '@mielui/svelte/components/dropdown-menu';
     import { Textarea } from '@mielui/svelte/components/textarea';
     import { Toolbar } from '@mielui/svelte/components/toolbar';
+    import HugeiconsIcon from '@mielui/svelte/hugeicons-icon';
 </script>
 
 <div class="w-full max-w-xl">
-    <Textarea aria-label="Reply to issue" placeholder="Reply to Aidan's comment..." autoresize>
+    <Textarea aria-label="Reply to issue" placeholder="Reply to mielsense's comment..." autoresize>
         <Toolbar aria-label="Reply actions">
             <div class="flex items-center gap-1">
                 <Button
@@ -18,15 +21,17 @@
                     size="md"
                     class="size-7 rounded-[var(--radius-md)] p-0"
                     aria-label="Mention someone"
-                    ><AtSign size={14} /></Button
                 >
+                    <HugeiconsIcon icon={AtSign} size={14} />
+                </Button>
                 <Button
                     variant="ghost"
                     size="md"
                     class="size-7 rounded-[var(--radius-md)] p-0"
                     aria-label="Add image"
-                    ><ImagePlus size={14} /></Button
                 >
+                    <HugeiconsIcon icon={ImagePlus} size={14} />
+                </Button>
                 <DropdownMenu.Root>
                     <DropdownMenu.Trigger
                         variant="ghost"
@@ -34,7 +39,7 @@
                         class="size-7 rounded-[var(--radius-md)] p-0"
                         aria-label="Add reaction"
                     >
-                        <SmilePlus size={14} />
+                        <HugeiconsIcon icon={SmilePlus} size={14} />
                     </DropdownMenu.Trigger>
                     <DropdownMenu.Content class="min-w-40">
                         <DropdownMenu.Label>Quick reactions</DropdownMenu.Label>
@@ -44,9 +49,9 @@
                     </DropdownMenu.Content>
                 </DropdownMenu.Root>
             </div>
-            <Button type="button" size="md" class="size-7 rounded-full p-0" aria-label="Reply"
-                ><ArrowUp size={14} /></Button
-            >
+            <Button type="button" size="md" class="size-7 rounded-full p-0" aria-label="Reply">
+                <HugeiconsIcon icon={ArrowUp} size={14} />
+            </Button>
         </Toolbar>
     </Textarea>
 </div>

@@ -1,17 +1,27 @@
 <script lang="ts">
-    import ChevronRight from '@lucide/svelte/icons/chevron-right';
-    import Moon from '@lucide/svelte/icons/moon';
-    import Sun from '@lucide/svelte/icons/sun';
+    import {
+        ArrowRight01Icon as ChevronRight,
+        Home01Icon as Home,
+        Menu01Icon as Menu,
+        Moon02Icon as Moon,
+        Sun03Icon as Sun,
+        Cancel01Icon as X
+    } from '@hugeicons/core-free-icons';
+    import { morph } from '@mielui/svelte/actions/morph';
     import { Button } from '@mielui/svelte/components/button';
-    import * as FullscreenNav from '@mielui/svelte/components/fullscreen-nav';
+    import * as Sheet from '@mielui/svelte/components/sheet';
+    import * as Tooltip from '@mielui/svelte/components/tooltip';
+    import HugeiconsIcon from '@mielui/svelte/hugeicons-icon';
     import { mode, toggleMode } from 'mode-watcher';
     import { resolve } from '$app/paths';
     import { page } from '$app/state';
-
     import GitHubBlack from '$lib/assets/GitHub_Invertocat_Black.svg';
     import GitHubWhite from '$lib/assets/GitHub_Invertocat_White.svg';
-    import { components, sanitizeComponent } from '$lib/components';
+    import { componentTypeHref, componentTypes, navigationGroups } from '$lib/components';
+    import SearchButton from '$lib/components/search/trigger.svelte';
+    import { componentGuidePages } from '$lib/docs-pages';
     import Logo from '../logo.svelte';
+    import NavigationItems from './navigation-items.svelte';
 
     const { starCount = null }: { starCount?: number | null } = $props();
     let mobileMenuOpen = $state(false);
@@ -23,31 +33,65 @@
 
     const navItems = [
         { href: '/docs/introduction', label: 'Docs' },
-        { href: '/docs/components', label: 'Components' },
         { href: '/studio', label: 'Studio' }
     ];
     const docsPages = [
         { title: 'Introduction', href: resolve('/docs/introduction') },
         { title: 'Installation', href: resolve('/docs/installation') },
         { title: 'Theming', href: resolve('/docs/theming') },
+        { title: 'Agent skill', href: resolve('/docs/agent-skill') },
         { title: 'Changelog', href: resolve('/docs/changelog') },
         { title: 'Components', href: resolve('/docs/components') }
     ];
-    const sortedComponents = $derived(
-        [...components].sort((a, b) => sanitizeComponent(a).localeCompare(sanitizeComponent(b)))
-    );
 
     const breadcrumbs = $derived.by(() => {
         const pathnameSegments = page.url.pathname.split('/').filter(Boolean);
         const isDocsPath = pathnameSegments[0] === 'docs';
         const segments = isDocsPath ? pathnameSegments.slice(1) : pathnameSegments;
         const basePath = isDocsPath ? '/docs' : '';
+        const category =
+            segments[0] === 'components'
+                ? navigationGroups.find((group) =>
+                      group.items.some((component) => component === segments[1])
+                  )
+                : undefined;
+
+        const type =
+            segments[0] === 'components'
+                ? componentTypes.find(
+                      (entry) => entry.id === segments[1] || entry.items.includes(segments[1])
+                  )
+                : undefined;
+        if (type) {
+            const parent = [
+                { href: '/', label: 'Home' },
+                { href: '/docs/components', label: 'Components' },
+                { href: componentTypeHref(type.id), label: type.heading }
+            ];
+            if (type.id !== segments[1]) {
+                parent.push({
+                    href: `/docs/components/${segments[1]}`,
+                    label: formatSegment(segments[1])
+                });
+            }
+            return parent;
+        }
 
         return [
-            { href: '/', label: 'mielui' },
+            { href: '/', label: 'Home' },
             ...segments.map((segment, index) => ({
-                href: `${basePath}/${segments.slice(0, index + 1).join('/')}`,
-                label: formatSegment(segment)
+                href:
+                    index === 0 && category
+                        ? `/docs/components#${category.id}`
+                        : `${basePath}/${segments.slice(0, index + 1).join('/')}`,
+                label:
+                    index === 0 && category
+                        ? category.heading
+                        : (componentGuidePages.find(
+                              (guide) =>
+                                  guide.href ===
+                                  `${basePath}/${segments.slice(0, index + 1).join('/')}`
+                          )?.title ?? formatSegment(segment))
             }))
         ];
     });
@@ -69,6 +113,10 @@
             .join(' ');
     }
 
+    function closeMobileMenu() {
+        mobileMenuOpen = false;
+    }
+
     function formatStarCount(count: number | null): string {
         if (count === null || Number.isNaN(count)) {
             return 'Star';
@@ -84,51 +132,82 @@
     }
 </script>
 
-<FullscreenNav.Root bind:open={mobileMenuOpen}>
+<Sheet.Root bind:open={mobileMenuOpen}>
     <header
-        class="z-20 mx-auto flex h-16 w-full max-w-[960px] items-center justify-between gap-4 px-2 sm:px-5 lg:px-10"
+        class="relative z-20 mx-auto flex h-[calc(var(--docs-row-height)-var(--border-size))] w-full shrink-0 items-center justify-between gap-4 px-2 sm:px-5 xl:grid xl:grid-cols-[minmax(0,1fr)_18rem] xl:gap-0 xl:px-0"
     >
-        <div class="flex min-w-0 items-center gap-2 sm:hidden">
-            <FullscreenNav.Trigger class="size-9 rounded-[var(--radius-md)]" />
-            <Logo />
+        <div
+            class="mx-auto flex w-full min-w-0 items-center justify-between gap-4 lg:px-[calc((var(--spacing)*5+2rem)/2)]"
+        >
+            <div class="flex min-w-0 items-center gap-2 lg:hidden">
+                <Tooltip.Root>
+                    <Tooltip.Trigger>
+                        <Sheet.Trigger
+                            class="size-9 rounded-[var(--radius-md)]"
+                            aria-label="Open navigation menu"
+                            variant="quiet"
+                            size="icon"
+                        >
+                            <HugeiconsIcon icon={Menu} size={18} />
+                        </Sheet.Trigger>
+                    </Tooltip.Trigger>
+                    <Tooltip.Content>Open navigation menu</Tooltip.Content>
+                </Tooltip.Root>
+                <div class="sm:hidden"><Logo /></div>
+            </div>
+
+            <nav aria-label="Breadcrumb" class="hidden w-full min-w-0 sm:block">
+                <ol
+                    class="flex min-w-0 items-center gap-1 overflow-hidden text-sm text-foreground-muted [font-weight:var(--font-weight-label,500)]"
+                >
+                    {#each breadcrumbs as breadcrumb, index (breadcrumb.href)}
+                        <li class="flex min-w-0 items-center gap-1">
+                            {#if index < breadcrumbs.length - 1}
+                                <a
+                                    href={breadcrumb.href}
+                                    class="truncate transition-colors hover:text-foreground focus-visible:rounded-sm focus-visible:outline-none focus-visible:shadow-[var(--focus-ring)]"
+                                >
+                                    {#if index === 0}
+                                        <HugeiconsIcon icon={Home} size={16} />
+                                        <span class="sr-only">Home</span>
+                                    {:else}
+                                        {breadcrumb.label}
+                                    {/if}
+                                </a>
+                            {:else}
+                                <span class="truncate text-foreground" aria-current="page">
+                                    {breadcrumb.label}
+                                </span>
+                            {/if}
+                            {#if index < breadcrumbs.length - 1}
+                                <HugeiconsIcon
+                                    icon={ChevronRight}
+                                    size={14}
+                                    class="shrink-0"
+                                    aria-hidden="true"
+                                />
+                            {/if}
+                        </li>
+                    {/each}
+                </ol>
+            </nav>
+
+            <div class="flex shrink-0 items-center justify-end gap-1.5">
+                <SearchButton />
+                <Button
+                    class="border-border/60 h-9 rounded-[var(--radius-md)] px-2.5 text-[0.8125rem]"
+                    variant="outline"
+                    href={resolve('/studio')}
+                >
+                    Studio
+                </Button>
+            </div>
         </div>
-
-        <nav aria-label="Breadcrumb" class="hidden min-w-0 sm:block">
-            <ol
-                class="flex min-w-0 items-center gap-1 overflow-hidden text-sm text-foreground-muted [font-weight:var(--font-weight-label,500)]"
-            >
-                {#each breadcrumbs as breadcrumb, index (breadcrumb.href)}
-                    <li class="flex min-w-0 items-center gap-1">
-                        {#if index < breadcrumbs.length - 1}
-                            <a
-                                href={breadcrumb.href}
-                                class="truncate transition-colors hover:text-foreground focus-visible:rounded-sm focus-visible:outline-none focus-visible:shadow-[var(--focus-ring)]"
-                            >
-                                {breadcrumb.label}
-                            </a>
-                        {:else}
-                            <span class="truncate text-foreground" aria-current="page"
-                                >{breadcrumb.label}</span
-                            >
-                        {/if}
-                        {#if index < breadcrumbs.length - 1}
-                            <ChevronRight size={14} class="shrink-0" aria-hidden="true" />
-                        {/if}
-                    </li>
-                {/each}
-            </ol>
-        </nav>
-
-        <div class="flex shrink-0 items-center gap-1.5">
+        <div
+            class="flex shrink-0 items-center gap-1.5 xl:h-full xl:border-l-[length:var(--border-size)] xl:border-[var(--docs-rule)] xl:justify-between xl:px-5"
+        >
             <Button
-                class="h-9 rounded-[var(--radius-md)] px-2.5 text-[0.8125rem]"
-                variant="outline"
-                href={resolve('/studio')}
-            >
-                Studio
-            </Button>
-            <Button
-                class="h-9 gap-1.5 rounded-[var(--radius-md)] px-2.5 text-[0.8125rem] tabular-nums"
+                class="border-border/60 h-9 gap-1.5 rounded-[var(--radius-md)] px-2.5 text-[0.8125rem] tabular-nums"
                 variant="outline"
                 href="https://github.com/mielsense/mielui"
                 target="_blank"
@@ -137,69 +216,98 @@
                     ? 'Star mielui on GitHub'
                     : `${formatStarCount(starCount)} GitHub stars`}
             >
-                <img
-                    src={mode.current === 'dark' ? GitHubWhite : GitHubBlack}
-                    alt=""
-                    class="size-[0.9375rem]"
-                />
+                <img src={GitHubBlack} alt="" class="size-[0.9375rem] dark:hidden" />
+                <img src={GitHubWhite} alt="" class="size-[0.9375rem] hidden dark:block" />
                 <span>{formatStarCount(starCount)}</span>
             </Button>
 
-            <Button
-                class="size-9 rounded-[var(--radius-md)]"
-                variant="outline"
-                onclick={() => {
-                    toggleMode();
-                }}
-                size="icon"
-                aria-label={mode.current === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
-            >
-                <span class="relative block size-4" aria-hidden="true">
-                    <Sun
-                        size={16}
-                        class={mode.current === 'dark'
-                            ? 'absolute inset-0 scale-[0.25] opacity-0 blur-[4px] transition-[filter,opacity,scale] duration-300 ease-[cubic-bezier(0.2,0,0,1)] motion-reduce:transition-none'
-                            : 'absolute inset-0 transition-[filter,opacity,scale] duration-300 ease-[cubic-bezier(0.2,0,0,1)] motion-reduce:transition-none'}
-                    />
-                    <Moon
-                        size={16}
-                        class={mode.current === 'dark'
-                            ? 'absolute inset-0 transition-[filter,opacity,scale] duration-300 ease-[cubic-bezier(0.2,0,0,1)] motion-reduce:transition-none'
-                            : 'absolute inset-0 scale-[0.25] opacity-0 blur-[4px] transition-[filter,opacity,scale] duration-300 ease-[cubic-bezier(0.2,0,0,1)] motion-reduce:transition-none'}
-                    />
-                </span>
-            </Button>
+            <Tooltip.Root>
+                <Tooltip.Trigger>
+                    <Button
+                        class="border-border/60 size-9 rounded-[var(--radius-md)]"
+                        variant="outline"
+                        onclick={() => {
+                            toggleMode();
+                        }}
+                        size="icon"
+                        aria-label={mode.current === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
+                    >
+                        <span
+                            class="inline-flex size-4"
+                            aria-hidden="true"
+                            use:morph={{ key: mode.current }}
+                        >
+                            <HugeiconsIcon icon={mode.current === 'dark' ? Moon : Sun} size={16} />
+                        </span>
+                    </Button>
+                </Tooltip.Trigger>
+                <Tooltip.Content>
+                    {mode.current === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
+                </Tooltip.Content>
+            </Tooltip.Root>
         </div>
     </header>
 
-    <FullscreenNav.Content label="Browse mielui" class="p-0 sm:hidden">
+    <Sheet.Content side="left" class="p-0 lg:hidden">
+        <Sheet.Title class="sr-only">Browse mielui</Sheet.Title>
+        <Sheet.Description class="sr-only">
+            Documentation and component categories.
+        </Sheet.Description>
         <header class="flex shrink-0 items-center justify-between px-3 py-3">
-            <a href={resolve('/')} class="font-semibold tracking-tight text-foreground no-underline"
-                >mielui</a
+            <a
+                href={resolve('/')}
+                class="font-semibold tracking-tight text-foreground no-underline"
             >
-            <FullscreenNav.Close />
+                mielui
+            </a>
+            <Tooltip.Root>
+                <Tooltip.Trigger>
+                    <Sheet.Close aria-label="Close navigation menu" variant="quiet" size="icon">
+                        <HugeiconsIcon icon={X} size={18} />
+                    </Sheet.Close>
+                </Tooltip.Trigger>
+                <Tooltip.Content>Close navigation menu</Tooltip.Content>
+            </Tooltip.Root>
         </header>
 
         <div class="min-h-0 flex-1 overflow-y-auto px-3 py-4">
-            <FullscreenNav.Group heading="Navigate">
+            <section class="flex flex-col gap-2 ">
+                <h2 class="mb-2 text-sm text-foreground-muted">Navigate</h2>
                 {#each navItems as item (item.href)}
-                    <FullscreenNav.Link href={item.href}>{item.label}</FullscreenNav.Link>
+                    <Button
+                        variant="quiet"
+                        class="w-full justify-start"
+                        onclick={closeMobileMenu}
+                        href={item.href}
+                    >
+                        {item.label}
+                    </Button>
                 {/each}
-            </FullscreenNav.Group>
+            </section>
 
-            <FullscreenNav.Group heading="Getting Started" class="mt-10">
+            <section class="flex flex-col gap-2 mt-10">
+                <h2 class="mb-2 text-sm text-foreground-muted">Getting Started</h2>
                 {#each docsPages as item (item.href)}
-                    <FullscreenNav.Link href={item.href}>{item.title}</FullscreenNav.Link>
+                    <Button
+                        variant="quiet"
+                        class="w-full justify-start"
+                        onclick={closeMobileMenu}
+                        href={item.href}
+                    >
+                        {item.title}
+                    </Button>
                 {/each}
-            </FullscreenNav.Group>
+            </section>
 
-            <FullscreenNav.Group heading="Components" class="mt-10">
-                {#each sortedComponents as component (component)}
-                    <FullscreenNav.Link href={`/docs/components/${component}`}>
-                        {sanitizeComponent(component)}
-                    </FullscreenNav.Link>
-                {/each}
-            </FullscreenNav.Group>
+            {#each navigationGroups as group (group.id)}
+                <section class="mt-10 flex flex-col gap-2">
+                    <h2 class="mb-2 text-sm text-foreground-muted">{group.heading}</h2>
+                    <NavigationItems {group} onNavigate={closeMobileMenu} />
+                    {#if group.items.length === 0}
+                        <p class="text-sm text-foreground-muted">No chart components yet.</p>
+                    {/if}
+                </section>
+            {/each}
         </div>
-    </FullscreenNav.Content>
-</FullscreenNav.Root>
+    </Sheet.Content>
+</Sheet.Root>

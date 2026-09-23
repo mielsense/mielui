@@ -1,5 +1,7 @@
 <script lang="ts">
-    import { DEFAULT_FONT, fonts, selectedFont } from '$lib/fonts.svelte';
+    import { DEFAULT_FONT, fonts, getDocsFontState } from '$lib/fonts.svelte';
+
+    const selectedFont = getDocsFontState();
 </script>
 
 <svelte:head>
@@ -33,12 +35,13 @@
                 aria-pressed={selectedFont.current === font.name}
                 class={`min-h-40 rounded-[var(--radius-lg)] border p-5 text-left transition-colors focus-visible:outline-none focus-visible:shadow-[var(--focus-ring)] ${selectedFont.current === font.name ? 'border-primary bg-primary/5' : 'border-border bg-card hover:border-foreground-muted'}`}
             >
-                <span class="text-xs text-foreground-muted"
-                    >{font.category}{font.name === DEFAULT_FONT ? ' · default' : ''}</span
-                >
-                <span class="mt-6 block text-3xl leading-none" style:font-family={font.family}
-                    >Ag</span
-                >
+                <span class="text-xs text-foreground-muted">
+                    {font.category}
+                    {font.name === DEFAULT_FONT ? ' · default' : ''}
+                </span>
+                <span class="mt-6 block text-3xl leading-none" style:font-family={font.family}>
+                    Ag
+                </span>
                 <span class="mt-3 block text-sm font-medium">{font.name}</span>
             </button>
         {/each}

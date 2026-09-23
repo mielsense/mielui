@@ -1,31 +1,46 @@
 <script lang="ts">
     import { themedSlide } from '@mielui/svelte/transition';
     import { cn } from '@mielui/svelte/utils';
-    import { getContext } from 'svelte';
-    import type { AccordionContentProps, AccordionContext } from '.';
+    import { Accordion as BitsAccordion } from 'bits-ui';
+    import { onDestroy, untrack } from 'svelte';
+    import type { AccordionContentProps } from '.';
+    import { getAccordionItemContext } from './item-context';
 
     let { class: className, children, ...rest }: AccordionContentProps = $props();
-    const ctx = getContext<AccordionContext>('accordion');
-    const item = getContext<{ value: string; disabled: boolean }>('accordion-item');
-    const open = $derived(ctx.isOpen(item.value));
+    const item = getAccordionItemContext();
+    const resolvedId = `${item.id}-content`;
+    const readId = () => {
+        return resolvedId;
+    };
+    untrack(() => {
+        item.content = readId;
+    });
+    onDestroy(() => {
+        if (item.content === readId) {
+            item.content = undefined;
+        }
+    });
 </script>
 
-{#if open}
-    <div
-        id={`accordion-content-${item.value}`}
-        role="region"
-        aria-labelledby={`accordion-trigger-${item.value}`}
-        data-ui="accordion-content"
-        data-state="open"
-        transition:themedSlide={{ durationVar: '--motion-duration-panel', fallback: 220 }}
-        class={cn(
+<BitsAccordion.Content forceMount id={resolvedId} {...rest}>
+    {#snippet child({ props, open })}
+        {#if open}
+            <div
+                {...props}
+                data-ui="accordion-content"
+                role={item.trigger ? 'region' : undefined}
+                aria-labelledby={item.trigger?.()}
+                data-state="open"
+                transition:themedSlide={{ durationVar: '--motion-duration-panel', fallback: 220 }}
+                class={cn(
             className,
             'overflow-hidden [font-size:var(--font-size-body)] [font-weight:var(--font-weight-body)] [letter-spacing:var(--tracking-body)] text-foreground-muted'
         )}
-        {...rest}
-    >
-        <div class="pb-4">
-            {@render children?.()}
-        </div>
-    </div>
-{/if}
+            >
+                <div class="pb-4">
+                    {@render children?.()}
+                </div>
+            </div>
+        {/if}
+    {/snippet}
+</BitsAccordion.Content>

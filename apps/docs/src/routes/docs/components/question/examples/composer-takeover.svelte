@@ -3,16 +3,15 @@
     import * as Composer from '@mielui/svelte/components/composer';
     import * as Conversation from '@mielui/svelte/components/conversation';
     import * as Message from '@mielui/svelte/components/message';
-    import type { QuestionAnswer } from '@mielui/svelte/components/question';
     import * as Question from '@mielui/svelte/components/question';
 
     let asking = $state(true);
-    let answer = $state<QuestionAnswer>();
+    let answer = $state('');
     let draft = $state('Keep the migration reversible.');
     let sentPrompt = $state('');
     let shouldFocusQuestion = $state(false);
 
-    function answerQuestion(value: QuestionAnswer) {
+    function answerQuestion(value: string) {
         answer = value;
         asking = false;
     }
@@ -20,6 +19,9 @@
     function sendPrompt(value: string) {
         sentPrompt = value;
         draft = '';
+    }
+    function cancelQuestion() {
+        asking = false;
     }
 </script>
 
@@ -42,7 +44,8 @@
             {#if answer}
                 <Message.Root from="user">
                     <Message.Content>
-                        Use {Array.isArray(answer) ? answer.join(', ') : answer}.
+                        Use{Array.isArray(answer) ? answer.join(', ') : answer}
+                        .
                     </Message.Content>
                 </Message.Root>
             {/if}
@@ -82,9 +85,7 @@
                     </Question.Options>
                 </Question.Content>
                 <Question.Actions>
-                    <Question.Cancel onclick={() => (asking = false)}
-                        >Skip question</Question.Cancel
-                    >
+                    <Question.Cancel onclick={cancelQuestion}>Skip question</Question.Cancel>
                     <Question.Submit />
                 </Question.Actions>
             </Question.Root>

@@ -1,5 +1,6 @@
 <script lang="ts">
     import { cn, pressable } from '@mielui/svelte/utils';
+    import { ToggleGroup as BitsToggleGroup } from 'bits-ui';
     import { getContext } from 'svelte';
     import type { ToggleGroupContext, ToggleGroupItemProps } from '.';
 
@@ -10,24 +11,26 @@
     const isDisabled = $derived(disabled || ctx.disabled);
 </script>
 
-<button
-    type="button"
-    use:pressable
-    data-ui="toggle-group-item"
-    data-collection-item
-    data-collection-active={ctx.type === 'single' && active}
-    data-state={active ? 'on' : 'off'}
-    aria-pressed={active}
-    disabled={isDisabled}
-    onclick={() => ctx.setValue(value)}
-    class={cn(
+<BitsToggleGroup.Item {value} disabled={isDisabled} {...rest} id={rest.id ?? undefined}>
+    {#snippet child({ props })}
+        <button
+            {...props}
+            type="button"
+            use:pressable
+            data-ui="toggle-group-item"
+            data-collection-item
+            data-collection-active={ctx.type === 'single' && active}
+            data-state={active ? 'on' : 'off'}
+            disabled={isDisabled}
+            class={cn(
         className,
         'mielui-press inline-flex h-8 select-none items-center justify-center gap-1.5 rounded-[var(--radius-md)] px-3 [font-size:var(--font-size-label)] [font-weight:var(--font-weight-label)] [letter-spacing:var(--tracking-label)] transition-[background-color,color,transform,scale] [transition-duration:var(--motion-duration-press)] ease-[var(--ease-press)] motion-reduce:transition-none focus-visible:outline-none focus-visible:shadow-[var(--focus-ring)] disabled:cursor-not-allowed disabled:opacity-[var(--opacity-disabled)]',
         active
             ? 'bg-secondary text-foreground'
             : 'relative z-10 bg-transparent text-foreground-muted hover:text-foreground'
     )}
-    {...rest}
->
-    {@render children?.()}
-</button>
+        >
+            {@render children?.()}
+        </button>
+    {/snippet}
+</BitsToggleGroup.Item>

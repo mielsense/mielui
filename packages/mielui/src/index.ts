@@ -22,6 +22,203 @@ export type BrandMarkProps = {
     label?: string;
 };
 
+export type { NumberShuffleOptions } from './actions/number-shuffle';
+export { numberShuffle } from './actions/number-shuffle';
+export type {
+    AttachmentItemProps,
+    AttachmentListProps,
+    AttachmentProps,
+    AttachmentRejection,
+    AttachmentRejectionCode,
+    AttachmentStatus,
+    AttachmentTriggerProps
+} from './ai-components/attachment';
+export * as Attachment from './ai-components/attachment';
+export type {
+    ComposerActionsProps,
+    ComposerInputProps,
+    ComposerProps,
+    ComposerStatus,
+    ComposerSubmitAction,
+    ComposerSubmitProps,
+    ComposerSubmitState,
+    ComposerToolbarProps
+} from './ai-components/composer';
+export * as Composer from './ai-components/composer';
+export type {
+    ConversationContentProps,
+    ConversationEmptyProps,
+    ConversationRootProps,
+    ConversationScrollButtonProps
+} from './ai-components/conversation';
+export * as Conversation from './ai-components/conversation';
+export type {
+    MessageActionsProps,
+    MessageAvatarProps,
+    MessageBodyProps,
+    MessageContentProps,
+    MessageFrom,
+    MessageMetadataProps,
+    MessageNameProps,
+    MessageRootProps,
+    MessageStatus,
+    MessageStatusProps,
+    MessageTimeProps
+} from './ai-components/message';
+export * as Message from './ai-components/message';
+export type {
+    QuestionActionProps,
+    QuestionActionsProps,
+    QuestionAnswer,
+    QuestionDescriptionProps,
+    QuestionInputProps,
+    QuestionOptionProps,
+    QuestionOptionsProps,
+    QuestionProps,
+    QuestionStatus,
+    QuestionSubmitProps,
+    QuestionTitleProps,
+    QuestionType
+} from './ai-components/question';
+export * as Question from './ai-components/question';
+export type {
+    ReasoningContentProps,
+    ReasoningRootProps,
+    ReasoningTriggerProps,
+    ReasoningTriggerState
+} from './ai-components/reasoning';
+export * as Reasoning from './ai-components/reasoning';
+export type { ResponseStreamProps } from './ai-components/response-stream';
+export { ResponseStream } from './ai-components/response-stream';
+export type {
+    ToolContentProps,
+    ToolInputProps,
+    ToolItemProps,
+    ToolOutputProps,
+    ToolProps,
+    ToolState,
+    ToolTriggerProps,
+    ToolTriggerState,
+    ToolVariant
+} from './ai-components/tool';
+export * as Tool from './ai-components/tool';
+export type {
+    CodeBlockActionsProps,
+    CodeBlockContentProps,
+    CodeBlockCopyPlacement,
+    CodeBlockCopyProps,
+    CodeBlockHeaderProps,
+    CodeBlockListProps,
+    CodeBlockProps,
+    CodeBlockTab,
+    CodeBlockTheme,
+    CodeBlockTriggerProps
+} from './blocks/code-block';
+export { CodeBlock } from './blocks/code-block';
+export type {
+    ColorFormat,
+    ColorOption,
+    ColorPickerChannelsProps,
+    ColorPickerContentProps,
+    ColorPickerHexInputProps,
+    ColorPickerHueProps,
+    ColorPickerPlaneProps,
+    ColorPickerPresetsProps,
+    ColorPickerPreviewProps,
+    ColorPickerProps
+} from './blocks/color-picker';
+export * as ColorPicker from './blocks/color-picker';
+export type {
+    CommandItem,
+    CommandItemProps,
+    CommandProps,
+    CommandResultsProps,
+    CommandSearchProps
+} from './blocks/command';
+export * as Command from './blocks/command';
+export type { CopyButtonProps } from './blocks/copy-button';
+export { CopyButton } from './blocks/copy-button';
+export type {
+    DataTableBodyProps,
+    DataTableColumnHeaderProps,
+    DataTableEmptyProps,
+    DataTableFacetProps,
+    DataTableFilterClause,
+    DataTableFilterDefinition,
+    DataTableFilterProps,
+    DataTableFiltersProps,
+    DataTableHeaderProps,
+    DataTablePaginationProps,
+    DataTableProps,
+    DataTableSelectionProps,
+    DataTableSortProps,
+    DataTableState,
+    DataTableSummaryProps,
+    DataTableToolbarProps,
+    DataTableViewProps
+} from './blocks/data-table';
+export * as DataTable from './blocks/data-table';
+export { dataTableFilter } from './blocks/data-table';
+export type {
+    FileDiffChangeType,
+    FileDiffContentProps,
+    FileDiffContext,
+    FileDiffLine,
+    FileDiffLineNumberProps,
+    FileDiffRootProps,
+    FileDiffRowProps,
+    FileDiffTheme,
+    FileDiffTopBarProps
+} from './blocks/file-diff';
+export * as FileDiff from './blocks/file-diff';
+export type { MarkdownProps } from './blocks/markdown';
+export { Markdown } from './blocks/markdown';
+export * as Notch from './blocks/notch';
+export type {
+    ReorderListContentProps,
+    ReorderListHandleProps,
+    ReorderListItemProps,
+    ReorderListProps
+} from './blocks/reorder-list';
+export { ReorderList } from './blocks/reorder-list';
+export type { ShowMoreProps } from './blocks/show-more';
+export { ShowMore } from './blocks/show-more';
+export type {
+    TaskStep,
+    TaskStepStatus,
+    TaskStepsIndicatorProps,
+    TaskStepsItemProps,
+    TaskStepsLabelProps,
+    TaskStepsListProps,
+    TaskStepsMetaProps,
+    TaskStepsProps,
+    TaskStepsState,
+    TaskStepsSummaryProps
+} from './blocks/task-steps';
+export { TaskSteps } from './blocks/task-steps';
+export type {
+    ToastAction,
+    ToastFn,
+    ToastState,
+    ToastType,
+    ToastUIState
+} from './blocks/toast';
+// Toast ships a component plus its imperative helpers.
+export { getToastUIState, Toast, Toaster, toast } from './blocks/toast';
+export type {
+    ToolbarButtonProps,
+    ToolbarGroupProps,
+    ToolbarItemProps,
+    ToolbarLinkProps,
+    ToolbarProps,
+    ToolbarRootProps
+} from './blocks/toolbar';
+export { Toolbar } from './blocks/toolbar';
+export * as Chart from './chart-components/chart';
+export type { GaugeProps, GaugeTone } from './chart-components/gauge';
+export { Gauge } from './chart-components/gauge';
+export * as Heatmap from './chart-components/heatmap';
+export * as PieChart from './chart-components/pie-chart';
 export type {
     AccordionContentProps,
     AccordionItemProps,
@@ -43,16 +240,6 @@ export type {
     AlertDialogProps
 } from './components/alert-dialog';
 export * as AlertDialog from './components/alert-dialog';
-export type {
-    AttachmentItemProps,
-    AttachmentListProps,
-    AttachmentProps,
-    AttachmentRejection,
-    AttachmentRejectionCode,
-    AttachmentStatus,
-    AttachmentTriggerProps
-} from './components/attachment';
-export * as Attachment from './components/attachment';
 export type { AvatarFallbackProps, AvatarImageProps, AvatarProps } from './components/avatar';
 export * as Avatar from './components/avatar';
 export type { BadgeProps, BadgeVariant } from './components/badge';
@@ -65,6 +252,8 @@ export type {
 export * as Breadcrumb from './components/breadcrumb';
 export type { ButtonProps, ButtonStatus, ButtonVariant } from './components/button';
 export { Button } from './components/button';
+export type { CalendarMonthProps, CalendarProps } from './components/calendar';
+export * as Calendar from './components/calendar';
 export type {
     CardContentProps,
     CardDescriptionProps,
@@ -77,45 +266,13 @@ export * as Card from './components/card';
 export type { CheckboxProps } from './components/checkbox';
 export { Checkbox } from './components/checkbox';
 export type {
-    CodeBlockActionsProps,
-    CodeBlockContentProps,
-    CodeBlockCopyPlacement,
-    CodeBlockCopyProps,
-    CodeBlockHeaderProps,
-    CodeBlockListProps,
-    CodeBlockProps,
-    CodeBlockTab,
-    CodeBlockTheme,
-    CodeBlockTriggerProps
-} from './components/code-block';
-export { CodeBlock } from './components/code-block';
-export type {
     CollapsibleContentProps,
     CollapsibleProps,
     CollapsibleTriggerProps
 } from './components/collapsible';
 export * as Collapsible from './components/collapsible';
-export type {
-    ColorFormat,
-    ColorOption,
-    ColorPickerProps
-} from './components/color-picker';
-export * as ColorPicker from './components/color-picker';
 export type { ComboboxItem, ComboboxRootProps, ComboboxTriggerProps } from './components/combobox';
 export * as Combobox from './components/combobox';
-export type { CommandItem, CommandItemProps, CommandProps } from './components/command';
-export * as Command from './components/command';
-export type {
-    ComposerActionsProps,
-    ComposerInputProps,
-    ComposerProps,
-    ComposerStatus,
-    ComposerSubmitAction,
-    ComposerSubmitProps,
-    ComposerSubmitState,
-    ComposerToolbarProps
-} from './components/composer';
-export * as Composer from './components/composer';
 export type {
     ContextMenuCheckboxItemProps,
     ContextMenuContentProps,
@@ -128,15 +285,38 @@ export type {
     ContextMenuTriggerProps
 } from './components/context-menu';
 export * as ContextMenu from './components/context-menu';
+export type { DatePickerContentProps, DatePickerProps } from './components/date-picker';
+export * as DatePicker from './components/date-picker';
+export type { DateRangePickerProps } from './components/date-range-picker';
+export * as DateRangePicker from './components/date-range-picker';
 export type {
-    ConversationContentProps,
-    ConversationEmptyProps,
-    ConversationRootProps,
-    ConversationScrollButtonProps
-} from './components/conversation';
-export * as Conversation from './components/conversation';
-export type { CopyButtonProps } from './components/copy-button';
-export { CopyButton } from './components/copy-button';
+    DialogBodyProps,
+    DialogCloseProps,
+    DialogConfirmProps,
+    DialogContentProps,
+    DialogDescriptionProps,
+    DialogFooterProps,
+    DialogHeaderProps,
+    DialogOrientation,
+    DialogProps,
+    DialogSize,
+    DialogTitleProps,
+    DialogTriggerProps
+} from './components/dialog';
+export * as Dialog from './components/dialog';
+export type {
+    DrawerCloseProps,
+    DrawerContentProps,
+    DrawerDescriptionProps,
+    DrawerHandleProps,
+    DrawerOverlayProps,
+    DrawerPortalProps,
+    DrawerRegionProps,
+    DrawerRootProps,
+    DrawerTitleProps,
+    DrawerTriggerProps
+} from './components/drawer';
+export * as Drawer from './components/drawer';
 export type {
     DropdownMenuCheckboxItemProps,
     DropdownMenuItemProps,
@@ -145,29 +325,45 @@ export type {
     DropdownMenuRadioItemProps
 } from './components/dropdown-menu';
 export * as DropdownMenu from './components/dropdown-menu';
+export * as EmptyState from './components/empty-state';
 export type {
-    FileDiffChangeType,
-    FileDiffContentProps,
-    FileDiffContext,
-    FileDiffLine,
-    FileDiffLineNumberProps,
-    FileDiffRootProps,
-    FileDiffRowProps,
-    FileDiffTheme,
-    FileDiffTopBarProps
-} from './components/file-diff';
-export * as FileDiff from './components/file-diff';
+    FieldContentProps,
+    FieldControlAttributes,
+    FieldControlProps,
+    FieldDescriptionProps,
+    FieldErrorProps,
+    FieldGroupProps,
+    FieldIssue,
+    FieldLabelProps,
+    FieldProps
+} from './components/field';
+export * as Field from './components/field';
 export type {
-    FullscreenNavCloseProps,
-    FullscreenNavContentProps,
-    FullscreenNavGroupProps,
-    FullscreenNavLinkProps,
-    FullscreenNavProps,
-    FullscreenNavTriggerProps
-} from './components/fullscreen-nav';
-export * as FullscreenNav from './components/fullscreen-nav';
-export type { GaugeProps, GaugeTone } from './components/gauge';
-export { Gauge } from './components/gauge';
+    FieldsetDescriptionProps,
+    FieldsetLegendProps,
+    FieldsetProps
+} from './components/fieldset';
+export * as Fieldset from './components/fieldset';
+export type {
+    FileUploadButtonProps,
+    FileUploadEntry,
+    FileUploadItemProps,
+    FileUploadListProps,
+    FileUploadPartProps,
+    FileUploadProps,
+    FileUploadSummary
+} from './components/file-upload';
+export * as FileUpload from './components/file-upload';
+export type {
+    FormActionsProps,
+    FormErrorSummaryProps,
+    FormIssue,
+    FormProps,
+    FormStatusProps,
+    FormSubmitProps
+} from './components/form';
+export * as Form from './components/form';
+export * as Group from './components/group';
 export type {
     HoverCardContentProps,
     HoverCardProps,
@@ -176,33 +372,27 @@ export type {
 export * as HoverCard from './components/hover-card';
 export type { InputProps } from './components/input';
 export { Input } from './components/input';
+export type { KbdProps } from './components/kbd';
+export { Kbd } from './components/kbd';
 export type { LabelProps } from './components/label';
 export { Label } from './components/label';
-export type { MarkdownProps } from './components/markdown';
-export { Markdown } from './components/markdown';
+export * as NativeSelect from './components/native-select';
 export type {
-    MessageActionsProps,
-    MessageContentProps,
-    MessageFrom,
-    MessageRootProps,
-    MessageStatus
-} from './components/message';
-export * as Message from './components/message';
+    NumberFieldGroupProps,
+    NumberFieldInputProps,
+    NumberFieldLabelProps,
+    NumberFieldProps,
+    NumberFieldStepperProps
+} from './components/number-field';
+export * as NumberField from './components/number-field';
 export type {
-    ModalBodyProps,
-    ModalCloseProps,
-    ModalConfirmProps,
-    ModalContentProps,
-    ModalDescriptionProps,
-    ModalFooterProps,
-    ModalHeaderProps,
-    ModalOrientation,
-    ModalProps,
-    ModalSize,
-    ModalTitleProps,
-    ModalTriggerProps
-} from './components/modal';
-export * as Modal from './components/modal';
+    OTPFieldCellProps,
+    OTPFieldCellState,
+    OTPFieldGroupProps,
+    OTPFieldProps,
+    OTPFieldSeparatorProps
+} from './components/otp-field';
+export * as OTPField from './components/otp-field';
 export type { PaginationProps } from './components/pagination';
 export { Pagination } from './components/pagination';
 export type {
@@ -215,38 +405,16 @@ export type {
 export * as Popover from './components/popover';
 export type { ProgressProps } from './components/progress';
 export { Progress } from './components/progress';
-export type {
-    QuestionActionProps,
-    QuestionActionsProps,
-    QuestionAnswer,
-    QuestionDescriptionProps,
-    QuestionInputProps,
-    QuestionOptionProps,
-    QuestionOptionsProps,
-    QuestionProps,
-    QuestionStatus,
-    QuestionSubmitProps,
-    QuestionTitleProps,
-    QuestionType
-} from './components/question';
-export * as Question from './components/question';
 export type { RadioGroupItemProps, RadioGroupProps } from './components/radio-group';
 export * as RadioGroup from './components/radio-group';
-export type {
-    ReasoningContentProps,
-    ReasoningRootProps,
-    ReasoningTriggerProps,
-    ReasoningTriggerState
-} from './components/reasoning';
-export * as Reasoning from './components/reasoning';
-export type { ReorderListProps } from './components/reorder-list';
-export { ReorderList } from './components/reorder-list';
-export type { ResponseStreamProps } from './components/response-stream';
-export { ResponseStream } from './components/response-stream';
+export type { RangeCalendarMonthProps, RangeCalendarProps } from './components/range-calendar';
+export * as RangeCalendar from './components/range-calendar';
 export type { ScrollAreaProps } from './components/scroll-area';
 export { ScrollArea } from './components/scroll-area';
 export type { SelectItemProps, SelectProps, SelectValueProps } from './components/select';
 export * as Select from './components/select';
+export type { SeparatorProps } from './components/separator';
+export { Separator } from './components/separator';
 export type {
     SheetCloseProps,
     SheetContentProps,
@@ -258,10 +426,6 @@ export type {
     SheetTriggerProps
 } from './components/sheet';
 export * as Sheet from './components/sheet';
-export type { ShortcutProps } from './components/shortcut';
-export { Shortcut } from './components/shortcut';
-export type { ShowMoreProps } from './components/show-more';
-export { ShowMore } from './components/show-more';
 export type { SkeletonProps, SkeletonSwapProps } from './components/skeleton';
 export { Skeleton, SkeletonSwap } from './components/skeleton';
 export type { SliderProps } from './components/slider';
@@ -270,6 +434,7 @@ export type { SpinnerProps } from './components/spinner';
 export { Spinner } from './components/spinner';
 export type { SwitchProps } from './components/switch';
 export { Switch } from './components/switch';
+export * as Table from './components/table';
 export type {
     TabsContentProps,
     TabsListProps,
@@ -288,39 +453,17 @@ export type {
     TagInputVariant
 } from './components/tag-input';
 export * as TagInput from './components/tag-input';
-export type { TaskStep, TaskStepStatus, TaskStepsProps } from './components/task-steps';
-export { TaskSteps } from './components/task-steps';
 export type { TextareaProps } from './components/textarea';
 export { Textarea } from './components/textarea';
-export type {
-    ToastAction,
-    ToastFn,
-    ToastState,
-    ToastType,
-    ToastUIState
-} from './components/toast';
-// Toast ships a component plus its imperative helpers.
-export { getToastUIState, Toast, Toaster, toast } from './components/toast';
 export type { ToggleProps } from './components/toggle';
 export { Toggle } from './components/toggle';
 export type { ToggleGroupItemProps, ToggleGroupProps } from './components/toggle-group';
 export * as ToggleGroup from './components/toggle-group';
 export type {
-    ToolInputProps,
-    ToolItemProps,
-    ToolOutputProps,
-    ToolProps,
-    ToolState,
-    ToolTriggerState,
-    ToolVariant
-} from './components/tool';
-export * as Tool from './components/tool';
-export type { ToolbarProps } from './components/toolbar';
-export { Toolbar } from './components/toolbar';
-export type {
     TooltipContentProps,
     TooltipPlacement,
     TooltipProps,
+    TooltipProviderProps,
     TooltipTriggerProps
 } from './components/tooltip';
 export * as Tooltip from './components/tooltip';
@@ -336,3 +479,4 @@ export type {
     TypographyTitleProps
 } from './components/typography';
 export * as Typography from './components/typography';
+export { default as HugeiconsIcon } from './hugeicons-icon.svelte';

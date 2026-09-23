@@ -12,10 +12,12 @@ export const manifest: Manifest = {
         'components/switch/index.ts',
         'components/switch/manifest.ts'
     ],
-    components: [],
-    shared: ['utils.cn'],
+    components: ['_internal/utils'],
+    shared: ['components/_internal/field-metadata', 'utils.cn'],
     peerDependencies: {
+        '@floating-ui/dom': '1.7.6',
+        'bits-ui': '^2.19.2',
         cnfast: '^0.0.8',
-        svelte: '^5.0.0'
+        svelte: '^5.56.0'
     }
 };

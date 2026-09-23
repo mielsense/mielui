@@ -18,9 +18,8 @@ async function settleAnimations() {
 }
 
 async function hover(testId: string) {
-    const el = page.getByTestId(testId).element() as HTMLElement;
-    const target = (el.closest('button') as HTMLElement | null) ?? el;
-    target.dispatchEvent(new MouseEvent('mouseenter'));
+    await page.getByTestId(testId).hover();
+    await new Promise((resolve) => setTimeout(resolve, 150));
     await flush();
     await settleAnimations();
 }
@@ -104,10 +103,25 @@ describe('DropdownMenu submenu cone', () => {
         await expect.element(page.getByTestId('dd-social')).toBeInTheDocument();
 
         const social = page.getByTestId('dd-social').element();
-        const panel = social.closest('[data-ui="popover-content"]') as HTMLElement;
-        const floating = panel.parentElement as HTMLElement;
+        const panel = social.closest('[data-ui="dropdown-menu-sub-content"]') as HTMLElement;
+        const floating = panel;
         panel.focus();
-        floating.dispatchEvent(new MouseEvent('mouseleave', { bubbles: false }));
+        const bounds = panel.getBoundingClientRect();
+        floating.dispatchEvent(
+            new PointerEvent('pointerleave', {
+                pointerType: 'mouse',
+                clientX: bounds.left,
+                clientY: bounds.top + bounds.height / 2
+            })
+        );
+        document.dispatchEvent(
+            new PointerEvent('pointermove', {
+                bubbles: true,
+                pointerType: 'mouse',
+                clientX: -1000,
+                clientY: -1000
+            })
+        );
         await new Promise((r) => setTimeout(r, 250));
         await flush();
 
@@ -122,10 +136,23 @@ describe('DropdownMenu submenu cone', () => {
         await expect.element(page.getByTestId('dd-social')).toBeInTheDocument();
 
         const social = page.getByTestId('dd-social').element();
-        const panel = social.closest('[data-ui="popover-content"]') as HTMLElement;
-        const floating = panel.parentElement as HTMLElement;
+        const panel = social.closest('[data-ui="dropdown-menu-sub-content"]') as HTMLElement;
+        const floating = panel;
+        const bounds = panel.getBoundingClientRect();
         floating.dispatchEvent(
-            new MouseEvent('mouseleave', { bubbles: false, clientX: -1000, clientY: -1000 })
+            new PointerEvent('pointerleave', {
+                pointerType: 'mouse',
+                clientX: bounds.left,
+                clientY: bounds.top + bounds.height / 2
+            })
+        );
+        document.dispatchEvent(
+            new PointerEvent('pointermove', {
+                bubbles: true,
+                pointerType: 'mouse',
+                clientX: -1000,
+                clientY: -1000
+            })
         );
         await new Promise((r) => setTimeout(r, 30));
         await flush();
@@ -146,12 +173,13 @@ describe('DropdownMenu submenu cone', () => {
         const panel = page
             .getByTestId('dd-social')
             .element()
-            .closest('[data-ui="popover-content"]') as HTMLElement;
+            .closest('[data-ui="dropdown-menu-sub-content"]') as HTMLElement;
         const triggerBounds = trigger.getBoundingClientRect();
         const panelBounds = panel.getBoundingClientRect();
         trigger.dispatchEvent(
-            new MouseEvent('mouseleave', {
+            new PointerEvent('pointerleave', {
                 bubbles: false,
+                pointerType: 'mouse',
                 clientX: (triggerBounds.right + panelBounds.left) / 2,
                 clientY: (triggerBounds.top + triggerBounds.bottom) / 2
             })
@@ -161,7 +189,7 @@ describe('DropdownMenu submenu cone', () => {
         await flush();
         await expect.element(page.getByTestId('dd-social')).toBeInTheDocument();
 
-        await new Promise((resolve) => setTimeout(resolve, 150));
+        await new Promise((resolve) => setTimeout(resolve, 400));
         await flush();
         await expect.element(page.getByTestId('dd-social')).not.toBeInTheDocument();
     });
@@ -172,21 +200,7 @@ describe('DropdownMenu submenu cone', () => {
         await openDropdown();
         await hover('dd-share');
 
-        const social = page.getByTestId('dd-social').element();
-        const panel = social.closest('[data-ui="popover-content"]') as HTMLElement;
-        const floating = panel.parentElement as HTMLElement;
-        const rootItem = page.getByTestId('dd-root-item').element();
-        const rootBounds = rootItem.getBoundingClientRect();
-        floating.dispatchEvent(
-            new MouseEvent('mouseleave', {
-                bubbles: false,
-                clientX: rootBounds.left + rootBounds.width / 2,
-                clientY: rootBounds.top + rootBounds.height / 2
-            })
-        );
-
-        await new Promise((resolve) => setTimeout(resolve, 30));
-        await flush();
+        await hover('dd-root-item');
         await expect.element(page.getByTestId('dd-social')).not.toBeInTheDocument();
     });
 

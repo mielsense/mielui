@@ -1,8 +1,9 @@
 <script lang="ts">
-    import Bold from '@lucide/svelte/icons/bold';
+    import { TextBoldIcon as Bold } from '@hugeicons/core-free-icons';
     import { Toggle } from '@mielui/svelte/components/toggle';
+    import HugeiconsIcon from '@mielui/svelte/hugeicons-icon';
 </script>
 
-<Toggle disabled>
-    <Bold size={14} />
+<Toggle aria-label="Bold" disabled>
+    <HugeiconsIcon icon={Bold} size={14} />
 </Toggle>

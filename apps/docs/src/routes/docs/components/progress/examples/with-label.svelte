@@ -7,5 +7,5 @@
         <span>Uploading…</span>
         <span>72%</span>
     </div>
-    <Progress value={72} />
+    <Progress aria-label="Upload progress" value={72} />
 </div>

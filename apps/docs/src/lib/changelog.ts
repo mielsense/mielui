@@ -1,3 +1,5 @@
+import pkg from '../../../../packages/mielui/package.json';
+
 type ChangelogEntry = {
     type: string;
     content: string;
@@ -112,7 +114,7 @@ export function changelogDocsMarkdown(): string {
             }
 
             return [
-                `## ${version}`,
+                `## ${version}${version.localeCompare(pkg.version, undefined, { numeric: true }) > 0 ? ' · Unreleased' : ''}`,
                 '',
                 ...entries.flatMap((entry) => {
                     return [`### ${titleFromType(entry.type)}`, '', entry.content, ''];

@@ -1,7 +1,8 @@
 <script lang="ts">
-    import Expand from '@lucide/svelte/icons/expand';
+    import { ArrowExpandIcon as Expand } from '@hugeicons/core-free-icons';
     import { Button } from '@mielui/svelte/components/button';
     import * as FileDiff from '@mielui/svelte/components/file-diff';
+    import HugeiconsIcon from '@mielui/svelte/hugeicons-icon';
 </script>
 
 <FileDiff.Root file="src/auth.ts" lang="ts" additions={3} deletions={1} class="max-w-2xl">
@@ -9,7 +10,7 @@
         <FileDiff.Filename />
         <FileDiff.PlusMinus />
         <Button variant="ghost" size="icon" class="size-7" aria-label="Expand diff">
-            <Expand size={14} />
+            <HugeiconsIcon icon={Expand} size={14} />
         </Button>
     </FileDiff.TopBar>
     <FileDiff.Content>

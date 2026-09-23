@@ -14,7 +14,7 @@
                 class="my-0 border-b border-border py-2.5 first:pt-0 last:border-b-0 last:pb-0"
             >
                 <Typography.InlineCode>{item.name}</Typography.InlineCode>
-                - {item.description}
+                -{item.description}
             </Typography.Text>
         {/each}
     </div>

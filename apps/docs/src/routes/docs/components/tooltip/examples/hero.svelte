@@ -1,12 +1,16 @@
 <script lang="ts">
-    import Frame from '@lucide/svelte/icons/frame';
-    import MessageCircle from '@lucide/svelte/icons/message-circle';
-    import MousePointer2 from '@lucide/svelte/icons/mouse-pointer-2';
-    import PenTool from '@lucide/svelte/icons/pen-tool';
-    import Square from '@lucide/svelte/icons/square';
-    import Type from '@lucide/svelte/icons/type';
-    import Shortcut from '@mielui/svelte/components/shortcut';
+    import {
+        FrameIcon as Frame,
+        BubbleChatIcon as MessageCircle,
+        MousePointer01Icon as MousePointer2,
+        PenTool01Icon as PenTool,
+        SquareIcon as Square,
+        TextFontIcon as Type
+    } from '@hugeicons/core-free-icons';
+    import { Button } from '@mielui/svelte/components/button';
+    import Kbd from '@mielui/svelte/components/kbd';
     import * as Tooltip from '@mielui/svelte/components/tooltip';
+    import HugeiconsIcon from '@mielui/svelte/hugeicons-icon';
 
     let activeTool = $state<string>('move');
 
@@ -20,30 +24,29 @@
     ];
 </script>
 
-<div class="flex items-center justify-center p-10">
-    <div class="flex gap-1 rounded-[var(--radius-lg)] border border-border bg-card p-1">
+<div class="flex max-w-full items-center justify-center p-2 sm:p-6">
+    <div class="flex flex-wrap gap-1 rounded-[var(--radius-lg)] border border-border bg-card p-1">
         {#each tools as tool (tool.id)}
-            {@const Icon = tool.icon}
             <Tooltip.Root placement="top" delay={300}>
                 <Tooltip.Trigger>
-                    <button
+                    <Button
+                        variant="ghost"
+                        size="icon"
                         type="button"
-                        class="inline-flex size-8 items-center justify-center rounded-[var(--radius-md)] transition-colors"
-                        class:bg-secondary={activeTool === tool.id}
-                        class:text-foreground={activeTool === tool.id}
-                        class:text-foreground-muted={activeTool !== tool.id}
-                        class:hover:bg-secondary={activeTool !== tool.id}
-                        class:hover:text-foreground={activeTool !== tool.id}
+                        class={`size-8 ${activeTool === tool.id
+                            ? 'bg-secondary text-foreground'
+                            : 'text-foreground-muted hover:bg-secondary hover:text-foreground'}`}
                         onclick={() => (activeTool = tool.id)}
                         aria-label={tool.label}
+                        aria-pressed={activeTool === tool.id}
                     >
-                        <Icon size={16} />
-                    </button>
+                        <HugeiconsIcon icon={tool.icon} size={16} />
+                    </Button>
                 </Tooltip.Trigger>
                 <Tooltip.Content>
                     <div class="flex items-center gap-2">
                         <span>{tool.label}</span>
-                        <Shortcut shortcut={tool.shortcut} />
+                        <Kbd shortcut={tool.shortcut} />
                     </div>
                 </Tooltip.Content>
             </Tooltip.Root>

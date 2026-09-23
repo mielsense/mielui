@@ -1,101 +1,107 @@
 <script lang="ts">
-    import * as Popover from '@mielui/svelte/components/popover';
+    import { Combobox as ComboboxPrimitive } from 'bits-ui';
     import { untrack } from 'svelte';
-    import { SvelteSet } from 'svelte/reactivity';
-    import type { ComboboxItem, ComboboxRootProps, ComboboxState } from '.';
+    import type { ComboboxRootProps } from '.';
     import { setComboboxContext } from './context.svelte';
+    import { createComboboxController } from './controller.svelte';
 
     let {
         children,
         state_key,
         stateKey,
         open = $bindable(false),
-        value = $bindable<string | undefined>(undefined),
-        onValueChange,
+        value = $bindable<string | string[] | undefined>(undefined),
         onOpenChange,
-        ...rest
+        placement = 'bottom',
+        inert = true,
+        hoverable = false,
+        delay = 0,
+        closeDelay = 150,
+        ...selection
     }: ComboboxRootProps = $props();
 
     const generatedKey = $props.id();
-    const key = untrack(() => stateKey ?? state_key ?? generatedKey);
-    const comboboxState = $state<ComboboxState>({
-        open: untrack(() => open),
-        items: new SvelteSet(),
-        results: new SvelteSet(),
-        searchContent: '',
-        searchPlacement: 'trigger',
-        threshold: 0.28,
-        appearance: 'button',
-        activeValue: undefined
+    const id = untrack(() => stateKey ?? state_key ?? generatedKey);
+    const controller = createComboboxController({
+        getValue() {
+            return value;
+        },
+        getMultiple() {
+            return selection.type === 'multiple';
+        },
+        setValue(next) {
+            if (selection.type === 'multiple' && Array.isArray(next)) {
+                value = next;
+                selection.onValueChange?.(next);
+            } else if (selection.type !== 'multiple' && typeof next === 'string') {
+                value = next;
+                selection.onValueChange?.(next);
+            }
+        },
+        getOpen() {
+            return open;
+        },
+        setOpen(next) {
+            open = next;
+            onOpenChange?.(next);
+        },
+        getPlacement() {
+            return placement;
+        },
+        getInert() {
+            return inert;
+        },
+        getHoverable() {
+            return hoverable;
+        },
+        getDelay() {
+            return Math.max(0, delay);
+        },
+        getCloseDelay() {
+            return Math.max(0, closeDelay);
+        }
     });
-    let syncedOpen = $state(untrack(() => open));
+    const context = Object.assign(controller, { id });
+    setComboboxContext(context);
 
-    function selectItem(item: ComboboxItem) {
-        comboboxState.selected = item;
-        comboboxState.activeValue = item.value;
-        comboboxState.open = false;
-        value = item.value;
-        onValueChange?.(item.value);
-        item.callback?.();
+    function getValue() {
+        return typeof value === 'string' ? value : '';
     }
 
-    function clearSelection() {
-        comboboxState.selected = undefined;
-        comboboxState.activeValue = undefined;
-        comboboxState.searchContent = '';
-        comboboxState.results = new SvelteSet();
-        value = '';
-        onValueChange?.('');
+    function getValues() {
+        return Array.isArray(value) ? value : [];
     }
 
-    setComboboxContext({ id: key, state: comboboxState, selectItem, clearSelection });
-
-    $effect(() => {
-        if (comboboxState.open && comboboxState.appearance !== 'input') {
-            comboboxState.searchContent = '';
-            comboboxState.activeValue = untrack(() => comboboxState.selected?.value);
-        }
-    });
-    $effect(() => {
-        if (open !== syncedOpen) {
-            syncedOpen = open;
-            comboboxState.open = open;
-        }
-    });
-    $effect(() => {
-        if (comboboxState.open !== syncedOpen) {
-            syncedOpen = comboboxState.open;
-            open = comboboxState.open;
-        }
-    });
-
-    $effect(() => {
-        const next = value;
-        const selected = comboboxState.selected?.value;
-        if (next === undefined || next === '') {
-            if (selected !== undefined) {
-                comboboxState.selected = undefined;
-            }
-            return;
-        }
-        if (selected === next) {
-            return;
-        }
-        for (const item of comboboxState.items) {
-            if (item.value === next) {
-                comboboxState.selected = item;
-                return;
-            }
-        }
-    });
+    function getOpen() {
+        return open;
+    }
 </script>
 
-<Popover.Root
-    {...rest}
-    state_key={key}
-    stateKey={key}
-    bind:open={comboboxState.open}
-    {onOpenChange}
->
-    {@render children?.()}
-</Popover.Root>
+{#if selection.type === 'multiple'}
+    <ComboboxPrimitive.Root
+        type="multiple"
+        bind:value={getValues, controller.commitValues}
+        bind:open={getOpen, controller.setOpen}
+        inputValue={controller.inputValue}
+        items={controller.items}
+        disabled={controller.disabled}
+        name={controller.name}
+        loop
+    >
+        {@render children?.()}
+    </ComboboxPrimitive.Root>
+{:else}
+    <ComboboxPrimitive.Root
+        type="single"
+        bind:value={getValue, controller.commitValue}
+        bind:open={getOpen, controller.setOpen}
+        inputValue={controller.inputValue}
+        items={controller.items}
+        disabled={controller.disabled}
+        name={controller.name}
+        allowDeselect={false}
+        loop
+    >
+        {@render children?.()}
+    </ComboboxPrimitive.Root>
+{/if}

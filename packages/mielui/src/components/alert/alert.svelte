@@ -1,13 +1,23 @@
 <script lang="ts">
-    import Check from '@lucide/svelte/icons/circle-check';
-    import X from '@lucide/svelte/icons/circle-x';
-    import Info from '@lucide/svelte/icons/info';
-    import Warning from '@lucide/svelte/icons/triangle-alert';
+    import {
+        CheckmarkCircle02Icon as Check,
+        InformationCircleIcon as Info,
+        Alert02Icon as Warning,
+        CancelCircleIcon as X
+    } from '@hugeicons/core-free-icons';
     import { cn } from '@mielui/svelte/utils';
+    import HugeiconsIcon from '../../hugeicons-icon.svelte';
     import type { AlertProps } from '.';
     import { alert, alertIcon } from './variants';
 
-    let { variant = 'info', children, class: classProp, ...rest }: AlertProps = $props();
+    let {
+        variant = 'info',
+        icon,
+        announcement = 'off',
+        children,
+        class: classProp,
+        ...rest
+    }: AlertProps = $props();
 
     const Icon = $derived(
         variant === 'success'
@@ -20,9 +30,24 @@
     );
 </script>
 
-<div role="alert" {...rest} class={cn(classProp, alert())}>
-    <Icon class={alertIcon({ variant })} size={16} strokeWidth={2.25} aria-hidden="true" />
-    <div class="flex min-w-0 flex-1 flex-col gap-0.5">
-        {@render children?.()}
-    </div>
+<div
+    {...rest}
+    role={announcement === 'assertive' ? 'alert' : announcement === 'polite' ? 'status' : undefined}
+    aria-live={announcement === 'off' ? undefined : announcement}
+    aria-atomic={announcement === 'off' ? undefined : true}
+    data-ui="alert"
+    class={cn(classProp, alert())}
+>
+    {#if icon}
+        {@render icon()}
+    {:else if icon !== false}
+        <HugeiconsIcon
+            icon={Icon}
+            class={alertIcon({ variant })}
+            size={16}
+            strokeWidth={2.25}
+            aria-hidden="true"
+        />
+    {/if}
+    {@render children?.()}
 </div>

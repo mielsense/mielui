@@ -15,21 +15,41 @@ const RULES: { rule: string; re: RegExp }[] = [
     }
 ];
 
+/** HSV coordinates are color data; theme colors would corrupt the selectable gamut. */
+function isColorCoordinate(file: string, line: string): boolean {
+    const relative = file.replaceAll('\\', '/');
+    const declarations: Record<string, readonly string[]> = {
+        'color-picker-hue.svelte': [
+            "const hueSpectrum = ['#f00', '#ff0', '#0f0', '#0ff', '#00f', '#f0f', '#f00'];"
+        ],
+        'color-picker-plane.svelte': ["const hsvBlack = '#000';", "const hsvWhite = '#fff';"],
+        'controller.svelte.ts': ["const defaultHsvHex = '#000000';"]
+    };
+    return Object.entries(declarations).some(([name, allowed]) => {
+        return relative.endsWith(`/blocks/color-picker/${name}`) && allowed.includes(line.trim());
+    });
+}
+
 export function lintSource(file: string, source: string): Violation[] {
     // File-level opt-out: a `token-lint-disable-file` directive anywhere skips the
     // whole file. For components inherently built on raw literals (e.g. a color
     // picker manipulating hex/gradient values) per-line annotations are noise.
-    if (source.includes('token-lint-disable-file')) return [];
+    if (source.includes('token-lint-disable-file')) {
+        return [];
+    }
     const out: Violation[] = [];
     const lines = source.split('\n');
     const disabledFor = (line: string, prev: string, rule: string) => {
         const onLine = line.includes('token-lint-disable-line');
         const onPrev = prev.includes('token-lint-disable-next-line');
         const appliesTo = (s: string) => {
-            if (!s.includes('token-lint-disable')) return false;
+            if (!s.includes('token-lint-disable')) {
+                return false;
+            }
             // Check if it explicitly names this rule
-            if (new RegExp(`token-lint-disable[a-z-]*\\s+[^\\n]*\\b${rule}\\b`).test(s))
+            if (new RegExp(`token-lint-disable[a-z-]*\\s+[^\\n]*\\b${rule}\\b`).test(s)) {
                 return true;
+            }
             // Check if it names ANY rule: look for pattern like "disable-line no-something"
             // Extract what comes after the directive - should be a valid rule name pattern
             const match = s.match(/token-lint-disable[a-z-]*\s+([a-z][a-z0-9-]*)/);
@@ -58,8 +78,10 @@ export function lintSource(file: string, source: string): Violation[] {
         const stripped = stripVars(text);
         for (const { rule, re } of RULES) {
             const target = rule === 'no-primitive-leak' ? text : stripped;
-            if (re.test(target) && !disabledFor(text, prev, rule))
+            const colorCoordinate = rule === 'no-literal-color' && isColorCoordinate(file, text);
+            if (re.test(target) && !colorCoordinate && !disabledFor(text, prev, rule)) {
                 out.push({ file, line: i + 1, rule, text: text.trim() });
+            }
         }
     });
     return out;
@@ -68,8 +90,11 @@ export function lintSource(file: string, source: string): Violation[] {
 function walk(dir: string, acc: string[] = []): string[] {
     for (const name of readdirSync(dir)) {
         const p = join(dir, name);
-        if (statSync(p).isDirectory()) walk(p, acc);
-        else if (/\.(svelte|ts)$/.test(name) && !name.endsWith('.test.ts')) acc.push(p);
+        if (statSync(p).isDirectory()) {
+            walk(p, acc);
+        } else if (/\.(svelte|ts)$/.test(name) && !name.endsWith('.test.ts')) {
+            acc.push(p);
+        }
     }
     return acc;
 }
@@ -78,12 +103,21 @@ export function lintTree(root: string): Violation[] {
     return walk(root).flatMap((f) => lintSource(f, readFileSync(f, 'utf8')));
 }
 
-// `bun tools/token-lint/index.ts [root...]` prints violations; exits 0 in report mode.
+// `pnpm exec tsx tools/token-lint/index.ts [root...]` prints violations; exits 0 in report mode.
 // Accepts MULTIPLE roots so batch checks cover every directory passed (not just the first).
 if (import.meta.main) {
     const roots = process.argv.slice(2);
-    if (roots.length === 0) roots.push('packages/mielui/src/components');
+    if (roots.length === 0) {
+        roots.push(
+            'packages/mielui/src/components',
+            'packages/mielui/src/ai-components',
+            'packages/mielui/src/blocks',
+            'packages/mielui/src/chart-components'
+        );
+    }
     const v = roots.flatMap((r) => lintTree(r));
-    for (const x of v) console.log(`${x.file}:${x.line} [${x.rule}] ${x.text}`);
+    for (const x of v) {
+        console.log(`${x.file}:${x.line} [${x.rule}] ${x.text}`);
+    }
     console.log(`\n${v.length} violations (report mode — enforced in Plan 2)`);
 }

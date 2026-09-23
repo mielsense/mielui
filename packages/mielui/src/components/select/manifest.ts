@@ -11,7 +11,7 @@ import type { Manifest } from '@mielui/svelte/_manifest/types';
  */
 export const manifest: Manifest = {
     name: 'select',
-    version: '2.2.0',
+    version: '2.3.0',
     visibility: 'public',
     description: 'Listbox-based single-select with bindable value and Item/Label/Content subparts.',
     role: 'listbox',
@@ -26,11 +26,21 @@ export const manifest: Manifest = {
         'components/select/index.ts',
         'components/select/manifest.ts'
     ],
-    components: ['popover', 'button', 'scroll-area'],
-    shared: ['utils.cn', 'utils.createContext', 'utils.dynamicWidth', 'utils.travelingHighlight'],
+    components: ['_internal/utils', 'popover', 'button', 'scroll-area'],
+    shared: [
+        'components/_internal/button-attributes',
+        'components/_internal/surface',
+        'hugeicons-icon',
+        'utils.cn',
+        'utils.createContext',
+        'utils.dynamicWidth',
+        'utils.travelingHighlight'
+    ],
     peerDependencies: {
-        '@lucide/svelte': '^1.0.0',
+        '@floating-ui/dom': '1.7.6',
+        'bits-ui': '^2.19.2',
+        '@hugeicons/core-free-icons': '^4.3.0',
         cnfast: '^0.0.8',
-        svelte: '^5.0.0'
+        svelte: '^5.56.0'
     }
 };

@@ -2,33 +2,34 @@
     import { CodeBlock } from '@mielui/svelte/components/code-block';
     import * as Typography from '@mielui/svelte/components/typography';
     import { ComponentPreview, InstallCommand } from '$lib/components/docs';
-    import DocsPager from '$lib/components/docs/docs-pager.svelte';
+    import PageIntro from '$lib/components/docs/page-intro.svelte';
     import DynamicWidth from './examples/dynamic-width.svelte';
     import DynamicWidthSrc from './examples/dynamic-width.svelte?raw';
+    import Glass from './examples/glass.svelte';
+    import GlassSrc from './examples/glass.svelte?raw';
     import Hero from './examples/hero.svelte';
     import HeroSrc from './examples/hero.svelte?raw';
+    import Multiple from './examples/multiple.svelte';
+    import MultipleSrc from './examples/multiple.svelte?raw';
     import Scrollable from './examples/scrollable.svelte';
     import ScrollableSrc from './examples/scrollable.svelte?raw';
 
-    const installCommand = 'bunx @mielui/svelte add select';
+    const installCommand = 'pnpm dlx @mielui/svelte add select';
 </script>
 
 <svelte:head>
     <title>Mielui · Select</title>
-    <meta name="description" content="Single-choice dropdown for short, known option lists." />
+    <meta
+        name="description"
+        content="Single or multiple selection from a short, known option list."
+    />
 </svelte:head>
 
 <div data-docs-page class="flex flex-col gap-10">
     <!-- ─── Header ────────────────────────────────────────────────── -->
-    <header class="flex items-start justify-between gap-4">
-        <div>
-            <Typography.H1> Select </Typography.H1>
-            <Typography.Text variant="lead" class="mt-2 max-w-2xl">
-                A dropdown for choosing one option from a short list.
-            </Typography.Text>
-        </div>
-        <DocsPager />
-    </header>
+    <PageIntro title="Select">
+        A dropdown for choosing one or more options from a short list.
+    </PageIntro>
 
     <!-- ─── Hero Example ──────────────────────────────────────────── -->
     <section id="hero" class="scroll-mt-20 flex flex-col gap-4">
@@ -46,11 +47,25 @@
     <!-- ─── Usage ─────────────────────────────────────────────────── -->
     <section id="usage" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Usage</Typography.H2>
-        <Typography.Text variant="supporting">
-            Import Select and use it in your component:
+        <Typography.Text>
+            Use Select.Value for a trigger label that follows the selection. Use bind:value or
+            onValueChange on Select.Root to react to both pointer and keyboard selection; an item
+            onclick handler only observes native clicks. Trigger onclick receives the mouse event
+            before click activation; preventDefault cancels that activation. Arrow keys, Home, End,
+            and typing navigate options; disabled items are skipped. Before an option label is
+            mounted, a preselected value is displayed as its value string.
         </Typography.Text>
+
+        <Typography.Text>
+            Single selection is the default and binds a string. Set type="multiple" to bind a string
+            array; selecting an item toggles it without closing the menu. Select.Value joins the
+            selected labels. Use name to include the selection in form submission; multiple values
+            use the same field name and can be read with FormData.getAll(). Root also accepts
+            disabled and required.
+        </Typography.Text>
+
         <CodeBlock
-            code={`import * as Select from '$lib/mielui/components/select';\n\n<Select.Root value={role}>\n  <Select.Trigger>Designer</Select.Trigger>\n  <Select.Content>\n    <Select.Item value="designer">Designer</Select.Item>\n  </Select.Content>\n</Select.Root>`}
+            code={`import * as Select from '$lib/mielui/components/select';\n\n<Select.Root bind:value={role}>\n  <Select.Trigger aria-label="Role"><Select.Value placeholder="Select a role" /></Select.Trigger>\n  <Select.Content>\n    <Select.Item value="designer">Designer</Select.Item>\n  </Select.Content>\n</Select.Root>`}
             lang="svelte"
             copy="overlay"
         />
@@ -60,16 +75,15 @@
     <section id="examples" class="scroll-mt-20 flex flex-col gap-10">
         <div>
             <Typography.H2 class="docs-section-heading">Examples</Typography.H2>
-            <Typography.Text variant="supporting" class="mt-2">
-                Select in common configurations.
-            </Typography.Text>
         </div>
 
-        <div id="basic" class="scroll-mt-20 flex flex-col gap-3">
-            <Typography.H3 class="docs-subsection-heading">Basic</Typography.H3>
-            <ComponentPreview code={HeroSrc}>
-                <Hero />
-            </ComponentPreview>
+        <div id="multiple" class="scroll-mt-20 flex flex-col gap-3">
+            <Typography.H3 class="docs-subsection-heading">Multiple selection</Typography.H3>
+            <Typography.Text variant="supporting">
+                Select several teams, clear the selection, or submit the named values. Disabled
+                options remain unavailable. Escape closes the menu and returns focus to the trigger.
+            </Typography.Text>
+            <ComponentPreview code={MultipleSrc}><Multiple /></ComponentPreview>
         </div>
 
         <div id="scrollable" class="scroll-mt-20 flex flex-col gap-3">
@@ -92,5 +106,15 @@
                 <DynamicWidth />
             </ComponentPreview>
         </div>
+    </section>
+    <section id="glass" class="flex flex-col gap-4">
+        <Typography.H2 class="docs-section-heading">Glass surface</Typography.H2>
+        <Typography.Text variant="supporting">
+            Set surface="glass" on Select.Content for a translucent background with blur. Omit
+            surface to inherit --mielui-surface from your theme, or set surface="solid" to override
+            it. The glass surface keeps an opaque fallback when backdrop filtering is unavailable
+            and respects reduced-transparency preferences.
+        </Typography.Text>
+        <ComponentPreview code={GlassSrc}><Glass /></ComponentPreview>
     </section>
 </div>

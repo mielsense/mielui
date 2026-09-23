@@ -1,52 +1,56 @@
 <script lang="ts">
-    import ArrowUp from '@lucide/svelte/icons/arrow-up';
-    import Code2 from '@lucide/svelte/icons/code-2';
-    import Sparkles from '@lucide/svelte/icons/sparkles';
-    import { Button } from '@mielui/svelte/components/button';
-    import { Textarea } from '@mielui/svelte/components/textarea';
-    import { Toolbar } from '@mielui/svelte/components/toolbar';
+    import {
+        BubbleChatIcon,
+        FrameIcon,
+        MousePointer01Icon,
+        PenTool01Icon,
+        SquareIcon,
+        TextFontIcon
+    } from '@hugeicons/core-free-icons';
+    import Kbd from '@mielui/svelte/components/kbd';
+    import * as Toolbar from '@mielui/svelte/components/toolbar';
+    import * as Tooltip from '@mielui/svelte/components/tooltip';
+    import HugeiconsIcon from '@mielui/svelte/hugeicons-icon';
 
-    let message = $state('');
-
-    function sendMessage(event: SubmitEvent) {
-        event.preventDefault();
-        message = '';
-    }
+    let activeTool = $state('move');
+    const tools = [
+        { id: 'move', label: 'Move', shortcut: 'V', icon: MousePointer01Icon },
+        { id: 'frame', label: 'Frame', shortcut: 'F', icon: FrameIcon },
+        { id: 'rectangle', label: 'Rectangle', shortcut: 'R', icon: SquareIcon },
+        { id: 'pen', label: 'Pen', shortcut: 'P', icon: PenTool01Icon },
+        { id: 'text', label: 'Text', shortcut: 'T', icon: TextFontIcon },
+        { id: 'comment', label: 'Comment', shortcut: 'C', icon: BubbleChatIcon }
+    ];
 </script>
 
-<form class="w-full max-w-xl" onsubmit={sendMessage}>
-    <Textarea
-        bind:value={message}
-        aria-label="Message the team"
-        placeholder="Message the team..."
-        autoresize
-    >
-        <Toolbar aria-label="Message actions">
-            <div class="flex items-center gap-1">
-                <Button
-                    variant="ghost"
-                    size="md"
-                    class="size-7 rounded-[var(--radius-md)] p-0"
-                    aria-label="Add code"
-                    ><Code2 size={14} /></Button
-                >
-                <Button
-                    variant="ghost"
-                    size="md"
-                    class="size-7 rounded-[var(--radius-md)] p-0"
-                    aria-label="Improve with AI"
-                    ><Sparkles size={14} /></Button
-                >
-            </div>
-            <Button
-                type="submit"
-                variant="primary"
-                size="md"
-                class="size-7 rounded-full p-0"
-                aria-label="Send message"
-                disabled={!message.trim()}
-                ><ArrowUp size={14} /></Button
-            >
-        </Toolbar>
-    </Textarea>
-</form>
+<div class="flex flex-col items-center gap-3">
+    <Toolbar.Root aria-label="Design tools" class="border border-border bg-card p-1">
+        <Toolbar.Group type="single" bind:value={activeTool} aria-label="Active tool">
+            {#each tools as tool (tool.id)}
+                <Tooltip.Root placement="top" delay={300}>
+                    <Tooltip.Trigger>
+                        <Toolbar.Item
+                            value={tool.id}
+                            aria-label={tool.label}
+                            class="size-8 rounded-[var(--radius-md)] p-0 text-foreground-muted hover:bg-secondary hover:text-foreground"
+                        >
+                            <HugeiconsIcon icon={tool.icon} size={16} aria-hidden="true" />
+                            <span class="sr-only"><Kbd shortcut={tool.shortcut} /></span>
+                        </Toolbar.Item>
+                    </Tooltip.Trigger>
+                    <Tooltip.Content>
+                        <span class="flex items-center gap-2">
+                            {tool.label}
+                            <span class="font-mono text-xs text-foreground-muted">
+                                {tool.shortcut}
+                            </span>
+                        </span>
+                    </Tooltip.Content>
+                </Tooltip.Root>
+            {/each}
+        </Toolbar.Group>
+    </Toolbar.Root>
+    <p role="status" class="text-sm text-foreground-muted">
+        {tools.find((tool) => tool.id === activeTool)?.label ?? 'No tool'} selected
+    </p>
+</div>

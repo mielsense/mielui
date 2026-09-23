@@ -6,17 +6,17 @@
         positionFloatingPanel,
         submenuPanelOffset
     } from '@mielui/svelte/utils';
-    import { onMount, tick } from 'svelte';
+    import { buttonAttributes } from '../_internal/button-attributes';
     import type { Placement, PopoverTriggerProps } from '.';
     import { getPopoverContext } from './context.svelte';
 
     const { id: key, state: popoverState } = getPopoverContext();
 
-    let element = $state<HTMLButtonElement | undefined>();
     type Props = PopoverTriggerProps;
 
     let {
         children,
+        element = $bindable(),
         class: classProp,
         onclick,
         onopen,
@@ -28,7 +28,7 @@
         ...rest
     }: Props = $props();
 
-    onMount(() => {
+    $effect(() => {
         popoverState.buttonRef = element ?? null;
     });
 
@@ -70,22 +70,26 @@
         }, delay);
     }
 
-    async function handleEnter() {
-        if (popoverState.hoverable) {
-            await tick();
-            const delay = popoverState.delay ?? 0;
-            if (delay > 0) {
-                popoverState.hoverTimeout = setTimeout(() => {
-                    if (element?.matches(':hover, :focus')) {
-                        openPopover();
-                    }
-                }, delay);
-            } else {
-                openPopover();
-            }
-
-            popoverState.hovering = true;
+    function handleEnter() {
+        if (!popoverState.hoverable || rest.disabled) {
+            return;
         }
+        clearTimeout(popoverState.hoverTimeout);
+        clearTimeout(popoverState.closeTimeout);
+        popoverState.hoverTimeout = undefined;
+        popoverState.closeTimeout = undefined;
+        const delay = popoverState.delay ?? 0;
+        if (delay > 0) {
+            popoverState.hoverTimeout = setTimeout(() => {
+                popoverState.hoverTimeout = undefined;
+                if (!rest.disabled && element?.matches(':hover, :focus')) {
+                    openPopover();
+                }
+            }, delay);
+        } else {
+            openPopover();
+        }
+        popoverState.hovering = true;
     }
 
     function handleLeave(event: MouseEvent | FocusEvent) {
@@ -116,19 +120,20 @@
 
 <Button
     bind:element
-    {...rest}
+    {...buttonAttributes(rest)}
     class={cn(
         classProp,
         popoverState.open && !popoverState.hoverable && popoverState.inert && 'relative z-[130]'
     )}
     {style}
-    onclick={() => {
+    onclick={(event) => {
+        onclick?.(event);
+        if (event.defaultPrevented) { return; }
         if (popoverState.open) {
             closePopover(0);
         } else {
             openPopover();
         }
-        onclick?.();
     }}
     onmouseenter={handleEnter}
     onmouseleave={handleLeave}

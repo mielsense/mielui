@@ -1,10 +1,11 @@
 <script lang="ts">
-    import ThumbsUp from '@lucide/svelte/icons/thumbs-up';
+    import { ThumbsUpIcon as ThumbsUp } from '@hugeicons/core-free-icons';
     import { Button } from '@mielui/svelte/components/button';
     import { CopyButton } from '@mielui/svelte/components/copy-button';
     import { Markdown } from '@mielui/svelte/components/markdown';
     import * as Message from '@mielui/svelte/components/message';
     import * as Reasoning from '@mielui/svelte/components/reasoning';
+    import HugeiconsIcon from '@mielui/svelte/hugeicons-icon';
 
     const response = [
         '### Billing API v2',
@@ -20,6 +21,12 @@
 
     let helpful = $state(false);
     let status = $state('');
+    function reportCopy() {
+        status = 'Response copied to clipboard.';
+    }
+    function toggleHelpful() {
+        helpful = !helpful;
+    }
 </script>
 
 <div class="w-full max-w-3xl space-y-7">
@@ -50,7 +57,7 @@
                 variant="ghost"
                 size="md"
                 class="size-8 rounded-[var(--radius-md)] p-0"
-                oncopy={() => (status = 'Response copied to clipboard.')}
+                oncopy={reportCopy}
             />
             <Button
                 variant="ghost"
@@ -58,9 +65,14 @@
                 class="size-8 rounded-[var(--radius-md)] p-0"
                 aria-label={helpful ? 'Remove helpful rating' : 'Mark response as helpful'}
                 aria-pressed={helpful}
-                onclick={() => (helpful = !helpful)}
+                onclick={toggleHelpful}
             >
-                <ThumbsUp size={15} fill={helpful ? 'currentColor' : 'none'} aria-hidden="true" />
+                <HugeiconsIcon
+                    icon={ThumbsUp}
+                    size={15}
+                    fill={helpful ? 'currentColor' : 'none'}
+                    aria-hidden="true"
+                />
             </Button>
         </Message.Actions>
     </Message.Root>

@@ -61,6 +61,17 @@ describe('FileDiff composed top bar', () => {
         expect(screen.getByText('−1')).toBeInTheDocument();
     });
 
+    it('updates composed labels and counts when root props change', async () => {
+        const { rerender } = render(FileDiff.Root, {
+            props: { file: 'before.ts', diff: [{ type: 'add', content: 'before' }] }
+        });
+        expect(screen.getByText('+1')).toBeInTheDocument();
+        await rerender({ file: 'after.ts', diff: [{ type: 'remove', content: 'after' }] });
+        expect(screen.getByText('after.ts')).toBeInTheDocument();
+        expect(screen.getByText('−1')).toBeInTheDocument();
+        expect(screen.queryByText('+1')).not.toBeInTheDocument();
+    });
+
     it('lets consumers recompose filename, counts, and actions', () => {
         render(FileDiffTopBarFixture);
 

@@ -1,14 +1,15 @@
-FROM oven/bun:1.3.11 AS build
+FROM node:22-bookworm-slim AS build
 WORKDIR /repo
+RUN corepack enable
 
-COPY package.json bun.lock ./
+COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
 COPY apps/docs/package.json ./apps/docs/
 COPY apps/installer-lab/package.json ./apps/installer-lab/
 COPY apps/registry/package.json ./apps/registry/
 COPY packages/mielui/package.json ./packages/mielui/
 
 ENV LEFTHOOK=0
-RUN bun install --frozen-lockfile --ignore-scripts
+RUN pnpm install --frozen-lockfile --ignore-scripts
 
 COPY apps/registry ./apps/registry
 COPY packages/mielui ./packages/mielui
@@ -16,19 +17,20 @@ COPY packages/mielui ./packages/mielui
 WORKDIR /repo/apps/registry
 RUN DATABASE_URL="postgresql://placeholder:placeholder@localhost:5432/placeholder" \
 	DIRECT_URL="postgresql://placeholder:placeholder@localhost:5432/placeholder" \
-	bun --bun run prisma generate
+	pnpm exec prisma generate
 
-FROM oven/bun:1.3.11 AS runtime
+FROM node:22-bookworm-slim AS runtime
+RUN corepack enable
 WORKDIR /repo
 
-COPY package.json bun.lock ./
+COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
 COPY apps/docs/package.json ./apps/docs/
 COPY apps/installer-lab/package.json ./apps/installer-lab/
 COPY apps/registry/package.json ./apps/registry/
 COPY packages/mielui/package.json ./packages/mielui/
 
 ENV LEFTHOOK=0
-RUN bun install --frozen-lockfile --production --ignore-scripts \
+RUN pnpm install --frozen-lockfile --production --ignore-scripts \
 	--filter='registry' --filter='@mielui/svelte'
 
 COPY apps/registry ./apps/registry
@@ -39,4 +41,4 @@ WORKDIR /repo/apps/registry
 ENV PORT=4100
 EXPOSE 4100
 
-CMD ["sh", "-c", "bun --bun run prisma migrate deploy && bun run src/index.ts"]
+CMD ["sh", "-c", "pnpm exec prisma migrate deploy && pnpm run start"]

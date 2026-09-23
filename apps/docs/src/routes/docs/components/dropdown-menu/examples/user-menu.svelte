@@ -1,43 +1,64 @@
 <script lang="ts">
-    import ChevronDown from '@lucide/svelte/icons/chevron-down';
-    import HelpCircle from '@lucide/svelte/icons/circle-help';
-    import CreditCard from '@lucide/svelte/icons/credit-card';
-    import Folder from '@lucide/svelte/icons/folder-git-2';
-    import LogOut from '@lucide/svelte/icons/log-out';
-    import Settings from '@lucide/svelte/icons/settings';
-    import User from '@lucide/svelte/icons/user';
+    import {
+        ArrowDown01Icon as ChevronDown,
+        CreditCardIcon as CreditCard,
+        FolderGitTwoIcon as Folder,
+        HelpCircleIcon as HelpCircle,
+        Logout01Icon as LogOut,
+        Settings01Icon as Settings,
+        UserIcon as User
+    } from '@hugeicons/core-free-icons';
     import * as DropdownMenu from '@mielui/svelte/components/dropdown-menu';
+    import HugeiconsIcon from '@mielui/svelte/hugeicons-icon';
 </script>
 
 <DropdownMenu.Root>
     <DropdownMenu.Trigger variant="outline" size="md">
-        <User size={13} />
-        Aidan
-        <ChevronDown size={11} class="text-foreground-muted" />
+        <HugeiconsIcon icon={User} size={13} />
+        mielsense
+        <HugeiconsIcon icon={ChevronDown} size={11} class="text-foreground-muted" />
     </DropdownMenu.Trigger>
     <DropdownMenu.Content class="min-w-[14rem]">
         <DropdownMenu.Label>Account</DropdownMenu.Label>
         <DropdownMenu.Item>
-            <span class="flex items-center gap-2"><User size={13} /> Profile</span>
+            <span class="flex items-center gap-2">
+                <HugeiconsIcon icon={User} size={13} />
+                Profile
+            </span>
         </DropdownMenu.Item>
         <DropdownMenu.Item>
-            <span class="flex items-center gap-2"><Folder size={13} /> Your projects</span>
+            <span class="flex items-center gap-2">
+                <HugeiconsIcon icon={Folder} size={13} />
+                Your projects
+            </span>
         </DropdownMenu.Item>
         <DropdownMenu.Item>
-            <span class="flex items-center gap-2"><CreditCard size={13} /> Billing</span>
+            <span class="flex items-center gap-2">
+                <HugeiconsIcon icon={CreditCard} size={13} />
+                Billing
+            </span>
         </DropdownMenu.Item>
 
         <DropdownMenu.Separator />
 
         <DropdownMenu.Label>Settings</DropdownMenu.Label>
         <DropdownMenu.Item>
-            <span class="flex items-center gap-2"><Settings size={13} /> Preferences</span>
+            <span class="flex items-center gap-2">
+                <HugeiconsIcon icon={Settings} size={13} />
+                Preferences
+            </span>
         </DropdownMenu.Item>
         <DropdownMenu.Item>
-            <span class="flex items-center gap-2"><HelpCircle size={13} /> Help &amp; support</span>
+            <span class="flex items-center gap-2">
+                <HugeiconsIcon icon={HelpCircle} size={13} />
+                Help &amp; support
+            </span>
         </DropdownMenu.Item>
         <DropdownMenu.Item>
-            <span class="flex items-center gap-2"><LogOut size={13} /> Log out</span>
+            <span class="flex items-center gap-2">
+                <HugeiconsIcon icon={LogOut} size={13} />
+                Log out
+            </span>
         </DropdownMenu.Item>
     </DropdownMenu.Content>
 </DropdownMenu.Root>

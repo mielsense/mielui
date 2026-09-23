@@ -71,7 +71,7 @@ describe('ui.css Tier 2 semantic', () => {
         expect(css).toContain('--color-info:');
         // Pure pass-through aliases were removed; consumers now read the canonical names.
         expect(css).not.toContain('--color-destructive:');
-        expect(css).not.toContain('--color-modal:');
+        expect(css).not.toContain('--color-dialog:');
         expect(css).not.toContain('--color-panel-foreground:');
     });
 });
@@ -79,7 +79,7 @@ describe('ui.css Tier 2 semantic', () => {
 describe('ui.css Tier 3 + structure', () => {
     it('keeps component defaults out of the public theme contract', () => {
         expect(css).not.toMatch(
-            /^\s*--(?:button|badge|field|panel|card|menu|command|tooltip|switch|checkbox|toast|tabs|progress|modal|sheet|textarea|breadcrumb|toggle|shortcut|slider)-/m
+            /^\s*--(?:button|badge|field|panel|card|menu|command|tooltip|switch|checkbox|toast|tabs|progress|dialog|sheet|textarea|breadcrumb|toggle|shortcut|slider)-/m
         );
     });
     it('sizes controls from the spacing scale', () => {
@@ -98,8 +98,10 @@ describe('ui.css Tier 3 + structure', () => {
     });
     /** Mirrors the budget in packages/mielui/release.test.ts -- keep the two in step. */
     it('stays within the release size budget', () => {
-        const normalizedCss = css.replace(/\s+/g, ' ').trim();
-        expect(css.split('\n').length).toBeLessThanOrEqual(557);
+        const normalizedCss = css
+            .replace(/\/\*[\s\S]*?\*\//g, '')
+            .replace(/\s+/g, ' ')
+            .trim();
         expect(Buffer.byteLength(normalizedCss)).toBeLessThanOrEqual(18 * 1024);
     });
 

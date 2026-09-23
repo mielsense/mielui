@@ -1,0 +1,59 @@
+import type { DefaultProps } from '@mielui/svelte/utils';
+import type { Snippet } from 'svelte';
+import type { HTMLInputAttributes } from 'svelte/elements';
+import Root from './command.svelte';
+import Content from './command-content.svelte';
+import Group from './command-group.svelte';
+import Header from './command-header.svelte';
+import Item from './command-item.svelte';
+import Results from './command-results.svelte';
+import Search from './command-search.svelte';
+import Separator from './command-separator.svelte';
+import Trigger from './command-trigger.svelte';
+
+export type CommandItem = {
+    id: string;
+    name: string;
+    callback: (() => void) | undefined;
+    ref: HTMLButtonElement | HTMLAnchorElement | undefined;
+    disabled: boolean;
+};
+
+export type CommandProps = {
+    open?: boolean;
+    onOpenChange?: (open: boolean) => void;
+    children?: Snippet;
+};
+
+export type CommandItemProps = {
+    name?: string;
+    value?: string;
+    callback?: () => void;
+    disabled?: boolean;
+    href?: string;
+    onclick?: () => void;
+} & DefaultProps;
+
+export type CommandHeaderProps = DefaultProps;
+
+export type CommandSearchProps = Omit<HTMLInputAttributes, 'children'> & {
+    threshold?: number;
+    icon?: Snippet;
+    count?: Snippet<[count: number]>;
+    announcement?: Snippet<[message: string]>;
+};
+
+export type CommandResultsProps = DefaultProps & {
+    empty?: Snippet;
+};
+
+export type CommandState = {
+    id: string;
+    items: CommandItem[];
+    results: CommandItem[];
+    searchContent: string;
+    activeId: string | undefined;
+    itemsVersion: number;
+};
+
+export { Content, Group, Header, Item, Results, Root, Search, Separator, Trigger };

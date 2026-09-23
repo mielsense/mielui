@@ -6,7 +6,7 @@ on:
     workflow_dispatch:
         inputs:
             tag:
-                description: Existing release tag to publish (for example v0.1.0)
+                description: Existing release tag to publish (for example v0.1.1)
                 required: true
                 type: string
 
@@ -34,6 +34,9 @@ jobs:
               with:
                   node-version: 22
                   registry-url: https://registry.npmjs.org
+
+            - name: Install npm with trusted publishing support
+              run: npm install --global npm@11.20.0
 
             - name: Download verified package
               uses: actions/download-artifact@v4

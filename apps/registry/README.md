@@ -1,6 +1,6 @@
 # Mielui registry
 
-Elysia + Bun service that backs the theme registry. Persists themes in
+Elysia + Node.js service that backs the theme registry. Persists themes in
 Postgres via Prisma. The database runs on **Supabase**; there is no local pg
 container.
 
@@ -14,13 +14,13 @@ container.
 4. Apply migrations:
 
     ```bash
-    bun --bun run prisma migrate deploy
+    pnpm exec prisma migrate deploy
     ```
 
 5. Start the dev server:
 
     ```bash
-    bun run dev
+    pnpm run dev
     ```
 
     The service listens on `PORT` (default `4100` in docker-compose).
@@ -51,7 +51,7 @@ Then `docker compose down -v` to delete the local volume.
 
 ## Vercel deployment
 
-The registry is an Elysia Bun Function. Create a Vercel project with
+The registry is an Elysia Node.js Function. Create a Vercel project with
 `apps/registry` as its Root Directory; `vercel.json` runs migrations and
 generates Prisma's client for every deployment.
 
@@ -86,12 +86,11 @@ is intentionally retained as a production dependency.
 
 ## Tests
 
-Route behavior is covered by `tests/themes.test.ts`, run with Bun's built-in
-test runner:
+Route behavior is covered by `tests/themes.test.ts`, run with Vitest:
 
 ```bash
-bun --filter='registry' run test   # from the repo root
-bun test                           # from apps/registry
+pnpm --filter='registry' run test   # from the repo root
+pnpm test                           # from apps/registry
 ```
 
 The tests **do not need a database or `prisma generate`**. They replace

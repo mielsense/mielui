@@ -1,35 +1,49 @@
 <script lang="ts">
-    import * as Popover from '@mielui/svelte/components/popover';
+    import { panelIn, panelOut } from '@mielui/svelte/transition';
     import { cn } from '@mielui/svelte/utils';
+    import { LinkPreview } from 'bits-ui';
     import { getContext } from 'svelte';
-    import type { Placement } from '../popover';
+    import { overlaySurface } from '../_internal/surface';
     import type { HoverCardContentProps } from '.';
 
-    const hoverCard = getContext<{ setPlacement: (next: Placement) => void }>('mielui-hover-card');
-
-    let { class: className, children, side, align, ...rest }: HoverCardContentProps = $props();
-
-    $effect(() => {
-        if (side === undefined && align === undefined) {
-            return;
-        }
-        const resolvedSide = side ?? 'bottom';
-        const resolvedAlign = align ?? 'center';
-        hoverCard?.setPlacement(
-            (resolvedAlign === 'center'
-                ? resolvedSide
-                : `${resolvedSide}-${resolvedAlign}`) as Placement
-        );
-    });
+    let {
+        class: className,
+        children,
+        side = 'bottom',
+        align = 'center',
+        surface,
+        ...rest
+    }: HoverCardContentProps = $props();
+    const context = getContext<{
+        id: string;
+        state: {
+            title: boolean;
+            description: boolean;
+        };
+    }>('mielui-hover-card');
 </script>
 
-<Popover.Content
-    role="dialog"
-    aria-modal="false"
-    allowClickOutside={false}
-    {...rest}
-    class={cn(className, 'w-64 text-[var(--font-size-body)]')}
-    surfaceClass="p-3"
->
-    {@render children?.()}
-</Popover.Content>
+<LinkPreview.Portal>
+    <LinkPreview.Content forceMount {side} {align} sideOffset={8} collisionPadding={8} {...rest}>
+        {#snippet child({ props, wrapperProps, open })}
+            {#if open}
+                <div {...wrapperProps} class="z-[130]">
+                    <div
+                        {...props}
+                        role="dialog"
+                        aria-modal="false"
+                        data-ui="hover-card-content"
+                        data-surface={surface}
+                        aria-labelledby={context.state.title ? `${context.id}-title` : undefined}
+                        aria-describedby={context.state.description ? `${context.id}-description` : undefined}
+                        in:panelIn
+                        out:panelOut
+                        class={cn(className, overlaySurface(surface), 'mielui-modal-frame z-[130] w-64 max-w-[calc(100vw-var(--spacing)*4)] origin-[var(--bits-link-preview-content-transform-origin)] overflow-hidden text-[var(--font-size-body)] text-foreground shadow-[var(--elevation-float)] [--mielui-modal-inset:calc(var(--spacing)*0.5)]')}
+                    >
+                        <div class="mielui-inset-surface p-3">{@render children?.()}</div>
+                    </div>
+                </div>
+            {/if}
+        {/snippet}
+    </LinkPreview.Content>
+</LinkPreview.Portal>

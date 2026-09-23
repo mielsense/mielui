@@ -33,8 +33,12 @@ export const manifest: Manifest = {
         'components/dropdown-menu/index.ts',
         'components/dropdown-menu/manifest.ts'
     ],
-    components: ['popover', 'button', 'scroll-area'],
+    components: ['_internal/utils', 'popover', 'button', 'scroll-area'],
     shared: [
+        'components/_internal/button-attributes',
+        'transition',
+        'components/_internal/surface',
+        'hugeicons-icon',
         'utils.closeMenuLayers',
         'utils.cn',
         'utils.createContext',
@@ -42,8 +46,10 @@ export const manifest: Manifest = {
         'utils.travelingHighlight'
     ],
     peerDependencies: {
-        '@lucide/svelte': '^1.0.0',
+        '@floating-ui/dom': '1.7.6',
+        'bits-ui': '^2.19.2',
+        '@hugeicons/core-free-icons': '^4.3.0',
         cnfast: '^0.0.8',
-        svelte: '^5.0.0'
+        svelte: '^5.56.0'
     }
 };

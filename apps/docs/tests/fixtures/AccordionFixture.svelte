@@ -4,14 +4,21 @@
     let {
         type = 'single' as 'single' | 'multiple',
         value = $bindable<string | string[] | undefined>(undefined),
+        showContent = true,
         collapsible = false
     } = $props();
 </script>
 
 <Accordion.Root {type} bind:value {collapsible}>
     <Accordion.Item value="a">
-        <Accordion.Trigger><span data-testid="trig-a">Item A</span></Accordion.Trigger>
-        <Accordion.Content><span data-testid="content-a">Content A</span></Accordion.Content>
+        <Accordion.Trigger>
+            <span data-testid="trig-a">Item A</span>
+        </Accordion.Trigger>
+        {#if showContent}
+            <Accordion.Content>
+                <span data-testid="content-a">Content A</span>
+            </Accordion.Content>
+        {/if}
     </Accordion.Item>
     <Accordion.Item value="b">
         <Accordion.Trigger><span data-testid="trig-b">Item B</span></Accordion.Trigger>

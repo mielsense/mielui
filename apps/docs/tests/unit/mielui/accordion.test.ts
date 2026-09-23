@@ -1,6 +1,6 @@
 import { render, screen, waitFor } from '@testing-library/svelte';
 import userEvent from '@testing-library/user-event';
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
 import AccordionFixture from '../../fixtures/AccordionFixture.svelte';
 import { required } from '../../test-utils';
 
@@ -115,9 +115,10 @@ describe('Accordion -- ARIA', () => {
         expect(trigB.getAttribute('aria-expanded')).toBe('false');
     });
 
-    it('aria-controls points to a content element when the item is open', () => {
+    it('aria-controls points to a content element when the item is open', async () => {
         render(AccordionFixture, { props: { type: 'single', value: 'a' } });
         const trigA = required(screen.getByTestId('trig-a').closest('button'));
+        await vi.waitFor(() => expect(trigA).toHaveAttribute('aria-controls'));
         const ariaControls = trigA.getAttribute('aria-controls');
         expect(ariaControls).toBeTruthy();
         expect(document.getElementById(required(ariaControls))).toBeTruthy();
@@ -136,5 +137,31 @@ describe('Accordion -- disabled items', () => {
         const user = userEvent.setup();
         await user.click(screen.getByTestId('trig-c'));
         expect(screen.queryByTestId('content-c')).not.toBeInTheDocument();
+    });
+});
+
+describe('Accordion content relationships', () => {
+    it('removes the control relationship while the content part is omitted', async () => {
+        const { rerender } = render(AccordionFixture, {
+            props: { value: 'a' }
+        });
+        const trigger = screen.getByRole('button', { name: 'Item A' });
+        await waitFor(() => {
+            expect(trigger).toHaveAttribute(
+                'aria-controls',
+                screen.getByRole('region', { name: 'Item A' }).id
+            );
+        });
+        await rerender({ showContent: false });
+        await waitFor(() => {
+            expect(trigger).not.toHaveAttribute('aria-controls');
+        });
+        await rerender({ showContent: true });
+        await waitFor(() => {
+            expect(trigger).toHaveAttribute(
+                'aria-controls',
+                screen.getByRole('region', { name: 'Item A' }).id
+            );
+        });
     });
 });

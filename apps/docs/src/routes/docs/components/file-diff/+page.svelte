@@ -2,17 +2,19 @@
     import { CodeBlock } from '@mielui/svelte/components/code-block';
     import * as Typography from '@mielui/svelte/components/typography';
     import { ComponentPreview, InstallCommand } from '$lib/components/docs';
-    import DocsPager from '$lib/components/docs/docs-pager.svelte';
+    import PageIntro from '$lib/components/docs/page-intro.svelte';
     import Compound from './examples/compound.svelte';
     import CompoundSrc from './examples/compound.svelte?raw';
     import Hero from './examples/hero.svelte';
     import HeroSrc from './examples/hero.svelte?raw';
+    import Live from './examples/live.svelte';
+    import LiveSrc from './examples/live.svelte?raw';
     import Stacked from './examples/stacked.svelte';
     import StackedSrc from './examples/stacked.svelte?raw';
     import WithoutLineNumbers from './examples/without-line-numbers.svelte';
     import WithoutLineNumbersSrc from './examples/without-line-numbers.svelte?raw';
 
-    const installCommand = 'bunx @mielui/svelte add file-diff';
+    const installCommand = 'pnpm dlx @mielui/svelte add file-diff';
 
     const usageSnippet = `import * as FileDiff from '$lib/mielui/components/file-diff';
 
@@ -33,15 +35,9 @@
 
 <div data-docs-page class="flex flex-col gap-10">
     <!-- ─── Header ────────────────────────────────────────────────── -->
-    <header class="flex items-start justify-between gap-4">
-        <div>
-            <Typography.H1> File Diff </Typography.H1>
-            <Typography.Text variant="lead" class="mt-2 max-w-2xl">
-                A unified diff viewer with a file top bar, change counts, and highlighted rows.
-            </Typography.Text>
-        </div>
-        <DocsPager />
-    </header>
+    <PageIntro title="File Diff">
+        A unified diff viewer with a file top bar, change counts, and highlighted rows.
+    </PageIntro>
 
     <!-- ─── Hero Example ──────────────────────────────────────────── -->
     <section id="hero" class="scroll-mt-20 flex flex-col gap-4">
@@ -52,31 +48,44 @@
 
     <!-- ─── Installation ──────────────────────────────────────────── -->
     <section id="installation" class="scroll-mt-20 flex flex-col gap-4">
-        <Typography.H2 class="docs-section-heading"> Installation </Typography.H2>
+        <Typography.H2 class="docs-section-heading">Installation</Typography.H2>
         <InstallCommand command={installCommand} />
         <Typography.Text variant="supporting">
             The component depends on
-            <Typography.InlineCode>highlight.js</Typography.InlineCode>. Install it if your project
-            doesn't have it yet:
+            <Typography.InlineCode>highlight.js</Typography.InlineCode>
+            . Install it if your project doesn't have it yet:
         </Typography.Text>
-        <InstallCommand command="bun add highlight.js" />
+        <InstallCommand command="pnpm add highlight.js" />
     </section>
 
     <!-- ─── Usage ─────────────────────────────────────────────────── -->
     <section id="usage" class="scroll-mt-20 flex flex-col gap-4">
-        <Typography.H2 class="docs-section-heading"> Usage </Typography.H2>
+        <Typography.H2 class="docs-section-heading">Usage</Typography.H2>
         <Typography.Text variant="supporting">
-            Pass a <Typography.InlineCode>diff</Typography.InlineCode> array for the high-level
-            form, or compose
-            <Typography.InlineCode>TopBar</Typography.InlineCode>,
-            <Typography.InlineCode>Content</Typography.InlineCode>, and
+            Pass a{' '}
+            <Typography.InlineCode>diff</Typography.InlineCode> array for the high-level form, or
+            compose
+            <Typography.InlineCode>TopBar</Typography.InlineCode>
+            ,
+            <Typography.InlineCode>Content</Typography.InlineCode>
+            , and
             <Typography.InlineCode>Row</Typography.InlineCode>
             by hand. A bare
             <Typography.InlineCode>TopBar</Typography.InlineCode>
             renders filename and counts; pass children to take over the row with
-            <Typography.InlineCode>Filename</Typography.InlineCode>,
-            <Typography.InlineCode>PlusMinus</Typography.InlineCode>, and your own actions. Addition
-            and deletion counts are derived from the diff unless you pass them explicitly.
+            <Typography.InlineCode>Filename</Typography.InlineCode>
+            ,
+            <Typography.InlineCode>PlusMinus</Typography.InlineCode>
+            , and your own actions. Addition and deletion counts are derived from the diff unless
+            you pass them explicitly.
+        </Typography.Text>
+        <Typography.Text variant="supporting">
+            Code Block and File Diff share the same language aliases, syntax rules, package-manager
+            command highlighting, and escaped fallback for unsupported languages.
+        </Typography.Text>
+        <Typography.Text variant="supporting">
+            Each row announces whether its code was added, removed, or unchanged. When line numbers
+            are shown, the announcement includes the relevant source line.
         </Typography.Text>
         <CodeBlock code={usageSnippet} lang="svelte" copy="overlay" />
     </section>
@@ -84,14 +93,21 @@
     <!-- ─── Examples ──────────────────────────────────────────────── -->
     <section id="examples" class="scroll-mt-20 flex flex-col gap-10">
         <div>
-            <Typography.H2 class="docs-section-heading"> Examples </Typography.H2>
-            <Typography.Text variant="supporting" class="mt-2">
-                From a single high-level diff to fully composed rows and stacked files.
+            <Typography.H2 class="docs-section-heading">Examples</Typography.H2>
+        </div>
+
+        <div id="changing-diff" class="scroll-mt-20 flex flex-col gap-3">
+            <Typography.H3 class="docs-subsection-heading">Changing a diff</Typography.H3>
+            <Typography.Text variant="supporting">
+                Replace the diff array when a new patch arrives. The filename, highlighted rows, and
+                derived counts update from Root. Explicit additions and deletions continue to
+                override the calculated counts until you remove those props.
             </Typography.Text>
+            <ComponentPreview code={LiveSrc}><Live /></ComponentPreview>
         </div>
 
         <div id="compound" class="scroll-mt-20 flex flex-col gap-3">
-            <Typography.H3 class="docs-subsection-heading"> Compound API </Typography.H3>
+            <Typography.H3 class="docs-subsection-heading">Compound API</Typography.H3>
             <Typography.Text variant="supporting">
                 Drop down to rows when you need a custom top-bar action or explicit counts.
                 Recompose the header from
@@ -106,7 +122,7 @@
         </div>
 
         <div id="without-line-numbers" class="scroll-mt-20 flex flex-col gap-3">
-            <Typography.H3 class="docs-subsection-heading"> Without line numbers </Typography.H3>
+            <Typography.H3 class="docs-subsection-heading">Without line numbers</Typography.H3>
             <Typography.Text variant="supporting">
                 Hide both gutters for compact embeds. The sign column stays so additions and
                 deletions remain distinguishable without color.
@@ -117,7 +133,7 @@
         </div>
 
         <div id="stacked" class="scroll-mt-20 flex flex-col gap-3">
-            <Typography.H3 class="docs-subsection-heading"> Stacked files </Typography.H3>
+            <Typography.H3 class="docs-subsection-heading">Stacked files</Typography.H3>
             <Typography.Text variant="supporting">
                 Render one Root per file for pull-request style views. Each diff keeps its own
                 language and counts.
@@ -126,5 +142,14 @@
                 <Stacked />
             </ComponentPreview>
         </div>
+    </section>
+    <section id="working-example" class="flex scroll-mt-20 flex-col gap-4">
+        <Typography.H2 class="docs-section-heading">Keep patch context visible</Typography.H2>
+        <Typography.Text>
+            Use one Root per file and keep its filename and language alongside the patch. For short
+            embedded previews you can omit line numbers; retain the addition and deletion signs so
+            color is not the only distinction. Use the changing-diff example to inspect count
+            updates.
+        </Typography.Text>
     </section>
 </div>

@@ -1,7 +1,6 @@
-import { afterEach, beforeEach, describe, expect, it, mock, spyOn } from 'bun:test';
-
 import { defaultThemes } from '@src/services/themes/defaults';
 import type { Theme } from '@src/services/themes/model';
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
 // The registry talks to Postgres through a Prisma client that is generated at
 // build time (`prisma generate`) and instantiates a real pg pool on import.
@@ -22,7 +21,7 @@ const db = {
     }
 };
 
-mock.module('@lib/prisma', () => ({ prisma: db }));
+vi.doMock('@lib/prisma', () => ({ prisma: db }));
 
 // Import the production app only after the database mock is registered.
 const { app, default: vercelHandler } = await import('@src/index');
@@ -67,7 +66,7 @@ beforeEach(() => {
 });
 
 afterEach(() => {
-    mock.restore();
+    vi.restoreAllMocks();
 });
 
 describe('GET /themes', () => {
@@ -158,7 +157,7 @@ describe('registry request guards', () => {
     });
 
     it('does not leak unexpected service errors', async () => {
-        const errorLog = spyOn(console, 'error').mockImplementation(() => {});
+        const errorLog = vi.spyOn(console, 'error').mockImplementation(() => {});
         db.theme.findMany = async () => {
             throw new Error('boom: secret detail');
         };

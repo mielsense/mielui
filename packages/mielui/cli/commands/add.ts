@@ -14,7 +14,8 @@ import {
     declaredDependencies,
     detectPackageManager,
     installCommand,
-    installFile
+    installFile,
+    installNotices
 } from '../utils/project';
 import { fail, ok, tree, warn } from '../utils/ui';
 
@@ -67,6 +68,8 @@ export async function add(names: string[], options: AddOptions) {
     const spinner = clack.spinner();
     spinner.start(`Installing ${plan.components.length} component(s) into ${config.dir}`);
 
+    await installNotices(cwd, config.dir);
+
     const summaries: { heading: string; lines: string[] }[] = [];
     let skipped = 0;
     for (const component of plan.components) {
@@ -74,7 +77,9 @@ export async function add(names: string[], options: AddOptions) {
         const files = [...installableFiles(component), ...component.sharedFiles];
         for (const file of files) {
             const result = await installFile(cwd, config.dir, file, config.alias, overwrite);
-            if (result === 'skipped') skipped++;
+            if (result === 'skipped') {
+                skipped++;
+            }
             lines.push(`${RESULT_MARK[result]} ${file}`);
         }
         config.components[component.name] = component.version;
@@ -86,7 +91,9 @@ export async function add(names: string[], options: AddOptions) {
     await saveConfig(cwd, config);
     spinner.stop(`Installed into ${pc.cyan(config.dir)}`);
 
-    for (const summary of summaries) tree(summary.heading, summary.lines);
+    for (const summary of summaries) {
+        tree(summary.heading, summary.lines);
+    }
     if (skipped > 0) {
         warn(
             `${skipped} file(s) already existed and were left alone -- pass --overwrite to replace.`
@@ -108,8 +115,11 @@ export async function add(names: string[], options: AddOptions) {
         if (install) {
             const [bin, ...args] = command.split(' ');
             const result = spawnSync(bin, args, { cwd, stdio: 'inherit' });
-            if (result.status === 0) ok('peer dependencies installed.');
-            else warn(`"${command}" exited with ${result.status} -- install them manually.`);
+            if (result.status === 0) {
+                ok('peer dependencies installed.');
+            } else {
+                warn(`"${command}" exited with ${result.status} -- install them manually.`);
+            }
         } else {
             console.log(`  install with ${pc.cyan(command)}`);
         }

@@ -4,10 +4,10 @@ import Badge from '@mielui/svelte/components/badge/badge.svelte';
 import Button from '@mielui/svelte/components/button/button.svelte';
 import Checkbox from '@mielui/svelte/components/checkbox/checkbox.svelte';
 import Input from '@mielui/svelte/components/input/input.svelte';
+import Kbd from '@mielui/svelte/components/kbd/kbd.svelte';
 import Label from '@mielui/svelte/components/label/label.svelte';
 import Pagination from '@mielui/svelte/components/pagination/pagination.svelte';
 import Progress from '@mielui/svelte/components/progress/progress.svelte';
-import Shortcut from '@mielui/svelte/components/shortcut/shortcut.svelte';
 import Skeleton from '@mielui/svelte/components/skeleton/skeleton.svelte';
 import Slider from '@mielui/svelte/components/slider/slider.svelte';
 import Switch from '@mielui/svelte/components/switch/switch.svelte';
@@ -35,8 +35,8 @@ import ColorPickerFixture from '../../fixtures/ColorPickerFixture.svelte';
 import ComboboxFixture from '../../fixtures/ComboboxFixture.svelte';
 import CommandFixture from '../../fixtures/CommandFixture.svelte';
 import ContextMenuFixture from '../../fixtures/ContextMenuFixture.svelte';
+import DialogFixture from '../../fixtures/DialogFixture.svelte';
 import DropdownMenuFixture from '../../fixtures/DropdownMenuFixture.svelte';
-import ModalFixture from '../../fixtures/ModalFixture.svelte';
 import PopoverFixture from '../../fixtures/PopoverFixture.svelte';
 import RadioGroupFixture from '../../fixtures/RadioGroupFixture.svelte';
 import SelectFixture from '../../fixtures/SelectFixture.svelte';
@@ -88,7 +88,7 @@ describe('SSR -- leaf components (Tier 1)', () => {
     ssrShouldNotThrow('pagination', Pagination, { page: 1, total: 5 });
     ssrShouldNotThrow('skeleton', Skeleton, {});
     ssrShouldNotThrow('label', Label, {});
-    ssrShouldNotThrow('shortcut', Shortcut, { shortcut: 'cmd+k' });
+    ssrShouldNotThrow('kbd', Kbd, { shortcut: 'cmd+k' });
     ssrShouldNotThrow('typography title', TypographyTitle, { level: 2 });
     ssrShouldNotThrow('typography h1', TypographyH1, {});
     ssrShouldNotThrow('typography h2', TypographyH2, {});
@@ -103,8 +103,8 @@ describe('SSR -- leaf components (Tier 1)', () => {
 });
 
 describe('SSR -- overlay primitives (Tier 1)', () => {
-    ssrShouldNotThrow('modal (closed)', ModalFixture, { open: false });
-    ssrShouldNotThrow('modal (open)', ModalFixture, { open: true });
+    ssrShouldNotThrow('dialog (closed)', DialogFixture, { open: false });
+    ssrShouldNotThrow('dialog (open)', DialogFixture, { open: true });
     ssrShouldNotThrow('sheet (closed)', SheetFixture, { open: false });
     ssrShouldNotThrow('sheet (open)', SheetFixture, { open: true });
     ssrShouldNotThrow('alert-dialog (closed)', AlertDialogFixture, { open: false });
@@ -159,7 +159,7 @@ describe('SSR -- Tier 2 components', () => {
 /*
  * Hydration drift is covered indirectly across the suite:
  *   - SSR-side closed/open assertions live in `SSR -- drift-prone bidirectional-sync components`.
- *   - Client-side closed/open assertions for the same fixtures live in modal.browser.test.ts,
+ *   - Client-side closed/open assertions for the same fixtures live in dialog.browser.test.ts,
  *     sheet.browser.test.ts, popover.browser.test.ts, alert-dialog.browser.test.ts.
  *
  * A real cross-environment literal comparison (server HTML → browser
@@ -171,19 +171,19 @@ describe('SSR -- Tier 2 components', () => {
  */
 
 describe('SSR -- drift-prone bidirectional-sync components', () => {
-    it('modal (closed) does not include the title in SSR output', () => {
-        const result = render(ModalFixture as Component<Record<string, unknown>>, {
+    it('dialog (closed) does not include the title in SSR output', () => {
+        const result = render(DialogFixture as Component<Record<string, unknown>>, {
             props: { open: false }
         });
-        expect(result.body).not.toMatch(/Modal Title/);
+        expect(result.body).not.toMatch(/Dialog Title/);
         expect(result.body).toMatch(/data-testid="trigger"/);
     });
 
-    it('modal (open) includes the title and role="dialog" in SSR output', () => {
-        const result = render(ModalFixture as Component<Record<string, unknown>>, {
+    it('dialog (open) includes the title and role="dialog" in SSR output', () => {
+        const result = render(DialogFixture as Component<Record<string, unknown>>, {
             props: { open: true }
         });
-        expect(result.body).toMatch(/Modal Title/);
+        expect(result.body).toMatch(/Dialog Title/);
         expect(result.body).toMatch(/role="dialog"/);
     });
 
@@ -196,7 +196,7 @@ describe('SSR -- drift-prone bidirectional-sync components', () => {
 
     it('sheet (open) includes the title and role="dialog" in SSR output', () => {
         // Sheet gates content on `{#if sheetState.open}` (no deferred visible
-        // flag). Open SSR should emit the dialog chrome like Modal does.
+        // flag). Open SSR should emit the dialog chrome like Dialog does.
         const result = render(SheetFixture as Component<Record<string, unknown>>, {
             props: { open: true }
         });
@@ -254,21 +254,21 @@ describe('SSR -- output shape spot checks', () => {
         expect(result.body).toContain('data-badge-dot');
     });
 
-    it('modal closed produces empty fixture body (the trigger renders, modal content does not)', () => {
-        const result = render(ModalFixture as Component<Record<string, unknown>>, {
+    it('dialog closed produces empty fixture body (the trigger renders, dialog content does not)', () => {
+        const result = render(DialogFixture as Component<Record<string, unknown>>, {
             props: { open: false }
         });
         // Trigger button is rendered.
         expect(result.body).toMatch(/<button/);
-        // Modal title is NOT rendered (open=false).
-        expect(result.body).not.toMatch(/Modal Title/);
+        // Dialog title is NOT rendered (open=false).
+        expect(result.body).not.toMatch(/Dialog Title/);
     });
 
-    it('modal open includes the title in the SSR output', () => {
-        const result = render(ModalFixture as Component<Record<string, unknown>>, {
+    it('dialog open includes the title in the SSR output', () => {
+        const result = render(DialogFixture as Component<Record<string, unknown>>, {
             props: { open: true }
         });
-        expect(result.body).toMatch(/Modal Title/);
+        expect(result.body).toMatch(/Dialog Title/);
     });
 
     it('alert-dialog open uses role="alertdialog" in the SSR output', () => {

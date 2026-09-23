@@ -12,9 +12,10 @@ export const manifest: Manifest = {
         'components/badge/index.ts',
         'components/badge/manifest.ts'
     ],
-    components: [],
+    components: ['_internal/utils'],
     shared: ['utils.cn'],
     peerDependencies: {
+        '@floating-ui/dom': '1.7.6',
         cnfast: '^0.0.8',
         'tailwind-merge': '^3.0.0',
         'tailwind-variants': '^3.0.0',

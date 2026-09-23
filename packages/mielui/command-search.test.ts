@@ -1,6 +1,6 @@
-import { describe, expect, test } from 'bun:test';
-import type { CommandItem } from './src/components/command';
-import { searchCommandItems } from './src/components/command/search';
+import { describe, expect, test } from 'vitest';
+import type { CommandItem } from './src/blocks/command';
+import { searchCommandItems } from './src/blocks/command/search';
 
 function item(name: string, id = ''): CommandItem {
     return { id: id || name, name, callback: undefined, ref: undefined, disabled: false };
@@ -13,7 +13,7 @@ const items: CommandItem[] = [
     item('Theming tokens colors styling'),
     item('Components catalog index'),
     item('Button button'),
-    item('Modal modal'),
+    item('Dialog dialog'),
     item('Dropdown Menu dropdown-menu'),
     item('Alert Dialog alert-dialog'),
     item('Toast toast'),
@@ -46,7 +46,7 @@ describe('searchCommandItems', () => {
     });
 
     test('prioritizes exact and word-prefix matches', () => {
-        expect(names(searchCommandItems(items, 'modal modal'))).toEqual(['Modal modal']);
+        expect(names(searchCommandItems(items, 'dialog dialog'))).toEqual(['Dialog dialog']);
         expect(names(searchCommandItems(items, 'styl'))).toEqual(['Theming tokens']);
         expect(names(searchCommandItems(items, 'menu'))).toEqual(['Dropdown Menu', 'Context Menu']);
     });

@@ -1,17 +1,22 @@
 <script lang="ts">
     import { cn } from '@mielui/svelte/utils';
+    import { Accordion as BitsAccordion } from 'bits-ui';
     import { setContext } from 'svelte';
     import type { AccordionContext, AccordionProps } from '.';
 
     let {
         class: className,
-        type = 'single',
         value = $bindable<string | string[] | undefined>(),
         collapsible = true,
-        onValueChange,
         children,
-        ...rest
+        ...mode
     }: AccordionProps = $props();
+
+    const type = $derived(mode.type ?? 'single');
+    const attributes = $derived.by(() => {
+        const { type, onValueChange, ...rest } = mode;
+        return rest;
+    });
 
     function isOpen(itemValue: string) {
         if (type === 'multiple') {
@@ -20,42 +25,61 @@
         return value === itemValue;
     }
 
-    function toggle(itemValue: string) {
-        if (type === 'multiple') {
-            const arr = Array.isArray(value) ? [...value] : [];
-            const idx = arr.indexOf(itemValue);
-            if (idx === -1) {
-                arr.push(itemValue);
-            } else {
-                arr.splice(idx, 1);
+    function singleValue() {
+        return typeof value === 'string' ? value : '';
+    }
+
+    function updateValue(next: string | string[]) {
+        if (type === 'single' && next === '' && !collapsible) {
+            return;
+        }
+        if (mode.type === 'multiple') {
+            if (!Array.isArray(next)) {
+                return;
             }
-            value = arr;
-            onValueChange?.(arr);
+            value = next;
+            mode.onValueChange?.(next);
         } else {
-            if (value === itemValue) {
-                if (collapsible) {
-                    value = undefined;
-                    onValueChange?.(undefined);
-                }
-            } else {
-                value = itemValue;
-                onValueChange?.(itemValue);
+            if (Array.isArray(next)) {
+                return;
             }
+            const selected = next === '' ? undefined : next;
+            value = selected;
+            mode.onValueChange?.(selected);
         }
     }
 
-    const ctx: AccordionContext = { isOpen, toggle };
+    const ctx: AccordionContext = { isOpen, toggle: updateValue };
     setContext('accordion', ctx);
 </script>
 
-<div
-    data-ui="accordion"
-    data-type={type}
-    class={cn(
+{#if type === 'multiple'}
+    <BitsAccordion.Root
+        type="multiple"
+        value={Array.isArray(value) ? value : []}
+        onValueChange={updateValue}
+        data-ui="accordion"
+        data-type={type}
+        class={cn(
         className,
-        'divide-y-[length:var(--border-size)] divide-border border-y-[length:var(--border-size)] border-border'
+        'divide-y-[length:var(--border-size)] divide-border'
     )}
-    {...rest}
->
-    {@render children?.()}
-</div>
+        {...attributes}
+    >
+        {@render children?.()}
+    </BitsAccordion.Root>
+{:else}
+    <BitsAccordion.Root
+        type="single"
+        bind:value={singleValue, updateValue}
+        data-ui="accordion"
+        data-type={type}
+        class={cn(
+        className,
+        'divide-y-[length:var(--border-size)] divide-border'
+    )}
+        {...attributes}
+    >
+        {@render children?.()}
+    </BitsAccordion.Root>
+{/if}

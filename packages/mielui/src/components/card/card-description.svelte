@@ -1,16 +1,9 @@
 <script lang="ts">
     import { cn } from '@mielui/svelte/utils';
-    import type { Snippet } from 'svelte';
     import { descriptionClasses } from '../typography/variants';
+    import type { CardDescriptionProps } from '.';
 
-    let {
-        children,
-        class: classProp,
-        ...rest
-    }: {
-        children: Snippet;
-        class?: string;
-    } = $props();
+    let { children, class: classProp, ...rest }: CardDescriptionProps = $props();
 </script>
 
 <p {...rest} class={cn(classProp, descriptionClasses)}>

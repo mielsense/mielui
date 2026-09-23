@@ -1,27 +1,54 @@
 <script lang="ts">
-    import Copy from '@lucide/svelte/icons/copy';
-    import Download from '@lucide/svelte/icons/download';
     import * as ContextMenu from '@mielui/svelte/components/context-menu';
+
+    let rotation = $state(0);
+    let message = $state('');
+
+    function rotate() {
+        rotation = (rotation + 90) % 360;
+        message = `Rotated ${rotation} degrees.`;
+    }
+
+    function reset() {
+        rotation = 0;
+        message = 'Original orientation restored.';
+    }
+
+    async function copyLink() {
+        try {
+            await navigator.clipboard.writeText(
+                `${window.location.origin}/docs/components/context-menu#image`
+            );
+            message = 'Preview link copied.';
+        } catch {
+            message = 'Clipboard access is unavailable.';
+        }
+    }
 </script>
 
-<div class="flex items-center justify-center">
+<div class="flex flex-col items-center gap-3">
     <ContextMenu.Root>
         <ContextMenu.Trigger>
-            <div
-                class="flex h-20 w-56 items-center justify-center rounded-[var(--radius-lg)] border border-dashed border-border bg-secondary/30 text-sm text-foreground-muted"
+            <svg
+                role="img"
+                aria-label="Geometric illustration"
+                viewBox="0 0 160 120"
+                class="h-32 w-44 rounded-[var(--radius-lg)] border border-border bg-secondary p-4"
             >
-                Right-click an image
-            </div>
+                <g transform={`rotate(${rotation} 80 60)`}>
+                    <circle cx="100" cy="35" r="16" fill="var(--color-primary)" />
+                    <path d="M10 100L60 35L110 100Z" fill="var(--color-foreground)" opacity="0.6" />
+                    <path d="M65 100L110 60L150 100Z" fill="var(--color-primary)" />
+                </g>
+            </svg>
         </ContextMenu.Trigger>
         <ContextMenu.Content>
-            <ContextMenu.Item callback={() => {}}>
-                <span class="flex items-center gap-2"><Download size={14} /> Save image</span>
-            </ContextMenu.Item>
-            <ContextMenu.Item callback={() => {}}>
-                <span class="flex items-center gap-2"><Copy size={14} /> Copy image</span>
-            </ContextMenu.Item>
+            <ContextMenu.Item callback={rotate}>Rotate clockwise</ContextMenu.Item>
+            <ContextMenu.Item callback={reset}>Reset orientation</ContextMenu.Item>
             <ContextMenu.Separator />
-            <ContextMenu.Item callback={() => {}}>Open in new tab</ContextMenu.Item>
+            <ContextMenu.Item callback={copyLink}>Copy preview link</ContextMenu.Item>
         </ContextMenu.Content>
     </ContextMenu.Root>
+    <p class="text-xs text-foreground-muted">Right-click or press and hold the illustration.</p>
+    <p role="status" class="text-sm text-foreground-muted">{message}</p>
 </div>

@@ -1,11 +1,11 @@
-import { describe, expect, test } from 'bun:test';
 import { existsSync } from 'node:fs';
 import { readFile } from 'node:fs/promises';
 import path from 'node:path';
+import { describe, expect, test } from 'vitest';
 
 import type { RegistryIndex, RegistryTheme } from '../cli/types';
 
-const registryRoot = path.resolve(import.meta.dir, '../registry');
+const registryRoot = path.resolve(import.meta.dirname, '../registry');
 
 describe('built registry output schema', () => {
     test('references only emitted files and known component dependencies', async () => {
@@ -38,6 +38,22 @@ describe('built registry output schema', () => {
         );
     });
 
+    test('preserves installed AI paths and relative dependencies', async () => {
+        const message = await readFile(
+            path.join(registryRoot, 'files/components/message/message.svelte'),
+            'utf8'
+        );
+        expect(message).toContain("from './message-body.svelte'");
+        const metadata = await readFile(
+            path.join(registryRoot, 'files/components/message/message-metadata.svelte'),
+            'utf8'
+        );
+        expect(metadata).toContain("from '../typography/variants'");
+        expect(metadata).not.toContain('../../components/');
+        expect(message).not.toContain('../../components/');
+        expect(existsSync(path.join(registryRoot, 'files/ai-components'))).toBe(false);
+    });
+
     test('emits usable built-in theme records', async () => {
         const themes = JSON.parse(
             await readFile(path.join(registryRoot, 'themes.json'), 'utf8')
@@ -45,7 +61,7 @@ describe('built registry output schema', () => {
 
         expect(themes.length).toBeGreaterThan(0);
         for (const theme of themes) {
-            expect(theme.slug).not.toBeEmpty();
+            expect(theme.slug.length).toBeGreaterThan(0);
             expect(theme.css).toContain(':root');
         }
     });

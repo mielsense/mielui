@@ -1,9 +1,9 @@
-import { afterEach, describe, expect, test } from 'bun:test';
 import { mkdir, mkdtemp, readFile, rm, writeFile } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import path from 'node:path';
+import { afterEach, describe, expect, test } from 'vitest';
 
-import { declaredDependencies, detectPackageManager, installFile } from './project';
+import { declaredDependencies, detectPackageManager, installCommand, installFile } from './project';
 
 const tempDirs: string[] = [];
 
@@ -19,10 +19,10 @@ afterEach(async () => {
 
 describe('detectPackageManager', () => {
     for (const [file, expected] of [
-        ['bun.lock', 'bun'],
-        ['bun.lockb', 'bun'],
         ['pnpm-lock.yaml', 'pnpm'],
-        ['yarn.lock', 'yarn']
+        ['yarn.lock', 'yarn'],
+        ['bun.lock', 'bun'],
+        ['bun.lockb', 'bun']
     ] as const) {
         test(`detects ${expected} from ${file}`, async () => {
             const cwd = await tempDir();
@@ -30,6 +30,20 @@ describe('detectPackageManager', () => {
             expect(detectPackageManager(cwd)).toBe(expected);
         });
     }
+
+    test('prefers an explicit manager over stale lockfiles', async () => {
+        const cwd = await tempDir();
+        await writeFile(
+            path.join(cwd, 'package.json'),
+            JSON.stringify({ packageManager: 'pnpm@10.34.5' })
+        );
+        await writeFile(path.join(cwd, 'bun.lock'), '');
+        expect(detectPackageManager(cwd)).toBe('pnpm');
+    });
+
+    test('builds a Bun install command for consumer dependencies', () => {
+        expect(installCommand('bun', ['bits-ui', 'cnfast'])).toBe('bun add bits-ui cnfast');
+    });
 
     test('defaults to npm without a recognized lockfile', async () => {
         expect(detectPackageManager(await tempDir())).toBe('npm');
@@ -115,10 +129,10 @@ describe('installFile', () => {
 
     test('rejects traversal and absolute registry paths', async () => {
         const cwd = await tempDir();
-        expect(
+        await expect(
             installFile(cwd, 'src/lib/mielui', '../../evil.txt', '$lib/mielui', false)
         ).rejects.toThrow('unsafe registry file path');
-        expect(
+        await expect(
             installFile(
                 cwd,
                 'src/lib/mielui',

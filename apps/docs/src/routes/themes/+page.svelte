@@ -1,11 +1,14 @@
 <script lang="ts">
-    import Search from '@lucide/svelte/icons/search';
-    import Sparkles from '@lucide/svelte/icons/sparkles';
-    import X from '@lucide/svelte/icons/x';
+    import {
+        Search01Icon as Search,
+        SparklesIcon as Sparkles,
+        Cancel01Icon as X
+    } from '@hugeicons/core-free-icons';
     import { Button } from '@mielui/svelte/components/button';
     import { CopyButton } from '@mielui/svelte/components/copy-button';
     import { Input } from '@mielui/svelte/components/input';
     import { toast } from '@mielui/svelte/components/toast';
+    import HugeiconsIcon from '@mielui/svelte/hugeicons-icon';
     import { builtInThemePresets } from '@mielui/svelte/themes/builtin-presets';
     import { applyLiveThemeCss } from '@mielui/svelte/themes/live';
     import { type Theme, themeToCss } from '@mielui/svelte/themes/theme';
@@ -27,7 +30,9 @@
     const filteredThemes = $derived.by(() => {
         const needle = searchQuery.trim().toLowerCase();
         return themes.filter((theme) => {
-            if (!needle) return true;
+            if (!needle) {
+                return true;
+            }
             const haystack = [theme.name, theme.description, theme.publisher ?? '']
                 .join(' ')
                 .toLowerCase();
@@ -45,7 +50,7 @@
         });
     }
 
-    // Theme detail modal
+    // Theme detail dialog
     let detailOpen = $state(false);
     let detailTheme = $state<Theme | null>(null);
     let copiedKey = $state<'css' | 'json' | null>(null);
@@ -65,7 +70,9 @@
             type: 'success'
         });
         setTimeout(() => {
-            if (copiedKey === key) copiedKey = null;
+            if (copiedKey === key) {
+                copiedKey = null;
+            }
         }, 1600);
     }
 
@@ -97,7 +104,8 @@
 
             <div class="mx-auto w-full max-w-[44rem]">
                 <div class="relative">
-                    <Search
+                    <HugeiconsIcon
+                        icon={Search}
                         size={14}
                         class="pointer-events-none absolute left-3 top-1/2 z-10 -translate-y-1/2 text-foreground-muted"
                     />
@@ -146,9 +154,9 @@
                     </div>
                 {/if}
                 {#if searchQuery.trim()}
-                    <Button variant="ghost" size="md" onclick={() => (searchQuery = '')}
-                        >Clear search</Button
-                    >
+                    <Button variant="ghost" size="md" onclick={() => (searchQuery = '')}>
+                        Clear search
+                    </Button>
                 {/if}
             </div>
         {:else}
@@ -223,14 +231,16 @@
         {/if}
     </section>
 
-    <!-- Detail Modal -->
+    <!-- Detail Dialog -->
     {#if detailTheme}
         <div
             class={`fixed inset-0 z-50 flex items-center justify-center transition-opacity ${detailOpen ? 'opacity-100' : 'pointer-events-none opacity-0'}`}
             style={`background: rgba(0, 0, 0, ${detailOpen ? '0.5' : '0'})`}
             onclick={() => (detailOpen = false)}
             onkeydown={(e) => {
-                if (e.key === 'Escape') detailOpen = false;
+                if (e.key === 'Escape') {
+                    detailOpen = false;
+                }
             }}
             role="dialog"
             aria-modal="true"
@@ -255,7 +265,7 @@
                         onclick={() => (detailOpen = false)}
                         aria-label="Close"
                     >
-                        <X size={20} />
+                        <HugeiconsIcon icon={X} size={20} />
                     </button>
                 </div>
 
@@ -272,9 +282,9 @@
                                 class="size-4 rounded"
                                 style={`background: ${detailTheme.brand}`}
                             ></span>
-                            <code class="text-foreground-muted font-mono text-[0.75rem]"
-                                >{detailTheme.brand}</code
-                            >
+                            <code class="text-foreground-muted font-mono text-[0.75rem]">
+                                {detailTheme.brand}
+                            </code>
                         </div>
                     </div>
                     <div>
@@ -293,7 +303,7 @@
                         <span class="text-foreground-muted">Fonts</span>
                         <p class="m-0 mt-1 text-foreground text-[0.75rem]">
                             {detailTheme.fontSans}
-                            / {detailTheme.fontMono}
+                            /{detailTheme.fontMono}
                         </p>
                     </div>
                 </div>
@@ -327,9 +337,9 @@
 
                 <!-- Actions -->
                 <div class="flex items-center justify-end gap-2">
-                    <Button variant="outline" size="md" onclick={() => (detailOpen = false)}
-                        >Close</Button
-                    >
+                    <Button variant="outline" size="md" onclick={() => (detailOpen = false)}>
+                        Close
+                    </Button>
                     <Button
                         size="md"
                         onclick={() => {
@@ -338,7 +348,7 @@
                             }
                         }}
                     >
-                        <Sparkles size={14} />
+                        <HugeiconsIcon icon={Sparkles} size={14} />
                         Apply theme
                     </Button>
                 </div>

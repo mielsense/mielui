@@ -14,14 +14,14 @@
             </Tabs.List>
 
             <Tabs.Content value="overview" class="pt-4">
-                <div class="rounded-lg border border-border bg-surface p-4">
+                <div class="rounded-lg border border-border bg-card p-4">
                     <p class="text-sm font-medium text-foreground">Project overview</p>
                     <p class="mt-1 text-sm text-foreground-muted">Everything is up to date.</p>
                 </div>
             </Tabs.Content>
 
             <Tabs.Content value="activity" class="pt-4">
-                <div class="rounded-lg border border-border bg-surface p-4">
+                <div class="rounded-lg border border-border bg-card p-4">
                     <p class="text-sm font-medium text-foreground">Recent activity</p>
                     <p class="mt-1 text-sm text-foreground-muted">
                         You updated the project settings.
@@ -30,7 +30,7 @@
             </Tabs.Content>
 
             <Tabs.Content value="files" class="pt-4">
-                <div class="rounded-lg border border-border bg-surface p-4">
+                <div class="rounded-lg border border-border bg-card p-4">
                     <p class="text-sm font-medium text-foreground">Files</p>
                     <p class="mt-1 text-sm text-foreground-muted">README.md and package.json</p>
                 </div>

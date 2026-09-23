@@ -16,14 +16,17 @@ export const manifest: Manifest = {
     role: 'tooltip',
     files: [
         'components/tooltip/tooltip.svelte',
+        'components/tooltip/tooltip-provider.svelte',
+        'components/tooltip/manager-context.ts',
         'components/tooltip/tooltip-content.svelte',
         'components/tooltip/tooltip-trigger.svelte',
         'components/tooltip/shared-tooltip.ts',
+        'components/tooltip/clone-visual.ts',
         'components/tooltip/index.ts',
         'components/tooltip/manifest.ts'
     ],
-    components: [],
-    shared: ['utils.cn'],
+    components: ['_internal/utils'],
+    shared: ['transition', 'components/_internal/surface', 'utils.cn'],
     peerDependencies: {
         '@floating-ui/dom': '^1.0.0',
         '@scritto/core': '^0.1.0',

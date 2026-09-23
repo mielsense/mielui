@@ -1,79 +1,92 @@
 <script lang="ts">
-    import Check from '@lucide/svelte/icons/check';
+    import { Tick02Icon as Check } from '@hugeicons/core-free-icons';
     import { Button, type ButtonProps } from '@mielui/svelte/components/button';
     import { cn } from '@mielui/svelte/utils';
+    import { Combobox as ComboboxPrimitive, mergeProps } from 'bits-ui';
     import { onMount } from 'svelte';
-    import { getPopoverContext } from '../popover/context.svelte';
-    import type { ComboboxItem } from '.';
+    import type { HTMLButtonAttributes } from 'svelte/elements';
+    import HugeiconsIcon from '../../hugeicons-icon.svelte';
+    import { buttonAttributes } from '../_internal/button-attributes';
     import { getComboboxContext } from './context.svelte';
+    import type { RegisteredComboboxItem } from './controller.svelte';
 
-    const { id, state: comboboxState, selectItem } = getComboboxContext();
-    const { state: popoverState } = getPopoverContext();
+    const context = getComboboxContext();
     const localId = $props.id();
-    const optionId = `combobox-${id}-option-${localId}`;
-
+    const optionId = `combobox-${context.id}-option-${localId}`;
     type Props = {
-        class?: string;
         value: string;
         label: string;
         callback?: () => void;
     } & ButtonProps;
 
-    let { label, value, class: className, callback, ...rest }: Props = $props();
-    let el = $state<HTMLButtonElement | HTMLAnchorElement | undefined>();
-    let item: ComboboxItem = $derived({
+    let {
+        label,
+        value,
+        class: className,
+        callback,
+        disabled = false,
+        element = $bindable(),
+        ...rest
+    }: Props = $props();
+    const item: RegisteredComboboxItem = {
         id: optionId,
-        value: value,
-        label: label,
-        callback: callback,
-        ref: el
-    }) as ComboboxItem;
-    const visible = $derived(
-        comboboxState.searchContent === '' ||
-            Array.from(comboboxState.results).some((result) => result.value === item.value)
-    );
-
-    function close() {
-        selectItem(item);
-        popoverState.buttonRef?.focus();
-    }
-
-    onMount(() => {
-        const added = item;
-        comboboxState.items.add(added);
-        if (comboboxState.open && comboboxState.activeValue === undefined) {
-            comboboxState.activeValue = added.value;
+        get value() {
+            return value;
+        },
+        get label() {
+            return label;
+        },
+        get callback() {
+            return callback;
+        },
+        get ref() {
+            return element;
+        },
+        get disabled() {
+            return disabled;
         }
-        return () => {
-            comboboxState.items.delete(added);
-        };
+    };
+    onMount(() => {
+        return context.register(item);
     });
 </script>
 
-<Button
-    bind:element={el}
-    id={optionId}
-    role="option"
-    aria-selected={comboboxState.selected?.value === item.value}
-    aria-hidden={!visible || undefined}
-    inert={!visible || undefined}
-    data-collection-item
-    data-collection-active={comboboxState.activeValue === item.value}
-    data-combobox-value={value}
-    data-visible={visible}
-    tabindex={-1}
-    {...rest}
-    onclick={close}
-    class={cn(
-        className,
-        'mielui-menu-item flex-row gap-3 overflow-hidden text-sm opacity-100 transition-[height,opacity,border-width] [transition-duration:var(--motion-duration-hover)] ease-[var(--ease-out)] motion-reduce:transition-none data-[visible=false]:h-0 data-[visible=false]:border-y-0 data-[visible=false]:opacity-0'
-    )}
-    unstyled
+<div
+    data-combobox-result={value}
+    data-visible={context.matches(value)}
+    aria-hidden={!context.matches(value) || undefined}
+    inert={!context.matches(value)}
+    class="grid transition-[grid-template-rows] [transition-duration:var(--motion-duration-panel)] ease-[var(--ease-out)] motion-reduce:transition-none"
+    style:grid-template-rows={context.matches(value) ? '1fr' : '0fr'}
 >
-    {label}
-    {#if comboboxState.selected?.value === item.value}
-        <div aria-hidden="true">
-            <Check />
-        </div>
-    {/if}
-</Button>
+    <div class="min-h-0 overflow-hidden">
+        <ComboboxPrimitive.Item
+            id={rest.id ?? optionId}
+            {value}
+            {label}
+            disabled={disabled || !context.matches(value)}
+            onHighlight={() => {
+            context.state.activeValue = value;
+        }}
+        >
+            {#snippet child({ props, selected, highlighted })}
+                <Button
+                    {...buttonAttributes(mergeProps(rest, { ...props as HTMLButtonAttributes }))}
+                    bind:element
+                    disabled={disabled || !context.matches(value)}
+                    data-collection-item
+                    data-collection-active={highlighted}
+                    data-combobox-value={value}
+                    tabindex={-1}
+                    class={cn(className, 'mielui-menu-item flex-row gap-3 overflow-hidden text-sm')}
+                    unstyled
+                >
+                    {label}
+                    {#if selected}
+                        <span aria-hidden="true"><HugeiconsIcon icon={Check} /></span>
+                    {/if}
+                </Button>
+            {/snippet}
+        </ComboboxPrimitive.Item>
+    </div>
+</div>

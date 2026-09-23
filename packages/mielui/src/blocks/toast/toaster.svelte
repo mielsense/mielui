@@ -1,0 +1,184 @@
+<script lang="ts">
+    import { getCssDuration } from '@mielui/svelte/transition';
+    import { visualViewportBounds } from '@mielui/svelte/utils';
+    import { untrack } from 'svelte';
+    import { cubicOut, quartOut } from 'svelte/easing';
+    import type { TransitionConfig } from 'svelte/transition';
+    import { getToastPrimaryHostId, setToastUIState } from './lib.svelte';
+    import NotchHost from './notch-host.svelte';
+    import Toast from './toast.svelte';
+
+    let {
+        variant = 'default',
+        side = 'top'
+    }: {
+        variant?: 'default' | 'notch';
+        side?: 'top' | 'bottom' | 'left' | 'right';
+    } = $props();
+
+    const { state: toastState, hostId } = setToastUIState();
+    const isPrimary = $derived(getToastPrimaryHostId() === hostId);
+
+    let hovered = $state(false);
+    let focused = $state(false);
+    const expanded = $derived(hovered || focused);
+    let heights = $state<Record<number, number>>({} as Record<number, number>);
+    let portalEl = $state<HTMLDivElement>();
+
+    $effect(() => {
+        if (!portalEl || typeof document === 'undefined') {
+            return;
+        }
+        document.body.appendChild(portalEl);
+        return () => {
+            portalEl?.remove();
+        };
+    });
+
+    const COLLAPSED_OFFSET = 14;
+    const COLLAPSED_SCALE_STEP = 0.05;
+    const COLLAPSED_OPACITY_STEP = 0.16;
+    const MAX_VISIBLE = 3;
+    const EXPANDED_GAP = 10;
+
+    const reversedToasts = $derived([...toastState.data.toasts].reverse());
+
+    $effect(() => {
+        const liveIds = new Set(toastState.data.toasts.map((toast) => String(toast.id)));
+        untrack(() => {
+            for (const id of Object.keys(heights)) {
+                if (!liveIds.has(id)) {
+                    delete heights[Number(id)];
+                }
+            }
+        });
+    });
+
+    const viewportClass =
+        // token-lint-disable-next-line no-literal-length: safe-area fallbacks
+        'pointer-events-none fixed inset-x-0 top-[var(--mielui-viewport-top)] z-200 flex h-[var(--mielui-viewport-height)] items-end justify-center px-[max(1rem,env(safe-area-inset-right))] pb-[max(1rem,env(safe-area-inset-bottom))] pt-[max(1.5rem,env(safe-area-inset-top))] sm:justify-end sm:p-6';
+    const stackClass =
+        // token-lint-disable-next-line no-literal-length: toast stack max width
+        'pointer-events-auto relative w-full max-w-[min(100%,26rem)] transition-[height] [transition-duration:var(--motion-duration-toast-in)] ease-[var(--ease-out)] motion-reduce:transition-none sm:max-w-90';
+
+    function getExpandedY(index: number): number {
+        let y = 0;
+        for (let i = 0; i < index; i++) {
+            const t = reversedToasts[i];
+            y += (t?.id !== undefined ? (heights[t.id] ?? 72) : 72) + EXPANDED_GAP;
+        }
+        return y;
+    }
+
+    function getTransform(index: number): string {
+        const y = expanded ? getExpandedY(index) : index * COLLAPSED_OFFSET;
+        const scale = expanded ? 1 : Math.max(1 - index * COLLAPSED_SCALE_STEP, 0.8);
+        return `translateY(-${y}px) scale(${scale})`;
+    }
+
+    function getOpacity(index: number): number {
+        if (expanded) {
+            return 1;
+        }
+        if (index >= MAX_VISIBLE) {
+            return 0;
+        }
+        return Math.max(1 - index * COLLAPSED_OPACITY_STEP, 0);
+    }
+
+    const containerHeight = $derived.by(() => {
+        const n = reversedToasts.length;
+        if (n === 0) {
+            return 0;
+        }
+        if (expanded) {
+            return reversedToasts.reduce((sum, t, i) => {
+                const h = t?.id !== undefined ? (heights[t.id] ?? 72) : 72;
+                return sum + h + (i < n - 1 ? EXPANDED_GAP : 0);
+            }, 0);
+        }
+        const newestId = reversedToasts[0]?.id;
+        const newestHeight = newestId !== undefined ? (heights[newestId] ?? 72) : 72;
+        return newestHeight + (Math.min(n, MAX_VISIBLE) - 1) * COLLAPSED_OFFSET;
+    });
+
+    function toastIn(node: Element): TransitionConfig {
+        const duration = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches
+            ? 0
+            : getCssDuration(node, '--motion-duration-toast-in', 440);
+        return {
+            duration,
+            easing: quartOut,
+            css: (t: number) => {
+                return `
+					filter: blur(${(1 - t) * 2}px);
+					transform: translateY(${(1 - t) * 16}px) scale(${0.985 + t * 0.015});
+				`;
+            }
+        };
+    }
+
+    function toastOut(node: Element): TransitionConfig {
+        const duration = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches
+            ? 0
+            : getCssDuration(node, '--motion-duration-toast-out', 340);
+        return {
+            duration,
+            easing: cubicOut,
+            css: (t: number) => {
+                return `
+					filter: blur(${(1 - t) * 2}px);
+					opacity: ${t};
+					transform: translateY(${(1 - t) * 12}px) scale(${0.985 + t * 0.015});
+				`;
+            }
+        };
+    }
+</script>
+
+{#if isPrimary && variant === 'notch'}
+    <NotchHost toasts={toastState.data.toasts} {side} />
+{:else if isPrimary && toastState.data}
+    <div bind:this={portalEl} use:visualViewportBounds class={viewportClass}>
+        <div
+            role="region"
+            aria-label="Notifications"
+            class={stackClass}
+            style:height={`${containerHeight}px`}
+            onmouseenter={() => {
+                hovered = true;
+            }}
+            onmouseleave={() => {
+                hovered = false;
+            }}
+            onfocusin={() => {
+                focused = true;
+            }}
+            onfocusout={(event) => {
+                focused = event.relatedTarget instanceof Node && event.currentTarget.contains(event.relatedTarget);
+            }}
+        >
+            {#each reversedToasts as toast, i (toast.id)}
+                <div
+                    inert={!expanded && i >= MAX_VISIBLE}
+                    class="absolute bottom-0 w-full transition-[transform,opacity] [transition-duration:var(--motion-duration-toast-in)] ease-[var(--ease-out)] motion-reduce:transition-none"
+                    style:transform={getTransform(i)}
+                    style:opacity={getOpacity(i)}
+                    style:z-index={reversedToasts.length - i}
+                    style:pointer-events={i < MAX_VISIBLE || expanded ? 'auto' : 'none'}
+                    bind:clientHeight={heights[toast.id ?? -1]}
+                >
+                    <div
+                        in:toastIn
+                        out:toastOut
+                        onoutrostart={(event) => {
+                            event.currentTarget.inert = true;
+                        }}
+                    >
+                        <Toast {toast} />
+                    </div>
+                </div>
+            {/each}
+        </div>
+    </div>
+{/if}

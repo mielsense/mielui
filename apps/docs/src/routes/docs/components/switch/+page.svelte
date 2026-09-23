@@ -2,7 +2,7 @@
     import { CodeBlock } from '@mielui/svelte/components/code-block';
     import * as Typography from '@mielui/svelte/components/typography';
     import { ComponentPreview, InstallCommand } from '$lib/components/docs';
-    import DocsPager from '$lib/components/docs/docs-pager.svelte';
+    import PageIntro from '$lib/components/docs/page-intro.svelte';
     import Basic from './examples/basic.svelte';
     import BasicSrc from './examples/basic.svelte?raw';
     import Description from './examples/description.svelte';
@@ -14,25 +14,20 @@
 
     const TITLE = 'Switch';
 
-    const installCommand = 'bunx @mielui/svelte add switch';
+    const installCommand = 'pnpm dlx @mielui/svelte add switch';
 </script>
 
 <svelte:head>
-    <title>Mielui · {TITLE}</title>
+    <title>
+        Mielui ·{' '}
+        {TITLE}
+    </title>
     <meta name="description" content="On/off toggle for system-level settings." />
 </svelte:head>
 
 <div data-docs-page class="flex flex-col gap-10">
     <!-- ─── Header ────────────────────────────────────────────────── -->
-    <header class="flex items-start justify-between gap-4">
-        <div>
-            <Typography.H1>{TITLE}</Typography.H1>
-            <Typography.Text variant="lead" class="mt-2 max-w-2xl">
-                A toggle for settings that apply immediately.
-            </Typography.Text>
-        </div>
-        <DocsPager />
-    </header>
+    <PageIntro title={TITLE}>A toggle for settings that apply immediately.</PageIntro>
 
     <!-- ─── Hero Example ──────────────────────────────────────────── -->
     <section id="hero" class="scroll-mt-20 flex flex-col gap-4">
@@ -49,7 +44,17 @@
 
     <!-- ─── Usage ─────────────────────────────────────────────────── -->
     <section id="usage" class="scroll-mt-20 flex flex-col gap-4">
+        <Typography.Text>
+            The visible label names the switch; descriptions are linked separately. Explicit
+            aria-label or aria-labelledby naming takes priority. External description IDs are
+            preserved and deduplicated, and conditional descriptions are linked only while rendered.
+        </Typography.Text>
         <Typography.H2 class="docs-section-heading">Usage</Typography.H2>
+        <Typography.Text>
+            Use name and value to include a checked switch in form submission. Both checked and the
+            switched alias remain bindable. A label activates the switch, and supplied ARIA
+            relationships are preserved.
+        </Typography.Text>
         <Typography.Text variant="supporting">Import Switch and bind its state:</Typography.Text>
         <CodeBlock
             code={`import { Switch } from '$lib/mielui/components/switch';\n\n<Switch bind:switched={enabled} label="Notifications" />`}
@@ -62,9 +67,6 @@
     <section id="examples" class="scroll-mt-20 flex flex-col gap-10">
         <div>
             <Typography.H2 class="docs-section-heading">Examples</Typography.H2>
-            <Typography.Text variant="supporting" class="mt-2">
-                Switch in different states and compositions.
-            </Typography.Text>
         </div>
 
         <!-- Basic -->

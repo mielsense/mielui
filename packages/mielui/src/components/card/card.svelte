@@ -5,14 +5,12 @@
 
     let { children, class: classProp, variant = 'default', ...rest }: CardProps = $props();
     const card = $state({
-        variant,
+        get variant() {
+            return variant;
+        },
         footerSlot: undefined as CardFooterSlot | undefined
     });
     setCardContext(card);
-
-    $effect(() => {
-        card.variant = variant;
-    });
 </script>
 
 {#if variant === 'inset'}
@@ -33,14 +31,14 @@
         </div>
         {#if card.footerSlot}
             <div
-                {...card.footerSlot.rest}
+                {...card.footerSlot?.rest}
                 data-ui="card-footer"
                 class={cn(
-                    card.footerSlot.className,
+                    card.footerSlot?.className,
                     'flex w-full flex-row items-center justify-end gap-2 px-1 py-1.5'
                 )}
             >
-                {@render card.footerSlot.children?.()}
+                {@render card.footerSlot?.children?.()}
             </div>
         {/if}
     </div>

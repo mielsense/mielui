@@ -1,6 +1,8 @@
 <script lang="ts">
     import { cn } from '@mielui/svelte/utils';
+    import { Switch as BitsSwitch } from 'bits-ui';
     import type { HTMLButtonAttributes } from 'svelte/elements';
+    import { fieldMetadata } from '../_internal/field-metadata';
     import type { SwitchProps } from '.';
 
     let {
@@ -10,45 +12,63 @@
         description,
         disabled = false,
         class: className,
-        element = $bindable<HTMLButtonElement>(),
+        element = $bindable<HTMLButtonElement | undefined>(),
         onclick: userOnclick,
+        id: suppliedId,
         ...rest
     }: SwitchProps & { onclick?: (e: MouseEvent) => void } = $props();
 
     const isOn = $derived(checked ?? switched ?? false);
 
     const id = $props.id();
-    const labelId = `${id}-label`;
-    const descriptionId = `${id}-description`;
+    const metadata = $derived(
+        fieldMetadata({
+            id: suppliedId ?? id,
+            metadataId: id,
+            label,
+            description,
+            ariaLabel: rest['aria-label'],
+            labelledBy: rest['aria-labelledby'],
+            describedBy: rest['aria-describedby']
+        })
+    );
 
     const buttonClasses =
-        'group relative inline-flex h-5 w-9 shrink-0 items-center rounded-full border-[length:var(--border-size)] p-0.5 transition-[background-color,border-color,box-shadow] [transition-duration:var(--motion-duration-panel)] ease-[var(--ease-out)] motion-reduce:transition-none focus-visible:outline-none focus-visible:ring-0 focus-visible:shadow-[var(--focus-ring)] disabled:cursor-not-allowed disabled:opacity-[var(--opacity-disabled)]';
+        'group relative inline-flex h-5 w-11 shrink-0 items-center rounded-full border-[length:var(--border-size)] p-0.5 transition-[background-color,border-color,box-shadow] [transition-duration:var(--motion-duration-panel)] ease-[var(--ease-out)] motion-reduce:transition-none focus-visible:outline-none focus-visible:ring-0 focus-visible:shadow-[var(--focus-ring)] disabled:cursor-not-allowed disabled:opacity-[var(--opacity-disabled)]';
 
-    function toggle(event: Event) {
-        if (disabled) {
-            return;
-        }
-        const next = !isOn;
+    function getElement() {
+        return element ?? null;
+    }
+
+    function setElement(next: HTMLButtonElement | null) {
+        element = next ?? undefined;
+    }
+
+    function updateChecked(next: boolean) {
         if (checked !== undefined || switched === undefined) {
             checked = next;
         }
-        if (switched !== undefined || checked === undefined) {
+        if (switched !== undefined) {
             switched = next;
         }
-        userOnclick?.(event as MouseEvent);
     }
 </script>
 
 <div class="flex min-h-[var(--size-touch)] flex-row items-start gap-2.5 md:min-h-0">
-    <button
-        bind:this={element}
-        {...rest as HTMLButtonAttributes}
+    <BitsSwitch.Root
+        bind:ref={getElement, setElement}
+        checked={isOn}
+        onCheckedChange={updateChecked}
+        id={metadata.controlId}
+        {...rest}
+        name={rest.name ?? undefined}
+        value={rest.value ?? undefined}
         type={(rest as HTMLButtonAttributes).type ?? 'button'}
         role="switch"
-        aria-label={!label ? (rest as HTMLButtonAttributes)['aria-label'] : undefined}
+        aria-label={rest['aria-label']}
         aria-checked={isOn}
-        aria-labelledby={label ? labelId : undefined}
-        aria-describedby={description ? descriptionId : undefined}
+        aria-labelledby={metadata.labelledBy}
+        aria-describedby={metadata.describedBy}
         data-ui="switch"
         data-state={isOn ? 'checked' : 'unchecked'}
         {disabled}
@@ -59,51 +79,40 @@
                 ? 'border-[var(--color-primary-hover)] bg-primary'
                 : 'border-[color-mix(in_srgb,var(--color-border-strong)_88%,transparent)] bg-[color-mix(in_srgb,var(--color-foreground)_18%,transparent)] dark:bg-[color-mix(in_srgb,var(--color-foreground)_24%,transparent)]'
         )}
-        onclick={toggle}
+        onclick={userOnclick}
     >
         <span
             aria-hidden="true"
             data-state={isOn ? 'checked' : 'unchecked'}
             class={cn(
-                'block size-3.5 rounded-full bg-[var(--color-on-primary)] ring-1 ring-inset ring-[color-mix(in_srgb,var(--color-foreground)_8%,transparent)] will-change-transform transition-transform [transition-duration:var(--motion-duration-panel)] ease-[var(--ease-out)] motion-reduce:transition-none',
-                isOn ? 'translate-x-4' : 'translate-x-0',
-                !disabled && 'group-active:scale-x-125 motion-reduce:group-active:scale-x-100'
+                'block h-3.5 w-6 shrink-0 rounded-full bg-[var(--color-on-primary)] ring-1 ring-inset ring-[color-mix(in_srgb,var(--color-foreground)_8%,transparent)] shadow-[var(--elevation-control-edge)] will-change-transform transition-transform [transition-duration:var(--motion-duration-panel)] ease-[var(--ease-out)] motion-reduce:transition-none',
+                isOn ? 'translate-x-3.5 rtl:-translate-x-3.5' : 'translate-x-0',
+                !disabled && 'group-active:scale-x-110 motion-reduce:group-active:scale-x-100'
             )}
         ></span>
-    </button>
+    </BitsSwitch.Root>
 
     {#if label || description}
-        <div
-            class={`flex min-w-0 flex-col gap-0.5 pt-px select-none ${disabled ? 'cursor-not-allowed opacity-60' : 'cursor-[var(--ui-cursor-interactive)]'}`}
-            onclick={toggle}
-            onkeydown={(e) => {
-                if (disabled) {
-                    return;
-                }
-                if (e.key === 'Enter' || e.key === ' ') {
-                    e.preventDefault();
-                    toggle(e);
-                    element?.focus();
-                }
-            }}
-            role="presentation"
+        <label
+            for={metadata.controlId}
+            class={`flex min-w-0 flex-col gap-0.5 select-none ${disabled ? 'cursor-not-allowed opacity-60' : 'cursor-[var(--ui-cursor-interactive)]'}`}
         >
             {#if label}
                 <span
-                    id={labelId}
-                    class="[font-size:var(--font-size-label)] [font-weight:var(--font-weight-label)] [letter-spacing:var(--tracking-label)] text-foreground [font-family:var(--font-sans),sans-serif]"
+                    id={metadata.labelId}
+                    class="leading-5 [font-size:var(--font-size-label)] [font-weight:var(--font-weight-label)] [letter-spacing:var(--tracking-label)] text-foreground [font-family:var(--font-sans),sans-serif]"
                 >
                     {label}
                 </span>
             {/if}
             {#if description}
                 <span
-                    id={descriptionId}
+                    id={metadata.descriptionId}
                     class="leading-body [font-size:var(--font-size-body)] [font-weight:var(--font-weight-body)] [letter-spacing:var(--tracking-body)] text-foreground-muted"
                 >
                     {description}
                 </span>
             {/if}
-        </div>
+        </label>
     {/if}
 </div>

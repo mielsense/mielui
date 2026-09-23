@@ -19,7 +19,7 @@
     </Tabs.List>
     <Tabs.Content value="one"><span data-testid="content-one">One content</span></Tabs.Content>
     <Tabs.Content value="two"><span data-testid="content-two">Two content</span></Tabs.Content>
-    <Tabs.Content value="three"
-        ><span data-testid="content-three">Three content</span></Tabs.Content
-    >
+    <Tabs.Content value="three">
+        <span data-testid="content-three">Three content</span>
+    </Tabs.Content>
 </Tabs.Root>

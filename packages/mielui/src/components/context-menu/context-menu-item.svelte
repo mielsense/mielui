@@ -1,30 +1,43 @@
 <script lang="ts">
     import { Button } from '@mielui/svelte/components/button';
-    import { closeMenuLayers, cn } from '@mielui/svelte/utils';
+    import { cn } from '@mielui/svelte/utils';
+    import { ContextMenu as MenuPrimitive, mergeProps } from 'bits-ui';
+    import type { HTMLButtonAttributes } from 'svelte/elements';
+    import { buttonAttributes } from '../_internal/button-attributes';
     import type { ContextMenuItemProps } from '.';
-    import { getContextMenuContext } from './context.svelte';
-
-    const { state: contextMenuState, ancestors } = getContextMenuContext();
 
     let {
-        class: className,
         children,
-        callback,
+        class: className,
+        disabled = false,
+        onclick: userOnclick,
+        element = $bindable(),
         inset = false,
+        callback,
         ...rest
     }: ContextMenuItemProps = $props();
 </script>
 
-<Button
-    role="menuitem"
-    data-collection-item
-    {...rest}
-    onclick={() => {
-        closeMenuLayers(contextMenuState, ancestors);
+<MenuPrimitive.Item
+    id={rest.id ?? undefined}
+    disabled={disabled ?? undefined}
+    onclick={(event) => {
+        buttonAttributes({ onclick: userOnclick }).onclick?.(event);
+    }}
+    onSelect={() => {
         callback?.();
     }}
-    class={cn(className, 'mielui-menu-item', inset && 'pl-8')}
-    unstyled
 >
-    {@render children?.()}
-</Button>
+    {#snippet child({ props })}
+        <Button
+            {...buttonAttributes(mergeProps(rest, { ...props as HTMLButtonAttributes }))}
+            bind:element
+            disabled={disabled ?? undefined}
+            data-collection-item
+            class={cn(className, 'mielui-menu-item flex-row gap-3 text-sm', inset && 'pl-8')}
+            unstyled
+        >
+            {@render children?.()}
+        </Button>
+    {/snippet}
+</MenuPrimitive.Item>

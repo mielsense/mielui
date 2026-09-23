@@ -4,7 +4,8 @@ export const manifest: Manifest = {
     name: 'breadcrumb',
     version: '1.0.0',
     visibility: 'public',
-    description: 'Navigational breadcrumb trail with items and separators.',
+    description:
+        'Router-independent navigation trail with explicit current-page items and decorative separators.',
     files: [
         'components/breadcrumb/breadcrumb.svelte',
         'components/breadcrumb/breadcrumb-item.svelte',
@@ -12,10 +13,11 @@ export const manifest: Manifest = {
         'components/breadcrumb/index.ts',
         'components/breadcrumb/manifest.ts'
     ],
-    components: [],
-    shared: ['utils.cn'],
+    components: ['_internal/utils'],
+    shared: ['hugeicons-icon', 'utils.cn'],
     peerDependencies: {
-        '@lucide/svelte': '^1.0.0',
+        '@floating-ui/dom': '1.7.6',
+        '@hugeicons/core-free-icons': '^4.3.0',
         cnfast: '^0.0.8',
         svelte: '^5.0.0'
     }

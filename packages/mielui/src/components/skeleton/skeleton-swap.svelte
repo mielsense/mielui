@@ -1,6 +1,7 @@
 <script lang="ts">
     import { cn } from '@mielui/svelte/utils';
     import type { SkeletonSwapProps } from '.';
+    import { delayedPresence } from './delayed-presence.svelte';
 
     let {
         ready,
@@ -20,40 +21,39 @@
     const widths = [100, 93, 97, 88, 95, 91] as const;
     let shell = $state<HTMLDivElement>();
     let body = $state<HTMLDivElement>();
-    let showSkeleton = $state(false);
-    let shownAt = 0;
+    const presence = delayedPresence({
+        get active() {
+            return !ready;
+        },
+        get delay() {
+            return delay;
+        },
+        get minVisible() {
+            return minVisible;
+        }
+    });
+    const showSkeleton = $derived(presence.visible);
     let scrollable = $state(false);
-    const boxHeight = $derived(reserve ?? lines * lineHeight);
+    const lineCount = $derived(
+        Number.isFinite(lines) ? Math.min(1000, Math.max(0, Math.floor(lines))) : 3
+    );
+    const safeLineHeight = $derived(Number.isFinite(lineHeight) ? Math.max(0, lineHeight) : 21);
+    const safeBarHeight = $derived(Number.isFinite(barHeight) ? Math.max(0, barHeight) : 9);
+    const boxHeight = $derived(
+        reserve !== undefined && Number.isFinite(reserve)
+            ? Math.max(0, reserve)
+            : Number.isFinite(lineCount * safeLineHeight)
+              ? lineCount * safeLineHeight
+              : lineCount * 21
+    );
     const contentVisible = $derived(ready && !showSkeleton);
 
     function widthFor(index: number) {
-        if (lines > 1 && index === lines - 1) {
+        if (lineCount > 1 && index === lineCount - 1) {
             return 62;
         }
         return widths[(index * 7 + 3) % widths.length];
     }
-
-    $effect(() => {
-        if (!ready) {
-            if (showSkeleton) {
-                return;
-            }
-            const timer = setTimeout(() => {
-                shownAt = performance.now();
-                showSkeleton = true;
-            }, delay);
-            return () => clearTimeout(timer);
-        }
-
-        if (!showSkeleton) {
-            return;
-        }
-        const remaining = Math.max(0, minVisible - (performance.now() - shownAt));
-        const timer = setTimeout(() => {
-            showSkeleton = false;
-        }, remaining);
-        return () => clearTimeout(timer);
-    });
 
     $effect(() => {
         if (!shell) {
@@ -101,6 +101,7 @@
 
     <div
         aria-hidden="true"
+        inert
         data-visible={showSkeleton}
         class="mielui-skeleton-placeholder pointer-events-none col-start-1 row-start-1 w-full self-start"
     >
@@ -108,11 +109,11 @@
             {@render skeleton()}
         {:else}
             <div class="w-full">
-                {#each Array(lines) as _, index (index)}
-                    <div class="flex items-center" style:height={`${lineHeight}px`}>
+                {#each Array(lineCount) as _, index (index)}
+                    <div class="flex items-center" style:height={`${safeLineHeight}px`}>
                         <div
                             class="rounded-[var(--radius-sm)] bg-secondary"
-                            style:height={`${barHeight}px`}
+                            style:height={`${safeBarHeight}px`}
                             style:width={`${widthFor(index)}%`}
                         ></div>
                     </div>

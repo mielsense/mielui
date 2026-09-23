@@ -20,5 +20,7 @@ export function canTransition(from: RunPhase, to: RunPhase) {
 }
 
 export function assertTransition(from: RunPhase, to: RunPhase) {
-    if (!canTransition(from, to)) throw new Error(`Invalid run phase transition: ${from} -> ${to}`);
+    if (!canTransition(from, to)) {
+        throw new Error(`Invalid run phase transition: ${from} -> ${to}`);
+    }
 }

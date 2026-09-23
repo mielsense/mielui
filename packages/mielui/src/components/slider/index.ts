@@ -1,15 +1,37 @@
 import type { DefaultProps } from '@mielui/svelte/utils';
 import Slider from './slider.svelte';
 
-export type SliderProps = {
-    value?: number;
+type SliderBaseProps = {
     min?: number;
     max?: number;
     step?: number;
     disabled?: boolean;
     label?: string;
-    onValueChange?: (value: number) => void;
+    dir?: 'ltr' | 'rtl';
+    id?: string;
+    name?: string;
+    form?: string;
+    element?: HTMLDivElement;
+    'aria-label'?: string;
+    'aria-labelledby'?: string;
+    'aria-describedby'?: string;
 } & DefaultProps;
+
+export type SliderProps = SliderBaseProps &
+    (
+        | {
+              range?: false;
+              value?: number;
+              thumbLabels?: never;
+              onValueChange?: (value: number) => void;
+          }
+        | {
+              range: true;
+              value?: [number, number];
+              thumbLabels?: [string, string];
+              onValueChange?: (value: [number, number]) => void;
+          }
+    );
 
 export { Slider };
 export default Slider;

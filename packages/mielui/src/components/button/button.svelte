@@ -19,7 +19,10 @@
         errorLabel,
         'aria-label': ariaLabel,
         'aria-disabled': ariaDisabled,
+        disabled = false,
         onclick,
+        onkeydown,
+        tabindex,
         ...rest
     }: ButtonProps = $props();
 
@@ -43,6 +46,7 @@
             errorLabel !== undefined
     );
     const pending = $derived(visualStatus === 'loading');
+    const unavailable = $derived(disabled || ariaDisabled === true || ariaDisabled === 'true');
     const currentLabel = $derived(
         visualStatus === 'loading'
             ? (loadingLabel ?? 'Loading…')
@@ -54,7 +58,7 @@
     );
 
     function activate(event: MouseEvent) {
-        if (pending) {
+        if (pending || unavailable) {
             event.preventDefault();
             event.stopPropagation();
             return;
@@ -139,22 +143,28 @@
     {/if}
 {/snippet}
 
-{#if href}
+{#if href !== undefined}
     <a
         bind:this={element as HTMLAnchorElement}
         use:pressable
-        href={pending ? undefined : href}
-        role={pending ? 'link' : undefined}
-        tabindex={pending ? 0 : (rest as HTMLAnchorAttributes).tabindex}
+        href={pending || unavailable ? undefined : href}
+        role={pending || unavailable ? 'link' : undefined}
+        tabindex={unavailable ? -1 : pending ? (tabindex ?? 0) : tabindex}
         data-ui="button"
         data-variant={unstyled ? undefined : variant}
         data-size={size}
-        class={styledClasses}
+        class={cn(styledClasses, unavailable && 'cursor-not-allowed opacity-[var(--opacity-disabled)]')}
         aria-label={currentLabel}
         aria-busy={pending || undefined}
-        aria-disabled={pending || ariaDisabled}
+        aria-disabled={pending || unavailable || undefined}
         onclick={activate}
         onkeydown={(e) => {
+            onkeydown?.(e);
+            if (e.defaultPrevented) { return; }
+            if ((pending || unavailable) && (e.key === 'Enter' || e.key === ' ')) {
+                e.preventDefault();
+                return;
+            }
             if (
                 (e.code === 'Space' || e.key === ' ') &&
                 e.currentTarget.matches(':focus-visible')
@@ -178,8 +188,11 @@
         class={styledClasses}
         aria-label={currentLabel}
         aria-busy={pending || undefined}
-        aria-disabled={pending || ariaDisabled}
+        aria-disabled={pending || unavailable || undefined}
         onclick={activate}
+        {onkeydown}
+        {tabindex}
+        {disabled}
         {...rest as HTMLButtonAttributes}
     >
         {@render content()}

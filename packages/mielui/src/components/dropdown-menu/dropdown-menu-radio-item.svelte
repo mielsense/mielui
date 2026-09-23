@@ -1,53 +1,47 @@
 <script lang="ts">
-    import Check from '@lucide/svelte/icons/check';
+    import { Tick02Icon as Check } from '@hugeicons/core-free-icons';
     import { Button } from '@mielui/svelte/components/button';
-    import { closeMenuLayers, cn } from '@mielui/svelte/utils';
-    import { getPopoverContext } from '../popover/context.svelte';
+    import { cn } from '@mielui/svelte/utils';
+    import { DropdownMenu as MenuPrimitive, mergeProps } from 'bits-ui';
+    import type { HTMLButtonAttributes } from 'svelte/elements';
+    import HugeiconsIcon from '../../hugeicons-icon.svelte';
+    import { buttonAttributes } from '../_internal/button-attributes';
     import type { DropdownMenuRadioItemProps } from '.';
-    import { getDropdownMenuContext } from './context.svelte';
-    import { getDropdownMenuRadioGroupContext } from './radio-group-context.svelte';
 
     let {
-        value,
         children,
         class: className,
+        disabled = false,
         onclick: userOnclick,
         element = $bindable(),
+        value,
         ...rest
     }: DropdownMenuRadioItemProps = $props();
-
-    const { state: popoverState } = getPopoverContext();
-    const { ancestors } = getDropdownMenuContext();
-    const group = getDropdownMenuRadioGroupContext();
-    const checked = $derived(group.value === value);
-
-    function select(event: MouseEvent) {
-        const target = event.currentTarget as HTMLButtonElement;
-        if (!target.disabled && !checked) {
-            group.value = value;
-            group.onValueChange?.(value);
-        }
-        userOnclick?.(event as MouseEvent & { currentTarget: EventTarget & HTMLButtonElement });
-        if (!event.defaultPrevented && !target.disabled) {
-            closeMenuLayers(popoverState, ancestors);
-        }
-    }
 </script>
 
-<Button
-    bind:element
-    {...rest}
-    role="menuitemradio"
-    aria-checked={checked}
-    data-collection-item
-    onclick={select}
-    class={cn(className, 'mielui-menu-item flex-row gap-3 text-sm')}
-    unstyled
+<MenuPrimitive.RadioItem
+    id={rest.id ?? undefined}
+    {value}
+    disabled={disabled ?? undefined}
+    onclick={(event) => {
+        buttonAttributes({ onclick: userOnclick }).onclick?.(event);
+    }}
 >
-    <span class="grid size-4 shrink-0 place-items-center" aria-hidden="true">
-        {#if checked}
-            <Check size={13} strokeWidth={2.25} />
-        {/if}
-    </span>
-    {@render children?.()}
-</Button>
+    {#snippet child({ props, checked })}
+        <Button
+            {...buttonAttributes(mergeProps(rest, { ...props as HTMLButtonAttributes }))}
+            bind:element
+            disabled={disabled ?? undefined}
+            data-collection-item
+            class={cn(className, 'mielui-menu-item flex-row gap-3 text-sm')}
+            unstyled
+        >
+            <span class="grid size-4 shrink-0 place-items-center" aria-hidden="true">
+                {#if checked}
+                    <HugeiconsIcon icon={Check} size={13} strokeWidth={2.25} />
+                {/if}
+            </span>
+            {@render children?.()}
+        </Button>
+    {/snippet}
+</MenuPrimitive.RadioItem>

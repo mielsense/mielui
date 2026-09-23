@@ -1,18 +1,23 @@
 <script lang="ts">
-    import * as Popover from '@mielui/svelte/components/popover';
-    import type { ContextMenuProps, ContextMenuState } from '.';
+    import { ContextMenu as MenuPrimitive } from 'bits-ui';
+    import type { ContextMenuProps } from '.';
     import { setContextMenuContext } from './context.svelte';
 
-    const id = $props.id();
-    const contextMenuState = $state<ContextMenuState>({
-        open: false,
-        checkboxItems: new Map()
+    let { children, open = $bindable(false), onOpenChange }: ContextMenuProps = $props();
+    setContextMenuContext({
+        state: {
+            get open() {
+                return open;
+            },
+            set open(next) {
+                open = next;
+            },
+            checkboxItems: new Map()
+        },
+        ancestors: []
     });
-    setContextMenuContext({ state: contextMenuState, ancestors: [] });
-
-    let { children }: ContextMenuProps = $props();
 </script>
 
-<Popover.Root state_key={id} bind:open={contextMenuState.open}>
+<MenuPrimitive.Root bind:open {onOpenChange}>
     {@render children?.()}
-</Popover.Root>
+</MenuPrimitive.Root>

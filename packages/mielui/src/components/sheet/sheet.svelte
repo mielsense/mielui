@@ -1,4 +1,5 @@
 <script lang="ts">
+    import { Dialog as DialogPrimitive } from 'bits-ui';
     import type { SheetProps, SheetState } from '.';
     import { setSheetContext } from './context.svelte';
 
@@ -6,26 +7,41 @@
 
     const id = $props.id();
     const sheetState = $state<SheetState>({
-        open,
+        get open() {
+            return open;
+        },
+        set open(value: boolean) {
+            if (open === value) {
+                return;
+            }
+            open = value;
+            onOpenChange?.(value);
+        },
         triggerRef: null
     });
-    let syncedOpen = $state(open);
-    setSheetContext({ id, state: sheetState });
-
-    $effect(() => {
-        if (open !== syncedOpen) {
-            syncedOpen = open;
-            sheetState.open = open;
-        }
+    const context = $state({
+        id,
+        state: sheetState,
+        titleId: undefined as string | undefined,
+        descriptionId: undefined as string | undefined
     });
+    setSheetContext(context);
+    let wasOpen = $state(false);
 
-    $effect(() => {
-        if (sheetState.open !== syncedOpen) {
-            syncedOpen = sheetState.open;
-            open = sheetState.open;
-            onOpenChange?.(sheetState.open);
+    $effect.pre(() => {
+        if (
+            open &&
+            !wasOpen &&
+            typeof document !== 'undefined' &&
+            document.activeElement instanceof HTMLElement &&
+            document.activeElement !== document.body
+        ) {
+            sheetState.triggerRef = document.activeElement;
         }
+        wasOpen = open;
     });
 </script>
 
-{@render children?.()}
+<DialogPrimitive.Root bind:open={sheetState.open}>
+    {@render children?.()}
+</DialogPrimitive.Root>

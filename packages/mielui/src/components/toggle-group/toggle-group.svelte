@@ -1,17 +1,22 @@
 <script lang="ts">
     import { cn, travelingHighlight } from '@mielui/svelte/utils';
+    import { ToggleGroup as BitsToggleGroup } from 'bits-ui';
     import { setContext } from 'svelte';
     import type { ToggleGroupContext, ToggleGroupProps } from '.';
 
     let {
         class: className,
-        type = 'single',
         value = $bindable<string | string[] | undefined>(),
         disabled = false,
-        onValueChange,
         children,
-        ...rest
+        ...mode
     }: ToggleGroupProps = $props();
+
+    const type = $derived(mode.type ?? 'single');
+    const attributes = $derived.by(() => {
+        const { type, onValueChange, ...rest } = mode;
+        return rest;
+    });
 
     function isActive(itemValue: string) {
         if (type === 'multiple') {
@@ -20,23 +25,20 @@
         return value === itemValue;
     }
 
-    function setValue(itemValue: string) {
-        if (disabled) {
-            return;
-        }
-        if (type === 'multiple') {
-            const arr = Array.isArray(value) ? [...value] : [];
-            const idx = arr.indexOf(itemValue);
-            if (idx === -1) {
-                arr.push(itemValue);
-            } else {
-                arr.splice(idx, 1);
+    function updateValue(next: string | string[]) {
+        if (mode.type === 'multiple') {
+            if (!Array.isArray(next)) {
+                return;
             }
-            value = arr;
-            onValueChange?.(arr);
+            value = next;
+            mode.onValueChange?.(next);
         } else {
-            value = value === itemValue ? undefined : itemValue;
-            onValueChange?.(value);
+            if (Array.isArray(next)) {
+                return;
+            }
+            const selected = next === '' ? undefined : next;
+            value = selected;
+            mode.onValueChange?.(selected);
         }
     }
 
@@ -48,17 +50,47 @@
             return disabled;
         },
         isActive,
-        setValue
+        setValue: updateValue
     };
     setContext('toggle-group', ctx);
 </script>
 
-<div
-    data-ui="toggle-group"
-    role={type === 'single' ? 'radiogroup' : 'group'}
-    use:travelingHighlight
-    class={cn(className, 'inline-flex items-center gap-1')}
-    {...rest}
->
-    {@render children?.()}
-</div>
+{#if type === 'multiple'}
+    <BitsToggleGroup.Root
+        type="multiple"
+        value={Array.isArray(value) ? value : []}
+        onValueChange={updateValue}
+        {disabled}
+        {...attributes}
+    >
+        {#snippet child({ props })}
+            <div
+                {...props}
+                data-ui="toggle-group"
+                use:travelingHighlight
+                class={cn(className, 'inline-flex items-center gap-1')}
+            >
+                {@render children?.()}
+            </div>
+        {/snippet}
+    </BitsToggleGroup.Root>
+{:else}
+    <BitsToggleGroup.Root
+        type="single"
+        value={typeof value === 'string' ? value : ''}
+        onValueChange={updateValue}
+        {disabled}
+        {...attributes}
+    >
+        {#snippet child({ props })}
+            <div
+                {...props}
+                data-ui="toggle-group"
+                use:travelingHighlight
+                class={cn(className, 'inline-flex items-center gap-1')}
+            >
+                {@render children?.()}
+            </div>
+        {/snippet}
+    </BitsToggleGroup.Root>
+{/if}

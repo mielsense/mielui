@@ -42,7 +42,7 @@ function expectOptionToBeFilteredOut(value: string) {
         return;
     }
 
-    const motion = option.closest('[data-combobox-value]');
+    const motion = option.closest('[data-combobox-result]');
 
     expect(motion).toHaveAttribute('data-visible', 'false');
     expect(motion).toHaveAttribute('aria-hidden', 'true');
@@ -53,7 +53,7 @@ describe('Combobox -- open and close', () => {
     it('hides items initially', async () => {
         render(ComboboxFixture, {});
         await flush();
-        await expect.element(page.getByText('Apple')).not.toBeInTheDocument();
+        await expect.element(page.getByText('Apple')).not.toBeVisible();
     });
 
     it('shows items + search input after opening', async () => {
@@ -74,7 +74,7 @@ describe('Combobox -- open and close', () => {
 
         await userEvent.keyboard('{Escape}');
         await flush();
-        await expect.element(page.getByText('Apple')).not.toBeInTheDocument();
+        await expect.element(page.getByText('Apple')).not.toBeVisible();
     });
 
     it('closes on click outside', async () => {
@@ -90,9 +90,9 @@ describe('Combobox -- open and close', () => {
         outside.style.top = '8px';
         document.body.append(outside);
         await new Promise((r) => setTimeout(r, 20));
-        outside.click();
+        await page.getByRole('button', { name: 'outside', exact: true }).click({ force: true });
         await flush();
-        await expect.element(page.getByText('Apple')).not.toBeInTheDocument();
+        await expect.element(page.getByText('Apple')).not.toBeVisible();
         outside.remove();
     });
 });
@@ -142,7 +142,7 @@ describe('Combobox -- item activation', () => {
         await openCombobox();
 
         await page.getByText('Cherry').click();
-        expect(document.body.style.overflow).not.toBe('hidden');
+        await expect.poll(() => document.body.style.overflow).not.toBe('hidden');
         expect(page.getByTestId('combobox-trigger').element()).not.toHaveClass(
             'pointer-events-none'
         );
@@ -218,7 +218,7 @@ describe('Combobox -- search input', () => {
         const appleMotion = page
             .getByText('Apple')
             .element()
-            .closest<HTMLElement>('[data-combobox-value]');
+            .closest<HTMLElement>('[data-combobox-result]');
         expect(appleMotion).not.toBeNull();
         const unrelatedAnimation = appleMotion?.animate(
             [{ color: 'currentColor' }, { color: 'currentColor' }],
@@ -292,9 +292,9 @@ describe('Combobox -- menu search', () => {
         render(ComboboxFixture, { searchPlacement: 'menu' });
         await flush();
 
-        const trigger = page.getByPlaceholder('Search fruits');
-        await expect.element(trigger).toBeInTheDocument();
-        expect((trigger.element() as HTMLInputElement).readOnly).toBe(true);
+        const trigger = page.getByRole('button', { name: 'Search fruits' });
+        await expect.element(trigger).toBeVisible();
+        expect(trigger.element().tagName).toBe('BUTTON');
         await openCombobox();
 
         const search = page.getByPlaceholder('Search…');
@@ -323,8 +323,12 @@ describe('Combobox -- menu search', () => {
             searchFieldStyles.borderBottomRightRadius,
             searchFieldStyles.borderBottomLeftRadius
         ]).not.toContain('0px');
+        const triggerFrame = trigger.element().closest('[data-ui="combobox-trigger"]');
+        if (!triggerFrame) {
+            throw new Error('Missing combobox trigger frame');
+        }
         expect(Number.parseFloat(searchFieldStyles.height)).toBeLessThan(
-            Number.parseFloat(getComputedStyle(trigger.element()).height)
+            Number.parseFloat(getComputedStyle(triggerFrame).height)
         );
         expect(searchFieldStyles.boxShadow).toBe('none');
 

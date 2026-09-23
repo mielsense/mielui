@@ -1,0 +1,10 @@
+export { default as Area } from './area.svelte';
+export { default as Bar } from './bar.svelte';
+export { default as Grid } from './grid.svelte';
+export { default as Legend } from './legend.svelte';
+export { default as Line } from './line.svelte';
+export { default as Plot } from './plot.svelte';
+export { default as Root } from './root.svelte';
+export { default as Tooltip } from './tooltip.svelte';
+export { default as XAxis } from './x-axis.svelte';
+export { default as YAxis } from './y-axis.svelte';

@@ -105,7 +105,7 @@ describe('Popover -- close paths', () => {
 
         const dismiss = document.querySelector('[data-ui="popover-dismiss"]') as HTMLElement;
         expect(dismiss).toBeTruthy();
-        dismiss.click();
+        await userEvent.click(dismiss, { position: { x: 10, y: window.innerHeight - 20 } });
         await flush();
         await expect.element(page.getByText('Popover Title')).not.toBeInTheDocument();
     });

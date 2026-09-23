@@ -1,14 +1,17 @@
 <script lang="ts">
-    import FolderKanban from '@lucide/svelte/icons/folder-kanban';
-    import Home from '@lucide/svelte/icons/home';
-    import Inbox from '@lucide/svelte/icons/inbox';
-    import Menu from '@lucide/svelte/icons/menu';
-    import Settings from '@lucide/svelte/icons/settings';
+    import {
+        FolderKanbanIcon as FolderKanban,
+        Home01Icon as Home,
+        InboxIcon as Inbox,
+        Menu01Icon as Menu,
+        Settings01Icon as Settings
+    } from '@hugeicons/core-free-icons';
     import * as Avatar from '@mielui/svelte/components/avatar';
     import { Badge } from '@mielui/svelte/components/badge';
     import { Button } from '@mielui/svelte/components/button';
+    import Kbd from '@mielui/svelte/components/kbd';
     import * as Sheet from '@mielui/svelte/components/sheet';
-    import Shortcut from '@mielui/svelte/components/shortcut';
+    import HugeiconsIcon from '@mielui/svelte/hugeicons-icon';
 
     let open = $state(false);
     let current = $state('home');
@@ -28,7 +31,7 @@
 
 <Sheet.Root bind:open>
     <Sheet.Trigger variant="outline">
-        <Menu size={14} />
+        <HugeiconsIcon icon={Menu} size={14} />
         Menu
     </Sheet.Trigger>
     <Sheet.Content side="left">
@@ -45,7 +48,7 @@
                     aria-current={current === link.value ? 'page' : undefined}
                     onclick={() => navigate(link.value)}
                 >
-                    <link.icon size={16} />
+                    <HugeiconsIcon icon={link.icon} size={16} />
                     {link.label}
                     {#if link.count}
                         <Badge variant="secondary" class="ml-auto">{link.count}</Badge>
@@ -63,16 +66,17 @@
             <div class="flex min-w-0 flex-col">
                 <span
                     class="truncate text-sm [font-weight:var(--font-weight-label,500)] text-foreground"
-                    >Aidan N.</span
                 >
-                <span class="truncate text-xs text-foreground-muted">aidan@mielui.ui</span>
+                    mielsense
+                </span>
+                <span class="truncate text-xs text-foreground-muted">mielsense@mielui.ui</span>
             </div>
         </div>
 
         <Sheet.Footer>
             <Sheet.Close class="w-full" variant="outline">
                 Close
-                <Shortcut shortcut="esc" />
+                <Kbd shortcut="esc" />
             </Sheet.Close>
         </Sheet.Footer>
     </Sheet.Content>

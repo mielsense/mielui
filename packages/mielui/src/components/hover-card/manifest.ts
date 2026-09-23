@@ -40,10 +40,12 @@ export const manifest: Manifest = {
         'components/hover-card/index.ts',
         'components/hover-card/manifest.ts'
     ],
-    components: ['popover'],
-    shared: ['utils.cn'],
+    components: ['_internal/utils', 'popover'],
+    shared: ['transition', 'components/_internal/surface', 'utils.cn'],
     peerDependencies: {
+        '@floating-ui/dom': '1.7.6',
+        'bits-ui': '^2.19.2',
         cnfast: '^0.0.8',
-        svelte: '^5.0.0'
+        svelte: '^5.56.0'
     }
 };

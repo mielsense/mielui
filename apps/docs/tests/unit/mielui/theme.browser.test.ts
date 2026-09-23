@@ -2,6 +2,14 @@ import { DEFAULT_THEME, neutralTemperatures, themeToCss } from '@mielui/svelte/t
 import { afterEach, describe, expect, it } from 'vitest';
 
 const PARITY_PROPERTIES = [
+    '--mielui-edge-highlight',
+    '--elevation-control-edge',
+    '--elevation-surface-edge',
+    '--elevation-control',
+    '--elevation-button-outline',
+    '--elevation-1',
+    '--elevation-float',
+    '--elevation-modal',
     '--font-sans',
     '--font-mono',
     '--font-header',
@@ -29,7 +37,15 @@ function values(mode: 'light' | 'dark') {
     document.documentElement.classList.toggle('dark', mode === 'dark');
     const styles = getComputedStyle(document.documentElement);
     return Object.fromEntries(
-        PARITY_PROPERTIES.map((property) => [property, styles.getPropertyValue(property).trim()])
+        PARITY_PROPERTIES.map((property) => [
+            property,
+            styles
+                .getPropertyValue(property)
+                .replace(/\s+/g, ' ')
+                .replace(/\( /g, '(')
+                .replace(/ \)/g, ')')
+                .trim()
+        ])
     );
 }
 
@@ -75,4 +91,37 @@ describe('theme computed styles', () => {
         }
         probe.remove();
     });
+});
+
+it('scales light-catching edges in both modes without changing cast shadows or focus', () => {
+    const probe = document.createElement('div');
+    probe.style.boxShadow = 'var(--elevation-control-edge), var(--elevation-1)';
+    document.body.appendChild(probe);
+    try {
+        for (const mode of ['light', 'dark'] as const) {
+            document.documentElement.classList.toggle('dark', mode === 'dark');
+            const results = [0, 0.5, 1].map((edgeHighlight) => {
+                document.querySelectorAll('[data-test-theme]').forEach((node) => {
+                    node.remove();
+                });
+                install(themeToCss({ ...DEFAULT_THEME, chrome: { edgeHighlight } }));
+                const root = getComputedStyle(document.documentElement);
+                return {
+                    shadow: getComputedStyle(probe).boxShadow,
+                    focus: root.getPropertyValue('--focus-ring'),
+                    border: root.getPropertyValue('--color-border')
+                };
+            });
+            const expectedAlpha = mode === 'light' ? 0.19 : 0.035;
+            expect(results[1].shadow).toContain(`rgba(255, 255, 255, ${expectedAlpha})`);
+            expect(results[0].shadow).toContain('rgba(255, 255, 255, 0)');
+            expect(results[1].focus).toBe(results[2].focus);
+            expect(results[0].border).toBe(results[2].border);
+            expect(results[0].shadow.split(/, (?=rgba?\()/).at(-1)).toBe(
+                results[2].shadow.split(/, (?=rgba?\()/).at(-1)
+            );
+        }
+    } finally {
+        probe.remove();
+    }
 });

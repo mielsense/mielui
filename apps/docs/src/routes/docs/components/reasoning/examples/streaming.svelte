@@ -2,13 +2,24 @@
     import * as Reasoning from '@mielui/svelte/components/reasoning';
     import { ResponseStream } from '@mielui/svelte/components/response-stream';
 
+    let streaming = $state(true);
+
+    function complete() {
+        streaming = false;
+    }
+
     const trace =
-        'I need the release history, current error sample, and payment-provider status before I can recommend a rollback.';
+        'Checking the release history, recent errors, and payment-provider status against the incident timeline.';
 </script>
 
-<Reasoning.Root class="w-full max-w-xl" streaming open>
+<Reasoning.Root class="w-full max-w-xl" {streaming} open>
     <Reasoning.Trigger />
     <Reasoning.Content>
-        <ResponseStream textStream={trace} speed={100} class="text-foreground-muted" />
+        <ResponseStream
+            textStream={trace}
+            speed={45}
+            onComplete={complete}
+            class="text-foreground-muted"
+        />
     </Reasoning.Content>
 </Reasoning.Root>

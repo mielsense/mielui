@@ -18,8 +18,8 @@ import AccordionFixture from '../../fixtures/AccordionFixture.svelte';
 import AlertDialogFixture from '../../fixtures/AlertDialogFixture.svelte';
 import ComboboxFixture from '../../fixtures/ComboboxFixture.svelte';
 import CommandFixture from '../../fixtures/CommandFixture.svelte';
+import DialogFixture from '../../fixtures/DialogFixture.svelte';
 import DropdownMenuFixture from '../../fixtures/DropdownMenuFixture.svelte';
-import ModalFixture from '../../fixtures/ModalFixture.svelte';
 import PopoverFixture from '../../fixtures/PopoverFixture.svelte';
 import QuestionFixture from '../../fixtures/QuestionFixture.svelte';
 import RadioGroupFixture from '../../fixtures/RadioGroupFixture.svelte';
@@ -141,11 +141,11 @@ describe('A11y -- leaf controls (axe)', () => {
 });
 
 describe('A11y -- overlay components (axe, open state)', () => {
-    it('modal open -- no violations', async () => {
-        render(ModalFixture, { open: true });
+    it('dialog open -- no violations', async () => {
+        render(DialogFixture, { open: true });
         await flush();
         const { violationsFiltered } = await runAxe();
-        expectNoViolations('modal (open)', violationsFiltered);
+        expectNoViolations('dialog (open)', violationsFiltered);
     });
 
     it('sheet open -- no violations (P3-F13 aria fixed; color-contrast deferred to theme pass)', async () => {
@@ -265,8 +265,8 @@ describe('A11y -- navigational compound components (axe)', () => {
  */
 
 describe('Keyboard nav -- focus management (Playwright)', () => {
-    it('modal traps focus inside while open (Tab cycles to first)', async () => {
-        render(ModalFixture, { open: true });
+    it('dialog traps focus inside while open (Tab cycles to first)', async () => {
+        render(DialogFixture, { open: true });
         await flush();
         await new Promise((r) => setTimeout(r, 50));
 

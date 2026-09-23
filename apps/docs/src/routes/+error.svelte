@@ -1,8 +1,14 @@
 <script lang="ts">
-    import ArrowLeft from '@lucide/svelte/icons/arrow-left';
     import { Button } from '@mielui/svelte/components/button';
     import { resolve } from '$app/paths';
     import { page } from '$app/state';
+
+    const isDocs = $derived(page.url.pathname.startsWith('/docs'));
+    const notFound = $derived(page.status === 404);
+
+    function retry() {
+        window.location.reload();
+    }
 </script>
 
 <svelte:head>
@@ -10,47 +16,45 @@
     <meta name="robots" content="noindex" />
 </svelte:head>
 
-<section
-    class="mx-auto flex min-h-[calc(100vh-4rem)] max-w-xl flex-col items-center justify-start gap-6 px-6 pt-[clamp(7rem,18vh,12rem)] text-center"
->
-    <div class="flex max-w-[38rem] flex-col items-center">
-        <p
-            class="m-0 font-mono text-sm tabular-nums text-foreground-muted motion-safe:[animation:docs-block-in_280ms_var(--ease-out)_both]"
+<div class={`grid h-full min-h-0 ${isDocs ? 'xl:grid-cols-[minmax(0,1fr)_18rem]' : ''}`}>
+    <section class="flex min-h-0 min-w-0 flex-col bg-[var(--docs-content)]">
+        <header
+            class="flex items-center justify-between gap-4 border-b border-[var(--docs-rule)] bg-[var(--docs-chrome)] px-5 py-4 sm:px-6 lg:px-8"
         >
-            {page.status}
-        </p>
-        <h1
-            class="m-0 mt-2 text-balance tracking-tight text-foreground motion-safe:[animation:docs-block-in_280ms_var(--ease-out)_both] motion-safe:[animation-delay:80ms]"
-            style="font-size: 18px; font-weight: var(--font-weight-label);"
+            <h1 class="m-0 text-sm leading-5 font-medium">
+                {notFound ? 'Page not found' : 'Page unavailable'}
+            </h1>
+            <span class="font-mono text-xs tabular-nums text-foreground-muted">{page.status}</span>
+        </header>
+        <div
+            class="flex min-h-0 flex-1 items-center justify-center overflow-y-auto overscroll-none p-8"
         >
-            {page.status === 404 ? 'Page not found' : 'Something went wrong'}
-        </h1>
-        <p
-            class="m-0 mt-1 max-w-[38rem] text-pretty leading-relaxed text-foreground-muted motion-safe:[animation:docs-block-in_280ms_var(--ease-out)_both] motion-safe:[animation-delay:115ms]"
-            style="font-size: 18px; font-weight: var(--font-weight-label);"
-        >
-            {page.status === 404
-                ? 'The page may have moved, or the address may be incomplete.'
-                : 'The request could not be completed. Try again, or return to the documentation.'}
-        </p>
-    </div>
-    <div
-        class="flex flex-wrap justify-center gap-3 motion-safe:[animation:docs-block-in_280ms_var(--ease-out)_both] motion-safe:[animation-delay:145ms]"
-    >
-        <Button
-            href={resolve('/docs/introduction')}
-            size="lg"
-            class="w-full justify-center sm:w-auto"
-        >
-            <ArrowLeft size={16} />Back to docs
-        </Button>
-        <Button
-            href={resolve('/')}
-            variant="outline"
-            size="lg"
-            class="w-full justify-center sm:w-auto"
-        >
-            Home
-        </Button>
-    </div>
-</section>
+            <div class="flex w-full max-w-md flex-col gap-4">
+                <h2 class="m-0 text-lg font-medium text-foreground">
+                    {notFound ? 'This address does not lead to a page.' : 'This page could not load.'}
+                </h2>
+                <p class="m-0 text-sm leading-6 text-foreground-muted">
+                    {notFound ? 'Check the address or use the documentation to find what you need.' : 'Try loading it again. You can also open the documentation or return home.'}
+                </p>
+                <div class="mt-2 flex flex-wrap items-center gap-2">
+                    {#if !notFound}
+                        <Button onclick={retry}>Try again</Button>
+                    {/if}
+                    <Button
+                        href={resolve('/docs/introduction')}
+                        variant={notFound ? 'primary' : 'outline'}
+                    >
+                        Documentation
+                    </Button>
+                    <Button href={resolve('/')} variant="ghost">Home</Button>
+                </div>
+            </div>
+        </div>
+    </section>
+    {#if isDocs}
+        <div
+            aria-hidden="true"
+            class="hidden border-l border-[var(--docs-rule)] bg-[var(--docs-chrome)] xl:block"
+        ></div>
+    {/if}
+</div>

@@ -69,7 +69,9 @@ export async function listThemes(): Promise<ThemeRecord[]> {
 
 export async function getThemeBySlug(slug: string): Promise<ThemeRecord> {
     const builtIn = findDefaultTheme(slug);
-    if (builtIn) return defaultThemeRecord(builtIn);
+    if (builtIn) {
+        return defaultThemeRecord(builtIn);
+    }
 
     const theme = await prisma.theme.findUnique({ where: { slug } });
     if (!theme) {

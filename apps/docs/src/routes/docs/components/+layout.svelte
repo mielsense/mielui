@@ -1,16 +1,22 @@
 <script lang="ts">
     import type { Snippet } from 'svelte';
-    import { page } from '$app/state';
     import { type ComponentSlug, componentAnatomy } from '$lib/component-anatomy';
-    import { Anatomy } from '$lib/components/docs';
+    import ComponentReference from '$lib/components/docs/component-reference.svelte';
+    import type { LayoutData } from './$types';
 
-    let { children }: { children: Snippet } = $props();
-    const slug = $derived(page.url.pathname.split('/').at(-1) as ComponentSlug);
-    const anatomy = $derived(componentAnatomy[slug]);
+    let { children, data }: { children: Snippet; data: LayoutData } = $props();
+    const slug = $derived(data.owner as ComponentSlug | undefined);
+    const anatomy = $derived(slug ? componentAnatomy[slug] : undefined);
+    const title = $derived(
+        (slug ?? '')
+            .split('-')
+            .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+            .join('')
+    );
 </script>
 
 {@render children?.()}
 
-{#if anatomy}
-    <Anatomy items={anatomy} />
+{#if data.reference.length}
+    <ComponentReference parts={data.reference} {title} {anatomy} />
 {/if}

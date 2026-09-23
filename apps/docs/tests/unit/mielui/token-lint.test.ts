@@ -84,3 +84,13 @@ describe('lintSource', () => {
         expect(v).toEqual([]);
     });
 });
+
+describe('HSV color coordinates', () => {
+    it('permits only the exact private gamut declarations in their owning components', () => {
+        const file = '/packages/mielui/src/blocks/color-picker/color-picker-plane.svelte';
+        expect(lintSource(file, "const hsvBlack = '#000';")).toEqual([]);
+        expect(lintSource(file, "const hsvBlack = '#123';")).toHaveLength(1);
+        expect(lintSource(file, "const background = '#000';")).toHaveLength(1);
+        expect(lintSource('/components/button.svelte', "const hsvBlack = '#000';")).toHaveLength(1);
+    });
+});

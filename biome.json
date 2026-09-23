@@ -26,8 +26,7 @@
             "!!packages/mielui/registry",
             "!!packages/mielui/.sandbox",
             "!!temp",
-            "!**/*.svx",
-            "!bun.lock"
+            "!**/*.svx"
         ]
     },
     "formatter": {
@@ -60,7 +59,8 @@
         "formatter": {
             "enabled": true,
             "indentScriptAndStyle": true,
-            "selfCloseVoidElements": "always"
+            "selfCloseVoidElements": "always",
+            "whitespaceSensitivity": "ignore"
         }
     },
     "linter": {
@@ -68,6 +68,7 @@
         "includes": ["**", "!**/*.svg"],
         "rules": {
             "preset": "recommended",
+            "style": { "useBlockStatements": "error" },
             "suspicious": {
                 "noImplicitAnyLet": "off"
             }

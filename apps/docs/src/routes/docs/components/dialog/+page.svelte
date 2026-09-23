@@ -1,0 +1,139 @@
+<script lang="ts">
+    import { CodeBlock } from '@mielui/svelte/components/code-block';
+    import * as Typography from '@mielui/svelte/components/typography';
+    import { ComponentPreview, InstallCommand } from '$lib/components/docs';
+    import PageIntro from '$lib/components/docs/page-intro.svelte';
+    import Basic from './examples/basic.svelte';
+    import BasicSrc from './examples/basic.svelte?raw';
+    import Glass from './examples/glass.svelte';
+    import GlassSrc from './examples/glass.svelte?raw';
+    import Hero from './examples/hero.svelte';
+    import HeroSrc from './examples/hero.svelte?raw';
+    import Nested from './examples/nested.svelte';
+    import NestedSrc from './examples/nested.svelte?raw';
+    import Compact from './examples/size-compact.svelte';
+    import CompactSrc from './examples/size-compact.svelte?raw';
+    import Large from './examples/size-large.svelte';
+    import LargeSrc from './examples/size-large.svelte?raw';
+    import Wide from './examples/size-wide.svelte';
+    import WideSrc from './examples/size-wide.svelte?raw';
+    import WithSelect from './examples/with-select.svelte';
+    import WithSelectSrc from './examples/with-select.svelte?raw';
+
+    const installCommand = 'pnpm dlx @mielui/svelte add dialog';
+</script>
+
+<svelte:head>
+    <title>Mielui · Dialog</title>
+    <meta name="description" content="A dialog for focused tasks, forms, and details." />
+</svelte:head>
+
+<div data-docs-page class="flex flex-col gap-10">
+    <!-- ─── Header ────────────────────────────────────────────────── -->
+    <PageIntro title="Dialog">
+        Show a focused task, form, or details above the current page.
+    </PageIntro>
+
+    <!-- ─── Hero Example ──────────────────────────────────────────── -->
+    <section id="hero" class="scroll-mt-20 flex flex-col gap-4">
+        <ComponentPreview code={HeroSrc}>
+            <Hero />
+        </ComponentPreview>
+    </section>
+
+    <!-- ─── Installation ──────────────────────────────────────────── -->
+    <section id="installation" class="scroll-mt-20 flex flex-col gap-4">
+        <Typography.H2 class="docs-section-heading">Installation</Typography.H2>
+        <InstallCommand command={installCommand} />
+    </section>
+
+    <!-- ─── Usage ─────────────────────────────────────────────────── -->
+    <section id="usage" class="scroll-mt-20 flex flex-col gap-4">
+        <Typography.H2 class="docs-section-heading">Usage</Typography.H2>
+        <Typography.Text variant="supporting">
+            Close and Confirm forward bind:element to their rendered control. Their click callback
+            runs before dismissal and can cancel it with preventDefault.
+        </Typography.Text>
+        <Typography.Text variant="supporting">
+            Bind open on Root when another control needs to open or close the panel. Use
+            onOpenChange to respond to changes initiated inside the component. Updating your bound
+            value directly does not call that callback again. Each Root keeps its own state, so
+            opening one instance does not change another.
+        </Typography.Text>
+        <Typography.Text variant="supporting">
+            Focus, Escape, and outside interactions are coordinated with nested overlays. Include a
+            Title or give Content an aria-label. Description is optional; removing it also removes
+            its accessible relationship. Trigger, Close, and Confirm click handlers can prevent the
+            default state change with event.preventDefault().
+        </Typography.Text>
+
+        <CodeBlock
+            code={`import * as Dialog from '$lib/mielui/components/dialog';\nimport Kbd from '$lib/mielui/components/kbd';\n\nlet open = $state(false);\n\n<Dialog.Root bind:open orientation="horizontal">\n  <Dialog.Trigger>Open</Dialog.Trigger>\n  <Dialog.Content>\n    <Dialog.Header>\n      <Dialog.Title>Title</Dialog.Title>\n    </Dialog.Header>\n    <Dialog.Footer>\n      <Dialog.Close>Cancel <Kbd shortcut="esc" /></Dialog.Close>\n      <Dialog.Confirm>Save <Kbd shortcut="enter" /></Dialog.Confirm>\n    </Dialog.Footer>\n  </Dialog.Content>\n</Dialog.Root>`}
+            lang="svelte"
+            copy="overlay"
+        />
+    </section>
+
+    <!-- ─── Examples ──────────────────────────────────────────────── -->
+    <section id="examples" class="scroll-mt-20 flex flex-col gap-10">
+        <div>
+            <Typography.H2 class="docs-section-heading">Examples</Typography.H2>
+        </div>
+
+        <div id="basic" class="scroll-mt-20 flex flex-col gap-3">
+            <Typography.H3 class="docs-subsection-heading">Basic</Typography.H3>
+            <ComponentPreview code={BasicSrc}>
+                <Basic />
+            </ComponentPreview>
+        </div>
+
+        <div id="nested" class="scroll-mt-20 flex flex-col gap-3">
+            <Typography.H3 class="docs-subsection-heading">Nested</Typography.H3>
+            <ComponentPreview code={NestedSrc}>
+                <Nested />
+            </ComponentPreview>
+        </div>
+
+        <div id="with-select" class="scroll-mt-20 flex flex-col gap-3">
+            <Typography.H3 class="docs-subsection-heading">With select</Typography.H3>
+            <Typography.Text variant="supporting">
+                A Select inside a dialog keeps its own layer: Escape closes the menu first and only
+                then the dialog.
+            </Typography.Text>
+            <ComponentPreview code={WithSelectSrc}>
+                <WithSelect />
+            </ComponentPreview>
+        </div>
+
+        <div id="size-compact" class="scroll-mt-20 flex flex-col gap-3">
+            <Typography.H3 class="docs-subsection-heading">Compact</Typography.H3>
+            <ComponentPreview code={CompactSrc}>
+                <Compact />
+            </ComponentPreview>
+        </div>
+
+        <div id="size-large" class="scroll-mt-20 flex flex-col gap-3">
+            <Typography.H3 class="docs-subsection-heading">Large</Typography.H3>
+            <ComponentPreview code={LargeSrc}>
+                <Large />
+            </ComponentPreview>
+        </div>
+
+        <div id="size-wide" class="scroll-mt-20 flex flex-col gap-3">
+            <Typography.H3 class="docs-subsection-heading">Wide</Typography.H3>
+            <ComponentPreview code={WideSrc}>
+                <Wide />
+            </ComponentPreview>
+        </div>
+    </section>
+    <section id="glass" class="flex flex-col gap-4">
+        <Typography.H2 class="docs-section-heading">Glass surface</Typography.H2>
+        <Typography.Text variant="supporting">
+            Set surface="glass" on Dialog.Content for a translucent background with blur. Omit
+            surface to inherit --mielui-surface from your theme, or set surface="solid" to override
+            it. The glass surface keeps an opaque fallback when backdrop filtering is unavailable
+            and respects reduced-transparency preferences.
+        </Typography.Text>
+        <ComponentPreview code={GlassSrc}><Glass /></ComponentPreview>
+    </section>
+</div>

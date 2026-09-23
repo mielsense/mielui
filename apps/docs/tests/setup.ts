@@ -2,6 +2,23 @@ import '@testing-library/jest-dom/vitest';
 import { cleanup } from '@testing-library/svelte';
 import { afterEach, beforeAll } from 'vitest';
 
+if (typeof window !== 'undefined' && typeof window.matchMedia !== 'function') {
+    window.matchMedia = (media: string): MediaQueryList => {
+        const target = new EventTarget();
+        return Object.assign(target, {
+            matches: false,
+            media,
+            onchange: null,
+            addListener(listener: (event: MediaQueryListEvent) => void) {
+                target.addEventListener('change', listener as EventListener);
+            },
+            removeListener(listener: (event: MediaQueryListEvent) => void) {
+                target.removeEventListener('change', listener as EventListener);
+            }
+        });
+    };
+}
+
 /*
  * jsdom does not implement the Web Animations API. Svelte 5's transition
  * runtime calls `element.animate(...)` for declarative transitions. We

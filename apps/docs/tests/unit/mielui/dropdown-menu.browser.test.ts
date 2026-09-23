@@ -56,14 +56,20 @@ describe('DropdownMenu -- open and close', () => {
         const outside = document.createElement('button');
         outside.textContent = 'outside';
         outside.style.position = 'fixed';
+        outside.style.pointerEvents = 'auto';
         outside.style.left = '8px';
         outside.style.top = '8px';
         document.body.append(outside);
-        await new Promise((r) => setTimeout(r, 20));
-        outside.click();
-        await flush();
-        await expect.element(page.getByTestId('item-1')).not.toBeInTheDocument();
-        outside.remove();
+        try {
+            await page
+                .elementLocator(
+                    document.querySelector('[data-overlay-root][aria-hidden="true"]') as HTMLElement
+                )
+                .click({ position: { x: 5, y: 5 } });
+            await expect.element(page.getByTestId('item-1')).not.toBeInTheDocument();
+        } finally {
+            outside.remove();
+        }
     });
 
     it('shows the group label', async () => {

@@ -1,5 +1,7 @@
 import { changelogLlmVersions, changelogVersions } from '$lib/changelog';
-import { components, sanitizeComponent } from '$lib/components';
+import { componentGroups, components, sanitizeComponent } from '$lib/components';
+import { componentGuidePages } from '$lib/docs-pages';
+import { componentReference } from '$lib/server/api-reference';
 import { mieluiGuideMarkdown } from '$lib/skill';
 
 type ComponentManifest = {
@@ -13,6 +15,11 @@ type ComponentManifest = {
 
 const removedComponents = [
     {
+        name: 'Modal',
+        guidance: 'Rename Modal to Dialog and use the dialog package subpath or CLI target.'
+    },
+    { name: 'Fullscreen Nav', guidance: 'Compose Sheet with navigation links for a mobile menu.' },
+    {
         name: 'Approval Request',
         guidance:
             'Compose `AlertDialog` directly with the review details and confirmation actions required by your workflow.'
@@ -25,23 +32,21 @@ const removedComponents = [
     {
         name: 'Panel',
         guidance: 'Use `Card.Root variant="panel"` for the former framed panel treatment.'
-    },
-    {
-        name: 'Separator',
-        guidance:
-            'Use a semantic `<hr>` or a Tailwind border utility. Compound component separator parts remain available where documented.'
     }
 ] as const;
 
 const manifests = import.meta.glob<{ manifest: ComponentManifest }>(
-    '../../../../packages/mielui/src/components/*/manifest.ts',
+    '../../../../packages/mielui/src/{components,ai-components,blocks,chart-components}/*/manifest.ts',
     { eager: true }
 );
-const indexes = import.meta.glob<string>('../../../../packages/mielui/src/components/*/index.ts', {
-    eager: true,
-    query: '?raw',
-    import: 'default'
-});
+const indexes = import.meta.glob<string>(
+    '../../../../packages/mielui/src/{components,ai-components,blocks,chart-components}/*/index.ts',
+    {
+        eager: true,
+        query: '?raw',
+        import: 'default'
+    }
+);
 const examples = import.meta.glob<string>('../routes/docs/components/*/examples/*.svelte', {
     eager: true,
     query: '?raw',
@@ -50,9 +55,11 @@ const examples = import.meta.glob<string>('../routes/docs/components/*/examples/
 
 function sourceFor(sources: Record<string, string>, component: string, suffix: string): string {
     const entry = Object.entries(sources).find(([path]) =>
-        path.endsWith(`/components/${component}/${suffix}`)
+        path.endsWith(`/${component}/${suffix}`)
     );
-    if (!entry) throw new Error(`Missing ${suffix} for ${component}`);
+    if (!entry) {
+        throw new Error(`Missing ${suffix} for ${component}`);
+    }
     return entry[1];
 }
 
@@ -70,26 +77,38 @@ function titleFromFile(path: string): string {
 }
 
 export function componentMarkdown(component: string): string | undefined {
-    if (!components.includes(component as (typeof components)[number])) return undefined;
+    if (!components.includes(component as (typeof components)[number])) {
+        return undefined;
+    }
 
     const manifestEntry = Object.entries(manifests).find(([path]) =>
-        path.endsWith(`/components/${component}/manifest.ts`)
+        path.endsWith(`/${component}/manifest.ts`)
     );
-    if (!manifestEntry) throw new Error(`Missing manifest for ${component}`);
+    if (!manifestEntry) {
+        throw new Error(`Missing manifest for ${component}`);
+    }
 
     const manifest = manifestEntry[1].manifest;
+    const guides = componentGuidePages.filter((guide) => guide.component === component);
+    const guideExamples = new Set(
+        guides.flatMap((guide) => guide.examples.map((example) => example.name))
+    );
     const componentExamples = Object.entries(examples)
-        .filter(([path]) => path.includes(`/components/${component}/examples/`))
+        .filter(
+            ([path]) =>
+                path.includes(`/components/${component}/examples/`) &&
+                !guideExamples.has(path.slice(path.lastIndexOf('/') + 1).replace(/\.svelte$/, ''))
+        )
         .sort(([left], [right]) => left.localeCompare(right));
     const dependencies = manifest.components.length ? manifest.components.join(', ') : 'None';
     const shared = manifest.shared.length ? manifest.shared.join(', ') : 'None';
     const install =
         manifest.visibility === 'public'
-            ? fence('sh', `bunx --package @mielui/svelte mielui add ${component}`)
+            ? fence('sh', `pnpm dlx @mielui/svelte add ${component}`)
             : [
                   'This component is available from the package API but is not a standalone CLI registry target.',
                   '',
-                  fence('sh', 'bun add @mielui/svelte')
+                  fence('sh', 'pnpm add @mielui/svelte')
               ].join('\n');
 
     return [
@@ -106,9 +125,39 @@ export function componentMarkdown(component: string): string | undefined {
         '',
         install,
         '',
+        ...(guides.length
+            ? [
+                  '## Chart guides',
+                  '',
+                  ...guides.map(
+                      (guide) => `- [${guide.title}](${guide.href}.md): ${guide.description}`
+                  ),
+                  ''
+              ]
+            : []),
         '## API',
         '',
         'This reference is generated at build time from the component manifest, public `index.ts`, and documentation examples below. Changes to those source files are reflected here in the published Markdown. Standard Svelte and HTML attributes accepted by the exported prop types are supported.',
+        '',
+        ...componentReference(component).flatMap((part) => [
+            '',
+            `### ${part.name}`,
+            '',
+            '| Prop | Type | Default | Required | Bindable |',
+            '| --- | --- | --- | --- | --- |',
+            ...part.properties
+                .filter((property) => !property.inherited)
+                .map(
+                    (property) =>
+                        `| ${property.name} | ${property.type.replaceAll('|', '\\|')} | ${(property.default ?? '—').replaceAll('|', '\\|')} | ${property.required ? 'Yes' : 'No'} | ${property.bindable ? 'Yes' : 'No'} |`
+                ),
+            '',
+            part.properties.some((property) => property.inherited)
+                ? 'Also accepts the native HTML attributes and events listed in the rendered API reference.'
+                : ''
+        ]),
+        '',
+        '### Public types',
         '',
         fence('ts', sourceFor(indexes, component, 'index.ts')),
         ...(componentExamples.length
@@ -129,6 +178,46 @@ export function componentMarkdown(component: string): string | undefined {
     ].join('\n');
 }
 
+export function chartGuideMarkdown(component: string, slug: string): string | undefined {
+    const guide = componentGuidePages.find(
+        (entry) => entry.component === component && entry.slug === slug
+    );
+    if (!guide) {
+        return undefined;
+    }
+    const referencePath = `/docs/components/${component}`;
+    return [
+        `# ${guide.title}`,
+        '',
+        guide.description,
+        '',
+        '## Install',
+        '',
+        fence('sh', `pnpm dlx @mielui/svelte add ${component}`),
+        '',
+        '## Usage',
+        '',
+        ...guide.usage.flatMap((paragraph) => [paragraph, '']),
+        `Use the [${sanitizeComponent(component)} API reference](${referencePath}.md) for all exported parts and their props.`,
+        '',
+        '## Examples',
+        ...guide.examples.flatMap((example) => {
+            const source = sourceFor(examples, component, `examples/${example.name}.svelte`);
+            return [
+                '',
+                `### ${example.title}`,
+                '',
+                example.description,
+                '',
+                fence('svelte', source)
+            ];
+        }),
+        '',
+        `For the rendered guide, visit [${guide.title}](${guide.href}).`,
+        ''
+    ].join('\n');
+}
+
 export function brandMarkMarkdown(): string {
     return [
         '# Brand Mark',
@@ -137,7 +226,7 @@ export function brandMarkMarkdown(): string {
         '',
         '## Install',
         '',
-        fence('sh', 'bun add @mielui/svelte'),
+        fence('sh', 'pnpm add @mielui/svelte'),
         '',
         '## API',
         '',
@@ -170,14 +259,14 @@ mielui is a Svelte 5 and Tailwind CSS v4 component library. Install it as a pack
 ## Quick start
 
 ~~~~sh
-bun add @mielui/svelte
+pnpm add @mielui/svelte
 # then in your CSS:
 # @import '@mielui/svelte/ui.css';
 ~~~~
 
 ~~~~sh
-bunx --package @mielui/svelte mielui init -y
-bunx --package @mielui/svelte mielui add button
+pnpm dlx @mielui/svelte init -y
+pnpm dlx @mielui/svelte add button
 ~~~~
 `,
     installation: `# Installation
@@ -187,7 +276,7 @@ Install Mielui as a package when you want dependency-managed components, or init
 ## Package
 
 ~~~~sh
-bun add @mielui/svelte
+pnpm add @mielui/svelte
 ~~~~
 
 Add the token sheet to your CSS:
@@ -199,8 +288,8 @@ Add the token sheet to your CSS:
 ## CLI
 
 ~~~~sh
-bunx --package @mielui/svelte mielui init
-bunx --package @mielui/svelte mielui add button
+pnpm dlx @mielui/svelte init
+pnpm dlx @mielui/svelte add button
 ~~~~
 `,
     theming: `# Theming
@@ -217,6 +306,11 @@ export function coreMarkdown(page: keyof typeof coreDocs): string {
 
 export function llmsTxt(origin: string): string {
     const links = [
+        ['Complete documentation', '/llms-full.txt'],
+        ['Agent skill', '/docs/agent-skill.md'],
+        ['Actions', '/docs/actions.md'],
+        ['Morph', '/docs/actions/morph.md'],
+        ['Shimmer', '/docs/actions/shimmer.md'],
         ['Introduction', '/docs/introduction.md'],
         ['Installation', '/docs/installation.md'],
         ['Theming', '/docs/theming.md'],
@@ -227,6 +321,7 @@ export function llmsTxt(origin: string): string {
         ['Component selection', '/docs/component-selection.md'],
         ['Design language', '/docs/design-language.md'],
         ['XML sitemap', '/sitemap.xml'],
+        ...componentGuidePages.map((guide) => [guide.title, `${guide.href}.md`]),
         ...changelogVersions.map((version) => [`Changelog ${version}`, `/changelog/${version}.md`]),
         ...changelogLlmVersions.map((version) => [
             `Changelog ${version} LLM context`,
@@ -243,7 +338,7 @@ export function llmsTxt(origin: string): string {
         '',
         'Svelte 5 and Tailwind CSS v4 component library. Use these Markdown resources for implementation details, public APIs, runnable examples, and version-specific upgrade notes.',
         '',
-        `The current catalog contains ${components.length} components. Brand Mark is a package-only asset. Approval Request, Marquee, Panel, and Separator were removed as standalone components; migration guidance is in the components index.`,
+        `The current catalog contains ${components.length} components. Brand Mark is a package-only asset. Approval Request, Fullscreen Nav, Marquee, and Panel were removed as standalone components; migration guidance is in the components index.`,
         '',
         '## Agent skill',
         '',
@@ -270,9 +365,16 @@ export function componentsMarkdown(): string {
         '',
         'Each component reference is generated at build time from its package manifest, public API source, and Svelte examples. Published Markdown reflects changes to those canonical sources.',
         '',
-        ...components.map(
-            (component) => `- [${sanitizeComponent(component)}](/docs/components/${component}.md)`
-        ),
+        ...componentGroups.flatMap((group) => [
+            `## ${group.heading}`,
+            '',
+            ...group.items.map(
+                (component) =>
+                    `- [${sanitizeComponent(component)}](/docs/components/${component}.md)`
+            ),
+            ...(group.items.length === 0 ? ['No chart components yet.'] : []),
+            ''
+        ]),
         '',
         '## Package assets',
         '',

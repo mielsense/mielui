@@ -1,8 +1,7 @@
 <script lang="ts">
-    import type { QuestionAnswer } from '@mielui/svelte/components/question';
     import * as Question from '@mielui/svelte/components/question';
 
-    let answer = $state<QuestionAnswer>([]);
+    let answer = $state<string[]>([]);
     let summary = $state('');
 </script>
 
@@ -16,9 +15,9 @@
         }}
     >
         <Question.Content>
-            <Question.Title
-                >Which checks should I run before opening the pull request?</Question.Title
-            >
+            <Question.Title>
+                Which checks should I run before opening the pull request?
+            </Question.Title>
             <Question.Description>Select every check you want included.</Question.Description>
             <Question.Options>
                 <Question.Option value="tests" label="Test suite" />

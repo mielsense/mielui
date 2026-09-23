@@ -1,9 +1,10 @@
 <script lang="ts">
-    import Plus from '@lucide/svelte/icons/plus';
+    import { Add01Icon as Plus } from '@hugeicons/core-free-icons';
     import { Button } from '@mielui/svelte/components/button';
+    import HugeiconsIcon from '@mielui/svelte/hugeicons-icon';
 </script>
 
 <Button>
-    <Plus size={14} />
+    <HugeiconsIcon icon={Plus} size={14} />
     New project
 </Button>

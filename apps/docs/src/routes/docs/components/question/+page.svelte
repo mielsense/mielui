@@ -2,7 +2,8 @@
     import { CodeBlock } from '@mielui/svelte/components/code-block';
     import * as Typography from '@mielui/svelte/components/typography';
     import { ComponentPreview, InstallCommand } from '$lib/components/docs';
-    import DocsPager from '$lib/components/docs/docs-pager.svelte';
+    import PageIntro from '$lib/components/docs/page-intro.svelte';
+    import SectionHeading from '$lib/components/docs/section-heading.svelte';
     import ComposerTakeover from './examples/composer-takeover.svelte';
     import ComposerTakeoverSrc from './examples/composer-takeover.svelte?raw';
     import FreeText from './examples/free-text.svelte';
@@ -12,13 +13,16 @@
     import MultipleChoice from './examples/multiple-choice.svelte';
     import MultipleChoiceSrc from './examples/multiple-choice.svelte?raw';
 
-    const installCommand = 'bunx --package @mielui/svelte mielui add question';
+    const installCommand = 'pnpm dlx @mielui/svelte add question';
     const usageSnippet = `import * as Question from '@mielui/svelte/components/question';
-import type { QuestionAnswer } from '@mielui/svelte/components/question';
 
-let answer = $state<QuestionAnswer>();
+let answer = $state('');
 
-<Question.Root variant="inset" bind:value={answer} onSubmit={(value) => continueAgent(value)}>
+async function submitAnswer(value: string) {
+  await continueAgent(value);
+}
+
+<Question.Root variant="inset" bind:value={answer} onSubmit={submitAnswer} onError={reportError}>
   <Question.Content>
     <Question.Title>Which environment should I use?</Question.Title>
     <Question.Description>Your prompt draft remains untouched.</Question.Description>
@@ -43,16 +47,10 @@ let answer = $state<QuestionAnswer>();
 </svelte:head>
 
 <div data-docs-page class="flex flex-col gap-10">
-    <header class="flex items-start justify-between gap-4">
-        <div>
-            <Typography.H1> Question </Typography.H1>
-            <Typography.Text variant="lead" class="mt-2 max-w-2xl">
-                A focused question in an inset Card. Collect an answer or guide someone through a
-                few decisions, one at a time.
-            </Typography.Text>
-        </div>
-        <DocsPager />
-    </header>
+    <PageIntro title="Question">
+        Collect a single choice, multiple choices, or a written answer. Compose several questions
+        into a step-by-step flow.
+    </PageIntro>
 
     <section id="hero" class="scroll-mt-20 flex flex-col gap-4">
         <ComponentPreview code={HeroSrc}><Hero /></ComponentPreview>
@@ -66,28 +64,31 @@ let answer = $state<QuestionAnswer>();
     <section id="usage" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Usage</Typography.H2>
         <Typography.Text variant="supporting">
-            Render <Typography.InlineCode>Question.Root</Typography.InlineCode> in the same layout
-            slot as <Typography.InlineCode>Composer.Root</Typography.InlineCode>. Keep the prompt
-            value in their shared parent so swapping the forms never clears an unsent draft.
+            Render{' '}
+            <Typography.InlineCode>Question.Root</Typography.InlineCode> in the same layout slot as{' '}
+            <Typography.InlineCode>Composer.Root</Typography.InlineCode>
+            . Keep the prompt value in their shared parent so swapping the forms never clears an
+            unsent draft.
         </Typography.Text>
         <CodeBlock code={usageSnippet} lang="svelte" copy="overlay" />
         <Typography.Text variant="supporting">
-            Use <Typography.InlineCode>type="single"</Typography.InlineCode> for one option,
-            <Typography.InlineCode>type="multiple"</Typography.InlineCode>
-            for several, or
-            <Typography.InlineCode>type="text"</Typography.InlineCode>
-            with
-            <Typography.InlineCode>Question.Input</Typography.InlineCode>. Async submit handlers are
-            awaited and cannot run twice while unresolved. Changing
-            <Typography.InlineCode>type</Typography.InlineCode>
-            resets the bound answer to the new mode's empty value.
+            Use type="single" for one option, type="multiple" for several, or type="text" with
+            Question.Input. Single and text modes use a string answer; multiple mode uses a string
+            array. Changing type clears the answer to the new mode's empty value.
+        </Typography.Text>
+        <Typography.Text variant="supporting">
+            Question waits for async submit handlers and prevents duplicate submissions while
+            pending. A rejected submission keeps the answer and shows errorMessage until the next
+            attempt. Use onError to report failures. Changing mode or unmounting ignores an
+            unfinished submission's result.
         </Typography.Text>
     </section>
 
     <section id="composition" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Composition</Typography.H2>
         <Typography.Text variant="supporting">
-            Set <Typography.InlineCode>variant="inset"</Typography.InlineCode> on
+            Set{' '}
+            <Typography.InlineCode>variant="inset"</Typography.InlineCode> on
             <Typography.InlineCode>Question.Root</Typography.InlineCode>
             for the shared Card frame and recessed content surface. The default variant uses a plain
             Card. Place
@@ -120,27 +121,36 @@ let answer = $state<QuestionAnswer>();
         />
         <Typography.Text variant="supporting">
             <Typography.InlineCode>Question.Content</Typography.InlineCode>
-            is a static fieldset grouping for the title, description, and answer controls. Keep
-            navigation state and any transitions in the parent when a flow needs them. The component
-            itself stays still so the question remains easy to read and answer.
+            groups the title, description, and answer controls in a fieldset. It does not manage
+            step navigation or transitions.
         </Typography.Text>
         <Typography.Text variant="supporting">
-            Keep the step index and each answer in the parent, as in the example above. Content
-            keeps changes without resetting answers or managing navigation. Keep a flow within one
-            answer type, or key the Root per question when mixing types: changing the type on an
-            existing Root clears its answer. When using Cancel as Back, prevent its default behavior
-            to avoid calling the Root’s cancellation handler.
+            Store the step index and answers in the parent. When a flow mixes answer types, key Root
+            by question so each step gets its own state. Changing type on the same Root clears its
+            answer.
+        </Typography.Text>
+        <Typography.Text variant="supporting">
+            To use Cancel as a Back button, call event.preventDefault() before navigating. This
+            prevents Root's cancellation handler from running.
         </Typography.Text>
     </section>
 
+    <section id="integration" class="scroll-mt-20 flex flex-col gap-4">
+        <Typography.H2 class="docs-section-heading">Answer ownership</Typography.H2>
+        <Typography.Text variant="supporting">
+            Bind value when the answer must survive navigation. Keep submission results in
+            application state and show what was accepted. A text answer is a string; a
+            multiple-choice answer is a string array. Cancel should return the surrounding interface
+            to a usable state, as in the composer takeover example.
+        </Typography.Text>
+    </section>
     <section id="examples" class="scroll-mt-20 flex flex-col gap-10">
-        <div>
-            <Typography.H2 class="docs-section-heading">Examples</Typography.H2>
-            <Typography.Text variant="supporting" class="mt-2">
+        <SectionHeading title="Examples">
+            {#snippet description()}
                 Use the same inset composition for multiple selections, a written answer, or a
                 question beneath a live transcript.
-            </Typography.Text>
-        </div>
+            {/snippet}
+        </SectionHeading>
 
         <div id="multiple-choice" class="scroll-mt-20 flex flex-col gap-3">
             <Typography.H3 class="docs-subsection-heading">Multiple choice</Typography.H3>

@@ -1,8 +1,9 @@
 <script lang="ts">
-    import Check from '@lucide/svelte/icons/check';
-    import LoaderCircle from '@lucide/svelte/icons/loader-circle';
+    import { Tick02Icon as Check, Loading03Icon as LoaderCircle } from '@hugeicons/core-free-icons';
     import { getCssDuration } from '@mielui/svelte/transition';
     import { cn } from '@mielui/svelte/utils';
+    import HugeiconsIcon from '../../hugeicons-icon.svelte';
+    import { motionLoop } from '../_internal/motion-loop';
 
     import type { SpinnerProps } from '.';
 
@@ -23,7 +24,7 @@
     let indicator = $state<HTMLSpanElement>();
     let phase = $state<SpinnerPhase>('loading');
     let entered = $state(false);
-    const spinDuration = $derived(`${850 / (speed > 0 ? speed : 1)}ms`);
+    const spinDuration = $derived(`${850 / (Number.isFinite(speed) && speed > 0 ? speed : 1)}ms`);
     const showCheckmark = $derived(phase === 'success' || phase === 'exiting');
     const collapsed = $derived(!entered || phase === 'exiting');
     const loaderBlur = $derived(showCheckmark || !entered ? 'blur(2px)' : 'blur(0px)');
@@ -75,6 +76,7 @@
 
 {#if phase !== 'hidden'}
     <span
+        {@attach motionLoop}
         bind:this={indicator}
         data-ui="spinner"
         data-phase={phase}
@@ -87,20 +89,22 @@
         style:height={`${size}px`}
         style:width={collapsed ? '0px' : `${size}px`}
     >
-        <LoaderCircle
+        <HugeiconsIcon
+            icon={LoaderCircle}
             {size}
             aria-hidden="true"
-            class={`absolute inset-0 m-auto ${curved ? 'animate-[mielui-spinner-spin_linear_infinite]' : 'animate-spin'} transition-[filter,opacity,transform] duration-[var(--motion-duration-panel)] ease-[var(--ease-out)] motion-reduce:animate-none motion-reduce:transition-none ${
+            class={`[animation-play-state:var(--mielui-loop-play-state)] absolute inset-0 m-auto ${curved ? 'animate-[mielui-spinner-spin_linear_infinite]' : 'animate-spin'} transition-[filter,opacity,transform,rotate,scale] duration-[var(--motion-duration-panel)] ease-[var(--ease-out)] motion-reduce:animate-none motion-reduce:transition-none ${
                 showCheckmark || !entered
                     ? '-rotate-90 scale-75 opacity-0'
                     : 'rotate-0 scale-100 opacity-100'
             }`}
             style={`filter: ${loaderBlur}; animation-duration: ${spinDuration};`}
         />
-        <Check
+        <HugeiconsIcon
+            icon={Check}
             {size}
             aria-hidden="true"
-            class={`absolute inset-0 m-auto transition-[filter,opacity,transform] duration-[var(--motion-duration-panel)] ease-[var(--ease-out)] motion-reduce:transition-none ${
+            class={`absolute inset-0 m-auto transition-[filter,opacity,transform,rotate,scale] duration-[var(--motion-duration-panel)] ease-[var(--ease-out)] motion-reduce:transition-none ${
                 phase === 'exiting' || !entered
                     ? 'scale-75 opacity-0'
                     : showCheckmark

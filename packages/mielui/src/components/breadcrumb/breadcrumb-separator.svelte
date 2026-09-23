@@ -1,13 +1,20 @@
 <script lang="ts">
-    import ChevronRight from '@lucide/svelte/icons/chevron-right';
+    import { ArrowRight01Icon as ChevronRight } from '@hugeicons/core-free-icons';
     import { cn } from '@mielui/svelte/utils';
+    import HugeiconsIcon from '../../hugeicons-icon.svelte';
     import type { BreadcrumbSeparatorProps } from '.';
 
     let { class: className, children, ...rest }: BreadcrumbSeparatorProps = $props();
 </script>
 
 {#if children}
-    {@render children?.()}
+    <span aria-hidden="true" class={className} {...rest}>{@render children?.()}</span>
 {:else}
-    <ChevronRight {...rest} size={14} class={cn(className, `text-foreground-muted`)} />
+    <HugeiconsIcon
+        icon={ChevronRight}
+        {...rest}
+        size={14}
+        aria-hidden="true"
+        class={cn(className, `text-foreground-muted`)}
+    />
 {/if}

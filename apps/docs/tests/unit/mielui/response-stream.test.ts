@@ -1,6 +1,8 @@
 import ResponseStream from '@mielui/svelte/components/response-stream/response-stream.svelte';
 import { render, waitFor } from '@testing-library/svelte';
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
+
+vi.mock('svelte/motion', () => ({ prefersReducedMotion: { current: false } }));
 
 async function* chunks() {
     yield 'First ';
@@ -85,4 +87,43 @@ describe('ResponseStream', () => {
             'waiting'
         );
     });
+});
+
+it('shows available static text immediately when scoped motion is disabled', async () => {
+    const { container } = render(ResponseStream, {
+        props: {
+            textStream: 'A complete response without decorative pacing.',
+            speed: 1,
+            style: '--motion-duration-panel: 0ms'
+        }
+    });
+    await waitFor(() =>
+        expect(container).toHaveTextContent('A complete response without decorative pacing.')
+    );
+    expect(container.querySelector('[data-ui="response-stream"]')).toHaveAttribute(
+        'data-state',
+        'complete'
+    );
+});
+
+it('keeps the real incoming stream active while disabling its waiting animation', async () => {
+    let release!: () => void;
+    const gate = new Promise<void>((resolve) => {
+        release = resolve;
+    });
+    async function* pending() {
+        await gate;
+        yield 'Arrived';
+    }
+    const { container } = render(ResponseStream, {
+        props: { textStream: pending(), style: '--motion-duration-panel: 0ms' }
+    });
+    await waitFor(() =>
+        expect(container.querySelector('[data-ui="response-stream-caret"]')).toHaveStyle({
+            animation: 'none'
+        })
+    );
+    expect(container).not.toHaveTextContent('Arrived');
+    release();
+    await waitFor(() => expect(container).toHaveTextContent('Arrived'));
 });

@@ -21,14 +21,42 @@
 - The initial repository import is one commit. Later tasks use the branch and
   pull request workflow above unless the user gives different instructions.
 
+# Releasing a version
+
+Read [SETUP.md's npm publishing procedure](SETUP.md#npm-publishing) before any
+version bump, release preparation, tag, or npm publication. Keep that document
+in sync when changing `.github/workflows/publish.yml` or release behavior.
+
+- Read the current package version, npm registry versions, and existing GitHub
+  tags/releases. Never infer the next version from an example in documentation.
+- Update `packages/mielui/package.json`, the lockfile when affected, and
+  `changelog/<version>/`. Do not bump unrelated workspace package versions.
+- Run the full release gate, pass required PR checks, and merge into `main`
+  before creating the matching annotated `v<version>` tag on the release commit.
+- Publishing the GitHub Release triggers the verified-artifact npm workflow.
+  A tag push or draft release does not. Preparing release docs or artifacts
+  alone is not authorization to publish; follow the user's requested scope.
+- For a first npm publication, follow the bootstrap-token procedure in
+  `SETUP.md`. `npm trust` returns 404 for an unpublished package; do not keep
+  retrying it or treat local `npm login` as GitHub Actions authorization.
+- After bootstrap, configure trusted publishing for `mielsense/mielui`,
+  `publish.yml`, environment `npm`, with direct publish permission. Remove and
+  revoke the bootstrap token only after the trusted publisher is configured.
+- The workflow currently publishes to `latest`; do not use it for prereleases
+  without adding and verifying a separate npm channel first.
+- After publication, verify the Publish workflow result and the exact version
+  and dist-tag on npm. Report the release URL and install command. If a run
+  fails, inspect npm before retrying; never overwrite a published version or
+  move a release tag.
+
 # Verification
 
 Before reporting a change complete, run only the lightweight repository-level
 gates from the repository root:
 
 ```sh
-bun run format:check
-bun run lint
+pnpm run format:check
+pnpm run lint
 ```
 
 Do not run formatting in write mode unless formatting files is part of the
@@ -37,11 +65,11 @@ verification only. Run them only when the user explicitly requests them,
 including before a push or release:
 
 ```sh
-bun run check
-bun run test
-bun run build
-bun --cwd=packages/mielui run verify:artifact
-bun --cwd=packages/mielui run verify:cli-artifact
+pnpm run check
+pnpm run test
+pnpm run build
+pnpm --dir=packages/mielui run verify:artifact
+pnpm --dir=packages/mielui run verify:cli-artifact
 ```
 
 When manual verification has not been requested, state that the full gates were
@@ -50,7 +78,7 @@ not run instead of running them automatically.
 For a pre-release, invoke the `release-gate` skill or run:
 
 ```sh
-bun run release-gate
+pnpm run release-gate
 ```
 
 That is the full publish bar: format, lint, audit, typecheck, unit/SSR tests, docs
@@ -154,8 +182,8 @@ instead of creating another file.
 
 Formatting is part of the code quality bar, not a cleanup task to defer. All
 supported source, configuration, and documentation files must be formatted with
-the repository's Biome configuration before review. Run `bun run format` while
-editing and `bun run format:check` before considering formatting work complete.
+the repository's Biome configuration before review. Run `pnpm run format` while
+editing and `pnpm run format:check` before considering formatting work complete.
 Do not hand-format around Biome or disable it for individual files.
 
 Write code for people to scan, review, debug, and safely modify. Compact code
@@ -211,3 +239,14 @@ async account() {
   };
 }
 ```
+
+
+# Shared design contracts
+
+Every component and example must follow DESIGN.md's "Required shared appearance
+and interaction contracts" section. Reuse shared control-edge, elevation, inset,
+focus, press, and motion implementations. Do not invent a local replacement for
+an existing contract. When a change establishes a shared rule, update DESIGN.md
+and the relevant changelog guidance in the same change. Review both themes,
+shadow toggles, reduced motion, and grouped-control seams before reporting visual
+work complete.

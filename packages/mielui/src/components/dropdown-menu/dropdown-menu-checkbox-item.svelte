@@ -1,51 +1,49 @@
 <script lang="ts">
-    import Check from '@lucide/svelte/icons/check';
+    import { Tick02Icon as Check } from '@hugeicons/core-free-icons';
     import { Button } from '@mielui/svelte/components/button';
-    import { closeMenuLayers, cn } from '@mielui/svelte/utils';
-    import { getPopoverContext } from '../popover/context.svelte';
+    import { cn } from '@mielui/svelte/utils';
+    import { DropdownMenu as MenuPrimitive, mergeProps } from 'bits-ui';
+    import type { HTMLButtonAttributes } from 'svelte/elements';
+    import HugeiconsIcon from '../../hugeicons-icon.svelte';
+    import { buttonAttributes } from '../_internal/button-attributes';
     import type { DropdownMenuCheckboxItemProps } from '.';
-    import { getDropdownMenuContext } from './context.svelte';
 
     let {
-        checked = $bindable(false),
-        onCheckedChange,
         children,
         class: className,
+        disabled = false,
         onclick: userOnclick,
         element = $bindable(),
+        checked = $bindable(false),
+        onCheckedChange,
         ...rest
     }: DropdownMenuCheckboxItemProps = $props();
-
-    const { state: popoverState } = getPopoverContext();
-    const { ancestors } = getDropdownMenuContext();
-
-    function toggle(event: MouseEvent) {
-        const target = event.currentTarget as HTMLButtonElement;
-        if (!target.disabled) {
-            checked = !checked;
-            onCheckedChange?.(checked);
-        }
-        userOnclick?.(event as MouseEvent & { currentTarget: EventTarget & HTMLButtonElement });
-        if (!event.defaultPrevented && !target.disabled) {
-            closeMenuLayers(popoverState, ancestors);
-        }
-    }
 </script>
 
-<Button
-    bind:element
-    {...rest}
-    role="menuitemcheckbox"
-    aria-checked={checked}
-    data-collection-item
-    onclick={toggle}
-    class={cn(className, 'mielui-menu-item flex-row gap-3 text-sm')}
-    unstyled
+<MenuPrimitive.CheckboxItem
+    id={rest.id ?? undefined}
+    bind:checked
+    {onCheckedChange}
+    disabled={disabled ?? undefined}
+    onclick={(event) => {
+        buttonAttributes({ onclick: userOnclick }).onclick?.(event);
+    }}
 >
-    <span class="grid size-4 shrink-0 place-items-center" aria-hidden="true">
-        {#if checked}
-            <Check size={13} strokeWidth={2.25} />
-        {/if}
-    </span>
-    {@render children?.()}
-</Button>
+    {#snippet child({ props })}
+        <Button
+            {...buttonAttributes(mergeProps(rest, { ...props as HTMLButtonAttributes }))}
+            bind:element
+            disabled={disabled ?? undefined}
+            data-collection-item
+            class={cn(className, 'mielui-menu-item flex-row gap-3 text-sm')}
+            unstyled
+        >
+            <span class="grid size-4 shrink-0 place-items-center" aria-hidden="true">
+                {#if checked}
+                    <HugeiconsIcon icon={Check} size={13} strokeWidth={2.25} />
+                {/if}
+            </span>
+            {@render children?.()}
+        </Button>
+    {/snippet}
+</MenuPrimitive.CheckboxItem>

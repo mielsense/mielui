@@ -1,11 +1,8 @@
 import { createContext } from '@mielui/svelte/utils';
-import type { ComboboxItem, ComboboxState } from '.';
+import type { createComboboxController } from './controller.svelte';
 
-export type ComboboxContext = {
+export type ComboboxContext = ReturnType<typeof createComboboxController> & {
     id: string;
-    state: ComboboxState;
-    selectItem: (item: ComboboxItem) => void;
-    clearSelection: () => void;
 };
 
 const { set: setComboboxContext, get: getComboboxContext } =

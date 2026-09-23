@@ -15,7 +15,7 @@ export const BASE_PEER_DEPENDENCIES = [
 
 /**
  * The registry snapshot lives at the package root (next to dist/), so it
- * resolves from both src (bun test) and the bundled dist entry.
+ * resolves from both src (pnpm test) and the bundled dist entry.
  */
 const registryDir = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../registry');
 
@@ -29,6 +29,15 @@ export async function loadRegistryThemes(): Promise<RegistryTheme[]> {
 
 export function registryFilePath(file: string) {
     return path.join(registryDir, 'files', file);
+}
+
+export async function loadPackageNotices() {
+    return Promise.all(
+        ['LICENSE', 'LICENSE-COSS', 'UPSTREAM.md'].map(async (name) => {
+            const content = await readFile(path.join(registryDir, '..', name), 'utf8');
+            return { name, content };
+        })
+    );
 }
 
 export type InstallPlan = {
@@ -50,7 +59,9 @@ function levenshtein(a: string, b: string) {
         row[0] = i;
         return row;
     });
-    for (let j = 0; j <= b.length; j++) rows[0][j] = j;
+    for (let j = 0; j <= b.length; j++) {
+        rows[0][j] = j;
+    }
     for (let i = 1; i <= a.length; i++) {
         for (let j = 1; j <= b.length; j++) {
             rows[i][j] = Math.min(
@@ -69,7 +80,9 @@ export function suggestComponent(index: RegistryIndex, input: string) {
     let best: { name: string; distance: number } | null = null;
     for (const candidate of candidates) {
         const distance = levenshtein(input, candidate.name);
-        if (!best || distance < best.distance) best = { name: candidate.name, distance };
+        if (!best || distance < best.distance) {
+            best = { name: candidate.name, distance };
+        }
     }
     return best && best.distance <= 3 ? best.name : null;
 }
@@ -116,7 +129,9 @@ export function resolveInstallPlan(index: RegistryIndex, names: string[]): Insta
         if (name === undefined) {
             break;
         }
-        if (resolved.has(name)) continue;
+        if (resolved.has(name)) {
+            continue;
+        }
         const component = byName.get(name);
         if (!component) {
             throw new ResolveError(`registry index is missing dependency "${name}"`);

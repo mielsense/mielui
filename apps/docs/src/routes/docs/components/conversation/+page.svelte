@@ -2,7 +2,8 @@
     import { CodeBlock } from '@mielui/svelte/components/code-block';
     import * as Typography from '@mielui/svelte/components/typography';
     import { ComponentPreview, InstallCommand } from '$lib/components/docs';
-    import DocsPager from '$lib/components/docs/docs-pager.svelte';
+    import PageIntro from '$lib/components/docs/page-intro.svelte';
+    import SectionHeading from '$lib/components/docs/section-heading.svelte';
     import EmptyState from './examples/empty-state.svelte';
     import EmptyStateSrc from './examples/empty-state.svelte?raw';
     import FollowOutput from './examples/follow-output.svelte';
@@ -10,7 +11,7 @@
     import Hero from './examples/hero.svelte';
     import HeroSrc from './examples/hero.svelte?raw';
 
-    const installCommand = 'bunx @mielui/svelte add conversation';
+    const installCommand = 'pnpm dlx @mielui/svelte add conversation';
     const usageSnippet = `import * as Conversation from '@mielui/svelte/components/conversation';
 import * as Message from '@mielui/svelte/components/message';
 
@@ -35,53 +36,58 @@ let follow = $state(true);
 </svelte:head>
 
 <div data-docs-page class="flex flex-col gap-10">
-    <header class="flex items-start justify-between gap-4">
-        <div>
-            <Typography.H1> Conversation </Typography.H1>
-            <Typography.Text variant="lead" class="mt-2 max-w-2xl">
-                Keep live agent transcripts readable while respecting where someone has chosen to
-                scroll.
-            </Typography.Text>
-        </div>
-        <DocsPager />
-    </header>
+    <PageIntro title="Conversation">
+        Display a live transcript. Follow new messages until the user scrolls away.
+    </PageIntro>
 
     <section id="hero" class="scroll-mt-20 flex flex-col gap-4">
         <ComponentPreview code={HeroSrc}><Hero /></ComponentPreview>
     </section>
 
     <section id="installation" class="scroll-mt-20 flex flex-col gap-4">
-        <Typography.H2 class="docs-section-heading"> Installation </Typography.H2>
+        <Typography.H2 class="docs-section-heading">Installation</Typography.H2>
         <InstallCommand command={installCommand} />
     </section>
 
     <section id="usage" class="scroll-mt-20 flex flex-col gap-4">
-        <Typography.H2 class="docs-section-heading"> Usage </Typography.H2>
+        <Typography.H2 class="docs-section-heading">Usage</Typography.H2>
         <Typography.Text variant="supporting">
-            Give <Typography.InlineCode>Root</Typography.InlineCode> a bounded height so
+            Give{' '}
+            <Typography.InlineCode>Root</Typography.InlineCode> a bounded height so
             <Typography.InlineCode>Content</Typography.InlineCode>
             can scroll. Bind
             <Typography.InlineCode>follow</Typography.InlineCode>
             when the surrounding interface needs to reflect whether new output is being followed.
         </Typography.Text>
+        <Typography.Text variant="supporting">
+            The scroll button runs your click handler first. Call preventDefault() to keep the
+            current scroll position and follow state.
+        </Typography.Text>
         <CodeBlock code={usageSnippet} lang="svelte" copy="overlay" />
     </section>
 
+    <section id="integration" class="scroll-mt-20 flex flex-col gap-4">
+        <Typography.H2 class="docs-section-heading">Scroll ownership</Typography.H2>
+        <Typography.Text variant="supporting">
+            New messages should not pull readers away from earlier content. Conversation preserves
+            their position while follow is false. ScrollButton returns to the latest message and
+            resumes following new output.
+        </Typography.Text>
+    </section>
     <section id="examples" class="scroll-mt-20 flex flex-col gap-10">
-        <div>
-            <Typography.H2 class="docs-section-heading"> Examples </Typography.H2>
-            <Typography.Text variant="supporting" class="mt-2">
+        <SectionHeading title="Examples">
+            {#snippet description()}
                 Compose the viewport around an empty start or continuously arriving output.
-            </Typography.Text>
-        </div>
+            {/snippet}
+        </SectionHeading>
 
         <div id="empty-state" class="scroll-mt-20 flex flex-col gap-3">
-            <Typography.H3 class="docs-subsection-heading"> Empty state </Typography.H3>
+            <Typography.H3 class="docs-subsection-heading">Empty state</Typography.H3>
             <ComponentPreview code={EmptyStateSrc}><EmptyState /></ComponentPreview>
         </div>
 
         <div id="follow-output" class="scroll-mt-20 flex flex-col gap-3">
-            <Typography.H3 class="docs-subsection-heading"> Follow live output </Typography.H3>
+            <Typography.H3 class="docs-subsection-heading">Follow live output</Typography.H3>
             <ComponentPreview code={FollowOutputSrc}><FollowOutput /></ComponentPreview>
         </div>
     </section>

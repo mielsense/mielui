@@ -1,6 +1,8 @@
 <script lang="ts">
     import { cn } from '@mielui/svelte/utils';
+    import { fieldMetadata } from '../_internal/field-metadata';
     import type { InputProps } from '.';
+    import { radioChecked } from './radio';
     import { input } from './variants';
 
     const nonAdornableInputTypes = new Set([
@@ -28,11 +30,24 @@
         leading,
         trailing,
         element = $bindable<HTMLInputElement>(),
-        value = $bindable<string | number | boolean | FileList | undefined>(),
+        value = $bindable<string | number | undefined>(),
+        oninput,
         checked = $bindable<boolean | undefined>(),
         files = $bindable<FileList | undefined>(),
+        id: idProp,
+        'aria-describedby': externalDescription,
         ...rest
     }: InputProps = $props();
+
+    const generatedId = $props.id();
+    const metadata = $derived(
+        fieldMetadata({
+            id: idProp ?? `field-${generatedId}`,
+            metadataId: generatedId,
+            description,
+            describedBy: externalDescription
+        })
+    );
 
     const normalizedType = $derived(type.toLowerCase());
     const hasAdornment = $derived(
@@ -51,7 +66,7 @@
             data-ui="input-control"
             data-variant={variant}
             class={cn(
-                'flex min-h-[var(--size-control-md)] w-full items-center gap-2 rounded-[var(--radius-lg)] border-[length:var(--border-size)] px-3 text-[var(--color-field-foreground)] transition-[background-color,border-color,box-shadow] [transition-duration:var(--motion-duration-press)] ease-[var(--ease-out)] motion-reduce:transition-none has-[:focus-visible]:shadow-[var(--focus-ring)] has-[input:disabled]:cursor-not-allowed has-[input:disabled]:opacity-[var(--opacity-disabled)]',
+                'flex min-h-[calc(var(--size-control-md)-var(--size-hairline))] w-full items-center gap-2 rounded-[var(--radius-lg)] border-[length:var(--border-size)] px-3 text-[var(--color-field-foreground)] transition-[background-color,border-color,box-shadow] [transition-duration:var(--motion-duration-press)] ease-[var(--ease-out)] motion-reduce:transition-none shadow-[var(--elevation-control-edge)] has-[:focus-visible]:shadow-[var(--focus-ring),var(--elevation-control-edge)] has-[[aria-invalid=true]]:border-error has-[[aria-invalid=true]]:has-[:focus-visible]:border-error has-[input:disabled]:cursor-not-allowed has-[input:disabled]:opacity-[var(--opacity-disabled)]',
                 controlClass
             )}
         >
@@ -66,7 +81,10 @@
 
             <input
                 bind:this={element}
+                id={metadata.controlId}
+                aria-describedby={metadata.describedBy}
                 bind:value
+                {oninput}
                 {type}
                 data-ui="input"
                 data-variant={variant}
@@ -87,8 +105,10 @@
     {:else if normalizedType === 'file'}
         <input
             bind:this={element}
-            bind:value
+            id={metadata.controlId}
+            aria-describedby={metadata.describedBy}
             bind:files
+            {oninput}
             type="file"
             data-ui="input"
             data-variant={variant}
@@ -99,7 +119,11 @@
     {:else if normalizedType === 'checkbox'}
         <input
             bind:this={element}
+            id={metadata.controlId}
+            aria-describedby={metadata.describedBy}
             bind:checked
+            {value}
+            {oninput}
             type="checkbox"
             data-ui="input"
             data-variant={variant}
@@ -107,10 +131,33 @@
             {...rest}
             {placeholder}
         />
+    {:else if normalizedType === 'radio'}
+        <input
+            bind:this={element}
+            id={metadata.controlId}
+            aria-describedby={metadata.describedBy}
+            type="radio"
+            use:radioChecked={{
+                checked,
+                update(next) {
+                    checked = next;
+                }
+            }}
+            {value}
+            {checked}
+            {oninput}
+            data-ui="input"
+            data-variant={variant}
+            class={cn(classProp, input({ variant }))}
+            {...rest}
+        />
     {:else}
         <input
             bind:this={element}
+            id={metadata.controlId}
+            aria-describedby={metadata.describedBy}
             bind:value
+            {oninput}
             {type}
             data-ui="input"
             data-variant={variant}
@@ -123,22 +170,26 @@
 
 {#snippet meta()}
     {#if label}
-        <span
+        <label
+            for={metadata.controlId}
             class="mb-0.5 select-none [font-size:var(--font-size-label)] [font-weight:var(--font-weight-label)] [letter-spacing:var(--tracking-label)] leading-none text-foreground [font-family:var(--font-sans),sans-serif]"
-            >{label}</span
         >
+            {label}
+        </label>
     {/if}
     {@render field()}
     {#if description}
         <span
+            id={metadata.descriptionId}
             class="[font-size:var(--font-size-body)] [font-weight:var(--font-weight-body)] [letter-spacing:var(--tracking-body)] text-foreground-muted"
-            >{description}</span
         >
+            {description}
+        </span>
     {/if}
 {/snippet}
 
 {#if label}
-    <label class="flex w-full flex-col gap-1"> {@render meta()} </label>
+    <div class="flex w-full flex-col gap-1">{@render meta()} </div>
 {:else if description}
     <div class="flex w-full flex-col gap-1">
         {@render meta()}

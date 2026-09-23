@@ -31,10 +31,4 @@
     ].join('\n');
 </script>
 
-<Markdown
-    content={report}
-    role="region"
-    aria-label="Rendered rollout review"
-    tabindex={0}
-    class="max-h-[32rem] w-full max-w-2xl overflow-y-auto rounded-[var(--radius-xl)] border border-border bg-panel px-5 py-4 focus-visible:outline-none focus-visible:shadow-[var(--focus-ring)] sm:px-6 sm:py-5"
-/>
+<Markdown content={report} class="w-full max-w-2xl" />

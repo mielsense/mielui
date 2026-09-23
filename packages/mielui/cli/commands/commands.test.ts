@@ -1,8 +1,8 @@
-import { afterEach, describe, expect, test } from 'bun:test';
 import { existsSync } from 'node:fs';
 import { mkdir, mkdtemp, readFile, rm, writeFile } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import path from 'node:path';
+import { afterEach, describe, expect, test } from 'vitest';
 
 import { DEFAULT_THEME } from '../../src/themes/theme';
 import { DEFAULT_CONFIG, loadConfig, saveConfig } from '../config';
@@ -26,7 +26,7 @@ async function tempProject() {
                 tailwindcss: '^4.0.0',
                 cnfast: '^0.0.8',
                 '@floating-ui/dom': '^1.0.0',
-                '@lucide/svelte': '^1.0.0',
+                '@hugeicons/core-free-icons': '^4.3.0',
                 'tailwind-variants': '^3.0.0',
                 'fuse.js': '^7.0.0'
             }
@@ -93,13 +93,50 @@ describe('add command', () => {
     });
 });
 
+describe('source attribution', () => {
+    test('init copies package notices and preserves the project license', async () => {
+        const cwd = await tempProject();
+        const projectLicense = 'Consumer project license\n';
+        await writeFile(path.join(cwd, 'LICENSE'), projectLicense);
+        await init({ cwd, yes: true });
+
+        for (const name of ['LICENSE', 'LICENSE-COSS', 'UPSTREAM.md']) {
+            const expected = await readFile(new URL(`../../${name}`, import.meta.url), 'utf8');
+            const actual = await readFile(
+                path.join(cwd, DEFAULT_CONFIG.dir, 'notices', 'mielui', name),
+                'utf8'
+            );
+            expect(actual).toBe(expected);
+        }
+        expect(await readFile(path.join(cwd, 'LICENSE'), 'utf8')).toBe(projectLicense);
+    });
+
+    test('add backfills notices for an existing config and is repeatable', async () => {
+        const cwd = await tempProject();
+        const projectLicense = 'Consumer project license\n';
+        await writeFile(path.join(cwd, 'LICENSE'), projectLicense);
+        await saveConfig(cwd, { ...DEFAULT_CONFIG, dir: '.', components: {} });
+
+        await add(['button'], { cwd, yes: false, overwrite: false });
+        await add(['button'], { cwd, yes: false, overwrite: false });
+
+        for (const name of ['LICENSE', 'LICENSE-COSS', 'UPSTREAM.md']) {
+            const expected = await readFile(new URL(`../../${name}`, import.meta.url), 'utf8');
+            expect(await readFile(path.join(cwd, 'notices', 'mielui', name), 'utf8')).toBe(
+                expected
+            );
+        }
+        expect(await readFile(path.join(cwd, 'LICENSE'), 'utf8')).toBe(projectLicense);
+    });
+});
+
 describe('theme command', () => {
     test('writes a bundled preset without network access', async () => {
         const cwd = await initializedProject();
         await addTheme('default', { cwd });
 
         const css = await readFile(path.join(cwd, DEFAULT_CONFIG.dir, 'theme.css'), 'utf8');
-        expect(css).toStartWith('/* mielui theme: default */');
+        expect(css.startsWith('/* Mielui theme */')).toBe(true);
         expect(css).toContain(':root');
     });
 
@@ -113,7 +150,7 @@ describe('theme command', () => {
 
         await addTheme('remote', { cwd });
         const css = await readFile(path.join(cwd, DEFAULT_CONFIG.dir, 'theme.css'), 'utf8');
-        expect(css).toStartWith('/* mielui theme: remote */');
+        expect(css.startsWith('/* Mielui theme */')).toBe(true);
         expect(css).toContain('--color-primary: #0066cc');
     });
 

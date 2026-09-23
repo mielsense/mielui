@@ -1,57 +1,51 @@
 <script lang="ts">
     import { Button } from '@mielui/svelte/components/button';
-    import { travelingHighlight } from '@mielui/svelte/utils';
-    import { page } from '$app/stores';
-    import { components, sanitizeComponent } from '$lib/components';
-    import Logo from '$lib/components/logo.svelte';
+    import { page } from '$app/state';
+    import { navigationGroups } from '$lib/components';
+    import { magneticHeadings } from './magnetic-headings';
+    import NavigationItems from './navigation-items.svelte';
+    import RailHeading from './rail-heading.svelte';
 
     let { class: classProp = '', onNavigate }: { class?: string; onNavigate?: () => void } =
         $props();
-    const pageName = $derived($page.url.pathname);
-    const sortedComponents = $derived(
-        [...components].sort((a, b) => sanitizeComponent(a).localeCompare(sanitizeComponent(b)))
-    );
+    const pageName = $derived(page.url.pathname);
 
     const gettingStartedItems = [
         { href: '/docs/introduction', label: 'Introduction' },
         { href: '/docs/installation', label: 'Installation' },
         { href: '/docs/theming', label: 'Theming' },
+        { href: '/docs/agent-skill', label: 'Agent skill' },
         { href: '/docs/changelog', label: 'Changelog' },
         { href: '/studio', label: 'Studio' },
         { href: '/docs/components', label: 'Components' }
     ];
+
+    const settleHeading = magneticHeadings(':scope > section');
 
     function isActive(path: string) {
         return pageName === path;
     }
 </script>
 
-<aside class={`${classProp} hide-scrollbar flex flex-col overflow-y-auto overscroll-contain pb-6`}>
-    <div class="px-2">
-        <Logo />
-    </div>
-
-    <div class="mt-5 mb-5 h-px bg-border" aria-hidden="true"></div>
-
-    <section class="flex flex-col gap-2">
-        <h3 class="px-2 text-xs text-foreground-muted [font-weight:var(--font-weight-label,500)]">
-            Getting Started
-        </h3>
-        <div use:travelingHighlight class="ml-2 flex flex-col border-l border-border pl-2">
+<aside
+    {@attach settleHeading}
+    class={`${classProp} hide-scrollbar flex flex-col overflow-y-auto overscroll-none`}
+>
+    <section class="flex shrink-0 flex-col">
+        <RailHeading title="Getting started" />
+        <div class="isolate flex flex-col px-3 py-3">
             {#each gettingStartedItems as item (item.href)}
-                {@const active = isActive(item.href)}
+                {const active = $derived(isActive(item.href))}
                 <Button
                     variant="quiet"
                     size="md"
                     href={item.href}
                     onclick={onNavigate}
                     aria-current={active ? 'page' : undefined}
-                    data-collection-item
-                    data-collection-active={active ? 'true' : undefined}
                     class={`w-full justify-start rounded-[var(--radius-md)] px-3 text-left text-sm ${
                         active
-                            ? 'text-foreground [font-weight:var(--font-weight-label,500)]'
-                            : 'text-foreground-muted hover:bg-secondary/70 hover:text-foreground'
+                            ? 'text-primary hover:text-primary [font-weight:var(--font-weight-label,500)]'
+                            : 'text-foreground-muted hover:text-foreground'
                     }`}
                 >
                     {item.label}
@@ -60,35 +54,19 @@
         </div>
     </section>
 
-    <section class="mt-5 flex flex-col gap-2">
-        <div class="flex items-center justify-between px-2">
-            <h3 class="text-xs text-foreground-muted [font-weight:var(--font-weight-label,500)]">
-                Components
-            </h3>
-            <span class="text-[11px] tabular-nums text-foreground-muted/70"
-                >{components.length}</span
-            >
-        </div>
-        <div use:travelingHighlight class="ml-2 flex flex-col border-l border-border pl-2">
-            {#each sortedComponents as component (component)}
-                {@const active = pageName === `/docs/components/${component}`}
-                <Button
-                    variant="quiet"
-                    size="md"
-                    href={`/docs/components/${component}`}
-                    onclick={onNavigate}
-                    aria-current={active ? 'page' : undefined}
-                    data-collection-item
-                    data-collection-active={active ? 'true' : undefined}
-                    class={`w-full justify-start rounded-[var(--radius-md)] px-3 text-left text-sm ${
-                        active
-                            ? 'text-foreground [font-weight:var(--font-weight-label,500)]'
-                            : 'text-foreground-muted hover:bg-secondary/70 hover:text-foreground'
-                    }`}
-                >
-                    {sanitizeComponent(component)}
-                </Button>
-            {/each}
-        </div>
-    </section>
+    {#each navigationGroups as group (group.id)}
+        <section class="relative flex shrink-0 flex-col">
+            <span
+                aria-hidden="true"
+                class="pointer-events-none absolute inset-x-0 -top-px z-30 border-t-[length:var(--border-size)] border-[var(--docs-rule)]"
+            ></span>
+            <RailHeading title={group.heading} count={group.items.length} />
+            <div class="isolate flex flex-col px-3 py-3">
+                <NavigationItems {group} {onNavigate} />
+            </div>
+            {#if group.items.length === 0}
+                <p class="px-2 text-xs text-foreground-muted">No chart components yet.</p>
+            {/if}
+        </section>
+    {/each}
 </aside>

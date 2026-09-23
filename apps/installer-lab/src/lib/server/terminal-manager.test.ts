@@ -3,8 +3,8 @@ import { parseCommandLine } from './terminal-manager';
 
 describe('manual terminal command parsing', () => {
     test('parses plain, quoted, empty, and escaped arguments', () => {
-        expect(parseCommandLine('bun add @mielui/svelte@latest')).toEqual([
-            'bun',
+        expect(parseCommandLine('pnpm add @mielui/svelte@latest')).toEqual([
+            'pnpm',
             'add',
             '@mielui/svelte@latest'
         ]);
@@ -16,16 +16,18 @@ describe('manual terminal command parsing', () => {
         ]);
     });
 
-    test.each(['bun build && rm -rf x', 'bun build | tee log', 'bun build > log', '(bun build)'])(
-        'rejects shell syntax in %s',
-        (command) => {
-            expect(() => parseCommandLine(command)).toThrow('Run one command at a time');
-        }
-    );
+    test.each([
+        'pnpm build && rm -rf x',
+        'pnpm build | tee log',
+        'pnpm build > log',
+        '(pnpm build)'
+    ])('rejects shell syntax in %s', (command) => {
+        expect(() => parseCommandLine(command)).toThrow('Run one command at a time');
+    });
 
     test('rejects malformed input', () => {
         expect(() => parseCommandLine('')).toThrow('Enter a command');
-        expect(() => parseCommandLine(`bun "unfinished`)).toThrow('unterminated quote');
-        expect(() => parseCommandLine('bun unfinished\\')).toThrow('unfinished escape');
+        expect(() => parseCommandLine(`pnpm "unfinished`)).toThrow('unterminated quote');
+        expect(() => parseCommandLine('pnpm unfinished\\')).toThrow('unfinished escape');
     });
 });

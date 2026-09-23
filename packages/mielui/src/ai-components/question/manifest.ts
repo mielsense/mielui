@@ -1,0 +1,42 @@
+import type { Manifest } from '@mielui/svelte/_manifest/types';
+
+export const manifest: Manifest = {
+    name: 'question',
+    version: '1.0.0',
+    visibility: 'public',
+    description:
+        'Inline agent question form with single-choice, multiple-choice, and free-text answers.',
+    files: [
+        'components/question/question.svelte',
+        'components/question/question-content.svelte',
+        'components/question/question-title.svelte',
+        'components/question/question-description.svelte',
+        'components/question/question-options.svelte',
+        'components/question/question-option.svelte',
+        'components/question/question-input.svelte',
+        'components/question/question-actions.svelte',
+        'components/question/question-cancel.svelte',
+        'components/question/question-submit.svelte',
+        'components/question/context.svelte.ts',
+        'components/question/index.ts',
+        'components/question/manifest.ts'
+    ],
+    components: ['_internal/utils', 'card', 'button', 'spinner', 'textarea'],
+    shared: [
+        'components/_internal/button-attributes',
+        'components/_internal/submission.svelte',
+        'hugeicons-icon',
+        'utils.cn',
+        'utils.createContext',
+        'transition'
+    ],
+    peerDependencies: {
+        '@floating-ui/dom': '1.7.6',
+        '@hugeicons/core-free-icons': '^4.3.0',
+        cnfast: '^0.0.8',
+        svelte: '^5.0.0',
+        'tailwind-merge': '^3.0.0'
+    },
+    role: ['form', 'group'],
+    tier: 'tier-2'
+};

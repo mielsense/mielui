@@ -3,6 +3,8 @@ import { createContext } from '@mielui/svelte/utils';
 export type TagInputContext = {
     readonly tags: string[];
     readonly disabled: boolean;
+    readonly invalid: boolean;
+    readonly required: boolean;
     readonly inputId: string;
     readonly describedBy: string | undefined;
     /** True when Root renders a `<label for>`, so Input must not shadow it with `aria-label`. */

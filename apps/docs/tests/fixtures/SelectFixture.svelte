@@ -1,23 +1,25 @@
 <script lang="ts">
     import * as Select from '@mielui/svelte/components/select';
+
+    let { triggerId }: { triggerId?: string } = $props();
 </script>
 
 <Select.Root>
-    <Select.Trigger>
+    <Select.Trigger id={triggerId}>
         <span data-testid="select-trigger">
             <Select.Value placeholder="Select an option" />
         </span>
     </Select.Trigger>
     <Select.Content>
         <Select.Label>Fruits</Select.Label>
-        <Select.Item value="apple" label="Apple"
-            ><span data-testid="opt-apple">Apple</span></Select.Item
-        >
-        <Select.Item value="banana" label="Banana"
-            ><span data-testid="opt-banana">Banana</span></Select.Item
-        >
-        <Select.Item value="cherry" label="Cherry"
-            ><span data-testid="opt-cherry">Cherry</span></Select.Item
-        >
+        <Select.Item value="apple" label="Apple">
+            <span data-testid="opt-apple">Apple</span>
+        </Select.Item>
+        <Select.Item value="banana" label="Banana">
+            <span data-testid="opt-banana">Banana</span>
+        </Select.Item>
+        <Select.Item value="cherry" label="Cherry">
+            <span data-testid="opt-cherry">Cherry</span>
+        </Select.Item>
     </Select.Content>
 </Select.Root>

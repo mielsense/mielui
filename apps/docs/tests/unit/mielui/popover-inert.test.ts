@@ -73,19 +73,19 @@ describe('popover outside inerting', () => {
         document.body.innerHTML = `
             <main id="outside">Outside</main>
             <div id="popover" data-floating-content></div>
-            <div id="modal" data-overlay-root></div>
+            <div id="dialog" data-overlay-root></div>
         `;
 
         const popover = document.querySelector<HTMLElement>('#popover');
         const outside = document.querySelector<HTMLElement>('#outside');
-        const modal = document.querySelector<HTMLElement>('#modal');
+        const dialog = document.querySelector<HTMLElement>('#dialog');
 
         expect(popover).not.toBeNull();
         const cleanup = inertOutsidePopover(popover as HTMLElement);
         cleanups.push(cleanup);
 
         expect(outside?.inert).toBe(true);
-        expect(modal?.inert).not.toBe(true);
+        expect(dialog?.inert).not.toBe(true);
         expect(popover?.inert).not.toBe(true);
     });
 

@@ -1,5 +1,6 @@
 <script lang="ts">
     import { cn } from '@mielui/svelte/utils';
+    import { fieldMetadata } from '../_internal/field-metadata';
     import type { TagInputProps, TagInputRejection } from '.';
     import { setTagInputContext } from './context.svelte';
 
@@ -28,18 +29,20 @@
         id: idProp,
         class: className,
         children,
+        onclick,
         ...rest
     }: TagInputProps = $props();
 
     const generatedId = $props.id();
     const rootId = $derived(idProp ?? `tag-input-${generatedId}`);
-    const inputId = $derived(`${rootId}-input`);
-    const descriptionId = $derived(`${rootId}-description`);
-    const errorId = $derived(`${rootId}-error`);
-    const describedBy = $derived(
-        [description ? descriptionId : undefined, error ? errorId : undefined]
-            .filter(Boolean)
-            .join(' ') || undefined
+    const metadata = $derived(
+        fieldMetadata({
+            id: `${rootId}-input`,
+            metadataId: generatedId,
+            description,
+            error,
+            describedBy: rest['aria-describedby']
+        })
     );
 
     let inputElement = $state<HTMLInputElement | undefined>(undefined);
@@ -168,7 +171,11 @@
         inputElement?.focus({ preventScroll: true });
     }
 
-    function handleFieldClick(event: MouseEvent) {
+    function handleFieldClick(event: MouseEvent & { currentTarget: EventTarget & HTMLDivElement }) {
+        onclick?.(event);
+        if (event.defaultPrevented) {
+            return;
+        }
         const target = event.target as HTMLElement | null;
 
         if (target?.closest('[data-ui="tag-input-tag-remove"]')) {
@@ -202,8 +209,14 @@
         get disabled() {
             return disabled;
         },
+        get invalid() {
+            return Boolean(error);
+        },
+        get required() {
+            return required;
+        },
         get inputId() {
-            return inputId;
+            return metadata.controlId;
         },
         get draft() {
             return query;
@@ -221,7 +234,7 @@
             return addOnPaste;
         },
         get describedBy() {
-            return describedBy;
+            return metadata.describedBy;
         },
         get hasLabel() {
             return label !== undefined && label !== '';
@@ -251,7 +264,7 @@
         onclick={handleFieldClick}
         class={cn(
             className,
-            'flex min-h-[var(--size-control-md)] w-full cursor-text flex-wrap items-center gap-1 rounded-[var(--radius-lg)] border-[length:var(--border-size)] p-1 transition-[background-color,border-color,box-shadow] [transition-duration:var(--motion-duration-press)] ease-[var(--ease-out)] motion-reduce:transition-none focus-within:shadow-[var(--focus-ring)] has-[input:disabled]:cursor-not-allowed has-[input:disabled]:opacity-[var(--opacity-disabled)]',
+            'flex min-h-[var(--size-control-md)] w-full cursor-text flex-wrap items-center gap-1 rounded-[var(--radius-lg)] border-[length:var(--border-size)] p-1 transition-[background-color,border-color,box-shadow] [transition-duration:var(--motion-duration-press)] ease-[var(--ease-out)] motion-reduce:transition-none shadow-[var(--elevation-control-edge)] focus-within:shadow-[var(--focus-ring),var(--elevation-control-edge)] has-[input:disabled]:cursor-not-allowed has-[input:disabled]:opacity-[var(--opacity-disabled)]',
             controlClass,
             error && 'border-[var(--color-error)] focus-within:border-[var(--color-error)]'
         )}
@@ -260,7 +273,7 @@
     </div>
     {#if name}
         {#each safeTags as tag, index (`${tag}-${index}`)}
-            <input type="hidden" {name} value={tag} />
+            <input type="hidden" {name} {disabled} value={tag} />
         {/each}
     {/if}
     <span role="status" aria-live="polite" class="sr-only">{spoken}</span>
@@ -269,7 +282,7 @@
 {#snippet meta()}
     {#if label}
         <label
-            for={inputId}
+            for={metadata.controlId}
             class="mb-0.5 select-none [font-size:var(--font-size-label)] [font-weight:var(--font-weight-label)] [letter-spacing:var(--tracking-label)] leading-none text-foreground [font-family:var(--font-sans),sans-serif]"
         >
             {label}
@@ -278,7 +291,7 @@
     {@render field()}
     {#if error}
         <span
-            id={errorId}
+            id={metadata.errorId}
             role="alert"
             class="[font-size:var(--font-size-body)] [font-weight:var(--font-weight-body)] text-[var(--color-error)]"
         >
@@ -286,7 +299,7 @@
         </span>
     {:else if description}
         <span
-            id={descriptionId}
+            id={metadata.descriptionId}
             class="[font-size:var(--font-size-body)] [font-weight:var(--font-weight-body)] [letter-spacing:var(--tracking-body)] text-foreground-muted"
         >
             {description}

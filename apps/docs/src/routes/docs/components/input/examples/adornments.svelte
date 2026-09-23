@@ -1,12 +1,13 @@
 <script lang="ts">
-    import GitBranch from '@lucide/svelte/icons/git-branch';
+    import { GitBranchIcon as GitBranch } from '@hugeicons/core-free-icons';
     import { Input } from '@mielui/svelte/components/input';
+    import HugeiconsIcon from '@mielui/svelte/hugeicons-icon';
 </script>
 
 <div class="w-full max-w-xs">
     <Input label="Repository" placeholder="mielui">
         {#snippet leading()}
-            <GitBranch />
+            <HugeiconsIcon icon={GitBranch} />
         {/snippet}
         {#snippet trailing()}
             <span>.git</span>

@@ -145,3 +145,184 @@ theme. Revise in this order:
 7. Are semantics, focus, labels, contrast, and interaction states sound?
 
 Fix the highest-impact structural problem first, then inspect again.
+
+## Component reuse and interaction feedback
+
+Use Mielui's own components whenever they cover the interaction. Documentation,
+Studio, and examples should demonstrate the same components consumers install.
+Use Collapsible for disclosures, Command for search, Table for tabular data,
+and the existing Button, Badge, and input components instead of custom lookalikes.
+Compose or restyle existing parts before introducing another implementation.
+
+Add micro-interactions throughout the interface where users change state:
+expand and collapse disclosures, move selection indicators, acknowledge copying,
+and transition between icons. Keep controls a stable size and preserve focus.
+Motion should respond immediately, reverse or continue cleanly when interrupted,
+and clean up when a component unmounts.
+
+Reuse the component's built-in animation or Mielui's motion actions first.
+For interactions that need coordinated layout, springs, or presence transitions,
+prefer the Humanspeak Svelte Motion port. Check its current documentation before
+using an API. Simple hover and focus changes can remain Tailwind transitions.
+Respect reduced motion and the theme's motion settings. Do not delay input,
+navigation, or content visibility to finish an animation.
+
+
+## Required shared appearance and interaction contracts
+
+These rules apply to every component and every docs or Studio example. Reuse the
+existing implementation before adding local styling. A new component must follow
+the same contracts; a visual exception must have a specific functional reason.
+
+### Edges and surfaces
+
+- Filled controls use `--elevation-control-edge` for the subtle top highlight and
+  lower inset shading. This includes primary, secondary, outline, and destructive
+  buttons, text fields, and selection triggers. Keep ghost, quiet, and plain text
+  controls flat until their existing hover or selected state calls for a fill.
+- Preserve the primary button's optional `--color-primary-stroke`. The light edge
+  does not enable a perimeter border when Studio's primary stroke is disabled.
+- Floating panels use `--elevation-float`; dialogs use `--elevation-modal`; raised
+  cards use `--elevation-1`. These tokens include the shared surface highlight.
+  Do not add a separate hardcoded white border or shadow to reproduce it.
+- Use the shared `mielui-modal-frame` or `mielui-inset-frame` and
+  `mielui-inset-surface` composition for double edges. Keep inner corners concentric
+  with the outer frame. A frame attached to a viewport edge stays flush on that
+  edge; its inset appears only along exposed edges.
+- Glass uses the shared surface helper and inherited theme setting. Keep the
+  inner panel translucent enough to reveal the backdrop. Explicit solid surfaces
+  remain opaque, including chart tooltips.
+- Compose focus rings with the existing edge or elevation instead of replacing
+  it. Disabling shadows must remove decorative relief while preserving borders,
+  validation states, and visible keyboard focus.
+- Joined controls have one seam and flat adjoining corners. Use Group and its
+  Separator; do not layer separate rounded borders through the shared seam.
+- Read colors from semantic `--color-*` tokens. Use `--border-size` for frame
+  thickness. Light, dark, and scoped Studio themes must share the same geometry.
+
+Moving controls put the raised control edge on the thumb, not the track or fill.
+Passive tracks, progress fills, metadata, and grouping wrappers stay flat. Composite
+text fields use one edge around their editable boundary. Focus rings add to that
+edge rather than replacing it.
+
+### Micro-interactions
+
+- Buttons and clickable controls reuse the shared pressable behavior and variant
+  styles. Disabled and pending controls retain their existing interaction rules;
+  decorative feedback must not re-enable them or change layout dimensions.
+- Hover, press, selection, panel, and sheet motion use the corresponding theme
+  duration and easing tokens. Do not copy one fixed duration across every action.
+- Collection selection uses the existing traveling highlight. Overlay wrappers
+  retain the shared transition and focus-management helpers. Do not add another
+  animation or dismissal controller around an existing primitive.
+- Size changes and interruptible entry or exit use the established Humanspeak
+  motion implementation. Continue from the current rendered state when reversed.
+  Avoid restarting a reveal from zero when data changes during an animation.
+- Honor reduced motion and zero-duration theme settings, including preference
+  changes after mount. Cancel animation frames, observers, and timers on teardown.
+  Continuous chart effects pause offscreen and in hidden documents; they never
+  alter values or make a static dataset appear to change.
+- Keep interaction feedback local. A documentation example must not cover the
+  surrounding page with a viewport-bound activity or notification. Use the shared
+  isolated preview for Notch and other global overlays.
+
+### Review requirements
+
+Before calling a component visually complete, inspect its ordinary, hovered,
+focused, pressed, disabled, invalid, and open states where applicable. Check
+light and dark themes, shadows disabled, reduced motion, narrow layouts, and
+joined-control seams. Use the repository's verification policy for automated
+checks. Record new shared contracts here and explain consumer-facing changes in
+the changelog; do not leave the next agent to infer them from one example.
+
+## Edge highlight strength
+
+Use the shared elevation tokens for light-catching inset edges, including keycaps.
+The theme setting `chrome.edgeHighlight` accepts 0 to 1 and defaults to 0.5.
+Studio presents it as a percentage under Effects. Scale only the light inset edge;
+keep structural borders, focus rings, dark inset shading, and cast shadows intact.
+Do not add fixed white inset shadows to individual components. Shadow switches
+still disable their corresponding elevation effects.
+
+## Documentation composition
+
+Docs and Studio use a continuous grid between a fixed header and footer. Keep
+both documentation side rails equal in width. Use thin full-height column rules,
+full-width section rules, and small square marks at their intersections. Do not
+box the article into a rounded inset panel. The section rail uses a solid hook.
+
+Page names remain in the breadcrumb and an accessible heading. Put the page
+summary behind the footer's information HoverCard. Copy page and previous/next
+navigation belong in the same fixed footer; their menus open upward and align
+inward with a viewport gutter.
+
+Section title rows stick below the header. Every row uses the same label size,
+weight, padding, and opaque, subtly contrasting background. A title-row divider
+must span the reading column. Content starts and ends 1.5rem from its section
+boundaries; paragraph gaps stay at 1rem. The shared layout owns these distances. Keep body sections on one background rather than
+alternating arbitrary fills. Use modest responsive side gutters. Docs paragraphs use the section width; split
+long explanations into short paragraphs by topic rather than narrow text columns.
+
+Sidebar group headings and the page-outline heading use the same sticky row height
+as section titles. Sidebar groups have full-width boundary rules and a subtle
+primary-colored selected text. The leading preview toolbar shares that row height and
+sticks until the next section; inset example toolbars stay compact without an
+extra divider. Put optional section explanations behind a labelled info control.
+
+The leading page preview uses a full-width ghost-tab toolbar and an open canvas.
+Its source occupies the same square section, without a rounded frame. Examples
+inside a section use the shared inset preview card, with the toolbar and preview
+surface contained together. Do not stretch nested card headers across the page.
+Keep both forms in the shared preview implementation and preserve example state
+when switching to code. Give the leading preview room; size supporting examples
+to their content. Use `data-preview-canvas` for canvas-specific spacing.
+
+The shell has two opaque tones: `--docs-chrome` for the header, footer, side rails,
+and section headings; `--docs-content` for the reading and preview canvas. In dark
+mode the content is a slightly darker charcoal, not pure black. Preview controls
+stay in a local stacking context below sticky section headings.
+
+Examples demonstrate a useful state change. Label icon controls, keep result
+messages in an explicit layout with a gap, and clean up timers and requests on
+unmount. Loading examples finish or offer a state control; failure examples have
+a working retry when retry is supported. Keep simulated results local and state
+what actually happened. Chart-type guides share the parent component's API;
+keep their HTML, Markdown, navigation, and search metadata aligned.
+
+### Shared shell geometry
+
+The header, footer, article section headings, sidebar group headings, On this
+page heading, and leading preview toolbar share `--docs-row-height`. This token
+includes the row border. Center labels and controls vertically; do not recreate
+row heights with independent padding or local pixel values. Header children use
+the token minus their parent border. Nested preview cards keep compact toolbars.
+
+Position header and footer intersection marks from the same row-height token,
+not a separate top or bottom spacing value. Sidebar, header, and footer column
+rules must share the same width and border edge, including after density changes.
+Studio uses the same 18rem inspector column as the documentation sidebar.
+
+Studio preview tabs belong in the main header. Preview width controls sit at the
+left of the footer's center column. Do not add another toolbar row for either.
+Use the shared ghost tabs throughout Studio, including preview and setup dialogs.
+
+Section and rail headings use semibold weight with the configured header font.
+Keep body labels and tabs lighter so section titles remain distinct.
+
+Live chart motion must preserve values and proportions. Animate the area fill,
+use a staggered sweep within bar bounds, and brighten pie segments in sequence
+without moving their boundaries or center labels. Pause live effects during pie inspection.
+Observe the stationary chart viewport for visibility, never a moving highlight
+that can leave its clip and strand its own animation. Honor reduced motion,
+zero-duration themes, hidden documents, and offscreen charts.
+
+Cartesian and pie chart overlay messages use the shared inset Card surface.
+Compact Gauge loading and empty states retain the meter footprint without an
+additional card wrapper. Keep
+the placeholder visualization behind the message and preserve live status
+announcements. Chart tooltips share the same opaque inset surface in every chart
+family; do not fall back to a native browser title tooltip.
+
+Documentation content, its toolbar and footer share a horizontal inset halfway
+between five theme spacing units and 2rem. Rail headings retain five spacing
+units. Keep preview tabs and article headings aligned to the content gutter.

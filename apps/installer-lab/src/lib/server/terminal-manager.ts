@@ -54,7 +54,9 @@ export function parseCommandLine(input: string) {
     let escaped = false;
 
     const push = () => {
-        if (!tokenStarted) return;
+        if (!tokenStarted) {
+            return;
+        }
         args.push(token);
         token = '';
         tokenStarted = false;
@@ -73,13 +75,19 @@ export function parseCommandLine(input: string) {
             continue;
         }
         if (quote === 'single') {
-            if (character === "'") quote = null;
-            else token += character;
+            if (character === "'") {
+                quote = null;
+            } else {
+                token += character;
+            }
             continue;
         }
         if (quote === 'double') {
-            if (character === '"') quote = null;
-            else token += character;
+            if (character === '"') {
+                quote = null;
+            } else {
+                token += character;
+            }
             continue;
         }
         if (character === "'") {
@@ -105,10 +113,16 @@ export function parseCommandLine(input: string) {
         tokenStarted = true;
     }
 
-    if (escaped) throw new Error('The command ends with an unfinished escape.');
-    if (quote) throw new Error('The command has an unterminated quote.');
+    if (escaped) {
+        throw new Error('The command ends with an unfinished escape.');
+    }
+    if (quote) {
+        throw new Error('The command has an unterminated quote.');
+    }
     push();
-    if (args.length === 0) throw new Error('Enter a command first.');
+    if (args.length === 0) {
+        throw new Error('Enter a command first.');
+    }
     return args;
 }
 
@@ -126,10 +140,15 @@ export class TerminalManager {
     constructor() {
         process.once('exit', () => {
             const child = this.activeProcess;
-            if (!child?.pid) return;
+            if (!child?.pid) {
+                return;
+            }
             try {
-                if (process.platform === 'win32') child.kill('SIGTERM');
-                else process.kill(-child.pid, 'SIGTERM');
+                if (process.platform === 'win32') {
+                    child.kill('SIGTERM');
+                } else {
+                    process.kill(-child.pid, 'SIGTERM');
+                }
             } catch {
                 // The command already exited.
             }
@@ -137,8 +156,12 @@ export class TerminalManager {
     }
 
     async initialize() {
-        if (this.initialized) return;
-        if (this.initializePromise) return this.initializePromise;
+        if (this.initialized) {
+            return;
+        }
+        if (this.initializePromise) {
+            return this.initializePromise;
+        }
         this.initializePromise = this.restore();
         await this.initializePromise;
         this.initialized = true;
@@ -212,7 +235,9 @@ export class TerminalManager {
     }
 
     private async log(chunk: string) {
-        if (!chunk) return;
+        if (!chunk) {
+            return;
+        }
         this.rawLog += chunk;
         await this.ensureWorkspace();
         await appendFile(terminalLogPath, chunk);
@@ -232,8 +257,12 @@ export class TerminalManager {
         const resolved = await realpath(requested).catch(() => {
             throw new Error(`Directory does not exist: ${requested}`);
         });
-        if (!(await stat(resolved)).isDirectory()) throw new Error(`Not a directory: ${resolved}`);
-        if (!isInsideRepository(resolved)) throw new Error(`Directory escaped ${repoRoot}`);
+        if (!(await stat(resolved)).isDirectory()) {
+            throw new Error(`Not a directory: ${resolved}`);
+        }
+        if (!isInsideRepository(resolved)) {
+            throw new Error(`Directory escaped ${repoRoot}`);
+        }
         await this.patchSnapshot({ cwd: resolved, exitCode: 0, signal: null });
     }
 
@@ -242,26 +271,35 @@ export class TerminalManager {
         if (this.snapshot.preparing && !internal) {
             throw new Error('Wait for the empty app to finish preparing.');
         }
-        if (this.activeProcess || this.snapshot.running)
+        if (this.activeProcess || this.snapshot.running) {
             throw new Error('A command is already running.');
+        }
         const command = input.trim();
-        if (command.length > MAX_COMMAND_LENGTH) throw new Error('Command is too long.');
+        if (command.length > MAX_COMMAND_LENGTH) {
+            throw new Error('Command is too long.');
+        }
         const [bin, ...args] = parseCommandLine(command);
         await this.log(`\n${this.prompt()} $ ${command}\n`);
 
         if (bin === 'cd') {
-            if (args.length > 1) throw new Error('cd accepts one directory.');
+            if (args.length > 1) {
+                throw new Error('cd accepts one directory.');
+            }
             await this.changeDirectory(args[0]);
             return this.currentSnapshot();
         }
         if (bin === 'pwd') {
-            if (args.length) throw new Error('pwd does not accept arguments.');
+            if (args.length) {
+                throw new Error('pwd does not accept arguments.');
+            }
             await this.log(`${this.snapshot.cwd}\n`);
             await this.patchSnapshot({ exitCode: 0, signal: null });
             return this.currentSnapshot();
         }
         if (bin === 'clear') {
-            if (args.length) throw new Error('clear does not accept arguments.');
+            if (args.length) {
+                throw new Error('clear does not accept arguments.');
+            }
             this.rawLog = '';
             await writeFile(terminalLogPath, '');
             this.eventHub.clear();
@@ -286,10 +324,14 @@ export class TerminalManager {
         this.activeCompletion = completion;
         let settled = false;
         const finish = async (exitCode: number | null, signal: NodeJS.Signals | null) => {
-            if (settled) return;
+            if (settled) {
+                return;
+            }
             settled = true;
             try {
-                if (this.activeProcess === child) this.activeProcess = null;
+                if (this.activeProcess === child) {
+                    this.activeProcess = null;
+                }
                 await this.patchSnapshot({
                     running: false,
                     activeCommand: null,
@@ -303,7 +345,9 @@ export class TerminalManager {
                         : `\nExited with ${exitCode ?? signal ?? 'an unknown status'}.\n`
                 );
             } finally {
-                if (this.activeCompletion === completion) this.activeCompletion = null;
+                if (this.activeCompletion === completion) {
+                    this.activeCompletion = null;
+                }
                 resolveCompletion();
             }
         };
@@ -320,11 +364,15 @@ export class TerminalManager {
     }
 
     private async prepareCommand(spec: CommandSpec) {
-        if (this.preparationCancelled) throw new Error('Preparation cancelled.');
+        if (this.preparationCancelled) {
+            throw new Error('Preparation cancelled.');
+        }
         await this.patchSnapshot({ cwd: spec.cwd });
         await this.execute(commandLabel(spec), true);
         await this.activeCompletion;
-        if (this.preparationCancelled) throw new Error('Preparation cancelled.');
+        if (this.preparationCancelled) {
+            throw new Error('Preparation cancelled.');
+        }
         if (this.snapshot.exitCode !== 0) {
             throw new Error(
                 `${commandLabel(spec)} exited with ${this.snapshot.exitCode ?? this.snapshot.signal}.`
@@ -340,10 +388,14 @@ export class TerminalManager {
 
             if (source === 'local') {
                 const packageRoot = path.join(repoRoot, 'packages', 'mielui');
-                await this.prepareCommand({ bin: 'bun', args: ['run', 'build'], cwd: packageRoot });
                 await this.prepareCommand({
-                    bin: 'bun',
-                    args: ['pm', 'pack', '--filename', manualTarballPath, '--quiet'],
+                    bin: 'pnpm',
+                    args: ['run', 'build'],
+                    cwd: packageRoot
+                });
+                await this.prepareCommand({
+                    bin: 'pnpm',
+                    args: ['pack', '--out', manualTarballPath],
                     cwd: packageRoot
                 });
             }
@@ -412,7 +464,9 @@ export class TerminalManager {
         const preparation = this.prepareWorkflow(source, installPath);
         this.activePreparation = preparation;
         void preparation.finally(() => {
-            if (this.activePreparation === preparation) this.activePreparation = null;
+            if (this.activePreparation === preparation) {
+                this.activePreparation = null;
+            }
         });
         return this.currentSnapshot();
     }

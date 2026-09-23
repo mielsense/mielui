@@ -1,8 +1,8 @@
 /**
  * Snapshots the mielui component registry into `registry/`.
  *
- * Run with bun from packages/mielui (`bun run build:registry`). Imports every
- * `manifest.ts` under packages/mielui/src/components, validates that the
+ * Run with pnpm from packages/mielui (`pnpm run build:registry`). Imports every
+ * `manifest.ts` under the component category folders, validates that the
  * files each manifest references exist, then writes:
  *
  *   registry/index.json   -- RegistryIndex consumed by the CLI at runtime
@@ -11,10 +11,11 @@
  */
 
 import { existsSync } from 'node:fs';
-import { copyFile, mkdir, readdir, rm, writeFile } from 'node:fs/promises';
+import { mkdir, readdir, readFile, rm, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import type { RegistryIndex, RegistryTheme } from '../cli/types';
+import categories from '../component-categories.json';
 import pkg from '../package.json';
 import type { Manifest } from '../src/_manifest/types';
 import { builtInThemePresets } from '../src/themes/builtin-presets';
@@ -24,32 +25,65 @@ const pkgRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..')
 const mieluiSrc = path.resolve(pkgRoot, 'src');
 const outDir = path.join(pkgRoot, 'registry');
 
-async function collectManifestPaths() {
-    const componentsDir = path.join(mieluiSrc, 'components');
-    const result: string[] = [];
-    for (const entry of await readdir(componentsDir, { withFileTypes: true })) {
-        if (!entry.isDirectory()) continue;
-        if (entry.name === '_internal') {
-            for (const inner of await readdir(path.join(componentsDir, entry.name), {
-                withFileTypes: true
-            })) {
-                if (!inner.isDirectory()) continue;
-                const manifest = path.join(componentsDir, entry.name, inner.name, 'manifest.ts');
-                if (existsSync(manifest)) result.push(manifest);
-            }
-            continue;
+const componentSources = new Map(
+    Object.entries(categories).flatMap(([category, components]) =>
+        components.map((component) => [component, category] as const)
+    )
+);
+
+function sourcePath(file: string): string {
+    const [directory, component, ...rest] = file.split('/');
+    const category = componentSources.get(component);
+    if (directory === 'components' && category) {
+        return path.join(mieluiSrc, category, component, ...rest);
+    }
+    return path.join(mieluiSrc, file);
+}
+
+/** Keep CLI-installed files under components/ while package sources use category folders. */
+function registrySource(source: string, file: string): string {
+    return source.replace(
+        /((?:from\s*|import\s*\()['"])(\.[^'"]+)(['"])/g,
+        (_match, prefix: string, specifier: string, quote: string) => {
+            const target = path.resolve(path.dirname(sourcePath(file)), specifier);
+            const relative = path.relative(mieluiSrc, target).replaceAll(path.sep, '/');
+            const logical = relative.replace(
+                /^(ai-components|blocks|chart-components)\//,
+                'components/'
+            );
+            const rewritten = path.posix.relative(path.posix.dirname(file), logical);
+            return `${prefix}${rewritten.startsWith('.') ? rewritten : `./${rewritten}`}${quote}`;
         }
-        const manifest = path.join(componentsDir, entry.name, 'manifest.ts');
-        if (existsSync(manifest)) result.push(manifest);
+    );
+}
+
+async function collectManifestPaths() {
+    const result: string[] = [];
+    async function collect(directory: string) {
+        for (const entry of await readdir(directory, { withFileTypes: true })) {
+            const target = path.join(directory, entry.name);
+            if (entry.isDirectory()) {
+                await collect(target);
+            } else if (entry.name === 'manifest.ts') {
+                result.push(target);
+            }
+        }
+    }
+    for (const category of Object.keys(categories)) {
+        await collect(path.join(mieluiSrc, category));
     }
     return result.sort();
 }
 
 /** Resolves a manifest `shared` entry to source files relative to mielui src. */
 function sharedToFiles(entry: string): string[] {
-    if (entry.startsWith('utils.')) return ['utils.ts'];
-    for (const candidate of [`${entry}.ts`, `${entry}.svelte.ts`]) {
-        if (existsSync(path.join(mieluiSrc, candidate))) return [candidate];
+    if (entry.startsWith('utils.')) {
+        return ['utils.ts'];
+    }
+    for (const candidate of [`${entry}.ts`, `${entry}.svelte.ts`, `${entry}.svelte`]) {
+        if (existsSync(path.join(mieluiSrc, candidate))) {
+            return [candidate];
+        }
     }
     throw new Error(`shared entry "${entry}" resolves to no file under ${mieluiSrc}`);
 }
@@ -66,7 +100,9 @@ async function buildThemes(): Promise<RegistryTheme[]> {
 const manifests: Manifest[] = [];
 for (const manifestPath of await collectManifestPaths()) {
     const module = (await import(manifestPath)) as { manifest: Manifest };
-    if (!module.manifest?.name) throw new Error(`${manifestPath} exports no manifest`);
+    if (!module.manifest?.name) {
+        throw new Error(`${manifestPath} exports no manifest`);
+    }
     manifests.push(module.manifest);
 }
 
@@ -78,7 +114,9 @@ for (const manifest of manifests) {
             throw new Error(`${manifest.name} depends on unknown component "${dep}"`);
         }
     }
-    for (const file of manifest.files) fileSet.add(file);
+    for (const file of manifest.files) {
+        fileSet.add(file);
+    }
     for (const entry of manifest.shared) {
         sharedToFiles(entry).forEach((file) => {
             fileSet.add(file);
@@ -87,7 +125,7 @@ for (const manifest of manifests) {
 }
 
 for (const file of fileSet) {
-    if (!existsSync(path.join(mieluiSrc, file))) {
+    if (!existsSync(sourcePath(file))) {
         throw new Error(`registry references missing file: ${file}`);
     }
 }
@@ -96,7 +134,8 @@ await rm(outDir, { recursive: true, force: true });
 for (const file of fileSet) {
     const target = path.join(outDir, 'files', file);
     await mkdir(path.dirname(target), { recursive: true });
-    await copyFile(path.join(mieluiSrc, file), target);
+    const source = await readFile(sourcePath(file), 'utf8');
+    await writeFile(target, registrySource(source, file));
 }
 
 const index: RegistryIndex = {

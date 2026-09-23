@@ -1,13 +1,10 @@
 <script lang="ts">
-    import * as DropdownMenu from '@mielui/svelte/components/dropdown-menu';
+    import { cn } from '@mielui/svelte/utils';
     import type { Snippet } from 'svelte';
 
-    type Props = {
-        children: Snippet;
-        class?: string;
-    };
-
-    let { children, class: className, ...rest }: Props = $props();
+    let { children, class: className }: { children: Snippet; class?: string } = $props();
 </script>
 
-<DropdownMenu.Label {...rest} class={className}> {@render children?.()} </DropdownMenu.Label>
+<div data-ui="select-label" class={cn(className, 'px-2 py-1.5 text-xs text-foreground-muted')}>
+    {@render children?.()}
+</div>

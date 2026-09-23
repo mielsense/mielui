@@ -23,9 +23,10 @@ export const manifest: Manifest = {
         'components/typography/index.ts',
         'components/typography/manifest.ts'
     ],
-    components: [],
+    components: ['_internal/utils'],
     shared: ['utils.cn'],
     peerDependencies: {
+        '@floating-ui/dom': '1.7.6',
         cnfast: '^0.0.8',
         svelte: '^5.0.0'
     },

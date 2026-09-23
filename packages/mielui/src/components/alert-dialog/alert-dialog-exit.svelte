@@ -1,34 +1,32 @@
 <script lang="ts">
-    import { Button, type ButtonProps } from '@mielui/svelte/components/button';
-    import { cn, type DefaultProps } from '@mielui/svelte/utils';
-    import { onMount } from 'svelte';
-    import { getModalContext } from '../modal/context.svelte';
+    import { Button } from '@mielui/svelte/components/button';
+    import { cn } from '@mielui/svelte/utils';
+    import { getDialogContext } from '../dialog/context.svelte';
 
-    type Props = {
-        closeOnClick?: boolean;
-        onclick?: (event: MouseEvent) => void;
-    } & DefaultProps &
-        ButtonProps;
+    import type { AlertDialogActionProps } from '.';
 
-    let { class: className, children, onclick, closeOnClick = true, ...rest }: Props = $props();
+    let {
+        class: className,
+        children,
+        onclick,
+        closeOnClick = true,
+        element = $bindable<HTMLButtonElement | HTMLAnchorElement>(),
+        ...rest
+    }: AlertDialogActionProps = $props();
 
-    const modal = getModalContext();
-    let element = $state<HTMLButtonElement | HTMLAnchorElement | undefined>(undefined);
+    const dialog = getDialogContext();
 
     function handleClick(event: MouseEvent) {
-        if (closeOnClick) {
-            modal.state.open = false;
-        }
         onclick?.(event);
+        if (closeOnClick && !event.defaultPrevented) {
+            dialog.state.open = false;
+        }
     }
-
-    onMount(() => {
-        element?.focus();
-    });
 </script>
 
 <Button
     bind:element
+    data-dialog-cancel
     onclick={handleClick}
     variant="ghost"
     {...rest}

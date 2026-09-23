@@ -1,0 +1,97 @@
+[
+    {
+        "name": "Gauge",
+        "properties": [
+            {
+                "name": "value",
+                "type": "number | null",
+                "required": true,
+                "bindable": false,
+                "default": null,
+                "description": "The bounded quantity shown by the filled arc. Pass null when no measurement is available.",
+                "inherited": false
+            },
+            {
+                "name": "loading",
+                "type": "boolean | undefined",
+                "required": false,
+                "bindable": false,
+                "default": "false",
+                "description": "Show a loading ring while the measurement is being fetched.",
+                "inherited": false
+            },
+            {
+                "name": "max",
+                "type": "number | undefined",
+                "required": false,
+                "bindable": false,
+                "default": "100",
+                "description": "",
+                "inherited": false
+            },
+            {
+                "name": "label",
+                "type": "string | undefined",
+                "required": false,
+                "bindable": false,
+                "default": null,
+                "description": "Describes the quantity, such as \"Context remaining\" or \"Monthly API usage\".",
+                "inherited": false
+            },
+            {
+                "name": "size",
+                "type": "number | undefined",
+                "required": false,
+                "bindable": false,
+                "default": "120",
+                "description": "Diameter in pixels. Defaults to 120; use an explicit size for inline meters.",
+                "inherited": false
+            },
+            {
+                "name": "strokeWidth",
+                "type": "number | undefined",
+                "required": false,
+                "bindable": false,
+                "default": null,
+                "description": "Track and arc thickness in pixels. Defaults to 9.75% of the diameter, with a 3px minimum.",
+                "inherited": false
+            },
+            {
+                "name": "animation",
+                "type": "\"none\" | \"reveal\" | \"live\" | undefined",
+                "required": false,
+                "bindable": false,
+                "default": "'reveal'",
+                "description": "Reveal the arc, highlight it continuously, or disable animation.",
+                "inherited": false
+            },
+            {
+                "name": "tone",
+                "type": "GaugeTone | undefined",
+                "required": false,
+                "bindable": false,
+                "default": "'primary'",
+                "description": "",
+                "inherited": false
+            },
+            {
+                "name": "class",
+                "type": "string | undefined",
+                "required": false,
+                "bindable": false,
+                "default": null,
+                "description": "",
+                "inherited": false
+            },
+            {
+                "name": "children",
+                "type": "Snippet<[]> | undefined",
+                "required": false,
+                "bindable": false,
+                "default": null,
+                "description": "",
+                "inherited": false
+            }
+        ]
+    }
+]

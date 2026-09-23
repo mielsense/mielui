@@ -1,8 +1,11 @@
 <script lang="ts">
-    import X from '@lucide/svelte/icons/x';
+    import { Cancel01Icon as X } from '@hugeicons/core-free-icons';
     import { Button } from '@mielui/svelte/components/button';
     import { cn } from '@mielui/svelte/utils';
     import type { HTMLAttributes } from 'svelte/elements';
+    import HugeiconsIcon from '../../hugeicons-icon.svelte';
+    import { buttonAttributes } from '../_internal/button-attributes';
+    import { badge } from '../badge/variants';
     import type { TagInputTagProps } from '.';
     import { getTagInputContext } from './context.svelte';
 
@@ -61,16 +64,22 @@
             aria-hidden="true"
             class="grid size-5 shrink-0 place-items-center rounded-full text-foreground-muted transition-colors group-hover:text-foreground"
         >
-            <X size={12} strokeWidth={2.25} aria-hidden="true" class="size-3" />
+            <HugeiconsIcon
+                icon={X}
+                size={12}
+                strokeWidth={2.25}
+                aria-hidden="true"
+                class="size-3"
+            />
         </span>
     {/if}
 {/snippet}
 
 {#if canRemove}
     <Button
-        {...rest}
+        {...buttonAttributes(rest)}
         type="button"
-        variant="secondary"
+        unstyled
         size="sm"
         data-ui="tag-input-tag"
         aria-label={`Remove ${value}`}
@@ -78,7 +87,9 @@
         onclick={handleRemove}
         class={cn(
             className,
-            'group ml-0.5 h-auto max-w-full gap-1.5 rounded-[var(--radius-md)] px-0 py-1 pr-1.5 pl-2.5 [font-size:var(--font-size-body)] leading-tight [font-weight:var(--font-weight-badge)] [letter-spacing:var(--tracking-body)]'
+            'cursor-pointer focus-visible:outline-none focus-visible:shadow-[var(--focus-ring)]',
+            'group h-auto max-w-full',
+            badge({ variant: 'outline' })
         )}
     >
         {@render label()}
@@ -90,7 +101,8 @@
         data-disabled={context.disabled || undefined}
         class={cn(
             className,
-            'ml-0.5 inline-flex max-w-full items-center gap-1.5 rounded-[var(--radius-md)] bg-secondary py-1 pr-2.5 pl-2.5 [font-size:var(--font-size-body)] leading-tight [font-weight:var(--font-weight-badge)] [letter-spacing:var(--tracking-body)] text-foreground'
+            'max-w-full',
+            badge({ variant: 'outline' })
         )}
     >
         {@render label()}

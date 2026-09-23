@@ -10,15 +10,10 @@
         class?: string;
     } = $props();
 
-    const { state, labels } = getSelectContext();
+    const { state } = getSelectContext();
 
-    const hasValue = $derived(state.value !== '');
-    const label = $derived(hasValue ? state.selectedLabel || labels.get(state.value) || '' : '');
-    /**
-     * Never show the placeholder while a value is selected -- doing so made the
-     * trigger flash the placeholder again the moment the menu opened and labels
-     * resolved.
-     */
+    const hasValue = $derived(state.value.length > 0);
+    const label = $derived(hasValue ? state.selectedLabel : '');
     const text = $derived(hasValue ? label : placeholder);
 </script>
 

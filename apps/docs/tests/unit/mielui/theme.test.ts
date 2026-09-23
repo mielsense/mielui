@@ -38,7 +38,9 @@ describe('themeToCss', () => {
     it('never emits a custom property that references itself', () => {
         for (const line of css.split('\n')) {
             const declaration = line.match(/^\s*(--[\w-]+):\s*(.+);$/);
-            if (!declaration) continue;
+            if (!declaration) {
+                continue;
+            }
             expect(declaration[2]).not.toContain(`var(${declaration[1]})`);
         }
     });
@@ -92,5 +94,51 @@ describe('parseTheme', () => {
         expect(() => parseTheme({ ...DEFAULT_THEME, version: undefined })).toThrow(/version/);
         expect(() => parseTheme({ ...DEFAULT_THEME, brand: 'blue' })).toThrow(/brand/);
         expect(() => parseTheme({ ...DEFAULT_THEME, neutral: 'purple' })).toThrow(/neutral/);
+    });
+});
+
+describe('edge highlight strength', () => {
+    it('uses half strength when older themes omit the setting', () => {
+        expect(themeToCss(DEFAULT_THEME)).toContain('--mielui-edge-highlight: 0.5;');
+    });
+
+    it.each([0, 0.5, 1])(
+        'preserves strength %s through JSON parsing and CSS export',
+        (strength) => {
+            const theme = parseTheme(
+                JSON.parse(
+                    JSON.stringify({
+                        ...DEFAULT_THEME,
+                        chrome: { edgeHighlight: strength }
+                    })
+                )
+            );
+            expect(theme.chrome?.edgeHighlight).toBe(strength);
+            expect(themeToCss(theme)).toContain(`--mielui-edge-highlight: ${strength};`);
+        }
+    );
+
+    it.each([-1, 1.01, Number.NaN, Number.POSITIVE_INFINITY, '0.5', null])(
+        'rejects invalid strength %s',
+        (edgeHighlight) => {
+            expect(() => parseTheme({ ...DEFAULT_THEME, chrome: { edgeHighlight } })).toThrow(
+                'chrome.edgeHighlight'
+            );
+        }
+    );
+
+    it('preserves raw elevation overrides and gives disabled shadows final precedence', () => {
+        const custom = '--elevation-control: inset 0 0 0 2px red;';
+        const css = themeToCss({
+            ...DEFAULT_THEME,
+            chrome: { edgeHighlight: 1, controlShadows: false },
+            tokens: { shared: { '--elevation-control': 'inset 0 0 0 2px red' } }
+        });
+        expect(css).toContain(custom);
+        expect(
+            css.lastIndexOf(
+                '--elevation-control: inset 0 0 0 var(--border-size) var(--color-border);'
+            )
+        ).toBeGreaterThan(css.indexOf(custom));
     });
 });

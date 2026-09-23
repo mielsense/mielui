@@ -1,5 +1,5 @@
 <script lang="ts">
-    import * as Modal from '@mielui/svelte/components/modal';
+    import * as Dialog from '@mielui/svelte/components/dialog';
     import * as Popover from '@mielui/svelte/components/popover';
 
     let {
@@ -11,8 +11,8 @@
     } = $props();
 </script>
 
-<button type="button" data-testid="open-modal" onclick={() => (modalOpen = true)}>
-    Open modal
+<button type="button" data-testid="open-dialog" onclick={() => (modalOpen = true)}>
+    Open dialog
 </button>
 <button type="button" data-testid="open-popover" onclick={() => (popoverOpen = true)}>
     Open popover
@@ -29,13 +29,13 @@
     </Popover.Content>
 </Popover.Root>
 
-<Modal.Root bind:open={modalOpen}>
-    <Modal.Content>
-        <Modal.Title>Sibling modal</Modal.Title>
-        <Modal.Body>
-            <button type="button" data-testid="close-modal" onclick={() => (modalOpen = false)}>
-                Close modal
+<Dialog.Root bind:open={modalOpen}>
+    <Dialog.Content>
+        <Dialog.Title>Sibling dialog</Dialog.Title>
+        <Dialog.Body>
+            <button type="button" data-testid="close-dialog" onclick={() => (modalOpen = false)}>
+                Close dialog
             </button>
-        </Modal.Body>
-    </Modal.Content>
-</Modal.Root>
+        </Dialog.Body>
+    </Dialog.Content>
+</Dialog.Root>

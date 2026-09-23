@@ -23,10 +23,17 @@ export const manifest: Manifest = {
         'components/tag-input/index.ts',
         'components/tag-input/manifest.ts'
     ],
-    components: ['button'],
-    shared: ['utils.cn', 'utils.createContext'],
+    components: ['_internal/utils', 'button', 'badge'],
+    shared: [
+        'components/_internal/button-attributes',
+        'components/_internal/field-metadata',
+        'hugeicons-icon',
+        'utils.cn',
+        'utils.createContext'
+    ],
     peerDependencies: {
-        '@lucide/svelte': '^1.0.0',
+        '@floating-ui/dom': '1.7.6',
+        '@hugeicons/core-free-icons': '^4.3.0',
         cnfast: '^0.0.8',
         svelte: '^5.0.0'
     }

@@ -2,9 +2,11 @@
     import { CodeBlock } from '@mielui/svelte/components/code-block';
     import * as Typography from '@mielui/svelte/components/typography';
     import { ComponentPreview, InstallCommand } from '$lib/components/docs';
-    import DocsPager from '$lib/components/docs/docs-pager.svelte';
+    import PageIntro from '$lib/components/docs/page-intro.svelte';
     import Basic from './examples/basic.svelte';
     import BasicSrc from './examples/basic.svelte?raw';
+    import Composer from './examples/composer.svelte';
+    import ComposerSrc from './examples/composer.svelte?raw';
     import Disabled from './examples/disabled.svelte';
     import DisabledSrc from './examples/disabled.svelte?raw';
     import Hero from './examples/hero.svelte';
@@ -14,25 +16,23 @@
 
     const TITLE = 'Textarea';
 
-    const installCommand = 'bunx @mielui/svelte add textarea';
+    const installCommand = 'pnpm dlx @mielui/svelte add textarea';
 </script>
 
 <svelte:head>
-    <title>Mielui · {TITLE}</title>
-    <meta name="description" content="Multi-line text input that shares Input's grammar." />
+    <title>
+        Mielui ·{' '}
+        {TITLE}
+    </title>
+    <meta
+        name="description"
+        content="Multi-line text input with labels, descriptions, and automatic resizing."
+    />
 </svelte:head>
 
 <div data-docs-page class="flex flex-col gap-10">
     <!-- ─── Header ────────────────────────────────────────────────── -->
-    <header class="flex items-start justify-between gap-4">
-        <div>
-            <Typography.H1>{TITLE}</Typography.H1>
-            <Typography.Text variant="lead" class="mt-2 max-w-2xl">
-                A multi-line text input that shares the Input styling.
-            </Typography.Text>
-        </div>
-        <DocsPager />
-    </header>
+    <PageIntro title={TITLE}>A multi-line text input that shares the Input styling.</PageIntro>
 
     <!-- ─── Hero Example ──────────────────────────────────────────── -->
     <section id="hero" class="scroll-mt-20 flex flex-col gap-4">
@@ -50,6 +50,12 @@
     <!-- ─── Usage ─────────────────────────────────────────────────── -->
     <section id="usage" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Usage</Typography.H2>
+        <Typography.Text>
+            Labels and descriptions are connected to the native textarea, preserving external
+            aria-describedby references without duplicate IDs. Conditional descriptions are linked
+            only while rendered. Autoresize responds to value and width changes, includes border-box
+            sizing, and restores the previous inline height when removed.
+        </Typography.Text>
         <Typography.Text variant="supporting">
             Import Textarea and bind its value. Add
             <Typography.InlineCode>autoresize</Typography.InlineCode>
@@ -66,9 +72,6 @@
     <section id="examples" class="scroll-mt-20 flex flex-col gap-10">
         <div>
             <Typography.H2 class="docs-section-heading">Examples</Typography.H2>
-            <Typography.Text variant="supporting" class="mt-2">
-                Textarea in different configurations.
-            </Typography.Text>
         </div>
 
         <!-- Basic -->
@@ -96,5 +99,13 @@
                 <Disabled />
             </ComponentPreview>
         </div>
+    </section>
+    <section id="composer" class="scroll-mt-20 flex flex-col gap-4">
+        <Typography.H2 class="docs-section-heading">Autoresizing composer</Typography.H2>
+        <Typography.Text variant="supporting">
+            The textarea grows as you type. Its children snippet holds a character count and submit
+            button inside the shared field border.
+        </Typography.Text>
+        <ComponentPreview code={ComposerSrc}><Composer /></ComponentPreview>
     </section>
 </div>

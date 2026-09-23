@@ -15,28 +15,37 @@ program
     .command('init')
     .description('bootstrap mielui.json, theme tokens, and shared utilities')
     .option('-y, --yes', 'accept all defaults without prompting', false)
-    .action(async (options: { yes: boolean }) => {
+    .option('--preset <preset>', 'built-in theme slug or local Studio JSON file')
+    .action(async (options: { yes: boolean; preset?: string }) => {
         banner(pkg.version);
-        await init({ cwd: program.opts().cwd, yes: options.yes });
+        await init({ cwd: program.opts().cwd, yes: options.yes, preset: options.preset });
     });
 
 program
     .command('add')
-    .description('add components (or `add theme <slug>`) to your project')
-    .argument('<names...>', 'component names, or `theme <slug>`')
+    .description('add components (or `add theme <preset>`) to your project')
+    .argument('<names...>', 'component names, or `theme <preset>`')
     .option('-y, --yes', 'skip prompts; auto-install missing peer dependencies', false)
     .option('-o, --overwrite', 'replace files that already exist', false)
-    .action(async (names: string[], options: { yes: boolean; overwrite: boolean }) => {
-        const cwd = program.opts().cwd;
-        if (names[0] === 'theme') {
-            if (names.length !== 2) {
-                program.error('usage: mielui add theme <slug>');
+    .action(
+        async (
+            names: string[],
+            options: {
+                yes: boolean;
+                overwrite: boolean;
             }
-            await addTheme(names[1], { cwd });
-            return;
+        ) => {
+            const cwd = program.opts().cwd;
+            if (names[0] === 'theme') {
+                if (names.length !== 2) {
+                    program.error('usage: mielui add theme <preset>');
+                }
+                await addTheme(names[1], { cwd });
+                return;
+            }
+            await add(names, { cwd, yes: options.yes, overwrite: options.overwrite });
         }
-        await add(names, { cwd, yes: options.yes, overwrite: options.overwrite });
-    });
+    );
 
 program
     .command('list')

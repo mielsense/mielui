@@ -1,101 +1,133 @@
 import Slider from '@mielui/svelte/components/slider/slider.svelte';
-import { render } from '@testing-library/svelte';
+import { render, screen } from '@testing-library/svelte';
+import userEvent from '@testing-library/user-event';
+import { flushSync } from 'svelte';
 import { describe, expect, it, vi } from 'vitest';
 import { queryRequired } from '../../test-utils';
 
-describe('Slider -- rendering', () => {
-    it('renders a range input', () => {
-        const { container } = render(Slider, { props: { value: 50 } });
-        const range = container.querySelector('input[type="range"]');
-        expect(range).toBeInTheDocument();
-    });
-
-    it('exposes the value via aria-valuenow', () => {
-        const { container } = render(Slider, { props: { value: 42 } });
-        expect(container.querySelector('input[type="range"]')?.getAttribute('aria-valuenow')).toBe(
-            '42'
+describe('Slider', () => {
+    it('renders an accessible slider thumb', () => {
+        render(Slider, { value: 50, label: 'Volume' });
+        expect(screen.getByRole('slider', { name: 'Volume' })).toHaveAttribute(
+            'aria-valuenow',
+            '50'
         );
     });
 
-    it('exposes min and max via aria attributes', () => {
-        const { container } = render(Slider, {
-            props: { value: 0, min: -10, max: 200 }
-        });
-        const range = queryRequired(container, 'input[type="range"]');
-        expect(range.getAttribute('aria-valuemin')).toBe('-10');
-        expect(range.getAttribute('aria-valuemax')).toBe('200');
+    it('exposes the supplied value', () => {
+        render(Slider, { value: 42 });
+        expect(screen.getByRole('slider')).toHaveAttribute('aria-valuenow', '42');
     });
 
-    it('uses the label prop as aria-label', () => {
-        const { container } = render(Slider, {
-            props: { value: 0, label: 'Volume' }
-        });
-        expect(container.querySelector('input[type="range"]')?.getAttribute('aria-label')).toBe(
-            'Volume'
-        );
-    });
-});
-
-describe('Slider -- bounds and step', () => {
-    it('reflects min and max on the underlying input', () => {
-        const { container } = render(Slider, {
-            props: { value: 5, min: 0, max: 10 }
-        });
-        const range = queryRequired<HTMLInputElement>(container, 'input[type="range"]');
-        expect(range.min).toBe('0');
-        expect(range.max).toBe('10');
+    it('exposes minimum and maximum to assistive technology', () => {
+        render(Slider, { value: 0, min: -10, max: 200 });
+        expect(screen.getByRole('slider')).toHaveAttribute('aria-valuemin', '-10');
+        expect(screen.getByRole('slider')).toHaveAttribute('aria-valuemax', '200');
     });
 
-    it('reflects step on the underlying input', () => {
-        const { container } = render(Slider, {
-            props: { value: 0, step: 5 }
-        });
-        expect(container.querySelector<HTMLInputElement>('input[type="range"]')?.step).toBe('5');
+    it('lets an explicit accessible name override label', () => {
+        render(Slider, { label: 'Volume', 'aria-label': 'Playback volume' });
+        expect(screen.getByRole('slider')).toHaveAccessibleName('Playback volume');
     });
-});
 
-describe('Slider -- onValueChange callback', () => {
-    it('fires onValueChange with the numeric new value on input', () => {
+    it('stops keyboard changes at both bounds', async () => {
+        render(Slider, { value: 5, min: 0, max: 10 });
+        const thumb = screen.getByRole('slider');
+        thumb.focus();
+        await userEvent.keyboard('{End}{ArrowRight}');
+        expect(thumb).toHaveAttribute('aria-valuenow', '10');
+        await userEvent.keyboard('{Home}{ArrowLeft}');
+        expect(thumb).toHaveAttribute('aria-valuenow', '0');
+    });
+
+    it('applies the configured keyboard step', async () => {
+        render(Slider, { value: 0, step: 5 });
+        const thumb = screen.getByRole('slider');
+        thumb.focus();
+        await userEvent.keyboard('{ArrowRight}');
+        expect(thumb).toHaveAttribute('aria-valuenow', '5');
+    });
+
+    it('reports numeric values from keyboard changes', async () => {
         const onValueChange = vi.fn();
-        const { container } = render(Slider, {
-            props: { value: 0, min: 0, max: 100, onValueChange }
-        });
-        const range = queryRequired<HTMLInputElement>(container, 'input[type="range"]');
-
-        range.value = '37';
-        range.dispatchEvent(new Event('input', { bubbles: true }));
-
+        render(Slider, { value: 36, onValueChange });
+        screen.getByRole('slider').focus();
+        await userEvent.keyboard('{ArrowRight}');
         expect(onValueChange).toHaveBeenCalledWith(37);
     });
-});
 
-describe('Slider -- interaction feedback', () => {
-    it('keeps the dragging state until the pointer is released', () => {
-        const { container } = render(Slider, { props: { value: 0 } });
-        const range = queryRequired<HTMLInputElement>(container, 'input[type="range"]');
-
-        range.dispatchEvent(new Event('pointerdown', { bubbles: true }));
-        expect(range).toHaveAttribute('data-dragging');
-
-        range.dispatchEvent(new Event('pointerup', { bubbles: true }));
-        expect(range).not.toHaveAttribute('data-dragging');
-    });
-
-    it('does not enter the dragging state when disabled', () => {
-        const { container } = render(Slider, { props: { value: 0, disabled: true } });
-        const range = queryRequired<HTMLInputElement>(container, 'input[type="range"]');
-
-        range.dispatchEvent(new Event('pointerdown', { bubbles: true }));
-
-        expect(range).not.toHaveAttribute('data-dragging');
-    });
-});
-
-describe('Slider -- disabled state', () => {
-    it('disables the underlying range input', () => {
-        const { container } = render(Slider, {
-            props: { value: 50, disabled: true }
+    it('keeps pointer dragging active until release', () => {
+        const { container } = render(Slider, { value: 0 });
+        const thumb = screen.getByRole('slider');
+        const root = queryRequired(container, '[data-ui="slider"]');
+        Object.assign(root, {
+            setPointerCapture: vi.fn(),
+            hasPointerCapture: () => true,
+            releasePointerCapture: vi.fn()
         });
-        expect(container.querySelector('input[type="range"]')).toBeDisabled();
+        flushSync(() =>
+            thumb.dispatchEvent(
+                new PointerEvent('pointerdown', { bubbles: true, button: 0, pointerId: 1 })
+            )
+        );
+        expect(thumb).toHaveAttribute('data-dragging');
+        flushSync(() =>
+            root.dispatchEvent(new PointerEvent('pointerup', { bubbles: true, pointerId: 1 }))
+        );
+        expect(thumb).not.toHaveAttribute('data-dragging');
+    });
+
+    it('ignores pointer dragging when disabled', () => {
+        render(Slider, { value: 0, disabled: true });
+        const thumb = screen.getByRole('slider');
+        flushSync(() =>
+            thumb.dispatchEvent(
+                new PointerEvent('pointerdown', { bubbles: true, button: 0, pointerId: 1 })
+            )
+        );
+        expect(thumb).not.toHaveAttribute('data-dragging');
+    });
+
+    it('removes disabled thumbs from keyboard navigation and disables form values', () => {
+        const { container } = render(Slider, { value: 50, disabled: true, name: 'volume' });
+        expect(screen.getByRole('slider')).toHaveAttribute('tabindex', '-1');
+        expect(queryRequired(container, 'input[name="volume"]')).toBeDisabled();
+    });
+
+    it('stops the lower endpoint at the upper endpoint', async () => {
+        const onValueChange = vi.fn();
+        render(Slider, { range: true, value: [20, 70], onValueChange });
+        const lower = screen.getAllByRole('slider')[0];
+        lower.focus();
+        await userEvent.keyboard('{End}');
+        expect(lower).toHaveAttribute('aria-valuenow', '70');
+        expect(onValueChange).toHaveBeenLastCalledWith([70, 70]);
+    });
+
+    it('normalizes initial endpoints without reporting an edit', () => {
+        const onValueChange = vi.fn();
+        render(Slider, { range: true, value: [130, -20], onValueChange });
+        const [lower, upper] = screen.getAllByRole('slider');
+        expect(lower).toHaveAttribute('aria-valuenow', '0');
+        expect(upper).toHaveAttribute('aria-valuenow', '100');
+        expect(onValueChange).not.toHaveBeenCalled();
+    });
+
+    it('preserves endpoint labels and ordering in RTL', () => {
+        const { container } = render(Slider, {
+            range: true,
+            value: [20, 70],
+            dir: 'rtl',
+            thumbLabels: ['Minimum price', 'Maximum price']
+        });
+        expect(queryRequired(container, '[data-ui="slider"]')).toHaveAttribute('dir', 'rtl');
+        expect(screen.getByRole('slider', { name: 'Minimum price' })).toHaveAttribute(
+            'aria-valuemax',
+            '70'
+        );
+        expect(screen.getByRole('slider', { name: 'Maximum price' })).toHaveAttribute(
+            'aria-valuemin',
+            '20'
+        );
     });
 });

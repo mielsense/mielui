@@ -2,7 +2,7 @@
     import { CodeBlock } from '@mielui/svelte/components/code-block';
     import * as Typography from '@mielui/svelte/components/typography';
     import { ComponentPreview, InstallCommand } from '$lib/components/docs';
-    import DocsPager from '$lib/components/docs/docs-pager.svelte';
+    import PageIntro from '$lib/components/docs/page-intro.svelte';
     import Descriptions from './examples/descriptions.svelte';
     import DescriptionsSrc from './examples/descriptions.svelte?raw';
     import Disabled from './examples/disabled.svelte';
@@ -10,9 +10,7 @@
     import Hero from './examples/hero.svelte';
     import HeroSrc from './examples/hero.svelte?raw';
 
-    const _TITLE = 'Radio Group';
-
-    const installCommand = 'bunx @mielui/svelte add radio-group';
+    const installCommand = 'pnpm dlx @mielui/svelte add radio-group';
 </script>
 
 <svelte:head>
@@ -22,15 +20,7 @@
 
 <div data-docs-page class="flex flex-col gap-10">
     <!-- ─── Header ────────────────────────────────────────────────── -->
-    <header class="flex items-start justify-between gap-4">
-        <div>
-            <Typography.H1> Radio Group </Typography.H1>
-            <Typography.Text variant="lead" class="mt-2 max-w-2xl">
-                A group of radio buttons for selecting one option.
-            </Typography.Text>
-        </div>
-        <DocsPager />
-    </header>
+    <PageIntro title="Radio Group">A group of radio buttons for selecting one option.</PageIntro>
 
     <!-- ─── Hero Example ──────────────────────────────────────────── -->
     <section id="hero" class="scroll-mt-20 flex flex-col gap-4">
@@ -48,6 +38,11 @@
     <!-- ─── Usage ─────────────────────────────────────────────────── -->
     <section id="usage" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Usage</Typography.H2>
+        <Typography.Text>
+            Each group owns its keyboard selection and generated item IDs. Set name when the
+            selected value should be submitted with a form. Descriptions are linked to their inputs,
+            and keyboard focus appears on the visible radio.
+        </Typography.Text>
         <Typography.Text variant="supporting">
             Import RadioGroup and compose it with Item sub-components:
         </Typography.Text>
@@ -62,9 +57,6 @@
     <section id="examples" class="scroll-mt-20 flex flex-col gap-10">
         <div>
             <Typography.H2 class="docs-section-heading">Examples</Typography.H2>
-            <Typography.Text variant="supporting" class="mt-2">
-                RadioGroup in different configurations.
-            </Typography.Text>
         </div>
 
         <!-- With descriptions -->

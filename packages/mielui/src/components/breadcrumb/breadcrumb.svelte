@@ -2,9 +2,14 @@
     import { cn } from '@mielui/svelte/utils';
     import type { BreadcrumbProps } from '.';
 
-    let { class: className, children, ...rest }: BreadcrumbProps = $props();
+    let {
+        class: className,
+        children,
+        'aria-label': ariaLabel = 'Breadcrumb',
+        ...rest
+    }: BreadcrumbProps = $props();
 </script>
 
-<div {...rest} class={cn(className, 'flex flex-row items-center gap-2')}>
+<nav aria-label={ariaLabel} {...rest} class={cn(className, 'flex flex-row items-center gap-2')}>
     {@render children?.()}
-</div>
+</nav>

@@ -9,6 +9,7 @@ import Title from './popover-title.svelte';
 import Trigger from './popover-trigger.svelte';
 
 export type PopoverContentProps = {
+    surface?: 'solid' | 'glass';
     children: Snippet;
     class?: string;
     /** Classes for the inset surface (where children live) — padding, layout,
@@ -57,7 +58,7 @@ export type PopoverTriggerProps = {
     element?: HTMLButtonElement | HTMLAnchorElement | undefined;
     /** Forwarded to Button: render with `class` alone, skipping variant/size. */
     unstyled?: boolean;
-    onclick?: () => void;
+    onclick?: (event: MouseEvent) => void;
     /** Called immediately before this trigger opens its popover. */
     onopen?: () => void;
     style?: string;

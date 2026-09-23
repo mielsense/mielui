@@ -6,8 +6,8 @@ import Button from './button.svelte';
 export type ButtonVariant = Intent | 'panel' | 'quiet';
 export type ButtonStatus = 'idle' | 'loading' | 'success' | 'error';
 
-export type ButtonProps = {
-    href?: string;
+type ButtonSharedProps = {
+    disabled?: boolean;
     variant?: ButtonVariant;
     size?: 'sm' | 'md' | 'lg' | 'icon';
     children?: Snippet;
@@ -48,7 +48,14 @@ export type ButtonProps = {
     successLabel?: string;
     errorLabel?: string;
     onclick?: (event: MouseEvent) => void;
-} & Partial<HTMLButtonAttributes | HTMLAnchorAttributes>;
+    onkeydown?: (event: KeyboardEvent) => void;
+};
+
+export type ButtonProps = ButtonSharedProps &
+    (
+        | ({ href: string } & Omit<HTMLAnchorAttributes, keyof ButtonSharedProps | 'href'>)
+        | ({ href?: undefined } & Omit<HTMLButtonAttributes, keyof ButtonSharedProps>)
+    );
 
 export { Button };
 export default Button;

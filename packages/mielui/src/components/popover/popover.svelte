@@ -1,5 +1,6 @@
 <script lang="ts">
-    import { onDestroy, onMount, untrack } from 'svelte';
+    import { Popover as PopoverPrimitive } from 'bits-ui';
+    import { onDestroy, untrack } from 'svelte';
     import type { PopoverProps, PopoverState } from '.';
     import { setPopoverContext } from './context.svelte';
 
@@ -17,65 +18,47 @@
     }: PopoverProps = $props();
 
     const generatedKey = $props.id();
-    const initial = untrack(() => {
-        return {
-            key: stateKey ?? state_key ?? generatedKey,
-            placement,
-            hoverable: hoverable ?? false,
-            delay,
-            closeDelay,
-            inert
-        };
-    });
+    const key = untrack(() => stateKey ?? state_key ?? generatedKey);
     const popoverState = $state<PopoverState>({
-        open,
+        get open() {
+            return open;
+        },
+        set open(value: boolean) {
+            if (open === value) {
+                return;
+            }
+            open = value;
+            onOpenChange?.(value);
+        },
         trigger: null,
         focusedElement: null,
         buttonRef: null,
         popoverRef: undefined,
-        placement: initial.placement,
+        get placement() {
+            return placement;
+        },
         onclick: undefined,
         closeTimeout: undefined,
-        hoverable: initial.hoverable,
-        delay: initial.delay,
-        closeDelay: initial.closeDelay,
-        inert: initial.inert
-    });
-    const key = initial.key;
-    let syncedOpen = $state(open);
-
-    setPopoverContext({ id: key, state: popoverState });
-
-    onMount(() => {
-        popoverState.placement = placement;
-        popoverState.hoverable = hoverable ?? false;
-        popoverState.delay = delay;
-        popoverState.closeDelay = closeDelay;
-        popoverState.inert = inert;
-    });
-
-    $effect(() => {
-        popoverState.placement = placement;
-    });
-
-    $effect(() => {
-        popoverState.hoverable = hoverable ?? false;
-        popoverState.delay = delay;
-        popoverState.closeDelay = closeDelay;
-        popoverState.inert = inert;
-        if (open !== syncedOpen) {
-            syncedOpen = open;
-            popoverState.open = open;
+        get hoverable() {
+            return hoverable ?? false;
+        },
+        get delay() {
+            return delay;
+        },
+        get closeDelay() {
+            return closeDelay;
+        },
+        get inert() {
+            return inert;
         }
     });
 
-    $effect(() => {
-        if (popoverState.open !== syncedOpen) {
-            syncedOpen = popoverState.open;
-            open = popoverState.open;
-            onOpenChange?.(popoverState.open);
-        }
+    const context = $state({
+        id: key,
+        state: popoverState,
+        titleId: undefined as string | undefined
     });
+    setPopoverContext(context);
 
     onDestroy(() => {
         if (popoverState.closeTimeout) {
@@ -87,4 +70,6 @@
     });
 </script>
 
-{@render children?.()}
+<PopoverPrimitive.Root bind:open={popoverState.open}>
+    {@render children?.()}
+</PopoverPrimitive.Root>

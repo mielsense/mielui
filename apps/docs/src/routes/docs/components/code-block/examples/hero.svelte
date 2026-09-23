@@ -1,9 +1,12 @@
 <script lang="ts">
-    import Info from '@lucide/svelte/icons/info';
-    import Sparkles from '@lucide/svelte/icons/sparkles';
+    import {
+        InformationCircleIcon as Info,
+        SparklesIcon as Sparkles
+    } from '@hugeicons/core-free-icons';
     import { Button } from '@mielui/svelte/components/button';
     import * as CodeBlock from '@mielui/svelte/components/code-block';
     import * as Tooltip from '@mielui/svelte/components/tooltip';
+    import HugeiconsIcon from '@mielui/svelte/hugeicons-icon';
     import csharp from './snippets/quickstart.cs.txt?raw';
     import go from './snippets/quickstart.go.txt?raw';
     import java from './snippets/quickstart.java.txt?raw';
@@ -25,7 +28,7 @@
             <Tooltip.Root>
                 <Tooltip.Trigger>
                     <Button variant="ghost" size="icon" aria-label="About this snippet">
-                        <Info size={15} />
+                        <HugeiconsIcon icon={Info} size={15} />
                     </Button>
                 </Tooltip.Trigger>
                 <Tooltip.Content>About this snippet</Tooltip.Content>
@@ -33,7 +36,7 @@
             <Tooltip.Root>
                 <Tooltip.Trigger>
                     <Button variant="ghost" size="icon" aria-label="Explain with AI">
-                        <Sparkles size={15} />
+                        <HugeiconsIcon icon={Sparkles} size={15} />
                     </Button>
                 </Tooltip.Trigger>
                 <Tooltip.Content>Explain with AI</Tooltip.Content>
