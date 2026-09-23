@@ -176,3 +176,9 @@
 - Align the footer info icon with the navigation button inset and distinguish outline hover previews with a dashed gray hook.
 
 - Move the page-outline hook directly to a clicked section without pausing on headings passed during smooth scrolling.
+
+- Keep catalog search pinned in a header-height row, with section headings and outline jumps positioned below it.
+
+- Slow the page-outline hook’s glide while retaining direct section targeting and reduced-motion behavior.
+
+- Remove the doubled divider between catalog search and the first section.

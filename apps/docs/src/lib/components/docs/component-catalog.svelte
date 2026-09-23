@@ -76,12 +76,12 @@
     }
 </script>
 
-<div data-docs-page class="flex flex-col gap-10">
+<div data-docs-page class="flex flex-col gap-10 [--docs-sticky-offset:var(--docs-row-height)]">
     <PageIntro {title}>{description}</PageIntro>
 
     <section data-docs-toolbar aria-label={searchLabel} class="flex flex-col gap-3">
-        <div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-            <div class="w-full shrink-0 sm:max-w-sm">
+        <div class="flex min-w-0 items-center justify-between gap-3">
+            <div class="min-w-0 flex-1 sm:max-w-sm">
                 <Input
                     bind:value={query}
                     type="search"
@@ -94,7 +94,10 @@
                     {/snippet}
                 </Input>
             </div>
-            <Typography.Metadata class="shrink-0 whitespace-nowrap tabular-nums" aria-live="polite">
+            <Typography.Metadata
+                class="sr-only shrink-0 whitespace-nowrap tabular-nums sm:not-sr-only"
+                aria-live="polite"
+            >
                 {countLabel}
             </Typography.Metadata>
         </div>

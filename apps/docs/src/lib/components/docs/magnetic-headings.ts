@@ -16,10 +16,12 @@ export function magneticHeadings(selector: string) {
                 return;
             }
             const viewport = node.getBoundingClientRect();
+            const toolbar = node.querySelector<HTMLElement>('[data-docs-toolbar]');
+            const inset = toolbar?.getBoundingClientRect().height ?? 0;
             const catchDistance = Math.min(160, node.clientHeight * 0.2);
             const offsets = Array.from(
                 node.querySelectorAll(selector),
-                (section) => section.getBoundingClientRect().top - viewport.top
+                (section) => section.getBoundingClientRect().top - viewport.top - inset
             );
             const offset = offsets.find((distance) => distance > 1 && distance <= catchDistance);
             if (offset !== undefined) {

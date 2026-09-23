@@ -6,7 +6,7 @@
         from = 0,
         muted = false
     }: { y: number | null; from?: number; muted?: boolean } = $props();
-    const position = new Spring({ from: 0, y: 0 }, { stiffness: 0.2, damping: 0.8 });
+    const position = new Spring({ from: 0, y: 0 }, { stiffness: 0.1, damping: 0.85 });
     $effect(() => {
         void position.set({ from, y: y ?? 0 }, { instant: prefersReducedMotion.current });
     });

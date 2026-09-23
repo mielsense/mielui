@@ -33,14 +33,22 @@
     }
 
     function headingInset(heading: Heading) {
+        const toolbar = content?.querySelector<HTMLElement>('[data-docs-toolbar]');
+        const toolbarHeight = toolbar?.getBoundingClientRect().height ?? 0;
         if (heading.level !== 3) {
-            return 0;
+            return toolbarHeight;
         }
-        const section = heading.node.closest('section');
-        const title = section?.querySelector<HTMLElement>(
-            ':scope > h2, :scope > div:first-child:has(> h2)'
-        );
-        return title?.getBoundingClientRect().height ?? 0;
+        let section = heading.node.closest('section');
+        while (section) {
+            const title = section.querySelector<HTMLElement>(
+                ':scope > h2, :scope > div:first-child:has(> h2)'
+            );
+            if (title) {
+                return toolbarHeight + title.getBoundingClientRect().height;
+            }
+            section = section.parentElement?.closest('section') ?? null;
+        }
+        return toolbarHeight;
     }
 
     async function navigate(event: MouseEvent, heading: Heading) {
