@@ -1,6 +1,7 @@
 <script lang="ts">
     import { Slider } from '@mielui/svelte/components/slider';
     import { Switch } from '@mielui/svelte/components/switch';
+    import * as ToggleGroup from '@mielui/svelte/components/toggle-group';
     import * as Typography from '@mielui/svelte/components/typography';
     import { cursorChoices } from './config';
     import { getThemeEditor } from './context';
@@ -11,6 +12,36 @@
 </script>
 
 <EditorSection title="Effects" bodyClass="gap-3">
+    <div class="flex flex-col gap-2">
+        <Typography.Metadata>Borders</Typography.Metadata>
+        <ToggleGroup.Root
+            type="single"
+            bind:value={
+                () => editor.state.borders,
+                (value) => {
+                if (value === 'single' || value === 'double') {
+                    editor.state.borders = value;
+                }
+            }
+            }
+            aria-label="Borders"
+            class="flex w-full gap-1.5"
+        >
+            {#each ['single', 'double'] as value (value)}
+                <ToggleGroup.Item
+                    {value}
+                    onclickcapture={(event) => {
+                        if (editor.state.borders === value) {
+                            event.preventDefault();
+                        }
+                    }}
+                    class="min-w-0 flex-1 border border-border bg-background shadow-[var(--elevation-control-edge)] data-[state=on]:border-border-strong data-[state=on]:bg-secondary"
+                >
+                    {value === 'single' ? 'Single' : 'Double'}
+                </ToggleGroup.Item>
+            {/each}
+        </ToggleGroup.Root>
+    </div>
     <Switch bind:checked={editor.state.glassSurfaces} label="Glass surfaces" />
     <div class="flex flex-col gap-1.5">
         <div class="flex items-center justify-between gap-2">

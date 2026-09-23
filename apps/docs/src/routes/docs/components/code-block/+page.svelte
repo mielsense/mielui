@@ -79,6 +79,11 @@ import { CodeBlock } from '$lib/mielui/components/code-block';
     <section id="usage" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Usage</Typography.H2>
         <Typography.Text variant="supporting">
+            The theme setting chrome.borders chooses "single" or "double" framing. Double is the
+            default. Single removes the extra frame while preserving content padding, composition,
+            and inset variants.
+        </Typography.Text>
+        <Typography.Text variant="supporting">
             Pass a{' '}
             <Typography.InlineCode>tabs</Typography.InlineCode> array for the multi-language form,
             or{' '}

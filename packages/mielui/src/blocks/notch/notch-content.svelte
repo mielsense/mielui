@@ -339,7 +339,7 @@
     <div
         aria-hidden="true"
         data-ui="notch-surface"
-        class="mielui-inset-surface pointer-events-none absolute rounded-none [clip-path:var(--notch-inner-clip)]"
+        class="mielui-inset-surface pointer-events-none absolute rounded-none [clip-path:var(--notch-inner-clip)] [@container_style(--mielui-border-inset-scale:0)]:inset-0! [@container_style(--mielui-border-inset-scale:0)]:[clip-path:none]"
         style={`inset:${insetTop}px ${insetRight}px ${insetBottom}px ${insetLeft}px;--notch-inner-clip:url(#${uid}-inner)`}
     ></div>
     {#if context.mode === 'peek'}
@@ -396,7 +396,10 @@
             stroke-width="var(--border-size)"
             vector-effect="non-scaling-stroke"
         />
-        <g transform={`translate(${insetLeft} ${insetTop})`}>
+        <g
+            transform={`translate(${insetLeft} ${insetTop})`}
+            class="opacity-[var(--mielui-border-inset-scale,1)]"
+        >
             <path
                 d={interior.path}
                 transform={interior.transform}

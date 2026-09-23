@@ -46,6 +46,11 @@
     <!-- ─── Usage ─────────────────────────────────────────────────── -->
     <section id="usage" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Usage</Typography.H2>
+        <Typography.Text variant="supporting">
+            The theme setting chrome.borders chooses "single" or "double" framing. Double is the
+            default. Single removes the extra frame while preserving content padding, composition,
+            and inset variants.
+        </Typography.Text>
         <Typography.Text>
             Confirm and Exit call onclick before closing. Prevent default to keep the alert dialog
             open, or set closeOnClick to false for asynchronous work. Both forward bind:element.

@@ -235,6 +235,21 @@ joined-control seams. Use the repository's verification policy for automated
 checks. Record new shared contracts here and explain consumer-facing changes in
 the changelog; do not leave the next agent to infer them from one example.
 
+## Borders
+
+`chrome.borders` accepts `double` or `single` and defaults to `double`. It applies
+to every shared double frame: cards, menus, popovers, dialogs, sheets, toasts,
+Notch, code blocks, diffs, inset tables, composers, and chart tooltips.
+
+Shared frames scale their decorative inset with `--mielui-border-inset-scale`.
+Panel cards also scale their inner ring. Notch retains its outer SVG outline,
+hides the inner outline, and fills the outer clip when the scale is zero.
+Single uses zero; double uses one. Keep the outer border and concentric inner
+radius in both styles. Preserve content padding, footer composition, inset
+variants, and viewport-attached geometry. Existing single-border surfaces do
+not gain an extra border. Glass, elevation, focus, and edge highlights remain
+independent. New double-frame treatments must honor this shared setting.
+
 ## Edge highlight strength
 
 Use the shared elevation tokens for light-catching inset edges, including keycaps.

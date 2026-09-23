@@ -45,6 +45,11 @@
     <!-- ─── Usage ─────────────────────────────────────────────────── -->
     <section id="usage" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Usage</Typography.H2>
+        <Typography.Text variant="supporting">
+            The theme setting chrome.borders chooses "single" or "double" framing. Double is the
+            default. Single removes the extra frame while preserving content padding, composition,
+            and inset variants.
+        </Typography.Text>
         <Typography.Text>
             Put the preview in Content and its link or label in Trigger. The card opens on hover or
             keyboard focus and stays open as the pointer moves into it. Give Trigger an href for

@@ -38,7 +38,7 @@
                         out:panelOut
                         data-ui="date-picker-content"
                         data-surface={surface}
-                        class={cn(className, overlaySurface(surface), 'z-[130] mielui-modal-frame max-h-[var(--bits-popover-content-available-height)] max-w-[var(--bits-popover-content-available-width)] overflow-auto text-foreground shadow-[var(--elevation-float)] outline-none origin-[var(--bits-popover-content-transform-origin)] [--mielui-modal-inset:calc(var(--spacing)*0.5)]')}
+                        class={cn(className, overlaySurface(surface), 'z-[130] mielui-modal-frame max-h-[var(--bits-popover-content-available-height)] max-w-[var(--bits-popover-content-available-width)] overflow-auto text-foreground shadow-[var(--elevation-float)] outline-none origin-[var(--bits-popover-content-transform-origin)] [--mielui-modal-inset:calc(var(--spacing)*0.5*var(--mielui-border-inset-scale,1))]')}
                     >
                         <div class="mielui-inset-surface min-w-0 p-0">
                             {@render children?.()}

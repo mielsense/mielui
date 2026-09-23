@@ -126,7 +126,7 @@
         class={cn(
             className,
             overlaySurface(surface),
-            'mielui-modal-frame flex w-full flex-col overflow-hidden text-foreground shadow-[var(--elevation-1)] [--mielui-modal-inset:calc(var(--spacing)*0.5)] transition-[background-color,border-color,box-shadow] [transition-duration:var(--motion-duration-press)] ease-[var(--ease-out)] motion-reduce:transition-none focus-within:border-primary focus-within:shadow-[var(--focus-ring),var(--elevation-1)] data-[state=error]:border-[color-mix(in_srgb,var(--color-error)_70%,transparent)] data-[state=error]:shadow-[0_0_0_calc(var(--border-size)*2)_color-mix(in_srgb,var(--color-error)_25%,transparent),var(--elevation-1)]'
+            'mielui-modal-frame flex w-full flex-col overflow-hidden text-foreground shadow-[var(--elevation-1)] [--mielui-modal-inset:calc(var(--spacing)*0.5*var(--mielui-border-inset-scale,1))] transition-[background-color,border-color,box-shadow] [transition-duration:var(--motion-duration-press)] ease-[var(--ease-out)] motion-reduce:transition-none focus-within:border-primary focus-within:shadow-[var(--focus-ring),var(--elevation-1)] data-[state=error]:border-[color-mix(in_srgb,var(--color-error)_70%,transparent)] data-[state=error]:shadow-[0_0_0_calc(var(--border-size)*2)_color-mix(in_srgb,var(--color-error)_25%,transparent),var(--elevation-1)]'
         )}
     >
         {@render children?.()}

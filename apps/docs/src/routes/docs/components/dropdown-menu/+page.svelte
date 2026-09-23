@@ -13,6 +13,8 @@
     import GlassSrc from './examples/glass.svelte?raw';
     import Hero from './examples/hero.svelte';
     import HeroSrc from './examples/hero.svelte?raw';
+    import OverlayBorders from './examples/overlay-borders.svelte';
+    import OverlayBordersSrc from './examples/overlay-borders.svelte?raw';
     import RowActions from './examples/row-actions.svelte';
     import RowActionsSrc from './examples/row-actions.svelte?raw';
     import ShareMenu from './examples/share-menu.svelte';
@@ -133,6 +135,14 @@
                 <DynamicWidth />
             </ComponentPreview>
         </div>
+    </section>
+    <section id="overlay-borders" class="flex flex-col gap-4">
+        <Typography.H2 class="docs-section-heading">Borders</Typography.H2>
+        <Typography.Text variant="supporting">
+            Set chrome.borders to "single" or "double" in your theme. Double is the default. This
+            example overrides the generated inset token locally so you can compare both styles.
+        </Typography.Text>
+        <ComponentPreview code={OverlayBordersSrc}><OverlayBorders /></ComponentPreview>
     </section>
     <section id="glass" class="flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Glass surface</Typography.H2>

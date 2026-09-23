@@ -290,10 +290,10 @@ src/lib/mielui/components/button/
                 .
             </li>
             <li>
-                <Typography.InlineCode>chrome</Typography.InlineCode> controls edgeHighlight,
-                surfaceShadows, controlShadows, dialogShadows, travelingHighlight, primaryStroke,
-                and interactiveCursor. Turning off travelingHighlight keeps the selected fill and
-                removes its movement.
+                <Typography.InlineCode>chrome</Typography.InlineCode> controls borders,
+                edgeHighlight, surfaceShadows, controlShadows, dialogShadows, travelingHighlight,
+                primaryStroke, and interactiveCursor. Turning off travelingHighlight keeps the
+                selected fill and removes its movement.
             </li>
         </ul>
         <Typography.Text variant="body" class="m-0">
@@ -334,6 +334,32 @@ src/lib/mielui/components/button/
             . Edit them when you need behavior changes, not just style.
         </Typography.Text>
         <CodeBlock code={sourceExample} lang="shell" copy="overlay" />
+    </section>
+
+    <section id="overlay-borders" class="flex flex-col gap-4">
+        <Typography.H2>Borders</Typography.H2>
+        <Typography.Text>
+            Set chrome.borders to "single" for one perimeter border on framed surfaces, or "double"
+            for the inset frame. The default is "double", including themes saved before this option
+            existed. Studio exposes this choice under Effects.
+        </Typography.Text>
+        <CodeBlock
+            copy="overlay"
+            lang="typescript"
+            code={`const theme = {
+    ...DEFAULT_THEME,
+    chrome: { borders: 'single' as const }
+};
+
+const css = themeToCss(theme);`}
+        />
+        <Typography.Text>
+            The setting covers all double-frame surfaces, including cards, menus, popovers, dialogs,
+            sheets, Notch, Toast, code blocks, diffs, inset tables, composers, and chart tooltips.
+            Inset variants keep their content padding and footer composition. Surfaces that already
+            have one border stay single. Glass, shadows, focus, and edge highlights remain
+            independent.
+        </Typography.Text>
     </section>
 
     <section class="flex flex-col gap-4">

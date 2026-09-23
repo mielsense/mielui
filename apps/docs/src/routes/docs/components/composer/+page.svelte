@@ -47,6 +47,11 @@
     <section id="usage" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Usage</Typography.H2>
         <Typography.Text variant="supporting">
+            The theme setting chrome.borders chooses "single" or "double" framing. Double is the
+            default. Single removes the extra frame while preserving content padding, composition,
+            and inset variants.
+        </Typography.Text>
+        <Typography.Text variant="supporting">
             Bind the prompt value on Root and handle submission with onSubmit. Composer waits for
             async handlers and shows the submitting state until they finish. Submit labels its icon
             as Send, Queue message, or Stop response to match the current action.

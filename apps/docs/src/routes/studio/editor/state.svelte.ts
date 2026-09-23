@@ -42,6 +42,7 @@ export function createThemeEditorState() {
             light: DEFAULT_THEME.brand,
             dark: DEFAULT_THEME.brand
         } as BrandColors,
+        borders: 'double' as NonNullable<NonNullable<Theme['chrome']>['borders']>,
         edgeHighlight: 0.5,
         rememberedEdgeHighlight: 0.5,
         surfaceShadows: true,

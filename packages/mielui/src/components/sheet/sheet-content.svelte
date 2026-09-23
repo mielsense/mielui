@@ -114,7 +114,7 @@
                     `fixed top-[calc(var(--mielui-viewport-top)+0.5rem)] bottom-auto z-[120] flex h-[calc(var(--mielui-viewport-height)-1rem)] w-[calc(100%-1rem)] max-w-sm flex-col overflow-hidden text-foreground shadow-[var(--elevation-float)] will-change-transform [backface-visibility:hidden] ${
                         side === 'left' ? 'left-2' : 'right-2'
                     }`,
-                    'mielui-modal-frame [--mielui-modal-inset:calc(var(--spacing)*0.5)]'
+                    'mielui-modal-frame [--mielui-modal-inset:calc(var(--spacing)*0.5*var(--mielui-border-inset-scale,1))]'
                 )}
                         role="dialog"
                         aria-labelledby={sheet.titleId}

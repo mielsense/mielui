@@ -1,0 +1,1 @@
+- Choose single or double borders across framed surfaces, including cards, dialogs, menus, Notch, and Toast in themes and Studio.

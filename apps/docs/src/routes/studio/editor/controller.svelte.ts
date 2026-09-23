@@ -97,6 +97,7 @@ export function createThemeEditor() {
             (state.headerSize === 16 ? 0 : 1) +
             (state.headerWeight === '600' ? 0 : 1) +
             roleWeightChanges +
+            (state.borders === (state.baseTheme.chrome?.borders ?? 'double') ? 0 : 1) +
             (state.edgeHighlight === (state.baseTheme.chrome?.edgeHighlight ?? 0.5) ? 0 : 1) +
             (state.surfaceShadows ? 0 : 1) +
             (state.controlShadows ? 0 : 1) +
@@ -119,6 +120,7 @@ export function createThemeEditor() {
             roleWeights: state.roleWeights
         },
         chrome: {
+            borders: state.borders,
             edgeHighlight: state.edgeHighlight,
             surfaceShadows: state.surfaceShadows,
             controlShadows: state.controlShadows,
@@ -179,6 +181,7 @@ export function createThemeEditor() {
         };
         state.advancedTokens = emptyAdvancedTokens();
         state.brandColors = { light: preset.brand, dark: preset.brand };
+        state.borders = preset.chrome?.borders ?? 'double';
         state.edgeHighlight = preset.chrome?.edgeHighlight ?? 0.5;
         state.surfaceShadows =
             preset.chrome?.shadows !== false && preset.chrome?.surfaceShadows !== false;
@@ -245,6 +248,7 @@ export function createThemeEditor() {
         const storedTheme = loadStudioTheme();
         if (storedTheme) {
             state.theme = { ...storedTheme };
+            state.borders = storedTheme.chrome?.borders ?? 'double';
             state.edgeHighlight = storedTheme.chrome?.edgeHighlight ?? 0.5;
             syncFontSelections(state.theme);
         }
