@@ -21,6 +21,34 @@
 - The initial repository import is one commit. Later tasks use the branch and
   pull request workflow above unless the user gives different instructions.
 
+# Releasing a version
+
+Read [SETUP.md's npm publishing procedure](SETUP.md#npm-publishing) before any
+version bump, release preparation, tag, or npm publication. Keep that document
+in sync when changing `.github/workflows/publish.yml` or release behavior.
+
+- Read the current package version, npm registry versions, and existing GitHub
+  tags/releases. Never infer the next version from an example in documentation.
+- Update `packages/mielui/package.json`, the lockfile when affected, and
+  `changelog/<version>/`. Do not bump unrelated workspace package versions.
+- Run the full release gate, pass required PR checks, and merge into `main`
+  before creating the matching annotated `v<version>` tag on the release commit.
+- Publishing the GitHub Release triggers the verified-artifact npm workflow.
+  A tag push or draft release does not. Preparing release docs or artifacts
+  alone is not authorization to publish; follow the user's requested scope.
+- For a first npm publication, follow the bootstrap-token procedure in
+  `SETUP.md`. `npm trust` returns 404 for an unpublished package; do not keep
+  retrying it or treat local `npm login` as GitHub Actions authorization.
+- After bootstrap, configure trusted publishing for `mielsense/mielui`,
+  `publish.yml`, environment `npm`, with direct publish permission. Remove and
+  revoke the bootstrap token only after the trusted publisher is configured.
+- The workflow currently publishes to `latest`; do not use it for prereleases
+  without adding and verifying a separate npm channel first.
+- After publication, verify the Publish workflow result and the exact version
+  and dist-tag on npm. Report the release URL and install command. If a run
+  fails, inspect npm before retrying; never overwrite a published version or
+  move a release tag.
+
 # Verification
 
 Before reporting a change complete, run only the lightweight repository-level

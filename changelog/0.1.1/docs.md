@@ -199,3 +199,5 @@
 - Clarify current documentation sources and distinguish the historical Sivir UI changelog from Mielui releases.
 
 - Document npm publishing authorization and the GitHub release steps for maintainers.
+
+- Add agent release guidance and clarify first-publication setup before enabling trusted publishing.
