@@ -105,8 +105,8 @@
                 Compare ready, loading, unavailable, zero, and full measurements. Reveal uses the
                 built-in entry animation; Live adds a highlight to the fixed-value arc in this
                 example. None disables motion. The live highlight pauses offscreen, in hidden tabs,
-                and when reduced motion is enabled. Loading and unavailable messages use inset
-                cards.
+                and when reduced motion is enabled. Loading and unavailable states keep the same
+                meter footprint.
             {/snippet}
         </SectionHeading>
         <ComponentPreview code={StatesSource}><States /></ComponentPreview>

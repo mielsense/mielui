@@ -160,3 +160,5 @@
 - Give Gauge arc ends a subtle corner radius.
 
 - Keep Gauge loading and empty states compact without a nested card.
+
+- Preserve the Heatmap calendar layout while loading or showing no activity.

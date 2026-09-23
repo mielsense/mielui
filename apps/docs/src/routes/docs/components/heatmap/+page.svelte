@@ -158,10 +158,11 @@
     <section id="data-states" class="flex scroll-mt-20 flex-col gap-4">
         <SectionHeading title="Data and animation states">
             {#snippet description()}
-                Compare loading, empty, and ready layouts with row, column, live, or no motion.
-                Loading and empty cards are application compositions; Root treats missing dates as
-                zero activity. The live example highlights columns without changing contribution
-                counts and pauses while you inspect the calendar.
+                Compare loading, empty, and ready layouts with row, column, live, or no motion. The
+                calendar keeps its layout in every state. Loading uses matching skeleton cells; no
+                data shows neutral cells and a status line. Root treats missing dates as zero
+                activity. The live example highlights columns without changing contribution counts
+                and pauses while you inspect the calendar.
             {/snippet}
         </SectionHeading>
         <ComponentPreview code={StatesSource}><States /></ComponentPreview>
