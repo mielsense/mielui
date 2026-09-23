@@ -5,13 +5,15 @@ description: Builds and refines Svelte 5 interfaces with mielui using its live l
 
 # Mielui
 
-Build production Svelte interfaces from Mielui's current APIs and design system instead of guessing from generic component-library patterns.
+Build Svelte interfaces using Mielui's documented APIs, tokens, and composition.
 
-## Step 1: Establish the Project State
+Mielui began from Sivir UI and is maintained independently, with its own components, behavior, themes, documentation, and releases. Use Mielui sources for implementation decisions. Sivir examples and version numbers do not establish Mielui compatibility. Preserve the upstream copyright and license notices when copying or redistributing source. The CLI stores them in `notices/mielui/` inside the configured source directory; the repository's UPSTREAM.md records its origins.
+
+## Step 1: Establish the project state
 
 Inspect the project before changing code:
 
-1. Confirm Svelte 5 and Tailwind CSS v4 are present.
+1. Confirm the installed Mielui release's peer requirements. Mielui 0.1.1 requires Svelte 5.56 or newer within Svelte 5 and Tailwind CSS v4.
 2. Read the package manifest, lockfile, global CSS entry, and nearby Svelte components.
 3. Detect the integration mode:
    - Package mode: `@mielui/svelte` is a dependency and components import from it.
@@ -22,7 +24,7 @@ Inspect the project before changing code:
 
 Do not silently switch an existing project between package and source-copy modes.
 
-## Step 2: Load the Current Mielui Sources
+## Step 2: Load current Mielui sources
 
 Fetch `https://ui.miel.my/llms.txt` at the start of each Mielui task. Treat it as the index for the current catalog, installation guide, theming guide, changelog, and generated component references.
 
@@ -50,7 +52,7 @@ If the project is behind the live release, adapt to the installed API or ask bef
 
 If web access is unavailable, inspect local Mielui source or installed declarations. State that the live reference could not be checked rather than guessing.
 
-## Step 3: Model the Interface
+## Step 3: Model the interface
 
 State the user's job, the dominant content or action, and the important empty, loading, success, and error states. For substantial pages, compare at least two materially different compositions and choose the one that makes the task clearest.
 
@@ -58,7 +60,7 @@ Read `references/design-language.md` relative to this skill before creating or s
 
 Choose geometry before components. Mielui is a set of purposeful primitives, not a requirement to wrap every region in a component.
 
-## Step 4: Select and Verify Components
+## Step 4: Select and verify components
 
 Read `references/component-selection.md` relative to this skill when selecting new primitives or composing an AI interface.
 
@@ -74,7 +76,7 @@ Before implementation:
 
 Examples are API evidence, not page templates. Adapt their state model and composition to the user's real content.
 
-## Step 5: Install Consistently
+## Step 5: Install consistently
 
 When Mielui is absent, choose with the user unless the requested mode is already clear:
 
@@ -110,7 +112,7 @@ Import the generated token sheet once and use the aliases recorded in `mielui.js
 
 Treat `mielui add` as an operation for missing source, not a safe update command. It skips existing files unless `--overwrite` is passed but can still advance recorded versions in `mielui.json`. Before updating copied components, inspect local modifications and the upstream change, then ask before using `--overwrite` because it replaces owned source.
 
-## Step 6: Implement in Mielui's Language
+## Step 6: Implement with Mielui
 
 Use Svelte 5 state and binding patterns that match the project's code. Preserve native semantics and use the component's typed callbacks and bindable props as documented.
 
@@ -126,7 +128,7 @@ Implement real states, not only the ideal screenshot:
 - Success confirms the user's action without unnecessary ceremony.
 - Long content wraps or scrolls in the correct local region.
 
-## Step 7: Verify the Result
+## Step 7: Verify the result
 
 Run the project's normal lightweight formatting and lint checks. Run broader checks only when requested or required by the host repository.
 
@@ -145,13 +147,13 @@ Report the Mielui components added, integration mode, verification performed, an
 
 ## Current composition contracts
 
-The catalog separates Components, Blocks, AI components, Chart components, and Actions. Public component imports remain under `@mielui/svelte/components/<slug>` even when source folders use another category. Gauge and Heatmap are charts; Morph is imported from `@mielui/svelte/actions/morph`.
+The catalog separates Components, Blocks, AI components, Chart components, and Actions. Public component imports remain under `@mielui/svelte/components/<slug>` even when source folders use another category. Chart, PieChart, Gauge, and Heatmap are charts. Actions use `@mielui/svelte/actions/<slug>`: morph, number-shuffle, and shimmer.
 
 Use Dialog instead of Modal, Kbd instead of Shortcut, and HugeiconsIcon with Hugeicons glyph data. Group connects real Button, Input, and trigger components; include Group.Separator between controls. Tag Input uses outline badges.
 
 Toast is composable through Root, Content, Footer, Title, Icon, Actions, Action, and Close. The description occupies the upper inset and the compact title/actions row sits below. The toast helpers render these same parts. Overlay surfaces accept `surface="solid" | "glass"` on the documented owning part; do not apply glass independently to nested surfaces.
 
-Heatmap.Root accepts `animation="rows" | "columns" | "none"`, defaulting to rows. Reduced motion disables entrances. Slider range mode binds a pair of numbers, accepts thumbLabels, and supports dir="rtl". Read each page before using these APIs, particularly when the locked package predates the unreleased changelog.
+Heatmap.Root accepts `animation="rows" | "columns" | "live" | "none"`, defaulting to rows. Reduced motion disables entrances. Slider range mode binds a pair of numbers, accepts thumbLabels, and supports dir="rtl". Read each page before using these APIs, particularly when the locked package predates the unreleased changelog.
 
 ## Tables, native selects, and loading placeholders
 
@@ -160,3 +162,15 @@ Compose Table.Root with Header, Body, Row, Head, and Cell. Caption, Footer, and 
 NativeSelect.Root renders a native select. Bind a string for single selection or a string array with multiple. Its size prop is the native number of visible options. Compose Option and OptGroup inside it.
 
 Apply use:shimmer from @mielui/svelte/actions/shimmer to a loading container, or set variant="shimmer" on Skeleton. Shimmer takes no options and disables itself for reduced motion. Label the loading region; the visual highlight is hidden from assistive technology.
+
+## Selection, uploads, and motion
+
+Select.Root and Combobox.Root use a string value by default. Set `type="multiple"` and bind a `string[]` for multiple selection. Keep the documented Trigger, Content, and Item composition; multiple selection leaves the menu open. Do not add a second selection store around the binding.
+
+FileUpload.Root owns validation and upload state. Use `maxFiles={1}` for single-file picking. Its children snippet exposes the summary for composing the empty dropzone and selected file states. `onUpload` is required; implement the upload there and resolve it only after server confirmation. A local-only demo should explicitly say that it does not upload files. Keep cancellation and retry connected to the documented upload context.
+
+Notch provides nonmodal edge content through Root and Content, with optional Header, Peek, SideAction, and other documented parts. Use `<Toaster variant="notch" />` for notifications instead of adding a second notification host.
+
+Gauge distinguishes `value={null}` from a valid zero measurement. Gauge and Heatmap accept loading states and handle their own placeholder presentation. Use their documented animation options instead of adding timers around examples.
+
+Apply `use:numberShuffle={{ value }}` to a text-only element containing the final number. Keep icons and controls outside it. The action preserves accessible source text and honors reduced motion and disabled theme motion.

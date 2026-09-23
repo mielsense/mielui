@@ -118,7 +118,7 @@ describe('docs release contracts', () => {
         expect(index).toContain('https://preview.example/sitemap.xml');
         expect(index).toContain('npx skills add mielsense/mielui --skill mielui');
         expect(index).toContain('## How to use Mielui');
-        expect(index).toContain('### Step 1: Establish the Project State');
+        expect(index).toContain('### Step 1: Establish the project state');
         expect(index).toContain('This file is the live Mielui index.');
         expect(index).toContain(`The current catalog contains ${components.length} components`);
         expect(skillMarkdown('https://preview.example')).toContain(

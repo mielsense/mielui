@@ -67,9 +67,12 @@ Check the installed version and use the documented component parts.`}
     <section class="flex flex-col gap-4">
         <Typography.H2>Keep version context</Typography.H2>
         <Typography.Text>
-            Local source and the locked package version take precedence over live documentation.
-            Before upgrading, read the changelog and its agent notes. Unreleased notes describe
-            upcoming changes, not the currently published npm package.
+            Mielui is maintained independently from its Sivir UI origins. The skill uses Mielui's
+            own references; Sivir examples are not a compatibility guarantee. Local source and the
+            locked package version take precedence over live documentation. Before upgrading, read
+            the changelog and its agent notes. Unreleased notes describe upcoming changes, not the
+            currently published npm package. Mielui 0.1.1 requires Svelte 5.56 or newer within
+            Svelte 5.
         </Typography.Text>
     </section>
 </div>
