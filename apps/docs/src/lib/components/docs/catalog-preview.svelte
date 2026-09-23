@@ -16,7 +16,7 @@
         <Controls {slug} />
     {:else if ['accordion', 'collapsible', 'alert', 'toast', 'alert-dialog', 'dialog', 'card', 'empty-state', 'hover-card', 'popover', 'tooltip', 'scroll-area', 'sheet', 'drawer', 'notch'].includes(slug)}
         <Surfaces {slug} />
-    {:else if ['avatar', 'badge', 'breadcrumb', 'kbd', 'pagination', 'separator', 'skeleton', 'spinner', 'tabs', 'typography', 'markdown', 'code-block', 'file-diff', 'reorder-list', 'task-steps', 'show-more', 'attachment', 'composer', 'conversation', 'message', 'question', 'reasoning', 'response-stream', 'tool', 'morph', 'shimmer'].includes(slug)}
+    {:else if ['avatar', 'badge', 'breadcrumb', 'kbd', 'pagination', 'separator', 'skeleton', 'spinner', 'tabs', 'typography', 'markdown', 'code-block', 'file-diff', 'reorder-list', 'task-steps', 'show-more', 'attachment', 'composer', 'conversation', 'message', 'question', 'reasoning', 'response-stream', 'tool', 'morph', 'number-shuffle', 'shimmer'].includes(slug)}
         <Content {slug} />
     {:else if ['table', 'data-table', 'chart', 'gauge', 'heatmap', 'pie-chart'].includes(slug)}
         <Data {slug} />

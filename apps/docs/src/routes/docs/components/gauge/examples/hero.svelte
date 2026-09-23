@@ -1,6 +1,8 @@
 <script lang="ts">
+    import { numberShuffle } from '@mielui/svelte/actions/number-shuffle';
     import { Button } from '@mielui/svelte/components/button';
     import { Gauge } from '@mielui/svelte/components/gauge';
+    import { fromAction } from 'svelte/attachments';
 
     let usage = $state(72);
     function updateUsage() {
@@ -11,7 +13,7 @@
 <div class="flex flex-col items-center gap-6">
     <Gauge value={usage} label="Monthly API usage" tone={usage > 85 ? 'warning' : 'primary'}>
         <span>
-            {usage}
+            <span {@attach fromAction(numberShuffle, () => ({ value: usage }))}>{usage}</span>
             <span class="text-base text-foreground-muted">%</span>
         </span>
     </Gauge>

@@ -20,7 +20,7 @@
     </div>
 {:else if slug === 'badge'}
     <div class="flex flex-wrap items-center justify-center gap-2">
-        <span class="rounded-full bg-primary px-2.5 py-1 text-primary-foreground">New</span>
+        <span class="rounded-full bg-primary px-2.5 py-1 text-[var(--color-on-primary)]">New</span>
         <span class="rounded-md bg-secondary px-2.5 py-1">Draft</span>
         <span class="flex items-center gap-1.5 rounded-md border border-border px-2.5 py-1">
             <span class="size-1.5 rounded-full bg-primary"></span>
@@ -175,7 +175,7 @@
         <div class="flex items-center justify-between">
             <span class="text-base text-foreground-muted">+</span>
             <span
-                class="flex size-6 items-center justify-center rounded-full bg-primary text-primary-foreground"
+                class="flex size-6 items-center justify-center rounded-full bg-primary text-[var(--color-on-primary)]"
             >
                 ↑
             </span>
@@ -237,6 +237,11 @@
         <span class="size-9 rounded-md border border-border bg-secondary"></span>
         <span class="text-foreground-muted">→</span>
         <span class="size-12 rounded-full bg-primary/35"></span>
+    </div>
+{:else if slug === 'number-shuffle'}
+    <div class="flex items-center gap-3 text-4xl tabular-nums">
+        <span class="text-foreground-muted/40">71</span>
+        <span>72</span>
     </div>
 {:else if slug === 'shimmer'}
     <span

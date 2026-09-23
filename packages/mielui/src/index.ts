@@ -22,6 +22,8 @@ export type BrandMarkProps = {
     label?: string;
 };
 
+export type { NumberShuffleOptions } from './actions/number-shuffle';
+export { numberShuffle } from './actions/number-shuffle';
 export type {
     AttachmentItemProps,
     AttachmentListProps,

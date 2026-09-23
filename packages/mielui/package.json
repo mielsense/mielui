@@ -191,6 +191,10 @@
             "types": "./dist/svelte/actions/morph/index.d.ts",
             "default": "./dist/svelte/actions/morph/index.js"
         },
+        "./actions/number-shuffle": {
+            "types": "./dist/svelte/actions/number-shuffle/index.d.ts",
+            "default": "./dist/svelte/actions/number-shuffle/index.js"
+        },
         "./actions/shimmer": {
             "types": "./dist/svelte/actions/shimmer/index.d.ts",
             "default": "./dist/svelte/actions/shimmer/index.js"

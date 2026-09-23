@@ -12,7 +12,9 @@ export const manifest: Manifest = {
         'components/gauge/arc-path.ts',
         'components/gauge/live-motion.ts',
         'components/gauge/index.ts',
-        'components/gauge/manifest.ts'
+        'components/gauge/manifest.ts',
+        'actions/number-shuffle/index.ts',
+        'actions/number-shuffle/render.ts'
     ],
     components: ['_internal/utils', 'skeleton'],
     shared: ['utils.cn'],

@@ -42,7 +42,7 @@ export const sanitizeComponent = (name: string) => {
 
 export const navigationGroups = [
     ...componentGroups,
-    { id: 'actions', heading: 'Actions', items: ['morph', 'shimmer'] }
+    { id: 'actions', heading: 'Actions', items: ['morph', 'number-shuffle', 'shimmer'] }
 ];
 
 export const componentTypes = [

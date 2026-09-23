@@ -59,7 +59,9 @@
             for the filled portion. Provide
             <Typography.InlineCode>label</Typography.InlineCode>
             to name the meter for screen-reader users; children can replace the default numeric
-            center text.
+            center text. The default number rolls with value changes. For custom center content, use
+            the
+            <a href="/docs/actions/number-shuffle">numberShuffle action</a> on the numeric text.
         </Typography.Text>
         <CodeBlock
             code={`import { Gauge } from '@mielui/svelte/components/gauge';

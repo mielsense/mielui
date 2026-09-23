@@ -1,7 +1,9 @@
 <script lang="ts">
+    import { numberShuffle } from '@mielui/svelte/actions/number-shuffle';
     import { Skeleton } from '@mielui/svelte/components/skeleton';
     import { cn } from '@mielui/svelte/utils';
     import { onMount, untrack } from 'svelte';
+    import { fromAction } from 'svelte/attachments';
     import { cubicOut } from 'svelte/easing';
     import { Tween } from 'svelte/motion';
     import type { GaugeProps, GaugeTone } from '.';
@@ -167,7 +169,11 @@
         {:else if children}
             {@render children()}
         {:else}
-            {clamped}
+            <span
+                {@attach fromAction(numberShuffle, () => ({ value: clamped, duration: animation === 'none' ? 0 : undefined }))}
+            >
+                {clamped}
+            </span>
         {/if}
     </span>
 </div>

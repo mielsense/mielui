@@ -1,6 +1,8 @@
 <script lang="ts">
+    import { numberShuffle } from '@mielui/svelte/actions/number-shuffle';
     import { Button } from '@mielui/svelte/components/button';
     import { Gauge } from '@mielui/svelte/components/gauge';
+    import { fromAction } from 'svelte/attachments';
 
     let used = $state(48);
 
@@ -21,7 +23,7 @@
         tone={used >= 56 ? 'warning' : 'primary'}
     >
         <span class="flex flex-col items-center gap-1">
-            <span>{used}</span>
+            <span {@attach fromAction(numberShuffle, () => ({ value: used }))}>{used}</span>
             <span class="text-xs font-normal text-foreground-muted">of 64 GB</span>
         </span>
     </Gauge>
