@@ -5,6 +5,23 @@ import { defineConfig } from 'vitest/config';
 
 export default defineConfig({
     plugins: [tailwindcss(), sveltekit()],
+    optimizeDeps: {
+        include: [
+            '@floating-ui/dom',
+            '@hugeicons/core-free-icons',
+            '@mielui/svelte > @humanspeak/svelte-motion',
+            '@scritto/core',
+            'axe-core',
+            '@mielui/svelte > bits-ui',
+            '@mielui/svelte > cnfast',
+            '@mielui/svelte > fuse.js',
+            '@mielui/svelte > highlight.js/lib/core',
+            '@mielui/svelte > highlight.js/lib/languages/*',
+            '@mielui/svelte > layerchart',
+            '@mielui/svelte > marked',
+            'tailwind-variants'
+        ]
+    },
     test: {
         projects: [
             {

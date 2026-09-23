@@ -186,3 +186,6 @@
 - Include upstream license and attribution notices with CLI source installations without replacing the application's own license.
 - Remove unused bundled documentation fonts that lacked accompanying license notices.
 - Keep theme registry schema normalization compatible with its Elysia runtime.
+
+- Avoid false tab-alignment test failures caused by browser subpixel rounding.
+- Prevent dependency discovery from reloading browser tests during fresh CI runs.

@@ -1,7 +1,13 @@
 <script lang="ts">
     import * as Tabs from '@mielui/svelte/components/tabs';
 
-    let { orientation = 'horizontal' }: { orientation?: 'horizontal' | 'vertical' } = $props();
+    let {
+        orientation = 'horizontal',
+        fractionalWidth = false
+    }: {
+        orientation?: 'horizontal' | 'vertical';
+        fractionalWidth?: boolean;
+    } = $props();
 </script>
 <div
     data-testid="scaled-scroll"
@@ -9,7 +15,7 @@
     style="--spacing: 3.6px; transform: scale(0.85); transform-origin: top left;"
 >
     <Tabs.Root variant="segmented" value="one" {orientation}>
-        <Tabs.List>
+        <Tabs.List class={fractionalWidth ? 'w-[100.03125px]' : undefined}>
             <Tabs.Trigger value="one">First tab</Tabs.Trigger>
             <Tabs.Trigger value="two">Second tab</Tabs.Trigger>
         </Tabs.List>
