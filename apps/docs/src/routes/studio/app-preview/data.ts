@@ -72,5 +72,133 @@ export const initialInvoices: Invoice[] = [
         due: 'Sep 28',
         amount: '$5,600',
         status: 'Due soon'
+    },
+    {
+        client: 'Cedar Architecture',
+        initials: 'CA',
+        reference: 'INV-2240',
+        due: 'Sep 05',
+        amount: '$8,250',
+        status: 'Paid'
+    },
+    {
+        client: 'Saffron Kitchen',
+        initials: 'SK',
+        reference: 'INV-2239',
+        due: 'Sep 09',
+        amount: '$1,840',
+        status: 'Paid'
+    },
+    {
+        client: 'Common Ground',
+        initials: 'CG',
+        reference: 'INV-2238',
+        due: 'Sep 16',
+        amount: '$12,600',
+        status: 'Sent'
+    },
+    {
+        client: 'Morrow Design',
+        initials: 'MD',
+        reference: 'INV-2237',
+        due: 'Sep 20',
+        amount: '$4,350',
+        status: 'Due soon'
+    },
+    {
+        client: 'Paper Trail',
+        initials: 'PT',
+        reference: 'INV-2236',
+        due: 'Aug 25',
+        amount: '$2,190',
+        status: 'Overdue'
+    },
+    {
+        client: 'Atlas Engineering',
+        initials: 'AE',
+        reference: 'INV-2235',
+        due: 'Sep 23',
+        amount: '$18,900',
+        status: 'Sent'
+    },
+    {
+        client: 'Juniper Coffee',
+        initials: 'JC',
+        reference: 'INV-2234',
+        due: 'Sep 27',
+        amount: '$960',
+        status: 'Draft'
+    },
+    {
+        client: 'Coastline Supply',
+        initials: 'CS',
+        reference: 'INV-2233',
+        due: 'Sep 08',
+        amount: '$7,430',
+        status: 'Paid'
+    },
+    {
+        client: 'Brightside Films',
+        initials: 'BF',
+        reference: 'INV-2232',
+        due: 'Sep 29',
+        amount: '$11,200',
+        status: 'Due soon'
+    },
+    {
+        client: 'Orchard Market',
+        initials: 'OM',
+        reference: 'INV-2231',
+        due: 'Sep 13',
+        amount: '$3,670',
+        status: 'Paid'
+    },
+    {
+        client: 'Summit Research',
+        initials: 'SR',
+        reference: 'INV-2230',
+        due: 'Aug 30',
+        amount: '$15,400',
+        status: 'Overdue'
+    },
+    {
+        client: 'Willow Textiles',
+        initials: 'WT',
+        reference: 'INV-2229',
+        due: 'Sep 26',
+        amount: '$5,280',
+        status: 'Sent'
+    },
+    {
+        client: 'Hearth Ceramics',
+        initials: 'HC',
+        reference: 'INV-2228',
+        due: 'Sep 30',
+        amount: '$1,475',
+        status: 'Draft'
+    },
+    {
+        client: 'Open Field',
+        initials: 'OF',
+        reference: 'INV-2227',
+        due: 'Sep 19',
+        amount: '$6,200',
+        status: 'Paid'
+    },
+    {
+        client: 'Saltwater Studio',
+        initials: 'SS',
+        reference: 'INV-2226',
+        due: 'Sep 25',
+        amount: '$8,900',
+        status: 'Sent'
+    },
+    {
+        client: 'Elm Street Books',
+        initials: 'EB',
+        reference: 'INV-2225',
+        due: 'Sep 28',
+        amount: '$2,340',
+        status: 'Due soon'
     }
 ];

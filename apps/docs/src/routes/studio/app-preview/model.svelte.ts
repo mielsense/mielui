@@ -1,8 +1,6 @@
 import { toast } from '@mielui/svelte/components/toast';
 import { type Invoice, type InvoiceStatus, initialInvoices } from './data';
 
-const INVOICE_PAGE_SIZE = 4;
-
 type Notification = {
     id: string;
     title: string;
@@ -21,9 +19,6 @@ export class AppPreviewModel {
     reminderCadence = $state('weekly');
     reminderDays = $state(3);
     companyName = $state('Northstar Ledger');
-    selectedInvoices = $state<Record<string, boolean>>(
-        Object.fromEntries(initialInvoices.map((invoice) => [invoice.reference, false]))
-    );
     notifications = $state<Notification[]>([
         {
             id: 'overdue',
@@ -48,7 +43,6 @@ export class AppPreviewModel {
     settingsSections = $state<string[]>(['workspace', 'reminders']);
     #query = $state('');
     #status = $state('all');
-    #page = $state(1);
     #alive = true;
 
     visibleInvoices = $derived.by(() => {
@@ -65,19 +59,6 @@ export class AppPreviewModel {
             return matchesQuery && matchesStatus;
         });
     });
-    invoicePageCount = $derived(
-        Math.max(1, Math.ceil(this.visibleInvoices.length / INVOICE_PAGE_SIZE))
-    );
-    pagedInvoices = $derived(
-        this.visibleInvoices.slice(
-            (this.invoicePage - 1) * INVOICE_PAGE_SIZE,
-            this.invoicePage * INVOICE_PAGE_SIZE
-        )
-    );
-    allVisibleSelected = $derived(
-        this.pagedInvoices.length > 0 &&
-            this.pagedInvoices.every((invoice) => this.selectedInvoices[invoice.reference])
-    );
     unreadNotificationCount = $derived(
         this.notifications.filter((notification) => !notification.read).length
     );
@@ -107,7 +88,6 @@ export class AppPreviewModel {
 
     set invoiceQuery(value: string) {
         this.#query = value;
-        this.#page = 1;
     }
 
     get invoiceStatus() {
@@ -116,15 +96,6 @@ export class AppPreviewModel {
 
     set invoiceStatus(value: string) {
         this.#status = value;
-        this.#page = 1;
-    }
-
-    get invoicePage() {
-        return Math.min(this.#page, this.invoicePageCount);
-    }
-
-    set invoicePage(value: number) {
-        this.#page = Math.max(1, Math.min(value, this.invoicePageCount));
     }
 
     runDashboardAction = (
@@ -149,12 +120,6 @@ export class AppPreviewModel {
         }
         return 'secondary';
     }
-
-    toggleSelectAll = (next: boolean) => {
-        for (const invoice of this.pagedInvoices) {
-            this.selectedInvoices[invoice.reference] = next;
-        }
-    };
 
     markInvoicePaid = (reference: string) => {
         this.invoices = this.invoices.map((invoice) => {
@@ -193,7 +158,6 @@ export class AppPreviewModel {
             },
             ...this.invoices
         ];
-        this.selectedInvoices[reference] = false;
         this.newInvoiceCustomer = '';
         this.newInvoiceNotes = '';
         this.invoiceModalOpen = false;

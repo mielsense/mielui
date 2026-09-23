@@ -136,3 +136,6 @@
 
 
 - Add loading, empty, and live-motion controls to Gauge and Heatmap examples.
+
+- Show a larger invoice dataset in Studio using the shared Data Table, with sorting, selection, and pagination.
+- Arrange Studio component cards in compact responsive stacks, with a smaller calendar and label and sharing examples.
