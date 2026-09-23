@@ -14,7 +14,8 @@ import {
     declaredDependencies,
     detectPackageManager,
     installCommand,
-    installFile
+    installFile,
+    installNotices
 } from '../utils/project';
 import { fail, ok, tree, warn } from '../utils/ui';
 
@@ -66,6 +67,8 @@ export async function add(names: string[], options: AddOptions) {
 
     const spinner = clack.spinner();
     spinner.start(`Installing ${plan.components.length} component(s) into ${config.dir}`);
+
+    await installNotices(cwd, config.dir);
 
     const summaries: { heading: string; lines: string[] }[] = [];
     let skipped = 0;

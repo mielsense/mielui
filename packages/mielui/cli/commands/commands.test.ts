@@ -93,6 +93,43 @@ describe('add command', () => {
     });
 });
 
+describe('source attribution', () => {
+    test('init copies package notices and preserves the project license', async () => {
+        const cwd = await tempProject();
+        const projectLicense = 'Consumer project license\n';
+        await writeFile(path.join(cwd, 'LICENSE'), projectLicense);
+        await init({ cwd, yes: true });
+
+        for (const name of ['LICENSE', 'LICENSE-COSS', 'UPSTREAM.md']) {
+            const expected = await readFile(new URL(`../../${name}`, import.meta.url), 'utf8');
+            const actual = await readFile(
+                path.join(cwd, DEFAULT_CONFIG.dir, 'notices', 'mielui', name),
+                'utf8'
+            );
+            expect(actual).toBe(expected);
+        }
+        expect(await readFile(path.join(cwd, 'LICENSE'), 'utf8')).toBe(projectLicense);
+    });
+
+    test('add backfills notices for an existing config and is repeatable', async () => {
+        const cwd = await tempProject();
+        const projectLicense = 'Consumer project license\n';
+        await writeFile(path.join(cwd, 'LICENSE'), projectLicense);
+        await saveConfig(cwd, { ...DEFAULT_CONFIG, dir: '.', components: {} });
+
+        await add(['button'], { cwd, yes: false, overwrite: false });
+        await add(['button'], { cwd, yes: false, overwrite: false });
+
+        for (const name of ['LICENSE', 'LICENSE-COSS', 'UPSTREAM.md']) {
+            const expected = await readFile(new URL(`../../${name}`, import.meta.url), 'utf8');
+            expect(await readFile(path.join(cwd, 'notices', 'mielui', name), 'utf8')).toBe(
+                expected
+            );
+        }
+        expect(await readFile(path.join(cwd, 'LICENSE'), 'utf8')).toBe(projectLicense);
+    });
+});
+
 describe('theme command', () => {
     test('writes a bundled preset without network access', async () => {
         const cwd = await initializedProject();

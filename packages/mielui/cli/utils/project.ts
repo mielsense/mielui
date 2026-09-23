@@ -1,7 +1,7 @@
 import { existsSync, readFileSync } from 'node:fs';
 import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import path from 'node:path';
-import { registryFilePath, rewriteImports } from '../registry';
+import { loadPackageNotices, registryFilePath, rewriteImports } from '../registry';
 
 export type PackageManager = 'pnpm' | 'yarn' | 'npm' | 'bun';
 
@@ -90,4 +90,18 @@ export async function installFile(
     await mkdir(path.dirname(target), { recursive: true });
     await writeFile(target, rewriteImports(source, alias));
     return exists ? 'overwritten' : 'created';
+}
+
+/** Maintains package notices beside copied sources without touching project licenses. */
+export async function installNotices(cwd: string, dir: string) {
+    const notices = await loadPackageNotices();
+    const destination = path.resolve(cwd, dir, 'notices', 'mielui');
+    await mkdir(destination, { recursive: true });
+    for (const { name, content } of notices) {
+        const target = path.join(destination, name);
+        if (existsSync(target) && (await readFile(target, 'utf8')) === content) {
+            continue;
+        }
+        await writeFile(target, content);
+    }
 }

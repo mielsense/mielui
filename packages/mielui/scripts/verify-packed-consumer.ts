@@ -158,6 +158,8 @@ const paths = run('tar', ['-tzf', tarball], packageRoot)
     .filter(Boolean);
 const required = [
     'LICENSE',
+    'LICENSE-COSS',
+    'UPSTREAM.md',
     'README.md',
     'package.json',
     'dist/index.js',

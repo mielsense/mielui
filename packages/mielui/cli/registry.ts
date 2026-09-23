@@ -31,6 +31,15 @@ export function registryFilePath(file: string) {
     return path.join(registryDir, 'files', file);
 }
 
+export async function loadPackageNotices() {
+    return Promise.all(
+        ['LICENSE', 'LICENSE-COSS', 'UPSTREAM.md'].map(async (name) => {
+            const content = await readFile(path.join(registryDir, '..', name), 'utf8');
+            return { name, content };
+        })
+    );
+}
+
 export type InstallPlan = {
     /** Requested components plus transitive dependencies, install order. */
     components: RegistryComponent[];

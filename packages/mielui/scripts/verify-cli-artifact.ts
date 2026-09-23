@@ -193,6 +193,8 @@ try {
         throw new Error(`CLI binary resolved to the working tree, not the tarball: ${bin}`);
     }
 
+    const projectLicense = 'Consumer project license\n';
+    await writeFile(path.join(consumer, 'LICENSE'), projectLicense);
     runMielui(consumer, ['init', '--yes']);
     runMielui(consumer, ['list']);
     runMielui(consumer, ['add', 'button', '--yes']);
@@ -210,6 +212,9 @@ try {
 
     const requiredFiles = [
         'src/lib/mielui/ui.css',
+        'src/lib/mielui/notices/mielui/LICENSE',
+        'src/lib/mielui/notices/mielui/LICENSE-COSS',
+        'src/lib/mielui/notices/mielui/UPSTREAM.md',
         'src/lib/mielui/utils.ts',
         'src/lib/mielui/components/button/button.svelte',
         'src/lib/mielui/components/dialog/dialog.svelte',
@@ -223,6 +228,10 @@ try {
 
     // Idempotent re-add should not fail.
     runMielui(consumer, ['add', 'button', '--yes']);
+
+    if ((await readFile(path.join(consumer, 'LICENSE'), 'utf8')) !== projectLicense) {
+        throw new Error('CLI source-copy overwrote the consumer project license');
+    }
 
     run('pnpm', ['run', 'check'], consumer);
     run('pnpm', ['run', 'build'], consumer);

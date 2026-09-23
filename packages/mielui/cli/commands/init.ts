@@ -9,7 +9,8 @@ import {
     declaredDependencies,
     detectPackageManager,
     installCommand,
-    installFile
+    installFile,
+    installNotices
 } from '../utils/project';
 import { ok, warn } from '../utils/ui';
 
@@ -98,6 +99,7 @@ export async function init(options: InitOptions) {
 
     const spinner = clack.spinner();
     spinner.start('Installing theme tokens and shared utilities');
+    await installNotices(cwd, dir);
     for (const file of await baseFiles()) {
         await installFile(cwd, dir, file, alias, false);
     }
