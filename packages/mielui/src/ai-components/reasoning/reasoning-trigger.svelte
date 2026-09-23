@@ -12,7 +12,6 @@
         duration,
         children,
         class: className,
-        onclick,
         ...rest
     }: ReasoningTriggerProps = $props();
     const reasoning = getReasoningContext();
@@ -25,11 +24,8 @@
     data-ui="reasoning-trigger"
     aria-expanded={reasoning.open}
     aria-controls={`reasoning-${reasoning.id}`}
-    onclick={(event) => {
-        onclick?.(event);
-        if (!event.defaultPrevented) {
-            reasoning.open = !reasoning.open;
-        }
+    onclick={() => {
+        reasoning.open = !reasoning.open;
     }}
     class={cn(
         className,

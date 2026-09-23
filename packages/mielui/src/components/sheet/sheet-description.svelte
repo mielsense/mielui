@@ -4,15 +4,14 @@
     import type { SheetDescriptionProps } from '.';
     import { getSheetContext } from './context.svelte';
 
-    let { class: className, children, id: suppliedId, ...rest }: SheetDescriptionProps = $props();
+    let { class: className, children, ...rest }: SheetDescriptionProps = $props();
     const context = getSheetContext();
-    const id = $derived(suppliedId ?? `${context.id}-description`);
+    const id = `${context.id}-description`;
 
     $effect(() => {
-        const currentId = id;
-        context.descriptionId = currentId;
+        context.descriptionId = id;
         return () => {
-            if (context.descriptionId === currentId) {
+            if (context.descriptionId === id) {
                 context.descriptionId = undefined;
             }
         };

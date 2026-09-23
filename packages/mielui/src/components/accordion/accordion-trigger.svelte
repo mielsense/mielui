@@ -7,11 +7,11 @@
     import type { AccordionContext, AccordionTriggerProps } from '.';
     import { getAccordionItemContext } from './item-context';
 
-    let { class: className, children, id, ...rest }: AccordionTriggerProps = $props();
+    let { class: className, children, ...rest }: AccordionTriggerProps = $props();
 
     const ctx = getContext<AccordionContext>('accordion');
     const item = getAccordionItemContext();
-    const resolvedId = $derived(id ?? `${item.id}-trigger`);
+    const resolvedId = `${item.id}-trigger`;
     const readId = () => {
         return resolvedId;
     };

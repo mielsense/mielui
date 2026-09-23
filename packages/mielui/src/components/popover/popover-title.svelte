@@ -6,8 +6,8 @@
     const popover = getPopoverContext();
     const key = popover.id;
 
-    let { children, class: classProp, id: suppliedId, ...rest }: PopoverTitleProps = $props();
-    const id = $derived(suppliedId ?? `popover-${String(key)}-title`);
+    let { children, class: classProp, ...rest }: PopoverTitleProps = $props();
+    const id = `popover-${String(key)}-title`;
 
     $effect(() => {
         const currentId = id;

@@ -10,7 +10,7 @@ Scope: 26 assigned components. Reviewed docs, examples, implementation state/cle
 
 | Component | Category | Docs and example evidence | Code review and changes | Subpage decision |
 |---|---|---|---|---|
-| accordion | Disclosure | Single/multiple examples and generated 4-part API; custom IDs now shown in single example. | Fixed Trigger/Content ARIA ID registration, reactive ID changes, and teardown of omitted Content. Added client/SSR regressions. | No; modes share one composition. |
+| accordion | Disclosure | Single/multiple examples and generated 4-part API; IDs remain private. | Fixed Trigger/Content ARIA registration and teardown of omitted Content. Added client/SSR regressions. | No; modes share one composition. |
 | alert | Feedback | Four concrete status tones and explicit off/polite/assertive announcement guidance; 3-part API. | Checked semantic roles and optional icon rendering; no additional defect found. | No; variants fit one page. |
 | alert-dialog | Overlay | Destructive, sign-out, glass and local deletion feedback; 9-part API. Moved Usage heading before prose. | Checked cancellation order, closeOnClick=false, default cancel focus and Dialog delegation. | No; one confirmation contract. |
 | avatar | Data display | Sizes, shapes and failed-image fallback; 3-part API. Removed promotional metadata wording. | Checked source-keyed loading, cached image detection, event forwarding and removal cleanup. | No; image/fallback composition is small. |
@@ -39,7 +39,7 @@ Scope: 26 assigned components. Reviewed docs, examples, implementation state/cle
 
 ## Findings fixed
 
-- A1: accordion Trigger/Content; bug, medium, high confidence. Caller IDs overrode rendered id but aria-controls/aria-labelledby retained generated IDs. Private reactive ID registrations now share actual IDs and clear on part destruction. SSR omits forward relationships until the matching part exists rather than emitting an invalid reference. Canonical owner: runes.md and snippets.md. No version/flag blocker. Scope: accordion internals, manifest, docs/example, regression fixtures/tests.
+- A1: accordion Trigger/Content; bug, medium, high confidence. Omitted Content left a dangling aria-controls reference. Private registrations share generated IDs and clear on part destruction. Custom IDs are outside the approved props and are not supported. SSR omits forward relationships until the matching part exists rather than emitting an invalid reference. Canonical owner: runes.md and snippets.md. No version/flag blocker. Scope: accordion internals, manifest, docs/example, regression fixtures/tests.
 - A2: combobox controller; bug, low, high confidence. synchronizeOpen logged input metadata and panel outerHTML and forced computed-style lookup. Removed debugging output. Canonical owner: best-practices.md. No version/flag blocker.
 - A3: combobox trigger; bug, medium, high confidence. Disabled field wrapper used pointer-events only while the clear button remained keyboard-focusable. Forwarded existing disabled value to the clear button. Canonical owner: best-practices.md. No public API change.
 - A4: Button docs; documentation-gap, medium, high confidence. Loading example only reached success despite documented error status. Added fail-next switch, persistent error and retry through the same handler; timer teardown retained.
@@ -47,7 +47,7 @@ Scope: 26 assigned components. Reviewed docs, examples, implementation state/cle
 
 ## Verification
 
-Source inspection and generated API presence/part inventory completed. New regression coverage added for custom/dynamic Accordion IDs, omitted/restored Content and SSR custom labels. Tests, typecheck, builds and artifact gates were not executed, per repository policy and parent instruction. Root owns final formatting/lint and browser verification. No claim of completed theme/reduced-motion/browser matrix.
+Source inspection and generated API presence/part inventory completed. New regression coverage added for omitted/restored Accordion Content and valid SSR relationships. Tests, typecheck, builds and artifact gates were not executed, per repository policy and parent instruction. Root owns final formatting/lint and browser verification. No claim of completed theme/reduced-motion/browser matrix.
 
 
 ## 26 controls and presentation components
@@ -64,20 +64,20 @@ All 26 entries remain in `components` in `packages/mielui/component-categories.j
 | number-field | Bounds, decimals, reordered controls, disabled, submission/reset covered. | Reviewed deduplicated setValue, finite steps, native stepping, input context lifecycle; no code change. |
 | otp-field | Grouped cells, alphabet, paste normalization, disabled, submission/reset covered. | Reviewed single accessible input, finite length, reset cancellation/timer cleanup, decorative cells. |
 | pagination | Results demo responds to page; narrow footer now stacks; siblings demo retained. | Buttons now use shared pressable, focus ring and motion/reduced-motion tokens; installer manifest includes pressable. |
-| popover | Named all dialogs; use Title in hero/glass; named copyable usage; placement examples remain one page. | Fixed disabled hover opening and competing open/close timers; custom Title id now updates accessible naming. |
+| popover | Named all dialogs; use Title in hero/glass; named copyable usage; placement examples remain one page. | Fixed disabled hover opening and competing open/close timers; generated title naming remains unchanged. |
 | progress | Determinate/indeterminate/completion controls covered; usage now names both bars. | Reviewed finite bounds, absent aria-valuenow when indeterminate, reduced-motion classes. |
 | radio-group | Selection/descriptions/disabled examples; removed unused page constant. | Reviewed native radio grouping, unique IDs, descriptions, disabled state and callback cancellation. |
 | range-calendar | Corrected endpoint serialization; added bounded custom composition omitting navigation. | Reviewed shared calendar subparts, date identity keys, locale forwarding, ref bindings; no code change. |
 | scroll-area | Removed false no-measurement claim; hero fits narrow screens and exposes pressed selection; removed all-caps heading. | Reviewed mutation/resize/scroll measurement and observer disposal, cue settings, viewport prop forwarding. |
-| select | Copyable usage now uses Value; examples name controls; dynamic/scrollable/glass demos remain. | Preserves caller aria-labelledby instead of overriding it with value ID; reviewed label observer disposal and disabled items. |
+| select | Copyable usage now uses Value; examples name controls; dynamic/scrollable/glass demos remain. | Reviewed existing generated accessible naming, label observer disposal and disabled items; no API additions. |
 | separator | Semantic/decorative and both orientation examples documented. | Reviewed Bits ref/native forwarding and size/orientation mapping; atomic divider requires no extra parts. |
-| sheet | Fixed invalid JSX comment and missing Button import in Svelte snippet; side/glass forms remain. | Custom title/description IDs now synchronize dialog naming; reviewed scroll/inert cleanup and focus restoration. |
+| sheet | Fixed invalid JSX comment and missing Button import in Svelte snippet; side/glass forms remain. | Reviewed generated title/description naming, scroll/inert cleanup and focus restoration; no custom ID API added. |
 | skeleton | Swap lifecycle and static/shimmer/card shapes covered. | Reviewed delayedPresence cancellation/minimum visibility, inert placeholders, reserved dimensions and ResizeObserver teardown. |
 | slider | Single/range/steps/RTL/disabled/forms documented. | Reviewed normalized values, pointer capture/cancellation, thumb naming, native hidden form values and reset; no source change. |
 | spinner | Loading/pace/completion demos and two-second success dwell documented. | Nonfinite speed now falls back to normal pace; timers and RAF are cleaned up by effects. |
 | switch | Bound checked/switched state, label/description and disabled examples. | Reviewed alias arbitration, field metadata, Bits binding/native form props and RTL thumb; no code edit. |
 | table | Semantic invoice, inset, sorting/selection/empty examples. | Reviewed Table parts, column/row scopes, native prop forwarding and local horizontal scroll; no source change. |
-| tabs | Added manual activation + disabled tab + retained input state example. | Fixed Content forceMount not reaching BitsTabs.Content; reviewed dynamic selection repair and resize/mutation disposal. |
+| tabs | Added manual activation + disabled tab + retained input state example. | Verified Bits content always renders children; the existing wrapper condition retains inactive content with forceMount. Added a usage example, with no behavior change. |
 | tag-input | Validation wording simplified; callbacks/max/controlled demos remain. | Root disabled can no longer be bypassed with Input disabled=false; input now exposes required/error state to assistive tech via private context. |
 | textarea | Added autoresizing composer with native submit/reset of value; hero now uses actual message copy. | Reviewed field metadata, width/value resize and observer cleanup; no source change needed. |
 | toggle | All icon-only disabled/size demos now have accessible names. | Reviewed Bits pressed binding and shared press/variants; atomic toggle retained. |
@@ -89,11 +89,11 @@ All 26 entries remain in `components` in `packages/mielui/component-categories.j
 
 | ID | File | Category / severity / confidence | Evidence, consequence, patch | Canonical owner |
 |---|---|---|---|---|
-| B1 | tabs/tabs-content.svelte | bug / medium / high | forceMount was destructured but not sent to Bits, so hidden content lost state. Forward existing prop. | snippets.md / runes.md |
-| B2 | select/select-trigger.svelte | bug / medium / high | Generated aria-labelledby always replaced caller value. Preserve explicit name reference. | best-practices.md |
+| B1 | tabs/tabs-content.svelte | reviewed / high confidence | Installed Bits 2.19.2 renders children unconditionally and hides inactive panels. The existing outer forceMount condition already retains state. Removed unsupported forwarding; no defect established. | snippets.md / runes.md |
+| B2 | select/select-trigger.svelte | reviewed / high confidence | Public trigger props do not include aria-labelledby. Kept the approved generated accessible name and aria-label behavior. | best-practices.md |
 | B3 | tag-input/tag-input-input.svelte | bug / medium / high | disabledProp ?? context.disabled allowed false to enable a disabled field. Root disabled now wins; internal context forwards required/invalid to input. | runes.md / best-practices.md |
 | B4 | popover/popover-trigger.svelte | bug / medium / high | Mouse enter did not check disabled and focus/hover could leave competing timers. Guard and cancel before scheduling. | runes.md |
-| B5 | sheet title/description and popover title | bug / medium / high | Native custom id replaced DOM id while context still referenced generated id. Derive and register the same effective ID. | runes.md / best-practices.md |
+| B5 | sheet title/description and popover title | reviewed / high confidence | Public part props do not include custom id. Kept generated IDs; removed unsupported reads without expanding the API. | runes.md / best-practices.md |
 | B6 | tooltip/shared-tooltip.ts | bug / medium / high | Empty text update returned early and left obsolete help visible. Dismiss active bubble. | best-practices.md |
 | B7 | spinner/spinner.svelte | bug / low / high | Infinity passed positive-speed guard and produced zero-duration animation. Guard finiteness. | motion.md |
 | B8 | pagination/pagination.svelte | modernization / low / high | Local default transitions/rings omitted shared press and reduced-motion contract. Use shared action/tokens and declare registry dependency. | motion.md / DESIGN.md |
@@ -103,7 +103,7 @@ All patches use the existing Svelte generation and dependencies. No new version 
 
 ## Verification
 
-Targeted Biome format and lint passed for all 47 edited files. Svelte compiler parsed all 44 edited Svelte files without syntax errors after fixing a component-class directive caught by that check. Root is responsible for repository-level gates, browser validation, and shared changelog. Full tests, type checks, builds, and artifact verification were not run.
+Targeted Biome format and lint passed for all 47 edited files. Svelte compiler parsed all 44 edited Svelte files without syntax errors after fixing a component-class directive caught by that check. The follow-up package check passed both CLI TypeScript and component Svelte checks with zero errors and three existing tabindex accessibility warnings in Question, Dropdown Menu, and Combobox. Targeted lint passed again for the five corrected source files. Root owns repository-level gates, browser validation, and the shared changelog; this agent did not run full tests, builds, or artifact verification.
 
 Changed-file list: `/tmp/mielui-b-changed.txt`.
 
@@ -192,7 +192,7 @@ Reviewed answer normalization, mode changes, submission invalidation, required-a
 
 ## reasoning
 
-Reviewed disclosure state and trigger. Found overwritten native onclick and missing space before duration. Trigger now invokes handler, honors preventDefault, preserves formatted duration string, and opts chevron out of reduced-motion transitions. Added browser regression and handler docs. Two examples cover complete/live state.
+Reviewed disclosure state and trigger. Fixed the missing space before duration with a template string that survives formatting, and disabled chevron transitions under reduced motion. Two examples cover complete/live state. The existing trigger API does not expose onclick; unsupported forwarding and its fixture, test, and docs claim were removed during typecheck review.
 
 ## response-stream
 
@@ -204,7 +204,7 @@ Reviewed public automatic/composed trigger/content paths and shared disclosure l
 
 ## Finding records
 
-- C1, reasoning-trigger.svelte, bug, medium, high confidence. Evidence: local onclick replaced forwarded handler and duration text was `for{duration}` after formatting. User callbacks could not cancel expansion and visible duration lacked spacing. Fixed handler composition and template-string label. No version blocker. Scope: private implementation, docs and regression fixture. Canonical owner: runes.md, best-practices.md.
+- C1, reasoning-trigger.svelte, bug, low, high confidence. Duration text became `for{duration}` after formatting. Fixed the label with a template string and added reduced-motion handling to the chevron. Preserved the existing public API. Scope: private implementation. Canonical owner: best-practices.md, motion.md.
 - C2, copy-button.svelte, bug, low, high confidence. Both opacity/scale transitions lacked reduced-motion opt-out. Added motion-reduce:transition-none. No version blocker. Scope: feedback styling. Canonical owner: motion.md.
 - C3, toast/notch-host.svelte and actions/morph/index.ts, bug, medium, high confidence. Local fade contradicted requested shared morph, while shared text spans forced preformatted whitespace and would overflow descriptions. Removed fade and used morph separately on title and description. Shared text motion inherits whitespace. Preserves semantic controls and existing notch size animation. No API/version blocker. Scope: two implementations plus regression. Canonical owner: motion.md, best-practices.md.
 - C4, markdown.svelte, bug, low, high confidence. Streaming caret used fixed1.1s animation despite zero-duration theme. Duration now derives from panel motion token; reduced motion still disables animation. No version blocker. Scope: CSS keyframe duration. Canonical owner: motion.md.
@@ -215,7 +215,7 @@ Reviewed public automatic/composed trigger/content paths and shared disclosure l
 
 - Live route smoke sweep: all21 HTTP200, API reference present, no pageerrors. Raw results /tmp/mielui-review-c-browser.json.
 - Notch toast browser tests:6 passed, including rapid previous/next switching with wrapped text and one toast.
-- Reasoning trigger browser regression:1 passed. Formatting initially removed a literal separating space; template-string fix survives formatter and test passes.
+- Reasoning duration-label spacing survives scoped formatting. Removed the cancellation regression because onclick is not part of the approved trigger API.
 - Scoped Biome check on owned touched files. Root owns repository-wide gates and final release notes integration.
 - No build or full test suite run by this agent. No commits.
 
@@ -226,7 +226,7 @@ All 83 component and chart-guide routes return HTTP 200 and include an API refer
 
 Studio App preview and Theme Editor now use private views and per-instance reactive state. Unused theme-card and dotmatrix components were removed. Existing public compatibility utilities were retained.
 
-Repository format and lint gates pass. Full build, typecheck, and full test suite were not run for this pass; targeted Notch, Reasoning, and font SSR regressions were run.
+Repository format and lint gates pass. Full build, typecheck, and full test suite were not run for this pass; targeted Notch and font SSR regressions were run.
 
 ## Chart implementation review
 

@@ -23,7 +23,6 @@
         id={`${tabsState.id}-content-${toTabIdPart(value)}`}
         aria-labelledby={`${tabsState.id}-trigger-${toTabIdPart(value)}`}
         {value}
-        {forceMount}
         data-ui="tabs-content"
         data-state={active ? 'active' : 'inactive'}
         hidden={!active}

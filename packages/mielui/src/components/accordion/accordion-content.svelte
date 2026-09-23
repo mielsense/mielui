@@ -6,9 +6,9 @@
     import type { AccordionContentProps } from '.';
     import { getAccordionItemContext } from './item-context';
 
-    let { class: className, children, id, ...rest }: AccordionContentProps = $props();
+    let { class: className, children, ...rest }: AccordionContentProps = $props();
     const item = getAccordionItemContext();
-    const resolvedId = $derived(id ?? `${item.id}-content`);
+    const resolvedId = `${item.id}-content`;
     const readId = () => {
         return resolvedId;
     };

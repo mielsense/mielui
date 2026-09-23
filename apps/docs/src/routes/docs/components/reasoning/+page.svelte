@@ -61,10 +61,6 @@
             lang="svelte"
             copy="overlay"
         />
-        <Typography.Text variant="supporting">
-            Trigger runs your onclick handler before toggling. Call event.preventDefault() to keep
-            the current expansion state.
-        </Typography.Text>
     </section>
 
     <section id="integration" class="scroll-mt-20 flex flex-col gap-4">

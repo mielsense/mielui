@@ -139,11 +139,11 @@
 - Rework live chart motion with stationary pie highlights, area-fill sweeps, and staggered bar highlights; keep offscreen effects paused without trapping visible sweeps.
 - Morph notch notification titles, icons, and descriptions when switching between stacked items.
 
-- Honor Reasoning trigger click cancellation and reduced motion in copy feedback; keep notch notification text wrapped during morphs.
+- Keep Reasoning duration labels spaced, respect reduced motion in copy feedback, and keep notch notification text wrapped during morphs.
 
 - Guard font preference storage and isolate font state between server renders.
 
-- Preserve custom accessibility labels in Accordion, Select, Sheet, and Popover; honor disabled Tag Input controls and retained Tabs content.
+- Keep Accordion accessibility relationships valid when content is omitted and honor disabled Tag Input controls.
 - Keep disabled Popover triggers closed and dismiss empty tooltips.
 - Preserve invoice draft validation and reset stale filters when creating or locating an invoice in Studio.
 

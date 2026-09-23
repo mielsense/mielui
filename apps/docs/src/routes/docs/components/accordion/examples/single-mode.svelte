@@ -1,16 +1,12 @@
 <script lang="ts">
     import * as Accordion from '@mielui/svelte/components/accordion';
-
-    const uid = $props.id();
 </script>
 
 <div class="w-full max-w-md">
     <Accordion.Root type="single">
         <Accordion.Item value="a">
-            <Accordion.Trigger id={`${uid}-first-trigger`}>Item A</Accordion.Trigger>
-            <Accordion.Content id={`${uid}-first-content`}>
-                Content A. Only one panel is open at a time.
-            </Accordion.Content>
+            <Accordion.Trigger>Item A</Accordion.Trigger>
+            <Accordion.Content>Content A. Only one panel is open at a time.</Accordion.Content>
         </Accordion.Item>
         <Accordion.Item value="b">
             <Accordion.Trigger>Item B</Accordion.Trigger>

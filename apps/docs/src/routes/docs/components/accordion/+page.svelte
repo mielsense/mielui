@@ -53,9 +53,8 @@
         <Typography.H2 class="docs-section-heading">Usage</Typography.H2>
         <Typography.Text>
             Arrow keys move between enabled headers; Home and End jump to the first and last header.
-            Each item generates its own trigger and content IDs. Custom IDs on Trigger and Content
-            keep their accessibility relationships when they change. Setting collapsible to false
-            keeps the active single item open.
+            Each item generates its own trigger and content IDs. Setting collapsible to false keeps
+            the active single item open.
         </Typography.Text>
 
         <Typography.Text variant="supporting">
