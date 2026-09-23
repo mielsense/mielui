@@ -143,3 +143,6 @@
 - Remove the repository’s OpenCode setup and skill lockfile.
 
 - Show the Markdown preview directly on the canvas without a card or nested scroll area.
+
+- Group components by type in the sidebar, with a preview catalog for each group.
+- Make documentation search more compact, with quick destinations and a scrollable results list.

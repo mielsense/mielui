@@ -17,10 +17,11 @@
     import { page } from '$app/state';
     import GitHubBlack from '$lib/assets/GitHub_Invertocat_Black.svg';
     import GitHubWhite from '$lib/assets/GitHub_Invertocat_White.svg';
-    import { navigationGroups, sanitizeComponent } from '$lib/components';
+    import { componentTypeHref, componentTypes, navigationGroups } from '$lib/components';
     import SearchButton from '$lib/components/search/trigger.svelte';
     import { componentGuidePages } from '$lib/docs-pages';
     import Logo from '../logo.svelte';
+    import NavigationItems from './navigation-items.svelte';
 
     const { starCount = null }: { starCount?: number | null } = $props();
     let mobileMenuOpen = $state(false);
@@ -54,6 +55,27 @@
                       group.items.some((component) => component === segments[1])
                   )
                 : undefined;
+
+        const type =
+            segments[0] === 'components'
+                ? componentTypes.find(
+                      (entry) => entry.id === segments[1] || entry.items.includes(segments[1])
+                  )
+                : undefined;
+        if (type) {
+            const parent = [
+                { href: '/', label: 'Home' },
+                { href: '/docs/components', label: 'Components' },
+                { href: componentTypeHref(type.id), label: type.heading }
+            ];
+            if (type.id !== segments[1]) {
+                parent.push({
+                    href: `/docs/components/${segments[1]}`,
+                    label: formatSegment(segments[1])
+                });
+            }
+            return parent;
+        }
 
         return [
             { href: '/', label: 'Home' },
@@ -278,26 +300,7 @@
             {#each navigationGroups as group (group.id)}
                 <section class="mt-10 flex flex-col gap-2">
                     <h2 class="mb-2 text-sm text-foreground-muted">{group.heading}</h2>
-                    {#each group.items as component (component)}
-                        <Button
-                            variant="quiet"
-                            class="w-full justify-start"
-                            onclick={closeMobileMenu}
-                            href={`/docs/${group.id === 'actions' ? 'actions' : 'components'}/${component}`}
-                        >
-                            {sanitizeComponent(component)}
-                        </Button>
-                        {#each componentGuidePages.filter((guide) => guide.component === component) as guide (guide.href)}
-                            <Button
-                                variant="quiet"
-                                class="w-full justify-start ps-6"
-                                onclick={closeMobileMenu}
-                                href={guide.href}
-                            >
-                                {guide.title}
-                            </Button>
-                        {/each}
-                    {/each}
+                    <NavigationItems {group} onNavigate={closeMobileMenu} />
                     {#if group.items.length === 0}
                         <p class="text-sm text-foreground-muted">No chart components yet.</p>
                     {/if}

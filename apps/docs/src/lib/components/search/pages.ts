@@ -1,3 +1,5 @@
+import { componentTypeHref, componentTypes } from '$lib/components';
+
 export const pages = [
     { label: 'Home', href: '/' },
     { label: 'Introduction', href: '/docs/introduction' },
@@ -6,5 +8,6 @@ export const pages = [
     { label: 'Agent skill', href: '/docs/agent-skill' },
     { label: 'Changelog', href: '/docs/changelog' },
     { label: 'All components', href: '/docs/components' },
-    { label: 'Theme studio', href: '/studio' }
+    { label: 'Theme studio', href: '/studio' },
+    ...componentTypes.map((group) => ({ label: group.heading, href: componentTypeHref(group.id) }))
 ];

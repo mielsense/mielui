@@ -1,3 +1,5 @@
+import { componentTypes, sanitizeComponent } from '$lib/components';
+
 type CatalogManifest = {
     name: string;
     description: string;
@@ -32,4 +34,17 @@ for (const [path, source] of Object.entries(pageSources)) {
     if (slug && description) {
         catalogDescriptions[slug] = description;
     }
+}
+
+export function componentTypeMarkdown(id: string): string | undefined {
+    const group = componentTypes.find((entry) => entry.id === id);
+    if (!group) {
+        return undefined;
+    }
+    const items = group.items.map((component) => {
+        return `- [${sanitizeComponent(component)}](/docs/components/${component}.md): ${catalogDescriptions[component] ?? ''}`;
+    });
+    return [`# ${group.heading}`, group.description, '## Components', items.join('\n')].join(
+        '\n\n'
+    );
 }

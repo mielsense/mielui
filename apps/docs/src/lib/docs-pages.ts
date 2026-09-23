@@ -1,5 +1,11 @@
 import { chartGuides } from './chart-guides';
-import { components, navigationGroups, sanitizeComponent } from './components';
+import {
+    components,
+    componentTypeHref,
+    componentTypes,
+    navigationGroups,
+    sanitizeComponent
+} from './components';
 
 export function guidePath(component: string, slug: string): string {
     return `/docs/components/${component}/${slug}`;
@@ -21,7 +27,19 @@ const componentPages = components.flatMap((component) => [
 ]);
 
 export const componentDocPages = [
-    ...componentPages,
+    ...componentTypes.flatMap((group) => [
+        { href: componentTypeHref(group.id), label: group.heading },
+        ...group.items.map((component) => ({
+            href: `/docs/components/${component}`,
+            label: sanitizeComponent(component)
+        }))
+    ]),
+    ...componentPages.filter(
+        (entry) =>
+            !componentTypes.some((group) =>
+                group.items.some((component) => entry.href === `/docs/components/${component}`)
+            )
+    ),
     ...navigationGroups
         .filter((group) => group.id === 'actions')
         .flatMap((group) =>
