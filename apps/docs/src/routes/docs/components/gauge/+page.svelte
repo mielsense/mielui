@@ -89,7 +89,7 @@
             ring and center label, and announces the state. No wrapper or placeholder is needed.
         </Typography.Text>
         <CodeBlock
-            language="svelte"
+            lang="svelte"
             code={`<Gauge value={usage} loading={pending} label="Storage used in GB" />
 <Gauge value={null} label="Storage used in GB" />`}
         />
