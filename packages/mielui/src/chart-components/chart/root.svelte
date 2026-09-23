@@ -5,7 +5,7 @@
     import { Tween } from 'svelte/motion';
     import { SvelteMap } from 'svelte/reactivity';
     import { type Config, setChart } from './context.svelte';
-    import { tickStep } from './ticks';
+    import { categoryExtent, valueExtent } from './domains';
 
     let {
         data,
@@ -30,6 +30,8 @@
         'aria-label': string;
         children?: Snippet;
     } = $props();
+    const numberFormatter = new Intl.NumberFormat(undefined, { maximumFractionDigits: 2 });
+    const dateFormatter = new Intl.DateTimeFormat(undefined, { month: 'short', day: 'numeric' });
     let element = $state<HTMLDivElement>();
     let pointer = $state<{ x: number; y: number } | null>(null);
     let anchor = $state({ x: 0, y: 0 });
@@ -57,15 +59,7 @@
             )
     );
     const positions = $derived(data.map((row, index) => (continuous ? Number(row[x]) : index)));
-    const categoryDomain = $derived.by((): [number, number] => {
-        const sorted = [...positions].sort((a, b) => a - b);
-        const gaps = sorted
-            .slice(1)
-            .map((value, index) => value - sorted[index])
-            .filter((value) => value > 0);
-        const gap = gaps.length ? Math.min(...gaps) : 1;
-        return [(sorted[0] ?? 0) - gap / 2, (sorted[sorted.length - 1] ?? 0) + gap / 2];
-    });
+    const categoryDomain = $derived(categoryExtent(positions));
     const targets = $derived(
         data.map((row) =>
             keys.map((key) => {
@@ -106,28 +100,14 @@
         duration: () => (settled && motion && animation !== 'none' ? 280 * motionScale : 0)
     });
     const currentRows = $derived(new Map(values.current.map((row) => [row.identity, row.values])));
-    const domain = $derived.by((): [number, number] => {
-        const extents = targets.flatMap((row) => {
-            const visible = (renderedKeys.length ? renderedKeys : keys).map(
-                (key) => row[keys.indexOf(key)]
-            );
-            if (!stacked) {
-                return visible;
-            }
-            const bars = (marks.size ? barKeys : keys).map((key) => row[keys.indexOf(key)]);
-            return [
-                ...visible,
-                bars.reduce((sum, value) => sum + Math.min(value, 0), 0),
-                bars.reduce((sum, value) => sum + Math.max(value, 0), 0)
-            ];
-        });
-        const min = Math.min(0, ...extents);
-        const max = Math.max(0, ...extents);
-        const lower = min < 0 ? min : 0;
-        const upper = max > 0 ? max : min === 0 ? 1 : 0;
-        const step = tickStep(upper - lower, 5);
-        return [Math.floor(lower / step) * step, Math.ceil(upper / step) * step];
-    });
+    const domain = $derived(
+        valueExtent(
+            targets,
+            (renderedKeys.length ? renderedKeys : keys).map((key) => keys.indexOf(key)),
+            (marks.size ? barKeys : keys).map((key) => keys.indexOf(key)),
+            stacked
+        )
+    );
     const animatedDomain = Tween.of(() => domain, {
         duration: () => (settled && motion && animation !== 'none' ? 280 * motionScale : 0)
     });
@@ -228,15 +208,13 @@
         },
         label(row) {
             const value = data[row]?.[x];
-            return value instanceof Date
-                ? value.toLocaleDateString(undefined, { month: 'short', day: 'numeric' })
-                : String(value ?? '');
+            if (value instanceof Date && Number.isFinite(value.getTime())) {
+                return dateFormatter.format(value);
+            }
+            return String(value ?? '');
         },
         format(key, value) {
-            return (
-                config[key]?.format?.(value) ??
-                new Intl.NumberFormat(undefined, { maximumFractionDigits: 2 }).format(value)
-            );
+            return config[key]?.format?.(value) ?? numberFormatter.format(value);
         }
     });
     onMount(() => {

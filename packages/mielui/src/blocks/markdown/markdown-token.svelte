@@ -140,7 +140,7 @@
             class="my-4"
         />
     {:else if token.type === 'link'}
-        {@const href = safeUrl(token.href)}
+        {const href = $derived(safeUrl(token.href))}
         {#if href}
             <a
                 {href}
@@ -161,7 +161,7 @@
             </span>
         {/if}
     {:else if token.type === 'image'}
-        {@const src = safeImageUrl(token.href)}
+        {const src = $derived(safeImageUrl(token.href))}
         {#if src}
             <img
                 {src}

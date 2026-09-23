@@ -23,6 +23,6 @@ export const manifest: Manifest = {
     peerDependencies: {
         layerchart: '^2.5.0',
         cnfast: '^0.0.8',
-        svelte: '^5.33.0'
+        svelte: '^5.56.0'
     }
 };

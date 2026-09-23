@@ -53,9 +53,9 @@
 </script>
 <g data-ui="chart-bar" class={cn(className)} fill={chart.color(key)}>
     {#each chart.data as row, i (String(row[chart.x]) + i)}
-        {@const value = chart.value(i, key)}
+        {const value = $derived(chart.value(i, key))}
         {#if value !== null}
-            {@const box = geometry(i, value)}
+            {const box = $derived(geometry(i, value))}
             <rect
                 {...box}
                 rx={chart.stacked ? 0 : Math.min(radius, box.width / 2, box.height / 2)}

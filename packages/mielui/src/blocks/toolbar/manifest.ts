@@ -19,5 +19,5 @@ export const manifest: Manifest = {
     ],
     components: ['_internal/utils', 'button', 'separator'],
     shared: ['utils.cn', 'utils.pressable'],
-    peerDependencies: { 'bits-ui': '^2.19.2', cnfast: '^0.0.8', svelte: '^5.33.0' }
+    peerDependencies: { 'bits-ui': '^2.19.2', cnfast: '^0.0.8', svelte: '^5.56.0' }
 };

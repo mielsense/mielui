@@ -36,8 +36,8 @@
                 </Table.Head>
             {/if}
             {#each group.headers as header (header.id)}
-                {@const column = sortableColumn(header.column)}
-                {@const sorted = column.getIsSorted?.()}
+                {const column = $derived(sortableColumn(header.column))}
+                {const sorted = $derived(column.getIsSorted?.())}
                 <Table.Head
                     colspan={header.colSpan}
                     aria-sort={sorted === 'asc' ? 'ascending' : sorted === 'desc' ? 'descending' : undefined}

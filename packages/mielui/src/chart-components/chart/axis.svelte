@@ -15,6 +15,10 @@
         ticks?: number;
         format?: (value: string | number) => string;
     } = $props();
+    const numberFormatter = new Intl.NumberFormat(undefined, {
+        notation: 'compact',
+        maximumFractionDigits: 1
+    });
     const layer = getChartContext();
     const chart = getChart();
     const categorical = $derived((axis === 'x') !== (chart.orientation === 'horizontal'));
@@ -54,7 +58,7 @@
                 text-anchor={axis === 'x' ? 'middle' : 'end'}
                 dominant-baseline={axis === 'y' ? 'middle' : 'auto'}
             >
-                {format ? format(categorical ? chart.label(value) : value) : categorical ? chart.label(value) : new Intl.NumberFormat(undefined, { notation: 'compact', maximumFractionDigits: 1 }).format(value)}
+                {format ? format(categorical ? chart.label(value) : value) : categorical ? chart.label(value) : numberFormatter.format(value)}
             </text>
         {/if}
     {/each}

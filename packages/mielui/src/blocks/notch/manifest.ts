@@ -19,6 +19,7 @@ export const manifest: Manifest = {
         'components/notch/notch-peek.svelte',
         'components/notch/notch-side-action.svelte',
         'components/notch/shape.ts',
+        'components/notch/swipe.svelte.ts',
         'components/notch/manifest.ts'
     ],
     components: ['_internal/utils', 'button', 'typography'],
@@ -32,6 +33,6 @@ export const manifest: Manifest = {
     peerDependencies: {
         '@humanspeak/svelte-motion': '^1.2.1',
         cnfast: '^0.0.8',
-        svelte: '^5.33.0'
+        svelte: '^5.56.0'
     }
 };

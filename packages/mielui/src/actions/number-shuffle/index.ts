@@ -70,10 +70,10 @@ export const numberShuffle: Action<HTMLElement, NumberShuffleOptions> = (node, i
             reservedWidth = 0;
         }
         node.style.setProperty('-webkit-text-fill-color', 'transparent');
-        if (getComputedStyle(node).position === 'static') {
+        if (appearance.position === 'static') {
             node.style.position = 'relative';
         }
-        if (getComputedStyle(node).display === 'inline') {
+        if (appearance.display === 'inline') {
             node.style.display = 'inline-block';
         }
         node.style.fontVariantNumeric = 'tabular-nums';

@@ -72,7 +72,7 @@
         />
     {/if}
     {#each chart.data as _, index}
-        {@const hit = region(index)}
+        {const hit = $derived(region(index))}
         <rect
             x={horizontal ? 0 : hit.start}
             y={horizontal ? hit.start : 0}

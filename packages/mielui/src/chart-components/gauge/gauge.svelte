@@ -38,7 +38,6 @@
             ? Math.min(Math.max(strokeWidth, 1), safeSize / 2)
             : Math.max(3, safeSize * 0.0975)
     );
-    const arcStrokeWidth = $derived(safeStrokeWidth);
     const empty = $derived(value === null);
     const unavailable = $derived(loading || empty);
     const clamped = $derived(
@@ -51,7 +50,7 @@
         untrack(() => clamped / safeMax),
         { easing: cubicOut }
     );
-    const path = $derived(gaugeArcPath(safeSize, radius, arcStrokeWidth, progress.current));
+    const path = $derived(gaugeArcPath(safeSize, radius, safeStrokeWidth, progress.current));
     const fontSize = $derived(Math.max(10, safeSize * 0.24));
     let arc: SVGPathElement;
     let mounted = $state(false);

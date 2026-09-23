@@ -91,8 +91,8 @@
         class="m-0 list-none space-y-1.5 p-0"
     >
         {#each items as item (getId(item))}
-            {@const id = getId(item)}
-            {@const lifted = gesture.lifted(id)}
+            {const id = $derived(getId(item))}
+            {const lifted = $derived(gesture.lifted(id))}
             <li animate:animateRow={lifted}>
                 {#if row}
                     {@render row(item)}

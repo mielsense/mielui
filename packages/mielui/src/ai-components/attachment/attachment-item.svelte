@@ -24,7 +24,9 @@
     }: AttachmentItemProps = $props();
 
     const safeProgress = $derived(
-        progress === undefined ? undefined : Math.min(100, Math.max(0, progress))
+        typeof progress === 'number' && Number.isFinite(progress)
+            ? Math.min(100, Math.max(0, progress))
+            : undefined
     );
     const preview = $derived.by(() => {
         const previewFile = file;

@@ -15,6 +15,22 @@ export const shimmer: Action<HTMLElement> = (node) => {
     overlay.inert = true;
     overlay.append(band);
     let animation: Animation | undefined;
+    let visible = false;
+
+    function updateVisibility() {
+        if (visible && !document.hidden) {
+            animation?.play();
+        } else {
+            animation?.pause();
+        }
+    }
+
+    const visibility = new IntersectionObserver(([entry]) => {
+        visible = entry?.isIntersecting ?? false;
+        updateVisibility();
+    });
+    visibility.observe(node);
+    document.addEventListener('visibilitychange', updateVisibility);
     function syncText() {
         band.textContent = [...node.childNodes]
             .filter((child) => child !== overlay)
@@ -55,6 +71,7 @@ export const shimmer: Action<HTMLElement> = (node) => {
                 : [{ transform: 'translateX(-100%)' }, { transform: 'translateX(100%)' }],
             { duration: 1600, iterations: Number.POSITIVE_INFINITY, easing: 'linear' }
         );
+        updateVisibility();
     }
 
     let themeDuration = getComputedStyle(node).getPropertyValue('--motion-duration-panel');
@@ -76,6 +93,8 @@ export const shimmer: Action<HTMLElement> = (node) => {
     return {
         destroy() {
             themeObserver.disconnect();
+            visibility.disconnect();
+            document.removeEventListener('visibilitychange', updateVisibility);
             observer?.disconnect();
             animation?.cancel();
             overlay.remove();

@@ -35,7 +35,7 @@
         </Empty>
     {:else}
         {#each rows as row (row.id)}
-            {@const selectionApi = selectedRow(row)}
+            {const selectionApi = $derived(selectedRow(row))}
             <Table.Row data-state={selectionApi.getIsSelected?.() ? 'selected' : undefined}>
                 {#if canSelect}
                     <Table.Cell class="w-12">

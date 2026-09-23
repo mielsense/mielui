@@ -184,11 +184,15 @@ export const morph: Action<HTMLElement, Options> = (node, initial) => {
     }
 
     let themeDuration = getComputedStyle(node).getPropertyValue('--motion-duration-panel');
-    const themeObserver = new MutationObserver(() => {
+    const themeObserver = new MutationObserver((records) => {
         const nextDuration = getComputedStyle(node).getPropertyValue('--motion-duration-panel');
         if (nextDuration !== themeDuration) {
             themeDuration = nextDuration;
             settle();
+        } else if (
+            records.some((record) => record.target !== node || record.attributeName === 'class')
+        ) {
+            syncColor();
         }
     });
     let ancestor: HTMLElement | null = node;

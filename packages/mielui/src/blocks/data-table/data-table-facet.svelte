@@ -173,7 +173,9 @@
             {:else if filter.type === 'select'}
                 <div class="flex max-h-60 flex-col gap-1 overflow-auto">
                     {#each filter.options as option (option.value)}
-                        {@const selected = Array.isArray(value) && value.some((item) => item === option.value)}
+                        {const selected = $derived(
+                            Array.isArray(value) && value.some((item) => item === option.value)
+                        )}
                         <Checkbox
                             class="min-h-9 items-center rounded-md px-2 py-2 hover:bg-secondary"
                             label={option.label}

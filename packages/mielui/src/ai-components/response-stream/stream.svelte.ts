@@ -163,10 +163,6 @@ export function createResponseStream(options: StreamOptions) {
             if (textStream === previousSnapshot) {
                 return;
             }
-            if (!textStream.startsWith(previousSnapshot)) {
-                applySnapshot(textStream);
-                return;
-            }
             applySnapshot(textStream);
             return;
         }

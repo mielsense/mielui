@@ -7,6 +7,7 @@
     import type { NotchContentProps } from '.';
     import { notchContext } from './context';
     import { notchShape } from './shape';
+    import { createNotchSwipe } from './swipe.svelte';
 
     type PointerInput = PointerEvent & { currentTarget: EventTarget & HTMLDivElement };
     type FocusInput = FocusEvent & { currentTarget: EventTarget & HTMLDivElement };
@@ -24,6 +25,7 @@
         onpointermove,
         onpointerup,
         onpointercancel,
+        onlostpointercapture,
         onfocusin,
         onfocusout,
         ...rest
@@ -40,8 +42,20 @@
     let drawnWidth = $state(320);
     let drawnHeight = $state(120);
     let duration = $state(0);
-    let drag = $state(0);
-    let pointer: { id: number; x: number; y: number; started: number } | undefined;
+    const swipe = createNotchSwipe({
+        get open() {
+            return context.open;
+        },
+        get side() {
+            return context.side;
+        },
+        get element() {
+            return host;
+        },
+        dismiss() {
+            context.open = false;
+        }
+    });
     const vertical = $derived(context.side === 'top' || context.side === 'bottom');
     const collapsedWidth = $derived(context.peek ? (vertical ? 160 : 44) : vertical ? 96 : 16);
     const collapsedHeight = $derived(context.peek ? (vertical ? 36 : 192) : vertical ? 16 : 192);
@@ -86,8 +100,8 @@
                   : vertical
                     ? 3
                     : 96,
-        x: vertical ? 0 : drag,
-        y: vertical ? drag : 0
+        x: vertical ? 0 : swipe.offset,
+        y: vertical ? swipe.offset : 0
     });
 
     const frameTransition = $derived({
@@ -115,8 +129,7 @@
     }
     function finishExit() {
         if (!context.open && host) {
-            drag = 0;
-            pointer = undefined;
+            swipe.cancel();
             if (context.mode === 'peek') {
                 return;
             }
@@ -188,60 +201,10 @@
             finishExit();
         }
         if (!context.open) {
-            drag = 0;
-            pointer = undefined;
+            swipe.cancel();
         }
     });
 
-    function startSwipe(event: PointerEvent) {
-        if (
-            !context.open ||
-            event.button !== 0 ||
-            (event.target instanceof Element &&
-                event.target.closest(
-                    'button, a, input, textarea, select, [contenteditable="true"]'
-                ))
-        ) {
-            return;
-        }
-        pointer = {
-            id: event.pointerId,
-            x: event.clientX,
-            y: event.clientY,
-            started: performance.now()
-        };
-    }
-    function moveSwipe(event: PointerEvent) {
-        if (!pointer || pointer.id !== event.pointerId) {
-            return;
-        }
-        const primary = vertical ? event.clientY - pointer.y : event.clientX - pointer.x;
-        const cross = vertical ? event.clientX - pointer.x : event.clientY - pointer.y;
-        const direction = context.side === 'top' || context.side === 'left' ? -1 : 1;
-        if (Math.abs(cross) > Math.abs(primary) && Math.abs(cross) > 10) {
-            pointer = undefined;
-            return;
-        }
-        if (primary * direction > 6) {
-            drag = primary;
-            if (event.isTrusted && host && !host.hasPointerCapture(event.pointerId)) {
-                host.setPointerCapture(event.pointerId);
-            }
-        }
-    }
-    function finishSwipe(event: PointerEvent) {
-        if (!pointer || pointer.id !== event.pointerId) {
-            return;
-        }
-        const elapsed = Math.max(1, performance.now() - pointer.started);
-        const dismiss =
-            Math.abs(drag) > 36 || (Math.abs(drag) > 12 && Math.abs(drag) / elapsed > 0.5);
-        pointer = undefined;
-        drag = 0;
-        if (dismiss) {
-            context.open = false;
-        }
-    }
     async function focusExpanded() {
         context.open = true;
         await tick();
@@ -266,7 +229,7 @@
     function handlePointerLeave(event: PointerInput) {
         onpointerleave?.(event);
         context.hovered = false;
-        if (context.mode === 'peek' && !context.focused && !pointer) {
+        if (context.mode === 'peek' && !context.focused && !swipe.active) {
             context.scheduleCollapse();
         }
     }
@@ -303,25 +266,28 @@
             }
         }
         if (!event.defaultPrevented) {
-            startSwipe(event);
+            swipe.start(event);
         }
     }
     function handlePointerMove(event: PointerInput) {
         onpointermove?.(event);
         if (!event.defaultPrevented) {
-            moveSwipe(event);
+            swipe.move(event);
         }
     }
     function handlePointerUp(event: PointerInput) {
         onpointerup?.(event);
         if (!event.defaultPrevented) {
-            finishSwipe(event);
+            swipe.finish(event);
         }
     }
     function handlePointerCancel(event: PointerInput) {
         onpointercancel?.(event);
-        pointer = undefined;
-        drag = 0;
+        swipe.cancel();
+    }
+    function handleLostPointerCapture(event: PointerInput) {
+        onlostpointercapture?.(event);
+        swipe.cancel();
     }
     function expand() {
         context.open = true;
@@ -362,6 +328,7 @@
     onpointermove={handlePointerMove}
     onpointerup={handlePointerUp}
     onpointercancel={handlePointerCancel}
+    onlostpointercapture={handleLostPointerCapture}
     class={cn(overlaySurface(context.surface), 'fixed m-0 overflow-hidden border-0 bg-[color-mix(in_oklab,var(--color-secondary)_97%,white)] dark:bg-[color-mix(in_oklab,var(--color-background)_97%,white)] p-0 text-foreground [inset:auto] [clip-path:var(--notch-clip)]',
         context.side === 'top' && 'top-0 left-1/2 -translate-x-1/2',
         context.side === 'bottom' && 'bottom-0 left-1/2 -translate-x-1/2',

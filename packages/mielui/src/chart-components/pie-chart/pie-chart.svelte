@@ -14,6 +14,7 @@
         'aria-label': label,
         ...rest
     }: PieChartProps = $props();
+    const numberFormatter = new Intl.NumberFormat();
     let element: HTMLDivElement;
     let active = $state<string>();
     let anchor = $state<Element>();
@@ -108,9 +109,7 @@
             return config[key]?.label ?? key;
         },
         format(item) {
-            return (
-                config[item.key]?.format?.(item.value) ?? new Intl.NumberFormat().format(item.value)
-            );
+            return config[item.key]?.format?.(item.value) ?? numberFormatter.format(item.value);
         }
     });
     onMount(() => {
