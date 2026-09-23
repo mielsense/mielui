@@ -341,3 +341,7 @@ family; do not fall back to a native browser title tooltip.
 Documentation content, its toolbar and footer share a horizontal inset halfway
 between five theme spacing units and 2rem. Rail headings retain five spacing
 units. Keep preview tabs and article headings aligned to the content gutter.
+
+Menu separators span the full inner panel width, including submenus. Cancel the
+shared item padding at the separator rather than removing padding from menu items.
+Keep separators square at the panel edges.

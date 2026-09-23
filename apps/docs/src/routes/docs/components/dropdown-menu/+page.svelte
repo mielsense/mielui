@@ -56,6 +56,10 @@
     <section id="usage" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Usage</Typography.H2>
         <Typography.Text variant="supporting">
+            Separators span the inner panel width, including submenus. Menu items retain their
+            padding.
+        </Typography.Text>
+        <Typography.Text variant="supporting">
             Use Arrow keys, Home, End, or type a label to move between enabled items. Submenus
             support directional keyboard navigation. Items close the menu after selection; an
             onclick handler can call event.preventDefault() to cancel selection and dismissal. Bind

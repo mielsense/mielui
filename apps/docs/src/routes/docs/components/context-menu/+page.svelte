@@ -56,6 +56,10 @@
             and inset variants.
         </Typography.Text>
         <Typography.Text variant="supporting">
+            Separators span the inner panel width, including submenus. Menu items retain their
+            padding.
+        </Typography.Text>
+        <Typography.Text variant="supporting">
             Bind open to observe or close the root menu, and use onOpenChange for interaction
             callbacks. Pointer and keyboard opening keep the same state.
         </Typography.Text>
