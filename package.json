@@ -23,12 +23,9 @@
     },
     "devDependencies": {
         "@biomejs/biome": "2.5.7",
-        "lefthook": "1.13.6",
-        "turbo": "2.10.8",
         "@types/node": "22.19.19",
-        "tsx": "^4.23.13"
-    },
-    "dependencies": {
-        "opencode-goal-plugin": "0.7.0"
+        "lefthook": "1.13.6",
+        "tsx": "^4.23.13",
+        "turbo": "2.10.8"
     }
 }

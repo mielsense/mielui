@@ -50,7 +50,6 @@ vite.config.ts.timestamp-*
 /.agents/
 /.claude/
 /.codex/
-/.opencode/
 
 # Browser verification artifacts
 /output/
