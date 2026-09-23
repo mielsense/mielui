@@ -10,7 +10,7 @@
 <div
     {...rest}
     data-ui="color-picker-hex-input"
-    class={cn(className, 'flex items-center gap-1 rounded-[var(--radius-md)] border-[length:var(--border-size)] border-border bg-background px-1.5 focus-within:shadow-[var(--focus-ring)]')}
+    class={cn(className, 'flex items-center gap-1 rounded-[var(--radius-md)] border-[length:var(--border-size)] border-border bg-background px-1.5 shadow-[var(--elevation-control-edge)] focus-within:shadow-[var(--focus-ring),var(--elevation-control-edge)]')}
 >
     <span aria-hidden="true" class="font-mono text-sm text-foreground-muted">#</span>
     <input

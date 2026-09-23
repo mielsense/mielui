@@ -34,7 +34,7 @@
     );
 
     const buttonClasses =
-        'group relative inline-flex h-5 w-11 shrink-0 items-center rounded-full border-[length:var(--border-size)] p-0.5 transition-[background-color,border-color,box-shadow] [transition-duration:var(--motion-duration-panel)] ease-[var(--ease-out)] motion-reduce:transition-none focus-visible:outline-none focus-visible:ring-0 shadow-[var(--elevation-control-edge)] focus-visible:shadow-[var(--focus-ring),var(--elevation-control-edge)] disabled:cursor-not-allowed disabled:opacity-[var(--opacity-disabled)]';
+        'group relative inline-flex h-5 w-11 shrink-0 items-center rounded-full border-[length:var(--border-size)] p-0.5 transition-[background-color,border-color,box-shadow] [transition-duration:var(--motion-duration-panel)] ease-[var(--ease-out)] motion-reduce:transition-none focus-visible:outline-none focus-visible:ring-0 focus-visible:shadow-[var(--focus-ring)] disabled:cursor-not-allowed disabled:opacity-[var(--opacity-disabled)]';
 
     function getElement() {
         return element ?? null;
@@ -85,7 +85,7 @@
             aria-hidden="true"
             data-state={isOn ? 'checked' : 'unchecked'}
             class={cn(
-                'block h-3.5 w-6 shrink-0 rounded-full bg-[var(--color-on-primary)] ring-1 ring-inset ring-[color-mix(in_srgb,var(--color-foreground)_8%,transparent)] will-change-transform transition-transform [transition-duration:var(--motion-duration-panel)] ease-[var(--ease-out)] motion-reduce:transition-none',
+                'block h-3.5 w-6 shrink-0 rounded-full bg-[var(--color-on-primary)] ring-1 ring-inset ring-[color-mix(in_srgb,var(--color-foreground)_8%,transparent)] shadow-[var(--elevation-control-edge)] will-change-transform transition-transform [transition-duration:var(--motion-duration-panel)] ease-[var(--ease-out)] motion-reduce:transition-none',
                 isOn ? 'translate-x-3.5 rtl:-translate-x-3.5' : 'translate-x-0',
                 !disabled && 'group-active:scale-x-110 motion-reduce:group-active:scale-x-100'
             )}

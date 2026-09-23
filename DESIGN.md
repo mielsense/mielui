@@ -200,6 +200,11 @@ the same contracts; a visual exception must have a specific functional reason.
 - Read colors from semantic `--color-*` tokens. Use `--border-size` for frame
   thickness. Light, dark, and scoped Studio themes must share the same geometry.
 
+Moving controls put the raised control edge on the thumb, not the track or fill.
+Passive tracks, progress fills, metadata, and grouping wrappers stay flat. Composite
+text fields use one edge around their editable boundary. Focus rings add to that
+edge rather than replacing it.
+
 ### Micro-interactions
 
 - Buttons and clickable controls reuse the shared pressable behavior and variant

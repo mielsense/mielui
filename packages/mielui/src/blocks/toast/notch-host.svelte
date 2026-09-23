@@ -179,7 +179,7 @@
     </Notch.Content>
     {#if toasts.length > 1}
         <Notch.Accessory
-            class="rounded-full bg-card px-2 py-1 text-xs tabular-nums text-foreground-muted shadow-[var(--elevation-control-edge)]"
+            class="rounded-full bg-card px-2 py-1 text-xs tabular-nums text-foreground-muted"
             aria-label={`Notification ${index + 1} of ${toasts.length}`}
             onpointerenter={pointerEnter}
             onpointerleave={pointerLeave}

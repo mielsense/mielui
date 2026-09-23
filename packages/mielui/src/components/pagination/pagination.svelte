@@ -94,7 +94,7 @@
                 class={cn(
                     'mielui-press inline-flex size-[var(--size-icon-md)] items-center justify-center rounded-[var(--radius-md)] text-[length:var(--font-size-label)] tabular-nums [font-weight:var(--font-weight-button)] [letter-spacing:var(--tracking-button)] transition-[background-color,color,box-shadow,transform,scale] [transition-duration:var(--motion-duration-press)] ease-[var(--ease-press)] motion-reduce:transition-none focus-visible:outline-none focus-visible:shadow-[var(--focus-ring)]',
                     p === currentPage
-                        ? 'bg-card text-foreground shadow-[var(--elevation-control)] hover:bg-secondary'
+                        ? 'bg-card text-foreground shadow-[var(--elevation-control)] focus-visible:shadow-[var(--focus-ring),var(--elevation-control)] hover:bg-secondary'
                         : 'text-foreground-muted hover:bg-secondary hover:text-foreground'
                 )}
             >
