@@ -46,7 +46,9 @@
                         </h3>
                         <div class="grid grid-cols-1 gap-3 sm:grid-cols-2 md:grid-cols-3">
                             {#each group.tokens as definition (definition.name)}
-                                {@const resolved = editor.tokens.resolveColorToken(definition)}
+                                {const resolved = $derived(
+                                    editor.tokens.resolveColorToken(definition)
+                                )}
                                 {@render advancedColorField(
                                             definition.label,
                                             resolved.hex,
@@ -80,8 +82,9 @@
                         </h3>
                         <div class="grid grid-cols-1 gap-3 sm:grid-cols-2 md:grid-cols-3">
                             {#each group.tokens as definition (definition.name)}
-                                {@const spacingValue =
-                                            editor.tokens.resolveSpacingToken(definition)}
+                                {const spacingValue = $derived(
+                                    editor.tokens.resolveSpacingToken(definition)
+                                )}
                                 {@render sliderTokenField(
                                             definition.label,
                                             spacingValue,
@@ -131,8 +134,9 @@
                                                 }
                                             )}
                                 {:else}
-                                    {@const motionValue =
-                                                editor.tokens.animationSliderValue(definition)}
+                                    {const motionValue = $derived(
+                                        editor.tokens.animationSliderValue(definition)
+                                    )}
                                     {@render sliderTokenField(
                                                 definition.label,
                                                 motionValue,

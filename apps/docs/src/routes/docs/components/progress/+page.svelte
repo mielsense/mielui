@@ -62,7 +62,9 @@
         </Typography.Text>
         <Typography.Text>
             Fractional values are supported. Invalid maximums fall back to 100, and non-finite
-            values display zero. Indicator transitions respect reduced motion.
+            values display zero. Indicator transitions respect reduced motion. The indeterminate
+            animation pauses when motion is disabled, the indicator leaves view, or the page is
+            hidden.
         </Typography.Text>
 
         <CodeBlock

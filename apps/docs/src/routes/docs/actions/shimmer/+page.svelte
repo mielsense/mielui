@@ -43,8 +43,8 @@
         <Typography.Text>
             The highlight is hidden from assistive technology. Give the loading region an accessible
             label. Reduced motion removes the animation, including when the preference changes while
-            the page is open. Unmounting removes the highlight and restores the container's
-            positioning.
+            the page is open. The animation pauses while its element is offscreen or the document is
+            hidden. Unmounting removes the highlight and restores the container's positioning.
         </Typography.Text>
     </section>
     <section id="additional-example" class="scroll-mt-20 flex flex-col gap-4">

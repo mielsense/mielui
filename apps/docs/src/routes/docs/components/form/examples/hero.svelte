@@ -4,35 +4,29 @@
     import * as Fieldset from '@mielui/svelte/components/fieldset';
     import * as Form from '@mielui/svelte/components/form';
     import { Input } from '@mielui/svelte/components/input';
-    import { toast } from '@mielui/svelte/components/toast';
     import { onDestroy } from 'svelte';
 
     let pending = $state(false);
     let timer: ReturnType<typeof setTimeout> | undefined;
-    let notification: ReturnType<typeof toast.promise> | undefined;
+    let message = $state('');
 
     onDestroy(() => {
         clearTimeout(timer);
-        notification?.exit?.();
     });
 
     function submit(event: SubmitEvent & { currentTarget: EventTarget & HTMLFormElement }) {
         event.preventDefault();
+        if (pending) {
+            return;
+        }
         const data = new FormData(event.currentTarget, event.submitter);
         const name = String(data.get('displayName')).trim();
         pending = true;
-        const request = new Promise<string>((resolve) => {
-            timer = setTimeout(() => {
-                pending = false;
-                resolve(name);
-            }, 800);
-        });
-        notification = toast.promise(request, {
-            loading: 'Checking profile…',
-            success: (name) => `${name} is ready to save.`,
-            successDescription: 'This preview keeps your data in the browser.',
-            error: 'Could not check your profile'
-        });
+        message = 'Checking profile…';
+        timer = setTimeout(() => {
+            pending = false;
+            message = `${name} is ready to save. This preview keeps your data in the browser.`;
+        }, 800);
     }
 </script>
 
@@ -74,4 +68,5 @@
         <Form.Submit>Save profile</Form.Submit>
         <Button type="reset" variant="ghost">Reset</Button>
     </Form.Actions>
+    <p role="status" class="text-sm text-foreground-muted">{message}</p>
 </Form.Root>

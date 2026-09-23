@@ -77,7 +77,8 @@ function handleReject(rejections: AttachmentRejection[]) {
             Attachment validates local selection and displays files. It does not upload them. Keep
             upload progress and errors in your application, or use File Upload when you need an
             upload callback with cancellation and retry. Use the hero to test rejection messages and
-            remove selected files.
+            remove selected files. Progress is clamped from 0 to 100; omitted or nonfinite values
+            display an indeterminate progress indicator.
         </Typography.Text>
     </section>
     <section id="examples" class="scroll-mt-20 flex flex-col gap-10">

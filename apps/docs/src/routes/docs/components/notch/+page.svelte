@@ -69,7 +69,8 @@
         <Typography.Text variant="supporting">
             Swipe toward the attached edge or press Escape while focus is inside to dismiss it. On
             touch screens, start the swipe on Header so the body can still scroll. Add Close when
-            the panel needs a visible dismiss button.
+            the panel needs a visible dismiss button. Reversing a swipe before release keeps the
+            panel open.
         </Typography.Text>
         <Typography.Text variant="supporting">
             Peek mode keeps a slim handle at the edge. Hover, focus, or tap the handle to expand it.

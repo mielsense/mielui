@@ -35,7 +35,7 @@
         <RailHeading title="Getting started" />
         <div class="isolate flex flex-col px-3 py-3">
             {#each gettingStartedItems as item (item.href)}
-                {@const active = isActive(item.href)}
+                {const active = $derived(isActive(item.href))}
                 <Button
                     variant="quiet"
                     size="md"

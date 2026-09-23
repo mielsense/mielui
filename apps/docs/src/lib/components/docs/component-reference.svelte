@@ -49,9 +49,11 @@
         </HoverCard.Root>
     </div>
     {#each ordered as part (part.name)}
-        {@const own = part.properties.filter((property) => !property.inherited)}
-        {@const inherited = part.properties.filter((property) => property.inherited)}
-        {@const description = anatomy.find((item) => item.name === nameOf(part))?.description}
+        {const own = $derived(part.properties.filter((property) => !property.inherited))}
+        {const inherited = $derived(part.properties.filter((property) => property.inherited))}
+        {const description = $derived(
+            anatomy.find((item) => item.name === nameOf(part))?.description
+        )}
         <section class="flex min-w-0 flex-col gap-4">
             <div class="flex flex-col gap-2">
                 <h3 class="font-mono text-base font-medium text-foreground">{nameOf(part)}</h3>

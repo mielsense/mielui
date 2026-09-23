@@ -61,7 +61,8 @@
             first enabled trigger.<Typography.InlineCode>
                 onValueChange
             </Typography.InlineCode> reports that value. With no enabled triggers, the value becomes
-            an empty string. Focus stays on the current control.
+            an empty string. Focus stays on the current control. Hover highlights clear when their
+            trigger is removed or disabled.
         </Typography.Text>
         <Typography.Text>
             Inactive panels unmount. Set<Typography.InlineCode>forceMount</Typography.InlineCode> on

@@ -71,7 +71,7 @@
                 rowLabel={(row) => row.original.reference}
             >
                 {#snippet cell(cell)}
-                    {@const invoice = cell.row.original}
+                    {const invoice = $derived(cell.row.original)}
                     {#if cell.column.id === 'client'}
                         <span class="font-medium">{invoice.client}</span>
                         <p class="mt-1 text-xs text-foreground-muted">{`Due ${invoice.due}`}</p>

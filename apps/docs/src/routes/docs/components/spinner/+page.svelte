@@ -37,7 +37,8 @@
         <Typography.H2 class="docs-section-heading">Usage</Typography.H2>
         <Typography.Text>
             Success and exit feedback use the shared motion duration for opacity, scale, and
-            rotation. Reduced motion removes transitions and continuous rotation.
+            rotation. Reduced motion removes transitions and continuous rotation. Rotation also
+            pauses when the theme disables motion, the indicator leaves view, or the page is hidden.
         </Typography.Text>
         <Typography.Text variant="supporting">
             Use Spinner for work with an unknown duration. Set

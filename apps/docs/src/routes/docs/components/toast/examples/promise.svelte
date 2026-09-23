@@ -6,8 +6,10 @@
     import { onDestroy } from 'svelte';
 
     let timer: ReturnType<typeof setTimeout> | undefined;
+    let notification: ReturnType<typeof toast.promise> | undefined;
     onDestroy(() => {
         clearTimeout(timer);
+        notification?.exit?.();
     });
 
     let fail = $state(false);
@@ -26,7 +28,7 @@
                 }
             }, 1600);
         });
-        toast.promise(request, {
+        notification = toast.promise(request, {
             loading: 'Saving profile…',
             success: (name) => `${name} saved`,
             error: 'Could not save profile',

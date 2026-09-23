@@ -217,3 +217,26 @@ it('shows curved action arcs at rest and reveals their buttons on keyboard focus
         .toBe('1');
     await expect.element(action).toHaveFocus();
 });
+
+it('keeps the notch open when an outward swipe reverses before release', async () => {
+    render(NotchFixture, { noMotion: true });
+    await page.getByRole('button', { name: 'Toggle notch' }).click();
+    const host = document.querySelector('[data-ui="notch-content"]') as HTMLElement;
+    for (const [type, clientY] of [
+        ['pointerdown', 100],
+        ['pointermove', 30],
+        ['pointermove', 110],
+        ['pointerup', 110]
+    ] as const) {
+        host.dispatchEvent(
+            new PointerEvent(type, {
+                pointerId: 1,
+                bubbles: true,
+                clientX: 200,
+                clientY,
+                button: 0
+            })
+        );
+    }
+    await expect.element(page.getByText('Export ready')).toBeVisible();
+});
