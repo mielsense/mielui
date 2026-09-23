@@ -192,3 +192,5 @@
 - Scale magnetic catch distances to neighboring section heights and settle only once per downward scroll gesture, preventing short sections from oscillating.
 
 - Match the Copy page control height to the adjacent-page arrows in the docs footer.
+- Keep Form and keyboard-shortcut demo feedback inside their previews and dispose unfinished toast demos on navigation.
+- Separate page-outline state and Studio token parsing from presentation while reducing unnecessary outline work during preview updates.

@@ -175,3 +175,11 @@
 - Keep File Upload removal animations inside the file list instead of jumping toward the viewport corner.
 
 - Preserve the Gauge loading ring while using theme colors for its mask.
+- Keep slider dragging focused without rescheduling focus on every pointer movement, and clear stale tab hover indicators when tabs disappear or become disabled.
+- Honor motion settings and visibility for spinner, progress, and shimmer animations; update traveling highlights when theme motion settings change.
+- Restore Notch swipe position and release pointer capture when gestures reverse or are cancelled.
+- Handle large chart datasets without argument-limit failures and avoid rebuilding number formatters for every tick or slice.
+- Parse small percentage color alpha and repeated CSS variable references correctly in Studio.
+- Keep Studio header sizing within supported limits and reject font values that can break generated CSS declarations.
+- Show indeterminate attachment progress for nonfinite values and refresh Morph text colors after theme changes.
+- Evaluate nested Studio length calculations with correct arithmetic precedence and root-relative units.

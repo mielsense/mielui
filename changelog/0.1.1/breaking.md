@@ -12,3 +12,4 @@
 - Breadcrumb current-page state is explicit instead of inferred from the router.
 - Reorder List dragging starts from its handle; row content remains interactive and accessible.
 - Enforce mode-specific Input, Question, Accordion, and Toggle Group values and branch-specific Button and Badge attributes.
+- Require Svelte 5.56 or newer for modern reactive template declaration syntax.

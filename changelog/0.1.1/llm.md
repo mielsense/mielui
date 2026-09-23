@@ -251,3 +251,9 @@ Import `numberShuffle` from `@mielui/svelte/actions/number-shuffle` and pass `{ 
 ## Control edge placement
 
 Apply the shared control edge to the part that is raised or editable. For Switch and Slider this is the thumb; tracks and progress fills stay flat. Passive metadata and grouping wrappers do not receive control elevation. Composite fields use one edge around their editable boundary. Compose focus shadows with the edge token rather than replacing it.
+
+## Svelte compiler baseline and private implementation modules
+
+Mielui now requires Svelte 5.56 or newer. Template declarations use `{const value = $derived(expression)}` to preserve reactive behavior; do not replace legacy `{@const}` with a plain nonreactive declaration. Upgrade the consuming compiler before installing this release.
+
+Public component exports and composition remain unchanged. FileUpload, Tabs, Notch, tooltip visuals, chart domains, theme parsing, and overlay lifecycle responsibilities now live in private helpers. CLI manifests include those files; retain them when copying sources. Motion loops must respect the theme's zero duration, live reduced-motion changes, hidden documents, and offscreen visibility. Use the private motion-loop attachment for CSS loops; imperative animations retain their own play/pause lifecycle.
