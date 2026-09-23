@@ -129,7 +129,7 @@
                 class="pointer-events-none absolute inset-y-0 right-[18rem] hidden border-r border-[var(--docs-rule)] xl:block"
             ></span>
             <div class="flex justify-start xl:px-5"><DocsPager /></div>
-            <div class="flex justify-end xl:px-8"><CopyPage /></div>
+            <div class="flex justify-end xl:px-5"><CopyPage /></div>
             <div class="flex min-w-0 items-center gap-2 xl:px-5">
                 {#if pageInfo.current}
                     <HoverCard.Root>

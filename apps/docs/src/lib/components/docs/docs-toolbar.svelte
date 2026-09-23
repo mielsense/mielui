@@ -136,7 +136,7 @@
     <header
         class="relative z-20 mx-auto flex h-[calc(var(--docs-row-height)-var(--border-size))] w-full shrink-0 items-center justify-between gap-4 px-2 sm:px-5 xl:grid xl:grid-cols-[minmax(0,1fr)_18rem] xl:gap-0 xl:px-0"
     >
-        <div class="mx-auto flex w-full min-w-0 items-center justify-between gap-4 lg:px-8">
+        <div class="mx-auto flex w-full min-w-0 items-center justify-between gap-4 lg:px-5">
             <div class="flex min-w-0 items-center gap-2 lg:hidden">
                 <Tooltip.Root>
                     <Tooltip.Trigger>

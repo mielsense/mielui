@@ -182,3 +182,5 @@
 - Slow the page-outline hook’s glide while retaining direct section targeting and reduced-motion behavior.
 
 - Remove the doubled divider between catalog search and the first section.
+
+- Match article, toolbar, and footer side gutters to the page-outline header.

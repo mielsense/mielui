@@ -322,3 +322,7 @@ additional card wrapper. Keep
 the placeholder visualization behind the message and preserve live status
 announcements. Chart tooltips share the same opaque inset surface in every chart
 family; do not fall back to a native browser title tooltip.
+
+Documentation content, its toolbar and footer, and rail headings share the same
+horizontal inset of five theme spacing units. Keep that gutter consistent instead
+of widening the article padding at desktop breakpoints.
