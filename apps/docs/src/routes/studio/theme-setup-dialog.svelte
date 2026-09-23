@@ -32,7 +32,7 @@
             </Dialog.Description>
         </Dialog.Header>
         <div class="flex min-w-0 flex-col gap-5">
-            <Tabs.Root bind:value={setupMode} variant="segmented">
+            <Tabs.Root bind:value={setupMode} variant="ghost">
                 <Tabs.List>
                     <Tabs.Trigger value="new">Initialize Mielui</Tabs.Trigger>
                     <Tabs.Trigger value="existing">Existing setup</Tabs.Trigger>

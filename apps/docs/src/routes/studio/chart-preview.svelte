@@ -1,6 +1,5 @@
 <script lang="ts">
     import { Button } from '@mielui/svelte/components/button';
-    import * as Card from '@mielui/svelte/components/card';
     import * as Chart from '@mielui/svelte/components/chart';
     import { Gauge } from '@mielui/svelte/components/gauge';
     import * as Heatmap from '@mielui/svelte/components/heatmap';
@@ -69,32 +68,36 @@
 </script>
 
 <ScrollArea class="h-full min-h-0" showCues={false}>
-    <div class="@container w-full p-5 @min-[640px]:p-8">
-        <header class="mb-6 flex flex-wrap items-start justify-between gap-5">
-            <div>
-                <h2 class="text-xl font-semibold">Charts</h2>
-                <p class="mt-1 text-sm text-foreground-muted">
-                    Sample workspace data. Change the year to see the charts update.
-                </p>
-            </div>
+    <div class="@container w-full">
+        <header
+            class="flex min-h-[var(--docs-row-height)] flex-wrap items-center justify-between gap-3 border-b-[length:var(--border-size)] border-[var(--docs-rule)] bg-[var(--docs-chrome)] px-6 py-2"
+        >
+            <h2 class="text-sm font-semibold">Revenue and acquisition</h2>
             <div class="flex flex-wrap items-center gap-4">
-                <Tabs.Root bind:value={year} variant="segmented">
-                    <Tabs.List>
+                <Tabs.Root bind:value={year} variant="ghost">
+                    <Tabs.List aria-label="Sample year">
                         <Tabs.Trigger value="2025">2025</Tabs.Trigger>
                         <Tabs.Trigger value="2026">2026</Tabs.Trigger>
                     </Tabs.List>
                 </Tabs.Root>
                 <Switch bind:checked={live} label="Live motion" />
-                <Button variant="outline" onclick={() => { revision += 1; }}>Replay</Button>
+                <Button
+                    variant="outline"
+                    onclick={() => {
+                    revision += 1;
+                }}
+                >
+                    Replay
+                </Button>
             </div>
         </header>
         {#key revision}
-            <div class="grid min-w-0 gap-4 @4xl:grid-cols-3">
-                <Card.Root class="min-w-0 @4xl:col-span-2">
-                    <Card.Header>
-                        <Card.Title level={3}>Revenue</Card.Title>
-                        <Card.Description>January to June{year}</Card.Description>
-                    </Card.Header>
+            <div class="grid min-w-0 gap-8 px-6 py-8 @4xl:grid-cols-3">
+                <section class="min-w-0 @4xl:col-span-2">
+                    <header class="flex flex-col gap-1">
+                        <h3 class="text-sm font-medium">Revenue</h3>
+                        <p class="text-sm text-foreground-muted">{`January to June ${year}`}</p>
+                    </header>
                     <p class="mb-6 mt-4 text-3xl font-semibold tabular-nums tracking-tight">
                         {money.format(total)}
                     </p>
@@ -113,12 +116,14 @@
                         </Chart.Plot>
                         <Chart.Tooltip />
                     </Chart.Root>
-                </Card.Root>
-                <Card.Root class="min-w-0">
-                    <Card.Header>
-                        <Card.Title level={3}>Acquisition</Card.Title>
-                        <Card.Description>Where visitors found your workspace</Card.Description>
-                    </Card.Header>
+                </section>
+                <section class="min-w-0">
+                    <header class="flex flex-col gap-1">
+                        <h3 class="text-sm font-medium">Acquisition</h3>
+                        <p class="text-sm text-foreground-muted">
+                            Where visitors found your workspace
+                        </p>
+                    </header>
                     <div class="mt-6">
                         <PieChart.Root
                             data={channels}
@@ -134,12 +139,21 @@
                             <PieChart.Tooltip />
                         </PieChart.Root>
                     </div>
-                </Card.Root>
-                <Card.Root class="min-w-0 @4xl:col-span-2">
-                    <Card.Header>
-                        <Card.Title level={3}>Visits by device</Card.Title>
-                        <Card.Description>Weekday traffic, desktop and mobile</Card.Description>
-                    </Card.Header>
+                </section>
+            </div>
+            <h2
+                class="flex h-[var(--docs-row-height)] items-center border-y-[length:var(--border-size)] border-[var(--docs-rule)] bg-[var(--docs-chrome)] px-6 text-sm font-semibold"
+            >
+                Traffic and targets
+            </h2>
+            <div class="grid min-w-0 gap-8 px-6 py-8 @4xl:grid-cols-3">
+                <section class="min-w-0 @4xl:col-span-2">
+                    <header class="flex flex-col gap-1">
+                        <h3 class="text-sm font-medium">Visits by device</h3>
+                        <p class="text-sm text-foreground-muted">
+                            Weekday traffic, desktop and mobile
+                        </p>
+                    </header>
                     <Chart.Root
                         data={traffic}
                         config={trafficConfig}
@@ -158,12 +172,12 @@
                         </Chart.Plot>
                         <Chart.Tooltip />
                     </Chart.Root>
-                </Card.Root>
-                <Card.Root class="min-w-0">
-                    <Card.Header>
-                        <Card.Title level={3}>Against the plan</Card.Title>
-                        <Card.Description>Monthly revenue and target</Card.Description>
-                    </Card.Header>
+                </section>
+                <section class="min-w-0">
+                    <header class="flex flex-col gap-1">
+                        <h3 class="text-sm font-medium">Against the plan</h3>
+                        <p class="text-sm text-foreground-muted">Monthly revenue and target</p>
+                    </header>
                     <Chart.Root
                         data={revenue}
                         config={revenueConfig}
@@ -181,12 +195,21 @@
                         <Chart.Legend />
                         <Chart.Tooltip />
                     </Chart.Root>
-                </Card.Root>
-                <Card.Root class="min-w-0 @4xl:col-span-3">
-                    <Card.Header>
-                        <Card.Title level={3}>A year of activity</Card.Title>
-                        <Card.Description>Contributions across the workspace</Card.Description>
-                    </Card.Header>
+                </section>
+            </div>
+            <h2
+                class="flex h-[var(--docs-row-height)] items-center border-y-[length:var(--border-size)] border-[var(--docs-rule)] bg-[var(--docs-chrome)] px-6 text-sm font-semibold"
+            >
+                Activity
+            </h2>
+            <div class="px-6 py-8">
+                <section class="min-w-0 @4xl:col-span-3">
+                    <header class="flex flex-col gap-1">
+                        <h3 class="text-sm font-medium">A year of activity</h3>
+                        <p class="text-sm text-foreground-muted">
+                            Contributions across the workspace
+                        </p>
+                    </header>
                     <div class="mt-6 flex min-w-0 flex-col gap-8 @5xl:flex-row @5xl:items-center">
                         <div class="min-w-0 flex-1 overflow-x-auto">
                             <Heatmap.Root
@@ -207,7 +230,7 @@
                             </div>
                         </div>
                     </div>
-                </Card.Root>
+                </section>
             </div>
         {/key}
     </div>

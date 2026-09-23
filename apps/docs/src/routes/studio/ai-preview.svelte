@@ -94,7 +94,7 @@
         '**Recommendation:** finish the interaction review first, then schedule the rollout with the people who will monitor it.'
     ].join('\n');
 
-    let composerHeight = $state(180);
+    let composerHeight = $state(0);
     let model = $state('Mielui 3.1');
     let prompt = $state('');
     let question = $state('Review the release notes and help me plan the next release.');
@@ -156,27 +156,20 @@
     });
 </script>
 
-<div
-    class="@container relative flex h-full min-h-0 w-full flex-col gap-4 p-4 @min-[640px]:p-6"
-    style:--composer-clearance={`${composerHeight + 32}px`}
->
+<div class="@container relative flex h-full min-h-0 w-full flex-col">
     <header
-        class="flex shrink-0 flex-wrap items-start justify-between gap-3 border-b border-border pb-4"
+        class="flex h-[var(--docs-row-height)] shrink-0 items-center justify-between gap-3 border-b-[length:var(--border-size)] border-[var(--docs-rule)] bg-[var(--docs-chrome)] px-6"
     >
-        <div>
-            <h2 class="text-xl font-semibold">Release workspace</h2>
-            <p class="mt-1 text-sm text-foreground-muted">
-                A simulated conversation. Files stay on your device.
-            </p>
-        </div>
-        <Button variant="outline" onclick={() => stream(releasePlan)} disabled={generating}>
+        <h2 class="text-sm font-semibold">Release workspace</h2>
+        <Button variant="ghost" onclick={() => stream(releasePlan)} disabled={generating}>
             Replay response
         </Button>
     </header>
     <Conversation.Root class="min-h-0 flex-1">
         <Conversation.Content
             aria-label="Release planning conversation"
-            transcriptClass="max-w-none gap-6 px-0 pt-2 pb-[var(--composer-clearance)] sm:px-0"
+            transcriptClass="max-w-none gap-8 px-6 pt-8 pb-[calc(var(--composer-height)+2rem)] sm:px-6"
+            style={`--composer-height: ${composerHeight}px`}
         >
             <Message.Root from="user">
                 <Message.Content class="space-y-3">
@@ -228,11 +221,14 @@
                 </Message.Content>
             </Message.Root>
         </Conversation.Content>
-        <Conversation.ScrollButton class="bottom-[var(--composer-clearance)]" />
+        <Conversation.ScrollButton
+            class="-translate-y-[var(--composer-height)]"
+            style={`--composer-height: ${composerHeight}px`}
+        />
     </Conversation.Root>
     <div
         bind:clientHeight={composerHeight}
-        class="pointer-events-none absolute inset-x-4 bottom-4 z-10 @min-[640px]:inset-x-6 @min-[640px]:bottom-6"
+        class="pointer-events-none absolute inset-x-0 bottom-0 z-10 px-6 pb-6 pt-3"
     >
         <Attachment.Root
             bind:files
@@ -241,7 +237,7 @@
             onReject={(items) => {
             rejected = items;
         }}
-            class="pointer-events-auto mx-auto w-full max-w-3xl space-y-2"
+            class="pointer-events-auto mx-auto w-full max-w-2xl space-y-2"
         >
             <Attachment.List />
             {#each rejected as item}
