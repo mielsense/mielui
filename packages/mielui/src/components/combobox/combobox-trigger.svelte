@@ -129,7 +129,7 @@
             {onclick}
             class={cn(inputClasses, 'inline-flex w-full items-center truncate pe-5')}
         >
-            {combobox.selected?.label ?? placeholder}
+            {context.selectionLabel || placeholder}
         </ComboboxPrimitive.Trigger>
     {:else}
         <ComboboxPrimitive.Input

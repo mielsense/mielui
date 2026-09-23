@@ -9,6 +9,8 @@
     import GlassSrc from './examples/glass.svelte?raw';
     import Hero from './examples/hero.svelte';
     import HeroSrc from './examples/hero.svelte?raw';
+    import Multiple from './examples/multiple.svelte';
+    import MultipleSrc from './examples/multiple.svelte?raw';
     import Scrollable from './examples/scrollable.svelte';
     import ScrollableSrc from './examples/scrollable.svelte?raw';
 
@@ -17,12 +19,17 @@
 
 <svelte:head>
     <title>Mielui · Select</title>
-    <meta name="description" content="Single-choice dropdown for short, known option lists." />
+    <meta
+        name="description"
+        content="Single or multiple selection from a short, known option list."
+    />
 </svelte:head>
 
 <div data-docs-page class="flex flex-col gap-10">
     <!-- ─── Header ────────────────────────────────────────────────── -->
-    <PageIntro title="Select">A dropdown for choosing one option from a short list.</PageIntro>
+    <PageIntro title="Select">
+        A dropdown for choosing one or more options from a short list.
+    </PageIntro>
 
     <!-- ─── Hero Example ──────────────────────────────────────────── -->
     <section id="hero" class="scroll-mt-20 flex flex-col gap-4">
@@ -49,6 +56,14 @@
             mounted, a preselected value is displayed as its value string.
         </Typography.Text>
 
+        <Typography.Text>
+            Single selection is the default and binds a string. Set type="multiple" to bind a string
+            array; selecting an item toggles it without closing the menu. Select.Value joins the
+            selected labels. Use name to include the selection in form submission; multiple values
+            use the same field name and can be read with FormData.getAll(). Root also accepts
+            disabled and required.
+        </Typography.Text>
+
         <CodeBlock
             code={`import * as Select from '$lib/mielui/components/select';\n\n<Select.Root bind:value={role}>\n  <Select.Trigger aria-label="Role"><Select.Value placeholder="Select a role" /></Select.Trigger>\n  <Select.Content>\n    <Select.Item value="designer">Designer</Select.Item>\n  </Select.Content>\n</Select.Root>`}
             lang="svelte"
@@ -60,6 +75,15 @@
     <section id="examples" class="scroll-mt-20 flex flex-col gap-10">
         <div>
             <Typography.H2 class="docs-section-heading">Examples</Typography.H2>
+        </div>
+
+        <div id="multiple" class="scroll-mt-20 flex flex-col gap-3">
+            <Typography.H3 class="docs-subsection-heading">Multiple selection</Typography.H3>
+            <Typography.Text variant="supporting">
+                Select several teams, clear the selection, or submit the named values. Disabled
+                options remain unavailable. Escape closes the menu and returns focus to the trigger.
+            </Typography.Text>
+            <ComponentPreview code={MultipleSrc}><Multiple /></ComponentPreview>
         </div>
 
         <div id="scrollable" class="scroll-mt-20 flex flex-col gap-3">

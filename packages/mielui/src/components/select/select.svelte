@@ -6,27 +6,38 @@
 
     let {
         children,
-        value = $bindable(''),
+        type = 'single',
+        value = $bindable(type === 'multiple' ? [] : ''),
+        name,
+        disabled = false,
+        required = false,
         open = $bindable(false),
         onValueChange,
         onOpenChange
     }: SelectProps = $props();
+    const singleValue = $derived(typeof value === 'string' ? value : '');
+    const multipleValue = $derived(Array.isArray(value) ? value : []);
+    const selectedValues = $derived(
+        type === 'multiple' ? multipleValue : singleValue ? [singleValue] : []
+    );
     const id = $props.id();
     let triggerId = $state(`${id}-trigger`);
     const labels = new SvelteMap<string, string>();
     const values = new Set<string>();
     const selectionState = {
         get value() {
-            return value;
+            return type === 'multiple' ? multipleValue : singleValue;
         },
-        set value(next: string) {
+        set value(next: string | string[]) {
             value = next;
         },
         get selectedLabel() {
-            return labels.get(value) ?? value;
+            return selectedValues.map((item) => labels.get(item) ?? item).join(', ');
         },
         set selectedLabel(next: string) {
-            labels.set(value, next);
+            if (type === 'single' && singleValue) {
+                labels.set(singleValue, next);
+            }
         }
     };
     const context: SelectContext = {
@@ -59,8 +70,45 @@
         }
         onOpenChange?.(next);
     }
+    function updateSingle(next: string) {
+        value = next;
+        if (type === 'single') {
+            (onValueChange as ((value: string) => void) | undefined)?.(next);
+        }
+    }
+
+    function updateMultiple(next: string[]) {
+        value = next;
+        if (type === 'multiple') {
+            (onValueChange as ((value: string[]) => void) | undefined)?.(next);
+        }
+    }
 </script>
 
-<BitsSelect.Root type="single" bind:value bind:open {onValueChange} onOpenChange={updateOpen}>
-    {@render children?.()}
-</BitsSelect.Root>
+{#if type === 'multiple'}
+    <BitsSelect.Root
+        type="multiple"
+        value={multipleValue}
+        bind:open
+        onValueChange={updateMultiple}
+        onOpenChange={updateOpen}
+        {name}
+        {disabled}
+        {required}
+    >
+        {@render children?.()}
+    </BitsSelect.Root>
+{:else}
+    <BitsSelect.Root
+        type="single"
+        value={singleValue}
+        bind:open
+        onValueChange={updateSingle}
+        onOpenChange={updateOpen}
+        {name}
+        {disabled}
+        {required}
+    >
+        {@render children?.()}
+    </BitsSelect.Root>
+{/if}

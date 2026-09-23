@@ -66,7 +66,7 @@
                 id={`${context.id}-value`}
                 class={cn(
             'flex min-w-0 flex-1 items-center gap-2 overflow-hidden pr-2 text-left [&_svg]:shrink-0',
-            state.value !== '' ? 'text-foreground' : 'text-foreground-muted'
+            state.value.length > 0 ? 'text-foreground' : 'text-foreground-muted'
         )}
             >
                 {#if children}

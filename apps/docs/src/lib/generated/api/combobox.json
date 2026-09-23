@@ -1275,8 +1275,17 @@
                 "inherited": false
             },
             {
+                "name": "type",
+                "type": "\"single\" | undefined | \"multiple\"",
+                "required": false,
+                "bindable": false,
+                "default": null,
+                "description": "",
+                "inherited": false
+            },
+            {
                 "name": "value",
-                "type": "string | undefined",
+                "type": "string | undefined | string[] | undefined",
                 "required": false,
                 "bindable": true,
                 "default": "undefined",
@@ -1285,7 +1294,7 @@
             },
             {
                 "name": "onValueChange",
-                "type": "((value: string) => void) | undefined",
+                "type": "((value: string) => void) | undefined | ((value: string[]) => void) | undefined",
                 "required": false,
                 "bindable": false,
                 "default": null,

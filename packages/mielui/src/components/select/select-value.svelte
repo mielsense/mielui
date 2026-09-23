@@ -10,10 +10,10 @@
         class?: string;
     } = $props();
 
-    const { state, labels } = getSelectContext();
+    const { state } = getSelectContext();
 
-    const hasValue = $derived(state.value !== '');
-    const label = $derived(hasValue ? state.selectedLabel || labels.get(state.value) || '' : '');
+    const hasValue = $derived(state.value.length > 0);
+    const label = $derived(hasValue ? state.selectedLabel : '');
     const text = $derived(hasValue ? label : placeholder);
 </script>
 

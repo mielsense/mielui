@@ -13,6 +13,8 @@
     import InputSearchSrc from './examples/input-search.svelte?raw';
     import MenuSearch from './examples/menu-search.svelte';
     import MenuSearchSrc from './examples/menu-search.svelte?raw';
+    import Multiple from './examples/multiple.svelte';
+    import MultipleSrc from './examples/multiple.svelte?raw';
     import Scrollable from './examples/scrollable.svelte';
     import ScrollableSrc from './examples/scrollable.svelte?raw';
 
@@ -51,9 +53,10 @@
     <section id="usage" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Usage</Typography.H2>
         <Typography.Text>
-            Bind value to the selected option. Clicking an option or pressing Enter updates value
-            and calls onValueChange. Keyboard navigation skips disabled options. Changing an item
-            label updates the selected label without replacing an active search.
+            Bind value to the selected option. Single selection is the default. Clicking an option
+            or pressing Enter updates value and calls onValueChange. Keyboard navigation skips
+            disabled options. Changing an item label updates the selected label without replacing an
+            active search.
         </Typography.Text>
         <Typography.Text>
             Set name on Trigger to submit the selected value. Search text and labels are not
@@ -62,9 +65,18 @@
         </Typography.Text>
         <Typography.Text>
             An item callback runs when that option changes the selection. Selecting the current
-            option again closes the menu without reporting a value change. Call preventDefault() in
-            Trigger's onclick to cancel click activation. Input appearance can still open on focus
-            or typing. Trigger's disabled prop disables both editing and its clear action.
+            option again in single mode closes the menu without reporting a value change. Call
+            preventDefault() in Trigger's onclick to cancel click activation. Input appearance can
+            still open on focus or typing. Trigger's disabled prop disables both editing and its
+            clear action.
+        </Typography.Text>
+
+        <Typography.Text>
+            Set<Typography.InlineCode>type="multiple"</Typography.InlineCode> on Root and bind a
+            string array to value to choose several options. Selecting an item toggles it, clears
+            the search, and keeps the menu open. The trigger lists selected labels; Escape or an
+            outside click closes the menu. With name on Trigger, each selected value submits under
+            that name.
         </Typography.Text>
 
         <CodeBlock
@@ -85,6 +97,16 @@
             <Typography.H3 class="docs-subsection-heading">Basic usage</Typography.H3>
             <ComponentPreview code={BasicSrc}>
                 <Basic />
+            </ComponentPreview>
+        </div>
+
+        <div id="multiple" class="scroll-mt-20 flex flex-col gap-3">
+            <Typography.H3 class="docs-subsection-heading">Multiple selection</Typography.H3>
+            <Typography.Text variant="supporting">
+                Search for teams and toggle each selection without reopening the menu.
+            </Typography.Text>
+            <ComponentPreview code={MultipleSrc}>
+                <Multiple />
             </ComponentPreview>
         </div>
 

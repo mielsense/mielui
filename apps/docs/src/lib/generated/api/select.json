@@ -663,29 +663,11 @@
         "name": "Root",
         "properties": [
             {
-                "name": "value",
-                "type": "string | undefined",
-                "required": false,
-                "bindable": true,
-                "default": "''",
-                "description": "",
-                "inherited": false
-            },
-            {
                 "name": "open",
                 "type": "boolean | undefined",
                 "required": false,
                 "bindable": true,
                 "default": "false",
-                "description": "",
-                "inherited": false
-            },
-            {
-                "name": "onValueChange",
-                "type": "((value: string) => void) | undefined",
-                "required": false,
-                "bindable": false,
-                "default": null,
                 "description": "",
                 "inherited": false
             },
@@ -699,8 +681,62 @@
                 "inherited": false
             },
             {
+                "name": "name",
+                "type": "string | undefined",
+                "required": false,
+                "bindable": false,
+                "default": null,
+                "description": "",
+                "inherited": false
+            },
+            {
+                "name": "disabled",
+                "type": "boolean | undefined",
+                "required": false,
+                "bindable": false,
+                "default": "false",
+                "description": "",
+                "inherited": false
+            },
+            {
+                "name": "required",
+                "type": "boolean | undefined",
+                "required": false,
+                "bindable": false,
+                "default": "false",
+                "description": "",
+                "inherited": false
+            },
+            {
                 "name": "children",
                 "type": "Snippet<[]> | undefined",
+                "required": false,
+                "bindable": false,
+                "default": null,
+                "description": "",
+                "inherited": false
+            },
+            {
+                "name": "type",
+                "type": "\"single\" | undefined | \"multiple\"",
+                "required": false,
+                "bindable": false,
+                "default": "'single'",
+                "description": "",
+                "inherited": false
+            },
+            {
+                "name": "value",
+                "type": "string | undefined | string[] | undefined",
+                "required": false,
+                "bindable": true,
+                "default": "type === 'multiple' ? [] : ''",
+                "description": "",
+                "inherited": false
+            },
+            {
+                "name": "onValueChange",
+                "type": "((value: string) => void) | undefined | ((value: string[]) => void) | undefined",
                 "required": false,
                 "bindable": false,
                 "default": null,

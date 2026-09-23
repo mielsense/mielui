@@ -27,10 +27,19 @@ export type ComboboxState = {
     selected?: ComboboxItem;
 };
 
-export type ComboboxRootProps = PopoverProps & {
-    value?: string;
-    onValueChange?: (value: string) => void;
-};
+export type ComboboxRootProps = PopoverProps &
+    (
+        | {
+              type?: 'single';
+              value?: string;
+              onValueChange?: (value: string) => void;
+          }
+        | {
+              type: 'multiple';
+              value?: string[];
+              onValueChange?: (value: string[]) => void;
+          }
+    );
 
 export type ComboboxTriggerProps = Omit<
     PopoverTriggerProps,

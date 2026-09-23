@@ -9,8 +9,9 @@ export type RegisteredComboboxItem = ComboboxItem & {
 };
 
 type ControllerOptions = {
-    getValue: () => string | undefined;
-    setValue: (value: string) => void;
+    getValue: () => string | string[] | undefined;
+    getMultiple: () => boolean;
+    setValue: (value: string | string[]) => void;
     getOpen: () => boolean;
     setOpen: (open: boolean) => void;
     getPlacement: () => Placement;
@@ -46,9 +47,20 @@ export function createComboboxController(options: ControllerOptions) {
             item
         }))
     );
-    const selected = $derived.by(() => {
+    const selectedValues = $derived.by(() => {
         const value = options.getValue();
-        if (!value) {
+        return Array.isArray(value) ? value : value ? [value] : [];
+    });
+    const selectionLabel = $derived(
+        selectedValues
+            .map((value) => {
+                return entries.find((entry) => entry.value === value)?.label ?? value;
+            })
+            .join(', ')
+    );
+    const selected = $derived.by(() => {
+        const value = selectedValues[0];
+        if (value === undefined) {
             return undefined;
         }
         return (
@@ -93,7 +105,7 @@ export function createComboboxController(options: ControllerOptions) {
         cancelHover();
         if (next) {
             query =
-                appearance === 'input' && searchPlacement === 'trigger'
+                !options.getMultiple() && appearance === 'input' && searchPlacement === 'trigger'
                     ? (selected?.label ?? '')
                     : '';
         }
@@ -135,9 +147,41 @@ export function createComboboxController(options: ControllerOptions) {
         entry?.item.callback?.();
     }
 
+    function commitValues(next: string[]) {
+        if (disabled) {
+            return;
+        }
+        const values = [...new Set(next)];
+        const changed = entries.filter((entry) => {
+            return values.includes(entry.value) !== selectedValues.includes(entry.value);
+        });
+        if (changed.some((entry) => entry.disabled)) {
+            return;
+        }
+        if (
+            values.length === selectedValues.length &&
+            values.every((value) => selectedValues.includes(value))
+        ) {
+            return;
+        }
+        options.setValue(values);
+        query = '';
+        for (const entry of changed) {
+            entry.item.callback?.();
+        }
+    }
+
     function selectItem(item: ComboboxItem) {
-        commitValue(item.value);
-        setOpen(false);
+        if (options.getMultiple()) {
+            commitValues(
+                selectedValues.includes(item.value)
+                    ? selectedValues.filter((value) => value !== item.value)
+                    : [...selectedValues, item.value]
+            );
+        } else {
+            commitValue(item.value);
+            setOpen(false);
+        }
     }
 
     function clearSelection() {
@@ -146,7 +190,7 @@ export function createComboboxController(options: ControllerOptions) {
         }
         query = '';
         activeValue = undefined;
-        options.setValue('');
+        options.setValue(options.getMultiple() ? [] : '');
     }
 
     function handleInput(event: Event) {
@@ -239,11 +283,17 @@ export function createComboboxController(options: ControllerOptions) {
 
     return {
         state,
+        get multiple() {
+            return options.getMultiple();
+        },
+        get selectionLabel() {
+            return selectionLabel;
+        },
         get items() {
             return entries;
         },
         get inputValue() {
-            return options.getOpen() ? query : (selected?.label ?? '');
+            return options.getOpen() ? query : selectionLabel;
         },
         get disabled() {
             return disabled;
@@ -307,6 +357,7 @@ export function createComboboxController(options: ControllerOptions) {
         },
         setOpen,
         commitValue,
+        commitValues,
         selectItem,
         clearSelection,
         handleInput,

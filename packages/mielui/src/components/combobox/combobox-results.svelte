@@ -15,6 +15,7 @@
             <div
                 {...props}
                 role="listbox"
+                aria-multiselectable={context.multiple || undefined}
                 aria-labelledby={context.trigger?.id || undefined}
                 aria-label={context.trigger?.id ? undefined : 'Options'}
                 data-ui="combobox-results"

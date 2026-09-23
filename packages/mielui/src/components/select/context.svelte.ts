@@ -7,7 +7,7 @@ export type SelectContext = {
     onTriggerOpen?: () => void;
     readonly open: boolean;
     setOpen: (open: boolean) => void;
-    state: SelectState;
+    state: SelectState<string | string[]>;
     labels: Map<string, string>;
     values: Set<string>;
 };
