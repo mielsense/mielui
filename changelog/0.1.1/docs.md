@@ -161,3 +161,5 @@
 - Add a single-file upload example that replaces the dropzone with the selected file.
 
 - Gently snap sidebar groups and page sections to the top while preserving free scrolling within long sections and reduced-motion preferences.
+
+- Keep the sidebar at the position you scroll to, with sticky group headings but no automatic snapping.

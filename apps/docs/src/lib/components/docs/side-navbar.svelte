@@ -24,10 +24,8 @@
     }
 </script>
 
-<aside
-    class={`${classProp} hide-scrollbar flex flex-col overflow-y-auto overscroll-none snap-y snap-proximity motion-safe:scroll-smooth motion-reduce:snap-none`}
->
-    <section class="flex shrink-0 snap-start flex-col">
+<aside class={`${classProp} hide-scrollbar flex flex-col overflow-y-auto overscroll-none`}>
+    <section class="flex shrink-0 flex-col">
         <RailHeading title="Getting started" />
         <div class="isolate flex flex-col px-3 py-3">
             {#each gettingStartedItems as item (item.href)}
@@ -51,7 +49,7 @@
     </section>
 
     {#each navigationGroups as group (group.id)}
-        <section class="relative flex shrink-0 snap-start flex-col">
+        <section class="relative flex shrink-0 flex-col">
             <span
                 aria-hidden="true"
                 class="pointer-events-none absolute inset-x-0 -top-px z-30 border-t-[length:var(--border-size)] border-[var(--docs-rule)]"
