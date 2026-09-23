@@ -27,8 +27,8 @@ export function createThemeEditorStorage(state: ThemeEditorState) {
                     state.baseTheme = { ...preset };
                 }
             }
-            if (typeof value.headerSize === 'number') {
-                state.headerSize = value.headerSize;
+            if (typeof value.headerSize === 'number' && Number.isFinite(value.headerSize)) {
+                state.headerSize = Math.max(10, Math.min(32, value.headerSize));
             }
             if (value.headerWeight) {
                 state.headerWeight = value.headerWeight;

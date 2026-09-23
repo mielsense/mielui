@@ -220,8 +220,8 @@ export function createThemeEditor() {
     function headerSliderProps(): SliderProps {
         return {
             value: state.headerSize,
-            min: 16,
-            max: 48,
+            min: 10,
+            max: 32,
             step: 1,
             label: 'Header size',
             class: 'h-4',
