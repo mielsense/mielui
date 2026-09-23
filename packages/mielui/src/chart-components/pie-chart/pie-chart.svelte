@@ -158,24 +158,26 @@
     {...rest}
 >
     {@render children?.()}
-    <table class="sr-only">
-        <caption>
-            {label}
-            {loading ? ' — loading' : ''}
-        </caption>
-        <thead>
-            <tr>
-                <th scope="col">Category</th>
-                <th scope="col">Value</th>
-            </tr>
-        </thead>
-        <tbody>
-            {#each context.data as item (item.key)}
+    <div class="sr-only">
+        <table>
+            <caption>
+                {label}
+                {loading ? ' — loading' : ''}
+            </caption>
+            <thead>
                 <tr>
-                    <th scope="row">{context.label(item.key)}</th>
-                    <td>{context.format(item)}</td>
+                    <th scope="col">Category</th>
+                    <th scope="col">Value</th>
                 </tr>
-            {/each}
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+                {#each context.data as item (item.key)}
+                    <tr>
+                        <th scope="row">{context.label(item.key)}</th>
+                        <td>{context.format(item)}</td>
+                    </tr>
+                {/each}
+            </tbody>
+        </table>
+    </div>
 </div>

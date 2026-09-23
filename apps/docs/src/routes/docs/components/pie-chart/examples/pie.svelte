@@ -9,17 +9,17 @@
     const config = {
         paid: {
             label: 'Paid',
-            color: 'var(--color-primary)',
+            color: 'oklch(0.74 0.12 25)',
             format: (value: number) => `${value}%`
         },
         trial: {
             label: 'Trial',
-            color: 'var(--color-success)',
+            color: 'oklch(0.84 0.12 85)',
             format: (value: number) => `${value}%`
         },
         free: {
             label: 'Free',
-            color: 'var(--color-warning)',
+            color: 'oklch(0.8 0.09 55)',
             format: (value: number) => `${value}%`
         }
     };

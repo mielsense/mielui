@@ -8,8 +8,8 @@
         { key: 'solo', value: annual ? 320 : 580 }
     ]);
     const config = {
-        team: { label: 'Team', color: 'var(--color-primary)' },
-        solo: { label: 'Solo', color: 'var(--color-info)' }
+        team: { label: 'Team', color: 'oklch(0.74 0.12 25)' },
+        solo: { label: 'Solo', color: 'oklch(0.84 0.12 85)' }
     };
 
     function switchPeriod() {

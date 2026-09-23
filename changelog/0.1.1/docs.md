@@ -131,3 +131,5 @@
 - Keep documentation scrolling available over Toast previews and show section descriptions in information hover cards.
 
 - Remove excess space below the final documentation sidebar item.
+
+- Use warm pastel red and yellow series colors in chart examples.

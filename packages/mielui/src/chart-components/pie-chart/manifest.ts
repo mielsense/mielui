@@ -18,7 +18,7 @@ export const manifest: Manifest = {
         'components/pie-chart/slice.svelte',
         'components/pie-chart/manifest.ts'
     ],
-    components: ['_internal/utils', 'skeleton'],
+    components: ['_internal/utils', 'card', 'skeleton'],
     shared: ['utils.cn'],
     peerDependencies: {
         layerchart: '^2.5.0',

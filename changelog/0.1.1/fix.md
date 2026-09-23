@@ -150,3 +150,7 @@
 
 - Keep page-outline jumps aligned after lazy previews load and track section headings by their document position.
 - Remove content and icon morphing from Toast notifications, including stacked Notch notifications.
+
+- Prevent hidden chart data tables from creating extra scroll space inside previews.
+
+- Give chart loading and empty messages the shared inset card appearance.

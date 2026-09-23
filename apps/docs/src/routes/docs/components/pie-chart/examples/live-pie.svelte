@@ -8,9 +8,9 @@
     ];
     const percent = (value: number) => `${value}%`;
     const config = {
-        product: { label: 'Product', color: 'var(--color-primary)', format: percent },
-        engineering: { label: 'Engineering', color: 'var(--color-success)', format: percent },
-        support: { label: 'Support', color: 'var(--color-warning)', format: percent }
+        product: { label: 'Product', color: 'oklch(0.74 0.12 25)', format: percent },
+        engineering: { label: 'Engineering', color: 'oklch(0.84 0.12 85)', format: percent },
+        support: { label: 'Support', color: 'oklch(0.8 0.09 55)', format: percent }
     };
 </script>
 

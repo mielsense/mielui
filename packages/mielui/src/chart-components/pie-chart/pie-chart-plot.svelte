@@ -1,4 +1,5 @@
 <script lang="ts">
+    import * as Card from '@mielui/svelte/components/card';
     import { cn } from '@mielui/svelte/utils';
     import { Chart, Svg } from 'layerchart';
     import { Skeleton } from '../../components/skeleton';
@@ -28,9 +29,13 @@
                     class={cn('size-48 max-h-[85%] max-w-[85%] rounded-full [mask-image:radial-gradient(transparent_50%,#000_51%)]', !context.loading && 'opacity-50')}
                 />
             </div>
-            <span class="relative max-w-28 text-center text-xs leading-relaxed">
-                {context.loading ? 'Loading chart…' : 'No data available'}
-            </span>
+            <Card.Root variant="inset" class="relative mx-6 max-w-xs text-center text-sm">
+                <Card.Content>
+                    <p class="font-medium text-foreground">
+                        {context.loading ? 'Loading chart…' : 'No data available'}
+                    </p>
+                </Card.Content>
+            </Card.Root>
         </div>
     {/if}
 </div>

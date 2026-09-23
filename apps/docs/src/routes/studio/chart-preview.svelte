@@ -29,12 +29,12 @@
     const revenueConfig = {
         revenue: {
             label: 'Revenue',
-            color: 'var(--color-primary)',
+            color: 'oklch(0.74 0.12 25)',
             format: (value: number) => money.format(value)
         },
         target: {
             label: 'Target',
-            color: 'var(--color-foreground-muted)',
+            color: 'oklch(0.84 0.12 85)',
             format: (value: number) => money.format(value)
         }
     };
@@ -46,8 +46,8 @@
         { day: 'Fri', desktop: year === '2026' ? 640 : 480, mobile: 350 }
     ]);
     const trafficConfig = {
-        desktop: { label: 'Desktop', color: 'var(--color-primary)' },
-        mobile: { label: 'Mobile', color: 'var(--color-foreground-muted)' }
+        desktop: { label: 'Desktop', color: 'oklch(0.74 0.12 25)' },
+        mobile: { label: 'Mobile', color: 'oklch(0.84 0.12 85)' }
     };
     const channels = $derived([
         { key: 'direct', value: year === '2026' ? 420 : 340 },
@@ -56,10 +56,10 @@
         { key: 'social', value: 60 }
     ]);
     const channelConfig = {
-        direct: { label: 'Direct', color: 'var(--color-primary)' },
-        search: { label: 'Search', color: 'var(--color-foreground-muted)' },
-        referral: { label: 'Referral', color: 'var(--color-success)' },
-        social: { label: 'Social', color: 'var(--color-warning)' }
+        direct: { label: 'Direct', color: 'oklch(0.74 0.12 25)' },
+        search: { label: 'Search', color: 'oklch(0.84 0.12 85)' },
+        referral: { label: 'Referral', color: 'oklch(0.8 0.09 55)' },
+        social: { label: 'Social', color: 'oklch(0.65 0.07 45)' }
     };
     const activity = Array.from({ length: 364 }, (_, index) => {
         const date = new Date(Date.UTC(2025, 8, 24 + index));

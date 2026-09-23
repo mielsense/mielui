@@ -10,7 +10,7 @@
         { month: 'Jun', revenue: 372, target: 310 }
     ];
     const config = {
-        revenue: { label: 'Revenue', color: 'var(--color-primary)' }
+        revenue: { label: 'Revenue', color: 'oklch(0.74 0.12 25)' }
     };
 </script>
 

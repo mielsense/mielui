@@ -16,7 +16,7 @@
                   { month: 'June', sales: 210 }
               ]
     );
-    const config = { sales: { label: 'Orders', color: 'var(--color-primary)' } };
+    const config = { sales: { label: 'Orders', color: 'oklch(0.74 0.12 25)' } };
 
     function switchRevision() {
         revised = !revised;

@@ -10,9 +10,9 @@
     ];
     const data = $derived(records.filter((item) => includeInternal || item.key !== 'internal'));
     const config = {
-        search: { label: 'Search', color: 'var(--color-primary)' },
-        direct: { label: 'Direct', color: 'var(--color-info)' },
-        internal: { label: 'Internal', color: 'var(--color-success)' }
+        search: { label: 'Search', color: 'oklch(0.74 0.12 25)' },
+        direct: { label: 'Direct', color: 'oklch(0.84 0.12 85)' },
+        internal: { label: 'Internal', color: 'oklch(0.8 0.09 55)' }
     };
 </script>
 

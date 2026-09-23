@@ -11,7 +11,7 @@
         { month: 'May', orders: 72, target: 65 },
         { month: 'June', orders: 61, target: 70 }
     ];
-    const config = { orders: { label: 'Orders', color: 'var(--color-primary)' } };
+    const config = { orders: { label: 'Orders', color: 'oklch(0.74 0.12 25)' } };
     const data = $derived(dataState === 'empty' ? [] : records);
     function changeAnimation(value: string) {
         if (value === 'reveal' || value === 'live' || value === 'none') {

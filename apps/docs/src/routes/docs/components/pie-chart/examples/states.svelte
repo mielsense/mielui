@@ -4,8 +4,8 @@
 
     let state = $state<'loading' | 'empty' | 'ready'>('loading');
     const config = {
-        completed: { label: 'Completed', color: 'var(--color-success)' },
-        remaining: { label: 'Remaining', color: 'var(--color-primary)' }
+        completed: { label: 'Completed', color: 'oklch(0.84 0.12 85)' },
+        remaining: { label: 'Remaining', color: 'oklch(0.74 0.12 25)' }
     };
     const data = $derived(
         state === 'empty'

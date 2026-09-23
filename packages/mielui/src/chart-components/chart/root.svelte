@@ -285,29 +285,31 @@
     class={cn(className, 'relative min-w-0')}
 >
     {@render children?.()}
-    <table class="sr-only">
-        <caption>
-            {label}
-        </caption>
-        <thead>
-            <tr>
-                <th scope="col">{x}</th>
-                {#each keys as key}
-                    <th scope="col">{config[key].label}</th>
-                {/each}
-            </tr>
-        </thead>
-        <tbody>
-            {#each data as row}
+    <div class="sr-only">
+        <table>
+            <caption>
+                {label}
+            </caption>
+            <thead>
                 <tr>
-                    <th scope="row">{String(row[x] ?? '')}</th>
+                    <th scope="col">{x}</th>
                     {#each keys as key}
-                        <td>
-                            {typeof row[key] === 'number' && Number.isFinite(row[key]) ? config[key].format?.(row[key] as number) ?? row[key] : 'No data'}
-                        </td>
+                        <th scope="col">{config[key].label}</th>
                     {/each}
                 </tr>
-            {/each}
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+                {#each data as row}
+                    <tr>
+                        <th scope="row">{String(row[x] ?? '')}</th>
+                        {#each keys as key}
+                            <td>
+                                {typeof row[key] === 'number' && Number.isFinite(row[key]) ? config[key].format?.(row[key] as number) ?? row[key] : 'No data'}
+                            </td>
+                        {/each}
+                    </tr>
+                {/each}
+            </tbody>
+        </table>
+    </div>
 </div>

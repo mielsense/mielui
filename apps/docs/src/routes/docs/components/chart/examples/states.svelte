@@ -10,7 +10,7 @@
         { month: 'June', orders: 61 }
     ];
     const data = $derived(state === 'empty' ? [] : records);
-    const config = { orders: { label: 'Orders', color: 'var(--color-primary)' } };
+    const config = { orders: { label: 'Orders', color: 'oklch(0.74 0.12 25)' } };
 
     function showReady() {
         state = 'ready';

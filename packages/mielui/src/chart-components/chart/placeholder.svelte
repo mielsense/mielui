@@ -1,4 +1,5 @@
 <script lang="ts">
+    import * as Card from '@mielui/svelte/components/card';
     import { Skeleton } from '@mielui/svelte/components/skeleton';
     import type { Snippet } from 'svelte';
     import { getChart } from './context.svelte';
@@ -21,16 +22,16 @@
             </div>
         {/each}
     </div>
-    <div
-        class="rounded-[var(--radius-lg)] bg-background/90 px-5 py-4 text-center text-sm text-foreground-muted backdrop-blur-sm"
-    >
-        {#if children}
-            {@render children()}
-        {:else if loading}
-            Loading chart…
-        {:else}
-            <div class="font-medium text-foreground">No data to display</div>
-            <div class="mt-1 text-xs">Try another period or add your first record.</div>
-        {/if}
-    </div>
+    <Card.Root variant="inset" class="mx-6 max-w-xs text-center text-sm">
+        <Card.Content class="gap-1">
+            {#if children}
+                {@render children()}
+            {:else if loading}
+                <p class="font-medium text-foreground">Loading chart…</p>
+            {:else}
+                <p class="font-medium text-foreground">No data to display</p>
+                <Card.Description>Try another period or add your first record.</Card.Description>
+            {/if}
+        </Card.Content>
+    </Card.Root>
 </div>
