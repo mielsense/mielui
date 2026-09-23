@@ -227,3 +227,7 @@ effect when a segment is active so pointer and keyboard inspection remain stable
 ### Morphing wrapped notification content
 
 Apply Morph separately to each title, description, and icon region. Do not apply it to a container containing interactive controls. Text morphs inherit the region’s whitespace rules so long descriptions wrap at the available width. Toast notification content and icons update directly. Do not apply Morph to stacked Notch notification content; the outer panel retains its size transition.
+
+### Chart state surfaces
+
+Chart loading and empty messages use the shared inset Card, with the placeholder visualization behind the message. Keep live status announcements. Heatmap tooltips now use the same opaque inset frame as other chart tooltips. Gauge’s default track is 15% of its diameter; its colored arc is centered inside the track at 65% of that width. An explicit strokeWidth still sets the track width.

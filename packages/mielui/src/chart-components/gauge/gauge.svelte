@@ -27,8 +27,9 @@
     const safeStrokeWidth = $derived(
         typeof strokeWidth === 'number' && Number.isFinite(strokeWidth)
             ? Math.min(Math.max(strokeWidth, 1), safeSize / 2)
-            : Math.max(2, safeSize / 15)
+            : Math.max(4.5, safeSize * 0.15)
     );
+    const arcStrokeWidth = $derived(Math.max(1, safeStrokeWidth * 0.65));
     const clamped = $derived(Number.isFinite(value) ? Math.min(Math.max(value, 0), safeMax) : 0);
     const radius = $derived((safeSize - safeStrokeWidth) / 2);
     const offset = $derived(100 * (1 - clamped / safeMax));
@@ -126,7 +127,7 @@
             cy={safeSize / 2}
             r={radius}
             fill="none"
-            stroke-width={safeStrokeWidth}
+            stroke-width={arcStrokeWidth}
             stroke-linecap="round"
             bind:this={arc}
             pathLength={100}

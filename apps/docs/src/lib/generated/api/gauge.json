@@ -44,7 +44,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "Arc thickness in pixels. Defaults to one fifteenth of the diameter, with a 2px minimum.",
+                "description": "Track thickness in pixels. Defaults to 15% of the diameter, with a 4.5px minimum. The colored arc is inset within the track.",
                 "inherited": false
             },
             {

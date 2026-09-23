@@ -45,7 +45,8 @@
         <Typography.H2 class="docs-section-heading">Usage</Typography.H2>
         <Typography.Text variant="supporting">
             The default diameter is 120px. Set size explicitly for compact toolbar meters; the arc
-            and center text scale with it. strokeWidth overrides the proportional arc thickness.
+            and center text scale with it. strokeWidth sets the track thickness, which defaults to
+            15% of the diameter. The colored arc is narrower so the track remains visible around it.
             Values are clamped between zero and max. A nonpositive or nonfinite max falls back to
             100, and nonfinite values display zero. Entry and value changes animate unless the theme
             disables motion or the user requests reduced motion.
@@ -99,12 +100,13 @@
         </div>
     </section>
     <section id="data-states" class="flex scroll-mt-20 flex-col gap-4">
-        <SectionHeading title="Data states">
+        <SectionHeading title="Data and animation states">
             {#snippet description()}
-                A missing measurement is different from zero. Render a placeholder while loading and
-                an unavailable message when no measurement exists. Gauge animates entry and value
-                changes; reduced motion or the theme motion setting can disable them. It has no
-                continuous-motion mode.
+                Compare ready, loading, unavailable, zero, and full measurements. Reveal uses the
+                built-in entry animation; Live adds a highlight to the fixed-value arc in this
+                example. None disables motion. The live highlight pauses offscreen, in hidden tabs,
+                and when reduced motion is enabled. Loading and unavailable messages use inset
+                cards.
             {/snippet}
         </SectionHeading>
         <ComponentPreview code={StatesSource}><States /></ComponentPreview>

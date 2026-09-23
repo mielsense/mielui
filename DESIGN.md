@@ -310,3 +310,8 @@ without moving their boundaries or center labels. Pause live effects during pie 
 Observe the stationary chart viewport for visibility, never a moving highlight
 that can leave its clip and strand its own animation. Honor reduced motion,
 zero-duration themes, hidden documents, and offscreen charts.
+
+Chart loading and empty-state messages use the shared inset Card surface. Keep
+the placeholder visualization behind the message and preserve live status
+announcements. Chart tooltips share the same opaque inset surface in every chart
+family; do not fall back to a native browser title tooltip.

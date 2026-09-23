@@ -156,11 +156,12 @@
         </Typography.Text>
     </section>
     <section id="data-states" class="flex scroll-mt-20 flex-col gap-4">
-        <SectionHeading title="Data states">
+        <SectionHeading title="Data and animation states">
             {#snippet description()}
-                An empty dataset means zero activity in the selected range. Loading belongs to the
-                application; show a placeholder while fetching, then mount the calendar. Set endDate
-                so an empty result keeps the same reporting period.
+                Compare loading, empty, and ready layouts with row, column, live, or no motion.
+                Loading and empty cards are application compositions; Root treats missing dates as
+                zero activity. The live example highlights columns without changing contribution
+                counts and pauses while you inspect the calendar.
             {/snippet}
         </SectionHeading>
         <ComponentPreview code={StatesSource}><States /></ComponentPreview>

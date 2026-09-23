@@ -133,3 +133,6 @@
 - Remove excess space below the final documentation sidebar item.
 
 - Use warm pastel red and yellow series colors in chart examples.
+
+
+- Add loading, empty, and live-motion controls to Gauge and Heatmap examples.

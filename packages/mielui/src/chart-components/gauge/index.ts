@@ -11,7 +11,7 @@ export type GaugeProps = {
     label?: string;
     /** Diameter in pixels. Defaults to 120; use an explicit size for inline meters. */
     size?: number;
-    /** Arc thickness in pixels. Defaults to one fifteenth of the diameter, with a 2px minimum. */
+    /** Track thickness in pixels. Defaults to 15% of the diameter, with a 4.5px minimum. The colored arc is inset within the track. */
     strokeWidth?: number;
     tone?: GaugeTone;
 } & DefaultProps;

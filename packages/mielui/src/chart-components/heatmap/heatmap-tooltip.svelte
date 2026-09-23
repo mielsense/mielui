@@ -25,7 +25,17 @@
         if (!target || !label || !element) {
             return;
         }
-        manager.showTooltip(target, label, 'top', 0, cn(className), children ? element : undefined);
+        manager.showTooltip(
+            target,
+            label,
+            'top',
+            0,
+            cn(
+                'mielui-modal-frame min-w-40 p-1! text-xs! text-foreground! bg-background! [&>.mielui-tooltip-label]:block',
+                className
+            ),
+            element
+        );
         return () => {
             manager.hideTooltip(target, 0);
         };
@@ -33,9 +43,20 @@
 </script>
 
 <div {...props} bind:this={element} data-ui="heatmap-tooltip" hidden>
-    {#if children}
-        {@render children()}
-    {:else}
-        {day?.label}
-    {/if}
+    <div class="mielui-inset-surface p-3">
+        {#if children}
+            {@render children()}
+        {:else if day}
+            <div class="mb-2 font-medium">
+                {new Intl.DateTimeFormat(context.locale, { dateStyle: 'medium', timeZone: 'UTC' }).format(new Date(`${day.date}T00:00:00Z`))}
+            </div>
+            <div class="flex items-center gap-2">
+                <span class="size-2 rounded-full bg-primary"></span>
+                <span class="flex-1 text-foreground-muted">Contributions</span>
+                <span class="ml-4 font-medium tabular-nums">
+                    {new Intl.NumberFormat(context.locale).format(day.count)}
+                </span>
+            </div>
+        {/if}
+    </div>
 </div>

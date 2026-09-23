@@ -154,3 +154,5 @@
 - Prevent hidden chart data tables from creating extra scroll space inside previews.
 
 - Give chart loading and empty messages the shared inset card appearance.
+
+- Match Heatmap tooltips to the shared chart surface and inset the Gauge arc inside a thicker track.
