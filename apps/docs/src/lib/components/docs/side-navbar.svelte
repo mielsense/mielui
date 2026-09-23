@@ -1,8 +1,8 @@
 <script lang="ts">
     import { Button } from '@mielui/svelte/components/button';
-    import { getCssDuration } from '@mielui/svelte/transition';
     import { page } from '$app/state';
     import { navigationGroups } from '$lib/components';
+    import { magneticHeadings } from './magnetic-headings';
     import NavigationItems from './navigation-items.svelte';
     import RailHeading from './rail-heading.svelte';
 
@@ -20,64 +20,7 @@
         { href: '/docs/components', label: 'Components' }
     ];
 
-    function settleHeading(node: HTMLElement) {
-        const preference = window.matchMedia('(prefers-reduced-motion: reduce)');
-        let timer: ReturnType<typeof setTimeout> | undefined;
-        let holding = false;
-
-        function settle() {
-            clearTimeout(timer);
-            if (
-                holding ||
-                preference.matches ||
-                getCssDuration(node, '--motion-duration-panel', 180) === 0
-            ) {
-                return;
-            }
-            const viewport = node.getBoundingClientRect();
-            const catchDistance = Math.min(160, node.clientHeight * 0.2);
-            const offsets = Array.from(
-                node.children,
-                (section) => section.getBoundingClientRect().top - viewport.top
-            );
-            const offset = offsets.find((distance) => distance > 1 && distance <= catchDistance);
-            if (offset !== undefined) {
-                node.scrollBy({ top: offset, behavior: 'smooth' });
-            }
-        }
-
-        function schedule() {
-            clearTimeout(timer);
-            timer = setTimeout(settle, 180);
-        }
-
-        function hold() {
-            holding = true;
-            clearTimeout(timer);
-        }
-
-        function release() {
-            if (!holding) {
-                return;
-            }
-            holding = false;
-            schedule();
-        }
-
-        node.addEventListener('scrollend', settle);
-        node.addEventListener('scroll', schedule, { passive: true });
-        node.addEventListener('pointerdown', hold);
-        window.addEventListener('pointerup', release);
-        window.addEventListener('pointercancel', release);
-        return () => {
-            clearTimeout(timer);
-            node.removeEventListener('scrollend', settle);
-            node.removeEventListener('scroll', schedule);
-            node.removeEventListener('pointerdown', hold);
-            window.removeEventListener('pointerup', release);
-            window.removeEventListener('pointercancel', release);
-        };
-    }
+    const settleHeading = magneticHeadings(':scope > section');
 
     function isActive(path: string) {
         return pageName === path;

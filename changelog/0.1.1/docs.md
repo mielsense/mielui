@@ -169,3 +169,6 @@
 - Prevent sidebar settling from targeting offscreen groups; only visible headings approaching the top can catch.
 
 - Align page-outline link gutters and nested indentation with the navigation sidebar.
+
+- Use the same bounded top-only magnetic settling in the content column and sidebar.
+- Give the page-outline hook a full outer gutter and more space before its labels.
