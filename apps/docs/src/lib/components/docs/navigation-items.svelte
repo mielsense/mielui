@@ -38,6 +38,7 @@
                 }))
         ]);
     });
+    const hasNestedEntries = $derived(entries.some((entry) => entry.nested));
 </script>
 
 {#each entries as entry, index (entry.href)}
@@ -47,7 +48,7 @@
         href={entry.href}
         onclick={onNavigate}
         aria-current={page.url.pathname === entry.href ? 'page' : undefined}
-        class={`w-full justify-start rounded-[var(--radius-md)] pe-3 text-left text-sm text-foreground-muted hover:text-foreground aria-[current=page]:text-primary aria-[current=page]:hover:text-primary ${entry.nested ? 'ps-6' : 'ps-3'} ${group.id === 'components' && !entry.nested ? `font-medium text-foreground ${index > 0 ? 'mt-4' : ''}` : ''}`}
+        class={`w-full justify-start rounded-[var(--radius-md)] pe-3 text-left text-sm text-foreground-muted hover:text-foreground aria-[current=page]:text-primary aria-[current=page]:hover:text-primary ${entry.nested ? 'ps-6' : 'ps-3'} ${hasNestedEntries && !entry.nested ? `font-medium text-foreground ${index > 0 ? 'mt-4' : ''}` : ''}`}
     >
         {entry.label}
     </Button>
