@@ -51,6 +51,10 @@
     <section id="usage" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Usage</Typography.H2>
         <Typography.Text variant="supporting">
+            Separators span the inner panel width, including submenus. Menu items retain their
+            padding.
+        </Typography.Text>
+        <Typography.Text variant="supporting">
             Bind open to observe or close the root menu, and use onOpenChange for interaction
             callbacks. Pointer and keyboard opening keep the same state.
         </Typography.Text>
