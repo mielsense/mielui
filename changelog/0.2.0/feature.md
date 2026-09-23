@@ -1,0 +1,1 @@
+- Organize Studio appearance and interaction settings, with toggle buttons for value choices and a compact Advanced colors action in the Color header.

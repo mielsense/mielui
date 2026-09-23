@@ -1,1 +1,2 @@
+- Keep theme choice controls accessibly labelled without unsupported component props.
 - Extend menu separators across the full inner panel width, including submenus.
