@@ -172,3 +172,5 @@
 
 - Use the same bounded top-only magnetic settling in the content column and sidebar.
 - Give the page-outline hook a full outer gutter and more space before its labels.
+
+- Align the footer info icon with the navigation button inset and distinguish outline hover previews with a dashed gray hook.

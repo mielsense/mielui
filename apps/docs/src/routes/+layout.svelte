@@ -134,7 +134,7 @@
                 {#if pageInfo.current}
                     <HoverCard.Root>
                         <HoverCard.Trigger
-                            class="size-8 items-center justify-center rounded-[var(--radius-md)] text-foreground-muted hover:bg-secondary hover:text-foreground focus-visible:outline-2 focus-visible:outline-primary"
+                            class="size-8 [margin-inline-start:calc((18px-var(--spacing)*8)/2)] items-center justify-center rounded-[var(--radius-md)] text-foreground-muted hover:bg-secondary hover:text-foreground focus-visible:outline-2 focus-visible:outline-primary"
                         >
                             <HugeiconsIcon icon={Info} size={18} />
                             <span class="sr-only">{`About ${pageInfo.current.title}`}</span>
