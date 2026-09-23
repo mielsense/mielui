@@ -81,6 +81,19 @@
         <ComponentPreview code={InteractiveSource}><Interactive /></ComponentPreview>
     </section>
 
+    <section id="loading" class="flex scroll-mt-20 flex-col gap-4">
+        <SectionHeading title="Loading and missing measurements" />
+        <Typography.Text variant="supporting">
+            Set loading while a measurement is being fetched. Pass a null value when no measurement
+            is available; zero remains a valid value. Gauge keeps its size, renders the appropriate
+            ring and center label, and announces the state. No wrapper or placeholder is needed.
+        </Typography.Text>
+        <CodeBlock
+            language="svelte"
+            code={`<Gauge value={usage} loading={pending} label="Storage used in GB" />
+<Gauge value={null} label="Storage used in GB" />`}
+        />
+    </section>
     <section id="examples" class="scroll-mt-20 flex flex-col gap-10">
         <SectionHeading title="Examples">
             {#snippet description()}

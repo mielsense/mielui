@@ -234,4 +234,8 @@ Cartesian and pie loading and empty messages use the shared inset Card, with the
 
 ### Gauge and Heatmap live motion
 
-Use Gauge animation="live" or Heatmap.Root animation="live" for continuous highlights. Do not add DOM queries, animation attachments, observers, or timers in consuming examples. Gauge accepts reveal (default), live, and none; Heatmap retains rows (default), columns, and none and adds live. Both preserve data values and honor reduced motion, disabled theme motion, hidden documents, and viewport visibility. Loading and empty presentation remains composed by the caller.
+Use Gauge animation="live" or Heatmap.Root animation="live" for continuous highlights. Do not add DOM queries, animation attachments, observers, or timers in consuming examples. Gauge accepts reveal (default), live, and none; Heatmap retains rows (default), columns, and none and adds live. Both preserve data values and honor reduced motion, disabled theme motion, hidden documents, and viewport visibility. Gauge and Heatmap now handle loading and empty presentation internally.
+
+### Gauge and Heatmap data states
+
+Pass loading=true while data is pending. Heatmap treats days=[] as unavailable data and renders neutral calendar cells; an explicitly supplied day with count=0 is still real data. Gauge accepts value=null for a missing measurement, while value=0 remains a valid meter reading. Both retain their layout, announce unavailable states, and suspend live effects. Consumers should not branch into separate Skeleton or Card trees for these states. Custom Heatmap compositions inherit state handling through Summary, Cell/Grid, Detail, and Tooltip.

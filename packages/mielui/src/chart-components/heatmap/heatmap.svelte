@@ -18,6 +18,7 @@
     type Props = Omit<HTMLAttributes<HTMLDivElement>, 'children'> & {
         days: readonly Day[];
         weeks?: number;
+        loading?: boolean;
         animation?: 'rows' | 'columns' | 'live' | 'none';
         endDate?: string;
         weekStartsOn?: 0 | 1 | 2 | 3 | 4 | 5 | 6;
@@ -28,6 +29,7 @@
     let {
         days,
         weeks = 26,
+        loading = false,
         animation = 'rows',
         endDate,
         weekStartsOn = 0,
@@ -38,6 +40,8 @@
         ...props
     }: Props = $props();
     const model = $derived(calendar(days, weeks, endDate, weekStartsOn, locale));
+    const empty = $derived(days.length === 0);
+    const ready = $derived(!loading && !empty);
     let tooltipCount = $state(0);
     let hoveredElement = $state<HTMLButtonElement>();
     let focusedElement = $state<HTMLButtonElement>();
@@ -47,6 +51,15 @@
         model.cells.find((day) => day.date === activeDate) ?? model.cells.at(-1)
     );
     provide({
+        get loading() {
+            return loading;
+        },
+        get empty() {
+            return empty;
+        },
+        get ready() {
+            return ready;
+        },
         get tooltipCount() {
             return tooltipCount;
         },
@@ -54,13 +67,13 @@
             tooltipCount = value;
         },
         get hoveredElement() {
-            return hoveredElement;
+            return ready && hoveredElement?.isConnected ? hoveredElement : undefined;
         },
         set hoveredElement(value) {
             hoveredElement = value;
         },
         get focusedElement() {
-            return focusedElement;
+            return ready && focusedElement?.isConnected ? focusedElement : undefined;
         },
         set focusedElement(value) {
             focusedElement = value;
@@ -72,7 +85,7 @@
             return model;
         },
         get active() {
-            return active;
+            return ready ? active : undefined;
         },
         get focused() {
             return model.cells.some((day) => day.date === focusedDate)
@@ -83,20 +96,35 @@
             return locale;
         },
         activate(date) {
+            if (!ready) {
+                return;
+            }
             activeDate = date;
         },
         focus(date) {
+            if (!ready) {
+                return;
+            }
             focusedDate = date;
             activeDate = date;
         },
         select(day) {
+            if (!ready) {
+                return;
+            }
             activeDate = day.date;
             onDaySelect?.(day);
         }
     });
 </script>
 
-<div {...props} data-ui="heatmap" class={cn(className, 'flex w-full min-w-0 flex-col gap-4')}>
+<div
+    {...props}
+    aria-busy={loading}
+    data-state={loading ? 'loading' : empty ? 'empty' : 'ready'}
+    data-ui="heatmap"
+    class={cn(className, 'flex w-full min-w-0 flex-col gap-4')}
+>
     {#if children}
         {@render children({ days: model.cells, total: model.total })}
     {:else}

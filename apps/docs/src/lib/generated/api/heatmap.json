@@ -451,6 +451,15 @@
                 "inherited": false
             },
             {
+                "name": "loading",
+                "type": "boolean | undefined",
+                "required": false,
+                "bindable": false,
+                "default": "false",
+                "description": "",
+                "inherited": false
+            },
+            {
                 "name": "animation",
                 "type": "\"none\" | \"rows\" | \"columns\" | \"live\" | undefined",
                 "required": false,

@@ -17,9 +17,9 @@
     const context = useHeatmap();
 </script>
 <div
-    use:liveCalendar={context.animation === 'live'}
+    use:liveCalendar={context.ready && context.animation === 'live'}
     role="group"
-    aria-label="Daily contributions. Use arrow keys to explore dates."
+    aria-label={context.loading ? 'Loading contributions' : context.empty ? 'No contributions available' : 'Daily contributions. Use arrow keys to explore dates.'}
     {...props}
     data-ui="heatmap-grid"
     class={cn(className, 'col-start-2 row-start-2 grid grid-rows-7 gap-1')}

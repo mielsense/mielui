@@ -5,6 +5,9 @@ type Context = {
     tooltipCount: number;
     hoveredElement: HTMLButtonElement | undefined;
     focusedElement: HTMLButtonElement | undefined;
+    readonly loading: boolean;
+    readonly empty: boolean;
+    readonly ready: boolean;
     readonly animation: 'rows' | 'columns' | 'live' | 'none';
     readonly model: ReturnType<typeof calendar>;
     readonly active: Cell | undefined;

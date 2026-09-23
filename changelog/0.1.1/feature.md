@@ -62,3 +62,5 @@
 - Place counters or custom content outside a Notch with Accessory; notification counts now use this separate part.
 
 - Add built-in live motion to Gauge and Heatmap through their animation props.
+
+- Add built-in loading and empty-data states to Gauge and Heatmap.

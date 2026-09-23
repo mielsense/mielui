@@ -1,7 +1,6 @@
 <script lang="ts">
     import { Button } from '@mielui/svelte/components/button';
     import { Gauge } from '@mielui/svelte/components/gauge';
-    import { Skeleton } from '@mielui/svelte/components/skeleton';
     import * as Tabs from '@mielui/svelte/components/tabs';
 
     let dataState = $state('ready');
@@ -39,33 +38,18 @@
         </Tabs.Root>
         <Button variant="secondary" onclick={replayAnimation}>Replay</Button>
     </div>
-    <div aria-busy={dataState === 'loading'} class="flex min-h-64 items-center justify-center">
-        {#if dataState === 'loading' || dataState === 'empty'}
-            <div class="flex flex-col items-center gap-3 text-center" role="status">
-                {#if dataState === 'loading'}
-                    <Skeleton
-                        variant={animation === 'none' ? 'default' : 'shimmer'}
-                        class="size-[120px] rounded-full [mask-image:radial-gradient(transparent_48%,#000_49%)]"
-                    />
-                {:else}
-                    <Gauge value={0} label="No storage measurement" tone="muted">—</Gauge>
-                {/if}
-                <p class="text-sm text-foreground-muted">
-                    {dataState === 'loading' ? 'Loading usage…' : 'No usage data'}
-                </p>
+    <div class="flex min-h-64 items-center justify-center">
+        {#key `${animation}-${replay}`}
+            <div class="flex flex-col items-center gap-3">
+                <Gauge
+                    value={dataState === 'empty' ? null : dataState === 'zero' ? 0 : dataState === 'full' ? 100 : 64}
+                    loading={dataState === 'loading'}
+                    max={100}
+                    animation={motion}
+                    label="Storage used in GB"
+                />
+                <p class="text-sm text-foreground-muted">GB used of 100 GB</p>
             </div>
-        {:else}
-            {#key `${animation}-${replay}`}
-                <div class="flex flex-col items-center gap-3">
-                    <Gauge
-                        value={dataState === 'zero' ? 0 : dataState === 'full' ? 100 : 64}
-                        max={100}
-                        animation={motion}
-                        label="Storage used in GB"
-                    />
-                    <p class="text-sm text-foreground-muted">GB used of 100 GB</p>
-                </div>
-            {/key}
-        {/if}
+        {/key}
     </div>
 </div>

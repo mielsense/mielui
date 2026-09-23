@@ -1,7 +1,6 @@
 <script lang="ts">
     import { Button } from '@mielui/svelte/components/button';
     import * as Heatmap from '@mielui/svelte/components/heatmap';
-    import { Skeleton } from '@mielui/svelte/components/skeleton';
     import * as Tabs from '@mielui/svelte/components/tabs';
     import { days } from './data';
 
@@ -42,62 +41,13 @@
         </Tabs.Root>
         <Button variant="secondary" onclick={replayCalendar}>Replay</Button>
     </div>
-    <div aria-busy={dataState === 'loading'} class="w-full">
-        {#key `${animation}-${replay}-${dataState}`}
-            <div class="w-full">
-                <Heatmap.Root
-                    days={dataState === 'ready' ? days : []}
-                    weeks={26}
-                    endDate="2026-09-15"
-                    animation={dataState === 'ready' ? animation : 'none'}
-                >
-                    <Heatmap.Header>
-                        {#if dataState === 'ready'}
-                            <Heatmap.Summary />
-                        {:else}
-                            <p class="text-sm font-medium">Activity</p>
-                        {/if}
-                    </Heatmap.Header>
-                    <Heatmap.Calendar>
-                        <Heatmap.MonthLabels />
-                        <Heatmap.WeekdayLabels />
-                        <Heatmap.Grid>
-                            {#snippet children(cells)}
-                                {#each cells as day (day.date)}
-                                    {#if dataState === 'ready'}
-                                        <Heatmap.Cell {day} />
-                                    {:else}
-                                        <div
-                                            aria-hidden="true"
-                                            class="aspect-square min-h-2.5 min-w-2.5"
-                                            style:grid-column={day.column}
-                                            style:grid-row={day.row}
-                                        >
-                                            <Skeleton
-                                                variant={dataState === 'loading' && animation !== 'none' ? 'shimmer' : 'default'}
-                                                class="size-full rounded-[calc(var(--radius-xs)*1.5)]"
-                                            />
-                                        </div>
-                                    {/if}
-                                {/each}
-                            {/snippet}
-                        </Heatmap.Grid>
-                    </Heatmap.Calendar>
-                    {#if dataState === 'ready'}
-                        <Heatmap.Tooltip />
-                    {/if}
-                    <Heatmap.Footer>
-                        {#if dataState === 'ready'}
-                            <Heatmap.Detail />
-                        {:else}
-                            <p role="status" class="text-xs text-foreground-muted">
-                                {dataState === 'loading' ? 'Loading activity…' : 'No activity for this period.'}
-                            </p>
-                        {/if}
-                        <Heatmap.Legend />
-                    </Heatmap.Footer>
-                </Heatmap.Root>
-            </div>
-        {/key}
-    </div>
+    {#key `${animation}-${replay}`}
+        <Heatmap.Root
+            days={dataState === 'empty' ? [] : days}
+            loading={dataState === 'loading'}
+            weeks={26}
+            endDate="2026-09-15"
+            {animation}
+        />
+    {/key}
 </div>

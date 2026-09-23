@@ -104,9 +104,9 @@
     <section id="data-and-range" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2>Data and range</Typography.H2>
         <Typography.Text>
-            Root accepts days, weeks, endDate, weekStartsOn, locale, animation, and onDaySelect.
-            Weeks defaults to 26 and supports 1 to 104. WeekStartsOn defaults to Sunday, 0, and
-            accepts 0 through 6. Locale defaults to en-US.
+            Root accepts days, loading, weeks, endDate, weekStartsOn, locale, animation, and
+            onDaySelect. Weeks defaults to 26 and supports 1 to 104. WeekStartsOn defaults to
+            Sunday, 0, and accepts 0 through 6. Locale defaults to en-US.
         </Typography.Text>
         <Typography.Text>
             Dates use UTC. Input order does not matter, missing dates receive a zero count, and the
@@ -160,11 +160,10 @@
     <section id="data-states" class="flex scroll-mt-20 flex-col gap-4">
         <SectionHeading title="Data and animation states">
             {#snippet description()}
-                Compare loading, empty, and ready layouts with row, column, live, or no motion. The
-                calendar keeps its layout in every state. Loading uses matching skeleton cells; no
-                data shows neutral cells and a status line. Root treats missing dates as zero
-                activity. Live motion highlights columns without changing contribution counts and
-                pauses while you inspect the calendar.
+                Set loading while fetching activity. An empty days array shows the empty calendar;
+                supplied days with zero counts remain ready. Both states preserve the calendar
+                layout and disable inspection. Compare row, column, live, or no motion. Live
+                highlights preserve contribution counts and pause while you inspect the calendar.
             {/snippet}
         </SectionHeading>
         <ComponentPreview code={StatesSource}><States /></ComponentPreview>

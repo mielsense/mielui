@@ -4,8 +4,10 @@ import Gauge from './gauge.svelte';
 export type GaugeTone = 'primary' | 'muted' | 'success' | 'warning' | 'error';
 
 export type GaugeProps = {
-    /** The bounded quantity shown by the filled arc. */
-    value: number;
+    /** The bounded quantity shown by the filled arc. Pass null when no measurement is available. */
+    value: number | null;
+    /** Show a loading ring while the measurement is being fetched. */
+    loading?: boolean;
     max?: number;
     /** Describes the quantity, such as "Context remaining" or "Monthly API usage". */
     label?: string;

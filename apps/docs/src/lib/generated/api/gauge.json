@@ -4,11 +4,20 @@
         "properties": [
             {
                 "name": "value",
-                "type": "number",
+                "type": "number | null",
                 "required": true,
                 "bindable": false,
                 "default": null,
-                "description": "The bounded quantity shown by the filled arc.",
+                "description": "The bounded quantity shown by the filled arc. Pass null when no measurement is available.",
+                "inherited": false
+            },
+            {
+                "name": "loading",
+                "type": "boolean | undefined",
+                "required": false,
+                "bindable": false,
+                "default": "false",
+                "description": "Show a loading ring while the measurement is being fetched.",
                 "inherited": false
             },
             {

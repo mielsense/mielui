@@ -1,4 +1,5 @@
 <script lang="ts">
+    import { Skeleton } from '@mielui/svelte/components/skeleton';
     import { cn } from '@mielui/svelte/utils';
     import { onMount, untrack } from 'svelte';
     import { cubicOut } from 'svelte/easing';
@@ -9,6 +10,7 @@
 
     let {
         value,
+        loading = false,
         max = 100,
         label,
         size = 120,
@@ -35,7 +37,13 @@
             : Math.max(3, safeSize * 0.0975)
     );
     const arcStrokeWidth = $derived(safeStrokeWidth);
-    const clamped = $derived(Number.isFinite(value) ? Math.min(Math.max(value, 0), safeMax) : 0);
+    const empty = $derived(value === null);
+    const unavailable = $derived(loading || empty);
+    const clamped = $derived(
+        typeof value === 'number' && Number.isFinite(value)
+            ? Math.min(Math.max(value, 0), safeMax)
+            : 0
+    );
     const radius = $derived((safeSize - safeStrokeWidth) / 2);
     const progress = new Tween(
         untrack(() => clamped / safeMax),
@@ -79,7 +87,7 @@
     });
 
     $effect(() => {
-        const target = clamped / safeMax;
+        const target = unavailable ? 0 : clamped / safeMax;
         const milliseconds = animation === 'none' ? 0 : duration;
         if (!mounted) {
             return;
@@ -89,20 +97,30 @@
         });
     });
     $effect(() => {
-        if (mounted && animation === 'live' && duration > 0 && clamped > 0) {
+        if (mounted && !unavailable && animation === 'live' && duration > 0 && clamped > 0) {
             return gaugeLiveMotion(arc, duration / 360);
         }
     });
-    const accessibleLabel = $derived(label ?? `${clamped} of ${safeMax}`);
+    const accessibleLabel = $derived(
+        loading
+            ? `Loading ${label ?? 'measurement'}`
+            : empty
+              ? `No data for ${label ?? 'measurement'}`
+              : (label ?? `${clamped} of ${safeMax}`)
+    );
+    const loadingMask = $derived(
+        `radial-gradient(circle at center, transparent ${radius - safeStrokeWidth / 2}px, #000 ${radius - safeStrokeWidth / 2 + 0.5}px, #000 ${radius + safeStrokeWidth / 2 - 0.5}px, transparent ${radius + safeStrokeWidth / 2}px)`
+    );
 </script>
 
 <div
     data-ui="gauge"
-    role="meter"
+    role={unavailable ? 'status' : 'meter'}
+    aria-busy={loading}
     aria-label={accessibleLabel}
-    aria-valuemin={0}
-    aria-valuemax={safeMax}
-    aria-valuenow={clamped}
+    aria-valuemin={unavailable ? undefined : 0}
+    aria-valuemax={unavailable ? undefined : safeMax}
+    aria-valuenow={unavailable ? undefined : clamped}
     class={cn(className, 'relative inline-grid shrink-0 place-items-center')}
     style:width={`${safeSize}px`}
     style:height={`${safeSize}px`}
@@ -124,17 +142,29 @@
         <path
             data-ui="gauge-arc"
             bind:this={arc}
-            d={path}
+            d={unavailable ? '' : path}
             fill-rule="evenodd"
             class={cn(toneClasses[tone], 'fill-current')}
         />
     </svg>
+    {#if loading}
+        <div aria-hidden="true" class="absolute inset-0" style:mask-image={loadingMask}>
+            <Skeleton
+                variant={animation === 'none' ? 'default' : 'shimmer'}
+                class="size-full rounded-full"
+            />
+        </div>
+    {/if}
     <span
         aria-hidden="true"
         class="relative grid max-w-[72%] place-items-center leading-none tracking-tight text-foreground tabular-nums [font-weight:var(--font-weight-heading)]"
         style:font-size={`${fontSize}px`}
     >
-        {#if children}
+        {#if loading}
+            <span class="text-foreground-muted">…</span>
+        {:else if empty}
+            <span class="text-foreground-muted">—</span>
+        {:else if children}
             {@render children()}
         {:else}
             {clamped}

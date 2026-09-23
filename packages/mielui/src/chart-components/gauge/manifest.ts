@@ -14,7 +14,7 @@ export const manifest: Manifest = {
         'components/gauge/index.ts',
         'components/gauge/manifest.ts'
     ],
-    components: ['_internal/utils'],
+    components: ['_internal/utils', 'skeleton'],
     shared: ['utils.cn'],
     peerDependencies: {
         '@floating-ui/dom': '1.7.6',
