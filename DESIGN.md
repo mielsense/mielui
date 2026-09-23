@@ -331,3 +331,7 @@ Studio separates Appearance, Shape & spacing, Interaction, and Typography. Use
 toggle buttons for setting values; reserve tabs for switching preview content.
 Group surface framing, edge highlights, and shadows within Appearance. Keep
 movement and cursor behavior under Interaction.
+
+Menu separators span the full inner panel width, including submenus. Cancel the
+shared item padding at the separator rather than removing padding from menu items.
+Keep separators square at the panel edges.
