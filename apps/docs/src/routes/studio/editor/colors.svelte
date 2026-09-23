@@ -1,7 +1,11 @@
 <script lang="ts">
-    import { ArrowDown01Icon as ChevronDown } from '@hugeicons/core-free-icons';
+    import {
+        ArrowDown01Icon as ChevronDown,
+        Settings01Icon as Settings
+    } from '@hugeicons/core-free-icons';
     import { Button } from '@mielui/svelte/components/button';
     import * as Collapsible from '@mielui/svelte/components/collapsible';
+    import * as Tooltip from '@mielui/svelte/components/tooltip';
     import HugeiconsIcon from '@mielui/svelte/hugeicons-icon';
     import {
         backgroundSwatches,
@@ -20,6 +24,24 @@
 </script>
 
 <EditorSection title="Color" open bodyClass="gap-4">
+    {#snippet action()}
+        <Tooltip.Root>
+            <Tooltip.Trigger>
+                <Button
+                    variant="ghost"
+                    size="icon"
+                    aria-label="Advanced colors"
+                    class="size-7 shrink-0 text-foreground-muted"
+                    onclick={() => {
+                        editor.state.colorsModalOpen = true;
+                    }}
+                >
+                    <HugeiconsIcon icon={Settings} size={15} aria-hidden="true" />
+                </Button>
+            </Tooltip.Trigger>
+            <Tooltip.Content>Advanced colors</Tooltip.Content>
+        </Tooltip.Root>
+    {/snippet}
     <div class="grid grid-cols-2 gap-2">
         {@render colorPickerControl(
                         'Brand',
@@ -74,7 +96,7 @@
     </div>
     <Collapsible.Root>
         <Collapsible.Trigger
-            class="group flex w-full items-center justify-between text-sm text-foreground-muted hover:text-foreground"
+            class="group flex min-h-8 w-full items-center justify-between rounded-md px-2 text-sm text-foreground-muted hover:bg-secondary hover:text-foreground focus-visible:outline-none focus-visible:shadow-[var(--focus-ring)]"
         >
             Text colors
             <HugeiconsIcon
@@ -115,13 +137,4 @@
             </div>
         </Collapsible.Content>
     </Collapsible.Root>
-    <Button
-        variant="ghost"
-        class="w-full justify-start -ml-3 text-foreground-muted"
-        onclick={() => {
-                                    editor.state.colorsModalOpen = true;
-                                }}
-    >
-        Advanced colors
-    </Button>
 </EditorSection>

@@ -101,8 +101,8 @@ src/lib/mielui/components/button/
     <section id="glass-surfaces" class="scroll-mt-20 flex flex-col gap-5">
         <Typography.H2 class="docs-section-heading">Global glass surfaces</Typography.H2>
         <Typography.Text variant="body" class="m-0">
-            Enable Glass surfaces under Effects in Studio, or set --mielui-surface: glass on :root.
-            Components with surface support inherit that choice when the prop is omitted. Set
+            Enable Glass surfaces under Appearance in Studio, or set --mielui-surface: glass on
+            :root. Components with surface support inherit that choice when the prop is omitted. Set
             surface="solid" or surface="glass" on one component to override the theme. Put the
             variable on :root so portaled menus and dialogs inherit it too.
         </Typography.Text>
@@ -381,7 +381,7 @@ const css = themeToCss(theme);`}
 const css = themeToCss(theme);`}
         />
         <Typography.Text>
-            Studio exposes Edge highlight under Effects. Turn it off to remove the highlight, or
+            Studio exposes Edge highlight under Appearance. Turn it off to remove the highlight, or
             adjust its strength while enabled. Turning it back on restores the last strength used in
             that session. Preset JSON, copied CSS, saved drafts, and CLI theme imports preserve it.
         </Typography.Text>

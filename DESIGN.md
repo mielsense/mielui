@@ -254,7 +254,7 @@ independent. New double-frame treatments must honor this shared setting.
 
 Use the shared elevation tokens for light-catching inset edges, including keycaps.
 The theme setting `chrome.edgeHighlight` accepts 0 to 1 and defaults to 0.5.
-Studio presents it as a percentage under Effects. Scale only the light inset edge;
+Studio presents it as a percentage under Appearance. Scale only the light inset edge;
 keep structural borders, focus rings, dark inset shading, and cast shadows intact.
 Do not add fixed white inset shadows to individual components. Shadow switches
 still disable their corresponding elevation effects.
@@ -341,6 +341,11 @@ family; do not fall back to a native browser title tooltip.
 Documentation content, its toolbar and footer share a horizontal inset halfway
 between five theme spacing units and 2rem. Rail headings retain five spacing
 units. Keep preview tabs and article headings aligned to the content gutter.
+
+Studio separates Appearance, Shape & spacing, Interaction, and Typography. Use
+toggle buttons for setting values; reserve tabs for switching preview content.
+Group surface framing, edge highlights, and shadows within Appearance. Keep
+movement and cursor behavior under Interaction.
 
 Menu separators span the full inner panel width, including submenus. Cancel the
 shared item padding at the separator rather than removing padding from menu items.

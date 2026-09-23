@@ -9,12 +9,14 @@
         open = false,
         separator = true,
         bodyClass = 'gap-4',
+        action,
         children
     }: {
         title: string;
         open?: boolean;
         separator?: boolean;
         bodyClass?: string;
+        action?: Snippet;
         children: Snippet;
     } = $props();
 </script>
@@ -35,6 +37,7 @@
                     class="text-foreground-muted transition-transform [transition-duration:var(--motion-duration-press)] group-data-[state=open]:rotate-180 motion-reduce:transition-none"
                 />
             </Collapsible.Trigger>
+            {@render action?.()}
         </div>
         <Collapsible.Content class={`flex flex-col pt-4 pb-6 ${bodyClass}`}>
             {@render children()}
