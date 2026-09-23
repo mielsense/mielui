@@ -257,3 +257,7 @@ Apply the shared control edge to the part that is raised or editable. For Switch
 Mielui now requires Svelte 5.56 or newer. Template declarations use `{const value = $derived(expression)}` to preserve reactive behavior; do not replace legacy `{@const}` with a plain nonreactive declaration. Upgrade the consuming compiler before installing this release.
 
 Public component exports and composition remain unchanged. FileUpload, Tabs, Notch, tooltip visuals, chart domains, theme parsing, and overlay lifecycle responsibilities now live in private helpers. CLI manifests include those files; retain them when copying sources. Motion loops must respect the theme's zero duration, live reduced-motion changes, hidden documents, and offscreen visibility. Use the private motion-loop attachment for CSS loops; imperative animations retain their own play/pause lifecycle.
+
+## Source-copy attribution
+
+The CLI keeps Mielui's LICENSE, LICENSE-COSS, and UPSTREAM.md under `notices/mielui/` inside the configured source directory. Keep these notices with copied component source when redistributing it. This directory is separate from the consuming application's root license. Mielui is independently maintained and derived from Sivir UI; use Mielui's versioned component guidance rather than assuming current Sivir APIs are interchangeable.

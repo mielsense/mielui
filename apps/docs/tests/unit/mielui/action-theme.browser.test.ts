@@ -9,12 +9,17 @@ it('stops and restores shimmer when inherited theme motion changes', async () =>
         throw new Error('Missing action theme fixture');
     }
     await expect.poll(() => root.querySelector('[data-shimmer-visual]')).not.toBeNull();
+    await expect.poll(() => root.getAnimations({ subtree: true })[0]?.playState).toBe('running');
     root.style.setProperty('--motion-duration-panel', '0ms');
     await expect.poll(() => root.querySelector('[data-shimmer-visual]')).toBeNull();
     root.style.setProperty('--motion-duration-panel', '180ms');
     await expect.poll(() => root.querySelector('[data-shimmer-visual]')).not.toBeNull();
+    await expect.poll(() => root.getAnimations({ subtree: true })[0]?.playState).toBe('running');
     const animation = root.getAnimations({ subtree: true })[0];
-    expect(animation?.playState).toBe('running');
+    root.style.transform = 'translateY(200vh)';
+    await expect.poll(() => animation?.playState).toBe('paused');
+    root.style.transform = '';
+    await expect.poll(() => animation?.playState).toBe('running');
     await view.unmount();
     expect(animation?.playState).toBe('idle');
 });

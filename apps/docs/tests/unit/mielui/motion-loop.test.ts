@@ -41,6 +41,7 @@ it('responds to reduced motion changes and removes the media listener on teardow
     const matchMedia = vi.spyOn(window, 'matchMedia').mockReturnValue(preference as MediaQueryList);
     const visibility = vi.spyOn(document, 'hidden', 'get').mockReturnValue(false);
     const node = document.createElement('div');
+    node.style.setProperty('--motion-duration-panel', '180ms');
     document.body.appendChild(node);
     const cleanup = motionLoop(node);
 

@@ -8,12 +8,12 @@ it('shares one positioned tooltip across focused cells and dismisses on Escape',
     await userEvent.tab();
     await expect
         .poll(() => document.querySelector('.mielui-tooltip')?.textContent)
-        .toContain('12 contributions');
+        .toContain('Contributions 12');
     expect(document.querySelector('[data-date="2026-09-15"]')?.hasAttribute('title')).toBe(false);
     await userEvent.keyboard('{ArrowUp}');
     await expect
         .poll(() => document.querySelector('.mielui-tooltip')?.textContent)
-        .toContain('September 14');
+        .toContain('Sep 14, 2026');
     expect(document.querySelectorAll('.mielui-tooltip')).toHaveLength(1);
     await userEvent.keyboard('{Escape}');
     await expect

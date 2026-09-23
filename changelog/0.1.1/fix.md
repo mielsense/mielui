@@ -183,3 +183,6 @@
 - Keep Studio header sizing within supported limits and reject font values that can break generated CSS declarations.
 - Show indeterminate attachment progress for nonfinite values and refresh Morph text colors after theme changes.
 - Evaluate nested Studio length calculations with correct arithmetic precedence and root-relative units.
+- Include upstream license and attribution notices with CLI source installations without replacing the application's own license.
+- Remove unused bundled documentation fonts that lacked accompanying license notices.
+- Keep theme registry schema normalization compatible with its Elysia runtime.
