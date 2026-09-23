@@ -1,6 +1,10 @@
 <script lang="ts">
-    import { ArrowRight01Icon as Chevron } from '@hugeicons/core-free-icons';
+    import {
+        ArrowRight01Icon as Chevron,
+        InformationCircleIcon as Info
+    } from '@hugeicons/core-free-icons';
     import * as Collapsible from '@mielui/svelte/components/collapsible';
+    import * as HoverCard from '@mielui/svelte/components/hover-card';
     import HugeiconsIcon from '@mielui/svelte/hugeicons-icon';
     import type { ComponentPart } from '$lib/component-anatomy';
     import type { ReferencePart } from '$lib/server/api-reference';
@@ -27,12 +31,22 @@
     }
 </script>
 <section id="api-reference" class="mt-12 flex min-w-0 flex-col gap-8">
-    <div class="flex flex-col gap-2">
+    <div class="flex items-center gap-2">
         <h2 class="docs-section-heading">API reference</h2>
-        <p class="text-sm leading-6 text-foreground-muted">
-            Props for every exported part. Required and bindable values are marked. A dash means no
-            explicit default is set on that part.
-        </p>
+        <HoverCard.Root>
+            <HoverCard.Trigger
+                class="size-5 shrink-0 items-center justify-center rounded-[var(--radius-sm)] text-foreground-muted hover:text-foreground focus-visible:outline-2 focus-visible:outline-primary"
+            >
+                <HugeiconsIcon icon={Info} size={15} />
+                <span class="sr-only">About the API reference</span>
+            </HoverCard.Trigger>
+            <HoverCard.Content side="bottom" align="start" class="w-80 max-w-[calc(100vw-2rem)]">
+                <p class="text-sm leading-6 text-foreground-muted">
+                    Props for every exported part. Required and bindable values are marked. A dash
+                    means no explicit default is set on that part.
+                </p>
+            </HoverCard.Content>
+        </HoverCard.Root>
     </div>
     {#each ordered as part (part.name)}
         {@const own = part.properties.filter((property) => !property.inherited)}

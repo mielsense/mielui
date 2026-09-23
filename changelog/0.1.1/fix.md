@@ -104,7 +104,7 @@
 
 - Gauge defaults to a larger 120px display with proportional arcs and labels, and smoothly animates value changes.
 
-- Pie chart tooltips use opaque inset surfaces, and live highlights remain visible as they travel around each slice.
+- Pie chart tooltips use opaque inset surfaces.
 
 - Menus, overlays, tooltips, conversation scrolling, and response text respect reduced motion and the theme’s disabled-motion setting.
 
@@ -133,3 +133,18 @@
 - Notch side actions unfold with synchronized shape and button motion, including interrupted hover changes.
 - Morph and Shimmer stop active effects when inherited theme motion is disabled and clean up their theme observers on removal.
 - Stopping a controlled Composer response no longer submits the preserved prompt again when the control returns to Send.
+
+- Let Show More content fade into its surrounding surface without a mismatched background strip.
+
+- Rework live chart motion with stationary pie highlights, area-fill sweeps, and staggered bar highlights; keep offscreen effects paused without trapping visible sweeps.
+- Morph notch notification titles, icons, and descriptions when switching between stacked items.
+
+- Honor Reasoning trigger click cancellation and reduced motion in copy feedback; keep notch notification text wrapped during morphs.
+
+- Guard font preference storage and isolate font state between server renders.
+
+- Preserve custom accessibility labels in Accordion, Select, Sheet, and Popover; honor disabled Tag Input controls and retained Tabs content.
+- Keep disabled Popover triggers closed and dismiss empty tooltips.
+- Preserve invoice draft validation and reset stale filters when creating or locating an invoice in Studio.
+
+- Scale Heatmap entrance timing with the theme motion setting.

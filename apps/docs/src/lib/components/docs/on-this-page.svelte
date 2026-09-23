@@ -3,6 +3,7 @@
     import { prefersReducedMotion } from 'svelte/motion';
     import { replaceState } from '$app/navigation';
     import { page } from '$app/state';
+    import RailHeading from './rail-heading.svelte';
     import TocRail from './toc-rail.svelte';
 
     type Heading = { id: string; label: string; level: number; node: HTMLElement };
@@ -41,9 +42,10 @@
             scroll.scrollTop +
             heading.node.getBoundingClientRect().top -
             scroll.getBoundingClientRect().top -
-            32;
+            (heading.level === 3 ? 64 : 0);
         replaceState(`#${heading.id}`, page.state);
         heading.node.setAttribute('tabindex', '-1');
+        heading.node.classList.add('focus:outline-none');
         heading.node.focus({ preventScroll: true });
         scroll.scrollTo({ top, behavior: prefersReducedMotion.current ? 'instant' : 'smooth' });
     }
@@ -161,29 +163,28 @@
 </script>
 
 {#if headings.length}
-    <nav
-        aria-label="On this page"
-        class="sticky top-8 max-h-[calc(100svh-9rem)] overflow-y-auto py-1 pr-2"
-    >
-        <p class="mb-3 text-label text-foreground">On this page</p>
-        <div bind:this={list} class="relative flex flex-col gap-0.5">
-            <TocRail y={previewY} from={previewFrom} muted />
-            <TocRail y={activeY} />
-            {#each headings as heading (heading.id)}
-                <a
-                    href={`#${heading.id}`}
-                    data-heading={heading.id}
-                    onclick={(event) => navigate(event, heading)}
-                    aria-current={active === heading.id ? 'location' : undefined}
-                    onmouseenter={() => { hovered = heading.id; }}
-                    onmouseleave={() => { hovered = null; }}
-                    onfocus={() => { focused = heading.id; }}
-                    onblur={() => { focused = null; }}
-                    class={`${heading.id === 'api-reference' ? 'mt-2' : ''} relative rounded-md py-1.5 pr-1 text-sm leading-5 transition-colors motion-reduce:transition-none focus-visible:outline-2 focus-visible:outline-primary ${heading.level === 3 ? 'pl-8' : 'pl-5'} ${active === heading.id ? 'text-foreground' : 'text-foreground-muted hover:text-foreground'}`}
-                >
-                    {heading.label}
-                </a>
-            {/each}
+    <nav aria-label="On this page" class="min-h-full pb-6">
+        <RailHeading title="On this page" />
+        <div class="px-6 py-3">
+            <div bind:this={list} class="relative flex flex-col gap-0.5">
+                <TocRail y={previewY} from={previewFrom} muted />
+                <TocRail y={activeY} />
+                {#each headings as heading (heading.id)}
+                    <a
+                        href={`#${heading.id}`}
+                        data-heading={heading.id}
+                        onclick={(event) => navigate(event, heading)}
+                        aria-current={active === heading.id ? 'location' : undefined}
+                        onmouseenter={() => { hovered = heading.id; }}
+                        onmouseleave={() => { hovered = null; }}
+                        onfocus={() => { focused = heading.id; }}
+                        onblur={() => { focused = null; }}
+                        class={`${heading.id === 'api-reference' ? 'mt-2' : ''} relative rounded-md py-1.5 pr-1 text-sm leading-5 transition-colors motion-reduce:transition-none focus-visible:outline-2 focus-visible:outline-primary ${heading.level === 3 ? 'pl-8' : 'pl-5'} ${active === heading.id ? 'text-foreground' : 'text-foreground-muted hover:text-foreground'}`}
+                    >
+                        {heading.label}
+                    </a>
+                {/each}
+            </div>
         </div>
     </nav>
 {/if}

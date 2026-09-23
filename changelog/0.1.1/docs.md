@@ -71,3 +71,61 @@
 - Document shared edge, inset, focus, and motion rules for component contributions.
 - Keep Notch and notch notification examples inside their preview frames.
 - Make chart state and period-switching examples easier to adapt with named event handlers.
+
+- Chart guides have dedicated type pages, searchable navigation, and matching Markdown references. Tablet documentation navigation remains accessible.
+- Split chart examples into focused bar, line, area, mixed, pie, and donut guides with continuous motion, data updates, missing measurements, and loading states.
+- Add interactive Gauge capacity and Heatmap reporting-range examples.
+
+- Use flat leading previews and source sections, inset example cards, compact API table headers, and persistent footer page actions.
+
+- Block examples now include contained toast previews, continuous Markdown streaming, recoverable task steps, and visible command and code-action results.
+
+- Component examples now include working local actions, accessible icon controls, upload completion and recovery, and shorter variant comparisons.
+- Make AI examples finish, stop, and retry their simulated work; preserve partial responses and clean up pending delivery when previews close.
+- Document AI state ownership and add composed tool retries, response cancellation, and interactive Morph and Shimmer examples.
+
+- Rebuild Docs and Studio around fixed headers and footers, thin section dividers, and quieter navigation. Widen the documentation section rail.
+
+- Clarify inherited glass surfaces and keep example action results spaced below their controls.
+
+- Center the homepage cat within a bordered layout with subtle dithering and muted scrolling component names.
+
+- Keep preview toolbars aligned across nested examples and prevent their controls from overlapping pinned section headings.
+
+- Clarify core component setup and form behavior, and make the Group and indeterminate Progress examples interactive.
+
+- Balance section content spacing, keep sticky headings opaque, and center grid intersections across the documentation rails.
+
+- Keep navigation headings and the leading preview toolbar sticky, use text-only hover and selection states, and show API guidance from an info control.
+
+- Align footer actions with the header columns and disable elastic overscroll across the site.
+
+- Match error pages to the documentation grid and provide a retry action when a page fails to load.
+
+- Add visual component catalog cards with descriptions and search across component names and descriptions.
+
+- Present each changelog version as a sticky section and keep catalog descriptions in footer info cards.
+
+- Simplify Studio into aligned control and content previews, unify its tabs, and match footer and header heights.
+
+- Move Studio preview tabs into the header and preview width controls into the footer.
+
+- Keep headers, footers, section headings, and navigation headings at one shared height, with aligned intersection marks.
+
+- Align Studio chart, conversation, and application previews with the shared section layout and keep the composer clear of messages.
+
+- Strengthen section headings and move Button behavior notes into its Usage section.
+
+- Keep component behavior notes inside their relevant sections instead of below standalone previews.
+
+- Remove the trailing divider below Studio’s Typography controls.
+
+- Widen Studio’s conversation preview and place its simulation note below the composer.
+
+- Let the Studio conversation span the preview and scroll behind a narrower floating composer.
+- Add matching grid junction markers at the Studio header and footer.
+
+- Clarify block and AI component usage, state ownership, and Markdown link and image handling.
+
+- Review every component’s usage, examples, and API coverage; add chart loading, empty-data, and animation examples to each chart-type guide.
+- Keep documentation scrolling available over Toast previews and show section descriptions in information hover cards.

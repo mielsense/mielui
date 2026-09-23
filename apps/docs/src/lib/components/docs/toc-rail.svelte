@@ -20,7 +20,7 @@
         style:top={`${position.current.from}px`}
         style:height={`${Math.max(0, position.current.y - 6 - position.current.from)}px`}
         style:opacity={y === null ? 0 : 1}
-        class="absolute left-0.5 w-px bg-[repeating-linear-gradient(to_bottom,currentColor_0_2px,transparent_2px_4px)]"
+        class="absolute left-0.5 w-px bg-current"
     ></span>
     <svg
         style:top={`${position.current.y - 6}px`}
@@ -31,6 +31,6 @@
         fill="none"
         class="absolute left-0.5"
     >
-        <path d="M0.5 0a6 6 0 0 0 6 6H12" stroke="currentColor" stroke-dasharray="2 2" />
+        <path d="M0.5 0a6 6 0 0 0 6 6H12" stroke="currentColor" />
     </svg>
 </div>

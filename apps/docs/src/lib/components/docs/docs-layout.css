@@ -1,0 +1,80 @@
+@reference '@mielui/svelte/ui.css';
+
+.docs-article [data-docs-page] {
+    @apply gap-0;
+}
+
+.docs-article :is([data-docs-page] > section, #api-reference) {
+    @apply relative mt-0 px-[var(--docs-gutter)];
+}
+
+.docs-article :is([data-docs-page] > section:not([data-docs-toolbar]), #api-reference) {
+    @apply gap-4 pt-0 pb-6;
+}
+
+.docs-article [data-docs-page] > section[data-docs-toolbar] {
+    @apply py-6;
+}
+
+.docs-article :is([data-docs-page] > section:not(#hero), #api-reference) {
+    @apply border-t-[length:var(--border-size)] border-[var(--docs-rule)];
+}
+
+.docs-article :is([data-docs-page] > section, #api-reference) > :is(h2, div:first-child:has(> h2)) {
+    @apply sticky top-0 z-30 -mx-[var(--docs-gutter)] mt-0 mb-2 border-b-[length:var(--border-size)] border-[var(--docs-rule)] bg-[var(--docs-chrome)] flex h-[var(--docs-row-height)] items-center px-[var(--docs-gutter)] py-0 text-sm leading-5 font-semibold;
+}
+
+.docs-article :is([data-docs-page] > section, #api-reference) > div:first-child > h2 {
+    @apply m-0 text-sm leading-5 font-semibold;
+}
+
+.docs-article
+    :is([data-docs-page] > section, #api-reference)
+    > :not(h2, div:first-child:has(> h2)) {
+    @apply isolate;
+}
+
+.docs-article [data-docs-page] > #hero {
+    @apply p-0;
+}
+
+.docs-article
+    :is(
+        [data-docs-page] > #hero [data-component-preview],
+        [data-docs-page] > [data-component-preview]
+    ) {
+    @apply rounded-none border-0 bg-transparent p-0 shadow-none;
+}
+
+.docs-article
+    :is(
+        [data-docs-page] > #hero [data-component-preview],
+        [data-docs-page] > [data-component-preview]
+    )
+    [data-preview-toolbar] {
+    @apply sticky top-0 z-30 h-[var(--docs-row-height)] min-h-[var(--docs-row-height)] border-b-[length:var(--border-size)] border-[var(--docs-rule)] px-[var(--docs-gutter)];
+}
+
+.docs-article
+    :is(
+        [data-docs-page] > #hero [data-component-preview],
+        [data-docs-page] > [data-component-preview]
+    )
+    [data-preview-canvas] {
+    @apply min-h-[min(48svh,28rem)] rounded-none bg-transparent shadow-none;
+}
+.docs-article
+    :is(
+        [data-docs-page] > #hero [data-component-preview],
+        [data-docs-page] > [data-component-preview]
+    )
+    [data-preview-toolbar]
+    [data-ui='tabs-list'] {
+    @apply -ml-3;
+}
+
+.docs-article
+    [data-docs-page]:not(:has(> [data-component-preview]))
+    > section:first-of-type:not(#hero) {
+    @apply border-t-0;
+}

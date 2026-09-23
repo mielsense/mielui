@@ -5,6 +5,7 @@
     import HugeiconsIcon from '@mielui/svelte/hugeicons-icon';
     import { afterNavigate } from '$app/navigation';
     import { navigationGroups, sanitizeComponent } from '$lib/components';
+    import { componentGuidePages } from '$lib/docs-pages';
 
     import { getSearch } from './context';
 
@@ -66,6 +67,20 @@
                             />
                             {sanitizeComponent(item)}
                         </Command.Item>
+                        {#each componentGuidePages.filter((guide) => guide.component === item) as guide (guide.href)}
+                            <Command.Item
+                                class="min-h-10 px-3"
+                                name={guide.title}
+                                href={guide.href}
+                            >
+                                <HugeiconsIcon
+                                    icon={FileIcon}
+                                    size={16}
+                                    class="shrink-0 text-foreground-muted"
+                                />
+                                {guide.title}
+                            </Command.Item>
+                        {/each}
                     {/each}
                 </Command.Group>
             {/each}

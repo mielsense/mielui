@@ -214,3 +214,16 @@ Navigation does not recreate notifications or restart their timers. Hidden
 notifications retain their original lifetime; persistent loading remains active.
 Escape and swipe dismiss the selected item, then reveal another active notification.
 Do not mount a separate Toast or live region for every hidden carousel item.
+
+## Live chart motion
+
+Live cartesian effects run inside unchanged data geometry: areas sweep their fill,
+bars sweep within their clipped bounds, and lines carry a single highlight.
+Visibility observers must target the stationary SVG viewport, not the moving
+mark: observing a highlight outside its clip can pause it permanently before entry.
+Pie segments brighten sequentially without rotation or angle changes. Pause the
+effect when a segment is active so pointer and keyboard inspection remain stable. All loops honor reduced motion and the theme duration.
+
+### Morphing wrapped notification content
+
+Apply Morph separately to each title, description, and icon region. Do not apply it to a container containing interactive controls. Text morphs inherit the region’s whitespace rules so long descriptions wrap at the available width. Notch notification navigation uses this shared morph while retaining the outer panel’s size transition.

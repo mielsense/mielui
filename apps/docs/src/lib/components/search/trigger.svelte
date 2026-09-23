@@ -15,7 +15,7 @@
 
 <Button
     variant="outline"
-    class="h-9 gap-2 px-2.5"
+    class="h-9 gap-2 border-border/60 px-2.5"
     aria-label="Search documentation"
     onclick={openSearch}
 >

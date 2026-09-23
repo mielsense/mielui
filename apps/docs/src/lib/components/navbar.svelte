@@ -7,7 +7,9 @@
     } from '@hugeicons/core-free-icons';
     import { morph } from '@mielui/svelte/actions/morph';
     import Button from '@mielui/svelte/components/button';
+    import * as Select from '@mielui/svelte/components/select';
     import * as Sheet from '@mielui/svelte/components/sheet';
+    import * as Tabs from '@mielui/svelte/components/tabs';
     import * as Tooltip from '@mielui/svelte/components/tooltip';
     import HugeiconsIcon from '@mielui/svelte/hugeicons-icon';
     import { mode, toggleMode } from 'mode-watcher';
@@ -19,13 +21,23 @@
     import { navigationGroups, sanitizeComponent } from '$lib/components';
     import SearchButton from '$lib/components/search/trigger.svelte';
     import { formatStarCount } from '$lib/github';
+    import { getStudioContext } from '$lib/studio-context';
     import Logo from './logo.svelte';
     import Navbutton from './navbutton.svelte';
 
     const { starCount = null }: { starCount?: number | null } = $props();
 
+    const studio = getStudioContext();
+    const previewTabs = [
+        { value: 'components', label: 'Components' },
+        { value: 'charts', label: 'Charts' },
+        { value: 'ai', label: 'AI components' },
+        { value: 'app', label: 'App preview' }
+    ];
+
     let scrolled = $state(false);
     let mobileMenuOpen = $state(false);
+    const isStudio = $derived(page.url.pathname.startsWith('/studio'));
     const isDocs = $derived(
         page.url.pathname.startsWith('/docs') || page.url.pathname.startsWith('/fonts')
     );
@@ -60,7 +72,9 @@
 <Sheet.Root bind:open={mobileMenuOpen}>
     <nav
         class={`sticky inset-x-0 top-0 z-20 transition-[background-color,backdrop-filter] duration-200 ${
-            isDocs
+            isStudio
+                ? 'bg-[var(--docs-chrome)]'
+                : isDocs
                 ? 'bg-background/72 backdrop-blur-[14px]'
                 : scrolled
                   ? 'bg-background/58 backdrop-blur-[14px]'
@@ -68,15 +82,17 @@
         }`}
     >
         <div
-            class={`relative mx-auto flex h-16 w-full items-center justify-between ${
-                isDocs ? 'max-w-[1400px] px-4 md:px-6' : 'px-4 md:px-6'
+            class={`relative mx-auto flex h-[calc(var(--docs-row-height)-var(--border-size))] w-full items-center justify-between ${
+                isStudio ? 'px-4 min-[68.75rem]:px-0' : isDocs ? 'max-w-[1400px] px-4 md:px-6' : 'px-4 md:px-6'
             }`}
         >
-            <div class="flex min-w-0 flex-row items-center gap-2 md:gap-5">
+            <div
+                class={`flex min-w-0 flex-row items-center gap-2 md:gap-5 ${isStudio ? 'min-[68.75rem]:gap-0' : ''}`}
+            >
                 <Tooltip.Root>
                     <Tooltip.Trigger>
                         <Sheet.Trigger
-                            class="size-9 rounded-lg md:hidden"
+                            class={`size-9 rounded-lg ${isStudio ? 'hidden' : 'md:hidden'}`}
                             aria-label="Open navigation menu"
                             variant="quiet"
                             size="icon"
@@ -86,24 +102,58 @@
                     </Tooltip.Trigger>
                     <Tooltip.Content>Open navigation menu</Tooltip.Content>
                 </Tooltip.Root>
-                <a
-                    href={resolve('/')}
-                    class="font-semibold tracking-tight text-foreground no-underline md:hidden"
-                >
-                    mielui
-                </a>
-                <div class="hidden md:block">
+                <div class="md:hidden">
                     <Logo />
                 </div>
-                <div class="hidden items-center gap-1 md:flex">
-                    {#each navItems as item (item.href)}
-                        <Navbutton href={item.href}>{item.label}</Navbutton>
-                    {/each}
+                <div
+                    class={`hidden md:block ${isStudio ? 'min-[68.75rem]:flex min-[68.75rem]:h-[calc(var(--docs-row-height)-var(--border-size))] min-[68.75rem]:w-[18rem] min-[68.75rem]:items-center min-[68.75rem]:border-r-[length:var(--border-size)] min-[68.75rem]:border-[var(--docs-rule)] min-[68.75rem]:px-5' : ''}`}
+                >
+                    <Logo />
                 </div>
+                {#if !isStudio}
+                    <div
+                        class={`hidden items-center gap-1 md:flex ${isStudio ? 'min-[68.75rem]:px-5' : ''}`}
+                    >
+                        {#each navItems as item (item.href)}
+                            <Navbutton href={item.href}>{item.label}</Navbutton>
+                        {/each}
+                    </div>
+                {/if}
             </div>
 
-            <div class="flex flex-row items-center gap-1.5">
-                <SearchButton />
+            {#if isStudio}
+                <div class="min-w-0 flex-1 px-3">
+                    <Tabs.Root bind:value={studio.mode} variant="ghost" class="hidden lg:block">
+                        <Tabs.List aria-label="Preview content">
+                            {#each previewTabs as tab (tab.value)}
+                                <Tabs.Trigger value={tab.value}>{tab.label}</Tabs.Trigger>
+                            {/each}
+                        </Tabs.List>
+                    </Tabs.Root>
+                    <div class="lg:hidden">
+                        <Select.Root bind:value={studio.mode}>
+                            <Select.Trigger aria-label="Preview content" class="w-full max-w-40">
+                                <span class="truncate">
+                                    {previewTabs.find((tab) => tab.value === studio.mode)?.label}
+                                </span>
+                            </Select.Trigger>
+                            <Select.Content>
+                                {#each previewTabs as tab (tab.value)}
+                                    <Select.Item value={tab.value}>{tab.label}</Select.Item>
+                                {/each}
+                            </Select.Content>
+                        </Select.Root>
+                    </div>
+                </div>
+            {/if}
+
+            <div
+                class={`flex flex-row items-center gap-1.5 ${isStudio ? 'min-[68.75rem]:pr-5' : ''}`}
+            >
+                <div class={isStudio ? 'hidden sm:block' : ''}><SearchButton /></div>
+                {#if isStudio}
+                    <Button variant="outline" href={resolve('/docs/introduction')}>Docs</Button>
+                {/if}
                 <Tooltip.Root>
                     <Tooltip.Trigger>
                         <Button
@@ -133,18 +183,20 @@
                         {mode.current === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
                     </Tooltip.Content>
                 </Tooltip.Root>
-                <Button
-                    class="h-9 gap-1.5 rounded-[var(--radius-md)] px-2.5 text-[0.8125rem] tabular-nums"
-                    variant="outline"
-                    href="https://github.com/mielsense/mielui"
-                    target="_blank"
-                    rel="noreferrer"
-                    aria-label="Star mielui on GitHub"
-                >
-                    <img src={GitHubBlack} alt="" class="size-4 dark:hidden" />
-                    <img src={GitHubWhite} alt="" class="hidden size-4 dark:block" />
-                    <span>{formatStarCount(starCount)}</span>
-                </Button>
+                {#if !isStudio}
+                    <Button
+                        class={`h-9 gap-1.5 rounded-[var(--radius-md)] px-2.5 text-[0.8125rem] tabular-nums ${isStudio ? 'hidden sm:inline-flex' : ''}`}
+                        variant="outline"
+                        href="https://github.com/mielsense/mielui"
+                        target="_blank"
+                        rel="noreferrer"
+                        aria-label="Star mielui on GitHub"
+                    >
+                        <img src={GitHubBlack} alt="" class="size-4 dark:hidden" />
+                        <img src={GitHubWhite} alt="" class="hidden size-4 dark:block" />
+                        <span>{formatStarCount(starCount)}</span>
+                    </Button>
+                {/if}
             </div>
         </div>
     </nav>

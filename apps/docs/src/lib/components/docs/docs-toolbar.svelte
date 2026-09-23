@@ -19,6 +19,7 @@
     import GitHubWhite from '$lib/assets/GitHub_Invertocat_White.svg';
     import { navigationGroups, sanitizeComponent } from '$lib/components';
     import SearchButton from '$lib/components/search/trigger.svelte';
+    import { componentGuidePages } from '$lib/docs-pages';
     import Logo from '../logo.svelte';
 
     const { starCount = null }: { starCount?: number | null } = $props();
@@ -61,7 +62,14 @@
                     index === 0 && category
                         ? `/docs/components#${category.id}`
                         : `${basePath}/${segments.slice(0, index + 1).join('/')}`,
-                label: index === 0 && category ? category.heading : formatSegment(segment)
+                label:
+                    index === 0 && category
+                        ? category.heading
+                        : (componentGuidePages.find(
+                              (guide) =>
+                                  guide.href ===
+                                  `${basePath}/${segments.slice(0, index + 1).join('/')}`
+                          )?.title ?? formatSegment(segment))
             }))
         ];
     });
@@ -104,10 +112,10 @@
 
 <Sheet.Root bind:open={mobileMenuOpen}>
     <header
-        class="relative z-20 after:pointer-events-none after:absolute after:inset-x-0 after:top-full after:h-5 after:bg-linear-to-b after:from-background after:to-transparent mx-auto flex h-16 w-full items-center justify-between gap-4 px-3 sm:px-8 lg:px-10 xl:grid xl:grid-cols-[minmax(0,1fr)_13rem] xl:gap-16 xl:pr-14 2xl:gap-20 2xl:pr-16"
+        class="relative z-20 mx-auto flex h-[calc(var(--docs-row-height)-var(--border-size))] w-full shrink-0 items-center justify-between gap-4 px-2 sm:px-5 xl:grid xl:grid-cols-[minmax(0,1fr)_18rem] xl:gap-0 xl:px-0"
     >
-        <div class="mx-auto flex w-full min-w-0 max-w-[960px] items-center justify-between gap-4">
-            <div class="flex min-w-0 items-center gap-2 sm:hidden">
+        <div class="mx-auto flex w-full min-w-0 items-center justify-between gap-4 lg:px-8">
+            <div class="flex min-w-0 items-center gap-2 lg:hidden">
                 <Tooltip.Root>
                     <Tooltip.Trigger>
                         <Sheet.Trigger
@@ -121,13 +129,10 @@
                     </Tooltip.Trigger>
                     <Tooltip.Content>Open navigation menu</Tooltip.Content>
                 </Tooltip.Root>
-                <Logo />
+                <div class="sm:hidden"><Logo /></div>
             </div>
 
-            <nav
-                aria-label="Breadcrumb"
-                class="mx-auto hidden w-full min-w-0 max-w-[960px] sm:block"
-            >
+            <nav aria-label="Breadcrumb" class="hidden w-full min-w-0 sm:block">
                 <ol
                     class="flex min-w-0 items-center gap-1 overflow-hidden text-sm text-foreground-muted [font-weight:var(--font-weight-label,500)]"
                 >
@@ -166,7 +171,7 @@
             <div class="flex shrink-0 items-center justify-end gap-1.5">
                 <SearchButton />
                 <Button
-                    class="h-9 rounded-[var(--radius-md)] px-2.5 text-[0.8125rem]"
+                    class="border-border/60 h-9 rounded-[var(--radius-md)] px-2.5 text-[0.8125rem]"
                     variant="outline"
                     href={resolve('/studio')}
                 >
@@ -174,9 +179,11 @@
                 </Button>
             </div>
         </div>
-        <div class="flex shrink-0 items-center gap-1.5 xl:justify-start">
+        <div
+            class="flex shrink-0 items-center gap-1.5 xl:h-full xl:border-l-[length:var(--border-size)] xl:border-[var(--docs-rule)] xl:justify-between xl:px-5"
+        >
             <Button
-                class="h-9 gap-1.5 rounded-[var(--radius-md)] px-2.5 text-[0.8125rem] tabular-nums"
+                class="border-border/60 h-9 gap-1.5 rounded-[var(--radius-md)] px-2.5 text-[0.8125rem] tabular-nums"
                 variant="outline"
                 href="https://github.com/mielsense/mielui"
                 target="_blank"
@@ -193,7 +200,7 @@
             <Tooltip.Root>
                 <Tooltip.Trigger>
                     <Button
-                        class="size-9 rounded-[var(--radius-md)]"
+                        class="border-border/60 size-9 rounded-[var(--radius-md)]"
                         variant="outline"
                         onclick={() => {
                             toggleMode();
@@ -217,7 +224,7 @@
         </div>
     </header>
 
-    <Sheet.Content side="left" class="p-0 sm:hidden">
+    <Sheet.Content side="left" class="p-0 lg:hidden">
         <Sheet.Title class="sr-only">Browse mielui</Sheet.Title>
         <Sheet.Description class="sr-only">
             Documentation and component categories.
@@ -280,6 +287,16 @@
                         >
                             {sanitizeComponent(component)}
                         </Button>
+                        {#each componentGuidePages.filter((guide) => guide.component === component) as guide (guide.href)}
+                            <Button
+                                variant="quiet"
+                                class="w-full justify-start ps-6"
+                                onclick={closeMobileMenu}
+                                href={guide.href}
+                            >
+                                {guide.title}
+                            </Button>
+                        {/each}
                     {/each}
                     {#if group.items.length === 0}
                         <p class="text-sm text-foreground-muted">No chart components yet.</p>

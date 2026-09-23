@@ -8,12 +8,9 @@
     import * as Group from '@mielui/svelte/components/group';
     import * as Popover from '@mielui/svelte/components/popover';
     import HugeiconsIcon from '@mielui/svelte/hugeicons-icon';
-    import { travelingHighlight } from '@mielui/svelte/utils';
-    import { tick } from 'svelte';
     import { page } from '$app/state';
 
     let open = $state(false);
-    let menu = $state<HTMLDivElement>();
     let status = $state<'idle' | 'loading' | 'copied' | 'error'>('idle');
     let timer: ReturnType<typeof setTimeout> | undefined;
     let request: AbortController | undefined;
@@ -28,38 +25,6 @@
         { label: 'Open in Claude', href: `https://claude.ai/new?q=${encodeURIComponent(prompt)}` },
         { label: 'Open in Scira', href: `https://scira.ai/?q=${encodeURIComponent(prompt)}` }
     ]);
-
-    function navigateMenu(event: KeyboardEvent) {
-        const items = [...(menu?.querySelectorAll<HTMLAnchorElement>('[role="menuitem"]') ?? [])];
-        const active =
-            document.activeElement instanceof HTMLAnchorElement
-                ? items.indexOf(document.activeElement)
-                : -1;
-        let index: number;
-        if (event.key === 'ArrowDown') {
-            index = (active + 1) % items.length;
-        } else if (event.key === 'ArrowUp') {
-            index = (active - 1 + items.length) % items.length;
-        } else if (event.key === 'Home') {
-            index = 0;
-        } else if (event.key === 'End') {
-            index = items.length - 1;
-        } else {
-            return;
-        }
-        event.preventDefault();
-        items[index]?.focus();
-    }
-
-    $effect(() => {
-        if (open) {
-            void tick().then(() => {
-                if (open) {
-                    menu?.querySelector<HTMLAnchorElement>('[role="menuitem"]')?.focus();
-                }
-            });
-        }
-    });
 
     async function copy() {
         request?.abort();
@@ -103,7 +68,7 @@
 </script>
 
 <div class="flex flex-col items-end gap-1">
-    <Popover.Root placement="bottom-end" bind:open>
+    <Popover.Root bind:open placement="top-end">
         <Group.Root aria-label="Page actions">
             <Button variant="outline" size="sm" onclick={copy} disabled={status === 'loading'}>
                 <HugeiconsIcon icon={status === 'copied' ? CheckIcon : CopyIcon} size={15} />
@@ -115,33 +80,25 @@
                 size="sm"
                 class="px-2"
                 aria-label="More page actions"
-                aria-haspopup="menu"
             >
                 <HugeiconsIcon icon={ArrowDownIcon} size={15} />
             </Popover.Trigger>
         </Group.Root>
-        <Popover.Content role="menu" focusTrap={false} lockScroll={false} surfaceClass="p-1">
-            <div
-                role="presentation"
-                bind:this={menu}
-                use:travelingHighlight
-                onkeydown={navigateMenu}
-                class="flex flex-col"
-            >
+        <Popover.Content class="w-48" surfaceClass="p-1" focusTrap={false} lockScroll={false}>
+            <nav aria-label="Page resources" class="flex flex-col">
                 {#each links as link (link.label)}
-                    <a
-                        role="menuitem"
-                        onclick={() => { open = false; }}
-                        data-collection-item
-                        class="mielui-menu-item flex text-sm hover:bg-secondary focus-visible:bg-secondary focus-visible:outline-none"
+                    <Button
+                        variant="quiet"
+                        class="justify-start"
                         href={link.href}
                         target="_blank"
                         rel="noopener noreferrer"
+                        onclick={() => { open = false; }}
                     >
                         {link.label}
-                    </a>
+                    </Button>
                 {/each}
-            </div>
+            </nav>
         </Popover.Content>
     </Popover.Root>
     <span role="status" class={status === 'error' ? 'text-sm text-foreground-muted' : 'sr-only'}>

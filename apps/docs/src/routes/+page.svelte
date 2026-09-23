@@ -18,6 +18,8 @@
     import GitHubBlack from '$lib/assets/GitHub_Invertocat_Black.svg';
     import GitHubWhite from '$lib/assets/GitHub_Invertocat_White.svg';
     import { components } from '$lib/components';
+    import HomeComponentCloud from '$lib/components/home-component-cloud.svelte';
+    import HomeTexture from '$lib/components/home-texture.svelte';
     import Logo from '$lib/components/logo.svelte';
     import SleepingCat from '$lib/components/sleeping-cat.svelte';
     import { formatStarCount } from '$lib/github';
@@ -25,26 +27,6 @@
     import type { PageData } from './$types';
 
     const { data }: { data: PageData } = $props();
-
-    function pascalCase(slug: string): string {
-        return slug
-            .split('-')
-            .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
-            .join('');
-    }
-
-    function chunkNames(names: string[], size: number): string[][] {
-        const rows: string[][] = [];
-
-        for (let i = 0; i < names.length; i += size) {
-            rows.push(names.slice(i, i + size));
-        }
-
-        return rows;
-    }
-
-    const cloudRows = chunkNames(components.map(pascalCase), 5);
-    const rowDurations = [72, 54, 78, 48, 84, 60, 66, 50, 76, 56, 68];
 
     let mobileMenuOpen = $state(false);
 
@@ -63,12 +45,30 @@
 </svelte:head>
 
 <section
-    class="relative flex h-full flex-col overflow-hidden bg-background"
+    class="relative isolate flex h-full flex-col overflow-hidden bg-background [--home-rail:1rem] sm:[--home-rail:3.5rem]"
     aria-label="mielui introduction"
 >
+    <HomeTexture />
+    <HomeComponentCloud />
+    <div
+        aria-hidden="true"
+        class="pointer-events-none absolute inset-y-0 left-[var(--home-rail)] z-20 border-r border-border/50"
+    ></div>
+    <div
+        aria-hidden="true"
+        class="pointer-events-none absolute inset-y-0 right-[var(--home-rail)] z-20 border-r border-border/50"
+    ></div>
+    {#each ['left-[var(--home-rail)] -translate-x-1/2', 'right-[var(--home-rail)] translate-x-1/2'] as edge}
+        {#each ['top-14 -translate-y-1/2', 'bottom-14 translate-y-1/2'] as row}
+            <span
+                aria-hidden="true"
+                class="pointer-events-none absolute z-30 size-2 rounded-[2px] border border-border bg-secondary {edge} {row}"
+            ></span>
+        {/each}
+    {/each}
     <Sheet.Root bind:open={mobileMenuOpen}>
         <header
-            class="relative z-10 flex w-full items-center justify-between px-4 py-3 sm:px-8 sm:py-4 motion-safe:[animation:docs-block-in_280ms_var(--ease-out)_both]"
+            class="relative z-10 flex h-14 shrink-0 w-full items-center justify-between border-y border-border/50 bg-secondary/10 px-[calc(var(--home-rail)+1rem)]"
         >
             <div class="flex min-w-0 flex-1 items-center gap-2">
                 <Sheet.Trigger
@@ -190,7 +190,7 @@
         </Sheet.Content>
     </Sheet.Root>
     <div
-        class="relative flex w-full flex-1 flex-col items-start justify-end px-4 pt-8 pb-8 text-left sm:px-8 sm:pt-16 sm:pb-16"
+        class="relative flex min-h-0 w-full flex-1 flex-col items-center justify-center overflow-y-auto px-5 py-10 text-center [&>pre]:text-[clamp(0.65rem,2.1vw,1.8rem)] [&>pre]:mb-10"
     >
         <SleepingCat />
         <Typography.H1
@@ -206,7 +206,7 @@
             {`Restyle ${components.length} components from a handful of tokens.`}
         </Typography.Description>
         <div
-            class="mt-3 flex w-full flex-col justify-start gap-3 sm:w-auto sm:flex-row sm:flex-wrap motion-safe:[animation:docs-block-in_280ms_var(--ease-out)_both] motion-safe:[animation-delay:115ms]"
+            class="mt-3 flex w-full flex-col justify-center gap-3 sm:w-auto sm:flex-row sm:flex-wrap motion-safe:[animation:docs-block-in_280ms_var(--ease-out)_both] motion-safe:[animation-delay:115ms]"
         >
             <Button
                 href={resolve('/docs/components')}
@@ -228,23 +228,10 @@
             </Button>
         </div>
     </div>
-    <div
-        aria-hidden="true"
-        class="pointer-events-none absolute inset-y-0 right-0 hidden w-[55rem] flex-col justify-between gap-6 overflow-hidden py-4 text-5xl text-foreground-muted opacity-20 blur-[1px] select-none md:flex [mask-image:linear-gradient(to_right,transparent,black_25%)]"
+    <footer
+        class="relative z-10 flex h-14 shrink-0 items-center justify-between border-t border-border/50 bg-secondary/10 px-[calc(var(--home-rail)+1rem)] text-xs text-foreground-muted"
     >
-        {#each cloudRows as row, i (i)}
-            <div
-                class="flex w-max motion-safe:[animation:hero-cloud-drift_linear_infinite]"
-                style={`animation-duration: ${rowDurations[i % rowDurations.length]}s; animation-direction: ${i % 2 === 0 ? 'normal' : 'reverse'};`}
-            >
-                {#each [0, 1] as half (half)}
-                    <span class="flex">
-                        {#each row as name (name)}
-                            <span class="mr-10 whitespace-nowrap">{name}</span>
-                        {/each}
-                    </span>
-                {/each}
-            </div>
-        {/each}
-    </div>
+        <span>Mielui · Svelte components</span>
+        <a href={resolve('/docs/changelog')} class="hover:text-foreground">Changelog</a>
+    </footer>
 </section>

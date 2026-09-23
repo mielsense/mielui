@@ -5,12 +5,12 @@
     let { properties }: { properties: ReferenceProperty[] } = $props();
 </script>
 <Table.ScrollArea>
-    <Table.Root class="min-w-[34rem] text-left">
+    <Table.Root variant="inset" class="min-w-[30rem] text-left">
         <Table.Header class="bg-secondary/40 text-foreground-muted">
             <Table.Row>
-                <Table.Head class="w-1/5 px-4 py-3 font-medium">Prop</Table.Head>
-                <Table.Head class="px-4 py-3 font-medium">Type</Table.Head>
-                <Table.Head class="w-1/5 px-4 py-3 font-medium">Default</Table.Head>
+                <Table.Head class="w-1/5 px-4 py-2 font-medium">Prop</Table.Head>
+                <Table.Head class="px-4 py-2 font-medium">Type</Table.Head>
+                <Table.Head class="w-1/5 px-4 py-2 font-medium">Default</Table.Head>
             </Table.Row>
         </Table.Header>
         <Table.Body>

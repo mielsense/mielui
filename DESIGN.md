@@ -238,3 +238,75 @@ Studio presents it as a percentage under Effects. Scale only the light inset edg
 keep structural borders, focus rings, dark inset shading, and cast shadows intact.
 Do not add fixed white inset shadows to individual components. Shadow switches
 still disable their corresponding elevation effects.
+
+## Documentation composition
+
+Docs and Studio use a continuous grid between a fixed header and footer. Keep
+both documentation side rails equal in width. Use thin full-height column rules,
+full-width section rules, and small square marks at their intersections. Do not
+box the article into a rounded inset panel. The section rail uses a solid hook.
+
+Page names remain in the breadcrumb and an accessible heading. Put the page
+summary behind the footer's information HoverCard. Copy page and previous/next
+navigation belong in the same fixed footer; their menus open upward and align
+inward with a viewport gutter.
+
+Section title rows stick below the header. Every row uses the same label size,
+weight, padding, and opaque, subtly contrasting background. A title-row divider
+must span the reading column. Content starts and ends 1.5rem from its section
+boundaries; paragraph gaps stay at 1rem. The shared layout owns these distances. Keep body sections on one background rather than
+alternating arbitrary fills. Use modest responsive side gutters. Docs paragraphs use the section width; split
+long explanations into short paragraphs by topic rather than narrow text columns.
+
+Sidebar group headings and the page-outline heading use the same sticky row height
+as section titles. Sidebar groups have full-width boundary rules and a subtle
+primary-colored selected text. The leading preview toolbar shares that row height and
+sticks until the next section; inset example toolbars stay compact without an
+extra divider. Put optional section explanations behind a labelled info control.
+
+The leading page preview uses a full-width ghost-tab toolbar and an open canvas.
+Its source occupies the same square section, without a rounded frame. Examples
+inside a section use the shared inset preview card, with the toolbar and preview
+surface contained together. Do not stretch nested card headers across the page.
+Keep both forms in the shared preview implementation and preserve example state
+when switching to code. Give the leading preview room; size supporting examples
+to their content. Use `data-preview-canvas` for canvas-specific spacing.
+
+The shell has two opaque tones: `--docs-chrome` for the header, footer, side rails,
+and section headings; `--docs-content` for the reading and preview canvas. In dark
+mode the content is a slightly darker charcoal, not pure black. Preview controls
+stay in a local stacking context below sticky section headings.
+
+Examples demonstrate a useful state change. Label icon controls, keep result
+messages in an explicit layout with a gap, and clean up timers and requests on
+unmount. Loading examples finish or offer a state control; failure examples have
+a working retry when retry is supported. Keep simulated results local and state
+what actually happened. Chart-type guides share the parent component's API;
+keep their HTML, Markdown, navigation, and search metadata aligned.
+
+### Shared shell geometry
+
+The header, footer, article section headings, sidebar group headings, On this
+page heading, and leading preview toolbar share `--docs-row-height`. This token
+includes the row border. Center labels and controls vertically; do not recreate
+row heights with independent padding or local pixel values. Header children use
+the token minus their parent border. Nested preview cards keep compact toolbars.
+
+Position header and footer intersection marks from the same row-height token,
+not a separate top or bottom spacing value. Sidebar, header, and footer column
+rules must share the same width and border edge, including after density changes.
+Studio uses the same 18rem inspector column as the documentation sidebar.
+
+Studio preview tabs belong in the main header. Preview width controls sit at the
+left of the footer's center column. Do not add another toolbar row for either.
+Use the shared ghost tabs throughout Studio, including preview and setup dialogs.
+
+Section and rail headings use semibold weight with the configured header font.
+Keep body labels and tabs lighter so section titles remain distinct.
+
+Live chart motion must preserve values and proportions. Animate the area fill,
+use a staggered sweep within bar bounds, and brighten pie segments in sequence
+without moving their boundaries or center labels. Pause live effects during pie inspection.
+Observe the stationary chart viewport for visibility, never a moving highlight
+that can leave its clip and strand its own animation. Honor reduced motion,
+zero-duration themes, hidden documents, and offscreen charts.

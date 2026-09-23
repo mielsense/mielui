@@ -1,5 +1,7 @@
 <script lang="ts">
-    import { DEFAULT_FONT, fonts, selectedFont } from '$lib/fonts.svelte';
+    import { DEFAULT_FONT, fonts, getDocsFontState } from '$lib/fonts.svelte';
+
+    const selectedFont = getDocsFontState();
 </script>
 
 <svelte:head>
