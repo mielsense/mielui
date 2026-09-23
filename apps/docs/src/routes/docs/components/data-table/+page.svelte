@@ -2,7 +2,7 @@
     import { CodeBlock } from '@mielui/svelte/components/code-block';
     import * as Typography from '@mielui/svelte/components/typography';
     import { ComponentPreview, InstallCommand } from '$lib/components/docs';
-    import DocsPager from '$lib/components/docs/docs-pager.svelte';
+    import PageIntro from '$lib/components/docs/page-intro.svelte';
     import Controlled from './examples/controlled.svelte';
     import ControlledSrc from './examples/controlled.svelte?raw';
     import SetupSrc from './examples/data.ts?raw';
@@ -19,16 +19,10 @@
     />
 </svelte:head>
 <div data-docs-page class="flex flex-col gap-10">
-    <header class="flex items-start justify-between gap-4">
-        <div>
-            <Typography.H1>Data Table</Typography.H1>
-            <Typography.Text variant="lead" class="mt-2 max-w-2xl">
-                Sort, filter, and select rows in an inset table. Compose the toolbar and footer
-                around your data.
-            </Typography.Text>
-        </div>
-        <DocsPager />
-    </header>
+    <PageIntro title="Data Table">
+        Sort, filter, and select rows in an inset table. Compose the toolbar and footer around your
+        data.
+    </PageIntro>
     <section id="hero" class="flex flex-col gap-4">
         <ComponentPreview code={HeroSrc} class="w-full"><Hero /></ComponentPreview>
     </section>
@@ -40,6 +34,7 @@
             resolve its Svelte module imports.
         </Typography.Text>
         <CodeBlock
+            copy="overlay"
             code={"export default defineConfig({\n    ssr: { noExternal: ['@tanstack/svelte-table'] }\n});"}
             lang="typescript"
         />
@@ -64,12 +59,14 @@
             an extra keyboard toolbar.
         </Typography.Text>
         <Typography.Text>
-            View uses Mielui's semantic Table parts. Its Header and Body are separately exported for
-            composing inside Table.Root. Header and cell snippets receive the original TanStack
-            objects; use FlexRender for standard column definitions, renderSnippet for Svelte
-            snippets inside definitions, or render your own markup. Empty receives loading and
-            occupies one row spanning the visible columns. Header supports grouped columns; Body
-            respects column visibility when that feature is installed.
+            View renders Mielui Table parts. To arrange the table yourself, place DataTable.Header
+            and DataTable.Body inside Table.Root. Header supports grouped columns, and Body respects
+            column visibility when that feature is installed.
+        </Typography.Text>
+        <Typography.Text>
+            Header and cell snippets receive the original TanStack objects. Use FlexRender for
+            column definitions or renderSnippet for Svelte snippets within them. Empty accepts
+            loading and spans the visible columns in a single row.
         </Typography.Text>
         <Typography.Text>
             ColumnHeader offers explicit ascending, descending, and clear-sort choices; sorted
@@ -88,22 +85,31 @@
             visible and disables itself when every available filter is shown.
         </Typography.Text>
         <Typography.Text>
-            Filter is a labeled search input for a string column filter, such as name with
-            includesString. Filters accepts a list of definitions with column, label, and type:
-            text, select, number, or date. Its menu reveals editable chips; selecting a field opens
-            its editor immediately. Select definitions supply value/label options and support
-            multiple choices. Number definitions can supply min, max, and step. Date editors use
-            Mielui DatePicker. Combine these controls in Toolbar with Sort, as in the first example.
+            Filter searches a string column such as name with includesString. Filters accepts
+            definitions with column, label, and type: text, select, number, or date. Choosing a
+            field adds its chip and opens the editor.
         </Typography.Text>
         <Typography.Text>
-            Register dataTableFilter as each facet column's filterFn. Facets store a typed
-            DataTableFilterClause in TanStack's columnFilters state: type, operator, and value. Text
-            supports contains, equals, and not; select supports in and notIn. Number and date
-            support equals, lt, lte, gt, gte, and inclusive between bounds. Built-in editors offer
-            the common comparisons; custom editors can use the complete clause type. Text matching
-            ignores case, numeric cells must contain numbers, and date cells use ISO calendar-date
-            strings. Empty bounds remain open. These are client-side predicates, not a server query
-            language; validate persisted filters and translate them for your backend yourself.
+            Select definitions need value/label options and can accept multiple choices. Number
+            definitions accept min, max, and step. Date editors use DatePicker. Place these controls
+            with Sort inside Toolbar.
+        </Typography.Text>
+        <Typography.Text>
+            Register dataTableFilter as each facet column's filterFn. Facets store a
+            DataTableFilterClause in TanStack's columnFilters state, containing type, operator, and
+            value.
+        </Typography.Text>
+        <Typography.Text>
+            Text clauses support contains, equals, and not. Select clauses support in and notIn.
+            Number and date clauses support equals, lt, lte, gt, gte, and inclusive between bounds.
+            Built-in editors offer common comparisons; custom editors can use the complete clause
+            type.
+        </Typography.Text>
+        <Typography.Text>
+            Text matching ignores case. Numeric cells must contain numbers, and date cells must use
+            ISO calendar-date strings. Empty bounds stay open. These filters run on the client.
+            Validate saved filters and translate them into your own backend queries for server
+            filtering.
         </Typography.Text>
         <Typography.Text>
             Facet is independently composable with table and filter props, bind:open, onOpenChange,
@@ -128,12 +134,17 @@
         <Typography.H2>Selection and stable identity</Typography.H2>
         <Typography.Text>
             Set selectable on Root or View to add a selection column. Register rowSelectionFeature
-            and provide getRowId with a stable record ID; index-based IDs can select the wrong
-            record after data is replaced. The header checkbox selects only the current page's
-            selectable rows and shows mixed state for partial selection. rowLabel supplies a
-            human-readable checkbox name. Selection can persist across filtering and pages; Summary
-            reports selected IDs separately from the current row total. For server pagination,
-            selected IDs may refer to records not loaded on this page.
+            and give getRowId a stable record ID. Index-based IDs can select the wrong record when
+            data changes.
+        </Typography.Text>
+        <Typography.Text>
+            The header checkbox selects the current page's selectable rows and shows a mixed state
+            for partial selection. Use rowLabel to give each checkbox a readable name.
+        </Typography.Text>
+        <Typography.Text>
+            Selection can persist across filters and pages. Summary reports selected IDs separately
+            from the current row total. With server pagination, some selected records may not be
+            loaded on the current page.
         </Typography.Text>
         <Typography.Text>
             Selection is also an exported checkbox part for custom columns. It accepts checked,
@@ -155,12 +166,14 @@
     <section id="server" class="flex flex-col gap-4">
         <Typography.H2>Server data</Typography.H2>
         <Typography.Text>
-            For server filtering, sorting, or pagination, configure the corresponding manual options
-            on the TanStack instance and pass the returned rows through a reactive data getter.
-            Supply rowCount or pageCount when known; pageCount=-1 keeps Next available without
-            inventing a final page. Keep request cancellation, URL state, and error handling in your
-            application. DataTable does not fetch or virtualize rows. Use pagination for large
-            lists, and measure before adding virtualization.
+            For server filtering, sorting, or pagination, enable the corresponding TanStack manual
+            options and pass returned rows through a reactive data getter. Supply rowCount or
+            pageCount when known. Use pageCount=-1 to keep Next available when the last page is
+            unknown.
+        </Typography.Text>
+        <Typography.Text>
+            Handle request cancellation, URL state, and errors in your application. DataTable does
+            not fetch or virtualize rows. Use pagination for large lists.
         </Typography.Text>
     </section>
 </div>

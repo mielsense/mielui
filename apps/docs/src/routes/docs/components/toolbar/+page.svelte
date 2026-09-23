@@ -1,7 +1,7 @@
 <script lang="ts">
     import * as Typography from '@mielui/svelte/components/typography';
     import { ComponentPreview, InstallCommand } from '$lib/components/docs';
-    import DocsPager from '$lib/components/docs/docs-pager.svelte';
+    import PageIntro from '$lib/components/docs/page-intro.svelte';
     import Additional from './examples/formatting.svelte';
     import AdditionalSrc from './examples/formatting.svelte?raw';
     import Hero from './examples/hero.svelte';
@@ -15,15 +15,9 @@
     />
 </svelte:head>
 <div data-docs-page class="flex flex-col gap-10">
-    <header class="flex items-start justify-between gap-4">
-        <div>
-            <Typography.H1>Toolbar</Typography.H1>
-            <Typography.Text variant="lead" class="mt-2 max-w-2xl">
-                Composable keyboard toolbar with buttons, links, and selectable groups.
-            </Typography.Text>
-        </div>
-        <DocsPager />
-    </header>
+    <PageIntro title="Toolbar">
+        Composable keyboard toolbar with buttons, links, and selectable groups.
+    </PageIntro>
     <section id="hero" class="flex flex-col gap-4">
         <ComponentPreview code={HeroSrc}><Hero /></ComponentPreview>
     </section>
@@ -58,5 +52,13 @@
     <section id="formatting" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Multiple selections</Typography.H2>
         <ComponentPreview code={AdditionalSrc}><Additional /></ComponentPreview>
+    </section>
+    <section id="working-example" class="flex scroll-mt-20 flex-col gap-4">
+        <Typography.H2 class="docs-section-heading">Selection and commands</Typography.H2>
+        <Typography.Text>
+            Use Item inside a single or multiple Group for persistent choices. Use Toolbar.Button
+            for a one-time action such as Clear. Label the toolbar and each icon-only control; the
+            examples display the selected tool or apply formatting to a sample sentence.
+        </Typography.Text>
     </section>
 </div>

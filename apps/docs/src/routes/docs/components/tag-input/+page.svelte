@@ -2,7 +2,8 @@
     import { CodeBlock } from '@mielui/svelte/components/code-block';
     import * as Typography from '@mielui/svelte/components/typography';
     import { ComponentPreview, InstallCommand } from '$lib/components/docs';
-    import DocsPager from '$lib/components/docs/docs-pager.svelte';
+    import PageIntro from '$lib/components/docs/page-intro.svelte';
+    import SectionHeading from '$lib/components/docs/section-heading.svelte';
     import Controlled from './examples/controlled.svelte';
     import ControlledSrc from './examples/controlled.svelte?raw';
     import Hero from './examples/hero.svelte';
@@ -28,22 +29,16 @@ let tags = $state(['svelte']);
     <title>Mielui · Tag Input</title>
     <meta
         name="description"
-        content="Tokenized tag entry with keyboard commits, paste splitting, duplicates and max-tag guards, validation, and full form support."
+        content="Enter and validate removable tags with keyboard, paste, and form support."
     />
 </svelte:head>
 
 <div data-docs-page class="flex flex-col gap-10">
     <!-- ─── Header ────────────────────────────────────────────────── -->
-    <header class="flex items-start justify-between gap-4">
-        <div>
-            <Typography.H1>Tag Input</Typography.H1>
-            <Typography.Text variant="lead" class="mt-2 max-w-2xl">
-                A field that turns typed text into removable tags with badge outlines. Type a value,
-                press Enter, and keep going.
-            </Typography.Text>
-        </div>
-        <DocsPager />
-    </header>
+    <PageIntro title="Tag Input">
+        A field that turns typed text into removable tags with badge outlines. Type a value, press
+        Enter, and keep going.
+    </PageIntro>
 
     <!-- ─── Hero Example ──────────────────────────────────────────── -->
     <section id="hero" class="scroll-mt-20 flex flex-col gap-4">
@@ -83,13 +78,12 @@ let tags = $state(['svelte']);
 
     <!-- ─── Examples ──────────────────────────────────────────────── -->
     <section id="examples" class="scroll-mt-20 flex flex-col gap-10">
-        <div>
-            <Typography.H2 class="docs-section-heading">Examples</Typography.H2>
-            <Typography.Text variant="supporting" class="mt-2">
+        <SectionHeading title="Examples">
+            {#snippet description()}
                 Read changes through callbacks, guard the list with validation, and cap it with a
                 maximum.
-            </Typography.Text>
-        </div>
+            {/snippet}
+        </SectionHeading>
 
         <div id="controlled" class="scroll-mt-20 flex flex-col gap-3">
             <Typography.H3 class="docs-subsection-heading">Responding to changes</Typography.H3>

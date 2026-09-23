@@ -2,7 +2,7 @@
     import { CodeBlock } from '@mielui/svelte/components/code-block';
     import * as Typography from '@mielui/svelte/components/typography';
     import { ComponentPreview, InstallCommand } from '$lib/components/docs';
-    import DocsPager from '$lib/components/docs/docs-pager.svelte';
+    import PageIntro from '$lib/components/docs/page-intro.svelte';
     import Hero from './examples/hero.svelte';
     import HeroSrc from './examples/hero.svelte?raw';
     import Remote from './examples/remote.svelte';
@@ -39,16 +39,9 @@ export default config;`;
 </svelte:head>
 
 <div data-docs-page class="flex flex-col gap-10">
-    <header class="flex items-start justify-between gap-4">
-        <div>
-            <Typography.H1>Form</Typography.H1>
-            <Typography.Text variant="lead" class="mt-2 max-w-2xl">
-                Keep native submission intact, with clear feedback from the first field to the final
-                action.
-            </Typography.Text>
-        </div>
-        <DocsPager />
-    </header>
+    <PageIntro title="Form">
+        Keep native submission intact, with clear feedback from the first field to the final action.
+    </PageIntro>
     <section id="hero" class="scroll-mt-20 flex flex-col gap-4">
         <ComponentPreview code={HeroSrc}><Hero /></ComponentPreview>
     </section>
@@ -160,14 +153,14 @@ export default config;`;
             fields.intent.as('submit', value) on each Submit to preserve which action was chosen.
         </Typography.Text>
     </section>
-    <Typography.Text variant="supporting">
-        For server validation returned without JavaScript, declare stable describedBy and errorId
-        values on Field.Control and matching IDs on Description and Error. The multiple-action
-        example uses $props.id() so those relationships work before hydration. The basic example
-        lets Field associate descriptions and errors after hydration.
-    </Typography.Text>
     <section id="multiple-actions" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Multiple actions and reset</Typography.H2>
+        <Typography.Text variant="supporting">
+            For server validation returned without JavaScript, declare stable describedBy and
+            errorId values on Field.Control and matching IDs on Description and Error. The
+            multiple-action example uses $props.id() so those relationships work before hydration.
+            The basic example lets Field associate descriptions and errors after hydration.
+        </Typography.Text>
         <Typography.Text variant="supporting">
             Use submitter values when the server needs to distinguish actions. This example resets
             only after successful validation; errors preserve the draft.

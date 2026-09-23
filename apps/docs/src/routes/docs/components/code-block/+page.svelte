@@ -2,7 +2,7 @@
     import { CodeBlock } from '@mielui/svelte/components/code-block';
     import * as Typography from '@mielui/svelte/components/typography';
     import { ComponentPreview, InstallCommand } from '$lib/components/docs';
-    import DocsPager from '$lib/components/docs/docs-pager.svelte';
+    import PageIntro from '$lib/components/docs/page-intro.svelte';
     import Compound from './examples/compound.svelte';
     import CompoundSrc from './examples/compound.svelte?raw';
     import CopyInline from './examples/copy-inline.svelte';
@@ -52,15 +52,9 @@ import { CodeBlock } from '$lib/mielui/components/code-block';
 
 <div data-docs-page class="flex flex-col gap-10">
     <!-- ─── Header ────────────────────────────────────────────────── -->
-    <header class="flex items-start justify-between gap-4">
-        <div>
-            <Typography.H1>Code Block</Typography.H1>
-            <Typography.Text variant="lead" class="mt-2 max-w-2xl">
-                A code viewer with syntax highlighting, a language switcher, and a copy button.
-            </Typography.Text>
-        </div>
-        <DocsPager />
-    </header>
+    <PageIntro title="Code Block">
+        A code viewer with syntax highlighting, a language switcher, and a copy button.
+    </PageIntro>
 
     <!-- ─── Hero Example ──────────────────────────────────────────── -->
     <section id="hero" class="scroll-mt-20 flex flex-col gap-4">
@@ -70,11 +64,6 @@ import { CodeBlock } from '$lib/mielui/components/code-block';
     </section>
 
     <!-- ─── Installation ──────────────────────────────────────────── -->
-    <Typography.Text>
-        Dynamic tab collections follow the current trigger order, including custom compositions.
-        Removing or disabling the active trigger selects the first enabled trigger; copy actions and
-        panel direction follow that selection.
-    </Typography.Text>
     <section id="installation" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Installation</Typography.H2>
         <InstallCommand command={installCommand} />
@@ -90,11 +79,6 @@ import { CodeBlock } from '$lib/mielui/components/code-block';
     <section id="usage" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Usage</Typography.H2>
         <Typography.Text variant="supporting">
-            When the tab collection changes, a missing active selection falls back to the first
-            available tab. Single snippets are named code regions; tab panels are used when tab
-            controls are present.
-        </Typography.Text>
-        <Typography.Text variant="supporting">
             Pass a{' '}
             <Typography.InlineCode>tabs</Typography.InlineCode> array for the multi-language form,
             or{' '}
@@ -102,6 +86,14 @@ import { CodeBlock } from '$lib/mielui/components/code-block';
             +
             <Typography.InlineCode>lang</Typography.InlineCode>
             for a single snippet:
+        </Typography.Text>
+        <Typography.Text variant="supporting">
+            Dynamic tab collections follow the current trigger order, including custom compositions.
+            Removing or disabling the active trigger selects the first enabled trigger; copy actions
+            and panel direction follow that selection.
+        </Typography.Text>
+        <Typography.Text variant="supporting">
+            A single snippet is a named code region. Multiple snippets use tabs and tab panels.
         </Typography.Text>
         <CodeBlock code={usageSnippet} lang="svelte" copy="overlay" />
         <Typography.Text variant="supporting">
@@ -173,13 +165,12 @@ import { CodeBlock } from '$lib/mielui/components/code-block';
         <div id="custom-theme-stylesheet" class="scroll-mt-20 flex flex-col gap-3">
             <Typography.H3 class="docs-subsection-heading">Custom theme: stylesheet</Typography.H3>
             <Typography.Text variant="supporting">
-                With
                 <Typography.InlineCode>theme="custom"</Typography.InlineCode>
-                the block paints no token colors itself, so a stock
+                disables the built-in token colors. Load a
                 <Typography.InlineCode>highlight.js</Typography.InlineCode>
-                stylesheet. or your own
+                stylesheet or supply your own
                 <Typography.InlineCode>hljs-*</Typography.InlineCode>
-                rules, like the One Dark / One Light ones below. takes over.
+                rules. This example defines One Dark and One Light token colors.
             </Typography.Text>
             <ComponentPreview code={CustomThemeStylesheetSrc}>
                 <CustomThemeStylesheet />
@@ -197,5 +188,13 @@ import { CodeBlock } from '$lib/mielui/components/code-block';
                 <CustomThemeVariables />
             </ComponentPreview>
         </div>
+    </section>
+    <section id="working-example" class="flex scroll-mt-20 flex-col gap-4">
+        <Typography.H2 class="docs-section-heading">Copy and custom actions</Typography.H2>
+        <Typography.Text>
+            CodeBlock.Copy copies the active snippet. Keep editor or run actions inside Actions and
+            handle their result in your application. This example edits a local query and reports a
+            simulated result; it does not connect to a database.
+        </Typography.Text>
     </section>
 </div>

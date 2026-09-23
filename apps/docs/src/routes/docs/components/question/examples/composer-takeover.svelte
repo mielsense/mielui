@@ -20,6 +20,9 @@
         sentPrompt = value;
         draft = '';
     }
+    function cancelQuestion() {
+        asking = false;
+    }
 </script>
 
 <div
@@ -82,9 +85,7 @@
                     </Question.Options>
                 </Question.Content>
                 <Question.Actions>
-                    <Question.Cancel onclick={() => (asking = false)}>
-                        Skip question
-                    </Question.Cancel>
+                    <Question.Cancel onclick={cancelQuestion}>Skip question</Question.Cancel>
                     <Question.Submit />
                 </Question.Actions>
             </Question.Root>

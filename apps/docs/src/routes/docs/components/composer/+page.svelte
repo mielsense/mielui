@@ -3,7 +3,8 @@
     import Kbd from '@mielui/svelte/components/kbd';
     import * as Typography from '@mielui/svelte/components/typography';
     import { ComponentPreview, InstallCommand } from '$lib/components/docs';
-    import DocsPager from '$lib/components/docs/docs-pager.svelte';
+    import PageIntro from '$lib/components/docs/page-intro.svelte';
+    import SectionHeading from '$lib/components/docs/section-heading.svelte';
 
     import Glass from './examples/glass.svelte';
     import GlassSource from './examples/glass.svelte?raw';
@@ -30,16 +31,9 @@
 </svelte:head>
 
 <div data-docs-page class="flex flex-col gap-10">
-    <header class="flex items-start justify-between gap-4">
-        <div>
-            <Typography.H1>Composer</Typography.H1>
-
-            <Typography.Text variant="lead" class="mt-2 max-w-2xl">
-                A prompt input that grows with its content and tracks submission state.
-            </Typography.Text>
-        </div>
-        <DocsPager />
-    </header>
+    <PageIntro title="Composer">
+        A prompt input that grows with its content and tracks submission state.
+    </PageIntro>
 
     <section id="hero" class="scroll-mt-20 flex flex-col gap-4">
         <ComponentPreview code={HeroSrc}><Hero /></ComponentPreview>
@@ -53,12 +47,14 @@
     <section id="usage" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Usage</Typography.H2>
         <Typography.Text variant="supporting">
-            Submit uses a round icon button with an accessible Send, Queue message, or Stop response
-            label. Bind the prompt value and handle submission on the root. The component awaits
-            async handlers and shows its submitting state automatically. Rejections preserve the
-            prompt and display errorMessage until the next attempt. Use onError to report the
-            failure; retry with the same submit action. An explicit error status remains
-            application-controlled.
+            Bind the prompt value on Root and handle submission with onSubmit. Composer waits for
+            async handlers and shows the submitting state until they finish. Submit labels its icon
+            as Send, Queue message, or Stop response to match the current action.
+        </Typography.Text>
+        <Typography.Text variant="supporting">
+            If submission rejects, Composer preserves the prompt and shows errorMessage. Use onError
+            to report the failure, then retry with the same submit button. If you set status="error"
+            yourself, your application must clear it.
         </Typography.Text>
         <CodeBlock
             code={`import * as Composer from '@mielui/svelte/components/composer';
@@ -97,17 +93,26 @@ async function sendPrompt(prompt: string) {
         <Typography.H2>Glass surface</Typography.H2>
         <Typography.Text>
             Set surface="glass" on Composer.Root for a frosted frame with a darker input well. Solid
-            remains the default.
+            is used unless the theme enables glass globally.
         </Typography.Text>
         <ComponentPreview code={GlassSource}><Glass /></ComponentPreview>
     </section>
+    <section id="integration" class="scroll-mt-20 flex flex-col gap-4">
+        <Typography.H2 class="docs-section-heading">Submission and cancellation</Typography.H2>
+        <Typography.Text variant="supporting">
+            Return a promise from onSubmit to keep the submit control pending until your request
+            settles. Reject it to preserve the prompt and display errorMessage. Use controlled
+            status="submitting" or generating for a stoppable response. onStop must cancel your
+            request or timer; it does not cancel application work automatically. The examples below
+            include a real stop action and a failure you can retry.
+        </Typography.Text>
+    </section>
     <section id="examples" class="scroll-mt-20 flex flex-col gap-10">
-        <div>
-            <Typography.H2 class="docs-section-heading">Examples</Typography.H2>
-            <Typography.Text variant="supporting" class="mt-2">
-                Use explicit states when submission is managed outside the component.
-            </Typography.Text>
-        </div>
+        <SectionHeading title="Examples">
+            {#snippet description()}
+                Send a prompt, stop pending work, and retry a failed submission.
+            {/snippet}
+        </SectionHeading>
 
         <div id="idle" class="scroll-mt-20 flex flex-col gap-3">
             <Typography.H3 class="docs-subsection-heading">Idle</Typography.H3>

@@ -2,7 +2,7 @@
     import { CodeBlock } from '@mielui/svelte/components/code-block';
     import * as Typography from '@mielui/svelte/components/typography';
     import { ComponentPreview, InstallCommand } from '$lib/components/docs';
-    import DocsPager from '$lib/components/docs/docs-pager.svelte';
+    import PageIntro from '$lib/components/docs/page-intro.svelte';
     import Determinate from './examples/determinate.svelte';
     import DeterminateSrc from './examples/determinate.svelte?raw';
     import Hero from './examples/hero.svelte';
@@ -25,15 +25,9 @@
 
 <div data-docs-page class="flex flex-col gap-10">
     <!-- ─── Header ────────────────────────────────────────────────── -->
-    <header class="flex items-start justify-between gap-4">
-        <div>
-            <Typography.H1>Progress</Typography.H1>
-            <Typography.Text variant="lead" class="mt-2 max-w-2xl">
-                A progress bar. Set indeterminate for tasks with an unknown duration.
-            </Typography.Text>
-        </div>
-        <DocsPager />
-    </header>
+    <PageIntro title="Progress">
+        A progress bar. Set indeterminate for tasks with an unknown duration.
+    </PageIntro>
 
     <!-- ─── Hero Example ──────────────────────────────────────────── -->
     <section id="hero" class="scroll-mt-20 flex flex-col gap-4">
@@ -52,14 +46,27 @@
     <section id="usage" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Usage</Typography.H2>
         <Typography.Text>
-            Progress accepts native div attributes, including aria-label and aria-labelledby.
-            Positive fractional ranges are supported; invalid maximums fall back to 100 and
-            non-finite values display zero. Determinate updates animate the indicator transform and
-            respect reduced motion.
+            Pass<Typography.InlineCode>value</Typography.InlineCode> for completed work and<Typography.InlineCode
+            >
+                max
+            </Typography.InlineCode> for the total, which defaults to 100. Use<Typography.InlineCode
+            >
+                indeterminate
+            </Typography.InlineCode> when the amount remaining is unknown. Name the task with<Typography.InlineCode
+            >
+                aria-label
+            </Typography.InlineCode> or<Typography.InlineCode>
+                aria-labelledby
+            </Typography.InlineCode>
+            .
+        </Typography.Text>
+        <Typography.Text>
+            Fractional values are supported. Invalid maximums fall back to 100, and non-finite
+            values display zero. Indicator transitions respect reduced motion.
         </Typography.Text>
 
         <CodeBlock
-            code={`import { Progress } from '$lib/mielui/components/progress';\n\n<Progress value={28} />\n<Progress indeterminate />`}
+            code={`import { Progress } from '$lib/mielui/components/progress';\n\n<Progress value={28} aria-label="Upload progress" />\n<Progress indeterminate aria-label="Waiting for a response" />`}
             lang="svelte"
             copy="overlay"
         />

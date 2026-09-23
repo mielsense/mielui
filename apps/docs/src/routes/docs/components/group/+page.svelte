@@ -1,7 +1,7 @@
 <script lang="ts">
     import * as Typography from '@mielui/svelte/components/typography';
     import { ComponentPreview, InstallCommand } from '$lib/components/docs';
-    import DocsPager from '$lib/components/docs/docs-pager.svelte';
+    import PageIntro from '$lib/components/docs/page-intro.svelte';
     import Basic from './examples/basic.svelte';
     import BasicSrc from './examples/basic.svelte?raw';
     import WithInput from './examples/input.svelte';
@@ -27,15 +27,7 @@
 </svelte:head>
 
 <div data-docs-page class="flex flex-col gap-10">
-    <header class="flex items-start justify-between gap-4">
-        <div>
-            <Typography.H1>Group</Typography.H1>
-            <Typography.Text variant="lead" class="mt-2">
-                Visually connect related controls.
-            </Typography.Text>
-        </div>
-        <DocsPager />
-    </header>
+    <PageIntro title="Group">Visually connect related controls.</PageIntro>
     <ComponentPreview code={BasicSrc}><Basic /></ComponentPreview>
     <section id="installation" class="flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Installation</Typography.H2>
@@ -76,7 +68,7 @@
         <ComponentPreview code={TextSrc}><Text /></ComponentPreview>
     </section>
     <section id="with-input" class="flex flex-col gap-4">
-        <Typography.H2 class="docs-section-heading">With Input</Typography.H2>
+        <Typography.H2 class="docs-section-heading">With input</Typography.H2>
         <ComponentPreview code={WithInputSrc}><WithInput /></ComponentPreview>
     </section>
     <section id="nested" class="flex flex-col gap-4">

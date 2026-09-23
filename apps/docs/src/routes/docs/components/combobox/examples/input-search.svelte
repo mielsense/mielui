@@ -1,5 +1,9 @@
 <script lang="ts">
     import * as Combobox from '@mielui/svelte/components/combobox';
+    import { Switch } from '@mielui/svelte/components/switch';
+
+    let disabled = $state(false);
+    let value = $state('northwind');
 
     const customers = [
         { value: 'northwind', label: 'Northwind Trading' },
@@ -11,13 +15,19 @@
 </script>
 
 <div class="flex justify-center">
-    <div class="w-[280px]">
-        <Combobox.Root>
-            <Combobox.Trigger appearance="input" placeholder="Search customers" class="w-full" />
+    <div class="flex w-full max-w-[280px] flex-col gap-4">
+        <Switch bind:checked={disabled} label="Disable customer selection" />
+        <Combobox.Root bind:value>
+            <Combobox.Trigger
+                {disabled}
+                appearance="input"
+                placeholder="Search customers"
+                class="w-full"
+            />
             <Combobox.Content>
                 <Combobox.Results>
                     {#each customers as item (item.value)}
-                        <Combobox.Item value={item.value} label={item.label} callback={() => {}} />
+                        <Combobox.Item value={item.value} label={item.label} />
                     {/each}
                 </Combobox.Results>
             </Combobox.Content>

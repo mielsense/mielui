@@ -2,7 +2,7 @@
     import { CodeBlock } from '@mielui/svelte/components/code-block';
     import * as Typography from '@mielui/svelte/components/typography';
     import { ComponentPreview, InstallCommand } from '$lib/components/docs';
-    import DocsPager from '$lib/components/docs/docs-pager.svelte';
+    import PageIntro from '$lib/components/docs/page-intro.svelte';
     import Glass from './examples/glass.svelte';
     import GlassSrc from './examples/glass.svelte?raw';
 
@@ -28,15 +28,9 @@
 
 <div data-docs-page class="flex flex-col gap-10">
     <!-- ─── Header ────────────────────────────────────────────────── -->
-    <header class="flex items-start justify-between gap-4">
-        <div>
-            <Typography.H1>{TITLE}</Typography.H1>
-            <Typography.Text variant="lead" class="mt-2 max-w-2xl">
-                A drawer that slides in from the left or right of the screen.
-            </Typography.Text>
-        </div>
-        <DocsPager />
-    </header>
+    <PageIntro title={TITLE}>
+        A drawer that slides in from the left or right of the screen.
+    </PageIntro>
 
     <!-- ─── Hero Example ──────────────────────────────────────────── -->
     <section id="hero" class="scroll-mt-20 flex flex-col gap-4">
@@ -46,10 +40,6 @@
     </section>
 
     <!-- ─── Installation ──────────────────────────────────────────── -->
-    <Typography.Text>
-        Set close=&#123;false&#125; on Header to omit its default close button; place Sheet.Close
-        wherever the layout needs it. Close forwards bind:element and supports click cancellation.
-    </Typography.Text>
     <section id="installation" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Installation</Typography.H2>
         <InstallCommand command={installCommand} />
@@ -58,6 +48,11 @@
     <!-- ─── Usage ─────────────────────────────────────────────────── -->
     <section id="usage" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Usage</Typography.H2>
+        <Typography.Text variant="supporting">
+            Set close=&#123;false&#125; on Header to omit its default close button; place
+            Sheet.Close wherever the layout needs it. Close forwards bind:element and supports click
+            cancellation.
+        </Typography.Text>
         <Typography.Text variant="supporting">
             Bind open on Root when another control needs to open or close the panel. Use
             onOpenChange to respond to changes initiated inside the component. Updating your bound
@@ -71,7 +66,7 @@
         </Typography.Text>
 
         <CodeBlock
-            code={`import * as Sheet from '$lib/mielui/components/sheet';\nimport Kbd from '$lib/mielui/components/kbd';\n\n<Sheet.Root bind:open>\n  <Sheet.Trigger>Open</Sheet.Trigger>\n  <Sheet.Content side="right">\n    <Sheet.Header>\n      <Sheet.Title>Title</Sheet.Title>\n      <Sheet.Description>Describe what lives here.</Sheet.Description>\n    </Sheet.Header>\n    {/* content */}\n    <Sheet.Footer>\n      <Sheet.Close>Cancel <Kbd shortcut="esc" /></Sheet.Close>\n      <Button>Save <Kbd shortcut="enter" /></Button>\n    </Sheet.Footer>\n  </Sheet.Content>\n</Sheet.Root>`}
+            code={`import * as Sheet from '$lib/mielui/components/sheet';\nimport Kbd from '$lib/mielui/components/kbd';\nimport { Button } from '$lib/mielui/components/button';\n\n<Sheet.Root bind:open>\n  <Sheet.Trigger>Open</Sheet.Trigger>\n  <Sheet.Content side="right">\n    <Sheet.Header>\n      <Sheet.Title>Title</Sheet.Title>\n      <Sheet.Description>Describe what lives here.</Sheet.Description>\n    </Sheet.Header>\n    <!-- Panel content -->\n    <Sheet.Footer>\n      <Sheet.Close>Cancel <Kbd shortcut="esc" /></Sheet.Close>\n      <Button>Save <Kbd shortcut="enter" /></Button>\n    </Sheet.Footer>\n  </Sheet.Content>\n</Sheet.Root>`}
             lang="svelte"
             copy="overlay"
         />
@@ -102,9 +97,10 @@
     <section id="glass" class="flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Glass surface</Typography.H2>
         <Typography.Text variant="supporting">
-            Set surface="glass" on Sheet.Content for a translucent background with blur. Solid
-            remains the default. The glass surface keeps an opaque fallback when backdrop filtering
-            is unavailable and respects reduced-transparency preferences.
+            Set surface="glass" on Sheet.Content for a translucent background with blur. Omit
+            surface to inherit --mielui-surface from your theme, or set surface="solid" to override
+            it. The glass surface keeps an opaque fallback when backdrop filtering is unavailable
+            and respects reduced-transparency preferences.
         </Typography.Text>
         <ComponentPreview code={GlassSrc}><Glass /></ComponentPreview>
     </section>

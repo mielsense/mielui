@@ -1,7 +1,7 @@
 <script lang="ts">
     import * as Typography from '@mielui/svelte/components/typography';
     import { ComponentPreview, InstallCommand } from '$lib/components/docs';
-    import DocsPager from '$lib/components/docs/docs-pager.svelte';
+    import PageIntro from '$lib/components/docs/page-intro.svelte';
     import Decimal from './examples/decimal.svelte';
     import DecimalSrc from './examples/decimal.svelte?raw';
     import Disabled from './examples/disabled.svelte';
@@ -19,15 +19,9 @@
     />
 </svelte:head>
 <div data-docs-page class="flex flex-col gap-10">
-    <header class="flex items-start justify-between gap-4">
-        <div>
-            <Typography.H1>Number Field</Typography.H1>
-            <Typography.Text variant="lead" class="mt-2 max-w-2xl">
-                Numeric input with native validation and composable step controls.
-            </Typography.Text>
-        </div>
-        <DocsPager />
-    </header>
+    <PageIntro title="Number Field">
+        Numeric input with native validation and composable step controls.
+    </PageIntro>
     <section id="hero">
         <ComponentPreview code={HeroSrc}><Hero /></ComponentPreview>
     </section>

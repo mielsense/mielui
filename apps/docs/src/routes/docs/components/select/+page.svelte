@@ -2,7 +2,7 @@
     import { CodeBlock } from '@mielui/svelte/components/code-block';
     import * as Typography from '@mielui/svelte/components/typography';
     import { ComponentPreview, InstallCommand } from '$lib/components/docs';
-    import DocsPager from '$lib/components/docs/docs-pager.svelte';
+    import PageIntro from '$lib/components/docs/page-intro.svelte';
     import DynamicWidth from './examples/dynamic-width.svelte';
     import DynamicWidthSrc from './examples/dynamic-width.svelte?raw';
     import Glass from './examples/glass.svelte';
@@ -22,15 +22,7 @@
 
 <div data-docs-page class="flex flex-col gap-10">
     <!-- ─── Header ────────────────────────────────────────────────── -->
-    <header class="flex items-start justify-between gap-4">
-        <div>
-            <Typography.H1>Select</Typography.H1>
-            <Typography.Text variant="lead" class="mt-2 max-w-2xl">
-                A dropdown for choosing one option from a short list.
-            </Typography.Text>
-        </div>
-        <DocsPager />
-    </header>
+    <PageIntro title="Select">A dropdown for choosing one option from a short list.</PageIntro>
 
     <!-- ─── Hero Example ──────────────────────────────────────────── -->
     <section id="hero" class="scroll-mt-20 flex flex-col gap-4">
@@ -58,7 +50,7 @@
         </Typography.Text>
 
         <CodeBlock
-            code={`import * as Select from '$lib/mielui/components/select';\n\n<Select.Root bind:value={role}>\n  <Select.Trigger>Designer</Select.Trigger>\n  <Select.Content>\n    <Select.Item value="designer">Designer</Select.Item>\n  </Select.Content>\n</Select.Root>`}
+            code={`import * as Select from '$lib/mielui/components/select';\n\n<Select.Root bind:value={role}>\n  <Select.Trigger aria-label="Role"><Select.Value placeholder="Select a role" /></Select.Trigger>\n  <Select.Content>\n    <Select.Item value="designer">Designer</Select.Item>\n  </Select.Content>\n</Select.Root>`}
             lang="svelte"
             copy="overlay"
         />
@@ -68,13 +60,6 @@
     <section id="examples" class="scroll-mt-20 flex flex-col gap-10">
         <div>
             <Typography.H2 class="docs-section-heading">Examples</Typography.H2>
-        </div>
-
-        <div id="basic" class="scroll-mt-20 flex flex-col gap-3">
-            <Typography.H3 class="docs-subsection-heading">Basic</Typography.H3>
-            <ComponentPreview code={HeroSrc}>
-                <Hero />
-            </ComponentPreview>
         </div>
 
         <div id="scrollable" class="scroll-mt-20 flex flex-col gap-3">
@@ -101,9 +86,10 @@
     <section id="glass" class="flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Glass surface</Typography.H2>
         <Typography.Text variant="supporting">
-            Set surface="glass" on Select.Content for a translucent background with blur. Solid
-            remains the default. The glass surface keeps an opaque fallback when backdrop filtering
-            is unavailable and respects reduced-transparency preferences.
+            Set surface="glass" on Select.Content for a translucent background with blur. Omit
+            surface to inherit --mielui-surface from your theme, or set surface="solid" to override
+            it. The glass surface keeps an opaque fallback when backdrop filtering is unavailable
+            and respects reduced-transparency preferences.
         </Typography.Text>
         <ComponentPreview code={GlassSrc}><Glass /></ComponentPreview>
     </section>

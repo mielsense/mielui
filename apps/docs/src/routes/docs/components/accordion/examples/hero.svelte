@@ -5,22 +5,24 @@
 <div class="w-full max-w-md">
     <Accordion.Root type="single" value="item-1">
         <Accordion.Item value="item-1">
-            <Accordion.Trigger>Is it accessible?</Accordion.Trigger>
+            <Accordion.Trigger>Who can access this workspace?</Accordion.Trigger>
             <Accordion.Content>
-                Yes. The trigger is a real button with `aria-expanded` and `aria-controls`, and the
-                content has `role="region"`.
+                Only invited members can open projects. Owners can invite people and change their
+                roles.
             </Accordion.Content>
         </Accordion.Item>
         <Accordion.Item value="item-2">
-            <Accordion.Trigger>Does it animate?</Accordion.Trigger>
+            <Accordion.Trigger>Can I change my plan?</Accordion.Trigger>
             <Accordion.Content>
-                Yes. Height is animated via CSS grid-template-rows. No JS measurement, no jank.
+                Change your plan from Billing. New limits apply immediately, and your existing
+                projects stay available.
             </Accordion.Content>
         </Accordion.Item>
         <Accordion.Item value="item-3">
-            <Accordion.Trigger>Does it theme?</Accordion.Trigger>
+            <Accordion.Trigger>How do I export my data?</Accordion.Trigger>
             <Accordion.Content>
-                Yes. Change a CSS variable and watch the chevron, duration, and colors update live.
+                Open Settings and choose Export. The archive includes your projects, files, and
+                member list.
             </Accordion.Content>
         </Accordion.Item>
     </Accordion.Root>

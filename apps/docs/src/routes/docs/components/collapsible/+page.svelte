@@ -2,7 +2,7 @@
     import { CodeBlock } from '@mielui/svelte/components/code-block';
     import * as Typography from '@mielui/svelte/components/typography';
     import { ComponentPreview, InstallCommand } from '$lib/components/docs';
-    import DocsPager from '$lib/components/docs/docs-pager.svelte';
+    import PageIntro from '$lib/components/docs/page-intro.svelte';
     import Default from './examples/default.svelte';
     import DefaultSrc from './examples/default.svelte?raw';
     import Hero from './examples/hero.svelte';
@@ -24,17 +24,7 @@
 
 <div data-docs-page class="flex flex-col gap-10">
     <!-- ─── Header ────────────────────────────────────────────────── -->
-    <header class="flex items-start justify-between gap-4">
-        <div>
-            <Typography.H1>
-                {TITLE}
-            </Typography.H1>
-            <Typography.Text variant="lead" class="mt-2 max-w-2xl">
-                A single panel that expands and collapses on demand.
-            </Typography.Text>
-        </div>
-        <DocsPager />
-    </header>
+    <PageIntro title={TITLE}>A single panel that expands and collapses on demand.</PageIntro>
 
     <!-- ─── Hero Example ──────────────────────────────────────────── -->
     <section id="hero" class="scroll-mt-20 flex flex-col gap-4">
@@ -53,8 +43,12 @@
     <section id="usage" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Usage</Typography.H2>
         <Typography.Text>
-            The trigger respects disabled, exposes the content relationship, and keeps the existing
-            reduced-motion-aware content transition.
+            Compose<Typography.InlineCode>Trigger</Typography.InlineCode> and<Typography.InlineCode>
+                Content
+            </Typography.InlineCode> inside<Typography.InlineCode>Root</Typography.InlineCode>
+            . Bind<Typography.InlineCode>open</Typography.InlineCode> to control the panel from
+            another part of your page. A disabled trigger cannot toggle it. The content transition
+            respects reduced motion.
         </Typography.Text>
 
         <CodeBlock

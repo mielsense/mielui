@@ -8,12 +8,12 @@
         onclick={() =>
             toast.success('Deployment ready', {
                 surface: 'glass',
-                description: 'mielui.vercel.app is now live.',
+                description: 'The preview build completed successfully.',
                 actions: [
                     {
-                        label: 'Visit',
+                        label: 'View details',
                         callback: () => {
-                            window.open('https://vercel.com', '_blank');
+                            toast.info('Deployment details', { description: 'Preview build completed with no errors.' });
                         }
                     }
                 ]

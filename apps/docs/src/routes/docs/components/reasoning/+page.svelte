@@ -2,7 +2,7 @@
     import { CodeBlock } from '@mielui/svelte/components/code-block';
     import * as Typography from '@mielui/svelte/components/typography';
     import { ComponentPreview, InstallCommand } from '$lib/components/docs';
-    import DocsPager from '$lib/components/docs/docs-pager.svelte';
+    import PageIntro from '$lib/components/docs/page-intro.svelte';
 
     import Hero from './examples/hero.svelte';
     import HeroSrc from './examples/hero.svelte?raw';
@@ -26,15 +26,7 @@
 </svelte:head>
 
 <div data-docs-page class="flex flex-col gap-10">
-    <header class="flex items-start justify-between gap-4">
-        <div>
-            <Typography.H1>{TITLE}</Typography.H1>
-            <Typography.Text variant="lead" class="mt-2 max-w-2xl">
-                Show an assistant's progress in a collapsible section.
-            </Typography.Text>
-        </div>
-        <DocsPager />
-    </header>
+    <PageIntro title={TITLE}>Show an assistant's progress in a collapsible section.</PageIntro>
 
     <section id="hero" class="scroll-mt-20 flex flex-col gap-4">
         <ComponentPreview code={HeroSrc}><Hero /></ComponentPreview>
@@ -48,8 +40,8 @@
     <section id="usage" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Usage</Typography.H2>
         <Typography.Text variant="supporting">
-            Reasoning starts expanded. Set open to false for an initially compact trace. The
-            thinking label remains still while content streams.
+            Reasoning starts expanded. Set open to false for an initially collapsed summary. Bind
+            open to control expansion from the parent.
         </Typography.Text>
         <Typography.Text variant="supporting">
             Use{' '}
@@ -69,15 +61,23 @@
             lang="svelte"
             copy="overlay"
         />
+        <Typography.Text variant="supporting">
+            Trigger runs your onclick handler before toggling. Call event.preventDefault() to keep
+            the current expansion state.
+        </Typography.Text>
     </section>
 
+    <section id="integration" class="scroll-mt-20 flex flex-col gap-4">
+        <Typography.H2 class="docs-section-heading">End a live trace</Typography.H2>
+        <Typography.Text variant="supporting">
+            Set streaming only while content is arriving, then clear it when delivery finishes. The
+            live example uses ResponseStream completion to update the trigger. Use a short,
+            user-facing account of the work performed rather than exposing private model reasoning.
+        </Typography.Text>
+    </section>
     <section id="examples" class="scroll-mt-20 flex flex-col gap-10">
         <div>
             <Typography.H2 class="docs-section-heading">Examples</Typography.H2>
-        </div>
-        <div id="incident-investigation" class="scroll-mt-20 flex flex-col gap-3">
-            <Typography.H3 class="docs-subsection-heading">Incident investigation</Typography.H3>
-            <ComponentPreview code={HeroSrc}><Hero /></ComponentPreview>
         </div>
         <div id="live-reasoning" class="scroll-mt-20 flex flex-col gap-3">
             <Typography.H3 class="docs-subsection-heading">Live reasoning</Typography.H3>

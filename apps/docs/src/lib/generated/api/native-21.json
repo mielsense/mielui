@@ -1,5 +1,14 @@
 [
     {
+        "name": "on:visibilitychange",
+        "type": "EventHandler<Event, HTMLHeadingElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
         "name": "onvisibilitychange",
         "type": "EventHandler<Event, HTMLHeadingElement> | null | undefined",
         "required": false,
@@ -150,15 +159,6 @@
         "bindable": false,
         "default": null,
         "description": "",
-        "inherited": true
-    },
-    {
-        "name": "aria-label",
-        "type": "string | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": "'Close notification'",
-        "description": "Defines a string value that labels the current element.",
         "inherited": true
     },
     {

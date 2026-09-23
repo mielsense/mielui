@@ -2,7 +2,7 @@
     import { CodeBlock } from '@mielui/svelte/components/code-block';
     import * as Typography from '@mielui/svelte/components/typography';
     import { ComponentPreview, InstallCommand } from '$lib/components/docs';
-    import DocsPager from '$lib/components/docs/docs-pager.svelte';
+    import PageIntro from '$lib/components/docs/page-intro.svelte';
     import Hero from './examples/hero.svelte';
     import HeroSource from './examples/hero.svelte?raw';
     import Inset from './examples/inset.svelte';
@@ -18,15 +18,7 @@
     <meta name="description" content="Display rows and columns with native table semantics." />
 </svelte:head>
 <div data-docs-page class="flex flex-col gap-10">
-    <header class="flex items-start justify-between gap-4">
-        <div>
-            <Typography.H1>Table</Typography.H1>
-            <Typography.Text variant="lead" class="mt-2">
-                Display rows and columns with native table semantics.
-            </Typography.Text>
-        </div>
-        <DocsPager />
-    </header>
+    <PageIntro title="Table">Display rows and columns with native table semantics.</PageIntro>
 
     <ComponentPreview code={HeroSource}><Hero /></ComponentPreview>
     <section id="installation" class="flex flex-col gap-4">
@@ -35,14 +27,35 @@
     </section>
     <section id="usage" class="flex flex-col gap-4">
         <Typography.H2>Usage</Typography.H2>
-        <CodeBlock code={usage} lang="svelte" />
+        <CodeBlock copy="overlay" code={usage} lang="svelte" />
         <Typography.Text>
-            Root renders a table. ScrollArea is optional and contains horizontal scrolling. Omit
-            Caption or Footer when the data does not need them. Set class on each part to control
-            column widths, alignment, wrapping, or sticky headers. Head defaults to scope="col"; use
-            scope="row" for row headings. Cell forwards colspan, rowspan, and headers. Use aria-sort
-            on a sortable heading and a real Button to change order. Selection and pagination stay
-            in your application state; compose Checkbox and Pagination when needed.
+            <Typography.InlineCode>Root</Typography.InlineCode> renders a table. Wrap it in<Typography.InlineCode
+            >
+                ScrollArea
+            </Typography.InlineCode> when columns need horizontal scrolling. Omit<Typography.InlineCode
+            >
+                Caption
+            </Typography.InlineCode> or<Typography.InlineCode>Footer</Typography.InlineCode> when
+            the data does not need them. Set<Typography.InlineCode>class</Typography.InlineCode> on
+            each part to change alignment, wrapping, or column widths.
+        </Typography.Text>
+        <Typography.Text>
+            <Typography.InlineCode>Head</Typography.InlineCode> defaults to<Typography.InlineCode>
+                scope="col"
+            </Typography.InlineCode>
+            . Use<Typography.InlineCode>scope="row"</Typography.InlineCode> for row headings.<Typography.InlineCode
+            >
+                Cell
+            </Typography.InlineCode> accepts<Typography.InlineCode>colspan</Typography.InlineCode>
+            ,<Typography.InlineCode>rowspan</Typography.InlineCode>
+            , and<Typography.InlineCode>headers</Typography.InlineCode>
+            .
+        </Typography.Text>
+        <Typography.Text>
+            For sorting, put a Button in the heading and update<Typography.InlineCode>
+                aria-sort
+            </Typography.InlineCode> when the order changes. Keep selection and pagination in your
+            application state, using Checkbox and Pagination as needed.
         </Typography.Text>
     </section>
     <section class="flex flex-col gap-4">

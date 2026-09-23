@@ -2,7 +2,7 @@
     import { CodeBlock } from '@mielui/svelte/components/code-block';
     import * as Typography from '@mielui/svelte/components/typography';
     import { ComponentPreview, InstallCommand } from '$lib/components/docs';
-    import DocsPager from '$lib/components/docs/docs-pager.svelte';
+    import PageIntro from '$lib/components/docs/page-intro.svelte';
     import Basic from './examples/basic.svelte';
     import BasicSrc from './examples/basic.svelte?raw';
     import Glass from './examples/glass.svelte';
@@ -32,17 +32,7 @@
 
 <div data-docs-page class="flex flex-col gap-10">
     <!-- ─── Header ────────────────────────────────────────────────── -->
-    <header class="flex items-start justify-between gap-4">
-        <div>
-            <Typography.H1>
-                {TITLE}
-            </Typography.H1>
-            <Typography.Text variant="lead" class="mt-2 max-w-2xl">
-                A searchable dropdown that filters options as you type.
-            </Typography.Text>
-        </div>
-        <DocsPager />
-    </header>
+    <PageIntro title={TITLE}>A searchable dropdown that filters options as you type.</PageIntro>
 
     <!-- ─── Hero Example ──────────────────────────────────────────── -->
     <section id="hero" class="scroll-mt-20 flex flex-col gap-4">
@@ -61,19 +51,20 @@
     <section id="usage" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Usage</Typography.H2>
         <Typography.Text>
-            Pointer selection and Enter in either search placement update bind:value and call
-            onValueChange. Disabled options are skipped by keyboard navigation. Item label changes
-            refresh the selected label without replacing the text currently being searched. Bits UI
-            manages the combobox interactions; Mielui owns filtering, styling and motion.
+            Bind value to the selected option. Clicking an option or pressing Enter updates value
+            and calls onValueChange. Keyboard navigation skips disabled options. Changing an item
+            label updates the selected label without replacing an active search.
         </Typography.Text>
         <Typography.Text>
-            Set name on Trigger to submit the selected value with a form. Search text and labels are
-            not submitted. Trigger renders an input by default and a button when
-            searchPlacement="menu"; bind:element follows that element type. Item callback runs when
-            that option changes the selection. Re-selecting the current option closes the menu
-            without reporting another value change. Trigger onclick receives the mouse event;
-            preventDefault cancels click activation. Input appearance also opens independently on
-            focus or typing.
+            Set name on Trigger to submit the selected value. Search text and labels are not
+            submitted. Trigger renders an input by default, or a button with searchPlacement="menu".
+            Its bind:element matches that element type.
+        </Typography.Text>
+        <Typography.Text>
+            An item callback runs when that option changes the selection. Selecting the current
+            option again closes the menu without reporting a value change. Call preventDefault() in
+            Trigger's onclick to cancel click activation. Input appearance can still open on focus
+            or typing. Trigger's disabled prop disables both editing and its clear action.
         </Typography.Text>
 
         <CodeBlock
@@ -135,9 +126,10 @@
     <section id="glass" class="flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Glass surface</Typography.H2>
         <Typography.Text variant="supporting">
-            Set surface="glass" on Combobox.Content for a translucent background with blur. Solid
-            remains the default. The glass surface keeps an opaque fallback when backdrop filtering
-            is unavailable and respects reduced-transparency preferences.
+            Set surface="glass" on Combobox.Content for a translucent background with blur. Omit
+            surface to inherit --mielui-surface from your theme, or set surface="solid" to override
+            it. The glass surface keeps an opaque fallback when backdrop filtering is unavailable
+            and respects reduced-transparency preferences.
         </Typography.Text>
         <ComponentPreview code={GlassSrc}><Glass /></ComponentPreview>
     </section>

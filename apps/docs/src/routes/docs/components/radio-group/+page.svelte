@@ -2,15 +2,13 @@
     import { CodeBlock } from '@mielui/svelte/components/code-block';
     import * as Typography from '@mielui/svelte/components/typography';
     import { ComponentPreview, InstallCommand } from '$lib/components/docs';
-    import DocsPager from '$lib/components/docs/docs-pager.svelte';
+    import PageIntro from '$lib/components/docs/page-intro.svelte';
     import Descriptions from './examples/descriptions.svelte';
     import DescriptionsSrc from './examples/descriptions.svelte?raw';
     import Disabled from './examples/disabled.svelte';
     import DisabledSrc from './examples/disabled.svelte?raw';
     import Hero from './examples/hero.svelte';
     import HeroSrc from './examples/hero.svelte?raw';
-
-    const _TITLE = 'Radio Group';
 
     const installCommand = 'pnpm dlx @mielui/svelte add radio-group';
 </script>
@@ -22,15 +20,7 @@
 
 <div data-docs-page class="flex flex-col gap-10">
     <!-- ─── Header ────────────────────────────────────────────────── -->
-    <header class="flex items-start justify-between gap-4">
-        <div>
-            <Typography.H1>Radio Group</Typography.H1>
-            <Typography.Text variant="lead" class="mt-2 max-w-2xl">
-                A group of radio buttons for selecting one option.
-            </Typography.Text>
-        </div>
-        <DocsPager />
-    </header>
+    <PageIntro title="Radio Group">A group of radio buttons for selecting one option.</PageIntro>
 
     <!-- ─── Hero Example ──────────────────────────────────────────── -->
     <section id="hero" class="scroll-mt-20 flex flex-col gap-4">

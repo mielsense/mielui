@@ -2,7 +2,7 @@
     import { CodeBlock } from '@mielui/svelte/components/code-block';
     import * as Typography from '@mielui/svelte/components/typography';
     import { ComponentPreview, InstallCommand } from '$lib/components/docs';
-    import DocsPager from '$lib/components/docs/docs-pager.svelte';
+    import PageIntro from '$lib/components/docs/page-intro.svelte';
     import Form from './examples/form.svelte';
     import FormSource from './examples/form.svelte?raw';
     import Hero from './examples/hero.svelte';
@@ -21,15 +21,9 @@
     />
 </svelte:head>
 <div data-docs-page class="flex flex-col gap-10">
-    <header class="flex items-start justify-between gap-4">
-        <div>
-            <Typography.H1>Native Select</Typography.H1>
-            <Typography.Text variant="lead" class="mt-2">
-                A select field that uses your browser and operating system's option picker.
-            </Typography.Text>
-        </div>
-        <DocsPager />
-    </header>
+    <PageIntro title="Native Select">
+        A select field that uses your browser and operating system's option picker.
+    </PageIntro>
 
     <ComponentPreview code={HeroSource}><Hero /></ComponentPreview>
     <section id="installation" class="flex flex-col gap-4">
@@ -38,15 +32,31 @@
     </section>
     <section id="usage" class="flex flex-col gap-4">
         <Typography.H2>Usage</Typography.H2>
-        <CodeBlock code={usage} lang="svelte" />
+        <CodeBlock copy="overlay" code={usage} lang="svelte" />
         <Typography.Text>
-            Root renders a native select. Bind a string for single selection or a string array with
-            multiple. Option values are strings. OptGroup requires a label and can disable a group.
-            Use Label with matching for and id, or provide aria-label. Native name, form, required,
-            disabled, autocomplete, size, and change events pass through. The size attribute
-            controls visible rows, not the visual control size. For a custom popup, use Select
-            instead. Browser validation, form submission, keyboard interaction, RTL, and the mobile
-            picker use native behavior.
+            <Typography.InlineCode>Root</Typography.InlineCode> renders a native select. Bind a
+            string for single selection, or a string array with<Typography.InlineCode>
+                multiple
+            </Typography.InlineCode>
+            . Option values are strings. Use<Typography.InlineCode>
+                OptGroup
+            </Typography.InlineCode> with a<Typography.InlineCode>label</Typography.InlineCode> to
+            group options.
+        </Typography.Text>
+        <Typography.Text>
+            Associate<Typography.InlineCode>Label</Typography.InlineCode> with the select using
+            matching<Typography.InlineCode>for</Typography.InlineCode> and<Typography.InlineCode>
+                id
+            </Typography.InlineCode> values, or provide<Typography.InlineCode>
+                aria-label
+            </Typography.InlineCode>
+            . Native form attributes and change events pass through. The<Typography.InlineCode>
+                size
+            </Typography.InlineCode> attribute controls the number of visible rows.
+        </Typography.Text>
+        <Typography.Text>
+            The browser handles validation, keyboard selection, and the mobile picker. Use Select
+            when you need a custom popup.
         </Typography.Text>
     </section>
     <section class="flex flex-col gap-4">

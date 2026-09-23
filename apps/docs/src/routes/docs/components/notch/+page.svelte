@@ -2,7 +2,7 @@
     import { CodeBlock } from '@mielui/svelte/components/code-block';
     import * as Typography from '@mielui/svelte/components/typography';
     import { ComponentPreview, InstallCommand } from '$lib/components/docs';
-    import DocsPager from '$lib/components/docs/docs-pager.svelte';
+    import PageIntro from '$lib/components/docs/page-intro.svelte';
     import ViewportPreview from '$lib/components/docs/viewport-preview.svelte';
     import ActivitySrc from './examples/activity.svelte?raw';
     import GlassSrc from './examples/glass.svelte?raw';
@@ -17,18 +17,12 @@
     />
 </svelte:head>
 <div data-docs-page class="flex flex-col gap-10">
-    <header class="flex items-start justify-between gap-4">
-        <div>
-            <Typography.H1>Notch</Typography.H1>
-            <Typography.Text variant="lead" class="mt-2 max-w-2xl">
-                A small panel attached to a viewport edge. Show an update or ongoing activity while
-                the page stays usable.
-            </Typography.Text>
-        </div>
-        <DocsPager />
-    </header>
+    <PageIntro title="Notch">
+        A small panel attached to a viewport edge. Show an update or ongoing activity while the page
+        stays usable.
+    </PageIntro>
     <section id="hero" class="scroll-mt-20 flex flex-col gap-4">
-        <ComponentPreview code={HeroSrc} class="[&_[tabindex]]:p-0">
+        <ComponentPreview code={HeroSrc} class="[&_[data-preview-canvas]]:p-0">
             <ViewportPreview example="notch/hero" title="Notch hero preview" />
         </ComponentPreview>
     </section>
@@ -69,17 +63,20 @@
         <Typography.H2 class="docs-section-heading">Triggered and peek modes</Typography.H2>
         <Typography.Text variant="supporting">
             Triggered mode starts hidden. Set open to true to reveal it. It dismisses after five
-            seconds; hover and keyboard focus pause the countdown. Set duration to 0 for an activity
-            that stays until your application closes it. Swipe toward its attached edge or press
-            Escape while focused inside to dismiss it. On touch screens, start the swipe on Header
-            so the body can still scroll. Close is optional; these examples omit it.
+            seconds; hover and keyboard focus pause the countdown. Set duration to 0 to keep it open
+            until your application closes it.
+        </Typography.Text>
+        <Typography.Text variant="supporting">
+            Swipe toward the attached edge or press Escape while focus is inside to dismiss it. On
+            touch screens, start the swipe on Header so the body can still scroll. Add Close when
+            the panel needs a visible dismiss button.
         </Typography.Text>
         <Typography.Text variant="supporting">
             Peek mode keeps a slim handle at the edge. Hover, focus, or tap the handle to expand it.
             It collapses after the pointer leaves and focus is outside. Place Notch.Peek beside
             Content to replace the handle's contents with a short, noninteractive indicator.
         </Typography.Text>
-        <ComponentPreview code={PeekSrc} class="[&_[tabindex]]:p-0">
+        <ComponentPreview code={PeekSrc} class="[&_[data-preview-canvas]]:p-0">
             <ViewportPreview example="notch/peek" title="Notch peek preview" />
         </ComponentPreview>
     </section>
@@ -89,14 +86,16 @@
         <div id="activity" class="scroll-mt-20 flex flex-col gap-3">
             <Typography.H3 class="docs-subsection-heading">Detached controls</Typography.H3>
             <Typography.Text variant="supporting">
-                SideAction sits beside Content as a sibling under Root. Its start and end positions
-                are left and right for top or bottom panels, and above and below for lateral panels.
-                It accepts Button props and children. Give icon-only actions an accessible label.
-                The detached action rests as a curved arc beside the attached edge. Hover the panel
-                or focus the action to unfold its button. Tap the panel on touch screens. The button
-                expands a file list while the panel follows its size.
+                Place SideAction beside Content inside Root. For top and bottom notches, start and
+                end mean left and right. For left and right notches, they mean above and below.
+                SideAction accepts Button props and children; label icon-only actions.
             </Typography.Text>
-            <ComponentPreview code={ActivitySrc} class="[&_[tabindex]]:p-0">
+            <Typography.Text variant="supporting">
+                The action rests as an arc beside the attached edge. Hover the panel, focus the
+                action, or tap the panel to unfold the button. In this example, the button expands a
+                file list and the panel resizes to fit.
+            </Typography.Text>
+            <ComponentPreview code={ActivitySrc} class="[&_[data-preview-canvas]]:p-0">
                 <ViewportPreview example="notch/activity" title="Notch activity preview" />
             </ComponentPreview>
         </div>
@@ -106,7 +105,7 @@
                 Pass surface="glass" explicitly, or omit surface to follow the global glass setting
                 from Studio. surface="solid" keeps this panel opaque.
             </Typography.Text>
-            <ComponentPreview code={GlassSrc} class="[&_[tabindex]]:p-0">
+            <ComponentPreview code={GlassSrc} class="[&_[data-preview-canvas]]:p-0">
                 <ViewportPreview example="notch/glass" title="Notch glass preview" />
             </ComponentPreview>
         </div>
@@ -115,10 +114,12 @@
         <Typography.H2 class="docs-section-heading">Outside content</Typography.H2>
         <Typography.Text>
             Place Notch.Accessory beside Content inside Root for a counter, hint, or custom
-            controls. It stays centered just outside the body: below a top notch, above a bottom
-            notch, or toward the page for either side. The export activity example uses it for a
-            file count. Accessory accepts normal div attributes and children. Hovering or focusing
-            it pauses dismissal; closing the notch hides it with the other parts.
+            controls. It floats below a top notch, above a bottom notch, or toward the page for a
+            side notch. The export example uses it for a file count.
+        </Typography.Text>
+        <Typography.Text>
+            Accessory accepts normal div attributes and children. Hovering or focusing it pauses
+            dismissal. Closing the notch hides the accessory too.
         </Typography.Text>
     </section>
     <section id="accessibility" class="scroll-mt-20 flex flex-col gap-4">
@@ -137,6 +138,14 @@
             Entry, exit, and size changes use spring motion. Reduced motion and the theme's
             zero-duration motion preset settle the panel immediately. An interrupted exit reverses
             when open becomes true again.
+        </Typography.Text>
+    </section>
+    <section id="working-example" class="flex scroll-mt-20 flex-col gap-4">
+        <Typography.H2 class="docs-section-heading">Choose the right announcement</Typography.H2>
+        <Typography.Text>
+            Use Accessory for a compact count or hint outside the panel, and Content for the task
+            itself. Avoid repeating the same live announcement in both regions. These examples run
+            in isolated viewports so their edge placement stays inside the preview.
         </Typography.Text>
     </section>
 </div>

@@ -1,46 +1,80 @@
 <script lang="ts">
-    import {
-        ArrowRight02Icon as ArrowRight,
-        RotateLeft01Icon as RotateCcw
-    } from '@hugeicons/core-free-icons';
     import { Button } from '@mielui/svelte/components/button';
     import { Markdown } from '@mielui/svelte/components/markdown';
-    import HugeiconsIcon from '@mielui/svelte/hugeicons-icon';
+    import { onDestroy } from 'svelte';
 
-    const chunks = [
-        '### Incident update\n\nThe elevated error rate is isolated to image transformations in `fra1`.',
-        '\n\n- Cache reads remain healthy\n- Origin requests are within baseline',
-        '\n- Transformation workers are exhausting memory',
-        '\n\n**Next step:** reduce worker concurrency from 12 to 8 and observe the next five minutes.'
-    ];
+    const response = `## Incident update
 
-    let step = $state(0);
-    const content = $derived(chunks.slice(0, step + 1).join(''));
-    const streaming = $derived(step < chunks.length - 1);
+The elevated error rate is isolated to image transformations in \`fra1\`. Cached images remain available, and requests in other regions are healthy.
 
-    function advance() {
-        step = streaming ? step + 1 : 0;
+### What we checked
+
+- Cache hit rate remains above **98%**.
+- Origin latency is within the normal range.
+- Transformation workers restart when memory reaches their limit.
+
+| Signal | Before | Current |
+| --- | --- | --- |
+| Error rate | 4.2% | 0.8% |
+| Worker concurrency | 12 | 8 |
+| Queue age | 42 seconds | 9 seconds |
+
+### Apply the change
+
+\`\`\`ts
+const worker = {
+    concurrency: 8,
+    retries: 2,
+    timeout: 30_000
+};
+\`\`\`
+
+> Keep the previous configuration available until the queue has drained.
+
+### Next checks
+
+1. Compare the next five minutes against the baseline.
+2. Confirm that worker restarts have stopped.
+3. Restore concurrency gradually after memory use stabilizes.
+
+**Owner:** Platform team. The incident stays open until the error rate is back below 0.1%.
+    `;
+    let content = $state('');
+    let streaming = $state(false);
+    let timer: ReturnType<typeof setInterval> | undefined;
+
+    function stop() {
+        clearInterval(timer);
+        streaming = false;
     }
+
+    function start() {
+        stop();
+        content = '';
+        streaming = true;
+        timer = setInterval(() => {
+            content = response.slice(0, content.length + 28);
+            if (content.length === response.length) {
+                stop();
+            }
+        }, 45);
+    }
+
+    onDestroy(stop);
 </script>
 
 <div class="w-full max-w-2xl space-y-4">
+    <div class="flex flex-wrap items-center justify-between gap-3">
+        <p role="status" class="text-sm text-foreground-muted">
+            {streaming ? 'Receiving response' : content.length === response.length ? 'Response complete' : content ? 'Stream stopped' : 'Start a response to watch Markdown arrive'}
+        </p>
+        <Button variant="secondary" onclick={streaming ? stop : start}>
+            {streaming ? 'Stop stream' : content ? 'Replay response' : 'Start response'}
+        </Button>
+    </div>
     <div
-        class="min-h-52 rounded-[var(--radius-xl)] border border-border bg-panel px-5 py-4 sm:px-6"
+        class="max-h-112 min-h-52 overflow-y-auto rounded-[var(--radius-xl)] border-[length:var(--border-size)] border-border bg-card p-5"
     >
         <Markdown {content} {streaming} />
-    </div>
-    <div class="flex items-center justify-between gap-4">
-        <p class="text-sm text-foreground-muted" role="status">
-            {streaming ? `Receiving chunk ${step + 1} of ${chunks.length}` : 'Response complete'}
-        </p>
-        <Button variant="ghost" size="md" onclick={advance}>
-            {#if streaming}
-                Stream next chunk
-                <HugeiconsIcon icon={ArrowRight} size={14} aria-hidden="true" />
-            {:else}
-                <HugeiconsIcon icon={RotateCcw} size={14} aria-hidden="true" />
-                Restart stream
-            {/if}
-        </Button>
     </div>
 </div>

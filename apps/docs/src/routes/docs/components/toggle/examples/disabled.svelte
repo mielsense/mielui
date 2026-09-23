@@ -4,6 +4,6 @@
     import HugeiconsIcon from '@mielui/svelte/hugeicons-icon';
 </script>
 
-<Toggle disabled>
+<Toggle aria-label="Bold" disabled>
     <HugeiconsIcon icon={Bold} size={14} />
 </Toggle>

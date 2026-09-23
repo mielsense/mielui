@@ -2,7 +2,8 @@
     import { CodeBlock } from '@mielui/svelte/components/code-block';
     import * as Typography from '@mielui/svelte/components/typography';
     import { ComponentPreview, InstallCommand } from '$lib/components/docs';
-    import DocsPager from '$lib/components/docs/docs-pager.svelte';
+    import PageIntro from '$lib/components/docs/page-intro.svelte';
+    import SectionHeading from '$lib/components/docs/section-heading.svelte';
 
     import Hero from './examples/hero.svelte';
     import HeroSrc from './examples/hero.svelte?raw';
@@ -21,16 +22,9 @@
 </svelte:head>
 
 <div data-docs-page class="flex flex-col gap-10">
-    <header class="flex items-start justify-between gap-4">
-        <div>
-            <Typography.H1>Attachment</Typography.H1>
-            <Typography.Text variant="lead" class="mt-2 max-w-2xl">
-                Select, validate, preview, and remove local files before your application uploads
-                them.
-            </Typography.Text>
-        </div>
-        <DocsPager />
-    </header>
+    <PageIntro title="Attachment">
+        Select, validate, preview, and remove local files before your application uploads them.
+    </PageIntro>
 
     <section id="hero" class="scroll-mt-20 flex flex-col gap-4">
         <ComponentPreview code={HeroSrc}><Hero /></ComponentPreview>
@@ -44,13 +38,13 @@
     <section id="usage" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Usage</Typography.H2>
         <Typography.Text variant="supporting">
-            Disabling the root clears an active drag highlight. Re-enabling it starts with no
-            pending drag operation.
-        </Typography.Text>
-        <Typography.Text variant="supporting">
             Bind selected files on the root and report rejected files from
             <Typography.InlineCode>onReject</Typography.InlineCode>
             . Selection is local only; your application owns uploading and upload state.
+        </Typography.Text>
+        <Typography.Text variant="supporting">
+            Set accept, maxFiles, and maxSize to limit selection. Set disabled to prevent adding or
+            removing files and clear the drag highlight.
         </Typography.Text>
         <CodeBlock
             code={`import * as Attachment from '@mielui/svelte/components/attachment';
@@ -77,13 +71,21 @@ function handleReject(rejections: AttachmentRejection[]) {
         />
     </section>
 
+    <section id="integration" class="scroll-mt-20 flex flex-col gap-4">
+        <Typography.H2 class="docs-section-heading">Selection and upload ownership</Typography.H2>
+        <Typography.Text variant="supporting">
+            Attachment validates local selection and displays files. It does not upload them. Keep
+            upload progress and errors in your application, or use File Upload when you need an
+            upload callback with cancellation and retry. Use the hero to test rejection messages and
+            remove selected files.
+        </Typography.Text>
+    </section>
     <section id="examples" class="scroll-mt-20 flex flex-col gap-10">
-        <div>
-            <Typography.H2 class="docs-section-heading">Examples</Typography.H2>
-            <Typography.Text variant="supporting" class="mt-2">
+        <SectionHeading title="Examples">
+            {#snippet description()}
                 Render standalone items when your upload client owns progress and completion state.
-            </Typography.Text>
-        </div>
+            {/snippet}
+        </SectionHeading>
 
         <div id="status-variants" class="scroll-mt-20 flex flex-col gap-3">
             <Typography.H3 class="docs-subsection-heading">Upload status</Typography.H3>

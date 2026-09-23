@@ -1782,6 +1782,15 @@
         "inherited": true
     },
     {
+        "name": "aria-label",
+        "type": "string | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": "'Close notification'",
+        "description": "Defines a string value that labels the current element.",
+        "inherited": true
+    },
+    {
         "name": "tabindex",
         "type": "number | null | undefined",
         "required": false,
@@ -2233,15 +2242,6 @@
     },
     {
         "name": "on:formdata",
-        "type": "EventHandler<FormDataEvent, HTMLHeadingElement> | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
-        "name": "onformdata",
         "type": "EventHandler<FormDataEvent, HTMLHeadingElement> | null | undefined",
         "required": false,
         "bindable": false,

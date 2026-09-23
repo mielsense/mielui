@@ -21,6 +21,12 @@
 
     let helpful = $state(false);
     let status = $state('');
+    function reportCopy() {
+        status = 'Response copied to clipboard.';
+    }
+    function toggleHelpful() {
+        helpful = !helpful;
+    }
 </script>
 
 <div class="w-full max-w-3xl space-y-7">
@@ -51,7 +57,7 @@
                 variant="ghost"
                 size="md"
                 class="size-8 rounded-[var(--radius-md)] p-0"
-                oncopy={() => (status = 'Response copied to clipboard.')}
+                oncopy={reportCopy}
             />
             <Button
                 variant="ghost"
@@ -59,7 +65,7 @@
                 class="size-8 rounded-[var(--radius-md)] p-0"
                 aria-label={helpful ? 'Remove helpful rating' : 'Mark response as helpful'}
                 aria-pressed={helpful}
-                onclick={() => (helpful = !helpful)}
+                onclick={toggleHelpful}
             >
                 <HugeiconsIcon
                     icon={ThumbsUp}

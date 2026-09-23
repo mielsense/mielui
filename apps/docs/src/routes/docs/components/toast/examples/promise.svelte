@@ -3,6 +3,13 @@
     import { Switch } from '@mielui/svelte/components/switch';
     import { toast } from '@mielui/svelte/components/toast';
 
+    import { onDestroy } from 'svelte';
+
+    let timer: ReturnType<typeof setTimeout> | undefined;
+    onDestroy(() => {
+        clearTimeout(timer);
+    });
+
     let fail = $state(false);
     let pending = $state(false);
 
@@ -10,7 +17,7 @@
         const shouldFail = fail;
         pending = true;
         const request = new Promise<string>((resolve, reject) => {
-            setTimeout(() => {
+            timer = setTimeout(() => {
                 pending = false;
                 if (shouldFail) {
                     reject(new Error('The server could not save your changes.'));

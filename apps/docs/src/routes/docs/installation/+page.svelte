@@ -2,7 +2,7 @@
     import { CodeBlock } from '@mielui/svelte/components/code-block';
     import * as Typography from '@mielui/svelte/components/typography';
     import { resolve } from '$app/paths';
-    import DocsPager from '$lib/components/docs/docs-pager.svelte';
+    import PageIntro from '$lib/components/docs/page-intro.svelte';
 
     const packageInstall = `pnpm add @mielui/svelte
 # npm i @mielui/svelte
@@ -35,15 +35,7 @@ pnpm dlx @mielui/svelte list`;
 </svelte:head>
 
 <div data-docs-page class="flex flex-col gap-16">
-    <header class="flex items-start justify-between gap-4">
-        <div>
-            <Typography.H1 class="m-0">Installation</Typography.H1>
-            <Typography.Text variant="lead" class="mt-2 max-w-2xl">
-                Install mielui into your project.
-            </Typography.Text>
-        </div>
-        <DocsPager />
-    </header>
+    <PageIntro title="Installation">Install mielui into your project.</PageIntro>
 
     <section id="prerequisites" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Prerequisites</Typography.H2>
@@ -56,35 +48,33 @@ pnpm dlx @mielui/svelte list`;
     </section>
 
     <section id="package-import" class="scroll-mt-20 flex flex-col gap-4">
-        <Typography.H2 class="docs-section-heading">Option A: Package import</Typography.H2>
-        <Typography.Text variant="body" class="m-0 max-w-2xl">
+        <Typography.H2 class="docs-section-heading">Package import</Typography.H2>
+        <Typography.Text variant="body" class="m-0">
             Install the library and import components from
             <Typography.InlineCode>@mielui/svelte</Typography.InlineCode>
             .
         </Typography.Text>
         <CodeBlock code={packageInstall} lang="shell" copy="overlay" />
-        <Typography.Text variant="body" class="m-0 max-w-2xl">
-            Import the stylesheet once (for example in
+        <Typography.Text variant="body" class="m-0">
+            Import the stylesheet once in
             <Typography.InlineCode>src/app.css</Typography.InlineCode>
-            ):
+            .
         </Typography.Text>
         <CodeBlock code={packageCss} lang="css" copy="overlay" />
-        <Typography.Text variant="body" class="m-0 max-w-2xl">Use a component:</Typography.Text>
+        <Typography.Text variant="body" class="m-0">Use a component:</Typography.Text>
         <CodeBlock code={packageUse} lang="svelte" copy="overlay" />
-        <Typography.Text variant="body" class="m-0 max-w-2xl">
-            Compound components use a namespace export (for example
-            <Typography.InlineCode>Dialog</Typography.InlineCode>
-            with
-            <Typography.InlineCode>Dialog.Root</Typography.InlineCode>
-            ,
-            <Typography.InlineCode>Dialog.Content</Typography.InlineCode>
-            , …).
+        <Typography.Text variant="body" class="m-0">
+            Compound components expose named parts. Import
+            <Typography.InlineCode>Dialog</Typography.InlineCode> and compose
+            <Typography.InlineCode>Dialog.Root</Typography.InlineCode> with
+            <Typography.InlineCode>Dialog.Content</Typography.InlineCode> and the other parts you
+            need.
         </Typography.Text>
     </section>
 
     <section id="cli-source-copy" class="scroll-mt-20 flex flex-col gap-4">
-        <Typography.H2 class="docs-section-heading">Option B: CLI source copy</Typography.H2>
-        <Typography.Text variant="body" class="m-0 max-w-2xl">
+        <Typography.H2 class="docs-section-heading">CLI source copy</Typography.H2>
+        <Typography.Text variant="body" class="m-0">
             The CLI copies source into your project. The package name is
             <Typography.InlineCode>@mielui/svelte</Typography.InlineCode>
             ; the binary is
@@ -92,18 +82,20 @@ pnpm dlx @mielui/svelte list`;
             .
         </Typography.Text>
 
-        <Typography.H3 class="m-0 docs-subsection-heading">
-            1. Create a project (optional)
-        </Typography.H3>
+        <Typography.H3 class="m-0 docs-subsection-heading">1. Create a project</Typography.H3>
+        <Typography.Text>
+            Skip project creation and Tailwind setup if your app already has both.
+        </Typography.Text>
         <CodeBlock code="pnpm dlx sv create my-app" lang="shell" copy="overlay" />
 
         <Typography.H3 class="m-0 docs-subsection-heading">2. Add Tailwind v4</Typography.H3>
         <CodeBlock code="cd my-app && pnpm dlx sv add tailwindcss" lang="shell" copy="overlay" />
 
         <Typography.H3 class="m-0 docs-subsection-heading">3. Initialize Mielui</Typography.H3>
-        <Typography.Text variant="body" class="m-0 max-w-2xl">
-            Creates{' '}
-            <Typography.InlineCode>src/lib/mielui/</Typography.InlineCode> (tokens + utilities) and{' '}
+        <Typography.Text variant="body" class="m-0">
+            Run this from the project root to create{' '}
+            <Typography.InlineCode>src/lib/mielui/</Typography.InlineCode> for styles and utilities,
+            plus{' '}
             <Typography.InlineCode>mielui.json</Typography.InlineCode>
             .
         </Typography.Text>
@@ -141,8 +133,8 @@ pnpm dlx @mielui/svelte list`;
                 <Typography.InlineCode>
                     pnpm dlx @mielui/svelte add theme &lt;slug&gt;
                 </Typography.InlineCode>
-                (for example<Typography.InlineCode>default</Typography.InlineCode>
-                ).
+                Use<Typography.InlineCode>default</Typography.InlineCode> to start with the default
+                preset.
             </li>
         </ul>
     </section>

@@ -2,7 +2,8 @@
     import { CodeBlock } from '@mielui/svelte/components/code-block';
     import * as Typography from '@mielui/svelte/components/typography';
     import { ComponentPreview, InstallCommand } from '$lib/components/docs';
-    import DocsPager from '$lib/components/docs/docs-pager.svelte';
+    import PageIntro from '$lib/components/docs/page-intro.svelte';
+    import SectionHeading from '$lib/components/docs/section-heading.svelte';
 
     import Adornments from './examples/adornments.svelte';
     import AdornmentsSrc from './examples/adornments.svelte?raw';
@@ -28,16 +29,10 @@
 
 <div data-docs-page class="flex flex-col gap-10">
     <!-- ─── Header ────────────────────────────────────────────────── -->
-    <header class="flex items-start justify-between gap-4">
-        <div>
-            <Typography.H1>Input</Typography.H1>
-            <Typography.Text variant="lead" class="mt-2 max-w-2xl">
-                A text field with optional labels, helper text, and decorative adornments. Comes in
-                two variants.
-            </Typography.Text>
-        </div>
-        <DocsPager />
-    </header>
+    <PageIntro title="Input">
+        A text field with optional labels, helper text, and decorative adornments. Comes in two
+        variants.
+    </PageIntro>
 
     <!-- ─── Hero Example ──────────────────────────────────────────── -->
     <section id="hero" class="scroll-mt-20 flex flex-col gap-4">
@@ -47,12 +42,6 @@
     </section>
 
     <!-- ─── Installation ──────────────────────────────────────────── -->
-    <Typography.Text>
-        Input preserves native checkbox and radio submission values and checked state. Bind files
-        for file inputs; do not bind a file input's value. Text and numeric input values are strings
-        or numbers. Use Checkbox and RadioGroup for styled selection controls and shared radio
-        selection state.
-    </Typography.Text>
     <section id="installation" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Installation</Typography.H2>
         <InstallCommand command={installCommand} />
@@ -61,6 +50,17 @@
     <!-- ─── Usage ─────────────────────────────────────────────────── -->
     <section id="usage" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Usage</Typography.H2>
+        <Typography.Text>
+            Bind value to the field value. Use label for its visible name, description for helper
+            text, and native attributes such as type, name, required, and autocomplete for form
+            behavior.
+        </Typography.Text>
+        <Typography.Text>
+            Input preserves native checkbox and radio submission values and checked state. Bind
+            files for file inputs; do not bind a file input's value. Text and numeric input values
+            are strings or numbers. Use Checkbox and RadioGroup for styled selection controls and
+            shared radio selection state.
+        </Typography.Text>
         <Typography.Text variant="supporting">
             For native radios, bind checked separately on each input. Radios with the same name and
             form owner synchronize their bound values when selection changes; form resets
@@ -83,12 +83,11 @@
 
     <!-- ─── Examples ──────────────────────────────────────────────── -->
     <section id="examples" class="scroll-mt-20 flex flex-col gap-10">
-        <div>
-            <Typography.H2 class="docs-section-heading">Examples</Typography.H2>
-            <Typography.Text variant="supporting" class="mt-2">
+        <SectionHeading title="Examples">
+            {#snippet description()}
                 Add context with adornments, choose a visual variant, and use native validation.
-            </Typography.Text>
-        </div>
+            {/snippet}
+        </SectionHeading>
 
         <div id="adornments" class="scroll-mt-20 flex flex-col gap-3">
             <Typography.H3 class="docs-subsection-heading">Adornments</Typography.H3>

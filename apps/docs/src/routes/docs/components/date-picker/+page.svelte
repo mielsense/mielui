@@ -2,7 +2,7 @@
     import { CodeBlock } from '@mielui/svelte/components/code-block';
     import * as Typography from '@mielui/svelte/components/typography';
     import { ComponentPreview, InstallCommand } from '$lib/components/docs';
-    import DocsPager from '$lib/components/docs/docs-pager.svelte';
+    import PageIntro from '$lib/components/docs/page-intro.svelte';
     import Example1 from './examples/disabled.svelte';
     import Example1Src from './examples/disabled.svelte?raw';
     import FormExample from './examples/form.svelte';
@@ -19,15 +19,7 @@
 </svelte:head>
 
 <div data-docs-page class="flex flex-col gap-10">
-    <header class="flex items-start justify-between gap-4">
-        <div>
-            <Typography.H1>Date Picker</Typography.H1>
-            <Typography.Text variant="lead" class="mt-2 max-w-2xl">
-                An editable date field with a calendar popup.
-            </Typography.Text>
-        </div>
-        <DocsPager />
-    </header>
+    <PageIntro title="Date Picker">An editable date field with a calendar popup.</PageIntro>
     <section id="hero" class="scroll-mt-20 flex flex-col gap-4">
         <ComponentPreview code={HeroSrc}><Hero /></ComponentPreview>
     </section>

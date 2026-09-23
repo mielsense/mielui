@@ -1,5 +1,14 @@
 [
     {
+        "name": "onformdata",
+        "type": "EventHandler<FormDataEvent, HTMLHeadingElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
         "name": "onformdatacapture",
         "type": "EventHandler<FormDataEvent, HTMLHeadingElement> | null | undefined",
         "required": false,
@@ -2234,15 +2243,6 @@
     {
         "name": "onmessageerrorcapture",
         "type": "MessageEventHandler<HTMLHeadingElement> | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
-        "name": "on:visibilitychange",
-        "type": "EventHandler<Event, HTMLHeadingElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,

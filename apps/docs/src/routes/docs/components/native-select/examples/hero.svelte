@@ -18,5 +18,5 @@
             <NativeSelect.Option value="America/Los_Angeles">Los Angeles</NativeSelect.Option>
         </NativeSelect.OptGroup>
     </NativeSelect.Root>
-    <p class="text-sm text-foreground-muted">Selected:{timezone}</p>
+    <p class="text-sm text-foreground-muted">{`Selected: ${timezone}`}</p>
 </div>

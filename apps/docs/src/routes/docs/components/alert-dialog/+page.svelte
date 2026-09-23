@@ -2,7 +2,8 @@
     import { CodeBlock } from '@mielui/svelte/components/code-block';
     import * as Typography from '@mielui/svelte/components/typography';
     import { ComponentPreview, InstallCommand } from '$lib/components/docs';
-    import DocsPager from '$lib/components/docs/docs-pager.svelte';
+    import PageIntro from '$lib/components/docs/page-intro.svelte';
+    import SectionHeading from '$lib/components/docs/section-heading.svelte';
     import Destructive from './examples/destructive.svelte';
     import DestructiveSrc from './examples/destructive.svelte?raw';
     import Glass from './examples/glass.svelte';
@@ -25,15 +26,9 @@
 
 <div data-docs-page class="flex flex-col gap-10">
     <!-- ─── Header ────────────────────────────────────────────────── -->
-    <header class="flex items-start justify-between gap-4">
-        <div>
-            <Typography.H1>Alert Dialog</Typography.H1>
-            <Typography.Text variant="lead" class="mt-2 max-w-2xl">
-                Confirm destructive or irreversible actions before proceeding.
-            </Typography.Text>
-        </div>
-        <DocsPager />
-    </header>
+    <PageIntro title="Alert Dialog">
+        Confirm destructive or irreversible actions before proceeding.
+    </PageIntro>
 
     <!-- ─── Hero Example ──────────────────────────────────────────── -->
     <section id="hero" class="scroll-mt-20 flex flex-col gap-4">
@@ -50,13 +45,13 @@
 
     <!-- ─── Usage ─────────────────────────────────────────────────── -->
     <section id="usage" class="scroll-mt-20 flex flex-col gap-4">
+        <Typography.H2 class="docs-section-heading">Usage</Typography.H2>
         <Typography.Text>
             Confirm and Exit call onclick before closing. Prevent default to keep the alert dialog
             open, or set closeOnClick to false for asynchronous work. Both forward bind:element.
             Exit supplies the initial cancel-focus target; mounting another Exit later does not
             steal focus. Content accepts ariaBusy while confirmation is pending.
         </Typography.Text>
-        <Typography.H2 class="docs-section-heading">Usage</Typography.H2>
 
         <CodeBlock
             code={`import * as AlertDialog from '$lib/mielui/components/alert-dialog';\nimport Kbd from '$lib/mielui/components/kbd';\n\n<AlertDialog.Root orientation="vertical">\n  <AlertDialog.Trigger>Delete</AlertDialog.Trigger>\n  <AlertDialog.Content size="lg">\n    <AlertDialog.Header>\n      <AlertDialog.Title>Delete?</AlertDialog.Title>\n      <AlertDialog.Description>This cannot be undone.</AlertDialog.Description>\n    </AlertDialog.Header>\n    <AlertDialog.Footer>\n      <AlertDialog.Exit>Cancel <Kbd shortcut="esc" /></AlertDialog.Exit>\n      <AlertDialog.Confirm>Delete <Kbd shortcut="enter" /></AlertDialog.Confirm>\n    </AlertDialog.Footer>\n  </AlertDialog.Content>\n</AlertDialog.Root>`}
@@ -67,12 +62,11 @@
 
     <!-- ─── Examples ──────────────────────────────────────────────── -->
     <section id="examples" class="scroll-mt-20 flex flex-col gap-10">
-        <div>
-            <Typography.H2 class="docs-section-heading">Examples</Typography.H2>
-            <Typography.Text variant="supporting" class="mt-2">
+        <SectionHeading title="Examples">
+            {#snippet description()}
                 Common patterns for destructive actions and sign-out flows.
-            </Typography.Text>
-        </div>
+            {/snippet}
+        </SectionHeading>
 
         <!-- Destructive confirmation -->
         <div id="destructive" class="scroll-mt-20 flex flex-col gap-3">
@@ -93,9 +87,10 @@
     <section id="glass" class="flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Glass surface</Typography.H2>
         <Typography.Text variant="supporting">
-            Set surface="glass" on AlertDialog.Content for a translucent background with blur. Solid
-            remains the default. The glass surface keeps an opaque fallback when backdrop filtering
-            is unavailable and respects reduced-transparency preferences.
+            Set surface="glass" on AlertDialog.Content for a translucent background with blur. Omit
+            surface to inherit --mielui-surface from your theme, or set surface="solid" to override
+            it. The glass surface keeps an opaque fallback when backdrop filtering is unavailable
+            and respects reduced-transparency preferences.
         </Typography.Text>
         <ComponentPreview code={GlassSrc}><Glass /></ComponentPreview>
     </section>

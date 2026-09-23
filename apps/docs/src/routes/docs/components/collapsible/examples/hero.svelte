@@ -16,14 +16,13 @@
                 <HugeiconsIcon
                     icon={ChevronDown}
                     size={18}
-                    class="transition-transform duration-200 {open ? '' : '-rotate-90'}"
+                    class="transition-transform [transition-duration:var(--motion-duration-panel)] motion-reduce:transition-none {open ? '' : '-rotate-90'}"
                 />
             </Collapsible.Trigger>
             <Collapsible.Content class="mt-2 space-y-3 pl-3">
                 <p class="text-sm text-foreground-muted leading-relaxed">
-                    Discussed progress on upcoming features, team capacity, and timeline. Reviewed
-                    latest design feedback and aligned on next steps for the studio redesign
-                    rollout.
+                    The export flow is ready for testing. Maya owns the migration guide, and Sam
+                    will review keyboard navigation before Friday.
                 </p>
                 <ul class="space-y-2 text-sm text-foreground-muted">
                     <li class="flex gap-2">

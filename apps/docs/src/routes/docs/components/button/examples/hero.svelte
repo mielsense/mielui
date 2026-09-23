@@ -2,4 +2,4 @@
     import { Button } from '@mielui/svelte/components/button';
 </script>
 
-<Button>Get started</Button>
+<Button href="/docs/installation">Get started</Button>

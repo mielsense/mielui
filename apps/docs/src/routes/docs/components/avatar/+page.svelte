@@ -2,7 +2,7 @@
     import { CodeBlock } from '@mielui/svelte/components/code-block';
     import * as Typography from '@mielui/svelte/components/typography';
     import { ComponentPreview, InstallCommand } from '$lib/components/docs';
-    import DocsPager from '$lib/components/docs/docs-pager.svelte';
+    import PageIntro from '$lib/components/docs/page-intro.svelte';
 
     import Hero from './examples/hero.svelte';
     import HeroSrc from './examples/hero.svelte?raw';
@@ -24,22 +24,14 @@
         Mielui ·{' '}
         {TITLE}
     </title>
-    <meta name="description" content="An image with graceful fallback to initials." />
+    <meta name="description" content="An image with initials while it loads or when it fails." />
 </svelte:head>
 
 <div data-docs-page class="flex flex-col gap-10">
     <!-- ─── Header ────────────────────────────────────────────────── -->
-    <header class="flex items-start justify-between gap-4">
-        <div>
-            <Typography.H1>
-                {TITLE}
-            </Typography.H1>
-            <Typography.Text variant="lead" class="mt-2 max-w-2xl">
-                An image with initials as a fallback. Comes in two shapes and several sizes.
-            </Typography.Text>
-        </div>
-        <DocsPager />
-    </header>
+    <PageIntro title={TITLE}>
+        An image with initials as a fallback. Comes in two shapes and several sizes.
+    </PageIntro>
 
     <!-- ─── Hero Example ──────────────────────────────────────────── -->
     <section id="hero" class="scroll-mt-20 flex flex-col gap-4">
@@ -94,7 +86,7 @@
 
         <!-- With image -->
         <div id="with-image" class="scroll-mt-20 flex flex-col gap-3">
-            <Typography.H3 class="docs-subsection-heading">With image</Typography.H3>
+            <Typography.H3 class="docs-subsection-heading">Image unavailable</Typography.H3>
             <ComponentPreview code={WithImageSrc}>
                 <WithImage />
             </ComponentPreview>

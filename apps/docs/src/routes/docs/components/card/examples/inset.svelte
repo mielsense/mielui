@@ -1,46 +1,31 @@
 <script lang="ts">
-    import { GitBranchIcon as GitBranch } from '@hugeicons/core-free-icons';
     import { Badge } from '@mielui/svelte/components/badge';
     import { Button } from '@mielui/svelte/components/button';
     import * as Card from '@mielui/svelte/components/card';
-    import HugeiconsIcon from '@mielui/svelte/hugeicons-icon';
 </script>
 
-<Card.Root variant="inset" class="w-full max-w-[28rem]">
+<Card.Root variant="inset" class="w-full max-w-md">
     <Card.Header>
-        <div class="mb-2 flex items-center justify-between">
-            <Card.Title>mielui</Card.Title>
-            <Badge variant="info">Next.js</Badge>
+        <div class="flex items-center justify-between gap-3">
+            <Card.Title>Team handbook</Card.Title>
+            <Badge variant="success">Published</Badge>
         </div>
-        <Card.Description>vercel.com/mielsense/mielui</Card.Description>
+        <Card.Description>The policies and guides your team uses every day.</Card.Description>
     </Card.Header>
     <Card.Content>
-        <div class="space-y-4">
-            <!-- Status Row -->
-            <div class="flex items-center justify-between">
-                <div class="flex items-center gap-2">
-                    <div class="h-2 w-2 rounded-full bg-emerald-500"></div>
-                    <span class="text-sm font-medium text-foreground">Ready</span>
-                </div>
-                <div class="flex items-center gap-3">
-                    <span class="text-xs text-foreground-muted">Production</span>
-                    <span class="text-xs text-foreground-muted">Deployed 2h ago</span>
-                </div>
+        <dl class="grid grid-cols-2 gap-4 text-sm">
+            <div>
+                <dt class="text-foreground-muted">Framework</dt>
+                <dd class="mt-1">SvelteKit</dd>
             </div>
-
-            <!-- Commit Row -->
-            <div class="flex items-center gap-2 rounded-[var(--radius-md)] bg-secondary px-3 py-2">
-                <HugeiconsIcon icon={GitBranch} class="h-4 w-4 shrink-0 text-foreground-muted" />
-                <span class="text-sm font-medium text-foreground">main</span>
-                <span class="truncate text-xs text-foreground-muted">
-                    feat(studio): restore original styling
-                </span>
-                <span class="ml-auto shrink-0 text-xs text-foreground-muted">mielsense</span>
+            <div>
+                <dt class="text-foreground-muted">Last update</dt>
+                <dd class="mt-1">Today</dd>
             </div>
-        </div>
+        </dl>
     </Card.Content>
     <Card.Footer>
-        <Button variant="outline" size="md">Visit</Button>
-        <Button size="md">View Deployment</Button>
+        <Button variant="secondary" href="/docs/components/typography">Read the guide</Button>
+        <Button href="/studio">Customize theme</Button>
     </Card.Footer>
 </Card.Root>

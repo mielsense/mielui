@@ -17,7 +17,7 @@
             <Combobox.Content surface="glass">
                 <Combobox.Results>
                     {#each frameworks as item (item.value)}
-                        <Combobox.Item value={item.value} label={item.label} callback={() => {}} />
+                        <Combobox.Item value={item.value} label={item.label} />
                     {/each}
                 </Combobox.Results>
             </Combobox.Content>

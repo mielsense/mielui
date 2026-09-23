@@ -1,5 +1,6 @@
 import { changelogLlmVersions, changelogVersions } from '$lib/changelog';
 import { componentGroups, components, sanitizeComponent } from '$lib/components';
+import { componentGuidePages } from '$lib/docs-pages';
 import { componentReference } from '$lib/server/api-reference';
 import { mieluiGuideMarkdown } from '$lib/skill';
 
@@ -88,8 +89,16 @@ export function componentMarkdown(component: string): string | undefined {
     }
 
     const manifest = manifestEntry[1].manifest;
+    const guides = componentGuidePages.filter((guide) => guide.component === component);
+    const guideExamples = new Set(
+        guides.flatMap((guide) => guide.examples.map((example) => example.name))
+    );
     const componentExamples = Object.entries(examples)
-        .filter(([path]) => path.includes(`/components/${component}/examples/`))
+        .filter(
+            ([path]) =>
+                path.includes(`/components/${component}/examples/`) &&
+                !guideExamples.has(path.slice(path.lastIndexOf('/') + 1).replace(/\.svelte$/, ''))
+        )
         .sort(([left], [right]) => left.localeCompare(right));
     const dependencies = manifest.components.length ? manifest.components.join(', ') : 'None';
     const shared = manifest.shared.length ? manifest.shared.join(', ') : 'None';
@@ -116,6 +125,16 @@ export function componentMarkdown(component: string): string | undefined {
         '',
         install,
         '',
+        ...(guides.length
+            ? [
+                  '## Chart guides',
+                  '',
+                  ...guides.map(
+                      (guide) => `- [${guide.title}](${guide.href}.md): ${guide.description}`
+                  ),
+                  ''
+              ]
+            : []),
         '## API',
         '',
         'This reference is generated at build time from the component manifest, public `index.ts`, and documentation examples below. Changes to those source files are reflected here in the published Markdown. Standard Svelte and HTML attributes accepted by the exported prop types are supported.',
@@ -155,6 +174,46 @@ export function componentMarkdown(component: string): string | undefined {
             : []),
         '',
         `For the rendered reference, visit [/docs/components/${component}](/docs/components/${component}).`,
+        ''
+    ].join('\n');
+}
+
+export function chartGuideMarkdown(component: string, slug: string): string | undefined {
+    const guide = componentGuidePages.find(
+        (entry) => entry.component === component && entry.slug === slug
+    );
+    if (!guide) {
+        return undefined;
+    }
+    const referencePath = `/docs/components/${component}`;
+    return [
+        `# ${guide.title}`,
+        '',
+        guide.description,
+        '',
+        '## Install',
+        '',
+        fence('sh', `pnpm dlx @mielui/svelte add ${component}`),
+        '',
+        '## Usage',
+        '',
+        ...guide.usage.flatMap((paragraph) => [paragraph, '']),
+        `Use the [${sanitizeComponent(component)} API reference](${referencePath}.md) for all exported parts and their props.`,
+        '',
+        '## Examples',
+        ...guide.examples.flatMap((example) => {
+            const source = sourceFor(examples, component, `examples/${example.name}.svelte`);
+            return [
+                '',
+                `### ${example.title}`,
+                '',
+                example.description,
+                '',
+                fence('svelte', source)
+            ];
+        }),
+        '',
+        `For the rendered guide, visit [${guide.title}](${guide.href}).`,
         ''
     ].join('\n');
 }
@@ -262,6 +321,7 @@ export function llmsTxt(origin: string): string {
         ['Component selection', '/docs/component-selection.md'],
         ['Design language', '/docs/design-language.md'],
         ['XML sitemap', '/sitemap.xml'],
+        ...componentGuidePages.map((guide) => [guide.title, `${guide.href}.md`]),
         ...changelogVersions.map((version) => [`Changelog ${version}`, `/changelog/${version}.md`]),
         ...changelogLlmVersions.map((version) => [
             `Changelog ${version} LLM context`,

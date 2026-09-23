@@ -8,10 +8,15 @@
     import { Button } from '@mielui/svelte/components/button';
     import * as HoverCard from '@mielui/svelte/components/hover-card';
     import HugeiconsIcon from '@mielui/svelte/hugeicons-icon';
+
+    let following = $state(false);
+    function toggleFollow() {
+        following = !following;
+    }
 </script>
 
 <div class="flex items-center justify-center">
-    <div class="text-[0.92rem] text-foreground-muted">
+    <div class="text-sm text-foreground-muted">
         Reviewed by
         <HoverCard.Root>
             <HoverCard.Trigger href="https://github.com/mielsense">@mielsense</HoverCard.Trigger>
@@ -30,8 +35,7 @@
 
                     <!-- Bio -->
                     <HoverCard.Description class="text-sm leading-relaxed text-pretty">
-                        Building Mielui, a themeable Svelte component library. Type-driven design &
-                        animation polish.
+                        Maintains the shared components and reviews accessibility fixes.
                     </HoverCard.Description>
 
                     <!-- Meta: Location & Company -->
@@ -53,7 +57,15 @@
                     </div>
 
                     <!-- Follow Button -->
-                    <Button variant="secondary" size="md" class="w-full">Follow</Button>
+                    <Button
+                        variant="secondary"
+                        size="md"
+                        class="w-full"
+                        aria-pressed={following}
+                        onclick={toggleFollow}
+                    >
+                        {following ? 'Following' : 'Follow'}
+                    </Button>
                 </div>
             </HoverCard.Content>
         </HoverCard.Root>

@@ -52,6 +52,13 @@
         }
         settle?.();
     });
+    function selectModel(option: string) {
+        model = option;
+    }
+
+    function selectEffort(option: string) {
+        effort = option;
+    }
 </script>
 
 <div class="flex w-full max-w-2xl flex-col">
@@ -107,7 +114,7 @@
                             <DropdownMenu.SubTrigger>Model</DropdownMenu.SubTrigger>
                             <DropdownMenu.SubContent dynamic>
                                 {#each models as option (option)}
-                                    <DropdownMenu.Item callback={() => (model = option)}>
+                                    <DropdownMenu.Item callback={() => selectModel(option)}>
                                         <span class="flex-1">{option}</span>
                                         {#if model === option}
                                             <HugeiconsIcon
@@ -124,7 +131,7 @@
                             <DropdownMenu.SubTrigger>Effort</DropdownMenu.SubTrigger>
                             <DropdownMenu.SubContent dynamic>
                                 {#each efforts as option (option)}
-                                    <DropdownMenu.Item callback={() => (effort = option)}>
+                                    <DropdownMenu.Item callback={() => selectEffort(option)}>
                                         <span class="flex-1">{option}</span>
                                         {#if effort === option}
                                             <HugeiconsIcon

@@ -1,12 +1,28 @@
 <script lang="ts">
     import { ResponseStream } from '@mielui/svelte/components/response-stream';
 
+    import { onDestroy } from 'svelte';
+
+    let stopped = false;
+    let timer: ReturnType<typeof setTimeout> | undefined;
+    let settle: (() => void) | undefined;
+
+    onDestroy(() => {
+        stopped = true;
+        clearTimeout(timer);
+        settle?.();
+    });
+
     const text =
-        'This text rolls in word by word. Use response streaming to make an AI answer feel immediate while preserving the layout of the surrounding message. Each arrival eases in through the roller, the block grows smoothly as new lines wrap into view, and speed sets how quickly every word settles.';
+        'The release contains twelve changes. Two affect keyboard navigation, four update the documentation, and six fix existing behavior. Keep the current API unchanged, run the component checks, then review the preview before deploying. The rollback is the previous release tag.';
 
     function wait(ms: number) {
         return new Promise<void>((resolve) => {
-            setTimeout(resolve, ms);
+            settle = resolve;
+            timer = setTimeout(() => {
+                settle = undefined;
+                resolve();
+            }, ms);
         });
     }
 
@@ -15,6 +31,9 @@
 
         const parts = text.split(/(\s+)/);
         for (const part of parts) {
+            if (stopped) {
+                return;
+            }
             yield part;
             await wait(40);
         }

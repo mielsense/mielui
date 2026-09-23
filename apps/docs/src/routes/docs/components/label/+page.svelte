@@ -2,7 +2,8 @@
     import { CodeBlock } from '@mielui/svelte/components/code-block';
     import * as Typography from '@mielui/svelte/components/typography';
     import { ComponentPreview, InstallCommand } from '$lib/components/docs';
-    import DocsPager from '$lib/components/docs/docs-pager.svelte';
+    import PageIntro from '$lib/components/docs/page-intro.svelte';
+    import SectionHeading from '$lib/components/docs/section-heading.svelte';
     import Disabled from './examples/disabled.svelte';
     import DisabledSrc from './examples/disabled.svelte?raw';
     import Hero from './examples/hero.svelte';
@@ -15,23 +16,12 @@
 
 <svelte:head>
     <title>Mielui · Label</title>
-    <meta
-        name="description"
-        content="A theme-aware form label that pairs with any input, fades correctly when the field is disabled."
-    />
+    <meta name="description" content="A styled native label that names a form control." />
 </svelte:head>
 
 <div data-docs-page class="flex flex-col gap-10">
     <!-- ─── Header ────────────────────────────────────────────────── -->
-    <header class="flex items-start justify-between gap-4">
-        <div>
-            <Typography.H1>Label</Typography.H1>
-            <Typography.Text variant="lead" class="mt-2 max-w-2xl">
-                A form label that pairs with any input and dims when the field is disabled.
-            </Typography.Text>
-        </div>
-        <DocsPager />
-    </header>
+    <PageIntro title="Label">A styled native label that names a form control.</PageIntro>
 
     <!-- ─── Hero Example ──────────────────────────────────────────── -->
     <section id="hero" class="scroll-mt-20 flex flex-col gap-4">
@@ -50,7 +40,8 @@
     <section id="usage" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Usage</Typography.H2>
         <Typography.Text variant="supporting">
-            Import Label and pair it with an input:
+            Match for to the input id. Set required on the input when showing a required indicator.
+            Apply disabled styling to the label explicitly when it precedes the control.
         </Typography.Text>
         <CodeBlock
             code={`import { Label } from '$lib/mielui/components/label';\nimport { Input } from '$lib/mielui/components/input';\n\n<Label for="email">Email</Label>\n<Input id="email" type="email" />`}
@@ -61,20 +52,13 @@
 
     <!-- ─── Examples ──────────────────────────────────────────────── -->
     <section id="examples" class="scroll-mt-20 flex flex-col gap-10">
-        <div>
-            <Typography.H2 class="docs-section-heading">Examples</Typography.H2>
-            <Typography.Text variant="supporting" class="mt-2">
+        <SectionHeading title="Examples">
+            {#snippet description()}
                 Common usage patterns for Label with form fields.
-            </Typography.Text>
-        </div>
+            {/snippet}
+        </SectionHeading>
 
         <!-- Basic -->
-        <div id="basic" class="scroll-mt-20 flex flex-col gap-3">
-            <Typography.H3 class="docs-subsection-heading">With email input</Typography.H3>
-            <ComponentPreview code={HeroSrc}>
-                <Hero />
-            </ComponentPreview>
-        </div>
 
         <!-- Required indicator -->
         <div id="required" class="scroll-mt-20 flex flex-col gap-3">

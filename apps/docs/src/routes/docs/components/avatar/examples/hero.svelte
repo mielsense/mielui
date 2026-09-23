@@ -4,7 +4,7 @@
 
 <div class="flex items-center justify-center">
     <Avatar.Root>
-        <Avatar.Image src="https://github.com/shadcn.png" alt="User" />
-        <Avatar.Fallback>AN</Avatar.Fallback>
+        <Avatar.Image src="https://github.com/mielsense.png" alt="Mielsense" />
+        <Avatar.Fallback>MI</Avatar.Fallback>
     </Avatar.Root>
 </div>

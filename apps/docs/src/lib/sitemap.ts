@@ -1,5 +1,6 @@
 import { changelogLlmVersions, changelogVersions } from '$lib/changelog';
 import { components } from '$lib/components';
+import { componentGuidePages } from '$lib/docs-pages';
 
 export const htmlDocPaths = [
     '/',
@@ -13,12 +14,14 @@ export const htmlDocPaths = [
     '/docs/changelog',
     '/docs/components',
     '/studio',
+    ...componentGuidePages.map((guide) => guide.href),
     ...components.map((component) => `/docs/components/${component}`)
 ];
 
 export const llmDocPaths = [
     '/llms.txt',
     '/llms-full.txt',
+    ...componentGuidePages.map((guide) => `${guide.href}.md`),
     '/docs/agent-skill.md',
     '/docs/actions.md',
     '/docs/actions/morph.md',

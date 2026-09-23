@@ -2,7 +2,7 @@
     import { CodeBlock } from '@mielui/svelte/components/code-block';
     import * as Typography from '@mielui/svelte/components/typography';
     import { ComponentPreview, InstallCommand } from '$lib/components/docs';
-    import DocsPager from '$lib/components/docs/docs-pager.svelte';
+    import PageIntro from '$lib/components/docs/page-intro.svelte';
     import BasicMenu from './examples/basic-menu.svelte';
     import BasicMenuSrc from './examples/basic-menu.svelte?raw';
     import Configuration from './examples/configuration.svelte';
@@ -22,8 +22,6 @@
     import UserMenu from './examples/user-menu.svelte';
     import UserMenuSrc from './examples/user-menu.svelte?raw';
 
-    const _TITLE = 'Dropdown Menu';
-
     const installCommand = 'pnpm dlx @mielui/svelte add dropdown-menu';
 </script>
 
@@ -37,15 +35,7 @@
 
 <div data-docs-page class="flex flex-col gap-10">
     <!-- ─── Header ────────────────────────────────────────────────── -->
-    <header class="flex items-start justify-between gap-4">
-        <div>
-            <Typography.H1>Dropdown Menu</Typography.H1>
-            <Typography.Text variant="lead" class="mt-2 max-w-2xl">
-                A menu of actions anchored to a button.
-            </Typography.Text>
-        </div>
-        <DocsPager />
-    </header>
+    <PageIntro title="Dropdown Menu">A menu of actions anchored to a button.</PageIntro>
 
     <!-- ─── Hero Example ──────────────────────────────────────────── -->
     <section id="hero" class="scroll-mt-20 flex flex-col gap-4">

@@ -5,13 +5,13 @@
 </script>
 
 <div class="flex gap-2">
-    <Toggle size="sm">
+    <Toggle aria-label="Bold" size="sm">
         <HugeiconsIcon icon={Bold} size={12} />
     </Toggle>
-    <Toggle>
+    <Toggle aria-label="Bold">
         <HugeiconsIcon icon={Bold} size={14} />
     </Toggle>
-    <Toggle size="lg">
+    <Toggle aria-label="Bold" size="lg">
         <HugeiconsIcon icon={Bold} size={16} />
     </Toggle>
 </div>

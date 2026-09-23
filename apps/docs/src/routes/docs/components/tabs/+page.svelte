@@ -2,10 +2,11 @@
     import { CodeBlock } from '@mielui/svelte/components/code-block';
     import * as Typography from '@mielui/svelte/components/typography';
     import { ComponentPreview, InstallCommand } from '$lib/components/docs';
-    import DocsPager from '$lib/components/docs/docs-pager.svelte';
-
+    import PageIntro from '$lib/components/docs/page-intro.svelte';
     import Hero from './examples/hero.svelte';
     import HeroSrc from './examples/hero.svelte?raw';
+    import Manual from './examples/manual.svelte';
+    import ManualSrc from './examples/manual.svelte?raw';
     import VariantDefault from './examples/variant-default.svelte';
     import VariantDefaultSrc from './examples/variant-default.svelte?raw';
     import VariantGhost from './examples/variant-ghost.svelte';
@@ -28,16 +29,9 @@
 
 <div data-docs-page class="flex flex-col gap-10">
     <!-- ─── Header ────────────────────────────────────────────────── -->
-    <header class="flex items-start justify-between gap-4">
-        <div>
-            <Typography.H1>Tabs</Typography.H1>
-            <Typography.Text variant="lead" class="mt-2 max-w-2xl">
-                A horizontal or vertical switcher for views that share a context. Comes in three
-                variants.
-            </Typography.Text>
-        </div>
-        <DocsPager />
-    </header>
+    <PageIntro title="Tabs">
+        A horizontal or vertical switcher for views that share a context. Comes in three variants.
+    </PageIntro>
 
     <!-- ─── Hero Example ──────────────────────────────────────────── -->
     <section id="hero" class="scroll-mt-20 flex flex-col gap-4">
@@ -56,18 +50,26 @@
     <section id="usage" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Usage</Typography.H2>
         <Typography.Text>
-            By default, focusing a trigger selects its panel. Set activationMode="manual" to move
-            focus with arrow keys, Home, and End without changing panels; Enter or Space selects the
-            focused tab. This is useful for panels with expensive content. Arrow keys follow the tab
-            orientation and document direction, while Home and End select the first and last enabled
-            tabs. If the selected trigger is removed, disabled, or changes value, selection moves to
-            the first enabled trigger in DOM order and onValueChange reports the repaired value.
-            With no enabled triggers, the value becomes an empty string. This repair does not move
-            focus from another control. Inactive panels unmount unless forceMount is set.
+            Focusing a trigger selects its panel by default. Set<Typography.InlineCode>
+                activationMode="manual"
+            </Typography.InlineCode> to move focus without loading a panel until Enter or Space is
+            pressed. Arrow keys follow the tab orientation and document direction. Home and End move
+            to the first and last enabled tabs.
+        </Typography.Text>
+        <Typography.Text>
+            If the selected trigger is removed, disabled, or changes value, selection moves to the
+            first enabled trigger.<Typography.InlineCode>
+                onValueChange
+            </Typography.InlineCode> reports that value. With no enabled triggers, the value becomes
+            an empty string. Focus stays on the current control.
+        </Typography.Text>
+        <Typography.Text>
+            Inactive panels unmount. Set<Typography.InlineCode>forceMount</Typography.InlineCode> on
+            a panel when it needs to keep its state while hidden.
         </Typography.Text>
 
         <CodeBlock
-            code={`import * as Tabs from '$lib/mielui/components/tabs';\n\n<Tabs.Root bind:value={tab}>\n  <Tabs.List>\n    <Tabs.Trigger value="tab1">Tab 1</Tabs.Trigger>\n    <Tabs.Trigger value="tab2">Tab 2</Tabs.Trigger>\n  </Tabs.List>\n  <Tabs.Content value="tab1">Content 1</Tabs.Content>\n  <Tabs.Content value="tab2">Content 2</Tabs.Content>\n</Tabs.Root>`}
+            code={`import * as Tabs from '$lib/mielui/components/tabs';\n\nlet tab = $state('tab1');\n\n<Tabs.Root bind:value={tab}>\n  <Tabs.List>\n    <Tabs.Trigger value="tab1">Tab 1</Tabs.Trigger>\n    <Tabs.Trigger value="tab2">Tab 2</Tabs.Trigger>\n  </Tabs.List>\n  <Tabs.Content value="tab1">Content 1</Tabs.Content>\n  <Tabs.Content value="tab2">Content 2</Tabs.Content>\n</Tabs.Root>`}
             lang="svelte"
             copy="overlay"
         />
@@ -114,5 +116,15 @@
                 <Vertical />
             </ComponentPreview>
         </div>
+    </section>
+    <section id="manual" class="scroll-mt-20 flex flex-col gap-4">
+        <Typography.H2 class="docs-section-heading">
+            Manual activation and retained state
+        </Typography.H2>
+        <Typography.Text variant="supporting">
+            Use arrow keys to focus a tab, then Enter or Space to select it. The Draft panel stays
+            mounted with forceMount; History is disabled.
+        </Typography.Text>
+        <ComponentPreview code={ManualSrc}><Manual /></ComponentPreview>
     </section>
 </div>

@@ -5,8 +5,16 @@
     import * as Form from '@mielui/svelte/components/form';
     import { Input } from '@mielui/svelte/components/input';
     import { toast } from '@mielui/svelte/components/toast';
+    import { onDestroy } from 'svelte';
 
     let pending = $state(false);
+    let timer: ReturnType<typeof setTimeout> | undefined;
+    let notification: ReturnType<typeof toast.promise> | undefined;
+
+    onDestroy(() => {
+        clearTimeout(timer);
+        notification?.exit?.();
+    });
 
     function submit(event: SubmitEvent & { currentTarget: EventTarget & HTMLFormElement }) {
         event.preventDefault();
@@ -14,12 +22,12 @@
         const name = String(data.get('displayName')).trim();
         pending = true;
         const request = new Promise<string>((resolve) => {
-            setTimeout(() => {
+            timer = setTimeout(() => {
                 pending = false;
                 resolve(name);
             }, 800);
         });
-        toast.promise(request, {
+        notification = toast.promise(request, {
             loading: 'Checking profile…',
             success: (name) => `${name} is ready to save.`,
             successDescription: 'This preview keeps your data in the browser.',

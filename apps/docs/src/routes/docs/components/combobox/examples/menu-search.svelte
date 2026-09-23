@@ -21,11 +21,7 @@
             <Combobox.Content>
                 <Combobox.Results>
                     {#each repositories as repository (repository.value)}
-                        <Combobox.Item
-                            value={repository.value}
-                            label={repository.label}
-                            callback={() => {}}
-                        />
+                        <Combobox.Item value={repository.value} label={repository.label} />
                     {/each}
                 </Combobox.Results>
             </Combobox.Content>

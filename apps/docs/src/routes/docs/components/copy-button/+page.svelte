@@ -2,7 +2,7 @@
     import { CodeBlock } from '@mielui/svelte/components/code-block';
     import * as Typography from '@mielui/svelte/components/typography';
     import { ComponentPreview, InstallCommand } from '$lib/components/docs';
-    import DocsPager from '$lib/components/docs/docs-pager.svelte';
+    import PageIntro from '$lib/components/docs/page-intro.svelte';
     import Basic from './examples/basic.svelte';
     import BasicSrc from './examples/basic.svelte?raw';
     import Hero from './examples/hero.svelte';
@@ -25,15 +25,9 @@
 
 <div data-docs-page class="flex flex-col gap-10">
     <!-- ─── Header ────────────────────────────────────────────────── -->
-    <header class="flex items-start justify-between gap-4">
-        <div>
-            <Typography.H1>Copy Button</Typography.H1>
-            <Typography.Text variant="lead" class="mt-2 max-w-2xl">
-                A button that copies text to the clipboard, with copy and copied states.
-            </Typography.Text>
-        </div>
-        <DocsPager />
-    </header>
+    <PageIntro title="Copy Button">
+        A button that copies text to the clipboard, with copy and copied states.
+    </PageIntro>
 
     <!-- ─── Hero Example ──────────────────────────────────────────── -->
     <section id="hero" class="scroll-mt-20 flex flex-col gap-4">
@@ -52,12 +46,12 @@
     <section id="usage" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Usage</Typography.H2>
         <Typography.Text variant="supporting">
+            Import Copy Button and pass the text to copy:
+        </Typography.Text>
+        <Typography.Text variant="supporting">
             The click handler runs before copying; call preventDefault() to cancel. The oncopy
             callback receives the exact text requested by the latest successful copy. Pending copies
             are ignored after the button is removed.
-        </Typography.Text>
-        <Typography.Text variant="supporting">
-            Import Copy Button and pass the text to copy:
         </Typography.Text>
         <CodeBlock
             code={`import { CopyButton } from '$lib/mielui/components/copy-button';\n\n<CopyButton text="pnpm add @mielui/svelte" />\n<CopyButton text={apiKey} label="Copy key" variant="outline" />`}
@@ -85,5 +79,13 @@
                 <Variants />
             </ComponentPreview>
         </div>
+    </section>
+    <section id="working-example" class="flex scroll-mt-20 flex-col gap-4">
+        <Typography.H2 class="docs-section-heading">Confirm the clipboard result</Typography.H2>
+        <Typography.Text>
+            Use oncopy for feedback after a successful clipboard write. A secure browser context and
+            clipboard permission are required. Keep the source text available so people can select
+            it manually when clipboard access is blocked.
+        </Typography.Text>
     </section>
 </div>

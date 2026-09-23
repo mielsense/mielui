@@ -2,7 +2,7 @@
     import { CodeBlock } from '@mielui/svelte/components/code-block';
     import * as Typography from '@mielui/svelte/components/typography';
     import { ComponentPreview, InstallCommand } from '$lib/components/docs';
-    import DocsPager from '$lib/components/docs/docs-pager.svelte';
+    import PageIntro from '$lib/components/docs/page-intro.svelte';
     import Capped from './examples/capped.svelte';
     import CappedSrc from './examples/capped.svelte?raw';
     import Hero from './examples/hero.svelte';
@@ -23,15 +23,9 @@
 </svelte:head>
 
 <div data-docs-page class="flex flex-col gap-10">
-    <header class="flex items-start justify-between gap-4">
-        <div>
-            <Typography.H1>{TITLE}</Typography.H1>
-            <Typography.Text variant="lead" class="mt-2 max-w-2xl">
-                Keeps long content scannable, then reveals the complete detail in place.
-            </Typography.Text>
-        </div>
-        <DocsPager />
-    </header>
+    <PageIntro title={TITLE}>
+        Keeps long content scannable, then reveals the complete detail in place.
+    </PageIntro>
 
     <section id="hero" class="scroll-mt-20 flex flex-col gap-4">
         <ComponentPreview code={HeroSrc}>
@@ -100,5 +94,15 @@ let expanded = $state(false);
                 <Capped />
             </ComponentPreview>
         </div>
+    </section>
+    <section id="working-example" class="flex scroll-mt-20 flex-col gap-4">
+        <Typography.H2 class="docs-section-heading">
+            Choose a text or interactive preview
+        </Typography.H2>
+        <Typography.Text>
+            Use a line-limited preview for prose. When hidden content includes links or buttons,
+            supply a separate preview snippet and keep those controls in the expanded content. The
+            interactive example prevents a clipped control from becoming an invisible keyboard stop.
+        </Typography.Text>
     </section>
 </div>

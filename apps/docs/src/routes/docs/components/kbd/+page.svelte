@@ -2,7 +2,8 @@
     import { CodeBlock } from '@mielui/svelte/components/code-block';
     import * as Typography from '@mielui/svelte/components/typography';
     import { ComponentPreview, InstallCommand } from '$lib/components/docs';
-    import DocsPager from '$lib/components/docs/docs-pager.svelte';
+    import PageIntro from '$lib/components/docs/page-intro.svelte';
+    import SectionHeading from '$lib/components/docs/section-heading.svelte';
     import Basic from './examples/basic.svelte';
     import BasicSrc from './examples/basic.svelte?raw';
     import Context from './examples/context.svelte';
@@ -27,15 +28,9 @@
 
 <div data-docs-page class="flex flex-col gap-10">
     <!-- ─── Header ────────────────────────────────────────────────── -->
-    <header class="flex items-start justify-between gap-4">
-        <div>
-            <Typography.H1>{TITLE}</Typography.H1>
-            <Typography.Text variant="lead" class="mt-2 max-w-2xl">
-                A key chip for keyboard shortcuts, including inside buttons.
-            </Typography.Text>
-        </div>
-        <DocsPager />
-    </header>
+    <PageIntro title={TITLE}>
+        A key chip for keyboard shortcuts, including inside buttons.
+    </PageIntro>
 
     <!-- ─── Hero Example ──────────────────────────────────────────── -->
     <section id="hero" class="scroll-mt-20 flex flex-col gap-4">
@@ -45,13 +40,6 @@
     </section>
 
     <!-- ─── Installation ──────────────────────────────────────────── -->
-    <Typography.Text>
-        Shortcut chips use familiar Mac menu glyphs; their accessible names expand these to words.
-        Command means the Meta key and Control means Control on every platform. An active shortcut
-        invokes its enclosing enabled button or link, or ontrigger when supplied. Hidden or inert
-        controls, composing input, repeated keys, consumed events, and controls outside the focused
-        overlay do not activate.
-    </Typography.Text>
     <section id="installation" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Installation</Typography.H2>
         <InstallCommand command={installCommand} />
@@ -61,8 +49,17 @@
     <section id="usage" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Usage</Typography.H2>
         <Typography.Text>
+            Pass a shortcut string such as cmd+K. The visible chip uses Mac menu symbols, while its
+            accessible name spells out the keys. Command means Meta and Control means Control on
+            every platform.
+        </Typography.Text>
+        <Typography.Text>
+            An active shortcut runs its enclosing enabled button or link, or ontrigger when
+            supplied.
+        </Typography.Text>
+        <Typography.Text>
             Executable shortcuts ignore consumed, repeated, and composing key events. Shortcuts in
-            hidden or inert owners do not activate, and an active overlay limits activation to its
+            hidden or inert controls do not activate, and an active overlay limits activation to its
             own controls.
         </Typography.Text>
         <Typography.Text variant="supporting">
@@ -77,12 +74,11 @@
 
     <!-- ─── Examples ──────────────────────────────────────────────── -->
     <section id="examples" class="scroll-mt-20 flex flex-col gap-10">
-        <div>
-            <Typography.H2 class="docs-section-heading">Examples</Typography.H2>
-            <Typography.Text variant="supporting" class="mt-2">
+        <SectionHeading title="Examples">
+            {#snippet description()}
                 Kbd in various compositions and contexts.
-            </Typography.Text>
-        </div>
+            {/snippet}
+        </SectionHeading>
 
         <!-- Basic -->
         <div id="basic" class="scroll-mt-20 flex flex-col gap-3">

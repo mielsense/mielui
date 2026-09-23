@@ -8,7 +8,7 @@ import {
     changelogMarkdown,
     changelogVersions
 } from '$lib/changelog';
-import { componentGroups, components } from '$lib/components';
+import { componentGroups, components, sanitizeComponent } from '$lib/components';
 import { brandMarkMarkdown, componentMarkdown, componentsMarkdown } from '$lib/llms';
 import { mieluiGuideMarkdown, skillMarkdown } from '$lib/skill';
 import { GET as getChangelog } from '../../../src/routes/changelog/[version].md/+server';
@@ -137,7 +137,9 @@ describe('docs release contracts', () => {
         for (const component of components) {
             expect(index).toContain(`https://preview.example/docs/components/${component}.md`);
             const reference = componentMarkdown(component);
-            expect(reference).toMatch(/^# .+/);
+            expect(reference?.startsWith(`# ${sanitizeComponent(component)}\n\n`)).toBe(true);
+            expect(reference).toMatch(/^# [^\n]+\n\n[^\n]+\n\n- Package:/);
+            expect(reference).not.toContain('<PageIntro');
             expect(reference).toContain('## API');
             expect(reference).toContain('## Install');
         }

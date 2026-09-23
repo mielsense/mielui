@@ -6,6 +6,9 @@
     import HugeiconsIcon from '@mielui/svelte/hugeicons-icon';
 
     let started = $state(false);
+    function start() {
+        started = true;
+    }
 </script>
 
 {#snippet emptyIcon()}
@@ -13,7 +16,7 @@
 {/snippet}
 
 {#snippet startAction()}
-    <Button size="md" onclick={() => (started = true)}>Draft a release plan</Button>
+    <Button size="md" onclick={start}>Draft a release plan</Button>
 {/snippet}
 
 <Conversation.Root

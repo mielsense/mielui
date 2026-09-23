@@ -2,7 +2,8 @@
     import { CodeBlock } from '@mielui/svelte/components/code-block';
     import * as Typography from '@mielui/svelte/components/typography';
     import { ComponentPreview, InstallCommand } from '$lib/components/docs';
-    import DocsPager from '$lib/components/docs/docs-pager.svelte';
+    import PageIntro from '$lib/components/docs/page-intro.svelte';
+    import SectionHeading from '$lib/components/docs/section-heading.svelte';
     import Basic from './examples/basic.svelte';
     import BasicSrc from './examples/basic.svelte?raw';
     import Glass from './examples/glass.svelte';
@@ -11,8 +12,6 @@
     import HeroSrc from './examples/hero.svelte?raw';
     import Placements from './examples/placements.svelte';
     import PlacementsSrc from './examples/placements.svelte?raw';
-
-    const _TITLE = 'Popover';
 
     const installCommand = 'pnpm dlx @mielui/svelte add popover';
 </script>
@@ -24,15 +23,9 @@
 
 <div data-docs-page class="flex flex-col gap-10">
     <!-- ─── Header ────────────────────────────────────────────────── -->
-    <header class="flex items-start justify-between gap-4">
-        <div>
-            <Typography.H1>Popover</Typography.H1>
-            <Typography.Text variant="lead" class="mt-2 max-w-2xl">
-                A floating surface anchored to a trigger. Supports four placements.
-            </Typography.Text>
-        </div>
-        <DocsPager />
-    </header>
+    <PageIntro title="Popover">
+        A floating surface anchored to a trigger. Supports four placements.
+    </PageIntro>
 
     <!-- ─── Hero Example ──────────────────────────────────────────── -->
     <section id="hero" class="scroll-mt-20 flex flex-col gap-4">
@@ -42,10 +35,6 @@
     </section>
 
     <!-- ─── Installation ──────────────────────────────────────────── -->
-    <Typography.Text>
-        Trigger onclick receives the native mouse event before changing open state. Call
-        preventDefault to cancel opening or closing.
-    </Typography.Text>
     <section id="installation" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Installation</Typography.H2>
         <InstallCommand command={installCommand} />
@@ -54,6 +43,10 @@
     <!-- ─── Usage ─────────────────────────────────────────────────── -->
     <section id="usage" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Usage</Typography.H2>
+        <Typography.Text variant="supporting">
+            Trigger onclick receives the native mouse event before changing open state. Call
+            preventDefault to cancel opening or closing.
+        </Typography.Text>
         <Typography.Text variant="supporting">
             Bind open on Root when another control needs to open or close the panel. Use
             onOpenChange to respond to changes initiated inside the component. Updating your bound
@@ -75,7 +68,7 @@
             page must remain interactive.
         </Typography.Text>
         <CodeBlock
-            code={`import * as Popover from '$lib/mielui/components/popover';\n\n<Popover.Root>\n  <Popover.Trigger>Open</Popover.Trigger>\n  <Popover.Content class="w-64">\n    Content here\n  </Popover.Content>\n</Popover.Root>`}
+            code={`import * as Popover from '$lib/mielui/components/popover';\n\n<Popover.Root>\n  <Popover.Trigger>Open</Popover.Trigger>\n  <Popover.Content class="w-64" aria-label="Details">\n    Content here\n  </Popover.Content>\n</Popover.Root>`}
             lang="svelte"
             copy="overlay"
         />
@@ -83,12 +76,11 @@
 
     <!-- ─── Examples ──────────────────────────────────────────────── -->
     <section id="examples" class="scroll-mt-20 flex flex-col gap-10">
-        <div>
-            <Typography.H2 class="docs-section-heading">Examples</Typography.H2>
-            <Typography.Text variant="supporting" class="mt-2">
-                Explore the Popover in different placements and compositions.
-            </Typography.Text>
-        </div>
+        <SectionHeading title="Examples">
+            {#snippet description()}
+                Place a panel beside its trigger or compose a form inside it.
+            {/snippet}
+        </SectionHeading>
 
         <!-- Basic popover -->
         <div id="basic" class="scroll-mt-20 flex flex-col gap-3">
@@ -109,9 +101,10 @@
     <section id="glass" class="flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Glass surface</Typography.H2>
         <Typography.Text variant="supporting">
-            Set surface="glass" on Popover.Content for a translucent background with blur. Solid
-            remains the default. The glass surface keeps an opaque fallback when backdrop filtering
-            is unavailable and respects reduced-transparency preferences.
+            Set surface="glass" on Popover.Content for a translucent background with blur. Omit
+            surface to inherit --mielui-surface from your theme, or set surface="solid" to override
+            it. The glass surface keeps an opaque fallback when backdrop filtering is unavailable
+            and respects reduced-transparency preferences.
         </Typography.Text>
         <ComponentPreview code={GlassSrc}><Glass /></ComponentPreview>
     </section>

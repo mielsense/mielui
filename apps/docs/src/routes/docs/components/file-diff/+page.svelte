@@ -2,7 +2,7 @@
     import { CodeBlock } from '@mielui/svelte/components/code-block';
     import * as Typography from '@mielui/svelte/components/typography';
     import { ComponentPreview, InstallCommand } from '$lib/components/docs';
-    import DocsPager from '$lib/components/docs/docs-pager.svelte';
+    import PageIntro from '$lib/components/docs/page-intro.svelte';
     import Compound from './examples/compound.svelte';
     import CompoundSrc from './examples/compound.svelte?raw';
     import Hero from './examples/hero.svelte';
@@ -35,15 +35,9 @@
 
 <div data-docs-page class="flex flex-col gap-10">
     <!-- ─── Header ────────────────────────────────────────────────── -->
-    <header class="flex items-start justify-between gap-4">
-        <div>
-            <Typography.H1>File Diff</Typography.H1>
-            <Typography.Text variant="lead" class="mt-2 max-w-2xl">
-                A unified diff viewer with a file top bar, change counts, and highlighted rows.
-            </Typography.Text>
-        </div>
-        <DocsPager />
-    </header>
+    <PageIntro title="File Diff">
+        A unified diff viewer with a file top bar, change counts, and highlighted rows.
+    </PageIntro>
 
     <!-- ─── Hero Example ──────────────────────────────────────────── -->
     <section id="hero" class="scroll-mt-20 flex flex-col gap-4">
@@ -68,14 +62,6 @@
     <section id="usage" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Usage</Typography.H2>
         <Typography.Text variant="supporting">
-            Code Block and File Diff share the same language aliases, syntax rules, package-manager
-            command highlighting, and escaped fallback for unsupported languages.
-        </Typography.Text>
-        <Typography.Text variant="supporting">
-            Each row announces whether its code was added, removed, or unchanged. When line numbers
-            are shown, the announcement includes the relevant source line.
-        </Typography.Text>
-        <Typography.Text variant="supporting">
             Pass a{' '}
             <Typography.InlineCode>diff</Typography.InlineCode> array for the high-level form, or
             compose
@@ -92,6 +78,14 @@
             <Typography.InlineCode>PlusMinus</Typography.InlineCode>
             , and your own actions. Addition and deletion counts are derived from the diff unless
             you pass them explicitly.
+        </Typography.Text>
+        <Typography.Text variant="supporting">
+            Code Block and File Diff share the same language aliases, syntax rules, package-manager
+            command highlighting, and escaped fallback for unsupported languages.
+        </Typography.Text>
+        <Typography.Text variant="supporting">
+            Each row announces whether its code was added, removed, or unchanged. When line numbers
+            are shown, the announcement includes the relevant source line.
         </Typography.Text>
         <CodeBlock code={usageSnippet} lang="svelte" copy="overlay" />
     </section>
@@ -148,5 +142,14 @@
                 <Stacked />
             </ComponentPreview>
         </div>
+    </section>
+    <section id="working-example" class="flex scroll-mt-20 flex-col gap-4">
+        <Typography.H2 class="docs-section-heading">Keep patch context visible</Typography.H2>
+        <Typography.Text>
+            Use one Root per file and keep its filename and language alongside the patch. For short
+            embedded previews you can omit line numbers; retain the addition and deletion signs so
+            color is not the only distinction. Use the changing-diff example to inspect count
+            updates.
+        </Typography.Text>
     </section>
 </div>

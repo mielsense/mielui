@@ -1,27 +1,52 @@
 <script lang="ts">
+    import { Button } from '@mielui/svelte/components/button';
     import { Progress } from '@mielui/svelte/components/progress';
-    import { onMount } from 'svelte';
+    import { onDestroy } from 'svelte';
 
-    let val = $state(28);
+    let value = $state(0);
+    let running = $state(false);
+    let timer: ReturnType<typeof setInterval> | undefined;
+    const status = $derived(
+        value === 100 ? 'Upload complete' : running ? 'Uploading release.zip' : 'Ready to upload'
+    );
 
-    onMount(() => {
-        const id = setInterval(() => {
-            val = (val + 4) % 100;
-        }, 600);
-        return () => clearInterval(id);
+    function start() {
+        clearInterval(timer);
+        value = 0;
+        running = true;
+        timer = setInterval(() => {
+            value = Math.min(100, value + 10);
+            if (value === 100) {
+                clearInterval(timer);
+                running = false;
+            }
+        }, 240);
+    }
+
+    function cancel() {
+        clearInterval(timer);
+        running = false;
+        value = 0;
+    }
+
+    onDestroy(() => {
+        clearInterval(timer);
     });
 </script>
 
-<div class="flex flex-col gap-4 w-full max-w-md">
-    <div class="flex flex-col gap-2">
-        <div class="flex items-center justify-between text-[0.78rem] text-foreground-muted">
-            <span>Uploading…</span>
-            <span>{val}%</span>
-        </div>
-        <Progress aria-label="Upload progress" value={val} />
+<div class="flex w-full max-w-md flex-col gap-4">
+    <div class="flex items-center justify-between gap-3 text-sm">
+        <span role="status">{status}</span>
+        <span class="tabular-nums text-foreground-muted">{value}%</span>
     </div>
-    <div class="flex flex-col gap-2">
-        <span class="text-[0.78rem] text-foreground-muted">Indeterminate</span>
-        <Progress aria-label="Upload progress" indeterminate />
+    <Progress aria-label="Release archive upload" {value} />
+    <div class="flex gap-2">
+        <Button onclick={start} disabled={running}>
+            {value === 100 ? 'Upload again' : 'Start upload'}
+        </Button>
+        {#if running}
+            <Button variant="secondary" onclick={cancel}>Cancel</Button>
+        {/if}
     </div>
+    <p class="text-xs text-foreground-muted">Simulated transfer. No files leave your device.</p>
 </div>

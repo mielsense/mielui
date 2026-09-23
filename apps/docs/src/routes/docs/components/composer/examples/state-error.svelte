@@ -1,29 +1,30 @@
 <script lang="ts">
     import * as Composer from '@mielui/svelte/components/composer';
-    import { onMount } from 'svelte';
+    import { Switch } from '@mielui/svelte/components/switch';
 
-    let status = $state<'idle' | 'error'>('idle');
+    let value = $state('Summarize the incident timeline.');
+    let fail = $state(true);
+    let result = $state('');
 
-    onMount(() => {
-        const frame = requestAnimationFrame(() => {
-            status = 'error';
-        });
-
-        return () => cancelAnimationFrame(frame);
-    });
+    async function submit() {
+        result = '';
+        if (fail) {
+            throw new Error('The demo service is unavailable.');
+        }
+        result = `Submitted: ${value}`;
+        value = '';
+    }
 </script>
 
-<Composer.Root
-    value="Summarize the incident timeline."
-    {status}
-    onSubmit={() => {}}
-    onStop={() => {}}
->
-    <Composer.Input aria-label="Error prompt" />
-    <Composer.Toolbar>
-        <Composer.Actions>
-            <span class="px-2 text-xs text-foreground-muted">Mielui 3.1</span>
-        </Composer.Actions>
-        <Composer.Submit />
-    </Composer.Toolbar>
-</Composer.Root>
+<div class="w-full max-w-2xl space-y-4">
+    <Switch bind:checked={fail} label="Simulate service failure" />
+    <Composer.Root
+        bind:value
+        onSubmit={submit}
+        errorMessage="Could not send. Turn off simulated failure, then retry."
+    >
+        <Composer.Input aria-label="Incident prompt" />
+        <Composer.Toolbar><Composer.Submit /></Composer.Toolbar>
+    </Composer.Root>
+    <p class="min-h-5 text-sm text-foreground-muted" role="status">{result}</p>
+</div>

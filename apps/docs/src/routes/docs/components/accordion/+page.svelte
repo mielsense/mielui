@@ -2,7 +2,7 @@
     import { CodeBlock } from '@mielui/svelte/components/code-block';
     import * as Typography from '@mielui/svelte/components/typography';
     import { ComponentPreview, InstallCommand } from '$lib/components/docs';
-    import DocsPager from '$lib/components/docs/docs-pager.svelte';
+    import PageIntro from '$lib/components/docs/page-intro.svelte';
 
     import Hero from './examples/hero.svelte';
     import HeroSrc from './examples/hero.svelte?raw';
@@ -30,18 +30,10 @@
 
 <div data-docs-page class="flex flex-col gap-10">
     <!-- ─── Header ────────────────────────────────────────────────── -->
-    <header class="flex items-start justify-between gap-4">
-        <div>
-            <Typography.H1>
-                {TITLE}
-            </Typography.H1>
-            <Typography.Text variant="lead" class="mt-2 max-w-2xl">
-                A vertical stack of collapsible sections. Single mode opens one at a time; multiple
-                allows any combination.
-            </Typography.Text>
-        </div>
-        <DocsPager />
-    </header>
+    <PageIntro title={TITLE}>
+        A vertical stack of collapsible sections. Single mode opens one at a time; multiple allows
+        any combination.
+    </PageIntro>
 
     <!-- ─── Hero Example ──────────────────────────────────────────── -->
     <section id="hero" class="scroll-mt-20 flex flex-col gap-4">
@@ -61,8 +53,9 @@
         <Typography.H2 class="docs-section-heading">Usage</Typography.H2>
         <Typography.Text>
             Arrow keys move between enabled headers; Home and End jump to the first and last header.
-            Each accordion instance generates its own trigger and content IDs. Setting collapsible
-            to false keeps the active single item open.
+            Each item generates its own trigger and content IDs. Custom IDs on Trigger and Content
+            keep their accessibility relationships when they change. Setting collapsible to false
+            keeps the active single item open.
         </Typography.Text>
 
         <Typography.Text variant="supporting">

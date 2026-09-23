@@ -1,45 +1,21 @@
 <script lang="ts">
     import {
-        ArrowRight02Icon as ArrowRight,
+        InformationCircleIcon as Info,
         Search01Icon as Search
     } from '@hugeicons/core-free-icons';
     import { Button } from '@mielui/svelte/components/button';
-    import * as Combobox from '@mielui/svelte/components/combobox';
+    import * as Card from '@mielui/svelte/components/card';
+    import * as HoverCard from '@mielui/svelte/components/hover-card';
+    import { Input } from '@mielui/svelte/components/input';
     import * as Typography from '@mielui/svelte/components/typography';
     import HugeiconsIcon from '@mielui/svelte/hugeicons-icon';
-    import type { ScrittoProps } from '@scritto/core';
-    import type { Component } from 'svelte';
-    import type { HTMLAttributes } from 'svelte/elements';
-    import { goto } from '$app/navigation';
     import { resolve } from '$app/paths';
     import { components, navigationGroups, sanitizeComponent } from '$lib/components';
-    import DocsPager from '$lib/components/docs/docs-pager.svelte';
+    import CatalogPreview from '$lib/components/docs/catalog-preview.svelte';
+    import PageIntro from '$lib/components/docs/page-intro.svelte';
+    import type { PageData } from './$types';
 
-    const ROLL_TRANSITION = { duration: 300 };
-
-    const canRoll =
-        typeof window !== 'undefined' &&
-        typeof window.matchMedia === 'function' &&
-        typeof Element !== 'undefined' &&
-        typeof Element.prototype.getAnimations === 'function';
-
-    type ScrittoComponent = Component<ScrittoProps & HTMLAttributes<HTMLElement>>;
-    let Scritto = $state<ScrittoComponent | null>(null);
-
-    $effect(() => {
-        if (!canRoll) {
-            return;
-        }
-        let cancelled = false;
-        import('@scritto/svelte').then((module) => {
-            if (!cancelled) {
-                Scritto = module.default as ScrittoComponent;
-            }
-        });
-        return () => {
-            cancelled = true;
-        };
-    });
+    let { data }: { data: PageData } = $props();
 
     let query = $state('');
 
@@ -50,7 +26,8 @@
         }
         return (
             component.includes(needle) ||
-            sanitizeComponent(component).toLowerCase().includes(needle)
+            sanitizeComponent(component).toLowerCase().includes(needle) ||
+            data.descriptions[component]?.toLowerCase().includes(needle) === true
         );
     }
 
@@ -86,51 +63,29 @@
 </svelte:head>
 
 <div data-docs-page class="flex flex-col gap-10">
-    <header class="flex items-start justify-between gap-4">
-        <div>
-            <Typography.H1 class="m-0">Components</Typography.H1>
+    <PageIntro title="Components">Browse components, blocks, charts, and motion actions.</PageIntro>
 
-            <Typography.Text variant="lead" class="mt-2 max-w-2xl">
-                Browse components, blocks, charts, and motion actions.
-            </Typography.Text>
-        </div>
-        <DocsPager />
-    </header>
-
-    <section aria-label="Search components and actions" class="flex flex-col gap-3">
+    <section
+        data-docs-toolbar
+        aria-label="Search components and actions"
+        class="flex flex-col gap-3"
+    >
         <div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-            <Combobox.Root bind:value={query}>
-                <Combobox.Trigger
-                    appearance="input"
+            <div class="w-full shrink-0 sm:max-w-sm">
+                <Input
+                    bind:value={query}
+                    type="search"
+                    aria-label="Search components and actions"
                     placeholder="Search components and actions"
-                    class="w-full sm:max-w-sm"
+                    class="w-full"
                 >
                     {#snippet trailing()}
-                        <HugeiconsIcon icon={Search} size={16} />
+                        <HugeiconsIcon icon={Search} size={16} aria-hidden="true" />
                     {/snippet}
-                </Combobox.Trigger>
-                <Combobox.Content class="max-h-56">
-                    <Combobox.Results>
-                        {#each visibleGroups as group (group.id)}
-                            {#each group.items as component (component)}
-                                <Combobox.Item
-                                    value={component}
-                                    label={sanitizeComponent(component)}
-                                    callback={() => {
-                                        void goto(componentHref(component));
-                                    }}
-                                />
-                            {/each}
-                        {/each}
-                    </Combobox.Results>
-                </Combobox.Content>
-            </Combobox.Root>
-            <Typography.Metadata class="tabular-nums" aria-live="polite">
-                {#if Scritto}
-                    <Scritto value={countLabel} transition={ROLL_TRANSITION} />
-                {:else}
-                    {countLabel}
-                {/if}
+                </Input>
+            </div>
+            <Typography.Metadata class="shrink-0 whitespace-nowrap tabular-nums" aria-live="polite">
+                {countLabel}
             </Typography.Metadata>
         </div>
     </section>
@@ -141,7 +96,15 @@
                 No entries match “{query.trim()}
                 ”.
             </Typography.Text>
-            <Button variant="outline" size="md" onclick={() => (query = '')}>Clear search</Button>
+            <Button
+                variant="outline"
+                size="md"
+                onclick={() => {
+                query = '';
+            }}
+            >
+                Clear search
+            </Button>
         </section>
     {/if}
 
@@ -151,29 +114,60 @@
                 <Typography.H2 id={group.id} class="m-0">{group.heading}</Typography.H2>
                 <Typography.Metadata class="tabular-nums">{group.items.length}</Typography.Metadata>
             </div>
-            <ul class="grid grid-cols-1 gap-3 sm:grid-cols-2">
-                {#each group.items as component, i (component)}
-                    <li
-                        class="motion-safe:[animation:docs-block-in_280ms_var(--ease-out)_both]"
-                        style={`animation-delay: ${Math.min(i * 24, 240)}ms;`}
-                    >
-                        <a
-                            href={resolve(
-                                componentHref(component) as '/docs/components/accordion'
-                            )}
-                            class="group flex min-h-16 items-center justify-between gap-4 rounded-[var(--radius-lg)] border border-border bg-card px-4 py-3 text-foreground transition-[border-color,background-color] duration-200 hover:border-border-strong hover:bg-secondary/45 motion-reduce:transition-none"
-                        >
-                            <span class="font-medium">{sanitizeComponent(component)}</span>
-                            <HugeiconsIcon
-                                icon={ArrowRight}
-                                size={15}
-                                class="text-foreground-muted transition-transform duration-200 group-hover:translate-x-0.5 motion-reduce:transition-none"
-                                aria-hidden="true"
-                            />
-                        </a>
-                    </li>
-                {/each}
-            </ul>
+            <div class="@container">
+                <ul
+                    class="m-0 grid list-none grid-cols-1 p-0 gap-4 @min-[32rem]:grid-cols-2 @min-[60rem]:grid-cols-3"
+                >
+                    {#each group.items as component (component)}
+                        <li class="min-w-0">
+                            <Card.Root
+                                variant="inset"
+                                class="h-full [&>[data-ui=card-surface]]:p-0"
+                            >
+                                <a
+                                    href={resolve(componentHref(component) as '/docs/components/accordion')}
+                                    aria-label={`View ${sanitizeComponent(component)}`}
+                                    class="relative flex h-52 items-center justify-center overflow-hidden rounded-[inherit] focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-primary"
+                                >
+                                    <div class="contents" aria-hidden="true" inert>
+                                        <CatalogPreview slug={component} />
+                                    </div>
+                                </a>
+                                <Card.Footer class="!justify-between !px-3 !py-2">
+                                    <a
+                                        href={resolve(componentHref(component) as '/docs/components/accordion')}
+                                        class="rounded-[var(--radius-sm)] text-sm font-medium text-foreground hover:text-primary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+                                    >
+                                        {sanitizeComponent(component)}
+                                    </a>
+                                    <HoverCard.Root>
+                                        <HoverCard.Trigger
+                                            class="size-7 items-center justify-center rounded-[var(--radius-sm)] text-foreground-muted hover:text-foreground focus-visible:outline-2 focus-visible:outline-primary"
+                                        >
+                                            <HugeiconsIcon icon={Info} size={16} />
+                                            <span class="sr-only">
+                                                {`About ${sanitizeComponent(component)}`}
+                                            </span>
+                                        </HoverCard.Trigger>
+                                        <HoverCard.Content
+                                            side="top"
+                                            align="end"
+                                            class="w-72 max-w-[calc(100vw-2rem)]"
+                                        >
+                                            <p class="text-sm font-medium">
+                                                {sanitizeComponent(component)}
+                                            </p>
+                                            <p class="mt-2 text-sm leading-6 text-foreground-muted">
+                                                {data.descriptions[component]}
+                                            </p>
+                                        </HoverCard.Content>
+                                    </HoverCard.Root>
+                                </Card.Footer>
+                            </Card.Root>
+                        </li>
+                    {/each}
+                </ul>
+            </div>
         </section>
     {/each}
 </div>

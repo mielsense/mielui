@@ -1,9 +1,23 @@
 <script lang="ts">
     import * as Composer from '@mielui/svelte/components/composer';
+
+    let chrome = $state('Compare the two implementation options.');
+    let inset = $state('Summarize the incident timeline.');
+    let result = $state('');
+
+    function sendChrome() {
+        result = `Submitted: ${chrome}`;
+        chrome = '';
+    }
+
+    function sendInset() {
+        result = `Submitted: ${inset}`;
+        inset = '';
+    }
 </script>
 
 <div class="flex w-full max-w-2xl flex-col gap-6">
-    <Composer.Root value="Compare the two implementation options." onSubmit={() => {}}>
+    <Composer.Root bind:value={chrome} onSubmit={sendChrome}>
         <Composer.Input aria-label="Chrome toolbar prompt" />
         <Composer.Toolbar>
             <Composer.Actions>
@@ -13,7 +27,7 @@
         </Composer.Toolbar>
     </Composer.Root>
 
-    <Composer.Root value="Summarize the incident timeline." onSubmit={() => {}}>
+    <Composer.Root bind:value={inset} onSubmit={sendInset}>
         <Composer.Input aria-label="Inset toolbar prompt" />
         <Composer.Toolbar variant="inset">
             <Composer.Actions>
@@ -22,4 +36,5 @@
             <Composer.Submit />
         </Composer.Toolbar>
     </Composer.Root>
+    <p class="min-h-5 text-sm text-foreground-muted" role="status">{result}</p>
 </div>

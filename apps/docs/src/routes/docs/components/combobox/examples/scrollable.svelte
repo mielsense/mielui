@@ -54,11 +54,7 @@
             <Combobox.Content class="max-h-56">
                 <Combobox.Results>
                     {#each countries as country (country.value)}
-                        <Combobox.Item
-                            value={country.value}
-                            label={country.label}
-                            callback={() => {}}
-                        />
+                        <Combobox.Item value={country.value} label={country.label} />
                     {/each}
                 </Combobox.Results>
             </Combobox.Content>

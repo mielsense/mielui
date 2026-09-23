@@ -2,7 +2,9 @@
     import { CodeBlock } from '@mielui/svelte/components/code-block';
     import * as Typography from '@mielui/svelte/components/typography';
     import { ComponentPreview, InstallCommand } from '$lib/components/docs';
-    import DocsPager from '$lib/components/docs/docs-pager.svelte';
+    import PageIntro from '$lib/components/docs/page-intro.svelte';
+    import Constraints from './examples/constraints.svelte';
+    import ConstraintsSrc from './examples/constraints.svelte?raw';
     import Hero from './examples/hero.svelte';
     import HeroSrc from './examples/hero.svelte?raw';
     import Example0 from './examples/two-months.svelte';
@@ -18,16 +20,9 @@
 </svelte:head>
 
 <div data-docs-page class="flex flex-col gap-10">
-    <header class="flex items-start justify-between gap-4">
-        <div>
-            <Typography.H1>Range Calendar</Typography.H1>
-            <Typography.Text variant="lead" class="mt-2 max-w-2xl">
-                Choose a start and end date with keyboard navigation and a continuous range
-                highlight.
-            </Typography.Text>
-        </div>
-        <DocsPager />
-    </header>
+    <PageIntro title="Range Calendar">
+        Choose a start and end date with keyboard navigation and a continuous range highlight.
+    </PageIntro>
     <section id="hero" class="scroll-mt-20 flex flex-col gap-4">
         <ComponentPreview code={HeroSrc}><Hero /></ComponentPreview>
     </section>
@@ -53,8 +48,8 @@
             Use CalendarDate from @internationalized/date for date-only values, or parseDate for ISO
             date strings. Bind placeholder to control the visible month. An explicit locale and
             placeholder keep server and client formatting predictable. Avoid converting a date-only
-            selection through a UTC JavaScript Date to store it; value.toString() preserves its
-            calendar date.
+            selection through a UTC JavaScript Date to store it. Save each endpoint with
+            value.start?.toString() and value.end?.toString().
         </Typography.Text>
     </section>
     <section id="examples" class="scroll-mt-20 flex flex-col gap-8">
@@ -91,5 +86,13 @@
             form serialization. The calendar grid stays still during navigation; only state feedback
             changes.
         </Typography.Text>
+    </section>
+    <section id="constraints" class="scroll-mt-20 flex flex-col gap-4">
+        <Typography.H2 class="docs-section-heading">Bounds and custom composition</Typography.H2>
+        <Typography.Text variant="supporting">
+            Choose two to seven days within September. This composition omits navigation buttons
+            because dates outside the month are unavailable.
+        </Typography.Text>
+        <ComponentPreview code={ConstraintsSrc}><Constraints /></ComponentPreview>
     </section>
 </div>

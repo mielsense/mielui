@@ -2,7 +2,8 @@
     import { CodeBlock } from '@mielui/svelte/components/code-block';
     import * as Typography from '@mielui/svelte/components/typography';
     import { ComponentPreview, InstallCommand } from '$lib/components/docs';
-    import DocsPager from '$lib/components/docs/docs-pager.svelte';
+    import PageIntro from '$lib/components/docs/page-intro.svelte';
+    import SectionHeading from '$lib/components/docs/section-heading.svelte';
 
     import Hero from './examples/hero.svelte';
     import HeroSrc from './examples/hero.svelte?raw';
@@ -33,16 +34,9 @@
 </svelte:head>
 
 <div data-docs-page class="flex flex-col gap-10">
-    <header class="flex items-start justify-between gap-4">
-        <div>
-            <Typography.H1>Message</Typography.H1>
-            <Typography.Text variant="lead" class="mt-2 max-w-2xl">
-                Present user, assistant, and system output without adding identity chrome to every
-                turn.
-            </Typography.Text>
-        </div>
-        <DocsPager />
-    </header>
+    <PageIntro title="Message">
+        Present user, assistant, and system output without adding identity chrome to every turn.
+    </PageIntro>
 
     <section id="hero" class="scroll-mt-20 flex flex-col gap-4">
         <ComponentPreview code={HeroSrc}><Hero /></ComponentPreview>
@@ -94,13 +88,21 @@
         <CodeBlock code={usageSnippet} lang="svelte" copy="overlay" />
     </section>
 
+    <section id="integration" class="scroll-mt-20 flex flex-col gap-4">
+        <Typography.H2 class="docs-section-heading">Content and delivery</Typography.H2>
+        <Typography.Text variant="supporting">
+            Message describes a transcript entry. Its status does not fetch or stream content.
+            Compose Markdown for formatted content or ResponseStream for arriving plain text, and
+            update status when delivery completes or fails. Keep response actions labelled and
+            attach retries to application state.
+        </Typography.Text>
+    </section>
     <section id="examples" class="scroll-mt-20 flex flex-col gap-10">
-        <div>
-            <Typography.H2 class="docs-section-heading">Examples</Typography.H2>
-            <Typography.Text variant="supporting" class="mt-2">
+        <SectionHeading title="Examples">
+            {#snippet description()}
                 Use role and status to communicate structure before adding custom presentation.
-            </Typography.Text>
-        </div>
+            {/snippet}
+        </SectionHeading>
 
         <div id="role-variants" class="scroll-mt-20 flex flex-col gap-3">
             <Typography.H3 class="docs-subsection-heading">Role variants</Typography.H3>

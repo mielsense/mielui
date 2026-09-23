@@ -2,7 +2,7 @@
     import { CodeBlock } from '@mielui/svelte/components/code-block';
     import * as Typography from '@mielui/svelte/components/typography';
     import { ComponentPreview, InstallCommand } from '$lib/components/docs';
-    import DocsPager from '$lib/components/docs/docs-pager.svelte';
+    import PageIntro from '$lib/components/docs/page-intro.svelte';
     import Bottom from './examples/bottom.svelte';
     import BottomSrc from './examples/bottom.svelte?raw';
     import Glass from './examples/glass.svelte';
@@ -32,15 +32,7 @@
 
 <div data-docs-page class="flex flex-col gap-10">
     <!-- ─── Header ────────────────────────────────────────────────── -->
-    <header class="flex items-start justify-between gap-4">
-        <div>
-            <Typography.H1>{TITLE}</Typography.H1>
-            <Typography.Text variant="lead" class="mt-2 max-w-2xl">
-                A short hover hint for icons and dense controls.
-            </Typography.Text>
-        </div>
-        <DocsPager />
-    </header>
+    <PageIntro title={TITLE}>A short hint shown on hover or keyboard focus.</PageIntro>
 
     <!-- ─── Hero Example ──────────────────────────────────────────── -->
     <section id="hero" class="scroll-mt-20 flex flex-col gap-4">
@@ -50,11 +42,6 @@
     </section>
 
     <!-- ─── Installation ──────────────────────────────────────────── -->
-    <Typography.Text>
-        Content supplies a plain-text description to the shared moving bubble. Formatting is reduced
-        to text unless rich is enabled; use Popover for interactive content. The hidden description
-        cannot add offscreen focus targets.
-    </Typography.Text>
     <section id="installation" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Installation</Typography.H2>
         <InstallCommand command={installCommand} />
@@ -62,29 +49,19 @@
 
     <!-- ─── Usage ─────────────────────────────────────────────────── -->
     <section id="usage" class="scroll-mt-20 flex flex-col gap-4">
-        <Typography.Text>
-            Tooltips share one moving bubble by default. Wrap a region in Tooltip.Provider to give
-            its tooltips an independent bubble and lifetime; unmounting the provider cleans up its
-            positioning, listeners, and timers.
-        </Typography.Text>
-        <Typography.Text>
-            Content is plain text by default. Set rich to preserve noninteractive formatting and SVG
-            icons in the visible bubble. Rich content is a passive visual clone of the rendered
-            hidden description: IDs, ARIA references, inline handlers, and form participation are
-            removed. Custom elements, media, and controls are reduced to their text/formatting
-            children. Keep links, buttons, inputs, and stateful interactive content in HoverCard or
-            Popover. Both modes retain the trigger’s accessible description and shared motion
-            treatment.
-        </Typography.Text>
         <Typography.H2 class="docs-section-heading">Usage</Typography.H2>
         <Typography.Text>
-            Tooltip text describes the actual focusable controls inside Trigger, while the shared
-            moving bubble remains decorative. Existing aria-describedby references are preserved.
-            Escape dismisses visible or pending help, and reduced motion prevents rolling label
-            animation.
+            Wrap the focusable control in Trigger and put its description in Content. Existing
+            aria-describedby references are preserved. Escape dismisses visible or pending help.
         </Typography.Text>
-        <Typography.Text variant="supporting">
-            Import Tooltip and wrap a trigger element:
+        <Typography.Text>
+            Tooltips share one moving bubble. Wrap a region in Tooltip.Provider for an independent
+            bubble that is removed with the provider. Reduced motion disables rolling text.
+        </Typography.Text>
+        <Typography.Text>
+            Content displays plain text by default. Set rich to retain noninteractive formatting and
+            SVG icons. The bubble is a passive copy without IDs, event handlers, or form controls.
+            Use Popover for links, buttons, and other interactive content.
         </Typography.Text>
         <CodeBlock
             code={`import * as Tooltip from '$lib/mielui/components/tooltip';\n\n<Tooltip.Root>\n  <Tooltip.Trigger>\n    <button>Info</button>\n  </Tooltip.Trigger>\n  <Tooltip.Content>Helpful text here</Tooltip.Content>\n</Tooltip.Root>`}
@@ -131,9 +108,10 @@
     <section id="glass" class="flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Glass surface</Typography.H2>
         <Typography.Text variant="supporting">
-            Set surface="glass" on Tooltip.Content for a translucent background with blur. Solid
-            remains the default. The glass surface keeps an opaque fallback when backdrop filtering
-            is unavailable and respects reduced-transparency preferences.
+            Set surface="glass" on Tooltip.Content for a translucent background with blur. Omit
+            surface to inherit --mielui-surface from your theme, or set surface="solid" to override
+            it. The glass surface keeps an opaque fallback when backdrop filtering is unavailable
+            and respects reduced-transparency preferences.
         </Typography.Text>
         <ComponentPreview code={GlassSrc}><Glass /></ComponentPreview>
     </section>

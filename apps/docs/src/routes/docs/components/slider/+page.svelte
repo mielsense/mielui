@@ -2,7 +2,7 @@
     import { CodeBlock } from '@mielui/svelte/components/code-block';
     import * as Typography from '@mielui/svelte/components/typography';
     import { ComponentPreview, InstallCommand } from '$lib/components/docs';
-    import DocsPager from '$lib/components/docs/docs-pager.svelte';
+    import PageIntro from '$lib/components/docs/page-intro.svelte';
     import Basic from './examples/basic.svelte';
     import BasicSrc from './examples/basic.svelte?raw';
     import Disabled from './examples/disabled.svelte';
@@ -35,16 +35,9 @@
 
 <div data-docs-page class="flex flex-col gap-10">
     <!-- ─── Header ────────────────────────────────────────────────── -->
-    <header class="flex items-start justify-between gap-4">
-        <div>
-            <Typography.H1>{TITLE}</Typography.H1>
-            <Typography.Text variant="lead" class="mt-2 max-w-2xl">
-                Select a value or a range with pill-shaped handles, keyboard controls and RTL
-                support.
-            </Typography.Text>
-        </div>
-        <DocsPager />
-    </header>
+    <PageIntro title={TITLE}>
+        Select a value or a range with pill-shaped handles, keyboard controls and RTL support.
+    </PageIntro>
 
     <!-- ─── Hero Example ──────────────────────────────────────────── -->
     <section id="hero" class="scroll-mt-20 flex flex-col gap-4">
@@ -62,18 +55,38 @@
     <!-- ─── Usage ─────────────────────────────────────────────────── -->
     <section id="usage" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Usage</Typography.H2>
-        <Typography.Text variant="supporting">
-            Import Slider and bind its value. Bits UI owns slider semantics and keyboard behavior;
-            Mielui retains the pill handles, range constraints, and a pointer adapter that preserves
-            the grabbed handle when thumbs overlap. Set name to submit a value, or two ordered
-            values for range mode with FormData.getAll. Disabled sliders are omitted. The form prop
-            targets an external form; reset restores the initial value. Use id and bind:element for
-            the wrapper, and aria-label, aria-labelledby, or aria-describedby to name the handles.
-            Style the rail, fill or handles through data-ui="slider-track", data-ui="slider-range"
-            and data-ui="slider-thumb" selectors on your wrapper class.
+        <Typography.Text>
+            Bind<Typography.InlineCode>value</Typography.InlineCode> to a number for a single
+            handle. Add a<Typography.InlineCode>label</Typography.InlineCode>
+            , or use<Typography.InlineCode>
+                aria-label
+            </Typography.InlineCode> or<Typography.InlineCode>
+                aria-labelledby
+            </Typography.InlineCode> to name the control. Use<Typography.InlineCode>
+                aria-describedby
+            </Typography.InlineCode> for supporting instructions.
+        </Typography.Text>
+        <Typography.Text>
+            Set<Typography.InlineCode>name</Typography.InlineCode> to include the value in form
+            submissions. Range mode submits two ordered values, which you can read with<Typography.InlineCode
+            >
+                FormData.getAll
+            </Typography.InlineCode>
+            . Disabled sliders are omitted. Use<Typography.InlineCode>
+                form
+            </Typography.InlineCode> to target an external form. Resetting the form restores the
+            initial value.
+        </Typography.Text>
+        <Typography.Text>
+            <Typography.InlineCode>id</Typography.InlineCode> and<Typography.InlineCode>
+                bind:element
+            </Typography.InlineCode> refer to the wrapper. Style its rail, fill, and handles with
+            the<Typography.InlineCode>data-ui="slider-track"</Typography.InlineCode>
+            ,<Typography.InlineCode>data-ui="slider-range"</Typography.InlineCode>
+            , and<Typography.InlineCode>data-ui="slider-thumb"</Typography.InlineCode> selectors.
         </Typography.Text>
         <CodeBlock
-            code={`import { Slider } from '$lib/mielui/components/slider';\n\n<Slider bind:value={volume} label="Volume" />`}
+            code={`import { Slider } from '$lib/mielui/components/slider';\n\nlet volume = $state(50);\n\n<Slider bind:value={volume} label="Volume" />`}
             lang="svelte"
             copy="overlay"
         />

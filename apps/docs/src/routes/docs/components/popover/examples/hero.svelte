@@ -1,85 +1,63 @@
 <script lang="ts">
-    import { Link01Icon as Link, Share08Icon as Share2 } from '@hugeicons/core-free-icons';
-    import * as Avatar from '@mielui/svelte/components/avatar';
     import { Button } from '@mielui/svelte/components/button';
     import { Input } from '@mielui/svelte/components/input';
     import * as Popover from '@mielui/svelte/components/popover';
-    import HugeiconsIcon from '@mielui/svelte/hugeicons-icon';
+
+    let email = $state('');
+    let members = $state(['alex@example.com']);
+    let message = $state('');
+
+    function invite(event: SubmitEvent) {
+        event.preventDefault();
+        const address = email.trim().toLowerCase();
+        if (members.includes(address)) {
+            message = 'This person already has access.';
+            return;
+        }
+        members = [...members, address];
+        email = '';
+        message = `Added ${address} to this preview. No invitation was sent.`;
+    }
+
+    async function copyLink() {
+        try {
+            await navigator.clipboard.writeText(
+                `${window.location.origin}/docs/components/popover`
+            );
+            message = 'Documentation link copied.';
+        } catch {
+            message = 'Clipboard access is unavailable. Copy the address from your browser.';
+        }
+    }
 </script>
 
 <Popover.Root placement="bottom">
-    <Popover.Trigger variant="outline">
-        <HugeiconsIcon icon={Share2} size={14} />
-        Share
-    </Popover.Trigger>
-    <Popover.Content class="w-[26rem] max-w-[calc(100vw-2rem)]">
-        <div class="flex flex-col gap-3 p-1">
-            <!-- Invite -->
-            <div class="flex w-full items-stretch gap-2">
-                <div class="min-w-0 flex-1">
-                    <Input placeholder="Add people, emails or groups…" class="h-9 text-sm" />
-                </div>
-                <Button size="md" class="flex-shrink-0">Invite</Button>
+    <Popover.Trigger variant="secondary">Share project</Popover.Trigger>
+    <Popover.Content class="w-80 max-w-[calc(100vw-var(--spacing)*8)]">
+        <div class="flex flex-col gap-4 p-2">
+            <div>
+                <Popover.Title class="text-sm font-medium">Project access</Popover.Title>
+                <p class="mt-1 text-xs text-foreground-muted">
+                    Invite someone to the local preview.
+                </p>
             </div>
-
-            <div class="h-px bg-border"></div>
-
-            <!-- People with access -->
-            <div class="flex flex-col gap-1">
-                <div
-                    class="flex items-center justify-between gap-3 rounded-[var(--radius-md)] px-2 py-1.5"
-                >
-                    <div class="flex min-w-0 items-center gap-2">
-                        <Avatar.Root size="sm"><Avatar.Fallback>AN</Avatar.Fallback></Avatar.Root>
-                        <div class="flex min-w-0 flex-col">
-                            <p
-                                class="m-0 truncate text-sm [font-weight:var(--font-weight-label,500)]"
-                            >
-                                mielsense
-                            </p>
-                            <p class="m-0 truncate text-xs text-foreground-muted">
-                                mielsense@ui.miel.my
-                            </p>
-                        </div>
-                    </div>
-                    <p class="m-0 whitespace-nowrap text-xs text-foreground-muted">Owner</p>
-                </div>
-
-                <div
-                    class="flex items-center justify-between gap-3 rounded-[var(--radius-md)] px-2 py-1.5"
-                >
-                    <div class="flex min-w-0 items-center gap-2">
-                        <Avatar.Root size="sm"><Avatar.Fallback>MC</Avatar.Fallback></Avatar.Root>
-                        <div class="flex min-w-0 flex-col">
-                            <p
-                                class="m-0 truncate text-sm [font-weight:var(--font-weight-label,500)]"
-                            >
-                                Maya Chen
-                            </p>
-                            <p class="m-0 truncate text-xs text-foreground-muted">
-                                maya@ui.miel.my
-                            </p>
-                        </div>
-                    </div>
-                    <p class="m-0 whitespace-nowrap text-xs text-foreground-muted">Can edit</p>
-                </div>
-            </div>
-
-            <div class="h-px bg-border"></div>
-
-            <!-- Link sharing -->
-            <div class="flex items-center justify-between gap-3 px-2 py-1">
-                <div class="flex min-w-0 flex-col">
-                    <p class="m-0 text-sm [font-weight:var(--font-weight-label,500)]">
-                        Anyone with the link
-                    </p>
-                    <p class="m-0 text-xs text-foreground-muted">Can view</p>
-                </div>
-                <Button size="md" variant="ghost" class="flex-shrink-0">
-                    <HugeiconsIcon icon={Link} size={14} />
-                    Copy link
-                </Button>
-            </div>
+            <form onsubmit={invite} class="flex flex-col gap-3">
+                <Input
+                    label="Email address"
+                    type="email"
+                    required
+                    bind:value={email}
+                    placeholder="sam@example.com"
+                />
+                <Button type="submit">Invite</Button>
+            </form>
+            <ul class="divide-y divide-border text-sm">
+                {#each members as member (member)}
+                    <li class="truncate py-2">{member}</li>
+                {/each}
+            </ul>
+            <Button variant="secondary" onclick={copyLink}>Copy documentation link</Button>
+            <p role="status" class="text-xs text-foreground-muted">{message}</p>
         </div>
     </Popover.Content>
 </Popover.Root>

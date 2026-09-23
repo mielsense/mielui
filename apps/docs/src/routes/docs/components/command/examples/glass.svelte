@@ -12,9 +12,11 @@
     import * as Command from '@mielui/svelte/components/command';
     import Kbd from '@mielui/svelte/components/kbd';
     import HugeiconsIcon from '@mielui/svelte/hugeicons-icon';
+
+    let selected = $state('No command selected');
 </script>
 
-<div class="flex w-full items-center justify-center">
+<div class="flex w-full flex-col items-center justify-center gap-4">
     <Command.Root>
         <Command.Trigger
             variant="outline"
@@ -37,38 +39,53 @@
             <Command.Search placeholder="Type a command or search…" />
             <Command.Results>
                 <Command.Group heading="Jump to">
-                    <Command.Item name="Inbox">
+                    <Command.Item name="Inbox" callback={() => { selected = 'Inbox selected'; }}>
                         <HugeiconsIcon icon={Inbox} size={16} />
                         Inbox
                     </Command.Item>
-                    <Command.Item name="My Issues">
+                    <Command.Item
+                        name="My Issues"
+                        callback={() => { selected = 'My Issues selected'; }}
+                    >
                         <HugeiconsIcon icon={CircleDot} size={16} />
                         My Issues
                     </Command.Item>
-                    <Command.Item name="Roadmap">
+                    <Command.Item
+                        name="Roadmap"
+                        callback={() => { selected = 'Roadmap selected'; }}
+                    >
                         <HugeiconsIcon icon={MapIcon} size={16} />
                         Roadmap
                     </Command.Item>
                 </Command.Group>
                 <Command.Separator />
                 <Command.Group heading="Create">
-                    <Command.Item name="New issue">
+                    <Command.Item
+                        name="New issue"
+                        callback={() => { selected = 'New issue selected'; }}
+                    >
                         <HugeiconsIcon icon={SquarePen} size={16} />
                         <span class="flex-1">New issue</span>
                         <Kbd shortcut="C" />
                     </Command.Item>
-                    <Command.Item name="New project">
+                    <Command.Item
+                        name="New project"
+                        callback={() => { selected = 'New project selected'; }}
+                    >
                         <HugeiconsIcon icon={FolderPlus} size={16} />
                         New project
                     </Command.Item>
                 </Command.Group>
                 <Command.Separator />
                 <Command.Group heading="Settings">
-                    <Command.Item name="Switch team">
+                    <Command.Item
+                        name="Switch team"
+                        callback={() => { selected = 'Switch team selected'; }}
+                    >
                         <HugeiconsIcon icon={Users} size={16} />
                         Switch team
                     </Command.Item>
-                    <Command.Item name="Theme">
+                    <Command.Item name="Theme" callback={() => { selected = 'Theme selected'; }}>
                         <HugeiconsIcon icon={Moon} size={16} />
                         Theme
                     </Command.Item>
@@ -76,4 +93,5 @@
             </Command.Results>
         </Command.Content>
     </Command.Root>
+    <p role="status" class="text-sm text-foreground-muted">{selected}</p>
 </div>
