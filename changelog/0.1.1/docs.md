@@ -147,4 +147,4 @@
 - Group components by type in the sidebar, with a preview catalog for each group.
 - Make documentation search more compact, with quick destinations and a scrollable results list.
 
-- Add space between catalog cards and use consistent parent-label styling and spacing for all nested sidebar groups, including charts.
+- Add space between catalog cards and use consistent parent-label styling and spacing for all nested sidebar groups, including charts, while keeping standalone links compact.
