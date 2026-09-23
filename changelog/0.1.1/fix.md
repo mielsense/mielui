@@ -164,3 +164,5 @@
 - Preserve the Heatmap calendar layout while loading or showing no activity.
 
 - Match the Gauge background track to its colored arc thickness.
+
+- Restore the Color Picker hue slider’s rainbow track.

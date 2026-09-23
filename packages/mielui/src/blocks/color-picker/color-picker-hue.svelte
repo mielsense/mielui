@@ -13,7 +13,7 @@
     {...rest}
     data-ui="color-picker-hue"
     style:--picker-spectrum={`linear-gradient(to right, ${hueSpectrum.join(',')})`}
-    class={cn(className, 'min-w-0 [&_[data-ui=slider-track]]:bg-[var(--picker-spectrum)] [&_[data-ui=slider-range]]:bg-transparent')}
+    class={cn(className, 'min-w-0 [&_[data-ui=slider-track]]:bg-[image:var(--picker-spectrum)] [&_[data-ui=slider-range]]:bg-transparent')}
 >
     <Slider
         label="Hue"

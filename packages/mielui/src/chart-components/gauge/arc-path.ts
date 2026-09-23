@@ -22,8 +22,8 @@ export function gaugeArcPath(size: number, radius: number, width: number, progre
     }
     const angle = progress * Math.PI * 2;
     const corner = Math.min(
-        width * 0.3,
-        3.5,
+        width * 0.42,
+        5,
         inner * 0.25,
         inner * Math.sin(Math.min(angle, Math.PI) / 2) * 0.3
     );
