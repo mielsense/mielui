@@ -1,0 +1,1 @@
+- Keep theme choice controls accessibly labelled without unsupported component props.

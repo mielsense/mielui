@@ -50,33 +50,34 @@
     label: string,
     onChange: (value: string) => void
 )}
-    <ToggleGroup.Root
-        type="single"
-        bind:value={
-            () => value,
-            (next) => {
-            if (next) {
-                onChange(next);
+    <div role="group" aria-label={label}>
+        <ToggleGroup.Root
+            type="single"
+            bind:value={
+                () => value,
+                (next) => {
+                if (next) {
+                    onChange(next);
+                }
             }
-        }
-        }
-        aria-label={label}
-        class="flex w-full gap-1.5"
-    >
-        {#each values as option (option)}
-            <ToggleGroup.Item
-                value={option}
-                onclickcapture={(event) => {
-                    if (value === option) {
-                        event.preventDefault();
-                    }
-                }}
-                class="min-w-0 flex-1 border border-border bg-background shadow-[var(--elevation-control-edge)] data-[state=on]:border-border-strong data-[state=on]:bg-secondary"
-            >
-                {formatChoice(option)}
-            </ToggleGroup.Item>
-        {/each}
-    </ToggleGroup.Root>
+            }
+            class="flex w-full gap-1.5"
+        >
+            {#each values as option (option)}
+                <ToggleGroup.Item
+                    value={option}
+                    onclickcapture={(event) => {
+                        if (value === option) {
+                            event.preventDefault();
+                        }
+                    }}
+                    class="min-w-0 flex-1 border border-border bg-background shadow-[var(--elevation-control-edge)] data-[state=on]:border-border-strong data-[state=on]:bg-secondary"
+                >
+                    {formatChoice(option)}
+                </ToggleGroup.Item>
+            {/each}
+        </ToggleGroup.Root>
+    </div>
 {/snippet}
 
 {#snippet feelSelect(
