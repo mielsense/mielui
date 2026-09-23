@@ -3,7 +3,7 @@
     import * as Chart from '@mielui/svelte/components/pie-chart';
     import * as Tabs from '@mielui/svelte/components/tabs';
 
-    let state = $state('ready');
+    let dataState = $state('ready');
     let animation = $state<'reveal' | 'live' | 'none'>('reveal');
     let replay = $state(0);
     const records = [
@@ -15,9 +15,9 @@
         remaining: { label: 'Remaining', color: 'var(--color-foreground-muted)' }
     };
     const data = $derived(
-        state === 'empty'
+        dataState === 'empty'
             ? []
-            : state === 'zero'
+            : dataState === 'zero'
               ? records.map((item) => ({ ...item, value: 0 }))
               : records
     );
@@ -29,20 +29,24 @@
 </script>
 <div class="w-full space-y-4">
     <div class="flex flex-wrap items-center gap-3">
-        <Tabs.Root bind:value={state} variant="ghost">
-            <Tabs.List aria-label="Chart data state">
-                <Tabs.Trigger value="ready">Ready</Tabs.Trigger>
-                <Tabs.Trigger value="loading">Loading</Tabs.Trigger>
-                <Tabs.Trigger value="empty">No data</Tabs.Trigger>
-                <Tabs.Trigger value="zero">Zero total</Tabs.Trigger>
-            </Tabs.List>
+        <Tabs.Root bind:value={dataState} variant="ghost">
+            <div role="group" aria-label="Chart data state">
+                <Tabs.List>
+                    <Tabs.Trigger value="ready">Ready</Tabs.Trigger>
+                    <Tabs.Trigger value="loading">Loading</Tabs.Trigger>
+                    <Tabs.Trigger value="empty">No data</Tabs.Trigger>
+                    <Tabs.Trigger value="zero">Zero total</Tabs.Trigger>
+                </Tabs.List>
+            </div>
         </Tabs.Root>
         <Tabs.Root value={animation} onValueChange={changeAnimation} variant="ghost">
-            <Tabs.List aria-label="Chart animation">
-                <Tabs.Trigger value="reveal">Reveal</Tabs.Trigger>
-                <Tabs.Trigger value="live">Live</Tabs.Trigger>
-                <Tabs.Trigger value="none">None</Tabs.Trigger>
-            </Tabs.List>
+            <div role="group" aria-label="Chart animation">
+                <Tabs.List>
+                    <Tabs.Trigger value="reveal">Reveal</Tabs.Trigger>
+                    <Tabs.Trigger value="live">Live</Tabs.Trigger>
+                    <Tabs.Trigger value="none">None</Tabs.Trigger>
+                </Tabs.List>
+            </div>
         </Tabs.Root>
         <Button variant="secondary" onclick={() => { replay += 1; }}>Replay</Button>
     </div>
@@ -51,7 +55,7 @@
             {data}
             {config}
             {animation}
-            loading={state === 'loading'}
+            loading={dataState === 'loading'}
             aria-label="Quarterly orders"
         >
             <Chart.Plot>

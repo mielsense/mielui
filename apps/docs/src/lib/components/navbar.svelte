@@ -124,11 +124,13 @@
             {#if isStudio}
                 <div class="min-w-0 flex-1 px-3">
                     <Tabs.Root bind:value={studio.mode} variant="ghost" class="hidden lg:block">
-                        <Tabs.List aria-label="Preview content">
-                            {#each previewTabs as tab (tab.value)}
-                                <Tabs.Trigger value={tab.value}>{tab.label}</Tabs.Trigger>
-                            {/each}
-                        </Tabs.List>
+                        <div role="group" aria-label="Preview content">
+                            <Tabs.List>
+                                {#each previewTabs as tab (tab.value)}
+                                    <Tabs.Trigger value={tab.value}>{tab.label}</Tabs.Trigger>
+                                {/each}
+                            </Tabs.List>
+                        </div>
                     </Tabs.Root>
                     <div class="lg:hidden">
                         <Select.Root bind:value={studio.mode}>

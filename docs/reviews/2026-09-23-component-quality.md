@@ -226,7 +226,7 @@ All 83 component and chart-guide routes return HTTP 200 and include an API refer
 
 Studio App preview and Theme Editor now use private views and per-instance reactive state. Unused theme-card and dotmatrix components were removed. Existing public compatibility utilities were retained.
 
-Repository format and lint gates pass. Full build, typecheck, and full test suite were not run for this pass; targeted Notch and font SSR regressions were run.
+Repository format, lint, and workspace typecheck gates pass. The typecheck rebuilt the library and registry; application production builds and the full test suite were not run for this pass. Three existing accessibility warnings remain on dynamic role/tabindex forwarding in Question, Dropdown Menu, and Combobox. Targeted Notch and font SSR regressions were run.
 
 ## Chart implementation review
 

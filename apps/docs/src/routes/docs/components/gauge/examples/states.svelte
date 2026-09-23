@@ -7,13 +7,15 @@
 </script>
 <div class="w-full space-y-6">
     <Tabs.Root bind:value={state} variant="ghost">
-        <Tabs.List aria-label="Storage data state">
-            <Tabs.Trigger value="ready">Ready</Tabs.Trigger>
-            <Tabs.Trigger value="loading">Loading</Tabs.Trigger>
-            <Tabs.Trigger value="empty">No data</Tabs.Trigger>
-            <Tabs.Trigger value="zero">Zero</Tabs.Trigger>
-            <Tabs.Trigger value="full">Full</Tabs.Trigger>
-        </Tabs.List>
+        <div role="group" aria-label="Storage data state">
+            <Tabs.List>
+                <Tabs.Trigger value="ready">Ready</Tabs.Trigger>
+                <Tabs.Trigger value="loading">Loading</Tabs.Trigger>
+                <Tabs.Trigger value="empty">No data</Tabs.Trigger>
+                <Tabs.Trigger value="zero">Zero</Tabs.Trigger>
+                <Tabs.Trigger value="full">Full</Tabs.Trigger>
+            </Tabs.List>
+        </div>
     </Tabs.Root>
     <div
         aria-busy={state === 'loading'}

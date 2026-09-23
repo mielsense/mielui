@@ -165,10 +165,12 @@
                 class="flex min-w-0 flex-1 items-center justify-end gap-4 min-[68.75rem]:justify-between min-[68.75rem]:pl-3 min-[68.75rem]:pr-5"
             >
                 <Tabs.Root bind:value={studio.width} variant="ghost" class="hidden md:block">
-                    <Tabs.List aria-label="Preview width">
-                        <Tabs.Trigger value="wide">Wide</Tabs.Trigger>
-                        <Tabs.Trigger value="narrow">Narrow</Tabs.Trigger>
-                    </Tabs.List>
+                    <div role="group" aria-label="Preview width">
+                        <Tabs.List>
+                            <Tabs.Trigger value="wide">Wide</Tabs.Trigger>
+                            <Tabs.Trigger value="narrow">Narrow</Tabs.Trigger>
+                        </Tabs.List>
+                    </div>
                 </Tabs.Root>
                 <nav aria-label="Footer" class="flex items-center gap-5">
                     <a

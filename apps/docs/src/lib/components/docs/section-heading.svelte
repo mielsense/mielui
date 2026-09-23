@@ -12,9 +12,9 @@
     {#if description}
         <HoverCard.Root>
             <HoverCard.Trigger
-                aria-label={`About ${title.toLowerCase()}`}
                 class="inline-flex size-5 shrink-0 items-center justify-center rounded-sm text-foreground-muted hover:text-foreground focus-visible:outline-2 focus-visible:outline-primary"
             >
+                <span class="sr-only">{`About ${title.toLowerCase()}`}</span>
                 <HugeiconsIcon icon={InformationCircleIcon} size={15} aria-hidden="true" />
             </HoverCard.Trigger>
             <HoverCard.Content

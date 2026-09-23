@@ -7,11 +7,13 @@
 
 <div class="w-full max-w-sm">
     <Tabs.Root bind:value={tab} activationMode="manual">
-        <Tabs.List aria-label="Draft settings">
-            <Tabs.Trigger value="draft">Draft</Tabs.Trigger>
-            <Tabs.Trigger value="preview">Preview</Tabs.Trigger>
-            <Tabs.Trigger value="history" disabled>History</Tabs.Trigger>
-        </Tabs.List>
+        <div role="group" aria-label="Draft settings">
+            <Tabs.List>
+                <Tabs.Trigger value="draft">Draft</Tabs.Trigger>
+                <Tabs.Trigger value="preview">Preview</Tabs.Trigger>
+                <Tabs.Trigger value="history" disabled>History</Tabs.Trigger>
+            </Tabs.List>
+        </div>
         <Tabs.Content value="draft" forceMount class="pt-4">
             <Input label="Draft title" placeholder="Type here, then switch tabs" />
         </Tabs.Content>

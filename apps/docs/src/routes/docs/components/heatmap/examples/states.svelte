@@ -12,11 +12,13 @@
 </script>
 <div class="w-full space-y-4">
     <Tabs.Root bind:value={state} variant="ghost">
-        <Tabs.List aria-label="Activity data state">
-            <Tabs.Trigger value="ready">Ready</Tabs.Trigger>
-            <Tabs.Trigger value="loading">Loading</Tabs.Trigger>
-            <Tabs.Trigger value="empty">No activity</Tabs.Trigger>
-        </Tabs.List>
+        <div role="group" aria-label="Activity data state">
+            <Tabs.List>
+                <Tabs.Trigger value="ready">Ready</Tabs.Trigger>
+                <Tabs.Trigger value="loading">Loading</Tabs.Trigger>
+                <Tabs.Trigger value="empty">No activity</Tabs.Trigger>
+            </Tabs.List>
+        </div>
     </Tabs.Root>
     <div aria-busy={state === 'loading'} class="min-h-48">
         {#if state === 'loading'}

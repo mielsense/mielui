@@ -75,10 +75,12 @@
             <h2 class="text-sm font-semibold">Revenue and acquisition</h2>
             <div class="flex flex-wrap items-center gap-4">
                 <Tabs.Root bind:value={year} variant="ghost">
-                    <Tabs.List aria-label="Sample year">
-                        <Tabs.Trigger value="2025">2025</Tabs.Trigger>
-                        <Tabs.Trigger value="2026">2026</Tabs.Trigger>
-                    </Tabs.List>
+                    <div role="group" aria-label="Sample year">
+                        <Tabs.List>
+                            <Tabs.Trigger value="2025">2025</Tabs.Trigger>
+                            <Tabs.Trigger value="2026">2026</Tabs.Trigger>
+                        </Tabs.List>
+                    </div>
                 </Tabs.Root>
                 <Switch bind:checked={live} label="Live motion" />
                 <Button
