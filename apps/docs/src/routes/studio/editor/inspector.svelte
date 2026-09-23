@@ -1,8 +1,9 @@
 <script lang="ts">
     import { ScrollArea } from '@mielui/svelte/components/scroll-area';
+    import Appearance from './appearance.svelte';
     import Colors from './colors.svelte';
-    import Effects from './effects.svelte';
     import ExportActions from './export-actions.svelte';
+    import Interaction from './interaction.svelte';
     import Shape from './shape.svelte';
     import Typography from './typography.svelte';
 </script>
@@ -12,8 +13,9 @@
             class="flex min-h-full flex-col [&_section]:relative [&_section]:px-5 [&_section]:py-0"
         >
             <Colors />
-            <Effects />
+            <Appearance />
             <Shape />
+            <Interaction />
             <Typography />
         </div>
     </ScrollArea>

@@ -7,7 +7,7 @@
     import Kbd from '@mielui/svelte/components/kbd';
     import * as Select from '@mielui/svelte/components/select';
     import { Slider } from '@mielui/svelte/components/slider';
-    import * as Tabs from '@mielui/svelte/components/tabs';
+    import * as ToggleGroup from '@mielui/svelte/components/toggle-group';
     import * as Tooltip from '@mielui/svelte/components/tooltip';
     import * as Typography from '@mielui/svelte/components/typography';
     import HugeiconsIcon from '@mielui/svelte/hugeicons-icon';
@@ -22,7 +22,7 @@
         feelSelect,
         modalDoneFooter,
         sliderTokenField,
-        tabChoice,
+        toggleChoice,
         weightControl
     };
 </script>
@@ -44,25 +44,39 @@
     </Tooltip.Root>
 {/snippet}
 
-{#snippet tabChoice(
+{#snippet toggleChoice(
     values: readonly string[],
     value: string,
     label: string,
     onChange: (value: string) => void
 )}
-    <div role="group" aria-label={label}>
-        <Tabs.Root {value} onValueChange={onChange} variant="ghost" class="w-full">
-            <Tabs.List
-                class={`grid w-full ${values.length === 2 ? 'grid-cols-2' : values.length === 4 ? 'grid-cols-4' : 'grid-cols-3'}`}
+    <ToggleGroup.Root
+        type="single"
+        bind:value={
+            () => value,
+            (next) => {
+            if (next) {
+                onChange(next);
+            }
+        }
+        }
+        aria-label={label}
+        class="flex w-full gap-1.5"
+    >
+        {#each values as option (option)}
+            <ToggleGroup.Item
+                value={option}
+                onclickcapture={(event) => {
+                    if (value === option) {
+                        event.preventDefault();
+                    }
+                }}
+                class="min-w-0 flex-1 border border-border bg-background shadow-[var(--elevation-control-edge)] data-[state=on]:border-border-strong data-[state=on]:bg-secondary"
             >
-                {#each values as option (option)}
-                    <Tabs.Trigger value={option} class="w-full">
-                        {formatChoice(option)}
-                    </Tabs.Trigger>
-                {/each}
-            </Tabs.List>
-        </Tabs.Root>
-    </div>
+                {formatChoice(option)}
+            </ToggleGroup.Item>
+        {/each}
+    </ToggleGroup.Root>
 {/snippet}
 
 {#snippet feelSelect(
@@ -109,20 +123,13 @@
     )}
     <div class="flex items-center gap-2" role="group" aria-label={`${label} weight`}>
         <span class="w-[76px] shrink-0 text-[13px] font-medium text-foreground-muted">{label}</span>
-        <Tabs.Root
-            {value}
-            onValueChange={(next) => onChange(next as FontWeight)}
-            variant="ghost"
-            class="min-w-0 flex-1"
-        >
-            <Tabs.List class="grid w-full grid-cols-4">
-                {#each fontWeights as weight (weight)}
-                    <Tabs.Trigger value={weight} class="min-h-7 w-full px-1 py-0 text-xs">
-                        {weight}
-                    </Tabs.Trigger>
-                {/each}
-            </Tabs.List>
-        </Tabs.Root>
+        <div class="min-w-0 flex-1">
+            {@render toggleChoice(fontWeights, value, `${label} weight`, (next) => {
+                if (next === '400' || next === '500' || next === '600' || next === '700') {
+                    onChange(next);
+                }
+            })}
+        </div>
     </div>
 {/snippet}
 
