@@ -150,3 +150,5 @@
 - Add space between catalog cards and use consistent parent-label styling and spacing for all nested sidebar groups, including charts, while keeping standalone links compact.
 
 - Keep the expanded Notch export example clear of its trigger and show its file count in a compact badge.
+
+- Nest catalog categories under Components in the page outline.
