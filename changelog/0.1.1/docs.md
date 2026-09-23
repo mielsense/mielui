@@ -141,3 +141,5 @@
 - Arrange Studio component cards in compact responsive stacks, with a smaller calendar and label and sharing examples.
 
 - Remove the repository’s OpenCode setup and skill lockfile.
+
+- Show the Markdown preview directly on the canvas without a card or nested scroll area.
