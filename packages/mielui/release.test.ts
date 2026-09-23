@@ -12,7 +12,7 @@ describe('publishable package contract', () => {
         expect(packageJson.bin).toEqual({ mielui: 'dist/index.js' });
         expect(packageJson.peerDependencies).toMatchObject({
             '@sveltejs/kit': '^2.0.0',
-            svelte: '^5.33.0',
+            svelte: '^5.56.0',
             tailwindcss: '^4.0.0'
         });
         expect(packageJson.exports['.']).toBeTruthy();

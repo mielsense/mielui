@@ -45,7 +45,7 @@ pnpm dlx @mielui/svelte add button`;
         <ul
             class="m-0 flex list-disc flex-col gap-1.5 pl-5 text-[1rem] text-foreground leading-relaxed"
         >
-            <li>Svelte 5, with or without SvelteKit</li>
+            <li>Svelte 5.56 or newer, with or without SvelteKit</li>
             <li>Tailwind CSS v4</li>
         </ul>
         <Typography.Text variant="body" class="m-0">
