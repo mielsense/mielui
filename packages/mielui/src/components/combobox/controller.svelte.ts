@@ -47,14 +47,16 @@ export function createComboboxController(options: ControllerOptions) {
             item
         }))
     );
+    const entriesByValue = $derived(new Map(entries.map((entry) => [entry.value, entry])));
     const selectedValues = $derived.by(() => {
         const value = options.getValue();
         return Array.isArray(value) ? value : value ? [value] : [];
     });
+    const selectedValueSet = $derived(new Set(selectedValues));
     const selectionLabel = $derived(
         selectedValues
             .map((value) => {
-                return entries.find((entry) => entry.value === value)?.label ?? value;
+                return entriesByValue.get(value)?.label ?? value;
             })
             .join(', ')
     );
@@ -64,7 +66,7 @@ export function createComboboxController(options: ControllerOptions) {
             return undefined;
         }
         return (
-            entries.find((entry) => entry.value === value)?.item ?? {
+            entriesByValue.get(value)?.item ?? {
                 id: '',
                 value,
                 label: value,
@@ -139,7 +141,7 @@ export function createComboboxController(options: ControllerOptions) {
     });
 
     function commitValue(value: string) {
-        const entry = entries.find((candidate) => candidate.value === value);
+        const entry = entriesByValue.get(value);
         if (disabled || entry?.disabled) {
             return;
         }
@@ -151,16 +153,17 @@ export function createComboboxController(options: ControllerOptions) {
         if (disabled) {
             return;
         }
-        const values = [...new Set(next)];
+        const nextValues = new Set(next);
+        const values = [...nextValues];
         const changed = entries.filter((entry) => {
-            return values.includes(entry.value) !== selectedValues.includes(entry.value);
+            return nextValues.has(entry.value) !== selectedValueSet.has(entry.value);
         });
         if (changed.some((entry) => entry.disabled)) {
             return;
         }
         if (
             values.length === selectedValues.length &&
-            values.every((value) => selectedValues.includes(value))
+            values.every((value) => selectedValueSet.has(value))
         ) {
             return;
         }
@@ -174,7 +177,7 @@ export function createComboboxController(options: ControllerOptions) {
     function selectItem(item: ComboboxItem) {
         if (options.getMultiple()) {
             commitValues(
-                selectedValues.includes(item.value)
+                selectedValueSet.has(item.value)
                     ? selectedValues.filter((value) => value !== item.value)
                     : [...selectedValues, item.value]
             );

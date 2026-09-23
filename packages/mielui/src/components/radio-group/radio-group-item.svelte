@@ -40,7 +40,9 @@
         aria-describedby={[rest['aria-describedby'], description ? `${inputId}-description` : undefined].filter(Boolean).join(' ') || undefined}
         onchange={(event) => {
             onchange?.(event);
-            if (!event.defaultPrevented) { ctx.setValue(value); }
+            if (!event.defaultPrevented) {
+                ctx.setValue(value);
+            }
         }}
         class="peer sr-only"
     />

@@ -153,6 +153,14 @@
         }
         updatePointerPosition(event);
         element?.setPointerCapture(event.pointerId);
+        const index = pointerThumb ?? 0;
+        void tick().then(() => {
+            if (dragPointer === event.pointerId) {
+                element
+                    ?.querySelector<HTMLElement>(`[data-thumb="${index}"]`)
+                    ?.focus({ preventScroll: true });
+            }
+        });
     }
 
     function updatePointerPosition(event: PointerEvent) {
@@ -173,14 +181,6 @@
         } else {
             updateSingle(values[0]);
         }
-        const index = pointerThumb ?? 0;
-        void tick().then(() => {
-            if (dragPointer === event.pointerId) {
-                element
-                    ?.querySelector<HTMLElement>(`[data-thumb="${index}"]`)
-                    ?.focus({ preventScroll: true });
-            }
-        });
     }
 
     function finishPointer(event: PointerEvent) {

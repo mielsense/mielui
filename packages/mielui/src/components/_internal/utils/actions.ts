@@ -122,8 +122,6 @@ export function travelingHighlight(node: HTMLElement, options: TravelingHighligh
     if (typeof window === 'undefined') {
         return {};
     }
-    const traveling =
-        getComputedStyle(node).getPropertyValue('--mielui-traveling-highlight').trim() !== 'none';
     const itemSelector = options.itemSelector ?? '[data-collection-item]';
     const restingSelector =
         options.restingSelector ??
@@ -163,7 +161,7 @@ export function travelingHighlight(node: HTMLElement, options: TravelingHighligh
     function restingTarget() {
         for (const selector of restingSelector.split(',').map((part) => part.trim())) {
             const target = Array.from(node.querySelectorAll<HTMLElement>(selector)).find(
-                (item) => item.closest('.mielui-collection-surface') === node
+                (item) => usableItem(item) === item
             );
             if (target) {
                 return target;
@@ -187,6 +185,21 @@ export function travelingHighlight(node: HTMLElement, options: TravelingHighligh
             return;
         }
 
+        const traveling =
+            getComputedStyle(node).getPropertyValue('--mielui-traveling-highlight').trim() !==
+            'none';
+        if (!traveling) {
+            cancelAnimationFrame(readyFrame);
+            ready = false;
+            highlight.removeAttribute('data-ready');
+        } else if (!ready) {
+            cancelAnimationFrame(readyFrame);
+            readyFrame = requestAnimationFrame(() => {
+                ready = true;
+                highlight.setAttribute('data-ready', 'true');
+            });
+        }
+
         const container = node.getBoundingClientRect();
         const rect = target.getBoundingClientRect();
         const x = rect.left - container.left - node.clientLeft + node.scrollLeft;
@@ -202,13 +215,6 @@ export function travelingHighlight(node: HTMLElement, options: TravelingHighligh
             }
             observedTarget = target;
             resizeObserver.observe(target);
-        }
-        if (!ready && traveling) {
-            cancelAnimationFrame(readyFrame);
-            readyFrame = requestAnimationFrame(() => {
-                ready = true;
-                highlight.setAttribute('data-ready', 'true');
-            });
         }
     }
 
@@ -267,6 +273,7 @@ export function travelingHighlight(node: HTMLElement, options: TravelingHighligh
         attributes: true,
         attributeFilter: [
             'aria-selected',
+            'aria-disabled',
             'data-collection-active',
             'data-state',
             'disabled',
@@ -354,8 +361,9 @@ export function dynamicWidth(node: HTMLElement, options: DynamicWidthOptions = {
         if (!resizeObserver) {
             return;
         }
+        const nextItems = new Set(items);
         for (const item of observed) {
-            if (!items.includes(item)) {
+            if (!nextItems.has(item)) {
                 resizeObserver.unobserve(item);
                 observed.delete(item);
             }

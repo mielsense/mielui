@@ -19,7 +19,7 @@ export const manifest: Manifest = {
     components: ['_internal/utils', 'button'],
     shared: ['components/_internal/button-attributes', 'utils.cn', 'utils.createContext'],
     peerDependencies: {
-        svelte: '^5.33.0',
+        svelte: '^5.56.0',
         cnfast: '^0.0.8'
     }
 };

@@ -6,6 +6,10 @@ export const manifest: Manifest = {
     files: [
         'components/_internal/utils/actions.ts',
         'components/_internal/utils/overlays.ts',
+        'components/_internal/utils/overlay-locks.ts',
+        'components/_internal/utils/overlay-escape.ts',
+        'components/_internal/utils/overlay-focus.ts',
+        'components/_internal/utils/overlay-dismiss.ts',
         'components/_internal/utils/positioning.ts'
     ],
     components: [],

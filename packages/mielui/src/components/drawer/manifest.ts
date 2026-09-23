@@ -26,7 +26,7 @@ export const manifest: Manifest = {
     peerDependencies: {
         'bits-ui': '^2.19.2',
         cnfast: '^0.0.8',
-        svelte: '^5.33.0',
+        svelte: '^5.56.0',
         'vaul-svelte': '1.0.0-next.7'
     }
 };

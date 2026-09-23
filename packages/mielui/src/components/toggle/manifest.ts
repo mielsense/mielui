@@ -20,6 +20,6 @@ export const manifest: Manifest = {
         cnfast: '^0.0.8',
         'tailwind-merge': '^3.0.0',
         'tailwind-variants': '^3.0.0',
-        svelte: '^5.33.0'
+        svelte: '^5.56.0'
     }
 };

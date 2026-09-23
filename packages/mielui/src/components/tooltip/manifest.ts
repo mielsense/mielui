@@ -21,6 +21,7 @@ export const manifest: Manifest = {
         'components/tooltip/tooltip-content.svelte',
         'components/tooltip/tooltip-trigger.svelte',
         'components/tooltip/shared-tooltip.ts',
+        'components/tooltip/clone-visual.ts',
         'components/tooltip/index.ts',
         'components/tooltip/manifest.ts'
     ],

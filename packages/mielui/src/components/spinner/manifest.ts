@@ -11,7 +11,7 @@ export const manifest: Manifest = {
         'components/spinner/manifest.ts'
     ],
     components: ['_internal/utils'],
-    shared: ['hugeicons-icon', 'utils.cn', 'transition'],
+    shared: ['components/_internal/motion-loop', 'hugeicons-icon', 'utils.cn', 'transition'],
     peerDependencies: {
         '@floating-ui/dom': '1.7.6',
         '@hugeicons/core-free-icons': '^4.3.0',

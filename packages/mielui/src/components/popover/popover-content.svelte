@@ -76,8 +76,6 @@
 
     onMount(() => {
         mounted = true;
-        document.addEventListener('scroll', schedulePosition);
-
         window.addEventListener('resize', schedulePosition);
         window.addEventListener('scroll', schedulePosition, true);
         window.visualViewport?.addEventListener('resize', schedulePosition);
@@ -136,7 +134,6 @@
 
         onDestroy(() => {
             mounted = false;
-            document.removeEventListener('scroll', schedulePosition);
             window.removeEventListener('resize', schedulePosition);
             window.removeEventListener('scroll', schedulePosition, true);
             window.visualViewport?.removeEventListener('resize', schedulePosition);
@@ -232,12 +229,6 @@
         }
     });
 
-    $effect(() => {
-        if (popoverState.open && popover && refElement) {
-            void refElement;
-            updatePosition();
-        }
-    });
     $effect(() => {
         if (popoverState.open && !popoverState.hoverable && lockScroll) {
             return lockBodyScroll();

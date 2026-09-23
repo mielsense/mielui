@@ -44,7 +44,7 @@ export function radioChecked(node: HTMLInputElement, binding: RadioBinding) {
             target.type === 'radio' &&
             sameGroup(node, target)
         ) {
-            syncGroup(node);
+            bindings.get(node)?.update(node.checked);
         }
     }
 

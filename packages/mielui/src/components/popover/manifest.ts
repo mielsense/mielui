@@ -70,6 +70,6 @@ export const manifest: Manifest = {
         'bits-ui': '^2.19.2',
         '@floating-ui/dom': '^1.0.0',
         cnfast: '^0.0.8',
-        svelte: '^5.33.0'
+        svelte: '^5.56.0'
     }
 };

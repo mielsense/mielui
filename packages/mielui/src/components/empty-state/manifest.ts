@@ -21,6 +21,6 @@ export const manifest: Manifest = {
     shared: ['utils.cn'],
     peerDependencies: {
         cnfast: '^0.0.8',
-        svelte: '^5.33.0'
+        svelte: '^5.56.0'
     }
 };

@@ -1,194 +1,25 @@
 <script lang="ts">
     import { cn } from '@mielui/svelte/utils';
     import { Tabs as BitsTabs } from 'bits-ui';
-    import { getContext, untrack } from 'svelte';
+    import { getContext } from 'svelte';
     import type { TabsListProps, TabsState } from '.';
+    import { createTabIndicators } from './indicators.svelte';
 
     let { children, class: className, ...rest }: TabsListProps = $props();
     const tabsState = getContext<TabsState>('tabs');
     const select = getContext<(value: string) => void>('tabs-selection');
 
-    type Rect = {
-        left: number;
-        top: number;
-        width: number;
-        height: number;
-    };
-
     const variant = $derived(tabsState.variant);
     const vertical = $derived(tabsState.orientation === 'vertical');
-    const showHover = $derived(variant !== 'segmented');
-
     let listEl = $state<HTMLDivElement | null>(null);
-    let indicator = $state<Rect | null>(null);
-    let hover = $state<Rect | null>(null);
-    let hovering = $state(false);
-    let ready = $state(false);
-    let hoverTarget: HTMLElement | undefined;
-
-    const ghostRect = $derived(hovering && hover ? hover : indicator);
-
-    function borderBox(el: HTMLElement) {
-        const style = getComputedStyle(el);
-        const horizontal =
-            style.boxSizing === 'border-box'
-                ? 0
-                : parseFloat(style.paddingLeft) +
-                  parseFloat(style.paddingRight) +
-                  parseFloat(style.borderLeftWidth) +
-                  parseFloat(style.borderRightWidth);
-        const vertical =
-            style.boxSizing === 'border-box'
-                ? 0
-                : parseFloat(style.paddingTop) +
-                  parseFloat(style.paddingBottom) +
-                  parseFloat(style.borderTopWidth) +
-                  parseFloat(style.borderBottomWidth);
-        return {
-            width: parseFloat(style.width) + horizontal,
-            height: parseFloat(style.height) + vertical,
-            borderLeft: parseFloat(style.borderLeftWidth),
-            borderTop: parseFloat(style.borderTopWidth)
-        };
-    }
-
-    function rectOf(el: HTMLElement): Rect {
-        const bounds = el.getBoundingClientRect();
-        const size = borderBox(el);
-        const host = listEl;
-        if (!host) {
-            return { left: 0, top: 0, width: size.width, height: size.height };
-        }
-        const hostBounds = host.getBoundingClientRect();
-        const hostSize = borderBox(host);
-        const scaleX =
-            hostSize.width > 0 && hostBounds.width > 0 ? hostBounds.width / hostSize.width : 1;
-        const scaleY =
-            hostSize.height > 0 && hostBounds.height > 0 ? hostBounds.height / hostSize.height : 1;
-        return {
-            left:
-                (bounds.left + bounds.width / 2 - hostBounds.left) / scaleX -
-                size.width / 2 +
-                host.scrollLeft -
-                hostSize.borderLeft,
-            top:
-                (bounds.top + bounds.height / 2 - hostBounds.top) / scaleY -
-                size.height / 2 +
-                host.scrollTop -
-                hostSize.borderTop,
-            width: size.width,
-            height: size.height
-        };
-    }
-
-    function repairSelection() {
-        if (!listEl || !tabsState.value) {
-            return;
-        }
-        const enabled = Array.from(
-            listEl.querySelectorAll<HTMLButtonElement>('[role="tab"]')
-        ).filter((trigger) => !trigger.disabled);
-        if (!enabled.some((trigger) => trigger.dataset.value === tabsState.value)) {
-            select(enabled[0]?.dataset.value ?? '');
-        }
-    }
-
-    function measureIndicator() {
-        if (!listEl) {
-            return;
-        }
-        const active = listEl.querySelector<HTMLElement>('[role="tab"][data-state="active"]');
-        indicator = active ? rectOf(active) : null;
-    }
-
-    function measureHover() {
-        if (!listEl || !hoverTarget || !listEl.contains(hoverTarget)) {
-            return;
-        }
-        hover = rectOf(hoverTarget);
-    }
-
-    function handleMouseOver(event: Event) {
-        if (!showHover || !listEl) {
-            return;
-        }
-        const target = (event.target as HTMLElement | null)?.closest<HTMLElement>('[role="tab"]');
-        if (!target || target.hasAttribute('disabled') || !listEl.contains(target)) {
-            return;
-        }
-        hoverTarget = target;
-        hover = rectOf(target);
-        hovering = true;
-    }
-
-    function handleMouseLeave() {
-        hoverTarget = undefined;
-        hovering = false;
-    }
-
-    $effect(() => {
-        const _value = tabsState.value;
-        const _orientation = tabsState.orientation;
-        let disposed = false;
-        untrack(() => {
-            queueMicrotask(() => {
-                if (disposed) {
-                    return;
-                }
-                repairSelection();
-                measureIndicator();
-                measureHover();
-                ready = true;
-            });
-        });
-        return () => {
-            disposed = true;
-        };
-    });
-
-    $effect(() => {
-        if (!listEl) {
-            return;
-        }
-        const ro = new ResizeObserver(() => {
-            measureIndicator();
-            measureHover();
-        });
-        const host = listEl;
-        const observed = new Set<HTMLElement>();
-        ro.observe(host);
-        function syncTriggers() {
-            const triggers = new Set(host.querySelectorAll<HTMLElement>('[role="tab"]'));
-            for (const trigger of observed) {
-                if (!triggers.has(trigger)) {
-                    ro.unobserve(trigger);
-                    observed.delete(trigger);
-                }
-            }
-            for (const trigger of triggers) {
-                if (!observed.has(trigger)) {
-                    ro.observe(trigger);
-                    observed.add(trigger);
-                }
-            }
-            repairSelection();
-            measureIndicator();
-            measureHover();
-        }
-        syncTriggers();
-        const mutations = new MutationObserver(syncTriggers);
-        mutations.observe(host, {
-            childList: true,
-            subtree: true,
-            attributes: true,
-            attributeFilter: ['disabled', 'data-value']
-        });
-        window.addEventListener('resize', measureIndicator);
-        return () => {
-            ro.disconnect();
-            mutations.disconnect();
-            window.removeEventListener('resize', measureIndicator);
-        };
+    const indicators = createTabIndicators({
+        get element() {
+            return listEl;
+        },
+        get state() {
+            return tabsState;
+        },
+        select
     });
 </script>
 
@@ -206,35 +37,35 @@
         variant === 'ghost' && 'gap-1',
         variant === 'default' && (vertical ? 'gap-1 pe-1' : 'gap-1 pb-1')
     )}
-    onmouseover={handleMouseOver}
-    onfocusin={handleMouseOver}
-    onmouseleave={handleMouseLeave}
-    onfocusout={handleMouseLeave}
+    onmouseover={indicators.handleMouseOver}
+    onfocusin={indicators.handleMouseOver}
+    onmouseleave={indicators.handleMouseLeave}
+    onfocusout={indicators.handleMouseLeave}
     {...rest}
 >
-    {#if variant === 'default' && hover}
+    {#if variant === 'default' && indicators.hover}
         <div
             aria-hidden="true"
             class="pointer-events-none absolute rounded-[var(--radius-md)] bg-foreground/[0.06] transition-[left,top,width,height,opacity] [transition-duration:var(--motion-duration-panel)] ease-[var(--ease-out)] motion-reduce:transition-none"
-            style:left={`${hover.left}px`}
-            style:top={`${hover.top}px`}
-            style:width={`${hover.width}px`}
-            style:height={`${hover.height}px`}
-            style:opacity={hovering ? 1 : 0}
+            style:left={`${indicators.hover.left}px`}
+            style:top={`${indicators.hover.top}px`}
+            style:width={`${indicators.hover.width}px`}
+            style:height={`${indicators.hover.height}px`}
+            style:opacity={indicators.hovering ? 1 : 0}
         ></div>
     {/if}
-    {#if variant === 'ghost' && ghostRect}
+    {#if variant === 'ghost' && indicators.ghostRect}
         <div
             aria-hidden="true"
             class="pointer-events-none absolute rounded-[var(--radius-md)] bg-secondary/70 transition-[left,top,width,height] [transition-duration:var(--motion-duration-panel)] ease-[var(--ease-out)] motion-reduce:transition-none"
-            style:left={`${ghostRect.left}px`}
-            style:top={`${ghostRect.top}px`}
-            style:width={`${ghostRect.width}px`}
-            style:height={`${ghostRect.height}px`}
-            style:transition={ready ? undefined : 'none'}
+            style:left={`${indicators.ghostRect.left}px`}
+            style:top={`${indicators.ghostRect.top}px`}
+            style:width={`${indicators.ghostRect.width}px`}
+            style:height={`${indicators.ghostRect.height}px`}
+            style:transition={indicators.ready ? undefined : 'none'}
         ></div>
     {/if}
-    {#if indicator}
+    {#if indicators.indicator}
         {#if variant === 'default'}
             <div
                 aria-hidden="true"
@@ -244,21 +75,21 @@
                         ? 'end-0 w-[var(--size-hairline)] transition-[top,height]'
                         : 'bottom-0 h-[var(--size-hairline)] transition-[left,width]'
                 )}
-                style:left={vertical ? undefined : `${indicator.left}px`}
-                style:top={vertical ? `${indicator.top}px` : undefined}
-                style:width={vertical ? undefined : `${indicator.width}px`}
-                style:height={vertical ? `${indicator.height}px` : undefined}
-                style:transition={ready ? undefined : 'none'}
+                style:left={vertical ? undefined : `${indicators.indicator.left}px`}
+                style:top={vertical ? `${indicators.indicator.top}px` : undefined}
+                style:width={vertical ? undefined : `${indicators.indicator.width}px`}
+                style:height={vertical ? `${indicators.indicator.height}px` : undefined}
+                style:transition={indicators.ready ? undefined : 'none'}
             ></div>
         {:else if variant === 'segmented'}
             <div
                 aria-hidden="true"
                 class="pointer-events-none absolute rounded-[calc(var(--radius-xl)-var(--spacing))] bg-card shadow-[var(--elevation-control-edge)] ring-1 ring-border/50 transition-[left,top,width,height] [transition-duration:var(--motion-duration-panel)] ease-[var(--ease-out)] motion-reduce:transition-none"
-                style:left={`${indicator.left}px`}
-                style:top={`${indicator.top}px`}
-                style:width={`${indicator.width}px`}
-                style:height={`${indicator.height}px`}
-                style:transition={ready ? undefined : 'none'}
+                style:left={`${indicators.indicator.left}px`}
+                style:top={`${indicators.indicator.top}px`}
+                style:width={`${indicators.indicator.width}px`}
+                style:height={`${indicators.indicator.height}px`}
+                style:transition={indicators.ready ? undefined : 'none'}
             ></div>
         {/if}
     {/if}

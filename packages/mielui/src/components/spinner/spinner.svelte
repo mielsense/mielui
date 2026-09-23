@@ -3,6 +3,7 @@
     import { getCssDuration } from '@mielui/svelte/transition';
     import { cn } from '@mielui/svelte/utils';
     import HugeiconsIcon from '../../hugeicons-icon.svelte';
+    import { motionLoop } from '../_internal/motion-loop';
 
     import type { SpinnerProps } from '.';
 
@@ -75,6 +76,7 @@
 
 {#if phase !== 'hidden'}
     <span
+        {@attach motionLoop}
         bind:this={indicator}
         data-ui="spinner"
         data-phase={phase}
@@ -91,7 +93,7 @@
             icon={LoaderCircle}
             {size}
             aria-hidden="true"
-            class={`absolute inset-0 m-auto ${curved ? 'animate-[mielui-spinner-spin_linear_infinite]' : 'animate-spin'} transition-[filter,opacity,transform,rotate,scale] duration-[var(--motion-duration-panel)] ease-[var(--ease-out)] motion-reduce:animate-none motion-reduce:transition-none ${
+            class={`[animation-play-state:var(--mielui-loop-play-state)] absolute inset-0 m-auto ${curved ? 'animate-[mielui-spinner-spin_linear_infinite]' : 'animate-spin'} transition-[filter,opacity,transform,rotate,scale] duration-[var(--motion-duration-panel)] ease-[var(--ease-out)] motion-reduce:animate-none motion-reduce:transition-none ${
                 showCheckmark || !entered
                     ? '-rotate-90 scale-75 opacity-0'
                     : 'rotate-0 scale-100 opacity-100'

@@ -8,6 +8,7 @@ export const manifest: Manifest = {
     files: [
         'components/file-upload/index.ts',
         'components/file-upload/context.svelte.ts',
+        'components/file-upload/controller.svelte.ts',
         'components/file-upload/file-upload.svelte',
         'components/file-upload/file-upload-dropzone.svelte',
         'components/file-upload/file-upload-trigger.svelte',
@@ -26,6 +27,6 @@ export const manifest: Manifest = {
     peerDependencies: {
         '@humanspeak/svelte-motion': '^1.2.1',
         '@hugeicons/core-free-icons': '^4.3.0',
-        svelte: '^5.33.0'
+        svelte: '^5.56.0'
     }
 };

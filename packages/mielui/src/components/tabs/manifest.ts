@@ -13,6 +13,7 @@ export const manifest: Manifest = {
         'components/tabs/tabs-trigger.svelte',
         'components/tabs/tabs-content.svelte',
         'components/tabs/id.ts',
+        'components/tabs/indicators.svelte.ts',
         'components/tabs/index.ts',
         'components/tabs/manifest.ts'
     ],
@@ -22,6 +23,6 @@ export const manifest: Manifest = {
         '@floating-ui/dom': '1.7.6',
         'bits-ui': '^2.19.2',
         cnfast: '^0.0.8',
-        svelte: '^5.33.0'
+        svelte: '^5.56.0'
     }
 };

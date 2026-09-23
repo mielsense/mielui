@@ -1,5 +1,6 @@
 <script lang="ts">
     import { cn } from '@mielui/svelte/utils';
+    import { motionLoop } from '../_internal/motion-loop';
     import type { ProgressProps } from '.';
 
     let {
@@ -26,7 +27,8 @@
 >
     {#if indeterminate}
         <div
-            class="absolute inset-y-0 left-0 w-1/3 animate-[mielui-progress-slide_1.4s_linear_infinite] rounded-full bg-primary motion-reduce:animate-none"
+            {@attach motionLoop}
+            class="[animation-play-state:var(--mielui-loop-play-state)] absolute inset-y-0 left-0 w-1/3 animate-[mielui-progress-slide_1.4s_linear_infinite] rounded-full bg-primary motion-reduce:animate-none"
         ></div>
     {:else}
         <div
