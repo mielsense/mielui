@@ -129,3 +129,5 @@
 
 - Review every component’s usage, examples, and API coverage; add chart loading, empty-data, and animation examples to each chart-type guide.
 - Keep documentation scrolling available over Toast previews and show section descriptions in information hover cards.
+
+- Remove excess space below the final documentation sidebar item.

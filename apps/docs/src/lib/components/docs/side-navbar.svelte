@@ -24,7 +24,7 @@
     }
 </script>
 
-<aside class={`${classProp} hide-scrollbar flex flex-col overflow-y-auto overscroll-none pb-6`}>
+<aside class={`${classProp} hide-scrollbar flex flex-col overflow-y-auto overscroll-none`}>
     <section class="flex shrink-0 flex-col">
         <RailHeading title="Getting started" />
         <div class="isolate flex flex-col px-3 py-3">
