@@ -229,7 +229,7 @@
         type="file"
         class="hidden"
         {accept}
-        multiple
+        multiple={maxFiles !== 1}
         {disabled}
         onchange={(event) => {
             if (event.currentTarget.files) {

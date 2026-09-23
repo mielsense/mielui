@@ -3,10 +3,10 @@
     import * as Typography from '@mielui/svelte/components/typography';
     import { ComponentPreview, InstallCommand } from '$lib/components/docs';
     import PageIntro from '$lib/components/docs/page-intro.svelte';
-    import Additional from './examples/compact.svelte';
-    import AdditionalSrc from './examples/compact.svelte?raw';
     import Hero from './examples/hero.svelte';
     import HeroSrc from './examples/hero.svelte?raw';
+    import Single from './examples/single.svelte';
+    import SingleSrc from './examples/single.svelte?raw';
 </script>
 <svelte:head>
     <title>Mielui · File Upload</title>
@@ -102,10 +102,9 @@
     <section id="motion" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Motion and accessibility</Typography.H2>
         <Typography.Text variant="supporting">
-            Humanspeak Svelte Motion animates the dropzone height, card layout, progress, and
-            completion state. Animation respects reduced motion and the theme's panel duration.
-            Choose files works with a keyboard; status changes are announced, and icon actions
-            include tooltips.
+            The dropzone, file list, progress, and completion state animate in place. Animation
+            respects reduced motion and the theme's panel duration. Choose files works with a
+            keyboard; status changes are announced, and icon actions include tooltips.
         </Typography.Text>
     </section>
     <section id="retry-and-cancel" class="scroll-mt-20 flex flex-col gap-4">
@@ -123,8 +122,14 @@
             shown as an error without decoding a preview.
         </Typography.Text>
     </section>
-    <section id="compact" class="scroll-mt-20 flex flex-col gap-4">
-        <Typography.H2 class="docs-section-heading">Compact document upload</Typography.H2>
-        <ComponentPreview code={AdditionalSrc}><Additional /></ComponentPreview>
+    <section id="single-file" class="scroll-mt-20 flex flex-col gap-4">
+        <Typography.H2 class="docs-section-heading">Single file</Typography.H2>
+        <Typography.Text variant="supporting">
+            Set<code>maxFiles=&#123;1&#125;</code> to accept one file and use a single-file picker.
+            Remove the current photo before choosing its replacement. Dropping extra files keeps the
+            accepted file and shows why the others were rejected. This example creates a local
+            preview only.
+        </Typography.Text>
+        <ComponentPreview code={SingleSrc}><Single /></ComponentPreview>
     </section>
 </div>

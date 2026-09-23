@@ -13,7 +13,6 @@
 <motion.div
     {...rest}
     style={rest.style ?? undefined}
-    layout
     transition={{ duration: root.duration }}
     data-ui="file-upload-dropzone"
     data-dragging={root.dragging || undefined}
