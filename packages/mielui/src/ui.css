@@ -497,10 +497,9 @@
     }
 
     .mielui-menu-separator {
-        margin-inline: calc(var(--spacing) * 1);
+        @apply -mx-1 rounded-none;
         margin-block: calc(var(--spacing) * 1);
         height: var(--border-size);
-        border-radius: var(--radius-xl);
         background-color: var(--color-border);
     }
 

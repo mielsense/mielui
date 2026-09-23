@@ -1,0 +1,1 @@
+- Extend menu separators across the full inner panel width, including submenus.
