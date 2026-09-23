@@ -97,7 +97,7 @@ it('keeps hidden notification lifetimes running without expiring persistent load
     expect(__getActiveToastStateForTests()?.data.toasts).toHaveLength(1);
 });
 
-it('morphs wrapped notification text while keeping one toast and usable side controls', async () => {
+it('switches wrapped notification text directly while keeping one toast and usable side controls', async () => {
     render(NotchToastFixture);
     toast.info('First update', {
         description:
@@ -119,8 +119,8 @@ it('morphs wrapped notification text while keeping one toast and usable side con
     await previous.click();
     await expect
         .poll(() => {
-            const title = document.querySelector('[data-ui="toast-title"] [data-morph-visual]');
-            return title?.textContent;
+            const title = document.querySelector('[data-ui="toast-title"]');
+            return title?.textContent?.trim();
         })
         .toBe('First update');
     expect(document.querySelectorAll('[data-ui="toast"]')).toHaveLength(1);
@@ -129,5 +129,5 @@ it('morphs wrapped notification text while keeping one toast and usable side con
         throw new Error('Missing notification description');
     }
     expect(description.scrollWidth).toBeLessThanOrEqual(description.clientWidth + 1);
-    expect(description.querySelector('[data-morph-visual]')).not.toBeNull();
+    expect(document.querySelector('[data-ui="toast"] [data-morph-visual]')).toBeNull();
 });

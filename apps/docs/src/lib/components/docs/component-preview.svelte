@@ -41,10 +41,16 @@
             },
             { rootMargin: '300px' }
         );
+        function activate() {
+            activated = true;
+            observer.disconnect();
+        }
+        node.addEventListener('docs-activate-preview', activate);
         observer.observe(node);
         return {
             destroy() {
                 observer.disconnect();
+                node.removeEventListener('docs-activate-preview', activate);
             }
         };
     }

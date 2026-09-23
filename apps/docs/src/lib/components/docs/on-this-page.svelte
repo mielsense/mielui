@@ -23,7 +23,24 @@
             : (activeY ?? 0)
     );
 
-    function navigate(event: MouseEvent, heading: Heading) {
+    function headingTop(heading: Heading) {
+        const section = heading.node.closest<HTMLElement>('section');
+        const anchor = heading.level === 2 && section ? section : heading.node;
+        return anchor.getBoundingClientRect().top;
+    }
+
+    function headingInset(heading: Heading) {
+        if (heading.level !== 3) {
+            return 0;
+        }
+        const section = heading.node.closest('section');
+        const title = section?.querySelector<HTMLElement>(
+            ':scope > h2, :scope > div:first-child:has(> h2)'
+        );
+        return title?.getBoundingClientRect().height ?? 0;
+    }
+
+    async function navigate(event: MouseEvent, heading: Heading) {
         if (
             event.button !== 0 ||
             event.metaKey ||
@@ -38,11 +55,23 @@
             return;
         }
         event.preventDefault();
+        for (const preview of content?.querySelectorAll('[data-component-preview]') ?? []) {
+            if (preview.compareDocumentPosition(heading.node) & Node.DOCUMENT_POSITION_FOLLOWING) {
+                preview.dispatchEvent(new Event('docs-activate-preview'));
+            }
+        }
+        await tick();
+        await new Promise<void>((resolve) =>
+            requestAnimationFrame(() => requestAnimationFrame(() => resolve()))
+        );
+        if (!heading.node.isConnected || !scroll.isConnected) {
+            return;
+        }
         const top =
             scroll.scrollTop +
-            heading.node.getBoundingClientRect().top -
+            headingTop(heading) -
             scroll.getBoundingClientRect().top -
-            (heading.level === 3 ? 64 : 0);
+            headingInset(heading);
         replaceState(`#${heading.id}`, page.state);
         heading.node.setAttribute('tabindex', '-1');
         heading.node.classList.add('focus:outline-none');
@@ -60,10 +89,10 @@
         let frame = 0;
         let disposed = false;
         function updateActive() {
-            const top = (scroll?.getBoundingClientRect().top ?? 0) + 48;
+            const top = (scroll?.getBoundingClientRect().top ?? 0) + 2;
             let current = headings[0]?.id ?? '';
             for (const heading of headings) {
-                if (heading.node.getBoundingClientRect().top <= top) {
+                if (headingTop(heading) <= top + headingInset(heading)) {
                     current = heading.id;
                 }
             }

@@ -137,7 +137,6 @@
 - Let Show More content fade into its surrounding surface without a mismatched background strip.
 
 - Rework live chart motion with stationary pie highlights, area-fill sweeps, and staggered bar highlights; keep offscreen effects paused without trapping visible sweeps.
-- Morph notch notification titles, icons, and descriptions when switching between stacked items.
 
 - Keep Reasoning duration labels spaced, respect reduced motion in copy feedback, and keep notch notification text wrapped during morphs.
 
@@ -148,3 +147,6 @@
 - Preserve invoice draft validation and reset stale filters when creating or locating an invoice in Studio.
 
 - Scale Heatmap entrance timing with the theme motion setting.
+
+- Keep page-outline jumps aligned after lazy previews load and track section headings by their document position.
+- Remove content and icon morphing from Toast notifications, including stacked Notch notifications.

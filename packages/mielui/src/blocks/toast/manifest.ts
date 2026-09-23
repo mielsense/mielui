@@ -43,9 +43,7 @@ export const manifest: Manifest = {
         'components/_internal/surface',
         'hugeicons-icon',
         'utils.cn',
-        'transition',
-        'actions/morph/index',
-        'actions/morph/geometry'
+        'transition'
     ],
     peerDependencies: {
         '@humanspeak/svelte-motion': '^1.2.1',

@@ -6,7 +6,6 @@
         Loading03Icon as Loader,
         Alert02Icon as Warning
     } from '@hugeicons/core-free-icons';
-    import { morph } from '@mielui/svelte/actions/morph';
     import { cn } from '@mielui/svelte/utils';
     import type { HTMLAttributes } from 'svelte/elements';
     import HugeiconsIcon from '../../hugeicons-icon.svelte';
@@ -30,7 +29,6 @@
     <span
         {...rest}
         data-ui="toast-icon"
-        use:morph={{ key: context.toast.type }}
         aria-hidden="true"
         class={cn(className, 'inline-flex size-4 shrink-0 items-center justify-center', toastIcon({ type: context.toast.type }))}
     >

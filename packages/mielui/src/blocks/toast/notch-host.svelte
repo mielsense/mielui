@@ -1,5 +1,4 @@
 <script lang="ts">
-    import { morph } from '@mielui/svelte/actions/morph';
     import { tick, untrack } from 'svelte';
     import * as Notch from '../notch/index';
     import { pauseToast, resumeToast, type Toast as ToastType, toast } from './lib.svelte';
@@ -161,16 +160,13 @@
                     <div class="flex min-w-0 items-center justify-center gap-2">
                         <Icon />
                         <Title class="flex-none">
-                            <span class="inline-block" use:morph={{ key: displayed.title }}>
+                            <span class="inline-block">
                                 {displayed.title}
                             </span>
                         </Title>
                     </div>
                     {#if displayed.description}
-                        <p
-                            use:morph={{ key: displayed.description }}
-                            class="mt-2 text-sm leading-relaxed text-foreground-muted"
-                        >
+                        <p class="mt-2 text-sm leading-relaxed text-foreground-muted">
                             {displayed.description}
                         </p>
                     {/if}

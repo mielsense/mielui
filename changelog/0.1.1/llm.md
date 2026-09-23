@@ -154,7 +154,7 @@ Studio JSON now uses the public Theme format for all overrides. Run init --prese
 
 Omitting surface now inherits --mielui-surface through CSS style queries. Set the variable to glass on :root for global glass, including portals. Explicit surface="solid" opts out; explicit surface="glass" opts in. Browsers without style-query support retain solid defaults. Export the variable in Theme.tokens.shared.
 
-Title-only toasts render Icon and Title inside Content. Description toasts keep Content above Footer. Use the same parts in custom compositions. Toast now requires Humanspeak Svelte Motion for layout changes and shares the morph action for status icons.
+Title-only toasts render Icon and Title inside Content. Description toasts keep Content above Footer. Use the same parts in custom compositions. Toast uses Humanspeak Svelte Motion for layout changes. Content and status icons update directly without Morph.
 
 ## Checkbox sizes
 
@@ -226,4 +226,4 @@ effect when a segment is active so pointer and keyboard inspection remain stable
 
 ### Morphing wrapped notification content
 
-Apply Morph separately to each title, description, and icon region. Do not apply it to a container containing interactive controls. Text morphs inherit the region’s whitespace rules so long descriptions wrap at the available width. Notch notification navigation uses this shared morph while retaining the outer panel’s size transition.
+Apply Morph separately to each title, description, and icon region. Do not apply it to a container containing interactive controls. Text morphs inherit the region’s whitespace rules so long descriptions wrap at the available width. Toast notification content and icons update directly. Do not apply Morph to stacked Notch notification content; the outer panel retains its size transition.
