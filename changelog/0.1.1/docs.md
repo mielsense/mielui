@@ -186,3 +186,5 @@
 - Match article, toolbar, and footer side gutters to the page-outline header.
 
 - Align the leading Preview / Code tabs with the shared content gutter.
+
+- Give documentation content a moderate side gutter while keeping tabs, headings, toolbar, and footer aligned.

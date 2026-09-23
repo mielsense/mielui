@@ -21,7 +21,7 @@
             bind:this={viewport}
             {@attach settleHeading}
             data-docs-scroll
-            class="min-h-0 flex-1 bg-[var(--docs-content)] overflow-y-auto overscroll-none [container-type:inline-size] [--docs-gutter:calc(var(--spacing)*5)]"
+            class="min-h-0 flex-1 bg-[var(--docs-content)] overflow-y-auto overscroll-none [container-type:inline-size] [--docs-gutter:calc((var(--spacing)*5+2rem)/2)]"
         >
             <div bind:this={content} class="docs-article w-full min-w-0">
                 {@render children?.()}
