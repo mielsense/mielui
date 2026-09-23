@@ -195,3 +195,4 @@
 - Keep Form and keyboard-shortcut demo feedback inside their previews and dispose unfinished toast demos on navigation.
 - Separate page-outline state and Studio token parsing from presentation while reducing unnecessary outline work during preview updates.
 - Update the agent skill and package guides for Mielui's current APIs, independent release history, and retained Sivir UI and COSS attribution.
+- Refresh the README screenshot with the current homepage.
