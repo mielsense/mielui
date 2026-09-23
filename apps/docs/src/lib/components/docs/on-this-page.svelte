@@ -10,6 +10,9 @@
     let { content }: { content: HTMLElement | undefined } = $props();
     let headings = $state<Heading[]>([]);
     let active = $state('');
+    let destination: string | null = null;
+    let jumpVersion = 0;
+    let jumpStarted = false;
     let hovered = $state<string | null>(null);
     let focused = $state<string | null>(null);
     let list = $state<HTMLDivElement>();
@@ -55,6 +58,10 @@
             return;
         }
         event.preventDefault();
+        const version = ++jumpVersion;
+        destination = heading.id;
+        active = heading.id;
+        jumpStarted = false;
         for (const preview of content?.querySelectorAll('[data-component-preview]') ?? []) {
             if (preview.compareDocumentPosition(heading.node) & Node.DOCUMENT_POSITION_FOLLOWING) {
                 preview.dispatchEvent(new Event('docs-activate-preview'));
@@ -64,7 +71,7 @@
         await new Promise<void>((resolve) =>
             requestAnimationFrame(() => requestAnimationFrame(() => resolve()))
         );
-        if (!heading.node.isConnected || !scroll.isConnected) {
+        if (version !== jumpVersion || !heading.node.isConnected || !scroll.isConnected) {
             return;
         }
         const top =
@@ -76,6 +83,11 @@
         heading.node.setAttribute('tabindex', '-1');
         heading.node.classList.add('focus:outline-none');
         heading.node.focus({ preventScroll: true });
+        jumpStarted = true;
+        if (Math.abs(scroll.scrollTop - top) < 1) {
+            destination = null;
+            jumpStarted = false;
+        }
         scroll.scrollTo({ top, behavior: prefersReducedMotion.current ? 'instant' : 'smooth' });
     }
 
@@ -88,7 +100,12 @@
         const scroll = root.closest<HTMLElement>('[data-docs-scroll]');
         let frame = 0;
         let disposed = false;
+        let settleTimer: ReturnType<typeof setTimeout> | undefined;
         function updateActive() {
+            if (destination !== null) {
+                active = destination;
+                return;
+            }
             const top = (scroll?.getBoundingClientRect().top ?? 0) + 2;
             let current = headings[0]?.id ?? '';
             for (const heading of headings) {
@@ -100,6 +117,36 @@
                 current = headings.at(-1)?.id ?? current;
             }
             active = current;
+        }
+        function finishJump() {
+            clearTimeout(settleTimer);
+            if (!jumpStarted) {
+                return;
+            }
+            destination = null;
+            jumpStarted = false;
+            updateActive();
+        }
+        function trackScroll() {
+            updateActive();
+            clearTimeout(settleTimer);
+            settleTimer = setTimeout(finishJump, 180);
+        }
+        function interruptJump() {
+            jumpVersion += 1;
+            destination = null;
+            jumpStarted = false;
+            clearTimeout(settleTimer);
+            updateActive();
+        }
+        function interruptWithKey(event: KeyboardEvent) {
+            if (
+                ['ArrowUp', 'ArrowDown', 'PageUp', 'PageDown', 'Home', 'End', ' '].includes(
+                    event.key
+                )
+            ) {
+                interruptJump();
+            }
         }
         function collect() {
             if (disposed || !root) {
@@ -153,14 +200,26 @@
         observer.observe(root, { childList: true, subtree: true });
         const resize = new ResizeObserver(schedule);
         resize.observe(root);
-        scroll?.addEventListener('scroll', updateActive, { passive: true });
+        scroll?.addEventListener('scroll', trackScroll, { passive: true });
+        scroll?.addEventListener('scrollend', finishJump);
+        scroll?.addEventListener('wheel', interruptJump, { passive: true });
+        scroll?.addEventListener('touchstart', interruptJump, { passive: true });
+        scroll?.addEventListener('keydown', interruptWithKey);
         void tick().then(collect);
         return () => {
             disposed = true;
             cancelAnimationFrame(frame);
             observer.disconnect();
             resize.disconnect();
-            scroll?.removeEventListener('scroll', updateActive);
+            scroll?.removeEventListener('scroll', trackScroll);
+            scroll?.removeEventListener('scrollend', finishJump);
+            scroll?.removeEventListener('wheel', interruptJump);
+            scroll?.removeEventListener('touchstart', interruptJump);
+            scroll?.removeEventListener('keydown', interruptWithKey);
+            clearTimeout(settleTimer);
+            destination = null;
+            jumpStarted = false;
+            jumpVersion += 1;
         };
     });
 

@@ -174,3 +174,5 @@
 - Give the page-outline hook a full outer gutter and more space before its labels.
 
 - Align the footer info icon with the navigation button inset and distinguish outline hover previews with a dashed gray hook.
+
+- Move the page-outline hook directly to a clicked section without pausing on headings passed during smooth scrolling.
