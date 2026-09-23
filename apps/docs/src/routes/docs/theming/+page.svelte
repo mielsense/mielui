@@ -341,7 +341,7 @@ src/lib/mielui/components/button/
         <Typography.Text>
             Set chrome.borders to "single" for one perimeter border on framed surfaces, or "double"
             for the inset frame. The default is "double", including themes saved before this option
-            existed. Studio exposes this choice under Effects.
+            existed. Studio exposes this choice under Appearance.
         </Typography.Text>
         <CodeBlock
             copy="overlay"

@@ -2,7 +2,7 @@
 
 Themes accept `chrome.borders: 'single' | 'double'`. Omitted values retain the
 existing double frame. Theme parsing preserves the setting and rejects unsupported
-values. Studio saves and exports it under Effects as Borders.
+values. Studio saves and exports it under Appearance as Borders.
 
 All double-frame surfaces honor `--mielui-border-inset-scale`, which defaults to
 one without generated theme CSS. Single sets the scale to zero; double sets it
