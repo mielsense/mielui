@@ -1,6 +1,5 @@
 <script lang="ts">
     import { Button } from '@mielui/svelte/components/button';
-    import { getCssDuration } from '@mielui/svelte/transition';
     import { page } from '$app/state';
     import { navigationGroups } from '$lib/components';
     import NavigationItems from './navigation-items.svelte';
@@ -20,75 +19,13 @@
         { href: '/docs/components', label: 'Components' }
     ];
 
-    function magneticHeadings(node: HTMLElement) {
-        const preference = window.matchMedia('(prefers-reduced-motion: reduce)');
-        let timer: ReturnType<typeof setTimeout> | undefined;
-        let interacting = false;
-
-        function settle() {
-            clearTimeout(timer);
-            if (
-                interacting ||
-                preference.matches ||
-                getCssDuration(node, '--motion-duration-panel', 180) === 0
-            ) {
-                return;
-            }
-            const top = node.getBoundingClientRect().top;
-            const offsets = Array.from(
-                node.children,
-                (section) => section.getBoundingClientRect().top - top
-            );
-            const nearest = offsets.reduce(
-                (best, offset) => (Math.abs(offset) < Math.abs(best) ? offset : best),
-                Infinity
-            );
-            if (Math.abs(nearest) > 1 && Math.abs(nearest) <= 20) {
-                node.scrollBy({ top: nearest, behavior: 'smooth' });
-            }
-        }
-
-        function schedule() {
-            clearTimeout(timer);
-            timer = setTimeout(settle, 180);
-        }
-
-        function hold() {
-            interacting = true;
-            clearTimeout(timer);
-        }
-
-        function release() {
-            if (!interacting) {
-                return;
-            }
-            interacting = false;
-            schedule();
-        }
-
-        node.addEventListener('scrollend', settle);
-        node.addEventListener('scroll', schedule, { passive: true });
-        node.addEventListener('pointerdown', hold);
-        window.addEventListener('pointerup', release);
-        window.addEventListener('pointercancel', release);
-        return () => {
-            clearTimeout(timer);
-            node.removeEventListener('scrollend', settle);
-            node.removeEventListener('scroll', schedule);
-            node.removeEventListener('pointerdown', hold);
-            window.removeEventListener('pointerup', release);
-            window.removeEventListener('pointercancel', release);
-        };
-    }
-
     function isActive(path: string) {
         return pageName === path;
     }
 </script>
 
 <aside
-    {@attach magneticHeadings}
-    class={`${classProp} hide-scrollbar flex flex-col overflow-y-auto overscroll-none`}
+    class={`${classProp} hide-scrollbar flex flex-col overflow-y-auto overscroll-none snap-y snap-proximity motion-safe:scroll-smooth motion-reduce:snap-none [&_[data-rail-heading]]:snap-start`}
 >
     <section class="flex shrink-0 flex-col">
         <RailHeading title="Getting started" />

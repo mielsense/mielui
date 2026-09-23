@@ -162,6 +162,6 @@
 
 - Gently snap sidebar groups and page sections to the top while preserving free scrolling within long sections and reduced-motion preferences.
 
-- Limit sidebar magnetic settling to headings within 20px of the top, so distant groups never pull the list away from its current position.
+- Snap sidebar group headings to the top without snapping to the bottom edges of long groups.
 
 - Give consecutive documentation examples more separation while keeping their headings and previews together.
