@@ -194,7 +194,7 @@
 {#if headings.length}
     <nav aria-label="On this page" class="min-h-full pb-6">
         <RailHeading title="On this page" />
-        <div class="px-6 py-3">
+        <div class="px-3 py-3">
             <div bind:this={list} class="relative flex flex-col gap-0.5">
                 <TocRail y={previewY} from={previewFrom} muted />
                 <TocRail y={activeY} />
@@ -208,7 +208,7 @@
                         onmouseleave={() => { hovered = null; }}
                         onfocus={() => { focused = heading.id; }}
                         onblur={() => { focused = null; }}
-                        class={`${heading.id === 'api-reference' ? 'mt-2' : ''} relative rounded-md py-1.5 pr-1 text-sm leading-5 transition-colors motion-reduce:transition-none focus-visible:outline-2 focus-visible:outline-primary ${heading.level === 3 ? 'pl-8' : 'pl-5'} ${active === heading.id ? 'text-foreground' : 'text-foreground-muted hover:text-foreground'}`}
+                        class={`${heading.id === 'api-reference' ? 'mt-2' : ''} relative rounded-md py-1.5 pr-1 text-sm leading-5 transition-colors motion-reduce:transition-none focus-visible:outline-2 focus-visible:outline-primary ${heading.level === 3 ? 'pl-6' : 'pl-3'} ${active === heading.id ? 'text-foreground' : 'text-foreground-muted hover:text-foreground'}`}
                     >
                         {heading.label}
                     </a>

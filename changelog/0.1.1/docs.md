@@ -165,3 +165,7 @@
 - Snap sidebar group headings to the top without snapping to the bottom edges of long groups.
 
 - Give consecutive documentation examples more separation while keeping their headings and previews together.
+
+- Prevent sidebar settling from targeting offscreen groups; only visible headings approaching the top can catch.
+
+- Align page-outline link gutters and nested indentation with the navigation sidebar.

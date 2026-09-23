@@ -14,7 +14,7 @@
 
 <div
     aria-hidden="true"
-    class={`pointer-events-none absolute inset-0 ${muted ? 'text-foreground-muted/40' : 'text-primary'}`}
+    class={`pointer-events-none absolute inset-y-0 -left-2 right-0 ${muted ? 'text-foreground-muted/40' : 'text-primary'}`}
 >
     <span
         style:top={`${position.current.from}px`}
