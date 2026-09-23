@@ -5,7 +5,7 @@
 </script>
 {#if slug === 'button'}
     <div class="flex items-center gap-2">
-        <span class="rounded-md bg-primary px-4 py-2.5 font-medium text-primary-foreground">
+        <span class="rounded-md bg-primary px-4 py-2.5 font-medium text-[var(--color-on-primary)]">
             Continue
         </span>
         <span class="rounded-md border border-border bg-background px-4 py-2.5">Cancel</span>
@@ -31,13 +31,13 @@
         {#each ['Design', 'Development', 'Research'] as label, index}
             <div class="flex items-center gap-2">
                 <span
-                    class={`flex size-4 items-center justify-center border ${slug === 'radio-group' ? 'rounded-full' : 'rounded'} ${index === 0 ? 'border-primary bg-primary text-primary-foreground' : 'border-border bg-background'}`}
+                    class={`flex size-4 items-center justify-center border ${slug === 'radio-group' ? 'rounded-full' : 'rounded'} ${index === 0 ? 'border-primary bg-primary text-[var(--color-on-primary)]' : 'border-border bg-background'}`}
                 >
                     {#if index === 0}
                         {#if slug === 'checkbox'}
                             {@render check()}
                         {:else}
-                            <span class="size-1.5 rounded-full bg-primary-foreground"></span>
+                            <span class="size-1.5 rounded-full bg-[var(--color-on-primary)]"></span>
                         {/if}
                     {/if}
                 </span>
@@ -119,7 +119,9 @@
         <div class={`${field} text-[10px] text-foreground-muted`}>Name</div>
         <div class={`${field} text-[10px] text-foreground-muted`}>Email address</div>
         {#if slug === 'form'}
-            <span class="rounded bg-primary py-1.5 text-center text-[10px] text-primary-foreground">
+            <span
+                class="rounded bg-primary py-1.5 text-center text-[10px] text-[var(--color-on-primary)]"
+            >
                 Continue
             </span>
         {/if}

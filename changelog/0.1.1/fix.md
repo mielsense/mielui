@@ -166,3 +166,10 @@
 - Match the Gauge background track to its colored arc thickness.
 
 - Restore the Color Picker hue slider’s rainbow track.
+
+- Match catalog preview button text colors to the active theme.
+
+- Place Switch edge highlights on the thumb, keep passive surfaces flat, and preserve control edges when fields and buttons receive focus.
+- Restrict the native file picker to one file when maxFiles is one.
+
+- Keep File Upload removal animations inside the file list instead of jumping toward the viewport corner.

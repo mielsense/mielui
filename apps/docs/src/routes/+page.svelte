@@ -37,7 +37,7 @@
 </script>
 
 <svelte:head>
-    <title>mielui · Themed Svelte components</title>
+    <title>mielui · Premium Svelte components you own</title>
     <meta
         name="description"
         content={`${components.length} Svelte 5 components. Restyle all of them from a handful of design tokens.`}
@@ -197,13 +197,13 @@
             class="motion-safe:[animation:docs-block-in_280ms_var(--ease-out)_both]"
             style="font-size: 18px; font-weight: var(--font-weight-label);"
         >
-            Themed Svelte components
+            Premium Svelte components you own
         </Typography.H1>
         <Typography.Description
             class="mt-1 max-w-[38rem] motion-safe:[animation:docs-block-in_280ms_var(--ease-out)_both] motion-safe:[animation-delay:80ms]"
             style="font-size: 18px; font-weight: var(--font-weight-label);"
         >
-            {`Restyle ${components.length} components from a handful of tokens.`}
+            Copy the source. Customize the theme, interactions, and motion.
         </Typography.Description>
         <div
             class="mt-3 flex w-full flex-col justify-center gap-3 sm:w-auto sm:flex-row sm:flex-wrap motion-safe:[animation:docs-block-in_280ms_var(--ease-out)_both] motion-safe:[animation-delay:115ms]"

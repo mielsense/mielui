@@ -53,7 +53,7 @@
         {@render lines(2)}
         <div class="mt-4 flex justify-end gap-2">
             <span class="rounded border border-border px-2 py-1 text-[10px]">Cancel</span>
-            <span class="rounded bg-primary px-2 py-1 text-[10px] text-primary-foreground">
+            <span class="rounded bg-primary px-2 py-1 text-[10px] text-[var(--color-on-primary)]">
                 {slug === 'alert-dialog' ? 'Discard' : 'Save'}
             </span>
         </div>

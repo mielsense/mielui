@@ -64,3 +64,7 @@
 - Add built-in live motion to Gauge and Heatmap through their animation props.
 
 - Add built-in loading and empty-data states to Gauge and Heatmap.
+
+- Select and Combobox support multiple selection with array values and menus that stay open while choosing options.
+
+- Add the Number shuffle action and animate Gauge values with rolling digits.

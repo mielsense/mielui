@@ -239,3 +239,15 @@ Use Gauge animation="live" or Heatmap.Root animation="live" for continuous highl
 ### Gauge and Heatmap data states
 
 Pass loading=true while data is pending. Heatmap treats days=[] as unavailable data and renders neutral calendar cells; an explicitly supplied day with count=0 is still real data. Gauge accepts value=null for a missing measurement, while value=0 remains a valid meter reading. Both retain their layout, announce unavailable states, and suspend live effects. Consumers should not branch into separate Skeleton or Card trees for these states. Custom Heatmap compositions inherit state handling through Summary, Cell/Grid, Detail, and Tooltip.
+
+## Multiple selection
+
+Select.Root and Combobox.Root accept `type="multiple"` with `bind:value` bound to a `string[]`. Their `onValueChange` callback receives the full array. Omitting `type`, or using `type="single"`, preserves the existing string value and single-selection behavior. Keep the usual Trigger, Content, and Item composition. Multiple selection toggles an item's membership and keeps the menu open so users can make another selection. Use an empty array to clear a multiple selection.
+
+## Number shuffle
+
+Import `numberShuffle` from `@mielui/svelte/actions/number-shuffle` and pass `{ value, format?, duration? }`. Attach it to a text-only element that renders the final formatted value as ordinary text. Put icons and markup outside that element. The action owns an aria-hidden visual copy; the source remains available to assistive technology. Gauge uses it for its default numeric center. When supplying custom Gauge children, attach the action to the numeric text if it should roll too. Reduced motion and zero theme duration bypass rolling.
+
+## Control edge placement
+
+Apply the shared control edge to the part that is raised or editable. For Switch and Slider this is the thumb; tracks and progress fills stay flat. Passive metadata and grouping wrappers do not receive control elevation. Composite fields use one edge around their editable boundary. Compose focus shadows with the edge token rather than replacing it.

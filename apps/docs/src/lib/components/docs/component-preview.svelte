@@ -117,12 +117,14 @@
             </div>
         </div>
         {#if value === 'code'}
-            <CodeBlock.Root
-                {code}
-                lang="svelte"
-                copy="overlay"
-                class="w-full max-h-[40rem] overflow-auto rounded-none border-0 bg-transparent p-0 shadow-none [--code-block-padding-x:1.5rem] [--code-block-padding-y:1.5rem] [&_[data-ui=code-block-surface]]:rounded-none [&_[data-ui=code-block-surface]]:border-0 [&_[data-ui=code-block-surface]]:bg-transparent [&_[data-ui=code-block-surface]]:shadow-none"
-            />
+            <div data-preview-code class="mielui-inset-surface overflow-hidden">
+                <CodeBlock.Root
+                    {code}
+                    lang="svelte"
+                    copy="overlay"
+                    class="w-full max-h-[40rem] overflow-auto rounded-none border-0 bg-transparent p-0 shadow-none [--code-block-padding-x:1.5rem] [--code-block-padding-y:1.5rem] [&_[data-ui=code-block-surface]]:rounded-none [&_[data-ui=code-block-surface]]:border-0 [&_[data-ui=code-block-surface]]:bg-transparent [&_[data-ui=code-block-surface]]:shadow-none"
+                />
+            </div>
         {/if}
     </div>
 </div>

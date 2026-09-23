@@ -78,3 +78,12 @@
     > section:first-of-type:not(#hero) {
     @apply border-t-0;
 }
+
+.docs-article
+    :is(
+        [data-docs-page] > #hero [data-component-preview],
+        [data-docs-page] > [data-component-preview]
+    )
+    [data-preview-code] {
+    @apply rounded-none bg-transparent shadow-none;
+}

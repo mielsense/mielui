@@ -57,7 +57,7 @@
             {/each}
             {#each calendarDays as day}
                 <span
-                    class={day === 16 || (range && day === 19) ? 'rounded-sm bg-primary text-primary-foreground' : range && day > 16 && day < 19 ? 'bg-primary/15 text-foreground' : ''}
+                    class={day === 16 || (range && day === 19) ? 'rounded-sm bg-primary text-[var(--color-on-primary)]' : range && day > 16 && day < 19 ? 'bg-primary/15 text-foreground' : ''}
                 >
                     {day}
                 </span>

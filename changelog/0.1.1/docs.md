@@ -154,3 +154,8 @@
 - Nest catalog categories under Components in the page outline.
 
 - Increase the space between component catalog sections.
+
+- Clarify the homepage description of component theming.
+
+- Match the Code tab background and rounded corners to its example preview.
+- Add a single-file upload example that replaces the dropzone with the selected file.
