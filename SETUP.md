@@ -15,6 +15,29 @@ The docs run at `http://localhost:5173`.
 
 The repository uses `main` and short-lived feature branches. Pull requests squash into one commit, using their Conventional Commit title. CI runs on pull requests and pushes to `main`. Version tags mark package releases; there is no separate development branch to keep in sync.
 
+### Plan a release across multiple pull requests
+
+Group release work in a GitHub milestone, with one issue per feature or fix.
+Link each focused pull request to its issue and assign it to the same milestone.
+Use short-lived branches from current `main` and merge completed pull requests
+into `main` as they pass review and required checks. Prefer one focused change per
+pull request, usually linked to one issue. Combine issues only when they describe
+one inseparable change; split large issues when separate changes can be reviewed
+and delivered independently.
+
+Use a stack only for a real dependency on an unmerged pull request. Its bottom PR
+targets `main`; each later PR targets the branch below it. State the dependency
+in each description, merge from the bottom up, and update the remaining branches
+as needed. Independent work should target `main` directly, even within one release.
+Squash each PR using its Conventional Commit title.
+
+The next planned release is `v0.2.0`. Collect its release notes under
+`changelog/0.2.0/` as each change lands. Keep the package version at its published
+version until a final release preparation pull request updates it. That pull
+request follows the full npm publishing procedure below after the milestone's
+scope is complete. Merging feature pull requests deploys the docs through Vercel;
+npm publication happens only when the GitHub Release is published.
+
 ## Vercel docs
 
 1. Import `mielsense/mielui` into Vercel.

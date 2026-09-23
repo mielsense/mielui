@@ -9,8 +9,19 @@
   Examples: `fix(button): restore focus` and `feat(dialog): add loading state`.
   Allowed types: `feat`, `fix`, `docs`, `style`, `refactor`, `perf`, `test`,
   `build`, `ci`, `chore`, `revert`. Use `!` before the colon for breaking changes.
-- Open pull requests against `main`. Let required CI pass, then squash merge
-  using the pull request title as the commit title. Delete the branch after merge.
+- Prefer one focused change per pull request, usually linked to one issue. A PR
+  may close multiple issues when they describe one inseparable change; split large
+  issues across focused PRs when useful. Assign issues and PRs to the release
+  milestone and collect notes under that version's changelog directory.
+- Independent pull requests target `main`. Use stacks only when a change depends
+  on another unmerged PR: the bottom PR targets `main`, and each dependent PR
+  targets the branch below it. Document the dependency in each PR description.
+  Do not stack independent work just because it shares a release milestone.
+- Let required CI pass, then squash merge using each pull request title as its
+  commit title. Merge dependent PRs from the bottom up, update remaining branch
+  bases as needed, and delete branches after they are no longer needed.
+- Keep the package version unchanged during feature work. Prepare the version
+  bump in a final release PR after the milestone's agreed scope is complete.
 - Vercel deploys production from `main` and previews from pull requests.
 - Tag releases on `main` with annotated `v<version>` tags matching
   `packages/mielui/package.json`. Do not move or reuse an existing release tag.
