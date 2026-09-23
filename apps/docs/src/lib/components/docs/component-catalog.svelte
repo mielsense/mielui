@@ -119,7 +119,7 @@
     {/if}
 
     {#if nestedGroups.length}
-        <section aria-labelledby="components" class="flex flex-col gap-6">
+        <section aria-labelledby="components" class="flex flex-col gap-12">
             <Typography.H2 id="components">Components</Typography.H2>
             {#each nestedGroups as group (group.id)}
                 {@render catalogGroup(group, true)}
