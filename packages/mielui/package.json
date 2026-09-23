@@ -1,7 +1,7 @@
 {
     "name": "@mielui/svelte",
-    "version": "0.1.0",
-    "description": "SvelteKit component library inspired by shadcn/ui. Svelte 5 + Tailwind v4.",
+    "version": "0.1.1",
+    "description": "Composable Svelte 5 components, motion, and themes. Import the package or copy the source with the Mielui CLI.",
     "license": "MIT",
     "repository": {
         "type": "git",

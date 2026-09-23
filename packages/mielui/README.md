@@ -1,124 +1,76 @@
 # @mielui/svelte
 
-SvelteKit component library inspired by shadcn/ui. **Svelte 5 + Tailwind v4.**
+Mielui provides composable Svelte components, motion actions, and a shared theme system. Import the package or copy component source into your project with the `mielui` CLI.
 
-This package is the importable library: `pnpm add @mielui/svelte` and import components
-directly. (If you'd rather own the source in your own repo, shadcn-style, use the
-`mielui` CLI's `add` command instead. This package is the "install it" path.)
+Mielui is independently maintained. It originated from Sivir UI and has since developed its own component APIs, interactions, themes, documentation, and release cycle. See [UPSTREAM.md](./UPSTREAM.md) for provenance and credits.
 
 ## Requirements
 
-- **Svelte 5** and **Tailwind v4** (peer dependencies). The easiest base is a
-  SvelteKit app with Tailwind already set up:
-    ```sh
-    pnpm dlx sv create my-app          # pick Skeleton + TypeScript
-    cd my-app && pnpm dlx sv add tailwindcss
-    ```
+- Svelte 5.56 or newer.
+- Tailwind CSS v4.
+- SvelteKit is optional.
 
-## Install
+## Install the package
 
 ```sh
 pnpm add @mielui/svelte
-# or: npm i @mielui/svelte / pnpm add @mielui/svelte
 ```
 
-Runtime dependencies (`@floating-ui/dom`, `@lucide/svelte`, `cnfast`,
-`tailwind-variants`, …) install automatically.
-
-## Wire up the styles
-
-Mielui ships its Tailwind theme and design tokens in one stylesheet. In your app's
-CSS (e.g. `src/app.css`), import it as the single entry point:
+Import the stylesheet once from your application's root CSS:
 
 ```css
 @import '@mielui/svelte/ui.css';
 ```
 
-`ui.css` already pulls in Tailwind itself and registers Mielui's own components as a
-Tailwind source. Do not add a separate `@import 'tailwindcss';`. This one line
-covers Tailwind, the Mielui theme variables, and class scanning for every Mielui
-component. Tailwind v4 auto-detects your own files, so your app classes keep
-working too.
+This entry point includes Tailwind, Mielui tokens, and component source scanning. Do not add another `@import 'tailwindcss'` alongside it. Import your application CSS from the root layout or application entry point.
 
-Make sure that CSS file is imported once at the root (a fresh
-`sv add tailwindcss` already imports `app.css` in `src/routes/+layout.svelte`).
-
-## Fonts
-
-Mielui's default theme sets `--font-sans` to Inter and `--font-mono` to
-JetBrains Mono. Both faces ship with the package through `@fontsource/inter`
-and `@fontsource/jetbrains-mono`, which `ui.css` imports as self-hosted
-`latin-400/500/600/700` stylesheets. Your bundler serves the `woff2` files
-locally, so screens render the intended typefaces with no Google Fonts request
-and no network access at runtime — including containerized deployments.
-
-Do not add a remote font link to match older screenshots. To use a different
-face, override `--font-sans`, `--font-mono`, or `--font-header` in your own CSS
-and bring that font yourself; non-default Theme Studio presets already work
-this way.
-
-## Use it
-
-Single-element components are named exports:
+Use named imports for atomic components and namespace imports for compound components:
 
 ```svelte
-<script>
-    import { Button, Input, Switch } from '@mielui/svelte';
+<script lang="ts">
+    import { Button } from '@mielui/svelte/components/button';
+    import * as Tabs from '@mielui/svelte/components/tabs';
 </script>
 
 <Button>Get started</Button>
-<Input placeholder="Email" />
-<Switch />
-```
 
-Compound components are namespace exports; their parts hang off the namespace:
-
-```svelte
-<script>
-    import { AlertDialog, Tabs } from '@mielui/svelte';
-</script>
-
-<AlertDialog.Root>
-    <AlertDialog.Trigger>Delete</AlertDialog.Trigger>
-    <AlertDialog.Content>
-        <AlertDialog.Title>Are you sure?</AlertDialog.Title>
-        <AlertDialog.Description>This can't be undone.</AlertDialog.Description>
-        <AlertDialog.Footer>
-            <AlertDialog.Exit>Cancel</AlertDialog.Exit>
-            <AlertDialog.Confirm>Delete</AlertDialog.Confirm>
-        </AlertDialog.Footer>
-    </AlertDialog.Content>
-</AlertDialog.Root>
-
-<Tabs.Root value="one">
-    <Tabs.List>
-        <Tabs.Trigger value="one">One</Tabs.Trigger>
-        <Tabs.Trigger value="two">Two</Tabs.Trigger>
+<Tabs.Root value="overview">
+    <Tabs.List aria-label="Project views">
+        <Tabs.Trigger value="overview">Overview</Tabs.Trigger>
+        <Tabs.Trigger value="activity">Activity</Tabs.Trigger>
     </Tabs.List>
-    <Tabs.Content value="one">First panel</Tabs.Content>
-    <Tabs.Content value="two">Second panel</Tabs.Content>
+    <Tabs.Content value="overview">Project overview</Tabs.Content>
+    <Tabs.Content value="activity">Recent activity</Tabs.Content>
 </Tabs.Root>
 ```
 
-Every component is also reachable directly if you prefer narrower imports:
+The package root also exports components. Per-component imports make each dependency explicit. Read the [component documentation](https://ui.miel.my/docs/components) for the current composition and props.
 
-```svelte
-import {Button} from '@mielui/svelte/components/button'; import * as AlertDialog from '@mielui/svelte/components/alert-dialog';
+## Copy component source
+
+```sh
+pnpm dlx @mielui/svelte init
+pnpm dlx @mielui/svelte add button
 ```
 
-## What's exported
+The CLI installs source and required helpers from the package's bundled registry. Edit the copied files in your own project. See the [installation guide](https://ui.miel.my/docs/installation) for configuration and theming.
 
-- **Named:** `Badge`, `Button`, `Checkbox`, `CodeBlock`,
-  `CopyButton`, `Input`, `Label`, `Markdown`, `Pagination`, `Progress`, `Reasoning`,
-  `ReorderList`, `ResponseStream`, `ScrollArea`, `Kbd`, `Skeleton`, `SkeletonSwap`,
-  `Slider`, `Spinner`, `Switch`, `TaskSteps`, `Textarea`, `Toggle`, `Toolbar`, and the toast API (`Toast`, `Toaster`,
-  `toast`, `getToastUIState`).
-- **Namespaced:** `Accordion`, `Alert`, `AlertDialog`, `Attachment`, `Avatar`,
-  `Breadcrumb`, `Card` (includes `variant="panel"`), `Collapsible`, `ColorPicker`,
-  `Combobox`, `Command`, `ContextMenu`, `Conversation`, `DropdownMenu`,
-  `HoverCard`, `Message`, `Dialog`, `Popover`, `Composer`,
-  `RadioGroup`, `Select`, `Sheet`, `Tabs`, `ToggleGroup`, `Tool`, `Tooltip`.
+## Fonts and themes
 
-## License
+The default theme uses Inter and JetBrains Mono. The stylesheet imports their self-hosted font files from the package's runtime dependencies. Override `--font-sans`, `--font-mono`, or `--font-header` and supply the corresponding font files to use another family.
 
-Maintained by [mielsense](https://github.com/mielsense). [MIT](../../LICENSE). See [upstream attribution](../../UPSTREAM.md).
+Use [Theme Studio](https://ui.miel.my/studio) to configure colors, typography, density, edges, and motion. Components honor reduced motion and the shared theme settings.
+
+## Agent guidance
+
+```sh
+npx skills add mielsense/mielui --skill mielui
+```
+
+The skill points coding agents to Mielui's current component docs, examples, and upgrade notes. Sivir examples are not an API reference for this package.
+
+## License and attribution
+
+Mielui is MIT licensed. The package includes [LICENSE](./LICENSE), the retained [COSS notice](./LICENSE-COSS), and [UPSTREAM.md](./UPSTREAM.md). Preserve the applicable copyright and permission notices when copying or redistributing source.
+
+Maintained by [mielsense](https://github.com/mielsense).

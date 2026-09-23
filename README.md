@@ -10,6 +10,10 @@ Svelte components for building interfaces with a shared visual system. Use them 
   style="border: 1px solid hsl(0, 1%, 92%); border-radius: 18px; box-shadow: 0 2px 6px hsl(0 0% 0% / 0.03);"
 />
 
+Mielui is independently maintained and originated from Sivir UI. Its component APIs, motion, theme system, CLI, and documentation have since developed separately. See [UPSTREAM.md](UPSTREAM.md) for the import history and retained credits.
+
+Requires Svelte 5.56 or newer and Tailwind CSS v4. SvelteKit is optional.
+
 ## Documentation
 
 Visit [ui.miel.my/docs/introduction](https://ui.miel.my/docs/introduction) for the documentation.

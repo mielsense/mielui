@@ -4,13 +4,6 @@
 
 @layer theme, base, components, utilities;
 
-@font-face {
-    font-family: 'SF Mono';
-    src: url('/fonts/SFMono-Light.otf') format('opentype');
-    font-weight: normal;
-    font-style: normal;
-}
-
 html,
 body {
     margin: 0;

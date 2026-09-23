@@ -27,7 +27,7 @@ No database or secret is required for the docs. Leave `DOCS_ADAPTER` unset so th
 
 ## npm publishing
 
-The renamed package is `@mielui/svelte`, with the `mielui` executable. It is not published by this import.
+The package is `@mielui/svelte`, with the `mielui` executable. Package versions and releases are managed independently of Sivir UI.
 
 1. Create or obtain access to the `mielui` organization on npm.
 2. Add a publishing token as the GitHub Actions secret `NPM_TOKEN`.
@@ -35,10 +35,10 @@ The renamed package is `@mielui/svelte`, with the `mielui` executable. It is not
 4. Update the package version and lockfile, run `pnpm run release-gate`, and merge the change.
 5. Create a matching `v<version>` tag and publish its GitHub release. The publish workflow rechecks and publishes the verified tarball.
 
-The inherited workflow uses npm provenance. Confirm registry and source visibility requirements before publishing from a private repository.
+The publish workflow uses npm provenance. Confirm registry and source visibility requirements before publishing from a private repository.
 
 ## Optional theme registry
 
 The CLI installs component source from the package's bundled registry. Built-in themes also ship in the package. The separate `apps/registry` service stores shared themes and requires PostgreSQL.
 
-For shared themes, copy `apps/registry/.env.example` to `.env`, set `DATABASE_URL` and `DIRECT_URL`, run migrations, and deploy the registry service with the included Docker setup. The renamed default endpoint is `https://registry.ui.miel.my`; configure that domain when deploying the service. It is not deployed with the Vercel docs.
+For shared themes, copy `apps/registry/.env.example` to `.env`, set `DATABASE_URL` and `DIRECT_URL`, run migrations, and deploy the registry service with the included Docker setup. The default endpoint is `https://registry.ui.miel.my`; configure that domain when deploying the service. It is not deployed with the Vercel docs.
