@@ -188,3 +188,7 @@
 - Align the leading Preview / Code tabs with the shared content gutter.
 
 - Give documentation content a moderate side gutter while keeping tabs, headings, toolbar, and footer aligned.
+
+- Scale magnetic catch distances to neighboring section heights and settle only once per downward scroll gesture, preventing short sections from oscillating.
+
+- Match the Copy page control height to the adjacent-page arrows in the docs footer.

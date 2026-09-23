@@ -69,7 +69,7 @@
 
 <div class="flex flex-col items-end gap-1">
     <Popover.Root bind:open placement="top-end">
-        <Group.Root aria-label="Page actions">
+        <Group.Root aria-label="Page actions" class="h-8">
             <Button variant="outline" size="sm" onclick={copy} disabled={status === 'loading'}>
                 <HugeiconsIcon icon={status === 'copied' ? CheckIcon : CopyIcon} size={15} />
                 {status === 'copied' ? 'Copied' : status === 'loading' ? 'Copying…' : 'Copy page'}
