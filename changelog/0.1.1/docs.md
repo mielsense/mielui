@@ -184,3 +184,5 @@
 - Remove the doubled divider between catalog search and the first section.
 
 - Match article, toolbar, and footer side gutters to the page-outline header.
+
+- Align the leading Preview / Code tabs with the shared content gutter.

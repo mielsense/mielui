@@ -63,15 +63,6 @@
     [data-preview-canvas] {
     @apply min-h-[min(48svh,28rem)] rounded-none bg-transparent shadow-none;
 }
-.docs-article
-    :is(
-        [data-docs-page] > #hero [data-component-preview],
-        [data-docs-page] > [data-component-preview]
-    )
-    [data-preview-toolbar]
-    [data-ui='tabs-list'] {
-    @apply -ml-3;
-}
 
 .docs-article
     [data-docs-page]:not(:has(> [data-component-preview]))
