@@ -148,3 +148,5 @@
 - Make documentation search more compact, with quick destinations and a scrollable results list.
 
 - Add space between catalog cards and use consistent parent-label styling and spacing for all nested sidebar groups, including charts, while keeping standalone links compact.
+
+- Keep the expanded Notch export example clear of its trigger and show its file count in a compact badge.

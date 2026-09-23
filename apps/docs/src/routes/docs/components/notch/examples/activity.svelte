@@ -19,7 +19,7 @@
         expanded = !expanded;
     }
 </script>
-<Button onclick={openActivity}>Show export activity</Button>
+<Button class="mt-24" onclick={openActivity}>Show export activity</Button>
 <Notch.Root bind:open side="top" duration={0}>
     <Notch.SideAction
         side="end"
@@ -50,7 +50,7 @@
         {#if expanded}
             <ul class="divide-y divide-border text-sm">
                 {#each files as file (file.name)}
-                    <li class="flex items-center justify-between gap-4 py-3">
+                    <li class="flex items-center justify-between gap-4 py-2">
                         <span>{file.name}</span>
                         <span class="text-xs tabular-nums text-foreground-muted">{file.size}</span>
                     </li>
@@ -58,7 +58,10 @@
             </ul>
         {/if}
     </Notch.Content>
-    <Notch.Accessory class="text-xs tabular-nums text-foreground-muted">
-        3 of 3 exported
+    <Notch.Accessory
+        class="rounded-full bg-card px-2 py-1 text-xs tabular-nums text-foreground-muted shadow-[var(--elevation-control-edge)]"
+        aria-label="3 of 3 files exported"
+    >
+        3 of 3
     </Notch.Accessory>
 </Notch.Root>
