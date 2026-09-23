@@ -197,3 +197,5 @@
 - Update the agent skill and package guides for Mielui's current APIs, independent release history, and retained Sivir UI and COSS attribution.
 - Refresh the README screenshot with the current homepage.
 - Clarify current documentation sources and distinguish the historical Sivir UI changelog from Mielui releases.
+
+- Document npm publishing authorization and the GitHub release steps for maintainers.

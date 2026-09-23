@@ -29,13 +29,45 @@ No database or secret is required for the docs. Leave `DOCS_ADAPTER` unset so th
 
 The package is `@mielui/svelte`, with the `mielui` executable. Package versions and releases are managed independently of Sivir UI.
 
-1. Create or obtain access to the `mielui` organization on npm.
-2. Add a publishing token as the GitHub Actions secret `NPM_TOKEN`.
-3. Configure the GitHub `npm` environment and any desired reviewer protection.
-4. Update the package version and lockfile, run `pnpm run release-gate`, and merge the change.
-5. Create a matching `v<version>` tag and publish its GitHub release. The publish workflow rechecks and publishes the verified tarball.
+### One-time npm authorization
 
-The publish workflow uses npm provenance. Confirm registry and source visibility requirements before publishing from a private repository.
+Your local `npm login` authenticates your computer. GitHub Actions needs its own publishing authorization.
+
+For a package that already exists on npm, configure a **Trusted Publisher** in its npm package settings:
+
+- Provider: GitHub Actions
+- Organization or user: `mielsense`
+- Repository: `mielui`
+- Workflow filename: `publish.yml`
+- Environment: `npm`
+- Allow direct publishing with `npm publish`.
+
+The workflow uses OpenID Connect and npm 11.20.0. Once trusted publishing is configured, it does not need an `NPM_TOKEN` secret. See [npm trusted publishing](https://docs.npmjs.com/trusted-publishers/).
+
+If npm requires an initial publication before you can configure the package's trusted publisher, create a short-lived granular npm token with read/write access to the `mielui` scope and permission to publish from CI. Add it as `NPM_TOKEN` in [the GitHub `npm` environment](https://github.com/mielsense/mielui/settings/environments). The workflow accepts this token for the first release. After publishing, configure the trusted publisher, remove the GitHub secret, and revoke the bootstrap token on npm. Never put the token in a commit or release notes.
+
+### Release a version
+
+1. Update `packages/mielui/package.json` to the version you intend to publish, update the lockfile if needed, and finish that version's notes under `changelog/<version>/`.
+2. Run `pnpm run release-gate`, let the pull request checks pass, and merge the release changes into `main`. The existing `v0.1.1` release work is in [PR #2](https://github.com/mielsense/mielui/pull/2).
+3. From an up-to-date checkout of `main`, create an annotated tag matching the package version. For `0.1.1`:
+
+   ```sh
+   git switch main
+   git pull --ff-only
+   git tag -a v0.1.1 -m "Release v0.1.1"
+   git push origin v0.1.1
+   ```
+
+   Use a new version for every subsequent release. Never move or reuse a published version tag.
+
+4. Open [GitHub Releases](https://github.com/mielsense/mielui/releases/new), select the existing `v0.1.1` tag, set the title to `v0.1.1`, and add release notes.
+5. Click **Publish release**. This is the action that tells GitHub to run the npm publishing workflow. Saving a draft or pushing a tag alone does not publish the package.
+6. Watch [the Publish workflow](https://github.com/mielsense/mielui/actions/workflows/publish.yml). It checks that the tag matches the package version, runs the complete CI suite, and publishes that run's verified tarball to npm with provenance.
+
+For a later release, replace `0.1.1` with the new package version throughout these steps. Editing a GitHub release title does not change the npm version.
+
+The current workflow publishes to npm's `latest` channel, including when a GitHub release is marked as a prerelease. Use this procedure for stable releases only until a separate prerelease channel is configured.
 
 ## Optional theme registry
 
