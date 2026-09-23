@@ -156,3 +156,7 @@
 - Give chart loading and empty messages the shared inset card appearance.
 
 - Match Heatmap tooltips to the shared chart surface and inset the Gauge arc inside a thicker track.
+
+- Give Gauge arc ends a subtle corner radius.
+
+- Keep Gauge loading and empty states compact without a nested card.

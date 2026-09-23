@@ -74,7 +74,7 @@
                     {@const invoice = cell.row.original}
                     {#if cell.column.id === 'client'}
                         <span class="font-medium">{invoice.client}</span>
-                        <p class="mt-1 text-xs text-foreground-muted">Due{invoice.due}</p>
+                        <p class="mt-1 text-xs text-foreground-muted">{`Due ${invoice.due}`}</p>
                     {:else if cell.column.id === 'status'}
                         <Badge variant={model.invoiceBadgeVariant(invoice.status)}>
                             {invoice.status}

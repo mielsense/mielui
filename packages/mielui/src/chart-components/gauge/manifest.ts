@@ -9,6 +9,7 @@ export const manifest: Manifest = {
     role: 'meter',
     files: [
         'components/gauge/gauge.svelte',
+        'components/gauge/arc-path.ts',
         'components/gauge/index.ts',
         'components/gauge/manifest.ts'
     ],

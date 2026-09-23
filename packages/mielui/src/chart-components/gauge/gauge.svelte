@@ -1,7 +1,10 @@
 <script lang="ts">
     import { cn } from '@mielui/svelte/utils';
     import { onMount, untrack } from 'svelte';
+    import { cubicOut } from 'svelte/easing';
+    import { Tween } from 'svelte/motion';
     import type { GaugeProps, GaugeTone } from '.';
+    import { gaugeArcPath } from './arc-path';
 
     let {
         value,
@@ -32,14 +35,15 @@
     const arcStrokeWidth = $derived(Math.max(1, safeStrokeWidth * 0.65));
     const clamped = $derived(Number.isFinite(value) ? Math.min(Math.max(value, 0), safeMax) : 0);
     const radius = $derived((safeSize - safeStrokeWidth) / 2);
-    const offset = $derived(100 * (1 - clamped / safeMax));
+    const progress = new Tween(
+        untrack(() => clamped / safeMax),
+        { easing: cubicOut }
+    );
+    const path = $derived(gaugeArcPath(safeSize, radius, arcStrokeWidth, progress.current));
     const fontSize = $derived(Math.max(10, safeSize * 0.24));
-    let arc: SVGCircleElement;
+    let arc: SVGPathElement;
     let mounted = $state(false);
     let duration = $state(0);
-    let animation: Animation | undefined;
-    let previousOffset = 100;
-    let entered = false;
 
     onMount(() => {
         const preference = window.matchMedia?.('(prefers-reduced-motion: reduce)');
@@ -54,6 +58,9 @@
                   : 480;
         }
         refreshMotion();
+        if (duration > 0) {
+            void progress.set(0, { duration: 0 });
+        }
         mounted = true;
         preference?.addEventListener('change', refreshMotion);
         const observer = new MutationObserver(refreshMotion);
@@ -63,35 +70,20 @@
             ancestor = ancestor.parentElement;
         }
         return () => {
-            animation?.cancel();
+            void progress.set(progress.current, { duration: 0 });
             observer.disconnect();
             preference?.removeEventListener('change', refreshMotion);
         };
     });
 
     $effect(() => {
-        const target = offset;
+        const target = clamped / safeMax;
         const milliseconds = duration;
         if (!mounted) {
             return;
         }
         untrack(() => {
-            const from =
-                animation && animation.playState !== 'finished'
-                    ? Number.parseFloat(getComputedStyle(arc).strokeDashoffset)
-                    : entered
-                      ? previousOffset
-                      : 100;
-            animation?.cancel();
-            arc.setAttribute('stroke-dashoffset', String(target));
-            if (milliseconds > 0 && from !== target && typeof arc.animate === 'function') {
-                animation = arc.animate(
-                    [{ strokeDashoffset: String(from) }, { strokeDashoffset: String(target) }],
-                    { duration: milliseconds, easing: 'cubic-bezier(0.2,0,0,1)' }
-                );
-            }
-            previousOffset = target;
-            entered = true;
+            void progress.set(target, { duration: milliseconds });
         });
     });
     const accessibleLabel = $derived(label ?? `${clamped} of ${safeMax}`);
@@ -122,22 +114,12 @@
             stroke-width={safeStrokeWidth}
             class="stroke-secondary"
         />
-        <circle
-            cx={safeSize / 2}
-            cy={safeSize / 2}
-            r={radius}
-            fill="none"
-            stroke-width={arcStrokeWidth}
-            stroke-linecap="round"
+        <path
+            data-ui="gauge-arc"
             bind:this={arc}
-            pathLength={100}
-            stroke-dasharray="100"
-            stroke-dashoffset={offset}
-            opacity={clamped === 0 ? 0 : 1}
-            class={cn(
-                toneClasses[tone],
-                'stroke-current'
-            )}
+            d={path}
+            fill-rule="evenodd"
+            class={cn(toneClasses[tone], 'fill-current')}
         />
     </svg>
     <span

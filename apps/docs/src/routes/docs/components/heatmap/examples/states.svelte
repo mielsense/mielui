@@ -7,7 +7,7 @@
     import { getCssDuration } from '@mielui/svelte/transition';
     import { days } from './data';
 
-    let state = $state('ready');
+    let dataState = $state('ready');
     let animation = $state('rows');
     let replay = $state(0);
     const entrance = $derived(
@@ -19,7 +19,7 @@
     }
 
     function highlightCalendar(element: HTMLElement) {
-        if (animation !== 'live' || state !== 'ready') {
+        if (animation !== 'live' || dataState !== 'ready') {
             return;
         }
         const preference = window.matchMedia('(prefers-reduced-motion: reduce)');
@@ -120,7 +120,7 @@
 </script>
 <div class="w-full space-y-6">
     <div class="flex flex-wrap items-center gap-3">
-        <Tabs.Root bind:value={state} variant="ghost">
+        <Tabs.Root bind:value={dataState} variant="ghost">
             <div role="group" aria-label="Activity data state">
                 <Tabs.List>
                     <Tabs.Trigger value="ready">Ready</Tabs.Trigger>
@@ -141,15 +141,18 @@
         </Tabs.Root>
         <Button variant="secondary" onclick={replayCalendar}>Replay</Button>
     </div>
-    <div aria-busy={state === 'loading'} class="relative flex min-h-64 items-center justify-center">
-        {#if state === 'ready'}
+    <div
+        aria-busy={dataState === 'loading'}
+        class="relative flex min-h-64 items-center justify-center"
+    >
+        {#if dataState === 'ready'}
             {#key `${animation}-${replay}`}
                 <div class="w-full" {@attach highlightCalendar}>
                     <Heatmap.Root {days} weeks={26} endDate="2026-09-15" animation={entrance} />
                 </div>
             {/key}
         {:else}
-            {#if state === 'loading'}
+            {#if dataState === 'loading'}
                 <div
                     aria-hidden="true"
                     class="absolute inset-x-0 grid grid-cols-12 gap-1 opacity-50"
@@ -159,16 +162,18 @@
                     {/each}
                 </div>
             {/if}
-            <Card.Root variant="inset" class="relative w-full max-w-xs text-center" role="status">
-                <Card.Content>
-                    <Card.Title>
-                        {state === 'loading' ? 'Loading activity' : 'No activity yet'}
-                    </Card.Title>
-                    <Card.Description class="mt-2">
-                        {state === 'loading' ? 'Fetching contributions for this period.' : 'Contributions will appear here when activity is available.'}
-                    </Card.Description>
-                </Card.Content>
-            </Card.Root>
+            <div role="status" class="relative w-full max-w-xs">
+                <Card.Root variant="inset" class="text-center">
+                    <Card.Content>
+                        <Card.Title>
+                            {dataState === 'loading' ? 'Loading activity' : 'No activity yet'}
+                        </Card.Title>
+                        <Card.Description class="mt-2">
+                            {dataState === 'loading' ? 'Fetching contributions for this period.' : 'Contributions will appear here when activity is available.'}
+                        </Card.Description>
+                    </Card.Content>
+                </Card.Root>
+            </div>
         {/if}
     </div>
 </div>

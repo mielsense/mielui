@@ -1,11 +1,10 @@
 <script lang="ts">
     import { Button } from '@mielui/svelte/components/button';
-    import * as Card from '@mielui/svelte/components/card';
     import { Gauge } from '@mielui/svelte/components/gauge';
     import { Skeleton } from '@mielui/svelte/components/skeleton';
     import * as Tabs from '@mielui/svelte/components/tabs';
 
-    let state = $state('ready');
+    let dataState = $state('ready');
     let animation = $state('reveal');
     let replay = $state(0);
 
@@ -14,7 +13,7 @@
     }
 
     function liveHighlight(node: HTMLElement) {
-        const arc = node.querySelector<SVGCircleElement>('circle:last-child');
+        const arc = node.querySelector<SVGPathElement>('[data-ui="gauge-arc"]');
         if (!arc) {
             return;
         }
@@ -35,7 +34,7 @@
                 return;
             }
             if (!animation) {
-                animation = arc.animate(
+                animation = arc?.animate(
                     [
                         { filter: 'brightness(1)' },
                         { filter: 'brightness(1.45)' },
@@ -70,7 +69,7 @@
 </script>
 <div class="w-full space-y-6">
     <div class="flex flex-wrap items-center gap-3">
-        <Tabs.Root bind:value={state} variant="ghost">
+        <Tabs.Root bind:value={dataState} variant="ghost">
             <div role="group" aria-label="Storage data state">
                 <Tabs.List>
                     <Tabs.Trigger value="ready">Ready</Tabs.Trigger>
@@ -92,27 +91,21 @@
         </Tabs.Root>
         <Button variant="secondary" onclick={replayAnimation}>Replay</Button>
     </div>
-    <div aria-busy={state === 'loading'} class="flex min-h-64 items-center justify-center">
-        {#if state === 'loading' || state === 'empty'}
-            <Card.Root variant="inset" class="w-full max-w-xs">
-                <Card.Content class="items-center gap-4 text-center">
-                    {#if state === 'loading'}
-                        <Skeleton class="size-24 rounded-full" />
-                    {:else}
-                        <Gauge value={0} size={96} label="No storage measurement" tone="muted">
-                            —
-                        </Gauge>
-                    {/if}
-                    <div role="status" class="space-y-1">
-                        <Card.Title>
-                            {state === 'loading' ? 'Loading usage' : 'No usage data'}
-                        </Card.Title>
-                        <Card.Description>
-                            {state === 'loading' ? 'Fetching your storage measurement.' : 'Storage usage is not available yet.'}
-                        </Card.Description>
-                    </div>
-                </Card.Content>
-            </Card.Root>
+    <div aria-busy={dataState === 'loading'} class="flex min-h-64 items-center justify-center">
+        {#if dataState === 'loading' || dataState === 'empty'}
+            <div class="flex flex-col items-center gap-3 text-center" role="status">
+                {#if dataState === 'loading'}
+                    <Skeleton
+                        variant={animation === 'none' ? 'default' : 'shimmer'}
+                        class="size-[120px] rounded-full [mask-image:radial-gradient(transparent_48%,#000_49%)]"
+                    />
+                {:else}
+                    <Gauge value={0} label="No storage measurement" tone="muted">—</Gauge>
+                {/if}
+                <p class="text-sm text-foreground-muted">
+                    {dataState === 'loading' ? 'Loading usage…' : 'No usage data'}
+                </p>
+            </div>
         {:else}
             {#key `${animation}-${replay}`}
                 <div
@@ -121,7 +114,7 @@
                 >
                     <div {@attach animation === 'live' ? liveHighlight : undefined}>
                         <Gauge
-                            value={state === 'zero' ? 0 : state === 'full' ? 100 : 64}
+                            value={dataState === 'zero' ? 0 : dataState === 'full' ? 100 : 64}
                             max={100}
                             label="Storage used in GB"
                         />
