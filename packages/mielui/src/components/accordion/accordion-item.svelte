@@ -3,6 +3,7 @@
     import { Accordion as BitsAccordion } from 'bits-ui';
     import { setContext } from 'svelte';
     import type { AccordionItemProps } from '.';
+    import type { AccordionItemContext } from './item-context';
 
     let {
         class: className,
@@ -12,20 +13,21 @@
         ...rest
     }: AccordionItemProps = $props();
     const uid = $props.id();
-    let triggerId = $state(`${uid}-trigger`);
-    let contentId = $state(`${uid}-content`);
-    setContext('accordion-item', {
-        get triggerId() {
-            return triggerId;
+    let trigger = $state<(() => string) | undefined>();
+    let content = $state<(() => string) | undefined>();
+    setContext<AccordionItemContext>('accordion-item', {
+        id: uid,
+        get trigger() {
+            return trigger;
         },
-        set triggerId(value: string) {
-            triggerId = value;
+        set trigger(value) {
+            trigger = value;
         },
-        get contentId() {
-            return contentId;
+        get content() {
+            return content;
         },
-        set contentId(value: string) {
-            contentId = value;
+        set content(value) {
+            content = value;
         },
         get value() {
             return value;

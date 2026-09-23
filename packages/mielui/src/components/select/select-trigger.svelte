@@ -45,7 +45,7 @@
         <Button
             {...buttonAttributes(mergeProps(rest, { ...props as HTMLButtonAttributes }))}
             role="combobox"
-            aria-labelledby={rest['aria-label'] ? undefined : `${context.id}-value`}
+            aria-labelledby={rest['aria-labelledby'] ?? (rest['aria-label'] ? undefined : `${context.id}-value`)}
             aria-controls={`${context.id}-content`}
             onpointerdown={undefined}
             onpointerup={undefined}

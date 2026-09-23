@@ -6,7 +6,6 @@
         positionFloatingPanel,
         submenuPanelOffset
     } from '@mielui/svelte/utils';
-    import { tick } from 'svelte';
     import { buttonAttributes } from '../_internal/button-attributes';
     import type { Placement, PopoverTriggerProps } from '.';
     import { getPopoverContext } from './context.svelte';
@@ -71,22 +70,26 @@
         }, delay);
     }
 
-    async function handleEnter() {
-        if (popoverState.hoverable) {
-            await tick();
-            const delay = popoverState.delay ?? 0;
-            if (delay > 0) {
-                popoverState.hoverTimeout = setTimeout(() => {
-                    if (element?.matches(':hover, :focus')) {
-                        openPopover();
-                    }
-                }, delay);
-            } else {
-                openPopover();
-            }
-
-            popoverState.hovering = true;
+    function handleEnter() {
+        if (!popoverState.hoverable || rest.disabled) {
+            return;
         }
+        clearTimeout(popoverState.hoverTimeout);
+        clearTimeout(popoverState.closeTimeout);
+        popoverState.hoverTimeout = undefined;
+        popoverState.closeTimeout = undefined;
+        const delay = popoverState.delay ?? 0;
+        if (delay > 0) {
+            popoverState.hoverTimeout = setTimeout(() => {
+                popoverState.hoverTimeout = undefined;
+                if (!rest.disabled && element?.matches(':hover, :focus')) {
+                    openPopover();
+                }
+            }, delay);
+        } else {
+            openPopover();
+        }
+        popoverState.hovering = true;
     }
 
     function handleLeave(event: MouseEvent | FocusEvent) {

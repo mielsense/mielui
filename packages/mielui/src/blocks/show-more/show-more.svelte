@@ -114,7 +114,8 @@
             aria-label={preview || scrollable ? label : undefined}
             tabindex={scrollable ? 0 : undefined}
             data-scrollable={scrollable}
-            class="mielui-show-more-region overscroll-contain rounded-[var(--radius-sm)] outline-none focus-visible:shadow-[var(--focus-ring)]"
+            data-veiled={veiled}
+            class="transition-[height] [transition-duration:var(--motion-duration-panel)] ease-[var(--ease-out)] motion-reduce:transition-none data-[veiled=true]:[mask-image:linear-gradient(to_bottom,black_calc(100%_-_var(--spacing)_*_9),transparent)] overscroll-contain rounded-[var(--radius-sm)] outline-none focus-visible:shadow-[var(--focus-ring)]"
             style:height={preview || height === undefined ? undefined : `${height}px`}
             style:max-height={preview ? `${heightLimit}px` : height === undefined ? `${visibleLines}lh` : undefined}
             style:overflow-y={preview || scrollable ? 'auto' : 'hidden'}
@@ -132,7 +133,6 @@
                 {@render children?.()}
             </div>
         </div>
-        <div aria-hidden="true" data-visible={veiled} class="mielui-show-more-veil"></div>
     </div>
 
     {#if expandable}
@@ -146,14 +146,14 @@
             >
                 <span class="grid text-left">
                     <span
-                        class="mielui-show-more-label col-start-1 row-start-1"
+                        class="col-start-1 row-start-1 transition-[opacity,translate] [transition-duration:var(--motion-duration-press)] ease-[var(--ease-out)] data-[active=false]:opacity-0 data-[active=false]:translate-y-0.5 motion-reduce:transition-none"
                         data-active={!open}
                         aria-hidden={open}
                     >
                         {moreLabel}
                     </span>
                     <span
-                        class="mielui-show-more-label col-start-1 row-start-1"
+                        class="col-start-1 row-start-1 transition-[opacity,translate] [transition-duration:var(--motion-duration-press)] ease-[var(--ease-out)] data-[active=false]:opacity-0 data-[active=false]:translate-y-0.5 motion-reduce:transition-none"
                         data-active={open}
                         aria-hidden={!open}
                     >
@@ -166,7 +166,7 @@
                     height="12"
                     viewBox="0 0 12 12"
                     fill="none"
-                    class="mielui-show-more-chevron"
+                    class="transition-transform [transition-duration:var(--motion-duration-press)] ease-[var(--ease-out)] data-[open=true]:rotate-180 motion-reduce:transition-none"
                     data-open={open}
                 >
                     <path
@@ -181,49 +181,3 @@
         {/if}
     {/if}
 </div>
-
-<style>
-    .mielui-show-more-region {
-        transition: height var(--motion-duration-panel) var(--ease-out);
-    }
-
-    .mielui-show-more-veil {
-        pointer-events: none;
-        position: absolute;
-        inset-inline: 0;
-        bottom: 0;
-        height: 2.25rem;
-        background: linear-gradient(to top, var(--color-card), transparent);
-        opacity: 0;
-        transition: opacity var(--motion-duration-press) var(--ease-out);
-    }
-
-    .mielui-show-more-veil[data-visible='true'] {
-        opacity: 1;
-    }
-
-    .mielui-show-more-label,
-    .mielui-show-more-chevron {
-        transition-property: opacity, translate, rotate;
-        transition-duration: var(--motion-duration-press);
-        transition-timing-function: var(--ease-out);
-    }
-
-    .mielui-show-more-label[data-active='false'] {
-        opacity: 0;
-        translate: 0 2px;
-    }
-
-    .mielui-show-more-chevron[data-open='true'] {
-        rotate: 180deg;
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-        .mielui-show-more-region,
-        .mielui-show-more-veil,
-        .mielui-show-more-label,
-        .mielui-show-more-chevron {
-            transition: none;
-        }
-    }
-</style>

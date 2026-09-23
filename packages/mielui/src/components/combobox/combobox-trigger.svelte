@@ -169,6 +169,7 @@
         <button
             type="button"
             aria-label="Clear search"
+            {disabled}
             data-ui="combobox-trigger-clear"
             class="flex shrink-0 cursor-pointer items-center rounded-full text-foreground-muted transition-colors outline-none hover:text-foreground focus-visible:shadow-[var(--focus-ring)] [&_svg]:size-4 [&_svg]:shrink-0"
             onmousedown={(event) => {

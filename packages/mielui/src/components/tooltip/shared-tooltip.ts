@@ -387,7 +387,11 @@ export function createTooltipManager() {
 
     /** Re-label the active bubble in place (for example, a Copy→Copied flip). */
     function updateTooltipText(ref: HTMLElement, text: string) {
-        if (!visible || activeRef !== ref || !label || !text || text === currentText) {
+        if (!visible || activeRef !== ref || !label || text === currentText) {
+            return;
+        }
+        if (!text) {
+            dismiss();
             return;
         }
         setLabel(text, true);

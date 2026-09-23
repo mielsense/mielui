@@ -96,3 +96,38 @@ it('keeps hidden notification lifetimes running without expiring persistent load
     await expect.element(page.getByText('Long activity')).toBeVisible();
     expect(__getActiveToastStateForTests()?.data.toasts).toHaveLength(1);
 });
+
+it('morphs wrapped notification text while keeping one toast and usable side controls', async () => {
+    render(NotchToastFixture);
+    toast.info('First update', {
+        description:
+            'A longer workspace update wraps across several lines inside the compact notification panel.',
+        persistent: true
+    });
+    toast.success('Second update', {
+        description:
+            'The export is ready. Download it whenever you finish reviewing the current workspace changes.',
+        persistent: true
+    });
+    const region = page.getByRole('region', { name: 'Notifications' });
+    await expect.element(region).toBeVisible();
+    await region.hover();
+    const previous = page.getByRole('button', { name: 'Previous notification' });
+    const next = page.getByRole('button', { name: 'Next notification' });
+    await previous.click();
+    await next.click();
+    await previous.click();
+    await expect
+        .poll(() => {
+            const title = document.querySelector('[data-ui="toast-title"] [data-morph-visual]');
+            return title?.textContent;
+        })
+        .toBe('First update');
+    expect(document.querySelectorAll('[data-ui="toast"]')).toHaveLength(1);
+    const description = document.querySelector<HTMLElement>('[data-ui="toast"] > p');
+    if (!description) {
+        throw new Error('Missing notification description');
+    }
+    expect(description.scrollWidth).toBeLessThanOrEqual(description.clientWidth + 1);
+    expect(description.querySelector('[data-morph-visual]')).not.toBeNull();
+});

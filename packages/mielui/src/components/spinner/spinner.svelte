@@ -23,7 +23,7 @@
     let indicator = $state<HTMLSpanElement>();
     let phase = $state<SpinnerPhase>('loading');
     let entered = $state(false);
-    const spinDuration = $derived(`${850 / (speed > 0 ? speed : 1)}ms`);
+    const spinDuration = $derived(`${850 / (Number.isFinite(speed) && speed > 0 ? speed : 1)}ms`);
     const showCheckmark = $derived(phase === 'success' || phase === 'exiting');
     const collapsed = $derived(!entered || phase === 'exiting');
     const loaderBlur = $derived(showCheckmark || !entered ? 'blur(2px)' : 'blur(0px)');

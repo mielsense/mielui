@@ -100,11 +100,6 @@ export function createComboboxController(options: ControllerOptions) {
         if (next) {
             void tick().then(() => {
                 if (options.getOpen()) {
-                    console.info(
-                        input?.id,
-                        input ? getComputedStyle(input).visibility : '',
-                        input?.closest('[data-ui=combobox-content]')?.outerHTML.slice(0, 650)
-                    );
                     input?.focus({ preventScroll: true });
                     if (searchPlacement === 'trigger') {
                         input?.select();

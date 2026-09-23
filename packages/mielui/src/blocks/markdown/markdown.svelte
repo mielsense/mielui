@@ -33,7 +33,8 @@
 
 <style>
     .mielui-markdown-caret {
-        animation: mielui-markdown-caret 1.1s steps(1, end) infinite;
+        animation: mielui-markdown-caret calc(var(--motion-duration-panel, 180ms) * 6) steps(1, end)
+            infinite;
     }
 
     @keyframes mielui-markdown-caret {

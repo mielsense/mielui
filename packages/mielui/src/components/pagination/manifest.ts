@@ -11,7 +11,7 @@ export const manifest: Manifest = {
         'components/pagination/manifest.ts'
     ],
     components: ['_internal/utils'],
-    shared: ['hugeicons-icon', 'utils.cn'],
+    shared: ['hugeicons-icon', 'utils.cn', 'utils.pressable'],
     peerDependencies: {
         '@floating-ui/dom': '1.7.6',
         '@hugeicons/core-free-icons': '^4.3.0',

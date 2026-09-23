@@ -2,21 +2,34 @@
     import { themedSlide } from '@mielui/svelte/transition';
     import { cn } from '@mielui/svelte/utils';
     import { Accordion as BitsAccordion } from 'bits-ui';
-    import { getContext } from 'svelte';
+    import { onDestroy, untrack } from 'svelte';
     import type { AccordionContentProps } from '.';
+    import { getAccordionItemContext } from './item-context';
 
-    let { class: className, children, ...rest }: AccordionContentProps = $props();
-    const item = getContext<{ triggerId: string; contentId: string }>('accordion-item');
+    let { class: className, children, id, ...rest }: AccordionContentProps = $props();
+    const item = getAccordionItemContext();
+    const resolvedId = $derived(id ?? `${item.id}-content`);
+    const readId = () => {
+        return resolvedId;
+    };
+    untrack(() => {
+        item.content = readId;
+    });
+    onDestroy(() => {
+        if (item.content === readId) {
+            item.content = undefined;
+        }
+    });
 </script>
 
-<BitsAccordion.Content forceMount id={item.contentId} {...rest}>
+<BitsAccordion.Content forceMount id={resolvedId} {...rest}>
     {#snippet child({ props, open })}
         {#if open}
             <div
                 {...props}
                 data-ui="accordion-content"
-                role="region"
-                aria-labelledby={item.triggerId}
+                role={item.trigger ? 'region' : undefined}
+                aria-labelledby={item.trigger?.()}
                 data-state="open"
                 transition:themedSlide={{ durationVar: '--motion-duration-panel', fallback: 220 }}
                 class={cn(

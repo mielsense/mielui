@@ -4,14 +4,15 @@
     import type { SheetTitleProps } from '.';
     import { getSheetContext } from './context.svelte';
 
-    let { class: className, children, ...rest }: SheetTitleProps = $props();
+    let { class: className, children, id: suppliedId, ...rest }: SheetTitleProps = $props();
     const context = getSheetContext();
-    const id = `${context.id}-title`;
+    const id = $derived(suppliedId ?? `${context.id}-title`);
 
     $effect(() => {
-        context.titleId = id;
+        const currentId = id;
+        context.titleId = currentId;
         return () => {
-            if (context.titleId === id) {
+            if (context.titleId === currentId) {
                 context.titleId = undefined;
             }
         };

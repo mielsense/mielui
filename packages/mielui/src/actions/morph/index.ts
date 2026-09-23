@@ -139,7 +139,7 @@ export const morph: Action<HTMLElement, Options> = (node, initial) => {
                 const text = document.createElement('span');
                 text.textContent = visual.textContent;
                 text.style.gridArea = '1 / 1';
-                text.style.whiteSpace = 'pre';
+                text.style.whiteSpace = 'inherit';
                 visual.replaceChildren(text);
             }
             const outgoing = [...visual.children].map((element) => ({
@@ -148,7 +148,7 @@ export const morph: Action<HTMLElement, Options> = (node, initial) => {
             }));
             const after = document.createElement('span');
             after.textContent = typeof target === 'string' ? target : '';
-            Object.assign(after.style, { gridArea: '1 / 1', whiteSpace: 'pre' });
+            Object.assign(after.style, { gridArea: '1 / 1', whiteSpace: 'inherit' });
             visual.append(after);
             draw = (progress) => {
                 for (const entry of outgoing) {

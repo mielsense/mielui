@@ -6,18 +6,22 @@
     const popover = getPopoverContext();
     const key = popover.id;
 
+    let { children, class: classProp, id: suppliedId, ...rest }: PopoverTitleProps = $props();
+    const id = $derived(suppliedId ?? `popover-${String(key)}-title`);
+
     $effect(() => {
-        popover.titleId = `popover-${String(key)}-title`;
+        const currentId = id;
+        popover.titleId = currentId;
         return () => {
-            popover.titleId = undefined;
+            if (popover.titleId === currentId) {
+                popover.titleId = undefined;
+            }
         };
     });
-
-    let { children, class: classProp, ...rest }: PopoverTitleProps = $props();
 </script>
 
 <p
-    id={`popover-${String(key)}-title`}
+    {id}
     {...rest}
     class={cn(
         classProp,

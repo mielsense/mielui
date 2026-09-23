@@ -1,4 +1,5 @@
 <script lang="ts">
+    import { morph } from '@mielui/svelte/actions/morph';
     import { tick, untrack } from 'svelte';
     import * as Notch from '../notch/index';
     import { pauseToast, resumeToast, type Toast as ToastType, toast } from './lib.svelte';
@@ -148,28 +149,37 @@
         onfocusin={focusIn}
         onfocusout={focusOut}
     >
-        {#if displayed}
-            <Toast
-                toast={displayed}
-                surface="solid"
-                class="m-0 w-full max-w-none rounded-none border-0 bg-transparent p-0 shadow-none"
-                onmouseleave={preservePause}
-                onfocusout={preservePause}
-            >
-                <div class="flex min-w-0 items-center justify-center gap-2">
-                    <Icon />
-                    <Title class="flex-none" />
-                </div>
-                {#if displayed.description}
-                    <p class="mt-2 text-sm leading-relaxed text-foreground-muted">
-                        {displayed.description}
-                    </p>
-                {/if}
-                {#if displayed.actions?.length}
-                    <Actions class="ml-0 mt-3 justify-center" />
-                {/if}
-            </Toast>
-        {/if}
+        <div>
+            {#if displayed}
+                <Toast
+                    toast={displayed}
+                    surface="solid"
+                    class="m-0 w-full max-w-none rounded-none border-0 bg-transparent p-0 shadow-none"
+                    onmouseleave={preservePause}
+                    onfocusout={preservePause}
+                >
+                    <div class="flex min-w-0 items-center justify-center gap-2">
+                        <Icon />
+                        <Title class="flex-none">
+                            <span class="inline-block" use:morph={{ key: displayed.title }}>
+                                {displayed.title}
+                            </span>
+                        </Title>
+                    </div>
+                    {#if displayed.description}
+                        <p
+                            use:morph={{ key: displayed.description }}
+                            class="mt-2 text-sm leading-relaxed text-foreground-muted"
+                        >
+                            {displayed.description}
+                        </p>
+                    {/if}
+                    {#if displayed.actions?.length}
+                        <Actions class="ml-0 mt-3 justify-center" />
+                    {/if}
+                </Toast>
+            {/if}
+        </div>
     </Notch.Content>
     {#if toasts.length > 1}
         <Notch.Accessory

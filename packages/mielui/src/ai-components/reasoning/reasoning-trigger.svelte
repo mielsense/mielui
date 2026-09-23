@@ -12,6 +12,7 @@
         duration,
         children,
         class: className,
+        onclick,
         ...rest
     }: ReasoningTriggerProps = $props();
     const reasoning = getReasoningContext();
@@ -24,8 +25,11 @@
     data-ui="reasoning-trigger"
     aria-expanded={reasoning.open}
     aria-controls={`reasoning-${reasoning.id}`}
-    onclick={() => {
-        reasoning.open = !reasoning.open;
+    onclick={(event) => {
+        onclick?.(event);
+        if (!event.defaultPrevented) {
+            reasoning.open = !reasoning.open;
+        }
     }}
     class={cn(
         className,
@@ -40,14 +44,14 @@
                 {reasoning.streaming ? 'Thinking' : 'Thought'}
             </span>
             {#if !reasoning.streaming && duration}
-                <span class="text-foreground-muted">for{duration}</span>
+                <span class="text-foreground-muted">{`for ${duration}`}</span>
             {/if}
             <HugeiconsIcon
                 icon={ChevronDown}
                 size={14}
                 aria-hidden="true"
                 class={cn(
-                    'shrink-0 text-foreground-muted transition-transform [transition-duration:var(--motion-duration-hover)]',
+                    'shrink-0 text-foreground-muted transition-transform [transition-duration:var(--motion-duration-hover)] motion-reduce:transition-none',
                     reasoning.open && 'rotate-180'
                 )}
             />

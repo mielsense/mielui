@@ -139,3 +139,50 @@ describe('Accordion -- disabled items', () => {
         expect(screen.queryByTestId('content-c')).not.toBeInTheDocument();
     });
 });
+
+describe('Accordion custom IDs', () => {
+    it('keeps both ARIA relationships current when native IDs change', async () => {
+        const { rerender } = render(AccordionFixture, {
+            props: {
+                value: 'a',
+                triggerId: 'custom-trigger',
+                contentId: 'custom-content'
+            }
+        });
+        const trigger = screen.getByRole('button', { name: 'Item A' });
+        await waitFor(() => {
+            expect(trigger).toHaveAttribute('aria-controls', 'custom-content');
+            expect(screen.getByRole('region', { name: 'Item A' })).toHaveAttribute(
+                'aria-labelledby',
+                'custom-trigger'
+            );
+        });
+        await rerender({ triggerId: 'renamed-trigger', contentId: 'renamed-content' });
+        await waitFor(() => {
+            expect(trigger).toHaveAttribute('id', 'renamed-trigger');
+            expect(trigger).toHaveAttribute('aria-controls', 'renamed-content');
+            expect(screen.getByRole('region', { name: 'Item A' })).toHaveAttribute(
+                'aria-labelledby',
+                'renamed-trigger'
+            );
+        });
+    });
+
+    it('removes the control relationship while the content part is omitted', async () => {
+        const { rerender } = render(AccordionFixture, {
+            props: { value: 'a', contentId: 'optional-content' }
+        });
+        const trigger = screen.getByRole('button', { name: 'Item A' });
+        await waitFor(() => {
+            expect(trigger).toHaveAttribute('aria-controls', 'optional-content');
+        });
+        await rerender({ showContent: false });
+        await waitFor(() => {
+            expect(trigger).not.toHaveAttribute('aria-controls');
+        });
+        await rerender({ showContent: true });
+        await waitFor(() => {
+            expect(trigger).toHaveAttribute('aria-controls', 'optional-content');
+        });
+    });
+});

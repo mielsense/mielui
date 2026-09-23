@@ -2,29 +2,37 @@
     import { ArrowDown01Icon as ChevronDown } from '@hugeicons/core-free-icons';
     import { cn, pressable } from '@mielui/svelte/utils';
     import { Accordion as BitsAccordion } from 'bits-ui';
-    import { getContext } from 'svelte';
+    import { getContext, onDestroy, untrack } from 'svelte';
     import HugeiconsIcon from '../../hugeicons-icon.svelte';
     import type { AccordionContext, AccordionTriggerProps } from '.';
+    import { getAccordionItemContext } from './item-context';
 
-    let { class: className, children, ...rest }: AccordionTriggerProps = $props();
+    let { class: className, children, id, ...rest }: AccordionTriggerProps = $props();
 
     const ctx = getContext<AccordionContext>('accordion');
-    const item = getContext<{
-        value: string;
-        disabled: boolean;
-        triggerId: string;
-        contentId: string;
-    }>('accordion-item');
+    const item = getAccordionItemContext();
+    const resolvedId = $derived(id ?? `${item.id}-trigger`);
+    const readId = () => {
+        return resolvedId;
+    };
+    untrack(() => {
+        item.trigger = readId;
+    });
+    onDestroy(() => {
+        if (item.trigger === readId) {
+            item.trigger = undefined;
+        }
+    });
     const open = $derived(ctx.isOpen(item.value));
 </script>
 
 <BitsAccordion.Header>
-    <BitsAccordion.Trigger id={item.triggerId} {...rest}>
+    <BitsAccordion.Trigger id={resolvedId} {...rest}>
         {#snippet child({ props })}
             <button
                 {...props}
                 type="button"
-                aria-controls={open ? item.contentId : undefined}
+                aria-controls={open ? item.content?.() : undefined}
                 use:pressable
                 data-ui="accordion-trigger"
                 data-state={open ? 'open' : 'closed'}

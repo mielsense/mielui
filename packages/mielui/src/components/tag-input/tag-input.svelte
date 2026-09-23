@@ -209,6 +209,12 @@
         get disabled() {
             return disabled;
         },
+        get invalid() {
+            return Boolean(error);
+        },
+        get required() {
+            return required;
+        },
         get inputId() {
             return metadata.controlId;
         },

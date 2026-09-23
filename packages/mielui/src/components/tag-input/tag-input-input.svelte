@@ -19,7 +19,7 @@
     }: TagInputInputProps = $props();
 
     const context = getTagInputContext();
-    const disabled = $derived(disabledProp ?? context.disabled);
+    const disabled = $derived(disabledProp || context.disabled);
 
     function register(node: HTMLInputElement) {
         element = node;
@@ -47,8 +47,6 @@
             return;
         }
 
-        // Only swallow Enter when there is a draft to commit. Preventing it
-        // unconditionally would stop Enter ever submitting an enclosing form.
         if (event.key === 'Enter') {
             if (context.draft.trim() === '') {
                 return;
@@ -164,6 +162,8 @@
     {disabled}
     aria-label={ariaLabel ?? (context.hasLabel ? undefined : placeholder)}
     aria-describedby={mergeDescriptionIds(externalDescription, context.describedBy)}
+    aria-invalid={rest['aria-invalid'] ?? (context.invalid || undefined)}
+    aria-required={rest['aria-required'] ?? (context.required || undefined)}
     oninput={handleInput}
     onkeydown={handleKeydown}
     onpaste={handlePaste}
