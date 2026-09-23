@@ -5,7 +5,7 @@
 }
 
 .docs-article :is([data-docs-page] > section, #api-reference) {
-    @apply relative mt-0 px-[var(--docs-gutter)];
+    @apply relative mt-0 snap-start scroll-mt-0 px-[var(--docs-gutter)];
 }
 
 .docs-article :is([data-docs-page] > section:not([data-docs-toolbar]), #api-reference) {

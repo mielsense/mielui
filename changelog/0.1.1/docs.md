@@ -159,3 +159,5 @@
 
 - Match the Code tab background and rounded corners to its example preview.
 - Add a single-file upload example that replaces the dropzone with the selected file.
+
+- Gently snap sidebar groups and page sections to the top while preserving free scrolling within long sections and reduced-motion preferences.

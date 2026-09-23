@@ -16,7 +16,7 @@
         <div
             bind:this={viewport}
             data-docs-scroll
-            class="min-h-0 flex-1 bg-[var(--docs-content)] overflow-y-auto overscroll-none [container-type:inline-size] [--docs-gutter:1.25rem] sm:[--docs-gutter:1.5rem] lg:[--docs-gutter:2rem]"
+            class="min-h-0 flex-1 bg-[var(--docs-content)] overflow-y-auto overscroll-none snap-y snap-proximity motion-safe:scroll-smooth motion-reduce:snap-none [container-type:inline-size] [--docs-gutter:1.25rem] sm:[--docs-gutter:1.5rem] lg:[--docs-gutter:2rem]"
         >
             <div bind:this={content} class="docs-article w-full min-w-0">
                 {@render children?.()}
