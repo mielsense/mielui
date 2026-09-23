@@ -146,3 +146,5 @@
 
 - Group components by type in the sidebar, with a preview catalog for each group.
 - Make documentation search more compact, with quick destinations and a scrollable results list.
+
+- Add space between catalog cards and distinguish component groups in the sidebar.

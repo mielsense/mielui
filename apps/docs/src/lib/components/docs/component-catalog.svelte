@@ -120,7 +120,7 @@
             </div>
             <div class="@container">
                 <ul
-                    class="m-0 grid list-none grid-cols-1 p-0 gap-4 @min-[32rem]:grid-cols-2 @min-[60rem]:grid-cols-3"
+                    class="m-0 grid list-none grid-cols-1 p-0 gap-6 @min-[60rem]:gap-x-6 @min-[60rem]:gap-y-8 @min-[32rem]:grid-cols-2 @min-[60rem]:grid-cols-3"
                 >
                     {#each group.items as component (component)}
                         <li class="min-w-0">
