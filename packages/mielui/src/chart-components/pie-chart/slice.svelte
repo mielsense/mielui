@@ -26,7 +26,36 @@
     const context = getPieContext();
     const angles = new Tween([0, 0], { duration: 480, easing: cubicOut });
     let highlight = $state<SVGGElement>();
-    let highlightAnimation = $state.raw<Animation>();
+    let illumination = $state.raw<Animation>();
+    $effect(() => {
+        if (!highlight || !context.motion || context.animation !== 'live') {
+            return;
+        }
+        const phase = (Math.max(0, start) / (Math.PI * 2)) * 0.6;
+        const animation = highlight.animate(
+            [
+                { opacity: 0, offset: 0 },
+                { opacity: 0, offset: phase },
+                { opacity: 0.3, offset: phase + 0.12 },
+                { opacity: 0, offset: phase + 0.3 },
+                { opacity: 0, offset: 1 }
+            ],
+            { duration: 5400 * context.durationScale, iterations: Infinity, easing: 'ease-in-out' }
+        );
+        animation.pause();
+        illumination = animation;
+        return () => {
+            animation.cancel();
+            illumination = undefined;
+        };
+    });
+    $effect(() => {
+        if (context.live && !context.active) {
+            illumination?.play();
+        } else {
+            illumination?.pause();
+        }
+    });
     let entered = false;
     $effect(() => {
         if (!context.ready) {
@@ -36,29 +65,6 @@
             duration: context.motion ? (entered ? 280 : 500) * context.durationScale : 0
         });
         entered = true;
-    });
-    $effect(() => {
-        if (context.animation !== 'live' || !context.motion || !highlight) {
-            return;
-        }
-        const animation = highlight.animate([{ strokeDashoffset: 0 }, { strokeDashoffset: -100 }], {
-            duration: 4200 * context.durationScale,
-            iterations: Infinity,
-            easing: 'linear'
-        });
-        animation.pause();
-        highlightAnimation = animation;
-        return () => {
-            animation.cancel();
-            highlightAnimation = undefined;
-        };
-    });
-    $effect(() => {
-        if (context.live) {
-            highlightAnimation?.play();
-        } else {
-            highlightAnimation?.pause();
-        }
     });
 </script>
 
@@ -93,20 +99,14 @@
         }}
     />
     {#if context.animation === 'live' && context.motion}
-        <g bind:this={highlight} class="pointer-events-none">
+        <g bind:this={highlight} opacity="0" class="pointer-events-none">
             <Arc
                 startAngle={angles.current[0]}
                 endAngle={angles.current[1]}
                 innerRadius={Math.max(0, Math.min(innerRadius, 0.95))}
                 {cornerRadius}
                 padAngle={Math.max(0, Math.min(padAngle, 0.2))}
-                fill="none"
-                stroke="white"
-                strokeWidth={3}
-                strokeOpacity={0.7}
-                pathLength={100}
-                stroke-dasharray="14 86"
-                class="pointer-events-none"
+                fill="white"
                 motion="none"
             />
         </g>

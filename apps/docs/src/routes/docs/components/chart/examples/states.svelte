@@ -51,14 +51,6 @@
                     </EmptyState.Actions>
                 </EmptyState.Root>
             {/snippet}
-            {#snippet loading()}
-                <div role="status" class="flex flex-col items-center gap-2">
-                    <span class="text-sm font-medium text-foreground">Fetching orders</span>
-                    <span class="text-xs text-foreground-muted">
-                        The chart keeps its space while the data arrives.
-                    </span>
-                </div>
-            {/snippet}
             <Chart.Grid />
             <Chart.XAxis />
             <Chart.YAxis />

@@ -1,124 +1,91 @@
 <script lang="ts">
     import * as Typography from '@mielui/svelte/components/typography';
+    import { chartGuides } from '$lib/chart-guides';
     import { ComponentPreview, InstallCommand } from '$lib/components/docs';
-    import DocsPager from '$lib/components/docs/docs-pager.svelte';
-    import Composition from './examples/composition.svelte';
-    import CompositionSrc from './examples/composition.svelte?raw';
+    import PageIntro from '$lib/components/docs/page-intro.svelte';
     import Hero from './examples/hero.svelte';
-    import HeroSrc from './examples/hero.svelte?raw';
-    import Live from './examples/live.svelte';
-    import LiveSrc from './examples/live.svelte?raw';
-    import LivePie from './examples/live-pie.svelte';
-    import LivePieSrc from './examples/live-pie.svelte?raw';
-    import Pie from './examples/pie.svelte';
-    import PieSrc from './examples/pie.svelte?raw';
+    import HeroSource from './examples/hero.svelte?raw';
     import States from './examples/states.svelte';
-    import StatesSrc from './examples/states.svelte?raw';
-</script>
+    import StatesSource from './examples/states.svelte?raw';
 
+    const guides = chartGuides.filter((guide) => guide.component === 'pie-chart');
+</script>
 <svelte:head>
     <title>Mielui · Pie Chart</title>
     <meta
         name="description"
-        content="Compose animated pie and donut charts with category legends, accessible data, and custom center labels."
+        content="Pie and donut charts with exact values, keyboard inspection, and composed labels."
     />
 </svelte:head>
-
 <div data-docs-page class="flex flex-col gap-10">
-    <header class="flex items-start justify-between gap-4">
-        <div>
-            <Typography.H1>Pie Chart</Typography.H1>
-            <Typography.Text variant="lead" class="mt-2 max-w-2xl">
-                Show how a few categories contribute to a total.
-            </Typography.Text>
-        </div>
-        <DocsPager />
-    </header>
-    <ComponentPreview code={HeroSrc} refreshable><Hero /></ComponentPreview>
-    <section id="installation" class="scroll-mt-20 flex flex-col gap-4">
+    <PageIntro title="Pie Chart">
+        Pie and donut charts with exact values, keyboard inspection, and composed labels.
+    </PageIntro>
+    <ComponentPreview refreshable code={HeroSource}><Hero /></ComponentPreview>
+    <section id="installation" class="flex scroll-mt-20 flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Installation</Typography.H2>
         <InstallCommand command="pnpm dlx @mielui/svelte add pie-chart" />
     </section>
-    <section id="usage" class="scroll-mt-20 flex flex-col gap-4">
+    <section id="usage" class="flex scroll-mt-20 flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Usage</Typography.H2>
-        <Typography.Text>
-            Each data item has a stable key and a nonnegative numeric value. Config maps those keys
-            to labels, colors, and optional value formatters. Root requires an accessible label and
-            supplies a hidden data table. Missing colors use theme tokens.
+        <Typography.Text variant="supporting">
+            Root accepts data with stable key and value fields. Config supplies a label, color, and
+            optional formatter for each key. Values must be finite and nonnegative; do not represent
+            a negative balance as a slice.
         </Typography.Text>
-        <Typography.Text>
-            Place Arc and Label inside Plot. Tooltip and Legend belong inside Root, outside Plot.
-            Omit Label for a solid pie, move Legend above Plot, or use the label, legend, and
-            tooltip snippets to render your own content. Keep category keys unique and stable across
-            updates.
+        <Typography.Text variant="supporting">
+            Place Arc and an optional Label inside Plot. Legend and Tooltip belong directly inside
+            Root. Set innerRadius to 0 on Arc for a solid pie. For a donut, add Label or replace its
+            children to show a custom center.
         </Typography.Text>
-        <Typography.Text>
-            Arc defaults to a donut with an inner radius of 0.68. Set innerRadius to 0 for a pie;
-            values between 0 and 0.95 describe a fraction of the outer radius. Invalid and negative
-            values are ignored. An empty or zero-total dataset displays “No data available”; loading
-            keeps the plot height and displays a status message.
+        <Typography.Text variant="supporting">
+            The total comes from the visible data. Keep category keys stable across updates so
+            slices and labels stay associated with the same category.
         </Typography.Text>
     </section>
-    <section id="examples" class="scroll-mt-20 flex flex-col gap-8">
-        <Typography.H2 class="docs-section-heading">Examples</Typography.H2>
-        <div id="live-motion" class="scroll-mt-20 flex flex-col gap-3">
-            <Typography.H3 class="docs-subsection-heading">
-                Live donut and data updates
-            </Typography.H3>
-            <Typography.Text variant="supporting">
-                Switch periods while the chart is moving. Angles continue from their current
-                positions. Live motion carries a fine highlight along the outline of each slice
-                without changing its value or size.
-            </Typography.Text>
-            <ComponentPreview code={LiveSrc} refreshable><Live /></ComponentPreview>
-        </div>
-        <div id="live-pie" class="scroll-mt-20 flex flex-col gap-3">
-            <Typography.H3 class="docs-subsection-heading">Live pie</Typography.H3>
-            <Typography.Text variant="supporting">
-                The same moving edge highlight works on a solid pie. Each category keeps its true
-                share throughout the cycle; hover a slice or focus its legend item to inspect it.
-            </Typography.Text>
-            <ComponentPreview code={LivePieSrc} refreshable><LivePie /></ComponentPreview>
-        </div>
-        <div id="custom-composition" class="scroll-mt-20 flex flex-col gap-3">
-            <Typography.H3 class="docs-subsection-heading">
-                Spend breakdown with custom parts
-            </Typography.H3>
-            <Typography.Text variant="supporting">
-                Use the center-label snippet to show the active category or total. The legend
-                snippet adds percentages, while the tooltip uses the same formatted values. These
-                are the public parts, rearranged into a responsive comparison.
-            </Typography.Text>
-            <ComponentPreview code={CompositionSrc} refreshable><Composition /></ComponentPreview>
-        </div>
-        <div id="loading-and-empty" class="scroll-mt-20 flex flex-col gap-3">
-            <Typography.H3 class="docs-subsection-heading">Loading, empty, and ready</Typography.H3>
-            <Typography.Text variant="supporting">
-                Keep Plot mounted while fetching so the layout stays steady. Loading hides stale
-                slices and tooltips. Empty arrays and zero totals receive an explicit status; only
-                show the legend when its values are ready.
-            </Typography.Text>
-            <ComponentPreview code={StatesSrc}><States /></ComponentPreview>
-        </div>
-        <div id="solid-pie" class="scroll-mt-20 flex flex-col gap-3">
-            <Typography.H3 class="docs-subsection-heading">Solid pie, legend first</Typography.H3>
-            <ComponentPreview code={PieSrc}><Pie /></ComponentPreview>
+    <section id="chart-types" class="flex scroll-mt-20 flex-col gap-4">
+        <Typography.H2 class="docs-section-heading">Chart types</Typography.H2>
+        <div class="grid gap-3 @xl:grid-cols-2">
+            {#each guides as guide}
+                <a
+                    href={`/docs/components/${guide.component}/${guide.slug}`}
+                    class="rounded-lg border border-border p-4 transition-colors hover:bg-secondary focus-visible:outline-2 focus-visible:outline-primary"
+                >
+                    <span class="font-medium">{guide.title}</span>
+                    <p class="mt-1 text-sm text-foreground-muted">{guide.description}</p>
+                </a>
+            {/each}
         </div>
     </section>
-    <section id="motion-and-accessibility" class="scroll-mt-20 flex flex-col gap-4">
-        <Typography.H2 class="docs-section-heading">Motion and accessibility</Typography.H2>
-        <Typography.Text>
-            Reveal animates entry and data changes. Live adds a slow emphasis cycle after entry and
-            pauses when the chart leaves the viewport or the document is hidden. None settles
-            immediately. Reduced-motion preferences and disabled theme motion override animated
-            modes.
+    <section id="states" class="flex scroll-mt-20 flex-col gap-4">
+        <Typography.H2 class="docs-section-heading">Loading and empty data</Typography.H2>
+        <Typography.Text variant="supporting">
+            Set loading on Root while a request is pending. The chart keeps its height and displays
+            a neutral skeleton. An empty dataset shows an empty state instead of fabricated values.
+            Try each state below.
         </Typography.Text>
-        <Typography.Text>
-            Focus a legend item to inspect its value in the tooltip and emphasize its slice. The
-            tooltip follows pointer inspection, anchors to focused legend items, and flips when
-            there is not enough space above. Press Escape to dismiss it. Labels and values remain
-            available without color or pointer interaction through the accessible table. Use a bar
-            chart when exact comparisons or many categories matter more than proportions.
+        <ComponentPreview code={StatesSource}><States /></ComponentPreview>
+    </section>
+    <section id="motion" class="flex scroll-mt-20 flex-col gap-4">
+        <Typography.H2 class="docs-section-heading">Animation</Typography.H2>
+        <Typography.Text variant="supporting">
+            The default reveal runs on entry. Data changes transition from the current display. Set
+            animation="live" to brighten each segment in sequence without moving its boundaries. The
+            effect pauses while a segment is active, offscreen, or the tab is hidden. Set
+            animation="none" to disable chart motion.
+        </Typography.Text>
+        <Typography.Text variant="supporting">
+            Chart motion follows reduced-motion preferences and the theme motion setting. Every
+            chart-type guide includes a live example so you can compare the effect on different
+            marks.
+        </Typography.Text>
+    </section>
+    <section id="accessibility" class="flex scroll-mt-20 flex-col gap-4">
+        <Typography.H2 class="docs-section-heading">Accessibility</Typography.H2>
+        <Typography.Text variant="supporting">
+            Give Root a descriptive aria-label. Root includes a screen-reader data table. Focus a
+            legend item to inspect its value and percentage. Pointer users can inspect the same
+            values on each slice. Escape dismisses the tooltip.
         </Typography.Text>
     </section>
 </div>

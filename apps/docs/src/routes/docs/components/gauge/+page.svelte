@@ -2,11 +2,16 @@
     import { CodeBlock } from '@mielui/svelte/components/code-block';
     import * as Typography from '@mielui/svelte/components/typography';
     import { ComponentPreview, InstallCommand } from '$lib/components/docs';
-    import DocsPager from '$lib/components/docs/docs-pager.svelte';
+    import PageIntro from '$lib/components/docs/page-intro.svelte';
+    import SectionHeading from '$lib/components/docs/section-heading.svelte';
     import ContextWindow from './examples/context-window.svelte';
     import ContextWindowSrc from './examples/context-window.svelte?raw';
     import Hero from './examples/hero.svelte';
     import HeroSrc from './examples/hero.svelte?raw';
+    import Interactive from './examples/interactive.svelte';
+    import InteractiveSource from './examples/interactive.svelte?raw';
+    import States from './examples/states.svelte';
+    import StatesSource from './examples/states.svelte?raw';
     import UsageLimit from './examples/usage-limit.svelte';
     import UsageLimitSrc from './examples/usage-limit.svelte?raw';
 
@@ -22,16 +27,10 @@
 </svelte:head>
 
 <div data-docs-page class="flex flex-col gap-10">
-    <header class="flex items-start justify-between gap-4">
-        <div>
-            <Typography.H1>Gauge</Typography.H1>
-            <Typography.Text variant="lead" class="mt-2 max-w-2xl">
-                A circular meter for bounded quantities such as context remaining, API usage,
-                storage, and seats.
-            </Typography.Text>
-        </div>
-        <DocsPager />
-    </header>
+    <PageIntro title="Gauge">
+        A circular meter for bounded quantities such as context remaining, API usage, storage, and
+        seats.
+    </PageIntro>
 
     <section id="hero" class="scroll-mt-20 flex flex-col gap-4">
         <ComponentPreview refreshable code={HeroSrc}><Hero /></ComponentPreview>
@@ -44,6 +43,13 @@
 
     <section id="usage" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Usage</Typography.H2>
+        <Typography.Text variant="supporting">
+            The default diameter is 120px. Set size explicitly for compact toolbar meters; the arc
+            and center text scale with it. strokeWidth overrides the proportional arc thickness.
+            Values are clamped between zero and max. A nonpositive or nonfinite max falls back to
+            100, and nonfinite values display zero. Entry and value changes animate unless the theme
+            disables motion or the user requests reduced motion.
+        </Typography.Text>
         <Typography.Text variant="supporting">
             Use{' '}
             <Typography.InlineCode>value</Typography.InlineCode> and
@@ -63,21 +69,22 @@
         />
     </section>
 
-    <Typography.Text variant="supporting">
-        The default diameter is 120px. Set size explicitly for compact toolbar meters; the arc and
-        center text scale with it. strokeWidth overrides the proportional arc thickness. Values are
-        clamped between zero and max. A nonpositive or nonfinite max falls back to 100, and
-        nonfinite values display zero. Entry and value changes animate unless the theme disables
-        motion or the user requests reduced motion.
-    </Typography.Text>
+    <section id="changing-values" class="scroll-mt-20 flex flex-col gap-4">
+        <Typography.H2 class="docs-section-heading">Changing values</Typography.H2>
+        <Typography.Text variant="supporting">
+            Add files to approach the storage limit, then clear them. The meter transitions from its
+            current value and changes tone near capacity. The label keeps the units explicit for
+            screen readers.
+        </Typography.Text>
+        <ComponentPreview code={InteractiveSource}><Interactive /></ComponentPreview>
+    </section>
 
     <section id="examples" class="scroll-mt-20 flex flex-col gap-10">
-        <div>
-            <Typography.H2 class="docs-section-heading">Examples</Typography.H2>
-            <Typography.Text variant="supporting" class="mt-2">
+        <SectionHeading title="Examples">
+            {#snippet description()}
                 Compare bounded quantities with explicit units and a label beside each meter.
-            </Typography.Text>
-        </div>
+            {/snippet}
+        </SectionHeading>
 
         <div id="context-window" class="scroll-mt-20 flex flex-col gap-3">
             <Typography.H3 class="docs-subsection-heading">Compact and detailed</Typography.H3>
@@ -90,5 +97,16 @@
             <Typography.H3 class="docs-subsection-heading">Usage limit</Typography.H3>
             <ComponentPreview refreshable code={UsageLimitSrc}><UsageLimit /></ComponentPreview>
         </div>
+    </section>
+    <section id="data-states" class="flex scroll-mt-20 flex-col gap-4">
+        <SectionHeading title="Data states">
+            {#snippet description()}
+                A missing measurement is different from zero. Render a placeholder while loading and
+                an unavailable message when no measurement exists. Gauge animates entry and value
+                changes; reduced motion or the theme motion setting can disable them. It has no
+                continuous-motion mode.
+            {/snippet}
+        </SectionHeading>
+        <ComponentPreview code={StatesSource}><States /></ComponentPreview>
     </section>
 </div>

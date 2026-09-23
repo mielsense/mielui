@@ -28,24 +28,7 @@ export function reveal(element: SVGElement, chart: ChartContext, kind: 'bar' | '
     };
 }
 
-export function live(element: SVGElement, chart: ChartContext, offset = 0) {
-    if (!chart.motion || chart.animation !== 'live') {
-        return;
-    }
-    return observeAnimation(
-        element,
-        element.animate(
-            [{ strokeDashoffset: String(offset) }, { strokeDashoffset: String(offset - 100) }],
-            {
-                duration: 4200 * chart.motionScale,
-                iterations: Infinity,
-                easing: 'linear'
-            }
-        )
-    );
-}
-
-export function sweep(element: SVGElement, chart: ChartContext) {
+export function live(element: SVGElement, chart: ChartContext) {
     if (!chart.motion || chart.animation !== 'live') {
         return;
     }
@@ -53,38 +36,89 @@ export function sweep(element: SVGElement, chart: ChartContext) {
         element,
         element.animate(
             [
-                { transform: 'translateX(-110%)', offset: 0 },
-                { transform: 'translateX(110%)', offset: 0.65 },
-                { transform: 'translateX(110%)', offset: 1 }
+                { strokeDashoffset: 12, opacity: 0, offset: 0 },
+                { strokeDashoffset: 0, opacity: 0.45, offset: 0.1 },
+                { strokeDashoffset: -88, opacity: 0.45, offset: 0.65 },
+                { strokeDashoffset: -100, opacity: 0, offset: 0.75 },
+                { strokeDashoffset: -100, opacity: 0, offset: 1 }
             ],
-            {
-                duration: 4200 * chart.motionScale,
-                iterations: Infinity,
-                easing: 'cubic-bezier(.4,0,.2,1)'
-            }
+            { duration: 6400 * chart.motionScale, iterations: Infinity, easing: 'linear' }
         )
     );
 }
 
-function observeAnimation(element: SVGElement, animation: Animation) {
-    let visible = false;
-    function update() {
-        if (visible && !document.hidden) {
-            animation.play();
-        } else {
-            animation.pause();
-        }
+export function sweep(element: SVGElement, chart: ChartContext, phase = 0, area = false) {
+    if (!chart.motion || chart.animation !== 'live') {
+        return;
     }
-    const observer = new IntersectionObserver((entries) => {
-        visible = entries[0]?.isIntersecting ?? false;
-        update();
-    });
-    observer.observe(element);
-    document.addEventListener('visibilitychange', update);
-    update();
+    const horizontal = chart.orientation === 'horizontal';
+    const axis = area ? (horizontal ? 'Y' : 'X') : horizontal ? 'X' : 'Y';
+    const direction = !area && !horizontal ? -1 : 1;
+    const start = `translate${axis}(${-110 * direction}%)`;
+    const end = `translate${axis}(${110 * direction}%)`;
+    const delay = Math.max(0, Math.min(1, phase)) * 0.24;
+    return observeAnimation(
+        element,
+        element.animate(
+            [
+                { transform: start, opacity: 0, offset: 0 },
+                { transform: start, opacity: 0, offset: delay },
+                { transform: start, opacity: 1, offset: delay + 0.03 },
+                { transform: end, opacity: 1, offset: delay + 0.6 },
+                { transform: end, opacity: 0, offset: delay + 0.63 },
+                { transform: end, opacity: 0, offset: 1 }
+            ],
+            { duration: 4800 * chart.motionScale, iterations: Infinity, easing: 'linear' }
+        )
+    );
+}
+
+type ViewportMotion = {
+    animations: Set<Animation>;
+    visible: boolean;
+    update: () => void;
+    observer: IntersectionObserver;
+};
+
+const viewports = new WeakMap<Element, ViewportMotion>();
+
+function observeAnimation(element: SVGElement, animation: Animation) {
+    const viewport = element.ownerSVGElement ?? element;
+    let state = viewports.get(viewport);
+    if (!state) {
+        const animations = new Set<Animation>();
+        const created: ViewportMotion = {
+            animations,
+            visible: false,
+            update() {
+                for (const current of animations) {
+                    if (created.visible && !document.hidden) {
+                        current.play();
+                    } else {
+                        current.pause();
+                    }
+                }
+            },
+            observer: new IntersectionObserver(([entry]) => {
+                created.visible = entry?.isIntersecting ?? false;
+                created.update();
+            })
+        };
+        state = created;
+        viewports.set(viewport, state);
+        state.observer.observe(viewport);
+        document.addEventListener('visibilitychange', state.update);
+    }
+    const current = state;
+    current.animations.add(animation);
+    current.update();
     return () => {
         animation.cancel();
-        observer.disconnect();
-        document.removeEventListener('visibilitychange', update);
+        current.animations.delete(animation);
+        if (current.animations.size === 0) {
+            current.observer.disconnect();
+            document.removeEventListener('visibilitychange', current.update);
+            viewports.delete(viewport);
+        }
     };
 }

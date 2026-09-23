@@ -20,12 +20,17 @@
     let element: HTMLButtonElement;
     onMount(() => {
         const preference = window.matchMedia('(prefers-reduced-motion: reduce)');
-        const themeDuration = getComputedStyle(element).getPropertyValue('--motion-duration-panel');
-        if (
-            preference.matches ||
-            context.animation === 'none' ||
-            Number.parseFloat(themeDuration) === 0
-        ) {
+        const themeDuration = getComputedStyle(element)
+            .getPropertyValue('--motion-duration-panel')
+            .trim();
+        const parsedDuration = Number.parseFloat(themeDuration);
+        const milliseconds = themeDuration.endsWith('ms')
+            ? parsedDuration
+            : themeDuration.endsWith('s')
+              ? parsedDuration * 1000
+              : parsedDuration;
+        const motionScale = Number.isFinite(milliseconds) ? Math.max(0, milliseconds / 180) : 1;
+        if (preference.matches || context.animation === 'none' || motionScale === 0) {
             return;
         }
         const animation = element.animate(
@@ -34,11 +39,11 @@
                 { opacity: 1, transform: 'translateY(0) scale(1)' }
             ],
             {
-                duration: 360,
+                duration: 360 * motionScale,
                 delay:
                     context.animation === 'rows'
-                        ? (day.row - 1) * 50
-                        : (day.column - 1) * Math.min(35, 360 / context.model.weeks),
+                        ? (day.row - 1) * 50 * motionScale
+                        : (day.column - 1) * Math.min(35, 360 / context.model.weeks) * motionScale,
                 easing: 'cubic-bezier(0.2,0,0,1)',
                 fill: 'backwards'
             }

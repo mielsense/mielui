@@ -37,7 +37,7 @@
             <Chart.Grid />
             <Chart.XAxis />
             <Chart.YAxis />
-            <Chart.Bar key="sales" />
+            <Chart.Area key="sales" />
         </Chart.Plot>
         <Chart.Tooltip />
         <Chart.Legend />

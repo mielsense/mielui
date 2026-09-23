@@ -1,38 +1,36 @@
 <script lang="ts">
-    import * as Tabs from '@mielui/svelte/components/tabs';
-
-    let animation = $state<'rows' | 'columns' | 'none'>('rows');
-
     import { CodeBlock } from '@mielui/svelte/components/code-block';
+    import * as Tabs from '@mielui/svelte/components/tabs';
     import * as Typography from '@mielui/svelte/components/typography';
     import { ComponentPreview, InstallCommand } from '$lib/components/docs';
-    import DocsPager from '$lib/components/docs/docs-pager.svelte';
+    import PageIntro from '$lib/components/docs/page-intro.svelte';
+    import SectionHeading from '$lib/components/docs/section-heading.svelte';
     import Composed from './examples/composed.svelte';
     import ComposedSrc from './examples/composed.svelte?raw';
     import Hero from './examples/hero.svelte';
     import HeroSrc from './examples/hero.svelte?raw';
+    import Range from './examples/range.svelte';
+    import RangeSource from './examples/range.svelte?raw';
+    import States from './examples/states.svelte';
+    import StatesSource from './examples/states.svelte?raw';
+
+    let animation = $state<'rows' | 'columns' | 'none'>('rows');
+
+    function changeAnimation(value: string) {
+        if (value === 'rows' || value === 'columns' || value === 'none') {
+            animation = value;
+        }
+    }
 </script>
 <svelte:head>
     <title>Mielui · Heatmap</title>
     <meta name="description" content="A contribution calendar for daily activity." />
 </svelte:head>
 <div data-docs-page class="flex flex-col gap-10">
-    <header class="flex items-start justify-between gap-4">
-        <div>
-            <Typography.H1>Heatmap</Typography.H1>
-            <Typography.Text variant="lead" class="mt-2">
-                Daily activity in a contribution calendar.
-            </Typography.Text>
-        </div>
-        <DocsPager />
-    </header>
+    <PageIntro title="Heatmap">Daily activity in a contribution calendar.</PageIntro>
     <ComponentPreview refreshable code={HeroSrc}>
         {#snippet controls()}
-            <Tabs.Root
-                value={animation}
-                onValueChange={(value) => { if (value === 'rows' || value === 'columns' || value === 'none') { animation = value; } }}
-                variant="ghost"
-            >
+            <Tabs.Root value={animation} onValueChange={changeAnimation} variant="ghost">
                 <div role="group" aria-label="Entrance direction">
                     <Tabs.List>
                         <Tabs.Trigger value="rows">Rows</Tabs.Trigger>
@@ -44,17 +42,18 @@
         {/snippet}
         <Hero {animation} />
     </ComponentPreview>
-    <section class="flex flex-col gap-4">
+    <section id="installation" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2>Installation</Typography.H2>
         <InstallCommand command="pnpm dlx @mielui/svelte add heatmap" />
     </section>
-    <section class="flex flex-col gap-4">
+    <section id="usage" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2>Usage</Typography.H2>
         <Typography.Text>
             Pass daily counts with dates in YYYY-MM-DD format. Root renders the complete calendar by
             default. No GitHub connection is required.
         </Typography.Text>
         <CodeBlock
+            copy="overlay"
             lang="svelte"
             code={`import * as Heatmap from '@mielui/svelte/components/heatmap';
 
@@ -65,7 +64,7 @@
 />`}
         />
     </section>
-    <section class="flex flex-col gap-4">
+    <section id="custom-composition" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2>Custom composition</Typography.H2>
         <Typography.Text>
             This example omits weekday labels, moves the legend before the detail, and reads the
@@ -74,13 +73,14 @@
         </Typography.Text>
         <ComponentPreview refreshable code={ComposedSrc}><Composed /></ComponentPreview>
     </section>
-    <section class="flex flex-col gap-4">
+    <section id="without-tooltip" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2>Without a tooltip</Typography.H2>
         <Typography.Text>
             The automatic layout includes Tooltip. In a custom layout, omit it to keep native
             browser titles instead. Every cell retains its accessible date and count label.
         </Typography.Text>
         <CodeBlock
+            copy="overlay"
             lang="svelte"
             code={`<Heatmap.Root {days} weeks={12} endDate="2026-09-15">
     <Heatmap.Calendar>
@@ -92,7 +92,15 @@
 </Heatmap.Root>`}
         />
     </section>
-    <section class="flex flex-col gap-4">
+    <section id="changing-range" class="scroll-mt-20 flex flex-col gap-4">
+        <Typography.H2 class="docs-section-heading">Changing the range</Typography.H2>
+        <Typography.Text variant="supporting">
+            Keep the reporting end date fixed while switching the number of visible weeks. Summary
+            counts only dates in that range. On narrow screens, scroll the calendar horizontally.
+        </Typography.Text>
+        <ComponentPreview code={RangeSource}><Range /></ComponentPreview>
+    </section>
+    <section id="data-and-range" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2>Data and range</Typography.H2>
         <Typography.Text>
             Root accepts days, weeks, endDate, weekStartsOn, locale, animation, and onDaySelect.
@@ -111,13 +119,16 @@
             Invalid values throw a RangeError.
         </Typography.Text>
     </section>
-    <section class="flex flex-col gap-4">
+    <section id="animation" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2>Animation</Typography.H2>
         <Typography.Text>
             Animation defaults to rows. Choose columns for a left-to-right stagger, or none for
-            immediate rendering. Reduced motion always skips the entrance. The replay control
-            remounts the example with the selected direction.
+            immediate rendering. Entrance timing follows the theme motion setting, and reduced
+            motion skips the entrance. The replay control remounts the example with the selected
+            direction.
         </Typography.Text>
+    </section>
+    <section id="parts" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2>Parts</Typography.H2>
         <Typography.Text>
             Root owns the data and provides a children snippet with days and total. Header,
@@ -131,11 +142,11 @@
             month and weekday labels.
         </Typography.Text>
     </section>
-    <section class="flex flex-col gap-4">
+    <section id="accessibility" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2>Keyboard and accessibility</Typography.H2>
         <Typography.Text>
-            Tab enters the calendar once. Arrow keys move between dates, Home selects the first
-            visible date, and End selects the last. Left and right follow the layout in RTL. Each
+            Tab enters the calendar once. Arrow keys move between dates, Home focuses the first
+            visible date, and End focuses the last. Left and right follow the layout in RTL. Each
             cell announces its full date and count, so color is not the only source of information.
         </Typography.Text>
         <Typography.Text>
@@ -143,5 +154,15 @@
             Activation calls onDaySelect with the computed day. The chart scrolls horizontally when
             its cells cannot fit the available width.
         </Typography.Text>
+    </section>
+    <section id="data-states" class="flex scroll-mt-20 flex-col gap-4">
+        <SectionHeading title="Data states">
+            {#snippet description()}
+                An empty dataset means zero activity in the selected range. Loading belongs to the
+                application; show a placeholder while fetching, then mount the calendar. Set endDate
+                so an empty result keeps the same reporting period.
+            {/snippet}
+        </SectionHeading>
+        <ComponentPreview code={StatesSource}><States /></ComponentPreview>
     </section>
 </div>

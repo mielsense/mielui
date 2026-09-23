@@ -10,19 +10,17 @@
         { month: 'Jun', revenue: 372, target: 310 }
     ];
     const config = {
-        revenue: { label: 'Revenue', color: 'var(--color-primary)' },
-        target: { label: 'Target', color: 'var(--color-success)' }
+        revenue: { label: 'Revenue', color: 'var(--color-primary)' }
     };
 </script>
 
-<Chart.Root {data} {config} x="month" aria-label="Monthly revenue and target" class="w-full">
+<Chart.Root {data} {config} x="month" aria-label="Monthly revenue" class="w-full" animation="live">
     <Chart.Legend />
     <Chart.Plot>
         <Chart.Grid />
         <Chart.XAxis />
         <Chart.YAxis />
-        <Chart.Line key="revenue" />
-        <Chart.Line key="target" />
+        <Chart.Area key="revenue" />
     </Chart.Plot>
     <Chart.Tooltip />
 </Chart.Root>

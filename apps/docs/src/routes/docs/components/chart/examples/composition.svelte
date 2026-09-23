@@ -2,13 +2,14 @@
     import * as Chart from '@mielui/svelte/components/chart';
 
     const data = [
-        { day: 'Mon', requests: 420 },
-        { day: 'Tue', requests: 670 },
-        { day: 'Wed', requests: 590 },
-        { day: 'Thu', requests: 810 },
-        { day: 'Fri', requests: 940 }
+        { day: 'Mon', requests: 420, target: 500 },
+        { day: 'Tue', requests: 670, target: 600 },
+        { day: 'Wed', requests: 590, target: 650 },
+        { day: 'Thu', requests: 810, target: 750 },
+        { day: 'Fri', requests: 940, target: 800 }
     ];
     const config = {
+        target: { label: 'Target', color: 'var(--color-info)' },
         requests: {
             label: 'API requests',
             color: 'var(--color-primary)',
@@ -37,7 +38,8 @@
     </Chart.Legend>
     <Chart.Plot class="h-56">
         <Chart.XAxis />
-        <Chart.Area key="requests" />
+        <Chart.Bar key="requests" />
+        <Chart.Line key="target" />
     </Chart.Plot>
     <Chart.Tooltip>
         {#snippet children({ label, values })}

@@ -4,7 +4,7 @@
     import { cubicOut } from 'svelte/easing';
     import { Tween } from 'svelte/motion';
     import { getChart } from './context.svelte';
-    import { live, reveal } from './motion';
+    import { live, reveal, sweep } from './motion';
 
     let {
         key,
@@ -97,6 +97,32 @@
             </linearGradient>
         </defs>
         <path d={fill} fill={`url(#${id})`} />
+        {#if chart.animation === 'live' && chart.motion}
+            <defs>
+                <clipPath id={`${id}-area`}><path d={fill} /></clipPath>
+                <linearGradient
+                    id={`${id}-sweep`}
+                    x1="0"
+                    y1="0"
+                    x2={horizontal ? '0' : '1'}
+                    y2={horizontal ? '1' : '0'}
+                >
+                    <stop offset="0%" stop-color={chart.color(key)} stop-opacity="0" />
+                    <stop offset="50%" stop-color={chart.color(key)} stop-opacity="0.55" />
+                    <stop offset="100%" stop-color={chart.color(key)} stop-opacity="0" />
+                </linearGradient>
+            </defs>
+            <g clip-path={`url(#${id}-area)`} class="pointer-events-none">
+                <rect
+                    width={layer.width}
+                    height={layer.height}
+                    fill={`url(#${id}-sweep)`}
+                    opacity="0"
+                    class="[transform-box:fill-box]"
+                    {@attach (element: SVGElement) => sweep(element, chart, 0, true)}
+                />
+            </g>
+        {/if}
     {/if}
     {#each segments as points}
         {#if points.length === 1}
@@ -111,39 +137,19 @@
         stroke-linejoin="round"
         stroke-linecap="round"
     />
-    {#if chart.animation === 'live' && chart.motion}
+    {#if chart.animation === 'live' && chart.motion && !area}
         <path
             d={line}
             fill="none"
-            stroke={chart.color(key)}
-            stroke-opacity="0.16"
-            stroke-width={strokeWidth + 5}
-            stroke-linecap="round"
-            pathLength="100"
-            stroke-dasharray="16 84"
-            class="blur-[calc(var(--size-hairline)/2)]"
-            {@attach (element: SVGElement) => live(element, chart)}
-        />
-        <path
-            d={line}
-            fill="none"
-            stroke={`color-mix(in oklch, ${chart.color(key)} 65%, white)`}
-            stroke-opacity="0.65"
-            stroke-width={strokeWidth + 1}
-            stroke-linecap="round"
-            pathLength="100"
-            stroke-dasharray="8 92"
-            {@attach (element: SVGElement) => live(element, chart, -8)}
-        />
-        <path
-            d={line}
-            fill="none"
-            stroke={`color-mix(in oklch, ${chart.color(key)} 15%, white)`}
+            stroke="white"
+            opacity="0"
             stroke-width={strokeWidth}
             stroke-linecap="round"
+            stroke-linejoin="round"
             pathLength="100"
-            stroke-dasharray="2 98"
-            {@attach (element: SVGElement) => live(element, chart, -14)}
+            stroke-dasharray="12 100"
+            class="pointer-events-none"
+            {@attach (element: SVGElement) => live(element, chart)}
         />
     {/if}
     {#if chart.active !== null && chart.value(chart.active, key) !== null}

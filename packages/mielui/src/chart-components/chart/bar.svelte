@@ -65,20 +65,31 @@
             />
             {#if chart.animation === 'live' && chart.motion}
                 <defs>
-                    <clipPath id={`${id}-clip-${i}`}><rect {...box} rx={radius} /></clipPath>
-                    <linearGradient id={`${id}-light-${i}`}>
+                    <clipPath id={`${id}-${i}`}>
+                        <rect
+                            {...box}
+                            rx={chart.stacked ? 0 : Math.min(radius, box.width / 2, box.height / 2)}
+                        />
+                    </clipPath>
+                    <linearGradient
+                        id={`${id}-light-${i}`}
+                        x1="0"
+                        y1="0"
+                        x2={horizontal ? '1' : '0'}
+                        y2={horizontal ? '0' : '1'}
+                    >
                         <stop offset="0%" stop-color="white" stop-opacity="0" />
-                        <stop offset="48%" stop-color="white" stop-opacity="0.05" />
-                        <stop offset="65%" stop-color="white" stop-opacity="0.32" />
+                        <stop offset="50%" stop-color="white" stop-opacity="0.5" />
                         <stop offset="100%" stop-color="white" stop-opacity="0" />
                     </linearGradient>
                 </defs>
-                <g clip-path={`url(#${id}-clip-${i})`}>
+                <g clip-path={`url(#${id}-${i})`} class="pointer-events-none">
                     <rect
                         {...box}
                         fill={`url(#${id}-light-${i})`}
+                        opacity="0"
                         class="[transform-box:fill-box]"
-                        {@attach (element: SVGElement) => sweep(element, chart)}
+                        {@attach (element: SVGElement) => sweep(element, chart, i / Math.max(1, chart.data.length - 1))}
                     />
                 </g>
             {/if}

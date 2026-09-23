@@ -21,7 +21,9 @@
 </script>
 
 {#if !context.loading}
-    {#each slices as slice (slice.item.key)}
-        <Slice {...slice} {innerRadius} {cornerRadius} {padAngle} class={className} />
-    {/each}
+    <g data-ui="pie-chart-segments">
+        {#each slices as slice (slice.item.key)}
+            <Slice {...slice} {innerRadius} {cornerRadius} {padAngle} class={className} />
+        {/each}
+    </g>
 {/if}
