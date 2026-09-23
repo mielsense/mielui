@@ -452,7 +452,7 @@
             },
             {
                 "name": "animation",
-                "type": "\"none\" | \"rows\" | \"columns\" | undefined",
+                "type": "\"none\" | \"rows\" | \"columns\" | \"live\" | undefined",
                 "required": false,
                 "bindable": false,
                 "default": "'rows'",

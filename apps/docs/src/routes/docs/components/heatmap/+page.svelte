@@ -14,10 +14,10 @@
     import States from './examples/states.svelte';
     import StatesSource from './examples/states.svelte?raw';
 
-    let animation = $state<'rows' | 'columns' | 'none'>('rows');
+    let animation = $state<'rows' | 'columns' | 'live' | 'none'>('rows');
 
     function changeAnimation(value: string) {
-        if (value === 'rows' || value === 'columns' || value === 'none') {
+        if (value === 'rows' || value === 'columns' || value === 'live' || value === 'none') {
             animation = value;
         }
     }
@@ -35,6 +35,7 @@
                     <Tabs.List>
                         <Tabs.Trigger value="rows">Rows</Tabs.Trigger>
                         <Tabs.Trigger value="columns">Columns</Tabs.Trigger>
+                        <Tabs.Trigger value="live">Live</Tabs.Trigger>
                         <Tabs.Trigger value="none">None</Tabs.Trigger>
                     </Tabs.List>
                 </div>
@@ -122,10 +123,11 @@
     <section id="animation" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2>Animation</Typography.H2>
         <Typography.Text>
-            Animation defaults to rows. Choose columns for a left-to-right stagger, or none for
-            immediate rendering. Entrance timing follows the theme motion setting, and reduced
-            motion skips the entrance. The replay control remounts the example with the selected
-            direction.
+            Animation defaults to rows. Choose columns for a left-to-right stagger, live for a
+            repeating column highlight, or none for immediate rendering. Live motion preserves
+            contribution counts and pauses during inspection, offscreen, and in hidden documents.
+            Entrance timing follows the theme motion setting, and reduced motion skips the entrance.
+            The replay control remounts the example with the selected direction.
         </Typography.Text>
     </section>
     <section id="parts" class="scroll-mt-20 flex flex-col gap-4">
@@ -161,8 +163,8 @@
                 Compare loading, empty, and ready layouts with row, column, live, or no motion. The
                 calendar keeps its layout in every state. Loading uses matching skeleton cells; no
                 data shows neutral cells and a status line. Root treats missing dates as zero
-                activity. The live example highlights columns without changing contribution counts
-                and pauses while you inspect the calendar.
+                activity. Live motion highlights columns without changing contribution counts and
+                pauses while you inspect the calendar.
             {/snippet}
         </SectionHeading>
         <ComponentPreview code={StatesSource}><States /></ComponentPreview>

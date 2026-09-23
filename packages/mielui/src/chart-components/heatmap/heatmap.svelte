@@ -18,7 +18,7 @@
     type Props = Omit<HTMLAttributes<HTMLDivElement>, 'children'> & {
         days: readonly Day[];
         weeks?: number;
-        animation?: 'rows' | 'columns' | 'none';
+        animation?: 'rows' | 'columns' | 'live' | 'none';
         endDate?: string;
         weekStartsOn?: 0 | 1 | 2 | 3 | 4 | 5 | 6;
         locale?: string;

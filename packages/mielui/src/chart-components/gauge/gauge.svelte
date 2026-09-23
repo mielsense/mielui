@@ -5,6 +5,7 @@
     import { Tween } from 'svelte/motion';
     import type { GaugeProps, GaugeTone } from '.';
     import { gaugeArcPath } from './arc-path';
+    import { gaugeLiveMotion } from './live-motion';
 
     let {
         value,
@@ -13,6 +14,7 @@
         size = 120,
         strokeWidth,
         tone = 'primary',
+        animation = 'reveal',
         children,
         class: className,
         ...rest
@@ -30,9 +32,9 @@
     const safeStrokeWidth = $derived(
         typeof strokeWidth === 'number' && Number.isFinite(strokeWidth)
             ? Math.min(Math.max(strokeWidth, 1), safeSize / 2)
-            : Math.max(4.5, safeSize * 0.15)
+            : Math.max(3, safeSize * 0.0975)
     );
-    const arcStrokeWidth = $derived(Math.max(1, safeStrokeWidth * 0.65));
+    const arcStrokeWidth = $derived(safeStrokeWidth);
     const clamped = $derived(Number.isFinite(value) ? Math.min(Math.max(value, 0), safeMax) : 0);
     const radius = $derived((safeSize - safeStrokeWidth) / 2);
     const progress = new Tween(
@@ -58,7 +60,7 @@
                   : 480;
         }
         refreshMotion();
-        if (duration > 0) {
+        if (duration > 0 && animation !== 'none') {
             void progress.set(0, { duration: 0 });
         }
         mounted = true;
@@ -78,13 +80,18 @@
 
     $effect(() => {
         const target = clamped / safeMax;
-        const milliseconds = duration;
+        const milliseconds = animation === 'none' ? 0 : duration;
         if (!mounted) {
             return;
         }
         untrack(() => {
             void progress.set(target, { duration: milliseconds });
         });
+    });
+    $effect(() => {
+        if (mounted && animation === 'live' && duration > 0 && clamped > 0) {
+            return gaugeLiveMotion(arc, duration / 360);
+        }
     });
     const accessibleLabel = $derived(label ?? `${clamped} of ${safeMax}`);
 </script>

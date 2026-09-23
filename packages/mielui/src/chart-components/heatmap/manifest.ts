@@ -12,6 +12,7 @@ export const manifest: Manifest = {
         'components/heatmap/heatmap-legend.svelte',
         'components/heatmap/heatmap-summary.svelte',
         'components/heatmap/calendar.ts',
+        'components/heatmap/live.ts',
         'components/heatmap/heatmap-grid.svelte',
         'components/heatmap/heatmap-header.svelte',
         'components/heatmap/heatmap-month-labels.svelte',
@@ -23,7 +24,7 @@ export const manifest: Manifest = {
         'components/heatmap/manifest.ts'
     ],
     components: ['_internal/utils', 'tooltip'],
-    shared: ['utils.cn'],
+    shared: ['utils.cn', 'transition'],
     peerDependencies: {
         '@floating-ui/dom': '1.7.6',
         cnfast: '^0.0.8',

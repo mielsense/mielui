@@ -30,7 +30,12 @@
               ? parsedDuration * 1000
               : parsedDuration;
         const motionScale = Number.isFinite(milliseconds) ? Math.max(0, milliseconds / 180) : 1;
-        if (preference.matches || context.animation === 'none' || motionScale === 0) {
+        if (
+            preference.matches ||
+            context.animation === 'none' ||
+            context.animation === 'live' ||
+            motionScale === 0
+        ) {
             return;
         }
         const animation = element.animate(

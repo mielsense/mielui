@@ -10,6 +10,7 @@ export const manifest: Manifest = {
     files: [
         'components/gauge/gauge.svelte',
         'components/gauge/arc-path.ts',
+        'components/gauge/live-motion.ts',
         'components/gauge/index.ts',
         'components/gauge/manifest.ts'
     ],

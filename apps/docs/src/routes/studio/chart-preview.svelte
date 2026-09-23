@@ -218,16 +218,22 @@
                                 days={activity}
                                 weeks={52}
                                 endDate="2026-09-22"
-                                animation="columns"
+                                animation={live ? 'live' : 'columns'}
                             />
                         </div>
                         <div class="flex shrink-0 items-center justify-center gap-6">
                             <div class="flex flex-col items-center gap-2">
-                                <Gauge value={72} label="Monthly usage" size={72} />
+                                <Gauge {animation} value={72} label="Monthly usage" size={72} />
                                 <span class="text-sm text-foreground-muted">Monthly usage</span>
                             </div>
                             <div class="flex flex-col items-center gap-2">
-                                <Gauge value={94} label="Success rate" size={72} tone="success" />
+                                <Gauge
+                                    {animation}
+                                    value={94}
+                                    label="Success rate"
+                                    size={72}
+                                    tone="success"
+                                />
                                 <span class="text-sm text-foreground-muted">Success rate</span>
                             </div>
                         </div>

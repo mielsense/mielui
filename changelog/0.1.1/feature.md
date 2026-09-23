@@ -60,3 +60,5 @@
 - Notch supports detached side actions that unfold on hover or focus. Notch notifications show one item at a time with previous and next controls.
 
 - Place counters or custom content outside a Notch with Accessory; notification counts now use this separate part.
+
+- Add built-in live motion to Gauge and Heatmap through their animation props.

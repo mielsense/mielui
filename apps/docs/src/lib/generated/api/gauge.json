@@ -44,7 +44,16 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "Track thickness in pixels. Defaults to 15% of the diameter, with a 4.5px minimum. The colored arc is inset within the track.",
+                "description": "Track and arc thickness in pixels. Defaults to 9.75% of the diameter, with a 3px minimum.",
+                "inherited": false
+            },
+            {
+                "name": "animation",
+                "type": "\"none\" | \"reveal\" | \"live\" | undefined",
+                "required": false,
+                "bindable": false,
+                "default": "'reveal'",
+                "description": "Reveal the arc, highlight it continuously, or disable animation.",
                 "inherited": false
             },
             {

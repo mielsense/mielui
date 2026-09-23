@@ -2,7 +2,7 @@
     import * as Heatmap from '@mielui/svelte/components/heatmap';
     import { days } from './data';
 
-    let { animation = 'rows' }: { animation?: 'rows' | 'columns' | 'none' } = $props();
+    let { animation = 'rows' }: { animation?: 'rows' | 'columns' | 'live' | 'none' } = $props();
 </script>
 <div class="w-full max-w-xl">
     {#key animation}

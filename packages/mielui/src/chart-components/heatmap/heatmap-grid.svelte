@@ -5,6 +5,8 @@
     import type { Cell } from './calendar';
     import { useHeatmap } from './context.svelte';
     import HeatmapCell from './heatmap-cell.svelte';
+    import { liveCalendar } from './live';
+
     let {
         children,
         class: className,
@@ -15,6 +17,7 @@
     const context = useHeatmap();
 </script>
 <div
+    use:liveCalendar={context.animation === 'live'}
     role="group"
     aria-label="Daily contributions. Use arrow keys to explore dates."
     {...props}

@@ -230,4 +230,8 @@ Apply Morph separately to each title, description, and icon region. Do not apply
 
 ### Chart state surfaces
 
-Cartesian and pie loading and empty messages use the shared inset Card, with the placeholder visualization behind the message. Compact Gauge states retain the meter footprint without a card wrapper. Keep live status announcements. Heatmap tooltips now use the same opaque inset frame as other chart tooltips. Gauge’s default track is 15% of its diameter; its colored arc is centered inside the track at 65% of that width. An explicit strokeWidth still sets the track width.
+Cartesian and pie loading and empty messages use the shared inset Card, with the placeholder visualization behind the message. Compact Gauge states retain the meter footprint without a card wrapper. Keep live status announcements. Heatmap tooltips now use the same opaque inset frame as other chart tooltips. Gauge’s track and colored arc share a width of 9.75% of its diameter by default, with a 3px minimum. An explicit strokeWidth sets both widths.
+
+### Gauge and Heatmap live motion
+
+Use Gauge animation="live" or Heatmap.Root animation="live" for continuous highlights. Do not add DOM queries, animation attachments, observers, or timers in consuming examples. Gauge accepts reveal (default), live, and none; Heatmap retains rows (default), columns, and none and adds live. Both preserve data values and honor reduced motion, disabled theme motion, hidden documents, and viewport visibility. Loading and empty presentation remains composed by the caller.
