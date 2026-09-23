@@ -173,3 +173,5 @@
 - Restrict the native file picker to one file when maxFiles is one.
 
 - Keep File Upload removal animations inside the file list instead of jumping toward the viewport corner.
+
+- Preserve the Gauge loading ring while using theme colors for its mask.

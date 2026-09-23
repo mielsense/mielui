@@ -111,7 +111,7 @@
               : (label ?? `${clamped} of ${safeMax}`)
     );
     const loadingMask = $derived(
-        `radial-gradient(circle at center, transparent ${radius - safeStrokeWidth / 2}px, #000 ${radius - safeStrokeWidth / 2 + 0.5}px, #000 ${radius + safeStrokeWidth / 2 - 0.5}px, transparent ${radius + safeStrokeWidth / 2}px)`
+        `radial-gradient(circle at center, transparent ${radius - safeStrokeWidth / 2}px, var(--color-foreground) ${radius - safeStrokeWidth / 2 + 0.5}px, var(--color-foreground) ${radius + safeStrokeWidth / 2 - 0.5}px, transparent ${radius + safeStrokeWidth / 2}px)`
     );
 </script>
 

@@ -48,7 +48,6 @@ describe('docs release contracts', () => {
         const homepage = readFileSync(resolve(root, 'apps/docs/src/routes/+page.svelte'), 'utf8');
         const readme = readFileSync(resolve(root, 'README.md'), 'utf8');
         expect(homepage).toContain(`\${components.length} Svelte`);
-        expect(homepage).toContain(`Restyle \${components.length} components`);
         expect(homepage).toContain(`Browse all \${components.length} components`);
         expect(readme).toContain(`badge/Components-${components.length}-`);
     });

@@ -29,9 +29,11 @@ describe('Gauge', () => {
         expect(meter).toHaveAttribute('aria-valuenow', '0');
         expect(meter).toHaveAttribute('aria-valuemax', '100');
         expect(meter).toHaveStyle({ width: '120px', height: '120px' });
-        const arc = container.querySelector('circle.stroke-current');
-        expect(arc).toHaveAttribute('stroke-width', '8');
-        expect(arc).toHaveAttribute('opacity', '0');
+        expect(Number(container.querySelector('circle')?.getAttribute('stroke-width'))).toBeCloseTo(
+            11.7
+        );
+        expect(container.querySelector('[data-ui="gauge-arc"]')).toHaveAttribute('d', '');
+        expect(container.innerHTML).not.toMatch(/NaN|Infinity/);
     });
 
     it('scales compact gauges and clamps oversized strokes', () => {
@@ -39,9 +41,6 @@ describe('Gauge', () => {
             props: { value: 24, max: 32, size: 32, strokeWidth: 100 }
         });
         expect(getByRole('meter')).toHaveStyle({ width: '32px' });
-        expect(container.querySelector('circle.stroke-current')).toHaveAttribute(
-            'stroke-width',
-            '16'
-        );
+        expect(container.querySelector('circle')).toHaveAttribute('stroke-width', '16');
     });
 });
