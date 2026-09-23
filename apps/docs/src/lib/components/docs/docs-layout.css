@@ -87,3 +87,7 @@
     [data-preview-code] {
     @apply rounded-none bg-transparent shadow-none;
 }
+
+.docs-article #examples > [id] + [id] {
+    @apply mt-6;
+}
