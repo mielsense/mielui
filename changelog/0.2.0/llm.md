@@ -25,3 +25,8 @@ button-outline elevation, while selected Items use the control inset. Compose
 focus rings with the appropriate elevation. Keep these treatments tied to theme
 shadow tokens; do not add fixed shadows to toolbar examples. The callable Toolbar
 used by composers retains its flat layout. No component API changes are required.
+
+Glass Tooltip.Content uses the ordinary theme foreground to match its card-based
+translucent surface. Solid tooltips keep the dedicated tooltip color pair. Rich
+shortcut content should inherit the tooltip foreground, not the page's muted
+foreground, so it stays readable with both treatments.

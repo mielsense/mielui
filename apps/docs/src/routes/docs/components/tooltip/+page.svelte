@@ -110,8 +110,9 @@
         <Typography.Text variant="supporting">
             Set surface="glass" on Tooltip.Content for a translucent background with blur. Omit
             surface to inherit --mielui-surface from your theme, or set surface="solid" to override
-            it. The glass surface keeps an opaque fallback when backdrop filtering is unavailable
-            and respects reduced-transparency preferences.
+            it. Glass uses the matching foreground color for its surface. The glass surface keeps an
+            opaque fallback when backdrop filtering is unavailable and respects reduced-transparency
+            preferences.
         </Typography.Text>
         <ComponentPreview code={GlassSrc}><Glass /></ComponentPreview>
     </section>

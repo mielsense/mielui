@@ -354,3 +354,7 @@ Keep separators square at the panel edges.
 Toolbar depth uses the shared floating elevation for its shell and button-outline
 relief for its keys. Selected tools use the control inset and background fill;
 compose focus rings with that relief. Keep the callable composer toolbar flat.
+
+Glass tooltips pair the shared glass surface with the theme foreground; solid
+tooltips retain their dedicated tooltip background and foreground pair. Toolbar
+keys use the outline within their elevation token without adding a second border.

@@ -39,7 +39,7 @@
 </script>
 
 <div class="@container flex w-full flex-col items-center gap-5">
-    <Toolbar.Root aria-label="Design tools" class="max-w-full flex-wrap justify-center gap-3 p-2.5">
+    <Toolbar.Root aria-label="Design tools" class="max-w-full flex-wrap justify-center gap-3 p-2">
         <Toolbar.Group
             type="single"
             bind:value={activeTool}
@@ -52,9 +52,14 @@
                         <Toolbar.Item
                             value={tool.id}
                             aria-label={tool.label}
-                            class="relative size-10 shrink-0 p-0"
+                            class="relative size-11 shrink-0 p-0"
                         >
-                            <HugeiconsIcon icon={tool.icon} size={16} aria-hidden="true" />
+                            <HugeiconsIcon
+                                icon={tool.icon}
+                                size={20}
+                                class="size-5"
+                                aria-hidden="true"
+                            />
                             <span class="sr-only"><Kbd shortcut={tool.shortcut} /></span>
                             {#if activeTool === tool.id}
                                 <span
@@ -64,12 +69,13 @@
                             {/if}
                         </Toolbar.Item>
                     </Tooltip.Trigger>
-                    <Tooltip.Content>
+                    <Tooltip.Content rich>
                         <span class="flex items-center gap-2">
                             {tool.label}
-                            <span class="font-mono text-xs text-foreground-muted">
-                                {tool.shortcut}
-                            </span>
+                            <Kbd
+                                shortcut={tool.shortcut}
+                                class="border-current/15 bg-current/10 text-inherit shadow-none"
+                            />
                         </span>
                     </Tooltip.Content>
                 </Tooltip.Root>
@@ -80,14 +86,14 @@
             <Toolbar.Button
                 aria-label="Zoom out"
                 disabled={zoom <= 25}
-                class="size-10 p-0"
+                class="size-11 p-0"
                 onclick={zoomOut}
             >
-                <HugeiconsIcon icon={MinusSignIcon} size={16} aria-hidden="true" />
+                <HugeiconsIcon icon={MinusSignIcon} size={20} class="size-5" aria-hidden="true" />
             </Toolbar.Button>
             <Toolbar.Button
                 aria-label="Reset zoom"
-                class="h-10 min-w-20 bg-background font-mono text-xs tabular-nums shadow-[var(--elevation-control)]"
+                class="h-11 min-w-20 bg-background font-mono text-xs tabular-nums shadow-[var(--elevation-control)]"
                 onclick={resetZoom}
             >
                 {`${zoom}%`}
@@ -95,10 +101,10 @@
             <Toolbar.Button
                 aria-label="Zoom in"
                 disabled={zoom >= 200}
-                class="size-10 p-0"
+                class="size-11 p-0"
                 onclick={zoomIn}
             >
-                <HugeiconsIcon icon={PlusSignIcon} size={16} aria-hidden="true" />
+                <HugeiconsIcon icon={PlusSignIcon} size={20} class="size-5" aria-hidden="true" />
             </Toolbar.Button>
         </div>
     </Toolbar.Root>

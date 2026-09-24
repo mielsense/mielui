@@ -17,7 +17,7 @@
             {...props}
             use:pressable
             data-ui="toolbar-link"
-            class={cn(className, 'border-[length:var(--border-size)] border-border bg-secondary text-foreground-muted shadow-[var(--elevation-button-outline)] hover:text-foreground active:bg-background active:shadow-[var(--elevation-control)] data-[state=on]:border-border-strong data-[state=on]:bg-background data-[state=on]:text-foreground data-[state=on]:shadow-[var(--elevation-control)] focus-visible:shadow-[var(--focus-ring),var(--elevation-button-outline)] data-[state=on]:focus-visible:shadow-[var(--focus-ring),var(--elevation-control)]', button({ variant: 'quiet', size: 'sm' }))}
+            class={cn(className, 'bg-secondary text-foreground-muted shadow-[var(--elevation-button-outline)] hover:text-foreground active:bg-background active:shadow-[var(--elevation-control)] data-[state=on]:bg-background data-[state=on]:text-foreground data-[state=on]:shadow-[var(--elevation-control)] focus-visible:shadow-[var(--focus-ring),var(--elevation-button-outline)] data-[state=on]:focus-visible:shadow-[var(--focus-ring),var(--elevation-control)]', button({ variant: 'quiet', size: 'sm' }))}
         >
             {@render children?.()}
         </a>

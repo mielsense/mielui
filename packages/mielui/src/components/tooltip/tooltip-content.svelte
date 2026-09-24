@@ -16,7 +16,13 @@
     $effect(() => {
         content.node = el;
         content.rich = rich;
-        tip.className = [overlaySurface(surface), className ?? ''].join(' ');
+        let glassForeground = '[@container_style(--mielui-surface:glass)]:text-foreground';
+        if (surface === 'glass') {
+            glassForeground = 'text-foreground';
+        } else if (surface === 'solid') {
+            glassForeground = '';
+        }
+        tip.className = [overlaySurface(surface), glassForeground, className ?? ''].join(' ');
     });
 
     onMount(() => {
