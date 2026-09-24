@@ -74,7 +74,9 @@
             class="flex min-h-10 flex-wrap items-center justify-between gap-2 bg-[var(--docs-chrome)] px-3 py-1"
         >
             <Tabs.Root bind:value variant="ghost">
-                <Tabs.List class="w-fit">
+                <Tabs.List
+                    class="w-fit [&>div[aria-hidden]]:bg-foreground/10 dark:[&>div[aria-hidden]]:bg-secondary/70"
+                >
                     <Tabs.Trigger value="preview">Preview</Tabs.Trigger>
                     <Tabs.Trigger value="code">Code</Tabs.Trigger>
                 </Tabs.List>

@@ -134,7 +134,8 @@
                                 {#each navItems as item (item.href)}
                                     <Button
                                         variant="quiet"
-                                        class="w-full justify-start"
+                                        class="w-full justify-start rounded-[var(--radius-md)] aria-[current=page]:bg-primary/15 aria-[current=page]:font-semibold aria-[current=page]:text-foreground aria-[current=page]:hover:bg-primary/20 aria-[current=page]:hover:text-foreground"
+                                        aria-current={page.url.pathname === item.href ? 'page' : undefined}
                                         onclick={close}
                                         href={item.href}
                                     >
@@ -148,7 +149,8 @@
                                 {#each docsPages as item (item.href)}
                                     <Button
                                         variant="quiet"
-                                        class="w-full justify-start"
+                                        class="w-full justify-start rounded-[var(--radius-md)] aria-[current=page]:bg-primary/15 aria-[current=page]:font-semibold aria-[current=page]:text-foreground aria-[current=page]:hover:bg-primary/20 aria-[current=page]:hover:text-foreground"
+                                        aria-current={page.url.pathname === item.href ? 'page' : undefined}
                                         onclick={close}
                                         href={item.href}
                                     >

@@ -103,7 +103,7 @@
 
 {#snippet siteFooter()}
     <footer
-        class={`relative flex h-[var(--docs-row-height)] shrink-0 border-t border-border/50 bg-[var(--docs-content)] items-center justify-between gap-3 px-4 sm:px-5 text-xs text-foreground-muted ${isDocs ? 'xl:grid xl:grid-cols-[auto_minmax(0,1fr)_auto] xl:gap-3 xl:px-5' : 'min-[68.75rem]:flex min-[68.75rem]:gap-6'}`}
+        class={`relative z-40 before:pointer-events-none before:absolute before:inset-x-0 before:bottom-full before:h-4 before:bg-linear-to-t before:from-[var(--docs-content)] before:to-transparent flex h-[var(--docs-row-height)] shrink-0 bg-[var(--docs-content)] items-center justify-between gap-3 px-4 sm:px-5 text-xs text-foreground-muted ${isDocs ? 'xl:grid xl:grid-cols-[auto_minmax(0,1fr)_auto] xl:gap-3 xl:px-5' : 'min-[68.75rem]:flex min-[68.75rem]:gap-6'}`}
     >
         {#if isDocs}
             <div class="flex justify-start"><DocsPager /></div>
@@ -195,7 +195,9 @@
                 <div
                     class="flex min-h-0 min-w-0 flex-1 flex-col overflow-hidden rounded-[var(--radius-xl)] border-[length:var(--border-size)] border-[var(--docs-rule)] bg-[var(--docs-content)]"
                 >
-                    <div class="flex shrink-0 items-center gap-2 bg-[var(--docs-content)] pr-3">
+                    <div
+                        class="relative z-40 after:pointer-events-none after:absolute after:inset-x-0 after:top-full after:h-4 after:bg-linear-to-b after:from-[var(--docs-content)] after:to-transparent flex shrink-0 items-center gap-2 bg-[var(--docs-content)] pr-3"
+                    >
                         <div class="min-w-0 flex-1">
                             <DocsToolbar starCount={data?.starCount ?? null} />
                         </div>

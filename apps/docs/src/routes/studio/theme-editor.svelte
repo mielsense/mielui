@@ -11,7 +11,9 @@
     setThemeEditor(editor);
 </script>
 
-<div class="fixed left-5 top-5 z-30">
+<div
+    class="absolute left-2 top-0 z-30 flex h-[calc(var(--docs-row-height)-var(--border-size))] items-center sm:left-5"
+>
     <FloatingInspector title="Theme configuration">
         {#snippet children()}
             <Inspector />

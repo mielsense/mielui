@@ -12,3 +12,14 @@
 - Restore framed lead demos, strengthen section labels, and align footer actions in a flush row.
 
 - Simplify Studio section labels and inspector disclosures without separator lines.
+
+- Make the selected sidebar page easier to identify with a tinted background and stronger label.
+
+- Remove the footer divider to match the borderless page header.
+
+- Align the Studio sidebar toggle with its header controls in both floating and pinned layouts.
+
+- Soften scrolling content at the header and footer with short background fades.
+
+- Improve light-mode preview tab contrast and section info hover visibility.
+- Keep search results inset from the palette sides and tint keyboard hints with the primary color.

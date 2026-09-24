@@ -279,13 +279,13 @@ inward with a viewport gutter.
 
 Section title rows stick below the header. Use compact opposite-tone pill labels with a small sticky offset instead of full-width
 section bars. Keep the page header and footer on the reading surface without
-extra header dividers. The footer is flush with the frame, separated by one subtle top rule; do not wrap it in another floating card. Content starts and ends 1.5rem from its section
+extra header dividers. Use a short, pointer-transparent fade into the page surface at the scrolling edges beneath the header and above the footer. The footer is flush with the frame without a top rule; do not wrap it in another floating card. Content starts and ends 1.5rem from its section
 boundaries; paragraph gaps stay at 1rem. The shared layout owns these distances. Keep body sections on one background rather than
 alternating arbitrary fills. Use modest responsive side gutters. Docs paragraphs use the section width; split
 long explanations into short paragraphs by topic rather than narrow text columns.
 
 Sidebar group headings and the page-outline heading use the same sticky row height
-as section titles. Sidebar groups use whitespace and subtle primary-colored selected text. Studio inspector sections use spaced rounded disclosure rows with a quiet fill, without separators. The leading preview toolbar shares that row height and
+as section titles. Sidebar groups use whitespace. Selected navigation links use a rounded primary-tinted fill and semibold foreground text so selection is visible beyond text color. Studio inspector sections use spaced rounded disclosure rows with a quiet fill, without separators. The leading preview toolbar shares that row height and
 sticks until the next section; inset example toolbars stay compact without an
 extra divider. Put optional section explanations behind a labelled info control.
 

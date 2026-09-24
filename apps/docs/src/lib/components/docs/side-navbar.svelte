@@ -44,7 +44,7 @@
                     aria-current={active ? 'page' : undefined}
                     class={`w-full justify-start rounded-[var(--radius-md)] px-3 text-left text-sm ${
                         active
-                            ? 'text-primary hover:text-primary [font-weight:var(--font-weight-label,500)]'
+                            ? 'bg-primary/15 font-semibold text-foreground hover:bg-primary/20 hover:text-foreground'
                             : 'text-foreground-muted hover:text-foreground'
                     }`}
                 >

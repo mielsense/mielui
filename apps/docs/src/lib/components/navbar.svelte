@@ -73,7 +73,7 @@
     <nav
         class={`sticky inset-x-0 top-0 z-20 transition-[background-color,backdrop-filter] duration-200 ${
             isStudio
-                ? 'bg-transparent'
+                ? 'bg-[var(--docs-content)] after:pointer-events-none after:absolute after:inset-x-0 after:top-full after:h-4 after:bg-linear-to-b after:from-[var(--docs-content)] after:to-transparent'
                 : isDocs
                 ? 'bg-background/72 backdrop-blur-[14px]'
                 : scrolled
@@ -83,7 +83,7 @@
     >
         <div
             class={`relative mx-auto flex h-[calc(var(--docs-row-height)-var(--border-size))] w-full items-center justify-between ${
-                isStudio ? 'pl-14 pr-3' : isDocs ? 'max-w-[1400px] px-4 md:px-6' : 'px-4 md:px-6'
+                isStudio ? 'pl-14 pr-3 sm:pl-18' : isDocs ? 'max-w-[1400px] px-4 md:px-6' : 'px-4 md:px-6'
             }`}
         >
             <div
