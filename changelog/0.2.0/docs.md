@@ -23,3 +23,5 @@
 
 - Improve light-mode preview tab contrast and section info hover visibility.
 - Keep search results inset from the palette sides and tint keyboard hints with the primary color.
+
+- Expand the introduction with a setup comparison, complete package quick start, and guidance for theming and component exploration.
