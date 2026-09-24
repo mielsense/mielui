@@ -38,7 +38,7 @@
         'flex min-w-0 flex-wrap items-center justify-between gap-2',
         inset
             ? 'mielui-inset-surface -mt-[var(--mielui-modal-inset)] min-h-10 rounded-t-none px-3 py-2'
-            : 'min-h-10 px-1 py-1'
+            : 'min-h-11 px-2 py-1.5'
     )}
 >
     {@render children?.()}

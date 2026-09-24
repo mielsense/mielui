@@ -22,7 +22,7 @@ export const manifest: Manifest = {
         'components/file-diff/manifest.ts'
     ],
     components: ['_internal/utils', '_internal/highlight'],
-    shared: ['hugeicons-icon', 'utils.cn'],
+    shared: ['components/_internal/inset-layout', 'hugeicons-icon', 'utils.cn'],
     peerDependencies: {
         '@floating-ui/dom': '1.7.6',
         '@hugeicons/core-free-icons': '^4.3.0',

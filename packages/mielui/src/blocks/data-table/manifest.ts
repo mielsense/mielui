@@ -28,6 +28,7 @@ export const manifest: Manifest = {
         'components/data-table/data-table-column-header.svelte'
     ],
     components: [
+        'pagination',
         '_internal/utils',
         'table',
         'input',

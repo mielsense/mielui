@@ -5,6 +5,7 @@
     import { numberShuffle } from '@mielui/svelte/actions/number-shuffle';
     import { cn } from '@mielui/svelte/utils';
     import { Button } from '../../components/button';
+    import Pagination from '../../components/pagination';
     import type { DataTablePaginationProps } from '.';
     import { pagination } from './features';
 
@@ -20,7 +21,7 @@
     const page = $derived(pageCount === 0 ? 0 : (state.pagination?.pageIndex ?? 0) + 1);
 </script>
 {#if api.nextPage}
-    <nav
+    <div
         {...rest}
         aria-label={rest['aria-label'] ?? 'Table pages'}
         data-ui="data-table-pagination"
@@ -38,25 +39,38 @@
                 {/if}
             {/if}
         </span>
-        <Button
-            variant="outline"
-            size="sm"
-            disabled={loading || !api.getCanPreviousPage?.()}
-            onclick={() => {
+        {#if pageCount >= 0}
+            <fieldset disabled={loading || pageCount === 0} class="m-0 min-w-0 border-0 p-0">
+                <Pagination
+                    {page}
+                    total={Math.max(1, pageCount)}
+                    aria-label="Table pages"
+                    onPageChange={(next) => {
+                        api.setPageIndex?.(next - 1);
+                    }}
+                />
+            </fieldset>
+        {:else}
+            <Button
+                variant="outline"
+                size="sm"
+                disabled={loading || !api.getCanPreviousPage?.()}
+                onclick={() => {
                 api.previousPage?.();
             }}
-        >
-            Previous
-        </Button>
-        <Button
-            variant="outline"
-            size="sm"
-            disabled={loading || !api.getCanNextPage?.()}
-            onclick={() => {
+            >
+                Previous
+            </Button>
+            <Button
+                variant="outline"
+                size="sm"
+                disabled={loading || !api.getCanNextPage?.()}
+                onclick={() => {
                 api.nextPage?.();
             }}
-        >
-            Next
-        </Button>
-    </nav>
+            >
+                Next
+            </Button>
+        {/if}
+    </div>
 {/if}

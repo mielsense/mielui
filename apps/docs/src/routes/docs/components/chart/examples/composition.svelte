@@ -9,10 +9,10 @@
         { day: 'Fri', requests: 940, target: 800 }
     ];
     const config = {
-        target: { label: 'Target', color: 'oklch(0.84 0.12 85)' },
+        target: { label: 'Target', color: 'var(--chart-2)' },
         requests: {
             label: 'API requests',
-            color: 'oklch(0.74 0.12 25)',
+            color: 'var(--chart-1)',
             format: (value: number) => `${value.toLocaleString()} requests`
         }
     };

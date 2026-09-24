@@ -5,10 +5,10 @@
     let { children, class: className, ...props }: HTMLAttributes<HTMLDivElement> = $props();
     const levels = [
         'bg-secondary',
-        'bg-primary/25',
-        'bg-primary/45',
-        'bg-primary/70',
-        'bg-primary'
+        'bg-[color-mix(in_oklab,var(--chart-1)_25%,transparent)]',
+        'bg-[color-mix(in_oklab,var(--chart-1)_45%,transparent)]',
+        'bg-[color-mix(in_oklab,var(--chart-1)_70%,transparent)]',
+        'bg-[var(--chart-1)]'
     ];
 </script>
 <div

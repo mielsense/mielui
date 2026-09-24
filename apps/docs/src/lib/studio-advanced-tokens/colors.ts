@@ -1,4 +1,10 @@
 export const colorTokenDefinitions = [
+    { name: '--chart-1', label: 'Chart 1', group: 'Charts', fallback: '#b8a1f2' },
+    { name: '--chart-2', label: 'Chart 2', group: 'Charts', fallback: '#8bc7f5' },
+    { name: '--chart-3', label: 'Chart 3', group: 'Charts', fallback: '#f49d9d' },
+    { name: '--chart-4', label: 'Chart 4', group: 'Charts', fallback: '#8ed8b0' },
+    { name: '--chart-5', label: 'Chart 5', group: 'Charts', fallback: '#f2d77d' },
+
     {
         name: '--mielui-neutral-0',
         label: 'Neutral 0',

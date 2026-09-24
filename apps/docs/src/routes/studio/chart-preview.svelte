@@ -30,12 +30,12 @@
     const revenueConfig = {
         revenue: {
             label: 'Revenue',
-            color: 'oklch(0.74 0.12 25)',
+            color: 'var(--chart-1)',
             format: (value: number) => money.format(value)
         },
         target: {
             label: 'Target',
-            color: 'oklch(0.84 0.12 85)',
+            color: 'var(--chart-2)',
             format: (value: number) => money.format(value)
         }
     };
@@ -47,20 +47,22 @@
         { day: 'Fri', desktop: year === '2026' ? 640 : 480, mobile: 350 }
     ]);
     const trafficConfig = {
-        desktop: { label: 'Desktop', color: 'oklch(0.74 0.12 25)' },
-        mobile: { label: 'Mobile', color: 'oklch(0.84 0.12 85)' }
+        desktop: { label: 'Desktop', color: 'var(--chart-1)' },
+        mobile: { label: 'Mobile', color: 'var(--chart-2)' }
     };
     const channels = $derived([
         { key: 'direct', value: year === '2026' ? 420 : 340 },
         { key: 'search', value: year === '2026' ? 340 : 420 },
         { key: 'referral', value: 180 },
-        { key: 'social', value: 60 }
+        { key: 'social', value: 40 },
+        { key: 'other', value: 20 }
     ]);
     const channelConfig = {
-        direct: { label: 'Direct', color: 'oklch(0.74 0.12 25)' },
-        search: { label: 'Search', color: 'oklch(0.84 0.12 85)' },
-        referral: { label: 'Referral', color: 'oklch(0.8 0.09 55)' },
-        social: { label: 'Social', color: 'oklch(0.65 0.07 45)' }
+        direct: { label: 'Direct', color: 'var(--chart-1)' },
+        search: { label: 'Search', color: 'var(--chart-2)' },
+        referral: { label: 'Referral', color: 'var(--chart-3)' },
+        social: { label: 'Social', color: 'var(--chart-4)' },
+        other: { label: 'Other', color: 'var(--chart-5)' }
     };
     const activity = Array.from({ length: 364 }, (_, index) => {
         const date = new Date(Date.UTC(2025, 8, 24 + index));
@@ -237,7 +239,7 @@
                                     value={94}
                                     label="Success rate"
                                     size={72}
-                                    tone="success"
+                                    class="[--chart-1:var(--chart-5)]"
                                 />
                                 <span class="text-sm text-foreground-muted">Success rate</span>
                             </div>

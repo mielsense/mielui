@@ -2,6 +2,7 @@
     import * as Tabs from '@mielui/svelte/components/tabs';
     import { cn } from '@mielui/svelte/utils';
     import { setContext, untrack } from 'svelte';
+    import { insetLayout } from '../../components/_internal/inset-layout';
     import type { CodeBlockProps, CodeBlockRegistry, CodeBlockTab } from '.';
     import Actions from './code-block-actions.svelte';
     import Content from './code-block-content.svelte';
@@ -138,58 +139,60 @@
     data-ui="code-block"
     class={cn(
         className,
-        'mielui-inset-frame flex max-h-[var(--code-block-max-height)] w-full flex-col overflow-hidden text-foreground',
+        '[--mielui-modal-inset:var(--spacing)] mielui-inset-frame flex max-h-[var(--code-block-max-height)] w-full flex-col overflow-hidden text-foreground',
         // token-lint-disable-next-line no-literal-length: code-block geometry contract
         '[--code-block-gutter:var(--color-foreground-muted)] [--code-block-padding-x:1.1rem] [--code-block-padding-y:0.9rem] [--code-block-line-height:1.7] [--code-block-max-height:min(32rem,70vh)] [--code-block-slide:1.25rem]'
     )}
     {...rest}
 >
     <Tabs.Root bind:value variant="segmented" class="contents">
-        {#if isHighLevel}
-            {#if hasTabRow || actions || copy === 'actionbar'}
-                <Header>
-                    {#if hasTabRow}
-                        <List>
-                            {#each resolvedTabs as t (t.value)}
-                                <Trigger value={t.value as string}>{t.label}</Trigger>
-                            {/each}
-                        </List>
-                    {/if}
-                    <Actions copy={copy === 'actionbar'}>{@render actions?.()} </Actions>
-                </Header>
-            {/if}
-            {#if hasTabRow || code != null}
-                <!-- The static card: holds the background/ring while only the text
+        <div class="contents" use:insetLayout>
+            {#if isHighLevel}
+                {#if hasTabRow || actions || copy === 'actionbar'}
+                    <Header>
+                        {#if hasTabRow}
+                            <List>
+                                {#each resolvedTabs as t (t.value)}
+                                    <Trigger value={t.value as string}>{t.label}</Trigger>
+                                {/each}
+                            </List>
+                        {/if}
+                        <Actions copy={copy === 'actionbar'}>{@render actions?.()} </Actions>
+                    </Header>
+                {/if}
+                {#if hasTabRow || code != null}
+                    <!-- The static card: holds the background/ring while only the text
 				     panels slide inside it (and clips the slide). -->
-                <div
-                    data-ui="code-block-surface"
-                    class={cn(
+                    <div
+                        data-ui="code-block-surface"
+                        class={cn(
                         'mielui-inset-surface relative flex min-h-0 w-full self-stretch flex-1 overflow-auto'
                     )}
-                >
-                    {#if hasTabRow}
-                        {#each resolvedTabs as t (t.value)}
+                    >
+                        {#if hasTabRow}
+                            {#each resolvedTabs as t (t.value)}
+                                <Content
+                                    value={t.value as string}
+                                    code={t.code}
+                                    lang={t.lang}
+                                    {showLineNumbers}
+                                    copyPlacement={bodyCopy}
+                                />
+                            {/each}
+                        {:else if code != null}
                             <Content
-                                value={t.value as string}
-                                code={t.code}
-                                lang={t.lang}
+                                value={SINGLE}
+                                {code}
+                                {lang}
                                 {showLineNumbers}
                                 copyPlacement={bodyCopy}
                             />
-                        {/each}
-                    {:else if code != null}
-                        <Content
-                            value={SINGLE}
-                            {code}
-                            {lang}
-                            {showLineNumbers}
-                            copyPlacement={bodyCopy}
-                        />
-                    {/if}
-                </div>
+                        {/if}
+                    </div>
+                {/if}
+            {:else}
+                {@render children?.()}
             {/if}
-        {:else}
-            {@render children?.()}
-        {/if}
+        </div>
     </Tabs.Root>
 </div>

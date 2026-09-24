@@ -12,6 +12,12 @@
 
 /* Public theme contract: semantic color, type, radius, density, elevation, and motion axes. */
 @theme {
+    --chart-1: #b8a1f2;
+    --chart-2: #8bc7f5;
+    --chart-3: #f49d9d;
+    --chart-4: #8ed8b0;
+    --chart-5: #f2d77d;
+
     --font-sans: 'Inter', sans-serif;
     --font-mono: 'JetBrains Mono', monospace;
     --font-header: var(--font-sans);
@@ -51,10 +57,10 @@
     --overlay-brightness: 0.9;
     --opacity-disabled: 0.4;
 
-    --radius-sm: 6px;
-    --radius-md: 8px;
-    --radius-lg: 10px;
-    --radius-xl: 14px;
+    --radius-sm: 8px;
+    --radius-md: 10px;
+    --radius-lg: 14px;
+    --radius-xl: 20px;
     --font-size-header: 16px;
     --font-size-body: 14px;
     --font-size-label: 13px;

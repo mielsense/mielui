@@ -362,6 +362,42 @@ const css = themeToCss(theme);`}
         </Typography.Text>
     </section>
 
+    <section id="chart-colors" class="flex flex-col gap-4">
+        <Typography.H2>Chart colors</Typography.H2>
+        <Typography.Text>
+            Studio's Color → Chart colors controls edit --chart-1 through --chart-5 for the active
+            light or dark theme. The defaults are pastel purple, blue, red, green, and yellow.
+            Cartesian charts, pie charts, gauges, heatmaps, and their demos use these tokens.
+            Explicit series colors and semantic gauge tones still take precedence.
+        </Typography.Text>
+        <CodeBlock
+            copy="overlay"
+            lang="css"
+            code={`:root {
+  --chart-1: #b8a1f2;
+  --chart-2: #8bc7f5;
+  --chart-3: #f49d9d;
+  --chart-4: #8ed8b0;
+  --chart-5: #f2d77d;
+}`}
+        />
+    </section>
+    <section id="inset-position" class="flex flex-col gap-4">
+        <Typography.H2>Inset strip position</Typography.H2>
+        <Typography.Text>
+            Appearance → Inset strip moves exposed chrome above or below its inset content. Studio
+            exports --mielui-inset-position as top or bottom. Without that token, components keep
+            their authored order. Override it locally with class="[--mielui-inset-position:top]"
+            when a header must stay above its content, as the installation command tabs do. Data
+            tables keep filters above rows and pagination below them.
+        </Typography.Text>
+        <Typography.Text>
+            The default radius scale is 8, 10, 14, and 20 pixels from small to extra large. Glass
+            backdrop in the Studio footer adds color behind the preview; it is a viewing aid and is
+            not included in your exported theme.
+        </Typography.Text>
+    </section>
+
     <section class="flex flex-col gap-4">
         <Typography.H2>Edge highlights</Typography.H2>
         <Typography.Text>

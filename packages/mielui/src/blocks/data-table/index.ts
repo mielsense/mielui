@@ -28,6 +28,7 @@ export type DataTableProps<TFeatures extends TableFeatures, TData extends RowDat
         DataTableViewProps<TFeatures, TData>,
         'table' | 'loading' | 'selectable' | 'caption' | 'rowLabel' | 'header' | 'cell' | 'empty'
     > & {
+        variant?: 'default' | 'inset';
         children?: Snippet<[DataTableState<TFeatures, TData>]>;
     };
 export type DataTableHeaderProps<TFeatures extends TableFeatures, TData extends RowData> = Pick<

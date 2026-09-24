@@ -7,6 +7,7 @@
     import * as Collapsible from '@mielui/svelte/components/collapsible';
     import * as Tooltip from '@mielui/svelte/components/tooltip';
     import HugeiconsIcon from '@mielui/svelte/hugeicons-icon';
+    import { colorTokenDefinitions } from '$lib/studio-advanced-tokens';
     import {
         backgroundSwatches,
         baseSwatches,
@@ -135,6 +136,26 @@
                         }
                     )}
             </div>
+        </Collapsible.Content>
+    </Collapsible.Root>
+    <Collapsible.Root>
+        <Collapsible.Trigger
+            class="group flex min-h-8 w-full items-center justify-between rounded-md px-2 text-sm text-foreground-muted hover:bg-secondary hover:text-foreground focus-visible:outline-none focus-visible:shadow-[var(--focus-ring)]"
+        >
+            Chart colors
+            <HugeiconsIcon
+                icon={ChevronDown}
+                size={14}
+                aria-hidden="true"
+                class="transition-transform duration-[var(--motion-duration-press)] group-data-[state=open]:rotate-180 motion-reduce:transition-none"
+            />
+        </Collapsible.Trigger>
+        <Collapsible.Content class="grid grid-cols-2 gap-2 pt-4">
+            {#each colorTokenDefinitions.filter((definition) => definition.group === 'Charts') as definition (definition.name)}
+                {@render colorPickerControl(definition.label, editor.tokens.resolveColorToken(definition).hex, [], (value) => {
+                    editor.tokens.updateAdvancedColorToken(definition.name, value);
+                })}
+            {/each}
         </Collapsible.Content>
     </Collapsible.Root>
 </EditorSection>

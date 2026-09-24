@@ -13,9 +13,9 @@
             maximumFractionDigits: 0
         }).format(value);
     const config = {
-        storage: { label: 'Storage', color: 'oklch(0.74 0.12 25)', format: currency },
-        compute: { label: 'Compute', color: 'oklch(0.84 0.12 85)', format: currency },
-        network: { label: 'Network', color: 'oklch(0.8 0.09 55)', format: currency }
+        storage: { label: 'Storage', color: 'var(--chart-1)', format: currency },
+        compute: { label: 'Compute', color: 'var(--chart-2)', format: currency },
+        network: { label: 'Network', color: 'var(--chart-3)', format: currency }
     };
 </script>
 

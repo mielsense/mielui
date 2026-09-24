@@ -1,5 +1,6 @@
 <script lang="ts">
     import { cn } from '@mielui/svelte/utils';
+    import { insetLayout } from '../_internal/inset-layout';
     import type { CardProps } from '.';
     import { type CardFooterSlot, setCardContext } from './context.svelte';
 
@@ -15,6 +16,7 @@
 
 {#if variant === 'inset'}
     <div
+        use:insetLayout
         data-ui="card"
         data-variant="inset"
         {...rest}

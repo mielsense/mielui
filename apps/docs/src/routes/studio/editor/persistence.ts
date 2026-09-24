@@ -90,6 +90,9 @@ export function createThemeEditorStorage(state: ThemeEditorState) {
             ) {
                 state.edgeHighlight = value.edgeHighlight;
             }
+            if (value.insetPosition === 'top' || value.insetPosition === 'bottom') {
+                state.insetPosition = value.insetPosition;
+            }
             if (value.borders === 'single' || value.borders === 'double') {
                 state.borders = value.borders;
             }
@@ -146,6 +149,7 @@ export function createThemeEditorStorage(state: ThemeEditorState) {
                 animation: { ...state.advancedTokens.animation }
             },
             borders: state.borders,
+            insetPosition: state.insetPosition,
             edgeHighlight: state.edgeHighlight,
             surfaceShadows: state.surfaceShadows,
             controlShadows: state.controlShadows,

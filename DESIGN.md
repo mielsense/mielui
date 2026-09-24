@@ -379,3 +379,29 @@ The opt-in toolbar depth uses a shallow key face, a thin dark sidewall, and a
 short contact shadow. Its theme-owned face gradient follows the edge highlight
 and disappears with control shadows. Preserve compact key sizes and avoid thick
 bevels or stacked outlines. The default toolbar remains flat.
+
+## Chart palette and inset placement
+
+Chart series use `--chart-1` through `--chart-5` in order, cycling only after the
+fifth series. The default palette is pastel purple, blue, red, green, and yellow.
+Use these tokens in examples, legends, and tooltips; retain explicit series colors
+and semantic status tones. Studio edits the active color mode and exports those
+values as theme tokens.
+
+The default radius scale is 8/10/14/20px. Table cell corners subtract the frame
+border and inset from its outer radius; never substitute a smaller fixed radius.
+Preview frames clip their toolbar backgrounds to preserve the perimeter.
+
+`--mielui-inset-position: top | bottom` moves exposed inset chrome in DOM order.
+Omitting the token preserves authored composition. Use the shared internal inset
+layout action, and override the token on a particular frame when its content
+requires a fixed order. Install command tabs stay on top. DataTable inset mode
+keeps its toolbar above the table and summary/pagination below, independently of
+the global preference. Single borders still remove decorative frame spacing on cards and ordinary overlays.
+Inset data tables, composers, code blocks, and docs preview panels keep a narrow
+structural gutter around their inner content in both border modes.
+
+Glass retains a contrasting translucent inner panel over the outer chrome. Avoid
+fully transparent inner surfaces on composers and other inset layouts: they erase
+the structural distinction. Keep the shared blur and reduced-transparency fallback.
+The Studio glass backdrop is preview-only and never exported with a theme.

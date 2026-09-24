@@ -13,7 +13,7 @@ import { parseTheme } from './theme-parse';
 
 const RADII: Record<RadiusScale, readonly [string, string, string, string]> = {
     sharp: ['2px', '4px', '6px', '8px'],
-    default: ['6px', '8px', '10px', '14px'],
+    default: ['8px', '10px', '14px', '20px'],
     rounded: ['10px', '14px', '18px', '24px']
 };
 
@@ -329,6 +329,11 @@ export function themeToCss(themeInput: Theme): string {
     const motion = MOTION[theme.motion];
     const borderInsetScale = theme.chrome?.borders === 'single' ? 0 : 1;
     const shared = [
+        '--chart-1: #b8a1f2;',
+        '--chart-2: #8bc7f5;',
+        '--chart-3: #f49d9d;',
+        '--chart-4: #8ed8b0;',
+        '--chart-5: #f2d77d;',
         `--mielui-border-inset-scale: ${borderInsetScale};`,
         `--mielui-edge-highlight: ${theme.chrome?.edgeHighlight ?? 0.5};`,
         `--font-sans: ${theme.fontSans};`,

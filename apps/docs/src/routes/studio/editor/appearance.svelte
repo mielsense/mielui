@@ -25,6 +25,14 @@
                 }
             )}
         </div>
+        <div class="flex flex-col gap-2">
+            <Typography.Metadata>Inset strip</Typography.Metadata>
+            {@render toggleChoice(['top', 'bottom'], editor.state.insetPosition, 'Inset strip position', (value) => {
+                if (value === 'top' || value === 'bottom') {
+                    editor.state.insetPosition = value;
+                }
+            })}
+        </div>
         <Switch bind:checked={editor.state.glassSurfaces} label="Glass surfaces" />
     </div>
     <div class="flex flex-col gap-3 border-t border-border pt-4">

@@ -7,9 +7,9 @@
         { key: 'referral', value: 420 }
     ];
     const config = {
-        direct: { label: 'Direct', color: 'oklch(0.74 0.12 25)' },
-        search: { label: 'Search', color: 'oklch(0.84 0.12 85)' },
-        referral: { label: 'Referral', color: 'oklch(0.8 0.09 55)' }
+        direct: { label: 'Direct', color: 'var(--chart-1)' },
+        search: { label: 'Search', color: 'var(--chart-2)' },
+        referral: { label: 'Referral', color: 'var(--chart-3)' }
     };
 </script>
 

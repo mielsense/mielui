@@ -2,8 +2,11 @@
     import { Badge } from '@mielui/svelte/components/badge';
     import { Button } from '@mielui/svelte/components/button';
     import * as Card from '@mielui/svelte/components/card';
+    import * as Menu from '@mielui/svelte/components/dropdown-menu';
     import * as Group from '@mielui/svelte/components/group';
+    import * as HoverCard from '@mielui/svelte/components/hover-card';
     import { Input } from '@mielui/svelte/components/input';
+    import * as Popover from '@mielui/svelte/components/popover';
     import { ScrollArea } from '@mielui/svelte/components/scroll-area';
     import * as Select from '@mielui/svelte/components/select';
     import { Slider } from '@mielui/svelte/components/slider';
@@ -13,6 +16,8 @@
     import ComponentGallery from './component-gallery.svelte';
 
     const uid = $props.id();
+    let access = $state('team');
+    let digest = $state(true);
     let slug = $state('');
     let name = $state('Alex Morgan');
     let role = $state('editor');
@@ -121,6 +126,92 @@
                         </div>
                     </Card.Content>
                 </section>
+            </div>
+        </section>
+        <section aria-labelledby="studio-overlays">
+            <h2
+                id="studio-overlays"
+                class="sticky top-0 z-10 flex h-[var(--docs-row-height)] items-center border-y-[length:var(--border-size)] border-[var(--docs-rule)] bg-[var(--docs-chrome)] px-6 text-sm font-semibold"
+            >
+                Menus and popovers
+            </h2>
+            <div class="grid grid-cols-1 items-start gap-5 px-6 py-6 @3xl:grid-cols-3">
+                <Card.Root variant="panel" class="min-w-0">
+                    <Card.Header>
+                        <Card.Title>Project actions</Card.Title>
+                        <Card.Description>
+                            Open a menu to compare its surface with the card.
+                        </Card.Description>
+                    </Card.Header>
+                    <Card.Content>
+                        <Menu.Root>
+                            <Menu.Trigger variant="outline">Project menu</Menu.Trigger>
+                            <Menu.Content>
+                                <Menu.Label>Release workspace</Menu.Label>
+                                <Menu.Item onclick={() => toast.info('Project opened')}>
+                                    Open project
+                                </Menu.Item>
+                                <Menu.Item onclick={() => toast.success('Project duplicated')}>
+                                    Duplicate
+                                </Menu.Item>
+                                <Menu.Separator />
+                                <Menu.Label>Access</Menu.Label>
+                                <Menu.RadioGroup bind:value={access}>
+                                    <Menu.RadioItem value="team">Team only</Menu.RadioItem>
+                                    <Menu.RadioItem value="everyone">
+                                        Anyone with the link
+                                    </Menu.RadioItem>
+                                </Menu.RadioGroup>
+                            </Menu.Content>
+                        </Menu.Root>
+                    </Card.Content>
+                </Card.Root>
+                <Card.Root variant="panel" class="min-w-0">
+                    <Card.Header>
+                        <Card.Title>Notification preferences</Card.Title>
+                        <Card.Description>
+                            Adjust a setting inside a floating panel.
+                        </Card.Description>
+                    </Card.Header>
+                    <Card.Content>
+                        <Popover.Root placement="bottom-start">
+                            <Popover.Trigger variant="outline">Preferences</Popover.Trigger>
+                            <Popover.Content class="w-72" surfaceClass="space-y-4 p-4">
+                                <Popover.Title>Stay up to date</Popover.Title>
+                                <p class="text-sm text-foreground-muted">
+                                    Receive a summary of activity in your workspace.
+                                </p>
+                                <Switch bind:checked={digest} label="Weekly digest" />
+                            </Popover.Content>
+                        </Popover.Root>
+                    </Card.Content>
+                </Card.Root>
+                <Card.Root variant="panel" class="min-w-0">
+                    <Card.Header>
+                        <Card.Title>People</Card.Title>
+                        <Card.Description>
+                            Hover or focus a teammate to see their details.
+                        </Card.Description>
+                    </Card.Header>
+                    <Card.Content>
+                        <HoverCard.Root>
+                            <HoverCard.Trigger
+                                class="rounded-[var(--radius-md)] text-sm underline underline-offset-4 focus-visible:outline-2 focus-visible:outline-primary"
+                            >
+                                Alex Morgan
+                            </HoverCard.Trigger>
+                            <HoverCard.Content side="bottom" align="start" class="w-64">
+                                <HoverCard.Title>Alex Morgan</HoverCard.Title>
+                                <HoverCard.Description>
+                                    Product designer · Workspace owner
+                                </HoverCard.Description>
+                                <p class="mt-3 text-sm text-foreground-muted">
+                                    Working on the next release.
+                                </p>
+                            </HoverCard.Content>
+                        </HoverCard.Root>
+                    </Card.Content>
+                </Card.Root>
             </div>
         </section>
         <section aria-labelledby="studio-content">

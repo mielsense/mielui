@@ -63,7 +63,11 @@
     }
 </script>
 
-<div use:activatePreview data-component-preview class="mielui-inset-frame relative isolate">
+<div
+    use:activatePreview
+    data-component-preview
+    class="mielui-inset-frame relative isolate overflow-hidden [--mielui-modal-inset:var(--spacing)]"
+>
     <div {...rest} class={cn(classProp, 'w-full min-w-0')}>
         <div
             data-preview-toolbar

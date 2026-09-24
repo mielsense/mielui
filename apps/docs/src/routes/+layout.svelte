@@ -1,6 +1,7 @@
 <script lang="ts">
     import { InformationCircleIcon as Info } from '@hugeicons/core-free-icons';
     import * as HoverCard from '@mielui/svelte/components/hover-card';
+    import { Switch } from '@mielui/svelte/components/switch';
     import * as Tabs from '@mielui/svelte/components/tabs';
     import { Toaster } from '@mielui/svelte/components/toast';
     import HugeiconsIcon from '@mielui/svelte/hugeicons-icon';
@@ -31,7 +32,7 @@
     import type { LayoutData } from './$types';
 
     const selectedFont = createDocsFontState();
-    const studio = $state({ mode: 'components', width: 'wide' });
+    const studio = $state({ mode: 'components', width: 'wide', glassBackdrop: false });
     setStudioContext(studio);
 
     const pageInfo = $state<PageInfoContext>({ current: null });
@@ -164,14 +165,17 @@
             <div
                 class="flex min-w-0 flex-1 items-center justify-end gap-4 min-[68.75rem]:justify-between min-[68.75rem]:pl-3 min-[68.75rem]:pr-5"
             >
-                <Tabs.Root bind:value={studio.width} variant="ghost" class="hidden md:block">
-                    <div role="group" aria-label="Preview width">
-                        <Tabs.List>
-                            <Tabs.Trigger value="wide">Wide</Tabs.Trigger>
-                            <Tabs.Trigger value="narrow">Narrow</Tabs.Trigger>
-                        </Tabs.List>
-                    </div>
-                </Tabs.Root>
+                <div class="flex items-center gap-4">
+                    <Tabs.Root bind:value={studio.width} variant="ghost" class="hidden md:block">
+                        <div role="group" aria-label="Preview width">
+                            <Tabs.List>
+                                <Tabs.Trigger value="wide">Wide</Tabs.Trigger>
+                                <Tabs.Trigger value="narrow">Narrow</Tabs.Trigger>
+                            </Tabs.List>
+                        </div>
+                    </Tabs.Root>
+                    <Switch bind:checked={studio.glassBackdrop} label="Glass backdrop" />
+                </div>
                 <nav aria-label="Footer" class="flex items-center gap-5">
                     <a
                         class="hover:text-foreground focus-visible:outline-2 focus-visible:outline-primary"

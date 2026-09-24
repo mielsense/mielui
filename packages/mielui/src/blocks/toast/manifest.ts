@@ -41,6 +41,7 @@ export const manifest: Manifest = {
     ],
     components: ['_internal/utils', 'button', 'notch'],
     shared: [
+        'components/_internal/inset-layout',
         'components/_internal/button-attributes',
         'components/_internal/surface',
         'hugeicons-icon',

@@ -44,6 +44,7 @@ export type StudioExtensions = {
     foundationColors: FoundationColors;
     advancedTokens: AdvancedTokens;
     borders: 'double' | 'single';
+    insetPosition: 'top' | 'bottom';
     edgeHighlight: number;
     surfaceShadows: boolean;
     controlShadows: boolean;

@@ -10,8 +10,8 @@
         { month: 'Jun', desktop: 372, mobile: 310 }
     ];
     const config = {
-        desktop: { label: 'Desktop', color: 'oklch(0.74 0.12 25)' },
-        mobile: { label: 'Mobile', color: 'oklch(0.84 0.12 85)' }
+        desktop: { label: 'Desktop', color: 'var(--chart-1)' },
+        mobile: { label: 'Mobile', color: 'var(--chart-2)' }
     };
 </script>
 

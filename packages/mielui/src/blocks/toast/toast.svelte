@@ -4,6 +4,7 @@
     import { cn } from '@mielui/svelte/utils';
     import { onDestroy } from 'svelte';
     import type { HTMLAttributes } from 'svelte/elements';
+    import { insetLayout } from '../../components/_internal/inset-layout';
     import { overlaySurface } from '../../components/_internal/surface';
     import { setToastContext } from './context.svelte';
     import { pauseToast, resumeToast, type Toast } from './lib.svelte';
@@ -30,6 +31,15 @@
     } = $props();
 
     let element = $state<HTMLElement | null>(null);
+    $effect(() => {
+        if (!element) {
+            return;
+        }
+        const layout = insetLayout(element);
+        return () => {
+            layout.destroy();
+        };
+    });
     const reduced = useReducedMotion();
     let duration = $state(0);
     $effect.pre(() => {

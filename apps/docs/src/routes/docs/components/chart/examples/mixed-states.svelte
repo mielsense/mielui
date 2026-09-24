@@ -12,8 +12,8 @@
         { month: 'June', orders: 61, target: 70 }
     ];
     const config = {
-        orders: { label: 'Orders', color: 'oklch(0.74 0.12 25)' },
-        target: { label: 'Target', color: 'oklch(0.84 0.12 85)' }
+        orders: { label: 'Orders', color: 'var(--chart-1)' },
+        target: { label: 'Target', color: 'var(--chart-2)' }
     };
     const data = $derived(dataState === 'empty' ? [] : records);
     function changeAnimation(value: string) {

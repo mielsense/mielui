@@ -53,7 +53,7 @@
                 {new Intl.DateTimeFormat(context.locale, { dateStyle: 'medium', timeZone: 'UTC' }).format(new Date(`${day.date}T00:00:00Z`))}
             </div>
             <div class="flex items-center gap-2">
-                <span class="size-2 rounded-full bg-primary"></span>
+                <span class="size-2 rounded-full bg-[var(--chart-1)]"></span>
                 <span class="flex-1 text-foreground-muted">Contributions</span>
                 <span class="ml-4 font-medium tabular-nums">
                     {new Intl.NumberFormat(context.locale).format(day.count)}
