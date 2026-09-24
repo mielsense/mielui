@@ -350,3 +350,7 @@ movement and cursor behavior under Interaction.
 Menu separators span the full inner panel width, including submenus. Cancel the
 shared item padding at the separator rather than removing padding from menu items.
 Keep separators square at the panel edges.
+
+Toolbar depth uses the shared floating elevation for its shell and button-outline
+relief for its keys. Selected tools use the control inset and background fill;
+compose focus rings with that relief. Keep the callable composer toolbar flat.

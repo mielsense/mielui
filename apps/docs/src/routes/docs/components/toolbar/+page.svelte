@@ -28,6 +28,11 @@
     <section id="usage" class="flex flex-col gap-4">
         <Typography.H2>Usage</Typography.H2>
         <Typography.Text>
+            Raised keys sit on a floating surface. Selected tools and pressed controls settle into
+            the surface with a quieter inset edge. Depth follows the theme's control and surface
+            shadows, edge highlights, and reduced-motion settings.
+        </Typography.Text>
+        <Typography.Text>
             Import the component subpath as a namespace. Root owns one roving keyboard collection:
             compose Button, Link, Separator, and Group containing Item. Give Root an aria-label or
             aria-labelledby. Set orientation to vertical for vertical arrow navigation, and loop to

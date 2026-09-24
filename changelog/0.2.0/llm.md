@@ -17,3 +17,11 @@ The setting changes the double-frame treatment, not the component variant.
 Existing single-border surfaces stay single. Glass, shadows, focus rings, and
 edge highlights remain independent. New double-frame implementations must follow
 this token rather than introduce fixed inset padding or a fixed inner ring.
+
+## Toolbar depth exploration
+
+Toolbar.Root now owns its floating shell. Button, Link, and Item use the shared
+button-outline elevation, while selected Items use the control inset. Compose
+focus rings with the appropriate elevation. Keep these treatments tied to theme
+shadow tokens; do not add fixed shadows to toolbar examples. The callable Toolbar
+used by composers retains its flat layout. No component API changes are required.
