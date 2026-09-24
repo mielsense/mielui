@@ -6,6 +6,8 @@ export const manifest: Manifest = {
     description:
         'Upload cards with validation, progress, cancellation, retry, and animated completion.',
     files: [
+        'actions/number-shuffle/index.ts',
+        'actions/number-shuffle/render.ts',
         'components/file-upload/index.ts',
         'components/file-upload/context.svelte.ts',
         'components/file-upload/controller.svelte.ts',

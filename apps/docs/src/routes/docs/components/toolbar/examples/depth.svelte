@@ -9,6 +9,7 @@
         SquareIcon,
         TextFontIcon
     } from '@hugeicons/core-free-icons';
+    import { numberShuffle } from '@mielui/svelte/actions/number-shuffle';
     import Kbd from '@mielui/svelte/components/kbd';
     import * as Toolbar from '@mielui/svelte/components/toolbar';
     import * as Tooltip from '@mielui/svelte/components/tooltip';
@@ -73,7 +74,11 @@
                             {/if}
                         </Toolbar.Item>
                     </Tooltip.Trigger>
-                    <Tooltip.Content rich>
+                    <Tooltip.Content
+                        rich
+                        surface="solid"
+                        class="bg-[var(--color-field)] text-[var(--color-field-foreground)]"
+                    >
                         <span class="flex items-center gap-2">
                             {tool.label}
                             <Kbd
@@ -97,10 +102,12 @@
             </Toolbar.Button>
             <Toolbar.Button
                 aria-label="Reset zoom"
-                class="h-8 min-w-16 bg-background font-mono text-xs tabular-nums shadow-[var(--mielui-toolbar-pressed)]"
+                class="h-8 min-w-16 bg-none bg-background font-mono text-xs tabular-nums shadow-[var(--mielui-toolbar-pressed)]"
                 onclick={resetZoom}
             >
-                {`${zoom}%`}
+                <span use:numberShuffle={{ value: zoom, format: (value) => `${value}%` }}>
+                    {`${zoom}%`}
+                </span>
             </Toolbar.Button>
             <Toolbar.Button
                 aria-label="Zoom in"
@@ -113,6 +120,8 @@
         </div>
     </Toolbar.Root>
     <p role="status" class="text-sm text-foreground-muted">
-        {`${tools.find((tool) => tool.id === activeTool)?.label ?? 'No tool'} selected · ${zoom}% zoom`}
+        {`${tools.find((tool) => tool.id === activeTool)?.label ?? 'No tool'} selected · `}
+        <span use:numberShuffle={{ value: zoom, format: (value) => `${value}%` }}>{zoom}%</span>
+        {' zoom'}
     </p>
 </div>

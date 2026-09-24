@@ -1,5 +1,6 @@
 <script lang="ts">
     import { ArrowDown01Icon as ChevronDown } from '@hugeicons/core-free-icons';
+    import { numberShuffle } from '@mielui/svelte/actions/number-shuffle';
     import { Spinner } from '@mielui/svelte/components/spinner';
     import { cn, pressable } from '@mielui/svelte/utils';
     import HugeiconsIcon from '../../hugeicons-icon.svelte';
@@ -67,7 +68,15 @@
         <span class="min-w-0 flex-1 truncate text-foreground-muted">{name}</span>
         {#if duration}
             <span class="ml-2 shrink-0 font-mono text-xs tabular-nums text-foreground-muted">
-                {duration}
+                {#if /^\d+(?:\.\d+)?(?:ms|s)$/.test(duration)}
+                    <span
+                        use:numberShuffle={{ value: Number.parseFloat(duration), format: (value) => `${value.toFixed(duration.match(/\.(\d+)/)?.[1].length ?? 0)}${duration.endsWith("ms") ? "ms" : "s"}` }}
+                    >
+                        {duration}
+                    </span>
+                {:else}
+                    {duration}
+                {/if}
             </span>
         {/if}
     {/if}

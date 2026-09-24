@@ -1,4 +1,5 @@
 <script lang="ts">
+    import { numberShuffle } from '@mielui/svelte/actions/number-shuffle';
     import { Button } from '@mielui/svelte/components/button';
     import * as Group from '@mielui/svelte/components/group';
 
@@ -28,7 +29,7 @@
         </Button>
     </Group.Root>
     <output class="min-w-14 text-sm text-foreground-muted tabular-nums" aria-label="Zoom level">
-        {zoom}
+        <span use:numberShuffle={{ value: zoom }}>{zoom}</span>
         %
     </output>
 </div>

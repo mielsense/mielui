@@ -2,6 +2,7 @@
     lang="ts"
     generics="TFeatures extends import('@tanstack/svelte-table').TableFeatures, TData extends import('@tanstack/svelte-table').RowData"
 >
+    import { numberShuffle } from '@mielui/svelte/actions/number-shuffle';
     import { cn } from '@mielui/svelte/utils';
     import { Button } from '../../components/button';
     import type { DataTablePaginationProps } from '.';
@@ -26,7 +27,16 @@
         class={cn(className, 'flex flex-wrap items-center gap-3')}
     >
         <span class="text-sm text-foreground-muted tabular-nums">
-            {pageCount === 0 ? 'No pages' : `Page ${page}${pageCount >= 0 ? ` of ${pageCount}` : ''}`}
+            {#if pageCount === 0}
+                No pages
+            {:else}
+                {'Page '}
+                <span use:numberShuffle={{ value: page }}>{page}</span>
+                {#if pageCount >= 0}
+                    {' of '}
+                    <span use:numberShuffle={{ value: pageCount }}>{pageCount}</span>
+                {/if}
+            {/if}
         </span>
         <Button
             variant="outline"

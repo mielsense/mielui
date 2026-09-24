@@ -1,4 +1,5 @@
 <script lang="ts">
+    import { numberShuffle } from '@mielui/svelte/actions/number-shuffle';
     import { tick, untrack } from 'svelte';
     import * as Notch from '../notch/index';
     import { pauseToast, resumeToast, type Toast as ToastType, toast } from './lib.svelte';
@@ -186,7 +187,11 @@
             onfocusin={focusIn}
             onfocusout={focusOut}
         >
-            {`${index + 1} of ${toasts.length}`}
+            <span use:numberShuffle={{ value: index + 1 }}>{index + 1}</span> of<span
+                use:numberShuffle={{ value: toasts.length }}
+            >
+                {toasts.length}
+            </span>
         </Notch.Accessory>
     {/if}
 </Notch.Root>

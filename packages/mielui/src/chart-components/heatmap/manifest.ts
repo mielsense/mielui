@@ -5,6 +5,8 @@ export const manifest: Manifest = {
     visibility: 'public',
     description: 'Daily activity in a keyboard-navigable contribution calendar.',
     files: [
+        'actions/number-shuffle/index.ts',
+        'actions/number-shuffle/render.ts',
         'components/heatmap/heatmap-tooltip.svelte',
         'components/heatmap/heatmap-footer.svelte',
         'components/heatmap/heatmap.svelte',

@@ -1,4 +1,5 @@
 <script lang="ts">
+    import { numberShuffle } from '@mielui/svelte/actions/number-shuffle';
     import { Checkbox } from '@mielui/svelte/components/checkbox';
 
     let finalizePricing = $state(true);
@@ -20,7 +21,7 @@
     <div class="mb-4 flex items-center justify-between gap-4">
         <h3 class="text-foreground [font-weight:var(--font-weight-label,500)]">Launch checklist</h3>
         <span class="text-sm text-foreground-muted [font-weight:var(--font-weight-label,500)]">
-            {completedCount}
+            <span use:numberShuffle={{ value: completedCount }}>{completedCount}</span>
             /{totalCount}
         </span>
     </div>

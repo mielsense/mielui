@@ -1,4 +1,5 @@
 <script lang="ts">
+    import { numberShuffle } from '@mielui/svelte/actions/number-shuffle';
     import { Button } from '@mielui/svelte/components/button';
     import * as TagInput from '@mielui/svelte/components/tag-input';
 
@@ -18,7 +19,9 @@
     </TagInput.Root>
 
     <div class="flex items-center justify-between gap-3">
-        <p class="text-sm text-foreground-muted">{tags.length} topics</p>
+        <p class="text-sm text-foreground-muted">
+            <span use:numberShuffle={{ value: tags.length }}>{tags.length}</span> topics
+        </p>
         <div class="flex gap-2">
             <Button
                 variant="ghost"

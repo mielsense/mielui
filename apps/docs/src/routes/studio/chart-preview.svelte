@@ -1,4 +1,5 @@
 <script lang="ts">
+    import { numberShuffle } from '@mielui/svelte/actions/number-shuffle';
     import { Button } from '@mielui/svelte/components/button';
     import * as Chart from '@mielui/svelte/components/chart';
     import { Gauge } from '@mielui/svelte/components/gauge';
@@ -101,7 +102,11 @@
                         <p class="text-sm text-foreground-muted">{`January to June ${year}`}</p>
                     </header>
                     <p class="mb-6 mt-4 text-3xl font-semibold tabular-nums tracking-tight">
-                        {money.format(total)}
+                        <span
+                            use:numberShuffle={{ value: total, format: (value) => money.format(value) }}
+                        >
+                            {money.format(total)}
+                        </span>
                     </p>
                     <Chart.Root
                         data={revenue}

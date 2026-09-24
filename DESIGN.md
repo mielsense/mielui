@@ -363,3 +363,16 @@ keys use the outline within their elevation token without adding a second border
 Keep the original compact control size. Raised keys have a directional top edge
 and a short contact shadow; pressed keys trade that shadow for an inward top shade.
 Both toolbar relief tokens flatten when control shadows are disabled.
+
+Changing numeric readouts use the shared `numberShuffle` action: counts, totals,
+percentages, zoom levels, and durations. Apply it to a text-only HTML span with
+the same initial text and a formatter that uses its numeric argument. Keep units
+inside that formatter when they belong to the value. Editable input values, SVG
+axis labels, dates, and static numeric identifiers remain native. Custom snippets
+follow this rule too. Do not attach the action to a container containing controls
+or to hidden content that an overlay clones.
+
+The opt-in toolbar depth uses a shallow key face, a thin dark sidewall, and a
+short contact shadow. Its theme-owned face gradient follows the edge highlight
+and disappears with control shadows. Preserve compact key sizes and avoid thick
+bevels or stacked outlines. The default toolbar remains flat.

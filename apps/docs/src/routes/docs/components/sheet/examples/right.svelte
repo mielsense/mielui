@@ -1,5 +1,6 @@
 <script lang="ts">
     import { SlidersHorizontalIcon as SlidersHorizontal } from '@hugeicons/core-free-icons';
+    import { numberShuffle } from '@mielui/svelte/actions/number-shuffle';
     import { Badge } from '@mielui/svelte/components/badge';
     import { Button } from '@mielui/svelte/components/button';
     import { Checkbox } from '@mielui/svelte/components/checkbox';
@@ -50,7 +51,9 @@
         <HugeiconsIcon icon={SlidersHorizontal} size={14} />
         Filters
         {#if activeCount > 0}
-            <Badge variant="secondary">{activeCount}</Badge>
+            <Badge variant="secondary">
+                <span use:numberShuffle={{ value: activeCount }}>{activeCount}</span>
+            </Badge>
         {/if}
     </Sheet.Trigger>
     <Sheet.Content side="right">
@@ -102,7 +105,9 @@
             <Button onclick={() => apply()}>
                 Apply filters
                 {#if activeCount > 0}
-                    <Badge variant="secondary">{activeCount}</Badge>
+                    <Badge variant="secondary">
+                        <span use:numberShuffle={{ value: activeCount }}>{activeCount}</span>
+                    </Badge>
                 {/if}
                 <Kbd shortcut="enter" />
             </Button>

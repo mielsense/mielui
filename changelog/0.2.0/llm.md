@@ -34,3 +34,15 @@ Glass Tooltip.Content uses the ordinary theme foreground to match its card-based
 translucent surface. Solid tooltips keep the dedicated tooltip color pair. Rich
 shortcut content should inherit the tooltip foreground, not the page's muted
 foreground, so it stays readable with both treatments.
+
+## Changing numeric readouts
+
+Use `numberShuffle` from the existing action subpath for changing HTML numeric
+readouts. Give it a text-only span with the current value as source text. Pass
+the raw number as `value` and format its numeric argument for currencies, units,
+or decimals; a formatter returning a captured display string will not animate.
+Leave native editable inputs, SVG labels, and static identifiers unchanged.
+Custom render snippets should compose the same action. Never attach it to hidden
+tooltip sources that get cloned, because cloned DOM does not retain the action.
+Source-copy manifests that include these parts must also include both the action
+index and its render module. The action owns reduced-motion behavior and cleanup.

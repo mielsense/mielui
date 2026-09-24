@@ -32,7 +32,9 @@
         <Typography.Text>
             Toolbars are flat by default. Set variant="depth" on Toolbar.Root to opt into raised
             keys and recessed selections. Button, Link, and Item inherit the variant. Depth follows
-            the theme's shadow, edge-highlight, and reduced-motion settings.
+            the theme's shadow, edge-highlight, and reduced-motion settings. Both examples include
+            zoom controls with number shuffle for the changing percentage. Tooltips use the input
+            surface colors.
         </Typography.Text>
         <Typography.Text>
             Import the component subpath as a namespace. Root owns one roving keyboard collection:

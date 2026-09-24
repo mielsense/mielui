@@ -1,4 +1,5 @@
 <script lang="ts">
+    import { numberShuffle } from '@mielui/svelte/actions/number-shuffle';
     import { cn } from '@mielui/svelte/utils';
     import { getPieContext } from './context';
     import type { PieChartLegendProps } from './index';
@@ -69,7 +70,12 @@
                         style:background={context.color(item.key)}
                     ></span>
                     <span>{context.label(item.key)}</span>
-                    <span class="text-foreground tabular-nums">{context.format(item)}</span>
+                    <span
+                        class="text-foreground tabular-nums"
+                        use:numberShuffle={{ value: item.value, format: (value) => context.format({ ...item, value }) }}
+                    >
+                        {context.format(item)}
+                    </span>
                 {/if}
             </button>
         </li>

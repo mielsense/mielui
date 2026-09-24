@@ -5,6 +5,8 @@ export const manifest: Manifest = {
     visibility: 'public',
     description: 'Composable animated bar, line, and area charts built on LayerChart.',
     files: [
+        'actions/number-shuffle/index.ts',
+        'actions/number-shuffle/render.ts',
         'components/chart/area.svelte',
         'components/chart/axis.svelte',
         'components/chart/bar.svelte',

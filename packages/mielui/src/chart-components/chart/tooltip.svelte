@@ -1,4 +1,5 @@
 <script lang="ts">
+    import { numberShuffle } from '@mielui/svelte/actions/number-shuffle';
     import { cn } from '@mielui/svelte/utils';
     import type { Snippet } from 'svelte';
     import { cubicOut } from 'svelte/easing';
@@ -135,7 +136,12 @@
                         <div class="flex items-center gap-2">
                             <span class="size-2 rounded-full" style:background={item.color}></span>
                             <span class="flex-1 text-foreground-muted">{item.label}</span>
-                            <span class="ml-4 font-medium tabular-nums">{item.formatted}</span>
+                            <span
+                                class="ml-4 font-medium tabular-nums"
+                                use:numberShuffle={{ value: item.value, format: (value) => chart.format(item.key, value) }}
+                            >
+                                {item.formatted}
+                            </span>
                         </div>
                     {/each}
                 </div>

@@ -1,4 +1,5 @@
 <script lang="ts">
+    import { numberShuffle } from '@mielui/svelte/actions/number-shuffle';
     import { Slider } from '@mielui/svelte/components/slider';
     import { Switch } from '@mielui/svelte/components/switch';
     import * as Typography from '@mielui/svelte/components/typography';
@@ -34,7 +35,11 @@
             />
             {#if editor.state.edgeHighlight > 0}
                 <span class="font-mono text-xs tabular-nums text-foreground-muted">
-                    {Math.round(editor.state.edgeHighlight * 100)}
+                    <span
+                        use:numberShuffle={{ value: Math.round(editor.state.edgeHighlight * 100) }}
+                    >
+                        {Math.round(editor.state.edgeHighlight * 100)}
+                    </span>
                     %
                 </span>
             {/if}

@@ -1,4 +1,5 @@
 <script lang="ts">
+    import { numberShuffle } from '@mielui/svelte/actions/number-shuffle';
     import { Button } from '@mielui/svelte/components/button';
     import * as DataTable from '@mielui/svelte/components/data-table';
     import { createTable, createTableState, type SortingState } from '@tanstack/svelte-table';
@@ -24,7 +25,9 @@
 <DataTable.Root {table} class="w-full">
     {#snippet children({ total })}
         <DataTable.Toolbar>
-            <p class="text-sm font-medium">{total} team members</p>
+            <p class="text-sm font-medium">
+                <span use:numberShuffle={{ value: total }}>{total}</span> team members
+            </p>
             <Button variant="secondary" size="sm" onclick={() => { data = members; }}>
                 Show all members
             </Button>

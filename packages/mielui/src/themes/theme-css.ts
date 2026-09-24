@@ -239,7 +239,8 @@ function elevationDeclarations(mode: 'light' | 'dark'): string[] {
     return mode === 'light'
         ? [
               '--elevation-control-edge: inset 0 1px 0 0 rgb(255 255 255 / calc(0.38 * var(--mielui-edge-highlight))), inset 0 -1px 0 0 rgb(15 15 16 / 0.06);',
-              '--mielui-toolbar-raised: var(--elevation-control-edge), inset 0 0 0 var(--border-size) var(--color-border), 0 1px 2px rgb(0 0 0 / 0.12);',
+              '--mielui-toolbar-face: linear-gradient(to bottom, rgb(255 255 255 / calc(0.045 * var(--mielui-edge-highlight))), rgb(0 0 0 / 0.04));',
+              '--mielui-toolbar-raised: var(--elevation-control-edge), inset 0 0 0 var(--border-size) var(--color-border), 0 1px 0 var(--color-border), 0 2px 2px rgb(0 0 0 / 0.12);',
               '--mielui-toolbar-pressed: inset 0 0 0 var(--border-size) var(--color-border), inset 0 1px 2px rgb(0 0 0 / 0.1);',
               '--elevation-surface-edge: inset 0 1px 0 0 rgb(255 255 255 / calc(0.55 * var(--mielui-edge-highlight)));',
               '--elevation-1: var(--elevation-surface-edge), 0 4px 2px rgb(0 0 0 / 0.04);',
@@ -250,7 +251,8 @@ function elevationDeclarations(mode: 'light' | 'dark'): string[] {
           ]
         : [
               '--elevation-control-edge: inset 0 1px 0 0 rgb(255 255 255 / calc(0.07 * var(--mielui-edge-highlight))), inset 0 -1px 0 0 rgb(0 0 0 / 0.22);',
-              '--mielui-toolbar-raised: var(--elevation-control-edge), inset 0 1px 0 rgb(255 255 255 / calc(0.1 * var(--mielui-edge-highlight))), inset 0 0 0 var(--border-size) rgb(0 0 0 / 0.3), 0 1px 2px rgb(0 0 0 / 0.35);',
+              '--mielui-toolbar-face: linear-gradient(to bottom, rgb(255 255 255 / calc(0.045 * var(--mielui-edge-highlight))), rgb(0 0 0 / 0.04));',
+              '--mielui-toolbar-raised: inset 0 1px 0 rgb(255 255 255 / calc(0.18 * var(--mielui-edge-highlight))), inset 0 -1px 0 rgb(0 0 0 / 0.2), 0 0 0 var(--border-size) rgb(0 0 0 / 0.6), 0 1px 0 1px rgb(0 0 0 / 0.45), 0 2px 3px rgb(0 0 0 / 0.2);',
               '--mielui-toolbar-pressed: inset 0 0 0 var(--border-size) rgb(0 0 0 / 0.35), inset 0 1px 2px rgb(0 0 0 / 0.3);',
               '--elevation-surface-edge: inset 0 1px 0 0 rgb(255 255 255 / calc(0.07 * var(--mielui-edge-highlight)));',
               '--elevation-1: var(--elevation-surface-edge), 0 1px 2px rgb(0 0 0 / 0.4);',
@@ -281,6 +283,7 @@ function chromeBlocks(chrome: ThemeChrome | undefined): string {
     }
     if (!controlShadows) {
         elevationOff.push(
+            '--mielui-toolbar-face: none;',
             '--mielui-toolbar-raised: inset 0 0 0 var(--border-size) var(--color-border);',
             '--mielui-toolbar-pressed: inset 0 0 0 var(--border-size) var(--color-border);',
             '--elevation-control-edge: 0 0 0 0 transparent;',

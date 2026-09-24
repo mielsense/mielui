@@ -7,6 +7,8 @@ export const manifest: Manifest = {
     description:
         'Composable pie and donut charts with animated updates, accessible values, tooltips, and legends.',
     files: [
+        'actions/number-shuffle/index.ts',
+        'actions/number-shuffle/render.ts',
         'components/pie-chart/context.ts',
         'components/pie-chart/index.ts',
         'components/pie-chart/pie-chart-arc.svelte',

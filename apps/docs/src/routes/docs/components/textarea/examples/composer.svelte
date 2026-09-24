@@ -1,4 +1,5 @@
 <script lang="ts">
+    import { numberShuffle } from '@mielui/svelte/actions/number-shuffle';
     import { Button } from '@mielui/svelte/components/button';
     import { Textarea } from '@mielui/svelte/components/textarea';
 
@@ -22,7 +23,9 @@
     >
         <div class="flex items-center justify-between gap-3 px-3 pb-3">
             <span class="text-xs text-foreground-muted tabular-nums">
-                {message.length} characters
+                <span use:numberShuffle={{ value: message.length }}>
+                    {message.length}
+                </span> characters
             </span>
             <Button type="submit" size="sm" disabled={!message.trim()}>Send</Button>
         </div>
