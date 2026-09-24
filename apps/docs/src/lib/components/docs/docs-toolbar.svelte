@@ -134,12 +134,10 @@
 
 <Sheet.Root bind:open={mobileMenuOpen}>
     <header
-        class="relative z-20 mx-auto flex h-[calc(var(--docs-row-height)-var(--border-size))] w-full shrink-0 items-center justify-between gap-4 px-2 sm:px-5 xl:grid xl:grid-cols-[minmax(0,1fr)_18rem] xl:gap-3 xl:px-0"
+        class="relative z-20 mx-auto flex h-[calc(var(--docs-row-height)-var(--border-size))] w-full shrink-0 items-center justify-between gap-4 px-2 sm:px-5"
     >
-        <div
-            class="mx-auto flex w-full min-w-0 items-center justify-between gap-4 lg:px-[calc((var(--spacing)*5+2rem)/2)]"
-        >
-            <div class="flex min-w-0 items-center gap-2 lg:hidden">
+        <div class="mx-auto flex w-full min-w-0 items-center justify-between gap-4">
+            <div class="flex min-w-0 items-center gap-2">
                 <Tooltip.Root>
                     <Tooltip.Trigger>
                         <Sheet.Trigger
@@ -153,7 +151,7 @@
                     </Tooltip.Trigger>
                     <Tooltip.Content>Open navigation menu</Tooltip.Content>
                 </Tooltip.Root>
-                <div class="sm:hidden"><Logo /></div>
+                <div class="hidden sm:block"><Logo /></div>
             </div>
 
             <nav aria-label="Breadcrumb" class="hidden w-full min-w-0 sm:block">
@@ -203,7 +201,7 @@
                 </Button>
             </div>
         </div>
-        <div class="flex shrink-0 items-center gap-1.5 xl:h-full xl:justify-between xl:px-5">
+        <div class="flex shrink-0 items-center gap-1.5">
             <Button
                 class="border-border/60 h-9 gap-1.5 rounded-[var(--radius-md)] px-2.5 text-[0.8125rem] tabular-nums"
                 variant="outline"
@@ -246,7 +244,7 @@
         </div>
     </header>
 
-    <Sheet.Content side="left" class="p-0 lg:hidden">
+    <Sheet.Content side="left" class="max-w-xs">
         <Sheet.Title class="sr-only">Browse mielui</Sheet.Title>
         <Sheet.Description class="sr-only">
             Documentation and component categories.

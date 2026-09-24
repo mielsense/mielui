@@ -264,10 +264,9 @@ still disable their corresponding elevation effects.
 Docs and Studio use a quiet background with a subtle primary tint around the
 workspace. In docs, page controls belong inside the rounded page frame: breadcrumb
 and actions above the content, pagination and copy controls below it. Keep the
-outer top and bottom gutters compact. The navigation rail remains outside. Keep
-both documentation side rails equal in width, with three spacing units between
-them and the recessed content. Do not box the rails into separate cards or extend
-content dividers through the surrounding shell. The section rail uses a solid hook.
+outer top and bottom gutters compact. Navigation and page outline open as floating Sheets from labelled toolbar toggles,
+leaving the reading area full width. Both floating panels use the shared Sheet
+focus, dismissal, and motion behavior. The section rail uses a solid hook.
 
 Page names remain in the breadcrumb and an accessible heading. Put the page
 summary behind the footer's information HoverCard. Copy page and previous/next

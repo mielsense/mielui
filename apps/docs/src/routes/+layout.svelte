@@ -1,6 +1,11 @@
 <script lang="ts">
-    import { InformationCircleIcon as Info } from '@hugeicons/core-free-icons';
+    import {
+        InformationCircleIcon as Info,
+        Menu01Icon as Menu,
+        Cancel01Icon as X
+    } from '@hugeicons/core-free-icons';
     import * as HoverCard from '@mielui/svelte/components/hover-card';
+    import * as Sheet from '@mielui/svelte/components/sheet';
     import { Switch } from '@mielui/svelte/components/switch';
     import * as Tabs from '@mielui/svelte/components/tabs';
     import { Toaster } from '@mielui/svelte/components/toast';
@@ -10,12 +15,11 @@
     import CopyPage from '$lib/components/docs/copy-page.svelte';
     import DocsPager from '$lib/components/docs/docs-pager.svelte';
     import DocsToolbar from '$lib/components/docs/docs-toolbar.svelte';
+    import OnThisPage from '$lib/components/docs/on-this-page.svelte';
     import {
         type PageInfoContext,
         setPageInfoContext
     } from '$lib/components/docs/page-info-context';
-    import SideNavbar from '$lib/components/docs/side-navbar.svelte';
-    import Logo from '$lib/components/logo.svelte';
     import Navbar from '$lib/components/navbar.svelte';
     import { setSearch } from '$lib/components/search/context';
     import SiteSearch from '$lib/components/search/palette.svelte';
@@ -68,6 +72,7 @@
     });
 
     let docsScrollEl = $state<HTMLDivElement>();
+    let outlineContent = $state<HTMLElement>();
 
     afterNavigate(() => {
         if (window.location.hash) {
@@ -105,7 +110,7 @@
 
 {#snippet siteFooter()}
     <footer
-        class={`relative flex h-[var(--docs-row-height)] shrink-0 items-center justify-between gap-3 px-4 sm:px-5 text-xs text-foreground-muted ${isDocs ? 'xl:grid xl:grid-cols-[auto_minmax(0,1fr)_18rem] xl:gap-3 xl:px-0' : 'min-[68.75rem]:grid min-[68.75rem]:grid-cols-[18rem_minmax(0,1fr)] min-[68.75rem]:gap-3 min-[68.75rem]:px-0'}`}
+        class={`relative flex h-[var(--docs-row-height)] shrink-0 items-center justify-between gap-3 px-4 sm:px-5 text-xs text-foreground-muted ${isDocs ? 'xl:grid xl:grid-cols-[auto_minmax(0,1fr)_auto] xl:gap-3 xl:px-5' : 'min-[68.75rem]:grid min-[68.75rem]:grid-cols-[18rem_minmax(0,1fr)] min-[68.75rem]:gap-3 min-[68.75rem]:px-0'}`}
     >
         {#if isDocs}
             <div class="flex justify-start xl:px-5"><DocsPager /></div>
@@ -194,19 +199,45 @@
             </div>
         {:else if isDocs}
             <div data-docs-shell class="relative flex h-full w-full gap-3">
-                <div class="hidden min-h-0 w-[18rem] shrink-0 flex-col lg:flex">
-                    <div class="flex h-[var(--docs-row-height)] shrink-0 items-center px-5">
-                        <Logo />
-                    </div>
-                    <SideNavbar class="min-h-0 flex-1 [--docs-chrome:var(--docs-shell)]" />
-                </div>
                 <div
                     class="flex min-h-0 min-w-0 flex-1 flex-col overflow-hidden rounded-[var(--radius-xl)] border-[length:var(--border-size)] border-[var(--docs-rule)] bg-[var(--docs-content)]"
                 >
                     <div
-                        class="shrink-0 border-b border-[var(--docs-rule)] bg-[var(--docs-chrome)]"
+                        class="flex shrink-0 items-center gap-2 border-b border-[var(--docs-rule)] bg-[var(--docs-chrome)] pr-3"
                     >
-                        <DocsToolbar starCount={data?.starCount ?? null} />
+                        <div class="min-w-0 flex-1">
+                            <DocsToolbar starCount={data?.starCount ?? null} />
+                        </div>
+                        <Sheet.Root>
+                            <Sheet.Trigger
+                                variant="quiet"
+                                size="icon"
+                                aria-label="Open page outline"
+                                onclick={() => {
+                                    outlineContent = docsScrollEl?.querySelector<HTMLElement>('[data-docs-scroll]') ?? undefined;
+                                }}
+                            >
+                                <HugeiconsIcon icon={Menu} size={18} />
+                            </Sheet.Trigger>
+                            <Sheet.Content side="right" class="max-w-xs">
+                                <div class="flex items-center justify-between">
+                                    <Sheet.Title>On this page</Sheet.Title>
+                                    <Sheet.Close
+                                        variant="quiet"
+                                        size="icon"
+                                        aria-label="Close page outline"
+                                    >
+                                        <HugeiconsIcon icon={X} size={18} />
+                                    </Sheet.Close>
+                                </div>
+                                <Sheet.Description class="sr-only">
+                                    Jump to a section in this page.
+                                </Sheet.Description>
+                                <div class="min-h-0 overflow-y-auto">
+                                    <OnThisPage content={outlineContent} />
+                                </div>
+                            </Sheet.Content>
+                        </Sheet.Root>
                     </div>
                     <div bind:this={docsScrollEl} class="min-h-0 min-w-0 flex-1 overflow-hidden">
                         {@render children?.()}
