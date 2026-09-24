@@ -2,8 +2,10 @@
     import {
         BubbleChatIcon,
         FrameIcon,
+        MinusSignIcon,
         MousePointer01Icon,
         PenTool01Icon,
+        PlusSignIcon,
         SquareIcon,
         TextFontIcon
     } from '@hugeicons/core-free-icons';
@@ -13,6 +15,19 @@
     import HugeiconsIcon from '@mielui/svelte/hugeicons-icon';
 
     let activeTool = $state('move');
+    let zoom = $state(100);
+    function zoomOut() {
+        zoom = Math.max(25, zoom - 25);
+    }
+
+    function zoomIn() {
+        zoom = Math.min(200, zoom + 25);
+    }
+
+    function resetZoom() {
+        zoom = 100;
+    }
+
     const tools = [
         { id: 'move', label: 'Move', shortcut: 'V', icon: MousePointer01Icon },
         { id: 'frame', label: 'Frame', shortcut: 'F', icon: FrameIcon },
@@ -24,7 +39,7 @@
 </script>
 
 <div class="@container flex w-full flex-col items-center gap-3">
-    <Toolbar.Root aria-label="Design tools" class="max-w-full flex-wrap justify-center gap-1 p-1">
+    <Toolbar.Root aria-label="Design tools" class="max-w-full flex-wrap justify-center gap-2 p-1">
         <Toolbar.Group
             type="single"
             bind:value={activeTool}
@@ -66,8 +81,34 @@
                 </Tooltip.Root>
             {/each}
         </Toolbar.Group>
+        <Toolbar.Separator class="hidden h-7 @min-[32rem]:block" />
+        <div class="flex items-center gap-1">
+            <Toolbar.Button
+                aria-label="Zoom out"
+                disabled={zoom <= 25}
+                class="size-8 p-0"
+                onclick={zoomOut}
+            >
+                <HugeiconsIcon icon={MinusSignIcon} size={16} class="size-4" aria-hidden="true" />
+            </Toolbar.Button>
+            <Toolbar.Button
+                aria-label="Reset zoom"
+                class="h-8 min-w-16 bg-background font-mono text-xs tabular-nums shadow-[var(--mielui-toolbar-pressed)]"
+                onclick={resetZoom}
+            >
+                {`${zoom}%`}
+            </Toolbar.Button>
+            <Toolbar.Button
+                aria-label="Zoom in"
+                disabled={zoom >= 200}
+                class="size-8 p-0"
+                onclick={zoomIn}
+            >
+                <HugeiconsIcon icon={PlusSignIcon} size={16} class="size-4" aria-hidden="true" />
+            </Toolbar.Button>
+        </div>
     </Toolbar.Root>
     <p role="status" class="text-sm text-foreground-muted">
-        {`${tools.find((tool) => tool.id === activeTool)?.label ?? 'No tool'} selected`}
+        {`${tools.find((tool) => tool.id === activeTool)?.label ?? 'No tool'} selected · ${zoom}% zoom`}
     </p>
 </div>
