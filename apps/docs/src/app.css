@@ -103,3 +103,12 @@ pre {
 ::-webkit-scrollbar-thumb:hover {
     background: var(--color-border-strong);
 }
+
+::view-transition-old(root),
+::view-transition-new(root) {
+    @apply animate-none mix-blend-normal;
+}
+
+::view-transition {
+    @apply pointer-events-none;
+}

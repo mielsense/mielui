@@ -156,38 +156,9 @@
                 {#if isStudio}
                     <Button variant="quiet" href={resolve('/docs/introduction')}>Docs</Button>
                 {/if}
-                <Tooltip.Root>
-                    <Tooltip.Trigger>
-                        <Button
-                            class="size-9 rounded-[var(--radius-md)]"
-                            variant="quiet"
-                            onclick={() => {
-                                toggleMode();
-                            }}
-                            size="icon"
-                            aria-label={mode.current === 'dark'
-                        ? 'Switch to light mode'
-                        : 'Switch to dark mode'}
-                        >
-                            <span
-                                class="inline-flex size-4"
-                                aria-hidden="true"
-                                use:morph={{ key: mode.current }}
-                            >
-                                <HugeiconsIcon
-                                    icon={mode.current === 'dark' ? Moon : Sun}
-                                    size={16}
-                                />
-                            </span>
-                        </Button>
-                    </Tooltip.Trigger>
-                    <Tooltip.Content>
-                        {mode.current === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
-                    </Tooltip.Content>
-                </Tooltip.Root>
-                {#if !isStudio}
+                <div class="ml-2 flex shrink-0 items-center gap-1 border-l border-border/50 pl-3">
                     <Button
-                        class={`h-9 gap-1.5 rounded-[var(--radius-md)] px-2.5 text-[0.8125rem] tabular-nums ${isStudio ? 'hidden sm:inline-flex' : ''}`}
+                        class="h-9 gap-1.5 rounded-[var(--radius-md)] px-2.5 text-[0.8125rem] tabular-nums"
                         variant="quiet"
                         href="https://github.com/mielsense/mielui"
                         target="_blank"
@@ -198,7 +169,36 @@
                         <img src={GitHubWhite} alt="" class="hidden size-4 dark:block" />
                         <span>{formatStarCount(starCount)}</span>
                     </Button>
-                {/if}
+                    <Tooltip.Root>
+                        <Tooltip.Trigger>
+                            <Button
+                                class="size-9 rounded-[var(--radius-md)]"
+                                variant="quiet"
+                                onclick={() => {
+                                toggleMode();
+                            }}
+                                size="icon"
+                                aria-label={mode.current === 'dark'
+                        ? 'Switch to light mode'
+                        : 'Switch to dark mode'}
+                            >
+                                <span
+                                    class="inline-flex size-4"
+                                    aria-hidden="true"
+                                    use:morph={{ key: mode.current }}
+                                >
+                                    <HugeiconsIcon
+                                        icon={mode.current === 'dark' ? Moon : Sun}
+                                        size={16}
+                                    />
+                                </span>
+                            </Button>
+                        </Tooltip.Trigger>
+                        <Tooltip.Content>
+                            {mode.current === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
+                        </Tooltip.Content>
+                    </Tooltip.Root>
+                </div>
             </div>
         </div>
     </nav>

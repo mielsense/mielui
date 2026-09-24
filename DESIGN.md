@@ -427,3 +427,5 @@ gutters. Navigation and Studio inspectors belong to the outer
 surface. Docs page header and footer belong inside the page frame. Size each
 scrolling region from the remaining workspace height, not directly from viewport
 height.
+
+Page navigation uses a brief 240ms pixel reveal using large, scattered square tiles between browser view snapshots. Keep the old page visible beneath the incoming tiles so navigation never flashes a blank surface. Skip the effect for reduced motion, same-page anchors, and preview routes; new navigation interrupts an active transition.

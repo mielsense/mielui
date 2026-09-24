@@ -52,7 +52,7 @@
     <Command.Content
         surface="glass"
         label="Search documentation"
-        class="[&>[data-ui=dialog-surface]]:bg-transparent! [&_[role=listbox]]:mx-2 [&_[role=listbox]]:rounded-[var(--radius-lg)] [&_[role=listbox]]:bg-background/70 [&_[role=listbox]]:border [&_[role=listbox]]:border-border/60 [&_div:has(>input[role=combobox])]:border-0 md:top-[var(--mielui-viewport-center)] max-w-[32rem] max-h-[min(27rem,calc(var(--mielui-viewport-height)-var(--overlay-gutter)))] [&_[role=listbox]]:min-h-0 [&_[role=listbox]]:flex-1 [&_[role=listbox]]:p-1.5 [&_[role=combobox]]:text-sm [&_[role=combobox]]:placeholder:text-foreground-muted/70 [&_div:has(>input[role=combobox])]:h-12 [&_div:has(>input[role=combobox])]:shrink-0 [&_div:has(>input[role=combobox])]:px-4 [&_div:has(>input[role=combobox])>span[aria-hidden]]:hidden"
+        class="[&>[data-ui=dialog-surface]]:bg-transparent! [&_[role=listbox]]:mx-[var(--spacing)] [&_[role=listbox]]:rounded-[var(--radius-lg)] [&_[role=listbox]]:bg-background/70 [&_[role=listbox]]:border [&_[role=listbox]]:border-border/60 [&_div:has(>input[role=combobox])]:border-0 md:top-[var(--mielui-viewport-center)] max-w-[32rem] max-h-[min(27rem,calc(var(--mielui-viewport-height)-var(--overlay-gutter)))] [&_[role=listbox]]:min-h-0 [&_[role=listbox]]:flex-1 [&_[role=listbox]]:p-1.5 [&_[role=combobox]]:text-sm [&_[role=combobox]]:placeholder:text-foreground-muted/70 [&_div:has(>input[role=combobox])]:h-12 [&_div:has(>input[role=combobox])]:shrink-0 [&_div:has(>input[role=combobox])]:px-4 [&_div:has(>input[role=combobox])>span[aria-hidden]]:hidden"
     >
         <Command.Search
             placeholder="Search documentation…"
@@ -113,11 +113,16 @@
             class="flex shrink-0 items-center justify-between px-4 py-2 text-xs text-foreground-muted"
         >
             <span class="flex items-center gap-1.5">
-                <Kbd shortcut="enter" class="bg-primary/10 text-primary border-primary/20" /> Open
-                page
+                <Kbd
+                    shortcut="enter"
+                    class="bg-primary text-[var(--color-on-primary)] border-transparent shadow-[var(--elevation-control-edge),inset_0_0_0_var(--border-size)_var(--color-primary-stroke)]"
+                /> Open page
             </span>
             <span class="flex items-center gap-1.5">
-                <Kbd shortcut="esc" class="bg-primary/10 text-primary border-primary/20" /> Close
+                <Kbd
+                    shortcut="esc"
+                    class="bg-primary text-[var(--color-on-primary)] border-transparent shadow-[var(--elevation-control-edge),inset_0_0_0_var(--border-size)_var(--color-primary-stroke)]"
+                /> Close
             </span>
         </div>
     </Command.Content>

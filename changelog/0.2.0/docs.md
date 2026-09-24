@@ -25,3 +25,9 @@
 - Keep search results inset from the palette sides and tint keyboard hints with the primary color.
 
 - Expand the introduction with a setup comparison, complete package quick start, and guidance for theming and component exploration.
+
+- Add a brief pixel reveal between pages, with reduced-motion support and interruptible navigation.
+
+- Restore the GitHub star action in Studio with the same ordering as the docs header.
+
+- Tighten search result insets and give keyboard hints a solid primary surface with shared control depth.
