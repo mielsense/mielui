@@ -1,11 +1,6 @@
 <script lang="ts">
-    import {
-        InformationCircleIcon as Info,
-        Menu01Icon as Menu,
-        Cancel01Icon as X
-    } from '@hugeicons/core-free-icons';
+    import { InformationCircleIcon as Info } from '@hugeicons/core-free-icons';
     import * as HoverCard from '@mielui/svelte/components/hover-card';
-    import * as Sheet from '@mielui/svelte/components/sheet';
     import { Switch } from '@mielui/svelte/components/switch';
     import * as Tabs from '@mielui/svelte/components/tabs';
     import { Toaster } from '@mielui/svelte/components/toast';
@@ -15,7 +10,6 @@
     import CopyPage from '$lib/components/docs/copy-page.svelte';
     import DocsPager from '$lib/components/docs/docs-pager.svelte';
     import DocsToolbar from '$lib/components/docs/docs-toolbar.svelte';
-    import OnThisPage from '$lib/components/docs/on-this-page.svelte';
     import {
         type PageInfoContext,
         setPageInfoContext
@@ -72,7 +66,6 @@
     });
 
     let docsScrollEl = $state<HTMLDivElement>();
-    let outlineContent = $state<HTMLElement>();
 
     afterNavigate(() => {
         if (window.location.hash) {
@@ -110,7 +103,7 @@
 
 {#snippet siteFooter()}
     <footer
-        class={`relative flex h-[var(--docs-row-height)] shrink-0 items-center justify-between gap-3 px-4 sm:px-5 text-xs text-foreground-muted ${isDocs ? 'xl:grid xl:grid-cols-[auto_minmax(0,1fr)_auto] xl:gap-3 xl:px-5' : 'min-[68.75rem]:grid min-[68.75rem]:grid-cols-[18rem_minmax(0,1fr)] min-[68.75rem]:gap-3 min-[68.75rem]:px-0'}`}
+        class={`relative flex h-[var(--docs-row-height)] shrink-0 items-center justify-between gap-3 px-4 sm:px-5 text-xs text-foreground-muted ${isDocs ? 'xl:grid xl:grid-cols-[auto_minmax(0,1fr)_auto] xl:gap-3 xl:px-5' : 'min-[68.75rem]:flex min-[68.75rem]:gap-6'}`}
     >
         {#if isDocs}
             <div class="flex justify-start xl:px-5"><DocsPager /></div>
@@ -191,7 +184,7 @@
     </main>
 {:else}
     <main
-        class={`w-screen [--docs-shell:color-mix(in_oklab,var(--color-primary)_4%,var(--color-background))] [--docs-row-height:calc(var(--spacing)*14+var(--border-size))] [--docs-rule:var(--color-border)] dark:[--docs-rule:color-mix(in_oklab,var(--color-border)_50%,transparent)] [--docs-chrome:color-mix(in_oklab,var(--color-background),var(--color-secondary)_20%)] [--docs-content:color-mix(in_oklab,var(--color-background),var(--color-secondary)_10%)] ${isDocs ? 'h-[100svh] overflow-hidden bg-[var(--docs-shell)] p-2 sm:p-3' : isThemeStudio ? 'h-[100svh] overflow-hidden bg-[var(--docs-shell)] p-2 sm:p-3' : isHome ? 'min-h-dvh bg-background' : 'min-h-screen bg-background p-3'}`}
+        class={`w-screen [&:has([data-inspector-pinned=true])]:lg:pl-[calc(var(--spacing)*80+24px)] [--docs-shell:#000000] [--docs-row-height:calc(var(--spacing)*14+var(--border-size))] [--docs-rule:var(--color-border)] dark:[--docs-rule:color-mix(in_oklab,var(--color-border)_50%,transparent)] [--docs-chrome:color-mix(in_oklab,var(--color-secondary)_97%,white)] dark:[--docs-chrome:color-mix(in_oklab,var(--color-background),var(--color-secondary)_20%)] [--docs-content:color-mix(in_oklab,var(--color-background),var(--color-secondary)_10%)] ${isDocs ? 'h-[100svh] overflow-hidden bg-[var(--docs-shell)] p-2 sm:p-3' : isThemeStudio ? 'h-[100svh] overflow-hidden bg-[var(--docs-shell)] p-2 sm:p-3' : isHome ? 'min-h-dvh bg-background' : 'min-h-screen bg-background p-3'}`}
     >
         {#if isHome}
             <div class="relative mx-auto flex min-h-dvh w-full max-w-none flex-col">
@@ -202,55 +195,24 @@
                 <div
                     class="flex min-h-0 min-w-0 flex-1 flex-col overflow-hidden rounded-[var(--radius-xl)] border-[length:var(--border-size)] border-[var(--docs-rule)] bg-[var(--docs-content)]"
                 >
-                    <div
-                        class="flex shrink-0 items-center gap-2 border-b border-[var(--docs-rule)] bg-[var(--docs-chrome)] pr-3"
-                    >
+                    <div class="flex shrink-0 items-center gap-2 bg-[var(--docs-content)] pr-3">
                         <div class="min-w-0 flex-1">
                             <DocsToolbar starCount={data?.starCount ?? null} />
                         </div>
-                        <Sheet.Root>
-                            <Sheet.Trigger
-                                variant="quiet"
-                                size="icon"
-                                aria-label="Open page outline"
-                                onclick={() => {
-                                    outlineContent = docsScrollEl?.querySelector<HTMLElement>('[data-docs-scroll]') ?? undefined;
-                                }}
-                            >
-                                <HugeiconsIcon icon={Menu} size={18} />
-                            </Sheet.Trigger>
-                            <Sheet.Content side="right" class="max-w-xs">
-                                <div class="flex items-center justify-between">
-                                    <Sheet.Title>On this page</Sheet.Title>
-                                    <Sheet.Close
-                                        variant="quiet"
-                                        size="icon"
-                                        aria-label="Close page outline"
-                                    >
-                                        <HugeiconsIcon icon={X} size={18} />
-                                    </Sheet.Close>
-                                </div>
-                                <Sheet.Description class="sr-only">
-                                    Jump to a section in this page.
-                                </Sheet.Description>
-                                <div class="min-h-0 overflow-y-auto">
-                                    <OnThisPage content={outlineContent} />
-                                </div>
-                            </Sheet.Content>
-                        </Sheet.Root>
                     </div>
                     <div bind:this={docsScrollEl} class="min-h-0 min-w-0 flex-1 overflow-hidden">
                         {@render children?.()}
                     </div>
-                    <div
-                        class="shrink-0 border-t border-[var(--docs-rule)] bg-[var(--docs-chrome)]"
-                    >
+                    <div class="shrink-0 bg-[var(--docs-content)]">
                         {@render siteFooter()}
                     </div>
                 </div>
             </div>
         {:else if isThemeStudio}
-            <div data-studio-shell class="relative flex h-full w-full flex-col">
+            <div
+                data-studio-shell
+                class="relative flex h-full w-full flex-col overflow-hidden rounded-[var(--radius-xl)] border border-[var(--docs-rule)] bg-[var(--docs-content)]"
+            >
                 <div class="shrink-0">
                     <Navbar starCount={data?.starCount ?? null} />
                 </div>

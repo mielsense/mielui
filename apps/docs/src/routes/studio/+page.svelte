@@ -26,7 +26,7 @@
         <ThemeEditor />
 
         <div
-            class="flex min-h-0 min-w-0 flex-1 flex-col overflow-hidden rounded-[var(--radius-xl)] border-[length:var(--border-size)] border-[var(--docs-rule)]"
+            class="flex min-h-0 min-w-0 flex-1 flex-col overflow-hidden border-y border-[var(--docs-rule)]"
         >
             <div
                 class="flex min-h-0 flex-1 justify-center overflow-hidden bg-[var(--docs-content)]"

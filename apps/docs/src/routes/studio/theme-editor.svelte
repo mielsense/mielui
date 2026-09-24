@@ -1,7 +1,5 @@
 <script lang="ts">
-    import { ColorPickerIcon as Palette, Cancel01Icon as X } from '@hugeicons/core-free-icons';
-    import * as Sheet from '@mielui/svelte/components/sheet';
-    import HugeiconsIcon from '@mielui/svelte/hugeicons-icon';
+    import FloatingInspector from '$lib/components/floating-inspector.svelte';
     import AdvancedDialogs from './editor/advanced-dialogs.svelte';
     import { setThemeEditor } from './editor/context';
     import { createThemeEditor } from './editor/controller.svelte';
@@ -13,40 +11,13 @@
     setThemeEditor(editor);
 </script>
 
-<aside
-    aria-label="Theme configuration"
-    class="hidden min-h-0 w-[18rem] shrink-0 overflow-hidden [--docs-chrome:var(--docs-shell)] min-[68.75rem]:flex min-[68.75rem]:flex-col"
->
-    <Inspector />
-</aside>
-
-<Sheet.Root>
-    <Sheet.Trigger
-        class="fixed bottom-20 right-5 z-30 shadow-[var(--elevation-float)] min-[68.75rem]:hidden"
-    >
-        <HugeiconsIcon icon={Palette} size={15} />
-        Customize
-    </Sheet.Trigger>
-    <Sheet.Content
-        side="left"
-        class="p-0 min-[68.75rem]:hidden [&_[data-ui=sheet-surface]]:gap-0 [&_[data-ui=sheet-surface]]:p-0"
-    >
-        <div
-            class="flex shrink-0 items-center justify-between gap-3 border-b border-border px-5 py-3"
-        >
-            <Sheet.Title class="text-sm font-medium">Theme configuration</Sheet.Title>
-            <Sheet.Description class="sr-only">
-                Configure the live Mielui theme preview.
-            </Sheet.Description>
-            <Sheet.Close variant="ghost" size="icon" aria-label="Close theme configuration">
-                <HugeiconsIcon icon={X} size={16} />
-            </Sheet.Close>
-        </div>
-        <div class="min-h-0 flex-1 overflow-hidden">
+<div class="fixed left-5 top-5 z-30">
+    <FloatingInspector title="Theme configuration">
+        {#snippet children()}
             <Inspector />
-        </div>
-    </Sheet.Content>
-</Sheet.Root>
+        {/snippet}
+    </FloatingInspector>
+</div>
 
 <ThemeSetupDialog bind:open={editor.state.setupOpen} generatedJson={editor.generatedJson} />
 

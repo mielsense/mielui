@@ -6,3 +6,6 @@
 - Match the landing hero and showcase accents to the active primary color.
 - Move docs page controls inside the inset frame and soften the outer shell color.
 - Open docs navigation and page outline in toggleable floating panels, giving content the full page width.
+- Add nonmodal glass navigation and Studio inspectors with hover reveal and docking, restore the right page outline, and tighten the black outer canvas.
+- Align the page-outline header with preview tabs, soften docked borders, and strengthen light-mode section headers.
+- Simplify docs section labels and refresh Studio overlay previews with compact workspace content.

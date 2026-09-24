@@ -83,7 +83,7 @@
     >
         <div
             class={`relative mx-auto flex h-[calc(var(--docs-row-height)-var(--border-size))] w-full items-center justify-between ${
-                isStudio ? 'px-4 min-[68.75rem]:px-0' : isDocs ? 'max-w-[1400px] px-4 md:px-6' : 'px-4 md:px-6'
+                isStudio ? 'pl-14 pr-3' : isDocs ? 'max-w-[1400px] px-4 md:px-6' : 'px-4 md:px-6'
             }`}
         >
             <div
@@ -106,13 +106,13 @@
                     <Logo />
                 </div>
                 <div
-                    class={`hidden md:block ${isStudio ? 'min-[68.75rem]:flex min-[68.75rem]:h-[calc(var(--docs-row-height)-var(--border-size))] min-[68.75rem]:w-[18rem] min-[68.75rem]:items-center min-[68.75rem]:px-5' : ''}`}
+                    class={`hidden md:block ${isStudio ? 'min-[68.75rem]:flex min-[68.75rem]:h-[calc(var(--docs-row-height)-var(--border-size))] min-[68.75rem]:w-auto min-[68.75rem]:items-center min-[68.75rem]:pr-5' : ''}`}
                 >
                     <Logo />
                 </div>
                 {#if !isStudio}
                     <div
-                        class={`hidden items-center gap-1 md:flex ${isStudio ? 'min-[68.75rem]:px-5' : ''}`}
+                        class={`hidden items-center gap-1 md:flex ${isStudio ? 'min-[68.75rem]:pr-5' : ''}`}
                     >
                         {#each navItems as item (item.href)}
                             <Navbutton href={item.href}>{item.label}</Navbutton>
@@ -154,13 +154,13 @@
             >
                 <div class={isStudio ? 'hidden sm:block' : ''}><SearchButton /></div>
                 {#if isStudio}
-                    <Button variant="outline" href={resolve('/docs/introduction')}>Docs</Button>
+                    <Button variant="quiet" href={resolve('/docs/introduction')}>Docs</Button>
                 {/if}
                 <Tooltip.Root>
                     <Tooltip.Trigger>
                         <Button
                             class="size-9 rounded-[var(--radius-md)]"
-                            variant="outline"
+                            variant="quiet"
                             onclick={() => {
                                 toggleMode();
                             }}
@@ -188,7 +188,7 @@
                 {#if !isStudio}
                     <Button
                         class={`h-9 gap-1.5 rounded-[var(--radius-md)] px-2.5 text-[0.8125rem] tabular-nums ${isStudio ? 'hidden sm:inline-flex' : ''}`}
-                        variant="outline"
+                        variant="quiet"
                         href="https://github.com/mielsense/mielui"
                         target="_blank"
                         rel="noreferrer"

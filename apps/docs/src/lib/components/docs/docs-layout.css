@@ -13,15 +13,15 @@
 }
 
 .docs-article [data-docs-page] > section[data-docs-toolbar] {
-    @apply sticky top-0 z-40 h-[var(--docs-row-height)] shrink-0 justify-center border-b-[length:var(--border-size)] border-[var(--docs-rule)] bg-[var(--docs-chrome)] py-0;
+    @apply sticky top-0 z-40 h-[var(--docs-row-height)] shrink-0 justify-center border-0 bg-[var(--docs-content)] py-0;
 }
 
 .docs-article :is([data-docs-page] > section:not(#hero), #api-reference) {
-    @apply border-t-[length:var(--border-size)] border-[var(--docs-rule)];
+    @apply border-0;
 }
 
 .docs-article :is([data-docs-page] > section, #api-reference) > :is(h2, div:first-child:has(> h2)) {
-    @apply sticky top-[var(--docs-sticky-offset,0px)] z-30 -mx-[var(--docs-gutter)] mt-0 mb-2 border-b-[length:var(--border-size)] border-[var(--docs-rule)] bg-[var(--docs-chrome)] flex h-[var(--docs-row-height)] items-center px-[var(--docs-gutter)] py-0 text-sm leading-5 font-semibold;
+    @apply sticky top-[var(--docs-sticky-offset,0px)] z-30 mx-0 mt-3 mb-4 w-fit rounded-full border-0 bg-[var(--docs-chrome)] flex h-8 items-center px-3 py-0 text-sm leading-5 font-semibold;
 }
 
 .docs-article :is([data-docs-page] > section, #api-reference) > div:first-child > h2 {
@@ -52,7 +52,7 @@
         [data-docs-page] > [data-component-preview]
     )
     [data-preview-toolbar] {
-    @apply sticky top-0 z-30 h-[var(--docs-row-height)] min-h-[var(--docs-row-height)] border-b-[length:var(--border-size)] border-[var(--docs-rule)] px-[var(--docs-gutter)];
+    @apply sticky top-0 z-30 h-[var(--docs-row-height)] min-h-[var(--docs-row-height)] border-0 bg-[var(--docs-content)]! px-[var(--docs-gutter)];
 }
 
 .docs-article

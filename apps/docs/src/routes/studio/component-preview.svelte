@@ -135,17 +135,17 @@
             >
                 Menus and popovers
             </h2>
-            <div class="grid grid-cols-1 items-start gap-5 px-6 py-6 @3xl:grid-cols-3">
-                <Card.Root variant="panel" class="min-w-0">
+            <div class="grid grid-cols-1 items-stretch gap-4 px-6 py-6 @3xl:grid-cols-3">
+                <Card.Root variant="panel" class="min-w-0 [&>[data-ui=card-surface]]:p-5">
                     <Card.Header>
-                        <Card.Title>Project actions</Card.Title>
-                        <Card.Description>
-                            Open a menu to compare its surface with the card.
-                        </Card.Description>
+                        <Card.Title>Release workspace</Card.Title>
+                        <Card.Description>Design system · 12 members</Card.Description>
                     </Card.Header>
-                    <Card.Content>
+                    <Card.Content class="mt-auto pt-4">
                         <Menu.Root>
-                            <Menu.Trigger variant="outline">Project menu</Menu.Trigger>
+                            <Menu.Trigger variant="outline" class="w-auto self-start">
+                                Manage project
+                            </Menu.Trigger>
                             <Menu.Content>
                                 <Menu.Label>Release workspace</Menu.Label>
                                 <Menu.Item onclick={() => toast.info('Project opened')}>
@@ -166,16 +166,18 @@
                         </Menu.Root>
                     </Card.Content>
                 </Card.Root>
-                <Card.Root variant="panel" class="min-w-0">
+                <Card.Root variant="panel" class="min-w-0 [&>[data-ui=card-surface]]:p-5">
                     <Card.Header>
-                        <Card.Title>Notification preferences</Card.Title>
+                        <Card.Title>Workspace updates</Card.Title>
                         <Card.Description>
-                            Adjust a setting inside a floating panel.
+                            {digest ? 'Weekly digest is on' : 'Weekly digest is off'}
                         </Card.Description>
                     </Card.Header>
-                    <Card.Content>
+                    <Card.Content class="mt-auto pt-4">
                         <Popover.Root placement="bottom-start">
-                            <Popover.Trigger variant="outline">Preferences</Popover.Trigger>
+                            <Popover.Trigger variant="outline" class="w-auto self-start">
+                                Edit preferences
+                            </Popover.Trigger>
                             <Popover.Content class="w-72" surfaceClass="space-y-4 p-4">
                                 <Popover.Title>Stay up to date</Popover.Title>
                                 <p class="text-sm text-foreground-muted">
@@ -186,19 +188,27 @@
                         </Popover.Root>
                     </Card.Content>
                 </Card.Root>
-                <Card.Root variant="panel" class="min-w-0">
+                <Card.Root variant="panel" class="min-w-0 [&>[data-ui=card-surface]]:p-5">
                     <Card.Header>
-                        <Card.Title>People</Card.Title>
-                        <Card.Description>
-                            Hover or focus a teammate to see their details.
-                        </Card.Description>
+                        <Card.Title>Your team</Card.Title>
+                        <Card.Description>3 teammates in this workspace</Card.Description>
                     </Card.Header>
-                    <Card.Content>
+                    <Card.Content class="mt-auto pt-4">
                         <HoverCard.Root>
                             <HoverCard.Trigger
-                                class="rounded-[var(--radius-md)] text-sm underline underline-offset-4 focus-visible:outline-2 focus-visible:outline-primary"
+                                class="flex items-center gap-3 self-start rounded-[var(--radius-md)] text-left text-sm focus-visible:outline-2 focus-visible:outline-primary"
                             >
-                                Alex Morgan
+                                <span
+                                    class="flex size-9 items-center justify-center rounded-full bg-primary/15 text-xs font-medium text-primary"
+                                >
+                                    AM
+                                </span>
+                                <span class="flex flex-col">
+                                    <span>Alex Morgan</span>
+                                    <span class="text-xs text-foreground-muted">
+                                        Product designer
+                                    </span>
+                                </span>
                             </HoverCard.Trigger>
                             <HoverCard.Content side="bottom" align="start" class="w-64">
                                 <HoverCard.Title>Alex Morgan</HoverCard.Title>

@@ -2,14 +2,11 @@
     import {
         ArrowRight01Icon as ChevronRight,
         Home01Icon as Home,
-        Menu01Icon as Menu,
         Moon02Icon as Moon,
-        Sun03Icon as Sun,
-        Cancel01Icon as X
+        Sun03Icon as Sun
     } from '@hugeicons/core-free-icons';
     import { morph } from '@mielui/svelte/actions/morph';
     import { Button } from '@mielui/svelte/components/button';
-    import * as Sheet from '@mielui/svelte/components/sheet';
     import * as Tooltip from '@mielui/svelte/components/tooltip';
     import HugeiconsIcon from '@mielui/svelte/hugeicons-icon';
     import { mode, toggleMode } from 'mode-watcher';
@@ -20,16 +17,11 @@
     import { componentTypeHref, componentTypes, navigationGroups } from '$lib/components';
     import SearchButton from '$lib/components/search/trigger.svelte';
     import { componentGuidePages } from '$lib/docs-pages';
+    import FloatingInspector from '../floating-inspector.svelte';
     import Logo from '../logo.svelte';
     import NavigationItems from './navigation-items.svelte';
 
     const { starCount = null }: { starCount?: number | null } = $props();
-    let mobileMenuOpen = $state(false);
-
-    $effect(() => {
-        page.url.pathname;
-        mobileMenuOpen = false;
-    });
 
     const navItems = [
         { href: '/docs/introduction', label: 'Docs' },
@@ -113,10 +105,6 @@
             .join(' ');
     }
 
-    function closeMobileMenu() {
-        mobileMenuOpen = false;
-    }
-
     function formatStarCount(count: number | null): string {
         if (count === null || Number.isNaN(count)) {
             return 'Star';
@@ -132,29 +120,63 @@
     }
 </script>
 
-<Sheet.Root bind:open={mobileMenuOpen}>
+<div class="min-w-0">
     <header
         class="relative z-20 mx-auto flex h-[calc(var(--docs-row-height)-var(--border-size))] w-full shrink-0 items-center justify-between gap-4 px-2 sm:px-5"
     >
-        <div class="mx-auto flex w-full min-w-0 items-center justify-between gap-4">
-            <div class="flex min-w-0 items-center gap-2">
-                <Tooltip.Root>
-                    <Tooltip.Trigger>
-                        <Sheet.Trigger
-                            class="size-9 rounded-[var(--radius-md)]"
-                            aria-label="Open navigation menu"
-                            variant="quiet"
-                            size="icon"
-                        >
-                            <HugeiconsIcon icon={Menu} size={18} />
-                        </Sheet.Trigger>
-                    </Tooltip.Trigger>
-                    <Tooltip.Content>Open navigation menu</Tooltip.Content>
-                </Tooltip.Root>
+        <div class="mx-auto flex flex-1 min-w-0 items-center justify-between gap-4">
+            <div class="flex shrink-0 items-center gap-3 pr-4 border-r border-border/50">
+                <FloatingInspector title="Navigation">
+                    {#snippet children(close)}
+                        <div class="min-h-0 flex-1 overflow-y-auto px-5 py-4">
+                            <section class="flex flex-col gap-2 ">
+                                <h2 class="mb-2 text-sm text-foreground-muted">Navigate</h2>
+                                {#each navItems as item (item.href)}
+                                    <Button
+                                        variant="quiet"
+                                        class="w-full justify-start"
+                                        onclick={close}
+                                        href={item.href}
+                                    >
+                                        {item.label}
+                                    </Button>
+                                {/each}
+                            </section>
+
+                            <section class="flex flex-col gap-2 mt-10">
+                                <h2 class="mb-2 text-sm text-foreground-muted">Getting Started</h2>
+                                {#each docsPages as item (item.href)}
+                                    <Button
+                                        variant="quiet"
+                                        class="w-full justify-start"
+                                        onclick={close}
+                                        href={item.href}
+                                    >
+                                        {item.title}
+                                    </Button>
+                                {/each}
+                            </section>
+
+                            {#each navigationGroups as group (group.id)}
+                                <section class="mt-10 flex flex-col gap-2">
+                                    <h2 class="mb-2 text-sm text-foreground-muted">
+                                        {group.heading}
+                                    </h2>
+                                    <NavigationItems {group} onNavigate={close} />
+                                    {#if group.items.length === 0}
+                                        <p class="text-sm text-foreground-muted">
+                                            No chart components yet.
+                                        </p>
+                                    {/if}
+                                </section>
+                            {/each}
+                        </div>
+                    {/snippet}
+                </FloatingInspector>
                 <div class="hidden sm:block"><Logo /></div>
             </div>
 
-            <nav aria-label="Breadcrumb" class="hidden w-full min-w-0 sm:block">
+            <nav aria-label="Breadcrumb" class="hidden flex-1 min-w-0 sm:block">
                 <ol
                     class="flex min-w-0 items-center gap-1 overflow-hidden text-sm text-foreground-muted [font-weight:var(--font-weight-label,500)]"
                 >
@@ -194,17 +216,17 @@
                 <SearchButton />
                 <Button
                     class="border-border/60 h-9 rounded-[var(--radius-md)] px-2.5 text-[0.8125rem]"
-                    variant="outline"
+                    variant="quiet"
                     href={resolve('/studio')}
                 >
                     Studio
                 </Button>
             </div>
         </div>
-        <div class="flex shrink-0 items-center gap-1.5">
+        <div class="flex shrink-0 items-center gap-1 border-l border-border/50 pl-3">
             <Button
                 class="border-border/60 h-9 gap-1.5 rounded-[var(--radius-md)] px-2.5 text-[0.8125rem] tabular-nums"
-                variant="outline"
+                variant="quiet"
                 href="https://github.com/mielsense/mielui"
                 target="_blank"
                 rel="noreferrer"
@@ -221,7 +243,7 @@
                 <Tooltip.Trigger>
                     <Button
                         class="border-border/60 size-9 rounded-[var(--radius-md)]"
-                        variant="outline"
+                        variant="quiet"
                         onclick={() => {
                             toggleMode();
                         }}
@@ -243,67 +265,4 @@
             </Tooltip.Root>
         </div>
     </header>
-
-    <Sheet.Content side="left" class="max-w-xs">
-        <Sheet.Title class="sr-only">Browse mielui</Sheet.Title>
-        <Sheet.Description class="sr-only">
-            Documentation and component categories.
-        </Sheet.Description>
-        <header class="flex shrink-0 items-center justify-between px-3 py-3">
-            <a
-                href={resolve('/')}
-                class="font-semibold tracking-tight text-foreground no-underline"
-            >
-                mielui
-            </a>
-            <Tooltip.Root>
-                <Tooltip.Trigger>
-                    <Sheet.Close aria-label="Close navigation menu" variant="quiet" size="icon">
-                        <HugeiconsIcon icon={X} size={18} />
-                    </Sheet.Close>
-                </Tooltip.Trigger>
-                <Tooltip.Content>Close navigation menu</Tooltip.Content>
-            </Tooltip.Root>
-        </header>
-
-        <div class="min-h-0 flex-1 overflow-y-auto px-3 py-4">
-            <section class="flex flex-col gap-2 ">
-                <h2 class="mb-2 text-sm text-foreground-muted">Navigate</h2>
-                {#each navItems as item (item.href)}
-                    <Button
-                        variant="quiet"
-                        class="w-full justify-start"
-                        onclick={closeMobileMenu}
-                        href={item.href}
-                    >
-                        {item.label}
-                    </Button>
-                {/each}
-            </section>
-
-            <section class="flex flex-col gap-2 mt-10">
-                <h2 class="mb-2 text-sm text-foreground-muted">Getting Started</h2>
-                {#each docsPages as item (item.href)}
-                    <Button
-                        variant="quiet"
-                        class="w-full justify-start"
-                        onclick={closeMobileMenu}
-                        href={item.href}
-                    >
-                        {item.title}
-                    </Button>
-                {/each}
-            </section>
-
-            {#each navigationGroups as group (group.id)}
-                <section class="mt-10 flex flex-col gap-2">
-                    <h2 class="mb-2 text-sm text-foreground-muted">{group.heading}</h2>
-                    <NavigationItems {group} onNavigate={closeMobileMenu} />
-                    {#if group.items.length === 0}
-                        <p class="text-sm text-foreground-muted">No chart components yet.</p>
-                    {/if}
-                </section>
-            {/each}
-        </div>
-    </Sheet.Content>
-</Sheet.Root>
+</div>

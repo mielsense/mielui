@@ -261,21 +261,25 @@ still disable their corresponding elevation effects.
 
 ## Documentation composition
 
-Docs and Studio use a quiet background with a subtle primary tint around the
+Docs and Studio use a pure black outer background around the
 workspace. In docs, page controls belong inside the rounded page frame: breadcrumb
 and actions above the content, pagination and copy controls below it. Keep the
-outer top and bottom gutters compact. Navigation and page outline open as floating Sheets from labelled toolbar toggles,
-leaving the reading area full width. Both floating panels use the shared Sheet
-focus, dismissal, and motion behavior. The section rail uses a solid hook.
+outer top and bottom gutters compact. Navigation and Studio inspectors open as
+nonmodal frosted panels on left-edge hover or from the toolbar. A left-center edge pill makes the hover target visible. Pinning keeps
+the panel visible and reserves its width plus a narrow gutter on desktop.
+Docked panels use the page surface color; floating panels use glass.
+Use the shared Popover glass, focus, and motion behavior without a scrim or
+scroll lock. Keep the navigation layout open and free of an inner inset.
+The page outline stays in the right column. The section rail uses a solid hook.
 
 Page names remain in the breadcrumb and an accessible heading. Put the page
 summary behind the footer's information HoverCard. Copy page and previous/next
 navigation belong in the same fixed footer; their menus open upward and align
 inward with a viewport gutter.
 
-Section title rows stick below the header. Every row uses the same label size,
-weight, padding, and opaque, subtly contrasting background. A title-row divider
-must span the reading column. Content starts and ends 1.5rem from its section
+Section title rows stick below the header. Use compact pill labels with a subtle contrasting fill instead of full-width
+section bars. Keep the page header and footer on the reading surface without
+extra horizontal dividers. Content starts and ends 1.5rem from its section
 boundaries; paragraph gaps stay at 1rem. The shared layout owns these distances. Keep body sections on one background rather than
 alternating arbitrary fills. Use modest responsive side gutters. Docs paragraphs use the section width; split
 long explanations into short paragraphs by topic rather than narrow text columns.
@@ -419,7 +423,7 @@ technology. Avoid invented endorsements or usage counts. On narrow screens,
 stack the content and allow normal page scrolling rather than clipping the hero
 to a fixed viewport.
 
-The documentation shell uses a subtly primary-tinted outer canvas with compact side
+The documentation shell uses a pure black outer canvas with compact side
 gutters. Navigation and Studio inspectors belong to the outer
 surface. Docs page header and footer belong inside the page frame. Size each
 scrolling region from the remaining workspace height, not directly from viewport
