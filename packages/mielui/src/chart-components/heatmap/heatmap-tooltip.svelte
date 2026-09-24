@@ -1,6 +1,7 @@
 <script lang="ts">
     import { onMount } from 'svelte';
     import type { HTMLAttributes } from 'svelte/elements';
+    import { overlaySurface } from '../../components/_internal/surface';
     import { getTooltipManager } from '../../components/tooltip/manager-context';
     import { cn } from '../../utils';
     import { useHeatmap } from './context.svelte';
@@ -31,7 +32,8 @@
             'top',
             0,
             cn(
-                'mielui-modal-frame min-w-40 p-1! text-xs! text-foreground! bg-background! [&>.mielui-tooltip-label]:block',
+                'mielui-modal-frame min-w-40 p-[var(--mielui-modal-inset)]! rounded-[var(--radius-xl)]! text-xs! text-foreground! bg-card [&>.mielui-tooltip-label]:block',
+                overlaySurface(),
                 className
             ),
             element
@@ -43,7 +45,7 @@
 </script>
 
 <div {...props} bind:this={element} data-ui="heatmap-tooltip" hidden>
-    <div class="mielui-inset-surface p-3">
+    <div class="mielui-inset-surface bg-transparent! p-3">
         {#if children}
             {@render children()}
         {:else if day}

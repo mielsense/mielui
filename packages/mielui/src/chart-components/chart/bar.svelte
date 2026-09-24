@@ -78,9 +78,9 @@
                         x2={horizontal ? '1' : '0'}
                         y2={horizontal ? '0' : '1'}
                     >
-                        <stop offset="0%" stop-color="white" stop-opacity="0" />
-                        <stop offset="50%" stop-color="white" stop-opacity="0.5" />
-                        <stop offset="100%" stop-color="white" stop-opacity="0" />
+                        <stop offset="30%" stop-color="white" stop-opacity="0" />
+                        <stop offset="50%" stop-color="white" stop-opacity="0.14" />
+                        <stop offset="70%" stop-color="white" stop-opacity="0" />
                     </linearGradient>
                 </defs>
                 <g clip-path={`url(#${id}-${i})`} class="pointer-events-none">

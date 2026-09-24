@@ -46,3 +46,11 @@ Custom render snippets should compose the same action. Never attach it to hidden
 tooltip sources that get cloned, because cloned DOM does not retain the action.
 Source-copy manifests that include these parts must also include both the action
 index and its render module. The action owns reduced-motion behavior and cleanup.
+
+## Chart tooltip surfaces
+
+Chart tooltips inherit `overlaySurface()` and the shared inset frame. Do not
+override the frame padding with fixed spacing or add an inner border: its scaled
+padding already follows single/double borders. Keep the inner surface translucent
+in glass mode. Heatmap tooltip content is cloned into the shared tooltip bubble,
+so its content stays transparent and the bubble owns the glass treatment.

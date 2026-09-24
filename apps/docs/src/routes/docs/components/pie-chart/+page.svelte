@@ -35,8 +35,9 @@
         </Typography.Text>
         <Typography.Text variant="supporting">
             Place Arc and an optional Label inside Plot. Legend and Tooltip belong directly inside
-            Root. Set innerRadius to 0 on Arc for a solid pie. For a donut, add Label or replace its
-            children to show a custom center.
+            Root. Tooltips inherit the theme’s border and glass settings and track the pointer
+            without a trailing position animation. Set innerRadius to 0 on Arc for a solid pie. For
+            a donut, add Label or replace its children to show a custom center.
         </Typography.Text>
         <Typography.Text variant="supporting">
             The total comes from the visible data. Keep category keys stable across updates so
@@ -70,9 +71,9 @@
         <Typography.H2 class="docs-section-heading">Animation</Typography.H2>
         <Typography.Text variant="supporting">
             The default reveal runs on entry. Data changes transition from the current display. Set
-            animation="live" to brighten each segment in sequence without moving its boundaries. The
-            effect pauses while a segment is active, offscreen, or the tab is hidden. Set
-            animation="none" to disable chart motion.
+            animation="live" for subtle sequential highlights with quiet intervals, without moving
+            segment boundaries. The effect pauses while a segment is active, offscreen, or the tab
+            is hidden. Set animation="none" to disable chart motion.
         </Typography.Text>
         <Typography.Text variant="supporting">
             Chart motion follows reduced-motion preferences and the theme motion setting. Every

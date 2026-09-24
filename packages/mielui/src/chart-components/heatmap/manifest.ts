@@ -26,7 +26,7 @@ export const manifest: Manifest = {
         'components/heatmap/manifest.ts'
     ],
     components: ['_internal/utils', 'tooltip', 'skeleton'],
-    shared: ['utils.cn', 'transition'],
+    shared: ['components/_internal/surface', 'utils.cn', 'transition'],
     peerDependencies: {
         '@floating-ui/dom': '1.7.6',
         cnfast: '^0.0.8',

@@ -326,7 +326,8 @@ Keep body labels and tabs lighter so section titles remain distinct.
 
 Live chart motion must preserve values and proportions. Animate the area fill,
 use a staggered sweep within bar bounds, and brighten pie segments in sequence
-without moving their boundaries or center labels. Pause live effects during pie inspection.
+without moving their boundaries or center labels. Use low-contrast highlights with a quiet interval between passes, and suppress
+live effects during chart inspection.
 Observe the stationary chart viewport for visibility, never a moving highlight
 that can leave its clip and strand its own animation. Honor reduced motion,
 zero-duration themes, hidden documents, and offscreen charts.
@@ -335,8 +336,10 @@ Cartesian and pie chart overlay messages use the shared inset Card surface.
 Compact Gauge loading and empty states retain the meter footprint without an
 additional card wrapper. Keep
 the placeholder visualization behind the message and preserve live status
-announcements. Chart tooltips share the same opaque inset surface in every chart
-family; do not fall back to a native browser title tooltip.
+announcements. Chart tooltips share the same theme-controlled inset surface in every chart
+family. Honor single borders by retaining the frame's scaled padding, without a
+fixed padding override or an extra inner border. Inherit the shared glass helper;
+do not force an opaque inner surface or use a native browser title tooltip.
 
 Documentation content, its toolbar and footer share a horizontal inset halfway
 between five theme spacing units and 2rem. Rail headings retain five spacing

@@ -31,16 +31,16 @@
         if (!highlight || !context.motion || context.animation !== 'live') {
             return;
         }
-        const phase = (Math.max(0, start) / (Math.PI * 2)) * 0.6;
+        const phase = (Math.max(0, start) / (Math.PI * 2)) * 0.34;
         const animation = highlight.animate(
             [
                 { opacity: 0, offset: 0 },
                 { opacity: 0, offset: phase },
-                { opacity: 0.3, offset: phase + 0.12 },
-                { opacity: 0, offset: phase + 0.3 },
+                { opacity: 0.1, offset: phase + 0.08 },
+                { opacity: 0, offset: phase + 0.2 },
                 { opacity: 0, offset: 1 }
             ],
-            { duration: 5400 * context.durationScale, iterations: Infinity, easing: 'ease-in-out' }
+            { duration: 7200 * context.durationScale, iterations: Infinity, easing: 'ease-in-out' }
         );
         animation.pause();
         illumination = animation;
@@ -99,7 +99,11 @@
         }}
     />
     {#if context.animation === 'live' && context.motion}
-        <g bind:this={highlight} opacity="0" class="pointer-events-none">
+        <g
+            bind:this={highlight}
+            opacity="0"
+            class={cn("pointer-events-none", context.active && "invisible")}
+        >
             <Arc
                 startAngle={angles.current[0]}
                 endAngle={angles.current[1]}

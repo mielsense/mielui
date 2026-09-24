@@ -29,6 +29,6 @@ export const manifest: Manifest = {
         'components/chart/y-axis.svelte'
     ],
     components: ['_internal/utils', 'card', 'skeleton'],
-    shared: ['utils.cn'],
+    shared: ['components/_internal/surface', 'utils.cn'],
     peerDependencies: { layerchart: '^2.5.0', cnfast: '^0.0.8', svelte: '^5.56.0' }
 };
