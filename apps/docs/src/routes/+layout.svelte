@@ -211,12 +211,10 @@
     </main>
 {:else}
     <main
-        class={`w-screen [--docs-row-height:calc(var(--spacing)*14+var(--border-size))] [--docs-rule:var(--color-border)] dark:[--docs-rule:color-mix(in_oklab,var(--color-border)_50%,transparent)] [--docs-chrome:color-mix(in_oklab,var(--color-background),var(--color-secondary)_20%)] [--docs-content:color-mix(in_oklab,var(--color-background),var(--color-secondary)_10%)] ${isDocs ? 'h-[100svh] overflow-hidden bg-[var(--docs-content)]' : isThemeStudio ? 'h-[100svh] overflow-hidden bg-[var(--docs-content)]' : isHome ? 'h-[100svh] overflow-hidden bg-[var(--docs-content)]' : 'min-h-screen bg-background p-3'}`}
+        class={`w-screen [--docs-row-height:calc(var(--spacing)*14+var(--border-size))] [--docs-rule:var(--color-border)] dark:[--docs-rule:color-mix(in_oklab,var(--color-border)_50%,transparent)] [--docs-chrome:color-mix(in_oklab,var(--color-background),var(--color-secondary)_20%)] [--docs-content:color-mix(in_oklab,var(--color-background),var(--color-secondary)_10%)] ${isDocs ? 'h-[100svh] overflow-hidden bg-[var(--docs-content)]' : isThemeStudio ? 'h-[100svh] overflow-hidden bg-[var(--docs-content)]' : isHome ? 'min-h-dvh bg-background' : 'min-h-screen bg-background p-3'}`}
     >
         {#if isHome}
-            <div
-                class="relative mx-auto flex h-[100svh] w-full max-w-none flex-col overflow-hidden"
-            >
+            <div class="relative mx-auto flex min-h-dvh w-full max-w-none flex-col">
                 {@render children?.()}
             </div>
         {:else if isDocs}

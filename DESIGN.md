@@ -405,3 +405,14 @@ Glass retains a contrasting translucent inner panel over the outer chrome. Avoid
 fully transparent inner surfaces on composers and other inset layouts: they erase
 the structural distinction. Keep the shared blur and reduced-transparency fallback.
 The Studio glass backdrop is preview-only and never exported with a theme.
+
+## Landing page showcase
+
+The landing page uses the approved reference's split composition: left-aligned
+copy and an interactive component showcase within a blue-to-pastel hero. This
+marketing surface is an intentional exception to the neutral documentation
+canvas. Keep the header simple, use actual Mielui components in the featured
+preview, and make faded background samples inert and hidden from assistive
+technology. Avoid invented endorsements or usage counts. On narrow screens,
+stack the content and allow normal page scrolling rather than clipping the hero
+to a fixed viewport.
