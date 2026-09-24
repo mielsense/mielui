@@ -20,13 +20,15 @@ this token rather than introduce fixed inset padding or a fixed inner ring.
 
 ## Toolbar depth exploration
 
-Toolbar.Root now owns its floating shell. Button, Link, and Item use the shared
+Toolbar.Root stays flat by default (`variant="default"`). Set `variant="depth"`
+on Root to enable the floating shell. Its Button, Link, and Item inherit the
+variant reactively, including through wrapper elements, and use the shared
 `--mielui-toolbar-raised` elevation, while selected Items use
 `--mielui-toolbar-pressed`. These theme-owned tokens include a contact shadow or
 inward shade and flatten with controlShadows: false. Compose
 focus rings with the appropriate elevation. Keep these treatments tied to theme
 shadow tokens; do not add fixed shadows to toolbar examples. The callable Toolbar
-used by composers retains its flat layout. No component API changes are required.
+used by composers retains its flat layout. The only public addition is Root's optional `variant: "default" | "depth"` prop.
 
 Glass Tooltip.Content uses the ordinary theme foreground to match its card-based
 translucent surface. Solid tooltips keep the dedicated tooltip color pair. Rich

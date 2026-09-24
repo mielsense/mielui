@@ -33,7 +33,7 @@
         onValueChange={updateMultiple}
         bind:ref={element}
         data-ui="toolbar-group"
-        class={cn(className, 'flex items-center gap-1.5')}
+        class={cn(className, 'flex items-center gap-1')}
     >
         {@render children?.()}
     </Primitive.Group>
@@ -45,7 +45,7 @@
         onValueChange={updateSingle}
         bind:ref={element}
         data-ui="toolbar-group"
-        class={cn(className, 'flex items-center gap-1.5')}
+        class={cn(className, 'flex items-center gap-1')}
     >
         {@render children?.()}
     </Primitive.Group>

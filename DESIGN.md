@@ -351,7 +351,8 @@ Menu separators span the full inner panel width, including submenus. Cancel the
 shared item padding at the separator rather than removing padding from menu items.
 Keep separators square at the panel edges.
 
-Toolbar depth uses the shared floating elevation for its shell and theme-owned
+Toolbar.Root is flat by default. Opt into depth with `variant="depth"`; its
+Button, Link, and Item inherit the choice. Toolbar depth uses the shared floating elevation for its shell and theme-owned
 `--mielui-toolbar-raised` relief for its keys. Selected tools use
 `--mielui-toolbar-pressed` and the background fill;
 compose focus rings with that relief. Keep the callable composer toolbar flat.

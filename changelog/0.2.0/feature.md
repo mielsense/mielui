@@ -1,3 +1,3 @@
 - Choose single or double borders across framed surfaces, including cards, dialogs, menus, Notch, and Toast in themes and Studio.
 - Organize Studio appearance and interaction settings, with toggle buttons for value choices and a compact Advanced colors action in the Color header.
-- Give compact toolbars subtle raised keys, recessed selections, and a zoom control example.
+- Add an opt-in depth toolbar variant with raised keys and recessed selections; the default remains flat.

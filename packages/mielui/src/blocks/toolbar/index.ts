@@ -13,6 +13,7 @@ export { default as Root } from './toolbar-root.svelte';
 export { default as Separator } from './toolbar-separator.svelte';
 export { Toolbar };
 export type ToolbarRootProps = Omit<Primitive.RootProps, 'child' | 'ref'> & {
+    variant?: 'default' | 'depth';
     element?: HTMLDivElement | null;
 };
 export type ToolbarButtonProps = Omit<Primitive.ButtonProps, 'child' | 'ref'> & {
