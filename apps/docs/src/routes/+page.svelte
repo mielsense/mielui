@@ -40,7 +40,7 @@
     />
 </svelte:head>
 
-<div class="@container min-h-dvh bg-background p-3 pt-0 sm:p-4 sm:pt-0">
+<div class="@container flex min-h-dvh flex-col bg-background p-3 pt-0 sm:p-4 sm:pt-0">
     <a
         href="#home-content"
         class="sr-only z-50 rounded-md bg-card px-4 py-2 text-foreground focus:not-sr-only focus:absolute focus:top-4 focus:left-4"
@@ -49,7 +49,7 @@
     </a>
     <Sheet.Root bind:open={mobileMenuOpen}>
         <header
-            class="relative z-20 mx-auto grid h-20 max-w-[1600px] grid-cols-[1fr_auto] items-center gap-4 px-2 @3xl:grid-cols-[1fr_auto_1fr] @3xl:px-6"
+            class="relative z-20 mx-auto grid h-16 w-full grid-cols-[1fr_auto] items-center gap-4 px-2 @3xl:grid-cols-[1fr_auto_1fr] @3xl:px-6"
         >
             <Logo />
             <nav aria-label="Primary" class="hidden items-center gap-7 text-sm @3xl:flex">
@@ -152,69 +152,47 @@
     <section
         id="home-content"
         aria-labelledby="home-title"
-        class="relative isolate mx-auto grid min-h-[calc(100svh-6rem)] max-w-[1600px] grid-cols-1 overflow-hidden rounded-[var(--radius-xl)] bg-[#133555] text-white @5xl:grid-cols-[0.95fr_1.05fr]"
+        class="relative isolate grid w-full flex-1 grid-cols-1 overflow-hidden rounded-[var(--radius-xl)] bg-[color-mix(in_oklab,var(--color-primary)_18%,#18181b)] text-white @5xl:min-h-[max(32rem,calc(100svh-var(--spacing)*28))] @5xl:grid-cols-[0.9fr_1.1fr]"
     >
         <div
             aria-hidden="true"
-            class="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(ellipse_at_15%_110%,#ffc8b5_0%,transparent_55%),radial-gradient(ellipse_at_56%_110%,#c5b4f8_0%,transparent_60%),radial-gradient(ellipse_at_105%_65%,#66b1f3_0%,transparent_62%),linear-gradient(140deg,#102e49_15%,#214b7d_65%,#83a8f1)]"
+            class="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(ellipse_at_95%_10%,color-mix(in_oklab,var(--color-primary)_30%,transparent),transparent_60%),linear-gradient(115deg,color-mix(in_oklab,var(--color-primary)_8%,#18181b)_20%,color-mix(in_oklab,var(--color-primary)_28%,#18181b)_75%,color-mix(in_oklab,var(--color-primary)_45%,#18181b))]"
         ></div>
         <div
-            class="relative z-10 flex flex-col px-6 pt-10 pb-6 @xl:px-10 @xl:pt-12 @5xl:py-14 @6xl:px-14 @6xl:py-16"
+            class="relative z-10 flex flex-col justify-center px-7 pt-12 pb-5 @xl:px-10 @5xl:py-12 @6xl:px-14"
         >
-            <div class="mb-7 flex items-center gap-3 text-sm text-white/80">
-                <span class="size-1.5 rounded-full bg-[#b8d4ff]" aria-hidden="true"></span>
-                <span>Svelte 5. Open source. Yours to build with.</span>
-            </div>
             <h1
                 id="home-title"
-                class="max-w-[15ch] text-5xl leading-[1.07] font-medium tracking-[-0.045em] text-balance @xl:text-6xl"
+                class="text-4xl leading-[1.1] font-medium tracking-[-0.035em] @xl:text-5xl"
             >
-                Beautiful interfaces. Down to the details.
+                Svelte UI.<br />
+                Your way.
             </h1>
-            <p class="mt-6 max-w-[27rem] text-base leading-relaxed text-white/80 @6xl:text-lg">
-                Thoughtful Svelte components with fluid motion and a theme that ties it all
-                together. Copy the source. Make it yours.
+            <p class="mt-5 max-w-xs text-base leading-relaxed text-white/70">
+                {components.length} components. One theme.<br />
+                The source is yours.
             </p>
-            <div class="mt-8 flex flex-wrap items-center gap-x-6 gap-y-4">
+            <div class="mt-6 flex flex-wrap items-center gap-x-5 gap-y-3">
                 <Button
                     href={resolve('/docs/components')}
-                    size="lg"
-                    class="h-12 bg-[#fafbff] px-5 text-[#163859] shadow-[0_2px_8px_#0b244930] hover:bg-[#e9efff] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white"
+                    class="h-10 bg-[color-mix(in_oklab,var(--color-primary)_10%,white)] px-4 text-[color-mix(in_oklab,var(--color-primary)_25%,#18181b)] shadow-[0_2px_6px_#160f1b30] hover:bg-white focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white"
                 >
-                    Explore components<HugeiconsIcon icon={ArrowRight} size={17} />
+                    Browse components<HugeiconsIcon icon={ArrowRight} size={15} />
                 </Button>
                 <a
                     href={resolve('/studio')}
-                    class="inline-flex items-center gap-2 rounded-sm text-sm text-white/90 underline decoration-white/40 underline-offset-4 transition-colors hover:text-white hover:decoration-white focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white"
+                    class="rounded-sm text-sm text-white/80 underline decoration-white/30 underline-offset-4 hover:text-white focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white"
                 >
-                    Make a theme
+                    Open Studio
                 </a>
             </div>
-            <div
-                class="mt-12 flex flex-wrap gap-x-8 gap-y-3 text-sm text-white/90 @5xl:text-[#183750] @5xl:mt-auto @5xl:pt-24"
-            >
-                <p>
-                    <span class="font-medium">{components.length} components</span>
-                    <br />
-                    <span class="text-white/70 @5xl:text-[#183750]/70">
-                        One shared design language
-                    </span>
-                </p>
-                <p>
-                    <span class="font-medium">Your source code</span>
-                    <br />
-                    <span class="text-white/70 @5xl:text-[#183750]/70">
-                        Ready to shape around your idea
-                    </span>
-                </p>
-            </div>
         </div>
-        <div class="relative min-w-0 px-6 pb-6 @xl:px-10 @5xl:py-0 @5xl:pl-3 @5xl:pr-10 @6xl:pr-16">
+        <div class="relative min-w-0 px-7 pb-5 @xl:px-10 @5xl:py-6 @5xl:pl-3 @5xl:pr-10 @6xl:pr-14">
             <HomeShowcase />
         </div>
     </section>
     <footer
-        class="mx-auto flex max-w-[1600px] flex-wrap items-center justify-between gap-3 px-2 pt-4 pb-1 text-xs text-foreground-muted @3xl:px-6"
+        class="mx-auto flex w-full flex-wrap items-center justify-between gap-3 px-2 pt-4 pb-1 text-xs text-foreground-muted @3xl:px-6"
     >
         <span>Mielui · Made for Svelte</span>
         <div class="flex items-center gap-5">

@@ -3,7 +3,6 @@
     import '$lib/components/docs/docs-layout.css';
     import { magneticHeadings } from '$lib/components/docs/magnetic-headings';
     import OnThisPage from '$lib/components/docs/on-this-page.svelte';
-    import SectionIntersections from '$lib/components/docs/section-intersections.svelte';
 
     const { children }: { children: Snippet } = $props();
     const settleHeading = magneticHeadings(
@@ -14,9 +13,11 @@
 </script>
 
 <div
-    class="grid h-full min-h-0 w-full grid-cols-[minmax(0,1fr)] gap-0 xl:grid-cols-[minmax(0,1fr)_18rem]"
+    class="grid h-full min-h-0 w-full grid-cols-[minmax(0,1fr)] gap-3 xl:grid-cols-[minmax(0,1fr)_18rem]"
 >
-    <div class="flex min-h-0 min-w-0 flex-col">
+    <div
+        class="flex min-h-0 min-w-0 flex-col overflow-hidden rounded-[var(--radius-xl)] border-[length:var(--border-size)] border-[var(--docs-rule)] bg-[var(--docs-content)]"
+    >
         <div
             bind:this={viewport}
             {@attach settleHeading}
@@ -29,10 +30,8 @@
         </div>
     </div>
     <aside
-        class="hidden min-h-0 min-w-0 overflow-y-auto overscroll-none border-l-[length:var(--border-size)] border-[var(--docs-rule)] bg-[var(--docs-chrome)] xl:block"
+        class="hidden min-h-0 min-w-0 overflow-y-auto overscroll-none [--docs-chrome:var(--docs-shell)] xl:block"
     >
         <OnThisPage {content} />
     </aside>
 </div>
-
-<SectionIntersections {content} {viewport} />

@@ -261,10 +261,11 @@ still disable their corresponding elevation effects.
 
 ## Documentation composition
 
-Docs and Studio use a continuous grid between a fixed header and footer. Keep
-both documentation side rails equal in width. Use thin full-height column rules,
-full-width section rules, and small square marks at their intersections. Do not
-box the article into a rounded inset panel. The section rail uses a solid hook.
+Docs and Studio use one continuous outer shell for the header, footer, and side
+rails. Only the reading area or Studio preview is a rounded inset surface. Keep
+both documentation side rails equal in width, with three spacing units between
+them and the recessed content. Do not box the rails into separate cards or extend
+content dividers through the surrounding shell. The section rail uses a solid hook.
 
 Page names remain in the breadcrumb and an accessible heading. Put the page
 summary behind the footer's information HoverCard. Copy page and previous/next
@@ -312,9 +313,8 @@ includes the row border. Center labels and controls vertically; do not recreate
 row heights with independent padding or local pixel values. Header children use
 the token minus their parent border. Nested preview cards keep compact toolbars.
 
-Position header and footer intersection marks from the same row-height token,
-not a separate top or bottom spacing value. Sidebar, header, and footer column
-rules must share the same width and border edge, including after density changes.
+Align header and footer controls with the inset panels and their shared gutters.
+Keep sidebar and content edges aligned after density changes.
 Studio uses the same 18rem inspector column as the documentation sidebar.
 
 Studio preview tabs belong in the main header. Preview width controls sit at the
@@ -408,11 +408,18 @@ The Studio glass backdrop is preview-only and never exported with a theme.
 
 ## Landing page showcase
 
-The landing page uses the approved reference's split composition: left-aligned
-copy and an interactive component showcase within a blue-to-pastel hero. This
+The landing page pairs concise left-aligned copy with a compact interactive
+component showcase in a muted hero derived from the active primary color. Keep equal outer side gutters, use
+the active theme palette, and avoid recreating another site's gradient treatment. This
 marketing surface is an intentional exception to the neutral documentation
 canvas. Keep the header simple, use actual Mielui components in the featured
 preview, and make faded background samples inert and hidden from assistive
 technology. Avoid invented endorsements or usage counts. On narrow screens,
 stack the content and allow normal page scrolling rather than clipping the hero
 to a fixed viewport.
+
+The documentation shell uses a secondary-toned outer canvas with compact side
+gutters. Header, footer, navigation, and inspectors belong to that continuous
+surface; only the content is inset. Studio uses the same structure. Size each
+scrolling region from the remaining workspace height, not directly from viewport
+height.

@@ -32,15 +32,15 @@
 
 <div
     data-home-showcase
-    class="relative isolate min-h-[34rem] w-full min-w-0 @4xl:min-h-[42rem] @6xl:h-full [--color-card:#fbfcff] [--color-background:#edf0f7] [--color-secondary:#e6eaf4] [--color-foreground:#26334d] [--color-foreground-muted:#68758e] [--color-border:#d8deeb] [--color-primary:#6c72c9] [--color-primary-foreground:#ffffff] [--color-primary-stroke:transparent] [--color-input:#d8deeb] [--color-field:#ffffff] [--color-field-foreground:#26334d] [--color-field-hover:#f3f5fb] [--color-button-foreground:#26334d] [--chart-1:#969ce5] [--mielui-inset-position:bottom]"
+    class="relative isolate mx-auto min-h-[27rem] w-full max-w-[42rem] min-w-0 @4xl:min-h-[30rem] @6xl:h-full [--color-card:color-mix(in_oklab,var(--color-primary)_3%,white)] [--color-background:color-mix(in_oklab,var(--color-primary)_8%,white)] [--color-secondary:color-mix(in_oklab,var(--color-primary)_12%,white)] [--color-foreground:color-mix(in_oklab,var(--color-primary)_15%,#242424)] [--color-foreground-muted:color-mix(in_oklab,var(--color-primary)_20%,#737373)] [--color-border:color-mix(in_oklab,var(--color-primary)_18%,white)] [--color-primary-foreground:#ffffff] [--color-primary-stroke:transparent] [--color-input:color-mix(in_oklab,var(--color-primary)_18%,white)] [--color-field:#ffffff] [--color-field-foreground:var(--color-foreground)] [--color-field-hover:#f3f5fb] [--color-button-foreground:var(--color-foreground)] [--chart-1:var(--color-primary)] [--mielui-inset-position:bottom]"
 >
     <div
         aria-hidden="true"
         inert
-        class="pointer-events-none absolute -inset-x-8 -inset-y-10 grid grid-cols-2 content-center items-start gap-5 opacity-25 [mask-image:linear-gradient(to_bottom,transparent,black_15%,black_80%,transparent)] @4xl:-inset-x-4 @6xl:-inset-y-28"
+        class="pointer-events-none absolute -inset-x-8 -inset-y-10 grid grid-cols-2 content-center items-start gap-4 opacity-15 [mask-image:linear-gradient(to_bottom,transparent,black_15%,black_80%,transparent)] @4xl:-inset-x-4 @6xl:-inset-y-28"
     >
         <div class="flex flex-col gap-5 -translate-y-12">
-            <div class="rounded-[var(--radius-xl)] border border-white/30 bg-white/10 p-3">
+            <div class="rounded-[var(--radius-xl)] border border-white/30 bg-white/5 p-3">
                 <p class="px-2 pb-3 font-mono text-sm text-white">Cards</p>
                 <div class="space-y-5 rounded-[var(--radius-lg)] bg-white/80 p-6 text-foreground">
                     <p class="text-lg font-medium">Ready for the next release</p>
@@ -49,7 +49,7 @@
                     <Progress value={72} aria-label="Release progress" />
                 </div>
             </div>
-            <div class="rounded-[var(--radius-xl)] border border-white/30 bg-white/10 p-3">
+            <div class="rounded-[var(--radius-xl)] border border-white/30 bg-white/5 p-3">
                 <p class="px-2 pb-3 font-mono text-sm text-white">Charts</p>
                 <div class="rounded-[var(--radius-lg)] bg-white/75 px-3 py-8">
                     <Chart.Root
@@ -63,7 +63,7 @@
                     </Chart.Root>
                 </div>
             </div>
-            <div class="rounded-[var(--radius-xl)] border border-white/30 bg-white/10 p-3">
+            <div class="rounded-[var(--radius-xl)] border border-white/30 bg-white/5 p-3">
                 <p class="px-2 pb-3 font-mono text-sm text-white">Progress</p>
                 <div class="space-y-5 rounded-[var(--radius-lg)] bg-white/75 px-6 py-10">
                     <Progress value={38} aria-label="Upload progress" />
@@ -72,25 +72,25 @@
             </div>
         </div>
         <div class="flex flex-col gap-5 translate-y-10">
-            <div class="rounded-[var(--radius-xl)] border border-white/30 bg-white/10 p-3">
+            <div class="rounded-[var(--radius-xl)] border border-white/30 bg-white/5 p-3">
                 <p class="px-2 pb-3 font-mono text-sm text-white">Buttons</p>
                 <div
-                    class="flex min-h-44 items-center justify-center rounded-[var(--radius-lg)] bg-white/75 p-5"
+                    class="flex min-h-32 items-center justify-center rounded-[var(--radius-lg)] bg-white/75 p-5"
                 >
                     <Button>Save changes</Button>
                 </div>
             </div>
-            <div class="rounded-[var(--radius-xl)] border border-white/30 bg-white/10 p-3">
+            <div class="rounded-[var(--radius-xl)] border border-white/30 bg-white/5 p-3">
                 <p class="px-2 pb-3 font-mono text-sm text-white">Switch</p>
                 <div
-                    class="flex min-h-52 items-center justify-center rounded-[var(--radius-lg)] bg-white/75 p-5"
+                    class="flex min-h-40 items-center justify-center rounded-[var(--radius-lg)] bg-white/75 p-5"
                 >
                     <Switch checked label="A little motion" />
                 </div>
             </div>
-            <div class="rounded-[var(--radius-xl)] border border-white/30 bg-white/10 p-3">
+            <div class="rounded-[var(--radius-xl)] border border-white/30 bg-white/5 p-3">
                 <p class="px-2 pb-3 font-mono text-sm text-white">Slider</p>
-                <div class="rounded-[var(--radius-lg)] bg-white/75 px-6 py-14">
+                <div class="rounded-[var(--radius-lg)] bg-white/75 px-6 py-10">
                     <Slider value={64} label="Find your balance" />
                 </div>
             </div>
@@ -99,24 +99,17 @@
 
     <section
         aria-label="Try Mielui components"
-        class="absolute inset-x-0 top-1/2 z-10 mx-auto w-full max-w-[29rem] -translate-y-1/2 rounded-[calc(var(--radius-xl)+var(--spacing)*2)] border border-white/75 bg-white/25 p-2 shadow-[0_24px_64px_-20px_#16346d80,inset_0_1px_0_#ffffff99] backdrop-blur-xl @6xl:-translate-x-6"
+        class="absolute inset-x-0 top-1/2 z-10 mx-auto w-full max-w-[24rem] -translate-y-1/2 rounded-[calc(var(--radius-xl)+var(--spacing)*2)] border border-white/40 bg-white/15 p-2 shadow-[0_20px_48px_-20px_#1d112b80,inset_0_1px_0_#ffffff66] backdrop-blur-xl @6xl:-translate-x-6"
     >
         <div class="flex items-center justify-between px-3 pt-2 pb-4 text-white">
             <span class="font-mono text-sm">
                 {demo === 'composer' ? 'Composer' : demo === 'controls' ? 'Controls' : 'Charts'}
             </span>
-            <span class="text-xs text-white/80">Try it out</span>
         </div>
         <div class="rounded-[var(--radius-xl)] bg-card text-foreground">
             <Tabs.Root bind:value={demo} variant="ghost" class="flex flex-col">
-                <div class="flex min-h-80 items-center px-5 py-10 @lg:px-7">
+                <div class="flex min-h-56 items-center px-4 py-7 @lg:px-5">
                     <Tabs.Content value="composer" class="w-full">
-                        <div class="mb-6 space-y-2">
-                            <h2 class="text-xl font-medium tracking-tight">What will you make?</h2>
-                            <p class="text-sm leading-relaxed text-foreground-muted">
-                                Start with a thought. Make it your own.
-                            </p>
-                        </div>
                         <Composer.Root
                             bind:value={prompt}
                             surface="solid"
@@ -125,7 +118,7 @@
                             <Composer.Input
                                 aria-label="Try the composer"
                                 placeholder="A good idea starts here…"
-                                class="min-h-28"
+                                class="min-h-24"
                             />
                             <Composer.Toolbar>
                                 <Composer.Actions>
@@ -135,25 +128,17 @@
                                         onclick={() => { prompt = 'Build a little something that feels like me.'; sent = false; }}
                                     >
                                         <HugeiconsIcon icon={Attachment01Icon} size={14} />
-                                        Add an idea
+                                        Example
                                     </Button>
                                 </Composer.Actions>
                                 <Composer.Submit />
                             </Composer.Toolbar>
                         </Composer.Root>
                         <p aria-live="polite" class="mt-3 min-h-5 text-xs text-foreground-muted">
-                            {sent ? 'Sent in this preview. Your next idea?' : 'A live component, ready to play with.'}
+                            {sent ? 'Sent in this preview.' : ''}
                         </p>
                     </Tabs.Content>
                     <Tabs.Content value="controls" class="w-full space-y-6">
-                        <div class="space-y-2">
-                            <h2 class="text-xl font-medium tracking-tight">
-                                Small details. Your choice.
-                            </h2>
-                            <p class="text-sm text-foreground-muted">
-                                Controls that work together.
-                            </p>
-                        </div>
                         <Switch bind:checked={notifications} label="Keep me in the loop" />
                         <div class="space-y-3">
                             <div class="flex justify-between text-sm">
@@ -171,14 +156,6 @@
                         <Checkbox bind:checked={tested} label="Check the little details" />
                     </Tabs.Content>
                     <Tabs.Content value="charts" class="w-full space-y-5">
-                        <div class="space-y-2">
-                            <h2 class="text-xl font-medium tracking-tight">
-                                See the bigger picture.
-                            </h2>
-                            <p class="text-sm text-foreground-muted">
-                                A sample week, with every point in reach.
-                            </p>
-                        </div>
                         <Chart.Root
                             data={chartData}
                             config={chartConfig}

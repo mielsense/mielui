@@ -73,7 +73,7 @@
     <nav
         class={`sticky inset-x-0 top-0 z-20 transition-[background-color,backdrop-filter] duration-200 ${
             isStudio
-                ? 'bg-[var(--docs-chrome)]'
+                ? 'bg-transparent'
                 : isDocs
                 ? 'bg-background/72 backdrop-blur-[14px]'
                 : scrolled
@@ -106,7 +106,7 @@
                     <Logo />
                 </div>
                 <div
-                    class={`hidden md:block ${isStudio ? 'min-[68.75rem]:flex min-[68.75rem]:h-[calc(var(--docs-row-height)-var(--border-size))] min-[68.75rem]:w-[18rem] min-[68.75rem]:items-center min-[68.75rem]:border-r-[length:var(--border-size)] min-[68.75rem]:border-[var(--docs-rule)] min-[68.75rem]:px-5' : ''}`}
+                    class={`hidden md:block ${isStudio ? 'min-[68.75rem]:flex min-[68.75rem]:h-[calc(var(--docs-row-height)-var(--border-size))] min-[68.75rem]:w-[18rem] min-[68.75rem]:items-center min-[68.75rem]:px-5' : ''}`}
                 >
                     <Logo />
                 </div>
@@ -122,7 +122,7 @@
             </div>
 
             {#if isStudio}
-                <div class="min-w-0 flex-1 px-3">
+                <div class="min-w-0 flex-1 px-2 min-[68.75rem]:pl-6 min-[68.75rem]:pr-3">
                     <Tabs.Root bind:value={studio.mode} variant="ghost" class="hidden lg:block">
                         <div role="group" aria-label="Preview content">
                             <Tabs.List>

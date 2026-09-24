@@ -134,7 +134,7 @@
 
 <Sheet.Root bind:open={mobileMenuOpen}>
     <header
-        class="relative z-20 mx-auto flex h-[calc(var(--docs-row-height)-var(--border-size))] w-full shrink-0 items-center justify-between gap-4 px-2 sm:px-5 xl:grid xl:grid-cols-[minmax(0,1fr)_18rem] xl:gap-0 xl:px-0"
+        class="relative z-20 mx-auto flex h-[calc(var(--docs-row-height)-var(--border-size))] w-full shrink-0 items-center justify-between gap-4 px-2 sm:px-5 xl:grid xl:grid-cols-[minmax(0,1fr)_18rem] xl:gap-3 xl:px-0"
     >
         <div
             class="mx-auto flex w-full min-w-0 items-center justify-between gap-4 lg:px-[calc((var(--spacing)*5+2rem)/2)]"
@@ -203,9 +203,7 @@
                 </Button>
             </div>
         </div>
-        <div
-            class="flex shrink-0 items-center gap-1.5 xl:h-full xl:border-l-[length:var(--border-size)] xl:border-[var(--docs-rule)] xl:justify-between xl:px-5"
-        >
+        <div class="flex shrink-0 items-center gap-1.5 xl:h-full xl:justify-between xl:px-5">
             <Button
                 class="border-border/60 h-9 gap-1.5 rounded-[var(--radius-md)] px-2.5 text-[0.8125rem] tabular-nums"
                 variant="outline"

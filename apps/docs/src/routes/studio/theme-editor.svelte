@@ -15,14 +15,14 @@
 
 <aside
     aria-label="Theme configuration"
-    class="hidden min-h-0 w-[18rem] shrink-0 bg-[var(--docs-chrome)] border-r-[length:var(--border-size)] border-[var(--docs-rule,var(--color-border))] min-[68.75rem]:flex min-[68.75rem]:flex-col"
+    class="hidden min-h-0 w-[18rem] shrink-0 overflow-hidden [--docs-chrome:var(--docs-shell)] min-[68.75rem]:flex min-[68.75rem]:flex-col"
 >
     <Inspector />
 </aside>
 
 <Sheet.Root>
     <Sheet.Trigger
-        class="fixed bottom-16 right-5 z-30 shadow-[var(--elevation-float)] min-[68.75rem]:hidden"
+        class="fixed bottom-20 right-5 z-30 shadow-[var(--elevation-float)] min-[68.75rem]:hidden"
     >
         <HugeiconsIcon icon={Palette} size={15} />
         Customize

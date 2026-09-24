@@ -103,32 +103,11 @@
     />
 </svelte:head>
 
-{#snippet gridJunctions()}
-    {#each ['top-[var(--docs-row-height)] -translate-y-1/2', 'bottom-[var(--docs-row-height)] translate-y-1/2'] as row}
-        <span
-            aria-hidden="true"
-            class="pointer-events-none absolute left-[18rem] z-50 hidden size-2 -translate-x-1/2 rounded-[2px] border border-[var(--docs-rule)] bg-[var(--docs-chrome)] lg:block {row}"
-        ></span>
-        <span
-            aria-hidden="true"
-            class="pointer-events-none absolute right-[18rem] z-50 hidden size-2 translate-x-1/2 rounded-[2px] border border-[var(--docs-rule)] bg-[var(--docs-chrome)] xl:block {row}"
-        ></span>
-    {/each}
-{/snippet}
-
 {#snippet siteFooter()}
     <footer
-        class={`relative flex h-[var(--docs-row-height)] shrink-0 items-center justify-between gap-3 border-t-[length:var(--border-size)] border-[var(--docs-rule)] bg-[var(--docs-chrome)] px-4 sm:px-5 text-xs text-foreground-muted ${isDocs ? 'xl:grid xl:grid-cols-[18rem_minmax(0,1fr)_18rem] xl:gap-0 xl:px-0' : 'min-[68.75rem]:grid min-[68.75rem]:grid-cols-[18rem_minmax(0,1fr)] min-[68.75rem]:gap-0 min-[68.75rem]:px-0'}`}
+        class={`relative flex h-[var(--docs-row-height)] shrink-0 items-center justify-between gap-3 px-4 sm:px-5 text-xs text-foreground-muted ${isDocs ? 'xl:grid xl:grid-cols-[18rem_minmax(0,1fr)_18rem] xl:gap-3 xl:px-0' : 'min-[68.75rem]:grid min-[68.75rem]:grid-cols-[18rem_minmax(0,1fr)] min-[68.75rem]:gap-3 min-[68.75rem]:px-0'}`}
     >
         {#if isDocs}
-            <span
-                aria-hidden="true"
-                class="pointer-events-none absolute inset-y-0 left-[18rem] hidden border-r border-[var(--docs-rule)] lg:block"
-            ></span>
-            <span
-                aria-hidden="true"
-                class="pointer-events-none absolute inset-y-0 right-[18rem] hidden border-r border-[var(--docs-rule)] xl:block"
-            ></span>
             <div class="flex justify-start xl:px-5"><DocsPager /></div>
             <div class="flex justify-end xl:px-[calc((var(--spacing)*5+2rem)/2)]"><CopyPage /></div>
             <div class="flex min-w-0 items-center gap-2 xl:px-5">
@@ -157,15 +136,11 @@
                 {/if}
             </div>
         {:else}
-            <span
-                aria-hidden="true"
-                class="pointer-events-none absolute inset-y-0 left-[calc(18rem-var(--border-size))] hidden border-r-[length:var(--border-size)] border-[var(--docs-rule)] min-[68.75rem]:block"
-            ></span>
-            <span class="shrink-0 min-[68.75rem]:px-5">Mielui · Theme Studio</span>
+            <span class="hidden shrink-0 sm:inline min-[68.75rem]:px-5">Mielui · Theme Studio</span>
             <div
-                class="flex min-w-0 flex-1 items-center justify-end gap-4 min-[68.75rem]:justify-between min-[68.75rem]:pl-3 min-[68.75rem]:pr-5"
+                class="flex min-w-0 flex-1 items-center justify-between gap-4 min-[68.75rem]:pl-3 min-[68.75rem]:pr-5"
             >
-                <div class="flex items-center gap-4">
+                <div class="flex items-center gap-4 whitespace-nowrap">
                     <Tabs.Root bind:value={studio.width} variant="ghost" class="hidden md:block">
                         <div role="group" aria-label="Preview width">
                             <Tabs.List>
@@ -211,20 +186,17 @@
     </main>
 {:else}
     <main
-        class={`w-screen [--docs-row-height:calc(var(--spacing)*14+var(--border-size))] [--docs-rule:var(--color-border)] dark:[--docs-rule:color-mix(in_oklab,var(--color-border)_50%,transparent)] [--docs-chrome:color-mix(in_oklab,var(--color-background),var(--color-secondary)_20%)] [--docs-content:color-mix(in_oklab,var(--color-background),var(--color-secondary)_10%)] ${isDocs ? 'h-[100svh] overflow-hidden bg-[var(--docs-content)]' : isThemeStudio ? 'h-[100svh] overflow-hidden bg-[var(--docs-content)]' : isHome ? 'min-h-dvh bg-background' : 'min-h-screen bg-background p-3'}`}
+        class={`w-screen [--docs-shell:color-mix(in_oklab,var(--color-secondary)_85%,var(--color-background))] [--docs-row-height:calc(var(--spacing)*14+var(--border-size))] [--docs-rule:var(--color-border)] dark:[--docs-rule:color-mix(in_oklab,var(--color-border)_50%,transparent)] [--docs-chrome:color-mix(in_oklab,var(--color-background),var(--color-secondary)_20%)] [--docs-content:color-mix(in_oklab,var(--color-background),var(--color-secondary)_10%)] ${isDocs ? 'h-[100svh] overflow-hidden bg-[var(--docs-shell)] px-2 sm:px-3' : isThemeStudio ? 'h-[100svh] overflow-hidden bg-[var(--docs-shell)] px-2 sm:px-3' : isHome ? 'min-h-dvh bg-background' : 'min-h-screen bg-background p-3'}`}
     >
         {#if isHome}
             <div class="relative mx-auto flex min-h-dvh w-full max-w-none flex-col">
                 {@render children?.()}
             </div>
         {:else if isDocs}
-            <div class="relative flex h-full w-full flex-col">
-                {@render gridJunctions()}
-                <div
-                    class="flex shrink-0 border-b-[length:var(--border-size)] border-[var(--docs-rule)] bg-[var(--docs-chrome)]"
-                >
+            <div data-docs-shell class="relative flex h-full w-full flex-col">
+                <div class="flex shrink-0 gap-3">
                     <div
-                        class="hidden h-[calc(var(--docs-row-height)-var(--border-size))] w-[18rem] shrink-0 items-center border-r-[length:var(--border-size)] border-[var(--docs-rule)] px-5 lg:flex"
+                        class="hidden h-[calc(var(--docs-row-height)-var(--border-size))] w-[18rem] shrink-0 items-center px-5 lg:flex"
                     >
                         <Logo />
                     </div>
@@ -232,9 +204,9 @@
                         <DocsToolbar starCount={data?.starCount ?? null} />
                     </div>
                 </div>
-                <div class="flex min-h-0 flex-1">
+                <div class="flex min-h-0 flex-1 gap-3">
                     <SideNavbar
-                        class="hidden h-full w-[18rem] shrink-0 border-r-[length:var(--border-size)] border-[var(--docs-rule)] bg-[var(--docs-chrome)] lg:flex"
+                        class="hidden h-full w-[18rem] shrink-0 [--docs-chrome:var(--docs-shell)] lg:flex"
                     />
                     <div bind:this={docsScrollEl} class="min-h-0 min-w-0 flex-1 overflow-hidden">
                         {@render children?.()}
@@ -243,18 +215,8 @@
                 {@render siteFooter()}
             </div>
         {:else if isThemeStudio}
-            <div
-                class="relative flex h-[100svh] w-full flex-col overflow-hidden bg-[var(--docs-content)]"
-            >
-                {#each ['top-[var(--docs-row-height)] -translate-y-1/2', 'bottom-[var(--docs-row-height)] translate-y-1/2'] as row}
-                    <span
-                        aria-hidden="true"
-                        class="pointer-events-none absolute left-[calc(18rem-var(--border-size))] z-50 hidden size-2 -translate-x-1/2 rounded-[2px] border border-[var(--docs-rule)] bg-[var(--docs-chrome)] min-[68.75rem]:block {row}"
-                    ></span>
-                {/each}
-                <div
-                    class="shrink-0 border-b-[length:var(--border-size)] border-[var(--docs-rule)] bg-[var(--docs-chrome)]"
-                >
+            <div data-studio-shell class="relative flex h-full w-full flex-col">
+                <div class="shrink-0">
                     <Navbar starCount={data?.starCount ?? null} />
                 </div>
                 <div class="flex min-h-0 flex-1">

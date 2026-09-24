@@ -21,14 +21,13 @@
     <meta name="description" content="Build, preview, and export a Mielui theme." />
 </svelte:head>
 
-<div
-    data-docs-page
-    class="flex min-h-0 min-w-0 flex-1 flex-col bg-[var(--docs-content)] text-foreground"
->
-    <section aria-label="Theme workspace" class="flex min-h-0 flex-1 bg-[var(--docs-content)]">
+<div data-docs-page class="flex min-h-0 min-w-0 flex-1 flex-col text-foreground">
+    <section aria-label="Theme workspace" class="flex min-h-0 flex-1 gap-3">
         <ThemeEditor />
 
-        <div class="flex min-h-0 min-w-0 flex-1 flex-col">
+        <div
+            class="flex min-h-0 min-w-0 flex-1 flex-col overflow-hidden rounded-[var(--radius-xl)] border-[length:var(--border-size)] border-[var(--docs-rule)]"
+        >
             <div
                 class="flex min-h-0 flex-1 justify-center overflow-hidden bg-[var(--docs-content)]"
             >
