@@ -351,10 +351,14 @@ Menu separators span the full inner panel width, including submenus. Cancel the
 shared item padding at the separator rather than removing padding from menu items.
 Keep separators square at the panel edges.
 
-Toolbar depth uses the shared floating elevation for its shell and button-outline
-relief for its keys. Selected tools use the control inset and background fill;
+Toolbar depth uses the shared floating elevation for its shell and theme-owned
+`--mielui-toolbar-raised` relief for its keys. Selected tools use
+`--mielui-toolbar-pressed` and the background fill;
 compose focus rings with that relief. Keep the callable composer toolbar flat.
 
 Glass tooltips pair the shared glass surface with the theme foreground; solid
 tooltips retain their dedicated tooltip background and foreground pair. Toolbar
 keys use the outline within their elevation token without adding a second border.
+Keep the original compact control size. Raised keys have a directional top edge
+and a short contact shadow; pressed keys trade that shadow for an inward top shade.
+Both toolbar relief tokens flatten when control shadows are disabled.

@@ -21,7 +21,9 @@ this token rather than introduce fixed inset padding or a fixed inner ring.
 ## Toolbar depth exploration
 
 Toolbar.Root now owns its floating shell. Button, Link, and Item use the shared
-button-outline elevation, while selected Items use the control inset. Compose
+`--mielui-toolbar-raised` elevation, while selected Items use
+`--mielui-toolbar-pressed`. These theme-owned tokens include a contact shadow or
+inward shade and flatten with controlShadows: false. Compose
 focus rings with the appropriate elevation. Keep these treatments tied to theme
 shadow tokens; do not add fixed shadows to toolbar examples. The callable Toolbar
 used by composers retains its flat layout. No component API changes are required.

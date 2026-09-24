@@ -18,7 +18,7 @@
             {...props}
             use:pressable
             data-ui="toolbar-button"
-            class={cn(className, 'bg-secondary text-foreground-muted shadow-[var(--elevation-button-outline)] hover:text-foreground active:bg-background active:shadow-[var(--elevation-control)] data-[state=on]:bg-background data-[state=on]:text-foreground data-[state=on]:shadow-[var(--elevation-control)] focus-visible:shadow-[var(--focus-ring),var(--elevation-button-outline)] data-[state=on]:focus-visible:shadow-[var(--focus-ring),var(--elevation-control)]', button({ variant: 'quiet', size: 'sm' }))}
+            class={cn(className, 'bg-secondary text-foreground-muted shadow-[var(--mielui-toolbar-raised)] hover:text-foreground active:bg-background active:shadow-[var(--mielui-toolbar-pressed)] data-[state=on]:bg-background data-[state=on]:text-foreground data-[state=on]:shadow-[var(--mielui-toolbar-pressed)] focus-visible:shadow-[var(--focus-ring),var(--mielui-toolbar-raised)] data-[state=on]:focus-visible:shadow-[var(--focus-ring),var(--mielui-toolbar-pressed)]', button({ variant: 'quiet', size: 'sm' }))}
         >
             {@render children?.()}
         </button>

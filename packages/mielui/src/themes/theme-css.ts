@@ -239,6 +239,8 @@ function elevationDeclarations(mode: 'light' | 'dark'): string[] {
     return mode === 'light'
         ? [
               '--elevation-control-edge: inset 0 1px 0 0 rgb(255 255 255 / calc(0.38 * var(--mielui-edge-highlight))), inset 0 -1px 0 0 rgb(15 15 16 / 0.06);',
+              '--mielui-toolbar-raised: var(--elevation-control-edge), inset 0 0 0 var(--border-size) var(--color-border), 0 1px 1px rgb(0 0 0 / 0.18), 0 3px 4px -2px rgb(0 0 0 / 0.22);',
+              '--mielui-toolbar-pressed: inset 0 0 0 var(--border-size) var(--color-border), inset 0 2px 4px rgb(0 0 0 / 0.16), 0 1px 0 rgb(255 255 255 / calc(0.5 * var(--mielui-edge-highlight)));',
               '--elevation-surface-edge: inset 0 1px 0 0 rgb(255 255 255 / calc(0.55 * var(--mielui-edge-highlight)));',
               '--elevation-1: var(--elevation-surface-edge), 0 4px 2px rgb(0 0 0 / 0.04);',
               '--elevation-float: var(--elevation-surface-edge), 0 8px 24px -8px rgb(0 0 0 / 0.12), 0 2px 6px rgb(0 0 0 / 0.06);',
@@ -248,6 +250,8 @@ function elevationDeclarations(mode: 'light' | 'dark'): string[] {
           ]
         : [
               '--elevation-control-edge: inset 0 1px 0 0 rgb(255 255 255 / calc(0.07 * var(--mielui-edge-highlight))), inset 0 -1px 0 0 rgb(0 0 0 / 0.22);',
+              '--mielui-toolbar-raised: var(--elevation-control-edge), inset 0 1px 0 rgb(255 255 255 / calc(0.2 * var(--mielui-edge-highlight))), inset 0 0 0 var(--border-size) rgb(0 0 0 / 0.45), 0 2px 1px rgb(0 0 0 / 0.65), 0 3px 5px -2px rgb(0 0 0 / 0.55);',
+              '--mielui-toolbar-pressed: inset 0 0 0 var(--border-size) rgb(0 0 0 / 0.6), inset 0 2px 4px rgb(0 0 0 / 0.65), 0 1px 0 rgb(255 255 255 / calc(0.12 * var(--mielui-edge-highlight)));',
               '--elevation-surface-edge: inset 0 1px 0 0 rgb(255 255 255 / calc(0.07 * var(--mielui-edge-highlight)));',
               '--elevation-1: var(--elevation-surface-edge), 0 1px 2px rgb(0 0 0 / 0.4);',
               '--elevation-float: var(--elevation-surface-edge), 0 8px 24px -8px rgb(0 0 0 / 0.12), 0 2px 6px rgb(0 0 0 / 0.06);',
@@ -277,6 +281,8 @@ function chromeBlocks(chrome: ThemeChrome | undefined): string {
     }
     if (!controlShadows) {
         elevationOff.push(
+            '--mielui-toolbar-raised: inset 0 0 0 var(--border-size) var(--color-border);',
+            '--mielui-toolbar-pressed: inset 0 0 0 var(--border-size) var(--color-border);',
             '--elevation-control-edge: 0 0 0 0 transparent;',
             '--elevation-control: inset 0 0 0 var(--border-size) var(--color-border);',
             '--elevation-button-outline: inset 0 0 0 var(--border-size) var(--color-border);'

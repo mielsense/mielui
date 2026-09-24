@@ -18,7 +18,7 @@
     bind:ref={element}
     {orientation}
     data-ui="toolbar"
-    class={cn(className, 'flex items-center gap-2 rounded-[calc(var(--radius-lg)+var(--spacing)*2)] border-[length:var(--border-size)] border-border bg-card p-2 text-foreground shadow-[var(--elevation-float)]', orientation === 'vertical' && 'flex-col')}
+    class={cn(className, 'flex items-center gap-2 rounded-[calc(var(--radius-lg)+var(--spacing))] border-[length:var(--border-size)] border-border bg-card p-1 text-foreground shadow-[var(--elevation-float)]', orientation === 'vertical' && 'flex-col')}
 >
     {@render children?.()}
 </Primitive.Root>
