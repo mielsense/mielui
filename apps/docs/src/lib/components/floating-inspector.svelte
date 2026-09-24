@@ -7,11 +7,36 @@
     import Button from '@mielui/svelte/components/button';
     import * as Popover from '@mielui/svelte/components/popover';
     import HugeiconsIcon from '@mielui/svelte/hugeicons-icon';
-    import type { Snippet } from 'svelte';
+    import { onMount, type Snippet } from 'svelte';
 
     let { title, children }: { title: string; children: Snippet<[() => void]> } = $props();
     let open = $state(false);
     let pinned = $state(false);
+    let preferenceLoaded = $state(false);
+    const storageKey = $derived(
+        title === 'Navigation' ? 'mielui:docs-sidebar-pinned' : 'mielui:studio-sidebar-pinned'
+    );
+
+    onMount(() => {
+        try {
+            pinned = localStorage.getItem(storageKey) === 'true';
+            open = pinned;
+        } catch {
+            pinned = false;
+        }
+        preferenceLoaded = true;
+    });
+
+    $effect(() => {
+        if (!preferenceLoaded) {
+            return;
+        }
+        try {
+            localStorage.setItem(storageKey, String(pinned));
+        } catch {
+            return;
+        }
+    });
 
     $effect(() => {
         if (pinned && !open) {

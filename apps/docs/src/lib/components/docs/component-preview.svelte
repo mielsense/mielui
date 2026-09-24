@@ -75,7 +75,7 @@
         >
             <Tabs.Root bind:value variant="ghost">
                 <Tabs.List
-                    class="w-fit [&>div[aria-hidden]]:bg-foreground/10 dark:[&>div[aria-hidden]]:bg-secondary/70"
+                    class="w-fit [&>div[aria-hidden]]:bg-card [&>div[aria-hidden]]:shadow-[var(--elevation-control-edge)]"
                 >
                     <Tabs.Trigger value="preview">Preview</Tabs.Trigger>
                     <Tabs.Trigger value="code">Code</Tabs.Trigger>

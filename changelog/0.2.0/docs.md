@@ -31,3 +31,7 @@
 - Restore the GitHub star action in Studio with the same ordering as the docs header.
 
 - Tighten search result insets and give keyboard hints a solid primary surface with shared control depth.
+
+- Match selected preview tabs to the package-manager picker surface.
+
+- Remember pinned docs and Studio sidebars independently across visits.
