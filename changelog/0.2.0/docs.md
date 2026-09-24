@@ -9,3 +9,6 @@
 - Add nonmodal glass navigation and Studio inspectors with hover reveal and docking, restore the right page outline, and tighten the black outer canvas.
 - Align the page-outline header with preview tabs, soften docked borders, and strengthen light-mode section headers.
 - Simplify docs section labels and refresh Studio overlay previews with compact workspace content.
+- Restore framed lead demos, strengthen section labels, and align footer actions in a flush row.
+
+- Simplify Studio section labels and inspector disclosures without separator lines.

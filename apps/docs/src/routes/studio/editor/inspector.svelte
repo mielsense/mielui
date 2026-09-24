@@ -9,9 +9,7 @@
 </script>
 <div class="flex min-h-0 flex-1 flex-col">
     <ScrollArea class="hide-scrollbar-all h-full min-h-0 flex-1" showCues={false}>
-        <div
-            class="flex min-h-full flex-col [&_section]:relative [&_section]:px-5 [&_section]:py-0"
-        >
+        <div class="flex min-h-full flex-col gap-2 px-3 pb-4 [&_section]:relative">
             <Colors />
             <Appearance />
             <Shape />

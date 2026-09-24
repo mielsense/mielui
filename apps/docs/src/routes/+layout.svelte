@@ -103,12 +103,12 @@
 
 {#snippet siteFooter()}
     <footer
-        class={`relative flex h-[var(--docs-row-height)] shrink-0 items-center justify-between gap-3 px-4 sm:px-5 text-xs text-foreground-muted ${isDocs ? 'xl:grid xl:grid-cols-[auto_minmax(0,1fr)_auto] xl:gap-3 xl:px-5' : 'min-[68.75rem]:flex min-[68.75rem]:gap-6'}`}
+        class={`relative flex h-[var(--docs-row-height)] shrink-0 border-t border-border/50 bg-[var(--docs-content)] items-center justify-between gap-3 px-4 sm:px-5 text-xs text-foreground-muted ${isDocs ? 'xl:grid xl:grid-cols-[auto_minmax(0,1fr)_auto] xl:gap-3 xl:px-5' : 'min-[68.75rem]:flex min-[68.75rem]:gap-6'}`}
     >
         {#if isDocs}
-            <div class="flex justify-start xl:px-5"><DocsPager /></div>
-            <div class="flex justify-end xl:px-[calc((var(--spacing)*5+2rem)/2)]"><CopyPage /></div>
-            <div class="flex min-w-0 items-center gap-2 xl:px-5">
+            <div class="flex justify-start"><DocsPager /></div>
+            <div class="flex justify-end"><CopyPage /></div>
+            <div class="flex min-w-0 items-center gap-2 border-l border-border/50 pl-4">
                 {#if pageInfo.current}
                     <HoverCard.Root>
                         <HoverCard.Trigger

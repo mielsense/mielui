@@ -40,23 +40,6 @@
 
 <svelte:window onpointermove={reveal} />
 
-{#if !open && !pinned}
-    <button
-        type="button"
-        aria-label={`Reveal ${title.toLowerCase()}`}
-        title={`Open ${title.toLowerCase()}`}
-        class="fixed left-0 top-1/2 z-40 flex h-14 w-3 -translate-y-1/2 items-center justify-center rounded-r-full border border-border bg-secondary/85 shadow-[var(--elevation-float)] backdrop-blur-md transition-[width] hover:w-5 focus-visible:w-5 focus-visible:outline-2 focus-visible:outline-primary motion-reduce:transition-none"
-        onpointerenter={() => {
-            open = true;
-        }}
-        onclick={() => {
-            open = true;
-        }}
-    >
-        <span class="h-6 w-0.5 rounded-full bg-foreground-muted/60"></span>
-    </button>
-{/if}
-
 <div data-inspector-pinned={pinned}>
     <Popover.Root
         bind:open

@@ -34,7 +34,7 @@
         <section aria-labelledby="studio-controls">
             <h2
                 id="studio-controls"
-                class="sticky top-0 z-10 border-b-[length:var(--border-size)] border-[var(--docs-rule)] bg-[var(--docs-chrome)] flex h-[var(--docs-row-height)] items-center px-6 text-sm font-semibold"
+                class="sticky top-3 z-10 mx-6 mt-4 flex h-9 w-fit items-center rounded-full bg-foreground px-4 text-sm font-semibold text-background"
             >
                 Controls
             </h2>
@@ -131,7 +131,7 @@
         <section aria-labelledby="studio-overlays">
             <h2
                 id="studio-overlays"
-                class="sticky top-0 z-10 flex h-[var(--docs-row-height)] items-center border-y-[length:var(--border-size)] border-[var(--docs-rule)] bg-[var(--docs-chrome)] px-6 text-sm font-semibold"
+                class="sticky top-3 z-10 mx-6 mt-4 flex h-9 w-fit items-center rounded-full bg-foreground px-4 text-sm font-semibold text-background"
             >
                 Menus and popovers
             </h2>
@@ -227,7 +227,7 @@
         <section aria-labelledby="studio-content">
             <h2
                 id="studio-content"
-                class="sticky top-0 z-10 border-y-[length:var(--border-size)] border-[var(--docs-rule)] bg-[var(--docs-chrome)] flex h-[var(--docs-row-height)] items-center px-6 text-sm font-semibold"
+                class="sticky top-3 z-10 mx-6 mt-4 flex h-9 w-fit items-center rounded-full bg-foreground px-4 text-sm font-semibold text-background"
             >
                 Content and layout
             </h2>

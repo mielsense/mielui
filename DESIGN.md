@@ -265,7 +265,7 @@ Docs and Studio use a pure black outer background around the
 workspace. In docs, page controls belong inside the rounded page frame: breadcrumb
 and actions above the content, pagination and copy controls below it. Keep the
 outer top and bottom gutters compact. Navigation and Studio inspectors open as
-nonmodal frosted panels on left-edge hover or from the toolbar. A left-center edge pill makes the hover target visible. Pinning keeps
+nonmodal frosted panels on left-edge hover or from the toolbar. Pinning keeps
 the panel visible and reserves its width plus a narrow gutter on desktop.
 Docked panels use the page surface color; floating panels use glass.
 Use the shared Popover glass, focus, and motion behavior without a scrim or
@@ -277,21 +277,20 @@ summary behind the footer's information HoverCard. Copy page and previous/next
 navigation belong in the same fixed footer; their menus open upward and align
 inward with a viewport gutter.
 
-Section title rows stick below the header. Use compact pill labels with a subtle contrasting fill instead of full-width
+Section title rows stick below the header. Use compact opposite-tone pill labels with a small sticky offset instead of full-width
 section bars. Keep the page header and footer on the reading surface without
-extra horizontal dividers. Content starts and ends 1.5rem from its section
+extra header dividers. The footer is flush with the frame, separated by one subtle top rule; do not wrap it in another floating card. Content starts and ends 1.5rem from its section
 boundaries; paragraph gaps stay at 1rem. The shared layout owns these distances. Keep body sections on one background rather than
 alternating arbitrary fills. Use modest responsive side gutters. Docs paragraphs use the section width; split
 long explanations into short paragraphs by topic rather than narrow text columns.
 
 Sidebar group headings and the page-outline heading use the same sticky row height
-as section titles. Sidebar groups have full-width boundary rules and a subtle
-primary-colored selected text. The leading preview toolbar shares that row height and
+as section titles. Sidebar groups use whitespace and subtle primary-colored selected text. Studio inspector sections use spaced rounded disclosure rows with a quiet fill, without separators. The leading preview toolbar shares that row height and
 sticks until the next section; inset example toolbars stay compact without an
 extra divider. Put optional section explanations behind a labelled info control.
 
-The leading page preview uses a full-width ghost-tab toolbar and an open canvas.
-Its source occupies the same square section, without a rounded frame. Examples
+The leading page preview uses the shared inset frame with its ghost-tab toolbar
+and card-backed canvas. Its source remains inside the same frame. Examples
 inside a section use the shared inset preview card, with the toolbar and preview
 surface contained together. Do not stretch nested card headers across the page.
 Keep both forms in the shared preview implementation and preserve example state
