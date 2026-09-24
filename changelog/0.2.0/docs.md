@@ -4,3 +4,4 @@
 - Simplify the landing page copy and showcase, with consistent outer gutters and a distinct theme-driven palette.
 - Give Docs and Studio a continuous outer shell with recessed content and integrated navigation, header, and footer controls.
 - Match the landing hero and showcase accents to the active primary color.
+- Move docs page controls inside the inset frame and soften the outer shell color.

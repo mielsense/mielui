@@ -13,11 +13,9 @@
 </script>
 
 <div
-    class="grid h-full min-h-0 w-full grid-cols-[minmax(0,1fr)] gap-3 xl:grid-cols-[minmax(0,1fr)_18rem]"
+    class="grid h-full min-h-0 w-full grid-cols-[minmax(0,1fr)] xl:grid-cols-[minmax(0,1fr)_18rem]"
 >
-    <div
-        class="flex min-h-0 min-w-0 flex-col overflow-hidden rounded-[var(--radius-xl)] border-[length:var(--border-size)] border-[var(--docs-rule)] bg-[var(--docs-content)]"
-    >
+    <div class="flex min-h-0 min-w-0 flex-col overflow-hidden bg-[var(--docs-content)]">
         <div
             bind:this={viewport}
             {@attach settleHeading}
@@ -30,7 +28,7 @@
         </div>
     </div>
     <aside
-        class="hidden min-h-0 min-w-0 overflow-y-auto overscroll-none [--docs-chrome:var(--docs-shell)] xl:block"
+        class="hidden min-h-0 min-w-0 overflow-y-auto overscroll-none border-l border-[var(--docs-rule)] bg-[var(--docs-chrome)] xl:block"
     >
         <OnThisPage {content} />
     </aside>

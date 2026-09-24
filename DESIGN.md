@@ -261,8 +261,10 @@ still disable their corresponding elevation effects.
 
 ## Documentation composition
 
-Docs and Studio use one continuous outer shell for the header, footer, and side
-rails. Only the reading area or Studio preview is a rounded inset surface. Keep
+Docs and Studio use a quiet background with a subtle primary tint around the
+workspace. In docs, page controls belong inside the rounded page frame: breadcrumb
+and actions above the content, pagination and copy controls below it. Keep the
+outer top and bottom gutters compact. The navigation rail remains outside. Keep
 both documentation side rails equal in width, with three spacing units between
 them and the recessed content. Do not box the rails into separate cards or extend
 content dividers through the surrounding shell. The section rail uses a solid hook.
@@ -418,8 +420,8 @@ technology. Avoid invented endorsements or usage counts. On narrow screens,
 stack the content and allow normal page scrolling rather than clipping the hero
 to a fixed viewport.
 
-The documentation shell uses a secondary-toned outer canvas with compact side
-gutters. Header, footer, navigation, and inspectors belong to that continuous
-surface; only the content is inset. Studio uses the same structure. Size each
+The documentation shell uses a subtly primary-tinted outer canvas with compact side
+gutters. Navigation and Studio inspectors belong to the outer
+surface. Docs page header and footer belong inside the page frame. Size each
 scrolling region from the remaining workspace height, not directly from viewport
 height.

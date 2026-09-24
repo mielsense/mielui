@@ -105,7 +105,7 @@
 
 {#snippet siteFooter()}
     <footer
-        class={`relative flex h-[var(--docs-row-height)] shrink-0 items-center justify-between gap-3 px-4 sm:px-5 text-xs text-foreground-muted ${isDocs ? 'xl:grid xl:grid-cols-[18rem_minmax(0,1fr)_18rem] xl:gap-3 xl:px-0' : 'min-[68.75rem]:grid min-[68.75rem]:grid-cols-[18rem_minmax(0,1fr)] min-[68.75rem]:gap-3 min-[68.75rem]:px-0'}`}
+        class={`relative flex h-[var(--docs-row-height)] shrink-0 items-center justify-between gap-3 px-4 sm:px-5 text-xs text-foreground-muted ${isDocs ? 'xl:grid xl:grid-cols-[auto_minmax(0,1fr)_18rem] xl:gap-3 xl:px-0' : 'min-[68.75rem]:grid min-[68.75rem]:grid-cols-[18rem_minmax(0,1fr)] min-[68.75rem]:gap-3 min-[68.75rem]:px-0'}`}
     >
         {#if isDocs}
             <div class="flex justify-start xl:px-5"><DocsPager /></div>
@@ -186,33 +186,37 @@
     </main>
 {:else}
     <main
-        class={`w-screen [--docs-shell:color-mix(in_oklab,var(--color-secondary)_85%,var(--color-background))] [--docs-row-height:calc(var(--spacing)*14+var(--border-size))] [--docs-rule:var(--color-border)] dark:[--docs-rule:color-mix(in_oklab,var(--color-border)_50%,transparent)] [--docs-chrome:color-mix(in_oklab,var(--color-background),var(--color-secondary)_20%)] [--docs-content:color-mix(in_oklab,var(--color-background),var(--color-secondary)_10%)] ${isDocs ? 'h-[100svh] overflow-hidden bg-[var(--docs-shell)] px-2 sm:px-3' : isThemeStudio ? 'h-[100svh] overflow-hidden bg-[var(--docs-shell)] px-2 sm:px-3' : isHome ? 'min-h-dvh bg-background' : 'min-h-screen bg-background p-3'}`}
+        class={`w-screen [--docs-shell:color-mix(in_oklab,var(--color-primary)_4%,var(--color-background))] [--docs-row-height:calc(var(--spacing)*14+var(--border-size))] [--docs-rule:var(--color-border)] dark:[--docs-rule:color-mix(in_oklab,var(--color-border)_50%,transparent)] [--docs-chrome:color-mix(in_oklab,var(--color-background),var(--color-secondary)_20%)] [--docs-content:color-mix(in_oklab,var(--color-background),var(--color-secondary)_10%)] ${isDocs ? 'h-[100svh] overflow-hidden bg-[var(--docs-shell)] p-2 sm:p-3' : isThemeStudio ? 'h-[100svh] overflow-hidden bg-[var(--docs-shell)] p-2 sm:p-3' : isHome ? 'min-h-dvh bg-background' : 'min-h-screen bg-background p-3'}`}
     >
         {#if isHome}
             <div class="relative mx-auto flex min-h-dvh w-full max-w-none flex-col">
                 {@render children?.()}
             </div>
         {:else if isDocs}
-            <div data-docs-shell class="relative flex h-full w-full flex-col">
-                <div class="flex shrink-0 gap-3">
-                    <div
-                        class="hidden h-[calc(var(--docs-row-height)-var(--border-size))] w-[18rem] shrink-0 items-center px-5 lg:flex"
-                    >
+            <div data-docs-shell class="relative flex h-full w-full gap-3">
+                <div class="hidden min-h-0 w-[18rem] shrink-0 flex-col lg:flex">
+                    <div class="flex h-[var(--docs-row-height)] shrink-0 items-center px-5">
                         <Logo />
                     </div>
-                    <div class="min-w-0 flex-1">
+                    <SideNavbar class="min-h-0 flex-1 [--docs-chrome:var(--docs-shell)]" />
+                </div>
+                <div
+                    class="flex min-h-0 min-w-0 flex-1 flex-col overflow-hidden rounded-[var(--radius-xl)] border-[length:var(--border-size)] border-[var(--docs-rule)] bg-[var(--docs-content)]"
+                >
+                    <div
+                        class="shrink-0 border-b border-[var(--docs-rule)] bg-[var(--docs-chrome)]"
+                    >
                         <DocsToolbar starCount={data?.starCount ?? null} />
                     </div>
-                </div>
-                <div class="flex min-h-0 flex-1 gap-3">
-                    <SideNavbar
-                        class="hidden h-full w-[18rem] shrink-0 [--docs-chrome:var(--docs-shell)] lg:flex"
-                    />
                     <div bind:this={docsScrollEl} class="min-h-0 min-w-0 flex-1 overflow-hidden">
                         {@render children?.()}
                     </div>
+                    <div
+                        class="shrink-0 border-t border-[var(--docs-rule)] bg-[var(--docs-chrome)]"
+                    >
+                        {@render siteFooter()}
+                    </div>
                 </div>
-                {@render siteFooter()}
             </div>
         {:else if isThemeStudio}
             <div data-studio-shell class="relative flex h-full w-full flex-col">
