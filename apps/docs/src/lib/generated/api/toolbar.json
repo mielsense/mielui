@@ -2449,6 +2449,15 @@
                 "inherited": false
             },
             {
+                "name": "variant",
+                "type": "\"default\" | \"depth\" | undefined",
+                "required": false,
+                "bindable": false,
+                "default": "'default'",
+                "description": "",
+                "inherited": false
+            },
+            {
                 "name": "element",
                 "type": "HTMLDivElement | null | undefined",
                 "required": false,

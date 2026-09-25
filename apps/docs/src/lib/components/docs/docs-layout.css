@@ -13,19 +13,19 @@
 }
 
 .docs-article [data-docs-page] > section[data-docs-toolbar] {
-    @apply sticky top-0 z-40 h-[var(--docs-row-height)] shrink-0 justify-center border-b-[length:var(--border-size)] border-[var(--docs-rule)] bg-[var(--docs-chrome)] py-0;
+    @apply sticky top-0 z-40 h-[var(--docs-row-height)] shrink-0 justify-center border-0 bg-[var(--docs-content)] py-0;
 }
 
 .docs-article :is([data-docs-page] > section:not(#hero), #api-reference) {
-    @apply border-t-[length:var(--border-size)] border-[var(--docs-rule)];
+    @apply border-0;
 }
 
 .docs-article :is([data-docs-page] > section, #api-reference) > :is(h2, div:first-child:has(> h2)) {
-    @apply sticky top-[var(--docs-sticky-offset,0px)] z-30 -mx-[var(--docs-gutter)] mt-0 mb-2 border-b-[length:var(--border-size)] border-[var(--docs-rule)] bg-[var(--docs-chrome)] flex h-[var(--docs-row-height)] items-center px-[var(--docs-gutter)] py-0 text-sm leading-5 font-semibold;
+    @apply sticky top-[calc(var(--docs-sticky-offset,0px)+var(--spacing)*3)] z-30 mx-0 mt-3 mb-4 w-fit rounded-full border-0 bg-foreground text-background shadow-[var(--elevation-1)] flex h-9 items-center px-4 py-0 text-sm leading-5 font-semibold;
 }
 
 .docs-article :is([data-docs-page] > section, #api-reference) > div:first-child > h2 {
-    @apply m-0 text-sm leading-5 font-semibold;
+    @apply m-0 text-sm leading-5 font-semibold text-background!;
 }
 
 .docs-article
@@ -35,7 +35,7 @@
 }
 
 .docs-article [data-docs-page] > #hero {
-    @apply p-0;
+    @apply px-[var(--docs-gutter)] pt-3;
 }
 
 .docs-article
@@ -43,7 +43,7 @@
         [data-docs-page] > #hero [data-component-preview],
         [data-docs-page] > [data-component-preview]
     ) {
-    @apply rounded-none border-0 bg-transparent p-0 shadow-none;
+    @apply rounded-[var(--radius-xl)] border-[length:var(--border-size)] border-border bg-[var(--docs-chrome)] p-[var(--spacing)] shadow-[var(--elevation-1)];
 }
 
 .docs-article
@@ -52,7 +52,7 @@
         [data-docs-page] > [data-component-preview]
     )
     [data-preview-toolbar] {
-    @apply sticky top-0 z-30 h-[var(--docs-row-height)] min-h-[var(--docs-row-height)] border-b-[length:var(--border-size)] border-[var(--docs-rule)] px-[var(--docs-gutter)];
+    @apply sticky top-0 z-30 h-[var(--docs-row-height)] min-h-[var(--docs-row-height)] border-0 bg-[var(--docs-chrome)]! px-3;
 }
 
 .docs-article
@@ -61,7 +61,7 @@
         [data-docs-page] > [data-component-preview]
     )
     [data-preview-canvas] {
-    @apply min-h-[min(48svh,28rem)] rounded-none bg-transparent shadow-none;
+    @apply min-h-[min(48svh,28rem)] rounded-[calc(var(--radius-xl)-var(--spacing)-var(--border-size))] bg-card shadow-none;
 }
 
 .docs-article
@@ -85,4 +85,12 @@
 
 .docs-article [data-docs-page] > [data-docs-toolbar] + section {
     @apply border-t-0!;
+}
+
+.docs-article #examples h3 {
+    @apply text-base font-semibold text-foreground;
+}
+
+.docs-article [data-docs-page] > [data-component-preview] {
+    @apply mx-[var(--docs-gutter)] mt-3;
 }

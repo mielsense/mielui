@@ -2,6 +2,7 @@
     lang="ts"
     generics="TFeatures extends import('@tanstack/svelte-table').TableFeatures, TData extends import('@tanstack/svelte-table').RowData"
 >
+    import { numberShuffle } from '@mielui/svelte/actions/number-shuffle';
     import { cn } from '@mielui/svelte/utils';
     import type { DataTableSummaryProps } from '.';
     import { summary } from './features';
@@ -22,6 +23,11 @@
     {#if children}
         {@render children(state)}
     {:else}
-        {`${state.total} ${state.total === 1 ? 'row' : 'rows'}${state.selected > 0 ? ` · ${state.selected} selected` : ''}`}
+        <span use:numberShuffle={{ value: state.total }}>{state.total}</span>
+        {state.total === 1 ? 'row' : 'rows'}
+        {#if state.selected > 0}
+            {' · '}
+            <span use:numberShuffle={{ value: state.selected }}>{state.selected}</span> selected
+        {/if}
     {/if}
 </p>

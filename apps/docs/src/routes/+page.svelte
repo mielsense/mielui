@@ -8,9 +8,7 @@
     } from '@hugeicons/core-free-icons';
     import { morph } from '@mielui/svelte/actions/morph';
     import { Button } from '@mielui/svelte/components/button';
-    import * as Group from '@mielui/svelte/components/group';
     import * as Sheet from '@mielui/svelte/components/sheet';
-    import * as Typography from '@mielui/svelte/components/typography';
     import HugeiconsIcon from '@mielui/svelte/hugeicons-icon';
     import { mode, toggleMode } from 'mode-watcher';
     import { resolve } from '$app/paths';
@@ -18,10 +16,8 @@
     import GitHubBlack from '$lib/assets/GitHub_Invertocat_Black.svg';
     import GitHubWhite from '$lib/assets/GitHub_Invertocat_White.svg';
     import { components } from '$lib/components';
-    import HomeComponentCloud from '$lib/components/home-component-cloud.svelte';
-    import HomeTexture from '$lib/components/home-texture.svelte';
+    import HomeShowcase from '$lib/components/home/showcase.svelte';
     import Logo from '$lib/components/logo.svelte';
-    import SleepingCat from '$lib/components/sleeping-cat.svelte';
     import { formatStarCount } from '$lib/github';
 
     import type { PageData } from './$types';
@@ -44,194 +40,164 @@
     />
 </svelte:head>
 
-<section
-    class="relative isolate flex h-full flex-col overflow-hidden bg-background [--home-rail:1rem] sm:[--home-rail:3.5rem]"
-    aria-label="mielui introduction"
->
-    <HomeTexture />
-    <HomeComponentCloud />
-    <div
-        aria-hidden="true"
-        class="pointer-events-none absolute inset-y-0 left-[var(--home-rail)] z-20 border-r border-border/50"
-    ></div>
-    <div
-        aria-hidden="true"
-        class="pointer-events-none absolute inset-y-0 right-[var(--home-rail)] z-20 border-r border-border/50"
-    ></div>
-    {#each ['left-[var(--home-rail)] -translate-x-1/2', 'right-[var(--home-rail)] translate-x-1/2'] as edge}
-        {#each ['top-14 -translate-y-1/2', 'bottom-14 translate-y-1/2'] as row}
-            <span
-                aria-hidden="true"
-                class="pointer-events-none absolute z-30 size-2 rounded-[2px] border border-border bg-secondary {edge} {row}"
-            ></span>
-        {/each}
-    {/each}
+<div class="@container flex min-h-dvh flex-col bg-background p-3 pt-0 sm:p-4 sm:pt-0">
+    <a
+        href="#home-content"
+        class="sr-only z-50 rounded-md bg-card px-4 py-2 text-foreground focus:not-sr-only focus:absolute focus:top-4 focus:left-4"
+    >
+        Skip to content
+    </a>
     <Sheet.Root bind:open={mobileMenuOpen}>
         <header
-            class="relative z-10 flex h-14 shrink-0 w-full items-center justify-between border-y border-border/50 bg-secondary/10 px-[calc(var(--home-rail)+1rem)]"
+            class="relative z-20 mx-auto grid h-16 w-full grid-cols-[1fr_auto] items-center gap-4 px-2 @3xl:grid-cols-[1fr_auto_1fr] @3xl:px-6"
         >
-            <div class="flex min-w-0 flex-1 items-center gap-2">
+            <Logo />
+            <nav aria-label="Primary" class="hidden items-center gap-7 text-sm @3xl:flex">
+                <a
+                    href={resolve('/docs/components')}
+                    class="rounded-sm text-foreground transition-colors hover:text-primary focus-visible:outline-2 focus-visible:outline-primary"
+                >
+                    Components
+                </a>
+                <a
+                    href={resolve('/docs/introduction')}
+                    class="rounded-sm text-foreground transition-colors hover:text-primary focus-visible:outline-2 focus-visible:outline-primary"
+                >
+                    Documentation
+                </a>
+                <a
+                    href={resolve('/studio')}
+                    class="rounded-sm text-foreground transition-colors hover:text-primary focus-visible:outline-2 focus-visible:outline-primary"
+                >
+                    Studio
+                </a>
+            </nav>
+            <div class="flex items-center justify-end gap-2">
+                <Button
+                    variant="outline"
+                    href="https://github.com/mielsense/mielui"
+                    target="_blank"
+                    rel="noreferrer"
+                    aria-label="Star mielui on GitHub"
+                    class="gap-2"
+                >
+                    <img src={GitHubWhite} alt="" class="hidden size-4 dark:block" />
+                    <img src={GitHubBlack} alt="" class="size-4 dark:hidden" />
+                    <span class="tabular-nums">{formatStarCount(data.starCount ?? null)}</span>
+                </Button>
+                <Button
+                    variant="ghost"
+                    size="icon"
+                    onclick={toggleMode}
+                    aria-label={mode.current === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
+                >
+                    <span
+                        class="inline-flex size-4"
+                        aria-hidden="true"
+                        use:morph={{key: mode.current}}
+                    >
+                        <HugeiconsIcon icon={mode.current === 'dark' ? Moon : Sun} size={16} />
+                    </span>
+                </Button>
                 <Sheet.Trigger
-                    class="sm:hidden"
+                    class="@3xl:hidden"
                     aria-label="Open navigation menu"
-                    variant="quiet"
+                    variant="ghost"
                     size="icon"
                 >
                     <HugeiconsIcon icon={Menu} size={18} />
                 </Sheet.Trigger>
-                <Logo />
-            </div>
-            <div class="ml-6 flex shrink-0 items-center gap-2">
-                <nav aria-label="Primary" class="hidden sm:block">
-                    <Group.Root aria-label="Resources">
-                        <Button variant="outline" size="md" href={resolve('/docs/introduction')}>
-                            <span class="text-label">Docs</span>
-                        </Button>
-                        <Group.Separator />
-                        <Button variant="outline" size="md" href={resolve('/studio')}>
-                            <span class="text-label">Studio</span>
-                        </Button>
-                        <Group.Separator />
-                        <Button
-                            variant="outline"
-                            size="md"
-                            href="https://github.com/mielsense/mielui"
-                            target="_blank"
-                            rel="noreferrer"
-                            aria-label="Star mielui on GitHub"
-                        >
-                            <img
-                                src={GitHubWhite}
-                                alt=""
-                                aria-hidden="true"
-                                class="hidden size-4 dark:block"
-                            />
-                            <img
-                                src={GitHubBlack}
-                                alt=""
-                                aria-hidden="true"
-                                class="size-4 dark:hidden"
-                            />
-                            <span class="text-label tabular-nums">
-                                {formatStarCount(data.starCount ?? null)}
-                            </span>
-                        </Button>
-                    </Group.Root>
-                </nav>
-                <div class="flex shrink-0 items-center gap-2">
-                    <Button
-                        variant="outline"
-                        size="md"
-                        class="w-[calc(var(--size-control-md)-var(--size-hairline))] px-0"
-                        style="border-radius: var(--radius-md);"
-                        onclick={() => {
-                        toggleMode();
-                    }}
-                        aria-label={mode.current === 'dark'
-                    ? 'Switch to light mode'
-                    : 'Switch to dark mode'}
-                    >
-                        <span
-                            class="inline-flex size-4"
-                            aria-hidden="true"
-                            use:morph={{ key: mode.current }}
-                        >
-                            <HugeiconsIcon icon={mode.current === 'dark' ? Moon : Sun} size={16} />
-                        </span>
-                    </Button>
-                </div>
             </div>
         </header>
-        <Sheet.Content side="left" class="p-0 sm:hidden">
+        <Sheet.Content side="left" class="p-0">
             <Sheet.Title class="sr-only">Browse mielui</Sheet.Title>
             <Sheet.Description class="sr-only">
-                Documentation and component categories.
+                Documentation, components, and Theme Studio.
             </Sheet.Description>
-            <header class="flex shrink-0 items-center justify-between px-3 py-3">
-                <a
-                    href={resolve('/')}
-                    class="font-semibold tracking-tight text-foreground no-underline"
-                >
-                    mielui
-                </a>
-                <Sheet.Close aria-label="Close navigation menu" variant="quiet" size="icon">
+            <div class="flex items-center justify-between px-5 py-4">
+                <Logo />
+                <Sheet.Close aria-label="Close navigation menu" variant="ghost" size="icon">
                     <HugeiconsIcon icon={X} size={18} />
                 </Sheet.Close>
-            </header>
-            <div class="min-h-0 flex-1 overflow-y-auto px-3 py-4">
-                <section class="flex flex-col gap-2 ">
-                    <h2 class="mb-2 text-sm text-foreground-muted">Navigate</h2>
-                    <Button
-                        variant="quiet"
-                        class="w-full justify-start"
-                        onclick={() => { mobileMenuOpen = false; }}
-                        href={resolve('/docs/introduction')}
-                    >
-                        Docs
-                    </Button>
-                    <Button
-                        variant="quiet"
-                        class="w-full justify-start"
-                        onclick={() => { mobileMenuOpen = false; }}
-                        href={resolve('/docs/components')}
-                    >
-                        Components
-                    </Button>
-                    <Button
-                        variant="quiet"
-                        class="w-full justify-start"
-                        onclick={() => { mobileMenuOpen = false; }}
-                        href={resolve('/studio')}
-                    >
-                        Studio
-                    </Button>
-                </section>
             </div>
+            <nav aria-label="Mobile navigation" class="flex flex-col gap-2 p-4">
+                <Button
+                    variant="ghost"
+                    class="justify-start"
+                    href={resolve('/docs/components')}
+                    onclick={() => { mobileMenuOpen = false; }}
+                >
+                    Components
+                </Button>
+                <Button
+                    variant="ghost"
+                    class="justify-start"
+                    href={resolve('/docs/introduction')}
+                    onclick={() => { mobileMenuOpen = false; }}
+                >
+                    Documentation
+                </Button>
+                <Button
+                    variant="ghost"
+                    class="justify-start"
+                    href={resolve('/studio')}
+                    onclick={() => { mobileMenuOpen = false; }}
+                >
+                    Studio
+                </Button>
+            </nav>
         </Sheet.Content>
     </Sheet.Root>
-    <div
-        class="relative flex min-h-0 w-full flex-1 flex-col items-center justify-center overflow-y-auto px-5 py-10 text-center [&>pre]:text-[clamp(0.65rem,2.1vw,1.8rem)] [&>pre]:mb-10"
+
+    <section
+        id="home-content"
+        aria-labelledby="home-title"
+        class="relative isolate grid w-full flex-1 grid-cols-1 overflow-hidden rounded-[var(--radius-xl)] bg-[color-mix(in_oklab,var(--color-primary)_18%,#18181b)] text-white @5xl:min-h-[max(32rem,calc(100svh-var(--spacing)*28))] @5xl:grid-cols-[0.9fr_1.1fr]"
     >
-        <SleepingCat />
-        <Typography.H1
-            class="motion-safe:[animation:docs-block-in_280ms_var(--ease-out)_both]"
-            style="font-size: 18px; font-weight: var(--font-weight-label);"
-        >
-            Premium Svelte components you own
-        </Typography.H1>
-        <Typography.Description
-            class="mt-1 max-w-[38rem] motion-safe:[animation:docs-block-in_280ms_var(--ease-out)_both] motion-safe:[animation-delay:80ms]"
-            style="font-size: 18px; font-weight: var(--font-weight-label);"
-        >
-            Copy the source. Customize the theme, interactions, and motion.
-        </Typography.Description>
         <div
-            class="mt-3 flex w-full flex-col justify-center gap-3 sm:w-auto sm:flex-row sm:flex-wrap motion-safe:[animation:docs-block-in_280ms_var(--ease-out)_both] motion-safe:[animation-delay:115ms]"
+            aria-hidden="true"
+            class="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(ellipse_at_95%_10%,color-mix(in_oklab,var(--color-primary)_30%,transparent),transparent_60%),linear-gradient(115deg,color-mix(in_oklab,var(--color-primary)_8%,#18181b)_20%,color-mix(in_oklab,var(--color-primary)_28%,#18181b)_75%,color-mix(in_oklab,var(--color-primary)_45%,#18181b))]"
+        ></div>
+        <div
+            class="relative z-10 flex flex-col justify-center px-7 pt-12 pb-5 @xl:px-10 @5xl:py-12 @6xl:px-14"
         >
-            <Button
-                href={resolve('/docs/components')}
-                size="lg"
-                class="w-full justify-center sm:w-auto"
+            <h1
+                id="home-title"
+                class="text-4xl leading-[1.1] font-medium tracking-[-0.035em] @xl:text-5xl"
             >
-                {`Browse all ${components.length} components`}
-                <HugeiconsIcon icon={ArrowRight} size={16} />
-            </Button>
-            <Button
-                href="https://github.com/mielsense/mielui"
-                target="_blank"
-                rel="noreferrer"
-                variant="outline"
-                size="lg"
-                class="w-full justify-center sm:w-auto"
-            >
-                View on GitHub
-            </Button>
+                Svelte UI.<br />
+                Your way.
+            </h1>
+            <p class="mt-5 max-w-xs text-base leading-relaxed text-white/70">
+                {components.length} components. One theme.<br />
+                The source is yours.
+            </p>
+            <div class="mt-6 flex flex-wrap items-center gap-x-5 gap-y-3">
+                <Button
+                    href={resolve('/docs/components')}
+                    class="h-10 bg-[color-mix(in_oklab,var(--color-primary)_10%,white)] px-4 text-[color-mix(in_oklab,var(--color-primary)_25%,#18181b)] shadow-[0_2px_6px_#160f1b30] hover:bg-white focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white"
+                >
+                    Browse components<HugeiconsIcon icon={ArrowRight} size={15} />
+                </Button>
+                <a
+                    href={resolve('/studio')}
+                    class="rounded-sm text-sm text-white/80 underline decoration-white/30 underline-offset-4 hover:text-white focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white"
+                >
+                    Open Studio
+                </a>
+            </div>
         </div>
-    </div>
+        <div class="relative min-w-0 px-7 pb-5 @xl:px-10 @5xl:py-6 @5xl:pl-3 @5xl:pr-10 @6xl:pr-14">
+            <HomeShowcase />
+        </div>
+    </section>
     <footer
-        class="relative z-10 flex h-14 shrink-0 items-center justify-between border-t border-border/50 bg-secondary/10 px-[calc(var(--home-rail)+1rem)] text-xs text-foreground-muted"
+        class="mx-auto flex w-full flex-wrap items-center justify-between gap-3 px-2 pt-4 pb-1 text-xs text-foreground-muted @3xl:px-6"
     >
-        <span>Mielui · Svelte components</span>
-        <a href={resolve('/docs/changelog')} class="hover:text-foreground">Changelog</a>
+        <span>Mielui · Made for Svelte</span>
+        <div class="flex items-center gap-5">
+            <a href={resolve('/docs/installation')} class="hover:text-foreground">Get started</a>
+            <a href={resolve('/docs/changelog')} class="hover:text-foreground">Changelog</a>
+        </div>
     </footer>
-</section>
+</div>

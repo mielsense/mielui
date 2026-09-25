@@ -10,7 +10,7 @@
     const editor = getThemeEditor();
 </script>
 
-<EditorSection title="Typography" separator={false} bodyClass="gap-4">
+<EditorSection title="Typography" bodyClass="gap-4">
     <div class="grid grid-cols-2 gap-2">
         <div class="flex min-w-0 flex-col gap-2">
             <Typography.Metadata>Sans</Typography.Metadata>

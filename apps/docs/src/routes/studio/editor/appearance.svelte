@@ -1,4 +1,5 @@
 <script lang="ts">
+    import { numberShuffle } from '@mielui/svelte/actions/number-shuffle';
     import { Slider } from '@mielui/svelte/components/slider';
     import { Switch } from '@mielui/svelte/components/switch';
     import * as Typography from '@mielui/svelte/components/typography';
@@ -24,6 +25,14 @@
                 }
             )}
         </div>
+        <div class="flex flex-col gap-2">
+            <Typography.Metadata>Inset strip</Typography.Metadata>
+            {@render toggleChoice(['top', 'bottom'], editor.state.insetPosition, 'Inset strip position', (value) => {
+                if (value === 'top' || value === 'bottom') {
+                    editor.state.insetPosition = value;
+                }
+            })}
+        </div>
         <Switch bind:checked={editor.state.glassSurfaces} label="Glass surfaces" />
     </div>
     <div class="flex flex-col gap-3 border-t border-border pt-4">
@@ -34,7 +43,11 @@
             />
             {#if editor.state.edgeHighlight > 0}
                 <span class="font-mono text-xs tabular-nums text-foreground-muted">
-                    {Math.round(editor.state.edgeHighlight * 100)}
+                    <span
+                        use:numberShuffle={{ value: Math.round(editor.state.edgeHighlight * 100) }}
+                    >
+                        {Math.round(editor.state.edgeHighlight * 100)}
+                    </span>
                     %
                 </span>
             {/if}

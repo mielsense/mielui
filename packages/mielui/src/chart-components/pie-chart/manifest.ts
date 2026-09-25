@@ -7,6 +7,8 @@ export const manifest: Manifest = {
     description:
         'Composable pie and donut charts with animated updates, accessible values, tooltips, and legends.',
     files: [
+        'actions/number-shuffle/index.ts',
+        'actions/number-shuffle/render.ts',
         'components/pie-chart/context.ts',
         'components/pie-chart/index.ts',
         'components/pie-chart/pie-chart-arc.svelte',
@@ -19,7 +21,7 @@ export const manifest: Manifest = {
         'components/pie-chart/manifest.ts'
     ],
     components: ['_internal/utils', 'card', 'skeleton'],
-    shared: ['utils.cn'],
+    shared: ['components/_internal/surface', 'utils.cn'],
     peerDependencies: {
         layerchart: '^2.5.0',
         cnfast: '^0.0.8',

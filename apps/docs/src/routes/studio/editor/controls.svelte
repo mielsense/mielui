@@ -1,5 +1,6 @@
 <script module lang="ts">
     import { Settings01Icon as Settings } from '@hugeicons/core-free-icons';
+    import { numberShuffle } from '@mielui/svelte/actions/number-shuffle';
     import { Button } from '@mielui/svelte/components/button';
     import * as ColorPicker from '@mielui/svelte/components/color-picker';
     import * as Dialog from '@mielui/svelte/components/dialog';
@@ -174,7 +175,12 @@
     <div class="flex min-w-0 flex-col gap-2">
         <div class="flex items-baseline justify-between gap-2">
             <span class="text-[13px] font-medium text-foreground-muted">{label}</span>
-            <span class="font-mono text-xs tabular-nums text-foreground-muted">{display}</span>
+            <span
+                class="font-mono text-xs tabular-nums text-foreground-muted"
+                use:numberShuffle={{ value: Number.parseFloat(display), format: (next) => display.replace(/^-?\d+(?:\.\d+)?/, String(next)) }}
+            >
+                {display}
+            </span>
         </div>
         <Slider {value} {min} {max} {step} {label} class="h-4" onValueChange={onChange} />
     </div>

@@ -3,6 +3,8 @@
     import { Toolbar as Primitive } from 'bits-ui';
     import { button } from '../../components/button/variants';
     import type { ToolbarItemProps } from '.';
+    import { getToolbarVariant } from './context';
+    import { toolbarControlClass } from './styles';
 
     let {
         element = $bindable(null),
@@ -10,16 +12,14 @@
         class: className,
         ...rest
     }: ToolbarItemProps = $props();
+    const variant = getToolbarVariant();
+    const controlClass = $derived(
+        cn(className, toolbarControlClass(variant()), button({ variant: 'quiet', size: 'sm' }))
+    );
 </script>
 <Primitive.GroupItem {...rest} bind:ref={element}>
     {#snippet child({ props, pressed })}
-        <button
-            type="button"
-            {...props}
-            use:pressable
-            data-ui="toolbar-item"
-            class={cn(className, button({ variant: 'quiet', size: 'sm' }), 'data-[state=on]:bg-secondary data-[state=on]:text-foreground')}
-        >
+        <button type="button" {...props} use:pressable data-ui="toolbar-item" class={controlClass}>
             {@render children?.({ pressed })}
         </button>
     {/snippet}

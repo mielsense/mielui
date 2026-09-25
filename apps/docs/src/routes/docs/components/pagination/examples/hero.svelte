@@ -1,4 +1,5 @@
 <script lang="ts">
+    import { numberShuffle } from '@mielui/svelte/actions/number-shuffle';
     import { Pagination } from '@mielui/svelte/components/pagination';
 
     const pageSize = 5;
@@ -20,7 +21,10 @@
     </ul>
     <div class="flex flex-col items-start justify-between gap-3 sm:flex-row sm:items-center">
         <p class="m-0 text-xs text-foreground-muted tabular-nums">
-            {`Page ${page} of ${totalPages}`}
+            {'Page '}
+            <span use:numberShuffle={{ value: page }}>{page}</span>
+            {' of '}
+            <span use:numberShuffle={{ value: totalPages }}>{totalPages}</span>
         </p>
         <Pagination bind:page total={totalPages} />
     </div>

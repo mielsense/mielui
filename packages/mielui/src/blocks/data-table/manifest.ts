@@ -6,6 +6,8 @@ export const manifest: Manifest = {
     description:
         'Composable TanStack Table v9 presentation with native table semantics, sorting, filtering, selection, and pagination.',
     files: [
+        'actions/number-shuffle/index.ts',
+        'actions/number-shuffle/render.ts',
         'components/data-table/data-table-header.svelte',
         'components/data-table/data-table-pagination.svelte',
         'components/data-table/data-table-toolbar.svelte',
@@ -26,6 +28,7 @@ export const manifest: Manifest = {
         'components/data-table/data-table-column-header.svelte'
     ],
     components: [
+        'pagination',
         '_internal/utils',
         'table',
         'input',

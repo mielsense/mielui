@@ -1,6 +1,5 @@
 <script lang="ts">
     import { createPageOutline } from './page-outline.svelte';
-    import RailHeading from './rail-heading.svelte';
     import TocRail from './toc-rail.svelte';
 
     let { content }: { content: HTMLElement | undefined } = $props();
@@ -9,7 +8,6 @@
 
 {#if outline.headings.length}
     <nav aria-label="On this page" class="min-h-full pb-6">
-        <RailHeading title="On this page" />
         <div class="px-5 py-3">
             <div bind:this={outline.list} class="relative flex flex-col gap-0.5">
                 <TocRail y={outline.previewY} from={outline.previewFrom} muted />

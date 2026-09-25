@@ -12,7 +12,7 @@
     const config = {
         latency: {
             label: 'Latency',
-            color: 'oklch(0.74 0.12 25)',
+            color: 'var(--chart-1)',
             format: (value: number) => `${value} ms`
         }
     };

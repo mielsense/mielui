@@ -18,6 +18,8 @@ export const manifest: Manifest = {
     description:
         'Popover-based color picker with SB drag, hue strip, hex input, and HSL sliders. Optional preset swatches. Composable Root, Trigger, Content, Plane, Hue, Preview, HexInput, Channels, and Presets.',
     files: [
+        'actions/number-shuffle/index.ts',
+        'actions/number-shuffle/render.ts',
         'components/color-picker/color-picker-root.svelte',
         'components/color-picker/color-picker-trigger.svelte',
         'components/color-picker/color-picker-content.svelte',

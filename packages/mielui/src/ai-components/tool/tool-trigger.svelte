@@ -1,5 +1,6 @@
 <script lang="ts">
     import { ArrowDown01Icon as ChevronDown } from '@hugeicons/core-free-icons';
+    import { numberShuffle } from '@mielui/svelte/actions/number-shuffle';
     import { Spinner } from '@mielui/svelte/components/spinner';
     import { cn, pressable } from '@mielui/svelte/utils';
     import HugeiconsIcon from '../../hugeicons-icon.svelte';
@@ -14,6 +15,14 @@
     const name = $derived(tool.name);
     const duration = $derived(tool.duration);
     const variant = $derived(tool.variant);
+    const durationMatch = $derived(duration?.match(/^(\d+)(?:\.(\d+))?(ms|s)$/));
+    const numericDuration = $derived(Number.parseFloat(duration ?? ''));
+    const canAnimateDuration = $derived(durationMatch !== null && Number.isFinite(numericDuration));
+
+    function formatDuration(value: number) {
+        const precision = Math.min(durationMatch?.[2]?.length ?? 0, 100);
+        return `${value.toFixed(precision)}${durationMatch?.[3] ?? ''}`;
+    }
     const label = $derived(
         state === 'running'
             ? 'Task running'
@@ -67,7 +76,13 @@
         <span class="min-w-0 flex-1 truncate text-foreground-muted">{name}</span>
         {#if duration}
             <span class="ml-2 shrink-0 font-mono text-xs tabular-nums text-foreground-muted">
-                {duration}
+                {#if canAnimateDuration}
+                    <span use:numberShuffle={{ value: numericDuration, format: formatDuration }}>
+                        {duration}
+                    </span>
+                {:else}
+                    {duration}
+                {/if}
             </span>
         {/if}
     {/if}

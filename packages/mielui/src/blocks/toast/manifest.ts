@@ -20,6 +20,8 @@ export const manifest: Manifest = {
     description:
         'Toast notification system with body-portaled Toaster, free-function toast() API, and a shared client stack (SSR-safe).',
     files: [
+        'actions/number-shuffle/index.ts',
+        'actions/number-shuffle/render.ts',
         'components/toast/lib.svelte.ts',
         'components/toast/toaster.svelte',
         'components/toast/notch-host.svelte',
@@ -39,6 +41,7 @@ export const manifest: Manifest = {
     ],
     components: ['_internal/utils', 'button', 'notch'],
     shared: [
+        'components/_internal/inset-layout',
         'components/_internal/button-attributes',
         'components/_internal/surface',
         'hugeicons-icon',

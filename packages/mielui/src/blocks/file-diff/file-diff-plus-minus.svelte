@@ -1,4 +1,5 @@
 <script lang="ts">
+    import { numberShuffle } from '@mielui/svelte/actions/number-shuffle';
     import { cn } from '@mielui/svelte/utils';
     import { getContext } from 'svelte';
     import type { FileDiffContext, FileDiffPlusMinusProps } from '.';
@@ -19,9 +20,19 @@
     {...rest}
 >
     {#if resolvedAdditions > 0}
-        <span class="text-success">+{resolvedAdditions}</span>
+        <span
+            class="text-success"
+            use:numberShuffle={{ value: resolvedAdditions, format: (value) => `+${Math.round(value)}` }}
+        >
+            +{resolvedAdditions}
+        </span>
     {/if}
     {#if resolvedDeletions > 0}
-        <span class="text-error">−{resolvedDeletions}</span>
+        <span
+            class="text-error"
+            use:numberShuffle={{ value: resolvedDeletions, format: (value) => `−${Math.round(value)}` }}
+        >
+            −{resolvedDeletions}
+        </span>
     {/if}
 </span>

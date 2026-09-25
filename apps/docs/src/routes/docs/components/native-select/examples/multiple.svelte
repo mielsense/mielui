@@ -1,4 +1,5 @@
 <script lang="ts">
+    import { numberShuffle } from '@mielui/svelte/actions/number-shuffle';
     import { Label } from '@mielui/svelte/components/label';
     import * as NativeSelect from '@mielui/svelte/components/native-select';
 
@@ -15,6 +16,7 @@
         <NativeSelect.Option value="thursday">Thursday</NativeSelect.Option>
     </NativeSelect.Root>
     <p class="text-sm text-foreground-muted">
-        {days.length} days selected. Use your platform's modifier keys to select several options.
+        <span use:numberShuffle={{ value: days.length }}>{days.length}</span> days selected. Use
+        your platform's modifier keys to select several options.
     </p>
 </div>

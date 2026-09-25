@@ -41,6 +41,7 @@ export const manifest: Manifest = {
     ],
     components: ['_internal/utils', 'button', '_internal/overlay', 'typography'],
     shared: [
+        'components/_internal/inset-layout',
         'components/_internal/surface',
         'hugeicons-icon',
         'utils.cn',

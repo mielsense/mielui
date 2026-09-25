@@ -108,7 +108,7 @@
                     y2={horizontal ? '1' : '0'}
                 >
                     <stop offset="0%" stop-color={chart.color(key)} stop-opacity="0" />
-                    <stop offset="50%" stop-color={chart.color(key)} stop-opacity="0.55" />
+                    <stop offset="50%" stop-color={chart.color(key)} stop-opacity="0.09" />
                     <stop offset="100%" stop-color={chart.color(key)} stop-opacity="0" />
                 </linearGradient>
             </defs>

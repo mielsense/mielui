@@ -5,6 +5,8 @@ export const manifest: Manifest = {
     visibility: 'public',
     description: 'Composable animated bar, line, and area charts built on LayerChart.',
     files: [
+        'actions/number-shuffle/index.ts',
+        'actions/number-shuffle/render.ts',
         'components/chart/area.svelte',
         'components/chart/axis.svelte',
         'components/chart/bar.svelte',
@@ -27,6 +29,6 @@ export const manifest: Manifest = {
         'components/chart/y-axis.svelte'
     ],
     components: ['_internal/utils', 'card', 'skeleton'],
-    shared: ['utils.cn'],
+    shared: ['components/_internal/surface', 'utils.cn'],
     peerDependencies: { layerchart: '^2.5.0', cnfast: '^0.0.8', svelte: '^5.56.0' }
 };

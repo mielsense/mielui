@@ -2,6 +2,8 @@
     import * as Typography from '@mielui/svelte/components/typography';
     import { ComponentPreview, InstallCommand } from '$lib/components/docs';
     import PageIntro from '$lib/components/docs/page-intro.svelte';
+    import Depth from './examples/depth.svelte';
+    import DepthSrc from './examples/depth.svelte?raw';
     import Additional from './examples/formatting.svelte';
     import AdditionalSrc from './examples/formatting.svelte?raw';
     import Hero from './examples/hero.svelte';
@@ -28,6 +30,13 @@
     <section id="usage" class="flex flex-col gap-4">
         <Typography.H2>Usage</Typography.H2>
         <Typography.Text>
+            Toolbars are flat by default. Set variant="depth" on Toolbar.Root to opt into raised
+            keys and recessed selections. Button, Link, and Item inherit the variant. Depth follows
+            the theme's shadow, edge-highlight, and reduced-motion settings. Both examples include
+            zoom controls with number shuffle for the changing percentage. Tooltips use the input
+            surface colors.
+        </Typography.Text>
+        <Typography.Text>
             Import the component subpath as a namespace. Root owns one roving keyboard collection:
             compose Button, Link, Separator, and Group containing Item. Give Root an aria-label or
             aria-labelledby. Set orientation to vertical for vertical arrow navigation, and loop to
@@ -48,6 +57,10 @@
             available for existing integrations; new compositions use Toolbar.Root from the
             component subpath.
         </Typography.Text>
+    </section>
+    <section id="depth" class="scroll-mt-20 flex flex-col gap-4">
+        <Typography.H2 class="docs-section-heading">Depth variant</Typography.H2>
+        <ComponentPreview code={DepthSrc}><Depth /></ComponentPreview>
     </section>
     <section id="formatting" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Multiple selections</Typography.H2>

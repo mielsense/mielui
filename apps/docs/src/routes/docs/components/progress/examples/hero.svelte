@@ -1,4 +1,5 @@
 <script lang="ts">
+    import { numberShuffle } from '@mielui/svelte/actions/number-shuffle';
     import { Button } from '@mielui/svelte/components/button';
     import { Progress } from '@mielui/svelte/components/progress';
     import { onDestroy } from 'svelte';
@@ -37,7 +38,10 @@
 <div class="flex w-full max-w-md flex-col gap-4">
     <div class="flex items-center justify-between gap-3 text-sm">
         <span role="status">{status}</span>
-        <span class="tabular-nums text-foreground-muted">{value}%</span>
+        <span class="tabular-nums text-foreground-muted">
+            <span use:numberShuffle={{ value: value }}>{value}</span>
+            %
+        </span>
     </div>
     <Progress aria-label="Release archive upload" {value} />
     <div class="flex gap-2">

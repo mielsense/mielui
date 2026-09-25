@@ -9,6 +9,7 @@ export const manifest: Manifest = {
         'components/toolbar/toolbar-root.svelte',
         'components/toolbar/toolbar-group.svelte',
         'components/toolbar/context.ts',
+        'components/toolbar/styles.ts',
         'components/toolbar/toolbar.svelte',
         'components/toolbar/toolbar-separator.svelte',
         'components/toolbar/toolbar-button.svelte',

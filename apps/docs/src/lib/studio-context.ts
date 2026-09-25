@@ -3,6 +3,7 @@ import { getContext, setContext } from 'svelte';
 type StudioState = {
     mode: string;
     width: string;
+    glassBackdrop: boolean;
 };
 
 const studioKey = Symbol('studio');

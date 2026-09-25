@@ -1,6 +1,7 @@
 <script lang="ts">
     import { onMount } from 'svelte';
     import type { HTMLAttributes } from 'svelte/elements';
+    import { overlaySurface } from '../../components/_internal/surface';
     import { getTooltipManager } from '../../components/tooltip/manager-context';
     import { cn } from '../../utils';
     import { useHeatmap } from './context.svelte';
@@ -31,7 +32,8 @@
             'top',
             0,
             cn(
-                'mielui-modal-frame min-w-40 p-1! text-xs! text-foreground! bg-background! [&>.mielui-tooltip-label]:block',
+                'mielui-modal-frame min-w-40 p-[var(--mielui-modal-inset)]! rounded-[var(--radius-xl)]! text-xs! text-foreground! bg-card [&>.mielui-tooltip-label]:block',
+                overlaySurface(),
                 className
             ),
             element
@@ -43,7 +45,7 @@
 </script>
 
 <div {...props} bind:this={element} data-ui="heatmap-tooltip" hidden>
-    <div class="mielui-inset-surface p-3">
+    <div class="mielui-inset-surface bg-transparent! p-3">
         {#if children}
             {@render children()}
         {:else if day}
@@ -51,7 +53,7 @@
                 {new Intl.DateTimeFormat(context.locale, { dateStyle: 'medium', timeZone: 'UTC' }).format(new Date(`${day.date}T00:00:00Z`))}
             </div>
             <div class="flex items-center gap-2">
-                <span class="size-2 rounded-full bg-primary"></span>
+                <span class="size-2 rounded-full bg-[var(--chart-1)]"></span>
                 <span class="flex-1 text-foreground-muted">Contributions</span>
                 <span class="ml-4 font-medium tabular-nums">
                     {new Intl.NumberFormat(context.locale).format(day.count)}

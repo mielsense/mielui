@@ -10,6 +10,8 @@
     import EmptySrc from './examples/empty.svelte?raw';
     import Hero from './examples/hero.svelte';
     import HeroSrc from './examples/hero.svelte?raw';
+    import Inset from './examples/inset.svelte';
+    import InsetSrc from './examples/inset.svelte?raw';
 </script>
 <svelte:head>
     <title>Mielui · Data Table</title>
@@ -175,5 +177,16 @@
             Handle request cancellation, URL state, and errors in your application. DataTable does
             not fetch or virtualize rows. Use pagination for large lists.
         </Typography.Text>
+    </section>
+    <section id="inset" class="flex scroll-mt-20 flex-col gap-4">
+        <Typography.H2>Inset layout</Typography.H2>
+        <Typography.Text>
+            Set variant="inset" on Root to group filters, the table, and pagination in one frame.
+            Toolbar stays in the top strip, followed by the column headings and rows. Place Summary
+            and Pagination in a div with data-ui="data-table-footer" for the bottom strip. The
+            children snippet lets you omit the toolbar, reorder controls, or replace cells.
+            Pagination uses the shared Pagination component for known page counts.
+        </Typography.Text>
+        <ComponentPreview code={InsetSrc}><Inset /></ComponentPreview>
     </section>
 </div>

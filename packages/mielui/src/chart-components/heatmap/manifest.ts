@@ -5,6 +5,8 @@ export const manifest: Manifest = {
     visibility: 'public',
     description: 'Daily activity in a keyboard-navigable contribution calendar.',
     files: [
+        'actions/number-shuffle/index.ts',
+        'actions/number-shuffle/render.ts',
         'components/heatmap/heatmap-tooltip.svelte',
         'components/heatmap/heatmap-footer.svelte',
         'components/heatmap/heatmap.svelte',
@@ -24,7 +26,7 @@ export const manifest: Manifest = {
         'components/heatmap/manifest.ts'
     ],
     components: ['_internal/utils', 'tooltip', 'skeleton'],
-    shared: ['utils.cn', 'transition'],
+    shared: ['components/_internal/surface', 'utils.cn', 'transition'],
     peerDependencies: {
         '@floating-ui/dom': '1.7.6',
         cnfast: '^0.0.8',

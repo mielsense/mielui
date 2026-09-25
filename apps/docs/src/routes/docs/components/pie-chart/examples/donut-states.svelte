@@ -11,8 +11,8 @@
         { key: 'remaining', value: 28 }
     ];
     const config = {
-        completed: { label: 'Completed', color: 'oklch(0.74 0.12 25)' },
-        remaining: { label: 'Remaining', color: 'oklch(0.84 0.12 85)' }
+        completed: { label: 'Completed', color: 'var(--chart-1)' },
+        remaining: { label: 'Remaining', color: 'var(--chart-2)' }
     };
     const data = $derived(
         dataState === 'empty'

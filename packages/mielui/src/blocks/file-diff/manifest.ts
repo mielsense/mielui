@@ -8,6 +8,8 @@ export const manifest: Manifest = {
         'Unified file diff with a path top bar, addition/deletion counts, dual line-number gutters, and per-row syntax highlighting via highlight.js with a built-in GitHub palette; theme="custom" skips the token colors for any highlight.js theme stylesheet.',
     role: 'table',
     files: [
+        'actions/number-shuffle/index.ts',
+        'actions/number-shuffle/render.ts',
         'components/file-diff/file-diff.svelte',
         'components/file-diff/file-diff-top-bar.svelte',
         'components/file-diff/file-diff-filename.svelte',
@@ -20,7 +22,7 @@ export const manifest: Manifest = {
         'components/file-diff/manifest.ts'
     ],
     components: ['_internal/utils', '_internal/highlight'],
-    shared: ['hugeicons-icon', 'utils.cn'],
+    shared: ['components/_internal/inset-layout', 'hugeicons-icon', 'utils.cn'],
     peerDependencies: {
         '@floating-ui/dom': '1.7.6',
         '@hugeicons/core-free-icons': '^4.3.0',

@@ -20,7 +20,7 @@ export const manifest: Manifest = {
         'components/table/manifest.ts'
     ],
     components: ['_internal/utils'],
-    shared: ['utils.cn'],
+    shared: ['components/_internal/inset-layout', 'utils.cn'],
     peerDependencies: {
         '@floating-ui/dom': '1.7.6',
         cnfast: '^0.0.8',

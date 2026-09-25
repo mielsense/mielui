@@ -48,7 +48,7 @@ describe('docs release contracts', () => {
         const homepage = readFileSync(resolve(root, 'apps/docs/src/routes/+page.svelte'), 'utf8');
         const readme = readFileSync(resolve(root, 'README.md'), 'utf8');
         expect(homepage).toContain(`\${components.length} Svelte`);
-        expect(homepage).toContain(`Browse all \${components.length} components`);
+        expect(homepage).toContain('{components.length} components. One theme.');
         expect(readme).toContain(`badge/Components-${components.length}-`);
     });
 
@@ -213,7 +213,7 @@ describe('docs release contracts', () => {
         expect(buttonReference).toContain('Changes to those source files are reflected here');
     });
 
-    it('keeps getting-started docs free of Theme Studio and wrong CLI invocations', () => {
+    it('keeps getting-started docs on supported routes and CLI invocations', () => {
         const pages = [
             'apps/docs/src/routes/docs/introduction/+page.svelte',
             'apps/docs/src/routes/docs/installation/+page.svelte',
@@ -224,12 +224,7 @@ describe('docs release contracts', () => {
             expect(source, page).not.toContain('pnpm dlx mielui init');
             expect(source, page).not.toContain('pnpm dlx mielui add');
             expect(source, page).not.toContain('/docs/styling');
-        }
-        // The theming guide documents the visual theme builder; the install
-        // path pages stay free of it.
-        for (const page of pages.slice(0, 2)) {
-            const source = readFileSync(resolve(root, page), 'utf8');
-            expect(source, page).not.toMatch(/Theme Studio|theme studio|\/themes\/studio/i);
+            expect(source, page).not.toContain('/themes/studio');
         }
         const install = readFileSync(
             resolve(root, 'apps/docs/src/routes/docs/installation/+page.svelte'),

@@ -3,6 +3,8 @@
     import { Toolbar as Primitive } from 'bits-ui';
     import { button } from '../../components/button/variants';
     import type { ToolbarButtonProps } from '.';
+    import { getToolbarVariant } from './context';
+    import { toolbarControlClass } from './styles';
 
     let {
         element = $bindable(null),
@@ -10,6 +12,10 @@
         class: className,
         ...rest
     }: ToolbarButtonProps = $props();
+    const variant = getToolbarVariant();
+    const controlClass = $derived(
+        cn(className, toolbarControlClass(variant()), button({ variant: 'quiet', size: 'sm' }))
+    );
 </script>
 <Primitive.Button {...rest} bind:ref={element}>
     {#snippet child({ props })}
@@ -18,7 +24,7 @@
             {...props}
             use:pressable
             data-ui="toolbar-button"
-            class={cn(className, button({ variant: 'quiet', size: 'sm' }), 'data-[state=on]:bg-secondary data-[state=on]:text-foreground')}
+            class={controlClass}
         >
             {@render children?.()}
         </button>

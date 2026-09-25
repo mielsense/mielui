@@ -7,7 +7,7 @@
         { date: new Date('2026-04-10T00:00:00Z'), visitors: 150 },
         { date: new Date('2026-04-12T00:00:00Z'), visitors: 230 }
     ];
-    const config = { visitors: { label: 'Visitors', color: 'oklch(0.84 0.12 85)' } };
+    const config = { visitors: { label: 'Visitors', color: 'var(--chart-2)' } };
 </script>
 
 <Chart.Root

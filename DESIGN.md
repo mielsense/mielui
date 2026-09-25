@@ -261,41 +261,47 @@ still disable their corresponding elevation effects.
 
 ## Documentation composition
 
-Docs and Studio use a continuous grid between a fixed header and footer. Keep
-both documentation side rails equal in width. Use thin full-height column rules,
-full-width section rules, and small square marks at their intersections. Do not
-box the article into a rounded inset panel. The section rail uses a solid hook.
+Docs and Studio use a pure black outer background around the
+workspace. In docs, page controls belong inside the rounded page frame: breadcrumb
+and actions above the content, pagination and copy controls below it. Keep the
+outer top and bottom gutters compact. Navigation and Studio inspectors open as
+nonmodal frosted panels on left-edge hover or from the toolbar. Pinning keeps
+the panel visible and reserves its width plus a narrow gutter on desktop.
+Docked panels use the page surface color; floating panels use glass.
+Use the shared Popover glass, focus, and motion behavior without a scrim or
+scroll lock. Keep the navigation layout open and free of an inner inset.
+The page outline stays in the right column. The section rail uses a solid hook.
 
 Page names remain in the breadcrumb and an accessible heading. Put the page
 summary behind the footer's information HoverCard. Copy page and previous/next
 navigation belong in the same fixed footer; their menus open upward and align
 inward with a viewport gutter.
 
-Section title rows stick below the header. Every row uses the same label size,
-weight, padding, and opaque, subtly contrasting background. A title-row divider
-must span the reading column. Content starts and ends 1.5rem from its section
+Section title rows stick below the header. Use compact opposite-tone pill labels with a small sticky offset instead of full-width
+section bars. Keep the page header and footer on the reading surface without
+extra header dividers. Use a short, pointer-transparent fade into the page surface at the scrolling edges beneath the header and above the footer. The footer is flush with the frame without a top rule; do not wrap it in another floating card. Content starts and ends 1.5rem from its section
 boundaries; paragraph gaps stay at 1rem. The shared layout owns these distances. Keep body sections on one background rather than
 alternating arbitrary fills. Use modest responsive side gutters. Docs paragraphs use the section width; split
 long explanations into short paragraphs by topic rather than narrow text columns.
 
-Sidebar group headings and the page-outline heading use the same sticky row height
-as section titles. Sidebar groups have full-width boundary rules and a subtle
-primary-colored selected text. The leading preview toolbar shares that row height and
+The page-outline heading aligns with the leading preview toolbar. Sidebar groups
+use whitespace and ordinary labels rather than sticky row chrome. Selected navigation links use a rounded primary-tinted fill and semibold foreground text so selection is visible beyond text color. Studio inspector sections use spaced rounded disclosure rows with a quiet fill, without separators. The leading preview toolbar shares that row height and
 sticks until the next section; inset example toolbars stay compact without an
 extra divider. Put optional section explanations behind a labelled info control.
 
-The leading page preview uses a full-width ghost-tab toolbar and an open canvas.
-Its source occupies the same square section, without a rounded frame. Examples
+The leading page preview uses the shared inset frame with its ghost-tab toolbar
+and card-backed canvas. Its source remains inside the same frame. Examples
 inside a section use the shared inset preview card, with the toolbar and preview
 surface contained together. Do not stretch nested card headers across the page.
 Keep both forms in the shared preview implementation and preserve example state
 when switching to code. Give the leading preview room; size supporting examples
 to their content. Use `data-preview-canvas` for canvas-specific spacing.
 
-The shell has two opaque tones: `--docs-chrome` for the header, footer, side rails,
-and section headings; `--docs-content` for the reading and preview canvas. In dark
-mode the content is a slightly darker charcoal, not pure black. Preview controls
-stay in a local stacking context below sticky section headings.
+The header, footer, reading surface, and docked inspectors share `--docs-content`.
+Local preview and code toolbars use `--docs-chrome`, with `bg-card` for their inner
+canvas and selected tabs. Section pills use foreground/background tokens for
+contrast. In dark mode the reading surface is charcoal, not pure black. Preview
+controls stay in a local stacking context below sticky section headings.
 
 Examples demonstrate a useful state change. Label icon controls, keep result
 messages in an explicit layout with a gap, and clean up timers and requests on
@@ -306,16 +312,14 @@ keep their HTML, Markdown, navigation, and search metadata aligned.
 
 ### Shared shell geometry
 
-The header, footer, article section headings, sidebar group headings, On this
-page heading, and leading preview toolbar share `--docs-row-height`. This token
-includes the row border. Center labels and controls vertically; do not recreate
-row heights with independent padding or local pixel values. Header children use
-the token minus their parent border. Nested preview cards keep compact toolbars.
+The header, footer, On this page heading, and leading preview toolbar share
+`--docs-row-height`. Center labels and controls vertically. Header children use
+the token minus the frame border. Section pills and nested preview toolbars
+remain compact; sidebar group labels use normal content spacing.
 
-Position header and footer intersection marks from the same row-height token,
-not a separate top or bottom spacing value. Sidebar, header, and footer column
-rules must share the same width and border edge, including after density changes.
-Studio uses the same 18rem inspector column as the documentation sidebar.
+Align header and footer controls with the inset panels and their shared gutters.
+Keep sidebar and content edges aligned after density changes.
+Studio uses the same 80-spacing-unit inspector width as the documentation sidebar.
 
 Studio preview tabs belong in the main header. Preview width controls sit at the
 left of the footer's center column. Do not add another toolbar row for either.
@@ -326,7 +330,8 @@ Keep body labels and tabs lighter so section titles remain distinct.
 
 Live chart motion must preserve values and proportions. Animate the area fill,
 use a staggered sweep within bar bounds, and brighten pie segments in sequence
-without moving their boundaries or center labels. Pause live effects during pie inspection.
+without moving their boundaries or center labels. Use low-contrast highlights with a quiet interval between passes, and suppress
+live effects during chart inspection.
 Observe the stationary chart viewport for visibility, never a moving highlight
 that can leave its clip and strand its own animation. Honor reduced motion,
 zero-duration themes, hidden documents, and offscreen charts.
@@ -335,8 +340,10 @@ Cartesian and pie chart overlay messages use the shared inset Card surface.
 Compact Gauge loading and empty states retain the meter footprint without an
 additional card wrapper. Keep
 the placeholder visualization behind the message and preserve live status
-announcements. Chart tooltips share the same opaque inset surface in every chart
-family; do not fall back to a native browser title tooltip.
+announcements. Chart tooltips share the same theme-controlled inset surface in every chart
+family. Honor single borders by retaining the frame's scaled padding, without a
+fixed padding override or an extra inner border. Inherit the shared glass helper;
+do not force an opaque inner surface or use a native browser title tooltip.
 
 Documentation content, its toolbar and footer share a horizontal inset halfway
 between five theme spacing units and 2rem. Rail headings retain five spacing
@@ -350,3 +357,75 @@ movement and cursor behavior under Interaction.
 Menu separators span the full inner panel width, including submenus. Cancel the
 shared item padding at the separator rather than removing padding from menu items.
 Keep separators square at the panel edges.
+
+Toolbar.Root is flat by default. Opt into depth with `variant="depth"`; its
+Button, Link, and Item inherit the choice. Toolbar depth uses the shared floating elevation for its shell and theme-owned
+`--mielui-toolbar-raised` relief for its keys. Selected tools use
+`--mielui-toolbar-pressed` and the background fill;
+compose focus rings with that relief. Keep the callable composer toolbar flat.
+
+Glass tooltips pair the shared glass surface with the theme foreground; solid
+tooltips retain their dedicated tooltip background and foreground pair. Toolbar
+keys use the outline within their elevation token without adding a second border.
+Keep the original compact control size. Raised keys have a directional top edge
+and a short contact shadow; pressed keys trade that shadow for an inward top shade.
+Both toolbar relief tokens flatten when control shadows are disabled.
+
+Changing numeric readouts use the shared `numberShuffle` action: counts, totals,
+percentages, zoom levels, and durations. Apply it to a text-only HTML span with
+the same initial text and a formatter that uses its numeric argument. Keep units
+inside that formatter when they belong to the value. Editable input values, SVG
+axis labels, dates, and static numeric identifiers remain native. Custom snippets
+follow this rule too. Do not attach the action to a container containing controls
+or to hidden content that an overlay clones.
+
+The opt-in toolbar depth uses a shallow key face, a thin dark sidewall, and a
+short contact shadow. Its theme-owned face gradient follows the edge highlight
+and disappears with control shadows. Preserve compact key sizes and avoid thick
+bevels or stacked outlines. The default toolbar remains flat.
+
+## Chart palette and inset placement
+
+Chart series use `--chart-1` through `--chart-5` in order, cycling only after the
+fifth series. The default palette is pastel purple, blue, red, green, and yellow.
+Use these tokens in examples, legends, and tooltips; retain explicit series colors
+and semantic status tones. Studio edits the active color mode and exports those
+values as theme tokens.
+
+The default radius scale is 8/10/14/20px. Table cell corners subtract the frame
+border and inset from its outer radius; never substitute a smaller fixed radius.
+Preview frames clip their toolbar backgrounds to preserve the perimeter.
+
+`--mielui-inset-position: top | bottom` moves exposed inset chrome in DOM order.
+Omitting the token preserves authored composition. Use the shared internal inset
+layout action, and override the token on a particular frame when its content
+requires a fixed order. Install command tabs stay on top. DataTable inset mode
+keeps its toolbar above the table and summary/pagination below, independently of
+the global preference. Single borders still remove decorative frame spacing on cards and ordinary overlays.
+Inset data tables, composers, code blocks, and docs preview panels keep a narrow
+structural gutter around their inner content in both border modes.
+
+Glass retains a contrasting translucent inner panel over the outer chrome. Avoid
+fully transparent inner surfaces on composers and other inset layouts: they erase
+the structural distinction. Keep the shared blur and reduced-transparency fallback.
+The Studio glass backdrop is preview-only and never exported with a theme.
+
+## Landing page showcase
+
+The landing page pairs concise left-aligned copy with a compact interactive
+component showcase in a muted hero derived from the active primary color. Keep equal outer side gutters, use
+the active theme palette, and avoid recreating another site's gradient treatment. This
+marketing surface is an intentional exception to the neutral documentation
+canvas. Keep the header simple, use actual Mielui components in the featured
+preview, and make faded background samples inert and hidden from assistive
+technology. Avoid invented endorsements or usage counts. On narrow screens,
+stack the content and allow normal page scrolling rather than clipping the hero
+to a fixed viewport.
+
+The documentation shell uses a pure black outer canvas with compact side
+gutters. Navigation and Studio inspectors belong to the outer
+surface. Docs page header and footer belong inside the page frame. Size each
+scrolling region from the remaining workspace height, not directly from viewport
+height.
+
+Page navigation uses a brief 240ms pixel reveal using large, scattered square tiles between browser view snapshots. Keep the old page visible beneath the incoming tiles so navigation never flashes a blank surface. Skip the effect for reduced motion, same-page anchors, and preview routes; new navigation interrupts an active transition.

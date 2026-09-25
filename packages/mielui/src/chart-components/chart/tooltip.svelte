@@ -1,8 +1,10 @@
 <script lang="ts">
+    import { numberShuffle } from '@mielui/svelte/actions/number-shuffle';
     import { cn } from '@mielui/svelte/utils';
     import type { Snippet } from 'svelte';
     import { cubicOut } from 'svelte/easing';
     import { Tween } from 'svelte/motion';
+    import { overlaySurface } from '../../components/_internal/surface';
     import { getChart } from './context.svelte';
 
     let {
@@ -123,7 +125,7 @@
         style:top={`${position.current.y}px`}
         data-ui="chart-tooltip"
         role="status"
-        class={cn(className, 'mielui-modal-frame pointer-events-none absolute z-10 min-w-40 max-w-[calc(100%-var(--spacing)*4)] break-words p-1 text-xs shadow-[var(--elevation-float)]')}
+        class={cn(className, overlaySurface(), 'mielui-modal-frame pointer-events-none absolute z-10 min-w-40 max-w-[calc(100%-var(--spacing)*4)] break-words text-xs shadow-[var(--elevation-float)]')}
     >
         <div class="mielui-inset-surface p-3">
             {#if children}
@@ -135,7 +137,12 @@
                         <div class="flex items-center gap-2">
                             <span class="size-2 rounded-full" style:background={item.color}></span>
                             <span class="flex-1 text-foreground-muted">{item.label}</span>
-                            <span class="ml-4 font-medium tabular-nums">{item.formatted}</span>
+                            <span
+                                class="ml-4 font-medium tabular-nums"
+                                use:numberShuffle={{ value: item.value, format: (value) => chart.format(item.key, value) }}
+                            >
+                                {item.formatted}
+                            </span>
                         </div>
                     {/each}
                 </div>

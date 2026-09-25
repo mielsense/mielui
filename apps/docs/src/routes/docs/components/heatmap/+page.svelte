@@ -69,8 +69,8 @@
         <Typography.H2>Custom composition</Typography.H2>
         <Typography.Text>
             This example omits weekday labels, moves the legend before the detail, and reads the
-            same total as Summary. Tooltip follows the hovered or focused cell. Select a day with
-            Enter, Space, or a click.
+            same total as Summary. Tooltip follows the hovered or focused cell and inherits the
+            theme’s border and glass settings. Select a day with Enter, Space, or a click.
         </Typography.Text>
         <ComponentPreview refreshable code={ComposedSrc}><Composed /></ComponentPreview>
     </section>

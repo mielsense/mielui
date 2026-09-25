@@ -66,13 +66,14 @@
         <Typography.Text variant="supporting">
             The default reveal runs on entry. Data changes transition from the current display. Set
             animation="live" for a traveling line highlight, a sweep through the area fill, or
-            staggered highlights rising through the bars. Motion pauses offscreen or when the tab is
-            hidden. Set animation="none" to disable chart motion.
+            subtle staggered highlights rising through the bars, with quiet intervals between
+            passes. Highlights disappear while inspecting values. Motion pauses offscreen or when
+            the tab is hidden. Set animation="none" to disable chart motion.
         </Typography.Text>
         <Typography.Text variant="supporting">
-            Chart motion follows reduced-motion preferences and the theme motion setting. Every
-            chart-type guide includes a live example so you can compare the effect on different
-            marks.
+            Tooltips inherit the theme’s border and glass settings. Chart motion follows
+            reduced-motion preferences and the theme motion setting. Every chart-type guide includes
+            a live example so you can compare the effect on different marks.
         </Typography.Text>
     </section>
     <section id="accessibility" class="flex scroll-mt-20 flex-col gap-4">

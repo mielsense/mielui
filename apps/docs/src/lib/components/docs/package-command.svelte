@@ -34,5 +34,5 @@
 </script>
 
 <div class="flex flex-col gap-4">
-    <CodeBlock {tabs} />
+    <CodeBlock {tabs} class="[--mielui-inset-position:top]" />
 </div>

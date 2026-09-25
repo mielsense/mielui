@@ -13,7 +13,7 @@ import { parseTheme } from './theme-parse';
 
 const RADII: Record<RadiusScale, readonly [string, string, string, string]> = {
     sharp: ['2px', '4px', '6px', '8px'],
-    default: ['6px', '8px', '10px', '14px'],
+    default: ['8px', '10px', '14px', '20px'],
     rounded: ['10px', '14px', '18px', '24px']
 };
 
@@ -239,6 +239,9 @@ function elevationDeclarations(mode: 'light' | 'dark'): string[] {
     return mode === 'light'
         ? [
               '--elevation-control-edge: inset 0 1px 0 0 rgb(255 255 255 / calc(0.38 * var(--mielui-edge-highlight))), inset 0 -1px 0 0 rgb(15 15 16 / 0.06);',
+              '--mielui-toolbar-face: linear-gradient(to bottom, rgb(255 255 255 / calc(0.045 * var(--mielui-edge-highlight))), rgb(0 0 0 / 0.04));',
+              '--mielui-toolbar-raised: var(--elevation-control-edge), inset 0 0 0 var(--border-size) var(--color-border), 0 1px 0 var(--color-border), 0 2px 2px rgb(0 0 0 / 0.12);',
+              '--mielui-toolbar-pressed: inset 0 0 0 var(--border-size) var(--color-border), inset 0 1px 2px rgb(0 0 0 / 0.1);',
               '--elevation-surface-edge: inset 0 1px 0 0 rgb(255 255 255 / calc(0.55 * var(--mielui-edge-highlight)));',
               '--elevation-1: var(--elevation-surface-edge), 0 4px 2px rgb(0 0 0 / 0.04);',
               '--elevation-float: var(--elevation-surface-edge), 0 8px 24px -8px rgb(0 0 0 / 0.12), 0 2px 6px rgb(0 0 0 / 0.06);',
@@ -248,6 +251,9 @@ function elevationDeclarations(mode: 'light' | 'dark'): string[] {
           ]
         : [
               '--elevation-control-edge: inset 0 1px 0 0 rgb(255 255 255 / calc(0.07 * var(--mielui-edge-highlight))), inset 0 -1px 0 0 rgb(0 0 0 / 0.22);',
+              '--mielui-toolbar-face: linear-gradient(to bottom, rgb(255 255 255 / calc(0.045 * var(--mielui-edge-highlight))), rgb(0 0 0 / 0.04));',
+              '--mielui-toolbar-raised: inset 0 1px 0 rgb(255 255 255 / calc(0.18 * var(--mielui-edge-highlight))), inset 0 -1px 0 rgb(0 0 0 / 0.2), 0 0 0 var(--border-size) rgb(0 0 0 / 0.6), 0 1px 0 1px rgb(0 0 0 / 0.45), 0 2px 3px rgb(0 0 0 / 0.2);',
+              '--mielui-toolbar-pressed: inset 0 0 0 var(--border-size) rgb(0 0 0 / 0.35), inset 0 1px 2px rgb(0 0 0 / 0.3);',
               '--elevation-surface-edge: inset 0 1px 0 0 rgb(255 255 255 / calc(0.07 * var(--mielui-edge-highlight)));',
               '--elevation-1: var(--elevation-surface-edge), 0 1px 2px rgb(0 0 0 / 0.4);',
               '--elevation-float: var(--elevation-surface-edge), 0 8px 24px -8px rgb(0 0 0 / 0.12), 0 2px 6px rgb(0 0 0 / 0.06);',
@@ -277,6 +283,9 @@ function chromeBlocks(chrome: ThemeChrome | undefined): string {
     }
     if (!controlShadows) {
         elevationOff.push(
+            '--mielui-toolbar-face: none;',
+            '--mielui-toolbar-raised: inset 0 0 0 var(--border-size) var(--color-border);',
+            '--mielui-toolbar-pressed: inset 0 0 0 var(--border-size) var(--color-border);',
             '--elevation-control-edge: 0 0 0 0 transparent;',
             '--elevation-control: inset 0 0 0 var(--border-size) var(--color-border);',
             '--elevation-button-outline: inset 0 0 0 var(--border-size) var(--color-border);'
@@ -320,6 +329,11 @@ export function themeToCss(themeInput: Theme): string {
     const motion = MOTION[theme.motion];
     const borderInsetScale = theme.chrome?.borders === 'single' ? 0 : 1;
     const shared = [
+        '--chart-1: #b8a1f2;',
+        '--chart-2: #8bc7f5;',
+        '--chart-3: #f49d9d;',
+        '--chart-4: #8ed8b0;',
+        '--chart-5: #f2d77d;',
         `--mielui-border-inset-scale: ${borderInsetScale};`,
         `--mielui-edge-highlight: ${theme.chrome?.edgeHighlight ?? 0.5};`,
         `--font-sans: ${theme.fontSans};`,

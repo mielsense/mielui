@@ -98,6 +98,10 @@ export function createThemeEditor() {
             (state.headerWeight === '600' ? 0 : 1) +
             roleWeightChanges +
             (state.borders === (state.baseTheme.chrome?.borders ?? 'double') ? 0 : 1) +
+            (state.insetPosition ===
+            (state.baseTheme.tokens?.shared?.['--mielui-inset-position'] ?? 'bottom')
+                ? 0
+                : 1) +
             (state.edgeHighlight === (state.baseTheme.chrome?.edgeHighlight ?? 0.5) ? 0 : 1) +
             (state.surfaceShadows ? 0 : 1) +
             (state.controlShadows ? 0 : 1) +
@@ -133,6 +137,7 @@ export function createThemeEditor() {
             shared: {
                 ...cleanTokens(state.advancedTokens.spacing),
                 ...cleanTokens(state.advancedTokens.animation),
+                '--mielui-inset-position': state.insetPosition,
                 '--mielui-surface': state.glassSurfaces ? 'glass' : 'solid'
             },
             light: {
@@ -182,6 +187,8 @@ export function createThemeEditor() {
         state.advancedTokens = emptyAdvancedTokens();
         state.brandColors = { light: preset.brand, dark: preset.brand };
         state.borders = preset.chrome?.borders ?? 'double';
+        state.insetPosition =
+            preset.tokens?.shared?.['--mielui-inset-position'] === 'top' ? 'top' : 'bottom';
         state.edgeHighlight = preset.chrome?.edgeHighlight ?? 0.5;
         state.surfaceShadows =
             preset.chrome?.shadows !== false && preset.chrome?.surfaceShadows !== false;
@@ -249,6 +256,10 @@ export function createThemeEditor() {
         if (storedTheme) {
             state.theme = { ...storedTheme };
             state.borders = storedTheme.chrome?.borders ?? 'double';
+            state.insetPosition =
+                storedTheme.tokens?.shared?.['--mielui-inset-position'] === 'top'
+                    ? 'top'
+                    : 'bottom';
             state.edgeHighlight = storedTheme.chrome?.edgeHighlight ?? 0.5;
             syncFontSelections(state.theme);
         }

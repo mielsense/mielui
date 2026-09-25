@@ -29,7 +29,7 @@ export function reveal(element: SVGElement, chart: ChartContext, kind: 'bar' | '
 }
 
 export function live(element: SVGElement, chart: ChartContext) {
-    if (!chart.motion || chart.animation !== 'live') {
+    if (!chart.motion || chart.animation !== 'live' || chart.active !== null) {
         return;
     }
     return observeAnimation(
@@ -37,18 +37,18 @@ export function live(element: SVGElement, chart: ChartContext) {
         element.animate(
             [
                 { strokeDashoffset: 12, opacity: 0, offset: 0 },
-                { strokeDashoffset: 0, opacity: 0.45, offset: 0.1 },
-                { strokeDashoffset: -88, opacity: 0.45, offset: 0.65 },
-                { strokeDashoffset: -100, opacity: 0, offset: 0.75 },
+                { strokeDashoffset: 0, opacity: 0.18, offset: 0.1 },
+                { strokeDashoffset: -88, opacity: 0.18, offset: 0.4 },
+                { strokeDashoffset: -100, opacity: 0, offset: 0.48 },
                 { strokeDashoffset: -100, opacity: 0, offset: 1 }
             ],
-            { duration: 6400 * chart.motionScale, iterations: Infinity, easing: 'linear' }
+            { duration: 7600 * chart.motionScale, iterations: Infinity, easing: 'linear' }
         )
     );
 }
 
 export function sweep(element: SVGElement, chart: ChartContext, phase = 0, area = false) {
-    if (!chart.motion || chart.animation !== 'live') {
+    if (!chart.motion || chart.animation !== 'live' || chart.active !== null) {
         return;
     }
     const horizontal = chart.orientation === 'horizontal';
@@ -56,7 +56,7 @@ export function sweep(element: SVGElement, chart: ChartContext, phase = 0, area 
     const direction = !area && !horizontal ? -1 : 1;
     const start = `translate${axis}(${-110 * direction}%)`;
     const end = `translate${axis}(${110 * direction}%)`;
-    const delay = Math.max(0, Math.min(1, phase)) * 0.24;
+    const delay = Math.max(0, Math.min(1, phase)) * 0.16;
     return observeAnimation(
         element,
         element.animate(
@@ -64,11 +64,11 @@ export function sweep(element: SVGElement, chart: ChartContext, phase = 0, area 
                 { transform: start, opacity: 0, offset: 0 },
                 { transform: start, opacity: 0, offset: delay },
                 { transform: start, opacity: 1, offset: delay + 0.03 },
-                { transform: end, opacity: 1, offset: delay + 0.6 },
-                { transform: end, opacity: 0, offset: delay + 0.63 },
+                { transform: end, opacity: 1, offset: delay + 0.32 },
+                { transform: end, opacity: 0, offset: delay + 0.323 },
                 { transform: end, opacity: 0, offset: 1 }
             ],
-            { duration: 4800 * chart.motionScale, iterations: Infinity, easing: 'linear' }
+            { duration: 7200 * chart.motionScale, iterations: Infinity, easing: 'linear' }
         )
     );
 }

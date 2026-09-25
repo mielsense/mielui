@@ -1,4 +1,5 @@
 <script lang="ts">
+    import { numberShuffle } from '@mielui/svelte/actions/number-shuffle';
     import { Button } from '@mielui/svelte/components/button';
     import { Switch } from '@mielui/svelte/components/switch';
     import * as Tabs from '@mielui/svelte/components/tabs';
@@ -29,16 +30,27 @@
         <div>
             <dt class="text-sm text-foreground-muted">Outstanding</dt>
             <dd class="mt-2 text-2xl font-semibold tabular-nums">
-                ${model.outstandingTotal.toLocaleString('en-US')}
+                $<span
+                    use:numberShuffle={{ value: model.outstandingTotal, format: (value) => value.toLocaleString('en-US') }}
+                >
+                    {model.outstandingTotal.toLocaleString('en-US')}
+                </span>
             </dd>
         </div>
         <div>
             <dt class="text-sm text-foreground-muted">Overdue invoices</dt>
-            <dd class="mt-2 text-2xl font-semibold tabular-nums">{model.overdueCount}</dd>
+            <dd class="mt-2 text-2xl font-semibold tabular-nums">
+                <span use:numberShuffle={{ value: model.overdueCount }}>{model.overdueCount}</span>
+            </dd>
         </div>
         <div>
             <dt class="text-sm text-foreground-muted">Cash coverage</dt>
-            <dd class="mt-2 text-2xl font-semibold tabular-nums">{model.coverageValue}%</dd>
+            <dd class="mt-2 text-2xl font-semibold tabular-nums">
+                <span use:numberShuffle={{ value: model.coverageValue }}>
+                    {model.coverageValue}
+                </span>
+                %
+            </dd>
         </div>
     </dl>
     <div class="grid gap-8 @2xl:grid-cols-[1fr_18rem]">

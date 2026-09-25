@@ -505,6 +505,15 @@
                 "inherited": false
             },
             {
+                "name": "variant",
+                "type": "\"inset\" | \"default\" | undefined",
+                "required": false,
+                "bindable": false,
+                "default": "'default'",
+                "description": "",
+                "inherited": false
+            },
+            {
                 "name": "children",
                 "type": "Snippet<[DataTableState<TableFeatures, RowData>]> | undefined",
                 "required": false,

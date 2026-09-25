@@ -6,6 +6,8 @@ export const manifest: Manifest = {
     visibility: 'public',
     description: 'Dialog command palette with search, grouped items, and separators.',
     files: [
+        'actions/number-shuffle/index.ts',
+        'actions/number-shuffle/render.ts',
         'components/command/command.svelte',
         'components/command/command-trigger.svelte',
         'components/command/command-content.svelte',

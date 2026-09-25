@@ -7,6 +7,8 @@ export const manifest: Manifest = {
     description:
         'Compact, expandable AI tool calls for chat transcripts. Use variant="quiet" for a low-emphasis, no-hover-fill task summary.',
     files: [
+        'actions/number-shuffle/index.ts',
+        'actions/number-shuffle/render.ts',
         'components/tool/tool.svelte',
         'components/tool/tool-trigger.svelte',
         'components/tool/tool-content.svelte',

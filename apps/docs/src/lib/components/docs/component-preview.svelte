@@ -13,8 +13,7 @@
         controls,
         code,
         class: classProp,
-        refreshable = false,
-        ...rest
+        refreshable = false
     }: {
         children?: Snippet;
         controls?: Snippet;
@@ -47,30 +46,31 @@
         }
         node.addEventListener('docs-activate-preview', activate);
         observer.observe(node);
-        return {
-            destroy() {
-                observer.disconnect();
-                node.removeEventListener('docs-activate-preview', activate);
-            }
+        return () => {
+            observer.disconnect();
+            node.removeEventListener('docs-activate-preview', activate);
         };
     }
 
-    let refreshVersion = $state(0);
-
     function refreshPreview() {
         previewVersion += 1;
-        refreshVersion += 1;
     }
 </script>
 
-<div use:activatePreview data-component-preview class="mielui-inset-frame relative isolate">
-    <div {...rest} class={cn(classProp, 'w-full min-w-0')}>
+<div
+    {@attach activatePreview}
+    data-component-preview
+    class="mielui-inset-frame relative isolate overflow-hidden [--mielui-modal-inset:var(--spacing)]"
+>
+    <div class={cn(classProp, 'w-full min-w-0')}>
         <div
             data-preview-toolbar
             class="flex min-h-10 flex-wrap items-center justify-between gap-2 bg-[var(--docs-chrome)] px-3 py-1"
         >
             <Tabs.Root bind:value variant="ghost">
-                <Tabs.List class="w-fit">
+                <Tabs.List
+                    class="w-fit [&>div[aria-hidden]]:bg-card [&>div[aria-hidden]]:shadow-[var(--elevation-control-edge)]"
+                >
                     <Tabs.Trigger value="preview">Preview</Tabs.Trigger>
                     <Tabs.Trigger value="code">Code</Tabs.Trigger>
                 </Tabs.List>
@@ -89,11 +89,11 @@
                                 aria-label="Replay preview"
                                 onclick={refreshPreview}
                             >
-                                {#key refreshVersion}
+                                {#key previewVersion}
                                     <HugeiconsIcon
                                         icon={RefreshCw}
                                         size={15}
-                                        class={refreshVersion > 0 ? 'animate-[spin_360ms_ease-out_1] motion-reduce:animate-none' : undefined}
+                                        class={previewVersion > 0 ? 'animate-[spin_360ms_ease-out_1] motion-reduce:animate-none' : undefined}
                                     />
                                 {/key}
                             </Button>

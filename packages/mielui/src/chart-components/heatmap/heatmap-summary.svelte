@@ -1,4 +1,5 @@
 <script lang="ts">
+    import { numberShuffle } from '@mielui/svelte/actions/number-shuffle';
     import type { Snippet } from 'svelte';
     import type { HTMLAttributes } from 'svelte/elements';
     import { cn } from '../../utils';
@@ -19,7 +20,11 @@
     {:else if !context.ready}
         Activity
     {:else}
-        {new Intl.NumberFormat(context.locale).format(context.model.total)}
+        <span
+            use:numberShuffle={{ value: context.model.total, format: (value) => new Intl.NumberFormat(context.locale).format(value) }}
+        >
+            {new Intl.NumberFormat(context.locale).format(context.model.total)}
+        </span>
         contributions
     {/if}
 </p>

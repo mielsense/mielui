@@ -1,4 +1,5 @@
 <script lang="ts">
+    import { numberShuffle } from '@mielui/svelte/actions/number-shuffle';
     import { Slider } from '@mielui/svelte/components/slider';
     import { cn } from '@mielui/svelte/utils';
     import type { ColorPickerChannelsProps } from '.';
@@ -62,7 +63,9 @@
                 aria-hidden="true"
                 class="w-10 shrink-0 text-right font-mono text-xs tabular-nums"
             >
-                {Math.round(channel.value)}
+                <span use:numberShuffle={{ value: Math.round(channel.value) }}>
+                    {Math.round(channel.value)}
+                </span>
                 {channel.unit}
             </span>
         </div>

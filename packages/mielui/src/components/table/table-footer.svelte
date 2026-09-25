@@ -8,7 +8,7 @@
 <tfoot
     {...rest}
     data-ui="table-footer"
-    class={cn(className, 'font-medium [&>tr>*]:border-t [&>tr>*]:border-border')}
+    class={cn(className, 'data-[inset-position=top]:table-header-group font-medium [&>tr>*]:border-t [&>tr>*]:border-border')}
 >
     {@render children?.()}
 </tfoot>

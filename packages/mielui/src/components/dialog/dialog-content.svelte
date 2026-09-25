@@ -6,6 +6,7 @@
     import { onDestroy, tick } from 'svelte';
     import type { TransitionConfig } from 'svelte/transition';
     import HugeiconsIcon from '../../hugeicons-icon.svelte';
+    import { insetLayout } from '../_internal/inset-layout';
     import { useOverlayPresentation } from '../_internal/overlay/overlay.svelte';
     import { overlaySurface } from '../_internal/surface';
     import type { DialogContentProps } from '.';
@@ -166,6 +167,7 @@
                     sizeClass
                 )}
                         {role}
+                        use:insetLayout
                         data-ui="dialog-panel"
                         data-surface={surface}
                         data-orientation={dialog.state.orientation}

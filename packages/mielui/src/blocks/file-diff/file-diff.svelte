@@ -1,6 +1,7 @@
 <script lang="ts">
     import { cn } from '@mielui/svelte/utils';
     import { setContext } from 'svelte';
+    import { insetLayout } from '../../components/_internal/inset-layout';
     import type { FileDiffContext, FileDiffRootProps } from '.';
     import Content from './file-diff-content.svelte';
     import Row from './file-diff-row.svelte';
@@ -51,6 +52,7 @@
 </script>
 
 <div
+    use:insetLayout
     data-ui="file-diff"
     class={cn(
         className,

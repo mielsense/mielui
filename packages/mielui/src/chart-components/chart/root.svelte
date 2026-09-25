@@ -195,16 +195,8 @@
             return currentRows.get(identities[row])?.[key] ?? original;
         },
         color(key) {
-            return (
-                config[key]?.color ??
-                [
-                    'var(--color-primary)',
-                    'var(--color-success)',
-                    'var(--color-warning)',
-                    'var(--color-foreground-muted)'
-                ][keys.indexOf(key) % 4] ??
-                'var(--color-primary)'
-            );
+            const index = Math.max(0, keys.indexOf(key));
+            return config[key]?.color ?? `var(--chart-${(index % 5) + 1})`;
         },
         label(row) {
             const value = data[row]?.[x];

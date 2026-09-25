@@ -17,7 +17,7 @@ export const manifest: Manifest = {
         'components/card/manifest.ts'
     ],
     components: ['_internal/utils', 'typography'],
-    shared: ['utils.cn', 'utils.createContext'],
+    shared: ['components/_internal/inset-layout', 'utils.cn', 'utils.createContext'],
     peerDependencies: {
         '@floating-ui/dom': '1.7.6',
         cnfast: '^0.0.8',

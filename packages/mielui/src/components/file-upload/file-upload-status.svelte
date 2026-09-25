@@ -1,6 +1,7 @@
 <script lang="ts">
     import { AlertCircleIcon, CheckmarkCircle02Icon } from '@hugeicons/core-free-icons';
     import { motion } from '@humanspeak/svelte-motion';
+    import { numberShuffle } from '@mielui/svelte/actions/number-shuffle';
     import { Spinner } from '@mielui/svelte/components/spinner';
     import { cn } from '@mielui/svelte/utils';
     import HugeiconsIcon from '../../hugeicons-icon.svelte';
@@ -37,7 +38,15 @@
                 {:else}
                     <Spinner size={14} />
                     <span>
-                        Uploading{item().progress === undefined ? '…' : ` ${Math.round(item().progress ?? 0)}%`}
+                        Uploading
+                        {#if item().progress === undefined}
+                            …
+                        {:else}
+                            <span use:numberShuffle={{ value: Math.round(item().progress ?? 0) }}>
+                                {Math.round(item().progress ?? 0)}
+                            </span>
+                            %
+                        {/if}
                     </span>
                 {/if}
             </motion.div>

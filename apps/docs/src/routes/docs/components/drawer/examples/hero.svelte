@@ -1,4 +1,5 @@
 <script lang="ts">
+    import { numberShuffle } from '@mielui/svelte/actions/number-shuffle';
     import * as Drawer from '@mielui/svelte/components/drawer';
     import { Slider } from '@mielui/svelte/components/slider';
     import { Switch } from '@mielui/svelte/components/switch';
@@ -21,7 +22,9 @@
                 <div class="flex flex-col gap-3" data-vaul-no-drag>
                     <div class="flex items-center justify-between text-sm">
                         <span>Text size</span>
-                        <span class="tabular-nums text-foreground-muted">{textSize} px</span>
+                        <span class="tabular-nums text-foreground-muted">
+                            <span use:numberShuffle={{ value: textSize }}>{textSize}</span> px
+                        </span>
                     </div>
                     <Slider bind:value={textSize} min={14} max={24} step={1} label="Text size" />
                 </div>
