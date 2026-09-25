@@ -6,7 +6,7 @@ Svelte components for building interfaces with a shared visual system. Use them 
 
 <img
   src="apps/docs/static/readme-homepage.png"
-  alt="Mielui homepage with the sleeping cat, component names, and Premium Svelte components you own heading"
+  alt="Mielui homepage with the Svelte UI. Your way. heading and interactive component showcase"
   style="border: 1px solid hsl(0, 1%, 92%); border-radius: 18px; box-shadow: 0 2px 6px hsl(0 0% 0% / 0.03);"
 />
 
