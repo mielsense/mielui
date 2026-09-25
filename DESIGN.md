@@ -284,8 +284,8 @@ boundaries; paragraph gaps stay at 1rem. The shared layout owns these distances.
 alternating arbitrary fills. Use modest responsive side gutters. Docs paragraphs use the section width; split
 long explanations into short paragraphs by topic rather than narrow text columns.
 
-Sidebar group headings and the page-outline heading use the same sticky row height
-as section titles. Sidebar groups use whitespace. Selected navigation links use a rounded primary-tinted fill and semibold foreground text so selection is visible beyond text color. Studio inspector sections use spaced rounded disclosure rows with a quiet fill, without separators. The leading preview toolbar shares that row height and
+The page-outline heading aligns with the leading preview toolbar. Sidebar groups
+use whitespace and ordinary labels rather than sticky row chrome. Selected navigation links use a rounded primary-tinted fill and semibold foreground text so selection is visible beyond text color. Studio inspector sections use spaced rounded disclosure rows with a quiet fill, without separators. The leading preview toolbar shares that row height and
 sticks until the next section; inset example toolbars stay compact without an
 extra divider. Put optional section explanations behind a labelled info control.
 
@@ -297,10 +297,11 @@ Keep both forms in the shared preview implementation and preserve example state
 when switching to code. Give the leading preview room; size supporting examples
 to their content. Use `data-preview-canvas` for canvas-specific spacing.
 
-The shell has two opaque tones: `--docs-chrome` for the header, footer, side rails,
-and section headings; `--docs-content` for the reading and preview canvas. In dark
-mode the content is a slightly darker charcoal, not pure black. Preview controls
-stay in a local stacking context below sticky section headings.
+The header, footer, reading surface, and docked inspectors share `--docs-content`.
+Local preview and code toolbars use `--docs-chrome`, with `bg-card` for their inner
+canvas and selected tabs. Section pills use foreground/background tokens for
+contrast. In dark mode the reading surface is charcoal, not pure black. Preview
+controls stay in a local stacking context below sticky section headings.
 
 Examples demonstrate a useful state change. Label icon controls, keep result
 messages in an explicit layout with a gap, and clean up timers and requests on
@@ -311,15 +312,14 @@ keep their HTML, Markdown, navigation, and search metadata aligned.
 
 ### Shared shell geometry
 
-The header, footer, article section headings, sidebar group headings, On this
-page heading, and leading preview toolbar share `--docs-row-height`. This token
-includes the row border. Center labels and controls vertically; do not recreate
-row heights with independent padding or local pixel values. Header children use
-the token minus their parent border. Nested preview cards keep compact toolbars.
+The header, footer, On this page heading, and leading preview toolbar share
+`--docs-row-height`. Center labels and controls vertically. Header children use
+the token minus the frame border. Section pills and nested preview toolbars
+remain compact; sidebar group labels use normal content spacing.
 
 Align header and footer controls with the inset panels and their shared gutters.
 Keep sidebar and content edges aligned after density changes.
-Studio uses the same 18rem inspector column as the documentation sidebar.
+Studio uses the same 80-spacing-unit inspector width as the documentation sidebar.
 
 Studio preview tabs belong in the main header. Preview width controls sit at the
 left of the footer's center column. Do not add another toolbar row for either.

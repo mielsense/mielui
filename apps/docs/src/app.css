@@ -2,14 +2,13 @@
 @import url('https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@400;500;600;700&family=DM+Serif+Text:ital@0;1&family=EB+Garamond:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,400..700&family=Libre+Baskerville:wght@400;700&family=Lora:wght@400;500;600;700&family=Merriweather:wght@400;700&family=Newsreader:opsz,wght@6..72,400..700&family=Playfair+Display:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400..700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600;700&family=Geist+Mono:wght@100..900&family=IBM+Plex+Mono:wght@400;500;600;700&family=JetBrains+Mono:wght@100..800&family=Roboto+Mono:wght@400;500;600;700&family=Source+Code+Pro:wght@400;500;600;700&display=swap');
 
+@reference '@mielui/svelte/ui.css';
+
 @layer theme, base, components, utilities;
 
 html,
 body {
-    margin: 0;
-    padding: 0;
-    height: 100%;
-    width: 100%;
+    @apply m-0 h-full w-full p-0;
 }
 
 /* Reserve scrollbar space so opening an overlay (which locks body scroll)
@@ -23,24 +22,14 @@ html {
 h1,
 h2,
 h3 {
-    text-wrap: balance;
+    @apply text-balance;
 }
 
 p,
 li,
 figcaption,
 blockquote {
-    text-wrap: pretty;
-}
-
-/* Hide scrollbar on the element itself */
-.hide-scrollbar {
-    -ms-overflow-style: none;
-    scrollbar-width: none;
-}
-
-.hide-scrollbar::-webkit-scrollbar {
-    display: none;
+    @apply text-pretty;
 }
 
 /* Hide scrollbar on the element and all descendants */
@@ -74,16 +63,15 @@ blockquote {
 
 /* Docs page headers set slightly smaller, with a firmer and larger lead. */
 [data-docs-page] header h1 {
-    font-size: 28px;
+    @apply text-[28px];
 }
 
 [data-docs-page] header p {
-    font-size: 15px;
-    font-weight: 500;
+    @apply text-[15px] font-medium;
 }
 
 pre {
-    background-color: transparent;
+    @apply bg-transparent;
 }
 
 ::-webkit-scrollbar {

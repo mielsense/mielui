@@ -16,7 +16,7 @@
     import GitHubBlack from '$lib/assets/GitHub_Invertocat_Black.svg';
     import GitHubWhite from '$lib/assets/GitHub_Invertocat_White.svg';
     import { components } from '$lib/components';
-    import HomeShowcase from '$lib/components/home-showcase.svelte';
+    import HomeShowcase from '$lib/components/home/showcase.svelte';
     import Logo from '$lib/components/logo.svelte';
     import { formatStarCount } from '$lib/github';
 

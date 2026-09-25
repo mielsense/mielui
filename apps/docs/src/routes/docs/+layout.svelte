@@ -9,7 +9,6 @@
         '[data-docs-page] > section:not([data-docs-toolbar]), #api-reference'
     );
     let content = $state<HTMLDivElement>();
-    let viewport = $state<HTMLDivElement>();
 </script>
 
 <div
@@ -17,7 +16,6 @@
 >
     <div class="flex min-h-0 min-w-0 flex-col overflow-hidden bg-[var(--docs-content)]">
         <div
-            bind:this={viewport}
             {@attach settleHeading}
             data-docs-scroll
             class="min-h-0 flex-1 bg-[var(--docs-content)] overflow-y-auto overscroll-none [container-type:inline-size] [--docs-gutter:calc((var(--spacing)*5+2rem)/2)]"

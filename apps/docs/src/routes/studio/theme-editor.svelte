@@ -1,5 +1,5 @@
 <script lang="ts">
-    import FloatingInspector from '$lib/components/floating-inspector.svelte';
+    import FloatingInspector from '$lib/components/shell/floating-inspector.svelte';
     import AdvancedDialogs from './editor/advanced-dialogs.svelte';
     import { setThemeEditor } from './editor/context';
     import { createThemeEditor } from './editor/controller.svelte';
@@ -14,7 +14,7 @@
 <div
     class="absolute left-2 top-0 z-30 flex h-[calc(var(--docs-row-height)-var(--border-size))] items-center sm:left-5"
 >
-    <FloatingInspector title="Theme configuration">
+    <FloatingInspector title="Theme configuration" storageKey="mielui:studio-sidebar-pinned">
         {#snippet children()}
             <Inspector />
         {/snippet}

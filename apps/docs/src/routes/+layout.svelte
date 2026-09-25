@@ -1,31 +1,26 @@
 <script lang="ts">
-    import { InformationCircleIcon as Info } from '@hugeicons/core-free-icons';
-    import * as HoverCard from '@mielui/svelte/components/hover-card';
-    import { Switch } from '@mielui/svelte/components/switch';
-    import * as Tabs from '@mielui/svelte/components/tabs';
     import { Toaster } from '@mielui/svelte/components/toast';
-    import HugeiconsIcon from '@mielui/svelte/hugeicons-icon';
     import { getStoredLiveThemeCss, hydrateLiveThemeCss } from '@mielui/svelte/themes/live';
     import { ModeWatcher } from 'mode-watcher';
-    import CopyPage from '$lib/components/docs/copy-page.svelte';
-    import DocsPager from '$lib/components/docs/docs-pager.svelte';
     import DocsToolbar from '$lib/components/docs/docs-toolbar.svelte';
     import {
         type PageInfoContext,
         setPageInfoContext
     } from '$lib/components/docs/page-info-context';
-    import Navbar from '$lib/components/navbar.svelte';
     import { setSearch } from '$lib/components/search/context';
     import SiteSearch from '$lib/components/search/palette.svelte';
+    import SiteFooter from '$lib/components/shell/footer.svelte';
+    import StudioHeader from '$lib/components/studio/header.svelte';
     import { setStudioContext } from '$lib/studio-context';
     import '@mielui/svelte/ui.css';
     import '../app.css';
     import { injectAnalytics } from '@vercel/analytics/sveltekit';
     import { onMount, type Snippet } from 'svelte';
     import { dev } from '$app/environment';
-    import { afterNavigate, onNavigate } from '$app/navigation';
+    import { afterNavigate } from '$app/navigation';
     import { page } from '$app/state';
     import { createDocsFontState, DEFAULT_FONT, fonts } from '$lib/fonts.svelte';
+    import { setupPageTransition } from '$lib/navigation/page-transition';
 
     import type { LayoutData } from './$types';
 
@@ -65,76 +60,7 @@
         hydrateLiveThemeCss();
     });
 
-    let activePageTransition: ViewTransition | undefined;
-
-    function pixelMask(stage: number) {
-        const size = 72;
-        const width = window.innerWidth;
-        const height = window.innerHeight;
-        const cells: string[] = [];
-        for (let row = 0; row < Math.ceil(height / size); row += 1) {
-            for (let column = 0; column < Math.ceil(width / size); column += 1) {
-                let hash = Math.imul(column + 1, 374761393) ^ Math.imul(row + 1, 668265263);
-                hash = Math.imul(hash ^ (hash >>> 13), 1274126177);
-                const rank = ((hash ^ (hash >>> 16)) >>> 0) % 8;
-                if (rank < stage) {
-                    cells.push(
-                        `<rect x="${column * size}" y="${row * size}" width="${size}" height="${size}" fill="white"/>`
-                    );
-                }
-            }
-        }
-        const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}">${cells.join('')}</svg>`;
-        return `url("data:image/svg+xml,${encodeURIComponent(svg)}")`;
-    }
-
-    onNavigate((navigation) => {
-        activePageTransition?.skipTransition();
-        if (
-            !document.startViewTransition ||
-            window.matchMedia('(prefers-reduced-motion: reduce)').matches ||
-            navigation.from?.url.pathname === navigation.to?.url.pathname ||
-            navigation.to?.url.pathname.startsWith('/preview/')
-        ) {
-            return;
-        }
-
-        return new Promise<void>((resolve) => {
-            const transition = document.startViewTransition(async () => {
-                resolve();
-                await navigation.complete;
-            });
-            activePageTransition = transition;
-            void transition.ready
-                .then(() => {
-                    document.documentElement.animate(
-                        Array.from({ length: 9 }, (_, stage) => ({
-                            maskImage: pixelMask(stage),
-                            maskSize: '100% 100%',
-                            maskRepeat: 'no-repeat',
-                            easing: 'steps(1, end)',
-                            offset: stage / 8
-                        })),
-                        {
-                            duration: 240,
-                            easing: 'linear',
-                            fill: 'both',
-                            pseudoElement: '::view-transition-new(root)'
-                        }
-                    );
-                })
-                .catch(() => {
-                    resolve();
-                });
-            void transition.finished
-                .finally(() => {
-                    if (activePageTransition === transition) {
-                        activePageTransition = undefined;
-                    }
-                })
-                .catch(() => {});
-        });
-    });
+    setupPageTransition();
 
     let docsScrollEl = $state<HTMLDivElement>();
 
@@ -144,8 +70,8 @@
         }
         const readingPane =
             docsScrollEl?.querySelector<HTMLElement>('[data-docs-scroll]') ?? docsScrollEl;
-        readingPane?.scrollTo({ top: 0, behavior: 'instant' as ScrollBehavior });
-        window.scrollTo({ top: 0, behavior: 'instant' as ScrollBehavior });
+        readingPane?.scrollTo({ top: 0, behavior: 'instant' });
+        window.scrollTo({ top: 0, behavior: 'instant' });
     });
 </script>
 
@@ -172,75 +98,6 @@
     />
 </svelte:head>
 
-{#snippet siteFooter()}
-    <footer
-        class={`relative z-40 before:pointer-events-none before:absolute before:inset-x-0 before:bottom-full before:h-4 before:bg-linear-to-t before:from-[var(--docs-content)] before:to-transparent flex h-[var(--docs-row-height)] shrink-0 bg-[var(--docs-content)] items-center justify-between gap-3 px-4 sm:px-5 text-xs text-foreground-muted ${isDocs ? 'xl:grid xl:grid-cols-[auto_minmax(0,1fr)_auto] xl:gap-3 xl:px-5' : 'min-[68.75rem]:flex min-[68.75rem]:gap-6'}`}
-    >
-        {#if isDocs}
-            <div class="flex justify-start"><DocsPager /></div>
-            <div class="flex justify-end"><CopyPage /></div>
-            <div class="flex min-w-0 items-center gap-2 border-l border-border/50 pl-4">
-                {#if pageInfo.current}
-                    <HoverCard.Root>
-                        <HoverCard.Trigger
-                            class="size-8 [margin-inline-start:calc((18px-var(--spacing)*8)/2)] items-center justify-center rounded-[var(--radius-md)] text-foreground-muted hover:bg-secondary hover:text-foreground focus-visible:outline-2 focus-visible:outline-primary"
-                        >
-                            <HugeiconsIcon icon={Info} size={18} />
-                            <span class="sr-only">{`About ${pageInfo.current.title}`}</span>
-                        </HoverCard.Trigger>
-                        <HoverCard.Content
-                            side="top"
-                            align="start"
-                            class="w-80 max-w-[calc(100vw-2rem)]"
-                        >
-                            <HoverCard.Title>{pageInfo.current.title}</HoverCard.Title>
-                            {#if pageInfo.current.description}
-                                <div class="mt-2 text-sm leading-6 text-foreground-muted">
-                                    {@render pageInfo.current.description()}
-                                </div>
-                            {/if}
-                        </HoverCard.Content>
-                    </HoverCard.Root>
-                    <span class="hidden truncate sm:inline">{pageInfo.current.title}</span>
-                {/if}
-            </div>
-        {:else}
-            <span class="hidden shrink-0 sm:inline min-[68.75rem]:px-5">Mielui · Theme Studio</span>
-            <div
-                class="flex min-w-0 flex-1 items-center justify-between gap-4 min-[68.75rem]:pl-3 min-[68.75rem]:pr-5"
-            >
-                <div class="flex items-center gap-4 whitespace-nowrap">
-                    <Tabs.Root bind:value={studio.width} variant="ghost" class="hidden md:block">
-                        <div role="group" aria-label="Preview width">
-                            <Tabs.List>
-                                <Tabs.Trigger value="wide">Wide</Tabs.Trigger>
-                                <Tabs.Trigger value="narrow">Narrow</Tabs.Trigger>
-                            </Tabs.List>
-                        </div>
-                    </Tabs.Root>
-                    <Switch bind:checked={studio.glassBackdrop} label="Glass backdrop" />
-                </div>
-                <nav aria-label="Footer" class="flex items-center gap-5">
-                    <a
-                        class="hover:text-foreground focus-visible:outline-2 focus-visible:outline-primary"
-                        href="/docs/changelog"
-                    >
-                        Changelog
-                    </a>
-                    <a
-                        class="hover:text-foreground focus-visible:outline-2 focus-visible:outline-primary"
-                        href="https://github.com/mielsense/mielui"
-                        target="_blank"
-                        rel="noreferrer"
-                    >
-                        GitHub
-                    </a>
-                </nav>
-            </div>
-        {/if}
-    </footer>
-{/snippet}
-
 <ModeWatcher />
 {#if !isPreview}
     <Toaster />
@@ -255,7 +112,7 @@
     </main>
 {:else}
     <main
-        class={`w-screen [&:has([data-inspector-pinned=true])]:lg:pl-[calc(var(--spacing)*80+24px)] [--docs-shell:#000000] [--docs-row-height:calc(var(--spacing)*14+var(--border-size))] [--docs-rule:var(--color-border)] dark:[--docs-rule:color-mix(in_oklab,var(--color-border)_50%,transparent)] [--docs-chrome:color-mix(in_oklab,var(--color-secondary)_97%,white)] dark:[--docs-chrome:color-mix(in_oklab,var(--color-background),var(--color-secondary)_20%)] [--docs-content:color-mix(in_oklab,var(--color-background),var(--color-secondary)_10%)] ${isDocs ? 'h-[100svh] overflow-hidden bg-[var(--docs-shell)] p-2 sm:p-3' : isThemeStudio ? 'h-[100svh] overflow-hidden bg-[var(--docs-shell)] p-2 sm:p-3' : isHome ? 'min-h-dvh bg-background' : 'min-h-screen bg-background p-3'}`}
+        class={`w-screen [&:has([data-inspector-pinned=true])]:lg:pl-[calc(var(--spacing)*80+24px)] [--docs-shell:#000000] [--docs-row-height:calc(var(--spacing)*14+var(--border-size))] [--docs-rule:var(--color-border)] dark:[--docs-rule:color-mix(in_oklab,var(--color-border)_50%,transparent)] [--docs-chrome:color-mix(in_oklab,var(--color-secondary)_97%,white)] dark:[--docs-chrome:color-mix(in_oklab,var(--color-background),var(--color-secondary)_20%)] [--docs-content:color-mix(in_oklab,var(--color-background),var(--color-secondary)_10%)] ${isDocs || isThemeStudio ? 'h-[100svh] overflow-hidden bg-[var(--docs-shell)] p-2 sm:p-3' : isHome ? 'min-h-dvh bg-background' : 'min-h-screen bg-background p-3'}`}
     >
         {#if isHome}
             <div class="relative mx-auto flex min-h-dvh w-full max-w-none flex-col">
@@ -277,7 +134,7 @@
                         {@render children?.()}
                     </div>
                     <div class="shrink-0 bg-[var(--docs-content)]">
-                        {@render siteFooter()}
+                        <SiteFooter {isDocs} />
                     </div>
                 </div>
             </div>
@@ -287,12 +144,12 @@
                 class="relative flex h-full w-full flex-col overflow-hidden rounded-[var(--radius-xl)] border border-[var(--docs-rule)] bg-[var(--docs-content)]"
             >
                 <div class="shrink-0">
-                    <Navbar starCount={data?.starCount ?? null} />
+                    <StudioHeader starCount={data?.starCount ?? null} />
                 </div>
                 <div class="flex min-h-0 flex-1">
                     {@render children?.()}
                 </div>
-                {@render siteFooter()}
+                <SiteFooter {isDocs} />
             </div>
         {:else}
             <div class="flex min-h-[calc(100svh-1.5rem)] w-full gap-3">

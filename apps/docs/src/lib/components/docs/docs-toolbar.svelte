@@ -1,123 +1,22 @@
 <script lang="ts">
     import {
         ArrowRight01Icon as ChevronRight,
-        Home01Icon as Home,
-        Moon02Icon as Moon,
-        Sun03Icon as Sun
+        Home01Icon as Home
     } from '@hugeicons/core-free-icons';
-    import { morph } from '@mielui/svelte/actions/morph';
     import { Button } from '@mielui/svelte/components/button';
-    import * as Tooltip from '@mielui/svelte/components/tooltip';
     import HugeiconsIcon from '@mielui/svelte/hugeicons-icon';
-    import { mode, toggleMode } from 'mode-watcher';
     import { resolve } from '$app/paths';
     import { page } from '$app/state';
-    import GitHubBlack from '$lib/assets/GitHub_Invertocat_Black.svg';
-    import GitHubWhite from '$lib/assets/GitHub_Invertocat_White.svg';
-    import { componentTypeHref, componentTypes, navigationGroups } from '$lib/components';
     import SearchButton from '$lib/components/search/trigger.svelte';
-    import { componentGuidePages } from '$lib/docs-pages';
-    import FloatingInspector from '../floating-inspector.svelte';
+    import FloatingInspector from '$lib/components/shell/floating-inspector.svelte';
+    import HeaderActions from '$lib/components/shell/header-actions.svelte';
     import Logo from '../logo.svelte';
-    import NavigationItems from './navigation-items.svelte';
+    import { getBreadcrumbs } from './breadcrumbs';
+    import Navigation from './navigation.svelte';
 
     const { starCount = null }: { starCount?: number | null } = $props();
 
-    const navItems = [
-        { href: '/docs/introduction', label: 'Docs' },
-        { href: '/studio', label: 'Studio' }
-    ];
-    const docsPages = [
-        { title: 'Introduction', href: resolve('/docs/introduction') },
-        { title: 'Installation', href: resolve('/docs/installation') },
-        { title: 'Theming', href: resolve('/docs/theming') },
-        { title: 'Agent skill', href: resolve('/docs/agent-skill') },
-        { title: 'Changelog', href: resolve('/docs/changelog') },
-        { title: 'Components', href: resolve('/docs/components') }
-    ];
-
-    const breadcrumbs = $derived.by(() => {
-        const pathnameSegments = page.url.pathname.split('/').filter(Boolean);
-        const isDocsPath = pathnameSegments[0] === 'docs';
-        const segments = isDocsPath ? pathnameSegments.slice(1) : pathnameSegments;
-        const basePath = isDocsPath ? '/docs' : '';
-        const category =
-            segments[0] === 'components'
-                ? navigationGroups.find((group) =>
-                      group.items.some((component) => component === segments[1])
-                  )
-                : undefined;
-
-        const type =
-            segments[0] === 'components'
-                ? componentTypes.find(
-                      (entry) => entry.id === segments[1] || entry.items.includes(segments[1])
-                  )
-                : undefined;
-        if (type) {
-            const parent = [
-                { href: '/', label: 'Home' },
-                { href: '/docs/components', label: 'Components' },
-                { href: componentTypeHref(type.id), label: type.heading }
-            ];
-            if (type.id !== segments[1]) {
-                parent.push({
-                    href: `/docs/components/${segments[1]}`,
-                    label: formatSegment(segments[1])
-                });
-            }
-            return parent;
-        }
-
-        return [
-            { href: '/', label: 'Home' },
-            ...segments.map((segment, index) => ({
-                href:
-                    index === 0 && category
-                        ? `/docs/components#${category.id}`
-                        : `${basePath}/${segments.slice(0, index + 1).join('/')}`,
-                label:
-                    index === 0 && category
-                        ? category.heading
-                        : (componentGuidePages.find(
-                              (guide) =>
-                                  guide.href ===
-                                  `${basePath}/${segments.slice(0, index + 1).join('/')}`
-                          )?.title ?? formatSegment(segment))
-            }))
-        ];
-    });
-
-    function formatSegment(segment: string): string {
-        const labels: Record<string, string> = {
-            docs: 'Docs',
-            components: 'Components',
-            composer: 'Composer'
-        };
-
-        if (labels[segment]) {
-            return labels[segment];
-        }
-
-        return segment
-            .split('-')
-            .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-            .join(' ');
-    }
-
-    function formatStarCount(count: number | null): string {
-        if (count === null || Number.isNaN(count)) {
-            return 'Star';
-        }
-
-        if (count >= 1000) {
-            const thousands = count / 1000;
-
-            return `${thousands >= 10 ? Math.round(thousands) : thousands.toFixed(1)}k`;
-        }
-
-        return String(count);
-    }
+    const breadcrumbs = $derived(getBreadcrumbs(page.url.pathname));
 </script>
 
 <div class="min-w-0">
@@ -126,53 +25,9 @@
     >
         <div class="mx-auto flex flex-1 min-w-0 items-center justify-between gap-4">
             <div class="flex shrink-0 items-center gap-3 pr-4 border-r border-border/50">
-                <FloatingInspector title="Navigation">
+                <FloatingInspector title="Navigation" storageKey="mielui:docs-sidebar-pinned">
                     {#snippet children(close)}
-                        <div class="min-h-0 flex-1 overflow-y-auto px-5 py-4">
-                            <section class="flex flex-col gap-2 ">
-                                <h2 class="mb-2 text-sm text-foreground-muted">Navigate</h2>
-                                {#each navItems as item (item.href)}
-                                    <Button
-                                        variant="quiet"
-                                        class="w-full justify-start rounded-[var(--radius-md)] aria-[current=page]:bg-primary/15 aria-[current=page]:font-semibold aria-[current=page]:text-foreground aria-[current=page]:hover:bg-primary/20 aria-[current=page]:hover:text-foreground"
-                                        aria-current={page.url.pathname === item.href ? 'page' : undefined}
-                                        onclick={close}
-                                        href={item.href}
-                                    >
-                                        {item.label}
-                                    </Button>
-                                {/each}
-                            </section>
-
-                            <section class="flex flex-col gap-2 mt-10">
-                                <h2 class="mb-2 text-sm text-foreground-muted">Getting Started</h2>
-                                {#each docsPages as item (item.href)}
-                                    <Button
-                                        variant="quiet"
-                                        class="w-full justify-start rounded-[var(--radius-md)] aria-[current=page]:bg-primary/15 aria-[current=page]:font-semibold aria-[current=page]:text-foreground aria-[current=page]:hover:bg-primary/20 aria-[current=page]:hover:text-foreground"
-                                        aria-current={page.url.pathname === item.href ? 'page' : undefined}
-                                        onclick={close}
-                                        href={item.href}
-                                    >
-                                        {item.title}
-                                    </Button>
-                                {/each}
-                            </section>
-
-                            {#each navigationGroups as group (group.id)}
-                                <section class="mt-10 flex flex-col gap-2">
-                                    <h2 class="mb-2 text-sm text-foreground-muted">
-                                        {group.heading}
-                                    </h2>
-                                    <NavigationItems {group} onNavigate={close} />
-                                    {#if group.items.length === 0}
-                                        <p class="text-sm text-foreground-muted">
-                                            No chart components yet.
-                                        </p>
-                                    {/if}
-                                </section>
-                            {/each}
-                        </div>
+                        <Navigation {close} />
                     {/snippet}
                 </FloatingInspector>
                 <div class="hidden sm:block"><Logo /></div>
@@ -225,46 +80,6 @@
                 </Button>
             </div>
         </div>
-        <div class="flex shrink-0 items-center gap-1 border-l border-border/50 pl-3">
-            <Button
-                class="border-border/60 h-9 gap-1.5 rounded-[var(--radius-md)] px-2.5 text-[0.8125rem] tabular-nums"
-                variant="quiet"
-                href="https://github.com/mielsense/mielui"
-                target="_blank"
-                rel="noreferrer"
-                aria-label={starCount === null
-                    ? 'Star mielui on GitHub'
-                    : `${formatStarCount(starCount)} GitHub stars`}
-            >
-                <img src={GitHubBlack} alt="" class="size-[0.9375rem] dark:hidden" />
-                <img src={GitHubWhite} alt="" class="size-[0.9375rem] hidden dark:block" />
-                <span>{formatStarCount(starCount)}</span>
-            </Button>
-
-            <Tooltip.Root>
-                <Tooltip.Trigger>
-                    <Button
-                        class="border-border/60 size-9 rounded-[var(--radius-md)]"
-                        variant="quiet"
-                        onclick={() => {
-                            toggleMode();
-                        }}
-                        size="icon"
-                        aria-label={mode.current === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
-                    >
-                        <span
-                            class="inline-flex size-4"
-                            aria-hidden="true"
-                            use:morph={{ key: mode.current }}
-                        >
-                            <HugeiconsIcon icon={mode.current === 'dark' ? Moon : Sun} size={16} />
-                        </span>
-                    </Button>
-                </Tooltip.Trigger>
-                <Tooltip.Content>
-                    {mode.current === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
-                </Tooltip.Content>
-            </Tooltip.Root>
-        </div>
+        <HeaderActions {starCount} />
     </header>
 </div>

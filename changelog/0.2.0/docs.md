@@ -35,3 +35,4 @@
 - Match selected preview tabs to the package-manager picker surface.
 
 - Remember pinned docs and Studio sidebars independently across visits.
+- Unify Docs and Studio header controls and harden sidebar pinning and page-transition cleanup.
