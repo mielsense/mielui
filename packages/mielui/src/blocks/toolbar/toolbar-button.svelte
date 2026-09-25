@@ -4,6 +4,7 @@
     import { button } from '../../components/button/variants';
     import type { ToolbarButtonProps } from '.';
     import { getToolbarVariant } from './context';
+    import { toolbarControlClass } from './styles';
 
     let {
         element = $bindable(null),
@@ -12,6 +13,9 @@
         ...rest
     }: ToolbarButtonProps = $props();
     const variant = getToolbarVariant();
+    const controlClass = $derived(
+        cn(className, toolbarControlClass(variant()), button({ variant: 'quiet', size: 'sm' }))
+    );
 </script>
 <Primitive.Button {...rest} bind:ref={element}>
     {#snippet child({ props })}
@@ -20,7 +24,7 @@
             {...props}
             use:pressable
             data-ui="toolbar-button"
-            class={cn(className, variant() === 'depth' ? 'rounded-[var(--radius-md)] bg-secondary bg-[image:var(--mielui-toolbar-face)] text-foreground-muted shadow-[var(--mielui-toolbar-raised)] hover:text-foreground active:bg-background active:bg-none active:shadow-[var(--mielui-toolbar-pressed)] data-[state=on]:bg-background data-[state=on]:bg-none data-[state=on]:text-foreground data-[state=on]:shadow-[var(--mielui-toolbar-pressed)] focus-visible:shadow-[var(--focus-ring),var(--mielui-toolbar-raised)] data-[state=on]:focus-visible:shadow-[var(--focus-ring),var(--mielui-toolbar-pressed)]' : 'data-[state=on]:bg-secondary data-[state=on]:text-foreground', button({ variant: 'quiet', size: 'sm' }))}
+            class={controlClass}
         >
             {@render children?.()}
         </button>

@@ -23,6 +23,7 @@
 {#if api.nextPage}
     <div
         {...rest}
+        role="group"
         aria-label={rest['aria-label'] ?? 'Table pages'}
         data-ui="data-table-pagination"
         class={cn(className, 'flex flex-wrap items-center gap-3')}
@@ -44,7 +45,7 @@
                 <Pagination
                     {page}
                     total={Math.max(1, pageCount)}
-                    aria-label="Table pages"
+                    aria-label={rest['aria-label'] ?? 'Table pages'}
                     onPageChange={(next) => {
                         api.setPageIndex?.(next - 1);
                     }}

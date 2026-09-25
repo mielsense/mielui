@@ -14,3 +14,5 @@
 - Keep installation command tabs above the command regardless of inset-strip preference.
 - Retain structural inset gutters on data tables, composers, and code/preview panels in single-border mode.
 - Soften the dark glass composer input tint so backdrop color stays visible without a heavy grey fill.
+- Preserve custom accessible labels on numbered data-table pagination.
+- Avoid duration-formatting errors for tool status values with excessive decimal precision.

@@ -15,6 +15,14 @@
     const name = $derived(tool.name);
     const duration = $derived(tool.duration);
     const variant = $derived(tool.variant);
+    const durationMatch = $derived(duration?.match(/^(\d+)(?:\.(\d+))?(ms|s)$/));
+    const numericDuration = $derived(Number.parseFloat(duration ?? ''));
+    const canAnimateDuration = $derived(durationMatch !== null && Number.isFinite(numericDuration));
+
+    function formatDuration(value: number) {
+        const precision = Math.min(durationMatch?.[2]?.length ?? 0, 100);
+        return `${value.toFixed(precision)}${durationMatch?.[3] ?? ''}`;
+    }
     const label = $derived(
         state === 'running'
             ? 'Task running'
@@ -68,10 +76,8 @@
         <span class="min-w-0 flex-1 truncate text-foreground-muted">{name}</span>
         {#if duration}
             <span class="ml-2 shrink-0 font-mono text-xs tabular-nums text-foreground-muted">
-                {#if /^\d+(?:\.\d+)?(?:ms|s)$/.test(duration)}
-                    <span
-                        use:numberShuffle={{ value: Number.parseFloat(duration), format: (value) => `${value.toFixed(duration.match(/\.(\d+)/)?.[1].length ?? 0)}${duration.endsWith("ms") ? "ms" : "s"}` }}
-                    >
+                {#if canAnimateDuration}
+                    <span use:numberShuffle={{ value: numericDuration, format: formatDuration }}>
                         {duration}
                     </span>
                 {:else}
