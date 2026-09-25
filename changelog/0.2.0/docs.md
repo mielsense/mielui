@@ -36,3 +36,4 @@
 
 - Remember pinned docs and Studio sidebars independently across visits.
 - Unify Docs and Studio header controls and harden sidebar pinning and page-transition cleanup.
+- Correct homepage showcase composition to use supported chart surface settings and labeled tab controls.

@@ -161,25 +161,27 @@
                             config={chartConfig}
                             x="day"
                             aria-label="Sample weekly visits"
-                            class="w-full"
+                            class="w-full [--mielui-surface:solid]"
                         >
                             <Chart.Plot class="h-44">
                                 <Chart.Grid />
                                 <Chart.XAxis />
                                 <Chart.Area key="visits" />
                             </Chart.Plot>
-                            <Chart.Tooltip surface="solid" />
+                            <Chart.Tooltip />
                         </Chart.Root>
                     </Tabs.Content>
                 </div>
                 <div
                     class="flex flex-wrap items-center justify-between gap-2 border-t border-border/70 px-4 py-3"
                 >
-                    <Tabs.List aria-label="Component preview">
-                        <Tabs.Trigger value="composer">Composer</Tabs.Trigger>
-                        <Tabs.Trigger value="controls">Controls</Tabs.Trigger>
-                        <Tabs.Trigger value="charts">Charts</Tabs.Trigger>
-                    </Tabs.List>
+                    <div role="group" aria-label="Component preview">
+                        <Tabs.List>
+                            <Tabs.Trigger value="composer">Composer</Tabs.Trigger>
+                            <Tabs.Trigger value="controls">Controls</Tabs.Trigger>
+                            <Tabs.Trigger value="charts">Charts</Tabs.Trigger>
+                        </Tabs.List>
+                    </div>
                     <a
                         href={resolve('/studio')}
                         aria-label="Open Theme Studio"
