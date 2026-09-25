@@ -20,13 +20,19 @@
     {...rest}
 >
     {#if resolvedAdditions > 0}
-        <span class="text-success">
-            +<span use:numberShuffle={{ value: resolvedAdditions }}>{resolvedAdditions}</span>
+        <span
+            class="text-success"
+            use:numberShuffle={{ value: resolvedAdditions, format: (value) => `+${Math.round(value)}` }}
+        >
+            +{resolvedAdditions}
         </span>
     {/if}
     {#if resolvedDeletions > 0}
-        <span class="text-error">
-            −<span use:numberShuffle={{ value: resolvedDeletions }}>{resolvedDeletions}</span>
+        <span
+            class="text-error"
+            use:numberShuffle={{ value: resolvedDeletions, format: (value) => `−${Math.round(value)}` }}
+        >
+            −{resolvedDeletions}
         </span>
     {/if}
 </span>

@@ -27,7 +27,7 @@ describe('themeToCss', () => {
 
     it('emits fonts, radii, density, brand, motion, and mode-specific neutrals', () => {
         expect(css).toContain("--font-sans: 'Inter', sans-serif");
-        expect(css).toContain('--radius-lg: 10px');
+        expect(css).toContain('--radius-lg: 14px');
         expect(css).toContain('--color-primary: #ba7ca5');
         expect(css).toContain('--mielui-space-unit: 3.6px');
         expect(css).toContain('--motion-duration-menu: 40ms');

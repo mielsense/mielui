@@ -427,34 +427,22 @@
         background-color: color-mix(in oklab, var(--color-secondary) 97%, white);
     }
 
-    .mielui-inset-frame:where(.dark, .dark *) {
-        background-color: color-mix(in oklab, var(--color-background) 97%, white);
-    }
-
+    .mielui-inset-frame:where(.dark, .dark *),
     .mielui-modal-frame:where(.dark, .dark *) {
         background-color: color-mix(in oklab, var(--color-background) 97%, white);
     }
 
     .mielui-modal-frame > [data-ui='dialog-surface'] {
         border: 0;
-        border-radius: calc(
-            var(--radius-xl) -
-            var(--border-size) -
-            var(--mielui-modal-inset, var(--spacing))
-        );
-        background-color: var(--color-card);
     }
 
+    .mielui-modal-frame > [data-ui='dialog-surface'],
     .mielui-inset-surface {
         border-radius: calc(
             var(--radius-xl) -
             var(--border-size) -
             var(--mielui-modal-inset, var(--spacing))
         );
-        background-color: var(--color-card);
-    }
-
-    .mielui-modal-frame:where(.dark, .dark *) > [data-ui='dialog-surface'] {
         background-color: var(--color-card);
     }
 

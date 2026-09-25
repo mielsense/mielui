@@ -16,3 +16,5 @@
 - Soften the dark glass composer input tint so backdrop color stays visible without a heavy grey fill.
 - Preserve custom accessible labels on numbered data-table pagination.
 - Avoid duration-formatting errors for tool status values with excessive decimal precision.
+
+- Keep file diff signs attached to their animated counts and remove redundant inset surface styles.
