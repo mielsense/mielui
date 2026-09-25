@@ -45,7 +45,6 @@
                 <Pagination
                     {page}
                     total={Math.max(1, pageCount)}
-                    aria-label={rest['aria-label'] ?? 'Table pages'}
                     onPageChange={(next) => {
                         api.setPageIndex?.(next - 1);
                     }}
