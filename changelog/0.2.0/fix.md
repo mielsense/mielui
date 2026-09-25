@@ -18,3 +18,7 @@
 - Avoid duration-formatting errors for tool status values with excessive decimal precision.
 
 - Keep file diff signs attached to their animated counts and remove redundant inset surface styles.
+
+- Preserve preset colors, typography, and token overrides when selecting or exporting a theme in Studio.
+
+- Keep the Studio preset picker and reset button aligned across theme densities.

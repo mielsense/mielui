@@ -20,7 +20,7 @@
     <Group.Root class="w-full" aria-label="Theme preset">
         <Select.Root bind:value={editor.state.selectedPreset}>
             <Select.Trigger
-                class="h-[34px] min-w-0 flex-1 px-3 text-sm"
+                class="min-w-0 flex-1"
                 variant="outline"
                 aria-label="Theme starting point"
             >
@@ -45,7 +45,7 @@
                 <Button
                     variant="outline"
                     size="icon"
-                    class="size-[34px] shrink-0 rounded-s-none border-s-0"
+                    class="h-auto w-[calc(var(--size-control-md)-var(--size-hairline))] min-w-0 shrink-0 self-stretch rounded-s-none border-s-0"
                     onclick={editor.resetTheme}
                     aria-label="Reset theme to selected preset"
                 >

@@ -60,7 +60,9 @@ export function createThemeEditor() {
         (['light', 'dark'] as const).reduce((count, colorMode) => {
             const changedColors = Object.entries(state.foundationColors[colorMode]).filter(
                 ([key, value]) =>
-                    value !== DEFAULT_FOUNDATION_COLORS[colorMode][key as keyof FoundationPalette]
+                    value !==
+                    (state.baseTheme.foundation?.[colorMode]?.[key as keyof FoundationPalette] ??
+                        DEFAULT_FOUNDATION_COLORS[colorMode][key as keyof FoundationPalette])
             ).length;
 
             return count + changedColors;
@@ -82,20 +84,25 @@ export function createThemeEditor() {
 
     const roleWeightChanges = $derived(
         Object.entries(state.roleWeights).filter(
-            ([key, value]) => value !== DEFAULT_ROLE_WEIGHTS[key as keyof RoleWeights]
+            ([key, value]) =>
+                value !==
+                (state.baseTheme.typography?.roleWeights?.[key as keyof RoleWeights] ??
+                    DEFAULT_ROLE_WEIGHTS[key as keyof RoleWeights])
         ).length
     );
 
     const changedAxisCount = $derived(
         themeAxes.filter((axis) => state.theme[axis] !== state.baseTheme[axis]).length +
-            (state.brandColors.light !== state.baseTheme.brand ||
-            state.brandColors.dark !== state.baseTheme.brand
+            (state.brandColors.light !==
+                (state.baseTheme.tokens?.light?.['--color-primary'] ?? state.baseTheme.brand) ||
+            state.brandColors.dark !==
+                (state.baseTheme.tokens?.dark?.['--color-primary'] ?? state.baseTheme.brand)
                 ? 1
                 : 0) +
             foundationColorChanges +
             advancedTokenChanges +
-            (state.headerSize === 16 ? 0 : 1) +
-            (state.headerWeight === '600' ? 0 : 1) +
+            (state.headerSize === (state.baseTheme.typography?.headerSize ?? 16) ? 0 : 1) +
+            (state.headerWeight === (state.baseTheme.typography?.headerWeight ?? '600') ? 0 : 1) +
             roleWeightChanges +
             (state.borders === (state.baseTheme.chrome?.borders ?? 'double') ? 0 : 1) +
             (state.insetPosition ===
@@ -103,13 +110,32 @@ export function createThemeEditor() {
                 ? 0
                 : 1) +
             (state.edgeHighlight === (state.baseTheme.chrome?.edgeHighlight ?? 0.5) ? 0 : 1) +
-            (state.surfaceShadows ? 0 : 1) +
-            (state.controlShadows ? 0 : 1) +
-            (state.dialogShadows ? 0 : 1) +
-            (state.travelingHighlight ? 0 : 1) +
-            (state.primaryStroke ? 1 : 0) +
-            (state.glassSurfaces ? 1 : 0) +
-            (state.interactiveCursor === 'default' ? 0 : 1)
+            (state.surfaceShadows ===
+            (state.baseTheme.chrome?.shadows !== false &&
+                state.baseTheme.chrome?.surfaceShadows !== false)
+                ? 0
+                : 1) +
+            (state.controlShadows ===
+            (state.baseTheme.chrome?.shadows !== false &&
+                state.baseTheme.chrome?.controlShadows !== false)
+                ? 0
+                : 1) +
+            (state.dialogShadows ===
+            (state.baseTheme.chrome?.shadows !== false &&
+                state.baseTheme.chrome?.dialogShadows !== false)
+                ? 0
+                : 1) +
+            (state.travelingHighlight === (state.baseTheme.chrome?.travelingHighlight !== false)
+                ? 0
+                : 1) +
+            (state.primaryStroke === (state.baseTheme.chrome?.primaryStroke ?? false) ? 0 : 1) +
+            (state.glassSurfaces ===
+            (state.baseTheme.tokens?.shared?.['--mielui-surface'] === 'glass')
+                ? 0
+                : 1) +
+            (state.interactiveCursor === (state.baseTheme.chrome?.interactiveCursor ?? 'default')
+                ? 0
+                : 1)
     );
 
     const dirty = $derived(changedAxisCount > 0);
@@ -135,17 +161,28 @@ export function createThemeEditor() {
         },
         tokens: {
             shared: {
+                ...state.baseTheme.tokens?.shared,
                 ...cleanTokens(state.advancedTokens.spacing),
                 ...cleanTokens(state.advancedTokens.animation),
                 '--mielui-inset-position': state.insetPosition,
                 '--mielui-surface': state.glassSurfaces ? 'glass' : 'solid'
             },
             light: {
-                ...brandTokens(state.brandColors.light),
+                ...state.baseTheme.tokens?.light,
+                '--color-primary': state.brandColors.light,
+                ...(state.brandColors.light !==
+                (state.baseTheme.tokens?.light?.['--color-primary'] ?? state.baseTheme.brand)
+                    ? brandTokens(state.brandColors.light)
+                    : {}),
                 ...cleanTokens(state.advancedTokens.colors.light)
             },
             dark: {
-                ...brandTokens(state.brandColors.dark),
+                ...state.baseTheme.tokens?.dark,
+                '--color-primary': state.brandColors.dark,
+                ...(state.brandColors.dark !==
+                (state.baseTheme.tokens?.dark?.['--color-primary'] ?? state.baseTheme.brand)
+                    ? brandTokens(state.brandColors.dark)
+                    : {}),
                 ...cleanTokens(state.advancedTokens.colors.dark)
             }
         }
@@ -177,15 +214,18 @@ export function createThemeEditor() {
         };
         state.baseTheme = { ...preset };
         state.theme = { ...preset, ...draftIdentity };
-        state.headerSize = 16;
-        state.headerWeight = '600';
-        state.roleWeights = { ...DEFAULT_ROLE_WEIGHTS };
+        state.headerSize = preset.typography?.headerSize ?? 16;
+        state.headerWeight = preset.typography?.headerWeight ?? '600';
+        state.roleWeights = { ...DEFAULT_ROLE_WEIGHTS, ...preset.typography?.roleWeights };
         state.foundationColors = {
-            light: { ...DEFAULT_FOUNDATION_COLORS.light },
-            dark: { ...DEFAULT_FOUNDATION_COLORS.dark }
+            light: { ...DEFAULT_FOUNDATION_COLORS.light, ...preset.foundation?.light },
+            dark: { ...DEFAULT_FOUNDATION_COLORS.dark, ...preset.foundation?.dark }
         };
         state.advancedTokens = emptyAdvancedTokens();
-        state.brandColors = { light: preset.brand, dark: preset.brand };
+        state.brandColors = {
+            light: preset.tokens?.light?.['--color-primary'] ?? preset.brand,
+            dark: preset.tokens?.dark?.['--color-primary'] ?? preset.brand
+        };
         state.borders = preset.chrome?.borders ?? 'double';
         state.insetPosition =
             preset.tokens?.shared?.['--mielui-inset-position'] === 'top' ? 'top' : 'bottom';
@@ -198,8 +238,8 @@ export function createThemeEditor() {
             preset.chrome?.shadows !== false && preset.chrome?.dialogShadows !== false;
         state.glassSurfaces = preset.tokens?.shared?.['--mielui-surface'] === 'glass';
         state.travelingHighlight = preset.chrome?.travelingHighlight !== false;
-        state.primaryStroke = false;
-        state.interactiveCursor = 'default';
+        state.primaryStroke = preset.chrome?.primaryStroke ?? false;
+        state.interactiveCursor = preset.chrome?.interactiveCursor ?? 'default';
         syncFontSelections(state.theme);
     }
 

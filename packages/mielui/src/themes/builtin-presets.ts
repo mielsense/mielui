@@ -254,12 +254,97 @@ export const functionalTheme: Theme = {
     }
 };
 
+const daydreamTheme: Theme = {
+    version: THEME_VERSION,
+    slug: 'daydream',
+    name: 'Daydream',
+    description:
+        'Soft pink controls, warm paper surfaces, and a playful lavender, mint, and peach palette.',
+    publisher: 'mielui',
+    brand: '#eeb2d2',
+    neutral: 'warm',
+    radius: 'rounded',
+    density: 'comfortable',
+    motion: 'subtle',
+    fontSans: "'Inter', sans-serif",
+    fontMono: "'JetBrains Mono', monospace",
+    fontHeader: 'var(--font-sans)',
+    foundation: {
+        light: {
+            base: '#eeefeb',
+            border: '#dfe2da',
+            background: '#f7f6f2',
+            secondary: '#fafbf7',
+            foreground: '#29272c',
+            foregroundMuted: '#706970',
+            onPrimary: '#352330'
+        },
+        dark: {
+            base: '#252329',
+            border: '#3d3740',
+            background: '#19171c',
+            secondary: '#322d35',
+            foreground: '#f7f1f5',
+            foregroundMuted: '#b9aeb8',
+            onPrimary: '#352330'
+        }
+    },
+    tokens: {
+        shared: {
+            '--radius-sm': '8px',
+            '--radius-md': '12px',
+            '--radius-lg': '16px',
+            '--radius-xl': '24px',
+            '--chart-1': '#bfa4e9',
+            '--chart-2': '#9bc8f3',
+            '--chart-3': '#f4b480',
+            '--chart-4': '#b7dca7',
+            '--chart-5': '#f4dd82',
+            '--color-primary-hover': '#e5a2c5',
+            '--mielui-surface': 'solid'
+        },
+        light: {
+            '--color-success': '#39774e',
+            '--color-warning': '#98601f',
+            '--color-error': '#b64158',
+            '--color-info': '#486b9e'
+        },
+        dark: {
+            '--color-success': '#b7dca7',
+            '--color-warning': '#f4dd82',
+            '--color-error': '#f3a4b5',
+            '--color-info': '#9bc8f3'
+        }
+    },
+    typography: {
+        headerSize: 18,
+        headerWeight: '600',
+        roleWeights: {
+            body: '400',
+            label: '500',
+            button: '500',
+            badge: '500',
+            description: '400'
+        }
+    },
+    chrome: {
+        borders: 'single',
+        edgeHighlight: 0,
+        surfaceShadows: false,
+        controlShadows: false,
+        dialogShadows: false,
+        primaryStroke: false,
+        interactiveCursor: 'pointer'
+    }
+};
+
 export const builtInThemePresets: readonly Theme[] = [
     DEFAULT_THEME,
     magicTheme,
     bitsyTheme,
     openTheme,
-    functionalTheme
+    functionalTheme,
+    daydreamTheme
 ];
 
 export const defaultTheme = DEFAULT_THEME;
