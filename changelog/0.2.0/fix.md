@@ -89,3 +89,4 @@
 - Remove gaps around edge-attached notch previews and the border along their attached edge.
 - Play page transitions only when moving between Home, Docs, and Studio.
 - Give Studio invoice notifications a separate action strip with a working View invoice action.
+- Compact data-table filter popovers with denser option rows, smaller editor controls, and widths suited to each filter type.

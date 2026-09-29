@@ -14,6 +14,9 @@
     import { filterableColumn } from './features';
     import { filterSummary, readFilter } from './filter';
 
+    const editorControlClass =
+        'min-h-[calc(var(--size-control-sm)-var(--size-hairline))] rounded-[var(--radius-md)] px-2';
+
     let {
         table,
         filter,
@@ -139,18 +142,25 @@
         {/if}
     </Popover.Trigger>
     <Popover.Content
-        class="w-72"
-        surfaceClass="flex flex-col gap-3 p-3"
+        class={filter.editor || filter.type === 'date'
+            ? 'w-72'
+            : filter.type === 'number'
+              ? 'w-64'
+              : 'w-60'}
+        surfaceClass="flex flex-col gap-2 p-2"
         focusTrap
         lockScroll={false}
         dismissLayer={false}
         aria-label={`${filter.label} filter`}
     >
-        <Popover.Title>{filter.label}</Popover.Title>
+        <Popover.Title class="px-1 text-[length:var(--font-size-body)] leading-snug">
+            {filter.label}
+        </Popover.Title>
         {#if filter.editor}
             {@render filter.editor({ value: raw, setValue })}
         {:else}
             <NativeSelect.Root
+                class={cn(editorControlClass, 'h-[var(--size-control-sm)]')}
                 aria-label={`${filter.label} operator`}
                 value={operator}
                 onchange={(event) => {
@@ -163,6 +173,7 @@
             </NativeSelect.Root>
             {#if filter.type === 'text'}
                 <Input
+                    class={editorControlClass}
                     aria-label={`${filter.label} value`}
                     placeholder={filter.placeholder ?? 'Enter a value…'}
                     value={typeof value === 'string' ? value : ''}
@@ -171,13 +182,13 @@
                     }}
                 />
             {:else if filter.type === 'select'}
-                <div class="flex max-h-60 flex-col gap-1 overflow-auto">
+                <div class="flex max-h-48 flex-col overflow-auto">
                     {#each filter.options as option (option.value)}
                         {const selected = $derived(
                             Array.isArray(value) && value.some((item) => item === option.value)
                         )}
                         <Checkbox
-                            class="min-h-9 items-center rounded-md px-2 py-2 hover:bg-secondary"
+                            class="mielui-menu-item h-auto min-h-[var(--size-control-sm)] shrink-0 py-1 hover:bg-secondary focus-within:bg-secondary [@media(pointer:coarse)]:min-h-[var(--size-touch)]"
                             label={option.label}
                             checked={selected}
                             onCheckedChange={(checked) => {
@@ -195,6 +206,7 @@
                 {#if operator === 'between'}
                     <div class="grid grid-cols-2 gap-2">
                         <Input
+                            class={editorControlClass}
                             type="number"
                             aria-label={`${filter.label} minimum`}
                             placeholder="Minimum"
@@ -207,6 +219,7 @@
                             }}
                         />
                         <Input
+                            class={editorControlClass}
                             type="number"
                             aria-label={`${filter.label} maximum`}
                             placeholder="Maximum"
@@ -221,6 +234,7 @@
                     </div>
                 {:else}
                     <Input
+                        class={editorControlClass}
                         type="number"
                         aria-label={`${filter.label} value`}
                         min={filter.min}
@@ -244,19 +258,23 @@
                             }
                         }}
                     >
-                        <DatePicker.Label>
-                            {operator === 'between' ? (index === 0 ? 'From' : 'Through') : 'Date'}
-                        </DatePicker.Label>
-                        <div class="flex items-center gap-1">
-                            <DatePicker.Input />
-                            <DatePicker.Trigger />
+                        <div class="flex flex-col gap-1">
+                            <DatePicker.Label>
+                                {operator === 'between' ? (index === 0 ? 'From' : 'Through') : 'Date'}
+                            </DatePicker.Label>
+                            <div class="flex items-center gap-1">
+                                <DatePicker.Input class={editorControlClass} />
+                                <DatePicker.Trigger
+                                    class="h-[var(--size-control-sm)] w-[var(--size-control-sm)] rounded-[var(--radius-md)]"
+                                />
+                            </div>
                         </div>
                         <DatePicker.Content><DatePicker.Calendar /></DatePicker.Content>
                     </DatePicker.Root>
                 {/each}
             {/if}
         {/if}
-        <div class="flex items-center justify-between gap-2 border-t border-border pt-3">
+        <div class="-mx-2 flex items-center justify-between gap-2 border-t border-border px-2 pt-2">
             <Button
                 variant="ghost"
                 size="sm"
