@@ -64,7 +64,8 @@
         <Typography.Text variant="supporting">
             The theme setting chrome.borders chooses "single" or "double" framing. Single is the
             default. Single removes the extra frame while preserving content padding, composition,
-            and inset variants.
+            and inset variants. The filename and change counts stay above the diff, independently of
+            the theme's inset strip position.
         </Typography.Text>
         <Typography.Text variant="supporting">
             Pass a{' '}

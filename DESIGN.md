@@ -477,7 +477,8 @@ Preview frames clip their toolbar backgrounds to preserve the perimeter.
 `--mielui-inset-position: top | bottom` moves exposed inset chrome in DOM order.
 Omitting the token preserves authored composition. Use the shared internal inset
 layout action, and override the token on a particular frame when its content
-requires a fixed order. Install command tabs stay on top. DataTable inset mode
+requires a fixed order. Install command tabs and File Diff headers stay on top.
+DataTable inset mode
 keeps its toolbar above the table and summary/pagination below, independently of
 the global preference. Single borders still remove decorative frame spacing on cards and ordinary overlays.
 Inset data tables, composers, toasts, code blocks, and docs preview panels keep a narrow

@@ -56,7 +56,7 @@
     data-ui="file-diff"
     class={cn(
         className,
-        'mielui-inset-frame flex w-full flex-col overflow-hidden text-foreground',
+        'mielui-inset-frame flex w-full flex-col overflow-hidden text-foreground [--mielui-inset-position:top]',
         // token-lint-disable-next-line no-literal-length: file-diff geometry contract
         '[--file-diff-line-height:1.7] [--file-diff-max-height:min(32rem,70vh)]'
     )}

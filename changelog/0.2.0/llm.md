@@ -225,3 +225,11 @@ To retain the previous treatment, explicitly choose double borders, solid surfac
 surface shadows enabled, and primaryStroke false. The legacy master shadows false
 still disables every shadow category. Chart 2 now defaults to pink #f49d9d and
 Chart 3 to blue #8bc7f5; explicit chart token overrides keep their colors.
+
+## File Diff header placement
+
+FileDiff.Root now defaults its local inset-position token to top so the filename
+and change counts remain above the patch when the surrounding theme uses bottom
+inset strips. This applies to both the diff prop and composed TopBar/Content
+parts. Compose TopBar before Content; no extra wrapper or CSS order rule is needed.
+An explicit inset-position token on Root can still override this default.
