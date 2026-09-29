@@ -7,7 +7,7 @@
     let {
         children,
         class: className,
-        variant = 'inset',
+        variant = 'chrome',
         'aria-label': ariaLabel = 'Message actions',
         ...rest
     }: ComposerToolbarProps = $props();

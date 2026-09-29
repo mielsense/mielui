@@ -154,9 +154,9 @@ async function sendPrompt(prompt: string) {
         <div id="toolbar-inset" class="scroll-mt-20 flex flex-col gap-3">
             <Typography.H3 class="docs-subsection-heading">Toolbar placement</Typography.H3>
             <Typography.Text variant="supporting">
-                The toolbar sits inside the input surface by default. Set
-                <Typography.InlineCode>variant="chrome"</Typography.InlineCode>
-                to place it on the frame below the input instead. Outline buttons and triggers in
+                The toolbar sits on the frame below the input by default. Set
+                <Typography.InlineCode>variant="inset"</Typography.InlineCode>
+                to join the toolbar to the input surface instead. Outline buttons and triggers in
                 the toolbar render as flat pills at one height.
             </Typography.Text>
             <ComponentPreview code={ToolbarInsetSrc}><ToolbarInset /></ComponentPreview>

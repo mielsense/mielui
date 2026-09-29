@@ -1,12 +1,18 @@
 <script lang="ts">
-    import type { ComposerStatus } from '@mielui/svelte/components/composer';
+    import type { ComposerStatus, ComposerToolbarProps } from '@mielui/svelte/components/composer';
     import * as Composer from '@mielui/svelte/components/composer';
 
     let {
         value = $bindable(''),
         status = 'idle',
-        asyncSubmit = false
-    }: { value?: string; status?: ComposerStatus; asyncSubmit?: boolean } = $props();
+        asyncSubmit = false,
+        toolbarVariant
+    }: {
+        value?: string;
+        status?: ComposerStatus;
+        asyncSubmit?: boolean;
+        toolbarVariant?: ComposerToolbarProps['variant'];
+    } = $props();
 
     let submitCount = $state(0);
     let stopCount = $state(0);
@@ -33,7 +39,7 @@
 
 <Composer.Root bind:value {status} onSubmit={submit} onStop={() => (stopCount += 1)}>
     <Composer.Input aria-label="Prompt" />
-    <Composer.Toolbar>
+    <Composer.Toolbar variant={toolbarVariant}>
         <Composer.Actions />
         <Composer.Submit />
     </Composer.Toolbar>

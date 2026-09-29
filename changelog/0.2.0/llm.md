@@ -100,8 +100,8 @@ collapses when it renders nothing, so leave it in place when no files are
 selected. Do not put a card-variant list in the header, and do not build a
 local chip: `Attachment.Item variant="chip"` handles image thumbnails,
 file-type icons, upload spinners, error edges, and screen-reader status.
-Pair the header with `Composer.Toolbar variant="inset"` to keep the controls
-inside the input surface, as in the documentation example.
+Pair the header with `Composer.Toolbar` to keep the actions on the frame below
+the input. Use `variant="inset"` only when the actions should share the input surface.
 
 Tooltips no longer share the overlay glass fill. They keep the
 `--color-tooltip` and `--color-tooltip-foreground` pair in glass mode, made
@@ -137,9 +137,9 @@ single even when the theme uses double borders. Do not re-enable double framing
 on them. Dialogs, sheets, drawers, toasts, code blocks, diffs, inset tables,
 alerts, and composers still follow the theme setting.
 
-`Composer.Toolbar` now defaults to `variant="inset"`. A toolbar written without
-a variant used to sit on the frame and now renders inside the input surface.
-Pass `variant="chrome"` to keep the old placement. Inside the toolbar, use
+`Composer.Toolbar` retains `variant="chrome"` as its default: actions sit on the
+frame below the input. Use `variant="inset"` explicitly to join them to the input
+surface. The input starts at a compact height and grows with its content. Inside the toolbar, use
 `variant="outline"` for Select, DropdownMenu, and Attachment triggers. The
 toolbar turns them into flat pills at the medium control height, matching
 `Composer.Submit`.

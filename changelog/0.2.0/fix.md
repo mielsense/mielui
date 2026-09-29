@@ -75,3 +75,6 @@
 
 - Restore the homepage gradient and light showcase.
 - Tighten menu highlight corners to fit their panel.
+
+- Restore the Composer action strip below the input and shorten the initial input height while retaining automatic growth.
+- Add subtle raised edges and contact shadows to documentation section title badges.

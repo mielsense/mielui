@@ -21,7 +21,7 @@
 }
 
 .docs-article :is([data-docs-page] > section, #api-reference) > :is(h2, div:first-child:has(> h2)) {
-    @apply sticky top-[calc(var(--docs-sticky-offset,0px)+var(--spacing)*3)] z-30 mx-0 mt-3 mb-4 w-fit rounded-full border-0 bg-foreground text-background shadow-[var(--elevation-1)] flex h-9 items-center px-4 py-0 text-sm leading-5 font-semibold;
+    @apply sticky top-[calc(var(--docs-sticky-offset,0px)+var(--spacing)*3)] z-30 mx-0 mt-3 mb-4 w-fit rounded-full border-0 bg-foreground text-background shadow-[var(--mielui-toolbar-raised)] flex h-9 items-center px-4 py-0 text-sm leading-5 font-semibold;
 }
 
 .docs-article :is([data-docs-page] > section, #api-reference) > div:first-child > h2 {

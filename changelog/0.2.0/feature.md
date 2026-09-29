@@ -8,7 +8,7 @@
 - Choose the top or bottom position of inset strips, with local overrides for fixed headers.
 - Add an optional inset DataTable layout with compact filters and shared pagination inside the frame.
 - Preview glass against a colored Studio backdrop, with dropdown, popover, and hover-card examples.
-- Use rounder default corners and more spacious composer input panels.
+- Use rounder default corners.
 
 - Add the Daydream preset with flat sage-gray cards, soft pink controls, and pastel chart colors in light and dark modes.
 - Add Composer.Header for content above the input, and a chip variant for Attachment.List and Attachment.Item that shows files as compact pills with file-type icons or image thumbnails.

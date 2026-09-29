@@ -305,7 +305,9 @@ long explanations into short paragraphs by topic rather than narrow text columns
 The page-outline heading aligns with the leading preview toolbar. Sidebar groups
 use whitespace and ordinary labels rather than sticky row chrome. Sidebar rows are ghost Buttons at the small control height with muted text that aligns with the group label and panel title. Selected navigation links use a rounded primary-tinted fill and semibold foreground text so selection is visible beyond text color. Studio inspector sections use spaced rounded disclosure rows with a quiet fill, without separators. The leading preview toolbar shares that row height and
 sticks until the next section; inset example toolbars stay compact without an
-extra divider. Put optional section explanations behind a labelled info control.
+extra divider. Documentation section title badges use the shared raised-key
+edge and contact shadow (`--mielui-toolbar-raised`), honoring control-shadow and
+edge-highlight settings. Put optional section explanations behind a labelled info control.
 
 The leading page preview uses the shared inset frame with its ghost-tab toolbar
 and card-backed canvas. Its source remains inside the same frame, on the same
@@ -422,7 +424,9 @@ Button, Link, and Item inherit the choice. Toolbar depth uses the shared floatin
 `--mielui-toolbar-raised` relief for its keys. Selected tools use
 `--mielui-toolbar-pressed` and the background fill;
 compose focus rings with that relief. The composer toolbar stays flat: it sits
-inside the input surface by default, and outline buttons and triggers in it render
+on the frame below the input by default. The input starts compact and grows with
+its content. Opt into a joined input and toolbar with `variant="inset"`. Outline
+buttons and triggers in either placement render
 as flat pills with a hairline border, no control edge, and the medium control
 height. Use `variant="outline"` for its controls rather than borderless ghosts.
 
@@ -495,12 +499,10 @@ technology. Avoid invented endorsements or usage counts. On narrow screens,
 stack the content and allow normal page scrolling rather than clipping the hero
 to a fixed viewport.
 
-The hero is one flat tone mixed from the primary color: no radial glows or
-gradient washes. The featured preview uses the shared `mielui-inset-frame` with
-its ghost tabs in the frame chrome and the demo on `mielui-inset-surface`. Do not
-override the theme's color tokens inside it, so it follows the active theme and
-color mode. The composer demo uses the canonical composition: chips in
-Composer.Header and outline pill controls in the inset toolbar.
+Preserve the original restrained hero gradient and lighter featured showcase. The featured preview uses the shared `mielui-inset-frame` with
+its ghost tabs in the frame chrome and the demo on `mielui-inset-surface`. Keep the featured preview’s scoped light palette in both page themes. Composer
+actions sit on the frame below the input unless a demo explicitly opts into the
+joined inset toolbar.
 
 Component catalog previews render real components in a decorative, inert and
 `aria-hidden` region marked `data-component-preview`, which keeps their headings

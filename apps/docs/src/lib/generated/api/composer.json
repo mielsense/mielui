@@ -2451,7 +2451,7 @@
                 "type": "\"chrome\" | \"inset\" | undefined",
                 "required": false,
                 "bindable": false,
-                "default": "'inset'",
+                "default": "'chrome'",
                 "description": "",
                 "inherited": false
             },

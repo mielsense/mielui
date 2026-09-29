@@ -1,4 +1,3 @@
-- Composer.Toolbar now sits inside the input surface by default; set `variant="chrome"` to keep it on the frame below the input.
 - Large controls are taller than medium ones, and icon buttons now match the medium button height.
 - Menus, selects, comboboxes, popovers, hover cards, date-picker panels, and chart tooltips always use a single border, regardless of the border setting.
 - Text fields, selection triggers, checkboxes, and radios are flat, with a hairline border and no embossed edge.
