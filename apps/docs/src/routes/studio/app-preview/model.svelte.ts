@@ -108,6 +108,25 @@ export class AppPreviewModel {
         }
     };
 
+    #notifyInvoice(title: string, description: string, reference: string) {
+        if (!this.#alive) {
+            return;
+        }
+        toast.success(title, {
+            description,
+            actions: [
+                {
+                    label: 'View invoice',
+                    callback: () => {
+                        if (this.#alive) {
+                            this.showInvoice(reference);
+                        }
+                    }
+                }
+            ]
+        });
+    }
+
     invoiceBadgeVariant(status: InvoiceStatus): 'success' | 'error' | 'warning' | 'secondary' {
         if (status === 'Paid') {
             return 'success';
@@ -125,7 +144,7 @@ export class AppPreviewModel {
         this.invoices = this.invoices.map((invoice) => {
             return invoice.reference === reference ? { ...invoice, status: 'Paid' } : invoice;
         });
-        this.runDashboardAction('Payment recorded', `${reference} is marked paid.`);
+        this.#notifyInvoice('Payment recorded', `${reference} is marked paid.`, reference);
     };
 
     createInvoice = (event: MouseEvent) => {
@@ -164,7 +183,7 @@ export class AppPreviewModel {
         this.studioView = 'invoices';
         this.invoiceQuery = '';
         this.invoiceStatus = 'all';
-        this.runDashboardAction('Invoice drafted', `${reference} is in the queue.`);
+        this.#notifyInvoice('Invoice drafted', `${reference} is in the queue.`, reference);
     };
 
     markNotificationRead = (id: string) => {
@@ -176,7 +195,7 @@ export class AppPreviewModel {
     copyInvoiceNumber = async (reference: string) => {
         try {
             await navigator.clipboard.writeText(reference);
-            this.runDashboardAction('Invoice number copied', reference);
+            this.#notifyInvoice('Invoice number copied', reference, reference);
         } catch {
             this.runDashboardAction(
                 'Copy unavailable',
