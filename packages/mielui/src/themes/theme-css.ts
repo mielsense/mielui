@@ -263,10 +263,7 @@ function elevationDeclarations(mode: 'light' | 'dark'): string[] {
           ];
 }
 
-function chromeBlocks(chrome: ThemeChrome | undefined): string {
-    if (!chrome) {
-        return '';
-    }
+function chromeBlocks(chrome: ThemeChrome): string {
     const masterShadows = chrome.shadows !== false;
     const surfaceShadows = masterShadows && chrome.surfaceShadows !== false;
     const controlShadows = masterShadows && chrome.controlShadows !== false;
@@ -309,16 +306,6 @@ function chromeBlocks(chrome: ThemeChrome | undefined): string {
         };`,
         ...shared
     ]);
-    const hasChromeWork =
-        !surfaceShadows ||
-        !controlShadows ||
-        !dialogShadows ||
-        chrome.travelingHighlight === false ||
-        chrome.primaryStroke === true ||
-        chrome.interactiveCursor === 'pointer';
-    if (!hasChromeWork) {
-        return '';
-    }
     return block(':root:not(.dark)', light) + block('.dark', dark);
 }
 
@@ -327,15 +314,17 @@ export function themeToCss(themeInput: Theme): string {
     const theme = parseTheme(themeInput);
     const [radiusSm, radiusMd, radiusLg, radiusXl] = RADII[theme.radius];
     const motion = MOTION[theme.motion];
-    const borderInsetScale = theme.chrome?.borders === 'single' ? 0 : 1;
+    const chrome = { ...DEFAULT_THEME.chrome, ...theme.chrome };
+    const borderInsetScale = chrome.borders === 'double' ? 1 : 0;
     const shared = [
         '--chart-1: #b8a1f2;',
-        '--chart-2: #8bc7f5;',
-        '--chart-3: #f49d9d;',
+        '--chart-2: #f49d9d;',
+        '--chart-3: #8bc7f5;',
         '--chart-4: #8ed8b0;',
         '--chart-5: #f2d77d;',
         `--mielui-border-inset-scale: ${borderInsetScale};`,
-        `--mielui-edge-highlight: ${theme.chrome?.edgeHighlight ?? 0.5};`,
+        `--mielui-edge-highlight: ${chrome.edgeHighlight ?? 0.5};`,
+        ...tokenMapDeclarations(DEFAULT_THEME.tokens?.shared),
         `--font-sans: ${theme.fontSans};`,
         `--font-mono: ${theme.fontMono};`,
         `--font-header: ${theme.fontHeader};`,
@@ -414,6 +403,6 @@ export function themeToCss(themeInput: Theme): string {
         }
     }
 
-    css += chromeBlocks(theme.chrome);
+    css += chromeBlocks(chrome);
     return css;
 }

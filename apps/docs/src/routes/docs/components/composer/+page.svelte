@@ -49,7 +49,7 @@
     <section id="usage" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Usage</Typography.H2>
         <Typography.Text variant="supporting">
-            The theme setting chrome.borders chooses "single" or "double" framing. Double is the
+            The theme setting chrome.borders chooses "single" or "double" framing. Single is the
             default. Single removes the extra frame while preserving content padding, composition,
             and inset variants.
         </Typography.Text>
@@ -75,7 +75,7 @@ async function sendPrompt(prompt: string) {
 
 <Composer.Root bind:value onSubmit={sendPrompt} onError={reportError}>
   <Composer.Header>
-    <!-- Optional: attachment chips or context above the input. -->
+    <!-- Optional: context inside the form above the input. -->
   </Composer.Header>
   <Composer.Input placeholder="Ask anything..." />
   <Composer.Toolbar>
@@ -102,8 +102,8 @@ async function sendPrompt(prompt: string) {
     <section id="glass-surface" class="flex flex-col gap-4">
         <Typography.H2>Glass surface</Typography.H2>
         <Typography.Text>
-            Set surface="glass" on Composer.Root for a frosted frame with a darker input well. Solid
-            is used unless the theme enables glass globally.
+            Set surface="glass" on Composer.Root for a frosted frame with a darker input well. Glass
+            is the default. Set surface="solid" to use an opaque frame.
         </Typography.Text>
         <ComponentPreview code={GlassSource}><Glass /></ComponentPreview>
     </section>
@@ -145,8 +145,8 @@ async function sendPrompt(prompt: string) {
                 Wrap Composer.Root in Attachment.Root so files can be dropped anywhere on the
                 composer. Place
                 <Typography.InlineCode>Attachment.List variant="chip"</Typography.InlineCode>
-                in Composer.Header to show a scrolling row of chips in the frame above the input.
-                The header collapses when it has no content.
+                above Composer.Root, inside Attachment.Root, to show a scrolling row of chips
+                outside the frame. The list disappears when there are no files.
             </Typography.Text>
             <ComponentPreview code={AttachmentsSrc}><Attachments /></ComponentPreview>
         </div>

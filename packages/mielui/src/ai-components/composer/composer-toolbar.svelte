@@ -38,7 +38,7 @@
         'flex min-w-0 flex-wrap items-center justify-between gap-2 [&_[data-variant=outline]]:rounded-full [&_[data-variant=outline]]:border-border [&_[data-variant=outline]]:shadow-none [&_[data-variant=outline]:not(:hover,[data-state=open])]:bg-transparent [&_[data-variant=outline]]:focus-visible:shadow-[var(--focus-ring)]',
         inset
             ? 'mielui-inset-surface -mt-[var(--mielui-modal-inset)] min-h-10 rounded-t-none px-3 py-2'
-            : 'min-h-11 px-2 py-1.5'
+            : 'min-h-10 px-2 py-1'
     )}
 >
     {@render children?.()}

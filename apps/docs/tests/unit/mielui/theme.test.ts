@@ -35,6 +35,52 @@ describe('themeToCss', () => {
         expect(css).toContain('.dark {');
     });
 
+    it('inherits appearance defaults when chrome and tokens are omitted', () => {
+        const css = themeToCss({ ...DEFAULT_THEME, chrome: undefined, tokens: undefined });
+
+        expect(css).toContain('--mielui-border-inset-scale: 0;');
+        expect(css).toContain('--mielui-surface: glass;');
+        expect(css).toContain('--mielui-inset-position: bottom;');
+        expect(css).toContain('--elevation-1: 0 0 0 0 transparent;');
+        expect(css).toContain('--elevation-float: 0 0 0 0 transparent;');
+        expect(css).toContain(
+            '--color-primary-stroke: color-mix(in srgb, black 14%, transparent);'
+        );
+        expect(css).toContain(
+            '--color-primary-stroke: color-mix(in srgb, white 24%, transparent);'
+        );
+        expect(css).toContain('--chart-2: #f49d9d;');
+        expect(css).toContain('--chart-3: #8bc7f5;');
+    });
+
+    it('respects explicit appearance choices and chart overrides', () => {
+        const css = themeToCss({
+            ...DEFAULT_THEME,
+            chrome: {
+                borders: 'double',
+                surfaceShadows: true,
+                primaryStroke: false
+            },
+            tokens: {
+                shared: {
+                    '--mielui-surface': 'solid',
+                    '--mielui-inset-position': 'top',
+                    '--chart-2': '#112233'
+                }
+            }
+        });
+
+        expect(css).toContain('--mielui-border-inset-scale: 1;');
+        expect(css).not.toContain('--elevation-1: 0 0 0 0 transparent;');
+        expect(css).toContain('--color-primary-stroke: transparent;');
+        expect(css.lastIndexOf('--mielui-surface: solid;')).toBeGreaterThan(
+            css.indexOf('--mielui-surface: glass;')
+        );
+        expect(css.lastIndexOf('--chart-2: #112233;')).toBeGreaterThan(
+            css.indexOf('--chart-2: #f49d9d;')
+        );
+    });
+
     it('never emits a custom property that references itself', () => {
         for (const line of css.split('\n')) {
             const declaration = line.match(/^\s*(--[\w-]+):\s*(.+);$/);

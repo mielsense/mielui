@@ -13,10 +13,13 @@
 /* Public theme contract: semantic color, type, radius, density, elevation, and motion axes. */
 @theme {
     --chart-1: #b8a1f2;
-    --chart-2: #8bc7f5;
-    --chart-3: #f49d9d;
+    --chart-2: #f49d9d;
+    --chart-3: #8bc7f5;
     --chart-4: #8ed8b0;
     --chart-5: #f2d77d;
+    --mielui-border-inset-scale: 0;
+    --mielui-surface: glass;
+    --mielui-inset-position: bottom;
 
     --font-sans: 'Inter', sans-serif;
     --font-mono: 'JetBrains Mono', monospace;
@@ -112,10 +115,8 @@
         inset 0 0 0 var(--border-size) var(--color-border), inset 0 1px 2px rgb(0 0 0 / 0.1);
     --elevation-surface-edge: inset 0 1px 0 0
         rgb(255 255 255 / calc(0.55 * var(--mielui-edge-highlight)));
-    --elevation-1: var(--elevation-surface-edge), 0 4px 2px rgb(0 0 0 / 0.04);
-    --elevation-float:
-        var(--elevation-surface-edge), 0 8px 24px -8px rgb(0 0 0 / 0.12),
-        0 2px 6px rgb(0 0 0 / 0.06);
+    --elevation-1: 0 0 0 0 transparent;
+    --elevation-float: 0 0 0 0 transparent;
     --elevation-modal:
         var(--elevation-surface-edge), 0 16px 40px -16px rgb(0 0 0 / 0.28),
         0 4px 12px -6px rgb(0 0 0 / 0.14);
@@ -175,7 +176,7 @@
     --color-primary-hover: color-mix(in srgb, var(--color-primary) 88%, white);
     --color-on-primary: #21151e;
     --color-button-foreground: var(--color-foreground);
-    --color-primary-stroke: transparent;
+    --color-primary-stroke: color-mix(in srgb, black 14%, transparent);
     --color-accent-tint: var(--mielui-blue-50);
     --color-ring: color-mix(in srgb, var(--color-primary) 80%, transparent);
     --color-overlay: rgb(0 0 0 / 0.18);
@@ -240,6 +241,7 @@
     --mielui-success: hsl(149.7 39.4% 49.2%);
     --mielui-warning: hsl(37.3 72.6% 55.7%);
     --mielui-error: hsl(0 66.7% 63.5%);
+    --color-primary-stroke: color-mix(in srgb, white 24%, transparent);
     --color-background: hsl(0 0% 4%);
     --color-card: hsl(0 0% 9%);
     --color-panel: hsl(0 0% 11.5%);
@@ -276,9 +278,8 @@
         inset 0 0 0 var(--border-size) rgb(0 0 0 / 0.35), inset 0 1px 2px rgb(0 0 0 / 0.3);
     --elevation-surface-edge: inset 0 1px 0 0
         rgb(255 255 255 / calc(0.07 * var(--mielui-edge-highlight)));
-    --elevation-1: var(--elevation-surface-edge), 0 1px 2px rgb(0 0 0 / 0.4);
-    --elevation-float:
-        var(--elevation-surface-edge), 0 12px 32px -8px rgb(0 0 0 / 0.6), 0 2px 8px rgb(0 0 0 / 0.4);
+    --elevation-1: 0 0 0 0 transparent;
+    --elevation-float: 0 0 0 0 transparent;
     --elevation-modal:
         var(--elevation-surface-edge), 0 24px 56px -16px rgb(0 0 0 / 0.7),
         0 6px 16px -6px rgb(0 0 0 / 0.5);

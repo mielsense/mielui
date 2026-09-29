@@ -14,3 +14,6 @@
 - Add Composer.Header for content above the input, and a chip variant for Attachment.List and Attachment.Item that shows files as compact pills with file-type icons or image thumbnails.
 - Add FolderCard, a folder-shaped card with a tinted or image cover, a title tab, an index, and an animated file count.
 - Add `surface` to Drawer.Content, with the shared frame kept flush on the edge the drawer opens from.
+
+- Default to single borders, bottom inset strips, glass surfaces, half-strength edge highlights, and primary button borders, with surface shadows off and control and dialog shadows on.
+- Place pink in the default Chart 2 slot and blue in Chart 3.

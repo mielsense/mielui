@@ -3,6 +3,12 @@ import { afterEach, describe, expect, it } from 'vitest';
 
 const PARITY_PROPERTIES = [
     '--mielui-edge-highlight',
+    '--mielui-border-inset-scale',
+    '--mielui-surface',
+    '--mielui-inset-position',
+    '--color-primary-stroke',
+    '--chart-2',
+    '--chart-3',
     '--elevation-control-edge',
     '--elevation-surface-edge',
     '--elevation-control',
@@ -104,7 +110,12 @@ it('scales light-catching edges in both modes without changing cast shadows or f
                 document.querySelectorAll('[data-test-theme]').forEach((node) => {
                     node.remove();
                 });
-                install(themeToCss({ ...DEFAULT_THEME, chrome: { edgeHighlight } }));
+                install(
+                    themeToCss({
+                        ...DEFAULT_THEME,
+                        chrome: { edgeHighlight, surfaceShadows: true }
+                    })
+                );
                 const root = getComputedStyle(document.documentElement);
                 return {
                     shadow: getComputedStyle(probe).boxShadow,

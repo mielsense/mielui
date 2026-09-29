@@ -78,3 +78,8 @@
 
 - Restore the Composer action strip below the input and shorten the initial input height while retaining automatic growth.
 - Add subtle raised edges and contact shadows to documentation section title badges.
+
+- Float Composer attachment chips above the frame and slim the bottom action strip.
+- Let the Studio AI conversation use the full preview width while keeping the composer centered.
+
+- Compact the Popover sharing example with inline invitation controls and clearer member access.

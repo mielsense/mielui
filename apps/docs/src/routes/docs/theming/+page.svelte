@@ -185,7 +185,7 @@ src/lib/mielui/components/button/
         <Typography.H2 class="docs-section-heading">Global glass surfaces</Typography.H2>
         <Typography.Text variant="body" class="m-0">
             <InlineText
-                text='Enable Glass surfaces under Appearance in Studio, or set `--mielui-surface: glass` on `:root`. Components with surface support inherit that choice when the prop is omitted. Set `surface="solid"` or `surface="glass"` on one component to override the theme. Put the variable on `:root` so portaled menus and dialogs inherit it too.'
+                text='Glass surfaces are enabled by default. Disable them under Appearance in Studio, or set `--mielui-surface: solid` on `:root`. Components with surface support inherit that choice when the prop is omitted. Set `surface="solid"` or `surface="glass"` on one component to override the theme. Put the variable on `:root` so portaled menus and dialogs inherit it too.'
             />
         </Typography.Text>
         <CodeBlock
@@ -347,7 +347,7 @@ src/lib/mielui/components/button/
         <Typography.H2 class="docs-section-heading">Borders</Typography.H2>
         <Typography.Text variant="body" class="m-0">
             <InlineText
-                text='Set `chrome.borders` to `"single"` for one perimeter border on framed surfaces, or `"double"` for the inset frame. The default is `"double"`, including themes saved before this option existed. Studio exposes this choice under Appearance.'
+                text='Set `chrome.borders` to `"single"` for one perimeter border on framed surfaces, or `"double"` for the inset frame. The default is `"single"`. Explicit saved settings remain respected. Studio exposes this choice under Appearance.'
             />
         </Typography.Text>
         <CodeBlock
@@ -384,8 +384,8 @@ const css = themeToCss(theme);`}
             lang="css"
             code={`:root {
   --chart-1: #b8a1f2;
-  --chart-2: #8bc7f5;
-  --chart-3: #f49d9d;
+  --chart-2: #f49d9d;
+  --chart-3: #8bc7f5;
   --chart-4: #8ed8b0;
   --chart-5: #f2d77d;
 }`}

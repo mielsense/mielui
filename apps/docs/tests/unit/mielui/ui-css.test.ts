@@ -42,7 +42,12 @@ describe('ui.css typography tokens', () => {
         expect(css).toContain('--font-size-title: 20px;');
         expect(css).toContain('--leading-body: 1.5;');
         expect(css).toContain('--color-error-soft:');
-        expect(css).toContain('--color-primary-stroke: transparent;');
+        expect(css).toContain(
+            '--color-primary-stroke: color-mix(in srgb, black 14%, transparent);'
+        );
+        expect(css).toContain(
+            '--color-primary-stroke: color-mix(in srgb, white 24%, transparent);'
+        );
         expect(css).toContain('--ui-cursor-interactive: default;');
         expect(css).toContain('--text-sm: var(--font-size-body);');
         expect(css).toContain('--motion-duration-press: 160ms;');

@@ -7,11 +7,15 @@
     import Basic from './examples/basic.svelte';
     import BasicSrc from './examples/basic.svelte?raw';
     import Glass from './examples/glass.svelte';
-    import GlassSrc from './examples/glass.svelte?raw';
     import Hero from './examples/hero.svelte';
     import HeroSrc from './examples/hero.svelte?raw';
     import Placements from './examples/placements.svelte';
     import PlacementsSrc from './examples/placements.svelte?raw';
+
+    const GlassSrc = HeroSrc.replace(
+        "let { surface }: { surface?: 'solid' | 'glass' } = $props();",
+        "const surface = 'glass';"
+    );
 
     const installCommand = 'pnpm dlx @mielui/svelte add popover';
 </script>
@@ -44,7 +48,7 @@
     <section id="usage" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Usage</Typography.H2>
         <Typography.Text variant="supporting">
-            The theme setting chrome.borders chooses "single" or "double" framing. Double is the
+            The theme setting chrome.borders chooses "single" or "double" framing. Single is the
             default. Single removes the extra frame while preserving content padding, composition,
             and inset variants.
         </Typography.Text>

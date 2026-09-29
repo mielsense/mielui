@@ -29,12 +29,9 @@
 </script>
 
 <div class="flex w-full max-w-2xl flex-col gap-3">
-    <Attachment.Root bind:files>
+    <Attachment.Root bind:files class="flex flex-col gap-2">
+        <Attachment.List variant="chip" class="overflow-x-auto" />
         <Composer.Root bind:value onSubmit={send}>
-            <Composer.Header>
-                <Attachment.List variant="chip" />
-            </Composer.Header>
-
             <Composer.Input
                 aria-label="Prompt"
                 placeholder="Add instructions for the attached files..."

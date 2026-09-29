@@ -252,7 +252,7 @@ the changelog; do not leave the next agent to infer them from one example.
 
 ## Borders
 
-`chrome.borders` accepts `double` or `single` and defaults to `double`. It applies
+`chrome.borders` accepts `double` or `single` and defaults to `single`. It applies
 to inset layouts: dialogs, sheets, drawers, toasts, Notch, code blocks, diffs,
 inset tables, inset and panel cards, alerts, and composers. Menus, selects,
 comboboxes, popovers, hover cards, date-picker panels, and chart tooltips are
@@ -438,9 +438,10 @@ foreground edge under its floating elevation.
 
 File and context chips are flat pills at the small control height: a hairline
 border on the card fill, a 20px leading icon or image thumbnail, a truncated
-label, and a compact circular remove button. They carry no shadow. Put chips in
-Composer.Header, inside the frame chrome above the input, instead of adding a
-separate row outside the composer. Toolbar
+label, and a compact circular remove button. They carry no shadow. Put attachment
+chips in a compact scrolling row above Composer.Root, inside the same Attachment.Root.
+Leave a small gap above the frame; keep files outside the writing surface and action
+strip. Composer.Header remains available for optional context inside the form. Toolbar
 keys use the outline within their elevation token without adding a second border.
 Keep the original compact control size. Raised keys have a directional top edge
 and a short contact shadow; pressed keys trade that shadow for an inward top shade.
@@ -523,3 +524,9 @@ Page navigation uses a brief 240ms pixel reveal using large, scattered square ti
 Documentation error pages use a single centered recovery message inside the shared page frame. Keep navigation available, show the status beside the message, and omit page copying, pagination, table of contents, and empty column rules until content loads successfully.
 
 Menu rows and their traveling highlight share a corner radius capped at `--radius-md` and bounded by the panel radius minus its border and row inset. Short rows must not become pill-shaped inside the larger menu frame.
+
+The default appearance uses single borders, bottom inset strips, glass surfaces,
+half-strength edge highlights, and a primary button border. Cards and menus have
+no surface shadows; control and dialog shadows remain enabled. Explicit theme
+settings and per-component surface choices override these defaults. The default
+chart palette places pink in Chart 2 and blue in Chart 3.

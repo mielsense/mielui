@@ -1,4 +1,5 @@
 import { DEFAULT_THEME, type Theme } from '@mielui/svelte/themes/theme';
+import { readThemeAppearance } from './appearance';
 import {
     type AdvancedTokens,
     type BrandColors,
@@ -7,7 +8,6 @@ import {
     emptyAdvancedTokens,
     type FontWeight,
     type FoundationColors,
-    type InteractiveCursor,
     type RoleWeights
 } from './config';
 
@@ -42,17 +42,8 @@ export function createThemeEditorState() {
             light: DEFAULT_THEME.brand,
             dark: DEFAULT_THEME.brand
         } as BrandColors,
-        borders: 'double' as NonNullable<NonNullable<Theme['chrome']>['borders']>,
-        insetPosition: 'bottom' as 'top' | 'bottom',
-        edgeHighlight: 0.5,
-        rememberedEdgeHighlight: 0.5,
-        surfaceShadows: true,
-        controlShadows: true,
-        dialogShadows: true,
-        glassSurfaces: false,
-        travelingHighlight: true,
-        primaryStroke: false,
-        interactiveCursor: 'default' as InteractiveCursor,
+        ...readThemeAppearance(DEFAULT_THEME),
+        rememberedEdgeHighlight: DEFAULT_THEME.chrome?.edgeHighlight ?? 0.5,
         colorsModalOpen: false,
         spacingModalOpen: false,
         animationModalOpen: false,

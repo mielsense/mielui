@@ -143,7 +143,7 @@
     <section id="overlay-borders" class="flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Borders</Typography.H2>
         <Typography.Text variant="supporting">
-            Set chrome.borders to "single" or "double" in your theme. Double is the default. This
+            Set chrome.borders to "single" or "double" in your theme. Single is the default. This
             example overrides the generated inset token locally so you can compare both styles.
         </Typography.Text>
         <ComponentPreview code={OverlayBordersSrc}><OverlayBorders /></ComponentPreview>

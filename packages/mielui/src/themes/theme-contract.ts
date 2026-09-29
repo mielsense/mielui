@@ -119,5 +119,19 @@ export const DEFAULT_THEME: Theme = {
     motion: 'default',
     fontSans: "'Inter', sans-serif",
     fontMono: "'JetBrains Mono', monospace",
-    fontHeader: 'var(--font-sans)'
+    fontHeader: 'var(--font-sans)',
+    chrome: {
+        borders: 'single',
+        edgeHighlight: 0.5,
+        surfaceShadows: false,
+        controlShadows: true,
+        dialogShadows: true,
+        primaryStroke: true
+    },
+    tokens: {
+        shared: {
+            '--mielui-surface': 'glass',
+            '--mielui-inset-position': 'bottom'
+        }
+    }
 };

@@ -167,7 +167,7 @@
     <Conversation.Root class="min-h-0 flex-1">
         <Conversation.Content
             aria-label="Release planning conversation"
-            transcriptClass="max-w-[calc(var(--container-2xl)+var(--spacing)*12)] gap-8 px-6 pt-6 pb-[calc(var(--composer-height)+2rem)] sm:px-6"
+            transcriptClass="max-w-none gap-8 px-6 pt-6 pb-[calc(var(--composer-height)+2rem)] sm:px-6"
             style={`--composer-height: ${composerHeight}px`}
         >
             <Message.Root from="user">
@@ -179,7 +179,7 @@
                 </Message.Content>
             </Message.Root>
             <Message.Root from="assistant">
-                <Message.Content class="space-y-5">
+                <Message.Content class="max-w-none space-y-5">
                     <Reasoning.Root>
                         <Reasoning.Trigger title="Reviewed the release scope" duration="2s" />
                         <Reasoning.Content>
@@ -234,25 +234,25 @@
             maxFiles={3}
             maxSize={5 * 1024 * 1024}
             onReject={(items) => {
-            rejected = items;
-        }}
-            class="pointer-events-auto mx-auto w-full max-w-2xl"
+                rejected = items;
+            }}
+            class="pointer-events-auto mx-auto flex w-full min-w-0 max-w-2xl flex-col gap-2"
         >
+            <div class="flex min-w-0 items-center gap-2 overflow-x-auto empty:hidden">
+                <Attachment.List variant="chip" />
+                {#each rejected as item}
+                    <Attachment.Item
+                        file={item.file}
+                        variant="chip"
+                        status="error"
+                        error={item.reason}
+                        onRemove={() => {
+                            rejected = rejected.filter((entry) => entry !== item);
+                        }}
+                    />
+                {/each}
+            </div>
             <Composer.Root bind:value={prompt} {generating} onSubmit={send} onStop={stop}>
-                <Composer.Header>
-                    <Attachment.List variant="chip" />
-                    {#each rejected as item}
-                        <Attachment.Item
-                            file={item.file}
-                            variant="chip"
-                            status="error"
-                            error={item.reason}
-                            onRemove={() => {
-                                rejected = rejected.filter((entry) => entry !== item);
-                            }}
-                        />
-                    {/each}
-                </Composer.Header>
                 <Composer.Input aria-label="Preview message" placeholder="Ask about the release…" />
                 <Composer.Toolbar>
                     <Composer.Actions>

@@ -249,11 +249,9 @@
         />
     </div>
 {:else if slug === 'composer'}
-    <Attachment.Root files={[...files]} class="flex w-full max-w-72 flex-col">
+    <Attachment.Root files={[...files]} class="flex w-full max-w-72 flex-col gap-2">
+        <Attachment.List variant="chip" class="overflow-x-auto" />
         <Composer.Root bind:value={prompt} onSubmit={submitPrompt}>
-            <Composer.Header>
-                <Attachment.List variant="chip" />
-            </Composer.Header>
             <Composer.Input aria-label="Prompt" placeholder="Ask the agent…" class="min-h-10" />
             <Composer.Toolbar>
                 <Composer.Actions>

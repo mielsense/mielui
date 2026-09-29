@@ -102,7 +102,7 @@ function handleReject(rejections: AttachmentRejection[]) {
                 on List or Item for a compact pill with a file-type icon or image thumbnail, the
                 name, and a remove button. A spinner replaces the icon while uploading, and errors
                 add a red edge. Progress and status text stay available to assistive technology. Use
-                chips in Composer.Header.
+                chips above Composer.Root inside the shared Attachment.Root.
             </Typography.Text>
             <ComponentPreview code={ChipStatusSrc}><ChipStatus /></ComponentPreview>
         </div>

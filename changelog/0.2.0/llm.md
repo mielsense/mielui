@@ -1,11 +1,11 @@
 ## Borders
 
-Themes accept `chrome.borders: 'single' | 'double'`. Omitted values retain the
-existing double frame. Theme parsing preserves the setting and rejects unsupported
+Themes accept `chrome.borders: 'single' | 'double'`. Omitted values use the
+single frame. Theme parsing preserves the setting and rejects unsupported
 values. Studio saves and exports it under Appearance as Borders.
 
 All double-frame surfaces honor `--mielui-border-inset-scale`, which defaults to
-one without generated theme CSS. Single sets the scale to zero; double sets it
+zero without generated theme CSS. Single sets the scale to zero; double sets it
 to one. This includes cards, dialogs, sheets, drawers, toasts, Notch, code blocks,
 diffs, inset tables, and composers. Small floating panels and chart tooltips
 remain single-border regardless of the theme setting. Shared modal and inset frames
@@ -94,14 +94,15 @@ helper, reduced-transparency fallback, and single-border geometry.
 
 Attach files to a composer by wrapping `Composer.Root` in `Attachment.Root`,
 so dropping anywhere on the composer adds files. Put
-`<Attachment.List variant="chip" />` inside `Composer.Header`, which sits in
-the frame chrome above `Composer.Input`. The header scrolls horizontally and
-collapses when it renders nothing, so leave it in place when no files are
-selected. Do not put a card-variant list in the header, and do not build a
-local chip: `Attachment.Item variant="chip"` handles image thumbnails,
-file-type icons, upload spinners, error edges, and screen-reader status.
-Pair the header with `Composer.Toolbar` to keep the actions on the frame below
-the input. Use `variant="inset"` only when the actions should share the input surface.
+`<Attachment.List variant="chip" />` before `Composer.Root`, within the same
+`Attachment.Root`, with a small gap above the frame. The list hides when empty.
+Keep attachments outside the writing surface and bottom action strip. Use the
+shared chip rather than a local replacement: `Attachment.Item variant="chip"`
+handles image thumbnails, file-type icons, upload spinners, error edges, and
+screen-reader status. `Composer.Header` remains an optional slot for context
+inside the form; it requires Composer.Root context and cannot be moved outside it.
+Use `Composer.Toolbar` for actions on the frame below the input, or
+`variant="inset"` when actions should share the input surface.
 
 Tooltips no longer share the overlay glass fill. They keep the
 `--color-tooltip` and `--color-tooltip-foreground` pair in glass mode, made
@@ -212,3 +213,15 @@ are hairline pills by default; change the radius with `class`.
 ### Menu highlight geometry
 
 Menu items and traveling highlights use the same shared radius, capped at the medium radius and bounded by the outer panel radius after its border and row inset. Keep both on the shared stylesheet contract; do not apply a rounded-full utility to ordinary rows or create a separate highlight radius.
+
+## Default appearance
+
+The baked stylesheet, DEFAULT_THEME, generated CSS, and Studio now share the
+same defaults: single borders, bottom inset strips, glass surfaces, edge highlight
+0.5, primary button stroke enabled, surface shadows disabled, and control/dialog
+shadows enabled. Omitted chrome fields inherit these defaults individually;
+explicit false values, saved settings, and raw surface/inset tokens still apply.
+To retain the previous treatment, explicitly choose double borders, solid surfaces,
+surface shadows enabled, and primaryStroke false. The legacy master shadows false
+still disables every shadow category. Chart 2 now defaults to pink #f49d9d and
+Chart 3 to blue #8bc7f5; explicit chart token overrides keep their colors.

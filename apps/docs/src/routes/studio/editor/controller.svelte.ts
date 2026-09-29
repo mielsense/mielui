@@ -5,6 +5,7 @@ import { applyLiveThemeCss, loadStudioTheme, saveStudioTheme } from '@mielui/sve
 import { type Theme, themeToCss } from '@mielui/svelte/themes/theme';
 import { mode, setMode } from 'mode-watcher';
 import { onDestroy, onMount } from 'svelte';
+import { readThemeAppearance } from './appearance';
 import {
     brandTokens,
     cleanTokens,
@@ -91,6 +92,8 @@ export function createThemeEditor() {
         ).length
     );
 
+    const baseAppearance = $derived(readThemeAppearance(state.baseTheme));
+
     const changedAxisCount = $derived(
         themeAxes.filter((axis) => state.theme[axis] !== state.baseTheme[axis]).length +
             (state.brandColors.light !==
@@ -104,38 +107,16 @@ export function createThemeEditor() {
             (state.headerSize === (state.baseTheme.typography?.headerSize ?? 16) ? 0 : 1) +
             (state.headerWeight === (state.baseTheme.typography?.headerWeight ?? '600') ? 0 : 1) +
             roleWeightChanges +
-            (state.borders === (state.baseTheme.chrome?.borders ?? 'double') ? 0 : 1) +
-            (state.insetPosition ===
-            (state.baseTheme.tokens?.shared?.['--mielui-inset-position'] ?? 'bottom')
-                ? 0
-                : 1) +
-            (state.edgeHighlight === (state.baseTheme.chrome?.edgeHighlight ?? 0.5) ? 0 : 1) +
-            (state.surfaceShadows ===
-            (state.baseTheme.chrome?.shadows !== false &&
-                state.baseTheme.chrome?.surfaceShadows !== false)
-                ? 0
-                : 1) +
-            (state.controlShadows ===
-            (state.baseTheme.chrome?.shadows !== false &&
-                state.baseTheme.chrome?.controlShadows !== false)
-                ? 0
-                : 1) +
-            (state.dialogShadows ===
-            (state.baseTheme.chrome?.shadows !== false &&
-                state.baseTheme.chrome?.dialogShadows !== false)
-                ? 0
-                : 1) +
-            (state.travelingHighlight === (state.baseTheme.chrome?.travelingHighlight !== false)
-                ? 0
-                : 1) +
-            (state.primaryStroke === (state.baseTheme.chrome?.primaryStroke ?? false) ? 0 : 1) +
-            (state.glassSurfaces ===
-            (state.baseTheme.tokens?.shared?.['--mielui-surface'] === 'glass')
-                ? 0
-                : 1) +
-            (state.interactiveCursor === (state.baseTheme.chrome?.interactiveCursor ?? 'default')
-                ? 0
-                : 1)
+            (state.borders === baseAppearance.borders ? 0 : 1) +
+            (state.insetPosition === baseAppearance.insetPosition ? 0 : 1) +
+            (state.edgeHighlight === baseAppearance.edgeHighlight ? 0 : 1) +
+            (state.surfaceShadows === baseAppearance.surfaceShadows ? 0 : 1) +
+            (state.controlShadows === baseAppearance.controlShadows ? 0 : 1) +
+            (state.dialogShadows === baseAppearance.dialogShadows ? 0 : 1) +
+            (state.travelingHighlight === baseAppearance.travelingHighlight ? 0 : 1) +
+            (state.primaryStroke === baseAppearance.primaryStroke ? 0 : 1) +
+            (state.glassSurfaces === baseAppearance.glassSurfaces ? 0 : 1) +
+            (state.interactiveCursor === baseAppearance.interactiveCursor ? 0 : 1)
     );
 
     const dirty = $derived(changedAxisCount > 0);
@@ -226,20 +207,8 @@ export function createThemeEditor() {
             light: preset.tokens?.light?.['--color-primary'] ?? preset.brand,
             dark: preset.tokens?.dark?.['--color-primary'] ?? preset.brand
         };
-        state.borders = preset.chrome?.borders ?? 'double';
-        state.insetPosition =
-            preset.tokens?.shared?.['--mielui-inset-position'] === 'top' ? 'top' : 'bottom';
-        state.edgeHighlight = preset.chrome?.edgeHighlight ?? 0.5;
-        state.surfaceShadows =
-            preset.chrome?.shadows !== false && preset.chrome?.surfaceShadows !== false;
-        state.controlShadows =
-            preset.chrome?.shadows !== false && preset.chrome?.controlShadows !== false;
-        state.dialogShadows =
-            preset.chrome?.shadows !== false && preset.chrome?.dialogShadows !== false;
-        state.glassSurfaces = preset.tokens?.shared?.['--mielui-surface'] === 'glass';
-        state.travelingHighlight = preset.chrome?.travelingHighlight !== false;
-        state.primaryStroke = preset.chrome?.primaryStroke ?? false;
-        state.interactiveCursor = preset.chrome?.interactiveCursor ?? 'default';
+        Object.assign(state, readThemeAppearance(preset));
+        state.rememberedEdgeHighlight = state.edgeHighlight || 0.5;
         syncFontSelections(state.theme);
     }
 
@@ -295,12 +264,8 @@ export function createThemeEditor() {
         const storedTheme = loadStudioTheme();
         if (storedTheme) {
             state.theme = { ...storedTheme };
-            state.borders = storedTheme.chrome?.borders ?? 'double';
-            state.insetPosition =
-                storedTheme.tokens?.shared?.['--mielui-inset-position'] === 'top'
-                    ? 'top'
-                    : 'bottom';
-            state.edgeHighlight = storedTheme.chrome?.edgeHighlight ?? 0.5;
+            Object.assign(state, readThemeAppearance(storedTheme));
+            state.rememberedEdgeHighlight = state.edgeHighlight || 0.5;
             syncFontSelections(state.theme);
         }
         storage.load();

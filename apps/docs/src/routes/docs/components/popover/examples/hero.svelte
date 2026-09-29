@@ -3,6 +3,8 @@
     import { Input } from '@mielui/svelte/components/input';
     import * as Popover from '@mielui/svelte/components/popover';
 
+    let { surface }: { surface?: 'solid' | 'glass' } = $props();
+
     let email = $state('');
     let members = $state(['alex@example.com']);
     let message = $state('');
@@ -32,32 +34,48 @@
 </script>
 
 <Popover.Root placement="bottom">
-    <Popover.Trigger variant="secondary">Share project</Popover.Trigger>
-    <Popover.Content class="w-80 max-w-[calc(100vw-var(--spacing)*8)]">
-        <div class="flex flex-col gap-4">
-            <div>
-                <Popover.Title class="text-sm font-medium">Project access</Popover.Title>
-                <p class="mt-1 text-xs text-foreground-muted">
-                    Invite someone to the local preview.
-                </p>
+    <Popover.Trigger variant="outline">Share project</Popover.Trigger>
+    <Popover.Content {surface} class="w-80 max-w-[calc(100vw-var(--spacing)*8)]">
+        <div class="flex flex-col gap-3">
+            <div class="space-y-1">
+                <Popover.Title class="text-sm font-medium">Share project</Popover.Title>
+                <p class="text-xs text-foreground-muted">Try inviting a teammate in this demo.</p>
             </div>
-            <form onsubmit={invite} class="flex flex-col gap-3">
+            <form onsubmit={invite} class="flex min-w-0 items-center gap-2">
                 <Input
-                    label="Email address"
+                    aria-label="Email address"
                     type="email"
                     required
                     bind:value={email}
-                    placeholder="sam@example.com"
+                    placeholder="Email address"
+                    class="min-w-0 flex-1"
                 />
-                <Button type="submit">Invite</Button>
+                <Button type="submit" class="shrink-0">Invite</Button>
             </form>
-            <ul class="divide-y divide-border text-sm">
+            <ul
+                class="flex max-h-40 flex-col gap-2 overflow-y-auto"
+                aria-label="People with access"
+            >
                 {#each members as member (member)}
-                    <li class="truncate py-2">{member}</li>
+                    <li class="flex min-w-0 items-center gap-2">
+                        <span
+                            class="flex size-7 shrink-0 items-center justify-center rounded-full bg-secondary text-xs font-medium"
+                            aria-hidden="true"
+                        >
+                            {member.slice(0, 1).toUpperCase()}
+                        </span>
+                        <span class="min-w-0 flex-1 truncate text-xs">{member}</span>
+                        <span class="shrink-0 text-xs text-foreground-muted">
+                            {member === members[0] ? 'Owner' : 'Member'}
+                        </span>
+                    </li>
                 {/each}
             </ul>
-            <Button variant="secondary" onclick={copyLink}>Copy documentation link</Button>
-            <p role="status" class="text-xs text-foreground-muted">{message}</p>
+            <div class="flex items-center justify-between gap-2 border-t border-border pt-2">
+                <span class="text-xs text-foreground-muted">Documentation</span>
+                <Button variant="ghost" size="sm" onclick={copyLink}>Copy link</Button>
+            </div>
+            <p role="status" class="text-xs text-foreground-muted empty:hidden">{message}</p>
         </div>
     </Popover.Content>
 </Popover.Root>
