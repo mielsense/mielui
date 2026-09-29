@@ -34,7 +34,7 @@
             <Button
                 variant="outline"
                 size="icon"
-                class="size-[var(--size-control-md)] shrink-0 rounded-s-none border-s-0 text-foreground-muted"
+                class="shrink-0 rounded-s-none border-s-0 text-foreground-muted"
                 onclick={onClick}
                 aria-label={label}
             >
@@ -62,7 +62,7 @@
                 }
             }
             }
-            class="flex w-full gap-1.5"
+            class="flex w-full gap-0.5 rounded-[var(--radius-lg)] border-[length:var(--border-size)] border-[var(--color-input)] bg-card p-[calc((var(--size-control-md)-var(--size-hairline)-var(--size-control-sm))/2-var(--border-size))]"
         >
             {#each values as option (option)}
                 <ToggleGroup.Item
@@ -72,7 +72,7 @@
                             event.preventDefault();
                         }
                     }}
-                    class="min-w-0 flex-1 border border-border bg-background shadow-[var(--elevation-control-edge)] data-[state=on]:border-border-strong data-[state=on]:bg-secondary"
+                    class="h-[var(--size-control-sm)] min-w-0 flex-1 rounded-[calc(var(--radius-lg)-(var(--size-control-md)-var(--size-hairline)-var(--size-control-sm))/2)]"
                 >
                     {formatChoice(option)}
                 </ToggleGroup.Item>
@@ -92,11 +92,7 @@
         <Typography.Metadata>{label}</Typography.Metadata>
         <Group.Root class="w-full" aria-label={label}>
             <Select.Root {value} onValueChange={onChange}>
-                <Select.Trigger
-                    class="h-[var(--size-control-md)] min-w-0 flex-1"
-                    variant="outline"
-                    aria-label={label}
-                >
+                <Select.Trigger class="min-w-0 flex-1" variant="outline" aria-label={label}>
                     <span class="truncate">{formatChoice(value)}</span>
                 </Select.Trigger>
                 <Select.Content class="min-w-[max(16rem,var(--popover-trigger-width))]">
@@ -124,7 +120,7 @@
         onChange: (value: FontWeight) => void
     )}
     <div class="flex items-center gap-2" role="group" aria-label={`${label} weight`}>
-        <span class="w-[76px] shrink-0 text-[13px] font-medium text-foreground-muted">{label}</span>
+        <Typography.Metadata class="w-20 shrink-0">{label}</Typography.Metadata>
         <div class="min-w-0 flex-1">
             {@render toggleChoice(fontWeights, value, `${label} weight`, (next) => {
                 if (next === '400' || next === '500' || next === '600' || next === '700') {
@@ -145,9 +141,9 @@
     onChange: (value: string) => void
 )}
     <div class="flex min-w-0 flex-col gap-2" role="group" aria-label={`${label} color`}>
-        <span class="text-[13px] font-medium text-foreground-muted">{label}</span>
+        <Typography.Metadata>{label}</Typography.Metadata>
         <ColorPicker.Root {value} onValueChange={onChange} {options}>
-            <ColorPicker.Trigger class="h-[34px] w-full" />
+            <ColorPicker.Trigger class="w-full" />
             <ColorPicker.Content />
         </ColorPicker.Root>
     </div>
@@ -155,9 +151,9 @@
 
 {#snippet advancedColorField(label: string, value: string, onChange: (value: string) => void)}
     <div class="flex min-w-0 flex-col gap-2" role="group" aria-label={`${label} color`}>
-        <span class="text-[13px] font-medium text-foreground-muted">{label}</span>
+        <Typography.Metadata>{label}</Typography.Metadata>
         <ColorPicker.Root {value} onValueChange={onChange}>
-            <ColorPicker.Trigger class="h-[34px] w-full" />
+            <ColorPicker.Trigger class="w-full" />
             <ColorPicker.Content />
         </ColorPicker.Root>
     </div>
@@ -174,7 +170,7 @@
 )}
     <div class="flex min-w-0 flex-col gap-2">
         <div class="flex items-baseline justify-between gap-2">
-            <span class="text-[13px] font-medium text-foreground-muted">{label}</span>
+            <Typography.Metadata>{label}</Typography.Metadata>
             <span
                 class="font-mono text-xs tabular-nums text-foreground-muted"
                 use:numberShuffle={{ value: Number.parseFloat(display), format: (next) => display.replace(/^-?\d+(?:\.\d+)?/, String(next)) }}
@@ -188,13 +184,9 @@
 
 {#snippet easeTokenField(label: string, value: string, onChange: (value: string) => void)}
     <div class="flex min-w-0 flex-col gap-2">
-        <span class="text-[13px] font-medium text-foreground-muted">{label}</span>
+        <Typography.Metadata>{label}</Typography.Metadata>
         <Select.Root {value} onValueChange={onChange}>
-            <Select.Trigger
-                class="h-[34px] min-w-0 px-[9px] text-[13px]"
-                variant="outline"
-                aria-label={label}
-            >
+            <Select.Trigger class="min-w-0" variant="outline" aria-label={label}>
                 <span class="truncate">
                     {easingOptions.find((option) => option.value === value)?.label ?? 'Custom'}
                 </span>

@@ -10,6 +10,8 @@
     }: BreadcrumbProps = $props();
 </script>
 
-<nav aria-label={ariaLabel} {...rest} class={cn(className, 'flex flex-row items-center gap-2')}>
-    {@render children?.()}
+<nav aria-label={ariaLabel} {...rest} class="min-w-0">
+    <ol class={cn(className, 'flex min-w-0 flex-row items-center gap-2')}>
+        {@render children?.()}
+    </ol>
 </nav>

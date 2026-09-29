@@ -25,9 +25,10 @@
         <button
             type="button"
             {...props}
+            data-state={undefined}
             use:pressable
             data-ui="drawer-close"
-            class={cn(className, button({ variant: 'secondary', size: 'md' }))}
+            class={cn(className, button({ variant: 'ghost', size: 'md' }))}
         >
             {@render children?.()}
         </button>

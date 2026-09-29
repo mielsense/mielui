@@ -30,10 +30,8 @@
             </p>
             <Tabs.Root bind:value={editor.appModeBinding.value} variant="ghost">
                 <Tabs.List>
-                    <Tabs.Trigger value="light" class="min-h-7 px-2 py-0 text-xs">
-                        Light
-                    </Tabs.Trigger>
-                    <Tabs.Trigger value="dark" class="min-h-7 px-2 py-0 text-xs">Dark</Tabs.Trigger>
+                    <Tabs.Trigger value="light">Light</Tabs.Trigger>
+                    <Tabs.Trigger value="dark">Dark</Tabs.Trigger>
                 </Tabs.List>
             </Tabs.Root>
         </div>
@@ -41,7 +39,7 @@
             <div class="flex flex-col gap-5 pb-2">
                 {#each colorTokenGroups as group (group.label)}
                     <div class="flex flex-col gap-3">
-                        <h3 class="text-sm font-semibold tracking-[-0.015em]">
+                        <h3 class="text-sm font-semibold">
                             {group.label}
                         </h3>
                         <div class="grid grid-cols-1 gap-3 sm:grid-cols-2 md:grid-cols-3">
@@ -77,7 +75,7 @@
             <div class="flex flex-col gap-5 pb-2">
                 {#each spacingTokenGroups as group (group.label)}
                     <div class="flex flex-col gap-3">
-                        <h3 class="text-sm font-semibold tracking-[-0.015em]">
+                        <h3 class="text-sm font-semibold">
                             {group.label}
                         </h3>
                         <div class="grid grid-cols-1 gap-3 sm:grid-cols-2 md:grid-cols-3">
@@ -117,7 +115,7 @@
             <div class="flex flex-col gap-5 pb-2">
                 {#each animationTokenGroups as group (group.label)}
                     <div class="flex flex-col gap-3">
-                        <h3 class="text-sm font-semibold tracking-[-0.015em]">
+                        <h3 class="text-sm font-semibold">
                             {group.label}
                         </h3>
                         <div class="grid grid-cols-1 gap-3 sm:grid-cols-2 md:grid-cols-3">

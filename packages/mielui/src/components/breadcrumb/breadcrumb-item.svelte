@@ -11,14 +11,19 @@
     }: BreadcrumbItemProps = $props();
 </script>
 
-<a
-    {...rest}
-    {href}
-    aria-current={current ? 'page' : undefined}
-    class={cn(
-        className,
-        `${current ? 'text-foreground [font-size:var(--font-size-body)] [font-weight:var(--font-weight-header)] [letter-spacing:var(--tracking-body)]' : 'text-foreground-muted hover:text-foreground [transition-duration:var(--motion-duration-panel)]'} [font-size:var(--font-size-body)]`
-    )}
->
-    {@render children?.()}
-</a>
+<li class="flex min-w-0 items-center">
+    <a
+        {...rest}
+        {href}
+        aria-current={current ? 'page' : undefined}
+        class={cn(
+            className,
+            'rounded-[var(--radius-sm)] [font-size:var(--font-size-body)] outline-none transition-colors [transition-duration:var(--motion-duration-hover)] focus-visible:shadow-[var(--focus-ring)]',
+            current
+                ? 'text-foreground [font-weight:var(--font-weight-header)] [letter-spacing:var(--tracking-body)]'
+                : 'text-foreground-muted hover:text-foreground'
+        )}
+    >
+        {@render children?.()}
+    </a>
+</li>

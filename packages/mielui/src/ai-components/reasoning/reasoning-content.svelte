@@ -56,7 +56,7 @@
         onintroend={handleIntroEnd}
         onoutrostart={handleOutroStart}
         onoutroend={handleOutroEnd}
-        class={cn(className, 'mt-1 overflow-hidden text-sm leading-body text-foreground-muted')}
+        class={cn(className, 'mt-1 overflow-hidden border-s-[length:var(--border-size)] border-border ps-3 text-sm leading-body text-foreground-muted')}
     >
         {@render children?.()}
     </div>

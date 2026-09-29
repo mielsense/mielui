@@ -10,6 +10,7 @@
     import * as Select from '@mielui/svelte/components/select';
     import * as Tool from '@mielui/svelte/components/tool';
     import { onDestroy, onMount } from 'svelte';
+    import PreviewHeading from './preview-heading.svelte';
 
     const releasePlan = [
         '### Ready for review',
@@ -157,24 +158,22 @@
 </script>
 
 <div class="@container relative flex h-full min-h-0 w-full flex-col">
-    <header
-        class="flex h-[var(--docs-row-height)] shrink-0 items-center justify-between gap-3 border-b-[length:var(--border-size)] border-[var(--docs-rule)] bg-[var(--docs-chrome)] px-6"
-    >
-        <h2 class="text-sm font-semibold">Release workspace</h2>
-        <Button variant="ghost" onclick={() => stream(releasePlan)} disabled={generating}>
+    <header class="flex shrink-0 items-center justify-between gap-3 px-6 pt-4 pb-2">
+        <PreviewHeading title="Release workspace" class="static" />
+        <Button variant="outline" onclick={() => stream(releasePlan)} disabled={generating}>
             Replay response
         </Button>
     </header>
     <Conversation.Root class="min-h-0 flex-1">
         <Conversation.Content
             aria-label="Release planning conversation"
-            transcriptClass="max-w-none gap-8 px-6 pt-8 pb-[calc(var(--composer-height)+2rem)] sm:px-6"
+            transcriptClass="max-w-[calc(var(--container-2xl)+var(--spacing)*12)] gap-8 px-6 pt-6 pb-[calc(var(--composer-height)+2rem)] sm:px-6"
             style={`--composer-height: ${composerHeight}px`}
         >
             <Message.Root from="user">
                 <Message.Content class="space-y-3">
                     {#if reference}
-                        <Attachment.Item file={reference} removable={false} />
+                        <Attachment.Item file={reference} variant="chip" removable={false} />
                     {/if}
                     <p>{question}</p>
                 </Message.Content>
@@ -237,30 +236,35 @@
             onReject={(items) => {
             rejected = items;
         }}
-            class="pointer-events-auto mx-auto w-full max-w-2xl space-y-2"
+            class="pointer-events-auto mx-auto w-full max-w-2xl"
         >
-            <Attachment.List />
-            {#each rejected as item}
-                <Attachment.Item
-                    file={item.file}
-                    status="error"
-                    error={item.reason}
-                    onRemove={() => {
-                    rejected = rejected.filter((entry) => entry !== item);
-                }}
-                />
-            {/each}
             <Composer.Root bind:value={prompt} {generating} onSubmit={send} onStop={stop}>
+                <Composer.Header>
+                    <Attachment.List variant="chip" />
+                    {#each rejected as item}
+                        <Attachment.Item
+                            file={item.file}
+                            variant="chip"
+                            status="error"
+                            error={item.reason}
+                            onRemove={() => {
+                                rejected = rejected.filter((entry) => entry !== item);
+                            }}
+                        />
+                    {/each}
+                </Composer.Header>
                 <Composer.Input aria-label="Preview message" placeholder="Ask about the release…" />
                 <Composer.Toolbar>
                     <Composer.Actions>
-                        <Attachment.Trigger variant="ghost" size="sm">
-                            Attach files
-                        </Attachment.Trigger>
+                        <Attachment.Trigger variant="outline" />
                     </Composer.Actions>
                     <div class="ml-auto flex min-w-0 items-center gap-1">
                         <Select.Root bind:value={model}>
-                            <Select.Trigger variant="ghost" class="w-auto" aria-label="Demo model">
+                            <Select.Trigger
+                                variant="outline"
+                                class="w-auto"
+                                aria-label="Demo model"
+                            >
                                 {model}
                             </Select.Trigger>
                             <Select.Content>

@@ -33,12 +33,12 @@
         {
             name: 'Text · lead',
             element: 'p',
-            tokens: '1rem / --font-weight-description / foreground-muted'
+            tokens: '--font-size-header / --font-weight-description / foreground-muted'
         },
         {
             name: 'Text · body',
             element: 'p',
-            tokens: '1rem / --font-weight-body / foreground'
+            tokens: '--font-size-body / --font-weight-body / foreground'
         },
         {
             name: 'Text · supporting',

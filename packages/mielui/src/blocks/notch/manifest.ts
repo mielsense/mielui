@@ -28,9 +28,12 @@ export const manifest: Manifest = {
         'utils.createContext',
         'transition',
         'components/_internal/surface',
-        'components/_internal/button-attributes'
+        'components/_internal/button-attributes',
+        'components/_internal/overlay-close',
+        'hugeicons-icon'
     ],
     peerDependencies: {
+        '@hugeicons/core-free-icons': '^4.3.0',
         '@humanspeak/svelte-motion': '^1.2.1',
         cnfast: '^0.0.8',
         svelte: '^5.56.0'

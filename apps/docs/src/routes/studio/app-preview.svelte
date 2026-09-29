@@ -5,7 +5,6 @@
     import Header from './app-preview/header.svelte';
     import Invoices from './app-preview/invoices.svelte';
     import { AppPreviewModel } from './app-preview/model.svelte';
-    import Navigation from './app-preview/navigation.svelte';
     import Overview from './app-preview/overview.svelte';
     import Settings from './app-preview/settings.svelte';
 
@@ -17,9 +16,8 @@
 
 <ScrollArea class="h-full min-h-0" showCues={false}>
     <div class="@container flex w-full flex-col">
-        <Header {model} />
         <Tabs.Root bind:value={model.studioView} variant="ghost">
-            <Navigation {model} />
+            <Header {model} />
             <Overview {model} />
             <Invoices {model} />
             <Settings {model} />

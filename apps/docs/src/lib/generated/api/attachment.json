@@ -12,6 +12,15 @@
                 "inherited": false
             },
             {
+                "name": "variant",
+                "type": "\"card\" | \"chip\" | undefined",
+                "required": false,
+                "bindable": false,
+                "default": "'card'",
+                "description": "",
+                "inherited": false
+            },
+            {
                 "name": "status",
                 "type": "AttachmentStatus | undefined",
                 "required": false,
@@ -505,6 +514,15 @@
                 "required": false,
                 "bindable": false,
                 "default": "'Attachments'",
+                "description": "",
+                "inherited": false
+            },
+            {
+                "name": "variant",
+                "type": "\"card\" | \"chip\" | undefined",
+                "required": false,
+                "bindable": false,
+                "default": "'card'",
                 "description": "",
                 "inherited": false
             },

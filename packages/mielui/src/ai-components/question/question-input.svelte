@@ -72,7 +72,10 @@
                 composing = false;
                 oncompositionend?.(event);
             }}
-            class={cn(className, 'max-h-40 overflow-y-auto')}
+            class={cn(
+                className,
+                'max-h-40 overflow-y-auto aria-invalid:border-[var(--color-input)] aria-invalid:focus-visible:border-primary'
+            )}
         />
     </div>
 {/if}

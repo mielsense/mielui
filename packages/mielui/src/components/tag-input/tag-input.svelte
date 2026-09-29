@@ -264,7 +264,7 @@
         onclick={handleFieldClick}
         class={cn(
             className,
-            'flex min-h-[var(--size-control-md)] w-full cursor-text flex-wrap items-center gap-1 rounded-[var(--radius-lg)] border-[length:var(--border-size)] p-1 transition-[background-color,border-color,box-shadow] [transition-duration:var(--motion-duration-press)] ease-[var(--ease-out)] motion-reduce:transition-none shadow-[var(--elevation-control-edge)] focus-within:shadow-[var(--focus-ring),var(--elevation-control-edge)] has-[input:disabled]:cursor-not-allowed has-[input:disabled]:opacity-[var(--opacity-disabled)]',
+            'flex min-h-[var(--size-control-md)] w-full cursor-text flex-wrap items-center gap-1 rounded-[var(--radius-lg)] border-[length:var(--border-size)] p-1 transition-[background-color,border-color,box-shadow] [transition-duration:var(--motion-duration-press)] ease-[var(--ease-out)] motion-reduce:transition-none focus-within:shadow-[var(--focus-ring)] has-[input:disabled]:cursor-not-allowed has-[input:disabled]:opacity-[var(--opacity-disabled)]',
             controlClass,
             error && 'border-[var(--color-error)] focus-within:border-[var(--color-error)]'
         )}
@@ -293,7 +293,7 @@
         <span
             id={metadata.errorId}
             role="alert"
-            class="[font-size:var(--font-size-body)] [font-weight:var(--font-weight-body)] text-[var(--color-error)]"
+            class="[font-size:var(--font-size-body)] [font-weight:var(--font-weight-body)] text-[var(--mielui-error-text)]"
         >
             {error}
         </span>

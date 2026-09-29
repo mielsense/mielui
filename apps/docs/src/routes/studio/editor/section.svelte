@@ -25,14 +25,14 @@
             class="flex items-center gap-2 rounded-[var(--radius-lg)] bg-secondary/25 pr-2 transition-colors hover:bg-secondary/50 has-[[data-state=open]]:bg-secondary/50"
         >
             <Collapsible.Trigger
-                class="group flex h-11 min-w-0 flex-1 items-center justify-between rounded-[var(--radius-lg)] px-3 text-sm font-medium"
+                class="group flex h-11 min-w-0 flex-1 items-center justify-between rounded-[var(--radius-lg)] px-3 text-sm font-semibold enabled:hover:bg-transparent"
             >
                 <span>{title}</span>
                 <HugeiconsIcon
                     icon={ChevronDown}
                     size={14}
                     aria-hidden="true"
-                    class="text-foreground-muted transition-transform [transition-duration:var(--motion-duration-press)] group-data-[state=open]:rotate-180 motion-reduce:transition-none"
+                    class="shrink-0 text-foreground-muted transition-transform [transition-duration:var(--motion-duration-panel)] ease-[var(--ease-out)] group-data-[state=open]:rotate-180 motion-reduce:transition-none"
                 />
             </Collapsible.Trigger>
             {@render action?.()}

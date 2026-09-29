@@ -24,7 +24,7 @@
         }
     )}
     <Switch bind:checked={editor.state.travelingHighlight} label="Traveling highlight" />
-    <div class="flex flex-col gap-2 border-t border-border pt-4">
+    <div class="flex flex-col gap-2 pt-2">
         <Typography.Metadata>Hover cursor</Typography.Metadata>
         {@render toggleChoice(cursorChoices, editor.state.interactiveCursor, 'Hover cursor', (value) => {
             if (value === 'default' || value === 'pointer') {

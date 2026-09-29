@@ -31,6 +31,7 @@
             activated = true;
             return;
         }
+
         const observer = new IntersectionObserver(
             (entries) => {
                 if (entries.some((entry) => entry.isIntersecting)) {
@@ -38,14 +39,19 @@
                     observer.disconnect();
                 }
             },
-            { rootMargin: '300px' }
+            {
+                rootMargin: '300px'
+            }
         );
+
         function activate() {
             activated = true;
             observer.disconnect();
         }
+
         node.addEventListener('docs-activate-preview', activate);
         observer.observe(node);
+
         return () => {
             observer.disconnect();
             node.removeEventListener('docs-activate-preview', activate);
@@ -65,49 +71,55 @@
     <div class={cn(classProp, 'w-full min-w-0')}>
         <div
             data-preview-toolbar
-            class="flex min-h-10 flex-wrap items-center justify-between gap-2 bg-[var(--docs-chrome)] px-3 py-1"
+            class="flex min-w-0 items-center justify-between gap-3 bg-[var(--docs-chrome)] px-2 py-1 [--size-icon-md:var(--size-control-sm)] [&_[data-ui=tabs-trigger]]:inline-flex [&_[data-ui=tabs-trigger]]:min-h-[var(--size-control-sm)] [&_[data-ui=tabs-trigger]]:items-center [&_[data-ui=tabs-trigger]]:py-0 [&_[data-ui=tabs-list][data-variant=ghost]>div[aria-hidden]]:bg-card [&_[data-ui=tabs-list][data-variant=ghost]>div[aria-hidden]]:shadow-[var(--elevation-control-edge)] dark:[&_[data-ui=tabs-list][data-variant=ghost]>div[aria-hidden]]:bg-secondary"
         >
-            <Tabs.Root bind:value variant="ghost">
-                <Tabs.List
-                    class="w-fit [&>div[aria-hidden]]:bg-card [&>div[aria-hidden]]:shadow-[var(--elevation-control-edge)]"
-                >
+            <Tabs.Root bind:value variant="ghost" class="shrink-0">
+                <Tabs.List class="w-fit">
                     <Tabs.Trigger value="preview">Preview</Tabs.Trigger>
                     <Tabs.Trigger value="code">Code</Tabs.Trigger>
                 </Tabs.List>
             </Tabs.Root>
-            <div class="flex min-w-0 items-center gap-2">
-                {#if controls}
-                    {@render controls()}
-                {/if}
-                {#if refreshable && value === 'preview'}
-                    <Tooltip.Root>
-                        <Tooltip.Trigger>
-                            <Button
-                                size="icon"
-                                variant="ghost"
-                                class="size-8"
-                                aria-label="Replay preview"
-                                onclick={refreshPreview}
-                            >
-                                {#key previewVersion}
-                                    <HugeiconsIcon
-                                        icon={RefreshCw}
-                                        size={15}
-                                        class={previewVersion > 0 ? 'animate-[spin_360ms_ease-out_1] motion-reduce:animate-none' : undefined}
-                                    />
-                                {/key}
-                            </Button>
-                        </Tooltip.Trigger>
-                        <Tooltip.Content>Replay preview</Tooltip.Content>
-                    </Tooltip.Root>
-                {/if}
-            </div>
+            {#if controls || refreshable}
+                <div class="flex min-w-0 items-center gap-1">
+                    {#if controls}
+                        <div
+                            class="-m-1 flex min-w-0 items-center overflow-x-auto overscroll-x-contain p-1"
+                        >
+                            {@render controls()}
+                        </div>
+                    {/if}
+                    {#if refreshable && value === 'preview'}
+                        <Tooltip.Root>
+                            <Tooltip.Trigger>
+                                <Button
+                                    size="icon"
+                                    variant="ghost"
+                                    class="shrink-0 text-foreground-muted hover:text-foreground"
+                                    aria-label="Replay preview"
+                                    onclick={refreshPreview}
+                                >
+                                    {#key previewVersion}
+                                        <HugeiconsIcon
+                                            icon={RefreshCw}
+                                            size={15}
+                                            class={previewVersion > 0
+                                                ? 'animate-[spin_360ms_ease-out_1] motion-reduce:animate-none'
+                                                : undefined}
+                                        />
+                                    {/key}
+                                </Button>
+                            </Tooltip.Trigger>
+                            <Tooltip.Content>Replay preview</Tooltip.Content>
+                        </Tooltip.Root>
+                    {/if}
+                </div>
+            {/if}
         </div>
         <div hidden={value !== 'preview'} inert={value !== 'preview'}>
             <div
                 tabindex="-1"
                 data-preview-canvas
-                class="mielui-inset-surface flex min-h-48 w-full min-w-0 items-center justify-center overflow-x-auto p-6 sm:p-8 has-[iframe]:p-0 has-[iframe]:sm:p-0 focus:outline-none"
+                class="mielui-inset-surface flex min-h-48 w-full min-w-0 items-center justify-center overflow-x-auto p-6 has-[iframe]:p-0 focus:outline-none sm:p-8 has-[iframe]:sm:p-0"
             >
                 {#key previewVersion}
                     {#if activated}
@@ -117,12 +129,12 @@
             </div>
         </div>
         {#if value === 'code'}
-            <div data-preview-code class="mielui-inset-surface overflow-hidden">
+            <div data-preview-code>
                 <CodeBlock.Root
                     {code}
                     lang="svelte"
                     copy="overlay"
-                    class="w-full max-h-[40rem] overflow-auto rounded-none border-0 bg-transparent p-0 shadow-none [--code-block-padding-x:1.5rem] [--code-block-padding-y:1.5rem] [&_[data-ui=code-block-surface]]:rounded-none [&_[data-ui=code-block-surface]]:border-0 [&_[data-ui=code-block-surface]]:bg-transparent [&_[data-ui=code-block-surface]]:shadow-none"
+                    class="w-full rounded-none border-0 bg-transparent p-0 shadow-none [--code-block-max-height:40rem] [--code-block-padding-x:1.5rem] [--code-block-padding-y:1.5rem]"
                 />
             </div>
         {/if}

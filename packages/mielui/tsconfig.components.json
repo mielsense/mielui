@@ -41,6 +41,8 @@
             "@mielui/svelte/components/copy-button/*": ["./src/blocks/copy-button/*"],
             "@mielui/svelte/components/file-diff": ["./src/blocks/file-diff/index.ts"],
             "@mielui/svelte/components/file-diff/*": ["./src/blocks/file-diff/*"],
+            "@mielui/svelte/components/folder-card": ["./src/blocks/folder-card/index.ts"],
+            "@mielui/svelte/components/folder-card/*": ["./src/blocks/folder-card/*"],
             "@mielui/svelte/components/markdown": ["./src/blocks/markdown/index.ts"],
             "@mielui/svelte/components/markdown/*": ["./src/blocks/markdown/*"],
             "@mielui/svelte/components/task-steps": ["./src/blocks/task-steps/index.ts"],

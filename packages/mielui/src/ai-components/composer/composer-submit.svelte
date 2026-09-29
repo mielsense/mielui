@@ -69,7 +69,7 @@
     aria-busy={isPending}
     aria-label={actionLabel}
     onclick={handleClick}
-    class={cn(className, 'size-9 shrink-0 rounded-full p-0')}
+    class={cn(className, 'ms-auto size-[calc(var(--size-control-md)-var(--size-hairline))] shrink-0 rounded-full p-0')}
 >
     {#if children}
         {@render children({ action, generating: context.generating ?? false, empty })}

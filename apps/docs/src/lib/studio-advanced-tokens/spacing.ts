@@ -102,7 +102,7 @@ export const spacingTokenDefinitions = [
         name: '--size-control-lg',
         label: 'Large control',
         group: 'Controls',
-        fallback: 'var(--mielui-space-10)',
+        fallback: 'calc(var(--mielui-space-10) + var(--mielui-space-2))',
         min: 16,
         max: 80,
         step: 1
@@ -111,7 +111,7 @@ export const spacingTokenDefinitions = [
         name: '--size-icon-md',
         label: 'Icon',
         group: 'Controls',
-        fallback: 'var(--mielui-space-8)',
+        fallback: 'calc(var(--size-control-md) - var(--size-hairline))',
         min: 12,
         max: 48,
         step: 1

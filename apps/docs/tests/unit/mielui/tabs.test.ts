@@ -132,10 +132,10 @@ describe('Tabs -- variants', () => {
         expect(list.className).toContain('bg-secondary');
     });
 
-    it('segmented triggers render taller (min-height token) from first paint', () => {
+    it('segmented triggers use the shared small-control height from first paint', () => {
         render(TabsFixture, { props: { value: 'one', variant: 'segmented' } });
         const trigger = queryRequired(document, '[role="tab"]');
-        expect(trigger.className).toContain('min-h-8');
+        expect(trigger.className).toContain('h-[var(--size-control-sm)]');
     });
 
     it('ghost has no bordered container', () => {

@@ -58,8 +58,8 @@
         aria-hidden="true"
         class={cn(
             'flex items-stretch justify-center py-0.5 font-medium select-none',
-            type === 'add' && 'text-success',
-            type === 'remove' && 'text-error',
+            type === 'add' && 'text-[var(--mielui-success-text)]',
+            type === 'remove' && 'text-[var(--mielui-error-text)]',
             type === 'context' && 'text-foreground-muted'
         )}
     >

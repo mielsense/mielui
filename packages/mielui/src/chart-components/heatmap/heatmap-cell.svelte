@@ -162,7 +162,7 @@
         aria-label={day.label}
         title={context.tooltipCount ? undefined : day.label}
         tabindex={context.focused === day.date ? 0 : -1}
-        class={cn(className, levels[day.level], 'aspect-square min-h-2.5 min-w-2.5 rounded-[calc(var(--radius-xs)*1.5)] outline-none ring-inset ring-1 ring-foreground/5 hover:ring-foreground/40 focus-visible:z-10 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary')}
+        class={cn(className, levels[day.level], 'aspect-square min-h-2.5 min-w-2.5 rounded-[calc(var(--radius-xs)*1.5)] outline-none ring-inset hover:ring-1 hover:ring-foreground/40 focus-visible:z-10 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary')}
         style:grid-column={day.column}
         style:grid-row={day.row}
         onkeydown={navigate}

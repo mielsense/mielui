@@ -7,7 +7,7 @@
         <Popover.Root placement={placement as 'top' | 'right' | 'bottom' | 'left'}>
             <Popover.Trigger size="md" variant="outline">{placement}</Popover.Trigger>
             <Popover.Content class="w-48" aria-label={`${placement} placement`}>
-                <div class="p-3">
+                <div>
                     <p class="m-0 text-sm text-foreground-muted">Anchored to{placement}</p>
                 </div>
             </Popover.Content>

@@ -43,7 +43,7 @@
                         <HugeiconsIcon icon={tool.icon} size={16} />
                     </Button>
                 </Tooltip.Trigger>
-                <Tooltip.Content surface="glass">
+                <Tooltip.Content surface="glass" rich>
                     <div class="flex items-center gap-2">
                         <span>{tool.label}</span>
                         <Kbd shortcut={tool.shortcut} />

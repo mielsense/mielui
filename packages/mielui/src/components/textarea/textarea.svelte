@@ -112,7 +112,7 @@
             data-ui="textarea-composer"
             data-variant={variant}
             class={cn(
-                'overflow-hidden rounded-[var(--radius-xl)] border-[length:var(--border-size)] transition-[border-color,box-shadow] [transition-duration:var(--motion-duration-press)] ease-[var(--ease-out)] shadow-[var(--elevation-control-edge)] focus-within:shadow-[var(--focus-ring),var(--elevation-control-edge)] motion-reduce:transition-none has-[[aria-invalid=true]]:border-error has-[[aria-invalid=true]]:focus-within:border-error',
+                'overflow-hidden rounded-[var(--radius-xl)] border-[length:var(--border-size)] transition-[border-color,box-shadow] [transition-duration:var(--motion-duration-press)] ease-[var(--ease-out)] focus-within:shadow-[var(--focus-ring)] motion-reduce:transition-none has-[[aria-invalid=true]]:border-error has-[[aria-invalid=true]]:focus-within:border-error',
                 composerClass
             )}
         >

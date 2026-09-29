@@ -30,7 +30,7 @@
 <div data-docs-page class="flex flex-col gap-10">
     <!-- ─── Header ────────────────────────────────────────────────── -->
     <PageIntro title={TITLE}>
-        An inset callout with the description above a compact status row.
+        An inset callout with a status icon, a title, and its description on one surface.
     </PageIntro>
 
     <!-- ─── Hero Example ──────────────────────────────────────────── -->

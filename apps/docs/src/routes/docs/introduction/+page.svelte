@@ -1,10 +1,13 @@
 <script lang="ts">
     import { CodeBlock } from '@mielui/svelte/components/code-block';
+    import * as Table from '@mielui/svelte/components/table';
     import * as Typography from '@mielui/svelte/components/typography';
     import { resolve } from '$app/paths';
+    import InlineText, { inlineLinkClass } from '$lib/components/docs/inline-text.svelte';
+    import PackageCommand from '$lib/components/docs/package-command.svelte';
     import PageIntro from '$lib/components/docs/page-intro.svelte';
 
-    const packageQuick = `pnpm add @mielui/svelte`;
+    const packageQuick = 'pnpm add @mielui/svelte';
 
     const stylesheet = `@import '@mielui/svelte/ui.css';`;
 
@@ -16,6 +19,52 @@
 
     const cliQuick = `pnpm dlx @mielui/svelte init -y
 pnpm dlx @mielui/svelte add button`;
+
+    const comparison = [
+        {
+            decision: 'Best fit',
+            package: 'Use the library through its public API.',
+            source: 'Adapt component internals for your product.'
+        },
+        {
+            decision: 'Source',
+            package: 'Imported from @mielui/svelte.',
+            source: 'Copied into your repository.'
+        },
+        {
+            decision: 'Customization',
+            package: 'Compose parts, set props, and apply classes or tokens.',
+            source: 'Use the same options, plus edit the source directly.'
+        },
+        {
+            decision: 'Updates',
+            package: 'Upgrade the package dependency.',
+            source: 'Review upstream changes alongside your local edits.'
+        }
+    ];
+
+    const nextSteps = [
+        {
+            label: 'Installation',
+            href: resolve('/docs/installation'),
+            description: 'Set up package imports or the source-copy workflow.'
+        },
+        {
+            label: 'Components',
+            href: resolve('/docs/components'),
+            description: 'Explore live examples, supported props, and composition patterns.'
+        },
+        {
+            label: 'Theming',
+            href: resolve('/docs/theming'),
+            description: 'Apply a preset or connect theme tokens to your own design.'
+        },
+        {
+            label: 'Agent skill',
+            href: resolve('/docs/agent-skill'),
+            description: 'Give your coding agent Mielui-specific guidance for implementation.'
+        }
+    ];
 </script>
 
 <svelte:head>
@@ -49,50 +98,42 @@ pnpm dlx @mielui/svelte add button`;
             Both paths use the same components and theme system. Choose based on whether you want
             dependency updates or direct ownership of the implementation.
         </Typography.Text>
-        <div class="overflow-x-auto rounded-[var(--radius-lg)] border border-border/60">
-            <table class="w-full min-w-[34rem] border-collapse text-left text-sm leading-6">
-                <caption class="sr-only">
+        <Table.ScrollArea
+            tabindex={0}
+            aria-label="Package imports and CLI source copy"
+            class="focus-visible:outline-none focus-visible:shadow-[var(--focus-ring)]"
+        >
+            <Table.Root variant="inset" class="min-w-[34rem]">
+                <Table.Caption class="sr-only">
                     Package imports and CLI source copy compared
-                </caption>
-                <thead class="bg-secondary/60 text-foreground">
-                    <tr>
-                        <th scope="col" class="px-4 py-3 font-semibold">Decision</th>
-                        <th scope="col" class="px-4 py-3 font-semibold">Package import</th>
-                        <th scope="col" class="px-4 py-3 font-semibold">CLI source copy</th>
-                    </tr>
-                </thead>
-                <tbody class="divide-y divide-border/50 text-foreground-muted">
-                    <tr>
-                        <th scope="row" class="px-4 py-3 font-medium text-foreground">Best fit</th>
-                        <td class="px-4 py-3">Use the library through its public API.</td>
-                        <td class="px-4 py-3">Adapt component internals for your product.</td>
-                    </tr>
-                    <tr>
-                        <th scope="row" class="px-4 py-3 font-medium text-foreground">Source</th>
-                        <td class="px-4 py-3">Imported from @mielui/svelte.</td>
-                        <td class="px-4 py-3">Copied into your repository.</td>
-                    </tr>
-                    <tr>
-                        <th scope="row" class="px-4 py-3 font-medium text-foreground">
-                            Customization
-                        </th>
-                        <td class="px-4 py-3">
-                            Compose parts, set props, and apply classes or tokens.
-                        </td>
-                        <td class="px-4 py-3">
-                            Use the same options, plus edit the source directly.
-                        </td>
-                    </tr>
-                    <tr>
-                        <th scope="row" class="px-4 py-3 font-medium text-foreground">Updates</th>
-                        <td class="px-4 py-3">Upgrade the package dependency.</td>
-                        <td class="px-4 py-3">
-                            Review upstream changes alongside your local edits.
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
+                </Table.Caption>
+                <Table.Header>
+                    <Table.Row class="hover:bg-transparent">
+                        <Table.Head class="w-1/5">Decision</Table.Head>
+                        <Table.Head>Package import</Table.Head>
+                        <Table.Head>CLI source copy</Table.Head>
+                    </Table.Row>
+                </Table.Header>
+                <Table.Body>
+                    {#each comparison as row (row.decision)}
+                        <Table.Row class="align-top hover:bg-transparent">
+                            <Table.Head
+                                {...{ scope: 'row' as const }}
+                                class="border-b-0 align-top font-medium text-foreground"
+                            >
+                                {row.decision}
+                            </Table.Head>
+                            <Table.Cell class="align-top text-foreground-muted">
+                                {row.package}
+                            </Table.Cell>
+                            <Table.Cell class="align-top text-foreground-muted">
+                                {row.source}
+                            </Table.Cell>
+                        </Table.Row>
+                    {/each}
+                </Table.Body>
+            </Table.Root>
+        </Table.ScrollArea>
         <Typography.Text variant="body" class="m-0">
             If you are trying Mielui for the first time, package imports are a straightforward place
             to start. Choose source copy when you already know you need to change component
@@ -103,21 +144,22 @@ pnpm dlx @mielui/svelte add button`;
     <section id="requirements" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Requirements</Typography.H2>
         <ul
-            class="m-0 flex list-disc flex-col gap-1.5 pl-5 text-[1rem] text-foreground leading-relaxed"
+            class="m-0 flex list-disc flex-col gap-1.5 ps-5 text-base leading-relaxed text-foreground marker:text-foreground-muted"
         >
             <li>Svelte 5.56 or newer, with or without SvelteKit</li>
             <li>Tailwind CSS v4</li>
         </ul>
         <Typography.Text variant="body" class="m-0">
-            Use pnpm, npm, or Yarn to install the library. The examples below use pnpm. Start with
-            an existing Svelte app and import the Mielui stylesheet once at the application level.
+            Use pnpm, npm, Yarn, or Bun to install the library. Each command below has a tab per
+            package manager. Start with an existing Svelte app and import the Mielui stylesheet once
+            at the application level.
         </Typography.Text>
     </section>
 
     <section id="quick-start" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Quick start</Typography.H2>
         <Typography.Text variant="body" class="m-0">Install the package:</Typography.Text>
-        <CodeBlock code={packageQuick} lang="shell" copy="overlay" />
+        <PackageCommand command={packageQuick} />
         <Typography.Text variant="body" class="m-0">
             Import the shared styles in your application stylesheet:
         </Typography.Text>
@@ -127,27 +169,20 @@ pnpm dlx @mielui/svelte add button`;
         <Typography.Text variant="body" class="m-0">
             Prefer local source? Initialize the CLI and add a component instead:
         </Typography.Text>
-        <CodeBlock code={cliQuick} lang="shell" copy="overlay" />
+        <PackageCommand command={cliQuick} />
         <Typography.Text variant="body" class="m-0">
-            Follow<a
-                class="text-foreground underline underline-offset-4"
-                href={resolve('/docs/installation')}
-            >
-                Installation
-            </a>
-            for the local stylesheet import, component paths, and full setup for either approach.
+            <InlineText
+                text={`Follow [Installation](${resolve('/docs/installation')}) for the local stylesheet import, component paths, and full setup for either approach.`}
+            />
         </Typography.Text>
     </section>
 
     <section id="your-theme" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Make it your own</Typography.H2>
         <Typography.Text variant="body" class="m-0">
-            Set colors, typography, corners, spacing, and motion together in
-            <a class="text-foreground underline underline-offset-4" href={resolve('/studio')}>
-                Theme Studio
-            </a>
-            . Preview the result on working components, then export CSS or JSON. Shared tokens keep
-            your controls and surfaces consistent as the interface grows.
+            <InlineText
+                text={`Set colors, typography, corners, spacing, and motion together in [Theme Studio](${resolve('/studio')}). Preview the result on working components, then export CSS or JSON. Shared tokens keep your controls and surfaces consistent as the interface grows.`}
+            />
         </Typography.Text>
         <Typography.Text variant="body" class="m-0">
             Compound components expose named parts such as Root, Trigger, and Content. Compose the
@@ -158,51 +193,15 @@ pnpm dlx @mielui/svelte add button`;
 
     <section id="next" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Where to go next</Typography.H2>
-        <dl class="m-0 grid gap-x-8 gap-y-4 text-sm leading-6 sm:grid-cols-[auto_1fr]">
-            <dt>
-                <a
-                    class="font-medium text-foreground underline underline-offset-4"
-                    href={resolve('/docs/installation')}
-                >
-                    Installation
-                </a>
-            </dt>
-            <dd class="m-0 text-foreground-muted">
-                Set up package imports or the source-copy workflow.
-            </dd>
-            <dt>
-                <a
-                    class="font-medium text-foreground underline underline-offset-4"
-                    href={resolve('/docs/components')}
-                >
-                    Components
-                </a>
-            </dt>
-            <dd class="m-0 text-foreground-muted">
-                Explore live examples, supported props, and composition patterns.
-            </dd>
-            <dt>
-                <a
-                    class="font-medium text-foreground underline underline-offset-4"
-                    href={resolve('/docs/theming')}
-                >
-                    Theming
-                </a>
-            </dt>
-            <dd class="m-0 text-foreground-muted">
-                Apply a preset or connect theme tokens to your own design.
-            </dd>
-            <dt>
-                <a
-                    class="font-medium text-foreground underline underline-offset-4"
-                    href={resolve('/docs/agent-skill')}
-                >
-                    Agent skill
-                </a>
-            </dt>
-            <dd class="m-0 text-foreground-muted">
-                Give your coding agent Mielui-specific guidance for implementation.
-            </dd>
+        <dl class="m-0 grid gap-x-8 gap-y-3 text-base leading-relaxed sm:grid-cols-[auto_1fr]">
+            {#each nextSteps as step (step.href)}
+                <div class="grid gap-y-0.5 sm:col-span-2 sm:grid-cols-subgrid">
+                    <dt class="font-medium">
+                        <a class={inlineLinkClass} href={step.href}>{step.label}</a>
+                    </dt>
+                    <dd class="m-0 text-foreground-muted">{step.description}</dd>
+                </div>
+            {/each}
         </dl>
     </section>
 </div>

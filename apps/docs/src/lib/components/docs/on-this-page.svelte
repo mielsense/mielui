@@ -18,11 +18,19 @@
                         data-heading={heading.id}
                         onclick={(event) => outline.navigate(event, heading)}
                         aria-current={outline.active === heading.id ? 'location' : undefined}
-                        onmouseenter={() => { outline.hovered = heading.id; }}
-                        onmouseleave={() => { outline.hovered = null; }}
-                        onfocus={() => { outline.focused = heading.id; }}
-                        onblur={() => { outline.focused = null; }}
-                        class={`${heading.id === 'api-reference' ? 'mt-2' : ''} relative rounded-md py-1.5 pr-1 text-sm leading-5 transition-colors motion-reduce:transition-none focus-visible:outline-2 focus-visible:outline-primary ${heading.level === 3 ? 'pl-9' : 'pl-6'} ${outline.active === heading.id ? 'text-foreground' : 'text-foreground-muted hover:text-foreground'}`}
+                        onmouseenter={() => {
+                            outline.hovered = heading.id;
+                        }}
+                        onmouseleave={() => {
+                            outline.hovered = null;
+                        }}
+                        onfocus={() => {
+                            outline.focused = heading.id;
+                        }}
+                        onblur={() => {
+                            outline.focused = null;
+                        }}
+                        class={`${heading.id === 'api-reference' ? 'mt-2' : ''} relative rounded-md py-1.5 pr-1 text-sm leading-5 transition-colors motion-reduce:transition-none focus-visible:outline-none focus-visible:shadow-[var(--focus-ring)] ${heading.level === 3 ? 'pl-9' : 'pl-6'} ${outline.active === heading.id ? 'text-foreground' : 'text-foreground-muted hover:text-foreground'}`}
                     >
                         {heading.label}
                     </a>

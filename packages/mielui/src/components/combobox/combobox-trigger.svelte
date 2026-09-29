@@ -33,18 +33,18 @@
     const isInputAppearance = $derived(appearance === 'input');
     const focusClasses = $derived.by(() => {
         if (isInputAppearance) {
-            return 'items-center gap-2 focus-within:shadow-[var(--focus-ring),var(--elevation-control-edge)]';
+            return 'items-center gap-2 focus-within:shadow-[var(--focus-ring)]';
         }
         if (variant === 'ghost' || variant === 'quiet') {
             return 'focus-within:shadow-[var(--focus-ring)]';
         }
         if (variant === 'primary') {
-            return 'focus-within:shadow-[var(--focus-ring),var(--elevation-control-edge),inset_0_0_0_var(--border-size)_var(--color-primary-stroke)]';
+            return 'focus-within:shadow-[var(--focus-ring),inset_0_0_0_var(--border-size)_var(--color-primary-stroke)]';
         }
         if (variant === 'panel') {
             return 'focus-within:shadow-[var(--focus-ring),var(--elevation-1)]';
         }
-        return 'focus-within:shadow-[var(--focus-ring),var(--elevation-control-edge)]';
+        return 'focus-within:shadow-[var(--focus-ring)]';
     });
     const inputClasses = $derived(
         cn(
@@ -53,7 +53,7 @@
                 ? 'h-auto cursor-text'
                 : 'h-full cursor-[var(--ui-cursor-interactive)]',
             combobox.open || combobox.selected ? 'text-foreground' : 'text-foreground-muted',
-            trailing && !isInputAppearance && 'pe-5'
+            !isInputAppearance && 'pe-7'
         )
     );
 
@@ -127,7 +127,7 @@
             aria-controls={`combobox-${context.id}-listbox`}
             aria-expanded={combobox.open}
             {onclick}
-            class={cn(inputClasses, 'inline-flex w-full items-center truncate pe-5')}
+            class={cn(inputClasses, 'inline-flex w-full items-center truncate')}
         >
             {context.selectionLabel || placeholder}
         </ComboboxPrimitive.Trigger>
@@ -193,7 +193,7 @@
     {:else if !isInputAppearance}
         <HugeiconsIcon
             icon={ChevronDown}
-            size={18}
+            size={16}
             class="pointer-events-none absolute top-1/2 end-3 shrink-0 -translate-y-1/2 text-foreground-muted"
             aria-hidden="true"
         />

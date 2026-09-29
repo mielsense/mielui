@@ -112,7 +112,7 @@
     </main>
 {:else}
     <main
-        class={`w-screen [&:has([data-inspector-pinned=true])]:lg:pl-[calc(var(--spacing)*80+24px)] [--docs-shell:#000000] [--docs-row-height:calc(var(--spacing)*14+var(--border-size))] [--docs-rule:var(--color-border)] dark:[--docs-rule:color-mix(in_oklab,var(--color-border)_50%,transparent)] [--docs-chrome:color-mix(in_oklab,var(--color-secondary)_97%,white)] dark:[--docs-chrome:color-mix(in_oklab,var(--color-background),var(--color-secondary)_20%)] [--docs-content:color-mix(in_oklab,var(--color-background),var(--color-secondary)_10%)] ${isDocs || isThemeStudio ? 'h-[100svh] overflow-hidden bg-[var(--docs-shell)] p-2 sm:p-3' : isHome ? 'min-h-dvh bg-background' : 'min-h-screen bg-background p-3'}`}
+        class={`w-screen [&:has([data-inspector-pinned=true])]:lg:pl-[calc(var(--spacing)*80+24px)] [--docs-shell:#000000] [--docs-row-height:calc(var(--spacing)*14+var(--border-size))] [--docs-gutter:calc((var(--spacing)*5+2rem)/2)] [--docs-icon-inset:calc(var(--docs-gutter)-(var(--size-icon-md)-1rem)/2)] [--docs-rule:var(--color-border)] dark:[--docs-rule:color-mix(in_oklab,var(--color-border)_50%,transparent)] [--docs-chrome:color-mix(in_oklab,var(--color-secondary)_97%,white)] dark:[--docs-chrome:color-mix(in_oklab,var(--color-background),var(--color-secondary)_20%)] [--docs-content:color-mix(in_oklab,var(--color-background),var(--color-secondary)_10%)] ${isDocs || isThemeStudio ? 'h-[100svh] overflow-hidden bg-[var(--docs-shell)] p-2 sm:p-3' : isHome ? 'min-h-dvh bg-background' : 'min-h-screen bg-background p-3'}`}
     >
         {#if isHome}
             <div class="relative mx-auto flex min-h-dvh w-full max-w-none flex-col">
@@ -124,18 +124,18 @@
                     class="flex min-h-0 min-w-0 flex-1 flex-col overflow-hidden rounded-[var(--radius-xl)] border-[length:var(--border-size)] border-[var(--docs-rule)] bg-[var(--docs-content)]"
                 >
                     <div
-                        class="relative z-40 after:pointer-events-none after:absolute after:inset-x-0 after:top-full after:h-4 after:bg-linear-to-b after:from-[var(--docs-content)] after:to-transparent flex shrink-0 items-center gap-2 bg-[var(--docs-content)] pr-3"
+                        class="relative z-40 shrink-0 bg-[var(--docs-content)] after:pointer-events-none after:absolute after:inset-x-0 after:top-full after:h-4 after:bg-linear-to-b after:from-[var(--docs-content)] after:to-transparent"
                     >
-                        <div class="min-w-0 flex-1">
-                            <DocsToolbar starCount={data?.starCount ?? null} />
-                        </div>
+                        <DocsToolbar starCount={data?.starCount ?? null} />
                     </div>
                     <div bind:this={docsScrollEl} class="min-h-0 min-w-0 flex-1 overflow-hidden">
                         {@render children?.()}
                     </div>
-                    <div class="shrink-0 bg-[var(--docs-content)]">
-                        <SiteFooter {isDocs} />
-                    </div>
+                    {#if page.status < 400}
+                        <div class="shrink-0 bg-[var(--docs-content)]">
+                            <SiteFooter {isDocs} />
+                        </div>
+                    {/if}
                 </div>
             </div>
         {:else if isThemeStudio}
@@ -149,7 +149,9 @@
                 <div class="flex min-h-0 flex-1">
                     {@render children?.()}
                 </div>
-                <SiteFooter {isDocs} />
+                {#if page.status < 400}
+                    <SiteFooter {isDocs} />
+                {/if}
             </div>
         {:else}
             <div class="flex min-h-[calc(100svh-1.5rem)] w-full gap-3">

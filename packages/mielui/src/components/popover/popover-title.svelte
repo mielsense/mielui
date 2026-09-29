@@ -1,5 +1,6 @@
 <script lang="ts">
     import { cn } from '@mielui/svelte/utils';
+    import { titleClasses } from '../typography/variants';
     import type { PopoverTitleProps } from '.';
     import { getPopoverContext } from './context.svelte';
 
@@ -20,13 +21,6 @@
     });
 </script>
 
-<p
-    {id}
-    {...rest}
-    class={cn(
-        classProp,
-        'text-foreground [font-family:var(--font-header)] [font-size:var(--font-size-header)] [font-weight:var(--font-weight-header)] [letter-spacing:var(--tracking-header)] text-balance'
-    )}
->
+<p {id} {...rest} class={cn(classProp, titleClasses)}>
     {@render children?.()}
 </p>

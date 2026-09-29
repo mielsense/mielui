@@ -74,7 +74,7 @@
         </div>
 
         <Sheet.Footer>
-            <Sheet.Close class="w-full" variant="outline">
+            <Sheet.Close>
                 Close
                 <Kbd shortcut="esc" />
             </Sheet.Close>

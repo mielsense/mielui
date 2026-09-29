@@ -21,8 +21,8 @@ export const manifest: Manifest = {
         'components/drawer/drawer-header.svelte',
         'components/drawer/manifest.ts'
     ],
-    components: ['_internal/utils', 'button'],
-    shared: ['utils.cn', 'utils.pressable'],
+    components: ['_internal/utils', 'button', 'typography'],
+    shared: ['components/_internal/surface', 'utils.cn', 'utils.pressable'],
     peerDependencies: {
         'bits-ui': '^2.19.2',
         cnfast: '^0.0.8',

@@ -56,7 +56,13 @@
         onintroend={handleIntroEnd}
         onoutrostart={handleOutroStart}
         onoutroend={handleOutroEnd}
-        class={cn(className, 'mt-1 flex flex-col gap-1.5 pb-1', tool.variant === 'quiet' ? 'ml-0 px-0' : 'ml-5 px-3')}
+        class={cn(
+            className,
+            'mt-1 flex flex-col gap-1.5 pb-1',
+            tool.variant === 'quiet'
+                ? 'ps-[calc(var(--spacing)*5)]'
+                : 'ps-[calc(var(--spacing)*7)] pe-2'
+        )}
     >
         {@render children?.()}
     </div>

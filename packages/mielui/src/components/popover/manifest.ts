@@ -50,7 +50,7 @@ export const manifest: Manifest = {
         'components/popover/index.ts',
         'components/popover/manifest.ts'
     ],
-    components: ['_internal/utils', 'button', '_internal/overlay'],
+    components: ['_internal/utils', 'button', '_internal/overlay', 'typography'],
     shared: [
         'components/_internal/button-attributes',
         'components/_internal/surface',

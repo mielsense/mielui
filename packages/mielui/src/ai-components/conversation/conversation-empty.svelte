@@ -25,15 +25,13 @@
         {@render children()}
     {:else}
         <div class="flex max-w-sm flex-col items-center">
-            <div
-                class="mb-4 flex size-10 items-center justify-center rounded-[var(--radius-xl)] bg-secondary text-foreground-muted"
-            >
+            <div class="mb-3 flex items-center justify-center text-foreground-muted">
                 {#if icon}
                     {@render icon()}
                 {:else}
                     <HugeiconsIcon
                         icon={MessageCircle}
-                        size={18}
+                        size={20}
                         strokeWidth={1.75}
                         aria-hidden="true"
                     />

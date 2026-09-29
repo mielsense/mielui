@@ -13,9 +13,9 @@ export const toggle = tv({
             false: 'bg-transparent text-foreground-muted hover:bg-secondary/60 hover:text-foreground'
         },
         size: {
-            sm: 'h-7 px-2 [font-size:var(--font-size-badge)]',
-            md: 'h-8 px-3 [font-size:var(--font-size-label)]',
-            lg: 'h-10 px-4 [font-size:var(--font-size-button)]'
+            sm: 'h-[calc(var(--size-control-sm)-var(--size-hairline))] px-2 [font-size:var(--font-size-badge)]',
+            md: 'h-[calc(var(--size-control-md)-var(--size-hairline))] px-3 [font-size:var(--font-size-label)]',
+            lg: 'h-[calc(var(--size-control-lg)-var(--size-hairline))] px-4 [font-size:var(--font-size-button)]'
         }
     },
     defaultVariants: {

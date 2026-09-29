@@ -29,44 +29,35 @@
     const nextPage = $derived<Page | undefined>(pageIndex >= 0 ? pages[pageIndex + 1] : undefined);
 </script>
 
-<nav
-    aria-label="Adjacent pages"
-    class="flex shrink-0 flex-wrap items-center justify-end gap-1.5 sm:flex-nowrap xl:w-full"
->
-    <div class="flex shrink-0 flex-nowrap items-center gap-1.5 xl:w-full xl:justify-between">
-        {#if prevPage}
-            <Tooltip.Root>
-                <Tooltip.Trigger>
-                    <Button
-                        href={prevPage.href}
-                        variant="outline"
-                        size="icon"
-                        class="size-8 border-border/60"
-                        aria-label={`Previous: ${prevPage.label}`}
-                    >
-                        <HugeiconsIcon icon={ChevronLeft} size={16} />
-                    </Button>
-                </Tooltip.Trigger>
-                <Tooltip.Content>{`Previous: ${prevPage.label}`}</Tooltip.Content>
-            </Tooltip.Root>
-        {:else}
-            <span class="hidden xl:block" aria-hidden="true"></span>
-        {/if}
-        {#if nextPage}
-            <Tooltip.Root>
-                <Tooltip.Trigger>
-                    <Button
-                        href={nextPage.href}
-                        variant="outline"
-                        size="icon"
-                        class="size-8 border-border/60"
-                        aria-label={`Next: ${nextPage.label}`}
-                    >
-                        <HugeiconsIcon icon={ChevronRight} size={16} />
-                    </Button>
-                </Tooltip.Trigger>
-                <Tooltip.Content>{`Next: ${nextPage.label}`}</Tooltip.Content>
-            </Tooltip.Root>
-        {/if}
-    </div>
+<nav aria-label="Adjacent pages" class="flex shrink-0 items-center gap-1">
+    {#if prevPage}
+        <Tooltip.Root>
+            <Tooltip.Trigger>
+                <Button
+                    href={prevPage.href}
+                    variant="ghost"
+                    size="icon"
+                    aria-label={`Previous: ${prevPage.label}`}
+                >
+                    <HugeiconsIcon icon={ChevronLeft} size={16} />
+                </Button>
+            </Tooltip.Trigger>
+            <Tooltip.Content>{`Previous: ${prevPage.label}`}</Tooltip.Content>
+        </Tooltip.Root>
+    {/if}
+    {#if nextPage}
+        <Tooltip.Root>
+            <Tooltip.Trigger>
+                <Button
+                    href={nextPage.href}
+                    variant="ghost"
+                    size="icon"
+                    aria-label={`Next: ${nextPage.label}`}
+                >
+                    <HugeiconsIcon icon={ChevronRight} size={16} />
+                </Button>
+            </Tooltip.Trigger>
+            <Tooltip.Content>{`Next: ${nextPage.label}`}</Tooltip.Content>
+        </Tooltip.Root>
+    {/if}
 </nav>

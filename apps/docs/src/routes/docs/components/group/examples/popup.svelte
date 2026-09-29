@@ -14,7 +14,12 @@
 <div class="flex flex-col items-center gap-3">
     <Popover.Root bind:open placement="bottom-end">
         <Group.Root aria-label="Export image">
-            <Button variant="outline" onclick={() => { message = `Export ready at ${width}px.`; }}>
+            <Button
+                variant="outline"
+                onclick={() => {
+                    message = `Export ready at ${width}px.`;
+                }}
+            >
                 Export
             </Button>
             <Group.Separator />
@@ -23,9 +28,16 @@
             </Popover.Trigger>
         </Group.Root>
         <Popover.Content class="w-64" aria-label="Export settings">
-            <div class="flex flex-col gap-3 p-3">
+            <div class="flex flex-col gap-3">
                 <Input label="Width in pixels" type="number" min={1} bind:value={width} />
-                <Button variant="outline" onclick={() => { open = false; }}>Done</Button>
+                <Button
+                    variant="outline"
+                    onclick={() => {
+                        open = false;
+                    }}
+                >
+                    Done
+                </Button>
             </div>
         </Popover.Content>
     </Popover.Root>

@@ -83,7 +83,9 @@
                 >
                     {label}
                     {#if selected}
-                        <span aria-hidden="true"><HugeiconsIcon icon={Check} /></span>
+                        <span aria-hidden="true" class="ms-auto">
+                            <HugeiconsIcon icon={Check} />
+                        </span>
                     {/if}
                 </Button>
             {/snippet}

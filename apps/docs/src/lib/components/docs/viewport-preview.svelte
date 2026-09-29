@@ -98,5 +98,5 @@
     src={`/preview/${example}`}
     {title}
     onload={connectFrame}
-    class="h-[min(48svh,28rem)] min-h-80 w-full border-0 bg-[var(--docs-content)]"
+    class="h-[min(48svh,28rem)] min-h-80 w-full border-0 bg-card"
 ></iframe>

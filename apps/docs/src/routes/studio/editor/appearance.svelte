@@ -8,10 +8,11 @@
     import EditorSection from './section.svelte';
 
     const editor = getThemeEditor();
+    const edgePercent = $derived(Math.round(editor.state.edgeHighlight * 100));
 </script>
 
-<EditorSection title="Appearance" bodyClass="gap-5">
-    <div class="flex flex-col gap-3">
+<EditorSection title="Appearance" bodyClass="gap-6">
+    <div class="flex flex-col gap-3" role="group" aria-label="Surfaces">
         <div class="flex flex-col gap-2">
             <Typography.Metadata>Borders</Typography.Metadata>
             {@render toggleChoice(
@@ -27,34 +28,41 @@
         </div>
         <div class="flex flex-col gap-2">
             <Typography.Metadata>Inset strip</Typography.Metadata>
-            {@render toggleChoice(['top', 'bottom'], editor.state.insetPosition, 'Inset strip position', (value) => {
-                if (value === 'top' || value === 'bottom') {
-                    editor.state.insetPosition = value;
+            {@render toggleChoice(
+                ['top', 'bottom'],
+                editor.state.insetPosition,
+                'Inset strip position',
+                (value) => {
+                    if (value === 'top' || value === 'bottom') {
+                        editor.state.insetPosition = value;
+                    }
                 }
-            })}
+            )}
         </div>
         <Switch bind:checked={editor.state.glassSurfaces} label="Glass surfaces" />
     </div>
-    <div class="flex flex-col gap-3 border-t border-border pt-4">
+    <div class="flex flex-col gap-3" role="group" aria-label="Edges">
+        <Typography.Metadata>Edges</Typography.Metadata>
         <div class="flex items-center justify-between gap-2">
             <Switch
                 bind:checked={() => editor.state.edgeHighlight > 0, editor.setEdgeHighlightEnabled}
                 label="Edge highlight"
             />
             {#if editor.state.edgeHighlight > 0}
-                <span class="font-mono text-xs tabular-nums text-foreground-muted">
-                    <span
-                        use:numberShuffle={{ value: Math.round(editor.state.edgeHighlight * 100) }}
-                    >
-                        {Math.round(editor.state.edgeHighlight * 100)}
-                    </span>
-                    %
+                <span
+                    class="font-mono text-xs tabular-nums text-foreground-muted"
+                    use:numberShuffle={{
+                        value: edgePercent,
+                        format: (value) => `${value}%`
+                    }}
+                >
+                    {`${edgePercent}%`}
                 </span>
             {/if}
         </div>
         {#if editor.state.edgeHighlight > 0}
             <Slider
-                value={Math.round(editor.state.edgeHighlight * 100)}
+                value={edgePercent}
                 min={1}
                 max={100}
                 step={1}
@@ -67,12 +75,10 @@
         {/if}
         <Switch bind:checked={editor.state.primaryStroke} label="Primary button border" />
     </div>
-    <fieldset
-        class="m-0 flex min-w-0 flex-col gap-3 border-0 border-t border-solid border-border p-0 pt-4"
-    >
-        <legend class="mb-1 px-0 text-xs text-foreground-muted">Shadows</legend>
+    <div class="flex flex-col gap-3" role="group" aria-label="Shadows">
+        <Typography.Metadata>Shadows</Typography.Metadata>
         <Switch bind:checked={editor.state.surfaceShadows} label="Cards and menus" />
         <Switch bind:checked={editor.state.controlShadows} label="Controls" />
         <Switch bind:checked={editor.state.dialogShadows} label="Dialogs and sheets" />
-    </fieldset>
+    </div>
 </EditorSection>

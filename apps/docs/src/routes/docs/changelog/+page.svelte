@@ -11,7 +11,10 @@
             return {
                 title,
                 id: `release-${title.split(' ')[0].replaceAll('.', '-')}`,
-                content: body.join('\n').trim()
+                content: body
+                    .join('\n')
+                    .trim()
+                    .replace(/^(- .*)\n\n(?=- )/gm, '$1\n')
             };
         });
 </script>
@@ -25,8 +28,8 @@
     <PageIntro title="Changelog">Release notes and upcoming changes for @mielui/svelte.</PageIntro>
 
     {#each releases as release (release.id)}
-        <section class="flex flex-col gap-4" aria-labelledby={release.id}>
-            <h2 id={release.id}>{release.title}</h2>
+        <section id={release.id} class="scroll-mt-20 flex flex-col gap-4">
+            <h2>{release.title}</h2>
             <Markdown content={release.content} />
         </section>
     {/each}

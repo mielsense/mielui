@@ -48,8 +48,8 @@
     --mielui-space-10: calc(var(--mielui-space-unit) * 10);
     --size-control-sm: var(--mielui-space-8);
     --size-control-md: calc(var(--mielui-space-8) + var(--mielui-space-2));
-    --size-control-lg: var(--mielui-space-10);
-    --size-icon-md: var(--mielui-space-8);
+    --size-control-lg: calc(var(--mielui-space-10) + var(--mielui-space-2));
+    --size-icon-md: calc(var(--size-control-md) - var(--size-hairline));
     --size-hairline: 2px;
     --size-touch: 2.75rem;
     --overlay-gutter: 2rem;
@@ -130,7 +130,7 @@
             28 25 23 / 0.06
         ),
         0 2px 4px -4px rgb(28 25 23 / 0.22);
-    --focus-ring: 0 0 0 3px var(--color-ring);
+    --focus-ring: 0 0 0 2px var(--color-ring);
 
     --motion-duration-hover: 120ms;
     --motion-duration-menu: 40ms;
@@ -177,7 +177,7 @@
     --color-button-foreground: var(--color-foreground);
     --color-primary-stroke: transparent;
     --color-accent-tint: var(--mielui-blue-50);
-    --color-ring: color-mix(in srgb, var(--color-primary) 30%, transparent);
+    --color-ring: color-mix(in srgb, var(--color-primary) 80%, transparent);
     --color-overlay: rgb(0 0 0 / 0.18);
     --color-success: var(--mielui-success);
     --color-warning: var(--mielui-warning);
@@ -187,9 +187,14 @@
     --color-warning-soft: color-mix(in srgb, var(--color-warning) 12%, transparent);
     --color-error-soft: color-mix(in srgb, var(--color-error) 12%, transparent);
     --color-info-soft: color-mix(in srgb, var(--color-info) 12%, transparent);
+    --mielui-success-text: color-mix(in oklab, var(--color-success) 65%, var(--color-foreground));
+    --mielui-warning-text: color-mix(in oklab, var(--color-warning) 65%, var(--color-foreground));
+    --mielui-error-text: color-mix(in oklab, var(--color-error) 65%, var(--color-foreground));
+    --mielui-info-text: color-mix(in oklab, var(--color-info) 65%, var(--color-foreground));
     --color-tooltip: var(--mielui-neutral-900);
     --color-tooltip-foreground: var(--mielui-neutral-0);
     --color-field: var(--color-card);
+    --mielui-control-border: color-mix(in oklab, var(--color-foreground) 30%, var(--color-card));
     --color-field-hover: var(--color-secondary);
     --color-field-foreground: var(--color-foreground);
     --color-code-comment: #6a737d;
@@ -273,11 +278,10 @@
         rgb(255 255 255 / calc(0.07 * var(--mielui-edge-highlight)));
     --elevation-1: var(--elevation-surface-edge), 0 1px 2px rgb(0 0 0 / 0.4);
     --elevation-float:
-        var(--elevation-surface-edge), 0 8px 24px -8px rgb(0 0 0 / 0.12),
-        0 2px 6px rgb(0 0 0 / 0.06);
+        var(--elevation-surface-edge), 0 12px 32px -8px rgb(0 0 0 / 0.6), 0 2px 8px rgb(0 0 0 / 0.4);
     --elevation-modal:
-        var(--elevation-surface-edge), 0 16px 40px -16px rgb(0 0 0 / 0.28),
-        0 4px 12px -6px rgb(0 0 0 / 0.14);
+        var(--elevation-surface-edge), 0 24px 56px -16px rgb(0 0 0 / 0.7),
+        0 6px 16px -6px rgb(0 0 0 / 0.5);
     --elevation-control:
         inset 0 0 0 var(--border-size) var(--color-border), inset 0 -2px 3px -2px rgb(0 0 0 / 0.32),
         inset 0 1px 0 0 rgb(255 255 255 / calc(0.05 * var(--mielui-edge-highlight)));
@@ -307,9 +311,13 @@
         width: 100%;
         height: calc(var(--spacing) * 8);
         align-items: center;
-        justify-content: space-between;
+        justify-content: flex-start;
+        gap: calc(var(--spacing) * 2);
         border: var(--border-size) solid transparent;
-        border-radius: var(--radius-lg);
+        border-radius: min(
+            var(--radius-md),
+            calc(var(--radius-xl) - var(--border-size) - var(--spacing))
+        );
         padding-inline: calc(var(--spacing) * 2);
         padding-block: 0;
         text-align: left;
@@ -331,6 +339,10 @@
 
     .mielui-menu-item:hover {
         cursor: default;
+    }
+
+    .mielui-menu-item > kbd {
+        margin-inline-start: auto;
     }
 
     .mielui-menu-item:focus-visible {
@@ -366,7 +378,10 @@
         left: 0;
         z-index: 0;
         display: block;
-        border-radius: var(--radius-lg);
+        border-radius: min(
+            var(--radius-md),
+            calc(var(--radius-xl) - var(--border-size) - var(--spacing))
+        );
         background-color: color-mix(in oklab, var(--color-foreground) 6%, transparent);
         opacity: 0;
         transition-property: transform, width, height, opacity;
@@ -429,7 +444,7 @@
 
     .mielui-inset-frame:where(.dark, .dark *),
     .mielui-modal-frame:where(.dark, .dark *) {
-        background-color: color-mix(in oklab, var(--color-background) 97%, white);
+        background-color: var(--color-background);
     }
 
     .mielui-modal-frame > [data-ui='dialog-surface'] {
@@ -472,7 +487,9 @@
         background-color: var(--color-tooltip);
         color: var(--color-tooltip-foreground);
         opacity: 0;
-        box-shadow: var(--elevation-float);
+        box-shadow:
+            0 0 0 var(--border-size) color-mix(in srgb, var(--color-foreground) 12%, transparent),
+            var(--elevation-float);
         transition-property: left, top, width, opacity, transform;
         transition-duration:
             var(--motion-duration-panel), var(--motion-duration-panel),

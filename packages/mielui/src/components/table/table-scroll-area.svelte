@@ -8,7 +8,7 @@
 <div
     {...rest}
     data-ui="table-scroll-area"
-    class={cn(className, 'w-full min-w-0 max-w-full overflow-x-auto overscroll-x-contain rounded-[var(--radius-lg)] focus-visible:outline-2 focus-visible:outline-primary')}
+    class={cn(className, 'w-full min-w-0 max-w-full overflow-x-auto overscroll-x-contain rounded-[var(--radius-lg)] focus-visible:outline-none focus-visible:shadow-[var(--focus-ring)]')}
 >
     {@render children?.()}
 </div>

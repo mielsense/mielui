@@ -58,7 +58,8 @@
         <div id="shapes" class="scroll-mt-20 flex flex-col gap-3">
             <Typography.H3 class="docs-subsection-heading">Shapes</Typography.H3>
             <Typography.Text variant="supporting">
-                Use class to adjust the corner radius. Outline follows the theme’s border width.
+                Badges are small pills with a hairline edge, so every variant shares one height. Use
+                class to adjust the corner radius.
             </Typography.Text>
             <ComponentPreview code={ShapesSrc}>
                 <Shapes />

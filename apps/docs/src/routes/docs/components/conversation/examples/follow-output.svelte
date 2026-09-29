@@ -47,7 +47,7 @@
 
     <Conversation.Root
         bind:follow
-        class="h-[22rem] rounded-[var(--radius-xl)] border border-border bg-panel"
+        class="h-[22rem] rounded-[var(--radius-xl)] border-[length:var(--border-size)] border-border bg-panel"
     >
         <Conversation.Content aria-label="Live deployment output">
             {#each output as entry (entry.id)}

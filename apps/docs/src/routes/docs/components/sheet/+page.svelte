@@ -59,6 +59,11 @@
             cancellation.
         </Typography.Text>
         <Typography.Text variant="supporting">
+            Footer renders on the outer frame below the inner surface, like Dialog.Footer, wherever
+            you place it inside Content. Its actions sit in one row. Close is a ghost button that
+            moves to the start of the footer, so the other actions line up at the end.
+        </Typography.Text>
+        <Typography.Text variant="supporting">
             Bind open on Root when another control needs to open or close the panel. Use
             onOpenChange to respond to changes initiated inside the component. Updating your bound
             value directly does not call that callback again. Each Root keeps its own state, so

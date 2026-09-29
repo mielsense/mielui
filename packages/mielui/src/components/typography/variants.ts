@@ -13,7 +13,7 @@ export const h1Classes = `${documentHeadingClasses} text-3xl font-[var(--font-we
 
 export const h2Classes = `${documentHeadingClasses} text-xl font-[var(--font-weight-header)] tracking-[var(--tracking-header)] leading-label`;
 
-export const h3Classes = `${documentHeadingClasses} text-base font-[var(--font-weight-header)] tracking-[var(--tracking-header)] leading-tight`;
+export const h3Classes = `${documentHeadingClasses} text-[length:var(--font-size-header)] font-[var(--font-weight-header)] tracking-[var(--tracking-header)] leading-tight`;
 
 export const h4Classes = `${documentHeadingClasses} text-[length:var(--font-size-body)] [font-weight:var(--font-weight-header)] tracking-[var(--tracking-body)] leading-snug`;
 
@@ -24,7 +24,7 @@ export const h6Classes =
     'font-[family-name:var(--font-header)] text-[length:var(--font-size-body)] font-label tracking-[var(--tracking-body)] leading-snug text-balance text-foreground-muted';
 
 export const textClasses = {
-    lead: 'text-base font-[var(--font-weight-description)] tracking-[var(--tracking-body)] leading-relaxed text-pretty text-foreground-muted',
+    lead: 'text-[length:var(--font-size-header)] font-[var(--font-weight-description)] tracking-[var(--tracking-body)] leading-relaxed text-pretty text-foreground-muted',
     body: 'text-base font-[var(--font-weight-body)] tracking-[var(--tracking-body)] leading-relaxed text-pretty text-foreground',
     supporting:
         'text-[length:var(--font-size-body)] font-[var(--font-weight-body)] tracking-[var(--tracking-body)] leading-relaxed text-pretty text-foreground-muted'

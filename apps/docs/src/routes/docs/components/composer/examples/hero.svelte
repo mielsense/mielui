@@ -5,6 +5,7 @@
         ShieldCheckIcon as ShieldCheck,
         WorkflowSquare01Icon as Workflow
     } from '@hugeicons/core-free-icons';
+    import * as Attachment from '@mielui/svelte/components/attachment';
     import * as Composer from '@mielui/svelte/components/composer';
     import * as DropdownMenu from '@mielui/svelte/components/dropdown-menu';
     import * as Select from '@mielui/svelte/components/select';
@@ -17,6 +18,10 @@
     const efforts = ['Low', 'Medium', 'High'];
 
     let value = $state('Review the release notes and call out any migration risks.');
+    let files = $state<File[]>([
+        new File(['Notes'], 'release-notes.md', { type: 'text/markdown' }),
+        new File(['Plan'], 'migration-plan.pdf', { type: 'application/pdf' })
+    ]);
     let model = $state(models[0]);
     let mode = $state(modes[0]);
     let permission = $state(permissions[0]);
@@ -61,14 +66,20 @@
     }
 </script>
 
-<div class="flex w-full max-w-2xl flex-col">
+<Attachment.Root bind:files class="flex w-full max-w-2xl flex-col">
     <Composer.Root bind:value onSubmit={submitPrompt} onStop={stopSubmission}>
+        <Composer.Header>
+            <Attachment.List variant="chip" />
+        </Composer.Header>
+
         <Composer.Input aria-label="Prompt" placeholder="Ask the agent..." />
 
         <Composer.Toolbar>
             <Composer.Actions>
+                <Attachment.Trigger variant="outline" />
+
                 <Select.Root bind:value={mode}>
-                    <Select.Trigger variant="ghost" class="w-auto max-w-32">
+                    <Select.Trigger variant="outline" class="w-auto max-w-32">
                         <HugeiconsIcon icon={Workflow} size={14} aria-hidden="true" />
                         <span class="truncate">{mode}</span>
                     </Select.Trigger>
@@ -81,7 +92,7 @@
                 </Select.Root>
 
                 <Select.Root bind:value={permission}>
-                    <Select.Trigger variant="ghost" class="w-auto max-w-44">
+                    <Select.Trigger variant="outline" class="w-auto max-w-44">
                         <HugeiconsIcon icon={ShieldCheck} size={14} aria-hidden="true" />
                         <span class="truncate">{permission}</span>
                     </Select.Trigger>
@@ -96,7 +107,7 @@
 
             <div class="ml-auto flex min-w-0 items-center gap-1">
                 <DropdownMenu.Root>
-                    <DropdownMenu.Trigger variant="ghost" class="w-auto max-w-52">
+                    <DropdownMenu.Trigger variant="outline" class="w-auto max-w-52">
                         <span class="flex min-w-0 flex-1 items-center gap-1.5">
                             <span class="truncate">{model}</span>
                             <span class="text-foreground-muted">{effort}</span>
@@ -151,4 +162,4 @@
             </div>
         </Composer.Toolbar>
     </Composer.Root>
-</div>
+</Attachment.Root>

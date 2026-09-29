@@ -1,252 +1,337 @@
 <script lang="ts">
-    import { check, chevron, lines, panel } from './shapes.svelte';
+    import {
+        ArrowRight01Icon as ChevronRight,
+        Sun03Icon as Sun,
+        ThumbsUpIcon as ThumbsUp,
+        WorkflowSquare01Icon as Workflow
+    } from '@hugeicons/core-free-icons';
+    import { shimmer } from '@mielui/svelte/actions/shimmer';
+    import * as Attachment from '@mielui/svelte/components/attachment';
+    import * as Avatar from '@mielui/svelte/components/avatar';
+    import { Badge } from '@mielui/svelte/components/badge';
+    import * as Breadcrumb from '@mielui/svelte/components/breadcrumb';
+    import { Button } from '@mielui/svelte/components/button';
+    import * as CodeBlock from '@mielui/svelte/components/code-block';
+    import * as Composer from '@mielui/svelte/components/composer';
+    import { CopyButton } from '@mielui/svelte/components/copy-button';
+    import type { FileDiffLine } from '@mielui/svelte/components/file-diff';
+    import * as FileDiff from '@mielui/svelte/components/file-diff';
+    import * as FolderCard from '@mielui/svelte/components/folder-card';
+    import Kbd from '@mielui/svelte/components/kbd';
+    import { Markdown } from '@mielui/svelte/components/markdown';
+    import * as Message from '@mielui/svelte/components/message';
+    import { Pagination } from '@mielui/svelte/components/pagination';
+    import * as Question from '@mielui/svelte/components/question';
+    import * as Reasoning from '@mielui/svelte/components/reasoning';
+    import { ReorderList } from '@mielui/svelte/components/reorder-list';
+    import { ResponseStream } from '@mielui/svelte/components/response-stream';
+    import * as Select from '@mielui/svelte/components/select';
+    import Separator from '@mielui/svelte/components/separator';
+    import { ShowMore } from '@mielui/svelte/components/show-more';
+    import { Skeleton } from '@mielui/svelte/components/skeleton';
+    import { Spinner } from '@mielui/svelte/components/spinner';
+    import * as Tabs from '@mielui/svelte/components/tabs';
+    import { type TaskStep, TaskSteps } from '@mielui/svelte/components/task-steps';
+    import * as Tool from '@mielui/svelte/components/tool';
+    import * as Typography from '@mielui/svelte/components/typography';
+    import HugeiconsIcon from '@mielui/svelte/hugeicons-icon';
 
     let { slug }: { slug: string } = $props();
+
+    let prompt = $state('Review these and call out risks.');
+    let format = $state('pdf');
+
+    function submitPrompt() {
+        prompt = '';
+    }
+
+    function chooseFormat(answer: string) {
+        format = answer;
+    }
+
+    const files = [
+        new File(['Notes'], 'notes.md', {
+            type: 'text/markdown'
+        }),
+        new File(['Plan'], 'plan.pdf', {
+            type: 'application/pdf'
+        })
+    ];
+    const diff: FileDiffLine[] = [
+        {
+            type: 'context',
+            oldLineNumber: 12,
+            newLineNumber: 12,
+            content: 'function getToken() {'
+        },
+        {
+            type: 'remove',
+            oldLineNumber: 13,
+            content: '  return store.token;'
+        },
+        {
+            type: 'add',
+            newLineNumber: 13,
+            content: '  return session();'
+        }
+    ];
+    const code = `const theme = 'daydream';
+
+<Button>Save</Button>`;
+    const agenda = [
+        {
+            id: 'opening',
+            name: 'Opening remarks'
+        },
+        {
+            id: 'roadmap',
+            name: 'Roadmap review'
+        },
+        {
+            id: 'critique',
+            name: 'Design critique'
+        }
+    ];
+    const steps: TaskStep[] = [
+        {
+            id: 'build',
+            label: 'Building',
+            meta: '8.1s'
+        },
+        {
+            id: 'checks',
+            label: 'Running checks',
+            meta: '3.4s'
+        },
+        {
+            id: 'deploy',
+            label: 'Deploying'
+        }
+    ];
+    const markdown = [
+        '### Edge cache rollout',
+        '',
+        'Origin traffic fell by **38%** with `cache_hit_age` in range.'
+    ].join('\n');
 </script>
+
 {#if slug === 'avatar'}
-    <div class="flex -space-x-3">
-        {#each ['AM', 'SR', 'JL'] as initials, index}
-            <span
-                class={`flex size-12 items-center justify-center rounded-full border-4 border-background font-medium ${index === 1 ? 'bg-primary/25' : 'bg-secondary'}`}
-            >
-                {initials}
-            </span>
+    <div class="flex -space-x-1.5">
+        {#each ['AM', 'SR', 'JL'] as initials (initials)}
+            <Avatar.Root class="ring-2 ring-card">
+                <Avatar.Fallback>{initials}</Avatar.Fallback>
+            </Avatar.Root>
         {/each}
-        <span
-            class="flex size-12 items-center justify-center rounded-full border-4 border-background bg-background text-foreground-muted"
-        >
-            +4
-        </span>
     </div>
 {:else if slug === 'badge'}
     <div class="flex flex-wrap items-center justify-center gap-2">
-        <span class="rounded-full bg-primary px-2.5 py-1 text-[var(--color-on-primary)]">New</span>
-        <span class="rounded-md bg-secondary px-2.5 py-1">Draft</span>
-        <span class="flex items-center gap-1.5 rounded-md border border-border px-2.5 py-1">
-            <span class="size-1.5 rounded-full bg-primary"></span>
-            Live
-        </span>
+        <Badge variant="primary">New</Badge>
+        <Badge>Draft</Badge>
+        <Badge variant="outline">Label</Badge>
+        <Badge variant="success">Published</Badge>
     </div>
 {:else if slug === 'breadcrumb'}
-    <div class="flex items-center gap-3">
-        <span class="text-foreground-muted">Home</span>
-        <span class="text-foreground-muted">/</span>
-        <span class="text-foreground-muted">Projects</span>
-        <span class="text-foreground-muted">/</span>
-        <span>Design</span>
-    </div>
+    <Breadcrumb.Root>
+        <Breadcrumb.Item href="/">Home</Breadcrumb.Item>
+        <Breadcrumb.Separator>
+            <HugeiconsIcon icon={ChevronRight} size={14} />
+        </Breadcrumb.Separator>
+        <Breadcrumb.Item href="/docs">Docs</Breadcrumb.Item>
+        <Breadcrumb.Separator>
+            <HugeiconsIcon icon={ChevronRight} size={14} />
+        </Breadcrumb.Separator>
+        <Breadcrumb.Item current>Button</Breadcrumb.Item>
+    </Breadcrumb.Root>
 {:else if slug === 'kbd'}
-    <div class="flex items-center gap-2">
-        {#each ['⌘', '⇧', 'K'] as key}
-            <span
-                class="flex size-9 items-center justify-center rounded-md border border-border bg-background font-mono text-sm shadow-[0_2px_0_var(--color-border)]"
-            >
-                {key}
-            </span>
-        {/each}
+    <div class="flex items-center gap-3">
+        <Button variant="ghost">
+            Cancel
+            <Kbd shortcut="esc" />
+        </Button>
+        <Button>
+            Save
+            <Kbd shortcut="enter" />
+        </Button>
     </div>
 {:else if slug === 'pagination'}
-    <div class="flex items-center gap-1.5">
-        {#each ['‹', '1', '2', '3', '…', '9', '›'] as page}
-            <span
-                class={`flex size-7 items-center justify-center rounded ${page === '2' ? 'bg-secondary font-medium' : 'text-foreground-muted'}`}
-            >
-                {page}
-            </span>
-        {/each}
-    </div>
+    <Pagination page={2} total={9} />
 {:else if slug === 'separator'}
-    <div class="flex w-48 flex-col gap-4">
-        {@render lines(2)}
-        <span class="h-px w-full bg-border"></span>
-        <div class="flex justify-between text-[10px] text-foreground-muted">
-            <span>Profile</span>
-            <span class="w-px bg-border"></span>
-            <span>Settings</span>
-            <span class="w-px bg-border"></span>
-            <span>Help</span>
+    <div class="flex w-56 flex-col gap-3 text-sm">
+        <p>Workspace</p>
+        <Separator />
+        <div class="flex h-5 items-center gap-4 text-foreground-muted">
+            <span>Projects</span>
+            <Separator orientation="vertical" decorative />
+            <span>Members</span>
         </div>
     </div>
 {:else if slug === 'skeleton'}
-    <div class="flex w-48 items-center gap-3">
-        <span class="size-10 shrink-0 rounded-full bg-foreground/10"></span>
-        {@render lines(3)}
+    <div class="flex w-60 items-center gap-3">
+        <Skeleton w={40} h={40} class="shrink-0 rounded-full" />
+        <div class="flex flex-1 flex-col gap-2">
+            <Skeleton h={12} class="w-full" />
+            <Skeleton h={12} class="w-2/3" />
+        </div>
     </div>
 {:else if slug === 'spinner'}
-    <div class="flex items-center gap-3">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-            <circle
-                cx="12"
-                cy="12"
-                r="9"
-                stroke="currentColor"
-                stroke-opacity=".12"
-                stroke-width="2"
-            />
-            <path
-                d="M12 3a9 9 0 0 1 9 9"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-            />
-        </svg>
-        <span class="text-foreground-muted">Loading…</span>
+    <div class="flex items-center gap-3 text-sm text-foreground-muted">
+        <Spinner aria-hidden="true" />
+        <span>Checking for updates</span>
     </div>
 {:else if slug === 'tabs'}
-    <div class="w-52">
-        <div class="mb-4 flex gap-1 rounded-lg bg-secondary p-1">
-            <span class="flex-1 rounded-md bg-background px-3 py-1.5 text-center shadow-sm">
-                Overview
-            </span>
-            <span class="px-3 py-1.5 text-foreground-muted">Activity</span>
-        </div>
-        {@render lines(3)}
+    <Tabs.Root value="overview" class="w-64">
+        <Tabs.List class="grid w-full grid-cols-2">
+            <Tabs.Trigger value="overview">Overview</Tabs.Trigger>
+            <Tabs.Trigger value="activity">Activity</Tabs.Trigger>
+        </Tabs.List>
+        <Tabs.Content value="overview" class="pt-3">
+            <p class="text-sm text-foreground-muted">Everything is up to date.</p>
+        </Tabs.Content>
+    </Tabs.Root>
+{:else if slug === 'typography'}
+    <div class="flex w-64 flex-col gap-1.5">
+        <Typography.Metadata>Project notes</Typography.Metadata>
+        <Typography.Title level={3}>Preparing the release</Typography.Title>
+        <Typography.Description>Review the updated components first.</Typography.Description>
     </div>
-{:else if slug === 'typography' || slug === 'markdown'}
-    <div class="w-48">
-        <span class="text-xl font-semibold tracking-tight">
-            {slug === 'markdown' ? 'Getting started' : 'A clear hierarchy'}
-        </span>
-        <div class="mt-3">{@render lines(3)}</div>
-        {#if slug === 'markdown'}
-            <span class="mt-3 inline-block rounded bg-secondary px-2 py-1 font-mono text-[9px]">
-                npm install
-            </span>
-        {/if}
+{:else if slug === 'markdown'}
+    <Markdown content={markdown} class="w-64" />
+{:else if slug === 'code-block'}
+    <CodeBlock.Root value="svelte" class="w-full max-w-72">
+        <CodeBlock.Content value="svelte" {code} lang="svelte" />
+    </CodeBlock.Root>
+{:else if slug === 'file-diff'}
+    <FileDiff.Root file="src/auth.ts" lang="ts" {diff} class="w-full max-w-72" />
+{:else if slug === 'folder-card'}
+    <FolderCard.Root tone={1} class="w-56">
+        <FolderCard.Cover />
+        <FolderCard.Tab>
+            <FolderCard.Title>Client projects</FolderCard.Title>
+        </FolderCard.Tab>
+        <FolderCard.Footer>
+            <FolderCard.Index>001</FolderCard.Index>
+            <FolderCard.Count value={3957} />
+        </FolderCard.Footer>
+    </FolderCard.Root>
+{:else if slug === 'reorder-list'}
+    <div class="w-60">
+        <ReorderList
+            items={agenda}
+            getId={(item) => item.id}
+            getLabel={(item) => item.name}
+            label="Meeting agenda"
+        >
+            {#snippet children(item)}
+                <span class="truncate text-sm font-medium">{item.name}</span>
+            {/snippet}
+        </ReorderList>
     </div>
-{:else if slug === 'code-block' || slug === 'file-diff'}
-    <div class={`${panel} w-56 overflow-hidden font-mono text-[9px]`}>
-        <div class="border-b border-border px-3 py-2 text-foreground-muted">
-            {slug === 'file-diff' ? 'theme.ts' : 'app.svelte'}
-        </div>
-        {#if slug === 'file-diff'}
-            <div class="bg-destructive/10 px-3 py-1.5 text-destructive">− radius: 4,</div>
-            <div class="bg-primary/15 px-3 py-1.5 text-primary">+ radius: 8,</div>
-            <div class="px-3 py-1.5">&nbsp; spacing: 16</div>
-        {:else}
-            <div class="space-y-1.5 p-3">
-                <p><span class="text-primary">import</span> &#123; Button &#125;</p>
-                <p class="text-foreground-muted">from '@mielui/svelte';</p>
-                <p class="pt-1">&lt;Button&gt;Save&lt;/Button&gt;</p>
-            </div>
-        {/if}
-    </div>
-{:else if slug === 'reorder-list' || slug === 'task-steps'}
-    <div class="flex w-48 flex-col gap-2">
-        {#each ['Plan', 'Build', 'Review'] as step, index}
-            <div
-                class="flex items-center gap-3 rounded-md border border-border bg-background px-3 py-2"
-            >
-                <span class="text-primary">
-                    {#if slug === 'reorder-list'}
-                        ⠿
-                    {:else if index === 0}
-                        {@render check()}
-                    {:else}
-                        {index + 1}
-                    {/if}
-                </span>
-                <span class={index === 2 ? 'text-foreground-muted' : ''}>{step}</span>
-            </div>
-        {/each}
-    </div>
+{:else if slug === 'task-steps'}
+    <TaskSteps {steps} current={1} label="Deploy progress" class="w-56" />
 {:else if slug === 'show-more'}
-    <div class="flex w-48 flex-col gap-3">
-        <div class="[mask-image:linear-gradient(black,transparent)]">{@render lines(4)}</div>
-        <span class="flex items-center gap-1 text-[10px] text-foreground-muted">
-            Show more{@render chevron()}
-        </span>
+    <div class="w-64 text-sm">
+        <ShowMore lines={2} label="Migration details">
+            <p>
+                The workspace migration starts Tuesday at 09:00 UTC. Projects, comments, and files
+                move together while read-only access stays available.
+            </p>
+        </ShowMore>
     </div>
 {:else if slug === 'attachment'}
-    <div class={`${panel} flex items-center gap-3 p-3`}>
-        <svg width="24" height="28" viewBox="0 0 24 28" fill="none">
-            <path d="M4 2h10l6 6v18H4V2Z" stroke="currentColor" />
-            <path d="M14 2v7h6M8 15h8M8 19h6" stroke="currentColor" />
-        </svg>
-        <div>
-            <span>Report.pdf</span>
-            <p class="mt-1 text-[9px] text-foreground-muted">PDF · 156 KB</p>
-        </div>
-        <span class="ml-3 text-foreground-muted">×</span>
+    <div class="flex w-72 flex-wrap justify-center gap-2">
+        <Attachment.Item file={files[0]} status="complete" variant="chip" removable={false} />
+        <Attachment.Item
+            file={files[1]}
+            status="uploading"
+            progress={64}
+            variant="chip"
+            removable={false}
+        />
     </div>
 {:else if slug === 'composer'}
-    <div class={`${panel} w-56 p-3`}>
-        <p class="pb-6 text-foreground-muted">Ask a question…</p>
-        <div class="flex items-center justify-between">
-            <span class="text-base text-foreground-muted">+</span>
-            <span
-                class="flex size-6 items-center justify-center rounded-full bg-primary text-[var(--color-on-primary)]"
-            >
-                ↑
-            </span>
-        </div>
+    <Attachment.Root files={[...files]} class="flex w-full max-w-72 flex-col">
+        <Composer.Root bind:value={prompt} onSubmit={submitPrompt}>
+            <Composer.Header>
+                <Attachment.List variant="chip" />
+            </Composer.Header>
+            <Composer.Input aria-label="Prompt" placeholder="Ask the agent…" class="min-h-10" />
+            <Composer.Toolbar>
+                <Composer.Actions>
+                    <Attachment.Trigger variant="outline" />
+                    <Select.Root value="Plan">
+                        <Select.Trigger variant="outline" class="w-auto">
+                            <HugeiconsIcon icon={Workflow} size={14} aria-hidden="true" />
+                            Plan
+                        </Select.Trigger>
+                    </Select.Root>
+                </Composer.Actions>
+                <Composer.Submit class="ml-auto" />
+            </Composer.Toolbar>
+        </Composer.Root>
+    </Attachment.Root>
+{:else if slug === 'conversation'}
+    <div class="flex w-full max-w-72 flex-col gap-3 text-sm">
+        <Message.Root from="user">
+            <Message.Content>Summarize this report.</Message.Content>
+        </Message.Root>
+        <Message.Root from="assistant">
+            <Message.Content>Revenue grew 12% this quarter.</Message.Content>
+        </Message.Root>
+        <Message.Root from="user">
+            <Message.Content>What drove it?</Message.Content>
+        </Message.Root>
     </div>
-{:else if slug === 'conversation' || slug === 'message'}
-    <div class="flex w-52 flex-col gap-3">
-        <span class="ml-auto rounded-xl rounded-br-sm bg-secondary px-3 py-2 text-[10px]">
-            Summarize this report.
-        </span>
-        <div class="flex items-start gap-2">
-            <span class="mt-1 size-4 shrink-0 rounded-full bg-primary/25"></span>
-            <div class="flex flex-1 flex-col gap-2 pt-1">
-                {@render lines(slug === 'message' ? 4 : 2)}
-            </div>
-        </div>
-        {#if slug === 'conversation'}
-            <span class="ml-auto rounded-xl rounded-br-sm bg-secondary px-3 py-2 text-[10px]">
-                Thanks, that helps.
-            </span>
-        {/if}
+{:else if slug === 'message'}
+    <div class="w-full max-w-72 text-sm">
+        <Message.Root from="assistant" name="Assistant" timestamp="09:41">
+            <Message.Content>Three changes need review before Friday’s release.</Message.Content>
+            <Message.Actions aria-label="Response actions">
+                <CopyButton text="Three changes need review." label="Copy response" />
+                <Button variant="ghost" size="icon" aria-label="Mark as helpful">
+                    <HugeiconsIcon icon={ThumbsUp} size={15} aria-hidden="true" />
+                </Button>
+            </Message.Actions>
+        </Message.Root>
     </div>
 {:else if slug === 'question'}
-    <div class={`${panel} w-52 p-3`}>
-        <p class="mb-3 font-medium">Which format?</p>
-        <div class="flex gap-2">
-            <span class="rounded border border-primary/40 bg-primary/10 px-3 py-1.5">PDF</span>
-            <span class="rounded border border-border px-3 py-1.5">Markdown</span>
-        </div>
-    </div>
+    <Question.Root type="single" bind:value={format} onSubmit={chooseFormat} class="w-72">
+        <Question.Content>
+            <Question.Title>Which format?</Question.Title>
+            <Question.Options>
+                <Question.Option value="pdf" label="PDF" />
+                <Question.Option value="markdown" label="Markdown" />
+            </Question.Options>
+        </Question.Content>
+    </Question.Root>
 {:else if slug === 'reasoning'}
-    <div class="w-52">
-        <div class="mb-3 flex items-center gap-2 text-[10px] text-foreground-muted">
-            Thought for 4 seconds{@render chevron()}
-        </div>
-        <div class="border-l border-border pl-3">{@render lines(4)}</div>
-    </div>
+    <Reasoning.Root open class="w-72">
+        <Reasoning.Trigger title="Investigated checkout failures" duration="4.8s" />
+        <Reasoning.Content>
+            <p>Compared the incident timeline with the last five deployments.</p>
+        </Reasoning.Content>
+    </Reasoning.Root>
 {:else if slug === 'response-stream'}
-    <div class="w-52">
-        <p class="leading-6">
-            Here are the main changes in this release<span
-                class="ml-1 inline-block h-3 w-1.5 bg-primary"
-            ></span>
-        </p>
-        <div class="mt-3">{@render lines(2)}</div>
+    <div class="w-64 text-sm leading-relaxed">
+        <ResponseStream
+            textStream="The release contains twelve changes. Two affect keyboard navigation, and four update the documentation."
+        />
     </div>
 {:else if slug === 'tool'}
-    <div class={`${panel} w-52 p-3`}>
-        <div class="flex items-center gap-2">
-            <span class="text-primary">{@render check()}</span>
-            <span class="font-mono text-[10px]">search_documents</span>
-        </div>
-        <div class="mt-3 border-t border-border pt-3 text-[9px] text-foreground-muted">
-            Found 3 matching documents
-        </div>
-    </div>
+    <Tool.Root name="2 tools" state="complete" duration="6s" class="w-72">
+        <Tool.Item name="Grep" detail="Composer" kind="search" />
+        <Tool.Item name="Bash" detail="pnpm lint" />
+    </Tool.Root>
 {:else if slug === 'morph'}
-    <div class="flex items-center gap-5">
-        <span class="size-9 rounded-md border border-border bg-secondary"></span>
-        <span class="text-foreground-muted">→</span>
-        <span class="size-12 rounded-full bg-primary/35"></span>
-    </div>
+    <Button variant="outline">
+        <HugeiconsIcon icon={Sun} size={20} aria-hidden="true" />
+        Day
+    </Button>
 {:else if slug === 'number-shuffle'}
-    <div class="flex items-center gap-3 text-4xl tabular-nums">
-        <span class="text-foreground-muted/40">71</span>
-        <span>72</span>
-    </div>
+    <span class="text-4xl tabular-nums">1,284</span>
 {:else if slug === 'shimmer'}
-    <span
-        class="text-lg font-medium text-transparent bg-clip-text bg-linear-to-r from-foreground/30 via-foreground to-foreground/30"
-    >
-        Making progress
-    </span>
+    <div class="flex w-56 flex-col gap-3">
+        <div use:shimmer class="size-10 rounded-full bg-secondary"></div>
+        <div use:shimmer class="h-3 rounded-[var(--radius-md)] bg-secondary"></div>
+        <div use:shimmer class="h-3 w-2/3 rounded-[var(--radius-md)] bg-secondary"></div>
+    </div>
 {/if}

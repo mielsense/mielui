@@ -35,6 +35,7 @@
     const uid = $props.id();
     let host = $state<HTMLElement | null>(null);
     let body = $state<HTMLDivElement>();
+    let surface = $state<HTMLDivElement>();
     let ready = $state(false);
     let presented = $state(false);
     let width = $state(0);
@@ -70,7 +71,7 @@
               }
     );
     const outline = $derived(notchShape(drawnWidth, drawnHeight, context.side));
-    const inset = 4;
+    let inset = $state(0);
     const insetTop = $derived(context.side === 'top' ? 0 : inset);
     const insetRight = $derived(context.side === 'right' ? 0 : inset);
     const insetBottom = $derived(context.side === 'bottom' ? 0 : inset);
@@ -120,7 +121,15 @@
         delay: instant || !context.open ? 0 : 0.02
     });
 
+    function readInset() {
+        if (!surface) {
+            return;
+        }
+        const edge = context.side === 'left' ? 'right' : 'left';
+        inset = Number.parseFloat(getComputedStyle(surface)[edge]) || 0;
+    }
     function measure() {
+        readInset();
         if (!body) {
             return;
         }
@@ -147,6 +156,7 @@
         const unregister = context.register(node);
         function updateMotion() {
             duration = getCssDuration(node, '--motion-duration-panel', 260);
+            readInset();
         }
         updateMotion();
         let frame = 0;
@@ -329,7 +339,7 @@
     onpointerup={handlePointerUp}
     onpointercancel={handlePointerCancel}
     onlostpointercapture={handleLostPointerCapture}
-    class={cn(overlaySurface(context.surface), 'fixed m-0 overflow-hidden border-0 bg-[color-mix(in_oklab,var(--color-secondary)_97%,white)] dark:bg-[color-mix(in_oklab,var(--color-background)_97%,white)] p-0 text-foreground [inset:auto] [clip-path:var(--notch-clip)]',
+    class={cn(overlaySurface(context.surface), 'fixed m-0 overflow-hidden border-0 [--mielui-modal-inset:calc(var(--spacing)*var(--mielui-border-inset-scale,1))] bg-[color-mix(in_oklab,var(--color-secondary)_97%,white)] dark:bg-[color-mix(in_oklab,var(--color-background)_97%,white)] p-0 text-foreground [inset:auto] [clip-path:var(--notch-clip)]',
         context.side === 'top' && 'top-0 left-1/2 -translate-x-1/2',
         context.side === 'bottom' && 'bottom-0 left-1/2 -translate-x-1/2',
         context.side === 'left' && 'left-0 top-1/2 -translate-y-1/2',
@@ -339,8 +349,15 @@
     <div
         aria-hidden="true"
         data-ui="notch-surface"
-        class="mielui-inset-surface pointer-events-none absolute rounded-none [clip-path:var(--notch-inner-clip)] [@container_style(--mielui-border-inset-scale:0)]:inset-0! [@container_style(--mielui-border-inset-scale:0)]:[clip-path:none]"
-        style={`inset:${insetTop}px ${insetRight}px ${insetBottom}px ${insetLeft}px;--notch-inner-clip:url(#${uid}-inner)`}
+        bind:this={surface}
+        class={cn(
+            context.side === 'top' && 'top-0',
+            context.side === 'right' && 'right-0',
+            context.side === 'bottom' && 'bottom-0',
+            context.side === 'left' && 'left-0',
+            'mielui-inset-surface pointer-events-none absolute inset-[var(--mielui-modal-inset)] rounded-none [clip-path:var(--notch-inner-clip)] [@container_style(--mielui-border-inset-scale:0)]:inset-0! [@container_style(--mielui-border-inset-scale:0)]:[clip-path:none]'
+        )}
+        style={`--notch-inner-clip:url(#${uid}-inner)`}
     ></div>
     {#if context.mode === 'peek'}
         <button

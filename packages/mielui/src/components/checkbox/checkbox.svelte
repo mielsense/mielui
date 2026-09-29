@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { MinusSignIcon as MinusIcon } from '@hugeicons/core-free-icons';
+    import { Tick02Icon as CheckIcon } from '@hugeicons/core-free-icons';
     import { cn, pressable } from '@mielui/svelte/utils';
     import HugeiconsIcon from '../../hugeicons-icon.svelte';
     import { fieldMetadata } from '../_internal/field-metadata';
@@ -76,7 +76,7 @@
         aria-hidden="true"
     >
         <HugeiconsIcon
-            icon={MinusIcon}
+            icon={CheckIcon}
             size={12}
             strokeWidth={2.5}
             class={cn(

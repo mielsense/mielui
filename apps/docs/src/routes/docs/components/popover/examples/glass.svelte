@@ -34,7 +34,7 @@
 <Popover.Root placement="bottom">
     <Popover.Trigger variant="secondary">Share project</Popover.Trigger>
     <Popover.Content surface="glass" class="w-80 max-w-[calc(100vw-var(--spacing)*8)]">
-        <div class="flex flex-col gap-4 p-2">
+        <div class="flex flex-col gap-4">
             <div>
                 <Popover.Title class="text-sm font-medium">Project access</Popover.Title>
                 <p class="mt-1 text-xs text-foreground-muted">

@@ -85,7 +85,7 @@
             aria-hidden="true"
             data-state={isOn ? 'checked' : 'unchecked'}
             class={cn(
-                'block h-3.5 w-6 shrink-0 rounded-full bg-[var(--color-on-primary)] ring-1 ring-inset ring-[color-mix(in_srgb,var(--color-foreground)_8%,transparent)] shadow-[var(--elevation-control-edge)] will-change-transform transition-transform [transition-duration:var(--motion-duration-panel)] ease-[var(--ease-out)] motion-reduce:transition-none',
+                'block h-3.5 w-6 shrink-0 rounded-full bg-background ring-1 ring-inset ring-[color-mix(in_srgb,var(--color-foreground)_8%,transparent)] shadow-[var(--elevation-control-edge)] dark:bg-foreground will-change-transform transition-transform [transition-duration:var(--motion-duration-panel)] ease-[var(--ease-out)] motion-reduce:transition-none',
                 isOn ? 'translate-x-3.5 rtl:-translate-x-3.5' : 'translate-x-0',
                 !disabled && 'group-active:scale-x-110 motion-reduce:group-active:scale-x-100'
             )}

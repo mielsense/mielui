@@ -8,6 +8,7 @@ import type {
 } from 'svelte/elements';
 import Root from './composer.svelte';
 import Actions from './composer-actions.svelte';
+import Header from './composer-header.svelte';
 import Input from './composer-input.svelte';
 import Submit from './composer-submit.svelte';
 import Toolbar from './composer-toolbar.svelte';
@@ -32,6 +33,11 @@ export type ComposerProps = {
     HTMLFormAttributes,
     'children' | 'class' | 'onsubmit' | 'action' | 'method' | 'target' | 'enctype'
 >;
+
+export type ComposerHeaderProps = {
+    class?: string;
+    children?: Snippet;
+} & Omit<HTMLAttributes<HTMLDivElement>, 'children' | 'class'>;
 
 export type ComposerInputProps = {
     submitOnEnter?: boolean;
@@ -70,4 +76,4 @@ export type ComposerSubmitState = Readonly<{
     empty: boolean;
 }>;
 
-export { Actions, Input, Root, Submit, Toolbar };
+export { Actions, Header, Input, Root, Submit, Toolbar };

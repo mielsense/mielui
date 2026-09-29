@@ -49,6 +49,11 @@
             use{' '}
             <Typography.InlineCode>duration</Typography.InlineCode> when it completes.
         </Typography.Text>
+        <Typography.Text variant="supporting">
+            The trigger shares the disclosure row used by Accordion, Collapsible, and Tool, with a
+            ghost hover fill, a rounded focus ring, and a trailing chevron. Its label aligns with
+            the surrounding text, and expanded content sits behind a hairline rule.
+        </Typography.Text>
         <CodeBlock
             code={`import * as Reasoning from '@mielui/svelte/components/reasoning';
 

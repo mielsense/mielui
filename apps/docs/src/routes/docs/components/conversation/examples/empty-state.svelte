@@ -20,7 +20,7 @@
 {/snippet}
 
 <Conversation.Root
-    class="h-[22rem] w-full max-w-2xl rounded-[var(--radius-xl)] border border-border bg-panel"
+    class="h-[22rem] w-full max-w-2xl rounded-[var(--radius-xl)] border-[length:var(--border-size)] border-border bg-panel"
 >
     <Conversation.Content aria-label="Release planning conversation">
         {#if started}

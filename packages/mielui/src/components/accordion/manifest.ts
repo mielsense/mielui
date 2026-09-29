@@ -14,13 +14,15 @@ export const manifest: Manifest = {
         'components/accordion/item-context.ts',
         'components/accordion/manifest.ts'
     ],
-    components: ['_internal/utils'],
+    components: ['_internal/utils', '_internal/disclosure'],
     shared: ['hugeicons-icon', 'utils.cn', 'transition'],
     peerDependencies: {
         '@floating-ui/dom': '1.7.6',
         'bits-ui': '^2.19.2',
         '@hugeicons/core-free-icons': '^4.3.0',
         cnfast: '^0.0.8',
+        'tailwind-merge': '^3.0.0',
+        'tailwind-variants': '^3.0.0',
         svelte: '^5.56.0'
     }
 };

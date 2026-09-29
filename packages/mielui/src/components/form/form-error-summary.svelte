@@ -76,7 +76,7 @@
         {...rest}
         bind:this={element}
         data-ui="form-error-summary"
-        class={cn(className, 'rounded-lg border border-error/30 bg-error/5 p-4 text-sm text-error outline-none focus-visible:ring-2 focus-visible:ring-ring')}
+        class={cn(className, 'rounded-lg border border-error/30 bg-error/5 p-4 text-sm text-[var(--mielui-error-text)] outline-none focus-visible:ring-2 focus-visible:ring-ring')}
     >
         <div id={`${uid}-heading`} class="font-medium">
             {#if heading}

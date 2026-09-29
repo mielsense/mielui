@@ -3,10 +3,10 @@ import { tv } from 'tailwind-variants';
 export const toastIcon = tv({
     variants: {
         type: {
-            success: 'text-[var(--color-success)]',
-            error: 'text-[var(--color-error)]',
-            warning: 'text-[var(--color-warning)]',
-            info: 'text-[var(--color-info)]',
+            success: 'text-[var(--mielui-success-text)]',
+            error: 'text-[var(--mielui-error-text)]',
+            warning: 'text-[var(--mielui-warning-text)]',
+            info: 'text-[var(--mielui-info-text)]',
             loading: 'text-foreground-muted',
             default: ''
         }

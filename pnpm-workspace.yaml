@@ -7,12 +7,12 @@ overrides:
   brace-expansion: "5.0.9"
   cookie: "1.1.1"
   deepmerge-ts: "8.0.2"
-  fast-uri: "3.1.6"
+  fast-uri: "3.1.7"
   mysql2: "3.23.1"
   nanoid: "3.3.18"
   postcss: "8.5.25"
   tar: "7.5.22"
-  undici: "7.29.0"
+  undici: "7.29.1"
 
 onlyBuiltDependencies:
   - "@prisma/engines"

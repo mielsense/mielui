@@ -1,4 +1,5 @@
 <script lang="ts">
+    import { numberShuffle } from '@mielui/svelte/actions/number-shuffle';
     import * as Select from '@mielui/svelte/components/select';
     import { Slider } from '@mielui/svelte/components/slider';
     import * as Typography from '@mielui/svelte/components/typography';
@@ -15,11 +16,7 @@
         <div class="flex min-w-0 flex-col gap-2">
             <Typography.Metadata>Sans</Typography.Metadata>
             <Select.Root bind:value={editor.state.selectedSans}>
-                <Select.Trigger
-                    class="h-[34px] min-w-0 px-[9px] text-[13px]"
-                    variant="outline"
-                    aria-label="Sans font"
-                >
+                <Select.Trigger class="min-w-0" variant="outline" aria-label="Sans font">
                     <span class="truncate">
                         {sansFonts.find((font) => font.key === editor.state.selectedSans)?.label}
                     </span>
@@ -37,11 +34,7 @@
         <div class="flex min-w-0 flex-col gap-2">
             <Typography.Metadata>Header</Typography.Metadata>
             <Select.Root bind:value={editor.state.selectedHeader}>
-                <Select.Trigger
-                    class="h-[34px] min-w-0 px-[9px] text-[13px]"
-                    variant="outline"
-                    aria-label="Header font"
-                >
+                <Select.Trigger class="min-w-0" variant="outline" aria-label="Header font">
                     <span
                         class="truncate"
                         style:font-family={headerFonts.find(
@@ -78,16 +71,12 @@
     <div class="flex min-w-0 flex-col gap-2">
         <Typography.Metadata>Mono</Typography.Metadata>
         <Select.Root bind:value={editor.state.selectedMono}>
-            <Select.Trigger
-                class="h-[34px] min-w-0 px-[9px] font-mono text-[13px]"
-                variant="outline"
-                aria-label="Monospace font"
-            >
+            <Select.Trigger class="min-w-0 font-mono" variant="outline" aria-label="Monospace font">
                 <span class="truncate">
                     {monoFonts.find((font) => font.key === editor.state.selectedMono)?.label}
                 </span>
             </Select.Trigger>
-            <Select.Content class="h-56 min-w-[max(16rem,var(--popover-trigger-width))]">
+            <Select.Content class="max-h-56 min-w-[max(16rem,var(--popover-trigger-width))]">
                 <Select.Label>Mono</Select.Label>
                 {#each monoFonts as font (font.key)}
                     <Select.Item value={font.key} label={font.label}>
@@ -100,11 +89,19 @@
     <div class="flex flex-col gap-2">
         <div class="flex items-baseline justify-between gap-2">
             <Typography.Metadata>Header size</Typography.Metadata>
-            <Typography.Metadata>{editor.state.headerSize}px</Typography.Metadata>
+            <span
+                class="font-mono text-xs tabular-nums text-foreground-muted"
+                use:numberShuffle={{
+                    value: editor.state.headerSize,
+                    format: (value) => `${value}px`
+                }}
+            >
+                {`${editor.state.headerSize}px`}
+            </span>
         </div>
         <Slider {...editor.headerSliderProps()} />
     </div>
-    <div class="flex flex-col gap-2.5">
+    <div class="flex flex-col gap-2">
         <Typography.Metadata>Font weights</Typography.Metadata>
         {@render weightControl('Header', editor.state.headerWeight, (value) => {
                             editor.state.headerWeight = value;

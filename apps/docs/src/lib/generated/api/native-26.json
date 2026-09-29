@@ -1,7 +1,52 @@
 [
     {
+        "name": "ontransitionrun",
+        "type": "TransitionEventHandler<HTMLAnchorElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "ontransitionruncapture",
+        "type": "TransitionEventHandler<HTMLAnchorElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "on:transitionend",
+        "type": "TransitionEventHandler<HTMLAnchorElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "ontransitionend",
+        "type": "TransitionEventHandler<HTMLAnchorElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "ontransitionendcapture",
+        "type": "TransitionEventHandler<HTMLAnchorElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
         "name": "on:transitioncancel",
-        "type": "TransitionEventHandler<SVGTextElement> | null | undefined",
+        "type": "TransitionEventHandler<HTMLAnchorElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -10,7 +55,7 @@
     },
     {
         "name": "ontransitioncancel",
-        "type": "TransitionEventHandler<SVGTextElement> | null | undefined",
+        "type": "TransitionEventHandler<HTMLAnchorElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -19,7 +64,7 @@
     },
     {
         "name": "ontransitioncancelcapture",
-        "type": "TransitionEventHandler<SVGTextElement> | null | undefined",
+        "type": "TransitionEventHandler<HTMLAnchorElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -28,7 +73,7 @@
     },
     {
         "name": "on:outrostart",
-        "type": "EventHandler<CustomEvent<null>, SVGTextElement> | null | undefined",
+        "type": "EventHandler<CustomEvent<null>, HTMLAnchorElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -37,7 +82,7 @@
     },
     {
         "name": "onoutrostart",
-        "type": "EventHandler<CustomEvent<null>, SVGTextElement> | null | undefined",
+        "type": "EventHandler<CustomEvent<null>, HTMLAnchorElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -46,7 +91,7 @@
     },
     {
         "name": "onoutrostartcapture",
-        "type": "EventHandler<CustomEvent<null>, SVGTextElement> | null | undefined",
+        "type": "EventHandler<CustomEvent<null>, HTMLAnchorElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -55,7 +100,7 @@
     },
     {
         "name": "on:outroend",
-        "type": "EventHandler<CustomEvent<null>, SVGTextElement> | null | undefined",
+        "type": "EventHandler<CustomEvent<null>, HTMLAnchorElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -64,7 +109,7 @@
     },
     {
         "name": "onoutroend",
-        "type": "EventHandler<CustomEvent<null>, SVGTextElement> | null | undefined",
+        "type": "EventHandler<CustomEvent<null>, HTMLAnchorElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -73,7 +118,7 @@
     },
     {
         "name": "onoutroendcapture",
-        "type": "EventHandler<CustomEvent<null>, SVGTextElement> | null | undefined",
+        "type": "EventHandler<CustomEvent<null>, HTMLAnchorElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -82,7 +127,7 @@
     },
     {
         "name": "on:introstart",
-        "type": "EventHandler<CustomEvent<null>, SVGTextElement> | null | undefined",
+        "type": "EventHandler<CustomEvent<null>, HTMLAnchorElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -91,7 +136,7 @@
     },
     {
         "name": "onintrostart",
-        "type": "EventHandler<CustomEvent<null>, SVGTextElement> | null | undefined",
+        "type": "EventHandler<CustomEvent<null>, HTMLAnchorElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -100,7 +145,7 @@
     },
     {
         "name": "onintrostartcapture",
-        "type": "EventHandler<CustomEvent<null>, SVGTextElement> | null | undefined",
+        "type": "EventHandler<CustomEvent<null>, HTMLAnchorElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -109,7 +154,7 @@
     },
     {
         "name": "on:introend",
-        "type": "EventHandler<CustomEvent<null>, SVGTextElement> | null | undefined",
+        "type": "EventHandler<CustomEvent<null>, HTMLAnchorElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -118,7 +163,7 @@
     },
     {
         "name": "onintroend",
-        "type": "EventHandler<CustomEvent<null>, SVGTextElement> | null | undefined",
+        "type": "EventHandler<CustomEvent<null>, HTMLAnchorElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -127,7 +172,7 @@
     },
     {
         "name": "onintroendcapture",
-        "type": "EventHandler<CustomEvent<null>, SVGTextElement> | null | undefined",
+        "type": "EventHandler<CustomEvent<null>, HTMLAnchorElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -136,7 +181,7 @@
     },
     {
         "name": "on:message",
-        "type": "MessageEventHandler<SVGTextElement> | null | undefined",
+        "type": "MessageEventHandler<HTMLAnchorElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -145,7 +190,7 @@
     },
     {
         "name": "onmessage",
-        "type": "MessageEventHandler<SVGTextElement> | null | undefined",
+        "type": "MessageEventHandler<HTMLAnchorElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -154,7 +199,7 @@
     },
     {
         "name": "onmessagecapture",
-        "type": "MessageEventHandler<SVGTextElement> | null | undefined",
+        "type": "MessageEventHandler<HTMLAnchorElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -163,7 +208,7 @@
     },
     {
         "name": "on:messageerror",
-        "type": "MessageEventHandler<SVGTextElement> | null | undefined",
+        "type": "MessageEventHandler<HTMLAnchorElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -172,7 +217,7 @@
     },
     {
         "name": "onmessageerror",
-        "type": "MessageEventHandler<SVGTextElement> | null | undefined",
+        "type": "MessageEventHandler<HTMLAnchorElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -181,7 +226,7 @@
     },
     {
         "name": "onmessageerrorcapture",
-        "type": "MessageEventHandler<SVGTextElement> | null | undefined",
+        "type": "MessageEventHandler<HTMLAnchorElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -190,7 +235,7 @@
     },
     {
         "name": "on:visibilitychange",
-        "type": "EventHandler<Event, SVGTextElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLAnchorElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -199,7 +244,7 @@
     },
     {
         "name": "onvisibilitychange",
-        "type": "EventHandler<Event, SVGTextElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLAnchorElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -208,7 +253,7 @@
     },
     {
         "name": "onvisibilitychangecapture",
-        "type": "EventHandler<Event, SVGTextElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLAnchorElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -217,7 +262,7 @@
     },
     {
         "name": "on:beforematch",
-        "type": "EventHandler<Event, SVGTextElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLAnchorElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -226,7 +271,7 @@
     },
     {
         "name": "onbeforematch",
-        "type": "EventHandler<Event, SVGTextElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLAnchorElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -235,7 +280,7 @@
     },
     {
         "name": "onbeforematchcapture",
-        "type": "EventHandler<Event, SVGTextElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLAnchorElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -244,7 +289,7 @@
     },
     {
         "name": "on:cancel",
-        "type": "EventHandler<Event, SVGTextElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLAnchorElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -253,7 +298,7 @@
     },
     {
         "name": "oncancel",
-        "type": "EventHandler<Event, SVGTextElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLAnchorElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -262,7 +307,7 @@
     },
     {
         "name": "oncancelcapture",
-        "type": "EventHandler<Event, SVGTextElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLAnchorElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -271,7 +316,7 @@
     },
     {
         "name": "on:close",
-        "type": "EventHandler<Event, SVGTextElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLAnchorElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -280,7 +325,7 @@
     },
     {
         "name": "onclose",
-        "type": "EventHandler<Event, SVGTextElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLAnchorElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -289,7 +334,7 @@
     },
     {
         "name": "onclosecapture",
-        "type": "EventHandler<Event, SVGTextElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLAnchorElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -298,7 +343,7 @@
     },
     {
         "name": "on:fullscreenchange",
-        "type": "EventHandler<Event, SVGTextElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLAnchorElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -307,7 +352,7 @@
     },
     {
         "name": "onfullscreenchange",
-        "type": "EventHandler<Event, SVGTextElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLAnchorElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -316,7 +361,7 @@
     },
     {
         "name": "onfullscreenchangecapture",
-        "type": "EventHandler<Event, SVGTextElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLAnchorElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -325,7 +370,7 @@
     },
     {
         "name": "on:fullscreenerror",
-        "type": "EventHandler<Event, SVGTextElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLAnchorElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -334,7 +379,7 @@
     },
     {
         "name": "onfullscreenerror",
-        "type": "EventHandler<Event, SVGTextElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLAnchorElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -343,6 +388,447 @@
     },
     {
         "name": "onfullscreenerrorcapture",
+        "type": "EventHandler<Event, HTMLAnchorElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "type",
+        "type": "string | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "href",
+        "type": "string | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "string",
+        "type": "string | number | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "on:copy",
+        "type": "ClipboardEventHandler<SVGTextElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "oncopy",
+        "type": "ClipboardEventHandler<SVGTextElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "oncopycapture",
+        "type": "ClipboardEventHandler<SVGTextElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "on:cut",
+        "type": "ClipboardEventHandler<SVGTextElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "oncut",
+        "type": "ClipboardEventHandler<SVGTextElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "oncutcapture",
+        "type": "ClipboardEventHandler<SVGTextElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "on:paste",
+        "type": "ClipboardEventHandler<SVGTextElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onpaste",
+        "type": "ClipboardEventHandler<SVGTextElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onpastecapture",
+        "type": "ClipboardEventHandler<SVGTextElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "on:compositionend",
+        "type": "CompositionEventHandler<SVGTextElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "oncompositionend",
+        "type": "CompositionEventHandler<SVGTextElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "oncompositionendcapture",
+        "type": "CompositionEventHandler<SVGTextElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "on:compositionstart",
+        "type": "CompositionEventHandler<SVGTextElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "oncompositionstart",
+        "type": "CompositionEventHandler<SVGTextElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "oncompositionstartcapture",
+        "type": "CompositionEventHandler<SVGTextElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "on:compositionupdate",
+        "type": "CompositionEventHandler<SVGTextElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "oncompositionupdate",
+        "type": "CompositionEventHandler<SVGTextElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "oncompositionupdatecapture",
+        "type": "CompositionEventHandler<SVGTextElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "on:focus",
+        "type": "FocusEventHandler<SVGTextElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onfocus",
+        "type": "FocusEventHandler<SVGTextElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onfocuscapture",
+        "type": "FocusEventHandler<SVGTextElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "on:focusin",
+        "type": "FocusEventHandler<SVGTextElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onfocusin",
+        "type": "FocusEventHandler<SVGTextElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onfocusincapture",
+        "type": "FocusEventHandler<SVGTextElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "on:focusout",
+        "type": "FocusEventHandler<SVGTextElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onfocusout",
+        "type": "FocusEventHandler<SVGTextElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onfocusoutcapture",
+        "type": "FocusEventHandler<SVGTextElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "on:blur",
+        "type": "FocusEventHandler<SVGTextElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onblur",
+        "type": "FocusEventHandler<SVGTextElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onblurcapture",
+        "type": "FocusEventHandler<SVGTextElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "on:change",
+        "type": "FormEventHandler<SVGTextElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onchange",
+        "type": "FormEventHandler<SVGTextElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onchangecapture",
+        "type": "FormEventHandler<SVGTextElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "on:beforeinput",
+        "type": "EventHandler<InputEvent, SVGTextElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onbeforeinput",
+        "type": "EventHandler<InputEvent, SVGTextElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onbeforeinputcapture",
+        "type": "EventHandler<InputEvent, SVGTextElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "on:input",
+        "type": "FormEventHandler<SVGTextElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "oninput",
+        "type": "FormEventHandler<SVGTextElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "oninputcapture",
+        "type": "FormEventHandler<SVGTextElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "on:reset",
+        "type": "FormEventHandler<SVGTextElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onreset",
+        "type": "FormEventHandler<SVGTextElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onresetcapture",
+        "type": "FormEventHandler<SVGTextElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "on:submit",
+        "type": "EventHandler<SubmitEvent, SVGTextElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onsubmit",
+        "type": "EventHandler<SubmitEvent, SVGTextElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onsubmitcapture",
+        "type": "EventHandler<SubmitEvent, SVGTextElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "on:invalid",
         "type": "EventHandler<Event, SVGTextElement> | null | undefined",
         "required": false,
         "bindable": false,
@@ -351,8 +837,8 @@
         "inherited": true
     },
     {
-        "name": "target",
-        "type": "string | null | undefined",
+        "name": "oninvalid",
+        "type": "EventHandler<Event, SVGTextElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -360,8 +846,8 @@
         "inherited": true
     },
     {
-        "name": "method",
-        "type": "\"align\" | \"stretch\" | null | undefined",
+        "name": "oninvalidcapture",
+        "type": "EventHandler<Event, SVGTextElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -369,8 +855,8 @@
         "inherited": true
     },
     {
-        "name": "filter",
-        "type": "string | null | undefined",
+        "name": "on:formdata",
+        "type": "EventHandler<FormDataEvent, SVGTextElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -378,8 +864,8 @@
         "inherited": true
     },
     {
-        "name": "mask",
-        "type": "string | null | undefined",
+        "name": "onformdata",
+        "type": "EventHandler<FormDataEvent, SVGTextElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -387,8 +873,8 @@
         "inherited": true
     },
     {
-        "name": "path",
-        "type": "string | null | undefined",
+        "name": "onformdatacapture",
+        "type": "EventHandler<FormDataEvent, SVGTextElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -396,8 +882,8 @@
         "inherited": true
     },
     {
-        "name": "origin",
-        "type": "string | number | null | undefined",
+        "name": "on:beforetoggle",
+        "type": "ToggleEventHandler<SVGTextElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -405,8 +891,8 @@
         "inherited": true
     },
     {
-        "name": "end",
-        "type": "string | number | null | undefined",
+        "name": "onbeforetoggle",
+        "type": "ToggleEventHandler<SVGTextElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -414,8 +900,8 @@
         "inherited": true
     },
     {
-        "name": "orientation",
-        "type": "string | number | null | undefined",
+        "name": "onbeforetogglecapture",
+        "type": "ToggleEventHandler<SVGTextElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -423,8 +909,8 @@
         "inherited": true
     },
     {
-        "name": "className",
-        "type": "string | null | undefined",
+        "name": "on:toggle",
+        "type": "ToggleEventHandler<SVGTextElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -432,8 +918,8 @@
         "inherited": true
     },
     {
-        "name": "crossorigin",
-        "type": "\"\" | \"anonymous\" | \"use-credentials\" | null | undefined",
+        "name": "ontoggle",
+        "type": "ToggleEventHandler<SVGTextElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -441,8 +927,8 @@
         "inherited": true
     },
     {
-        "name": "accent-height",
-        "type": "string | number | null | undefined",
+        "name": "ontogglecapture",
+        "type": "ToggleEventHandler<SVGTextElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -450,8 +936,8 @@
         "inherited": true
     },
     {
-        "name": "accumulate",
-        "type": "\"none\" | \"sum\" | null | undefined",
+        "name": "on:contentvisibilityautostatechange",
+        "type": "ContentVisibilityAutoStateChangeEventHandler<SVGTextElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -459,8 +945,8 @@
         "inherited": true
     },
     {
-        "name": "additive",
-        "type": "\"sum\" | \"replace\" | null | undefined",
+        "name": "oncontentvisibilityautostatechange",
+        "type": "ContentVisibilityAutoStateChangeEventHandler<SVGTextElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -468,8 +954,8 @@
         "inherited": true
     },
     {
-        "name": "alignment-baseline",
-        "type": "\"inherit\" | \"auto\" | \"alphabetic\" | \"hanging\" | \"ideographic\" | \"mathematical\" | \"baseline\" | \"before-edge\" | \"text-before-edge\" | \"middle\" | \"central\" | \"after-edge\" | \"text-after-edge\" | null | undefined",
+        "name": "oncontentvisibilityautostatechangecapture",
+        "type": "ContentVisibilityAutoStateChangeEventHandler<SVGTextElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -477,8 +963,8 @@
         "inherited": true
     },
     {
-        "name": "allowReorder",
-        "type": "\"yes\" | \"no\" | null | undefined",
+        "name": "on:keydown",
+        "type": "KeyboardEventHandler<SVGTextElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -486,8 +972,8 @@
         "inherited": true
     },
     {
-        "name": "alphabetic",
-        "type": "string | number | null | undefined",
+        "name": "onkeydown",
+        "type": "KeyboardEventHandler<SVGTextElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -495,8 +981,8 @@
         "inherited": true
     },
     {
-        "name": "amplitude",
-        "type": "string | number | null | undefined",
+        "name": "onkeydowncapture",
+        "type": "KeyboardEventHandler<SVGTextElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -504,8 +990,8 @@
         "inherited": true
     },
     {
-        "name": "arabic-form",
-        "type": "\"initial\" | \"medial\" | \"terminal\" | \"isolated\" | null | undefined",
+        "name": "on:keypress",
+        "type": "KeyboardEventHandler<SVGTextElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -513,8 +999,8 @@
         "inherited": true
     },
     {
-        "name": "ascent",
-        "type": "string | number | null | undefined",
+        "name": "onkeypress",
+        "type": "KeyboardEventHandler<SVGTextElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -522,8 +1008,8 @@
         "inherited": true
     },
     {
-        "name": "attributeName",
-        "type": "string | null | undefined",
+        "name": "onkeypresscapture",
+        "type": "KeyboardEventHandler<SVGTextElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -531,8 +1017,8 @@
         "inherited": true
     },
     {
-        "name": "attributeType",
-        "type": "string | null | undefined",
+        "name": "on:keyup",
+        "type": "KeyboardEventHandler<SVGTextElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -540,8 +1026,8 @@
         "inherited": true
     },
     {
-        "name": "autoReverse",
-        "type": "string | number | null | undefined",
+        "name": "onkeyup",
+        "type": "KeyboardEventHandler<SVGTextElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -549,8 +1035,8 @@
         "inherited": true
     },
     {
-        "name": "azimuth",
-        "type": "string | number | null | undefined",
+        "name": "onkeyupcapture",
+        "type": "KeyboardEventHandler<SVGTextElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -558,8 +1044,8 @@
         "inherited": true
     },
     {
-        "name": "baseFrequency",
-        "type": "string | number | null | undefined",
+        "name": "on:abort",
+        "type": "EventHandler<Event, SVGTextElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -567,8 +1053,8 @@
         "inherited": true
     },
     {
-        "name": "baseline-shift",
-        "type": "string | number | null | undefined",
+        "name": "onabort",
+        "type": "EventHandler<Event, SVGTextElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -576,8 +1062,8 @@
         "inherited": true
     },
     {
-        "name": "baseProfile",
-        "type": "string | number | null | undefined",
+        "name": "onabortcapture",
+        "type": "EventHandler<Event, SVGTextElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -585,8 +1071,8 @@
         "inherited": true
     },
     {
-        "name": "bbox",
-        "type": "string | number | null | undefined",
+        "name": "on:canplay",
+        "type": "EventHandler<Event, SVGTextElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -594,8 +1080,8 @@
         "inherited": true
     },
     {
-        "name": "begin",
-        "type": "string | number | null | undefined",
+        "name": "oncanplay",
+        "type": "EventHandler<Event, SVGTextElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -603,8 +1089,8 @@
         "inherited": true
     },
     {
-        "name": "bias",
-        "type": "string | number | null | undefined",
+        "name": "oncanplaycapture",
+        "type": "EventHandler<Event, SVGTextElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -612,8 +1098,8 @@
         "inherited": true
     },
     {
-        "name": "by",
-        "type": "string | number | null | undefined",
+        "name": "on:canplaythrough",
+        "type": "EventHandler<Event, SVGTextElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -621,8 +1107,8 @@
         "inherited": true
     },
     {
-        "name": "calcMode",
-        "type": "string | number | null | undefined",
+        "name": "oncanplaythrough",
+        "type": "EventHandler<Event, SVGTextElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -630,8 +1116,8 @@
         "inherited": true
     },
     {
-        "name": "cap-height",
-        "type": "string | number | null | undefined",
+        "name": "oncanplaythroughcapture",
+        "type": "EventHandler<Event, SVGTextElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -639,8 +1125,8 @@
         "inherited": true
     },
     {
-        "name": "clip",
-        "type": "string | number | null | undefined",
+        "name": "on:cuechange",
+        "type": "EventHandler<Event, SVGTextElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -648,8 +1134,8 @@
         "inherited": true
     },
     {
-        "name": "clip-path",
-        "type": "string | null | undefined",
+        "name": "oncuechange",
+        "type": "EventHandler<Event, SVGTextElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -657,8 +1143,8 @@
         "inherited": true
     },
     {
-        "name": "clipPathUnits",
-        "type": "string | number | null | undefined",
+        "name": "oncuechangecapture",
+        "type": "EventHandler<Event, SVGTextElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -666,8 +1152,8 @@
         "inherited": true
     },
     {
-        "name": "clip-rule",
-        "type": "string | number | null | undefined",
+        "name": "on:durationchange",
+        "type": "EventHandler<Event, SVGTextElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -675,8 +1161,8 @@
         "inherited": true
     },
     {
-        "name": "color-interpolation",
-        "type": "string | number | null | undefined",
+        "name": "ondurationchange",
+        "type": "EventHandler<Event, SVGTextElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -684,8 +1170,8 @@
         "inherited": true
     },
     {
-        "name": "color-interpolation-filters",
-        "type": "\"inherit\" | \"auto\" | \"sRGB\" | \"linearRGB\" | null | undefined",
+        "name": "ondurationchangecapture",
+        "type": "EventHandler<Event, SVGTextElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -693,8 +1179,8 @@
         "inherited": true
     },
     {
-        "name": "color-profile",
-        "type": "string | number | null | undefined",
+        "name": "on:emptied",
+        "type": "EventHandler<Event, SVGTextElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -702,8 +1188,8 @@
         "inherited": true
     },
     {
-        "name": "color-rendering",
-        "type": "string | number | null | undefined",
+        "name": "onemptied",
+        "type": "EventHandler<Event, SVGTextElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -711,8 +1197,8 @@
         "inherited": true
     },
     {
-        "name": "contentScriptType",
-        "type": "string | number | null | undefined",
+        "name": "onemptiedcapture",
+        "type": "EventHandler<Event, SVGTextElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -720,8 +1206,8 @@
         "inherited": true
     },
     {
-        "name": "contentStyleType",
-        "type": "string | number | null | undefined",
+        "name": "on:encrypted",
+        "type": "EventHandler<Event, SVGTextElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -729,8 +1215,8 @@
         "inherited": true
     },
     {
-        "name": "cursor",
-        "type": "string | number | null | undefined",
+        "name": "onencrypted",
+        "type": "EventHandler<Event, SVGTextElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -738,8 +1224,8 @@
         "inherited": true
     },
     {
-        "name": "cx",
-        "type": "string | number | null | undefined",
+        "name": "onencryptedcapture",
+        "type": "EventHandler<Event, SVGTextElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -747,8 +1233,8 @@
         "inherited": true
     },
     {
-        "name": "cy",
-        "type": "string | number | null | undefined",
+        "name": "on:ended",
+        "type": "EventHandler<Event, SVGTextElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -756,8 +1242,8 @@
         "inherited": true
     },
     {
-        "name": "d",
-        "type": "string | null | undefined",
+        "name": "onended",
+        "type": "EventHandler<Event, SVGTextElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -765,8 +1251,8 @@
         "inherited": true
     },
     {
-        "name": "decelerate",
-        "type": "string | number | null | undefined",
+        "name": "onendedcapture",
+        "type": "EventHandler<Event, SVGTextElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -774,8 +1260,8 @@
         "inherited": true
     },
     {
-        "name": "descent",
-        "type": "string | number | null | undefined",
+        "name": "on:loadeddata",
+        "type": "EventHandler<Event, SVGTextElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -783,8 +1269,8 @@
         "inherited": true
     },
     {
-        "name": "diffuseConstant",
-        "type": "string | number | null | undefined",
+        "name": "onloadeddata",
+        "type": "EventHandler<Event, SVGTextElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -792,8 +1278,8 @@
         "inherited": true
     },
     {
-        "name": "direction",
-        "type": "string | number | null | undefined",
+        "name": "onloadeddatacapture",
+        "type": "EventHandler<Event, SVGTextElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -801,8 +1287,8 @@
         "inherited": true
     },
     {
-        "name": "display",
-        "type": "string | number | null | undefined",
+        "name": "on:loadedmetadata",
+        "type": "EventHandler<Event, SVGTextElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -810,8 +1296,8 @@
         "inherited": true
     },
     {
-        "name": "divisor",
-        "type": "string | number | null | undefined",
+        "name": "onloadedmetadata",
+        "type": "EventHandler<Event, SVGTextElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -819,8 +1305,8 @@
         "inherited": true
     },
     {
-        "name": "dominant-baseline",
-        "type": "string | number | null | undefined",
+        "name": "onloadedmetadatacapture",
+        "type": "EventHandler<Event, SVGTextElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -828,8 +1314,8 @@
         "inherited": true
     },
     {
-        "name": "dur",
-        "type": "string | number | null | undefined",
+        "name": "on:loadstart",
+        "type": "EventHandler<Event, SVGTextElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -837,8 +1323,8 @@
         "inherited": true
     },
     {
-        "name": "dx",
-        "type": "string | number | null | undefined",
+        "name": "onloadstart",
+        "type": "EventHandler<Event, SVGTextElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -846,8 +1332,8 @@
         "inherited": true
     },
     {
-        "name": "dy",
-        "type": "string | number | null | undefined",
+        "name": "onloadstartcapture",
+        "type": "EventHandler<Event, SVGTextElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -855,8 +1341,8 @@
         "inherited": true
     },
     {
-        "name": "edgeMode",
-        "type": "string | number | null | undefined",
+        "name": "on:pause",
+        "type": "EventHandler<Event, SVGTextElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -864,8 +1350,8 @@
         "inherited": true
     },
     {
-        "name": "elevation",
-        "type": "string | number | null | undefined",
+        "name": "onpause",
+        "type": "EventHandler<Event, SVGTextElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -873,8 +1359,8 @@
         "inherited": true
     },
     {
-        "name": "enable-background",
-        "type": "string | number | null | undefined",
+        "name": "onpausecapture",
+        "type": "EventHandler<Event, SVGTextElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -882,8 +1368,8 @@
         "inherited": true
     },
     {
-        "name": "exponent",
-        "type": "string | number | null | undefined",
+        "name": "on:play",
+        "type": "EventHandler<Event, SVGTextElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -891,8 +1377,8 @@
         "inherited": true
     },
     {
-        "name": "externalResourcesRequired",
-        "type": "string | number | null | undefined",
+        "name": "onplay",
+        "type": "EventHandler<Event, SVGTextElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -900,8 +1386,8 @@
         "inherited": true
     },
     {
-        "name": "fill",
-        "type": "string | null | undefined",
+        "name": "onplaycapture",
+        "type": "EventHandler<Event, SVGTextElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -909,8 +1395,8 @@
         "inherited": true
     },
     {
-        "name": "fill-opacity",
-        "type": "string | number | null | undefined",
+        "name": "on:playing",
+        "type": "EventHandler<Event, SVGTextElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -918,8 +1404,8 @@
         "inherited": true
     },
     {
-        "name": "fill-rule",
-        "type": "\"inherit\" | \"nonzero\" | \"evenodd\" | null | undefined",
+        "name": "onplaying",
+        "type": "EventHandler<Event, SVGTextElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -927,8 +1413,8 @@
         "inherited": true
     },
     {
-        "name": "filterRes",
-        "type": "string | number | null | undefined",
+        "name": "onplayingcapture",
+        "type": "EventHandler<Event, SVGTextElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -936,8 +1422,8 @@
         "inherited": true
     },
     {
-        "name": "filterUnits",
-        "type": "string | number | null | undefined",
+        "name": "on:progress",
+        "type": "EventHandler<Event, SVGTextElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -945,8 +1431,8 @@
         "inherited": true
     },
     {
-        "name": "flood-color",
-        "type": "string | number | null | undefined",
+        "name": "onprogress",
+        "type": "EventHandler<Event, SVGTextElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -954,8 +1440,8 @@
         "inherited": true
     },
     {
-        "name": "flood-opacity",
-        "type": "string | number | null | undefined",
+        "name": "onprogresscapture",
+        "type": "EventHandler<Event, SVGTextElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -963,8 +1449,8 @@
         "inherited": true
     },
     {
-        "name": "focusable",
-        "type": "string | number | null | undefined",
+        "name": "on:ratechange",
+        "type": "EventHandler<Event, SVGTextElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -972,8 +1458,8 @@
         "inherited": true
     },
     {
-        "name": "font-family",
-        "type": "string | null | undefined",
+        "name": "onratechange",
+        "type": "EventHandler<Event, SVGTextElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -981,8 +1467,8 @@
         "inherited": true
     },
     {
-        "name": "font-size",
-        "type": "string | number | null | undefined",
+        "name": "onratechangecapture",
+        "type": "EventHandler<Event, SVGTextElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -990,8 +1476,8 @@
         "inherited": true
     },
     {
-        "name": "font-size-adjust",
-        "type": "string | number | null | undefined",
+        "name": "on:seeked",
+        "type": "EventHandler<Event, SVGTextElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -999,8 +1485,8 @@
         "inherited": true
     },
     {
-        "name": "font-stretch",
-        "type": "string | number | null | undefined",
+        "name": "onseeked",
+        "type": "EventHandler<Event, SVGTextElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1008,8 +1494,8 @@
         "inherited": true
     },
     {
-        "name": "font-style",
-        "type": "string | number | null | undefined",
+        "name": "onseekedcapture",
+        "type": "EventHandler<Event, SVGTextElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1017,8 +1503,8 @@
         "inherited": true
     },
     {
-        "name": "font-variant",
-        "type": "string | number | null | undefined",
+        "name": "on:seeking",
+        "type": "EventHandler<Event, SVGTextElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1026,8 +1512,8 @@
         "inherited": true
     },
     {
-        "name": "font-weight",
-        "type": "string | number | null | undefined",
+        "name": "onseeking",
+        "type": "EventHandler<Event, SVGTextElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1035,8 +1521,8 @@
         "inherited": true
     },
     {
-        "name": "format",
-        "type": "string | number | null | undefined",
+        "name": "onseekingcapture",
+        "type": "EventHandler<Event, SVGTextElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1044,8 +1530,8 @@
         "inherited": true
     },
     {
-        "name": "fr",
-        "type": "string | number | null | undefined",
+        "name": "on:stalled",
+        "type": "EventHandler<Event, SVGTextElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1053,8 +1539,8 @@
         "inherited": true
     },
     {
-        "name": "from",
-        "type": "string | number | null | undefined",
+        "name": "onstalled",
+        "type": "EventHandler<Event, SVGTextElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1062,8 +1548,8 @@
         "inherited": true
     },
     {
-        "name": "fx",
-        "type": "string | number | null | undefined",
+        "name": "onstalledcapture",
+        "type": "EventHandler<Event, SVGTextElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1071,8 +1557,8 @@
         "inherited": true
     },
     {
-        "name": "fy",
-        "type": "string | number | null | undefined",
+        "name": "on:suspend",
+        "type": "EventHandler<Event, SVGTextElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1080,8 +1566,8 @@
         "inherited": true
     },
     {
-        "name": "g1",
-        "type": "string | number | null | undefined",
+        "name": "onsuspend",
+        "type": "EventHandler<Event, SVGTextElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1089,8 +1575,8 @@
         "inherited": true
     },
     {
-        "name": "g2",
-        "type": "string | number | null | undefined",
+        "name": "onsuspendcapture",
+        "type": "EventHandler<Event, SVGTextElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1098,8 +1584,8 @@
         "inherited": true
     },
     {
-        "name": "glyph-name",
-        "type": "string | number | null | undefined",
+        "name": "on:timeupdate",
+        "type": "EventHandler<Event, SVGTextElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1107,8 +1593,8 @@
         "inherited": true
     },
     {
-        "name": "glyph-orientation-horizontal",
-        "type": "string | number | null | undefined",
+        "name": "ontimeupdate",
+        "type": "EventHandler<Event, SVGTextElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1116,8 +1602,8 @@
         "inherited": true
     },
     {
-        "name": "glyph-orientation-vertical",
-        "type": "string | number | null | undefined",
+        "name": "ontimeupdatecapture",
+        "type": "EventHandler<Event, SVGTextElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1125,8 +1611,8 @@
         "inherited": true
     },
     {
-        "name": "glyphRef",
-        "type": "string | number | null | undefined",
+        "name": "on:volumechange",
+        "type": "EventHandler<Event, SVGTextElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1134,8 +1620,8 @@
         "inherited": true
     },
     {
-        "name": "gradientTransform",
-        "type": "string | null | undefined",
+        "name": "onvolumechange",
+        "type": "EventHandler<Event, SVGTextElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1143,8 +1629,8 @@
         "inherited": true
     },
     {
-        "name": "gradientUnits",
-        "type": "string | null | undefined",
+        "name": "onvolumechangecapture",
+        "type": "EventHandler<Event, SVGTextElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1152,8 +1638,8 @@
         "inherited": true
     },
     {
-        "name": "hanging",
-        "type": "string | number | null | undefined",
+        "name": "on:waiting",
+        "type": "EventHandler<Event, SVGTextElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1161,8 +1647,8 @@
         "inherited": true
     },
     {
-        "name": "horiz-adv-x",
-        "type": "string | number | null | undefined",
+        "name": "onwaiting",
+        "type": "EventHandler<Event, SVGTextElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1170,8 +1656,8 @@
         "inherited": true
     },
     {
-        "name": "horiz-origin-x",
-        "type": "string | number | null | undefined",
+        "name": "onwaitingcapture",
+        "type": "EventHandler<Event, SVGTextElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1179,8 +1665,8 @@
         "inherited": true
     },
     {
-        "name": "ideographic",
-        "type": "string | number | null | undefined",
+        "name": "on:auxclick",
+        "type": "MouseEventHandler<SVGTextElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1188,8 +1674,8 @@
         "inherited": true
     },
     {
-        "name": "image-rendering",
-        "type": "string | number | null | undefined",
+        "name": "onauxclick",
+        "type": "MouseEventHandler<SVGTextElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1197,8 +1683,8 @@
         "inherited": true
     },
     {
-        "name": "in2",
-        "type": "string | number | null | undefined",
+        "name": "onauxclickcapture",
+        "type": "MouseEventHandler<SVGTextElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1206,8 +1692,8 @@
         "inherited": true
     },
     {
-        "name": "in",
-        "type": "string | null | undefined",
+        "name": "on:click",
+        "type": "MouseEventHandler<SVGTextElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1215,8 +1701,8 @@
         "inherited": true
     },
     {
-        "name": "intercept",
-        "type": "string | number | null | undefined",
+        "name": "onclick",
+        "type": "MouseEventHandler<SVGTextElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1224,8 +1710,8 @@
         "inherited": true
     },
     {
-        "name": "k1",
-        "type": "string | number | null | undefined",
+        "name": "onclickcapture",
+        "type": "MouseEventHandler<SVGTextElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1233,8 +1719,8 @@
         "inherited": true
     },
     {
-        "name": "k2",
-        "type": "string | number | null | undefined",
+        "name": "on:contextmenu",
+        "type": "MouseEventHandler<SVGTextElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1242,8 +1728,8 @@
         "inherited": true
     },
     {
-        "name": "k3",
-        "type": "string | number | null | undefined",
+        "name": "oncontextmenu",
+        "type": "MouseEventHandler<SVGTextElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1251,8 +1737,8 @@
         "inherited": true
     },
     {
-        "name": "k4",
-        "type": "string | number | null | undefined",
+        "name": "oncontextmenucapture",
+        "type": "MouseEventHandler<SVGTextElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1260,8 +1746,8 @@
         "inherited": true
     },
     {
-        "name": "k",
-        "type": "string | number | null | undefined",
+        "name": "on:dblclick",
+        "type": "MouseEventHandler<SVGTextElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1269,8 +1755,8 @@
         "inherited": true
     },
     {
-        "name": "kernelMatrix",
-        "type": "string | number | null | undefined",
+        "name": "ondblclick",
+        "type": "MouseEventHandler<SVGTextElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1278,8 +1764,8 @@
         "inherited": true
     },
     {
-        "name": "kernelUnitLength",
-        "type": "string | number | null | undefined",
+        "name": "ondblclickcapture",
+        "type": "MouseEventHandler<SVGTextElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1287,8 +1773,8 @@
         "inherited": true
     },
     {
-        "name": "kerning",
-        "type": "string | number | null | undefined",
+        "name": "on:drag",
+        "type": "DragEventHandler<SVGTextElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1296,8 +1782,8 @@
         "inherited": true
     },
     {
-        "name": "keyPoints",
-        "type": "string | number | null | undefined",
+        "name": "ondrag",
+        "type": "DragEventHandler<SVGTextElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1305,8 +1791,8 @@
         "inherited": true
     },
     {
-        "name": "keySplines",
-        "type": "string | number | null | undefined",
+        "name": "ondragcapture",
+        "type": "DragEventHandler<SVGTextElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1314,8 +1800,8 @@
         "inherited": true
     },
     {
-        "name": "keyTimes",
-        "type": "string | number | null | undefined",
+        "name": "on:dragend",
+        "type": "DragEventHandler<SVGTextElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1323,8 +1809,8 @@
         "inherited": true
     },
     {
-        "name": "lengthAdjust",
-        "type": "string | number | null | undefined",
+        "name": "ondragend",
+        "type": "DragEventHandler<SVGTextElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1332,8 +1818,8 @@
         "inherited": true
     },
     {
-        "name": "letter-spacing",
-        "type": "string | number | null | undefined",
+        "name": "ondragendcapture",
+        "type": "DragEventHandler<SVGTextElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1341,8 +1827,8 @@
         "inherited": true
     },
     {
-        "name": "lighting-color",
-        "type": "string | number | null | undefined",
+        "name": "on:dragenter",
+        "type": "DragEventHandler<SVGTextElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1350,8 +1836,8 @@
         "inherited": true
     },
     {
-        "name": "limitingConeAngle",
-        "type": "string | number | null | undefined",
+        "name": "ondragenter",
+        "type": "DragEventHandler<SVGTextElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1359,8 +1845,8 @@
         "inherited": true
     },
     {
-        "name": "local",
-        "type": "string | number | null | undefined",
+        "name": "ondragentercapture",
+        "type": "DragEventHandler<SVGTextElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1368,8 +1854,8 @@
         "inherited": true
     },
     {
-        "name": "marker-end",
-        "type": "string | null | undefined",
+        "name": "on:dragexit",
+        "type": "DragEventHandler<SVGTextElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1377,8 +1863,8 @@
         "inherited": true
     },
     {
-        "name": "markerHeight",
-        "type": "string | number | null | undefined",
+        "name": "ondragexit",
+        "type": "DragEventHandler<SVGTextElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1386,8 +1872,8 @@
         "inherited": true
     },
     {
-        "name": "marker-mid",
-        "type": "string | null | undefined",
+        "name": "ondragexitcapture",
+        "type": "DragEventHandler<SVGTextElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1395,8 +1881,8 @@
         "inherited": true
     },
     {
-        "name": "marker-start",
-        "type": "string | null | undefined",
+        "name": "on:dragleave",
+        "type": "DragEventHandler<SVGTextElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1404,8 +1890,8 @@
         "inherited": true
     },
     {
-        "name": "markerUnits",
-        "type": "string | number | null | undefined",
+        "name": "ondragleave",
+        "type": "DragEventHandler<SVGTextElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1413,8 +1899,8 @@
         "inherited": true
     },
     {
-        "name": "markerWidth",
-        "type": "string | number | null | undefined",
+        "name": "ondragleavecapture",
+        "type": "DragEventHandler<SVGTextElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1422,8 +1908,8 @@
         "inherited": true
     },
     {
-        "name": "maskContentUnits",
-        "type": "string | number | null | undefined",
+        "name": "on:dragover",
+        "type": "DragEventHandler<SVGTextElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1431,8 +1917,8 @@
         "inherited": true
     },
     {
-        "name": "maskUnits",
-        "type": "string | number | null | undefined",
+        "name": "ondragover",
+        "type": "DragEventHandler<SVGTextElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1440,8 +1926,8 @@
         "inherited": true
     },
     {
-        "name": "mathematical",
-        "type": "string | number | null | undefined",
+        "name": "ondragovercapture",
+        "type": "DragEventHandler<SVGTextElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1449,8 +1935,8 @@
         "inherited": true
     },
     {
-        "name": "mode",
-        "type": "string | number | null | undefined",
+        "name": "on:dragstart",
+        "type": "DragEventHandler<SVGTextElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1458,8 +1944,8 @@
         "inherited": true
     },
     {
-        "name": "numOctaves",
-        "type": "string | number | null | undefined",
+        "name": "ondragstart",
+        "type": "DragEventHandler<SVGTextElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1467,8 +1953,8 @@
         "inherited": true
     },
     {
-        "name": "offset",
-        "type": "string | number | null | undefined",
+        "name": "ondragstartcapture",
+        "type": "DragEventHandler<SVGTextElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1476,8 +1962,8 @@
         "inherited": true
     },
     {
-        "name": "opacity",
-        "type": "string | number | null | undefined",
+        "name": "on:drop",
+        "type": "DragEventHandler<SVGTextElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1485,8 +1971,8 @@
         "inherited": true
     },
     {
-        "name": "operator",
-        "type": "string | number | null | undefined",
+        "name": "ondrop",
+        "type": "DragEventHandler<SVGTextElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1494,8 +1980,8 @@
         "inherited": true
     },
     {
-        "name": "order",
-        "type": "string | number | null | undefined",
+        "name": "ondropcapture",
+        "type": "DragEventHandler<SVGTextElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1503,8 +1989,8 @@
         "inherited": true
     },
     {
-        "name": "orient",
-        "type": "string | number | null | undefined",
+        "name": "on:mousedown",
+        "type": "MouseEventHandler<SVGTextElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1512,8 +1998,8 @@
         "inherited": true
     },
     {
-        "name": "overflow",
-        "type": "string | number | null | undefined",
+        "name": "onmousedown",
+        "type": "MouseEventHandler<SVGTextElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1521,8 +2007,8 @@
         "inherited": true
     },
     {
-        "name": "overline-position",
-        "type": "string | number | null | undefined",
+        "name": "onmousedowncapture",
+        "type": "MouseEventHandler<SVGTextElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1530,8 +2016,8 @@
         "inherited": true
     },
     {
-        "name": "overline-thickness",
-        "type": "string | number | null | undefined",
+        "name": "on:mouseenter",
+        "type": "MouseEventHandler<SVGTextElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1539,8 +2025,8 @@
         "inherited": true
     },
     {
-        "name": "paint-order",
-        "type": "string | number | null | undefined",
+        "name": "onmouseenter",
+        "type": "MouseEventHandler<SVGTextElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1548,8 +2034,8 @@
         "inherited": true
     },
     {
-        "name": "panose-1",
-        "type": "string | number | null | undefined",
+        "name": "on:mouseleave",
+        "type": "MouseEventHandler<SVGTextElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1557,8 +2043,8 @@
         "inherited": true
     },
     {
-        "name": "pathLength",
-        "type": "string | number | null | undefined",
+        "name": "onmouseleave",
+        "type": "MouseEventHandler<SVGTextElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1566,8 +2052,8 @@
         "inherited": true
     },
     {
-        "name": "patternContentUnits",
-        "type": "string | null | undefined",
+        "name": "on:mousemove",
+        "type": "MouseEventHandler<SVGTextElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1575,8 +2061,8 @@
         "inherited": true
     },
     {
-        "name": "patternTransform",
-        "type": "string | number | null | undefined",
+        "name": "onmousemove",
+        "type": "MouseEventHandler<SVGTextElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1584,8 +2070,8 @@
         "inherited": true
     },
     {
-        "name": "patternUnits",
-        "type": "string | null | undefined",
+        "name": "onmousemovecapture",
+        "type": "MouseEventHandler<SVGTextElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1593,8 +2079,8 @@
         "inherited": true
     },
     {
-        "name": "pointer-events",
-        "type": "string | number | null | undefined",
+        "name": "on:mouseout",
+        "type": "MouseEventHandler<SVGTextElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1602,8 +2088,8 @@
         "inherited": true
     },
     {
-        "name": "points",
-        "type": "string | null | undefined",
+        "name": "onmouseout",
+        "type": "MouseEventHandler<SVGTextElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1611,8 +2097,8 @@
         "inherited": true
     },
     {
-        "name": "pointsAtX",
-        "type": "string | number | null | undefined",
+        "name": "onmouseoutcapture",
+        "type": "MouseEventHandler<SVGTextElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1620,8 +2106,8 @@
         "inherited": true
     },
     {
-        "name": "pointsAtY",
-        "type": "string | number | null | undefined",
+        "name": "on:mouseover",
+        "type": "MouseEventHandler<SVGTextElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1629,8 +2115,8 @@
         "inherited": true
     },
     {
-        "name": "pointsAtZ",
-        "type": "string | number | null | undefined",
+        "name": "onmouseover",
+        "type": "MouseEventHandler<SVGTextElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1638,8 +2124,8 @@
         "inherited": true
     },
     {
-        "name": "preserveAlpha",
-        "type": "string | number | null | undefined",
+        "name": "onmouseovercapture",
+        "type": "MouseEventHandler<SVGTextElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1647,8 +2133,8 @@
         "inherited": true
     },
     {
-        "name": "preserveAspectRatio",
-        "type": "string | null | undefined",
+        "name": "on:mouseup",
+        "type": "MouseEventHandler<SVGTextElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1656,8 +2142,8 @@
         "inherited": true
     },
     {
-        "name": "primitiveUnits",
-        "type": "string | number | null | undefined",
+        "name": "onmouseup",
+        "type": "MouseEventHandler<SVGTextElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1665,8 +2151,8 @@
         "inherited": true
     },
     {
-        "name": "r",
-        "type": "string | number | null | undefined",
+        "name": "onmouseupcapture",
+        "type": "MouseEventHandler<SVGTextElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1674,8 +2160,8 @@
         "inherited": true
     },
     {
-        "name": "radius",
-        "type": "string | number | null | undefined",
+        "name": "on:select",
+        "type": "EventHandler<Event, SVGTextElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1683,8 +2169,8 @@
         "inherited": true
     },
     {
-        "name": "refX",
-        "type": "string | number | null | undefined",
+        "name": "onselect",
+        "type": "EventHandler<Event, SVGTextElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1692,8 +2178,8 @@
         "inherited": true
     },
     {
-        "name": "refY",
-        "type": "string | number | null | undefined",
+        "name": "onselectcapture",
+        "type": "EventHandler<Event, SVGTextElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1701,8 +2187,8 @@
         "inherited": true
     },
     {
-        "name": "rendering-intent",
-        "type": "string | number | null | undefined",
+        "name": "on:selectionchange",
+        "type": "EventHandler<Event, SVGTextElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1710,8 +2196,8 @@
         "inherited": true
     },
     {
-        "name": "repeatCount",
-        "type": "string | number | null | undefined",
+        "name": "onselectionchange",
+        "type": "EventHandler<Event, SVGTextElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1719,8 +2205,8 @@
         "inherited": true
     },
     {
-        "name": "repeatDur",
-        "type": "string | number | null | undefined",
+        "name": "onselectionchangecapture",
+        "type": "EventHandler<Event, SVGTextElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1728,8 +2214,8 @@
         "inherited": true
     },
     {
-        "name": "requiredExtensions",
-        "type": "string | number | null | undefined",
+        "name": "on:selectstart",
+        "type": "EventHandler<Event, SVGTextElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1737,8 +2223,8 @@
         "inherited": true
     },
     {
-        "name": "requiredFeatures",
-        "type": "string | number | null | undefined",
+        "name": "onselectstart",
+        "type": "EventHandler<Event, SVGTextElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1746,8 +2232,8 @@
         "inherited": true
     },
     {
-        "name": "restart",
-        "type": "string | number | null | undefined",
+        "name": "onselectstartcapture",
+        "type": "EventHandler<Event, SVGTextElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1755,494 +2241,8 @@
         "inherited": true
     },
     {
-        "name": "result",
-        "type": "string | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
-        "name": "rotate",
-        "type": "string | number | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
-        "name": "rx",
-        "type": "string | number | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
-        "name": "ry",
-        "type": "string | number | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
-        "name": "scale",
-        "type": "string | number | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
-        "name": "seed",
-        "type": "string | number | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
-        "name": "shape-rendering",
-        "type": "string | number | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
-        "name": "slope",
-        "type": "string | number | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
-        "name": "spacing",
-        "type": "string | number | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
-        "name": "specularConstant",
-        "type": "string | number | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
-        "name": "specularExponent",
-        "type": "string | number | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
-        "name": "speed",
-        "type": "string | number | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
-        "name": "spreadMethod",
-        "type": "string | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
-        "name": "startOffset",
-        "type": "string | number | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
-        "name": "stdDeviation",
-        "type": "string | number | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
-        "name": "stemh",
-        "type": "string | number | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
-        "name": "stemv",
-        "type": "string | number | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
-        "name": "stitchTiles",
-        "type": "string | number | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
-        "name": "stop-color",
-        "type": "string | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
-        "name": "stop-opacity",
-        "type": "string | number | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
-        "name": "strikethrough-position",
-        "type": "string | number | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
-        "name": "strikethrough-thickness",
-        "type": "string | number | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
-        "name": "stroke",
-        "type": "string | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
-        "name": "stroke-dasharray",
-        "type": "string | number | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
-        "name": "stroke-dashoffset",
-        "type": "string | number | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
-        "name": "stroke-linecap",
-        "type": "\"inherit\" | \"butt\" | \"round\" | \"square\" | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
-        "name": "stroke-linejoin",
-        "type": "\"inherit\" | \"round\" | \"arcs\" | \"miter-clip\" | \"miter\" | \"bevel\" | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
-        "name": "stroke-miterlimit",
-        "type": "string | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
-        "name": "stroke-opacity",
-        "type": "string | number | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
-        "name": "stroke-width",
-        "type": "string | number | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
-        "name": "surfaceScale",
-        "type": "string | number | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
-        "name": "systemLanguage",
-        "type": "string | number | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
-        "name": "tableValues",
-        "type": "string | number | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
-        "name": "targetX",
-        "type": "string | number | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
-        "name": "targetY",
-        "type": "string | number | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
-        "name": "text-anchor",
-        "type": "string | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
-        "name": "text-decoration",
-        "type": "string | number | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
-        "name": "textLength",
-        "type": "string | number | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
-        "name": "text-rendering",
-        "type": "string | number | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
-        "name": "to",
-        "type": "string | number | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
-        "name": "transform",
-        "type": "string | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
-        "name": "transform-origin",
-        "type": "string | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
-        "name": "u1",
-        "type": "string | number | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
-        "name": "u2",
-        "type": "string | number | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
-        "name": "underline-position",
-        "type": "string | number | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
-        "name": "underline-thickness",
-        "type": "string | number | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
-        "name": "unicode",
-        "type": "string | number | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
-        "name": "unicode-bidi",
-        "type": "string | number | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
-        "name": "unicode-range",
-        "type": "string | number | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
-        "name": "units-per-em",
-        "type": "string | number | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
-        "name": "v-alphabetic",
-        "type": "string | number | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
-        "name": "values",
-        "type": "string | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
-        "name": "vector-effect",
-        "type": "string | number | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
-        "name": "version",
-        "type": "string | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
-        "name": "vert-adv-y",
-        "type": "string | number | null | undefined",
+        "name": "on:touchcancel",
+        "type": "TouchEventHandler<SVGTextElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,

@@ -10,7 +10,7 @@
     {...props}
     aria-hidden="true"
     data-ui="heatmap-weekday-labels"
-    class={cn(className, 'col-start-1 row-start-2 grid grid-rows-7 gap-1 text-[length:var(--font-size-meta)] text-foreground-muted')}
+    class={cn(className, 'col-start-1 row-start-2 grid grid-rows-7 gap-1 text-xs text-foreground-muted')}
 >
     {#if children}
         {@render children()}

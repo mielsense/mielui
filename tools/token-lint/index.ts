@@ -11,7 +11,7 @@ const RULES: { rule: string; re: RegExp }[] = [
     // direct Tier-1 primitive reference (only neutral, blue, space, success, warning, error)
     {
         rule: 'no-primitive-leak',
-        re: /var\(\s*--mielui-(?:neutral|blue|space|success|warning|error)\b/
+        re: /var\(\s*--mielui-(?:(?:neutral|blue|space)(?:-[\w-]+)?|(?:success|warning|error)(?:-\d+)?)(?=\s*[,)])/
     }
 ];
 

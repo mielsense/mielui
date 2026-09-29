@@ -12,11 +12,12 @@ export const manifest: Manifest = {
         'components/attachment/attachment-trigger.svelte',
         'components/attachment/attachment-list.svelte',
         'components/attachment/attachment-item.svelte',
+        'components/attachment/file-icon.ts',
         'components/attachment/context.svelte.ts',
         'components/attachment/index.ts',
         'components/attachment/manifest.ts'
     ],
-    components: ['_internal/utils', 'button'],
+    components: ['_internal/utils', 'button', 'spinner'],
     shared: [
         'components/_internal/button-attributes',
         'hugeicons-icon',

@@ -1,6 +1,7 @@
 <script lang="ts">
     import { cn, type DefaultProps } from '@mielui/svelte/utils';
     import { getDialogContext } from '../dialog/context.svelte';
+    import { titleClasses } from '../typography/variants';
 
     let { class: className, children, ...rest }: DefaultProps = $props();
 
@@ -16,13 +17,6 @@
     });
 </script>
 
-<h1
-    {...rest}
-    {id}
-    class={cn(
-        className,
-        'font-[family-name:var(--font-header)] text-xl font-[var(--font-weight-header)] tracking-[var(--tracking-header)] leading-snug text-balance text-foreground'
-    )}
->
+<h1 {...rest} {id} class={cn(className, titleClasses)}>
     {@render children?.()}
 </h1>

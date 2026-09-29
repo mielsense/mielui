@@ -30,7 +30,7 @@
         class={cn(
             className,
             tabsState.orientation === 'vertical' && 'min-w-0 flex-1',
-            'focus-visible:outline-none'
+            'rounded-[var(--radius-md)] focus-visible:outline-none focus-visible:shadow-[var(--focus-ring)]'
         )}
         {...rest}
     >

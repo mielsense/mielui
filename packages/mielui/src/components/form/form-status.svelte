@@ -16,7 +16,7 @@
     {role}
     data-ui="form-status"
     data-tone={tone}
-    class={cn(className, 'text-sm leading-body', tone === 'error' ? 'text-error' : tone === 'success' ? 'text-success' : 'text-foreground-muted')}
+    class={cn(className, 'text-sm leading-body', tone === 'error' ? 'text-[var(--mielui-error-text)]' : tone === 'success' ? 'text-[var(--mielui-success-text)]' : 'text-foreground-muted')}
 >
     {@render children?.()}
 </div>

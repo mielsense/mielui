@@ -98,7 +98,7 @@
         </div>
 
         <Sheet.Footer>
-            <Sheet.Close variant="ghost" onclick={reset}>
+            <Sheet.Close onclick={reset}>
                 Reset
                 <Kbd shortcut="esc" />
             </Sheet.Close>

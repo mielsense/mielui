@@ -31,6 +31,6 @@ describe('Tool', () => {
             'data-variant',
             'quiet'
         );
-        expect(container.querySelector('button')).toHaveClass('text-foreground', 'px-0');
+        expect(container.querySelector('button')).toHaveClass('text-foreground', 'px-2', '-mx-2');
     });
 });

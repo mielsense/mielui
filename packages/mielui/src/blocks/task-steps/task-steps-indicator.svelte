@@ -17,7 +17,7 @@
     {#key status}
         {#if status === 'done'}
             <span
-                class="mielui-task-mark grid size-4 place-items-center rounded-[var(--radius-sm)] bg-[color-mix(in_srgb,var(--color-success)_14%,transparent)] text-[var(--color-success)]"
+                class="mielui-task-mark grid size-4 place-items-center rounded-[var(--radius-sm)] bg-[color-mix(in_srgb,var(--color-success)_14%,transparent)] text-[var(--mielui-success-text)]"
             >
                 <svg viewBox="0 0 12 12" class="size-3" fill="none">
                     <path
@@ -31,7 +31,7 @@
             </span>
         {:else if status === 'error'}
             <span
-                class="mielui-task-mark grid size-4 place-items-center rounded-[var(--radius-sm)] bg-[color-mix(in_srgb,var(--color-error)_13%,transparent)] text-[var(--color-error)]"
+                class="mielui-task-mark grid size-4 place-items-center rounded-[var(--radius-sm)] bg-[color-mix(in_srgb,var(--color-error)_13%,transparent)] text-[var(--mielui-error-text)]"
             >
                 <svg viewBox="0 0 12 12" class="size-3" fill="none">
                     <path

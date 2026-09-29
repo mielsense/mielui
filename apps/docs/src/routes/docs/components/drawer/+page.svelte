@@ -2,6 +2,8 @@
     import * as Typography from '@mielui/svelte/components/typography';
     import { ComponentPreview, InstallCommand } from '$lib/components/docs';
     import PageIntro from '$lib/components/docs/page-intro.svelte';
+    import Glass from './examples/glass.svelte';
+    import GlassSrc from './examples/glass.svelte?raw';
     import Hero from './examples/hero.svelte';
     import HeroSrc from './examples/hero.svelte?raw';
     import Nested from './examples/nested.svelte';
@@ -36,6 +38,14 @@
             Header, or restyle Content with class. Always provide Title or an aria-label on Content.
         </Typography.Text>
         <Typography.Text>
+            Content uses the same frame as Dialog and Sheet. Handle, Header, and Body sit on the
+            inner surface. Footer renders on the outer frame below it, wherever you place it inside
+            Content. Close is a ghost button that moves to the start of the footer, so the other
+            actions line up at the end. The frame stays flush with the viewport edge the drawer
+            opens from and shows its inset only on the exposed edges. The theme setting
+            chrome.borders chooses single or double framing.
+        </Typography.Text>
+        <Typography.Text>
             Use bind:open or onOpenChange to control visibility. Set direction to bottom, top, left,
             or right. handleOnly restricts dragging to the handle; closeThreshold controls the
             dismissal distance.
@@ -67,5 +77,15 @@
             drawer has its own handle and close action.
         </Typography.Text>
         <ComponentPreview code={NestedSrc}><Nested /></ComponentPreview>
+    </section>
+    <section id="glass" class="flex flex-col gap-4">
+        <Typography.H2>Glass surface</Typography.H2>
+        <Typography.Text>
+            Set surface="glass" on Content for a translucent frame with blur. Omit surface to
+            inherit --mielui-surface from your theme, or set surface="solid" to override it. The
+            glass surface keeps an opaque fallback when backdrop filtering is unavailable and
+            respects reduced-transparency preferences.
+        </Typography.Text>
+        <ComponentPreview code={GlassSrc}><Glass /></ComponentPreview>
     </section>
 </div>

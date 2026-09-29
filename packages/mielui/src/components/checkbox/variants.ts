@@ -31,7 +31,7 @@ export const checkbox = tv({
 });
 
 export const checkboxBox = tv({
-    base: 'mielui-press flex shrink-0 items-center justify-center rounded-[var(--radius-sm)] border-[length:var(--border-size)] p-0 transition-[background-color,border-color,box-shadow,transform,scale] [transition-duration:var(--motion-duration-press)] ease-[var(--ease-press)] motion-reduce:transition-none shadow-[var(--elevation-control-edge)] peer-focus-visible:shadow-[var(--focus-ring),var(--elevation-control-edge)]',
+    base: 'mielui-press flex shrink-0 items-center justify-center rounded-[calc(var(--radius-sm)*0.625)] border-[length:var(--border-size)] p-0 transition-[background-color,border-color,box-shadow,transform,scale] [transition-duration:var(--motion-duration-press)] ease-[var(--ease-press)] motion-reduce:transition-none peer-focus-visible:shadow-[var(--focus-ring)]',
     variants: {
         size: {
             sm: 'size-[calc(var(--size-hairline)*7)] [&_svg]:size-[calc(var(--size-hairline)*5)]',
@@ -40,8 +40,11 @@ export const checkboxBox = tv({
         },
         checked: {
             true: 'border-primary bg-primary',
-            false: 'border-border bg-[var(--color-field)] peer-hover:bg-[var(--color-field-hover)] peer-focus-visible:bg-[var(--color-field-hover)]'
+            false: 'border-[var(--mielui-control-border)] bg-card peer-hover:border-[color-mix(in_oklab,var(--color-foreground)_45%,var(--color-card))] peer-hover:bg-[var(--color-field-hover)] peer-focus-visible:bg-[var(--color-field-hover)]'
         }
+    },
+    defaultVariants: {
+        size: 'md'
     }
 });
 

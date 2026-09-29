@@ -8,6 +8,7 @@ export const manifest: Manifest = {
         'Controlled agent-message form with autoresizing input, toolbar, and send/stop action.',
     files: [
         'components/composer/composer.svelte',
+        'components/composer/composer-header.svelte',
         'components/composer/composer-input.svelte',
         'components/composer/composer-toolbar.svelte',
         'components/composer/composer-actions.svelte',

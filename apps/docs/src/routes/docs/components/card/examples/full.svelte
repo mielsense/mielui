@@ -21,7 +21,7 @@
         <Card.Title>Account settings</Card.Title>
         <Card.Description>Manage your workspace settings.</Card.Description>
     </Card.Header>
-    <Card.Content>
+    <Card.Content class="gap-4">
         <p class="m-0 text-sm leading-relaxed text-foreground-muted">
             Currently on the Team plan. 12 of 25 seats used.
         </p>

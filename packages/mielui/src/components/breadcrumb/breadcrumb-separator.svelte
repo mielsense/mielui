@@ -7,14 +7,15 @@
     let { class: className, children, ...rest }: BreadcrumbSeparatorProps = $props();
 </script>
 
-{#if children}
-    <span aria-hidden="true" class={className} {...rest}>{@render children?.()}</span>
-{:else}
-    <HugeiconsIcon
-        icon={ChevronRight}
-        {...rest}
-        size={14}
-        aria-hidden="true"
-        class={cn(className, `text-foreground-muted`)}
-    />
-{/if}
+<li role="presentation" aria-hidden="true" class="flex shrink-0 items-center">
+    {#if children}
+        <span class={className} {...rest}>{@render children?.()}</span>
+    {:else}
+        <HugeiconsIcon
+            icon={ChevronRight}
+            {...rest}
+            size={14}
+            class={cn(className, 'text-foreground-muted')}
+        />
+    {/if}
+</li>

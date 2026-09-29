@@ -18,13 +18,14 @@
                 variant="ghost"
                 size="icon"
                 class="relative"
-                aria-label="Notifications"
+                aria-label={model.unreadNotificationCount > 0 ? `Notifications, ${model.unreadNotificationCount} unread` : 'Notifications'}
             >
                 <HugeiconsIcon icon={Bell} size={16} />
                 {#if model.unreadNotificationCount > 0}
                     <Badge
-                        variant="error"
-                        class="pointer-events-none absolute top-0.5 right-0.5 size-3.5 min-w-3.5 bg-[var(--color-error)] p-0 text-[length:var(--font-size-meta)] text-[var(--color-on-primary)] leading-none"
+                        variant="primary"
+                        aria-hidden="true"
+                        class="pointer-events-none absolute top-0 right-0 h-4 min-h-4 min-w-4 px-1 py-0 text-[length:var(--font-size-meta)] leading-none tabular-nums"
                     >
                         {model.unreadNotificationCount}
                     </Badge>
@@ -48,8 +49,8 @@
         <div class="flex flex-col gap-0.5">
             {#each model.notifications as notification (notification.id)}
                 <Button
-                    unstyled
-                    class="flex w-full items-start justify-start gap-3 rounded-[var(--radius-md)] px-2 py-2 text-left select-none transition-[background-color,border-color,color] [transition-duration:var(--motion-duration-hover)] hover:cursor-[var(--ui-cursor-interactive)] hover:bg-foreground/[0.08] focus-visible:outline-none focus-visible:shadow-[var(--focus-ring)]"
+                    variant="ghost"
+                    class="h-auto w-full items-start justify-start gap-3 whitespace-normal rounded-[var(--radius-md)] px-2 py-2 text-left leading-normal"
                     onclick={() => {
             model.markNotificationRead(notification.id);
         }}

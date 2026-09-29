@@ -8,7 +8,7 @@
     import { cn } from '@mielui/svelte/utils';
     import HugeiconsIcon from '../../hugeicons-icon.svelte';
     import type { AlertProps } from '.';
-    import { alert, alertIcon } from './variants';
+    import { alert, alertIcon, alertIconSlot, alertSurface } from './variants';
 
     let {
         variant = 'info',
@@ -38,16 +38,22 @@
     data-ui="alert"
     class={cn(classProp, alert())}
 >
-    {#if icon}
-        {@render icon()}
-    {:else if icon !== false}
-        <HugeiconsIcon
-            icon={Icon}
-            class={alertIcon({ variant })}
-            size={16}
-            strokeWidth={2.25}
-            aria-hidden="true"
-        />
-    {/if}
-    {@render children?.()}
+    <div data-ui="alert-surface" class={alertSurface()}>
+        {#if icon}
+            <span data-alert-icon class={alertIconSlot()}>
+                {@render icon()}
+            </span>
+        {:else if icon !== false}
+            <span data-alert-icon class={alertIconSlot()}>
+                <HugeiconsIcon
+                    icon={Icon}
+                    class={alertIcon({ variant })}
+                    size={16}
+                    strokeWidth={2.25}
+                    aria-hidden="true"
+                />
+            </span>
+        {/if}
+        {@render children?.()}
+    </div>
 </div>

@@ -19,29 +19,23 @@
     );
 </script>
 
-<div class="flex shrink-0 items-center gap-1 border-l border-border/50 pl-3">
+<div class="flex shrink-0 items-center gap-1">
     <Button
-        class="border-border/60 h-9 gap-1.5 rounded-[var(--radius-md)] px-2.5 text-[0.8125rem] tabular-nums"
-        variant="quiet"
+        class="tabular-nums"
+        variant="ghost"
         href="https://github.com/mielsense/mielui"
         target="_blank"
         rel="noreferrer"
         aria-label={starLabel}
     >
-        <img src={GitHubBlack} alt="" class="size-[0.9375rem] dark:hidden" />
-        <img src={GitHubWhite} alt="" class="size-[0.9375rem] hidden dark:block" />
+        <img src={GitHubBlack} alt="" class="size-4 dark:hidden" />
+        <img src={GitHubWhite} alt="" class="hidden size-4 dark:block" />
         <span>{formatStarCount(starCount)}</span>
     </Button>
 
     <Tooltip.Root>
         <Tooltip.Trigger>
-            <Button
-                class="border-border/60 size-9 rounded-[var(--radius-md)]"
-                variant="quiet"
-                onclick={toggleMode}
-                size="icon"
-                aria-label={themeLabel}
-            >
+            <Button variant="ghost" onclick={toggleMode} size="icon" aria-label={themeLabel}>
                 <span
                     class="inline-flex size-4"
                     aria-hidden="true"

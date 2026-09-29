@@ -5,7 +5,11 @@
     let { value, tone = 'context', class: className, ...rest }: FileDiffLineNumberProps = $props();
 
     const toneClass = $derived(
-        tone === 'add' ? 'text-success' : tone === 'remove' ? 'text-error' : 'text-foreground-muted'
+        tone === 'add'
+            ? 'text-[var(--mielui-success-text)]'
+            : tone === 'remove'
+              ? 'text-[var(--mielui-error-text)]'
+              : 'text-foreground-muted'
     );
 </script>
 

@@ -1,8 +1,9 @@
-import { getContext, setContext } from 'svelte';
+import { getContext, type Snippet, setContext } from 'svelte';
 
 type DrawerContext = {
     close: () => void;
     overlay: HTMLDivElement | null;
+    footer: Snippet | undefined;
 };
 
 const key = Symbol('drawer');

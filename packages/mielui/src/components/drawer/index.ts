@@ -41,6 +41,7 @@ export type DrawerContentProps = Omit<
     Primitive.ContentProps,
     'child' | 'ref' | 'onFocusOutside'
 > & {
+    surface?: 'solid' | 'glass';
     element?: HTMLDivElement | null;
 };
 export type DrawerOverlayProps = Omit<Primitive.OverlayProps, 'child' | 'ref'> & {

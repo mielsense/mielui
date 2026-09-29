@@ -1,126 +1,212 @@
 <script lang="ts">
-    import { heatmapCells, panel } from './shapes.svelte';
+    import { Search01Icon as Search } from '@hugeicons/core-free-icons';
+    import { Badge } from '@mielui/svelte/components/badge';
+    import * as Chart from '@mielui/svelte/components/chart';
+    import { Checkbox } from '@mielui/svelte/components/checkbox';
+    import { Gauge } from '@mielui/svelte/components/gauge';
+    import * as Heatmap from '@mielui/svelte/components/heatmap';
+    import { Input } from '@mielui/svelte/components/input';
+    import * as PieChart from '@mielui/svelte/components/pie-chart';
+    import * as Table from '@mielui/svelte/components/table';
+    import HugeiconsIcon from '@mielui/svelte/hugeicons-icon';
 
     let { slug }: { slug: string } = $props();
+
+    const invoices = [
+        {
+            id: '#1001',
+            status: 'Paid',
+            amount: '$250'
+        },
+        {
+            id: '#1002',
+            status: 'Pending',
+            amount: '$150'
+        },
+        {
+            id: '#1003',
+            status: 'Paid',
+            amount: '$350'
+        }
+    ];
+    const revenue = [
+        {
+            month: 'Jan',
+            revenue: 186,
+            target: 160
+        },
+        {
+            month: 'Feb',
+            revenue: 242,
+            target: 190
+        },
+        {
+            month: 'Mar',
+            revenue: 218,
+            target: 220
+        },
+        {
+            month: 'Apr',
+            revenue: 304,
+            target: 250
+        },
+        {
+            month: 'May',
+            revenue: 286,
+            target: 280
+        },
+        {
+            month: 'Jun',
+            revenue: 372,
+            target: 310
+        }
+    ];
+    const revenueConfig = {
+        revenue: {
+            label: 'Revenue',
+            color: 'var(--chart-1)'
+        },
+        target: {
+            label: 'Target',
+            color: 'var(--chart-2)'
+        }
+    };
+    const sources = [
+        {
+            key: 'direct',
+            value: 1240
+        },
+        {
+            key: 'search',
+            value: 860
+        },
+        {
+            key: 'referral',
+            value: 420
+        }
+    ];
+    const sourceConfig = {
+        direct: {
+            label: 'Direct',
+            color: 'var(--chart-1)'
+        },
+        search: {
+            label: 'Search',
+            color: 'var(--chart-2)'
+        },
+        referral: {
+            label: 'Referral',
+            color: 'var(--chart-3)'
+        }
+    };
+    const days = Array.from(
+        {
+            length: 112
+        },
+        (_, index) => {
+            const date = new Date(Date.UTC(2026, 4, 26 + index));
+
+            return {
+                date: date.toISOString().slice(0, 10),
+                count: index % 7 === 0 ? 0 : (index * 17 + (index % 11)) % 24
+            };
+        }
+    );
 </script>
+
 {#if slug === 'table' || slug === 'data-table'}
-    <div class={`${panel} w-56 overflow-hidden text-[9px]`}>
+    <div class="flex w-full max-w-72 flex-col gap-2">
         {#if slug === 'data-table'}
-            <div class="border-b border-border p-2 text-foreground-muted">Search members…</div>
+            <Input aria-label="Filter invoices" placeholder="Filter invoices…">
+                {#snippet trailing()}
+                    <HugeiconsIcon icon={Search} size={14} aria-hidden="true" />
+                {/snippet}
+            </Input>
         {/if}
-        <div
-            class="grid grid-cols-[1fr_1fr_auto] gap-3 border-b border-border bg-secondary/60 px-3 py-2 text-foreground-muted"
-        >
-            <span>Name</span>
-            <span>Status</span>
-            <span>Role</span>
-        </div>
-        {#each ['Alex', 'Sam', 'Jordan'] as name}
-            <div
-                class="grid grid-cols-[1fr_1fr_auto] items-center gap-3 border-b border-border/60 px-3 py-2 last:border-0"
-            >
-                <span>{name}</span>
-                <span class="w-fit rounded bg-primary/15 px-1.5 py-0.5 text-primary">Active</span>
-                <span>Editor</span>
-            </div>
-        {/each}
+        <Table.Root variant={slug === 'data-table' ? 'inset' : 'default'}>
+            <Table.Header>
+                <Table.Row>
+                    {#if slug === 'data-table'}
+                        <Table.Head class="w-8">
+                            <Checkbox aria-label="Select all invoices" />
+                        </Table.Head>
+                    {/if}
+                    <Table.Head>Invoice</Table.Head>
+                    <Table.Head>Status</Table.Head>
+                    {#if slug === 'table'}
+                        <Table.Head class="text-end">Amount</Table.Head>
+                    {/if}
+                </Table.Row>
+            </Table.Header>
+            <Table.Body>
+                {#each invoices.slice(0, slug === 'data-table' ? 2 : 3) as invoice (invoice.id)}
+                    <Table.Row>
+                        {#if slug === 'data-table'}
+                            <Table.Cell>
+                                <Checkbox
+                                    checked={invoice.id === '#1001'}
+                                    aria-label={`Select ${invoice.id}`}
+                                />
+                            </Table.Cell>
+                        {/if}
+                        <Table.Cell class="font-medium">{invoice.id}</Table.Cell>
+                        <Table.Cell>
+                            <Badge variant={invoice.status === 'Paid' ? 'success' : 'warning'}>
+                                {invoice.status}
+                            </Badge>
+                        </Table.Cell>
+                        {#if slug === 'table'}
+                            <Table.Cell class="text-end tabular-nums">{invoice.amount}</Table.Cell>
+                        {/if}
+                    </Table.Row>
+                {/each}
+            </Table.Body>
+        </Table.Root>
     </div>
 {:else if slug === 'chart'}
-    <svg class="h-28 w-56" viewBox="0 0 224 112" fill="none">
-        <path
-            d="M10 16h204M10 48h204M10 80h204M10 108h204"
-            stroke="currentColor"
-            stroke-opacity=".08"
-        />
-        {#each [48, 30, 60, 42, 76, 63, 91] as height, index}
-            <rect
-                x={16 + index * 28}
-                y={108-height}
-                width="14"
-                {height}
-                rx="2"
-                fill="var(--color-primary)"
-                opacity={0.35 + index * .08}
-            />
-        {/each}
-        <path
-            d="m23 63 28-12 28 10 28-30 28 8 28-19 28 5"
-            stroke="currentColor"
-            stroke-width="1.5"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-        />
-    </svg>
+    <Chart.Root
+        data={revenue}
+        config={revenueConfig}
+        x="month"
+        aria-label="Monthly revenue and target"
+        class="w-72"
+    >
+        <Chart.Plot class="h-36">
+            <Chart.Grid />
+            <Chart.XAxis />
+            <Chart.Area key="revenue" />
+            <Chart.Line key="target" />
+        </Chart.Plot>
+    </Chart.Root>
 {:else if slug === 'gauge'}
-    <div class="relative">
-        <svg width="148" height="100" viewBox="0 0 148 100" fill="none">
-            <path
-                d="M14 78a60 60 0 0 1 120 0"
-                stroke="currentColor"
-                stroke-opacity=".1"
-                stroke-width="10"
-                stroke-linecap="round"
-            />
-            <path
-                d="M14 78a60 60 0 0 1 104-41"
-                stroke="var(--color-primary)"
-                stroke-width="10"
-                stroke-linecap="round"
-            />
-        </svg>
-        <span class="absolute inset-x-0 bottom-5 text-center text-2xl font-medium tabular-nums">
-            72<span class="ml-0.5 text-xs text-foreground-muted">%</span>
+    <Gauge value={72} label="Monthly API usage" animation="none">
+        <span>
+            72
+            <span class="text-base text-foreground-muted">%</span>
         </span>
-    </div>
+    </Gauge>
 {:else if slug === 'heatmap'}
-    <div class="grid grid-flow-col grid-rows-7 gap-1">
-        {#each heatmapCells as level}
-            <span
-                class={`size-3 rounded-[2px] ${level === 0 ? 'bg-secondary' : level === 1 ? 'bg-primary/25' : level === 2 ? 'bg-primary/55' : 'bg-primary'}`}
-            ></span>
-        {/each}
+    <div class="w-72">
+        <Heatmap.Root {days} weeks={16} animation="none" endDate="2026-09-14">
+            {#snippet children()}
+                <Heatmap.Calendar>
+                    <Heatmap.MonthLabels />
+                    <Heatmap.WeekdayLabels />
+                    <Heatmap.Grid />
+                </Heatmap.Calendar>
+            {/snippet}
+        </Heatmap.Root>
     </div>
 {:else if slug === 'pie-chart'}
-    <div class="flex items-center gap-5">
-        <svg width="94" height="94" viewBox="0 0 94 94" fill="none">
-            <circle
-                cx="47"
-                cy="47"
-                r="32"
-                stroke="currentColor"
-                stroke-opacity=".1"
-                stroke-width="16"
-            />
-            <circle
-                cx="47"
-                cy="47"
-                r="32"
-                stroke="var(--color-primary)"
-                stroke-width="16"
-                stroke-dasharray="108 201"
-                transform="rotate(-90 47 47)"
-            />
-            <circle
-                cx="47"
-                cy="47"
-                r="32"
-                stroke="var(--color-primary)"
-                stroke-opacity=".4"
-                stroke-width="16"
-                stroke-dasharray="50 201"
-                stroke-dashoffset="-112"
-                transform="rotate(-90 47 47)"
-            />
-        </svg>
-        <div class="flex flex-col gap-3 text-[9px]">
-            {#each ['Direct', 'Search', 'Other'] as source, index}
-                <span class="flex items-center gap-2">
-                    <span
-                        class={`size-1.5 rounded-full ${index === 0 ? 'bg-primary' : index === 1 ? 'bg-primary/40' : 'bg-foreground/10'}`}
-                    ></span>
-                    {source}
-                </span>
-            {/each}
-        </div>
-    </div>
+    <PieChart.Root
+        data={sources}
+        config={sourceConfig}
+        aria-label="Sessions by acquisition channel"
+        class="w-64"
+    >
+        <PieChart.Plot class="h-32">
+            <PieChart.Arc />
+        </PieChart.Plot>
+        <PieChart.Legend />
+    </PieChart.Root>
 {/if}

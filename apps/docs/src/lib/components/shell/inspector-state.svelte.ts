@@ -18,9 +18,9 @@ export function createInspectorState(getStorageKey: () => string) {
 
     onMount(() => {
         try {
-            pinned = localStorage.getItem(getStorageKey()) === 'true';
+            pinned = localStorage.getItem(getStorageKey()) !== 'false';
         } catch {
-            pinned = false;
+            pinned = true;
         }
         open = pinned;
         preferenceLoaded = true;

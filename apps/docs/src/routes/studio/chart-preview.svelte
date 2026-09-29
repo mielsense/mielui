@@ -8,6 +8,7 @@
     import { ScrollArea } from '@mielui/svelte/components/scroll-area';
     import { Switch } from '@mielui/svelte/components/switch';
     import * as Tabs from '@mielui/svelte/components/tabs';
+    import PreviewHeading from './preview-heading.svelte';
 
     let year = $state('2026');
     let live = $state(false);
@@ -72,10 +73,8 @@
 
 <ScrollArea class="h-full min-h-0" showCues={false}>
     <div class="@container w-full">
-        <header
-            class="flex min-h-[var(--docs-row-height)] flex-wrap items-center justify-between gap-3 border-b-[length:var(--border-size)] border-[var(--docs-rule)] bg-[var(--docs-chrome)] px-6 py-2"
-        >
-            <h2 class="text-sm font-semibold">Revenue and acquisition</h2>
+        <div class="flex flex-wrap items-center justify-between gap-3 px-6 pt-4">
+            <PreviewHeading title="Revenue and acquisition" class="static" />
             <div class="flex flex-wrap items-center gap-4">
                 <Tabs.Root bind:value={year} variant="ghost">
                     <div role="group" aria-label="Sample year">
@@ -89,15 +88,15 @@
                 <Button
                     variant="outline"
                     onclick={() => {
-                    revision += 1;
-                }}
+                        revision += 1;
+                    }}
                 >
                     Replay
                 </Button>
             </div>
-        </header>
+        </div>
         {#key revision}
-            <div class="grid min-w-0 gap-8 px-6 py-8 @4xl:grid-cols-3">
+            <div class="grid min-w-0 gap-8 px-6 pt-6 pb-10 @4xl:grid-cols-3">
                 <section class="min-w-0 @4xl:col-span-2">
                     <header class="flex flex-col gap-1">
                         <h3 class="text-sm font-medium">Revenue</h3>
@@ -150,12 +149,8 @@
                     </div>
                 </section>
             </div>
-            <h2
-                class="flex h-[var(--docs-row-height)] items-center border-y-[length:var(--border-size)] border-[var(--docs-rule)] bg-[var(--docs-chrome)] px-6 text-sm font-semibold"
-            >
-                Traffic and targets
-            </h2>
-            <div class="grid min-w-0 gap-8 px-6 py-8 @4xl:grid-cols-3">
+            <PreviewHeading title="Traffic and targets" class="mx-6 mt-4" />
+            <div class="grid min-w-0 gap-8 px-6 pt-6 pb-10 @4xl:grid-cols-3">
                 <section class="min-w-0 @4xl:col-span-2">
                     <header class="flex flex-col gap-1">
                         <h3 class="text-sm font-medium">Visits by device</h3>
@@ -206,13 +201,9 @@
                     </Chart.Root>
                 </section>
             </div>
-            <h2
-                class="flex h-[var(--docs-row-height)] items-center border-y-[length:var(--border-size)] border-[var(--docs-rule)] bg-[var(--docs-chrome)] px-6 text-sm font-semibold"
-            >
-                Activity
-            </h2>
-            <div class="px-6 py-8">
-                <section class="min-w-0 @4xl:col-span-3">
+            <PreviewHeading title="Activity" class="mx-6 mt-4" />
+            <div class="px-6 pt-6 pb-10">
+                <section class="min-w-0">
                     <header class="flex flex-col gap-1">
                         <h3 class="text-sm font-medium">A year of activity</h3>
                         <p class="text-sm text-foreground-muted">

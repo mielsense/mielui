@@ -42,8 +42,13 @@ describe('menu-item stylesheet contract', () => {
 
         const style = getComputedStyle(rowFor('plain-item'));
         expect(style.display).toBe('flex');
-        expect(style.justifyContent).toBe('space-between');
+        expect(style.justifyContent).toBe('flex-start');
         expect(style.textAlign).toBe('left');
+        const mediumRadius = parseFloat(
+            getComputedStyle(rowFor('plain-item')).getPropertyValue('--radius-md')
+        );
+        expect(parseFloat(style.borderTopLeftRadius)).toBeLessThanOrEqual(mediumRadius);
+        expect(parseFloat(style.borderTopLeftRadius)).toBeLessThan(parseFloat(style.height) / 2);
         const unit = parseFloat(
             getComputedStyle(document.documentElement).getPropertyValue('--mielui-space-unit')
         );

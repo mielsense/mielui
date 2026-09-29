@@ -14,14 +14,7 @@
 </script>
 
 {#if command.searchContent === ''}
-    <div
-        {...rest}
-        data-ui="menu-separator"
-        class={cn(
-            className,
-            'mielui-menu-separator mx-6'
-        )}
-    >
+    <div {...rest} data-ui="menu-separator" class={cn(className, 'mielui-menu-separator')}>
         {@render children?.()}
     </div>
 {/if}

@@ -122,20 +122,23 @@
         {@render children()}
     {:else}
         {#if toast.description}
-            <Content />
-            <Footer>
-                <Icon />
-                <Title />
-                <Actions />
-            </Footer>
+            <Content class="gap-1">
+                <div class="flex min-w-0 items-center gap-2">
+                    <Icon />
+                    <Title />
+                </div>
+                <span>{toast.description}</span>
+            </Content>
         {:else}
             <Content class="flex min-h-14 flex-row items-center gap-2 px-4 py-4">
                 <Icon />
                 <Title />
             </Content>
-            {#if toast.actions?.length}
-                <Footer><Actions /></Footer>
-            {/if}
+        {/if}
+        {#if toast.actions?.length}
+            <Footer>
+                <Actions />
+            </Footer>
         {/if}
         {#if toast.exitable}
             <Close />

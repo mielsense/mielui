@@ -51,15 +51,15 @@
         data-ui="radio-group-item"
         data-state={selected ? 'checked' : 'unchecked'}
         class={cn(
-            'mielui-press mt-0.5 flex size-4 shrink-0 items-center justify-center rounded-full border-[length:var(--border-size)] bg-background transition-[background-color,border-color,box-shadow,transform,scale] [transition-duration:var(--motion-duration-press)] ease-[var(--ease-press)] motion-reduce:transition-none shadow-[var(--elevation-control-edge)] peer-focus-visible:shadow-[var(--focus-ring),var(--elevation-control-edge)]',
-            selected ? 'border-primary' : 'border-border',
-            !isDisabled && !selected && 'hover:border-primary'
+            'mielui-press mt-px flex size-[calc(var(--size-hairline)*9)] shrink-0 items-center justify-center rounded-full border-[length:var(--border-size)] bg-card transition-[background-color,border-color,box-shadow,transform,scale] [transition-duration:var(--motion-duration-press)] ease-[var(--ease-press)] motion-reduce:transition-none peer-focus-visible:shadow-[var(--focus-ring)]',
+            selected ? 'border-primary' : 'border-[var(--mielui-control-border)]',
+            !isDisabled && !selected && 'hover:border-[color-mix(in_oklab,var(--color-foreground)_45%,var(--color-card))]'
         )}
         aria-hidden="true"
     >
         <span
             class={cn(
-                'size-2 rounded-full bg-primary transition-[opacity,scale] [transition-duration:var(--motion-duration-press)] ease-[var(--ease-press)] motion-reduce:transition-none',
+                'size-2.5 rounded-full bg-primary transition-[opacity,scale] [transition-duration:var(--motion-duration-press)] ease-[var(--ease-press)] motion-reduce:transition-none',
                 selected ? 'scale-100 opacity-100' : 'scale-[0.25] opacity-0'
             )}
         ></span>
