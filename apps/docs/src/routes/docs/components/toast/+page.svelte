@@ -52,6 +52,7 @@
         <Typography.Text variant="supporting">
             Mount Toaster once in your app layout, then fire notifications with toast. The icon,
             title, and description share the inset; action buttons sit in the footer on the frame.
+            The inset surface keeps its narrow gutter in both single and double border modes.
         </Typography.Text>
         <Typography.Text variant="supporting">
             Changing duration restarts the dismissal countdown, while paused toasts remain paused.

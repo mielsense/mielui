@@ -7,7 +7,7 @@ export function notchShape(width: number, height: number, side: NonNullable<Notc
     const shoulder = Math.min(12, span / 6, depth / 3);
     const corner = Math.min(22, (span - shoulder * 2) / 2, depth / 2);
     const right = span - shoulder;
-    const path = `M0 0H${span}Q${right} 0 ${right} ${shoulder}V${depth - corner}Q${right} ${depth} ${right - corner} ${depth}H${shoulder + corner}Q${shoulder} ${depth} ${shoulder} ${depth - corner}V${shoulder}Q${shoulder} 0 0 0Z`;
+    const path = `M${span} 0Q${right} 0 ${right} ${shoulder}V${depth - corner}Q${right} ${depth} ${right - corner} ${depth}H${shoulder + corner}Q${shoulder} ${depth} ${shoulder} ${depth - corner}V${shoulder}Q${shoulder} 0 0 0`;
     let transform: string | undefined;
     if (side === 'bottom') {
         transform = `translate(0 ${height}) scale(1 -1)`;

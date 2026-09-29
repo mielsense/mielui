@@ -29,3 +29,41 @@ it('removes dismissed notifications from active state while the host finishes it
     await expect.element(page.getByText('Saved again')).toBeVisible();
     expect(document.querySelectorAll('[aria-label="Notifications"]')).toHaveLength(1);
 });
+
+it.each([0, 1])('keeps the toast surface inset with border scale %s', async (scale) => {
+    const root = document.documentElement;
+    const previous = root.style.getPropertyValue('--mielui-border-inset-scale');
+    root.style.setProperty('--mielui-border-inset-scale', String(scale));
+    try {
+        render(ToasterFixture);
+        toast.success('Payment recorded', {
+            description: 'INV-2261 is marked paid.',
+            persistent: true
+        });
+        await expect.element(page.getByText('INV-2261 is marked paid.')).toBeVisible();
+        const host = document.querySelector<HTMLElement>('[data-ui="toast"]');
+        const content = host?.querySelector<HTMLElement>('[data-ui="toast-content"]');
+        expect(host).not.toBeNull();
+        expect(content).not.toBeNull();
+        if (!host || !content) {
+            return;
+        }
+        for (const dark of [false, true]) {
+            root.classList.toggle('dark', dark);
+            const frame = host.getBoundingClientRect();
+            const surface = content.getBoundingClientRect();
+            const border = Number.parseFloat(getComputedStyle(host).borderWidth);
+            expect(surface.left - frame.left).toBeGreaterThan(border);
+            expect(frame.right - surface.right).toBeGreaterThan(border);
+            expect(surface.top - frame.top).toBeGreaterThan(border);
+            expect(frame.bottom - surface.bottom).toBeGreaterThan(border);
+        }
+    } finally {
+        root.classList.remove('dark');
+        if (previous) {
+            root.style.setProperty('--mielui-border-inset-scale', previous);
+        } else {
+            root.style.removeProperty('--mielui-border-inset-scale');
+        }
+    }
+});

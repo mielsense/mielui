@@ -74,7 +74,7 @@ when the token is absent. Consumers may pin an individual frame with
 depends on staying above content, such as package-manager tabs. Do not force
 a global preference onto both regions of a data table. Single-border mode removes decorative inset spacing on cards and ordinary
 overlays. Inset DataTable, Composer, CodeBlock, and documentation preview
-panels retain their structural gutter in both modes. Set the frame inset locally
+panels and Toast retain their structural gutter in both modes. Set the frame inset locally
 for those layouts; do not change the global border scale or ordinary cards.
 
 `DataTable.Root variant="inset"` is opt-in. Compose `Toolbar`, `View`, then a

@@ -10,12 +10,14 @@ export function setupPageTransition() {
 
     onNavigate((navigation) => {
         activePageTransition?.skipTransition();
+        const fromFamily = pageFamily(navigation.from?.url.pathname);
+        const toFamily = pageFamily(navigation.to?.url.pathname);
         if (
             !document.startViewTransition ||
             window.matchMedia('(prefers-reduced-motion: reduce)').matches ||
-            navigation.from?.url.pathname === navigation.to?.url.pathname ||
-            navigation.to?.url.pathname.startsWith('/preview/') ||
-            navigation.from?.url.pathname.startsWith('/preview/')
+            !fromFamily ||
+            !toFamily ||
+            fromFamily === toFamily
         ) {
             return;
         }
@@ -55,6 +57,19 @@ export function setupPageTransition() {
             void transition.finished.then(releaseTransition, releaseTransition);
         });
     });
+}
+
+function pageFamily(pathname: string | undefined) {
+    if (pathname === '/') {
+        return 'home';
+    }
+    if (pathname === '/docs' || pathname?.startsWith('/docs/')) {
+        return 'docs';
+    }
+    if (pathname === '/studio' || pathname?.startsWith('/studio/')) {
+        return 'studio';
+    }
+    return undefined;
 }
 
 function pixelRevealFrames(width: number, height: number): Keyframe[] {

@@ -33,7 +33,7 @@
 <div data-docs-page class="flex flex-col gap-10">
     <!-- ─── Header ────────────────────────────────────────────────── -->
     <PageIntro title={TITLE}>
-        A checkbox with a bindable checked state, optional label, and description.
+        A checkbox with a dash indicator, bindable checked state, optional label, and description.
     </PageIntro>
 
     <!-- ─── Hero Example ──────────────────────────────────────────── -->

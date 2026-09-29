@@ -181,6 +181,8 @@ the same contracts; a visual exception must have a specific functional reason.
   keep it too. Text fields, selection triggers, checkboxes, and radios are flat:
   one hairline border and no inset shading. Keep ghost, quiet, and plain text
   controls flat until their existing hover or selected state calls for a fill.
+- Checked checkboxes use the centered dash indicator. Preserve the native checked
+  state and boolean API; the dash is the selected appearance.
 - Unchecked checkboxes and radios use `--mielui-control-border` so their edge
   stays visible in both themes. Do not use `--color-border` for control edges.
 - Status text uses `--mielui-success-text`, `--mielui-warning-text`,
@@ -478,8 +480,11 @@ layout action, and override the token on a particular frame when its content
 requires a fixed order. Install command tabs stay on top. DataTable inset mode
 keeps its toolbar above the table and summary/pagination below, independently of
 the global preference. Single borders still remove decorative frame spacing on cards and ordinary overlays.
-Inset data tables, composers, code blocks, and docs preview panels keep a narrow
+Inset data tables, composers, toasts, code blocks, and docs preview panels keep a narrow
 structural gutter around their inner content in both border modes.
+Isolated viewport previews are flush with their frame border so edge-attached
+panels meet the preview edge. Notch outlines trace only the exposed perimeter;
+the attached edge stays open without a closing border line.
 
 Glass retains a contrasting translucent inner panel over the outer chrome. Avoid
 fully transparent inner surfaces on composers and other inset layouts: they erase
@@ -519,7 +524,7 @@ surface. Docs page header and footer belong inside the page frame. Size each
 scrolling region from the remaining workspace height, not directly from viewport
 height.
 
-Page navigation uses a brief 240ms pixel reveal using large, scattered square tiles between browser view snapshots. Keep the old page visible beneath the incoming tiles so navigation never flashes a blank surface. Skip the effect for reduced motion, same-page anchors, and preview routes; new navigation interrupts an active transition.
+Navigation between Home, Docs, and Studio uses a brief 240ms pixel reveal using large, scattered square tiles between browser view snapshots. Navigation within the same family stays immediate. Keep the old page visible beneath the incoming tiles so navigation never flashes a blank surface. Skip the effect for reduced motion, same-page anchors, preview routes, and other route families; new navigation interrupts an active transition.
 
 Documentation error pages use a single centered recovery message inside the shared page frame. Keep navigation available, show the status beside the message, and omit page copying, pagination, table of contents, and empty column rules until content loads successfully.
 
