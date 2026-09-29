@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { untrack } from 'svelte';
+    import { type Snippet, untrack } from 'svelte';
     import { Drawer as Primitive } from 'vaul-svelte';
     import type { DrawerRootProps } from '.';
     import { setDrawerContext } from './context';
@@ -13,6 +13,7 @@
         ...rest
     }: DrawerRootProps = $props();
     let overlay: HTMLDivElement | null = null;
+    let footer = $state<Snippet>();
     let reportedOpen = untrack(() => open);
 
     $effect(() => {
@@ -33,6 +34,12 @@
         },
         set overlay(next) {
             overlay = next;
+        },
+        get footer() {
+            return footer;
+        },
+        set footer(next) {
+            footer = next;
         },
         close() {
             if (!open || dismissible) {

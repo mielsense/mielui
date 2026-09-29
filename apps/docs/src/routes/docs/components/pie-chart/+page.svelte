@@ -35,9 +35,10 @@
         </Typography.Text>
         <Typography.Text variant="supporting">
             Place Arc and an optional Label inside Plot. Legend and Tooltip belong directly inside
-            Root. Tooltips inherit the theme’s border and glass settings and track the pointer
-            without a trailing position animation. Set innerRadius to 0 on Arc for a solid pie. For
-            a donut, add Label or replace its children to show a custom center.
+            Root. Tooltips share the chart tooltip surface, inherit the theme’s glass setting, and
+            track the pointer outside the ring so the inspected slice stays visible. Set innerRadius
+            to 0 on Arc for a solid pie. For a donut, add Label or replace its children to show a
+            custom center.
         </Typography.Text>
         <Typography.Text variant="supporting">
             The total comes from the visible data. Keep category keys stable across updates so

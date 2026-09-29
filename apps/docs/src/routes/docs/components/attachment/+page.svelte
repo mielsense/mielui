@@ -4,7 +4,8 @@
     import { ComponentPreview, InstallCommand } from '$lib/components/docs';
     import PageIntro from '$lib/components/docs/page-intro.svelte';
     import SectionHeading from '$lib/components/docs/section-heading.svelte';
-
+    import ChipStatus from './examples/chip-status.svelte';
+    import ChipStatusSrc from './examples/chip-status.svelte?raw';
     import Hero from './examples/hero.svelte';
     import HeroSrc from './examples/hero.svelte?raw';
     import StatusVariants from './examples/status-variants.svelte';
@@ -91,6 +92,19 @@ function handleReject(rejections: AttachmentRejection[]) {
         <div id="status-variants" class="scroll-mt-20 flex flex-col gap-3">
             <Typography.H3 class="docs-subsection-heading">Upload status</Typography.H3>
             <ComponentPreview code={StatusVariantsSrc}><StatusVariants /></ComponentPreview>
+        </div>
+
+        <div id="chips" class="scroll-mt-20 flex flex-col gap-3">
+            <Typography.H3 class="docs-subsection-heading">Chips</Typography.H3>
+            <Typography.Text variant="supporting">
+                Set
+                <Typography.InlineCode>variant="chip"</Typography.InlineCode>
+                on List or Item for a compact pill with a file-type icon or image thumbnail, the
+                name, and a remove button. A spinner replaces the icon while uploading, and errors
+                add a red edge. Progress and status text stay available to assistive technology. Use
+                chips in Composer.Header.
+            </Typography.Text>
+            <ComponentPreview code={ChipStatusSrc}><ChipStatus /></ComponentPreview>
         </div>
     </section>
 </div>

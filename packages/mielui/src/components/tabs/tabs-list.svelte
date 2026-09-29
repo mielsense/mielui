@@ -33,7 +33,8 @@
         className,
         'relative inline-flex',
         vertical ? 'flex-col items-stretch' : 'items-center',
-        variant === 'segmented' && 'rounded-[var(--radius-xl)] bg-secondary p-1',
+        variant === 'segmented' &&
+            'rounded-[var(--radius-xl)] bg-secondary p-1 dark:bg-background dark:ring-1 dark:ring-inset dark:ring-border',
         variant === 'ghost' && 'gap-1',
         variant === 'default' && (vertical ? 'gap-1 pe-1' : 'gap-1 pb-1')
     )}
@@ -84,7 +85,7 @@
         {:else if variant === 'segmented'}
             <div
                 aria-hidden="true"
-                class="pointer-events-none absolute rounded-[calc(var(--radius-xl)-var(--spacing))] bg-card shadow-[var(--elevation-control-edge)] ring-1 ring-border/50 transition-[left,top,width,height] [transition-duration:var(--motion-duration-panel)] ease-[var(--ease-out)] motion-reduce:transition-none"
+                class="pointer-events-none absolute rounded-[calc(var(--radius-xl)-var(--spacing))] bg-card shadow-[var(--elevation-control-edge)] ring-1 ring-border/50 dark:bg-secondary transition-[left,top,width,height] [transition-duration:var(--motion-duration-panel)] ease-[var(--ease-out)] motion-reduce:transition-none"
                 style:left={`${indicators.indicator.left}px`}
                 style:top={`${indicators.indicator.top}px`}
                 style:width={`${indicators.indicator.width}px`}

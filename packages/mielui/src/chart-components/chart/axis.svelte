@@ -48,7 +48,7 @@
 </script>
 <g
     data-ui={`chart-${axis}-axis`}
-    class={cn(className, 'fill-foreground-muted text-[length:var(--font-size-meta)] tabular-nums')}
+    class={cn(className, 'fill-foreground-muted text-xs tabular-nums')}
 >
     {#each values as value, index}
         {#if index % stride === 0}

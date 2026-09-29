@@ -1,6 +1,7 @@
 <script lang="ts">
     import { Tick02Icon as Check } from '@hugeicons/core-free-icons';
     import { cn } from '@mielui/svelte/utils';
+    import { checkboxBox } from '../../components/checkbox/variants';
     import HugeiconsIcon from '../../hugeicons-icon.svelte';
     import type { QuestionOptionProps } from '.';
     import { getQuestionContext } from './context.svelte';
@@ -35,10 +36,10 @@
         class={cn(
             className,
             isDisabled && 'cursor-not-allowed opacity-[var(--opacity-disabled)]',
-            'group relative flex min-h-12 cursor-[var(--ui-cursor-interactive)] items-start gap-3 rounded-[var(--radius-md)] border-[length:var(--border-size)] px-3 py-2.5 text-start transition-[background-color,border-color,box-shadow] [transition-duration:var(--motion-duration-press)] ease-[var(--ease-press)] motion-reduce:transition-none has-[:focus-visible]:shadow-[var(--focus-ring)]',
+            'group relative flex min-h-12 cursor-[var(--ui-cursor-interactive)] items-start gap-3 rounded-[var(--radius-md)] px-2.5 py-2.5 text-start transition-[background-color,box-shadow] [transition-duration:var(--motion-duration-hover)] ease-[var(--ease-out)] motion-reduce:transition-none has-[:focus-visible]:shadow-[var(--focus-ring)]',
             selected
-                ? 'border-primary/60 bg-[color-mix(in_srgb,var(--color-primary)_8%,var(--color-card))]'
-                : 'border-transparent bg-transparent [&:not([data-disabled]):hover]:border-border [&:not([data-disabled]):hover]:bg-secondary'
+                ? 'bg-[color-mix(in_srgb,var(--color-primary)_8%,var(--color-card))]'
+                : '[&:not([data-disabled]):hover]:bg-foreground/[0.08]'
         )}
     >
         <input
@@ -56,33 +57,51 @@
             onchange={handleChange}
             class="peer sr-only"
         />
-        <span
-            class={cn(
-                'mt-0.5 grid size-4 shrink-0 place-items-center border-[length:var(--border-size)] transition-[background-color,border-color] [transition-duration:var(--motion-duration-press)] ease-[var(--ease-press)] motion-reduce:transition-none',
-                context.type === 'multiple' ? 'rounded-[var(--radius-sm)]' : 'rounded-full',
-                selected ? 'border-primary bg-primary' : 'border-border bg-background'
-            )}
-            aria-hidden="true"
-        >
-            {#if context.type === 'multiple'}
+        {#if context.type === 'multiple'}
+            <span
+                data-state={selected ? 'checked' : 'unchecked'}
+                class={cn(
+                    'peer-focus-visible:shadow-none',
+                    !selected &&
+                        !isDisabled &&
+                        'group-hover:border-[color-mix(in_oklab,var(--color-foreground)_45%,var(--color-card))]',
+                    checkboxBox({
+                        checked: selected,
+                        size: 'md'
+                    })
+                )}
+                aria-hidden="true"
+            >
                 <HugeiconsIcon
                     icon={Check}
-                    size={11}
+                    size={12}
                     strokeWidth={2.5}
                     class={cn(
                         'text-[var(--color-on-primary)] transition-[opacity,scale] [transition-duration:var(--motion-duration-press)] ease-[var(--ease-press)] motion-reduce:transition-none',
                         selected ? 'scale-100 opacity-100' : 'scale-90 opacity-0'
                     )}
                 />
-            {:else}
+            </span>
+        {:else}
+            <span
+                data-state={selected ? 'checked' : 'unchecked'}
+                class={cn(
+                    'flex size-[calc(var(--size-hairline)*9)] shrink-0 items-center justify-center rounded-full border-[length:var(--border-size)] bg-card transition-[background-color,border-color] [transition-duration:var(--motion-duration-press)] ease-[var(--ease-press)] motion-reduce:transition-none',
+                    selected ? 'border-primary' : 'border-[var(--mielui-control-border)]',
+                    !selected &&
+                        !isDisabled &&
+                        'group-hover:border-[color-mix(in_oklab,var(--color-foreground)_45%,var(--color-card))]'
+                )}
+                aria-hidden="true"
+            >
                 <span
                     class={cn(
-                        'size-1.5 rounded-full bg-[var(--color-on-primary)] transition-[opacity,scale] [transition-duration:var(--motion-duration-press)] ease-[var(--ease-press)] motion-reduce:transition-none',
-                        selected ? 'scale-100 opacity-100' : 'scale-90 opacity-0'
+                        'size-2.5 rounded-full bg-primary transition-[opacity,scale] [transition-duration:var(--motion-duration-press)] ease-[var(--ease-press)] motion-reduce:transition-none',
+                        selected ? 'scale-100 opacity-100' : 'scale-[0.25] opacity-0'
                     )}
                 ></span>
-            {/if}
-        </span>
+            </span>
+        {/if}
         <span class="min-w-0 flex-1">
             <span
                 class="block [font-size:var(--font-size-label)] [font-weight:var(--font-weight-label)] [letter-spacing:var(--tracking-label)] leading-snug text-foreground"

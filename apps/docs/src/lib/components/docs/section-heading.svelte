@@ -4,7 +4,13 @@
     import HugeiconsIcon from '@mielui/svelte/hugeicons-icon';
     import type { Snippet } from 'svelte';
 
-    let { title, description }: { title: string; description?: Snippet } = $props();
+    let {
+        title,
+        description
+    }: {
+        title: string;
+        description?: Snippet;
+    } = $props();
 </script>
 
 <div class="flex items-center gap-2">
@@ -12,10 +18,10 @@
     {#if description}
         <HoverCard.Root>
             <HoverCard.Trigger
-                class="inline-flex size-5 shrink-0 items-center justify-center rounded-sm text-background/70 hover:bg-background/15 hover:text-background focus-visible:outline-2 focus-visible:outline-primary"
+                class="inline-flex size-5 shrink-0 items-center justify-center rounded-full text-background/70 transition-[background-color,color] [transition-duration:var(--motion-duration-hover)] ease-[var(--ease-out)] hover:bg-background/15 hover:text-background focus-visible:outline-none focus-visible:shadow-[var(--focus-ring)] motion-reduce:transition-none"
             >
-                <span class="sr-only">{`About ${title.toLowerCase()}`}</span>
-                <HugeiconsIcon icon={InformationCircleIcon} size={15} aria-hidden="true" />
+                <span class="sr-only">{`About ${title}`}</span>
+                <HugeiconsIcon icon={InformationCircleIcon} size={14} aria-hidden="true" />
             </HoverCard.Trigger>
             <HoverCard.Content
                 side="bottom"

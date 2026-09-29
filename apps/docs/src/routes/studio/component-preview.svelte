@@ -1,4 +1,6 @@
 <script lang="ts">
+    import { numberShuffle } from '@mielui/svelte/actions/number-shuffle';
+    import * as Avatar from '@mielui/svelte/components/avatar';
     import { Badge } from '@mielui/svelte/components/badge';
     import { Button } from '@mielui/svelte/components/button';
     import * as Card from '@mielui/svelte/components/card';
@@ -14,6 +16,7 @@
     import { toast } from '@mielui/svelte/components/toast';
 
     import ComponentGallery from './component-gallery.svelte';
+    import PreviewHeading from './preview-heading.svelte';
 
     const uid = $props.id();
     let access = $state('team');
@@ -32,12 +35,7 @@
 <ScrollArea class="h-full min-h-0" showCues={false}>
     <div class="@container w-full">
         <section aria-labelledby="studio-controls">
-            <h2
-                id="studio-controls"
-                class="sticky top-3 z-10 mx-6 mt-4 flex h-9 w-fit items-center rounded-full bg-foreground px-4 text-sm font-semibold text-background"
-            >
-                Controls
-            </h2>
+            <PreviewHeading id="studio-controls" title="Controls" class="mx-6 mt-4" />
             <div
                 class="grid grid-cols-1 gap-x-10 gap-y-8 px-6 py-8 @3xl:grid-cols-2 @6xl:grid-cols-4"
             >
@@ -58,7 +56,7 @@
                             <Button loading loadingLabel="Saving">Save</Button>
                         </div>
                         <p class="text-sm text-foreground-muted">
-                            Default, secondary, disabled, and loading states.
+                            Primary, outline, ghost, disabled, and loading states.
                         </p>
                     </Card.Content>
                 </section>
@@ -118,7 +116,21 @@
                     <Card.Content class="flex flex-col gap-4">
                         <h3 class="text-sm font-medium">Preferences and status</h3>
                         <Switch label="Email notifications" bind:checked={notifications} />
-                        <Slider label="Volume" bind:value={volume} />
+                        <div class="flex flex-col gap-1">
+                            <div class="flex items-baseline justify-between gap-2 text-sm">
+                                <span id={`${uid}-volume`}>Volume</span>
+                                <span
+                                    class="tabular-nums text-foreground-muted"
+                                    use:numberShuffle={{
+                                        value: volume,
+                                        format: (value) => `${value}%`
+                                    }}
+                                >
+                                    {`${volume}%`}
+                                </span>
+                            </div>
+                            <Slider aria-labelledby={`${uid}-volume`} bind:value={volume} />
+                        </div>
                         <div class="flex flex-wrap gap-2">
                             <Badge variant="success">Active</Badge>
                             <Badge variant="outline">Draft</Badge>
@@ -129,12 +141,7 @@
             </div>
         </section>
         <section aria-labelledby="studio-overlays">
-            <h2
-                id="studio-overlays"
-                class="sticky top-3 z-10 mx-6 mt-4 flex h-9 w-fit items-center rounded-full bg-foreground px-4 text-sm font-semibold text-background"
-            >
-                Menus and popovers
-            </h2>
+            <PreviewHeading id="studio-overlays" title="Menus and popovers" class="mx-6 mt-4" />
             <div class="grid grid-cols-1 items-stretch gap-4 px-6 py-6 @3xl:grid-cols-3">
                 <Card.Root variant="panel" class="min-w-0 [&>[data-ui=card-surface]]:p-5">
                     <Card.Header>
@@ -196,13 +203,11 @@
                     <Card.Content class="mt-auto pt-4">
                         <HoverCard.Root>
                             <HoverCard.Trigger
-                                class="flex items-center gap-3 self-start rounded-[var(--radius-md)] text-left text-sm focus-visible:outline-2 focus-visible:outline-primary"
+                                class="flex items-center gap-3 self-start rounded-[var(--radius-md)] text-left text-sm focus-visible:outline-none focus-visible:shadow-[var(--focus-ring)]"
                             >
-                                <span
-                                    class="flex size-9 items-center justify-center rounded-full bg-primary/15 text-xs font-medium text-primary"
-                                >
-                                    AM
-                                </span>
+                                <Avatar.Root>
+                                    <Avatar.Fallback>AM</Avatar.Fallback>
+                                </Avatar.Root>
                                 <span class="flex flex-col">
                                     <span>Alex Morgan</span>
                                     <span class="text-xs text-foreground-muted">
@@ -225,12 +230,7 @@
             </div>
         </section>
         <section aria-labelledby="studio-content">
-            <h2
-                id="studio-content"
-                class="sticky top-3 z-10 mx-6 mt-4 flex h-9 w-fit items-center rounded-full bg-foreground px-4 text-sm font-semibold text-background"
-            >
-                Content and layout
-            </h2>
+            <PreviewHeading id="studio-content" title="Content and layout" class="mx-6 mt-4" />
             <ComponentGallery />
         </section>
     </div>

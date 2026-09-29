@@ -15,11 +15,11 @@
 
 <Button
     variant="outline"
-    class="h-9 gap-2 border-border/60 px-2.5"
+    class="max-lg:w-[var(--size-icon-md)] max-lg:px-0 lg:ps-3 lg:pe-1.5 lg:text-foreground-muted"
     aria-label="Search documentation"
     onclick={openSearch}
 >
     <HugeiconsIcon icon={SearchIcon} size={16} />
     <span class="hidden lg:inline">Search</span>
-    <span class="hidden lg:inline"><Kbd shortcut="cmd+K" /></span>
+    <span class="hidden lg:ms-3 lg:inline-flex"><Kbd shortcut="cmd+K" /></span>
 </Button>

@@ -21,7 +21,7 @@
 >
     {#if resolvedAdditions > 0}
         <span
-            class="text-success"
+            class="text-[var(--mielui-success-text)]"
             use:numberShuffle={{ value: resolvedAdditions, format: (value) => `+${Math.round(value)}` }}
         >
             +{resolvedAdditions}
@@ -29,7 +29,7 @@
     {/if}
     {#if resolvedDeletions > 0}
         <span
-            class="text-error"
+            class="text-[var(--mielui-error-text)]"
             use:numberShuffle={{ value: resolvedDeletions, format: (value) => `−${Math.round(value)}` }}
         >
             −{resolvedDeletions}

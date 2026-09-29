@@ -52,6 +52,17 @@ describe('lintSource', () => {
         expect(v).toEqual([]);
     });
 
+    it('allows semantic status foregrounds while rejecting status primitives', () => {
+        for (const status of ['error', 'warning', 'success']) {
+            expect(lintSource('a.svelte', `class="text-[var(--mielui-${status}-text)]"`)).toEqual(
+                []
+            );
+            expect(lintSource('a.svelte', `class="text-[var(--mielui-${status})]"`)).toHaveLength(
+                1
+            );
+        }
+    });
+
     it('skips the whole file when token-lint-disable-file is present', () => {
         const v = lintSource(
             'a.svelte',

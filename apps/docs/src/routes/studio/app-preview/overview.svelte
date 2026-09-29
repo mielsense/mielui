@@ -1,6 +1,7 @@
 <script lang="ts">
     import { numberShuffle } from '@mielui/svelte/actions/number-shuffle';
     import { Button } from '@mielui/svelte/components/button';
+    import * as Card from '@mielui/svelte/components/card';
     import { Switch } from '@mielui/svelte/components/switch';
     import * as Tabs from '@mielui/svelte/components/tabs';
     import { TaskSteps } from '@mielui/svelte/components/task-steps';
@@ -30,10 +31,13 @@
         <div>
             <dt class="text-sm text-foreground-muted">Outstanding</dt>
             <dd class="mt-2 text-2xl font-semibold tabular-nums">
-                $<span
-                    use:numberShuffle={{ value: model.outstandingTotal, format: (value) => value.toLocaleString('en-US') }}
+                <span
+                    use:numberShuffle={{
+                        value: model.outstandingTotal,
+                        format: (value) => `$${value.toLocaleString('en-US')}`
+                    }}
                 >
-                    {model.outstandingTotal.toLocaleString('en-US')}
+                    {`$${model.outstandingTotal.toLocaleString('en-US')}`}
                 </span>
             </dd>
         </div>
@@ -46,10 +50,14 @@
         <div>
             <dt class="text-sm text-foreground-muted">Cash coverage</dt>
             <dd class="mt-2 text-2xl font-semibold tabular-nums">
-                <span use:numberShuffle={{ value: model.coverageValue }}>
-                    {model.coverageValue}
+                <span
+                    use:numberShuffle={{
+                        value: model.coverageValue,
+                        format: (value) => `${value}%`
+                    }}
+                >
+                    {`${model.coverageValue}%`}
                 </span>
-                %
             </dd>
         </div>
     </dl>
@@ -63,7 +71,7 @@
                     <div>
                         <p class="text-sm font-medium">{invoice.client}</p>
                         <p class="mt-1 text-sm text-foreground-muted">
-                            {invoice.reference} ·{invoice.amount}
+                            {`${invoice.reference} · ${invoice.amount}`}
                         </p>
                     </div>
                     <Button
@@ -79,14 +87,18 @@
                 <p class="text-sm text-foreground-muted">No overdue invoices.</p>
             {/each}
         </section>
-        <section class="flex flex-col gap-5 rounded-[var(--radius-lg)] bg-card p-5">
-            <h2 class="text-base font-semibold">Collection run</h2>
-            <TaskSteps
-                label="Collection run"
-                steps={model.collectionSteps}
-                current={model.collectionStep}
-            />
-            <Switch bind:checked={model.autoReconcile} label="Auto-reconcile" />
-        </section>
+        <Card.Root class="min-w-0 self-start">
+            <Card.Header>
+                <Card.Title level={2}>Collection run</Card.Title>
+            </Card.Header>
+            <Card.Content class="flex flex-col gap-5">
+                <TaskSteps
+                    label="Collection run"
+                    steps={model.collectionSteps}
+                    current={model.collectionStep}
+                />
+                <Switch bind:checked={model.autoReconcile} label="Auto-reconcile" />
+            </Card.Content>
+        </Card.Root>
     </div>
 </Tabs.Content>

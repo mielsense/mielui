@@ -3,8 +3,8 @@
 </script>
 
 <div class="flex flex-wrap items-center gap-2">
-    <Badge class="rounded-full px-2.5">Beta</Badge>
-    <Badge class="size-8 rounded-full px-0 py-0">8</Badge>
-    <Badge class="rounded-sm">Draft</Badge>
-    <Badge variant="outline" class="rounded-[var(--radius-lg)]">Live</Badge>
+    <Badge>Beta</Badge>
+    <Badge class="size-6 px-0 py-0 tabular-nums">8</Badge>
+    <Badge class="rounded-[var(--radius-sm)]">Draft</Badge>
+    <Badge variant="outline" class="rounded-[calc(var(--radius-sm)/2)]">Live</Badge>
 </div>

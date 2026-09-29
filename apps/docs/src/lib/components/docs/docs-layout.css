@@ -87,10 +87,14 @@
     @apply border-t-0!;
 }
 
-.docs-article #examples h3 {
+.docs-article #examples h3:not([data-component-preview] h3) {
     @apply text-base font-semibold text-foreground;
 }
 
 .docs-article [data-docs-page] > [data-component-preview] {
     @apply mx-[var(--docs-gutter)] mt-3;
+}
+
+[data-floating-content]:has([data-docs-inspector-pinned]) {
+    z-index: 90;
 }

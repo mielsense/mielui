@@ -18,9 +18,6 @@
     }: ToolItemProps = $props();
 
     const Icon = $derived(kind === 'search' ? Magnifer : kind === 'read' ? Document : Command);
-    const color = $derived(
-        kind === 'search' ? 'text-primary' : kind === 'read' ? 'text-success' : 'text-foreground'
-    );
 </script>
 
 <div
@@ -35,7 +32,7 @@
         aria-hidden="true"
         class="shrink-0 text-foreground-muted"
     />
-    <span class={`shrink-0 font-[var(--font-weight-label)] ${color}`}>{name}</span>
+    <span class="shrink-0 [font-weight:var(--font-weight-label)] text-foreground">{name}</span>
     {#if children}
         {@render children()}
     {:else if detail}

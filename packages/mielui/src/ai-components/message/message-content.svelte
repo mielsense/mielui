@@ -16,10 +16,10 @@
         className,
         'min-w-0 max-w-full select-text [overflow-wrap:anywhere]',
         message.from === 'user'
-            ? 'rounded-[var(--radius-lg)] bg-secondary/70 px-3 py-1.5 text-sm leading-body font-label text-foreground'
+            ? 'rounded-[var(--radius-lg)] bg-secondary/70 px-3 py-1.5 text-sm leading-body [font-weight:var(--font-weight-body)] text-foreground dark:bg-foreground/[0.1]'
             : message.from === 'system'
               ? 'max-w-[65ch] px-3 py-1.5 text-sm leading-body text-foreground-muted'
-              : 'w-full max-w-[65ch] leading-body text-foreground'
+              : 'w-full max-w-[65ch] leading-body [font-weight:var(--font-weight-body)] text-foreground'
     )}
 >
     {@render children?.()}

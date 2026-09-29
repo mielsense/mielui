@@ -60,7 +60,7 @@
                 context.setOpen(!context.open);
             }}
             {variant}
-            class={cn(className, 'flex flex-row items-center justify-between')}
+            class={cn(className, 'flex flex-row items-center justify-between shadow-none focus-visible:shadow-[var(--focus-ring)]')}
         >
             <div
                 id={`${context.id}-value`}

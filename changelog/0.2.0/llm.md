@@ -6,8 +6,9 @@ values. Studio saves and exports it under Appearance as Borders.
 
 All double-frame surfaces honor `--mielui-border-inset-scale`, which defaults to
 one without generated theme CSS. Single sets the scale to zero; double sets it
-to one. This includes cards, menus, dialogs, sheets, toasts, Notch, code blocks,
-diffs, inset tables, composers, and chart tooltips. Shared modal and inset frames
+to one. This includes cards, dialogs, sheets, drawers, toasts, Notch, code blocks,
+diffs, inset tables, and composers. Small floating panels and chart tooltips
+remain single-border regardless of the theme setting. Shared modal and inset frames
 scale only their decorative inset. Panel cards also scale the inner border ring.
 Notch keeps its outer SVG outline, hides the inner outline, and expands the fill
 to the outer clip in single mode.
@@ -30,10 +31,9 @@ focus rings with the appropriate elevation. Keep these treatments tied to theme
 shadow tokens; do not add fixed shadows to toolbar examples. The callable Toolbar
 used by composers retains its flat layout. The only public addition is Root's optional `variant: "default" | "depth"` prop.
 
-Glass Tooltip.Content uses the ordinary theme foreground to match its card-based
-translucent surface. Solid tooltips keep the dedicated tooltip color pair. Rich
-shortcut content should inherit the tooltip foreground, not the page's muted
-foreground, so it stays readable with both treatments.
+Tooltip.Content keeps the dedicated tooltip color pair in both solid and glass
+modes. Rich shortcut content should inherit the tooltip foreground, so it stays
+readable with both treatments.
 
 ## Changing numeric readouts
 
@@ -49,11 +49,11 @@ index and its render module. The action owns reduced-motion behavior and cleanup
 
 ## Chart tooltip surfaces
 
-Chart tooltips inherit `overlaySurface()` and the shared inset frame. Do not
-override the frame padding with fixed spacing or add an inner border: its scaled
-padding already follows single/double borders. Keep the inner surface translucent
-in glass mode. Heatmap tooltip content is cloned into the shared tooltip bubble,
-so its content stays transparent and the bubble owns the glass treatment.
+Chart tooltips use the private shared `ChartTooltipSurface`, `overlaySurface()`,
+and the shared inset frame with the border inset scale fixed to zero. Keep the
+inner surface translucent in glass mode and opaque in solid mode. Heatmap
+tooltips render inside Heatmap.Root, which owns their positioning; do not
+clone their content into a second tooltip bubble.
 
 ## Chart palette and rounder defaults
 
@@ -89,3 +89,126 @@ Glass uses a translucent outer chrome and a separate translucent card fill
 inside. Do not make composer input panels fully transparent or opaque: both
 destroy either inset contrast or the backdrop. Preserve the shared surface
 helper, reduced-transparency fallback, and single-border geometry.
+
+## Composer attachments
+
+Attach files to a composer by wrapping `Composer.Root` in `Attachment.Root`,
+so dropping anywhere on the composer adds files. Put
+`<Attachment.List variant="chip" />` inside `Composer.Header`, which sits in
+the frame chrome above `Composer.Input`. The header scrolls horizontally and
+collapses when it renders nothing, so leave it in place when no files are
+selected. Do not put a card-variant list in the header, and do not build a
+local chip: `Attachment.Item variant="chip"` handles image thumbnails,
+file-type icons, upload spinners, error edges, and screen-reader status.
+Pair the header with `Composer.Toolbar variant="inset"` to keep the controls
+inside the input surface, as in the documentation example.
+
+Tooltips no longer share the overlay glass fill. They keep the
+`--color-tooltip` and `--color-tooltip-foreground` pair in glass mode, made
+slightly translucent by the private `tooltipSurface` helper, plus a hairline
+edge. Do not reapply `overlaySurface` to tooltip content or swap the pair for
+card or foreground colors.
+
+## Control geometry and flat fields
+
+`--size-control-lg` is now twelve spacing units, and `--size-icon-md` equals a
+medium button, so `size="icon"` buttons line up with `size="md"` text buttons.
+Stop sizing controls with raw `h-8`, `size-9`, or `h-10`; use the size tokens.
+The focus ring is 2px at 80% of the primary color; compose it with existing
+edges and never replace it with an outline.
+
+Only filled buttons and moving thumbs keep `--elevation-control-edge`. Text
+fields, selection triggers, checkboxes, and radios are flat with one hairline.
+Do not add the control edge back to a field wrapper. Unchecked checkboxes and
+radios use the private `--mielui-control-border` token, and status text uses
+`--mielui-{success,warning,error,info}-text`. Keep the raw `--color-*` status
+tokens for fills and chart tones.
+
+Menu items are laid out from the start with a gap. A trailing element such as a
+checkmark or shortcut needs `ms-auto`; a `<kbd>` direct child gets it
+automatically. Code that relied on `justify-content: space-between` to push a
+second child to the end must add `ms-auto` to that child.
+
+## Single-border floating panels and the composer toolbar default
+
+Menus, selects, comboboxes, popovers, hover cards, date-picker panels, and chart
+tooltips set `[--mielui-border-inset-scale:0]` on their frame, so they stay
+single even when the theme uses double borders. Do not re-enable double framing
+on them. Dialogs, sheets, drawers, toasts, code blocks, diffs, inset tables,
+alerts, and composers still follow the theme setting.
+
+`Composer.Toolbar` now defaults to `variant="inset"`. A toolbar written without
+a variant used to sit on the frame and now renders inside the input surface.
+Pass `variant="chrome"` to keep the old placement. Inside the toolbar, use
+`variant="outline"` for Select, DropdownMenu, and Attachment triggers. The
+toolbar turns them into flat pills at the medium control height, matching
+`Composer.Submit`.
+
+## FolderCard
+
+Compose `FolderCard.Root` with `Cover`, `Tab` (holding `Title` and
+`Description`), and `Footer` (holding `Index` and `Count`). Omit any part you
+do not need; the folder silhouette comes from the Root grid and the Tab, so do
+not wrap the card in `Card` or add your own border. Set `tone` (1–5) on Root to
+pick the `--chart-N` cover wash, or pass `src` to `Cover` for an image. Give
+Root an `href` to render a link with the shared focus ring and hover; without
+it the card is an `<article>`. `Count` formats and animates `value` and does not
+pluralize, so pass `unit="file"` for a single file. Lay several cards out with
+your own list or grid.
+
+## Toast content order
+
+Toast now renders the icon and title above the description inside the inset
+content surface. The frame footer appears only when there are actions. Do not
+put `Toast.Title` in the footer to reproduce the old layout; keep the title and
+description together in `Toast.Content` and reserve the footer for actions.
+
+## Overlay footers, close buttons, and Drawer frames
+
+`Sheet.Footer` and `Drawer.Footer` render on the frame outside the inner
+surface, wherever they appear in Content, like `Dialog.Footer`. Content that
+relied on the footer scrolling with the surface or using `mt-auto` now sees it
+pinned below. The footer is a row: Close gets `mr-auto`, so put the confirming
+action after it and do not add `justify-end`. Add `flex-col items-stretch` only
+if you need the old stacked layout. `Sheet.Close` defaults to ghost; pass
+`variant="outline"` to keep the old look. `Drawer.Close` is always ghost.
+
+`Drawer.Content` is now the shared modal frame with an inner surface and
+accepts `surface` like Sheet and Dialog. Classes that set a background or
+padding on `Drawer.Content` style the gray frame, not the white surface. Do
+not hand-roll close buttons or title sizes for overlays; they come from shared
+internals.
+
+## Disclosure rows and Tool content
+
+Reasoning, Tool, Accordion, and Collapsible triggers share one private row
+recipe: small control height, ghost hover fill, rounded focus ring, and a
+trailing 14px chevron. `Collapsible.Trigger` now has padding, a hover fill, and
+a radius by default but still no chevron; inside a wrapper that owns its hover,
+add `enabled:hover:bg-transparent`. The Accordion trigger is much shorter than
+before, so do not add height back with padding on the trigger.
+
+`Tool.Content` indents with `ps-*`; use `ps-0` to remove the indent, since the
+old `ml-0 px-0` override no longer applies. `Tool.Output` directly after
+`Tool.Input` joins it with a hairline seam that assumes the default content gap.
+
+## Alert, chart tooltips, inset tables, and badges
+
+Alert now renders frame → `[data-ui=alert-surface]` → the icon wrapper
+`[data-alert-icon]` → your children. Classes that relied on the old
+`row-start-*` or `col-span-2` grid placement no longer apply; style the title
+and description parts instead.
+
+Chart, pie, and heatmap tooltips render one private shared surface. A `class`
+passed to their `Tooltip` now wins over library classes. `Heatmap.Tooltip`
+renders in place inside `Heatmap.Root` rather than in a body-level bubble, so
+an ancestor with `overflow: hidden` can clip it. Do not copy the old
+`bg-transparent!` inset.
+
+Inset table cells no longer paint `bg-card`; hover and selection come from
+`Table.Row`, so a hand-written `<tr>` gets no hover unless it adds one. Badges
+are hairline pills by default; change the radius with `class`.
+
+### Menu highlight geometry
+
+Menu items and traveling highlights use the same shared radius, capped at the medium radius and bounded by the outer panel radius after its border and row inset. Keep both on the shared stylesheet contract; do not apply a rounded-full utility to ordinary rows or create a separate highlight radius.

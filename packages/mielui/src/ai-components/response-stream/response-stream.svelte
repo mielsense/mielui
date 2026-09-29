@@ -85,6 +85,21 @@
         easing: 'cubic-bezier(0.23, 1, 0.32, 1)'
     });
 
+    let settled = $state(false);
+
+    $effect(() => {
+        if (!stream.complete) {
+            settled = false;
+            return;
+        }
+        const timer = setTimeout(() => {
+            settled = true;
+        }, rollTransition.duration);
+        return () => {
+            clearTimeout(timer);
+        };
+    });
+
     $effect(() => {
         if (!canRoll) {
             return;
@@ -117,11 +132,11 @@
     aria-busy={streaming || !stream.complete}
     class={cn(
         className,
-        'block font-medium whitespace-pre-wrap text-[length:var(--font-size-body)] leading-body text-foreground'
+        'block [font-weight:var(--font-weight-body)] whitespace-pre-wrap text-[length:var(--font-size-body)] leading-body text-foreground'
     )}
     {...rest}
 >
-    {#if Scritto && !instant && stream.text.length <= 4000}
+    {#if Scritto && !instant && !settled && stream.text.length <= 4000}
         <Scritto value={stream.text} transition={rollTransition} />
     {:else}
         {stream.text}

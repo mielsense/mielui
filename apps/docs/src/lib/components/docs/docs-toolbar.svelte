@@ -1,16 +1,14 @@
 <script lang="ts">
-    import {
-        ArrowRight01Icon as ChevronRight,
-        Home01Icon as Home
-    } from '@hugeicons/core-free-icons';
+    import { Home01Icon as Home } from '@hugeicons/core-free-icons';
+    import * as Breadcrumb from '@mielui/svelte/components/breadcrumb';
     import { Button } from '@mielui/svelte/components/button';
+    import { Separator } from '@mielui/svelte/components/separator';
     import HugeiconsIcon from '@mielui/svelte/hugeicons-icon';
     import { resolve } from '$app/paths';
     import { page } from '$app/state';
     import SearchButton from '$lib/components/search/trigger.svelte';
     import FloatingInspector from '$lib/components/shell/floating-inspector.svelte';
     import HeaderActions from '$lib/components/shell/header-actions.svelte';
-    import Logo from '../logo.svelte';
     import { getBreadcrumbs } from './breadcrumbs';
     import Navigation from './navigation.svelte';
 
@@ -19,67 +17,43 @@
     const breadcrumbs = $derived(getBreadcrumbs(page.url.pathname));
 </script>
 
-<div class="min-w-0">
-    <header
-        class="relative z-20 mx-auto flex h-[calc(var(--docs-row-height)-var(--border-size))] w-full shrink-0 items-center justify-between gap-4 px-2 sm:px-5"
-    >
-        <div class="mx-auto flex flex-1 min-w-0 items-center justify-between gap-4">
-            <div class="flex shrink-0 items-center gap-3 pr-4 border-r border-border/50">
-                <FloatingInspector title="Navigation" storageKey="mielui:docs-sidebar-pinned">
-                    {#snippet children(close)}
-                        <Navigation {close} />
-                    {/snippet}
-                </FloatingInspector>
-                <div class="hidden sm:block"><Logo /></div>
-            </div>
+<header
+    class="relative z-20 flex h-[calc(var(--docs-row-height)-var(--border-size))] w-full min-w-0 items-center gap-3 px-[var(--docs-icon-inset)]"
+>
+    <FloatingInspector title="Navigation" storageKey="mielui:docs-sidebar-pinned">
+        {#snippet children(close)}
+            <Navigation {close} />
+        {/snippet}
+    </FloatingInspector>
 
-            <nav aria-label="Breadcrumb" class="hidden flex-1 min-w-0 sm:block">
-                <ol
-                    class="flex min-w-0 items-center gap-1 overflow-hidden text-sm text-foreground-muted [font-weight:var(--font-weight-label,500)]"
-                >
-                    {#each breadcrumbs as breadcrumb, index (breadcrumb.href)}
-                        <li class="flex min-w-0 items-center gap-1">
-                            {#if index < breadcrumbs.length - 1}
-                                <a
-                                    href={breadcrumb.href}
-                                    class="truncate transition-colors hover:text-foreground focus-visible:rounded-sm focus-visible:outline-none focus-visible:shadow-[var(--focus-ring)]"
-                                >
-                                    {#if index === 0}
-                                        <HugeiconsIcon icon={Home} size={16} />
-                                        <span class="sr-only">Home</span>
-                                    {:else}
-                                        {breadcrumb.label}
-                                    {/if}
-                                </a>
-                            {:else}
-                                <span class="truncate text-foreground" aria-current="page">
-                                    {breadcrumb.label}
-                                </span>
-                            {/if}
-                            {#if index < breadcrumbs.length - 1}
-                                <HugeiconsIcon
-                                    icon={ChevronRight}
-                                    size={14}
-                                    class="shrink-0"
-                                    aria-hidden="true"
-                                />
-                            {/if}
-                        </li>
-                    {/each}
-                </ol>
-            </nav>
+    <Separator orientation="vertical" class="hidden h-5! sm:block" />
 
-            <div class="flex shrink-0 items-center justify-end gap-1.5">
-                <SearchButton />
-                <Button
-                    class="border-border/60 h-9 rounded-[var(--radius-md)] px-2.5 text-[0.8125rem]"
-                    variant="quiet"
-                    href={resolve('/studio')}
+    <div class="hidden min-w-0 flex-1 sm:block">
+        <Breadcrumb.Root class="min-w-0">
+            {#each breadcrumbs as breadcrumb, index (breadcrumb.href)}
+                {const current = $derived(index === breadcrumbs.length - 1)}
+                <Breadcrumb.Item
+                    href={current ? undefined : breadcrumb.href}
+                    {current}
+                    class={`${index === 0 ? 'shrink-0' : 'min-w-0 truncate'} -mx-1 rounded-[var(--radius-sm)] px-1 py-0.5 transition-colors focus-visible:outline-none focus-visible:shadow-[var(--focus-ring)]`}
                 >
-                    Studio
-                </Button>
-            </div>
-        </div>
+                    {#if index === 0}
+                        <HugeiconsIcon icon={Home} size={16} class="block" />
+                        <span class="sr-only">{breadcrumb.label}</span>
+                    {:else}
+                        {breadcrumb.label}
+                    {/if}
+                </Breadcrumb.Item>
+                {#if !current}
+                    <Breadcrumb.Separator class="shrink-0" />
+                {/if}
+            {/each}
+        </Breadcrumb.Root>
+    </div>
+
+    <div class="ms-auto flex shrink-0 items-center gap-1">
+        <SearchButton />
+        <Button variant="ghost" href={resolve('/studio')}>Studio</Button>
         <HeaderActions {starCount} />
-    </header>
-</div>
+    </div>
+</header>

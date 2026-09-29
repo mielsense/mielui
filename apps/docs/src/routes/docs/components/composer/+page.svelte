@@ -6,6 +6,8 @@
     import PageIntro from '$lib/components/docs/page-intro.svelte';
     import SectionHeading from '$lib/components/docs/section-heading.svelte';
 
+    import Attachments from './examples/attachments.svelte';
+    import AttachmentsSrc from './examples/attachments.svelte?raw';
     import Glass from './examples/glass.svelte';
     import GlassSource from './examples/glass.svelte?raw';
     import Hero from './examples/hero.svelte';
@@ -72,6 +74,9 @@ async function sendPrompt(prompt: string) {
 }
 
 <Composer.Root bind:value onSubmit={sendPrompt} onError={reportError}>
+  <Composer.Header>
+    <!-- Optional: attachment chips or context above the input. -->
+  </Composer.Header>
   <Composer.Input placeholder="Ask anything..." />
   <Composer.Toolbar>
     <Composer.Actions>
@@ -134,12 +139,25 @@ async function sendPrompt(prompt: string) {
             <ComponentPreview code={ErrorSrc} refreshable><ErrorExample /></ComponentPreview>
         </div>
 
-        <div id="toolbar-inset" class="scroll-mt-20 flex flex-col gap-3">
-            <Typography.H3 class="docs-subsection-heading">Toolbar inset</Typography.H3>
+        <div id="attachments" class="scroll-mt-20 flex flex-col gap-3">
+            <Typography.H3 class="docs-subsection-heading">Attachments</Typography.H3>
             <Typography.Text variant="supporting">
-                The toolbar defaults to the frame chrome outside the input well. Set
-                <Typography.InlineCode>variant="inset"</Typography.InlineCode>
-                to merge it into the same inset surface as the input.
+                Wrap Composer.Root in Attachment.Root so files can be dropped anywhere on the
+                composer. Place
+                <Typography.InlineCode>Attachment.List variant="chip"</Typography.InlineCode>
+                in Composer.Header to show a scrolling row of chips in the frame above the input.
+                The header collapses when it has no content.
+            </Typography.Text>
+            <ComponentPreview code={AttachmentsSrc}><Attachments /></ComponentPreview>
+        </div>
+
+        <div id="toolbar-inset" class="scroll-mt-20 flex flex-col gap-3">
+            <Typography.H3 class="docs-subsection-heading">Toolbar placement</Typography.H3>
+            <Typography.Text variant="supporting">
+                The toolbar sits inside the input surface by default. Set
+                <Typography.InlineCode>variant="chrome"</Typography.InlineCode>
+                to place it on the frame below the input instead. Outline buttons and triggers in
+                the toolbar render as flat pills at one height.
             </Typography.Text>
             <ComponentPreview code={ToolbarInsetSrc}><ToolbarInset /></ComponentPreview>
         </div>

@@ -7,6 +7,9 @@
 </script>
 
 <!-- Delegates the active-underline indicator + keyboard nav to Mielui's Tabs. -->
-<Tabs.List class={cn(className, 'border-0 bg-transparent p-0')} {...rest}>
+<Tabs.List
+    class={cn(className, 'border-0 bg-transparent p-0 dark:bg-transparent dark:ring-0')}
+    {...rest}
+>
     {@render children?.()}
 </Tabs.List>

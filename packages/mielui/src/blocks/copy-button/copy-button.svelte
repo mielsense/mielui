@@ -113,7 +113,7 @@
                 <HugeiconsIcon
                     icon={Check}
                     size={15}
-                    class={`col-start-1 row-start-1 text-[var(--color-success)] transition-[transform,translate,scale,rotate,opacity] [transition-duration:var(--motion-duration-panel)] ease-[var(--ease-out)] motion-reduce:transition-none ${
+                    class={`col-start-1 row-start-1 text-[var(--mielui-success-text)] transition-[transform,translate,scale,rotate,opacity] [transition-duration:var(--motion-duration-panel)] ease-[var(--ease-out)] motion-reduce:transition-none ${
                         copied ? 'scale-100 opacity-100' : 'scale-90 opacity-0'
                     }`}
                 />

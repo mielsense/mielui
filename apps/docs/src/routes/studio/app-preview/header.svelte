@@ -10,18 +10,18 @@
     import * as Avatar from '@mielui/svelte/components/avatar';
     import * as DropdownMenu from '@mielui/svelte/components/dropdown-menu';
     import Kbd from '@mielui/svelte/components/kbd';
-    import { Toolbar } from '@mielui/svelte/components/toolbar';
     import * as Tooltip from '@mielui/svelte/components/tooltip';
     import * as Typography from '@mielui/svelte/components/typography';
     import HugeiconsIcon from '@mielui/svelte/hugeicons-icon';
     import type { AppPreviewModel } from './model.svelte';
+    import Navigation from './navigation.svelte';
     import Notifications from './notifications.svelte';
 
     let { model }: { model: AppPreviewModel } = $props();
 </script>
 
-<Toolbar
-    class="min-h-[var(--docs-row-height)] gap-2 rounded-none border-b-[length:var(--border-size)] border-[var(--docs-rule)] bg-[var(--docs-chrome)] px-6 py-2"
+<header
+    class="flex min-h-[var(--docs-row-height)] flex-wrap items-center gap-x-4 gap-y-1 border-b-[length:var(--border-size)] border-[var(--docs-rule)] px-6 py-2"
 >
     <DropdownMenu.Root>
         <DropdownMenu.Trigger variant="quiet" class="min-w-0 justify-start px-0">
@@ -50,7 +50,8 @@
             </DropdownMenu.Item>
         </DropdownMenu.Content>
     </DropdownMenu.Root>
-    <div class="ml-auto flex items-center gap-1">
+    <Navigation {model} />
+    <div class="flex items-center gap-1">
         <Notifications {model} />
         <DropdownMenu.Root>
             <Tooltip.Root>
@@ -68,9 +69,7 @@
                 <Tooltip.Content>Profile menu</Tooltip.Content>
             </Tooltip.Root>
             <DropdownMenu.Content class="min-w-[16rem]">
-                <DropdownMenu.Label>
-                    <span class="text-[0.7rem] text-foreground-muted">avery@northstar.dev</span>
-                </DropdownMenu.Label>
+                <DropdownMenu.Label>avery@northstar.dev</DropdownMenu.Label>
                 <DropdownMenu.Item
                     callback={() => {
             model.studioView = 'settings';
@@ -126,7 +125,7 @@
                         model.runDashboardAction('Signed out', 'The session ended.');
                     }}
                 >
-                    <span class="flex items-center gap-2 text-[var(--color-error)]">
+                    <span class="flex items-center gap-2 text-[var(--mielui-error-text)]">
                         <HugeiconsIcon icon={LogOut} size={13} />
                         Sign out
                     </span>
@@ -135,4 +134,4 @@
             </DropdownMenu.Content>
         </DropdownMenu.Root>
     </div>
-</Toolbar>
+</header>

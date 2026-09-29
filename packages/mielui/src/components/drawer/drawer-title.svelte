@@ -1,6 +1,7 @@
 <script lang="ts">
     import { cn } from '@mielui/svelte/utils';
     import { Drawer as Primitive } from 'vaul-svelte';
+    import { titleClasses } from '../typography/variants';
     import type { DrawerTitleProps } from '.';
 
     let {
@@ -14,7 +15,7 @@
     {...rest}
     bind:ref={element}
     data-ui="drawer-title"
-    class={cn(className, 'text-lg font-semibold tracking-tight')}
+    class={cn(className, titleClasses)}
 >
     {@render children?.()}
 </Primitive.Title>

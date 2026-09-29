@@ -7,6 +7,7 @@
 
     let {
         label = 'Attachments',
+        variant = 'card',
         class: className,
         'aria-label': ariaLabel,
         ...rest
@@ -20,12 +21,22 @@
         {...rest}
         data-ui="attachment-list"
         data-state="populated"
+        data-variant={variant}
         aria-label={ariaLabel ?? label}
-        class={cn(className, 'flex min-w-0 flex-col gap-2 sm:flex-row sm:flex-wrap')}
+        class={cn(
+            className,
+            variant === 'chip'
+                ? 'flex min-w-0 flex-none items-center gap-1.5'
+                : 'flex min-w-0 flex-col gap-2 sm:flex-row sm:flex-wrap'
+        )}
     >
         {#each context.files as file (file)}
-            <li in:panelIn out:panelOut class="min-w-0 sm:w-72 sm:flex-none">
-                <Item {file} onRemove={context.remove} removable={!context.disabled} />
+            <li
+                in:panelIn
+                out:panelOut
+                class={variant === 'chip' ? 'flex min-w-0' : 'min-w-0 sm:w-72 sm:flex-none'}
+            >
+                <Item {file} {variant} onRemove={context.remove} removable={!context.disabled} />
             </li>
         {/each}
     </ul>

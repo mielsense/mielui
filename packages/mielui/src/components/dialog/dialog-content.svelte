@@ -1,13 +1,12 @@
 <script lang="ts">
-    import { Cancel01Icon as X } from '@hugeicons/core-free-icons';
     import { dialogIn, dialogOut, overlayIn, overlayOut } from '@mielui/svelte/transition';
     import { cn, inertOutside, lockBodyScroll, visualViewportBounds } from '@mielui/svelte/utils';
     import { Dialog as DialogPrimitive } from 'bits-ui';
     import { onDestroy, tick } from 'svelte';
     import type { TransitionConfig } from 'svelte/transition';
-    import HugeiconsIcon from '../../hugeicons-icon.svelte';
     import { insetLayout } from '../_internal/inset-layout';
     import { useOverlayPresentation } from '../_internal/overlay/overlay.svelte';
+    import OverlayClose from '../_internal/overlay-close.svelte';
     import { overlaySurface } from '../_internal/surface';
     import type { DialogContentProps } from '.';
     import { getDialogContext } from './context.svelte';
@@ -201,16 +200,11 @@
                             data-ui="dialog-surface"
                         >
                             {#if showClose}
-                                <button
-                                    type="button"
+                                <OverlayClose
                                     onclick={() => {
                                         dialog.state.open = false;
                                     }}
-                                    aria-label="Close"
-                                    class="absolute top-3 right-3 z-[2] inline-flex size-8 items-center justify-center rounded-[var(--radius-md)] text-foreground-muted transition-colors [transition-duration:var(--motion-duration-press)] ease-[var(--ease-press)] motion-reduce:transition-none hover:text-foreground focus-visible:outline-none focus-visible:shadow-[var(--focus-ring)]"
-                                >
-                                    <HugeiconsIcon icon={X} size={16} />
-                                </button>
+                                />
                             {/if}
                             {@render children?.()}
                         </div>
@@ -221,7 +215,7 @@
                                 data-orientation={dialog.state.orientation}
                                 class={cn(
                             dialog.footerSlot.className,
-                            'flex w-full flex-row items-center px-1 py-1.5'
+                            'flex w-full flex-row items-center gap-2 px-1 py-1.5'
                         )}
                             >
                                 {@render dialog.footerSlot.children?.()}

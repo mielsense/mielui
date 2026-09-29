@@ -37,7 +37,7 @@
             'overflow-hidden [font-size:var(--font-size-body)] [font-weight:var(--font-weight-body)] [letter-spacing:var(--tracking-body)] text-foreground-muted'
         )}
             >
-                <div class="pb-4">
+                <div class="px-2 pt-1 pb-2">
                     {@render children?.()}
                 </div>
             </div>

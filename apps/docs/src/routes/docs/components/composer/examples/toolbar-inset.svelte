@@ -19,7 +19,7 @@
 <div class="flex w-full max-w-2xl flex-col gap-6">
     <Composer.Root bind:value={chrome} onSubmit={sendChrome}>
         <Composer.Input aria-label="Chrome toolbar prompt" />
-        <Composer.Toolbar>
+        <Composer.Toolbar variant="chrome">
             <Composer.Actions>
                 <span class="px-2 text-xs text-foreground-muted">Mielui 3.1</span>
             </Composer.Actions>
@@ -29,7 +29,7 @@
 
     <Composer.Root bind:value={inset} onSubmit={sendInset}>
         <Composer.Input aria-label="Inset toolbar prompt" />
-        <Composer.Toolbar variant="inset">
+        <Composer.Toolbar>
             <Composer.Actions>
                 <span class="px-2 text-xs text-foreground-muted">Mielui 3.1</span>
             </Composer.Actions>

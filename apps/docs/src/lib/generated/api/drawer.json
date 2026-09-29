@@ -1484,6 +1484,15 @@
                 "inherited": false
             },
             {
+                "name": "surface",
+                "type": "\"solid\" | \"glass\" | undefined",
+                "required": false,
+                "bindable": false,
+                "default": null,
+                "description": "",
+                "inherited": false
+            },
+            {
                 "name": "element",
                 "type": "HTMLDivElement | null | undefined",
                 "required": false,

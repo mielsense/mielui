@@ -9,17 +9,20 @@
 <div class="w-full max-w-96">
     <div class="space-y-4">
         <Collapsible.Root bind:open>
-            <Collapsible.Trigger
-                class="-mx-2 flex w-[calc(100%+1rem)] items-center justify-between rounded-[var(--radius-md)] px-2 py-2 text-left text-foreground transition-colors hover:bg-secondary"
-            >
-                <span class="[font-weight:var(--font-weight-label,500)]">Weekly sync, June 18</span>
+            <Collapsible.Trigger class="w-full justify-between">
+                <span class="[font-weight:var(--font-weight-label)] text-foreground">
+                    Weekly sync, June 18
+                </span>
                 <HugeiconsIcon
                     icon={ChevronDown}
-                    size={18}
-                    class="transition-transform [transition-duration:var(--motion-duration-panel)] motion-reduce:transition-none {open ? '' : '-rotate-90'}"
+                    size={14}
+                    aria-hidden="true"
+                    class="shrink-0 text-foreground-muted transition-transform [transition-duration:var(--motion-duration-panel)] ease-[var(--ease-out)] motion-reduce:transition-none {open
+                        ? 'rotate-180'
+                        : ''}"
                 />
             </Collapsible.Trigger>
-            <Collapsible.Content class="mt-2 space-y-3 pl-3">
+            <Collapsible.Content class="space-y-3 px-2">
                 <p class="text-sm text-foreground-muted leading-relaxed">
                     The export flow is ready for testing. Maya owns the migration guide, and Sam
                     will review keyboard navigation before Friday.

@@ -10,10 +10,12 @@
     import { cn } from '@mielui/svelte/utils';
     import HugeiconsIcon from '../../hugeicons-icon.svelte';
     import type { AttachmentItemProps } from '.';
+    import { fileExtension, fileIcon } from './file-icon';
     import { formatBytes } from './validation';
 
     let {
         file,
+        variant = 'card',
         status = 'ready',
         progress,
         error,
@@ -36,15 +38,9 @@
             return () => URL.revokeObjectURL(url);
         };
     });
-    const extension = $derived.by(() => {
-        const dot = file.name.lastIndexOf('.');
-        return dot > 0 && dot < file.name.length - 1
-            ? file.name
-                  .slice(dot + 1)
-                  .toUpperCase()
-                  .slice(0, 4)
-            : 'FILE';
-    });
+    const extension = $derived(fileExtension(file).toUpperCase().slice(0, 4) || 'FILE');
+    const isImage = $derived(file.type.startsWith('image/'));
+    const icon = $derived(fileIcon(file));
     const statusText = $derived(
         status === 'complete'
             ? 'Complete'
@@ -54,105 +50,177 @@
     );
 </script>
 
-<div
-    {...rest}
-    data-ui="attachment-item"
-    data-state={status}
-    class={cn(
-        className,
-        'flex min-w-0 items-center gap-3 rounded-[var(--radius-lg)] border-[length:var(--border-size)] border-border bg-card p-2 text-foreground data-[state=error]:border-[var(--color-error)]'
-    )}
->
+{#if variant === 'chip'}
     <div
-        class="relative grid size-[var(--size-touch)] shrink-0 place-items-center overflow-hidden rounded-[var(--radius-md)] bg-secondary text-foreground-muted ring-1 ring-inset ring-[color-mix(in_srgb,var(--color-foreground)_10%,transparent)]"
+        {...rest}
+        data-ui="attachment-item"
+        data-variant="chip"
+        data-state={status}
+        title={status === 'error' ? statusText : file.name}
+        class={cn(
+            className,
+            'inline-flex h-[var(--size-control-sm)] max-w-60 min-w-0 shrink-0 items-center gap-1.5 rounded-full border-[length:var(--border-size)] border-border bg-card ps-1.5 text-sm font-label text-foreground motion-reduce:transition-none transition-[border-color] [transition-duration:var(--motion-duration-hover)] ease-[var(--ease-out)] data-[state=error]:border-[color-mix(in_srgb,var(--color-error)_60%,transparent)]',
+            removable && onRemove ? 'pe-1' : 'pe-3'
+        )}
     >
-        {#if file.type.startsWith('image/') && status !== 'error'}
-            <img {@attach preview} alt="" draggable="false" class="size-full object-cover" />
-        {:else}
-            <HugeiconsIcon icon={FileText} size={18} strokeWidth={1.75} aria-hidden="true" />
-            <span
-                class="absolute inset-x-0 bottom-0 truncate bg-card/90 px-1 py-0.5 text-center text-xs [font-weight:var(--font-weight-header)] leading-none text-foreground-muted"
-            >
-                {extension}
-            </span>
-        {/if}
-    </div>
+        <span
+            aria-hidden="true"
+            class="grid size-5 shrink-0 place-items-center overflow-hidden rounded-[var(--radius-sm)] text-foreground-muted"
+        >
+            {#if status === 'uploading'}
+                <Spinner size={14} aria-hidden="true" />
+            {:else if status === 'error'}
+                <HugeiconsIcon
+                    icon={CircleAlert}
+                    size={15}
+                    strokeWidth={1.75}
+                    class="text-[var(--mielui-error-text)]"
+                />
+            {:else if isImage}
+                <img
+                    {@attach preview}
+                    alt=""
+                    draggable="false"
+                    class="size-full object-cover ring-1 ring-inset ring-[color-mix(in_srgb,var(--color-foreground)_10%,transparent)]"
+                />
+            {:else}
+                <HugeiconsIcon {icon} size={15} strokeWidth={1.75} />
+            {/if}
+        </span>
 
-    <div class={cn('flex min-w-0 flex-1 flex-col', status === 'uploading' ? 'gap-2' : 'gap-1')}>
-        <div class="flex min-w-0 items-baseline gap-2">
-            <span class="min-w-0 flex-1 truncate text-sm font-label" title={file.name}>
-                {file.name}
-            </span>
-            <span
-                class="flex shrink-0 items-center gap-1 text-xs tabular-nums text-foreground-muted"
-            >
-                {formatBytes(file.size)}
-                {#if status === 'uploading'}
-                    <Spinner size={14} aria-hidden="true" />
-                {/if}
-            </span>
-        </div>
-
-        {#if status !== 'uploading'}
-            <div
-                role={status === 'error' ? 'alert' : 'status'}
-                class={cn(
-                    'flex min-w-0 items-center gap-1 text-xs',
-                    status === 'error'
-                        ? 'text-[var(--color-error)]'
-                        : status === 'complete'
-                          ? 'text-[var(--color-success)]'
-                          : 'text-foreground-muted'
-                )}
-            >
-                {#if status === 'complete'}
-                    <HugeiconsIcon
-                        icon={CircleCheck}
-                        size={12}
-                        strokeWidth={2}
-                        aria-hidden="true"
-                    />
-                {:else if status === 'error'}
-                    <HugeiconsIcon
-                        icon={CircleAlert}
-                        size={12}
-                        strokeWidth={2}
-                        aria-hidden="true"
-                    />
-                {/if}
-                <span class="min-w-0 break-words">{statusText}</span>
-            </div>
-        {/if}
+        <span class="min-w-0 truncate">{file.name}</span>
 
         {#if status === 'uploading'}
-            <div
+            <span
                 data-ui="attachment-progress"
                 role="progressbar"
                 aria-label={`Upload progress for ${file.name}`}
                 aria-valuemin={0}
                 aria-valuemax={100}
                 aria-valuenow={safeProgress}
-                class="h-1 w-full overflow-hidden rounded-full bg-secondary"
+                class="sr-only"
+            ></span>
+        {:else}
+            <span role={status === 'error' ? 'alert' : 'status'} class="sr-only">
+                {statusText}
+            </span>
+        {/if}
+
+        {#if removable && onRemove}
+            <Button
+                type="button"
+                variant="ghost"
+                size="icon"
+                data-ui="attachment-remove"
+                aria-label={`Remove ${file.name}`}
+                onclick={() => onRemove(file)}
+                class="size-6 min-w-6 shrink-0 rounded-full text-foreground-muted hover:text-foreground"
             >
-                <div
-                    class="h-full rounded-full bg-primary"
-                    style:width={safeProgress === undefined ? '33.333%' : `${safeProgress}%`}
-                ></div>
-            </div>
+                <HugeiconsIcon icon={X} size={13} strokeWidth={2} aria-hidden="true" />
+            </Button>
         {/if}
     </div>
-
-    {#if removable && onRemove}
-        <Button
-            type="button"
-            variant="ghost"
-            size="icon"
-            data-ui="attachment-remove"
-            aria-label={`Remove ${file.name}`}
-            onclick={() => onRemove(file)}
-            class="shrink-0 rounded-full text-foreground-muted hover:text-foreground"
+{:else}
+    <div
+        {...rest}
+        data-ui="attachment-item"
+        data-state={status}
+        class={cn(
+            className,
+            'flex min-w-0 items-center gap-3 rounded-[var(--radius-lg)] border-[length:var(--border-size)] border-border bg-card p-2 text-foreground data-[state=error]:border-[var(--color-error)]'
+        )}
+    >
+        <div
+            class="relative grid size-[var(--size-touch)] shrink-0 place-items-center overflow-hidden rounded-[var(--radius-md)] bg-secondary text-foreground-muted ring-1 ring-inset ring-[color-mix(in_srgb,var(--color-foreground)_10%,transparent)]"
         >
-            <HugeiconsIcon icon={X} size={15} strokeWidth={2} aria-hidden="true" />
-        </Button>
-    {/if}
-</div>
+            {#if isImage && status !== 'error'}
+                <img {@attach preview} alt="" draggable="false" class="size-full object-cover" />
+            {:else}
+                <HugeiconsIcon icon={FileText} size={18} strokeWidth={1.75} aria-hidden="true" />
+                <span
+                    class="absolute inset-x-0 bottom-0 truncate bg-card/90 px-1 py-0.5 text-center text-xs [font-weight:var(--font-weight-header)] leading-none text-foreground-muted"
+                >
+                    {extension}
+                </span>
+            {/if}
+        </div>
+
+        <div class={cn('flex min-w-0 flex-1 flex-col', status === 'uploading' ? 'gap-2' : 'gap-1')}>
+            <div class="flex min-w-0 items-baseline gap-2">
+                <span class="min-w-0 flex-1 truncate text-sm font-label" title={file.name}>
+                    {file.name}
+                </span>
+                <span
+                    class="flex shrink-0 items-center gap-1 text-xs tabular-nums text-foreground-muted"
+                >
+                    {formatBytes(file.size)}
+                    {#if status === 'uploading'}
+                        <Spinner size={14} aria-hidden="true" />
+                    {/if}
+                </span>
+            </div>
+
+            {#if status !== 'uploading'}
+                <div
+                    role={status === 'error' ? 'alert' : 'status'}
+                    class={cn(
+                        'flex min-w-0 items-center gap-1 text-xs',
+                        status === 'error'
+                            ? 'text-[var(--mielui-error-text)]'
+                            : status === 'complete'
+                              ? 'text-[var(--mielui-success-text)]'
+                              : 'text-foreground-muted'
+                    )}
+                >
+                    {#if status === 'complete'}
+                        <HugeiconsIcon
+                            icon={CircleCheck}
+                            size={12}
+                            strokeWidth={2}
+                            aria-hidden="true"
+                        />
+                    {:else if status === 'error'}
+                        <HugeiconsIcon
+                            icon={CircleAlert}
+                            size={12}
+                            strokeWidth={2}
+                            aria-hidden="true"
+                        />
+                    {/if}
+                    <span class="min-w-0 break-words">{statusText}</span>
+                </div>
+            {/if}
+
+            {#if status === 'uploading'}
+                <div
+                    data-ui="attachment-progress"
+                    role="progressbar"
+                    aria-label={`Upload progress for ${file.name}`}
+                    aria-valuemin={0}
+                    aria-valuemax={100}
+                    aria-valuenow={safeProgress}
+                    class="h-1 w-full overflow-hidden rounded-full bg-secondary"
+                >
+                    <div
+                        class="h-full rounded-full bg-primary"
+                        style:width={safeProgress === undefined ? '33.333%' : `${safeProgress}%`}
+                    ></div>
+                </div>
+            {/if}
+        </div>
+
+        {#if removable && onRemove}
+            <Button
+                type="button"
+                variant="ghost"
+                size="icon"
+                data-ui="attachment-remove"
+                aria-label={`Remove ${file.name}`}
+                onclick={() => onRemove(file)}
+                class="shrink-0 rounded-full text-foreground-muted hover:text-foreground"
+            >
+                <HugeiconsIcon icon={X} size={15} strokeWidth={2} aria-hidden="true" />
+            </Button>
+        {/if}
+    </div>
+{/if}

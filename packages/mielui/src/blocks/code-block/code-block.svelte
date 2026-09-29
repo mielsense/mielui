@@ -68,10 +68,11 @@
         contained: untrack(() => isHighLevel),
         theme: untrack(() => theme)
     } as CodeBlockRegistry);
+    let composedTriggerCount = $state(0);
     setContext('code-block', registry);
     setContext('code-block-panel', {
         get tabbed() {
-            return !isHighLevel || hasTabRow;
+            return isHighLevel ? hasTabRow : composedTriggerCount > 0;
         }
     });
 
@@ -110,6 +111,13 @@
             const triggers = Array.from(
                 root.querySelectorAll<HTMLButtonElement>('[data-code-block-value]')
             ).filter((trigger) => trigger.closest('[data-ui="code-block"]') === root);
+            composedTriggerCount = triggers.length;
+            if (triggers.length === 0) {
+                if (!registry.order.includes(value ?? '') && registry.order.length > 0) {
+                    value = registry.order[0];
+                }
+                return;
+            }
             const order = triggers.map((trigger) => trigger.dataset.codeBlockValue ?? '');
             if (
                 order.length !== registry.order.length ||

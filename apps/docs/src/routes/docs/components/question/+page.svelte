@@ -82,6 +82,13 @@ async function submitAnswer(value: string) {
             attempt. Use onError to report failures. Changing mode or unmounting ignores an
             unfinished submission's result.
         </Typography.Text>
+        <Typography.Text variant="supporting">
+            Options use the same indicators as Checkbox and RadioGroup: square checkboxes in
+            multiple mode and round radios otherwise. Selection and hover change the row fill, not
+            its border. An error shows one message above the frame and one red frame edge; the
+            answer field keeps its neutral border while it stays marked invalid for assistive
+            technology.
+        </Typography.Text>
     </section>
 
     <section id="composition" class="scroll-mt-20 flex flex-col gap-4">

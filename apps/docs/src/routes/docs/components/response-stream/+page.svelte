@@ -49,8 +49,9 @@
         <Typography.Text variant="supporting">
             Responses up to 4,000 UTF-16 code units use rolling text. Longer responses render as
             plain text to keep streaming work bounded as the answer grows. Reduced motion also
-            renders plain text. Source delivery, completion callbacks, wrapping, and accessible live
-            status are the same in both modes.
+            renders plain text, and a completed response settles into plain text once its last
+            characters arrive, so words wrap whole. Source delivery, completion callbacks, and
+            accessible live status are the same in both modes.
         </Typography.Text>
         <Typography.Text variant="supporting">
             Static text reveals whole graphemes, including emoji and combining marks. Arrival motion

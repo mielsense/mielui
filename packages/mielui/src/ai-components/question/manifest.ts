@@ -21,7 +21,7 @@ export const manifest: Manifest = {
         'components/question/index.ts',
         'components/question/manifest.ts'
     ],
-    components: ['_internal/utils', 'card', 'button', 'spinner', 'textarea'],
+    components: ['_internal/utils', 'card', 'button', 'checkbox', 'spinner', 'textarea'],
     shared: [
         'components/_internal/button-attributes',
         'components/_internal/submission.svelte',

@@ -36,6 +36,7 @@ export type {
 export * as Attachment from './ai-components/attachment';
 export type {
     ComposerActionsProps,
+    ComposerHeaderProps,
     ComposerInputProps,
     ComposerProps,
     ComposerStatus,
@@ -171,6 +172,17 @@ export type {
     FileDiffTopBarProps
 } from './blocks/file-diff';
 export * as FileDiff from './blocks/file-diff';
+export type {
+    FolderCardCountProps,
+    FolderCardCoverProps,
+    FolderCardDescriptionProps,
+    FolderCardFooterProps,
+    FolderCardIndexProps,
+    FolderCardProps,
+    FolderCardTabProps,
+    FolderCardTitleProps
+} from './blocks/folder-card';
+export * as FolderCard from './blocks/folder-card';
 export type { MarkdownProps } from './blocks/markdown';
 export { Markdown } from './blocks/markdown';
 export * as Notch from './blocks/notch';

@@ -95,8 +95,7 @@
                 <Composer.Toolbar>
                     <Composer.Actions>
                         <Button
-                            variant="quiet"
-                            size="md"
+                            variant="outline"
                             onclick={() => {
                                 shouldFocusQuestion = true;
                                 asking = true;

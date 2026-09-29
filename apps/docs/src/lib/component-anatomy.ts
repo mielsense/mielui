@@ -145,6 +145,16 @@ export const componentAnatomy = {
         { name: 'FileDiff.Row', description: 'Renders one highlighted diff row.' },
         { name: 'FileDiff.LineNumber', description: 'Renders one gutter line number.' }
     ],
+    'folder-card': [
+        { name: 'FolderCard.Root', description: 'Provides the folder frame, tone, and link.' },
+        { name: 'FolderCard.Cover', description: 'Renders the tone wash, image, or custom cover.' },
+        { name: 'FolderCard.Tab', description: 'Renders the raised tab above the body.' },
+        { name: 'FolderCard.Title', description: 'Renders the folder heading.' },
+        { name: 'FolderCard.Description', description: 'Renders supporting tab text.' },
+        { name: 'FolderCard.Footer', description: 'Aligns the index and count at the bottom.' },
+        { name: 'FolderCard.Index', description: 'Renders the large folder identifier.' },
+        { name: 'FolderCard.Count', description: 'Renders an animated, formatted item count.' }
+    ],
     gauge: [{ name: 'Gauge', description: 'Displays a value as a filled arc.' }],
     'hover-card': [
         { name: 'HoverCard.Root', description: 'Controls hover card state.' },
@@ -183,6 +193,7 @@ export const componentAnatomy = {
     progress: [{ name: 'Progress', description: 'Displays progress toward a value.' }],
     composer: [
         { name: 'Composer.Root', description: 'Manages prompt submission.' },
+        { name: 'Composer.Header', description: 'Holds chips above the input.' },
         { name: 'Composer.Input', description: 'Accepts the prompt text.' },
         { name: 'Composer.Toolbar', description: 'Groups composer controls.' },
         { name: 'Composer.Actions', description: 'Groups composer actions.' },
@@ -270,8 +281,8 @@ export const componentAnatomy = {
             name: 'Toast.Root',
             description: 'Owns one notification and pauses its timer during interaction.'
         },
-        { name: 'Toast.Content', description: 'Renders the upper inset content.' },
-        { name: 'Toast.Footer', description: 'Groups the title and controls below the inset.' },
+        { name: 'Toast.Content', description: 'Renders the inset with the title and description.' },
+        { name: 'Toast.Footer', description: 'Groups the action buttons on the frame.' },
         { name: 'Toast.Title', description: 'Renders the notification title.' },
         { name: 'Toast.Icon', description: 'Renders the status icon.' },
         { name: 'Toast.Actions', description: 'Groups action buttons.' },

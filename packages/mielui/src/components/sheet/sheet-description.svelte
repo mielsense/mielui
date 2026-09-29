@@ -1,6 +1,7 @@
 <script lang="ts">
     import { cn } from '@mielui/svelte/utils';
     import { Dialog as DialogPrimitive } from 'bits-ui';
+    import { descriptionClasses } from '../typography/variants';
     import type { SheetDescriptionProps } from '.';
     import { getSheetContext } from './context.svelte';
 
@@ -18,13 +19,6 @@
     });
 </script>
 
-<DialogPrimitive.Description
-    {id}
-    {...rest}
-    class={cn(
-        className,
-        '[font-size:var(--font-size-body)] [font-weight:var(--font-weight-body)] [letter-spacing:var(--tracking-body)] text-pretty text-foreground-muted'
-    )}
->
+<DialogPrimitive.Description {id} {...rest} class={cn(className, descriptionClasses)}>
     {@render children?.()}
 </DialogPrimitive.Description>

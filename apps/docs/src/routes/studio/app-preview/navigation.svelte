@@ -16,18 +16,18 @@
     let { model }: { model: AppPreviewModel } = $props();
 </script>
 
-<div
-    class="flex min-h-[var(--docs-row-height)] flex-wrap items-center gap-2 border-b-[length:var(--border-size)] border-[var(--docs-rule)] bg-[var(--docs-chrome)] px-3 py-2"
->
+<nav aria-label="Ledger" class="order-last w-full @2xl:order-none @2xl:w-auto">
     <Tabs.List>
         <Tabs.Trigger value="overview">Overview</Tabs.Trigger>
         <Tabs.Trigger value="invoices">Invoices</Tabs.Trigger>
         <Tabs.Trigger value="settings">Settings</Tabs.Trigger>
     </Tabs.List>
+</nav>
+<div class="ml-auto flex items-center">
     <Command.Root bind:open={model.commandOpen}>
         <Command.Trigger
             variant="outline"
-            class="ml-auto min-w-0 w-auto shrink-0 justify-between gap-2"
+            class="w-auto min-w-0 shrink-0 justify-between gap-2"
             aria-label="Search workspace"
         >
             <span class="flex min-w-0 items-center gap-2">

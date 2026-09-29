@@ -32,7 +32,7 @@
                     variant="ghost"
                     size="icon"
                     aria-label="Advanced colors"
-                    class="size-7 shrink-0 text-foreground-muted"
+                    class="shrink-0 text-foreground-muted"
                     onclick={() => {
                         editor.state.colorsModalOpen = true;
                     }}
@@ -97,17 +97,17 @@
     </div>
     <Collapsible.Root>
         <Collapsible.Trigger
-            class="group flex min-h-8 w-full items-center justify-between rounded-md px-2 text-sm text-foreground-muted hover:bg-secondary hover:text-foreground focus-visible:outline-none focus-visible:shadow-[var(--focus-ring)]"
+            class="group -mx-2 w-[calc(100%+var(--spacing)*4)] justify-between text-sm text-foreground-muted hover:text-foreground data-[state=open]:text-foreground"
         >
             Text colors
             <HugeiconsIcon
                 icon={ChevronDown}
                 size={14}
                 aria-hidden="true"
-                class="transition-transform duration-[var(--motion-duration-press)] group-data-[state=open]:rotate-180 motion-reduce:transition-none"
+                class="shrink-0 transition-transform [transition-duration:var(--motion-duration-panel)] ease-[var(--ease-out)] group-data-[state=open]:rotate-180 motion-reduce:transition-none"
             />
         </Collapsible.Trigger>
-        <Collapsible.Content class="flex flex-col gap-4 pt-4">
+        <Collapsible.Content class="flex flex-col gap-4 pt-3">
             <div class="grid grid-cols-2 gap-2">
                 {@render colorPickerControl(
                         'Muted text',
@@ -140,17 +140,17 @@
     </Collapsible.Root>
     <Collapsible.Root>
         <Collapsible.Trigger
-            class="group flex min-h-8 w-full items-center justify-between rounded-md px-2 text-sm text-foreground-muted hover:bg-secondary hover:text-foreground focus-visible:outline-none focus-visible:shadow-[var(--focus-ring)]"
+            class="group -mx-2 w-[calc(100%+var(--spacing)*4)] justify-between text-sm text-foreground-muted hover:text-foreground data-[state=open]:text-foreground"
         >
             Chart colors
             <HugeiconsIcon
                 icon={ChevronDown}
                 size={14}
                 aria-hidden="true"
-                class="transition-transform duration-[var(--motion-duration-press)] group-data-[state=open]:rotate-180 motion-reduce:transition-none"
+                class="shrink-0 transition-transform [transition-duration:var(--motion-duration-panel)] ease-[var(--ease-out)] group-data-[state=open]:rotate-180 motion-reduce:transition-none"
             />
         </Collapsible.Trigger>
-        <Collapsible.Content class="grid grid-cols-2 gap-2 pt-4">
+        <Collapsible.Content class="grid grid-cols-2 gap-x-2 gap-y-4 pt-3">
             {#each colorTokenDefinitions.filter((definition) => definition.group === 'Charts') as definition (definition.name)}
                 {@render colorPickerControl(definition.label, editor.tokens.resolveColorToken(definition).hex, [], (value) => {
                     editor.tokens.updateAdvancedColorToken(definition.name, value);

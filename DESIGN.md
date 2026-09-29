@@ -176,10 +176,17 @@ the same contracts; a visual exception must have a specific functional reason.
 
 ### Edges and surfaces
 
-- Filled controls use `--elevation-control-edge` for the subtle top highlight and
-  lower inset shading. This includes primary, secondary, outline, and destructive
-  buttons, text fields, and selection triggers. Keep ghost, quiet, and plain text
+- Filled buttons use `--elevation-control-edge` for the subtle top highlight and
+  lower inset shading: primary, secondary, outline, and destructive. Moving thumbs
+  keep it too. Text fields, selection triggers, checkboxes, and radios are flat:
+  one hairline border and no inset shading. Keep ghost, quiet, and plain text
   controls flat until their existing hover or selected state calls for a fill.
+- Unchecked checkboxes and radios use `--mielui-control-border` so their edge
+  stays visible in both themes. Do not use `--color-border` for control edges.
+- Status text uses `--mielui-success-text`, `--mielui-warning-text`,
+  `--mielui-error-text`, and `--mielui-info-text`. They mix the status color with
+  the foreground to reach 4.5:1 on soft tints and cards. Keep the raw status
+  colors for fills, icons inside fills, and chart tones.
 - Preserve the primary button's optional `--color-primary-stroke`. The light edge
   does not enable a perimeter border when Studio's primary stroke is disabled.
 - Floating panels use `--elevation-float`; dialogs use `--elevation-modal`; raised
@@ -204,6 +211,14 @@ Moving controls put the raised control edge on the thumb, not the track or fill.
 Passive tracks, progress fills, metadata, and grouping wrappers stay flat. Composite
 text fields use one edge around their editable boundary. Focus rings add to that
 edge rather than replacing it.
+
+### Control geometry
+
+Controls use three heights: `--size-control-sm`, `--size-control-md`, and
+`--size-control-lg`, each minus `--size-hairline` for buttons. Icon buttons use
+`--size-icon-md`, which equals a medium button. Do not size controls with raw
+`h-7`, `h-8`, `size-9`, or `h-10`. Keyboard focus uses `--focus-ring`, a 2px ring
+at 80% of the primary color, composed with any existing edge.
 
 ### Micro-interactions
 
@@ -238,8 +253,11 @@ the changelog; do not leave the next agent to infer them from one example.
 ## Borders
 
 `chrome.borders` accepts `double` or `single` and defaults to `double`. It applies
-to every shared double frame: cards, menus, popovers, dialogs, sheets, toasts,
-Notch, code blocks, diffs, inset tables, composers, and chart tooltips.
+to inset layouts: dialogs, sheets, drawers, toasts, Notch, code blocks, diffs,
+inset tables, inset and panel cards, alerts, and composers. Menus, selects,
+comboboxes, popovers, hover cards, date-picker panels, and chart tooltips are
+always single: set `[--mielui-border-inset-scale:0]` on their frame so a small
+floating panel never shows stacked borders.
 
 Shared frames scale their decorative inset with `--mielui-border-inset-scale`.
 Panel cards also scale their inner ring. Notch retains its outer SVG outline,
@@ -265,7 +283,7 @@ Docs and Studio use a pure black outer background around the
 workspace. In docs, page controls belong inside the rounded page frame: breadcrumb
 and actions above the content, pagination and copy controls below it. Keep the
 outer top and bottom gutters compact. Navigation and Studio inspectors open as
-nonmodal frosted panels on left-edge hover or from the toolbar. Pinning keeps
+nonmodal frosted panels on left-edge hover or from the toolbar. Sidebars start pinned unless a saved preference unpins them. Pinning keeps
 the panel visible and reserves its width plus a narrow gutter on desktop.
 Docked panels use the page surface color; floating panels use glass.
 Use the shared Popover glass, focus, and motion behavior without a scrim or
@@ -285,12 +303,13 @@ alternating arbitrary fills. Use modest responsive side gutters. Docs paragraphs
 long explanations into short paragraphs by topic rather than narrow text columns.
 
 The page-outline heading aligns with the leading preview toolbar. Sidebar groups
-use whitespace and ordinary labels rather than sticky row chrome. Selected navigation links use a rounded primary-tinted fill and semibold foreground text so selection is visible beyond text color. Studio inspector sections use spaced rounded disclosure rows with a quiet fill, without separators. The leading preview toolbar shares that row height and
+use whitespace and ordinary labels rather than sticky row chrome. Sidebar rows are ghost Buttons at the small control height with muted text that aligns with the group label and panel title. Selected navigation links use a rounded primary-tinted fill and semibold foreground text so selection is visible beyond text color. Studio inspector sections use spaced rounded disclosure rows with a quiet fill, without separators. The leading preview toolbar shares that row height and
 sticks until the next section; inset example toolbars stay compact without an
 extra divider. Put optional section explanations behind a labelled info control.
 
 The leading page preview uses the shared inset frame with its ghost-tab toolbar
-and card-backed canvas. Its source remains inside the same frame. Examples
+and card-backed canvas. Its source remains inside the same frame, on the same
+card surface as the canvas, so switching tabs never drops the inset. Examples
 inside a section use the shared inset preview card, with the toolbar and preview
 surface contained together. Do not stretch nested card headers across the page.
 Keep both forms in the shared preview implementation and preserve example state
@@ -299,7 +318,12 @@ to their content. Use `data-preview-canvas` for canvas-specific spacing.
 
 The header, footer, reading surface, and docked inspectors share `--docs-content`.
 Local preview and code toolbars use `--docs-chrome`, with `bg-card` for their inner
-canvas and selected tabs. Section pills use foreground/background tokens for
+canvas and selected tabs. In dark mode the card sits below the toolbar, so selected
+toolbar tabs use `bg-secondary` to stay lighter than their track. Every tab, icon
+button, and example control in these toolbars uses `--size-control-sm`; controls that
+do not fit scroll within the toolbar instead of wrapping onto the canvas. Install
+command tabs, package-manager tabs, and the manual-install file picker use the same
+small height. Section pills use foreground/background tokens for
 contrast. In dark mode the reading surface is charcoal, not pure black. Preview
 controls stay in a local stacking context below sticky section headings.
 
@@ -319,6 +343,13 @@ remain compact; sidebar group labels use normal content spacing.
 
 Align header and footer controls with the inset panels and their shared gutters.
 Keep sidebar and content edges aligned after density changes.
+Every header, footer, and inspector title-row control uses the medium control
+height: ghost Buttons for icon and text actions, outline only for the search
+trigger and the Copy page group. Use 16px icons and the Button's own radius and
+type; do not override heights, borders, or font sizes. Separate control groups
+with a gap, not a divider. Docs footer columns match the reading and outline
+columns, so Copy page ends on the content edge and the page information aligns
+with the On this page heading. The inspector title row matches the header row.
 Studio uses the same 80-spacing-unit inspector width as the documentation sidebar.
 
 Studio preview tabs belong in the main header. Preview width controls sit at the
@@ -340,19 +371,47 @@ Cartesian and pie chart overlay messages use the shared inset Card surface.
 Compact Gauge loading and empty states retain the meter footprint without an
 additional card wrapper. Keep
 the placeholder visualization behind the message and preserve live status
-announcements. Chart tooltips share the same theme-controlled inset surface in every chart
-family. Honor single borders by retaining the frame's scaled padding, without a
-fixed padding override or an extra inner border. Inherit the shared glass helper;
-do not force an opaque inner surface or use a native browser title tooltip.
+announcements. Cartesian, pie, and heatmap tooltips render through one private
+chart tooltip surface: the single-border frame around an inset surface with
+`text-xs`, a medium header, and dot, label, and value rows. Do not build another
+tooltip frame, add a fixed padding override or an extra inner border, or use a
+native browser title tooltip. Inherit the shared glass helper; never force the
+inner surface transparent or opaque, and keep explicit solid surfaces opaque.
+Place tooltips beside the pointer or cell so the inspected mark stays visible;
+pie tooltips sit outside the ring along the pointer's angle. Chart axes and
+heatmap labels use the 12px badge size. Heatmap cells rely on grid gaps, not
+per-cell rings; only hover and focus draw an outline.
 
 Documentation content, its toolbar and footer share a horizontal inset halfway
-between five theme spacing units and 2rem. Rail headings retain five spacing
-units. Keep preview tabs and article headings aligned to the content gutter.
+between five theme spacing units and 2rem (`--docs-gutter`). Rail headings retain
+five spacing units. Keep preview tabs and article headings aligned to the content
+gutter. Edge ghost icon buttons use `--docs-icon-inset` so their glyph, not
+their hover fill, lines up with that gutter.
 
 Studio separates Appearance, Shape & spacing, Interaction, and Typography. Use
 toggle buttons for setting values; reserve tabs for switching preview content.
 Group surface framing, edge highlights, and shadows within Appearance. Keep
 movement and cursor behavior under Interaction.
+
+Setting toggles are one flat segmented track: a hairline input border on the
+card fill at the medium control height, with ToggleGroup's own selected fill and
+traveling highlight inside. Do not give each option its own border or control
+edge. Inspector field labels use Typography.Metadata; subgroups inside a section
+use a Metadata heading and spacing, not rules. Selects, color triggers, and icon
+buttons keep their default heights. Inside the preview, Components, Charts, and
+AI components use the docs section pills rather than full-width chrome bars; the
+App preview has a single app header holding the workspace menu, its tabs, and
+its actions.
+
+Modal overlays (Dialog, AlertDialog, Sheet, Drawer, Command, and Notch) share one
+frame inset, `--mielui-modal-inset`. Anchored floating panels keep the half inset.
+Never hardcode the inset in pixels; measure the shared token when geometry needs a
+number. Overlay titles use the shared header title classes, and descriptions use the
+shared description classes. The dismiss X is the shared internal overlay close: a
+ghost icon Button at the small control height with a 14px Cancel icon, aligned with
+the title's first line. Overlay footers sit on the outer frame below the inner
+surface, in one row: the ghost Close or Cancel at the start and the confirming
+action at the end. Command separators follow the menu separator rule below.
 
 Menu separators span the full inner panel width, including submenus. Cancel the
 shared item padding at the separator rather than removing padding from menu items.
@@ -362,10 +421,22 @@ Toolbar.Root is flat by default. Opt into depth with `variant="depth"`; its
 Button, Link, and Item inherit the choice. Toolbar depth uses the shared floating elevation for its shell and theme-owned
 `--mielui-toolbar-raised` relief for its keys. Selected tools use
 `--mielui-toolbar-pressed` and the background fill;
-compose focus rings with that relief. Keep the callable composer toolbar flat.
+compose focus rings with that relief. The composer toolbar stays flat: it sits
+inside the input surface by default, and outline buttons and triggers in it render
+as flat pills with a hairline border, no control edge, and the medium control
+height. Use `variant="outline"` for its controls rather than borderless ghosts.
 
-Glass tooltips pair the shared glass surface with the theme foreground; solid
-tooltips retain their dedicated tooltip background and foreground pair. Toolbar
+Tooltips keep their dedicated tooltip background and foreground pair in every
+surface mode, so their polarity never flips when glass is enabled. Glass makes
+that fill slightly translucent with the shared blur; it never uses the overlay
+glass fill, which disappears against dark pages. Every tooltip keeps a hairline
+foreground edge under its floating elevation.
+
+File and context chips are flat pills at the small control height: a hairline
+border on the card fill, a 20px leading icon or image thumbnail, a truncated
+label, and a compact circular remove button. They carry no shadow. Put chips in
+Composer.Header, inside the frame chrome above the input, instead of adding a
+separate row outside the composer. Toolbar
 keys use the outline within their elevation token without adding a second border.
 Keep the original compact control size. Raised keys have a directional top edge
 and a short contact shadow; pressed keys trade that shadow for an inward top shade.
@@ -408,6 +479,8 @@ structural gutter around their inner content in both border modes.
 Glass retains a contrasting translucent inner panel over the outer chrome. Avoid
 fully transparent inner surfaces on composers and other inset layouts: they erase
 the structural distinction. Keep the shared blur and reduced-transparency fallback.
+The composer's inset toolbar shares the input's glass fill so the two read as one
+surface, and its outline pills stay transparent until hovered or open.
 The Studio glass backdrop is preview-only and never exported with a theme.
 
 ## Landing page showcase
@@ -422,6 +495,21 @@ technology. Avoid invented endorsements or usage counts. On narrow screens,
 stack the content and allow normal page scrolling rather than clipping the hero
 to a fixed viewport.
 
+The hero is one flat tone mixed from the primary color: no radial glows or
+gradient washes. The featured preview uses the shared `mielui-inset-frame` with
+its ghost tabs in the frame chrome and the demo on `mielui-inset-surface`. Do not
+override the theme's color tokens inside it, so it follows the active theme and
+color mode. The composer demo uses the canonical composition: chips in
+Composer.Header and outline pill controls in the inset toolbar.
+
+Component catalog previews render real components in a decorative, inert and
+`aria-hidden` region marked `data-component-preview`, which keeps their headings
+out of the page outline. Popups that cannot render inline, such as menus,
+dialogs, and tooltips, are drawn with the shared frame, menu-item, and elevation
+classes instead of invented shapes. Each card has one stretched link on its name.
+Do not nest the preview inside that link, because the preview contains buttons
+and links.
+
 The documentation shell uses a pure black outer canvas with compact side
 gutters. Navigation and Studio inspectors belong to the outer
 surface. Docs page header and footer belong inside the page frame. Size each
@@ -429,3 +517,7 @@ scrolling region from the remaining workspace height, not directly from viewport
 height.
 
 Page navigation uses a brief 240ms pixel reveal using large, scattered square tiles between browser view snapshots. Keep the old page visible beneath the incoming tiles so navigation never flashes a blank surface. Skip the effect for reduced motion, same-page anchors, and preview routes; new navigation interrupts an active transition.
+
+Documentation error pages use a single centered recovery message inside the shared page frame. Keep navigation available, show the status beside the message, and omit page copying, pagination, table of contents, and empty column rules until content loads successfully.
+
+Menu rows and their traveling highlight share a corner radius capped at `--radius-md` and bounded by the panel radius minus its border and row inset. Short rows must not become pill-shaped inside the larger menu frame.

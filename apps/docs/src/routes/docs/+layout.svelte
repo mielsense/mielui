@@ -18,7 +18,7 @@
         <div
             {@attach settleHeading}
             data-docs-scroll
-            class="min-h-0 flex-1 bg-[var(--docs-content)] overflow-y-auto overscroll-none [container-type:inline-size] [--docs-gutter:calc((var(--spacing)*5+2rem)/2)]"
+            class="min-h-0 flex-1 bg-[var(--docs-content)] overflow-y-auto overscroll-none [container-type:inline-size]"
         >
             <div bind:this={content} class="docs-article w-full min-w-0">
                 {@render children?.()}
@@ -26,9 +26,11 @@
         </div>
     </div>
     <aside class="hidden min-h-0 overflow-y-auto bg-[var(--docs-content)] md:block">
-        <div class="flex h-[var(--docs-row-height)] items-center px-5 text-sm font-medium">
+        <h2
+            class="flex h-[var(--docs-row-height)] items-center px-5 text-sm font-semibold [font-family:var(--font-header)]"
+        >
             On this page
-        </div>
+        </h2>
         <OnThisPage {content} />
     </aside>
 </div>

@@ -10,7 +10,7 @@
     data-ui="alert-title"
     class={cn(
         classProp,
-        `col-start-2 row-start-2 flex min-h-9 min-w-0 items-center py-1 pr-2 m-0 text-[length:var(--font-size-label)] font-[number:var(--font-weight-label)] leading-snug text-foreground`
+        '[[data-alert-icon]~&]:col-start-2 m-0 min-w-0 text-[length:var(--font-size-header)] font-[number:var(--font-weight-header)] leading-snug break-words text-foreground'
     )}
 >
     {@render children?.()}

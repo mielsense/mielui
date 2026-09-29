@@ -3,6 +3,11 @@
     import { Button } from '@mielui/svelte/components/button';
     import { cn } from '@mielui/svelte/utils';
     import { buttonAttributes } from '../../components/_internal/button-attributes';
+    import {
+        DISCLOSURE_ICON_SIZE,
+        disclosureChevron,
+        disclosureTrigger
+    } from '../../components/_internal/disclosure/variants';
     import HugeiconsIcon from '../../hugeicons-icon.svelte';
     import type { ReasoningTriggerProps } from '.';
     import { getReasoningContext } from './context.svelte';
@@ -20,7 +25,7 @@
 <Button
     {...buttonAttributes(rest)}
     type="button"
-    variant="quiet"
+    variant="ghost"
     data-ui="reasoning-trigger"
     aria-expanded={reasoning.open}
     aria-controls={`reasoning-${reasoning.id}`}
@@ -29,27 +34,28 @@
     }}
     class={cn(
         className,
-        "relative flex h-auto max-w-full flex-col items-start justify-start gap-1.5 rounded-none px-0 text-left after:absolute after:-inset-1.5 after:content-['']"
+        'h-auto flex-col items-start justify-center gap-0.5 py-1 whitespace-normal [font-size:var(--font-size-body)] [font-weight:var(--font-weight-body)] [letter-spacing:var(--tracking-body)] leading-[var(--leading-body)] text-foreground-muted enabled:hover:text-foreground',
+        disclosureTrigger({
+            layout: 'inline',
+            bleed: true
+        })
     )}
 >
     {#if children}
         {@render children({ open: reasoning.open, streaming: reasoning.streaming })}
     {:else}
-        <span class="flex items-center gap-1">
-            <span class="font-[var(--font-weight-label)] text-foreground-muted">
+        <span class="flex items-center gap-1.5">
+            <span class="[font-weight:var(--font-weight-label)]">
                 {reasoning.streaming ? 'Thinking' : 'Thought'}
+                {#if !reasoning.streaming && duration}
+                    <span class="[font-weight:var(--font-weight-body)]">{`for ${duration}`}</span>
+                {/if}
             </span>
-            {#if !reasoning.streaming && duration}
-                <span class="text-foreground-muted">{`for ${duration}`}</span>
-            {/if}
             <HugeiconsIcon
                 icon={ChevronDown}
-                size={14}
+                size={DISCLOSURE_ICON_SIZE}
                 aria-hidden="true"
-                class={cn(
-                    'shrink-0 text-foreground-muted transition-transform [transition-duration:var(--motion-duration-hover)] motion-reduce:transition-none',
-                    reasoning.open && 'rotate-180'
-                )}
+                class={disclosureChevron({ open: reasoning.open })}
             />
         </span>
         {#if !reasoning.open}

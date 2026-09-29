@@ -1,7 +1,6 @@
 <script lang="ts">
     import { numberShuffle } from '@mielui/svelte/actions/number-shuffle';
-    import { cn } from '@mielui/svelte/utils';
-    import { overlaySurface } from '../../components/_internal/surface';
+    import ChartTooltipSurface from '../../components/_internal/chart-tooltip-surface.svelte';
     import { getPieContext } from './context';
     import type { PieChartTooltipProps } from './index';
 
@@ -11,6 +10,10 @@
     let left = $state(0);
     let top = $state(0);
     let positioned = $state(false);
+    function clamp(value: number, minimum: number, maximum: number) {
+        return Math.max(minimum, Math.min(value, Math.max(minimum, maximum)));
+    }
+
     function position() {
         const anchor = context.anchor;
         const pointer = context.pointer;
@@ -18,20 +21,37 @@
         if (!element || !anchor || !root) {
             return;
         }
+        const gap = 14;
+        const margin = 8;
         const target = anchor.getBoundingClientRect();
         const parent = root.getBoundingClientRect();
         const box = element.getBoundingClientRect();
+        const plot = anchor.closest('svg')?.getBoundingClientRect();
+        const segments = anchor.closest('[data-ui="pie-chart-segments"]')?.getBoundingClientRect();
         const x = pointer?.x ?? target.left + target.width / 2;
-        const y = pointer?.y ?? target.top;
-        const maximum = Math.max(8, window.innerWidth - box.width - 8);
-        const screenLeft = Math.max(8, Math.min(x - box.width / 2, maximum));
-        const above = y - box.height - 12;
-        const screenTop =
-            above >= 8
-                ? above
-                : Math.min(window.innerHeight - box.height - 8, (pointer?.y ?? target.bottom) + 12);
-        left = screenLeft - parent.left;
-        top = Math.max(8, screenTop) - parent.top;
+        const y = pointer?.y ?? (plot ? target.top + target.height / 2 : target.top);
+        const minimumLeft = Math.max(margin, parent.left + margin);
+        const maximumLeft = Math.min(window.innerWidth, parent.right) - box.width - margin;
+        const minimumTop = margin;
+        const maximumTop = window.innerHeight - box.height - margin;
+        let screenLeft = x - box.width / 2;
+        let screenTop = y - box.height - gap;
+        if (plot && segments) {
+            const centerX = plot.left + plot.width / 2;
+            const centerY = plot.top + plot.height / 2;
+            const distance = Math.hypot(x - centerX, y - centerY) || 1;
+            const directionX = (x - centerX) / distance;
+            const directionY = (y - centerY) / distance;
+            const reach = Math.max(segments.width, segments.height) / 2 + gap;
+            const edgeX = centerX + directionX * reach;
+            const edgeY = centerY + directionY * reach;
+            screenLeft = directionX >= 0 ? edgeX : edgeX - box.width;
+            screenTop = directionY >= 0 ? edgeY : edgeY - box.height;
+        } else if (screenTop < minimumTop) {
+            screenTop = target.bottom + gap;
+        }
+        left = clamp(screenLeft, minimumLeft, maximumLeft) - parent.left;
+        top = clamp(screenTop, minimumTop, maximumTop) - parent.top;
         positioned = true;
     }
 
@@ -59,32 +79,30 @@
 </script>
 
 {#if item && !context.loading && context.total > 0}
-    <div
-        bind:this={element}
-        style:left={`${left}px`}
-        style:top={`${top}px`}
-        style:visibility={positioned ? "visible" : "hidden"}
+    <ChartTooltipSurface
+        {...rest}
+        bind:ref={element}
+        style={`${rest.style ?? ''}; left: ${left}px; top: ${top}px; visibility: ${positioned ? 'visible' : 'hidden'}`}
         data-ui="pie-chart-tooltip"
         role="status"
-        class={cn(className, overlaySurface(), 'mielui-inset-frame pointer-events-none absolute z-10 max-w-[min(calc(var(--spacing)*80),calc(100vw-var(--spacing)*4))] text-sm shadow-[var(--elevation-float)]')}
-        {...rest}
+        class={className}
     >
-        <div class="mielui-inset-surface flex items-center gap-3 break-words px-3 py-2">
-            {#if children}
-                {@render children({ item, label: context.label(item.key), value: context.format(item), percentage: context.total ? item.value / context.total * 100 : 0 })}
-            {:else}
+        {#if children}
+            {@render children({ item, label: context.label(item.key), value: context.format(item), percentage: context.total ? item.value / context.total * 100 : 0 })}
+        {:else}
+            <div class="flex items-center gap-2">
                 <span
                     class="size-2 shrink-0 rounded-full"
                     style:background={context.color(item.key)}
                 ></span>
-                <span class="text-foreground-muted">{context.label(item.key)}</span>
+                <span class="flex-1 text-foreground-muted">{context.label(item.key)}</span>
                 <span
-                    class="font-medium tabular-nums"
+                    class="ml-4 font-medium tabular-nums"
                     use:numberShuffle={{ value: item.value, format: (value) => context.format({ ...item, value }) }}
                 >
                     {context.format(item)}
                 </span>
-            {/if}
-        </div>
-    </div>
+            </div>
+        {/if}
+    </ChartTooltipSurface>
 {/if}

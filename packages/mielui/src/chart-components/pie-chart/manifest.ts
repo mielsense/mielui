@@ -21,7 +21,11 @@ export const manifest: Manifest = {
         'components/pie-chart/manifest.ts'
     ],
     components: ['_internal/utils', 'card', 'skeleton'],
-    shared: ['components/_internal/surface', 'utils.cn'],
+    shared: [
+        'components/_internal/surface',
+        'components/_internal/chart-tooltip-surface',
+        'utils.cn'
+    ],
     peerDependencies: {
         layerchart: '^2.5.0',
         cnfast: '^0.0.8',

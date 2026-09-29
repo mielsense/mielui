@@ -50,6 +50,13 @@
             another part of your page. A disabled trigger cannot toggle it. The content transition
             respects reduced motion.
         </Typography.Text>
+        <Typography.Text variant="supporting">
+            Trigger renders the shared disclosure row used by Accordion, Reasoning, and Tool: the
+            small control height, a ghost hover fill, and a rounded focus ring. It sizes to its
+            content; add<Typography.InlineCode>w-full justify-between</Typography.InlineCode> for a
+            full-width row. Put a 14px<Typography.InlineCode>ArrowDown01Icon</Typography.InlineCode>
+            after the label and rotate it 180 degrees while open, as the first example does.
+        </Typography.Text>
 
         <CodeBlock
             code={`import * as Collapsible from '$lib/mielui/components/collapsible';\n\nlet open = $state();\n\n<Collapsible.Root bind:open>\n  <Collapsible.Trigger>Trigger</Collapsible.Trigger>\n  <Collapsible.Content>Content</Collapsible.Content>\n</Collapsible.Root>`}

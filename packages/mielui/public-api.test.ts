@@ -116,7 +116,7 @@ const NAMESPACED = {
         'Separator',
         'Trigger'
     ],
-    composer: ['Actions', 'Input', 'Root', 'Submit', 'Toolbar'],
+    composer: ['Actions', 'Header', 'Input', 'Root', 'Submit', 'Toolbar'],
     'context-menu': [
         'CheckboxItem',
         'Content',
@@ -236,6 +236,7 @@ const NAMESPACED = {
     field: ['Content', 'Control', 'Description', 'Error', 'Group', 'Label', 'Root'],
     fieldset: ['Description', 'Legend', 'Root'],
     'file-diff': ['Content', 'Filename', 'LineNumber', 'PlusMinus', 'Root', 'Row', 'TopBar'],
+    'folder-card': ['Count', 'Cover', 'Description', 'Footer', 'Index', 'Root', 'Tab', 'Title'],
     'file-upload': [
         'Details',
         'Dropzone',
@@ -442,9 +443,9 @@ function parseExportedNames(source: string): string[] {
 }
 
 describe('public API contract', () => {
-    test('public catalog contains exactly 77 components with no overlap', () => {
-        expect(PUBLIC_COMPONENTS).toHaveLength(77);
-        expect(new Set(PUBLIC_COMPONENTS).size).toBe(77);
+    test('public catalog contains exactly 78 components with no overlap', () => {
+        expect(PUBLIC_COMPONENTS).toHaveLength(78);
+        expect(new Set(PUBLIC_COMPONENTS).size).toBe(78);
         expect(
             Object.values(categories)
                 .flat()

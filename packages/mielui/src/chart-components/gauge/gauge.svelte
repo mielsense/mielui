@@ -25,7 +25,7 @@
     }: GaugeProps = $props();
 
     const toneClasses: Record<GaugeTone, string> = {
-        primary: 'text-[var(--chart-1)]',
+        primary: 'text-primary',
         muted: 'text-foreground-muted',
         success: 'text-success',
         warning: 'text-warning',

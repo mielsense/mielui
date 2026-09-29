@@ -29,7 +29,7 @@ describe('ResponseStream', () => {
         await waitFor(() => expect(container).toHaveTextContent('First chunk'));
     });
 
-    it('renders medium body text', async () => {
+    it('uses the configured body text weight', async () => {
         const { container } = render(ResponseStream, {
             props: {
                 textStream: 'First chunk',
@@ -39,7 +39,7 @@ describe('ResponseStream', () => {
 
         await waitFor(() => expect(container).toHaveTextContent('First chunk'));
         expect(container.querySelector('[data-ui="response-stream"]')?.className).toContain(
-            'font-medium'
+            '[font-weight:var(--font-weight-body)]'
         );
     });
 

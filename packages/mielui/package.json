@@ -137,6 +137,16 @@
             "svelte": "./dist/svelte/blocks/file-diff/index.js",
             "default": "./dist/svelte/blocks/file-diff/index.js"
         },
+        "./components/folder-card": {
+            "types": "./dist/svelte/blocks/folder-card/index.d.ts",
+            "svelte": "./dist/svelte/blocks/folder-card/index.js",
+            "default": "./dist/svelte/blocks/folder-card/index.js"
+        },
+        "./components/folder-card/*": {
+            "types": "./dist/svelte/blocks/folder-card/*",
+            "svelte": "./dist/svelte/blocks/folder-card/*",
+            "default": "./dist/svelte/blocks/folder-card/*"
+        },
         "./components/markdown": {
             "types": "./dist/svelte/blocks/markdown/index.d.ts",
             "svelte": "./dist/svelte/blocks/markdown/index.js",

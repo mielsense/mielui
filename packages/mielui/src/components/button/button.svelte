@@ -32,9 +32,9 @@
         unstyled
             ? undefined
             : visualStatus === 'success'
-              ? 'bg-[color-mix(in_srgb,var(--color-success)_12%,var(--color-card))] text-[var(--color-success)] hover:bg-[color-mix(in_srgb,var(--color-success)_18%,var(--color-card))] data-[state=open]:bg-[color-mix(in_srgb,var(--color-success)_18%,var(--color-card))]'
+              ? 'bg-[color-mix(in_srgb,var(--color-success)_12%,var(--color-card))] text-[var(--mielui-success-text)] hover:bg-[color-mix(in_srgb,var(--color-success)_18%,var(--color-card))] data-[state=open]:bg-[color-mix(in_srgb,var(--color-success)_18%,var(--color-card))]'
               : visualStatus === 'error'
-                ? 'bg-[color-mix(in_srgb,var(--color-error)_12%,var(--color-card))] text-[var(--color-error)] hover:bg-[color-mix(in_srgb,var(--color-error)_18%,var(--color-card))] data-[state=open]:bg-[color-mix(in_srgb,var(--color-error)_18%,var(--color-card))]'
+                ? 'bg-[color-mix(in_srgb,var(--color-error)_12%,var(--color-card))] text-[var(--mielui-error-text)] hover:bg-[color-mix(in_srgb,var(--color-error)_18%,var(--color-card))] data-[state=open]:bg-[color-mix(in_srgb,var(--color-error)_18%,var(--color-card))]'
                 : undefined
     );
     const styledClasses = $derived(cn(classes, statusClasses));

@@ -25,8 +25,13 @@ export const manifest: Manifest = {
         'components/heatmap/heatmap-weekday-labels.svelte',
         'components/heatmap/manifest.ts'
     ],
-    components: ['_internal/utils', 'tooltip', 'skeleton'],
-    shared: ['components/_internal/surface', 'utils.cn', 'transition'],
+    components: ['_internal/utils', 'skeleton'],
+    shared: [
+        'components/_internal/surface',
+        'components/_internal/chart-tooltip-surface',
+        'utils.cn',
+        'transition'
+    ],
     peerDependencies: {
         '@floating-ui/dom': '1.7.6',
         cnfast: '^0.0.8',

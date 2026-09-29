@@ -16,7 +16,8 @@
 
 <Button
     bind:element
-    variant="outline"
+    data-ui="sheet-close"
+    variant="ghost"
     onclick={(event) => {
         onclick?.(event);
         if (event.defaultPrevented) {

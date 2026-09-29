@@ -45,7 +45,8 @@ describe('publishable package contract', () => {
      * more shared contract instead of repeating geometry CSS in five families.
      * Independent menu/dialog movement controls and the code/file-diff syntax
      * theme are token contracts too. Treat further growth as a signal that
-     * private styling is leaking here. Count payload bytes without comments or
+     * private styling is leaking here. The 19 KiB limit includes the shared status-text
+     * colors and control-border contrast contract. Count payload bytes without comments or
      * formatting whitespace; line counts change when readable formatting expands.
      */
     test('keeps distributable CSS within the public-token budget', async () => {
@@ -57,7 +58,7 @@ describe('publishable package contract', () => {
         const privatePrefix =
             /^\s*--(?:button|badge|field|panel|card|menu|command|tooltip|switch|checkbox|toast|tabs|progress|dialog|sheet|textarea|breadcrumb|toggle|shortcut|slider)-/m;
 
-        expect(Buffer.byteLength(normalizedCss)).toBeLessThanOrEqual(18 * 1024);
+        expect(Buffer.byteLength(normalizedCss)).toBeLessThanOrEqual(19 * 1024);
         expect(css).not.toMatch(privatePrefix);
         expect(css).not.toMatch(/(^|})\s*\*\s*\{/);
         expect(css).not.toContain('@layer base');

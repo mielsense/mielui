@@ -1,4 +1,4 @@
-- Choose single or double borders across framed surfaces, including cards, dialogs, menus, Notch, and Toast in themes and Studio.
+- Choose single or double borders across framed surfaces, including cards, dialogs, Notch, and Toast in themes and Studio.
 - Organize Studio appearance and interaction settings, with toggle buttons for value choices and a compact Advanced colors action in the Color header.
 - Add an opt-in depth toolbar variant with raised keys and recessed selections; the default remains flat.
 
@@ -11,3 +11,6 @@
 - Use rounder default corners and more spacious composer input panels.
 
 - Add the Daydream preset with flat sage-gray cards, soft pink controls, and pastel chart colors in light and dark modes.
+- Add Composer.Header for content above the input, and a chip variant for Attachment.List and Attachment.Item that shows files as compact pills with file-type icons or image thumbnails.
+- Add FolderCard, a folder-shaped card with a tinted or image cover, a title tab, an index, and an animated file count.
+- Add `surface` to Drawer.Content, with the shared frame kept flush on the edge the drawer opens from.

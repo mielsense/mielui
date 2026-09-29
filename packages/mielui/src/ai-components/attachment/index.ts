@@ -43,11 +43,13 @@ export type AttachmentTriggerProps = {
 
 export type AttachmentListProps = {
     label?: string;
+    variant?: 'card' | 'chip';
     class?: string;
 } & Omit<HTMLAttributes<HTMLUListElement>, 'children' | 'class'>;
 
 export type AttachmentItemProps = {
     file: File;
+    variant?: 'card' | 'chip';
     status?: AttachmentStatus;
     progress?: number;
     error?: string;

@@ -7,20 +7,16 @@ it('shares one positioned tooltip across focused cells and dismisses on Escape',
     render(HeatmapTooltipFixture);
     await userEvent.tab();
     await expect
-        .poll(() => document.querySelector('.mielui-tooltip')?.textContent)
+        .poll(() => document.querySelector('[data-ui=heatmap-tooltip]')?.textContent)
         .toContain('Contributions 12');
     expect(document.querySelector('[data-date="2026-09-15"]')?.hasAttribute('title')).toBe(false);
     await userEvent.keyboard('{ArrowUp}');
     await expect
-        .poll(() => document.querySelector('.mielui-tooltip')?.textContent)
+        .poll(() => document.querySelector('[data-ui=heatmap-tooltip]')?.textContent)
         .toContain('Sep 14, 2026');
-    expect(document.querySelectorAll('.mielui-tooltip')).toHaveLength(1);
+    expect(document.querySelectorAll('[data-ui=heatmap-tooltip]')).toHaveLength(1);
     await userEvent.keyboard('{Escape}');
-    await expect
-        .poll(
-            () => (document.querySelector('.mielui-tooltip') as HTMLElement | null)?.style.opacity
-        )
-        .toBe('0');
+    await expect.poll(() => document.querySelector('[data-ui=heatmap-tooltip]')).toBeNull();
 });
 
 it('retains native titles when the optional tooltip part is omitted', async () => {

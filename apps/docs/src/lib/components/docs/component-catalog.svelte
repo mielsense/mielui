@@ -150,28 +150,26 @@
             >
                 {#each group.items as component (component)}
                     <li class="min-w-0">
-                        <Card.Root variant="inset" class="h-full [&>[data-ui=card-surface]]:p-0">
-                            <a
-                                href={resolve(componentHref(component) as '/docs/components/accordion')}
-                                aria-label={`View ${sanitizeComponent(component)}`}
-                                class="relative flex h-52 items-center justify-center overflow-hidden rounded-[inherit] focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-primary"
-                            >
-                                <div class="contents" aria-hidden="true" inert>
-                                    <CatalogPreview slug={component} />
-                                </div>
-                            </a>
-                            <Card.Footer class="!justify-between !px-3 !py-2">
+                        <Card.Root
+                            variant="inset"
+                            class="relative h-full has-[[data-catalog-link]:focus-visible]:shadow-[var(--focus-ring),var(--elevation-1)] [&>[data-ui=card-surface]]:p-0"
+                        >
+                            <div class="flex h-56 items-center justify-center overflow-hidden">
+                                <CatalogPreview slug={component} />
+                            </div>
+                            <Card.Footer>
                                 <a
+                                    data-catalog-link
                                     href={resolve(componentHref(component) as '/docs/components/accordion')}
-                                    class="rounded-[var(--radius-sm)] text-sm font-medium text-foreground hover:text-primary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+                                    class="me-auto rounded-[var(--radius-sm)] px-2 text-sm font-medium text-foreground transition-colors after:absolute after:inset-0 after:content-[''] hover:text-primary focus-visible:outline-none"
                                 >
                                     {sanitizeComponent(component)}
                                 </a>
                                 <HoverCard.Root>
                                     <HoverCard.Trigger
-                                        class="size-7 items-center justify-center rounded-[var(--radius-sm)] text-foreground-muted hover:text-foreground focus-visible:outline-2 focus-visible:outline-primary"
+                                        class="relative z-10 size-[var(--size-icon-md)] items-center justify-center rounded-[var(--radius-lg)] text-foreground-muted transition-colors hover:bg-foreground/[0.08] hover:text-foreground focus-visible:outline-none focus-visible:shadow-[var(--focus-ring)]"
                                     >
-                                        <HugeiconsIcon icon={Info} size={16} />
+                                        <HugeiconsIcon icon={Info} size={16} aria-hidden="true" />
                                         <span class="sr-only">
                                             {`About ${sanitizeComponent(component)}`}
                                         </span>

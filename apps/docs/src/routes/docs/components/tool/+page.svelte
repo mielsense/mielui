@@ -52,9 +52,12 @@
             reads completed within a task.
         </Typography.Text>
         <Typography.Text variant="supporting">
-            Running tools use a spinner and a readable status label. Tool.Item renders supplied
-            children in place of its detail text, so you can compose a link or custom detail without
-            replacing its name and icon.
+            The trigger leads with a status icon and label: a spinner while running, a check when
+            complete, and an alert icon with red "Task failed" text when the task fails. Tool names
+            use the foreground color; the kind icon distinguishes commands, searches, and reads.
+            Input and Output share one quiet surface divided by a hairline. Tool.Item renders
+            supplied children in place of its detail text, so you can compose a link or custom
+            detail without replacing its name and icon.
         </Typography.Text>
         <CodeBlock
             code={`import * as Tool from '@mielui/svelte/components/tool';\n\n<Tool.Root name="1 file, 1 search, and 1 command" state="complete" duration="6s" variant="quiet">\n  <Tool.Item name="Bash" detail="pnpm lint" />\n  <Tool.Item name="Grep" detail="InputBar" kind="search" />\n  <Tool.Item name="Read" detail="/lib/input-bar.tsx" kind="read" />\n</Tool.Root>`}
@@ -77,10 +80,10 @@
         </Typography.Text>
         <CodeBlock
             code={`<Tool.Root name="Read source" state="complete" composed>
-  <Tool.Content class="ml-0 px-0">
+  <Tool.Content class="ps-0">
     <Tool.Item name="Read" detail="src/main.ts" kind="read" />
   </Tool.Content>
-  <Tool.Trigger class="px-0">
+  <Tool.Trigger>
     {#snippet children({ open })}
       {open ? 'Hide details' : 'Show details'}
     {/snippet}

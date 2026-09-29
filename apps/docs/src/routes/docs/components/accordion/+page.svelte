@@ -62,6 +62,11 @@
             type="multiple", bind a string array; clearing all selections reports an empty array.
             The value and onValueChange types follow the selected mode.
         </Typography.Text>
+        <Typography.Text variant="supporting">
+            Each trigger is the shared disclosure row used by Collapsible, Reasoning, and Tool: the
+            small control height, a ghost hover fill, a rounded focus ring, and a trailing 14px
+            chevron that turns upward while open.
+        </Typography.Text>
         <CodeBlock
             code={`import * as Accordion from '$lib/mielui/components/accordion';\n\n<Accordion.Root type="single">\n  <Accordion.Item value="a">\n    <Accordion.Trigger>Trigger</Accordion.Trigger>\n    <Accordion.Content>Content</Accordion.Content>\n  </Accordion.Item>\n</Accordion.Root>`}
             lang="svelte"

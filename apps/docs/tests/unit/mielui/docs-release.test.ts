@@ -209,7 +209,7 @@ describe('docs release contracts', () => {
         expect(buttonReference).toContain('Quiet matches ghost text color without a hover fill.');
         expect(toolReference).toContain('variant="quiet"');
         expect(toolReference).toContain('### Quiet');
-        expect(reasoningReference).toContain('Button quiet variant');
+        expect(reasoningReference).toContain('trigger shares the disclosure row');
         expect(buttonReference).toContain('Changes to those source files are reflected here');
     });
 

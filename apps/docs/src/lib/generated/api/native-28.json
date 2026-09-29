@@ -1,7 +1,7 @@
 [
     {
-        "name": "on:touchmove",
-        "type": "TouchEventHandler<HTMLImageElement> | null | undefined",
+        "name": "patternTransform",
+        "type": "string | number | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -9,8 +9,8 @@
         "inherited": true
     },
     {
-        "name": "ontouchmove",
-        "type": "TouchEventHandler<HTMLImageElement> | null | undefined",
+        "name": "patternUnits",
+        "type": "string | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -18,8 +18,8 @@
         "inherited": true
     },
     {
-        "name": "ontouchmovecapture",
-        "type": "TouchEventHandler<HTMLImageElement> | null | undefined",
+        "name": "pointer-events",
+        "type": "string | number | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -27,8 +27,8 @@
         "inherited": true
     },
     {
-        "name": "on:touchstart",
-        "type": "TouchEventHandler<HTMLImageElement> | null | undefined",
+        "name": "points",
+        "type": "string | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -36,8 +36,8 @@
         "inherited": true
     },
     {
-        "name": "ontouchstart",
-        "type": "TouchEventHandler<HTMLImageElement> | null | undefined",
+        "name": "pointsAtX",
+        "type": "string | number | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -45,8 +45,8 @@
         "inherited": true
     },
     {
-        "name": "ontouchstartcapture",
-        "type": "TouchEventHandler<HTMLImageElement> | null | undefined",
+        "name": "pointsAtY",
+        "type": "string | number | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -54,8 +54,8 @@
         "inherited": true
     },
     {
-        "name": "on:gotpointercapture",
-        "type": "PointerEventHandler<HTMLImageElement> | null | undefined",
+        "name": "pointsAtZ",
+        "type": "string | number | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -63,8 +63,8 @@
         "inherited": true
     },
     {
-        "name": "ongotpointercapture",
-        "type": "PointerEventHandler<HTMLImageElement> | null | undefined",
+        "name": "preserveAlpha",
+        "type": "string | number | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -72,8 +72,8 @@
         "inherited": true
     },
     {
-        "name": "ongotpointercapturecapture",
-        "type": "PointerEventHandler<HTMLImageElement> | null | undefined",
+        "name": "preserveAspectRatio",
+        "type": "string | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -81,8 +81,8 @@
         "inherited": true
     },
     {
-        "name": "on:pointercancel",
-        "type": "PointerEventHandler<HTMLImageElement> | null | undefined",
+        "name": "primitiveUnits",
+        "type": "string | number | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -90,8 +90,8 @@
         "inherited": true
     },
     {
-        "name": "onpointercancel",
-        "type": "PointerEventHandler<HTMLImageElement> | null | undefined",
+        "name": "r",
+        "type": "string | number | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -99,8 +99,8 @@
         "inherited": true
     },
     {
-        "name": "onpointercancelcapture",
-        "type": "PointerEventHandler<HTMLImageElement> | null | undefined",
+        "name": "radius",
+        "type": "string | number | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -108,8 +108,8 @@
         "inherited": true
     },
     {
-        "name": "on:pointerdown",
-        "type": "PointerEventHandler<HTMLImageElement> | null | undefined",
+        "name": "refX",
+        "type": "string | number | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -117,8 +117,8 @@
         "inherited": true
     },
     {
-        "name": "onpointerdown",
-        "type": "PointerEventHandler<HTMLImageElement> | null | undefined",
+        "name": "refY",
+        "type": "string | number | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -126,8 +126,8 @@
         "inherited": true
     },
     {
-        "name": "onpointerdowncapture",
-        "type": "PointerEventHandler<HTMLImageElement> | null | undefined",
+        "name": "rendering-intent",
+        "type": "string | number | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -135,8 +135,8 @@
         "inherited": true
     },
     {
-        "name": "on:pointerenter",
-        "type": "PointerEventHandler<HTMLImageElement> | null | undefined",
+        "name": "repeatCount",
+        "type": "string | number | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -144,8 +144,8 @@
         "inherited": true
     },
     {
-        "name": "onpointerenter",
-        "type": "PointerEventHandler<HTMLImageElement> | null | undefined",
+        "name": "repeatDur",
+        "type": "string | number | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -153,8 +153,8 @@
         "inherited": true
     },
     {
-        "name": "onpointerentercapture",
-        "type": "PointerEventHandler<HTMLImageElement> | null | undefined",
+        "name": "requiredExtensions",
+        "type": "string | number | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -162,8 +162,8 @@
         "inherited": true
     },
     {
-        "name": "on:pointerleave",
-        "type": "PointerEventHandler<HTMLImageElement> | null | undefined",
+        "name": "requiredFeatures",
+        "type": "string | number | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -171,8 +171,8 @@
         "inherited": true
     },
     {
-        "name": "onpointerleave",
-        "type": "PointerEventHandler<HTMLImageElement> | null | undefined",
+        "name": "restart",
+        "type": "string | number | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -180,8 +180,8 @@
         "inherited": true
     },
     {
-        "name": "onpointerleavecapture",
-        "type": "PointerEventHandler<HTMLImageElement> | null | undefined",
+        "name": "result",
+        "type": "string | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -189,8 +189,8 @@
         "inherited": true
     },
     {
-        "name": "on:pointermove",
-        "type": "PointerEventHandler<HTMLImageElement> | null | undefined",
+        "name": "rotate",
+        "type": "string | number | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -198,8 +198,8 @@
         "inherited": true
     },
     {
-        "name": "onpointermove",
-        "type": "PointerEventHandler<HTMLImageElement> | null | undefined",
+        "name": "rx",
+        "type": "string | number | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -207,8 +207,8 @@
         "inherited": true
     },
     {
-        "name": "onpointermovecapture",
-        "type": "PointerEventHandler<HTMLImageElement> | null | undefined",
+        "name": "ry",
+        "type": "string | number | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -216,8 +216,8 @@
         "inherited": true
     },
     {
-        "name": "on:pointerout",
-        "type": "PointerEventHandler<HTMLImageElement> | null | undefined",
+        "name": "scale",
+        "type": "string | number | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -225,8 +225,8 @@
         "inherited": true
     },
     {
-        "name": "onpointerout",
-        "type": "PointerEventHandler<HTMLImageElement> | null | undefined",
+        "name": "seed",
+        "type": "string | number | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -234,8 +234,8 @@
         "inherited": true
     },
     {
-        "name": "onpointeroutcapture",
-        "type": "PointerEventHandler<HTMLImageElement> | null | undefined",
+        "name": "shape-rendering",
+        "type": "string | number | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -243,8 +243,8 @@
         "inherited": true
     },
     {
-        "name": "on:pointerover",
-        "type": "PointerEventHandler<HTMLImageElement> | null | undefined",
+        "name": "slope",
+        "type": "string | number | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -252,8 +252,8 @@
         "inherited": true
     },
     {
-        "name": "onpointerover",
-        "type": "PointerEventHandler<HTMLImageElement> | null | undefined",
+        "name": "spacing",
+        "type": "string | number | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -261,8 +261,8 @@
         "inherited": true
     },
     {
-        "name": "onpointerovercapture",
-        "type": "PointerEventHandler<HTMLImageElement> | null | undefined",
+        "name": "specularConstant",
+        "type": "string | number | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -270,8 +270,8 @@
         "inherited": true
     },
     {
-        "name": "on:pointerup",
-        "type": "PointerEventHandler<HTMLImageElement> | null | undefined",
+        "name": "specularExponent",
+        "type": "string | number | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -279,8 +279,8 @@
         "inherited": true
     },
     {
-        "name": "onpointerup",
-        "type": "PointerEventHandler<HTMLImageElement> | null | undefined",
+        "name": "speed",
+        "type": "string | number | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -288,8 +288,8 @@
         "inherited": true
     },
     {
-        "name": "onpointerupcapture",
-        "type": "PointerEventHandler<HTMLImageElement> | null | undefined",
+        "name": "spreadMethod",
+        "type": "string | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -297,8 +297,8 @@
         "inherited": true
     },
     {
-        "name": "on:lostpointercapture",
-        "type": "PointerEventHandler<HTMLImageElement> | null | undefined",
+        "name": "startOffset",
+        "type": "string | number | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -306,8 +306,8 @@
         "inherited": true
     },
     {
-        "name": "onlostpointercapture",
-        "type": "PointerEventHandler<HTMLImageElement> | null | undefined",
+        "name": "stdDeviation",
+        "type": "string | number | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -315,8 +315,8 @@
         "inherited": true
     },
     {
-        "name": "onlostpointercapturecapture",
-        "type": "PointerEventHandler<HTMLImageElement> | null | undefined",
+        "name": "stemh",
+        "type": "string | number | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -324,8 +324,8 @@
         "inherited": true
     },
     {
-        "name": "on:gamepadconnected",
-        "type": "GamepadEventHandler<HTMLImageElement> | null | undefined",
+        "name": "stemv",
+        "type": "string | number | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -333,8 +333,8 @@
         "inherited": true
     },
     {
-        "name": "ongamepadconnected",
-        "type": "GamepadEventHandler<HTMLImageElement> | null | undefined",
+        "name": "stitchTiles",
+        "type": "string | number | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -342,8 +342,8 @@
         "inherited": true
     },
     {
-        "name": "on:gamepaddisconnected",
-        "type": "GamepadEventHandler<HTMLImageElement> | null | undefined",
+        "name": "stop-color",
+        "type": "string | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -351,8 +351,8 @@
         "inherited": true
     },
     {
-        "name": "ongamepaddisconnected",
-        "type": "GamepadEventHandler<HTMLImageElement> | null | undefined",
+        "name": "stop-opacity",
+        "type": "string | number | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -360,8 +360,8 @@
         "inherited": true
     },
     {
-        "name": "on:scroll",
-        "type": "UIEventHandler<HTMLImageElement> | null | undefined",
+        "name": "strikethrough-position",
+        "type": "string | number | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -369,8 +369,8 @@
         "inherited": true
     },
     {
-        "name": "onscroll",
-        "type": "UIEventHandler<HTMLImageElement> | null | undefined",
+        "name": "strikethrough-thickness",
+        "type": "string | number | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -378,8 +378,8 @@
         "inherited": true
     },
     {
-        "name": "onscrollcapture",
-        "type": "UIEventHandler<HTMLImageElement> | null | undefined",
+        "name": "stroke",
+        "type": "string | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -387,8 +387,8 @@
         "inherited": true
     },
     {
-        "name": "on:scrollend",
-        "type": "UIEventHandler<HTMLImageElement> | null | undefined",
+        "name": "stroke-dasharray",
+        "type": "string | number | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -396,8 +396,8 @@
         "inherited": true
     },
     {
-        "name": "onscrollend",
-        "type": "UIEventHandler<HTMLImageElement> | null | undefined",
+        "name": "stroke-dashoffset",
+        "type": "string | number | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -405,8 +405,8 @@
         "inherited": true
     },
     {
-        "name": "onscrollendcapture",
-        "type": "UIEventHandler<HTMLImageElement> | null | undefined",
+        "name": "stroke-linecap",
+        "type": "\"inherit\" | \"butt\" | \"round\" | \"square\" | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -414,8 +414,8 @@
         "inherited": true
     },
     {
-        "name": "on:resize",
-        "type": "UIEventHandler<HTMLImageElement> | null | undefined",
+        "name": "stroke-linejoin",
+        "type": "\"inherit\" | \"round\" | \"arcs\" | \"miter-clip\" | \"miter\" | \"bevel\" | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -423,8 +423,8 @@
         "inherited": true
     },
     {
-        "name": "onresize",
-        "type": "UIEventHandler<HTMLImageElement> | null | undefined",
+        "name": "stroke-miterlimit",
+        "type": "string | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -432,8 +432,8 @@
         "inherited": true
     },
     {
-        "name": "onresizecapture",
-        "type": "UIEventHandler<HTMLImageElement> | null | undefined",
+        "name": "stroke-opacity",
+        "type": "string | number | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -441,8 +441,8 @@
         "inherited": true
     },
     {
-        "name": "on:wheel",
-        "type": "WheelEventHandler<HTMLImageElement> | null | undefined",
+        "name": "stroke-width",
+        "type": "string | number | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -450,8 +450,8 @@
         "inherited": true
     },
     {
-        "name": "onwheel",
-        "type": "WheelEventHandler<HTMLImageElement> | null | undefined",
+        "name": "surfaceScale",
+        "type": "string | number | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -459,8 +459,8 @@
         "inherited": true
     },
     {
-        "name": "onwheelcapture",
-        "type": "WheelEventHandler<HTMLImageElement> | null | undefined",
+        "name": "systemLanguage",
+        "type": "string | number | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -468,8 +468,8 @@
         "inherited": true
     },
     {
-        "name": "on:animationstart",
-        "type": "AnimationEventHandler<HTMLImageElement> | null | undefined",
+        "name": "tableValues",
+        "type": "string | number | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -477,8 +477,8 @@
         "inherited": true
     },
     {
-        "name": "onanimationstart",
-        "type": "AnimationEventHandler<HTMLImageElement> | null | undefined",
+        "name": "targetX",
+        "type": "string | number | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -486,8 +486,8 @@
         "inherited": true
     },
     {
-        "name": "onanimationstartcapture",
-        "type": "AnimationEventHandler<HTMLImageElement> | null | undefined",
+        "name": "targetY",
+        "type": "string | number | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -495,8 +495,8 @@
         "inherited": true
     },
     {
-        "name": "on:animationend",
-        "type": "AnimationEventHandler<HTMLImageElement> | null | undefined",
+        "name": "text-anchor",
+        "type": "string | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -504,8 +504,8 @@
         "inherited": true
     },
     {
-        "name": "onanimationend",
-        "type": "AnimationEventHandler<HTMLImageElement> | null | undefined",
+        "name": "text-decoration",
+        "type": "string | number | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -513,8 +513,8 @@
         "inherited": true
     },
     {
-        "name": "onanimationendcapture",
-        "type": "AnimationEventHandler<HTMLImageElement> | null | undefined",
+        "name": "textLength",
+        "type": "string | number | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -522,8 +522,8 @@
         "inherited": true
     },
     {
-        "name": "on:animationiteration",
-        "type": "AnimationEventHandler<HTMLImageElement> | null | undefined",
+        "name": "text-rendering",
+        "type": "string | number | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -531,8 +531,8 @@
         "inherited": true
     },
     {
-        "name": "onanimationiteration",
-        "type": "AnimationEventHandler<HTMLImageElement> | null | undefined",
+        "name": "to",
+        "type": "string | number | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -540,8 +540,8 @@
         "inherited": true
     },
     {
-        "name": "onanimationiterationcapture",
-        "type": "AnimationEventHandler<HTMLImageElement> | null | undefined",
+        "name": "transform",
+        "type": "string | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -549,8 +549,8 @@
         "inherited": true
     },
     {
-        "name": "on:transitionstart",
-        "type": "TransitionEventHandler<HTMLImageElement> | null | undefined",
+        "name": "transform-origin",
+        "type": "string | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -558,8 +558,8 @@
         "inherited": true
     },
     {
-        "name": "ontransitionstart",
-        "type": "TransitionEventHandler<HTMLImageElement> | null | undefined",
+        "name": "u1",
+        "type": "string | number | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -567,8 +567,8 @@
         "inherited": true
     },
     {
-        "name": "ontransitionstartcapture",
-        "type": "TransitionEventHandler<HTMLImageElement> | null | undefined",
+        "name": "u2",
+        "type": "string | number | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -576,8 +576,8 @@
         "inherited": true
     },
     {
-        "name": "on:transitionrun",
-        "type": "TransitionEventHandler<HTMLImageElement> | null | undefined",
+        "name": "underline-position",
+        "type": "string | number | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -585,8 +585,8 @@
         "inherited": true
     },
     {
-        "name": "ontransitionrun",
-        "type": "TransitionEventHandler<HTMLImageElement> | null | undefined",
+        "name": "underline-thickness",
+        "type": "string | number | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -594,8 +594,8 @@
         "inherited": true
     },
     {
-        "name": "ontransitionruncapture",
-        "type": "TransitionEventHandler<HTMLImageElement> | null | undefined",
+        "name": "unicode",
+        "type": "string | number | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -603,8 +603,8 @@
         "inherited": true
     },
     {
-        "name": "on:transitionend",
-        "type": "TransitionEventHandler<HTMLImageElement> | null | undefined",
+        "name": "unicode-bidi",
+        "type": "string | number | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -612,8 +612,8 @@
         "inherited": true
     },
     {
-        "name": "ontransitionend",
-        "type": "TransitionEventHandler<HTMLImageElement> | null | undefined",
+        "name": "unicode-range",
+        "type": "string | number | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -621,8 +621,8 @@
         "inherited": true
     },
     {
-        "name": "ontransitionendcapture",
-        "type": "TransitionEventHandler<HTMLImageElement> | null | undefined",
+        "name": "units-per-em",
+        "type": "string | number | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -630,8 +630,8 @@
         "inherited": true
     },
     {
-        "name": "on:transitioncancel",
-        "type": "TransitionEventHandler<HTMLImageElement> | null | undefined",
+        "name": "v-alphabetic",
+        "type": "string | number | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -639,8 +639,8 @@
         "inherited": true
     },
     {
-        "name": "ontransitioncancel",
-        "type": "TransitionEventHandler<HTMLImageElement> | null | undefined",
+        "name": "values",
+        "type": "string | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -648,8 +648,8 @@
         "inherited": true
     },
     {
-        "name": "ontransitioncancelcapture",
-        "type": "TransitionEventHandler<HTMLImageElement> | null | undefined",
+        "name": "vector-effect",
+        "type": "string | number | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -657,8 +657,8 @@
         "inherited": true
     },
     {
-        "name": "on:outrostart",
-        "type": "EventHandler<CustomEvent<null>, HTMLImageElement> | null | undefined",
+        "name": "version",
+        "type": "string | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -666,8 +666,8 @@
         "inherited": true
     },
     {
-        "name": "onoutrostart",
-        "type": "EventHandler<CustomEvent<null>, HTMLImageElement> | null | undefined",
+        "name": "vert-adv-y",
+        "type": "string | number | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -675,8 +675,8 @@
         "inherited": true
     },
     {
-        "name": "onoutrostartcapture",
-        "type": "EventHandler<CustomEvent<null>, HTMLImageElement> | null | undefined",
+        "name": "vert-origin-x",
+        "type": "string | number | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -684,8 +684,8 @@
         "inherited": true
     },
     {
-        "name": "on:outroend",
-        "type": "EventHandler<CustomEvent<null>, HTMLImageElement> | null | undefined",
+        "name": "vert-origin-y",
+        "type": "string | number | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -693,8 +693,8 @@
         "inherited": true
     },
     {
-        "name": "onoutroend",
-        "type": "EventHandler<CustomEvent<null>, HTMLImageElement> | null | undefined",
+        "name": "v-hanging",
+        "type": "string | number | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -702,8 +702,8 @@
         "inherited": true
     },
     {
-        "name": "onoutroendcapture",
-        "type": "EventHandler<CustomEvent<null>, HTMLImageElement> | null | undefined",
+        "name": "v-ideographic",
+        "type": "string | number | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -711,8 +711,8 @@
         "inherited": true
     },
     {
-        "name": "on:introstart",
-        "type": "EventHandler<CustomEvent<null>, HTMLImageElement> | null | undefined",
+        "name": "viewBox",
+        "type": "string | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -720,8 +720,8 @@
         "inherited": true
     },
     {
-        "name": "onintrostart",
-        "type": "EventHandler<CustomEvent<null>, HTMLImageElement> | null | undefined",
+        "name": "viewTarget",
+        "type": "string | number | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -729,8 +729,8 @@
         "inherited": true
     },
     {
-        "name": "onintrostartcapture",
-        "type": "EventHandler<CustomEvent<null>, HTMLImageElement> | null | undefined",
+        "name": "visibility",
+        "type": "string | number | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -738,8 +738,8 @@
         "inherited": true
     },
     {
-        "name": "on:introend",
-        "type": "EventHandler<CustomEvent<null>, HTMLImageElement> | null | undefined",
+        "name": "v-mathematical",
+        "type": "string | number | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -747,8 +747,8 @@
         "inherited": true
     },
     {
-        "name": "onintroend",
-        "type": "EventHandler<CustomEvent<null>, HTMLImageElement> | null | undefined",
+        "name": "widths",
+        "type": "string | number | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -756,8 +756,8 @@
         "inherited": true
     },
     {
-        "name": "onintroendcapture",
-        "type": "EventHandler<CustomEvent<null>, HTMLImageElement> | null | undefined",
+        "name": "word-spacing",
+        "type": "string | number | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -765,8 +765,8 @@
         "inherited": true
     },
     {
-        "name": "on:message",
-        "type": "MessageEventHandler<HTMLImageElement> | null | undefined",
+        "name": "writing-mode",
+        "type": "string | number | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -774,8 +774,8 @@
         "inherited": true
     },
     {
-        "name": "onmessage",
-        "type": "MessageEventHandler<HTMLImageElement> | null | undefined",
+        "name": "x1",
+        "type": "string | number | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -783,8 +783,8 @@
         "inherited": true
     },
     {
-        "name": "onmessagecapture",
-        "type": "MessageEventHandler<HTMLImageElement> | null | undefined",
+        "name": "x2",
+        "type": "string | number | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -792,8 +792,8 @@
         "inherited": true
     },
     {
-        "name": "on:messageerror",
-        "type": "MessageEventHandler<HTMLImageElement> | null | undefined",
+        "name": "x",
+        "type": "string | number | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -801,8 +801,8 @@
         "inherited": true
     },
     {
-        "name": "onmessageerror",
-        "type": "MessageEventHandler<HTMLImageElement> | null | undefined",
+        "name": "xChannelSelector",
+        "type": "string | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -810,8 +810,8 @@
         "inherited": true
     },
     {
-        "name": "onmessageerrorcapture",
-        "type": "MessageEventHandler<HTMLImageElement> | null | undefined",
+        "name": "x-height",
+        "type": "string | number | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -819,8 +819,8 @@
         "inherited": true
     },
     {
-        "name": "on:visibilitychange",
-        "type": "EventHandler<Event, HTMLImageElement> | null | undefined",
+        "name": "xlink:actuate",
+        "type": "string | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -828,8 +828,8 @@
         "inherited": true
     },
     {
-        "name": "onvisibilitychange",
-        "type": "EventHandler<Event, HTMLImageElement> | null | undefined",
+        "name": "xlink:arcrole",
+        "type": "string | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -837,8 +837,8 @@
         "inherited": true
     },
     {
-        "name": "onvisibilitychangecapture",
-        "type": "EventHandler<Event, HTMLImageElement> | null | undefined",
+        "name": "xlink:href",
+        "type": "string | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -846,8 +846,8 @@
         "inherited": true
     },
     {
-        "name": "on:beforematch",
-        "type": "EventHandler<Event, HTMLImageElement> | null | undefined",
+        "name": "xlink:role",
+        "type": "string | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -855,8 +855,8 @@
         "inherited": true
     },
     {
-        "name": "onbeforematch",
-        "type": "EventHandler<Event, HTMLImageElement> | null | undefined",
+        "name": "xlink:show",
+        "type": "string | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -864,8 +864,8 @@
         "inherited": true
     },
     {
-        "name": "onbeforematchcapture",
-        "type": "EventHandler<Event, HTMLImageElement> | null | undefined",
+        "name": "xlink:title",
+        "type": "string | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -873,8 +873,8 @@
         "inherited": true
     },
     {
-        "name": "on:cancel",
-        "type": "EventHandler<Event, HTMLImageElement> | null | undefined",
+        "name": "xlink:type",
+        "type": "string | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -882,8 +882,8 @@
         "inherited": true
     },
     {
-        "name": "oncancel",
-        "type": "EventHandler<Event, HTMLImageElement> | null | undefined",
+        "name": "xml:base",
+        "type": "string | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -891,8 +891,8 @@
         "inherited": true
     },
     {
-        "name": "oncancelcapture",
-        "type": "EventHandler<Event, HTMLImageElement> | null | undefined",
+        "name": "xml:lang",
+        "type": "string | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -900,8 +900,8 @@
         "inherited": true
     },
     {
-        "name": "on:close",
-        "type": "EventHandler<Event, HTMLImageElement> | null | undefined",
+        "name": "xmlns:xlink",
+        "type": "string | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -909,8 +909,8 @@
         "inherited": true
     },
     {
-        "name": "onclose",
-        "type": "EventHandler<Event, HTMLImageElement> | null | undefined",
+        "name": "xml:space",
+        "type": "string | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -918,8 +918,8 @@
         "inherited": true
     },
     {
-        "name": "onclosecapture",
-        "type": "EventHandler<Event, HTMLImageElement> | null | undefined",
+        "name": "y1",
+        "type": "string | number | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -927,8 +927,8 @@
         "inherited": true
     },
     {
-        "name": "on:fullscreenchange",
-        "type": "EventHandler<Event, HTMLImageElement> | null | undefined",
+        "name": "y2",
+        "type": "string | number | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -936,8 +936,8 @@
         "inherited": true
     },
     {
-        "name": "onfullscreenchange",
-        "type": "EventHandler<Event, HTMLImageElement> | null | undefined",
+        "name": "y",
+        "type": "string | number | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -945,8 +945,8 @@
         "inherited": true
     },
     {
-        "name": "onfullscreenchangecapture",
-        "type": "EventHandler<Event, HTMLImageElement> | null | undefined",
+        "name": "yChannelSelector",
+        "type": "string | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -954,8 +954,8 @@
         "inherited": true
     },
     {
-        "name": "on:fullscreenerror",
-        "type": "EventHandler<Event, HTMLImageElement> | null | undefined",
+        "name": "z",
+        "type": "string | number | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -963,8 +963,8 @@
         "inherited": true
     },
     {
-        "name": "onfullscreenerror",
-        "type": "EventHandler<Event, HTMLImageElement> | null | undefined",
+        "name": "zoomAndPan",
+        "type": "string | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -972,8 +972,80 @@
         "inherited": true
     },
     {
-        "name": "onfullscreenerrorcapture",
-        "type": "EventHandler<Event, HTMLImageElement> | null | undefined",
+        "name": "decoding",
+        "type": "\"auto\" | \"async\" | \"sync\" | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "fetchpriority",
+        "type": "\"auto\" | \"high\" | \"low\" | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "ismap",
+        "type": "boolean | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "loading",
+        "type": "\"eager\" | \"lazy\" | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "sizes",
+        "type": "string | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "srcset",
+        "type": "string | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "usemap",
+        "type": "string | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "bind:naturalWidth",
+        "type": "number | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "bind:naturalHeight",
+        "type": "number | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -982,7 +1054,7 @@
     },
     {
         "name": "on:copy",
-        "type": "ClipboardEventHandler<HTMLAnchorElement> | null | undefined | ClipboardEventHandler<HTMLDivElement> | null | undefined",
+        "type": "ClipboardEventHandler<HTMLImageElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -991,7 +1063,7 @@
     },
     {
         "name": "oncopy",
-        "type": "ClipboardEventHandler<HTMLAnchorElement> | null | undefined | ClipboardEventHandler<HTMLDivElement> | null | undefined",
+        "type": "ClipboardEventHandler<HTMLImageElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1000,7 +1072,7 @@
     },
     {
         "name": "oncopycapture",
-        "type": "ClipboardEventHandler<HTMLAnchorElement> | null | undefined | ClipboardEventHandler<HTMLDivElement> | null | undefined",
+        "type": "ClipboardEventHandler<HTMLImageElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1009,7 +1081,7 @@
     },
     {
         "name": "on:cut",
-        "type": "ClipboardEventHandler<HTMLAnchorElement> | null | undefined | ClipboardEventHandler<HTMLDivElement> | null | undefined",
+        "type": "ClipboardEventHandler<HTMLImageElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1018,7 +1090,7 @@
     },
     {
         "name": "oncut",
-        "type": "ClipboardEventHandler<HTMLAnchorElement> | null | undefined | ClipboardEventHandler<HTMLDivElement> | null | undefined",
+        "type": "ClipboardEventHandler<HTMLImageElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1027,7 +1099,7 @@
     },
     {
         "name": "oncutcapture",
-        "type": "ClipboardEventHandler<HTMLAnchorElement> | null | undefined | ClipboardEventHandler<HTMLDivElement> | null | undefined",
+        "type": "ClipboardEventHandler<HTMLImageElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1036,7 +1108,7 @@
     },
     {
         "name": "on:paste",
-        "type": "ClipboardEventHandler<HTMLAnchorElement> | null | undefined | ClipboardEventHandler<HTMLDivElement> | null | undefined",
+        "type": "ClipboardEventHandler<HTMLImageElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1045,7 +1117,7 @@
     },
     {
         "name": "onpaste",
-        "type": "ClipboardEventHandler<HTMLAnchorElement> | null | undefined | ClipboardEventHandler<HTMLDivElement> | null | undefined",
+        "type": "ClipboardEventHandler<HTMLImageElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1054,7 +1126,7 @@
     },
     {
         "name": "onpastecapture",
-        "type": "ClipboardEventHandler<HTMLAnchorElement> | null | undefined | ClipboardEventHandler<HTMLDivElement> | null | undefined",
+        "type": "ClipboardEventHandler<HTMLImageElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1063,7 +1135,7 @@
     },
     {
         "name": "on:compositionend",
-        "type": "CompositionEventHandler<HTMLAnchorElement> | null | undefined | CompositionEventHandler<HTMLDivElement> | null | undefined",
+        "type": "CompositionEventHandler<HTMLImageElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1072,7 +1144,7 @@
     },
     {
         "name": "oncompositionend",
-        "type": "CompositionEventHandler<HTMLAnchorElement> | null | undefined | CompositionEventHandler<HTMLDivElement> | null | undefined",
+        "type": "CompositionEventHandler<HTMLImageElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1081,7 +1153,7 @@
     },
     {
         "name": "oncompositionendcapture",
-        "type": "CompositionEventHandler<HTMLAnchorElement> | null | undefined | CompositionEventHandler<HTMLDivElement> | null | undefined",
+        "type": "CompositionEventHandler<HTMLImageElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1090,7 +1162,7 @@
     },
     {
         "name": "on:compositionstart",
-        "type": "CompositionEventHandler<HTMLAnchorElement> | null | undefined | CompositionEventHandler<HTMLDivElement> | null | undefined",
+        "type": "CompositionEventHandler<HTMLImageElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1099,7 +1171,7 @@
     },
     {
         "name": "oncompositionstart",
-        "type": "CompositionEventHandler<HTMLAnchorElement> | null | undefined | CompositionEventHandler<HTMLDivElement> | null | undefined",
+        "type": "CompositionEventHandler<HTMLImageElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1108,7 +1180,7 @@
     },
     {
         "name": "oncompositionstartcapture",
-        "type": "CompositionEventHandler<HTMLAnchorElement> | null | undefined | CompositionEventHandler<HTMLDivElement> | null | undefined",
+        "type": "CompositionEventHandler<HTMLImageElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1117,7 +1189,7 @@
     },
     {
         "name": "on:compositionupdate",
-        "type": "CompositionEventHandler<HTMLAnchorElement> | null | undefined | CompositionEventHandler<HTMLDivElement> | null | undefined",
+        "type": "CompositionEventHandler<HTMLImageElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1126,7 +1198,7 @@
     },
     {
         "name": "oncompositionupdate",
-        "type": "CompositionEventHandler<HTMLAnchorElement> | null | undefined | CompositionEventHandler<HTMLDivElement> | null | undefined",
+        "type": "CompositionEventHandler<HTMLImageElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1135,7 +1207,7 @@
     },
     {
         "name": "oncompositionupdatecapture",
-        "type": "CompositionEventHandler<HTMLAnchorElement> | null | undefined | CompositionEventHandler<HTMLDivElement> | null | undefined",
+        "type": "CompositionEventHandler<HTMLImageElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1144,7 +1216,7 @@
     },
     {
         "name": "on:focus",
-        "type": "FocusEventHandler<HTMLAnchorElement> | null | undefined | FocusEventHandler<HTMLDivElement> | null | undefined",
+        "type": "FocusEventHandler<HTMLImageElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1153,7 +1225,7 @@
     },
     {
         "name": "onfocus",
-        "type": "FocusEventHandler<HTMLAnchorElement> | null | undefined | FocusEventHandler<HTMLDivElement> | null | undefined",
+        "type": "FocusEventHandler<HTMLImageElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1162,7 +1234,7 @@
     },
     {
         "name": "onfocuscapture",
-        "type": "FocusEventHandler<HTMLAnchorElement> | null | undefined | FocusEventHandler<HTMLDivElement> | null | undefined",
+        "type": "FocusEventHandler<HTMLImageElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1171,7 +1243,7 @@
     },
     {
         "name": "on:focusin",
-        "type": "FocusEventHandler<HTMLAnchorElement> | null | undefined | FocusEventHandler<HTMLDivElement> | null | undefined",
+        "type": "FocusEventHandler<HTMLImageElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1180,7 +1252,7 @@
     },
     {
         "name": "onfocusin",
-        "type": "FocusEventHandler<HTMLAnchorElement> | null | undefined | FocusEventHandler<HTMLDivElement> | null | undefined",
+        "type": "FocusEventHandler<HTMLImageElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1189,7 +1261,7 @@
     },
     {
         "name": "onfocusincapture",
-        "type": "FocusEventHandler<HTMLAnchorElement> | null | undefined | FocusEventHandler<HTMLDivElement> | null | undefined",
+        "type": "FocusEventHandler<HTMLImageElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1198,7 +1270,7 @@
     },
     {
         "name": "on:focusout",
-        "type": "FocusEventHandler<HTMLAnchorElement> | null | undefined | FocusEventHandler<HTMLDivElement> | null | undefined",
+        "type": "FocusEventHandler<HTMLImageElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1207,7 +1279,7 @@
     },
     {
         "name": "onfocusout",
-        "type": "FocusEventHandler<HTMLAnchorElement> | null | undefined | FocusEventHandler<HTMLDivElement> | null | undefined",
+        "type": "FocusEventHandler<HTMLImageElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1216,7 +1288,7 @@
     },
     {
         "name": "onfocusoutcapture",
-        "type": "FocusEventHandler<HTMLAnchorElement> | null | undefined | FocusEventHandler<HTMLDivElement> | null | undefined",
+        "type": "FocusEventHandler<HTMLImageElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1225,7 +1297,7 @@
     },
     {
         "name": "on:blur",
-        "type": "FocusEventHandler<HTMLAnchorElement> | null | undefined | FocusEventHandler<HTMLDivElement> | null | undefined",
+        "type": "FocusEventHandler<HTMLImageElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1234,7 +1306,7 @@
     },
     {
         "name": "onblur",
-        "type": "FocusEventHandler<HTMLAnchorElement> | null | undefined | FocusEventHandler<HTMLDivElement> | null | undefined",
+        "type": "FocusEventHandler<HTMLImageElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1243,7 +1315,7 @@
     },
     {
         "name": "onblurcapture",
-        "type": "FocusEventHandler<HTMLAnchorElement> | null | undefined | FocusEventHandler<HTMLDivElement> | null | undefined",
+        "type": "FocusEventHandler<HTMLImageElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1252,7 +1324,7 @@
     },
     {
         "name": "on:change",
-        "type": "FormEventHandler<HTMLAnchorElement> | null | undefined | FormEventHandler<HTMLDivElement> | null | undefined",
+        "type": "FormEventHandler<HTMLImageElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1261,7 +1333,7 @@
     },
     {
         "name": "onchange",
-        "type": "FormEventHandler<HTMLAnchorElement> | null | undefined | FormEventHandler<HTMLDivElement> | null | undefined",
+        "type": "FormEventHandler<HTMLImageElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1270,7 +1342,7 @@
     },
     {
         "name": "onchangecapture",
-        "type": "FormEventHandler<HTMLAnchorElement> | null | undefined | FormEventHandler<HTMLDivElement> | null | undefined",
+        "type": "FormEventHandler<HTMLImageElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1279,7 +1351,7 @@
     },
     {
         "name": "on:beforeinput",
-        "type": "EventHandler<InputEvent, HTMLAnchorElement> | null | undefined | EventHandler<InputEvent, HTMLDivElement> | null | undefined",
+        "type": "EventHandler<InputEvent, HTMLImageElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1288,7 +1360,7 @@
     },
     {
         "name": "onbeforeinput",
-        "type": "EventHandler<InputEvent, HTMLAnchorElement> | null | undefined | EventHandler<InputEvent, HTMLDivElement> | null | undefined",
+        "type": "EventHandler<InputEvent, HTMLImageElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1297,7 +1369,7 @@
     },
     {
         "name": "onbeforeinputcapture",
-        "type": "EventHandler<InputEvent, HTMLAnchorElement> | null | undefined | EventHandler<InputEvent, HTMLDivElement> | null | undefined",
+        "type": "EventHandler<InputEvent, HTMLImageElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1306,7 +1378,7 @@
     },
     {
         "name": "on:input",
-        "type": "FormEventHandler<HTMLAnchorElement> | null | undefined | FormEventHandler<HTMLDivElement> | null | undefined",
+        "type": "FormEventHandler<HTMLImageElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1315,7 +1387,7 @@
     },
     {
         "name": "oninput",
-        "type": "FormEventHandler<HTMLAnchorElement> | null | undefined | FormEventHandler<HTMLDivElement> | null | undefined",
+        "type": "FormEventHandler<HTMLImageElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1324,7 +1396,7 @@
     },
     {
         "name": "oninputcapture",
-        "type": "FormEventHandler<HTMLAnchorElement> | null | undefined | FormEventHandler<HTMLDivElement> | null | undefined",
+        "type": "FormEventHandler<HTMLImageElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1333,7 +1405,7 @@
     },
     {
         "name": "on:reset",
-        "type": "FormEventHandler<HTMLAnchorElement> | null | undefined | FormEventHandler<HTMLDivElement> | null | undefined",
+        "type": "FormEventHandler<HTMLImageElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1342,7 +1414,7 @@
     },
     {
         "name": "onreset",
-        "type": "FormEventHandler<HTMLAnchorElement> | null | undefined | FormEventHandler<HTMLDivElement> | null | undefined",
+        "type": "FormEventHandler<HTMLImageElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1351,7 +1423,7 @@
     },
     {
         "name": "onresetcapture",
-        "type": "FormEventHandler<HTMLAnchorElement> | null | undefined | FormEventHandler<HTMLDivElement> | null | undefined",
+        "type": "FormEventHandler<HTMLImageElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1360,7 +1432,7 @@
     },
     {
         "name": "on:submit",
-        "type": "EventHandler<SubmitEvent, HTMLAnchorElement> | null | undefined | EventHandler<SubmitEvent, HTMLDivElement> | null | undefined",
+        "type": "EventHandler<SubmitEvent, HTMLImageElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1369,7 +1441,7 @@
     },
     {
         "name": "onsubmit",
-        "type": "EventHandler<SubmitEvent, HTMLAnchorElement> | null | undefined | EventHandler<SubmitEvent, HTMLDivElement> | null | undefined",
+        "type": "EventHandler<SubmitEvent, HTMLImageElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1378,7 +1450,7 @@
     },
     {
         "name": "onsubmitcapture",
-        "type": "EventHandler<SubmitEvent, HTMLAnchorElement> | null | undefined | EventHandler<SubmitEvent, HTMLDivElement> | null | undefined",
+        "type": "EventHandler<SubmitEvent, HTMLImageElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1387,7 +1459,7 @@
     },
     {
         "name": "on:invalid",
-        "type": "EventHandler<Event, HTMLAnchorElement> | null | undefined | EventHandler<Event, HTMLDivElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLImageElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1396,7 +1468,7 @@
     },
     {
         "name": "oninvalid",
-        "type": "EventHandler<Event, HTMLAnchorElement> | null | undefined | EventHandler<Event, HTMLDivElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLImageElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1405,7 +1477,7 @@
     },
     {
         "name": "oninvalidcapture",
-        "type": "EventHandler<Event, HTMLAnchorElement> | null | undefined | EventHandler<Event, HTMLDivElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLImageElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1414,7 +1486,7 @@
     },
     {
         "name": "on:formdata",
-        "type": "EventHandler<FormDataEvent, HTMLAnchorElement> | null | undefined | EventHandler<FormDataEvent, HTMLDivElement> | null | undefined",
+        "type": "EventHandler<FormDataEvent, HTMLImageElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1423,7 +1495,7 @@
     },
     {
         "name": "onformdata",
-        "type": "EventHandler<FormDataEvent, HTMLAnchorElement> | null | undefined | EventHandler<FormDataEvent, HTMLDivElement> | null | undefined",
+        "type": "EventHandler<FormDataEvent, HTMLImageElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1432,7 +1504,7 @@
     },
     {
         "name": "onformdatacapture",
-        "type": "EventHandler<FormDataEvent, HTMLAnchorElement> | null | undefined | EventHandler<FormDataEvent, HTMLDivElement> | null | undefined",
+        "type": "EventHandler<FormDataEvent, HTMLImageElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1441,7 +1513,7 @@
     },
     {
         "name": "on:beforetoggle",
-        "type": "ToggleEventHandler<HTMLAnchorElement> | null | undefined | ToggleEventHandler<HTMLDivElement> | null | undefined",
+        "type": "ToggleEventHandler<HTMLImageElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1450,7 +1522,7 @@
     },
     {
         "name": "onbeforetoggle",
-        "type": "ToggleEventHandler<HTMLAnchorElement> | null | undefined | ToggleEventHandler<HTMLDivElement> | null | undefined",
+        "type": "ToggleEventHandler<HTMLImageElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1459,7 +1531,7 @@
     },
     {
         "name": "onbeforetogglecapture",
-        "type": "ToggleEventHandler<HTMLAnchorElement> | null | undefined | ToggleEventHandler<HTMLDivElement> | null | undefined",
+        "type": "ToggleEventHandler<HTMLImageElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1468,7 +1540,7 @@
     },
     {
         "name": "on:toggle",
-        "type": "ToggleEventHandler<HTMLAnchorElement> | null | undefined | ToggleEventHandler<HTMLDivElement> | null | undefined",
+        "type": "ToggleEventHandler<HTMLImageElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1477,7 +1549,7 @@
     },
     {
         "name": "ontoggle",
-        "type": "ToggleEventHandler<HTMLAnchorElement> | null | undefined | ToggleEventHandler<HTMLDivElement> | null | undefined",
+        "type": "ToggleEventHandler<HTMLImageElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1486,7 +1558,7 @@
     },
     {
         "name": "ontogglecapture",
-        "type": "ToggleEventHandler<HTMLAnchorElement> | null | undefined | ToggleEventHandler<HTMLDivElement> | null | undefined",
+        "type": "ToggleEventHandler<HTMLImageElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1495,7 +1567,7 @@
     },
     {
         "name": "on:contentvisibilityautostatechange",
-        "type": "ContentVisibilityAutoStateChangeEventHandler<HTMLAnchorElement> | null | undefined | ContentVisibilityAutoStateChangeEventHandler<HTMLDivElement> | null | undefined",
+        "type": "ContentVisibilityAutoStateChangeEventHandler<HTMLImageElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1504,7 +1576,7 @@
     },
     {
         "name": "oncontentvisibilityautostatechange",
-        "type": "ContentVisibilityAutoStateChangeEventHandler<HTMLAnchorElement> | null | undefined | ContentVisibilityAutoStateChangeEventHandler<HTMLDivElement> | null | undefined",
+        "type": "ContentVisibilityAutoStateChangeEventHandler<HTMLImageElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1513,7 +1585,7 @@
     },
     {
         "name": "oncontentvisibilityautostatechangecapture",
-        "type": "ContentVisibilityAutoStateChangeEventHandler<HTMLAnchorElement> | null | undefined | ContentVisibilityAutoStateChangeEventHandler<HTMLDivElement> | null | undefined",
+        "type": "ContentVisibilityAutoStateChangeEventHandler<HTMLImageElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1522,7 +1594,7 @@
     },
     {
         "name": "on:keydown",
-        "type": "KeyboardEventHandler<HTMLAnchorElement> | null | undefined | KeyboardEventHandler<HTMLDivElement> | null | undefined",
+        "type": "KeyboardEventHandler<HTMLImageElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1531,7 +1603,7 @@
     },
     {
         "name": "onkeydown",
-        "type": "KeyboardEventHandler<HTMLAnchorElement> | null | undefined | KeyboardEventHandler<HTMLDivElement> | null | undefined",
+        "type": "KeyboardEventHandler<HTMLImageElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1540,7 +1612,7 @@
     },
     {
         "name": "onkeydowncapture",
-        "type": "KeyboardEventHandler<HTMLAnchorElement> | null | undefined | KeyboardEventHandler<HTMLDivElement> | null | undefined",
+        "type": "KeyboardEventHandler<HTMLImageElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1549,7 +1621,7 @@
     },
     {
         "name": "on:keypress",
-        "type": "KeyboardEventHandler<HTMLAnchorElement> | null | undefined | KeyboardEventHandler<HTMLDivElement> | null | undefined",
+        "type": "KeyboardEventHandler<HTMLImageElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1558,7 +1630,7 @@
     },
     {
         "name": "onkeypress",
-        "type": "KeyboardEventHandler<HTMLAnchorElement> | null | undefined | KeyboardEventHandler<HTMLDivElement> | null | undefined",
+        "type": "KeyboardEventHandler<HTMLImageElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1567,7 +1639,7 @@
     },
     {
         "name": "onkeypresscapture",
-        "type": "KeyboardEventHandler<HTMLAnchorElement> | null | undefined | KeyboardEventHandler<HTMLDivElement> | null | undefined",
+        "type": "KeyboardEventHandler<HTMLImageElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1576,7 +1648,7 @@
     },
     {
         "name": "on:keyup",
-        "type": "KeyboardEventHandler<HTMLAnchorElement> | null | undefined | KeyboardEventHandler<HTMLDivElement> | null | undefined",
+        "type": "KeyboardEventHandler<HTMLImageElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1585,7 +1657,7 @@
     },
     {
         "name": "onkeyup",
-        "type": "KeyboardEventHandler<HTMLAnchorElement> | null | undefined | KeyboardEventHandler<HTMLDivElement> | null | undefined",
+        "type": "KeyboardEventHandler<HTMLImageElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1594,7 +1666,7 @@
     },
     {
         "name": "onkeyupcapture",
-        "type": "KeyboardEventHandler<HTMLAnchorElement> | null | undefined | KeyboardEventHandler<HTMLDivElement> | null | undefined",
+        "type": "KeyboardEventHandler<HTMLImageElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1603,7 +1675,7 @@
     },
     {
         "name": "on:abort",
-        "type": "EventHandler<Event, HTMLAnchorElement> | null | undefined | EventHandler<Event, HTMLDivElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLImageElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1612,7 +1684,7 @@
     },
     {
         "name": "onabort",
-        "type": "EventHandler<Event, HTMLAnchorElement> | null | undefined | EventHandler<Event, HTMLDivElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLImageElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1621,7 +1693,7 @@
     },
     {
         "name": "onabortcapture",
-        "type": "EventHandler<Event, HTMLAnchorElement> | null | undefined | EventHandler<Event, HTMLDivElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLImageElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1630,7 +1702,7 @@
     },
     {
         "name": "on:canplay",
-        "type": "EventHandler<Event, HTMLAnchorElement> | null | undefined | EventHandler<Event, HTMLDivElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLImageElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1639,7 +1711,7 @@
     },
     {
         "name": "oncanplay",
-        "type": "EventHandler<Event, HTMLAnchorElement> | null | undefined | EventHandler<Event, HTMLDivElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLImageElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1648,7 +1720,7 @@
     },
     {
         "name": "oncanplaycapture",
-        "type": "EventHandler<Event, HTMLAnchorElement> | null | undefined | EventHandler<Event, HTMLDivElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLImageElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1657,7 +1729,7 @@
     },
     {
         "name": "on:canplaythrough",
-        "type": "EventHandler<Event, HTMLAnchorElement> | null | undefined | EventHandler<Event, HTMLDivElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLImageElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1666,7 +1738,7 @@
     },
     {
         "name": "oncanplaythrough",
-        "type": "EventHandler<Event, HTMLAnchorElement> | null | undefined | EventHandler<Event, HTMLDivElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLImageElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1675,7 +1747,7 @@
     },
     {
         "name": "oncanplaythroughcapture",
-        "type": "EventHandler<Event, HTMLAnchorElement> | null | undefined | EventHandler<Event, HTMLDivElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLImageElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1684,7 +1756,7 @@
     },
     {
         "name": "on:cuechange",
-        "type": "EventHandler<Event, HTMLAnchorElement> | null | undefined | EventHandler<Event, HTMLDivElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLImageElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1693,7 +1765,7 @@
     },
     {
         "name": "oncuechange",
-        "type": "EventHandler<Event, HTMLAnchorElement> | null | undefined | EventHandler<Event, HTMLDivElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLImageElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1702,7 +1774,7 @@
     },
     {
         "name": "oncuechangecapture",
-        "type": "EventHandler<Event, HTMLAnchorElement> | null | undefined | EventHandler<Event, HTMLDivElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLImageElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1711,7 +1783,7 @@
     },
     {
         "name": "on:durationchange",
-        "type": "EventHandler<Event, HTMLAnchorElement> | null | undefined | EventHandler<Event, HTMLDivElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLImageElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1720,7 +1792,7 @@
     },
     {
         "name": "ondurationchange",
-        "type": "EventHandler<Event, HTMLAnchorElement> | null | undefined | EventHandler<Event, HTMLDivElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLImageElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1729,7 +1801,7 @@
     },
     {
         "name": "ondurationchangecapture",
-        "type": "EventHandler<Event, HTMLAnchorElement> | null | undefined | EventHandler<Event, HTMLDivElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLImageElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1738,7 +1810,7 @@
     },
     {
         "name": "on:emptied",
-        "type": "EventHandler<Event, HTMLAnchorElement> | null | undefined | EventHandler<Event, HTMLDivElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLImageElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1747,7 +1819,7 @@
     },
     {
         "name": "onemptied",
-        "type": "EventHandler<Event, HTMLAnchorElement> | null | undefined | EventHandler<Event, HTMLDivElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLImageElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1756,7 +1828,7 @@
     },
     {
         "name": "onemptiedcapture",
-        "type": "EventHandler<Event, HTMLAnchorElement> | null | undefined | EventHandler<Event, HTMLDivElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLImageElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1765,7 +1837,7 @@
     },
     {
         "name": "on:encrypted",
-        "type": "EventHandler<Event, HTMLAnchorElement> | null | undefined | EventHandler<Event, HTMLDivElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLImageElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1774,7 +1846,7 @@
     },
     {
         "name": "onencrypted",
-        "type": "EventHandler<Event, HTMLAnchorElement> | null | undefined | EventHandler<Event, HTMLDivElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLImageElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1783,7 +1855,7 @@
     },
     {
         "name": "onencryptedcapture",
-        "type": "EventHandler<Event, HTMLAnchorElement> | null | undefined | EventHandler<Event, HTMLDivElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLImageElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1792,7 +1864,7 @@
     },
     {
         "name": "on:ended",
-        "type": "EventHandler<Event, HTMLAnchorElement> | null | undefined | EventHandler<Event, HTMLDivElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLImageElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1801,7 +1873,7 @@
     },
     {
         "name": "onended",
-        "type": "EventHandler<Event, HTMLAnchorElement> | null | undefined | EventHandler<Event, HTMLDivElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLImageElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1810,7 +1882,7 @@
     },
     {
         "name": "onendedcapture",
-        "type": "EventHandler<Event, HTMLAnchorElement> | null | undefined | EventHandler<Event, HTMLDivElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLImageElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1819,7 +1891,7 @@
     },
     {
         "name": "on:loadeddata",
-        "type": "EventHandler<Event, HTMLAnchorElement> | null | undefined | EventHandler<Event, HTMLDivElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLImageElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1828,7 +1900,7 @@
     },
     {
         "name": "onloadeddata",
-        "type": "EventHandler<Event, HTMLAnchorElement> | null | undefined | EventHandler<Event, HTMLDivElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLImageElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1837,7 +1909,7 @@
     },
     {
         "name": "onloadeddatacapture",
-        "type": "EventHandler<Event, HTMLAnchorElement> | null | undefined | EventHandler<Event, HTMLDivElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLImageElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1846,7 +1918,7 @@
     },
     {
         "name": "on:loadedmetadata",
-        "type": "EventHandler<Event, HTMLAnchorElement> | null | undefined | EventHandler<Event, HTMLDivElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLImageElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1855,7 +1927,7 @@
     },
     {
         "name": "onloadedmetadata",
-        "type": "EventHandler<Event, HTMLAnchorElement> | null | undefined | EventHandler<Event, HTMLDivElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLImageElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1864,7 +1936,7 @@
     },
     {
         "name": "onloadedmetadatacapture",
-        "type": "EventHandler<Event, HTMLAnchorElement> | null | undefined | EventHandler<Event, HTMLDivElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLImageElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1873,7 +1945,7 @@
     },
     {
         "name": "on:loadstart",
-        "type": "EventHandler<Event, HTMLAnchorElement> | null | undefined | EventHandler<Event, HTMLDivElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLImageElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1882,7 +1954,7 @@
     },
     {
         "name": "onloadstart",
-        "type": "EventHandler<Event, HTMLAnchorElement> | null | undefined | EventHandler<Event, HTMLDivElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLImageElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1891,7 +1963,7 @@
     },
     {
         "name": "onloadstartcapture",
-        "type": "EventHandler<Event, HTMLAnchorElement> | null | undefined | EventHandler<Event, HTMLDivElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLImageElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1900,7 +1972,7 @@
     },
     {
         "name": "on:pause",
-        "type": "EventHandler<Event, HTMLAnchorElement> | null | undefined | EventHandler<Event, HTMLDivElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLImageElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1909,7 +1981,7 @@
     },
     {
         "name": "onpause",
-        "type": "EventHandler<Event, HTMLAnchorElement> | null | undefined | EventHandler<Event, HTMLDivElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLImageElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1918,7 +1990,7 @@
     },
     {
         "name": "onpausecapture",
-        "type": "EventHandler<Event, HTMLAnchorElement> | null | undefined | EventHandler<Event, HTMLDivElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLImageElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1927,7 +1999,7 @@
     },
     {
         "name": "on:play",
-        "type": "EventHandler<Event, HTMLAnchorElement> | null | undefined | EventHandler<Event, HTMLDivElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLImageElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1936,7 +2008,7 @@
     },
     {
         "name": "onplay",
-        "type": "EventHandler<Event, HTMLAnchorElement> | null | undefined | EventHandler<Event, HTMLDivElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLImageElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1945,7 +2017,7 @@
     },
     {
         "name": "onplaycapture",
-        "type": "EventHandler<Event, HTMLAnchorElement> | null | undefined | EventHandler<Event, HTMLDivElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLImageElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1954,7 +2026,7 @@
     },
     {
         "name": "on:playing",
-        "type": "EventHandler<Event, HTMLAnchorElement> | null | undefined | EventHandler<Event, HTMLDivElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLImageElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1963,7 +2035,7 @@
     },
     {
         "name": "onplaying",
-        "type": "EventHandler<Event, HTMLAnchorElement> | null | undefined | EventHandler<Event, HTMLDivElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLImageElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1972,7 +2044,7 @@
     },
     {
         "name": "onplayingcapture",
-        "type": "EventHandler<Event, HTMLAnchorElement> | null | undefined | EventHandler<Event, HTMLDivElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLImageElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1981,7 +2053,7 @@
     },
     {
         "name": "on:progress",
-        "type": "EventHandler<Event, HTMLAnchorElement> | null | undefined | EventHandler<Event, HTMLDivElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLImageElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1990,7 +2062,7 @@
     },
     {
         "name": "onprogress",
-        "type": "EventHandler<Event, HTMLAnchorElement> | null | undefined | EventHandler<Event, HTMLDivElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLImageElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -1999,7 +2071,7 @@
     },
     {
         "name": "onprogresscapture",
-        "type": "EventHandler<Event, HTMLAnchorElement> | null | undefined | EventHandler<Event, HTMLDivElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLImageElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -2008,7 +2080,7 @@
     },
     {
         "name": "on:ratechange",
-        "type": "EventHandler<Event, HTMLAnchorElement> | null | undefined | EventHandler<Event, HTMLDivElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLImageElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -2017,7 +2089,7 @@
     },
     {
         "name": "onratechange",
-        "type": "EventHandler<Event, HTMLAnchorElement> | null | undefined | EventHandler<Event, HTMLDivElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLImageElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -2026,7 +2098,7 @@
     },
     {
         "name": "onratechangecapture",
-        "type": "EventHandler<Event, HTMLAnchorElement> | null | undefined | EventHandler<Event, HTMLDivElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLImageElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -2035,7 +2107,7 @@
     },
     {
         "name": "on:seeked",
-        "type": "EventHandler<Event, HTMLAnchorElement> | null | undefined | EventHandler<Event, HTMLDivElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLImageElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -2044,7 +2116,7 @@
     },
     {
         "name": "onseeked",
-        "type": "EventHandler<Event, HTMLAnchorElement> | null | undefined | EventHandler<Event, HTMLDivElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLImageElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -2053,7 +2125,7 @@
     },
     {
         "name": "onseekedcapture",
-        "type": "EventHandler<Event, HTMLAnchorElement> | null | undefined | EventHandler<Event, HTMLDivElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLImageElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -2062,7 +2134,7 @@
     },
     {
         "name": "on:seeking",
-        "type": "EventHandler<Event, HTMLAnchorElement> | null | undefined | EventHandler<Event, HTMLDivElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLImageElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -2071,7 +2143,7 @@
     },
     {
         "name": "onseeking",
-        "type": "EventHandler<Event, HTMLAnchorElement> | null | undefined | EventHandler<Event, HTMLDivElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLImageElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -2080,7 +2152,7 @@
     },
     {
         "name": "onseekingcapture",
-        "type": "EventHandler<Event, HTMLAnchorElement> | null | undefined | EventHandler<Event, HTMLDivElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLImageElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -2089,7 +2161,7 @@
     },
     {
         "name": "on:stalled",
-        "type": "EventHandler<Event, HTMLAnchorElement> | null | undefined | EventHandler<Event, HTMLDivElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLImageElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -2098,7 +2170,7 @@
     },
     {
         "name": "onstalled",
-        "type": "EventHandler<Event, HTMLAnchorElement> | null | undefined | EventHandler<Event, HTMLDivElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLImageElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -2107,7 +2179,7 @@
     },
     {
         "name": "onstalledcapture",
-        "type": "EventHandler<Event, HTMLAnchorElement> | null | undefined | EventHandler<Event, HTMLDivElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLImageElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -2116,7 +2188,7 @@
     },
     {
         "name": "on:suspend",
-        "type": "EventHandler<Event, HTMLAnchorElement> | null | undefined | EventHandler<Event, HTMLDivElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLImageElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -2125,7 +2197,7 @@
     },
     {
         "name": "onsuspend",
-        "type": "EventHandler<Event, HTMLAnchorElement> | null | undefined | EventHandler<Event, HTMLDivElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLImageElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -2134,7 +2206,7 @@
     },
     {
         "name": "onsuspendcapture",
-        "type": "EventHandler<Event, HTMLAnchorElement> | null | undefined | EventHandler<Event, HTMLDivElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLImageElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -2143,7 +2215,7 @@
     },
     {
         "name": "on:timeupdate",
-        "type": "EventHandler<Event, HTMLAnchorElement> | null | undefined | EventHandler<Event, HTMLDivElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLImageElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -2152,7 +2224,7 @@
     },
     {
         "name": "ontimeupdate",
-        "type": "EventHandler<Event, HTMLAnchorElement> | null | undefined | EventHandler<Event, HTMLDivElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLImageElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -2161,7 +2233,7 @@
     },
     {
         "name": "ontimeupdatecapture",
-        "type": "EventHandler<Event, HTMLAnchorElement> | null | undefined | EventHandler<Event, HTMLDivElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLImageElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -2170,79 +2242,7 @@
     },
     {
         "name": "on:volumechange",
-        "type": "EventHandler<Event, HTMLAnchorElement> | null | undefined | EventHandler<Event, HTMLDivElement> | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
-        "name": "onvolumechange",
-        "type": "EventHandler<Event, HTMLAnchorElement> | null | undefined | EventHandler<Event, HTMLDivElement> | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
-        "name": "onvolumechangecapture",
-        "type": "EventHandler<Event, HTMLAnchorElement> | null | undefined | EventHandler<Event, HTMLDivElement> | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
-        "name": "on:waiting",
-        "type": "EventHandler<Event, HTMLAnchorElement> | null | undefined | EventHandler<Event, HTMLDivElement> | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
-        "name": "onwaiting",
-        "type": "EventHandler<Event, HTMLAnchorElement> | null | undefined | EventHandler<Event, HTMLDivElement> | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
-        "name": "onwaitingcapture",
-        "type": "EventHandler<Event, HTMLAnchorElement> | null | undefined | EventHandler<Event, HTMLDivElement> | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
-        "name": "on:auxclick",
-        "type": "MouseEventHandler<HTMLAnchorElement> | null | undefined | MouseEventHandler<HTMLDivElement> | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
-        "name": "onauxclick",
-        "type": "MouseEventHandler<HTMLAnchorElement> | null | undefined | MouseEventHandler<HTMLDivElement> | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
-        "name": "onauxclickcapture",
-        "type": "MouseEventHandler<HTMLAnchorElement> | null | undefined | MouseEventHandler<HTMLDivElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLImageElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,

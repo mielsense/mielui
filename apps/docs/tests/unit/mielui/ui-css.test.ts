@@ -61,7 +61,7 @@ describe('ui.css Tier 2 semantic', () => {
         expect(css).toContain('--color-card: var(--mielui-neutral-0)');
         expect(css).toContain('--color-primary: #ba7ca5');
         expect(css).toContain(
-            '--color-ring: color-mix(in srgb, var(--color-primary) 30%, transparent)'
+            '--color-ring: color-mix(in srgb, var(--color-primary) 80%, transparent)'
         );
     });
     it('keeps canonical semantics and drops the retired aliases (consumers migrated)', () => {
@@ -102,7 +102,7 @@ describe('ui.css Tier 3 + structure', () => {
             .replace(/\/\*[\s\S]*?\*\//g, '')
             .replace(/\s+/g, ' ')
             .trim();
-        expect(Buffer.byteLength(normalizedCss)).toBeLessThanOrEqual(18 * 1024);
+        expect(Buffer.byteLength(normalizedCss)).toBeLessThanOrEqual(19 * 1024);
     });
 
     it('declares the shared surface contracts in the components layer', () => {

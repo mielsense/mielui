@@ -145,7 +145,7 @@ export const openTheme: Theme = {
         dark: {
             '--color-primary': '#e6e6e6',
             '--color-primary-hover': 'color-mix(in srgb, #e6e6e6 78%, black)',
-            '--color-ring': 'color-mix(in srgb, #e6e6e6 30%, transparent)'
+            '--color-ring': 'color-mix(in srgb, #e6e6e6 80%, transparent)'
         }
     },
     typography: {
@@ -169,7 +169,8 @@ export const functionalTheme: Theme = {
     version: THEME_VERSION,
     slug: 'functional',
     name: 'Functional',
-    description: 'Mielui default — a calm, warm-neutral interface system.',
+    description:
+        'Bright rounded system with a blue accent, Inter and Roboto Mono, and soft gray text.',
     publisher: 'mielui',
     brand: '#0088ff',
     neutral: 'warm',
@@ -233,7 +234,7 @@ export const functionalTheme: Theme = {
         dark: {
             '--color-primary': '#1e78e6',
             '--color-primary-hover': 'color-mix(in srgb, #1e78e6 78%, black)',
-            '--color-ring': 'color-mix(in srgb, #1e78e6 30%, transparent)'
+            '--color-ring': 'color-mix(in srgb, #1e78e6 80%, transparent)'
         }
     },
     typography: {

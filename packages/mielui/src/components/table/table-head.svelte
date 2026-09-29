@@ -9,7 +9,7 @@
     {...rest}
     {scope}
     data-ui="table-head"
-    class={cn(className, 'px-4 py-3 text-start align-middle font-medium text-foreground-muted border-b border-border')}
+    class={cn(className, 'px-4 py-3 text-start align-middle font-medium text-foreground-muted border-b border-border [tbody_tr:last-child_&]:border-b-0')}
 >
     {@render children?.()}
 </th>

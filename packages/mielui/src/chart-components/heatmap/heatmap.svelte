@@ -123,7 +123,7 @@
     aria-busy={loading}
     data-state={loading ? 'loading' : empty ? 'empty' : 'ready'}
     data-ui="heatmap"
-    class={cn(className, 'flex w-full min-w-0 flex-col gap-4')}
+    class={cn(className, 'relative flex w-full min-w-0 flex-col gap-4')}
 >
     {#if children}
         {@render children({ days: model.cells, total: model.total })}

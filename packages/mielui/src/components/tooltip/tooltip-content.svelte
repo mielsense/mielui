@@ -1,6 +1,6 @@
 <script lang="ts">
     import { getContext, onMount } from 'svelte';
-    import { overlaySurface } from '../_internal/surface';
+    import { tooltipSurface } from '../_internal/surface';
     import type { TooltipContentProps, TooltipState } from '.';
     import type { TooltipContentState } from './manager-context';
 
@@ -16,13 +16,7 @@
     $effect(() => {
         content.node = el;
         content.rich = rich;
-        let glassForeground = '[@container_style(--mielui-surface:glass)]:text-foreground';
-        if (surface === 'glass') {
-            glassForeground = 'text-foreground';
-        } else if (surface === 'solid') {
-            glassForeground = '';
-        }
-        tip.className = [overlaySurface(surface), glassForeground, className ?? ''].join(' ');
+        tip.className = [tooltipSurface(surface), className ?? ''].join(' ');
     });
 
     onMount(() => {

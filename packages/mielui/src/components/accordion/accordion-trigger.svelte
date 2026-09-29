@@ -4,6 +4,11 @@
     import { Accordion as BitsAccordion } from 'bits-ui';
     import { getContext, onDestroy, untrack } from 'svelte';
     import HugeiconsIcon from '../../hugeicons-icon.svelte';
+    import {
+        DISCLOSURE_ICON_SIZE,
+        disclosureChevron,
+        disclosureTrigger
+    } from '../_internal/disclosure/variants';
     import type { AccordionContext, AccordionTriggerProps } from '.';
     import { getAccordionItemContext } from './item-context';
 
@@ -37,18 +42,17 @@
                 data-ui="accordion-trigger"
                 data-state={open ? 'open' : 'closed'}
                 class={cn(
-        className,
-        'mielui-press flex w-full items-center justify-between gap-3 py-4 text-left text-[length:var(--font-size-header)] [font-weight:var(--font-weight-button)] [letter-spacing:var(--tracking-button)] text-foreground transition-[color,transform,scale] [transition-duration:var(--motion-duration-press)] ease-[var(--ease-press)] motion-reduce:transition-none hover:underline focus-visible:outline-none focus-visible:shadow-[var(--focus-ring)] disabled:cursor-not-allowed disabled:opacity-[var(--opacity-disabled)]'
-    )}
+                    className,
+                    'justify-between gap-3 text-[length:var(--font-size-header)] [font-weight:var(--font-weight-button)] [letter-spacing:var(--tracking-button)] text-foreground',
+                    disclosureTrigger({ layout: 'row' })
+                )}
             >
                 {@render children?.()}
                 <HugeiconsIcon
                     icon={ChevronDown}
-                    size={16}
-                    class={cn(
-            'shrink-0 text-foreground-muted transition-transform [transition-duration:var(--motion-duration-panel)] ease-out motion-reduce:transition-none',
-            open && 'rotate-180'
-        )}
+                    size={DISCLOSURE_ICON_SIZE}
+                    aria-hidden="true"
+                    class={disclosureChevron({ open })}
                 />
             </button>
         {/snippet}

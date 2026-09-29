@@ -166,12 +166,12 @@
     <div
         class="grid min-w-0 items-start gap-5 @3xl:col-span-2 @3xl:grid-cols-2 @6xl:col-span-1 @6xl:grid-cols-1"
     >
-        <Card.Root variant="inset" class="w-fit max-w-full min-w-0">
+        <Card.Root variant="inset" class="min-w-0">
             <Card.Header>
                 <Card.Title>Choose a date</Card.Title>
                 <Card.Description>Plan your next team check-in.</Card.Description>
             </Card.Header>
-            <Card.Content class="min-w-0">
+            <Card.Content class="flex min-w-0 justify-center">
                 <Calendar.Root calendarLabel="Team check-in" class="p-0" />
             </Card.Content>
         </Card.Root>

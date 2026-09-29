@@ -251,7 +251,7 @@
             data-ui="question-error"
             role={effectiveStatus === 'error' && !validationMessage ? 'alert' : undefined}
             aria-hidden={displayStatus !== 'error'}
-            class={errorNoticeClass}
+            class={cn(errorNoticeClass, 'text-[var(--mielui-error-text)]')}
             data-state={displayStatus}
         >
             <HugeiconsIcon icon={CircleAlert} size={14} strokeWidth={2} aria-hidden="true" />
@@ -285,7 +285,7 @@
                 data-state={displayStatus}
                 class={cn(
                     variant === 'default' && 'p-0',
-                    'w-full transition-[border-color,box-shadow] [transition-duration:var(--motion-duration-press)] ease-[var(--ease-out)] motion-reduce:transition-none data-[state=error]:border-error data-[state=error]:shadow-[0_0_0_calc(var(--border-size)*2)_color-mix(in_srgb,var(--color-error)_25%,transparent)] [&>[data-ui=card-surface]]:p-0'
+                    'w-full transition-[border-color,box-shadow] [transition-duration:var(--motion-duration-press)] ease-[var(--ease-out)] motion-reduce:transition-none data-[state=error]:border-error [&>[data-ui=card-surface]]:p-0'
                 )}
             >
                 <fieldset class="m-0 flex min-w-0 flex-col border-0 p-0">

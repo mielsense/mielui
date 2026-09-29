@@ -1,6 +1,7 @@
 <script lang="ts">
     import { cn } from '@mielui/svelte/utils';
     import type { DrawerRegionProps } from '.';
+    import { getDrawerContext } from './context';
 
     let {
         element = $bindable(null),
@@ -8,12 +9,28 @@
         class: className,
         ...rest
     }: DrawerRegionProps = $props();
+    const drawer = getDrawerContext();
+
+    $effect(() => {
+        drawer.footer = footer;
+        return () => {
+            if (drawer.footer === footer) {
+                drawer.footer = undefined;
+            }
+        };
+    });
 </script>
-<div
-    {...rest}
-    bind:this={element}
-    data-ui="drawer-footer"
-    class={cn(className, 'flex flex-wrap items-center justify-end gap-2 px-5 pb-[max(calc(var(--spacing)*5),env(safe-area-inset-bottom))] pt-3')}
->
-    {@render children?.()}
-</div>
+
+{#snippet footer()}
+    <div
+        {...rest}
+        bind:this={element}
+        data-ui="drawer-footer"
+        class={cn(
+            className,
+            'flex w-full flex-row items-center gap-2 px-1 py-1.5 [&>[data-ui=drawer-close]]:me-auto'
+        )}
+    >
+        {@render children?.()}
+    </div>
+{/snippet}

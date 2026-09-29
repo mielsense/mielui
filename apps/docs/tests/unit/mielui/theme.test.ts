@@ -48,7 +48,7 @@ describe('themeToCss', () => {
     it('derives custom brand tokens without changing the schema', () => {
         const custom = themeToCss({ ...DEFAULT_THEME, brand: '#22cc88' });
         expect(custom).toContain('--color-primary: #22cc88');
-        expect(custom).toContain('--color-ring: color-mix(in srgb, #22cc88 30%, transparent)');
+        expect(custom).toContain('--color-ring: color-mix(in srgb, #22cc88 80%, transparent)');
         expect(custom).toContain('--mielui-blue-500: #22cc88');
     });
 

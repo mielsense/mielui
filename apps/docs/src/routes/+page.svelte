@@ -125,7 +125,9 @@
                     variant="ghost"
                     class="justify-start"
                     href={resolve('/docs/components')}
-                    onclick={() => { mobileMenuOpen = false; }}
+                    onclick={() => {
+                        mobileMenuOpen = false;
+                    }}
                 >
                     Components
                 </Button>
@@ -133,7 +135,9 @@
                     variant="ghost"
                     class="justify-start"
                     href={resolve('/docs/introduction')}
-                    onclick={() => { mobileMenuOpen = false; }}
+                    onclick={() => {
+                        mobileMenuOpen = false;
+                    }}
                 >
                     Documentation
                 </Button>
@@ -141,7 +145,9 @@
                     variant="ghost"
                     class="justify-start"
                     href={resolve('/studio')}
-                    onclick={() => { mobileMenuOpen = false; }}
+                    onclick={() => {
+                        mobileMenuOpen = false;
+                    }}
                 >
                     Studio
                 </Button>

@@ -71,9 +71,10 @@
             the tab is hidden. Set animation="none" to disable chart motion.
         </Typography.Text>
         <Typography.Text variant="supporting">
-            Tooltips inherit the theme’s border and glass settings. Chart motion follows
-            reduced-motion preferences and the theme motion setting. Every chart-type guide includes
-            a live example so you can compare the effect on different marks.
+            Tooltips share one single-border surface with pie and heatmap tooltips, inherit the
+            theme’s glass setting, and sit beside the pointer. Chart motion follows reduced-motion
+            preferences and the theme motion setting. Every chart-type guide includes a live example
+            so you can compare the effect on different marks.
         </Typography.Text>
     </section>
     <section id="accessibility" class="flex scroll-mt-20 flex-col gap-4">

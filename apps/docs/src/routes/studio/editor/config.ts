@@ -158,7 +158,7 @@ export type AdvancedTokens = {
     animation: Partial<Record<AnimationTokenName, string>>;
 };
 
-export function toFontOption(font: (typeof fonts)[number]) {
+function toFontOption(font: (typeof fonts)[number]) {
     return {
         key: font.name.toLowerCase().replaceAll(' ', '-'),
         label: font.name,
@@ -213,7 +213,7 @@ export function brandTokens(color: string) {
     return {
         '--color-primary': color,
         '--color-primary-hover': `color-mix(in srgb, ${color} 78%, black)`,
-        '--color-ring': `color-mix(in srgb, ${color} 30%, transparent)`
+        '--color-ring': `color-mix(in srgb, ${color} 80%, transparent)`
     };
 }
 

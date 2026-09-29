@@ -15,18 +15,22 @@
 </script>
 
 <footer
-    class={`relative z-40 before:pointer-events-none before:absolute before:inset-x-0 before:bottom-full before:h-4 before:bg-linear-to-t before:from-[var(--docs-content)] before:to-transparent flex h-[var(--docs-row-height)] shrink-0 bg-[var(--docs-content)] items-center justify-between gap-3 px-4 sm:px-5 text-xs text-foreground-muted ${isDocs ? 'xl:grid xl:grid-cols-[auto_minmax(0,1fr)_auto] xl:gap-3 xl:px-5' : 'min-[68.75rem]:flex min-[68.75rem]:gap-6'}`}
+    class={`relative z-40 flex h-[var(--docs-row-height)] shrink-0 items-center justify-between gap-3 bg-[var(--docs-content)] text-xs text-foreground-muted before:pointer-events-none before:absolute before:inset-x-0 before:bottom-full before:h-4 before:bg-linear-to-t before:from-[var(--docs-content)] before:to-transparent ${isDocs ? 'px-[var(--docs-icon-inset)] md:grid md:grid-cols-[minmax(0,1fr)_16rem] md:gap-0 md:pe-0' : 'px-4 sm:px-5 min-[68.75rem]:flex min-[68.75rem]:gap-6'}`}
 >
     {#if isDocs}
-        <div class="flex justify-start"><DocsPager /></div>
-        <div class="flex justify-end"><CopyPage /></div>
-        <div class="flex min-w-0 items-center gap-2 border-l border-border/50 pl-4">
+        <div
+            class="flex min-w-0 flex-1 items-center justify-between gap-3 md:pe-[var(--docs-gutter)]"
+        >
+            <DocsPager />
+            <CopyPage />
+        </div>
+        <div class="flex min-w-0 shrink-0 items-center gap-1 md:px-5">
             {#if pageInfo?.current}
                 <HoverCard.Root>
                     <HoverCard.Trigger
-                        class="size-8 [margin-inline-start:calc((18px-var(--spacing)*8)/2)] items-center justify-center rounded-[var(--radius-md)] text-foreground-muted hover:bg-secondary hover:text-foreground focus-visible:outline-2 focus-visible:outline-primary"
+                        class="size-[var(--size-icon-md)] shrink-0 items-center justify-center rounded-[var(--radius-lg)] text-foreground-muted transition-colors [transition-duration:var(--motion-duration-press)] hover:bg-foreground/[0.08] hover:text-foreground focus-visible:outline-none focus-visible:shadow-[var(--focus-ring)] md:-ms-[calc((var(--size-icon-md)-16px)/2)]"
                     >
-                        <HugeiconsIcon icon={Info} size={18} />
+                        <HugeiconsIcon icon={Info} size={16} />
                         <span class="sr-only">{`About ${pageInfo?.current.title}`}</span>
                     </HoverCard.Trigger>
                     <HoverCard.Content
@@ -42,7 +46,7 @@
                         {/if}
                     </HoverCard.Content>
                 </HoverCard.Root>
-                <span class="hidden truncate sm:inline">{pageInfo?.current.title}</span>
+                <span class="hidden truncate text-sm md:inline">{pageInfo?.current.title}</span>
             {/if}
         </div>
     {:else}
@@ -63,13 +67,13 @@
             </div>
             <nav aria-label="Footer" class="flex items-center gap-5">
                 <a
-                    class="hover:text-foreground focus-visible:outline-2 focus-visible:outline-primary"
+                    class="rounded-[var(--radius-sm)] transition-colors hover:text-foreground focus-visible:outline-none focus-visible:shadow-[var(--focus-ring)]"
                     href="/docs/changelog"
                 >
                     Changelog
                 </a>
                 <a
-                    class="hover:text-foreground focus-visible:outline-2 focus-visible:outline-primary"
+                    class="rounded-[var(--radius-sm)] transition-colors hover:text-foreground focus-visible:outline-none focus-visible:shadow-[var(--focus-ring)]"
                     href="https://github.com/mielsense/mielui"
                     target="_blank"
                     rel="noreferrer"

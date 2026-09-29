@@ -20,9 +20,10 @@ export const manifest: Manifest = {
         'components/message/manifest.ts'
     ],
     components: ['_internal/utils', 'typography'],
-    shared: ['utils.cn', 'utils.createContext'],
+    shared: ['hugeicons-icon', 'utils.cn', 'utils.createContext'],
     peerDependencies: {
         '@floating-ui/dom': '1.7.6',
+        '@hugeicons/core-free-icons': '^4.3.0',
         cnfast: '^0.0.8',
         svelte: '^5.0.0',
         'tailwind-merge': '^3.0.0'

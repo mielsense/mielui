@@ -17,7 +17,7 @@
     role="status"
     aria-live="polite"
     data-ui="file-upload-status"
-    class={cn(className, 'text-xs', item().status === 'error' ? 'text-error' : item().status === 'complete' ? 'text-success' : 'text-foreground-muted')}
+    class={cn(className, 'text-xs', item().status === 'error' ? 'text-[var(--mielui-error-text)]' : item().status === 'complete' ? 'text-[var(--mielui-success-text)]' : 'text-foreground-muted')}
 >
     {#if children}
         {@render children()}

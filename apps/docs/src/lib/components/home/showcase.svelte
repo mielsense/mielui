@@ -113,7 +113,10 @@
                         <Composer.Root
                             bind:value={prompt}
                             surface="solid"
-                            onSubmit={() => { sent = true; prompt = ''; }}
+                            onSubmit={() => {
+                                sent = true;
+                                prompt = '';
+                            }}
                         >
                             <Composer.Input
                                 aria-label="Try the composer"
@@ -125,7 +128,10 @@
                                     <Button
                                         variant="ghost"
                                         size="sm"
-                                        onclick={() => { prompt = 'Build a little something that feels like me.'; sent = false; }}
+                                        onclick={() => {
+                                            prompt = 'Build a little something that feels like me.';
+                                            sent = false;
+                                        }}
                                     >
                                         <HugeiconsIcon icon={Attachment01Icon} size={14} />
                                         Example
