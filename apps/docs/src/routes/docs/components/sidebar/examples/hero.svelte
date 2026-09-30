@@ -58,11 +58,11 @@
     <Sidebar.Panel
         id="workspace"
         label="Workspace navigation"
+        variant="inset"
         width={224}
         minWidth={192}
         maxWidth={288}
         bind:mobileOpen
-        class="border-e-[length:var(--border-size)] border-border"
     >
         <Sidebar.Header>
             <span
@@ -72,7 +72,6 @@
                 N
             </span>
             <Sidebar.Label class="font-semibold">Northstar</Sidebar.Label>
-            <Sidebar.Trigger />
         </Sidebar.Header>
         <Sidebar.Content class="gap-6 px-3">
             <Sidebar.Group>
@@ -142,7 +141,7 @@
         </Sidebar.Footer>
         <Sidebar.ResizeHandle />
     </Sidebar.Panel>
-    <Sidebar.Main>
+    <Sidebar.Main class="@container/sidebar-page">
         <header
             class="flex shrink-0 items-center gap-2 border-b-[length:var(--border-size)] border-border px-4 py-3"
         >
@@ -150,10 +149,13 @@
             <span class="text-sm text-foreground-muted">Workspace</span>
             <span aria-hidden="true" class="text-foreground-muted">/</span>
             <span class="text-sm font-medium">{selected}</span>
-            <Sidebar.Pin panel="workspace" class="ms-auto" />
         </header>
-        <div class="flex min-h-0 flex-1 flex-col gap-5 overflow-auto p-6">
-            <div class="flex items-start justify-between gap-4">
+        <div
+            class="flex min-h-0 flex-1 flex-col gap-5 overflow-auto p-4 @min-[32rem]/sidebar-page:p-6"
+        >
+            <div
+                class="flex flex-col items-start justify-between gap-4 @min-[32rem]/sidebar-page:flex-row"
+            >
                 <div>
                     <h3 class="text-lg font-semibold">{selected}</h3>
                     <p class="mt-1 text-sm text-foreground-muted">
@@ -162,6 +164,7 @@
                 </div>
                 <Button
                     variant="outline"
+                    class="shrink-0"
                     onclick={() => {
                         filter = '';
                         selected = 'Projects';
@@ -177,7 +180,9 @@
                 class="max-w-xs"
             />
             <div class="min-w-0 overflow-x-auto">
-                <Table.Root class="min-w-80 rounded-none border-0">
+                <Table.Root
+                    class="min-w-0 rounded-none border-0 @min-[32rem]/sidebar-page:min-w-80"
+                >
                     <Table.Header class="[&_th]:bg-transparent">
                         <Table.Row
                             class="border-b-[length:var(--border-size)] border-border text-foreground-muted"
@@ -185,10 +190,16 @@
                             <Table.Head class="px-0 pb-3 pt-0 text-start font-normal">
                                 Project
                             </Table.Head>
-                            <Table.Head class="px-0 pb-3 pt-0 text-start font-normal">
+                            <Table.Head
+                                class="hidden px-0 pb-3 pt-0 text-start font-normal @min-[32rem]/sidebar-page:table-cell"
+                            >
                                 Status
                             </Table.Head>
-                            <Table.Head class="px-0 pb-3 pt-0 text-end font-normal">Due</Table.Head>
+                            <Table.Head
+                                class="hidden px-0 pb-3 pt-0 text-end font-normal @min-[32rem]/sidebar-page:table-cell"
+                            >
+                                Due
+                            </Table.Head>
                         </Table.Row>
                     </Table.Header>
                     <Table.Body>
@@ -201,11 +212,20 @@
                                     <p class="mt-1 text-xs text-foreground-muted">
                                         {project.detail}
                                     </p>
+                                    <p
+                                        class="mt-2 text-xs text-foreground-muted @min-[32rem]/sidebar-page:hidden"
+                                    >
+                                        {project.status} ·{project.due}
+                                    </p>
                                 </Table.Cell>
-                                <Table.Cell class="px-0 py-4 pe-4 text-foreground-muted">
+                                <Table.Cell
+                                    class="hidden px-0 py-4 pe-4 text-foreground-muted @min-[32rem]/sidebar-page:table-cell"
+                                >
                                     {project.status}
                                 </Table.Cell>
-                                <Table.Cell class="px-0 py-4 text-end text-foreground-muted">
+                                <Table.Cell
+                                    class="hidden px-0 py-4 text-end text-foreground-muted @min-[32rem]/sidebar-page:table-cell"
+                                >
                                     {project.due}
                                 </Table.Cell>
                             </Table.Row>

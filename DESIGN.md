@@ -540,8 +540,12 @@ chart palette places pink in Chart 2 and blue in Chart 3.
 ## Sidebar composition
 
 Sidebar panels are layout regions with stable content during desktop footprint
-animation. Default panels stay on the neutral canvas; inset and floating panels
-reuse the shared frame around Content, with Header and Footer on its chrome.
+animation. Default panels stay on the neutral canvas. An inset Panel keeps
+navigation flat and puts Main in the shared page frame with a small outer gutter.
+Floating panels reuse the shared frame around Content, with Header and Footer on
+its chrome. Keep one navigation toggle in the page header in the standard examples;
+omit pin controls from those layouts. Custom rails fully hide the expanded body
+while retaining its DOM; never render both bodies as visible columns.
 Keep navigation lists flat, use the medium control height, and preserve group
 spacing. Collapse labels and trailing details in an icon rail; give every item
 an accessible label and reuse Tooltip for its collapsed name. Use a custom rail

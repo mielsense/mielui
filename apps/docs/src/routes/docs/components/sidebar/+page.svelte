@@ -12,7 +12,7 @@
 
     const composition = `<Sidebar.Root breakpoint={768} class="h-screen">
   <Sidebar.Panel id="navigation" label="Workspace navigation" variant="inset">
-    <Sidebar.Header><Sidebar.Label>Workspace</Sidebar.Label><Sidebar.Trigger /></Sidebar.Header>
+    <Sidebar.Header><Sidebar.Label>Workspace</Sidebar.Label></Sidebar.Header>
     <Sidebar.Content>
       <Sidebar.Group>
         <Sidebar.GroupLabel>Projects</Sidebar.GroupLabel>
@@ -60,21 +60,23 @@
             landmark. Root fills its parent width and inherits the height you give it.
         </Typography.Text>
         <Typography.Text variant="supporting">
-            Panel owns the frame. Header and Footer stay outside the scrolling Content; inset panels
-            put Content on the shared inner surface. Every region can be omitted, reordered, or
-            restyled. Group, GroupLabel, Separator, Menu, and MenuItem organize navigation without
-            assuming your routing or data model.
+            Panel owns navigation. Set variant="inset" on a Panel to put Main in a rounded page
+            frame beside flat navigation, like an application shell. variant="floating" frames the
+            sidebar itself. Header and Footer stay outside the scrolling Content. Every region can
+            be omitted, reordered, or restyled. Group, GroupLabel, Separator, Menu, and MenuItem
+            organize navigation without assuming your routing or data model.
         </Typography.Text>
         <CodeBlock code={composition} lang="svelte" />
     </section>
     <section id="state" class="flex scroll-mt-20 flex-col gap-4">
         <Typography.H2 class="docs-section-heading">State and controls</Typography.H2>
         <Typography.Text>
-            Desktop panels start expanded and pinned. Bind open, pinned, and width for
-            application-owned state. An unpinned open panel overlays Main while retaining its
-            collapsed footprint; outside interaction or Escape closes it. Pin reserves its expanded
-            width again. Trigger toggles the current desktop state or the mobile drawer, and Close
-            dismisses it. Controls outside a Panel must pass its id through panel.
+            Desktop panels start expanded and pinned. The examples keep one toggle in the page
+            header and omit pin controls. Bind open, pinned, and width for application-owned state.
+            An unpinned open panel overlays Main while retaining its collapsed footprint; outside
+            interaction or Escape closes it. Pin reserves its expanded width again. Trigger toggles
+            the current desktop state or the mobile drawer, and Close dismisses it. Controls outside
+            a Panel must pass its id through panel.
         </Typography.Text>
         <Typography.Text variant="supporting">
             Use stable, nonempty panel ids, unique within each Root. Call getSidebar(id) during
@@ -95,8 +97,9 @@
         <Typography.Text variant="supporting">
             collapsible="offcanvas" leaves no collapsed footprint. Keep a Trigger outside that Panel
             so it can be reopened. collapsible="none" remains expanded on desktop and omits collapse
-            and pin controls; mobile still uses a drawer. A rail snippet replaces collapsed content
-            while preserving the full content's DOM and local state.
+            and pin controls; mobile still uses a drawer. A rail snippet replaces the entire
+            collapsed panel; the expanded content is hidden while preserving the full content's DOM
+            and local state.
         </Typography.Text>
     </section>
     <section id="double-panels" class="flex scroll-mt-20 flex-col gap-4">

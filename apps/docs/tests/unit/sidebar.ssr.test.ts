@@ -11,3 +11,12 @@ it('server renders native navigation and isolated panel ids without browser glob
     expect(first.body).toContain('data-pinned="true"');
     expect(second.body).toContain('true/true/240/false/false');
 });
+
+it('server renders the inset page frame beside flat navigation', () => {
+    const inset = render(SidebarFixture, { props: { panelVariant: 'inset' } });
+    const plain = render(SidebarFixture);
+
+    expect(inset.body).toContain('data-ui="sidebar-main" data-variant="inset"');
+    expect(inset.body).toContain('mielui-inset-surface');
+    expect(plain.body).toContain('data-ui="sidebar-main" data-variant="default"');
+});

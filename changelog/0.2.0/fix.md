@@ -91,3 +91,5 @@
 - Give Studio invoice notifications a separate action strip with a working View invoice action.
 - Compact data-table filter popovers with denser option rows, smaller editor controls, and widths suited to each filter type.
 - Keep File Diff filenames and change counts above the patch when the theme uses bottom inset strips.
+
+- Hide expanded sidebar content completely when a custom icon rail is active.

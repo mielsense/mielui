@@ -145,7 +145,7 @@
                 <div
                     aria-hidden={controller.customRail}
                     inert={controller.customRail}
-                    class={cn('flex min-h-0 flex-1 flex-col', controller.customRail ? 'hidden' : undefined)}
+                    class={controller.customRail ? 'hidden' : 'flex min-h-0 flex-1 flex-col'}
                 >
                     {@render body()}
                 </div>

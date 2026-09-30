@@ -16,7 +16,6 @@
 >
     <Sidebar.Panel id="reading" label="Reading navigation" bind:open width={224} variant="floating">
         {#snippet rail()}
-            <Sidebar.Header><Sidebar.Trigger /></Sidebar.Header>
             <Sidebar.Content>
                 <Sidebar.Button
                     label="Reading list"
@@ -32,7 +31,6 @@
         {/snippet}
         <Sidebar.Header>
             <Sidebar.Label class="font-semibold">Reading list</Sidebar.Label>
-            <Sidebar.Trigger />
         </Sidebar.Header>
         <Sidebar.Content>
             <Sidebar.Group>

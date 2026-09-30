@@ -16,6 +16,7 @@
     const id = $props.id();
     const panels = createRegistry();
     const reduced = useReducedMotion();
+    const inset = $derived([...panels.values()].some((panel) => panel.variant === 'inset'));
     let containerWidth = $state<number>();
     let direction = $state<'ltr' | 'rtl'>('ltr');
     let duration = $state(0);
@@ -27,6 +28,9 @@
     setSidebarRoot({
         id,
         panels,
+        get inset() {
+            return inset;
+        },
         get mobile() {
             return mobile;
         },

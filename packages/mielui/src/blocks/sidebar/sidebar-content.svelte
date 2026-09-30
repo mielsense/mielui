@@ -16,7 +16,7 @@
     {...rest}
     bind:this={element}
     data-ui="sidebar-content"
-    class={cn(className, 'flex min-h-0 flex-1 flex-col gap-6 overflow-x-hidden overflow-y-auto overscroll-contain p-2', panel.variant !== 'default' ? 'mielui-inset-surface' : undefined)}
+    class={cn(className, 'flex min-h-0 flex-1 flex-col gap-6 overflow-x-hidden overflow-y-auto overscroll-contain p-2', panel.variant === 'floating' && !panel.collapsed ? 'mielui-inset-surface' : undefined)}
 >
     {@render children?.()}
 </div>

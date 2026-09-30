@@ -240,8 +240,11 @@ Import the Sidebar namespace from `@mielui/svelte/components/sidebar`. Wrap pane
 and content in Root. Each Panel needs a stable, nonempty id unique in that Root
 and an accessible label. Place start panels before Main and end panels after it;
 Main is a div, so the app owns its main landmark. Header, scrolling Content, and
-Footer are independent regions. Content uses the shared inset surface when its
-Panel uses inset or floating framing; do not put another Card around navigation.
+Footer are independent regions. Panel variant="inset" keeps the sidebar flat and
+applies the shared frame and surface to Main. variant="floating" frames Panel
+and its expanded Content instead. Do not put another Card around navigation or
+Main to reproduce those variants. The standard examples keep their toggle in the
+page header and omit optional Pin controls.
 
 Panels start expanded and pinned on desktop. Bind open, pinned, and width for
 application-owned state; mobileOpen is separate. Controls outside a Panel target

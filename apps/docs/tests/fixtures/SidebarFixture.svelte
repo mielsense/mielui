@@ -6,8 +6,15 @@
         containerWidth = 900,
         rtl = false,
         customRail = false,
-        fixed = false
-    }: { containerWidth?: number; rtl?: boolean; customRail?: boolean; fixed?: boolean } = $props();
+        fixed = false,
+        panelVariant = 'default'
+    }: {
+        containerWidth?: number;
+        rtl?: boolean;
+        customRail?: boolean;
+        fixed?: boolean;
+        panelVariant?: 'default' | 'inset' | 'floating';
+    } = $props();
     let open = $state(true);
     let width = $state(240);
     let pinned = $state(true);
@@ -36,6 +43,7 @@
     <Sidebar.Panel
         id="navigation"
         label="Navigation"
+        variant={panelVariant}
         bind:open
         bind:width
         bind:pinned

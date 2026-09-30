@@ -74,6 +74,8 @@ it('keeps custom rail content inert and preserves the full panel DOM', async () 
     await expect.element(page.getByRole('button', { name: 'Custom rail' })).toBeVisible();
     expect(node.isConnected).toBe(true);
     expect(node.closest('[inert]')).not.toBeNull();
+    await expect.element(node).not.toBeVisible();
+    expect(node.getBoundingClientRect().height).toBe(0);
     await page.getByRole('button', { name: 'Custom rail' }).click();
     await expect.element(draft).toHaveValue('Keep this draft');
     expect(draft.element()).toBe(node);
@@ -239,4 +241,23 @@ it('dismisses an unpinned desktop panel and returns focus on Escape', async () =
     await expect
         .element(page.getByLabelText('Context state'))
         .toHaveTextContent('false/false/240/false/false');
+});
+
+it('insets Main while keeping navigation flat and preserves content when variants change', async () => {
+    const screen = render(SidebarFixture, { panelVariant: 'inset' });
+    const main = requiredElement('[data-ui="sidebar-main"]');
+    const panel = requiredElement('[data-ui="sidebar-panel"][aria-label="Navigation"]');
+    await expect.poll(() => main.dataset.variant).toBe('inset');
+    expect(main.classList.contains('mielui-inset-frame')).toBe(true);
+    expect(panel.classList.contains('mielui-inset-frame')).toBe(false);
+    const surface = requiredElement('[data-ui="sidebar-main-surface"]');
+    expect(surface.classList.contains('mielui-inset-surface')).toBe(true);
+    const action = page.getByRole('button', { name: 'Main action' }).element();
+    await screen.rerender({ panelVariant: 'default' });
+    await expect.poll(() => main.dataset.variant).toBe('default');
+    expect(page.getByRole('button', { name: 'Main action' }).element()).toBe(action);
+    expect(surface.classList.contains('mielui-inset-surface')).toBe(false);
+    await screen.rerender({ panelVariant: 'floating' });
+    await expect.poll(() => panel.classList.contains('mielui-inset-frame')).toBe(true);
+    expect(main.classList.contains('mielui-inset-frame')).toBe(false);
 });

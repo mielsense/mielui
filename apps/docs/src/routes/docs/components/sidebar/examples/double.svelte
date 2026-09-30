@@ -93,13 +93,13 @@
     <Sidebar.Panel
         id="section"
         label="Workspace settings"
+        variant="inset"
         bind:open={sectionOpen}
         bind:mobileOpen={sectionMobileOpen}
         width={208}
         minWidth={176}
         maxWidth={280}
         collapsible="offcanvas"
-        class="border-e-[length:var(--border-size)] border-border"
     >
         <Sidebar.Header>
             <span class="flex-1 text-sm font-semibold">Settings</span>
@@ -233,12 +233,11 @@
         minWidth={224}
         maxWidth={320}
         collapsible="offcanvas"
-        variant="inset"
+        variant="floating"
         class="inset-y-2 end-2"
     >
         <Sidebar.Header>
             <Sidebar.Label class="text-sm font-semibold">Member details</Sidebar.Label>
-            <Sidebar.Pin />
             <Sidebar.Close />
         </Sidebar.Header>
         <Sidebar.Content class="gap-5 p-4">

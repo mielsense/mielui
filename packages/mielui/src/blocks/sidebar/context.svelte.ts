@@ -21,6 +21,7 @@ export type RootContext = {
     readonly id: string;
     readonly mobile: boolean;
     readonly ready: boolean;
+    readonly inset: boolean;
     readonly themeStyle: string;
     readonly direction: 'ltr' | 'rtl';
     readonly transition: { duration: number; ease: [number, number, number, number] };

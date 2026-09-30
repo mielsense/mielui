@@ -281,7 +281,7 @@ export function createPanel(
         }
         wasExpanded = expanded;
     });
-    const framed = $derived(variant !== 'default');
+    const framed = $derived(variant === 'floating');
     return {
         state: panel,
         get footprint() {
