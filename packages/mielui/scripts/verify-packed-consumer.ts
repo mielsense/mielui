@@ -110,7 +110,7 @@ async function writeConsumer(cwd: string, tarball: string) {
     await writeFile(
         path.join(cwd, 'src/routes/+page.svelte'),
         `<script lang="ts">
-	import { Button, CodeBlock, Input, Dialog, Select, Toaster } from '@mielui/svelte';
+	import { Button, CodeBlock, Input, Dialog, Select, Toaster, Sidebar } from '@mielui/svelte';
 	let selected = $state('alpha');
 </script>
 
@@ -135,6 +135,26 @@ async function writeConsumer(cwd: string, tarball: string) {
 			<Select.Item value="beta">Beta</Select.Item>
 		</Select.Content>
 	</Select.Root>
+	<Sidebar.Root class="h-80">
+		<Sidebar.Panel id="navigation" label="Package navigation" variant="inset">
+			<Sidebar.Header>
+				<Sidebar.Label>Workspace</Sidebar.Label>
+				<Sidebar.Trigger />
+			</Sidebar.Header>
+			<Sidebar.Content>
+				<Sidebar.Menu>
+					<Sidebar.MenuItem>
+						<Sidebar.Link label="Overview" href="/" />
+					</Sidebar.MenuItem>
+				</Sidebar.Menu>
+			</Sidebar.Content>
+			<Sidebar.ResizeHandle />
+		</Sidebar.Panel>
+		<Sidebar.Main>
+			<Sidebar.Trigger panel="navigation" />
+			Packed sidebar content
+		</Sidebar.Main>
+	</Sidebar.Root>
 	<Toaster />
 </main>
 `
@@ -167,7 +187,9 @@ const required = [
     'registry/themes.json',
     'dist/svelte/index.js',
     'dist/svelte/index.d.ts',
-    'dist/svelte/ui.css'
+    'dist/svelte/ui.css',
+    'dist/svelte/blocks/sidebar/index.js',
+    'dist/svelte/blocks/sidebar/index.d.ts'
 ];
 for (const file of required) {
     if (!paths.includes(file)) {

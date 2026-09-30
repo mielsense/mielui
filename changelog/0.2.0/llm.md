@@ -233,3 +233,34 @@ and change counts remain above the patch when the surrounding theme uses bottom
 inset strips. This applies to both the diff prop and composed TopBar/Content
 parts. Compose TopBar before Content; no extra wrapper or CSS order rule is needed.
 An explicit inset-position token on Root can still override this default.
+
+## Sidebar composition
+
+Import the Sidebar namespace from `@mielui/svelte/components/sidebar`. Wrap panels
+and content in Root. Each Panel needs a stable, nonempty id unique in that Root
+and an accessible label. Place start panels before Main and end panels after it;
+Main is a div, so the app owns its main landmark. Header, scrolling Content, and
+Footer are independent regions. Content uses the shared inset surface when its
+Panel uses inset or floating framing; do not put another Card around navigation.
+
+Panels start expanded and pinned on desktop. Bind open, pinned, and width for
+application-owned state; mobileOpen is separate. Controls outside a Panel target
+its id with `panel`. `getSidebar(id?)` must run during component initialization,
+then its getters remain reactive and its setters share the controls' callbacks.
+Navigation uses native Link anchors with aria-current, or Button for in-place
+actions. Supply label for accessible names and collapsed tooltips, and leading
+and trailing snippets for icons or supporting values. Sidebar.Label hides custom
+text in a rail. Do not put arbitrary form fields in a collapsed default rail;
+provide a rail snippet when the full panel contains more than navigation.
+
+Root measures its own container, not the viewport. Below breakpoint panels use
+Sheet's existing modal mechanics. Mobile drawers start closed and only one may
+open in a Root. Desktop state survives; child DOM remounts across the responsive
+boundary, so keep important form data above Panel. Desktop collapse, custom rail
+swaps, and pin changes retain the full panel's DOM. Routing, persistence,
+permissions, and global shortcuts belong to the consuming app.
+
+Add ResizeHandle inside Panel for bounded pointer and keyboard resizing. Widths
+are CSS pixels; Home and End select limits, Left and Right respect logical sides
+and RTL, and Shift uses larger increments. Cancellation restores the starting
+width. Offcanvas needs an external Trigger; none stays expanded on desktop.

@@ -16,6 +16,7 @@
     import { Gauge } from '@mielui/svelte/components/gauge';
     import Kbd from '@mielui/svelte/components/kbd';
     import { ScrollArea } from '@mielui/svelte/components/scroll-area';
+    import * as Sidebar from '@mielui/svelte/components/sidebar';
     import { Slider } from '@mielui/svelte/components/slider';
     import { Toast } from '@mielui/svelte/components/toast';
     import * as Typography from '@mielui/svelte/components/typography';
@@ -245,4 +246,46 @@
             </div>
         </div>
     </div>
+{/if}
+
+{#if slug === 'sidebar'}
+    <Sidebar.Root
+        breakpoint={0}
+        class="h-full max-h-48 w-full max-w-80 overflow-hidden rounded-[var(--radius-lg)] border-[length:var(--border-size)] border-border bg-background"
+    >
+        <Sidebar.Panel
+            id="catalog-navigation"
+            label="Workspace"
+            width={120}
+            minWidth={120}
+            maxWidth={120}
+        >
+            <Sidebar.Header>
+                <Sidebar.Label class="font-semibold">Workspace</Sidebar.Label>
+            </Sidebar.Header>
+            <Sidebar.Content>
+                <Sidebar.Menu>
+                    <Sidebar.MenuItem>
+                        <Sidebar.Link
+                            label="Overview"
+                            href="/docs/components/sidebar"
+                            aria-current="page"
+                        />
+                    </Sidebar.MenuItem>
+                    <Sidebar.MenuItem>
+                        <Sidebar.Link label="Projects" href="/docs/components/sidebar" />
+                    </Sidebar.MenuItem>
+                    <Sidebar.MenuItem>
+                        <Sidebar.Link label="Members" href="/docs/components/sidebar" />
+                    </Sidebar.MenuItem>
+                </Sidebar.Menu>
+            </Sidebar.Content>
+        </Sidebar.Panel>
+        <Sidebar.Main class="gap-3 border-s-[length:var(--border-size)] border-border p-4">
+            <span class="text-sm font-medium">Overview</span>
+            <span class="h-2 w-3/4 rounded bg-secondary"></span>
+            <span class="h-2 w-full rounded bg-secondary"></span>
+            <span class="h-2 w-2/3 rounded bg-secondary"></span>
+        </Sidebar.Main>
+    </Sidebar.Root>
 {/if}

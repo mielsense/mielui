@@ -536,3 +536,22 @@ half-strength edge highlights, and a primary button border. Cards and menus have
 no surface shadows; control and dialog shadows remain enabled. Explicit theme
 settings and per-component surface choices override these defaults. The default
 chart palette places pink in Chart 2 and blue in Chart 3.
+
+## Sidebar composition
+
+Sidebar panels are layout regions with stable content during desktop footprint
+animation. Default panels stay on the neutral canvas; inset and floating panels
+reuse the shared frame around Content, with Header and Footer on its chrome.
+Keep navigation lists flat, use the medium control height, and preserve group
+spacing. Collapse labels and trailing details in an icon rail; give every item
+an accessible label and reuse Tooltip for its collapsed name. Use a custom rail
+snippet when the expanded panel includes forms or other non-navigation content.
+
+Place adjacent start panels before Main and end inspectors after it, in reading
+order. Panels have independent state and configurable widths. Resize handles
+sit on each panel's inner edge and support keyboard as well as pointer input.
+Animate only the reserved footprint and panel reveal, keeping full labels at a
+stable width; resizing, reduced motion, and zero-duration themes are immediate.
+Use Sheet for mobile focus, dismissal, scroll locking, and focus return rather
+than constructing another modal behavior. Closed offcanvas panels are inert and
+hidden after their exit completes; they never cover Main or leave visible chrome.

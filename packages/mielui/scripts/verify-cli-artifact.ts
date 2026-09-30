@@ -130,6 +130,7 @@ async function writeCliConsumer(cwd: string, tarball: string) {
         `<script lang="ts">
 	import { Button } from '$lib/mielui/components/button';
 	import * as Dialog from '$lib/mielui/components/dialog';
+	import * as Sidebar from '$lib/mielui/components/sidebar';
 </script>
 
 <main>
@@ -142,6 +143,26 @@ async function writeCliConsumer(cwd: string, tarball: string) {
 			<Dialog.Description>Installed via the packed mielui binary.</Dialog.Description>
 		</Dialog.Content>
 	</Dialog.Root>
+	<Sidebar.Root class="h-80">
+		<Sidebar.Panel id="navigation" label="Copied navigation" variant="inset">
+			<Sidebar.Header>
+				<Sidebar.Label>Workspace</Sidebar.Label>
+				<Sidebar.Trigger />
+			</Sidebar.Header>
+			<Sidebar.Content>
+				<Sidebar.Menu>
+					<Sidebar.MenuItem>
+						<Sidebar.Link label="Overview" href="/" />
+					</Sidebar.MenuItem>
+				</Sidebar.Menu>
+			</Sidebar.Content>
+			<Sidebar.ResizeHandle />
+		</Sidebar.Panel>
+		<Sidebar.Main>
+			<Sidebar.Trigger panel="navigation" />
+			Copied sidebar content
+		</Sidebar.Main>
+	</Sidebar.Root>
 </main>
 `
     );
@@ -199,6 +220,7 @@ try {
     runMielui(consumer, ['list']);
     runMielui(consumer, ['add', 'button', '--yes']);
     runMielui(consumer, ['add', 'dialog', '--yes']);
+    runMielui(consumer, ['add', 'sidebar', '--yes']);
     runMielui(consumer, ['add', 'theme', 'default']);
 
     const config = JSON.parse(await readFile(path.join(consumer, 'mielui.json'), 'utf8')) as {
@@ -218,6 +240,9 @@ try {
         'src/lib/mielui/utils.ts',
         'src/lib/mielui/components/button/button.svelte',
         'src/lib/mielui/components/dialog/dialog.svelte',
+        'src/lib/mielui/components/sidebar/sidebar-panel.svelte',
+        'src/lib/mielui/components/sidebar/panel.svelte.ts',
+        'src/lib/mielui/components/sidebar/resize.ts',
         'src/lib/mielui/theme.css'
     ];
     for (const file of requiredFiles) {

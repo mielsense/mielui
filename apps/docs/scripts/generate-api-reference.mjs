@@ -132,8 +132,15 @@ const indexes = files.filter((file) =>
 const program = ts.createProgram([...indexes, ...virtual.keys()], options, host);
 const checker = program.getTypeChecker();
 const result = {};
-const inheritedProperties = [];
-const inheritedKeys = new Map();
+const destination = path.join(root, 'apps/docs/src/lib/generated/api');
+const inheritedProperties = fs.existsSync(destination)
+    ? fs
+          .readdirSync(destination)
+          .filter((file) => /^native-\d+\.json$/.test(file))
+          .sort((a, b) => Number(a.match(/\d+/)[0]) - Number(b.match(/\d+/)[0]))
+          .flatMap((file) => JSON.parse(fs.readFileSync(path.join(destination, file), 'utf8')))
+    : [];
+const inheritedKeys = new Map(inheritedProperties.map((entry, id) => [JSON.stringify(entry), id]));
 for (const index of indexes) {
     const source = program.getSourceFile(index);
     const module = checker.getSymbolAtLocation(source);
@@ -225,7 +232,6 @@ for (const index of indexes) {
         result[path.basename(path.dirname(index))] = parts;
     }
 }
-const destination = path.join(root, 'apps/docs/src/lib/generated/api');
 fs.mkdirSync(destination, { recursive: true });
 for (const [name, parts] of Object.entries(result)) {
     fs.writeFileSync(path.join(destination, `${name}.json`), `${JSON.stringify(parts, null, 4)}\n`);
