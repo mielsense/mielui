@@ -318,6 +318,27 @@ const NAMESPACED = {
     reasoning: ['Content', 'Root', 'Trigger'],
     select: ['Content', 'Item', 'Label', 'Root', 'Trigger', 'Value'],
     sheet: ['Close', 'Content', 'Description', 'Footer', 'Header', 'Root', 'Title', 'Trigger'],
+    sidebar: [
+        'Root',
+        'Panel',
+        'Main',
+        'Header',
+        'Content',
+        'Footer',
+        'Group',
+        'GroupLabel',
+        'Separator',
+        'Menu',
+        'MenuItem',
+        'Link',
+        'Button',
+        'Label',
+        'Trigger',
+        'Close',
+        'Pin',
+        'ResizeHandle',
+        'getSidebar'
+    ],
     table: ['Body', 'Caption', 'Cell', 'Footer', 'Head', 'Header', 'Root', 'Row', 'ScrollArea'],
     tabs: ['Content', 'List', 'Root', 'Trigger'],
     'tag-input': ['Input', 'List', 'Root', 'Tag'],
@@ -443,9 +464,9 @@ function parseExportedNames(source: string): string[] {
 }
 
 describe('public API contract', () => {
-    test('public catalog contains exactly 78 components with no overlap', () => {
-        expect(PUBLIC_COMPONENTS).toHaveLength(78);
-        expect(new Set(PUBLIC_COMPONENTS).size).toBe(78);
+    test('public catalog contains exactly 79 components with no overlap', () => {
+        expect(PUBLIC_COMPONENTS).toHaveLength(79);
+        expect(new Set(PUBLIC_COMPONENTS).size).toBe(79);
         expect(
             Object.values(categories)
                 .flat()

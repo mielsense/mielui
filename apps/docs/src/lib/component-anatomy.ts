@@ -244,6 +244,29 @@ export const componentAnatomy = {
         { name: 'Select.Item', description: 'Defines a selectable option.' },
         { name: 'Select.Content', description: 'Renders select options.' }
     ],
+    sidebar: [
+        { name: 'Sidebar.Root', description: 'Scopes responsive layout and panel state.' },
+        { name: 'Sidebar.Panel', description: 'Owns one named sidebar and its frame.' },
+        { name: 'Sidebar.Main', description: 'Holds the application content beside the panels.' },
+        { name: 'Sidebar.Header', description: 'Groups fixed heading and controls.' },
+        { name: 'Sidebar.Content', description: 'Provides the independently scrolling region.' },
+        { name: 'Sidebar.Footer', description: 'Groups fixed bottom content.' },
+        { name: 'Sidebar.Group', description: 'Groups related navigation.' },
+        { name: 'Sidebar.GroupLabel', description: 'Names a navigation group.' },
+        { name: 'Sidebar.Separator', description: 'Separates groups.' },
+        { name: 'Sidebar.Menu', description: 'Renders a native navigation list.' },
+        { name: 'Sidebar.MenuItem', description: 'Contains one list item.' },
+        { name: 'Sidebar.Link', description: 'Navigates through a native anchor.' },
+        { name: 'Sidebar.Button', description: 'Performs a navigation or app action.' },
+        { name: 'Sidebar.Label', description: 'Hides text when the panel becomes a rail.' },
+        { name: 'Sidebar.Trigger', description: 'Toggles a selected panel.' },
+        { name: 'Sidebar.Close', description: 'Dismisses a selected panel.' },
+        { name: 'Sidebar.Pin', description: 'Reserves or releases panel width.' },
+        {
+            name: 'Sidebar.ResizeHandle',
+            description: 'Resizes a panel with pointer or keyboard input.'
+        }
+    ],
     sheet: [
         { name: 'Sheet.Root', description: 'Controls sheet state.' },
         { name: 'Sheet.Trigger', description: 'Opens the sheet.' },

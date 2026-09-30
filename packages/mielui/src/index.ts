@@ -196,6 +196,28 @@ export { ReorderList } from './blocks/reorder-list';
 export type { ShowMoreProps } from './blocks/show-more';
 export { ShowMore } from './blocks/show-more';
 export type {
+    SidebarButtonProps,
+    SidebarCloseProps,
+    SidebarContentProps,
+    SidebarFooterProps,
+    SidebarGroupLabelProps,
+    SidebarGroupProps,
+    SidebarHeaderProps,
+    SidebarLabelProps,
+    SidebarLinkProps,
+    SidebarMainProps,
+    SidebarMenuItemProps,
+    SidebarMenuProps,
+    SidebarPanelProps,
+    SidebarPinProps,
+    SidebarResizeHandleProps,
+    SidebarRootProps,
+    SidebarSeparatorProps,
+    SidebarState,
+    SidebarTriggerProps
+} from './blocks/sidebar';
+export * as Sidebar from './blocks/sidebar';
+export type {
     TaskStep,
     TaskStepStatus,
     TaskStepsIndicatorProps,

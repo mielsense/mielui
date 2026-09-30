@@ -17,3 +17,5 @@
 
 - Default to single borders, bottom inset strips, glass surfaces, half-strength edge highlights, and primary button borders, with surface shadows off and control and dialog shadows on.
 - Place pink in the default Chart 2 slot and blue in Chart 3.
+
+- Added composable sidebars with independent start and end panels, icon rails, inset page layouts, floating panels, pinning, resizing, and accessible mobile drawers.

@@ -15,7 +15,7 @@
 >
     {#if ['button', 'calendar', 'range-calendar', 'date-picker', 'date-range-picker', 'checkbox', 'radio-group', 'select', 'native-select', 'combobox', 'dropdown-menu', 'context-menu', 'command', 'input', 'label', 'field', 'textarea', 'number-field', 'tag-input', 'otp-field', 'fieldset', 'form', 'file-upload', 'group', 'toggle-group', 'toolbar', 'toggle', 'progress', 'slider', 'switch', 'color-picker', 'copy-button'].includes(slug)}
         <Controls {slug} />
-    {:else if ['accordion', 'collapsible', 'alert', 'toast', 'alert-dialog', 'dialog', 'card', 'empty-state', 'hover-card', 'popover', 'tooltip', 'scroll-area', 'sheet', 'drawer', 'notch'].includes(slug)}
+    {:else if ['accordion', 'collapsible', 'alert', 'toast', 'alert-dialog', 'dialog', 'card', 'empty-state', 'hover-card', 'popover', 'tooltip', 'scroll-area', 'sheet', 'drawer', 'notch', 'sidebar'].includes(slug)}
         <Surfaces {slug} />
     {:else if ['avatar', 'badge', 'breadcrumb', 'kbd', 'pagination', 'separator', 'skeleton', 'spinner', 'tabs', 'typography', 'markdown', 'code-block', 'file-diff', 'folder-card', 'reorder-list', 'task-steps', 'show-more', 'attachment', 'composer', 'conversation', 'message', 'question', 'reasoning', 'response-stream', 'tool', 'morph', 'number-shuffle', 'shimmer'].includes(slug)}
         <Content {slug} />
