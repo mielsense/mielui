@@ -1,6 +1,6 @@
 import type { DefaultProps } from '@mielui/svelte/utils';
 import type { Snippet } from 'svelte';
-import type { HTMLAttributes } from 'svelte/elements';
+import type { HTMLAttributes, HTMLTimeAttributes } from 'svelte/elements';
 import Root from './message.svelte';
 import Actions from './message-actions.svelte';
 import Avatar from './message-avatar.svelte';
@@ -14,7 +14,15 @@ import Time from './message-time.svelte';
 export type MessageFrom = 'assistant' | 'user' | 'system';
 export type MessageStatus = 'idle' | 'streaming' | 'error';
 
+export type MessageLabels = {
+    failed?: string;
+    streaming?: string;
+    complete?: string;
+    actions?: string;
+};
+
 export type MessageRootProps = {
+    labels?: MessageLabels;
     from?: MessageFrom;
     status?: MessageStatus;
     name?: string;
@@ -34,6 +42,6 @@ export type MessageAvatarProps = DefaultProps & HTMLAttributes<HTMLDivElement>;
 export type MessageBodyProps = DefaultProps & HTMLAttributes<HTMLDivElement>;
 export type MessageMetadataProps = DefaultProps & HTMLAttributes<HTMLElement>;
 export type MessageNameProps = DefaultProps & HTMLAttributes<HTMLSpanElement>;
-export type MessageTimeProps = DefaultProps & import('svelte/elements').HTMLTimeAttributes;
+export type MessageTimeProps = DefaultProps & HTMLTimeAttributes;
 export type MessageStatusProps = DefaultProps & HTMLAttributes<HTMLSpanElement>;
 export { Actions, Avatar, Body, Content, Metadata, Name, Root, Status, Time };

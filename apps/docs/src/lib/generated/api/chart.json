@@ -144,7 +144,7 @@
     {
         "name": "Plot",
         "properties": [
-            2682,
+            2681,
             0,
             1,
             2,
@@ -606,7 +606,7 @@
     {
         "name": "Root",
         "properties": [
-            2682,
+            2681,
             0,
             1,
             2,
@@ -1044,6 +1044,15 @@
             426,
             427,
             428,
+            {
+                "name": "labels",
+                "type": "ChartLabels | undefined",
+                "required": false,
+                "bindable": false,
+                "default": null,
+                "description": "",
+                "inherited": false
+            },
             {
                 "name": "data",
                 "type": "readonly T[]",

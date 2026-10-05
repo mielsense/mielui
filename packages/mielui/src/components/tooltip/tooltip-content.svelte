@@ -34,6 +34,4 @@
     });
 </script>
 
-<span bind:this={el} id={descriptionId} role="tooltip" hidden>
-    {@render children?.()}
-</span>
+<span bind:this={el} id={descriptionId} role="tooltip" hidden> {@render children?.()} </span>

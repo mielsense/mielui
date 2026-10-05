@@ -38,10 +38,10 @@
             class={cn(className, 'mielui-menu-item')}
             unstyled
         >
-            <span class="min-w-0 flex-1 text-left">{@render children?.()} </span>
+            <span class="min-w-0 flex-1 text-start">{@render children?.()} </span>
             <HugeiconsIcon
                 icon={ChevronRight}
-                class="ml-2 shrink-0 text-foreground-muted"
+                class="ms-2 shrink-0 text-foreground-muted rtl:rotate-180"
                 size={18}
             />
         </Button>

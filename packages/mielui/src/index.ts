@@ -26,6 +26,7 @@ export type { NumberShuffleOptions } from './actions/number-shuffle';
 export { numberShuffle } from './actions/number-shuffle';
 export type {
     AttachmentItemProps,
+    AttachmentLabels,
     AttachmentListProps,
     AttachmentProps,
     AttachmentRejection,
@@ -59,6 +60,7 @@ export type {
     MessageBodyProps,
     MessageContentProps,
     MessageFrom,
+    MessageLabels,
     MessageMetadataProps,
     MessageNameProps,
     MessageRootProps,
@@ -84,6 +86,7 @@ export type {
 export * as Question from './ai-components/question';
 export type {
     ReasoningContentProps,
+    ReasoningLabels,
     ReasoningRootProps,
     ReasoningTriggerProps,
     ReasoningTriggerState
@@ -95,6 +98,7 @@ export type {
     ToolContentProps,
     ToolInputProps,
     ToolItemProps,
+    ToolLabels,
     ToolOutputProps,
     ToolProps,
     ToolState,
@@ -109,6 +113,7 @@ export type {
     CodeBlockCopyPlacement,
     CodeBlockCopyProps,
     CodeBlockHeaderProps,
+    CodeBlockLabels,
     CodeBlockListProps,
     CodeBlockProps,
     CodeBlockTab,
@@ -149,6 +154,7 @@ export type {
     DataTableFilterProps,
     DataTableFiltersProps,
     DataTableHeaderProps,
+    DataTableLabels,
     DataTablePaginationProps,
     DataTableProps,
     DataTableSelectionProps,
@@ -164,6 +170,7 @@ export type {
     FileDiffChangeType,
     FileDiffContentProps,
     FileDiffContext,
+    FileDiffLabels,
     FileDiffLine,
     FileDiffLineNumberProps,
     FileDiffRootProps,
@@ -183,13 +190,14 @@ export type {
     FolderCardTitleProps
 } from './blocks/folder-card';
 export * as FolderCard from './blocks/folder-card';
-export type { MarkdownProps } from './blocks/markdown';
+export type { MarkdownLabels, MarkdownProps } from './blocks/markdown';
 export { Markdown } from './blocks/markdown';
 export * as Notch from './blocks/notch';
 export type {
     ReorderListContentProps,
     ReorderListHandleProps,
     ReorderListItemProps,
+    ReorderListLabels,
     ReorderListProps
 } from './blocks/reorder-list';
 export { ReorderList } from './blocks/reorder-list';
@@ -226,10 +234,13 @@ export type {
     ToolbarRootProps
 } from './blocks/toolbar';
 export { Toolbar } from './blocks/toolbar';
+export type { ChartLabels } from './chart-components/chart';
 export * as Chart from './chart-components/chart';
 export type { GaugeProps, GaugeTone } from './chart-components/gauge';
 export { Gauge } from './chart-components/gauge';
+export type { HeatmapLabels } from './chart-components/heatmap';
 export * as Heatmap from './chart-components/heatmap';
+export type { PieChartLabels } from './chart-components/pie-chart';
 export * as PieChart from './chart-components/pie-chart';
 export type {
     AccordionContentProps,
@@ -283,7 +294,12 @@ export type {
     CollapsibleTriggerProps
 } from './components/collapsible';
 export * as Collapsible from './components/collapsible';
-export type { ComboboxItem, ComboboxRootProps, ComboboxTriggerProps } from './components/combobox';
+export type {
+    ComboboxItem,
+    ComboboxLabels,
+    ComboboxRootProps,
+    ComboboxTriggerProps
+} from './components/combobox';
 export * as Combobox from './components/combobox';
 export type {
     ContextMenuCheckboxItemProps,
@@ -297,9 +313,13 @@ export type {
     ContextMenuTriggerProps
 } from './components/context-menu';
 export * as ContextMenu from './components/context-menu';
-export type { DatePickerContentProps, DatePickerProps } from './components/date-picker';
+export type {
+    DatePickerContentProps,
+    DatePickerLabels,
+    DatePickerProps
+} from './components/date-picker';
 export * as DatePicker from './components/date-picker';
-export type { DateRangePickerProps } from './components/date-range-picker';
+export type { DateRangePickerLabels, DateRangePickerProps } from './components/date-range-picker';
 export * as DateRangePicker from './components/date-range-picker';
 export type {
     DialogBodyProps,
@@ -360,6 +380,7 @@ export type {
     FileUploadButtonProps,
     FileUploadEntry,
     FileUploadItemProps,
+    FileUploadLabels,
     FileUploadListProps,
     FileUploadPartProps,
     FileUploadProps,
@@ -405,7 +426,7 @@ export type {
     OTPFieldSeparatorProps
 } from './components/otp-field';
 export * as OTPField from './components/otp-field';
-export type { PaginationProps } from './components/pagination';
+export type { PaginationLabels, PaginationProps } from './components/pagination';
 export { Pagination } from './components/pagination';
 export type {
     Placement,
@@ -457,6 +478,7 @@ export type {
 export * as Tabs from './components/tabs';
 export type {
     TagInputInputProps,
+    TagInputLabels,
     TagInputListProps,
     TagInputProps,
     TagInputRejection,
@@ -469,7 +491,11 @@ export type { TextareaProps } from './components/textarea';
 export { Textarea } from './components/textarea';
 export type { ToggleProps } from './components/toggle';
 export { Toggle } from './components/toggle';
-export type { ToggleGroupItemProps, ToggleGroupProps } from './components/toggle-group';
+export type {
+    ToggleGroupItemProps,
+    ToggleGroupProps,
+    ToggleGroupSize
+} from './components/toggle-group';
 export * as ToggleGroup from './components/toggle-group';
 export type {
     TooltipContentProps,

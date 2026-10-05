@@ -1,23 +1,5 @@
 [
     {
-        "name": "oninput",
-        "type": "FormEventHandler<HTMLLabelElement> | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
-        "name": "oninputcapture",
-        "type": "FormEventHandler<HTMLLabelElement> | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
         "name": "on:reset",
         "type": "FormEventHandler<HTMLLabelElement> | null | undefined",
         "required": false,
@@ -2242,6 +2224,24 @@
     },
     {
         "name": "onoutroendcapture",
+        "type": "EventHandler<CustomEvent<null>, HTMLLabelElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "on:introstart",
+        "type": "EventHandler<CustomEvent<null>, HTMLLabelElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onintrostart",
         "type": "EventHandler<CustomEvent<null>, HTMLLabelElement> | null | undefined",
         "required": false,
         "bindable": false,

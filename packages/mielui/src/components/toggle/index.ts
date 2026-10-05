@@ -7,7 +7,7 @@ export type ToggleProps = {
     pressed?: boolean;
     disabled?: boolean;
     size?: 'sm' | 'md' | 'lg';
-    variant?: 'default' | 'outlined' | 'outline';
+    variant?: 'default' | 'outline';
     children?: Snippet;
     onPressedChange?: (pressed: boolean) => void;
 } & DefaultProps &

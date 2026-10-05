@@ -32,8 +32,8 @@
                     </Drawer.Description>
                 </Drawer.Header>
                 <Drawer.Body class="mx-auto flex w-full max-w-xl flex-col gap-4 py-6">
-                    <Switch bind:switched={allowComments} label="Allow comments" />
-                    <Switch bind:switched={notifyFollowers} label="Notify followers" />
+                    <Switch bind:checked={allowComments} label="Allow comments" />
+                    <Switch bind:checked={notifyFollowers} label="Notify followers" />
                 </Drawer.Body>
                 <Drawer.Footer class="mx-auto max-w-xl">
                     <Drawer.Close>Cancel</Drawer.Close>

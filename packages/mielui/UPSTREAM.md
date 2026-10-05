@@ -8,7 +8,7 @@ Use Mielui's source and documentation as the reference for this package. Sivir U
 
 - Imported commit: `1b71c2a5d00c46a9b74508d08f836fc0e913858c`.
 - Imported package version: `0.3.3`.
-- Mielui's release sequence began at `0.1.0`; this release is `0.1.1`.
+- Mielui's release sequence began at `0.1.0`; this release is `0.2.0`.
 - License: MIT. Aidan Neel's copyright and permission notice remain in `LICENSE`, alongside the notice for Mielui modifications.
 
 The original import renamed the project, package, CLI, configuration, and documentation links. Subsequent Mielui work includes component composition changes, form and upload behavior, chart components, shared interaction and motion rules, Theme Studio, and documentation. These changes do not remove the attribution or license requirements for inherited code.

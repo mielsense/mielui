@@ -8,7 +8,9 @@
             <Popover.Trigger size="md" variant="outline">{placement}</Popover.Trigger>
             <Popover.Content class="w-48" aria-label={`${placement} placement`}>
                 <div>
-                    <p class="m-0 text-sm text-foreground-muted">Anchored to{placement}</p>
+                    <p class="m-0 text-sm text-foreground-muted">
+                        {`Anchored to the ${placement}`}
+                    </p>
                 </div>
             </Popover.Content>
         </Popover.Root>

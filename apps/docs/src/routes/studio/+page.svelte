@@ -22,6 +22,7 @@
 </svelte:head>
 
 <div data-docs-page class="flex min-h-0 min-w-0 flex-1 flex-col text-foreground">
+    <h1 class="sr-only">Theme Studio</h1>
     <section aria-label="Theme workspace" class="flex min-h-0 flex-1 gap-3">
         <ThemeEditor />
 

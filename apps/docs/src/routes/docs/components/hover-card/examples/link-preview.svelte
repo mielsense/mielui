@@ -3,11 +3,11 @@
 </script>
 
 <HoverCard.Root>
-    <HoverCard.Trigger href="https://ui.miel.my">mielui</HoverCard.Trigger>
+    <HoverCard.Trigger href="https://ui.miel.my">Mielui</HoverCard.Trigger>
     <HoverCard.Content>
-        <HoverCard.Title>mielui</HoverCard.Title>
+        <HoverCard.Title>Mielui</HoverCard.Title>
         <HoverCard.Description>
-            An unstyled, accessible Svelte component library.
+            Accessible Svelte 5 components styled with Tailwind CSS.
         </HoverCard.Description>
     </HoverCard.Content>
 </HoverCard.Root>

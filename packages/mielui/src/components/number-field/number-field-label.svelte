@@ -10,7 +10,7 @@
     {...rest}
     for={htmlFor ?? context.id}
     data-ui="number-field-label"
-    class={cn(className, 'text-foreground [font-size:var(--font-size-body)] [font-weight:var(--font-weight-medium)]')}
+    class={cn(className, 'text-foreground [font-size:var(--font-size-body)] [font-weight:var(--font-weight-label)]')}
 >
     {@render children?.()}
 </label>

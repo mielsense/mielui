@@ -158,7 +158,7 @@
     {/if}
     <span
         aria-hidden="true"
-        class="relative grid max-w-[72%] place-items-center leading-none tracking-tight text-foreground tabular-nums [font-weight:var(--font-weight-heading)]"
+        class="relative grid max-w-[72%] place-items-center leading-none tracking-tight text-foreground tabular-nums [font-weight:var(--font-weight-header)]"
         style:font-size={`${fontSize}px`}
     >
         {#if loading}

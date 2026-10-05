@@ -15,7 +15,15 @@ export type TagInputRejection = {
 
 export type TagInputVariant = 'outline' | 'secondary';
 
+export type TagInputLabels = {
+    remove?: (tag: string) => string;
+    duplicate?: (tag: string) => string;
+    maxReached?: (max: number) => string;
+    invalid?: (tag: string) => string;
+};
+
 export type TagInputProps = {
+    labels?: TagInputLabels;
     tags?: string[];
     query?: string;
     max?: number;

@@ -9,7 +9,11 @@
     let { children, disabled, onclick, ...rest }: FileUploadButtonProps = $props();
     const item = getItem();
     const root = getRoot();
-    const label = $derived(item().status === 'uploading' ? 'Cancel upload' : 'Remove file');
+    const label = $derived(
+        item().status === 'uploading'
+            ? (root.labels?.cancel ?? 'Cancel upload')
+            : (root.labels?.remove ?? 'Remove file')
+    );
 </script>
 
 <Tooltip.Root>

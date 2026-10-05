@@ -139,7 +139,7 @@
 {#if isPrimary && variant === 'notch'}
     <NotchHost toasts={toastState.data.toasts} {side} />
 {:else if isPrimary && toastState.data}
-    <div bind:this={portalEl} use:visualViewportBounds class={viewportClass}>
+    <div bind:this={portalEl} use:visualViewportBounds data-overlay-root class={viewportClass}>
         <div
             role="region"
             aria-label="Notifications"

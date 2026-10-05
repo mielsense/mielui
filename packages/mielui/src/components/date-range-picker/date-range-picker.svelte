@@ -15,11 +15,19 @@
         required = false,
         fixedWeeks = true,
         weekdayFormat = 'short',
+        labels,
         children,
         ...rest
     }: DateRangePickerProps = $props();
     const initialValue = untrack(() => ({ start: value?.start, end: value?.end }));
     setDatePickerContext({
+        get labels() {
+            return {
+                trigger: labels?.trigger ?? 'Choose dates',
+                content: labels?.content ?? 'Choose dates',
+                invalid: labels?.invalid ?? 'Enter a valid date.'
+            };
+        },
         get readonly() {
             return readonly;
         },

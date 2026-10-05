@@ -52,23 +52,25 @@
             shared hover duration and reduced-motion preference. The class prop styles the shell;
             native attributes and element target the scroll viewport.
         </Typography.Text>
+        <Typography.Text>
+            The viewport is not a tab stop by itself. When its content has no focusable controls,
+            add tabindex, role="region", and aria-label so keyboard users can scroll it.
+        </Typography.Text>
         <Typography.Text variant="supporting">
             Import the Scroll Area and use it to wrap content:
         </Typography.Text>
         <CodeBlock
-            code={`import { ScrollArea } from '$lib/mielui/components/scroll-area';\n\n<ScrollArea class="h-48 w-64 rounded-lg border">\n  <div>Your content here</div>\n</ScrollArea>`}
+            code={`import { ScrollArea } from '@mielui/svelte/components/scroll-area';\n\n<ScrollArea class="h-48 w-64 rounded-lg border">\n  <div>Your content here</div>\n</ScrollArea>`}
             lang="svelte"
             copy="overlay"
         />
 
         <Typography.Text variant="supporting">
-            A vertical Scroll Area fades its overflowing edges with a blurred cue. Pass
+            A vertical Scroll Area fades its overflowing edges with a blurred cue. Pass{' '}
             <Typography.InlineCode>{'showCues={false}'}</Typography.InlineCode>
-            to drop the cues entirely, or
+            to drop the cues entirely, or{' '}
             <Typography.InlineCode>{'blur={false}'}</Typography.InlineCode>
-            to keep the fade and chevrons without the
-            <Typography.InlineCode>backdrop-filter</Typography.InlineCode>
-            .
+            to keep the fade and chevrons without a backdrop filter.
         </Typography.Text>
     </section>
 
@@ -90,11 +92,10 @@
         <div id="edge-cue-blur" class="scroll-mt-20 flex flex-col gap-3">
             <Typography.H3 class="docs-subsection-heading">Edge cue blur</Typography.H3>
             <Typography.Text variant="supporting">
-                The cue blurs the content passing under it. Pass
+                The cue blurs the content passing under it. Pass{' '}
                 <Typography.InlineCode>{'blur={false}'}</Typography.InlineCode>
-                to keep the fade and chevrons without the
-                <Typography.InlineCode>backdrop-filter</Typography.InlineCode>
-                , which is worth doing over long or animated content.
+                to keep the fade and chevrons without a backdrop filter, which is worth doing over
+                long or animated content.
             </Typography.Text>
             <ComponentPreview code={BlurSrc}>
                 <Blur />

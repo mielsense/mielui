@@ -62,7 +62,7 @@ function clearOverlayRootLayer(panel: HTMLElement) {
 
 function overlayKind(panel: HTMLElement): OverlayKind {
     const ui = panel.dataset.ui;
-    if (ui === 'dialog-panel') {
+    if (panel.hasAttribute('data-dialog-panel')) {
         return 'dialog';
     }
     if (ui === 'sheet-content') {

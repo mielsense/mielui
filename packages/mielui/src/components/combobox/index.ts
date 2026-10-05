@@ -27,8 +27,17 @@ export type ComboboxState = {
     selected?: ComboboxItem;
 };
 
-export type ComboboxRootProps = PopoverProps &
-    (
+export type ComboboxLabels = {
+    searchPlaceholder?: string;
+    search?: string;
+    clear?: string;
+    options?: string;
+    empty?: string;
+};
+
+export type ComboboxRootProps = PopoverProps & {
+    labels?: ComboboxLabels;
+} & (
         | {
               type?: 'single';
               value?: string;

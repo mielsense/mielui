@@ -24,7 +24,13 @@
             </Field.Control>
         </Field.Root>
     </Fieldset.Root>
-    <Button class="w-fit" variant="outline" onclick={() => { locked = !locked; }}>
+    <Button
+        class="w-fit"
+        variant="outline"
+        onclick={() => {
+            locked = !locked;
+        }}
+    >
         {locked ? 'Edit billing contact' : 'Lock billing contact'}
     </Button>
 </div>

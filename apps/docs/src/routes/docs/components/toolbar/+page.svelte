@@ -1,4 +1,5 @@
 <script lang="ts">
+    import { CodeBlock } from '@mielui/svelte/components/code-block';
     import * as Typography from '@mielui/svelte/components/typography';
     import { ComponentPreview, InstallCommand } from '$lib/components/docs';
     import PageIntro from '$lib/components/docs/page-intro.svelte';
@@ -43,6 +44,11 @@
             false to stop at the ends. Disabled items are skipped. Each interactive part forwards
             native attributes and bind:element.
         </Typography.Text>
+        <CodeBlock
+            code={`import * as Toolbar from '@mielui/svelte/components/toolbar';\n\nlet formats = $state<string[]>([]);\n\n<Toolbar.Root aria-label="Text formatting">\n  <Toolbar.Group type="multiple" bind:value={formats} aria-label="Text styles">\n    <Toolbar.Item value="bold">Bold</Toolbar.Item>\n    <Toolbar.Item value="italic">Italic</Toolbar.Item>\n  </Toolbar.Group>\n  <Toolbar.Separator />\n  <Toolbar.Button onclick={() => (formats = [])}>Clear</Toolbar.Button>\n  <Toolbar.Link href="/docs">Help</Toolbar.Link>\n</Toolbar.Root>`}
+            lang="svelte"
+            copy="overlay"
+        />
         <Typography.Text>
             Group is a selectable group: use type="single" with a string value, or type="multiple"
             with a string array. Both support bind:value, onValueChange, and disabled. Item requires

@@ -187,9 +187,8 @@
             onfocusin={focusIn}
             onfocusout={focusOut}
         >
-            <span use:numberShuffle={{ value: index + 1 }}>{index + 1}</span> of<span
-                use:numberShuffle={{ value: toasts.length }}
-            >
+            <span use:numberShuffle={{ value: index + 1 }}>{index + 1}</span>
+            of<span use:numberShuffle={{ value: toasts.length }}>
                 {toasts.length}
             </span>
         </Notch.Accessory>

@@ -18,14 +18,16 @@
         ctx.options.find((o) => o.value.toLowerCase() === (ctx.value ?? '').toLowerCase())?.label ??
             null
     );
+    const valueLabel = $derived(selectedLabel ?? (ctx.value || 'Choose color'));
+    const triggerLabel = $derived(ctx.label ? `${ctx.label}: ${valueLabel}` : valueLabel);
 </script>
 
 <Popover.Trigger
-    aria-label={ctx.label ?? selectedLabel ?? (ctx.value || 'Choose color')}
+    aria-label={triggerLabel}
     {variant}
     class={cn(
         className,
-        'group w-full justify-start gap-2 pl-2.5 pr-2.5 shadow-none focus-visible:shadow-[var(--focus-ring)]'
+        'group w-full justify-start gap-2 px-2.5 shadow-none focus-visible:shadow-[var(--focus-ring)]'
     )}
 >
     <span
@@ -34,10 +36,10 @@
     ></span>
     <span
         class={cn(
-            'min-w-0 flex-1 truncate text-left text-foreground',
+            'min-w-0 flex-1 truncate text-start text-foreground',
             selectedLabel ? '[font-size:var(--font-size-button)]' : 'font-mono text-xs'
         )}
     >
-        {selectedLabel ?? (ctx.value || 'Choose color')}
+        {valueLabel}
     </span>
 </Popover.Trigger>

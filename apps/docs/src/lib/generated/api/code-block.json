@@ -3,6 +3,15 @@
         "name": "CodeBlock",
         "properties": [
             {
+                "name": "labels",
+                "type": "CodeBlockLabels | undefined",
+                "required": false,
+                "bindable": false,
+                "default": null,
+                "description": "",
+                "inherited": false
+            },
+            {
                 "name": "value",
                 "type": "string | undefined",
                 "required": false,
@@ -202,7 +211,7 @@
                 "type": "string | undefined",
                 "required": false,
                 "bindable": false,
-                "default": "'Copy code'",
+                "default": null,
                 "description": "",
                 "inherited": false
             },
@@ -211,7 +220,7 @@
                 "type": "string | undefined",
                 "required": false,
                 "bindable": false,
-                "default": "'Copied'",
+                "default": null,
                 "description": "",
                 "inherited": false
             },

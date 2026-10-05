@@ -28,7 +28,8 @@
 <div data-docs-page class="flex flex-col gap-10">
     <!-- ─── Header ────────────────────────────────────────────────── -->
     <PageIntro title="Popover">
-        A floating surface anchored to a trigger. Supports four placements.
+        A floating surface anchored to a trigger. Place it on any side, optionally aligned to the
+        start or end of the trigger.
     </PageIntro>
 
     <!-- ─── Hero Example ──────────────────────────────────────────── -->
@@ -73,11 +74,11 @@
             Open non-hover popovers make outside document content inert by default. Set
             <Typography.InlineCode>{'inert={false}'}</Typography.InlineCode>
             on{' '}
-            <Typography.InlineCode>Popover.Root</Typography.InlineCode> only when the surrounding
-            page must remain interactive.
+            <Typography.InlineCode>Popover.Root</Typography.InlineCode>
+            only when the surrounding page must remain interactive.
         </Typography.Text>
         <CodeBlock
-            code={`import * as Popover from '$lib/mielui/components/popover';\n\n<Popover.Root>\n  <Popover.Trigger>Open</Popover.Trigger>\n  <Popover.Content class="w-64" aria-label="Details">\n    Content here\n  </Popover.Content>\n</Popover.Root>`}
+            code={`import * as Popover from '@mielui/svelte/components/popover';\n\n<Popover.Root>\n  <Popover.Trigger>Open</Popover.Trigger>\n  <Popover.Content class="w-64" aria-label="Details">\n    Content here\n  </Popover.Content>\n</Popover.Root>`}
             lang="svelte"
             copy="overlay"
         />

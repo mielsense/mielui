@@ -1,14 +1,5 @@
 [
     {
-        "name": "onbeforetoggle",
-        "type": "ToggleEventHandler<HTMLAnchorElement> | null | undefined | ToggleEventHandler<HTMLElement> | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
         "name": "onbeforetogglecapture",
         "type": "ToggleEventHandler<HTMLAnchorElement> | null | undefined | ToggleEventHandler<HTMLElement> | null | undefined",
         "required": false,
@@ -2242,6 +2233,15 @@
     },
     {
         "name": "onvisibilitychangecapture",
+        "type": "EventHandler<Event, HTMLAnchorElement> | null | undefined | EventHandler<Event, HTMLElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "on:beforematch",
         "type": "EventHandler<Event, HTMLAnchorElement> | null | undefined | EventHandler<Event, HTMLElement> | null | undefined",
         "required": false,
         "bindable": false,

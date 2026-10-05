@@ -22,8 +22,8 @@
     bind:ref
     disabled={disabled || context.disabled}
     data-ui="date-range-picker-trigger"
-    aria-label={ariaLabel ?? (children ? undefined : 'Choose dates')}
-    class={cn(className, 'shrink-0 hover:bg-[color-mix(in_srgb,var(--color-secondary)_88%,var(--color-foreground))] data-[state=open]:bg-[color-mix(in_srgb,var(--color-secondary)_88%,var(--color-foreground))]', !children && 'h-[var(--size-control-md)] w-[var(--size-control-md)]', button({ variant: 'outline', size: children ? 'md' : 'icon' }))}
+    aria-label={ariaLabel ?? (children ? undefined : context.labels.trigger)}
+    class={cn(className, 'shrink-0 hover:bg-[color-mix(in_srgb,var(--color-secondary)_88%,var(--color-foreground))] data-[state=open]:bg-[color-mix(in_srgb,var(--color-secondary)_88%,var(--color-foreground))]', button({ variant: 'outline', size: children ? 'md' : 'icon' }))}
 >
     {#if children}
         {@render children()}

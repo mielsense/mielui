@@ -46,7 +46,7 @@ npm publication happens only when the GitHub Release is published.
 4. Use `main` as the production branch.
 5. Add `ui.miel.my` in the project's domain settings and create the DNS record Vercel shows.
 
-No database or secret is required for the docs. Leave `DOCS_ADAPTER` unset so the Vercel adapter is used. GitHub star counts fall back to a link while this repository is private.
+No database or secret is required for the docs. Leave `DOCS_ADAPTER` unset so the Vercel adapter is used. GitHub star counts fall back to a plain Star label when the GitHub API is unavailable.
 
 ## npm publishing
 
@@ -73,7 +73,7 @@ An unpublished package has no trusted-publisher configuration. A `404 Not Found`
 
 To make the first publication through GitHub Actions:
 
-1. In [npm access-token settings](https://www.npmjs.com/settings/honeycallme/tokens), create a short-lived granular token. Under **Packages and scopes**, grant **Read and write** to the `@mielui` scope, including creation of new packages. Enable **Bypass two-factor authentication** for CI publishing. Organization-management permissions alone do not grant package publishing access. See [npm's token instructions](https://docs.npmjs.com/creating-and-viewing-access-tokens).
+1. In [npm access-token settings](https://docs.npmjs.com/creating-and-viewing-access-tokens#creating-granular-access-tokens-on-the-website), create a short-lived granular token. Under **Packages and scopes**, grant **Read and write** to the `@mielui` scope, including creation of new packages. Enable **Bypass two-factor authentication** for CI publishing. Organization-management permissions alone do not grant package publishing access. See [npm's token instructions](https://docs.npmjs.com/creating-and-viewing-access-tokens).
 2. Store it as `NPM_TOKEN` in the GitHub `npm` environment. This command prompts for the value without placing it in shell history:
 
    ```sh

@@ -62,7 +62,12 @@
             changing Toaster hosts does not replay exiting notifications.
         </Typography.Text>
         <CodeBlock
-            code={`import { toast } from '$lib/mielui/components/toast';\n\ntoast.success('Profile updated', {\n  description: 'Your changes have been saved.'\n});\ntoast.error('Request failed', {\n  description: 'Could not connect.'\n});`}
+            code={`import { Toaster } from '@mielui/svelte/components/toast';\n\nlet { children } = $props();\n\n<!-- Root layout: mount one Toaster for the whole app -->\n{@render children()}\n<Toaster />`}
+            lang="svelte"
+            copy="overlay"
+        />
+        <CodeBlock
+            code={`import { toast } from '@mielui/svelte/components/toast';\n\ntoast.success('Profile updated', {\n  description: 'Your changes have been saved.'\n});\ntoast.error('Request failed', {\n  description: 'Could not connect.'\n});`}
             lang="svelte"
             copy="overlay"
         />
@@ -163,12 +168,12 @@
         </ComponentPreview>
         <Typography.Text variant="supporting">
             Replace your existing Toaster rather than adding a second host. The first mounted host
-            owns notifications. For custom live activity content, compose the<a
-                class="underline underline-offset-4"
-                href="/docs/components/notch"
-            >
+            owns notifications. For custom live activity content, compose the{' '}
+            <a class="underline underline-offset-4" href="/docs/components/notch">
                 Notch component
-            </a> directly.
+            </a>
+            {' '}
+            directly.
         </Typography.Text>
     </section>
     <section id="preview-behavior" class="flex scroll-mt-20 flex-col gap-4">

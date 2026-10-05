@@ -36,7 +36,7 @@
         {:else if messages.length === 1}
             {messages[0]}
         {:else}
-            <ul class="list-disc space-y-1 pl-4">
+            <ul class="list-disc space-y-1 ps-4">
                 {#each messages as message (message)}
                     <li>{message}</li>
                 {/each}

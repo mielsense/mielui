@@ -1,38 +1,59 @@
-- Keep theme choice controls accessibly labelled without unsupported component props.
-- Extend menu separators across the full inner panel width, including submenus.
-- Keep tooltip text readable when glass surfaces are enabled.
-
-- Refine the optional toolbar depth with shallow key faces and show zoom controls in both toolbar demos, with tooltips matching the input surface.
-
-- Make Cartesian, pie, and heatmap tooltips follow single borders and glass surfaces.
-- Keep donut tooltips aligned with the pointer without a trailing position animation.
+- Keep toasts clickable and announced while a Dialog, Sheet, or Popover is open.
+- Stop `Kbd shortcut="enter"` and `shortcut="space"` from taking the key away from a focused button, link, or menu item, so Enter on a focused Cancel no longer confirms.
+- Fire Alt shortcuts in Kbd on macOS.
+- Restore Checkbox and RadioGroup to their initial value when their form is reset.
+- Show Button success and error status colors on every variant.
+- Limit tall popovers to the viewport.
+- Keep line breaks while ResponseStream is streaming, and expose its text to screen readers as text instead of an image.
+- Wrap completed ResponseStream text on whole words.
+- Let a deliberate upward scroll pause Conversation auto-follow, even close to the bottom.
+- Stop Composer from submitting again on Enter while `status="submitting"`.
+- Let text be dragged into fields inside Attachment.Root; only file drops are intercepted.
+- Move Command arrow keys through filtered results in the order they are shown.
+- Stack AlertDialog and Command correctly above a Dialog, with one scrim and the parent hidden from assistive technology.
+- Apply the trigger-width minimum to DropdownMenu panels.
+- Keep the Toast close button clear of its actions when the inset strip is on top.
+- Give Tabs unique trigger and panel IDs for values that differ only by case, punctuation, or non-Latin characters.
+- Wrap Pagination instead of overflowing narrow containers.
+- Keep code clear of the CodeBlock overlay copy button.
+- Show one focus ring in TagInput and NumberField: on the field while typing, on the tag or stepper otherwise.
+- Align NumberField, TagInput, NativeSelect, and date picker triggers to the same height as Input.
+- Mark invalid Checkbox and RadioGroup controls with an error border.
+- Use one disabled opacity across Checkbox, RadioGroup, Switch, Slider, and Combobox, and stop a disabled Field from dimming its control twice.
+- Respect a custom `aria-labelledby` on Select.Trigger.
+- Give the primary Checkbox card a visible border when unchecked.
+- Announce FileUpload status changes without reading every progress percentage.
+- Keep a DataTable facet's operator when its value is cleared.
+- Reject invalid characters visibly in the ColorPicker hex field, and include the current color in the trigger's accessible name.
+- Show initially expanded ShowMore content in full before its first measurement.
+- Name both line numbers correctly for screen readers in FileDiff rows.
+- Expose the Spinner label to assistive technology.
+- Keep the Table caption clear of the scroll area's rounded corner.
+- Render Gauge when `strokeWidth` is at least half its size, and use the header weight for its value.
+- Keep the Heatmap entrance from replaying when data changes, keep arrow keys in place at grid edges, and say "1 contribution".
+- Animate PieChart slice dimming and use the shared focus ring on its legend.
+- Mirror chevrons and use logical alignment in right-to-left layouts for menus, Tabs, Command, Breadcrumb, Pagination, Select, CodeBlock, Markdown tables, and ReorderList.
+- Raise the Drawer handle contrast.
+- Extend menu and Command separators across the full inner panel width, including submenus.
+- Keep glass tooltips high contrast by retaining the solid tooltip colors with a hairline edge.
+- Share one single-border tooltip surface across chart, pie, and heatmap tooltips, keep pie tooltips off the inspected slice, and follow the pointer without a trailing animation.
 - Soften live chart highlights, add quiet intervals, and suppress them while inspecting values.
-
 - Preserve continuous single-border outlines on tables and preview/code cards.
-- Keep glass inset panels visually distinct while allowing backdrop colors through.
+- Keep glass inset panels visually distinct while allowing backdrop colors through, and keep inset panels white in light glass mode.
 - Align the Native Select chevron with other selection controls without a duplicate native arrow.
-- Keep installation command tabs above the command regardless of inset-strip preference.
-- Retain structural inset gutters on data tables, composers, and code/preview panels in single-border mode.
+- Retain structural inset gutters on data tables, composers, toasts, and code/preview panels in single-border mode.
 - Soften the dark glass composer input tint so backdrop color stays visible without a heavy grey fill.
 - Preserve custom accessible labels on numbered data-table pagination.
 - Avoid duration-formatting errors for tool status values with excessive decimal precision.
-
-- Keep file diff signs attached to their animated counts and remove redundant inset surface styles.
-
-- Preserve preset colors, typography, and token overrides when selecting or exporting a theme in Studio.
-
-- Keep the Studio preset picker and reset button aligned across theme densities.
-- Keep glass tooltips high contrast by retaining the solid tooltip colors with a hairline edge, so they stand out from dark pages.
-- Show a checkmark in checked checkboxes, with visible square boxes for unchecked checkboxes and radios in both themes.
+- Keep file diff signs attached to their animated counts, and keep filenames and change counts above the patch when the theme uses bottom inset strips.
+- Show visible square boxes for unchecked checkboxes and radios in both themes.
 - Align menu item labels and icons to the start instead of spreading them across the row.
 - Highlight only one row at a time in Select.
 - Make status text in badges, alerts, toasts, and forms meet text contrast in light mode.
 - Make keyboard focus rings clearly visible in both themes.
 - Separate dark-mode frames from their inner surfaces and give dark floating panels visible shadows.
-- Keep inset panels white in light glass mode.
 - Keep Switch thumbs light in both themes so the off state is clear against the track.
 - Show CodeBlock code when it is composed without tab triggers.
-- Wrap completed ResponseStream text on whole words.
 - Place Toast titles above their descriptions in the content area, with only actions in the footer.
 - Render Fieldset legends and form section titles semibold, above field labels.
 - Show muted placeholder text in empty DatePicker and DateRangePicker segments.
@@ -40,13 +61,11 @@
 - Share one close button across Dialog, Sheet, and Notch, aligned with the title.
 - Use the 16px header size for AlertDialog, Sheet, Drawer, and Popover titles.
 - Use the shared frame inset in Sheet and Notch.
-- Extend Command separators across the full panel width.
 - Give Reasoning, Tool, Accordion, and Collapsible one row style with a hover fill, rounded focus ring, and trailing chevron.
 - Show failed tools with an alert icon and text, and keep tool names in the foreground color.
 - Use the shared square checkbox and round radio in Question, with one error message and edge.
 - Make the user message bubble visible in dark mode and use the body weight for message and streamed text.
 - Remove the Conversation empty-state icon tile and keep the scroll button visible in dark mode.
-- Share one single-border tooltip surface across chart, pie, and heatmap tooltips, and keep pie tooltips off the inspected slice.
 - Use the primary color for Gauge `tone="primary"`.
 - Remove heatmap cell outlines and raise chart axis and heatmap labels to 12px.
 - Give every Badge variant the same compact pill height with a hairline border.
@@ -62,32 +81,13 @@
 - Keep Combobox text clear of its chevron and match the chevron size to Select.
 - Flatten the ColorPicker trigger and show preset names in the interface font.
 - Give the Functional theme preset its own description.
-
-- Restore the documentation sidebar’s medium rows, spacious item gaps, and section spacing.
 - Keep generated dark-theme shadows consistent with the built-in stylesheet and respect reduced motion when heatmap tooltips move.
-- Correct interactive catalog examples and update vulnerable transitive dependencies.
-
-- Add a left-panel navigation icon and breadcrumb divider, and pin Docs and Studio sidebars by default while retaining saved preferences.
-
-- Remove doubled padding from popover examples, including Export settings.
-
-- Simplify documentation error pages and hide Copy page and page metadata when content cannot load.
-
-- Restore the homepage gradient and light showcase.
 - Tighten menu highlight corners to fit their panel.
-
-- Restore the Composer action strip below the input and shorten the initial input height while retaining automatic growth.
-- Add subtle raised edges and contact shadows to documentation section title badges.
-
-- Float Composer attachment chips above the frame and slim the bottom action strip.
-- Let the Studio AI conversation use the full preview width while keeping the composer centered.
-
-- Compact the Popover sharing example with inline invitation controls and clearer member access.
-
-- Restore the original dash indicator for checked checkboxes.
-- Keep toast content visibly inset in both border modes, including Studio notifications.
-- Remove gaps around edge-attached notch previews and the border along their attached edge.
-- Play page transitions only when moving between Home, Docs, and Studio.
-- Give Studio invoice notifications a separate action strip with a working View invoice action.
+- Float Composer attachment chips above the frame, slim the bottom action strip, and shorten the initial input height while retaining automatic growth.
 - Compact data-table filter popovers with denser option rows, smaller editor controls, and widths suited to each filter type.
-- Keep File Diff filenames and change counts above the patch when the theme uses bottom inset strips.
+- Remove gaps around edge-attached notch previews and the border along their attached edge.
+- Preserve preset colors, typography, and token overrides when selecting or exporting a theme in Studio.
+- Update vulnerable transitive dependencies.
+- Style the Calendar month and year selects like other selection controls instead of showing the browser's native select.
+- Name the single-date DatePicker panel "Choose date" instead of "Choose dates".
+- Accept `aria-label` and `aria-labelledby` in the RadioGroup.Root, ToggleGroup.Root, and Select.Trigger prop types.

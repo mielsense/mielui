@@ -1,14 +1,5 @@
 [
     {
-        "name": "on:scroll",
-        "type": "UIEventHandler<HTMLTableCellElement> | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
         "name": "onscroll",
         "type": "UIEventHandler<HTMLTableCellElement> | null | undefined",
         "required": false,
@@ -2243,6 +2234,15 @@
     {
         "name": "ondropcapture",
         "type": "DragEventHandler<HTMLTableRowElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "on:mousedown",
+        "type": "MouseEventHandler<HTMLTableRowElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,

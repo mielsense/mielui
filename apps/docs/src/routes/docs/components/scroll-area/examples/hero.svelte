@@ -52,7 +52,7 @@
                         type="button"
                         aria-pressed={activeChatId === chat.id}
                         onclick={() => (activeChatId = chat.id)}
-                        class="w-full truncate rounded-[var(--radius-md)] px-3 py-2 text-left text-[0.85rem] transition-colors {activeChatId ===
+                        class="w-full truncate rounded-[var(--radius-md)] px-3 py-2 text-start text-[0.85rem] transition-colors {activeChatId ===
                             chat.id
                             ? 'bg-secondary text-foreground'
                             : 'text-foreground-muted hover:bg-secondary/50 hover:text-foreground'}"

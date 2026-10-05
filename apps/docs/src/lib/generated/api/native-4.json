@@ -1,14 +1,5 @@
 [
     {
-        "name": "on:resize",
-        "type": "UIEventHandler<HTMLButtonElement> | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
         "name": "onresize",
         "type": "UIEventHandler<HTMLButtonElement> | null | undefined",
         "required": false,
@@ -2242,6 +2233,15 @@
     },
     {
         "name": "on:drop",
+        "type": "DragEventHandler<HTMLTextAreaElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "ondrop",
         "type": "DragEventHandler<HTMLTextAreaElement> | null | undefined",
         "required": false,
         "bindable": false,

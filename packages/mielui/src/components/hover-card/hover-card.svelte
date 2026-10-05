@@ -23,6 +23,4 @@
     });
 </script>
 
-<LinkPreview.Root bind:open {openDelay} {closeDelay}>
-    {@render children?.()}
-</LinkPreview.Root>
+<LinkPreview.Root bind:open {openDelay} {closeDelay}> {@render children?.()} </LinkPreview.Root>

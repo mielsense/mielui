@@ -1,14 +1,5 @@
 [
     {
-        "name": "onfullscreenerrorcapture",
-        "type": "EventHandler<Event, HTMLAnchorElement> | null | undefined | EventHandler<Event, HTMLDivElement> | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
         "name": "aria-label",
         "type": "string | null | undefined",
         "required": false,
@@ -2243,6 +2234,15 @@
     {
         "name": "ongamepaddisconnected",
         "type": "GamepadEventHandler<HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "on:scroll",
+        "type": "UIEventHandler<HTMLTableCellElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,

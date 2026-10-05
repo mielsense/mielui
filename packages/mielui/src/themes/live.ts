@@ -1,5 +1,6 @@
-import { browser } from '$app/environment';
 import { parseTheme, THEME_VERSION, type Theme } from './theme';
+
+const browser = typeof window !== 'undefined' && typeof document !== 'undefined';
 
 const STORAGE_KEY = 'mielui-live-theme-css';
 const STYLE_ID = 'mielui-live-theme-style';

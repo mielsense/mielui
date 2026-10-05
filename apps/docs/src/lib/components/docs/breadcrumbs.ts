@@ -56,7 +56,10 @@ function formatSegment(segment: string): string {
     const labels: Record<string, string> = {
         docs: 'Docs',
         components: 'Components',
-        composer: 'Composer'
+        composer: 'Composer',
+        'agent-skill': 'Agent skill',
+        'number-shuffle': 'Number shuffle',
+        'otp-field': 'OTP Field'
     };
 
     if (labels[segment]) {

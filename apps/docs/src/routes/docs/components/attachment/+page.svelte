@@ -39,9 +39,9 @@
     <section id="usage" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Usage</Typography.H2>
         <Typography.Text variant="supporting">
-            Bind selected files on the root and report rejected files from
+            Bind selected files on the root and report rejected files from the
             <Typography.InlineCode>onReject</Typography.InlineCode>
-            . Selection is local only; your application owns uploading and upload state.
+            callback. Selection is local only; your application owns uploading and upload state.
         </Typography.Text>
         <Typography.Text variant="supporting">
             Set accept, maxFiles, and maxSize to limit selection. Set disabled to prevent adding or
@@ -106,5 +106,19 @@ function handleReject(rejections: AttachmentRejection[]) {
             </Typography.Text>
             <ComponentPreview code={ChipStatusSrc}><ChipStatus /></ComponentPreview>
         </div>
+    </section>
+
+    <section id="labels" class="flex scroll-mt-20 flex-col gap-4">
+        <Typography.H2 class="docs-section-heading">Labels</Typography.H2>
+        <Typography.Text>
+            Built-in text is English by default. Pass labels to Attachment.Root to translate or
+            reword the drop overlay, the trigger, the list, file status, and the remove button.
+            Every key is optional; omitted keys keep their default.
+        </Typography.Text>
+        <CodeBlock
+            code={`<Attachment.Root bind:files labels={{ dropzone: 'Déposez des fichiers', add: 'Joindre des fichiers', remove: (name) => \`Retirer \${name}\` }} />`}
+            lang="svelte"
+            copy="overlay"
+        />
     </section>
 </div>

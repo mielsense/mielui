@@ -1,14 +1,5 @@
 [
     {
-        "name": "onkeyup",
-        "type": "KeyboardEventHandler<HTMLFieldSetElement> | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
         "name": "onkeyupcapture",
         "type": "KeyboardEventHandler<HTMLFieldSetElement> | null | undefined",
         "required": false,
@@ -2243,6 +2234,15 @@
     {
         "name": "onfullscreenerrorcapture",
         "type": "EventHandler<Event, HTMLFieldSetElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "disabled",
+        "type": "boolean | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,

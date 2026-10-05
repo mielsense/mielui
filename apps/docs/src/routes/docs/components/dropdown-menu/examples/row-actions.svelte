@@ -54,7 +54,7 @@
             </DropdownMenu.Item>
             <DropdownMenu.Separator />
             <DropdownMenu.Item callback={remove}>
-                <span class="flex items-center gap-2 text-[var(--color-error)]">
+                <span class="flex items-center gap-2 text-[var(--mielui-error-text)]">
                     <HugeiconsIcon icon={Trash} size={13} />
                     Delete
                 </span>

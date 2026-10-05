@@ -6,7 +6,7 @@ Current Mielui documentation lives with the code it describes:
 - [Agent skill](../skills/mielui/SKILL.md): guidance for composing and customizing Mielui.
 - [Design contracts](../DESIGN.md): shared appearance and interaction requirements.
 - [Contributing](../CONTRIBUTING.md) and [setup and publishing](../SETUP.md): repository workflow and release instructions.
-- [Mielui changelog](../changelog/): Mielui releases, including v0.1.1.
+- [Mielui changelog](../changelog/): Mielui releases, including v0.2.0.
 - [Upstream attribution](../UPSTREAM.md): the Sivir UI foundation and retained notices.
 
 The [upstream changelog](./upstream-changelog/) is a historical archive of Sivir UI releases. Its version numbers and API guidance do not describe current Mielui releases.

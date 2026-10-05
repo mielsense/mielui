@@ -1,23 +1,5 @@
 [
     {
-        "name": "ondblclick",
-        "type": "MouseEventHandler<HTMLOptionElement> | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
-        "name": "ondblclickcapture",
-        "type": "MouseEventHandler<HTMLOptionElement> | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
         "name": "on:drag",
         "type": "DragEventHandler<HTMLOptionElement> | null | undefined",
         "required": false,

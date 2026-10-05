@@ -69,12 +69,12 @@ pnpm dlx @mielui/svelte add button`;
 
 <svelte:head>
     <title>Mielui · Introduction</title>
-    <meta name="description" content="mielui is a Svelte 5 and Tailwind v4 component library." />
+    <meta name="description" content="Mielui is a Svelte 5 and Tailwind v4 component library." />
 </svelte:head>
 
 <div data-docs-page class="flex flex-col gap-16">
     <PageIntro title="Introduction">
-        mielui is a component library for Svelte 5 and Tailwind v4. It includes components, theme
+        Mielui is a component library for Svelte 5 and Tailwind v4. It includes components, theme
         tokens, and a CLI for copying source into your project.
     </PageIntro>
 

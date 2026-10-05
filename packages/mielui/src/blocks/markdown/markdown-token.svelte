@@ -1,14 +1,17 @@
 <script lang="ts">
     import { CodeBlock } from '@mielui/svelte/components/code-block';
     import * as Typography from '@mielui/svelte/components/typography';
+    import { getContext } from 'svelte';
+    import type { MarkdownLabels } from '.';
     import type { MarkdownTableCell, MarkdownToken } from './_types';
     import Self from './markdown-token.svelte';
 
     let { tokens }: { tokens: MarkdownToken[] } = $props();
+    const labels = getContext<(() => MarkdownLabels | undefined) | undefined>('markdown-labels');
 
     const taskCheckboxClass =
         // token-lint-disable-next-line no-literal-length: checkbox aligns to surrounding text
-        'absolute top-[0.32em] -start-5 size-3.5 accent-primary';
+        'absolute top-[0.32em] -start-5 size-3.5 appearance-none rounded-[calc(var(--radius-sm)*0.5)] border-[length:var(--border-size)] border-[var(--mielui-control-border)] bg-card bg-[length:8px_1.5px] bg-center bg-no-repeat checked:border-primary checked:bg-primary checked:bg-[image:linear-gradient(var(--color-on-primary),var(--color-on-primary))]';
     const tableClass =
         // token-lint-disable-next-line no-literal-length: table type scales with surrounding text
         'w-full min-w-max border-collapse text-[0.925em]';
@@ -65,11 +68,16 @@
     }
 
     function alignmentClass(alignment?: 'center' | 'left' | 'right' | null) {
-        return alignment === 'center'
-            ? 'text-center'
-            : alignment === 'right'
-              ? 'text-right'
-              : 'text-left';
+        if (alignment === 'center') {
+            return 'text-center';
+        }
+        if (alignment === 'right') {
+            return 'text-right';
+        }
+        if (alignment === 'left') {
+            return 'text-left';
+        }
+        return 'text-start';
     }
 
     function tokenKey(token: MarkdownToken, index: number) {
@@ -188,7 +196,9 @@
                                 type="checkbox"
                                 checked={item.checked}
                                 disabled
-                                aria-label={item.checked ? 'Completed task' : 'Incomplete task'}
+                                aria-label={item.checked
+                                    ? (labels?.()?.completedTask ?? 'Completed task')
+                                    : (labels?.()?.incompleteTask ?? 'Incomplete task')}
                                 class={taskCheckboxClass}
                             />
                         {/if}
@@ -205,7 +215,9 @@
                                 type="checkbox"
                                 checked={item.checked}
                                 disabled
-                                aria-label={item.checked ? 'Completed task' : 'Incomplete task'}
+                                aria-label={item.checked
+                                    ? (labels?.()?.completedTask ?? 'Completed task')
+                                    : (labels?.()?.incompleteTask ?? 'Incomplete task')}
                                 class={taskCheckboxClass}
                             />
                         {/if}
@@ -227,7 +239,7 @@
         <!-- svelte-ignore a11y_no_noninteractive_tabindex -->
         <div
             role="region"
-            aria-label="Markdown table"
+            aria-label={labels?.()?.table ?? 'Markdown table'}
             tabindex="0"
             class="my-4 max-w-full overflow-x-auto rounded-[var(--radius-md)] border-[length:var(--border-size)] border-border focus-visible:outline-none focus-visible:shadow-[var(--focus-ring)]"
         >

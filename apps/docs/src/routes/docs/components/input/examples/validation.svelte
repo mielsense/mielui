@@ -89,7 +89,7 @@
         >
             <p
                 id="email-error"
-                class="text-sm font-medium text-error"
+                class="text-sm font-medium text-[var(--mielui-error-text)]"
                 role={emailError ? 'alert' : undefined}
                 aria-hidden={emailError ? undefined : 'true'}
             >
@@ -128,7 +128,7 @@
         >
             <p
                 id="workspace-slug-error"
-                class="text-sm font-medium text-error"
+                class="text-sm font-medium text-[var(--mielui-error-text)]"
                 role={workspaceSlugError ? 'alert' : undefined}
                 aria-hidden={workspaceSlugError ? undefined : 'true'}
             >
@@ -146,7 +146,9 @@
     <div class="flex items-center gap-3">
         <Button type="submit" size="md">Validate fields</Button>
         {#if isValid}
-            <p class="text-sm text-success" role="status">Both fields are valid.</p>
+            <p class="text-sm text-[var(--mielui-success-text)]" role="status">
+                Both fields are valid.
+            </p>
         {/if}
     </div>
 </form>

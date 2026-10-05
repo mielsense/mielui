@@ -1,8 +1,8 @@
 <script lang="ts">
     import { cn } from '@mielui/svelte/utils';
-    import { onMount } from 'svelte';
+    import { onMount, setContext } from 'svelte';
     import { setPieContext } from './context';
-    import type { PieChartProps } from './index';
+    import type { PieChartLabels, PieChartProps } from './index';
 
     let {
         data,
@@ -12,8 +12,10 @@
         children,
         class: className,
         'aria-label': label,
+        labels,
         ...rest
     }: PieChartProps = $props();
+    setContext<() => PieChartLabels | undefined>('pie-chart-labels', () => labels);
     const numberFormatter = new Intl.NumberFormat();
     let element: HTMLDivElement;
     let active = $state<string>();
@@ -161,12 +163,12 @@
         <table>
             <caption>
                 {label}
-                {loading ? ' — loading' : ''}
+                {loading ? ` — ${labels?.loading ?? 'loading'}` : ''}
             </caption>
             <thead>
                 <tr>
-                    <th scope="col">Category</th>
-                    <th scope="col">Value</th>
+                    <th scope="col">{labels?.category ?? 'Category'}</th>
+                    <th scope="col">{labels?.value ?? 'Value'}</th>
                 </tr>
             </thead>
             <tbody>

@@ -19,6 +19,7 @@
         children?: Snippet;
         class?: string;
         variant?: ButtonVariant;
+        'aria-labelledby'?: string;
     } & Omit<Popover.PopoverTriggerProps, 'children' | 'class' | 'variant'>;
 
     let {
@@ -45,7 +46,7 @@
         <Button
             {...buttonAttributes(mergeProps(rest, { ...props as HTMLButtonAttributes }))}
             role="combobox"
-            aria-labelledby={rest['aria-label'] ? undefined : `${context.id}-value`}
+            aria-labelledby={rest['aria-labelledby'] ?? (rest['aria-label'] ? undefined : `${context.id}-value`)}
             aria-controls={`${context.id}-content`}
             onpointerdown={undefined}
             onpointerup={undefined}
@@ -65,9 +66,9 @@
             <div
                 id={`${context.id}-value`}
                 class={cn(
-            'flex min-w-0 flex-1 items-center gap-2 overflow-hidden pr-2 text-left [&_svg]:shrink-0',
-            state.value.length > 0 ? 'text-foreground' : 'text-foreground-muted'
-        )}
+                    'flex min-w-0 flex-1 items-center gap-2 overflow-hidden pe-2 text-start [&_svg]:shrink-0',
+                    state.value.length > 0 ? 'text-foreground' : 'text-foreground-muted'
+                )}
             >
                 {#if children}
                     {@render children()}

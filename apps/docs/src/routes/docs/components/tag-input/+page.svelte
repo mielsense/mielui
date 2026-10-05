@@ -15,7 +15,7 @@
 
     const installCommand = 'pnpm dlx @mielui/svelte add tag-input';
 
-    const usageSnippet = `import * as TagInput from '$lib/mielui/components/tag-input';
+    const usageSnippet = `import * as TagInput from '@mielui/svelte/components/tag-input';
 
 let tags = $state(['svelte']);
 
@@ -65,13 +65,13 @@ let tags = $state(['svelte']);
         </Typography.Text>
         <Typography.Text variant="supporting">
             Bind{' '}
-            <Typography.InlineCode>tags</Typography.InlineCode> for the tag list. Compose
+            <Typography.InlineCode>tags</Typography.InlineCode>
+            for the tag list. Compose
             <Typography.InlineCode>List</Typography.InlineCode>
             for the tokens and
             <Typography.InlineCode>Input</Typography.InlineCode>
             for entry inside
-            <Typography.InlineCode>Root</Typography.InlineCode>
-            .
+            <Typography.InlineCode>Root</Typography.InlineCode>.
         </Typography.Text>
         <CodeBlock code={usageSnippet} lang="svelte" copy="overlay" />
     </section>
@@ -104,7 +104,8 @@ let tags = $state(['svelte']);
             <Typography.H3 class="docs-subsection-heading">Validation</Typography.H3>
             <Typography.Text variant="supporting">
                 Return{' '}
-                <Typography.InlineCode>false</Typography.InlineCode> or an error message from
+                <Typography.InlineCode>false</Typography.InlineCode>
+                or an error message from
                 <Typography.InlineCode>validate</Typography.InlineCode>
                 to reject a tag. Rejections arrive through
                 <Typography.InlineCode>onReject</Typography.InlineCode>
@@ -127,5 +128,19 @@ let tags = $state(['svelte']);
                 <MaxTags />
             </ComponentPreview>
         </div>
+    </section>
+
+    <section id="labels" class="flex scroll-mt-20 flex-col gap-4">
+        <Typography.H2 class="docs-section-heading">Labels</Typography.H2>
+        <Typography.Text>
+            Built-in text is English by default. Pass labels to TagInput.Root to translate or reword
+            the remove button and the built-in rejection reasons. Every key is optional; omitted
+            keys keep their default.
+        </Typography.Text>
+        <CodeBlock
+            code={`<TagInput.Root labels={{ remove: (tag) => \`Supprimer \${tag}\`, maxReached: (max) => \`\${max} étiquettes au maximum.\` }} />`}
+            lang="svelte"
+            copy="overlay"
+        />
     </section>
 </div>

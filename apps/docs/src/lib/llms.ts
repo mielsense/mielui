@@ -249,11 +249,11 @@ export function brandMarkMarkdown(): string {
 const coreDocs = {
     introduction: `# Introduction
 
-mielui is a Svelte 5 and Tailwind CSS v4 component library. Install it as a package or use the CLI to copy component source into your project.
+Mielui is a Svelte 5 and Tailwind CSS v4 component library. Install it as a package or use the CLI to copy component source into your project.
 
 ## Requirements
 
-- Svelte 5
+- Svelte 5.56 or newer, with or without SvelteKit
 - Tailwind CSS v4
 
 ## Quick start
@@ -279,7 +279,7 @@ Install Mielui as a package when you want dependency-managed components, or init
 pnpm add @mielui/svelte
 ~~~~
 
-Add the token sheet to your CSS:
+Add the token sheet to your CSS. It already includes Tailwind, so do not add another \`@import 'tailwindcss'\` alongside it:
 
 ~~~~css
 @import '@mielui/svelte/ui.css';
@@ -310,6 +310,7 @@ export function llmsTxt(origin: string): string {
         ['Agent skill', '/docs/agent-skill.md'],
         ['Actions', '/docs/actions.md'],
         ['Morph', '/docs/actions/morph.md'],
+        ['Number shuffle', '/docs/actions/number-shuffle.md'],
         ['Shimmer', '/docs/actions/shimmer.md'],
         ['Introduction', '/docs/introduction.md'],
         ['Installation', '/docs/installation.md'],

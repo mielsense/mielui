@@ -8,9 +8,9 @@
 <form
     class="flex w-full max-w-64 flex-col gap-4"
     onsubmit={(event) => {
-    event.preventDefault();
-    submitted = String(new FormData(event.currentTarget).get('quantity'));
-}}
+        event.preventDefault();
+        submitted = String(new FormData(event.currentTarget).get('quantity'));
+    }}
 >
     <NumberField.Root name="quantity" bind:value min={1} max={20} required>
         <NumberField.Label>Quantity</NumberField.Label>
@@ -24,7 +24,9 @@
         <Button type="submit">Save quantity</Button>
         <Button type="reset" variant="outline">Reset</Button>
     </div>
-    <p role="status" class="text-foreground-muted [font-size:var(--font-size-caption)]">
-        {submitted ? `Saved quantity: ${submitted}` : 'Clear the input to see native required validation.'}
+    <p role="status" class="text-sm text-foreground-muted">
+        {submitted
+            ? `Saved quantity: ${submitted}`
+            : 'Clear the input to see native required validation.'}
     </p>
 </form>

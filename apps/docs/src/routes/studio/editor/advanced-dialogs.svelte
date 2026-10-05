@@ -26,7 +26,8 @@
         <div class="flex shrink-0 items-center justify-between gap-3">
             <p class="text-sm text-foreground-muted">
                 Editing{' '}
-                {formatChoice(editor.appMode)} mode
+                {formatChoice(editor.appMode)}
+                mode
             </p>
             <Tabs.Root bind:value={editor.appModeBinding.value} variant="ghost">
                 <Tabs.List>

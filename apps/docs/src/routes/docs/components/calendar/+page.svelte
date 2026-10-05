@@ -33,7 +33,7 @@
             continuous range.
         </Typography.Text>
         <CodeBlock
-            code={`import * as Calendar from '$lib/mielui/components/calendar';
+            code={`import * as Calendar from '@mielui/svelte/components/calendar';
 
 <Calendar.Root bind:value calendarLabel="Meeting date" />`}
             lang="svelte"

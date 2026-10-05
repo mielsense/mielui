@@ -6,8 +6,7 @@
     import type { SwitchProps } from '.';
 
     let {
-        switched = $bindable<boolean | undefined>(undefined),
-        checked = $bindable<boolean | undefined>(undefined),
+        checked = $bindable(false),
         label,
         description,
         disabled = false,
@@ -18,7 +17,7 @@
         ...rest
     }: SwitchProps & { onclick?: (e: MouseEvent) => void } = $props();
 
-    const isOn = $derived(checked ?? switched ?? false);
+    const isOn = $derived(checked ?? false);
 
     const id = $props.id();
     const metadata = $derived(
@@ -45,12 +44,7 @@
     }
 
     function updateChecked(next: boolean) {
-        if (checked !== undefined || switched === undefined) {
-            checked = next;
-        }
-        if (switched !== undefined) {
-            switched = next;
-        }
+        checked = next;
     }
 </script>
 
@@ -95,7 +89,7 @@
     {#if label || description}
         <label
             for={metadata.controlId}
-            class={`flex min-w-0 flex-col gap-0.5 select-none ${disabled ? 'cursor-not-allowed opacity-60' : 'cursor-[var(--ui-cursor-interactive)]'}`}
+            class={`flex min-w-0 flex-col gap-0.5 select-none ${disabled ? 'cursor-not-allowed opacity-[var(--opacity-disabled)]' : 'cursor-[var(--ui-cursor-interactive)]'}`}
         >
             {#if label}
                 <span

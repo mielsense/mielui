@@ -81,6 +81,7 @@
         if (
             context.disabled ||
             context.pending ||
+            effectiveStatus === 'submitting' ||
             (!context.allowEmpty && context.value.trim() === '')
         ) {
             return;

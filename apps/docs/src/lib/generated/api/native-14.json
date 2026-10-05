@@ -1,14 +1,5 @@
 [
     {
-        "name": "onmousemove",
-        "type": "MouseEventHandler<HTMLInputElement> | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
         "name": "onmousemovecapture",
         "type": "MouseEventHandler<HTMLInputElement> | null | undefined",
         "required": false,
@@ -2242,6 +2233,15 @@
     },
     {
         "name": "on:encrypted",
+        "type": "EventHandler<Event, HTMLLegendElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onencrypted",
         "type": "EventHandler<Event, HTMLLegendElement> | null | undefined",
         "required": false,
         "bindable": false,

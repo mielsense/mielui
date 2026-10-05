@@ -1,14 +1,5 @@
 [
     {
-        "name": "ondrop",
-        "type": "DragEventHandler<HTMLTextAreaElement> | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
         "name": "ondropcapture",
         "type": "DragEventHandler<HTMLTextAreaElement> | null | undefined",
         "required": false,
@@ -2242,6 +2233,15 @@
     },
     {
         "name": "on:loadeddata",
+        "type": "EventHandler<Event, HTMLFormElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onloadeddata",
         "type": "EventHandler<Event, HTMLFormElement> | null | undefined",
         "required": false,
         "bindable": false,

@@ -39,9 +39,7 @@
                         use:dynamicWidth={{ enabled: dynamic }}
                         class="mielui-inset-surface min-h-0 flex-1 overflow-auto overscroll-contain p-1"
                     >
-                        <BitsSelect.Viewport>
-                            {@render children?.()}
-                        </BitsSelect.Viewport>
+                        <BitsSelect.Viewport> {@render children?.()} </BitsSelect.Viewport>
                     </div>
                 </div>
             </div>

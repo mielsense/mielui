@@ -63,7 +63,7 @@
     <div
         {...rest}
         data-ui="card-footer"
-        class={cn(classProp, `w-full flex items-center flex-row mt-6 justify-end gap-2`)}
+        class={cn(classProp, `mt-6 flex w-full flex-row flex-wrap items-center justify-end gap-2`)}
     >
         {@render children?.()}
     </div>

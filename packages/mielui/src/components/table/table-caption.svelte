@@ -8,7 +8,7 @@
 <caption
     {...rest}
     data-ui="table-caption"
-    class={cn(className, 'caption-bottom pt-3 text-start text-sm leading-6 text-foreground-muted')}
+    class={cn(className, 'caption-bottom px-1 pt-3 text-start text-sm leading-6 text-foreground-muted')}
 >
     {@render children?.()}
 </caption>

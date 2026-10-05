@@ -44,8 +44,7 @@
             {#if answer}
                 <Message.Root from="user">
                     <Message.Content>
-                        Use{Array.isArray(answer) ? answer.join(', ') : answer}
-                        .
+                        Use{Array.isArray(answer) ? answer.join(', ') : answer}.
                     </Message.Content>
                 </Message.Root>
             {/if}

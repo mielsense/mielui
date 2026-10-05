@@ -25,46 +25,59 @@
         A select field that uses your browser and operating system's option picker.
     </PageIntro>
 
-    <ComponentPreview code={HeroSource}><Hero /></ComponentPreview>
-    <section id="installation" class="flex flex-col gap-4">
-        <Typography.H2>Installation</Typography.H2>
+    <section id="hero" class="scroll-mt-20 flex flex-col gap-4">
+        <ComponentPreview code={HeroSource}><Hero /></ComponentPreview>
+    </section>
+    <section id="installation" class="scroll-mt-20 flex flex-col gap-4">
+        <Typography.H2 class="docs-section-heading">Installation</Typography.H2>
         <InstallCommand command="pnpm dlx @mielui/svelte add native-select" />
     </section>
-    <section id="usage" class="flex flex-col gap-4">
-        <Typography.H2>Usage</Typography.H2>
+    <section id="usage" class="scroll-mt-20 flex flex-col gap-4">
+        <Typography.H2 class="docs-section-heading">Usage</Typography.H2>
         <CodeBlock copy="overlay" code={usage} lang="svelte" />
         <Typography.Text>
-            <Typography.InlineCode>Root</Typography.InlineCode> renders a native select. Bind a
-            string for single selection, or a string array with<Typography.InlineCode>
-                multiple
-            </Typography.InlineCode>
-            . Option values are strings. Use<Typography.InlineCode>
-                OptGroup
-            </Typography.InlineCode> with a<Typography.InlineCode>label</Typography.InlineCode> to
-            group options.
+            <Typography.InlineCode>Root</Typography.InlineCode>
+            {' '}
+            renders a native select. Bind a string for single selection, or a string array with{' '}
+            <Typography.InlineCode>multiple</Typography.InlineCode>
+            {' '}
+            set. Option values are strings. Use{' '}
+            <Typography.InlineCode>OptGroup</Typography.InlineCode>
+            {' '}
+            with a{' '}
+            <Typography.InlineCode>label</Typography.InlineCode>
+            {' '}
+            to group options.
         </Typography.Text>
         <Typography.Text>
-            Associate<Typography.InlineCode>Label</Typography.InlineCode> with the select using
-            matching<Typography.InlineCode>for</Typography.InlineCode> and<Typography.InlineCode>
-                id
-            </Typography.InlineCode> values, or provide<Typography.InlineCode>
-                aria-label
-            </Typography.InlineCode>
-            . Native form attributes and change events pass through. The<Typography.InlineCode>
-                size
-            </Typography.InlineCode> attribute controls the number of visible rows.
+            Associate{' '}
+            <Typography.InlineCode>Label</Typography.InlineCode>
+            {' '}
+            with the select using matching{' '}
+            <Typography.InlineCode>for</Typography.InlineCode>
+            {' '}
+            and{' '}
+            <Typography.InlineCode>id</Typography.InlineCode>
+            {' '}
+            values, or provide{' '}
+            <Typography.InlineCode>aria-label</Typography.InlineCode>
+            {' '}
+            instead. Native form attributes and change events pass through. The{' '}
+            <Typography.InlineCode>size</Typography.InlineCode>
+            {' '}
+            attribute controls the number of visible rows.
         </Typography.Text>
         <Typography.Text>
             The browser handles validation, keyboard selection, and the mobile picker. Use Select
             when you need a custom popup.
         </Typography.Text>
     </section>
-    <section class="flex flex-col gap-4">
-        <Typography.H2>Multiple selection</Typography.H2>
+    <section id="multiple" class="scroll-mt-20 flex flex-col gap-4">
+        <Typography.H2 class="docs-section-heading">Multiple selection</Typography.H2>
         <ComponentPreview code={MultipleSource}><Multiple /></ComponentPreview>
     </section>
-    <section class="flex flex-col gap-4">
-        <Typography.H2>Required field</Typography.H2>
+    <section id="required" class="scroll-mt-20 flex flex-col gap-4">
+        <Typography.H2 class="docs-section-heading">Required field</Typography.H2>
         <ComponentPreview code={FormSource}><Form /></ComponentPreview>
     </section>
 </div>

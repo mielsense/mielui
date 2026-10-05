@@ -58,6 +58,12 @@
             supplied.
         </Typography.Text>
         <Typography.Text>
+            A shortcut is any modifiers plus one key: a single character, or enter, esc, tab, space,
+            up, down, left, right, backspace, delete, or plus. Other key names are not parsed, so
+            the chip renders empty and no shortcut is registered; pass children to label such a key
+            yourself.
+        </Typography.Text>
+        <Typography.Text>
             Executable shortcuts ignore consumed, repeated, and composing key events. Shortcuts in
             hidden or inert controls do not activate, and an active overlay limits activation to its
             own controls.
@@ -66,7 +72,7 @@
             Import Kbd and pass a keyboard shortcut string:
         </Typography.Text>
         <CodeBlock
-            code={`import Kbd from '$lib/mielui/components/kbd';\n\n<Kbd shortcut="cmd+K" />\n<Kbd shortcut="shift+/" />`}
+            code={`import Kbd from '@mielui/svelte/components/kbd';\n\n<Kbd shortcut="cmd+K" />\n<Kbd shortcut="shift+/" />`}
             lang="svelte"
             copy="overlay"
         />

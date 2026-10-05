@@ -85,6 +85,7 @@
         easing: 'cubic-bezier(0.23, 1, 0.32, 1)'
     });
 
+    const lines = $derived(stream.text.split('\n'));
     let settled = $state(false);
 
     $effect(() => {
@@ -137,7 +138,19 @@
     {...rest}
 >
     {#if Scritto && !instant && !settled && stream.text.length <= 4000}
-        <Scritto value={stream.text} transition={rollTransition} />
+        <span aria-hidden="true" class="whitespace-normal">
+            {#each lines as line, index (index)}
+                {#if index > 0}
+                    <br />
+                {/if}
+                {#if line}
+                    <span class="whitespace-pre-wrap">
+                        <Scritto value={line} transition={rollTransition} />
+                    </span>
+                {/if}
+            {/each}
+        </span>
+        <span class="sr-only">{stream.text}</span>
     {:else}
         {stream.text}
     {/if}

@@ -1,14 +1,5 @@
 [
     {
-        "name": "patternTransform",
-        "type": "string | number | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
         "name": "patternUnits",
         "type": "string | null | undefined",
         "required": false,
@@ -2242,6 +2233,15 @@
     },
     {
         "name": "on:volumechange",
+        "type": "EventHandler<Event, HTMLImageElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onvolumechange",
         "type": "EventHandler<Event, HTMLImageElement> | null | undefined",
         "required": false,
         "bindable": false,

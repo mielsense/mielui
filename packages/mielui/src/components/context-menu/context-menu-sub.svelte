@@ -10,6 +10,4 @@
     });
 </script>
 
-<MenuPrimitive.Sub>
-    {@render children?.()}
-</MenuPrimitive.Sub>
+<MenuPrimitive.Sub> {@render children?.()} </MenuPrimitive.Sub>

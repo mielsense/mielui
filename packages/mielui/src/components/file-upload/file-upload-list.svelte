@@ -12,7 +12,7 @@
 {#if root.summary.total}
     <ul
         {...rest}
-        aria-label="Uploads"
+        aria-label={rest['aria-label'] ?? root.labels?.list ?? 'Uploads'}
         data-ui="file-upload-list"
         class={cn(className, 'flex min-w-0 flex-col gap-2')}
     >

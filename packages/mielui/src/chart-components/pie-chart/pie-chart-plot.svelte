@@ -2,11 +2,13 @@
     import * as Card from '@mielui/svelte/components/card';
     import { cn } from '@mielui/svelte/utils';
     import { Chart, Svg } from 'layerchart';
+    import { getContext } from 'svelte';
     import { Skeleton } from '../../components/skeleton';
     import { getPieContext } from './context';
-    import type { PieChartPlotProps } from './index';
+    import type { PieChartLabels, PieChartPlotProps } from './index';
 
     let { children, class: className, ...rest }: PieChartPlotProps = $props();
+    const labels = getContext<(() => PieChartLabels | undefined) | undefined>('pie-chart-labels');
     const context = getPieContext();
 </script>
 
@@ -32,7 +34,9 @@
             <Card.Root variant="inset" class="relative mx-6 max-w-xs text-center text-sm">
                 <Card.Content>
                     <p class="font-medium text-foreground">
-                        {context.loading ? 'Loading chart…' : 'No data available'}
+                        {context.loading
+                            ? (labels?.()?.loading ?? 'Loading chart…')
+                            : (labels?.()?.empty ?? 'No data available')}
                     </p>
                 </Card.Content>
             </Card.Root>

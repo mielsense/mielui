@@ -17,10 +17,10 @@
     const classes = $derived(
         cn(
             className,
-            'w-full min-w-0 rounded-[var(--radius-lg)] border-[length:var(--border-size)] border-[var(--color-input)] bg-[var(--color-field)] px-3 text-[length:var(--font-size-body)] text-[var(--color-field-foreground)] [color-scheme:light] dark:[color-scheme:dark] transition-[background-color,border-color,box-shadow] ease-[var(--ease-press)] enabled:hover:bg-[var(--color-field-hover)] [transition-duration:var(--motion-duration-press)] motion-reduce:transition-none focus-visible:border-primary focus-visible:outline-none focus-visible:shadow-[var(--focus-ring)] disabled:cursor-not-allowed disabled:opacity-[var(--opacity-disabled)] aria-invalid:border-[var(--color-error)]',
+            'w-full min-w-0 rounded-[var(--radius-lg)] border-[length:var(--border-size)] border-[var(--color-input)] bg-[var(--color-field)] px-3 text-[length:var(--font-size-body)] text-[var(--color-field-foreground)] [color-scheme:light] dark:[color-scheme:dark] transition-[background-color,border-color,box-shadow] ease-[var(--ease-press)] enabled:hover:bg-[var(--color-field-hover)] [transition-duration:var(--motion-duration-press)] motion-reduce:transition-none focus-visible:border-primary focus-visible:outline-none focus-visible:shadow-[var(--focus-ring)] disabled:cursor-not-allowed disabled:opacity-[var(--opacity-disabled)] aria-invalid:border-[var(--color-error)] aria-invalid:focus-visible:border-[var(--color-error)]',
             multiple || (size != null && size > 1)
                 ? 'min-h-24 appearance-auto py-1'
-                : 'h-[var(--size-control-md)] appearance-none pe-10'
+                : 'h-[calc(var(--size-control-md)-var(--size-hairline))] appearance-none pe-10'
         )
     );
 </script>

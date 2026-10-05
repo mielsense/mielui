@@ -1,6 +1,11 @@
 import type { DateRangePicker as DatePickerPrimitive } from 'bits-ui';
+import type { DatePickerLabels } from '../date-picker/context.svelte';
 
-export type DateRangePickerProps = Omit<DatePickerPrimitive.RootProps, 'child'>;
+export type DateRangePickerLabels = DatePickerLabels;
+
+export type DateRangePickerProps = Omit<DatePickerPrimitive.RootProps, 'child'> & {
+    labels?: DateRangePickerLabels;
+};
 
 export { default as Content } from '../date-picker/date-picker-content.svelte';
 export { default as Segment } from '../date-picker/date-picker-segment.svelte';

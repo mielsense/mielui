@@ -68,5 +68,5 @@
         <Form.Submit>Save profile</Form.Submit>
         <Button type="reset" variant="ghost">Reset</Button>
     </Form.Actions>
-    <p role="status" class="text-sm text-foreground-muted">{message}</p>
+    <Form.Status>{message}</Form.Status>
 </Form.Root>

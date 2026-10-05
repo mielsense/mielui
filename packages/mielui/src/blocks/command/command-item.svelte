@@ -81,7 +81,7 @@
     class={cn(className, 'mielui-menu-item justify-start gap-2')}
     unstyled
 >
-    <div class="flex w-full items-center gap-2 text-left">
+    <div class="flex w-full items-center gap-2 text-start">
         {@render children?.()}
     </div>
 </Button>

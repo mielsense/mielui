@@ -1,4 +1,5 @@
 <script lang="ts">
+    import { CodeBlock } from '@mielui/svelte/components/code-block';
     import * as Typography from '@mielui/svelte/components/typography';
     import { chartGuides } from '$lib/chart-guides';
     import { ComponentPreview, InstallCommand } from '$lib/components/docs';
@@ -16,7 +17,9 @@
 </svelte:head>
 <div data-docs-page class="flex flex-col gap-10">
     <PageIntro title="Chart">Bar, line, and area charts built from composable marks.</PageIntro>
-    <ComponentPreview refreshable code={HeroSource}><Hero /></ComponentPreview>
+    <section id="hero" class="flex scroll-mt-20 flex-col gap-4">
+        <ComponentPreview refreshable code={HeroSource}><Hero /></ComponentPreview>
+    </section>
     <section id="installation" class="flex scroll-mt-20 flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Installation</Typography.H2>
         <InstallCommand command="pnpm dlx @mielui/svelte add chart" />
@@ -37,6 +40,32 @@
             distance. Sort time-series data before rendering. Null, missing, and non-finite numeric
             values leave gaps.
         </Typography.Text>
+        <CodeBlock
+            copy="overlay"
+            lang="svelte"
+            code={`import * as Chart from '@mielui/svelte/components/chart';
+
+const data = [
+  { month: 'Jan', revenue: 186, target: 160 },
+  { month: 'Feb', revenue: 242, target: 190 }
+];
+const config = {
+  revenue: { label: 'Revenue' },
+  target: { label: 'Target' }
+};
+
+<Chart.Root {data} {config} x="month" aria-label="Monthly revenue and target">
+  <Chart.Legend />
+  <Chart.Plot>
+    <Chart.Grid />
+    <Chart.XAxis />
+    <Chart.YAxis />
+    <Chart.Bar key="revenue" />
+    <Chart.Line key="target" />
+  </Chart.Plot>
+  <Chart.Tooltip />
+</Chart.Root>`}
+        />
     </section>
     <section id="chart-types" class="flex scroll-mt-20 flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Chart types</Typography.H2>
@@ -80,9 +109,24 @@
     <section id="accessibility" class="flex scroll-mt-20 flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Accessibility</Typography.H2>
         <Typography.Text variant="supporting">
-            Give Root a descriptive aria-label. Root includes a screen-reader data table. Tab to the
-            category controls to inspect the same values available by pointer. Escape dismisses the
+            Give Root a descriptive aria-label. Root includes a screen-reader data table. With
+            Tooltip present, Tab reaches the category controls once; arrow keys, Home, and End move
+            between categories to inspect the same values available by pointer. Escape dismisses the
             tooltip.
         </Typography.Text>
+    </section>
+
+    <section id="labels" class="flex scroll-mt-20 flex-col gap-4">
+        <Typography.H2 class="docs-section-heading">Labels</Typography.H2>
+        <Typography.Text>
+            Built-in text is English by default. Pass labels to Chart.Root to translate or reword
+            the loading and empty messages and the keyboard inspection controls. Every key is
+            optional; omitted keys keep their default.
+        </Typography.Text>
+        <CodeBlock
+            code={`<Chart.Root {data} {config} x="month" aria-label="Revenus" labels={{ loading: 'Chargement…', empty: 'Aucune donnée', inspect: (category) => \`Inspecter \${category}\` }} />`}
+            lang="svelte"
+            copy="overlay"
+        />
     </section>
 </div>

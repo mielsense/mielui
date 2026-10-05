@@ -514,13 +514,13 @@
         transform: translateZ(0);
     }
 
-    [data-ui='dialog-panel'] {
+    [data-dialog-panel] {
         transition-property: scale;
         transition-duration: var(--motion-duration-modal-in);
         transition-timing-function: var(--ease-out);
     }
 
-    [data-ui='dialog-panel'][data-stacked='behind'] {
+    [data-dialog-panel][data-stacked='behind'] {
         scale: 0.925;
     }
 
@@ -617,7 +617,7 @@
     .mielui-item-highlight,
     .mielui-tooltip,
     .mielui-error-notice,
-    [data-ui='dialog-panel'] {
+    [data-dialog-panel] {
         transition: none;
     }
 }

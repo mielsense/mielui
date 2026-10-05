@@ -1,19 +1,16 @@
-- Choose single or double borders across framed surfaces, including cards, dialogs, Notch, and Toast in themes and Studio.
-- Organize Studio appearance and interaction settings, with toggle buttons for value choices and a compact Advanced colors action in the Color header.
-- Add an opt-in depth toolbar variant with raised keys and recessed selections; the default remains flat.
-
-- Use number shuffle for changing numeric readouts in tables, charts, uploads, commands, Studio, and interactive examples.
-
-- Customize five pastel chart colors in Studio; chart demos and default series share the same palette.
-- Choose the top or bottom position of inset strips, with local overrides for fixed headers.
-- Add an optional inset DataTable layout with compact filters and shared pagination inside the frame.
-- Preview glass against a colored Studio backdrop, with dropdown, popover, and hover-card examples.
-- Use rounder default corners.
-
-- Add the Daydream preset with flat sage-gray cards, soft pink controls, and pastel chart colors in light and dark modes.
-- Add Composer.Header for content above the input, and a chip variant for Attachment.List and Attachment.Item that shows files as compact pills with file-type icons or image thumbnails.
 - Add FolderCard, a folder-shaped card with a tinted or image cover, a title tab, an index, and an animated file count.
+- Add Composer.Header for content above the input, and a chip variant for Attachment.List and Attachment.Item that shows files as compact pills with file-type icons or image thumbnails.
+- Add an optional inset DataTable layout with compact filters and shared pagination inside the frame.
+- Add an opt-in depth toolbar variant with raised keys and recessed selections; the default remains flat.
 - Add `surface` to Drawer.Content, with the shared frame kept flush on the edge the drawer opens from.
-
-- Default to single borders, bottom inset strips, glass surfaces, half-strength edge highlights, and primary button borders, with surface shadows off and control and dialog shadows on.
-- Place pink in the default Chart 2 slot and blue in Chart 3.
+- Add the Daydream preset with flat sage-gray cards, soft pink controls, and pastel chart colors in light and dark modes.
+- Choose single or double borders across framed surfaces, including cards, dialogs, Notch, and Toast in themes and Studio.
+- Choose the top or bottom position of inset strips, with local overrides for fixed headers.
+- Customize five pastel chart colors in Studio; chart demos and default series share the same palette, with pink in Chart 2 and blue in Chart 3.
+- Use number shuffle for changing numeric readouts in tables, charts, uploads, commands, Studio, and interactive examples.
+- Organize Studio appearance and interaction settings, with toggle buttons for value choices and a compact Advanced colors action in the Color header.
+- Preview glass against a colored Studio backdrop, with dropdown, popover, and hover-card examples.
+- Use the theme storage helpers in `@mielui/svelte/themes/live` without SvelteKit; `@sveltejs/kit` is now an optional peer dependency.
+- Translate or reword built-in text with an optional `labels` prop on Combobox, TagInput, FileUpload, DatePicker, DateRangePicker, Pagination, DataTable, ReorderList, FileDiff, CodeBlock, Markdown, Attachment, Tool, Reasoning, Message, Chart, PieChart, and Heatmap. Each exports a `<Name>Labels` type; English stays the default.
+- Set `size` on ToggleGroup.Root to `sm`, `md`, or `lg`. Every item inherits it; the default stays `sm`.
+- Render custom content in Combobox.Item by passing children; `label` still drives search and the trigger text.

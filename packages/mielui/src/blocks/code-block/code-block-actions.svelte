@@ -6,12 +6,11 @@
     let { children, class: className, copy = true, ...rest }: CodeBlockActionsProps = $props();
 </script>
 
-<!-- `ml-auto` pins the action cluster to the right edge of the header. -->
 <div
     data-ui="code-block-actions"
     class={cn(
         className,
-        'ml-auto flex items-center gap-0.5 text-[var(--color-foreground-muted)]'
+        'ms-auto flex items-center gap-0.5 text-[var(--color-foreground-muted)]'
     )}
     {...rest}
 >

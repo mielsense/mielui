@@ -1,14 +1,5 @@
 [
     {
-        "name": "onloadeddata",
-        "type": "EventHandler<Event, HTMLFormElement> | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
         "name": "onloadeddatacapture",
         "type": "EventHandler<Event, HTMLFormElement> | null | undefined",
         "required": false,
@@ -2242,6 +2233,15 @@
     },
     {
         "name": "onfocus",
+        "type": "FocusEventHandler<HTMLElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onfocuscapture",
         "type": "FocusEventHandler<HTMLElement> | null | undefined",
         "required": false,
         "bindable": false,

@@ -27,7 +27,7 @@
                     class="min-w-0 flex-1"
                 />
             </DataTable.Filters>
-            <DataTable.Sort {table} class="ml-auto" />
+            <DataTable.Sort {table} class="ms-auto" />
         </DataTable.Toolbar>
         <DataTable.View
             {table}

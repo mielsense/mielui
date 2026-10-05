@@ -1,4 +1,5 @@
 <script lang="ts">
+    import { CodeBlock } from '@mielui/svelte/components/code-block';
     import * as Typography from '@mielui/svelte/components/typography';
     import { ComponentPreview, InstallCommand } from '$lib/components/docs';
     import PageIntro from '$lib/components/docs/page-intro.svelte';
@@ -37,6 +38,11 @@
             content readable. You can omit Handle for a plain swipeable panel, move Close into
             Header, or restyle Content with class. Always provide Title or an aria-label on Content.
         </Typography.Text>
+        <CodeBlock
+            code={`import * as Drawer from '@mielui/svelte/components/drawer';\nimport { Button } from '@mielui/svelte/components/button';\n\nlet open = $state(false);\n\n<Drawer.Root bind:open direction="bottom">\n  <Drawer.Trigger>Open</Drawer.Trigger>\n  <Drawer.Portal>\n    <Drawer.Overlay />\n    <Drawer.Content>\n      <Drawer.Handle />\n      <Drawer.Header>\n        <Drawer.Title>Title</Drawer.Title>\n        <Drawer.Description>Describe what lives here.</Drawer.Description>\n      </Drawer.Header>\n      <Drawer.Body>Panel content</Drawer.Body>\n      <Drawer.Footer>\n        <Drawer.Close>Cancel</Drawer.Close>\n        <Button>Save</Button>\n      </Drawer.Footer>\n    </Drawer.Content>\n  </Drawer.Portal>\n</Drawer.Root>`}
+            lang="svelte"
+            copy="overlay"
+        />
         <Typography.Text>
             Content uses the same frame as Dialog and Sheet. Handle, Header, and Body sit on the
             inner surface. Footer renders on the outer frame below it, wherever you place it inside

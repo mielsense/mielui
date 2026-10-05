@@ -20,6 +20,7 @@
     }: TagInputTagProps = $props();
 
     const context = getTagInputContext();
+    const removeLabel = $derived(context.labels?.remove?.(value) ?? `Remove ${value}`);
     const canRemove = $derived(removable && !context.disabled);
 
     function remove() {
@@ -82,8 +83,8 @@
         unstyled
         size="sm"
         data-ui="tag-input-tag"
-        aria-label={`Remove ${value}`}
-        title={`Remove ${value}`}
+        aria-label={removeLabel}
+        title={removeLabel}
         onclick={handleRemove}
         class={cn(
             className,

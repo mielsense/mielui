@@ -1,14 +1,5 @@
 [
     {
-        "name": "ontransitionstart",
-        "type": "TransitionEventHandler<HTMLElement> | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
         "name": "ontransitionstartcapture",
         "type": "TransitionEventHandler<HTMLElement> | null | undefined",
         "required": false,
@@ -2242,6 +2233,15 @@
     },
     {
         "name": "on:touchcancel",
+        "type": "TouchEventHandler<HTMLSpanElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "ontouchcancel",
         "type": "TouchEventHandler<HTMLSpanElement> | null | undefined",
         "required": false,
         "bindable": false,

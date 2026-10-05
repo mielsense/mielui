@@ -1,6 +1,6 @@
 <script lang="ts">
     import { cn } from '@mielui/svelte/utils';
-    import { setContext } from 'svelte';
+    import { setContext, untrack } from 'svelte';
     import type { RadioGroupContext, RadioGroupProps } from '.';
 
     let {
@@ -14,6 +14,8 @@
     }: RadioGroupProps = $props();
 
     const generatedName = $props.id();
+    const initialValue = untrack(() => value);
+    let root = $state<HTMLDivElement>();
 
     function isSelected(itemValue: string) {
         return value === itemValue;
@@ -37,9 +39,35 @@
         setValue
     };
     setContext('radio-group', ctx);
+
+    $effect(() => {
+        const form = root?.querySelector<HTMLInputElement>('input[type="radio"]')?.form;
+        if (!form) {
+            return;
+        }
+        let timer: ReturnType<typeof setTimeout> | undefined;
+        function reset(event: Event) {
+            clearTimeout(timer);
+            timer = setTimeout(() => {
+                if (event.defaultPrevented || value === initialValue) {
+                    return;
+                }
+                value = initialValue;
+                if (initialValue !== undefined) {
+                    onValueChange?.(initialValue);
+                }
+            }, 0);
+        }
+        form.addEventListener('reset', reset);
+        return () => {
+            clearTimeout(timer);
+            form.removeEventListener('reset', reset);
+        };
+    });
 </script>
 
 <div
+    bind:this={root}
     data-ui="radio-group"
     role="radiogroup"
     aria-disabled={disabled || undefined}

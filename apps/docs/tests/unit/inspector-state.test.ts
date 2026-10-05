@@ -1,6 +1,23 @@
 import { fireEvent, render, screen } from '@testing-library/svelte';
-import { afterEach, describe, expect, it, vi } from 'vitest';
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import InspectorStateFixture from '../fixtures/InspectorStateFixture.svelte';
+
+function mockViewport(dockable: boolean) {
+    vi.spyOn(window, 'matchMedia').mockImplementation((media: string) => {
+        const target = new EventTarget();
+        return Object.assign(target, {
+            matches: dockable,
+            media,
+            onchange: null,
+            addListener() {},
+            removeListener() {}
+        }) as MediaQueryList;
+    });
+}
+
+beforeEach(() => {
+    mockViewport(true);
+});
 
 afterEach(() => {
     localStorage.removeItem('mielui:test-inspector');
@@ -35,5 +52,12 @@ describe('Inspector preferences', () => {
         });
         render(InspectorStateFixture);
         expect(screen.getByTestId('inspector-state')).toHaveTextContent('true:true');
+    });
+
+    it('starts closed below the docking width, keeping the saved preference', () => {
+        mockViewport(false);
+        render(InspectorStateFixture);
+        expect(screen.getByTestId('inspector-state')).toHaveTextContent('false:false');
+        expect(localStorage.getItem('mielui:test-inspector')).toBeNull();
     });
 });

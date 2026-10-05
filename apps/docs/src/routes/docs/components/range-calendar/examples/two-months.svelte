@@ -21,10 +21,9 @@
     />
     <p aria-live="polite" class="px-3 text-sm text-foreground-muted">
         {#if value.start && value.end}
-            {value.start.toString()} —{value.end.toString()}
+            {`${value.start.toString()} to ${value.end.toString()}`}
         {:else if value.start}
-            Start:{value.start.toString()}
-            . Choose an end date.
+            {`Start: ${value.start.toString()}. Choose an end date.`}
         {:else}
             Choose a start and end date, across any month.
         {/if}

@@ -3,6 +3,15 @@
         "name": "Pagination",
         "properties": [
             {
+                "name": "labels",
+                "type": "PaginationLabels | undefined",
+                "required": false,
+                "bindable": false,
+                "default": null,
+                "description": "",
+                "inherited": false
+            },
+            {
                 "name": "page",
                 "type": "number | undefined",
                 "required": false,

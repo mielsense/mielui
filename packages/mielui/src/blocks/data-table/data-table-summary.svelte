@@ -4,7 +4,8 @@
 >
     import { numberShuffle } from '@mielui/svelte/actions/number-shuffle';
     import { cn } from '@mielui/svelte/utils';
-    import type { DataTableSummaryProps } from '.';
+    import { getContext } from 'svelte';
+    import type { DataTableLabels, DataTableSummaryProps } from '.';
     import { summary } from './features';
 
     let {
@@ -13,6 +14,7 @@
         class: className,
         ...rest
     }: DataTableSummaryProps<TFeatures, TData> = $props();
+    const labels = getContext<(() => DataTableLabels | undefined) | undefined>('data-table-labels');
     const state = $derived(summary(table));
 </script>
 <p
@@ -24,10 +26,11 @@
         {@render children(state)}
     {:else}
         <span use:numberShuffle={{ value: state.total }}>{state.total}</span>
-        {state.total === 1 ? 'row' : 'rows'}
+        {labels?.()?.rows?.(state.total) ?? (state.total === 1 ? 'row' : 'rows')}
         {#if state.selected > 0}
             {' · '}
-            <span use:numberShuffle={{ value: state.selected }}>{state.selected}</span> selected
+            <span use:numberShuffle={{ value: state.selected }}>{state.selected}</span>
+            {labels?.()?.selected?.(state.selected) ?? 'selected'}
         {/if}
     {/if}
 </p>

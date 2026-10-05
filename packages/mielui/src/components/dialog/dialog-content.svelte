@@ -177,6 +177,7 @@
                         id={contentId}
                         tabindex="-1"
                         {...rest}
+                        data-dialog-panel
                     >
                         {#if dialog.headerSlot}
                             <div

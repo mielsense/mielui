@@ -1,11 +1,13 @@
 <script lang="ts">
     import { Search01Icon as Search } from '@hugeicons/core-free-icons';
     import { Combobox as ComboboxPrimitive } from 'bits-ui';
-    import { untrack } from 'svelte';
+    import { getContext, untrack } from 'svelte';
     import HugeiconsIcon from '../../hugeicons-icon.svelte';
+    import type { ComboboxLabels } from '.';
     import { getComboboxContext } from './context.svelte';
 
     const context = getComboboxContext();
+    const labels = getContext<(() => ComboboxLabels | undefined) | undefined>('combobox-labels');
 
     let input = $state<HTMLInputElement | null>(null);
 
@@ -37,9 +39,9 @@
     <ComboboxPrimitive.Input
         bind:ref={input}
         type="text"
-        placeholder="Search…"
+        placeholder={labels?.()?.searchPlaceholder ?? 'Search…'}
         autocomplete="off"
-        aria-label="Search options"
+        aria-label={labels?.()?.search ?? 'Search options'}
         aria-controls={`combobox-${context.id}-listbox`}
         oninput={context.handleInput}
         onkeydown={context.handleKeydown}

@@ -4,12 +4,14 @@
 >
     import { ArrowUpDownIcon } from '@hugeicons/core-free-icons';
     import type { SortingState, Table_RowSorting } from '@tanstack/svelte-table';
+    import { getContext } from 'svelte';
     import * as Menu from '../../components/dropdown-menu';
     import HugeiconsIcon from '../../hugeicons-icon.svelte';
-    import type { DataTableSortProps } from '.';
+    import type { DataTableLabels, DataTableSortProps } from '.';
     import { sortableColumn } from './features';
 
     let { table, columns, class: className }: DataTableSortProps<TFeatures, TData> = $props();
+    const labels = getContext<(() => DataTableLabels | undefined) | undefined>('data-table-labels');
     const api = $derived(table as typeof table & Partial<Table_RowSorting<TFeatures, TData>>);
     const options = $derived(
         columns ??
@@ -34,13 +36,15 @@
         size="md"
         class={className}
         disabled={!api.setSorting || options.length === 0}
-        aria-label="Sort results"
+        aria-label={labels?.()?.sortResults ?? 'Sort results'}
     >
         <HugeiconsIcon icon={ArrowUpDownIcon} size={14} />
-        {label ? `Sort: ${label}` : 'Sort'}
+        {label
+            ? (labels?.()?.sortedBy?.(label) ?? `Sort: ${label}`)
+            : (labels?.()?.sort ?? 'Sort')}
     </Menu.Trigger>
     <Menu.Content class="min-w-52">
-        <Menu.Label>Sort by</Menu.Label>
+        <Menu.Label>{labels?.()?.sortBy ?? 'Sort by'}</Menu.Label>
         <Menu.RadioGroup
             value={current?.id ?? ''}
             onValueChange={(id) => {
@@ -60,8 +64,12 @@
                 }
             }}
         >
-            <Menu.RadioItem value="asc" disabled={!current}>Ascending</Menu.RadioItem>
-            <Menu.RadioItem value="desc" disabled={!current}>Descending</Menu.RadioItem>
+            <Menu.RadioItem value="asc" disabled={!current}>
+                {labels?.()?.ascending ?? 'Ascending'}
+            </Menu.RadioItem>
+            <Menu.RadioItem value="desc" disabled={!current}>
+                {labels?.()?.descending ?? 'Descending'}
+            </Menu.RadioItem>
         </Menu.RadioGroup>
         {#if current}
             <Menu.Separator />

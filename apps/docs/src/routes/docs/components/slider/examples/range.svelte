@@ -9,9 +9,8 @@
     <div class="flex items-center justify-between text-sm">
         <span class="text-foreground-muted">Price range</span>
         <span class="tabular-nums">
-            $<span use:numberShuffle={{ value: price[0] }}>{price[0]}</span> to $<span
-                use:numberShuffle={{ value: price[1] }}
-            >
+            $<span use:numberShuffle={{ value: price[0] }}>{price[0]}</span>
+            to $<span use:numberShuffle={{ value: price[1] }}>
                 {price[1]}
             </span>
         </span>

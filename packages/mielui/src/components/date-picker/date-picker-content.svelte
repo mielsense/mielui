@@ -4,6 +4,7 @@
     import { DatePicker as DatePickerPrimitive } from 'bits-ui';
     import { overlaySurface } from '../_internal/surface';
     import type { DatePickerContentProps } from '.';
+    import { getDatePickerContext } from './context.svelte';
 
     let {
         children,
@@ -14,9 +15,10 @@
         sideOffset = 6,
         align = 'start',
         collisionPadding = 8,
-        'aria-label': ariaLabel = 'Choose dates',
+        'aria-label': ariaLabel,
         ...rest
     }: DatePickerContentProps = $props();
+    const context = getDatePickerContext();
 </script>
 
 <DatePickerPrimitive.Portal disabled={!portal}>
@@ -27,7 +29,7 @@
         {sideOffset}
         {align}
         {collisionPadding}
-        aria-label={ariaLabel}
+        aria-label={ariaLabel ?? context.labels.content}
     >
         {#snippet child({ props, wrapperProps, open })}
             {#if open}

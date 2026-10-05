@@ -14,10 +14,6 @@
         onPressedChange,
         ...rest
     }: ToggleProps = $props();
-
-    const resolvedVariant = $derived(
-        variant === 'outlined' || variant === 'outline' ? 'outlined' : 'default'
-    );
 </script>
 
 <BitsToggle.Root bind:pressed {disabled} {onPressedChange} {...rest} id={rest.id ?? undefined}>
@@ -30,7 +26,7 @@
             data-state={pressed ? 'on' : 'off'}
             aria-pressed={pressed}
             {disabled}
-            class={cn(className, toggle({ variant: resolvedVariant, pressed, size }))}
+            class={cn(className, toggle({ variant, pressed, size }))}
         >
             {@render children?.()}
         </button>

@@ -1,6 +1,12 @@
 import type { DatePicker as DatePickerPrimitive } from 'bits-ui';
 
-export type DatePickerProps = Omit<DatePickerPrimitive.RootProps, 'child'>;
+import type { DatePickerLabels } from './context.svelte';
+
+export type { DatePickerLabels };
+
+export type DatePickerProps = Omit<DatePickerPrimitive.RootProps, 'child'> & {
+    labels?: DatePickerLabels;
+};
 
 export type DatePickerContentProps = Omit<
     DatePickerPrimitive.ContentProps,

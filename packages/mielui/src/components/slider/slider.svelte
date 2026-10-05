@@ -302,7 +302,7 @@
     {dir}
     data-ui="slider"
     data-range={mode.range || undefined}
-    class={cn(className, 'w-full px-3', unavailable && 'opacity-50')}
+    class={cn(className, 'w-full px-3', unavailable && 'opacity-[var(--opacity-disabled)]')}
     onpointerdown={startPointer}
     onpointermove={updatePointerPosition}
     onpointerup={finishPointer}

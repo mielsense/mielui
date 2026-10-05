@@ -4,7 +4,10 @@
 </script>
 
 <Field.Root class="w-full max-w-sm" required>
-    <Field.Label>Work email<span class="text-foreground-muted">(required)</span></Field.Label>
+    <Field.Label>
+        Work email
+        <span class="text-foreground-muted">(required)</span>
+    </Field.Label>
     <Field.Control>
         {#snippet children(control)}
             <Input

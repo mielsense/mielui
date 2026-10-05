@@ -76,7 +76,9 @@
 </script>
 
 <svelte:head>
-    <title>{dev ? 'mielui - Dev' : 'mielui'}</title>
+    {#if isPreview}
+        <title>Mielui · Preview</title>
+    {/if}
     <link rel="canonical" href={`${data.origin}${page.url.pathname}`} />
     <meta property="og:site_name" content="mielui" />
     <meta property="og:type" content="website" />
@@ -88,13 +90,13 @@
     <meta property="og:image:height" content="630" />
     <meta
         property="og:image:alt"
-        content="mielui social card showing a polished component library preview."
+        content="The Mielui landing page: Svelte UI, your way, beside a live Composer preview."
     />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:image" content={`${data.origin}/og-default.png`} />
     <meta
         name="twitter:image:alt"
-        content="mielui social card showing a polished component library preview."
+        content="The Mielui landing page: Svelte UI, your way, beside a live Composer preview."
     />
 </svelte:head>
 

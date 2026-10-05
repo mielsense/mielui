@@ -45,7 +45,7 @@
         <CodeBlock
             lang="svelte"
             copy="overlay"
-            code={`import * as FileUpload from '$lib/mielui/components/file-upload';
+            code={`import * as FileUpload from '@mielui/svelte/components/file-upload';
 
 <FileUpload.Root
   accept="image/*,.pdf"
@@ -125,11 +125,27 @@
     <section id="single-file" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Single file</Typography.H2>
         <Typography.Text variant="supporting">
-            Set<code>maxFiles=&#123;1&#125;</code> to accept one file and use a single-file picker.
-            Remove the current photo before choosing its replacement. Dropping extra files keeps the
-            accepted file and shows why the others were rejected. This example creates a local
-            preview only.
+            Set{' '}
+            <Typography.InlineCode>maxFiles=&#123;1&#125;</Typography.InlineCode>
+            {' '}
+            to accept one file and use a single-file picker. Remove the current photo before
+            choosing its replacement. Dropping extra files keeps the accepted file and shows why the
+            others were rejected. This example creates a local preview only.
         </Typography.Text>
         <ComponentPreview code={SingleSrc}><Single /></ComponentPreview>
+    </section>
+
+    <section id="labels" class="flex scroll-mt-20 flex-col gap-4">
+        <Typography.H2 class="docs-section-heading">Labels</Typography.H2>
+        <Typography.Text>
+            Built-in text is English by default. Pass labels to FileUpload.Root to translate or
+            reword the dropzone, the buttons, upload status, and validation errors. Every key is
+            optional; omitted keys keep their default.
+        </Typography.Text>
+        <CodeBlock
+            code={`<FileUpload.Root {onUpload} labels={{ dropzoneTitle: 'Déposez vos fichiers ici', choose: 'Choisir des fichiers', tooMany: (max) => \`\${max} fichiers au maximum.\` }} />`}
+            lang="svelte"
+            copy="overlay"
+        />
     </section>
 </div>

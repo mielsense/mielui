@@ -1,8 +1,9 @@
 <script lang="ts">
     import { cn } from '@mielui/svelte/utils';
     import { Chart, Svg } from 'layerchart';
-    import type { Snippet } from 'svelte';
+    import { getContext, type Snippet } from 'svelte';
     import type { HTMLAttributes } from 'svelte/elements';
+    import type { ChartLabels } from '.';
     import { getChart } from './context.svelte';
     import Interaction from './interaction.svelte';
     import Placeholder from './placeholder.svelte';
@@ -18,6 +19,7 @@
         empty?: Snippet;
         loading?: Snippet;
     } = $props();
+    const labels = getContext<(() => ChartLabels | undefined) | undefined>('chart-labels');
     const chart = getChart();
     const categories = $derived(chart.categoryDomain);
 </script>
@@ -27,7 +29,7 @@
             {#if loading}
                 {@render loading()}
             {:else}
-                Loading chart…
+                {labels?.()?.loading ?? 'Loading chart…'}
             {/if}
         </Placeholder>
     {:else if chart.data.length === 0}
@@ -35,8 +37,13 @@
             {#if empty}
                 {@render empty()}
             {:else}
-                <div class="font-medium text-foreground">No data to display</div>
-                <div class="mt-1 text-xs">Try another period or add your first record.</div>
+                <div class="font-medium text-foreground">
+                    {labels?.()?.empty ?? 'No data to display'}
+                </div>
+                <div class="mt-1 text-xs">
+                    {labels?.()?.emptyDescription ??
+                        'Try another period or add your first record.'}
+                </div>
             {/if}
         </Placeholder>
     {:else}

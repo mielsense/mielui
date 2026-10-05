@@ -119,7 +119,7 @@ describe('A11y -- leaf controls (axe)', () => {
     });
 
     it('switch with label -- no violations', async () => {
-        render(Switch, { switched: false, label: 'Email notifications' });
+        render(Switch, { checked: false, label: 'Email notifications' });
         await flush();
         const { violationsFiltered } = await runAxe();
         expectNoViolations('switch (labelled)', violationsFiltered);
@@ -299,7 +299,7 @@ describe('Keyboard nav -- focus management (Playwright)', () => {
     });
 
     it('switch -- Space toggles when focused', async () => {
-        render(Switch, { switched: false, label: 'Test' });
+        render(Switch, { checked: false, label: 'Test' });
         await flush();
         const button = document.querySelector('[role="switch"]') as HTMLElement;
         button.focus();

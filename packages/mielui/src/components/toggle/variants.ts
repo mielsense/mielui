@@ -5,8 +5,8 @@ export const toggle = tv({
     variants: {
         variant: {
             default: '',
-            outlined:
-                'border-[length:var(--border-size)] border-border shadow-[var(--elevation-control-edge)] focus-visible:shadow-[var(--focus-ring),var(--elevation-control-edge)]'
+            outline:
+                'border-[length:var(--border-size)] border-[var(--color-input)] shadow-[var(--elevation-control-edge)] focus-visible:shadow-[var(--focus-ring),var(--elevation-control-edge)]'
         },
         pressed: {
             true: 'bg-secondary text-foreground hover:bg-secondary shadow-[var(--elevation-control-edge)] focus-visible:shadow-[var(--focus-ring),var(--elevation-control-edge)]',

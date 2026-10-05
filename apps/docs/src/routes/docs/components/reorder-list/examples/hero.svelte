@@ -32,6 +32,6 @@
         {/snippet}
     </ReorderList>
     <p class="mt-3 text-xs leading-relaxed text-foreground-muted">
-        Drag a row, or focus it and press Space to grab it. Arrow keys move; Escape cancels.
+        Drag a handle, or focus it and press Space to grab its row. Arrow keys move; Escape cancels.
     </p>
 </div>

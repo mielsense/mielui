@@ -80,6 +80,7 @@
         bind:this={indicator}
         data-ui="spinner"
         data-phase={phase}
+        role={ariaLabel ? 'img' : undefined}
         aria-label={ariaLabel}
         aria-hidden={ariaHidden}
         class={cn(

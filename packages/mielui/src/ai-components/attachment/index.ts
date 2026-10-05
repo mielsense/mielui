@@ -20,7 +20,19 @@ export type AttachmentRejection = {
 
 export type AttachmentStatus = 'ready' | 'uploading' | 'complete' | 'error';
 
+export type AttachmentLabels = {
+    dropzone?: string;
+    add?: string;
+    list?: string;
+    ready?: string;
+    complete?: string;
+    failed?: string;
+    uploadProgress?: (name: string) => string;
+    remove?: (name: string) => string;
+};
+
 export type AttachmentProps = {
+    labels?: AttachmentLabels;
     files?: File[];
     accept?: string;
     multiple?: boolean;

@@ -1,8 +1,10 @@
 <script lang="ts">
     import type { HTMLAttributes } from 'svelte/elements';
     import { cn } from '../../utils';
+    import { useHeatmap } from './context.svelte';
 
     let { children, class: className, ...props }: HTMLAttributes<HTMLDivElement> = $props();
+    const context = useHeatmap();
     const levels = [
         'bg-secondary',
         'bg-[color-mix(in_oklab,var(--chart-1)_25%,transparent)]',
@@ -19,13 +21,13 @@
     {#if children}
         {@render children()}
     {:else}
-        <span class="mr-1">Less</span>
+        <span class="me-1">{context.labels?.less ?? 'Less'}</span>
         {#each levels as level}
             <span
                 aria-hidden="true"
                 class={cn(level, 'size-2.5 rounded-[calc(var(--radius-xs)*1.5)]')}
             ></span>
         {/each}
-        <span class="ml-1">More</span>
+        <span class="ms-1">{context.labels?.more ?? 'More'}</span>
     {/if}
 </div>

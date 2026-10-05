@@ -15,7 +15,7 @@
     bind:ref={element}
     preventCycle
     data-ui="drawer-handle"
-    class={cn(className, 'mx-auto my-3 h-1! w-10! shrink-0 rounded-full! bg-foreground/20!')}
+    class={cn(className, 'mx-auto my-3 h-1! w-10! shrink-0 rounded-full! bg-[var(--mielui-control-border)]!')}
 >
     {@render children?.()}
 </Primitive.Handle>

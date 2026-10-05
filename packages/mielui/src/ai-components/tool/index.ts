@@ -11,7 +11,16 @@ import Trigger from './tool-trigger.svelte';
 export type ToolState = 'running' | 'complete' | 'error';
 export type ToolVariant = 'default' | 'quiet';
 
+export type ToolLabels = {
+    running?: string;
+    complete?: string;
+    failed?: string;
+    input?: string;
+    output?: string;
+};
+
 export type ToolProps = {
+    labels?: ToolLabels;
     /** A concise summary of the work completed by this task group. */
     name: string;
     state?: ToolState;

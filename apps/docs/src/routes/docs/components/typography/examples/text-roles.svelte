@@ -13,7 +13,8 @@
         Supporting text adds quieter instructions, context, or qualifications.
     </Typography.Text>
     <Typography.Text variant="body">
-        Use<Typography.InlineCode>InlineCode</Typography.InlineCode> for commands, paths, and short
-        identifiers within prose.
+        Use{' '}
+        <Typography.InlineCode>InlineCode</Typography.InlineCode>
+        for commands, paths, and short identifiers within prose.
     </Typography.Text>
 </div>

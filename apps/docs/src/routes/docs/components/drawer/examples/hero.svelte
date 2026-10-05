@@ -53,7 +53,8 @@
                         <div class="flex items-center justify-between text-sm">
                             <span>Text size</span>
                             <span class="tabular-nums text-foreground-muted">
-                                <span use:numberShuffle={{ value: textSize }}>{textSize}</span> px
+                                <span use:numberShuffle={{ value: textSize }}>{textSize}</span>
+                                px
                             </span>
                         </div>
                         <Slider
@@ -64,7 +65,7 @@
                             label="Text size"
                         />
                     </div>
-                    <Switch bind:switched={comfortableSpacing} label="Comfortable spacing" />
+                    <Switch bind:checked={comfortableSpacing} label="Comfortable spacing" />
                     <p
                         class="rounded-[var(--radius-lg)] bg-secondary p-4 text-foreground-muted"
                         style:font-size={`${textSize}px`}

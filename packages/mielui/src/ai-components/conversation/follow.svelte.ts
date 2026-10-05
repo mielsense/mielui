@@ -70,11 +70,11 @@ export function createConversationFollow(options: FollowOptions) {
         return remaining <= Math.max(0, conversation.threshold);
     }
 
-    function measure(viewport: HTMLDivElement) {
+    function measure(viewport: HTMLDivElement, resume = true) {
         scrollable = viewport.scrollHeight - viewport.clientHeight > 1;
         const nearBottom = isNearBottom(viewport);
         conversation.atBottom = nearBottom;
-        if (nearBottom) {
+        if (nearBottom && resume) {
             conversation.follow = true;
             conversation.scrollingToBottom = false;
         }
@@ -83,12 +83,13 @@ export function createConversationFollow(options: FollowOptions) {
 
     function handleScroll(viewport: HTMLDivElement) {
         const nextScrollTop = viewport.scrollTop;
-        const nearBottom = measure(viewport);
+        const scrolledUp = nextScrollTop < previousScrollTop - 1;
+        const userScrolledUp = userScrollIntent && scrolledUp;
+        const nearBottom = measure(viewport, !userScrolledUp);
 
         if (
-            !nearBottom &&
-            (userScrollIntent ||
-                (!conversation.scrollingToBottom && nextScrollTop < previousScrollTop - 1))
+            userScrolledUp ||
+            (!nearBottom && (userScrollIntent || (!conversation.scrollingToBottom && scrolledUp)))
         ) {
             conversation.follow = false;
             conversation.scrollingToBottom = false;
@@ -112,7 +113,7 @@ export function createConversationFollow(options: FollowOptions) {
             if (conversation.follow) {
                 conversation.scrollToBottom('auto');
             } else {
-                measure(viewport);
+                measure(viewport, false);
             }
         });
         observer.observe(viewport);

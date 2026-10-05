@@ -1,11 +1,13 @@
 <script lang="ts">
     import { AlertCircleIcon as CircleAlert } from '@hugeicons/core-free-icons';
     import { cn } from '@mielui/svelte/utils';
+    import { getContext } from 'svelte';
     import HugeiconsIcon from '../../hugeicons-icon.svelte';
-    import type { MessageStatusProps } from '.';
+    import type { MessageLabels, MessageStatusProps } from '.';
     import { getMessageContext } from './context.svelte';
 
     let { children, class: className, ...rest }: MessageStatusProps = $props();
+    const labels = getContext<(() => MessageLabels | undefined) | undefined>('message-labels');
     const message = getMessageContext();
 </script>
 
@@ -28,10 +30,10 @@
             aria-hidden="true"
             class="shrink-0"
         />
-        Failed
+        {labels?.()?.failed ?? 'Failed'}
     {:else if message.status === 'streaming'}
-        Streaming
+        {labels?.()?.streaming ?? 'Streaming'}
     {:else}
-        Complete
+        {labels?.()?.complete ?? 'Complete'}
     {/if}
 </span>

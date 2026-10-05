@@ -3,7 +3,7 @@
     import { cn } from '@mielui/svelte/utils';
     import { getContext, untrack } from 'svelte';
     import { toTabIdPart } from '../../components/tabs/id';
-    import type { CodeBlockContentProps, CodeBlockRegistry } from '.';
+    import type { CodeBlockContentProps, CodeBlockLabels, CodeBlockRegistry } from '.';
     import Copy from './code-block-copy.svelte';
     import { highlight } from './highlight';
 
@@ -19,6 +19,7 @@
         class: className,
         ...rest
     }: CodeBlockContentProps = $props();
+    const labels = getContext<(() => CodeBlockLabels | undefined) | undefined>('code-block-labels');
 
     const registry = getContext<CodeBlockRegistry>('code-block');
     const tabs = getContext<TabsState>('tabs');
@@ -96,7 +97,7 @@
 
 <div
     role={isTabbed ? 'tabpanel' : 'region'}
-    aria-label={isTabbed ? undefined : 'Code'}
+    aria-label={isTabbed ? undefined : (labels?.()?.code ?? 'Code')}
     id={panelId}
     aria-labelledby={tabId}
     data-ui="code-block-content"
@@ -139,7 +140,11 @@
                                 1}{newline}{/each}</pre>
                 {/if}
                 <pre
-                    class="m-0 min-w-0 flex-1 overflow-x-auto px-[var(--code-block-padding-x)] py-[var(--code-block-padding-y)] text-[length:var(--font-size-label)] leading-[var(--code-block-line-height)]"
+                    class={cn(
+                        'm-0 min-w-0 flex-1 overflow-x-auto px-[var(--code-block-padding-x)] py-[var(--code-block-padding-y)] text-[length:var(--font-size-label)] leading-[var(--code-block-line-height)]',
+                        copyPlacement === 'overlay' &&
+                            'pe-[calc(var(--code-block-padding-x)+var(--size-control-sm))]'
+                    )}
                 ><code
                         >{@html html}</code
                     ></pre>
@@ -148,7 +153,7 @@
         {#if copyPlacement === 'overlay'}
             <Copy
                 class={cn(
-                    'absolute right-2 z-10 bg-card',
+                    'absolute end-2 z-10 bg-card before:pointer-events-none before:absolute before:inset-y-0 before:end-full before:w-5 before:bg-linear-to-r before:from-transparent before:to-card rtl:before:bg-linear-to-l after:pointer-events-none after:absolute after:inset-y-0 after:start-full after:w-2 after:bg-card',
                     layout === 'single-line' ? 'top-1/2 -translate-y-1/2' : 'top-2'
                 )}
             />

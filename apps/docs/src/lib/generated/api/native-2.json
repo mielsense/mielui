@@ -2214,15 +2214,6 @@
         "inherited": true
     },
     {
-        "name": "aria-label",
-        "type": "string | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": "'Add attachments'",
-        "description": "Defines a string value that labels the current element.",
-        "inherited": true
-    },
-    {
         "name": "on:copy",
         "type": "ClipboardEventHandler<HTMLButtonElement> | null | undefined",
         "required": false,
@@ -2242,6 +2233,15 @@
     },
     {
         "name": "oncopycapture",
+        "type": "ClipboardEventHandler<HTMLButtonElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "on:cut",
         "type": "ClipboardEventHandler<HTMLButtonElement> | null | undefined",
         "required": false,
         "bindable": false,

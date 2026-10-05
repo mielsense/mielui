@@ -16,7 +16,7 @@ export const manifest: Manifest = {
     version: '1.0.0',
     visibility: 'public',
     description:
-        'Side-anchored drawer overlay (left | right). Composes _internal/overlay for shared mechanics and Svelte transitions for motion.',
+        'Modal panel that slides in from the left or right edge, with focus trap, inert background, nested-overlay coordination, and a footer on the outer frame.',
     role: 'dialog',
     files: [
         'components/sheet/sheet.svelte',

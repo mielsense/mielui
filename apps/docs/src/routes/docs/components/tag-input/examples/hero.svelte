@@ -20,7 +20,8 @@
 
     <div class="flex items-center justify-between gap-3">
         <p class="text-sm text-foreground-muted">
-            <span use:numberShuffle={{ value: tags.length }}>{tags.length}</span> topics
+            <span use:numberShuffle={{ value: tags.length }}>{tags.length}</span>
+            topics
         </p>
         <div class="flex gap-2">
             <Button

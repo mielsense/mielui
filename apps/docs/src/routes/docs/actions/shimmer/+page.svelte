@@ -12,10 +12,18 @@
     import TextSource from './text-example.svelte?raw';
 </script>
 
-<svelte:head><title>Mielui · Shimmer</title></svelte:head>
+<svelte:head>
+    <title>Mielui · Shimmer</title>
+    <meta
+        name="description"
+        content="A Svelte action that sweeps a highlight across loading text or a placeholder."
+    />
+</svelte:head>
 <div data-docs-page class="flex flex-col gap-10">
     <PageIntro title="Shimmer">Sweep a highlight across loading text or a placeholder.</PageIntro>
-    <ComponentPreview code={Source}><Example /></ComponentPreview>
+    <section id="hero" class="flex scroll-mt-20 flex-col gap-4">
+        <ComponentPreview code={Source}><Example /></ComponentPreview>
+    </section>
     <section id="usage" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Usage</Typography.H2>
         <Typography.Text>

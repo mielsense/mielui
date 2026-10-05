@@ -61,7 +61,7 @@
         </Typography.Text>
 
         <CodeBlock
-            code={`import { Checkbox } from '$lib/mielui/components/checkbox';\n\nlet checked = $state();\n\n<Checkbox bind:checked label="Accept" />`}
+            code={`import { Checkbox } from '@mielui/svelte/components/checkbox';\n\nlet checked = $state(false);\n\n<Checkbox bind:checked label="Accept" />`}
             lang="svelte"
             copy="overlay"
         />

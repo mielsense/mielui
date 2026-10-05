@@ -1,7 +1,8 @@
 <script lang="ts">
     import { createDisclosureLifecycle } from '@mielui/svelte/components/_internal/disclosure';
     import { cn } from '@mielui/svelte/utils';
-    import type { ReasoningRootProps } from '.';
+    import { setContext } from 'svelte';
+    import type { ReasoningLabels, ReasoningRootProps } from '.';
     import { setReasoningContext } from './context.svelte';
 
     let {
@@ -11,8 +12,10 @@
         onOpenChangeComplete,
         children,
         class: className,
+        labels,
         ...rest
     }: ReasoningRootProps = $props();
+    setContext<() => ReasoningLabels | undefined>('reasoning-labels', () => labels);
 
     const id = $props.id();
     const lifecycle = createDisclosureLifecycle({

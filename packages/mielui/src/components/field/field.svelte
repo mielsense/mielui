@@ -57,7 +57,7 @@
     data-invalid={isInvalid || undefined}
     data-disabled={disabled || undefined}
     data-orientation={orientation}
-    class={cn(className, 'group/field flex min-w-0 gap-2', orientation === 'horizontal' ? 'flex-row items-start' : 'flex-col', disabled && 'opacity-[var(--opacity-disabled)]')}
+    class={cn(className, 'group/field flex min-w-0 gap-2', orientation === 'horizontal' ? 'flex-row items-start' : 'flex-col', disabled && '[&_[data-ui=field-description]]:opacity-[var(--opacity-disabled)] [&_[data-ui=field-label]]:opacity-[var(--opacity-disabled)]')}
 >
     {@render children?.()}
 </div>

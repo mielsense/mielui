@@ -5,5 +5,5 @@
 </script>
 
 <div class="w-full max-w-sm">
-    <Textarea bind:value label="Message" />
+    <Textarea bind:value label="Message" rows={3} />
 </div>

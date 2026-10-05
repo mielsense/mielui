@@ -80,25 +80,33 @@
             height={horizontal ? hit.size : layer.height}
             fill="transparent"
             {@attach (element: SVGRectElement) => {
-            const enter = (event: PointerEvent) => {
-                chart.active = index;
-                const bounds = chart.element?.getBoundingClientRect();
-                if (bounds) { chart.pointer = { x: event.clientX - bounds.left, y: event.clientY - bounds.top }; }
-            };
-            const leave = (event: PointerEvent) => {
-                if (event.relatedTarget instanceof Node && group.contains(event.relatedTarget)) { return; }
-                chart.pointer = null;
-                chart.active = chart.focused;
-            };
-            element.addEventListener('pointerenter', enter);
-            element.addEventListener('pointermove', enter);
-            element.addEventListener('pointerleave', leave);
-            return () => {
-                element.removeEventListener('pointerenter', enter);
-                element.removeEventListener('pointermove', enter);
-                element.removeEventListener('pointerleave', leave);
-            };
-        }}
+                const enter = (event: PointerEvent) => {
+                    chart.active = index;
+                    const bounds = chart.element?.getBoundingClientRect();
+                    if (bounds) {
+                        chart.pointer = {
+                            x: event.clientX - bounds.left,
+                            y: event.clientY - bounds.top
+                        };
+                    }
+                };
+                const leave = (event: PointerEvent) => {
+                    const next = event.relatedTarget;
+                    if (next instanceof Node && group.contains(next)) {
+                        return;
+                    }
+                    chart.pointer = null;
+                    chart.active = chart.focused;
+                };
+                element.addEventListener('pointerenter', enter);
+                element.addEventListener('pointermove', enter);
+                element.addEventListener('pointerleave', leave);
+                return () => {
+                    element.removeEventListener('pointerenter', enter);
+                    element.removeEventListener('pointermove', enter);
+                    element.removeEventListener('pointerleave', leave);
+                };
+            }}
         />
     {/each}
 </g>

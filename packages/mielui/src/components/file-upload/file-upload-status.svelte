@@ -31,23 +31,22 @@
             >
                 {#if item().status === 'complete'}
                     <HugeiconsIcon icon={CheckmarkCircle02Icon} size={14} />
-                    <span>Uploaded</span>
+                    <span>{root.labels?.uploaded ?? 'Uploaded'}</span>
                 {:else if item().status === 'error'}
                     <HugeiconsIcon icon={AlertCircleIcon} size={14} class="shrink-0" />
                     <span class="break-words">{item().error}</span>
                 {:else}
                     <Spinner size={14} />
-                    <span>
-                        Uploading
-                        {#if item().progress === undefined}
-                            …
-                        {:else}
+                    <span>{root.labels?.uploading ?? 'Uploading'}</span>
+                    {#if item().progress === undefined}
+                        <span aria-hidden="true">…</span>
+                    {:else}
+                        <span aria-hidden="true" class="tabular-nums">
                             <span use:numberShuffle={{ value: Math.round(item().progress ?? 0) }}>
                                 {Math.round(item().progress ?? 0)}
-                            </span>
-                            %
-                        {/if}
-                    </span>
+                            </span>%
+                        </span>
+                    {/if}
                 {/if}
             </motion.div>
         {/key}

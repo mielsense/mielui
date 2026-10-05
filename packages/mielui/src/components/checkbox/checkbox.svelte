@@ -1,6 +1,7 @@
 <script lang="ts">
     import { MinusSignIcon as MinusIcon } from '@hugeicons/core-free-icons';
     import { cn, pressable } from '@mielui/svelte/utils';
+    import { untrack } from 'svelte';
     import HugeiconsIcon from '../../hugeicons-icon.svelte';
     import { fieldMetadata } from '../_internal/field-metadata';
     import type { CheckboxProps } from '.';
@@ -21,6 +22,8 @@
     }: CheckboxProps = $props();
 
     const generatedId = $props.id();
+    const initialChecked = untrack(() => checked ?? false);
+    let input = $state<HTMLInputElement>();
     const metadata = $derived(
         fieldMetadata({
             id: id ?? generatedId,
@@ -42,6 +45,30 @@
         checked = next;
         onCheckedChange?.(next);
     }
+
+    $effect(() => {
+        void rest.form;
+        const form = input?.form;
+        if (!form) {
+            return;
+        }
+        let timer: ReturnType<typeof setTimeout> | undefined;
+        function reset(event: Event) {
+            clearTimeout(timer);
+            timer = setTimeout(() => {
+                if (event.defaultPrevented || checked === initialChecked) {
+                    return;
+                }
+                checked = initialChecked;
+                onCheckedChange?.(initialChecked);
+            }, 0);
+        }
+        form.addEventListener('reset', reset);
+        return () => {
+            clearTimeout(timer);
+            form.removeEventListener('reset', reset);
+        };
+    });
 </script>
 
 <label
@@ -56,6 +83,7 @@
 >
     <input
         {...rest}
+        bind:this={input}
         id={metadata.controlId}
         type="checkbox"
         class="peer absolute size-4 opacity-0"
@@ -96,7 +124,7 @@
             {#if description}
                 <span
                     id={metadata.descriptionId}
-                    class="text-text [font-size:var(--font-size-body)] [font-weight:var(--font-weight-body)] [letter-spacing:var(--tracking-body)] text-foreground-muted"
+                    class="[font-size:var(--font-size-body)] [font-weight:var(--font-weight-body)] [letter-spacing:var(--tracking-body)] text-foreground-muted"
                 >
                     {description}
                 </span>

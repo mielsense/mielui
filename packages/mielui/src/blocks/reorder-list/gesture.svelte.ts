@@ -1,4 +1,5 @@
 import { onDestroy, tick, untrack } from 'svelte';
+import type { ReorderListLabels } from '.';
 
 type GestureOptions<T> = {
     items: T[];
@@ -7,6 +8,7 @@ type GestureOptions<T> = {
     readonly disabled: boolean;
     readonly element: HTMLOListElement | undefined;
     readonly hintId: string;
+    readonly labels: ReorderListLabels | undefined;
     readonly onReorder: ((items: T[]) => void) | undefined;
     readonly onCommit: ((items: T[]) => void) | undefined;
 };
@@ -78,7 +80,8 @@ export function createReorderGesture<T>(options: GestureOptions<T>) {
             grabbed = undefined;
             dragging = undefined;
             clearPointerSession();
-            spoken = 'Reorder cancelled because the list changed.';
+            spoken =
+                options.labels?.cancelledByChange ?? 'Reorder cancelled because the list changed.';
         });
     });
 
@@ -105,7 +108,9 @@ export function createReorderGesture<T>(options: GestureOptions<T>) {
             return;
         }
         const item = items[index];
-        spoken = `${getLabel(item)}, position ${index + 1} of ${items.length}.`;
+        spoken =
+            options.labels?.moved?.(getLabel(item), index + 1, items.length) ??
+            `${getLabel(item)}, position ${index + 1} of ${items.length}.`;
     }
 
     function announceDrop(id: string) {
@@ -114,7 +119,9 @@ export function createReorderGesture<T>(options: GestureOptions<T>) {
             return;
         }
         const item = items[index];
-        spoken = `${getLabel(item)} dropped at position ${index + 1}.`;
+        spoken =
+            options.labels?.dropped?.(getLabel(item), index + 1) ??
+            `${getLabel(item)} dropped at position ${index + 1}.`;
     }
 
     function grab(id: string) {
@@ -129,7 +136,9 @@ export function createReorderGesture<T>(options: GestureOptions<T>) {
             return;
         }
         const item = items[index];
-        spoken = `${getLabel(item)} grabbed, position ${index + 1} of ${items.length}.`;
+        spoken =
+            options.labels?.grabbed?.(getLabel(item), index + 1, items.length) ??
+            `${getLabel(item)} grabbed, position ${index + 1} of ${items.length}.`;
     }
 
     function drop(id: string) {
@@ -178,7 +187,7 @@ export function createReorderGesture<T>(options: GestureOptions<T>) {
         clearPointerSession();
         if (active) {
             emit(original);
-            spoken = 'Reorder cancelled, original order restored.';
+            spoken = options.labels?.cancelled ?? 'Reorder cancelled, original order restored.';
         }
     }
 

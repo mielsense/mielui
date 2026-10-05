@@ -127,7 +127,9 @@
             </div>
             <div class="flex items-center gap-2">
                 <span class="size-2 rounded-full bg-[var(--chart-1)]"></span>
-                <span class="flex-1 text-foreground-muted">Contributions</span>
+                <span class="flex-1 text-foreground-muted">
+                    {context.labels?.tooltipValue ?? 'Contributions'}
+                </span>
                 <span class="ml-4 font-medium tabular-nums">
                     {new Intl.NumberFormat(context.locale).format(day.count)}
                 </span>

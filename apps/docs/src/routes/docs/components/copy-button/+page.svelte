@@ -10,8 +10,6 @@
     import Variants from './examples/variants.svelte';
     import VariantsSrc from './examples/variants.svelte?raw';
 
-    const _TITLE = 'Copy Button';
-
     const installCommand = 'pnpm dlx @mielui/svelte add copy-button';
 </script>
 
@@ -46,15 +44,15 @@
     <section id="usage" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Usage</Typography.H2>
         <Typography.Text variant="supporting">
-            Import Copy Button and pass the text to copy:
-        </Typography.Text>
-        <Typography.Text variant="supporting">
             The click handler runs before copying; call preventDefault() to cancel. The oncopy
             callback receives the exact text requested by the latest successful copy. Pending copies
             are ignored after the button is removed.
         </Typography.Text>
+        <Typography.Text variant="supporting">
+            Import Copy Button and pass the text to copy:
+        </Typography.Text>
         <CodeBlock
-            code={`import { CopyButton } from '$lib/mielui/components/copy-button';\n\n<CopyButton text="pnpm add @mielui/svelte" />\n<CopyButton text={apiKey} label="Copy key" variant="outline" />`}
+            code={`import { CopyButton } from '@mielui/svelte/components/copy-button';\n\n<CopyButton text="pnpm add @mielui/svelte" />\n<CopyButton text={apiKey} label="Copy key" variant="outline" />`}
             lang="svelte"
             copy="overlay"
         />

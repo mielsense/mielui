@@ -81,7 +81,7 @@ Check the installed version and use the documented component parts.`}
         <Typography.Text variant="body" class="m-0">
             Local source and the locked package version take precedence over live documentation.
             Before upgrading, read the changelog and its agent notes. Unreleased notes describe
-            upcoming changes, not the currently published npm package. Mielui 0.1.1 requires Svelte
+            upcoming changes, not the currently published npm package. Mielui 0.2.0 requires Svelte
             5.56 or newer within Svelte 5.
         </Typography.Text>
     </section>

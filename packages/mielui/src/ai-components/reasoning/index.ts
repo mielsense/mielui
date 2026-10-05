@@ -5,7 +5,14 @@ import Root from './reasoning.svelte';
 import Content from './reasoning-content.svelte';
 import Trigger from './reasoning-trigger.svelte';
 
+export type ReasoningLabels = {
+    thinking?: string;
+    thought?: string;
+    thoughtFor?: (duration: string) => string;
+};
+
 export type ReasoningRootProps = {
+    labels?: ReasoningLabels;
     streaming?: boolean;
     /** Whether the reasoning content is visible. */
     open?: boolean;

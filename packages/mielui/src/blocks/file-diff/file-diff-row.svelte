@@ -30,6 +30,19 @@
     // token-lint-disable-next-line no-literal-length: sign column width
     const plainColumns = 'grid-cols-[1.5rem_minmax(0,1fr)]';
     const columns = $derived(showLineNumbers ? numberedColumns : plainColumns);
+    const spokenLine = $derived(type === 'remove' ? (oldLine ?? newLine) : (newLine ?? oldLine));
+    const spokenChange = $derived(
+        type === 'add'
+            ? (context?.labels?.added ?? 'Added')
+            : type === 'remove'
+              ? (context?.labels?.removed ?? 'Removed')
+              : (context?.labels?.unchanged ?? 'Unchanged')
+    );
+    const spokenNumber = $derived(
+        showLineNumbers && spokenLine != null
+            ? ` ${context?.labels?.line?.(spokenLine) ?? `line ${spokenLine}`}`
+            : ''
+    );
 </script>
 
 <div
@@ -66,11 +79,7 @@
         {sign}
     </span>
     <span class="min-w-0 overflow-x-auto py-0.5 pr-4 whitespace-pre">
-        <span class="sr-only">
-            {type === 'add' ? 'Added' : type === 'remove' ? 'Removed' : 'Unchanged'}
-            {showLineNumbers && (newLine ?? oldLine) != null ? ` line ${type === 'remove' ? oldLine : (newLine ?? oldLine)}` : ''}
-            :
-        </span>
+        <span class="sr-only"> {spokenChange}{spokenNumber}: </span>
         {#if children}
             {@render children?.()}
         {:else}

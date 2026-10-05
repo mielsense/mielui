@@ -76,7 +76,7 @@
         {...rest}
         bind:this={element}
         data-ui="form-error-summary"
-        class={cn(className, 'rounded-lg border border-error/30 bg-error/5 p-4 text-sm text-[var(--mielui-error-text)] outline-none focus-visible:ring-2 focus-visible:ring-ring')}
+        class={cn(className, 'rounded-lg border border-error/30 bg-error/5 p-4 text-sm text-[var(--mielui-error-text)] outline-none focus-visible:shadow-[var(--focus-ring)]')}
     >
         <div id={`${uid}-heading`} class="font-medium">
             {#if heading}
@@ -89,7 +89,7 @@
             {#if children}
                 {@render children(messages)}
             {:else}
-                <ul class="list-disc space-y-1 pl-4">
+                <ul class="list-disc space-y-1 ps-4">
                     {#each messages as issue}
                         <li>
                             {#if issue.controlId}
@@ -103,7 +103,7 @@
                             {:else if issue.path?.length}
                                 <button
                                     type="button"
-                                    class="text-left underline underline-offset-4"
+                                    class="text-start underline underline-offset-4"
                                     onclick={() => focusField(issue)}
                                 >
                                     {issue.message}

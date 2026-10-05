@@ -106,8 +106,7 @@
     {#if visibleTotal === 0}
         <section aria-label="No matching components" class="flex flex-col items-start gap-3">
             <Typography.Text variant="supporting">
-                No entries match “{query.trim()}
-                ”.
+                {`No entries match “${query.trim()}”.`}
             </Typography.Text>
             <Button
                 variant="outline"
@@ -142,7 +141,9 @@
             {:else}
                 <Typography.H2 id={group.id} class="m-0">{group.heading}</Typography.H2>
             {/if}
-            <Typography.Metadata class="tabular-nums">{group.items.length}</Typography.Metadata>
+            <Typography.Metadata class={nested ? 'tabular-nums' : 'tabular-nums text-current/70'}>
+                {group.items.length}
+            </Typography.Metadata>
         </div>
         <div class="@container">
             <ul

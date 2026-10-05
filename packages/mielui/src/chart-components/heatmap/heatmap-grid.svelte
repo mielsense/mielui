@@ -19,7 +19,11 @@
 <div
     use:liveCalendar={context.ready && context.animation === 'live'}
     role="group"
-    aria-label={context.loading ? 'Loading contributions' : context.empty ? 'No contributions available' : 'Daily contributions. Use arrow keys to explore dates.'}
+    aria-label={context.loading
+        ? (context.labels?.gridLoading ?? 'Loading contributions')
+        : context.empty
+          ? (context.labels?.gridEmpty ?? 'No contributions available')
+          : (context.labels?.grid ?? 'Daily contributions. Use arrow keys to explore dates.')}
     {...props}
     data-ui="heatmap-grid"
     class={cn(className, 'col-start-2 row-start-2 grid grid-rows-7 gap-1')}

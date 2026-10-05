@@ -4,6 +4,6 @@
     let page = $state(8);
 </script>
 
-<div class="flex justify-center p-6">
+<div class="flex justify-center p-2 sm:p-6">
     <Pagination bind:page total={20} siblings={2} />
 </div>

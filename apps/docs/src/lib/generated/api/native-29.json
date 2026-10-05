@@ -1,14 +1,5 @@
 [
     {
-        "name": "onvolumechange",
-        "type": "EventHandler<Event, HTMLImageElement> | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
         "name": "onvolumechangecapture",
         "type": "EventHandler<Event, HTMLImageElement> | null | undefined",
         "required": false,
@@ -2242,6 +2233,15 @@
     },
     {
         "name": "onkeypresscapture",
+        "type": "KeyboardEventHandler<HTMLAnchorElement> | null | undefined | KeyboardEventHandler<HTMLDivElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "on:keyup",
         "type": "KeyboardEventHandler<HTMLAnchorElement> | null | undefined | KeyboardEventHandler<HTMLDivElement> | null | undefined",
         "required": false,
         "bindable": false,

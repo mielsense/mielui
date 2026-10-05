@@ -19,10 +19,39 @@
         { title: 'Changelog', href: resolve('/docs/changelog') },
         { title: 'Components', href: resolve('/docs/components') }
     ];
+
+    let nav = $state<HTMLElement>();
+
+    function scrollParent(element: HTMLElement) {
+        for (let parent = element.parentElement; parent; parent = parent.parentElement) {
+            if (parent.scrollHeight > parent.clientHeight + 1) {
+                const overflow = getComputedStyle(parent).overflowY;
+                if (overflow === 'auto' || overflow === 'scroll') {
+                    return parent;
+                }
+            }
+        }
+        return undefined;
+    }
+
+    $effect(() => {
+        void page.url.pathname;
+        const current = nav?.querySelector<HTMLElement>('[aria-current="page"]');
+        const scroller = current ? scrollParent(current) : undefined;
+        if (!current || !scroller) {
+            return;
+        }
+        const item = current.getBoundingClientRect();
+        const view = scroller.getBoundingClientRect();
+        if (item.top >= view.top && item.bottom <= view.bottom) {
+            return;
+        }
+        scroller.scrollTop += item.top - view.top - (view.height - item.height) / 2;
+    });
 </script>
 
-<div class="min-h-0 flex-1 overflow-y-auto px-5 py-4">
-    <section class="flex flex-col gap-2 ">
+<nav bind:this={nav} aria-label="Documentation" class="min-h-0 flex-1 overflow-y-auto px-5 py-4">
+    <section class="flex flex-col gap-2">
         <h2 class="mb-2 text-sm text-foreground-muted">Navigate</h2>
         {#each navItems as item (item.href)}
             <Button
@@ -38,7 +67,7 @@
     </section>
 
     <section class="flex flex-col gap-2 mt-10">
-        <h2 class="mb-2 text-sm text-foreground-muted">Getting Started</h2>
+        <h2 class="mb-2 text-sm text-foreground-muted">Getting started</h2>
         {#each docsPages as item (item.href)}
             <Button
                 variant="quiet"
@@ -63,4 +92,4 @@
             {/if}
         </section>
     {/each}
-</div>
+</nav>

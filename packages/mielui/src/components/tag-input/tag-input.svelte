@@ -16,6 +16,7 @@
         name,
         required = false,
         requiredMessage = 'Add at least one tag.',
+        labels,
         variant = 'outline',
         validate,
         normalize,
@@ -52,8 +53,8 @@
     const atMax = $derived(max !== undefined && safeTags.length >= max);
     const controlClass = $derived(
         variant === 'secondary'
-            ? 'border-transparent bg-secondary focus-within:border-[color-mix(in_srgb,var(--color-secondary)_45%,var(--color-primary))]'
-            : 'border-[var(--color-input)] bg-[var(--color-field)] focus-within:border-primary'
+            ? 'border-transparent bg-secondary has-[input:focus-visible]:border-[color-mix(in_srgb,var(--color-secondary)_45%,var(--color-primary))]'
+            : 'border-[var(--color-input)] bg-[var(--color-field)] has-[input:focus-visible]:border-primary'
     );
 
     function toCandidate(raw: string) {
@@ -97,7 +98,7 @@
         if (!allowDuplicates && safeTags.includes(candidate)) {
             return reject({
                 code: 'duplicate',
-                reason: `"${candidate}" is already added.`,
+                reason: labels?.duplicate?.(candidate) ?? `"${candidate}" is already added.`,
                 value: candidate
             });
         }
@@ -105,7 +106,9 @@
         if (max !== undefined && safeTags.length >= max) {
             return reject({
                 code: 'max-tags',
-                reason: `Only ${max} ${max === 1 ? 'tag is' : 'tags are'} allowed.`,
+                reason:
+                    labels?.maxReached?.(max) ??
+                    `Only ${max} ${max === 1 ? 'tag is' : 'tags are'} allowed.`,
                 value: candidate
             });
         }
@@ -116,7 +119,7 @@
             if (result === false) {
                 return reject({
                     code: 'invalid',
-                    reason: `"${candidate}" is not a valid tag.`,
+                    reason: labels?.invalid?.(candidate) ?? `"${candidate}" is not a valid tag.`,
                     value: candidate
                 });
             }
@@ -203,6 +206,9 @@
     });
 
     setTagInputContext({
+        get labels() {
+            return labels;
+        },
         get tags() {
             return safeTags;
         },
@@ -264,9 +270,9 @@
         onclick={handleFieldClick}
         class={cn(
             className,
-            'flex min-h-[var(--size-control-md)] w-full cursor-text flex-wrap items-center gap-1 rounded-[var(--radius-lg)] border-[length:var(--border-size)] p-1 transition-[background-color,border-color,box-shadow] [transition-duration:var(--motion-duration-press)] ease-[var(--ease-out)] motion-reduce:transition-none focus-within:shadow-[var(--focus-ring)] has-[input:disabled]:cursor-not-allowed has-[input:disabled]:opacity-[var(--opacity-disabled)]',
+            'flex min-h-[calc(var(--size-control-md)-var(--size-hairline))] w-full cursor-text flex-wrap items-center gap-1 rounded-[var(--radius-lg)] border-[length:var(--border-size)] p-1 transition-[background-color,border-color,box-shadow] [transition-duration:var(--motion-duration-press)] ease-[var(--ease-out)] motion-reduce:transition-none has-[input:focus-visible]:shadow-[var(--focus-ring)] has-[input:disabled]:cursor-not-allowed has-[input:disabled]:opacity-[var(--opacity-disabled)]',
             controlClass,
-            error && 'border-[var(--color-error)] focus-within:border-[var(--color-error)]'
+            error && 'border-[var(--color-error)] has-[input:focus-visible]:border-[var(--color-error)]'
         )}
     >
         {@render children?.()}

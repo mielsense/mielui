@@ -26,29 +26,6 @@
         <ComponentPreview code={HeroSrc}><Hero /></ComponentPreview>
     </section>
 
-    <section id="composition" class="flex flex-col gap-4">
-        <Typography.H2>Separate handles and content</Typography.H2>
-        <Typography.Text>
-            Drag the handle or focus it and press Space to pick up a row. Content remains selectable
-            and may contain links or controls. The default data form uses Item, Handle, and Content.
-            Supply row to rearrange those same parts; every row needs an Item with its stable id and
-            accessible label.
-        </Typography.Text>
-        <CodeBlock
-            code={`import * as ReorderList from '@mielui/svelte/components/reorder-list';
-
-<ReorderList.Root bind:items getId={(item) => item.id} getLabel={(item) => item.name} label="Priority">
-  {#snippet row(item)}
-    <ReorderList.Item id={item.id} label={item.name}>
-      <ReorderList.Content>{item.name}</ReorderList.Content>
-      <ReorderList.Handle />
-    </ReorderList.Item>
-  {/snippet}
-</ReorderList.Root>`}
-            lang="svelte"
-            copy="overlay"
-        />
-    </section>
     <section id="installation" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Installation</Typography.H2>
         <InstallCommand command={installCommand} />
@@ -78,6 +55,29 @@
 </ReorderList>`}
         />
     </section>
+    <section id="composition" class="flex flex-col gap-4">
+        <Typography.H2>Separate handles and content</Typography.H2>
+        <Typography.Text>
+            Drag the handle or focus it and press Space to pick up a row. Content remains selectable
+            and may contain links or controls. The default data form uses Item, Handle, and Content.
+            Supply row to rearrange those same parts; every row needs an Item with its stable id and
+            accessible label.
+        </Typography.Text>
+        <CodeBlock
+            code={`import * as ReorderList from '@mielui/svelte/components/reorder-list';
+
+<ReorderList.Root bind:items getId={(item) => item.id} getLabel={(item) => item.name} label="Priority">
+  {#snippet row(item)}
+    <ReorderList.Item id={item.id} label={item.name}>
+      <ReorderList.Content>{item.name}</ReorderList.Content>
+      <ReorderList.Handle />
+    </ReorderList.Item>
+  {/snippet}
+</ReorderList.Root>`}
+            lang="svelte"
+            copy="overlay"
+        />
+    </section>
     <section id="handles" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Handle after content</Typography.H2>
         <ComponentPreview code={AdditionalSrc}><Additional /></ComponentPreview>
@@ -89,5 +89,19 @@
             lift an item, move it, and cancel without saving a partial order. Keep unrelated links
             and buttons outside the drag handle, as shown in the custom composition.
         </Typography.Text>
+    </section>
+
+    <section id="labels" class="flex scroll-mt-20 flex-col gap-4">
+        <Typography.H2 class="docs-section-heading">Labels</Typography.H2>
+        <Typography.Text>
+            Built-in text is English by default. Pass labels to ReorderList to translate or reword
+            the keyboard hint and the announcements made while a row moves. Every key is optional;
+            omitted keys keep their default.
+        </Typography.Text>
+        <CodeBlock
+            code={`<ReorderList bind:items {getId} {getLabel} labels={{ hint: 'Faites glisser pour réordonner.', dropped: (item, position) => \`\${item} déposé en position \${position}.\` }} />`}
+            lang="svelte"
+            copy="overlay"
+        />
     </section>
 </div>

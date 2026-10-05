@@ -47,7 +47,7 @@
             Import RadioGroup and compose it with Item sub-components:
         </Typography.Text>
         <CodeBlock
-            code={`import * as RadioGroup from '$lib/mielui/components/radio-group';\n\n<RadioGroup.Root bind:value name="plan">\n  <RadioGroup.Item value="pro" label="Pro" />\n</RadioGroup.Root>`}
+            code={`import * as RadioGroup from '@mielui/svelte/components/radio-group';\n\n<RadioGroup.Root bind:value name="plan" aria-label="Plan">\n  <RadioGroup.Item value="pro" label="Pro" />\n</RadioGroup.Root>`}
             lang="svelte"
             copy="overlay"
         />

@@ -45,7 +45,7 @@
         </Typography.Text>
 
         <CodeBlock
-            code={`import { Badge } from '$lib/mielui/components/badge';\n\n<Badge>New</Badge>\n<Badge variant="outline" dot>Label</Badge>\n<Badge variant="success">Active</Badge>\n<Badge variant="error">Failed</Badge>`}
+            code={`import { Badge } from '@mielui/svelte/components/badge';\n\n<Badge>New</Badge>\n<Badge variant="outline" dot>Label</Badge>\n<Badge variant="success">Active</Badge>\n<Badge variant="error">Failed</Badge>`}
             lang="svelte"
             copy="overlay"
         />

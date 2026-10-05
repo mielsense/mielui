@@ -47,7 +47,7 @@
         <CodeBlock
             lang="svelte"
             copy="overlay"
-            code={`import * as Notch from '$lib/mielui/components/notch';
+            code={`import * as Notch from '@mielui/svelte/components/notch';
 
 <Notch.Root bind:open side="top">
     <Notch.Content aria-label="Sync status">

@@ -1,14 +1,5 @@
 [
     {
-        "name": "on:waiting",
-        "type": "EventHandler<Event, HTMLTimeElement> | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
         "name": "onwaiting",
         "type": "EventHandler<Event, HTMLTimeElement> | null | undefined",
         "required": false,
@@ -2242,6 +2233,15 @@
     },
     {
         "name": "on:keyup",
+        "type": "KeyboardEventHandler<HTMLFieldSetElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onkeyup",
         "type": "KeyboardEventHandler<HTMLFieldSetElement> | null | undefined",
         "required": false,
         "bindable": false,

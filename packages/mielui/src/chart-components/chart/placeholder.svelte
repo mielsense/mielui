@@ -1,10 +1,12 @@
 <script lang="ts">
     import * as Card from '@mielui/svelte/components/card';
     import { Skeleton } from '@mielui/svelte/components/skeleton';
-    import type { Snippet } from 'svelte';
+    import { getContext, type Snippet } from 'svelte';
+    import type { ChartLabels } from '.';
     import { getChart } from './context.svelte';
 
     let { loading, children }: { loading: boolean; children?: Snippet } = $props();
+    const labels = getContext<(() => ChartLabels | undefined) | undefined>('chart-labels');
     const chart = getChart();
     const heights = [32, 56, 44, 70, 58, 82, 66, 90];
 </script>
@@ -27,10 +29,17 @@
             {#if children}
                 {@render children()}
             {:else if loading}
-                <p class="font-medium text-foreground">Loading chart…</p>
+                <p class="font-medium text-foreground">
+                    {labels?.()?.loading ?? 'Loading chart…'}
+                </p>
             {:else}
-                <p class="font-medium text-foreground">No data to display</p>
-                <Card.Description>Try another period or add your first record.</Card.Description>
+                <p class="font-medium text-foreground">
+                    {labels?.()?.empty ?? 'No data to display'}
+                </p>
+                <Card.Description>
+                    {labels?.()?.emptyDescription ??
+                        'Try another period or add your first record.'}
+                </Card.Description>
             {/if}
         </Card.Content>
     </Card.Root>

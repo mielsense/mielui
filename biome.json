@@ -60,7 +60,7 @@
             "enabled": true,
             "indentScriptAndStyle": true,
             "selfCloseVoidElements": "always",
-            "whitespaceSensitivity": "ignore"
+            "whitespaceSensitivity": "css"
         }
     },
     "linter": {

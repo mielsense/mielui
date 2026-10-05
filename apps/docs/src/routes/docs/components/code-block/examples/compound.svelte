@@ -5,7 +5,7 @@
     import HugeiconsIcon from '@mielui/svelte/hugeicons-icon';
 
     const sh = `npm install @mielui/svelte
-npx mielui add code-block`;
+npx @mielui/svelte add code-block`;
 
     const yaml = `name: ci
 on: [push]

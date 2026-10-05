@@ -89,7 +89,9 @@ async function sendPrompt(prompt: string) {
             copy="overlay"
         />
         <Typography.Text variant="supporting">
-            By default,<Kbd shortcut="enter" /> submits and
+            By default,{' '}
+            <Kbd shortcut="enter" />
+            submits and
             <Kbd shortcut="shift+enter" />
             inserts a new line. Set
             <Typography.InlineCode>submitOnEnter={false}</Typography.InlineCode>
@@ -99,14 +101,16 @@ async function sendPrompt(prompt: string) {
         </Typography.Text>
     </section>
 
-    <section id="glass-surface" class="flex flex-col gap-4">
-        <Typography.H2>Glass surface</Typography.H2>
-        <Typography.Text>
-            Set surface="glass" on Composer.Root for a frosted frame with a darker input well. Glass
-            is the default. Set surface="solid" to use an opaque frame.
+    <section id="glass-surface" class="scroll-mt-20 flex flex-col gap-4">
+        <Typography.H2 class="docs-section-heading">Glass surface</Typography.H2>
+        <Typography.Text variant="supporting">
+            Composer follows the theme's surface setting, which defaults to glass: a frosted frame
+            with a darker input well. Set surface="glass" or surface="solid" on Composer.Root to
+            force one regardless of the theme.
         </Typography.Text>
         <ComponentPreview code={GlassSource}><Glass /></ComponentPreview>
     </section>
+
     <section id="integration" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Submission and cancellation</Typography.H2>
         <Typography.Text variant="supporting">

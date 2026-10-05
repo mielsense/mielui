@@ -8,6 +8,7 @@
         class: className,
         value = $bindable<string | string[] | undefined>(),
         disabled = false,
+        size = 'sm',
         children,
         ...mode
     }: ToggleGroupProps = $props();
@@ -49,6 +50,9 @@
         get disabled() {
             return disabled;
         },
+        get size() {
+            return size;
+        },
         isActive,
         setValue: updateValue
     };
@@ -67,6 +71,7 @@
             <div
                 {...props}
                 data-ui="toggle-group"
+                data-size={size}
                 use:travelingHighlight
                 class={cn(className, 'inline-flex items-center gap-1')}
             >
@@ -86,6 +91,7 @@
             <div
                 {...props}
                 data-ui="toggle-group"
+                data-size={size}
                 use:travelingHighlight
                 class={cn(className, 'inline-flex items-center gap-1')}
             >

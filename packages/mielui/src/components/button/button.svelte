@@ -26,7 +26,6 @@
         ...rest
     }: ButtonProps = $props();
 
-    const classes = $derived(cn(classProp, unstyled ? undefined : button({ variant, size })));
     const visualStatus = $derived(status ?? (loading ? 'loading' : 'idle'));
     const statusClasses = $derived(
         unstyled
@@ -37,7 +36,9 @@
                 ? 'bg-[color-mix(in_srgb,var(--color-error)_12%,var(--color-card))] text-[var(--mielui-error-text)] hover:bg-[color-mix(in_srgb,var(--color-error)_18%,var(--color-card))] data-[state=open]:bg-[color-mix(in_srgb,var(--color-error)_18%,var(--color-card))]'
                 : undefined
     );
-    const styledClasses = $derived(cn(classes, statusClasses));
+    const styledClasses = $derived(
+        cn(classProp, statusClasses, unstyled ? undefined : button({ variant, size }))
+    );
     const stateful = $derived(
         status !== undefined ||
             loading !== undefined ||

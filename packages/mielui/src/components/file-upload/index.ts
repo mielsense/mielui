@@ -27,7 +27,26 @@ export type FileUploadSummary = {
     uploading: number;
     complete: number;
 };
+export type FileUploadLabels = {
+    dropzoneTitle?: string;
+    dropzoneDescription?: string;
+    choose?: string;
+    addMore?: string;
+    list?: string;
+    uploading?: string;
+    uploaded?: string;
+    uploadingFile?: (name: string) => string;
+    remove?: string;
+    cancel?: string;
+    retry?: string;
+    typeRejected?: string;
+    tooLarge?: (megabytes: number) => string;
+    duplicate?: string;
+    tooMany?: (maxFiles: number) => string;
+};
+
 export type FileUploadProps = Omit<HTMLAttributes<HTMLDivElement>, 'children'> & {
+    labels?: FileUploadLabels;
     accept?: string;
     maxSize?: number;
     maxFiles?: number;

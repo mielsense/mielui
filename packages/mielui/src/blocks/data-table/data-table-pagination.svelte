@@ -4,9 +4,10 @@
 >
     import { numberShuffle } from '@mielui/svelte/actions/number-shuffle';
     import { cn } from '@mielui/svelte/utils';
+    import { getContext } from 'svelte';
     import { Button } from '../../components/button';
     import Pagination from '../../components/pagination';
-    import type { DataTablePaginationProps } from '.';
+    import type { DataTableLabels, DataTablePaginationProps } from '.';
     import { pagination } from './features';
 
     let {
@@ -15,6 +16,7 @@
         class: className,
         ...rest
     }: DataTablePaginationProps<TFeatures, TData> = $props();
+    const labels = getContext<(() => DataTableLabels | undefined) | undefined>('data-table-labels');
     const api = $derived(pagination(table));
     const pageCount = $derived(api.getPageCount?.() ?? 0);
     const state = $derived(table.store.get() as { pagination?: { pageIndex: number } });
@@ -24,13 +26,15 @@
     <div
         {...rest}
         role="group"
-        aria-label={rest['aria-label'] ?? 'Table pages'}
+        aria-label={rest['aria-label'] ?? labels?.()?.pages ?? 'Table pages'}
         data-ui="data-table-pagination"
         class={cn(className, 'flex flex-wrap items-center gap-3')}
     >
         <span class="text-sm text-foreground-muted tabular-nums">
             {#if pageCount === 0}
-                No pages
+                {labels?.()?.noPages ?? 'No pages'}
+            {:else if labels?.()?.page}
+                {labels?.()?.page?.(page, pageCount >= 0 ? pageCount : undefined)}
             {:else}
                 {'Page '}
                 <span use:numberShuffle={{ value: page }}>{page}</span>

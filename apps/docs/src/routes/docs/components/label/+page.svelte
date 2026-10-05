@@ -44,7 +44,7 @@
             Apply disabled styling to the label explicitly when it precedes the control.
         </Typography.Text>
         <CodeBlock
-            code={`import { Label } from '$lib/mielui/components/label';\nimport { Input } from '$lib/mielui/components/input';\n\n<Label for="email">Email</Label>\n<Input id="email" type="email" />`}
+            code={`import { Label } from '@mielui/svelte/components/label';\nimport { Input } from '@mielui/svelte/components/input';\n\n<Label for="email">Email</Label>\n<Input id="email" type="email" />`}
             lang="svelte"
             copy="overlay"
         />
@@ -57,8 +57,6 @@
                 Common usage patterns for Label with form fields.
             {/snippet}
         </SectionHeading>
-
-        <!-- Basic -->
 
         <!-- Required indicator -->
         <div id="required" class="scroll-mt-20 flex flex-col gap-3">

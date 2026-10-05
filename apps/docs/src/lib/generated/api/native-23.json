@@ -1,14 +1,5 @@
 [
     {
-        "name": "ondragenter",
-        "type": "DragEventHandler<HTMLLIElement> | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
         "name": "ondragentercapture",
         "type": "DragEventHandler<HTMLLIElement> | null | undefined",
         "required": false,
@@ -2242,6 +2233,15 @@
     },
     {
         "name": "onencryptedcapture",
+        "type": "EventHandler<Event, HTMLOListElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "on:ended",
         "type": "EventHandler<Event, HTMLOListElement> | null | undefined",
         "required": false,
         "bindable": false,
