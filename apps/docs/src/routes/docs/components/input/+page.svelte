@@ -75,7 +75,7 @@
         </Typography.Text>
 
         <CodeBlock
-            code={`import { Input } from '$lib/mielui/components/input';\n\n<Input label="Email" placeholder="you@example.com" />`}
+            code={`import { Input } from '@mielui/svelte/components/input';\n\n<Input label="Email" placeholder="you@example.com" />`}
             lang="svelte"
             copy="overlay"
         />

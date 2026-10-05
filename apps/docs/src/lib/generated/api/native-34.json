@@ -1,14 +1,5 @@
 [
     {
-        "name": "onplaycapture",
-        "type": "EventHandler<Event, HTMLSelectElement> | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
         "name": "on:playing",
         "type": "EventHandler<Event, HTMLSelectElement> | null | undefined",
         "required": false,
@@ -1890,15 +1881,6 @@
         "inherited": true
     },
     {
-        "name": "aria-label",
-        "type": "string | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": "'Choose dates'",
-        "description": "Defines a string value that labels the current element.",
-        "inherited": true
-    },
-    {
         "name": "role",
         "type": "AriaRole | null | undefined",
         "required": false,
@@ -2242,6 +2224,24 @@
     },
     {
         "name": "on:input",
+        "type": "FormEventHandler<HTMLLabelElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "oninput",
+        "type": "FormEventHandler<HTMLLabelElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "oninputcapture",
         "type": "FormEventHandler<HTMLLabelElement> | null | undefined",
         "required": false,
         "bindable": false,

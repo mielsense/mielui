@@ -22,14 +22,15 @@
     <title>Mielui · Sheet</title>
     <meta
         name="description"
-        content="An edge-anchored drawer for mobile menus, filters, and side panels."
+        content="A modal side panel for navigation, filters, and forms. It slides in from the left or right edge."
     />
 </svelte:head>
 
 <div data-docs-page class="flex flex-col gap-10">
     <!-- ─── Header ────────────────────────────────────────────────── -->
     <PageIntro title={TITLE}>
-        A drawer that slides in from the left or right of the screen.
+        A modal panel that slides in from the left or right edge of the screen. Use Drawer when the
+        panel needs swipe gestures.
     </PageIntro>
 
     <!-- ─── Hero Example ──────────────────────────────────────────── -->
@@ -76,7 +77,7 @@
         </Typography.Text>
 
         <CodeBlock
-            code={`import * as Sheet from '$lib/mielui/components/sheet';\nimport Kbd from '$lib/mielui/components/kbd';\nimport { Button } from '$lib/mielui/components/button';\n\n<Sheet.Root bind:open>\n  <Sheet.Trigger>Open</Sheet.Trigger>\n  <Sheet.Content side="right">\n    <Sheet.Header>\n      <Sheet.Title>Title</Sheet.Title>\n      <Sheet.Description>Describe what lives here.</Sheet.Description>\n    </Sheet.Header>\n    <!-- Panel content -->\n    <Sheet.Footer>\n      <Sheet.Close>Cancel <Kbd shortcut="esc" /></Sheet.Close>\n      <Button>Save <Kbd shortcut="enter" /></Button>\n    </Sheet.Footer>\n  </Sheet.Content>\n</Sheet.Root>`}
+            code={`import * as Sheet from '@mielui/svelte/components/sheet';\nimport Kbd from '@mielui/svelte/components/kbd';\nimport { Button } from '@mielui/svelte/components/button';\n\n<Sheet.Root bind:open>\n  <Sheet.Trigger>Open</Sheet.Trigger>\n  <Sheet.Content side="right">\n    <Sheet.Header>\n      <Sheet.Title>Title</Sheet.Title>\n      <Sheet.Description>Describe what lives here.</Sheet.Description>\n    </Sheet.Header>\n    <!-- Panel content -->\n    <Sheet.Footer>\n      <Sheet.Close>Cancel <Kbd shortcut="esc" /></Sheet.Close>\n      <Button>Save <Kbd shortcut="enter" /></Button>\n    </Sheet.Footer>\n  </Sheet.Content>\n</Sheet.Root>`}
             lang="svelte"
             copy="overlay"
         />

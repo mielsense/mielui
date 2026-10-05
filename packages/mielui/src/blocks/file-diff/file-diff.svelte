@@ -17,6 +17,7 @@
         diff,
         showLineNumbers = true,
         theme = 'mielui',
+        labels,
         ...rest
     }: FileDiffRootProps = $props();
 
@@ -29,6 +30,9 @@
     const isHighLevel = $derived(diff != null);
 
     const context: FileDiffContext = {
+        get labels() {
+            return labels;
+        },
         get lang() {
             return lang;
         },

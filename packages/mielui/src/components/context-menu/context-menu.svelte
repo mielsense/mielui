@@ -18,6 +18,4 @@
     });
 </script>
 
-<MenuPrimitive.Root bind:open {onOpenChange}>
-    {@render children?.()}
-</MenuPrimitive.Root>
+<MenuPrimitive.Root bind:open {onOpenChange}> {@render children?.()} </MenuPrimitive.Root>

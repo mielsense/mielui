@@ -31,7 +31,8 @@ export function calendar(
     weeks: number,
     endDate: string | undefined,
     weekStartsOn: number,
-    locale: string
+    locale: string,
+    unitLabel?: (count: number) => string
 ) {
     if (!Number.isInteger(weeks) || weeks < 1 || weeks > 104) {
         throw new RangeError('Heatmap weeks must be an integer from 1 to 104.');
@@ -82,6 +83,7 @@ export function calendar(
                 lastMonth = date.getUTCMonth();
             }
         }
+        const unit = unitLabel?.(count) ?? (count === 1 ? 'contribution' : 'contributions');
         cells.push({
             date: key,
             count,
@@ -89,7 +91,7 @@ export function calendar(
                 source?.level ?? (count === 0 ? 0 : Math.max(1, Math.ceil((count / maximum) * 4))),
             column,
             row: (index % 7) + 1,
-            label: `${formatter.format(date)}: ${countFormatter.format(count)} contributions`
+            label: `${formatter.format(date)}: ${countFormatter.format(count)} ${unit}`
         });
     }
     const weekdays = Array.from({ length: 7 }, (_, row) =>

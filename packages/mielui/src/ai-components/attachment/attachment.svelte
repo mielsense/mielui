@@ -1,8 +1,9 @@
 <script lang="ts">
     import { Attachment01Icon as Paperclip } from '@hugeicons/core-free-icons';
     import { cn } from '@mielui/svelte/utils';
+    import { setContext } from 'svelte';
     import HugeiconsIcon from '../../hugeicons-icon.svelte';
-    import type { AttachmentProps } from '.';
+    import type { AttachmentLabels, AttachmentProps } from '.';
     import { setAttachmentContext } from './context.svelte';
     import { validateFiles } from './validation';
 
@@ -20,8 +21,10 @@
         ondragover,
         ondragleave,
         ondrop,
+        labels,
         ...rest
     }: AttachmentProps = $props();
+    setContext<() => AttachmentLabels | undefined>('attachment-labels', () => labels);
 
     let input: HTMLInputElement | undefined;
     let dragDepth = 0;
@@ -121,7 +124,9 @@
         ondrop?.(event);
         const hasFiles = hasDraggedFiles(event);
         const handled = event.defaultPrevented;
-        event.preventDefault();
+        if (hasFiles) {
+            event.preventDefault();
+        }
         dragDepth = 0;
         dragging = false;
         if (!handled && hasFiles && !disabled && event.dataTransfer) {
@@ -159,7 +164,7 @@
                 class="flex items-center gap-2 rounded-full bg-card/90 px-3 py-1.5 text-sm font-label"
             >
                 <HugeiconsIcon icon={Paperclip} size={16} strokeWidth={2} />
-                Drop files to attach
+                {labels?.dropzone ?? 'Drop files to attach'}
             </span>
         </div>
     {/if}

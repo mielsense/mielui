@@ -53,7 +53,8 @@ let follow = $state(true);
         <Typography.H2 class="docs-section-heading">Usage</Typography.H2>
         <Typography.Text variant="supporting">
             Give{' '}
-            <Typography.InlineCode>Root</Typography.InlineCode> a bounded height so
+            <Typography.InlineCode>Root</Typography.InlineCode>
+            a bounded height so
             <Typography.InlineCode>Content</Typography.InlineCode>
             can scroll. Bind
             <Typography.InlineCode>follow</Typography.InlineCode>

@@ -1,8 +1,10 @@
 <script lang="ts">
     import { cn } from '@mielui/svelte/utils';
-    import type { ToolOutputProps } from '.';
+    import { getContext } from 'svelte';
+    import type { ToolLabels, ToolOutputProps } from '.';
 
-    let { label = 'Output', children, class: className, ...rest }: ToolOutputProps = $props();
+    let { label, children, class: className, ...rest }: ToolOutputProps = $props();
+    const labels = getContext<(() => ToolLabels | undefined) | undefined>('tool-labels');
 </script>
 
 <div
@@ -14,7 +16,7 @@
     {...rest}
 >
     <span class="text-xs [font-weight:var(--font-weight-label)] text-foreground-muted">
-        {label}
+        {label ?? labels?.()?.output ?? 'Output'}
     </span>
     <div class="text-sm leading-5 text-foreground">
         {@render children?.()}

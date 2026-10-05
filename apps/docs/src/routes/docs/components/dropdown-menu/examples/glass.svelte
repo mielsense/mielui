@@ -59,7 +59,7 @@
                 </span>
             </DropdownMenu.Item>
             <DropdownMenu.Item callback={() => selectSection('Sign out')}>
-                <span class="flex items-center gap-2 text-[var(--color-error)]">
+                <span class="flex items-center gap-2 text-[var(--mielui-error-text)]">
                     <HugeiconsIcon icon={LogOut} size={13} />
                     Sign out
                 </span>

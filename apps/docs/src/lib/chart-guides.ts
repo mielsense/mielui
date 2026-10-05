@@ -190,8 +190,7 @@ export const chartGuides: ChartGuide[] = [
             {
                 name: 'hero',
                 title: 'Total in the center',
-                description:
-                    'The default center label shows the total and responds to the active category.'
+                description: 'The default center label shows the total.'
             },
             {
                 name: 'live',

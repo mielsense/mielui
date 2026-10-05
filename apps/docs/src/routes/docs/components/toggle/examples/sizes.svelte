@@ -4,14 +4,14 @@
     import HugeiconsIcon from '@mielui/svelte/hugeicons-icon';
 </script>
 
-<div class="flex gap-2">
-    <Toggle aria-label="Bold" size="sm">
+<div class="flex items-center gap-2">
+    <Toggle aria-label="Bold" variant="outline" size="sm">
         <HugeiconsIcon icon={Bold} size={12} />
     </Toggle>
-    <Toggle aria-label="Bold">
+    <Toggle aria-label="Bold" variant="outline">
         <HugeiconsIcon icon={Bold} size={14} />
     </Toggle>
-    <Toggle aria-label="Bold" size="lg">
+    <Toggle aria-label="Bold" variant="outline" size="lg">
         <HugeiconsIcon icon={Bold} size={16} />
     </Toggle>
 </div>

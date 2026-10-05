@@ -37,7 +37,7 @@
             undefined while editing.
         </Typography.Text>
         <CodeBlock
-            code={`import * as DateRangePicker from '$lib/mielui/components/date-range-picker';
+            code={`import * as DateRangePicker from '@mielui/svelte/components/date-range-picker';
 
 <DateRangePicker.Root bind:value>
   <DateRangePicker.Label>Travel dates</DateRangePicker.Label>
@@ -110,5 +110,19 @@
             your error message. Popup focus returns to the trigger when dismissed; motion respects
             reduced-motion preferences.
         </Typography.Text>
+    </section>
+
+    <section id="labels" class="flex scroll-mt-20 flex-col gap-4">
+        <Typography.H2 class="docs-section-heading">Labels</Typography.H2>
+        <Typography.Text>
+            Built-in text is English by default. Pass labels to DateRangePicker.Root to translate or
+            reword the calendar trigger, the calendar panel, and the validation message. Every key
+            is optional; omitted keys keep their default.
+        </Typography.Text>
+        <CodeBlock
+            code={`<DateRangePicker.Root labels={{ trigger: 'Choisir des dates', content: 'Choisir des dates', invalid: 'Saisissez une date valide.' }} />`}
+            lang="svelte"
+            copy="overlay"
+        />
     </section>
 </div>

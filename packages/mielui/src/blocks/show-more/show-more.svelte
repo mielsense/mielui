@@ -117,7 +117,7 @@
             data-veiled={veiled}
             class="transition-[height] [transition-duration:var(--motion-duration-panel)] ease-[var(--ease-out)] motion-reduce:transition-none data-[veiled=true]:[mask-image:linear-gradient(to_bottom,black_calc(100%_-_var(--spacing)_*_9),transparent)] overscroll-contain rounded-[var(--radius-sm)] outline-none focus-visible:shadow-[var(--focus-ring)]"
             style:height={preview || height === undefined ? undefined : `${height}px`}
-            style:max-height={preview ? `${heightLimit}px` : height === undefined ? `${visibleLines}lh` : undefined}
+            style:max-height={preview ? `${heightLimit}px` : height === undefined && !open ? `${visibleLines}lh` : undefined}
             style:overflow-y={preview || scrollable ? 'auto' : 'hidden'}
             style:scrollbar-gutter={capped ? 'stable' : undefined}
         >
@@ -144,7 +144,7 @@
                 type="button"
                 class="mt-2 inline-flex min-h-[var(--size-control-sm)] items-center gap-1.5 rounded-[var(--radius-md)] px-2 [font-size:var(--font-size-button)] [font-weight:var(--font-weight-button)] text-foreground-muted transition-[background-color,color] duration-[var(--motion-duration-press)] ease-[var(--ease-press)] hover:bg-secondary hover:text-foreground focus-visible:outline-none focus-visible:shadow-[var(--focus-ring)] motion-reduce:transition-none"
             >
-                <span class="grid text-left">
+                <span class="grid text-start">
                     <span
                         class="col-start-1 row-start-1 transition-[opacity,translate] [transition-duration:var(--motion-duration-press)] ease-[var(--ease-out)] data-[active=false]:opacity-0 data-[active=false]:translate-y-0.5 motion-reduce:transition-none"
                         data-active={!open}

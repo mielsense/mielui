@@ -43,8 +43,8 @@
             another card.
         </Typography.Text>
         <CodeBlock
-            code={`import { Button } from '$lib/mielui/components/button';
-import * as EmptyState from '$lib/mielui/components/empty-state';
+            code={`import { Button } from '@mielui/svelte/components/button';
+import * as EmptyState from '@mielui/svelte/components/empty-state';
 
 <EmptyState.Root>
     <EmptyState.Header>

@@ -214,6 +214,14 @@ Passive tracks, progress fills, metadata, and grouping wrappers stay flat. Compo
 text fields use one edge around their editable boundary. Focus rings add to that
 edge rather than replacing it.
 
+Composite fields with focusable parts inside them, such as TagInput tags and
+NumberField steppers, show the field ring only while the text input has focus
+(`has-[input:focus-visible]`). A focused part shows its own ring; never both.
+Dialog panels carry `data-dialog-panel`; shared overlay styles and stacking key
+on that attribute, because wrappers may replace `data-ui`. Viewport-level hosts
+that must stay usable above a modal, such as the Toaster, carry
+`data-overlay-root`.
+
 ### Control geometry
 
 Controls use three heights: `--size-control-sm`, `--size-control-md`, and

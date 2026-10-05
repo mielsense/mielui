@@ -171,7 +171,7 @@
     data-ui="tag-input-input"
     class={cn(
         className,
-        'min-w-24 flex-1 self-stretch bg-transparent py-1 text-[var(--color-field-foreground)] [font-size:var(--font-size-body)] outline-none placeholder:text-foreground-muted disabled:cursor-not-allowed',
-        context.tags.length > 0 ? 'pl-0' : 'pl-2'
+        'min-w-24 flex-1 self-stretch bg-transparent py-0.5 text-[var(--color-field-foreground)] [font-size:var(--font-size-body)] outline-none placeholder:text-foreground-muted disabled:cursor-not-allowed',
+        context.tags.length > 0 ? 'ps-0' : 'ps-2'
     )}
 />

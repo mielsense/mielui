@@ -15,8 +15,6 @@
     import TaskCard from './examples/task-card.svelte';
     import TaskCardSrc from './examples/task-card.svelte?raw';
 
-    const _TITLE = 'Context Menu';
-
     const installCommand = 'pnpm dlx @mielui/svelte add context-menu';
 </script>
 
@@ -73,7 +71,7 @@
             Import and compose with Root, Trigger, Content, and Item:
         </Typography.Text>
         <CodeBlock
-            code={`import * as ContextMenu from '$lib/mielui/components/context-menu';\n\n<ContextMenu.Root>\n  <ContextMenu.Trigger>\n    <div>Right-click me</div>\n  </ContextMenu.Trigger>\n  <ContextMenu.Content>\n    <ContextMenu.Item callback={handleAction}>Action</ContextMenu.Item>\n  </ContextMenu.Content>\n</ContextMenu.Root>`}
+            code={`import * as ContextMenu from '@mielui/svelte/components/context-menu';\n\n<ContextMenu.Root>\n  <ContextMenu.Trigger>\n    <div>Right-click me</div>\n  </ContextMenu.Trigger>\n  <ContextMenu.Content>\n    <ContextMenu.Item callback={handleAction}>Action</ContextMenu.Item>\n  </ContextMenu.Content>\n</ContextMenu.Root>`}
             lang="svelte"
             copy="overlay"
         />

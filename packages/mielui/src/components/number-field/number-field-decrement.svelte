@@ -1,5 +1,6 @@
 <script lang="ts">
     import { Button } from '@mielui/svelte/components/button';
+    import { cn } from '@mielui/svelte/utils';
     import { buttonAttributes } from '../_internal/button-attributes';
     import type { NumberFieldStepperProps } from '.';
     import { getNumberFieldContext } from './context';
@@ -28,12 +29,16 @@
     type="button"
     aria-label={rest['aria-label'] ?? 'Decrease value'}
     disabled={disabled || context.disabled || context.readonly || atBound}
+    class={cn(
+        rest.class,
+        'size-[calc(var(--size-icon-md)-var(--border-size)*2)] min-w-[calc(var(--size-icon-md)-var(--border-size)*2)]'
+    )}
     onclick={(event) => {
-    onclick?.(event);
-    if (!event.defaultPrevented) {
-        context.change(-1);
-    }
-}}
+        onclick?.(event);
+        if (!event.defaultPrevented) {
+            context.change(-1);
+        }
+    }}
 >
     {#if children}
         {@render children()}

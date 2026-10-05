@@ -137,7 +137,7 @@ src/lib/mielui/components/button/
     <title>Mielui · Theming</title>
     <meta
         name="description"
-        content="Theme and style mielui with CSS variables, classes, and data-ui selectors."
+        content="Theme and style Mielui with CSS variables, classes, and data-ui selectors."
     />
 </svelte:head>
 
@@ -376,7 +376,7 @@ const css = themeToCss(theme);`}
         <Typography.H2 class="docs-section-heading">Chart colors</Typography.H2>
         <Typography.Text variant="body" class="m-0">
             <InlineText
-                text="Studio's Color → Chart colors controls edit `--chart-1` through `--chart-5` for the active light or dark theme. The defaults are pastel purple, blue, red, green, and yellow. Cartesian charts, pie charts, gauges, heatmaps, and their demos use these tokens. Explicit series colors and semantic gauge tones still take precedence."
+                text="Studio's Color → Chart colors controls edit `--chart-1` through `--chart-5` for the active light or dark theme. The defaults are pastel purple, pink, blue, green, and yellow. Cartesian charts, pie charts, gauges, heatmaps, and their demos use these tokens. Explicit series colors and semantic gauge tones still take precedence."
             />
         </Typography.Text>
         <CodeBlock

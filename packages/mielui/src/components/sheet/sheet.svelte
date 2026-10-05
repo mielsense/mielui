@@ -44,6 +44,4 @@
     });
 </script>
 
-<DialogPrimitive.Root bind:open={sheetState.open}>
-    {@render children?.()}
-</DialogPrimitive.Root>
+<DialogPrimitive.Root bind:open={sheetState.open}> {@render children?.()} </DialogPrimitive.Root>

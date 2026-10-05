@@ -77,7 +77,7 @@
         padAngle={Math.max(0, Math.min(padAngle, 0.2))}
         fill={context.color(item.key)}
         motion="none"
-        class={cn(className, 'outline-none transition-opacity duration-[var(--motion-duration-fast)] motion-reduce:transition-none')}
+        class={cn(className, 'outline-none transition-opacity [transition-duration:var(--motion-duration-hover)] motion-reduce:transition-none')}
         style={context.motion ? undefined : 'transition-duration: 0ms'}
         opacity={context.active && context.active !== item.key ? 0.45 : 1}
         onpointermove={(event) => {

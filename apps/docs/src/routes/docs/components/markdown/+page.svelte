@@ -61,7 +61,7 @@ const content = [
             The GFM lexer supports tables, task lists, and strikethrough. Fenced code is rendered
             with Mielui{' '}
             <Typography.InlineCode>CodeBlock</Typography.InlineCode>
-            , and raw HTML is displayed as text. Links allow HTTP, HTTPS, mailto, and relative URLs.
+            and raw HTML is displayed as text. Links allow HTTP, HTTPS, mailto, and relative URLs.
             Images use relative paths; external image URLs render their alt text.
         </Typography.Text>
         <CodeBlock code={usageSnippet} lang="svelte" copy="overlay" />
@@ -91,5 +91,19 @@ const content = [
             response ends or is stopped. The example sends small chunks through headings, lists, a
             table, and a code block. It clears its timer when the example unmounts.
         </Typography.Text>
+    </section>
+
+    <section id="labels" class="flex scroll-mt-20 flex-col gap-4">
+        <Typography.H2 class="docs-section-heading">Labels</Typography.H2>
+        <Typography.Text>
+            Built-in text is English by default. Pass labels to Markdown to translate or reword
+            task-list checkboxes and scrollable tables. Every key is optional; omitted keys keep
+            their default.
+        </Typography.Text>
+        <CodeBlock
+            code={`<Markdown {content} labels={{ completedTask: 'Tâche terminée', incompleteTask: 'Tâche à faire', table: 'Tableau' }} />`}
+            lang="svelte"
+            copy="overlay"
+        />
     </section>
 </div>

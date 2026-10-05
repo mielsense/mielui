@@ -5,6 +5,7 @@ type Options = {
     disabled: () => boolean;
     onUpload: () => FileUploadProps['onUpload'];
     constraints: () => Pick<FileUploadProps, 'accept' | 'maxSize' | 'maxFiles'>;
+    labels: () => FileUploadProps['labels'];
 };
 
 export function createFileUploadController(options: Options) {
@@ -67,6 +68,7 @@ export function createFileUploadController(options: Options) {
                 .split(',')
                 .map((rule) => rule.trim())
                 .filter(Boolean) ?? [];
+        const labels = options.labels();
         for (const file of incoming) {
             let error: string | undefined;
             const matches =
@@ -79,9 +81,12 @@ export function createFileUploadController(options: Options) {
                           : file.type.toLowerCase() === rule
                 );
             if (!matches) {
-                error = 'This file type is not accepted.';
+                error = labels?.typeRejected ?? 'This file type is not accepted.';
             } else if (maxSize !== undefined && file.size > maxSize) {
-                error = `File exceeds the ${(maxSize / 1024 / 1024).toLocaleString()} MB limit.`;
+                const megabytes = maxSize / 1024 / 1024;
+                error =
+                    labels?.tooLarge?.(megabytes) ??
+                    `File exceeds the ${megabytes.toLocaleString()} MB limit.`;
             } else if (
                 items.some(
                     (item) =>
@@ -91,12 +96,12 @@ export function createFileUploadController(options: Options) {
                         item.file.lastModified === file.lastModified
                 )
             ) {
-                error = 'This file has already been selected.';
+                error = labels?.duplicate ?? 'This file has already been selected.';
             } else if (
                 maxFiles !== undefined &&
                 items.filter((item) => item.retryable).length >= maxFiles
             ) {
-                error = `Choose up to ${maxFiles} files.`;
+                error = labels?.tooMany?.(maxFiles) ?? `Choose up to ${maxFiles} files.`;
             }
             const id = crypto.randomUUID();
             items = [

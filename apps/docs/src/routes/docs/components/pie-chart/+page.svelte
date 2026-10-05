@@ -1,4 +1,5 @@
 <script lang="ts">
+    import { CodeBlock } from '@mielui/svelte/components/code-block';
     import * as Typography from '@mielui/svelte/components/typography';
     import { chartGuides } from '$lib/chart-guides';
     import { ComponentPreview, InstallCommand } from '$lib/components/docs';
@@ -21,7 +22,9 @@
     <PageIntro title="Pie Chart">
         Pie and donut charts with exact values, keyboard inspection, and composed labels.
     </PageIntro>
-    <ComponentPreview refreshable code={HeroSource}><Hero /></ComponentPreview>
+    <section id="hero" class="flex scroll-mt-20 flex-col gap-4">
+        <ComponentPreview refreshable code={HeroSource}><Hero /></ComponentPreview>
+    </section>
     <section id="installation" class="flex scroll-mt-20 flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Installation</Typography.H2>
         <InstallCommand command="pnpm dlx @mielui/svelte add pie-chart" />
@@ -44,6 +47,29 @@
             The total comes from the visible data. Keep category keys stable across updates so
             slices and labels stay associated with the same category.
         </Typography.Text>
+        <CodeBlock
+            copy="overlay"
+            lang="svelte"
+            code={`import * as PieChart from '@mielui/svelte/components/pie-chart';
+
+const data = [
+  { key: 'direct', value: 1240 },
+  { key: 'search', value: 860 }
+];
+const config = {
+  direct: { label: 'Direct' },
+  search: { label: 'Search' }
+};
+
+<PieChart.Root {data} {config} aria-label="Sessions by acquisition channel">
+  <PieChart.Plot>
+    <PieChart.Arc />
+    <PieChart.Label />
+  </PieChart.Plot>
+  <PieChart.Tooltip />
+  <PieChart.Legend />
+</PieChart.Root>`}
+        />
     </section>
     <section id="chart-types" class="flex scroll-mt-20 flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Chart types</Typography.H2>
@@ -86,8 +112,22 @@
         <Typography.H2 class="docs-section-heading">Accessibility</Typography.H2>
         <Typography.Text variant="supporting">
             Give Root a descriptive aria-label. Root includes a screen-reader data table. Focus a
-            legend item to inspect its value and percentage. Pointer users can inspect the same
-            values on each slice. Escape dismisses the tooltip.
+            legend item to inspect its value. Pointer users can inspect the same values on each
+            slice. Escape dismisses the tooltip.
         </Typography.Text>
+    </section>
+
+    <section id="labels" class="flex scroll-mt-20 flex-col gap-4">
+        <Typography.H2 class="docs-section-heading">Labels</Typography.H2>
+        <Typography.Text>
+            Built-in text is English by default. Pass labels to PieChart.Root to translate or reword
+            the loading and empty messages and the screen-reader table headings. Every key is
+            optional; omitted keys keep their default.
+        </Typography.Text>
+        <CodeBlock
+            code={`<PieChart.Root {data} {config} aria-label="Répartition" labels={{ loading: 'Chargement…', empty: 'Aucune donnée', category: 'Catégorie', value: 'Valeur' }} />`}
+            lang="svelte"
+            copy="overlay"
+        />
     </section>
 </div>

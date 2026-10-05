@@ -16,7 +16,7 @@
     transition={{ duration: root.duration }}
     data-ui="file-upload-dropzone"
     data-dragging={root.dragging || undefined}
-    class={cn(className, 'flex flex-col items-center justify-center gap-3 rounded-[var(--radius-xl)] border border-dashed border-border bg-card px-6 text-center data-[dragging]:border-primary data-[dragging]:bg-primary/5')}
+    class={cn(className, 'flex flex-col items-center justify-center gap-3 rounded-[var(--radius-xl)] border-[length:var(--border-size)] border-dashed border-border bg-card px-6 text-center data-[dragging]:border-primary data-[dragging]:bg-primary/5')}
     animate={{ paddingTop: root.summary.total ? 16 : 32, paddingBottom: root.summary.total ? 16 : 32 }}
 >
     {#if children}
@@ -25,10 +25,18 @@
         {#if root.summary.total === 0}
             <HugeiconsIcon icon={Upload04Icon} size={24} class="text-foreground-muted" />
             <div class="flex flex-col gap-1">
-                <p class="text-sm font-medium">Drop your files here</p>
-                <p class="text-sm text-foreground-muted">Or choose them from your device.</p>
+                <p class="text-sm font-medium">
+                    {root.labels?.dropzoneTitle ?? 'Drop your files here'}
+                </p>
+                <p class="text-sm text-foreground-muted">
+                    {root.labels?.dropzoneDescription ?? 'Or choose them from your device.'}
+                </p>
             </div>
         {/if}
-        <Trigger>{root.summary.total ? 'Add more files' : 'Choose files'}</Trigger>
+        <Trigger>
+            {root.summary.total
+                ? (root.labels?.addMore ?? 'Add more files')
+                : (root.labels?.choose ?? 'Choose files')}
+        </Trigger>
     {/if}
 </motion.div>

@@ -28,7 +28,7 @@ export function gaugeArcPath(size: number, radius: number, width: number, progre
         inner * Math.sin(Math.min(angle, Math.PI) / 2) * 0.3
     );
     const outerInset = Math.asin(corner / (outer - corner));
-    const innerInset = Math.asin(corner / (inner + corner));
+    const innerInset = inner + corner > 0 ? Math.asin(corner / (inner + corner)) : 0;
     const outerTangent = Math.sqrt((outer - corner) ** 2 - corner ** 2);
     const innerTangent = Math.sqrt((inner + corner) ** 2 - corner ** 2);
     const outerLarge = angle - outerInset * 2 > Math.PI ? 1 : 0;

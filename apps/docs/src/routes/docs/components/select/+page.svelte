@@ -47,11 +47,6 @@
     <!-- ─── Usage ─────────────────────────────────────────────────── -->
     <section id="usage" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Usage</Typography.H2>
-        <Typography.Text variant="supporting">
-            The theme setting chrome.borders chooses "single" or "double" framing. Single is the
-            default. Single removes the extra frame while preserving content padding, composition,
-            and inset variants.
-        </Typography.Text>
         <Typography.Text>
             Use Select.Value for a trigger label that follows the selection. Use bind:value or
             onValueChange on Select.Root to react to both pointer and keyboard selection; an item
@@ -70,7 +65,7 @@
         </Typography.Text>
 
         <CodeBlock
-            code={`import * as Select from '$lib/mielui/components/select';\n\n<Select.Root bind:value={role}>\n  <Select.Trigger aria-label="Role"><Select.Value placeholder="Select a role" /></Select.Trigger>\n  <Select.Content>\n    <Select.Item value="designer">Designer</Select.Item>\n  </Select.Content>\n</Select.Root>`}
+            code={`import * as Select from '@mielui/svelte/components/select';\n\n<Select.Root bind:value={role}>\n  <Select.Trigger aria-label="Role"><Select.Value placeholder="Select a role" /></Select.Trigger>\n  <Select.Content>\n    <Select.Item value="designer">Designer</Select.Item>\n  </Select.Content>\n</Select.Root>`}
             lang="svelte"
             copy="overlay"
         />

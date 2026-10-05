@@ -5,7 +5,7 @@ export const manifest: Manifest = {
     version: '1.2.0',
     visibility: 'public',
     description:
-        'Confirmation dialog with role="alertdialog", default allowClickOutside=false, and Exit/Confirm buttons (no Close).',
+        'Confirmation dialog with role="alertdialog". Outside clicks never dismiss it, focus starts on Exit, and Exit and Confirm replace the close button.',
     role: 'alertdialog',
     files: [
         'components/alert-dialog/alert-dialog.svelte',

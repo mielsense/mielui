@@ -44,19 +44,28 @@
     <section id="usage" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Usage</Typography.H2>
         <Typography.Text>
-            Bind<Typography.InlineCode>page</Typography.InlineCode> to the current page, starting at
-            1. Set<Typography.InlineCode>total</Typography.InlineCode> to the number of pages, not
-            the number of records. Update your displayed records or fetch the next page when the
-            value changes.
+            Bind{' '}
+            <Typography.InlineCode>page</Typography.InlineCode>
+            {' '}
+            to the current page, starting at 1. Set{' '}
+            <Typography.InlineCode>total</Typography.InlineCode>
+            {' '}
+            to the number of pages, not the number of records. Update your displayed records or
+            fetch the next page when the value changes, or use{' '}
+            <Typography.InlineCode>onPageChange</Typography.InlineCode>
+            {' '}
+            to respond to user navigation.
         </Typography.Text>
         <Typography.Text>
             Page numbers and totals are rounded down and kept within valid bounds. Non-finite values
-            fall back to 1.<Typography.InlineCode>siblings</Typography.InlineCode> sets the number
-            of neighboring pages shown on each side, from 0 to 100.
+            fall back to 1.{' '}
+            <Typography.InlineCode>siblings</Typography.InlineCode>
+            {' '}
+            sets the number of neighboring pages shown on each side, from 0 to 100.
         </Typography.Text>
 
         <CodeBlock
-            code={`import { Pagination } from '$lib/mielui/components/pagination';\n\nlet page = $state(1);\n\n<Pagination bind:page total={20} />`}
+            code={`import { Pagination } from '@mielui/svelte/components/pagination';\n\nlet page = $state(1);\n\n<Pagination bind:page total={20} />`}
             lang="svelte"
             copy="overlay"
         />
@@ -76,5 +85,19 @@
                 <Siblings />
             </ComponentPreview>
         </div>
+    </section>
+
+    <section id="labels" class="flex scroll-mt-20 flex-col gap-4">
+        <Typography.H2 class="docs-section-heading">Labels</Typography.H2>
+        <Typography.Text>
+            Built-in text is English by default. Pass labels to Pagination to translate or reword
+            the navigation landmark, the previous and next buttons, and each page button. Every key
+            is optional; omitted keys keep their default.
+        </Typography.Text>
+        <CodeBlock
+            code={`<Pagination total={12} labels={{ navigation: 'Pagination', previous: 'Page précédente', next: 'Page suivante', page: (page) => \`Page \${page}\` }} />`}
+            lang="svelte"
+            copy="overlay"
+        />
     </section>
 </div>

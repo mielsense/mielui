@@ -42,12 +42,13 @@ export const componentDocPages = [
     ),
     ...navigationGroups
         .filter((group) => group.id === 'actions')
-        .flatMap((group) =>
-            group.items.map((action) => ({
+        .flatMap((group) => [
+            { href: '/docs/actions', label: group.heading },
+            ...group.items.map((action) => ({
                 href: `/docs/actions/${action}`,
                 label: sanitizeComponent(action)
             }))
-        )
+        ])
 ];
 
 export function componentOwner(pathname: string): string | undefined {

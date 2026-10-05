@@ -26,7 +26,8 @@
     {#snippet children({ total })}
         <DataTable.Toolbar>
             <p class="text-sm font-medium">
-                <span use:numberShuffle={{ value: total }}>{total}</span> team members
+                <span use:numberShuffle={{ value: total }}>{total}</span>
+                team members
             </p>
             <Button variant="secondary" size="sm" onclick={() => { data = members; }}>
                 Show all members
@@ -35,7 +36,8 @@
         <DataTable.View {table} caption="Team members" />
         <DataTable.Summary {table}>
             {#snippet children({ selected })}
-                {selected} selected · Pagination omitted in this composition
+                {selected}
+                selected · Pagination omitted in this composition
             {/snippet}
         </DataTable.Summary>
     {/snippet}

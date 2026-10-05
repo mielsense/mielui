@@ -1,4 +1,9 @@
+- Default to single borders, bottom inset strips, glass surfaces, half-strength edge highlights, and primary button borders, with surface shadows off and control and dialog shadows on.
+- Use rounder default corners: 8, 10, 14, and 20px.
 - Large controls are taller than medium ones, and icon buttons now match the medium button height.
 - Menus, selects, comboboxes, popovers, hover cards, date-picker panels, and chart tooltips always use a single border, regardless of the border setting.
 - Text fields, selection triggers, checkboxes, and radios are flat, with a hairline border and no embossed edge.
 - Sheet and Drawer footers sit on the frame below the content in one row, with a ghost Close at the start; Sheet.Close defaults to ghost.
+- Chart category inspection is one tab stop: arrow keys, Home, and End move between categories instead of Tab.
+- Switch has one bindable state prop, `checked`. Replace `bind:switched` and `switched` with `bind:checked` and `checked`; the `SwitchState` type is removed.
+- Toggle accepts `variant="outline"` only. Replace `variant="outlined"`.

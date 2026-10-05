@@ -59,7 +59,7 @@
         </Typography.Text>
 
         <CodeBlock
-            code={`import * as AlertDialog from '$lib/mielui/components/alert-dialog';\nimport Kbd from '$lib/mielui/components/kbd';\n\n<AlertDialog.Root orientation="vertical">\n  <AlertDialog.Trigger>Delete</AlertDialog.Trigger>\n  <AlertDialog.Content size="lg">\n    <AlertDialog.Header>\n      <AlertDialog.Title>Delete?</AlertDialog.Title>\n      <AlertDialog.Description>This cannot be undone.</AlertDialog.Description>\n    </AlertDialog.Header>\n    <AlertDialog.Footer>\n      <AlertDialog.Exit>Cancel <Kbd shortcut="esc" /></AlertDialog.Exit>\n      <AlertDialog.Confirm>Delete <Kbd shortcut="enter" /></AlertDialog.Confirm>\n    </AlertDialog.Footer>\n  </AlertDialog.Content>\n</AlertDialog.Root>`}
+            code={`import * as AlertDialog from '@mielui/svelte/components/alert-dialog';\nimport Kbd from '@mielui/svelte/components/kbd';\n\n<AlertDialog.Root orientation="vertical">\n  <AlertDialog.Trigger>Delete</AlertDialog.Trigger>\n  <AlertDialog.Content size="lg">\n    <AlertDialog.Header>\n      <AlertDialog.Title>Delete?</AlertDialog.Title>\n      <AlertDialog.Description>This cannot be undone.</AlertDialog.Description>\n    </AlertDialog.Header>\n    <AlertDialog.Footer>\n      <AlertDialog.Exit>Cancel <Kbd shortcut="esc" /></AlertDialog.Exit>\n      <AlertDialog.Confirm>Delete <Kbd shortcut="enter" /></AlertDialog.Confirm>\n    </AlertDialog.Footer>\n  </AlertDialog.Content>\n</AlertDialog.Root>`}
             lang="svelte"
             copy="overlay"
         />

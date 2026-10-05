@@ -40,9 +40,7 @@
 >
     <div data-ui="alert-surface" class={alertSurface()}>
         {#if icon}
-            <span data-alert-icon class={alertIconSlot()}>
-                {@render icon()}
-            </span>
+            <span data-alert-icon class={alertIconSlot()}> {@render icon()} </span>
         {:else if icon !== false}
             <span data-alert-icon class={alertIconSlot()}>
                 <HugeiconsIcon

@@ -79,7 +79,8 @@
                 href="/docs/components/chart#api-reference"
             >
                 shared API reference
-            </a> for every part and prop.
+            </a>
+            for every part and prop.
         </p>
     </section>
 </div>

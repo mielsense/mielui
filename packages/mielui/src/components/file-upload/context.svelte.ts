@@ -1,9 +1,10 @@
 import { getContext, setContext } from 'svelte';
-import type { FileUploadEntry, FileUploadSummary } from '.';
+import type { FileUploadEntry, FileUploadLabels, FileUploadSummary } from '.';
 
 const rootKey = Symbol('file-upload');
 const itemKey = Symbol('file-upload-item');
 type RootContext = {
+    readonly labels: FileUploadLabels | undefined;
     readonly summary: FileUploadSummary;
     readonly disabled: boolean;
     readonly dragging: boolean;

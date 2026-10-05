@@ -1,7 +1,14 @@
 import type { DateValue } from '@internationalized/date';
 import { createContext } from '@mielui/svelte/utils';
 
+export type DatePickerLabels = {
+    trigger?: string;
+    content?: string;
+    invalid?: string;
+};
+
 type DatePickerStyleContext = {
+    readonly labels: Required<DatePickerLabels>;
     readonly locale: string;
     readonly disabled: boolean;
     readonly readonly: boolean;

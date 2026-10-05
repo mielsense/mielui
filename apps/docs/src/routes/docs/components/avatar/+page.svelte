@@ -56,7 +56,7 @@
         </Typography.Text>
 
         <CodeBlock
-            code={`import * as Avatar from '$lib/mielui/components/avatar';\n\n<Avatar.Root>\n  <Avatar.Image src="/avatar.jpg" alt="User" />\n  <Avatar.Fallback>AB</Avatar.Fallback>\n</Avatar.Root>`}
+            code={`import * as Avatar from '@mielui/svelte/components/avatar';\n\n<Avatar.Root>\n  <Avatar.Image src="/avatar.jpg" alt="User" />\n  <Avatar.Fallback>AB</Avatar.Fallback>\n</Avatar.Root>`}
             lang="svelte"
             copy="overlay"
         />

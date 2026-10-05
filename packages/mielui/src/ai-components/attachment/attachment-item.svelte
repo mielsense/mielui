@@ -8,8 +8,9 @@
     import { Button } from '@mielui/svelte/components/button';
     import { Spinner } from '@mielui/svelte/components/spinner';
     import { cn } from '@mielui/svelte/utils';
+    import { getContext } from 'svelte';
     import HugeiconsIcon from '../../hugeicons-icon.svelte';
-    import type { AttachmentItemProps } from '.';
+    import type { AttachmentItemProps, AttachmentLabels } from '.';
     import { fileExtension, fileIcon } from './file-icon';
     import { formatBytes } from './validation';
 
@@ -24,6 +25,9 @@
         class: className,
         ...rest
     }: AttachmentItemProps = $props();
+    const labels = getContext<(() => AttachmentLabels | undefined) | undefined>(
+        'attachment-labels'
+    );
 
     const safeProgress = $derived(
         typeof progress === 'number' && Number.isFinite(progress)
@@ -43,11 +47,15 @@
     const icon = $derived(fileIcon(file));
     const statusText = $derived(
         status === 'complete'
-            ? 'Complete'
+            ? (labels?.()?.complete ?? 'Complete')
             : status === 'error'
-              ? error || 'Attachment failed'
-              : 'Ready'
+              ? error || (labels?.()?.failed ?? 'Attachment failed')
+              : (labels?.()?.ready ?? 'Ready')
     );
+    const progressLabel = $derived(
+        labels?.()?.uploadProgress?.(file.name) ?? `Upload progress for ${file.name}`
+    );
+    const removeLabel = $derived(labels?.()?.remove?.(file.name) ?? `Remove ${file.name}`);
 </script>
 
 {#if variant === 'chip'}
@@ -94,7 +102,7 @@
             <span
                 data-ui="attachment-progress"
                 role="progressbar"
-                aria-label={`Upload progress for ${file.name}`}
+                aria-label={progressLabel}
                 aria-valuemin={0}
                 aria-valuemax={100}
                 aria-valuenow={safeProgress}
@@ -112,7 +120,7 @@
                 variant="ghost"
                 size="icon"
                 data-ui="attachment-remove"
-                aria-label={`Remove ${file.name}`}
+                aria-label={removeLabel}
                 onclick={() => onRemove(file)}
                 class="size-6 min-w-6 shrink-0 rounded-full text-foreground-muted hover:text-foreground"
             >
@@ -195,7 +203,7 @@
                 <div
                     data-ui="attachment-progress"
                     role="progressbar"
-                    aria-label={`Upload progress for ${file.name}`}
+                    aria-label={progressLabel}
                     aria-valuemin={0}
                     aria-valuemax={100}
                     aria-valuenow={safeProgress}
@@ -215,7 +223,7 @@
                 variant="ghost"
                 size="icon"
                 data-ui="attachment-remove"
-                aria-label={`Remove ${file.name}`}
+                aria-label={removeLabel}
                 onclick={() => onRemove(file)}
                 class="shrink-0 rounded-full text-foreground-muted hover:text-foreground"
             >

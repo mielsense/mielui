@@ -4,12 +4,12 @@
 >
     import { Cancel01Icon, FilterIcon } from '@hugeicons/core-free-icons';
     import { cn } from '@mielui/svelte/utils';
-    import { tick } from 'svelte';
+    import { getContext, tick } from 'svelte';
     import { Button } from '../../components/button';
     import * as Menu from '../../components/dropdown-menu';
     import * as Group from '../../components/group';
     import HugeiconsIcon from '../../hugeicons-icon.svelte';
-    import type { DataTableFiltersProps } from '.';
+    import type { DataTableFiltersProps, DataTableLabels } from '.';
     import Facet from './data-table-facet.svelte';
     import { filterableColumn } from './features';
 
@@ -19,6 +19,7 @@
         children,
         class: className
     }: DataTableFiltersProps<TFeatures, TData> = $props();
+    const labels = getContext<(() => DataTableLabels | undefined) | undefined>('data-table-labels');
     let shown = $state<string[]>([]);
     let opened = $state<string>();
     let pickerOpen = $state(false);
@@ -70,7 +71,10 @@
     data-ui="data-table-filters"
     class={cn(className, 'flex min-w-0 flex-wrap items-center gap-2')}
 >
-    <Group.Root aria-label="Table filters" class={children ? 'w-full max-w-sm' : undefined}>
+    <Group.Root
+        aria-label={labels?.()?.filters ?? 'Table filters'}
+        class={children ? 'w-full max-w-sm' : undefined}
+    >
         {@render children?.()}
         {#if children}
             <Group.Separator />
@@ -78,10 +82,10 @@
         <Menu.Root bind:open={pickerOpen}>
             <Menu.Trigger variant="outline" size="md" disabled={hidden.length === 0}>
                 <HugeiconsIcon icon={FilterIcon} size={14} />
-                Filter
+                {labels?.()?.filter ?? 'Filter'}
             </Menu.Trigger>
             <Menu.Content>
-                <Menu.Label>Filter by</Menu.Label>
+                <Menu.Label>{labels?.()?.filterBy ?? 'Filter by'}</Menu.Label>
                 {#each hidden as filter (filter.column)}
                     <Menu.Item
                         onclick={() => {

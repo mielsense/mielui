@@ -4,8 +4,13 @@ import type { HTMLButtonAttributes } from 'svelte/elements';
 import Root from './toggle-group.svelte';
 import Item from './toggle-group-item.svelte';
 
+export type ToggleGroupSize = 'sm' | 'md' | 'lg';
+
 export type ToggleGroupProps = DefaultProps & {
     disabled?: boolean;
+    size?: ToggleGroupSize;
+    'aria-label'?: string;
+    'aria-labelledby'?: string;
 } & (
         | {
               type?: 'single';
@@ -28,6 +33,7 @@ export type ToggleGroupItemProps = {
 
 export type ToggleGroupContext = {
     readonly disabled: boolean;
+    readonly size: ToggleGroupSize;
     readonly type: 'single' | 'multiple';
     isActive: (value: string) => boolean;
     setValue: (value: string) => void;

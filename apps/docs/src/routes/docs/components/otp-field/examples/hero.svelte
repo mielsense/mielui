@@ -1,12 +1,11 @@
 <script lang="ts">
+    import { Label } from '@mielui/svelte/components/label';
     import * as OTPField from '@mielui/svelte/components/otp-field';
 
     let code = $state('');
 </script>
 <div class="flex flex-col gap-3">
-    <label for="verification-code" class="[font-size:var(--font-size-body)]">
-        Verification code
-    </label>
+    <Label for="verification-code">Verification code</Label>
     <OTPField.Root
         id="verification-code"
         bind:value={code}
@@ -27,7 +26,7 @@
             </OTPField.Group>
         {/snippet}
     </OTPField.Root>
-    <p id="verification-hint" class="text-foreground-muted [font-size:var(--font-size-caption)]">
+    <p id="verification-hint" class="text-sm text-foreground-muted">
         Enter the six-digit code sent to your email.
     </p>
 </div>

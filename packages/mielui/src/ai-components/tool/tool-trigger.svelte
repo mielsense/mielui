@@ -7,16 +7,18 @@
     import { numberShuffle } from '@mielui/svelte/actions/number-shuffle';
     import { Spinner } from '@mielui/svelte/components/spinner';
     import { cn, pressable } from '@mielui/svelte/utils';
+    import { getContext } from 'svelte';
     import {
         DISCLOSURE_ICON_SIZE,
         disclosureChevron,
         disclosureTrigger
     } from '../../components/_internal/disclosure/variants';
     import HugeiconsIcon from '../../hugeicons-icon.svelte';
-    import type { ToolTriggerProps } from '.';
+    import type { ToolLabels, ToolTriggerProps } from '.';
     import { getToolContext } from './context.svelte';
 
     let { children, class: className, onclick, ...rest }: ToolTriggerProps = $props();
+    const labels = getContext<(() => ToolLabels | undefined) | undefined>('tool-labels');
     const tool = getToolContext();
     const id = tool.id;
     const open = $derived(tool.open);
@@ -34,10 +36,10 @@
     }
     const label = $derived(
         state === 'running'
-            ? 'Task running'
+            ? (labels?.()?.running ?? 'Task running')
             : state === 'complete'
-              ? 'Task completed'
-              : 'Task failed'
+              ? (labels?.()?.complete ?? 'Task completed')
+              : (labels?.()?.failed ?? 'Task failed')
     );
 </script>
 
@@ -49,11 +51,11 @@
     aria-expanded={open}
     aria-controls={`tool-${id}`}
     onclick={(event) => {
-            onclick?.(event);
-            if (!event.defaultPrevented) {
-                tool.open = !tool.open;
-            }
-        }}
+        onclick?.(event);
+        if (!event.defaultPrevented) {
+            tool.open = !tool.open;
+        }
+    }}
     class={cn(
         className,
         'text-foreground',

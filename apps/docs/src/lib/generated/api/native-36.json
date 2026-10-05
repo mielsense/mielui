@@ -1,23 +1,5 @@
 [
     {
-        "name": "on:introstart",
-        "type": "EventHandler<CustomEvent<null>, HTMLLabelElement> | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
-        "name": "onintrostart",
-        "type": "EventHandler<CustomEvent<null>, HTMLLabelElement> | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
         "name": "onintrostartcapture",
         "type": "EventHandler<CustomEvent<null>, HTMLLabelElement> | null | undefined",
         "required": false,
@@ -2242,6 +2224,24 @@
     },
     {
         "name": "on:gotpointercapture",
+        "type": "PointerEventHandler<HTMLOptGroupElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "ongotpointercapture",
+        "type": "PointerEventHandler<HTMLOptGroupElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "ongotpointercapturecapture",
         "type": "PointerEventHandler<HTMLOptGroupElement> | null | undefined",
         "required": false,
         "bindable": false,

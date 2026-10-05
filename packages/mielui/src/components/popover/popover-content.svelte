@@ -250,7 +250,7 @@
     role="presentation"
     data-floating-content
     class={cn(
-        'fixed left-0 top-0 z-[130] flex max-w-[calc(100vw-2*var(--popover-viewport-margin))] max-h-[calc(100vh-2*var(--popover-viewport-margin))] items-center justify-center'
+        'fixed left-0 top-0 z-[130] flex [--popover-viewport-margin:calc(var(--spacing)*2)] max-w-[calc(100vw-2*var(--popover-viewport-margin))] max-h-[calc(100vh-2*var(--popover-viewport-margin))] items-center justify-center'
     )}
     bind:this={popover as HTMLElement}
     onmouseenter={cancelClose}

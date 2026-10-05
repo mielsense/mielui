@@ -33,10 +33,18 @@
     ];
 </script>
 
-<svelte:head><title>Mielui · Morph</title></svelte:head>
+<svelte:head>
+    <title>Mielui · Morph</title>
+    <meta
+        name="description"
+        content="A Svelte action that animates an icon or text when its value changes."
+    />
+</svelte:head>
 <div data-docs-page class="flex flex-col gap-10">
     <PageIntro title="Morph">Animate an icon or text when its value changes.</PageIntro>
-    <ComponentPreview code={Source}><Example /></ComponentPreview>
+    <section id="hero" class="flex scroll-mt-20 flex-col gap-4">
+        <ComponentPreview code={Source}><Example /></ComponentPreview>
+    </section>
     <section id="usage" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Usage</Typography.H2>
         <Typography.Text>

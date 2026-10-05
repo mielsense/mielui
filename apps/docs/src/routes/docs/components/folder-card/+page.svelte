@@ -54,16 +54,16 @@
             reaches the folder edge.
         </Typography.Text>
         <Typography.Text variant="supporting">
-            Cover shows a soft wash of the chart color picked by
+            Cover shows a soft wash of the chart color picked by{' '}
             <Typography.InlineCode>tone</Typography.InlineCode>
-            , from 1 to 5. Pass
+            from 1 to 5. Pass{' '}
             <Typography.InlineCode>src</Typography.InlineCode>
-            for an image, or children for custom content. Count formats
+            for an image, or children for custom content. Count formats{' '}
             <Typography.InlineCode>value</Typography.InlineCode>
             for the reader's locale and animates when it changes.
         </Typography.Text>
         <CodeBlock
-            code={`import * as FolderCard from '$lib/mielui/components/folder-card';
+            code={`import * as FolderCard from '@mielui/svelte/components/folder-card';
 
 <FolderCard.Root href="/projects" tone={2}>
   <FolderCard.Cover />
@@ -116,9 +116,9 @@
             <Typography.H3 class="docs-subsection-heading">Changing count</Typography.H3>
             <Typography.Text variant="supporting">
                 Count rolls to a new value with the theme's motion settings and settles immediately
-                when reduced motion is on. Without
+                when reduced motion is on. A card without{' '}
                 <Typography.InlineCode>href</Typography.InlineCode>
-                , the card is a static article.
+                is a static article.
             </Typography.Text>
             <ComponentPreview code={LiveCountSrc}>
                 <LiveCount />

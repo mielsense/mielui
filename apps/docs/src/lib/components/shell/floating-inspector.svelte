@@ -59,16 +59,18 @@
             >
                 <Popover.Title>{title === 'Navigation' ? 'mielui' : title}</Popover.Title>
                 <div class="flex items-center gap-0.5">
-                    <Button
-                        variant="ghost"
-                        size="icon"
-                        aria-label={inspector.pinned ? 'Unpin panel' : 'Pin panel'}
-                        aria-pressed={inspector.pinned}
-                        class="aria-pressed:bg-foreground/[0.08]"
-                        onclick={inspector.togglePin}
-                    >
-                        <HugeiconsIcon icon={Pin} size={16} />
-                    </Button>
+                    {#if inspector.dockable}
+                        <Button
+                            variant="ghost"
+                            size="icon"
+                            aria-label={inspector.pinned ? 'Unpin panel' : 'Pin panel'}
+                            aria-pressed={inspector.pinned}
+                            class="aria-pressed:bg-foreground/[0.08]"
+                            onclick={inspector.togglePin}
+                        >
+                            <HugeiconsIcon icon={Pin} size={16} />
+                        </Button>
+                    {/if}
                     <Button
                         variant="ghost"
                         size="icon"

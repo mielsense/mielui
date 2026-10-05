@@ -43,10 +43,18 @@
     ];
 </script>
 
-<svelte:head><title>Mielui · Number shuffle</title></svelte:head>
+<svelte:head>
+    <title>Mielui · Number shuffle</title>
+    <meta
+        name="description"
+        content="A Svelte action that rolls digits as a numeric value changes."
+    />
+</svelte:head>
 <div data-docs-page class="flex flex-col gap-10">
     <PageIntro title="Number shuffle">Roll digits as a numeric value changes.</PageIntro>
-    <ComponentPreview code={Source}><Example /></ComponentPreview>
+    <section id="hero" class="flex scroll-mt-20 flex-col gap-4">
+        <ComponentPreview code={Source}><Example /></ComponentPreview>
+    </section>
     <section id="usage" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Usage</Typography.H2>
         <Typography.Text>

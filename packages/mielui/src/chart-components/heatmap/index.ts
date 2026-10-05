@@ -1,3 +1,15 @@
+export type HeatmapLabels = {
+    unit?: (count: number) => string;
+    tooltipValue?: string;
+    less?: string;
+    more?: string;
+    grid?: string;
+    gridLoading?: string;
+    gridEmpty?: string;
+    detailLoading?: string;
+    detailEmpty?: string;
+};
+
 export { default as Root } from './heatmap.svelte';
 export { default as Calendar } from './heatmap-calendar.svelte';
 export { default as Cell } from './heatmap-cell.svelte';

@@ -1,14 +1,5 @@
 [
     {
-        "name": "oncompositionupdatecapture",
-        "type": "CompositionEventHandler<HTMLAnchorElement> | null | undefined | CompositionEventHandler<HTMLButtonElement> | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
         "name": "on:focus",
         "type": "FocusEventHandler<HTMLAnchorElement> | null | undefined | FocusEventHandler<HTMLButtonElement> | null | undefined",
         "required": false,
@@ -2243,6 +2234,15 @@
     {
         "name": "onanimationiterationcapture",
         "type": "AnimationEventHandler<HTMLAnchorElement> | null | undefined | AnimationEventHandler<HTMLButtonElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "on:transitionstart",
+        "type": "TransitionEventHandler<HTMLAnchorElement> | null | undefined | TransitionEventHandler<HTMLButtonElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,

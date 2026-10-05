@@ -29,6 +29,7 @@
     </Combobox.Root>
     <p class="text-sm text-foreground-muted" aria-live="polite">
         {selected.length}
-        {selected.length === 1 ? 'team' : 'teams'} selected
+        {selected.length === 1 ? 'team' : 'teams'}
+        selected
     </p>
 </div>

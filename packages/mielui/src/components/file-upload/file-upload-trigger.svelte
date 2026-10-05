@@ -10,9 +10,12 @@
     {...rest}
     type="button"
     disabled={disabled || root.disabled}
-    onclick={(event) => { onclick?.(event); if (!event.defaultPrevented) {
-    root.open();
-} }}
+    onclick={(event) => {
+        onclick?.(event);
+        if (!event.defaultPrevented) {
+            root.open();
+        }
+    }}
 >
     {#if children}
         {@render children()}

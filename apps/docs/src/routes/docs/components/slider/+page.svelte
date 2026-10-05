@@ -56,37 +56,55 @@
     <section id="usage" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Usage</Typography.H2>
         <Typography.Text>
-            Bind<Typography.InlineCode>value</Typography.InlineCode> to a number for a single
-            handle. Add a<Typography.InlineCode>label</Typography.InlineCode>
-            , or use<Typography.InlineCode>
-                aria-label
-            </Typography.InlineCode> or<Typography.InlineCode>
-                aria-labelledby
-            </Typography.InlineCode> to name the control. Use<Typography.InlineCode>
-                aria-describedby
-            </Typography.InlineCode> for supporting instructions.
+            Bind{' '}
+            <Typography.InlineCode>value</Typography.InlineCode>
+            {' '}
+            to a number for a single handle. Add a{' '}
+            <Typography.InlineCode>label</Typography.InlineCode>
+            {' '}
+            prop or use{' '}
+            <Typography.InlineCode>aria-label</Typography.InlineCode>
+            {' '}
+            or{' '}
+            <Typography.InlineCode>aria-labelledby</Typography.InlineCode>
+            {' '}
+            to name the control. The label is not rendered; it only names the handle. Use{' '}
+            <Typography.InlineCode>aria-describedby</Typography.InlineCode>
+            {' '}
+            for supporting instructions.
         </Typography.Text>
         <Typography.Text>
-            Set<Typography.InlineCode>name</Typography.InlineCode> to include the value in form
-            submissions. Range mode submits two ordered values, which you can read with<Typography.InlineCode
-            >
-                FormData.getAll
-            </Typography.InlineCode>
-            . Disabled sliders are omitted. Use<Typography.InlineCode>
-                form
-            </Typography.InlineCode> to target an external form. Resetting the form restores the
-            initial value.
+            Set{' '}
+            <Typography.InlineCode>name</Typography.InlineCode>
+            {' '}
+            to include the value in form submissions. Range mode submits two ordered values, which
+            you can read with{' '}
+            <Typography.InlineCode>FormData.getAll</Typography.InlineCode>
+            {' '}
+            on the form data. Disabled sliders are omitted. Use{' '}
+            <Typography.InlineCode>form</Typography.InlineCode>
+            {' '}
+            to target an external form. Resetting the form restores the initial value.
         </Typography.Text>
         <Typography.Text>
-            <Typography.InlineCode>id</Typography.InlineCode> and<Typography.InlineCode>
-                bind:element
-            </Typography.InlineCode> refer to the wrapper. Style its rail, fill, and handles with
-            the<Typography.InlineCode>data-ui="slider-track"</Typography.InlineCode>
-            ,<Typography.InlineCode>data-ui="slider-range"</Typography.InlineCode>
-            , and<Typography.InlineCode>data-ui="slider-thumb"</Typography.InlineCode> selectors.
+            <Typography.InlineCode>id</Typography.InlineCode>
+            {' '}
+            and{' '}
+            <Typography.InlineCode>bind:element</Typography.InlineCode>
+            {' '}
+            refer to the wrapper. Style its rail, fill, and handles with the{' '}
+            <Typography.InlineCode>data-ui="slider-track"</Typography.InlineCode>
+            {' '}
+            and{' '}
+            <Typography.InlineCode>data-ui="slider-range"</Typography.InlineCode>
+            {' '}
+            and{' '}
+            <Typography.InlineCode>data-ui="slider-thumb"</Typography.InlineCode>
+            {' '}
+            selectors.
         </Typography.Text>
         <CodeBlock
-            code={`import { Slider } from '$lib/mielui/components/slider';\n\nlet volume = $state(50);\n\n<Slider bind:value={volume} label="Volume" />`}
+            code={`import { Slider } from '@mielui/svelte/components/slider';\n\nlet volume = $state(50);\n\n<Slider bind:value={volume} label="Volume" />`}
             lang="svelte"
             copy="overlay"
         />

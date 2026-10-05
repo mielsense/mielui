@@ -52,9 +52,7 @@ export async function init(options: InitOptions) {
         (existsSync(path.join(cwd, 'src', 'routes')) &&
             existsSync(path.join(cwd, 'vite.config.ts')));
     if (!isSvelte) {
-        warn(
-            `no svelte.config.js found in ${cwd} -- mielui targets Svelte 5 + SvelteKit projects.`
-        );
+        warn(`no svelte.config.js found in ${cwd} -- Mielui expects a Svelte 5 project.`);
     }
 
     let dir = DEFAULT_CONFIG.dir;

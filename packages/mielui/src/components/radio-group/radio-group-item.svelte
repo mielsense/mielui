@@ -26,7 +26,7 @@
     class={cn(
         className,
         'flex min-h-[var(--size-touch)] cursor-[var(--ui-cursor-interactive)] items-start gap-2.5 md:min-h-0',
-        isDisabled && 'cursor-not-allowed opacity-50'
+        isDisabled && 'cursor-not-allowed opacity-[var(--opacity-disabled)]'
     )}
 >
     <input
@@ -51,7 +51,7 @@
         data-ui="radio-group-item"
         data-state={selected ? 'checked' : 'unchecked'}
         class={cn(
-            'mielui-press mt-px flex size-[calc(var(--size-hairline)*9)] shrink-0 items-center justify-center rounded-full border-[length:var(--border-size)] bg-card transition-[background-color,border-color,box-shadow,transform,scale] [transition-duration:var(--motion-duration-press)] ease-[var(--ease-press)] motion-reduce:transition-none peer-focus-visible:shadow-[var(--focus-ring)]',
+            'mielui-press mt-px flex size-[calc(var(--size-hairline)*9)] shrink-0 items-center justify-center rounded-full border-[length:var(--border-size)] bg-card transition-[background-color,border-color,box-shadow,transform,scale] [transition-duration:var(--motion-duration-press)] ease-[var(--ease-press)] motion-reduce:transition-none peer-focus-visible:shadow-[var(--focus-ring)] peer-aria-invalid:border-[var(--color-error)]',
             selected ? 'border-primary' : 'border-[var(--mielui-control-border)]',
             !isDisabled && !selected && 'hover:border-[color-mix(in_oklab,var(--color-foreground)_45%,var(--color-card))]'
         )}

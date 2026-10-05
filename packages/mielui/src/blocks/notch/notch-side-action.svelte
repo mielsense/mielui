@@ -261,9 +261,7 @@
             {variant}
             class={cn(className, variant === 'panel' ? overlaySurface(context.surface) : undefined, 'rounded-full')}
         >
-            <span class="inline-flex items-center justify-center">
-                {@render children?.()}
-            </span>
+            <span class="inline-flex items-center justify-center"> {@render children?.()} </span>
         </Button>
     </motion.div>
 </motion.div>

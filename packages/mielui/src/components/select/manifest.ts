@@ -13,7 +13,8 @@ export const manifest: Manifest = {
     name: 'select',
     version: '2.3.0',
     visibility: 'public',
-    description: 'Listbox-based single-select with bindable value and Item/Label/Content subparts.',
+    description:
+        'Listbox-based single or multiple select with bindable value and Trigger/Value/Content/Item/Label subparts.',
     role: 'listbox',
     files: [
         'components/select/select.svelte',

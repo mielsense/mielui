@@ -6,6 +6,7 @@ export const pages = [
     { label: 'Installation', href: '/docs/installation' },
     { label: 'Theming', href: '/docs/theming' },
     { label: 'Agent skill', href: '/docs/agent-skill' },
+    { label: 'Actions', href: '/docs/actions' },
     { label: 'Changelog', href: '/docs/changelog' },
     { label: 'All components', href: '/docs/components' },
     { label: 'Theme studio', href: '/studio' },

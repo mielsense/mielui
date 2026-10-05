@@ -3,8 +3,9 @@
     generics="TFeatures extends import('@tanstack/svelte-table').TableFeatures, TData extends import('@tanstack/svelte-table').RowData"
 >
     import { cn } from '@mielui/svelte/utils';
+    import { getContext } from 'svelte';
     import * as Table from '../../components/table';
-    import type { DataTableViewProps } from '.';
+    import type { DataTableLabels, DataTableViewProps } from '.';
     import Body from './data-table-body.svelte';
     import Header from './data-table-header.svelte';
 
@@ -20,8 +21,13 @@
         empty,
         ...rest
     }: DataTableViewProps<TFeatures, TData> = $props();
+    const labels = getContext<(() => DataTableLabels | undefined) | undefined>('data-table-labels');
 </script>
-<Table.ScrollArea tabindex={0} role="region" aria-label={caption ?? 'Data table'}>
+<Table.ScrollArea
+    tabindex={0}
+    role="region"
+    aria-label={caption ?? labels?.()?.region ?? 'Data table'}
+>
     <Table.Root
         {...rest}
         variant="inset"

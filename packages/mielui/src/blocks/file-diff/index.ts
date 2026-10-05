@@ -26,7 +26,15 @@ export type FileDiffLine = {
  */
 export type FileDiffTheme = 'mielui' | 'custom';
 
+export type FileDiffLabels = {
+    added?: string;
+    removed?: string;
+    unchanged?: string;
+    line?: (line: number) => string;
+};
+
 export type FileDiffContext = {
+    labels: FileDiffLabels | undefined;
     lang: string;
     showLineNumbers: boolean;
     file: string;
@@ -37,6 +45,7 @@ export type FileDiffContext = {
 };
 
 export type FileDiffRootProps = {
+    labels?: FileDiffLabels;
     /** File path shown in the top bar, e.g. "src/auth.ts". */
     file?: string;
     /** Highlight.js language id used for every row unless a row overrides it. */

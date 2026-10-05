@@ -1,6 +1,8 @@
 import { createContext } from '@mielui/svelte/utils';
+import type { TagInputLabels } from '.';
 
 export type TagInputContext = {
+    readonly labels: TagInputLabels | undefined;
     readonly tags: string[];
     readonly disabled: boolean;
     readonly invalid: boolean;

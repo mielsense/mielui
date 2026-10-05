@@ -13,7 +13,7 @@ Mielui began from Sivir UI and is maintained independently, with its own compone
 
 Inspect the project before changing code:
 
-1. Confirm the installed Mielui release's peer requirements. Mielui 0.1.1 requires Svelte 5.56 or newer within Svelte 5 and Tailwind CSS v4.
+1. Confirm the installed Mielui release's peer requirements. Mielui 0.2.0 requires Svelte 5.56 or newer within Svelte 5 and Tailwind CSS v4.
 2. Read the package manifest, lockfile, global CSS entry, and nearby Svelte components.
 3. Detect the integration mode:
    - Package mode: `@mielui/svelte` is a dependency and components import from it.
@@ -151,7 +151,7 @@ The catalog separates Components, Blocks, AI components, Chart components, and A
 
 Use Dialog instead of Modal, Kbd instead of Shortcut, and HugeiconsIcon with Hugeicons glyph data. Group connects real Button, Input, and trigger components; include Group.Separator between controls. Tag Input uses outline badges.
 
-Toast is composable through Root, Content, Footer, Title, Icon, Actions, Action, and Close. The description occupies the upper inset and the compact title/actions row sits below. The toast helpers render these same parts. Overlay surfaces accept `surface="solid" | "glass"` on the documented owning part; do not apply glass independently to nested surfaces.
+Toast is composable through Root, Content, Footer, Title, Icon, Actions, Action, and Close. The icon, title, and description sit together in Content; Footer appears only for actions. The toast helpers render these same parts. Overlay surfaces accept `surface="solid" | "glass"` on the documented owning part; do not apply glass independently to nested surfaces.
 
 Heatmap.Root accepts `animation="rows" | "columns" | "live" | "none"`, defaulting to rows. Reduced motion disables entrances. Slider range mode binds a pair of numbers, accepts thumbLabels, and supports dir="rtl". Read each page before using these APIs, particularly when the locked package predates the unreleased changelog.
 

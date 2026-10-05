@@ -139,10 +139,9 @@
         <div id="heading-levels" class="scroll-mt-20 flex flex-col gap-3">
             <Typography.H3 class="docs-subsection-heading">Heading levels</Typography.H3>
             <Typography.Text variant="supporting" class="m-0 max-w-2xl">
-                Use the heading that matches the document outline. Compact component titles remain
-                available through{' '}
+                Use the heading that matches the document outline.{' '}
                 <Typography.InlineCode>Typography.Title</Typography.InlineCode>
-                .
+                remains available for compact component titles.
             </Typography.Text>
             <ComponentPreview code={HeadingLevelsSrc}>
                 <HeadingLevels />
@@ -164,8 +163,8 @@
             <Typography.H3 class="docs-subsection-heading">Numeric metadata</Typography.H3>
             <Typography.Text variant="supporting" class="m-0 max-w-2xl">
                 Add{' '}
-                <Typography.InlineCode>tabular-nums</Typography.InlineCode> when readers compare
-                values in a column.
+                <Typography.InlineCode>tabular-nums</Typography.InlineCode>
+                when readers compare values in a column.
             </Typography.Text>
             <ComponentPreview code={MetadataSrc}>
                 <Metadata />

@@ -124,25 +124,20 @@
         <Typography.H2 class="docs-section-heading">Groups and required fields</Typography.H2>
         <Typography.Text variant="supporting">
             Group supplies spacing between fields; it adds no ARIA role. For a named group of
-            controls or group-wide disabled behavior, use<a
-                href="/docs/components/fieldset"
-                class="underline underline-offset-4"
-            >
-                Fieldset
-            </a>
-            . Root’s disabled and required props reach the control through Field.Control. Include a
-            visible “required” or “optional” cue when the distinction matters; Field does not insert
-            an unexplained asterisk.
+            controls or group-wide disabled behavior, use{' '}
+            <a href="/docs/components/fieldset" class="underline underline-offset-4">Fieldset</a>
+            {' '}
+            instead. Root’s disabled and required props reach the control through Field.Control.
+            Include a visible “required” or “optional” cue when the distinction matters; Field does
+            not insert an unexplained asterisk.
         </Typography.Text>
         <Typography.Text variant="supporting">
             Field.Root, Label, Description, Error, Content, and Group forward the native attributes
             for their rendered elements. Root also offers an element binding. Label renders label;
-            Description renders p; Error, Content, Group, and Root render div. Compose<a
-                href="/docs/components/form"
-                class="underline underline-offset-4"
-            >
-                Form
-            </a> for pending feedback, submission, and a complete remote-form example.
+            Description renders p; Error, Content, Group, and Root render div. Compose{' '}
+            <a href="/docs/components/form" class="underline underline-offset-4">Form</a>
+            {' '}
+            for pending feedback, submission, and a complete remote-form example.
         </Typography.Text>
     </section>
 </div>

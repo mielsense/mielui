@@ -17,7 +17,7 @@
     {...rest}
     bind:ref
     data-ui="calendar-next-button"
-    class={cn(className, button({ variant: 'ghost', size: 'icon' }), 'size-8 min-w-8 rtl:rotate-180')}
+    class={cn(className, button({ variant: 'ghost', size: 'icon' }), 'rtl:rotate-180')}
 >
     {#if children}
         {@render children()}

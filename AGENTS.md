@@ -144,6 +144,11 @@ Components must meet a high quality bar:
 - Expose computed summaries (counts, totals) as data (context with prop
   fallbacks) and as a renderable part, so both the high-level form and custom
   compositions read the same values.
+- Make built-in user-facing text overridable. A component that renders its own
+  words or accessible names takes an optional `labels` object on its Root (or on
+  the single component), exports a `<Name>Labels` type with every key optional,
+  and keeps English as the fallback. Use functions for strings that interpolate
+  a value. Do not add one prop per string.
 - Keep the component's docs page in sync with its API. New, changed, or
   removed subcomponents, props, and behaviors must be reflected in the page's
   usage prose, examples, and code snippets in the same change — never ship the

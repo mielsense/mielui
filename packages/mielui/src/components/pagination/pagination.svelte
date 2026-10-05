@@ -14,6 +14,7 @@
         total,
         siblings = 1,
         onPageChange,
+        labels,
         ...rest
     }: PaginationProps = $props();
 
@@ -62,19 +63,19 @@
 
 <nav
     data-ui="pagination"
-    aria-label="Pagination"
-    class={cn(className, 'flex select-none items-center gap-1')}
+    aria-label={labels?.navigation ?? 'Pagination'}
+    class={cn(className, 'flex max-w-full flex-wrap select-none items-center gap-1')}
     {...rest}
 >
     <button
         use:pressable
         type="button"
-        aria-label="Previous page"
+        aria-label={labels?.previous ?? 'Previous page'}
         disabled={currentPage <= 1}
         onclick={() => go(currentPage - 1)}
         class="mielui-press inline-flex size-[var(--size-icon-md)] items-center justify-center rounded-[var(--radius-md)] text-foreground-muted transition-[background-color,color,box-shadow,transform,scale] [transition-duration:var(--motion-duration-press)] ease-[var(--ease-press)] motion-reduce:transition-none hover:bg-secondary hover:text-foreground focus-visible:outline-none focus-visible:shadow-[var(--focus-ring)] disabled:cursor-not-allowed disabled:opacity-[var(--opacity-disabled)]"
     >
-        <HugeiconsIcon icon={ChevronLeft} size={15} />
+        <HugeiconsIcon icon={ChevronLeft} size={15} class="rtl:rotate-180" />
     </button>
 
     {#each pages as p, i (i)}
@@ -89,6 +90,7 @@
             <button
                 use:pressable
                 type="button"
+                aria-label={labels?.page?.(p)}
                 aria-current={p === currentPage ? 'page' : undefined}
                 onclick={() => go(p)}
                 class={cn(
@@ -106,11 +108,11 @@
     <button
         use:pressable
         type="button"
-        aria-label="Next page"
+        aria-label={labels?.next ?? 'Next page'}
         disabled={currentPage >= totalPages}
         onclick={() => go(currentPage + 1)}
         class="mielui-press inline-flex size-[var(--size-icon-md)] items-center justify-center rounded-[var(--radius-md)] text-foreground-muted transition-[background-color,color,box-shadow,transform,scale] [transition-duration:var(--motion-duration-press)] ease-[var(--ease-press)] motion-reduce:transition-none hover:bg-secondary hover:text-foreground focus-visible:outline-none focus-visible:shadow-[var(--focus-ring)] disabled:cursor-not-allowed disabled:opacity-[var(--opacity-disabled)]"
     >
-        <HugeiconsIcon icon={ChevronRight} size={15} />
+        <HugeiconsIcon icon={ChevronRight} size={15} class="rtl:rotate-180" />
     </button>
 </nav>

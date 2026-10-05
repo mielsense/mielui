@@ -19,7 +19,7 @@ Existing single-border surfaces stay single. Glass, shadows, focus rings, and
 edge highlights remain independent. New double-frame implementations must follow
 this token rather than introduce fixed inset padding or a fixed inner ring.
 
-## Toolbar depth exploration
+## Toolbar depth
 
 Toolbar.Root stays flat by default (`variant="default"`). Set `variant="depth"`
 on Root to enable the floating shell. Its Button, Link, and Item inherit the
@@ -57,8 +57,8 @@ clone their content into a second tooltip bubble.
 
 ## Chart palette and rounder defaults
 
-Default chart colors are `--chart-1` through `--chart-5`, ordered purple, blue,
-red, green, yellow. Use `var(--chart-N)` in series config instead of hardcoded
+Default chart colors are `--chart-1` through `--chart-5`, ordered purple, pink,
+blue, green, yellow. Use `var(--chart-N)` in series config instead of hardcoded
 example colors. Explicit colors still override the fallback. Heatmaps use the
 first color for intensity and gauges use it for the primary tone; status tones
 keep their semantic colors. Studio saves palette edits in the active mode's
@@ -72,7 +72,9 @@ Studio exports `--mielui-inset-position` as `top` or `bottom`. The shared intern
 when the token is absent. Consumers may pin an individual frame with
 `class="[--mielui-inset-position:top]"`. Use this for headers whose meaning
 depends on staying above content, such as package-manager tabs. Do not force
-a global preference onto both regions of a data table. Single-border mode removes decorative inset spacing on cards and ordinary
+a global preference onto both regions of a data table.
+
+Single-border mode removes decorative inset spacing on cards and ordinary
 overlays. Inset DataTable, Composer, CodeBlock, and documentation preview
 panels and Toast retain their structural gutter in both modes. Set the frame inset locally
 for those layouts; do not change the global border scale or ordinary cards.
@@ -112,8 +114,8 @@ card or foreground colors.
 
 ## Control geometry and flat fields
 
-`--size-control-lg` is now twelve spacing units, and `--size-icon-md` equals a
-medium button, so `size="icon"` buttons line up with `size="md"` text buttons.
+`--size-control-lg` is now twelve spacing units, and `--size-icon-md` is a
+medium button minus one hairline, so `size="icon"` buttons line up with `size="md"` text buttons.
 Stop sizing controls with raw `h-8`, `size-9`, or `h-10`; use the size tokens.
 The focus ring is 2px at 80% of the primary color; compose it with existing
 edges and never replace it with an outline.
@@ -210,7 +212,7 @@ Inset table cells no longer paint `bg-card`; hover and selection come from
 `Table.Row`, so a hand-written `<tr>` gets no hover unless it adds one. Badges
 are hairline pills by default; change the radius with `class`.
 
-### Menu highlight geometry
+## Menu highlight geometry
 
 Menu items and traveling highlights use the same shared radius, capped at the medium radius and bounded by the outer panel radius after its border and row inset. Keep both on the shared stylesheet contract; do not apply a rounded-full utility to ordinary rows or create a separate highlight radius.
 
@@ -233,3 +235,80 @@ and change counts remain above the patch when the surrounding theme uses bottom
 inset strips. This applies to both the diff prop and composed TopBar/Content
 parts. Compose TopBar before Content; no extra wrapper or CSS order rule is needed.
 An explicit inset-position token on Root can still override this default.
+
+## Release audit: behavior agents should know
+
+`Kbd shortcut="enter"` and `shortcut="space"` no longer fire while a button,
+link, menu item, tab, or other natively activated control has focus. The focused
+control handles the key itself. In an AlertDialog, Enter on the focused Cancel
+cancels; it does not trigger a Confirm that carries the Enter keycap. Do not
+rely on the keycap to override focus. Modified shortcuts are unaffected.
+
+Toasts stay interactive above modal overlays. Do not portal a second Toaster
+into a Dialog to work around inert toasts.
+
+Dialog panels carry a stable `data-dialog-panel` attribute. `data-ui` on the
+panel may be replaced by wrappers such as AlertDialog (`alert-dialog-content`)
+and Command (`command-content`), so select dialog panels in CSS or tests with
+`[data-dialog-panel]`, not `[data-ui='dialog-panel']`.
+
+Chart keyboard inspection is one tab stop. Arrow keys, Home, and End move
+between categories. Tests that tabbed through each data point must use arrow
+keys instead. Keyboard inspection still requires `Chart.Tooltip`.
+
+Checkbox and RadioGroup restore the value they mounted with when their form is
+reset, and call `onCheckedChange` or `onValueChange` when that changes the
+value. Remove hand-written reset handlers for them.
+
+ResponseStream renders one animated run per line while streaming. Keep passing
+plain text with `\n` line breaks; do not split the stream into several
+ResponseStream instances to preserve paragraphs.
+
+TagInput and NumberField show the field ring only while their text input has
+focus. Tags and steppers show their own ring. Do not add `focus-within` rings
+around composite fields; use `has-[input:focus-visible]`.
+
+Composer.Actions keeps the width of its widest control, so Composer.Toolbar
+wraps its trailing group to a new row in narrow containers. Mark trailing
+groups `shrink-0` rather than `min-w-0`. Chips in `Attachment.List
+variant="chip"` do not shrink; put `overflow-x-auto` on the list.
+
+Pagination and Card.Footer wrap when they run out of room. Do not wrap them in
+a horizontal scroller.
+
+`@mielui/svelte/themes/live` no longer imports from SvelteKit, and
+`@sveltejs/kit` is an optional peer dependency.
+
+## Renamed props and the `labels` contract
+
+Switch has one state prop. Write `<Switch bind:checked={enabled} />`. `switched`
+and `bind:switched` no longer exist, and the `SwitchState` type is gone. Old
+call sites fail type checking; a call site that still passes `switched` renders
+an off switch that does not update the bound variable.
+
+Toggle takes `variant="default"` or `variant="outline"`. `outlined` is removed
+and falls back to the default look.
+
+ToggleGroup sizes come from Root: `<ToggleGroup.Root size="md">`. Do not set
+heights on individual items.
+
+Combobox.Item renders its children when given and its `label` otherwise. Keep
+passing `label` either way: search matches it and the trigger displays it.
+
+Components with built-in words take an optional `labels` object on their Root
+(or on the component itself for Pagination, Markdown, CodeBlock, and
+ReorderList). Every key is optional and English is the fallback. Keys that
+interpolate a value are functions, for example
+`labels={{ remove: (tag) => `Supprimer ${tag}` }}` on TagInput.Root. Import the
+type as `<Name>Labels` from the component path or the package root. Parts read
+labels from their Root through context, so pass `labels` once on the Root and
+never on a part. Existing per-part props still win: an explicit `aria-label`,
+`label`, `placeholder`, `heading`, or snippet overrides the matching label.
+
+DataTable's `labels.page` replaces the animated "Page 1 of 5" readout with the
+returned string. Heatmap's `labels.unit` feeds cell labels, the summary, and
+the tooltip; it receives the count so it can pluralize.
+
+Calendar.MonthSelect and Calendar.YearSelect are wrapped in a positioning span
+that holds the chevron. `class` and `ref` still target the `<select>`.
+

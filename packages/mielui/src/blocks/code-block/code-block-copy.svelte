@@ -3,14 +3,10 @@
     import type { TabsState } from '@mielui/svelte/components/tabs';
     import { cn } from '@mielui/svelte/utils';
     import { getContext } from 'svelte';
-    import type { CodeBlockCopyProps, CodeBlockRegistry } from '.';
+    import type { CodeBlockCopyProps, CodeBlockLabels, CodeBlockRegistry } from '.';
 
-    let {
-        label = 'Copy code',
-        copiedLabel = 'Copied',
-        class: className,
-        ...rest
-    }: CodeBlockCopyProps = $props();
+    let { label, copiedLabel, class: className, ...rest }: CodeBlockCopyProps = $props();
+    const labels = getContext<(() => CodeBlockLabels | undefined) | undefined>('code-block-labels');
 
     const registry = getContext<CodeBlockRegistry>('code-block');
     const tabs = getContext<TabsState>('tabs');
@@ -21,8 +17,8 @@
 
 <CopyButton
     {text}
-    {label}
-    {copiedLabel}
+    label={label ?? labels?.()?.copy ?? 'Copy code'}
+    copiedLabel={copiedLabel ?? labels?.()?.copied ?? 'Copied'}
     class={cn(
         className,
         'size-[var(--size-control-sm)] min-w-[var(--size-control-sm)]'

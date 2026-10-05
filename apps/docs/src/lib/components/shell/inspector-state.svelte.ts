@@ -2,7 +2,9 @@ import { onMount } from 'svelte';
 
 export function createInspectorState(getStorageKey: () => string) {
     let open = $state(false);
-    let pinned = $state(false);
+    let preference = $state(false);
+    let docked = $state(false);
+    const pinned = $derived(preference && docked);
     let preferenceLoaded = false;
 
     function persistPreference() {
@@ -10,20 +12,32 @@ export function createInspectorState(getStorageKey: () => string) {
             return;
         }
         try {
-            localStorage.setItem(getStorageKey(), String(pinned));
+            localStorage.setItem(getStorageKey(), String(preference));
         } catch {
             // Storage may be unavailable; the panel still works for this session.
         }
     }
 
     onMount(() => {
+        const dockable = window.matchMedia('(min-width: 64rem)');
         try {
-            pinned = localStorage.getItem(getStorageKey()) !== 'false';
+            preference = localStorage.getItem(getStorageKey()) !== 'false';
         } catch {
-            pinned = true;
+            preference = true;
         }
+        docked = dockable.matches;
         open = pinned;
         preferenceLoaded = true;
+
+        function syncDocked(event: MediaQueryListEvent) {
+            docked = event.matches;
+            open = pinned;
+        }
+
+        dockable.addEventListener('change', syncDocked);
+        return () => {
+            dockable.removeEventListener('change', syncDocked);
+        };
     });
 
     return {
@@ -36,8 +50,11 @@ export function createInspectorState(getStorageKey: () => string) {
         get pinned() {
             return pinned;
         },
+        get dockable() {
+            return docked;
+        },
         togglePin() {
-            pinned = !pinned;
+            preference = !pinned;
             open = true;
             persistPreference();
         },
@@ -47,8 +64,11 @@ export function createInspectorState(getStorageKey: () => string) {
             }
         },
         close() {
-            pinned = false;
             open = false;
+            if (!docked) {
+                return;
+            }
+            preference = false;
             persistPreference();
         },
         reveal(event: PointerEvent) {

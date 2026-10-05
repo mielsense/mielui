@@ -55,6 +55,12 @@
             aria-describedby references are preserved. Escape dismisses visible or pending help.
         </Typography.Text>
         <Typography.Text>
+            Root sets placement to top, right, bottom, or left; the bubble flips when it would leave
+            the viewport. delay and closeDelay are in milliseconds, 125 and 100 by default. Moving
+            between triggers while a tooltip is visible skips the delay. Set showOnClick on Trigger
+            to show the tooltip briefly after a click, for example to confirm a copy.
+        </Typography.Text>
+        <Typography.Text>
             Tooltips share one moving bubble. Wrap a region in Tooltip.Provider for an independent
             bubble that is removed with the provider. Reduced motion disables rolling text.
         </Typography.Text>
@@ -64,7 +70,7 @@
             Use Popover for links, buttons, and other interactive content.
         </Typography.Text>
         <CodeBlock
-            code={`import * as Tooltip from '$lib/mielui/components/tooltip';\n\n<Tooltip.Root>\n  <Tooltip.Trigger>\n    <button>Info</button>\n  </Tooltip.Trigger>\n  <Tooltip.Content>Helpful text here</Tooltip.Content>\n</Tooltip.Root>`}
+            code={`import * as Tooltip from '@mielui/svelte/components/tooltip';\n\n<Tooltip.Root>\n  <Tooltip.Trigger>\n    <button>Info</button>\n  </Tooltip.Trigger>\n  <Tooltip.Content>Helpful text here</Tooltip.Content>\n</Tooltip.Root>`}
             lang="svelte"
             copy="overlay"
         />

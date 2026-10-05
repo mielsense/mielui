@@ -59,12 +59,12 @@
         </Typography.Text>
         <Typography.Text variant="supporting">
             Use{' '}
-            <Typography.InlineCode>SkeletonSwap</Typography.InlineCode> around asynchronous content.
-            Fast responses skip the placeholder; once shown, it stays visible long enough to avoid a
-            flash.
+            <Typography.InlineCode>SkeletonSwap</Typography.InlineCode>
+            around asynchronous content. Fast responses skip the placeholder; once shown, it stays
+            visible long enough to avoid a flash.
         </Typography.Text>
         <CodeBlock
-            code={`import { SkeletonSwap } from '$lib/mielui/components/skeleton';
+            code={`import { SkeletonSwap } from '@mielui/svelte/components/skeleton';
 
 <SkeletonSwap ready={profile !== null} lines={3} label="Profile">
   {#if profile}<p>{profile.bio}</p>{/if}

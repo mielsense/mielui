@@ -65,10 +65,11 @@ async function submitAnswer(value: string) {
         <Typography.H2 class="docs-section-heading">Usage</Typography.H2>
         <Typography.Text variant="supporting">
             Render{' '}
-            <Typography.InlineCode>Question.Root</Typography.InlineCode> in the same layout slot as{' '}
+            <Typography.InlineCode>Question.Root</Typography.InlineCode>
+            in the same layout slot as{' '}
             <Typography.InlineCode>Composer.Root</Typography.InlineCode>
-            . Keep the prompt value in their shared parent so swapping the forms never clears an
-            unsent draft.
+            would occupy. Keep the prompt value in their shared parent so swapping the forms never
+            clears an unsent draft.
         </Typography.Text>
         <CodeBlock code={usageSnippet} lang="svelte" copy="overlay" />
         <Typography.Text variant="supporting">
@@ -95,7 +96,8 @@ async function submitAnswer(value: string) {
         <Typography.H2 class="docs-section-heading">Composition</Typography.H2>
         <Typography.Text variant="supporting">
             Set{' '}
-            <Typography.InlineCode>variant="inset"</Typography.InlineCode> on
+            <Typography.InlineCode>variant="inset"</Typography.InlineCode>
+            on
             <Typography.InlineCode>Question.Root</Typography.InlineCode>
             for the shared Card frame and recessed content surface. The default variant uses a plain
             Card. Place

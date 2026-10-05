@@ -20,6 +20,48 @@ export type DataTableViewProps<TFeatures extends TableFeatures, TData extends Ro
     cell?: Snippet<[Cell<TFeatures, TData, unknown>]>;
     empty?: Snippet<[{ loading: boolean }]>;
 };
+export type DataTableLabels = {
+    region?: string;
+    loading?: string;
+    empty?: string;
+    selectRow?: (row: string) => string;
+    pages?: string;
+    noPages?: string;
+    page?: (page: number, pageCount: number | undefined) => string;
+    rows?: (total: number) => string;
+    selected?: (selected: number) => string;
+    sort?: string;
+    sortResults?: string;
+    sortedBy?: (column: string) => string;
+    sortBy?: string;
+    ascending?: string;
+    descending?: string;
+    filters?: string;
+    filter?: string;
+    filterBy?: string;
+    contains?: string;
+    equals?: string;
+    not?: string;
+    anyOf?: string;
+    noneOf?: string;
+    between?: string;
+    atLeast?: string;
+    atMost?: string;
+    onOrAfter?: string;
+    onOrBefore?: string;
+    valuePlaceholder?: string;
+    minimum?: string;
+    maximum?: string;
+    from?: string;
+    through?: string;
+    date?: string;
+    facet?: (filter: string) => string;
+    facetOperator?: (filter: string) => string;
+    facetValue?: (filter: string) => string;
+    facetMinimum?: (filter: string) => string;
+    facetMaximum?: (filter: string) => string;
+};
+
 export type DataTableProps<TFeatures extends TableFeatures, TData extends RowData> = Omit<
     HTMLAttributes<HTMLDivElement>,
     'children'
@@ -29,6 +71,7 @@ export type DataTableProps<TFeatures extends TableFeatures, TData extends RowDat
         'table' | 'loading' | 'selectable' | 'caption' | 'rowLabel' | 'header' | 'cell' | 'empty'
     > & {
         variant?: 'default' | 'inset';
+        labels?: DataTableLabels;
         children?: Snippet<[DataTableState<TFeatures, TData>]>;
     };
 export type DataTableHeaderProps<TFeatures extends TableFeatures, TData extends RowData> = Pick<

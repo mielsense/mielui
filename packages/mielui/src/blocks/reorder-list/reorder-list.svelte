@@ -18,6 +18,7 @@
         row,
         label,
         disabled = false,
+        labels,
         onReorder,
         onCommit,
         class: className,
@@ -46,6 +47,9 @@
             return listElement;
         },
         hintId: `${uid}-hint`,
+        get labels() {
+            return labels;
+        },
         get onReorder() {
             return onReorder;
         },
@@ -106,8 +110,8 @@
         {/each}
     </ol>
     <span id={`${uid}-hint`} class="sr-only">
-        Drag to reorder. With the handle focused, Space or Enter grabs the row, the arrow keys move
-        it, Space or Enter drops it, and Escape restores the original order.
+        {labels?.hint ??
+            'Drag to reorder. With the handle focused, Space or Enter grabs the row, the arrow keys move it, Space or Enter drops it, and Escape restores the original order.'}
     </span>
     <span role="status" aria-live="polite" class="sr-only">{gesture.spoken}</span>
 </div>

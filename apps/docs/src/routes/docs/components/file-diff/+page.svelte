@@ -16,7 +16,7 @@
 
     const installCommand = 'pnpm dlx @mielui/svelte add file-diff';
 
-    const usageSnippet = `import * as FileDiff from '$lib/mielui/components/file-diff';
+    const usageSnippet = `import * as FileDiff from '@mielui/svelte/components/file-diff';
 
 <FileDiff.Root file="src/auth.ts" lang="ts" diff={[
   { type: 'context', oldLineNumber: 12, newLineNumber: 12, content: 'export function getToken() {' },
@@ -51,9 +51,9 @@
         <Typography.H2 class="docs-section-heading">Installation</Typography.H2>
         <InstallCommand command={installCommand} />
         <Typography.Text variant="supporting">
-            The component depends on
+            The component depends on{' '}
             <Typography.InlineCode>highlight.js</Typography.InlineCode>
-            . Install it if your project doesn't have it yet:
+            for syntax highlighting. Install it if your project doesn't have it yet:
         </Typography.Text>
         <InstallCommand command="pnpm add highlight.js" />
     </section>
@@ -69,21 +69,12 @@
         </Typography.Text>
         <Typography.Text variant="supporting">
             Pass a{' '}
-            <Typography.InlineCode>diff</Typography.InlineCode> array for the high-level form, or
-            compose
+            <Typography.InlineCode>diff</Typography.InlineCode>
+            array for the high-level form, or compose TopBar, Content, and Row by hand. A bare{' '}
             <Typography.InlineCode>TopBar</Typography.InlineCode>
-            ,
-            <Typography.InlineCode>Content</Typography.InlineCode>
-            , and
-            <Typography.InlineCode>Row</Typography.InlineCode>
-            by hand. A bare
-            <Typography.InlineCode>TopBar</Typography.InlineCode>
-            renders filename and counts; pass children to take over the row with
-            <Typography.InlineCode>Filename</Typography.InlineCode>
-            ,
-            <Typography.InlineCode>PlusMinus</Typography.InlineCode>
-            , and your own actions. Addition and deletion counts are derived from the diff unless
-            you pass them explicitly.
+            renders filename and counts; pass children to take over the row with Filename,
+            PlusMinus, and your own actions. Addition and deletion counts are derived from the diff
+            unless you pass them explicitly.
         </Typography.Text>
         <Typography.Text variant="supporting">
             Code Block and File Diff share the same language aliases, syntax rules, package-manager
@@ -157,5 +148,19 @@
             color is not the only distinction. Use the changing-diff example to inspect count
             updates.
         </Typography.Text>
+    </section>
+
+    <section id="labels" class="flex scroll-mt-20 flex-col gap-4">
+        <Typography.H2 class="docs-section-heading">Labels</Typography.H2>
+        <Typography.Text>
+            Built-in text is English by default. Pass labels to FileDiff.Root to translate or reword
+            the change type and line number read to screen readers on each row. Every key is
+            optional; omitted keys keep their default.
+        </Typography.Text>
+        <CodeBlock
+            code={`<FileDiff.Root {diff} labels={{ added: 'Ajoutée', removed: 'Supprimée', unchanged: 'Inchangée', line: (line) => \`ligne \${line}\` }} />`}
+            lang="svelte"
+            copy="overlay"
+        />
     </section>
 </div>

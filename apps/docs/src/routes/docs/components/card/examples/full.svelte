@@ -31,5 +31,5 @@
         <Button variant="outline" size="md" onclick={cancel}>Cancel</Button>
         <Button size="md" onclick={save}>Save changes</Button>
     </Card.Footer>
-    <p role="status" class="px-5 pb-4 text-sm text-foreground-muted">{message}</p>
+    <p role="status" class="mt-4 min-h-5 text-sm text-foreground-muted">{message}</p>
 </Card.Root>

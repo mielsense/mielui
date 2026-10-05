@@ -1,4 +1,5 @@
 <script lang="ts">
+    import { untrack } from 'svelte';
     import type { HTMLButtonAttributes } from 'svelte/elements';
     import { Skeleton } from '../../components/skeleton';
     import { cn } from '../../utils';
@@ -17,7 +18,10 @@
         onblur,
         ...props
     }: HTMLButtonAttributes & { day: Cell } = $props();
+
+    const context = useHeatmap();
     let element = $state<HTMLButtonElement>();
+
     $effect(() => {
         if (!element || !context.ready) {
             return;
@@ -41,6 +45,13 @@
         ) {
             return;
         }
+        const rows = context.animation === 'rows';
+        const delay = untrack(() => {
+            if (rows) {
+                return (day.row - 1) * 50;
+            }
+            return (day.column - 1) * Math.min(35, 360 / context.model.weeks);
+        });
         const animation = element.animate(
             [
                 { opacity: 0, transform: 'translateY(5px) scale(0.82)' },
@@ -48,10 +59,7 @@
             ],
             {
                 duration: 360 * motionScale,
-                delay:
-                    context.animation === 'rows'
-                        ? (day.row - 1) * 50 * motionScale
-                        : (day.column - 1) * Math.min(35, 360 / context.model.weeks) * motionScale,
+                delay: delay * motionScale,
                 easing: 'cubic-bezier(0.2,0,0,1)',
                 fill: 'backwards'
             }
@@ -65,7 +73,7 @@
             preference.removeEventListener('change', cancel);
         };
     });
-    const context = useHeatmap();
+
     const levels = [
         'bg-secondary',
         'bg-[color-mix(in_oklab,var(--chart-1)_25%,transparent)]',
@@ -104,8 +112,7 @@
                 return;
         }
         event.preventDefault();
-        const target =
-            context.model.cells[Math.max(0, Math.min(next, context.model.cells.length - 1))];
+        const target = context.model.cells[next];
         if (!target) {
             return;
         }
@@ -170,17 +177,17 @@
         onfocus={focusDay}
         onpointerenter={previewDay}
         onpointerleave={(event) => {
-        onpointerleave?.(event);
-        if (context.hoveredElement === event.currentTarget) {
-            context.hoveredElement = undefined;
-        }
-    }}
+            onpointerleave?.(event);
+            if (context.hoveredElement === event.currentTarget) {
+                context.hoveredElement = undefined;
+            }
+        }}
         onblur={(event) => {
-        onblur?.(event);
-        if (context.focusedElement === event.currentTarget) {
-            context.focusedElement = undefined;
-        }
-    }}
+            onblur?.(event);
+            if (context.focusedElement === event.currentTarget) {
+                context.focusedElement = undefined;
+            }
+        }}
     >
         {@render children?.()}
     </button>

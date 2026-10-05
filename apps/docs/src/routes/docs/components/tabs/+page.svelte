@@ -50,27 +50,32 @@
     <section id="usage" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Usage</Typography.H2>
         <Typography.Text>
-            Focusing a trigger selects its panel by default. Set<Typography.InlineCode>
-                activationMode="manual"
-            </Typography.InlineCode> to move focus without loading a panel until Enter or Space is
-            pressed. Arrow keys follow the tab orientation and document direction. Home and End move
-            to the first and last enabled tabs.
+            Bind value on Root to the trigger that starts selected; without a value, no tab is
+            selected. Focusing a trigger selects its panel by default. Set{' '}
+            <Typography.InlineCode>activationMode="manual"</Typography.InlineCode>
+            {' '}
+            to move focus without loading a panel until Enter or Space is pressed. Arrow keys follow
+            the tab orientation and document direction. Home and End move to the first and last
+            enabled tabs.
         </Typography.Text>
         <Typography.Text>
             If the selected trigger is removed, disabled, or changes value, selection moves to the
-            first enabled trigger.<Typography.InlineCode>
-                onValueChange
-            </Typography.InlineCode> reports that value. With no enabled triggers, the value becomes
-            an empty string. Focus stays on the current control. Hover highlights clear when their
-            trigger is removed or disabled.
+            first enabled trigger.{' '}
+            <Typography.InlineCode>onValueChange</Typography.InlineCode>
+            {' '}
+            reports that value. With no enabled triggers, the value becomes an empty string. Focus
+            stays on the current control. Hover highlights clear when their trigger is removed or
+            disabled.
         </Typography.Text>
         <Typography.Text>
-            Inactive panels unmount. Set<Typography.InlineCode>forceMount</Typography.InlineCode> on
-            a panel when it needs to keep its state while hidden.
+            Inactive panels unmount. Set{' '}
+            <Typography.InlineCode>forceMount</Typography.InlineCode>
+            {' '}
+            on a panel when it needs to keep its state while hidden.
         </Typography.Text>
 
         <CodeBlock
-            code={`import * as Tabs from '$lib/mielui/components/tabs';\n\nlet tab = $state('tab1');\n\n<Tabs.Root bind:value={tab}>\n  <Tabs.List>\n    <Tabs.Trigger value="tab1">Tab 1</Tabs.Trigger>\n    <Tabs.Trigger value="tab2">Tab 2</Tabs.Trigger>\n  </Tabs.List>\n  <Tabs.Content value="tab1">Content 1</Tabs.Content>\n  <Tabs.Content value="tab2">Content 2</Tabs.Content>\n</Tabs.Root>`}
+            code={`import * as Tabs from '@mielui/svelte/components/tabs';\n\nlet tab = $state('tab1');\n\n<Tabs.Root bind:value={tab}>\n  <Tabs.List>\n    <Tabs.Trigger value="tab1">Tab 1</Tabs.Trigger>\n    <Tabs.Trigger value="tab2">Tab 2</Tabs.Trigger>\n  </Tabs.List>\n  <Tabs.Content value="tab1">Content 1</Tabs.Content>\n  <Tabs.Content value="tab2">Content 2</Tabs.Content>\n</Tabs.Root>`}
             lang="svelte"
             copy="overlay"
         />
@@ -108,9 +113,9 @@
                 <Typography.H3 class="docs-subsection-heading">Vertical</Typography.H3>
                 <Typography.Text variant="supporting" class="mt-2">
                     Set{' '}
-                    <Typography.InlineCode>orientation="vertical"</Typography.InlineCode> for a
-                    side-by-side layout. Use Up and Down Arrow to move between tabs; Home and End
-                    jump to the first and last tab.
+                    <Typography.InlineCode>orientation="vertical"</Typography.InlineCode>
+                    for a side-by-side layout. Use Up and Down Arrow to move between tabs; Home and
+                    End jump to the first and last tab.
                 </Typography.Text>
             </div>
             <ComponentPreview code={VerticalSrc}>

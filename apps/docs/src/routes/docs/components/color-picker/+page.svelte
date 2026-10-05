@@ -53,13 +53,9 @@
     <section id="usage" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Usage</Typography.H2>
         <Typography.Text variant="supporting">
-            Compose the Color Picker from its{' '}
-            <Typography.InlineCode>Root</Typography.InlineCode>
-            ,
-            <Typography.InlineCode>Trigger</Typography.InlineCode>
-            , and
-            <Typography.InlineCode>Content</Typography.InlineCode>
-            parts:
+            Compose the Color Picker from its Root, Trigger, and Content parts. Pass value as a
+            six-digit hex string with its leading hash, such as #5e6ad2. Shorthand hex, named
+            colors, and other color formats are not parsed.
         </Typography.Text>
         <Typography.Text>
             The hex field and every color channel have accessible names. Channel sliders provide a
@@ -70,7 +66,7 @@
             hue.
         </Typography.Text>
         <CodeBlock
-            code={`import * as ColorPicker from '$lib/mielui/components/color-picker';\n\nlet value = $state('#5e6ad2');\n\n<ColorPicker.Root value={value} onValueChange={(v) => (value = v)} format="hsl">\n\t<ColorPicker.Trigger />\n\t<ColorPicker.Content />\n</ColorPicker.Root>`}
+            code={`import * as ColorPicker from '@mielui/svelte/components/color-picker';\n\nlet value = $state('#5e6ad2');\n\n<ColorPicker.Root value={value} onValueChange={(v) => (value = v)} format="hsl">\n\t<ColorPicker.Trigger />\n\t<ColorPicker.Content />\n</ColorPicker.Root>`}
             lang="svelte"
             copy="overlay"
         />

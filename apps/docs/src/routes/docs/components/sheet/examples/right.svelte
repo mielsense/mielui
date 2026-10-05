@@ -80,8 +80,8 @@
             <div class="h-px w-full bg-border" role="separator"></div>
 
             <div class="flex flex-col gap-3">
-                <Switch bind:switched={onlyMine} label="Only my issues" />
-                <Switch bind:switched={includeArchived} label="Include archived" />
+                <Switch bind:checked={onlyMine} label="Only my issues" />
+                <Switch bind:checked={includeArchived} label="Include archived" />
             </div>
 
             <div class="h-px w-full bg-border" role="separator"></div>
@@ -98,11 +98,12 @@
         </div>
 
         <Sheet.Footer>
-            <Sheet.Close onclick={reset}>
-                Reset
+            <Sheet.Close>
+                Close
                 <Kbd shortcut="esc" />
             </Sheet.Close>
-            <Button onclick={() => apply()}>
+            <Button variant="ghost" disabled={activeCount === 0} onclick={reset}>Reset</Button>
+            <Button onclick={apply}>
                 Apply filters
                 {#if activeCount > 0}
                     <Badge variant="secondary">

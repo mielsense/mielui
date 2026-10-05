@@ -47,7 +47,14 @@ export type CodeBlockRegistry = {
     theme: CodeBlockTheme;
 };
 
+export type CodeBlockLabels = {
+    code?: string;
+    copy?: string;
+    copied?: string;
+};
+
 export type CodeBlockProps = {
+    labels?: CodeBlockLabels;
     /** Active tab id (bindable). Defaults to the first tab. */
     value?: string;
     /** High-level multi-language form. */

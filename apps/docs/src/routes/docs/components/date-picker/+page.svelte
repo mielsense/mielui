@@ -29,18 +29,13 @@
     </section>
     <section id="usage" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Usage</Typography.H2>
-        <Typography.Text variant="supporting">
-            The theme setting chrome.borders chooses "single" or "double" framing. Single is the
-            default. Single removes the extra frame while preserving content padding, composition,
-            and inset variants.
-        </Typography.Text>
         <Typography.Text>
             Compose Label, Input, Trigger and Content around Calendar. Input renders localized
             editable segments and a hidden native validation control. Add name to include the date
             in form data. The field and calendar share the same DateValue.
         </Typography.Text>
         <CodeBlock
-            code={`import * as DatePicker from '$lib/mielui/components/date-picker';
+            code={`import * as DatePicker from '@mielui/svelte/components/date-picker';
 
 <DatePicker.Root bind:value>
   <DatePicker.Label>Publish date</DatePicker.Label>
@@ -112,5 +107,19 @@
             your error message. Popup focus returns to the trigger when dismissed; motion respects
             reduced-motion preferences.
         </Typography.Text>
+    </section>
+
+    <section id="labels" class="flex scroll-mt-20 flex-col gap-4">
+        <Typography.H2 class="docs-section-heading">Labels</Typography.H2>
+        <Typography.Text>
+            Built-in text is English by default. Pass labels to DatePicker.Root to translate or
+            reword the calendar trigger, the calendar panel, and the validation message. Every key
+            is optional; omitted keys keep their default.
+        </Typography.Text>
+        <CodeBlock
+            code={`<DatePicker.Root labels={{ trigger: 'Choisir une date', content: 'Choisir une date', invalid: 'Saisissez une date valide.' }} />`}
+            lang="svelte"
+            copy="overlay"
+        />
     </section>
 </div>

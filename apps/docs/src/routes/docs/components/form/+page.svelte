@@ -79,9 +79,9 @@ export default config;`;
             include a path or controlId. Paths resolve against native field names within the form;
             form-level issues remain text. Nested paths use names such as profile.email or
             members[0].email. After a submission finishes with issues, the summary receives focus.
-            Set focusOnError={false} when your application manages focus. Initial server-rendered
-            errors do not steal focus. Override heading or children(issues) to customize the
-            content.
+            Set focusOnError={false}
+            when your application manages focus. Initial server-rendered errors do not steal focus.
+            Override heading or children(issues) to customize the content.
         </Typography.Text>
     </section>
     <section id="remote-forms" class="scroll-mt-20 flex flex-col gap-4">
@@ -98,12 +98,15 @@ export default config;`;
             The docs application opts in to remote functions and async compilation. Mielui itself
             imports no Kit runtime and requires no experimental flag. To run this example in your
             own Kit 2 application, explicitly enable both options and install Valibot (pnpm add
-            valibot). These examples target Kit 2.70 or later and Svelte 5.39 or later. See the<a
+            valibot). These examples target Kit 2.70 or later and Svelte 5.39 or later. See the{' '}
+            <a
                 href="https://svelte.dev/docs/kit/remote-functions"
                 class="underline underline-offset-4"
             >
                 official remote-functions guide
-            </a> before enabling experimental features.
+            </a>
+            {' '}
+            before enabling experimental features.
         </Typography.Text>
         <CodeBlock code={remoteConfig} lang="javascript" copy="overlay" />
         <Typography.H3 class="docs-subsection-heading">

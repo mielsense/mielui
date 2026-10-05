@@ -68,7 +68,7 @@
             chevron that turns upward while open.
         </Typography.Text>
         <CodeBlock
-            code={`import * as Accordion from '$lib/mielui/components/accordion';\n\n<Accordion.Root type="single">\n  <Accordion.Item value="a">\n    <Accordion.Trigger>Trigger</Accordion.Trigger>\n    <Accordion.Content>Content</Accordion.Content>\n  </Accordion.Item>\n</Accordion.Root>`}
+            code={`import * as Accordion from '@mielui/svelte/components/accordion';\n\n<Accordion.Root type="single">\n  <Accordion.Item value="a">\n    <Accordion.Trigger>Trigger</Accordion.Trigger>\n    <Accordion.Content>Content</Accordion.Content>\n  </Accordion.Item>\n</Accordion.Root>`}
             lang="svelte"
             copy="overlay"
         />

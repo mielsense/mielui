@@ -2,6 +2,7 @@
     import { ArrowDown01Icon as ChevronDown } from '@hugeicons/core-free-icons';
     import { Button } from '@mielui/svelte/components/button';
     import { cn } from '@mielui/svelte/utils';
+    import { getContext } from 'svelte';
     import { buttonAttributes } from '../../components/_internal/button-attributes';
     import {
         DISCLOSURE_ICON_SIZE,
@@ -9,7 +10,7 @@
         disclosureTrigger
     } from '../../components/_internal/disclosure/variants';
     import HugeiconsIcon from '../../hugeicons-icon.svelte';
-    import type { ReasoningTriggerProps } from '.';
+    import type { ReasoningLabels, ReasoningTriggerProps } from '.';
     import { getReasoningContext } from './context.svelte';
 
     let {
@@ -19,6 +20,7 @@
         class: className,
         ...rest
     }: ReasoningTriggerProps = $props();
+    const labels = getContext<(() => ReasoningLabels | undefined) | undefined>('reasoning-labels');
     const reasoning = getReasoningContext();
 </script>
 
@@ -46,9 +48,17 @@
     {:else}
         <span class="flex items-center gap-1.5">
             <span class="[font-weight:var(--font-weight-label)]">
-                {reasoning.streaming ? 'Thinking' : 'Thought'}
-                {#if !reasoning.streaming && duration}
-                    <span class="[font-weight:var(--font-weight-body)]">{`for ${duration}`}</span>
+                {#if reasoning.streaming}
+                    {labels?.()?.thinking ?? 'Thinking'}
+                {:else if duration && labels?.()?.thoughtFor}
+                    {labels?.()?.thoughtFor?.(duration)}
+                {:else}
+                    {labels?.()?.thought ?? 'Thought'}
+                    {#if duration}
+                        <span class="[font-weight:var(--font-weight-body)]">
+                            {`for ${duration}`}
+                        </span>
+                    {/if}
                 {/if}
             </span>
             <HugeiconsIcon

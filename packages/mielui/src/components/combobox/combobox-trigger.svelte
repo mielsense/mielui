@@ -2,14 +2,15 @@
     import { ArrowDown01Icon as ChevronDown, Cancel01Icon as X } from '@hugeicons/core-free-icons';
     import { cn } from '@mielui/svelte/utils';
     import { Combobox as ComboboxPrimitive } from 'bits-ui';
-    import { tick, untrack } from 'svelte';
+    import { getContext, tick, untrack } from 'svelte';
     import HugeiconsIcon from '../../hugeicons-icon.svelte';
     import { button } from '../button/variants';
     import { input } from '../input/variants';
-    import type { ComboboxTriggerProps } from '.';
+    import type { ComboboxLabels, ComboboxTriggerProps } from '.';
     import { getComboboxContext } from './context.svelte';
 
     const context = getComboboxContext();
+    const labels = getContext<(() => ComboboxLabels | undefined) | undefined>('combobox-labels');
     const { state: combobox } = context;
     let {
         trailing,
@@ -114,7 +115,7 @@
         isInputAppearance ? input({ variant: variant === 'secondary' ? 'secondary' : 'outline' }) : button({ variant, size }),
         'relative select-none',
         focusClasses,
-        disabled && 'pointer-events-none opacity-40'
+        disabled && 'pointer-events-none opacity-[var(--opacity-disabled)]'
     )}
 >
     {#if searchPlacement === 'menu'}
@@ -168,7 +169,7 @@
     {#if isInputAppearance && (combobox.searchContent !== '' || combobox.selected)}
         <button
             type="button"
-            aria-label="Clear search"
+            aria-label={labels?.()?.clear ?? 'Clear search'}
             {disabled}
             data-ui="combobox-trigger-clear"
             class="flex shrink-0 cursor-pointer items-center rounded-full text-foreground-muted transition-colors outline-none hover:text-foreground focus-visible:shadow-[var(--focus-ring)] [&_svg]:size-4 [&_svg]:shrink-0"

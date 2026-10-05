@@ -26,6 +26,36 @@
         <ComponentPreview code={HeroSrc} refreshable><Hero /></ComponentPreview>
     </section>
 
+    <section id="installation" class="scroll-mt-20 flex flex-col gap-4">
+        <Typography.H2 class="docs-section-heading">Installation</Typography.H2>
+        <InstallCommand command={installCommand} />
+    </section>
+
+    <section id="usage" class="scroll-mt-20 flex flex-col gap-4">
+        <Typography.H2 class="docs-section-heading">Usage</Typography.H2>
+        <Typography.Text variant="supporting">
+            Set{' '}
+            <Typography.InlineCode>current</Typography.InlineCode>
+            to the running step. Values before it are complete; the array length means the whole run
+            is complete.
+        </Typography.Text>
+        <Typography.Text variant="supporting">
+            Completion markers use a subtle scale and opacity change; task progress remains readable
+            during rapid updates.
+        </Typography.Text>
+        <CodeBlock
+            lang="svelte"
+            copy="overlay"
+            code={`import { TaskSteps } from '@mielui/svelte/components/task-steps';
+
+<TaskSteps
+  steps={[{ id: 'build', label: 'Building' }, { id: 'test', label: 'Testing' }]}
+  current={1}
+  label="Deploy progress"
+/>`}
+        />
+    </section>
+
     <section id="composable-parts" class="flex flex-col gap-4">
         <Typography.H2>Composable parts</Typography.H2>
         <Typography.Text>
@@ -54,35 +84,6 @@
             copy="overlay"
         />
     </section>
-    <section id="installation" class="scroll-mt-20 flex flex-col gap-4">
-        <Typography.H2 class="docs-section-heading">Installation</Typography.H2>
-        <InstallCommand command={installCommand} />
-    </section>
-
-    <section id="usage" class="scroll-mt-20 flex flex-col gap-4">
-        <Typography.H2 class="docs-section-heading">Usage</Typography.H2>
-        <Typography.Text variant="supporting">
-            Set{' '}
-            <Typography.InlineCode>current</Typography.InlineCode> to the running step. Values
-            before it are complete; the array length means the whole run is complete.
-        </Typography.Text>
-        <Typography.Text variant="supporting">
-            Completion markers use a subtle scale and opacity change; task progress remains readable
-            during rapid updates.
-        </Typography.Text>
-        <CodeBlock
-            lang="svelte"
-            copy="overlay"
-            code={`import { TaskSteps } from '@mielui/svelte/components/task-steps';
-
-<TaskSteps
-  steps={[{ id: 'build', label: 'Building' }, { id: 'test', label: 'Testing' }]}
-  current={1}
-  label="Deploy progress"
-/>`}
-        />
-    </section>
-
     <section id="examples" class="scroll-mt-20 flex flex-col gap-10">
         <SectionHeading title="Examples">
             {#snippet description()}

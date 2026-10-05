@@ -5,7 +5,7 @@ export const manifest: Manifest = {
     version: '1.0.0',
     visibility: 'public',
     description:
-        'Toggle switch with role="switch", bindable switched state, optional label and description.',
+        'Toggle switch with role="switch", bindable checked state, optional label and description.',
     role: 'switch',
     files: [
         'components/switch/switch.svelte',

@@ -3,8 +3,9 @@
     generics="TFeatures extends import('@tanstack/svelte-table').TableFeatures, TData extends import('@tanstack/svelte-table').RowData"
 >
     import { FlexRender } from '@tanstack/svelte-table';
+    import { getContext } from 'svelte';
     import * as Table from '../../components/table';
-    import type { DataTableBodyProps } from '.';
+    import type { DataTableBodyProps, DataTableLabels } from '.';
     import Empty from './data-table-empty.svelte';
     import Selection from './data-table-selection.svelte';
     import { selectedRow, selection, visibleCells, visibleColumnCount } from './features';
@@ -18,9 +19,14 @@
         empty,
         ...rest
     }: DataTableBodyProps<TFeatures, TData> = $props();
+    const labels = getContext<(() => DataTableLabels | undefined) | undefined>('data-table-labels');
     const rows = $derived(table.getRowModel().rows);
     const canSelect = $derived(selectable && !!selection(table).toggleAllPageRowsSelected);
     const columns = $derived(visibleColumnCount(table) + (canSelect ? 1 : 0));
+
+    function selectLabel(row: string) {
+        return labels?.()?.selectRow?.(row) ?? `Select ${row}`;
+    }
 </script>
 <Table.Body {...rest}>
     {#if rows.length === 0}
@@ -29,7 +35,9 @@
                 {#if empty}
                     {@render empty(state)}
                 {:else}
-                    {loading ? 'Loading rows…' : 'No results.'}
+                    {loading
+                        ? (labels?.()?.loading ?? 'Loading rows…')
+                        : (labels?.()?.empty ?? 'No results.')}
                 {/if}
             {/snippet}
         </Empty>
@@ -40,7 +48,7 @@
                 {#if canSelect}
                     <Table.Cell class="w-12">
                         <Selection
-                            label={`Select ${rowLabel?.(row) ?? `row ${row.id}`}`}
+                            label={selectLabel(rowLabel?.(row) ?? `row ${row.id}`)}
                             checked={selectionApi.getIsSelected?.() ?? false}
                             disabled={!selectionApi.getCanSelect?.()}
                             onCheckedChange={(checked) => {

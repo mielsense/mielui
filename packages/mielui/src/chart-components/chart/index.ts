@@ -1,3 +1,11 @@
+export type ChartLabels = {
+    categories?: string;
+    inspect?: (category: string) => string;
+    loading?: string;
+    empty?: string;
+    emptyDescription?: string;
+};
+
 export { default as Area } from './area.svelte';
 export { default as Bar } from './bar.svelte';
 export { default as Grid } from './grid.svelte';

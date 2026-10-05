@@ -60,7 +60,7 @@
             {#snippet children({ label, value, percentage })}
                 <span class="grid gap-1">
                     <span class="text-foreground-muted">{label}</span>
-                    <span class="font-medium">{value} ·{percentage.toFixed(1)}%</span>
+                    <span class="font-medium">{`${value} · ${percentage.toFixed(1)}%`}</span>
                 </span>
             {/snippet}
         </PieChart.Tooltip>

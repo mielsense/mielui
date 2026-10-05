@@ -9,7 +9,7 @@
     let { children, disabled, onclick, ...rest }: FileUploadButtonProps = $props();
     const item = getItem();
     const root = getRoot();
-    const label = 'Retry upload';
+    const label = $derived(root.labels?.retry ?? 'Retry upload');
 </script>
 {#if item().status === 'error' && item().retryable}
     <Tooltip.Root>

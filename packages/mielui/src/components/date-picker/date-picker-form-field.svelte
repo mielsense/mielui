@@ -23,7 +23,7 @@
         }
         function synchronizeValidity() {
             control?.setCustomValidity(
-                fieldNode?.hasAttribute('data-invalid') ? 'Enter a valid date.' : ''
+                fieldNode?.hasAttribute('data-invalid') ? context.labels.invalid : ''
             );
         }
         synchronizeValidity();
@@ -66,7 +66,7 @@
     readonly={context.readonly}
     required={context.required}
     oninvalid={(event) => {
-            event.preventDefault();
-            field?.querySelector<HTMLElement>('[role="spinbutton"]')?.focus({ preventScroll: true });
-        }}
+        event.preventDefault();
+        field?.querySelector<HTMLElement>('[role="spinbutton"]')?.focus({ preventScroll: true });
+    }}
 />

@@ -1,14 +1,5 @@
 [
     {
-        "name": "ontouchcancel",
-        "type": "TouchEventHandler<SVGTextElement> | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
         "name": "ontouchcancelcapture",
         "type": "TouchEventHandler<SVGTextElement> | null | undefined",
         "required": false,
@@ -2243,6 +2234,15 @@
     {
         "name": "patternContentUnits",
         "type": "string | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "patternTransform",
+        "type": "string | number | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,

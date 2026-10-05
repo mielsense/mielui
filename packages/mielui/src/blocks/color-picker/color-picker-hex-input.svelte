@@ -21,7 +21,12 @@
         spellcheck={false}
         autocomplete="off"
         oninput={(event) => {
-            controller.handleHexInput(event.currentTarget.value);
+            const input = event.currentTarget;
+            controller.handleHexInput(input.value);
+            const accepted = controller.state.hexInput.replace(/^#/, '');
+            if (input.value !== accepted) {
+                input.value = accepted;
+            }
         }}
         onkeydown={(event) => {
             if (event.key === 'Enter' && !event.isComposing) {

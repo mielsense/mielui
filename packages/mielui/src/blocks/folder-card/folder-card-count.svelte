@@ -23,7 +23,7 @@
     {...rest}
     class={cn(
         className,
-        'ml-auto font-mono text-[length:var(--font-size-label)] tabular-nums whitespace-nowrap text-[var(--folder-card-ink-muted)]'
+        'ms-auto font-mono text-[length:var(--font-size-label)] tabular-nums whitespace-nowrap text-[var(--folder-card-ink-muted)]'
     )}
     use:numberShuffle={{ value, format }}
 >

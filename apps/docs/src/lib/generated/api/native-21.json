@@ -1,14 +1,5 @@
 [
     {
-        "name": "on:beforematch",
-        "type": "EventHandler<Event, HTMLAnchorElement> | null | undefined | EventHandler<Event, HTMLElement> | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
         "name": "onbeforematch",
         "type": "EventHandler<Event, HTMLAnchorElement> | null | undefined | EventHandler<Event, HTMLElement> | null | undefined",
         "required": false,
@@ -2242,6 +2233,15 @@
     },
     {
         "name": "on:pointerleave",
+        "type": "PointerEventHandler<HTMLHeadingElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onpointerleave",
         "type": "PointerEventHandler<HTMLHeadingElement> | null | undefined",
         "required": false,
         "bindable": false,

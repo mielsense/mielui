@@ -1,14 +1,5 @@
 [
     {
-        "name": "on:mousedown",
-        "type": "MouseEventHandler<HTMLTableRowElement> | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
         "name": "onmousedown",
         "type": "MouseEventHandler<HTMLTableRowElement> | null | undefined",
         "required": false,
@@ -2242,6 +2233,15 @@
     },
     {
         "name": "onplay",
+        "type": "EventHandler<Event, HTMLSelectElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onplaycapture",
         "type": "EventHandler<Event, HTMLSelectElement> | null | undefined",
         "required": false,
         "bindable": false,

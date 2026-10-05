@@ -3,6 +3,15 @@
         "name": "Markdown",
         "properties": [
             {
+                "name": "labels",
+                "type": "MarkdownLabels | undefined",
+                "required": false,
+                "bindable": false,
+                "default": null,
+                "description": "",
+                "inherited": false
+            },
+            {
                 "name": "content",
                 "type": "string",
                 "required": true,

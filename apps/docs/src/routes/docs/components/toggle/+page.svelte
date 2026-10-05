@@ -58,7 +58,7 @@
             Import Toggle and bind its pressed state:
         </Typography.Text>
         <CodeBlock
-            code={`import { Toggle } from '$lib/mielui/components/toggle';\n\n<Toggle bind:pressed={bold}>\n  <Bold size={14} />\n</Toggle>`}
+            code={`import { Toggle } from '@mielui/svelte/components/toggle';\n\n<Toggle bind:pressed={bold}>\n  <Bold size={14} />\n</Toggle>`}
             lang="svelte"
             copy="overlay"
         />

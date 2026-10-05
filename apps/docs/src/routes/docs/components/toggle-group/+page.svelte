@@ -11,6 +11,8 @@
     import MultipleSrc from './examples/multiple.svelte?raw';
     import Single from './examples/single.svelte';
     import SingleSrc from './examples/single.svelte?raw';
+    import Sizes from './examples/sizes.svelte';
+    import SizesSrc from './examples/sizes.svelte?raw';
 
     const TITLE = 'Toggle Group';
     const SLUG = 'toggle-group';
@@ -59,7 +61,7 @@
             The value and onValueChange types follow the selected mode.
         </Typography.Text>
         <CodeBlock
-            code={`import * as ToggleGroup from '$lib/mielui/components/toggle-group';\n\n<ToggleGroup.Root type="single" bind:value={alignment}>\n  <ToggleGroup.Item value="left">Left</ToggleGroup.Item>\n  <ToggleGroup.Item value="center">Center</ToggleGroup.Item>\n  <ToggleGroup.Item value="right">Right</ToggleGroup.Item>\n</ToggleGroup.Root>`}
+            code={`import * as ToggleGroup from '@mielui/svelte/components/toggle-group';\n\n<ToggleGroup.Root type="single" bind:value={alignment}>\n  <ToggleGroup.Item value="left">Left</ToggleGroup.Item>\n  <ToggleGroup.Item value="center">Center</ToggleGroup.Item>\n  <ToggleGroup.Item value="right">Right</ToggleGroup.Item>\n</ToggleGroup.Root>`}
             lang="svelte"
             copy="overlay"
         />
@@ -86,6 +88,16 @@
             <Typography.H3 class="docs-subsection-heading">Multiple select</Typography.H3>
             <ComponentPreview code={MultipleSrc}>
                 <Multiple />
+            </ComponentPreview>
+        </div>
+
+        <div id="sizes" class="scroll-mt-20 flex flex-col gap-3">
+            <Typography.H3 class="docs-subsection-heading">Sizes</Typography.H3>
+            <Typography.Text variant="supporting">
+                Set size on Root. Every item inherits it; the default is sm.
+            </Typography.Text>
+            <ComponentPreview code={SizesSrc}>
+                <Sizes />
             </ComponentPreview>
         </div>
     </section>

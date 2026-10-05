@@ -29,18 +29,29 @@
     <section id="usage" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Usage and accessibility</Typography.H2>
         <Typography.Text>
-            Bind<Typography.InlineCode>value</Typography.InlineCode> to the entered code. A single
-            native input handles focus, selection, paste, autofill, and form submission. The visible<Typography.InlineCode
-            >
-                Cell
-            </Typography.InlineCode> parts are hidden from assistive technology.
+            Bind{' '}
+            <Typography.InlineCode>value</Typography.InlineCode>
+            {' '}
+            to the entered code. A single native input handles focus, selection, paste, autofill,
+            and form submission. The visible{' '}
+            <Typography.InlineCode>Cell</Typography.InlineCode>
+            {' '}
+            parts are hidden from assistive technology.
         </Typography.Text>
         <Typography.Text>
-            Label<Typography.InlineCode>Root</Typography.InlineCode> using a native label and
-            matching<Typography.InlineCode>id</Typography.InlineCode>
-            ,<Typography.InlineCode>aria-label</Typography.InlineCode>
-            , or<Typography.InlineCode>Field.Control</Typography.InlineCode>
-            . The element binding refers to the native input.
+            Label{' '}
+            <Typography.InlineCode>Root</Typography.InlineCode>
+            {' '}
+            using a native label and matching{' '}
+            <Typography.InlineCode>id</Typography.InlineCode>
+            {' '}
+            attribute, an{' '}
+            <Typography.InlineCode>aria-label</Typography.InlineCode>
+            {' '}
+            attribute, or{' '}
+            <Typography.InlineCode>Field.Control</Typography.InlineCode>
+            {' '}
+            attributes. The element binding refers to the native input.
         </Typography.Text>
         <Typography.Text>
             Digits are accepted by default. Set pattern and inputmode together for another alphabet,

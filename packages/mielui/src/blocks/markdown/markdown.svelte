@@ -1,11 +1,13 @@
 <script lang="ts">
     import { cn } from '@mielui/svelte/utils';
     import { marked } from 'marked';
-    import type { MarkdownProps } from '.';
+    import { setContext } from 'svelte';
+    import type { MarkdownLabels, MarkdownProps } from '.';
     import type { MarkdownToken } from './_types';
     import TokenRenderer from './markdown-token.svelte';
 
-    let { content, streaming = false, class: className, ...rest }: MarkdownProps = $props();
+    let { content, streaming = false, labels, class: className, ...rest }: MarkdownProps = $props();
+    setContext<() => MarkdownLabels | undefined>('markdown-labels', () => labels);
 
     const tokens = $derived(
         marked.lexer(content, { gfm: true, breaks: false }) as unknown as MarkdownToken[]

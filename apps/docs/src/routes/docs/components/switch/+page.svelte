@@ -44,20 +44,20 @@
 
     <!-- ─── Usage ─────────────────────────────────────────────────── -->
     <section id="usage" class="scroll-mt-20 flex flex-col gap-4">
+        <Typography.H2 class="docs-section-heading">Usage</Typography.H2>
         <Typography.Text>
             The visible label names the switch; descriptions are linked separately. Explicit
             aria-label or aria-labelledby naming takes priority. External description IDs are
             preserved and deduplicated, and conditional descriptions are linked only while rendered.
         </Typography.Text>
-        <Typography.H2 class="docs-section-heading">Usage</Typography.H2>
         <Typography.Text>
-            Use name and value to include a checked switch in form submission. Both checked and the
-            switched alias remain bindable. A label activates the switch, and supplied ARIA
-            relationships are preserved.
+            Use name and value to include a checked switch in form submission. Bind checked to read
+            or set the state. A label activates the switch, and supplied ARIA relationships are
+            preserved.
         </Typography.Text>
         <Typography.Text variant="supporting">Import Switch and bind its state:</Typography.Text>
         <CodeBlock
-            code={`import { Switch } from '$lib/mielui/components/switch';\n\n<Switch bind:switched={enabled} label="Notifications" />`}
+            code={`import { Switch } from '@mielui/svelte/components/switch';\n\n<Switch bind:checked={enabled} label="Notifications" />`}
             lang="svelte"
             copy="overlay"
         />

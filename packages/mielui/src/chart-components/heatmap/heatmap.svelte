@@ -2,6 +2,7 @@
     import type { Snippet } from 'svelte';
     import type { HTMLAttributes } from 'svelte/elements';
     import { cn } from '../../utils';
+    import type { HeatmapLabels } from '.';
     import { type Cell, calendar, type Day } from './calendar';
     import { provide } from './context.svelte';
     import Calendar from './heatmap-calendar.svelte';
@@ -16,6 +17,7 @@
     import WeekdayLabels from './heatmap-weekday-labels.svelte';
 
     type Props = Omit<HTMLAttributes<HTMLDivElement>, 'children'> & {
+        labels?: HeatmapLabels;
         days: readonly Day[];
         weeks?: number;
         loading?: boolean;
@@ -35,11 +37,12 @@
         weekStartsOn = 0,
         locale = 'en-US',
         onDaySelect,
+        labels,
         children,
         class: className,
         ...props
     }: Props = $props();
-    const model = $derived(calendar(days, weeks, endDate, weekStartsOn, locale));
+    const model = $derived(calendar(days, weeks, endDate, weekStartsOn, locale, labels?.unit));
     const empty = $derived(days.length === 0);
     const ready = $derived(!loading && !empty);
     let tooltipCount = $state(0);
@@ -51,6 +54,9 @@
         model.cells.find((day) => day.date === activeDate) ?? model.cells.at(-1)
     );
     provide({
+        get labels() {
+            return labels;
+        },
         get loading() {
             return loading;
         },

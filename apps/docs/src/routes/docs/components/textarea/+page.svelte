@@ -62,7 +62,7 @@
             for message composers that grow with their content.
         </Typography.Text>
         <CodeBlock
-            code={`import { Textarea } from '$lib/mielui/components/textarea';\n\n<Textarea bind:value autoresize label="Message" />`}
+            code={`import { Textarea } from '@mielui/svelte/components/textarea';\n\n<Textarea bind:value autoresize label="Message" />`}
             lang="svelte"
             copy="overlay"
         />

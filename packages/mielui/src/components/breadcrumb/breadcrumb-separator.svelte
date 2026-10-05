@@ -15,7 +15,7 @@
             icon={ChevronRight}
             {...rest}
             size={14}
-            class={cn(className, 'text-foreground-muted')}
+            class={cn(className, 'text-foreground-muted rtl:rotate-180')}
         />
     {/if}
 </li>

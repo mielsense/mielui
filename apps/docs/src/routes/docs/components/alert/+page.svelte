@@ -23,7 +23,7 @@
     </title>
     <meta
         name="description"
-        content="Tinted callouts for inline status, confirmation, and warnings."
+        content="Inset callouts for inline status, confirmation, and warnings."
     />
 </svelte:head>
 
@@ -56,25 +56,26 @@
         </Typography.Text>
         <Typography.Text variant="supporting">
             Set{' '}
-            <Typography.InlineCode>{'icon={false}'}</Typography.InlineCode> to omit the default
-            icon, or supply an icon snippet to replace it. Title and Description remain separate
-            parts.
+            <Typography.InlineCode>{'icon={false}'}</Typography.InlineCode>
+            to omit the default icon, or supply an icon snippet to replace it. Title and Description
+            remain separate parts.
         </Typography.Text>
         <Typography.Text variant="supporting">
             Static notices use{' '}
-            <Typography.InlineCode>announcement="off"</Typography.InlineCode> by default. Use{' '}
-            <Typography.InlineCode>announcement="polite"</Typography.InlineCode> for routine
-            updates, such as a successful save.
+            <Typography.InlineCode>announcement="off"</Typography.InlineCode>
+            by default. Use{' '}
+            <Typography.InlineCode>announcement="polite"</Typography.InlineCode>
+            for routine updates, such as a successful save.
         </Typography.Text>
         <Typography.Text variant="supporting">
             Reserve{' '}
-            <Typography.InlineCode>announcement="assertive"</Typography.InlineCode> for urgent
-            updates that should interrupt. Keep the live region mounted while its content changes.
-            The visual variant does not change announcement urgency.
+            <Typography.InlineCode>announcement="assertive"</Typography.InlineCode>
+            for urgent updates that should interrupt. Keep the live region mounted while its content
+            changes. The visual variant does not change announcement urgency.
         </Typography.Text>
 
         <CodeBlock
-            code={`import * as Alert from '$lib/mielui/components/alert';\n\n<Alert.Root announcement="polite">\n  <Alert.Title>Title</Alert.Title>\n  <Alert.Description>Description</Alert.Description>\n</Alert.Root>`}
+            code={`import * as Alert from '@mielui/svelte/components/alert';\n\n<Alert.Root announcement="polite">\n  <Alert.Title>Title</Alert.Title>\n  <Alert.Description>Description</Alert.Description>\n</Alert.Root>`}
             lang="svelte"
             copy="overlay"
         />

@@ -55,9 +55,15 @@
             keyboard focus and stays open as the pointer moves into it. Give Trigger an href for
             normal link navigation; otherwise it renders a button.
         </Typography.Text>
+        <Typography.Text>
+            Root accepts openDelay and closeDelay in milliseconds, 200 and 150 by default, and a
+            bindable open. Content takes side and align to place the card; it flips and shifts to
+            stay inside the viewport. Add Title and Description to name and describe the card for
+            assistive technology.
+        </Typography.Text>
 
         <CodeBlock
-            code={`import * as HoverCard from '$lib/mielui/components/hover-card';\n\n<HoverCard.Root>\n  <HoverCard.Trigger>@username</HoverCard.Trigger>\n  <HoverCard.Content>\n    <HoverCard.Title>Full name</HoverCard.Title>\n    <HoverCard.Description>Bio or description</HoverCard.Description>\n  </HoverCard.Content>\n</HoverCard.Root>`}
+            code={`import * as HoverCard from '@mielui/svelte/components/hover-card';\n\n<HoverCard.Root>\n  <HoverCard.Trigger>@username</HoverCard.Trigger>\n  <HoverCard.Content>\n    <HoverCard.Title>Full name</HoverCard.Title>\n    <HoverCard.Description>Bio or description</HoverCard.Description>\n  </HoverCard.Content>\n</HoverCard.Root>`}
             lang="svelte"
             copy="overlay"
         />
@@ -68,8 +74,6 @@
         <div>
             <Typography.H2 class="docs-section-heading">Examples</Typography.H2>
         </div>
-
-        <!-- User mention preview -->
 
         <!-- Link preview -->
         <div id="link-preview" class="scroll-mt-20 flex flex-col gap-3">

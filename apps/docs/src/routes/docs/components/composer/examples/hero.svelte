@@ -102,7 +102,7 @@
                 </Select.Root>
             </Composer.Actions>
 
-            <div class="ml-auto flex min-w-0 items-center gap-1">
+            <div class="ms-auto flex shrink-0 items-center gap-1">
                 <DropdownMenu.Root>
                     <DropdownMenu.Trigger variant="outline" class="w-auto max-w-52">
                         <span class="flex min-w-0 flex-1 items-center gap-1.5">

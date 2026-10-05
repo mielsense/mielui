@@ -13,7 +13,7 @@
         {...rest}
         data-ui="file-upload-progress"
         role="progressbar"
-        aria-label={`Uploading ${item().file.name}`}
+        aria-label={root.labels?.uploadingFile?.(item().file.name) ?? `Uploading ${item().file.name}`}
         aria-valuemin={0}
         aria-valuemax={100}
         aria-valuenow={item().progress}
@@ -23,7 +23,7 @@
             {@render children()}
         {:else}
             <motion.div
-                class="h-full origin-left rounded-full bg-primary"
+                class="h-full origin-left rounded-full bg-primary rtl:origin-right"
                 initial={false}
                 animate={{ scaleX: (item().progress ?? 0) / 100 }}
                 transition={{ duration: root.duration }}

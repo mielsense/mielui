@@ -1,14 +1,5 @@
 [
     {
-        "name": "onfocuscapture",
-        "type": "FocusEventHandler<HTMLElement> | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
         "name": "on:focusin",
         "type": "FocusEventHandler<HTMLElement> | null | undefined",
         "required": false,
@@ -2242,6 +2233,15 @@
     },
     {
         "name": "on:transitionstart",
+        "type": "TransitionEventHandler<HTMLElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "ontransitionstart",
         "type": "TransitionEventHandler<HTMLElement> | null | undefined",
         "required": false,
         "bindable": false,

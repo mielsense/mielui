@@ -33,7 +33,8 @@
             <Card.Header>
                 <Card.Title>Release checklist</Card.Title>
                 <Card.Description>
-                    {Number(reviewed) + Number(tested)} of 2 checks complete
+                    {Number(reviewed) + Number(tested)}
+                    of 2 checks complete
                 </Card.Description>
             </Card.Header>
             <Card.Content class="space-y-4">

@@ -42,9 +42,31 @@
         <ComponentPreview code={HeroSrc}><Hero /></ComponentPreview>
     </section>
 
-    <section id="composable-parts" class="flex flex-col gap-4">
-        <Typography.H2>Composable parts</Typography.H2>
-        <Typography.Text>
+    <section id="installation" class="scroll-mt-20 flex flex-col gap-4">
+        <Typography.H2 class="docs-section-heading">Installation</Typography.H2>
+        <InstallCommand command={installCommand} />
+    </section>
+
+    <section id="usage" class="scroll-mt-20 flex flex-col gap-4">
+        <Typography.H2 class="docs-section-heading">Usage</Typography.H2>
+        <Typography.Text variant="supporting">
+            Actions form a labeled group of ordinary controls. Tab moves between actions in document
+            order; the group does not impose toolbar arrow-key navigation.
+        </Typography.Text>
+        <Typography.Text variant="supporting">
+            <Typography.InlineCode>Content</Typography.InlineCode>
+            adapts its layout to the{' '}
+            <Typography.InlineCode>from</Typography.InlineCode>
+            role. Use
+            <Typography.InlineCode>status</Typography.InlineCode>
+            for streaming or failed output, and give every icon-only action an accessible label.
+        </Typography.Text>
+        <CodeBlock code={usageSnippet} lang="svelte" copy="overlay" />
+    </section>
+
+    <section id="composable-parts" class="scroll-mt-20 flex flex-col gap-4">
+        <Typography.H2 class="docs-section-heading">Composable parts</Typography.H2>
+        <Typography.Text variant="supporting">
             The default layout renders the exported Avatar, Body, Metadata, Name, Time, and Status
             parts. Supply the layout snippet to omit or reorder these regions. Names, timestamps,
             avatars, and status fall back to Root context; native attributes such as Time's datetime
@@ -65,27 +87,6 @@
             lang="svelte"
             copy="overlay"
         />
-    </section>
-    <section id="installation" class="scroll-mt-20 flex flex-col gap-4">
-        <Typography.H2 class="docs-section-heading">Installation</Typography.H2>
-        <InstallCommand command={installCommand} />
-    </section>
-
-    <section id="usage" class="scroll-mt-20 flex flex-col gap-4">
-        <Typography.H2 class="docs-section-heading">Usage</Typography.H2>
-        <Typography.Text variant="supporting">
-            Actions form a labeled group of ordinary controls. Tab moves between actions in document
-            order; the group does not impose toolbar arrow-key navigation.
-        </Typography.Text>
-        <Typography.Text variant="supporting">
-            <Typography.InlineCode>Content</Typography.InlineCode>
-            adapts its layout to{' '}
-            <Typography.InlineCode>from</Typography.InlineCode>
-            . Use
-            <Typography.InlineCode>status</Typography.InlineCode>
-            for streaming or failed output, and give every icon-only action an accessible label.
-        </Typography.Text>
-        <CodeBlock code={usageSnippet} lang="svelte" copy="overlay" />
     </section>
 
     <section id="integration" class="scroll-mt-20 flex flex-col gap-4">
@@ -115,5 +116,19 @@
             </Typography.H3>
             <ComponentPreview code={StatesSrc}><States /></ComponentPreview>
         </div>
+    </section>
+
+    <section id="labels" class="flex scroll-mt-20 flex-col gap-4">
+        <Typography.H2 class="docs-section-heading">Labels</Typography.H2>
+        <Typography.Text>
+            Built-in text is English by default. Pass labels to Message.Root to translate or reword
+            Message.Status and the Message.Actions toolbar name. Every key is optional; omitted keys
+            keep their default.
+        </Typography.Text>
+        <CodeBlock
+            code={`<Message.Root from="assistant" status="error" labels={{ failed: 'Échec', streaming: 'En cours', complete: 'Terminé', actions: 'Actions du message' }} />`}
+            lang="svelte"
+            copy="overlay"
+        />
     </section>
 </div>

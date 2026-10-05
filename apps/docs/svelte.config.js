@@ -24,6 +24,7 @@ const config = {
     kit: {
         experimental: { remoteFunctions: true },
         adapter: deploymentAdapter,
+        prerender: { origin: process.env.DOCS_ORIGIN ?? 'https://ui.miel.my' },
         alias: {
             ...Object.fromEntries(
                 Object.entries(categories).flatMap(([category, components]) =>

@@ -3,7 +3,7 @@
 
     let quantity = $state<number | undefined>(2);
 </script>
-<div class="w-full max-w-56">
+<div class="w-full max-w-64">
     <NumberField.Root bind:value={quantity} min={1} max={12} name="quantity">
         <NumberField.Label>Seats</NumberField.Label>
         <NumberField.Group class="w-36 max-w-full">
@@ -12,7 +12,7 @@
             <NumberField.Increment />
         </NumberField.Group>
     </NumberField.Root>
-    <p id="seats-hint" class="mt-2 text-foreground-muted [font-size:var(--font-size-caption)]">
+    <p id="seats-hint" class="mt-2 text-sm text-nowrap text-foreground-muted">
         Choose between 1 and 12 seats.
     </p>
 </div>

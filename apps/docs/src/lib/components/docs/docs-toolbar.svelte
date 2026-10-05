@@ -28,6 +28,10 @@
 
     <Separator orientation="vertical" class="hidden h-5! sm:block" />
 
+    <span aria-hidden="true" class="min-w-0 flex-1 truncate text-sm font-medium sm:hidden">
+        {breadcrumbs.at(-1)?.label}
+    </span>
+
     <div class="hidden min-w-0 flex-1 sm:block">
         <Breadcrumb.Root class="min-w-0">
             {#each breadcrumbs as breadcrumb, index (breadcrumb.href)}
@@ -51,9 +55,9 @@
         </Breadcrumb.Root>
     </div>
 
-    <div class="ms-auto flex shrink-0 items-center gap-1">
+    <div class="flex shrink-0 items-center gap-1 sm:ms-auto">
         <SearchButton />
-        <Button variant="ghost" href={resolve('/studio')}>Studio</Button>
+        <Button variant="ghost" href={resolve('/studio')} class="max-sm:hidden">Studio</Button>
         <HeaderActions {starCount} />
     </div>
 </header>

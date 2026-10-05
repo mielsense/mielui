@@ -1,14 +1,5 @@
 [
     {
-        "name": "onselectcapture",
-        "type": "EventHandler<Event, HTMLTableSectionElement> | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
         "name": "on:selectionchange",
         "type": "EventHandler<Event, HTMLTableSectionElement> | null | undefined",
         "required": false,
@@ -2242,6 +2233,15 @@
     },
     {
         "name": "on:suspend",
+        "type": "EventHandler<Event, HTMLTableElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onsuspend",
         "type": "EventHandler<Event, HTMLTableElement> | null | undefined",
         "required": false,
         "bindable": false,

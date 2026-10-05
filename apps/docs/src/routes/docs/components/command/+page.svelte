@@ -29,9 +29,10 @@
 <div data-docs-page class="flex flex-col gap-10">
     <!-- ─── Header ────────────────────────────────────────────────── -->
     <PageIntro title={TITLE}>
-        A command palette with fuzzy search and grouped results. Often opened with
+        A command palette with fuzzy search and grouped results. Pair it with{' '}
         <Kbd shortcut="cmd+K" />
-        .
+        {' '}
+        or another shortcut.
     </PageIntro>
 
     <!-- ─── Hero Example ──────────────────────────────────────────── -->
@@ -62,7 +63,7 @@
             without running a command. Item forwards data attributes to its button or link.
         </Typography.Text>
         <CodeBlock
-            code={`import * as Command from '$lib/mielui/components/command';\n\n<Command.Root>\n  <Command.Trigger>Open palette</Command.Trigger>\n  <Command.Content>\n    <Command.Header>\n      <span>Command</span>\n    </Command.Header>\n    <Command.Search placeholder="Search..." />\n    <Command.Results>\n      <Command.Item name="search">Item</Command.Item>\n    </Command.Results>\n  </Command.Content>\n</Command.Root>`}
+            code={`import * as Command from '@mielui/svelte/components/command';\n\n<Command.Root>\n  <Command.Trigger>Open palette</Command.Trigger>\n  <Command.Content>\n    <Command.Header>\n      <span>Command</span>\n    </Command.Header>\n    <Command.Search placeholder="Search..." />\n    <Command.Results>\n      <Command.Item name="search">Item</Command.Item>\n    </Command.Results>\n  </Command.Content>\n</Command.Root>`}
             lang="svelte"
             copy="overlay"
         />

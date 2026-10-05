@@ -4,7 +4,7 @@
     let value = $state<string | undefined>('pro');
 </script>
 
-<RadioGroup.Root bind:value name="plan">
+<RadioGroup.Root bind:value name="plan" aria-label="Plan">
     <RadioGroup.Item value="free" label="Free" description="For solo hobby projects." />
     <RadioGroup.Item value="pro" label="Pro" description="For small teams and side projects." />
     <RadioGroup.Item

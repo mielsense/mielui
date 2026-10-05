@@ -1,5 +1,8 @@
 import type { ParsedShortcut } from './shortcut';
 
+const nativelyActivated =
+    'button, a[href], summary, [role="button"], [role="link"], [role="menuitem"], [role="option"], [role="tab"], [role="checkbox"], [role="switch"], [role="radio"]';
+
 export function registerShortcut(
     element: HTMLElement,
     options: {
@@ -33,6 +36,22 @@ export function registerShortcut(
         return owner;
     }
 
+    /** Alt rewrites `event.key` on macOS, so Alt shortcuts also match the physical key. */
+    function physicalKey(code: string) {
+        const letter = /^Key([A-Z])$/.exec(code);
+        if (letter) {
+            return letter[1].toLowerCase();
+        }
+        return /^Digit(\d)$/.exec(code)?.[1];
+    }
+
+    function matchesKey(event: KeyboardEvent, parsed: ParsedShortcut) {
+        if (event.key.toLowerCase() === parsed.key) {
+            return true;
+        }
+        return parsed.alt && physicalKey(event.code) === parsed.key;
+    }
+
     function handleKey(event: KeyboardEvent) {
         const parsed = options.shortcut;
         const ontrigger = options.ontrigger;
@@ -49,11 +68,25 @@ export function registerShortcut(
         }
 
         if (
-            event.key.toLowerCase() !== parsed.key ||
+            !matchesKey(event, parsed) ||
             event.metaKey !== parsed.meta ||
             event.ctrlKey !== parsed.ctrl ||
             event.shiftKey !== parsed.shift ||
             event.altKey !== parsed.alt
+        ) {
+            return;
+        }
+
+        const activatesNatively =
+            !parsed.meta &&
+            !parsed.ctrl &&
+            !parsed.alt &&
+            !parsed.shift &&
+            (parsed.key === 'enter' || parsed.key === ' ');
+        if (
+            activatesNatively &&
+            event.target instanceof Element &&
+            event.target.closest(nativelyActivated)
         ) {
             return;
         }

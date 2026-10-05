@@ -38,7 +38,7 @@
             compose yourself.
         </Typography.Text>
         <CodeBlock
-            code={`import * as RangeCalendar from '$lib/mielui/components/range-calendar';
+            code={`import * as RangeCalendar from '@mielui/svelte/components/range-calendar';
 
 <RangeCalendar.Root bind:value calendarLabel="Travel dates" />`}
             lang="svelte"

@@ -1,9 +1,10 @@
 <script lang="ts" generics="T extends Record<string, string | number | Date | null | undefined>">
     import { cn } from '@mielui/svelte/utils';
-    import { onMount, type Snippet } from 'svelte';
+    import { onMount, type Snippet, setContext } from 'svelte';
     import type { HTMLAttributes } from 'svelte/elements';
     import { Tween } from 'svelte/motion';
     import { SvelteMap } from 'svelte/reactivity';
+    import type { ChartLabels } from '.';
     import { type Config, setChart } from './context.svelte';
     import { categoryExtent, valueExtent } from './domains';
 
@@ -17,9 +18,11 @@
         animation = 'reveal',
         children,
         'aria-label': label,
+        labels,
         class: className,
         ...rest
     }: Omit<HTMLAttributes<HTMLDivElement>, 'children'> & {
+        labels?: ChartLabels;
         data: readonly T[];
         config: Config;
         x: keyof T & string;
@@ -30,6 +33,7 @@
         'aria-label': string;
         children?: Snippet;
     } = $props();
+    setContext<() => ChartLabels | undefined>('chart-labels', () => labels);
     const numberFormatter = new Intl.NumberFormat(undefined, { maximumFractionDigits: 2 });
     const dateFormatter = new Intl.DateTimeFormat(undefined, { month: 'short', day: 'numeric' });
     let element = $state<HTMLDivElement>();

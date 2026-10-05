@@ -3,7 +3,7 @@
     import { cn } from '@mielui/svelte/utils';
     import { setContext, untrack } from 'svelte';
     import { insetLayout } from '../../components/_internal/inset-layout';
-    import type { CodeBlockProps, CodeBlockRegistry, CodeBlockTab } from '.';
+    import type { CodeBlockLabels, CodeBlockProps, CodeBlockRegistry, CodeBlockTab } from '.';
     import Actions from './code-block-actions.svelte';
     import Content from './code-block-content.svelte';
     import Header from './code-block-header.svelte';
@@ -21,8 +21,10 @@
         copy = 'actionbar',
         actions,
         theme = 'mielui',
+        labels,
         ...rest
     }: CodeBlockProps = $props();
+    setContext<() => CodeBlockLabels | undefined>('code-block-labels', () => labels);
 
     let element = $state<HTMLDivElement>();
 

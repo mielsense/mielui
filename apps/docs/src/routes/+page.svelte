@@ -24,6 +24,9 @@
 
     const { data }: { data: PageData } = $props();
 
+    const title = 'mielui · Premium Svelte components you own';
+    const description = `${components.length} Svelte 5 components. Restyle all of them from a handful of design tokens.`;
+
     let mobileMenuOpen = $state(false);
 
     $effect(() => {
@@ -33,11 +36,12 @@
 </script>
 
 <svelte:head>
-    <title>mielui · Premium Svelte components you own</title>
-    <meta
-        name="description"
-        content={`${components.length} Svelte 5 components. Restyle all of them from a handful of design tokens.`}
-    />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
 </svelte:head>
 
 <div class="@container flex min-h-dvh flex-col bg-background p-3 pt-0 sm:p-4 sm:pt-0">
@@ -175,7 +179,8 @@
                 Your way.
             </h1>
             <p class="mt-5 max-w-xs text-base leading-relaxed text-white/70">
-                {components.length} components. One theme.<br />
+                {components.length}
+                components. One theme.<br />
                 The source is yours.
             </p>
             <div class="mt-6 flex flex-wrap items-center gap-x-5 gap-y-3">

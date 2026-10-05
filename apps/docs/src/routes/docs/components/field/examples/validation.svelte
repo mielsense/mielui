@@ -19,7 +19,13 @@
         </Field.Control>
         <Field.Error />
     </Field.Root>
-    <Button variant="outline" class="w-fit" onclick={() => { showIssue = !showIssue; }}>
+    <Button
+        variant="outline"
+        class="w-fit"
+        onclick={() => {
+            showIssue = !showIssue;
+        }}
+    >
         {showIssue ? 'Clear validation issue' : 'Show validation issue'}
     </Button>
 </div>

@@ -16,7 +16,7 @@
         <NativeSelect.Option value="thursday">Thursday</NativeSelect.Option>
     </NativeSelect.Root>
     <p class="text-sm text-foreground-muted">
-        <span use:numberShuffle={{ value: days.length }}>{days.length}</span> days selected. Use
-        your platform's modifier keys to select several options.
+        <span use:numberShuffle={{ value: days.length }}>{days.length}</span>
+        days selected. Use your platform's modifier keys to select several options.
     </p>
 </div>

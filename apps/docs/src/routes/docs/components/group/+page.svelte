@@ -28,7 +28,9 @@
 
 <div data-docs-page class="flex flex-col gap-10">
     <PageIntro title="Group">Visually connect related controls.</PageIntro>
-    <ComponentPreview code={BasicSrc}><Basic /></ComponentPreview>
+    <section id="hero" class="flex scroll-mt-20 flex-col gap-4">
+        <ComponentPreview code={BasicSrc}><Basic /></ComponentPreview>
+    </section>
     <section id="installation" class="flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Installation</Typography.H2>
         <InstallCommand command="pnpm dlx @mielui/svelte add group" />

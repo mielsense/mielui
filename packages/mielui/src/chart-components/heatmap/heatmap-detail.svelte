@@ -23,6 +23,10 @@
     {#if children}
         {@render children(context.active)}
     {:else}
-        {context.loading ? 'Loading activity…' : context.empty ? 'No activity for this period.' : context.active?.label}
+        {context.loading
+            ? (context.labels?.detailLoading ?? 'Loading activity…')
+            : context.empty
+              ? (context.labels?.detailEmpty ?? 'No activity for this period.')
+              : context.active?.label}
     {/if}
 </p>

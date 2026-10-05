@@ -18,6 +18,9 @@
 <div class="flex items-center justify-center p-10">
     <ScrollArea
         orientation="horizontal"
+        tabindex={0}
+        role="region"
+        aria-label="Project sections"
         class="w-72 rounded-[var(--radius-lg)] border border-border bg-card p-2"
     >
         <div class="flex gap-2">

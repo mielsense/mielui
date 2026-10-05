@@ -27,8 +27,18 @@
     aria-label={item.label}
     aria-pressed={root.lifted(item.id)}
     aria-describedby={[describedBy, root.hintId].filter(Boolean).join(' ')}
-    onkeydown={(event) => { onkeydown?.(event); if (!event.defaultPrevented) { root.keydown(event, item.id); } }}
-    onpointerdown={(event) => { onpointerdown?.(event); if (!event.defaultPrevented) { root.pointerdown(event, item.id); } }}
+    onkeydown={(event) => {
+        onkeydown?.(event);
+        if (!event.defaultPrevented) {
+            root.keydown(event, item.id);
+        }
+    }}
+    onpointerdown={(event) => {
+        onpointerdown?.(event);
+        if (!event.defaultPrevented) {
+            root.pointerdown(event, item.id);
+        }
+    }}
     onblur={(event) => {
         onblur?.(event);
         const handle = event.currentTarget;
@@ -38,7 +48,10 @@
             }
         });
     }}
-    ondragstart={(event) => { ondragstart?.(event); event.preventDefault(); }}
+    ondragstart={(event) => {
+        ondragstart?.(event);
+        event.preventDefault();
+    }}
     class={cn(className, 'flex size-7 shrink-0 touch-pinch-zoom select-none items-center justify-center rounded-[var(--radius-sm)] text-foreground-muted outline-none hover:text-foreground focus-visible:shadow-[var(--focus-ring)] disabled:cursor-not-allowed', root.lifted(item.id) ? 'cursor-grabbing' : 'cursor-grab')}
 >
     {#if children}

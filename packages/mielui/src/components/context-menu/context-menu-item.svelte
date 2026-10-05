@@ -34,7 +34,7 @@
             bind:element
             disabled={disabled ?? undefined}
             data-collection-item
-            class={cn(className, 'mielui-menu-item flex-row gap-3 text-sm', inset && 'pl-8')}
+            class={cn(className, 'mielui-menu-item flex-row gap-3 text-sm', inset && 'ps-8')}
             unstyled
         >
             {@render children?.()}

@@ -1,6 +1,6 @@
 {
     "name": "@mielui/svelte",
-    "version": "0.1.1",
+    "version": "0.2.0",
     "description": "Composable Svelte 5 components, motion, and themes. Import the package or copy the source with the Mielui CLI.",
     "license": "MIT",
     "repository": {
@@ -315,6 +315,11 @@
         "@sveltejs/kit": "^2.0.0",
         "svelte": "^5.56.0",
         "tailwindcss": "^4.0.0"
+    },
+    "peerDependenciesMeta": {
+        "@sveltejs/kit": {
+            "optional": true
+        }
     },
     "devDependencies": {
         "@clack/prompts": "0.11.0",

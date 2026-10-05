@@ -26,7 +26,7 @@
 
     const installCommand = 'pnpm dlx @mielui/svelte add code-block';
 
-    const usageSnippet = `import { CodeBlock } from '$lib/mielui/components/code-block';
+    const usageSnippet = `import { CodeBlock } from '@mielui/svelte/components/code-block';
 
 <CodeBlock
   value="javascript"
@@ -37,7 +37,7 @@
 />`;
 
     const customThemeSnippet = `import 'highlight.js/styles/github-dark.css';
-import { CodeBlock } from '$lib/mielui/components/code-block';
+import { CodeBlock } from '@mielui/svelte/components/code-block';
 
 <CodeBlock code={code} lang="typescript" theme="custom" />`;
 </script>
@@ -68,9 +68,9 @@ import { CodeBlock } from '$lib/mielui/components/code-block';
         <Typography.H2 class="docs-section-heading">Installation</Typography.H2>
         <InstallCommand command={installCommand} />
         <Typography.Text variant="supporting">
-            The component depends on
+            The component depends on{' '}
             <Typography.InlineCode>highlight.js</Typography.InlineCode>
-            . Install it if your project doesn't have it yet:
+            for syntax highlighting. Install it if your project doesn't have it yet:
         </Typography.Text>
         <InstallCommand command="pnpm add highlight.js" />
     </section>
@@ -85,8 +85,8 @@ import { CodeBlock } from '$lib/mielui/components/code-block';
         </Typography.Text>
         <Typography.Text variant="supporting">
             Pass a{' '}
-            <Typography.InlineCode>tabs</Typography.InlineCode> array for the multi-language form,
-            or{' '}
+            <Typography.InlineCode>tabs</Typography.InlineCode>
+            array for the multi-language form, or{' '}
             <Typography.InlineCode>code</Typography.InlineCode>
             +
             <Typography.InlineCode>lang</Typography.InlineCode>
@@ -201,5 +201,18 @@ import { CodeBlock } from '$lib/mielui/components/code-block';
             handle their result in your application. This example edits a local query and reports a
             simulated result; it does not connect to a database.
         </Typography.Text>
+    </section>
+
+    <section id="labels" class="flex scroll-mt-20 flex-col gap-4">
+        <Typography.H2 class="docs-section-heading">Labels</Typography.H2>
+        <Typography.Text>
+            Built-in text is English by default. Pass labels to CodeBlock to translate or reword the
+            code region and the copy button. Every key is optional; omitted keys keep their default.
+        </Typography.Text>
+        <CodeBlock
+            code={`<CodeBlock {code} lang="ts" labels={{ code: 'Code', copy: 'Copier le code', copied: 'Copié' }} />`}
+            lang="svelte"
+            copy="overlay"
+        />
     </section>
 </div>

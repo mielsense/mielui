@@ -52,11 +52,6 @@
     <!-- ─── Usage ─────────────────────────────────────────────────── -->
     <section id="usage" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Usage</Typography.H2>
-        <Typography.Text variant="supporting">
-            The theme setting chrome.borders chooses "single" or "double" framing. Single is the
-            default. Single removes the extra frame while preserving content padding, composition,
-            and inset variants.
-        </Typography.Text>
         <Typography.Text>
             Bind value to the selected option. Single selection is the default. Clicking an option
             or pressing Enter updates value and calls onValueChange. Keyboard navigation skips
@@ -77,15 +72,15 @@
         </Typography.Text>
 
         <Typography.Text>
-            Set<Typography.InlineCode>type="multiple"</Typography.InlineCode> on Root and bind a
-            string array to value to choose several options. Selecting an item toggles it, clears
-            the search, and keeps the menu open. The trigger lists selected labels; Escape or an
-            outside click closes the menu. With name on Trigger, each selected value submits under
-            that name.
+            Set <Typography.InlineCode>type="multiple"</Typography.InlineCode>
+            on Root and bind a string array to value to choose several options. Selecting an item
+            toggles it, clears the search, and keeps the menu open. The trigger lists selected
+            labels; Escape or an outside click closes the menu. With name on Trigger, each selected
+            value submits under that name.
         </Typography.Text>
 
         <CodeBlock
-            code={`import * as Combobox from '$lib/mielui/components/combobox';\n\nlet selected = $state('next');\n\n<Combobox.Root bind:value={selected}>\n  <Combobox.Trigger placeholder="Framework" />\n  <Combobox.Content>\n    <Combobox.Results>\n      <Combobox.Item value="next" label="Next.js" />\n    </Combobox.Results>\n  </Combobox.Content>\n</Combobox.Root>`}
+            code={`import * as Combobox from '@mielui/svelte/components/combobox';\n\nlet selected = $state('next');\n\n<Combobox.Root bind:value={selected}>\n  <Combobox.Trigger placeholder="Framework" />\n  <Combobox.Content>\n    <Combobox.Results>\n      <Combobox.Item value="next" label="Next.js" />\n    </Combobox.Results>\n  </Combobox.Content>\n</Combobox.Root>`}
             lang="svelte"
             copy="overlay"
         />
@@ -119,9 +114,9 @@
             <Typography.H3 class="docs-subsection-heading">Input search</Typography.H3>
             <Typography.Text variant="supporting">
                 Set{' '}
-                <Typography.InlineCode>appearance="input"</Typography.InlineCode> for a field-styled
-                trigger that stays editable and opens on focus or typing instead of click-toggle.
-                Pass a
+                <Typography.InlineCode>appearance="input"</Typography.InlineCode>
+                for a field-styled trigger that stays editable and opens on focus or typing instead
+                of click-toggle. Pass a
                 <Typography.InlineCode>trailing</Typography.InlineCode>
                 snippet for an adornment; there is no chevron by default.
             </Typography.Text>
@@ -159,5 +154,36 @@
             and respects reduced-transparency preferences.
         </Typography.Text>
         <ComponentPreview code={GlassSrc}><Glass /></ComponentPreview>
+    </section>
+
+    <section id="item-content" class="flex scroll-mt-20 flex-col gap-4">
+        <Typography.H2 class="docs-section-heading">Custom item content</Typography.H2>
+        <Typography.Text>
+            Item renders its label by default. Pass children to show an icon or a second line
+            instead. The label is still required: search matches against it and the trigger shows it
+            once the item is selected.
+        </Typography.Text>
+        <CodeBlock
+            code={`<Combobox.Item value="fr" label="France">
+  <span>France</span>
+  <span class="text-foreground-muted">Europe</span>
+</Combobox.Item>`}
+            lang="svelte"
+            copy="overlay"
+        />
+    </section>
+
+    <section id="labels" class="flex scroll-mt-20 flex-col gap-4">
+        <Typography.H2 class="docs-section-heading">Labels</Typography.H2>
+        <Typography.Text>
+            Built-in text is English by default. Pass labels to Combobox.Root to translate or reword
+            the search field, the clear button, the option list, and the empty message. Every key is
+            optional; omitted keys keep their default.
+        </Typography.Text>
+        <CodeBlock
+            code={`<Combobox.Root labels={{ empty: 'Aucun résultat', searchPlaceholder: 'Rechercher…', clear: 'Effacer' }} />`}
+            lang="svelte"
+            copy="overlay"
+        />
     </section>
 </div>

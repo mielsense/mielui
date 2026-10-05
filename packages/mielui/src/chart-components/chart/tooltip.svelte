@@ -1,9 +1,10 @@
 <script lang="ts">
     import { numberShuffle } from '@mielui/svelte/actions/number-shuffle';
-    import type { Snippet } from 'svelte';
+    import { getContext, type Snippet } from 'svelte';
     import { cubicOut } from 'svelte/easing';
     import { Tween } from 'svelte/motion';
     import ChartTooltipSurface from '../../components/_internal/chart-tooltip-surface.svelte';
+    import type { ChartLabels } from '.';
     import { getChart } from './context.svelte';
 
     let {
@@ -26,6 +27,7 @@
             ]
         >;
     } = $props();
+    const labels = getContext<(() => ChartLabels | undefined) | undefined>('chart-labels');
     const chart = getChart();
     const selected = $derived(
         chart.active === null ? null : chart.data[chart.active] ? chart.active : null
@@ -81,7 +83,11 @@
         duration: () => (chart.motion && chart.animation !== 'none' ? 100 * chart.motionScale : 0),
         easing: cubicOut
     });
+    let tabStop = $state(0);
+    const currentTabStop = $derived(Math.min(tabStop, chart.data.length - 1));
+
     function focusCategory(index: number) {
+        tabStop = index;
         chart.pointer = null;
         chart.focused = index;
         chart.active = index;
@@ -92,24 +98,63 @@
         chart.active = null;
     }
 
-    function handleKeydown(event: KeyboardEvent) {
+    function handleKeydown(
+        event: KeyboardEvent & { currentTarget: EventTarget & HTMLButtonElement },
+        index: number
+    ) {
         if (event.key === 'Escape') {
             clearCategory();
+            return;
+        }
+        const last = chart.data.length - 1;
+        const rtl = getComputedStyle(event.currentTarget).direction === 'rtl';
+        let next = index;
+        switch (event.key) {
+            case 'ArrowLeft':
+                next += rtl ? 1 : -1;
+                break;
+            case 'ArrowRight':
+                next += rtl ? -1 : 1;
+                break;
+            case 'ArrowUp':
+                next -= 1;
+                break;
+            case 'ArrowDown':
+                next += 1;
+                break;
+            case 'Home':
+                next = 0;
+                break;
+            case 'End':
+                next = last;
+                break;
+            default:
+                return;
+        }
+        event.preventDefault();
+        const target = event.currentTarget.parentElement?.children[next];
+        if (target instanceof HTMLButtonElement) {
+            target.focus();
         }
     }
 </script>
 {#if !chart.loading && chart.data.length}
     <div
+        role="group"
+        aria-label={labels?.()?.categories ??
+            'Chart categories. Use arrow keys to inspect values.'}
         class="sr-only focus-within:not-sr-only focus-within:mt-2 focus-within:flex focus-within:flex-wrap focus-within:gap-1"
     >
         {#each chart.data as _, index}
             <button
                 type="button"
+                tabindex={index === currentTabStop ? 0 : -1}
                 class="rounded-md px-2 py-1 text-xs outline-primary focus-visible:outline-2"
                 onfocus={() => focusCategory(index)}
                 onblur={clearCategory}
-                onkeydown={handleKeydown}
-                aria-label={`Inspect ${chart.label(index)}`}
+                onkeydown={(event) => handleKeydown(event, index)}
+                aria-label={labels?.()?.inspect?.(chart.label(index)) ??
+                    `Inspect ${chart.label(index)}`}
             >
                 {chart.label(index)}
             </button>

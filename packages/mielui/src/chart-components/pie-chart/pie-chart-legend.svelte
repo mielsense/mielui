@@ -54,7 +54,7 @@
             <button
                 type="button"
                 aria-label={`${context.label(item.key)}: ${context.format(item)}`}
-                class="flex items-center gap-2 rounded-[var(--radius-sm)] px-1 py-1 text-foreground-muted outline-none focus-visible:ring-2 focus-visible:ring-primary"
+                class="flex items-center gap-2 rounded-[var(--radius-sm)] px-1 py-1 text-foreground-muted outline-none focus-visible:shadow-[var(--focus-ring)]"
                 onfocus={(event) => focusItem(item.key, event)}
                 onblur={clearFocus}
                 onpointerenter={(event) => activate(item.key, event.currentTarget)}

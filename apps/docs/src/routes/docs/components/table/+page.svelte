@@ -20,7 +20,9 @@
 <div data-docs-page class="flex flex-col gap-10">
     <PageIntro title="Table">Display rows and columns with native table semantics.</PageIntro>
 
-    <ComponentPreview code={HeroSource}><Hero /></ComponentPreview>
+    <section id="hero" class="flex scroll-mt-20 flex-col gap-4">
+        <ComponentPreview code={HeroSource}><Hero /></ComponentPreview>
+    </section>
     <section id="installation" class="flex flex-col gap-4">
         <Typography.H2>Installation</Typography.H2>
         <InstallCommand command="pnpm dlx @mielui/svelte add table" />
@@ -29,40 +31,41 @@
         <Typography.H2>Usage</Typography.H2>
         <CodeBlock copy="overlay" code={usage} lang="svelte" />
         <Typography.Text>
-            <Typography.InlineCode>Root</Typography.InlineCode> renders a table. Wrap it in<Typography.InlineCode
-            >
-                ScrollArea
-            </Typography.InlineCode> when columns need horizontal scrolling. Omit<Typography.InlineCode
-            >
-                Caption
-            </Typography.InlineCode> or<Typography.InlineCode>Footer</Typography.InlineCode> when
-            the data does not need them. Set<Typography.InlineCode>class</Typography.InlineCode> on
-            each part to change alignment, wrapping, or column widths.
+            <Typography.InlineCode>Root</Typography.InlineCode>
+            renders a table. Wrap it in{' '}
+            <Typography.InlineCode>ScrollArea</Typography.InlineCode>
+            when columns need horizontal scrolling. Omit{' '}
+            <Typography.InlineCode>Caption</Typography.InlineCode>
+            or{' '}
+            <Typography.InlineCode>Footer</Typography.InlineCode>
+            when the data does not need them. Set{' '}
+            <Typography.InlineCode>class</Typography.InlineCode>
+            on each part to change alignment, wrapping, or column widths.
         </Typography.Text>
         <Typography.Text>
-            <Typography.InlineCode>Head</Typography.InlineCode> defaults to<Typography.InlineCode>
-                scope="col"
-            </Typography.InlineCode>
-            . Use<Typography.InlineCode>scope="row"</Typography.InlineCode> for row headings.<Typography.InlineCode
-            >
-                Cell
-            </Typography.InlineCode> accepts<Typography.InlineCode>colspan</Typography.InlineCode>
-            ,<Typography.InlineCode>rowspan</Typography.InlineCode>
-            , and<Typography.InlineCode>headers</Typography.InlineCode>
-            .
+            <Typography.InlineCode>Head</Typography.InlineCode>
+            defaults to{' '}
+            <Typography.InlineCode>scope="col"</Typography.InlineCode>
+            for column headings. Use{' '}
+            <Typography.InlineCode>scope="row"</Typography.InlineCode>
+            for row headings. Both{' '}
+            <Typography.InlineCode>Head</Typography.InlineCode>
+            and{' '}
+            <Typography.InlineCode>Cell</Typography.InlineCode>
+            accept the native colspan, rowspan, and headers attributes.
         </Typography.Text>
         <Typography.Text>
-            For sorting, put a Button in the heading and update<Typography.InlineCode>
-                aria-sort
-            </Typography.InlineCode> when the order changes. Keep selection and pagination in your
-            application state, using Checkbox and Pagination as needed.
+            For sorting, put a Button in the heading and update{' '}
+            <Typography.InlineCode>aria-sort</Typography.InlineCode>
+            when the order changes. Keep selection and pagination in your application state, using
+            Checkbox and Pagination as needed.
         </Typography.Text>
     </section>
-    <section class="flex flex-col gap-4">
+    <section id="inset" class="flex flex-col gap-4">
         <Typography.H2>Inset</Typography.H2>
         <ComponentPreview code={InsetSource}><Inset /></ComponentPreview>
     </section>
-    <section class="flex flex-col gap-4">
+    <section id="sorting-and-selection" class="flex flex-col gap-4">
         <Typography.H2>Sorting and selection</Typography.H2>
         <ComponentPreview code={InteractiveSource}><Interactive /></ComponentPreview>
     </section>

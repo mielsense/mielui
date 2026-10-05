@@ -48,8 +48,8 @@
         <Typography.H2 class="docs-section-heading">Usage</Typography.H2>
         <Typography.Text variant="supporting">
             Use{' '}
-            <Typography.InlineCode>Item</Typography.InlineCode> to list the commands, searches, and
-            reads completed within a task.
+            <Typography.InlineCode>Item</Typography.InlineCode>
+            to list the commands, searches, and reads completed within a task.
         </Typography.Text>
         <Typography.Text variant="supporting">
             The trigger leads with a status icon and label: a spinner while running, a check when
@@ -126,10 +126,24 @@
             <Typography.H3 class="docs-subsection-heading">Quiet</Typography.H3>
             <Typography.Text variant="supporting">
                 Use{' '}
-                <Typography.InlineCode>variant="quiet"</Typography.InlineCode> when tool details
-                should stay visually secondary to the response.
+                <Typography.InlineCode>variant="quiet"</Typography.InlineCode>
+                when tool details should stay visually secondary to the response.
             </Typography.Text>
             <ComponentPreview code={QuietSrc}><Quiet /></ComponentPreview>
         </div>
+    </section>
+
+    <section id="labels" class="flex scroll-mt-20 flex-col gap-4">
+        <Typography.H2 class="docs-section-heading">Labels</Typography.H2>
+        <Typography.Text>
+            Built-in text is English by default. Pass labels to Tool.Root to translate or reword the
+            status announced by the trigger and the Input and Output headings. Every key is
+            optional; omitted keys keep their default.
+        </Typography.Text>
+        <CodeBlock
+            code={`<Tool.Root name="Recherche" state="complete" labels={{ running: 'En cours', complete: 'Terminé', failed: 'Échec' }} />`}
+            lang="svelte"
+            copy="overlay"
+        />
     </section>
 </div>

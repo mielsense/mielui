@@ -36,6 +36,8 @@
             Default
         </span>
         <ScrollArea
+            tabindex={0}
+            role="region"
             aria-label="Commits with a blurred edge cue"
             class="h-56 w-72 rounded-[var(--radius-lg)] border border-border bg-panel"
         >
@@ -49,6 +51,8 @@
         </span>
         <ScrollArea
             blur={false}
+            tabindex={0}
+            role="region"
             aria-label="Commits without a blurred edge cue"
             class="h-56 w-72 rounded-[var(--radius-lg)] border border-border bg-panel"
         >

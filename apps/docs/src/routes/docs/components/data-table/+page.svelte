@@ -189,4 +189,18 @@
         </Typography.Text>
         <ComponentPreview code={InsetSrc}><Inset /></ComponentPreview>
     </section>
+
+    <section id="labels" class="flex scroll-mt-20 flex-col gap-4">
+        <Typography.H2 class="docs-section-heading">Labels</Typography.H2>
+        <Typography.Text>
+            Built-in text is English by default. Pass labels to DataTable.Root to translate or
+            reword the empty and loading rows, the summary, pagination, sorting, and filter editors.
+            Every key is optional; omitted keys keep their default.
+        </Typography.Text>
+        <CodeBlock
+            code={`<DataTable.Root {table} labels={{ empty: 'Aucun résultat.', loading: 'Chargement…', rows: (total) => (total === 1 ? 'ligne' : 'lignes'), sort: 'Trier' }} />`}
+            lang="svelte"
+            copy="overlay"
+        />
+    </section>
 </div>

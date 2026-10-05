@@ -46,19 +46,17 @@
     <section id="usage" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Usage</Typography.H2>
         <Typography.Text>
-            Pass<Typography.InlineCode>value</Typography.InlineCode> for completed work and<Typography.InlineCode
-            >
-                max
-            </Typography.InlineCode> for the total, which defaults to 100. Use<Typography.InlineCode
-            >
-                indeterminate
-            </Typography.InlineCode> when the amount remaining is unknown. Name the task with<Typography.InlineCode
-            >
-                aria-label
-            </Typography.InlineCode> or<Typography.InlineCode>
-                aria-labelledby
-            </Typography.InlineCode>
-            .
+            Pass{' '}
+            <Typography.InlineCode>value</Typography.InlineCode>
+            for completed work and{' '}
+            <Typography.InlineCode>max</Typography.InlineCode>
+            for the total, which defaults to 100. Use{' '}
+            <Typography.InlineCode>indeterminate</Typography.InlineCode>
+            when the amount remaining is unknown. Use{' '}
+            <Typography.InlineCode>aria-label</Typography.InlineCode>
+            or{' '}
+            <Typography.InlineCode>aria-labelledby</Typography.InlineCode>
+            to name the task.
         </Typography.Text>
         <Typography.Text>
             Fractional values are supported. Invalid maximums fall back to 100, and non-finite
@@ -68,7 +66,7 @@
         </Typography.Text>
 
         <CodeBlock
-            code={`import { Progress } from '$lib/mielui/components/progress';\n\n<Progress value={28} aria-label="Upload progress" />\n<Progress indeterminate aria-label="Waiting for a response" />`}
+            code={`import { Progress } from '@mielui/svelte/components/progress';\n\n<Progress value={28} aria-label="Upload progress" />\n<Progress indeterminate aria-label="Waiting for a response" />`}
             lang="svelte"
             copy="overlay"
         />

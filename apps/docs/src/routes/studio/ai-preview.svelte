@@ -258,7 +258,7 @@
                     <Composer.Actions>
                         <Attachment.Trigger variant="outline" />
                     </Composer.Actions>
-                    <div class="ml-auto flex min-w-0 items-center gap-1">
+                    <div class="ms-auto flex shrink-0 items-center gap-1">
                         <Select.Root bind:value={model}>
                             <Select.Trigger
                                 variant="outline"

@@ -1,14 +1,5 @@
 [
     {
-        "name": "on:transitionstart",
-        "type": "TransitionEventHandler<HTMLAnchorElement> | null | undefined | TransitionEventHandler<HTMLButtonElement> | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
         "name": "ontransitionstart",
         "type": "TransitionEventHandler<HTMLAnchorElement> | null | undefined | TransitionEventHandler<HTMLButtonElement> | null | undefined",
         "required": false,
@@ -2242,6 +2233,15 @@
     },
     {
         "name": "onselect",
+        "type": "EventHandler<Event, HTMLTableSectionElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onselectcapture",
         "type": "EventHandler<Event, HTMLTableSectionElement> | null | undefined",
         "required": false,
         "bindable": false,

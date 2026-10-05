@@ -58,7 +58,8 @@
         <Typography.H2 class="docs-section-heading">Speed and curved rotation</Typography.H2>
         <Typography.Text variant="supporting">
             Pass{' '}
-            <Typography.InlineCode>speed</Typography.InlineCode> to scale the rotation pace, or
+            <Typography.InlineCode>speed</Typography.InlineCode>
+            to scale the rotation pace, or
             <Typography.InlineCode>curved</Typography.InlineCode>
             for a varying-speed rotation that never stalls. The default stays a continuous spin.
         </Typography.Text>
@@ -69,9 +70,9 @@
         <Typography.H2 class="docs-section-heading">Completion state</Typography.H2>
         <Typography.Text variant="supporting">
             Pass{' '}
-            <Typography.InlineCode>ready</Typography.InlineCode> after a successful operation. The
-            spinner resolves to a checkmark, holds it for two seconds, then blurs and collapses
-            without requiring parent state to unmount it.
+            <Typography.InlineCode>ready</Typography.InlineCode>
+            after a successful operation. The spinner resolves to a checkmark, holds it for two
+            seconds, then blurs and collapses without requiring parent state to unmount it.
         </Typography.Text>
         <ComponentPreview code={ReadyStateSrc}><ReadyState /></ComponentPreview>
     </section>

@@ -19,13 +19,14 @@
         label="Message"
         autoresize
         required
-        placeholder="Write a message..."
+        placeholder="Write a message…"
     >
         <div class="flex items-center justify-between gap-3 px-3 pb-3">
             <span class="text-xs text-foreground-muted tabular-nums">
                 <span use:numberShuffle={{ value: message.length }}>
                     {message.length}
-                </span> characters
+                </span>
+                characters
             </span>
             <Button type="submit" size="sm" disabled={!message.trim()}>Send</Button>
         </div>

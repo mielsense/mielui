@@ -24,6 +24,7 @@
         value,
         class: className,
         callback,
+        children,
         disabled = false,
         element = $bindable(),
         ...rest
@@ -66,8 +67,8 @@
             {label}
             disabled={disabled || !context.matches(value)}
             onHighlight={() => {
-            context.state.activeValue = value;
-        }}
+                context.state.activeValue = value;
+            }}
         >
             {#snippet child({ props, selected, highlighted })}
                 <Button
@@ -81,7 +82,11 @@
                     class={cn(className, 'mielui-menu-item flex-row gap-3 overflow-hidden text-sm')}
                     unstyled
                 >
-                    {label}
+                    {#if children}
+                        {@render children()}
+                    {:else}
+                        {label}
+                    {/if}
                     {#if selected}
                         <span aria-hidden="true" class="ms-auto">
                             <HugeiconsIcon icon={Check} />

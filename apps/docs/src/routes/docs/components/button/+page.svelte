@@ -51,21 +51,21 @@
         <Typography.H2 class="docs-section-heading">Usage</Typography.H2>
         <Typography.Text variant="supporting">
             Set{' '}
-            <Typography.InlineCode>href</Typography.InlineCode> to render a link, including an empty
-            href. Without it, Button renders a native button.
+            <Typography.InlineCode>href</Typography.InlineCode>
+            to render a link, including an empty href. Without it, Button renders a native button.
         </Typography.Text>
         <Typography.Text variant="supporting">
             Disabled links have no navigation destination and are skipped by Tab.
-            <Typography.InlineCode>aria-disabled</Typography.InlineCode> also blocks activation.
-            Loading controls remain focusable but cannot activate.
+            <Typography.InlineCode>aria-disabled</Typography.InlineCode>
+            also blocks activation. Loading controls remain focusable but cannot activate.
         </Typography.Text>
         <Typography.Text variant="supporting">
             Use{' '}
-            <Typography.InlineCode>status</Typography.InlineCode> for loading, success, and error
-            feedback. Changing status keeps the button width stable.
+            <Typography.InlineCode>status</Typography.InlineCode>
+            for loading, success, and error feedback. Changing status keeps the button width stable.
         </Typography.Text>
         <CodeBlock
-            code={`import { Button } from '$lib/mielui/components/button';
+            code={`import { Button } from '@mielui/svelte/components/button';
 
 let status = $state<'idle' | 'loading' | 'success' | 'error'>('idle');
 

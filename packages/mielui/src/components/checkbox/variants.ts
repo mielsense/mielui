@@ -6,10 +6,10 @@ export const checkbox = tv({
         variant: {
             default: '',
             primary:
-                'rounded-lg border-[length:var(--border-size)] p-4 transition-[background-color,border-color] motion-reduce:transition-none focus-within:bg-secondary hover:bg-secondary'
+                'rounded-lg border-[length:var(--border-size)] border-border p-4 transition-[background-color,border-color] motion-reduce:transition-none focus-within:bg-secondary hover:bg-secondary'
         },
         disabled: {
-            true: 'opacity-60',
+            true: 'opacity-[var(--opacity-disabled)]',
             false: ''
         },
         checked: {
@@ -31,7 +31,7 @@ export const checkbox = tv({
 });
 
 export const checkboxBox = tv({
-    base: 'mielui-press flex shrink-0 items-center justify-center rounded-[calc(var(--radius-sm)*0.625)] border-[length:var(--border-size)] p-0 transition-[background-color,border-color,box-shadow,transform,scale] [transition-duration:var(--motion-duration-press)] ease-[var(--ease-press)] motion-reduce:transition-none peer-focus-visible:shadow-[var(--focus-ring)]',
+    base: 'mielui-press flex shrink-0 items-center justify-center rounded-[calc(var(--radius-sm)*0.625)] border-[length:var(--border-size)] p-0 transition-[background-color,border-color,box-shadow,transform,scale] [transition-duration:var(--motion-duration-press)] ease-[var(--ease-press)] motion-reduce:transition-none peer-focus-visible:shadow-[var(--focus-ring)] peer-aria-invalid:border-[var(--color-error)]',
     variants: {
         size: {
             sm: 'size-[calc(var(--size-hairline)*7)] [&_svg]:size-[calc(var(--size-hairline)*5)]',
@@ -49,5 +49,5 @@ export const checkboxBox = tv({
 });
 
 export const checkboxText = tv({
-    base: '[font-size:var(--font-size-body)] [font-weight:var(--font-weight-body)] [letter-spacing:var(--tracking-body)] text-text'
+    base: '[font-size:var(--font-size-body)] [font-weight:var(--font-weight-body)] [letter-spacing:var(--tracking-body)]'
 });

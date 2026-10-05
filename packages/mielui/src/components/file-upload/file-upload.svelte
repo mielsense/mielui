@@ -13,6 +13,7 @@
         maxSize,
         maxFiles,
         disabled = false,
+        labels,
         onUpload,
         children,
         class: className,
@@ -31,7 +32,8 @@
     const controller = createFileUploadController({
         disabled: () => disabled,
         onUpload: () => onUpload,
-        constraints: () => ({ accept, maxSize, maxFiles })
+        constraints: () => ({ accept, maxSize, maxFiles }),
+        labels: () => labels
     });
     const summary = $derived(controller.summary);
 
@@ -41,6 +43,9 @@
     }
 
     setRoot({
+        get labels() {
+            return labels;
+        },
         get summary() {
             return summary;
         },

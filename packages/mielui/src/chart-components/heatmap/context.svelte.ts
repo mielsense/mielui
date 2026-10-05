@@ -1,7 +1,9 @@
 import { getContext, setContext } from 'svelte';
+import type { HeatmapLabels } from '.';
 import type { Cell, calendar } from './calendar';
 
 type Context = {
+    readonly labels: HeatmapLabels | undefined;
     tooltipCount: number;
     hoveredElement: HTMLButtonElement | undefined;
     focusedElement: HTMLButtonElement | undefined;

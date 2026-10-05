@@ -81,7 +81,7 @@ describe('SSR -- leaf components (Tier 1)', () => {
     ssrShouldNotThrow('input', Input, {});
     ssrShouldNotThrow('textarea', Textarea, {});
     ssrShouldNotThrow('checkbox', Checkbox, { checked: false, variant: 'default' });
-    ssrShouldNotThrow('switch', Switch, { switched: false });
+    ssrShouldNotThrow('switch', Switch, { checked: false });
     ssrShouldNotThrow('slider', Slider, { value: 0 });
     ssrShouldNotThrow('toggle', Toggle, { pressed: false });
     ssrShouldNotThrow('progress', Progress, { value: 50, max: 100 });

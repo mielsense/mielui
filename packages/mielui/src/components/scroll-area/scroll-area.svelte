@@ -94,7 +94,7 @@
         onscroll={(event) => {
             measure();
             onscroll?.(event);
-    }}
+        }}
         {...rest}
     >
         {#if cuesVisible}

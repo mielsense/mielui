@@ -58,7 +58,7 @@
         </Typography.Text>
 
         <CodeBlock
-            code={`import * as Card from '$lib/mielui/components/card';\nimport { Button } from '$lib/mielui/components/button';\n\n<Card.Root>\n  <Card.Header>\n    <Card.Title level={2}>Title</Card.Title>\n  </Card.Header>\n  <Card.Content>Content here</Card.Content>\n  <Card.Footer>\n    <Button>Action</Button>\n  </Card.Footer>\n</Card.Root>`}
+            code={`import * as Card from '@mielui/svelte/components/card';\nimport { Button } from '@mielui/svelte/components/button';\n\n<Card.Root>\n  <Card.Header>\n    <Card.Title level={2}>Title</Card.Title>\n  </Card.Header>\n  <Card.Content>Content here</Card.Content>\n  <Card.Footer>\n    <Button>Action</Button>\n  </Card.Footer>\n</Card.Root>`}
             lang="svelte"
             copy="overlay"
         />
@@ -67,11 +67,11 @@
     <section id="borders" class="flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Borders</Typography.H2>
         <Typography.Text variant="supporting">
-            Set chrome.borders to "single" in your theme to remove the extra frame from inset and
-            panel cards. Use "double", the default, to keep it. Content padding and footer
-            composition stay intact. Default cards already have one border. This setting also
-            applies to dialogs, sheets, menus, Notch, Toast, and other framed surfaces; shadows and
-            edge highlights remain independent.
+            The theme setting chrome.borders is "single" by default, which removes the extra frame
+            from inset and panel cards. Set it to "double" to show that frame. Content padding and
+            footer composition stay intact. Default cards always have one border. This setting also
+            applies to dialogs, sheets, Notch, Toast, and other inset surfaces; shadows and edge
+            highlights remain independent.
         </Typography.Text>
     </section>
 

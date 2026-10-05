@@ -47,14 +47,14 @@
             to a native button or Button. Omitting trigger keeps the built-in control.
         </Typography.Text>
         <Typography.Text variant="supporting">
-            Without a preview snippet, the disclosure is shown only when content exceeds
+            Without a preview snippet, the disclosure is shown only when content exceeds the{' '}
             <Typography.InlineCode>lines</Typography.InlineCode>
-            . Bind
+            limit. Bind{' '}
             <Typography.InlineCode>expanded</Typography.InlineCode>
             when another control needs to coordinate the state.
         </Typography.Text>
         <CodeBlock
-            code={`import { ShowMore } from '$lib/mielui/components/show-more';
+            code={`import { ShowMore } from '@mielui/svelte/components/show-more';
 
 let expanded = $state(false);
 
@@ -86,9 +86,9 @@ let expanded = $state(false);
         <div id="capped" class="scroll-mt-20 flex flex-col gap-3">
             <Typography.H3 class="docs-subsection-heading">Capped content</Typography.H3>
             <Typography.Text variant="supporting">
-                When expanded content exceeds
+                Expanded content taller than{' '}
                 <Typography.InlineCode>maxHeight</Typography.InlineCode>
-                , it becomes a keyboard-focusable scroll region.
+                becomes a keyboard-focusable scroll region.
             </Typography.Text>
             <ComponentPreview code={CappedSrc}>
                 <Capped />

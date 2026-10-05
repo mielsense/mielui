@@ -81,11 +81,8 @@ describe('Toggle -- size and variant', () => {
         expect(screen.getByRole('button')).toBeInTheDocument();
     });
 
-    it.each(['default', 'outlined'] as const)(
-        'accepts variant="%s" without throwing',
-        (variant) => {
-            render(Toggle, { props: { pressed: false, variant } });
-            expect(screen.getByRole('button')).toBeInTheDocument();
-        }
-    );
+    it.each(['default', 'outline'] as const)('accepts variant="%s" without throwing', (variant) => {
+        render(Toggle, { props: { pressed: false, variant } });
+        expect(screen.getByRole('button')).toBeInTheDocument();
+    });
 });

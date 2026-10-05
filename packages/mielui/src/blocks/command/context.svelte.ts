@@ -7,10 +7,13 @@ const { set: setCommandContext, get: getCommandContext } =
 
 export { getCommandContext, setCommandContext };
 
-/** Items eligible for keyboard navigation: the active result set minus disabled rows. */
+/** Items eligible for keyboard navigation, in rendered order: the active result set minus disabled rows. */
 export function getCommandResults(state: CommandState) {
-    const source = state.searchContent.trim() === '' ? state.items : state.results;
-    return source.filter((item) => !item.disabled);
+    if (state.searchContent.trim() === '') {
+        return state.items.filter((item) => !item.disabled);
+    }
+    const matches = new Set(state.results.map((item) => item.id));
+    return state.items.filter((item) => !item.disabled && matches.has(item.id));
 }
 
 export function resetCommand(state: CommandState) {

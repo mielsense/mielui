@@ -45,9 +45,10 @@
         </Typography.Text>
         <Typography.Text variant="supporting">
             Use{' '}
-            <Typography.InlineCode>streaming</Typography.InlineCode> while the model is thinking;
-            use{' '}
-            <Typography.InlineCode>duration</Typography.InlineCode> when it completes.
+            <Typography.InlineCode>streaming</Typography.InlineCode>
+            while the model is thinking; use{' '}
+            <Typography.InlineCode>duration</Typography.InlineCode>
+            when it completes.
         </Typography.Text>
         <Typography.Text variant="supporting">
             The trigger shares the disclosure row used by Accordion, Collapsible, and Tool, with a
@@ -84,5 +85,19 @@
             <Typography.H3 class="docs-subsection-heading">Live reasoning</Typography.H3>
             <ComponentPreview code={StreamingSrc}><Streaming /></ComponentPreview>
         </div>
+    </section>
+
+    <section id="labels" class="flex scroll-mt-20 flex-col gap-4">
+        <Typography.H2 class="docs-section-heading">Labels</Typography.H2>
+        <Typography.Text>
+            Built-in text is English by default. Pass labels to Reasoning.Root to translate or
+            reword the trigger text while streaming and after it completes. Every key is optional;
+            omitted keys keep their default.
+        </Typography.Text>
+        <CodeBlock
+            code={`<Reasoning.Root {streaming} labels={{ thinking: 'Réflexion', thought: 'Réflexion terminée', thoughtFor: (duration) => \`Réflexion de \${duration}\` }} />`}
+            lang="svelte"
+            copy="overlay"
+        />
     </section>
 </div>

@@ -73,7 +73,7 @@
         </Typography.Text>
 
         <CodeBlock
-            code={`import * as Dialog from '$lib/mielui/components/dialog';\nimport Kbd from '$lib/mielui/components/kbd';\n\nlet open = $state(false);\n\n<Dialog.Root bind:open orientation="horizontal">\n  <Dialog.Trigger>Open</Dialog.Trigger>\n  <Dialog.Content>\n    <Dialog.Header>\n      <Dialog.Title>Title</Dialog.Title>\n    </Dialog.Header>\n    <Dialog.Footer>\n      <Dialog.Close>Cancel <Kbd shortcut="esc" /></Dialog.Close>\n      <Dialog.Confirm>Save <Kbd shortcut="enter" /></Dialog.Confirm>\n    </Dialog.Footer>\n  </Dialog.Content>\n</Dialog.Root>`}
+            code={`import * as Dialog from '@mielui/svelte/components/dialog';\nimport Kbd from '@mielui/svelte/components/kbd';\n\nlet open = $state(false);\n\n<Dialog.Root bind:open orientation="horizontal">\n  <Dialog.Trigger>Open</Dialog.Trigger>\n  <Dialog.Content>\n    <Dialog.Header>\n      <Dialog.Title>Title</Dialog.Title>\n    </Dialog.Header>\n    <Dialog.Footer>\n      <Dialog.Close>Cancel <Kbd shortcut="esc" /></Dialog.Close>\n      <Dialog.Confirm>Save <Kbd shortcut="enter" /></Dialog.Confirm>\n    </Dialog.Footer>\n  </Dialog.Content>\n</Dialog.Root>`}
             lang="svelte"
             copy="overlay"
         />

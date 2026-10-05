@@ -111,6 +111,4 @@
     });
 </script>
 
-<DialogPrimitive.Root bind:open={modalState.open}>
-    {@render children?.()}
-</DialogPrimitive.Root>
+<DialogPrimitive.Root bind:open={modalState.open}> {@render children?.()} </DialogPrimitive.Root>

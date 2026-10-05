@@ -67,7 +67,7 @@
         </Typography.Text>
 
         <CodeBlock
-            code={`import * as DropdownMenu from '$lib/mielui/components/dropdown-menu';\nimport Kbd from '$lib/mielui/components/kbd';\n\n<DropdownMenu.Root>\n  <DropdownMenu.Trigger>Menu</DropdownMenu.Trigger>\n  <DropdownMenu.Content>\n    <DropdownMenu.Item callback={handleClick}>\n      Action\n      <Kbd shortcut="cmd+K" />\n    </DropdownMenu.Item>\n  </DropdownMenu.Content>\n</DropdownMenu.Root>`}
+            code={`import * as DropdownMenu from '@mielui/svelte/components/dropdown-menu';\nimport Kbd from '@mielui/svelte/components/kbd';\n\n<DropdownMenu.Root>\n  <DropdownMenu.Trigger>Menu</DropdownMenu.Trigger>\n  <DropdownMenu.Content>\n    <DropdownMenu.Item callback={handleClick}>\n      Action\n      <Kbd shortcut="cmd+K" />\n    </DropdownMenu.Item>\n  </DropdownMenu.Content>\n</DropdownMenu.Root>`}
             lang="svelte"
             copy="overlay"
         />

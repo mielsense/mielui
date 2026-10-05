@@ -4,13 +4,14 @@
 >
     import { parseDate } from '@internationalized/date';
     import { cn } from '@mielui/svelte/utils';
+    import { getContext } from 'svelte';
     import { Button } from '../../components/button';
     import { Checkbox } from '../../components/checkbox';
     import * as DatePicker from '../../components/date-picker';
     import { Input } from '../../components/input';
     import * as NativeSelect from '../../components/native-select';
     import * as Popover from '../../components/popover';
-    import type { DataTableFacetProps } from '.';
+    import type { DataTableFacetProps, DataTableLabels } from '.';
     import { filterableColumn } from './features';
     import { filterSummary, readFilter } from './filter';
 
@@ -25,6 +26,7 @@
         onRemove,
         class: className
     }: DataTableFacetProps<TFeatures, TData> = $props();
+    const labels = getContext<(() => DataTableLabels | undefined) | undefined>('data-table-labels');
     const target = $derived(table.getColumn(filter.column));
     const column = $derived(target ? filterableColumn(target) : undefined);
     const raw = $derived(column?.getFilterValue?.());
@@ -37,7 +39,9 @@
     );
     const dateIndices = $derived<readonly (0 | 1)[]>(operator === 'between' ? [0, 1] : [0]);
     $effect(() => {
-        chosenOperator = clause?.operator;
+        if (clause) {
+            chosenOperator = clause.operator;
+        }
     });
     const description = $derived.by(() => {
         if (filter.type === 'select' && clause?.type === 'select' && clause.value.length === 1) {
@@ -52,20 +56,32 @@
     const operators = $derived(
         filter.type === 'text'
             ? [
-                  { value: 'contains', label: 'Contains' },
-                  { value: 'equals', label: 'Is exactly' },
-                  { value: 'not', label: 'Is not' }
+                  { value: 'contains', label: labels?.()?.contains ?? 'Contains' },
+                  { value: 'equals', label: labels?.()?.equals ?? 'Is exactly' },
+                  { value: 'not', label: labels?.()?.not ?? 'Is not' }
               ]
             : filter.type === 'select'
               ? [
-                    { value: 'in', label: 'Is any of' },
-                    { value: 'notIn', label: 'Is none of' }
+                    { value: 'in', label: labels?.()?.anyOf ?? 'Is any of' },
+                    { value: 'notIn', label: labels?.()?.noneOf ?? 'Is none of' }
                 ]
               : [
-                    { value: 'between', label: 'Between' },
-                    { value: 'equals', label: 'Is exactly' },
-                    { value: 'gte', label: filter.type === 'date' ? 'On or after' : 'At least' },
-                    { value: 'lte', label: filter.type === 'date' ? 'On or before' : 'At most' }
+                    { value: 'between', label: labels?.()?.between ?? 'Between' },
+                    { value: 'equals', label: labels?.()?.equals ?? 'Is exactly' },
+                    {
+                        value: 'gte',
+                        label:
+                            filter.type === 'date'
+                                ? (labels?.()?.onOrAfter ?? 'On or after')
+                                : (labels?.()?.atLeast ?? 'At least')
+                    },
+                    {
+                        value: 'lte',
+                        label:
+                            filter.type === 'date'
+                                ? (labels?.()?.onOrBefore ?? 'On or before')
+                                : (labels?.()?.atMost ?? 'At most')
+                    }
                 ]
     );
     function setValue(next: unknown) {
@@ -151,7 +167,7 @@
         focusTrap
         lockScroll={false}
         dismissLayer={false}
-        aria-label={`${filter.label} filter`}
+        aria-label={labels?.()?.facet?.(filter.label) ?? `${filter.label} filter`}
     >
         <Popover.Title class="px-1 text-[length:var(--font-size-body)] leading-snug">
             {filter.label}
@@ -161,7 +177,7 @@
         {:else}
             <NativeSelect.Root
                 class={cn(editorControlClass, 'h-[var(--size-control-sm)]')}
-                aria-label={`${filter.label} operator`}
+                aria-label={labels?.()?.facetOperator?.(filter.label) ?? `${filter.label} operator`}
                 value={operator}
                 onchange={(event) => {
                     changeOperator(event.currentTarget.value);
@@ -174,8 +190,8 @@
             {#if filter.type === 'text'}
                 <Input
                     class={editorControlClass}
-                    aria-label={`${filter.label} value`}
-                    placeholder={filter.placeholder ?? 'Enter a value…'}
+                    aria-label={labels?.()?.facetValue?.(filter.label) ?? `${filter.label} value`}
+                    placeholder={filter.placeholder ?? labels?.()?.valuePlaceholder ?? 'Enter a value…'}
                     value={typeof value === 'string' ? value : ''}
                     oninput={(event) => {
                         commit(event.currentTarget.value);
@@ -208,8 +224,8 @@
                         <Input
                             class={editorControlClass}
                             type="number"
-                            aria-label={`${filter.label} minimum`}
-                            placeholder="Minimum"
+                            aria-label={labels?.()?.facetMinimum?.(filter.label) ?? `${filter.label} minimum`}
+                            placeholder={labels?.()?.minimum ?? 'Minimum'}
                             min={filter.min}
                             max={filter.max}
                             step={filter.step ?? 'any'}
@@ -221,8 +237,8 @@
                         <Input
                             class={editorControlClass}
                             type="number"
-                            aria-label={`${filter.label} maximum`}
-                            placeholder="Maximum"
+                            aria-label={labels?.()?.facetMaximum?.(filter.label) ?? `${filter.label} maximum`}
+                            placeholder={labels?.()?.maximum ?? 'Maximum'}
                             min={filter.min}
                             max={filter.max}
                             step={filter.step ?? 'any'}
@@ -236,7 +252,7 @@
                     <Input
                         class={editorControlClass}
                         type="number"
-                        aria-label={`${filter.label} value`}
+                        aria-label={labels?.()?.facetValue?.(filter.label) ?? `${filter.label} value`}
                         min={filter.min}
                         max={filter.max}
                         step={filter.step ?? 'any'}
@@ -260,7 +276,11 @@
                     >
                         <div class="flex flex-col gap-1">
                             <DatePicker.Label>
-                                {operator === 'between' ? (index === 0 ? 'From' : 'Through') : 'Date'}
+                                {operator === 'between'
+                                    ? index === 0
+                                        ? (labels?.()?.from ?? 'From')
+                                        : (labels?.()?.through ?? 'Through')
+                                    : (labels?.()?.date ?? 'Date')}
                             </DatePicker.Label>
                             <div class="flex items-center gap-1">
                                 <DatePicker.Input class={editorControlClass} />

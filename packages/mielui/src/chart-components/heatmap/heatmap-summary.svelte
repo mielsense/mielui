@@ -25,6 +25,7 @@
         >
             {new Intl.NumberFormat(context.locale).format(context.model.total)}
         </span>
-        contributions
+        {context.labels?.unit?.(context.model.total) ??
+            (context.model.total === 1 ? 'contribution' : 'contributions')}
     {/if}
 </p>

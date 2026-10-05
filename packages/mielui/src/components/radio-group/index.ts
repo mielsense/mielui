@@ -9,6 +9,8 @@ export type RadioGroupProps = {
     name?: string;
     disabled?: boolean;
     onValueChange?: (value: string) => void;
+    'aria-label'?: string;
+    'aria-labelledby'?: string;
     children?: Snippet;
 } & DefaultProps;
 

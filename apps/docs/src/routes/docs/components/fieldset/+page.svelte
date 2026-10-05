@@ -37,8 +37,10 @@
         </Typography.Text>
         <CodeBlock code={HeroSrc} lang="svelte" copy="overlay" />
         <Typography.Text variant="supporting">
-            Use<a href="/docs/components/field" class="underline underline-offset-4">Field</a> for
-            individual labels and errors. Use Field.Group when you need spacing without another
+            Use{' '}
+            <a href="/docs/components/field" class="underline underline-offset-4">Field</a>
+            {' '}
+            for individual labels and errors. Use Field.Group when you need spacing without another
             named group. Native name, form, disabled, event handlers, attachments, and an element
             binding are forwarded by Root.
         </Typography.Text>

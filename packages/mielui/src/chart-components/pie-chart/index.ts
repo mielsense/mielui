@@ -12,7 +12,15 @@ export type PieChartConfig = Record<
     string,
     { label: string; color?: string; format?: (value: number) => string }
 >;
+export type PieChartLabels = {
+    loading?: string;
+    empty?: string;
+    category?: string;
+    value?: string;
+};
+
 export type PieChartProps = Omit<HTMLAttributes<HTMLDivElement>, 'children'> & {
+    labels?: PieChartLabels;
     data: readonly PieChartDatum[];
     config: PieChartConfig;
     'aria-label': string;

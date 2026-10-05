@@ -54,7 +54,7 @@ Treat the interface as one continuous canvas. Add a surface, border, radius, or 
 Do not ship:
 
 - All-caps or widely tracked eyebrows, kickers, and overlines.
-- Decorative gradients, glows, blobs, textures, glass, or ornamental shadows.
+- Decorative gradients, glows, blobs, textures, hand-rolled glass effects, or ornamental shadows. Use the theme's glass surface setting instead.
 - A generic centered hero followed by a uniform card grid.
 - A rounded container around every section or metric.
 - Pills for ordinary metadata, labels, or status that does not need badge semantics.
@@ -86,7 +86,7 @@ Fix the highest-impact structural problem first, then inspect again.
 
 ## Shared appearance and motion
 
-Use the installed token sheet for control edges, elevation, insets, focus, press feedback, and motion. Filled controls use `--elevation-control-edge`; Switch and Slider apply it to their thumbs. Keep tracks, progress fills, and passive grouping wrappers flat. Composite fields have one raised editable boundary, not a shadow on every nested input.
+Use the installed token sheet for control edges, elevation, insets, focus, press feedback, and motion. Filled controls use `--elevation-control-edge`; Switch and Slider apply it to their thumbs. Keep tracks, progress fills, and passive grouping wrappers flat. Text fields, selection triggers, checkboxes, and radios are flat with one hairline border. Composite fields have one edge around their editable boundary, not a border on every nested input.
 
 Overlay frames own their documented solid or glass treatment. Preserve the translucent inset in glass mode and compose focus shadows with existing elevation rather than replacing it. Check both themes and the theme's shadow switches when restyling controls.
 

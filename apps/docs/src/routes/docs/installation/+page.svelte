@@ -37,11 +37,11 @@ pnpm dlx sv add tailwindcss`;
 
 <svelte:head>
     <title>Mielui · Installation</title>
-    <meta name="description" content="Install mielui with the npm package or the mielui CLI." />
+    <meta name="description" content="Install Mielui with the npm package or the mielui CLI." />
 </svelte:head>
 
 <div data-docs-page class="flex flex-col gap-16">
-    <PageIntro title="Installation">Install mielui into your project.</PageIntro>
+    <PageIntro title="Installation">Install Mielui into your project.</PageIntro>
 
     <section id="prerequisites" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Prerequisites</Typography.H2>
@@ -58,7 +58,9 @@ pnpm dlx sv add tailwindcss`;
         </Typography.Text>
         <PackageCommand command={packageInstall} />
         <Typography.Text variant="body" class="m-0">
-            <InlineText text="Import the stylesheet once in `src/app.css`." />
+            <InlineText
+                text="Import the stylesheet once in `src/app.css`. It already includes Tailwind, so remove any existing `@import 'tailwindcss'` line."
+            />
         </Typography.Text>
         <CodeBlock code={packageCss} lang="css" copy="overlay" />
         <Typography.Text variant="body" class="m-0">Use a component:</Typography.Text>
@@ -98,6 +100,11 @@ pnpm dlx sv add tailwindcss`;
         <Typography.H3 class="docs-subsection-heading m-0 mt-2">
             4. Import the stylesheet
         </Typography.H3>
+        <Typography.Text variant="body" class="m-0">
+            <InlineText
+                text="The copied stylesheet already includes Tailwind. Replace the `@import 'tailwindcss'` line that the Tailwind setup added."
+            />
+        </Typography.Text>
         <CodeBlock code={cliCss} lang="css" copy="overlay" />
 
         <Typography.H3 class="docs-subsection-heading m-0 mt-2">5. Add components</Typography.H3>
