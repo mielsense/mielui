@@ -57,7 +57,7 @@ The CLI installs source and required helpers from the package's bundled registry
 
 ## Fonts and themes
 
-The default theme uses Inter and JetBrains Mono. The stylesheet imports their self-hosted font files from the package's runtime dependencies. Override `--font-sans`, `--font-mono`, or `--font-header` and supply the corresponding font files to use another family.
+The default theme uses Manrope and JetBrains Mono. The stylesheet imports their self-hosted font files from the package's runtime dependencies. Override `--font-sans`, `--font-mono`, or `--font-header` and supply the corresponding font files to use another family.
 
 Use [Theme Studio](https://ui.miel.my/studio) to configure colors, typography, density, edges, and motion. Components honor reduced motion and the shared theme settings.
 

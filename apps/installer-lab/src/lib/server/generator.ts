@@ -97,10 +97,10 @@ export function rewriteFixtureImports(source: string, installPath: InstallPath) 
 export function rootCss(installPath: InstallPath) {
     const uiImport = installPath === 'cli' ? '$lib/mielui/ui.css' : '@mielui/svelte/ui.css';
     const source = installPath === 'cli' ? '@source "../lib/mielui/**/*.{svelte,ts}";' : '';
-    return `@import '@fontsource/inter/latin-400.css';
-@import '@fontsource/inter/latin-500.css';
-@import '@fontsource/inter/latin-600.css';
-@import '@fontsource/inter/latin-700.css';
+    return `@import '@fontsource/manrope/latin-400.css';
+@import '@fontsource/manrope/latin-500.css';
+@import '@fontsource/manrope/latin-600.css';
+@import '@fontsource/manrope/latin-700.css';
 @import '@fontsource/jetbrains-mono/latin-400.css';
 @import '@fontsource/jetbrains-mono/latin-500.css';
 @import '@fontsource/jetbrains-mono/latin-600.css';
@@ -110,7 +110,7 @@ export function rootCss(installPath: InstallPath) {
 ${source}
 
 :root {
-	font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+	font-family: 'Manrope', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 	color: var(--color-foreground);
 	background: var(--color-background);
 	font-synthesis-weight: none;

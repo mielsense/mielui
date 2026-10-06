@@ -16,7 +16,7 @@ describe('DEFAULT_THEME', () => {
             radius: 'default',
             density: 'default',
             motion: 'default',
-            fontSans: "'Inter', sans-serif",
+            fontSans: "'Manrope', sans-serif",
             fontMono: "'JetBrains Mono', monospace"
         });
     });
@@ -26,7 +26,7 @@ describe('themeToCss', () => {
     const css = themeToCss(DEFAULT_THEME);
 
     it('emits fonts, radii, density, brand, motion, and mode-specific neutrals', () => {
-        expect(css).toContain("--font-sans: 'Inter', sans-serif");
+        expect(css).toContain("--font-sans: 'Manrope', sans-serif");
         expect(css).toContain('--radius-lg: 14px');
         expect(css).toContain('--color-primary: #ba7ca5');
         expect(css).toContain('--mielui-space-unit: 3.6px');

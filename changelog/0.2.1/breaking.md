@@ -1,1 +1,2 @@
 - `DropdownMenu.Item`, `ContextMenu.Item`, `ContextMenu.CheckboxItem`, `Select.Item` and `Combobox.Item` no longer accept `href`. These rows always rendered a button and ignored it. Navigate from `callback` instead.
+- The default theme's font is Manrope instead of Inter. `ui.css` now imports `@fontsource/manrope`, and the package no longer depends on `@fontsource/inter`. To keep Inter, install `@fontsource/inter`, import its CSS, and set `--font-sans: 'Inter', sans-serif`.

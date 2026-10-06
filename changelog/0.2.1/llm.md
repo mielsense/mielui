@@ -56,3 +56,17 @@ anchor, which breaks the menu's keyboard handling. Triggers and the action
 buttons of Dialog, Alert Dialog and Sheet are unaffected and still accept
 `href`.
 
+## The default font is Manrope
+
+`DEFAULT_THEME.fontSans` and the `--font-sans` token in `ui.css` are now
+`'Manrope', sans-serif`. The stylesheet imports the Latin 400, 500, 600 and 700
+files from `@fontsource/manrope`, which is a runtime dependency of the package,
+and `mielui init` installs it in place of `@fontsource/inter`. JetBrains Mono is
+unchanged.
+
+Nothing is needed to get the new default. A project that wants Inter back
+installs `@fontsource/inter` itself, imports the weights it uses, and sets
+`--font-sans: 'Inter', sans-serif` after importing `ui.css`. The built-in
+presets that name Inter, such as Magic and Functional, still expect the project
+to load it. Do not add a `<link>` to a font CDN for the default font.
+

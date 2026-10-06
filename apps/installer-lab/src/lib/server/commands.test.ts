@@ -41,7 +41,7 @@ describe('installer command construction', () => {
         expect(commands[1].args).toContain('--no-install');
         expect(commands[2]).toMatchObject({
             bin: 'pnpm',
-            args: ['add', '@fontsource/inter@5.3.0', '@fontsource/jetbrains-mono@5.3.0']
+            args: ['add', '@fontsource/manrope@5.3.0', '@fontsource/jetbrains-mono@5.3.0']
         });
     });
 });
