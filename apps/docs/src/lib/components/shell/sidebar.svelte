@@ -13,7 +13,7 @@
     import { resolve } from '$app/paths';
     import ScrollEdge from './scroll-edge.svelte';
     import { fadeY, scrollFade } from './scroll-fade';
-    import { getShell } from './shell.svelte';
+    import { getShell, sidebarWidths } from './shell.svelte';
 
     const {
         label,
@@ -35,7 +35,60 @@
         { label: 'Theme Studio', href: resolve('/studio') },
         { label: 'Themes', href: resolve('/themes') }
     ];
-    const width = $derived(wide ? 'w-[21rem]' : 'w-[18.5rem]');
+    const kind = $derived(wide ? 'studio' : 'docs');
+    const width = $derived(shell.sidebarWidth(kind));
+    const STEP = 16;
+
+    let dragging = $state(false);
+    let drag:
+        | { pointer: number; startX: number; startWidth: number; direction: number }
+        | undefined;
+
+    function startResize(event: PointerEvent & { currentTarget: HTMLElement }) {
+        if (event.button !== 0) {
+            return;
+        }
+        event.preventDefault();
+        drag = {
+            pointer: event.pointerId,
+            startX: event.clientX,
+            startWidth: width,
+            direction: getComputedStyle(event.currentTarget).direction === 'rtl' ? -1 : 1
+        };
+        dragging = true;
+        event.currentTarget.setPointerCapture(event.pointerId);
+    }
+
+    function moveResize(event: PointerEvent) {
+        if (!drag || event.pointerId !== drag.pointer) {
+            return;
+        }
+        const distance = (event.clientX - drag.startX) * drag.direction;
+        shell.resizeSidebar(kind, drag.startWidth + distance);
+    }
+
+    function endResize(event: PointerEvent) {
+        if (!drag || event.pointerId !== drag.pointer) {
+            return;
+        }
+        drag = undefined;
+        dragging = false;
+    }
+
+    function resizeWithKey(event: KeyboardEvent) {
+        const targets: Record<string, number> = {
+            ArrowLeft: width - STEP,
+            ArrowRight: width + STEP,
+            Home: sidebarWidths.min,
+            End: sidebarWidths.max
+        };
+        const next = targets[event.key];
+        if (next === undefined) {
+            return;
+        }
+        event.preventDefault();
+        shell.resizeSidebar(kind, next);
+    }
 </script>
 
 <svelte:window
@@ -54,11 +107,37 @@
 <aside
     aria-label={label}
     inert={shell.collapsed}
-    class={`hidden h-full shrink-0 overflow-clip transition-[width] [transition-duration:var(--motion-duration-panel)] ease-[var(--ease-out)] motion-reduce:transition-none lg:block ${shell.collapsed ? 'w-0' : width}`}
+    style:--sidebar-width={`${width}px`}
+    class={`hidden h-full shrink-0 overflow-clip ease-[var(--ease-out)] motion-reduce:transition-none lg:block ${dragging ? '' : 'transition-[width] [transition-duration:var(--motion-duration-panel)]'} ${shell.collapsed ? 'w-0' : 'w-[var(--sidebar-width)]'}`}
 >
     <div
-        class={`flex h-full flex-col border-e-[length:var(--border-size)] border-[var(--docs-rule)] bg-[var(--docs-side)] ${width}`}
+        class="relative flex h-full w-[var(--sidebar-width)] flex-col border-e-[length:var(--border-size)] border-[var(--docs-rule)] bg-[var(--docs-side)]"
     >
+        <!-- svelte-ignore a11y_no_noninteractive_tabindex, a11y_no_noninteractive_element_interactions -->
+        <div
+            role="separator"
+            aria-orientation="vertical"
+            aria-label="Resize sidebar"
+            aria-valuenow={width}
+            aria-valuemin={sidebarWidths.min}
+            aria-valuemax={sidebarWidths.max}
+            tabindex={0}
+            data-dragging={dragging || undefined}
+            class="group absolute inset-y-0 end-0 z-20 w-2 cursor-col-resize touch-none outline-none"
+            onpointerdown={startResize}
+            onpointermove={moveResize}
+            onpointerup={endResize}
+            onpointercancel={endResize}
+            onkeydown={resizeWithKey}
+            ondblclick={() => {
+                shell.resizeSidebar(kind, sidebarWidths[kind]);
+            }}
+        >
+            <span
+                aria-hidden="true"
+                class="absolute inset-y-0 end-0 w-0.5 bg-primary opacity-0 transition-opacity [transition-duration:var(--motion-duration-hover)] group-hover:opacity-60 group-focus-visible:opacity-100 group-data-[dragging]:opacity-100 motion-reduce:transition-none"
+            ></span>
+        </div>
         <div class="flex h-[50px] shrink-0 items-center justify-between gap-1 ps-[19px] pe-3">
             <Menu.Root>
                 <Menu.Trigger

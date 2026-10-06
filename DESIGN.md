@@ -454,7 +454,7 @@ keep their HTML, Markdown, navigation, and search metadata aligned.
 
 ### Shared shell geometry
 
-The docs sidebar is 18.5rem wide and the Studio sidebar 21rem. The sidebar title
+The docs sidebar starts 18.5rem wide and the Studio sidebar 21rem. Drag the sidebar's edge to resize it between 240 and 520 pixels. Each of the two remembers its own width in the browser. The edge shows a primary line on hover, focus and while dragging. It is a focusable separator: arrow keys move it 16 pixels, Home and End jump to the limits, and a double click restores the starting width. The sidebar title
 row and the top bar are both 50px tall. Top bar controls use the small control
 height with the Button's own radius and type; outline is reserved for the Copy
 page group. Separate control groups with a gap, not a divider.
