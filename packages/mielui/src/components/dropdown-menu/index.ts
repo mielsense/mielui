@@ -1,7 +1,7 @@
-import type { ButtonProps } from '@mielui/svelte/components/button';
 import type { DefaultProps } from '@mielui/svelte/utils';
 import type { Snippet } from 'svelte';
 import type { HTMLButtonAttributes } from 'svelte/elements';
+import type { ButtonOnlyProps } from '../_internal/button-attributes';
 import Root from './dropdown-menu.svelte';
 import CheckboxItem from './dropdown-menu-checkbox-item.svelte';
 import Content from './dropdown-menu-content.svelte';
@@ -27,7 +27,7 @@ export type DropdownMenuProps = {
 export type DropdownMenuItemProps = {
     /** Called when the item is chosen. */
     callback?: () => void;
-} & ButtonProps;
+} & ButtonOnlyProps;
 
 export type DropdownMenuRadioGroupProps = {
     /** Value of the selected item. Bindable. */

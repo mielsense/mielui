@@ -1,6 +1,6 @@
-import type { ButtonProps } from '@mielui/svelte/components/button';
 import type { DefaultProps } from '@mielui/svelte/utils';
 import type { Snippet } from 'svelte';
+import type { ButtonOnlyProps } from '../_internal/button-attributes';
 import Root from './select.svelte';
 import Content from './select-content.svelte';
 import Item from './select-item.svelte';
@@ -55,7 +55,7 @@ export type SelectItemProps = {
     label?: string;
     /** Content rendered inside. */
     children?: Snippet;
-} & ButtonProps;
+} & ButtonOnlyProps;
 
 export type SelectValueProps = {
     placeholder?: string;

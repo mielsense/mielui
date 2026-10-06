@@ -41,3 +41,18 @@ field variant holds a single value. Combining it with `range` is a type error,
 so keep the default variant for two-handle ranges. Do not rebuild this control
 from a native range input or a custom pointer handler.
 
+## Menu rows and options do not take `href`
+
+`DropdownMenu.Item`, `ContextMenu.Item`, `ContextMenu.CheckboxItem`,
+`Select.Item` and `Combobox.Item` always render a `<button>`. Their prop types
+used to include `href` because they extended the Button props, but the value was
+dropped before rendering, so a row with `href` type-checked and then did
+nothing when chosen. The types now leave `href` out, and passing it is a type
+error.
+
+To navigate from a menu, call your router in `callback`, for example
+`callback={() => goto('/settings')}` in SvelteKit. Do not wrap a row in an
+anchor, which breaks the menu's keyboard handling. Triggers and the action
+buttons of Dialog, Alert Dialog and Sheet are unaffected and still accept
+`href`.
+

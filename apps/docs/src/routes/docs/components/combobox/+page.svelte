@@ -227,7 +227,7 @@
         </Typography.Text>
         <Typography.Text variant="supporting">
             <InlineText
-                text={"Item is built on [Button](/docs/components/button). `size` changes the row height. A row is always a button, so `href` is ignored. `status` or `loading` show progress on a row, with `loadingLabel`, `successLabel` and `errorLabel` as the text for each state. `unstyled` removes the Button classes and `onkeydown` runs before the list handles the key. Trigger takes `size`, `style` and `unstyled` the same way."}
+                text={"Item is built on [Button](/docs/components/button). `size` changes the row height. A row is always a button and does not take `href`. `status` or `loading` show progress on a row, with `loadingLabel`, `successLabel` and `errorLabel` as the text for each state. `unstyled` removes the Button classes and `onkeydown` runs before the list handles the key. Trigger takes `size`, `style` and `unstyled` the same way."}
             />
         </Typography.Text>
     </section>

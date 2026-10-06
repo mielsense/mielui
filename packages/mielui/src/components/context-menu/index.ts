@@ -1,7 +1,7 @@
 import type { VirtualElement } from '@floating-ui/dom';
 import type { DefaultProps } from '@mielui/svelte/utils';
 import type { Snippet } from 'svelte';
-import type { ButtonProps } from '../button';
+import type { ButtonOnlyProps } from '../_internal/button-attributes';
 import Root from './context-menu.svelte';
 import CheckboxItem from './context-menu-checkbox-item.svelte';
 import Content from './context-menu-content.svelte';
@@ -27,7 +27,7 @@ export type ContextMenuItemProps = {
     callback?: () => void;
     /** Indents the item so it lines up with items that have an indicator. */
     inset?: boolean;
-} & ButtonProps;
+} & ButtonOnlyProps;
 
 export type ContextMenuCheckboxItemProps = {
     /** Called when the item is chosen. */
@@ -38,7 +38,7 @@ export type ContextMenuCheckboxItemProps = {
     inset?: boolean;
     /** Whether the item is checked. Bindable. */
     checked?: boolean;
-} & ButtonProps;
+} & ButtonOnlyProps;
 
 export type ContextMenuSeparatorProps = DefaultProps;
 export type ContextMenuSubContentProps = DefaultProps & { surface?: 'solid' | 'glass' };

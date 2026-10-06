@@ -208,7 +208,7 @@
         <Typography.H2 class="docs-section-heading">Items and other parts</Typography.H2>
         <Typography.Text variant="supporting">
             <InlineText
-                text={"Item runs `callback` when chosen and then closes the menu. It is built on [Button](/docs/components/button), so `disabled` skips it, and `loading` with `loadingLabel`, `successLabel` and `errorLabel` shows progress on a row that starts slow work. Item, CheckboxItem, RadioItem, Trigger and SubTrigger accept `element` to bind the DOM node. `unstyled` removes the Button classes on Item, Trigger and SubTrigger, and `onkeydown` on Item runs before the menu handles the key. A row is always a button, so `href` is ignored. Navigate from `callback` instead."}
+                text={"Item runs `callback` when chosen and then closes the menu. It is built on [Button](/docs/components/button), so `disabled` skips it, and `loading` with `loadingLabel`, `successLabel` and `errorLabel` shows progress on a row that starts slow work. Item, CheckboxItem, RadioItem, Trigger and SubTrigger accept `element` to bind the DOM node. `unstyled` removes the Button classes on Item, Trigger and SubTrigger, and `onkeydown` on Item runs before the menu handles the key. A row is always a button and does not take `href`. Navigate from `callback`."}
             />
         </Typography.Text>
         <Typography.Text variant="supporting">

@@ -1,0 +1,1 @@
+- `DropdownMenu.Item`, `ContextMenu.Item`, `ContextMenu.CheckboxItem`, `Select.Item` and `Combobox.Item` no longer accept `href`. These rows always rendered a button and ignored it. Navigate from `callback` instead.
