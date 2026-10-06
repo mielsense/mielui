@@ -159,8 +159,12 @@
     {#each sections as section (section.id)}
         <section class="flex flex-col gap-0.5">
             <h2
-                class="sticky top-0 z-10 -mx-[15px] m-0 bg-[var(--docs-side)] px-[15px] [container-type:scroll-state] after:pointer-events-none after:absolute after:inset-x-0 after:top-full after:h-5 after:bg-linear-to-b after:from-[var(--docs-side)] after:to-transparent after:backdrop-blur-[3px] after:[mask-image:linear-gradient(to_bottom,black,transparent)]"
+                class="sticky top-0 z-10 -mx-[15px] m-0 bg-[var(--docs-side)] px-[15px] [container-type:scroll-state]"
             >
+                <span
+                    aria-hidden="true"
+                    class="pointer-events-none absolute inset-x-0 top-full h-5 bg-linear-to-b from-[var(--docs-side)] to-transparent opacity-0 backdrop-blur-[3px] [mask-image:linear-gradient(to_bottom,black,transparent)] [@container_scroll-state(stuck:top)]:opacity-100"
+                ></span>
                 <a
                     href={section.href}
                     class={`${labelClass} transition-colors [transition-duration:var(--motion-duration-hover)] hover:text-foreground focus-visible:outline-none focus-visible:shadow-[var(--focus-ring)] aria-[current=page]:text-foreground motion-reduce:transition-none`}
