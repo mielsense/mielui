@@ -8,7 +8,7 @@
     const editor = getThemeEditor();
 </script>
 
-<EditorSection title="Shape and spacing">
+<EditorSection title="Shape and spacing" keywords="corners rounded size padding">
     {@render feelSelect(
                     'Radius',
                     editor.state.theme.radius,

@@ -31,3 +31,4 @@
 - Section titles are plain headings that stay pinned under the top bar, with a soft fade beneath them while pinned.
 - Move the copy button for example source into the preview's top bar, so it no longer covers the code.
 - With single borders, example previews and install commands sit flush in their frame like cards, keeping only the tab strip on the frame.
+- Add a search field to the Studio inspector that filters settings by name.

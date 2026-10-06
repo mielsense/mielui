@@ -474,7 +474,11 @@ has a muted label at the start and its control at the end. Selects, color trigge
 segmented tracks share one fixed control width so their edges align; switches and
 readouts sit at the end of the row. A slider sits on its own line under the row
 that names it. Groups are always open; only long optional sets, such as text and
-chart colors, use a disclosure inside their group. The export actions stay pinned
+chart colors, use a disclosure inside their group. A search field above the
+groups filters settings by name. A query that matches a row shows that row in its
+group. A query that matches only a group's title or keywords shows the whole
+group. Disclosures open while searching, and an empty result offers a Clear
+search button. The export actions stay pinned
 under the scrolling groups. The preview fills the content column under the top bar.
 
 Studio demos are composed cards, not loose controls or section headings. The

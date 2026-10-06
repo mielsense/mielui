@@ -9,7 +9,7 @@
     const editor = getThemeEditor();
 </script>
 
-<EditorSection title="Interaction">
+<EditorSection title="Interaction" keywords="motion animation pointer">
     {@render feelSelect(
         'Movement',
         editor.state.theme.motion,

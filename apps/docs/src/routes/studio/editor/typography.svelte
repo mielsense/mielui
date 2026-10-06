@@ -14,7 +14,7 @@
     );
 </script>
 
-<EditorSection title="Typography">
+<EditorSection title="Typography" keywords="font type family">
     <Row label="Sans" wide>
         <Select.Root bind:value={editor.state.selectedSans}>
             <Select.Trigger class="w-full min-w-0" variant="outline" aria-label="Sans font">
@@ -93,13 +93,15 @@
         >
             {`${editor.state.headerSize}px`}
         </span>
+        {#snippet below()}
+            <div class="pb-3">
+                <Slider {...editor.headerSliderProps()} />
+            </div>
+        {/snippet}
     </Row>
-    <div class="pb-3">
-        <Slider {...editor.headerSliderProps()} />
-    </div>
 </EditorSection>
 
-<EditorSection title="Font weights">
+<EditorSection title="Font weights" keywords="typography bold">
     {@render weightControl('Header', editor.state.headerWeight, (value) => {
         editor.state.headerWeight = value;
     })}

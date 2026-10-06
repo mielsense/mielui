@@ -11,7 +11,7 @@
     const edgePercent = $derived(Math.round(editor.state.edgeHighlight * 100));
 </script>
 
-<EditorSection title="Surfaces">
+<EditorSection title="Surfaces" keywords="glass frame inset">
     <Row label="Borders" wide>
         {@render toggleChoice(['single', 'double'], editor.state.borders, 'Borders', (value) => {
             if (value === 'single' || value === 'double') {
@@ -36,7 +36,7 @@
     </Row>
 </EditorSection>
 
-<EditorSection title="Edges">
+<EditorSection title="Edges" keywords="highlight stroke outline">
     <Row label="Edge highlight">
         <Switch
             bind:checked={() => editor.state.edgeHighlight > 0, editor.setEdgeHighlightEnabled}
@@ -54,27 +54,29 @@
             >
                 {`${edgePercent}%`}
             </span>
+            {#snippet below()}
+                <div class="pb-3">
+                    <Slider
+                        value={edgePercent}
+                        min={1}
+                        max={100}
+                        step={1}
+                        label="Edge highlight strength"
+                        class="h-4"
+                        onValueChange={(value: number) => {
+                            editor.state.edgeHighlight = value / 100;
+                        }}
+                    />
+                </div>
+            {/snippet}
         </Row>
-        <div class="pb-3">
-            <Slider
-                value={edgePercent}
-                min={1}
-                max={100}
-                step={1}
-                label="Edge highlight strength"
-                class="h-4"
-                onValueChange={(value: number) => {
-                    editor.state.edgeHighlight = value / 100;
-                }}
-            />
-        </div>
     {/if}
     <Row label="Primary button border">
         <Switch bind:checked={editor.state.primaryStroke} aria-label="Primary button border" />
     </Row>
 </EditorSection>
 
-<EditorSection title="Shadows">
+<EditorSection title="Shadows" keywords="elevation depth">
     <Row label="Cards and menus">
         <Switch bind:checked={editor.state.surfaceShadows} aria-label="Cards and menus" />
     </Row>

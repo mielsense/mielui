@@ -13,7 +13,7 @@
     const editor = getThemeEditor();
 </script>
 
-<EditorSection title="Theme">
+<EditorSection title="Theme" keywords="preset reset starting point">
     <Row label="Preset" wide>
         <Group.Root class="w-full" aria-label="Theme preset">
             <Select.Root bind:value={editor.state.selectedPreset}>

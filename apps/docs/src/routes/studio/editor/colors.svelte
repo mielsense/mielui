@@ -20,11 +20,13 @@
     import { getThemeEditor } from './context';
     import { colorPickerControl } from './controls.svelte';
     import EditorSection from './section.svelte';
+    import { getSettingFilter } from './setting-filter.svelte';
 
     const editor = getThemeEditor();
+    const filter = getSettingFilter();
 </script>
 
-<EditorSection title="Color">
+<EditorSection title="Color" keywords="palette colour text chart">
     {#snippet action()}
         <Tooltip.Root>
             <Tooltip.Trigger>
@@ -89,20 +91,50 @@
                             editor.updateFoundationColor('secondary', value);
                         }
                     )}
-    <Collapsible.Root>
-        <Collapsible.Trigger
-            class="group -mx-2 h-11 w-[calc(100%+var(--spacing)*4)] justify-between text-sm font-normal text-foreground-muted hover:text-foreground data-[state=open]:text-foreground"
-        >
-            Text colors
-            <HugeiconsIcon
-                icon={ChevronDown}
-                size={14}
-                aria-hidden="true"
-                class="shrink-0 transition-transform [transition-duration:var(--motion-duration-panel)] ease-[var(--ease-out)] group-data-[state=open]:rotate-180 motion-reduce:transition-none"
-            />
-        </Collapsible.Trigger>
-        <Collapsible.Content class="flex flex-col">
-            {@render colorPickerControl(
+    {#if filter.active}
+        {@render textColors()}
+    {:else}
+        <Collapsible.Root>
+            <Collapsible.Trigger
+                class="group -mx-2 h-11 w-[calc(100%+var(--spacing)*4)] justify-between text-sm font-normal text-foreground-muted hover:text-foreground data-[state=open]:text-foreground"
+            >
+                Text colors
+                <HugeiconsIcon
+                    icon={ChevronDown}
+                    size={14}
+                    aria-hidden="true"
+                    class="shrink-0 transition-transform [transition-duration:var(--motion-duration-panel)] ease-[var(--ease-out)] group-data-[state=open]:rotate-180 motion-reduce:transition-none"
+                />
+            </Collapsible.Trigger>
+            <Collapsible.Content class="flex flex-col">
+                {@render textColors()}
+            </Collapsible.Content>
+        </Collapsible.Root>
+    {/if}
+    {#if filter.active}
+        {@render chartColors()}
+    {:else}
+        <Collapsible.Root>
+            <Collapsible.Trigger
+                class="group -mx-2 h-11 w-[calc(100%+var(--spacing)*4)] justify-between text-sm font-normal text-foreground-muted hover:text-foreground data-[state=open]:text-foreground"
+            >
+                Chart colors
+                <HugeiconsIcon
+                    icon={ChevronDown}
+                    size={14}
+                    aria-hidden="true"
+                    class="shrink-0 transition-transform [transition-duration:var(--motion-duration-panel)] ease-[var(--ease-out)] group-data-[state=open]:rotate-180 motion-reduce:transition-none"
+                />
+            </Collapsible.Trigger>
+            <Collapsible.Content class="flex flex-col">
+                {@render chartColors()}
+            </Collapsible.Content>
+        </Collapsible.Root>
+    {/if}
+</EditorSection>
+
+{#snippet textColors()}
+    {@render colorPickerControl(
                         'Muted text',
                         editor.state.foundationColors[editor.appMode].foregroundMuted,
                         foregroundSwatches,
@@ -110,7 +142,7 @@
                             editor.updateFoundationColor('foregroundMuted', value);
                         }
                     )}
-            {@render colorPickerControl(
+    {@render colorPickerControl(
                         'Foreground',
                         editor.state.foundationColors[editor.appMode].foreground,
                         foregroundSwatches,
@@ -118,7 +150,7 @@
                             editor.updateFoundationColor('foreground', value);
                         }
                     )}
-            {@render colorPickerControl(
+    {@render colorPickerControl(
                         'Button text',
                         editor.state.foundationColors[editor.appMode].buttonForeground,
                         foregroundSwatches,
@@ -126,26 +158,12 @@
                             editor.updateFoundationColor('buttonForeground', value);
                         }
                     )}
-        </Collapsible.Content>
-    </Collapsible.Root>
-    <Collapsible.Root>
-        <Collapsible.Trigger
-            class="group -mx-2 h-11 w-[calc(100%+var(--spacing)*4)] justify-between text-sm font-normal text-foreground-muted hover:text-foreground data-[state=open]:text-foreground"
-        >
-            Chart colors
-            <HugeiconsIcon
-                icon={ChevronDown}
-                size={14}
-                aria-hidden="true"
-                class="shrink-0 transition-transform [transition-duration:var(--motion-duration-panel)] ease-[var(--ease-out)] group-data-[state=open]:rotate-180 motion-reduce:transition-none"
-            />
-        </Collapsible.Trigger>
-        <Collapsible.Content class="flex flex-col">
-            {#each colorTokenDefinitions.filter((definition) => definition.group === 'Charts') as definition (definition.name)}
-                {@render colorPickerControl(definition.label, editor.tokens.resolveColorToken(definition).hex, [], (value) => {
+{/snippet}
+
+{#snippet chartColors()}
+    {#each colorTokenDefinitions.filter((definition) => definition.group === 'Charts') as definition (definition.name)}
+        {@render colorPickerControl(definition.label, editor.tokens.resolveColorToken(definition).hex, [], (value) => {
                     editor.tokens.updateAdvancedColorToken(definition.name, value);
                 })}
-            {/each}
-        </Collapsible.Content>
-    </Collapsible.Root>
-</EditorSection>
+    {/each}
+{/snippet}
