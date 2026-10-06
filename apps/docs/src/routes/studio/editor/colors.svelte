@@ -24,7 +24,7 @@
     const editor = getThemeEditor();
 </script>
 
-<EditorSection title="Color" open bodyClass="gap-4">
+<EditorSection title="Color">
     {#snippet action()}
         <Tooltip.Root>
             <Tooltip.Trigger>
@@ -43,14 +43,13 @@
             <Tooltip.Content>Advanced colors</Tooltip.Content>
         </Tooltip.Root>
     {/snippet}
-    <div class="grid grid-cols-2 gap-2">
-        {@render colorPickerControl(
+    {@render colorPickerControl(
                         'Brand',
                         editor.state.brandColors[editor.appMode],
                         brandSwatches,
                         editor.updateBrand
                     )}
-        {@render colorPickerControl(
+    {@render colorPickerControl(
                         'On brand',
                         editor.state.foundationColors[editor.appMode].onPrimary,
                         onPrimarySwatches,
@@ -58,9 +57,7 @@
                             editor.updateFoundationColor('onPrimary', value);
                         }
                     )}
-    </div>
-    <div class="grid grid-cols-2 gap-2">
-        {@render colorPickerControl(
+    {@render colorPickerControl(
                         'Base',
                         editor.state.foundationColors[editor.appMode].base,
                         baseSwatches,
@@ -68,7 +65,7 @@
                             editor.updateFoundationColor('base', value);
                         }
                     )}
-        {@render colorPickerControl(
+    {@render colorPickerControl(
                         'Border',
                         editor.state.foundationColors[editor.appMode].border,
                         borderSwatches,
@@ -76,9 +73,7 @@
                             editor.updateFoundationColor('border', value);
                         }
                     )}
-    </div>
-    <div class="grid grid-cols-2 gap-2">
-        {@render colorPickerControl(
+    {@render colorPickerControl(
                         'Background',
                         editor.state.foundationColors[editor.appMode].background,
                         backgroundSwatches,
@@ -86,7 +81,7 @@
                             editor.updateFoundationColor('background', value);
                         }
                     )}
-        {@render colorPickerControl(
+    {@render colorPickerControl(
                         'Secondary',
                         editor.state.foundationColors[editor.appMode].secondary,
                         secondarySwatches,
@@ -94,10 +89,9 @@
                             editor.updateFoundationColor('secondary', value);
                         }
                     )}
-    </div>
     <Collapsible.Root>
         <Collapsible.Trigger
-            class="group -mx-2 w-[calc(100%+var(--spacing)*4)] justify-between text-sm text-foreground-muted hover:text-foreground data-[state=open]:text-foreground"
+            class="group -mx-2 h-11 w-[calc(100%+var(--spacing)*4)] justify-between text-sm font-normal text-foreground-muted hover:text-foreground data-[state=open]:text-foreground"
         >
             Text colors
             <HugeiconsIcon
@@ -107,9 +101,8 @@
                 class="shrink-0 transition-transform [transition-duration:var(--motion-duration-panel)] ease-[var(--ease-out)] group-data-[state=open]:rotate-180 motion-reduce:transition-none"
             />
         </Collapsible.Trigger>
-        <Collapsible.Content class="flex flex-col gap-4 pt-3">
-            <div class="grid grid-cols-2 gap-2">
-                {@render colorPickerControl(
+        <Collapsible.Content class="flex flex-col">
+            {@render colorPickerControl(
                         'Muted text',
                         editor.state.foundationColors[editor.appMode].foregroundMuted,
                         foregroundSwatches,
@@ -117,7 +110,7 @@
                             editor.updateFoundationColor('foregroundMuted', value);
                         }
                     )}
-                {@render colorPickerControl(
+            {@render colorPickerControl(
                         'Foreground',
                         editor.state.foundationColors[editor.appMode].foreground,
                         foregroundSwatches,
@@ -125,9 +118,7 @@
                             editor.updateFoundationColor('foreground', value);
                         }
                     )}
-            </div>
-            <div class="grid grid-cols-2 gap-2">
-                {@render colorPickerControl(
+            {@render colorPickerControl(
                         'Button text',
                         editor.state.foundationColors[editor.appMode].buttonForeground,
                         foregroundSwatches,
@@ -135,12 +126,11 @@
                             editor.updateFoundationColor('buttonForeground', value);
                         }
                     )}
-            </div>
         </Collapsible.Content>
     </Collapsible.Root>
     <Collapsible.Root>
         <Collapsible.Trigger
-            class="group -mx-2 w-[calc(100%+var(--spacing)*4)] justify-between text-sm text-foreground-muted hover:text-foreground data-[state=open]:text-foreground"
+            class="group -mx-2 h-11 w-[calc(100%+var(--spacing)*4)] justify-between text-sm font-normal text-foreground-muted hover:text-foreground data-[state=open]:text-foreground"
         >
             Chart colors
             <HugeiconsIcon
@@ -150,7 +140,7 @@
                 class="shrink-0 transition-transform [transition-duration:var(--motion-duration-panel)] ease-[var(--ease-out)] group-data-[state=open]:rotate-180 motion-reduce:transition-none"
             />
         </Collapsible.Trigger>
-        <Collapsible.Content class="grid grid-cols-2 gap-x-2 gap-y-4 pt-3">
+        <Collapsible.Content class="flex flex-col">
             {#each colorTokenDefinitions.filter((definition) => definition.group === 'Charts') as definition (definition.name)}
                 {@render colorPickerControl(definition.label, editor.tokens.resolveColorToken(definition).hex, [], (value) => {
                     editor.tokens.updateAdvancedColorToken(definition.name, value);

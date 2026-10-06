@@ -2,15 +2,23 @@
     import { Toaster } from '@mielui/svelte/components/toast';
     import { getStoredLiveThemeCss, hydrateLiveThemeCss } from '@mielui/svelte/themes/live';
     import { ModeWatcher } from 'mode-watcher';
-    import DocsToolbar from '$lib/components/docs/docs-toolbar.svelte';
-    import {
-        type PageInfoContext,
-        setPageInfoContext
-    } from '$lib/components/docs/page-info-context';
+    import { getBreadcrumbs } from '$lib/components/docs/breadcrumbs';
+    import CopyPage from '$lib/components/docs/copy-page.svelte';
+    import Navigation from '$lib/components/docs/navigation.svelte';
+    import NavigationSheet from '$lib/components/docs/navigation-sheet.svelte';
+    import { stayOnPage } from '$lib/components/docs/stay-on-page';
     import { setSearch } from '$lib/components/search/context';
     import SiteSearch from '$lib/components/search/palette.svelte';
-    import SiteFooter from '$lib/components/shell/footer.svelte';
-    import StudioHeader from '$lib/components/studio/header.svelte';
+    import MobileActions from '$lib/components/shell/mobile-actions.svelte';
+    import { pageIcon } from '$lib/components/shell/page-icon';
+    import PageTabs from '$lib/components/shell/page-tabs.svelte';
+    import Rail from '$lib/components/shell/rail.svelte';
+    import { createShell, setShell } from '$lib/components/shell/shell.svelte';
+    import Sidebar from '$lib/components/shell/sidebar.svelte';
+    import SidebarCard from '$lib/components/shell/sidebar-card.svelte';
+    import StatusBar from '$lib/components/shell/status-bar.svelte';
+    import TabPill from '$lib/components/shell/tab-pill.svelte';
+    import Topbar from '$lib/components/shell/topbar.svelte';
     import { setStudioContext } from '$lib/studio-context';
     import '@mielui/svelte/ui.css';
     import '../app.css';
@@ -20,7 +28,6 @@
     import { afterNavigate } from '$app/navigation';
     import { page } from '$app/state';
     import { createDocsFontState, DEFAULT_FONT, fonts } from '$lib/fonts.svelte';
-    import { setupPageTransition } from '$lib/navigation/page-transition';
 
     import type { LayoutData } from './$types';
 
@@ -28,10 +35,9 @@
     const studio = $state({ mode: 'components', width: 'wide', glassBackdrop: false });
     setStudioContext(studio);
 
-    const pageInfo = $state<PageInfoContext>({ current: null });
-    setPageInfoContext(pageInfo);
     const search = $state({ open: false });
     setSearch(search);
+    setShell(createShell());
 
     injectAnalytics({ mode: dev ? 'development' : 'production' });
 
@@ -41,6 +47,8 @@
     const isHome = $derived(page.url.pathname === '/');
     const isDocs = $derived(page.url.pathname.startsWith('/docs'));
     const isThemeStudio = $derived(page.url.pathname.startsWith('/studio'));
+    const hasSidebar = $derived(isDocs && !page.url.pathname.startsWith('/docs/changelog'));
+    const pageLabel = $derived(getBreadcrumbs(page.url.pathname).at(-1)?.label ?? 'mielui');
 
     // `--font-header` defaults to `var(--font-sans)`, so one custom property re-skins every page.
     $effect(() => {
@@ -59,8 +67,6 @@
     onMount(() => {
         hydrateLiveThemeCss();
     });
-
-    setupPageTransition();
 
     let docsScrollEl = $state<HTMLDivElement>();
 
@@ -108,67 +114,85 @@
 
 {#if isPreview}
     <main
+        data-docs-preview
+        onclickcapture={stayOnPage}
         class="min-h-dvh bg-[color-mix(in_oklab,var(--color-background),var(--color-secondary)_10%)]"
     >
         {@render children?.()}
     </main>
+{:else if isHome}
+    <main
+        class="min-h-dvh w-screen bg-background [--docs-rule:color-mix(in_oklab,var(--color-border)_62%,transparent)] [--docs-soft:color-mix(in_oklab,var(--color-secondary)_55%,var(--color-background))]"
+    >
+        <div class="relative mx-auto flex min-h-dvh w-full max-w-none flex-col">
+            {@render children?.()}
+        </div>
+    </main>
 {:else}
     <main
-        class={`w-screen [&:has([data-inspector-pinned=true])]:lg:pl-[calc(var(--spacing)*80+24px)] [--docs-shell:#000000] [--docs-row-height:calc(var(--spacing)*14+var(--border-size))] [--docs-gutter:calc((var(--spacing)*5+2rem)/2)] [--docs-icon-inset:calc(var(--docs-gutter)-(var(--size-icon-md)-1rem)/2)] [--docs-rule:var(--color-border)] dark:[--docs-rule:color-mix(in_oklab,var(--color-border)_50%,transparent)] [--docs-chrome:color-mix(in_oklab,var(--color-secondary)_97%,white)] dark:[--docs-chrome:color-mix(in_oklab,var(--color-background),var(--color-secondary)_20%)] [--docs-content:color-mix(in_oklab,var(--color-background),var(--color-secondary)_10%)] ${isDocs || isThemeStudio ? 'h-[100svh] overflow-hidden bg-[var(--docs-shell)] p-2 sm:p-3' : isHome ? 'min-h-dvh bg-background' : 'min-h-screen bg-background p-3'}`}
+        class="fixed inset-0 flex overflow-clip bg-[var(--docs-content)] [--docs-shell:#1d1916] [--docs-row-height:calc(var(--spacing)*14)] [--docs-rule:color-mix(in_oklab,var(--color-border)_62%,transparent)] [--docs-content:var(--color-card)] [--docs-chrome:color-mix(in_oklab,var(--color-secondary)_97%,white)] [--docs-side:var(--color-background)] [--docs-soft:color-mix(in_oklab,var(--color-secondary)_55%,var(--color-background))] [--docs-pill:color-mix(in_oklab,var(--color-secondary)_62%,var(--color-background))] lg:bg-[var(--docs-shell)] lg:pt-2.5 lg:pe-2.5 dark:[--docs-shell:#000000] dark:[--docs-content:color-mix(in_oklab,var(--color-card)_60%,var(--color-background))] dark:[--docs-side:var(--docs-content)] dark:[--docs-chrome:color-mix(in_oklab,var(--color-background),var(--color-secondary)_20%)] dark:[--docs-soft:color-mix(in_oklab,var(--color-secondary)_55%,var(--color-card))] dark:[--docs-pill:color-mix(in_oklab,var(--color-secondary)_80%,var(--color-card))]"
     >
-        {#if isHome}
-            <div class="relative mx-auto flex min-h-dvh w-full max-w-none flex-col">
-                {@render children?.()}
-            </div>
-        {:else if isDocs}
-            <div data-docs-shell class="relative flex h-full w-full gap-3">
-                <div
-                    class="flex min-h-0 min-w-0 flex-1 flex-col overflow-hidden rounded-[var(--radius-xl)] border-[length:var(--border-size)] border-[var(--docs-rule)] bg-[var(--docs-content)]"
-                >
-                    <div
-                        class="relative z-40 shrink-0 bg-[var(--docs-content)] after:pointer-events-none after:absolute after:inset-x-0 after:top-full after:h-4 after:bg-linear-to-b after:from-[var(--docs-content)] after:to-transparent"
-                    >
-                        <DocsToolbar starCount={data?.starCount ?? null} />
-                    </div>
-                    <div bind:this={docsScrollEl} class="min-h-0 min-w-0 flex-1 overflow-hidden">
-                        {@render children?.()}
-                    </div>
-                    {#if page.status < 400}
-                        <div class="shrink-0 bg-[var(--docs-content)]">
-                            <SiteFooter {isDocs} />
-                        </div>
-                    {/if}
-                </div>
-            </div>
-        {:else if isThemeStudio}
+        <Rail />
+        <div class="flex min-h-0 min-w-0 flex-1 flex-col">
             <div
-                data-studio-shell
-                class="relative flex h-full w-full flex-col overflow-hidden rounded-[var(--radius-xl)] border border-[var(--docs-rule)] bg-[var(--docs-content)]"
+                data-docs-shell
+                class="flex min-h-0 min-w-0 flex-1 overflow-clip bg-[var(--docs-content)] lg:rounded-2xl"
             >
-                <div class="shrink-0">
-                    <StudioHeader starCount={data?.starCount ?? null} />
-                </div>
-                <div class="flex min-h-0 flex-1">
+                {#if isThemeStudio}
                     {@render children?.()}
-                </div>
-                {#if page.status < 400}
-                    <SiteFooter {isDocs} />
+                {:else}
+                    {#if hasSidebar}
+                        <Sidebar label="Documentation" title="Documentation">
+                            <Navigation />
+                            {#snippet footer()}
+                                <SidebarCard />
+                            {/snippet}
+                        </Sidebar>
+                    {/if}
+                    <div class="flex min-h-0 min-w-0 flex-1 flex-col">
+                        <Topbar sidebar={hasSidebar}>
+                            {#snippet leading()}
+                                <NavigationSheet />
+                            {/snippet}
+                            {#if hasSidebar}
+                                <PageTabs />
+                            {:else}
+                                <TabPill
+                                    current
+                                    label={pageLabel}
+                                    icon={pageIcon(page.url.pathname)}
+                                    href={page.url.pathname}
+                                />
+                            {/if}
+                            {#snippet actions()}
+                                {#if isDocs && page.status < 400}
+                                    <div class="hidden sm:block">
+                                        <CopyPage />
+                                    </div>
+                                {/if}
+                                <MobileActions />
+                            {/snippet}
+                        </Topbar>
+                        {#if isDocs}
+                            <div bind:this={docsScrollEl} class="min-h-0 min-w-0 flex-1">
+                                {@render children?.()}
+                            </div>
+                        {:else}
+                            <div
+                                bind:this={docsScrollEl}
+                                class="min-h-0 min-w-0 flex-1 overflow-y-auto"
+                            >
+                                <div
+                                    class="flex w-full flex-col gap-5 px-5 pt-8 pb-16 sm:px-10 lg:flex-row lg:gap-0"
+                                >
+                                    {@render children?.()}
+                                </div>
+                            </div>
+                        {/if}
+                    </div>
                 {/if}
             </div>
-        {:else}
-            <div class="flex min-h-[calc(100svh-1.5rem)] w-full gap-3">
-                <div
-                    class="flex min-w-0 flex-1 flex-col overflow-clip rounded-[calc(var(--radius-lg)+0.5rem)] border border-border bg-background"
-                >
-                    <DocsToolbar starCount={data?.starCount ?? null} />
-                    <div
-                        bind:this={docsScrollEl}
-                        class="mx-auto flex w-full max-w-[1400px] flex-1 flex-col gap-5 px-4 md:px-6 lg:flex-row lg:gap-0"
-                    >
-                        {@render children?.()}
-                    </div>
-                </div>
-            </div>
-        {/if}
+            <StatusBar />
+        </div>
     </main>
 {/if}

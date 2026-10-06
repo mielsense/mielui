@@ -8,7 +8,7 @@
     const editor = getThemeEditor();
 </script>
 
-<EditorSection title="Shape & spacing" bodyClass="gap-4">
+<EditorSection title="Shape and spacing">
     {@render feelSelect(
                     'Radius',
                     editor.state.theme.radius,

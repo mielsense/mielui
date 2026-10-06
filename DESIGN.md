@@ -282,62 +282,113 @@ independent. New double-frame treatments must honor this shared setting.
 
 Use the shared elevation tokens for light-catching inset edges, including keycaps.
 The theme setting `chrome.edgeHighlight` accepts 0 to 1 and defaults to 0.5.
-Studio presents it as a percentage under Appearance. Scale only the light inset edge;
+Studio presents it as a percentage under Edges. Scale only the light inset edge;
 keep structural borders, focus rings, dark inset shading, and cast shadows intact.
 Do not add fixed white inset shadows to individual components. Shadow switches
 still disable their corresponding elevation effects.
 
 ## Documentation composition
 
-Docs and Studio use a pure black outer background around the
-workspace. In docs, page controls belong inside the rounded page frame: breadcrumb
-and actions above the content, pagination and copy controls below it. Keep the
-outer top and bottom gutters compact. Navigation and Studio inspectors open as
-nonmodal frosted panels on left-edge hover or from the toolbar. Sidebars start pinned unless a saved preference unpins them. Pinning keeps
-the panel visible and reserves its width plus a narrow gutter on desktop.
-Docked panels use the page surface color; floating panels use glass.
-Use the shared Popover glass, focus, and motion behavior without a scrim or
-scroll lock. Keep the navigation layout open and free of an inner inset.
-The page outline stays in the right column. The section rail uses a solid hook.
+Docs and Studio share one app shell. At large widths a warm near-black frame
+(`--docs-shell`, pure black in dark mode) holds an icon rail, one rounded panel,
+and a slim status line under it.
 
-Page names remain in the breadcrumb and an accessible heading. Put the page
-summary behind the footer's information HoverCard. Copy page and previous/next
-navigation belong in the same fixed footer; their menus open upward and align
-inward with a viewport gutter.
+The rail is 16 spacing units wide. It starts with the brand mark in white on a
+primary rounded tile, then the Documentation, Components, Theme Studio, Themes,
+and Changelog links, a short rule, and search, GitHub, and the theme toggle. Rail
+items are icon buttons with tooltips that open to the right; the current section
+has a flat translucent white fill. Do not add glows or blurs to rail items. Rail
+colors are fixed light-on-dark in both themes. Use Hugeicons throughout the shell.
 
-Section title rows stick below the header. Use compact opposite-tone pill labels with a small sticky offset instead of full-width
-section bars. Keep the page header and footer on the reading surface without
-extra header dividers. Use a short, pointer-transparent fade into the page surface at the scrolling edges beneath the header and above the footer. The footer is flush with the frame without a top rule; do not wrap it in another floating card. Content starts and ends 1.5rem from its section
-boundaries; paragraph gaps stay at 1rem. The shared layout owns these distances. Keep body sections on one background rather than
-alternating arbitrary fills. Use modest responsive side gutters. Docs paragraphs use the section width; split
-long explanations into short paragraphs by topic rather than narrow text columns.
+Hairlines split the panel, not gaps. The sidebar has a title row with the
+workspace switcher and a hide button. The switcher shows the title and chevrons
+and opens a menu of Documentation, Theme Studio, and Themes. The content column
+has a top bar of the same height. The sidebar can be hidden and shown again from the top bar or
+with Cmd/Ctrl+B, and the choice persists. In light mode the sidebar uses the page
+background and the content column the card color; in dark mode both share one
+surface that contrasts with the frame. Only docs pages with navigation show the
+sidebar. Themes and Changelog use the full panel.
 
-The page-outline heading aligns with the leading preview toolbar. Sidebar groups
-use whitespace and ordinary labels rather than sticky row chrome. Sidebar rows are ghost Buttons at the small control height with muted text that aligns with the group label and panel title. Selected navigation links use a rounded primary-tinted fill and semibold foreground text so selection is visible beyond text color. Studio inspector sections use spaced rounded disclosure rows with a quiet fill, without separators. The leading preview toolbar shares that row height and
-sticks until the next section; inset example toolbars stay compact without an
-extra divider. Documentation section title badges use the shared raised-key
-edge and contact shadow (`--mielui-toolbar-raised`), honoring control-shadow and
-edge-highlight settings. Put optional section explanations behind a labelled info control.
+Docs navigation starts with icon rows for search and the guides, then one group
+per component type. Rows are 8 spacing units tall with medium text; the current
+page uses the pill fill (`--docs-pill`). Group labels are muted, stay pinned to
+the top of the sidebar while their group scrolls, sit on a blurred translucent
+strip, and turn semibold foreground while pinned. A small dot marks pages that
+are open in another tab. A card pinned at the bottom shows the current page's
+position in the docs with a segmented meter; it has no icon.
 
-The leading page preview uses the shared inset frame with its ghost-tab toolbar
-and card-backed canvas. Its source remains inside the same frame, on the same
-card surface as the canvas, so switching tabs never drops the inset. Examples
-inside a section use the shared inset preview card, with the toolbar and preview
-surface contained together. Do not stretch nested card headers across the page.
-Keep both forms in the shared preview implementation and preserve example state
-when switching to code. Give the leading preview room; size supporting examples
-to their content. Use `data-preview-canvas` for canvas-specific spacing.
+The docs top bar is a tab strip. The add button opens the component catalog in a
+new tab; following a link changes the current tab, or switches to the tab that
+already shows that page. Tabs are fixed-width pills with a page icon, a label,
+and a close button on hover; they persist in local storage and scroll sideways
+when they overflow. Copy page sits at the end of the bar. Pages without tabs
+show one static pill with their name. Studio uses the same pills for its preview
+modes.
 
-The header, footer, reading surface, and docked inspectors share `--docs-content`.
-Local preview and code toolbars use `--docs-chrome`, with `bg-card` for their inner
-canvas and selected tabs. In dark mode the card sits below the toolbar, so selected
-toolbar tabs use `bg-secondary` to stay lighter than their track. Every tab, icon
-button, and example control in these toolbars uses `--size-control-sm`; controls that
-do not fit scroll within the toolbar instead of wrapping onto the canvas. Install
-command tabs, package-manager tabs, and the manual-install file picker use the same
-small height. Section pills use foreground/background tokens for
-contrast. In dark mode the reading surface is charcoal, not pure black. Preview
-controls stay in a local stacking context below sticky section headings.
+The status line is flat text on the frame, 9 spacing units tall, with no pills
+or fills: the package version linking to the changelog, the component count, the
+install command for the current component, and previous and next links at the
+end. Clicking the command copies it. Put only real, current information there.
+
+Below large widths the frame, rail, and status line disappear, the panel fills
+the screen, the tab strip collapses to the current page name, and the sidebar
+opens as a Sheet.
+
+The shell is fixed to the viewport. Only the sidebar and the content column
+scroll, never the document. Links and link buttons inside previews never
+navigate; the shared preview cancels them.
+
+Each page opens with a breadcrumb of its parents when it has more than one
+level, then a visible title and its summary as muted lead text. `PageIntro` owns
+this header. Copy page sits in the top bar. Do not hide the title or summary
+behind a hover card.
+
+The content column fills the panel. Previews, code, catalog grids, and API rows
+use the full width. Prose and short row groups stop near 76 characters. The page outline sits at the far
+right at extra-large widths as plain text links; the current heading uses medium
+foreground text. Section headings are ordinary headings that scroll with the
+page. Do not make them sticky, inverted, or pill shaped. Sections are separated by
+3rem and their content by 1rem; the shared layout owns these distances. Previous
+and next links close the article as labelled ghost Buttons above a hairline rule.
+
+Use rows for short facts and link lists. A row group is an inset frame of rows
+separated by hairlines, with a muted label in a fixed column at the start and the
+value directly beside it. Do not push values to the far edge. Rows that link somewhere put a medium label first, a muted
+summary beside it, and a chevron at the end. Use the docs `Rows` component for
+requirements, notes, next steps, and category lists instead of bulleted lists or
+bordered tables. The API reference uses the same rows, with the prop name at the
+start, then its type, description, and default. Parts without props of their own share
+one group. Catalog tiles are an inset preview above the name and summary, with no
+footer bar or hover card.
+
+Previews, code blocks, row groups, API lists, and catalog tiles use the shared
+inset frame, a chrome-colored frame around a card-colored surface. Frames follow
+the theme's border mode. With single borders they show one hairline and no
+gutter, and only frames that carry a tab or toolbar strip keep their chrome. The leading
+preview keeps its ghost Preview and Code tabs in the frame chrome with the source
+inside the same frame, and example state is preserved when switching to code.
+Keep both preview forms in the shared preview implementation and use
+`data-preview-canvas` for canvas-specific spacing. Use the soft fill
+(`--docs-soft`) only for hover states and Studio inspector groups.
+
+Isolated Notch previews invert the panel against the canvas so it stays visible
+in both themes.
+
+The API reference shows each prop's type without a trailing `| undefined`;
+optional is the default and required props are labelled. Descriptions render
+inline code.
+
+Search opens as a compact palette about 34rem wide with 15px rows, page icons,
+a muted hint at the end of a row only when it adds information, and faded top
+and bottom edges. It lists open tabs, guides, places, and quick actions before a
+query, and every component once one is typed.
+
+The Themes page shows each preset as a specimen in its own colors, type, and
+corner radius, using the preset's light or dark palette to match the page, with
+the name, description, and three facts underneath.
+
+Navigation between pages is immediate. Do not add page transitions, scroll
+snapping, or scroll-edge fades to the docs shell.
 
 Examples demonstrate a useful state change. Label icon controls, keep result
 messages in an explicit layout with a gap, and clean up timers and requests on
@@ -348,28 +399,18 @@ keep their HTML, Markdown, navigation, and search metadata aligned.
 
 ### Shared shell geometry
 
-The header, footer, On this page heading, and leading preview toolbar share
-`--docs-row-height`. Center labels and controls vertically. Header children use
-the token minus the frame border. Section pills and nested preview toolbars
-remain compact; sidebar group labels use normal content spacing.
+The docs sidebar is 18.5rem wide and the Studio sidebar 21rem. The sidebar title
+row and the top bar are both 50px tall. Top bar controls use the small control
+height with the Button's own radius and type; outline is reserved for the Copy
+page group. Separate control groups with a gap, not a divider.
 
-Align header and footer controls with the inset panels and their shared gutters.
-Keep sidebar and content edges aligned after density changes.
-Every header, footer, and inspector title-row control uses the medium control
-height: ghost Buttons for icon and text actions, outline only for the search
-trigger and the Copy page group. Use 16px icons and the Button's own radius and
-type; do not override heights, borders, or font sizes. Separate control groups
-with a gap, not a divider. Docs footer columns match the reading and outline
-columns, so Copy page ends on the content edge and the page information aligns
-with the On this page heading. The inspector title row matches the header row.
-Studio uses the same 80-spacing-unit inspector width as the documentation sidebar.
+Studio preview modes sit at the start of the top bar as the same pills the docs
+tabs use. The glass backdrop switch and preview width sit at its end. Do not add
+another toolbar row. Use the shared ghost tabs for preview width and in setup
+dialogs.
 
-Studio preview tabs belong in the main header. Preview width controls sit at the
-left of the footer's center column. Do not add another toolbar row for either.
-Use the shared ghost tabs throughout Studio, including preview and setup dialogs.
-
-Section and rail headings use semibold weight with the configured header font.
-Keep body labels and tabs lighter so section titles remain distinct.
+Section and outline headings use semibold or medium weight with the configured
+header font. Keep body labels and tabs lighter so section titles remain distinct.
 
 Live chart motion must preserve values and proportions. Animate the area fill,
 use a staggered sweep within bar bounds, and brighten pie segments in sequence
@@ -394,26 +435,31 @@ pie tooltips sit outside the ring along the pointer's angle. Chart axes and
 heatmap labels use the 12px badge size. Heatmap cells rely on grid gaps, not
 per-cell rings; only hover and focus draw an outline.
 
-Documentation content, its toolbar and footer share a horizontal inset halfway
-between five theme spacing units and 2rem (`--docs-gutter`). Rail headings retain
-five spacing units. Keep preview tabs and article headings aligned to the content
-gutter. Edge ghost icon buttons use `--docs-icon-inset` so their glyph, not
-their hover fill, lines up with that gutter.
+Studio groups settings as Theme, Color, Surfaces, Edges, Shadows, Shape and
+spacing, Interaction, Typography, and Font weights. Use toggle buttons for setting
+values; reserve tabs for switching preview content. Keep movement and cursor
+behavior under Interaction.
 
-Studio separates Appearance, Shape & spacing, Interaction, and Typography. Use
-toggle buttons for setting values; reserve tabs for switching preview content.
-Group surface framing, edge highlights, and shadows within Appearance. Keep
-movement and cursor behavior under Interaction.
+Each group is a medium-weight title above one soft rounded group of rows. A row
+has a muted label at the start and its control at the end. Selects, color triggers, and
+segmented tracks share one fixed control width so their edges align; switches and
+readouts sit at the end of the row. A slider sits on its own line under the row
+that names it. Groups are always open; only long optional sets, such as text and
+chart colors, use a disclosure inside their group. The export actions stay pinned
+under the scrolling groups. The preview fills the content column under the top bar.
+
+Studio demos are composed cards, not loose controls or section headings. The
+Components demo is a masonry of inset cards, each a small realistic task; chart
+demos sit in the same cards. Center a fixed-size component, such as a calendar,
+inside its card. With glass surfaces on, demo cards become a frosted frame with
+a visible gutter around a solid inner surface, in either border mode. The
+backdrop shows through the frame, never through the content.
 
 Setting toggles are one flat segmented track: a hairline input border on the
 card fill at the medium control height, with ToggleGroup's own selected fill and
 traveling highlight inside. Do not give each option its own border or control
-edge. Inspector field labels use Typography.Metadata; subgroups inside a section
-use a Metadata heading and spacing, not rules. Selects, color triggers, and icon
-buttons keep their default heights. Inside the preview, Components, Charts, and
-AI components use the docs section pills rather than full-width chrome bars; the
-App preview has a single app header holding the workspace menu, its tabs, and
-its actions.
+edge. Selects, color triggers, and icon buttons keep their default heights. The App preview has a single app header
+holding the workspace menu, its tabs, and its actions.
 
 Modal overlays (Dialog, AlertDialog, Sheet, Drawer, Command, and Notch) share one
 frame inset, `--mielui-modal-inset`. Anchored floating panels keep the half inset.
@@ -514,6 +560,11 @@ technology. Avoid invented endorsements or usage counts. On narrow screens,
 stack the content and allow normal page scrolling rather than clipping the hero
 to a fixed viewport.
 
+Below the hero, the page continues on the page background with a few sections.
+Each has a heading and one-line summary at the start and an install command, code
+block, or row group beside it. Cap the hero height on tall screens so the first
+section is visible. Do not add card grids, testimonials, or decoration there.
+
 Preserve the original restrained hero gradient and lighter featured showcase. The featured preview uses the shared `mielui-inset-frame` with
 its ghost tabs in the frame chrome and the demo on `mielui-inset-surface`. Keep the featured preview’s scoped light palette in both page themes. Composer
 actions sit on the frame below the input unless a demo explicitly opts into the
@@ -527,15 +578,12 @@ classes instead of invented shapes. Each card has one stretched link on its name
 Do not nest the preview inside that link, because the preview contains buttons
 and links.
 
-The documentation shell uses a pure black outer canvas with compact side
-gutters. Navigation and Studio inspectors belong to the outer
-surface. Docs page header and footer belong inside the page frame. Size each
-scrolling region from the remaining workspace height, not directly from viewport
-height.
+Size each scrolling region in docs and Studio from the remaining workspace height,
+not directly from viewport height.
 
-Navigation between Home, Docs, and Studio uses a brief 240ms pixel reveal using large, scattered square tiles between browser view snapshots. Navigation within the same family stays immediate. Keep the old page visible beneath the incoming tiles so navigation never flashes a blank surface. Skip the effect for reduced motion, same-page anchors, preview routes, and other route families; new navigation interrupts an active transition.
-
-Documentation error pages use a single centered recovery message inside the shared page frame. Keep navigation available, show the status beside the message, and omit page copying, pagination, table of contents, and empty column rules until content loads successfully.
+Documentation error pages use a single centered recovery message in the reading
+column. Keep navigation available, show the status beside the message, and omit
+pagination until content loads successfully.
 
 Menu rows and their traveling highlight share a corner radius capped at `--radius-md` and bounded by the panel radius minus its border and row inset. Short rows must not become pill-shaped inside the larger menu frame.
 

@@ -10,7 +10,6 @@
     import * as Select from '@mielui/svelte/components/select';
     import * as Tool from '@mielui/svelte/components/tool';
     import { onDestroy, onMount } from 'svelte';
-    import PreviewHeading from './preview-heading.svelte';
 
     const releasePlan = [
         '### Ready for review',
@@ -158,8 +157,8 @@
 </script>
 
 <div class="@container relative flex h-full min-h-0 w-full flex-col">
-    <header class="flex shrink-0 items-center justify-between gap-3 px-6 pt-4 pb-2">
-        <PreviewHeading title="Release workspace" class="static" />
+    <header class="flex shrink-0 items-center justify-between gap-3 px-5 pt-5 pb-2">
+        <h2 class="m-0 text-[15px] leading-6 font-medium text-foreground">Release workspace</h2>
         <Button variant="outline" onclick={() => stream(releasePlan)} disabled={generating}>
             Replay response
         </Button>
@@ -167,7 +166,7 @@
     <Conversation.Root class="min-h-0 flex-1">
         <Conversation.Content
             aria-label="Release planning conversation"
-            transcriptClass="max-w-none gap-8 px-6 pt-6 pb-[calc(var(--composer-height)+2rem)] sm:px-6"
+            transcriptClass="mx-auto max-w-3xl gap-8 px-6 pt-6 pb-[calc(var(--composer-height)+2rem)] sm:px-6"
             style={`--composer-height: ${composerHeight}px`}
         >
             <Message.Root from="user">

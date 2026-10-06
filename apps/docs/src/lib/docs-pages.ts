@@ -51,6 +51,32 @@ export const componentDocPages = [
         ])
 ];
 
+export const guideDocPages = [
+    { href: '/docs/introduction', label: 'Introduction' },
+    { href: '/docs/installation', label: 'Installation' },
+    { href: '/docs/theming', label: 'Theming' },
+    { href: '/docs/agent-skill', label: 'Agent skill' },
+    { href: '/docs/changelog', label: 'Changelog' },
+    { href: '/docs/components', label: 'Components' }
+];
+
+export const allDocPages = [...guideDocPages, ...componentDocPages];
+
+export const catalogSections = [
+    ...componentTypes.map((type) => ({
+        label: type.heading,
+        value: type.description,
+        href: componentTypeHref(type.id)
+    })),
+    ...navigationGroups
+        .filter((group) => group.id !== 'components' && group.items.length > 0)
+        .map((group) => ({
+            label: group.heading,
+            value: `${group.items.length} entries`,
+            href: group.id === 'actions' ? '/docs/actions' : `/docs/components#${group.id}`
+        }))
+];
+
 export function componentOwner(pathname: string): string | undefined {
     const segments = pathname.replace(/\/$/, '').split('/');
     if (segments[1] !== 'docs' || segments[2] !== 'components') {

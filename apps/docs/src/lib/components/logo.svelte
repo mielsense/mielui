@@ -8,6 +8,10 @@
     class="flex items-center gap-2.5 rounded-[var(--radius-md)] no-underline focus-visible:outline-none focus-visible:shadow-[var(--focus-ring)]"
     aria-label="mielui Home"
 >
-    <BrandMark size={28} />
+    <span
+        class="grid size-7 place-items-center rounded-[8px] bg-primary [--color-foreground:white]"
+    >
+        <BrandMark size={19} />
+    </span>
     <span class="font-semibold tracking-[-0.02em] text-foreground">mielui</span>
 </a>

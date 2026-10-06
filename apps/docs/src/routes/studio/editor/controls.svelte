@@ -14,6 +14,7 @@
     import HugeiconsIcon from '@mielui/svelte/hugeicons-icon';
     import { easingOptions, normalizeEase } from '$lib/studio-advanced-tokens';
     import { type FontWeight, fontWeights, formatChoice } from './config';
+    import Row from './row.svelte';
 
     export {
         advancedButton,
@@ -72,7 +73,7 @@
                             event.preventDefault();
                         }
                     }}
-                    class="h-[var(--size-control-sm)] min-w-0 flex-1 rounded-[calc(var(--radius-lg)-(var(--size-control-md)-var(--size-hairline)-var(--size-control-sm))/2)]"
+                    class="h-[var(--size-control-sm)] min-w-0 flex-1 px-1 rounded-[calc(var(--radius-lg)-(var(--size-control-md)-var(--size-hairline)-var(--size-control-sm))/2)]"
                 >
                     {formatChoice(option)}
                 </ToggleGroup.Item>
@@ -82,14 +83,13 @@
 {/snippet}
 
 {#snippet feelSelect(
-        label: string,
-        value: string,
-        options: readonly string[],
-        openAdvanced: () => void,
-        onChange: (value: string) => void
-    )}
-    <div class="flex min-w-0 flex-col gap-2">
-        <Typography.Metadata>{label}</Typography.Metadata>
+    label: string,
+    value: string,
+    options: readonly string[],
+    openAdvanced: () => void,
+    onChange: (value: string) => void
+)}
+    <Row {label} wide>
         <Group.Root class="w-full" aria-label={label}>
             <Select.Root {value} onValueChange={onChange}>
                 <Select.Trigger class="min-w-0 flex-1" variant="outline" aria-label={label}>
@@ -111,42 +111,36 @@
             <Group.Separator />
             {@render advancedButton(`Advanced ${label.toLowerCase()}`, openAdvanced)}
         </Group.Root>
-    </div>
+    </Row>
 {/snippet}
 
-{#snippet weightControl(
-        label: string,
-        value: FontWeight,
-        onChange: (value: FontWeight) => void
-    )}
-    <div class="flex items-center gap-2" role="group" aria-label={`${label} weight`}>
-        <Typography.Metadata class="w-20 shrink-0">{label}</Typography.Metadata>
-        <div class="min-w-0 flex-1">
-            {@render toggleChoice(fontWeights, value, `${label} weight`, (next) => {
-                if (next === '400' || next === '500' || next === '600' || next === '700') {
-                    onChange(next);
-                }
-            })}
-        </div>
-    </div>
+{#snippet weightControl(label: string, value: FontWeight, onChange: (value: FontWeight) => void)}
+    <Row {label} wide>
+        {@render toggleChoice(fontWeights, value, `${label} weight`, (next) => {
+            if (next === '400' || next === '500' || next === '600' || next === '700') {
+                onChange(next);
+            }
+        })}
+    </Row>
 {/snippet}
 
 {#snippet colorPickerControl(
     label: string,
     value: string,
     options: {
-    label: string;
-    value: string;
-}[],
+        label: string;
+        value: string;
+    }[],
     onChange: (value: string) => void
 )}
-    <div class="flex min-w-0 flex-col gap-2" role="group" aria-label={`${label} color`}>
-        <Typography.Metadata>{label}</Typography.Metadata>
-        <ColorPicker.Root {value} onValueChange={onChange} {options}>
-            <ColorPicker.Trigger class="w-full" />
-            <ColorPicker.Content />
-        </ColorPicker.Root>
-    </div>
+    <Row {label} wide>
+        <div class="min-w-0" role="group" aria-label={`${label} color`}>
+            <ColorPicker.Root {value} onValueChange={onChange} {options}>
+                <ColorPicker.Trigger class="w-full" />
+                <ColorPicker.Content />
+            </ColorPicker.Root>
+        </div>
+    </Row>
 {/snippet}
 
 {#snippet advancedColorField(label: string, value: string, onChange: (value: string) => void)}

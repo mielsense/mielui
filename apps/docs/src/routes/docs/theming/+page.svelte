@@ -185,7 +185,7 @@ src/lib/mielui/components/button/
         <Typography.H2 class="docs-section-heading">Global glass surfaces</Typography.H2>
         <Typography.Text variant="body" class="m-0">
             <InlineText
-                text='Glass surfaces are enabled by default. Disable them under Appearance in Studio, or set `--mielui-surface: solid` on `:root`. Components with surface support inherit that choice when the prop is omitted. Set `surface="solid"` or `surface="glass"` on one component to override the theme. Put the variable on `:root` so portaled menus and dialogs inherit it too.'
+                text='Glass surfaces are enabled by default. Disable them under Surfaces in Studio, or set `--mielui-surface: solid` on `:root`. Components with surface support inherit that choice when the prop is omitted. Set `surface="solid"` or `surface="glass"` on one component to override the theme. Put the variable on `:root` so portaled menus and dialogs inherit it too.'
             />
         </Typography.Text>
         <CodeBlock
@@ -201,7 +201,7 @@ src/lib/mielui/components/button/
             />
         </Typography.Text>
         <Typography.Text variant="body" class="m-0">
-            The glass backdrop in the Studio footer adds color behind the preview. It is a viewing
+            The glass backdrop in the Studio toolbar adds color behind the preview. It is a viewing
             aid and is not included in your exported theme.
         </Typography.Text>
     </section>
@@ -424,7 +424,7 @@ const css = themeToCss(theme);`}
 const css = themeToCss(theme);`}
         />
         <Typography.Text variant="body" class="m-0">
-            Studio exposes Edge highlight under Appearance. Turn it off to remove the highlight, or
+            Studio exposes Edge highlight under Edges. Turn it off to remove the highlight, or
             adjust its strength while enabled. Turning it back on restores the last strength used in
             that session. Preset JSON, copied CSS, saved drafts, and CLI theme imports preserve it.
         </Typography.Text>

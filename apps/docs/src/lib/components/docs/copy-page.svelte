@@ -73,22 +73,28 @@
     });
 </script>
 
-<Popover.Root bind:open placement="top-end">
+<Popover.Root bind:open placement="bottom-end">
     <Group.Root aria-label="Page actions">
         <Button
             variant="outline"
+            size="sm"
             {status}
             loadingLabel="Copying…"
             successLabel="Copied"
             errorLabel="Copy failed"
             onclick={copy}
         >
-            <HugeiconsIcon icon={CopyIcon} size={16} />
+            <HugeiconsIcon icon={CopyIcon} size={14} />
             Copy page
         </Button>
         <Group.Separator />
-        <Popover.Trigger variant="outline" size="icon" aria-label="More page actions">
-            <HugeiconsIcon icon={ArrowDownIcon} size={16} />
+        <Popover.Trigger
+            variant="outline"
+            size="icon"
+            class="size-[var(--size-control-sm)]"
+            aria-label="More page actions"
+        >
+            <HugeiconsIcon icon={ArrowDownIcon} size={14} />
         </Popover.Trigger>
     </Group.Root>
     <Popover.Content class="w-48" surfaceClass="p-1" focusTrap={false} lockScroll={false}>

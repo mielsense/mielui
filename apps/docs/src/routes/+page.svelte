@@ -8,6 +8,7 @@
     } from '@hugeicons/core-free-icons';
     import { morph } from '@mielui/svelte/actions/morph';
     import { Button } from '@mielui/svelte/components/button';
+    import { CodeBlock } from '@mielui/svelte/components/code-block';
     import * as Sheet from '@mielui/svelte/components/sheet';
     import HugeiconsIcon from '@mielui/svelte/hugeicons-icon';
     import { mode, toggleMode } from 'mode-watcher';
@@ -16,6 +17,10 @@
     import GitHubBlack from '$lib/assets/GitHub_Invertocat_Black.svg';
     import GitHubWhite from '$lib/assets/GitHub_Invertocat_White.svg';
     import { components } from '$lib/components';
+    import PackageCommand from '$lib/components/docs/package-command.svelte';
+    import Rows from '$lib/components/docs/rows.svelte';
+    import { catalogSections } from '$lib/docs-pages';
+    import '$lib/components/docs/docs-layout.css';
     import HomeShowcase from '$lib/components/home/showcase.svelte';
     import Logo from '$lib/components/logo.svelte';
     import { formatStarCount } from '$lib/github';
@@ -28,6 +33,54 @@
     const description = `${components.length} Svelte 5 components. Restyle all of them from a handful of design tokens.`;
 
     let mobileMenuOpen = $state(false);
+
+    const links = [
+        { href: resolve('/docs/components'), label: 'Components' },
+        { href: resolve('/docs/introduction'), label: 'Documentation' },
+        { href: resolve('/studio'), label: 'Studio' }
+    ];
+
+    const firstComponent = `<script>
+  import { Button } from '@mielui/svelte';
+<${'/'}script>
+
+<Button>Get started</Button>`;
+
+    const next = [
+        {
+            label: 'Theme Studio',
+            value: 'Set color, type, corners, spacing, and motion, then export CSS or JSON.',
+            href: resolve('/studio')
+        },
+        {
+            label: 'Theming',
+            value: 'Apply a preset or connect the tokens to your own design.',
+            href: resolve('/docs/theming')
+        },
+        {
+            label: 'Agent skill',
+            value: 'Give your coding agent the current APIs and patterns.',
+            href: resolve('/docs/agent-skill')
+        }
+    ];
+
+    const sections = [
+        {
+            id: 'home-install',
+            title: 'Get started',
+            description: 'Install the package, import one stylesheet, and use a component.'
+        },
+        {
+            id: 'home-inside',
+            title: `${components.length} components`,
+            description: 'Native controls, overlays, charts, and AI interfaces on one theme.'
+        },
+        {
+            id: 'home-next',
+            title: 'Make it yours',
+            description: 'Every component reads the same tokens, so one theme restyles all of them.'
+        }
+    ];
 
     $effect(() => {
         page.url.pathname;
@@ -56,25 +109,16 @@
             class="relative z-20 mx-auto grid h-16 w-full grid-cols-[1fr_auto] items-center gap-4 px-2 @3xl:grid-cols-[1fr_auto_1fr] @3xl:px-6"
         >
             <Logo />
-            <nav aria-label="Primary" class="hidden items-center gap-7 text-sm @3xl:flex">
-                <a
-                    href={resolve('/docs/components')}
-                    class="rounded-sm text-foreground transition-colors hover:text-primary focus-visible:outline-2 focus-visible:outline-primary"
-                >
-                    Components
-                </a>
-                <a
-                    href={resolve('/docs/introduction')}
-                    class="rounded-sm text-foreground transition-colors hover:text-primary focus-visible:outline-2 focus-visible:outline-primary"
-                >
-                    Documentation
-                </a>
-                <a
-                    href={resolve('/studio')}
-                    class="rounded-sm text-foreground transition-colors hover:text-primary focus-visible:outline-2 focus-visible:outline-primary"
-                >
-                    Studio
-                </a>
+            <nav aria-label="Primary" class="hidden items-center gap-0.5 @3xl:flex">
+                {#each links as link (link.href)}
+                    <Button
+                        variant="ghost"
+                        href={link.href}
+                        class="font-normal text-foreground-muted hover:text-foreground"
+                    >
+                        {link.label}
+                    </Button>
+                {/each}
             </nav>
             <div class="flex items-center justify-end gap-2">
                 <Button
@@ -125,36 +169,18 @@
                 </Sheet.Close>
             </div>
             <nav aria-label="Mobile navigation" class="flex flex-col gap-2 p-4">
-                <Button
-                    variant="ghost"
-                    class="justify-start"
-                    href={resolve('/docs/components')}
-                    onclick={() => {
-                        mobileMenuOpen = false;
-                    }}
-                >
-                    Components
-                </Button>
-                <Button
-                    variant="ghost"
-                    class="justify-start"
-                    href={resolve('/docs/introduction')}
-                    onclick={() => {
-                        mobileMenuOpen = false;
-                    }}
-                >
-                    Documentation
-                </Button>
-                <Button
-                    variant="ghost"
-                    class="justify-start"
-                    href={resolve('/studio')}
-                    onclick={() => {
-                        mobileMenuOpen = false;
-                    }}
-                >
-                    Studio
-                </Button>
+                {#each links as link (link.href)}
+                    <Button
+                        variant="ghost"
+                        class="justify-start"
+                        href={link.href}
+                        onclick={() => {
+                            mobileMenuOpen = false;
+                        }}
+                    >
+                        {link.label}
+                    </Button>
+                {/each}
             </nav>
         </Sheet.Content>
     </Sheet.Root>
@@ -162,7 +188,7 @@
     <section
         id="home-content"
         aria-labelledby="home-title"
-        class="relative isolate grid w-full flex-1 grid-cols-1 overflow-hidden rounded-[var(--radius-xl)] bg-[color-mix(in_oklab,var(--color-primary)_18%,#18181b)] text-white @5xl:min-h-[max(32rem,calc(100svh-var(--spacing)*28))] @5xl:grid-cols-[0.9fr_1.1fr]"
+        class="relative isolate grid w-full shrink-0 grid-cols-1 overflow-hidden rounded-[var(--radius-xl)] bg-[color-mix(in_oklab,var(--color-primary)_18%,#18181b)] text-white @5xl:h-[clamp(32rem,calc(100svh-11rem),44rem)] @5xl:grid-cols-[0.9fr_1.1fr]"
     >
         <div
             aria-hidden="true"
@@ -202,6 +228,38 @@
             <HomeShowcase />
         </div>
     </section>
+    <div
+        class="docs-article mx-auto flex w-full max-w-[68rem] flex-col gap-20 px-2 py-20 @3xl:px-6"
+    >
+        {#each sections as section (section.id)}
+            <section
+                aria-labelledby={section.id}
+                class="grid grid-cols-1 gap-x-12 gap-y-5 @4xl:grid-cols-[18rem_minmax(0,1fr)]"
+            >
+                <div class="flex flex-col gap-2">
+                    <h2
+                        id={section.id}
+                        class="m-0 text-xl leading-7 font-semibold tracking-[-0.015em] text-foreground"
+                    >
+                        {section.title}
+                    </h2>
+                    <p class="m-0 max-w-[36ch] text-[15px] leading-7 text-foreground-muted">
+                        {section.description}
+                    </p>
+                </div>
+                <div class="flex min-w-0 flex-col gap-3">
+                    {#if section.id === 'home-install'}
+                        <PackageCommand command="pnpm add @mielui/svelte" />
+                        <CodeBlock code={firstComponent} lang="svelte" copy="overlay" />
+                    {:else if section.id === 'home-inside'}
+                        <Rows items={catalogSections} label="Component categories" />
+                    {:else}
+                        <Rows items={next} label="Where to go next" />
+                    {/if}
+                </div>
+            </section>
+        {/each}
+    </div>
     <footer
         class="mx-auto flex w-full flex-wrap items-center justify-between gap-3 px-2 pt-4 pb-1 text-xs text-foreground-muted @3xl:px-6"
     >

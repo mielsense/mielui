@@ -1,0 +1,20 @@
+- Redesign Docs and Studio as one app shell: a dark frame with an icon rail, a rounded panel split into a collapsible sidebar and a full-width content column, and a slim status line underneath.
+- Add page tabs to the docs top bar so several pages stay open at once; tabs persist across reloads, and the sidebar marks pages that are open in another tab.
+- Show the package version, the install command for the current component, and previous and next links in the status line.
+- Pin sidebar group labels while their group scrolls, add icons to the guide links, and show the current page's position in the docs.
+- Show each page's breadcrumb, title, and summary at the top of the page instead of in the footer.
+- Rebuild the API reference as rows with each prop's name, type, description, and default, hide the redundant `| undefined` on optional props, and list parts without props of their own in one group.
+- Rewrite the Introduction, Installation, Agent skill, and Actions pages around label and value rows, including a category list and next steps that link directly.
+- Show each component's summary under its catalog preview instead of behind a hover card.
+- Rebuild the Studio inspector as always-open groups of label and control rows, and rebuild the component and chart demos as composed cards that show a frosted frame around a solid surface when glass is on.
+- Redesign the Themes page with a specimen of each preset's colors, type, and corners that follows light and dark mode.
+- Redesign search as a compact palette with larger rows, page icons, open tabs, and quick actions.
+- Keep links and link buttons inside previews from leaving the page.
+- Invert the Notch preview panel so it stays visible against the canvas.
+- Add install, component category, and next-step sections under the homepage hero.
+- Replace sticky pill section headings with ordinary headings and the outline rail with plain links.
+- Open navigation and the Studio inspector in a sheet on small screens, and show Themes and Changelog without the docs sidebar.
+- Remove the pinned glass panels, page transition, and heading scroll snap from the docs shell.
+- Fix the docs page scrolling out of view; only the sidebar and content scroll.
+- Show the brand mark in white on a primary tile in the shell, the homepage header, and the favicon.
+- Follow the theme's single or double border setting on docs code blocks, row groups, and API lists.

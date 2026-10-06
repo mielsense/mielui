@@ -5,6 +5,7 @@
     import InlineText from '$lib/components/docs/inline-text.svelte';
     import PackageCommand from '$lib/components/docs/package-command.svelte';
     import PageIntro from '$lib/components/docs/page-intro.svelte';
+    import Rows from '$lib/components/docs/rows.svelte';
 
     const packageInstall = 'pnpm add @mielui/svelte';
 
@@ -31,8 +32,35 @@ pnpm dlx @mielui/svelte list`;
     const tailwindSetup = `cd my-app
 pnpm dlx sv add tailwindcss`;
 
-    const listClass =
-        'm-0 flex list-disc flex-col gap-1.5 ps-5 text-base leading-relaxed text-foreground marker:text-foreground-muted';
+    const prerequisites = [
+        { label: 'Svelte', value: '5.56 or newer, with or without SvelteKit' },
+        { label: 'Tailwind CSS', value: 'v4' }
+    ];
+
+    const notes = [
+        {
+            label: 'Tailwind v3',
+            value: 'Not supported. Mielui needs v4 `@theme` and `color-mix`.'
+        },
+        { label: 'Dark mode', value: 'Uses a `.dark` class on `<html>`.' },
+        {
+            label: 'Theme presets',
+            value: 'Install with `pnpm dlx @mielui/svelte add theme <slug>`. Use `default` for the default preset.'
+        }
+    ];
+
+    const next = [
+        {
+            label: 'Theming',
+            value: 'Apply your brand with a preset or your own tokens.',
+            href: resolve('/docs/theming')
+        },
+        {
+            label: 'Components',
+            value: 'Browse live examples and APIs.',
+            href: resolve('/docs/components')
+        }
+    ];
 </script>
 
 <svelte:head>
@@ -45,10 +73,7 @@ pnpm dlx sv add tailwindcss`;
 
     <section id="prerequisites" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Prerequisites</Typography.H2>
-        <ul class={listClass}>
-            <li>Svelte 5.56 or newer, with or without SvelteKit</li>
-            <li>Tailwind CSS v4</li>
-        </ul>
+        <Rows items={prerequisites} label="Prerequisites" />
     </section>
 
     <section id="package-import" class="scroll-mt-20 flex flex-col gap-4">
@@ -116,29 +141,11 @@ pnpm dlx sv add tailwindcss`;
 
     <section id="notes" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Notes</Typography.H2>
-        <ul class={listClass}>
-            <li>
-                <InlineText
-                    text="Tailwind v3 is not supported. Mielui needs v4 `@theme` and `color-mix`."
-                />
-            </li>
-            <li>
-                <InlineText text="Dark mode uses a `.dark` class on `<html>`." />
-            </li>
-            <li>
-                <InlineText
-                    text="Built-in theme presets install with `pnpm dlx @mielui/svelte add theme <slug>`. Use `default` to start with the default preset."
-                />
-            </li>
-        </ul>
+        <Rows items={notes} label="Notes" />
     </section>
 
     <section id="next" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Next</Typography.H2>
-        <Typography.Text variant="body" class="m-0">
-            <InlineText
-                text={`Continue with [Theming](${resolve('/docs/theming')}) to apply your brand, or browse the [Components](${resolve('/docs/components')}).`}
-            />
-        </Typography.Text>
+        <Rows items={next} label="Next steps" />
     </section>
 </div>

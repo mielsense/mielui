@@ -1,44 +1,23 @@
 <script lang="ts">
-    import { ArrowDown01Icon as ChevronDown } from '@hugeicons/core-free-icons';
-    import * as Collapsible from '@mielui/svelte/components/collapsible';
-    import HugeiconsIcon from '@mielui/svelte/hugeicons-icon';
     import type { Snippet } from 'svelte';
 
     let {
         title,
-        open = false,
-        bodyClass = 'gap-4',
         action,
         children
     }: {
         title: string;
-        open?: boolean;
-        bodyClass?: string;
         action?: Snippet;
         children: Snippet;
     } = $props();
 </script>
 
-<Collapsible.Root {open}>
-    <section>
-        <div
-            class="flex items-center gap-2 rounded-[var(--radius-lg)] bg-secondary/25 pr-2 transition-colors hover:bg-secondary/50 has-[[data-state=open]]:bg-secondary/50"
-        >
-            <Collapsible.Trigger
-                class="group flex h-11 min-w-0 flex-1 items-center justify-between rounded-[var(--radius-lg)] px-3 text-sm font-semibold enabled:hover:bg-transparent"
-            >
-                <span>{title}</span>
-                <HugeiconsIcon
-                    icon={ChevronDown}
-                    size={14}
-                    aria-hidden="true"
-                    class="shrink-0 text-foreground-muted transition-transform [transition-duration:var(--motion-duration-panel)] ease-[var(--ease-out)] group-data-[state=open]:rotate-180 motion-reduce:transition-none"
-                />
-            </Collapsible.Trigger>
-            {@render action?.()}
-        </div>
-        <Collapsible.Content class={`flex flex-col px-2 pt-4 pb-5 ${bodyClass}`}>
-            {@render children()}
-        </Collapsible.Content>
-    </section>
-</Collapsible.Root>
+<section class="flex flex-col gap-1.5">
+    <div class="flex h-[var(--size-control-sm)] items-center justify-between gap-2 ps-3 pe-1">
+        <h2 class="m-0 text-sm font-medium text-foreground">{title}</h2>
+        {@render action?.()}
+    </div>
+    <div class="flex flex-col rounded-[var(--radius-xl)] bg-[var(--docs-soft)] px-3 py-1.5">
+        {@render children()}
+    </div>
+</section>

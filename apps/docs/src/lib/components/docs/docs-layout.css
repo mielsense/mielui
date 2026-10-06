@@ -5,96 +5,58 @@
 }
 
 .docs-article :is([data-docs-page] > section, #api-reference) {
-    @apply mt-0 scroll-mt-0 px-[var(--docs-gutter)];
+    @apply mt-12 scroll-mt-7 gap-4 border-0 p-0;
 }
 
-.docs-article :is([data-docs-page] > section:not([data-docs-toolbar]), #api-reference) {
-    @apply relative gap-4 pt-0 pb-6;
+.docs-article [data-docs-page] > :is(#hero, section[data-docs-toolbar]) {
+    @apply mt-8;
 }
 
-.docs-article [data-docs-page] > section[data-docs-toolbar] {
-    @apply sticky top-0 z-40 h-[var(--docs-row-height)] shrink-0 justify-center border-0 bg-[var(--docs-content)] py-0;
+.docs-article [data-docs-page] > section:first-child {
+    @apply mt-0;
 }
 
-.docs-article :is([data-docs-page] > section:not(#hero), #api-reference) {
-    @apply border-0;
-}
-
-.docs-article :is([data-docs-page] > section, #api-reference) > :is(h2, div:first-child:has(> h2)) {
-    @apply sticky top-[calc(var(--docs-sticky-offset,0px)+var(--spacing)*3)] z-30 mx-0 mt-3 mb-4 w-fit rounded-full border-0 bg-foreground text-background shadow-[var(--mielui-toolbar-raised)] flex h-9 items-center px-4 py-0 text-sm leading-5 font-semibold;
-}
-
-.docs-article :is([data-docs-page] > section, #api-reference) > div:first-child > h2 {
-    @apply m-0 text-sm leading-5 font-semibold text-background!;
-}
-
-.docs-article
-    :is([data-docs-page] > section, #api-reference)
-    > :not(h2, div:first-child:has(> h2)) {
-    @apply isolate;
-}
-
-.docs-article [data-docs-page] > #hero {
-    @apply px-[var(--docs-gutter)] pt-3;
+.docs-article :is([data-docs-page] > section, #api-reference) > div:first-child:has(> h2) {
+    @apply m-0;
 }
 
 .docs-article
     :is(
-        [data-docs-page] > #hero [data-component-preview],
-        [data-docs-page] > [data-component-preview]
+        [data-docs-page] > section > h2,
+        [data-docs-page] > section > div:first-child > h2,
+        #api-reference > h2,
+        #api-reference > div:first-child > h2
     ) {
-    @apply rounded-[var(--radius-xl)] border-[length:var(--border-size)] border-border bg-[var(--docs-chrome)] p-[var(--spacing)] shadow-[var(--elevation-1)];
+    @apply m-0 text-[1.25rem] leading-7 font-semibold tracking-[-0.015em] text-foreground;
 }
 
-.docs-article
-    :is(
-        [data-docs-page] > #hero [data-component-preview],
-        [data-docs-page] > [data-component-preview]
-    )
-    [data-preview-toolbar] {
-    @apply sticky top-0 z-30 h-[var(--docs-row-height)] min-h-[var(--docs-row-height)] border-0 bg-[var(--docs-chrome)]! px-3;
-}
-
-.docs-article
-    :is(
-        [data-docs-page] > #hero [data-component-preview],
-        [data-docs-page] > [data-component-preview]
-    )
-    [data-preview-canvas] {
-    @apply min-h-[min(48svh,28rem)] rounded-[calc(var(--radius-xl)-var(--spacing)-var(--border-size))] bg-card shadow-none;
-}
-
-.docs-article
-    [data-docs-page]:not(:has(> [data-component-preview]))
-    > section:first-of-type:not(#hero) {
-    @apply border-t-0;
-}
-
-.docs-article
-    :is(
-        [data-docs-page] > #hero [data-component-preview],
-        [data-docs-page] > [data-component-preview]
-    )
-    [data-preview-code] {
-    @apply rounded-none bg-transparent shadow-none;
+.docs-article [data-docs-page] > #hero [data-preview-canvas] {
+    @apply min-h-72;
 }
 
 .docs-article #examples > [id] + [id] {
-    @apply mt-6;
+    @apply mt-4;
 }
 
-.docs-article [data-docs-page] > [data-docs-toolbar] + section {
-    @apply border-t-0!;
+.docs-article :is(#examples, #api-reference) h3:not([data-component-preview] h3) {
+    @apply text-[15px] leading-6 font-medium text-foreground;
 }
 
-.docs-article #examples h3:not([data-component-preview] h3) {
-    @apply text-base font-semibold text-foreground;
+.docs-article [data-docs-page] > #hero [data-preview-toolbar] {
+    @apply h-12 px-2.5;
 }
 
-.docs-article [data-docs-page] > [data-component-preview] {
-    @apply mx-[var(--docs-gutter)] mt-3;
+.docs-article :is([data-docs-page] > section, #api-reference) > :is(p, ul, ol),
+.docs-article [data-docs-page] > section > div > p {
+    @apply max-w-[76ch];
 }
 
-[data-floating-content]:has([data-docs-inspector-pinned]) {
-    z-index: 90;
+/* Code blocks follow the theme's border mode in docs: no gutter around a
+   single-border surface. */
+.docs-article [data-ui='code-block'] {
+    --mielui-modal-inset: calc(var(--spacing) * var(--mielui-border-inset-scale, 1));
+}
+
+.docs-article [data-ui='code-block']:has([data-ui='code-block-header']) {
+    --mielui-modal-inset: var(--spacing);
 }

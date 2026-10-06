@@ -7,6 +7,7 @@
     import HugeiconsIcon from '@mielui/svelte/hugeicons-icon';
     import { cn } from '@mielui/svelte/utils';
     import type { Snippet } from 'svelte';
+    import { stayOnPage } from './stay-on-page';
 
     let {
         children,
@@ -118,6 +119,8 @@
         <div hidden={value !== 'preview'} inert={value !== 'preview'}>
             <div
                 tabindex="-1"
+                role="presentation"
+                onclickcapture={stayOnPage}
                 data-preview-canvas
                 class="mielui-inset-surface flex min-h-48 w-full min-w-0 items-center justify-center overflow-x-auto p-6 has-[iframe]:p-0 focus:outline-none sm:p-8 has-[iframe]:sm:p-0"
             >
