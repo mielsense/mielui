@@ -1,11 +1,11 @@
 /**
- * With glass surfaces on, demo cards become a frosted frame around a solid inner
- * surface, so the backdrop shows through the frame while content stays legible.
+ * With glass surfaces on, the card frame turns frosted while the inner surface
+ * stays solid. The frame shows as a gutter only with double borders, and as the
+ * footer strip in either mode.
  * Class names stay literal so Tailwind can detect them.
  */
 export const demoCardClass = [
     'min-w-0',
-    '[@container_style(--mielui-surface:glass)]:[--mielui-modal-inset:calc(var(--spacing)*1.5)]!',
     '[@container_style(--mielui-surface:glass)]:border-foreground/10!',
     '[@container_style(--mielui-surface:glass)]:supports-[backdrop-filter:blur(0)]:bg-white/30!',
     '[@container_style(--mielui-surface:glass)]:supports-[backdrop-filter:blur(0)]:dark:bg-white/[0.07]!',

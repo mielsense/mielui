@@ -6,7 +6,7 @@
 - Rebuild the API reference as rows with each prop's name, type, description, and default, hide the redundant `| undefined` on optional props, and list parts without props of their own in one group.
 - Rewrite the Introduction, Installation, Agent skill, and Actions pages around label and value rows, including a category list and next steps that link directly.
 - Show each component's summary under its catalog preview instead of behind a hover card.
-- Rebuild the Studio inspector as always-open groups of label and control rows, and rebuild the component and chart demos as composed cards that show a frosted frame around a solid surface when glass is on.
+- Rebuild the Studio inspector as always-open groups of label and control rows, and rebuild the component and chart demos as composed cards whose frame turns frosted when glass is on.
 - Redesign the Themes page with a specimen of each preset's colors, type, and corners that follows light and dark mode.
 - Redesign search as a compact palette with larger rows, page icons, open tabs, and quick actions.
 - Keep links and link buttons inside previews from leaving the page.

@@ -475,9 +475,11 @@ under the scrolling groups. The preview fills the content column under the top b
 Studio demos are composed cards, not loose controls or section headings. The
 Components demo is a masonry of inset cards, each a small realistic task; chart
 demos sit in the same cards. Center a fixed-size component, such as a calendar,
-inside its card. With glass surfaces on, demo cards become a frosted frame with
-a visible gutter around a solid inner surface, in either border mode. The
-backdrop shows through the frame, never through the content.
+inside its card. With glass surfaces on, the card frame turns frosted and the
+inner surface stays solid, so the backdrop never shows through the content. The
+frame follows the border mode. Double borders show it as a gutter around the
+surface. Single borders show no gutter, and the frosted frame appears only as a
+card's footer strip.
 
 Setting toggles are one flat segmented track: a hairline input border on the
 card fill at the medium control height, with ToggleGroup's own selected fill and
