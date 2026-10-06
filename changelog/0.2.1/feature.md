@@ -11,3 +11,5 @@
 - Hold Shift with an arrow key to move a Slider ten steps.
 - Every numeric setting in the Studio can be typed as well as dragged.
 - Undo and redo any Studio edit, preset switch or reset from the top bar or with Cmd/Ctrl+Z and Shift+Cmd/Ctrl+Z.
+- Color Picker shows a pipette button that picks a color from anywhere on screen, in browsers with the EyeDropper API.
+- Press 1 to 9 inside a Question to pick that option. Each option shows its number key.

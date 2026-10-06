@@ -136,7 +136,7 @@
         <Typography.H2 class="docs-section-heading">Panel behavior</Typography.H2>
         <Typography.Text variant="supporting">
             <InlineText
-                text={"Content shares its panel with Popover. A press outside closes the picker unless you set `allowClickOutside={false}`. `dismissLayer={false}` removes the invisible layer that catches the first outside press. `focusTrap` and `lockScroll` decide whether Tab and page scrolling are held while it is open."}
+                text={"In browsers with the EyeDropper API, currently Chrome and Edge on desktop, the hex field shows a pipette button that picks a color from anywhere on screen. Other browsers do not show the button. Content shares its panel with Popover. A press outside closes the picker unless you set `allowClickOutside={false}`. `dismissLayer={false}` removes the invisible layer that catches the first outside press. `focusTrap` and `lockScroll` decide whether Tab and page scrolling are held while it is open."}
             />
         </Typography.Text>
         <Typography.Text variant="supporting">

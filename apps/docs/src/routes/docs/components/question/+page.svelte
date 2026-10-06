@@ -193,7 +193,7 @@ async function submitAnswer(value: string) {
         </Typography.Text>
         <Typography.Text variant="supporting">
             <InlineText
-                text={"Add a Cancel part to let the person skip the question. `onCancel` on Root runs when it is pressed."}
+                text={"In a question with options, pressing 1 to 9 picks the option with that number, and each option shows its key. Digits typed into a text answer are left alone. Add a Cancel part to let the person skip the question. `onCancel` on Root runs when it is pressed."}
             />
         </Typography.Text>
         <ComponentPreview code={CancelExampleSrc}>
