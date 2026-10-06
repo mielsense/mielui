@@ -203,7 +203,9 @@ the same contracts; a visual exception must have a specific functional reason.
   theme's glass setting. Glass frosts the frame of inset and panel cards and
   leaves the content on a solid surface. In light mode the frame is a light
   foreground tint under a white veil. In dark mode it is a black tint with no
-  white veil, so frost never reads as a pale haze on a dark page.
+  white veil, so frost never reads as a pale haze on a dark page. It follows the
+  border setting: a gutter with double borders, the footer strip with single
+  borders.
 - Glass uses the shared surface helper and inherited theme setting. Keep the
   inner panel translucent enough to reveal the backdrop. Explicit solid surfaces
   remain opaque, including chart tooltips.
