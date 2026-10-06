@@ -373,8 +373,10 @@ footer bar or hover card.
 
 Previews, code blocks, row groups, API lists, and catalog tiles use the shared
 inset frame, a chrome-colored frame around a card-colored surface. Frames follow
-the theme's border mode. With single borders they show one hairline and no
-gutter, and only frames that carry a tab or toolbar strip keep their chrome. The leading
+the theme's border mode, exactly like cards. With single borders the surface is
+flush with the frame on every side except the one carrying a tab or toolbar
+strip, which stays on the frame. With double borders a gutter surrounds the
+surface. Do not force the gutter on docs previews or code blocks. The leading
 preview keeps its ghost Preview and Code tabs in the frame chrome with the source
 inside the same frame. While the source is shown, its copy button sits at the end
 of that chrome row, not over the code, and example state is preserved when switching to code.
@@ -574,8 +576,9 @@ requires a fixed order. Install command tabs and File Diff headers stay on top.
 DataTable inset mode
 keeps its toolbar above the table and summary/pagination below, independently of
 the global preference. Single borders still remove decorative frame spacing on cards and ordinary overlays.
-Inset data tables, composers, toasts, code blocks, and docs preview panels keep a narrow
-structural gutter around their inner content in both border modes.
+Inset data tables, composers, and toasts keep a narrow structural gutter around
+their inner content in both border modes. Docs preview panels and docs code
+blocks follow the border mode instead.
 Isolated viewport previews are flush with their frame border so edge-attached
 panels meet the preview edge. Notch outlines trace only the exposed perimeter;
 the attached edge stays open without a closing border line.

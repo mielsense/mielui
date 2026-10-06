@@ -86,12 +86,8 @@
     @apply max-w-[76ch];
 }
 
-/* Code blocks follow the theme's border mode in docs: no gutter around a
-   single-border surface. */
+/* Code blocks follow the theme's border mode in docs, like cards: no gutter
+   around the surface with single borders, and the tab strip stays on the frame. */
 .docs-article [data-ui='code-block'] {
     --mielui-modal-inset: calc(var(--spacing) * var(--mielui-border-inset-scale, 1));
-}
-
-.docs-article [data-ui='code-block']:has([data-ui='code-block-header']) {
-    --mielui-modal-inset: var(--spacing);
 }

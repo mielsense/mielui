@@ -69,7 +69,7 @@
 <div
     {@attach activatePreview}
     data-component-preview
-    class="mielui-inset-frame relative isolate overflow-hidden [--mielui-modal-inset:var(--spacing)] has-[iframe]:p-0!"
+    class="mielui-inset-frame relative isolate overflow-hidden has-[iframe]:p-0!"
 >
     <div class={cn(classProp, 'w-full min-w-0')}>
         <div
