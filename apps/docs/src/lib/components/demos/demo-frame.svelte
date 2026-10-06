@@ -10,6 +10,7 @@
         description,
         href,
         linkLabel,
+        fill = false,
         class: className,
         children
     }: {
@@ -21,6 +22,8 @@
         href?: string;
         /** Accessible name of the link to the components the demo is built from. */
         linkLabel?: string;
+        /** Stretches the frame to the height of its container instead of sizing to the demo. */
+        fill?: boolean;
         class?: string;
         children: Snippet;
     } = $props();
@@ -36,7 +39,7 @@
 <section
     aria-label={lead ? title : undefined}
     aria-labelledby={lead ? undefined : id}
-    class="flex min-w-0 flex-col gap-3"
+    class={cn('flex min-w-0 flex-col gap-3', fill && 'h-full min-h-0')}
 >
     <div class="flex items-center justify-between gap-3 px-1">
         <div class="flex min-w-0 items-center gap-2.5">
@@ -61,9 +64,13 @@
             </a>
         {/if}
     </div>
-    <div class="mielui-inset-frame">
+    <div class={cn('mielui-inset-frame', fill && 'flex min-h-0 flex-1 flex-col')}>
         <div
-            class={cn(className, 'mielui-inset-surface @container w-full min-w-0 overflow-hidden')}
+            class={cn(
+                className,
+                'mielui-inset-surface @container w-full min-w-0 overflow-hidden',
+                fill && 'min-h-0 flex-1'
+            )}
         >
             {@render children()}
         </div>

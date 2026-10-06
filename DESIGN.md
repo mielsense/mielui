@@ -632,12 +632,12 @@ tabs for Coding agent, Chat, and Issue. Show one demo at a time at a fixed
 height. Do not stack the demos or add a preset switcher there. Each demo is
 built from library components, works when clicked, and lives in
 `$lib/components/demos` so the Studio's AI tab renders the same files. In the
-Studio, the AI and App previews fill the whole preview pane with no frame or
-title. The AI tab puts the coding agent and the chat side by side at full height
-and scrolls sideways when the pane is too narrow for both. The App preview is a
-sidebar app: workspace switcher, view links and account menu in the sidebar,
-search and notifications in the top bar. Below 48rem the sidebar gives way to
-tabs in the top bar. A demo
+Studio, the AI and App previews are the same titled cards, stretched to the full
+height of the preview pane. Place cards side by side, never stacked. The AI tab
+shows the coding agent beside the chat and scrolls sideways when the pane is too
+narrow for both. The App preview is one card holding a sidebar app: workspace
+switcher, view links and account menu in the sidebar, search and notifications
+in the top bar. Below 48rem the sidebar gives way to tabs in the top bar. A demo
 transcript opens at its first message and follows new messages only after the
 visitor sends one.
 

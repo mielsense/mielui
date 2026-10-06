@@ -84,7 +84,7 @@
 <div class="flex h-full min-h-0 min-w-0 text-foreground">
     <aside
         aria-label="Threads"
-        class="hidden w-56 shrink-0 flex-col border-e-[length:var(--border-size)] border-border @4xl:flex"
+        class="hidden w-56 shrink-0 flex-col border-e-[length:var(--border-size)] border-border @[52rem]:flex"
     >
         <div class="flex h-12 shrink-0 items-center justify-between gap-2 ps-4 pe-2.5">
             <span class="flex min-w-0 items-center gap-2.5">
