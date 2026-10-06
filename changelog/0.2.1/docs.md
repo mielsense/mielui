@@ -22,3 +22,4 @@
 - Replace the single-element Avatar, Badge, and Toggle previews with small realistic examples.
 - Fix the count in the Checkbox preview and the percentage in the Progress preview.
 - Fade and softly blur the edges of every scrolling region in Docs and Studio while more content lies beyond them, and make long page outlines scroll.
+- Remove the rule under the top bar; content fades and blurs as it scrolls under the bar.

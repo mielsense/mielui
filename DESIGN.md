@@ -398,10 +398,12 @@ distance from each end and disappears when the scroller reaches it, so content a
 rest is never dimmed. Vertical scrollers that meet a pinned region also get a
 `ScrollEdge`, a short masked blur over that edge. This applies to the docs
 sidebar above the page meter, the Studio inspector under its title and above the
-export actions, the content column and Studio previews at the bottom of the
-panel, the navigation sheet, the page outline, the tab strip, and overflowing
-preview controls. Skip the top fade where a hairline bar or pinned group labels
-already mark the edge. Wrap a ScrollArea in `FadeScrollArea` instead of enabling
+export actions, the content column and Studio previews under the top bar and at
+the bottom of the panel, the navigation sheet, the page outline, the tab strip, and overflowing
+preview controls. The top bar has no bottom border. Content fades and blurs as
+it passes under the bar, so the bar and the page read as one surface at rest.
+Skip the top fade only in the docs sidebar, where pinned group labels mark the
+edge. Wrap a ScrollArea in `FadeScrollArea` instead of enabling
 its chevron cues.
 
 Examples demonstrate a useful state change. Label icon controls, keep result

@@ -183,7 +183,7 @@
                             <div class="relative min-h-0 min-w-0 flex-1">
                                 <div
                                     bind:this={docsScrollEl}
-                                    {@attach scrollFade({ start: false, size: 56, target: 'parent' })}
+                                    {@attach scrollFade({ size: 44, target: 'parent' })}
                                     class={`h-full overflow-y-auto overscroll-contain ${fadeY}`}
                                 >
                                     <div
@@ -192,6 +192,7 @@
                                         {@render children?.()}
                                     </div>
                                 </div>
+                                <ScrollEdge edge="top" />
                                 <ScrollEdge edge="bottom" />
                             </div>
                         {/if}

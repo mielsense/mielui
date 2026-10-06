@@ -14,7 +14,7 @@
     });
 </script>
 
-<FadeScrollArea class="h-full">
+<FadeScrollArea class="h-full" start>
     <div class="@container flex w-full flex-col">
         <Tabs.Root bind:value={model.studioView} variant="ghost">
             <Header {model} />

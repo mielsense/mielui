@@ -14,7 +14,7 @@
 <div class="relative h-full min-h-0 w-full">
     <div
         data-docs-scroll
-        {@attach scrollFade({ start: false, size: 56, target: 'parent' })}
+        {@attach scrollFade({ size: 44, target: 'parent' })}
         class={`h-full min-h-0 w-full overflow-y-auto overscroll-contain [container-type:inline-size] ${fadeY}`}
     >
         <div class="flex w-full gap-12 px-5 pt-8 pb-24 sm:px-10 lg:pt-12 2xl:gap-16 2xl:px-14">
@@ -31,5 +31,6 @@
             </aside>
         </div>
     </div>
+    <ScrollEdge edge="top" />
     <ScrollEdge edge="bottom" />
 </div>

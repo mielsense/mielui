@@ -53,7 +53,7 @@
     }
 </script>
 
-<FadeScrollArea class="h-full">
+<FadeScrollArea class="h-full" start>
     <div class="@container w-full">
         <h2 class="sr-only">Components</h2>
         <div class="columns-1 gap-4 p-4 @2xl:columns-2 @5xl:columns-3 @[88rem]:columns-4 sm:p-5">
