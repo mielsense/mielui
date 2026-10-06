@@ -94,7 +94,7 @@ export function createDocsTabs() {
 
     $effect(() => {
         const pathname = page.url.pathname;
-        if (!tracks(pathname)) {
+        if (!tracks(pathname) || page.status >= 400) {
             return;
         }
         untrack(() => {

@@ -153,7 +153,8 @@ export function createPageOutline(getContent: () => HTMLElement | undefined) {
                 return;
             }
             const found = [...root.querySelectorAll<HTMLElement>('h2, h3')].filter(
-                (node) => !node.closest('[data-component-preview]')
+                (node) =>
+                    !node.closest('[data-component-preview]') && !node.classList.contains('sr-only')
             );
             const ids = new Set<string>();
             const next = found.map((node) => {

@@ -159,12 +159,19 @@
                             {#if hasSidebar}
                                 <PageTabs />
                             {:else}
-                                <TabPill
-                                    current
-                                    label={pageLabel}
-                                    icon={pageIcon(page.url.pathname)}
-                                    href={page.url.pathname}
-                                />
+                                <span
+                                    class="min-w-0 truncate text-sm font-medium text-foreground sm:hidden"
+                                >
+                                    {pageLabel}
+                                </span>
+                                <div class="hidden sm:block">
+                                    <TabPill
+                                        current
+                                        label={pageLabel}
+                                        icon={pageIcon(page.url.pathname)}
+                                        href={page.url.pathname}
+                                    />
+                                </div>
                             {/if}
                             {#snippet actions()}
                                 {#if isDocs && page.status < 400}

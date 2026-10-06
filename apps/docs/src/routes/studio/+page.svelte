@@ -11,6 +11,7 @@
     import * as Tabs from '@mielui/svelte/components/tabs';
     import { cn } from '@mielui/svelte/utils';
     import MobileActions from '$lib/components/shell/mobile-actions.svelte';
+    import { fadeX, scrollFade } from '$lib/components/shell/scroll-fade';
     import Sidebar from '$lib/components/shell/sidebar.svelte';
     import TabPill from '$lib/components/shell/tab-pill.svelte';
     import Topbar from '$lib/components/shell/topbar.svelte';
@@ -63,7 +64,7 @@
                     <Sheet.Trigger variant="outline">Edit theme</Sheet.Trigger>
                     <Sheet.Content side="left">
                         <Sheet.Header>
-                            <Sheet.Title>Theme</Sheet.Title>
+                            <Sheet.Title>Edit theme</Sheet.Title>
                         </Sheet.Header>
                         <div class="-mx-3 flex min-h-0 flex-1 flex-col">
                             <Inspector />
@@ -72,7 +73,12 @@
                 </Sheet.Root>
             </div>
         {/snippet}
-        <div role="group" aria-label="Preview content" class="hidden items-center gap-1 md:flex">
+        <div
+            role="group"
+            aria-label="Preview content"
+            {@attach scrollFade({ axis: 'x', size: 32 })}
+            class={`hide-scrollbar-all hidden min-w-0 flex-1 items-center gap-1 overflow-x-auto p-0.5 md:flex ${fadeX}`}
+        >
             {#each previewTabs as tab (tab.value)}
                 <TabPill
                     label={tab.label}

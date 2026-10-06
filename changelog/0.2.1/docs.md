@@ -24,3 +24,7 @@
 - Fade and softly blur the edges of every scrolling region in Docs and Studio while more content lies beyond them, and make long page outlines scroll.
 - Remove the rule under the top bar; content fades and blurs as it scrolls under the bar.
 - Move the theme toggle from the rail to the end of the top bar, in Docs and Studio.
+- Fix overlapping controls in the Studio top bar on narrower screens; preview modes now scroll with a fade.
+- Give inactive tabs a quiet fill, and stop error pages from being saved as tabs.
+- Drop the repeated heading and one-item outline on component type pages.
+- Use edge fades in the Studio advanced dialogs, widen inspector controls so font names fit, and center inspector switches on touch screens.

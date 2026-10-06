@@ -130,16 +130,22 @@
 
 {#snippet catalogGroup(group: { id: string; heading: string; items: string[] }, nested: boolean)}
     <section aria-labelledby={group.id} class="flex flex-col gap-4">
-        <div class="flex items-baseline gap-2">
-            {#if nested}
-                <Typography.H3 id={group.id} class="m-0">{group.heading}</Typography.H3>
-            {:else}
-                <Typography.H2 id={group.id} class="m-0">{group.heading}</Typography.H2>
-            {/if}
-            <Typography.Metadata class={nested ? 'tabular-nums' : 'tabular-nums text-current/70'}>
-                {group.items.length}
-            </Typography.Metadata>
-        </div>
+        {#if group.heading === title && groups.length === 1}
+            <h2 id={group.id} class="sr-only">{group.heading}</h2>
+        {:else}
+            <div class="flex items-baseline gap-2">
+                {#if nested}
+                    <Typography.H3 id={group.id} class="m-0">{group.heading}</Typography.H3>
+                {:else}
+                    <Typography.H2 id={group.id} class="m-0">{group.heading}</Typography.H2>
+                {/if}
+                <Typography.Metadata
+                    class={nested ? 'tabular-nums' : 'tabular-nums text-current/70'}
+                >
+                    {group.items.length}
+                </Typography.Metadata>
+            </div>
+        {/if}
         <div class="@container">
             <ul
                 class="m-0 grid list-none grid-cols-1 gap-x-4 gap-y-8 p-0 @min-[32rem]:grid-cols-2 @min-[60rem]:grid-cols-3"

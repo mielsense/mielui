@@ -16,7 +16,10 @@
         {
             id: 'current',
             href: page.url.pathname,
-            label: getBreadcrumbs(page.url.pathname).at(-1)?.label ?? 'Docs'
+            label:
+                page.status >= 400
+                    ? 'Page not found'
+                    : (getBreadcrumbs(page.url.pathname).at(-1)?.label ?? 'Docs')
         }
     ]);
     const tabs = $derived(shell.tabs.tabs.length ? shell.tabs.tabs : fallback);

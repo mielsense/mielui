@@ -322,7 +322,8 @@ position in the docs with a segmented meter; it has no icon.
 The docs top bar is a tab strip. The add button opens the component catalog in a
 new tab; following a link changes the current tab, or switches to the tab that
 already shows that page. Tabs are fixed-width pills with a page icon, a label,
-and a close button on hover; they persist in local storage and scroll sideways
+and a close button on hover. The current tab uses the pill fill and the others a
+fainter one. Error pages are never saved as tabs; they persist in local storage and scroll sideways
 when they overflow. Copy page and the theme toggle sit at the end of the bar, in docs and in Studio. Pages without tabs
 show one static pill with their name. Studio uses the same pills for its preview
 modes.

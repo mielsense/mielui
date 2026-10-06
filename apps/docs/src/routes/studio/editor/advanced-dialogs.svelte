@@ -1,7 +1,7 @@
 <script lang="ts">
     import * as Dialog from '@mielui/svelte/components/dialog';
-    import { ScrollArea } from '@mielui/svelte/components/scroll-area';
     import * as Tabs from '@mielui/svelte/components/tabs';
+    import FadeScrollArea from '$lib/components/shell/fade-scroll-area.svelte';
     import {
         animationTokenGroups,
         colorTokenGroups,
@@ -36,7 +36,7 @@
                 </Tabs.List>
             </Tabs.Root>
         </div>
-        <ScrollArea class="min-h-0 flex-1 pr-2">
+        <FadeScrollArea class="flex-1" start>
             <div class="flex flex-col gap-5 pb-2">
                 {#each colorTokenGroups as group (group.label)}
                     <div class="flex flex-col gap-3">
@@ -63,7 +63,7 @@
                     </div>
                 {/each}
             </div>
-        </ScrollArea>
+        </FadeScrollArea>
     </Dialog.Body>
 </TokenDialog>
 <TokenDialog
@@ -72,7 +72,7 @@
     description="Fine-tune spacing, controls, corners, and borders. Changes override the sidebar controls and the selected preset."
 >
     <Dialog.Body class="min-h-0 flex-1 overflow-hidden">
-        <ScrollArea class="min-h-0 flex-1 pr-2">
+        <FadeScrollArea class="flex-1" start>
             <div class="flex flex-col gap-5 pb-2">
                 {#each spacingTokenGroups as group (group.label)}
                     <div class="flex flex-col gap-3">
@@ -103,7 +103,7 @@
                     </div>
                 {/each}
             </div>
-        </ScrollArea>
+        </FadeScrollArea>
     </Dialog.Body>
 </TokenDialog>
 <TokenDialog
@@ -112,7 +112,7 @@
     description="Fine-tune speeds and menu versus dialog movement. Changes override the sidebar controls and the selected preset."
 >
     <Dialog.Body class="min-h-0 flex-1 overflow-hidden">
-        <ScrollArea class="min-h-0 flex-1 pr-2">
+        <FadeScrollArea class="flex-1" start>
             <div class="flex flex-col gap-5 pb-2">
                 {#each animationTokenGroups as group (group.label)}
                     <div class="flex flex-col gap-3">
@@ -159,6 +159,6 @@
                     </div>
                 {/each}
             </div>
-        </ScrollArea>
+        </FadeScrollArea>
     </Dialog.Body>
 </TokenDialog>
