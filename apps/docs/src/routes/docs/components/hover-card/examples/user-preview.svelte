@@ -25,7 +25,7 @@
                     <!-- Header: Avatar + Name -->
                     <div class="flex items-center gap-3">
                         <Avatar.Root size="md">
-                            <Avatar.Fallback>AN</Avatar.Fallback>
+                            <Avatar.Fallback>MS</Avatar.Fallback>
                         </Avatar.Root>
                         <div class="flex flex-col">
                             <HoverCard.Title class="text-base">mielsense</HoverCard.Title>

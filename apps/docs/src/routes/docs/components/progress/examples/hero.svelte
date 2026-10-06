@@ -38,9 +38,11 @@
 <div class="flex w-full max-w-md flex-col gap-4">
     <div class="flex items-center justify-between gap-3 text-sm">
         <span role="status">{status}</span>
-        <span class="tabular-nums text-foreground-muted">
-            <span use:numberShuffle={{ value: value }}>{value}</span>
-            %
+        <span
+            class="tabular-nums text-foreground-muted"
+            use:numberShuffle={{ value, format: (next) => `${next}%` }}
+        >
+            {`${value}%`}
         </span>
     </div>
     <Progress aria-label="Release archive upload" {value} />
