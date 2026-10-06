@@ -9,7 +9,7 @@
 }
 
 .docs-article :is([data-docs-page] > section:not([data-docs-toolbar]), #api-reference) {
-    @apply relative gap-4 pt-4 pb-8;
+    @apply relative gap-3 pt-2 pb-8;
 }
 
 .docs-article [data-docs-page] > :is(#hero, section[data-docs-toolbar]) {
@@ -24,12 +24,39 @@
     @apply sticky top-0 z-40 h-[var(--docs-row-height)] shrink-0 justify-center bg-[var(--docs-content)] py-0;
 }
 
+/* Section titles are plain headings that stay pinned under the top bar. The row
+   is opaque so nothing shows behind it, and a short blurred fade appears beneath
+   it only while it is pinned. */
 .docs-article :is([data-docs-page] > section, #api-reference) > :is(h2, div:first-child:has(> h2)) {
-    @apply sticky top-[calc(var(--docs-sticky-offset,0px)+var(--spacing)*4)] z-30 m-0 mb-1 flex h-9 w-fit items-center rounded-full border-0 bg-foreground px-4 py-0 text-sm leading-5 font-semibold text-background shadow-[var(--mielui-toolbar-raised)];
+    @apply sticky top-[var(--docs-sticky-offset,0px)] z-30 m-0 flex h-12 w-full items-center gap-2 rounded-none border-0 bg-[var(--docs-content)] p-0 shadow-none [container-type:scroll-state];
+}
+
+.docs-article
+    :is([data-docs-page] > section, #api-reference)
+    > :is(h2, div:first-child:has(> h2))::after {
+    @apply pointer-events-none absolute inset-x-0 top-full h-5 bg-linear-to-b from-[var(--docs-content)] to-transparent opacity-0 backdrop-blur-[3px] content-[''] [mask-image:linear-gradient(to_bottom,black,transparent)];
+}
+
+@container scroll-state(stuck: top) {
+    .docs-article
+        :is([data-docs-page] > section, #api-reference)
+        > :is(h2, div:first-child:has(> h2))::after {
+        @apply opacity-100;
+    }
+}
+
+.docs-article
+    :is(
+        [data-docs-page] > section > h2,
+        [data-docs-page] > section > div:first-child > h2,
+        #api-reference > h2,
+        #api-reference > div:first-child > h2
+    ) {
+    @apply text-[1.1875rem] leading-7 font-semibold tracking-[-0.015em] text-foreground;
 }
 
 .docs-article :is([data-docs-page] > section, #api-reference) > div:first-child > h2 {
-    @apply m-0 text-sm leading-5 font-semibold text-background!;
+    @apply m-0;
 }
 
 .docs-article

@@ -349,10 +349,12 @@ behind a hover card.
 The content column fills the panel. Previews, code, catalog grids, and API rows
 use the full width. Prose and short row groups stop near 76 characters. The page outline sits at the far
 right at extra-large widths as plain text links; the current heading uses medium
-foreground text. Section title rows stick under the top bar as compact
-opposite-tone pills with the shared raised-key edge and contact shadow
-(`--mielui-toolbar-raised`), offset four spacing units from the top. Put an
-optional section explanation behind a labelled info control inside the pill.
+foreground text. Section titles are plain semibold headings on a full-width row that stays
+pinned under the top bar. The row has the opaque content background, so nothing
+shows behind or beside it, and a short blurred fade appears beneath it only while
+it is pinned. This is the same treatment as pinned sidebar group labels. Do not
+use inverted or pill-shaped section titles. Put an optional section explanation
+behind a labelled info control beside the title.
 When a downward scroll stops with the next section just below the top, the page
 settles that section into place. The settle never runs during a drag, under
 reduced motion, or with zero-duration motion. Sections are separated by
@@ -409,7 +411,7 @@ the bottom of the panel, the navigation sheet, the page outline, the tab strip, 
 preview controls. The top bar has no bottom border. Content fades and blurs as
 it passes under the bar, so the bar and the page read as one surface at rest.
 In docs the top edge is a short fill to the content color instead of a mask, so
-it does not dim the sticky section pills.
+it does not dim the pinned section titles.
 Skip the top fade only in the docs sidebar, where pinned group labels mark the
 edge. Wrap a ScrollArea in `FadeScrollArea` instead of enabling
 its chevron cues.

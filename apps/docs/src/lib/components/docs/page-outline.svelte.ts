@@ -5,8 +5,8 @@ import { page } from '$app/state';
 
 type Heading = { id: string; label: string; level: number; node: HTMLElement };
 
-/** Sticky offset of a section pill plus the gap kept under it. */
-const STICKY_GAP = 28;
+/** Gap kept between a pinned section title and the heading scrolled under it. */
+const STICKY_GAP = 8;
 
 export function createPageOutline(getContent: () => HTMLElement | undefined) {
     let headings = $state<Heading[]>([]);

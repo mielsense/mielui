@@ -28,3 +28,4 @@
 - Give inactive tabs a quiet fill, and stop error pages from being saved as tabs.
 - Drop the repeated heading and one-item outline on component type pages.
 - Use edge fades in the Studio advanced dialogs, widen inspector controls so font names fit, and center inspector switches on touch screens.
+- Section titles are plain headings that stay pinned under the top bar, with a soft fade beneath them while pinned.
