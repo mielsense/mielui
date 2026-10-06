@@ -1,5 +1,7 @@
 <script lang="ts">
+    import { MinusSignIcon } from '@hugeicons/core-free-icons';
     import { Button } from '@mielui/svelte/components/button';
+    import HugeiconsIcon from '@mielui/svelte/hugeicons-icon';
     import { cn } from '@mielui/svelte/utils';
     import { buttonAttributes } from '../_internal/button-attributes';
     import type { NumberFieldStepperProps } from '.';
@@ -43,6 +45,6 @@
     {#if children}
         {@render children()}
     {:else}
-        <span aria-hidden="true">−</span>
+        <HugeiconsIcon icon={MinusSignIcon} size={14} aria-hidden="true" />
     {/if}
 </Button>

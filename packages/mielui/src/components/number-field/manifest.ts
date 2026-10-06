@@ -17,8 +17,14 @@ export const manifest: Manifest = {
         'components/number-field/manifest.ts'
     ],
     components: ['_internal/utils', 'button'],
-    shared: ['components/_internal/button-attributes', 'utils.cn', 'utils.createContext'],
+    shared: [
+        'components/_internal/button-attributes',
+        'hugeicons-icon',
+        'utils.cn',
+        'utils.createContext'
+    ],
     peerDependencies: {
+        '@hugeicons/core-free-icons': '^4.3.0',
         svelte: '^5.56.0',
         cnfast: '^0.0.8'
     }

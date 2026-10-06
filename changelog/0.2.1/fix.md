@@ -4,3 +4,4 @@
 - `Drawer.Handle` sits at the bottom of a top drawer and becomes a vertical bar on the inner edge of left and right drawers.
 - File Diff rows no longer draw a red or green bar on their leading edge; the tint and the plus or minus sign mark the change.
 - File Diff added and removed rows keep their full tint in dark mode.
+- Number Field steppers use minus and plus icons instead of text glyphs. Source-copy installs now need `@hugeicons/core-free-icons`.
