@@ -509,7 +509,9 @@ group. A search reaches across all tabs and shows no tab as selected. Choosing a
 tab clears the search. Disclosures open while searching, and an empty result
 offers a Clear search button. A setting that differs from the selected preset shows a small reset button
 beside its label, which puts that one setting back. For a token, that removes
-the override. Each preset in the picker shows a swatch of its brand color. Copy share link
+the override. Undo and Redo sit at the start of the top bar actions and answer
+Cmd or Ctrl+Z and Shift+Cmd or Ctrl+Z. They cover every edit, preset switch and
+reset. One drag is one step. Each preset in the picker shows a swatch of its brand color. Copy share link
 puts the whole theme in the link's hash, so nothing is stored on a server.
 Opening such a link asks before it replaces the current draft. The export actions stay pinned
 under the scrolling groups. The preview fills the content column under the top bar.

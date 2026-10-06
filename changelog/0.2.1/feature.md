@@ -10,3 +10,4 @@
 - Slider reports finished changes through `onValueCommit`, once per drag and after each keyboard or typed change.
 - Hold Shift with an arrow key to move a Slider ten steps.
 - Every numeric setting in the Studio can be typed as well as dragged.
+- Undo and redo any Studio edit, preset switch or reset from the top bar or with Cmd/Ctrl+Z and Shift+Cmd/Ctrl+Z.

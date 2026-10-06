@@ -25,6 +25,7 @@ import {
     sansFonts,
     themeAxes
 } from './config';
+import { createThemeHistory } from './history.svelte';
 import { createThemeEditorStorage } from './persistence';
 import { readSharedTheme, themeShareLink } from './share';
 import { createThemeEditorState } from './state.svelte';
@@ -467,6 +468,8 @@ export function createThemeEditor() {
         };
     });
 
+    const history = createThemeHistory(state);
+
     function acceptSharedTheme() {
         if (!sharedTheme) {
             return;
@@ -483,6 +486,7 @@ export function createThemeEditor() {
     return {
         state,
         tokens,
+        history,
         acknowledgeCopy,
         setEdgeHighlightEnabled,
         resetTheme,

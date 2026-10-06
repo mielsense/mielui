@@ -3,12 +3,18 @@
         Analytics01Icon,
         BrowserIcon,
         GridViewIcon,
-        SparklesIcon
+        Redo02Icon,
+        SparklesIcon,
+        Undo02Icon
     } from '@hugeicons/core-free-icons';
+    import { Button } from '@mielui/svelte/components/button';
+    import Kbd from '@mielui/svelte/components/kbd';
     import * as Select from '@mielui/svelte/components/select';
     import * as Sheet from '@mielui/svelte/components/sheet';
     import { Switch } from '@mielui/svelte/components/switch';
     import * as Tabs from '@mielui/svelte/components/tabs';
+    import * as Tooltip from '@mielui/svelte/components/tooltip';
+    import HugeiconsIcon from '@mielui/svelte/hugeicons-icon';
     import { cn } from '@mielui/svelte/utils';
     import MobileActions from '$lib/components/shell/mobile-actions.svelte';
     import { fadeX, scrollFade } from '$lib/components/shell/scroll-fade';
@@ -45,6 +51,24 @@
         }
     });
 </script>
+
+<svelte:window
+    onkeydown={(event) => {
+        const target = event.target;
+        const typing =
+            target instanceof HTMLElement &&
+            (target.isContentEditable || ['INPUT', 'TEXTAREA', 'SELECT'].includes(target.tagName));
+        if (typing || !(event.metaKey || event.ctrlKey) || event.key.toLowerCase() !== 'z') {
+            return;
+        }
+        event.preventDefault();
+        if (event.shiftKey) {
+            editor.history.redo();
+        } else {
+            editor.history.undo();
+        }
+    }}
+/>
 
 <svelte:head>
     <title>Mielui · Theme Studio</title>
@@ -105,6 +129,42 @@
             </Select.Root>
         </div>
         {#snippet actions()}
+            <div role="group" aria-label="History" class="flex items-center">
+                <Tooltip.Root>
+                    <Tooltip.Trigger>
+                        <Button
+                            variant="ghost"
+                            size="icon"
+                            aria-label="Undo"
+                            disabled={!editor.history.canUndo}
+                            onclick={editor.history.undo}
+                        >
+                            <HugeiconsIcon icon={Undo02Icon} size={16} />
+                        </Button>
+                    </Tooltip.Trigger>
+                    <Tooltip.Content>
+                        Undo
+                        <Kbd shortcut="cmd+Z" />
+                    </Tooltip.Content>
+                </Tooltip.Root>
+                <Tooltip.Root>
+                    <Tooltip.Trigger>
+                        <Button
+                            variant="ghost"
+                            size="icon"
+                            aria-label="Redo"
+                            disabled={!editor.history.canRedo}
+                            onclick={editor.history.redo}
+                        >
+                            <HugeiconsIcon icon={Redo02Icon} size={16} />
+                        </Button>
+                    </Tooltip.Trigger>
+                    <Tooltip.Content>
+                        Redo
+                        <Kbd shortcut="shift+cmd+Z" />
+                    </Tooltip.Content>
+                </Tooltip.Root>
+            </div>
             <div class="hidden items-center gap-3 pe-1 text-[13px] md:flex">
                 <Switch bind:checked={studio.glassBackdrop} label="Glass backdrop" />
                 <Tabs.Root bind:value={studio.width} variant="ghost">
