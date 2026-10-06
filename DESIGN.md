@@ -481,7 +481,9 @@ inside its card. With glass surfaces on, the card frame turns frosted and the
 inner surface stays solid, so the backdrop never shows through the content. The
 frame follows the border mode. Double borders show it as a gutter around the
 surface. Single borders show no gutter, and the frosted frame appears only as a
-card's footer strip.
+card's footer strip. Over the glass backdrop the frame is a white frost. Without
+the backdrop it is a faint foreground tint, so the frame keeps the contrast it
+has with glass off.
 
 Setting toggles are one flat segmented track: a hairline input border on the
 card fill at the medium control height, with ToggleGroup's own selected fill and
