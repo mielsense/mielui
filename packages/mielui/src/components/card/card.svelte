@@ -14,7 +14,7 @@
 
     const blur =
         'backdrop-blur-[calc(var(--spacing)*7)] backdrop-saturate-150 [@media(prefers-reduced-transparency:reduce)]:backdrop-filter-none';
-    const frameGlass = `${blur} border-foreground/10! supports-[backdrop-filter:blur(0)]:bg-foreground/[0.06]! supports-[backdrop-filter:blur(0)]:bg-[linear-gradient(rgb(255_255_255/0.25),rgb(255_255_255/0.25))] supports-[backdrop-filter:blur(0)]:dark:bg-[linear-gradient(rgb(255_255_255/0.05),rgb(255_255_255/0.05))] [@media(prefers-reduced-transparency:reduce)]:bg-none [@media(prefers-reduced-transparency:reduce)]:bg-secondary!`;
+    const frameGlass = `${blur} border-foreground/10! supports-[backdrop-filter:blur(0)]:bg-foreground/[0.06]! supports-[backdrop-filter:blur(0)]:dark:bg-black/45! supports-[backdrop-filter:blur(0)]:bg-[linear-gradient(rgb(255_255_255/0.25),rgb(255_255_255/0.25))] supports-[backdrop-filter:blur(0)]:dark:bg-none [@media(prefers-reduced-transparency:reduce)]:bg-none [@media(prefers-reduced-transparency:reduce)]:bg-secondary!`;
     const surfaceGlass = `${blur} border-foreground/10! supports-[backdrop-filter:blur(0)]:bg-card/75! [@media(prefers-reduced-transparency:reduce)]:bg-card!`;
     const glass = $derived(surface === 'glass');
     const card = $state({

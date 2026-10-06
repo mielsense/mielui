@@ -8,3 +8,4 @@
 - Radio Group leaves more room between options, so each description sits closer to its own label than to the next option.
 - Composer's toolbar and send button use the small control size, so the strip under the input is shorter.
 - Stop descenders such as g and p being cut off in Select triggers and in truncated text inside buttons.
+- Glass cards frost dark in dark mode, where they used a pale white veil.

@@ -201,10 +201,9 @@ the same contracts; a visual exception must have a specific functional reason.
   floats a two-spacing-unit gap from its edge with all corners rounded.
 - Card takes `surface="glass"` and is solid by default. It does not inherit the
   theme's glass setting. Glass frosts the frame of inset and panel cards and
-  leaves the content surface solid. The frame is a faint foreground tint under a
-  white veil, so it keeps contrast over a plain page and reads as frost over a
-  backdrop. It follows the border setting: a gutter with double borders, the
-  footer strip with single borders.
+  leaves the content on a solid surface. In light mode the frame is a light
+  foreground tint under a white veil. In dark mode it is a black tint with no
+  white veil, so frost never reads as a pale haze on a dark page.
 - Glass uses the shared surface helper and inherited theme setting. Keep the
   inner panel translucent enough to reveal the backdrop. Explicit solid surfaces
   remain opaque, including chart tooltips.
@@ -659,7 +658,7 @@ tall screens so the first section is visible. Do not add card grids,
 testimonials, or decoration there.
 
 Preserve the original restrained hero gradient and lighter featured showcase. The featured preview uses the shared `mielui-inset-frame` with
-its ghost tabs in the frame chrome and the demo on `mielui-inset-surface`. Keep the featured preview’s scoped light palette in both page themes. Composer
+its ghost tabs in the frame chrome and the demo on `mielui-inset-surface`. The featured preview follows the page theme: a light palette on white frost in light mode, and a dark palette on black frost in dark mode. Composer
 actions sit on the frame below the input unless a demo explicitly opts into the
 joined inset toolbar.
 
