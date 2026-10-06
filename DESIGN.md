@@ -313,8 +313,9 @@ sidebar. Themes and Changelog use the full panel.
 Docs navigation starts with icon rows for search and the guides, then one group
 per component type. Rows are 8 spacing units tall with medium text; the current
 page uses the pill fill (`--docs-pill`). Group labels are muted, stay pinned to
-the top of the sidebar while their group scrolls, sit on a blurred translucent
-strip, and turn semibold foreground while pinned. A small dot marks pages that
+the top of the sidebar while their group scrolls, and turn semibold foreground
+while pinned. A pinned label has an opaque background, so no row shows behind
+it, and a short blurred fade directly beneath it. A small dot marks pages that
 are open in another tab. A card pinned at the bottom shows the current page's
 position in the docs with a segmented meter; it has no icon.
 

@@ -39,7 +39,7 @@
     const rowClass =
         'group/row flex h-8 w-full min-w-0 items-center gap-3 rounded-[var(--radius-sm)] px-2.5 text-start text-sm font-medium text-foreground/85 transition-colors [transition-duration:var(--motion-duration-hover)] hover:bg-[var(--docs-pill)] hover:text-foreground focus-visible:outline-none focus-visible:shadow-[var(--focus-ring)] aria-[current=page]:bg-[var(--docs-pill)] aria-[current=page]:text-foreground motion-reduce:transition-none';
     const labelClass =
-        'flex h-9 items-center rounded-[var(--radius-sm)] px-2.5 text-[13px] font-medium text-foreground-muted [@container_scroll-state(stuck:top)]:font-semibold [@container_scroll-state(stuck:top)]:text-foreground';
+        'flex h-8 items-center rounded-[var(--radius-sm)] px-2.5 text-[13px] font-medium text-foreground-muted [@container_scroll-state(stuck:top)]:font-semibold [@container_scroll-state(stuck:top)]:text-foreground';
 
     const guides = [
         { label: 'Introduction', href: resolve('/docs/introduction'), icon: Book },
@@ -159,7 +159,7 @@
     {#each sections as section (section.id)}
         <section class="flex flex-col gap-0.5">
             <h2
-                class="sticky top-0 z-10 -mx-[15px] m-0 bg-[color-mix(in_srgb,var(--docs-side)_90%,transparent)] px-[15px] backdrop-blur-md [container-type:scroll-state] after:pointer-events-none after:absolute after:inset-x-0 after:top-full after:h-3 after:bg-linear-to-b after:from-[color-mix(in_srgb,var(--docs-side)_90%,transparent)] after:to-transparent"
+                class="sticky top-0 z-10 -mx-[15px] m-0 bg-[var(--docs-side)] px-[15px] [container-type:scroll-state] after:pointer-events-none after:absolute after:inset-x-0 after:top-full after:h-5 after:bg-linear-to-b after:from-[var(--docs-side)] after:to-transparent after:backdrop-blur-[3px] after:[mask-image:linear-gradient(to_bottom,black,transparent)]"
             >
                 <a
                     href={section.href}
