@@ -12,3 +12,4 @@
 - Stop descenders being cut off in truncated menu, select, combobox and command rows.
 - Classes passed to `Command.Header` now override its default padding and text color.
 - Keep the Command search row at its full height when the results are long.
+- Color Picker no longer outlines its color area when opened with the mouse. The focus ring shows for keyboard focus only.
