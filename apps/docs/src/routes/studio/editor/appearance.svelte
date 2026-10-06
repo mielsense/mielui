@@ -1,6 +1,4 @@
 <script lang="ts">
-    import { numberShuffle } from '@mielui/svelte/actions/number-shuffle';
-    import { Slider } from '@mielui/svelte/components/slider';
     import { Switch } from '@mielui/svelte/components/switch';
     import { getThemeEditor } from './context';
     import { toggleChoice } from './controls.svelte';
@@ -33,14 +31,14 @@
 </script>
 
 <EditorSection title="Surfaces" keywords="glass frame inset">
-    <Row label="Borders" wide reset={resetAppearance('borders')}>
+    <Row label="Borders" reset={resetAppearance('borders')}>
         {@render toggleChoice(['single', 'double'], editor.state.borders, 'Borders', (value) => {
             if (value === 'single' || value === 'double') {
                 editor.state.borders = value;
             }
         })}
     </Row>
-    <Row label="Inset strip" wide reset={resetAppearance('insetPosition')}>
+    <Row label="Inset strip" reset={resetAppearance('insetPosition')}>
         {@render toggleChoice(
             ['top', 'bottom'],
             editor.state.insetPosition,
@@ -65,32 +63,19 @@
         />
     </Row>
     {#if editor.state.edgeHighlight > 0}
-        <Row label="Strength">
-            <span
-                class="text-sm tabular-nums text-foreground"
-                use:numberShuffle={{
-                    value: edgePercent,
-                    format: (value) => `${value}%`
-                }}
-            >
-                {`${edgePercent}%`}
-            </span>
-            {#snippet below()}
-                <div class="pb-3">
-                    <Slider
-                        value={edgePercent}
-                        min={1}
-                        max={100}
-                        step={1}
-                        label="Edge highlight strength"
-                        class="h-4"
-                        onValueChange={(value: number) => {
-                            editor.state.edgeHighlight = value / 100;
-                        }}
-                    />
-                </div>
-            {/snippet}
-        </Row>
+        <Row
+            label="Strength"
+            slider={{
+                value: edgePercent,
+                min: 1,
+                max: 100,
+                step: 1,
+                format: (value) => `${value}%`,
+                onValueChange: (value) => {
+                    editor.state.edgeHighlight = value / 100;
+                }
+            }}
+        />
     {/if}
     <Row label="Primary button border" reset={resetAppearance('primaryStroke')}>
         <Switch bind:checked={editor.state.primaryStroke} aria-label="Primary button border" />

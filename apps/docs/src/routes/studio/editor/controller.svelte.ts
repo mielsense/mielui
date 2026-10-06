@@ -1,10 +1,9 @@
-import type { SliderProps } from '@mielui/svelte/components/slider';
 import { toast } from '@mielui/svelte/components/toast';
 import { builtInThemePresets } from '@mielui/svelte/themes/builtin-presets';
 import { applyLiveThemeCss, loadStudioTheme, saveStudioTheme } from '@mielui/svelte/themes/live';
 import { parseTheme, type Theme, themeToCss } from '@mielui/svelte/themes/theme';
 import { mode, setMode } from 'mode-watcher';
-import { onDestroy, onMount } from 'svelte';
+import { onDestroy, onMount, untrack } from 'svelte';
 import { readThemeAppearance } from './appearance';
 import {
     brandTokens,
@@ -267,20 +266,6 @@ export function createThemeEditor() {
         state.roleWeights = { ...state.roleWeights, [key]: value };
     }
 
-    function headerSliderProps(): SliderProps {
-        return {
-            value: state.headerSize,
-            min: 10,
-            max: 32,
-            step: 1,
-            label: 'Header size',
-            class: 'h-4',
-            onValueChange: (value) => {
-                state.headerSize = value;
-            }
-        };
-    }
-
     function confirmPresetChange() {
         if (!state.pendingPreset) {
             return;
@@ -417,6 +402,9 @@ export function createThemeEditor() {
         const css = generatedCss;
         document.documentElement.style.removeProperty('--font-sans');
         applyLiveThemeCss(css);
+        untrack(() => {
+            state.appliedRevision += 1;
+        });
         saveStudioTheme(exportedTheme);
         storage.save();
     });
@@ -501,7 +489,6 @@ export function createThemeEditor() {
         updateBrand,
         updateFoundationColor,
         updateRoleWeight,
-        headerSliderProps,
         confirmPresetChange,
         acceptSharedTheme,
         dismissSharedTheme,

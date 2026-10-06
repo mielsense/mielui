@@ -47,6 +47,55 @@ export function createThemeTokenEditor(state: ThemeEditorState, getMode: () => '
         };
     }
 
+    function withoutToken<Name extends string>(
+        overrides: Partial<Record<Name, string>>,
+        name: Name
+    ) {
+        const next = { ...overrides };
+        delete next[name];
+
+        return next;
+    }
+
+    function colorTokenReset(name: ColorTokenName) {
+        return {
+            changed: Boolean(state.advancedTokens.colors[getMode()][name]?.trim()),
+            run: () => {
+                state.advancedTokens = {
+                    ...state.advancedTokens,
+                    colors: {
+                        ...state.advancedTokens.colors,
+                        [getMode()]: withoutToken(state.advancedTokens.colors[getMode()], name)
+                    }
+                };
+            }
+        };
+    }
+
+    function spacingTokenReset(name: SpacingTokenName) {
+        return {
+            changed: Boolean(state.advancedTokens.spacing[name]?.trim()),
+            run: () => {
+                state.advancedTokens = {
+                    ...state.advancedTokens,
+                    spacing: withoutToken(state.advancedTokens.spacing, name)
+                };
+            }
+        };
+    }
+
+    function animationTokenReset(name: AnimationTokenName) {
+        return {
+            changed: Boolean(state.advancedTokens.animation[name]?.trim()),
+            run: () => {
+                state.advancedTokens = {
+                    ...state.advancedTokens,
+                    animation: withoutToken(state.advancedTokens.animation, name)
+                };
+            }
+        };
+    }
+
     function colorTokenFallback(definition: ColorTokenDefinition) {
         if (getMode() === 'dark' && 'darkFallback' in definition && definition.darkFallback) {
             return definition.darkFallback;
@@ -56,6 +105,7 @@ export function createThemeTokenEditor(state: ThemeEditorState, getMode: () => '
     }
 
     function readCssVar(name: string) {
+        void state.appliedRevision;
         if (typeof document === 'undefined') {
             return '';
         }
@@ -175,6 +225,9 @@ export function createThemeTokenEditor(state: ThemeEditorState, getMode: () => '
         updateAdvancedColorToken,
         updateAdvancedSpacingToken,
         updateAdvancedAnimationToken,
+        colorTokenReset,
+        spacingTokenReset,
+        animationTokenReset,
         resolveColorToken,
         resolveSpacingToken,
         animationSliderValue,

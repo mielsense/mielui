@@ -4,3 +4,5 @@
 - Card accepts `surface="glass"`, which frosts the card frame so a backdrop shows through while the content stays on a solid surface.
 - `HoverCard.Content` accepts `sideOffset` to set the gap between the trigger and the card.
 - Slider accepts `variant="field"`, a bar with the label and value inside that you drag anywhere to scrub, and `format` to control how the value reads.
+- Group the Studio settings into Color, Type, Shape, Surface, and Motion tabs.
+- Show every Studio token inline as a row, with numeric values as scrub fields, in place of the Advanced dialogs.

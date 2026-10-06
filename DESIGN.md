@@ -390,7 +390,7 @@ inside the same frame. While the source is shown, its copy button sits at the en
 of that chrome row, not over the code, and example state is preserved when switching to code.
 Keep both preview forms in the shared preview implementation and use
 `data-preview-canvas` for canvas-specific spacing. Use the soft fill
-(`--docs-soft`) only for hover states and Studio inspector groups.
+(`--docs-soft`) only for hover states and Studio setting rows.
 
 Isolated Notch previews invert the panel against the canvas so it stays visible
 in both themes.
@@ -479,22 +479,27 @@ pie tooltips sit outside the ring along the pointer's angle. Chart axes and
 heatmap labels use the 12px badge size. Heatmap cells rely on grid gaps, not
 per-cell rings; only hover and focus draw an outline.
 
-Studio groups settings as Theme, Color, Surfaces, Edges, Shadows, Shape and
-spacing, Interaction, Typography, and Font weights. Use toggle buttons for setting
-values; reserve tabs for switching preview content. Keep movement and cursor
-behavior under Interaction.
+The Studio sidebar holds the settings search, the preset picker, and five tabs:
+Color, Type, Shape, Surface, and Motion. The preset picker stays above the tabs
+because it applies to all of them. Each tab lists every setting it owns inline.
+Do not move settings into a dialog or behind an Advanced button. Use toggle
+buttons for a choice between two values.
 
-Each group is a medium-weight title above one soft rounded group of rows. A row
-has a muted label at the start and its control at the end. Selects, color triggers, and
-segmented tracks share one fixed control width so their edges align; switches and
-readouts sit at the end of the row. A slider sits on its own line under the row
-that names it. Groups are always open; only long optional sets, such as text and
-chart colors, use a disclosure inside their group. A search field above the
+Each group is a small medium-weight title above a column of rows. A row is one
+soft rounded bar, 36px tall, with a muted label at the start and its control at
+the end. Controls inside a bar carry no border of their own: selects and color
+triggers are ghost buttons, a color shows its name or hex before the swatch, and
+a two-value choice is a pair of text toggles. A numeric setting is a Slider with
+`variant="field"`, so the bar itself is the control and its value sits at the
+end in the mono font. Only the full list of color tokens sits behind a
+disclosure, at the end of the Color tab. A search field above the
 groups filters settings by name. A query that matches a row shows that row in its
 group. A query that matches only a group's title or keywords shows the whole
-group. Disclosures open while searching, and an empty result offers a Clear
-search button. A setting that differs from the selected preset shows a small reset button
-beside its label, which puts that one setting back. Each preset in the picker shows a swatch of its brand color. Copy share link
+group. A search reaches across all tabs and shows no tab as selected. Choosing a
+tab clears the search. Disclosures open while searching, and an empty result
+offers a Clear search button. A setting that differs from the selected preset shows a small reset button
+beside its label, which puts that one setting back. For a token, that removes
+the override. Each preset in the picker shows a swatch of its brand color. Copy share link
 puts the whole theme in the link's hash, so nothing is stored on a server.
 Opening such a link asks before it replaces the current draft. The export actions stay pinned
 under the scrolling groups. The preview fills the content column under the top bar.

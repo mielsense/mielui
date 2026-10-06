@@ -20,7 +20,6 @@
     import AppPreview from './app-preview.svelte';
     import ChartPreview from './chart-preview.svelte';
     import ComponentPreview from './component-preview.svelte';
-    import AdvancedDialogs from './editor/advanced-dialogs.svelte';
     import { setThemeEditor } from './editor/context';
     import { createThemeEditor } from './editor/controller.svelte';
     import Inspector from './editor/inspector.svelte';
@@ -152,6 +151,5 @@
 </div>
 
 <ThemeSetupDialog bind:open={editor.state.setupOpen} generatedJson={editor.generatedJson} />
-<AdvancedDialogs />
 <PresetDialog />
 <SharedThemeDialog />
