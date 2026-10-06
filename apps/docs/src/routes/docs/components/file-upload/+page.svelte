@@ -160,7 +160,7 @@
         </Typography.Text>
         <Typography.Text variant="supporting">
             <InlineText
-                text={"Trigger, Retry and Remove are built on [Button](/docs/components/button), so they accept its props. `variant` and `size` change the look, `disabled` blocks activation, and `href` renders a link. `loading` shows a spinner and ignores clicks, and `loadingLabel`, `successLabel` and `errorLabel` set the text for each state. `unstyled` removes the Button classes so `class` alone styles the part. `onclick` and `onkeydown` run before the part does its own work. `element` binds the DOM node of each one."}
+                text={"Trigger, Retry and Remove are built on [Button](/docs/components/button), so they accept its props. `variant` and `size` change the look and `disabled` blocks activation. `loading` shows a spinner and ignores clicks, and `loadingLabel`, `successLabel` and `errorLabel` set the text for each state. `unstyled` removes the Button classes so `class` alone styles the part. `onclick` and `onkeydown` run before the part does its own work. `element` binds the DOM node of each one."}
             />
         </Typography.Text>
         <ComponentPreview code={DisabledExampleSrc}>

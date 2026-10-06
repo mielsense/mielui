@@ -134,7 +134,7 @@
         <Typography.H2 class="docs-section-heading">Items and other parts</Typography.H2>
         <Typography.Text variant="supporting">
             <InlineText
-                text={"Item and CheckboxItem are built on [Button](/docs/components/button). `size` changes the row height, `href` turns a row into a link, and `loading` with `loadingLabel`, `successLabel` and `errorLabel` shows progress. `element` binds the DOM node, `unstyled` removes the Button classes, and `onkeydown` runs before the menu handles the key."}
+                text={"Item and CheckboxItem are built on [Button](/docs/components/button). `size` changes the row height and `loading` with `loadingLabel`, `successLabel` and `errorLabel` shows progress. `element` binds the DOM node, `unstyled` removes the Button classes, and `onkeydown` runs before the menu handles the key. A row is always a button, so `href` is ignored. Navigate from `callback` instead."}
             />
         </Typography.Text>
         <Typography.Text variant="supporting">

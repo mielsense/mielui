@@ -145,7 +145,7 @@
         </Typography.Text>
         <Typography.Text variant="supporting">
             <InlineText
-                text={"Item is built on [Button](/docs/components/button) too. `href` makes an option a link, and `loading` with `loadingLabel`, `successLabel` and `errorLabel` shows progress on an option that starts slow work. `element`, `unstyled` and `onkeydown` behave as they do on Trigger."}
+                text={"Item is built on [Button](/docs/components/button) too. `loading` with `loadingLabel`, `successLabel` and `errorLabel` shows progress on an option that starts slow work. `element`, `unstyled` and `onkeydown` behave as they do on Trigger. An option is always a button, so `href` is ignored."}
             />
         </Typography.Text>
         <Typography.Text variant="supporting">
