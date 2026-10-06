@@ -2,8 +2,11 @@
     import { CodeBlock } from '@mielui/svelte/components/code-block';
     import * as Typography from '@mielui/svelte/components/typography';
     import { ComponentPreview, InstallCommand } from '$lib/components/docs';
+    import InlineText from '$lib/components/docs/inline-text.svelte';
     import PageIntro from '$lib/components/docs/page-intro.svelte';
     import SectionHeading from '$lib/components/docs/section-heading.svelte';
+    import CancelExample from './examples/cancel.svelte';
+    import CancelExampleSrc from './examples/cancel.svelte?raw';
     import ComposerTakeover from './examples/composer-takeover.svelte';
     import ComposerTakeoverSrc from './examples/composer-takeover.svelte?raw';
     import FreeText from './examples/free-text.svelte';
@@ -180,5 +183,34 @@ async function submitAnswer(value: string) {
                 <ComposerTakeover />
             </ComponentPreview>
         </div>
+    </section>
+    <section id="text-answers" class="flex flex-col gap-4">
+        <Typography.H2 class="docs-section-heading">Text answers and cancelling</Typography.H2>
+        <Typography.Text variant="supporting">
+            <InlineText
+                text={"Input is a textarea that grows as the person types. `rows` sets its starting height, 2 by default, and `autoresize={false}` keeps that height and scrolls instead. Enter submits and Shift+Enter adds a line. Set `submitOnEnter={false}` when answers run to several paragraphs, so Enter adds a line and only the Submit button sends. `readonly` shows the answer without allowing edits, which suits a question that has already been answered."}
+            />
+        </Typography.Text>
+        <Typography.Text variant="supporting">
+            <InlineText
+                text={"Add a Cancel part to let the person skip the question. `onCancel` on Root runs when it is pressed."}
+            />
+        </Typography.Text>
+        <ComponentPreview code={CancelExampleSrc}>
+            <CancelExample />
+        </ComponentPreview>
+    </section>
+    <section id="parts" class="flex flex-col gap-4">
+        <Typography.H2 class="docs-section-heading">Parts</Typography.H2>
+        <Typography.Text variant="supporting">
+            <InlineText
+                text={"Submit takes `loadingLabel` for the text it shows while `onSubmit` is pending. Submit, Input and Option accept `element` to bind their DOM node."}
+            />
+        </Typography.Text>
+        <Typography.Text variant="supporting">
+            <InlineText
+                text={"Root, Content, Title, Description, Options, Actions, Cancel and Submit render their `children` and accept `class` and `style` like any element."}
+            />
+        </Typography.Text>
     </section>
 </div>

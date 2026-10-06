@@ -2,7 +2,10 @@
     import { CodeBlock } from '@mielui/svelte/components/code-block';
     import * as Typography from '@mielui/svelte/components/typography';
     import { ComponentPreview, InstallCommand } from '$lib/components/docs';
+    import InlineText from '$lib/components/docs/inline-text.svelte';
     import PageIntro from '$lib/components/docs/page-intro.svelte';
+    import DisabledExample from './examples/disabled.svelte';
+    import DisabledExampleSrc from './examples/disabled.svelte?raw';
     import Hero from './examples/hero.svelte';
     import HeroSrc from './examples/hero.svelte?raw';
     import Single from './examples/single.svelte';
@@ -147,5 +150,21 @@
             lang="svelte"
             copy="overlay"
         />
+    </section>
+    <section id="buttons" class="flex flex-col gap-4">
+        <Typography.H2 class="docs-section-heading">Buttons and the disabled state</Typography.H2>
+        <Typography.Text variant="supporting">
+            <InlineText
+                text={"Set `disabled` on Root to stop new files from being chosen or dropped, for example while a form is submitting. Files already in the list stay where they are."}
+            />
+        </Typography.Text>
+        <Typography.Text variant="supporting">
+            <InlineText
+                text={"Trigger, Retry and Remove are built on [Button](/docs/components/button), so they accept its props. `variant` and `size` change the look, `disabled` blocks activation, and `href` renders a link. `loading` shows a spinner and ignores clicks, and `loadingLabel`, `successLabel` and `errorLabel` set the text for each state. `unstyled` removes the Button classes so `class` alone styles the part. `onclick` and `onkeydown` run before the part does its own work. `element` binds the DOM node of each one."}
+            />
+        </Typography.Text>
+        <ComponentPreview code={DisabledExampleSrc}>
+            <DisabledExample />
+        </ComponentPreview>
     </section>
 </div>

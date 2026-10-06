@@ -2,6 +2,7 @@
     import { CodeBlock } from '@mielui/svelte/components/code-block';
     import * as Typography from '@mielui/svelte/components/typography';
     import { ComponentPreview, InstallCommand } from '$lib/components/docs';
+    import InlineText from '$lib/components/docs/inline-text.svelte';
     import PageIntro from '$lib/components/docs/page-intro.svelte';
     import Depth from './examples/depth.svelte';
     import DepthSrc from './examples/depth.svelte?raw';
@@ -78,6 +79,14 @@
             Use Item inside a single or multiple Group for persistent choices. Use Toolbar.Button
             for a one-time action such as Clear. Label the toolbar and each icon-only control; the
             examples display the selected tool or apply formatting to a sample sentence.
+        </Typography.Text>
+    </section>
+    <section id="parts" class="flex flex-col gap-4">
+        <Typography.H2 class="docs-section-heading">Parts</Typography.H2>
+        <Typography.Text variant="supporting">
+            <InlineText
+                text={"Root, Group, Item, Button and Link render their `children` and accept `style` for inline styles next to `class`. Separator draws the line between groups. It is announced as a separator by default. Set `decorative` when the line is only visual, so screen readers skip it. Toolbar is a second, simpler container. It is a plain element with the toolbar role and arrow-key navigation between whatever controls you put in its `children`, for a bar built from ordinary buttons."}
+            />
         </Typography.Text>
     </section>
 </div>

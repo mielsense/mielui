@@ -3,8 +3,11 @@
     import Kbd from '@mielui/svelte/components/kbd';
     import * as Typography from '@mielui/svelte/components/typography';
     import { ComponentPreview, InstallCommand } from '$lib/components/docs';
+    import InlineText from '$lib/components/docs/inline-text.svelte';
     import PageIntro from '$lib/components/docs/page-intro.svelte';
     import SectionHeading from '$lib/components/docs/section-heading.svelte';
+    import AllowEmptyExample from './examples/allow-empty.svelte';
+    import AllowEmptyExampleSrc from './examples/allow-empty.svelte?raw';
 
     import Attachments from './examples/attachments.svelte';
     import AttachmentsSrc from './examples/attachments.svelte?raw';
@@ -165,5 +168,36 @@ async function sendPrompt(prompt: string) {
             </Typography.Text>
             <ComponentPreview code={ToolbarInsetSrc}><ToolbarInset /></ComponentPreview>
         </div>
+    </section>
+    <section id="empty-and-disabled" class="flex flex-col gap-4">
+        <Typography.H2 class="docs-section-heading"
+            >Empty messages and the disabled state</Typography.H2
+        >
+        <Typography.Text variant="supporting">
+            <InlineText
+                text={"Submit is disabled while the input is empty. Set `allowEmpty` on Root when a message can be only attachments, so it can be sent with no text. `disabled` on Root turns off the input and the button together."}
+            />
+        </Typography.Text>
+        <Typography.Text variant="supporting">
+            <InlineText
+                text={"Submit changes job as the conversation moves. While a response is generating and the input is empty it stops the response, and with text typed it queues the next message. `stopLabel` and `queueLabel` are its accessible names in those two states, and `loadingLabel` names it while `onSubmit` is pending. Its `onclick` runs first, and calling `preventDefault()` there cancels the stop."}
+            />
+        </Typography.Text>
+        <ComponentPreview code={AllowEmptyExampleSrc}>
+            <AllowEmptyExample />
+        </ComponentPreview>
+    </section>
+    <section id="parts" class="flex flex-col gap-4">
+        <Typography.H2 class="docs-section-heading">Parts</Typography.H2>
+        <Typography.Text variant="supporting">
+            <InlineText
+                text={"Input and Submit accept `element` to bind the textarea and the button."}
+            />
+        </Typography.Text>
+        <Typography.Text variant="supporting">
+            <InlineText
+                text={"Root, Header, Toolbar, Actions and Submit render their `children` and accept `class` and `style` like any element."}
+            />
+        </Typography.Text>
     </section>
 </div>

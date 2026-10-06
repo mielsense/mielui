@@ -2,14 +2,19 @@
     import { CodeBlock } from '@mielui/svelte/components/code-block';
     import * as Typography from '@mielui/svelte/components/typography';
     import { ComponentPreview, InstallCommand } from '$lib/components/docs';
+    import InlineText from '$lib/components/docs/inline-text.svelte';
     import PageIntro from '$lib/components/docs/page-intro.svelte';
     import SectionHeading from '$lib/components/docs/section-heading.svelte';
+    import AddingExample from './examples/adding.svelte';
+    import AddingExampleSrc from './examples/adding.svelte?raw';
     import Controlled from './examples/controlled.svelte';
     import ControlledSrc from './examples/controlled.svelte?raw';
     import Hero from './examples/hero.svelte';
     import HeroSrc from './examples/hero.svelte?raw';
     import MaxTags from './examples/max-tags.svelte';
     import MaxTagsSrc from './examples/max-tags.svelte?raw';
+    import RequiredExample from './examples/required.svelte';
+    import RequiredExampleSrc from './examples/required.svelte?raw';
     import Validation from './examples/validation.svelte';
     import ValidationSrc from './examples/validation.svelte?raw';
 
@@ -142,5 +147,40 @@ let tags = $state(['svelte']);
             lang="svelte"
             copy="overlay"
         />
+    </section>
+    <section id="adding-tags" class="flex flex-col gap-4">
+        <Typography.H2 class="docs-section-heading">How tags are added</Typography.H2>
+        <Typography.Text variant="supporting">
+            <InlineText
+                text={"Enter adds the typed text as a tag. So does any character in `delimiters`, a comma by default. Add a space or a semicolon there to match how your users separate values. `addOnBlur` adds whatever is left in the field when it loses focus, and `addOnPaste` splits pasted text into tags on the same delimiters. Both are on by default."}
+            />
+        </Typography.Text>
+        <Typography.Text variant="supporting">
+            <InlineText
+                text={"`normalize` cleans each tag before it is added, for example trimming it and lowering its case. A tag that already exists is ignored unless you set `allowDuplicates`. Bind `query` to read or set the text still being typed."}
+            />
+        </Typography.Text>
+        <ComponentPreview code={AddingExampleSrc}>
+            <AddingExample />
+        </ComponentPreview>
+    </section>
+    <section id="forms" class="flex flex-col gap-4">
+        <Typography.H2 class="docs-section-heading">Forms and parts</Typography.H2>
+        <Typography.Text variant="supporting">
+            <InlineText
+                text={"`required` blocks native form submission until there is at least one tag, and `requiredMessage` is the text the browser shows. `disabled` on Root turns the whole field off."}
+            />
+        </Typography.Text>
+        <Typography.Text variant="supporting">
+            <InlineText text={"Input accepts `element` to bind the text input."} />
+        </Typography.Text>
+        <Typography.Text variant="supporting">
+            <InlineText
+                text={"Root, List and Tag render their `children` and accept `class` and `style` like any element."}
+            />
+        </Typography.Text>
+        <ComponentPreview code={RequiredExampleSrc}>
+            <RequiredExample />
+        </ComponentPreview>
     </section>
 </div>
