@@ -296,7 +296,7 @@ and a slim status line under it.
 
 The rail is 16 spacing units wide. It starts with the brand mark in white on a
 primary rounded tile, then the Documentation, Components, Theme Studio, Themes,
-and Changelog links, a short rule, and search, GitHub, and the theme toggle. Rail
+and Changelog links, a short rule, then search and GitHub. Rail
 items are icon buttons with tooltips that open to the right; the current section
 has a flat translucent white fill. Do not add glows or blurs to rail items. Rail
 colors are fixed light-on-dark in both themes. Use Hugeicons throughout the shell.
@@ -323,7 +323,7 @@ The docs top bar is a tab strip. The add button opens the component catalog in a
 new tab; following a link changes the current tab, or switches to the tab that
 already shows that page. Tabs are fixed-width pills with a page icon, a label,
 and a close button on hover; they persist in local storage and scroll sideways
-when they overflow. Copy page sits at the end of the bar. Pages without tabs
+when they overflow. Copy page and the theme toggle sit at the end of the bar, in docs and in Studio. Pages without tabs
 show one static pill with their name. Studio uses the same pills for its preview
 modes.
 

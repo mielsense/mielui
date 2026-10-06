@@ -5,6 +5,7 @@
     import HugeiconsIcon from '@mielui/svelte/hugeicons-icon';
     import type { Snippet } from 'svelte';
     import { getShell } from './shell.svelte';
+    import ThemeToggle from './theme-toggle.svelte';
 
     const {
         leading,
@@ -44,7 +45,8 @@
     <div class="flex min-w-0 flex-1 items-center gap-1.5">
         {@render children?.()}
     </div>
-    <div class="flex shrink-0 items-center gap-1">
+    <div class="flex shrink-0 items-center gap-1.5">
         {@render actions?.()}
+        <ThemeToggle />
     </div>
 </header>

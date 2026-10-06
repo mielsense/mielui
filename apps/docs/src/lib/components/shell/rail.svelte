@@ -4,16 +4,13 @@
         Clock01Icon as Clock,
         GithubIcon as Github,
         GridViewIcon as Grid,
-        Moon02Icon as Moon,
         PaintBoardIcon as Palette,
         Search01Icon as Search,
-        Sun03Icon as Sun,
         SwatchIcon as Swatch
     } from '@hugeicons/core-free-icons';
     import BrandMark from '@mielui/svelte/brand-mark';
     import * as Tooltip from '@mielui/svelte/components/tooltip';
     import HugeiconsIcon from '@mielui/svelte/hugeicons-icon';
-    import { mode, toggleMode } from 'mode-watcher';
     import { resolve } from '$app/paths';
     import { page } from '$app/state';
     import { getSearch } from '$lib/components/search/context';
@@ -55,9 +52,6 @@
             current: pathname.startsWith('/docs/changelog')
         }
     ]);
-    const themeLabel = $derived(
-        mode.current === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'
-    );
     const itemClass =
         'relative grid size-9 place-items-center rounded-[var(--radius-md)] text-[#d5d5d5] transition-colors [transition-duration:var(--motion-duration-hover)] hover:bg-white/10 hover:text-white focus-visible:outline-none focus-visible:shadow-[var(--focus-ring)] motion-reduce:transition-none';
 
@@ -123,18 +117,5 @@
             </a>
         </Tooltip.Trigger>
         <Tooltip.Content>GitHub</Tooltip.Content>
-    </Tooltip.Root>
-    <span aria-hidden="true" class="my-1 h-px w-6 bg-white/15"></span>
-    <Tooltip.Root placement="right">
-        <Tooltip.Trigger>
-            <button type="button" aria-label={themeLabel} class={itemClass} onclick={toggleMode}>
-                <HugeiconsIcon
-                    icon={mode.current === 'dark' ? Moon : Sun}
-                    size={21}
-                    strokeWidth={1.8}
-                />
-            </button>
-        </Tooltip.Trigger>
-        <Tooltip.Content>{themeLabel}</Tooltip.Content>
     </Tooltip.Root>
 </nav>
