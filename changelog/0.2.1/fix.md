@@ -2,3 +2,5 @@
 - Drawer footer actions line up with the panel's content instead of drifting past it.
 - Opening a Drawer focuses the panel instead of its first control, so no control looks selected and touch keyboards stay closed. Use `onOpenAutoFocus` to focus something else.
 - `Drawer.Handle` sits at the bottom of a top drawer and becomes a vertical bar on the inner edge of left and right drawers.
+- File Diff rows no longer draw a red or green bar on their leading edge; the tint and the plus or minus sign mark the change.
+- File Diff added and removed rows keep their full tint in dark mode.
