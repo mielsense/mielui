@@ -71,7 +71,7 @@
     data-ui="radio-group"
     role="radiogroup"
     aria-disabled={disabled || undefined}
-    class={cn(className, 'grid gap-2')}
+    class={cn(className, 'grid gap-3')}
     {...rest}
 >
     {@render children?.()}
