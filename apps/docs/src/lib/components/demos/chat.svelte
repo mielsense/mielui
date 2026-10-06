@@ -119,7 +119,7 @@
                 placeholder="Reply to the assistant"
                 class="min-h-12"
             />
-            <Composer.Toolbar>
+            <Composer.Toolbar variant="inset">
                 <div class="ms-auto flex shrink-0 items-center gap-1">
                     <Composer.Submit />
                 </div>
