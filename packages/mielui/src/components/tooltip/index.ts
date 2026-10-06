@@ -8,13 +8,18 @@ import Trigger from './tooltip-trigger.svelte';
 export type TooltipPlacement = 'top' | 'left' | 'bottom' | 'right';
 
 export type TooltipProps = {
+    /** Milliseconds the pointer rests on the trigger before the tooltip opens. */
     delay?: number;
+    /** Milliseconds after the pointer leaves before it closes. */
     closeDelay?: number;
+    /** Side of the trigger the tooltip opens on. */
     placement?: TooltipPlacement;
+    /** Content rendered inside. */
     children?: Snippet;
 };
 
 export type TooltipTriggerProps = {
+    /** Also shows the tooltip when the trigger is clicked, for touch screens. */
     showOnClick?: boolean;
 } & DefaultProps;
 

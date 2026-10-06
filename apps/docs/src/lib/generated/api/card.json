@@ -109,7 +109,7 @@
                 "required": false,
                 "bindable": false,
                 "default": "'solid'",
-                "description": "`glass` frosts the card so a backdrop behind it shows through. On `inset`\nand `panel` cards only the frame is frosted and the content surface stays\nsolid. Cards are solid unless you ask for glass.",
+                "description": "`glass` frosts the card so a backdrop behind it shows through. On `inset` and `panel` cards only the frame is frosted and the content surface stays solid. Cards are solid unless you ask for glass.",
                 "inherited": false
             },
             {

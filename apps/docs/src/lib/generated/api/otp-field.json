@@ -454,7 +454,7 @@
                 "required": true,
                 "bindable": false,
                 "default": null,
-                "description": "This specific cell, which is provided by the `cells` snippet prop from\nthe `PinInput.Root` component.",
+                "description": "This specific cell, which is provided by the `cells` snippet prop from the `PinInput.Root` component.",
                 "inherited": false
             },
             {
@@ -1427,7 +1427,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "A callback function that is called when the user pastes text into the input.\nIt receives the pasted text as an argument, and should return the sanitized text.",
+                "description": "A callback function that is called when the user pastes text into the input. It receives the pasted text as an argument, and should return the sanitized text.",
                 "inherited": false
             },
             {

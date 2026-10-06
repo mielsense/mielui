@@ -46,11 +46,20 @@ export type FileUploadLabels = {
 };
 
 export type FileUploadProps = Omit<HTMLAttributes<HTMLDivElement>, 'children'> & {
+    /**
+     * Overrides the built-in text and accessible names. Every key is optional and English is the
+     * fallback.
+     */
     labels?: FileUploadLabels;
+    /** Accepted file types, written as for a file input. */
     accept?: string;
+    /** Largest file size in bytes. */
     maxSize?: number;
+    /** Largest number of files. */
     maxFiles?: number;
+    /** Prevents interaction and dims the control. */
     disabled?: boolean;
+    /** Uploads one file. Report progress with `onProgress` and stop when `signal` aborts. */
     onUpload: (
         file: File,
         options: {
@@ -58,11 +67,13 @@ export type FileUploadProps = Omit<HTMLAttributes<HTMLDivElement>, 'children'> &
             onProgress: (percent: number) => void;
         }
     ) => Promise<void>;
+    /** Content rendered inside. */
     children?: Snippet<[FileUploadSummary]>;
 };
 export type FileUploadPartProps = HTMLAttributes<HTMLDivElement>;
 export type FileUploadItemProps = FileUploadPartProps & { item: FileUploadEntry };
 export type FileUploadListProps = Omit<HTMLAttributes<HTMLUListElement>, 'children'> & {
+    /** Content rendered inside. */
     children?: Snippet<[FileUploadEntry]>;
 };
 export type FileUploadButtonProps = Omit<

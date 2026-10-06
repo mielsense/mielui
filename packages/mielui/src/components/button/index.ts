@@ -13,6 +13,7 @@ type ButtonSharedProps = {
     variant?: ButtonVariant;
     /** Control height. `icon` is a square button for a single icon. */
     size?: 'sm' | 'md' | 'lg' | 'icon';
+    /** Content rendered inside. */
     children?: Snippet;
     /**
      * Bindable reference to the rendered DOM element. Type is the union of

@@ -4,6 +4,10 @@ import type { DatePickerLabels } from '../date-picker/context.svelte';
 export type DateRangePickerLabels = DatePickerLabels;
 
 export type DateRangePickerProps = Omit<DatePickerPrimitive.RootProps, 'child'> & {
+    /**
+     * Overrides the built-in text and accessible names. Every key is optional and English is the
+     * fallback.
+     */
     labels?: DateRangePickerLabels;
 };
 

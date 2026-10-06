@@ -8,10 +8,15 @@ export type CalendarProps = Omit<
     'type' | 'child'
 >;
 export type CalendarMonthProps = Omit<DefaultProps, 'children'> & {
+    /** Month data from the Root snippet. */
     month: CalendarRootSnippetProps['months'][number];
+    /** Weekday names from the Root snippet. */
     weekdays: string[];
+    /** BCP 47 locale used for names and number formats. */
     locale?: string;
+    /** Shows the month name above the grid, for layouts with several months. */
     showHeading?: boolean;
+    /** Custom content for each day cell. */
     day?: Snippet<[date: DateValue]>;
 };
 

@@ -2,7 +2,9 @@ import { type ClassValue, clsx, twMerge } from 'cnfast';
 import { getContext, hasContext, type Snippet, setContext } from 'svelte';
 
 export type DefaultProps = {
+    /** Classes added to the element. */
     class?: string;
+    /** Content rendered inside. */
     children?: Snippet;
 } & Partial<Record<`data-${string}`, string | boolean | null>>;
 

@@ -231,7 +231,8 @@ for (const index of indexes) {
                 description:
                     ts
                         .displayPartsToString(property.getDocumentationComment(checker))
-                        .split(/\n\s*\n/)[0] ||
+                        .split(/\n\s*\n/)[0]
+                        .replace(/\s*\n\s*/g, ' ') ||
                     (inherited ? '' : describe(component, partName, property.name)),
                 inherited
             };

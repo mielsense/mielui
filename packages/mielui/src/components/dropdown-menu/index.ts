@@ -20,30 +20,42 @@ export type DropdownMenuProps = {
     open?: boolean;
     /** Called with the new state whenever it opens or closes. */
     onOpenChange?: (open: boolean) => void;
+    /** Content rendered inside. */
     children?: Snippet;
 };
 
 export type DropdownMenuItemProps = {
+    /** Called when the item is chosen. */
     callback?: () => void;
 } & ButtonProps;
 
 export type DropdownMenuRadioGroupProps = {
+    /** Value of the selected item. Bindable. */
     value?: string;
+    /** Called with the new value when it changes. */
     onValueChange?: (value: string) => void;
+    /** Content rendered inside. */
     children?: Snippet;
 };
 
 export type DropdownMenuRadioItemProps = {
+    /** Value this item selects. */
     value: string;
+    /** Content rendered inside. */
     children?: Snippet;
+    /** Bindable reference to the DOM element. */
     element?: HTMLButtonElement | HTMLAnchorElement;
 } & DefaultProps &
     Omit<HTMLButtonAttributes, 'children' | 'role' | 'aria-checked'>;
 
 export type DropdownMenuCheckboxItemProps = {
+    /** Whether the item is checked. Bindable. */
     checked?: boolean;
+    /** Called with the new state when it changes. */
     onCheckedChange?: (checked: boolean) => void;
+    /** Content rendered inside. */
     children?: Snippet;
+    /** Bindable reference to the DOM element. */
     element?: HTMLButtonElement | HTMLAnchorElement;
 } & DefaultProps &
     Omit<HTMLButtonAttributes, 'children' | 'role' | 'aria-checked'>;

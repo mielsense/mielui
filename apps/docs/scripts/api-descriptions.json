@@ -8,138 +8,25 @@
         "element": "Bindable reference to the DOM element.",
         "child": "Renders your own element in place of the default one. Spread the given `props` onto it.",
         "onclick": "Called when it is clicked or activated.",
-        "onkeydown": "Called on key down.",
-        "disabled": "Prevents interaction and dims the control.",
         "labels": "Overrides the built-in text and accessible names. Every key is optional and English is the fallback.",
         "surface": "Surface treatment. Omit it to inherit `--mielui-surface` from the theme.",
         "open": "Whether it is open. Bind it to control the state from outside.",
         "onOpenChange": "Called with the new state whenever it opens or closes.",
         "allowClickOutside": "Closes when the pointer is pressed outside it. Set false to keep it open until it is dismissed another way.",
-        "portal": "Moves the panel to the end of the document so ancestors cannot clip it. Set false to render it in place.",
-        "refElement": "Positions the panel against this element or virtual element instead of the trigger.",
-        "role": "ARIA role of the panel.",
-        "tabindex": "Tab index of the panel.",
-        "placement": "Preferred side and alignment relative to the trigger, such as `bottom-start`. It flips when there is no room.",
-        "stateKey": "Key that identifies this instance's state. A key is generated when you omit it.",
-        "hoverable": "Opens on hover as well as on click.",
-        "delay": "Milliseconds the pointer rests on the trigger before it opens.",
-        "closeDelay": "Milliseconds after the pointer leaves before it closes.",
-        "type": "`single` keeps one value. `multiple` allows several and makes `value` an array.",
         "callback": "Called when the item is chosen.",
         "locale": "BCP 47 locale used for names and number formats.",
-        "form": "Id of the form this control belongs to when it sits outside that form.",
-        "name": "Field name submitted with the form.",
-        "required": "Requires a value before the form can be submitted.",
-        "readonly": "Shows the value without allowing edits. The value is still submitted.",
-        "placeholder": "Text shown while there is no value.",
-        "label": "Visible label linked to the control.",
-        "description": "Supporting text under the label, announced with the control.",
-        "aria-label": "Accessible name when there is no visible label.",
         "aria-labelledby": "Id of the element that labels it.",
-        "aria-describedby": "Id of the element that describes it.",
-        "aria-hidden": "Hides it from assistive technology when it is decorative.",
-        "level": "Heading level in the surrounding document.",
         "orientation": "Layout direction.",
         "loading": "Shows the loading state in place of the content.",
-        "month": "Month data from the Root snippet.",
-        "weekdays": "Weekday names from the Root snippet.",
-        "showHeading": "Shows the month name above the grid, for layouts with several months.",
-        "day": "Custom content for each day cell.",
         "sticky": "Keeps the panel in view while its anchor scrolls. `partial` keeps part of it visible and `always` keeps all of it.",
         "hideWhenDetached": "Hides the panel when the trigger scrolls out of view.",
         "part": "Which part of the date this segment edits.",
         "dynamic": "Lets the panel grow to fit its content instead of matching the trigger width.",
-        "inset": "Indents the item so it lines up with items that have an indicator.",
-        "icon": "Shows the chevron after the label.",
-        "variant": "Visual style.",
-        "size": "Control height.",
-        "href": "Renders a link to this address.",
-        "value": "Current value. Bind it to control the state from outside.",
-        "onValueChange": "Called with the new value when it changes.",
-        "checked": "Whether it is checked. Bind it to control the state from outside.",
-        "onCheckedChange": "Called with the new state when it changes.",
-        "min": "Smallest allowed value.",
-        "max": "Largest allowed value.",
-        "step": "Amount each step changes the value by.",
-        "error": "Error message shown with the control.",
-        "status": "Current state, which sets the indicator shown.",
-        "onError": "Called with the error when the action fails.",
-        "errorMessage": "Message shown when the action fails.",
-        "submitOnEnter": "Enter submits and Shift+Enter adds a line. Set false to make Enter add a line.",
-        "autoresize": "Grows with its content instead of scrolling.",
-        "empty": "Content shown when there is nothing to list.",
         "heading": "Heading shown above the group.",
-        "onRemove": "Called when the remove button is pressed.",
-        "accept": "Accepted file types, written as for a file input.",
-        "maxFiles": "Largest number of files.",
-        "maxSize": "Largest file size in bytes.",
-        "multiple": "Allows more than one.",
-        "removable": "Shows the remove button.",
-        "title": "Title text.",
-        "leading": "Decorative content inside the field, before the text.",
-        "trailing": "Decorative content inside the field, after the text.",
-        "tone": "Color that carries the meaning.",
         "as": "HTML element to render.",
-        "onOpenChangeComplete": "Called after the open or close animation finishes.",
-        "loadingLabel": "Text shown while it is loading.",
-        "successLabel": "Text shown after it succeeds.",
-        "errorLabel": "Text shown after it fails.",
-        "side": "Viewport edge it attaches to.",
-        "data": "Rows to plot.",
         "config": "Label, color, and value format for each series, keyed by series.",
         "animation": "`reveal` animates in once, `live` keeps a subtle motion running, and `none` is static.",
-        "table": "TanStack Table instance that drives the table.",
-        "Trigger.variant": "Button style of the trigger.",
-        "Trigger.size": "Control height of the trigger.",
-        "SubTrigger.variant": "Button style of the trigger.",
-        "SubTrigger.size": "Control height of the trigger."
-    },
-    "accordion": {
-        "Item.value": "Identifies the item. Root's `value` holds the open item or items.",
-        "collapsible": "In single mode, lets the open item be closed so none is open.",
-        "Root.value": "The open item, or an array of open items in multiple mode. Bindable.",
-        "onValueChange": "Called when the open item or items change."
-    },
-    "alert-dialog": {
-        "closeOnClick": "Closes the dialog after the button is clicked. Set false to keep it open while work finishes.",
-        "ariaBusy": "Marks the dialog busy for assistive technology while an action runs.",
-        "allowEscape": "Lets Escape dismiss the dialog."
-    },
-    "alert": {
-        "variant": "Status the alert reports. It sets the icon and the text color.",
-        "icon": "Custom icon, or false to hide it."
-    },
-    "attachment": {
-        "file": "The file this item shows.",
-        "variant": "`card` shows a thumbnail and details. `chip` is a compact pill.",
-        "status": "Upload state shown on the item.",
-        "progress": "Upload progress from 0 to 100.",
-        "error": "Message shown when the upload failed.",
-        "List.label": "Accessible name of the list.",
-        "files": "Attached files. Bindable.",
-        "multiple": "Allows choosing more than one file.",
-        "onReject": "Called with the files that were refused and the reason for each.",
-        "Trigger.variant": "Button style of the attach button.",
-        "Trigger.size": "Control height of the attach button. It defaults to an icon button when there is no label."
-    },
-    "avatar": {
-        "src": "Image address.",
-        "alt": "Image description. Leave it empty when the name is shown beside the avatar.",
-        "size": "Diameter of the avatar.",
-        "shape": "Outline of the avatar."
-    },
-    "badge": {
-        "variant": "Color and emphasis. Status variants pair their color with your text.",
-        "icon": "Icon component shown before the label.",
-        "iconSize": "Icon size in pixels.",
-        "dot": "Shows a small status dot before the label.",
-        "href": "Renders the badge as a link to this address."
-    },
-    "breadcrumb": {
-        "href": "Destination of the item. Omit it on the current page."
-    },
-    "card": {
-        "variant": "`default` is one surface. `inset` puts the content on an inner surface with the footer on the frame. `panel` adds an inner ring."
+        "Trigger.variant": "Button style of the trigger."
     },
     "chart": {
         "key": "Key of the series in `config` and in each data row.",
@@ -155,90 +42,12 @@
         "stacked": "Stacks the series on top of each other instead of side by side.",
         "format": "Formats each tick label."
     },
-    "checkbox": {
-        "variant": "`primary` fills the checked box with the primary color.",
-        "size": "Size of the box."
-    },
-    "code-block": {
-        "code": "Source text to show.",
-        "lang": "Language used for highlighting.",
-        "showLineNumbers": "Shows a line number before each line.",
-        "Copy.label": "Tooltip and accessible name of the copy button.",
-        "copiedLabel": "Label shown right after copying."
-    },
-    "collapsible": {
-        "disabled": "Prevents opening and closing."
-    },
-    "color-picker": {
-        "label": "Accessible name of the trigger.",
-        "value": "Selected color as a hex string. Bindable.",
-        "options": "Preset swatches offered above the picker.",
-        "format": "Channel controls to show: HSL, RGB, or HSV."
-    },
     "combobox": {
         "Item.value": "Value this option selects.",
-        "Item.label": "Text used for search and for the trigger, when it differs from the option's content.",
-        "Root.value": "Selected value, or an array in multiple mode. Bindable.",
-        "Trigger.trailing": "Content at the end of the trigger.",
-        "searchPlacement": "`trigger` types into the trigger. `menu` puts a search field inside the menu.",
-        "threshold": "How loosely typed text may match, from 0 for exact to 1 for anything.",
-        "appearance": "`button` looks like a select. `input` looks like a text field."
+        "Item.label": "Text used for search and for the trigger, when it differs from the option's content."
     },
     "command": {
-        "Content.label": "Accessible name of the palette.",
-        "Item.name": "Text the search matches.",
-        "Item.value": "Identifier for the item when names repeat.",
-        "Item.href": "Navigates to this address when the item is chosen.",
-        "Results.empty": "Content shown when nothing matches.",
-        "threshold": "How loosely typed text may match, from 0 for exact to 1 for anything.",
-        "Search.icon": "Replaces the search icon.",
-        "count": "Renders the result count.",
-        "announcement": "Renders the screen reader announcement."
-    },
-    "composer": {
-        "value": "Message text. Bindable.",
-        "status": "Current state of the composer, which sets what the submit control does.",
-        "allowEmpty": "Allows submitting with no text, for a message that is only attachments.",
-        "onSubmit": "Called with the text on submit. Return a promise to show progress until it settles.",
-        "errorMessage": "Message shown when `onSubmit` rejects.",
-        "onError": "Called with the error when `onSubmit` rejects.",
-        "onStop": "Called when the stop control is pressed during a response.",
-        "Submit.label": "Accessible name of the send button.",
-        "queueLabel": "Accessible name while a message can be queued behind a running response.",
-        "stopLabel": "Accessible name while the button stops a response.",
-        "Toolbar.variant": "`chrome` sits on the frame under the input. `inset` joins the input."
-    },
-    "context-menu": {
-        "CheckboxItem.value": "Value reported for the item.",
-        "checked": "Whether the item is checked. Bindable."
-    },
-    "conversation": {
-        "Empty.icon": "Icon shown above the title.",
-        "Empty.title": "Heading of the empty state.",
-        "Empty.description": "Text under the heading.",
-        "Empty.action": "Action shown under the text.",
-        "ScrollButton.label": "Accessible name of the button."
-    },
-    "data-table": {
-        "cell": "Renders a cell. Defaults to the column's cell definition.",
-        "caption": "Accessible caption that describes the table.",
-        "header": "Renders a column header.",
-        "selectable": "Adds a selection checkbox column.",
-        "rowLabel": "Returns the accessible name for a row's selection checkbox.",
-        "empty": "Content shown when there are no rows. It receives the loading state.",
-        "variant": "`inset` frames the table with its toolbar and footer on the frame.",
-        "Empty.columns": "Number of columns the empty row spans.",
-        "Filter.column": "Id of the column the search field filters.",
-        "label": "Accessible name of the control.",
-        "indeterminate": "Shows the mixed state when only some rows are selected.",
-        "ColumnHeader.header": "TanStack header to render.",
-        "Facet.filter": "Filter definition this chip edits.",
-        "Facet.onRemove": "Called when the filter is removed.",
-        "filters": "Filters offered in the Filter menu.",
-        "Sort.columns": "Columns offered in the Sort menu.",
-        "checked": "Whether the checkbox is checked.",
-        "disabled": "Disables the checkbox.",
-        "onCheckedChange": "Called with the new state when the checkbox changes."
+        "Content.label": "Accessible name of the palette."
     },
     "date-picker": {
         "form": "Id of the form the hidden input belongs to."
@@ -246,47 +55,11 @@
     "date-range-picker": {
         "form": "Id of the form the hidden inputs belong to."
     },
-    "dialog": {
-        "allowEscape": "Lets Escape dismiss the dialog.",
-        "contentClass": "Classes for the positioned dialog element.",
-        "overlayClass": "Classes for the backdrop.",
-        "surfaceClass": "Classes for the inner surface.",
-        "panelIdPrefix": "Prefix of the generated panel id.",
-        "showClose": "Shows the close button in the corner."
-    },
     "drawer": {
         "nested": "Set it on a drawer that opens from inside another drawer."
     },
-    "dropdown-menu": {
-        "checked": "Whether the item is checked. Bindable.",
-        "RadioGroup.value": "Value of the selected item. Bindable.",
-        "RadioItem.value": "Value this item selects."
-    },
-    "field": {
-        "describedBy": "Ids of the description and error, for `aria-describedby`.",
-        "errorId": "Id of the error element.",
-        "Error.issues": "Validation issues to list. Defaults to the Root's issues.",
-        "controlId": "Id shared by the label and the control.",
-        "invalid": "Marks the field invalid. It defaults to true when there are issues.",
-        "issues": "Validation issues for this field.",
-        "orientation": "`vertical` stacks the label and control. `horizontal` puts them side by side."
-    },
     "file-upload": {
-        "item": "Upload entry from the Root's list.",
-        "onUpload": "Uploads one file. Report progress with `onProgress` and stop when `signal` aborts."
-    },
-    "folder-card": {
-        "value": "Number to format and show."
-    },
-    "form": {
-        "issues": "Validation issues to summarize.",
-        "focusOnError": "Moves focus to the summary when issues appear.",
-        "heading": "Replaces the summary heading.",
-        "pending": "Marks the form as submitting. A number is the count of pending requests."
-    },
-    "gauge": {
-        "max": "Value that fills the gauge.",
-        "tone": "Color of the fill."
+        "item": "Upload entry from the Root's list."
     },
     "group": {
         "for": "Id of the control this text labels, when it renders as a label."
@@ -301,23 +74,10 @@
         "Cell.day": "Day data for this cell."
     },
     "input": {
-        "variant": "`outline` has a border. `secondary` has a filled background.",
         "type": "Native input type.",
         "files": "Selected files for a file input. Bindable.",
         "value": "Field value. Bindable.",
         "checked": "Checked state for the checkbox and radio types. Bindable."
-    },
-    "kbd": {
-        "shortcut": "Keys to show, such as `cmd+K`. With `ontrigger` it also listens for them.",
-        "ontrigger": "Called when the shortcut is pressed."
-    },
-    "message": {
-        "from": "Who sent the message. It sets the alignment and style.",
-        "status": "Current state of the message, such as streaming or failed.",
-        "name": "Sender name.",
-        "timestamp": "Time shown with the message.",
-        "avatar": "Avatar shown beside the message.",
-        "layout": "Replaces the default arrangement of avatar, header, and content."
     },
     "native-select": {
         "multiple": "Allows several selections and makes `value` an array.",
@@ -325,166 +85,23 @@
         "Option.value": "Value this option selects."
     },
     "notch": {
-        "mode": "`triggered` opens fully. `peek` rests as a small handle that expands.",
-        "duration": "Milliseconds it stays open before closing on its own.",
         "SideAction.side": "End of the panel the action sits on."
     },
     "number-field": {
-        "value": "Current number. Bindable.",
-        "inputId": "Id of the input, for a label outside the field.",
         "Decrement.onclick": "Called before the value steps down. Prevent the default to cancel the step.",
         "Increment.onclick": "Called before the value steps up. Prevent the default to cancel the step."
     },
-    "otp-field": {
-        "length": "Number of characters in the code.",
-        "onComplete": "Called with the code once every cell is filled."
-    },
-    "pagination": {
-        "page": "Current page, starting at 1. Bindable.",
-        "total": "Number of pages.",
-        "siblings": "Page links shown on each side of the current page.",
-        "onPageChange": "Called with the new page."
-    },
-    "pie-chart": {
-        "innerRadius": "Hole size as a share of the radius. Zero draws a full pie.",
-        "cornerRadius": "Corner radius of each segment in pixels.",
-        "padAngle": "Gap between segments in radians.",
-        "data": "Segments to plot, each with a key and a value."
-    },
-    "progress": {
-        "value": "Completed amount.",
-        "max": "Amount that counts as complete.",
-        "indeterminate": "Shows activity when the amount is not known."
-    },
-    "question": {
-        "rows": "Starting height in text rows.",
-        "Option.value": "Value this option answers with.",
-        "Option.label": "Visible label of the option.",
-        "Option.description": "Supporting text under the option label.",
-        "variant": "`inset` frames the question with its actions on the frame.",
-        "status": "Current state, which drives the submit control.",
-        "required": "Requires an answer before submitting.",
-        "autofocus": "Focuses the first control when it mounts.",
-        "name": "Field name of the answer.",
-        "errorMessage": "Message shown when `onSubmit` rejects.",
-        "onCancel": "Called when Cancel is pressed.",
-        "type": "`single` and `multiple` offer options. `text` takes a written answer.",
-        "value": "Current answer. Bindable.",
-        "onSubmit": "Called with the answer. Return a promise to show progress until it settles.",
-        "Submit.label": "Text of the submit button.",
-        "Input.aria-label": "Accessible name of the answer field."
-    },
-    "radio-group": {
-        "Item.value": "Value this option selects.",
-        "Root.value": "Selected value. Bindable."
-    },
-    "reasoning": {
-        "streaming": "Marks the reasoning as still being written.",
-        "Trigger.title": "Text of the trigger."
-    },
-    "reorder-list": {
-        "label": "Accessible name.",
-        "items": "Items in their current order. Bindable.",
-        "getId": "Returns a stable id for an item.",
-        "getLabel": "Returns the name announced for an item.",
-        "row": "Renders one item.",
-        "onReorder": "Called with the new order on every move.",
-        "onCommit": "Called once when a move is dropped or confirmed."
-    },
-    "response-stream": {
-        "onComplete": "Called when the stream ends."
-    },
-    "scroll-area": {
-        "orientation": "Scroll direction.",
-        "showCues": "Shows a fade and chevron at an edge that has more content.",
-        "blur": "Blurs content under the edge cues."
-    },
     "select": {
-        "Item.value": "Value this option selects.",
-        "Item.label": "Text shown in the trigger when it differs from the option's content.",
-        "Root.value": "Selected value, or an array in multiple mode. Bindable.",
         "Value.placeholder": "Text shown while nothing is selected."
     },
     "sheet": {
-        "side": "Viewport edge the sheet slides in from.",
         "close": "Shows the close button."
-    },
-    "show-more": {
-        "moreLabel": "Text of the button while collapsed.",
-        "lessLabel": "Text of the button while expanded.",
-        "onExpandedChange": "Called with the new state when it expands or collapses."
-    },
-    "skeleton": {
-        "variant": "`shimmer` sweeps a highlight across the placeholder.",
-        "w": "Width, in `unit`.",
-        "h": "Height, in `unit`.",
-        "unit": "CSS unit for `w` and `h`.",
-        "ready": "Shows the content when true and the skeleton when false.",
-        "skeleton": "Custom placeholder. Defaults to text lines.",
-        "lines": "Number of placeholder lines.",
-        "lineHeight": "Height of a text line in pixels.",
-        "barHeight": "Height of each placeholder bar in pixels.",
-        "reserve": "Height to hold in pixels so the swap does not shift the layout.",
-        "delay": "Milliseconds to wait before showing the skeleton, so fast loads skip it.",
-        "minVisible": "Shortest time in milliseconds the skeleton stays once shown.",
-        "label": "Accessible name while loading."
-    },
-    "slider": {
-        "dir": "Text direction. It flips the track for right-to-left.",
-        "range": "Uses two thumbs and makes `value` a pair.",
-        "value": "Current value, or a pair in range mode. Bindable.",
-        "thumbLabels": "Accessible names of the two thumbs in range mode."
-    },
-    "spinner": {
-        "size": "Diameter in pixels.",
-        "ready": "Marks the work as finished.",
-        "speed": "Rotation speed multiplier.",
-        "curved": "Spins smoothly instead of in steps."
-    },
-    "switch": {
-        "checked": "Whether it is on. Bindable."
     },
     "table": {
         "variant": "`inset` frames the table with a header and footer on the frame."
     },
-    "tabs": {
-        "Content.value": "Identifies the panel. It matches a trigger's value.",
-        "Trigger.value": "Identifies the tab. It matches a panel's value.",
-        "forceMount": "Keeps the panel mounted while hidden, so its state survives.",
-        "activationMode": "`automatic` selects a tab on focus. `manual` waits for Enter or Space.",
-        "Root.value": "Selected tab. Bindable.",
-        "orientation": "Direction of the tab list. It also sets which arrow keys move between tabs.",
-        "variant": "Style of the tab list."
-    },
-    "tag-input": {
-        "List.label": "Accessible name of the tag list.",
-        "tags": "Current tags. Bindable.",
-        "query": "Text in the input. Bindable.",
-        "max": "Largest number of tags.",
-        "allowDuplicates": "Allows the same tag more than once.",
-        "variant": "`outline` has a border. `secondary` has a filled background.",
-        "validate": "Returns true to accept a tag, or a message that explains why it is refused.",
-        "normalize": "Cleans a tag before it is added, such as trimming or lowercasing it.",
-        "delimiters": "Characters that finish a tag as you type.",
-        "addOnBlur": "Adds the typed text as a tag when the field loses focus.",
-        "addOnPaste": "Splits pasted text into tags.",
-        "onTagsChange": "Called with the new list when tags change.",
-        "onAdd": "Called with each tag that is added.",
-        "onRemove": "Called with each tag that is removed.",
-        "onReject": "Called when a tag is refused, with the reason.",
-        "Tag.value": "Text of the tag.",
-        "Tag.index": "Position of the tag in the list."
-    },
     "task-steps": {
-        "status": "State of the step.",
-        "steps": "Steps to show, in order.",
-        "current": "Index of the step in progress.",
-        "failed": "Marks the current step as failed.",
-        "label": "Accessible name of the list."
-    },
-    "textarea": {
-        "variant": "`outline` has a border. `secondary` has a filled background.",
-        "value": "Field value. Bindable."
+        "status": "State of the step."
     },
     "toast": {
         "action": "Label and handler for the action.",
@@ -492,36 +109,7 @@
         "Toaster.variant": "`notch` presents toasts as a Notch attached to an edge.",
         "side": "Viewport edge toasts appear from."
     },
-    "toggle-group": {
-        "Item.value": "Value this item selects.",
-        "Root.value": "Selected value, or an array in multiple mode. Bindable.",
-        "size": "Control height of the items."
-    },
-    "toggle": {
-        "pressed": "Whether it is on. Bindable.",
-        "onPressedChange": "Called with the new state.",
-        "variant": "`outline` adds a border."
-    },
-    "tool": {
-        "label": "Heading of the section.",
-        "Item.name": "Name of the step, such as the tool that ran.",
-        "detail": "What the step acted on, such as a path or query.",
-        "kind": "Kind of step, which sets its icon.",
-        "state": "State of the run, which sets the indicator and summary.",
-        "trigger": "Replaces the default trigger. It receives the open state, the run state, and the name."
-    },
-    "toolbar": {
-        "Group.value": "Selected tool, or an array in multiple mode. Bindable.",
-        "Root.variant": "`depth` gives the toolbar raised keys and a floating shell."
-    },
     "tooltip": {
-        "rich": "Allows wrapped or structured content instead of a single line of text.",
-        "delay": "Milliseconds the pointer rests on the trigger before the tooltip opens.",
-        "placement": "Side of the trigger the tooltip opens on.",
-        "showOnClick": "Also shows the tooltip when the trigger is clicked, for touch screens."
-    },
-    "typography": {
-        "variant": "Text role, which sets size and color.",
-        "level": "Heading level to render."
+        "rich": "Allows wrapped or structured content instead of a single line of text."
     }
 }

@@ -12,21 +12,30 @@ export type ReasoningLabels = {
 };
 
 export type ReasoningRootProps = {
+    /**
+     * Overrides the built-in text and accessible names. Every key is optional and English is the
+     * fallback.
+     */
     labels?: ReasoningLabels;
+    /** Marks the reasoning as still being written. */
     streaming?: boolean;
     /** Whether the reasoning content is visible. */
     open?: boolean;
     /** Called with the new state whenever it opens or closes. */
     onOpenChange?: (open: boolean) => void;
+    /** Called after the open or close animation finishes. */
     onOpenChangeComplete?: (open: boolean) => void;
+    /** Content rendered inside. */
     children?: Snippet;
 } & Omit<DefaultProps, 'children'> &
     Omit<HTMLAttributes<HTMLElement>, 'children'>;
 
 export type ReasoningTriggerProps = {
+    /** Text of the trigger. */
     title?: string;
     /** A compact summary of the completed reasoning time, such as 2.4s. */
     duration?: string;
+    /** Content rendered inside. */
     children?: Snippet<[ReasoningTriggerState]>;
 } & Omit<DefaultProps, 'children'> &
     Omit<HTMLButtonAttributes, 'children' | 'onclick' | 'title'>;

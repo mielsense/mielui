@@ -3144,7 +3144,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "Bindable reference to the rendered DOM element. Type is the union of\nthe two possible element types -- narrow at the use site:",
+                "description": "Bindable reference to the rendered DOM element. Type is the union of the two possible element types -- narrow at the use site:",
                 "inherited": false
             },
             {
@@ -3706,7 +3706,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "Bindable reference to the rendered DOM element. Type is the union of\nthe two possible element types -- narrow at the use site:",
+                "description": "Bindable reference to the rendered DOM element. Type is the union of the two possible element types -- narrow at the use site:",
                 "inherited": false
             },
             {
@@ -5202,7 +5202,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "Bindable reference to the rendered DOM element. Type is the union of\nthe two possible element types -- narrow at the use site:",
+                "description": "Bindable reference to the rendered DOM element. Type is the union of the two possible element types -- narrow at the use site:",
                 "inherited": false
             },
             {

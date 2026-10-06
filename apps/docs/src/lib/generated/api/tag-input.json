@@ -1062,7 +1062,7 @@
                 "required": false,
                 "bindable": false,
                 "default": "false",
-                "description": "Requires at least one tag for native form submission. Carried by a\ndedicated validation anchor, since hidden inputs are barred from\nconstraint validation.",
+                "description": "Requires at least one tag for native form submission. Carried by a dedicated validation anchor, since hidden inputs are barred from constraint validation.",
                 "inherited": false
             },
             {

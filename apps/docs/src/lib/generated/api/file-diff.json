@@ -1924,7 +1924,7 @@
                 "required": false,
                 "bindable": false,
                 "default": "'mielui'",
-                "description": "Syntax paint:\n- `mielui` (default): the built-in GitHub palette.\n- `custom`: no token colors; load any `highlight.js/styles/*` theme instead.",
+                "description": "Syntax paint: - `mielui` (default): the built-in GitHub palette. - `custom`: no token colors; load any `highlight.js/styles/*` theme instead.",
                 "inherited": false
             },
             {
@@ -2907,7 +2907,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "Trailing actions, pinned to the right edge. Passing children takes\nover the row: the default filename and counts are omitted, so compose\nthem back explicitly with `Filename` and `PlusMinus` as needed.",
+                "description": "Trailing actions, pinned to the right edge. Passing children takes over the row: the default filename and counts are omitted, so compose them back explicitly with `Filename` and `PlusMinus` as needed. Content rendered inside.",
                 "inherited": false
             },
             {

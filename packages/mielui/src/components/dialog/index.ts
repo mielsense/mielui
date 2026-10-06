@@ -33,13 +33,24 @@ export type DialogDescriptionProps = DefaultProps;
 export type DialogContentProps = {
     /** Surface treatment. Omit it to inherit `--mielui-surface` from the theme. */
     surface?: 'solid' | 'glass';
+    /**
+     * Closes when the pointer is pressed outside it. Set false to keep it open until it is
+     * dismissed another way.
+     */
     allowClickOutside?: boolean;
+    /** Lets Escape dismiss the dialog. */
     allowEscape?: boolean;
+    /** ARIA role of the panel. */
     role?: 'dialog' | 'alertdialog';
+    /** Classes for the positioned dialog element. */
     contentClass?: string;
+    /** Classes for the backdrop. */
     overlayClass?: string;
+    /** Classes for the inner surface. */
     surfaceClass?: string;
+    /** Prefix of the generated panel id. */
     panelIdPrefix?: string;
+    /** Shows the close button in the corner. */
     showClose?: boolean;
     /** Width preset. Vertical layouts remain compact; horizontal layouts are one step wider. */
     size?: DialogSize;
@@ -55,6 +66,7 @@ export type DialogProps = {
     error?: boolean;
     /** Controls the default width and action layout. Defaults to `horizontal`. */
     orientation?: DialogOrientation;
+    /** Content rendered inside. */
     children?: Snippet;
 };
 

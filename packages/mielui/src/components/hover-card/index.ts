@@ -13,12 +13,14 @@ export type HoverCardProps = {
     openDelay?: number;
     /** Milliseconds after the pointer leaves before the card closes. */
     closeDelay?: number;
+    /** Content rendered inside. */
     children?: Snippet;
 };
 
 export type HoverCardTriggerProps = {
     /** Destination of the trigger link. The card previews it. */
     href?: string;
+    /** Content rendered inside. */
     children?: Snippet;
 } & DefaultProps;
 
@@ -31,6 +33,7 @@ export type HoverCardContentProps = {
     align?: 'start' | 'center' | 'end';
     /** Gap between the trigger and the card, in pixels. */
     sideOffset?: number;
+    /** Content rendered inside. */
     children?: Snippet;
 } & DefaultProps;
 

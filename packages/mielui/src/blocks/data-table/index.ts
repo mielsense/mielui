@@ -11,13 +11,21 @@ export type DataTableViewProps<TFeatures extends TableFeatures, TData extends Ro
     HTMLTableAttributes,
     'children'
 > & {
+    /** TanStack Table instance that drives the table. */
     table: Table<TFeatures, TData>;
+    /** Shows the loading state in place of the content. */
     loading?: boolean;
+    /** Adds a selection checkbox column. */
     selectable?: boolean;
+    /** Accessible caption that describes the table. */
     caption?: string;
+    /** Returns the accessible name for a row's selection checkbox. */
     rowLabel?: (row: Row<TFeatures, TData>) => string;
+    /** Renders a column header. */
     header?: Snippet<[Header<TFeatures, TData, unknown>]>;
+    /** Renders a cell. Defaults to the column's cell definition. */
     cell?: Snippet<[Cell<TFeatures, TData, unknown>]>;
+    /** Content shown when there are no rows. It receives the loading state. */
     empty?: Snippet<[{ loading: boolean }]>;
 };
 export type DataTableLabels = {
@@ -70,8 +78,14 @@ export type DataTableProps<TFeatures extends TableFeatures, TData extends RowDat
         DataTableViewProps<TFeatures, TData>,
         'table' | 'loading' | 'selectable' | 'caption' | 'rowLabel' | 'header' | 'cell' | 'empty'
     > & {
+        /** `inset` frames the table with its toolbar and footer on the frame. */
         variant?: 'default' | 'inset';
+        /**
+         * Overrides the built-in text and accessible names. Every key is optional and English is
+         * the fallback.
+         */
         labels?: DataTableLabels;
+        /** Content rendered inside. */
         children?: Snippet<[DataTableState<TFeatures, TData>]>;
     };
 export type DataTableHeaderProps<TFeatures extends TableFeatures, TData extends RowData> = Pick<
@@ -89,36 +103,53 @@ export type DataTablePaginationProps<TFeatures extends TableFeatures, TData exte
     HTMLAttributes<HTMLElement>,
     'children'
 > & {
+    /** TanStack Table instance that drives the table. */
     table: Table<TFeatures, TData>;
+    /** Shows the loading state in place of the content. */
     loading?: boolean;
 };
 export type DataTableSummaryProps<TFeatures extends TableFeatures, TData extends RowData> = Omit<
     HTMLAttributes<HTMLParagraphElement>,
     'children'
 > & {
+    /** TanStack Table instance that drives the table. */
     table: Table<TFeatures, TData>;
+    /** Content rendered inside. */
     children?: Snippet<[DataTableState<TFeatures, TData>]>;
 };
 export type DataTableFilterProps<TFeatures extends TableFeatures, TData extends RowData> = Omit<
     HTMLInputAttributes,
     'value' | 'type' | 'oninput' | 'checked' | 'files'
 > & {
+    /** TanStack Table instance that drives the table. */
     table: Table<TFeatures, TData>;
+    /** Id of the column the search field filters. */
     column: string;
+    /** Accessible name of the control. */
     label: string;
 };
 export type DataTableEmptyProps = {
+    /** Classes added to the element. */
     class?: string;
+    /** Number of columns the empty row spans. */
     columns: number;
+    /** Shows the loading state in place of the content. */
     loading?: boolean;
+    /** Content rendered inside. */
     children?: Snippet<[{ loading: boolean }]>;
 };
 export type DataTableSelectionProps = {
+    /** Classes added to the element. */
     class?: string;
+    /** Whether the checkbox is checked. */
     checked?: boolean;
+    /** Shows the mixed state when only some rows are selected. */
     indeterminate?: boolean;
+    /** Disables the checkbox. */
     disabled?: boolean;
+    /** Accessible name of the control. */
     label: string;
+    /** Called with the new state when the checkbox changes. */
     onCheckedChange: (checked: boolean) => void;
 };
 export { default as Root } from './data-table.svelte';
@@ -195,31 +226,44 @@ export type DataTableFilterDefinition = {
     | { type: 'date' }
 );
 export type DataTableFiltersProps<TFeatures extends TableFeatures, TData extends RowData> = {
+    /** TanStack Table instance that drives the table. */
     table: Table<TFeatures, TData>;
+    /** Filters offered in the Filter menu. */
     filters: readonly DataTableFilterDefinition[];
+    /** Content rendered inside. */
     children?: Snippet;
+    /** Classes added to the element. */
     class?: string;
 };
 export type DataTableFacetProps<TFeatures extends TableFeatures, TData extends RowData> = {
+    /** TanStack Table instance that drives the table. */
     table: Table<TFeatures, TData>;
+    /** Filter definition this chip edits. */
     filter: DataTableFilterDefinition;
     /** Whether it is open. Bind it to control the state from outside. */
     open?: boolean;
     /** Called with the new state whenever it opens or closes. */
     onOpenChange?: (open: boolean) => void;
+    /** Called when the filter is removed. */
     onRemove?: () => void;
+    /** Classes added to the element. */
     class?: string;
 };
 export type DataTableSortProps<TFeatures extends TableFeatures, TData extends RowData> = {
+    /** TanStack Table instance that drives the table. */
     table: Table<TFeatures, TData>;
+    /** Columns offered in the Sort menu. */
     columns?: readonly {
         id: string;
         label: string;
     }[];
+    /** Classes added to the element. */
     class?: string;
 };
 export type DataTableColumnHeaderProps<TFeatures extends TableFeatures, TData extends RowData> = {
+    /** TanStack header to render. */
     header: Header<TFeatures, TData, unknown>;
+    /** Classes added to the element. */
     class?: string;
 };
 export { default as ColumnHeader } from './data-table-column-header.svelte';

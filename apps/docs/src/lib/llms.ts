@@ -143,13 +143,13 @@ export function componentMarkdown(component: string): string | undefined {
             '',
             `### ${part.name}`,
             '',
-            '| Prop | Type | Default | Required | Bindable |',
-            '| --- | --- | --- | --- | --- |',
+            '| Prop | Type | Default | Required | Bindable | Description |',
+            '| --- | --- | --- | --- | --- | --- |',
             ...part.properties
                 .filter((property) => !property.inherited)
                 .map(
                     (property) =>
-                        `| ${property.name} | ${property.type.replaceAll('|', '\\|')} | ${(property.default ?? '—').replaceAll('|', '\\|')} | ${property.required ? 'Yes' : 'No'} | ${property.bindable ? 'Yes' : 'No'} |`
+                        `| ${property.name} | ${property.type.replaceAll('|', '\\|')} | ${(property.default ?? '—').replaceAll('|', '\\|')} | ${property.required ? 'Yes' : 'No'} | ${property.bindable ? 'Yes' : 'No'} | ${property.description.replaceAll('|', '\\|')} |`
                 ),
             '',
             part.properties.some((property) => property.inherited)

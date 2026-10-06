@@ -15,6 +15,7 @@ export type SheetProps = {
     open?: boolean;
     /** Called with the new state whenever it opens or closes. */
     onOpenChange?: (open: boolean) => void;
+    /** Content rendered inside. */
     children?: Snippet;
 };
 
@@ -26,7 +27,12 @@ export type SheetDescriptionProps = DefaultProps;
 export type SheetContentProps = {
     /** Surface treatment. Omit it to inherit `--mielui-surface` from the theme. */
     surface?: 'solid' | 'glass';
+    /**
+     * Closes when the pointer is pressed outside it. Set false to keep it open until it is
+     * dismissed another way.
+     */
     allowClickOutside?: boolean;
+    /** Viewport edge the sheet slides in from. */
     side?: 'left' | 'right';
 } & DefaultProps;
 

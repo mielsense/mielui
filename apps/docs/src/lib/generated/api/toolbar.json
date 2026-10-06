@@ -2436,7 +2436,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "Whether or not to loop through the toolbar items when navigating with the\nkeyboard.",
+                "description": "Whether or not to loop through the toolbar items when navigating with the keyboard.",
                 "inherited": false
             },
             {
@@ -2445,7 +2445,7 @@
                 "required": false,
                 "bindable": false,
                 "default": "'horizontal'",
-                "description": "The orientation of the toolbar. This determines how keyboard navigation\nwill work within the toolbar.",
+                "description": "The orientation of the toolbar. This determines how keyboard navigation will work within the toolbar.",
                 "inherited": false
             },
             {

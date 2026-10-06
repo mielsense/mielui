@@ -10,31 +10,39 @@ import Media from './empty-state-media.svelte';
 import Title from './empty-state-title.svelte';
 
 export type EmptyStateProps = HTMLAttributes<HTMLDivElement> & {
+    /** Content rendered inside. */
     children?: Snippet;
 };
 
 export type EmptyStateHeaderProps = HTMLAttributes<HTMLDivElement> & {
+    /** Content rendered inside. */
     children?: Snippet;
 };
 
 export type EmptyStateMediaProps = HTMLAttributes<HTMLDivElement> & {
+    /** Content rendered inside. */
     children?: Snippet;
 };
 
 export type EmptyStateTitleProps = HTMLAttributes<HTMLHeadingElement> & {
+    /** Heading level in the surrounding document. */
     level?: HeadingLevel;
+    /** Content rendered inside. */
     children?: Snippet;
 };
 
 export type EmptyStateDescriptionProps = HTMLAttributes<HTMLParagraphElement> & {
+    /** Content rendered inside. */
     children?: Snippet;
 };
 
 export type EmptyStateContentProps = HTMLAttributes<HTMLDivElement> & {
+    /** Content rendered inside. */
     children?: Snippet;
 };
 
 export type EmptyStateActionsProps = HTMLAttributes<HTMLDivElement> & {
+    /** Content rendered inside. */
     children?: Snippet;
 };
 

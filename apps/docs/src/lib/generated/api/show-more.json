@@ -80,7 +80,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "Full content. With preview, this subtree is hidden and inert while collapsed.",
+                "description": "Full content. With preview, this subtree is hidden and inert while collapsed. Content rendered inside.",
                 "inherited": false
             },
             {

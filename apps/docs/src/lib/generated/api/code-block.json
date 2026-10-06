@@ -62,7 +62,7 @@
                 "required": false,
                 "bindable": false,
                 "default": "'actionbar'",
-                "description": "Copy button placement:\n- `actionbar` (default): in the header's action cluster.\n- `overlay`: pinned to the top-right of the code body.\n- `inline`: a single-line body with the copy centered on the far right.",
+                "description": "Copy button placement: - `actionbar` (default): in the header's action cluster. - `overlay`: pinned to the top-right of the code body. - `inline`: a single-line body with the copy centered on the far right.",
                 "inherited": false
             },
             {
@@ -80,7 +80,7 @@
                 "required": false,
                 "bindable": false,
                 "default": "'mielui'",
-                "description": "Syntax paint:\n- `mielui` (default): the built-in GitHub palette.\n- `custom`: no token colors; load any `highlight.js/styles/*` theme instead.",
+                "description": "Syntax paint: - `mielui` (default): the built-in GitHub palette. - `custom`: no token colors; load any `highlight.js/styles/*` theme instead.",
                 "inherited": false
             },
             {

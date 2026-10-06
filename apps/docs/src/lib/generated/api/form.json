@@ -2335,7 +2335,7 @@
                 "required": false,
                 "bindable": true,
                 "default": null,
-                "description": "Bindable reference to the rendered DOM element. Type is the union of\nthe two possible element types -- narrow at the use site:",
+                "description": "Bindable reference to the rendered DOM element. Type is the union of the two possible element types -- narrow at the use site:",
                 "inherited": false
             },
             {

@@ -1023,7 +1023,7 @@
                 "required": false,
                 "bindable": true,
                 "default": null,
-                "description": "The placeholder date, used to control the view of the\ncalendar when no value is present.",
+                "description": "The placeholder date, used to control the view of the calendar when no value is present.",
                 "inherited": false
             },
             14,
@@ -1473,7 +1473,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "Whether the calendar is readonly. When true, the user will be able\nto focus and navigate the calendar, but will not be able to select\ndates.",
+                "description": "Whether the calendar is readonly. When true, the user will be able to focus and navigate the calendar, but will not be able to select dates.",
                 "inherited": false
             },
             {
@@ -1500,7 +1500,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "A callback function called when the placeholder value\nchanges.",
+                "description": "A callback function called when the placeholder value changes.",
                 "inherited": false
             },
             {
@@ -1509,7 +1509,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "Whether or not users can deselect a date once selected\nwithout selecting another date.",
+                "description": "Whether or not users can deselect a date once selected without selecting another date.",
                 "inherited": false
             },
             {
@@ -1545,7 +1545,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "The day of the week to start the calendar on, which must\nbe a number between 0 and 6, where 0 is Sunday and 6 is\nSaturday.",
+                "description": "The day of the week to start the calendar on, which must be a number between 0 and 6, where 0 is Sunday and 6 is Saturday.",
                 "inherited": false
             },
             {
@@ -1554,7 +1554,7 @@
                 "required": false,
                 "bindable": false,
                 "default": "'short'",
-                "description": "How the string representation of the weekdays provided via the `weekdays` state store\nshould be formatted.",
+                "description": "How the string representation of the weekdays provided via the `weekdays` state store should be formatted.",
                 "inherited": false
             },
             {
@@ -1563,7 +1563,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "A function that receives a date and returns `true` or `false` to indicate whether\nthe date is disabled.",
+                "description": "A function that receives a date and returns `true` or `false` to indicate whether the date is disabled.",
                 "inherited": false
             },
             {
@@ -1572,7 +1572,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "Dates matching the provided matchers are marked as \"unavailable.\" Unlike disabled dates,\nusers can still focus and select unavailable dates. However, selecting an unavailable date\nrenders the date picker as invalid.",
+                "description": "Dates matching the provided matchers are marked as \"unavailable.\" Unlike disabled dates, users can still focus and select unavailable dates. However, selecting an unavailable date renders the date picker as invalid.",
                 "inherited": false
             },
             {
@@ -1581,7 +1581,7 @@
                 "required": false,
                 "bindable": false,
                 "default": "true",
-                "description": "Display 6 weeks per month, regardless the month's number of weeks.\nThis is useful for displaying a consistent calendar, where the size\nof the calendar doesn't change month to month.",
+                "description": "Display 6 weeks per month, regardless the month's number of weeks. This is useful for displaying a consistent calendar, where the size of the calendar doesn't change month to month.",
                 "inherited": false
             },
             {
@@ -1590,7 +1590,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "Determines the number of months to display on the calendar simultaneously.\nFor navigation between months, refer to the `pagedNavigation` prop.",
+                "description": "Determines the number of months to display on the calendar simultaneously. For navigation between months, refer to the `pagedNavigation` prop.",
                 "inherited": false
             },
             {
@@ -1599,7 +1599,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "This label is exclusively used for accessibility, remaining hidden from the page.\nIt's read by screen readers when the calendar is opened. The current month and year\nare automatically appended to the label, so you only need to provide the base label.",
+                "description": "This label is exclusively used for accessibility, remaining hidden from the page. It's read by screen readers when the calendar is opened. The current month and year are automatically appended to the label, so you only need to provide the base label.",
                 "inherited": false
             },
             {
@@ -1617,7 +1617,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "If `true`, the calendar will focus the selected day, today, or the first day of the month\nin that order depending on what is visible when the calendar is mounted.",
+                "description": "If `true`, the calendar will focus the selected day, today, or the first day of the month in that order depending on what is visible when the calendar is mounted.",
                 "inherited": false
             },
             {
@@ -1626,7 +1626,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "Whether to disable the selection of days outside the current month. By default,\ndays outside the current month are rendered to fill the calendar grid, but they\nare not selectable. Setting this prop to `true` will disable this behavior.",
+                "description": "Whether to disable the selection of days outside the current month. By default, days outside the current month are rendered to fill the calendar grid, but they are not selectable. Setting this prop to `true` will disable this behavior.",
                 "inherited": false
             },
             {
@@ -1635,7 +1635,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "The maximum number of days that can be selected in multiple mode.\nWhen set, users cannot select more dates than this number.",
+                "description": "The maximum number of days that can be selected in multiple mode. When set, users cannot select more dates than this number.",
                 "inherited": false
             },
             {
@@ -6079,7 +6079,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "An array of month numbers (1-12) to display in the select.\nThis allows for flexible month selection, such as showing only\nspecific months or seasons.",
+                "description": "An array of month numbers (1-12) to display in the select. This allows for flexible month selection, such as showing only specific months or seasons.",
                 "inherited": false
             },
             {
@@ -6586,7 +6586,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "An array of years to display in the select.\nThis allows for complete control over which years appear,\nsuch as showing only years with data or excluding certain periods.",
+                "description": "An array of years to display in the select. This allows for complete control over which years appear, such as showing only years with data or excluding certain periods.",
                 "inherited": false
             },
             {

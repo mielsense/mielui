@@ -23,15 +23,19 @@ export type HeadingLevel = 1 | 2 | 3 | 4 | 5 | 6;
 export type HeadingTag = `h${HeadingLevel}`;
 
 export type TypographyTitleProps = HTMLAttributes<HTMLHeadingElement> & {
+    /** Heading level to render. */
     level: HeadingLevel;
+    /** Content rendered inside. */
     children: Snippet;
 };
 
 export type TypographyDescriptionProps = HTMLAttributes<HTMLParagraphElement> & {
+    /** Content rendered inside. */
     children: Snippet;
 };
 
 export type TypographyMetadataProps = HTMLAttributes<HTMLSpanElement> & {
+    /** Content rendered inside. */
     children: Snippet;
 };
 

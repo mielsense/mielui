@@ -4420,7 +4420,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "An array of month numbers (1-12) to display in the select.\nThis allows for flexible month selection, such as showing only\nspecific months or seasons.",
+                "description": "An array of month numbers (1-12) to display in the select. This allows for flexible month selection, such as showing only specific months or seasons.",
                 "inherited": false
             },
             {
@@ -5911,7 +5911,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "An array of years to display in the select.\nThis allows for complete control over which years appear,\nsuch as showing only years with data or excluding certain periods.",
+                "description": "An array of years to display in the select. This allows for complete control over which years appear, such as showing only years with data or excluding certain periods.",
                 "inherited": false
             },
             {
@@ -6872,7 +6872,7 @@
                 "required": false,
                 "bindable": false,
                 "default": "'start'",
-                "description": "The preferred alignment of the anchor to render against when open.\nThis may change when collisions occur.",
+                "description": "The preferred alignment of the anchor to render against when open. This may change when collisions occur.",
                 "inherited": false
             },
             {
@@ -6890,7 +6890,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "Callback fired when an outside interaction event completes,\nwhich is either a `pointerup`, `mouseup`, or `touchend`\nevent, depending on the user's input device.",
+                "description": "Callback fired when an outside interaction event completes, which is either a `pointerup`, `mouseup`, or `touchend` event, depending on the user's input device.",
                 "inherited": false
             },
             {
@@ -6899,7 +6899,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "Interact outside behavior type.\n`close`: Closes the element immediately.\n`defer-otherwise-close`: Delegates the action to the parent element. If no parent is found, it closes the element.\n`defer-otherwise-ignore`: Delegates the action to the parent element. If no parent is found, nothing is done.\n`ignore`: Prevents the element from closing and also blocks the parent element from closing in response to an outside interaction.",
+                "description": "Interact outside behavior type. `close`: Closes the element immediately. `defer-otherwise-close`: Delegates the action to the parent element. If no parent is found, it closes the element. `defer-otherwise-ignore`: Delegates the action to the parent element. If no parent is found, nothing is done. `ignore`: Prevents the element from closing and also blocks the parent element from closing in response to an outside interaction.",
                 "inherited": false
             },
             {
@@ -6917,7 +6917,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "Whether to prevent scrolling the body when the content is open.\nWhether to prevent body scrolling when the content is open.",
+                "description": "Whether to prevent scrolling the body when the content is open. Whether to prevent body scrolling when the content is open.",
                 "inherited": false
             },
             {
@@ -6935,7 +6935,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "Escape behavior type.\n`close`: Closes the element immediately.\n`defer-otherwise-close`: Delegates the action to its parent component that has an\nescape keydown handler. If no parent is found, it closes the element.\n`defer-otherwise-ignore`: Delegates the action to the parent element. If no parent is found, nothing is done.\n`ignore`: Prevents the element from closing and also blocks the parent element from closing in response to an escape key press.",
+                "description": "Escape behavior type. `close`: Closes the element immediately. `defer-otherwise-close`: Delegates the action to its parent component that has an escape keydown handler. If no parent is found, it closes the element. `defer-otherwise-ignore`: Delegates the action to the parent element. If no parent is found, nothing is done. `ignore`: Prevents the element from closing and also blocks the parent element from closing in response to an escape key press.",
                 "inherited": false
             },
             {
@@ -6944,7 +6944,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "The preferred side of the anchor to render against when open.\nWill be reversed when collisions occur.",
+                "description": "The preferred side of the anchor to render against when open. Will be reversed when collisions occur.",
                 "inherited": false
             },
             {
@@ -6971,7 +6971,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "This describes the padding between the arrow and the edges of the floating element.\nIf your floating element has border-radius, this will prevent it from overflowing\nthe corners.",
+                "description": "This describes the padding between the arrow and the edges of the floating element. If your floating element has border-radius, this will prevent it from overflowing the corners.",
                 "inherited": false
             },
             {
@@ -6980,7 +6980,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "When `true`, overrides the `side` and `align` options to prevent collisions\nwith the boundary edges.",
+                "description": "When `true`, overrides the `side` and `align` options to prevent collisions with the boundary edges.",
                 "inherited": false
             },
             {
@@ -6998,7 +6998,7 @@
                 "required": false,
                 "bindable": false,
                 "default": "8",
-                "description": "The amount in pixels of virtual padding around the viewport edges to check\nfor overflow which will cause a collision.",
+                "description": "The amount in pixels of virtual padding around the viewport edges to check for overflow which will cause a collision.",
                 "inherited": false
             },
             {
@@ -7025,7 +7025,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "\"optimized\" will only update the position when necessary, while \"always\"\nwill update the position on each animation frame, which is useful if the floating\ncontent is following something like a mouse cursor.",
+                "description": "\"optimized\" will only update the position when necessary, while \"always\" will update the position on each animation frame, which is useful if the floating content is following something like a mouse cursor.",
                 "inherited": false
             },
             {
@@ -7043,7 +7043,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "Use an element other than the trigger to anchor the content to. If provided,\nthe content will be anchored to the provided element instead of the trigger.",
+                "description": "Use an element other than the trigger to anchor the content to. If provided, the content will be anchored to the provided element instead of the trigger.",
                 "inherited": false
             },
             {
@@ -7052,7 +7052,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "Passing `true` will prevent the overflow of text selection\noutside the element, provided the element is the top layer.",
+                "description": "Passing `true` will prevent the overflow of text selection outside the element, provided the element is the top layer.",
                 "inherited": false
             },
             {
@@ -7061,7 +7061,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "Event handler called when auto-focusing on open.\nCan be prevented.",
+                "description": "Event handler called when auto-focusing on open. Can be prevented.",
                 "inherited": false
             },
             {
@@ -7070,7 +7070,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "Event handler called when auto-focusing on close.\nCan be prevented.",
+                "description": "Event handler called when auto-focusing on close. Can be prevented.",
                 "inherited": false
             },
             {
@@ -8084,7 +8084,7 @@
                 "required": false,
                 "bindable": true,
                 "default": null,
-                "description": "The placeholder value of the date field. This determines the format\nand what date the field starts at when it is empty.",
+                "description": "The placeholder value of the date field. This determines the format and what date the field starts at when it is empty.",
                 "inherited": false
             },
             {
@@ -8093,7 +8093,7 @@
                 "required": false,
                 "bindable": false,
                 "default": "false",
-                "description": "If true, the date field will be disabled and users will not be able\nto interact with it. This also disables the hidden input element if\nthe date field is used in a form.",
+                "description": "If true, the date field will be disabled and users will not be able to interact with it. This also disables the hidden input element if the date field is used in a form.",
                 "inherited": false
             },
             {
@@ -8111,7 +8111,7 @@
                 "required": false,
                 "bindable": false,
                 "default": "false",
-                "description": "If true, the date field will be readonly, and users will not be able to\nedit the values of any of the individual segments.",
+                "description": "If true, the date field will be readonly, and users will not be able to edit the values of any of the individual segments.",
                 "inherited": false
             },
             {
@@ -8120,7 +8120,7 @@
                 "required": false,
                 "bindable": false,
                 "default": "false",
-                "description": "Whether or not the hidden input of the date field requires a value\nto be submitted.",
+                "description": "Whether or not the hidden input of the date field requires a value to be submitted.",
                 "inherited": false
             },
             {
@@ -8147,7 +8147,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "Whether or not users can deselect a date once selected\nwithout selecting another date.",
+                "description": "Whether or not users can deselect a date once selected without selecting another date.",
                 "inherited": false
             },
             {
@@ -8156,7 +8156,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "The minimum acceptable date. When provided, the date field\nwill be marked as invalid if the user enters a date before this date.",
+                "description": "The minimum acceptable date. When provided, the date field will be marked as invalid if the user enters a date before this date.",
                 "inherited": false
             },
             {
@@ -8165,7 +8165,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "The maximum acceptable date. When provided, the date field\nwill be marked as invalid if the user enters a date after this date.",
+                "description": "The maximum acceptable date. When provided, the date field will be marked as invalid if the user enters a date after this date.",
                 "inherited": false
             },
             {
@@ -8183,7 +8183,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "The day of the week to start the calendar on, which must\nbe a number between 0 and 6, where 0 is Sunday and 6 is\nSaturday.",
+                "description": "The day of the week to start the calendar on, which must be a number between 0 and 6, where 0 is Sunday and 6 is Saturday.",
                 "inherited": false
             },
             {
@@ -8192,7 +8192,7 @@
                 "required": false,
                 "bindable": false,
                 "default": "'short'",
-                "description": "How the string representation of the weekdays provided via the `weekdays` state store\nshould be formatted.",
+                "description": "How the string representation of the weekdays provided via the `weekdays` state store should be formatted.",
                 "inherited": false
             },
             {
@@ -8201,7 +8201,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "A function that returns true if the given date is disabled,\nwhich makes the date unable to be selected in the calendar.",
+                "description": "A function that returns true if the given date is disabled, which makes the date unable to be selected in the calendar.",
                 "inherited": false
             },
             {
@@ -8210,7 +8210,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "A function that returns true if the given date is unavailable,\nwhere if selected, the date field will be marked as invalid.",
+                "description": "A function that returns true if the given date is unavailable, where if selected, the date field will be marked as invalid.",
                 "inherited": false
             },
             {
@@ -8219,7 +8219,7 @@
                 "required": false,
                 "bindable": false,
                 "default": "true",
-                "description": "Display 6 weeks per month, regardless the month's number of weeks.\nThis is useful for displaying a consistent calendar, where the size\nof the calendar doesn't change month to month.",
+                "description": "Display 6 weeks per month, regardless the month's number of weeks. This is useful for displaying a consistent calendar, where the size of the calendar doesn't change month to month.",
                 "inherited": false
             },
             {
@@ -8228,7 +8228,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "Determines the number of months to display on the calendar simultaneously.\nFor navigation between months, refer to the `pagedNavigation` prop.",
+                "description": "Determines the number of months to display on the calendar simultaneously. For navigation between months, refer to the `pagedNavigation` prop.",
                 "inherited": false
             },
             {
@@ -8237,7 +8237,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "This label is exclusively used for accessibility, remaining hidden from the page.\nIt's read by screen readers when the calendar is opened. The current month and year\nare automatically appended to the label, so you only need to provide the base label.",
+                "description": "This label is exclusively used for accessibility, remaining hidden from the page. It's read by screen readers when the calendar is opened. The current month and year are automatically appended to the label, so you only need to provide the base label.",
                 "inherited": false
             },
             {
@@ -8264,7 +8264,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "Whether to disable the selection of days outside the current month. By default,\ndays outside the current month are rendered to fill the calendar grid, but they\nare not selectable. Setting this prop to `true` will disable this behavior.",
+                "description": "Whether to disable the selection of days outside the current month. By default, days outside the current month are rendered to fill the calendar grid, but they are not selectable. Setting this prop to `true` will disable this behavior.",
                 "inherited": false
             },
             {
@@ -8318,7 +8318,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "A function that returns a string or array of strings as validation errors if the date is\ninvalid, or nothing if the date is valid",
+                "description": "A function that returns a string or array of strings as validation errors if the date is invalid, or nothing if the date is valid",
                 "inherited": false
             },
             {
@@ -8327,7 +8327,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "A callback fired when the date field's value is invalid. Use this to display an error\nmessage to the user.",
+                "description": "A callback fired when the date field's value is invalid. Use this to display an error message to the user.",
                 "inherited": false
             },
             {
@@ -8336,7 +8336,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "An array of segment names that should be readonly. If provided, only the\nsegments not in this array will be editable.",
+                "description": "An array of segment names that should be readonly. If provided, only the segments not in this array will be editable.",
                 "inherited": false
             },
             {
@@ -8345,7 +8345,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "The format to use for displaying the time in the input.\nIf using a 12 hour clock, ensure you also include the `dayPeriod`\nsegment in your input to ensure the user can select AM/PM.",
+                "description": "The format to use for displaying the time in the input. If using a 12 hour clock, ensure you also include the `dayPeriod` segment in your input to ensure the user can select AM/PM.",
                 "inherited": false
             },
             {
@@ -8354,7 +8354,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "The granularity of the date field. This determines which\nsegments will be includes in the segments array used to\nbuild the date field.",
+                "description": "The granularity of the date field. This determines which segments will be includes in the segments array used to build the date field.",
                 "inherited": false
             },
             {
@@ -8381,7 +8381,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "The `id` of the element which contains the error messages for the date field when the\ndate is invalid.",
+                "description": "The `id` of the element which contains the error messages for the date field when the date is invalid.",
                 "inherited": false
             },
             {
@@ -9328,7 +9328,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "The name to use for the hidden input element of the date field,\nwhich is used to submit the ISO string value of the date field\nto a server. If not provided, the hidden input element will not\nbe rendered.",
+                "description": "The name to use for the hidden input element of the date field, which is used to submit the ISO string value of the date field to a server. If not provided, the hidden input element will not be rendered.",
                 "inherited": false
             },
             {
@@ -9847,7 +9847,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "How long to wait before opening the popover on hover (ms).\nOnly applies when `openOnHover` is `true`.",
+                "description": "How long to wait before opening the popover on hover (ms). Only applies when `openOnHover` is `true`.",
                 "inherited": false
             },
             {
@@ -9856,7 +9856,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "How long to wait before closing the popover after hover ends (ms).\nOnly applies when `openOnHover` is `true`.",
+                "description": "How long to wait before closing the popover after hover ends (ms). Only applies when `openOnHover` is `true`.",
                 "inherited": false
             }
         ]

@@ -1399,7 +1399,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "Callback fired when an outside interaction event completes,\nwhich is either a `pointerup`, `mouseup`, or `touchend`\nevent, depending on the user's input device.",
+                "description": "Callback fired when an outside interaction event completes, which is either a `pointerup`, `mouseup`, or `touchend` event, depending on the user's input device.",
                 "inherited": false
             },
             {
@@ -1408,7 +1408,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "Interact outside behavior type.\n`close`: Closes the element immediately.\n`defer-otherwise-close`: Delegates the action to the parent element. If no parent is found, it closes the element.\n`defer-otherwise-ignore`: Delegates the action to the parent element. If no parent is found, nothing is done.\n`ignore`: Prevents the element from closing and also blocks the parent element from closing in response to an outside interaction.",
+                "description": "Interact outside behavior type. `close`: Closes the element immediately. `defer-otherwise-close`: Delegates the action to the parent element. If no parent is found, it closes the element. `defer-otherwise-ignore`: Delegates the action to the parent element. If no parent is found, nothing is done. `ignore`: Prevents the element from closing and also blocks the parent element from closing in response to an outside interaction.",
                 "inherited": false
             },
             {
@@ -1417,7 +1417,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "The delay in milliseconds before the scrollbar is restored after closing the\ndialog. This is only applicable when using the `child` snippet for custom\ntransitions and `preventScroll` is `true`. You should set this to a value\ngreater than the transition duration to prevent content from shifting during\nthe transition.",
+                "description": "The delay in milliseconds before the scrollbar is restored after closing the dialog. This is only applicable when using the `child` snippet for custom transitions and `preventScroll` is `true`. You should set this to a value greater than the transition duration to prevent content from shifting during the transition.",
                 "inherited": false
             },
             {
@@ -1435,7 +1435,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "Escape behavior type.\n`close`: Closes the element immediately.\n`defer-otherwise-close`: Delegates the action to its parent component that has an\nescape keydown handler. If no parent is found, it closes the element.\n`defer-otherwise-ignore`: Delegates the action to the parent element. If no parent is found, nothing is done.\n`ignore`: Prevents the element from closing and also blocks the parent element from closing in response to an escape key press.",
+                "description": "Escape behavior type. `close`: Closes the element immediately. `defer-otherwise-close`: Delegates the action to its parent component that has an escape keydown handler. If no parent is found, it closes the element. `defer-otherwise-ignore`: Delegates the action to the parent element. If no parent is found, nothing is done. `ignore`: Prevents the element from closing and also blocks the parent element from closing in response to an escape key press.",
                 "inherited": false
             },
             {
@@ -1453,7 +1453,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "Passing `true` will prevent the overflow of text selection\noutside the element, provided the element is the top layer.",
+                "description": "Passing `true` will prevent the overflow of text selection outside the element, provided the element is the top layer.",
                 "inherited": false
             },
             {
@@ -1462,7 +1462,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "Event handler called when auto-focusing on open.\nCan be prevented.",
+                "description": "Event handler called when auto-focusing on open. Can be prevented.",
                 "inherited": false
             },
             {
@@ -1471,7 +1471,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "Event handler called when auto-focusing on close.\nCan be prevented.",
+                "description": "Event handler called when auto-focusing on close. Can be prevented.",
                 "inherited": false
             },
             {
@@ -3902,7 +3902,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "Number between 0 and 1 that determines when the drawer should be closed.\nExample: threshold of 0.5 would close the drawer if the user swiped for 50% of the height of the drawer or more.",
+                "description": "Number between 0 and 1 that determines when the drawer should be closed. Example: threshold of 0.5 would close the drawer if the user swiped for 50% of the height of the drawer or more.",
                 "inherited": false
             },
             {
@@ -3920,7 +3920,7 @@
                 "required": false,
                 "bindable": false,
                 "default": "true",
-                "description": "When `false` dragging, clicking outside, pressing esc, etc. will not close the drawer.\nUse this in combination with the `open` prop, otherwise you won't be able to open/close the drawer.",
+                "description": "When `false` dragging, clicking outside, pressing esc, etc. will not close the drawer. Use this in combination with the `open` prop, otherwise you won't be able to open/close the drawer.",
                 "inherited": false
             },
             {
@@ -3929,7 +3929,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "When `true` Vaul will reposition inputs rather than scroll then into view if the keyboard is in the way.\nSetting it to `false` will fall back to the default browser behavior.",
+                "description": "When `true` Vaul will reposition inputs rather than scroll then into view if the keyboard is in the way. Setting it to `false` will fall back to the default browser behavior.",
                 "inherited": false
             },
             {

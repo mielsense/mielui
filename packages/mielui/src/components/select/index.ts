@@ -18,29 +18,42 @@ type SelectRootProps = {
     open?: boolean;
     /** Called with the new state whenever it opens or closes. */
     onOpenChange?: (open: boolean) => void;
+    /** Field name submitted with the form. */
     name?: string;
+    /** Prevents interaction and dims the control. */
     disabled?: boolean;
+    /** Requires a value before the form can be submitted. */
     required?: boolean;
+    /** Content rendered inside. */
     children?: Snippet;
 };
 
 export type SelectProps = SelectRootProps &
     (
         | {
+              /** `single` keeps one value. `multiple` allows several and makes `value` an array. */
               type?: 'single';
+              /** Selected value, or an array in multiple mode. Bindable. */
               value?: string;
+              /** Called with the new value when it changes. */
               onValueChange?: (value: string) => void;
           }
         | {
+              /** `single` keeps one value. `multiple` allows several and makes `value` an array. */
               type: 'multiple';
+              /** Selected value, or an array in multiple mode. Bindable. */
               value?: string[];
+              /** Called with the new value when it changes. */
               onValueChange?: (value: string[]) => void;
           }
     );
 
 export type SelectItemProps = {
+    /** Value this option selects. */
     value: string;
+    /** Text shown in the trigger when it differs from the option's content. */
     label?: string;
+    /** Content rendered inside. */
     children?: Snippet;
 } & ButtonProps;
 

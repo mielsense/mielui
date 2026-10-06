@@ -906,7 +906,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "Classes for the inset surface (where children live) — padding, layout,\nbackground overrides. The `class` prop styles the outer Panel frame.",
+                "description": "Classes for the inset surface (where children live) — padding, layout, background overrides. The `class` prop styles the outer Panel frame.",
                 "inherited": false
             },
             {
@@ -924,7 +924,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "Render the full-viewport dismiss layer under the panel while open.\nDefaults to `true`. Set to `false` for triggers that must stay\nclickable while open (e.g. an input-style combobox trigger);\noutside pointer dismissal still applies via `allowClickOutside`.",
+                "description": "Render the full-viewport dismiss layer under the panel while open. Defaults to `true`. Set to `false` for triggers that must stay clickable while open (e.g. an input-style combobox trigger); outside pointer dismissal still applies via `allowClickOutside`.",
                 "inherited": false
             },
             {

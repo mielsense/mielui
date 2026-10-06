@@ -26,15 +26,19 @@ export type DrawerRootProps = Pick<
     | 'repositionInputs'
 > & { nested?: boolean };
 export type DrawerTriggerProps = Omit<Primitive.TriggerProps, 'child' | 'ref'> & {
+    /** Bindable reference to the DOM element. */
     element?: HTMLButtonElement | null;
 };
 export type DrawerCloseProps = Omit<Primitive.CloseProps, 'child' | 'ref'> & {
+    /** Bindable reference to the DOM element. */
     element?: HTMLButtonElement | null;
 };
 export type DrawerTitleProps = Omit<Primitive.TitleProps, 'child' | 'ref'> & {
+    /** Bindable reference to the DOM element. */
     element?: HTMLHeadingElement | null;
 };
 export type DrawerDescriptionProps = Omit<Primitive.DescriptionProps, 'child' | 'ref'> & {
+    /** Bindable reference to the DOM element. */
     element?: HTMLParagraphElement | null;
 };
 export type DrawerContentProps = Omit<
@@ -43,16 +47,21 @@ export type DrawerContentProps = Omit<
 > & {
     /** Surface treatment. Omit it to inherit `--mielui-surface` from the theme. */
     surface?: 'solid' | 'glass';
+    /** Bindable reference to the DOM element. */
     element?: HTMLDivElement | null;
 };
 export type DrawerOverlayProps = Omit<Primitive.OverlayProps, 'child' | 'ref'> & {
+    /** Bindable reference to the DOM element. */
     element?: HTMLDivElement | null;
 };
 export type DrawerHandleProps = Omit<Primitive.HandleProps, 'child' | 'ref' | 'preventCycle'> & {
+    /** Bindable reference to the DOM element. */
     element?: HTMLDivElement | null;
 };
 export type DrawerPortalProps = Primitive.PortalProps;
 export type DrawerRegionProps = Omit<HTMLAttributes<HTMLDivElement>, 'children'> & {
+    /** Content rendered inside. */
     children?: Snippet;
+    /** Bindable reference to the DOM element. */
     element?: HTMLDivElement | null;
 };

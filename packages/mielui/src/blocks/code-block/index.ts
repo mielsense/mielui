@@ -54,6 +54,10 @@ export type CodeBlockLabels = {
 };
 
 export type CodeBlockProps = {
+    /**
+     * Overrides the built-in text and accessible names. Every key is optional and English is the
+     * fallback.
+     */
     labels?: CodeBlockLabels;
     /** Active tab id (bindable). Defaults to the first tab. */
     value?: string;
@@ -89,6 +93,7 @@ export type CodeBlockListProps = DefaultProps;
 export type CodeBlockTriggerProps = {
     /** Tab id; matches a `Content` value. */
     value: string;
+    /** Prevents interaction and dims the control. */
     disabled?: boolean;
 } & DefaultProps;
 
@@ -98,15 +103,20 @@ export type CodeBlockActionsProps = {
 } & DefaultProps;
 
 export type CodeBlockCopyProps = {
+    /** Tooltip and accessible name of the copy button. */
     label?: string;
+    /** Label shown right after copying. */
     copiedLabel?: string;
 } & DefaultProps;
 
 export type CodeBlockContentProps = {
     /** Tab id this panel belongs to. */
     value?: string;
+    /** Source text to show. */
     code: string;
+    /** Language used for highlighting. */
     lang?: string;
+    /** Shows a line number before each line. */
     showLineNumbers?: boolean;
     /** Render the copy button in/over this panel (`overlay` or `inline`). */
     copyPlacement?: 'overlay' | 'inline';
