@@ -7,7 +7,7 @@
 </script>
 
 {#if outline.headings.length}
-    <nav aria-label="On this page" class="flex flex-col gap-2">
+    <nav aria-label="On this page" class="flex flex-col gap-4">
         <h2 class="text-xs font-medium text-foreground-muted">On this page</h2>
         <div
             {@attach scrollFade({ size: 28 })}
