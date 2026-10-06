@@ -3,7 +3,10 @@
     import Kbd from '@mielui/svelte/components/kbd';
     import * as Typography from '@mielui/svelte/components/typography';
     import { ComponentPreview, InstallCommand } from '$lib/components/docs';
+    import InlineText from '$lib/components/docs/inline-text.svelte';
     import PageIntro from '$lib/components/docs/page-intro.svelte';
+    import ControlledExample from './examples/controlled.svelte';
+    import ControlledExampleSrc from './examples/controlled.svelte?raw';
     import Glass from './examples/glass.svelte';
     import GlassSrc from './examples/glass.svelte?raw';
 
@@ -114,6 +117,40 @@
             Use callback for an action or href for navigation. The examples report the selected
             command below the trigger. Filtering, keyboard movement, and closing remain owned by
             Command; avoid attaching a second click handler that performs the same action twice.
+        </Typography.Text>
+    </section>
+    <section id="controlling-the-palette" class="flex flex-col gap-4">
+        <Typography.H2 class="docs-section-heading">Controlling the palette</Typography.H2>
+        <Typography.Text variant="supporting">
+            <InlineText
+                text={"Bind `open` on Root to show the palette from a keyboard shortcut or a menu item, and use `onOpenChange` to hear when it opens or closes. A press outside closes it unless you set `allowClickOutside={false}` on Content. `label` on Content is the palette's accessible name and defaults to Command palette."}
+            />
+        </Typography.Text>
+        <Typography.Text variant="supporting">
+            <InlineText
+                text={"Search filters with fuzzy matching. `threshold` sets how forgiving it is, from 0 for an exact match to 1 for nearly anything, and defaults to 0.2."}
+            />
+        </Typography.Text>
+        <ComponentPreview code={ControlledExampleSrc}>
+            <ControlledExample />
+        </ComponentPreview>
+    </section>
+    <section id="trigger-and-items" class="flex flex-col gap-4">
+        <Typography.H2 class="docs-section-heading">Trigger and items</Typography.H2>
+        <Typography.Text variant="supporting">
+            <InlineText
+                text={"Trigger is built on [Button](/docs/components/button). `disabled` blocks it, `loading` with `loadingLabel`, `successLabel` and `errorLabel` shows progress, `element` binds the DOM node, `unstyled` removes the Button classes, and `onclick` runs before the palette opens."}
+            />
+        </Typography.Text>
+        <Typography.Text variant="supporting">
+            <InlineText
+                text={"Item takes `disabled` to stay visible but unselectable, and `onclick`, which runs right after `callback` when the item is clicked."}
+            />
+        </Typography.Text>
+        <Typography.Text variant="supporting">
+            <InlineText
+                text={"Root, Content, Header, Results, Group, Item, Separator and Trigger render their `children` and accept `class` and `style` like any element."}
+            />
         </Typography.Text>
     </section>
 </div>

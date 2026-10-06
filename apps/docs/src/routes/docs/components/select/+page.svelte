@@ -2,7 +2,10 @@
     import { CodeBlock } from '@mielui/svelte/components/code-block';
     import * as Typography from '@mielui/svelte/components/typography';
     import { ComponentPreview, InstallCommand } from '$lib/components/docs';
+    import InlineText from '$lib/components/docs/inline-text.svelte';
     import PageIntro from '$lib/components/docs/page-intro.svelte';
+    import ControlledExample from './examples/controlled.svelte';
+    import ControlledExampleSrc from './examples/controlled.svelte?raw';
     import DynamicWidth from './examples/dynamic-width.svelte';
     import DynamicWidthSrc from './examples/dynamic-width.svelte?raw';
     import Glass from './examples/glass.svelte';
@@ -116,5 +119,39 @@
             and respects reduced-transparency preferences.
         </Typography.Text>
         <ComponentPreview code={GlassSrc}><Glass /></ComponentPreview>
+    </section>
+    <section id="controlling-the-list" class="flex flex-col gap-4">
+        <Typography.H2 class="docs-section-heading">Controlling the list</Typography.H2>
+        <Typography.Text variant="supporting">
+            <InlineText
+                text={"Bind `open` on Root to open or close the list from your own code, and use `onOpenChange` to hear when the person does. `onopen` on Trigger runs just before the list opens."}
+            />
+        </Typography.Text>
+        <Typography.Text variant="supporting">
+            <InlineText
+                text={"Trigger needs a name. Pass `aria-label`, or point `aria-labelledby` at the id of a visible label so the label and the chosen value are read together."}
+            />
+        </Typography.Text>
+        <ComponentPreview code={ControlledExampleSrc}>
+            <ControlledExample />
+        </ComponentPreview>
+    </section>
+    <section id="trigger-and-items" class="flex flex-col gap-4">
+        <Typography.H2 class="docs-section-heading">Trigger and items</Typography.H2>
+        <Typography.Text variant="supporting">
+            <InlineText
+                text={"Trigger is a Button with a chevron. `icon={false}` hides the chevron, `style` sets inline styles, `element` binds the DOM node, and `unstyled` removes the Button classes so `class` alone styles it."}
+            />
+        </Typography.Text>
+        <Typography.Text variant="supporting">
+            <InlineText
+                text={"Item is built on [Button](/docs/components/button) too. `href` makes an option a link, and `loading` with `loadingLabel`, `successLabel` and `errorLabel` shows progress on an option that starts slow work. `element`, `unstyled` and `onkeydown` behave as they do on Trigger."}
+            />
+        </Typography.Text>
+        <Typography.Text variant="supporting">
+            <InlineText
+                text={"Root, Content, Label, Item and Trigger render their `children` and accept `class` and `style` like any element."}
+            />
+        </Typography.Text>
     </section>
 </div>
