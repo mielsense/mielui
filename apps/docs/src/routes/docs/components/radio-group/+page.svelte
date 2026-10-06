@@ -2,11 +2,14 @@
     import { CodeBlock } from '@mielui/svelte/components/code-block';
     import * as Typography from '@mielui/svelte/components/typography';
     import { ComponentPreview, InstallCommand } from '$lib/components/docs';
+    import InlineText from '$lib/components/docs/inline-text.svelte';
     import PageIntro from '$lib/components/docs/page-intro.svelte';
     import Descriptions from './examples/descriptions.svelte';
     import DescriptionsSrc from './examples/descriptions.svelte?raw';
     import Disabled from './examples/disabled.svelte';
     import DisabledSrc from './examples/disabled.svelte?raw';
+    import EventsExample from './examples/events.svelte';
+    import EventsExampleSrc from './examples/events.svelte?raw';
     import Hero from './examples/hero.svelte';
     import HeroSrc from './examples/hero.svelte?raw';
 
@@ -74,5 +77,21 @@
                 <Disabled />
             </ComponentPreview>
         </div>
+    </section>
+    <section id="events-and-naming" class="flex flex-col gap-4">
+        <Typography.H2 class="docs-section-heading">Events and naming</Typography.H2>
+        <Typography.Text variant="supporting">
+            <InlineText
+                text={"`onValueChange` on Root runs with the new value each time the choice changes, for when you want to react without binding `value`. Name the group with a `legend`, an `aria-label`, or `aria-labelledby` pointing at the id of a visible label."}
+            />
+        </Typography.Text>
+        <Typography.Text variant="supporting">
+            <InlineText
+                text={"Item takes its text through `label` and `description`. Put richer content in its `children` when a plain label is not enough, and Root renders the items you pass as its `children`."}
+            />
+        </Typography.Text>
+        <ComponentPreview code={EventsExampleSrc}>
+            <EventsExample />
+        </ComponentPreview>
     </section>
 </div>

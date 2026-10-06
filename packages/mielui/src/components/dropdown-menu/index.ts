@@ -18,7 +18,7 @@ import Trigger from './dropdown-menu-trigger.svelte';
 export type DropdownMenuProps = {
     /** Whether it is open. Bind it to control the state from outside. */
     open?: boolean;
-    /** Called with the new state whenever it opens or closes. */
+    /** Called with the new state when the person opens or closes it, not when you set `open`. */
     onOpenChange?: (open: boolean) => void;
     /** Content rendered inside. */
     children?: Snippet;

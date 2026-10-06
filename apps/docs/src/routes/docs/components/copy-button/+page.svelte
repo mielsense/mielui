@@ -2,9 +2,12 @@
     import { CodeBlock } from '@mielui/svelte/components/code-block';
     import * as Typography from '@mielui/svelte/components/typography';
     import { ComponentPreview, InstallCommand } from '$lib/components/docs';
+    import InlineText from '$lib/components/docs/inline-text.svelte';
     import PageIntro from '$lib/components/docs/page-intro.svelte';
     import Basic from './examples/basic.svelte';
     import BasicSrc from './examples/basic.svelte?raw';
+    import FeedbackExample from './examples/feedback.svelte';
+    import FeedbackExampleSrc from './examples/feedback.svelte?raw';
     import Hero from './examples/hero.svelte';
     import HeroSrc from './examples/hero.svelte?raw';
     import Variants from './examples/variants.svelte';
@@ -85,5 +88,16 @@
             clipboard permission are required. Keep the source text available so people can select
             it manually when clipboard access is blocked.
         </Typography.Text>
+    </section>
+    <section id="feedback" class="flex flex-col gap-4">
+        <Typography.H2 class="docs-section-heading">Copied feedback</Typography.H2>
+        <Typography.Text variant="supporting">
+            <InlineText
+                text={"After a copy, the button holds its copied state and shows `copiedLabel` in the tooltip. `duration` is how long that lasts in milliseconds, 2000 by default. `size` picks the button height. Put text in `children` to show a label beside the icon."}
+            />
+        </Typography.Text>
+        <ComponentPreview code={FeedbackExampleSrc}>
+            <FeedbackExample />
+        </ComponentPreview>
     </section>
 </div>

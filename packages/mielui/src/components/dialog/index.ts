@@ -62,7 +62,10 @@ export type DialogProps = {
     open?: boolean;
     /** Called with the new state whenever it opens or closes. */
     onOpenChange?: (open: boolean) => void;
-    /** Sets supported browser chrome to red while the dialog is open. */
+    /**
+     * Marks the dialog as destructive. Confirm defaults to the destructive variant, and browsers
+     * that tint their chrome from the theme color turn it red while the dialog is open.
+     */
     error?: boolean;
     /** Controls the default width and action layout. Defaults to `horizontal`. */
     orientation?: DialogOrientation;

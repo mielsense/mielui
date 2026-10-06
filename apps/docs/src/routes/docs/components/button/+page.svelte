@@ -2,6 +2,7 @@
     import { CodeBlock } from '@mielui/svelte/components/code-block';
     import * as Typography from '@mielui/svelte/components/typography';
     import { ComponentPreview, InstallCommand } from '$lib/components/docs';
+    import InlineText from '$lib/components/docs/inline-text.svelte';
     import PageIntro from '$lib/components/docs/page-intro.svelte';
     import AsLink from './examples/as-link.svelte';
     import AsLinkSrc from './examples/as-link.svelte?raw';
@@ -128,5 +129,18 @@ let status = $state<'idle' | 'loading' | 'success' | 'error'>('idle');
                 <IconGroup />
             </ComponentPreview>
         </div>
+    </section>
+    <section id="element-and-handlers" class="flex flex-col gap-4">
+        <Typography.H2 class="docs-section-heading">Element, handlers and unstyled</Typography.H2>
+        <Typography.Text variant="supporting">
+            <InlineText
+                text={"Button renders its `children`. Bind `element` to reach the DOM node, a button or a link depending on `href`. `onkeydown` runs on key down before the button handles the key itself."}
+            />
+        </Typography.Text>
+        <Typography.Text variant="supporting">
+            <InlineText
+                text={"`unstyled` drops the variant and size classes so `class` alone styles the button. The behavior stays: loading, disabled and link handling all still work. Menus use it for rows that have their own look."}
+            />
+        </Typography.Text>
     </section>
 </div>

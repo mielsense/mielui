@@ -2,6 +2,7 @@
     import { CodeBlock } from '@mielui/svelte/components/code-block';
     import * as Typography from '@mielui/svelte/components/typography';
     import { ComponentPreview, InstallCommand } from '$lib/components/docs';
+    import InlineText from '$lib/components/docs/inline-text.svelte';
     import PageIntro from '$lib/components/docs/page-intro.svelte';
     import Composition from './examples/composition.svelte';
     import CompositionSrc from './examples/composition.svelte?raw';
@@ -129,6 +130,19 @@
             composition places presets before the channel controls; the trigger, preview, and inputs
             still share the same value. Give each picker a distinct label when several appear
             together.
+        </Typography.Text>
+    </section>
+    <section id="panel-behavior" class="flex flex-col gap-4">
+        <Typography.H2 class="docs-section-heading">Panel behavior</Typography.H2>
+        <Typography.Text variant="supporting">
+            <InlineText
+                text={"Content shares its panel with Popover. A press outside closes the picker unless you set `allowClickOutside={false}`. `dismissLayer={false}` removes the invisible layer that catches the first outside press. `focusTrap` and `lockScroll` decide whether Tab and page scrolling are held while it is open."}
+            />
+        </Typography.Text>
+        <Typography.Text variant="supporting">
+            <InlineText
+                text={"`portal={false}` renders the panel in place, which you need when the picker sits inside a dialog that traps focus. `refElement` anchors it to another element. `role` and `tabindex` set the panel's ARIA role and tab index, and `surfaceClass` styles the inner surface while `class` styles the frame."}
+            />
         </Typography.Text>
     </section>
 </div>

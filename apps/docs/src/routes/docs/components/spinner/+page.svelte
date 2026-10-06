@@ -2,6 +2,7 @@
     import { CodeBlock } from '@mielui/svelte/components/code-block';
     import * as Typography from '@mielui/svelte/components/typography';
     import { ComponentPreview, InstallCommand } from '$lib/components/docs';
+    import InlineText from '$lib/components/docs/inline-text.svelte';
     import PageIntro from '$lib/components/docs/page-intro.svelte';
 
     import Hero from './examples/hero.svelte';
@@ -75,5 +76,13 @@
             seconds, then blurs and collapses without requiring parent state to unmount it.
         </Typography.Text>
         <ComponentPreview code={ReadyStateSrc}><ReadyState /></ComponentPreview>
+    </section>
+    <section id="naming" class="flex flex-col gap-4">
+        <Typography.H2 class="docs-section-heading">Naming the spinner</Typography.H2>
+        <Typography.Text variant="supporting">
+            <InlineText
+                text={"A spinner on its own says nothing to a screen reader. Pass `aria-label` with what is loading, such as Loading invoices. Leave it off when visible text next to the spinner already says so."}
+            />
+        </Typography.Text>
     </section>
 </div>

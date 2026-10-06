@@ -2,6 +2,7 @@
     import { CodeBlock } from '@mielui/svelte/components/code-block';
     import * as Typography from '@mielui/svelte/components/typography';
     import { ComponentPreview, InstallCommand } from '$lib/components/docs';
+    import InlineText from '$lib/components/docs/inline-text.svelte';
     import PageIntro from '$lib/components/docs/page-intro.svelte';
     import Hero from './examples/hero.svelte';
     import HeroSrc from './examples/hero.svelte?raw';
@@ -95,6 +96,19 @@ import * as EmptyState from '@mielui/svelte/components/empty-state';
             outside that live region. If an action removes the focused control, move focus to the
             next useful control. Loading and failed requests need their own messages; an empty
             result should mean the request finished successfully.
+        </Typography.Text>
+    </section>
+    <section id="parts" class="flex flex-col gap-4">
+        <Typography.H2 class="docs-section-heading">Parts</Typography.H2>
+        <Typography.Text variant="supporting">
+            <InlineText
+                text={"An empty state is assembled from parts, and every one of them is optional. Leave out Media for a text-only message, or Actions when there is nothing to do yet."}
+            />
+        </Typography.Text>
+        <Typography.Text variant="supporting">
+            <InlineText
+                text={"Root, Header, Media, Title, Description, Content and Actions render their `children` and accept `class` and `style` like any element."}
+            />
         </Typography.Text>
     </section>
 </div>

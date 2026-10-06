@@ -1007,7 +1007,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "Positions the panel against this element or virtual element instead of the trigger.",
+                "description": "Positions the panel against this element or virtual element instead of the trigger. The panel then opens to the right of it, as a submenu does.",
                 "inherited": false
             },
             {
@@ -2172,7 +2172,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "Called with the new state whenever it opens or closes.",
+                "description": "Called with the new state when the person opens or closes it, not when you set `open`.",
                 "inherited": false
             },
             {

@@ -942,7 +942,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "Positions the panel against this element or virtual element instead of the trigger.",
+                "description": "Positions the panel against this element or virtual element instead of the trigger. The panel then opens to the right of it, as a submenu does.",
                 "inherited": false
             },
             {

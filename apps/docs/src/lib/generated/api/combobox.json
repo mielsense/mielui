@@ -71,7 +71,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "Positions the panel against this element or virtual element instead of the trigger.",
+                "description": "Positions the panel against this element or virtual element instead of the trigger. The panel then opens to the right of it, as a submenu does.",
                 "inherited": false
             },
             {
@@ -1226,7 +1226,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "Stable identifier used to connect trigger and content ARIA attributes.",
+                "description": "Older spelling of `stateKey`. `stateKey` wins when both are set.",
                 "inherited": false
             },
             {

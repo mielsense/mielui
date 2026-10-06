@@ -2,6 +2,7 @@
     import { CodeBlock } from '@mielui/svelte/components/code-block';
     import * as Typography from '@mielui/svelte/components/typography';
     import { ComponentPreview, InstallCommand } from '$lib/components/docs';
+    import InlineText from '$lib/components/docs/inline-text.svelte';
     import PageIntro from '$lib/components/docs/page-intro.svelte';
     import Basic from './examples/basic.svelte';
     import BasicSrc from './examples/basic.svelte?raw';
@@ -181,5 +182,13 @@
                 <Disabled />
             </ComponentPreview>
         </div>
+    </section>
+    <section id="children" class="flex flex-col gap-4">
+        <Typography.H2 class="docs-section-heading">Children</Typography.H2>
+        <Typography.Text variant="supporting">
+            <InlineText
+                text={"Slider draws its own track and handles and does not render `children`. The prop exists on the type only because it comes with the shared base props."}
+            />
+        </Typography.Text>
     </section>
 </div>

@@ -45,4 +45,5 @@
 - Add three live demos to the homepage under the hero: a coding agent workspace, a support chat, and an issue editor, each behind a tab.
 - Show the coding agent and chat demos in the Studio's AI components tab, side by side at full height.
 - Rebuild the Studio's App preview as a sidebar app in a card that fills the preview pane.
-- Add feature sections with live examples to the overlay pages, covering dismissal, async action buttons, hover popovers, checkbox and radio menu items, and controlled menus.
+- Explain every prop in prose on its component page, in 91 feature sections added to 62 pages, with 41 new live examples.
+- Show each prop's description in the Markdown API tables used by Copy page and `llms.txt`.

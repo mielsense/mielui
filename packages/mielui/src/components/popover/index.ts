@@ -35,7 +35,10 @@ export type PopoverContentProps = {
      * it in place.
      */
     portal?: boolean;
-    /** Positions the panel against this element or virtual element instead of the trigger. */
+    /**
+     * Positions the panel against this element or virtual element instead of the trigger. The
+     * panel then opens to the right of it, as a submenu does.
+     */
     refElement?: VirtualElement;
     /** ARIA role of the panel. */
     role?: 'dialog' | 'alertdialog' | 'menu' | 'listbox' | 'none';
@@ -60,7 +63,7 @@ export type PopoverProps = {
      * there is no room.
      */
     placement?: Placement;
-    /** Stable identifier used to connect trigger and content ARIA attributes. */
+    /** Older spelling of `stateKey`. `stateKey` wins when both are set. */
     state_key?: string;
     /** Key that identifies this instance's state. A key is generated when you omit it. */
     stateKey?: string;

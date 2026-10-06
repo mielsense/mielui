@@ -2,7 +2,10 @@
     import { CodeBlock } from '@mielui/svelte/components/code-block';
     import * as Typography from '@mielui/svelte/components/typography';
     import { ComponentPreview, InstallCommand } from '$lib/components/docs';
+    import InlineText from '$lib/components/docs/inline-text.svelte';
     import PageIntro from '$lib/components/docs/page-intro.svelte';
+    import EventsExample from './examples/events.svelte';
+    import EventsExampleSrc from './examples/events.svelte?raw';
 
     import Hero from './examples/hero.svelte';
     import HeroSrc from './examples/hero.svelte?raw';
@@ -108,5 +111,21 @@
     <section id="complete" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Complete text</Typography.H2>
         <ComponentPreview code={AdditionalSrc}><Additional /></ComponentPreview>
+    </section>
+    <section id="events-and-pace" class="flex flex-col gap-4">
+        <Typography.H2 class="docs-section-heading">Events and pace</Typography.H2>
+        <Typography.Text variant="supporting">
+            <InlineText
+                text={"`onComplete` runs once the whole response has been revealed, which is when to enable the composer again or show the actions under a message. `onError` runs with the error if the stream fails part way."}
+            />
+        </Typography.Text>
+        <Typography.Text variant="supporting">
+            <InlineText
+                text={"`characterChunkSize` is how many characters appear per step. The default reveals one at a time. Raise it for long answers so they do not take forever to finish. The component draws the text itself and does not render `children`."}
+            />
+        </Typography.Text>
+        <ComponentPreview code={EventsExampleSrc}>
+            <EventsExample />
+        </ComponentPreview>
     </section>
 </div>

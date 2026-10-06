@@ -296,6 +296,16 @@ still disable their corresponding elevation effects.
 
 ## Documentation composition
 
+Every prop a component accepts is explained in prose on its page, not only in the
+API reference. After the examples, a page adds one section per feature: what
+the props in that group do, their defaults, and when to reach for them, with a
+live example whenever the behavior can be seen or clicked. Group props by what
+they do together, such as dismissal or opening on hover. Test each example in
+the browser before describing it, and describe what it did. Props a part
+inherits from Button get one sentence and a link to the Button page. A new or
+changed prop ships with its sentence and, when it changes what people see, its
+example.
+
 Docs and Studio share one app shell. At large widths a warm near-black frame
 (`--docs-shell`, pure black in dark mode) holds an icon rail, one rounded panel,
 and a slim status line under it.

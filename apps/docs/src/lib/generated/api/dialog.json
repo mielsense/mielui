@@ -1389,7 +1389,7 @@
                 "required": false,
                 "bindable": false,
                 "default": "false",
-                "description": "Sets supported browser chrome to red while the dialog is open.",
+                "description": "Marks the dialog as destructive. Confirm defaults to the destructive variant, and browsers that tint their chrome from the theme color turn it red while the dialog is open.",
                 "inherited": false
             },
             {

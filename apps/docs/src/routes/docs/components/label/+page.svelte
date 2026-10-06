@@ -2,6 +2,7 @@
     import { CodeBlock } from '@mielui/svelte/components/code-block';
     import * as Typography from '@mielui/svelte/components/typography';
     import { ComponentPreview, InstallCommand } from '$lib/components/docs';
+    import InlineText from '$lib/components/docs/inline-text.svelte';
     import PageIntro from '$lib/components/docs/page-intro.svelte';
     import SectionHeading from '$lib/components/docs/section-heading.svelte';
     import Disabled from './examples/disabled.svelte';
@@ -73,5 +74,13 @@
                 <Disabled />
             </ComponentPreview>
         </div>
+    </section>
+    <section id="content" class="flex flex-col gap-4">
+        <Typography.H2 class="docs-section-heading">Content</Typography.H2>
+        <Typography.Text variant="supporting">
+            <InlineText
+                text={"The label's text goes in `children`, and it can include other elements such as a required mark or a badge. Clicking any of it focuses the control named by `for`."}
+            />
+        </Typography.Text>
     </section>
 </div>

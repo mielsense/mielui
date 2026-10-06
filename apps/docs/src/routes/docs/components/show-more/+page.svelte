@@ -2,6 +2,7 @@
     import { CodeBlock } from '@mielui/svelte/components/code-block';
     import * as Typography from '@mielui/svelte/components/typography';
     import { ComponentPreview, InstallCommand } from '$lib/components/docs';
+    import InlineText from '$lib/components/docs/inline-text.svelte';
     import PageIntro from '$lib/components/docs/page-intro.svelte';
     import Capped from './examples/capped.svelte';
     import CappedSrc from './examples/capped.svelte?raw';
@@ -9,6 +10,8 @@
     import HeroSrc from './examples/hero.svelte?raw';
     import Interactive from './examples/interactive.svelte';
     import InteractiveSrc from './examples/interactive.svelte?raw';
+    import LabelsExample from './examples/labels.svelte';
+    import LabelsExampleSrc from './examples/labels.svelte?raw';
 
     const TITLE = 'Show More';
     const installCommand = 'pnpm dlx @mielui/svelte add show-more';
@@ -104,5 +107,21 @@ let expanded = $state(false);
             supply a separate preview snippet and keep those controls in the expanded content. The
             interactive example prevents a clipped control from becoming an invisible keyboard stop.
         </Typography.Text>
+    </section>
+    <section id="state-and-labels" class="flex flex-col gap-4">
+        <Typography.H2 class="docs-section-heading">State and labels</Typography.H2>
+        <Typography.Text variant="supporting">
+            <InlineText
+                text={"The content starts collapsed. `defaultExpanded` starts it open when you are not binding `expanded` yourself. `onExpandedChange` runs with the new state each time it expands or collapses."}
+            />
+        </Typography.Text>
+        <Typography.Text variant="supporting">
+            <InlineText
+                text={"`moreLabel` and `lessLabel` are the button's text in each state, Show more and Show less by default. Name what is hidden when you can, such as Show all 12 comments."}
+            />
+        </Typography.Text>
+        <ComponentPreview code={LabelsExampleSrc}>
+            <LabelsExample />
+        </ComponentPreview>
     </section>
 </div>

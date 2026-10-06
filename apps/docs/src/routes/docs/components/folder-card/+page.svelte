@@ -2,6 +2,7 @@
     import { CodeBlock } from '@mielui/svelte/components/code-block';
     import * as Typography from '@mielui/svelte/components/typography';
     import { ComponentPreview, InstallCommand } from '$lib/components/docs';
+    import InlineText from '$lib/components/docs/inline-text.svelte';
     import PageIntro from '$lib/components/docs/page-intro.svelte';
     import Grid from './examples/grid.svelte';
     import GridSrc from './examples/grid.svelte?raw';
@@ -135,5 +136,13 @@
                 <LiveCount />
             </ComponentPreview>
         </div>
+    </section>
+    <section id="heading-level" class="flex flex-col gap-4">
+        <Typography.H2 class="docs-section-heading">Heading level</Typography.H2>
+        <Typography.Text variant="supporting">
+            <InlineText
+                text={"Title renders a heading. `level` picks 2, 3 or 4 so the card fits the outline of the page around it, and defaults to 3. The size on screen does not change."}
+            />
+        </Typography.Text>
     </section>
 </div>

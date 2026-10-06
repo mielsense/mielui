@@ -2,7 +2,10 @@
     import { CodeBlock } from '@mielui/svelte/components/code-block';
     import * as Typography from '@mielui/svelte/components/typography';
     import { ComponentPreview, InstallCommand } from '$lib/components/docs';
+    import InlineText from '$lib/components/docs/inline-text.svelte';
     import PageIntro from '$lib/components/docs/page-intro.svelte';
+    import EventsExample from './examples/events.svelte';
+    import EventsExampleSrc from './examples/events.svelte?raw';
 
     import Hero from './examples/hero.svelte';
     import HeroSrc from './examples/hero.svelte?raw';
@@ -99,5 +102,21 @@
             lang="svelte"
             copy="overlay"
         />
+    </section>
+    <section id="open-events" class="flex flex-col gap-4">
+        <Typography.H2 class="docs-section-heading">Open events and parts</Typography.H2>
+        <Typography.Text variant="supporting">
+            <InlineText
+                text={"`onOpenChange` on Root runs when the reasoning opens or closes. `onOpenChangeComplete` runs after the animation has finished, which is the moment to measure or scroll."}
+            />
+        </Typography.Text>
+        <Typography.Text variant="supporting">
+            <InlineText
+                text={"Root, Trigger and Content render their `children` and accept `class` and `style` like any element."}
+            />
+        </Typography.Text>
+        <ComponentPreview code={EventsExampleSrc}>
+            <EventsExample />
+        </ComponentPreview>
     </section>
 </div>
