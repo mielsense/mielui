@@ -342,6 +342,11 @@
         cursor: default;
     }
 
+    /* Truncated text hides its overflow, which cuts descenders at a line height of 1. */
+    .mielui-menu-item .truncate {
+        line-height: normal;
+    }
+
     .mielui-menu-item > kbd {
         margin-inline-start: auto;
     }

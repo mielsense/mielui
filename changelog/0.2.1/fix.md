@@ -9,3 +9,6 @@
 - Composer's toolbar and send button use the small control size, so the strip under the input is shorter.
 - Stop descenders such as g and p being cut off in Select triggers and in truncated text inside buttons.
 - Glass cards frost dark in dark mode, where they used a pale white veil.
+- Stop descenders being cut off in truncated menu, select, combobox and command rows.
+- Classes passed to `Command.Header` now override its default padding and text color.
+- Keep the Command search row at its full height when the results are long.

@@ -50,3 +50,4 @@
 - Leave more room between parts in the API reference, and set the API reference apart in the On this page list.
 - The homepage showcase follows dark mode with dark frosted tiles and a dark preview.
 - Drag the edge of the docs or Studio sidebar to resize it. Each keeps its own width between visits, and a double click resets it.
+- Rebalance the search palette: a taller search row and key hint bar, and shorter result rows.

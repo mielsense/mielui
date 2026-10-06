@@ -417,7 +417,9 @@ The API reference shows each prop's type without a trailing `| undefined`;
 optional is the default and required props are labelled. Descriptions render
 inline code.
 
-Search opens as a compact palette about 34rem wide with 15px rows, page icons,
+Search opens as a compact palette about 34rem wide and at most 25rem tall. The
+search row is the tallest row at about 48px, the key hint bar is about 42px, and
+result rows are compact at 14px text, so the frame reads heavier than its list. It has page icons,
 a muted hint at the end of a row only when it adds information, and faded top
 and bottom edges. It lists open tabs, guides, places, and quick actions before a
 query, and every component once one is typed.

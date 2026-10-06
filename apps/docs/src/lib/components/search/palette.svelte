@@ -160,9 +160,9 @@
 <Command.Root bind:open={search.open}>
     <Command.Content
         label="Search documentation"
-        class="max-h-[min(27rem,calc(var(--mielui-viewport-height)-var(--overlay-gutter)))] max-w-[34rem] [&_[data-collection-item]]:min-h-10 [&_[data-collection-item]]:text-[15px] [&_input]:text-base"
+        class="max-h-[min(25rem,calc(var(--mielui-viewport-height)-var(--overlay-gutter)))] max-w-[34rem] [&_[data-collection-item]]:h-8 [&_[data-collection-item]]:text-sm [&_div:has(>input[role=combobox])]:h-13 [&_div:has(>input[role=combobox])]:px-4 [&_input]:text-[15px]"
     >
-        <Command.Header class="flex items-center gap-4 px-4 py-2.5 text-[13px]">
+        <Command.Header class="flex items-center gap-4 px-4 pt-3 pb-3 text-[13px]">
             <span class="flex items-center gap-1.5">
                 <Kbd shortcut="up" />
                 <Kbd shortcut="down" />
@@ -185,7 +185,7 @@
             }}
         />
         <Command.Results
-            class="[mask-image:linear-gradient(to_bottom,transparent,black_calc(var(--spacing)*5),black_calc(100%-var(--spacing)*8),transparent)] px-2 py-3"
+            class="[mask-image:linear-gradient(to_bottom,transparent,black_calc(var(--spacing)*4),black_calc(100%-var(--spacing)*6),transparent)] px-2 py-2"
         >
             {#if !query && openTabs.length}
                 <Command.Group heading="Open tabs">
@@ -208,7 +208,7 @@
                 <Command.Item name={themeLabel} callback={() => run(toggleMode)}>
                     <HugeiconsIcon
                         icon={mode.current === 'dark' ? Sun : Moon}
-                        size={18}
+                        size={16}
                         class="shrink-0 text-foreground-muted"
                     />
                     <span class="min-w-0 flex-1 truncate">{themeLabel}</span>
@@ -217,7 +217,7 @@
                     name="Open a new tab"
                     callback={() => run(() => shell.tabs.open(resolve('/docs/components')))}
                 >
-                    <HugeiconsIcon icon={Plus} size={18} class="shrink-0 text-foreground-muted" />
+                    <HugeiconsIcon icon={Plus} size={16} class="shrink-0 text-foreground-muted" />
                     <span class="min-w-0 flex-1 truncate">Open a new tab</span>
                 </Command.Item>
             </Command.Group>
@@ -248,7 +248,7 @@
 
 {#snippet row(entry: Entry)}
     <Command.Item name={`${entry.label} ${entry.hint}`} href={entry.href}>
-        <HugeiconsIcon icon={entry.icon} size={18} class="shrink-0 text-foreground-muted" />
+        <HugeiconsIcon icon={entry.icon} size={16} class="shrink-0 text-foreground-muted" />
         <span class="min-w-0 flex-1 truncate">{entry.label}</span>
         {#if entry.hint}
             <span class="shrink-0 text-[13px] text-foreground-muted">{entry.hint}</span>
