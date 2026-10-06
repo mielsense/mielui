@@ -45,3 +45,4 @@
 - Add three live demos to the homepage under the hero: a coding agent workspace, a support chat, and an issue editor, each behind a tab.
 - Show the coding agent and chat demos in the Studio's AI components tab, side by side at full height.
 - Rebuild the Studio's App preview as a sidebar app in a card that fills the preview pane.
+- Add feature sections with live examples to the overlay pages, covering dismissal, async action buttons, hover popovers, checkbox and radio menu items, and controlled menus.

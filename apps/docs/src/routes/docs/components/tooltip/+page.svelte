@@ -2,6 +2,7 @@
     import { CodeBlock } from '@mielui/svelte/components/code-block';
     import * as Typography from '@mielui/svelte/components/typography';
     import { ComponentPreview, InstallCommand } from '$lib/components/docs';
+    import InlineText from '$lib/components/docs/inline-text.svelte';
     import PageIntro from '$lib/components/docs/page-intro.svelte';
     import Bottom from './examples/bottom.svelte';
     import BottomSrc from './examples/bottom.svelte?raw';
@@ -121,5 +122,13 @@
             preferences.
         </Typography.Text>
         <ComponentPreview code={GlassSrc}><Glass /></ComponentPreview>
+    </section>
+    <section id="parts" class="flex flex-col gap-4">
+        <Typography.H2 class="docs-section-heading">Parts</Typography.H2>
+        <Typography.Text variant="supporting">
+            <InlineText
+                text={"Trigger wraps the element that owns the tooltip and Content holds its text. Both render their `children`. Root and Provider add no element. They only pass their `children` through, so they never change your layout."}
+            />
+        </Typography.Text>
     </section>
 </div>

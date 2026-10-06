@@ -2,8 +2,11 @@
     import { CodeBlock } from '@mielui/svelte/components/code-block';
     import * as Typography from '@mielui/svelte/components/typography';
     import { ComponentPreview, InstallCommand } from '$lib/components/docs';
+    import InlineText from '$lib/components/docs/inline-text.svelte';
     import PageIntro from '$lib/components/docs/page-intro.svelte';
     import SectionHeading from '$lib/components/docs/section-heading.svelte';
+    import CheckboxItemsExample from './examples/checkbox-items.svelte';
+    import CheckboxItemsExampleSrc from './examples/checkbox-items.svelte?raw';
     import FileRow from './examples/file-row.svelte';
     import FileRowSrc from './examples/file-row.svelte?raw';
     import Glass from './examples/glass.svelte';
@@ -115,5 +118,29 @@
             and respects reduced-transparency preferences.
         </Typography.Text>
         <ComponentPreview code={GlassSrc}><Glass /></ComponentPreview>
+    </section>
+    <section id="checkbox-items" class="flex flex-col gap-4">
+        <Typography.H2 class="docs-section-heading">Checkbox items</Typography.H2>
+        <Typography.Text variant="supporting">
+            <InlineText
+                text={"CheckboxItem toggles an option in place. Give each one a `value` that is unique within the menu, bind `checked` to read or set the state, and use `callback` to react when the person toggles it. `inset` adds the leading space that lines a plain Item up with the checkbox rows."}
+            />
+        </Typography.Text>
+        <ComponentPreview code={CheckboxItemsExampleSrc}>
+            <CheckboxItemsExample />
+        </ComponentPreview>
+    </section>
+    <section id="items" class="flex flex-col gap-4">
+        <Typography.H2 class="docs-section-heading">Items and other parts</Typography.H2>
+        <Typography.Text variant="supporting">
+            <InlineText
+                text={"Item and CheckboxItem are built on [Button](/docs/components/button). `size` changes the row height, `href` turns a row into a link, and `loading` with `loadingLabel`, `successLabel` and `errorLabel` shows progress. `element` binds the DOM node, `unstyled` removes the Button classes, and `onkeydown` runs before the menu handles the key."}
+            />
+        </Typography.Text>
+        <Typography.Text variant="supporting">
+            <InlineText
+                text={"Root, Trigger, Content, Separator, Sub, SubTrigger and SubContent render their `children` and accept `class` and `style` like any element."}
+            />
+        </Typography.Text>
     </section>
 </div>

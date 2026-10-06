@@ -2,7 +2,10 @@
     import { CodeBlock } from '@mielui/svelte/components/code-block';
     import * as Typography from '@mielui/svelte/components/typography';
     import { ComponentPreview, InstallCommand } from '$lib/components/docs';
+    import InlineText from '$lib/components/docs/inline-text.svelte';
     import PageIntro from '$lib/components/docs/page-intro.svelte';
+    import DismissalExample from './examples/dismissal.svelte';
+    import DismissalExampleSrc from './examples/dismissal.svelte?raw';
     import Glass from './examples/glass.svelte';
     import GlassSrc from './examples/glass.svelte?raw';
     import Hero from './examples/hero.svelte';
@@ -109,5 +112,39 @@
             respects reduced-transparency preferences.
         </Typography.Text>
         <ComponentPreview code={GlassSrc}><Glass /></ComponentPreview>
+    </section>
+    <section id="dismissal-and-focus" class="flex flex-col gap-4">
+        <Typography.H2 class="docs-section-heading">Dismissal and focus</Typography.H2>
+        <Typography.Text variant="supporting">
+            <InlineText
+                text={"Content decides what happens when someone presses outside or hits Escape. `interactOutsideBehavior` and `escapeKeydownBehavior` each take `close`, `ignore`, `defer-otherwise-close`, or `defer-otherwise-ignore`. The two defer values hand the decision to a parent layer first, which is what a nested drawer wants. `onInteractOutside` and `onEscapeKeydown` run for each event, and calling `preventDefault()` there keeps the drawer open that one time."}
+            />
+        </Typography.Text>
+        <Typography.Text variant="supporting">
+            <InlineText
+                text={"`trapFocus={false}` lets Tab leave the drawer. `onCloseAutoFocus` runs when focus is about to return to the trigger, and preventing it lets you send focus somewhere else. `preventOverflowTextSelection` stops a text selection that starts inside from spreading onto the page."}
+            />
+        </Typography.Text>
+        <ComponentPreview code={DismissalExampleSrc}>
+            <DismissalExample />
+        </ComponentPreview>
+    </section>
+    <section id="mounting-and-parts" class="flex flex-col gap-4">
+        <Typography.H2 class="docs-section-heading">Mounting and parts</Typography.H2>
+        <Typography.Text variant="supporting">
+            <InlineText
+                text={"`forceMount` on Content and Overlay keeps them in the DOM while closed, for when you run your own exit animation. `restoreScrollDelay` is the wait in milliseconds before page scrolling comes back after closing, and should be longer than that animation. Portal takes `disabled` to render the drawer in place instead of at the end of the document."}
+            />
+        </Typography.Text>
+        <Typography.Text variant="supporting">
+            <InlineText
+                text={"On phones, `repositionInputs` on Root moves the drawer so the on-screen keyboard does not cover a focused field. Set it to false to fall back to the browser's own scrolling. Title renders a heading and `level` picks which one, from 1 to 6."}
+            />
+        </Typography.Text>
+        <Typography.Text variant="supporting">
+            <InlineText
+                text={"Root, Trigger, Close, Content, Overlay, Portal, Handle, Header, Title, Description, Body and Footer render their `children` and accept `class` and `style` like any element."}
+            />
+        </Typography.Text>
     </section>
 </div>

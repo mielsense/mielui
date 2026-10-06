@@ -2,6 +2,7 @@
     import { CodeBlock } from '@mielui/svelte/components/code-block';
     import * as Typography from '@mielui/svelte/components/typography';
     import { ComponentPreview, InstallCommand } from '$lib/components/docs';
+    import InlineText from '$lib/components/docs/inline-text.svelte';
     import PageIntro from '$lib/components/docs/page-intro.svelte';
     import Definition from './examples/definition.svelte';
     import DefinitionSrc from './examples/definition.svelte?raw';
@@ -140,5 +141,13 @@
             and respects reduced-transparency preferences.
         </Typography.Text>
         <ComponentPreview code={GlassSrc}><Glass /></ComponentPreview>
+    </section>
+    <section id="parts" class="flex flex-col gap-4">
+        <Typography.H2 class="docs-section-heading">Parts</Typography.H2>
+        <Typography.Text variant="supporting">
+            <InlineText
+                text={"Trigger wraps the element people hover or focus, usually a link. Content is the card, and Title and Description give it a heading and supporting text. Each part renders its `children`, and Root takes them without adding an element of its own."}
+            />
+        </Typography.Text>
     </section>
 </div>
