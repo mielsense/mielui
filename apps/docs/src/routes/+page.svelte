@@ -21,6 +21,7 @@
     import Rows from '$lib/components/docs/rows.svelte';
     import { catalogSections } from '$lib/docs-pages';
     import '$lib/components/docs/docs-layout.css';
+    import HomeDemos from '$lib/components/demos/demos.svelte';
     import HomeShowcase from '$lib/components/home/showcase.svelte';
     import Logo from '$lib/components/logo.svelte';
     import { formatStarCount } from '$lib/github';
@@ -228,8 +229,11 @@
             <HomeShowcase />
         </div>
     </section>
+    <div class="mx-auto w-full max-w-[84rem] px-2 pt-20 @3xl:px-6">
+        <HomeDemos />
+    </div>
     <div
-        class="docs-article mx-auto flex w-full max-w-[68rem] flex-col gap-20 px-2 py-20 @3xl:px-6"
+        class="docs-article mx-auto flex w-full max-w-[84rem] flex-col gap-20 px-2 py-20 @3xl:px-6"
     >
         {#each sections as section (section.id)}
             <section

@@ -546,8 +546,9 @@ compose focus rings with that relief. The composer toolbar stays flat: it sits
 on the frame below the input by default. The input starts compact and grows with
 its content. Opt into a joined input and toolbar with `variant="inset"`. Outline
 buttons and triggers in either placement render
-as flat pills with a hairline border, no control edge, and the medium control
-height. Use `variant="outline"` for its controls rather than borderless ghosts.
+as flat pills with a hairline border, no control edge, and the small control
+height. The toolbar scopes that size to everything inside it, including the send
+button, so the strip under the input stays about as tall as one small control. Use `variant="outline"` for its controls rather than borderless ghosts.
 
 Tooltips keep their dedicated tooltip background and foreground pair in every
 surface mode, so their polarity never flips when glass is enabled. Glass makes
@@ -624,10 +625,20 @@ technology. Avoid invented endorsements or usage counts. On narrow screens,
 stack the content and allow normal page scrolling rather than clipping the hero
 to a fixed viewport.
 
-Below the hero, the page continues on the page background with a few sections.
-Each has a heading and one-line summary at the start and an install command, code
-block, or row group beside it. Cap the hero height on tall screens so the first
-section is visible. Do not add card grids, testimonials, or decoration there.
+Below the hero, the page continues on the page background with a few sections
+in one 84rem column, so every section shares the same edges. The first is the
+live demos: a heading and two sentences of copy, then one inset frame with ghost
+tabs for Coding agent, Chat, and Issue. Show one demo at a time at a fixed
+height. Do not stack the demos or add a preset switcher there. Each demo is
+built from library components, works when clicked, and lives in
+`$lib/components/demos` so the Studio's AI tab renders the same files. A demo
+transcript opens at its first message and follows new messages only after the
+visitor sends one.
+
+The remaining sections each have a heading and one-line summary at the start and
+an install command, code block, or row group beside it. Cap the hero height on
+tall screens so the first section is visible. Do not add card grids,
+testimonials, or decoration there.
 
 Preserve the original restrained hero gradient and lighter featured showcase. The featured preview uses the shared `mielui-inset-frame` with
 its ghost tabs in the frame chrome and the demo on `mielui-inset-surface`. Keep the featured preview’s scoped light palette in both page themes. Composer
