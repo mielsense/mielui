@@ -31,6 +31,11 @@
                 <Select.Content class="max-h-56 min-w-[max(16rem,var(--popover-trigger-width))]">
                     {#each builtInThemePresets as preset (preset.slug)}
                         <Select.Item value={preset.slug} label={preset.name}>
+                            <span
+                                aria-hidden="true"
+                                class="size-3 shrink-0 rounded-full ring-1 ring-foreground/10 ring-inset"
+                                style:background-color={preset.brand}
+                            ></span>
                             {preset.name}
                         </Select.Item>
                     {/each}

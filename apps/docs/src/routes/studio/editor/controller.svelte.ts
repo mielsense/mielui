@@ -2,7 +2,7 @@ import type { SliderProps } from '@mielui/svelte/components/slider';
 import { toast } from '@mielui/svelte/components/toast';
 import { builtInThemePresets } from '@mielui/svelte/themes/builtin-presets';
 import { applyLiveThemeCss, loadStudioTheme, saveStudioTheme } from '@mielui/svelte/themes/live';
-import { type Theme, themeToCss } from '@mielui/svelte/themes/theme';
+import { parseTheme, type Theme, themeToCss } from '@mielui/svelte/themes/theme';
 import { mode, setMode } from 'mode-watcher';
 import { onDestroy, onMount } from 'svelte';
 import { readThemeAppearance } from './appearance';
@@ -27,6 +27,7 @@ import {
     themeAxes
 } from './config';
 import { createThemeEditorStorage } from './persistence';
+import { readSharedTheme, themeShareLink } from './share';
 import { createThemeEditorState } from './state.svelte';
 import { createThemeTokenEditor } from './tokens';
 
@@ -188,6 +189,10 @@ export function createThemeEditor() {
             return;
         }
 
+        applyTheme(preset);
+    }
+
+    function applyTheme(preset: Theme) {
         const draftIdentity = {
             slug: state.theme.slug,
             name: state.theme.name,
@@ -407,6 +412,60 @@ export function createThemeEditor() {
     onDestroy(() => {
         clearTimeout(copyTimer);
     });
+
+    let sharedTheme = $state<Theme | null>(null);
+    let shareLink = $state('');
+
+    onMount(() => {
+        const hash = window.location.hash;
+        if (!hash.startsWith('#theme=')) {
+            return;
+        }
+        window.history.replaceState(
+            window.history.state,
+            '',
+            window.location.pathname + window.location.search
+        );
+        void readSharedTheme(hash)
+            .then((json) => {
+                sharedTheme = json ? parseTheme(JSON.parse(json)) : null;
+            })
+            .catch(() => {
+                toast.error('That theme link could not be read');
+            });
+    });
+
+    $effect(() => {
+        const json = generatedJson;
+        let current = true;
+        void themeShareLink(json, window.location.origin)
+            .then((link) => {
+                if (current) {
+                    shareLink = link;
+                }
+            })
+            .catch(() => {
+                shareLink = '';
+            });
+
+        return () => {
+            current = false;
+        };
+    });
+
+    function acceptSharedTheme() {
+        if (!sharedTheme) {
+            return;
+        }
+        const theme = sharedTheme;
+        sharedTheme = null;
+        applyTheme(theme);
+        toast.success('Shared theme loaded');
+    }
+
+    function dismissSharedTheme() {
+        sharedTheme = null;
+    }
     return {
         state,
         tokens,
@@ -418,6 +477,14 @@ export function createThemeEditor() {
         updateRoleWeight,
         headerSliderProps,
         confirmPresetChange,
+        acceptSharedTheme,
+        dismissSharedTheme,
+        get sharedTheme() {
+            return sharedTheme;
+        },
+        get shareLink() {
+            return shareLink;
+        },
         get appMode() {
             return appMode;
         },

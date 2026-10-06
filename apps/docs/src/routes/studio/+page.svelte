@@ -25,6 +25,7 @@
     import { createThemeEditor } from './editor/controller.svelte';
     import Inspector from './editor/inspector.svelte';
     import PresetDialog from './editor/preset-dialog.svelte';
+    import SharedThemeDialog from './editor/shared-theme-dialog.svelte';
     import ThemeSetupDialog from './theme-setup-dialog.svelte';
 
     const studio = getStudioContext();
@@ -153,3 +154,4 @@
 <ThemeSetupDialog bind:open={editor.state.setupOpen} generatedJson={editor.generatedJson} />
 <AdvancedDialogs />
 <PresetDialog />
+<SharedThemeDialog />

@@ -38,4 +38,15 @@
             {editor.state.copiedKey === 'css' ? 'Copied' : 'Copy CSS'}
         </CopyButton>
     </Group.Root>
+    <CopyButton
+        text={editor.shareLink}
+        label="Copy a link that opens this theme in the Studio"
+        copiedLabel="Link copied"
+        variant="ghost"
+        size="md"
+        class="w-full"
+        disabled={!editor.shareLink}
+    >
+        Copy share link
+    </CopyButton>
 </div>
