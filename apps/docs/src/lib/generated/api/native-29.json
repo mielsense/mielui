@@ -1,14 +1,5 @@
 [
     {
-        "name": "on:click",
-        "type": "MouseEventHandler<HTMLImageElement> | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
         "name": "onclick",
         "type": "MouseEventHandler<HTMLImageElement> | null | undefined",
         "required": false,
@@ -2242,6 +2233,15 @@
     },
     {
         "name": "oncanplay",
+        "type": "EventHandler<Event, HTMLAnchorElement> | null | EventHandler<Event, HTMLDivElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "oncanplaycapture",
         "type": "EventHandler<Event, HTMLAnchorElement> | null | EventHandler<Event, HTMLDivElement> | null | undefined",
         "required": false,
         "bindable": false,

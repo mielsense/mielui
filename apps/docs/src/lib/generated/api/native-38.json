@@ -1,14 +1,5 @@
 [
     {
-        "name": "ondragenter",
-        "type": "DragEventHandler<HTMLOptionElement> | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
         "name": "ondragentercapture",
         "type": "DragEventHandler<HTMLOptionElement> | null | undefined",
         "required": false,

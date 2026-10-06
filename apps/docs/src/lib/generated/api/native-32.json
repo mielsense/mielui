@@ -1,14 +1,5 @@
 [
     {
-        "name": "onresizecapture",
-        "type": "UIEventHandler<HTMLTableCellElement> | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
         "name": "on:wheel",
         "type": "WheelEventHandler<HTMLTableCellElement> | null | undefined",
         "required": false,
@@ -2242,6 +2233,15 @@
     },
     {
         "name": "on:mousemove",
+        "type": "MouseEventHandler<HTMLTableRowElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onmousemove",
         "type": "MouseEventHandler<HTMLTableRowElement> | null | undefined",
         "required": false,
         "bindable": false,

@@ -1,14 +1,5 @@
 [
     {
-        "name": "onloadedmetadata",
-        "type": "EventHandler<Event, HTMLOListElement> | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
         "name": "onloadedmetadatacapture",
         "type": "EventHandler<Event, HTMLOListElement> | null | undefined",
         "required": false,
@@ -2243,6 +2234,15 @@
     {
         "name": "onblurcapture",
         "type": "FocusEventHandler<HTMLAnchorElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "on:change",
+        "type": "FormEventHandler<HTMLAnchorElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,

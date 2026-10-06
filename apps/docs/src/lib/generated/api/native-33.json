@@ -1,14 +1,5 @@
 [
     {
-        "name": "onmousemove",
-        "type": "MouseEventHandler<HTMLTableRowElement> | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
         "name": "onmousemovecapture",
         "type": "MouseEventHandler<HTMLTableRowElement> | null | undefined",
         "required": false,
@@ -2242,6 +2233,15 @@
     },
     {
         "name": "on:ratechange",
+        "type": "EventHandler<Event, HTMLSelectElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onratechange",
         "type": "EventHandler<Event, HTMLSelectElement> | null | undefined",
         "required": false,
         "bindable": false,

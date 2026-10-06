@@ -1,14 +1,5 @@
 [
     {
-        "name": "on:messageerror",
-        "type": "MessageEventHandler<HTMLLabelElement> | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
         "name": "onmessageerror",
         "type": "MessageEventHandler<HTMLLabelElement> | null | undefined",
         "required": false,
@@ -2242,6 +2233,15 @@
     },
     {
         "name": "on:pointerenter",
+        "type": "PointerEventHandler<HTMLOptGroupElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onpointerenter",
         "type": "PointerEventHandler<HTMLOptGroupElement> | null | undefined",
         "required": false,
         "bindable": false,

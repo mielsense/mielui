@@ -1,14 +1,5 @@
 [
     {
-        "name": "preserveAspectRatio",
-        "type": "string | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
         "name": "primitiveUnits",
         "type": "string | number | null | undefined",
         "required": false,
@@ -2242,6 +2233,15 @@
     },
     {
         "name": "onauxclickcapture",
+        "type": "MouseEventHandler<HTMLImageElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "on:click",
         "type": "MouseEventHandler<HTMLImageElement> | null | undefined",
         "required": false,
         "bindable": false,

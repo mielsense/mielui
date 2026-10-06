@@ -1,14 +1,5 @@
 [
     {
-        "name": "ondragleavecapture",
-        "type": "DragEventHandler<HTMLLIElement> | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
         "name": "on:dragover",
         "type": "DragEventHandler<HTMLLIElement> | null | undefined",
         "required": false,
@@ -2242,6 +2233,15 @@
     },
     {
         "name": "on:loadedmetadata",
+        "type": "EventHandler<Event, HTMLOListElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onloadedmetadata",
         "type": "EventHandler<Event, HTMLOListElement> | null | undefined",
         "required": false,
         "bindable": false,

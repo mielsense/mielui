@@ -1,14 +1,5 @@
 [
     {
-        "name": "on:touchstart",
-        "type": "TouchEventHandler<SVGTextElement> | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
         "name": "ontouchstart",
         "type": "TouchEventHandler<SVGTextElement> | null | undefined",
         "required": false,
@@ -2243,6 +2234,15 @@
     {
         "name": "preserveAlpha",
         "type": "string | number | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "preserveAspectRatio",
+        "type": "string | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,

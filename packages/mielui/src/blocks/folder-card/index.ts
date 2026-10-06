@@ -23,18 +23,39 @@ type FolderCardSharedProps = {
 type FolderCardLinkProps = FolderCardSharedProps & {
     /** Renders the card as a link. */
     href: string;
+    disabled?: undefined;
 } & Omit<HTMLAnchorAttributes, keyof FolderCardSharedProps | 'href'>;
+
+type FolderCardStaticAttributes = Omit<
+    HTMLAttributes<HTMLElement>,
+    keyof FolderCardSharedProps | 'onclick'
+> & {
+    [Attribute in Exclude<keyof HTMLAnchorAttributes, keyof HTMLAttributes<HTMLElement>>]?: never;
+};
+
+type FolderCardButtonProps = FolderCardSharedProps & {
+    href?: undefined;
+    /**
+     * Makes the whole card a button and runs when it is clicked or activated from the keyboard.
+     * The title names the button.
+     */
+    onclick: (event: MouseEvent) => void;
+    /** Blocks the click action and dims the card. */
+    disabled?: boolean;
+} & FolderCardStaticAttributes;
 
 type FolderCardStaticProps = FolderCardSharedProps & {
     href?: undefined;
-} & Omit<HTMLAttributes<HTMLElement>, keyof FolderCardSharedProps> & {
+    onclick?: undefined;
+    disabled?: undefined;
+} & Omit<HTMLAttributes<HTMLElement>, keyof FolderCardSharedProps | 'onclick'> & {
         [Attribute in Exclude<
             keyof HTMLAnchorAttributes,
             keyof HTMLAttributes<HTMLElement>
         >]?: never;
     };
 
-export type FolderCardProps = FolderCardLinkProps | FolderCardStaticProps;
+export type FolderCardProps = FolderCardLinkProps | FolderCardButtonProps | FolderCardStaticProps;
 
 type FolderCardCoverSource =
     | {

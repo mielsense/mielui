@@ -14,3 +14,4 @@
 - Color Picker shows a pipette button that picks a color from anywhere on screen, in browsers with the EyeDropper API.
 - Press 1 to 9 inside a Question to pick that option. Each option shows its number key.
 - Add five theme presets from Sivir UI: Profitable, Raven, Clawd, Inspiration, and Government.
+- Folder Card takes `onclick` without `href` to make the whole card a button, named by its title, with `disabled` to block it.

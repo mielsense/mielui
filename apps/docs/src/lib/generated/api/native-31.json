@@ -1,14 +1,5 @@
 [
     {
-        "name": "on:paste",
-        "type": "ClipboardEventHandler<HTMLTableCellElement> | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
         "name": "onpaste",
         "type": "ClipboardEventHandler<HTMLTableCellElement> | null | undefined",
         "required": false,
@@ -2242,6 +2233,15 @@
     },
     {
         "name": "onresize",
+        "type": "UIEventHandler<HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onresizecapture",
         "type": "UIEventHandler<HTMLTableCellElement> | null | undefined",
         "required": false,
         "bindable": false,

@@ -1,14 +1,5 @@
 [
     {
-        "name": "oninvalid",
-        "type": "EventHandler<Event, HTMLLabelElement> | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
         "name": "oninvalidcapture",
         "type": "EventHandler<Event, HTMLLabelElement> | null | undefined",
         "required": false,
@@ -2242,6 +2233,15 @@
     },
     {
         "name": "onmessagecapture",
+        "type": "MessageEventHandler<HTMLLabelElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "on:messageerror",
         "type": "MessageEventHandler<HTMLLabelElement> | null | undefined",
         "required": false,
         "bindable": false,

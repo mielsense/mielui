@@ -801,15 +801,6 @@
         "inherited": true
     },
     {
-        "name": "onclick",
-        "type": "MouseEventHandler<HTMLAnchorElement> | null | MouseEventHandler<HTMLElement> | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
         "name": "onclickcapture",
         "type": "MouseEventHandler<HTMLAnchorElement> | null | MouseEventHandler<HTMLElement> | null | undefined",
         "required": false,
@@ -2242,6 +2233,15 @@
     },
     {
         "name": "on:beforematch",
+        "type": "EventHandler<Event, HTMLAnchorElement> | null | EventHandler<Event, HTMLElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onbeforematch",
         "type": "EventHandler<Event, HTMLAnchorElement> | null | EventHandler<Event, HTMLElement> | null | undefined",
         "required": false,
         "bindable": false,

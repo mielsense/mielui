@@ -1,14 +1,5 @@
 [
     {
-        "name": "onpointerenter",
-        "type": "PointerEventHandler<HTMLOptGroupElement> | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
         "name": "onpointerentercapture",
         "type": "PointerEventHandler<HTMLOptGroupElement> | null | undefined",
         "required": false,
@@ -2242,6 +2233,15 @@
     },
     {
         "name": "on:dragenter",
+        "type": "DragEventHandler<HTMLOptionElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "ondragenter",
         "type": "DragEventHandler<HTMLOptionElement> | null | undefined",
         "required": false,
         "bindable": false,

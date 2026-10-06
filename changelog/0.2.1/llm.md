@@ -70,3 +70,18 @@ installs `@fontsource/inter` itself, imports the weights it uses, and sets
 presets that name Inter, such as Magic and Functional, still expect the project
 to load it. Do not add a `<link>` to a font CDN for the default font.
 
+## Folder Card can be a button
+
+`FolderCard.Root` has three forms. With `href` it is a link. With `onclick` and
+no `href` it is an article with a full-size button over it, so the whole card
+answers a click, Enter and Space while the title stays a real heading. With
+neither it is a static article.
+
+Use the button form for a card that opens a dialog or selects something. Do not
+put `onclick` on a wrapper `div` around a static card, which keyboard users
+cannot reach. The button takes its name from `FolderCard.Title`, so keep a
+Title in the card. `disabled` only applies to the button form. To animate
+content while the card is focused, use
+`group-has-[:focus-visible]/folder-card:` in the button form, because the
+focused element is the inner button and not the card.
+
