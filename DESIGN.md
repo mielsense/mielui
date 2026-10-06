@@ -376,7 +376,8 @@ inset frame, a chrome-colored frame around a card-colored surface. Frames follow
 the theme's border mode. With single borders they show one hairline and no
 gutter, and only frames that carry a tab or toolbar strip keep their chrome. The leading
 preview keeps its ghost Preview and Code tabs in the frame chrome with the source
-inside the same frame, and example state is preserved when switching to code.
+inside the same frame. While the source is shown, its copy button sits at the end
+of that chrome row, not over the code, and example state is preserved when switching to code.
 Keep both preview forms in the shared preview implementation and use
 `data-preview-canvas` for canvas-specific spacing. Use the soft fill
 (`--docs-soft`) only for hover states and Studio inspector groups.

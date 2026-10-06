@@ -2,6 +2,7 @@
     import { RefreshIcon as RefreshCw } from '@hugeicons/core-free-icons';
     import Button from '@mielui/svelte/components/button';
     import * as CodeBlock from '@mielui/svelte/components/code-block';
+    import { CopyButton } from '@mielui/svelte/components/copy-button';
     import * as Tabs from '@mielui/svelte/components/tabs';
     import * as Tooltip from '@mielui/svelte/components/tooltip';
     import HugeiconsIcon from '@mielui/svelte/hugeicons-icon';
@@ -81,7 +82,7 @@
                     <Tabs.Trigger value="code">Code</Tabs.Trigger>
                 </Tabs.List>
             </Tabs.Root>
-            {#if controls || refreshable}
+            {#if controls || refreshable || value === 'code'}
                 <div class="flex min-w-0 items-center gap-1">
                     {#if controls}
                         <div
@@ -115,6 +116,14 @@
                             <Tooltip.Content>Replay preview</Tooltip.Content>
                         </Tooltip.Root>
                     {/if}
+                    {#if value === 'code'}
+                        <CopyButton
+                            text={code}
+                            label="Copy code"
+                            copiedLabel="Copied"
+                            class="shrink-0 text-foreground-muted hover:text-foreground"
+                        />
+                    {/if}
                 </div>
             {/if}
         </div>
@@ -138,7 +147,7 @@
                 <CodeBlock.Root
                     {code}
                     lang="svelte"
-                    copy="overlay"
+                    copy={false}
                     class="w-full rounded-none border-0 bg-transparent p-0 shadow-none [--code-block-max-height:40rem] [--code-block-padding-x:1.5rem] [--code-block-padding-y:1.5rem]"
                 />
             </div>
