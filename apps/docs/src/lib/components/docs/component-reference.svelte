@@ -5,6 +5,7 @@
     import type { ComponentPart } from '$lib/component-anatomy';
     import type { ReferencePart } from '$lib/server/api-reference';
     import PropTable from './prop-table.svelte';
+    import SectionHeading from './section-heading.svelte';
 
     let {
         parts,
@@ -51,12 +52,11 @@
 </script>
 
 <section id="api-reference" class="flex min-w-0 flex-col gap-8">
-    <div class="flex flex-col gap-2">
-        <h2>API reference</h2>
-        <p class="m-0 text-sm leading-6 text-foreground-muted">
+    <SectionHeading title="API reference">
+        {#snippet description()}
             Props for every exported part. Required and bindable values are marked.
-        </p>
-    </div>
+        {/snippet}
+    </SectionHeading>
     {#each withProps as part (part.name)}
         {const own = $derived(part.properties.filter((property) => !property.inherited))}
         {const inherited = $derived(part.properties.filter((property) => property.inherited))}

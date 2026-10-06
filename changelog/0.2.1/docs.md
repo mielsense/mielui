@@ -12,9 +12,9 @@
 - Keep links and link buttons inside previews from leaving the page.
 - Invert the Notch preview panel so it stays visible against the canvas.
 - Add install, component category, and next-step sections under the homepage hero.
-- Replace sticky pill section headings with ordinary headings and the outline rail with plain links.
+- Replace the outline rail with plain links.
 - Open navigation and the Studio inspector in a sheet on small screens, and show Themes and Changelog without the docs sidebar.
-- Remove the pinned glass panels, page transition, and heading scroll snap from the docs shell.
+- Remove the pinned glass panels and the page transition from the docs shell.
 - Fix the docs page scrolling out of view; only the sidebar and content scroll.
 - Show the brand mark in white on a primary tile in the shell, the homepage header, and the favicon.
 - Follow the theme's single or double border setting on docs code blocks, row groups, and API lists.

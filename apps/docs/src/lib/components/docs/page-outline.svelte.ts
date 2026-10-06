@@ -5,6 +5,9 @@ import { page } from '$app/state';
 
 type Heading = { id: string; label: string; level: number; node: HTMLElement };
 
+/** Sticky offset of a section pill plus the gap kept under it. */
+const STICKY_GAP = 28;
+
 export function createPageOutline(getContent: () => HTMLElement | undefined) {
     let headings = $state<Heading[]>([]);
     let active = $state('');
@@ -12,11 +15,30 @@ export function createPageOutline(getContent: () => HTMLElement | undefined) {
     let jumpVersion = 0;
     let jumpStarted = false;
     function headingTop(heading: Heading) {
-        return heading.node.getBoundingClientRect().top;
+        const section = heading.node.closest<HTMLElement>('section');
+        const anchor = heading.level === 2 && section ? section : heading.node;
+
+        return anchor.getBoundingClientRect().top;
     }
 
-    function headingInset() {
-        return 28;
+    function headingInset(heading: Heading) {
+        const toolbar = getContent()?.querySelector<HTMLElement>('[data-docs-toolbar]');
+        const toolbarHeight = toolbar?.getBoundingClientRect().height ?? 0;
+        if (heading.level !== 3) {
+            return toolbarHeight;
+        }
+        let section = heading.node.closest('section');
+        while (section) {
+            const title = section.querySelector<HTMLElement>(
+                ':scope > h2, :scope > div:first-child:has(> h2)'
+            );
+            if (title) {
+                return toolbarHeight + title.getBoundingClientRect().height + STICKY_GAP;
+            }
+            section = section.parentElement?.closest('section') ?? null;
+        }
+
+        return toolbarHeight;
     }
 
     async function navigate(event: MouseEvent, heading: Heading) {
@@ -54,7 +76,7 @@ export function createPageOutline(getContent: () => HTMLElement | undefined) {
             scroll.scrollTop +
             headingTop(heading) -
             scroll.getBoundingClientRect().top -
-            headingInset();
+            headingInset(heading);
         replaceState(`#${heading.id}`, page.state);
         heading.node.setAttribute('tabindex', '-1');
         heading.node.classList.add('focus:outline-none');
@@ -86,7 +108,7 @@ export function createPageOutline(getContent: () => HTMLElement | undefined) {
             const top = (scroll?.getBoundingClientRect().top ?? 0) + 2;
             let current = headings[0]?.id ?? '';
             for (const heading of headings) {
-                if (headingTop(heading) <= top + headingInset()) {
+                if (headingTop(heading) <= top + headingInset(heading)) {
                     current = heading.id;
                 }
             }

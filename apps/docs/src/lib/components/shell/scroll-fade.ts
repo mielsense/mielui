@@ -14,6 +14,10 @@ const variables = ['--fade-start', '--fade-end', '--fade-start-opacity', '--fade
 export const fadeY =
     '[mask-image:linear-gradient(to_bottom,transparent,black_var(--fade-start,0px),black_calc(100%-var(--fade-end,0px)),transparent)]';
 
+/** Mask for a vertical scroller that fades only its end. Use when sticky content sits at the start. */
+export const fadeYEnd =
+    '[mask-image:linear-gradient(to_bottom,black_calc(100%-var(--fade-end,0px)),transparent)]';
+
 /** Mask for a horizontal scroller. Pair with `scrollFade({ axis: 'x' })`. */
 export const fadeX =
     '[mask-image:linear-gradient(to_right,transparent,black_var(--fade-start,0px),black_calc(100%-var(--fade-end,0px)),transparent)]';

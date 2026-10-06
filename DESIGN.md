@@ -348,8 +348,13 @@ behind a hover card.
 The content column fills the panel. Previews, code, catalog grids, and API rows
 use the full width. Prose and short row groups stop near 76 characters. The page outline sits at the far
 right at extra-large widths as plain text links; the current heading uses medium
-foreground text. Section headings are ordinary headings that scroll with the
-page. Do not make them sticky, inverted, or pill shaped. Sections are separated by
+foreground text. Section title rows stick under the top bar as compact
+opposite-tone pills with the shared raised-key edge and contact shadow
+(`--mielui-toolbar-raised`), offset four spacing units from the top. Put an
+optional section explanation behind a labelled info control inside the pill.
+When a downward scroll stops with the next section just below the top, the page
+settles that section into place. The settle never runs during a drag, under
+reduced motion, or with zero-duration motion. Sections are separated by
 3rem and their content by 1rem; the shared layout owns these distances. Previous
 and next links close the article as labelled ghost Buttons above a hairline rule.
 
@@ -389,8 +394,8 @@ The Themes page shows each preset as a specimen in its own colors, type, and
 corner radius, using the preset's light or dark palette to match the page, with
 the name, description, and three facts underneath.
 
-Navigation between pages is immediate. Do not add page transitions or scroll
-snapping to the docs shell.
+Navigation between pages is immediate. Do not add page transitions to the docs
+shell.
 
 A scroller never ends in a hard cut against another region. Use the shared
 `scrollFade` helper with the `fadeY` or `fadeX` mask. The fade grows with the
@@ -402,6 +407,8 @@ export actions, the content column and Studio previews under the top bar and at
 the bottom of the panel, the navigation sheet, the page outline, the tab strip, and overflowing
 preview controls. The top bar has no bottom border. Content fades and blurs as
 it passes under the bar, so the bar and the page read as one surface at rest.
+In docs the top edge is a short fill to the content color instead of a mask, so
+it does not dim the sticky section pills.
 Skip the top fade only in the docs sidebar, where pinned group labels mark the
 edge. Wrap a ScrollArea in `FadeScrollArea` instead of enabling
 its chevron cues.

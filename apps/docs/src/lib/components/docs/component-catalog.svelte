@@ -71,7 +71,7 @@
     }
 </script>
 
-<div data-docs-page class="flex flex-col gap-10">
+<div data-docs-page class="flex flex-col gap-10 [--docs-sticky-offset:var(--docs-row-height)]">
     <PageIntro {title}>{description}</PageIntro>
 
     <section data-docs-toolbar aria-label={searchLabel} class="flex flex-col gap-3">
