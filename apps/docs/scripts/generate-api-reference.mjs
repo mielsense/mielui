@@ -101,6 +101,21 @@ for (const file of files.filter((file) => file.endsWith('.svelte'))) {
     metadata.set(file, { defaults, bindings, declared: !!props });
 }
 
+/** Joins one prop's type from each union branch, listing `undefined` once and last. */
+function mergeBranchTypes(types) {
+    const suffix = ' | undefined';
+    const optional = types.some((type) => type === 'undefined' || type.endsWith(suffix));
+    const named = types
+        .map((type) => (type.endsWith(suffix) ? type.slice(0, -suffix.length) : type))
+        .filter((type) => type !== 'undefined');
+    const merged = [...new Set(named)];
+    if (optional) {
+        merged.push('undefined');
+    }
+
+    return merged.join(' | ');
+}
+
 const paths = { '@mielui/svelte/*': [path.join(sourceRoot, '*')] };
 for (const category of categories) {
     for (const entry of fs.readdirSync(path.join(sourceRoot, category), { withFileTypes: true })) {
@@ -207,7 +222,7 @@ for (const index of indexes) {
             });
             const entry = {
                 name: property.name,
-                type: [...new Set(propertyTypes)].join(' | '),
+                type: mergeBranchTypes(propertyTypes),
                 required:
                     entries.length === variants.length &&
                     entries.every((entry) => !(entry.flags & ts.SymbolFlags.Optional)),

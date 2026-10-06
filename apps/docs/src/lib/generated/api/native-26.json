@@ -1,59 +1,5 @@
 [
     {
-        "name": "ontransitionruncapture",
-        "type": "TransitionEventHandler<HTMLAnchorElement> | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
-        "name": "on:transitionend",
-        "type": "TransitionEventHandler<HTMLAnchorElement> | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
-        "name": "ontransitionend",
-        "type": "TransitionEventHandler<HTMLAnchorElement> | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
-        "name": "ontransitionendcapture",
-        "type": "TransitionEventHandler<HTMLAnchorElement> | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
-        "name": "on:transitioncancel",
-        "type": "TransitionEventHandler<HTMLAnchorElement> | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
-        "name": "ontransitioncancel",
-        "type": "TransitionEventHandler<HTMLAnchorElement> | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
         "name": "ontransitioncancelcapture",
         "type": "TransitionEventHandler<HTMLAnchorElement> | null | undefined",
         "required": false,
@@ -380,15 +326,6 @@
     {
         "name": "onfullscreenerrorcapture",
         "type": "EventHandler<Event, HTMLAnchorElement> | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
-        "name": "type",
-        "type": "string | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -2242,6 +2179,69 @@
     },
     {
         "name": "ontouchcancel",
+        "type": "TouchEventHandler<SVGTextElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "ontouchcancelcapture",
+        "type": "TouchEventHandler<SVGTextElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "on:touchend",
+        "type": "TouchEventHandler<SVGTextElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "ontouchend",
+        "type": "TouchEventHandler<SVGTextElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "ontouchendcapture",
+        "type": "TouchEventHandler<SVGTextElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "on:touchmove",
+        "type": "TouchEventHandler<SVGTextElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "ontouchmove",
+        "type": "TouchEventHandler<SVGTextElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "ontouchmovecapture",
         "type": "TouchEventHandler<SVGTextElement> | null | undefined",
         "required": false,
         "bindable": false,

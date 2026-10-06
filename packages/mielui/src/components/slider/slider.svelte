@@ -3,7 +3,7 @@
     import { Slider as SliderPrimitive } from 'bits-ui';
     import { onMount, tick, untrack } from 'svelte';
     import type { SliderProps } from '.';
-    import { normalizeValue } from './range';
+    import { normalizeValue, valuePercent } from './range';
 
     const generatedId = $props.id();
 
@@ -15,6 +15,7 @@
         step = 1,
         disabled = false,
         label,
+        format,
         id = generatedId,
         name,
         form,
@@ -31,7 +32,7 @@
     const increment = $derived(Number.isFinite(step) && step > 0 ? step : 1);
     const unavailable = $derived(disabled || maximum <= minimum);
     const rootAttributes = $derived.by(() => {
-        const { range, thumbLabels, onValueChange, children, ...attributes } = mode;
+        const { range, variant, thumbLabels, onValueChange, children, ...attributes } = mode;
         return attributes;
     });
     const values = $derived.by(() => {
@@ -60,6 +61,26 @@
     let pointerThumb = $state<number | undefined>();
     let interactionRevision = $state(0);
     const direction = $derived(dir ?? inheritedDirection);
+    const field = $derived(!mode.range && mode.variant === 'field');
+    const fieldFill = $derived(valuePercent(values[0], minimum, maximum) / 100);
+    let fieldWidth = $state(0);
+    let fieldLabelWidth = $state(0);
+    const fieldTickHidden = $derived.by(() => {
+        if (!field || !label || fieldWidth === 0) {
+            return false;
+        }
+        const inset = 6;
+        const tick = inset + fieldFill * (fieldWidth - inset * 2);
+
+        return tick < fieldLabelWidth + inset * 3;
+    });
+    const rootClasses = $derived(
+        field
+            ? 'absolute inset-x-1.5 inset-y-0 flex select-none items-center'
+            : 'relative flex min-h-[var(--size-touch)] w-full select-none items-center md:min-h-6'
+    );
+    const fieldThumbClasses =
+        'h-3.5 w-0.5 shrink-0 rounded-full bg-foreground/25 outline-none transition-colors [transition-duration:var(--motion-duration-hover)] ease-[var(--ease-out)] group-hover:bg-foreground/40 data-active:bg-foreground/60 motion-reduce:transition-none';
     const thumbClasses =
         'h-4 w-6 shrink-0 cursor-grab rounded-full border-[length:var(--border-size)] border-border-strong bg-background shadow-[var(--elevation-control-edge)] outline-none transition-shadow [transition-duration:var(--motion-duration-press)] ease-[var(--ease-out)] dark:bg-foreground focus-visible:shadow-[var(--focus-ring),var(--elevation-control-edge)] data-active:cursor-grabbing data-active:shadow-[var(--focus-ring),var(--elevation-control-edge)] data-disabled:cursor-not-allowed motion-reduce:transition-none';
 
@@ -254,16 +275,18 @@
 </script>
 
 {#snippet track()}
-    <span
-        data-ui="slider-track"
-        aria-hidden="true"
-        class="relative h-1.5 w-full overflow-hidden rounded-full bg-secondary"
-    >
-        <SliderPrimitive.Range
-            data-ui="slider-range"
-            class="absolute inset-y-0 rounded-full bg-primary"
-        />
-    </span>
+    {#if !field}
+        <span
+            data-ui="slider-track"
+            aria-hidden="true"
+            class="relative h-1.5 w-full overflow-hidden rounded-full bg-secondary"
+        >
+            <SliderPrimitive.Range
+                data-ui="slider-range"
+                class="absolute inset-y-0 rounded-full bg-primary"
+            />
+        </span>
+    {/if}
     {#each values as current, index (index)}
         <SliderPrimitive.Thumb {index}>
             {#snippet child({ props, active })}
@@ -275,6 +298,7 @@
                     aria-valuemin={mode.range && index === 1 ? values[0] : minimum}
                     aria-valuemax={mode.range && index === 0 ? values[1] : maximum}
                     aria-valuenow={current}
+                    aria-valuetext={format?.(current)}
                     data-ui="slider-thumb"
                     data-thumb={index}
                     data-active={(dragPointer !== undefined ? pointerThumb === index : active) || undefined}
@@ -283,7 +307,10 @@
                     onfocus={() => {
                         activeThumb = index;
                     }}
-                    class={thumbClasses}
+                    class={cn(
+                        field ? fieldThumbClasses : thumbClasses,
+                        fieldTickHidden && 'opacity-0'
+                    )}
                 ></span>
             {/snippet}
         </SliderPrimitive.Thumb>
@@ -298,11 +325,20 @@
 <div
     {...rootAttributes}
     bind:this={element}
+    bind:clientWidth={fieldWidth}
     {id}
     {dir}
     data-ui="slider"
     data-range={mode.range || undefined}
-    class={cn(className, 'w-full px-3', unavailable && 'opacity-[var(--opacity-disabled)]')}
+    data-variant={field ? 'field' : 'default'}
+    class={cn(
+        className,
+        field
+            ? 'group relative flex h-[var(--size-control-md)] w-full touch-pan-y items-center overflow-hidden rounded-[var(--radius-lg)] bg-secondary select-none has-[[data-ui=slider-thumb]:focus-visible]:shadow-[var(--focus-ring)]'
+            : 'w-full px-3',
+        field && (unavailable ? 'cursor-not-allowed' : 'cursor-ew-resize'),
+        unavailable && 'opacity-[var(--opacity-disabled)]'
+    )}
     onpointerdown={startPointer}
     onpointermove={updatePointerPosition}
     onpointerup={finishPointer}
@@ -325,6 +361,34 @@
             <input type="hidden" {name} {form} disabled={unavailable} value={values[1]} />
         {/if}
     {/if}
+    {#if field}
+        {#if fieldFill > 0}
+            <span
+                data-ui="slider-range"
+                aria-hidden="true"
+                class="pointer-events-none absolute inset-y-0 start-0 bg-foreground/[0.07] transition-colors [transition-duration:var(--motion-duration-hover)] ease-[var(--ease-out)] group-hover:bg-foreground/[0.09] motion-reduce:transition-none"
+                style:width={`calc(${fieldFill} * (100% - 0.75rem) + 0.75rem)`}
+            ></span>
+        {/if}
+        <span
+            class="pointer-events-none relative z-10 flex w-full min-w-0 items-center justify-between gap-3 px-3"
+        >
+            <span
+                bind:clientWidth={fieldLabelWidth}
+                data-ui="slider-label"
+                class="min-w-0 truncate text-sm text-foreground-muted"
+            >
+                {label}
+            </span>
+            <span
+                data-ui="slider-value"
+                aria-hidden="true"
+                class="shrink-0 font-mono text-xs tabular-nums text-foreground"
+            >
+                {format ? format(values[0]) : values[0]}
+            </span>
+        </span>
+    {/if}
     {#key interactionRevision}
         {#if mode.range}
             <SliderPrimitive.Root
@@ -337,7 +401,7 @@
                 disabled={unavailable}
                 dir={direction}
                 thumbPositioning="exact"
-                class="relative flex min-h-[var(--size-touch)] w-full select-none items-center md:min-h-6"
+                class={rootClasses}
             >
                 {@render track()}
             </SliderPrimitive.Root>
@@ -351,7 +415,7 @@
                 disabled={unavailable}
                 dir={direction}
                 thumbPositioning="exact"
-                class="relative flex min-h-[var(--size-touch)] w-full select-none items-center md:min-h-6"
+                class={rootClasses}
             >
                 {@render track()}
             </SliderPrimitive.Root>

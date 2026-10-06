@@ -433,8 +433,7 @@
         "dir": "Text direction. It flips the track for right-to-left.",
         "range": "Uses two thumbs and makes `value` a pair.",
         "value": "Current value, or a pair in range mode. Bindable.",
-        "thumbLabels": "Accessible names of the two thumbs in range mode.",
-        "label": "Accessible name of the slider."
+        "thumbLabels": "Accessible names of the two thumbs in range mode."
     },
     "spinner": {
         "size": "Diameter in pixels.",

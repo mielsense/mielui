@@ -1,7 +1,7 @@
 [
     {
         "name": "onbeforematch",
-        "type": "EventHandler<Event, HTMLAnchorElement> | null | undefined | EventHandler<Event, HTMLElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLAnchorElement> | null | EventHandler<Event, HTMLElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -10,7 +10,7 @@
     },
     {
         "name": "onbeforematchcapture",
-        "type": "EventHandler<Event, HTMLAnchorElement> | null | undefined | EventHandler<Event, HTMLElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLAnchorElement> | null | EventHandler<Event, HTMLElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -19,7 +19,7 @@
     },
     {
         "name": "on:cancel",
-        "type": "EventHandler<Event, HTMLAnchorElement> | null | undefined | EventHandler<Event, HTMLElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLAnchorElement> | null | EventHandler<Event, HTMLElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -28,7 +28,7 @@
     },
     {
         "name": "oncancel",
-        "type": "EventHandler<Event, HTMLAnchorElement> | null | undefined | EventHandler<Event, HTMLElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLAnchorElement> | null | EventHandler<Event, HTMLElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -37,7 +37,7 @@
     },
     {
         "name": "oncancelcapture",
-        "type": "EventHandler<Event, HTMLAnchorElement> | null | undefined | EventHandler<Event, HTMLElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLAnchorElement> | null | EventHandler<Event, HTMLElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -46,7 +46,7 @@
     },
     {
         "name": "on:close",
-        "type": "EventHandler<Event, HTMLAnchorElement> | null | undefined | EventHandler<Event, HTMLElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLAnchorElement> | null | EventHandler<Event, HTMLElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -55,7 +55,7 @@
     },
     {
         "name": "onclose",
-        "type": "EventHandler<Event, HTMLAnchorElement> | null | undefined | EventHandler<Event, HTMLElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLAnchorElement> | null | EventHandler<Event, HTMLElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -64,7 +64,7 @@
     },
     {
         "name": "onclosecapture",
-        "type": "EventHandler<Event, HTMLAnchorElement> | null | undefined | EventHandler<Event, HTMLElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLAnchorElement> | null | EventHandler<Event, HTMLElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -73,7 +73,7 @@
     },
     {
         "name": "on:fullscreenchange",
-        "type": "EventHandler<Event, HTMLAnchorElement> | null | undefined | EventHandler<Event, HTMLElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLAnchorElement> | null | EventHandler<Event, HTMLElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -82,7 +82,7 @@
     },
     {
         "name": "onfullscreenchange",
-        "type": "EventHandler<Event, HTMLAnchorElement> | null | undefined | EventHandler<Event, HTMLElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLAnchorElement> | null | EventHandler<Event, HTMLElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -91,7 +91,7 @@
     },
     {
         "name": "onfullscreenchangecapture",
-        "type": "EventHandler<Event, HTMLAnchorElement> | null | undefined | EventHandler<Event, HTMLElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLAnchorElement> | null | EventHandler<Event, HTMLElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -100,7 +100,7 @@
     },
     {
         "name": "on:fullscreenerror",
-        "type": "EventHandler<Event, HTMLAnchorElement> | null | undefined | EventHandler<Event, HTMLElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLAnchorElement> | null | EventHandler<Event, HTMLElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -109,7 +109,7 @@
     },
     {
         "name": "onfullscreenerror",
-        "type": "EventHandler<Event, HTMLAnchorElement> | null | undefined | EventHandler<Event, HTMLElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLAnchorElement> | null | EventHandler<Event, HTMLElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -118,7 +118,7 @@
     },
     {
         "name": "onfullscreenerrorcapture",
-        "type": "EventHandler<Event, HTMLAnchorElement> | null | undefined | EventHandler<Event, HTMLElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLAnchorElement> | null | EventHandler<Event, HTMLElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -127,7 +127,7 @@
     },
     {
         "name": "type",
-        "type": "string | null | undefined | undefined",
+        "type": "string | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -137,60 +137,6 @@
     {
         "name": "download",
         "type": "any | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
-        "name": "hreflang",
-        "type": "string | null | undefined | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
-        "name": "media",
-        "type": "string | null | undefined | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
-        "name": "ping",
-        "type": "string | null | undefined | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
-        "name": "rel",
-        "type": "string | null | undefined | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
-        "name": "target",
-        "type": "HTMLAttributeAnchorTarget | null | undefined | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
-        "name": "referrerpolicy",
-        "type": "ReferrerPolicy | null | undefined | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -2242,6 +2188,60 @@
     },
     {
         "name": "onpointerleave",
+        "type": "PointerEventHandler<HTMLHeadingElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onpointerleavecapture",
+        "type": "PointerEventHandler<HTMLHeadingElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "on:pointermove",
+        "type": "PointerEventHandler<HTMLHeadingElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onpointermove",
+        "type": "PointerEventHandler<HTMLHeadingElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onpointermovecapture",
+        "type": "PointerEventHandler<HTMLHeadingElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "on:pointerout",
+        "type": "PointerEventHandler<HTMLHeadingElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onpointerout",
         "type": "PointerEventHandler<HTMLHeadingElement> | null | undefined",
         "required": false,
         "bindable": false,

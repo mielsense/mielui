@@ -25,3 +25,19 @@ and focus your own element when a field should receive focus on open.
 child of `Drawer.Content` in every direction; do not reorder or rotate it by hand.
 
 Exported names and prop types are unchanged.
+
+## Slider has a field variant for settings panels
+
+`<Slider variant="field" label="Opacity" format={(value) => `${value}%`} />`
+renders one bar with the label at the start and the formatted value at the end.
+The whole bar is the drag target, a thin tick marks the value, and the fill
+behind it shows the amount. Reach for it when a panel stacks many numeric
+settings, and stack the fields with a small gap so they read as one column.
+
+In the field variant `label` is visible as well as naming the handle, so do not
+add a separate label element beside it. `format` supplies both the readout and
+`aria-valuetext`; it also sets `aria-valuetext` on the default variant. The
+field variant holds a single value. Combining it with `range` is a type error,
+so keep the default variant for two-handle ranges. Do not rebuild this control
+from a native range input or a custom pointer handler.
+

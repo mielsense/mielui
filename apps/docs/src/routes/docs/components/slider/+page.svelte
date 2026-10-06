@@ -7,6 +7,8 @@
     import BasicSrc from './examples/basic.svelte?raw';
     import Disabled from './examples/disabled.svelte';
     import DisabledSrc from './examples/disabled.svelte?raw';
+    import Field from './examples/field.svelte';
+    import FieldSrc from './examples/field.svelte?raw';
     import Hero from './examples/hero.svelte';
     import HeroSrc from './examples/hero.svelte?raw';
     import Range from './examples/range.svelte';
@@ -68,7 +70,8 @@
             or{' '}
             <Typography.InlineCode>aria-labelledby</Typography.InlineCode>
             {' '}
-            to name the control. The label is not rendered; it only names the handle. Use{' '}
+            to name the control. The default variant does not render the label; it only names the
+            handle. Use{' '}
             <Typography.InlineCode>aria-describedby</Typography.InlineCode>
             {' '}
             for supporting instructions.
@@ -129,6 +132,26 @@
             <Typography.H3 class="docs-subsection-heading">With step</Typography.H3>
             <ComponentPreview code={SteppedSrc}>
                 <Stepped />
+            </ComponentPreview>
+        </div>
+
+        <div id="field" class="scroll-mt-20 flex flex-col gap-3">
+            <Typography.H3 class="docs-subsection-heading">Field</Typography.H3>
+            <Typography.Text variant="supporting">
+                Set{' '}
+                <Typography.InlineCode>variant="field"</Typography.InlineCode>
+                {' '}
+                to put the label and the value inside the control. Drag anywhere in the bar to
+                scrub, or focus it and use the arrow keys. A stack of fields reads as one column, so
+                it suits settings panels with many numeric values.{' '}
+                <Typography.InlineCode>format</Typography.InlineCode>
+                {' '}
+                turns the number into the text shown on the right and announced by screen readers.
+                The field variant holds one value and does not combine with{' '}
+                <Typography.InlineCode>range</Typography.InlineCode>.
+            </Typography.Text>
+            <ComponentPreview code={FieldSrc}>
+                <Field />
             </ComponentPreview>
         </div>
 

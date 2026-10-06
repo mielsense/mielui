@@ -3,3 +3,4 @@
 - Make the Open preset neutral monochrome with Geist Mono, and darken the Functional preset's text for contrast.
 - Card accepts `surface="glass"`, which frosts the card frame so a backdrop shows through while the content stays on a solid surface.
 - `HoverCard.Content` accepts `sideOffset` to set the gap between the trigger and the card.
+- Slider accepts `variant="field"`, a bar with the label and value inside that you drag anywhere to scrub, and `format` to control how the value reads.

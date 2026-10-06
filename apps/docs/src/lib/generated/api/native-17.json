@@ -1,7 +1,7 @@
 [
     {
         "name": "ontransitionstart",
-        "type": "TransitionEventHandler<HTMLAnchorElement> | null | undefined | TransitionEventHandler<HTMLButtonElement> | null | undefined",
+        "type": "TransitionEventHandler<HTMLAnchorElement> | null | TransitionEventHandler<HTMLButtonElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -10,7 +10,7 @@
     },
     {
         "name": "ontransitionstartcapture",
-        "type": "TransitionEventHandler<HTMLAnchorElement> | null | undefined | TransitionEventHandler<HTMLButtonElement> | null | undefined",
+        "type": "TransitionEventHandler<HTMLAnchorElement> | null | TransitionEventHandler<HTMLButtonElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -19,7 +19,7 @@
     },
     {
         "name": "on:transitionrun",
-        "type": "TransitionEventHandler<HTMLAnchorElement> | null | undefined | TransitionEventHandler<HTMLButtonElement> | null | undefined",
+        "type": "TransitionEventHandler<HTMLAnchorElement> | null | TransitionEventHandler<HTMLButtonElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -28,7 +28,7 @@
     },
     {
         "name": "ontransitionrun",
-        "type": "TransitionEventHandler<HTMLAnchorElement> | null | undefined | TransitionEventHandler<HTMLButtonElement> | null | undefined",
+        "type": "TransitionEventHandler<HTMLAnchorElement> | null | TransitionEventHandler<HTMLButtonElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -37,7 +37,7 @@
     },
     {
         "name": "ontransitionruncapture",
-        "type": "TransitionEventHandler<HTMLAnchorElement> | null | undefined | TransitionEventHandler<HTMLButtonElement> | null | undefined",
+        "type": "TransitionEventHandler<HTMLAnchorElement> | null | TransitionEventHandler<HTMLButtonElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -46,7 +46,7 @@
     },
     {
         "name": "on:transitionend",
-        "type": "TransitionEventHandler<HTMLAnchorElement> | null | undefined | TransitionEventHandler<HTMLButtonElement> | null | undefined",
+        "type": "TransitionEventHandler<HTMLAnchorElement> | null | TransitionEventHandler<HTMLButtonElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -55,7 +55,7 @@
     },
     {
         "name": "ontransitionend",
-        "type": "TransitionEventHandler<HTMLAnchorElement> | null | undefined | TransitionEventHandler<HTMLButtonElement> | null | undefined",
+        "type": "TransitionEventHandler<HTMLAnchorElement> | null | TransitionEventHandler<HTMLButtonElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -64,7 +64,7 @@
     },
     {
         "name": "ontransitionendcapture",
-        "type": "TransitionEventHandler<HTMLAnchorElement> | null | undefined | TransitionEventHandler<HTMLButtonElement> | null | undefined",
+        "type": "TransitionEventHandler<HTMLAnchorElement> | null | TransitionEventHandler<HTMLButtonElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -73,7 +73,7 @@
     },
     {
         "name": "on:transitioncancel",
-        "type": "TransitionEventHandler<HTMLAnchorElement> | null | undefined | TransitionEventHandler<HTMLButtonElement> | null | undefined",
+        "type": "TransitionEventHandler<HTMLAnchorElement> | null | TransitionEventHandler<HTMLButtonElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -82,7 +82,7 @@
     },
     {
         "name": "ontransitioncancel",
-        "type": "TransitionEventHandler<HTMLAnchorElement> | null | undefined | TransitionEventHandler<HTMLButtonElement> | null | undefined",
+        "type": "TransitionEventHandler<HTMLAnchorElement> | null | TransitionEventHandler<HTMLButtonElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -91,7 +91,7 @@
     },
     {
         "name": "ontransitioncancelcapture",
-        "type": "TransitionEventHandler<HTMLAnchorElement> | null | undefined | TransitionEventHandler<HTMLButtonElement> | null | undefined",
+        "type": "TransitionEventHandler<HTMLAnchorElement> | null | TransitionEventHandler<HTMLButtonElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -100,7 +100,7 @@
     },
     {
         "name": "on:outrostart",
-        "type": "EventHandler<CustomEvent<null>, HTMLAnchorElement> | null | undefined | EventHandler<CustomEvent<null>, HTMLButtonElement> | null | undefined",
+        "type": "EventHandler<CustomEvent<null>, HTMLAnchorElement> | null | EventHandler<CustomEvent<null>, HTMLButtonElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -109,7 +109,7 @@
     },
     {
         "name": "onoutrostart",
-        "type": "EventHandler<CustomEvent<null>, HTMLAnchorElement> | null | undefined | EventHandler<CustomEvent<null>, HTMLButtonElement> | null | undefined",
+        "type": "EventHandler<CustomEvent<null>, HTMLAnchorElement> | null | EventHandler<CustomEvent<null>, HTMLButtonElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -118,7 +118,7 @@
     },
     {
         "name": "onoutrostartcapture",
-        "type": "EventHandler<CustomEvent<null>, HTMLAnchorElement> | null | undefined | EventHandler<CustomEvent<null>, HTMLButtonElement> | null | undefined",
+        "type": "EventHandler<CustomEvent<null>, HTMLAnchorElement> | null | EventHandler<CustomEvent<null>, HTMLButtonElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -127,7 +127,7 @@
     },
     {
         "name": "on:outroend",
-        "type": "EventHandler<CustomEvent<null>, HTMLAnchorElement> | null | undefined | EventHandler<CustomEvent<null>, HTMLButtonElement> | null | undefined",
+        "type": "EventHandler<CustomEvent<null>, HTMLAnchorElement> | null | EventHandler<CustomEvent<null>, HTMLButtonElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -136,7 +136,7 @@
     },
     {
         "name": "onoutroend",
-        "type": "EventHandler<CustomEvent<null>, HTMLAnchorElement> | null | undefined | EventHandler<CustomEvent<null>, HTMLButtonElement> | null | undefined",
+        "type": "EventHandler<CustomEvent<null>, HTMLAnchorElement> | null | EventHandler<CustomEvent<null>, HTMLButtonElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -145,7 +145,7 @@
     },
     {
         "name": "onoutroendcapture",
-        "type": "EventHandler<CustomEvent<null>, HTMLAnchorElement> | null | undefined | EventHandler<CustomEvent<null>, HTMLButtonElement> | null | undefined",
+        "type": "EventHandler<CustomEvent<null>, HTMLAnchorElement> | null | EventHandler<CustomEvent<null>, HTMLButtonElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -154,7 +154,7 @@
     },
     {
         "name": "on:introstart",
-        "type": "EventHandler<CustomEvent<null>, HTMLAnchorElement> | null | undefined | EventHandler<CustomEvent<null>, HTMLButtonElement> | null | undefined",
+        "type": "EventHandler<CustomEvent<null>, HTMLAnchorElement> | null | EventHandler<CustomEvent<null>, HTMLButtonElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -163,7 +163,7 @@
     },
     {
         "name": "onintrostart",
-        "type": "EventHandler<CustomEvent<null>, HTMLAnchorElement> | null | undefined | EventHandler<CustomEvent<null>, HTMLButtonElement> | null | undefined",
+        "type": "EventHandler<CustomEvent<null>, HTMLAnchorElement> | null | EventHandler<CustomEvent<null>, HTMLButtonElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -172,7 +172,7 @@
     },
     {
         "name": "onintrostartcapture",
-        "type": "EventHandler<CustomEvent<null>, HTMLAnchorElement> | null | undefined | EventHandler<CustomEvent<null>, HTMLButtonElement> | null | undefined",
+        "type": "EventHandler<CustomEvent<null>, HTMLAnchorElement> | null | EventHandler<CustomEvent<null>, HTMLButtonElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -181,7 +181,7 @@
     },
     {
         "name": "on:introend",
-        "type": "EventHandler<CustomEvent<null>, HTMLAnchorElement> | null | undefined | EventHandler<CustomEvent<null>, HTMLButtonElement> | null | undefined",
+        "type": "EventHandler<CustomEvent<null>, HTMLAnchorElement> | null | EventHandler<CustomEvent<null>, HTMLButtonElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -190,7 +190,7 @@
     },
     {
         "name": "onintroend",
-        "type": "EventHandler<CustomEvent<null>, HTMLAnchorElement> | null | undefined | EventHandler<CustomEvent<null>, HTMLButtonElement> | null | undefined",
+        "type": "EventHandler<CustomEvent<null>, HTMLAnchorElement> | null | EventHandler<CustomEvent<null>, HTMLButtonElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -199,7 +199,7 @@
     },
     {
         "name": "onintroendcapture",
-        "type": "EventHandler<CustomEvent<null>, HTMLAnchorElement> | null | undefined | EventHandler<CustomEvent<null>, HTMLButtonElement> | null | undefined",
+        "type": "EventHandler<CustomEvent<null>, HTMLAnchorElement> | null | EventHandler<CustomEvent<null>, HTMLButtonElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -208,7 +208,7 @@
     },
     {
         "name": "on:message",
-        "type": "MessageEventHandler<HTMLAnchorElement> | null | undefined | MessageEventHandler<HTMLButtonElement> | null | undefined",
+        "type": "MessageEventHandler<HTMLAnchorElement> | null | MessageEventHandler<HTMLButtonElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -217,7 +217,7 @@
     },
     {
         "name": "onmessage",
-        "type": "MessageEventHandler<HTMLAnchorElement> | null | undefined | MessageEventHandler<HTMLButtonElement> | null | undefined",
+        "type": "MessageEventHandler<HTMLAnchorElement> | null | MessageEventHandler<HTMLButtonElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -226,7 +226,7 @@
     },
     {
         "name": "onmessagecapture",
-        "type": "MessageEventHandler<HTMLAnchorElement> | null | undefined | MessageEventHandler<HTMLButtonElement> | null | undefined",
+        "type": "MessageEventHandler<HTMLAnchorElement> | null | MessageEventHandler<HTMLButtonElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -235,7 +235,7 @@
     },
     {
         "name": "on:messageerror",
-        "type": "MessageEventHandler<HTMLAnchorElement> | null | undefined | MessageEventHandler<HTMLButtonElement> | null | undefined",
+        "type": "MessageEventHandler<HTMLAnchorElement> | null | MessageEventHandler<HTMLButtonElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -244,7 +244,7 @@
     },
     {
         "name": "onmessageerror",
-        "type": "MessageEventHandler<HTMLAnchorElement> | null | undefined | MessageEventHandler<HTMLButtonElement> | null | undefined",
+        "type": "MessageEventHandler<HTMLAnchorElement> | null | MessageEventHandler<HTMLButtonElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -253,7 +253,7 @@
     },
     {
         "name": "onmessageerrorcapture",
-        "type": "MessageEventHandler<HTMLAnchorElement> | null | undefined | MessageEventHandler<HTMLButtonElement> | null | undefined",
+        "type": "MessageEventHandler<HTMLAnchorElement> | null | MessageEventHandler<HTMLButtonElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -262,7 +262,7 @@
     },
     {
         "name": "on:visibilitychange",
-        "type": "EventHandler<Event, HTMLAnchorElement> | null | undefined | EventHandler<Event, HTMLButtonElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLAnchorElement> | null | EventHandler<Event, HTMLButtonElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -271,7 +271,7 @@
     },
     {
         "name": "onvisibilitychange",
-        "type": "EventHandler<Event, HTMLAnchorElement> | null | undefined | EventHandler<Event, HTMLButtonElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLAnchorElement> | null | EventHandler<Event, HTMLButtonElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -280,7 +280,7 @@
     },
     {
         "name": "onvisibilitychangecapture",
-        "type": "EventHandler<Event, HTMLAnchorElement> | null | undefined | EventHandler<Event, HTMLButtonElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLAnchorElement> | null | EventHandler<Event, HTMLButtonElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -289,7 +289,7 @@
     },
     {
         "name": "on:beforematch",
-        "type": "EventHandler<Event, HTMLAnchorElement> | null | undefined | EventHandler<Event, HTMLButtonElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLAnchorElement> | null | EventHandler<Event, HTMLButtonElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -298,7 +298,7 @@
     },
     {
         "name": "onbeforematch",
-        "type": "EventHandler<Event, HTMLAnchorElement> | null | undefined | EventHandler<Event, HTMLButtonElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLAnchorElement> | null | EventHandler<Event, HTMLButtonElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -307,7 +307,7 @@
     },
     {
         "name": "onbeforematchcapture",
-        "type": "EventHandler<Event, HTMLAnchorElement> | null | undefined | EventHandler<Event, HTMLButtonElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLAnchorElement> | null | EventHandler<Event, HTMLButtonElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -316,7 +316,7 @@
     },
     {
         "name": "on:cancel",
-        "type": "EventHandler<Event, HTMLAnchorElement> | null | undefined | EventHandler<Event, HTMLButtonElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLAnchorElement> | null | EventHandler<Event, HTMLButtonElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -325,7 +325,7 @@
     },
     {
         "name": "oncancel",
-        "type": "EventHandler<Event, HTMLAnchorElement> | null | undefined | EventHandler<Event, HTMLButtonElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLAnchorElement> | null | EventHandler<Event, HTMLButtonElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -334,7 +334,7 @@
     },
     {
         "name": "oncancelcapture",
-        "type": "EventHandler<Event, HTMLAnchorElement> | null | undefined | EventHandler<Event, HTMLButtonElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLAnchorElement> | null | EventHandler<Event, HTMLButtonElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -343,7 +343,7 @@
     },
     {
         "name": "on:close",
-        "type": "EventHandler<Event, HTMLAnchorElement> | null | undefined | EventHandler<Event, HTMLButtonElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLAnchorElement> | null | EventHandler<Event, HTMLButtonElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -352,7 +352,7 @@
     },
     {
         "name": "onclose",
-        "type": "EventHandler<Event, HTMLAnchorElement> | null | undefined | EventHandler<Event, HTMLButtonElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLAnchorElement> | null | EventHandler<Event, HTMLButtonElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -361,7 +361,7 @@
     },
     {
         "name": "onclosecapture",
-        "type": "EventHandler<Event, HTMLAnchorElement> | null | undefined | EventHandler<Event, HTMLButtonElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLAnchorElement> | null | EventHandler<Event, HTMLButtonElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -370,7 +370,7 @@
     },
     {
         "name": "on:fullscreenchange",
-        "type": "EventHandler<Event, HTMLAnchorElement> | null | undefined | EventHandler<Event, HTMLButtonElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLAnchorElement> | null | EventHandler<Event, HTMLButtonElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -379,7 +379,7 @@
     },
     {
         "name": "onfullscreenchange",
-        "type": "EventHandler<Event, HTMLAnchorElement> | null | undefined | EventHandler<Event, HTMLButtonElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLAnchorElement> | null | EventHandler<Event, HTMLButtonElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -388,7 +388,7 @@
     },
     {
         "name": "onfullscreenchangecapture",
-        "type": "EventHandler<Event, HTMLAnchorElement> | null | undefined | EventHandler<Event, HTMLButtonElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLAnchorElement> | null | EventHandler<Event, HTMLButtonElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -397,7 +397,7 @@
     },
     {
         "name": "on:fullscreenerror",
-        "type": "EventHandler<Event, HTMLAnchorElement> | null | undefined | EventHandler<Event, HTMLButtonElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLAnchorElement> | null | EventHandler<Event, HTMLButtonElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -406,7 +406,7 @@
     },
     {
         "name": "onfullscreenerror",
-        "type": "EventHandler<Event, HTMLAnchorElement> | null | undefined | EventHandler<Event, HTMLButtonElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLAnchorElement> | null | EventHandler<Event, HTMLButtonElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -415,7 +415,7 @@
     },
     {
         "name": "onfullscreenerrorcapture",
-        "type": "EventHandler<Event, HTMLAnchorElement> | null | undefined | EventHandler<Event, HTMLButtonElement> | null | undefined",
+        "type": "EventHandler<Event, HTMLAnchorElement> | null | EventHandler<Event, HTMLButtonElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,
@@ -424,7 +424,7 @@
     },
     {
         "name": "type",
-        "type": "string | null | undefined | \"button\" | \"submit\" | \"reset\" | null | undefined",
+        "type": "string | null | \"button\" | \"submit\" | \"reset\" | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,

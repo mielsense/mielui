@@ -554,7 +554,7 @@
             },
             {
                 "name": "files",
-                "type": "FileList | undefined | undefined",
+                "type": "FileList | undefined",
                 "required": false,
                 "bindable": true,
                 "default": null,
@@ -563,7 +563,7 @@
             },
             {
                 "name": "value",
-                "type": "undefined | string | number | undefined",
+                "type": "string | number | undefined",
                 "required": false,
                 "bindable": true,
                 "default": null,
@@ -572,7 +572,7 @@
             },
             {
                 "name": "checked",
-                "type": "undefined | boolean | undefined",
+                "type": "boolean | undefined",
                 "required": false,
                 "bindable": true,
                 "default": null,

@@ -44,7 +44,16 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "Accessible name of the slider.",
+                "description": "Names the handle. The field variant also shows it inside the control.",
+                "inherited": false
+            },
+            {
+                "name": "format",
+                "type": "((value: number) => string) | undefined",
+                "required": false,
+                "bindable": false,
+                "default": null,
+                "description": "Formats a value for assistive technology and for the field variant's readout.",
                 "inherited": false
             },
             {
@@ -139,7 +148,7 @@
             },
             {
                 "name": "range",
-                "type": "false | undefined | true",
+                "type": "false | true | undefined",
                 "required": false,
                 "bindable": false,
                 "default": null,
@@ -147,8 +156,17 @@
                 "inherited": false
             },
             {
+                "name": "variant",
+                "type": "SliderVariant | undefined",
+                "required": false,
+                "bindable": false,
+                "default": null,
+                "description": "`field` puts the label and value inside a bar you drag anywhere to scrub.",
+                "inherited": false
+            },
+            {
                 "name": "value",
-                "type": "number | undefined | [number, number] | undefined",
+                "type": "number | [number, number] | undefined",
                 "required": false,
                 "bindable": true,
                 "default": null,
@@ -157,7 +175,7 @@
             },
             {
                 "name": "thumbLabels",
-                "type": "undefined | [string, string] | undefined",
+                "type": "[string, string] | undefined",
                 "required": false,
                 "bindable": false,
                 "default": null,
@@ -166,7 +184,7 @@
             },
             {
                 "name": "onValueChange",
-                "type": "((value: number) => void) | undefined | ((value: [number, number]) => void) | undefined",
+                "type": "((value: number) => void) | ((value: [number, number]) => void) | undefined",
                 "required": false,
                 "bindable": false,
                 "default": null,

@@ -3861,7 +3861,7 @@
             1725,
             {
                 "name": "type",
-                "type": "\"text\" | \"single\" | undefined | \"multiple\"",
+                "type": "\"text\" | \"single\" | \"multiple\" | undefined",
                 "required": false,
                 "bindable": false,
                 "default": "'single'",
@@ -3870,7 +3870,7 @@
             },
             {
                 "name": "value",
-                "type": "string | undefined | string[] | undefined",
+                "type": "string | string[] | undefined",
                 "required": false,
                 "bindable": true,
                 "default": null,
