@@ -16,7 +16,7 @@
     let { model }: { model: AppPreviewModel } = $props();
 </script>
 
-<nav aria-label="Ledger" class="order-last w-full @2xl:order-none @2xl:w-auto">
+<nav aria-label="Ledger" class="order-last w-full @2xl:order-none @2xl:w-auto @3xl:hidden">
     <Tabs.List>
         <Tabs.Trigger value="overview">Overview</Tabs.Trigger>
         <Tabs.Trigger value="invoices">Invoices</Tabs.Trigger>

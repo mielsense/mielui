@@ -7,6 +7,7 @@
     import { AppPreviewModel } from './app-preview/model.svelte';
     import Overview from './app-preview/overview.svelte';
     import Settings from './app-preview/settings.svelte';
+    import Sidebar from './app-preview/sidebar.svelte';
 
     const model = new AppPreviewModel();
     onDestroy(() => {
@@ -14,13 +15,17 @@
     });
 </script>
 
-<FadeScrollArea class="h-full" start>
-    <div class="@container flex w-full flex-col">
-        <Tabs.Root bind:value={model.studioView} variant="ghost">
+<div class="@container h-full min-h-0 w-full">
+    <h2 class="sr-only">App preview</h2>
+    <Tabs.Root bind:value={model.studioView} variant="ghost" class="flex h-full min-h-0">
+        <Sidebar {model} />
+        <div class="flex min-w-0 flex-1 flex-col">
             <Header {model} />
-            <Overview {model} />
-            <Invoices {model} />
-            <Settings {model} />
-        </Tabs.Root>
-    </div>
-</FadeScrollArea>
+            <FadeScrollArea class="min-h-0 flex-1" start>
+                <Overview {model} />
+                <Invoices {model} />
+                <Settings {model} />
+            </FadeScrollArea>
+        </div>
+    </Tabs.Root>
+</div>

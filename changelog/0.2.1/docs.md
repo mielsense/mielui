@@ -43,4 +43,5 @@
 - Copy a share link from the Studio that opens your theme for someone else, and see each preset's brand color in the preset picker.
 - Reset a single Studio setting to the preset with the button that appears beside its label once it changes.
 - Add three live demos to the homepage under the hero: a coding agent workspace, a support chat, and an issue editor, each behind a tab.
-- Show the coding agent and chat demos in the Studio's AI components tab.
+- Show the coding agent and chat demos in the Studio's AI components tab, side by side at full height.
+- Rebuild the Studio's App preview as a sidebar app that fills the preview pane.
