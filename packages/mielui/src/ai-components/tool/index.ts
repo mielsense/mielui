@@ -30,6 +30,7 @@ export type ToolProps = {
     duration?: string;
     /** Whether the individual tool calls are visible. */
     open?: boolean;
+    /** Called with the new state whenever it opens or closes. */
     onOpenChange?: (open: boolean) => void;
     onOpenChangeComplete?: (open: boolean) => void;
     /** Render explicit Trigger and Content parts through children. */

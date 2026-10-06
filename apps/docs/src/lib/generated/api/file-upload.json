@@ -2817,7 +2817,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Called on key down, before the button handles the key itself.",
                 "inherited": false
             },
             808,
@@ -2906,7 +2906,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Called when the button is activated. Loading and disabled buttons do not call it.",
                 "inherited": false
             },
             888,
@@ -3106,7 +3106,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Prevents activation. A disabled link loses its destination and is skipped by Tab.",
                 "inherited": false
             },
             1064,
@@ -3126,7 +3126,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Visual style. Choose it for what the action means, not for decoration.",
                 "inherited": false
             },
             {
@@ -3135,7 +3135,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Control height. `icon` is a square button for a single icon.",
                 "inherited": false
             },
             {
@@ -3171,7 +3171,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Text shown while `status` is `loading`. The button keeps its width.",
                 "inherited": false
             },
             {
@@ -3180,7 +3180,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Text shown while `status` is `success`.",
                 "inherited": false
             },
             {
@@ -3189,7 +3189,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Text shown while `status` is `error`.",
                 "inherited": false
             }
         ]
@@ -3379,7 +3379,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Called on key down, before the button handles the key itself.",
                 "inherited": false
             },
             808,
@@ -3468,7 +3468,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Called when the button is activated. Loading and disabled buttons do not call it.",
                 "inherited": false
             },
             888,
@@ -3668,7 +3668,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Prevents activation. A disabled link loses its destination and is skipped by Tab.",
                 "inherited": false
             },
             1064,
@@ -3688,7 +3688,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Visual style. Choose it for what the action means, not for decoration.",
                 "inherited": false
             },
             {
@@ -3697,7 +3697,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Control height. `icon` is a square button for a single icon.",
                 "inherited": false
             },
             {
@@ -3733,7 +3733,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Text shown while `status` is `loading`. The button keeps its width.",
                 "inherited": false
             },
             {
@@ -3742,7 +3742,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Text shown while `status` is `success`.",
                 "inherited": false
             },
             {
@@ -3751,7 +3751,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Text shown while `status` is `error`.",
                 "inherited": false
             }
         ]
@@ -4875,7 +4875,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Called on key down, before the button handles the key itself.",
                 "inherited": false
             },
             808,
@@ -4964,7 +4964,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Called when the button is activated. Loading and disabled buttons do not call it.",
                 "inherited": false
             },
             888,
@@ -5164,7 +5164,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Prevents activation. A disabled link loses its destination and is skipped by Tab.",
                 "inherited": false
             },
             1064,
@@ -5184,7 +5184,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Visual style. Choose it for what the action means, not for decoration.",
                 "inherited": false
             },
             {
@@ -5193,7 +5193,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Control height. `icon` is a square button for a single icon.",
                 "inherited": false
             },
             {
@@ -5229,7 +5229,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Text shown while `status` is `loading`. The button keeps its width.",
                 "inherited": false
             },
             {
@@ -5238,7 +5238,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Text shown while `status` is `success`.",
                 "inherited": false
             },
             {
@@ -5247,7 +5247,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Text shown while `status` is `error`.",
                 "inherited": false
             }
         ]

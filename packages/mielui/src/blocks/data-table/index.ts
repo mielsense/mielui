@@ -203,7 +203,9 @@ export type DataTableFiltersProps<TFeatures extends TableFeatures, TData extends
 export type DataTableFacetProps<TFeatures extends TableFeatures, TData extends RowData> = {
     table: Table<TFeatures, TData>;
     filter: DataTableFilterDefinition;
+    /** Whether it is open. Bind it to control the state from outside. */
     open?: boolean;
+    /** Called with the new state whenever it opens or closes. */
     onOpenChange?: (open: boolean) => void;
     onRemove?: () => void;
     class?: string;

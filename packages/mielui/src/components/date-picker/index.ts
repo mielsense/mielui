@@ -12,6 +12,7 @@ export type DatePickerContentProps = Omit<
     DatePickerPrimitive.ContentProps,
     'child' | 'forceMount'
 > & {
+    /** Surface treatment. Omit it to inherit `--mielui-surface` from the theme. */
     surface?: 'solid' | 'glass';
     portal?: boolean;
 };

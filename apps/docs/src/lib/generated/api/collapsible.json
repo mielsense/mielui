@@ -31,7 +31,7 @@
                 "required": false,
                 "bindable": true,
                 "default": "false",
-                "description": "",
+                "description": "Whether it is open. Bind it to control the state from outside.",
                 "inherited": false
             },
             {

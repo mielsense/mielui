@@ -16,6 +16,7 @@ import Toolbar from './composer-toolbar.svelte';
 export type ComposerStatus = 'idle' | 'submitting' | 'error';
 
 export type ComposerProps = {
+    /** Surface treatment. Omit it to inherit `--mielui-surface` from the theme. */
     surface?: 'solid' | 'glass';
     value?: string;
     status?: ComposerStatus;

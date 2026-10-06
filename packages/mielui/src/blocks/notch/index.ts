@@ -14,10 +14,12 @@ import SideAction from './notch-side-action.svelte';
 import Title from './notch-title.svelte';
 
 export type NotchProps = {
+    /** Whether it is open. Bind it to control the state from outside. */
     open?: boolean;
     mode?: 'triggered' | 'peek';
     duration?: number;
     side?: 'top' | 'bottom' | 'left' | 'right';
+    /** Surface treatment. Omit it to inherit `--mielui-surface` from the theme. */
     surface?: 'solid' | 'glass';
     children?: Snippet;
 };

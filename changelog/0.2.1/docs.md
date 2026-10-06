@@ -32,3 +32,6 @@
 - Move the copy button for example source into the preview's top bar, so it no longer covers the code.
 - With single borders, example previews and install commands sit flush in their frame like cards, keeping only the tab strip on the frame.
 - Add a search field to the Studio inspector that filters settings by name.
+- Describe every Button prop in the API reference, which also covers the triggers, menu items, and actions built on Button.
+- Describe `surface`, `open`, and `onOpenChange` wherever a component accepts them.
+- Add a Placement and timing section to the Hover Card page, with an example for each side.

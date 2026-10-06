@@ -6,6 +6,7 @@ import Content from './collapsible-content.svelte';
 import Trigger from './collapsible-trigger.svelte';
 
 export type CollapsibleProps = {
+    /** Whether it is open. Bind it to control the state from outside. */
     open?: boolean;
     disabled?: boolean;
     children?: Snippet;

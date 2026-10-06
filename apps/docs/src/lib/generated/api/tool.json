@@ -1478,7 +1478,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Called with the new state whenever it opens or closes.",
                 "inherited": false
             },
             {

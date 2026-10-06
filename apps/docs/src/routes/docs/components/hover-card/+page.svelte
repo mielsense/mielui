@@ -9,6 +9,8 @@
     import GlassSrc from './examples/glass.svelte?raw';
     import LinkPreview from './examples/link-preview.svelte';
     import LinkPreviewSrc from './examples/link-preview.svelte?raw';
+    import Placement from './examples/placement.svelte';
+    import PlacementSrc from './examples/placement.svelte?raw';
     import UserPreview from './examples/user-preview.svelte';
     import UserPreviewSrc from './examples/user-preview.svelte?raw';
 
@@ -90,6 +92,42 @@
                 <Definition />
             </ComponentPreview>
         </div>
+    </section>
+    <section id="placement" class="scroll-mt-20 flex flex-col gap-4">
+        <Typography.H2 class="docs-section-heading">Placement and timing</Typography.H2>
+        <Typography.Text variant="supporting">
+            Set{' '}
+            <Typography.InlineCode>side</Typography.InlineCode>
+            on Content to choose where the card opens:{' '}
+            <Typography.InlineCode>top</Typography.InlineCode>
+            ,{' '}
+            <Typography.InlineCode>right</Typography.InlineCode>
+            ,{' '}
+            <Typography.InlineCode>bottom</Typography.InlineCode>
+            , or{' '}
+            <Typography.InlineCode>left</Typography.InlineCode>
+            . The default is bottom. The side is a preference. When there is no room, the card flips
+            to the opposite side.
+        </Typography.Text>
+        <Typography.Text variant="supporting">
+            <Typography.InlineCode>align</Typography.InlineCode>
+            positions the card along that side as{' '}
+            <Typography.InlineCode>start</Typography.InlineCode>
+            ,{' '}
+            <Typography.InlineCode>center</Typography.InlineCode>
+            , or{' '}
+            <Typography.InlineCode>end</Typography.InlineCode>
+            . The card sits 8px from the trigger and shifts to stay inside the viewport.
+        </Typography.Text>
+        <Typography.Text variant="supporting">
+            On Root,{' '}
+            <Typography.InlineCode>openDelay</Typography.InlineCode>
+            and{' '}
+            <Typography.InlineCode>closeDelay</Typography.InlineCode>
+            set how long the pointer rests before the card opens and how long it stays after the
+            pointer leaves. They default to 200 and 150 milliseconds.
+        </Typography.Text>
+        <ComponentPreview code={PlacementSrc}><Placement /></ComponentPreview>
     </section>
     <section id="glass" class="flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Glass surface</Typography.H2>

@@ -31,6 +31,7 @@ export type DialogCloseProps = ButtonProps;
 export type DialogDescriptionProps = DefaultProps;
 
 export type DialogContentProps = {
+    /** Surface treatment. Omit it to inherit `--mielui-surface` from the theme. */
     surface?: 'solid' | 'glass';
     allowClickOutside?: boolean;
     allowEscape?: boolean;
@@ -46,7 +47,9 @@ export type DialogContentProps = {
     Partial<Record<`aria-${string}`, string | boolean | null | undefined>>;
 
 export type DialogProps = {
+    /** Whether it is open. Bind it to control the state from outside. */
     open?: boolean;
+    /** Called with the new state whenever it opens or closes. */
     onOpenChange?: (open: boolean) => void;
     /** Sets supported browser chrome to red while the dialog is open. */
     error?: boolean;

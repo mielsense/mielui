@@ -14,7 +14,9 @@ import Trigger from './context-menu-trigger.svelte';
 
 export type ContextMenuProps = {
     children?: Snippet;
+    /** Whether it is open. Bind it to control the state from outside. */
     open?: boolean;
+    /** Called with the new state whenever it opens or closes. */
     onOpenChange?: (open: boolean) => void;
 };
 export type ContextMenuContentProps = DefaultProps & { surface?: 'solid' | 'glass' };

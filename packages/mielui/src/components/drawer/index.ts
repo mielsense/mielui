@@ -41,6 +41,7 @@ export type DrawerContentProps = Omit<
     Primitive.ContentProps,
     'child' | 'ref' | 'onFocusOutside'
 > & {
+    /** Surface treatment. Omit it to inherit `--mielui-surface` from the theme. */
     surface?: 'solid' | 'glass';
     element?: HTMLDivElement | null;
 };

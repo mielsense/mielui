@@ -16,6 +16,7 @@ export type ReasoningRootProps = {
     streaming?: boolean;
     /** Whether the reasoning content is visible. */
     open?: boolean;
+    /** Called with the new state whenever it opens or closes. */
     onOpenChange?: (open: boolean) => void;
     onOpenChangeComplete?: (open: boolean) => void;
     children?: Snippet;

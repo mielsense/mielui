@@ -8,7 +8,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Surface treatment. Omit it to inherit `--mielui-surface` from the theme.",
                 "inherited": false
             },
             {
@@ -17,7 +17,7 @@
                 "required": false,
                 "bindable": false,
                 "default": "'bottom'",
-                "description": "",
+                "description": "Preferred side of the trigger. The card flips to the opposite side when there is no room.",
                 "inherited": false
             },
             {
@@ -26,7 +26,7 @@
                 "required": false,
                 "bindable": false,
                 "default": "'center'",
-                "description": "",
+                "description": "Alignment along that side. The card shifts to stay inside the viewport.",
                 "inherited": false
             },
             {
@@ -81,7 +81,7 @@
                 "required": false,
                 "bindable": true,
                 "default": "false",
-                "description": "",
+                "description": "Whether it is open. Bind it to control the state from outside.",
                 "inherited": false
             },
             {
@@ -90,7 +90,7 @@
                 "required": false,
                 "bindable": false,
                 "default": "200",
-                "description": "",
+                "description": "Milliseconds the pointer rests on the trigger before the card opens.",
                 "inherited": false
             },
             {
@@ -99,7 +99,7 @@
                 "required": false,
                 "bindable": false,
                 "default": "150",
-                "description": "",
+                "description": "Milliseconds after the pointer leaves before the card closes.",
                 "inherited": false
             },
             {
@@ -145,7 +145,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Destination of the trigger link. The card previews it.",
                 "inherited": false
             },
             {

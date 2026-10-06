@@ -9,6 +9,7 @@ import Title from './popover-title.svelte';
 import Trigger from './popover-trigger.svelte';
 
 export type PopoverContentProps = {
+    /** Surface treatment. Omit it to inherit `--mielui-surface` from the theme. */
     surface?: 'solid' | 'glass';
     children: Snippet;
     class?: string;
@@ -36,7 +37,9 @@ export type PopoverContentProps = {
 
 export type PopoverProps = {
     children?: Snippet;
+    /** Whether it is open. Bind it to control the state from outside. */
     open?: boolean;
+    /** Called with the new state whenever it opens or closes. */
     onOpenChange?: (open: boolean) => void;
     placement?: Placement;
     /** Stable identifier used to connect trigger and content ARIA attributes. */
