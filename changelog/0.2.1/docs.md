@@ -39,3 +39,4 @@
 - Let page text use the full width of the content column.
 - Bring the Markdown versions of Introduction and Installation, used by Copy page and `llms.txt`, in line with the rewritten pages.
 - Search finds section headings and prop names, so "placement" or "closeDelay" lead to the right page.
+- Cmd or Ctrl-click a sidebar link to open it as a tab in the background, and drag tabs or press Alt with an arrow key to reorder them.

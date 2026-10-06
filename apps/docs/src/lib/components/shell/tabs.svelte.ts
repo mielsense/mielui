@@ -118,6 +118,30 @@ export function createDocsTabs() {
         void goto(href);
     }
 
+    /** Adds a tab without leaving the current page, like a modified click in a browser. */
+    function openInBackground(href: string) {
+        if (!tracks(href) || tabs.some((tab) => tab.href === href)) {
+            return;
+        }
+        if (tabs.length >= MAX_TABS) {
+            const oldest = tabs.findIndex((tab) => tab.id !== active);
+            tabs.splice(oldest, 1);
+        }
+        tabs.push(create(href));
+        save();
+    }
+
+    function move(id: string, beforeId: string | null) {
+        const from = tabs.findIndex((tab) => tab.id === id);
+        if (from < 0 || id === beforeId) {
+            return;
+        }
+        const [tab] = tabs.splice(from, 1);
+        const to = beforeId === null ? tabs.length : tabs.findIndex((item) => item.id === beforeId);
+        tabs.splice(to < 0 ? tabs.length : to, 0, tab);
+        save();
+    }
+
     function close(id: string) {
         const index = tabs.findIndex((tab) => tab.id === id);
         if (index < 0 || tabs.length < 2) {
@@ -141,6 +165,8 @@ export function createDocsTabs() {
             return active;
         },
         open,
+        openInBackground,
+        move,
         close
     };
 }

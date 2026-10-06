@@ -94,6 +94,16 @@
         return href !== page.url.pathname && shell.tabs.tabs.some((tab) => tab.href === href);
     }
 
+    function follow(event: MouseEvent, href: string) {
+        if (event.button === 0 && (event.metaKey || event.ctrlKey) && href.startsWith('/docs')) {
+            event.preventDefault();
+            shell.tabs.openInBackground(href);
+
+            return;
+        }
+        close?.();
+    }
+
     function openSearch() {
         close?.();
         search.open = true;
@@ -139,7 +149,7 @@
                 href={item.href}
                 class={rowClass}
                 aria-current={page.url.pathname === item.href ? 'page' : undefined}
-                onclick={close}
+                onclick={(event) => follow(event, item.href)}
             >
                 <HugeiconsIcon icon={item.icon} size={16} class="shrink-0" aria-hidden="true" />
                 <span class="flex-1 truncate">{item.label}</span>
@@ -169,7 +179,7 @@
                     href={section.href}
                     class={`${labelClass} transition-colors [transition-duration:var(--motion-duration-hover)] hover:text-foreground focus-visible:outline-none focus-visible:shadow-[var(--focus-ring)] aria-[current=page]:text-foreground motion-reduce:transition-none`}
                     aria-current={page.url.pathname === section.href ? 'page' : undefined}
-                    onclick={close}
+                    onclick={(event) => follow(event, section.href)}
                 >
                     {section.label}
                 </a>
@@ -179,7 +189,7 @@
                     href={item.href}
                     class={`${rowClass} ${item.nested ? 'ps-6 font-normal text-foreground-muted' : ''}`}
                     aria-current={page.url.pathname === item.href ? 'page' : undefined}
-                    onclick={close}
+                    onclick={(event) => follow(event, item.href)}
                 >
                     <span class="flex-1 truncate">{item.label}</span>
                     {@render openDot(item.href)}
