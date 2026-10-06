@@ -18,3 +18,4 @@
 - Fix the docs page scrolling out of view; only the sidebar and content scroll.
 - Show the brand mark in white on a primary tile in the shell, the homepage header, and the favicon.
 - Follow the theme's single or double border setting on docs code blocks, row groups, and API lists.
+- Folder Card examples show paper sheets tucked into the folder that lift and fan out on hover and keyboard focus.

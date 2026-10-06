@@ -62,6 +62,17 @@
             <Typography.InlineCode>value</Typography.InlineCode>
             for the reader's locale and animates when it changes.
         </Typography.Text>
+        <Typography.Text variant="supporting">
+            Cover clips its children to the folder shape, so content anchored to its bottom edge
+            appears to come out of the folder. The first example tucks three paper sheets there and
+            lifts them with{' '}
+            <Typography.InlineCode>group-hover/folder-card</Typography.InlineCode>
+            and{' '}
+            <Typography.InlineCode>group-focus-visible/folder-card</Typography.InlineCode>
+            , which a linked card provides. Mark decorative cover content{' '}
+            <Typography.InlineCode>aria-hidden</Typography.InlineCode>
+            and disable its transition for reduced motion.
+        </Typography.Text>
         <CodeBlock
             code={`import * as FolderCard from '@mielui/svelte/components/folder-card';
 
