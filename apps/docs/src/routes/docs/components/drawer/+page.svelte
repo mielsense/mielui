@@ -9,6 +9,8 @@
     import HeroSrc from './examples/hero.svelte?raw';
     import Nested from './examples/nested.svelte';
     import NestedSrc from './examples/nested.svelte?raw';
+    import Sides from './examples/sides.svelte';
+    import SidesSrc from './examples/sides.svelte?raw';
 </script>
 <svelte:head>
     <title>Mielui · Drawer</title>
@@ -33,10 +35,9 @@
         <Typography.H2>Usage</Typography.H2>
         <Typography.Text>
             Compose Root, Trigger, Portal, Overlay, and Content. Inside Content, add any combination
-            of Handle, Header, Title, Description, Body, Footer, and Close. Regions are independent.
-            Top and bottom panels span the viewport; constrain individual regions to keep their
-            content readable. You can omit Handle for a plain swipeable panel, move Close into
-            Header, or restyle Content with class. Always provide Title or an aria-label on Content.
+            of Handle, Header, Title, Description, Body, Footer, and Close. Regions are independent:
+            omit Handle for a plain swipeable panel, or move Close into Header. Always provide Title
+            or an aria-label on Content.
         </Typography.Text>
         <CodeBlock
             code={`import * as Drawer from '@mielui/svelte/components/drawer';\nimport { Button } from '@mielui/svelte/components/button';\n\nlet open = $state(false);\n\n<Drawer.Root bind:open direction="bottom">\n  <Drawer.Trigger>Open</Drawer.Trigger>\n  <Drawer.Portal>\n    <Drawer.Overlay />\n    <Drawer.Content>\n      <Drawer.Handle />\n      <Drawer.Header>\n        <Drawer.Title>Title</Drawer.Title>\n        <Drawer.Description>Describe what lives here.</Drawer.Description>\n      </Drawer.Header>\n      <Drawer.Body>Panel content</Drawer.Body>\n      <Drawer.Footer>\n        <Drawer.Close>Cancel</Drawer.Close>\n        <Button>Save</Button>\n      </Drawer.Footer>\n    </Drawer.Content>\n  </Drawer.Portal>\n</Drawer.Root>`}
@@ -44,12 +45,17 @@
             copy="overlay"
         />
         <Typography.Text>
+            The panel floats a small gap away from the edge it opens from, with all four corners
+            rounded. Top and bottom drawers are centered and capped at a readable width; left and
+            right drawers fill the height. Set a width class on Content to change the size, for
+            example w-3xl, or w-screen for a panel as wide as the viewport allows.
+        </Typography.Text>
+        <Typography.Text>
             Content uses the same frame as Dialog and Sheet. Handle, Header, and Body sit on the
             inner surface. Footer renders on the outer frame below it, wherever you place it inside
             Content. Close is a ghost button that moves to the start of the footer, so the other
-            actions line up at the end. The frame stays flush with the viewport edge the drawer
-            opens from and shows its inset only on the exposed edges. The theme setting
-            chrome.borders chooses single or double framing.
+            actions line up at the end. The theme setting chrome.borders chooses single or double
+            framing.
         </Typography.Text>
         <Typography.Text>
             Use bind:open or onOpenChange to control visibility. Set direction to bottom, top, left,
@@ -57,24 +63,34 @@
             dismissal distance.
         </Typography.Text>
         <Typography.Text>
-            Drawers are modal. Focus enters the panel and returns to the trigger when it closes.
-            Escape and outside interaction dismiss it unless dismissible is false. Include a Close
-            button for keyboard users.
+            Drawers are modal. Focus moves to the panel itself when it opens, so no control looks
+            selected and no keyboard appears on touch devices; Tab reaches the first control. Focus
+            returns to the trigger on close. Escape and outside interaction dismiss the drawer
+            unless dismissible is false. Include a Close button for keyboard users. Use
+            onOpenAutoFocus on Content to focus something else.
         </Typography.Text>
         <Typography.Text>
             Set nested on a drawer inside another drawer. Its backdrop appears above the parent.
             Closing it returns focus to its trigger in the parent panel. Native regions support
-            bind:element. Content accepts focus and outside-interaction callbacks.
+            bind:element.
         </Typography.Text>
         <Typography.Text>
-            Handle supports dragging; use Close for keyboard dismissal. Scrollable content belongs
-            in Body. Add data-vaul-no-drag to custom controls that need their own pointer gestures.
+            Handle follows the direction: a bar at the top of a bottom drawer, at the bottom of a
+            top drawer, and on the inner edge of a side drawer. Scrollable content belongs in Body.
+            Add data-vaul-no-drag to custom controls that need their own pointer gestures.
             Snap-point expansion is not part of the supported API.
         </Typography.Text>
         <Typography.Text>
             Reduced motion removes opening and settling animations while preserving dragging. Use
             Sheet when the panel does not need swipe gestures.
         </Typography.Text>
+    </section>
+    <section id="directions" class="flex flex-col gap-4">
+        <Typography.H2>Directions</Typography.H2>
+        <Typography.Text>
+            One drawer opened from each edge. The handle and the swipe direction follow the edge.
+        </Typography.Text>
+        <ComponentPreview code={SidesSrc}><Sides /></ComponentPreview>
     </section>
     <section id="nested" class="flex flex-col gap-4">
         <Typography.H2>Nested review</Typography.H2>

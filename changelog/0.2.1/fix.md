@@ -1,0 +1,4 @@
+- Drawer floats a small gap from the edge it opens from, with all corners rounded. Top and bottom drawers are centered at a readable width instead of spanning the viewport; `class` on `Drawer.Content` sizes the panel.
+- Drawer footer actions line up with the panel's content instead of drifting past it.
+- Opening a Drawer focuses the panel instead of its first control, so no control looks selected and touch keyboards stay closed. Use `onOpenAutoFocus` to focus something else.
+- `Drawer.Handle` sits at the bottom of a top drawer and becomes a vertical bar on the inner edge of left and right drawers.

@@ -25,17 +25,17 @@
             <Drawer.Overlay />
             <Drawer.Content surface="glass">
                 <Drawer.Handle />
-                <Drawer.Header class="mx-auto w-full max-w-xl">
+                <Drawer.Header>
                     <Drawer.Title>Share reading list</Drawer.Title>
                     <Drawer.Description>
                         Choose how others can follow Weekend reading.
                     </Drawer.Description>
                 </Drawer.Header>
-                <Drawer.Body class="mx-auto flex w-full max-w-xl flex-col gap-4 py-6">
+                <Drawer.Body class="flex flex-col gap-4 py-6">
                     <Switch bind:checked={allowComments} label="Allow comments" />
                     <Switch bind:checked={notifyFollowers} label="Notify followers" />
                 </Drawer.Body>
-                <Drawer.Footer class="mx-auto max-w-xl">
+                <Drawer.Footer>
                     <Drawer.Close>Cancel</Drawer.Close>
                     <Button onclick={share}>Share</Button>
                 </Drawer.Footer>

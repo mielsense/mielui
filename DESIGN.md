@@ -197,7 +197,8 @@ the same contracts; a visual exception must have a specific functional reason.
 - Use the shared `mielui-modal-frame` or `mielui-inset-frame` and
   `mielui-inset-surface` composition for double edges. Keep inner corners concentric
   with the outer frame. A frame attached to a viewport edge stays flush on that
-  edge; its inset appears only along exposed edges.
+  edge; its inset appears only along exposed edges. Drawer is not attached. It
+  floats a two-spacing-unit gap from its edge with all corners rounded.
 - Glass uses the shared surface helper and inherited theme setting. Keep the
   inner panel translucent enough to reveal the backdrop. Explicit solid surfaces
   remain opaque, including chart tooltips.
@@ -460,6 +461,14 @@ card fill at the medium control height, with ToggleGroup's own selected fill and
 traveling highlight inside. Do not give each option its own border or control
 edge. Selects, color triggers, and icon buttons keep their default heights. The App preview has a single app header
 holding the workspace menu, its tabs, and its actions.
+
+Drawer floats beside the edge it opens from. Top and bottom drawers are centered
+at 36rem and never wider than the viewport minus the gap; left and right drawers
+are 24rem wide and fill the height. The class on Content sizes the visible panel.
+The handle is a 36 by 4px bar in a quarter-strength foreground tint that follows
+the direction: first in a bottom drawer, last in a top drawer, and a vertical bar
+on the inner edge of a side drawer. Opening a drawer focuses the panel, not its
+first control. Regions do not set their own max width.
 
 Modal overlays (Dialog, AlertDialog, Sheet, Drawer, Command, and Notch) share one
 frame inset, `--mielui-modal-inset`. Anchored floating panels keep the half inset.
