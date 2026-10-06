@@ -61,7 +61,7 @@
         {const own = $derived(part.properties.filter((property) => !property.inherited))}
         {const inherited = $derived(part.properties.filter((property) => property.inherited))}
         {const description = $derived(describe(part))}
-        <section class="flex min-w-0 flex-col gap-3">
+        <section class="flex min-w-0 flex-col gap-3 [&:not(:first-of-type)]:mt-10">
             <div class="flex flex-col gap-1">
                 <h3>{nameOf(part)}</h3>
                 {#if description}
@@ -95,7 +95,7 @@
         </section>
     {/each}
     {#if withoutProps.length}
-        <section class="flex min-w-0 flex-col gap-3">
+        <section class="flex min-w-0 flex-col gap-3 [&:not(:first-of-type)]:mt-10">
             <div class="flex flex-col gap-1">
                 <h3>{withProps.length ? 'Other parts' : 'Parts'}</h3>
                 <p class="m-0 text-sm leading-6 text-foreground-muted">
