@@ -1,0 +1,3 @@
+- Add seven built-in theme presets: Honey, Forest, Ink, Ocean, Console, Ember, and Lilac.
+- Rework the Magic preset with cool gray surfaces and a brighter indigo, and the Bitsy preset with a coral accent on cream surfaces.
+- Make the Open preset neutral monochrome with Geist Mono, and darken the Functional preset's text for contrast.
