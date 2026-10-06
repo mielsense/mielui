@@ -129,10 +129,13 @@
 </div>
 
 {#snippet catalogGroup(group: { id: string; heading: string; items: string[] }, nested: boolean)}
-    <section aria-labelledby={group.id} class="flex flex-col gap-4">
-        {#if group.heading === title && groups.length === 1}
-            <h2 id={group.id} class="sr-only">{group.heading}</h2>
-        {:else}
+    {const titled = $derived(group.heading !== title || groups.length !== 1)}
+    <section
+        aria-labelledby={titled ? group.id : undefined}
+        aria-label={titled ? undefined : group.heading}
+        class="flex flex-col gap-4"
+    >
+        {#if titled}
             <div class="flex items-baseline gap-2">
                 {#if nested}
                     <Typography.H3 id={group.id} class="m-0">{group.heading}</Typography.H3>
