@@ -7,6 +7,8 @@
     import ContentOnlySrc from './examples/content-only.svelte?raw';
     import Full from './examples/full.svelte';
     import FullSrc from './examples/full.svelte?raw';
+    import Glass from './examples/glass.svelte';
+    import GlassSrc from './examples/glass.svelte?raw';
     import HeaderFooter from './examples/header-footer.svelte';
     import HeaderFooterSrc from './examples/header-footer.svelte?raw';
     import Hero from './examples/hero.svelte';
@@ -76,6 +78,23 @@
     </section>
 
     <!-- ─── Examples ──────────────────────────────────────────────── -->
+    <section id="glass" class="flex flex-col gap-4">
+        <Typography.H2 class="docs-section-heading">Glass surface</Typography.H2>
+        <Typography.Text variant="supporting">
+            Set{' '}
+            <Typography.InlineCode>surface="glass"</Typography.InlineCode>
+            on Root to frost the card so a backdrop behind it shows through. On inset and panel
+            cards only the frame is frosted. The content stays on a solid surface, so text keeps its
+            contrast. A default card has one surface, which turns translucent.
+        </Typography.Text>
+        <Typography.Text variant="supporting">
+            Cards are solid unless you ask for glass. They do not follow the theme's glass setting
+            the way overlays do. The frame follows the border setting: double borders show it as a
+            gutter around the surface, and single borders show it as the footer strip. Without
+            backdrop filter support, or with reduced transparency, the card stays solid.
+        </Typography.Text>
+        <ComponentPreview code={GlassSrc}><Glass /></ComponentPreview>
+    </section>
     <section id="examples" class="scroll-mt-20 flex flex-col gap-10">
         <div>
             <Typography.H2 class="docs-section-heading">Examples</Typography.H2>

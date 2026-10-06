@@ -30,6 +30,15 @@
                 "inherited": false
             },
             {
+                "name": "sideOffset",
+                "type": "number | undefined",
+                "required": false,
+                "bindable": false,
+                "default": "8",
+                "description": "Gap between the trigger and the card, in pixels.",
+                "inherited": false
+            },
+            {
                 "name": "children",
                 "type": "Snippet<[]> | undefined",
                 "required": false,

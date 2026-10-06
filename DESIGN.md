@@ -199,6 +199,12 @@ the same contracts; a visual exception must have a specific functional reason.
   with the outer frame. A frame attached to a viewport edge stays flush on that
   edge; its inset appears only along exposed edges. Drawer is not attached. It
   floats a two-spacing-unit gap from its edge with all corners rounded.
+- Card takes `surface="glass"` and is solid by default. It does not inherit the
+  theme's glass setting. Glass frosts the frame of inset and panel cards and
+  leaves the content surface solid. The frame is a faint foreground tint under a
+  white veil, so it keeps contrast over a plain page and reads as frost over a
+  backdrop. It follows the border setting: a gutter with double borders, the
+  footer strip with single borders.
 - Glass uses the shared surface helper and inherited theme setting. Keep the
   inner panel translucent enough to reveal the backdrop. Explicit solid surfaces
   remain opaque, including chart tooltips.
@@ -491,13 +497,8 @@ under the scrolling groups. The preview fills the content column under the top b
 Studio demos are composed cards, not loose controls or section headings. The
 Components demo is a masonry of inset cards, each a small realistic task; chart
 demos sit in the same cards. Center a fixed-size component, such as a calendar,
-inside its card. With glass surfaces on, the card frame turns frosted and the
-inner surface stays solid, so the backdrop never shows through the content. The
-frame follows the border mode. Double borders show it as a gutter around the
-surface. Single borders show no gutter, and the frosted frame appears only as a
-card's footer strip. Over the glass backdrop the frame is a white frost. Without
-the backdrop it is a faint foreground tint, so the frame keeps the contrast it
-has with glass off.
+inside its card. Demo cards pass the theme's glass setting to Card's `surface`
+prop, so they show what the component itself does.
 
 Setting toggles are one flat segmented track: a hairline input border on the
 card fill at the medium control height, with ToggleGroup's own selected fill and

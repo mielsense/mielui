@@ -22,7 +22,7 @@
     import { Textarea } from '@mielui/svelte/components/textarea';
     import { toast } from '@mielui/svelte/components/toast';
     import FadeScrollArea from '$lib/components/shell/fade-scroll-area.svelte';
-    import { demoCardClass } from './demo-card';
+    import { getThemeEditor } from './editor/context';
 
     const uid = $props.id();
     let access = $state('team');
@@ -41,7 +41,9 @@
     let tags = $state(['Design', 'Release']);
     let publicLink = $state(false);
 
-    const cardClass = `mb-4 break-inside-avoid ${demoCardClass}`;
+    const cardClass = 'mb-4 min-w-0 break-inside-avoid';
+    const editor = getThemeEditor();
+    const surface = $derived(editor.state.glassSurfaces ? 'glass' : 'solid');
 
     async function copyAddress() {
         try {
@@ -57,7 +59,7 @@
     <div class="@container w-full">
         <h2 class="sr-only">Components</h2>
         <div class="columns-1 gap-4 p-4 @2xl:columns-2 @5xl:columns-3 @[88rem]:columns-4 sm:p-5">
-            <Card.Root variant="inset" class={cardClass}>
+            <Card.Root variant="inset" {surface} class={cardClass}>
                 <Card.Header>
                     <Card.Title>Workspace profile</Card.Title>
                     <Card.Description>How your workspace appears to teammates.</Card.Description>
@@ -98,7 +100,7 @@
                     <Button onclick={save}>Save changes</Button>
                 </Card.Footer>
             </Card.Root>
-            <Card.Root variant="inset" class={cardClass}>
+            <Card.Root variant="inset" {surface} class={cardClass}>
                 <Card.Header>
                     <Card.Title>Release checklist</Card.Title>
                     <Card.Description>
@@ -115,7 +117,7 @@
                     <Button class="w-full" onclick={save}>Save checklist</Button>
                 </Card.Footer>
             </Card.Root>
-            <Card.Root variant="inset" class={cardClass}>
+            <Card.Root variant="inset" {surface} class={cardClass}>
                 <Card.Header>
                     <Card.Title>Project labels</Card.Title>
                     <Card.Description>Keep related work together.</Card.Description>
@@ -132,7 +134,7 @@
                     </TagInput.Root>
                 </Card.Content>
             </Card.Root>
-            <Card.Root variant="inset" class={cardClass}>
+            <Card.Root variant="inset" {surface} class={cardClass}>
                 <Card.Header>
                     <Card.Title>Buttons and states</Card.Title>
                     <Card.Description>Variants, feedback, and validation.</Card.Description>
@@ -172,7 +174,7 @@
                     </div>
                 </Card.Content>
             </Card.Root>
-            <Card.Root variant="inset" class={cardClass}>
+            <Card.Root variant="inset" {surface} class={cardClass}>
                 <Card.Header>
                     <Card.Title>Your team</Card.Title>
                     <Card.Description>People with access to this workspace.</Card.Description>
@@ -198,7 +200,7 @@
                     </Button>
                 </Card.Footer>
             </Card.Root>
-            <Card.Root variant="inset" class={cardClass}>
+            <Card.Root variant="inset" {surface} class={cardClass}>
                 <Card.Header>
                     <Card.Title>Choose a date</Card.Title>
                     <Card.Description>Plan your next team check-in.</Card.Description>
@@ -207,7 +209,7 @@
                     <Calendar.Root calendarLabel="Team check-in" class="mx-auto w-fit p-0" />
                 </Card.Content>
             </Card.Root>
-            <Card.Root variant="inset" class={cardClass}>
+            <Card.Root variant="inset" {surface} class={cardClass}>
                 <Card.Header>
                     <Card.Title>Preferences</Card.Title>
                     <Card.Description>
@@ -247,7 +249,7 @@
                     </Popover.Root>
                 </Card.Footer>
             </Card.Root>
-            <Card.Root variant="inset" class={cardClass}>
+            <Card.Root variant="inset" {surface} class={cardClass}>
                 <Card.Header>
                     <Card.Title>Release workspace</Card.Title>
                     <Card.Description>Design system · 12 members</Card.Description>
@@ -301,7 +303,7 @@
                     </Menu.Root>
                 </Card.Footer>
             </Card.Root>
-            <Card.Root variant="inset" class={cardClass}>
+            <Card.Root variant="inset" {surface} class={cardClass}>
                 <Card.Header><Card.Title>Notifications</Card.Title></Card.Header>
                 <Card.Content>
                     <Tabs.Root value="inbox" variant="ghost">
@@ -333,7 +335,7 @@
                     </Tabs.Root>
                 </Card.Content>
             </Card.Root>
-            <Card.Root variant="inset" class={cardClass}>
+            <Card.Root variant="inset" {surface} class={cardClass}>
                 <Card.Header>
                     <Card.Title>Questions</Card.Title>
                     <Card.Description>
@@ -359,7 +361,7 @@
                     </Accordion.Root>
                 </Card.Content>
             </Card.Root>
-            <Card.Root variant="inset" class={cardClass}>
+            <Card.Root variant="inset" {surface} class={cardClass}>
                 <Card.Header>
                     <Card.Title>Workspace storage</Card.Title>
                     <Card.Description>6.4 GB of 10 GB used</Card.Description>
@@ -380,7 +382,7 @@
                     </Button>
                 </Card.Footer>
             </Card.Root>
-            <Card.Root variant="inset" class={cardClass}>
+            <Card.Root variant="inset" {surface} class={cardClass}>
                 <Card.Header>
                     <Card.Title>Share this workspace</Card.Title>
                     <Card.Description>

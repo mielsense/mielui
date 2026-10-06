@@ -9,7 +9,7 @@
     import { Switch } from '@mielui/svelte/components/switch';
     import * as Tabs from '@mielui/svelte/components/tabs';
     import FadeScrollArea from '$lib/components/shell/fade-scroll-area.svelte';
-    import { demoCardClass } from './demo-card';
+    import { getThemeEditor } from './editor/context';
 
     let year = $state('2026');
     let live = $state(false);
@@ -71,7 +71,9 @@
         return { date: date.toISOString().slice(0, 10), count: (index * 7 + (index % 3)) % 12 };
     });
 
-    const cardClass = demoCardClass;
+    const cardClass = 'min-w-0';
+    const editor = getThemeEditor();
+    const surface = $derived(editor.state.glassSurfaces ? 'glass' : 'solid');
 </script>
 
 <FadeScrollArea class="h-full" start>
@@ -100,7 +102,7 @@
         </div>
         {#key revision}
             <div class="grid min-w-0 gap-4 px-5 pt-4 @4xl:grid-cols-3">
-                <Card.Root variant="inset" class={`${cardClass} @4xl:col-span-2`}>
+                <Card.Root variant="inset" {surface} class={`${cardClass} @4xl:col-span-2`}>
                     <Card.Header>
                         <Card.Title>Revenue</Card.Title>
                         <Card.Description>{`January to June ${year}`}</Card.Description>
@@ -130,7 +132,7 @@
                         </Chart.Root>
                     </Card.Content>
                 </Card.Root>
-                <Card.Root variant="inset" class={cardClass}>
+                <Card.Root variant="inset" {surface} class={cardClass}>
                     <Card.Header>
                         <Card.Title>Acquisition</Card.Title>
                         <Card.Description>Where visitors found your workspace</Card.Description>
@@ -155,7 +157,7 @@
                 </Card.Root>
             </div>
             <div class="grid min-w-0 gap-4 px-5 pt-4 @4xl:grid-cols-3">
-                <Card.Root variant="inset" class={`${cardClass} @4xl:col-span-2`}>
+                <Card.Root variant="inset" {surface} class={`${cardClass} @4xl:col-span-2`}>
                     <Card.Header>
                         <Card.Title>Visits by device</Card.Title>
                         <Card.Description>Weekday traffic, desktop and mobile</Card.Description>
@@ -181,7 +183,7 @@
                         </Chart.Root>
                     </Card.Content>
                 </Card.Root>
-                <Card.Root variant="inset" class={cardClass}>
+                <Card.Root variant="inset" {surface} class={cardClass}>
                     <Card.Header>
                         <Card.Title>Against the plan</Card.Title>
                         <Card.Description>Monthly revenue and target</Card.Description>
@@ -208,7 +210,7 @@
                 </Card.Root>
             </div>
             <div class="px-5 pt-4 pb-5">
-                <Card.Root variant="inset" class={cardClass}>
+                <Card.Root variant="inset" {surface} class={cardClass}>
                     <Card.Header>
                         <Card.Title>A year of activity</Card.Title>
                         <Card.Description>Contributions across the workspace</Card.Description>

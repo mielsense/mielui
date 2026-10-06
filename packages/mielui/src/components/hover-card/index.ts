@@ -29,6 +29,8 @@ export type HoverCardContentProps = {
     side?: 'top' | 'bottom' | 'left' | 'right';
     /** Alignment along that side. The card shifts to stay inside the viewport. */
     align?: 'start' | 'center' | 'end';
+    /** Gap between the trigger and the card, in pixels. */
+    sideOffset?: number;
     children?: Snippet;
 } & DefaultProps;
 

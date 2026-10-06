@@ -117,7 +117,9 @@
             <Typography.InlineCode>center</Typography.InlineCode>
             , or{' '}
             <Typography.InlineCode>end</Typography.InlineCode>
-            . The card sits 8px from the trigger and shifts to stay inside the viewport.
+            . The card shifts to stay inside the viewport.{' '}
+            <Typography.InlineCode>sideOffset</Typography.InlineCode>
+            sets the gap between the trigger and the card in pixels, 8 by default.
         </Typography.Text>
         <Typography.Text variant="supporting">
             On Root,{' '}

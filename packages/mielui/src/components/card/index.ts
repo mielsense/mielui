@@ -9,7 +9,14 @@ import Header from './card-header.svelte';
 import Title from './card-title.svelte';
 
 export type CardProps = {
+    /** `default` is one surface. `inset` puts the content on an inner surface with the footer on the frame. `panel` adds an inner ring. */
     variant?: 'default' | 'panel' | 'inset';
+    /**
+     * `glass` frosts the card so a backdrop behind it shows through. On `inset`
+     * and `panel` cards only the frame is frosted and the content surface stays
+     * solid. Cards are solid unless you ask for glass.
+     */
+    surface?: 'solid' | 'glass';
 } & DefaultProps;
 
 export type CardHeaderProps = DefaultProps;

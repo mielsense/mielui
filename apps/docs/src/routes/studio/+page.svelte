@@ -129,9 +129,6 @@
                 studio.width === 'narrow'
                     ? 'max-w-[390px] border-x-[length:var(--border-size)] border-[var(--docs-rule)]'
                     : 'max-w-none',
-                studio.glassBackdrop
-                    ? '[--demo-glass-frame:rgb(255_255_255/0.3)] dark:[--demo-glass-frame:rgb(255_255_255/0.07)]'
-                    : '[--demo-glass-frame:color-mix(in_oklab,var(--color-foreground)_6%,transparent)] dark:[--demo-glass-frame:color-mix(in_oklab,var(--color-foreground)_8%,transparent)]',
                 studio.glassBackdrop &&
                     'bg-[linear-gradient(135deg,color-mix(in_oklab,var(--chart-1)_28%,transparent),color-mix(in_oklab,var(--chart-2)_22%,transparent)_30%,color-mix(in_oklab,var(--chart-5)_28%,transparent)_65%,color-mix(in_oklab,var(--chart-3)_24%,transparent))]'
             )}

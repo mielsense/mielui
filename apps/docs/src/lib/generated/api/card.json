@@ -104,6 +104,15 @@
                 "inherited": false
             },
             {
+                "name": "surface",
+                "type": "\"solid\" | \"glass\" | undefined",
+                "required": false,
+                "bindable": false,
+                "default": "'solid'",
+                "description": "`glass` frosts the card so a backdrop behind it shows through. On `inset`\nand `panel` cards only the frame is frosted and the content surface stays\nsolid. Cards are solid unless you ask for glass.",
+                "inherited": false
+            },
+            {
                 "name": "class",
                 "type": "string | undefined",
                 "required": false,
