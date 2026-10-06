@@ -145,11 +145,11 @@
         {#if value === 'code'}
             <div data-preview-code>
                 <CodeBlock.Root
-                    {code}
-                    lang="svelte"
-                    copy={false}
+                    value="code"
                     class="w-full rounded-none border-0 bg-transparent p-0 shadow-none [--code-block-max-height:40rem] [--code-block-padding-x:1.5rem] [--code-block-padding-y:1.5rem]"
-                />
+                >
+                    <CodeBlock.Content value="code" {code} lang="svelte" />
+                </CodeBlock.Root>
             </div>
         {/if}
     </div>
