@@ -8,7 +8,7 @@
                 "required": false,
                 "bindable": false,
                 "default": "'Add a tag…'",
-                "description": "",
+                "description": "Text shown while there is no value.",
                 "inherited": false
             },
             {
@@ -17,7 +17,7 @@
                 "required": false,
                 "bindable": true,
                 "default": "undefined",
-                "description": "",
+                "description": "Bindable reference to the DOM element.",
                 "inherited": false
             },
             {
@@ -26,7 +26,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Classes added to the element.",
                 "inherited": false
             },
             0,
@@ -511,7 +511,7 @@
                 "required": false,
                 "bindable": false,
                 "default": "'Tags'",
-                "description": "",
+                "description": "Accessible name of the tag list.",
                 "inherited": false
             },
             {
@@ -520,7 +520,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Classes added to the element.",
                 "inherited": false
             },
             {
@@ -529,7 +529,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Content rendered inside.",
                 "inherited": false
             },
             0,
@@ -972,7 +972,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Overrides the built-in text and accessible names. Every key is optional and English is the fallback.",
                 "inherited": false
             },
             {
@@ -981,7 +981,7 @@
                 "required": false,
                 "bindable": true,
                 "default": "[]",
-                "description": "",
+                "description": "Current tags. Bindable.",
                 "inherited": false
             },
             {
@@ -990,7 +990,7 @@
                 "required": false,
                 "bindable": true,
                 "default": "''",
-                "description": "",
+                "description": "Text in the input. Bindable.",
                 "inherited": false
             },
             {
@@ -999,7 +999,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Largest number of tags.",
                 "inherited": false
             },
             {
@@ -1008,7 +1008,7 @@
                 "required": false,
                 "bindable": false,
                 "default": "false",
-                "description": "",
+                "description": "Allows the same tag more than once.",
                 "inherited": false
             },
             {
@@ -1017,7 +1017,7 @@
                 "required": false,
                 "bindable": false,
                 "default": "false",
-                "description": "",
+                "description": "Prevents interaction and dims the control.",
                 "inherited": false
             },
             {
@@ -1026,7 +1026,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Visible label linked to the control.",
                 "inherited": false
             },
             {
@@ -1035,7 +1035,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Supporting text under the label, announced with the control.",
                 "inherited": false
             },
             {
@@ -1044,7 +1044,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Error message shown with the control.",
                 "inherited": false
             },
             {
@@ -1053,7 +1053,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Field name submitted with the form.",
                 "inherited": false
             },
             {
@@ -1080,7 +1080,7 @@
                 "required": false,
                 "bindable": false,
                 "default": "'outline'",
-                "description": "",
+                "description": "`outline` has a border. `secondary` has a filled background.",
                 "inherited": false
             },
             {
@@ -1089,7 +1089,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Returns true to accept a tag, or a message that explains why it is refused.",
                 "inherited": false
             },
             {
@@ -1098,7 +1098,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Cleans a tag before it is added, such as trimming or lowercasing it.",
                 "inherited": false
             },
             {
@@ -1107,7 +1107,7 @@
                 "required": false,
                 "bindable": false,
                 "default": "[',']",
-                "description": "",
+                "description": "Characters that finish a tag as you type.",
                 "inherited": false
             },
             {
@@ -1116,7 +1116,7 @@
                 "required": false,
                 "bindable": false,
                 "default": "true",
-                "description": "",
+                "description": "Adds the typed text as a tag when the field loses focus.",
                 "inherited": false
             },
             {
@@ -1125,7 +1125,7 @@
                 "required": false,
                 "bindable": false,
                 "default": "true",
-                "description": "",
+                "description": "Splits pasted text into tags.",
                 "inherited": false
             },
             {
@@ -1134,7 +1134,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Called with the new list when tags change.",
                 "inherited": false
             },
             {
@@ -1143,7 +1143,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Called with each tag that is added.",
                 "inherited": false
             },
             {
@@ -1152,7 +1152,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Called with each tag that is removed.",
                 "inherited": false
             },
             {
@@ -1161,7 +1161,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Called when a tag is refused, with the reason.",
                 "inherited": false
             },
             {
@@ -1170,7 +1170,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Id of the element.",
                 "inherited": false
             },
             {
@@ -1179,7 +1179,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Classes added to the element.",
                 "inherited": false
             },
             {
@@ -1188,7 +1188,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Content rendered inside.",
                 "inherited": false
             },
             0,
@@ -1630,7 +1630,7 @@
                 "required": true,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Text of the tag.",
                 "inherited": false
             },
             {
@@ -1639,7 +1639,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Position of the tag in the list.",
                 "inherited": false
             },
             {
@@ -1648,7 +1648,7 @@
                 "required": false,
                 "bindable": false,
                 "default": "true",
-                "description": "",
+                "description": "Shows the remove button.",
                 "inherited": false
             },
             {
@@ -1657,7 +1657,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Called with each tag that is removed.",
                 "inherited": false
             },
             {
@@ -1666,7 +1666,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Classes added to the element.",
                 "inherited": false
             },
             {
@@ -1675,7 +1675,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Content rendered inside.",
                 "inherited": false
             },
             0,

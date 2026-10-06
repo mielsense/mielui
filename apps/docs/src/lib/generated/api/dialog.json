@@ -8,7 +8,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Classes added to the element.",
                 "inherited": false
             },
             {
@@ -17,7 +17,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Content rendered inside.",
                 "inherited": false
             }
         ]
@@ -58,7 +58,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Content rendered inside.",
                 "inherited": false
             },
             {
@@ -637,7 +637,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Content rendered inside.",
                 "inherited": false
             },
             {
@@ -1198,7 +1198,7 @@
                 "required": false,
                 "bindable": false,
                 "default": "true",
-                "description": "",
+                "description": "Closes when the pointer is pressed outside it. Set false to keep it open until it is dismissed another way.",
                 "inherited": false
             },
             {
@@ -1207,7 +1207,7 @@
                 "required": false,
                 "bindable": false,
                 "default": "true",
-                "description": "",
+                "description": "Lets Escape dismiss the dialog.",
                 "inherited": false
             },
             {
@@ -1216,7 +1216,7 @@
                 "required": false,
                 "bindable": false,
                 "default": "'dialog'",
-                "description": "",
+                "description": "ARIA role of the panel.",
                 "inherited": false
             },
             {
@@ -1225,7 +1225,7 @@
                 "required": false,
                 "bindable": false,
                 "default": "''",
-                "description": "",
+                "description": "Classes for the positioned dialog element.",
                 "inherited": false
             },
             {
@@ -1234,7 +1234,7 @@
                 "required": false,
                 "bindable": false,
                 "default": "''",
-                "description": "",
+                "description": "Classes for the backdrop.",
                 "inherited": false
             },
             {
@@ -1243,7 +1243,7 @@
                 "required": false,
                 "bindable": false,
                 "default": "''",
-                "description": "",
+                "description": "Classes for the inner surface.",
                 "inherited": false
             },
             {
@@ -1252,7 +1252,7 @@
                 "required": false,
                 "bindable": false,
                 "default": "'dialog'",
-                "description": "",
+                "description": "Prefix of the generated panel id.",
                 "inherited": false
             },
             {
@@ -1261,7 +1261,7 @@
                 "required": false,
                 "bindable": false,
                 "default": "true",
-                "description": "",
+                "description": "Shows the close button in the corner.",
                 "inherited": false
             },
             {
@@ -1279,7 +1279,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Classes added to the element.",
                 "inherited": false
             },
             {
@@ -1288,7 +1288,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Content rendered inside.",
                 "inherited": false
             }
         ]
@@ -1302,7 +1302,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Classes added to the element.",
                 "inherited": false
             },
             {
@@ -1311,7 +1311,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Content rendered inside.",
                 "inherited": false
             }
         ]
@@ -1325,7 +1325,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Classes added to the element.",
                 "inherited": false
             },
             {
@@ -1334,7 +1334,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Content rendered inside.",
                 "inherited": false
             }
         ]
@@ -1348,7 +1348,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Classes added to the element.",
                 "inherited": false
             },
             {
@@ -1357,7 +1357,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Content rendered inside.",
                 "inherited": false
             }
         ]
@@ -1407,7 +1407,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Content rendered inside.",
                 "inherited": false
             }
         ]
@@ -1421,7 +1421,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Classes added to the element.",
                 "inherited": false
             },
             {
@@ -1430,7 +1430,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Content rendered inside.",
                 "inherited": false
             }
         ]
@@ -1471,7 +1471,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Content rendered inside.",
                 "inherited": false
             },
             {

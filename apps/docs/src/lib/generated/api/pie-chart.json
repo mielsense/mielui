@@ -8,7 +8,7 @@
                 "required": false,
                 "bindable": false,
                 "default": "0.68",
-                "description": "",
+                "description": "Hole size as a share of the radius. Zero draws a full pie.",
                 "inherited": false
             },
             {
@@ -17,7 +17,7 @@
                 "required": false,
                 "bindable": false,
                 "default": "4",
-                "description": "",
+                "description": "Corner radius of each segment in pixels.",
                 "inherited": false
             },
             {
@@ -26,7 +26,7 @@
                 "required": false,
                 "bindable": false,
                 "default": "0.035",
-                "description": "",
+                "description": "Gap between segments in radians.",
                 "inherited": false
             },
             {
@@ -35,7 +35,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Classes added to the element.",
                 "inherited": false
             }
         ]
@@ -688,7 +688,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Content rendered inside.",
                 "inherited": false
             }
         ]
@@ -1132,7 +1132,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Content rendered inside.",
                 "inherited": false
             }
         ]
@@ -2020,7 +2020,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Overrides the built-in text and accessible names. Every key is optional and English is the fallback.",
                 "inherited": false
             },
             {
@@ -2029,7 +2029,7 @@
                 "required": true,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Segments to plot, each with a key and a value.",
                 "inherited": false
             },
             {
@@ -2038,7 +2038,7 @@
                 "required": true,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Label, color, and value format for each series, keyed by series.",
                 "inherited": false
             },
             {
@@ -2047,7 +2047,7 @@
                 "required": false,
                 "bindable": false,
                 "default": "false",
-                "description": "",
+                "description": "Shows the loading state in place of the content.",
                 "inherited": false
             },
             {
@@ -2056,7 +2056,7 @@
                 "required": false,
                 "bindable": false,
                 "default": "'reveal'",
-                "description": "",
+                "description": "`reveal` animates in once, `live` keeps a subtle motion running, and `none` is static.",
                 "inherited": false
             },
             {
@@ -2065,7 +2065,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Content rendered inside.",
                 "inherited": false
             }
         ]
@@ -2509,7 +2509,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Content rendered inside.",
                 "inherited": false
             }
         ]

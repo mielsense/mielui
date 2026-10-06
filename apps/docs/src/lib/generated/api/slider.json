@@ -8,7 +8,7 @@
                 "required": false,
                 "bindable": false,
                 "default": "0",
-                "description": "",
+                "description": "Smallest allowed value.",
                 "inherited": false
             },
             {
@@ -17,7 +17,7 @@
                 "required": false,
                 "bindable": false,
                 "default": "100",
-                "description": "",
+                "description": "Largest allowed value.",
                 "inherited": false
             },
             {
@@ -26,7 +26,7 @@
                 "required": false,
                 "bindable": false,
                 "default": "1",
-                "description": "",
+                "description": "Amount each step changes the value by.",
                 "inherited": false
             },
             {
@@ -35,7 +35,7 @@
                 "required": false,
                 "bindable": false,
                 "default": "false",
-                "description": "",
+                "description": "Prevents interaction and dims the control.",
                 "inherited": false
             },
             {
@@ -44,7 +44,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Accessible name of the slider.",
                 "inherited": false
             },
             {
@@ -53,7 +53,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Text direction. It flips the track for right-to-left.",
                 "inherited": false
             },
             {
@@ -62,7 +62,7 @@
                 "required": false,
                 "bindable": false,
                 "default": "generatedId",
-                "description": "",
+                "description": "Id of the element.",
                 "inherited": false
             },
             {
@@ -71,7 +71,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Field name submitted with the form.",
                 "inherited": false
             },
             {
@@ -80,7 +80,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Id of the form this control belongs to when it sits outside that form.",
                 "inherited": false
             },
             {
@@ -89,7 +89,7 @@
                 "required": false,
                 "bindable": true,
                 "default": null,
-                "description": "",
+                "description": "Bindable reference to the DOM element.",
                 "inherited": false
             },
             {
@@ -98,7 +98,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Accessible name when there is no visible label.",
                 "inherited": false
             },
             {
@@ -107,7 +107,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Id of the element that labels it.",
                 "inherited": false
             },
             {
@@ -116,7 +116,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Id of the element that describes it.",
                 "inherited": false
             },
             {
@@ -125,7 +125,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Classes added to the element.",
                 "inherited": false
             },
             {
@@ -134,7 +134,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Content rendered inside.",
                 "inherited": false
             },
             {
@@ -143,7 +143,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Uses two thumbs and makes `value` a pair.",
                 "inherited": false
             },
             {
@@ -152,7 +152,7 @@
                 "required": false,
                 "bindable": true,
                 "default": null,
-                "description": "",
+                "description": "Current value, or a pair in range mode. Bindable.",
                 "inherited": false
             },
             {
@@ -161,7 +161,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Accessible names of the two thumbs in range mode.",
                 "inherited": false
             },
             {
@@ -170,7 +170,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Called with the new value when it changes.",
                 "inherited": false
             }
         ]

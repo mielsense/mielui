@@ -19,7 +19,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Id of the element.",
                 "inherited": false
             },
             11,
@@ -33,7 +33,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Inline styles for the element.",
                 "inherited": false
             },
             17,
@@ -472,7 +472,7 @@
                 "required": false,
                 "bindable": true,
                 "default": "null",
-                "description": "",
+                "description": "Bindable reference to the DOM element.",
                 "inherited": false
             }
         ]

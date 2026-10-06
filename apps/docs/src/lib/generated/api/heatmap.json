@@ -438,7 +438,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Overrides the built-in text and accessible names. Every key is optional and English is the fallback.",
                 "inherited": false
             },
             {
@@ -447,7 +447,7 @@
                 "required": true,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Dated counts to plot.",
                 "inherited": false
             },
             {
@@ -456,7 +456,7 @@
                 "required": false,
                 "bindable": false,
                 "default": "26",
-                "description": "",
+                "description": "Number of weeks shown.",
                 "inherited": false
             },
             {
@@ -465,7 +465,7 @@
                 "required": false,
                 "bindable": false,
                 "default": "false",
-                "description": "",
+                "description": "Shows the loading state in place of the content.",
                 "inherited": false
             },
             {
@@ -474,7 +474,7 @@
                 "required": false,
                 "bindable": false,
                 "default": "'rows'",
-                "description": "",
+                "description": "How the cells appear: by rows, by columns, with a running live effect, or not at all.",
                 "inherited": false
             },
             {
@@ -483,7 +483,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Last date shown, written as YYYY-MM-DD. Defaults to today.",
                 "inherited": false
             },
             {
@@ -492,7 +492,7 @@
                 "required": false,
                 "bindable": false,
                 "default": "0",
-                "description": "",
+                "description": "First day of the week, where 0 is Sunday.",
                 "inherited": false
             },
             {
@@ -501,7 +501,7 @@
                 "required": false,
                 "bindable": false,
                 "default": "'en-US'",
-                "description": "",
+                "description": "BCP 47 locale used for names and number formats.",
                 "inherited": false
             },
             {
@@ -510,7 +510,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Called when a day is activated.",
                 "inherited": false
             },
             {
@@ -519,7 +519,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Content rendered inside.",
                 "inherited": false
             }
         ]
@@ -1414,7 +1414,7 @@
                 "required": true,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Day data for this cell.",
                 "inherited": false
             }
         ]
@@ -1858,7 +1858,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Content rendered inside.",
                 "inherited": false
             }
         ]
@@ -2738,7 +2738,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Content rendered inside.",
                 "inherited": false
             }
         ]
@@ -4490,7 +4490,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Content rendered inside.",
                 "inherited": false
             }
         ]

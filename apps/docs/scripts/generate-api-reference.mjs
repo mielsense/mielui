@@ -8,6 +8,19 @@ const categories = ['components', 'blocks', 'ai-components', 'chart-components']
 const virtual = new Map();
 const metadata = new Map();
 
+// Descriptions for props whose types carry no JSDoc, such as props passed through
+// from a primitive. A JSDoc comment on the prop type always wins.
+const descriptions = JSON.parse(
+    fs.readFileSync(path.join(import.meta.dirname, 'api-descriptions.json'), 'utf8')
+);
+
+function describe(component, part, prop) {
+    const own = descriptions[component] ?? {};
+    const shared = descriptions['*'];
+
+    return own[`${part}.${prop}`] ?? own[prop] ?? shared[`${part}.${prop}`] ?? shared[prop] ?? '';
+}
+
 function visitFiles(directory) {
     return fs.readdirSync(directory, { withFileTypes: true }).flatMap((entry) => {
         const file = path.join(directory, entry.name);
@@ -139,7 +152,15 @@ for (const index of indexes) {
     const module = checker.getSymbolAtLocation(source);
     const parts = [];
     const seen = new Set();
+    const component = path.basename(path.dirname(index));
     for (const exported of checker.getExportsOfModule(module)) {
+        const partName =
+            exported.name === 'default'
+                ? component
+                      .split('-')
+                      .map((word) => word[0].toUpperCase() + word.slice(1))
+                      .join('')
+                : exported.name;
         const symbol =
             exported.flags & ts.SymbolFlags.Alias ? checker.getAliasedSymbol(exported) : exported;
         const declaration = symbol.declarations?.[0];
@@ -192,9 +213,11 @@ for (const index of indexes) {
                     entries.every((entry) => !(entry.flags & ts.SymbolFlags.Optional)),
                 bindable: meta.bindings.has(property.name),
                 default: meta.defaults[property.name] ?? null,
-                description: ts
-                    .displayPartsToString(property.getDocumentationComment(checker))
-                    .split(/\n\s*\n/)[0],
+                description:
+                    ts
+                        .displayPartsToString(property.getDocumentationComment(checker))
+                        .split(/\n\s*\n/)[0] ||
+                    (inherited ? '' : describe(component, partName, property.name)),
                 inherited
             };
             if (!inherited) {
@@ -210,20 +233,25 @@ for (const index of indexes) {
             return id;
         });
         parts.push({
-            name:
-                exported.name === 'default'
-                    ? path
-                          .basename(path.dirname(index))
-                          .split('-')
-                          .map((word) => word[0].toUpperCase() + word.slice(1))
-                          .join('')
-                    : exported.name,
+            name: partName,
             properties
         });
     }
     if (parts.length) {
         result[path.basename(path.dirname(index))] = parts;
     }
+}
+const undescribed = Object.entries(result).flatMap(([name, parts]) =>
+    parts.flatMap((part) =>
+        part.properties
+            .filter((property) => typeof property === 'object' && !property.description)
+            .map((property) => `${name}/${part.name}.${property.name}`)
+    )
+);
+if (undescribed.length) {
+    console.warn(
+        `${undescribed.length} props have no description. Add JSDoc to the prop type or an entry in scripts/api-descriptions.json:\n  ${undescribed.join('\n  ')}`
+    );
 }
 const destination = path.join(root, 'apps/docs/src/lib/generated/api');
 fs.mkdirSync(destination, { recursive: true });

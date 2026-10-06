@@ -444,7 +444,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Ids of the description and error, for `aria-describedby`.",
                 "inherited": false
             },
             {
@@ -453,7 +453,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Id of the error element.",
                 "inherited": false
             },
             {
@@ -462,7 +462,7 @@
                 "required": true,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Content rendered inside.",
                 "inherited": false
             }
         ]
@@ -912,7 +912,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Validation issues to list. Defaults to the Root's issues.",
                 "inherited": false
             },
             0,
@@ -2231,7 +2231,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Id shared by the label and the control.",
                 "inherited": false
             },
             {
@@ -2240,7 +2240,7 @@
                 "required": false,
                 "bindable": false,
                 "default": "false",
-                "description": "",
+                "description": "Prevents interaction and dims the control.",
                 "inherited": false
             },
             {
@@ -2249,7 +2249,7 @@
                 "required": false,
                 "bindable": false,
                 "default": "false",
-                "description": "",
+                "description": "Requires a value before the form can be submitted.",
                 "inherited": false
             },
             {
@@ -2258,7 +2258,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Marks the field invalid. It defaults to true when there are issues.",
                 "inherited": false
             },
             {
@@ -2267,7 +2267,7 @@
                 "required": false,
                 "bindable": false,
                 "default": "[]",
-                "description": "",
+                "description": "Validation issues for this field.",
                 "inherited": false
             },
             {
@@ -2276,7 +2276,7 @@
                 "required": false,
                 "bindable": false,
                 "default": "'vertical'",
-                "description": "",
+                "description": "`vertical` stacks the label and control. `horizontal` puts them side by side.",
                 "inherited": false
             },
             {
@@ -2285,7 +2285,7 @@
                 "required": false,
                 "bindable": true,
                 "default": null,
-                "description": "",
+                "description": "Bindable reference to the DOM element.",
                 "inherited": false
             },
             0,

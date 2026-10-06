@@ -17,7 +17,7 @@
                 "required": true,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Content rendered inside.",
                 "inherited": false
             },
             {
@@ -26,7 +26,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Classes added to the element.",
                 "inherited": false
             },
             {
@@ -44,7 +44,7 @@
                 "required": false,
                 "bindable": false,
                 "default": "true",
-                "description": "",
+                "description": "Closes when the pointer is pressed outside it. Set false to keep it open until it is dismissed another way.",
                 "inherited": false
             },
             {
@@ -62,7 +62,7 @@
                 "required": false,
                 "bindable": false,
                 "default": "true",
-                "description": "",
+                "description": "Moves the panel to the end of the document so ancestors cannot clip it. Set false to render it in place.",
                 "inherited": false
             },
             {
@@ -71,7 +71,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Positions the panel against this element or virtual element instead of the trigger.",
                 "inherited": false
             },
             {
@@ -80,7 +80,7 @@
                 "required": false,
                 "bindable": false,
                 "default": "'none'",
-                "description": "",
+                "description": "ARIA role of the panel.",
                 "inherited": false
             },
             {
@@ -89,7 +89,7 @@
                 "required": false,
                 "bindable": false,
                 "default": "-1",
-                "description": "",
+                "description": "Tab index of the panel.",
                 "inherited": false
             },
             {
@@ -548,7 +548,7 @@
                 "required": true,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Value this option selects.",
                 "inherited": false
             },
             {
@@ -557,7 +557,7 @@
                 "required": true,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Text used for search and for the trigger, when it differs from the option's content.",
                 "inherited": false
             },
             {
@@ -566,7 +566,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Called when the item is chosen.",
                 "inherited": false
             },
             {
@@ -602,7 +602,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Content rendered inside.",
                 "inherited": false
             },
             {
@@ -1153,7 +1153,7 @@
                 "required": true,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Content rendered inside.",
                 "inherited": false
             },
             {
@@ -1162,7 +1162,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Classes added to the element.",
                 "inherited": false
             }
         ]
@@ -1176,7 +1176,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Content rendered inside.",
                 "inherited": false
             }
         ]
@@ -1190,7 +1190,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Content rendered inside.",
                 "inherited": false
             },
             {
@@ -1217,7 +1217,7 @@
                 "required": false,
                 "bindable": false,
                 "default": "'bottom'",
-                "description": "",
+                "description": "Preferred side and alignment relative to the trigger, such as `bottom-start`. It flips when there is no room.",
                 "inherited": false
             },
             {
@@ -1235,7 +1235,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Key that identifies this instance's state. A key is generated when you omit it.",
                 "inherited": false
             },
             {
@@ -1244,7 +1244,7 @@
                 "required": false,
                 "bindable": false,
                 "default": "false",
-                "description": "",
+                "description": "Opens on hover as well as on click.",
                 "inherited": false
             },
             {
@@ -1253,7 +1253,7 @@
                 "required": false,
                 "bindable": false,
                 "default": "0",
-                "description": "",
+                "description": "Milliseconds the pointer rests on the trigger before it opens.",
                 "inherited": false
             },
             {
@@ -1262,7 +1262,7 @@
                 "required": false,
                 "bindable": false,
                 "default": "150",
-                "description": "",
+                "description": "Milliseconds after the pointer leaves before it closes.",
                 "inherited": false
             },
             {
@@ -1280,7 +1280,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Overrides the built-in text and accessible names. Every key is optional and English is the fallback.",
                 "inherited": false
             },
             {
@@ -1289,7 +1289,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "`single` keeps one value. `multiple` allows several and makes `value` an array.",
                 "inherited": false
             },
             {
@@ -1298,7 +1298,7 @@
                 "required": false,
                 "bindable": true,
                 "default": "undefined",
-                "description": "",
+                "description": "Selected value, or an array in multiple mode. Bindable.",
                 "inherited": false
             },
             {
@@ -1307,7 +1307,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Called with the new value when it changes.",
                 "inherited": false
             }
         ]
@@ -1321,7 +1321,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Classes added to the element.",
                 "inherited": false
             },
             10,
@@ -1331,7 +1331,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Inline styles for the element.",
                 "inherited": false
             },
             17,
@@ -1346,7 +1346,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Called when it is clicked or activated.",
                 "inherited": false
             },
             1063,
@@ -1357,7 +1357,7 @@
                 "required": false,
                 "bindable": false,
                 "default": "'outline'",
-                "description": "",
+                "description": "Button style of the trigger.",
                 "inherited": false
             },
             {
@@ -1366,7 +1366,7 @@
                 "required": false,
                 "bindable": false,
                 "default": "'md'",
-                "description": "",
+                "description": "Control height of the trigger.",
                 "inherited": false
             },
             {
@@ -1384,7 +1384,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Shows the chevron after the label.",
                 "inherited": false
             },
             {
@@ -1402,7 +1402,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Content at the end of the trigger.",
                 "inherited": false
             },
             {
@@ -1411,7 +1411,7 @@
                 "required": false,
                 "bindable": false,
                 "default": "'Select…'",
-                "description": "",
+                "description": "Text shown while there is no value.",
                 "inherited": false
             },
             {
@@ -1420,7 +1420,7 @@
                 "required": false,
                 "bindable": false,
                 "default": "'trigger'",
-                "description": "",
+                "description": "`trigger` types into the trigger. `menu` puts a search field inside the menu.",
                 "inherited": false
             },
             {
@@ -1429,7 +1429,7 @@
                 "required": false,
                 "bindable": false,
                 "default": "0.28",
-                "description": "",
+                "description": "How loosely typed text may match, from 0 for exact to 1 for anything.",
                 "inherited": false
             },
             {
@@ -1438,7 +1438,7 @@
                 "required": false,
                 "bindable": false,
                 "default": "'button'",
-                "description": "",
+                "description": "`button` looks like a select. `input` looks like a text field.",
                 "inherited": false
             },
             {
@@ -1447,7 +1447,7 @@
                 "required": false,
                 "bindable": true,
                 "default": null,
-                "description": "",
+                "description": "Bindable reference to the DOM element.",
                 "inherited": false
             }
         ]

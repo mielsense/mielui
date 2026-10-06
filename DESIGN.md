@@ -346,8 +346,8 @@ level, then a visible title and its summary as muted lead text. `PageIntro` owns
 this header. Copy page sits in the top bar. Do not hide the title or summary
 behind a hover card.
 
-The content column fills the panel. Previews, code, catalog grids, and API rows
-use the full width. Prose and short row groups stop near 76 characters. The page outline sits at the far
+The content column fills the panel. Prose, previews, code, catalog grids, and API
+rows all use the full width of the column. The page outline sits at the far
 right at extra-large widths as plain text links; the current heading uses medium
 foreground text. Section titles are plain semibold headings on a full-width row that stays
 pinned under the top bar. The row has the opaque content background, so nothing
@@ -386,6 +386,13 @@ Keep both preview forms in the shared preview implementation and use
 
 Isolated Notch previews invert the panel against the canvas so it stays visible
 in both themes.
+
+Every prop in the API reference has a description. Write it as JSDoc on the
+prop type. For props passed through from a primitive, whose types cannot carry a
+comment, add an entry to `apps/docs/scripts/api-descriptions.json`. The
+generator warns about any prop left without one. A description says what the
+prop does and names the effect of each value. Do not repeat the default, which
+has its own line.
 
 The API reference shows each prop's type without a trailing `| undefined`;
 optional is the default and required props are labelled. Descriptions render

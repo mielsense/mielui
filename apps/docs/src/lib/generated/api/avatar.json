@@ -8,7 +8,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Content rendered inside.",
                 "inherited": false
             },
             {
@@ -17,7 +17,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Classes added to the element.",
                 "inherited": false
             }
         ]
@@ -31,7 +31,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Image address.",
                 "inherited": false
             },
             {
@@ -40,7 +40,7 @@
                 "required": false,
                 "bindable": false,
                 "default": "''",
-                "description": "",
+                "description": "Image description. Leave it empty when the name is shown beside the avatar.",
                 "inherited": false
             },
             {
@@ -49,7 +49,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Classes added to the element.",
                 "inherited": false
             },
             {
@@ -58,7 +58,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Content rendered inside.",
                 "inherited": false
             },
             6872,
@@ -514,7 +514,7 @@
                 "required": false,
                 "bindable": false,
                 "default": "'md'",
-                "description": "",
+                "description": "Diameter of the avatar.",
                 "inherited": false
             },
             {
@@ -523,7 +523,7 @@
                 "required": false,
                 "bindable": false,
                 "default": "'circle'",
-                "description": "",
+                "description": "Outline of the avatar.",
                 "inherited": false
             },
             {
@@ -532,7 +532,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Content rendered inside.",
                 "inherited": false
             },
             {
@@ -541,7 +541,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Classes added to the element.",
                 "inherited": false
             }
         ]

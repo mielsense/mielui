@@ -448,7 +448,7 @@
                 "required": false,
                 "bindable": false,
                 "default": "'default'",
-                "description": "",
+                "description": "`inset` frames the table with a header and footer on the frame.",
                 "inherited": false
             }
         ]

@@ -8,7 +8,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Renders your own element in place of the default one. Spread the given `props` onto it.",
                 "inherited": false
             },
             {
@@ -17,7 +17,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Content rendered inside.",
                 "inherited": false
             },
             {
@@ -26,7 +26,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Inline styles for the element.",
                 "inherited": false
             },
             {
@@ -35,7 +35,7 @@
                 "required": false,
                 "bindable": true,
                 "default": "null",
-                "description": "",
+                "description": "Bindable reference to the DOM element.",
                 "inherited": false
             },
             2681,
@@ -55,7 +55,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Id of the element.",
                 "inherited": false
             },
             11,
@@ -500,7 +500,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Renders your own element in place of the default one. Spread the given `props` onto it.",
                 "inherited": false
             },
             {
@@ -509,7 +509,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Content rendered inside.",
                 "inherited": false
             },
             {
@@ -518,7 +518,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Inline styles for the element.",
                 "inherited": false
             },
             {
@@ -527,7 +527,7 @@
                 "required": false,
                 "bindable": true,
                 "default": "null",
-                "description": "",
+                "description": "Bindable reference to the DOM element.",
                 "inherited": false
             },
             2681,
@@ -547,7 +547,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Id of the element.",
                 "inherited": false
             },
             11,
@@ -992,7 +992,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Content rendered inside.",
                 "inherited": false
             },
             2681,
@@ -1012,7 +1012,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Id of the element.",
                 "inherited": false
             },
             11,
@@ -1034,7 +1034,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Inline styles for the element.",
                 "inherited": false
             },
             17,
@@ -1482,7 +1482,7 @@
                 "required": false,
                 "bindable": true,
                 "default": "null",
-                "description": "",
+                "description": "Bindable reference to the DOM element.",
                 "inherited": false
             },
             {
@@ -1685,7 +1685,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Renders your own element in place of the default one. Spread the given `props` onto it.",
                 "inherited": false
             },
             {
@@ -1694,7 +1694,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Content rendered inside.",
                 "inherited": false
             },
             {
@@ -1703,7 +1703,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Inline styles for the element.",
                 "inherited": false
             },
             {
@@ -1712,7 +1712,7 @@
                 "required": false,
                 "bindable": true,
                 "default": "null",
-                "description": "",
+                "description": "Bindable reference to the DOM element.",
                 "inherited": false
             },
             2681,
@@ -1732,7 +1732,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Id of the element.",
                 "inherited": false
             },
             11,
@@ -2172,7 +2172,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Renders your own element in place of the default one. Spread the given `props` onto it.",
                 "inherited": false
             },
             {
@@ -2181,7 +2181,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Content rendered inside.",
                 "inherited": false
             },
             {
@@ -2190,7 +2190,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Inline styles for the element.",
                 "inherited": false
             },
             {
@@ -2199,7 +2199,7 @@
                 "required": false,
                 "bindable": true,
                 "default": "null",
-                "description": "",
+                "description": "Bindable reference to the DOM element.",
                 "inherited": false
             },
             2681,
@@ -2219,7 +2219,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Id of the element.",
                 "inherited": false
             },
             11,
@@ -2650,7 +2650,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Renders your own element in place of the default one. Spread the given `props` onto it.",
                 "inherited": false
             },
             {
@@ -2659,7 +2659,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Content rendered inside.",
                 "inherited": false
             },
             {
@@ -2668,7 +2668,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Inline styles for the element.",
                 "inherited": false
             },
             {
@@ -2677,7 +2677,7 @@
                 "required": false,
                 "bindable": true,
                 "default": "null",
-                "description": "",
+                "description": "Bindable reference to the DOM element.",
                 "inherited": false
             },
             2681,
@@ -2697,7 +2697,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Id of the element.",
                 "inherited": false
             },
             11,
@@ -3137,7 +3137,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Renders your own element in place of the default one. Spread the given `props` onto it.",
                 "inherited": false
             },
             {
@@ -3146,7 +3146,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Content rendered inside.",
                 "inherited": false
             },
             {
@@ -3155,7 +3155,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Inline styles for the element.",
                 "inherited": false
             },
             {
@@ -3164,7 +3164,7 @@
                 "required": false,
                 "bindable": true,
                 "default": "null",
-                "description": "",
+                "description": "Bindable reference to the DOM element.",
                 "inherited": false
             },
             2681,
@@ -3184,7 +3184,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Id of the element.",
                 "inherited": false
             },
             11,
@@ -3615,7 +3615,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Renders your own element in place of the default one. Spread the given `props` onto it.",
                 "inherited": false
             },
             {
@@ -3624,7 +3624,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Content rendered inside.",
                 "inherited": false
             },
             {
@@ -3633,7 +3633,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Inline styles for the element.",
                 "inherited": false
             },
             {
@@ -3642,7 +3642,7 @@
                 "required": false,
                 "bindable": true,
                 "default": "null",
-                "description": "",
+                "description": "Bindable reference to the DOM element.",
                 "inherited": false
             },
             2681,
@@ -3662,7 +3662,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Id of the element.",
                 "inherited": false
             },
             11,
@@ -4093,7 +4093,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Renders your own element in place of the default one. Spread the given `props` onto it.",
                 "inherited": false
             },
             {
@@ -4102,7 +4102,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Content rendered inside.",
                 "inherited": false
             },
             {
@@ -4111,7 +4111,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Inline styles for the element.",
                 "inherited": false
             },
             {
@@ -4120,7 +4120,7 @@
                 "required": false,
                 "bindable": true,
                 "default": "null",
-                "description": "",
+                "description": "Bindable reference to the DOM element.",
                 "inherited": false
             },
             2681,
@@ -4140,7 +4140,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Id of the element.",
                 "inherited": false
             },
             11,
@@ -4571,7 +4571,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Renders your own element in place of the default one. Spread the given `props` onto it.",
                 "inherited": false
             },
             {
@@ -4580,7 +4580,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Content rendered inside.",
                 "inherited": false
             },
             {
@@ -4589,7 +4589,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Inline styles for the element.",
                 "inherited": false
             },
             {
@@ -4598,7 +4598,7 @@
                 "required": false,
                 "bindable": true,
                 "default": "null",
-                "description": "",
+                "description": "Bindable reference to the DOM element.",
                 "inherited": false
             },
             2681,
@@ -4618,7 +4618,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Id of the element.",
                 "inherited": false
             },
             11,
@@ -5055,7 +5055,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Renders your own element in place of the default one. Spread the given `props` onto it.",
                 "inherited": false
             },
             {
@@ -5064,7 +5064,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Content rendered inside.",
                 "inherited": false
             },
             {
@@ -5073,7 +5073,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Inline styles for the element.",
                 "inherited": false
             },
             {
@@ -5082,7 +5082,7 @@
                 "required": false,
                 "bindable": true,
                 "default": "null",
-                "description": "",
+                "description": "Bindable reference to the DOM element.",
                 "inherited": false
             },
             2681,
@@ -5102,7 +5102,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Id of the element.",
                 "inherited": false
             },
             11,
@@ -5533,7 +5533,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Renders your own element in place of the default one. Spread the given `props` onto it.",
                 "inherited": false
             },
             {
@@ -5542,7 +5542,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Content rendered inside.",
                 "inherited": false
             },
             {
@@ -5551,7 +5551,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Inline styles for the element.",
                 "inherited": false
             },
             {
@@ -5560,7 +5560,7 @@
                 "required": false,
                 "bindable": true,
                 "default": "null",
-                "description": "",
+                "description": "Bindable reference to the DOM element.",
                 "inherited": false
             },
             2681,
@@ -5580,7 +5580,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Id of the element.",
                 "inherited": false
             },
             11,
@@ -6011,7 +6011,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Classes added to the element.",
                 "inherited": false
             },
             {
@@ -6020,7 +6020,7 @@
                 "required": true,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Month data from the Root snippet.",
                 "inherited": false
             },
             {
@@ -6029,7 +6029,7 @@
                 "required": true,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Weekday names from the Root snippet.",
                 "inherited": false
             },
             {
@@ -6038,7 +6038,7 @@
                 "required": false,
                 "bindable": false,
                 "default": "'en-US'",
-                "description": "",
+                "description": "BCP 47 locale used for names and number formats.",
                 "inherited": false
             },
             {
@@ -6047,7 +6047,7 @@
                 "required": false,
                 "bindable": false,
                 "default": "false",
-                "description": "",
+                "description": "Shows the month name above the grid, for layouts with several months.",
                 "inherited": false
             },
             {
@@ -6056,7 +6056,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Custom content for each day cell.",
                 "inherited": false
             }
         ]
@@ -6088,7 +6088,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Renders your own element in place of the default one. Spread the given `props` onto it.",
                 "inherited": false
             },
             {
@@ -6097,7 +6097,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Content rendered inside.",
                 "inherited": false
             },
             {
@@ -6106,7 +6106,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Inline styles for the element.",
                 "inherited": false
             },
             {
@@ -6115,7 +6115,7 @@
                 "required": false,
                 "bindable": true,
                 "default": "null",
-                "description": "",
+                "description": "Bindable reference to the DOM element.",
                 "inherited": false
             },
             2681,
@@ -6135,7 +6135,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Id of the element.",
                 "inherited": false
             },
             11,
@@ -6595,7 +6595,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Renders your own element in place of the default one. Spread the given `props` onto it.",
                 "inherited": false
             },
             {
@@ -6604,7 +6604,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Content rendered inside.",
                 "inherited": false
             },
             {
@@ -6613,7 +6613,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Inline styles for the element.",
                 "inherited": false
             },
             {
@@ -6622,7 +6622,7 @@
                 "required": false,
                 "bindable": true,
                 "default": "null",
-                "description": "",
+                "description": "Bindable reference to the DOM element.",
                 "inherited": false
             },
             2681,
@@ -6642,7 +6642,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Id of the element.",
                 "inherited": false
             },
             11,

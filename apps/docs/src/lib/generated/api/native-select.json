@@ -448,7 +448,7 @@
                 "required": false,
                 "bindable": false,
                 "default": "false",
-                "description": "",
+                "description": "Allows several selections and makes `value` an array.",
                 "inherited": false
             },
             {
@@ -457,7 +457,7 @@
                 "required": false,
                 "bindable": true,
                 "default": null,
-                "description": "",
+                "description": "Selected value or values. Bindable.",
                 "inherited": false
             }
         ]
@@ -1343,7 +1343,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Value this option selects.",
                 "inherited": false
             }
         ]

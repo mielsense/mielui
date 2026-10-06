@@ -874,7 +874,7 @@
                 "required": false,
                 "bindable": false,
                 "default": "[]",
-                "description": "",
+                "description": "Validation issues to summarize.",
                 "inherited": false
             },
             {
@@ -883,7 +883,7 @@
                 "required": false,
                 "bindable": false,
                 "default": "true",
-                "description": "",
+                "description": "Moves focus to the summary when issues appear.",
                 "inherited": false
             },
             {
@@ -892,7 +892,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Replaces the summary heading.",
                 "inherited": false
             },
             {
@@ -901,7 +901,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Content rendered inside.",
                 "inherited": false
             },
             {
@@ -910,7 +910,7 @@
                 "required": false,
                 "bindable": true,
                 "default": null,
-                "description": "",
+                "description": "Bindable reference to the DOM element.",
                 "inherited": false
             }
         ]
@@ -1364,7 +1364,7 @@
                 "required": false,
                 "bindable": true,
                 "default": null,
-                "description": "",
+                "description": "Bindable reference to the DOM element.",
                 "inherited": false
             },
             {
@@ -1373,7 +1373,7 @@
                 "required": false,
                 "bindable": false,
                 "default": "false",
-                "description": "",
+                "description": "Marks the form as submitting. A number is the count of pending requests.",
                 "inherited": false
             }
         ]
@@ -1818,7 +1818,7 @@
                 "required": false,
                 "bindable": false,
                 "default": "'neutral'",
-                "description": "",
+                "description": "Color that carries the meaning.",
                 "inherited": false
             }
         ]
@@ -1832,7 +1832,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Content rendered inside.",
                 "inherited": false
             },
             2681,

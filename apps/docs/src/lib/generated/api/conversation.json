@@ -17,7 +17,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Classes added to the element.",
                 "inherited": false
             },
             {
@@ -26,7 +26,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Content rendered inside.",
                 "inherited": false
             },
             0,
@@ -466,7 +466,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Icon shown above the title.",
                 "inherited": false
             },
             {
@@ -475,7 +475,7 @@
                 "required": false,
                 "bindable": false,
                 "default": "'Start a conversation'",
-                "description": "",
+                "description": "Heading of the empty state.",
                 "inherited": false
             },
             {
@@ -484,7 +484,7 @@
                 "required": false,
                 "bindable": false,
                 "default": "'Ask a question or share what you are working on.'",
-                "description": "",
+                "description": "Text under the heading.",
                 "inherited": false
             },
             {
@@ -493,7 +493,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Action shown under the text.",
                 "inherited": false
             },
             {
@@ -502,7 +502,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Content rendered inside.",
                 "inherited": false
             },
             {
@@ -511,7 +511,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Classes added to the element.",
                 "inherited": false
             },
             0,
@@ -971,7 +971,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Content rendered inside.",
                 "inherited": false
             },
             {
@@ -980,7 +980,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Classes added to the element.",
                 "inherited": false
             },
             0,
@@ -1423,7 +1423,7 @@
                 "required": false,
                 "bindable": false,
                 "default": "'Scroll to latest message'",
-                "description": "",
+                "description": "Accessible name of the button.",
                 "inherited": false
             },
             {
@@ -1432,7 +1432,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Classes added to the element.",
                 "inherited": false
             },
             0,

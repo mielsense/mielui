@@ -81,11 +81,6 @@
     @apply h-12 px-2.5;
 }
 
-.docs-article :is([data-docs-page] > section, #api-reference) > :is(p, ul, ol),
-.docs-article [data-docs-page] > section > div > p {
-    @apply max-w-[76ch];
-}
-
 /* Code blocks follow the theme's border mode in docs, like cards: no gutter
    around the surface with single borders, and the tab strip stays on the frame. */
 .docs-article [data-ui='code-block'] {

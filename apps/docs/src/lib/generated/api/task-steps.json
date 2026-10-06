@@ -438,7 +438,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "State of the step.",
                 "inherited": false
             }
         ]
@@ -883,7 +883,7 @@
                 "required": false,
                 "bindable": false,
                 "default": "'pending'",
-                "description": "",
+                "description": "State of the step.",
                 "inherited": false
             }
         ]
@@ -2635,7 +2635,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Content rendered inside.",
                 "inherited": false
             }
         ]
@@ -2649,7 +2649,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Content rendered inside.",
                 "inherited": false
             },
             {
@@ -2658,7 +2658,7 @@
                 "required": true,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Steps to show, in order.",
                 "inherited": false
             },
             {
@@ -2667,7 +2667,7 @@
                 "required": true,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Index of the step in progress.",
                 "inherited": false
             },
             {
@@ -2676,7 +2676,7 @@
                 "required": false,
                 "bindable": false,
                 "default": "false",
-                "description": "",
+                "description": "Marks the current step as failed.",
                 "inherited": false
             },
             {
@@ -2685,7 +2685,7 @@
                 "required": false,
                 "bindable": false,
                 "default": "'Task progress'",
-                "description": "",
+                "description": "Accessible name of the list.",
                 "inherited": false
             },
             {
@@ -2694,7 +2694,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Classes added to the element.",
                 "inherited": false
             },
             0,

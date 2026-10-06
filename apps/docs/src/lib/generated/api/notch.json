@@ -2637,7 +2637,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Content rendered inside.",
                 "inherited": false
             }
         ]
@@ -2660,7 +2660,7 @@
                 "required": false,
                 "bindable": false,
                 "default": "'triggered'",
-                "description": "",
+                "description": "`triggered` opens fully. `peek` rests as a small handle that expands.",
                 "inherited": false
             },
             {
@@ -2669,7 +2669,7 @@
                 "required": false,
                 "bindable": false,
                 "default": "5000",
-                "description": "",
+                "description": "Milliseconds it stays open before closing on its own.",
                 "inherited": false
             },
             {
@@ -2678,7 +2678,7 @@
                 "required": false,
                 "bindable": false,
                 "default": "'top'",
-                "description": "",
+                "description": "Viewport edge it attaches to.",
                 "inherited": false
             },
             {
@@ -2696,7 +2696,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Content rendered inside.",
                 "inherited": false
             }
         ]
@@ -2737,7 +2737,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Content rendered inside.",
                 "inherited": false
             },
             {
@@ -3272,7 +3272,7 @@
                 "required": false,
                 "bindable": false,
                 "default": "'end'",
-                "description": "",
+                "description": "End of the panel the action sits on.",
                 "inherited": false
             },
             1062,
@@ -3729,7 +3729,7 @@
                 "required": false,
                 "bindable": false,
                 "default": "2",
-                "description": "",
+                "description": "Heading level in the surrounding document.",
                 "inherited": false
             }
         ]

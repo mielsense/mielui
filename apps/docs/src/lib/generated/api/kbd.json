@@ -438,7 +438,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Content rendered inside.",
                 "inherited": false
             },
             {
@@ -447,7 +447,7 @@
                 "required": true,
                 "bindable": false,
                 "default": "''",
-                "description": "",
+                "description": "Keys to show, such as `cmd+K`. With `ontrigger` it also listens for them.",
                 "inherited": false
             },
             {
@@ -456,7 +456,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Called when the shortcut is pressed.",
                 "inherited": false
             }
         ]

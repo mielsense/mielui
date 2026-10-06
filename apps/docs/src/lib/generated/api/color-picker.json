@@ -443,7 +443,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Classes added to the element.",
                 "inherited": false
             },
             0,
@@ -469,7 +469,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Tab index of the panel.",
                 "inherited": false
             },
             18,
@@ -484,7 +484,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "ARIA role of the panel.",
                 "inherited": false
             },
             25,
@@ -915,7 +915,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Closes when the pointer is pressed outside it. Set false to keep it open until it is dismissed another way.",
                 "inherited": false
             },
             {
@@ -933,7 +933,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Moves the panel to the end of the document so ancestors cannot clip it. Set false to render it in place.",
                 "inherited": false
             },
             {
@@ -942,7 +942,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Positions the panel against this element or virtual element instead of the trigger.",
                 "inherited": false
             },
             {
@@ -969,7 +969,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Content rendered inside.",
                 "inherited": false
             }
         ]
@@ -3158,7 +3158,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Accessible name of the trigger.",
                 "inherited": false
             },
             {
@@ -3167,7 +3167,7 @@
                 "required": false,
                 "bindable": true,
                 "default": "''",
-                "description": "",
+                "description": "Selected color as a hex string. Bindable.",
                 "inherited": false
             },
             {
@@ -3176,7 +3176,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Called with the new value when it changes.",
                 "inherited": false
             },
             {
@@ -3185,7 +3185,7 @@
                 "required": false,
                 "bindable": false,
                 "default": "[]",
-                "description": "",
+                "description": "Preset swatches offered above the picker.",
                 "inherited": false
             },
             {
@@ -3194,7 +3194,7 @@
                 "required": false,
                 "bindable": false,
                 "default": "'hsl'",
-                "description": "",
+                "description": "Channel controls to show: HSL, RGB, or HSV.",
                 "inherited": false
             },
             {
@@ -3203,7 +3203,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Content rendered inside.",
                 "inherited": false
             },
             {
@@ -3212,7 +3212,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Classes added to the element.",
                 "inherited": false
             }
         ]
@@ -3235,7 +3235,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Classes added to the element.",
                 "inherited": false
             }
         ]

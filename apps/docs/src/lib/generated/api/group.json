@@ -438,7 +438,7 @@
                 "required": false,
                 "bindable": false,
                 "default": "'horizontal'",
-                "description": "",
+                "description": "Layout direction.",
                 "inherited": false
             }
         ]
@@ -880,7 +880,7 @@
                 "required": false,
                 "bindable": false,
                 "default": "'vertical'",
-                "description": "",
+                "description": "Layout direction.",
                 "inherited": false
             }
         ]
@@ -1325,7 +1325,7 @@
                 "required": false,
                 "bindable": false,
                 "default": "'div'",
-                "description": "",
+                "description": "HTML element to render.",
                 "inherited": false
             },
             {
@@ -1334,7 +1334,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Id of the control this text labels, when it renders as a label.",
                 "inherited": false
             }
         ]

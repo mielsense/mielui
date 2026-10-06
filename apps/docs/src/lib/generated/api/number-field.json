@@ -452,7 +452,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Called before the value steps down. Prevent the default to cancel the step.",
                 "inherited": false
             },
             {
@@ -461,7 +461,7 @@
                 "required": false,
                 "bindable": true,
                 "default": null,
-                "description": "",
+                "description": "Bindable reference to the DOM element.",
                 "inherited": false
             }
         ]
@@ -1355,7 +1355,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Called before the value steps up. Prevent the default to cancel the step.",
                 "inherited": false
             },
             {
@@ -1364,7 +1364,7 @@
                 "required": false,
                 "bindable": true,
                 "default": null,
-                "description": "",
+                "description": "Bindable reference to the DOM element.",
                 "inherited": false
             }
         ]
@@ -1844,7 +1844,7 @@
                 "required": false,
                 "bindable": true,
                 "default": null,
-                "description": "",
+                "description": "Bindable reference to the DOM element.",
                 "inherited": false
             }
         ]
@@ -2725,7 +2725,7 @@
                 "required": false,
                 "bindable": true,
                 "default": null,
-                "description": "",
+                "description": "Current number. Bindable.",
                 "inherited": false
             },
             {
@@ -2734,7 +2734,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Id of the input, for a label outside the field.",
                 "inherited": false
             },
             {
@@ -2743,7 +2743,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Smallest allowed value.",
                 "inherited": false
             },
             {
@@ -2752,7 +2752,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Largest allowed value.",
                 "inherited": false
             },
             {
@@ -2761,7 +2761,7 @@
                 "required": false,
                 "bindable": false,
                 "default": "1",
-                "description": "",
+                "description": "Amount each step changes the value by.",
                 "inherited": false
             },
             {
@@ -2770,7 +2770,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Field name submitted with the form.",
                 "inherited": false
             },
             {
@@ -2779,7 +2779,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Id of the form this control belongs to when it sits outside that form.",
                 "inherited": false
             },
             {
@@ -2788,7 +2788,7 @@
                 "required": false,
                 "bindable": false,
                 "default": "false",
-                "description": "",
+                "description": "Prevents interaction and dims the control.",
                 "inherited": false
             },
             {
@@ -2797,7 +2797,7 @@
                 "required": false,
                 "bindable": false,
                 "default": "false",
-                "description": "",
+                "description": "Shows the value without allowing edits. The value is still submitted.",
                 "inherited": false
             },
             {
@@ -2806,7 +2806,7 @@
                 "required": false,
                 "bindable": false,
                 "default": "false",
-                "description": "",
+                "description": "Requires a value before the form can be submitted.",
                 "inherited": false
             },
             {
@@ -2815,7 +2815,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Called with the new value when it changes.",
                 "inherited": false
             },
             {
@@ -2824,7 +2824,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Content rendered inside.",
                 "inherited": false
             },
             {
@@ -2833,7 +2833,7 @@
                 "required": false,
                 "bindable": true,
                 "default": null,
-                "description": "",
+                "description": "Bindable reference to the DOM element.",
                 "inherited": false
             }
         ]
