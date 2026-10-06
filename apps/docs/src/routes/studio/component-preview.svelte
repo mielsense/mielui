@@ -14,7 +14,6 @@
     import { Input } from '@mielui/svelte/components/input';
     import * as Popover from '@mielui/svelte/components/popover';
     import { Progress } from '@mielui/svelte/components/progress';
-    import { ScrollArea } from '@mielui/svelte/components/scroll-area';
     import * as Select from '@mielui/svelte/components/select';
     import { Slider } from '@mielui/svelte/components/slider';
     import { Switch } from '@mielui/svelte/components/switch';
@@ -22,6 +21,7 @@
     import * as TagInput from '@mielui/svelte/components/tag-input';
     import { Textarea } from '@mielui/svelte/components/textarea';
     import { toast } from '@mielui/svelte/components/toast';
+    import FadeScrollArea from '$lib/components/shell/fade-scroll-area.svelte';
     import { demoCardClass } from './demo-card';
 
     const uid = $props.id();
@@ -53,7 +53,7 @@
     }
 </script>
 
-<ScrollArea class="h-full min-h-0" showCues={false}>
+<FadeScrollArea class="h-full">
     <div class="@container w-full">
         <h2 class="sr-only">Components</h2>
         <div class="columns-1 gap-4 p-4 @2xl:columns-2 @5xl:columns-3 @[88rem]:columns-4 sm:p-5">
@@ -410,4 +410,4 @@
             </Card.Root>
         </div>
     </div>
-</ScrollArea>
+</FadeScrollArea>

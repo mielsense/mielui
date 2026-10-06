@@ -7,6 +7,7 @@
     import { page } from '$app/state';
     import { getBreadcrumbs } from '$lib/components/docs/breadcrumbs';
     import { pageIcon } from './page-icon';
+    import { fadeX, scrollFade } from './scroll-fade';
     import { getShell } from './shell.svelte';
     import TabPill from './tab-pill.svelte';
 
@@ -46,7 +47,8 @@
     </Tooltip.Root>
     <nav
         aria-label="Open pages"
-        class="hide-scrollbar-all flex min-w-0 flex-1 items-center gap-1 overflow-x-auto p-0.5"
+        {@attach scrollFade({ axis: 'x', size: 32 })}
+        class={`hide-scrollbar-all flex min-w-0 flex-1 items-center gap-1 overflow-x-auto p-0.5 ${fadeX}`}
     >
         {#each tabs as tab (tab.id)}
             <TabPill

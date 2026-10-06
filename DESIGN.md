@@ -388,8 +388,20 @@ The Themes page shows each preset as a specimen in its own colors, type, and
 corner radius, using the preset's light or dark palette to match the page, with
 the name, description, and three facts underneath.
 
-Navigation between pages is immediate. Do not add page transitions, scroll
-snapping, or scroll-edge fades to the docs shell.
+Navigation between pages is immediate. Do not add page transitions or scroll
+snapping to the docs shell.
+
+A scroller never ends in a hard cut against another region. Use the shared
+`scrollFade` helper with the `fadeY` or `fadeX` mask. The fade grows with the
+distance from each end and disappears when the scroller reaches it, so content at
+rest is never dimmed. Vertical scrollers that meet a pinned region also get a
+`ScrollEdge`, a short masked blur over that edge. This applies to the docs
+sidebar above the page meter, the Studio inspector under its title and above the
+export actions, the content column and Studio previews at the bottom of the
+panel, the navigation sheet, the page outline, the tab strip, and overflowing
+preview controls. Skip the top fade where a hairline bar or pinned group labels
+already mark the edge. Wrap a ScrollArea in `FadeScrollArea` instead of enabling
+its chevron cues.
 
 Examples demonstrate a useful state change. Label icon controls, keep result
 messages in an explicit layout with a gap, and clean up timers and requests on

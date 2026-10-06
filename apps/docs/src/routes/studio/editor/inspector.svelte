@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { ScrollArea } from '@mielui/svelte/components/scroll-area';
+    import FadeScrollArea from '$lib/components/shell/fade-scroll-area.svelte';
     import Appearance from './appearance.svelte';
     import Colors from './colors.svelte';
     import ExportActions from './export-actions.svelte';
@@ -10,7 +10,7 @@
 </script>
 
 <div class="flex min-h-0 flex-1 flex-col">
-    <ScrollArea class="hide-scrollbar-all h-full min-h-0 flex-1" showCues={false}>
+    <FadeScrollArea class="flex-1" start hideScrollbar>
         <div class="flex min-h-full flex-col gap-5 px-3 pt-1 pb-6">
             <Preset />
             <Colors />
@@ -19,6 +19,6 @@
             <Interaction />
             <Typography />
         </div>
-    </ScrollArea>
+    </FadeScrollArea>
     <ExportActions />
 </div>

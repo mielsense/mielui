@@ -1,7 +1,7 @@
 <script lang="ts">
-    import { ScrollArea } from '@mielui/svelte/components/scroll-area';
     import * as Tabs from '@mielui/svelte/components/tabs';
     import { onDestroy } from 'svelte';
+    import FadeScrollArea from '$lib/components/shell/fade-scroll-area.svelte';
     import Header from './app-preview/header.svelte';
     import Invoices from './app-preview/invoices.svelte';
     import { AppPreviewModel } from './app-preview/model.svelte';
@@ -14,7 +14,7 @@
     });
 </script>
 
-<ScrollArea class="h-full min-h-0" showCues={false}>
+<FadeScrollArea class="h-full">
     <div class="@container flex w-full flex-col">
         <Tabs.Root bind:value={model.studioView} variant="ghost">
             <Header {model} />
@@ -23,4 +23,4 @@
             <Settings {model} />
         </Tabs.Root>
     </div>
-</ScrollArea>
+</FadeScrollArea>

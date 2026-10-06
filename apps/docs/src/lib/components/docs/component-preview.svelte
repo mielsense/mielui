@@ -7,6 +7,7 @@
     import HugeiconsIcon from '@mielui/svelte/hugeicons-icon';
     import { cn } from '@mielui/svelte/utils';
     import type { Snippet } from 'svelte';
+    import { fadeX, scrollFade } from '$lib/components/shell/scroll-fade';
     import { stayOnPage } from './stay-on-page';
 
     let {
@@ -84,7 +85,8 @@
                 <div class="flex min-w-0 items-center gap-1">
                     {#if controls}
                         <div
-                            class="-m-1 flex min-w-0 items-center overflow-x-auto overscroll-x-contain p-1"
+                            {@attach scrollFade({ axis: 'x', size: 24 })}
+                            class={`-m-1 flex min-w-0 items-center overflow-x-auto overscroll-x-contain p-1 ${fadeX}`}
                         >
                             {@render controls()}
                         </div>

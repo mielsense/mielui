@@ -13,6 +13,8 @@
     import { pageIcon } from '$lib/components/shell/page-icon';
     import PageTabs from '$lib/components/shell/page-tabs.svelte';
     import Rail from '$lib/components/shell/rail.svelte';
+    import ScrollEdge from '$lib/components/shell/scroll-edge.svelte';
+    import { fadeY, scrollFade } from '$lib/components/shell/scroll-fade';
     import { createShell, setShell } from '$lib/components/shell/shell.svelte';
     import Sidebar from '$lib/components/shell/sidebar.svelte';
     import SidebarCard from '$lib/components/shell/sidebar-card.svelte';
@@ -178,15 +180,19 @@
                                 {@render children?.()}
                             </div>
                         {:else}
-                            <div
-                                bind:this={docsScrollEl}
-                                class="min-h-0 min-w-0 flex-1 overflow-y-auto"
-                            >
+                            <div class="relative min-h-0 min-w-0 flex-1">
                                 <div
-                                    class="flex w-full flex-col gap-5 px-5 pt-8 pb-16 sm:px-10 lg:flex-row lg:gap-0"
+                                    bind:this={docsScrollEl}
+                                    {@attach scrollFade({ start: false, size: 56, target: 'parent' })}
+                                    class={`h-full overflow-y-auto overscroll-contain ${fadeY}`}
                                 >
-                                    {@render children?.()}
+                                    <div
+                                        class="flex w-full flex-col gap-5 px-5 pt-8 pb-16 sm:px-10 lg:flex-row lg:gap-0"
+                                    >
+                                        {@render children?.()}
+                                    </div>
                                 </div>
+                                <ScrollEdge edge="bottom" />
                             </div>
                         {/if}
                     </div>

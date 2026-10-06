@@ -1,4 +1,5 @@
 <script lang="ts">
+    import { fadeY, scrollFade } from '$lib/components/shell/scroll-fade';
     import { createPageOutline } from './page-outline.svelte';
 
     let { content }: { content: HTMLElement | undefined } = $props();
@@ -8,7 +9,10 @@
 {#if outline.headings.length}
     <nav aria-label="On this page" class="flex flex-col gap-2">
         <h2 class="text-xs font-medium text-foreground-muted">On this page</h2>
-        <div class="flex flex-col">
+        <div
+            {@attach scrollFade({ size: 28 })}
+            class={`flex max-h-[calc(100svh-var(--spacing)*56)] flex-col overflow-y-auto overscroll-contain ${fadeY}`}
+        >
             {#each outline.headings as heading (heading.id)}
                 <a
                     href={`#${heading.id}`}

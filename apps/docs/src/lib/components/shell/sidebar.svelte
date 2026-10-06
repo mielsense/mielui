@@ -11,6 +11,8 @@
     import type { Snippet } from 'svelte';
     import { goto } from '$app/navigation';
     import { resolve } from '$app/paths';
+    import ScrollEdge from './scroll-edge.svelte';
+    import { fadeY, scrollFade } from './scroll-fade';
     import { getShell } from './shell.svelte';
 
     const {
@@ -101,10 +103,14 @@
                 <Tooltip.Content>Hide sidebar</Tooltip.Content>
             </Tooltip.Root>
         </div>
-        <div
-            class="flex min-h-0 flex-1 flex-col overflow-y-auto overscroll-contain [mask-image:linear-gradient(to_bottom,black_calc(100%-var(--spacing)*6),transparent)]"
-        >
-            {@render children()}
+        <div class="relative flex min-h-0 flex-1 flex-col">
+            <div
+                {@attach scrollFade({ start: false, size: 56, target: 'parent' })}
+                class={`flex min-h-0 flex-1 flex-col overflow-y-auto overscroll-contain ${fadeY}`}
+            >
+                {@render children()}
+            </div>
+            <ScrollEdge edge="bottom" />
         </div>
         {@render footer?.()}
     </div>

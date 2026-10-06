@@ -6,9 +6,9 @@
     import { Gauge } from '@mielui/svelte/components/gauge';
     import * as Heatmap from '@mielui/svelte/components/heatmap';
     import * as PieChart from '@mielui/svelte/components/pie-chart';
-    import { ScrollArea } from '@mielui/svelte/components/scroll-area';
     import { Switch } from '@mielui/svelte/components/switch';
     import * as Tabs from '@mielui/svelte/components/tabs';
+    import FadeScrollArea from '$lib/components/shell/fade-scroll-area.svelte';
     import { demoCardClass } from './demo-card';
 
     let year = $state('2026');
@@ -74,7 +74,7 @@
     const cardClass = demoCardClass;
 </script>
 
-<ScrollArea class="h-full min-h-0" showCues={false}>
+<FadeScrollArea class="h-full">
     <div class="@container w-full">
         <div class="flex flex-wrap items-center justify-between gap-3 px-5 pt-5">
             <h2 class="m-0 text-[15px] leading-6 font-medium text-foreground">Analytics</h2>
@@ -245,4 +245,4 @@
             </div>
         {/key}
     </div>
-</ScrollArea>
+</FadeScrollArea>
