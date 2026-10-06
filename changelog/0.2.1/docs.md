@@ -37,3 +37,4 @@
 - Add a Placement and timing section to the Hover Card page, with an example for each side.
 - Describe every prop of every component in the API reference.
 - Let page text use the full width of the content column.
+- Bring the Markdown versions of Introduction and Installation, used by Copy page and `llms.txt`, in line with the rewritten pages.
