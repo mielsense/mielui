@@ -38,3 +38,4 @@
 - Describe every prop of every component in the API reference.
 - Let page text use the full width of the content column.
 - Bring the Markdown versions of Introduction and Installation, used by Copy page and `llms.txt`, in line with the rewritten pages.
+- Search finds section headings and prop names, so "placement" or "closeDelay" lead to the right page.

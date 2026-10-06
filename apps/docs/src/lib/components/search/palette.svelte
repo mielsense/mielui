@@ -1,6 +1,8 @@
 <script lang="ts">
     import {
         Clock01Icon as Clock,
+        CodeIcon as Code,
+        HashtagIcon as Hash,
         Moon02Icon as Moon,
         PaintBoardIcon as Palette,
         Add01Icon as Plus,
@@ -19,6 +21,7 @@
     import { componentGuidePages } from '$lib/docs-pages';
 
     import { getSearch } from './context';
+    import type { SearchEntry, SearchIndex } from './types';
 
     type Entry = {
         label: string;
@@ -86,8 +89,46 @@
         mode.current === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'
     );
 
+    let index = $state<SearchIndex>();
+    let indexRequested = false;
+
+    const needle = $derived(query.trim().toLowerCase());
+    const sectionMatches = $derived(matchEntries(index?.sections, 8));
+    const propMatches = $derived(matchEntries(index?.props, 14));
+
+    function matchEntries(entries: SearchEntry[] | undefined, limit: number) {
+        if (!entries || needle.length < 2) {
+            return [];
+        }
+        const starts = entries.filter((entry) => entry.label.toLowerCase().startsWith(needle));
+        const contains = entries.filter((entry) => {
+            const label = entry.label.toLowerCase();
+
+            return !label.startsWith(needle) && label.includes(needle);
+        });
+
+        return [...starts, ...contains].slice(0, limit);
+    }
+
+    async function loadIndex() {
+        if (indexRequested) {
+            return;
+        }
+        indexRequested = true;
+        try {
+            const response = await fetch(resolve('/api/search-index.json'));
+            if (response.ok) {
+                index = await response.json();
+            }
+        } catch {
+            indexRequested = false;
+        }
+    }
+
     $effect(() => {
-        if (!search.open) {
+        if (search.open) {
+            void loadIndex();
+        } else {
             query = '';
         }
     });
@@ -187,12 +228,26 @@
                     {/each}
                 </Command.Group>
             {/if}
+            {#if sectionMatches.length}
+                <Command.Group heading="Sections">
+                    {#each sectionMatches as entry (`${entry.href}:${entry.label}`)}
+                        {@render row({ ...entry, icon: Hash })}
+                    {/each}
+                </Command.Group>
+            {/if}
+            {#if propMatches.length}
+                <Command.Group heading="Props">
+                    {#each propMatches as entry (`${entry.href}:${entry.hint}:${entry.label}`)}
+                        {@render row({ ...entry, icon: Code })}
+                    {/each}
+                </Command.Group>
+            {/if}
         </Command.Results>
     </Command.Content>
 </Command.Root>
 
 {#snippet row(entry: Entry)}
-    <Command.Item name={entry.label} href={entry.href}>
+    <Command.Item name={`${entry.label} ${entry.hint}`} href={entry.href}>
         <HugeiconsIcon icon={entry.icon} size={18} class="shrink-0 text-foreground-muted" />
         <span class="min-w-0 flex-1 truncate">{entry.label}</span>
         {#if entry.hint}
