@@ -6,6 +6,17 @@
     import EditorSection from './section.svelte';
 
     const editor = getThemeEditor();
+
+    function resetAxis(axis: 'radius' | 'density') {
+        const base = editor.baseline[axis];
+
+        return {
+            changed: editor.state.theme[axis] !== base,
+            run: () => {
+                editor.state.theme = { ...editor.state.theme, [axis]: base };
+            }
+        };
+    }
 </script>
 
 <EditorSection title="Shape and spacing" keywords="corners rounded size padding">
@@ -20,8 +31,9 @@
                         if (isRadiusScale(value)) {
                             editor.state.theme = { ...editor.state.theme, radius: value };
                         }
-                    }
-                )}
+                    },
+        resetAxis('radius')
+    )}
     {@render feelSelect(
                     'Density',
                     editor.state.theme.density,
@@ -33,6 +45,7 @@
                         if (isDensity(value)) {
                             editor.state.theme = { ...editor.state.theme, density: value };
                         }
-                    }
-                )}
+                    },
+        resetAxis('density')
+    )}
 </EditorSection>

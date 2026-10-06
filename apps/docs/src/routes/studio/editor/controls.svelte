@@ -14,7 +14,7 @@
     import HugeiconsIcon from '@mielui/svelte/hugeicons-icon';
     import { easingOptions, normalizeEase } from '$lib/studio-advanced-tokens';
     import { type FontWeight, fontWeights, formatChoice } from './config';
-    import Row from './row.svelte';
+    import Row, { type SettingReset } from './row.svelte';
 
     export {
         advancedButton,
@@ -87,9 +87,10 @@
     value: string,
     options: readonly string[],
     openAdvanced: () => void,
-    onChange: (value: string) => void
+    onChange: (value: string) => void,
+    reset: SettingReset | undefined = undefined
 )}
-    <Row {label} wide>
+    <Row {label} wide {reset}>
         <Group.Root class="w-full" aria-label={label}>
             <Select.Root {value} onValueChange={onChange}>
                 <Select.Trigger class="min-w-0 flex-1" variant="outline" aria-label={label}>
@@ -114,8 +115,10 @@
     </Row>
 {/snippet}
 
-{#snippet weightControl(label: string, value: FontWeight, onChange: (value: FontWeight) => void)}
-    <Row {label} wide>
+{#snippet weightControl(label: string, value: FontWeight, onChange: (value: FontWeight) => void,
+    reset: SettingReset | undefined = undefined
+)}
+    <Row {label} wide {reset}>
         {@render toggleChoice(fontWeights, value, `${label} weight`, (next) => {
             if (next === '400' || next === '500' || next === '600' || next === '700') {
                 onChange(next);
@@ -131,9 +134,10 @@
         label: string;
         value: string;
     }[],
-    onChange: (value: string) => void
+    onChange: (value: string) => void,
+    reset: SettingReset | undefined = undefined
 )}
-    <Row {label} wide>
+    <Row {label} wide {reset}>
         <div class="min-w-0" role="group" aria-label={`${label} color`}>
             <ColorPicker.Root {value} onValueChange={onChange} {options}>
                 <ColorPicker.Trigger class="w-full" />

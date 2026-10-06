@@ -13,6 +13,7 @@
         baseSwatches,
         borderSwatches,
         brandSwatches,
+        type FoundationPalette,
         foregroundSwatches,
         onPrimarySwatches,
         secondarySwatches
@@ -24,6 +25,32 @@
 
     const editor = getThemeEditor();
     const filter = getSettingFilter();
+
+    function sameColor(first: string | undefined, second: string | undefined) {
+        return (first ?? '').toLowerCase() === (second ?? '').toLowerCase();
+    }
+
+    function resetBrand() {
+        const base = editor.baseline.brand[editor.appMode];
+
+        return {
+            changed: !sameColor(editor.state.brandColors[editor.appMode], base),
+            run: () => editor.updateBrand(base)
+        };
+    }
+
+    function resetFoundation(key: keyof FoundationPalette) {
+        const base = editor.baseline.foundation[editor.appMode][key];
+
+        return {
+            changed: !sameColor(editor.state.foundationColors[editor.appMode][key], base),
+            run: () => {
+                if (base !== undefined) {
+                    editor.updateFoundationColor(key, base);
+                }
+            }
+        };
+    }
 </script>
 
 <EditorSection title="Color" keywords="palette colour text chart">
@@ -49,48 +76,54 @@
                         'Brand',
                         editor.state.brandColors[editor.appMode],
                         brandSwatches,
-                        editor.updateBrand
-                    )}
+                        editor.updateBrand,
+            resetBrand()
+        )}
     {@render colorPickerControl(
                         'On brand',
                         editor.state.foundationColors[editor.appMode].onPrimary,
                         onPrimarySwatches,
                         (value) => {
                             editor.updateFoundationColor('onPrimary', value);
-                        }
-                    )}
+                        },
+            resetFoundation('onPrimary')
+        )}
     {@render colorPickerControl(
                         'Base',
                         editor.state.foundationColors[editor.appMode].base,
                         baseSwatches,
                         (value) => {
                             editor.updateFoundationColor('base', value);
-                        }
-                    )}
+                        },
+            resetFoundation('base')
+        )}
     {@render colorPickerControl(
                         'Border',
                         editor.state.foundationColors[editor.appMode].border,
                         borderSwatches,
                         (value) => {
                             editor.updateFoundationColor('border', value);
-                        }
-                    )}
+                        },
+            resetFoundation('border')
+        )}
     {@render colorPickerControl(
                         'Background',
                         editor.state.foundationColors[editor.appMode].background,
                         backgroundSwatches,
                         (value) => {
                             editor.updateFoundationColor('background', value);
-                        }
-                    )}
+                        },
+            resetFoundation('background')
+        )}
     {@render colorPickerControl(
                         'Secondary',
                         editor.state.foundationColors[editor.appMode].secondary,
                         secondarySwatches,
                         (value) => {
                             editor.updateFoundationColor('secondary', value);
-                        }
-                    )}
+                        },
+            resetFoundation('secondary')
+        )}
     {#if filter.active}
         {@render textColors()}
     {:else}
@@ -140,24 +173,27 @@
                         foregroundSwatches,
                         (value) => {
                             editor.updateFoundationColor('foregroundMuted', value);
-                        }
-                    )}
+                        },
+            resetFoundation('foregroundMuted')
+        )}
     {@render colorPickerControl(
                         'Foreground',
                         editor.state.foundationColors[editor.appMode].foreground,
                         foregroundSwatches,
                         (value) => {
                             editor.updateFoundationColor('foreground', value);
-                        }
-                    )}
+                        },
+            resetFoundation('foreground')
+        )}
     {@render colorPickerControl(
                         'Button text',
                         editor.state.foundationColors[editor.appMode].buttonForeground,
                         foregroundSwatches,
                         (value) => {
                             editor.updateFoundationColor('buttonForeground', value);
-                        }
-                    )}
+                        },
+            resetFoundation('buttonForeground')
+        )}
 {/snippet}
 
 {#snippet chartColors()}

@@ -9,13 +9,34 @@
     import EditorSection from './section.svelte';
 
     const editor = getThemeEditor();
+
+    function resetFont(
+        selected: 'selectedSans' | 'selectedHeader' | 'selectedMono',
+        base: 'sans' | 'header' | 'mono'
+    ) {
+        return {
+            changed: editor.state[selected] !== editor.baseline[base],
+            run: () => {
+                editor.state[selected] = editor.baseline[base];
+            }
+        };
+    }
+
+    function resetWeight(role: 'body' | 'label' | 'button' | 'badge' | 'description') {
+        const base = editor.baseline.roleWeights[role];
+
+        return {
+            changed: editor.state.roleWeights[role] !== base,
+            run: () => editor.updateRoleWeight(role, base)
+        };
+    }
     const headerFont = $derived(
         headerFonts.find((font) => font.key === editor.state.selectedHeader)
     );
 </script>
 
 <EditorSection title="Typography" keywords="font type family">
-    <Row label="Sans" wide>
+    <Row label="Sans" wide reset={resetFont('selectedSans', 'sans')}>
         <Select.Root bind:value={editor.state.selectedSans}>
             <Select.Trigger class="w-full min-w-0" variant="outline" aria-label="Sans font">
                 <span class="truncate">
@@ -32,7 +53,7 @@
             </Select.Content>
         </Select.Root>
     </Row>
-    <Row label="Header" wide>
+    <Row label="Header" wide reset={resetFont('selectedHeader', 'header')}>
         <Select.Root bind:value={editor.state.selectedHeader}>
             <Select.Trigger class="w-full min-w-0" variant="outline" aria-label="Header font">
                 <span class="truncate" style:font-family={headerFont?.value}>
@@ -62,7 +83,7 @@
             </Select.Content>
         </Select.Root>
     </Row>
-    <Row label="Mono" wide>
+    <Row label="Mono" wide reset={resetFont('selectedMono', 'mono')}>
         <Select.Root bind:value={editor.state.selectedMono}>
             <Select.Trigger
                 class="w-full min-w-0 font-mono"
@@ -83,7 +104,15 @@
             </Select.Content>
         </Select.Root>
     </Row>
-    <Row label="Header size">
+    <Row
+        label="Header size"
+        reset={{
+            changed: editor.state.headerSize !== editor.baseline.headerSize,
+            run: () => {
+                editor.state.headerSize = editor.baseline.headerSize;
+            }
+        }}
+    >
         <span
             class="text-sm tabular-nums text-foreground"
             use:numberShuffle={{
@@ -104,20 +133,25 @@
 <EditorSection title="Font weights" keywords="typography bold">
     {@render weightControl('Header', editor.state.headerWeight, (value) => {
         editor.state.headerWeight = value;
+    }, {
+        changed: editor.state.headerWeight !== editor.baseline.headerWeight,
+        run: () => {
+            editor.state.headerWeight = editor.baseline.headerWeight;
+        }
     })}
     {@render weightControl('Body', editor.state.roleWeights.body, (value) => {
         editor.updateRoleWeight('body', value);
-    })}
+    }, resetWeight('body'))}
     {@render weightControl('Label', editor.state.roleWeights.label, (value) => {
         editor.updateRoleWeight('label', value);
-    })}
+    }, resetWeight('label'))}
     {@render weightControl('Button', editor.state.roleWeights.button, (value) => {
         editor.updateRoleWeight('button', value);
-    })}
+    }, resetWeight('button'))}
     {@render weightControl('Badge', editor.state.roleWeights.badge, (value) => {
         editor.updateRoleWeight('badge', value);
-    })}
+    }, resetWeight('badge'))}
     {@render weightControl('Description', editor.state.roleWeights.description, (value) => {
         editor.updateRoleWeight('description', value);
-    })}
+    }, resetWeight('description'))}
 </EditorSection>

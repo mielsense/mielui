@@ -9,17 +9,38 @@
 
     const editor = getThemeEditor();
     const edgePercent = $derived(Math.round(editor.state.edgeHighlight * 100));
+
+    type AppearanceKey =
+        | 'borders'
+        | 'insetPosition'
+        | 'glassSurfaces'
+        | 'edgeHighlight'
+        | 'primaryStroke'
+        | 'surfaceShadows'
+        | 'controlShadows'
+        | 'dialogShadows';
+
+    function resetAppearance<Key extends AppearanceKey>(key: Key) {
+        const base = editor.baseline.appearance[key];
+
+        return {
+            changed: editor.state[key] !== base,
+            run: () => {
+                Object.assign(editor.state, { [key]: base });
+            }
+        };
+    }
 </script>
 
 <EditorSection title="Surfaces" keywords="glass frame inset">
-    <Row label="Borders" wide>
+    <Row label="Borders" wide reset={resetAppearance('borders')}>
         {@render toggleChoice(['single', 'double'], editor.state.borders, 'Borders', (value) => {
             if (value === 'single' || value === 'double') {
                 editor.state.borders = value;
             }
         })}
     </Row>
-    <Row label="Inset strip" wide>
+    <Row label="Inset strip" wide reset={resetAppearance('insetPosition')}>
         {@render toggleChoice(
             ['top', 'bottom'],
             editor.state.insetPosition,
@@ -31,13 +52,13 @@
             }
         )}
     </Row>
-    <Row label="Glass surfaces">
+    <Row label="Glass surfaces" reset={resetAppearance('glassSurfaces')}>
         <Switch bind:checked={editor.state.glassSurfaces} aria-label="Glass surfaces" />
     </Row>
 </EditorSection>
 
 <EditorSection title="Edges" keywords="highlight stroke outline">
-    <Row label="Edge highlight">
+    <Row label="Edge highlight" reset={resetAppearance('edgeHighlight')}>
         <Switch
             bind:checked={() => editor.state.edgeHighlight > 0, editor.setEdgeHighlightEnabled}
             aria-label="Edge highlight"
@@ -71,19 +92,19 @@
             {/snippet}
         </Row>
     {/if}
-    <Row label="Primary button border">
+    <Row label="Primary button border" reset={resetAppearance('primaryStroke')}>
         <Switch bind:checked={editor.state.primaryStroke} aria-label="Primary button border" />
     </Row>
 </EditorSection>
 
 <EditorSection title="Shadows" keywords="elevation depth">
-    <Row label="Cards and menus">
+    <Row label="Cards and menus" reset={resetAppearance('surfaceShadows')}>
         <Switch bind:checked={editor.state.surfaceShadows} aria-label="Cards and menus" />
     </Row>
-    <Row label="Controls">
+    <Row label="Controls" reset={resetAppearance('controlShadows')}>
         <Switch bind:checked={editor.state.controlShadows} aria-label="Controls" />
     </Row>
-    <Row label="Dialogs and sheets">
+    <Row label="Dialogs and sheets" reset={resetAppearance('dialogShadows')}>
         <Switch bind:checked={editor.state.dialogShadows} aria-label="Dialogs and sheets" />
     </Row>
 </EditorSection>

@@ -47,6 +47,32 @@ export function createThemeEditor() {
 
     const appMode = $derived(mode.current === 'dark' ? 'dark' : 'light');
 
+    /** Values of the selected preset, which each setting resets to. */
+    const baseline = $derived.by(() => {
+        const base = state.baseTheme;
+
+        return {
+            appearance: readThemeAppearance(base),
+            brand: {
+                light: base.tokens?.light?.['--color-primary'] ?? base.brand,
+                dark: base.tokens?.dark?.['--color-primary'] ?? base.brand
+            },
+            foundation: {
+                light: { ...DEFAULT_FOUNDATION_COLORS.light, ...base.foundation?.light },
+                dark: { ...DEFAULT_FOUNDATION_COLORS.dark, ...base.foundation?.dark }
+            },
+            radius: base.radius,
+            density: base.density,
+            motion: base.motion,
+            headerSize: base.typography?.headerSize ?? 16,
+            headerWeight: base.typography?.headerWeight ?? '600',
+            roleWeights: { ...DEFAULT_ROLE_WEIGHTS, ...base.typography?.roleWeights },
+            sans: findSansKey(base.fontSans),
+            header: findHeaderKey(base.fontHeader),
+            mono: findMonoKey(base.fontMono)
+        };
+    });
+
     const appModeBinding = {
         get value() {
             return appMode;
@@ -479,6 +505,9 @@ export function createThemeEditor() {
         confirmPresetChange,
         acceptSharedTheme,
         dismissSharedTheme,
+        get baseline() {
+            return baseline;
+        },
         get sharedTheme() {
             return sharedTheme;
         },

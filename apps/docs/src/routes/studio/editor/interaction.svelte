@@ -7,6 +7,17 @@
     import EditorSection from './section.svelte';
 
     const editor = getThemeEditor();
+
+    function resetAppearance(key: 'travelingHighlight' | 'interactiveCursor') {
+        const base = editor.baseline.appearance[key];
+
+        return {
+            changed: editor.state[key] !== base,
+            run: () => {
+                Object.assign(editor.state, { [key]: base });
+            }
+        };
+    }
 </script>
 
 <EditorSection title="Interaction" keywords="motion animation pointer">
@@ -21,12 +32,18 @@
             if (isMotionFeel(value)) {
                 editor.state.theme = { ...editor.state.theme, motion: value };
             }
+        },
+        {
+            changed: editor.state.theme.motion !== editor.baseline.motion,
+            run: () => {
+                editor.state.theme = { ...editor.state.theme, motion: editor.baseline.motion };
+            }
         }
     )}
-    <Row label="Traveling highlight">
+    <Row label="Traveling highlight" reset={resetAppearance('travelingHighlight')}>
         <Switch bind:checked={editor.state.travelingHighlight} aria-label="Traveling highlight" />
     </Row>
-    <Row label="Hover cursor" wide>
+    <Row label="Hover cursor" wide reset={resetAppearance('interactiveCursor')}>
         {@render toggleChoice(
             cursorChoices,
             editor.state.interactiveCursor,

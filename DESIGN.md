@@ -493,7 +493,8 @@ chart colors, use a disclosure inside their group. A search field above the
 groups filters settings by name. A query that matches a row shows that row in its
 group. A query that matches only a group's title or keywords shows the whole
 group. Disclosures open while searching, and an empty result offers a Clear
-search button. Each preset in the picker shows a swatch of its brand color. Copy share link
+search button. A setting that differs from the selected preset shows a small reset button
+beside its label, which puts that one setting back. Each preset in the picker shows a swatch of its brand color. Copy share link
 puts the whole theme in the link's hash, so nothing is stored on a server.
 Opening such a link asks before it replaces the current draft. The export actions stay pinned
 under the scrolling groups. The preview fills the content column under the top bar.
