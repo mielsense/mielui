@@ -2,9 +2,14 @@
     import { CodeBlock } from '@mielui/svelte/components/code-block';
     import * as Typography from '@mielui/svelte/components/typography';
     import { ComponentPreview, InstallCommand } from '$lib/components/docs';
+    import InlineText from '$lib/components/docs/inline-text.svelte';
     import PageIntro from '$lib/components/docs/page-intro.svelte';
     import Constraints from './examples/constraints.svelte';
     import ConstraintsSrc from './examples/constraints.svelte?raw';
+    import EventsExample from './examples/events.svelte';
+    import EventsExampleSrc from './examples/events.svelte?raw';
+    import ExcludeDisabledExample from './examples/exclude-disabled.svelte';
+    import ExcludeDisabledExampleSrc from './examples/exclude-disabled.svelte?raw';
     import Hero from './examples/hero.svelte';
     import HeroSrc from './examples/hero.svelte?raw';
     import Example0 from './examples/two-months.svelte';
@@ -94,5 +99,58 @@
             because dates outside the month are unavailable.
         </Typography.Text>
         <ComponentPreview code={ConstraintsSrc}><Constraints /></ComponentPreview>
+    </section>
+    <section id="range-events" class="flex flex-col gap-4">
+        <Typography.H2 class="docs-section-heading">Range events</Typography.H2>
+        <Typography.Text variant="supporting">
+            <InlineText
+                text={"`onValueChange` runs when the range changes. A range is only complete once both ends are set, so `onStartValueChange` and `onEndValueChange` report each end as it is picked, before the range is whole. Use them to react to the first click."}
+            />
+        </Typography.Text>
+        <Typography.Text variant="supporting">
+            <InlineText
+                text={"`preventDeselect` stops a click on a selected end from clearing the range. `onPlaceholderChange` runs when the visible month changes, and `disabled` on Root turns the whole calendar off."}
+            />
+        </Typography.Text>
+        <ComponentPreview code={EventsExampleSrc}>
+            <EventsExample />
+        </ComponentPreview>
+    </section>
+    <section id="unavailable-dates" class="flex flex-col gap-4">
+        <Typography.H2 class="docs-section-heading">Unavailable and disabled dates</Typography.H2>
+        <Typography.Text variant="supporting">
+            <InlineText
+                text={"`isDateDisabled` removes a date from play: it cannot be focused or picked. `isDateUnavailable` is softer. An unavailable date is struck through and can still be focused, so keyboard users can read why it is off limits, and picking it marks the value invalid."}
+            />
+        </Typography.Text>
+        <Typography.Text variant="supporting">
+            <InlineText
+                text={"A range can be drawn across disabled dates. Set `excludeDisabled` to clear the range instead whenever it would contain one, so a booking never spans a closed day."}
+            />
+        </Typography.Text>
+        <ComponentPreview code={ExcludeDisabledExampleSrc}>
+            <ExcludeDisabledExample />
+        </ComponentPreview>
+    </section>
+    <section id="grid-and-formats" class="flex flex-col gap-4">
+        <Typography.H2 class="docs-section-heading">Grid, formats and parts</Typography.H2>
+        <Typography.Text variant="supporting">
+            <InlineText
+                text={"`weekStartsOn` sets the first column, from 0 for Sunday to 6 for Saturday, and falls back to the locale. `weekdayFormat` picks `narrow`, `short` or `long` weekday names. `fixedWeeks` is on by default and always draws six rows so the height never jumps between months. Turn it off to draw only the weeks a month needs. Days from the neighbouring months fill the grid, and `disableDaysOutsideMonth` makes them unselectable."}
+            />
+        </Typography.Text>
+        <Typography.Text variant="supporting">
+            <InlineText
+                text={"`monthFormat` and `yearFormat` on Root control how the heading and the selects name months and years. Each takes an `Intl` style such as `short` or `2-digit`, or a function that receives the number and returns the text. MonthSelect and YearSelect take the same two props to override the format for their own options, and YearSelect takes `years`, the exact list of years to offer."}
+            />
+        </Typography.Text>
+        <Typography.Text variant="supporting">
+            <InlineText
+                text={"When you compose the calendar yourself, every part except Root and Month accepts `child`, a snippet that receives the part's props so you can render your own element with them, and `style` for inline styles. Month takes `showHeading` to print the month name above its grid, which Root turns on by itself when it shows more than one month."}
+            />
+        </Typography.Text>
+        <Typography.Text variant="supporting">
+            <InlineText text={"Root also accepts `style`."} />
+        </Typography.Text>
     </section>
 </div>

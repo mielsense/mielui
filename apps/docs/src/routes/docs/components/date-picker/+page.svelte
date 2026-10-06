@@ -2,7 +2,10 @@
     import { CodeBlock } from '@mielui/svelte/components/code-block';
     import * as Typography from '@mielui/svelte/components/typography';
     import { ComponentPreview, InstallCommand } from '$lib/components/docs';
+    import InlineText from '$lib/components/docs/inline-text.svelte';
     import PageIntro from '$lib/components/docs/page-intro.svelte';
+    import CalendarOptionsExample from './examples/calendar-options.svelte';
+    import CalendarOptionsExampleSrc from './examples/calendar-options.svelte?raw';
     import Example1 from './examples/disabled.svelte';
     import Example1Src from './examples/disabled.svelte?raw';
     import FormExample from './examples/form.svelte';
@@ -11,6 +14,10 @@
     import HeroSrc from './examples/hero.svelte?raw';
     import Example0 from './examples/localized.svelte';
     import Example0Src from './examples/localized.svelte?raw';
+    import StayOpenExample from './examples/stay-open.svelte';
+    import StayOpenExampleSrc from './examples/stay-open.svelte?raw';
+    import ValidateExample from './examples/validate.svelte';
+    import ValidateExampleSrc from './examples/validate.svelte?raw';
 </script>
 
 <svelte:head>
@@ -121,5 +128,79 @@
             lang="svelte"
             copy="overlay"
         />
+    </section>
+    <section id="calendar-options" class="flex flex-col gap-4">
+        <Typography.H2 class="docs-section-heading">Calendar options</Typography.H2>
+        <Typography.Text variant="supporting">
+            <InlineText
+                text={"Root passes the calendar's options through to the panel. `isDateDisabled` removes a date from play: it cannot be focused or picked. `isDateUnavailable` is softer. An unavailable date is struck through and can still be focused, so keyboard users can read why it is off limits, and picking it marks the value invalid."}
+            />
+        </Typography.Text>
+        <Typography.Text variant="supporting">
+            <InlineText
+                text={"`numberOfMonths` shows more than one month and `pagedNavigation` makes the arrows jump by that many. `weekdayFormat`, `fixedWeeks` and `disableDaysOutsideMonth` shape the grid the same way they do on [Calendar](/docs/components/calendar), and `monthFormat` and `yearFormat` name the months and years."}
+            />
+        </Typography.Text>
+        <Typography.Text variant="supporting">
+            <InlineText
+                text={"`preventDeselect` keeps a date selected when it is clicked again. `onValueChange` runs with each new date, and `onPlaceholderChange` runs when the visible month changes. `initialFocus` puts keyboard focus on a day as soon as the panel opens."}
+            />
+        </Typography.Text>
+        <ComponentPreview code={CalendarOptionsExampleSrc}>
+            <CalendarOptionsExample />
+        </ComponentPreview>
+    </section>
+    <section id="opening-and-closing" class="flex flex-col gap-4">
+        <Typography.H2 class="docs-section-heading">Opening and closing</Typography.H2>
+        <Typography.Text variant="supporting">
+            <InlineText
+                text={"Bind `open` on Root to control the panel, and use `onOpenChange` to hear about each change. `onOpenChangeComplete` runs after the open or close animation has finished. The panel closes once a date is picked. Set `closeOnDateSelect={false}` to keep it open, which helps when people compare a few dates before deciding."}
+            />
+        </Typography.Text>
+        <Typography.Text variant="supporting">
+            <InlineText
+                text={"Trigger opens the panel on click. `openOnHover` opens it when the pointer rests on the button, with `openDelay` and `closeDelay` in milliseconds for how long to wait."}
+            />
+        </Typography.Text>
+        <ComponentPreview code={StayOpenExampleSrc}>
+            <StayOpenExample />
+        </ComponentPreview>
+    </section>
+    <section id="validation-and-field" class="flex flex-col gap-4">
+        <Typography.H2 class="docs-section-heading">Validation and the typed field</Typography.H2>
+        <Typography.Text variant="supporting">
+            <InlineText
+                text={"`validate` receives the date and returns an error message, or a list of them, when your own rule rejects it. `onInvalid` then runs with the reason and that message, which is where you show the error. Built-in limits such as `minValue` report through the same callback."}
+            />
+        </Typography.Text>
+        <Typography.Text variant="supporting">
+            <InlineText
+                text={"The typed field has its own options on Root. `granularity` decides which segments it shows, from `day` down to `second`, `hourCycle` picks a 12 or 24 hour clock, and `hideTimeZone` drops the zone name. `readonlySegments` locks the segments you list while the rest stay editable."}
+            />
+        </Typography.Text>
+        <ComponentPreview code={ValidateExampleSrc}>
+            <ValidateExample />
+        </ComponentPreview>
+    </section>
+    <section id="panel-position" class="flex flex-col gap-4">
+        <Typography.H2 class="docs-section-heading">Panel position and dismissal</Typography.H2>
+        <Typography.Text variant="supporting">
+            <InlineText
+                text={"Content positions the calendar panel. `side` picks the edge of the field it opens from and flips when there is no room, `sideOffset` is the gap in pixels, and `alignOffset` nudges it along that edge. `avoidCollisions`, `collisionBoundary` and `collisionPadding` control how it stays inside the viewport or another container. `sticky` keeps it in view while the field scrolls, `hideWhenDetached` hides it once the field scrolls away, and `customAnchor` positions it against a different element. `strategy` switches between absolute and fixed positioning, `updatePositionStrategy` set to `always` re-measures every frame for a field that moves, and `arrowPadding` and `dir` cover arrows and right-to-left text."}
+            />
+        </Typography.Text>
+        <Typography.Text variant="supporting">
+            <InlineText
+                text={"The same part owns dismissal and focus. `interactOutsideBehavior` and `escapeKeydownBehavior` take `close`, `ignore`, or one of the two defer values that ask a parent layer first. `onInteractOutside`, `onFocusOutside` and `onEscapeKeydown` run for each event and can call `preventDefault()` to keep the panel open. `trapFocus`, `preventScroll` and `preventOverflowTextSelection` decide whether Tab, page scrolling and text selection can leave the panel, and `onOpenAutoFocus` and `onCloseAutoFocus` let you redirect focus when it opens and closes. `surface` picks solid or glass, and `portal={false}` renders the panel in place."}
+            />
+        </Typography.Text>
+        <Typography.Text variant="supporting">
+            <InlineText
+                text={"When you compose the calendar yourself, every part except Root and Month accepts `child`, a snippet that receives the part's props so you can render your own element with them, and `style` for inline styles. Month takes `showHeading` to print the month name above its grid, which Root turns on by itself when it shows more than one month."}
+            />
+        </Typography.Text>
+        <Typography.Text variant="supporting">
+            <InlineText text={"Root, Input, Trigger, Calendar and Content also accept `style`."} />
+        </Typography.Text>
     </section>
 </div>

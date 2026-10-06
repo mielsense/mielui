@@ -2,9 +2,14 @@
     import { CodeBlock } from '@mielui/svelte/components/code-block';
     import * as Typography from '@mielui/svelte/components/typography';
     import { ComponentPreview, InstallCommand } from '$lib/components/docs';
+    import InlineText from '$lib/components/docs/inline-text.svelte';
     import PageIntro from '$lib/components/docs/page-intro.svelte';
     import Example1 from './examples/disabled.svelte';
     import Example1Src from './examples/disabled.svelte?raw';
+    import EventsExample from './examples/events.svelte';
+    import EventsExampleSrc from './examples/events.svelte?raw';
+    import ExcludeDisabledExample from './examples/exclude-disabled.svelte';
+    import ExcludeDisabledExampleSrc from './examples/exclude-disabled.svelte?raw';
     import FormExample from './examples/form.svelte';
     import FormExampleSrc from './examples/form.svelte?raw';
     import Hero from './examples/hero.svelte';
@@ -124,5 +129,80 @@
             lang="svelte"
             copy="overlay"
         />
+    </section>
+    <section id="range-events" class="flex flex-col gap-4">
+        <Typography.H2 class="docs-section-heading">Range events</Typography.H2>
+        <Typography.Text variant="supporting">
+            <InlineText
+                text={"`onValueChange` runs when the range changes. `onStartValueChange` and `onEndValueChange` report each end as it is picked, before the range is complete. `preventDeselect` stops a click on a selected end from clearing the range, and `onPlaceholderChange` runs when the visible month changes."}
+            />
+        </Typography.Text>
+        <Typography.Text variant="supporting">
+            <InlineText
+                text={"The panel closes once both ends are picked. Set `closeOnRangeSelect={false}` to keep it open. Bind `open` to control it yourself, with `onOpenChange` for each change and `onOpenChangeComplete` for the moment the animation ends."}
+            />
+        </Typography.Text>
+        <ComponentPreview code={EventsExampleSrc}>
+            <EventsExample />
+        </ComponentPreview>
+    </section>
+    <section id="unavailable-dates" class="flex flex-col gap-4">
+        <Typography.H2 class="docs-section-heading">Unavailable and disabled dates</Typography.H2>
+        <Typography.Text variant="supporting">
+            <InlineText
+                text={"`isDateDisabled` removes a date from play: it cannot be focused or picked. `isDateUnavailable` is softer. An unavailable date is struck through and can still be focused, so keyboard users can read why it is off limits, and picking it marks the value invalid."}
+            />
+        </Typography.Text>
+        <Typography.Text variant="supporting">
+            <InlineText
+                text={"A range can be drawn across disabled dates. Set `excludeDisabled` to clear the range whenever it would contain one. `validate` receives the range and returns an error message when your own rule rejects it, and `onInvalid` runs with the reason and that message."}
+            />
+        </Typography.Text>
+        <ComponentPreview code={ExcludeDisabledExampleSrc}>
+            <ExcludeDisabledExample />
+        </ComponentPreview>
+    </section>
+    <section id="grid-and-field" class="flex flex-col gap-4">
+        <Typography.H2 class="docs-section-heading"
+            >Grid, formats and the typed fields</Typography.H2
+        >
+        <Typography.Text variant="supporting">
+            <InlineText
+                text={"`weekStartsOn` sets the first column, from 0 for Sunday to 6 for Saturday, and falls back to the locale. `weekdayFormat` picks `narrow`, `short` or `long` weekday names. `fixedWeeks` is on by default and always draws six rows so the height never jumps between months. Turn it off to draw only the weeks a month needs. Days from the neighbouring months fill the grid, and `disableDaysOutsideMonth` makes them unselectable."}
+            />
+        </Typography.Text>
+        <Typography.Text variant="supporting">
+            <InlineText
+                text={"`monthFormat` and `yearFormat` on Root control how the heading and the selects name months and years. Each takes an `Intl` style such as `short` or `2-digit`, or a function that receives the number and returns the text. MonthSelect and YearSelect take the same two props to override the format for their own options, and YearSelect takes `years`, the exact list of years to offer."}
+            />
+        </Typography.Text>
+        <Typography.Text variant="supporting">
+            <InlineText
+                text={"The typed field has its own options on Root. `granularity` decides which segments it shows, from `day` down to `second`, `hourCycle` picks a 12 or 24 hour clock, and `hideTimeZone` drops the zone name. `readonlySegments` locks the segments you list while the rest stay editable."}
+            />
+        </Typography.Text>
+    </section>
+    <section id="panel-position" class="flex flex-col gap-4">
+        <Typography.H2 class="docs-section-heading">Panel position and dismissal</Typography.H2>
+        <Typography.Text variant="supporting">
+            <InlineText
+                text={"Content positions the calendar panel. `side` picks the edge of the field it opens from and flips when there is no room, `sideOffset` is the gap in pixels, and `alignOffset` nudges it along that edge. `avoidCollisions`, `collisionBoundary` and `collisionPadding` control how it stays inside the viewport or another container. `sticky` keeps it in view while the field scrolls, `hideWhenDetached` hides it once the field scrolls away, and `customAnchor` positions it against a different element. `strategy` switches between absolute and fixed positioning, `updatePositionStrategy` set to `always` re-measures every frame for a field that moves, and `arrowPadding` and `dir` cover arrows and right-to-left text."}
+            />
+        </Typography.Text>
+        <Typography.Text variant="supporting">
+            <InlineText
+                text={"The same part owns dismissal and focus. `interactOutsideBehavior` and `escapeKeydownBehavior` take `close`, `ignore`, or one of the two defer values that ask a parent layer first. `onInteractOutside`, `onFocusOutside` and `onEscapeKeydown` run for each event and can call `preventDefault()` to keep the panel open. `trapFocus`, `preventScroll` and `preventOverflowTextSelection` decide whether Tab, page scrolling and text selection can leave the panel, and `onOpenAutoFocus` and `onCloseAutoFocus` let you redirect focus when it opens and closes. `surface` picks solid or glass, and `portal={false}` renders the panel in place."}
+            />
+        </Typography.Text>
+        <Typography.Text variant="supporting">
+            <InlineText
+                text={"When you compose the calendar yourself, every part except Root and Month accepts `child`, a snippet that receives the part's props so you can render your own element with them, and `style` for inline styles. Month takes `showHeading` to print the month name above its grid, which Root turns on by itself when it shows more than one month."}
+            />
+        </Typography.Text>
+        <Typography.Text variant="supporting">
+            <InlineText
+                text={"Root, Input, Trigger, Calendar and Content also accept `style`. Trigger takes `openOnHover` with `openDelay` and `closeDelay` to open the panel when the pointer rests on it."}
+            />
+        </Typography.Text>
     </section>
 </div>
