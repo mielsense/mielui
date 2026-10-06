@@ -6,3 +6,4 @@
 - File Diff added and removed rows keep their full tint in dark mode.
 - Number Field steppers use minus and plus icons instead of text glyphs. Source-copy installs now need `@hugeicons/core-free-icons`.
 - Radio Group leaves more room between options, so each description sits closer to its own label than to the next option.
+- Composer's toolbar and send button use the small control size, so the strip under the input is shorter.
