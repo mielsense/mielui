@@ -47,6 +47,18 @@ export type SliderProps = SliderBaseProps &
               thumbLabels?: never;
               /** Called with the new value when it changes. */
               onValueChange?: (value: number) => void;
+              /** Called once when a drag ends with a new value, and after each keyboard or typed change. */
+              onValueCommit?: (value: number) => void;
+              /**
+               * Field variant only. Lets people click the value, or press Enter, and type an exact
+               * number. Typed numbers snap to `step` and clamp to `min` and `max`.
+               */
+              editable?: boolean;
+              /**
+               * Turns typed text into a number for `editable`. Return `null` to reject it. Defaults
+               * to the first number in the text, so units such as `px` are ignored.
+               */
+              parse?: (text: string) => number | null;
           }
         | {
               /** Uses two thumbs and makes `value` a pair. */
@@ -58,6 +70,10 @@ export type SliderProps = SliderBaseProps &
               thumbLabels?: [string, string];
               /** Called with the new value when it changes. */
               onValueChange?: (value: [number, number]) => void;
+              /** Called once when a drag ends with a new pair, and after each keyboard change. */
+              onValueCommit?: (value: [number, number]) => void;
+              editable?: never;
+              parse?: never;
           }
     );
 

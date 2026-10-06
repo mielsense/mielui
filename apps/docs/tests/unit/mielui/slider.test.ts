@@ -39,6 +39,33 @@ describe('Slider', () => {
         expect(thumb).toHaveAttribute('aria-valuenow', '500');
     });
 
+    it('moves ten steps with Shift and an arrow key', async () => {
+        render(Slider, { value: 50, variant: 'field' });
+        const thumb = screen.getByRole('slider');
+        thumb.focus();
+        await userEvent.keyboard('{Shift>}{ArrowRight}{/Shift}');
+        expect(thumb).toHaveAttribute('aria-valuenow', '60');
+    });
+
+    it('takes a typed value when editable and reports the commit', async () => {
+        const onValueCommit = vi.fn();
+        render(Slider, {
+            value: 20,
+            variant: 'field',
+            label: 'Opacity',
+            editable: true,
+            onValueCommit
+        });
+        const thumb = screen.getByRole('slider', { name: 'Opacity' });
+        thumb.focus();
+        await userEvent.keyboard('{Enter}');
+        const input = screen.getByRole('textbox', { name: 'Opacity value' });
+        await userEvent.clear(input);
+        await userEvent.type(input, '250px{Enter}');
+        expect(thumb).toHaveAttribute('aria-valuenow', '100');
+        expect(onValueCommit).toHaveBeenLastCalledWith(100);
+    });
+
     it('exposes the supplied value', () => {
         render(Slider, { value: 42 });
         expect(screen.getByRole('slider')).toHaveAttribute('aria-valuenow', '42');

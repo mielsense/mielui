@@ -75,7 +75,7 @@
             handle. Use{' '}
             <Typography.InlineCode>aria-describedby</Typography.InlineCode>
             {' '}
-            for supporting instructions.
+            for supporting instructions. Arrow keys move one step, and holding Shift moves ten.
         </Typography.Text>
         <Typography.Text>
             Set{' '}
@@ -148,7 +148,18 @@
                 <Typography.InlineCode>format</Typography.InlineCode>
                 {' '}
                 turns the number into the text shown on the right and announced by screen readers.
-                The field variant holds one value and does not combine with{' '}
+                Add{' '}
+                <Typography.InlineCode>editable</Typography.InlineCode>
+                {' '}
+                to let people click the value, or press Enter on the focused field, and type an
+                exact number. Typed numbers snap to the step and clamp to the range.{' '}
+                <Typography.InlineCode>parse</Typography.InlineCode>
+                {' '}
+                reads a custom format, and{' '}
+                <Typography.InlineCode>onValueCommit</Typography.InlineCode>
+                {' '}
+                runs once when a drag ends and after each keyboard or typed change, which is the
+                moment to save. The field variant holds one value and does not combine with{' '}
                 <Typography.InlineCode>range</Typography.InlineCode>.
             </Typography.Text>
             <ComponentPreview code={FieldSrc}>

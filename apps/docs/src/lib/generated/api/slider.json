@@ -190,6 +190,33 @@
                 "default": null,
                 "description": "Called with the new value when it changes.",
                 "inherited": false
+            },
+            {
+                "name": "onValueCommit",
+                "type": "((value: number) => void) | ((value: [number, number]) => void) | undefined",
+                "required": false,
+                "bindable": false,
+                "default": null,
+                "description": "Called once when a drag ends with a new value, and after each keyboard or typed change.",
+                "inherited": false
+            },
+            {
+                "name": "editable",
+                "type": "boolean | undefined",
+                "required": false,
+                "bindable": false,
+                "default": null,
+                "description": "Field variant only. Lets people click the value, or press Enter, and type an exact number. Typed numbers snap to `step` and clamp to `min` and `max`.",
+                "inherited": false
+            },
+            {
+                "name": "parse",
+                "type": "((text: string) => number | null) | undefined",
+                "required": false,
+                "bindable": false,
+                "default": null,
+                "description": "Turns typed text into a number for `editable`. Return `null` to reject it. Defaults to the first number in the text, so units such as `px` are ignored.",
+                "inherited": false
             }
         ]
     }

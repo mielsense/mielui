@@ -32,7 +32,17 @@
     const increment = $derived(Number.isFinite(step) && step > 0 ? step : 1);
     const unavailable = $derived(disabled || maximum <= minimum);
     const rootAttributes = $derived.by(() => {
-        const { range, variant, thumbLabels, onValueChange, children, ...attributes } = mode;
+        const {
+            range,
+            variant,
+            thumbLabels,
+            onValueChange,
+            onValueCommit,
+            editable,
+            parse,
+            children,
+            ...attributes
+        } = mode;
         return attributes;
     });
     const values = $derived.by(() => {
@@ -60,9 +70,13 @@
     let pointerPosition: number | undefined;
     let pointerThumb = $state<number | undefined>();
     let interactionRevision = $state(0);
+    let pointerStart: string | undefined;
+    let editing = $state(false);
+    let editor = $state<HTMLInputElement>();
     const direction = $derived(dir ?? inheritedDirection);
     const field = $derived(!mode.range && mode.variant === 'field');
     const fieldFill = $derived(valuePercent(values[0], minimum, maximum) / 100);
+    const canEdit = $derived(field && !mode.range && mode.editable === true && !unavailable);
     let fieldWidth = $state(0);
     let fieldLabelWidth = $state(0);
     const fieldTickHidden = $derived.by(() => {
@@ -117,6 +131,9 @@
         }
         value = normalized;
         mode.onValueChange?.(normalized);
+        if (dragPointer === undefined) {
+            mode.onValueCommit?.(normalized);
+        }
     }
 
     function updateRange(next: number[]) {
@@ -138,6 +155,84 @@
         }
         value = pair;
         mode.onValueChange?.(pair);
+        if (dragPointer === undefined) {
+            mode.onValueCommit?.(pair);
+        }
+    }
+
+    function commitPointer() {
+        const start = pointerStart;
+        pointerStart = undefined;
+        if (start === undefined || start === JSON.stringify(values)) {
+            return;
+        }
+        if (mode.range) {
+            mode.onValueCommit?.([values[0], values[1]]);
+        } else {
+            mode.onValueCommit?.(values[0]);
+        }
+    }
+
+    function focusThumb() {
+        void tick().then(() => {
+            element?.querySelector<HTMLElement>('[data-thumb="0"]')?.focus({ preventScroll: true });
+        });
+    }
+
+    function stepLarge(event: KeyboardEvent, thumb: HTMLElement) {
+        const forward = event.key === 'ArrowUp' || event.key === 'ArrowRight';
+        const horizontal = event.key === 'ArrowLeft' || event.key === 'ArrowRight';
+        const sign = (forward ? 1 : -1) * (horizontal && direction === 'rtl' ? -1 : 1);
+        const distance = sign * increment * 10;
+        event.preventDefault();
+        event.stopPropagation();
+        if (mode.range) {
+            const index = Number(thumb.dataset.thumb) === 1 ? 1 : 0;
+            const pair = [values[0], values[1]];
+            pair[index] += distance;
+            activeThumb = index;
+            pointerThumb = index;
+            updateRange(pair);
+            pointerThumb = undefined;
+            return;
+        }
+        updateSingle(values[0] + distance);
+    }
+
+    function beginEdit() {
+        if (canEdit) {
+            editing = true;
+        }
+    }
+
+    function parseTyped(text: string) {
+        if (!mode.range && mode.parse) {
+            return mode.parse(text);
+        }
+        const match = text.match(/-?(?:\d+\.?\d*|\.\d+)(?:e[+-]?\d+)?/i);
+
+        return match ? Number(match[0]) : null;
+    }
+
+    function commitEdit(text: string) {
+        if (!editing) {
+            return;
+        }
+        editing = false;
+        focusThumb();
+        const parsed = parseTyped(text);
+        if (parsed === null || !Number.isFinite(parsed)) {
+            return;
+        }
+        updateSingle(parsed);
+    }
+
+    function cancelEdit() {
+        if (!editing) {
+            return;
+        }
+        editing = false;
+        focusThumb();
     }
 
     function startPointer(event: PointerEvent) {
@@ -150,6 +245,7 @@
             return;
         }
         dragPointer = event.pointerId;
+        pointerStart = JSON.stringify(values);
         const thumb =
             event.target instanceof Element
                 ? event.target.closest<HTMLElement>('[data-thumb]')
@@ -215,6 +311,7 @@
         if (element?.hasPointerCapture(event.pointerId)) {
             element.releasePointerCapture(event.pointerId);
         }
+        commitPointer();
     }
 
     function cancelPointer(event?: PointerEvent) {
@@ -270,6 +367,13 @@
     $effect(() => {
         if (unavailable) {
             cancelPointer();
+        }
+    });
+
+    $effect(() => {
+        if (editing) {
+            editor?.focus({ preventScroll: true });
+            editor?.select();
         }
     });
 </script>
@@ -344,8 +448,28 @@
     onpointerup={finishPointer}
     onpointercancel={cancelPointer}
     onlostpointercapture={cancelPointer}
-    onkeydowncapture={() => {
+    onkeydowncapture={(event) => {
         cancelPointer();
+        if (
+            !unavailable &&
+            event.shiftKey &&
+            event.key.startsWith('Arrow') &&
+            event.target instanceof HTMLElement &&
+            event.target.dataset.ui === 'slider-thumb'
+        ) {
+            stepLarge(event, event.target);
+            return;
+        }
+        if (
+            canEdit &&
+            !editing &&
+            event.key === 'Enter' &&
+            event.target instanceof HTMLElement &&
+            event.target.dataset.ui === 'slider-thumb'
+        ) {
+            event.preventDefault();
+            beginEdit();
+        }
     }}
 >
     {#if name}
@@ -380,13 +504,59 @@
             >
                 {label}
             </span>
-            <span
-                data-ui="slider-value"
-                aria-hidden="true"
-                class="shrink-0 font-mono text-xs tabular-nums text-foreground"
-            >
-                {format ? format(values[0]) : values[0]}
-            </span>
+            {#if editing}
+                <input
+                    bind:this={editor}
+                    type="text"
+                    inputmode="decimal"
+                    autocomplete="off"
+                    spellcheck="false"
+                    aria-label={`${ariaLabel ?? label ?? 'Slider'} value`}
+                    data-ui="slider-value-input"
+                    value={String(values[0])}
+                    class="pointer-events-auto m-0 min-w-[3ch] shrink-0 cursor-text border-0 bg-transparent p-0 text-end font-mono text-xs tabular-nums text-foreground outline-none [field-sizing:content]"
+                    onpointerdown={(event) => {
+                        event.stopPropagation();
+                    }}
+                    onkeydown={(event) => {
+                        event.stopPropagation();
+                        if (event.key === 'Enter') {
+                            event.preventDefault();
+                            commitEdit(event.currentTarget.value);
+                        }
+                        if (event.key === 'Escape') {
+                            event.preventDefault();
+                            cancelEdit();
+                        }
+                    }}
+                    onblur={(event) => {
+                        commitEdit(event.currentTarget.value);
+                    }}
+                />
+            {:else if canEdit}
+                <button
+                    type="button"
+                    tabindex={-1}
+                    aria-label={`Edit ${ariaLabel ?? label ?? 'slider'} value`}
+                    data-ui="slider-value"
+                    data-editable
+                    class="pointer-events-auto m-0 shrink-0 cursor-text border-0 bg-transparent p-0 font-mono text-xs tabular-nums text-foreground decoration-foreground-muted/50 underline-offset-4 hover:underline hover:decoration-dotted"
+                    onpointerdown={(event) => {
+                        event.stopPropagation();
+                    }}
+                    onclick={beginEdit}
+                >
+                    {format ? format(values[0]) : values[0]}
+                </button>
+            {:else}
+                <span
+                    data-ui="slider-value"
+                    aria-hidden="true"
+                    class="shrink-0 font-mono text-xs tabular-nums text-foreground"
+                >
+                    {format ? format(values[0]) : values[0]}
+                </span>
+            {/if}
         </span>
     {/if}
     {#key interactionRevision}

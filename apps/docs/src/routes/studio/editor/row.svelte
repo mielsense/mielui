@@ -78,6 +78,7 @@
         <div data-setting-row class="relative">
             <Slider
                 variant="field"
+                editable
                 {label}
                 value={slider.value}
                 min={slider.min}

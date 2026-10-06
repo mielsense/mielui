@@ -6,3 +6,7 @@
 - Slider accepts `variant="field"`, a bar with the label and value inside that you drag anywhere to scrub, and `format` to control how the value reads.
 - Group the Studio settings into Color, Type, Shape, Surface, and Motion tabs.
 - Show every Studio token inline as a row, with numeric values as scrub fields, in place of the Advanced dialogs.
+- Slider's field variant takes `editable`, so people can click the value or press Enter and type an exact number, with `parse` for custom formats.
+- Slider reports finished changes through `onValueCommit`, once per drag and after each keyboard or typed change.
+- Hold Shift with an arrow key to move a Slider ten steps.
+- Every numeric setting in the Studio can be typed as well as dragged.
