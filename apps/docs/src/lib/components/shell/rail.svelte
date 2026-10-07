@@ -1,6 +1,6 @@
 <script lang="ts">
     import {
-        ArtificialIntelligence04Icon as Agent,
+        Mortarboard01Icon as Agent,
         BookOpen01Icon as Book,
         Clock01Icon as Clock,
         GithubIcon as Github,

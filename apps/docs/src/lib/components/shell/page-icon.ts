@@ -1,10 +1,10 @@
 import {
-    ArtificialIntelligence04Icon,
     BookOpen01Icon,
     Clock01Icon,
     CubeIcon,
     GridViewIcon,
     MagicWand01Icon,
+    Mortarboard01Icon,
     SwatchIcon
 } from '@hugeicons/core-free-icons';
 
@@ -24,7 +24,7 @@ export function pageIcon(pathname: string) {
         return Clock01Icon;
     }
     if (pathname.startsWith('/docs/agent-skill')) {
-        return ArtificialIntelligence04Icon;
+        return Mortarboard01Icon;
     }
     if (pathname.startsWith('/docs/actions')) {
         return MagicWand01Icon;
