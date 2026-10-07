@@ -354,7 +354,7 @@
                         <Accordion.Item value="export">
                             <Accordion.Trigger>Can I use it in my project?</Accordion.Trigger>
                             <Accordion.Content>
-                                Choose Use theme in the sidebar to download the preset and
+                                Choose Export theme in the sidebar to download the preset and
                                 initialize Mielui with your settings.
                             </Accordion.Content>
                         </Accordion.Item>

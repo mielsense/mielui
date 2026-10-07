@@ -169,7 +169,7 @@ src/lib/mielui/components/button/
         </Typography.Text>
         <Typography.Text variant="body" class="m-0">
             <InlineText
-                text="Choose Use theme, download `mielui-theme.json` into your project root, and run the command for a new or existing Mielui setup. The JSON includes both color modes and all Studio overrides. New setups get `styles.css`, which imports `ui.css` followed by `theme.css`. Load that stylesheet in your root layout. Fonts must also be loaded by your app."
+                text="Choose Export theme, open the CLI tab, download `mielui-theme.json` into your project root, and run the command for a new or existing Mielui setup. The JSON includes both color modes and all Studio overrides. New setups get `styles.css`, which imports `ui.css` followed by `theme.css`. Load that stylesheet in your root layout. Fonts must also be loaded by your app."
             />
         </Typography.Text>
         <PackageCommand command="pnpm dlx @mielui/svelte init --preset ./mielui-theme.json" />
