@@ -4,9 +4,6 @@
 </script>
 
 <div class="flex flex-col gap-1.5">
-    <Label for="name">
-        Full name
-        <span aria-hidden="true" class="text-[var(--mielui-error-text)]">*</span>
-    </Label>
+    <Label for="name" required>Full name</Label>
     <Input id="name" type="text" required />
 </div>

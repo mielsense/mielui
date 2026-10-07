@@ -15,4 +15,9 @@
     class={cn(className, 'flex w-fit items-center gap-1.5 text-sm font-label leading-none text-foreground', field.disabled && 'cursor-not-allowed')}
 >
     {@render children?.()}
+    {#if field.required}
+        <span aria-hidden="true" data-ui="required-mark" class="text-[var(--mielui-error-text)]"
+            >*</span
+        >
+    {/if}
 </label>

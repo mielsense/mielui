@@ -450,7 +450,16 @@
             425,
             426,
             427,
-            428
+            428,
+            {
+                "name": "required",
+                "type": "boolean | undefined",
+                "required": false,
+                "bindable": false,
+                "default": "false",
+                "description": "Shows a required mark after the text. The mark is hidden from assistive technology, so set `required` on the control as well.",
+                "inherited": false
+            }
         ]
     }
 ]

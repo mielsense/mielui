@@ -41,7 +41,8 @@
     <section id="usage" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Usage</Typography.H2>
         <Typography.Text variant="supporting">
-            Match for to the input id. Set required on the input when showing a required indicator.
+            Match for to the input id. Set required on Label to show a required mark after the text,
+            and set required on the input too, because the mark is hidden from assistive technology.
             Apply disabled styling to the label explicitly when it precedes the control.
         </Typography.Text>
         <CodeBlock
@@ -62,6 +63,10 @@
         <!-- Required indicator -->
         <div id="required" class="scroll-mt-20 flex flex-col gap-3">
             <Typography.H3 class="docs-subsection-heading">With required indicator</Typography.H3>
+            <Typography.Text variant="supporting">
+                Label draws the mark itself. Input and Textarea do the same for their built-in label
+                when they are required, and Field.Label follows Field.Root.
+            </Typography.Text>
             <ComponentPreview code={WithRequiredSrc}>
                 <WithRequired />
             </ComponentPreview>

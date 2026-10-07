@@ -4,6 +4,7 @@
 - Slider reports finished changes through `onValueCommit`, once per drag and after each keyboard or typed change.
 - Hold Shift with an arrow key to move a Slider ten steps.
 - Folder Card takes `onclick` without `href` to make the whole card a button, named by its title, with `disabled` to block it.
+- Label takes `required` to show a required mark after its text. Input and Textarea show the same mark on their built-in label when they are required, and `Field.Label` shows it when `Field.Root` is required.
 - `HoverCard.Content` accepts `sideOffset` to set the gap between the trigger and the card.
 - Color Picker shows a pipette button that picks a color from anywhere on screen, in browsers with the EyeDropper API.
 - Press 1 to 9 inside a Question to pick that option. Each option shows its number key.
