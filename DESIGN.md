@@ -350,8 +350,8 @@ fainter one. Cmd or Ctrl-click on a sidebar link opens it as a tab in the backgr
 tab onto another to reorder, or press Alt with the left or right arrow on a
 focused tab. Error pages are never saved as tabs; they persist in local storage and scroll sideways
 when they overflow. Copy page and the theme toggle sit at the end of the bar, in docs and in Studio. Pages without tabs
-show one static pill with their name. Studio does not use these pills. Its preview
-modes are a segmented Tabs list.
+show one static pill with their name. Studio uses the same pills for its preview
+modes.
 
 The status line is flat text on the frame, 9 spacing units tall, with no pills
 or fills: the package version linking to the changelog, the component count, the
@@ -467,8 +467,8 @@ row and the top bar are both 50px tall. Top bar controls use the small control
 height with the Button's own radius and type; outline is reserved for the Copy
 page group. Separate control groups with a gap, not a divider.
 
-Studio preview modes sit at the start of the top bar as a segmented Tabs list
-with text labels and no icons. The end of the bar holds only icon buttons: token
+Studio preview modes sit at the start of the top bar as the same pills the docs
+tabs use, each with its icon. The end of the bar holds only icon buttons: token
 picking, Undo, Redo, preview options, and the theme toggle. Preview width and the
 glass backdrop switch live in the preview options popover, not in the bar. Do not
 add another toolbar row or more always-visible controls. Below the medium breakpoint the

@@ -1,8 +1,12 @@
 <script lang="ts">
     import {
+        Analytics01Icon,
+        BrowserIcon,
         CursorPointer02Icon,
+        GridViewIcon,
         Redo02Icon,
         SlidersHorizontalIcon,
+        SparklesIcon,
         Undo02Icon
     } from '@hugeicons/core-free-icons';
     import { Button } from '@mielui/svelte/components/button';
@@ -18,6 +22,7 @@
     import MobileActions from '$lib/components/shell/mobile-actions.svelte';
     import { fadeX, scrollFade } from '$lib/components/shell/scroll-fade';
     import Sidebar from '$lib/components/shell/sidebar.svelte';
+    import TabPill from '$lib/components/shell/tab-pill.svelte';
     import Topbar from '$lib/components/shell/topbar.svelte';
     import { getStudioContext } from '$lib/studio-context';
     import AiPreview from './ai-preview.svelte';
@@ -40,10 +45,10 @@
     let picking = $state(false);
     let preview = $state<HTMLDivElement>();
     const previewTabs = [
-        { value: 'components', label: 'Components' },
-        { value: 'charts', label: 'Charts' },
-        { value: 'ai', label: 'AI components' },
-        { value: 'app', label: 'App preview' }
+        { value: 'components', label: 'Components', icon: GridViewIcon },
+        { value: 'charts', label: 'Charts', icon: Analytics01Icon },
+        { value: 'ai', label: 'AI components', icon: SparklesIcon },
+        { value: 'app', label: 'App preview', icon: BrowserIcon }
     ];
     let appMounted = $state(false);
     $effect(() => {
@@ -110,13 +115,16 @@
             {@attach scrollFade({ axis: 'x', size: 32 })}
             class={`hide-scrollbar-all hidden min-w-0 flex-1 items-center gap-1 overflow-x-auto p-0.5 md:flex ${fadeX}`}
         >
-            <Tabs.Root bind:value={studio.mode} variant="segmented" class="shrink-0">
-                <Tabs.List>
-                    {#each previewTabs as tab (tab.value)}
-                        <Tabs.Trigger value={tab.value}>{tab.label}</Tabs.Trigger>
-                    {/each}
-                </Tabs.List>
-            </Tabs.Root>
+            {#each previewTabs as tab (tab.value)}
+                <TabPill
+                    label={tab.label}
+                    icon={tab.icon}
+                    current={studio.mode === tab.value}
+                    onclick={() => {
+                        studio.mode = tab.value;
+                    }}
+                />
+            {/each}
         </div>
         <div class="min-w-0 flex-1 md:hidden">
             <Select.Root bind:value={studio.mode}>

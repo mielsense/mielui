@@ -25,5 +25,5 @@
 - Redesign the Themes page with a specimen of each preset's colors, type, and corners that follows light and dark mode.
 - Add a search field to the Studio inspector that filters settings by name, and show each preset's brand color in the preset picker.
 - Rebuild the Studio demos as composed cards in a centered grid. The AI tab shows the coding agent and chat demos, and the App preview is a sidebar app in one card.
-- Simplify the Studio top bar: preview modes are a segmented Tabs list, and preview width and the glass backdrop sit behind one options button.
+- Simplify the Studio top bar: preview width and the glass backdrop sit behind one options button.
 - In the Studio the top bar, the preview page and the sidebar share one background in both themes.
