@@ -471,7 +471,10 @@ Studio preview modes sit at the start of the top bar as a segmented Tabs list
 with text labels and no icons. The end of the bar holds only icon buttons: token
 picking, Undo, Redo, preview options, and the theme toggle. Preview width and the
 glass backdrop switch live in the preview options popover, not in the bar. Do not
-add another toolbar row or more always-visible controls. In Studio the top bar,
+add another toolbar row or more always-visible controls. Below the medium breakpoint the
+modes become a select that shrinks before anything overlaps, the sheet trigger
+reads Edit, and token picking and preview options are hidden. Every icon button
+in the bar has a tooltip. In Studio the top bar,
 the preview page and the sidebar share one background (`--docs-side`) in both
 themes, so the bar reads as part of the page with only the scroll-edge blur under
 it.

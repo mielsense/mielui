@@ -89,7 +89,10 @@
         {#snippet leading()}
             <div class="lg:hidden">
                 <Sheet.Root bind:open={inspectorOpen}>
-                    <Sheet.Trigger variant="outline">Edit theme</Sheet.Trigger>
+                    <Sheet.Trigger variant="outline" aria-label="Edit theme">
+                        Edit
+                        <span class="hidden sm:inline">theme</span>
+                    </Sheet.Trigger>
                     <Sheet.Content side="left">
                         <Sheet.Header>
                             <Sheet.Title>Edit theme</Sheet.Title>
@@ -115,9 +118,9 @@
                 </Tabs.List>
             </Tabs.Root>
         </div>
-        <div class="md:hidden">
+        <div class="min-w-0 flex-1 md:hidden">
             <Select.Root bind:value={studio.mode}>
-                <Select.Trigger aria-label="Preview content" class="w-auto max-w-full">
+                <Select.Trigger aria-label="Preview content" class="w-auto max-w-full min-w-0">
                     <span class="truncate">
                         {previewTabs.find((tab) => tab.value === studio.mode)?.label}
                     </span>
@@ -130,24 +133,26 @@
             </Select.Root>
         </div>
         {#snippet actions()}
-            <Tooltip.Root>
-                <Tooltip.Trigger>
-                    <Button
-                        variant={picking ? 'secondary' : 'ghost'}
-                        size="icon"
-                        aria-label="Edit tokens by clicking an element"
-                        aria-pressed={picking}
-                        onclick={() => {
-                            picking = !picking;
-                        }}
-                    >
-                        <HugeiconsIcon icon={CursorPointer02Icon} size={16} />
-                    </Button>
-                </Tooltip.Trigger>
-                <Tooltip.Content>
-                    {picking ? 'Stop editing tokens' : 'Click an element to edit its tokens'}
-                </Tooltip.Content>
-            </Tooltip.Root>
+            <div class="hidden md:block">
+                <Tooltip.Root>
+                    <Tooltip.Trigger>
+                        <Button
+                            variant={picking ? 'secondary' : 'ghost'}
+                            size="icon"
+                            aria-label="Edit tokens by clicking an element"
+                            aria-pressed={picking}
+                            onclick={() => {
+                                picking = !picking;
+                            }}
+                        >
+                            <HugeiconsIcon icon={CursorPointer02Icon} size={16} />
+                        </Button>
+                    </Tooltip.Trigger>
+                    <Tooltip.Content>
+                        {picking ? 'Stop editing tokens' : 'Click an element to edit its tokens'}
+                    </Tooltip.Content>
+                </Tooltip.Root>
+            </div>
             <div role="group" aria-label="History" class="flex items-center">
                 <Tooltip.Root>
                     <Tooltip.Trigger>
@@ -186,14 +191,19 @@
             </div>
             <div class="hidden md:block">
                 <Popover.Root placement="bottom-end">
-                    <Popover.Trigger
-                        variant="ghost"
-                        size="icon"
-                        icon={false}
-                        aria-label="Preview options"
-                    >
-                        <HugeiconsIcon icon={SlidersHorizontalIcon} size={16} />
-                    </Popover.Trigger>
+                    <Tooltip.Root>
+                        <Tooltip.Trigger>
+                            <Popover.Trigger
+                                variant="ghost"
+                                size="icon"
+                                icon={false}
+                                aria-label="Preview options"
+                            >
+                                <HugeiconsIcon icon={SlidersHorizontalIcon} size={16} />
+                            </Popover.Trigger>
+                        </Tooltip.Trigger>
+                        <Tooltip.Content>Preview options</Tooltip.Content>
+                    </Tooltip.Root>
                     <Popover.Content class="w-64" surfaceClass="flex flex-col gap-4 p-4">
                         <Popover.Title>Preview</Popover.Title>
                         <div class="flex items-center justify-between gap-3">
