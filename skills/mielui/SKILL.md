@@ -13,7 +13,7 @@ Mielui began from Sivir UI and is maintained independently, with its own compone
 
 Inspect the project before changing code:
 
-1. Confirm the installed Mielui release's peer requirements. Mielui 0.2.0 requires Svelte 5.56 or newer within Svelte 5 and Tailwind CSS v4.
+1. Confirm the installed Mielui release's peer requirements. Mielui 0.2.1 requires Svelte 5.56 or newer within Svelte 5 and Tailwind CSS v4.
 2. Read the package manifest, lockfile, global CSS entry, and nearby Svelte components.
 3. Detect the integration mode:
    - Package mode: `@mielui/svelte` is a dependency and components import from it.
@@ -153,7 +153,23 @@ Use Dialog instead of Modal, Kbd instead of Shortcut, and HugeiconsIcon with Hug
 
 Toast is composable through Root, Content, Footer, Title, Icon, Actions, Action, and Close. The icon, title, and description sit together in Content; Footer appears only for actions. The toast helpers render these same parts. Overlay surfaces accept `surface="solid" | "glass"` on the documented owning part; do not apply glass independently to nested surfaces.
 
-Heatmap.Root accepts `animation="rows" | "columns" | "live" | "none"`, defaulting to rows. Reduced motion disables entrances. Slider range mode binds a pair of numbers, accepts thumbLabels, and supports dir="rtl". Read each page before using these APIs, particularly when the locked package predates the unreleased changelog.
+Card is solid unless you pass `surface="glass"` to Card.Root. It does not follow the theme's glass setting the way overlays do. On inset and panel cards only the frame frosts and the content stays solid.
+
+Frames follow the theme's border setting. With single borders the inner surface meets the frame's border, and with double borders a gutter separates them. This applies to inset cards, dialogs, sheets, data tables, composers, toasts and code blocks. Never give a frame a fixed `--mielui-modal-inset`. Multiply by `--mielui-border-inset-scale`, which is 0 for single and 1 for double.
+
+Composer.Toolbar joins the input on one surface by default. Set `variant="inset"` to keep the input on its own inset surface with the toolbar in the frame under it, like an inset Card and its footer. There is no `chrome` variant.
+
+DataTable.ColumnHeader is a button. Each click moves the column to its next sort state, and Shift-click adds it to a multi-column sort. With `variant="inset"`, DataTable.Root frames the table and its footer and lifts DataTable.Toolbar above the frame. Use DataTable.Sort for an explicit field-and-direction menu.
+
+Menu rows and options render buttons and do not take `href`. This covers DropdownMenu.Item, ContextMenu.Item, ContextMenu.CheckboxItem, Select.Item and Combobox.Item. Navigate from `callback`.
+
+Drawer.Content is a floating panel with a fixed width, not a full-width sheet. Size it with a width class on Drawer.Content and leave Header, Body and Footer unconstrained.
+
+FolderCard.Root is a link with `href`, a button with `onclick` and no `href`, and a static article with neither. Keep a FolderCard.Title in the button form, because it names the button.
+
+The default sans font is Manrope, loaded by `ui.css` from `@fontsource/manrope`. A project that wants another font installs it and sets `--font-sans` after importing `ui.css`.
+
+Heatmap.Root accepts `animation="rows" | "columns" | "live" | "none"`, defaulting to rows. Reduced motion disables entrances. Slider range mode binds a pair of numbers, accepts thumbLabels, and supports dir="rtl". Slider `variant="field"` is one bar with its label and value inside, for panels that stack many numeric settings. It holds a single value, so it cannot combine with `range`. Read each page before using these APIs, particularly when the locked package predates the unreleased changelog.
 
 ## Tables, native selects, and loading placeholders
 

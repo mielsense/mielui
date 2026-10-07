@@ -2,21 +2,19 @@
 - Drawer footer actions line up with the panel's content instead of drifting past it.
 - Opening a Drawer focuses the panel instead of its first control, so no control looks selected and touch keyboards stay closed. Use `onOpenAutoFocus` to focus something else.
 - `Drawer.Handle` sits at the bottom of a top drawer and becomes a vertical bar on the inner edge of left and right drawers.
-- File Diff rows no longer draw a red or green bar on their leading edge; the tint and the plus or minus sign mark the change.
-- File Diff added and removed rows keep their full tint in dark mode.
-- Number Field steppers use minus and plus icons instead of text glyphs. Source-copy installs now need `@hugeicons/core-free-icons`.
+- Drawer no longer flashes back into view for a frame as it closes, and neither does its backdrop.
+- Data Table, Composer, Toast and Code Block follow the single or double border setting. They kept a gutter in single mode before.
+- Scroll Area contains overscroll only when its content overflows. An area with nothing to scroll no longer swallows the wheel, which also fixes a short Conversation blocking page scroll.
+- Card no longer doubles the gap when a Footer follows a Header directly, and a Header that ends a card has no trailing margin.
+- Glass cards frost dark in dark mode, where they used a pale white veil.
+- Keep the divider between grouped controls visible after one of them is clicked. A focused control now rises above its neighbors only while its focus ring shows.
+- Switch and Radio Group items without a description center inside their touch-height box on small screens. They sat at the top of it, out of line with neighboring controls.
 - Radio Group leaves more room between options, so each description sits closer to its own label than to the next option.
 - Composer's toolbar and send button use the small control size, so the strip under the input is shorter.
-- Stop descenders such as g and p being cut off in Select triggers and in truncated text inside buttons.
-- Glass cards frost dark in dark mode, where they used a pale white veil.
-- Stop descenders being cut off in truncated menu, select, combobox and command rows.
+- Stop descenders such as g and p being cut off in Select triggers, in truncated text inside buttons, and in truncated menu, select, combobox and command rows.
 - Classes passed to `Command.Header` now override its default padding and text color.
 - Keep the Command search row at its full height when the results are long.
 - Color Picker no longer outlines its color area when opened with the mouse. The focus ring shows for keyboard focus only.
-- Keep the divider between grouped controls visible after one of them is clicked. A focused control now rises above its neighbors only while its focus ring shows.
-- Data Table's inset variant frames only the table and its footer. The toolbar floats above the frame instead of sitting inside it.
-- Data Table, Composer, Toast and Code Block follow the single or double border setting. They kept a gutter in single mode before.
-- Drawer no longer flashes back into view for a frame as it closes, and neither does its backdrop.
-- Card no longer doubles the gap when a Footer follows a Header directly, and a Header that ends a card has no trailing margin.
-- Scroll Area contains overscroll only when its content overflows. An area with nothing to scroll no longer swallows the wheel, which also fixes a short Conversation blocking page scroll.
-- Switch and Radio Group items without a description center inside their touch-height box on small screens. They sat at the top of it, out of line with neighboring controls.
+- File Diff rows no longer draw a red or green bar on their leading edge; the tint and the plus or minus sign mark the change.
+- File Diff added and removed rows keep their full tint in dark mode.
+- Number Field steppers use minus and plus icons instead of text glyphs. Source-copy installs now need `@hugeicons/core-free-icons`.

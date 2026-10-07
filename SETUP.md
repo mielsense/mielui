@@ -31,9 +31,9 @@ in each description, merge from the bottom up, and update the remaining branches
 as needed. Independent work should target `main` directly, even within one release.
 Squash each PR using its Conventional Commit title.
 
-The next planned release is `v0.2.0`. Collect its release notes under
-`changelog/0.2.0/` as each change lands. Keep the package version at its published
-version until a final release preparation pull request updates it. That pull
+Collect each release's notes under `changelog/<next-version>/` as changes land.
+Keep the package version at its published version until a final release
+preparation pull request updates it. That pull
 request follows the full npm publishing procedure below after the milestone's
 scope is complete. Merging feature pull requests deploys the docs through Vercel;
 npm publication happens only when the GitHub Release is published.

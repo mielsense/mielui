@@ -1,68 +1,29 @@
 - Redesign Docs and Studio as one app shell: a dark frame with an icon rail, a rounded panel split into a collapsible sidebar and a full-width content column, and a slim status line underneath.
-- Add page tabs to the docs top bar so several pages stay open at once; tabs persist across reloads, and the sidebar marks pages that are open in another tab.
+- Add page tabs to the docs top bar so several pages stay open at once. Tabs persist across reloads, Cmd or Ctrl-click a sidebar link to open one in the background, and drag tabs or press Alt with an arrow key to reorder them.
 - Show the package version, the install command for the current component, and previous and next links in the status line.
-- Pin sidebar group labels while their group scrolls, add icons to the guide links, and show the current page's position in the docs.
-- Show each page's breadcrumb, title, and summary at the top of the page instead of in the footer.
-- Rebuild the API reference as rows with each prop's name, type, description, and default, hide the redundant `| undefined` on optional props, and list parts without props of their own in one group.
-- Rewrite the Introduction, Installation, Agent skill, and Actions pages around label and value rows, including a category list and next steps that link directly.
-- Show each component's summary under its catalog preview instead of behind a hover card.
-- Rebuild the Studio inspector as always-open groups of label and control rows, and rebuild the component and chart demos as composed cards whose frame turns frosted when glass is on.
-- Redesign the Themes page with a specimen of each preset's colors, type, and corners that follows light and dark mode.
-- Redesign search as a compact palette with larger rows, page icons, open tabs, and quick actions.
-- Keep links and link buttons inside previews from leaving the page.
-- Invert the Notch preview panel so it stays visible against the canvas.
-- Add install, component category, and next-step sections under the homepage hero.
-- Replace the outline rail with plain links.
+- Pin sidebar group labels while their group scrolls, mark pages that are open in another tab, and show the current page's position in the docs as a row of bars with the page count.
+- Drag the edge of the docs or Studio sidebar to resize it. Each keeps its own width between visits, and a double click resets it.
+- Redesign search as a compact palette with page icons, open tabs, and quick actions. It finds section headings and prop names, so "placement" or "closeDelay" lead to the right page.
+- Show each page's breadcrumb, title, and summary at the top of the page, and keep section titles pinned under the top bar.
+- Fade and softly blur the edges of every scrolling region in Docs and Studio while more content lies beyond them.
 - Open navigation and the Studio inspector in a sheet on small screens, and show Themes and Changelog without the docs sidebar.
-- Remove the pinned glass panels and the page transition from the docs shell.
-- Fix the docs page scrolling out of view; only the sidebar and content scroll.
-- Show the brand mark in white on a primary tile in the shell, the homepage header, and the favicon.
-- Follow the theme's single or double border setting on docs code blocks, row groups, and API lists.
-- Folder Card examples show paper sheets tucked into the folder that lift and fan out on hover and keyboard focus.
-- Replace the single-element Avatar, Badge, and Toggle previews with small realistic examples.
-- Fix the count in the Checkbox preview and the percentage in the Progress preview.
-- Fade and softly blur the edges of every scrolling region in Docs and Studio while more content lies beyond them, and make long page outlines scroll.
-- Remove the rule under the top bar; content fades and blurs as it scrolls under the bar.
-- Move the theme toggle from the rail to the end of the top bar, in Docs and Studio.
-- Fix overlapping controls in the Studio top bar on narrower screens; preview modes now scroll with a fade.
-- Give inactive tabs a quiet fill, and stop error pages from being saved as tabs.
-- Drop the repeated heading and one-item outline on component type pages.
-- Use edge fades in the Studio advanced dialogs, widen inspector controls so font names fit, and center inspector switches on touch screens.
-- Section titles are plain headings that stay pinned under the top bar, with a soft fade beneath them while pinned.
-- Move the copy button for example source into the preview's top bar, so it no longer covers the code.
-- With single borders, example previews and install commands sit flush in their frame like cards, keeping only the tab strip on the frame.
-- Add a search field to the Studio inspector that filters settings by name.
-- Describe every Button prop in the API reference, which also covers the triggers, menu items, and actions built on Button.
-- Describe `surface`, `open`, and `onOpenChange` wherever a component accepts them.
-- Add a Placement and timing section to the Hover Card page, with an example for each side.
-- Describe every prop of every component in the API reference.
-- Let page text use the full width of the content column.
-- Bring the Markdown versions of Introduction and Installation, used by Copy page and `llms.txt`, in line with the rewritten pages.
-- Search finds section headings and prop names, so "placement" or "closeDelay" lead to the right page.
-- Cmd or Ctrl-click a sidebar link to open it as a tab in the background, and drag tabs or press Alt with an arrow key to reorder them.
-- Copy a share link from the Studio that opens your theme for someone else, and see each preset's brand color in the preset picker.
-- Reset a single Studio setting to the preset with the button that appears beside its label once it changes.
-- Add three live demos to the homepage under the hero: a coding agent workspace, a support chat, and an issue editor, each behind a tab.
-- Show the coding agent and chat demos in the Studio's AI components tab, side by side at full height.
-- Rebuild the Studio's App preview as a sidebar app in a card that fills the preview pane.
+- The docs site uses Manrope by default, matching the default theme.
+- The changelog lists Docs notes last in each version. Every section is collapsible, and Docs starts collapsed.
+- Rebuild the API reference as rows with each prop's name, type, description, and default, and describe every prop of every component.
 - Explain every prop in prose on its component page, in 91 feature sections added to 62 pages, with 41 new live examples.
 - Show each prop's description in the Markdown API tables used by Copy page and `llms.txt`.
-- Leave more room between parts in the API reference, and set the API reference apart in the On this page list.
-- The homepage showcase follows dark mode with dark frosted tiles and a dark preview.
-- Drag the edge of the docs or Studio sidebar to resize it. Each keeps its own width between visits, and a double click resets it.
-- Rebalance the search palette: a taller search row and key hint bar, and shorter result rows.
-- The docs site uses Manrope by default, matching the default theme.
-- Copy page matches the tabs' corner radius, and its menu lists View as Markdown last under a divider.
-- The Studio sidebar keeps Export theme and Copy share link. Copy JSON and Copy CSS now live in the export sheet.
-- The sidebar's page progress is one bare row: the bars with the page count beside them, without the card or the "pages" label.
-- Component previews fill the corners beside the rounded demo surface with the header color. They showed the darker frame color before.
-- Date Range Picker examples show the start field, end field and calendar button as separate controls instead of one joined group.
-- Date Range Picker's two-month example no longer caps the range at 14 days, so a range can run from one month into the next. Length limits moved to their own example.
-- Card's examples are rewritten as small realistic tasks: a project summary, notification settings, a revenue figure, an invitation, deploy details, a member list and a weekly digest.
-- The homepage and Studio demos pass scrolling on to the page when a transcript has nothing left to scroll.
-- Theme Studio is calmer. The preview has fewer, wider-spaced columns, card footers no longer stretch their buttons, chart colors sit behind a disclosure, and preview width and the glass backdrop moved into one options button.
-- Theme Studio's preview modes are a segmented Tabs list instead of custom pills.
-- In Theme Studio the top bar, the preview page and the sidebar share one background in both themes. In dark mode the bar was a different shade from the page under it.
-- The changelog lists Docs notes last in each version. Every section is collapsible, and Docs starts collapsed.
-- The homepage hero preview has new examples: a composer with example prompts, notification settings, and a weekly visits chart with its total. The panel no longer changes height between tabs.
-- Theme Studio's top bar no longer overlaps on phones: the preview select shrinks, token picking is desktop only, and the preview options button has a tooltip.
+- Move the copy button for example source into the preview's top bar, and keep links inside previews from leaving the page.
+- Example previews, install commands, code blocks and API lists follow the theme's single or double border setting.
+- Rewrite Card's examples as small realistic tasks: a project summary, notification settings, a revenue figure, an invitation, deploy details, a member list and a weekly digest.
+- Date Range Picker examples show the start field, end field and calendar button as separate controls. The two-month example no longer caps the range at 14 days, and length limits have their own example.
+- Replace the single-element Avatar, Badge, and Toggle previews with small realistic examples, and add a Placement and timing section to the Hover Card page.
+- Folder Card examples show paper sheets tucked into the folder that lift and fan out on hover and keyboard focus.
+- Rewrite the Introduction, Installation, Agent skill, and Actions pages around label and value rows, and bring their Markdown versions in line.
+- Show each component's summary under its catalog preview instead of behind a hover card.
+- Add three live demos to the homepage under the hero: a coding agent workspace, a support chat, and an issue editor, each behind a tab.
+- Rework the homepage hero preview: a composer with example prompts, notification settings, and a weekly visits chart with its total. It follows dark mode and keeps one height across tabs.
+- Redesign the Themes page with a specimen of each preset's colors, type, and corners that follows light and dark mode.
+- Add a search field to the Studio inspector that filters settings by name, and show each preset's brand color in the preset picker.
+- Rebuild the Studio demos as composed cards in a centered grid. The AI tab shows the coding agent and chat demos, and the App preview is a sidebar app in one card.
+- Simplify the Studio top bar: preview modes are a segmented Tabs list, and preview width and the glass backdrop sit behind one options button.
+- In the Studio the top bar, the preview page and the sidebar share one background in both themes.

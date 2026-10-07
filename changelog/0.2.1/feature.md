@@ -1,20 +1,21 @@
-- Add seven built-in theme presets: Honey, Forest, Ink, Ocean, Console, Ember, and Lilac.
-- Rework the Magic preset with cool gray surfaces and a brighter indigo, and the Bitsy preset with a coral accent on cream surfaces.
-- Make the Open preset neutral monochrome with Geist Mono, and darken the Functional preset's text for contrast.
 - Card accepts `surface="glass"`, which frosts the card frame so a backdrop shows through while the content stays on a solid surface.
-- `HoverCard.Content` accepts `sideOffset` to set the gap between the trigger and the card.
 - Slider accepts `variant="field"`, a bar with the label and value inside that you drag anywhere to scrub, and `format` to control how the value reads.
-- Group the Studio settings into Color, Type, Shape, Surface, and Motion tabs.
-- Show every Studio token inline as a row, with numeric values as scrub fields, in place of the Advanced dialogs.
 - Slider's field variant takes `editable`, so people can click the value or press Enter and type an exact number, with `parse` for custom formats.
 - Slider reports finished changes through `onValueCommit`, once per drag and after each keyboard or typed change.
 - Hold Shift with an arrow key to move a Slider ten steps.
-- Every numeric setting in the Studio can be typed as well as dragged.
-- Undo and redo any Studio edit, preset switch or reset from the top bar or with Cmd/Ctrl+Z and Shift+Cmd/Ctrl+Z.
+- Folder Card takes `onclick` without `href` to make the whole card a button, named by its title, with `disabled` to block it.
+- `HoverCard.Content` accepts `sideOffset` to set the gap between the trigger and the card.
 - Color Picker shows a pipette button that picks a color from anywhere on screen, in browsers with the EyeDropper API.
 - Press 1 to 9 inside a Question to pick that option. Each option shows its number key.
+- Add seven built-in theme presets: Honey, Forest, Ink, Ocean, Console, Ember, and Lilac.
 - Add five theme presets from Sivir UI: Profitable, Raven, Clawd, Inspiration, and Government.
-- Folder Card takes `onclick` without `href` to make the whole card a button, named by its title, with `disabled` to block it.
+- Rework the Magic preset with cool gray surfaces and a brighter indigo, and the Bitsy preset with a coral accent on cream surfaces.
+- Make the Open preset neutral monochrome with Geist Mono, and darken the Functional preset's text for contrast.
+- Group the Studio settings into Color, Type, Shape, Surface, and Motion tabs.
+- Show every Studio token inline as a row in place of the Advanced dialogs. Numeric settings are scrub fields you can drag or type into.
+- Undo and redo any Studio edit, preset switch or reset from the top bar or with Cmd/Ctrl+Z and Shift+Cmd/Ctrl+Z.
 - Click any element in the Studio preview to edit the tokens it uses, in a panel anchored to it.
 - Export a Studio theme from a side sheet with CSS, JSON and CLI tabs.
+- Copy a share link from the Studio that opens your theme for someone else.
+- Reset a single Studio setting to the preset with the button that appears beside its label once it changes.
 - Studio drafts take the name of the preset they start from.

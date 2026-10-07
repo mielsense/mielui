@@ -15,7 +15,7 @@ Use this guide to narrow candidates, then read each candidate's current Markdown
 | Show contextual actions | Dropdown Menu or Context Menu | Dropdown Menu has an explicit trigger; Context Menu is secondary pointer context and needs another accessible path. |
 | Collect short or long text | Input or Textarea | Use the component's integrated label, description, and validation API when available. |
 | Confirm a consequential action | Alert Dialog | Use Dialog for general tasks; reserve Alert Dialog for decisions that need explicit interruption and confirmation. |
-| Complete a focused task in place | Dialog | Use Sheet when preserving more page context or a side-oriented workflow matters. |
+| Complete a focused task in place | Dialog | Use Sheet when preserving more page context or a side-oriented workflow matters. Use Drawer for a draggable panel that floats in from an edge. |
 | Show anchored supplemental UI | Popover or Hover Card | Popover is interactive; Hover Card is preview information and must not hold essential actions. |
 | Communicate persistent inline state | Alert | Keep it next to the content or action it qualifies. |
 | Confirm a transient action | Toast | Do not use a toast for errors or decisions that require immediate action. |
@@ -23,6 +23,9 @@ Use this guide to narrow candidates, then read each candidate's current Markdown
 | Show ongoing edge activity | Notch | Use for nonmodal activity. Use the notch Toaster variant for notifications. |
 | Compare numeric series or distributions | Chart or Pie Chart | Compose Plot, marks, Legend, and Tooltip according to the chart page. |
 | Show activity over dates | Heatmap | Distinguish unavailable data from explicit zero counts. |
+| Sort, filter, select and page through rows | Data Table | It presents a TanStack Table instance. Click a column header to sort. Use Table for static rows. |
+| Pick a date or a date range | Date Picker or Date Range Picker | Both pair typed date fields with a calendar popup. Use Calendar or Range Calendar when the calendar stays on the page. |
+| Set a number in a dense settings panel | Slider with variant="field" | One bar holds the label and value. Use the default Slider when the track itself should be visible. |
 | Show determinate work | Progress, Gauge, or Task Steps | Progress shows completion, Gauge emphasizes a measured value, and Task Steps names ordered workflow stages. |
 | Show indeterminate work | Spinner or Skeleton | Spinner marks compact activity; Skeleton reserves the shape of incoming content. |
 | Organize related content | Card | Use only when a surface communicates a real grouping or interactive object better than spacing. |
@@ -41,7 +44,7 @@ Treat the AI surface as a system of independently meaningful states.
 | Generated text arrival | Response Stream | Use for a string or async chunks when its entrance modes add useful continuity. Prefer direct rendering for already-streamed content when extra animation would delay reading. |
 | Model trace | Reasoning | Exposes concise status and optional detail. Keep the collapsed title informative; do not dump an unstructured internal monologue. |
 | Agent operations | Tool | Groups running, completed, or failed commands, searches, reads, inputs, and outputs without making each operation a full message. |
-| User prompt | Composer | Owns the controlled prompt value, submission state, toolbar, actions, and send/stop behavior. |
+| User prompt | Composer | Owns the controlled prompt value, submission state, toolbar, actions, and send/stop behavior. The toolbar joins the input by default. |
 | Agent clarification | Question | Uses single-choice, multiple-choice, or free-text answers with explicit submit and cancel behavior. |
 | Ordered execution | Task Steps | Shows stable workflow stages and the current or failed step. |
 | Files and artifacts | Attachment | Presents attached inputs or outputs with the component's documented status and actions. |
@@ -67,6 +70,8 @@ Render `Question` as a temporary takeover when the agent cannot continue without
 | --- | --- |
 | Dialog vs Alert Dialog | Dialog supports a task; Alert Dialog blocks on a consequential decision. |
 | Dialog vs Sheet | Dialog concentrates attention; Sheet preserves more spatial relationship to the page. |
+| Sheet vs Drawer | Sheet is a fixed side panel; Drawer is a floating panel people can drag to dismiss. |
+| Table vs Data Table | Table renders rows you already have in order; Data Table adds sorting, filtering, selection and pagination from TanStack Table. |
 | Select vs Combobox | Select is compact lookup; Combobox adds search. |
 | Combobox vs Command | Combobox produces a field value; Command invokes application actions. |
 | Alert vs Toast | Alert persists in context; Toast is transient confirmation. |

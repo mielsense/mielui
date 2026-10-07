@@ -8,10 +8,17 @@ Use Mielui's source and documentation as the reference for this package. Sivir U
 
 - Imported commit: `1b71c2a5d00c46a9b74508d08f836fc0e913858c`.
 - Imported package version: `0.3.3`.
-- Mielui's release sequence began at `0.1.0`; this release is `0.2.0`.
+- Mielui's release sequence began at `0.1.0`; this release is `0.2.1`.
 - License: MIT. Aidan Neel's copyright and permission notice remain in `LICENSE`, alongside the notice for Mielui modifications.
 
 The original import renamed the project, package, CLI, configuration, and documentation links. Subsequent Mielui work includes component composition changes, form and upload behavior, chart components, shared interaction and motion rules, Theme Studio, and documentation. These changes do not remove the attribution or license requirements for inherited code.
+
+## Later adoptions from Sivir UI
+
+Mielui 0.2.1 adopted two pieces from Sivir UI `0.4.3`, commit `680cf700070fd63e5b55f296acfd6d6dcc0989f5`, under the same MIT license:
+
+- Five theme presets: Profitable, Raven, Clawd, Inspiration, and Government. Settings Mielui's theme contract does not have were dropped.
+- The stylesheet index that finds which tokens an element uses, which the Theme Studio's click-to-edit panel is built on. It lives in the documentation app, not the npm package.
 
 The inherited changelog is archived in the repository's `docs/upstream-changelog/` directory. It describes Sivir UI work, not original Mielui contributions. Mielui changes are recorded separately in `changelog/` and the documentation changelog.
 
