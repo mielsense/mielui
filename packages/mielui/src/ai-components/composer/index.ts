@@ -62,8 +62,11 @@ export type ComposerInputProps = {
 } & Omit<HTMLTextareaAttributes, 'children' | 'class' | 'value'>;
 
 export type ComposerToolbarProps = {
-    /** `chrome` sits on the frame under the input. `inset` joins the input. */
-    variant?: 'chrome' | 'inset';
+    /**
+     * `inset` puts the input on its own inset surface and the toolbar in the frame under it,
+     * like an inset Card. The default joins the toolbar to the input on one surface.
+     */
+    variant?: 'default' | 'inset';
     /** Classes added to the element. */
     class?: string;
     /** Content rendered inside. */

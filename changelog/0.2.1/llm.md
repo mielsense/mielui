@@ -85,3 +85,14 @@ content while the card is focused, use
 `group-has-[:focus-visible]/folder-card:` in the button form, because the
 focused element is the inner button and not the card.
 
+## Composer toolbar variants are swapped
+
+`Composer.Toolbar` now takes `variant?: 'default' | 'inset'`. The old `chrome` value is gone, and `inset` now draws what `chrome` used to draw. An old `variant="inset"` call site still type-checks and renders the wrong look.
+
+The default joins the toolbar to the input. Both sit on one inset surface with square corners where they meet, so the composer reads as a single box with actions along its bottom edge. Use this for chat and agent composers unless you have a reason not to.
+
+`variant="inset"` matches the inset form of Card. The input keeps its own rounded inset surface and the toolbar sits in the frame under it, the same place a Card footer sits. Because it is a frame strip, it follows `--mielui-inset-position`: with `top` the toolbar moves above the input. The default toolbar never moves.
+
+Migrate by flipping every call site. A toolbar with no `variant`, or with `variant="chrome"`, that should keep its old separate strip needs `variant="inset"`. A toolbar that had `variant="inset"` for the joined look should drop the prop. Only `chrome` fails to compile. The other two cases build and look different.
+
+Both forms follow the border setting. The gap between the input surface and the frame is `--mielui-modal-inset`, which the composer scales by `--mielui-border-inset-scale`. In single mode that gap is zero, so do not add padding or margins to the form or the toolbar to fake a gutter, and do not set `--mielui-modal-inset` to a fixed length on a composer.

@@ -1,25 +1,25 @@
 <script lang="ts">
     import * as Composer from '@mielui/svelte/components/composer';
 
-    let chrome = $state('Compare the two implementation options.');
-    let inset = $state('Summarize the incident timeline.');
+    let inset = $state('Compare the two implementation options.');
+    let joined = $state('Summarize the incident timeline.');
     let result = $state('');
-
-    function sendChrome() {
-        result = `Submitted: ${chrome}`;
-        chrome = '';
-    }
 
     function sendInset() {
         result = `Submitted: ${inset}`;
         inset = '';
     }
+
+    function sendJoined() {
+        result = `Submitted: ${joined}`;
+        joined = '';
+    }
 </script>
 
 <div class="flex w-full max-w-2xl flex-col gap-6">
-    <Composer.Root bind:value={chrome} onSubmit={sendChrome}>
-        <Composer.Input aria-label="Chrome toolbar prompt" />
-        <Composer.Toolbar>
+    <Composer.Root bind:value={inset} onSubmit={sendInset}>
+        <Composer.Input aria-label="Inset toolbar prompt" />
+        <Composer.Toolbar variant="inset">
             <Composer.Actions>
                 <span class="px-2 text-xs text-foreground-muted">Mielui 3.1</span>
             </Composer.Actions>
@@ -27,9 +27,9 @@
         </Composer.Toolbar>
     </Composer.Root>
 
-    <Composer.Root bind:value={inset} onSubmit={sendInset}>
-        <Composer.Input aria-label="Inset toolbar prompt" />
-        <Composer.Toolbar variant="inset">
+    <Composer.Root bind:value={joined} onSubmit={sendJoined}>
+        <Composer.Input aria-label="Default toolbar prompt" />
+        <Composer.Toolbar>
             <Composer.Actions>
                 <span class="px-2 text-xs text-foreground-muted">Mielui 3.1</span>
             </Composer.Actions>

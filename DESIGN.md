@@ -570,9 +570,10 @@ Toolbar.Root is flat by default. Opt into depth with `variant="depth"`; its
 Button, Link, and Item inherit the choice. Toolbar depth uses the shared floating elevation for its shell and theme-owned
 `--mielui-toolbar-raised` relief for its keys. Selected tools use
 `--mielui-toolbar-pressed` and the background fill;
-compose focus rings with that relief. The composer toolbar stays flat: it sits
-on the frame below the input by default. The input starts compact and grows with
-its content. Opt into a joined input and toolbar with `variant="inset"`. Outline
+compose focus rings with that relief. The composer toolbar stays flat: it joins
+the input on one surface by default. The input starts compact and grows with
+its content. `variant="inset"` puts the input on its own inset surface and the
+toolbar in the frame under it, matching an inset Card and its footer. Outline
 buttons and triggers in either placement render
 as flat pills with a hairline border, no control edge, and the small control
 height. The toolbar scopes that size to everything inside it, including the send
@@ -645,8 +646,11 @@ the attached edge stays open without a closing border line.
 Glass retains a contrasting translucent inner panel over the outer chrome. Avoid
 fully transparent inner surfaces on composers and other inset layouts: they erase
 the structural distinction. Keep the shared blur and reduced-transparency fallback.
-The composer's inset toolbar shares the input's glass fill so the two read as one
+The composer's default toolbar shares the input's glass fill so the two read as one
 surface, and its outline pills stay transparent until hovered or open.
+On solid surfaces the default toolbar overlaps the input by one pixel, so no frame
+color shows between them under a fractional transform. Glass keeps the two edges
+flush, because overlapping translucent fills would draw a line.
 The Studio glass backdrop is preview-only and never exported with a theme.
 
 ## Landing page showcase
@@ -684,8 +688,8 @@ testimonials, or decoration there.
 
 Preserve the original restrained hero gradient and lighter featured showcase. The featured preview uses the shared `mielui-inset-frame` with
 its ghost tabs in the frame chrome and the demo on `mielui-inset-surface`. The featured preview follows the page theme: a light palette on white frost in light mode, and a dark palette on black frost in dark mode. Composer
-actions sit on the frame below the input unless a demo explicitly opts into the
-joined inset toolbar.
+actions join the input on one surface unless a demo explicitly opts into the
+inset toolbar.
 
 Component catalog previews render real components in a decorative, inert and
 `aria-hidden` region marked `data-component-preview`, which keeps their headings

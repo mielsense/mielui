@@ -91,7 +91,7 @@
         {:else}
             <Composer.Root bind:value={draft} onSubmit={sendPrompt}>
                 <Composer.Input aria-label="Message the agent" />
-                <Composer.Toolbar>
+                <Composer.Toolbar variant="inset">
                     <Composer.Actions>
                         <Button
                             variant="outline"

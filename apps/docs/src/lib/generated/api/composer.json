@@ -2448,11 +2448,11 @@
         "properties": [
             {
                 "name": "variant",
-                "type": "\"chrome\" | \"inset\" | undefined",
+                "type": "\"default\" | \"inset\" | undefined",
                 "required": false,
                 "bindable": false,
-                "default": "'chrome'",
-                "description": "`chrome` sits on the frame under the input. `inset` joins the input.",
+                "default": "'default'",
+                "description": "`inset` puts the input on its own inset surface and the toolbar in the frame under it, like an inset Card. The default joins the toolbar to the input on one surface.",
                 "inherited": false
             },
             {

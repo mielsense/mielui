@@ -1,5 +1,5 @@
 const strips =
-    '[data-ui="card-footer"], [data-ui="code-block-header"], [data-ui="file-diff-top-bar"], [data-ui="toast-footer"], [data-ui="dialog-frame-header"], [data-ui="dialog-footer"], [data-ui="composer-toolbar"][data-variant="chrome"], [data-ui="table-footer"]';
+    '[data-ui="card-footer"], [data-ui="code-block-header"], [data-ui="file-diff-top-bar"], [data-ui="toast-footer"], [data-ui="dialog-frame-header"], [data-ui="dialog-footer"], [data-ui="composer-toolbar"][data-variant="inset"], [data-ui="table-footer"]';
 
 export function insetLayout(node: HTMLElement, enabled = true) {
     const markers = new Map<Element, Comment>();
