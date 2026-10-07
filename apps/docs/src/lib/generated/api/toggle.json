@@ -31,7 +31,7 @@
             },
             {
                 "name": "variant",
-                "type": "\"outline\" | \"default\" | undefined",
+                "type": "\"default\" | \"outline\" | undefined",
                 "required": false,
                 "bindable": false,
                 "default": "'default'",

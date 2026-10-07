@@ -480,7 +480,7 @@
             23,
             {
                 "name": "role",
-                "type": "\"none\" | \"alertdialog\" | \"dialog\" | \"listbox\" | \"menu\" | undefined",
+                "type": "\"dialog\" | \"alertdialog\" | \"menu\" | \"listbox\" | \"none\" | undefined",
                 "required": false,
                 "bindable": false,
                 "default": null,
@@ -3222,7 +3222,7 @@
         "properties": [
             {
                 "name": "variant",
-                "type": "\"secondary\" | \"ghost\" | \"outline\" | undefined",
+                "type": "\"outline\" | \"secondary\" | \"ghost\" | undefined",
                 "required": false,
                 "bindable": false,
                 "default": "'outline'",

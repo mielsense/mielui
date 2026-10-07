@@ -176,7 +176,7 @@
             },
             {
                 "name": "copyPlacement",
-                "type": "\"inline\" | \"overlay\" | undefined",
+                "type": "\"overlay\" | \"inline\" | undefined",
                 "required": false,
                 "bindable": false,
                 "default": null,

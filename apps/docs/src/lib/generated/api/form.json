@@ -1814,7 +1814,7 @@
             428,
             {
                 "name": "tone",
-                "type": "\"error\" | \"success\" | \"neutral\" | undefined",
+                "type": "\"neutral\" | \"success\" | \"error\" | undefined",
                 "required": false,
                 "bindable": false,
                 "default": "'neutral'",

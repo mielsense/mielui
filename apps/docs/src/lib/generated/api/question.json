@@ -3331,7 +3331,7 @@
         "properties": [
             {
                 "name": "variant",
-                "type": "\"inset\" | \"default\" | undefined",
+                "type": "\"default\" | \"inset\" | undefined",
                 "required": false,
                 "bindable": false,
                 "default": "'default'",
@@ -3861,7 +3861,7 @@
             1725,
             {
                 "name": "type",
-                "type": "\"text\" | \"single\" | \"multiple\" | undefined",
+                "type": "\"single\" | \"text\" | \"multiple\" | undefined",
                 "required": false,
                 "bindable": false,
                 "default": "'single'",

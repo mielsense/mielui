@@ -96,7 +96,7 @@
         "properties": [
             {
                 "name": "variant",
-                "type": "\"panel\" | \"inset\" | \"default\" | undefined",
+                "type": "\"default\" | \"panel\" | \"inset\" | undefined",
                 "required": false,
                 "bindable": false,
                 "default": "'default'",

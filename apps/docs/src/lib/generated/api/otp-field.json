@@ -1441,7 +1441,7 @@
             },
             {
                 "name": "pushPasswordManagerStrategy",
-                "type": "\"none\" | \"increase-width\" | undefined",
+                "type": "\"increase-width\" | \"none\" | undefined",
                 "required": false,
                 "bindable": false,
                 "default": null,

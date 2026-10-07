@@ -927,7 +927,7 @@
             },
             {
                 "name": "kind",
-                "type": "\"search\" | \"command\" | \"read\" | undefined",
+                "type": "\"command\" | \"search\" | \"read\" | undefined",
                 "required": false,
                 "bindable": false,
                 "default": "'command'",

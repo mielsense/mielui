@@ -1550,7 +1550,7 @@
             },
             {
                 "name": "weekdayFormat",
-                "type": "\"long\" | \"short\" | \"narrow\" | undefined",
+                "type": "\"long\" | \"narrow\" | \"short\" | undefined",
                 "required": false,
                 "bindable": false,
                 "default": "'short'",

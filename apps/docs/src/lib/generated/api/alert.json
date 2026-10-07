@@ -45,7 +45,7 @@
             },
             {
                 "name": "announcement",
-                "type": "\"off\" | \"assertive\" | \"polite\" | undefined",
+                "type": "\"off\" | \"polite\" | \"assertive\" | undefined",
                 "required": false,
                 "bindable": false,
                 "default": "'off'",

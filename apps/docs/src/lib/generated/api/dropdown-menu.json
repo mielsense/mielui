@@ -554,7 +554,7 @@
             23,
             {
                 "name": "role",
-                "type": "\"none\" | \"alertdialog\" | \"dialog\" | \"listbox\" | \"menu\" | undefined",
+                "type": "\"dialog\" | \"alertdialog\" | \"menu\" | \"listbox\" | \"none\" | undefined",
                 "required": false,
                 "bindable": false,
                 "default": "'menu'",

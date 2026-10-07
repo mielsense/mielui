@@ -58,7 +58,7 @@
             },
             {
                 "name": "animation",
-                "type": "\"none\" | \"reveal\" | \"live\" | undefined",
+                "type": "\"reveal\" | \"live\" | \"none\" | undefined",
                 "required": false,
                 "bindable": false,
                 "default": "'reveal'",

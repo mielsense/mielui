@@ -444,7 +444,7 @@
             428,
             {
                 "name": "variant",
-                "type": "\"inset\" | \"default\" | undefined",
+                "type": "\"default\" | \"inset\" | undefined",
                 "required": false,
                 "bindable": false,
                 "default": "'default'",

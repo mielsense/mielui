@@ -102,6 +102,49 @@ for (const file of files.filter((file) => file.endsWith('.svelte'))) {
 }
 
 /** Joins one prop's type from each union branch, listing `undefined` once and last. */
+/** String literals in the order a prop's own type annotation lists them. */
+function declaredLiterals(declarations) {
+    const order = [];
+    for (const node of declarations) {
+        if (!node.type) {
+            continue;
+        }
+        for (const match of node.type.getText().matchAll(/'([^']*)'|"([^"]*)"/g)) {
+            const value = match[1] ?? match[2];
+            if (!order.includes(value)) {
+                order.push(value);
+            }
+        }
+    }
+
+    return order;
+}
+
+/**
+ * TypeScript prints a union of string literals in the order it first met each literal anywhere
+ * in the program, so an unrelated file can reorder it. Print the declared order instead, and
+ * fall back to alphabetical when the annotation is a named type.
+ */
+function orderUnionLiterals(text, order) {
+    const members = text.split(' | ');
+    const isLiteral = (member) => /^"[^"]*"$/.test(member);
+    const sortable = members.every((member) => isLiteral(member) || member === 'undefined');
+    if (members.length < 2 || !sortable) {
+        return text;
+    }
+    const rank = (member) => {
+        const index = order.indexOf(member.slice(1, -1));
+
+        return index === -1 ? order.length : index;
+    };
+    const literals = members.filter(isLiteral).sort((left, right) => {
+        return rank(left) - rank(right) || left.localeCompare(right);
+    });
+    const rest = members.filter((member) => !isLiteral(member));
+
+    return [...literals, ...rest].join(' | ');
+}
+
 function mergeBranchTypes(types) {
     const suffix = ' | undefined';
     const optional = types.some((type) => type === 'undefined' || type.endsWith(suffix));
@@ -212,13 +255,15 @@ for (const index of indexes) {
                 );
             const propertyTypes = entries.map((entry) => {
                 const propertyType = checker.getTypeOfSymbolAtLocation(entry, alias);
-                return checker
+                const text = checker
                     .typeToString(
                         propertyType,
                         undefined,
                         ts.TypeFormatFlags.NoTruncation | ts.TypeFormatFlags.InTypeAlias
                     )
                     .replace(/import\("[^"]+"\)\./g, '');
+
+                return orderUnionLiterals(text, declaredLiterals(entry.declarations ?? []));
             });
             const entry = {
                 name: property.name,

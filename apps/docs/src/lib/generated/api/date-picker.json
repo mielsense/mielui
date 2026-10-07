@@ -6868,7 +6868,7 @@
             428,
             {
                 "name": "align",
-                "type": "\"center\" | \"start\" | \"end\" | undefined",
+                "type": "\"center\" | \"end\" | \"start\" | undefined",
                 "required": false,
                 "bindable": false,
                 "default": "'start'",
@@ -6940,7 +6940,7 @@
             },
             {
                 "name": "side",
-                "type": "\"left\" | \"right\" | \"top\" | \"bottom\" | undefined",
+                "type": "\"bottom\" | \"left\" | \"right\" | \"top\" | undefined",
                 "required": false,
                 "bindable": false,
                 "default": null,
@@ -7021,7 +7021,7 @@
             },
             {
                 "name": "updatePositionStrategy",
-                "type": "\"always\" | \"optimized\" | undefined",
+                "type": "\"optimized\" | \"always\" | undefined",
                 "required": false,
                 "bindable": false,
                 "default": null,
@@ -7585,7 +7585,7 @@
         "properties": [
             {
                 "name": "part",
-                "type": "\"month\" | \"year\" | \"day\" | \"hour\" | \"minute\" | \"second\" | \"dayPeriod\" | \"timeZoneName\" | \"literal\"",
+                "type": "\"day\" | \"dayPeriod\" | \"hour\" | \"literal\" | \"minute\" | \"month\" | \"second\" | \"timeZoneName\" | \"year\"",
                 "required": true,
                 "bindable": false,
                 "default": null,
@@ -8188,7 +8188,7 @@
             },
             {
                 "name": "weekdayFormat",
-                "type": "\"long\" | \"short\" | \"narrow\" | undefined",
+                "type": "\"long\" | \"narrow\" | \"short\" | undefined",
                 "required": false,
                 "bindable": false,
                 "default": "'short'",

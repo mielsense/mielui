@@ -1212,7 +1212,7 @@
             },
             {
                 "name": "role",
-                "type": "\"alertdialog\" | \"dialog\" | undefined",
+                "type": "\"dialog\" | \"alertdialog\" | undefined",
                 "required": false,
                 "bindable": false,
                 "default": "'dialog'",

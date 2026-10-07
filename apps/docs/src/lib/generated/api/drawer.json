@@ -3871,7 +3871,7 @@
             },
             {
                 "name": "direction",
-                "type": "\"left\" | \"right\" | \"top\" | \"bottom\" | undefined",
+                "type": "\"top\" | \"bottom\" | \"left\" | \"right\" | undefined",
                 "required": false,
                 "bindable": false,
                 "default": null,

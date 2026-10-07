@@ -68,7 +68,7 @@
         "properties": [
             {
                 "name": "activationMode",
-                "type": "\"manual\" | \"automatic\" | undefined",
+                "type": "\"automatic\" | \"manual\" | undefined",
                 "required": false,
                 "bindable": false,
                 "default": "'automatic'",

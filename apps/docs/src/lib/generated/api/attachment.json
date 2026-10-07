@@ -1540,7 +1540,7 @@
             },
             {
                 "name": "size",
-                "type": "\"sm\" | \"md\" | \"lg\" | \"icon\" | undefined",
+                "type": "\"icon\" | \"lg\" | \"md\" | \"sm\" | undefined",
                 "required": false,
                 "bindable": false,
                 "default": "children ? 'md' : 'icon'",

@@ -40,7 +40,7 @@
             },
             {
                 "name": "variant",
-                "type": "\"primary\" | \"default\" | undefined",
+                "type": "\"default\" | \"primary\" | undefined",
                 "required": false,
                 "bindable": false,
                 "default": "'default'",

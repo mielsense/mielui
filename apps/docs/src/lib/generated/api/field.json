@@ -2272,7 +2272,7 @@
             },
             {
                 "name": "orientation",
-                "type": "\"horizontal\" | \"vertical\" | undefined",
+                "type": "\"vertical\" | \"horizontal\" | undefined",
                 "required": false,
                 "bindable": false,
                 "default": "'vertical'",

@@ -76,7 +76,7 @@
             },
             {
                 "name": "role",
-                "type": "\"none\" | \"alertdialog\" | \"dialog\" | \"listbox\" | \"menu\" | undefined",
+                "type": "\"dialog\" | \"alertdialog\" | \"menu\" | \"listbox\" | \"none\" | undefined",
                 "required": false,
                 "bindable": false,
                 "default": "'none'",
@@ -1400,7 +1400,7 @@
             },
             {
                 "name": "searchPlacement",
-                "type": "\"menu\" | \"trigger\" | undefined",
+                "type": "\"trigger\" | \"menu\" | undefined",
                 "required": false,
                 "bindable": false,
                 "default": "'trigger'",

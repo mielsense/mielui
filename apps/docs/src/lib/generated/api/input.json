@@ -31,7 +31,7 @@
             },
             {
                 "name": "variant",
-                "type": "\"secondary\" | \"outline\" | undefined",
+                "type": "\"outline\" | \"secondary\" | undefined",
                 "required": false,
                 "bindable": false,
                 "default": "'outline'",
@@ -545,7 +545,7 @@
             3660,
             {
                 "name": "type",
-                "type": "\"file\" | \"checkbox\" | \"radio\" | \"number\" | \"hidden\" | \"color\" | \"search\" | \"button\" | \"text\" | \"tel\" | \"url\" | \"email\" | \"date\" | \"time\" | \"submit\" | \"reset\" | \"image\" | \"datetime-local\" | \"month\" | \"password\" | \"range\" | \"week\" | undefined",
+                "type": "\"file\" | \"checkbox\" | \"radio\" | \"button\" | \"color\" | \"date\" | \"datetime-local\" | \"email\" | \"hidden\" | \"image\" | \"month\" | \"number\" | \"password\" | \"range\" | \"reset\" | \"search\" | \"submit\" | \"tel\" | \"text\" | \"time\" | \"url\" | \"week\" | undefined",
                 "required": false,
                 "bindable": false,
                 "default": "'text'",

@@ -470,7 +470,7 @@
             },
             {
                 "name": "animation",
-                "type": "\"none\" | \"rows\" | \"columns\" | \"live\" | undefined",
+                "type": "\"rows\" | \"columns\" | \"live\" | \"none\" | undefined",
                 "required": false,
                 "bindable": false,
                 "default": "'rows'",
