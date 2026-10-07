@@ -119,7 +119,7 @@
         <kbd
             aria-hidden="true"
             data-ui="question-option-key"
-            class="mt-0.5 grid h-5 min-w-5 shrink-0 place-items-center rounded-[var(--radius-sm)] border-[length:var(--border-size)] border-border bg-card px-1 font-mono text-[11px] leading-none text-foreground-muted before:content-[counter(question-option)]"
+            class="mt-0.5 grid h-5 min-w-5 shrink-0 place-items-center rounded-[var(--radius-sm)] border-[length:var(--border-size)] border-border bg-card px-1 font-mono text-xs leading-none text-foreground-muted before:content-[counter(question-option)]"
         ></kbd>
     </label>
 {/if}
