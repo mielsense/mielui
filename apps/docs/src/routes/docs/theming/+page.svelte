@@ -396,7 +396,7 @@ const css = themeToCss(theme);`}
         <Typography.H2 class="docs-section-heading">Inset strip position</Typography.H2>
         <Typography.Text variant="body" class="m-0">
             <InlineText
-                text="Appearance → Inset strip moves exposed chrome above or below its inset content. Studio exports `--mielui-inset-position` as `top` or `bottom`. Without that token, components keep their authored order."
+                text="In Theme Studio, Surface, then Inset strip, moves exposed chrome above or below its inset content. Studio exports `--mielui-inset-position` as `top` or `bottom`. Without that token, components keep their authored order."
             />
         </Typography.Text>
         <Typography.Text variant="body" class="m-0">

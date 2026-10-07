@@ -16,6 +16,8 @@
     import HeroSrc from './examples/hero.svelte?raw';
     import Inset from './examples/inset.svelte';
     import InsetSrc from './examples/inset.svelte?raw';
+    import InsetPosition from './examples/inset-position.svelte';
+    import InsetPositionSrc from './examples/inset-position.svelte?raw';
     import Panel from './examples/panel.svelte';
     import PanelSrc from './examples/panel.svelte?raw';
 
@@ -152,6 +154,28 @@
             <ComponentPreview code={InsetSrc}>
                 <Inset />
             </ComponentPreview>
+        </div>
+
+        <div id="inset-position" class="scroll-mt-20 flex flex-col gap-3">
+            <Typography.H3 class="docs-subsection-heading">Footer position</Typography.H3>
+            <Typography.Text variant="supporting">
+                <InlineText
+                    text={"An inset card shows its footer under the content by default. The `--mielui-inset-position` token moves it and takes `bottom` or `top`. You write the Footer in the same place either way, and the card reorders it."}
+                />
+            </Typography.Text>
+            <Typography.Text variant="supporting">
+                <InlineText
+                    text={'Set the token on one card with `class="[--mielui-inset-position:top]"`, as this example does. To move the strip on every inset card, dialog and toast at once, set it on `:root` in your CSS after importing `ui.css`, or choose Surface, then Inset strip, in Theme Studio.'}
+                />
+            </Typography.Text>
+            <ComponentPreview code={InsetPositionSrc}>
+                <InsetPosition />
+            </ComponentPreview>
+            <CodeBlock
+                code={`:root {\n    --mielui-inset-position: top;\n}`}
+                lang="css"
+                copy="overlay"
+            />
         </div>
     </section>
     <section id="parts" class="flex flex-col gap-4">

@@ -15,6 +15,7 @@
 - Move the copy button for example source into the preview's top bar, and keep links inside previews from leaving the page.
 - Example previews, install commands, code blocks and API lists follow the theme's single or double border setting.
 - Rewrite Card's examples as small realistic tasks: a project summary, notification settings, a revenue figure, an invitation, deploy details, a member list and a weekly digest.
+- Add a Footer position section to the Card page, with a live example of `--mielui-inset-position` moving an inset card's footer to the top.
 - Date Range Picker examples show the start field, end field and calendar button as separate controls. The two-month example no longer caps the range at 14 days, and length limits have their own example.
 - Replace the single-element Avatar, Badge, and Toggle previews with small realistic examples, and add a Placement and timing section to the Hover Card page.
 - Folder Card examples show paper sheets tucked into the folder that lift and fan out on hover and keyboard focus.
