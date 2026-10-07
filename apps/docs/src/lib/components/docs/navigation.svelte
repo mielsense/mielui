@@ -37,9 +37,9 @@
     const search = getSearch();
 
     const rowClass =
-        'group/row flex h-8 w-full min-w-0 items-center gap-3 rounded-[var(--radius-sm)] px-2.5 text-start text-sm font-medium text-foreground/85 transition-colors [transition-duration:var(--motion-duration-hover)] hover:bg-[var(--docs-pill)] hover:text-foreground focus-visible:outline-none focus-visible:shadow-[var(--focus-ring)] aria-[current=page]:bg-[var(--docs-pill)] aria-[current=page]:text-foreground motion-reduce:transition-none';
+        'group/row flex h-9 w-full min-w-0 items-center gap-3 rounded-[var(--radius-sm)] px-2.5 text-start text-sm font-medium text-foreground/85 transition-colors [transition-duration:var(--motion-duration-hover)] hover:bg-[var(--docs-pill)] hover:text-foreground focus-visible:outline-none focus-visible:shadow-[var(--focus-ring)] aria-[current=page]:bg-[var(--docs-pill)] aria-[current=page]:text-foreground motion-reduce:transition-none';
     const labelClass =
-        'flex h-8 items-center rounded-[var(--radius-sm)] px-2.5 text-[13px] font-medium text-foreground-muted [@container_scroll-state(stuck:top)]:font-semibold [@container_scroll-state(stuck:top)]:text-foreground';
+        'flex h-9 items-center rounded-[var(--radius-sm)] px-2.5 text-[13px] font-medium text-foreground-muted [@container_scroll-state(stuck:top)]:font-semibold [@container_scroll-state(stuck:top)]:text-foreground';
 
     const guides = [
         { label: 'Introduction', href: resolve('/docs/introduction'), icon: Book },
@@ -137,7 +137,7 @@
     });
 </script>
 
-<nav bind:this={nav} aria-label="Documentation" class="flex flex-col gap-5 px-[15px] pt-1 pb-6">
+<nav bind:this={nav} aria-label="Documentation" class="flex flex-col gap-6 px-4 pt-1 pb-8">
     <div class="flex flex-col gap-0.5">
         <button type="button" class={rowClass} onclick={openSearch}>
             <HugeiconsIcon icon={Search} size={16} class="shrink-0" aria-hidden="true" />
@@ -169,7 +169,7 @@
     {#each sections as section (section.id)}
         <section class="flex flex-col gap-0.5">
             <h2
-                class="sticky top-0 z-10 -mx-[15px] m-0 bg-[var(--docs-side)] px-[15px] [container-type:scroll-state]"
+                class="sticky top-0 z-10 -mx-4 m-0 bg-[var(--docs-side)] px-4 [container-type:scroll-state]"
             >
                 <span
                     aria-hidden="true"

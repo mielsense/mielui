@@ -85,10 +85,7 @@
     <Inspector />
 </Sidebar>
 
-<div
-    data-docs-page
-    class="flex min-h-0 min-w-0 flex-1 flex-col bg-[var(--docs-side)] text-foreground [--docs-content:var(--docs-side)]"
->
+<div data-docs-page class="flex min-h-0 min-w-0 flex-1 flex-col text-foreground">
     <h1 class="sr-only">Theme Studio</h1>
     <Topbar>
         {#snippet leading()}
@@ -242,7 +239,7 @@
     >
         <div
             class={cn(
-                'h-full min-h-0 w-full overflow-clip bg-[var(--docs-side)] font-[var(--font-sans)] text-foreground [&[data-picking]_*]:cursor-crosshair!',
+                'h-full min-h-0 w-full overflow-clip bg-[var(--docs-content)] font-[var(--font-sans)] text-foreground [&[data-picking]_*]:cursor-crosshair!',
                 studio.width === 'narrow'
                     ? 'max-w-[390px] border-x-[length:var(--border-size)] border-[var(--docs-rule)]'
                     : 'max-w-none',

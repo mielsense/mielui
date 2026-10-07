@@ -67,9 +67,9 @@
 
 <nav
     aria-label="Primary"
-    class="hidden w-16 shrink-0 flex-col items-center border-e-[length:var(--border-size)] border-border bg-[var(--docs-side)] lg:flex"
+    class="hidden w-16 shrink-0 flex-col items-center bg-[var(--docs-rail)] lg:flex"
 >
-    <div class="flex h-[50px] shrink-0 items-center">
+    <div class="flex h-14 shrink-0 items-center">
         <a
             href={resolve('/')}
             aria-label="mielui Home"
@@ -82,7 +82,7 @@
             </span>
         </a>
     </div>
-    <div class="flex flex-col items-center gap-1.5 pt-2">
+    <div class="flex flex-col items-center gap-2 pt-2">
         {#each items as item (item.href)}
             <Tooltip.Root placement="right">
                 <Tooltip.Trigger>
@@ -98,7 +98,7 @@
                 <Tooltip.Content>{item.label}</Tooltip.Content>
             </Tooltip.Root>
         {/each}
-        <span aria-hidden="true" class="my-1 h-px w-6 bg-[var(--docs-rule)]"></span>
+        <span aria-hidden="true" class="my-1 h-px w-6 bg-foreground/10"></span>
         <Tooltip.Root placement="right">
             <Tooltip.Trigger>
                 <button
@@ -113,7 +113,7 @@
             <Tooltip.Content>Search</Tooltip.Content>
         </Tooltip.Root>
     </div>
-    <div class="mt-auto flex h-[50px] shrink-0 items-center">
+    <div class="mt-auto flex h-14 shrink-0 items-center">
         <Tooltip.Root placement="right">
             <Tooltip.Trigger>
                 <a

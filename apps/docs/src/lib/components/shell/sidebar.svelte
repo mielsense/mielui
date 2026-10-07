@@ -110,9 +110,7 @@
     style:--sidebar-width={`${width}px`}
     class={`hidden h-full shrink-0 overflow-clip ease-[var(--ease-out)] motion-reduce:transition-none lg:block ${dragging ? '' : 'transition-[width] [transition-duration:var(--motion-duration-panel)]'} ${shell.collapsed ? 'w-0' : 'w-[var(--sidebar-width)]'}`}
 >
-    <div
-        class="relative flex h-full w-[var(--sidebar-width)] flex-col border-e-[length:var(--border-size)] border-border bg-[var(--docs-side)]"
-    >
+    <div class="relative flex h-full w-[var(--sidebar-width)] flex-col bg-[var(--docs-side)]">
         <!-- svelte-ignore a11y_no_noninteractive_tabindex, a11y_no_noninteractive_element_interactions -->
         <div
             role="separator"
@@ -138,7 +136,7 @@
                 class="absolute inset-y-0 end-0 w-0.5 bg-primary opacity-0 transition-opacity [transition-duration:var(--motion-duration-hover)] group-hover:opacity-60 group-focus-visible:opacity-100 group-data-[dragging]:opacity-100 motion-reduce:transition-none"
             ></span>
         </div>
-        <div class="flex h-[50px] shrink-0 items-center justify-between gap-1 ps-[19px] pe-3">
+        <div class="flex h-14 shrink-0 items-center justify-between gap-1 ps-5 pe-3.5">
             <Menu.Root>
                 <Menu.Trigger
                     variant="ghost"
