@@ -17,9 +17,9 @@
 
     $effect(() => {
         if (joined) {
-            context.setInsetToolbar(true);
+            context.setJoinedToolbar(true);
             return () => {
-                context.setInsetToolbar(false);
+                context.setJoinedToolbar(false);
             };
         }
     });

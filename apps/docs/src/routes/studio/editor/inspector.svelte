@@ -104,7 +104,7 @@
                     {#if empty}
                         <div class="flex flex-col items-start gap-3 px-3 pt-2">
                             <p class="m-0 text-sm text-foreground-muted">
-                                {`No settings match “${filter.query.trim()}”.`}
+                                {`No settings match "${filter.query.trim()}".`}
                             </p>
                             <Button
                                 variant="outline"

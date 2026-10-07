@@ -27,7 +27,7 @@
     let form: HTMLFormElement | undefined;
     const submission = createSubmission();
     const pending = $derived(submission.pending);
-    let insetToolbar = $state(false);
+    let joinedToolbar = $state(false);
     const effectiveStatus = $derived<ComposerStatus>(
         status === 'submitting' || pending ? 'submitting' : submission.failed ? 'error' : status
     );
@@ -55,8 +55,8 @@
         get pending() {
             return pending || (generating !== undefined && status === 'submitting');
         },
-        get insetToolbar() {
-            return insetToolbar;
+        get joinedToolbar() {
+            return joinedToolbar;
         },
         submit() {
             if (!disabled && !pending) {
@@ -71,8 +71,8 @@
                 onStop?.();
             }
         },
-        setInsetToolbar(next: boolean) {
-            insetToolbar = next;
+        setJoinedToolbar(next: boolean) {
+            joinedToolbar = next;
         }
     });
 

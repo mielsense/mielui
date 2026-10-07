@@ -149,7 +149,7 @@ export function componentMarkdown(component: string): string | undefined {
                 .filter((property) => !property.inherited)
                 .map(
                     (property) =>
-                        `| ${property.name} | ${property.type.replaceAll('|', '\\|')} | ${(property.default ?? '—').replaceAll('|', '\\|')} | ${property.required ? 'Yes' : 'No'} | ${property.bindable ? 'Yes' : 'No'} | ${property.description.replaceAll('|', '\\|')} |`
+                        `| ${property.name} | ${property.type.replaceAll('|', '\\|')} | ${(property.default ?? '-').replaceAll('|', '\\|')} | ${property.required ? 'Yes' : 'No'} | ${property.bindable ? 'Yes' : 'No'} | ${property.description.replaceAll('|', '\\|')} |`
                 ),
             '',
             part.properties.some((property) => property.inherited)
