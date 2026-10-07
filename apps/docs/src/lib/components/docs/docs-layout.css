@@ -20,8 +20,20 @@
     @apply mt-6;
 }
 
+/* The catalog search row stays pinned. A short blurred fade appears under it only
+   while it is pinned, so cards ease out instead of being cut off. */
 .docs-article [data-docs-page] > section[data-docs-toolbar] {
-    @apply sticky top-0 z-40 h-[var(--docs-row-height)] shrink-0 justify-center bg-[var(--docs-content)] py-0;
+    @apply sticky top-0 z-40 h-[var(--docs-row-height)] shrink-0 justify-center bg-[var(--docs-content)] py-0 [container-type:scroll-state];
+}
+
+.docs-article [data-docs-page] > section[data-docs-toolbar]::after {
+    @apply pointer-events-none absolute inset-x-0 top-full h-6 bg-linear-to-b from-[var(--docs-content)] to-transparent opacity-0 backdrop-blur-[3px] content-[''] [mask-image:linear-gradient(to_bottom,black,transparent)];
+}
+
+@container scroll-state(stuck: top) {
+    .docs-article [data-docs-page] > section[data-docs-toolbar]::after {
+        @apply opacity-100;
+    }
 }
 
 .docs-article :is([data-docs-page] > section, #api-reference) > :is(h2, div:first-child:has(> h2)) {
