@@ -2,6 +2,7 @@
     import {
         Analytics01Icon,
         BrowserIcon,
+        CursorPointer02Icon,
         GridViewIcon,
         Redo02Icon,
         SparklesIcon,
@@ -31,13 +32,16 @@
     import Inspector from './editor/inspector.svelte';
     import PresetDialog from './editor/preset-dialog.svelte';
     import SharedThemeDialog from './editor/shared-theme-dialog.svelte';
-    import ThemeSetupDialog from './theme-setup-dialog.svelte';
+    import TokenPicker from './editor/token-picker.svelte';
+    import ExportPanel from './export-panel.svelte';
 
     const studio = getStudioContext();
     const editor = createThemeEditor();
     setThemeEditor(editor);
 
     let inspectorOpen = $state(false);
+    let picking = $state(false);
+    let preview = $state<HTMLDivElement>();
     const previewTabs = [
         { value: 'components', label: 'Components', icon: GridViewIcon },
         { value: 'charts', label: 'Charts', icon: Analytics01Icon },
@@ -129,6 +133,24 @@
             </Select.Root>
         </div>
         {#snippet actions()}
+            <Tooltip.Root>
+                <Tooltip.Trigger>
+                    <Button
+                        variant={picking ? 'secondary' : 'ghost'}
+                        size="icon"
+                        aria-label="Edit tokens by clicking an element"
+                        aria-pressed={picking}
+                        onclick={() => {
+                            picking = !picking;
+                        }}
+                    >
+                        <HugeiconsIcon icon={CursorPointer02Icon} size={16} />
+                    </Button>
+                </Tooltip.Trigger>
+                <Tooltip.Content>
+                    {picking ? 'Stop editing tokens' : 'Click an element to edit its tokens'}
+                </Tooltip.Content>
+            </Tooltip.Root>
             <div role="group" aria-label="History" class="flex items-center">
                 <Tooltip.Root>
                     <Tooltip.Trigger>
@@ -185,7 +207,7 @@
     >
         <div
             class={cn(
-                'h-full min-h-0 w-full overflow-clip bg-background font-[var(--font-sans)] text-foreground',
+                'h-full min-h-0 w-full overflow-clip bg-background font-[var(--font-sans)] text-foreground [&[data-picking]_*]:cursor-crosshair!',
                 studio.width === 'narrow'
                     ? 'max-w-[390px] border-x-[length:var(--border-size)] border-[var(--docs-rule)]'
                     : 'max-w-none',
@@ -193,6 +215,8 @@
                     'bg-[linear-gradient(135deg,color-mix(in_oklab,var(--chart-1)_28%,transparent),color-mix(in_oklab,var(--chart-2)_22%,transparent)_30%,color-mix(in_oklab,var(--chart-5)_28%,transparent)_65%,color-mix(in_oklab,var(--chart-3)_24%,transparent))]'
             )}
             id="theme-preview"
+            bind:this={preview}
+            data-picking={picking || undefined}
         >
             {#if studio.mode === 'components'}
                 <ComponentPreview />
@@ -210,6 +234,13 @@
     </section>
 </div>
 
-<ThemeSetupDialog bind:open={editor.state.setupOpen} generatedJson={editor.generatedJson} />
+<ExportPanel
+    bind:open={editor.state.setupOpen}
+    name={editor.state.theme.name}
+    css={editor.generatedCss}
+    json={editor.generatedJson}
+    changes={editor.changes}
+/>
 <PresetDialog />
+<TokenPicker bind:active={picking} container={preview} />
 <SharedThemeDialog />

@@ -220,9 +220,9 @@ export function createThemeEditor() {
 
     function applyTheme(preset: Theme) {
         const draftIdentity = {
-            slug: state.theme.slug,
-            name: state.theme.name,
-            description: state.theme.description
+            slug: `${preset.slug}-custom`,
+            name: preset.name,
+            description: preset.description
         };
         state.baseTheme = { ...preset };
         state.theme = { ...preset, ...draftIdentity };
@@ -286,6 +286,14 @@ export function createThemeEditor() {
             syncFontSelections(state.theme);
         }
         storage.load();
+        if (state.theme.slug === 'midnight-ledger') {
+            const preset = builtInThemePresets.find((entry) => entry.slug === state.selectedPreset);
+            state.theme = {
+                ...state.theme,
+                slug: `${preset?.slug ?? 'default'}-custom`,
+                name: preset?.name ?? 'Default'
+            };
+        }
         state.previousRadius = state.theme.radius;
         state.previousDensity = state.theme.density;
         state.previousMotion = state.theme.motion;
@@ -510,6 +518,9 @@ export function createThemeEditor() {
         },
         get appModeBinding() {
             return appModeBinding;
+        },
+        get changes() {
+            return changedAxisCount;
         },
         get generatedCss() {
             return generatedCss;

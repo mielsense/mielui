@@ -15,3 +15,6 @@
 - Press 1 to 9 inside a Question to pick that option. Each option shows its number key.
 - Add five theme presets from Sivir UI: Profitable, Raven, Clawd, Inspiration, and Government.
 - Folder Card takes `onclick` without `href` to make the whole card a button, named by its title, with `disabled` to block it.
+- Click any element in the Studio preview to edit the tokens it uses, in a panel anchored to it.
+- Export a Studio theme from a side sheet with CSS, JSON and CLI tabs.
+- Studio drafts take the name of the preset they start from.

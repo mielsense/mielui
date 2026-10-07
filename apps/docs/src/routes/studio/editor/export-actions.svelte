@@ -13,7 +13,7 @@
                     editor.state.setupOpen = true;
                 }}
     >
-        Use theme
+        Export theme
     </Button>
     <Group.Root class="w-full" aria-label="Copy theme">
         <CopyButton

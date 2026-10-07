@@ -514,7 +514,20 @@ offers a Clear search button. A setting that differs from the selected preset sh
 beside its label, which puts that one setting back. For a token, that removes
 the override. Undo and Redo sit at the start of the top bar actions and answer
 Cmd or Ctrl+Z and Shift+Cmd or Ctrl+Z. They cover every edit, preset switch and
-reset. One drag is one step. Each preset in the picker shows a swatch of its brand color. Copy share link
+reset. One drag is one step.
+
+The pointer button beside Undo turns on token picking. While it is on, the
+preview does not react to clicks. Hovering outlines the component under the
+pointer, and clicking one opens a panel anchored to it with the tokens that
+component uses, read from the page's stylesheets. The panel groups them under
+Color, Shape and Motion, uses the same setting rows as the sidebar, shows how
+many copies of the component are on screen, and has Select parent, Close and a
+Reset for its overrides. Escape closes the panel, and Escape again leaves
+picking.
+
+Export theme opens a sheet from the right with the theme as CSS, as JSON, and
+the CLI steps, with Copy JSON and Copy CSS in its footer. A draft takes the name
+of the preset it started from. Each preset in the picker shows a swatch of its brand color. Copy share link
 puts the whole theme in the link's hash, so nothing is stored on a server.
 Opening such a link asks before it replaces the current draft. The export actions stay pinned
 under the scrolling groups. The preview fills the content column under the top bar.

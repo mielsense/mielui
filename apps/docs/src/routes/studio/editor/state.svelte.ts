@@ -15,8 +15,8 @@ export function createThemeEditorState() {
     const state = $state({
         theme: {
             ...DEFAULT_THEME,
-            slug: 'midnight-ledger',
-            name: 'Midnight Ledger'
+            slug: `${DEFAULT_THEME.slug}-custom`,
+            name: DEFAULT_THEME.name
         } as Theme,
         baseTheme: { ...DEFAULT_THEME } as Theme,
         selectedPreset: DEFAULT_THEME.slug,
