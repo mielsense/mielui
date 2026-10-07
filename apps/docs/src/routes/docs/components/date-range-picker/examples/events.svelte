@@ -1,7 +1,6 @@
 <script lang="ts">
     import type { DateValue } from '@internationalized/date';
     import * as DateRangePicker from '@mielui/svelte/components/date-range-picker';
-    import * as Group from '@mielui/svelte/components/group';
 
     let value = $state<{
         start: DateValue | undefined;
@@ -28,13 +27,11 @@
     >
         <div class="grid gap-2">
             <DateRangePicker.Label>Report period</DateRangePicker.Label>
-            <Group.Root aria-label="Report period controls" class="w-full">
+            <div class="flex flex-wrap items-center gap-2">
                 <DateRangePicker.Input type="start" name="from" aria-label="From" />
-                <Group.Separator />
                 <DateRangePicker.Input type="end" name="to" aria-label="To" />
-                <Group.Separator />
                 <DateRangePicker.Trigger />
-            </Group.Root>
+            </div>
         </div>
         <DateRangePicker.Content align="end">
             <DateRangePicker.Calendar />

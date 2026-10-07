@@ -1,7 +1,6 @@
 <script lang="ts">
     import { CalendarDate, type DateValue } from '@internationalized/date';
     import * as DateRangePicker from '@mielui/svelte/components/date-range-picker';
-    import * as Group from '@mielui/svelte/components/group';
 
     let value = $state<{
         start: DateValue | undefined;
@@ -16,13 +15,11 @@
     <DateRangePicker.Root bind:value calendarLabel="Travel dates">
         <div class="grid gap-2">
             <DateRangePicker.Label>Travel dates</DateRangePicker.Label>
-            <Group.Root aria-label="Travel date controls" class="w-full">
+            <div class="flex flex-wrap items-center gap-2">
                 <DateRangePicker.Input type="start" name="startDate" aria-label="Start date" />
-                <Group.Separator />
                 <DateRangePicker.Input type="end" name="endDate" aria-label="End date" />
-                <Group.Separator />
                 <DateRangePicker.Trigger />
-            </Group.Root>
+            </div>
             <p class="text-sm text-foreground-muted">
                 Choose a start and end date, or edit each field.
             </p>
