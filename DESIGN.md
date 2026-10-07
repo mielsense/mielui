@@ -345,8 +345,8 @@ fainter one. Cmd or Ctrl-click on a sidebar link opens it as a tab in the backgr
 tab onto another to reorder, or press Alt with the left or right arrow on a
 focused tab. Error pages are never saved as tabs; they persist in local storage and scroll sideways
 when they overflow. Copy page and the theme toggle sit at the end of the bar, in docs and in Studio. Pages without tabs
-show one static pill with their name. Studio uses the same pills for its preview
-modes.
+show one static pill with their name. Studio does not use these pills. Its preview
+modes are a segmented Tabs list.
 
 The status line is flat text on the frame, 9 spacing units tall, with no pills
 or fills: the package version linking to the changelog, the component count, the
@@ -462,10 +462,14 @@ row and the top bar are both 50px tall. Top bar controls use the small control
 height with the Button's own radius and type; outline is reserved for the Copy
 page group. Separate control groups with a gap, not a divider.
 
-Studio preview modes sit at the start of the top bar as the same pills the docs
-tabs use. The glass backdrop switch and preview width sit at its end. Do not add
-another toolbar row. Use the shared ghost tabs for preview width and in setup
-dialogs.
+Studio preview modes sit at the start of the top bar as a segmented Tabs list
+with text labels and no icons. The end of the bar holds only icon buttons: token
+picking, Undo, Redo, preview options, and the theme toggle. Preview width and the
+glass backdrop switch live in the preview options popover, not in the bar. Do not
+add another toolbar row or more always-visible controls. In Studio the top bar,
+the preview page and the sidebar share one background (`--docs-side`) in both
+themes, so the bar reads as part of the page with only the scroll-edge blur under
+it.
 
 Section and outline headings use semibold or medium weight with the configured
 header font. Keep body labels and tabs lighter so section titles remain distinct.
@@ -505,8 +509,9 @@ the end. Controls inside a bar carry no border of their own: selects and color
 triggers are ghost buttons, a color shows its name or hex before the swatch, and
 a two-value choice is a pair of text toggles. A numeric setting is a Slider with
 `variant="field"`, so the bar itself is the control and its value sits at the
-end in the mono font. Only the full list of color tokens sits behind a
-disclosure, at the end of the Color tab. A search field above the
+end in the mono font. Keep the Studio calm: the Color tab opens with Brand,
+Backgrounds and Text only. Chart colors and the full list of color tokens each
+sit behind a disclosure at the end of the Color tab. A search field above the
 groups filters settings by name. A query that matches a row shows that row in its
 group. A query that matches only a group's title or keywords shows the whole
 group. A search reaches across all tabs and shows no tab as selected. Choosing a
@@ -535,7 +540,9 @@ under the scrolling groups. The preview fills the content column under the top b
 
 Studio demos are composed cards, not loose controls or section headings. The
 Components demo is a masonry of inset cards, each a small realistic task; chart
-demos sit in the same cards. Center a fixed-size component, such as a calendar,
+demos sit in the same cards. The masonry is centered, at most three columns
+wide, with a 6-unit gap between cards. Footer actions keep their natural width
+at the end of the footer; do not stretch a button across a card. Center a fixed-size component, such as a calendar,
 inside its card. Demo cards pass the theme's glass setting to Card's `surface`
 prop, so they show what the component itself does.
 

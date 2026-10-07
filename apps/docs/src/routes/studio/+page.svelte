@@ -1,15 +1,13 @@
 <script lang="ts">
     import {
-        Analytics01Icon,
-        BrowserIcon,
         CursorPointer02Icon,
-        GridViewIcon,
         Redo02Icon,
-        SparklesIcon,
+        SlidersHorizontalIcon,
         Undo02Icon
     } from '@hugeicons/core-free-icons';
     import { Button } from '@mielui/svelte/components/button';
     import Kbd from '@mielui/svelte/components/kbd';
+    import * as Popover from '@mielui/svelte/components/popover';
     import * as Select from '@mielui/svelte/components/select';
     import * as Sheet from '@mielui/svelte/components/sheet';
     import { Switch } from '@mielui/svelte/components/switch';
@@ -20,7 +18,6 @@
     import MobileActions from '$lib/components/shell/mobile-actions.svelte';
     import { fadeX, scrollFade } from '$lib/components/shell/scroll-fade';
     import Sidebar from '$lib/components/shell/sidebar.svelte';
-    import TabPill from '$lib/components/shell/tab-pill.svelte';
     import Topbar from '$lib/components/shell/topbar.svelte';
     import { getStudioContext } from '$lib/studio-context';
     import AiPreview from './ai-preview.svelte';
@@ -43,10 +40,10 @@
     let picking = $state(false);
     let preview = $state<HTMLDivElement>();
     const previewTabs = [
-        { value: 'components', label: 'Components', icon: GridViewIcon },
-        { value: 'charts', label: 'Charts', icon: Analytics01Icon },
-        { value: 'ai', label: 'AI components', icon: SparklesIcon },
-        { value: 'app', label: 'App preview', icon: BrowserIcon }
+        { value: 'components', label: 'Components' },
+        { value: 'charts', label: 'Charts' },
+        { value: 'ai', label: 'AI components' },
+        { value: 'app', label: 'App preview' }
     ];
     let appMounted = $state(false);
     $effect(() => {
@@ -83,7 +80,10 @@
     <Inspector />
 </Sidebar>
 
-<div data-docs-page class="flex min-h-0 min-w-0 flex-1 flex-col text-foreground">
+<div
+    data-docs-page
+    class="flex min-h-0 min-w-0 flex-1 flex-col bg-[var(--docs-side)] text-foreground [--docs-content:var(--docs-side)]"
+>
     <h1 class="sr-only">Theme Studio</h1>
     <Topbar>
         {#snippet leading()}
@@ -107,16 +107,13 @@
             {@attach scrollFade({ axis: 'x', size: 32 })}
             class={`hide-scrollbar-all hidden min-w-0 flex-1 items-center gap-1 overflow-x-auto p-0.5 md:flex ${fadeX}`}
         >
-            {#each previewTabs as tab (tab.value)}
-                <TabPill
-                    label={tab.label}
-                    icon={tab.icon}
-                    current={studio.mode === tab.value}
-                    onclick={() => {
-                        studio.mode = tab.value;
-                    }}
-                />
-            {/each}
+            <Tabs.Root bind:value={studio.mode} variant="segmented" class="shrink-0">
+                <Tabs.List>
+                    {#each previewTabs as tab (tab.value)}
+                        <Tabs.Trigger value={tab.value}>{tab.label}</Tabs.Trigger>
+                    {/each}
+                </Tabs.List>
+            </Tabs.Root>
         </div>
         <div class="md:hidden">
             <Select.Root bind:value={studio.mode}>
@@ -187,16 +184,36 @@
                     </Tooltip.Content>
                 </Tooltip.Root>
             </div>
-            <div class="hidden items-center gap-3 pe-1 text-[13px] md:flex">
-                <Switch bind:checked={studio.glassBackdrop} label="Glass backdrop" />
-                <Tabs.Root bind:value={studio.width} variant="ghost">
-                    <div role="group" aria-label="Preview width">
-                        <Tabs.List>
-                            <Tabs.Trigger value="wide">Wide</Tabs.Trigger>
-                            <Tabs.Trigger value="narrow">Narrow</Tabs.Trigger>
-                        </Tabs.List>
-                    </div>
-                </Tabs.Root>
+            <div class="hidden md:block">
+                <Popover.Root placement="bottom-end">
+                    <Popover.Trigger
+                        variant="ghost"
+                        size="icon"
+                        icon={false}
+                        aria-label="Preview options"
+                    >
+                        <HugeiconsIcon icon={SlidersHorizontalIcon} size={16} />
+                    </Popover.Trigger>
+                    <Popover.Content class="w-64" surfaceClass="flex flex-col gap-4 p-4">
+                        <Popover.Title>Preview</Popover.Title>
+                        <div class="flex items-center justify-between gap-3">
+                            <span id="studio-preview-width" class="text-sm">Width</span>
+                            <Tabs.Root bind:value={studio.width} variant="segmented">
+                                <div role="group" aria-labelledby="studio-preview-width">
+                                    <Tabs.List>
+                                        <Tabs.Trigger value="wide">Wide</Tabs.Trigger>
+                                        <Tabs.Trigger value="narrow">Narrow</Tabs.Trigger>
+                                    </Tabs.List>
+                                </div>
+                            </Tabs.Root>
+                        </div>
+                        <Switch
+                            bind:checked={studio.glassBackdrop}
+                            label="Glass backdrop"
+                            description="A gradient behind the preview, to judge glass surfaces."
+                        />
+                    </Popover.Content>
+                </Popover.Root>
             </div>
             <MobileActions />
         {/snippet}
@@ -207,7 +224,7 @@
     >
         <div
             class={cn(
-                'h-full min-h-0 w-full overflow-clip bg-background font-[var(--font-sans)] text-foreground [&[data-picking]_*]:cursor-crosshair!',
+                'h-full min-h-0 w-full overflow-clip bg-[var(--docs-side)] font-[var(--font-sans)] text-foreground [&[data-picking]_*]:cursor-crosshair!',
                 studio.width === 'narrow'
                     ? 'max-w-[390px] border-x-[length:var(--border-size)] border-[var(--docs-rule)]'
                     : 'max-w-none',

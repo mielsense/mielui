@@ -41,7 +41,7 @@
     let tags = $state(['Design', 'Release']);
     let publicLink = $state(false);
 
-    const cardClass = 'mb-4 min-w-0 break-inside-avoid';
+    const cardClass = 'mb-6 min-w-0 break-inside-avoid';
     const editor = getThemeEditor();
     const surface = $derived(editor.state.glassSurfaces ? 'glass' : 'solid');
 
@@ -58,7 +58,7 @@
 <FadeScrollArea class="h-full" start>
     <div class="@container w-full">
         <h2 class="sr-only">Components</h2>
-        <div class="columns-1 gap-4 p-4 @2xl:columns-2 @5xl:columns-3 @[88rem]:columns-4 sm:p-5">
+        <div class="mx-auto max-w-[80rem] columns-1 gap-6 p-5 @2xl:columns-2 @6xl:columns-3 sm:p-8">
             <Card.Root variant="inset" {surface} class={cardClass}>
                 <Card.Header>
                     <Card.Title>Workspace profile</Card.Title>
@@ -114,7 +114,7 @@
                     <Textarea aria-label="Release notes" bind:value={notes} />
                 </Card.Content>
                 <Card.Footer>
-                    <Button class="w-full" onclick={save}>Save checklist</Button>
+                    <Button onclick={save}>Save checklist</Button>
                 </Card.Footer>
             </Card.Root>
             <Card.Root variant="inset" {surface} class={cardClass}>
@@ -193,7 +193,6 @@
                 <Card.Footer>
                     <Button
                         variant="outline"
-                        class="w-full"
                         onclick={() => toast.info('Invitation preview', { description: 'Your team invitation would appear here.' })}
                     >
                         Invite a teammate
@@ -236,9 +235,7 @@
                 </Card.Content>
                 <Card.Footer>
                     <Popover.Root placement="bottom-start">
-                        <Popover.Trigger variant="outline" class="w-full"
-                            >Edit digest</Popover.Trigger
-                        >
+                        <Popover.Trigger variant="outline">Edit digest</Popover.Trigger>
                         <Popover.Content class="w-72" surfaceClass="space-y-4 p-4">
                             <Popover.Title>Stay up to date</Popover.Title>
                             <p class="text-sm text-foreground-muted">
@@ -282,7 +279,7 @@
                 </Card.Content>
                 <Card.Footer>
                     <Menu.Root>
-                        <Menu.Trigger variant="outline" class="w-full">Manage project</Menu.Trigger>
+                        <Menu.Trigger variant="outline">Manage project</Menu.Trigger>
                         <Menu.Content>
                             <Menu.Label>Release workspace</Menu.Label>
                             <Menu.Item onclick={() => toast.info('Project opened')}>
@@ -373,11 +370,7 @@
                     </p>
                 </Card.Content>
                 <Card.Footer>
-                    <Button
-                        variant="outline"
-                        class="w-full"
-                        onclick={() => toast.info('Storage is up to date')}
-                    >
+                    <Button variant="outline" onclick={() => toast.info('Storage is up to date')}>
                         Manage storage
                     </Button>
                 </Card.Footer>
@@ -395,7 +388,6 @@
                 <Card.Footer>
                     <Button
                         variant="outline"
-                        class="w-full"
                         disabled={!publicLink}
                         onclick={async () => {
             try {

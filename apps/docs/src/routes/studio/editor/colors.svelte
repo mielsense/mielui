@@ -36,6 +36,8 @@
     const tokenCount = tokenGroups.reduce((count, group) => count + group.tokens.length, 0);
 
     let allTokens = $state(false);
+    let chartsOpen = $state(false);
+    const chartTokens = chartGroup?.tokens ?? [];
 
     function sameColor(first: string | undefined, second: string | undefined) {
         return (first ?? '').toLowerCase() === (second ?? '').toLowerCase();
@@ -168,24 +170,16 @@
     )}
 </EditorSection>
 
-<EditorSection title="Charts" keywords="color colour palette data series">
-    {#each chartGroup?.tokens ?? [] as definition (definition.name)}
-        {@render tokenRow(definition)}
-    {/each}
-</EditorSection>
-
-{#if !filter.active}
+{#snippet disclosure(label: string, count: number, open: boolean, toggle: () => void)}
     <button
         type="button"
-        aria-expanded={allTokens}
+        aria-expanded={open}
         class="group flex h-9 w-full items-center justify-between gap-2 rounded-[var(--radius-md)] ps-0.5 pe-2 text-[13px] font-medium text-foreground-muted transition-colors [transition-duration:var(--motion-duration-hover)] hover:text-foreground focus-visible:outline-none focus-visible:shadow-[var(--focus-ring)] aria-expanded:text-foreground motion-reduce:transition-none"
-        onclick={() => {
-            allTokens = !allTokens;
-        }}
+        onclick={toggle}
     >
-        All color tokens
+        {label}
         <span class="flex items-center gap-2">
-            <span class="font-mono text-xs tabular-nums">{tokenCount}</span>
+            <span class="font-mono text-xs tabular-nums">{count}</span>
             <HugeiconsIcon
                 icon={ChevronDown}
                 size={14}
@@ -194,7 +188,29 @@
             />
         </span>
     </button>
-{/if}
+{/snippet}
+
+<div class="flex flex-col">
+    {#if !filter.active}
+        {@render disclosure('Chart colors', chartTokens.length, chartsOpen, () => {
+            chartsOpen = !chartsOpen;
+        })}
+    {/if}
+    {#if chartsOpen || filter.active}
+        <div class="pb-3">
+            <EditorSection title="Charts" keywords="color colour palette data series">
+                {#each chartTokens as definition (definition.name)}
+                    {@render tokenRow(definition)}
+                {/each}
+            </EditorSection>
+        </div>
+    {/if}
+    {#if !filter.active}
+        {@render disclosure('All color tokens', tokenCount, allTokens, () => {
+            allTokens = !allTokens;
+        })}
+    {/if}
+</div>
 
 {#if allTokens || filter.active}
     {#each tokenGroups as group (group.label)}

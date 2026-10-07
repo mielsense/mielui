@@ -60,3 +60,6 @@
 - Date Range Picker's two-month example no longer caps the range at 14 days, so a range can run from one month into the next. Length limits moved to their own example.
 - Card's examples are rewritten as small realistic tasks: a project summary, notification settings, a revenue figure, an invitation, deploy details, a member list and a weekly digest.
 - The homepage and Studio demos pass scrolling on to the page when a transcript has nothing left to scroll.
+- Theme Studio is calmer. The preview has fewer, wider-spaced columns, card footers no longer stretch their buttons, chart colors sit behind a disclosure, and preview width and the glass backdrop moved into one options button.
+- Theme Studio's preview modes are a segmented Tabs list instead of custom pills.
+- In Theme Studio the top bar, the preview page and the sidebar share one background in both themes. In dark mode the bar was a different shade from the page under it.
