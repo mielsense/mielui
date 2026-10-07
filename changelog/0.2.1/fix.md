@@ -19,3 +19,4 @@
 - Drawer no longer flashes back into view for a frame as it closes, and neither does its backdrop.
 - Card no longer doubles the gap when a Footer follows a Header directly, and a Header that ends a card has no trailing margin.
 - Scroll Area contains overscroll only when its content overflows. An area with nothing to scroll no longer swallows the wheel, which also fixes a short Conversation blocking page scroll.
+- Switch and Radio Group items without a description center inside their touch-height box on small screens. They sat at the top of it, out of line with neighboring controls.
