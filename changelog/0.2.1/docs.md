@@ -57,3 +57,4 @@
 - The sidebar's page progress is one bare row: the bars with the page count beside them, without the card or the "pages" label.
 - Component previews fill the corners beside the rounded demo surface with the header color. They showed the darker frame color before.
 - Date Range Picker examples show the start field, end field and calendar button as separate controls instead of one joined group.
+- Date Range Picker's two-month example no longer caps the range at 14 days, so a range can run from one month into the next. Length limits moved to their own example.

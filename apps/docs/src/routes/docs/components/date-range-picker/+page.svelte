@@ -14,6 +14,8 @@
     import FormExampleSrc from './examples/form.svelte?raw';
     import Hero from './examples/hero.svelte';
     import HeroSrc from './examples/hero.svelte?raw';
+    import RangeLengthExample from './examples/range-length.svelte';
+    import RangeLengthExampleSrc from './examples/range-length.svelte?raw';
     import Example0 from './examples/two-months.svelte';
     import Example0Src from './examples/two-months.svelte?raw';
 </script>
@@ -67,12 +69,23 @@
     <section id="examples" class="scroll-mt-20 flex flex-col gap-8">
         <Typography.H2 class="docs-section-heading">Examples</Typography.H2>
         <div id="two-months" class="scroll-mt-20 flex flex-col gap-3">
-            <Typography.H3 class="docs-subsection-heading">Booking range</Typography.H3>
+            <Typography.H3 class="docs-subsection-heading">Across months</Typography.H3>
             <Typography.Text variant="supporting">
-                Show two months with numberOfMonths and use minDays/maxDays for booking limits.
-                Months wrap in narrow containers.
+                Show two months with numberOfMonths. A range can start in one month and end in the
+                other. Months wrap in narrow containers.
             </Typography.Text>
             <ComponentPreview code={Example0Src}><Example0 /></ComponentPreview>
+        </div>
+        <div id="range-length" class="scroll-mt-20 flex flex-col gap-3">
+            <Typography.H3 class="docs-subsection-heading">Range length</Typography.H3>
+            <Typography.Text variant="supporting">
+                minDays and maxDays limit how long a range can be, counting both endpoints. Picking
+                an end date outside the limit starts a new range from that date, so tell people the
+                limit next to the field.
+            </Typography.Text>
+            <ComponentPreview code={RangeLengthExampleSrc}>
+                <RangeLengthExample />
+            </ComponentPreview>
         </div>
         <div id="disabled" class="scroll-mt-20 flex flex-col gap-3">
             <Typography.H3 class="docs-subsection-heading">Disabled</Typography.H3>
