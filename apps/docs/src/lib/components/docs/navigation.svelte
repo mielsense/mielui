@@ -70,7 +70,7 @@
             .map((group) => ({
                 id: group.id,
                 label: group.heading,
-                href: group.id === 'actions' ? '/docs/actions' : `/docs/components#${group.id}`,
+                href: group.id === 'actions' ? '/docs/actions' : componentTypeHref(group.id),
                 items: group.items.flatMap((component) => [
                     {
                         href: `/docs/${group.id === 'actions' ? 'actions' : 'components'}/${component}`,

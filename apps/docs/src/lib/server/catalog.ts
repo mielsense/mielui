@@ -1,4 +1,4 @@
-import { componentTypes, sanitizeComponent } from '$lib/components';
+import { catalogPages, sanitizeComponent } from '$lib/components';
 
 type CatalogManifest = {
     name: string;
@@ -37,7 +37,7 @@ for (const [path, source] of Object.entries(pageSources)) {
 }
 
 export function componentTypeMarkdown(id: string): string | undefined {
-    const group = componentTypes.find((entry) => entry.id === id);
+    const group = catalogPages.find((entry) => entry.id === id);
     if (!group) {
         return undefined;
     }
