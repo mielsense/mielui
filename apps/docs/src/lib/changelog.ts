@@ -5,7 +5,23 @@ type ChangelogEntry = {
     content: string;
 };
 
+export type ChangelogSection = {
+    type: string;
+    title: string;
+    content: string;
+    /** Number of top-level bullets in the section. */
+    count: number;
+};
+
+export type ChangelogRelease = {
+    version: string;
+    unreleased: boolean;
+    sections: ChangelogSection[];
+};
+
 const LLM_TYPE = 'llm';
+const DOCS_TYPE = 'docs';
+const LEADING_TYPES = ['breaking', 'feature', 'fix'];
 
 const sources = import.meta.glob<string>('../../../../changelog/*/*.md', {
     eager: true,
@@ -42,7 +58,26 @@ function entriesFor(version: string): ChangelogEntry[] {
 
             return [{ type: parsed.type, content: content.trim() }];
         })
-        .sort((left, right) => left.type.localeCompare(right.type));
+        .sort((left, right) => {
+            const order = typeRank(left.type) - typeRank(right.type);
+
+            return order || left.type.localeCompare(right.type);
+        });
+}
+
+/** Breaking changes, features and fixes lead. Docs notes always come last. */
+function typeRank(type: string): number {
+    if (type === DOCS_TYPE) {
+        return LEADING_TYPES.length + 1;
+    }
+
+    const index = LEADING_TYPES.indexOf(type);
+
+    return index === -1 ? LEADING_TYPES.length : index;
+}
+
+function isUnreleased(version: string): boolean {
+    return version.localeCompare(pkg.version, undefined, { numeric: true }) > 0;
 }
 
 export const changelogVersions = [
@@ -52,6 +87,28 @@ export const changelogVersions = [
             .flatMap((entry) => entry?.version ?? [])
     )
 ].sort((left, right) => right.localeCompare(left, undefined, { numeric: true }));
+
+export const changelogReleases: ChangelogRelease[] = changelogVersions.flatMap((version) => {
+    const entries = entriesFor(version);
+    if (!entries.length) {
+        return [];
+    }
+
+    return [
+        {
+            version,
+            unreleased: isUnreleased(version),
+            sections: entries.map((entry) => {
+                return {
+                    type: entry.type,
+                    title: titleFromType(entry.type),
+                    content: entry.content,
+                    count: entry.content.match(/^- /gm)?.length ?? 0
+                };
+            })
+        }
+    ];
+});
 
 export const changelogLlmVersions = changelogVersions.filter((version) => {
     return Object.keys(sources).some((path) => {
@@ -114,7 +171,7 @@ export function changelogDocsMarkdown(): string {
             }
 
             return [
-                `## ${version}${version.localeCompare(pkg.version, undefined, { numeric: true }) > 0 ? ' · Unreleased' : ''}`,
+                `## ${version}${isUnreleased(version) ? ' · Unreleased' : ''}`,
                 '',
                 ...entries.flatMap((entry) => {
                     return [`### ${titleFromType(entry.type)}`, '', entry.content, ''];

@@ -327,6 +327,11 @@ background and the content column the card color; in dark mode both share one
 surface that contrasts with the frame. Only docs pages with navigation show the
 sidebar. Themes and Changelog use the full panel.
 
+The Changelog page lists each version with its sections in a fixed order:
+Breaking changes, Features, Fixes, then Docs last. Every section is a
+collapsible row with its bullet count, divided by a hairline rule. Docs starts
+collapsed; the others start open. The Markdown changelogs keep the same order.
+
 Docs navigation starts with icon rows for search and the guides, then one group
 per component type. Rows are 8 spacing units tall with medium text; the current
 page uses the pill fill (`--docs-pill`). Group labels are muted, stay pinned to

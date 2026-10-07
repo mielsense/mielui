@@ -63,3 +63,4 @@
 - Theme Studio is calmer. The preview has fewer, wider-spaced columns, card footers no longer stretch their buttons, chart colors sit behind a disclosure, and preview width and the glass backdrop moved into one options button.
 - Theme Studio's preview modes are a segmented Tabs list instead of custom pills.
 - In Theme Studio the top bar, the preview page and the sidebar share one background in both themes. In dark mode the bar was a different shade from the page under it.
+- The changelog lists Docs notes last in each version. Every section is collapsible, and Docs starts collapsed.
