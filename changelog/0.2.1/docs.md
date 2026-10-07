@@ -55,3 +55,4 @@
 - Copy page matches the tabs' corner radius, and its menu lists View as Markdown last under a divider.
 - The Studio sidebar keeps Export theme and Copy share link. Copy JSON and Copy CSS now live in the export sheet.
 - The sidebar's page progress is one bare row: the bars with the page count beside them, without the card or the "pages" label.
+- Component previews fill the corners beside the rounded demo surface with the header color. They showed the darker frame color before.
