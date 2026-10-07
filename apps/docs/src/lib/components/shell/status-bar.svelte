@@ -51,18 +51,18 @@
     });
 
     const itemClass =
-        'inline-flex h-6 min-w-0 items-center gap-1.5 rounded-[6px] px-1.5 transition-colors [transition-duration:var(--motion-duration-hover)] hover:bg-white/10 hover:text-white focus-visible:outline-none focus-visible:shadow-[var(--focus-ring)] motion-reduce:transition-none';
+        'inline-flex h-6 min-w-0 items-center gap-1.5 rounded-[6px] px-1.5 transition-colors [transition-duration:var(--motion-duration-hover)] hover:bg-[var(--docs-pill)] hover:text-foreground focus-visible:outline-none focus-visible:shadow-[var(--focus-ring)] motion-reduce:transition-none';
 </script>
 
 <div
-    class="hidden h-9 shrink-0 items-center gap-1 ps-2.5 pe-0.5 pb-px text-[13px] text-white/55 lg:flex"
+    class="hidden h-9 shrink-0 items-center gap-1 border-t-[length:var(--border-size)] border-border px-2 text-[13px] text-foreground-muted lg:flex"
 >
     <a href={resolve('/docs/changelog')} class={itemClass}>
         <span aria-hidden="true" class="size-1.5 rounded-full bg-primary"></span>
-        <span class="font-medium tabular-nums text-white/90">{`mielui ${manifest.version}`}</span>
+        <span class="font-medium tabular-nums text-foreground">{`mielui ${manifest.version}`}</span>
     </a>
     <span class="px-1.5">{`${components.length} components`}</span>
-    <span aria-hidden="true" class="mx-1 h-3 w-px bg-white/15"></span>
+    <span aria-hidden="true" class="mx-1 h-3 w-px bg-border"></span>
     <button type="button" class={itemClass} aria-label={`Copy command: ${command}`} onclick={copy}>
         <HugeiconsIcon icon={Terminal} size={14} aria-hidden="true" />
         <code class="min-w-0 truncate font-mono text-xs">{command}</code>
@@ -79,7 +79,7 @@
                 </a>
             {/if}
             {#if next}
-                <a href={next.href} class={`${itemClass} text-white/85`}>
+                <a href={next.href} class={`${itemClass} text-foreground`}>
                     <span class="sr-only">Next:</span>
                     <span class="truncate">{next.label}</span>
                     <HugeiconsIcon icon={ChevronRight} size={12} aria-hidden="true" />

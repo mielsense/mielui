@@ -1,4 +1,4 @@
-- Redesign Docs and Studio as one app shell: a dark frame with an icon rail, a rounded panel split into a collapsible sidebar and a full-width content column, and a slim status line underneath.
+- Redesign Docs and Studio as one app shell that fills the window: an icon rail, a collapsible sidebar and a full-width content column, divided by hairlines, with a slim status line under the content.
 - Add page tabs to the docs top bar so several pages stay open at once. Tabs persist across reloads, Cmd or Ctrl-click a sidebar link to open one in the background, and drag tabs or press Alt with an arrow key to reorder them.
 - Show the package version, the install command for the current component, and previous and next links in the status line.
 - Pin sidebar group labels while their group scrolls, mark pages that are open in another tab, and show the current page's position in the docs as a row of bars with the page count.
@@ -6,7 +6,7 @@
 - Redesign search as a compact palette with page icons, open tabs, and quick actions. It finds section headings and prop names, so "placement" or "closeDelay" lead to the right page.
 - Show each page's breadcrumb, title, and summary at the top of the page. The top bar names the section you are reading and jumps back to its start.
 - Give Blocks, AI components and Chart components their own catalog pages, like Inputs and the other component types.
-- Fade and softly blur the edges of every scrolling region in Docs and Studio while more content lies beyond them.
+- Fade and softly blur the open edges of scrolling regions in Docs and Studio while more content lies beyond them. An edge under the top bar uses its hairline instead.
 - Open navigation and the Studio inspector in a sheet on small screens, and show Themes and Changelog without the docs sidebar.
 - The docs site uses Manrope by default, matching the default theme.
 - Add an Agent skill icon to the rail, under Changelog. The Agent skill page fills the panel without the docs sidebar.

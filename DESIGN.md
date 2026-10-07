@@ -307,24 +307,30 @@ inherits from Button get one sentence and a link to the Button page. A new or
 changed prop ships with its sentence and, when it changes what people see, its
 example.
 
-Docs and Studio share one app shell. At large widths a warm near-black frame
-(`--docs-shell`, pure black in dark mode) holds an icon rail, one rounded panel,
-and a slim status line under it.
+Docs and Studio share one app shell. It fills the window edge to edge, with no
+outer frame, inset panel or rounded corners. Full-height columns sit side by
+side and hairlines in the border color divide them: an icon rail, the sidebar,
+then the content column. Structural lines use the full border color, not the
+softer `--docs-rule` used inside pages.
 
-The rail is 16 spacing units wide. It starts with the brand mark in white on a
-primary rounded tile, then the Documentation, Components, Theme Studio, Themes,
-Changelog and Agent skill links, a short rule, then search and GitHub. Rail
-items are icon buttons with tooltips that open to the right; the current section
-has a flat translucent white fill. Do not add glows or blurs to rail items. Rail
-colors are fixed light-on-dark in both themes. Use Hugeicons throughout the shell.
+The rail is 16 spacing units wide, on the sidebar's surface, with a hairline on
+its trailing edge. Its first row is as tall as the top bar and holds the brand
+mark on a primary rounded tile. The mark uses the on-primary color in both
+themes, the same as text on a primary button. Then come the Documentation,
+Components, Theme Studio, Themes, Changelog and Agent skill links, a short rule
+and search. GitHub sits at the bottom, level with the status line. Rail items
+are muted icon buttons with tooltips that open to the right. Hover and the
+current section use the pill fill (`--docs-pill`) with foreground color. Do not
+add glows, blurs or brand tints to rail items. The rail follows the theme and is
+never fixed dark. Use Hugeicons throughout the shell.
 
 Hairlines split the panel, not gaps. The sidebar has a title row with the
 workspace switcher and a hide button. The switcher shows the title and chevrons
 and opens a menu of Documentation, Theme Studio, and Themes. The content column
 has a top bar of the same height. The sidebar can be hidden and shown again from the top bar or
-with Cmd/Ctrl+B, and the choice persists. In light mode the sidebar uses the page
-background and the content column the card color; in dark mode both share one
-surface that contrasts with the frame. Only docs pages with navigation show the
+with Cmd/Ctrl+B, and the choice persists. In light mode the rail and sidebar use the page
+background and the content column the card color; in dark mode they share one
+surface. Only docs pages with navigation show the
 sidebar. Themes, Changelog and Agent skill use the full panel.
 
 The Changelog page lists each version with its sections in a fixed order:
@@ -355,13 +361,14 @@ when they overflow. Copy page and the theme toggle sit at the end of the bar, in
 show one static pill with their name. Studio uses the same pills for its preview
 modes.
 
-The status line is flat text on the frame, 9 spacing units tall, with no pills
-or fills: the package version linking to the changelog, the component count, the
+The status line is flat muted text at the bottom of the content column, 9
+spacing units tall, under a hairline, with no pills or fills. The sidebar's page
+progress row is the same height under the same hairline, so one line runs across
+both. Theme Studio has no status line. It shows the package version linking to the changelog, the component count, the
 install command for the current component, and previous and next links at the
 end. Clicking the command copies it. Put only real, current information there.
 
-Below large widths the frame, rail, and status line disappear, the panel fills
-the screen, the tab strip collapses to the current page name, and the sidebar
+Below large widths the rail and status line disappear, the tab strip collapses to the current page name, and the sidebar
 opens as a Sheet.
 
 The shell is fixed to the viewport. Only the sidebar and the content column
@@ -448,13 +455,10 @@ distance from each end and disappears when the scroller reaches it, so content a
 rest is never dimmed. Vertical scrollers that meet a pinned region also get a
 `ScrollEdge`, a short masked blur over that edge. This applies to the docs
 sidebar above the page meter, the Studio inspector under its title and above the
-export actions, the content column and Studio previews under the top bar and at
-the bottom of the panel, the navigation sheet, the page outline, the tab strip, and overflowing
-preview controls. The top bar has no bottom border. Content fades and blurs as
-it passes under the bar, so the bar and the page read as one surface at rest.
-In docs the top edge is a short fill to the content color instead of a mask.
-Skip the top fade only in the docs sidebar, where pinned group labels mark the
-edge. Wrap a ScrollArea in `FadeScrollArea` instead of enabling
+export actions, the bottom of the content column and of Studio previews, the navigation sheet, the page outline, the tab strip, and overflowing
+preview controls. The top bar has a hairline bottom border, so a scroller directly
+under it gets no top fade or blur. The line is the edge. Also skip the top fade
+in the docs sidebar, where pinned group labels mark the edge. Wrap a ScrollArea in `FadeScrollArea` instead of enabling
 its chevron cues.
 
 Examples demonstrate a useful state change. Label icon controls, keep result

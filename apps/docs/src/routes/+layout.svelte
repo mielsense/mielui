@@ -133,84 +133,78 @@
     </main>
 {:else}
     <main
-        class="fixed inset-0 flex overflow-clip bg-[var(--docs-content)] [--docs-shell:#1d1916] [--docs-row-height:calc(var(--spacing)*14)] [--docs-rule:color-mix(in_oklab,var(--color-border)_62%,transparent)] [--docs-content:var(--color-card)] [--docs-chrome:color-mix(in_oklab,var(--color-secondary)_97%,white)] [--docs-side:var(--color-background)] [--docs-soft:color-mix(in_oklab,var(--color-secondary)_55%,var(--color-background))] [--docs-pill:color-mix(in_oklab,var(--color-secondary)_62%,var(--color-background))] lg:bg-[var(--docs-shell)] lg:pt-2.5 lg:pe-2.5 dark:[--docs-shell:#000000] dark:[--docs-content:color-mix(in_oklab,var(--color-card)_60%,var(--color-background))] dark:[--docs-side:var(--docs-content)] dark:[--docs-chrome:color-mix(in_oklab,var(--color-background),var(--color-secondary)_20%)] dark:[--docs-soft:color-mix(in_oklab,var(--color-secondary)_55%,var(--color-card))] dark:[--docs-pill:color-mix(in_oklab,var(--color-secondary)_80%,var(--color-card))]"
+        class="fixed inset-0 flex overflow-clip bg-[var(--docs-content)] [--docs-row-height:calc(var(--spacing)*14)] [--docs-rule:color-mix(in_oklab,var(--color-border)_62%,transparent)] [--docs-content:var(--color-card)] [--docs-chrome:color-mix(in_oklab,var(--color-secondary)_97%,white)] [--docs-side:var(--color-background)] [--docs-soft:color-mix(in_oklab,var(--color-secondary)_55%,var(--color-background))] [--docs-pill:color-mix(in_oklab,var(--color-secondary)_62%,var(--color-background))] dark:[--docs-content:color-mix(in_oklab,var(--color-card)_60%,var(--color-background))] dark:[--docs-side:var(--docs-content)] dark:[--docs-chrome:color-mix(in_oklab,var(--color-background),var(--color-secondary)_20%)] dark:[--docs-soft:color-mix(in_oklab,var(--color-secondary)_55%,var(--color-card))] dark:[--docs-pill:color-mix(in_oklab,var(--color-secondary)_80%,var(--color-card))]"
     >
         <Rail />
-        <div class="flex min-h-0 min-w-0 flex-1 flex-col">
-            <div
-                data-docs-shell
-                class="flex min-h-0 min-w-0 flex-1 overflow-clip bg-[var(--docs-content)] lg:rounded-2xl"
-            >
-                {#if isThemeStudio}
-                    {@render children?.()}
-                {:else}
-                    {#if hasSidebar}
-                        <Sidebar label="Documentation" title="Documentation">
-                            <Navigation />
-                            {#snippet footer()}
-                                <SidebarCard />
-                            {/snippet}
-                        </Sidebar>
-                    {/if}
-                    <div class="flex min-h-0 min-w-0 flex-1 flex-col">
-                        <Topbar sidebar={hasSidebar}>
-                            {#snippet leading()}
-                                <NavigationSheet />
-                            {/snippet}
-                            {#if hasSidebar}
-                                <PageTabs />
-                            {:else}
-                                <span
-                                    class="min-w-0 truncate text-sm font-medium text-foreground sm:hidden"
-                                >
-                                    {pageLabel}
-                                </span>
-                                <div class="hidden sm:block">
-                                    <TabPill
-                                        current
-                                        label={pageLabel}
-                                        icon={pageIcon(page.url.pathname)}
-                                        href={page.url.pathname}
-                                    />
-                                </div>
-                            {/if}
-                            {#snippet actions()}
-                                {#if isDocs && page.status < 400}
-                                    <div class="hidden min-w-0 md:block">
-                                        <SectionTrail />
-                                    </div>
-                                    <div class="hidden sm:block">
-                                        <CopyPage />
-                                    </div>
-                                {/if}
-                                <MobileActions />
-                            {/snippet}
-                        </Topbar>
-                        {#if isDocs}
-                            <div bind:this={docsScrollEl} class="min-h-0 min-w-0 flex-1">
-                                {@render children?.()}
-                            </div>
+        <div class="flex min-h-0 min-w-0 flex-1 overflow-clip">
+            {#if isThemeStudio}
+                {@render children?.()}
+            {:else}
+                {#if hasSidebar}
+                    <Sidebar label="Documentation" title="Documentation">
+                        <Navigation />
+                        {#snippet footer()}
+                            <SidebarCard />
+                        {/snippet}
+                    </Sidebar>
+                {/if}
+                <div class="flex min-h-0 min-w-0 flex-1 flex-col">
+                    <Topbar sidebar={hasSidebar}>
+                        {#snippet leading()}
+                            <NavigationSheet />
+                        {/snippet}
+                        {#if hasSidebar}
+                            <PageTabs />
                         {:else}
-                            <div class="relative min-h-0 min-w-0 flex-1">
-                                <div
-                                    bind:this={docsScrollEl}
-                                    {@attach scrollFade({ size: 44, target: 'parent' })}
-                                    class={`h-full overflow-y-auto overscroll-contain ${fadeY}`}
-                                >
-                                    <div
-                                        class="flex w-full flex-col gap-5 px-5 pt-8 pb-16 sm:px-10 lg:flex-row lg:gap-0"
-                                    >
-                                        {@render children?.()}
-                                    </div>
-                                </div>
-                                <ScrollEdge edge="top" />
-                                <ScrollEdge edge="bottom" />
+                            <span
+                                class="min-w-0 truncate text-sm font-medium text-foreground sm:hidden"
+                            >
+                                {pageLabel}
+                            </span>
+                            <div class="hidden sm:block">
+                                <TabPill
+                                    current
+                                    label={pageLabel}
+                                    icon={pageIcon(page.url.pathname)}
+                                    href={page.url.pathname}
+                                />
                             </div>
                         {/if}
-                    </div>
-                {/if}
-            </div>
-            <StatusBar />
+                        {#snippet actions()}
+                            {#if isDocs && page.status < 400}
+                                <div class="hidden min-w-0 md:block">
+                                    <SectionTrail />
+                                </div>
+                                <div class="hidden sm:block">
+                                    <CopyPage />
+                                </div>
+                            {/if}
+                            <MobileActions />
+                        {/snippet}
+                    </Topbar>
+                    {#if isDocs}
+                        <div bind:this={docsScrollEl} class="min-h-0 min-w-0 flex-1">
+                            {@render children?.()}
+                        </div>
+                    {:else}
+                        <div class="relative min-h-0 min-w-0 flex-1">
+                            <div
+                                bind:this={docsScrollEl}
+                                {@attach scrollFade({ size: 44, target: 'parent' })}
+                                class={`h-full overflow-y-auto overscroll-contain ${fadeY}`}
+                            >
+                                <div
+                                    class="flex w-full flex-col gap-5 px-5 pt-8 pb-16 sm:px-10 lg:flex-row lg:gap-0"
+                                >
+                                    {@render children?.()}
+                                </div>
+                            </div>
+                            <ScrollEdge edge="bottom" />
+                        </div>
+                    {/if}
+                    <StatusBar />
+                </div>
+            {/if}
         </div>
     </main>
 {/if}

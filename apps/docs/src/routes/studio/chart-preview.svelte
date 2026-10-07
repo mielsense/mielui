@@ -76,7 +76,7 @@
     const surface = $derived(editor.state.glassSurfaces ? 'glass' : 'solid');
 </script>
 
-<FadeScrollArea class="h-full" start>
+<FadeScrollArea class="h-full">
     <div class="@container w-full">
         <div class="flex flex-wrap items-center justify-between gap-3 px-5 pt-5">
             <h2 class="m-0 text-[15px] leading-6 font-medium text-foreground">Analytics</h2>
