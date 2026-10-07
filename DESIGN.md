@@ -638,12 +638,12 @@ Preview frames clip their toolbar backgrounds to preserve the perimeter.
 Omitting the token preserves authored composition. Use the shared internal inset
 layout action, and override the token on a particular frame when its content
 requires a fixed order. Install command tabs and File Diff headers stay on top.
-DataTable inset mode keeps its toolbar above the table and its summary and
-pagination below, and shows only one of them as frame chrome. With the inset
-position at the bottom, the toolbar joins the table's surface under a hairline
-and the footer sits in the frame. With it at the top, the toolbar sits in the
-frame and the footer joins the surface. The table's corners are square where it
-meets the joined strip.
+DataTable inset mode frames only the table and its footer. The toolbar floats
+above the frame as plain controls with a gap, never inside it. Root lifts the
+Toolbar out of the frame the way an inset Card lifts its Footer. With the inset
+position at the bottom, the footer sits in the frame under the table. With it at
+the top, the footer joins the table's surface under a hairline and the table's
+bottom corners are square where they meet it.
 
 Every frame follows the border setting. Single borders remove the gutter from
 cards, dialogs, sheets, data tables, composers, toasts, code blocks and docs

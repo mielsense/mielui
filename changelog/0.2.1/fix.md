@@ -14,7 +14,7 @@
 - Keep the Command search row at its full height when the results are long.
 - Color Picker no longer outlines its color area when opened with the mouse. The focus ring shows for keyboard focus only.
 - Keep the divider between grouped controls visible after one of them is clicked. A focused control now rises above its neighbors only while its focus ring shows.
-- Data Table's inset variant shows one strip of frame chrome, not two. The toolbar joins the table's surface, or the footer does when the inset position is top.
+- Data Table's inset variant frames only the table and its footer. The toolbar floats above the frame instead of sitting inside it.
 - Data Table, Composer, Toast and Code Block follow the single or double border setting. They kept a gutter in single mode before.
 - Drawer no longer flashes back into view for a frame as it closes, and neither does its backdrop.
 - Card no longer doubles the gap when a Footer follows a Header directly, and a Header that ends a card has no trailing margin.

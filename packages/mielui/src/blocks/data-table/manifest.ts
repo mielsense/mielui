@@ -16,6 +16,7 @@ export const manifest: Manifest = {
         'components/data-table/data-table.svelte',
         'components/data-table/data-table-view.svelte',
         'components/data-table/features.ts',
+        'components/data-table/context.svelte.ts',
         'components/data-table/data-table-empty.svelte',
         'components/data-table/data-table-filter.svelte',
         'components/data-table/index.ts',

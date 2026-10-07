@@ -184,13 +184,12 @@
     <section id="inset" class="flex scroll-mt-20 flex-col gap-4">
         <Typography.H2>Inset layout</Typography.H2>
         <Typography.Text>
-            Set variant="inset" on Root to group filters, the table, and pagination in one frame.
-            The toolbar joins the table and the footer sits in the frame. A theme with the inset
-            position at the top swaps the two. Toolbar stays in the top strip, followed by the
-            column headings and rows. Place Summary and Pagination in a div with
-            data-ui="data-table-footer" for the bottom strip. The children snippet lets you omit the
-            toolbar, reorder controls, or replace cells. Pagination uses the shared Pagination
-            component for known page counts.
+            Set variant="inset" on Root to frame the table with its footer. Toolbar floats above the
+            frame as plain controls, wherever you place it inside Root. Place Summary and Pagination
+            in a div with data-ui="data-table-footer" for the strip under the table. A theme with
+            the inset position at the top joins that footer to the table's surface instead. The
+            children snippet lets you omit the toolbar, reorder controls, or replace cells.
+            Pagination uses the shared Pagination component for known page counts.
         </Typography.Text>
         <ComponentPreview code={InsetSrc}><Inset /></ComponentPreview>
     </section>

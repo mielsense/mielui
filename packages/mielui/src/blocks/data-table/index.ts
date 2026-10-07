@@ -84,7 +84,7 @@ export type DataTableProps<TFeatures extends TableFeatures, TData extends RowDat
         DataTableViewProps<TFeatures, TData>,
         'table' | 'loading' | 'selectable' | 'caption' | 'rowLabel' | 'header' | 'cell' | 'empty'
     > & {
-        /** `inset` frames the table with its toolbar and footer on the frame. */
+        /** `inset` frames the table with its footer on the frame. A Toolbar sits above the frame. */
         variant?: 'default' | 'inset';
         /**
          * Overrides the built-in text and accessible names. Every key is optional and English is

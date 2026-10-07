@@ -506,11 +506,11 @@
             },
             {
                 "name": "variant",
-                "type": "\"inset\" | \"default\" | undefined",
+                "type": "\"default\" | \"inset\" | undefined",
                 "required": false,
                 "bindable": false,
                 "default": "'default'",
-                "description": "`inset` frames the table with its toolbar and footer on the frame.",
+                "description": "`inset` frames the table with its footer on the frame. A Toolbar sits above the frame.",
                 "inherited": false
             },
             {

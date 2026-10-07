@@ -106,3 +106,11 @@ The header shows an arrow for the current direction and a faint up-down arrow on
 Stop looking for menu items in tests or automation. Click the header button, found by `data-ui="data-table-column-header"` or by the column name, and read `aria-sort` on its `th` or `data-sorted` on the button.
 
 The tooltips read from the Root's `labels`: `sortAscending`, `sortDescending` and `clearSorting`. `clearSorting` is also the last item of `DataTable.Sort`. Use `DataTable.Sort` when you want an explicit field-and-direction menu.
+
+## Data Table's inset toolbar sits outside the frame
+
+With `variant="inset"`, `DataTable.Root` now renders two children: the toolbar, then a `data-ui="data-table-frame"` element that holds the table and footer. `DataTable.Toolbar` still goes anywhere inside Root in your markup. Root lifts it above the frame, the same way an inset Card lifts its Footer, so it renders nothing in the place you wrote it.
+
+Do not style the toolbar as frame chrome, and do not rely on it being a sibling of the table. Classes and attributes you pass to `DataTable.Toolbar` land on the lifted element. Toolbar controls keep their normal medium height now that they are outside the frame.
+
+The frame's classes target its direct children, so keep `DataTable.View` and the `data-ui="data-table-footer"` element as direct children of Root's snippet. The default variant is unchanged.
