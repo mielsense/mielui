@@ -21,24 +21,35 @@ export type FieldControlAttributes = {
 };
 
 export type FieldProps = {
+    /** Id shared by the label and the control. */
     controlId?: string;
+    /** Prevents interaction and dims the control. */
     disabled?: boolean;
+    /** Requires a value before the form can be submitted. */
     required?: boolean;
+    /** Marks the field invalid. It defaults to true when there are issues. */
     invalid?: boolean;
+    /** Validation issues for this field. */
     issues?: readonly FieldIssue[];
+    /** `vertical` stacks the label and control. `horizontal` puts them side by side. */
     orientation?: 'vertical' | 'horizontal';
+    /** Bindable reference to the DOM element. */
     element?: HTMLDivElement;
 } & HTMLAttributes<HTMLDivElement>;
 
 export type FieldControlProps = {
+    /** Ids of the description and error, for `aria-describedby`. */
     describedBy?: string;
+    /** Id of the error element. */
     errorId?: string;
+    /** Content rendered inside. */
     children: Snippet<[FieldControlAttributes]>;
 };
 
 export type FieldLabelProps = HTMLLabelAttributes;
 export type FieldDescriptionProps = HTMLAttributes<HTMLParagraphElement>;
 export type FieldErrorProps = {
+    /** Validation issues to list. Defaults to the Root's issues. */
     issues?: readonly FieldIssue[];
 } & HTMLAttributes<HTMLDivElement>;
 export type FieldContentProps = HTMLAttributes<HTMLDivElement>;

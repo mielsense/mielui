@@ -1,22 +1,26 @@
 <script lang="ts">
     import type { Snippet } from 'svelte';
-    import { getPageInfoContext, type PageInfo } from './page-info-context';
+    import { page } from '$app/state';
+    import BreadcrumbNav from './breadcrumb-nav.svelte';
+    import { getBreadcrumbs } from './breadcrumbs';
 
     let { title, children }: { title: string; children?: Snippet } = $props();
-    const context = getPageInfoContext();
 
-    $effect(() => {
-        if (!context) {
-            return;
-        }
-        const info = $state<PageInfo>({ title, description: children });
-        context.current = info;
-        return () => {
-            if (context.current === info) {
-                context.current = null;
-            }
-        };
-    });
+    const trail = $derived(getBreadcrumbs(page.url.pathname).slice(1));
 </script>
 
-<h1 class="sr-only">{title}</h1>
+<header data-docs-intro class="flex flex-col gap-3">
+    {#if trail.length > 1}
+        <BreadcrumbNav items={trail} />
+    {/if}
+    <h1
+        class="m-0 text-[2rem] leading-10 font-semibold tracking-[-0.025em] text-foreground [font-family:var(--font-header)]"
+    >
+        {title}
+    </h1>
+    {#if children}
+        <div class="text-base leading-7 text-foreground-muted">
+            {@render children()}
+        </div>
+    {/if}
+</header>

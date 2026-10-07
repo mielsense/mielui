@@ -1,5 +1,5 @@
 import { changelogLlmVersions, changelogVersions } from '$lib/changelog';
-import { components, componentTypeHref, componentTypes } from '$lib/components';
+import { catalogPages, components, componentTypeHref } from '$lib/components';
 import { componentGuidePages } from '$lib/docs-pages';
 
 export const htmlDocPaths = [
@@ -15,7 +15,7 @@ export const htmlDocPaths = [
     '/docs/changelog',
     '/docs/components',
     '/studio',
-    ...componentTypes.map((group) => componentTypeHref(group.id)),
+    ...catalogPages.map((group) => componentTypeHref(group.id)),
     ...componentGuidePages.map((guide) => guide.href),
     ...components.map((component) => `/docs/components/${component}`)
 ];
@@ -34,7 +34,7 @@ export const llmDocPaths = [
     '/docs/theming.md',
     '/docs/changelog.md',
     '/docs/components.md',
-    ...componentTypes.map((group) => `${componentTypeHref(group.id)}.md`),
+    ...catalogPages.map((group) => `${componentTypeHref(group.id)}.md`),
     '/docs/brand-mark.md',
     '/docs/skill.md',
     '/docs/component-selection.md',

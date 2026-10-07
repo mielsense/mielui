@@ -36,16 +36,26 @@ export type ComboboxLabels = {
 };
 
 export type ComboboxRootProps = PopoverProps & {
+    /**
+     * Overrides the built-in text and accessible names. Every key is optional and English is the
+     * fallback.
+     */
     labels?: ComboboxLabels;
 } & (
         | {
+              /** `single` keeps one value. `multiple` allows several and makes `value` an array. */
               type?: 'single';
+              /** Selected value, or an array in multiple mode. Bindable. */
               value?: string;
+              /** Called with the new value when it changes. */
               onValueChange?: (value: string) => void;
           }
         | {
+              /** `single` keeps one value. `multiple` allows several and makes `value` an array. */
               type: 'multiple';
+              /** Selected value, or an array in multiple mode. Bindable. */
               value?: string[];
+              /** Called with the new value when it changes. */
               onValueChange?: (value: string[]) => void;
           }
     );
@@ -54,11 +64,17 @@ export type ComboboxTriggerProps = Omit<
     PopoverTriggerProps,
     'children' | 'element' | 'value' | 'type'
 > & {
+    /** Content at the end of the trigger. */
     trailing?: Snippet;
+    /** Text shown while there is no value. */
     placeholder?: string;
+    /** `trigger` types into the trigger. `menu` puts a search field inside the menu. */
     searchPlacement?: 'trigger' | 'menu';
+    /** How loosely typed text may match, from 0 for exact to 1 for anything. */
     threshold?: number;
+    /** `button` looks like a select. `input` looks like a text field. */
     appearance?: 'button' | 'input';
+    /** Bindable reference to the DOM element. */
     element?: HTMLInputElement | HTMLButtonElement;
 };
 

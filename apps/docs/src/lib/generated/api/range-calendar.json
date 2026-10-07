@@ -8,7 +8,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Renders your own element in place of the default one. Spread the given `props` onto it.",
                 "inherited": false
             },
             {
@@ -17,7 +17,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Content rendered inside.",
                 "inherited": false
             },
             {
@@ -26,7 +26,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Inline styles for the element.",
                 "inherited": false
             },
             {
@@ -35,7 +35,7 @@
                 "required": false,
                 "bindable": true,
                 "default": "null",
-                "description": "",
+                "description": "Bindable reference to the DOM element.",
                 "inherited": false
             },
             2681,
@@ -55,7 +55,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Id of the element.",
                 "inherited": false
             },
             11,
@@ -495,7 +495,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Renders your own element in place of the default one. Spread the given `props` onto it.",
                 "inherited": false
             },
             {
@@ -504,7 +504,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Content rendered inside.",
                 "inherited": false
             },
             {
@@ -513,7 +513,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Inline styles for the element.",
                 "inherited": false
             },
             {
@@ -522,7 +522,7 @@
                 "required": false,
                 "bindable": true,
                 "default": "null",
-                "description": "",
+                "description": "Bindable reference to the DOM element.",
                 "inherited": false
             },
             2681,
@@ -542,7 +542,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Id of the element.",
                 "inherited": false
             },
             11,
@@ -973,7 +973,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Renders your own element in place of the default one. Spread the given `props` onto it.",
                 "inherited": false
             },
             {
@@ -982,7 +982,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Content rendered inside.",
                 "inherited": false
             },
             {
@@ -991,7 +991,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Inline styles for the element.",
                 "inherited": false
             },
             {
@@ -1000,7 +1000,7 @@
                 "required": false,
                 "bindable": true,
                 "default": "null",
-                "description": "",
+                "description": "Bindable reference to the DOM element.",
                 "inherited": false
             },
             2681,
@@ -1020,7 +1020,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Id of the element.",
                 "inherited": false
             },
             11,
@@ -1451,7 +1451,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Renders your own element in place of the default one. Spread the given `props` onto it.",
                 "inherited": false
             },
             {
@@ -1460,7 +1460,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Content rendered inside.",
                 "inherited": false
             },
             {
@@ -1469,7 +1469,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Inline styles for the element.",
                 "inherited": false
             },
             {
@@ -1478,7 +1478,7 @@
                 "required": false,
                 "bindable": true,
                 "default": "null",
-                "description": "",
+                "description": "Bindable reference to the DOM element.",
                 "inherited": false
             },
             2681,
@@ -1498,7 +1498,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Id of the element.",
                 "inherited": false
             },
             11,
@@ -1588,6 +1588,14 @@
             96,
             97,
             98,
+            8067,
+            8068,
+            8069,
+            8070,
+            8071,
+            8072,
+            8073,
+            8074,
             8075,
             8076,
             8077,
@@ -1631,6 +1639,12 @@
             8115,
             8116,
             8117,
+            150,
+            151,
+            152,
+            153,
+            154,
+            155,
             8118,
             8119,
             8120,
@@ -1639,12 +1653,6 @@
             8123,
             8124,
             8125,
-            150,
-            151,
-            152,
-            153,
-            154,
-            155,
             8126,
             8127,
             8128,
@@ -1903,14 +1911,6 @@
             8381,
             8382,
             8383,
-            8384,
-            8385,
-            8386,
-            8387,
-            8388,
-            8389,
-            8390,
-            8391,
             422,
             423,
             424,
@@ -1929,7 +1929,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Renders your own element in place of the default one. Spread the given `props` onto it.",
                 "inherited": false
             },
             {
@@ -1938,7 +1938,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Content rendered inside.",
                 "inherited": false
             },
             {
@@ -1947,7 +1947,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Inline styles for the element.",
                 "inherited": false
             },
             {
@@ -1956,7 +1956,7 @@
                 "required": false,
                 "bindable": true,
                 "default": "null",
-                "description": "",
+                "description": "Bindable reference to the DOM element.",
                 "inherited": false
             },
             2681,
@@ -1976,7 +1976,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Id of the element.",
                 "inherited": false
             },
             11,
@@ -2066,6 +2066,14 @@
             96,
             97,
             98,
+            7743,
+            7744,
+            7745,
+            7746,
+            7747,
+            7748,
+            7749,
+            7750,
             7751,
             7752,
             7753,
@@ -2109,6 +2117,12 @@
             7791,
             7792,
             7793,
+            150,
+            151,
+            152,
+            153,
+            154,
+            155,
             7794,
             7795,
             7796,
@@ -2117,12 +2131,6 @@
             7799,
             7800,
             7801,
-            150,
-            151,
-            152,
-            153,
-            154,
-            155,
             7802,
             7803,
             7804,
@@ -2381,14 +2389,6 @@
             8057,
             8058,
             8059,
-            8060,
-            8061,
-            8062,
-            8063,
-            8064,
-            8065,
-            8066,
-            8067,
             422,
             423,
             424,
@@ -2396,12 +2396,12 @@
             426,
             427,
             428,
-            8068,
-            8069,
-            8070,
-            8071,
-            8072,
-            8073
+            8060,
+            8061,
+            8062,
+            8063,
+            8064,
+            8065
         ]
     },
     {
@@ -2413,7 +2413,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Renders your own element in place of the default one. Spread the given `props` onto it.",
                 "inherited": false
             },
             {
@@ -2422,7 +2422,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Content rendered inside.",
                 "inherited": false
             },
             {
@@ -2431,7 +2431,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Inline styles for the element.",
                 "inherited": false
             },
             {
@@ -2440,7 +2440,7 @@
                 "required": false,
                 "bindable": true,
                 "default": "null",
-                "description": "",
+                "description": "Bindable reference to the DOM element.",
                 "inherited": false
             },
             2681,
@@ -2460,7 +2460,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Id of the element.",
                 "inherited": false
             },
             11,
@@ -2891,7 +2891,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Renders your own element in place of the default one. Spread the given `props` onto it.",
                 "inherited": false
             },
             {
@@ -2900,7 +2900,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Content rendered inside.",
                 "inherited": false
             },
             {
@@ -2909,7 +2909,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Inline styles for the element.",
                 "inherited": false
             },
             {
@@ -2918,7 +2918,7 @@
                 "required": false,
                 "bindable": true,
                 "default": "null",
-                "description": "",
+                "description": "Bindable reference to the DOM element.",
                 "inherited": false
             },
             2681,
@@ -2938,7 +2938,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Id of the element.",
                 "inherited": false
             },
             11,
@@ -3378,7 +3378,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "An array of month numbers (1-12) to display in the select.\nThis allows for flexible month selection, such as showing only\nspecific months or seasons.",
+                "description": "An array of month numbers (1-12) to display in the select. This allows for flexible month selection, such as showing only specific months or seasons.",
                 "inherited": false
             },
             {
@@ -3387,7 +3387,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Renders your own element in place of the default one. Spread the given `props` onto it.",
                 "inherited": false
             },
             {
@@ -3396,7 +3396,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Content rendered inside.",
                 "inherited": false
             },
             {
@@ -3405,7 +3405,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Inline styles for the element.",
                 "inherited": false
             },
             {
@@ -3414,7 +3414,7 @@
                 "required": false,
                 "bindable": true,
                 "default": "null",
-                "description": "",
+                "description": "Bindable reference to the DOM element.",
                 "inherited": false
             },
             2681,
@@ -3434,7 +3434,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Id of the element.",
                 "inherited": false
             },
             11,
@@ -3524,6 +3524,14 @@
             96,
             97,
             98,
+            8384,
+            8385,
+            8386,
+            8387,
+            8388,
+            8389,
+            8390,
+            8391,
             8392,
             8393,
             8394,
@@ -3567,6 +3575,12 @@
             8432,
             8433,
             8434,
+            150,
+            151,
+            152,
+            153,
+            154,
+            155,
             8435,
             8436,
             8437,
@@ -3575,12 +3589,6 @@
             8440,
             8441,
             8442,
-            150,
-            151,
-            152,
-            153,
-            154,
-            155,
             8443,
             8444,
             8445,
@@ -3839,14 +3847,6 @@
             8698,
             8699,
             8700,
-            8701,
-            8702,
-            8703,
-            8704,
-            8705,
-            8706,
-            8707,
-            8708,
             422,
             423,
             424,
@@ -3876,7 +3876,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Renders your own element in place of the default one. Spread the given `props` onto it.",
                 "inherited": false
             },
             {
@@ -3885,7 +3885,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Content rendered inside.",
                 "inherited": false
             },
             {
@@ -3894,7 +3894,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Inline styles for the element.",
                 "inherited": false
             },
             {
@@ -3903,7 +3903,7 @@
                 "required": false,
                 "bindable": true,
                 "default": "null",
-                "description": "",
+                "description": "Bindable reference to the DOM element.",
                 "inherited": false
             },
             2681,
@@ -3923,7 +3923,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Id of the element.",
                 "inherited": false
             },
             11,
@@ -4368,7 +4368,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Renders your own element in place of the default one. Spread the given `props` onto it.",
                 "inherited": false
             },
             {
@@ -4377,7 +4377,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Content rendered inside.",
                 "inherited": false
             },
             {
@@ -4386,7 +4386,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Inline styles for the element.",
                 "inherited": false
             },
             {
@@ -4395,7 +4395,7 @@
                 "required": false,
                 "bindable": true,
                 "default": "null",
-                "description": "",
+                "description": "Bindable reference to the DOM element.",
                 "inherited": false
             },
             2681,
@@ -4415,7 +4415,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Id of the element.",
                 "inherited": false
             },
             11,
@@ -4869,7 +4869,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "An array of years to display in the select.\nThis allows for complete control over which years appear,\nsuch as showing only years with data or excluding certain periods.",
+                "description": "An array of years to display in the select. This allows for complete control over which years appear, such as showing only years with data or excluding certain periods.",
                 "inherited": false
             },
             {
@@ -4878,7 +4878,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Renders your own element in place of the default one. Spread the given `props` onto it.",
                 "inherited": false
             },
             {
@@ -4887,7 +4887,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Content rendered inside.",
                 "inherited": false
             },
             {
@@ -4896,7 +4896,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Inline styles for the element.",
                 "inherited": false
             },
             {
@@ -4905,7 +4905,7 @@
                 "required": false,
                 "bindable": true,
                 "default": "null",
-                "description": "",
+                "description": "Bindable reference to the DOM element.",
                 "inherited": false
             },
             2681,
@@ -4925,7 +4925,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Id of the element.",
                 "inherited": false
             },
             11,
@@ -5015,6 +5015,14 @@
             96,
             97,
             98,
+            8384,
+            8385,
+            8386,
+            8387,
+            8388,
+            8389,
+            8390,
+            8391,
             8392,
             8393,
             8394,
@@ -5058,6 +5066,12 @@
             8432,
             8433,
             8434,
+            150,
+            151,
+            152,
+            153,
+            154,
+            155,
             8435,
             8436,
             8437,
@@ -5066,12 +5080,6 @@
             8440,
             8441,
             8442,
-            150,
-            151,
-            152,
-            153,
-            154,
-            155,
             8443,
             8444,
             8445,
@@ -5330,14 +5338,6 @@
             8698,
             8699,
             8700,
-            8701,
-            8702,
-            8703,
-            8704,
-            8705,
-            8706,
-            8707,
-            8708,
             422,
             423,
             424,
@@ -5367,7 +5367,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Content rendered inside.",
                 "inherited": false
             },
             2681,
@@ -5387,7 +5387,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Id of the element.",
                 "inherited": false
             },
             11,
@@ -5398,7 +5398,7 @@
                 "required": false,
                 "bindable": true,
                 "default": null,
-                "description": "The placeholder date, used to control the view of the\ncalendar when no value is present.",
+                "description": "The placeholder date, used to control the view of the calendar when no value is present.",
                 "inherited": false
             },
             14,
@@ -5409,7 +5409,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Inline styles for the element.",
                 "inherited": false
             },
             17,
@@ -5848,7 +5848,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "Whether the calendar is readonly. When true, the user will be able\nto focus and navigate the calendar, but will not be able to select\ndates.",
+                "description": "Whether the calendar is readonly. When true, the user will be able to focus and navigate the calendar, but will not be able to select dates.",
                 "inherited": false
             },
             {
@@ -5857,7 +5857,7 @@
                 "required": false,
                 "bindable": true,
                 "default": "null",
-                "description": "",
+                "description": "Bindable reference to the DOM element.",
                 "inherited": false
             },
             {
@@ -5875,7 +5875,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "A callback function called when the placeholder value\nchanges.",
+                "description": "A callback function called when the placeholder value changes.",
                 "inherited": false
             },
             {
@@ -5884,7 +5884,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "Whether or not users can deselect a date once selected\nwithout selecting another date.",
+                "description": "Whether or not users can deselect a date once selected without selecting another date.",
                 "inherited": false
             },
             {
@@ -5920,16 +5920,16 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "The day of the week to start the calendar on, which must\nbe a number between 0 and 6, where 0 is Sunday and 6 is\nSaturday.",
+                "description": "The day of the week to start the calendar on, which must be a number between 0 and 6, where 0 is Sunday and 6 is Saturday.",
                 "inherited": false
             },
             {
                 "name": "weekdayFormat",
-                "type": "\"long\" | \"short\" | \"narrow\" | undefined",
+                "type": "\"long\" | \"narrow\" | \"short\" | undefined",
                 "required": false,
                 "bindable": false,
                 "default": "'short'",
-                "description": "How the string representation of the weekdays provided via the `weekdays` state store\nshould be formatted.",
+                "description": "How the string representation of the weekdays provided via the `weekdays` state store should be formatted.",
                 "inherited": false
             },
             {
@@ -5938,7 +5938,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "A function that receives a date and returns `true` or `false` to indicate whether\nthe date is disabled.",
+                "description": "A function that receives a date and returns `true` or `false` to indicate whether the date is disabled.",
                 "inherited": false
             },
             {
@@ -5947,7 +5947,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "Dates matching the provided matchers are marked as \"unavailable.\" Unlike disabled dates,\nusers can still focus and select unavailable dates. However, selecting an unavailable date\nrenders the date picker as invalid.",
+                "description": "Dates matching the provided matchers are marked as \"unavailable.\" Unlike disabled dates, users can still focus and select unavailable dates. However, selecting an unavailable date renders the date picker as invalid.",
                 "inherited": false
             },
             {
@@ -5956,7 +5956,7 @@
                 "required": false,
                 "bindable": false,
                 "default": "true",
-                "description": "Display 6 weeks per month, regardless the month's number of weeks.\nThis is useful for displaying a consistent calendar, where the size\nof the calendar doesn't change month to month.",
+                "description": "Display 6 weeks per month, regardless the month's number of weeks. This is useful for displaying a consistent calendar, where the size of the calendar doesn't change month to month.",
                 "inherited": false
             },
             {
@@ -5965,7 +5965,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "Determines the number of months to display on the calendar simultaneously.\nFor navigation between months, refer to the `pagedNavigation` prop.",
+                "description": "Determines the number of months to display on the calendar simultaneously. For navigation between months, refer to the `pagedNavigation` prop.",
                 "inherited": false
             },
             {
@@ -5974,7 +5974,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "This label is exclusively used for accessibility, remaining hidden from the page.\nIt's read by screen readers when the calendar is opened. The current month and year\nare automatically appended to the label, so you only need to provide the base label.",
+                "description": "This label is exclusively used for accessibility, remaining hidden from the page. It's read by screen readers when the calendar is opened. The current month and year are automatically appended to the label, so you only need to provide the base label.",
                 "inherited": false
             },
             {
@@ -5992,7 +5992,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "Whether to disable the selection of days outside the current month. By default,\ndays outside the current month are rendered to fill the calendar grid, but they\nare not selectable. Setting this prop to `true` will disable this behavior.",
+                "description": "Whether to disable the selection of days outside the current month. By default, days outside the current month are rendered to fill the calendar grid, but they are not selectable. Setting this prop to `true` will disable this behavior.",
                 "inherited": false
             },
             {
@@ -6028,7 +6028,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "A callback function called when the start value changes. This doesn't necessarily mean\nthe `value` has updated and should be used to apply cosmetic changes to the calendar when\nonly part of the value is changed/completed.",
+                "description": "A callback function called when the start value changes. This doesn't necessarily mean the `value` has updated and should be used to apply cosmetic changes to the calendar when only part of the value is changed/completed.",
                 "inherited": false
             },
             {
@@ -6037,7 +6037,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "A callback function called when the end value changes. This doesn't necessarily mean\nthe `value` has updated and should be used to apply cosmetic changes to the calendar when\nonly part of the value is changed/completed.",
+                "description": "A callback function called when the end value changes. This doesn't necessarily mean the `value` has updated and should be used to apply cosmetic changes to the calendar when only part of the value is changed/completed.",
                 "inherited": false
             },
             {
@@ -6055,7 +6055,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "Whether to automatically reset the range if any date within the selected range\nbecomes disabled. When true, the entire range will be cleared if a disabled\ndate is found between the start and end dates.",
+                "description": "Whether to automatically reset the range if any date within the selected range becomes disabled. When true, the entire range will be cleared if a disabled date is found between the start and end dates.",
                 "inherited": false
             }
         ]
@@ -6087,7 +6087,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Renders your own element in place of the default one. Spread the given `props` onto it.",
                 "inherited": false
             },
             {
@@ -6096,7 +6096,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Content rendered inside.",
                 "inherited": false
             },
             {
@@ -6105,7 +6105,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Inline styles for the element.",
                 "inherited": false
             },
             {
@@ -6114,7 +6114,7 @@
                 "required": false,
                 "bindable": true,
                 "default": "null",
-                "description": "",
+                "description": "Bindable reference to the DOM element.",
                 "inherited": false
             },
             2681,
@@ -6134,7 +6134,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Id of the element.",
                 "inherited": false
             },
             11,
@@ -6224,6 +6224,14 @@
             96,
             97,
             98,
+            7743,
+            7744,
+            7745,
+            7746,
+            7747,
+            7748,
+            7749,
+            7750,
             7751,
             7752,
             7753,
@@ -6267,6 +6275,12 @@
             7791,
             7792,
             7793,
+            150,
+            151,
+            152,
+            153,
+            154,
+            155,
             7794,
             7795,
             7796,
@@ -6275,12 +6289,6 @@
             7799,
             7800,
             7801,
-            150,
-            151,
-            152,
-            153,
-            154,
-            155,
             7802,
             7803,
             7804,
@@ -6539,14 +6547,6 @@
             8057,
             8058,
             8059,
-            8060,
-            8061,
-            8062,
-            8063,
-            8064,
-            8065,
-            8066,
-            8067,
             422,
             423,
             424,
@@ -6556,13 +6556,13 @@
             428,
             3646,
             3655,
-            8068,
-            8069,
-            8070,
-            8071,
-            8072,
-            8073,
-            8074
+            8060,
+            8061,
+            8062,
+            8063,
+            8064,
+            8065,
+            8066
         ]
     },
     {
@@ -6574,7 +6574,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Renders your own element in place of the default one. Spread the given `props` onto it.",
                 "inherited": false
             },
             {
@@ -6583,7 +6583,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Content rendered inside.",
                 "inherited": false
             },
             {
@@ -6592,7 +6592,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Inline styles for the element.",
                 "inherited": false
             },
             {
@@ -6601,7 +6601,7 @@
                 "required": false,
                 "bindable": true,
                 "default": "null",
-                "description": "",
+                "description": "Bindable reference to the DOM element.",
                 "inherited": false
             },
             2681,
@@ -6621,7 +6621,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Id of the element.",
                 "inherited": false
             },
             11,
@@ -7052,7 +7052,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Classes added to the element.",
                 "inherited": false
             },
             {
@@ -7061,7 +7061,7 @@
                 "required": true,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Month data from the Root snippet.",
                 "inherited": false
             },
             {
@@ -7070,7 +7070,7 @@
                 "required": true,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Weekday names from the Root snippet.",
                 "inherited": false
             },
             {
@@ -7079,7 +7079,7 @@
                 "required": false,
                 "bindable": false,
                 "default": "'en-US'",
-                "description": "",
+                "description": "BCP 47 locale used for names and number formats.",
                 "inherited": false
             },
             {
@@ -7088,7 +7088,7 @@
                 "required": false,
                 "bindable": false,
                 "default": "false",
-                "description": "",
+                "description": "Shows the month name above the grid, for layouts with several months.",
                 "inherited": false
             },
             {
@@ -7097,7 +7097,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Custom content for each day cell.",
                 "inherited": false
             }
         ]

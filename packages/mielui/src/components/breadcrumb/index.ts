@@ -6,6 +6,7 @@ import Separator from './breadcrumb-separator.svelte';
 
 export type BreadcrumbProps = DefaultProps & HTMLAttributes<HTMLElement>;
 export type BreadcrumbItemProps = {
+    /** Destination of the item. Omit it on the current page. */
     href?: string;
     /** Whether this item represents the current page. Router independent. */
     current?: boolean;

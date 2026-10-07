@@ -110,14 +110,14 @@ export const DEFAULT_THEME: Theme = {
     version: THEME_VERSION,
     slug: 'default',
     name: 'Default',
-    description: 'Mielui default — a calm, warm-neutral interface system.',
+    description: 'The Mielui default. A calm, warm-neutral interface system.',
     publisher: 'mielui',
     brand: '#ba7ca5',
     neutral: 'warm',
     radius: 'default',
     density: 'default',
     motion: 'default',
-    fontSans: "'Inter', sans-serif",
+    fontSans: "'Manrope', sans-serif",
     fontMono: "'JetBrains Mono', monospace",
     fontHeader: 'var(--font-sans)',
     chrome: {
@@ -130,7 +130,7 @@ export const DEFAULT_THEME: Theme = {
     },
     tokens: {
         shared: {
-            '--mielui-surface': 'glass',
+            '--mielui-surface': 'solid',
             '--mielui-inset-position': 'bottom'
         }
     }

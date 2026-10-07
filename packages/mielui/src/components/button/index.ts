@@ -7,9 +7,13 @@ export type ButtonVariant = Intent | 'panel' | 'quiet';
 export type ButtonStatus = 'idle' | 'loading' | 'success' | 'error';
 
 type ButtonSharedProps = {
+    /** Prevents activation. A disabled link loses its destination and is skipped by Tab. */
     disabled?: boolean;
+    /** Visual style. Choose it for what the action means, not for decoration. */
     variant?: ButtonVariant;
+    /** Control height. `icon` is a square button for a single icon. */
     size?: 'sm' | 'md' | 'lg' | 'icon';
+    /** Content rendered inside. */
     children?: Snippet;
     /**
      * Bindable reference to the rendered DOM element. Type is the union of
@@ -44,17 +48,28 @@ type ButtonSharedProps = {
     status?: ButtonStatus;
     /** Convenience alias for `status="loading"`. */
     loading?: boolean;
+    /** Text shown while `status` is `loading`. The button keeps its width. */
     loadingLabel?: string;
+    /** Text shown while `status` is `success`. */
     successLabel?: string;
+    /** Text shown while `status` is `error`. */
     errorLabel?: string;
+    /** Called when the button is activated. Loading and disabled buttons do not call it. */
     onclick?: (event: MouseEvent) => void;
+    /** Called on key down, before the button handles the key itself. */
     onkeydown?: (event: KeyboardEvent) => void;
 };
 
 export type ButtonProps = ButtonSharedProps &
     (
-        | ({ href: string } & Omit<HTMLAnchorAttributes, keyof ButtonSharedProps | 'href'>)
-        | ({ href?: undefined } & Omit<HTMLButtonAttributes, keyof ButtonSharedProps>)
+        | ({
+              /** Renders a link to this address instead of a button. */
+              href: string;
+          } & Omit<HTMLAnchorAttributes, keyof ButtonSharedProps | 'href'>)
+        | ({
+              /** Renders a link to this address instead of a button. */
+              href?: undefined;
+          } & Omit<HTMLButtonAttributes, keyof ButtonSharedProps>)
     );
 
 export { Button };

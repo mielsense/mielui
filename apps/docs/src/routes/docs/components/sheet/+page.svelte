@@ -2,16 +2,18 @@
     import { CodeBlock } from '@mielui/svelte/components/code-block';
     import * as Typography from '@mielui/svelte/components/typography';
     import { ComponentPreview, InstallCommand } from '$lib/components/docs';
+    import InlineText from '$lib/components/docs/inline-text.svelte';
     import PageIntro from '$lib/components/docs/page-intro.svelte';
     import Glass from './examples/glass.svelte';
     import GlassSrc from './examples/glass.svelte?raw';
-
     import Hero from './examples/hero.svelte';
     import HeroSrc from './examples/hero.svelte?raw';
     import Left from './examples/left.svelte';
     import LeftSrc from './examples/left.svelte?raw';
     import Right from './examples/right.svelte';
     import RightSrc from './examples/right.svelte?raw';
+    import StayOpenExample from './examples/stay-open.svelte';
+    import StayOpenExampleSrc from './examples/stay-open.svelte?raw';
 
     const TITLE = 'Sheet';
 
@@ -114,5 +116,34 @@
             and respects reduced-transparency preferences.
         </Typography.Text>
         <ComponentPreview code={GlassSrc}><Glass /></ComponentPreview>
+    </section>
+    <section id="dismissal" class="flex flex-col gap-4">
+        <Typography.H2 class="docs-section-heading">Dismissal</Typography.H2>
+        <Typography.Text variant="supporting">
+            <InlineText
+                text={"A sheet closes from its corner button, Escape, a Close button, or a press on the page behind it. Set `allowClickOutside={false}` on Content to ignore that last one, which suits a form the person could lose by a stray click."}
+            />
+        </Typography.Text>
+        <Typography.Text variant="supporting">
+            <InlineText
+                text={"Header shows the corner button by default. Pass `close={false}` to Header when your own Close button in the footer is enough."}
+            />
+        </Typography.Text>
+        <ComponentPreview code={StayOpenExampleSrc}>
+            <StayOpenExample />
+        </ComponentPreview>
+    </section>
+    <section id="parts" class="flex flex-col gap-4">
+        <Typography.H2 class="docs-section-heading">Buttons and text parts</Typography.H2>
+        <Typography.Text variant="supporting">
+            <InlineText
+                text={"Trigger and Close are built on [Button](/docs/components/button), so they accept its props. `variant` and `size` change the look, `disabled` blocks activation, and `href` renders a link. `loading` shows a spinner and ignores clicks, and `loadingLabel`, `successLabel` and `errorLabel` set the text for each state. `unstyled` removes the Button classes so `class` alone styles the part. `onclick` and `onkeydown` run before the part does its own work. Close runs `onclick` first and stays open if you call `event.preventDefault()` there."}
+            />
+        </Typography.Text>
+        <Typography.Text variant="supporting">
+            <InlineText
+                text={"Root, Content, Header, Title, Description and Footer render their `children` and accept `class` and `style` like any element."}
+            />
+        </Typography.Text>
     </section>
 </div>

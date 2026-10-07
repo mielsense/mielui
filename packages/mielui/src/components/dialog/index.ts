@@ -31,14 +31,26 @@ export type DialogCloseProps = ButtonProps;
 export type DialogDescriptionProps = DefaultProps;
 
 export type DialogContentProps = {
+    /** Surface treatment. Omit it to inherit `--mielui-surface` from the theme. */
     surface?: 'solid' | 'glass';
+    /**
+     * Closes when the pointer is pressed outside it. Set false to keep it open until it is
+     * dismissed another way.
+     */
     allowClickOutside?: boolean;
+    /** Lets Escape dismiss the dialog. */
     allowEscape?: boolean;
+    /** ARIA role of the panel. */
     role?: 'dialog' | 'alertdialog';
+    /** Classes for the positioned dialog element. */
     contentClass?: string;
+    /** Classes for the backdrop. */
     overlayClass?: string;
+    /** Classes for the inner surface. */
     surfaceClass?: string;
+    /** Prefix of the generated panel id. */
     panelIdPrefix?: string;
+    /** Shows the close button in the corner. */
     showClose?: boolean;
     /** Width preset. Vertical layouts remain compact; horizontal layouts are one step wider. */
     size?: DialogSize;
@@ -46,12 +58,18 @@ export type DialogContentProps = {
     Partial<Record<`aria-${string}`, string | boolean | null | undefined>>;
 
 export type DialogProps = {
+    /** Whether it is open. Bind it to control the state from outside. */
     open?: boolean;
+    /** Called with the new state whenever it opens or closes. */
     onOpenChange?: (open: boolean) => void;
-    /** Sets supported browser chrome to red while the dialog is open. */
+    /**
+     * Marks the dialog as destructive. Confirm defaults to the destructive variant, and browsers
+     * that tint their chrome from the theme color turn it red while the dialog is open.
+     */
     error?: boolean;
     /** Controls the default width and action layout. Defaults to `horizontal`. */
     orientation?: DialogOrientation;
+    /** Content rendered inside. */
     children?: Snippet;
 };
 

@@ -1,4 +1,4 @@
-import { componentTypeHref, componentTypes, navigationGroups } from '$lib/components';
+import { catalogPages, componentTypeHref, componentTypes, navigationGroups } from '$lib/components';
 import { componentGuidePages } from '$lib/docs-pages';
 
 export function getBreadcrumbs(pathname: string) {
@@ -15,9 +15,8 @@ export function getBreadcrumbs(pathname: string) {
 
     const type =
         segments[0] === 'components'
-            ? componentTypes.find(
-                  (entry) => entry.id === segments[1] || entry.items.includes(segments[1])
-              )
+            ? (catalogPages.find((entry) => entry.id === segments[1]) ??
+              componentTypes.find((entry) => entry.items.includes(segments[1])))
             : undefined;
     if (type) {
         const parent = [
@@ -39,7 +38,7 @@ export function getBreadcrumbs(pathname: string) {
         ...segments.map((segment, index) => ({
             href:
                 index === 0 && category
-                    ? `/docs/components#${category.id}`
+                    ? componentTypeHref(category.id)
                     : `${basePath}/${segments.slice(0, index + 1).join('/')}`,
             label:
                 index === 0 && category

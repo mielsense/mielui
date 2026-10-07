@@ -2,11 +2,16 @@
     import { CodeBlock } from '@mielui/svelte/components/code-block';
     import * as Typography from '@mielui/svelte/components/typography';
     import { ComponentPreview, InstallCommand } from '$lib/components/docs';
+    import InlineText from '$lib/components/docs/inline-text.svelte';
     import PageIntro from '$lib/components/docs/page-intro.svelte';
     import BasicMenu from './examples/basic-menu.svelte';
     import BasicMenuSrc from './examples/basic-menu.svelte?raw';
+    import CheckboxRadioExample from './examples/checkbox-radio.svelte';
+    import CheckboxRadioExampleSrc from './examples/checkbox-radio.svelte?raw';
     import Configuration from './examples/configuration.svelte';
     import ConfigurationSrc from './examples/configuration.svelte?raw';
+    import ControlledExample from './examples/controlled.svelte';
+    import ControlledExampleSrc from './examples/controlled.svelte?raw';
     import DynamicWidth from './examples/dynamic-width.svelte';
     import DynamicWidthSrc from './examples/dynamic-width.svelte?raw';
     import Glass from './examples/glass.svelte';
@@ -158,5 +163,58 @@
             preferences.
         </Typography.Text>
         <ComponentPreview code={GlassSrc}><Glass /></ComponentPreview>
+    </section>
+    <section id="checkbox-and-radio-items" class="flex flex-col gap-4">
+        <Typography.H2 class="docs-section-heading">Checkbox and radio items</Typography.H2>
+        <Typography.Text variant="supporting">
+            <InlineText
+                text={"CheckboxItem toggles an option and closes the menu, like any other item. Bind `checked`, or listen with `onCheckedChange`, which receives the new state."}
+            />
+        </Typography.Text>
+        <Typography.Text variant="supporting">
+            <InlineText
+                text={"RadioGroup holds one choice among its RadioItem children. Bind `value` on the group, or use `onValueChange` to react to the new value. Each RadioItem needs its own `value`."}
+            />
+        </Typography.Text>
+        <ComponentPreview code={CheckboxRadioExampleSrc}>
+            <CheckboxRadioExample />
+        </ComponentPreview>
+    </section>
+    <section id="controlling-the-menu" class="flex flex-col gap-4">
+        <Typography.H2 class="docs-section-heading">Controlling the menu</Typography.H2>
+        <Typography.Text variant="supporting">
+            <InlineText
+                text={"Bind `open` on Root to open or close the menu from your own code. `onOpenChange` runs when the person opens or closes it, and stays quiet for changes you make through `open` yourself. Trigger and SubTrigger also take `onopen`, which runs just before that trigger opens its panel. Use it to load items when someone looks."}
+            />
+        </Typography.Text>
+        <ComponentPreview code={ControlledExampleSrc}>
+            <ControlledExample />
+        </ComponentPreview>
+    </section>
+    <section id="panel-behavior" class="flex flex-col gap-4">
+        <Typography.H2 class="docs-section-heading">Panel behavior</Typography.H2>
+        <Typography.Text variant="supporting">
+            <InlineText
+                text={"Content shares its panel with Popover, with menu defaults. A press outside closes the menu unless you set `allowClickOutside={false}`. `dismissLayer={false}` removes the invisible layer that catches the first outside press, so the page stays clickable while the menu is open."}
+            />
+        </Typography.Text>
+        <Typography.Text variant="supporting">
+            <InlineText
+                text={"`focusTrap` and `lockScroll` are both off for menus, so Tab leaves the menu and the page still scrolls. Turn either on for a menu that should hold attention. `portal={false}` renders the panel in place instead of at the end of the document. `refElement` anchors the panel to another element, and `tabindex` sets the panel's tab index."}
+            />
+        </Typography.Text>
+    </section>
+    <section id="items" class="flex flex-col gap-4">
+        <Typography.H2 class="docs-section-heading">Items and other parts</Typography.H2>
+        <Typography.Text variant="supporting">
+            <InlineText
+                text={"Item runs `callback` when chosen and then closes the menu. It is built on [Button](/docs/components/button), so `disabled` skips it, and `loading` with `loadingLabel`, `successLabel` and `errorLabel` shows progress on a row that starts slow work. Item, CheckboxItem, RadioItem, Trigger and SubTrigger accept `element` to bind the DOM node. `unstyled` removes the Button classes on Item, Trigger and SubTrigger, and `onkeydown` on Item runs before the menu handles the key. A row is always a button and does not take `href`. Navigate from `callback`."}
+            />
+        </Typography.Text>
+        <Typography.Text variant="supporting">
+            <InlineText
+                text={"Root, Content, Label, Separator, Sub, SubContent and RadioGroup render their `children` and accept `class` and `style` like any element."}
+            />
+        </Typography.Text>
     </section>
 </div>

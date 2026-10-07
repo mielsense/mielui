@@ -2,9 +2,12 @@
     import { CodeBlock } from '@mielui/svelte/components/code-block';
     import * as Typography from '@mielui/svelte/components/typography';
     import { ComponentPreview, InstallCommand } from '$lib/components/docs';
+    import InlineText from '$lib/components/docs/inline-text.svelte';
     import PageIntro from '$lib/components/docs/page-intro.svelte';
     import Disabled from './examples/disabled.svelte';
     import DisabledSrc from './examples/disabled.svelte?raw';
+    import EventsExample from './examples/events.svelte';
+    import EventsExampleSrc from './examples/events.svelte?raw';
     import Hero from './examples/hero.svelte';
     import HeroSrc from './examples/hero.svelte?raw';
     import Icon from './examples/icon.svelte';
@@ -101,5 +104,16 @@
                 <Disabled />
             </ComponentPreview>
         </div>
+    </section>
+    <section id="events" class="flex flex-col gap-4">
+        <Typography.H2 class="docs-section-heading">Events</Typography.H2>
+        <Typography.Text variant="supporting">
+            <InlineText
+                text={"`onPressedChange` runs with the new state each time the toggle is pressed, for when you want to react without binding `pressed`. The label or icon goes in `children`."}
+            />
+        </Typography.Text>
+        <ComponentPreview code={EventsExampleSrc}>
+            <EventsExample />
+        </ComponentPreview>
     </section>
 </div>

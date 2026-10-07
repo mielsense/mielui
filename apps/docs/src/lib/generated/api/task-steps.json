@@ -438,7 +438,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "State of the step.",
                 "inherited": false
             }
         ]
@@ -547,6 +547,13 @@
             97,
             98,
             4621,
+            5585,
+            5586,
+            5587,
+            5588,
+            5589,
+            5590,
+            5591,
             5592,
             5593,
             5594,
@@ -591,6 +598,12 @@
             5633,
             5634,
             5635,
+            150,
+            151,
+            152,
+            153,
+            154,
+            155,
             5636,
             5637,
             5638,
@@ -598,12 +611,6 @@
             5640,
             5641,
             5642,
-            150,
-            151,
-            152,
-            153,
-            154,
-            155,
             5643,
             5644,
             5645,
@@ -863,13 +870,6 @@
             5899,
             5900,
             5901,
-            5902,
-            5903,
-            5904,
-            5905,
-            5906,
-            5907,
-            5908,
             422,
             423,
             424,
@@ -883,7 +883,7 @@
                 "required": false,
                 "bindable": false,
                 "default": "'pending'",
-                "description": "",
+                "description": "State of the step.",
                 "inherited": false
             }
         ]
@@ -1428,6 +1428,13 @@
             97,
             98,
             4621,
+            5902,
+            5903,
+            5904,
+            5905,
+            5906,
+            5907,
+            5908,
             5909,
             5910,
             5911,
@@ -1472,6 +1479,12 @@
             5950,
             5951,
             5952,
+            150,
+            151,
+            152,
+            153,
+            154,
+            155,
             5953,
             5954,
             5955,
@@ -1479,12 +1492,6 @@
             5957,
             5958,
             5959,
-            150,
-            151,
-            152,
-            153,
-            154,
-            155,
             5960,
             5961,
             5962,
@@ -1744,13 +1751,6 @@
             6216,
             6217,
             6218,
-            6219,
-            6220,
-            6221,
-            6222,
-            6223,
-            6224,
-            6225,
             422,
             423,
             424,
@@ -2635,7 +2635,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Content rendered inside.",
                 "inherited": false
             }
         ]
@@ -2649,7 +2649,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Content rendered inside.",
                 "inherited": false
             },
             {
@@ -2658,7 +2658,7 @@
                 "required": true,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Steps to show, in order.",
                 "inherited": false
             },
             {
@@ -2667,7 +2667,7 @@
                 "required": true,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Index of the step in progress.",
                 "inherited": false
             },
             {
@@ -2676,7 +2676,7 @@
                 "required": false,
                 "bindable": false,
                 "default": "false",
-                "description": "",
+                "description": "Marks the current step as failed.",
                 "inherited": false
             },
             {
@@ -2685,7 +2685,7 @@
                 "required": false,
                 "bindable": false,
                 "default": "'Task progress'",
-                "description": "",
+                "description": "Accessible name of the list.",
                 "inherited": false
             },
             {
@@ -2694,7 +2694,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Classes added to the element.",
                 "inherited": false
             },
             0,

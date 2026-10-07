@@ -66,7 +66,7 @@
             <div
                 id={`${context.id}-value`}
                 class={cn(
-                    'flex min-w-0 flex-1 items-center gap-2 overflow-hidden pe-2 text-start [&_svg]:shrink-0',
+                    'flex min-w-0 flex-1 items-center gap-2 overflow-hidden pe-2 text-start leading-normal [&_svg]:shrink-0',
                     state.value.length > 0 ? 'text-foreground' : 'text-foreground-muted'
                 )}
             >

@@ -2,6 +2,7 @@
     import { CodeBlock } from '@mielui/svelte/components/code-block';
     import * as Typography from '@mielui/svelte/components/typography';
     import { ComponentPreview, InstallCommand } from '$lib/components/docs';
+    import InlineText from '$lib/components/docs/inline-text.svelte';
     import PageIntro from '$lib/components/docs/page-intro.svelte';
     import Compound from './examples/compound.svelte';
     import CompoundSrc from './examples/compound.svelte?raw';
@@ -162,5 +163,13 @@
             lang="svelte"
             copy="overlay"
         />
+    </section>
+    <section id="line-numbers" class="flex flex-col gap-4">
+        <Typography.H2 class="docs-section-heading">Custom line numbers</Typography.H2>
+        <Typography.Text variant="supporting">
+            <InlineText
+                text={"When you compose rows yourself, LineNumber draws one gutter cell. `value` is the number to show, and a null value renders an empty cell, which is what the old-side gutter needs on an added line. `tone` colors the number as `context`, `add` or `remove`. Rows pass their own type, so you only set it for a number used on its own."}
+            />
+        </Typography.Text>
     </section>
 </div>

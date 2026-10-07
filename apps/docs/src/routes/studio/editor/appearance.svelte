@@ -1,84 +1,95 @@
 <script lang="ts">
-    import { numberShuffle } from '@mielui/svelte/actions/number-shuffle';
-    import { Slider } from '@mielui/svelte/components/slider';
     import { Switch } from '@mielui/svelte/components/switch';
-    import * as Typography from '@mielui/svelte/components/typography';
     import { getThemeEditor } from './context';
     import { toggleChoice } from './controls.svelte';
+    import Row from './row.svelte';
     import EditorSection from './section.svelte';
 
     const editor = getThemeEditor();
     const edgePercent = $derived(Math.round(editor.state.edgeHighlight * 100));
+
+    type AppearanceKey =
+        | 'borders'
+        | 'insetPosition'
+        | 'glassSurfaces'
+        | 'edgeHighlight'
+        | 'primaryStroke'
+        | 'surfaceShadows'
+        | 'controlShadows'
+        | 'dialogShadows';
+
+    function resetAppearance<Key extends AppearanceKey>(key: Key) {
+        const base = editor.baseline.appearance[key];
+
+        return {
+            changed: editor.state[key] !== base,
+            run: () => {
+                Object.assign(editor.state, { [key]: base });
+            }
+        };
+    }
 </script>
 
-<EditorSection title="Appearance" bodyClass="gap-6">
-    <div class="flex flex-col gap-3" role="group" aria-label="Surfaces">
-        <div class="flex flex-col gap-2">
-            <Typography.Metadata>Borders</Typography.Metadata>
-            {@render toggleChoice(
-                ['single', 'double'],
-                editor.state.borders,
-                'Borders',
-                (value) => {
-                    if (value === 'single' || value === 'double') {
-                        editor.state.borders = value;
-                    }
+<EditorSection title="Surfaces" keywords="glass frame inset">
+    <Row label="Borders" reset={resetAppearance('borders')}>
+        {@render toggleChoice(['single', 'double'], editor.state.borders, 'Borders', (value) => {
+            if (value === 'single' || value === 'double') {
+                editor.state.borders = value;
+            }
+        })}
+    </Row>
+    <Row label="Inset strip" reset={resetAppearance('insetPosition')}>
+        {@render toggleChoice(
+            ['top', 'bottom'],
+            editor.state.insetPosition,
+            'Inset strip position',
+            (value) => {
+                if (value === 'top' || value === 'bottom') {
+                    editor.state.insetPosition = value;
                 }
-            )}
-        </div>
-        <div class="flex flex-col gap-2">
-            <Typography.Metadata>Inset strip</Typography.Metadata>
-            {@render toggleChoice(
-                ['top', 'bottom'],
-                editor.state.insetPosition,
-                'Inset strip position',
-                (value) => {
-                    if (value === 'top' || value === 'bottom') {
-                        editor.state.insetPosition = value;
-                    }
-                }
-            )}
-        </div>
-        <Switch bind:checked={editor.state.glassSurfaces} label="Glass surfaces" />
-    </div>
-    <div class="flex flex-col gap-3" role="group" aria-label="Edges">
-        <Typography.Metadata>Edges</Typography.Metadata>
-        <div class="flex items-center justify-between gap-2">
-            <Switch
-                bind:checked={() => editor.state.edgeHighlight > 0, editor.setEdgeHighlightEnabled}
-                label="Edge highlight"
-            />
-            {#if editor.state.edgeHighlight > 0}
-                <span
-                    class="font-mono text-xs tabular-nums text-foreground-muted"
-                    use:numberShuffle={{
-                        value: edgePercent,
-                        format: (value) => `${value}%`
-                    }}
-                >
-                    {`${edgePercent}%`}
-                </span>
-            {/if}
-        </div>
-        {#if editor.state.edgeHighlight > 0}
-            <Slider
-                value={edgePercent}
-                min={1}
-                max={100}
-                step={1}
-                label="Edge highlight strength"
-                class="h-4"
-                onValueChange={(value: number) => {
+            }
+        )}
+    </Row>
+    <Row label="Glass surfaces" reset={resetAppearance('glassSurfaces')}>
+        <Switch bind:checked={editor.state.glassSurfaces} aria-label="Glass surfaces" />
+    </Row>
+</EditorSection>
+
+<EditorSection title="Edges" keywords="highlight stroke outline">
+    <Row label="Edge highlight" reset={resetAppearance('edgeHighlight')}>
+        <Switch
+            bind:checked={() => editor.state.edgeHighlight > 0, editor.setEdgeHighlightEnabled}
+            aria-label="Edge highlight"
+        />
+    </Row>
+    {#if editor.state.edgeHighlight > 0}
+        <Row
+            label="Strength"
+            slider={{
+                value: edgePercent,
+                min: 1,
+                max: 100,
+                step: 1,
+                format: (value) => `${value}%`,
+                onValueChange: (value) => {
                     editor.state.edgeHighlight = value / 100;
-                }}
-            />
-        {/if}
-        <Switch bind:checked={editor.state.primaryStroke} label="Primary button border" />
-    </div>
-    <div class="flex flex-col gap-3" role="group" aria-label="Shadows">
-        <Typography.Metadata>Shadows</Typography.Metadata>
-        <Switch bind:checked={editor.state.surfaceShadows} label="Cards and menus" />
-        <Switch bind:checked={editor.state.controlShadows} label="Controls" />
-        <Switch bind:checked={editor.state.dialogShadows} label="Dialogs and sheets" />
-    </div>
+                }
+            }}
+        />
+    {/if}
+    <Row label="Primary button border" reset={resetAppearance('primaryStroke')}>
+        <Switch bind:checked={editor.state.primaryStroke} aria-label="Primary button border" />
+    </Row>
+</EditorSection>
+
+<EditorSection title="Shadows" keywords="elevation depth">
+    <Row label="Cards and menus" reset={resetAppearance('surfaceShadows')}>
+        <Switch bind:checked={editor.state.surfaceShadows} aria-label="Cards and menus" />
+    </Row>
+    <Row label="Controls" reset={resetAppearance('controlShadows')}>
+        <Switch bind:checked={editor.state.controlShadows} aria-label="Controls" />
+    </Row>
+    <Row label="Dialogs and sheets" reset={resetAppearance('dialogShadows')}>
+        <Switch bind:checked={editor.state.dialogShadows} aria-label="Dialogs and sheets" />
+    </Row>
 </EditorSection>

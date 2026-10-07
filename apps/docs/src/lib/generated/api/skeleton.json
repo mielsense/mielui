@@ -8,7 +8,7 @@
                 "required": false,
                 "bindable": false,
                 "default": "'default'",
-                "description": "",
+                "description": "`shimmer` sweeps a highlight across the placeholder.",
                 "inherited": false
             },
             {
@@ -17,7 +17,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Content rendered inside.",
                 "inherited": false
             },
             {
@@ -26,7 +26,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Classes added to the element.",
                 "inherited": false
             },
             {
@@ -35,7 +35,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Width, in `unit`.",
                 "inherited": false
             },
             {
@@ -44,16 +44,16 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Height, in `unit`.",
                 "inherited": false
             },
             {
                 "name": "unit",
-                "type": "\"em\" | \"in\" | \"px\" | \"rem\" | \"%\" | \"vh\" | \"vw\" | \"vmin\" | \"vmax\" | \"ch\" | \"ex\" | \"cm\" | \"mm\" | \"pt\" | \"pc\" | undefined",
+                "type": "\"px\" | \"rem\" | \"em\" | \"%\" | \"vh\" | \"vw\" | \"vmin\" | \"vmax\" | \"ch\" | \"ex\" | \"cm\" | \"mm\" | \"in\" | \"pt\" | \"pc\" | undefined",
                 "required": false,
                 "bindable": false,
                 "default": "'px'",
-                "description": "",
+                "description": "CSS unit for `w` and `h`.",
                 "inherited": false
             }
         ]
@@ -67,7 +67,7 @@
                 "required": true,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Shows the content when true and the skeleton when false.",
                 "inherited": false
             },
             {
@@ -76,7 +76,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Content rendered inside.",
                 "inherited": false
             },
             {
@@ -85,7 +85,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Custom placeholder. Defaults to text lines.",
                 "inherited": false
             },
             {
@@ -94,7 +94,7 @@
                 "required": false,
                 "bindable": false,
                 "default": "3",
-                "description": "",
+                "description": "Number of placeholder lines.",
                 "inherited": false
             },
             {
@@ -103,7 +103,7 @@
                 "required": false,
                 "bindable": false,
                 "default": "21",
-                "description": "",
+                "description": "Height of a text line in pixels.",
                 "inherited": false
             },
             {
@@ -112,7 +112,7 @@
                 "required": false,
                 "bindable": false,
                 "default": "9",
-                "description": "",
+                "description": "Height of each placeholder bar in pixels.",
                 "inherited": false
             },
             {
@@ -121,7 +121,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Height to hold in pixels so the swap does not shift the layout.",
                 "inherited": false
             },
             {
@@ -130,7 +130,7 @@
                 "required": false,
                 "bindable": false,
                 "default": "120",
-                "description": "",
+                "description": "Milliseconds to wait before showing the skeleton, so fast loads skip it.",
                 "inherited": false
             },
             {
@@ -139,7 +139,7 @@
                 "required": false,
                 "bindable": false,
                 "default": "380",
-                "description": "",
+                "description": "Shortest time in milliseconds the skeleton stays once shown.",
                 "inherited": false
             },
             {
@@ -148,7 +148,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Accessible name while loading.",
                 "inherited": false
             },
             {
@@ -157,7 +157,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Classes added to the element.",
                 "inherited": false
             },
             0,

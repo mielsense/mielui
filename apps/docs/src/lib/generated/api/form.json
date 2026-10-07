@@ -874,7 +874,7 @@
                 "required": false,
                 "bindable": false,
                 "default": "[]",
-                "description": "",
+                "description": "Validation issues to summarize.",
                 "inherited": false
             },
             {
@@ -883,7 +883,7 @@
                 "required": false,
                 "bindable": false,
                 "default": "true",
-                "description": "",
+                "description": "Moves focus to the summary when issues appear.",
                 "inherited": false
             },
             {
@@ -892,7 +892,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Replaces the summary heading.",
                 "inherited": false
             },
             {
@@ -901,7 +901,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Content rendered inside.",
                 "inherited": false
             },
             {
@@ -910,7 +910,7 @@
                 "required": false,
                 "bindable": true,
                 "default": null,
-                "description": "",
+                "description": "Bindable reference to the DOM element.",
                 "inherited": false
             }
         ]
@@ -919,13 +919,13 @@
         "name": "Root",
         "properties": [
             1724,
-            9028,
+            9020,
             1723,
-            9029,
-            9030,
+            9021,
+            9022,
             1069,
             1725,
-            6863,
+            6855,
             1722,
             0,
             1,
@@ -1071,7 +1071,7 @@
             1446,
             1447,
             1448,
-            9031,
+            9023,
             1449,
             1450,
             1451,
@@ -1364,7 +1364,7 @@
                 "required": false,
                 "bindable": true,
                 "default": null,
-                "description": "",
+                "description": "Bindable reference to the DOM element.",
                 "inherited": false
             },
             {
@@ -1373,7 +1373,7 @@
                 "required": false,
                 "bindable": false,
                 "default": "false",
-                "description": "",
+                "description": "Marks the form as submitting. A number is the count of pending requests.",
                 "inherited": false
             }
         ]
@@ -1406,7 +1406,7 @@
             21,
             22,
             23,
-            8709,
+            8701,
             25,
             26,
             27,
@@ -1814,11 +1814,11 @@
             428,
             {
                 "name": "tone",
-                "type": "\"error\" | \"success\" | \"neutral\" | undefined",
+                "type": "\"neutral\" | \"success\" | \"error\" | undefined",
                 "required": false,
                 "bindable": false,
                 "default": "'neutral'",
-                "description": "",
+                "description": "Color that carries the meaning.",
                 "inherited": false
             }
         ]
@@ -1832,7 +1832,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Content rendered inside.",
                 "inherited": false
             },
             2681,
@@ -2008,7 +2008,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Called on key down, before the button handles the key itself.",
                 "inherited": false
             },
             808,
@@ -2097,7 +2097,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Called when the button is activated. Loading and disabled buttons do not call it.",
                 "inherited": false
             },
             888,
@@ -2297,7 +2297,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Prevents activation. A disabled link loses its destination and is skipped by Tab.",
                 "inherited": false
             },
             1064,
@@ -2317,7 +2317,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Visual style. Choose it for what the action means, not for decoration.",
                 "inherited": false
             },
             {
@@ -2326,7 +2326,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Control height. `icon` is a square button for a single icon.",
                 "inherited": false
             },
             {
@@ -2335,7 +2335,7 @@
                 "required": false,
                 "bindable": true,
                 "default": null,
-                "description": "Bindable reference to the rendered DOM element. Type is the union of\nthe two possible element types -- narrow at the use site:",
+                "description": "Bindable reference to the rendered DOM element. Type is the union of the two possible element types -- narrow at the use site:",
                 "inherited": false
             },
             {
@@ -2362,7 +2362,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Text shown while `status` is `loading`. The button keeps its width.",
                 "inherited": false
             },
             {
@@ -2371,7 +2371,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Text shown while `status` is `success`.",
                 "inherited": false
             },
             {
@@ -2380,7 +2380,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Text shown while `status` is `error`.",
                 "inherited": false
             }
         ]

@@ -8,7 +8,7 @@
                 "required": true,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Number to format and show.",
                 "inherited": false
             },
             {
@@ -26,7 +26,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Classes added to the element.",
                 "inherited": false
             },
             0,
@@ -474,7 +474,7 @@
             },
             {
                 "name": "alt",
-                "type": "string | undefined | undefined",
+                "type": "string | undefined",
                 "required": false,
                 "bindable": false,
                 "default": "''",
@@ -487,7 +487,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Classes added to the element.",
                 "inherited": false
             },
             {
@@ -939,7 +939,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Classes added to the element.",
                 "inherited": false
             },
             {
@@ -948,7 +948,7 @@
                 "required": true,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Content rendered inside.",
                 "inherited": false
             },
             0,
@@ -1391,7 +1391,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Classes added to the element.",
                 "inherited": false
             },
             {
@@ -1400,7 +1400,7 @@
                 "required": true,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Content rendered inside.",
                 "inherited": false
             },
             0,
@@ -1843,7 +1843,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Classes added to the element.",
                 "inherited": false
             },
             {
@@ -1852,7 +1852,7 @@
                 "required": true,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Content rendered inside.",
                 "inherited": false
             },
             0,
@@ -2304,7 +2304,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Classes added to the element.",
                 "inherited": false
             },
             {
@@ -2313,7 +2313,7 @@
                 "required": true,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Content rendered inside.",
                 "inherited": false
             },
             {
@@ -2323,6 +2323,15 @@
                 "bindable": false,
                 "default": null,
                 "description": "Renders the card as a link.",
+                "inherited": false
+            },
+            {
+                "name": "disabled",
+                "type": "boolean | undefined",
+                "required": false,
+                "bindable": false,
+                "default": "false",
+                "description": "Blocks the click action and dims the card. Only the button form takes it.",
                 "inherited": false
             },
             0,
@@ -2572,6 +2581,15 @@
             5086,
             5087,
             5088,
+            {
+                "name": "onclick",
+                "type": "MouseEventHandler<HTMLAnchorElement> | null | (event: MouseEvent) => void | undefined",
+                "required": false,
+                "bindable": false,
+                "default": null,
+                "description": "Called when it is clicked or activated.",
+                "inherited": false
+            },
             5089,
             5090,
             5091,
@@ -2746,7 +2764,6 @@
             5260,
             5261,
             5262,
-            5263,
             422,
             423,
             424,
@@ -2754,14 +2771,14 @@
             426,
             427,
             428,
+            5263,
             5264,
-            5265,
-            5266,
-            5267,
-            5268,
-            5269,
-            5270,
-            5271
+            4299,
+            4300,
+            4301,
+            1722,
+            4302,
+            4303
         ]
     },
     {
@@ -2773,7 +2790,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Classes added to the element.",
                 "inherited": false
             },
             {
@@ -2782,7 +2799,7 @@
                 "required": true,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Content rendered inside.",
                 "inherited": false
             },
             0,
@@ -3234,7 +3251,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Classes added to the element.",
                 "inherited": false
             },
             {
@@ -3243,7 +3260,7 @@
                 "required": true,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Content rendered inside.",
                 "inherited": false
             },
             0,
@@ -3345,6 +3362,13 @@
             96,
             97,
             98,
+            5265,
+            5266,
+            5267,
+            5268,
+            5269,
+            5270,
+            5271,
             5272,
             5273,
             5274,
@@ -3389,6 +3413,12 @@
             5313,
             5314,
             5315,
+            150,
+            151,
+            152,
+            153,
+            154,
+            155,
             5316,
             5317,
             5318,
@@ -3396,12 +3426,6 @@
             5320,
             5321,
             5322,
-            150,
-            151,
-            152,
-            153,
-            154,
-            155,
             5323,
             5324,
             5325,
@@ -3661,13 +3685,6 @@
             5579,
             5580,
             5581,
-            5582,
-            5583,
-            5584,
-            5585,
-            5586,
-            5587,
-            5588,
             422,
             423,
             424,

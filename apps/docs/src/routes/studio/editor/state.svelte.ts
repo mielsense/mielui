@@ -15,8 +15,8 @@ export function createThemeEditorState() {
     const state = $state({
         theme: {
             ...DEFAULT_THEME,
-            slug: 'midnight-ledger',
-            name: 'Midnight Ledger'
+            slug: `${DEFAULT_THEME.slug}-custom`,
+            name: DEFAULT_THEME.name
         } as Theme,
         baseTheme: { ...DEFAULT_THEME } as Theme,
         selectedPreset: DEFAULT_THEME.slug,
@@ -24,8 +24,8 @@ export function createThemeEditorState() {
         previousRadius: DEFAULT_THEME.radius as Theme['radius'],
         previousDensity: DEFAULT_THEME.density as Theme['density'],
         previousMotion: DEFAULT_THEME.motion as Theme['motion'],
-        selectedSans: 'inter',
-        previousSans: 'inter',
+        selectedSans: 'manrope',
+        previousSans: 'manrope',
         selectedHeader: 'same-as-sans',
         previousHeader: 'same-as-sans',
         selectedMono: 'jetbrains-mono',
@@ -44,12 +44,9 @@ export function createThemeEditorState() {
         } as BrandColors,
         ...readThemeAppearance(DEFAULT_THEME),
         rememberedEdgeHighlight: DEFAULT_THEME.chrome?.edgeHighlight ?? 0.5,
-        colorsModalOpen: false,
-        spacingModalOpen: false,
-        animationModalOpen: false,
+        appliedRevision: 0,
         pendingPreset: null as string | null,
         presetDialogOpen: false,
-        copiedKey: null as 'css' | 'json' | null,
         hydrated: false,
         appliedDark: false,
         setupOpen: false

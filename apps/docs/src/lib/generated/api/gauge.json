@@ -26,7 +26,7 @@
                 "required": false,
                 "bindable": false,
                 "default": "100",
-                "description": "",
+                "description": "Value that fills the gauge.",
                 "inherited": false
             },
             {
@@ -58,7 +58,7 @@
             },
             {
                 "name": "animation",
-                "type": "\"none\" | \"reveal\" | \"live\" | undefined",
+                "type": "\"reveal\" | \"live\" | \"none\" | undefined",
                 "required": false,
                 "bindable": false,
                 "default": "'reveal'",
@@ -71,7 +71,7 @@
                 "required": false,
                 "bindable": false,
                 "default": "'primary'",
-                "description": "",
+                "description": "Color of the fill.",
                 "inherited": false
             },
             {
@@ -80,7 +80,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Classes added to the element.",
                 "inherited": false
             },
             {
@@ -89,7 +89,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Content rendered inside.",
                 "inherited": false
             }
         ]

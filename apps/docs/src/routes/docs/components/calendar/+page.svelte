@@ -2,13 +2,20 @@
     import { CodeBlock } from '@mielui/svelte/components/code-block';
     import * as Typography from '@mielui/svelte/components/typography';
     import { ComponentPreview, InstallCommand } from '$lib/components/docs';
+    import InlineText from '$lib/components/docs/inline-text.svelte';
     import PageIntro from '$lib/components/docs/page-intro.svelte';
     import Example0 from './examples/constraints.svelte';
     import Example0Src from './examples/constraints.svelte?raw';
+    import EventsExample from './examples/events.svelte';
+    import EventsExampleSrc from './examples/events.svelte?raw';
     import Hero from './examples/hero.svelte';
     import HeroSrc from './examples/hero.svelte?raw';
     import Example1 from './examples/navigation.svelte';
     import Example1Src from './examples/navigation.svelte?raw';
+    import UnavailableExample from './examples/unavailable.svelte';
+    import UnavailableExampleSrc from './examples/unavailable.svelte?raw';
+    import WeeksExample from './examples/weeks.svelte';
+    import WeeksExampleSrc from './examples/weeks.svelte?raw';
 </script>
 
 <svelte:head>
@@ -89,5 +96,61 @@
             form serialization. The calendar grid stays still during navigation; only state feedback
             changes.
         </Typography.Text>
+    </section>
+    <section id="selection-events" class="flex flex-col gap-4">
+        <Typography.H2 class="docs-section-heading">Selection events</Typography.H2>
+        <Typography.Text variant="supporting">
+            <InlineText
+                text={"`onValueChange` runs with the new date each time the selection changes. Clicking the selected date again clears it, and the callback then receives `undefined`. Set `preventDeselect` to keep a date selected until another one replaces it."}
+            />
+        </Typography.Text>
+        <Typography.Text variant="supporting">
+            <InlineText
+                text={"The calendar also tracks a placeholder, the date that decides which month is on screen. `onPlaceholderChange` runs when that moves, for example when someone pages to the next month. `initialFocus` moves keyboard focus to the selected day, or today, as soon as the calendar mounts. `maxDays` belongs to multi-date selection and does nothing on this single-date calendar."}
+            />
+        </Typography.Text>
+        <ComponentPreview code={EventsExampleSrc}>
+            <EventsExample />
+        </ComponentPreview>
+    </section>
+    <section id="weeks-and-months" class="flex flex-col gap-4">
+        <Typography.H2 class="docs-section-heading">Weeks and months</Typography.H2>
+        <Typography.Text variant="supporting">
+            <InlineText
+                text={"`weekStartsOn` sets the first column, from 0 for Sunday to 6 for Saturday, and falls back to the locale. `weekdayFormat` picks `narrow`, `short` or `long` weekday names. `fixedWeeks` is on by default and always draws six rows so the height never jumps between months. Turn it off to draw only the weeks a month needs. Days from the neighbouring months fill the grid, and `disableDaysOutsideMonth` makes them unselectable."}
+            />
+        </Typography.Text>
+        <Typography.Text variant="supporting">
+            <InlineText
+                text={"`numberOfMonths` shows several months side by side. With more than one, the arrows move a single month at a time unless you set `pagedNavigation`, which jumps by the number of months shown."}
+            />
+        </Typography.Text>
+        <ComponentPreview code={WeeksExampleSrc}>
+            <WeeksExample />
+        </ComponentPreview>
+    </section>
+    <section id="unavailable-dates-and-formats" class="flex flex-col gap-4">
+        <Typography.H2 class="docs-section-heading">Unavailable dates and formats</Typography.H2>
+        <Typography.Text variant="supporting">
+            <InlineText
+                text={"`isDateDisabled` removes a date from play: it cannot be focused or picked. `isDateUnavailable` is softer. An unavailable date is struck through and can still be focused, so keyboard users can read why it is off limits, and picking it marks the value invalid."}
+            />
+        </Typography.Text>
+        <Typography.Text variant="supporting">
+            <InlineText
+                text={"`monthFormat` and `yearFormat` on Root control how the heading and the selects name months and years. Each takes an `Intl` style such as `short` or `2-digit`, or a function that receives the number and returns the text. MonthSelect and YearSelect take the same two props to override the format for their own options, and YearSelect takes `years`, the exact list of years to offer."}
+            />
+        </Typography.Text>
+        <Typography.Text variant="supporting">
+            <InlineText
+                text={"When you compose the calendar yourself, every part except Root and Month accepts `child`, a snippet that receives the part's props so you can render your own element with them, and `style` for inline styles. Month takes `showHeading` to print the month name above its grid, which Root turns on by itself when it shows more than one month."}
+            />
+        </Typography.Text>
+        <Typography.Text variant="supporting">
+            <InlineText text={"Root also accepts `style`."} />
+        </Typography.Text>
+        <ComponentPreview code={UnavailableExampleSrc}>
+            <UnavailableExample />
+        </ComponentPreview>
     </section>
 </div>

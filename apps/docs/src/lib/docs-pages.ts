@@ -1,5 +1,6 @@
 import { chartGuides } from './chart-guides';
 import {
+    categoryTypes,
     components,
     componentTypeHref,
     componentTypes,
@@ -16,15 +17,18 @@ export const componentGuidePages = chartGuides.map((guide) => ({
     href: guidePath(guide.component, guide.slug)
 }));
 
-const componentPages = components.flatMap((component) => [
-    { href: `/docs/components/${component}`, label: sanitizeComponent(component) },
-    ...componentGuidePages
-        .filter((guide) => guide.component === component)
-        .map((guide) => ({
-            href: guide.href,
-            label: guide.title
-        }))
-]);
+/** A component's page followed by its guide pages. */
+function pagesFor(component: string) {
+    return [
+        { href: `/docs/components/${component}`, label: sanitizeComponent(component) },
+        ...componentGuidePages
+            .filter((guide) => guide.component === component)
+            .map((guide) => ({
+                href: guide.href,
+                label: guide.title
+            }))
+    ];
+}
 
 export const componentDocPages = [
     ...componentTypes.flatMap((group) => [
@@ -34,12 +38,10 @@ export const componentDocPages = [
             label: sanitizeComponent(component)
         }))
     ]),
-    ...componentPages.filter(
-        (entry) =>
-            !componentTypes.some((group) =>
-                group.items.some((component) => entry.href === `/docs/components/${component}`)
-            )
-    ),
+    ...categoryTypes.flatMap((group) => [
+        { href: componentTypeHref(group.id), label: group.heading },
+        ...group.items.flatMap((component) => pagesFor(component))
+    ]),
     ...navigationGroups
         .filter((group) => group.id === 'actions')
         .flatMap((group) => [
@@ -49,6 +51,39 @@ export const componentDocPages = [
                 label: sanitizeComponent(action)
             }))
         ])
+];
+
+export const guideDocPages = [
+    { href: '/docs/introduction', label: 'Introduction' },
+    { href: '/docs/installation', label: 'Installation' },
+    { href: '/docs/theming', label: 'Theming' },
+    { href: '/docs/agent-skill', label: 'Agent skill' },
+    { href: '/docs/changelog', label: 'Changelog' },
+    { href: '/docs/components', label: 'Components' }
+];
+
+export const allDocPages = [...guideDocPages, ...componentDocPages];
+
+export const catalogSections = [
+    ...componentTypes.map((type) => ({
+        label: type.heading,
+        value: type.description,
+        href: componentTypeHref(type.id)
+    })),
+    ...categoryTypes
+        .filter((group) => group.items.length > 0)
+        .map((group) => ({
+            label: group.heading,
+            value: group.description,
+            href: componentTypeHref(group.id)
+        })),
+    ...navigationGroups
+        .filter((group) => group.id === 'actions')
+        .map((group) => ({
+            label: group.heading,
+            value: `${group.items.length} entries`,
+            href: '/docs/actions'
+        }))
 ];
 
 export function componentOwner(pathname: string): string | undefined {

@@ -8,7 +8,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Content rendered inside.",
                 "inherited": false
             },
             {
@@ -17,7 +17,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Classes added to the element.",
                 "inherited": false
             }
         ]
@@ -31,7 +31,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Image address.",
                 "inherited": false
             },
             {
@@ -40,7 +40,7 @@
                 "required": false,
                 "bindable": false,
                 "default": "''",
-                "description": "",
+                "description": "Image description. Leave it empty when the name is shown beside the avatar.",
                 "inherited": false
             },
             {
@@ -49,7 +49,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Classes added to the element.",
                 "inherited": false
             },
             {
@@ -58,22 +58,22 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Content rendered inside.",
                 "inherited": false
             },
-            6872,
-            7107,
-            7108,
+            6864,
+            7099,
+            7100,
             3646,
-            7109,
-            7110,
+            7101,
+            7102,
             4303,
-            7111,
-            7112,
-            7113,
+            7103,
+            7104,
+            7105,
             3655,
-            7114,
-            7115,
+            7106,
+            7107,
             0,
             1,
             2,
@@ -173,6 +173,14 @@
             96,
             97,
             98,
+            7108,
+            7109,
+            7110,
+            7111,
+            7112,
+            7113,
+            7114,
+            7115,
             7116,
             7117,
             7118,
@@ -216,6 +224,12 @@
             7156,
             7157,
             7158,
+            150,
+            151,
+            152,
+            153,
+            154,
+            155,
             7159,
             7160,
             7161,
@@ -224,12 +238,6 @@
             7164,
             7165,
             7166,
-            150,
-            151,
-            152,
-            153,
-            154,
-            155,
             7167,
             7168,
             7169,
@@ -488,14 +496,6 @@
             7422,
             7423,
             7424,
-            7425,
-            7426,
-            7427,
-            7428,
-            7429,
-            7430,
-            7431,
-            7432,
             422,
             423,
             424,
@@ -514,7 +514,7 @@
                 "required": false,
                 "bindable": false,
                 "default": "'md'",
-                "description": "",
+                "description": "Diameter of the avatar.",
                 "inherited": false
             },
             {
@@ -523,7 +523,7 @@
                 "required": false,
                 "bindable": false,
                 "default": "'circle'",
-                "description": "",
+                "description": "Outline of the avatar.",
                 "inherited": false
             },
             {
@@ -532,7 +532,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Content rendered inside.",
                 "inherited": false
             },
             {
@@ -541,7 +541,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Classes added to the element.",
                 "inherited": false
             }
         ]

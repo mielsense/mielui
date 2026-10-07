@@ -22,13 +22,13 @@ afterEach(() => {
 describe('Composer layout', () => {
     for (const theme of ['light', 'dark']) {
         for (const borders of ['single', 'double']) {
-            it(`keeps compact input and separate actions in ${theme} with ${borders} borders`, async () => {
+            it(`keeps compact input and separate actions for the inset variant in ${theme} with ${borders} borders`, async () => {
                 document.documentElement.classList.toggle('dark', theme === 'dark');
                 document.documentElement.style.setProperty(
                     '--mielui-border-inset-scale',
                     borders === 'single' ? '0' : '1'
                 );
-                render(ComposerFixture);
+                render(ComposerFixture, { toolbarVariant: 'inset' });
                 await tick();
 
                 const { input, toolbar } = composerParts();
@@ -58,8 +58,8 @@ describe('Composer layout', () => {
         }
     }
 
-    it('joins the action row only when inset placement is requested', async () => {
-        render(ComposerFixture, { toolbarVariant: 'inset' });
+    it('joins the action row to the input by default', async () => {
+        render(ComposerFixture);
         await tick();
 
         const { input, toolbar } = composerParts();

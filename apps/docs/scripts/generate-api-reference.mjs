@@ -8,6 +8,19 @@ const categories = ['components', 'blocks', 'ai-components', 'chart-components']
 const virtual = new Map();
 const metadata = new Map();
 
+// Descriptions for props whose types carry no JSDoc, such as props passed through
+// from a primitive. A JSDoc comment on the prop type always wins.
+const descriptions = JSON.parse(
+    fs.readFileSync(path.join(import.meta.dirname, 'api-descriptions.json'), 'utf8')
+);
+
+function describe(component, part, prop) {
+    const own = descriptions[component] ?? {};
+    const shared = descriptions['*'];
+
+    return own[`${part}.${prop}`] ?? own[prop] ?? shared[`${part}.${prop}`] ?? shared[prop] ?? '';
+}
+
 function visitFiles(directory) {
     return fs.readdirSync(directory, { withFileTypes: true }).flatMap((entry) => {
         const file = path.join(directory, entry.name);
@@ -88,6 +101,64 @@ for (const file of files.filter((file) => file.endsWith('.svelte'))) {
     metadata.set(file, { defaults, bindings, declared: !!props });
 }
 
+/** Joins one prop's type from each union branch, listing `undefined` once and last. */
+/** String literals in the order a prop's own type annotation lists them. */
+function declaredLiterals(declarations) {
+    const order = [];
+    for (const node of declarations) {
+        if (!node.type) {
+            continue;
+        }
+        for (const match of node.type.getText().matchAll(/'([^']*)'|"([^"]*)"/g)) {
+            const value = match[1] ?? match[2];
+            if (!order.includes(value)) {
+                order.push(value);
+            }
+        }
+    }
+
+    return order;
+}
+
+/**
+ * TypeScript prints a union of string literals in the order it first met each literal anywhere
+ * in the program, so an unrelated file can reorder it. Print the declared order instead, and
+ * fall back to alphabetical when the annotation is a named type.
+ */
+function orderUnionLiterals(text, order) {
+    const members = text.split(' | ');
+    const isLiteral = (member) => /^"[^"]*"$/.test(member);
+    const sortable = members.every((member) => isLiteral(member) || member === 'undefined');
+    if (members.length < 2 || !sortable) {
+        return text;
+    }
+    const rank = (member) => {
+        const index = order.indexOf(member.slice(1, -1));
+
+        return index === -1 ? order.length : index;
+    };
+    const literals = members.filter(isLiteral).sort((left, right) => {
+        return rank(left) - rank(right) || left.localeCompare(right);
+    });
+    const rest = members.filter((member) => !isLiteral(member));
+
+    return [...literals, ...rest].join(' | ');
+}
+
+function mergeBranchTypes(types) {
+    const suffix = ' | undefined';
+    const optional = types.some((type) => type === 'undefined' || type.endsWith(suffix));
+    const named = types
+        .map((type) => (type.endsWith(suffix) ? type.slice(0, -suffix.length) : type))
+        .filter((type) => type !== 'undefined');
+    const merged = [...new Set(named)];
+    if (optional) {
+        merged.push('undefined');
+    }
+
+    return merged.join(' | ');
+}
+
 const paths = { '@mielui/svelte/*': [path.join(sourceRoot, '*')] };
 for (const category of categories) {
     for (const entry of fs.readdirSync(path.join(sourceRoot, category), { withFileTypes: true })) {
@@ -139,7 +210,15 @@ for (const index of indexes) {
     const module = checker.getSymbolAtLocation(source);
     const parts = [];
     const seen = new Set();
+    const component = path.basename(path.dirname(index));
     for (const exported of checker.getExportsOfModule(module)) {
+        const partName =
+            exported.name === 'default'
+                ? component
+                      .split('-')
+                      .map((word) => word[0].toUpperCase() + word.slice(1))
+                      .join('')
+                : exported.name;
         const symbol =
             exported.flags & ts.SymbolFlags.Alias ? checker.getAliasedSymbol(exported) : exported;
         const declaration = symbol.declarations?.[0];
@@ -176,25 +255,30 @@ for (const index of indexes) {
                 );
             const propertyTypes = entries.map((entry) => {
                 const propertyType = checker.getTypeOfSymbolAtLocation(entry, alias);
-                return checker
+                const text = checker
                     .typeToString(
                         propertyType,
                         undefined,
                         ts.TypeFormatFlags.NoTruncation | ts.TypeFormatFlags.InTypeAlias
                     )
                     .replace(/import\("[^"]+"\)\./g, '');
+
+                return orderUnionLiterals(text, declaredLiterals(entry.declarations ?? []));
             });
             const entry = {
                 name: property.name,
-                type: [...new Set(propertyTypes)].join(' | '),
+                type: mergeBranchTypes(propertyTypes),
                 required:
                     entries.length === variants.length &&
                     entries.every((entry) => !(entry.flags & ts.SymbolFlags.Optional)),
                 bindable: meta.bindings.has(property.name),
                 default: meta.defaults[property.name] ?? null,
-                description: ts
-                    .displayPartsToString(property.getDocumentationComment(checker))
-                    .split(/\n\s*\n/)[0],
+                description:
+                    ts
+                        .displayPartsToString(property.getDocumentationComment(checker))
+                        .split(/\n\s*\n/)[0]
+                        .replace(/\s*\n\s*/g, ' ') ||
+                    (inherited ? '' : describe(component, partName, property.name)),
                 inherited
             };
             if (!inherited) {
@@ -210,20 +294,25 @@ for (const index of indexes) {
             return id;
         });
         parts.push({
-            name:
-                exported.name === 'default'
-                    ? path
-                          .basename(path.dirname(index))
-                          .split('-')
-                          .map((word) => word[0].toUpperCase() + word.slice(1))
-                          .join('')
-                    : exported.name,
+            name: partName,
             properties
         });
     }
     if (parts.length) {
         result[path.basename(path.dirname(index))] = parts;
     }
+}
+const undescribed = Object.entries(result).flatMap(([name, parts]) =>
+    parts.flatMap((part) =>
+        part.properties
+            .filter((property) => typeof property === 'object' && !property.description)
+            .map((property) => `${name}/${part.name}.${property.name}`)
+    )
+);
+if (undescribed.length) {
+    console.warn(
+        `${undescribed.length} props have no description. Add JSDoc to the prop type or an entry in scripts/api-descriptions.json:\n  ${undescribed.join('\n  ')}`
+    );
 }
 const destination = path.join(root, 'apps/docs/src/lib/generated/api');
 fs.mkdirSync(destination, { recursive: true });

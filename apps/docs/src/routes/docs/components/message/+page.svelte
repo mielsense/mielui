@@ -2,6 +2,7 @@
     import { CodeBlock } from '@mielui/svelte/components/code-block';
     import * as Typography from '@mielui/svelte/components/typography';
     import { ComponentPreview, InstallCommand } from '$lib/components/docs';
+    import InlineText from '$lib/components/docs/inline-text.svelte';
     import PageIntro from '$lib/components/docs/page-intro.svelte';
     import SectionHeading from '$lib/components/docs/section-heading.svelte';
 
@@ -130,5 +131,18 @@
             lang="svelte"
             copy="overlay"
         />
+    </section>
+    <section id="avatar-and-parts" class="flex flex-col gap-4">
+        <Typography.H2 class="docs-section-heading">Avatar and parts</Typography.H2>
+        <Typography.Text variant="supporting">
+            <InlineText
+                text={"`avatar` on Root is a snippet shown beside the message, as an alternative to placing the Avatar part yourself."}
+            />
+        </Typography.Text>
+        <Typography.Text variant="supporting">
+            <InlineText
+                text={"Root, Avatar, Content, Body, Name, Time, Status, Metadata and Actions render their `children` and accept `class` and `style` like any element."}
+            />
+        </Typography.Text>
     </section>
 </div>

@@ -3,6 +3,7 @@
     import * as Typography from '@mielui/svelte/components/typography';
     import { chartGuides } from '$lib/chart-guides';
     import { ComponentPreview, InstallCommand } from '$lib/components/docs';
+    import InlineText from '$lib/components/docs/inline-text.svelte';
     import PageIntro from '$lib/components/docs/page-intro.svelte';
     import Hero from './examples/hero.svelte';
     import HeroSource from './examples/hero.svelte?raw';
@@ -128,5 +129,18 @@ const config = {
             lang="svelte"
             copy="overlay"
         />
+    </section>
+    <section id="marks-and-ticks" class="flex flex-col gap-4">
+        <Typography.H2 class="docs-section-heading">Mark and tick sizes</Typography.H2>
+        <Typography.Text variant="supporting">
+            <InlineText
+                text={"Line and Area take `strokeWidth`, the thickness of the line in pixels. Bar takes `radius` for the corner radius of each bar, 4 by default. Use 0 for square bars in a dense chart."}
+            />
+        </Typography.Text>
+        <Typography.Text variant="supporting">
+            <InlineText
+                text={"`ticks` on XAxis and YAxis is the number of ticks to aim for. Grid takes the same prop for its lines and defaults to 5."}
+            />
+        </Typography.Text>
     </section>
 </div>

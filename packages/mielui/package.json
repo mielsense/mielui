@@ -1,6 +1,6 @@
 {
     "name": "@mielui/svelte",
-    "version": "0.2.0",
+    "version": "0.2.1",
     "description": "Composable Svelte 5 components, motion, and themes. Import the package or copy the source with the Mielui CLI.",
     "license": "MIT",
     "repository": {
@@ -293,8 +293,8 @@
     },
     "dependencies": {
         "@floating-ui/dom": "1.7.6",
-        "@fontsource/inter": "5.3.0",
         "@fontsource/jetbrains-mono": "5.3.0",
+        "@fontsource/manrope": "5.3.0",
         "@hugeicons/core-free-icons": "^4.3.3",
         "@humanspeak/svelte-motion": "^1.2.1",
         "@internationalized/date": "3.12.0",

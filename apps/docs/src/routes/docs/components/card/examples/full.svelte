@@ -3,33 +3,68 @@
     import * as Card from '@mielui/svelte/components/card';
     import { Switch } from '@mielui/svelte/components/switch';
 
-    let message = $state('');
-    let notifications = $state(true);
-    let saved = $state(true);
+    type Preferences = {
+        mentions: boolean;
+        summary: boolean;
+        news: boolean;
+    };
+
+    let saved = $state<Preferences>({
+        mentions: true,
+        summary: true,
+        news: false
+    });
+    let draft = $state<Preferences>({
+        mentions: true,
+        summary: true,
+        news: false
+    });
+    let status = $state('');
+
+    const dirty = $derived(
+        draft.mentions !== saved.mentions ||
+            draft.summary !== saved.summary ||
+            draft.news !== saved.news
+    );
+
     function save() {
-        saved = notifications;
-        message = 'Workspace preferences saved for this preview.';
+        saved = { ...draft };
+        status = 'Saved';
     }
-    function cancel() {
-        notifications = saved;
-        message = 'Changes discarded.';
+
+    function discard() {
+        draft = { ...saved };
+        status = 'Changes discarded';
     }
 </script>
 
-<Card.Root class="w-full max-w-[28rem]">
+<Card.Root class="w-full max-w-md">
     <Card.Header>
-        <Card.Title>Account settings</Card.Title>
-        <Card.Description>Manage your workspace settings.</Card.Description>
+        <Card.Title>Email notifications</Card.Title>
+        <Card.Description>Choose what reaches your inbox.</Card.Description>
     </Card.Header>
     <Card.Content class="gap-4">
-        <p class="m-0 text-sm leading-relaxed text-foreground-muted">
-            Currently on the Team plan. 12 of 25 seats used.
-        </p>
-        <Switch bind:checked={notifications} label="Weekly workspace summary" />
+        <Switch
+            bind:checked={draft.mentions}
+            label="Mentions"
+            description="When someone mentions you in a comment."
+        />
+        <Switch
+            bind:checked={draft.summary}
+            label="Weekly summary"
+            description="Activity across your projects, every Monday."
+        />
+        <Switch
+            bind:checked={draft.news}
+            label="Product news"
+            description="New features, about once a month."
+        />
     </Card.Content>
     <Card.Footer>
-        <Button variant="outline" size="md" onclick={cancel}>Cancel</Button>
-        <Button size="md" onclick={save}>Save changes</Button>
+        <span role="status" class="me-auto text-sm text-foreground-muted">
+            {dirty ? 'Unsaved changes' : status}
+        </span>
+        <Button variant="outline" disabled={!dirty} onclick={discard}>Discard</Button>
+        <Button disabled={!dirty} onclick={save}>Save</Button>
     </Card.Footer>
-    <p role="status" class="mt-4 min-h-5 text-sm text-foreground-muted">{message}</p>
 </Card.Root>

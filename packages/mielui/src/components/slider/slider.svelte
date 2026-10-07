@@ -3,7 +3,7 @@
     import { Slider as SliderPrimitive } from 'bits-ui';
     import { onMount, tick, untrack } from 'svelte';
     import type { SliderProps } from '.';
-    import { normalizeValue } from './range';
+    import { normalizeValue, valuePercent } from './range';
 
     const generatedId = $props.id();
 
@@ -15,6 +15,7 @@
         step = 1,
         disabled = false,
         label,
+        format,
         id = generatedId,
         name,
         form,
@@ -31,7 +32,17 @@
     const increment = $derived(Number.isFinite(step) && step > 0 ? step : 1);
     const unavailable = $derived(disabled || maximum <= minimum);
     const rootAttributes = $derived.by(() => {
-        const { range, thumbLabels, onValueChange, children, ...attributes } = mode;
+        const {
+            range,
+            variant,
+            thumbLabels,
+            onValueChange,
+            onValueCommit,
+            editable,
+            parse,
+            children,
+            ...attributes
+        } = mode;
         return attributes;
     });
     const values = $derived.by(() => {
@@ -59,7 +70,31 @@
     let pointerPosition: number | undefined;
     let pointerThumb = $state<number | undefined>();
     let interactionRevision = $state(0);
+    let pointerStart: string | undefined;
+    let editing = $state(false);
+    let editor = $state<HTMLInputElement>();
     const direction = $derived(dir ?? inheritedDirection);
+    const field = $derived(!mode.range && mode.variant === 'field');
+    const fieldFill = $derived(valuePercent(values[0], minimum, maximum) / 100);
+    const canEdit = $derived(field && !mode.range && mode.editable === true && !unavailable);
+    let fieldWidth = $state(0);
+    let fieldLabelWidth = $state(0);
+    const fieldTickHidden = $derived.by(() => {
+        if (!field || !label || fieldWidth === 0) {
+            return false;
+        }
+        const inset = 6;
+        const tick = inset + fieldFill * (fieldWidth - inset * 2);
+
+        return tick < fieldLabelWidth + inset * 3;
+    });
+    const rootClasses = $derived(
+        field
+            ? 'absolute inset-x-1.5 inset-y-0 flex select-none items-center'
+            : 'relative flex min-h-[var(--size-touch)] w-full select-none items-center md:min-h-6'
+    );
+    const fieldThumbClasses =
+        'h-3.5 w-0.5 shrink-0 rounded-full bg-foreground/25 outline-none transition-colors [transition-duration:var(--motion-duration-hover)] ease-[var(--ease-out)] group-hover:bg-foreground/40 data-active:bg-foreground/60 motion-reduce:transition-none';
     const thumbClasses =
         'h-4 w-6 shrink-0 cursor-grab rounded-full border-[length:var(--border-size)] border-border-strong bg-background shadow-[var(--elevation-control-edge)] outline-none transition-shadow [transition-duration:var(--motion-duration-press)] ease-[var(--ease-out)] dark:bg-foreground focus-visible:shadow-[var(--focus-ring),var(--elevation-control-edge)] data-active:cursor-grabbing data-active:shadow-[var(--focus-ring),var(--elevation-control-edge)] data-disabled:cursor-not-allowed motion-reduce:transition-none';
 
@@ -96,6 +131,9 @@
         }
         value = normalized;
         mode.onValueChange?.(normalized);
+        if (dragPointer === undefined) {
+            mode.onValueCommit?.(normalized);
+        }
     }
 
     function updateRange(next: number[]) {
@@ -117,6 +155,84 @@
         }
         value = pair;
         mode.onValueChange?.(pair);
+        if (dragPointer === undefined) {
+            mode.onValueCommit?.(pair);
+        }
+    }
+
+    function commitPointer() {
+        const start = pointerStart;
+        pointerStart = undefined;
+        if (start === undefined || start === JSON.stringify(values)) {
+            return;
+        }
+        if (mode.range) {
+            mode.onValueCommit?.([values[0], values[1]]);
+        } else {
+            mode.onValueCommit?.(values[0]);
+        }
+    }
+
+    function focusThumb() {
+        void tick().then(() => {
+            element?.querySelector<HTMLElement>('[data-thumb="0"]')?.focus({ preventScroll: true });
+        });
+    }
+
+    function stepLarge(event: KeyboardEvent, thumb: HTMLElement) {
+        const forward = event.key === 'ArrowUp' || event.key === 'ArrowRight';
+        const horizontal = event.key === 'ArrowLeft' || event.key === 'ArrowRight';
+        const sign = (forward ? 1 : -1) * (horizontal && direction === 'rtl' ? -1 : 1);
+        const distance = sign * increment * 10;
+        event.preventDefault();
+        event.stopPropagation();
+        if (mode.range) {
+            const index = Number(thumb.dataset.thumb) === 1 ? 1 : 0;
+            const pair = [values[0], values[1]];
+            pair[index] += distance;
+            activeThumb = index;
+            pointerThumb = index;
+            updateRange(pair);
+            pointerThumb = undefined;
+            return;
+        }
+        updateSingle(values[0] + distance);
+    }
+
+    function beginEdit() {
+        if (canEdit) {
+            editing = true;
+        }
+    }
+
+    function parseTyped(text: string) {
+        if (!mode.range && mode.parse) {
+            return mode.parse(text);
+        }
+        const match = text.match(/-?(?:\d+\.?\d*|\.\d+)(?:e[+-]?\d+)?/i);
+
+        return match ? Number(match[0]) : null;
+    }
+
+    function commitEdit(text: string) {
+        if (!editing) {
+            return;
+        }
+        editing = false;
+        focusThumb();
+        const parsed = parseTyped(text);
+        if (parsed === null || !Number.isFinite(parsed)) {
+            return;
+        }
+        updateSingle(parsed);
+    }
+
+    function cancelEdit() {
+        if (!editing) {
+            return;
+        }
+        editing = false;
+        focusThumb();
     }
 
     function startPointer(event: PointerEvent) {
@@ -129,6 +245,7 @@
             return;
         }
         dragPointer = event.pointerId;
+        pointerStart = JSON.stringify(values);
         const thumb =
             event.target instanceof Element
                 ? event.target.closest<HTMLElement>('[data-thumb]')
@@ -194,6 +311,7 @@
         if (element?.hasPointerCapture(event.pointerId)) {
             element.releasePointerCapture(event.pointerId);
         }
+        commitPointer();
     }
 
     function cancelPointer(event?: PointerEvent) {
@@ -251,19 +369,28 @@
             cancelPointer();
         }
     });
+
+    $effect(() => {
+        if (editing) {
+            editor?.focus({ preventScroll: true });
+            editor?.select();
+        }
+    });
 </script>
 
 {#snippet track()}
-    <span
-        data-ui="slider-track"
-        aria-hidden="true"
-        class="relative h-1.5 w-full overflow-hidden rounded-full bg-secondary"
-    >
-        <SliderPrimitive.Range
-            data-ui="slider-range"
-            class="absolute inset-y-0 rounded-full bg-primary"
-        />
-    </span>
+    {#if !field}
+        <span
+            data-ui="slider-track"
+            aria-hidden="true"
+            class="relative h-1.5 w-full overflow-hidden rounded-full bg-secondary"
+        >
+            <SliderPrimitive.Range
+                data-ui="slider-range"
+                class="absolute inset-y-0 rounded-full bg-primary"
+            />
+        </span>
+    {/if}
     {#each values as current, index (index)}
         <SliderPrimitive.Thumb {index}>
             {#snippet child({ props, active })}
@@ -275,6 +402,7 @@
                     aria-valuemin={mode.range && index === 1 ? values[0] : minimum}
                     aria-valuemax={mode.range && index === 0 ? values[1] : maximum}
                     aria-valuenow={current}
+                    aria-valuetext={format?.(current)}
                     data-ui="slider-thumb"
                     data-thumb={index}
                     data-active={(dragPointer !== undefined ? pointerThumb === index : active) || undefined}
@@ -283,7 +411,10 @@
                     onfocus={() => {
                         activeThumb = index;
                     }}
-                    class={thumbClasses}
+                    class={cn(
+                        field ? fieldThumbClasses : thumbClasses,
+                        fieldTickHidden && 'opacity-0'
+                    )}
                 ></span>
             {/snippet}
         </SliderPrimitive.Thumb>
@@ -298,18 +429,47 @@
 <div
     {...rootAttributes}
     bind:this={element}
+    bind:clientWidth={fieldWidth}
     {id}
     {dir}
     data-ui="slider"
     data-range={mode.range || undefined}
-    class={cn(className, 'w-full px-3', unavailable && 'opacity-[var(--opacity-disabled)]')}
+    data-variant={field ? 'field' : 'default'}
+    class={cn(
+        className,
+        field
+            ? 'group relative flex h-[var(--size-control-md)] w-full touch-pan-y items-center overflow-hidden rounded-[var(--radius-lg)] bg-secondary select-none has-[[data-ui=slider-thumb]:focus-visible]:shadow-[var(--focus-ring)]'
+            : 'w-full px-3',
+        field && (unavailable ? 'cursor-not-allowed' : 'cursor-ew-resize'),
+        unavailable && 'opacity-[var(--opacity-disabled)]'
+    )}
     onpointerdown={startPointer}
     onpointermove={updatePointerPosition}
     onpointerup={finishPointer}
     onpointercancel={cancelPointer}
     onlostpointercapture={cancelPointer}
-    onkeydowncapture={() => {
+    onkeydowncapture={(event) => {
         cancelPointer();
+        if (
+            !unavailable &&
+            event.shiftKey &&
+            event.key.startsWith('Arrow') &&
+            event.target instanceof HTMLElement &&
+            event.target.dataset.ui === 'slider-thumb'
+        ) {
+            stepLarge(event, event.target);
+            return;
+        }
+        if (
+            canEdit &&
+            !editing &&
+            event.key === 'Enter' &&
+            event.target instanceof HTMLElement &&
+            event.target.dataset.ui === 'slider-thumb'
+        ) {
+            event.preventDefault();
+            beginEdit();
+        }
     }}
 >
     {#if name}
@@ -325,6 +485,80 @@
             <input type="hidden" {name} {form} disabled={unavailable} value={values[1]} />
         {/if}
     {/if}
+    {#if field}
+        {#if fieldFill > 0}
+            <span
+                data-ui="slider-range"
+                aria-hidden="true"
+                class="pointer-events-none absolute inset-y-0 start-0 bg-foreground/[0.07] transition-colors [transition-duration:var(--motion-duration-hover)] ease-[var(--ease-out)] group-hover:bg-foreground/[0.09] motion-reduce:transition-none"
+                style:width={`calc(${fieldFill} * (100% - 0.75rem) + 0.75rem)`}
+            ></span>
+        {/if}
+        <span
+            class="pointer-events-none relative z-10 flex w-full min-w-0 items-center justify-between gap-3 px-3"
+        >
+            <span
+                bind:clientWidth={fieldLabelWidth}
+                data-ui="slider-label"
+                class="min-w-0 truncate text-sm text-foreground-muted"
+            >
+                {label}
+            </span>
+            {#if editing}
+                <input
+                    bind:this={editor}
+                    type="text"
+                    inputmode="decimal"
+                    autocomplete="off"
+                    spellcheck="false"
+                    aria-label={`${ariaLabel ?? label ?? 'Slider'} value`}
+                    data-ui="slider-value-input"
+                    value={String(values[0])}
+                    class="pointer-events-auto m-0 min-w-[3ch] shrink-0 cursor-text border-0 bg-transparent p-0 text-end font-mono text-xs tabular-nums text-foreground outline-none [field-sizing:content]"
+                    onpointerdown={(event) => {
+                        event.stopPropagation();
+                    }}
+                    onkeydown={(event) => {
+                        event.stopPropagation();
+                        if (event.key === 'Enter') {
+                            event.preventDefault();
+                            commitEdit(event.currentTarget.value);
+                        }
+                        if (event.key === 'Escape') {
+                            event.preventDefault();
+                            cancelEdit();
+                        }
+                    }}
+                    onblur={(event) => {
+                        commitEdit(event.currentTarget.value);
+                    }}
+                />
+            {:else if canEdit}
+                <button
+                    type="button"
+                    tabindex={-1}
+                    aria-label={`Edit ${ariaLabel ?? label ?? 'slider'} value`}
+                    data-ui="slider-value"
+                    data-editable
+                    class="pointer-events-auto m-0 shrink-0 cursor-text border-0 bg-transparent p-0 font-mono text-xs tabular-nums text-foreground decoration-foreground-muted/50 underline-offset-4 hover:underline hover:decoration-dotted"
+                    onpointerdown={(event) => {
+                        event.stopPropagation();
+                    }}
+                    onclick={beginEdit}
+                >
+                    {format ? format(values[0]) : values[0]}
+                </button>
+            {:else}
+                <span
+                    data-ui="slider-value"
+                    aria-hidden="true"
+                    class="shrink-0 font-mono text-xs tabular-nums text-foreground"
+                >
+                    {format ? format(values[0]) : values[0]}
+                </span>
+            {/if}
+        </span>
+    {/if}
     {#key interactionRevision}
         {#if mode.range}
             <SliderPrimitive.Root
@@ -337,7 +571,7 @@
                 disabled={unavailable}
                 dir={direction}
                 thumbPositioning="exact"
-                class="relative flex min-h-[var(--size-touch)] w-full select-none items-center md:min-h-6"
+                class={rootClasses}
             >
                 {@render track()}
             </SliderPrimitive.Root>
@@ -351,7 +585,7 @@
                 disabled={unavailable}
                 dir={direction}
                 thumbPositioning="exact"
-                class="relative flex min-h-[var(--size-touch)] w-full select-none items-center md:min-h-6"
+                class={rootClasses}
             >
                 {@render track()}
             </SliderPrimitive.Root>

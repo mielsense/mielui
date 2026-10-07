@@ -20,30 +20,44 @@ export type CommandItem = {
 };
 
 export type CommandProps = {
+    /** Whether it is open. Bind it to control the state from outside. */
     open?: boolean;
+    /** Called with the new state whenever it opens or closes. */
     onOpenChange?: (open: boolean) => void;
+    /** Content rendered inside. */
     children?: Snippet;
 };
 
 export type CommandItemProps = {
+    /** Text the search matches. */
     name?: string;
+    /** Identifier for the item when names repeat. */
     value?: string;
+    /** Called when the item is chosen. */
     callback?: () => void;
+    /** Prevents interaction and dims the control. */
     disabled?: boolean;
+    /** Navigates to this address when the item is chosen. */
     href?: string;
+    /** Called when it is clicked or activated. */
     onclick?: () => void;
 } & DefaultProps;
 
 export type CommandHeaderProps = DefaultProps;
 
 export type CommandSearchProps = Omit<HTMLInputAttributes, 'children'> & {
+    /** How loosely typed text may match, from 0 for exact to 1 for anything. */
     threshold?: number;
+    /** Replaces the search icon. */
     icon?: Snippet;
+    /** Renders the result count. */
     count?: Snippet<[count: number]>;
+    /** Renders the screen reader announcement. */
     announcement?: Snippet<[message: string]>;
 };
 
 export type CommandResultsProps = DefaultProps & {
+    /** Content shown when nothing matches. */
     empty?: Snippet;
 };
 

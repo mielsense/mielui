@@ -19,7 +19,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Id of the element.",
                 "inherited": false
             },
             11,
@@ -33,7 +33,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Inline styles for the element.",
                 "inherited": false
             },
             17,
@@ -454,7 +454,7 @@
                 "required": true,
                 "bindable": false,
                 "default": null,
-                "description": "This specific cell, which is provided by the `cells` snippet prop from\nthe `PinInput.Root` component.",
+                "description": "This specific cell, which is provided by the `cells` snippet prop from the `PinInput.Root` component.",
                 "inherited": false
             },
             {
@@ -463,7 +463,7 @@
                 "required": false,
                 "bindable": true,
                 "default": "null",
-                "description": "",
+                "description": "Bindable reference to the DOM element.",
                 "inherited": false
             }
         ]
@@ -924,7 +924,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Id of the element.",
                 "inherited": false
             },
             11,
@@ -938,7 +938,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Inline styles for the element.",
                 "inherited": false
             },
             17,
@@ -1402,7 +1402,7 @@
             3648,
             3649,
             3650,
-            9668,
+            9660,
             3652,
             3653,
             3654,
@@ -1427,7 +1427,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "A callback function that is called when the user pastes text into the input.\nIt receives the pasted text as an argument, and should return the sanitized text.",
+                "description": "A callback function that is called when the user pastes text into the input. It receives the pasted text as an argument, and should return the sanitized text.",
                 "inherited": false
             },
             {
@@ -1441,7 +1441,7 @@
             },
             {
                 "name": "pushPasswordManagerStrategy",
-                "type": "\"none\" | \"increase-width\" | undefined",
+                "type": "\"increase-width\" | \"none\" | undefined",
                 "required": false,
                 "bindable": false,
                 "default": null,
@@ -1454,7 +1454,7 @@
                 "required": false,
                 "bindable": false,
                 "default": "6",
-                "description": "",
+                "description": "Number of characters in the code.",
                 "inherited": false
             },
             {
@@ -1463,7 +1463,7 @@
                 "required": false,
                 "bindable": true,
                 "default": "null",
-                "description": "",
+                "description": "Bindable reference to the DOM element.",
                 "inherited": false
             },
             {
@@ -1472,7 +1472,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Called with the code once every cell is filled.",
                 "inherited": false
             },
             {
@@ -1481,7 +1481,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Content rendered inside.",
                 "inherited": false
             }
         ]

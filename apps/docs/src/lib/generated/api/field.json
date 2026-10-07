@@ -444,7 +444,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Ids of the description and error, for `aria-describedby`.",
                 "inherited": false
             },
             {
@@ -453,7 +453,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Id of the error element.",
                 "inherited": false
             },
             {
@@ -462,7 +462,7 @@
                 "required": true,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Content rendered inside.",
                 "inherited": false
             }
         ]
@@ -912,7 +912,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Validation issues to list. Defaults to the Root's issues.",
                 "inherited": false
             },
             0,
@@ -940,7 +940,7 @@
             21,
             22,
             23,
-            8709,
+            8701,
             25,
             26,
             27,
@@ -1788,7 +1788,7 @@
         "name": "Label",
         "properties": [
             1062,
-            8710,
+            8702,
             0,
             1,
             2,
@@ -1890,6 +1890,14 @@
             97,
             98,
             4621,
+            8703,
+            8704,
+            8705,
+            8706,
+            8707,
+            8708,
+            8709,
+            8710,
             8711,
             8712,
             8713,
@@ -1933,6 +1941,12 @@
             8751,
             8752,
             8753,
+            150,
+            151,
+            152,
+            153,
+            154,
+            155,
             8754,
             8755,
             8756,
@@ -1941,12 +1955,6 @@
             8759,
             8760,
             8761,
-            150,
-            151,
-            152,
-            153,
-            154,
-            155,
             8762,
             8763,
             8764,
@@ -2205,14 +2213,6 @@
             9017,
             9018,
             9019,
-            9020,
-            9021,
-            9022,
-            9023,
-            9024,
-            9025,
-            9026,
-            9027,
             422,
             423,
             424,
@@ -2231,7 +2231,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Id shared by the label and the control.",
                 "inherited": false
             },
             {
@@ -2240,7 +2240,7 @@
                 "required": false,
                 "bindable": false,
                 "default": "false",
-                "description": "",
+                "description": "Prevents interaction and dims the control.",
                 "inherited": false
             },
             {
@@ -2249,7 +2249,7 @@
                 "required": false,
                 "bindable": false,
                 "default": "false",
-                "description": "",
+                "description": "Requires a value before the form can be submitted.",
                 "inherited": false
             },
             {
@@ -2258,7 +2258,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Marks the field invalid. It defaults to true when there are issues.",
                 "inherited": false
             },
             {
@@ -2267,16 +2267,16 @@
                 "required": false,
                 "bindable": false,
                 "default": "[]",
-                "description": "",
+                "description": "Validation issues for this field.",
                 "inherited": false
             },
             {
                 "name": "orientation",
-                "type": "\"horizontal\" | \"vertical\" | undefined",
+                "type": "\"vertical\" | \"horizontal\" | undefined",
                 "required": false,
                 "bindable": false,
                 "default": "'vertical'",
-                "description": "",
+                "description": "`vertical` stacks the label and control. `horizontal` puts them side by side.",
                 "inherited": false
             },
             {
@@ -2285,7 +2285,7 @@
                 "required": false,
                 "bindable": true,
                 "default": null,
-                "description": "",
+                "description": "Bindable reference to the DOM element.",
                 "inherited": false
             },
             0,

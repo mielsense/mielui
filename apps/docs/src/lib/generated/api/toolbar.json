@@ -8,7 +8,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Content rendered inside.",
                 "inherited": false
             },
             2681,
@@ -28,7 +28,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Id of the element.",
                 "inherited": false
             },
             11,
@@ -42,7 +42,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Inline styles for the element.",
                 "inherited": false
             },
             17,
@@ -485,7 +485,7 @@
                 "required": false,
                 "bindable": true,
                 "default": "null",
-                "description": "",
+                "description": "Bindable reference to the DOM element.",
                 "inherited": false
             }
         ]
@@ -499,7 +499,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Content rendered inside.",
                 "inherited": false
             },
             2681,
@@ -519,7 +519,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Id of the element.",
                 "inherited": false
             },
             11,
@@ -533,7 +533,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Inline styles for the element.",
                 "inherited": false
             },
             17,
@@ -963,25 +963,25 @@
                 "required": true,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "`single` keeps one value. `multiple` allows several and makes `value` an array.",
                 "inherited": false
             },
             {
                 "name": "value",
-                "type": "string | undefined | string[] | undefined",
+                "type": "string | string[] | undefined",
                 "required": false,
                 "bindable": true,
                 "default": null,
-                "description": "",
+                "description": "Selected tool, or an array in multiple mode. Bindable.",
                 "inherited": false
             },
             {
                 "name": "onValueChange",
-                "type": "((value: string) => void) | undefined | ((value: string[]) => void) | undefined",
+                "type": "((value: string) => void) | ((value: string[]) => void) | undefined",
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Called with the new value when it changes.",
                 "inherited": false
             },
             {
@@ -990,7 +990,7 @@
                 "required": false,
                 "bindable": true,
                 "default": "null",
-                "description": "",
+                "description": "Bindable reference to the DOM element.",
                 "inherited": false
             }
         ]
@@ -1004,7 +1004,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Content rendered inside.",
                 "inherited": false
             },
             2681,
@@ -1024,7 +1024,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Id of the element.",
                 "inherited": false
             },
             11,
@@ -1038,7 +1038,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Inline styles for the element.",
                 "inherited": false
             },
             17,
@@ -1489,7 +1489,7 @@
                 "required": false,
                 "bindable": true,
                 "default": "null",
-                "description": "",
+                "description": "Bindable reference to the DOM element.",
                 "inherited": false
             }
         ]
@@ -1503,7 +1503,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Content rendered inside.",
                 "inherited": false
             },
             2681,
@@ -1523,7 +1523,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Id of the element.",
                 "inherited": false
             },
             11,
@@ -1537,7 +1537,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Inline styles for the element.",
                 "inherited": false
             },
             17,
@@ -1622,6 +1622,13 @@
             96,
             97,
             98,
+            6219,
+            6220,
+            6221,
+            6222,
+            6223,
+            6224,
+            6225,
             6226,
             6227,
             6228,
@@ -1666,6 +1673,12 @@
             6267,
             6268,
             6269,
+            150,
+            151,
+            152,
+            153,
+            154,
+            155,
             6270,
             6271,
             6272,
@@ -1673,12 +1686,6 @@
             6274,
             6275,
             6276,
-            150,
-            151,
-            152,
-            153,
-            154,
-            155,
             6277,
             6278,
             6279,
@@ -1938,13 +1945,6 @@
             6533,
             6534,
             6535,
-            6536,
-            6537,
-            6538,
-            6539,
-            6540,
-            6541,
-            6542,
             422,
             423,
             424,
@@ -1952,8 +1952,8 @@
             426,
             427,
             428,
-            6543,
-            6544,
+            5263,
+            6536,
             4298,
             4299,
             4300,
@@ -1967,7 +1967,7 @@
                 "required": false,
                 "bindable": true,
                 "default": "null",
-                "description": "",
+                "description": "Bindable reference to the DOM element.",
                 "inherited": false
             }
         ]
@@ -1981,7 +1981,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Content rendered inside.",
                 "inherited": false
             },
             2681,
@@ -2001,7 +2001,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Id of the element.",
                 "inherited": false
             },
             11,
@@ -2015,7 +2015,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Inline styles for the element.",
                 "inherited": false
             },
             17,
@@ -2436,7 +2436,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "Whether or not to loop through the toolbar items when navigating with the\nkeyboard.",
+                "description": "Whether or not to loop through the toolbar items when navigating with the keyboard.",
                 "inherited": false
             },
             {
@@ -2445,7 +2445,7 @@
                 "required": false,
                 "bindable": false,
                 "default": "'horizontal'",
-                "description": "The orientation of the toolbar. This determines how keyboard navigation\nwill work within the toolbar.",
+                "description": "The orientation of the toolbar. This determines how keyboard navigation will work within the toolbar.",
                 "inherited": false
             },
             {
@@ -2454,7 +2454,7 @@
                 "required": false,
                 "bindable": false,
                 "default": "'default'",
-                "description": "",
+                "description": "`depth` gives the toolbar raised keys and a floating shell.",
                 "inherited": false
             },
             {
@@ -2463,7 +2463,7 @@
                 "required": false,
                 "bindable": true,
                 "default": "null",
-                "description": "",
+                "description": "Bindable reference to the DOM element.",
                 "inherited": false
             }
         ]
@@ -2488,7 +2488,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Id of the element.",
                 "inherited": false
             },
             11,
@@ -2502,7 +2502,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Inline styles for the element.",
                 "inherited": false
             },
             17,
@@ -2941,7 +2941,7 @@
                 "required": false,
                 "bindable": true,
                 "default": "null",
-                "description": "",
+                "description": "Bindable reference to the DOM element.",
                 "inherited": false
             }
         ]
@@ -2955,7 +2955,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Classes added to the element.",
                 "inherited": false
             },
             {
@@ -2964,7 +2964,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Content rendered inside.",
                 "inherited": false
             },
             0,

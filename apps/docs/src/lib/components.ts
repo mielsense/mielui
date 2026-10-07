@@ -129,6 +129,26 @@ export const componentTypes = [
     }
 ];
 
+const categoryDescriptions: Record<string, string> = {
+    blocks: 'Larger parts built from the components: code, tables, toasts, toolbars, and more.',
+    'ai-components':
+        'Conversations, messages, tools, and the composer for chat and agent interfaces.',
+    'chart-components': 'Charts, gauges, and heatmaps for showing data.'
+};
+
+/** The component categories other than Components. Each has its own catalog page. */
+export const categoryTypes = componentGroups
+    .filter((group) => group.id !== 'components')
+    .map((group) => {
+        return {
+            ...group,
+            description: categoryDescriptions[group.id] ?? ''
+        };
+    });
+
+/** Every group with a catalog page at `/docs/components/<id>`. */
+export const catalogPages = [...componentTypes, ...categoryTypes];
+
 export function componentTypeHref(id: string) {
     return `/docs/components/${id}`;
 }

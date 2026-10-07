@@ -8,6 +8,7 @@
     let {
         element = $bindable(null),
         children,
+        onOpenAutoFocus,
         onpointercancel,
         onpointerup,
         surface,
@@ -16,6 +17,25 @@
     }: DrawerContentProps = $props();
     const drawer = getDrawerContext();
     let canceling = false;
+    let focusFrame = 0;
+
+    function focusPanel(event: Event) {
+        onOpenAutoFocus?.(event);
+        if (event.defaultPrevented) {
+            return;
+        }
+        event.preventDefault();
+        cancelAnimationFrame(focusFrame);
+        focusFrame = requestAnimationFrame(() => {
+            element?.focus({ preventScroll: true });
+        });
+    }
+
+    $effect(() => {
+        return () => {
+            cancelAnimationFrame(focusFrame);
+        };
+    });
 
     function cancelPointer(event: PointerEvent & { currentTarget: EventTarget & HTMLDivElement }) {
         onpointercancel?.(event);
@@ -51,6 +71,7 @@
 <Primitive.Content
     {...rest}
     bind:ref={element}
+    onOpenAutoFocus={focusPanel}
     onpointercancel={cancelPointer}
     onpointerup={(event) => {
         if (!canceling) {
@@ -58,23 +79,34 @@
         }
     }}
     data-ui="drawer-content"
-    data-surface={surface}
     class={cn(
-        className,
-        overlaySurface(surface),
-        'mielui-modal-frame fixed z-[120] flex max-h-[90dvh] flex-col text-foreground shadow-[var(--elevation-float)] outline-none',
-        'data-[vaul-drawer-direction=bottom]:inset-x-0 data-[vaul-drawer-direction=bottom]:bottom-0 data-[vaul-drawer-direction=bottom]:rounded-b-none data-[vaul-drawer-direction=bottom]:border-b-0 data-[vaul-drawer-direction=bottom]:pb-[env(safe-area-inset-bottom)] data-[vaul-drawer-direction=bottom]:[&>[data-ui=drawer-surface]]:rounded-b-none',
-        'data-[vaul-drawer-direction=top]:inset-x-0 data-[vaul-drawer-direction=top]:top-0 data-[vaul-drawer-direction=top]:rounded-t-none data-[vaul-drawer-direction=top]:border-t-0 data-[vaul-drawer-direction=top]:pt-[env(safe-area-inset-top)] data-[vaul-drawer-direction=top]:[&>[data-ui=drawer-surface]]:rounded-t-none',
-        'data-[vaul-drawer-direction=left]:inset-y-0 data-[vaul-drawer-direction=left]:left-0 data-[vaul-drawer-direction=left]:w-80 data-[vaul-drawer-direction=left]:max-w-[90vw] data-[vaul-drawer-direction=left]:max-h-none data-[vaul-drawer-direction=left]:rounded-l-none data-[vaul-drawer-direction=left]:border-l-0 data-[vaul-drawer-direction=left]:pl-[env(safe-area-inset-left)] data-[vaul-drawer-direction=left]:[&>[data-ui=drawer-surface]]:rounded-l-none',
-        'data-[vaul-drawer-direction=right]:inset-y-0 data-[vaul-drawer-direction=right]:right-0 data-[vaul-drawer-direction=right]:w-80 data-[vaul-drawer-direction=right]:max-w-[90vw] data-[vaul-drawer-direction=right]:max-h-none data-[vaul-drawer-direction=right]:rounded-r-none data-[vaul-drawer-direction=right]:border-r-0 data-[vaul-drawer-direction=right]:pr-[env(safe-area-inset-right)] data-[vaul-drawer-direction=right]:[&>[data-ui=drawer-surface]]:rounded-r-none',
-        '[animation-duration:var(--motion-duration-sheet)]! [animation-timing-function:var(--ease-out)]! [transition-duration:var(--motion-duration-sheet)]! [&.vaul-dragging]:[transition-duration:0ms]! [transition-timing-function:var(--ease-out)]! data-[state=closed]:[animation-duration:var(--motion-duration-sheet-out)]! motion-reduce:[animation-duration:0ms]! motion-reduce:[transition-duration:0ms]!'
+        'group/drawer pointer-events-none! fixed z-[120] flex outline-none [--drawer-gap:calc(var(--spacing)*2)] after:hidden!',
+        'data-[vaul-drawer-direction=bottom]:inset-x-0 data-[vaul-drawer-direction=bottom]:bottom-0 data-[vaul-drawer-direction=bottom]:mx-auto data-[vaul-drawer-direction=bottom]:w-fit data-[vaul-drawer-direction=bottom]:max-w-full data-[vaul-drawer-direction=bottom]:px-[var(--drawer-gap)] data-[vaul-drawer-direction=bottom]:pb-[max(var(--drawer-gap),env(safe-area-inset-bottom))]',
+        'data-[vaul-drawer-direction=top]:inset-x-0 data-[vaul-drawer-direction=top]:top-0 data-[vaul-drawer-direction=top]:mx-auto data-[vaul-drawer-direction=top]:w-fit data-[vaul-drawer-direction=top]:max-w-full data-[vaul-drawer-direction=top]:px-[var(--drawer-gap)] data-[vaul-drawer-direction=top]:pt-[max(var(--drawer-gap),env(safe-area-inset-top))]',
+        'data-[vaul-drawer-direction=left]:inset-y-0 data-[vaul-drawer-direction=left]:left-0 data-[vaul-drawer-direction=left]:max-w-full data-[vaul-drawer-direction=left]:py-[var(--drawer-gap)] data-[vaul-drawer-direction=left]:pl-[max(var(--drawer-gap),env(safe-area-inset-left))]',
+        'data-[vaul-drawer-direction=right]:inset-y-0 data-[vaul-drawer-direction=right]:right-0 data-[vaul-drawer-direction=right]:max-w-full data-[vaul-drawer-direction=right]:py-[var(--drawer-gap)] data-[vaul-drawer-direction=right]:pr-[max(var(--drawer-gap),env(safe-area-inset-right))]',
+        '[animation-duration:var(--motion-duration-sheet)]! [animation-timing-function:var(--ease-out)]! [transition-duration:var(--motion-duration-sheet)]! [&.vaul-dragging]:[transition-duration:0ms]! [transition-timing-function:var(--ease-out)]! data-[state=closed]:[animation-duration:var(--motion-duration-sheet-out)]! data-[state=closed]:[animation-fill-mode:forwards]! motion-reduce:[animation-duration:0ms]! motion-reduce:[transition-duration:0ms]!'
     )}
 >
     <div
-        data-ui="drawer-surface"
-        class="mielui-inset-surface relative flex min-h-0 flex-1 flex-col overflow-hidden"
+        data-ui="drawer-panel"
+        data-surface={surface}
+        class={cn(
+            className,
+            overlaySurface(surface),
+            'mielui-modal-frame pointer-events-auto flex min-h-0 flex-col overflow-hidden text-foreground shadow-[var(--elevation-modal)]',
+            'group-data-[vaul-drawer-direction=bottom]/drawer:max-h-[calc(100dvh-var(--drawer-gap)*2-var(--spacing)*8)] group-data-[vaul-drawer-direction=bottom]/drawer:w-xl group-data-[vaul-drawer-direction=bottom]/drawer:max-w-[calc(100vw-var(--drawer-gap)*2)]',
+            'group-data-[vaul-drawer-direction=top]/drawer:max-h-[calc(100dvh-var(--drawer-gap)*2-var(--spacing)*8)] group-data-[vaul-drawer-direction=top]/drawer:w-xl group-data-[vaul-drawer-direction=top]/drawer:max-w-[calc(100vw-var(--drawer-gap)*2)]',
+            'group-data-[vaul-drawer-direction=left]/drawer:w-96 group-data-[vaul-drawer-direction=left]/drawer:max-w-[calc(100vw-var(--drawer-gap)*2-var(--spacing)*8)]',
+            'group-data-[vaul-drawer-direction=right]/drawer:w-96 group-data-[vaul-drawer-direction=right]/drawer:max-w-[calc(100vw-var(--drawer-gap)*2-var(--spacing)*8)]'
+        )}
     >
-        {@render children?.()}
+        <div
+            data-ui="drawer-surface"
+            class="mielui-inset-surface relative flex min-h-0 flex-1 flex-col overflow-hidden"
+        >
+            {@render children?.()}
+        </div>
+        {@render drawer.footer?.()}
     </div>
-    {@render drawer.footer?.()}
 </Primitive.Content>

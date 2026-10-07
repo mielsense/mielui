@@ -2,7 +2,10 @@
     import { CodeBlock } from '@mielui/svelte/components/code-block';
     import * as Typography from '@mielui/svelte/components/typography';
     import { ComponentPreview, InstallCommand } from '$lib/components/docs';
+    import InlineText from '$lib/components/docs/inline-text.svelte';
     import PageIntro from '$lib/components/docs/page-intro.svelte';
+    import EventsExample from './examples/events.svelte';
+    import EventsExampleSrc from './examples/events.svelte?raw';
     import Hero from './examples/hero.svelte';
     import HeroSrc from './examples/hero.svelte?raw';
 
@@ -103,5 +106,16 @@
             lang="svelte"
             copy="overlay"
         />
+    </section>
+    <section id="events-and-disabling" class="flex flex-col gap-4">
+        <Typography.H2 class="docs-section-heading">Events and disabling</Typography.H2>
+        <Typography.Text variant="supporting">
+            <InlineText
+                text={"`onReorder` runs with the new array after every move, whether it came from a drag or the keyboard. Use it to save the order. `disabled` on Root locks the list: rows stay visible and nothing can be moved."}
+            />
+        </Typography.Text>
+        <ComponentPreview code={EventsExampleSrc}>
+            <EventsExample />
+        </ComponentPreview>
     </section>
 </div>

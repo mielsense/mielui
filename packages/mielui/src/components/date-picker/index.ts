@@ -5,6 +5,10 @@ import type { DatePickerLabels } from './context.svelte';
 export type { DatePickerLabels };
 
 export type DatePickerProps = Omit<DatePickerPrimitive.RootProps, 'child'> & {
+    /**
+     * Overrides the built-in text and accessible names. Every key is optional and English is the
+     * fallback.
+     */
     labels?: DatePickerLabels;
 };
 
@@ -12,7 +16,12 @@ export type DatePickerContentProps = Omit<
     DatePickerPrimitive.ContentProps,
     'child' | 'forceMount'
 > & {
+    /** Surface treatment. Omit it to inherit `--mielui-surface` from the theme. */
     surface?: 'solid' | 'glass';
+    /**
+     * Moves the panel to the end of the document so ancestors cannot clip it. Set false to render
+     * it in place.
+     */
     portal?: boolean;
 };
 

@@ -16,6 +16,7 @@ export type CopyButtonProps = {
     variant?: ButtonVariant;
     /** Button size (defaults to `icon`). Pass a text size when rendering children. */
     size?: 'sm' | 'md' | 'lg' | 'icon';
+    /** Classes added to the element. */
     class?: string;
     /** Optional visible label rendered after the icon. */
     children?: Snippet;

@@ -12,10 +12,10 @@ describe('resolveThemeCss', () => {
     test('validates and renders a remote versioned theme', async () => {
         globalThis.fetch = (() =>
             Promise.resolve(
-                new Response(JSON.stringify({ ...DEFAULT_THEME, slug: 'ocean', brand: '#0066cc' }))
+                new Response(JSON.stringify({ ...DEFAULT_THEME, slug: 'harbor', brand: '#0066cc' }))
             )) as unknown as typeof fetch;
 
-        const result = await resolveThemeCss('ocean', 'https://registry.example');
+        const result = await resolveThemeCss('harbor', 'https://registry.example');
         expect(result.source).toBe('registry');
         expect(result.css).toContain('--color-primary: #0066cc');
     });

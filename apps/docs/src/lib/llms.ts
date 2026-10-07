@@ -1,6 +1,6 @@
 import { changelogLlmVersions, changelogVersions } from '$lib/changelog';
 import { componentGroups, components, sanitizeComponent } from '$lib/components';
-import { componentGuidePages } from '$lib/docs-pages';
+import { catalogSections, componentGuidePages } from '$lib/docs-pages';
 import { componentReference } from '$lib/server/api-reference';
 import { mieluiGuideMarkdown } from '$lib/skill';
 
@@ -143,13 +143,13 @@ export function componentMarkdown(component: string): string | undefined {
             '',
             `### ${part.name}`,
             '',
-            '| Prop | Type | Default | Required | Bindable |',
-            '| --- | --- | --- | --- | --- |',
+            '| Prop | Type | Default | Required | Bindable | Description |',
+            '| --- | --- | --- | --- | --- | --- |',
             ...part.properties
                 .filter((property) => !property.inherited)
                 .map(
                     (property) =>
-                        `| ${property.name} | ${property.type.replaceAll('|', '\\|')} | ${(property.default ?? '—').replaceAll('|', '\\|')} | ${property.required ? 'Yes' : 'No'} | ${property.bindable ? 'Yes' : 'No'} |`
+                        `| ${property.name} | ${property.type.replaceAll('|', '\\|')} | ${(property.default ?? '-').replaceAll('|', '\\|')} | ${property.required ? 'Yes' : 'No'} | ${property.bindable ? 'Yes' : 'No'} | ${property.description.replaceAll('|', '\\|')} |`
                 ),
             '',
             part.properties.some((property) => property.inherited)
@@ -246,51 +246,180 @@ export function brandMarkMarkdown(): string {
     ].join('\n');
 }
 
+const catalogList = catalogSections
+    .map((section) => `- [${section.label}](${section.href}): ${section.value}`)
+    .join('\n');
+
 const coreDocs = {
     introduction: `# Introduction
 
-Mielui is a Svelte 5 and Tailwind CSS v4 component library. Install it as a package or use the CLI to copy component source into your project.
+Mielui is a component library for Svelte 5 and Tailwind v4. It includes components, theme tokens, and a CLI for copying source into your project.
+
+## Build with Mielui
+
+Start with everyday controls, compose larger interfaces from named parts, and tune everything through one set of theme tokens. Each component page pairs a live preview with source examples and an API reference.
+
+${catalogList}
+
+## Choose how to use it
+
+Both paths use the same components and theme system. Choose based on whether you want dependency updates or direct ownership of the implementation.
+
+| Decision | Package import | CLI source copy |
+| --- | --- | --- |
+| Best fit | Use the library through its public API. | Adapt component internals for your product. |
+| Source | Imported from \`@mielui/svelte\`. | Copied into your repository. |
+| Customization | Compose parts, set props, and apply classes or tokens. | Use the same options, plus edit the source directly. |
+| Updates | Upgrade the package dependency. | Review upstream changes alongside your local edits. |
+
+Trying Mielui for the first time? Start with package imports. Choose source copy when you already know you need to change component behavior.
 
 ## Requirements
 
 - Svelte 5.56 or newer, with or without SvelteKit
 - Tailwind CSS v4
+- pnpm, npm, Yarn, or Bun
+
+Start with an existing Svelte app and import the Mielui stylesheet once at the application level.
 
 ## Quick start
 
-~~~~sh
-pnpm add @mielui/svelte
-# then in your CSS:
-# @import '@mielui/svelte/ui.css';
-~~~~
-
-~~~~sh
-pnpm dlx @mielui/svelte init -y
-pnpm dlx @mielui/svelte add button
-~~~~
-`,
-    installation: `# Installation
-
-Install Mielui as a package when you want dependency-managed components, or initialize it with the CLI when you want to own the copied source.
-
-## Package
+Install the package:
 
 ~~~~sh
 pnpm add @mielui/svelte
 ~~~~
 
-Add the token sheet to your CSS. It already includes Tailwind, so do not add another \`@import 'tailwindcss'\` alongside it:
+Import the shared styles in your application stylesheet:
 
 ~~~~css
 @import '@mielui/svelte/ui.css';
 ~~~~
 
-## CLI
+Then use your first component:
+
+~~~~svelte
+<script>
+  import { Button } from '@mielui/svelte';
+</script>
+
+<Button>Get started</Button>
+~~~~
+
+Prefer local source? Initialize the CLI and add a component instead:
 
 ~~~~sh
-pnpm dlx @mielui/svelte init
+pnpm dlx @mielui/svelte init -y
 pnpm dlx @mielui/svelte add button
 ~~~~
+
+Follow [Installation](/docs/installation.md) for the local stylesheet import, component paths, and full setup for either approach.
+
+## Make it your own
+
+Set colors, typography, corners, spacing, and motion together in [Theme Studio](/studio). Preview the result on working components, then export CSS or JSON.
+
+Compound components expose named parts such as Root, Trigger, and Content. Compose the parts shown on each component page, and use classes to adjust individual regions without replacing the whole component.
+
+## Where to go next
+
+- [Installation](/docs/installation.md): Set up package imports or the source-copy workflow.
+- [Components](/docs/components.md): Explore live examples, supported props, and composition patterns.
+- [Theming](/docs/theming.md): Apply a preset or connect theme tokens to your own design.
+- [Agent skill](/docs/agent-skill.md): Give your coding agent Mielui-specific guidance for implementation.
+`,
+    installation: `# Installation
+
+Install Mielui into your project.
+
+## Prerequisites
+
+- Svelte 5.56 or newer, with or without SvelteKit
+- Tailwind CSS v4
+
+## Package import
+
+Install the library and import components from \`@mielui/svelte\`.
+
+~~~~sh
+pnpm add @mielui/svelte
+~~~~
+
+Import the stylesheet once in \`src/app.css\`. It already includes Tailwind, so remove any existing \`@import 'tailwindcss'\` line.
+
+~~~~css
+@import '@mielui/svelte/ui.css';
+~~~~
+
+Use a component:
+
+~~~~svelte
+<script>
+  import { Button } from '@mielui/svelte';
+</script>
+
+<Button>Get started</Button>
+~~~~
+
+Compound components expose named parts. Import \`Dialog\` and compose \`Dialog.Root\` with \`Dialog.Content\` and the other parts you need.
+
+## CLI source copy
+
+The CLI copies source into your project. The package name is \`@mielui/svelte\`; the binary is \`mielui\`.
+
+1. Create a project. Skip this and the next step if your app already has Svelte and Tailwind.
+
+~~~~sh
+pnpm dlx sv create my-app
+~~~~
+
+2. Add Tailwind v4.
+
+~~~~sh
+cd my-app
+pnpm dlx sv add tailwindcss
+~~~~
+
+3. Initialize Mielui from the project root. This creates \`src/lib/mielui/\` for styles and utilities, plus \`mielui.json\`.
+
+~~~~sh
+pnpm dlx @mielui/svelte init -y
+~~~~
+
+4. Import the stylesheet. The copied stylesheet already includes Tailwind, so replace the \`@import 'tailwindcss'\` line that the Tailwind setup added.
+
+~~~~css
+/* src/app.css */
+@import './lib/mielui/ui.css';
+~~~~
+
+5. Add components.
+
+~~~~sh
+pnpm dlx @mielui/svelte add button
+pnpm dlx @mielui/svelte list
+~~~~
+
+6. Use them.
+
+~~~~svelte
+<script>
+  import { Button } from '$lib/mielui/components/button';
+</script>
+
+<Button>Get started</Button>
+~~~~
+
+## Notes
+
+- Tailwind v3 is not supported. Mielui needs v4 \`@theme\` and \`color-mix\`.
+- Dark mode uses a \`.dark\` class on \`<html>\`.
+- Built-in theme presets install with \`pnpm dlx @mielui/svelte add theme <slug>\`. Use \`default\` to start with the default preset.
+
+## Next
+
+- [Theming](/docs/theming.md): Apply your brand with a preset or your own tokens.
+- [Components](/docs/components.md): Browse live examples and APIs.
 `,
     theming: `# Theming
 

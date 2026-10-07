@@ -3,7 +3,7 @@ import { getContext, onMount, setContext } from 'svelte';
 export type FontCategory = 'Sans serif' | 'Serif' | 'Monospace';
 export type DocsFont = { name: string; category: FontCategory; family: string };
 
-export const DEFAULT_FONT = 'DM Sans';
+export const DEFAULT_FONT = 'Manrope';
 
 /**
  * Every family loaded by app.html from Google Fonts. Only these can be

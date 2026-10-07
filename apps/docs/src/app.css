@@ -57,15 +57,6 @@ blockquote {
     background-color: color-mix(in srgb, var(--color-primary) 32%, transparent);
 }
 
-/* Docs page headers set slightly smaller, with a firmer and larger lead. */
-[data-docs-page] header h1 {
-    @apply text-[28px];
-}
-
-[data-docs-page] header p {
-    @apply text-[15px] font-medium;
-}
-
 pre {
     @apply bg-transparent;
 }
@@ -95,4 +86,23 @@ pre {
 
 ::view-transition {
     @apply pointer-events-none;
+}
+
+/* Isolated previews share the canvas color with Notch, so the demo inverts the
+   panel. Custom properties cannot swap in place, hence the root aliases. */
+:root {
+    --docs-ink: var(--color-foreground);
+    --docs-paper: var(--color-card);
+}
+
+[data-docs-preview] [data-ui='notch-content'] {
+    --mielui-surface: solid;
+    --color-card: var(--docs-ink);
+    --color-background: var(--docs-ink);
+    --color-secondary: color-mix(in oklab, var(--docs-ink) 86%, var(--docs-paper));
+    --color-border: color-mix(in oklab, var(--docs-ink) 70%, var(--docs-paper));
+    --color-foreground: var(--docs-paper);
+    --color-foreground-muted: color-mix(in oklab, var(--docs-paper) 62%, var(--docs-ink));
+    background-color: var(--color-secondary);
+    color: var(--color-foreground);
 }

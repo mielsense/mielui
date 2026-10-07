@@ -88,6 +88,8 @@ Fix the highest-impact structural problem first, then inspect again.
 
 Use the installed token sheet for control edges, elevation, insets, focus, press feedback, and motion. Filled controls use `--elevation-control-edge`; Switch and Slider apply it to their thumbs. Keep tracks, progress fills, and passive grouping wrappers flat. Text fields, selection triggers, checkboxes, and radios are flat with one hairline border. Composite fields have one edge around their editable boundary, not a border on every nested input.
 
+Frames follow the theme's border setting. Single borders remove the gutter between a frame and its inner surface, and double borders show it. Scale any frame gutter by `--mielui-border-inset-scale` and never hard-code it. A frame shows one strip of chrome, such as a card footer or a composer toolbar, never one above and one below.
+
 Overlay frames own their documented solid or glass treatment. Preserve the translucent inset in glass mode and compose focus shadows with existing elevation rather than replacing it. Check both themes and the theme's shadow switches when restyling controls.
 
 Use component motion options before custom animation. Respect reduced motion and zero theme duration. Stop recurring effects while hidden or offscreen and clean up observers, listeners, and pending work when unmounted. Do not add duplicate focus traps or dismissal listeners around components that already own those interactions.

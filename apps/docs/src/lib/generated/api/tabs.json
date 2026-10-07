@@ -8,7 +8,7 @@
                 "required": true,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Identifies the panel. It matches a trigger's value.",
                 "inherited": false
             },
             {
@@ -17,7 +17,7 @@
                 "required": false,
                 "bindable": false,
                 "default": "false",
-                "description": "",
+                "description": "Keeps the panel mounted while hidden, so its state survives.",
                 "inherited": false
             },
             {
@@ -26,7 +26,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Classes added to the element.",
                 "inherited": false
             },
             {
@@ -35,7 +35,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Content rendered inside.",
                 "inherited": false
             }
         ]
@@ -49,7 +49,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Classes added to the element.",
                 "inherited": false
             },
             {
@@ -58,7 +58,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Content rendered inside.",
                 "inherited": false
             }
         ]
@@ -68,11 +68,11 @@
         "properties": [
             {
                 "name": "activationMode",
-                "type": "\"manual\" | \"automatic\" | undefined",
+                "type": "\"automatic\" | \"manual\" | undefined",
                 "required": false,
                 "bindable": false,
                 "default": "'automatic'",
-                "description": "",
+                "description": "`automatic` selects a tab on focus. `manual` waits for Enter or Space.",
                 "inherited": false
             },
             {
@@ -81,7 +81,7 @@
                 "required": false,
                 "bindable": true,
                 "default": "''",
-                "description": "",
+                "description": "Selected tab. Bindable.",
                 "inherited": false
             },
             {
@@ -90,7 +90,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Called with the new value when it changes.",
                 "inherited": false
             },
             {
@@ -99,7 +99,7 @@
                 "required": false,
                 "bindable": false,
                 "default": "'horizontal'",
-                "description": "",
+                "description": "Direction of the tab list. It also sets which arrow keys move between tabs.",
                 "inherited": false
             },
             {
@@ -108,7 +108,7 @@
                 "required": false,
                 "bindable": false,
                 "default": "'default'",
-                "description": "",
+                "description": "Style of the tab list.",
                 "inherited": false
             },
             {
@@ -117,7 +117,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Classes added to the element.",
                 "inherited": false
             },
             {
@@ -126,7 +126,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Content rendered inside.",
                 "inherited": false
             }
         ]
@@ -140,7 +140,7 @@
                 "required": true,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Identifies the tab. It matches a panel's value.",
                 "inherited": false
             },
             {
@@ -149,7 +149,7 @@
                 "required": false,
                 "bindable": false,
                 "default": "false",
-                "description": "",
+                "description": "Prevents interaction and dims the control.",
                 "inherited": false
             },
             {
@@ -158,7 +158,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Classes added to the element.",
                 "inherited": false
             },
             {
@@ -167,7 +167,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Content rendered inside.",
                 "inherited": false
             }
         ]

@@ -175,6 +175,14 @@
             class="mb-0.5 select-none [font-size:var(--font-size-label)] [font-weight:var(--font-weight-label)] [letter-spacing:var(--tracking-label)] leading-none text-foreground [font-family:var(--font-sans),sans-serif]"
         >
             {label}
+            {#if rest.required}
+                <span
+                    aria-hidden="true"
+                    data-ui="required-mark"
+                    class="text-[var(--mielui-error-text)]"
+                    >*</span
+                >
+            {/if}
         </label>
     {/if}
     {@render field()}

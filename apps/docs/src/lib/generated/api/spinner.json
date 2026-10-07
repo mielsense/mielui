@@ -8,7 +8,7 @@
                 "required": false,
                 "bindable": false,
                 "default": "16",
-                "description": "",
+                "description": "Diameter in pixels.",
                 "inherited": false
             },
             {
@@ -17,7 +17,7 @@
                 "required": false,
                 "bindable": false,
                 "default": "false",
-                "description": "",
+                "description": "Marks the work as finished.",
                 "inherited": false
             },
             {
@@ -26,7 +26,7 @@
                 "required": false,
                 "bindable": false,
                 "default": "1",
-                "description": "",
+                "description": "Rotation speed multiplier.",
                 "inherited": false
             },
             {
@@ -35,7 +35,7 @@
                 "required": false,
                 "bindable": false,
                 "default": "false",
-                "description": "",
+                "description": "Spins smoothly instead of in steps.",
                 "inherited": false
             },
             {
@@ -44,7 +44,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Classes added to the element.",
                 "inherited": false
             },
             {
@@ -53,7 +53,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Accessible name when there is no visible label.",
                 "inherited": false
             },
             {
@@ -62,7 +62,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Hides it from assistive technology when it is decorative.",
                 "inherited": false
             }
         ]

@@ -11,8 +11,11 @@ export type ResponseStreamProps = {
     speed?: number;
     /** Whole graphemes revealed per step; finite values are rounded down with a minimum of one. */
     characterChunkSize?: number;
+    /** Called when the stream ends. */
     onComplete?: () => void;
+    /** Called with the error when the action fails. */
     onError?: (error: unknown) => void;
+    /** HTML element to render. */
     as?: keyof SvelteHTMLElements;
 } & DefaultProps &
     Omit<HTMLAttributes<HTMLElement>, 'children'>;

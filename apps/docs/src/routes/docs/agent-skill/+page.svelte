@@ -1,13 +1,25 @@
 <script lang="ts">
     import { CodeBlock } from '@mielui/svelte/components/code-block';
     import * as Typography from '@mielui/svelte/components/typography';
-    import InlineText from '$lib/components/docs/inline-text.svelte';
     import PageIntro from '$lib/components/docs/page-intro.svelte';
+    import Rows from '$lib/components/docs/rows.svelte';
 
     const references = [
-        '[llms.txt](/llms.txt) lists guides, components, actions, and release notes.',
-        '[llms-full.txt](/llms-full.txt) combines the documentation into one file.',
-        '[Skill instructions](/docs/skill.md) describe the workflow used by the installed skill.'
+        {
+            label: 'llms.txt',
+            value: 'Lists guides, components, actions, and release notes.',
+            href: '/llms.txt'
+        },
+        {
+            label: 'llms-full.txt',
+            value: 'Combines the documentation into one file.',
+            href: '/llms-full.txt'
+        },
+        {
+            label: 'Skill instructions',
+            value: 'Describe the workflow used by the installed skill.',
+            href: '/docs/skill.md'
+        }
     ];
 </script>
 
@@ -56,15 +68,7 @@ Check the installed version and use the documented component parts.`}
 
     <section id="documentation-for-agents" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Documentation for agents</Typography.H2>
-        <ul
-            class="m-0 flex list-disc flex-col gap-1.5 ps-5 text-base leading-relaxed text-foreground marker:text-foreground-muted"
-        >
-            {#each references as reference (reference)}
-                <li>
-                    <InlineText text={reference} />
-                </li>
-            {/each}
-        </ul>
+        <Rows items={references} label="Documentation for agents" />
         <Typography.Text variant="body" class="m-0">
             Every documentation page has a Copy page menu with its Markdown reference. Prefer
             individual pages for focused tasks; the full reference includes all component examples
@@ -81,7 +85,7 @@ Check the installed version and use the documented component parts.`}
         <Typography.Text variant="body" class="m-0">
             Local source and the locked package version take precedence over live documentation.
             Before upgrading, read the changelog and its agent notes. Unreleased notes describe
-            upcoming changes, not the currently published npm package. Mielui 0.2.0 requires Svelte
+            upcoming changes, not the currently published npm package. Mielui 0.2.1 requires Svelte
             5.56 or newer within Svelte 5.
         </Typography.Text>
     </section>

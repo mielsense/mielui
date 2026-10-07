@@ -2,11 +2,14 @@
     import { CodeBlock } from '@mielui/svelte/components/code-block';
     import * as Typography from '@mielui/svelte/components/typography';
     import { ComponentPreview, InstallCommand } from '$lib/components/docs';
+    import InlineText from '$lib/components/docs/inline-text.svelte';
     import PageIntro from '$lib/components/docs/page-intro.svelte';
     import Basic from './examples/basic.svelte';
     import BasicSrc from './examples/basic.svelte?raw';
     import Disabled from './examples/disabled.svelte';
     import DisabledSrc from './examples/disabled.svelte?raw';
+    import Field from './examples/field.svelte';
+    import FieldSrc from './examples/field.svelte?raw';
     import Hero from './examples/hero.svelte';
     import HeroSrc from './examples/hero.svelte?raw';
     import Range from './examples/range.svelte';
@@ -68,10 +71,11 @@
             or{' '}
             <Typography.InlineCode>aria-labelledby</Typography.InlineCode>
             {' '}
-            to name the control. The label is not rendered; it only names the handle. Use{' '}
+            to name the control. The default variant does not render the label; it only names the
+            handle. Use{' '}
             <Typography.InlineCode>aria-describedby</Typography.InlineCode>
             {' '}
-            for supporting instructions.
+            for supporting instructions. Arrow keys move one step, and holding Shift moves ten.
         </Typography.Text>
         <Typography.Text>
             Set{' '}
@@ -132,6 +136,37 @@
             </ComponentPreview>
         </div>
 
+        <div id="field" class="scroll-mt-20 flex flex-col gap-3">
+            <Typography.H3 class="docs-subsection-heading">Field</Typography.H3>
+            <Typography.Text variant="supporting">
+                Set{' '}
+                <Typography.InlineCode>variant="field"</Typography.InlineCode>
+                {' '}
+                to put the label and the value inside the control. Drag anywhere in the bar to
+                scrub, or focus it and use the arrow keys. A stack of fields reads as one column, so
+                it suits settings panels with many numeric values.{' '}
+                <Typography.InlineCode>format</Typography.InlineCode>
+                {' '}
+                turns the number into the text shown on the right and announced by screen readers.
+                Add{' '}
+                <Typography.InlineCode>editable</Typography.InlineCode>
+                {' '}
+                to let people click the value, or press Enter on the focused field, and type an
+                exact number. Typed numbers snap to the step and clamp to the range.{' '}
+                <Typography.InlineCode>parse</Typography.InlineCode>
+                {' '}
+                reads a custom format, and{' '}
+                <Typography.InlineCode>onValueCommit</Typography.InlineCode>
+                {' '}
+                runs once when a drag ends and after each keyboard or typed change, which is the
+                moment to save. The field variant holds one value and does not combine with{' '}
+                <Typography.InlineCode>range</Typography.InlineCode>.
+            </Typography.Text>
+            <ComponentPreview code={FieldSrc}>
+                <Field />
+            </ComponentPreview>
+        </div>
+
         <div id="range" class="scroll-mt-20 flex flex-col gap-3">
             <Typography.H3 class="docs-subsection-heading">Range</Typography.H3>
             <Typography.Text variant="supporting">
@@ -158,5 +193,13 @@
                 <Disabled />
             </ComponentPreview>
         </div>
+    </section>
+    <section id="children" class="flex flex-col gap-4">
+        <Typography.H2 class="docs-section-heading">Children</Typography.H2>
+        <Typography.Text variant="supporting">
+            <InlineText
+                text={"Slider draws its own track and handles and does not render `children`. The prop exists on the type only because it comes with the shared base props."}
+            />
+        </Typography.Text>
     </section>
 </div>

@@ -1,7 +1,7 @@
 import type { VirtualElement } from '@floating-ui/dom';
 import type { DefaultProps } from '@mielui/svelte/utils';
 import type { Snippet } from 'svelte';
-import type { ButtonProps } from '../button';
+import type { ButtonOnlyProps } from '../_internal/button-attributes';
 import Root from './context-menu.svelte';
 import CheckboxItem from './context-menu-checkbox-item.svelte';
 import Content from './context-menu-content.svelte';
@@ -13,28 +13,38 @@ import SubTrigger from './context-menu-sub-trigger.svelte';
 import Trigger from './context-menu-trigger.svelte';
 
 export type ContextMenuProps = {
+    /** Content rendered inside. */
     children?: Snippet;
+    /** Whether it is open. Bind it to control the state from outside. */
     open?: boolean;
+    /** Called with the new state whenever it opens or closes. */
     onOpenChange?: (open: boolean) => void;
 };
 export type ContextMenuContentProps = DefaultProps & { surface?: 'solid' | 'glass' };
 
 export type ContextMenuItemProps = {
+    /** Called when the item is chosen. */
     callback?: () => void;
+    /** Indents the item so it lines up with items that have an indicator. */
     inset?: boolean;
-} & ButtonProps;
+} & ButtonOnlyProps;
 
 export type ContextMenuCheckboxItemProps = {
+    /** Called when the item is chosen. */
     callback?: () => void;
+    /** Value reported for the item. */
     value: string;
+    /** Indents the item so it lines up with items that have an indicator. */
     inset?: boolean;
+    /** Whether the item is checked. Bindable. */
     checked?: boolean;
-} & ButtonProps;
+} & ButtonOnlyProps;
 
 export type ContextMenuSeparatorProps = DefaultProps;
 export type ContextMenuSubContentProps = DefaultProps & { surface?: 'solid' | 'glass' };
 
 export type ContextMenuSubTriggerProps = {
+    /** Indents the item so it lines up with items that have an indicator. */
     inset?: boolean;
 } & DefaultProps;
 

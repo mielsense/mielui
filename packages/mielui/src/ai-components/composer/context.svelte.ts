@@ -8,10 +8,10 @@ export type ComposerContext = {
     readonly allowEmpty: boolean;
     readonly generating: boolean | undefined;
     readonly pending: boolean;
-    readonly insetToolbar: boolean;
+    readonly joinedToolbar: boolean;
     submit: () => void;
     stop: () => void;
-    setInsetToolbar: (next: boolean) => void;
+    setJoinedToolbar: (next: boolean) => void;
 };
 
 const { set: setComposerContext, get: getComposerContext } =

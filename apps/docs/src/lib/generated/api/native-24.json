@@ -1,68 +1,5 @@
 [
     {
-        "name": "onended",
-        "type": "EventHandler<Event, HTMLOListElement> | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
-        "name": "onendedcapture",
-        "type": "EventHandler<Event, HTMLOListElement> | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
-        "name": "on:loadeddata",
-        "type": "EventHandler<Event, HTMLOListElement> | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
-        "name": "onloadeddata",
-        "type": "EventHandler<Event, HTMLOListElement> | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
-        "name": "onloadeddatacapture",
-        "type": "EventHandler<Event, HTMLOListElement> | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
-        "name": "on:loadedmetadata",
-        "type": "EventHandler<Event, HTMLOListElement> | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
-        "name": "onloadedmetadata",
-        "type": "EventHandler<Event, HTMLOListElement> | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
         "name": "onloadedmetadatacapture",
         "type": "EventHandler<Event, HTMLOListElement> | null | undefined",
         "required": false,
@@ -2243,6 +2180,69 @@
     {
         "name": "onfocusincapture",
         "type": "FocusEventHandler<HTMLAnchorElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "on:focusout",
+        "type": "FocusEventHandler<HTMLAnchorElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onfocusout",
+        "type": "FocusEventHandler<HTMLAnchorElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onfocusoutcapture",
+        "type": "FocusEventHandler<HTMLAnchorElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "on:blur",
+        "type": "FocusEventHandler<HTMLAnchorElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onblur",
+        "type": "FocusEventHandler<HTMLAnchorElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onblurcapture",
+        "type": "FocusEventHandler<HTMLAnchorElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "on:change",
+        "type": "FormEventHandler<HTMLAnchorElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,

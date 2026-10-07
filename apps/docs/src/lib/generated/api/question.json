@@ -8,7 +8,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Classes added to the element.",
                 "inherited": false
             },
             {
@@ -17,7 +17,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Content rendered inside.",
                 "inherited": false
             },
             0,
@@ -460,7 +460,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Content rendered inside.",
                 "inherited": false
             },
             {
@@ -469,7 +469,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Called when it is clicked or activated.",
                 "inherited": false
             },
             2681,
@@ -925,7 +925,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Classes added to the element.",
                 "inherited": false
             },
             {
@@ -934,7 +934,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Content rendered inside.",
                 "inherited": false
             },
             0,
@@ -1380,7 +1380,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Classes added to the element.",
                 "inherited": false
             },
             {
@@ -1389,7 +1389,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Content rendered inside.",
                 "inherited": false
             },
             0,
@@ -1832,7 +1832,7 @@
                 "required": false,
                 "bindable": false,
                 "default": "true",
-                "description": "",
+                "description": "Enter submits and Shift+Enter adds a line. Set false to make Enter add a line.",
                 "inherited": false
             },
             {
@@ -1841,7 +1841,7 @@
                 "required": false,
                 "bindable": false,
                 "default": "true",
-                "description": "",
+                "description": "Grows with its content instead of scrolling.",
                 "inherited": false
             },
             {
@@ -1850,7 +1850,7 @@
                 "required": false,
                 "bindable": false,
                 "default": "'Type your answer...'",
-                "description": "",
+                "description": "Text shown while there is no value.",
                 "inherited": false
             },
             {
@@ -1859,7 +1859,7 @@
                 "required": false,
                 "bindable": false,
                 "default": "'Answer'",
-                "description": "",
+                "description": "Accessible name of the answer field.",
                 "inherited": false
             },
             {
@@ -1868,7 +1868,7 @@
                 "required": false,
                 "bindable": false,
                 "default": "2",
-                "description": "",
+                "description": "Starting height in text rows.",
                 "inherited": false
             },
             {
@@ -1877,7 +1877,7 @@
                 "required": false,
                 "bindable": false,
                 "default": "false",
-                "description": "",
+                "description": "Prevents interaction and dims the control.",
                 "inherited": false
             },
             {
@@ -1886,7 +1886,7 @@
                 "required": false,
                 "bindable": false,
                 "default": "false",
-                "description": "",
+                "description": "Shows the value without allowing edits. The value is still submitted.",
                 "inherited": false
             },
             {
@@ -1895,7 +1895,7 @@
                 "required": false,
                 "bindable": true,
                 "default": null,
-                "description": "",
+                "description": "Bindable reference to the DOM element.",
                 "inherited": false
             },
             {
@@ -1904,7 +1904,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Classes added to the element.",
                 "inherited": false
             },
             0,
@@ -2356,7 +2356,7 @@
                 "required": true,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Value this option answers with.",
                 "inherited": false
             },
             {
@@ -2365,7 +2365,7 @@
                 "required": true,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Visible label of the option.",
                 "inherited": false
             },
             {
@@ -2374,7 +2374,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Supporting text under the option label.",
                 "inherited": false
             },
             {
@@ -2383,7 +2383,7 @@
                 "required": false,
                 "bindable": false,
                 "default": "false",
-                "description": "",
+                "description": "Prevents interaction and dims the control.",
                 "inherited": false
             },
             {
@@ -2392,7 +2392,7 @@
                 "required": false,
                 "bindable": true,
                 "default": null,
-                "description": "",
+                "description": "Bindable reference to the DOM element.",
                 "inherited": false
             },
             {
@@ -2401,7 +2401,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Classes added to the element.",
                 "inherited": false
             },
             0,
@@ -2883,7 +2883,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Classes added to the element.",
                 "inherited": false
             },
             {
@@ -2892,7 +2892,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Content rendered inside.",
                 "inherited": false
             },
             0,
@@ -3331,11 +3331,11 @@
         "properties": [
             {
                 "name": "variant",
-                "type": "\"inset\" | \"default\" | undefined",
+                "type": "\"default\" | \"inset\" | undefined",
                 "required": false,
                 "bindable": false,
                 "default": "'default'",
-                "description": "",
+                "description": "`inset` frames the question with its actions on the frame.",
                 "inherited": false
             },
             {
@@ -3344,7 +3344,7 @@
                 "required": false,
                 "bindable": false,
                 "default": "'idle'",
-                "description": "",
+                "description": "Current state, which drives the submit control.",
                 "inherited": false
             },
             {
@@ -3353,7 +3353,7 @@
                 "required": false,
                 "bindable": false,
                 "default": "false",
-                "description": "",
+                "description": "Prevents interaction and dims the control.",
                 "inherited": false
             },
             {
@@ -3362,7 +3362,7 @@
                 "required": false,
                 "bindable": false,
                 "default": "true",
-                "description": "",
+                "description": "Requires an answer before submitting.",
                 "inherited": false
             },
             {
@@ -3371,7 +3371,7 @@
                 "required": false,
                 "bindable": false,
                 "default": "false",
-                "description": "",
+                "description": "Focuses the first control when it mounts.",
                 "inherited": false
             },
             {
@@ -3380,7 +3380,7 @@
                 "required": false,
                 "bindable": false,
                 "default": "'answer'",
-                "description": "",
+                "description": "Field name of the answer.",
                 "inherited": false
             },
             {
@@ -3389,7 +3389,7 @@
                 "required": false,
                 "bindable": false,
                 "default": "'Answer could not be submitted.'",
-                "description": "",
+                "description": "Message shown when `onSubmit` rejects.",
                 "inherited": false
             },
             {
@@ -3398,7 +3398,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Called with the error when the action fails.",
                 "inherited": false
             },
             {
@@ -3407,7 +3407,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Called when Cancel is pressed.",
                 "inherited": false
             },
             {
@@ -3416,7 +3416,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Classes added to the element.",
                 "inherited": false
             },
             {
@@ -3425,7 +3425,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Content rendered inside.",
                 "inherited": false
             },
             0,
@@ -3861,20 +3861,20 @@
             1725,
             {
                 "name": "type",
-                "type": "\"text\" | \"single\" | undefined | \"multiple\"",
+                "type": "\"single\" | \"text\" | \"multiple\" | undefined",
                 "required": false,
                 "bindable": false,
                 "default": "'single'",
-                "description": "",
+                "description": "`single` and `multiple` offer options. `text` takes a written answer.",
                 "inherited": false
             },
             {
                 "name": "value",
-                "type": "string | undefined | string[] | undefined",
+                "type": "string | string[] | undefined",
                 "required": false,
                 "bindable": true,
                 "default": null,
-                "description": "",
+                "description": "Current answer. Bindable.",
                 "inherited": false
             },
             {
@@ -3883,7 +3883,7 @@
                 "required": true,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Called with the answer. Return a promise to show progress until it settles.",
                 "inherited": false
             }
         ]
@@ -3897,7 +3897,7 @@
                 "required": false,
                 "bindable": false,
                 "default": "'Submit answer'",
-                "description": "",
+                "description": "Text of the submit button.",
                 "inherited": false
             },
             {
@@ -3906,7 +3906,7 @@
                 "required": false,
                 "bindable": false,
                 "default": "'Submitting...'",
-                "description": "",
+                "description": "Text shown while it is loading.",
                 "inherited": false
             },
             {
@@ -3915,7 +3915,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Content rendered inside.",
                 "inherited": false
             },
             {
@@ -3924,7 +3924,7 @@
                 "required": false,
                 "bindable": true,
                 "default": null,
-                "description": "",
+                "description": "Bindable reference to the DOM element.",
                 "inherited": false
             },
             2681,
@@ -4381,7 +4381,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Classes added to the element.",
                 "inherited": false
             },
             {
@@ -4390,7 +4390,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Content rendered inside.",
                 "inherited": false
             },
             0,

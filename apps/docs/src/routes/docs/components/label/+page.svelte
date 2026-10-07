@@ -2,6 +2,7 @@
     import { CodeBlock } from '@mielui/svelte/components/code-block';
     import * as Typography from '@mielui/svelte/components/typography';
     import { ComponentPreview, InstallCommand } from '$lib/components/docs';
+    import InlineText from '$lib/components/docs/inline-text.svelte';
     import PageIntro from '$lib/components/docs/page-intro.svelte';
     import SectionHeading from '$lib/components/docs/section-heading.svelte';
     import Disabled from './examples/disabled.svelte';
@@ -40,7 +41,8 @@
     <section id="usage" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Usage</Typography.H2>
         <Typography.Text variant="supporting">
-            Match for to the input id. Set required on the input when showing a required indicator.
+            Match for to the input id. Set required on Label to show a required mark after the text,
+            and set required on the input too, because the mark is hidden from assistive technology.
             Apply disabled styling to the label explicitly when it precedes the control.
         </Typography.Text>
         <CodeBlock
@@ -61,6 +63,10 @@
         <!-- Required indicator -->
         <div id="required" class="scroll-mt-20 flex flex-col gap-3">
             <Typography.H3 class="docs-subsection-heading">With required indicator</Typography.H3>
+            <Typography.Text variant="supporting">
+                Label draws the mark itself. Input and Textarea do the same for their built-in label
+                when they are required, and Field.Label follows Field.Root.
+            </Typography.Text>
             <ComponentPreview code={WithRequiredSrc}>
                 <WithRequired />
             </ComponentPreview>
@@ -73,5 +79,13 @@
                 <Disabled />
             </ComponentPreview>
         </div>
+    </section>
+    <section id="content" class="flex flex-col gap-4">
+        <Typography.H2 class="docs-section-heading">Content</Typography.H2>
+        <Typography.Text variant="supporting">
+            <InlineText
+                text={"The label's text goes in `children`, and it can include other elements such as a required mark or a badge. Clicking any of it focuses the control named by `for`."}
+            />
+        </Typography.Text>
     </section>
 </div>

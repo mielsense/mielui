@@ -1314,7 +1314,7 @@
                 "required": false,
                 "bindable": true,
                 "default": null,
-                "description": "",
+                "description": "Bindable reference to the DOM element.",
                 "inherited": false
             }
         ]

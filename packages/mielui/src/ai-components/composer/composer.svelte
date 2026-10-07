@@ -27,7 +27,7 @@
     let form: HTMLFormElement | undefined;
     const submission = createSubmission();
     const pending = $derived(submission.pending);
-    let insetToolbar = $state(false);
+    let joinedToolbar = $state(false);
     const effectiveStatus = $derived<ComposerStatus>(
         status === 'submitting' || pending ? 'submitting' : submission.failed ? 'error' : status
     );
@@ -55,8 +55,8 @@
         get pending() {
             return pending || (generating !== undefined && status === 'submitting');
         },
-        get insetToolbar() {
-            return insetToolbar;
+        get joinedToolbar() {
+            return joinedToolbar;
         },
         submit() {
             if (!disabled && !pending) {
@@ -71,8 +71,8 @@
                 onStop?.();
             }
         },
-        setInsetToolbar(next: boolean) {
-            insetToolbar = next;
+        setJoinedToolbar(next: boolean) {
+            joinedToolbar = next;
         }
     });
 
@@ -129,7 +129,7 @@
         class={cn(
             className,
             overlaySurface(surface),
-            'mielui-modal-frame flex w-full flex-col overflow-hidden text-foreground shadow-[var(--elevation-1)] [--mielui-modal-inset:calc(var(--spacing)*0.75)] transition-[background-color,border-color,box-shadow] [transition-duration:var(--motion-duration-press)] ease-[var(--ease-out)] motion-reduce:transition-none focus-within:border-primary focus-within:shadow-[var(--focus-ring),var(--elevation-1)] data-[state=error]:border-[color-mix(in_srgb,var(--color-error)_70%,transparent)] data-[state=error]:shadow-[0_0_0_calc(var(--border-size)*2)_color-mix(in_srgb,var(--color-error)_25%,transparent),var(--elevation-1)]'
+            'mielui-modal-frame flex w-full flex-col overflow-hidden text-foreground shadow-[var(--elevation-1)] [--mielui-modal-inset:calc(var(--spacing)*0.75*var(--mielui-border-inset-scale,1))] transition-[background-color,border-color,box-shadow] [transition-duration:var(--motion-duration-press)] ease-[var(--ease-out)] motion-reduce:transition-none focus-within:border-primary focus-within:shadow-[var(--focus-ring),var(--elevation-1)] data-[state=error]:border-[color-mix(in_srgb,var(--color-error)_70%,transparent)] data-[state=error]:shadow-[0_0_0_calc(var(--border-size)*2)_color-mix(in_srgb,var(--color-error)_25%,transparent),var(--elevation-1)]'
         )}
     >
         {@render children?.()}

@@ -131,6 +131,14 @@
             class="[font-size:var(--font-size-label)] [font-weight:var(--font-weight-label)] [letter-spacing:var(--tracking-label)] text-foreground [font-family:var(--font-sans),sans-serif]"
         >
             {label}
+            {#if rest.required}
+                <span
+                    aria-hidden="true"
+                    data-ui="required-mark"
+                    class="text-[var(--mielui-error-text)]"
+                    >*</span
+                >
+            {/if}
         </label>
     {/if}
     {@render control()}

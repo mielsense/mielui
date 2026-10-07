@@ -2,6 +2,7 @@
     import { CodeBlock } from '@mielui/svelte/components/code-block';
     import * as Typography from '@mielui/svelte/components/typography';
     import { ComponentPreview, InstallCommand } from '$lib/components/docs';
+    import InlineText from '$lib/components/docs/inline-text.svelte';
     import PageIntro from '$lib/components/docs/page-intro.svelte';
     import SectionHeading from '$lib/components/docs/section-heading.svelte';
 
@@ -99,5 +100,13 @@
             lang="svelte"
             copy="overlay"
         />
+    </section>
+    <section id="custom-content" class="flex flex-col gap-4">
+        <Typography.H2 class="docs-section-heading">Custom content</Typography.H2>
+        <Typography.Text variant="supporting">
+            <InlineText
+                text={"Pagination draws its own controls and does not render `children`. Put a page size select or a result count beside it in your own layout."}
+            />
+        </Typography.Text>
     </section>
 </div>

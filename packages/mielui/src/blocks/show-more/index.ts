@@ -12,10 +12,13 @@ export type ShowMoreProps = {
     defaultExpanded?: boolean;
     /** Bindable disclosure state. */
     expanded?: boolean;
+    /** Text of the button while collapsed. */
     moreLabel?: string;
+    /** Text of the button while expanded. */
     lessLabel?: string;
     /** Accessible name for the expanded scroll region when the content is capped. */
     label?: string;
+    /** Called with the new state when it expands or collapses. */
     onExpandedChange?: (expanded: boolean) => void;
     /** Full content. With preview, this subtree is hidden and inert while collapsed. */
     children?: Snippet;

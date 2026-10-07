@@ -48,7 +48,12 @@
     }
 </script>
 
-<div class="flex min-h-[var(--size-touch)] flex-row items-start gap-2.5 md:min-h-0">
+<div
+    class={cn(
+        'flex min-h-[var(--size-touch)] flex-row gap-2.5 md:min-h-0',
+        description ? 'items-start' : 'items-center'
+    )}
+>
     <BitsSwitch.Root
         bind:ref={getElement, setElement}
         checked={isOn}

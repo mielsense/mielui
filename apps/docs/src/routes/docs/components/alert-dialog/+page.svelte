@@ -2,8 +2,11 @@
     import { CodeBlock } from '@mielui/svelte/components/code-block';
     import * as Typography from '@mielui/svelte/components/typography';
     import { ComponentPreview, InstallCommand } from '$lib/components/docs';
+    import InlineText from '$lib/components/docs/inline-text.svelte';
     import PageIntro from '$lib/components/docs/page-intro.svelte';
     import SectionHeading from '$lib/components/docs/section-heading.svelte';
+    import AsyncDeleteExample from './examples/async-delete.svelte';
+    import AsyncDeleteExampleSrc from './examples/async-delete.svelte?raw';
     import Destructive from './examples/destructive.svelte';
     import DestructiveSrc from './examples/destructive.svelte?raw';
     import Glass from './examples/glass.svelte';
@@ -98,5 +101,34 @@
             and respects reduced-transparency preferences.
         </Typography.Text>
         <ComponentPreview code={GlassSrc}><Glass /></ComponentPreview>
+    </section>
+    <section id="keeping-it-open" class="flex flex-col gap-4">
+        <Typography.H2 class="docs-section-heading">Keeping it open</Typography.H2>
+        <Typography.Text variant="supporting">
+            <InlineText
+                text={"An alert dialog never closes from a press outside. Escape still closes it. Set `allowEscape={false}` on Content when even that is too easy, such as a confirmation the person must read."}
+            />
+        </Typography.Text>
+        <Typography.Text variant="supporting">
+            <InlineText
+                text={"Confirm and Exit close the dialog after `onclick`. Call `event.preventDefault()` there to keep it open while you work, and show progress with `loading` and `loadingLabel`. `onOpenChange` on Root tells you each time it opens or closes, whichever way that happened."}
+            />
+        </Typography.Text>
+        <ComponentPreview code={AsyncDeleteExampleSrc}>
+            <AsyncDeleteExample />
+        </ComponentPreview>
+    </section>
+    <section id="parts" class="flex flex-col gap-4">
+        <Typography.H2 class="docs-section-heading">Buttons and text parts</Typography.H2>
+        <Typography.Text variant="supporting">
+            <InlineText
+                text={"Trigger, Exit and Confirm are built on [Button](/docs/components/button), so they accept its props. `variant` and `size` change the look, `disabled` blocks activation, and `href` renders a link. `loading` shows a spinner and ignores clicks, and `loadingLabel`, `successLabel` and `errorLabel` set the text for each state. `unstyled` removes the Button classes so `class` alone styles the part. `onclick` and `onkeydown` run before the part does its own work. Confirm is destructive when Root has `error`."}
+            />
+        </Typography.Text>
+        <Typography.Text variant="supporting">
+            <InlineText
+                text={"Header, Title, Description and Footer render their `children` and accept `class` and `style` like any element."}
+            />
+        </Typography.Text>
     </section>
 </div>

@@ -1,36 +1,53 @@
 <script lang="ts">
     import type { Snippet } from 'svelte';
-    import OnThisPage from '$lib/components/docs/on-this-page.svelte';
-    import '$lib/components/docs/docs-layout.css';
+    import { page } from '$app/state';
+    import DocsPager from '$lib/components/docs/docs-pager.svelte';
     import { magneticHeadings } from '$lib/components/docs/magnetic-headings';
+    import OnThisPage from '$lib/components/docs/on-this-page.svelte';
+    import { createPageOutline } from '$lib/components/docs/page-outline.svelte';
+    import ScrollEdge from '$lib/components/shell/scroll-edge.svelte';
+    import { fadeYEnd, scrollFade } from '$lib/components/shell/scroll-fade';
+    import { getShell } from '$lib/components/shell/shell.svelte';
+    import '$lib/components/docs/docs-layout.css';
 
     const { children }: { children: Snippet } = $props();
     const settleHeading = magneticHeadings(
         '[data-docs-page] > section:not([data-docs-toolbar]), #api-reference'
     );
     let content = $state<HTMLDivElement>();
+    const shell = getShell();
+    const outline = createPageOutline(() => content);
+
+    $effect(() => {
+        shell.outline = outline;
+
+        return () => {
+            shell.outline = undefined;
+        };
+    });
 </script>
 
-<div
-    class="grid h-full min-h-0 w-full grid-cols-[minmax(0,1fr)] md:grid-cols-[minmax(0,1fr)_16rem]"
->
-    <div class="flex min-h-0 min-w-0 flex-col overflow-hidden bg-[var(--docs-content)]">
-        <div
-            {@attach settleHeading}
-            data-docs-scroll
-            class="min-h-0 flex-1 bg-[var(--docs-content)] overflow-y-auto overscroll-none [container-type:inline-size]"
-        >
-            <div bind:this={content} class="docs-article w-full min-w-0">
-                {@render children?.()}
+<div class="relative h-full min-h-0 w-full">
+    <div
+        data-docs-scroll
+        {@attach settleHeading}
+        {@attach scrollFade({ size: 44, target: 'parent' })}
+        class={`h-full min-h-0 w-full overflow-y-auto overscroll-contain [container-type:inline-size] ${fadeYEnd}`}
+    >
+        <div class="flex w-full gap-12 px-5 pt-8 pb-24 sm:px-10 lg:pt-12 2xl:gap-16 2xl:px-14">
+            <div class="flex w-full min-w-0 flex-1 flex-col">
+                <div bind:this={content} class="docs-article w-full min-w-0">
+                    {@render children?.()}
+                </div>
+                {#if page.status < 400}
+                    <DocsPager />
+                {/if}
             </div>
+            <aside class="sticky top-12 hidden w-52 shrink-0 self-start xl:block">
+                <OnThisPage {outline} />
+            </aside>
         </div>
     </div>
-    <aside class="hidden min-h-0 overflow-y-auto bg-[var(--docs-content)] md:block">
-        <h2
-            class="flex h-[var(--docs-row-height)] items-center px-5 text-sm font-semibold [font-family:var(--font-header)]"
-        >
-            On this page
-        </h2>
-        <OnThisPage {content} />
-    </aside>
+    <ScrollEdge edge="top" fill />
+    <ScrollEdge edge="bottom" />
 </div>

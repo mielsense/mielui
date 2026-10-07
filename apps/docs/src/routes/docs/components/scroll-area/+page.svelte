@@ -2,6 +2,7 @@
     import { CodeBlock } from '@mielui/svelte/components/code-block';
     import * as Typography from '@mielui/svelte/components/typography';
     import { ComponentPreview, InstallCommand } from '$lib/components/docs';
+    import InlineText from '$lib/components/docs/inline-text.svelte';
     import PageIntro from '$lib/components/docs/page-intro.svelte';
     import SectionHeading from '$lib/components/docs/section-heading.svelte';
     import Blur from './examples/blur.svelte';
@@ -101,5 +102,18 @@
                 <Blur />
             </ComponentPreview>
         </div>
+    </section>
+    <section id="content" class="flex flex-col gap-4">
+        <Typography.H2 class="docs-section-heading">Content</Typography.H2>
+        <Typography.Text variant="supporting">
+            <InlineText
+                text={"The scrolling content goes in `children`. Give the scroll area a height or a maximum height with `class`, or it grows to fit and never scrolls."}
+            />
+        </Typography.Text>
+        <Typography.Text variant="supporting">
+            <InlineText
+                text={"While its content overflows, a scroll area keeps the wheel to itself, so reaching the end does not scroll the page behind it. When everything fits, scrolling passes straight through to the page."}
+            />
+        </Typography.Text>
     </section>
 </div>

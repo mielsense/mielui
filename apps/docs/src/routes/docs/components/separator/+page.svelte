@@ -1,6 +1,7 @@
 <script lang="ts">
     import * as Typography from '@mielui/svelte/components/typography';
     import { ComponentPreview, InstallCommand } from '$lib/components/docs';
+    import InlineText from '$lib/components/docs/inline-text.svelte';
     import PageIntro from '$lib/components/docs/page-intro.svelte';
     import Hero from './examples/hero.svelte';
     import HeroSrc from './examples/hero.svelte?raw';
@@ -33,5 +34,13 @@
     <section id="sections" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Horizontal sections</Typography.H2>
         <ComponentPreview code={AdditionalSrc}><Additional /></ComponentPreview>
+    </section>
+    <section id="inline-styles" class="flex flex-col gap-4">
+        <Typography.H2 class="docs-section-heading">Inline styles</Typography.H2>
+        <Typography.Text variant="supporting">
+            <InlineText
+                text={"Separator accepts `style` next to `class`, for a one-off length or color that does not deserve a utility class."}
+            />
+        </Typography.Text>
     </section>
 </div>

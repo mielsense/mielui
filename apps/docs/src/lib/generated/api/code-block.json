@@ -8,7 +8,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Overrides the built-in text and accessible names. Every key is optional and English is the fallback.",
                 "inherited": false
             },
             {
@@ -62,7 +62,7 @@
                 "required": false,
                 "bindable": false,
                 "default": "'actionbar'",
-                "description": "Copy button placement:\n- `actionbar` (default): in the header's action cluster.\n- `overlay`: pinned to the top-right of the code body.\n- `inline`: a single-line body with the copy centered on the far right.",
+                "description": "Copy button placement: - `actionbar` (default): in the header's action cluster. - `overlay`: pinned to the top-right of the code body. - `inline`: a single-line body with the copy centered on the far right.",
                 "inherited": false
             },
             {
@@ -80,7 +80,7 @@
                 "required": false,
                 "bindable": false,
                 "default": "'mielui'",
-                "description": "Syntax paint:\n- `mielui` (default): the built-in GitHub palette.\n- `custom`: no token colors; load any `highlight.js/styles/*` theme instead.",
+                "description": "Syntax paint: - `mielui` (default): the built-in GitHub palette. - `custom`: no token colors; load any `highlight.js/styles/*` theme instead.",
                 "inherited": false
             },
             {
@@ -89,7 +89,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Classes added to the element.",
                 "inherited": false
             },
             {
@@ -98,7 +98,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Content rendered inside.",
                 "inherited": false
             }
         ]
@@ -121,7 +121,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Classes added to the element.",
                 "inherited": false
             },
             {
@@ -130,7 +130,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Content rendered inside.",
                 "inherited": false
             }
         ]
@@ -153,7 +153,7 @@
                 "required": true,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Source text to show.",
                 "inherited": false
             },
             {
@@ -162,7 +162,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Language used for highlighting.",
                 "inherited": false
             },
             {
@@ -171,12 +171,12 @@
                 "required": false,
                 "bindable": false,
                 "default": "false",
-                "description": "",
+                "description": "Shows a line number before each line.",
                 "inherited": false
             },
             {
                 "name": "copyPlacement",
-                "type": "\"inline\" | \"overlay\" | undefined",
+                "type": "\"overlay\" | \"inline\" | undefined",
                 "required": false,
                 "bindable": false,
                 "default": null,
@@ -189,7 +189,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Classes added to the element.",
                 "inherited": false
             },
             {
@@ -198,7 +198,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Content rendered inside.",
                 "inherited": false
             }
         ]
@@ -212,7 +212,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Tooltip and accessible name of the copy button.",
                 "inherited": false
             },
             {
@@ -221,7 +221,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Label shown right after copying.",
                 "inherited": false
             },
             {
@@ -230,7 +230,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Classes added to the element.",
                 "inherited": false
             },
             {
@@ -239,7 +239,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Content rendered inside.",
                 "inherited": false
             }
         ]
@@ -253,7 +253,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Classes added to the element.",
                 "inherited": false
             },
             {
@@ -262,7 +262,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Content rendered inside.",
                 "inherited": false
             }
         ]
@@ -276,7 +276,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Classes added to the element.",
                 "inherited": false
             },
             {
@@ -285,7 +285,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Content rendered inside.",
                 "inherited": false
             }
         ]
@@ -308,7 +308,7 @@
                 "required": false,
                 "bindable": false,
                 "default": "false",
-                "description": "",
+                "description": "Prevents interaction and dims the control.",
                 "inherited": false
             },
             {
@@ -317,7 +317,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Classes added to the element.",
                 "inherited": false
             },
             {
@@ -326,7 +326,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Content rendered inside.",
                 "inherited": false
             }
         ]

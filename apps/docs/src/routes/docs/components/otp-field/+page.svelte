@@ -1,11 +1,14 @@
 <script lang="ts">
     import * as Typography from '@mielui/svelte/components/typography';
     import { ComponentPreview, InstallCommand } from '$lib/components/docs';
+    import InlineText from '$lib/components/docs/inline-text.svelte';
     import PageIntro from '$lib/components/docs/page-intro.svelte';
     import Alphanumeric from './examples/alphanumeric.svelte';
     import AlphanumericSrc from './examples/alphanumeric.svelte?raw';
     import Disabled from './examples/disabled.svelte';
     import DisabledSrc from './examples/disabled.svelte?raw';
+    import EventsExample from './examples/events.svelte';
+    import EventsExampleSrc from './examples/events.svelte?raw';
     import Form from './examples/form.svelte';
     import FormSrc from './examples/form.svelte?raw';
     import Hero from './examples/hero.svelte';
@@ -84,5 +87,21 @@
     <section id="disabled" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Disabled</Typography.H2>
         <ComponentPreview code={DisabledSrc}><Disabled /></ComponentPreview>
+    </section>
+    <section id="events-and-layout" class="flex flex-col gap-4">
+        <Typography.H2 class="docs-section-heading">Events and layout</Typography.H2>
+        <Typography.Text variant="supporting">
+            <InlineText
+                text={"`onValueChange` runs with the whole value each time a character is typed, pasted or deleted. Use `onComplete` when you only care about the full code."}
+            />
+        </Typography.Text>
+        <Typography.Text variant="supporting">
+            <InlineText
+                text={"`textalign` moves the hidden input's text to the `left`, `center` or `right`, which only matters when you render your own cells. `pushPasswordManagerStrategy` decides what happens when a password manager adds its badge to the field. `increase-width` widens the input so the badge sits beside the cells, and `none` leaves it alone. Root and Cell accept `style`, and Cell takes `ref` to bind its element."}
+            />
+        </Typography.Text>
+        <ComponentPreview code={EventsExampleSrc}>
+            <EventsExample />
+        </ComponentPreview>
     </section>
 </div>

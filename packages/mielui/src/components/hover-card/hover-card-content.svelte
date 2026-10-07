@@ -11,6 +11,7 @@
         children,
         side = 'bottom',
         align = 'center',
+        sideOffset = 8,
         surface,
         ...rest
     }: HoverCardContentProps = $props();
@@ -24,7 +25,7 @@
 </script>
 
 <LinkPreview.Portal>
-    <LinkPreview.Content forceMount {side} {align} sideOffset={8} collisionPadding={8} {...rest}>
+    <LinkPreview.Content forceMount {side} {align} {sideOffset} collisionPadding={8} {...rest}>
         {#snippet child({ props, wrapperProps, open })}
             {#if open}
                 <div {...wrapperProps} class="z-[130]">

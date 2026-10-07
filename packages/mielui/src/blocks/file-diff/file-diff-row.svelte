@@ -52,10 +52,8 @@
         className,
         'grid min-w-full items-stretch',
         columns,
-        type === 'add' &&
-            'bg-success-soft shadow-[inset_var(--size-hairline)_0_0_var(--color-success)] dark:bg-success-soft/60',
-        type === 'remove' &&
-            'bg-error-soft shadow-[inset_var(--size-hairline)_0_0_var(--color-error)] dark:bg-error-soft/60'
+        type === 'add' && 'bg-success-soft',
+        type === 'remove' && 'bg-error-soft'
     )}
     {...rest}
 >

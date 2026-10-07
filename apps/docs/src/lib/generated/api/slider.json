@@ -8,7 +8,7 @@
                 "required": false,
                 "bindable": false,
                 "default": "0",
-                "description": "",
+                "description": "Smallest allowed value.",
                 "inherited": false
             },
             {
@@ -17,7 +17,7 @@
                 "required": false,
                 "bindable": false,
                 "default": "100",
-                "description": "",
+                "description": "Largest allowed value.",
                 "inherited": false
             },
             {
@@ -26,7 +26,7 @@
                 "required": false,
                 "bindable": false,
                 "default": "1",
-                "description": "",
+                "description": "Amount each step changes the value by.",
                 "inherited": false
             },
             {
@@ -35,7 +35,7 @@
                 "required": false,
                 "bindable": false,
                 "default": "false",
-                "description": "",
+                "description": "Prevents interaction and dims the control.",
                 "inherited": false
             },
             {
@@ -44,7 +44,16 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Names the handle. The field variant also shows it inside the control.",
+                "inherited": false
+            },
+            {
+                "name": "format",
+                "type": "((value: number) => string) | undefined",
+                "required": false,
+                "bindable": false,
+                "default": null,
+                "description": "Formats a value for assistive technology and for the field variant's readout.",
                 "inherited": false
             },
             {
@@ -53,7 +62,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Text direction. It flips the track for right-to-left.",
                 "inherited": false
             },
             {
@@ -62,7 +71,7 @@
                 "required": false,
                 "bindable": false,
                 "default": "generatedId",
-                "description": "",
+                "description": "Id of the element.",
                 "inherited": false
             },
             {
@@ -71,7 +80,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Field name submitted with the form.",
                 "inherited": false
             },
             {
@@ -80,7 +89,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Id of the form this control belongs to when it sits outside that form.",
                 "inherited": false
             },
             {
@@ -89,7 +98,7 @@
                 "required": false,
                 "bindable": true,
                 "default": null,
-                "description": "",
+                "description": "Bindable reference to the DOM element.",
                 "inherited": false
             },
             {
@@ -98,7 +107,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Accessible name when there is no visible label.",
                 "inherited": false
             },
             {
@@ -107,7 +116,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Id of the element that labels it.",
                 "inherited": false
             },
             {
@@ -116,7 +125,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Id of the element that describes it.",
                 "inherited": false
             },
             {
@@ -125,7 +134,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Classes added to the element.",
                 "inherited": false
             },
             {
@@ -134,43 +143,79 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Content rendered inside.",
                 "inherited": false
             },
             {
                 "name": "range",
-                "type": "false | undefined | true",
+                "type": "false | true | undefined",
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Uses two thumbs and makes `value` a pair.",
+                "inherited": false
+            },
+            {
+                "name": "variant",
+                "type": "SliderVariant | undefined",
+                "required": false,
+                "bindable": false,
+                "default": null,
+                "description": "`field` puts the label and value inside a bar you drag anywhere to scrub.",
                 "inherited": false
             },
             {
                 "name": "value",
-                "type": "number | undefined | [number, number] | undefined",
+                "type": "number | [number, number] | undefined",
                 "required": false,
                 "bindable": true,
                 "default": null,
-                "description": "",
+                "description": "Current value, or a pair in range mode. Bindable.",
                 "inherited": false
             },
             {
                 "name": "thumbLabels",
-                "type": "undefined | [string, string] | undefined",
+                "type": "[string, string] | undefined",
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Accessible names of the two thumbs in range mode.",
                 "inherited": false
             },
             {
                 "name": "onValueChange",
-                "type": "((value: number) => void) | undefined | ((value: [number, number]) => void) | undefined",
+                "type": "((value: number) => void) | ((value: [number, number]) => void) | undefined",
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Called with the new value when it changes.",
+                "inherited": false
+            },
+            {
+                "name": "onValueCommit",
+                "type": "((value: number) => void) | ((value: [number, number]) => void) | undefined",
+                "required": false,
+                "bindable": false,
+                "default": null,
+                "description": "Called once when a drag ends with a new value, and after each keyboard or typed change.",
+                "inherited": false
+            },
+            {
+                "name": "editable",
+                "type": "boolean | undefined",
+                "required": false,
+                "bindable": false,
+                "default": null,
+                "description": "Field variant only. Lets people click the value, or press Enter, and type an exact number. Typed numbers snap to `step` and clamp to `min` and `max`.",
+                "inherited": false
+            },
+            {
+                "name": "parse",
+                "type": "((text: string) => number | null) | undefined",
+                "required": false,
+                "bindable": false,
+                "default": null,
+                "description": "Turns typed text into a number for `editable`. Return `null` to reject it. Defaults to the first number in the text, so units such as `px` are ignored.",
                 "inherited": false
             }
         ]

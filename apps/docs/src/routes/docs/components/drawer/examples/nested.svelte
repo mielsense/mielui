@@ -7,13 +7,13 @@
         <Drawer.Overlay />
         <Drawer.Content>
             <Drawer.Handle />
-            <Drawer.Header class="mx-auto w-full max-w-xl">
+            <Drawer.Header>
                 <Drawer.Title>Review changes</Drawer.Title>
                 <Drawer.Description>
                     Three updates are ready to apply to your reading list.
                 </Drawer.Description>
             </Drawer.Header>
-            <Drawer.Body class="mx-auto w-full max-w-xl">
+            <Drawer.Body>
                 <dl class="mb-5 divide-y divide-border text-sm">
                     <div class="flex justify-between gap-4 py-3">
                         <dt class="text-foreground-muted">Collection</dt>
@@ -34,13 +34,13 @@
                         <Drawer.Overlay />
                         <Drawer.Content>
                             <Drawer.Handle />
-                            <Drawer.Header class="mx-auto w-full max-w-xl">
+                            <Drawer.Header>
                                 <Drawer.Title>Change details</Drawer.Title>
                                 <Drawer.Description>
                                     Review the articles included in this update.
                                 </Drawer.Description>
                             </Drawer.Header>
-                            <Drawer.Body class="mx-auto w-full max-w-xl">
+                            <Drawer.Body>
                                 <ul class="divide-y divide-border text-sm">
                                     <li class="flex justify-between gap-4 py-4">
                                         <span>The art of paying attention</span>
@@ -56,14 +56,14 @@
                                     </li>
                                 </ul>
                             </Drawer.Body>
-                            <Drawer.Footer class="mx-auto w-full max-w-xl">
+                            <Drawer.Footer>
                                 <Drawer.Close>Back to review</Drawer.Close>
                             </Drawer.Footer>
                         </Drawer.Content>
                     </Drawer.Portal>
                 </Drawer.Root>
             </Drawer.Body>
-            <Drawer.Footer class="mx-auto w-full max-w-xl">
+            <Drawer.Footer>
                 <Drawer.Close>Finish review</Drawer.Close>
             </Drawer.Footer>
         </Drawer.Content>

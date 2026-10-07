@@ -5,7 +5,7 @@ export const manifest: Manifest = {
     version: '1.2.0',
     visibility: 'public',
     description:
-        'Single-value and two-handle range slider with pill handles, keyboard controls, and RTL support.',
+        'Single-value and two-handle range slider with pill handles, a scrub field variant, keyboard controls, and RTL support.',
     role: 'slider',
     files: [
         'components/slider/slider.svelte',

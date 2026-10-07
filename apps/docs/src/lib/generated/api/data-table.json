@@ -438,7 +438,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Renders a cell. Defaults to the column's cell definition.",
                 "inherited": false
             },
             {
@@ -447,7 +447,7 @@
                 "required": true,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "TanStack Table instance that drives the table.",
                 "inherited": false
             },
             {
@@ -456,7 +456,7 @@
                 "required": false,
                 "bindable": false,
                 "default": "false",
-                "description": "",
+                "description": "Shows the loading state in place of the content.",
                 "inherited": false
             },
             {
@@ -465,7 +465,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Accessible caption that describes the table.",
                 "inherited": false
             },
             {
@@ -474,7 +474,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Renders a column header.",
                 "inherited": false
             },
             {
@@ -483,7 +483,7 @@
                 "required": false,
                 "bindable": false,
                 "default": "false",
-                "description": "",
+                "description": "Adds a selection checkbox column.",
                 "inherited": false
             },
             {
@@ -492,7 +492,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Returns the accessible name for a row's selection checkbox.",
                 "inherited": false
             },
             {
@@ -501,16 +501,16 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Content shown when there are no rows. It receives the loading state.",
                 "inherited": false
             },
             {
                 "name": "variant",
-                "type": "\"inset\" | \"default\" | undefined",
+                "type": "\"default\" | \"inset\" | undefined",
                 "required": false,
                 "bindable": false,
                 "default": "'default'",
-                "description": "",
+                "description": "`inset` frames the table with its footer on the frame. A Toolbar sits above the frame.",
                 "inherited": false
             },
             {
@@ -519,7 +519,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Overrides the built-in text and accessible names. Every key is optional and English is the fallback.",
                 "inherited": false
             },
             {
@@ -528,7 +528,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Content rendered inside.",
                 "inherited": false
             }
         ]
@@ -542,7 +542,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Renders a cell. Defaults to the column's cell definition.",
                 "inherited": false
             },
             {
@@ -551,7 +551,7 @@
                 "required": true,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "TanStack Table instance that drives the table.",
                 "inherited": false
             },
             {
@@ -560,7 +560,7 @@
                 "required": false,
                 "bindable": false,
                 "default": "false",
-                "description": "",
+                "description": "Shows the loading state in place of the content.",
                 "inherited": false
             },
             {
@@ -569,7 +569,7 @@
                 "required": false,
                 "bindable": false,
                 "default": "false",
-                "description": "",
+                "description": "Adds a selection checkbox column.",
                 "inherited": false
             },
             {
@@ -578,7 +578,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Returns the accessible name for a row's selection checkbox.",
                 "inherited": false
             },
             {
@@ -587,7 +587,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Content shown when there are no rows. It receives the loading state.",
                 "inherited": false
             },
             2681,
@@ -1031,7 +1031,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Classes added to the element.",
                 "inherited": false
             },
             {
@@ -1040,7 +1040,7 @@
                 "required": true,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Number of columns the empty row spans.",
                 "inherited": false
             },
             {
@@ -1049,7 +1049,7 @@
                 "required": false,
                 "bindable": false,
                 "default": "false",
-                "description": "",
+                "description": "Shows the loading state in place of the content.",
                 "inherited": false
             },
             {
@@ -1058,7 +1058,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Content rendered inside.",
                 "inherited": false
             }
         ]
@@ -1542,7 +1542,7 @@
                 "required": true,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "TanStack Table instance that drives the table.",
                 "inherited": false
             },
             {
@@ -1551,7 +1551,7 @@
                 "required": true,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Id of the column the search field filters.",
                 "inherited": false
             },
             {
@@ -1560,7 +1560,7 @@
                 "required": true,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Accessible name of the control.",
                 "inherited": false
             }
         ]
@@ -1574,7 +1574,7 @@
                 "required": true,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "TanStack Table instance that drives the table.",
                 "inherited": false
             },
             {
@@ -1583,7 +1583,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Renders a column header.",
                 "inherited": false
             },
             {
@@ -1592,7 +1592,7 @@
                 "required": false,
                 "bindable": false,
                 "default": "false",
-                "description": "",
+                "description": "Adds a selection checkbox column.",
                 "inherited": false
             },
             2681,
@@ -2466,7 +2466,7 @@
                 "required": true,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "TanStack Table instance that drives the table.",
                 "inherited": false
             },
             {
@@ -2475,7 +2475,7 @@
                 "required": false,
                 "bindable": false,
                 "default": "false",
-                "description": "",
+                "description": "Shows the loading state in place of the content.",
                 "inherited": false
             }
         ]
@@ -2489,7 +2489,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Classes added to the element.",
                 "inherited": false
             },
             {
@@ -2498,7 +2498,7 @@
                 "required": false,
                 "bindable": false,
                 "default": "false",
-                "description": "",
+                "description": "Whether the checkbox is checked.",
                 "inherited": false
             },
             {
@@ -2507,7 +2507,7 @@
                 "required": false,
                 "bindable": false,
                 "default": "false",
-                "description": "",
+                "description": "Shows the mixed state when only some rows are selected.",
                 "inherited": false
             },
             {
@@ -2516,7 +2516,7 @@
                 "required": false,
                 "bindable": false,
                 "default": "false",
-                "description": "",
+                "description": "Disables the checkbox.",
                 "inherited": false
             },
             {
@@ -2525,7 +2525,7 @@
                 "required": true,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Accessible name of the control.",
                 "inherited": false
             },
             {
@@ -2534,7 +2534,7 @@
                 "required": true,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Called with the new state when the checkbox changes.",
                 "inherited": false
             }
         ]
@@ -2978,7 +2978,7 @@
                 "required": true,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "TanStack Table instance that drives the table.",
                 "inherited": false
             },
             {
@@ -2987,7 +2987,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Content rendered inside.",
                 "inherited": false
             }
         ]
@@ -3876,7 +3876,7 @@
                 "required": true,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "TanStack Table instance that drives the table.",
                 "inherited": false
             },
             {
@@ -3885,7 +3885,7 @@
                 "required": false,
                 "bindable": false,
                 "default": "false",
-                "description": "",
+                "description": "Shows the loading state in place of the content.",
                 "inherited": false
             },
             {
@@ -3894,7 +3894,7 @@
                 "required": false,
                 "bindable": false,
                 "default": "false",
-                "description": "",
+                "description": "Adds a selection checkbox column.",
                 "inherited": false
             },
             {
@@ -3903,7 +3903,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Accessible caption that describes the table.",
                 "inherited": false
             },
             {
@@ -3912,7 +3912,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Returns the accessible name for a row's selection checkbox.",
                 "inherited": false
             },
             {
@@ -3921,7 +3921,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Renders a column header.",
                 "inherited": false
             },
             {
@@ -3930,7 +3930,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Renders a cell. Defaults to the column's cell definition.",
                 "inherited": false
             },
             {
@@ -3939,7 +3939,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Content shown when there are no rows. It receives the loading state.",
                 "inherited": false
             }
         ]
@@ -3953,7 +3953,7 @@
                 "required": true,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "TanStack header to render.",
                 "inherited": false
             },
             {
@@ -3962,7 +3962,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Classes added to the element.",
                 "inherited": false
             }
         ]
@@ -3976,7 +3976,7 @@
                 "required": true,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "TanStack Table instance that drives the table.",
                 "inherited": false
             },
             {
@@ -3985,7 +3985,7 @@
                 "required": true,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Filter definition this chip edits.",
                 "inherited": false
             },
             {
@@ -3994,7 +3994,7 @@
                 "required": false,
                 "bindable": true,
                 "default": "false",
-                "description": "",
+                "description": "Whether it is open. Bind it to control the state from outside.",
                 "inherited": false
             },
             {
@@ -4003,7 +4003,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Called with the new state whenever it opens or closes.",
                 "inherited": false
             },
             {
@@ -4012,7 +4012,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Called when the filter is removed.",
                 "inherited": false
             },
             {
@@ -4021,7 +4021,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Classes added to the element.",
                 "inherited": false
             }
         ]
@@ -4035,7 +4035,7 @@
                 "required": true,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "TanStack Table instance that drives the table.",
                 "inherited": false
             },
             {
@@ -4044,7 +4044,7 @@
                 "required": true,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Filters offered in the Filter menu.",
                 "inherited": false
             },
             {
@@ -4053,7 +4053,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Content rendered inside.",
                 "inherited": false
             },
             {
@@ -4062,7 +4062,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Classes added to the element.",
                 "inherited": false
             }
         ]
@@ -4076,7 +4076,7 @@
                 "required": true,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "TanStack Table instance that drives the table.",
                 "inherited": false
             },
             {
@@ -4085,7 +4085,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Columns offered in the Sort menu.",
                 "inherited": false
             },
             {
@@ -4094,7 +4094,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Classes added to the element.",
                 "inherited": false
             }
         ]

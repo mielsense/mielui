@@ -1,24 +1,24 @@
 <script lang="ts">
     import * as Typography from '@mielui/svelte/components/typography';
     import { resolve } from '$app/paths';
-    import { inlineLinkClass } from '$lib/components/docs/inline-text.svelte';
     import PageIntro from '$lib/components/docs/page-intro.svelte';
+    import Rows from '$lib/components/docs/rows.svelte';
 
     const actions = [
         {
             label: 'Morph',
             href: resolve('/docs/actions/morph'),
-            description: 'Animate SVG geometry and text when a displayed value changes.'
+            value: 'Animate SVG geometry and text when a displayed value changes.'
         },
         {
             label: 'Number shuffle',
             href: resolve('/docs/actions/number-shuffle'),
-            description: 'Roll digits when a count, total, or percentage changes.'
+            value: 'Roll digits when a count, total, or percentage changes.'
         },
         {
             label: 'Shimmer',
             href: resolve('/docs/actions/shimmer'),
-            description: 'Sweep a loading highlight across text or a placeholder.'
+            value: 'Sweep a loading highlight across text or a placeholder.'
         }
     ];
 </script>
@@ -40,15 +40,6 @@
             Actions attach to an element you already render. They respect reduced motion and the
             theme's motion settings, and they clean up when the element unmounts.
         </Typography.Text>
-        <dl class="m-0 grid gap-x-8 gap-y-3 text-base leading-relaxed sm:grid-cols-[auto_1fr]">
-            {#each actions as action (action.href)}
-                <div class="grid gap-y-0.5 sm:col-span-2 sm:grid-cols-subgrid">
-                    <dt class="font-medium">
-                        <a class={inlineLinkClass} href={action.href}>{action.label}</a>
-                    </dt>
-                    <dd class="m-0 text-foreground-muted">{action.description}</dd>
-                </div>
-            {/each}
-        </dl>
+        <Rows items={actions} label="Available actions" />
     </section>
 </div>

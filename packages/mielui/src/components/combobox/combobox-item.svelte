@@ -1,12 +1,12 @@
 <script lang="ts">
     import { Tick02Icon as Check } from '@hugeicons/core-free-icons';
-    import { Button, type ButtonProps } from '@mielui/svelte/components/button';
+    import { Button } from '@mielui/svelte/components/button';
     import { cn } from '@mielui/svelte/utils';
     import { Combobox as ComboboxPrimitive, mergeProps } from 'bits-ui';
     import { onMount } from 'svelte';
     import type { HTMLButtonAttributes } from 'svelte/elements';
     import HugeiconsIcon from '../../hugeicons-icon.svelte';
-    import { buttonAttributes } from '../_internal/button-attributes';
+    import { type ButtonOnlyProps, buttonAttributes } from '../_internal/button-attributes';
     import { getComboboxContext } from './context.svelte';
     import type { RegisteredComboboxItem } from './controller.svelte';
 
@@ -17,7 +17,7 @@
         value: string;
         label: string;
         callback?: () => void;
-    } & ButtonProps;
+    } & ButtonOnlyProps;
 
     let {
         label,

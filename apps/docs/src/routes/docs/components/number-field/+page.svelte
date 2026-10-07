@@ -1,6 +1,7 @@
 <script lang="ts">
     import * as Typography from '@mielui/svelte/components/typography';
     import { ComponentPreview, InstallCommand } from '$lib/components/docs';
+    import InlineText from '$lib/components/docs/inline-text.svelte';
     import PageIntro from '$lib/components/docs/page-intro.svelte';
     import Decimal from './examples/decimal.svelte';
     import DecimalSrc from './examples/decimal.svelte?raw';
@@ -68,5 +69,13 @@
     <section id="disabled" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Disabled</Typography.H2>
         <ComponentPreview code={DisabledSrc}><Disabled /></ComponentPreview>
+    </section>
+    <section id="parts" class="flex flex-col gap-4">
+        <Typography.H2 class="docs-section-heading">Parts</Typography.H2>
+        <Typography.Text variant="supporting">
+            <InlineText
+                text={"Root, Input, Decrement and Increment accept `element` to bind their DOM nodes, for example to focus the input after a reset. Decrement and Increment take `onclick`, which runs before the value steps. Call `preventDefault()` there to cancel the step. Root renders its `children`, so you choose the order of the input and the two buttons."}
+            />
+        </Typography.Text>
     </section>
 </div>

@@ -36,7 +36,7 @@
         class={cn(
             className,
             isDisabled && 'cursor-not-allowed opacity-[var(--opacity-disabled)]',
-            'group relative flex min-h-12 cursor-[var(--ui-cursor-interactive)] items-start gap-3 rounded-[var(--radius-md)] px-2.5 py-2.5 text-start transition-[background-color,box-shadow] [transition-duration:var(--motion-duration-hover)] ease-[var(--ease-out)] motion-reduce:transition-none has-[:focus-visible]:shadow-[var(--focus-ring)]',
+            'group relative flex min-h-12 cursor-[var(--ui-cursor-interactive)] items-start gap-3 [counter-increment:question-option] [&:nth-of-type(n+10)_[data-ui=question-option-key]]:hidden rounded-[var(--radius-md)] px-2.5 py-2.5 text-start transition-[background-color,box-shadow] [transition-duration:var(--motion-duration-hover)] ease-[var(--ease-out)] motion-reduce:transition-none has-[:focus-visible]:shadow-[var(--focus-ring)]',
             selected
                 ? 'bg-[color-mix(in_srgb,var(--color-primary)_8%,var(--color-card))]'
                 : '[&:not([data-disabled]):hover]:bg-foreground/[0.08]'
@@ -116,5 +116,10 @@
                 </span>
             {/if}
         </span>
+        <kbd
+            aria-hidden="true"
+            data-ui="question-option-key"
+            class="mt-0.5 grid h-5 min-w-5 shrink-0 place-items-center rounded-[var(--radius-sm)] border-[length:var(--border-size)] border-border bg-card px-1 font-mono text-xs leading-none text-foreground-muted before:content-[counter(question-option)]"
+        ></kbd>
     </label>
 {/if}

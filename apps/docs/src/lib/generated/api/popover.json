@@ -8,7 +8,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Surface treatment. Omit it to inherit `--mielui-surface` from the theme.",
                 "inherited": false
             },
             {
@@ -17,7 +17,7 @@
                 "required": true,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Content rendered inside.",
                 "inherited": false
             },
             {
@@ -26,7 +26,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Classes added to the element.",
                 "inherited": false
             },
             {
@@ -35,7 +35,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "Classes for the inset surface (where children live) — padding, layout,\nbackground overrides. The `class` prop styles the outer Panel frame.",
+                "description": "Classes for the inset surface (where children live) — padding, layout, background overrides. The `class` prop styles the outer Panel frame.",
                 "inherited": false
             },
             {
@@ -44,7 +44,7 @@
                 "required": false,
                 "bindable": false,
                 "default": "true",
-                "description": "",
+                "description": "Closes when the pointer is pressed outside it. Set false to keep it open until it is dismissed another way.",
                 "inherited": false
             },
             {
@@ -53,7 +53,7 @@
                 "required": false,
                 "bindable": false,
                 "default": "true",
-                "description": "Render the full-viewport dismiss layer under the panel while open.\nDefaults to `true`. Set to `false` for triggers that must stay\nclickable while open (e.g. an input-style combobox trigger);\noutside pointer dismissal still applies via `allowClickOutside`.",
+                "description": "Render the full-viewport dismiss layer under the panel while open. Defaults to `true`. Set to `false` for triggers that must stay clickable while open (e.g. an input-style combobox trigger); outside pointer dismissal still applies via `allowClickOutside`.",
                 "inherited": false
             },
             {
@@ -62,7 +62,7 @@
                 "required": false,
                 "bindable": false,
                 "default": "true",
-                "description": "",
+                "description": "Moves the panel to the end of the document so ancestors cannot clip it. Set false to render it in place.",
                 "inherited": false
             },
             {
@@ -71,16 +71,16 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Positions the panel against this element or virtual element instead of the trigger. The panel then opens to the right of it, as a submenu does.",
                 "inherited": false
             },
             {
                 "name": "role",
-                "type": "\"none\" | \"alertdialog\" | \"dialog\" | \"listbox\" | \"menu\" | undefined",
+                "type": "\"dialog\" | \"alertdialog\" | \"menu\" | \"listbox\" | \"none\" | undefined",
                 "required": false,
                 "bindable": false,
                 "default": "'dialog'",
-                "description": "",
+                "description": "ARIA role of the panel.",
                 "inherited": false
             },
             {
@@ -89,7 +89,7 @@
                 "required": false,
                 "bindable": false,
                 "default": "-1",
-                "description": "",
+                "description": "Tab index of the panel.",
                 "inherited": false
             },
             {
@@ -548,7 +548,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Content rendered inside.",
                 "inherited": false
             },
             {
@@ -557,7 +557,7 @@
                 "required": false,
                 "bindable": true,
                 "default": "false",
-                "description": "",
+                "description": "Whether it is open. Bind it to control the state from outside.",
                 "inherited": false
             },
             {
@@ -566,7 +566,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Called with the new state whenever it opens or closes.",
                 "inherited": false
             },
             {
@@ -575,7 +575,7 @@
                 "required": false,
                 "bindable": false,
                 "default": "'bottom'",
-                "description": "",
+                "description": "Preferred side and alignment relative to the trigger, such as `bottom-start`. It flips when there is no room.",
                 "inherited": false
             },
             {
@@ -584,7 +584,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "Stable identifier used to connect trigger and content ARIA attributes.",
+                "description": "Older spelling of `stateKey`. `stateKey` wins when both are set.",
                 "inherited": false
             },
             {
@@ -593,7 +593,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Key that identifies this instance's state. A key is generated when you omit it.",
                 "inherited": false
             },
             {
@@ -602,7 +602,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Opens on hover as well as on click.",
                 "inherited": false
             },
             {
@@ -611,7 +611,7 @@
                 "required": false,
                 "bindable": false,
                 "default": "0",
-                "description": "",
+                "description": "Milliseconds the pointer rests on the trigger before it opens.",
                 "inherited": false
             },
             {
@@ -620,7 +620,7 @@
                 "required": false,
                 "bindable": false,
                 "default": "150",
-                "description": "",
+                "description": "Milliseconds after the pointer leaves before it closes.",
                 "inherited": false
             },
             {
@@ -643,7 +643,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Classes added to the element.",
                 "inherited": false
             },
             {
@@ -652,7 +652,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Content rendered inside.",
                 "inherited": false
             }
         ]
@@ -666,7 +666,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Shows the chevron after the label.",
                 "inherited": false
             },
             {
@@ -675,7 +675,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Button style of the trigger.",
                 "inherited": false
             },
             {
@@ -684,7 +684,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Control height of the trigger.",
                 "inherited": false
             },
             {
@@ -693,7 +693,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Content rendered inside.",
                 "inherited": false
             },
             {
@@ -702,7 +702,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Classes added to the element.",
                 "inherited": false
             },
             {
@@ -711,7 +711,7 @@
                 "required": false,
                 "bindable": true,
                 "default": null,
-                "description": "",
+                "description": "Bindable reference to the DOM element.",
                 "inherited": false
             },
             {
@@ -729,7 +729,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Called when it is clicked or activated.",
                 "inherited": false
             },
             {
@@ -747,7 +747,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Inline styles for the element.",
                 "inherited": false
             },
             10,

@@ -2,12 +2,15 @@
     import { CodeBlock } from '@mielui/svelte/components/code-block';
     import * as Typography from '@mielui/svelte/components/typography';
     import { ComponentPreview, InstallCommand } from '$lib/components/docs';
+    import InlineText from '$lib/components/docs/inline-text.svelte';
     import PageIntro from '$lib/components/docs/page-intro.svelte';
     import SectionHeading from '$lib/components/docs/section-heading.svelte';
     import ChipStatus from './examples/chip-status.svelte';
     import ChipStatusSrc from './examples/chip-status.svelte?raw';
     import Hero from './examples/hero.svelte';
     import HeroSrc from './examples/hero.svelte?raw';
+    import SingleExample from './examples/single.svelte';
+    import SingleExampleSrc from './examples/single.svelte?raw';
     import StatusVariants from './examples/status-variants.svelte';
     import StatusVariantsSrc from './examples/status-variants.svelte?raw';
 
@@ -120,5 +123,21 @@ function handleReject(rejections: AttachmentRejection[]) {
             lang="svelte"
             copy="overlay"
         />
+    </section>
+    <section id="single-file" class="flex flex-col gap-4">
+        <Typography.H2 class="docs-section-heading">One file at a time</Typography.H2>
+        <Typography.Text variant="supporting">
+            <InlineText
+                text={"Root lets people choose several files by default. Set `multiple={false}` so the file chooser takes one file at a time, and add `maxFiles={1}` to cap the list at a single file."}
+            />
+        </Typography.Text>
+        <Typography.Text variant="supporting">
+            <InlineText
+                text={"List takes `label`, the accessible name of the list of files. Trigger accepts `element` and `onclick`, which runs before the file chooser opens. Root and Trigger render their `children`."}
+            />
+        </Typography.Text>
+        <ComponentPreview code={SingleExampleSrc}>
+            <SingleExample />
+        </ComponentPreview>
     </section>
 </div>

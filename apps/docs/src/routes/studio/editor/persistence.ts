@@ -4,10 +4,30 @@ import {
     DEFAULT_FOUNDATION_COLORS,
     DEFAULT_ROLE_WEIGHTS,
     type FoundationPalette,
+    LEGACY_FOUNDATION_COLORS,
     STUDIO_EXTENSIONS_KEY,
     type StudioExtensions
 } from './config';
 import type { ThemeEditorState } from './state.svelte';
+
+/**
+ * Drops saved colors that are only the Studio's old defaults, unless the preset sets that color
+ * itself. The current defaults then fill the gaps.
+ */
+function withoutLegacyDefaults(
+    saved: Partial<FoundationPalette>,
+    colorMode: 'light' | 'dark',
+    preset: ThemeEditorState['baseTheme']
+) {
+    const stated = preset.foundation?.[colorMode];
+    const entries = Object.entries(saved).filter(([key, value]) => {
+        const name = key as keyof FoundationPalette;
+
+        return stated?.[name] !== undefined || value !== LEGACY_FOUNDATION_COLORS[colorMode][name];
+    });
+
+    return Object.fromEntries(entries) as Partial<FoundationPalette>;
+}
 
 export function createThemeEditorStorage(state: ThemeEditorState) {
     function loadStudioExtensions() {
@@ -49,11 +69,11 @@ export function createThemeEditorStorage(state: ThemeEditorState) {
                 state.foundationColors = {
                     light: {
                         ...DEFAULT_FOUNDATION_COLORS.light,
-                        ...light
+                        ...withoutLegacyDefaults(light, 'light', state.baseTheme)
                     },
                     dark: {
                         ...DEFAULT_FOUNDATION_COLORS.dark,
-                        ...dark
+                        ...withoutLegacyDefaults(dark, 'dark', state.baseTheme)
                     }
                 };
             }

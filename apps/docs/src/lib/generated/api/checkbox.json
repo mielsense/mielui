@@ -8,7 +8,7 @@
                 "required": false,
                 "bindable": true,
                 "default": "false",
-                "description": "",
+                "description": "Whether it is checked. Bind it to control the state from outside.",
                 "inherited": false
             },
             {
@@ -17,7 +17,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Visible label linked to the control.",
                 "inherited": false
             },
             {
@@ -26,7 +26,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Supporting text under the label, announced with the control.",
                 "inherited": false
             },
             {
@@ -35,16 +35,16 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Prevents interaction and dims the control.",
                 "inherited": false
             },
             {
                 "name": "variant",
-                "type": "\"primary\" | \"default\" | undefined",
+                "type": "\"default\" | \"primary\" | undefined",
                 "required": false,
                 "bindable": false,
                 "default": "'default'",
-                "description": "",
+                "description": "`primary` fills the checked box with the primary color.",
                 "inherited": false
             },
             {
@@ -53,7 +53,7 @@
                 "required": false,
                 "bindable": false,
                 "default": "'md'",
-                "description": "",
+                "description": "Size of the box.",
                 "inherited": false
             },
             {
@@ -62,7 +62,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Called with the new state when it changes.",
                 "inherited": false
             },
             {
@@ -71,7 +71,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Classes added to the element.",
                 "inherited": false
             },
             {
@@ -80,7 +80,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Content rendered inside.",
                 "inherited": false
             },
             0,

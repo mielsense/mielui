@@ -143,15 +143,13 @@
     </DatePicker.Root>
 {:else if slug === 'date-range-picker'}
     <DateRangePicker.Root value={range} calendarLabel="Travel dates">
-        <div class="grid w-72 gap-2">
+        <div class="grid w-fit gap-2">
             <DateRangePicker.Label>Travel dates</DateRangePicker.Label>
-            <Group.Root aria-label="Travel date controls" class="w-full">
+            <div class="flex items-center gap-2">
                 <DateRangePicker.Input type="start" aria-label="Start date" />
-                <Group.Separator />
                 <DateRangePicker.Input type="end" aria-label="End date" />
-                <Group.Separator />
                 <DateRangePicker.Trigger />
-            </Group.Root>
+            </div>
         </div>
     </DateRangePicker.Root>
 {:else if slug === 'checkbox'}

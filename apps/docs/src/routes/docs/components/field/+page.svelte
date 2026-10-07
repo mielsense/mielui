@@ -127,9 +127,9 @@
             controls or group-wide disabled behavior, use{' '}
             <a href="/docs/components/fieldset" class="underline underline-offset-4">Fieldset</a>
             {' '}
-            instead. Root’s disabled and required props reach the control through Field.Control.
-            Include a visible “required” or “optional” cue when the distinction matters; Field does
-            not insert an unexplained asterisk.
+            instead. Root's disabled and required props reach the control through Field.Control.
+            When Root is required, Field.Label shows a required mark after its text. The mark is
+            hidden from assistive technology, which reads the control's required state instead.
         </Typography.Text>
         <Typography.Text variant="supporting">
             Field.Root, Label, Description, Error, Content, and Group forward the native attributes

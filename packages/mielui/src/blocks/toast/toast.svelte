@@ -95,7 +95,7 @@
         className,
         overlaySurface(surface),
         !toast.description && !toast.actions?.length && 'w-fit max-w-full',
-        'mielui-inset-frame relative ml-auto flex w-full flex-col text-foreground shadow-[var(--elevation-float)] [--mielui-modal-inset:var(--spacing)] has-[[data-ui=toast-close]]:[&_[data-ui=toast-content]]:pr-11 has-[[data-ui=toast-close]]:[&>[data-ui=toast-footer][data-inset-position=top]]:pr-10'
+        'mielui-inset-frame relative ml-auto flex w-full flex-col text-foreground shadow-[var(--elevation-float)] [--mielui-modal-inset:calc(var(--spacing)*var(--mielui-border-inset-scale,1))] has-[[data-ui=toast-close]]:[&_[data-ui=toast-content]]:pr-11 has-[[data-ui=toast-close]]:[&>[data-ui=toast-footer][data-inset-position=top]]:pr-10'
     )}
     onmouseenter={(event: MouseEvent & { currentTarget: EventTarget & HTMLDivElement }) => {
         hovered = true;

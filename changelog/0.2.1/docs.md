@@ -1,0 +1,32 @@
+- Redesign Docs and Studio as one app shell that fills the window: an icon rail, a collapsible sidebar and a full-width content column, divided by hairlines, with a slim status line under the content.
+- Add page tabs to the docs top bar so several pages stay open at once. Each tab is as wide as its label and shows an icon for its component group or guide. Tabs persist across reloads, Cmd or Ctrl-click a sidebar link to open one in the background, and drag tabs or press Alt with an arrow key to reorder them.
+- Show the package version, the install command for the current component, and previous and next links in the status line.
+- Pin sidebar group labels while their group scrolls, mark pages that are open in another tab, and show the current page's position in the docs as a row of bars with the page count.
+- Drag the edge of the docs or Studio sidebar to resize it. Each keeps its own width between visits, and a double click resets it.
+- Redesign search as a compact palette with page icons, open tabs, and quick actions. It finds section headings and prop names, so "placement" or "closeDelay" lead to the right page.
+- Show each page's breadcrumb, title, and summary at the top of the page. The top bar names the section you are reading and jumps back to its start.
+- Give Blocks, AI components and Chart components their own catalog pages, like Inputs and the other component types.
+- Fade and softly blur the edges of every scrolling region in Docs and Studio while more content lies beyond them.
+- Open navigation and the Studio inspector in a sheet on small screens, and show Themes and Changelog without the docs sidebar.
+- The docs site uses Manrope by default, matching the default theme.
+- Add an Agent skill icon to the rail, under Changelog. The Agent skill page fills the panel without the docs sidebar.
+- The changelog lists Docs notes last in each version. Every section is collapsible, and Docs starts collapsed.
+- Rebuild the API reference as rows with each prop's name, type, description, and default, and describe every prop of every component.
+- Explain every prop in prose on its component page, in 91 feature sections added to 62 pages, with 41 new live examples.
+- Show each prop's description in the Markdown API tables used by Copy page and `llms.txt`.
+- Move the copy button for example source into the preview's top bar, and keep links inside previews from leaving the page.
+- Example previews, install commands, code blocks and API lists follow the theme's single or double border setting.
+- Rewrite Card's examples as small realistic tasks: a project summary, notification settings, a revenue figure, an invitation, deploy details, a member list and a weekly digest.
+- Add a Footer position section to the Card page, with a live example of `--mielui-inset-position` moving an inset card's footer to the top.
+- Date Range Picker examples show the start field, end field and calendar button as separate controls. The two-month example no longer caps the range at 14 days, and length limits have their own example.
+- Replace the single-element Avatar, Badge, and Toggle previews with small realistic examples, and add a Placement and timing section to the Hover Card page.
+- Folder Card examples show paper sheets tucked into the folder that lift and fan out on hover and keyboard focus.
+- Rewrite the Introduction, Installation, Agent skill, and Actions pages around label and value rows, and bring their Markdown versions in line.
+- Show each component's summary under its catalog preview instead of behind a hover card.
+- Add three live demos to the homepage under the hero: a coding agent workspace, a support chat, and an issue editor, each behind a tab.
+- Rework the homepage hero preview: a composer with example prompts, notification settings, and a weekly visits chart with its total. It follows dark mode and keeps one height across tabs.
+- Redesign the Themes page with a specimen of each preset's colors, type, and corners that follows light and dark mode.
+- Add a search field to the Studio inspector that filters settings by name, and show each preset's brand color in the preset picker.
+- Rebuild the Studio demos as composed cards in a centered grid. The AI tab shows the coding agent and chat demos, and the App preview is a sidebar app in one card.
+- Simplify the Studio top bar: preview width and the glass backdrop sit behind one options button.
+- In the Studio the top bar, the preview page and the sidebar share one background in both themes.

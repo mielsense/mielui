@@ -45,6 +45,10 @@ export type FileDiffContext = {
 };
 
 export type FileDiffRootProps = {
+    /**
+     * Overrides the built-in text and accessible names. Every key is optional and English is the
+     * fallback.
+     */
     labels?: FileDiffLabels;
     /** File path shown in the top bar, e.g. "src/auth.ts". */
     file?: string;
@@ -64,6 +68,7 @@ export type FileDiffRootProps = {
      * - `custom`: no token colors; load any `highlight.js/styles/*` theme instead.
      */
     theme?: FileDiffTheme;
+    /** Content rendered inside. */
     children?: Snippet;
 } & DefaultProps &
     Omit<HTMLAttributes<HTMLElement>, 'children'>;
@@ -99,6 +104,7 @@ export type FileDiffPlusMinusProps = {
     Omit<HTMLAttributes<HTMLElement>, 'children'>;
 
 export type FileDiffContentProps = {
+    /** Content rendered inside. */
     children?: Snippet;
 } & DefaultProps &
     Omit<HTMLAttributes<HTMLElement>, 'children'>;
@@ -114,6 +120,7 @@ export type FileDiffRowProps = {
     code?: string;
     /** Row-level language override. */
     lang?: string;
+    /** Content rendered inside. */
     children?: Snippet;
 } & DefaultProps &
     Omit<HTMLAttributes<HTMLElement>, 'children'>;

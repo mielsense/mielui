@@ -1,10 +1,10 @@
-import type { SliderProps } from '@mielui/svelte/components/slider';
 import { toast } from '@mielui/svelte/components/toast';
 import { builtInThemePresets } from '@mielui/svelte/themes/builtin-presets';
 import { applyLiveThemeCss, loadStudioTheme, saveStudioTheme } from '@mielui/svelte/themes/live';
-import { type Theme, themeToCss } from '@mielui/svelte/themes/theme';
+import { parseTheme, type Theme, themeToCss } from '@mielui/svelte/themes/theme';
 import { mode, setMode } from 'mode-watcher';
-import { onDestroy, onMount } from 'svelte';
+import { onMount, untrack } from 'svelte';
+import { takeHandedOffTheme } from '$lib/studio/handoff';
 import { readThemeAppearance } from './appearance';
 import {
     brandTokens,
@@ -26,7 +26,9 @@ import {
     sansFonts,
     themeAxes
 } from './config';
+import { createThemeHistory } from './history.svelte';
 import { createThemeEditorStorage } from './persistence';
+import { readSharedTheme, themeShareLink } from './share';
 import { createThemeEditorState } from './state.svelte';
 import { createThemeTokenEditor } from './tokens';
 
@@ -45,6 +47,32 @@ export function createThemeEditor() {
     }
 
     const appMode = $derived(mode.current === 'dark' ? 'dark' : 'light');
+
+    /** Values of the selected preset, which each setting resets to. */
+    const baseline = $derived.by(() => {
+        const base = state.baseTheme;
+
+        return {
+            appearance: readThemeAppearance(base),
+            brand: {
+                light: base.tokens?.light?.['--color-primary'] ?? base.brand,
+                dark: base.tokens?.dark?.['--color-primary'] ?? base.brand
+            },
+            foundation: {
+                light: { ...DEFAULT_FOUNDATION_COLORS.light, ...base.foundation?.light },
+                dark: { ...DEFAULT_FOUNDATION_COLORS.dark, ...base.foundation?.dark }
+            },
+            radius: base.radius,
+            density: base.density,
+            motion: base.motion,
+            headerSize: base.typography?.headerSize ?? 16,
+            headerWeight: base.typography?.headerWeight ?? '600',
+            roleWeights: { ...DEFAULT_ROLE_WEIGHTS, ...base.typography?.roleWeights },
+            sans: findSansKey(base.fontSans),
+            header: findHeaderKey(base.fontHeader),
+            mono: findMonoKey(base.fontMono)
+        };
+    });
 
     const appModeBinding = {
         get value() {
@@ -121,10 +149,30 @@ export function createThemeEditor() {
 
     const dirty = $derived(changedAxisCount > 0);
 
+    /**
+     * The colors a theme has to state. A color the preset does not set and the user has not
+     * moved off the default is left out, so the stylesheet's own value applies.
+     */
+    function statedColors(colorMode: 'light' | 'dark') {
+        const preset = state.baseTheme.foundation?.[colorMode];
+        const entries = Object.entries(state.foundationColors[colorMode]).filter(([key, value]) => {
+            const name = key as keyof FoundationPalette;
+
+            return (
+                preset?.[name] !== undefined || value !== DEFAULT_FOUNDATION_COLORS[colorMode][name]
+            );
+        });
+
+        return Object.fromEntries(entries);
+    }
+
     const exportedTheme: Theme = $derived({
         ...state.theme,
         version: 4,
-        foundation: state.foundationColors,
+        foundation: {
+            light: statedColors('light'),
+            dark: statedColors('dark')
+        },
         typography: {
             headerSize: state.headerSize,
             headerWeight: state.headerWeight,
@@ -188,10 +236,14 @@ export function createThemeEditor() {
             return;
         }
 
+        applyTheme(preset);
+    }
+
+    function applyTheme(preset: Theme) {
         const draftIdentity = {
-            slug: state.theme.slug,
-            name: state.theme.name,
-            description: state.theme.description
+            slug: `${preset.slug}-custom`,
+            name: preset.name,
+            description: preset.description
         };
         state.baseTheme = { ...preset };
         state.theme = { ...preset, ...draftIdentity };
@@ -236,20 +288,6 @@ export function createThemeEditor() {
         state.roleWeights = { ...state.roleWeights, [key]: value };
     }
 
-    function headerSliderProps(): SliderProps {
-        return {
-            value: state.headerSize,
-            min: 10,
-            max: 32,
-            step: 1,
-            label: 'Header size',
-            class: 'h-4',
-            onValueChange: (value) => {
-                state.headerSize = value;
-            }
-        };
-    }
-
     function confirmPresetChange() {
         if (!state.pendingPreset) {
             return;
@@ -269,6 +307,22 @@ export function createThemeEditor() {
             syncFontSelections(state.theme);
         }
         storage.load();
+        if (state.theme.slug === 'midnight-ledger') {
+            const preset = builtInThemePresets.find((entry) => entry.slug === state.selectedPreset);
+            state.theme = {
+                ...state.theme,
+                slug: `${preset?.slug ?? 'default'}-custom`,
+                name: preset?.name ?? 'Default'
+            };
+        }
+        const handedOff = takeHandedOffTheme();
+        if (handedOff) {
+            if (builtInThemePresets.some((entry) => entry.slug === handedOff.slug)) {
+                state.selectedPreset = handedOff.slug;
+                state.previousPreset = handedOff.slug;
+            }
+            applyTheme(handedOff);
+        }
         state.previousRadius = state.theme.radius;
         state.previousDensity = state.theme.density;
         state.previousMotion = state.theme.motion;
@@ -386,43 +440,97 @@ export function createThemeEditor() {
         const css = generatedCss;
         document.documentElement.style.removeProperty('--font-sans');
         applyLiveThemeCss(css);
+        untrack(() => {
+            state.appliedRevision += 1;
+        });
         saveStudioTheme(exportedTheme);
         storage.save();
     });
     const tokens = createThemeTokenEditor(state, () => appMode);
-    let copyTimer: ReturnType<typeof setTimeout> | undefined;
-    function acknowledgeCopy(key: 'css' | 'json') {
-        clearTimeout(copyTimer);
-        state.copiedKey = key;
-        toast({
-            title: key === 'css' ? 'CSS copied' : 'JSON copied',
-            description: 'The draft is ready to paste into your project.',
-            type: 'success',
-            duration: 1600
-        });
-        copyTimer = setTimeout(() => {
-            state.copiedKey = null;
-        }, 1200);
-    }
-    onDestroy(() => {
-        clearTimeout(copyTimer);
+    let sharedTheme = $state<Theme | null>(null);
+    let shareLink = $state('');
+
+    onMount(() => {
+        const hash = window.location.hash;
+        if (!hash.startsWith('#theme=')) {
+            return;
+        }
+        window.history.replaceState(
+            window.history.state,
+            '',
+            window.location.pathname + window.location.search
+        );
+        void readSharedTheme(hash)
+            .then((json) => {
+                sharedTheme = json ? parseTheme(JSON.parse(json)) : null;
+            })
+            .catch(() => {
+                toast.error('That theme link could not be read');
+            });
     });
+
+    $effect(() => {
+        const json = generatedJson;
+        let current = true;
+        void themeShareLink(json, window.location.origin)
+            .then((link) => {
+                if (current) {
+                    shareLink = link;
+                }
+            })
+            .catch(() => {
+                shareLink = '';
+            });
+
+        return () => {
+            current = false;
+        };
+    });
+
+    const history = createThemeHistory(state);
+
+    function acceptSharedTheme() {
+        if (!sharedTheme) {
+            return;
+        }
+        const theme = sharedTheme;
+        sharedTheme = null;
+        applyTheme(theme);
+        toast.success('Shared theme loaded');
+    }
+
+    function dismissSharedTheme() {
+        sharedTheme = null;
+    }
     return {
         state,
         tokens,
-        acknowledgeCopy,
+        history,
         setEdgeHighlightEnabled,
         resetTheme,
         updateBrand,
         updateFoundationColor,
         updateRoleWeight,
-        headerSliderProps,
         confirmPresetChange,
+        acceptSharedTheme,
+        dismissSharedTheme,
+        get baseline() {
+            return baseline;
+        },
+        get sharedTheme() {
+            return sharedTheme;
+        },
+        get shareLink() {
+            return shareLink;
+        },
         get appMode() {
             return appMode;
         },
         get appModeBinding() {
             return appModeBinding;
+        },
+        get changes() {
+            return changedAxisCount;
         },
         get generatedCss() {
             return generatedCss;

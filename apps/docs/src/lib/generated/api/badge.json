@@ -8,7 +8,7 @@
                 "required": false,
                 "bindable": false,
                 "default": "'secondary'",
-                "description": "",
+                "description": "Color and emphasis. Status variants pair their color with your text.",
                 "inherited": false
             },
             {
@@ -17,7 +17,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Icon component shown before the label.",
                 "inherited": false
             },
             {
@@ -26,7 +26,7 @@
                 "required": false,
                 "bindable": false,
                 "default": "13",
-                "description": "",
+                "description": "Icon size in pixels.",
                 "inherited": false
             },
             {
@@ -35,7 +35,7 @@
                 "required": false,
                 "bindable": false,
                 "default": "false",
-                "description": "",
+                "description": "Shows a small status dot before the label.",
                 "inherited": false
             },
             {
@@ -44,7 +44,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Content rendered inside.",
                 "inherited": false
             },
             {
@@ -53,7 +53,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Classes added to the element.",
                 "inherited": false
             },
             {
@@ -62,7 +62,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Renders the badge as a link to this address.",
                 "inherited": false
             },
             0,
@@ -164,6 +164,14 @@
             96,
             97,
             98,
+            7425,
+            7426,
+            7427,
+            7428,
+            7429,
+            7430,
+            7431,
+            7432,
             7433,
             7434,
             7435,
@@ -207,6 +215,12 @@
             7473,
             7474,
             7475,
+            150,
+            151,
+            152,
+            153,
+            154,
+            155,
             7476,
             7477,
             7478,
@@ -215,12 +229,6 @@
             7481,
             7482,
             7483,
-            150,
-            151,
-            152,
-            153,
-            154,
-            155,
             7484,
             7485,
             7486,
@@ -479,14 +487,6 @@
             7739,
             7740,
             7741,
-            7742,
-            7743,
-            7744,
-            7745,
-            7746,
-            7747,
-            7748,
-            7749,
             422,
             423,
             424,
@@ -494,14 +494,14 @@
             426,
             427,
             428,
+            5263,
             5264,
-            5265,
-            5266,
-            5267,
-            5268,
-            5269,
-            5270,
-            5271
+            4299,
+            4300,
+            4301,
+            1722,
+            4302,
+            4303
         ]
     }
 ]

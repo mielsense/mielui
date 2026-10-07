@@ -22,13 +22,24 @@ export type MessageLabels = {
 };
 
 export type MessageRootProps = {
+    /**
+     * Overrides the built-in text and accessible names. Every key is optional and English is the
+     * fallback.
+     */
     labels?: MessageLabels;
+    /** Who sent the message. It sets the alignment and style. */
     from?: MessageFrom;
+    /** Current state of the message, such as streaming or failed. */
     status?: MessageStatus;
+    /** Sender name. */
     name?: string;
+    /** Time shown with the message. */
     timestamp?: string;
+    /** Avatar shown beside the message. */
     avatar?: Snippet;
+    /** Replaces the default arrangement of avatar, header, and content. */
     layout?: Snippet;
+    /** Content rendered inside. */
     children?: Snippet;
 } & DefaultProps &
     Omit<HTMLAttributes<HTMLElement>, 'children' | 'aria-busy'>;

@@ -44,7 +44,7 @@
                 "required": false,
                 "bindable": false,
                 "default": "'Show more'",
-                "description": "",
+                "description": "Text of the button while collapsed.",
                 "inherited": false
             },
             {
@@ -53,7 +53,7 @@
                 "required": false,
                 "bindable": false,
                 "default": "'Show less'",
-                "description": "",
+                "description": "Text of the button while expanded.",
                 "inherited": false
             },
             {
@@ -71,7 +71,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Called with the new state when it expands or collapses.",
                 "inherited": false
             },
             {
@@ -80,7 +80,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "Full content. With preview, this subtree is hidden and inert while collapsed.",
+                "description": "Full content. With preview, this subtree is hidden and inert while collapsed. Content rendered inside.",
                 "inherited": false
             },
             {
@@ -107,7 +107,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Classes added to the element.",
                 "inherited": false
             },
             0,

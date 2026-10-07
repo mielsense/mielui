@@ -2,15 +2,22 @@
     import { CodeBlock } from '@mielui/svelte/components/code-block';
     import * as Typography from '@mielui/svelte/components/typography';
     import { ComponentPreview, InstallCommand } from '$lib/components/docs';
+    import InlineText from '$lib/components/docs/inline-text.svelte';
     import PageIntro from '$lib/components/docs/page-intro.svelte';
+    import AsyncConfirmExample from './examples/async-confirm.svelte';
+    import AsyncConfirmExampleSrc from './examples/async-confirm.svelte?raw';
     import Basic from './examples/basic.svelte';
     import BasicSrc from './examples/basic.svelte?raw';
+    import DestructiveExample from './examples/destructive.svelte';
+    import DestructiveExampleSrc from './examples/destructive.svelte?raw';
     import Glass from './examples/glass.svelte';
     import GlassSrc from './examples/glass.svelte?raw';
     import Hero from './examples/hero.svelte';
     import HeroSrc from './examples/hero.svelte?raw';
     import Nested from './examples/nested.svelte';
     import NestedSrc from './examples/nested.svelte?raw';
+    import RequiredChoiceExample from './examples/required-choice.svelte';
+    import RequiredChoiceExampleSrc from './examples/required-choice.svelte?raw';
     import Compact from './examples/size-compact.svelte';
     import CompactSrc from './examples/size-compact.svelte?raw';
     import Large from './examples/size-large.svelte';
@@ -140,5 +147,66 @@
             and respects reduced-transparency preferences.
         </Typography.Text>
         <ComponentPreview code={GlassSrc}><Glass /></ComponentPreview>
+    </section>
+    <section id="dismissal" class="flex flex-col gap-4">
+        <Typography.H2 class="docs-section-heading">Dismissal</Typography.H2>
+        <Typography.Text variant="supporting">
+            <InlineText
+                text={"A dialog closes four ways: the corner button, Escape, a press outside the panel, and its own Close or Confirm buttons. Content has a switch for each of the first three. `showClose={false}` removes the corner button, `allowEscape={false}` ignores Escape, and `allowClickOutside={false}` ignores presses on the backdrop."}
+            />
+        </Typography.Text>
+        <Typography.Text variant="supporting">
+            <InlineText
+                text={"Turn all three off when the person has to make a choice, and leave at least one button in the footer so they are never stuck."}
+            />
+        </Typography.Text>
+        <ComponentPreview code={RequiredChoiceExampleSrc}>
+            <RequiredChoiceExample />
+        </ComponentPreview>
+    </section>
+    <section id="action-buttons" class="flex flex-col gap-4">
+        <Typography.H2 class="docs-section-heading">Action buttons</Typography.H2>
+        <Typography.Text variant="supporting">
+            <InlineText
+                text={"Close and Confirm close the dialog after their `onclick` runs. Call `event.preventDefault()` inside `onclick` to keep it open, then set `open` to false yourself when the work is done. Pair that with `loading` and `loadingLabel` so the button shows progress and ignores a second click."}
+            />
+        </Typography.Text>
+        <Typography.Text variant="supporting">
+            <InlineText
+                text={"Trigger, Close and Confirm are built on [Button](/docs/components/button), so they accept its props. `variant` and `size` change the look, `disabled` blocks activation, and `href` renders a link. `loading` shows a spinner and ignores clicks, and `loadingLabel`, `successLabel` and `errorLabel` set the text for each state. `unstyled` removes the Button classes so `class` alone styles the part. `onclick` and `onkeydown` run before the part does its own work. Confirm defaults to the primary variant and Close to ghost."}
+            />
+        </Typography.Text>
+        <ComponentPreview code={AsyncConfirmExampleSrc}>
+            <AsyncConfirmExample />
+        </ComponentPreview>
+    </section>
+    <section id="destructive" class="flex flex-col gap-4">
+        <Typography.H2 class="docs-section-heading">Destructive dialogs</Typography.H2>
+        <Typography.Text variant="supporting">
+            <InlineText
+                text={"Set `error` on Root when confirming is destructive. Confirm switches to the destructive variant unless you pass your own `variant`, and browsers that tint their toolbar from the page's theme color turn it red while the dialog is open."}
+            />
+        </Typography.Text>
+        <ComponentPreview code={DestructiveExampleSrc}>
+            <DestructiveExample />
+        </ComponentPreview>
+    </section>
+    <section id="styling-layers" class="flex flex-col gap-4">
+        <Typography.H2 class="docs-section-heading">Styling the layers</Typography.H2>
+        <Typography.Text variant="supporting">
+            <InlineText
+                text={"Content renders three nested layers and takes a class for each. `overlayClass` styles the backdrop, `contentClass` the positioned dialog element, and `surfaceClass` the inner surface that holds your parts. `class` goes on the frame between them. The `style` attribute lands on the same frame."}
+            />
+        </Typography.Text>
+        <Typography.Text variant="supporting">
+            <InlineText
+                text={"The panel gets an id built from `panelIdPrefix` and a generated suffix. Change the prefix when a test or an `aria-controls` elsewhere needs a predictable start."}
+            />
+        </Typography.Text>
+        <Typography.Text variant="supporting">
+            <InlineText
+                text={"Header, Title, Description, Body and Footer render their `children` and accept `class` and `style` like any element."}
+            />
+        </Typography.Text>
     </section>
 </div>

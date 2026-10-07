@@ -2,17 +2,22 @@
     import { CodeBlock } from '@mielui/svelte/components/code-block';
     import * as Typography from '@mielui/svelte/components/typography';
     import { ComponentPreview, InstallCommand } from '$lib/components/docs';
+    import InlineText from '$lib/components/docs/inline-text.svelte';
     import PageIntro from '$lib/components/docs/page-intro.svelte';
     import ContentOnly from './examples/content-only.svelte';
     import ContentOnlySrc from './examples/content-only.svelte?raw';
     import Full from './examples/full.svelte';
     import FullSrc from './examples/full.svelte?raw';
+    import Glass from './examples/glass.svelte';
+    import GlassSrc from './examples/glass.svelte?raw';
     import HeaderFooter from './examples/header-footer.svelte';
     import HeaderFooterSrc from './examples/header-footer.svelte?raw';
     import Hero from './examples/hero.svelte';
     import HeroSrc from './examples/hero.svelte?raw';
     import Inset from './examples/inset.svelte';
     import InsetSrc from './examples/inset.svelte?raw';
+    import InsetPosition from './examples/inset-position.svelte';
+    import InsetPositionSrc from './examples/inset-position.svelte?raw';
     import Panel from './examples/panel.svelte';
     import PanelSrc from './examples/panel.svelte?raw';
 
@@ -76,6 +81,23 @@
     </section>
 
     <!-- ─── Examples ──────────────────────────────────────────────── -->
+    <section id="glass" class="flex flex-col gap-4">
+        <Typography.H2 class="docs-section-heading">Glass surface</Typography.H2>
+        <Typography.Text variant="supporting">
+            Set{' '}
+            <Typography.InlineCode>surface="glass"</Typography.InlineCode>
+            on Root to frost the card so a backdrop behind it shows through. On inset and panel
+            cards only the frame is frosted. The content stays on a solid surface, so text keeps its
+            contrast. A default card has one surface, which turns translucent.
+        </Typography.Text>
+        <Typography.Text variant="supporting">
+            Cards are solid unless you ask for glass. They do not follow the theme's glass setting
+            the way overlays do. The frame follows the border setting: double borders show it as a
+            gutter around the surface, and single borders show it as the footer strip. Without
+            backdrop filter support, or with reduced transparency, the card stays solid.
+        </Typography.Text>
+        <ComponentPreview code={GlassSrc}><Glass /></ComponentPreview>
+    </section>
     <section id="examples" class="scroll-mt-20 flex flex-col gap-10">
         <div>
             <Typography.H2 class="docs-section-heading">Examples</Typography.H2>
@@ -83,6 +105,9 @@
 
         <div id="full" class="scroll-mt-20 flex flex-col gap-3">
             <Typography.H3 class="docs-subsection-heading">Full composition</Typography.H3>
+            <Typography.Text variant="supporting">
+                Header, Content and Footer together. The footer holds the actions and a status line.
+            </Typography.Text>
             <ComponentPreview code={FullSrc}>
                 <Full />
             </ComponentPreview>
@@ -90,6 +115,9 @@
 
         <div id="content-only" class="scroll-mt-20 flex flex-col gap-3">
             <Typography.H3 class="docs-subsection-heading">Content only</Typography.H3>
+            <Typography.Text variant="supporting">
+                A card can be Content alone, for a single figure or a short note.
+            </Typography.Text>
             <ComponentPreview code={ContentOnlySrc}>
                 <ContentOnly />
             </ComponentPreview>
@@ -97,6 +125,10 @@
 
         <div id="header-footer" class="scroll-mt-20 flex flex-col gap-3">
             <Typography.H3 class="docs-subsection-heading">Header and footer</Typography.H3>
+            <Typography.Text variant="supporting">
+                Leave Content out when the title and description say everything. The footer then
+                sits one step under the header.
+            </Typography.Text>
             <ComponentPreview code={HeaderFooterSrc}>
                 <HeaderFooter />
             </ComponentPreview>
@@ -104,6 +136,10 @@
 
         <div id="panel" class="scroll-mt-20 flex flex-col gap-3">
             <Typography.H3 class="docs-subsection-heading">Panel frame</Typography.H3>
+            <Typography.Text variant="supporting">
+                The panel variant draws an inner ring around the surface. It suits compact,
+                read-only details.
+            </Typography.Text>
             <ComponentPreview code={PanelSrc}>
                 <Panel />
             </ComponentPreview>
@@ -111,9 +147,48 @@
 
         <div id="inset" class="scroll-mt-20 flex flex-col gap-3">
             <Typography.H3 class="docs-subsection-heading">Inset frame</Typography.H3>
+            <Typography.Text variant="supporting">
+                The inset variant puts the content on an inner surface and the footer on the frame
+                under it.
+            </Typography.Text>
             <ComponentPreview code={InsetSrc}>
                 <Inset />
             </ComponentPreview>
         </div>
+
+        <div id="inset-position" class="scroll-mt-20 flex flex-col gap-3">
+            <Typography.H3 class="docs-subsection-heading">Footer position</Typography.H3>
+            <Typography.Text variant="supporting">
+                <InlineText
+                    text={"An inset card shows its footer under the content by default. The `--mielui-inset-position` token moves it and takes `bottom` or `top`. You write the Footer in the same place either way, and the card reorders it."}
+                />
+            </Typography.Text>
+            <Typography.Text variant="supporting">
+                <InlineText
+                    text={'Set the token on one card with `class="[--mielui-inset-position:top]"`, as this example does. To move the strip on every inset card, dialog and toast at once, set it on `:root` in your CSS after importing `ui.css`, or choose Surface, then Inset strip, in Theme Studio.'}
+                />
+            </Typography.Text>
+            <ComponentPreview code={InsetPositionSrc}>
+                <InsetPosition />
+            </ComponentPreview>
+            <CodeBlock
+                code={`:root {\n    --mielui-inset-position: top;\n}`}
+                lang="css"
+                copy="overlay"
+            />
+        </div>
+    </section>
+    <section id="parts" class="flex flex-col gap-4">
+        <Typography.H2 class="docs-section-heading">Parts</Typography.H2>
+        <Typography.Text variant="supporting">
+            <InlineText
+                text={"A card is assembled from parts, and you include only the ones you need. A card with just Content is as valid as one with a header and a footer."}
+            />
+        </Typography.Text>
+        <Typography.Text variant="supporting">
+            <InlineText
+                text={"Root, Header, Title, Description, Content and Footer render their `children` and accept `class` and `style` like any element."}
+            />
+        </Typography.Text>
     </section>
 </div>

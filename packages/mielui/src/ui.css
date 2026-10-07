@@ -1,7 +1,7 @@
-@import '@fontsource/inter/latin-400.css';
-@import '@fontsource/inter/latin-500.css';
-@import '@fontsource/inter/latin-600.css';
-@import '@fontsource/inter/latin-700.css';
+@import '@fontsource/manrope/latin-400.css';
+@import '@fontsource/manrope/latin-500.css';
+@import '@fontsource/manrope/latin-600.css';
+@import '@fontsource/manrope/latin-700.css';
 @import '@fontsource/jetbrains-mono/latin-400.css';
 @import '@fontsource/jetbrains-mono/latin-500.css';
 @import '@fontsource/jetbrains-mono/latin-600.css';
@@ -18,10 +18,10 @@
     --chart-4: #8ed8b0;
     --chart-5: #f2d77d;
     --mielui-border-inset-scale: 0;
-    --mielui-surface: glass;
+    --mielui-surface: solid;
     --mielui-inset-position: bottom;
 
-    --font-sans: 'Inter', sans-serif;
+    --font-sans: 'Manrope', sans-serif;
     --font-mono: 'JetBrains Mono', monospace;
     --font-header: var(--font-sans);
 
@@ -174,7 +174,7 @@
     --color-foreground-muted: var(--mielui-neutral-500);
     --color-primary: #ba7ca5;
     --color-primary-hover: color-mix(in srgb, var(--color-primary) 88%, white);
-    --color-on-primary: #21151e;
+    --color-on-primary: #ffffff;
     --color-button-foreground: var(--color-foreground);
     --color-primary-stroke: color-mix(in srgb, black 14%, transparent);
     --color-accent-tint: var(--mielui-blue-50);
@@ -242,6 +242,7 @@
     --mielui-warning: hsl(37.3 72.6% 55.7%);
     --mielui-error: hsl(0 66.7% 63.5%);
     --color-primary-stroke: color-mix(in srgb, white 24%, transparent);
+    --color-on-primary: #21151e;
     --color-background: hsl(0 0% 4%);
     --color-card: hsl(0 0% 9%);
     --color-panel: hsl(0 0% 11.5%);
@@ -340,6 +341,11 @@
 
     .mielui-menu-item:hover {
         cursor: default;
+    }
+
+    /* Truncated text hides its overflow, which cuts descenders at a line height of 1. */
+    .mielui-menu-item .truncate {
+        line-height: normal;
     }
 
     .mielui-menu-item > kbd {

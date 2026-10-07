@@ -69,7 +69,7 @@
     aria-busy={isPending}
     aria-label={actionLabel}
     onclick={handleClick}
-    class={cn(className, 'ms-auto size-[calc(var(--size-control-md)-var(--size-hairline))] shrink-0 rounded-full p-0')}
+    class={cn(className, 'ms-auto size-[var(--size-icon-md)] shrink-0 rounded-full p-0')}
 >
     {#if children}
         {@render children({ action, generating: context.generating ?? false, empty })}
@@ -78,6 +78,6 @@
     {:else if action === 'stop'}
         <HugeiconsIcon icon={Square} size={8} fill="currentColor" aria-hidden="true" />
     {:else}
-        <HugeiconsIcon icon={ArrowUp02Icon} size={16} aria-hidden="true" />
+        <HugeiconsIcon icon={ArrowUp02Icon} size={15} aria-hidden="true" />
     {/if}
 </Button>

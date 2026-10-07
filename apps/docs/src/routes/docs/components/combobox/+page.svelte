@@ -2,6 +2,7 @@
     import { CodeBlock } from '@mielui/svelte/components/code-block';
     import * as Typography from '@mielui/svelte/components/typography';
     import { ComponentPreview, InstallCommand } from '$lib/components/docs';
+    import InlineText from '$lib/components/docs/inline-text.svelte';
     import PageIntro from '$lib/components/docs/page-intro.svelte';
     import Basic from './examples/basic.svelte';
     import BasicSrc from './examples/basic.svelte?raw';
@@ -15,8 +16,12 @@
     import MenuSearchSrc from './examples/menu-search.svelte?raw';
     import Multiple from './examples/multiple.svelte';
     import MultipleSrc from './examples/multiple.svelte?raw';
+    import PlacementExample from './examples/placement.svelte';
+    import PlacementExampleSrc from './examples/placement.svelte?raw';
     import Scrollable from './examples/scrollable.svelte';
     import ScrollableSrc from './examples/scrollable.svelte?raw';
+    import ThresholdExample from './examples/threshold.svelte';
+    import ThresholdExampleSrc from './examples/threshold.svelte?raw';
 
     const TITLE = 'Combobox';
     const SLUG = 'combobox';
@@ -185,5 +190,45 @@
             lang="svelte"
             copy="overlay"
         />
+    </section>
+    <section id="matching" class="flex flex-col gap-4">
+        <Typography.H2 class="docs-section-heading">Matching typed text</Typography.H2>
+        <Typography.Text variant="supporting">
+            <InlineText
+                text={"The combobox filters with fuzzy matching, so a small typo still finds the option. `threshold` on Trigger sets how forgiving it is, from 0 for an exact match to 1 for nearly anything. The default is 0.28. Lower it for lists of codes or ids where a near miss is a wrong answer."}
+            />
+        </Typography.Text>
+        <ComponentPreview code={ThresholdExampleSrc}>
+            <ThresholdExample />
+        </ComponentPreview>
+    </section>
+    <section id="opening" class="flex flex-col gap-4">
+        <Typography.H2 class="docs-section-heading">Opening and placement</Typography.H2>
+        <Typography.Text variant="supporting">
+            <InlineText
+                text={"`placement` on Root picks the side and alignment of the list, such as `top-start`. It defaults to `bottom` and flips when there is no room. `onOpenChange` runs when the person opens or closes the list, and `onopen` on Trigger runs just before it opens, which is the place to fetch options."}
+            />
+        </Typography.Text>
+        <Typography.Text variant="supporting">
+            <InlineText
+                text={"`hoverable` opens the list when the pointer rests on the trigger, with `delay` and `closeDelay` in milliseconds. `inert` is on by default and makes the rest of the page inert while a click-opened list is showing. `stateKey` names the instance's state, and `state_key` is its older spelling."}
+            />
+        </Typography.Text>
+        <ComponentPreview code={PlacementExampleSrc}>
+            <PlacementExample />
+        </ComponentPreview>
+    </section>
+    <section id="panel-and-items" class="flex flex-col gap-4">
+        <Typography.H2 class="docs-section-heading">Panel and items</Typography.H2>
+        <Typography.Text variant="supporting">
+            <InlineText
+                text={"Content shares its panel with Popover. `allowClickOutside={false}` keeps the list open on an outside press, and `dismissLayer={false}` removes the invisible layer that catches the first outside press, which the input-style trigger relies on to stay typeable. `focusTrap` and `lockScroll` decide whether Tab and page scrolling are held while it is open. `portal={false}` renders the list in place, `refElement` anchors it to another element, and `role` and `tabindex` set the panel's ARIA role and tab index. `surfaceClass` styles the inner surface while `class` styles the frame."}
+            />
+        </Typography.Text>
+        <Typography.Text variant="supporting">
+            <InlineText
+                text={"Item is built on [Button](/docs/components/button). `size` changes the row height. A row is always a button and does not take `href`. `status` or `loading` show progress on a row, with `loadingLabel`, `successLabel` and `errorLabel` as the text for each state. `unstyled` removes the Button classes and `onkeydown` runs before the list handles the key. Trigger takes `size`, `style` and `unstyled` the same way."}
+            />
+        </Typography.Text>
     </section>
 </div>

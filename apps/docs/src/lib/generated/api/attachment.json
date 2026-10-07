@@ -8,7 +8,7 @@
                 "required": true,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "The file this item shows.",
                 "inherited": false
             },
             {
@@ -17,7 +17,7 @@
                 "required": false,
                 "bindable": false,
                 "default": "'card'",
-                "description": "",
+                "description": "`card` shows a thumbnail and details. `chip` is a compact pill.",
                 "inherited": false
             },
             {
@@ -26,7 +26,7 @@
                 "required": false,
                 "bindable": false,
                 "default": "'ready'",
-                "description": "",
+                "description": "Upload state shown on the item.",
                 "inherited": false
             },
             {
@@ -35,7 +35,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Upload progress from 0 to 100.",
                 "inherited": false
             },
             {
@@ -44,7 +44,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Message shown when the upload failed.",
                 "inherited": false
             },
             {
@@ -53,7 +53,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Called when the remove button is pressed.",
                 "inherited": false
             },
             {
@@ -62,7 +62,7 @@
                 "required": false,
                 "bindable": false,
                 "default": "true",
-                "description": "",
+                "description": "Shows the remove button.",
                 "inherited": false
             },
             {
@@ -71,7 +71,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Classes added to the element.",
                 "inherited": false
             },
             0,
@@ -514,7 +514,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Accessible name of the list.",
                 "inherited": false
             },
             {
@@ -523,7 +523,7 @@
                 "required": false,
                 "bindable": false,
                 "default": "'card'",
-                "description": "",
+                "description": "`card` shows a thumbnail and details. `chip` is a compact pill.",
                 "inherited": false
             },
             {
@@ -532,7 +532,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Classes added to the element.",
                 "inherited": false
             },
             0,
@@ -975,7 +975,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Overrides the built-in text and accessible names. Every key is optional and English is the fallback.",
                 "inherited": false
             },
             {
@@ -984,7 +984,7 @@
                 "required": false,
                 "bindable": true,
                 "default": "[]",
-                "description": "",
+                "description": "Attached files. Bindable.",
                 "inherited": false
             },
             {
@@ -993,7 +993,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Accepted file types, written as for a file input.",
                 "inherited": false
             },
             {
@@ -1002,7 +1002,7 @@
                 "required": false,
                 "bindable": false,
                 "default": "true",
-                "description": "",
+                "description": "Allows choosing more than one file.",
                 "inherited": false
             },
             {
@@ -1011,7 +1011,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Largest number of files.",
                 "inherited": false
             },
             {
@@ -1020,7 +1020,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Largest file size in bytes.",
                 "inherited": false
             },
             {
@@ -1029,7 +1029,7 @@
                 "required": false,
                 "bindable": false,
                 "default": "false",
-                "description": "",
+                "description": "Prevents interaction and dims the control.",
                 "inherited": false
             },
             {
@@ -1038,7 +1038,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Called with the files that were refused and the reason for each.",
                 "inherited": false
             },
             {
@@ -1047,7 +1047,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Classes added to the element.",
                 "inherited": false
             },
             {
@@ -1056,7 +1056,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Content rendered inside.",
                 "inherited": false
             },
             0,
@@ -1499,7 +1499,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Classes added to the element.",
                 "inherited": false
             },
             {
@@ -1508,7 +1508,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Content rendered inside.",
                 "inherited": false
             },
             {
@@ -1517,7 +1517,7 @@
                 "required": false,
                 "bindable": true,
                 "default": null,
-                "description": "",
+                "description": "Bindable reference to the DOM element.",
                 "inherited": false
             },
             {
@@ -1526,7 +1526,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Called when it is clicked or activated.",
                 "inherited": false
             },
             {
@@ -1535,16 +1535,16 @@
                 "required": false,
                 "bindable": false,
                 "default": "'ghost'",
-                "description": "",
+                "description": "Button style of the attach button.",
                 "inherited": false
             },
             {
                 "name": "size",
-                "type": "\"sm\" | \"md\" | \"lg\" | \"icon\" | undefined",
+                "type": "\"icon\" | \"lg\" | \"md\" | \"sm\" | undefined",
                 "required": false,
                 "bindable": false,
                 "default": "children ? 'md' : 'icon'",
-                "description": "",
+                "description": "Control height of the attach button. It defaults to an icon button when there is no label.",
                 "inherited": false
             },
             0,

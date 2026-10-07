@@ -904,7 +904,7 @@
                 "required": true,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Id of the element.",
                 "inherited": false
             },
             11,
@@ -1332,7 +1332,7 @@
                 "required": true,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Accessible name.",
                 "inherited": false
             }
         ]
@@ -1346,7 +1346,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Overrides the built-in text and accessible names. Every key is optional and English is the fallback.",
                 "inherited": false
             },
             {
@@ -1355,7 +1355,7 @@
                 "required": true,
                 "bindable": true,
                 "default": null,
-                "description": "",
+                "description": "Items in their current order. Bindable.",
                 "inherited": false
             },
             {
@@ -1364,7 +1364,7 @@
                 "required": true,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Returns a stable id for an item.",
                 "inherited": false
             },
             {
@@ -1373,7 +1373,7 @@
                 "required": true,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Returns the name announced for an item.",
                 "inherited": false
             },
             {
@@ -1382,7 +1382,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Content rendered inside.",
                 "inherited": false
             },
             {
@@ -1391,7 +1391,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Renders one item.",
                 "inherited": false
             },
             {
@@ -1400,7 +1400,7 @@
                 "required": true,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Accessible name.",
                 "inherited": false
             },
             {
@@ -1409,7 +1409,7 @@
                 "required": false,
                 "bindable": false,
                 "default": "false",
-                "description": "",
+                "description": "Prevents interaction and dims the control.",
                 "inherited": false
             },
             {
@@ -1418,7 +1418,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Called with the new order on every move.",
                 "inherited": false
             },
             {
@@ -1427,7 +1427,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Called once when a move is dropped or confirmed.",
                 "inherited": false
             },
             {
@@ -1436,7 +1436,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Classes added to the element.",
                 "inherited": false
             },
             0,

@@ -8,7 +8,7 @@
                 "required": false,
                 "bindable": false,
                 "default": "0.68",
-                "description": "",
+                "description": "Hole size as a share of the radius. Zero draws a full pie.",
                 "inherited": false
             },
             {
@@ -17,7 +17,7 @@
                 "required": false,
                 "bindable": false,
                 "default": "4",
-                "description": "",
+                "description": "Corner radius of each segment in pixels.",
                 "inherited": false
             },
             {
@@ -26,7 +26,7 @@
                 "required": false,
                 "bindable": false,
                 "default": "0.035",
-                "description": "",
+                "description": "Gap between segments in radians.",
                 "inherited": false
             },
             {
@@ -35,7 +35,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Classes added to the element.",
                 "inherited": false
             }
         ]
@@ -43,7 +43,7 @@
     {
         "name": "Label",
         "properties": [
-            6545,
+            6537,
             2681,
             10,
             11,
@@ -100,6 +100,14 @@
             96,
             97,
             98,
+            6538,
+            6539,
+            6540,
+            6541,
+            6542,
+            6543,
+            6544,
+            6545,
             6546,
             6547,
             6548,
@@ -143,6 +151,12 @@
             6586,
             6587,
             6588,
+            150,
+            151,
+            152,
+            153,
+            154,
+            155,
             6589,
             6590,
             6591,
@@ -151,12 +165,6 @@
             6594,
             6595,
             6596,
-            150,
-            151,
-            152,
-            153,
-            154,
-            155,
             6597,
             6598,
             6599,
@@ -415,14 +423,6 @@
             6852,
             6853,
             6854,
-            6855,
-            6856,
-            6857,
-            6858,
-            6859,
-            6860,
-            6861,
-            6862,
             422,
             423,
             424,
@@ -430,16 +430,24 @@
             426,
             427,
             428,
-            6543,
+            5263,
             1069,
-            6544,
+            6536,
             4300,
-            6863,
-            6864,
+            6855,
+            6856,
             3646,
             3648,
             3649,
             3655,
+            6857,
+            6858,
+            6859,
+            6860,
+            6861,
+            6862,
+            6863,
+            6864,
             6865,
             6866,
             6867,
@@ -674,21 +682,13 @@
             7096,
             7097,
             7098,
-            7099,
-            7100,
-            7101,
-            7102,
-            7103,
-            7104,
-            7105,
-            7106,
             {
                 "name": "children",
                 "type": "Snippet<[{ total: number; active: PieChartDatum | undefined; }]> | undefined",
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Content rendered inside.",
                 "inherited": false
             }
         ]
@@ -1132,7 +1132,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Content rendered inside.",
                 "inherited": false
             }
         ]
@@ -2020,7 +2020,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Overrides the built-in text and accessible names. Every key is optional and English is the fallback.",
                 "inherited": false
             },
             {
@@ -2029,7 +2029,7 @@
                 "required": true,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Segments to plot, each with a key and a value.",
                 "inherited": false
             },
             {
@@ -2038,7 +2038,7 @@
                 "required": true,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Label, color, and value format for each series, keyed by series.",
                 "inherited": false
             },
             {
@@ -2047,16 +2047,16 @@
                 "required": false,
                 "bindable": false,
                 "default": "false",
-                "description": "",
+                "description": "Shows the loading state in place of the content.",
                 "inherited": false
             },
             {
                 "name": "animation",
-                "type": "\"none\" | \"reveal\" | \"live\" | undefined",
+                "type": "\"reveal\" | \"live\" | \"none\" | undefined",
                 "required": false,
                 "bindable": false,
                 "default": "'reveal'",
-                "description": "",
+                "description": "`reveal` animates in once, `live` keeps a subtle motion running, and `none` is static.",
                 "inherited": false
             },
             {
@@ -2065,7 +2065,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Content rendered inside.",
                 "inherited": false
             }
         ]
@@ -2509,7 +2509,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Content rendered inside.",
                 "inherited": false
             }
         ]

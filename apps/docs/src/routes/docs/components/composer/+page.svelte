@@ -3,8 +3,11 @@
     import Kbd from '@mielui/svelte/components/kbd';
     import * as Typography from '@mielui/svelte/components/typography';
     import { ComponentPreview, InstallCommand } from '$lib/components/docs';
+    import InlineText from '$lib/components/docs/inline-text.svelte';
     import PageIntro from '$lib/components/docs/page-intro.svelte';
     import SectionHeading from '$lib/components/docs/section-heading.svelte';
+    import AllowEmptyExample from './examples/allow-empty.svelte';
+    import AllowEmptyExampleSrc from './examples/allow-empty.svelte?raw';
 
     import Attachments from './examples/attachments.svelte';
     import AttachmentsSrc from './examples/attachments.svelte?raw';
@@ -104,9 +107,9 @@ async function sendPrompt(prompt: string) {
     <section id="glass-surface" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Glass surface</Typography.H2>
         <Typography.Text variant="supporting">
-            Composer follows the theme's surface setting, which defaults to glass: a frosted frame
-            with a darker input well. Set surface="glass" or surface="solid" on Composer.Root to
-            force one regardless of the theme.
+            Composer follows the theme's surface setting, which is solid by default. Glass gives it
+            a frosted frame with a darker input well. Set surface="glass" or surface="solid" on
+            Composer.Root to force one regardless of the theme.
         </Typography.Text>
         <ComponentPreview code={GlassSource}><Glass /></ComponentPreview>
     </section>
@@ -158,12 +161,45 @@ async function sendPrompt(prompt: string) {
         <div id="toolbar-inset" class="scroll-mt-20 flex flex-col gap-3">
             <Typography.H3 class="docs-subsection-heading">Toolbar placement</Typography.H3>
             <Typography.Text variant="supporting">
-                The toolbar sits on the frame below the input by default. Set
+                The toolbar joins the input on one surface by default. Set{' '}
                 <Typography.InlineCode>variant="inset"</Typography.InlineCode>
-                to join the toolbar to the input surface instead. Outline buttons and triggers in
-                the toolbar render as flat pills at one height.
+                {' '}
+                to put the input on its own inset surface with the toolbar in the frame under it,
+                the way an inset Card holds its footer. Outline buttons and triggers in the toolbar
+                render as flat pills at one height.
             </Typography.Text>
             <ComponentPreview code={ToolbarInsetSrc}><ToolbarInset /></ComponentPreview>
         </div>
+    </section>
+    <section id="empty-and-disabled" class="flex flex-col gap-4">
+        <Typography.H2 class="docs-section-heading"
+            >Empty messages and the disabled state</Typography.H2
+        >
+        <Typography.Text variant="supporting">
+            <InlineText
+                text={"Submit is disabled while the input is empty. Set `allowEmpty` on Root when a message can be only attachments, so it can be sent with no text. `disabled` on Root turns off the input and the button together."}
+            />
+        </Typography.Text>
+        <Typography.Text variant="supporting">
+            <InlineText
+                text={"Submit changes job as the conversation moves. While a response is generating and the input is empty it stops the response, and with text typed it queues the next message. `stopLabel` and `queueLabel` are its accessible names in those two states, and `loadingLabel` names it while `onSubmit` is pending. Its `onclick` runs first, and calling `preventDefault()` there cancels the stop."}
+            />
+        </Typography.Text>
+        <ComponentPreview code={AllowEmptyExampleSrc}>
+            <AllowEmptyExample />
+        </ComponentPreview>
+    </section>
+    <section id="parts" class="flex flex-col gap-4">
+        <Typography.H2 class="docs-section-heading">Parts</Typography.H2>
+        <Typography.Text variant="supporting">
+            <InlineText
+                text={"Input and Submit accept `element` to bind the textarea and the button."}
+            />
+        </Typography.Text>
+        <Typography.Text variant="supporting">
+            <InlineText
+                text={"Root, Header, Toolbar, Actions and Submit render their `children` and accept `class` and `style` like any element."}
+            />
+        </Typography.Text>
     </section>
 </div>

@@ -4,7 +4,19 @@
     import type { CardProps } from '.';
     import { type CardFooterSlot, setCardContext } from './context.svelte';
 
-    let { children, class: classProp, variant = 'default', ...rest }: CardProps = $props();
+    let {
+        children,
+        class: classProp,
+        variant = 'default',
+        surface = 'solid',
+        ...rest
+    }: CardProps = $props();
+
+    const blur =
+        'backdrop-blur-[calc(var(--spacing)*7)] backdrop-saturate-150 [@media(prefers-reduced-transparency:reduce)]:backdrop-filter-none';
+    const frameGlass = `${blur} border-foreground/10! supports-[backdrop-filter:blur(0)]:bg-foreground/[0.06]! supports-[backdrop-filter:blur(0)]:dark:bg-black/45! supports-[backdrop-filter:blur(0)]:bg-[linear-gradient(rgb(255_255_255/0.25),rgb(255_255_255/0.25))] supports-[backdrop-filter:blur(0)]:dark:bg-none [@media(prefers-reduced-transparency:reduce)]:bg-none [@media(prefers-reduced-transparency:reduce)]:bg-secondary!`;
+    const surfaceGlass = `${blur} border-foreground/10! supports-[backdrop-filter:blur(0)]:bg-card/75! [@media(prefers-reduced-transparency:reduce)]:bg-card!`;
+    const glass = $derived(surface === 'glass');
     const card = $state({
         get variant() {
             return variant;
@@ -19,10 +31,12 @@
         use:insetLayout
         data-ui="card"
         data-variant="inset"
+        data-surface={surface}
         {...rest}
         class={cn(
             classProp,
-            'mielui-modal-frame flex flex-col overflow-hidden shadow-[var(--elevation-1)]'
+            'mielui-modal-frame flex flex-col overflow-hidden shadow-[var(--elevation-1)]',
+            glass && frameGlass
         )}
     >
         <div
@@ -48,8 +62,9 @@
     <div
         data-ui="card"
         data-variant="panel"
+        data-surface={surface}
         {...rest}
-        class={cn(classProp, 'mielui-card-frame flex flex-col')}
+        class={cn(classProp, 'mielui-card-frame flex flex-col', glass && frameGlass)}
     >
         <div
             data-ui="card-surface"
@@ -62,10 +77,12 @@
     <div
         data-ui="card"
         data-variant="default"
+        data-surface={surface}
         {...rest}
         class={cn(
             classProp,
-            'flex flex-col rounded-[var(--radius-lg)] border-[length:var(--border-size)] border-border bg-card p-6'
+            'flex flex-col rounded-[var(--radius-lg)] border-[length:var(--border-size)] border-border bg-card p-6',
+            glass && surfaceGlass
         )}
     >
         {@render children?.()}

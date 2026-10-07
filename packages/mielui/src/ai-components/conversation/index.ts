@@ -11,6 +11,7 @@ export type ConversationRootProps = {
     follow?: boolean;
     /** Distance from the bottom, in pixels, that still counts as following. */
     threshold?: number;
+    /** Content rendered inside. */
     children?: Snippet;
 } & DefaultProps &
     Omit<HTMLAttributes<HTMLDivElement>, 'children'>;
@@ -22,16 +23,23 @@ export type ConversationContentProps = {
     Omit<HTMLAttributes<HTMLDivElement>, 'children' | 'role' | 'aria-live' | 'aria-relevant'>;
 
 export type ConversationEmptyProps = {
+    /** Icon shown above the title. */
     icon?: Snippet;
+    /** Heading of the empty state. */
     title?: string;
+    /** Text under the heading. */
     description?: string;
+    /** Action shown under the text. */
     action?: Snippet;
+    /** Content rendered inside. */
     children?: Snippet;
 } & DefaultProps &
     Omit<HTMLAttributes<HTMLDivElement>, 'children'>;
 
 export type ConversationScrollButtonProps = {
+    /** Accessible name of the button. */
     label?: string;
+    /** Classes added to the element. */
     class?: string;
 } & Omit<
     HTMLButtonAttributes,

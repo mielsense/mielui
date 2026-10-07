@@ -2,6 +2,7 @@
     import { CodeBlock } from '@mielui/svelte/components/code-block';
     import * as Typography from '@mielui/svelte/components/typography';
     import { ComponentPreview, InstallCommand } from '$lib/components/docs';
+    import InlineText from '$lib/components/docs/inline-text.svelte';
     import PageIntro from '$lib/components/docs/page-intro.svelte';
     import Hero from './examples/hero.svelte';
     import HeroSrc from './examples/hero.svelte?raw';
@@ -9,6 +10,8 @@
     import RemoteSrc from './examples/remote.svelte?raw';
     import RemoteBasic from './examples/remote-basic.svelte';
     import RemoteBasicSrc from './examples/remote-basic.svelte?raw';
+    import StatusToneExample from './examples/status-tone.svelte';
+    import StatusToneExampleSrc from './examples/status-tone.svelte?raw';
 
     const RemoteServerSrc =
         "import { invalid } from '@sveltejs/kit';\nimport { form } from '$app/server';\nimport * as v from 'valibot';\n\nexport const validateProfile = form(\n    v.object({\n        username: v.pipe(\n            v.string(),\n            v.trim(),\n            v.minLength(3, 'Use at least 3 characters.'),\n            v.maxLength(40, 'Use at most 40 characters.')\n        ),\n        email: v.pipe(v.string(), v.email('Enter a valid email address.')),\n        intent: v.picklist(['validate', 'validate-reset'])\n    }),\n    async ({ username, intent }, issue) => {\n        await new Promise((resolve) => setTimeout(resolve, 350));\n        if (username.toLowerCase() === 'admin') {\n            invalid(issue.username('This username is reserved. Choose another one.'));\n        }\n        if (username.toLowerCase() === 'system') {\n            invalid('This profile cannot be validated right now. Choose another demo username.');\n        }\n        return { username, intent };\n    }\n);\n";
@@ -189,5 +192,21 @@ export default config;`;
             when they belong to the dialog itself. There is no hidden validation store, submission
             timer, or global form state.
         </Typography.Text>
+    </section>
+    <section id="status-and-submit" class="flex flex-col gap-4">
+        <Typography.H2 class="docs-section-heading">Status and submit states</Typography.H2>
+        <Typography.Text variant="supporting">
+            <InlineText
+                text={"Status prints a message for the whole form. `tone` colors it as `error`, `success` or `neutral`, which is the default."}
+            />
+        </Typography.Text>
+        <Typography.Text variant="supporting">
+            <InlineText
+                text={"Submit is built on [Button](/docs/components/button) and shows the form's progress by itself. Pass `status` to drive it by hand as `idle`, `loading`, `success` or `error`, with `successLabel` and `errorLabel` as the text for the last two. `size` changes its height, `unstyled` removes the Button classes, and `onclick` and `onkeydown` run before the form submits."}
+            />
+        </Typography.Text>
+        <ComponentPreview code={StatusToneExampleSrc}>
+            <StatusToneExample />
+        </ComponentPreview>
     </section>
 </div>

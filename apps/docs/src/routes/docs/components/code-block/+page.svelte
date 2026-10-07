@@ -2,6 +2,7 @@
     import { CodeBlock } from '@mielui/svelte/components/code-block';
     import * as Typography from '@mielui/svelte/components/typography';
     import { ComponentPreview, InstallCommand } from '$lib/components/docs';
+    import InlineText from '$lib/components/docs/inline-text.svelte';
     import PageIntro from '$lib/components/docs/page-intro.svelte';
     import Compound from './examples/compound.svelte';
     import CompoundSrc from './examples/compound.svelte?raw';
@@ -214,5 +215,18 @@ import { CodeBlock } from '@mielui/svelte/components/code-block';
             lang="svelte"
             copy="overlay"
         />
+    </section>
+    <section id="copy-and-parts" class="flex flex-col gap-4">
+        <Typography.H2 class="docs-section-heading">Copy button and parts</Typography.H2>
+        <Typography.Text variant="supporting">
+            <InlineText
+                text={"Copy shows a short confirmation after it copies. `copiedLabel` is that text. Trigger is the tab for one language in a multi-language block, and `disabled` greys out a tab whose snippet is not ready."}
+            />
+        </Typography.Text>
+        <Typography.Text variant="supporting">
+            <InlineText
+                text={"CodeBlock, Header, List, Trigger, Actions, Copy and Content render their `children` and accept `class` and `style` like any element."}
+            />
+        </Typography.Text>
     </section>
 </div>

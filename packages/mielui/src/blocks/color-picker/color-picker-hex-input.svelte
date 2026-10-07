@@ -1,10 +1,36 @@
 <script lang="ts">
+    import { ColorPickerIcon as Pipette } from '@hugeicons/core-free-icons';
     import { cn } from '@mielui/svelte/utils';
+    import { onMount } from 'svelte';
+    import HugeiconsIcon from '../../hugeicons-icon.svelte';
     import type { ColorPickerHexInputProps } from '.';
     import { getColorPickerController } from './controller.svelte';
 
+    type EyeDropper = new () => {
+        open: () => Promise<{
+            sRGBHex: string;
+        }>;
+    };
+
     let { class: className, ...rest }: ColorPickerHexInputProps = $props();
     const controller = getColorPickerController();
+    let eyeDropper = $state<EyeDropper>();
+
+    onMount(() => {
+        eyeDropper = (window as Window & { EyeDropper?: EyeDropper }).EyeDropper;
+    });
+
+    async function pickFromScreen() {
+        if (!eyeDropper) {
+            return;
+        }
+        try {
+            const result = await new eyeDropper().open();
+            controller.applyHex(result.sRGBHex);
+        } catch {
+            return;
+        }
+    }
 </script>
 
 <div
@@ -35,4 +61,16 @@
             }
         }}
     />
+    {#if eyeDropper}
+        <button
+            type="button"
+            aria-label="Pick a color from the screen"
+            title="Pick a color from the screen"
+            data-ui="color-picker-eyedropper"
+            class="-me-0.5 grid size-5 shrink-0 place-items-center rounded-[var(--radius-sm)] text-foreground-muted outline-none transition-colors [transition-duration:var(--motion-duration-hover)] hover:bg-secondary hover:text-foreground focus-visible:shadow-[var(--focus-ring)] motion-reduce:transition-none"
+            onclick={pickFromScreen}
+        >
+            <HugeiconsIcon icon={Pipette} size={13} aria-hidden="true" />
+        </button>
+    {/if}
 </div>

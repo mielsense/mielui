@@ -8,6 +8,7 @@ export type GaugeProps = {
     value: number | null;
     /** Show a loading ring while the measurement is being fetched. */
     loading?: boolean;
+    /** Value that fills the gauge. */
     max?: number;
     /** Describes the quantity, such as "Context remaining" or "Monthly API usage". */
     label?: string;
@@ -17,6 +18,7 @@ export type GaugeProps = {
     strokeWidth?: number;
     /** Reveal the arc, highlight it continuously, or disable animation. */
     animation?: 'reveal' | 'live' | 'none';
+    /** Color of the fill. */
     tone?: GaugeTone;
 } & DefaultProps;
 

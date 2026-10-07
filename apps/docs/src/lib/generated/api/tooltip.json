@@ -8,7 +8,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Classes added to the element.",
                 "inherited": false
             },
             {
@@ -17,7 +17,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Content rendered inside.",
                 "inherited": false
             },
             {
@@ -26,7 +26,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Surface treatment. Omit it to inherit `--mielui-surface` from the theme.",
                 "inherited": false
             },
             {
@@ -35,7 +35,7 @@
                 "required": false,
                 "bindable": false,
                 "default": "false",
-                "description": "",
+                "description": "Allows wrapped or structured content instead of a single line of text.",
                 "inherited": false
             }
         ]
@@ -49,7 +49,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Content rendered inside.",
                 "inherited": false
             }
         ]
@@ -63,7 +63,7 @@
                 "required": false,
                 "bindable": false,
                 "default": "125",
-                "description": "",
+                "description": "Milliseconds the pointer rests on the trigger before the tooltip opens.",
                 "inherited": false
             },
             {
@@ -72,7 +72,7 @@
                 "required": false,
                 "bindable": false,
                 "default": "100",
-                "description": "",
+                "description": "Milliseconds after the pointer leaves before it closes.",
                 "inherited": false
             },
             {
@@ -81,7 +81,7 @@
                 "required": false,
                 "bindable": false,
                 "default": "'top'",
-                "description": "",
+                "description": "Side of the trigger the tooltip opens on.",
                 "inherited": false
             },
             {
@@ -90,7 +90,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Content rendered inside.",
                 "inherited": false
             }
         ]
@@ -104,7 +104,7 @@
                 "required": false,
                 "bindable": false,
                 "default": "false",
-                "description": "",
+                "description": "Also shows the tooltip when the trigger is clicked, for touch screens.",
                 "inherited": false
             },
             {
@@ -113,7 +113,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Classes added to the element.",
                 "inherited": false
             },
             {
@@ -122,7 +122,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Content rendered inside.",
                 "inherited": false
             }
         ]

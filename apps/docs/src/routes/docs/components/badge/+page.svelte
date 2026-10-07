@@ -2,6 +2,7 @@
     import { CodeBlock } from '@mielui/svelte/components/code-block';
     import * as Typography from '@mielui/svelte/components/typography';
     import { ComponentPreview, InstallCommand } from '$lib/components/docs';
+    import InlineText from '$lib/components/docs/inline-text.svelte';
     import PageIntro from '$lib/components/docs/page-intro.svelte';
 
     import Hero from './examples/hero.svelte';
@@ -70,5 +71,13 @@
             <Typography.H3 class="docs-subsection-heading">Variants</Typography.H3>
             <ComponentPreview code={VariantsSrc}><Variants /></ComponentPreview>
         </div>
+    </section>
+    <section id="icon" class="flex flex-col gap-4">
+        <Typography.H2 class="docs-section-heading">Icon</Typography.H2>
+        <Typography.Text variant="supporting">
+            <InlineText
+                text={"`icon` takes a Svelte component and renders it before the text. The component receives `size` and `class`, so any icon component with those two props works. `iconSize` sets that size in pixels and defaults to 13. For anything else, such as a status dot or a count, put it in `children` next to the text."}
+            />
+        </Typography.Text>
     </section>
 </div>

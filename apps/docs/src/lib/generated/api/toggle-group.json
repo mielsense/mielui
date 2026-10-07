@@ -8,7 +8,7 @@
                 "required": true,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Value this item selects.",
                 "inherited": false
             },
             {
@@ -17,7 +17,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Prevents interaction and dims the control.",
                 "inherited": false
             },
             {
@@ -26,7 +26,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Content rendered inside.",
                 "inherited": false
             },
             {
@@ -35,7 +35,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Classes added to the element.",
                 "inherited": false
             },
             0,
@@ -489,7 +489,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Classes added to the element.",
                 "inherited": false
             },
             {
@@ -498,7 +498,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Content rendered inside.",
                 "inherited": false
             },
             {
@@ -507,7 +507,7 @@
                 "required": false,
                 "bindable": false,
                 "default": "false",
-                "description": "",
+                "description": "Prevents interaction and dims the control.",
                 "inherited": false
             },
             {
@@ -516,7 +516,7 @@
                 "required": false,
                 "bindable": false,
                 "default": "'sm'",
-                "description": "",
+                "description": "Control height of the items.",
                 "inherited": false
             },
             {
@@ -525,7 +525,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Accessible name when there is no visible label.",
                 "inherited": false
             },
             {
@@ -534,34 +534,34 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Id of the element that labels it.",
                 "inherited": false
             },
             {
                 "name": "type",
-                "type": "\"single\" | undefined | \"multiple\"",
+                "type": "\"single\" | \"multiple\" | undefined",
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "`single` keeps one value. `multiple` allows several and makes `value` an array.",
                 "inherited": false
             },
             {
                 "name": "value",
-                "type": "string | undefined | string[] | undefined",
+                "type": "string | string[] | undefined",
                 "required": false,
                 "bindable": true,
                 "default": null,
-                "description": "",
+                "description": "Selected value, or an array in multiple mode. Bindable.",
                 "inherited": false
             },
             {
                 "name": "onValueChange",
-                "type": "((value: string | undefined) => void) | undefined | ((value: string[]) => void) | undefined",
+                "type": "((value: string | undefined) => void) | ((value: string[]) => void) | undefined",
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Called with the new value when it changes.",
                 "inherited": false
             }
         ]

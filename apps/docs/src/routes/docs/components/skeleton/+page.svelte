@@ -2,6 +2,7 @@
     import { CodeBlock } from '@mielui/svelte/components/code-block';
     import * as Typography from '@mielui/svelte/components/typography';
     import { ComponentPreview, InstallCommand } from '$lib/components/docs';
+    import InlineText from '$lib/components/docs/inline-text.svelte';
     import PageIntro from '$lib/components/docs/page-intro.svelte';
     import SectionHeading from '$lib/components/docs/section-heading.svelte';
     import Card from './examples/card.svelte';
@@ -12,9 +13,10 @@
     import HeroSrc from './examples/hero.svelte?raw';
     import Rectangle from './examples/rectangle.svelte';
     import RectangleSrc from './examples/rectangle.svelte?raw';
-
     import Shimmer from './examples/shimmer.svelte';
     import ShimmerSrc from './examples/shimmer.svelte?raw';
+    import TimingExample from './examples/timing.svelte';
+    import TimingExampleSrc from './examples/timing.svelte?raw';
 
     const TITLE = 'Skeleton';
 
@@ -114,5 +116,21 @@
                 <Card />
             </ComponentPreview>
         </div>
+    </section>
+    <section id="timing-and-size" class="flex flex-col gap-4">
+        <Typography.H2 class="docs-section-heading">Timing and size</Typography.H2>
+        <Typography.Text variant="supporting">
+            <InlineText
+                text={"SkeletonSwap avoids a flash of grey for fast loads. It waits `delay` milliseconds before showing the skeleton, 120 by default, so content that arrives sooner appears directly. Once the skeleton is showing it stays for at least `minVisible` milliseconds, 380 by default, so it never blinks."}
+            />
+        </Typography.Text>
+        <Typography.Text variant="supporting">
+            <InlineText
+                text={"`barHeight` is the height of each placeholder bar in pixels and defaults to 9. `reserve` holds a fixed height in pixels for the whole swap, so the page does not jump when content of a different height arrives. On Skeleton, `unit` is the CSS unit applied to `w` and `h`, `px` unless you choose another such as `rem` or `%`."}
+            />
+        </Typography.Text>
+        <ComponentPreview code={TimingExampleSrc}>
+            <TimingExample />
+        </ComponentPreview>
     </section>
 </div>

@@ -1,44 +1,52 @@
 <script lang="ts">
-    import { ArrowDown01Icon as ChevronDown } from '@hugeicons/core-free-icons';
-    import * as Collapsible from '@mielui/svelte/components/collapsible';
-    import HugeiconsIcon from '@mielui/svelte/hugeicons-icon';
     import type { Snippet } from 'svelte';
+    import { getSettingFilter, setSettingSection } from './setting-filter.svelte';
 
     let {
         title,
-        open = false,
-        bodyClass = 'gap-4',
+        keywords = '',
         action,
         children
     }: {
         title: string;
-        open?: boolean;
-        bodyClass?: string;
+        /** Extra words the settings search matches for every row in this group. */
+        keywords?: string;
         action?: Snippet;
         children: Snippet;
     } = $props();
+
+    const filter = getSettingFilter();
+    let labels = $state<string[]>([]);
+
+    setSettingSection({
+        get title() {
+            return title;
+        },
+        get keywords() {
+            return keywords;
+        },
+        get labelMatch() {
+            return filter.active && labels.some((label) => filter.matches(label));
+        },
+        register(label) {
+            labels.push(label);
+
+            return () => {
+                const index = labels.indexOf(label);
+                if (index >= 0) {
+                    labels.splice(index, 1);
+                }
+            };
+        }
+    });
 </script>
 
-<Collapsible.Root {open}>
-    <section>
-        <div
-            class="flex items-center gap-2 rounded-[var(--radius-lg)] bg-secondary/25 pr-2 transition-colors hover:bg-secondary/50 has-[[data-state=open]]:bg-secondary/50"
-        >
-            <Collapsible.Trigger
-                class="group flex h-11 min-w-0 flex-1 items-center justify-between rounded-[var(--radius-lg)] px-3 text-sm font-semibold enabled:hover:bg-transparent"
-            >
-                <span>{title}</span>
-                <HugeiconsIcon
-                    icon={ChevronDown}
-                    size={14}
-                    aria-hidden="true"
-                    class="shrink-0 text-foreground-muted transition-transform [transition-duration:var(--motion-duration-panel)] ease-[var(--ease-out)] group-data-[state=open]:rotate-180 motion-reduce:transition-none"
-                />
-            </Collapsible.Trigger>
-            {@render action?.()}
-        </div>
-        <Collapsible.Content class={`flex flex-col px-2 pt-4 pb-5 ${bodyClass}`}>
-            {@render children()}
-        </Collapsible.Content>
-    </section>
-</Collapsible.Root>
+<section class="flex flex-col gap-1.5 [&:not(:has([data-setting-row]))]:hidden">
+    <div class="flex h-7 items-center justify-between gap-2 ps-0.5">
+        <h2 class="m-0 text-[13px] font-medium text-foreground">{title}</h2>
+        {@render action?.()}
+    </div>
+    <div class="flex flex-col gap-1.5">
+        {@render children()}
+    </div>
+</section>

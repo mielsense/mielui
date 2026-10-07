@@ -232,6 +232,34 @@
 
         return questionType === 'text' ? 'Enter an answer.' : 'Select an answer.';
     }
+
+    function handleKeydown(event: KeyboardEvent & { currentTarget: HTMLFormElement }) {
+        const index = Number(event.key);
+        const target = event.target;
+        const typing =
+            target instanceof HTMLTextAreaElement ||
+            (target instanceof HTMLInputElement && target.dataset.ui !== 'question-option-input');
+        if (
+            event.defaultPrevented ||
+            event.altKey ||
+            event.ctrlKey ||
+            event.metaKey ||
+            typing ||
+            !Number.isInteger(index) ||
+            index < 1
+        ) {
+            return;
+        }
+        const control = event.currentTarget.querySelectorAll<HTMLInputElement>(
+            '[data-ui="question-option-input"]'
+        )[index - 1];
+        if (!control || control.disabled) {
+            return;
+        }
+        event.preventDefault();
+        control.focus();
+        control.click();
+    }
 </script>
 
 <div
@@ -269,6 +297,7 @@
         aria-busy={effectiveStatus === 'submitting'}
         novalidate
         onsubmit={handleSubmit}
+        onkeydown={handleKeydown}
         class={cn(className, 'relative w-full min-w-0 text-foreground')}
     >
         <p

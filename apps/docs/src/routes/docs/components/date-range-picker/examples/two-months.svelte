@@ -6,8 +6,6 @@
 <DateRangePicker.Root
     numberOfMonths={2}
     pagedNavigation
-    minDays={3}
-    maxDays={14}
     placeholder={new CalendarDate(2026, 9, 17)}
 >
     <div class="grid w-full max-w-lg gap-2">

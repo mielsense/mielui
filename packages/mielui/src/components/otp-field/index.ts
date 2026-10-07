@@ -11,9 +11,13 @@ export type OTPFieldProps = Omit<
     PinInput.RootProps,
     'children' | 'child' | 'ref' | 'inputRef' | 'inputId' | 'maxlength' | 'onComplete'
 > & {
+    /** Number of characters in the code. */
     length?: number;
+    /** Bindable reference to the DOM element. */
     element?: HTMLInputElement | null;
+    /** Called with the code once every cell is filled. */
     onComplete?: (value: string) => void;
+    /** Content rendered inside. */
     children?: Snippet<[{ cells: OTPFieldCellState[]; isFocused: boolean }]>;
 };
 export type OTPFieldCellProps = Omit<PinInput.CellProps, 'child' | 'children'>;

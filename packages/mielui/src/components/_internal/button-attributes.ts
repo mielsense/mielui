@@ -1,4 +1,11 @@
 import type { HTMLButtonAttributes } from 'svelte/elements';
+import type { ButtonProps } from '../button';
+
+/**
+ * Button props for parts that always render a `<button>`, such as menu rows and options.
+ * These parts drop `href` at runtime, so the type does not offer it.
+ */
+export type ButtonOnlyProps = Omit<Extract<ButtonProps, { href?: undefined }>, 'href'>;
 
 export function buttonAttributes(attributes: HTMLButtonAttributes) {
     const { disabled, onclick, onkeydown, ...rest } = attributes;

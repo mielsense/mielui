@@ -8,45 +8,34 @@ type Heading = { id: string; label: string; level: number; node: HTMLElement };
 export function createPageOutline(getContent: () => HTMLElement | undefined) {
     let headings = $state<Heading[]>([]);
     let active = $state('');
+    let reached = $state(false);
+    const trail = $derived.by(() => {
+        const index = headings.findIndex((heading) => heading.id === active);
+        if (!reached || index === -1) {
+            return [];
+        }
+        const current = headings[index];
+        if (current.level === 2) {
+            return [current];
+        }
+        const parent = headings.slice(0, index).findLast((heading) => heading.level === 2);
+
+        return parent ? [parent, current] : [current];
+    });
     let destination: string | null = null;
     let jumpVersion = 0;
     let jumpStarted = false;
-    let hovered = $state<string | null>(null);
-    let focused = $state<string | null>(null);
-    let list = $state<HTMLDivElement>();
-    let centers = $state<Record<string, number>>({});
-    const activeY = $derived(centers[active] ?? null);
-    const preview = $derived(focused ?? hovered);
-    const previewY = $derived(preview && preview !== active ? (centers[preview] ?? null) : null);
-    const previewFrom = $derived(
-        activeY !== null && previewY !== null && previewY <= activeY
-            ? Math.max(0, previewY - 6)
-            : (activeY ?? 0)
-    );
-
     function headingTop(heading: Heading) {
         const section = heading.node.closest<HTMLElement>('section');
         const anchor = heading.level === 2 && section ? section : heading.node;
+
         return anchor.getBoundingClientRect().top;
     }
 
-    function headingInset(heading: Heading) {
+    function headingInset() {
         const toolbar = getContent()?.querySelector<HTMLElement>('[data-docs-toolbar]');
-        const toolbarHeight = toolbar?.getBoundingClientRect().height ?? 0;
-        if (heading.level !== 3) {
-            return toolbarHeight;
-        }
-        let section = heading.node.closest('section');
-        while (section) {
-            const title = section.querySelector<HTMLElement>(
-                ':scope > h2, :scope > div:first-child:has(> h2)'
-            );
-            if (title) {
-                return toolbarHeight + title.getBoundingClientRect().height;
-            }
-            section = section.parentElement?.closest('section') ?? null;
-        }
-        return toolbarHeight;
+
+        return toolbar?.getBoundingClientRect().height ?? 0;
     }
 
     async function navigate(event: MouseEvent, heading: Heading) {
@@ -84,7 +73,7 @@ export function createPageOutline(getContent: () => HTMLElement | undefined) {
             scroll.scrollTop +
             headingTop(heading) -
             scroll.getBoundingClientRect().top -
-            headingInset(heading);
+            headingInset();
         replaceState(`#${heading.id}`, page.state);
         heading.node.setAttribute('tabindex', '-1');
         heading.node.classList.add('focus:outline-none');
@@ -115,11 +104,14 @@ export function createPageOutline(getContent: () => HTMLElement | undefined) {
             }
             const top = (scroll?.getBoundingClientRect().top ?? 0) + 2;
             let current = headings[0]?.id ?? '';
+            let passed = false;
             for (const heading of headings) {
-                if (headingTop(heading) <= top + headingInset(heading)) {
+                if (headingTop(heading) <= top + headingInset()) {
                     current = heading.id;
+                    passed = true;
                 }
             }
+            reached = passed;
             if (scroll && scroll.scrollHeight - scroll.scrollTop - scroll.clientHeight < 4) {
                 current = headings.at(-1)?.id ?? current;
             }
@@ -161,7 +153,8 @@ export function createPageOutline(getContent: () => HTMLElement | undefined) {
                 return;
             }
             const found = [...root.querySelectorAll<HTMLElement>('h2, h3')].filter(
-                (node) => !node.closest('[data-component-preview]')
+                (node) =>
+                    !node.closest('[data-component-preview]') && !node.classList.contains('sr-only')
             );
             const ids = new Set<string>();
             const next = found.map((node) => {
@@ -245,32 +238,6 @@ export function createPageOutline(getContent: () => HTMLElement | undefined) {
         };
     });
 
-    $effect(() => {
-        const element = list;
-        headings;
-        if (!element) {
-            return;
-        }
-        let disposed = false;
-        function measure() {
-            if (disposed || !element) {
-                return;
-            }
-            const next: Record<string, number> = {};
-            for (const anchor of element.querySelectorAll<HTMLAnchorElement>('a[data-heading]')) {
-                next[anchor.dataset.heading ?? ''] = anchor.offsetTop + anchor.offsetHeight / 2;
-            }
-            centers = next;
-        }
-        const observer = new ResizeObserver(measure);
-        observer.observe(element);
-        void tick().then(measure);
-        return () => {
-            disposed = true;
-            observer.disconnect();
-        };
-    });
-
     return {
         get headings() {
             return headings;
@@ -278,33 +245,15 @@ export function createPageOutline(getContent: () => HTMLElement | undefined) {
         get active() {
             return active;
         },
-        get hovered() {
-            return hovered;
-        },
-        set hovered(value: string | null) {
-            hovered = value;
-        },
-        get focused() {
-            return focused;
-        },
-        set focused(value: string | null) {
-            focused = value;
-        },
-        get list() {
-            return list;
-        },
-        set list(value: HTMLDivElement | undefined) {
-            list = value;
-        },
-        get activeY() {
-            return activeY;
-        },
-        get previewY() {
-            return previewY;
-        },
-        get previewFrom() {
-            return previewFrom;
+        /**
+         * The section the reader is in, and the subsection under it when there is one. Empty
+         * until the first heading has scrolled to the top.
+         */
+        get trail() {
+            return trail;
         },
         navigate
     };
 }
+
+export type PageOutline = ReturnType<typeof createPageOutline>;

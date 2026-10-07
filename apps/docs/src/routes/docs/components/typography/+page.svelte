@@ -2,6 +2,7 @@
     import { CodeBlock } from '@mielui/svelte/components/code-block';
     import * as Typography from '@mielui/svelte/components/typography';
     import { ComponentPreview, InstallCommand } from '$lib/components/docs';
+    import InlineText from '$lib/components/docs/inline-text.svelte';
     import PageIntro from '$lib/components/docs/page-intro.svelte';
     import SectionHeading from '$lib/components/docs/section-heading.svelte';
 
@@ -170,5 +171,18 @@
                 <Metadata />
             </ComponentPreview>
         </div>
+    </section>
+    <section id="parts" class="flex flex-col gap-4">
+        <Typography.H2 class="docs-section-heading">Parts</Typography.H2>
+        <Typography.Text variant="supporting">
+            <InlineText
+                text={"Each role is its own component, and the text goes in `children`. Nothing is passed as a prop, so links, emphasis and inline code can sit inside any of them."}
+            />
+        </Typography.Text>
+        <Typography.Text variant="supporting">
+            <InlineText
+                text={"H1, H2, H3, H4, H5, H6, Title, Description, Text, Metadata and InlineCode render their `children` and accept `class` and `style` like any element."}
+            />
+        </Typography.Text>
     </section>
 </div>

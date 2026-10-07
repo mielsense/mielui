@@ -8,7 +8,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Classes added to the element.",
                 "inherited": false
             },
             {
@@ -17,7 +17,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Content rendered inside.",
                 "inherited": false
             },
             0,
@@ -460,7 +460,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Classes added to the element.",
                 "inherited": false
             },
             {
@@ -469,7 +469,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Content rendered inside.",
                 "inherited": false
             },
             0,
@@ -912,7 +912,7 @@
                 "required": false,
                 "bindable": false,
                 "default": "true",
-                "description": "",
+                "description": "Enter submits and Shift+Enter adds a line. Set false to make Enter add a line.",
                 "inherited": false
             },
             {
@@ -921,7 +921,7 @@
                 "required": false,
                 "bindable": true,
                 "default": null,
-                "description": "",
+                "description": "Bindable reference to the DOM element.",
                 "inherited": false
             },
             {
@@ -930,7 +930,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Classes added to the element.",
                 "inherited": false
             },
             0,
@@ -1388,7 +1388,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Surface treatment. Omit it to inherit `--mielui-surface` from the theme.",
                 "inherited": false
             },
             {
@@ -1397,7 +1397,7 @@
                 "required": false,
                 "bindable": true,
                 "default": "''",
-                "description": "",
+                "description": "Message text. Bindable.",
                 "inherited": false
             },
             {
@@ -1406,7 +1406,7 @@
                 "required": false,
                 "bindable": false,
                 "default": "'idle'",
-                "description": "",
+                "description": "Current state of the composer, which sets what the submit control does.",
                 "inherited": false
             },
             {
@@ -1424,7 +1424,7 @@
                 "required": false,
                 "bindable": false,
                 "default": "false",
-                "description": "",
+                "description": "Prevents interaction and dims the control.",
                 "inherited": false
             },
             {
@@ -1433,7 +1433,7 @@
                 "required": false,
                 "bindable": false,
                 "default": "false",
-                "description": "",
+                "description": "Allows submitting with no text, for a message that is only attachments.",
                 "inherited": false
             },
             {
@@ -1442,7 +1442,7 @@
                 "required": true,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Called with the text on submit. Return a promise to show progress until it settles.",
                 "inherited": false
             },
             {
@@ -1451,7 +1451,7 @@
                 "required": false,
                 "bindable": false,
                 "default": "'Message could not be sent.'",
-                "description": "",
+                "description": "Message shown when `onSubmit` rejects.",
                 "inherited": false
             },
             {
@@ -1460,7 +1460,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Called with the error when `onSubmit` rejects.",
                 "inherited": false
             },
             {
@@ -1469,7 +1469,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Called when the stop control is pressed during a response.",
                 "inherited": false
             },
             {
@@ -1478,7 +1478,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Classes added to the element.",
                 "inherited": false
             },
             {
@@ -1487,7 +1487,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Content rendered inside.",
                 "inherited": false
             },
             0,
@@ -1934,7 +1934,7 @@
                 "required": false,
                 "bindable": false,
                 "default": "'Send'",
-                "description": "",
+                "description": "Accessible name of the send button.",
                 "inherited": false
             },
             {
@@ -1943,7 +1943,7 @@
                 "required": false,
                 "bindable": false,
                 "default": "'Queue message'",
-                "description": "",
+                "description": "Accessible name while a message can be queued behind a running response.",
                 "inherited": false
             },
             {
@@ -1952,7 +1952,7 @@
                 "required": false,
                 "bindable": false,
                 "default": "'Stop response'",
-                "description": "",
+                "description": "Accessible name while the button stops a response.",
                 "inherited": false
             },
             {
@@ -1961,7 +1961,7 @@
                 "required": false,
                 "bindable": false,
                 "default": "'Sending'",
-                "description": "",
+                "description": "Text shown while it is loading.",
                 "inherited": false
             },
             {
@@ -1970,7 +1970,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Content rendered inside.",
                 "inherited": false
             },
             {
@@ -1979,7 +1979,7 @@
                 "required": false,
                 "bindable": true,
                 "default": null,
-                "description": "",
+                "description": "Bindable reference to the DOM element.",
                 "inherited": false
             },
             {
@@ -1988,7 +1988,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Called when it is clicked or activated.",
                 "inherited": false
             },
             {
@@ -1997,7 +1997,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Classes added to the element.",
                 "inherited": false
             },
             0,
@@ -2448,11 +2448,11 @@
         "properties": [
             {
                 "name": "variant",
-                "type": "\"chrome\" | \"inset\" | undefined",
+                "type": "\"default\" | \"inset\" | undefined",
                 "required": false,
                 "bindable": false,
-                "default": "'chrome'",
-                "description": "",
+                "default": "'default'",
+                "description": "`inset` puts the input on its own inset surface and the toolbar in the frame under it, like an inset Card. The default joins the toolbar to the input on one surface.",
                 "inherited": false
             },
             {
@@ -2461,7 +2461,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Classes added to the element.",
                 "inherited": false
             },
             {
@@ -2470,7 +2470,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Content rendered inside.",
                 "inherited": false
             },
             0,

@@ -1,49 +1,19 @@
 <script module lang="ts">
-    import { Settings01Icon as Settings } from '@hugeicons/core-free-icons';
-    import { numberShuffle } from '@mielui/svelte/actions/number-shuffle';
-    import { Button } from '@mielui/svelte/components/button';
     import * as ColorPicker from '@mielui/svelte/components/color-picker';
-    import * as Dialog from '@mielui/svelte/components/dialog';
-    import * as Group from '@mielui/svelte/components/group';
-    import Kbd from '@mielui/svelte/components/kbd';
     import * as Select from '@mielui/svelte/components/select';
-    import { Slider } from '@mielui/svelte/components/slider';
     import * as ToggleGroup from '@mielui/svelte/components/toggle-group';
-    import * as Tooltip from '@mielui/svelte/components/tooltip';
-    import * as Typography from '@mielui/svelte/components/typography';
-    import HugeiconsIcon from '@mielui/svelte/hugeicons-icon';
     import { easingOptions, normalizeEase } from '$lib/studio-advanced-tokens';
     import { type FontWeight, fontWeights, formatChoice } from './config';
+    import Row, { type SettingReset } from './row.svelte';
 
-    export {
-        advancedButton,
-        advancedColorField,
-        colorPickerControl,
-        easeTokenField,
-        feelSelect,
-        modalDoneFooter,
-        sliderTokenField,
-        toggleChoice,
-        weightControl
-    };
+    export { colorRow, easeRow, selectRow, toggleChoice, weightRow };
+
+    const selectTrigger = 'h-7 w-auto max-w-44 gap-1.5 px-2';
+
+    function toWeight(value: number) {
+        return fontWeights.find((weight) => Number(weight) === value);
+    }
 </script>
-
-{#snippet advancedButton(label: string, onClick: () => void)}
-    <Tooltip.Root>
-        <Tooltip.Trigger>
-            <Button
-                variant="outline"
-                size="icon"
-                class="shrink-0 rounded-s-none border-s-0 text-foreground-muted"
-                onclick={onClick}
-                aria-label={label}
-            >
-                <HugeiconsIcon icon={Settings} size={16} aria-hidden="true" />
-            </Button>
-        </Tooltip.Trigger>
-        <Tooltip.Content>{label}</Tooltip.Content>
-    </Tooltip.Root>
-{/snippet}
 
 {#snippet toggleChoice(
     values: readonly string[],
@@ -57,12 +27,12 @@
             bind:value={
                 () => value,
                 (next) => {
-                if (next) {
-                    onChange(next);
+                    if (next) {
+                        onChange(next);
+                    }
                 }
             }
-            }
-            class="flex w-full gap-0.5 rounded-[var(--radius-lg)] border-[length:var(--border-size)] border-[var(--color-input)] bg-card p-[calc((var(--size-control-md)-var(--size-hairline)-var(--size-control-sm))/2-var(--border-size))]"
+            class="flex gap-0.5"
         >
             {#each values as option (option)}
                 <ToggleGroup.Item
@@ -72,7 +42,7 @@
                             event.preventDefault();
                         }
                     }}
-                    class="h-[var(--size-control-sm)] min-w-0 flex-1 rounded-[calc(var(--radius-lg)-(var(--size-control-md)-var(--size-hairline)-var(--size-control-sm))/2)]"
+                    class="h-7 min-w-0 rounded-[var(--radius-sm)] px-2.5 data-[state=on]:bg-foreground/[0.08]"
                 >
                     {formatChoice(option)}
                 </ToggleGroup.Item>
@@ -81,117 +51,96 @@
     </div>
 {/snippet}
 
-{#snippet feelSelect(
-        label: string,
-        value: string,
-        options: readonly string[],
-        openAdvanced: () => void,
-        onChange: (value: string) => void
-    )}
-    <div class="flex min-w-0 flex-col gap-2">
-        <Typography.Metadata>{label}</Typography.Metadata>
-        <Group.Root class="w-full" aria-label={label}>
-            <Select.Root {value} onValueChange={onChange}>
-                <Select.Trigger class="min-w-0 flex-1" variant="outline" aria-label={label}>
-                    <span class="truncate">{formatChoice(value)}</span>
-                </Select.Trigger>
-                <Select.Content class="min-w-[max(16rem,var(--popover-trigger-width))]">
-                    {#each options as option (option)}
-                        <Select.Item value={option} label={formatChoice(option)}>
-                            {formatChoice(option)}
-                        </Select.Item>
-                    {/each}
-                    {#if !options.includes(value)}
-                        <Select.Item {value} label={formatChoice(value)}>
-                            {formatChoice(value)}
-                        </Select.Item>
-                    {/if}
-                </Select.Content>
-            </Select.Root>
-            <Group.Separator />
-            {@render advancedButton(`Advanced ${label.toLowerCase()}`, openAdvanced)}
-        </Group.Root>
-    </div>
+{#snippet selectRow(
+    label: string,
+    value: string,
+    options: readonly string[],
+    onChange: (value: string) => void,
+    reset: SettingReset | undefined = undefined
+)}
+    <Row {label} {reset}>
+        <Select.Root {value} onValueChange={onChange}>
+            <Select.Trigger class={selectTrigger} variant="ghost" aria-label={label}>
+                <span class="truncate">{formatChoice(value)}</span>
+            </Select.Trigger>
+            <Select.Content class="min-w-[max(12rem,var(--popover-trigger-width))]">
+                {#each options as option (option)}
+                    <Select.Item value={option} label={formatChoice(option)}>
+                        {formatChoice(option)}
+                    </Select.Item>
+                {/each}
+                {#if !options.includes(value)}
+                    <Select.Item {value} label={formatChoice(value)}>
+                        {formatChoice(value)}
+                    </Select.Item>
+                {/if}
+            </Select.Content>
+        </Select.Root>
+    </Row>
 {/snippet}
 
-{#snippet weightControl(
-        label: string,
-        value: FontWeight,
-        onChange: (value: FontWeight) => void
-    )}
-    <div class="flex items-center gap-2" role="group" aria-label={`${label} weight`}>
-        <Typography.Metadata class="w-20 shrink-0">{label}</Typography.Metadata>
-        <div class="min-w-0 flex-1">
-            {@render toggleChoice(fontWeights, value, `${label} weight`, (next) => {
-                if (next === '400' || next === '500' || next === '600' || next === '700') {
-                    onChange(next);
+{#snippet weightRow(
+    label: string,
+    value: FontWeight,
+    onChange: (value: FontWeight) => void,
+    reset: SettingReset | undefined = undefined
+)}
+    <Row
+        {label}
+        {reset}
+        slider={{
+            value: Number(value),
+            min: 400,
+            max: 700,
+            step: 100,
+            format: String,
+            onValueChange: (next) => {
+                const weight = toWeight(next);
+                if (weight) {
+                    onChange(weight);
                 }
-            })}
-        </div>
-    </div>
+            }
+        }}
+    />
 {/snippet}
 
-{#snippet colorPickerControl(
+{#snippet colorRow(
     label: string,
     value: string,
     options: {
-    label: string;
-    value: string;
-}[],
-    onChange: (value: string) => void
+        label: string;
+        value: string;
+    }[],
+    onChange: (value: string) => void,
+    reset: SettingReset | undefined = undefined
 )}
-    <div class="flex min-w-0 flex-col gap-2" role="group" aria-label={`${label} color`}>
-        <Typography.Metadata>{label}</Typography.Metadata>
-        <ColorPicker.Root {value} onValueChange={onChange} {options}>
-            <ColorPicker.Trigger class="w-full" />
-            <ColorPicker.Content />
-        </ColorPicker.Root>
-    </div>
-{/snippet}
-
-{#snippet advancedColorField(label: string, value: string, onChange: (value: string) => void)}
-    <div class="flex min-w-0 flex-col gap-2" role="group" aria-label={`${label} color`}>
-        <Typography.Metadata>{label}</Typography.Metadata>
-        <ColorPicker.Root {value} onValueChange={onChange}>
-            <ColorPicker.Trigger class="w-full" />
-            <ColorPicker.Content />
-        </ColorPicker.Root>
-    </div>
-{/snippet}
-
-{#snippet sliderTokenField(
-    label: string,
-    value: number,
-    min: number,
-    max: number,
-    step: number,
-    display: string,
-    onChange: (value: number) => void
-)}
-    <div class="flex min-w-0 flex-col gap-2">
-        <div class="flex items-baseline justify-between gap-2">
-            <Typography.Metadata>{label}</Typography.Metadata>
-            <span
-                class="font-mono text-xs tabular-nums text-foreground-muted"
-                use:numberShuffle={{ value: Number.parseFloat(display), format: (next) => display.replace(/^-?\d+(?:\.\d+)?/, String(next)) }}
-            >
-                {display}
-            </span>
+    <Row {label} {reset}>
+        <div class="min-w-0" role="group" aria-label={`${label} color`}>
+            <ColorPicker.Root {value} onValueChange={onChange} {options}>
+                <ColorPicker.Trigger
+                    variant="ghost"
+                    class="h-7 w-auto max-w-44 flex-row-reverse gap-2 px-2 [&>span:first-child]:size-4"
+                />
+                <ColorPicker.Content />
+            </ColorPicker.Root>
         </div>
-        <Slider {value} {min} {max} {step} {label} class="h-4" onValueChange={onChange} />
-    </div>
+    </Row>
 {/snippet}
 
-{#snippet easeTokenField(label: string, value: string, onChange: (value: string) => void)}
-    <div class="flex min-w-0 flex-col gap-2">
-        <Typography.Metadata>{label}</Typography.Metadata>
+{#snippet easeRow(
+    label: string,
+    value: string,
+    onChange: (value: string) => void,
+    reset: SettingReset | undefined = undefined
+)}
+    <Row {label} {reset}>
         <Select.Root {value} onValueChange={onChange}>
-            <Select.Trigger class="min-w-0" variant="outline" aria-label={label}>
+            <Select.Trigger class={selectTrigger} variant="ghost" aria-label={label}>
                 <span class="truncate">
                     {easingOptions.find((option) => option.value === value)?.label ?? 'Custom'}
                 </span>
             </Select.Trigger>
-            <Select.Content class="min-w-[max(16rem,var(--popover-trigger-width))]">
+            <Select.Content class="min-w-[max(12rem,var(--popover-trigger-width))]">
                 {#each easingOptions as option (option.value)}
                     <Select.Item value={option.value} label={option.label}>
                         {option.label}
@@ -202,18 +151,5 @@
                 {/if}
             </Select.Content>
         </Select.Root>
-    </div>
-{/snippet}
-
-{#snippet modalDoneFooter()}
-    <Dialog.Footer class="shrink-0">
-        <Dialog.Close>
-            Cancel
-            <Kbd shortcut="esc" />
-        </Dialog.Close>
-        <Dialog.Confirm>
-            Done
-            <Kbd shortcut="enter" />
-        </Dialog.Confirm>
-    </Dialog.Footer>
+    </Row>
 {/snippet}

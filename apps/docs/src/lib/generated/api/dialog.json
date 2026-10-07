@@ -8,7 +8,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Classes added to the element.",
                 "inherited": false
             },
             {
@@ -17,7 +17,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Content rendered inside.",
                 "inherited": false
             }
         ]
@@ -31,7 +31,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Prevents activation. A disabled link loses its destination and is skipped by Tab.",
                 "inherited": false
             },
             {
@@ -40,7 +40,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Visual style. Choose it for what the action means, not for decoration.",
                 "inherited": false
             },
             {
@@ -49,7 +49,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Control height. `icon` is a square button for a single icon.",
                 "inherited": false
             },
             {
@@ -58,7 +58,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Content rendered inside.",
                 "inherited": false
             },
             {
@@ -67,7 +67,7 @@
                 "required": false,
                 "bindable": true,
                 "default": null,
-                "description": "Bindable reference to the rendered DOM element. Type is the union of\nthe two possible element types -- narrow at the use site:",
+                "description": "Bindable reference to the rendered DOM element. Type is the union of the two possible element types -- narrow at the use site:",
                 "inherited": false
             },
             {
@@ -103,7 +103,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Text shown while `status` is `loading`. The button keeps its width.",
                 "inherited": false
             },
             {
@@ -112,7 +112,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Text shown while `status` is `success`.",
                 "inherited": false
             },
             {
@@ -121,7 +121,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Text shown while `status` is `error`.",
                 "inherited": false
             },
             {
@@ -130,7 +130,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Called when the button is activated. Loading and disabled buttons do not call it.",
                 "inherited": false
             },
             {
@@ -139,7 +139,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Called on key down, before the button handles the key itself.",
                 "inherited": false
             },
             {
@@ -148,7 +148,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Renders a link to this address instead of a button.",
                 "inherited": false
             },
             2681,
@@ -610,7 +610,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Prevents activation. A disabled link loses its destination and is skipped by Tab.",
                 "inherited": false
             },
             {
@@ -619,7 +619,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Visual style. Choose it for what the action means, not for decoration.",
                 "inherited": false
             },
             {
@@ -628,7 +628,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Control height. `icon` is a square button for a single icon.",
                 "inherited": false
             },
             {
@@ -637,7 +637,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Content rendered inside.",
                 "inherited": false
             },
             {
@@ -646,7 +646,7 @@
                 "required": false,
                 "bindable": true,
                 "default": null,
-                "description": "Bindable reference to the rendered DOM element. Type is the union of\nthe two possible element types -- narrow at the use site:",
+                "description": "Bindable reference to the rendered DOM element. Type is the union of the two possible element types -- narrow at the use site:",
                 "inherited": false
             },
             {
@@ -682,7 +682,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Text shown while `status` is `loading`. The button keeps its width.",
                 "inherited": false
             },
             {
@@ -691,7 +691,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Text shown while `status` is `success`.",
                 "inherited": false
             },
             {
@@ -700,7 +700,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Text shown while `status` is `error`.",
                 "inherited": false
             },
             {
@@ -709,7 +709,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Called when the button is activated. Loading and disabled buttons do not call it.",
                 "inherited": false
             },
             {
@@ -718,7 +718,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Called on key down, before the button handles the key itself.",
                 "inherited": false
             },
             {
@@ -727,7 +727,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Renders a link to this address instead of a button.",
                 "inherited": false
             },
             2681,
@@ -1189,7 +1189,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Surface treatment. Omit it to inherit `--mielui-surface` from the theme.",
                 "inherited": false
             },
             {
@@ -1198,7 +1198,7 @@
                 "required": false,
                 "bindable": false,
                 "default": "true",
-                "description": "",
+                "description": "Closes when the pointer is pressed outside it. Set false to keep it open until it is dismissed another way.",
                 "inherited": false
             },
             {
@@ -1207,16 +1207,16 @@
                 "required": false,
                 "bindable": false,
                 "default": "true",
-                "description": "",
+                "description": "Lets Escape dismiss the dialog.",
                 "inherited": false
             },
             {
                 "name": "role",
-                "type": "\"alertdialog\" | \"dialog\" | undefined",
+                "type": "\"dialog\" | \"alertdialog\" | undefined",
                 "required": false,
                 "bindable": false,
                 "default": "'dialog'",
-                "description": "",
+                "description": "ARIA role of the panel.",
                 "inherited": false
             },
             {
@@ -1225,7 +1225,7 @@
                 "required": false,
                 "bindable": false,
                 "default": "''",
-                "description": "",
+                "description": "Classes for the positioned dialog element.",
                 "inherited": false
             },
             {
@@ -1234,7 +1234,7 @@
                 "required": false,
                 "bindable": false,
                 "default": "''",
-                "description": "",
+                "description": "Classes for the backdrop.",
                 "inherited": false
             },
             {
@@ -1243,7 +1243,7 @@
                 "required": false,
                 "bindable": false,
                 "default": "''",
-                "description": "",
+                "description": "Classes for the inner surface.",
                 "inherited": false
             },
             {
@@ -1252,7 +1252,7 @@
                 "required": false,
                 "bindable": false,
                 "default": "'dialog'",
-                "description": "",
+                "description": "Prefix of the generated panel id.",
                 "inherited": false
             },
             {
@@ -1261,7 +1261,7 @@
                 "required": false,
                 "bindable": false,
                 "default": "true",
-                "description": "",
+                "description": "Shows the close button in the corner.",
                 "inherited": false
             },
             {
@@ -1279,7 +1279,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Classes added to the element.",
                 "inherited": false
             },
             {
@@ -1288,7 +1288,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Content rendered inside.",
                 "inherited": false
             }
         ]
@@ -1302,7 +1302,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Classes added to the element.",
                 "inherited": false
             },
             {
@@ -1311,7 +1311,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Content rendered inside.",
                 "inherited": false
             }
         ]
@@ -1325,7 +1325,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Classes added to the element.",
                 "inherited": false
             },
             {
@@ -1334,7 +1334,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Content rendered inside.",
                 "inherited": false
             }
         ]
@@ -1348,7 +1348,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Classes added to the element.",
                 "inherited": false
             },
             {
@@ -1357,7 +1357,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Content rendered inside.",
                 "inherited": false
             }
         ]
@@ -1371,7 +1371,7 @@
                 "required": false,
                 "bindable": true,
                 "default": "false",
-                "description": "",
+                "description": "Whether it is open. Bind it to control the state from outside.",
                 "inherited": false
             },
             {
@@ -1380,7 +1380,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Called with the new state whenever it opens or closes.",
                 "inherited": false
             },
             {
@@ -1389,7 +1389,7 @@
                 "required": false,
                 "bindable": false,
                 "default": "false",
-                "description": "Sets supported browser chrome to red while the dialog is open.",
+                "description": "Marks the dialog as destructive. Confirm defaults to the destructive variant, and browsers that tint their chrome from the theme color turn it red while the dialog is open.",
                 "inherited": false
             },
             {
@@ -1407,7 +1407,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Content rendered inside.",
                 "inherited": false
             }
         ]
@@ -1421,7 +1421,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Classes added to the element.",
                 "inherited": false
             },
             {
@@ -1430,7 +1430,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Content rendered inside.",
                 "inherited": false
             }
         ]
@@ -1444,7 +1444,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Prevents activation. A disabled link loses its destination and is skipped by Tab.",
                 "inherited": false
             },
             {
@@ -1453,7 +1453,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Visual style. Choose it for what the action means, not for decoration.",
                 "inherited": false
             },
             {
@@ -1462,7 +1462,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Control height. `icon` is a square button for a single icon.",
                 "inherited": false
             },
             {
@@ -1471,7 +1471,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Content rendered inside.",
                 "inherited": false
             },
             {
@@ -1480,7 +1480,7 @@
                 "required": false,
                 "bindable": true,
                 "default": null,
-                "description": "Bindable reference to the rendered DOM element. Type is the union of\nthe two possible element types -- narrow at the use site:",
+                "description": "Bindable reference to the rendered DOM element. Type is the union of the two possible element types -- narrow at the use site:",
                 "inherited": false
             },
             {
@@ -1516,7 +1516,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Text shown while `status` is `loading`. The button keeps its width.",
                 "inherited": false
             },
             {
@@ -1525,7 +1525,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Text shown while `status` is `success`.",
                 "inherited": false
             },
             {
@@ -1534,7 +1534,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Text shown while `status` is `error`.",
                 "inherited": false
             },
             {
@@ -1543,7 +1543,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Called when the button is activated. Loading and disabled buttons do not call it.",
                 "inherited": false
             },
             {
@@ -1552,7 +1552,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Called on key down, before the button handles the key itself.",
                 "inherited": false
             },
             {
@@ -1561,7 +1561,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Renders a link to this address instead of a button.",
                 "inherited": false
             },
             2681,

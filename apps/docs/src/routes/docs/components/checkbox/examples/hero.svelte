@@ -20,9 +20,11 @@
     <!-- Header -->
     <div class="mb-4 flex items-center justify-between gap-4">
         <h3 class="text-foreground [font-weight:var(--font-weight-label,500)]">Launch checklist</h3>
-        <span class="text-sm text-foreground-muted [font-weight:var(--font-weight-label,500)]">
+        <span
+            class="flex gap-1 text-sm tabular-nums text-foreground-muted [font-weight:var(--font-weight-label,500)]"
+        >
             <span use:numberShuffle={{ value: completedCount }}>{completedCount}</span>
-            /{totalCount}
+            <span>of {totalCount}</span>
         </span>
     </div>
 

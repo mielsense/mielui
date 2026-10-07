@@ -2,6 +2,7 @@
     import { CodeBlock } from '@mielui/svelte/components/code-block';
     import * as Typography from '@mielui/svelte/components/typography';
     import { ComponentPreview, InstallCommand } from '$lib/components/docs';
+    import InlineText from '$lib/components/docs/inline-text.svelte';
     import PageIntro from '$lib/components/docs/page-intro.svelte';
     import Definition from './examples/definition.svelte';
     import DefinitionSrc from './examples/definition.svelte?raw';
@@ -9,6 +10,8 @@
     import GlassSrc from './examples/glass.svelte?raw';
     import LinkPreview from './examples/link-preview.svelte';
     import LinkPreviewSrc from './examples/link-preview.svelte?raw';
+    import Placement from './examples/placement.svelte';
+    import PlacementSrc from './examples/placement.svelte?raw';
     import UserPreview from './examples/user-preview.svelte';
     import UserPreviewSrc from './examples/user-preview.svelte?raw';
 
@@ -91,6 +94,44 @@
             </ComponentPreview>
         </div>
     </section>
+    <section id="placement" class="scroll-mt-20 flex flex-col gap-4">
+        <Typography.H2 class="docs-section-heading">Placement and timing</Typography.H2>
+        <Typography.Text variant="supporting">
+            Set{' '}
+            <Typography.InlineCode>side</Typography.InlineCode>
+            on Content to choose where the card opens:{' '}
+            <Typography.InlineCode>top</Typography.InlineCode>
+            ,{' '}
+            <Typography.InlineCode>right</Typography.InlineCode>
+            ,{' '}
+            <Typography.InlineCode>bottom</Typography.InlineCode>
+            , or{' '}
+            <Typography.InlineCode>left</Typography.InlineCode>
+            . The default is bottom. The side is a preference. When there is no room, the card flips
+            to the opposite side.
+        </Typography.Text>
+        <Typography.Text variant="supporting">
+            <Typography.InlineCode>align</Typography.InlineCode>
+            positions the card along that side as{' '}
+            <Typography.InlineCode>start</Typography.InlineCode>
+            ,{' '}
+            <Typography.InlineCode>center</Typography.InlineCode>
+            , or{' '}
+            <Typography.InlineCode>end</Typography.InlineCode>
+            . The card shifts to stay inside the viewport.{' '}
+            <Typography.InlineCode>sideOffset</Typography.InlineCode>
+            sets the gap between the trigger and the card in pixels, 8 by default.
+        </Typography.Text>
+        <Typography.Text variant="supporting">
+            On Root,{' '}
+            <Typography.InlineCode>openDelay</Typography.InlineCode>
+            and{' '}
+            <Typography.InlineCode>closeDelay</Typography.InlineCode>
+            set how long the pointer rests before the card opens and how long it stays after the
+            pointer leaves. They default to 200 and 150 milliseconds.
+        </Typography.Text>
+        <ComponentPreview code={PlacementSrc}><Placement /></ComponentPreview>
+    </section>
     <section id="glass" class="flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Glass surface</Typography.H2>
         <Typography.Text variant="supporting">
@@ -100,5 +141,13 @@
             and respects reduced-transparency preferences.
         </Typography.Text>
         <ComponentPreview code={GlassSrc}><Glass /></ComponentPreview>
+    </section>
+    <section id="parts" class="flex flex-col gap-4">
+        <Typography.H2 class="docs-section-heading">Parts</Typography.H2>
+        <Typography.Text variant="supporting">
+            <InlineText
+                text={"Trigger wraps the element people hover or focus, usually a link. Content is the card, and Title and Description give it a heading and supporting text. Each part renders its `children`, and Root takes them without adding an element of its own."}
+            />
+        </Typography.Text>
     </section>
 </div>

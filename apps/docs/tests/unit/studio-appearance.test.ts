@@ -9,7 +9,7 @@ const defaults = {
     surfaceShadows: false,
     controlShadows: true,
     dialogShadows: true,
-    glassSurfaces: true,
+    glassSurfaces: false,
     travelingHighlight: true,
     primaryStroke: true,
     interactiveCursor: 'default'
@@ -41,7 +41,7 @@ describe('Studio appearance hydration', () => {
                 },
                 tokens: {
                     shared: {
-                        '--mielui-surface': 'solid',
+                        '--mielui-surface': 'glass',
                         '--mielui-inset-position': 'top'
                     }
                 }
@@ -54,7 +54,7 @@ describe('Studio appearance hydration', () => {
             surfaceShadows: true,
             controlShadows: false,
             dialogShadows: false,
-            glassSurfaces: false,
+            glassSurfaces: true,
             primaryStroke: false
         });
     });

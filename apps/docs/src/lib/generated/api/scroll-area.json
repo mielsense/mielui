@@ -4,11 +4,11 @@
         "properties": [
             {
                 "name": "orientation",
-                "type": "\"both\" | \"horizontal\" | \"vertical\" | undefined",
+                "type": "\"vertical\" | \"horizontal\" | \"both\" | undefined",
                 "required": false,
                 "bindable": false,
                 "default": "'vertical'",
-                "description": "",
+                "description": "Scroll direction.",
                 "inherited": false
             },
             {
@@ -17,7 +17,7 @@
                 "required": false,
                 "bindable": false,
                 "default": "true",
-                "description": "",
+                "description": "Shows a fade and chevron at an edge that has more content.",
                 "inherited": false
             },
             {
@@ -26,7 +26,7 @@
                 "required": false,
                 "bindable": false,
                 "default": "true",
-                "description": "",
+                "description": "Blurs content under the edge cues.",
                 "inherited": false
             },
             {
@@ -35,7 +35,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Content rendered inside.",
                 "inherited": false
             },
             {
@@ -44,7 +44,7 @@
                 "required": false,
                 "bindable": true,
                 "default": null,
-                "description": "",
+                "description": "Bindable reference to the DOM element.",
                 "inherited": false
             },
             {
@@ -53,7 +53,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Classes added to the element.",
                 "inherited": false
             },
             0,

@@ -2,7 +2,10 @@
     import { CodeBlock } from '@mielui/svelte/components/code-block';
     import * as Typography from '@mielui/svelte/components/typography';
     import { ComponentPreview, InstallCommand } from '$lib/components/docs';
+    import InlineText from '$lib/components/docs/inline-text.svelte';
     import PageIntro from '$lib/components/docs/page-intro.svelte';
+    import ClickActionExample from './examples/click-action.svelte';
+    import ClickActionExampleSrc from './examples/click-action.svelte?raw';
     import Grid from './examples/grid.svelte';
     import GridSrc from './examples/grid.svelte?raw';
     import Hero from './examples/hero.svelte';
@@ -47,11 +50,14 @@
     <section id="usage" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Usage</Typography.H2>
         <Typography.Text variant="supporting">
-            Root renders a link when you pass
+            Root renders a link when you pass{' '}
             <Typography.InlineCode>href</Typography.InlineCode>
-            and an article otherwise. Cover, Tab, and Footer place themselves in the folder layout,
-            so you can omit or restyle any of them. The tab grows with its title and wraps before it
-            reaches the folder edge.
+            , a button when you pass{' '}
+            <Typography.InlineCode>onclick</Typography.InlineCode>
+            {' '}
+            on its own, and an article otherwise. Cover, Tab, and Footer place themselves in the
+            folder layout, so you can omit or restyle any of them. The tab grows with its title and
+            wraps before it reaches the folder edge.
         </Typography.Text>
         <Typography.Text variant="supporting">
             Cover shows a soft wash of the chart color picked by{' '}
@@ -61,6 +67,17 @@
             for an image, or children for custom content. Count formats{' '}
             <Typography.InlineCode>value</Typography.InlineCode>
             for the reader's locale and animates when it changes.
+        </Typography.Text>
+        <Typography.Text variant="supporting">
+            Cover clips its children to the folder shape, so content anchored to its bottom edge
+            appears to come out of the folder. The first example tucks three paper sheets there and
+            lifts them with{' '}
+            <Typography.InlineCode>group-hover/folder-card</Typography.InlineCode>
+            and{' '}
+            <Typography.InlineCode>group-focus-visible/folder-card</Typography.InlineCode>
+            , which a linked card provides. Mark decorative cover content{' '}
+            <Typography.InlineCode>aria-hidden</Typography.InlineCode>
+            and disable its transition for reduced motion.
         </Typography.Text>
         <CodeBlock
             code={`import * as FolderCard from '@mielui/svelte/components/folder-card';
@@ -124,5 +141,29 @@
                 <LiveCount />
             </ComponentPreview>
         </div>
+    </section>
+    <section id="heading-level" class="flex flex-col gap-4">
+        <Typography.H2 class="docs-section-heading">Heading level</Typography.H2>
+        <Typography.Text variant="supporting">
+            <InlineText
+                text={"Title renders a heading. `level` picks 2, 3 or 4 so the card fits the outline of the page around it, and defaults to 3. The size on screen does not change."}
+            />
+        </Typography.Text>
+    </section>
+    <section id="click-action" class="flex flex-col gap-4">
+        <Typography.H2 class="docs-section-heading">Click action</Typography.H2>
+        <Typography.Text variant="supporting">
+            <InlineText
+                text={"Pass `onclick` without `href` to make the whole card a button. It answers a click, Enter and Space, shows the same hover and focus treatment as the link form, and takes its accessible name from the Title. Use it for a card that opens a dialog or selects something in place of going to a page."}
+            />
+        </Typography.Text>
+        <Typography.Text variant="supporting">
+            <InlineText
+                text={"`disabled` blocks the action and dims the card. With `href`, `onclick` is passed to the link and runs before the browser follows it. A card with neither stays a static article."}
+            />
+        </Typography.Text>
+        <ComponentPreview code={ClickActionExampleSrc}>
+            <ClickActionExample />
+        </ComponentPreview>
     </section>
 </div>

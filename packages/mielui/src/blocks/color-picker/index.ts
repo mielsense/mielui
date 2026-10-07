@@ -16,15 +16,22 @@ import type { ColorFormat, ColorOption } from './context';
 export type { ColorFormat, ColorOption, ColorPickerContext } from './context';
 
 export type ColorPickerProps = {
+    /** Accessible name of the trigger. */
     label?: string;
+    /** Selected color as a hex string. Bindable. */
     value?: string;
+    /** Called with the new value when it changes. */
     onValueChange?: (value: string) => void;
+    /** Preset swatches offered above the picker. */
     options?: ColorOption[];
+    /** Channel controls to show: HSL, RGB, or HSV. */
     format?: ColorFormat;
+    /** Content rendered inside. */
     children?: Snippet;
 } & DefaultProps;
 
 export type ColorPickerContentProps = Omit<PopoverContentProps, 'children'> & {
+    /** Content rendered inside. */
     children?: Snippet;
 };
 

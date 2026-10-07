@@ -223,11 +223,9 @@
 {:else if slug === 'drawer'}
     <div class={viewport}>
         <div class="mielui-overlay-scrim absolute inset-0"></div>
-        <div
-            class={`${modalFrame} absolute inset-x-1.5 bottom-0 h-24 rounded-b-none border-b-0 pb-0`}
-        >
-            <div class="mielui-inset-surface flex flex-1 flex-col gap-3 rounded-b-none px-4 pt-2">
-                <span class="mx-auto h-1 w-10 rounded-full bg-foreground-muted/50"></span>
+        <div class={`${modalFrame} absolute inset-x-3 bottom-1.5 h-24`}>
+            <div class="mielui-inset-surface flex flex-1 flex-col gap-3 px-4 pt-2">
+                <span class="mx-auto h-1 w-9 rounded-full bg-foreground/20"></span>
                 <p class="text-sm font-medium">Text size</p>
                 <Slider value={60} label="Text size" />
             </div>

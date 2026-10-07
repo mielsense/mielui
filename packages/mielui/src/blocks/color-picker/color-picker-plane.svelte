@@ -15,7 +15,7 @@
     {...rest}
     data-ui="color-picker-plane"
     use:colorPlanePointer={controller.setPlane}
-    class={cn(className, 'relative h-37 w-full touch-none cursor-crosshair overflow-hidden rounded-b-[var(--radius-md)] bg-[linear-gradient(to_bottom,transparent,var(--picker-black)),linear-gradient(to_right,var(--picker-white),var(--picker-hue))] focus-within:ring-2 focus-within:ring-inset focus-within:ring-[var(--color-ring)]')}
+    class={cn(className, 'relative h-37 w-full touch-none cursor-crosshair overflow-hidden rounded-b-[var(--radius-md)] bg-[linear-gradient(to_bottom,transparent,var(--picker-black)),linear-gradient(to_right,var(--picker-white),var(--picker-hue))] has-[:focus-visible]:ring-2 has-[:focus-visible]:ring-inset has-[:focus-visible]:ring-[var(--color-ring)]')}
     style:--picker-black={hsvBlack}
     style:--picker-white={hsvWhite}
     style:--picker-hue={controller.hueColor}

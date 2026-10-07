@@ -30,7 +30,7 @@ it('removes dismissed notifications from active state while the host finishes it
     expect(document.querySelectorAll('[aria-label="Notifications"]')).toHaveLength(1);
 });
 
-it.each([0, 1])('keeps the toast surface inset with border scale %s', async (scale) => {
+it.each([0, 1])('follows the border setting at border scale %s', async (scale) => {
     const root = document.documentElement;
     const previous = root.style.getPropertyValue('--mielui-border-inset-scale');
     root.style.setProperty('--mielui-border-inset-scale', String(scale));
@@ -53,10 +53,19 @@ it.each([0, 1])('keeps the toast surface inset with border scale %s', async (sca
             const frame = host.getBoundingClientRect();
             const surface = content.getBoundingClientRect();
             const border = Number.parseFloat(getComputedStyle(host).borderWidth);
-            expect(surface.left - frame.left).toBeGreaterThan(border);
-            expect(frame.right - surface.right).toBeGreaterThan(border);
-            expect(surface.top - frame.top).toBeGreaterThan(border);
-            expect(frame.bottom - surface.bottom).toBeGreaterThan(border);
+            const gutters = [
+                surface.left - frame.left - border,
+                frame.right - surface.right - border,
+                surface.top - frame.top - border,
+                frame.bottom - surface.bottom - border
+            ];
+            for (const gutter of gutters) {
+                if (scale === 0) {
+                    expect(Math.abs(gutter)).toBeLessThan(0.5);
+                } else {
+                    expect(gutter).toBeGreaterThan(1);
+                }
+            }
         }
     } finally {
         root.classList.remove('dark');

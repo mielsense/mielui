@@ -36,7 +36,7 @@
             </div>
             <ul class="m-0 grid list-none grid-cols-1 gap-3 p-0 sm:grid-cols-2 xl:grid-cols-3">
                 {#each group.items as font (font.name)}
-                    {@const selected = selectedFont.current === font.name}
+                    {const selected = $derived(selectedFont.current === font.name)}
                     <li class="flex min-w-0">
                         <button
                             type="button"

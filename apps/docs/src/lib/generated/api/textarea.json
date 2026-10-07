@@ -8,7 +8,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Text shown while there is no value.",
                 "inherited": false
             },
             {
@@ -17,7 +17,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Visible label linked to the control.",
                 "inherited": false
             },
             {
@@ -26,16 +26,16 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Supporting text under the label, announced with the control.",
                 "inherited": false
             },
             {
                 "name": "variant",
-                "type": "\"secondary\" | \"outline\" | undefined",
+                "type": "\"outline\" | \"secondary\" | undefined",
                 "required": false,
                 "bindable": false,
                 "default": "'outline'",
-                "description": "",
+                "description": "`outline` has a border. `secondary` has a filled background.",
                 "inherited": false
             },
             {
@@ -44,7 +44,7 @@
                 "required": false,
                 "bindable": false,
                 "default": "false",
-                "description": "",
+                "description": "Grows with its content instead of scrolling.",
                 "inherited": false
             },
             {
@@ -53,7 +53,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Classes added to the element.",
                 "inherited": false
             },
             {
@@ -62,7 +62,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Content rendered inside.",
                 "inherited": false
             },
             {
@@ -71,7 +71,7 @@
                 "required": false,
                 "bindable": true,
                 "default": null,
-                "description": "",
+                "description": "Bindable reference to the DOM element.",
                 "inherited": false
             },
             {
@@ -80,7 +80,7 @@
                 "required": false,
                 "bindable": true,
                 "default": null,
-                "description": "",
+                "description": "Field value. Bindable.",
                 "inherited": false
             },
             1394,
@@ -93,7 +93,7 @@
             1069,
             3638,
             1400,
-            9670,
+            9662,
             1402,
             1403,
             1404,

@@ -962,7 +962,7 @@
             70,
             71,
             72,
-            5589,
+            5582,
             74,
             75,
             76,
@@ -1343,13 +1343,13 @@
             14,
             15,
             16,
-            5590,
+            5583,
             18,
             19,
             20,
             22,
             23,
-            5591,
+            5584,
             25,
             26,
             27,
@@ -2637,7 +2637,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Content rendered inside.",
                 "inherited": false
             }
         ]
@@ -2651,7 +2651,7 @@
                 "required": false,
                 "bindable": true,
                 "default": "false",
-                "description": "",
+                "description": "Whether it is open. Bind it to control the state from outside.",
                 "inherited": false
             },
             {
@@ -2660,7 +2660,7 @@
                 "required": false,
                 "bindable": false,
                 "default": "'triggered'",
-                "description": "",
+                "description": "`triggered` opens fully. `peek` rests as a small handle that expands.",
                 "inherited": false
             },
             {
@@ -2669,16 +2669,16 @@
                 "required": false,
                 "bindable": false,
                 "default": "5000",
-                "description": "",
+                "description": "Milliseconds it stays open before closing on its own.",
                 "inherited": false
             },
             {
                 "name": "side",
-                "type": "\"left\" | \"right\" | \"top\" | \"bottom\" | undefined",
+                "type": "\"top\" | \"bottom\" | \"left\" | \"right\" | undefined",
                 "required": false,
                 "bindable": false,
                 "default": "'top'",
-                "description": "",
+                "description": "Viewport edge it attaches to.",
                 "inherited": false
             },
             {
@@ -2687,7 +2687,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Surface treatment. Omit it to inherit `--mielui-surface` from the theme.",
                 "inherited": false
             },
             {
@@ -2696,7 +2696,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Content rendered inside.",
                 "inherited": false
             }
         ]
@@ -2710,7 +2710,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Prevents activation. A disabled link loses its destination and is skipped by Tab.",
                 "inherited": false
             },
             {
@@ -2719,7 +2719,7 @@
                 "required": false,
                 "bindable": false,
                 "default": "'panel'",
-                "description": "",
+                "description": "Visual style. Choose it for what the action means, not for decoration.",
                 "inherited": false
             },
             {
@@ -2728,7 +2728,7 @@
                 "required": false,
                 "bindable": false,
                 "default": "'icon'",
-                "description": "",
+                "description": "Control height. `icon` is a square button for a single icon.",
                 "inherited": false
             },
             {
@@ -2737,7 +2737,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Content rendered inside.",
                 "inherited": false
             },
             {
@@ -2746,7 +2746,7 @@
                 "required": false,
                 "bindable": true,
                 "default": null,
-                "description": "Bindable reference to the rendered DOM element. Type is the union of\nthe two possible element types -- narrow at the use site:",
+                "description": "Bindable reference to the rendered DOM element. Type is the union of the two possible element types -- narrow at the use site:",
                 "inherited": false
             },
             {
@@ -2782,7 +2782,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Text shown while `status` is `loading`. The button keeps its width.",
                 "inherited": false
             },
             {
@@ -2791,7 +2791,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Text shown while `status` is `success`.",
                 "inherited": false
             },
             {
@@ -2800,7 +2800,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Text shown while `status` is `error`.",
                 "inherited": false
             },
             {
@@ -2809,7 +2809,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Called when the button is activated. Loading and disabled buttons do not call it.",
                 "inherited": false
             },
             {
@@ -2818,7 +2818,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Called on key down, before the button handles the key itself.",
                 "inherited": false
             },
             {
@@ -2827,7 +2827,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Renders a link to this address instead of a button.",
                 "inherited": false
             },
             2681,
@@ -3272,7 +3272,7 @@
                 "required": false,
                 "bindable": false,
                 "default": "'end'",
-                "description": "",
+                "description": "End of the panel the action sits on.",
                 "inherited": false
             },
             1062,
@@ -3393,6 +3393,13 @@
             97,
             98,
             4621,
+            5265,
+            5266,
+            5267,
+            5268,
+            5269,
+            5270,
+            5271,
             5272,
             5273,
             5274,
@@ -3437,6 +3444,12 @@
             5313,
             5314,
             5315,
+            150,
+            151,
+            152,
+            153,
+            154,
+            155,
             5316,
             5317,
             5318,
@@ -3444,12 +3457,6 @@
             5320,
             5321,
             5322,
-            150,
-            151,
-            152,
-            153,
-            154,
-            155,
             5323,
             5324,
             5325,
@@ -3709,13 +3716,6 @@
             5579,
             5580,
             5581,
-            5582,
-            5583,
-            5584,
-            5585,
-            5586,
-            5587,
-            5588,
             422,
             423,
             424,
@@ -3729,7 +3729,7 @@
                 "required": false,
                 "bindable": false,
                 "default": "2",
-                "description": "",
+                "description": "Heading level in the surrounding document.",
                 "inherited": false
             }
         ]

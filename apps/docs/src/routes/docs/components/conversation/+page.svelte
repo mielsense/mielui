@@ -2,6 +2,7 @@
     import { CodeBlock } from '@mielui/svelte/components/code-block';
     import * as Typography from '@mielui/svelte/components/typography';
     import { ComponentPreview, InstallCommand } from '$lib/components/docs';
+    import InlineText from '$lib/components/docs/inline-text.svelte';
     import PageIntro from '$lib/components/docs/page-intro.svelte';
     import SectionHeading from '$lib/components/docs/section-heading.svelte';
     import EmptyState from './examples/empty-state.svelte';
@@ -91,5 +92,18 @@ let follow = $state(true);
             <Typography.H3 class="docs-subsection-heading">Follow live output</Typography.H3>
             <ComponentPreview code={FollowOutputSrc}><FollowOutput /></ComponentPreview>
         </div>
+    </section>
+    <section id="layout" class="flex flex-col gap-4">
+        <Typography.H2 class="docs-section-heading">Layout and parts</Typography.H2>
+        <Typography.Text variant="supporting">
+            <InlineText
+                text={"Content is the scroll viewport, and the messages sit in a stack inside it. `class` styles the viewport, while `transcriptClass` styles that inner stack, which is where the gap between messages, the side padding and a maximum width belong."}
+            />
+        </Typography.Text>
+        <Typography.Text variant="supporting">
+            <InlineText
+                text={"Root, Content and Empty render their `children` and accept `class` and `style` like any element."}
+            />
+        </Typography.Text>
     </section>
 </div>

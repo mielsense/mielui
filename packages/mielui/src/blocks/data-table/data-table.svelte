@@ -5,6 +5,7 @@
     import { cn } from '@mielui/svelte/utils';
     import { setContext } from 'svelte';
     import type { DataTableLabels, DataTableProps } from '.';
+    import { type DataTableToolbarSlot, setDataTableContext } from './context.svelte';
     import Pagination from './data-table-pagination.svelte';
     import Summary from './data-table-summary.svelte';
     import View from './data-table-view.svelte';
@@ -26,22 +27,62 @@
         ...rest
     }: DataTableProps<TFeatures, TData> = $props();
     setContext<() => DataTableLabels | undefined>('data-table-labels', () => labels);
-    const state = $derived(summary(table));
+    const tableSummary = $derived(summary(table));
+    const dataTable = $state({
+        get variant() {
+            return variant;
+        },
+        toolbarSlot: undefined as DataTableToolbarSlot | undefined
+    });
+    setDataTableContext(dataTable);
+
+    const insetClasses = [
+        '[--mielui-modal-inset:calc(var(--spacing)*var(--mielui-border-inset-scale,1))] mielui-inset-frame',
+        '[--data-table-radius:calc(var(--radius-xl)-var(--border-size)-var(--mielui-modal-inset))]',
+        '[&_[data-ui=table]]:[--table-inner-radius:var(--data-table-radius)] [&_[data-ui=table]]:rounded-[var(--data-table-radius)] [&_[data-ui=table]]:border-0 [&_[data-ui=table]]:bg-card [&_[data-ui=table]]:p-0',
+        '[&>[data-ui=table-scroll-area]]:rounded-[var(--data-table-radius)]',
+        '[&>[data-ui=table-scroll-area]~*]:[--size-icon-md:var(--size-control-sm)] [&>[data-ui=table-scroll-area]~*]:px-3',
+        '[&>[data-ui=table-scroll-area]~*]:py-1',
+        '[@container_style(--mielui-inset-position:top)]:[&>[data-ui=table-scroll-area]:has(+*)]:rounded-b-none [@container_style(--mielui-inset-position:top)]:[&>[data-ui=table-scroll-area]:has(+*)_[data-ui=table]]:rounded-b-none',
+        '[@container_style(--mielui-inset-position:top)]:[&>[data-ui=table-scroll-area]~*]:-mt-[var(--mielui-modal-inset)] [@container_style(--mielui-inset-position:top)]:[&>[data-ui=table-scroll-area]~*]:rounded-b-[var(--data-table-radius)] [@container_style(--mielui-inset-position:top)]:[&>[data-ui=table-scroll-area]~*]:border-t-[length:var(--border-size)] [@container_style(--mielui-inset-position:top)]:[&>[data-ui=table-scroll-area]~*]:border-border [@container_style(--mielui-inset-position:top)]:[&>[data-ui=table-scroll-area]~*]:bg-card [@container_style(--mielui-inset-position:top)]:[&>[data-ui=table-scroll-area]~*]:py-2'
+    ];
 </script>
-<div
-    {...rest}
-    data-ui="data-table"
-    data-variant={variant}
-    aria-busy={loading || undefined}
-    class={cn(className, 'flex min-w-0 flex-col', variant === 'inset' ? '[--mielui-modal-inset:var(--spacing)] mielui-inset-frame [&>[data-ui=data-table-toolbar]]:[--size-control-md:var(--size-control-sm)] [&>[data-ui=data-table-toolbar]]:px-3 [&>[data-ui=data-table-toolbar]]:py-1.5 [&>[data-ui=data-table-footer]]:[--size-icon-md:var(--size-control-sm)] [&>[data-ui=data-table-footer]]:px-3 [&>[data-ui=data-table-footer]]:py-1 [&_[data-ui=table]]:[--table-inner-radius:calc(var(--radius-xl)-var(--border-size)-var(--spacing))] [&_[data-ui=table]]:border-0 [&_[data-ui=table]]:p-0 [&_[data-ui=table]]:bg-card' : 'gap-4')}
->
+{#snippet body()}
     {#if children}
-        {@render children(state)}
+        {@render children(tableSummary)}
     {:else}
         <View {table} {loading} {selectable} {caption} {rowLabel} {header} {cell} {empty} />
         <div data-ui="data-table-footer" class="flex flex-wrap items-center justify-between gap-3">
             <Summary {table} />
             <Pagination {table} {loading} />
         </div>
+    {/if}
+{/snippet}
+
+<div
+    {...rest}
+    data-ui="data-table"
+    data-variant={variant}
+    aria-busy={loading || undefined}
+    class={cn(className, 'flex min-w-0 flex-col', variant === 'inset' ? 'gap-3' : 'gap-4')}
+>
+    {#if variant === 'inset'}
+        {#if dataTable.toolbarSlot}
+            <div
+                {...dataTable.toolbarSlot.rest}
+                data-ui="data-table-toolbar"
+                class={cn(
+                    dataTable.toolbarSlot.className,
+                    'flex flex-wrap items-center justify-between gap-3'
+                )}
+            >
+                {@render dataTable.toolbarSlot.children?.()}
+            </div>
+        {/if}
+        <div data-ui="data-table-frame" class={cn('flex min-w-0 flex-col', insetClasses)}>
+            {@render body()}
+        </div>
+    {:else}
+        {@render body()}
     {/if}
 </div>

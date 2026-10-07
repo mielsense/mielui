@@ -14,6 +14,58 @@ describe('Slider', () => {
         );
     });
 
+    it('shows the label and formatted value in the field variant', () => {
+        const { container } = render(Slider, {
+            value: 72,
+            variant: 'field',
+            label: 'Opacity',
+            format: (value: number) => `${value}%`
+        });
+        const thumb = screen.getByRole('slider', { name: 'Opacity' });
+        expect(thumb).toHaveAttribute('aria-valuetext', '72%');
+        expect(container.querySelector('[data-ui="slider-label"]')).toHaveTextContent('Opacity');
+        expect(container.querySelector('[data-ui="slider-value"]')).toHaveTextContent('72%');
+        expect(container.querySelector('[data-ui="slider"]')).toHaveAttribute(
+            'data-variant',
+            'field'
+        );
+    });
+
+    it('moves the field variant with the keyboard', async () => {
+        render(Slider, { value: 400, min: 400, max: 700, step: 100, variant: 'field' });
+        const thumb = screen.getByRole('slider');
+        thumb.focus();
+        await userEvent.keyboard('{ArrowRight}');
+        expect(thumb).toHaveAttribute('aria-valuenow', '500');
+    });
+
+    it('moves ten steps with Shift and an arrow key', async () => {
+        render(Slider, { value: 50, variant: 'field' });
+        const thumb = screen.getByRole('slider');
+        thumb.focus();
+        await userEvent.keyboard('{Shift>}{ArrowRight}{/Shift}');
+        expect(thumb).toHaveAttribute('aria-valuenow', '60');
+    });
+
+    it('takes a typed value when editable and reports the commit', async () => {
+        const onValueCommit = vi.fn();
+        render(Slider, {
+            value: 20,
+            variant: 'field',
+            label: 'Opacity',
+            editable: true,
+            onValueCommit
+        });
+        const thumb = screen.getByRole('slider', { name: 'Opacity' });
+        thumb.focus();
+        await userEvent.keyboard('{Enter}');
+        const input = screen.getByRole('textbox', { name: 'Opacity value' });
+        await userEvent.clear(input);
+        await userEvent.type(input, '250px{Enter}');
+        expect(thumb).toHaveAttribute('aria-valuenow', '100');
+        expect(onValueCommit).toHaveBeenLastCalledWith(100);
+    });
+
     it('exposes the supplied value', () => {
         render(Slider, { value: 42 });
         expect(screen.getByRole('slider')).toHaveAttribute('aria-valuenow', '42');

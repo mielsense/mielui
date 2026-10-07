@@ -1,0 +1,115 @@
+{
+    "*": {
+        "children": "Content rendered inside.",
+        "class": "Classes added to the element.",
+        "style": "Inline styles for the element.",
+        "id": "Id of the element.",
+        "ref": "Bindable reference to the DOM element.",
+        "element": "Bindable reference to the DOM element.",
+        "child": "Renders your own element in place of the default one. Spread the given `props` onto it.",
+        "onclick": "Called when it is clicked or activated.",
+        "labels": "Overrides the built-in text and accessible names. Every key is optional and English is the fallback.",
+        "surface": "Surface treatment. Omit it to inherit `--mielui-surface` from the theme.",
+        "open": "Whether it is open. Bind it to control the state from outside.",
+        "onOpenChange": "Called with the new state whenever it opens or closes.",
+        "allowClickOutside": "Closes when the pointer is pressed outside it. Set false to keep it open until it is dismissed another way.",
+        "callback": "Called when the item is chosen.",
+        "locale": "BCP 47 locale used for names and number formats.",
+        "aria-labelledby": "Id of the element that labels it.",
+        "orientation": "Layout direction.",
+        "loading": "Shows the loading state in place of the content.",
+        "sticky": "Keeps the panel in view while its anchor scrolls. `partial` keeps part of it visible and `always` keeps all of it.",
+        "hideWhenDetached": "Hides the panel when the trigger scrolls out of view.",
+        "part": "Which part of the date this segment edits.",
+        "dynamic": "Lets the panel grow to fit its content instead of matching the trigger width.",
+        "heading": "Heading shown above the group.",
+        "as": "HTML element to render.",
+        "config": "Label, color, and value format for each series, keyed by series.",
+        "animation": "`reveal` animates in once, `live` keeps a subtle motion running, and `none` is static.",
+        "Trigger.variant": "Button style of the trigger."
+    },
+    "chart": {
+        "key": "Key of the series in `config` and in each data row.",
+        "strokeWidth": "Line thickness in pixels.",
+        "radius": "Corner radius of each bar in pixels.",
+        "Grid.ticks": "Number of grid lines.",
+        "ticks": "Number of ticks to aim for.",
+        "Plot.empty": "Content shown when there is no data.",
+        "Plot.loading": "Content shown while `loading` is true.",
+        "data": "Rows to plot. Each row holds the `x` value and one value per series.",
+        "x": "Key of the category or time value in each row.",
+        "orientation": "`vertical` draws categories along the bottom. `horizontal` draws them along the side.",
+        "stacked": "Stacks the series on top of each other instead of side by side.",
+        "format": "Formats each tick label."
+    },
+    "combobox": {
+        "Item.value": "Value this option selects.",
+        "Item.label": "Text used for search and for the trigger, when it differs from the option's content."
+    },
+    "command": {
+        "Content.label": "Accessible name of the palette."
+    },
+    "date-picker": {
+        "form": "Id of the form the hidden input belongs to."
+    },
+    "date-range-picker": {
+        "form": "Id of the form the hidden inputs belong to."
+    },
+    "drawer": {
+        "nested": "Set it on a drawer that opens from inside another drawer."
+    },
+    "file-upload": {
+        "item": "Upload entry from the Root's list."
+    },
+    "group": {
+        "for": "Id of the control this text labels, when it renders as a label."
+    },
+    "heatmap": {
+        "days": "Dated counts to plot.",
+        "weeks": "Number of weeks shown.",
+        "animation": "How the cells appear: by rows, by columns, with a running live effect, or not at all.",
+        "endDate": "Last date shown, written as YYYY-MM-DD. Defaults to today.",
+        "weekStartsOn": "First day of the week, where 0 is Sunday.",
+        "onDaySelect": "Called when a day is activated.",
+        "Cell.day": "Day data for this cell."
+    },
+    "input": {
+        "type": "Native input type.",
+        "files": "Selected files for a file input. Bindable.",
+        "value": "Field value. Bindable.",
+        "checked": "Checked state for the checkbox and radio types. Bindable."
+    },
+    "native-select": {
+        "multiple": "Allows several selections and makes `value` an array.",
+        "Root.value": "Selected value or values. Bindable.",
+        "Option.value": "Value this option selects."
+    },
+    "notch": {
+        "SideAction.side": "End of the panel the action sits on."
+    },
+    "number-field": {
+        "Decrement.onclick": "Called before the value steps down. Prevent the default to cancel the step.",
+        "Increment.onclick": "Called before the value steps up. Prevent the default to cancel the step."
+    },
+    "select": {
+        "Value.placeholder": "Text shown while nothing is selected."
+    },
+    "sheet": {
+        "close": "Shows the close button."
+    },
+    "table": {
+        "variant": "`inset` frames the table with a header and footer on the frame."
+    },
+    "task-steps": {
+        "status": "State of the step."
+    },
+    "toast": {
+        "action": "Label and handler for the action.",
+        "toast": "Toast data from the store.",
+        "Toaster.variant": "`notch` presents toasts as a Notch attached to an edge.",
+        "side": "Viewport edge toasts appear from."
+    },
+    "tooltip": {
+        "rich": "Allows wrapped or structured content instead of a single line of text."
+    }
+}

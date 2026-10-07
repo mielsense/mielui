@@ -121,7 +121,7 @@
 {/snippet}
 
 <div
-    class="flex h-[var(--size-touch)] w-full items-center gap-2.5 border-b-[length:var(--border-size)] border-border px-3"
+    class="flex h-[var(--size-touch)] w-full shrink-0 items-center gap-2.5 border-b-[length:var(--border-size)] border-border px-3"
 >
     {@render (icon ?? defaultIcon)()}
     <input

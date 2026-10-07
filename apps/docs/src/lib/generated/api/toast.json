@@ -453,7 +453,7 @@
                 "required": true,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Label and handler for the action.",
                 "inherited": false
             }
         ]
@@ -3092,7 +3092,7 @@
                 "required": true,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Toast data from the store.",
                 "inherited": false
             },
             {
@@ -3101,7 +3101,7 @@
                 "required": false,
                 "bindable": false,
                 "default": "toast.surface",
-                "description": "",
+                "description": "Surface treatment. Omit it to inherit `--mielui-surface` from the theme.",
                 "inherited": false
             }
         ]
@@ -3551,16 +3551,16 @@
                 "required": false,
                 "bindable": false,
                 "default": "'default'",
-                "description": "",
+                "description": "`notch` presents toasts as a Notch attached to an edge.",
                 "inherited": false
             },
             {
                 "name": "side",
-                "type": "\"left\" | \"right\" | \"top\" | \"bottom\" | undefined",
+                "type": "\"top\" | \"bottom\" | \"left\" | \"right\" | undefined",
                 "required": false,
                 "bindable": false,
                 "default": "'top'",
-                "description": "",
+                "description": "Viewport edge toasts appear from.",
                 "inherited": false
             }
         ]

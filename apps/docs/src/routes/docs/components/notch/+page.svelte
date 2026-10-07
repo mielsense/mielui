@@ -2,6 +2,7 @@
     import { CodeBlock } from '@mielui/svelte/components/code-block';
     import * as Typography from '@mielui/svelte/components/typography';
     import { ComponentPreview, InstallCommand } from '$lib/components/docs';
+    import InlineText from '$lib/components/docs/inline-text.svelte';
     import PageIntro from '$lib/components/docs/page-intro.svelte';
     import ViewportPreview from '$lib/components/docs/viewport-preview.svelte';
     import ActivitySrc from './examples/activity.svelte?raw';
@@ -153,6 +154,14 @@
             Use Accessory for a compact count or hint outside the panel, and Content for the task
             itself. Avoid repeating the same live announcement in both regions. These examples run
             in isolated viewports so their edge placement stays inside the preview.
+        </Typography.Text>
+    </section>
+    <section id="side-action" class="flex flex-col gap-4">
+        <Typography.H2 class="docs-section-heading">Side action</Typography.H2>
+        <Typography.Text variant="supporting">
+            <InlineText
+                text={"SideAction is built on [Button](/docs/components/button). `disabled` blocks it, `href` renders a link, and `loading` with `loadingLabel`, `successLabel` and `errorLabel` shows progress when the action takes a moment. `element` binds the DOM node, `unstyled` removes the Button classes, and `onkeydown` runs before the notch handles the key."}
+            />
         </Typography.Text>
     </section>
 </div>

@@ -1,11 +1,6 @@
 <script lang="ts">
-    import {
-        InformationCircleIcon as Info,
-        Search01Icon as Search
-    } from '@hugeicons/core-free-icons';
+    import { Search01Icon as Search } from '@hugeicons/core-free-icons';
     import { Button } from '@mielui/svelte/components/button';
-    import * as Card from '@mielui/svelte/components/card';
-    import * as HoverCard from '@mielui/svelte/components/hover-card';
     import { Input } from '@mielui/svelte/components/input';
     import * as Typography from '@mielui/svelte/components/typography';
     import HugeiconsIcon from '@mielui/svelte/hugeicons-icon';
@@ -76,7 +71,7 @@
     }
 </script>
 
-<div data-docs-page class="flex flex-col gap-10 [--docs-sticky-offset:var(--docs-row-height)]">
+<div data-docs-page class="flex flex-col gap-10">
     <PageIntro {title}>{description}</PageIntro>
 
     <section data-docs-toolbar aria-label={searchLabel} class="flex flex-col gap-3">
@@ -134,62 +129,55 @@
 </div>
 
 {#snippet catalogGroup(group: { id: string; heading: string; items: string[] }, nested: boolean)}
-    <section aria-labelledby={group.id} class="flex flex-col gap-4">
-        <div class="flex items-baseline gap-2">
-            {#if nested}
-                <Typography.H3 id={group.id} class="m-0">{group.heading}</Typography.H3>
-            {:else}
-                <Typography.H2 id={group.id} class="m-0">{group.heading}</Typography.H2>
-            {/if}
-            <Typography.Metadata class={nested ? 'tabular-nums' : 'tabular-nums text-current/70'}>
-                {group.items.length}
-            </Typography.Metadata>
-        </div>
+    {const titled = $derived(group.heading !== title || groups.length !== 1)}
+    <section
+        aria-labelledby={titled ? group.id : undefined}
+        aria-label={titled ? undefined : group.heading}
+        class="flex flex-col gap-4"
+    >
+        {#if titled}
+            <div class="flex items-baseline gap-2">
+                {#if nested}
+                    <Typography.H3 id={group.id} class="m-0">{group.heading}</Typography.H3>
+                {:else}
+                    <Typography.H2 id={group.id} class="m-0">{group.heading}</Typography.H2>
+                {/if}
+                <Typography.Metadata
+                    class={nested ? 'tabular-nums' : 'tabular-nums text-current/70'}
+                >
+                    {group.items.length}
+                </Typography.Metadata>
+            </div>
+        {/if}
         <div class="@container">
             <ul
-                class="m-0 grid list-none grid-cols-1 p-0 gap-6 @min-[60rem]:gap-x-6 @min-[60rem]:gap-y-8 @min-[32rem]:grid-cols-2 @min-[60rem]:grid-cols-3"
+                class="m-0 grid list-none grid-cols-1 gap-x-4 gap-y-8 p-0 @min-[32rem]:grid-cols-2 @min-[60rem]:grid-cols-3"
             >
                 {#each group.items as component (component)}
-                    <li class="min-w-0">
-                        <Card.Root
-                            variant="inset"
-                            class="relative h-full has-[[data-catalog-link]:focus-visible]:shadow-[var(--focus-ring),var(--elevation-1)] [&>[data-ui=card-surface]]:p-0"
-                        >
-                            <div class="flex h-56 items-center justify-center overflow-hidden">
+                    <li
+                        class="group relative flex min-w-0 flex-col gap-3 rounded-[var(--radius-xl)] has-[[data-catalog-link]:focus-visible]:shadow-[var(--focus-ring)]"
+                    >
+                        <div class="mielui-inset-frame">
+                            <div
+                                class="mielui-inset-surface flex h-48 items-center justify-center overflow-hidden"
+                            >
                                 <CatalogPreview slug={component} />
                             </div>
-                            <Card.Footer>
-                                <a
-                                    data-catalog-link
-                                    href={resolve(componentHref(component) as '/docs/components/accordion')}
-                                    class="me-auto rounded-[var(--radius-sm)] px-2 text-sm font-medium text-foreground transition-colors after:absolute after:inset-0 after:content-[''] hover:text-primary focus-visible:outline-none"
-                                >
-                                    {sanitizeComponent(component)}
-                                </a>
-                                <HoverCard.Root>
-                                    <HoverCard.Trigger
-                                        class="relative z-10 size-[var(--size-icon-md)] items-center justify-center rounded-[var(--radius-lg)] text-foreground-muted transition-colors hover:bg-foreground/[0.08] hover:text-foreground focus-visible:outline-none focus-visible:shadow-[var(--focus-ring)]"
-                                    >
-                                        <HugeiconsIcon icon={Info} size={16} aria-hidden="true" />
-                                        <span class="sr-only">
-                                            {`About ${sanitizeComponent(component)}`}
-                                        </span>
-                                    </HoverCard.Trigger>
-                                    <HoverCard.Content
-                                        side="top"
-                                        align="end"
-                                        class="w-72 max-w-[calc(100vw-2rem)]"
-                                    >
-                                        <p class="text-sm font-medium">
-                                            {sanitizeComponent(component)}
-                                        </p>
-                                        <p class="mt-2 text-sm leading-6 text-foreground-muted">
-                                            {descriptions[component]}
-                                        </p>
-                                    </HoverCard.Content>
-                                </HoverCard.Root>
-                            </Card.Footer>
-                        </Card.Root>
+                        </div>
+                        <div class="flex flex-col gap-0.5 px-1">
+                            <a
+                                data-catalog-link
+                                href={resolve(componentHref(component) as '/docs/components/accordion')}
+                                class="text-sm font-medium text-foreground after:absolute after:inset-0 after:content-[''] focus-visible:outline-none"
+                            >
+                                {sanitizeComponent(component)}
+                            </a>
+                            {#if descriptions[component]}
+                                <p class="m-0 line-clamp-2 text-sm leading-6 text-foreground-muted">
+                                    {descriptions[component]}
+                                </p>
+                            {/if}
+                        </div>
                     </li>
                 {/each}
             </ul>

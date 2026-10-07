@@ -1,41 +1,27 @@
 <script lang="ts">
-    import { createPageOutline } from './page-outline.svelte';
-    import TocRail from './toc-rail.svelte';
+    import { fadeY, scrollFade } from '$lib/components/shell/scroll-fade';
+    import type { PageOutline } from './page-outline.svelte';
 
-    let { content }: { content: HTMLElement | undefined } = $props();
-    const outline = createPageOutline(() => content);
+    let { outline }: { outline: PageOutline } = $props();
 </script>
 
 {#if outline.headings.length}
-    <nav aria-label="On this page" class="min-h-full pb-6">
-        <div class="px-5 py-3">
-            <div bind:this={outline.list} class="relative flex flex-col gap-0.5">
-                <TocRail y={outline.previewY} from={outline.previewFrom} muted />
-                <TocRail y={outline.activeY} />
-                {#each outline.headings as heading (heading.id)}
-                    <a
-                        href={`#${heading.id}`}
-                        data-heading={heading.id}
-                        onclick={(event) => outline.navigate(event, heading)}
-                        aria-current={outline.active === heading.id ? 'location' : undefined}
-                        onmouseenter={() => {
-                            outline.hovered = heading.id;
-                        }}
-                        onmouseleave={() => {
-                            outline.hovered = null;
-                        }}
-                        onfocus={() => {
-                            outline.focused = heading.id;
-                        }}
-                        onblur={() => {
-                            outline.focused = null;
-                        }}
-                        class={`${heading.id === 'api-reference' ? 'mt-2' : ''} relative rounded-md py-1.5 pr-1 text-sm leading-5 transition-colors motion-reduce:transition-none focus-visible:outline-none focus-visible:shadow-[var(--focus-ring)] ${heading.level === 3 ? 'pl-9' : 'pl-6'} ${outline.active === heading.id ? 'text-foreground' : 'text-foreground-muted hover:text-foreground'}`}
-                    >
-                        {heading.label}
-                    </a>
-                {/each}
-            </div>
+    <nav aria-label="On this page" class="flex flex-col gap-4">
+        <h2 class="text-xs font-semibold text-foreground">On this page</h2>
+        <div
+            {@attach scrollFade({ size: 28 })}
+            class={`flex max-h-[calc(100svh-var(--spacing)*56)] flex-col overflow-y-auto overscroll-contain ${fadeY}`}
+        >
+            {#each outline.headings as heading (heading.id)}
+                <a
+                    href={`#${heading.id}`}
+                    onclick={(event) => outline.navigate(event, heading)}
+                    aria-current={outline.active === heading.id ? 'location' : undefined}
+                    class={`rounded-[var(--radius-sm)] py-1 text-[13px] leading-5 transition-colors motion-reduce:transition-none focus-visible:outline-none focus-visible:shadow-[var(--focus-ring)] ${heading.level === 3 ? 'ps-3' : ''} ${heading.id === 'api-reference' ? 'mt-5' : ''} ${outline.active === heading.id ? 'font-medium text-foreground' : 'text-foreground-muted hover:text-foreground'}`}
+                >
+                    {heading.label}
+                </a>
+            {/each}
         </div>
     </nav>
 {/if}
