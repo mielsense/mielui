@@ -25,7 +25,7 @@
     {...rest}
     bind:ref={element}
     data-ui="drawer-overlay"
-    class={cn(className, 'mielui-overlay-scrim fixed inset-0 z-[115] [animation-duration:var(--motion-duration-overlay)]! [transition-duration:var(--motion-duration-overlay)]! motion-reduce:[animation-duration:0ms]! motion-reduce:[transition-duration:0ms]!')}
+    class={cn(className, 'mielui-overlay-scrim fixed inset-0 z-[115] [animation-duration:var(--motion-duration-overlay)]! data-[state=closed]:[animation-fill-mode:forwards]! [transition-duration:var(--motion-duration-overlay)]! motion-reduce:[animation-duration:0ms]! motion-reduce:[transition-duration:0ms]!')}
 >
     {@render children?.()}
 </Primitive.Overlay>
