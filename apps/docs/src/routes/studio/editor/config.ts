@@ -67,7 +67,36 @@ export type RoleWeights = {
 
 export const STUDIO_EXTENSIONS_KEY = 'mielui-studio-extensions-v1';
 
+/** The default theme's colors, exactly as `ui.css` resolves them. */
 export const DEFAULT_FOUNDATION_COLORS: FoundationColors = {
+    light: {
+        base: '#ffffff',
+        border: '#e8e8e6',
+        background: '#fdfdfd',
+        secondary: '#f0f0ee',
+        foreground: '#1c1c19',
+        foregroundMuted: '#6d6d67',
+        onPrimary: '#21151e',
+        buttonForeground: '#1c1c19'
+    },
+    dark: {
+        base: '#171717',
+        border: '#2a2a2a',
+        background: '#0a0a0a',
+        secondary: '#252525',
+        foreground: '#ededed',
+        foregroundMuted: '#a6a6a6',
+        onPrimary: '#21151e',
+        buttonForeground: '#ededed'
+    }
+};
+
+/**
+ * The defaults the Studio used before 0.2.1. They drifted from the stylesheet, most visibly
+ * with white text on primary buttons. A saved draft that still holds one of these values
+ * never chose it, so restoring a draft replaces it with the current default.
+ */
+export const LEGACY_FOUNDATION_COLORS: FoundationColors = {
     light: {
         base: '#ffffff',
         border: '#e8e8e6',
@@ -125,27 +154,29 @@ export const borderSwatches = [
 ];
 
 export const backgroundSwatches = [
-    { label: 'Canvas', value: '#fdfdfc' },
+    { label: 'Canvas', value: '#fdfdfd' },
     { label: 'Cloud', value: '#f7f7f5' },
     { label: 'Slate', value: '#111318' },
     { label: 'Night', value: '#0a0a0a' }
 ];
 
 export const secondarySwatches = [
-    { label: 'Soft', value: '#efefee' },
+    { label: 'Soft', value: '#f0f0ee' },
     { label: 'Stone', value: '#e7e5e4' },
     { label: 'Smoke', value: '#303030' },
     { label: 'Carbon', value: '#252525' }
 ];
 
 export const foregroundSwatches = [
-    { label: 'Ink', value: '#1c1c1b' },
+    { label: 'Ink', value: '#1c1c19' },
     { label: 'Charcoal', value: '#3a3a3a' },
-    { label: 'Mist', value: '#a3a3a3' },
+    { label: 'Pewter', value: '#6d6d67' },
+    { label: 'Mist', value: '#a6a6a6' },
     { label: 'Snow', value: '#ededed' }
 ];
 
 export const onPrimarySwatches = [
+    { label: 'Plum', value: '#21151e' },
     { label: 'White', value: '#ffffff' },
     { label: 'Porcelain', value: '#fafaf9' },
     { label: 'Ink', value: '#1c1c1b' },

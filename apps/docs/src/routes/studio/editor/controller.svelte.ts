@@ -148,10 +148,30 @@ export function createThemeEditor() {
 
     const dirty = $derived(changedAxisCount > 0);
 
+    /**
+     * The colors a theme has to state. A color the preset does not set and the user has not
+     * moved off the default is left out, so the stylesheet's own value applies.
+     */
+    function statedColors(colorMode: 'light' | 'dark') {
+        const preset = state.baseTheme.foundation?.[colorMode];
+        const entries = Object.entries(state.foundationColors[colorMode]).filter(([key, value]) => {
+            const name = key as keyof FoundationPalette;
+
+            return (
+                preset?.[name] !== undefined || value !== DEFAULT_FOUNDATION_COLORS[colorMode][name]
+            );
+        });
+
+        return Object.fromEntries(entries);
+    }
+
     const exportedTheme: Theme = $derived({
         ...state.theme,
         version: 4,
-        foundation: state.foundationColors,
+        foundation: {
+            light: statedColors('light'),
+            dark: statedColors('dark')
+        },
         typography: {
             headerSize: state.headerSize,
             headerWeight: state.headerWeight,
