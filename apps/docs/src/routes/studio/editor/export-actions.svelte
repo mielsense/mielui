@@ -7,13 +7,6 @@
 </script>
 
 <div data-studio-export class="flex shrink-0 flex-col gap-2 px-3 pt-3 pb-4">
-    <Button
-        onclick={() => {
-            editor.state.setupOpen = true;
-        }}
-    >
-        Export theme
-    </Button>
     <CopyButton
         text={editor.shareLink}
         label="Copy a link that opens this theme in the Studio"
@@ -25,4 +18,11 @@
     >
         Copy share link
     </CopyButton>
+    <Button
+        onclick={() => {
+            editor.state.setupOpen = true;
+        }}
+    >
+        Export theme
+    </Button>
 </div>
