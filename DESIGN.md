@@ -333,8 +333,9 @@ page uses the pill fill (`--docs-pill`). Group labels are muted, stay pinned to
 the top of the sidebar while their group scrolls, and turn semibold foreground
 while pinned. A pinned label has an opaque background, so no row shows behind
 it, and a short blurred fade directly beneath it. A small dot marks pages that
-are open in another tab. A card pinned at the bottom shows the current page's
-position in the docs with a segmented meter; it has no icon.
+are open in another tab. A bare row pinned at the bottom shows the current page's
+position in the docs: a segmented meter with the page count beside it. It has no
+card, label, or icon.
 
 The docs top bar is a tab strip. The add button opens the component catalog in a
 new tab; following a link changes the current tab, or switches to the tab that
