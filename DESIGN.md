@@ -318,7 +318,8 @@ its trailing edge. Its first row is as tall as the top bar and holds the brand
 mark on a primary rounded tile. The mark is always white, in both themes and
 whatever the theme's on-primary color is. Then come the Documentation,
 Components, Theme Studio, Themes, Changelog and Agent skill links, a short rule
-and search. GitHub sits at the bottom, level with the status line. Rail items
+and search. GitHub sits at the bottom, inset from the edge as far as the brand
+tile is from the top. Rail items
 are muted icon buttons with tooltips that open to the right. Hover and the
 current section use the pill fill (`--docs-pill`) with foreground color. Do not
 add glows, blurs or brand tints to rail items. The rail follows the theme and is

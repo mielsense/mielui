@@ -113,7 +113,7 @@
             <Tooltip.Content>Search</Tooltip.Content>
         </Tooltip.Root>
     </div>
-    <div class="mt-auto flex h-9 shrink-0 items-center">
+    <div class="mt-auto flex h-[50px] shrink-0 items-center">
         <Tooltip.Root placement="right">
             <Tooltip.Trigger>
                 <a
@@ -121,7 +121,7 @@
                     target="_blank"
                     rel="noreferrer"
                     aria-label="mielui on GitHub"
-                    class={`${itemClass} size-8`}
+                    class={itemClass}
                 >
                     <HugeiconsIcon icon={Github} size={20} strokeWidth={1.8} />
                 </a>
