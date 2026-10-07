@@ -149,7 +149,7 @@
     data-ui="code-block"
     class={cn(
         className,
-        '[--mielui-modal-inset:var(--spacing)] mielui-inset-frame flex max-h-[var(--code-block-max-height)] w-full flex-col overflow-hidden text-foreground',
+        '[--mielui-modal-inset:calc(var(--spacing)*var(--mielui-border-inset-scale,1))] mielui-inset-frame flex max-h-[var(--code-block-max-height)] w-full flex-col overflow-hidden text-foreground',
         // token-lint-disable-next-line no-literal-length: code-block geometry contract
         '[--code-block-gutter:var(--color-foreground-muted)] [--code-block-padding-x:1.1rem] [--code-block-padding-y:0.9rem] [--code-block-line-height:1.7] [--code-block-max-height:min(32rem,70vh)] [--code-block-slide:1.25rem]'
     )}

@@ -624,12 +624,20 @@ Preview frames clip their toolbar backgrounds to preserve the perimeter.
 Omitting the token preserves authored composition. Use the shared internal inset
 layout action, and override the token on a particular frame when its content
 requires a fixed order. Install command tabs and File Diff headers stay on top.
-DataTable inset mode
-keeps its toolbar above the table and summary/pagination below, independently of
-the global preference. Single borders still remove decorative frame spacing on cards and ordinary overlays.
-Inset data tables, composers, and toasts keep a narrow structural gutter around
-their inner content in both border modes. Docs preview panels and docs code
-blocks follow the border mode instead.
+DataTable inset mode keeps its toolbar above the table and its summary and
+pagination below, and shows only one of them as frame chrome. With the inset
+position at the bottom, the toolbar joins the table's surface under a hairline
+and the footer sits in the frame. With it at the top, the toolbar sits in the
+frame and the footer joins the surface. The table's corners are square where it
+meets the joined strip.
+
+Every frame follows the border setting. Single borders remove the gutter from
+cards, dialogs, sheets, data tables, composers, toasts, code blocks and docs
+previews alike, so the inner surface meets the frame's border. Double borders
+give each of them the gutter. Never set `--mielui-modal-inset` to a fixed
+length on a frame. Multiply by `--mielui-border-inset-scale` when a component
+needs a narrower gutter. Menus, selects, popovers and tooltips are the one
+exception: they are always single.
 Isolated viewport previews are flush with their frame border so edge-attached
 panels meet the preview edge. Notch outlines trace only the exposed perimeter;
 the attached edge stays open without a closing border line.
