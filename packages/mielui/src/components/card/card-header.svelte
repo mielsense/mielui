@@ -5,6 +5,6 @@
     let { children, class: classProp, ...rest }: CardHeaderProps = $props();
 </script>
 
-<div {...rest} class={cn(classProp, `flex flex-col mb-6`)}>
+<div {...rest} data-ui="card-header" class={cn(classProp, 'mb-6 flex flex-col last:mb-0')}>
     {@render children?.()}
 </div>

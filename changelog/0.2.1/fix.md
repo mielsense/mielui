@@ -17,3 +17,4 @@
 - Data Table's inset variant shows one strip of frame chrome, not two. The toolbar joins the table's surface, or the footer does when the inset position is top.
 - Data Table, Composer, Toast and Code Block follow the single or double border setting. They kept a gutter in single mode before.
 - Drawer no longer flashes back into view for a frame as it closes, and neither does its backdrop.
+- Card no longer doubles the gap when a Footer follows a Header directly, and a Header that ends a card has no trailing margin.
