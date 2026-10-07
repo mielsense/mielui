@@ -71,11 +71,14 @@
             loading and spans the visible columns in a single row.
         </Typography.Text>
         <Typography.Text>
-            ColumnHeader offers explicit ascending, descending, and clear-sort choices; sorted
-            headers expose aria-sort. Sort provides a separate field-and-direction menu, with
-            checked radio choices. Pass its columns prop to control available fields and labels.
-            Sorting, pagination, and selection parts disappear or disable themselves when their
-            corresponding TanStack feature is absent. Provide a meaningful caption for the table.
+            ColumnHeader is a button. Each click moves the column to its next sort state: ascending,
+            descending, then unsorted. An arrow shows the current direction, a tooltip names what
+            the next click does, and sorted headers expose aria-sort. Hold Shift while clicking to
+            add the column to a multi-column sort. Sort provides a separate field-and-direction
+            menu, with checked radio choices. Pass its columns prop to control available fields and
+            labels. Sorting, pagination, and selection parts disappear or disable themselves when
+            their corresponding TanStack feature is absent. Provide a meaningful caption for the
+            table.
         </Typography.Text>
     </section>
     <section id="filters" class="flex flex-col gap-4">

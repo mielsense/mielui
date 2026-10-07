@@ -96,3 +96,13 @@ The default joins the toolbar to the input. Both sit on one inset surface with s
 Migrate by flipping every call site. A toolbar with no `variant`, or with `variant="chrome"`, that should keep its old separate strip needs `variant="inset"`. A toolbar that had `variant="inset"` for the joined look should drop the prop. Only `chrome` fails to compile. The other two cases build and look different.
 
 Both forms follow the border setting. The gap between the input surface and the frame is `--mielui-modal-inset`, which the composer scales by `--mielui-border-inset-scale`. In single mode that gap is zero, so do not add padding or margins to the form or the toolbar to fake a gutter, and do not set `--mielui-modal-inset` to a fixed length on a composer.
+
+## Data Table column headers sort on click
+
+`DataTable.ColumnHeader` no longer renders a dropdown menu with Ascending, Descending and Clear sorting. It is a single button that calls TanStack's `column.toggleSorting()`, so each click moves to the column's next sort state. With TanStack defaults that is ascending, descending, then unsorted. Options such as `sortDescFirst` and `enableSortingRemoval` on the table or column change that cycle, and the header follows them. Shift-click passes the multi-sort flag.
+
+The header shows an arrow for the current direction and a faint up-down arrow on hover while unsorted. Its `title` names what the next click does. `DataTable.Header` still sets `aria-sort` on the cell.
+
+Stop looking for menu items in tests or automation. Click the header button, found by `data-ui="data-table-column-header"` or by the column name, and read `aria-sort` on its `th` or `data-sorted` on the button.
+
+The tooltips read from the Root's `labels`: `sortAscending`, `sortDescending` and `clearSorting`. `clearSorting` is also the last item of `DataTable.Sort`. Use `DataTable.Sort` when you want an explicit field-and-direction menu.

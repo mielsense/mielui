@@ -78,7 +78,7 @@
                     api.setSorting?.([]);
                 }}
             >
-                Clear sorting
+                {labels?.()?.clearSorting ?? 'Clear sorting'}
             </Menu.Item>
         {/if}
     </Menu.Content>

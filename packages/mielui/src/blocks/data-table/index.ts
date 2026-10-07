@@ -44,6 +44,12 @@ export type DataTableLabels = {
     sortBy?: string;
     ascending?: string;
     descending?: string;
+    /** Tooltip on a column header whose next click sorts ascending. */
+    sortAscending?: string;
+    /** Tooltip on a column header whose next click sorts descending. */
+    sortDescending?: string;
+    /** Tooltip on a column header whose next click removes the sort, and the Sort menu item. */
+    clearSorting?: string;
     filters?: string;
     filter?: string;
     filterBy?: string;
