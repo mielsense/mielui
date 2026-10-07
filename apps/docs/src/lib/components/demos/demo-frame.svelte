@@ -68,7 +68,7 @@
         <div
             class={cn(
                 className,
-                'mielui-inset-surface @container w-full min-w-0 overflow-hidden',
+                'mielui-inset-surface @container w-full min-w-0 overflow-hidden [&_:is([data-ui=scroll-area-viewport],[data-ui=conversation-content])]:overscroll-auto',
                 fill && 'min-h-0 flex-1'
             )}
         >
