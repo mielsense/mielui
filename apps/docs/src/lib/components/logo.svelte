@@ -9,7 +9,7 @@
     aria-label="mielui Home"
 >
     <span
-        class="grid size-7 place-items-center rounded-[8px] bg-primary [--color-foreground:var(--color-on-primary)]"
+        class="grid size-7 place-items-center rounded-[8px] bg-primary [--color-foreground:white]"
     >
         <BrandMark size={19} />
     </span>

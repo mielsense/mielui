@@ -76,7 +76,7 @@
             class="grid size-9 place-items-center rounded-[var(--radius-md)] focus-visible:outline-none focus-visible:shadow-[var(--focus-ring)]"
         >
             <span
-                class="grid size-7 place-items-center rounded-[8px] bg-primary [--color-foreground:var(--color-on-primary)]"
+                class="grid size-7 place-items-center rounded-[8px] bg-primary [--color-foreground:white]"
             >
                 <BrandMark size={19} />
             </span>

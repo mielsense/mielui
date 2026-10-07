@@ -315,8 +315,8 @@ softer `--docs-rule` used inside pages.
 
 The rail is 16 spacing units wide, on the sidebar's surface, with a hairline on
 its trailing edge. Its first row is as tall as the top bar and holds the brand
-mark on a primary rounded tile. The mark uses the on-primary color in both
-themes, the same as text on a primary button. Then come the Documentation,
+mark on a primary rounded tile. The mark is always white, in both themes and
+whatever the theme's on-primary color is. Then come the Documentation,
 Components, Theme Studio, Themes, Changelog and Agent skill links, a short rule
 and search. GitHub sits at the bottom, level with the status line. Rail items
 are muted icon buttons with tooltips that open to the right. Hover and the
@@ -460,7 +460,8 @@ their bottom edge, the navigation sheet, the page outline, the tab strip, and ov
 preview controls. The top bar has no bottom border. Content fades and blurs as
 it passes under the bar, so the bar and the page read as one surface at rest.
 In docs the top edge is a short fill to the content color instead of a mask, so
-the sticky catalog search row is not dimmed. Skip the top fade only in the docs
+the sticky catalog search row is not dimmed. That row gets its own short blurred
+fade beneath it while it is pinned, so cards ease out under it. Skip the top fade only in the docs
 sidebar, where pinned group labels mark the edge. Wrap a ScrollArea in `FadeScrollArea` instead of enabling
 its chevron cues.
 
