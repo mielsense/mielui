@@ -79,18 +79,18 @@ describe('GET /themes', () => {
         expect(res.status).toBe(200);
         const body = (await res.json()) as { slug: string; name: string }[];
         const slugs = body.map((t) => t.slug).sort();
-        expect(slugs).toEqual(['bitsy', 'daydream', 'default', 'functional', 'magic', 'open']);
+        expect(slugs).toEqual(defaultThemes.map((theme) => theme.slug).sort());
         // Sorted by display name.
         const names = body.map((t) => t.name);
         expect(names).toEqual([...names].sort((a, b) => a.localeCompare(b)));
     });
 
     it('merges published themes with the built-in defaults', async () => {
-        db.theme.findMany = async () => [persisted(validTheme('ocean'), 'db-1')];
+        db.theme.findMany = async () => [persisted(validTheme('harbor'), 'db-1')];
         const res = await get('/themes');
         const body = (await res.json()) as { slug: string }[];
         const slugs = body.map((t) => t.slug);
-        expect(slugs).toContain('ocean');
+        expect(slugs).toContain('harbor');
         expect(slugs).toContain('default');
         expect(body).toHaveLength(defaultThemes.length + 1);
     });
@@ -120,11 +120,11 @@ describe('GET /themes/:slug', () => {
 
     it('returns a published theme by slug', async () => {
         db.theme.findUnique = async ({ where }) =>
-            where.slug === 'ocean' ? persisted(validTheme('ocean'), 'db-1') : null;
-        const res = await get('/themes/ocean');
+            where.slug === 'harbor' ? persisted(validTheme('harbor'), 'db-1') : null;
+        const res = await get('/themes/harbor');
         expect(res.status).toBe(200);
         const body = (await res.json()) as { slug: string; id: string };
-        expect(body.slug).toBe('ocean');
+        expect(body.slug).toBe('harbor');
         expect(body.id).toBe('db-1');
     });
 
@@ -143,7 +143,7 @@ describe('POST /themes', () => {
             created = true;
             return args.data;
         };
-        const res = await post(validTheme('ocean'));
+        const res = await post(validTheme('harbor'));
         expect(res.status).toBe(405);
         expect(res.headers.get('allow')).toContain('GET');
         expect(await res.text()).toContain('disabled');
