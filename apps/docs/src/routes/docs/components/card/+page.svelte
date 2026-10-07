@@ -103,6 +103,9 @@
 
         <div id="full" class="scroll-mt-20 flex flex-col gap-3">
             <Typography.H3 class="docs-subsection-heading">Full composition</Typography.H3>
+            <Typography.Text variant="supporting">
+                Header, Content and Footer together. The footer holds the actions and a status line.
+            </Typography.Text>
             <ComponentPreview code={FullSrc}>
                 <Full />
             </ComponentPreview>
@@ -110,6 +113,9 @@
 
         <div id="content-only" class="scroll-mt-20 flex flex-col gap-3">
             <Typography.H3 class="docs-subsection-heading">Content only</Typography.H3>
+            <Typography.Text variant="supporting">
+                A card can be Content alone, for a single figure or a short note.
+            </Typography.Text>
             <ComponentPreview code={ContentOnlySrc}>
                 <ContentOnly />
             </ComponentPreview>
@@ -117,6 +123,10 @@
 
         <div id="header-footer" class="scroll-mt-20 flex flex-col gap-3">
             <Typography.H3 class="docs-subsection-heading">Header and footer</Typography.H3>
+            <Typography.Text variant="supporting">
+                Leave Content out when the title and description say everything. The footer then
+                sits one step under the header.
+            </Typography.Text>
             <ComponentPreview code={HeaderFooterSrc}>
                 <HeaderFooter />
             </ComponentPreview>
@@ -124,6 +134,10 @@
 
         <div id="panel" class="scroll-mt-20 flex flex-col gap-3">
             <Typography.H3 class="docs-subsection-heading">Panel frame</Typography.H3>
+            <Typography.Text variant="supporting">
+                The panel variant draws an inner ring around the surface. It suits compact,
+                read-only details.
+            </Typography.Text>
             <ComponentPreview code={PanelSrc}>
                 <Panel />
             </ComponentPreview>
@@ -131,6 +145,10 @@
 
         <div id="inset" class="scroll-mt-20 flex flex-col gap-3">
             <Typography.H3 class="docs-subsection-heading">Inset frame</Typography.H3>
+            <Typography.Text variant="supporting">
+                The inset variant puts the content on an inner surface and the footer on the frame
+                under it.
+            </Typography.Text>
             <ComponentPreview code={InsetSrc}>
                 <Inset />
             </ComponentPreview>

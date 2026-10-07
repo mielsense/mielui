@@ -1,31 +1,61 @@
 <script lang="ts">
-    import { Badge } from '@mielui/svelte/components/badge';
+    import * as Avatar from '@mielui/svelte/components/avatar';
     import { Button } from '@mielui/svelte/components/button';
     import * as Card from '@mielui/svelte/components/card';
+
+    type Member = {
+        name: string;
+        initials: string;
+        role: string;
+    };
+
+    const waiting: Member[] = [
+        { name: 'Amira Diallo', initials: 'AD', role: 'Viewer' },
+        { name: 'Jonas Weber', initials: 'JW', role: 'Editor' }
+    ];
+
+    let members = $state<Member[]>([
+        { name: 'Ines Moreau', initials: 'IM', role: 'Owner' },
+        { name: 'Theo Martin', initials: 'TM', role: 'Editor' },
+        { name: 'Maya Chen', initials: 'MC', role: 'Editor' }
+    ]);
+
+    const next = $derived(
+        waiting.find((person) => !members.some((member) => member.name === person.name))
+    );
+
+    function invite() {
+        if (next) {
+            members.push(next);
+        }
+    }
 </script>
 
-<Card.Root variant="inset" class="w-full max-w-md">
+<Card.Root variant="inset" class="w-full max-w-sm">
     <Card.Header>
-        <div class="flex items-center justify-between gap-3">
-            <Card.Title>Team handbook</Card.Title>
-            <Badge variant="success">Published</Badge>
-        </div>
-        <Card.Description>The policies and guides your team uses every day.</Card.Description>
+        <Card.Title>Project members</Card.Title>
+        <Card.Description>People who can open the checkout redesign.</Card.Description>
     </Card.Header>
     <Card.Content>
-        <dl class="grid grid-cols-2 gap-4 text-sm">
-            <div>
-                <dt class="text-foreground-muted">Framework</dt>
-                <dd class="mt-1">SvelteKit</dd>
-            </div>
-            <div>
-                <dt class="text-foreground-muted">Last update</dt>
-                <dd class="mt-1">Today</dd>
-            </div>
-        </dl>
+        <ul class="m-0 flex list-none flex-col gap-3 p-0">
+            {#each members as member (member.name)}
+                <li class="flex items-center gap-3">
+                    <Avatar.Root size="sm">
+                        <Avatar.Fallback>{member.initials}</Avatar.Fallback>
+                    </Avatar.Root>
+                    <span class="min-w-0 flex-1 truncate text-sm">{member.name}</span>
+                    <span class="shrink-0 text-sm text-foreground-muted">{member.role}</span>
+                </li>
+            {/each}
+        </ul>
     </Card.Content>
     <Card.Footer>
-        <Button variant="secondary" href="/docs/components/typography">Read the guide</Button>
-        <Button href="/studio">Customize theme</Button>
+        <span role="status" class="me-auto ps-2 text-sm text-foreground-muted">
+            {members.length}
+            members
+        </span>
+        <Button variant="outline" disabled={!next} onclick={invite}>
+            {next ? `Invite ${next.name.split(' ')[0]}` : 'Everyone is in'}
+        </Button>
     </Card.Footer>
 </Card.Root>

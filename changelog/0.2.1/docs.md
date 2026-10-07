@@ -58,3 +58,4 @@
 - Component previews fill the corners beside the rounded demo surface with the header color. They showed the darker frame color before.
 - Date Range Picker examples show the start field, end field and calendar button as separate controls instead of one joined group.
 - Date Range Picker's two-month example no longer caps the range at 14 days, so a range can run from one month into the next. Length limits moved to their own example.
+- Card's examples are rewritten as small realistic tasks: a project summary, notification settings, a revenue figure, an invitation, deploy details, a member list and a weekly digest.

@@ -1,6 +1,14 @@
 <script lang="ts">
     import { Button } from '@mielui/svelte/components/button';
     import * as Card from '@mielui/svelte/components/card';
+
+    const stats = [
+        { label: 'Merged', value: 14 },
+        { label: 'Reviews', value: 9 },
+        { label: 'Deploys', value: 6 }
+    ];
+
+    let subscribed = $state(false);
 </script>
 
 <div
@@ -9,17 +17,30 @@
     <Card.Root variant="inset" surface="glass" class="mx-auto max-w-sm">
         <Card.Header>
             <Card.Title>Weekly digest</Card.Title>
-            <Card.Description>A summary of activity in your workspace.</Card.Description>
+            <Card.Description>What your team shipped from October 5 to 11.</Card.Description>
         </Card.Header>
         <Card.Content>
-            <p class="m-0 text-sm text-foreground-muted">
-                The frame is frosted, so the backdrop shows through it. The content stays on a solid
-                surface.
-            </p>
+            <dl class="m-0 grid grid-cols-3 gap-4">
+                {#each stats as stat (stat.label)}
+                    <div class="flex flex-col-reverse gap-1">
+                        <dt class="text-sm text-foreground-muted">{stat.label}</dt>
+                        <dd class="m-0 text-2xl font-semibold">{stat.value}</dd>
+                    </div>
+                {/each}
+            </dl>
         </Card.Content>
         <Card.Footer>
-            <Button variant="ghost">Skip</Button>
-            <Button>Subscribe</Button>
+            <span role="status" class="me-auto ps-2 text-sm text-foreground-muted">
+                {subscribed ? 'Sent every Monday' : 'Not subscribed'}
+            </span>
+            <Button
+                variant={subscribed ? 'outline' : 'primary'}
+                onclick={() => {
+                    subscribed = !subscribed;
+                }}
+            >
+                {subscribed ? 'Unsubscribe' : 'Subscribe'}
+            </Button>
         </Card.Footer>
     </Card.Root>
 </div>
