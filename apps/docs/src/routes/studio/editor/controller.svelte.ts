@@ -4,6 +4,7 @@ import { applyLiveThemeCss, loadStudioTheme, saveStudioTheme } from '@mielui/sve
 import { parseTheme, type Theme, themeToCss } from '@mielui/svelte/themes/theme';
 import { mode, setMode } from 'mode-watcher';
 import { onMount, untrack } from 'svelte';
+import { takeHandedOffTheme } from '$lib/studio/handoff';
 import { readThemeAppearance } from './appearance';
 import {
     brandTokens,
@@ -313,6 +314,14 @@ export function createThemeEditor() {
                 slug: `${preset?.slug ?? 'default'}-custom`,
                 name: preset?.name ?? 'Default'
             };
+        }
+        const handedOff = takeHandedOffTheme();
+        if (handedOff) {
+            if (builtInThemePresets.some((entry) => entry.slug === handedOff.slug)) {
+                state.selectedPreset = handedOff.slug;
+                state.previousPreset = handedOff.slug;
+            }
+            applyTheme(handedOff);
         }
         state.previousRadius = state.theme.radius;
         state.previousDensity = state.theme.density;

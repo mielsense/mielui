@@ -19,3 +19,4 @@
 - File Diff added and removed rows keep their full tint in dark mode.
 - Number Field steppers use minus and plus icons instead of text glyphs. Source-copy installs now need `@hugeicons/core-free-icons`.
 - Opening Theme Studio no longer changes the default theme's colors. It applied its own defaults on top, which turned primary button text white and flattened input borders across the site.
+- A theme applied on the Themes page stays applied when you open Theme Studio, which now opens on that theme. It used to put its old draft back.

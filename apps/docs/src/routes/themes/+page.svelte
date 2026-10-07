@@ -12,6 +12,7 @@
     import { applyLiveThemeCss } from '@mielui/svelte/themes/live';
     import { type Theme, themeToCss } from '@mielui/svelte/themes/theme';
     import { mode } from 'mode-watcher';
+    import { handOffTheme } from '$lib/studio/handoff';
     import type { PageData } from './$types';
 
     const { data = { themes: builtInThemePresets } as PageData }: { data?: PageData } = $props();
@@ -118,6 +119,7 @@
 
     function applyTheme(theme: Theme) {
         applyLiveThemeCss(themeToCss(theme));
+        handOffTheme(theme);
         toast({
             title: `${theme.name} applied`,
             description: 'Live tokens updated across the app.',

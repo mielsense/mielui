@@ -556,7 +556,8 @@ Export theme opens a sheet from the right with the theme as CSS, as JSON, and
 the CLI steps, with Copy JSON and Copy CSS in its footer. A draft takes the name
 of the preset it started from. Each preset in the picker shows a swatch of its brand color. Copy share link
 puts the whole theme in the link's hash, so nothing is stored on a server.
-Opening such a link asks before it replaces the current draft. The export actions stay pinned
+Opening such a link asks before it replaces the current draft. A theme applied on the
+Themes page is handed to the Studio, which opens on it instead of its old draft. The export actions stay pinned
 under the scrolling groups, with Copy share link above Export theme so the
 primary action sits at the bottom edge. The preview fills the content column under the top bar.
 
