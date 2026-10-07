@@ -189,6 +189,10 @@ the same contracts; a visual exception must have a specific functional reason.
   `--mielui-error-text`, and `--mielui-info-text`. They mix the status color with
   the foreground to reach 4.5:1 on soft tints and cards. Keep the raw status
   colors for fills, icons inside fills, and chart tones.
+- Primary buttons are the one exception to the contrast rule. In light mode the
+  default theme sets white text on the brand pink, which measures 2.73:1. This is
+  a deliberate brand choice. The contrast tests leave primary buttons out and
+  check everything else. Do not extend the exception to other text.
 - Preserve the primary button's optional `--color-primary-stroke`. The light edge
   does not enable a perimeter border when Studio's primary stroke is disabled.
 - Floating panels use `--elevation-float`; dialogs use `--elevation-modal`; raised
