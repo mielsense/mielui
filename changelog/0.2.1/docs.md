@@ -53,3 +53,4 @@
 - Rebalance the search palette: a taller search row and key hint bar, and shorter result rows.
 - The docs site uses Manrope by default, matching the default theme.
 - Copy page matches the tabs' corner radius, and its menu lists View as Markdown last under a divider.
+- The Studio sidebar keeps Export theme and Copy share link. Copy JSON and Copy CSS now live in the export sheet.

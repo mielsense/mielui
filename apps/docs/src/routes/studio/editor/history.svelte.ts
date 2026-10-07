@@ -5,7 +5,6 @@ import type { ThemeEditorState } from './state.svelte';
 const transient = new Set<keyof ThemeEditorState>([
     'pendingPreset',
     'presetDialogOpen',
-    'copiedKey',
     'hydrated',
     'appliedDark',
     'appliedRevision',

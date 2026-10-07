@@ -47,7 +47,6 @@ export function createThemeEditorState() {
         appliedRevision: 0,
         pendingPreset: null as string | null,
         presetDialogOpen: false,
-        copiedKey: null as 'css' | 'json' | null,
         hydrated: false,
         appliedDark: false,
         setupOpen: false

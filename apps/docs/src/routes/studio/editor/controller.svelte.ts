@@ -3,7 +3,7 @@ import { builtInThemePresets } from '@mielui/svelte/themes/builtin-presets';
 import { applyLiveThemeCss, loadStudioTheme, saveStudioTheme } from '@mielui/svelte/themes/live';
 import { parseTheme, type Theme, themeToCss } from '@mielui/svelte/themes/theme';
 import { mode, setMode } from 'mode-watcher';
-import { onDestroy, onMount, untrack } from 'svelte';
+import { onMount, untrack } from 'svelte';
 import { readThemeAppearance } from './appearance';
 import {
     brandTokens,
@@ -418,24 +418,6 @@ export function createThemeEditor() {
         storage.save();
     });
     const tokens = createThemeTokenEditor(state, () => appMode);
-    let copyTimer: ReturnType<typeof setTimeout> | undefined;
-    function acknowledgeCopy(key: 'css' | 'json') {
-        clearTimeout(copyTimer);
-        state.copiedKey = key;
-        toast({
-            title: key === 'css' ? 'CSS copied' : 'JSON copied',
-            description: 'The draft is ready to paste into your project.',
-            type: 'success',
-            duration: 1600
-        });
-        copyTimer = setTimeout(() => {
-            state.copiedKey = null;
-        }, 1200);
-    }
-    onDestroy(() => {
-        clearTimeout(copyTimer);
-    });
-
     let sharedTheme = $state<Theme | null>(null);
     let shareLink = $state('');
 
@@ -495,7 +477,6 @@ export function createThemeEditor() {
         state,
         tokens,
         history,
-        acknowledgeCopy,
         setEdgeHighlightEnabled,
         resetTheme,
         updateBrand,
