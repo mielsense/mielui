@@ -83,12 +83,46 @@ describe('ScrollArea -- orientation prop', () => {
 });
 
 describe('ScrollArea -- overscroll behavior', () => {
-    it('applies overscroll-contain to prevent scroll chaining', () => {
+    it('contains overscroll only while the content overflows', async () => {
         const { container } = render(ScrollArea, {
             props: { children: textSnippet('x') }
         });
-        const viewport = queryRequired(container, '[data-ui="scroll-area-viewport"]');
-        expect(viewport.className).toContain('overscroll-contain');
+        const viewport = queryRequired<HTMLElement>(container, '[data-ui="scroll-area-viewport"]');
+        expect(viewport.className).not.toContain('overscroll-contain');
+
+        Object.defineProperties(viewport, {
+            scrollHeight: { configurable: true, value: 1000 },
+            clientHeight: { configurable: true, value: 200 }
+        });
+        await fireEvent.scroll(viewport);
+
+        await waitFor(() => {
+            expect(viewport.className).toContain('overscroll-contain');
+        });
+    });
+
+    it('ignores overflow on the axis a scroll area does not scroll', async () => {
+        const { container } = render(ScrollArea, {
+            props: { orientation: 'horizontal', children: textSnippet('x') }
+        });
+        const viewport = queryRequired<HTMLElement>(container, '[data-ui="scroll-area-viewport"]');
+
+        Object.defineProperties(viewport, {
+            scrollHeight: { configurable: true, value: 1000 },
+            clientHeight: { configurable: true, value: 200 }
+        });
+        await fireEvent.scroll(viewport);
+        expect(viewport.className).not.toContain('overscroll-contain');
+
+        Object.defineProperties(viewport, {
+            scrollWidth: { configurable: true, value: 1000 },
+            clientWidth: { configurable: true, value: 200 }
+        });
+        await fireEvent.scroll(viewport);
+
+        await waitFor(() => {
+            expect(viewport.className).toContain('overscroll-contain');
+        });
     });
 
     it('does not pad the scrollport so edge fades sit flush', () => {

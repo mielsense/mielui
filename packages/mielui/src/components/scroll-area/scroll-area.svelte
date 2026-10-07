@@ -21,10 +21,17 @@
     let scrollTop = $state(0);
     let scrollHeight = $state(0);
     let clientHeight = $state(0);
+    let scrollWidth = $state(0);
+    let clientWidth = $state(0);
 
     const atTop = $derived(scrollTop <= 1);
     const atBottom = $derived(scrollTop + clientHeight >= scrollHeight - 1);
     const overflows = $derived(scrollHeight - clientHeight > 1);
+    const overflowsInline = $derived(scrollWidth - clientWidth > 1);
+    const scrollable = $derived(
+        (orientation !== 'horizontal' && overflows) ||
+            (orientation !== 'vertical' && overflowsInline)
+    );
     const cuesVisible = $derived(showCues && orientation === 'vertical' && overflows);
     const blurClass = $derived(blur ? 'backdrop-blur-sm' : undefined);
 
@@ -35,6 +42,8 @@
         scrollTop = element.scrollTop;
         scrollHeight = element.scrollHeight;
         clientHeight = element.clientHeight;
+        scrollWidth = element.scrollWidth;
+        clientWidth = element.clientWidth;
     }
 
     $effect(() => {
@@ -81,7 +90,7 @@
         bind:this={element}
         data-ui="scroll-area-viewport"
         class={cn(
-            'relative min-h-0 min-w-0 w-full flex-1 rounded-[inherit] overscroll-contain [scrollbar-color:color-mix(in_srgb,var(--color-foreground)_22%,transparent)_transparent] [scrollbar-width:thin]',
+            'relative min-h-0 min-w-0 w-full flex-1 rounded-[inherit] [scrollbar-color:color-mix(in_srgb,var(--color-foreground)_22%,transparent)_transparent] [scrollbar-width:thin]',
             '[&::-webkit-scrollbar]:size-2.5 [&::-webkit-scrollbar-track]:bg-transparent',
             '[&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:border-2 [&::-webkit-scrollbar-thumb]:border-transparent [&::-webkit-scrollbar-thumb]:bg-[color-mix(in_srgb,var(--color-foreground)_18%,transparent)] [&::-webkit-scrollbar-thumb]:bg-clip-padding',
             '[&::-webkit-scrollbar-thumb:hover]:bg-[color-mix(in_srgb,var(--color-foreground)_32%,transparent)] [&::-webkit-scrollbar-thumb:hover]:bg-clip-padding',
@@ -89,7 +98,8 @@
                 ? 'max-w-[inherit] overflow-x-auto overflow-y-hidden'
                 : orientation === 'vertical'
                   ? 'max-h-[inherit] overflow-y-auto overflow-x-hidden'
-                  : 'max-h-[inherit] max-w-[inherit] overflow-auto'
+                  : 'max-h-[inherit] max-w-[inherit] overflow-auto',
+            scrollable && 'overscroll-contain'
         )}
         onscroll={(event) => {
             measure();

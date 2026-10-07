@@ -18,3 +18,4 @@
 - Data Table, Composer, Toast and Code Block follow the single or double border setting. They kept a gutter in single mode before.
 - Drawer no longer flashes back into view for a frame as it closes, and neither does its backdrop.
 - Card no longer doubles the gap when a Footer follows a Header directly, and a Header that ends a card has no trailing margin.
+- Scroll Area contains overscroll only when its content overflows. An area with nothing to scroll no longer swallows the wheel, which also fixes a short Conversation blocking page scroll.

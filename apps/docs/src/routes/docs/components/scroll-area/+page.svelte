@@ -110,5 +110,10 @@
                 text={"The scrolling content goes in `children`. Give the scroll area a height or a maximum height with `class`, or it grows to fit and never scrolls."}
             />
         </Typography.Text>
+        <Typography.Text variant="supporting">
+            <InlineText
+                text={"While its content overflows, a scroll area keeps the wheel to itself, so reaching the end does not scroll the page behind it. When everything fits, scrolling passes straight through to the page."}
+            />
+        </Typography.Text>
     </section>
 </div>
