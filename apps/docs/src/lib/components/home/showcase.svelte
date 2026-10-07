@@ -1,6 +1,7 @@
 <script lang="ts">
-    import { ArrowRight02Icon, Attachment01Icon } from '@hugeicons/core-free-icons';
+    import { ArrowRight02Icon } from '@hugeicons/core-free-icons';
     import { numberShuffle } from '@mielui/svelte/actions/number-shuffle';
+    import { Badge } from '@mielui/svelte/components/badge';
     import { Button } from '@mielui/svelte/components/button';
     import * as Chart from '@mielui/svelte/components/chart';
     import { Checkbox } from '@mielui/svelte/components/checkbox';
@@ -12,22 +13,35 @@
     import HugeiconsIcon from '@mielui/svelte/hugeicons-icon';
     import { resolve } from '$app/paths';
 
-    let demo = $state('composer');
-    let prompt = $state('Make room for a good idea.');
-    let sent = $state(false);
-    let notifications = $state(true);
-    let strength = $state(64);
-    let reviewed = $state(true);
-    let tested = $state(false);
+    const prompts = [
+        { label: 'Release notes', text: 'Write release notes for version 0.2.1.' },
+        {
+            label: 'Debug',
+            text: 'Explain this error: cannot read properties of undefined.'
+        },
+        { label: 'Name a color', text: 'Suggest five names for a dusty pink brand color.' }
+    ];
     const chartData = [
         { day: 'Mon', visits: 24 },
         { day: 'Tue', visits: 42 },
         { day: 'Wed', visits: 36 },
         { day: 'Thu', visits: 58 },
         { day: 'Fri', visits: 48 },
-        { day: 'Sat', visits: 76 }
+        { day: 'Sat', visits: 76 },
+        { day: 'Sun', visits: 64 }
     ];
     const chartConfig = { visits: { label: 'Visits', color: 'var(--chart-1)' } };
+    const visits = chartData.reduce((total, entry) => total + entry.visits, 0);
+    const previousVisits = 295;
+    const growth = Math.round(((visits - previousVisits) / previousVisits) * 100);
+
+    let demo = $state('composer');
+    let prompt = $state(prompts[0].text);
+    let sent = $state('');
+    let summary = $state(true);
+    let volume = $state(64);
+    let mentions = $state(true);
+    let releases = $state(false);
 </script>
 
 <div
@@ -124,68 +138,101 @@
         </div>
         <div class="rounded-[var(--radius-xl)] bg-card text-foreground">
             <Tabs.Root bind:value={demo} variant="ghost" class="flex flex-col">
-                <div class="flex min-h-56 items-center px-4 py-7 @lg:px-5">
-                    <Tabs.Content value="composer" class="w-full">
+                <div class="flex h-[17rem] items-center px-4 py-5 @lg:px-5">
+                    <Tabs.Content value="composer" class="flex w-full flex-col gap-3">
+                        <div
+                            role="group"
+                            aria-label="Example prompts"
+                            class="flex flex-wrap gap-1.5"
+                        >
+                            {#each prompts as example (example.label)}
+                                <Button
+                                    variant="outline"
+                                    size="sm"
+                                    class="rounded-full"
+                                    onclick={() => {
+                                        prompt = example.text;
+                                        sent = '';
+                                    }}
+                                >
+                                    {example.label}
+                                </Button>
+                            {/each}
+                        </div>
                         <Composer.Root
                             bind:value={prompt}
                             surface="solid"
-                            onSubmit={() => {
-                                sent = true;
+                            onSubmit={(value) => {
+                                sent = value;
                                 prompt = '';
                             }}
                         >
                             <Composer.Input
                                 aria-label="Try the composer"
-                                placeholder="A good idea starts here…"
-                                class="min-h-24"
+                                placeholder="Ask for anything"
+                                class="min-h-16"
                             />
                             <Composer.Toolbar>
                                 <Composer.Actions>
-                                    <Button
-                                        variant="ghost"
-                                        size="sm"
-                                        onclick={() => {
-                                            prompt = 'Build a little something that feels like me.';
-                                            sent = false;
-                                        }}
+                                    <span class="px-2 text-xs text-foreground-muted"
+                                        >Mielui 3.1</span
                                     >
-                                        <HugeiconsIcon icon={Attachment01Icon} size={14} />
-                                        Example
-                                    </Button>
                                 </Composer.Actions>
                                 <Composer.Submit />
                             </Composer.Toolbar>
                         </Composer.Root>
-                        <p aria-live="polite" class="mt-3 min-h-5 text-xs text-foreground-muted">
-                            {sent ? 'Sent in this preview.' : ''}
+                        <p
+                            aria-live="polite"
+                            class="m-0 min-h-4 truncate text-nowrap! text-xs text-foreground-muted"
+                        >
+                            {sent ? `Sent in this preview: ${sent}` : 'Pick a prompt or write your own.'}
                         </p>
                     </Tabs.Content>
-                    <Tabs.Content value="controls" class="w-full space-y-6">
-                        <Switch bind:checked={notifications} label="Keep me in the loop" />
-                        <div class="space-y-3">
-                            <div class="flex justify-between text-sm">
-                                <span>Find your balance</span>
+                    <Tabs.Content value="controls" class="flex w-full flex-col gap-5">
+                        <Switch
+                            bind:checked={summary}
+                            label="Weekly summary"
+                            description="Every Monday at 9:00."
+                        />
+                        <div class="flex flex-col gap-3">
+                            <div class="flex items-baseline justify-between text-sm">
+                                <span>Alert volume</span>
                                 <span
-                                    use:numberShuffle={{value: strength, format: (value) => `${Math.round(value)}%`}}
+                                    class="tabular-nums text-foreground-muted"
+                                    use:numberShuffle={{
+                                        value: volume,
+                                        format: (value) => `${Math.round(value)}%`
+                                    }}
                                 >
-                                    {strength}
-                                    %
+                                    {volume}%
                                 </span>
                             </div>
-                            <Slider bind:value={strength} aria-label="Find your balance" />
+                            <Slider bind:value={volume} aria-label="Alert volume" />
                         </div>
-                        <Checkbox bind:checked={reviewed} label="Make it feel right" />
-                        <Checkbox bind:checked={tested} label="Check the little details" />
+                        <fieldset class="m-0 flex min-w-0 flex-col gap-2.5 border-0 p-0">
+                            <legend class="mb-2.5 p-0 text-sm text-foreground-muted">
+                                Notify me about
+                            </legend>
+                            <Checkbox bind:checked={mentions} label="Mentions" />
+                            <Checkbox bind:checked={releases} label="New releases" />
+                        </fieldset>
                     </Tabs.Content>
-                    <Tabs.Content value="charts" class="w-full space-y-5">
+                    <Tabs.Content value="charts" class="flex w-full flex-col gap-3">
+                        <div class="flex items-end justify-between gap-3">
+                            <div class="flex flex-col gap-0.5">
+                                <span class="text-sm text-foreground-muted">Visits this week</span>
+                                <span class="text-2xl font-semibold">{visits}</span>
+                            </div>
+                            <Badge variant="success">+{growth}%</Badge>
+                        </div>
                         <Chart.Root
                             data={chartData}
                             config={chartConfig}
                             x="day"
-                            aria-label="Sample weekly visits"
+                            aria-label="Visits per day this week"
                             class="w-full [--mielui-surface:solid]"
                         >
-                            <Chart.Plot class="h-44">
+                            <Chart.Plot class="h-36">
                                 <Chart.Grid />
                                 <Chart.XAxis />
                                 <Chart.Area key="visits" />
@@ -195,7 +242,7 @@
                     </Tabs.Content>
                 </div>
                 <div
-                    class="flex flex-wrap items-center justify-between gap-2 border-t border-border/70 px-4 py-3"
+                    class="flex items-center justify-between gap-2 border-t border-border/70 px-3 py-3 @lg:px-4"
                 >
                     <div role="group" aria-label="Component preview">
                         <Tabs.List>

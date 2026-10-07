@@ -702,7 +702,9 @@ testimonials, or decoration there.
 Preserve the original restrained hero gradient and lighter featured showcase. The featured preview uses the shared `mielui-inset-frame` with
 its ghost tabs in the frame chrome and the demo on `mielui-inset-surface`. The featured preview follows the page theme: a light palette on white frost in light mode, and a dark palette on black frost in dark mode. Composer
 actions join the input on one surface unless a demo explicitly opts into the
-inset toolbar.
+inset toolbar. Each featured tab is one small real task with plain labels: a composer with
+example prompts, a few notification settings, and a weekly chart with its total.
+The panel keeps one height across tabs. Do not use slogans as control labels.
 
 Component catalog previews render real components in a decorative, inert and
 `aria-hidden` region marked `data-component-preview`, which keeps their headings

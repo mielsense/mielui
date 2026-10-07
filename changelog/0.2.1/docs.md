@@ -64,3 +64,4 @@
 - Theme Studio's preview modes are a segmented Tabs list instead of custom pills.
 - In Theme Studio the top bar, the preview page and the sidebar share one background in both themes. In dark mode the bar was a different shade from the page under it.
 - The changelog lists Docs notes last in each version. Every section is collapsible, and Docs starts collapsed.
+- The homepage hero preview has new examples: a composer with example prompts, notification settings, and a weekly visits chart with its total. The panel no longer changes height between tabs.
