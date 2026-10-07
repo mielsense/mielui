@@ -35,7 +35,7 @@
     const previousVisits = 295;
     const growth = Math.round(((visits - previousVisits) / previousVisits) * 100);
 
-    let demo = $state('composer');
+    let demo = $state('controls');
     let prompt = $state(prompts[0].text);
     let sent = $state('');
     let summary = $state(true);
@@ -139,6 +139,35 @@
         <div class="rounded-[var(--radius-xl)] bg-card text-foreground">
             <Tabs.Root bind:value={demo} variant="ghost" class="flex flex-col">
                 <div class="flex h-[17rem] items-center px-4 py-5 @lg:px-5">
+                    <Tabs.Content value="controls" class="flex w-full flex-col gap-5">
+                        <Switch
+                            bind:checked={summary}
+                            label="Weekly summary"
+                            description="Every Monday at 9:00."
+                        />
+                        <div class="flex flex-col gap-3">
+                            <div class="flex items-baseline justify-between text-sm">
+                                <span>Alert volume</span>
+                                <span
+                                    class="tabular-nums text-foreground-muted"
+                                    use:numberShuffle={{
+                                        value: volume,
+                                        format: (value) => `${Math.round(value)}%`
+                                    }}
+                                >
+                                    {volume}%
+                                </span>
+                            </div>
+                            <Slider bind:value={volume} aria-label="Alert volume" />
+                        </div>
+                        <fieldset class="m-0 flex min-w-0 flex-col gap-2.5 border-0 p-0">
+                            <legend class="mb-2.5 p-0 text-sm text-foreground-muted">
+                                Notify me about
+                            </legend>
+                            <Checkbox bind:checked={mentions} label="Mentions" />
+                            <Checkbox bind:checked={releases} label="New releases" />
+                        </fieldset>
+                    </Tabs.Content>
                     <Tabs.Content value="composer" class="flex w-full flex-col gap-3">
                         <div
                             role="group"
@@ -188,35 +217,6 @@
                             {sent ? `Sent in this preview: ${sent}` : 'Pick a prompt or write your own.'}
                         </p>
                     </Tabs.Content>
-                    <Tabs.Content value="controls" class="flex w-full flex-col gap-5">
-                        <Switch
-                            bind:checked={summary}
-                            label="Weekly summary"
-                            description="Every Monday at 9:00."
-                        />
-                        <div class="flex flex-col gap-3">
-                            <div class="flex items-baseline justify-between text-sm">
-                                <span>Alert volume</span>
-                                <span
-                                    class="tabular-nums text-foreground-muted"
-                                    use:numberShuffle={{
-                                        value: volume,
-                                        format: (value) => `${Math.round(value)}%`
-                                    }}
-                                >
-                                    {volume}%
-                                </span>
-                            </div>
-                            <Slider bind:value={volume} aria-label="Alert volume" />
-                        </div>
-                        <fieldset class="m-0 flex min-w-0 flex-col gap-2.5 border-0 p-0">
-                            <legend class="mb-2.5 p-0 text-sm text-foreground-muted">
-                                Notify me about
-                            </legend>
-                            <Checkbox bind:checked={mentions} label="Mentions" />
-                            <Checkbox bind:checked={releases} label="New releases" />
-                        </fieldset>
-                    </Tabs.Content>
                     <Tabs.Content value="charts" class="flex w-full flex-col gap-3">
                         <div class="flex items-end justify-between gap-3">
                             <div class="flex flex-col gap-0.5">
@@ -246,8 +246,8 @@
                 >
                     <div role="group" aria-label="Component preview">
                         <Tabs.List>
-                            <Tabs.Trigger value="composer">Composer</Tabs.Trigger>
                             <Tabs.Trigger value="controls">Controls</Tabs.Trigger>
+                            <Tabs.Trigger value="composer">Composer</Tabs.Trigger>
                             <Tabs.Trigger value="charts">Charts</Tabs.Trigger>
                         </Tabs.List>
                     </div>
