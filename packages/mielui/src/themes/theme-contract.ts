@@ -130,7 +130,7 @@ export const DEFAULT_THEME: Theme = {
     },
     tokens: {
         shared: {
-            '--mielui-surface': 'glass',
+            '--mielui-surface': 'solid',
             '--mielui-inset-position': 'bottom'
         }
     }

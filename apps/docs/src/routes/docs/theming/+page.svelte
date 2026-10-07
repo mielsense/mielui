@@ -185,7 +185,7 @@ src/lib/mielui/components/button/
         <Typography.H2 class="docs-section-heading">Global glass surfaces</Typography.H2>
         <Typography.Text variant="body" class="m-0">
             <InlineText
-                text='Glass surfaces are enabled by default. Disable them under Surfaces in Studio, or set `--mielui-surface: solid` on `:root`. Components with surface support inherit that choice when the prop is omitted. Set `surface="solid"` or `surface="glass"` on one component to override the theme. Put the variable on `:root` so portaled menus and dialogs inherit it too.'
+                text='Surfaces are solid by default. Turn glass on under Surface in Studio, or set `--mielui-surface: glass` on `:root`. Components with surface support inherit that choice when the prop is omitted. Set `surface="solid"` or `surface="glass"` on one component to override the theme. Put the variable on `:root` so portaled menus and dialogs inherit it too.'
             />
         </Typography.Text>
         <CodeBlock

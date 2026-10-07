@@ -107,9 +107,9 @@ async function sendPrompt(prompt: string) {
     <section id="glass-surface" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Glass surface</Typography.H2>
         <Typography.Text variant="supporting">
-            Composer follows the theme's surface setting, which defaults to glass: a frosted frame
-            with a darker input well. Set surface="glass" or surface="solid" on Composer.Root to
-            force one regardless of the theme.
+            Composer follows the theme's surface setting, which is solid by default. Glass gives it
+            a frosted frame with a darker input well. Set surface="glass" or surface="solid" on
+            Composer.Root to force one regardless of the theme.
         </Typography.Text>
         <ComponentPreview code={GlassSource}><Glass /></ComponentPreview>
     </section>

@@ -153,6 +153,8 @@ Use Dialog instead of Modal, Kbd instead of Shortcut, and HugeiconsIcon with Hug
 
 Toast is composable through Root, Content, Footer, Title, Icon, Actions, Action, and Close. The icon, title, and description sit together in Content; Footer appears only for actions. The toast helpers render these same parts. Overlay surfaces accept `surface="solid" | "glass"` on the documented owning part; do not apply glass independently to nested surfaces.
 
+Surfaces are solid by default. Glass is opt-in: set `--mielui-surface: glass` on `:root` for the whole app, or pass `surface="glass"` to one component. Do not add blur classes by hand.
+
 Card is solid unless you pass `surface="glass"` to Card.Root. It does not follow the theme's glass setting the way overlays do. On inset and panel cards only the frame frosts and the content stays solid.
 
 Frames follow the theme's border setting. With single borders the inner surface meets the frame's border, and with double borders a gutter separates them. This applies to inset cards, dialogs, sheets, data tables, composers, toasts and code blocks. Never give a frame a fixed `--mielui-modal-inset`. Multiply by `--mielui-border-inset-scale`, which is 0 for single and 1 for double.

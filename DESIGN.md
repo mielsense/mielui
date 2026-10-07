@@ -726,7 +726,7 @@ pagination until content loads successfully.
 
 Menu rows and their traveling highlight share a corner radius capped at `--radius-md` and bounded by the panel radius minus its border and row inset. Short rows must not become pill-shaped inside the larger menu frame.
 
-The default appearance uses single borders, bottom inset strips, glass surfaces,
+The default appearance uses single borders, bottom inset strips, solid surfaces,
 half-strength edge highlights, and a primary button border. Cards and menus have
 no surface shadows; control and dialog shadows remain enabled. Explicit theme
 settings and per-component surface choices override these defaults. The default

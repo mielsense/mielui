@@ -39,7 +39,7 @@ describe('themeToCss', () => {
         const css = themeToCss({ ...DEFAULT_THEME, chrome: undefined, tokens: undefined });
 
         expect(css).toContain('--mielui-border-inset-scale: 0;');
-        expect(css).toContain('--mielui-surface: glass;');
+        expect(css).toContain('--mielui-surface: solid;');
         expect(css).toContain('--mielui-inset-position: bottom;');
         expect(css).toContain('--elevation-1: 0 0 0 0 transparent;');
         expect(css).toContain('--elevation-float: 0 0 0 0 transparent;');
@@ -63,7 +63,7 @@ describe('themeToCss', () => {
             },
             tokens: {
                 shared: {
-                    '--mielui-surface': 'solid',
+                    '--mielui-surface': 'glass',
                     '--mielui-inset-position': 'top',
                     '--chart-2': '#112233'
                 }
@@ -73,8 +73,8 @@ describe('themeToCss', () => {
         expect(css).toContain('--mielui-border-inset-scale: 1;');
         expect(css).not.toContain('--elevation-1: 0 0 0 0 transparent;');
         expect(css).toContain('--color-primary-stroke: transparent;');
-        expect(css.lastIndexOf('--mielui-surface: solid;')).toBeGreaterThan(
-            css.indexOf('--mielui-surface: glass;')
+        expect(css.lastIndexOf('--mielui-surface: glass;')).toBeGreaterThan(
+            css.indexOf('--mielui-surface: solid;')
         );
         expect(css.lastIndexOf('--chart-2: #112233;')).toBeGreaterThan(
             css.indexOf('--chart-2: #f49d9d;')

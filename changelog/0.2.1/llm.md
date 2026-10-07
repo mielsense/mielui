@@ -77,3 +77,12 @@ Do not rely on a ScrollArea to trap scrolling when it has nothing to scroll. An 
 Every inset frame reads the theme's border setting through `--mielui-border-inset-scale`, which is 0 for single borders and 1 for double. Data Table, Composer, Toast and Code Block used a fixed gutter and now scale it like Card, Dialog and Sheet do.
 
 When you build or restyle a framed component, write the gutter as `calc(var(--spacing) * var(--mielui-border-inset-scale, 1))` and derive the inner radius from it. Never set `--mielui-modal-inset` to a fixed length, and do not add padding to fake a gutter in single mode.
+
+## Surfaces are solid by default
+
+`--mielui-surface` in `ui.css` and in `DEFAULT_THEME` is now `solid`. It was `glass`, so every overlay, toast, tooltip and Composer was frosted unless the theme opted out. Built-in presets that do not set the token inherit the default and are solid too.
+
+Glass is opt-in. Turn it on for the whole app with `--mielui-surface: glass` on `:root`, which a theme can export, or for one component with its `surface="glass"` prop. `surface="solid"` still forces a solid surface inside a glass theme. Card never followed the theme setting and still takes glass only through its own prop.
+
+Do not assume a translucent background behind text when you compose on these surfaces, and do not add `backdrop-blur` classes by hand to get the old look.
+
