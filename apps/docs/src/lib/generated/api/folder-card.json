@@ -2331,7 +2331,7 @@
                 "required": false,
                 "bindable": false,
                 "default": "false",
-                "description": "",
+                "description": "Blocks the click action and dims the card. Only the button form takes it.",
                 "inherited": false
             },
             0,

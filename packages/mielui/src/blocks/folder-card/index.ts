@@ -23,6 +23,7 @@ type FolderCardSharedProps = {
 type FolderCardLinkProps = FolderCardSharedProps & {
     /** Renders the card as a link. */
     href: string;
+    /** Blocks the click action and dims the card. Only the button form takes it. */
     disabled?: undefined;
 } & Omit<HTMLAnchorAttributes, keyof FolderCardSharedProps | 'href'>;
 
