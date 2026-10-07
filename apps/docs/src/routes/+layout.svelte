@@ -199,6 +199,7 @@
                                     {@render children?.()}
                                 </div>
                             </div>
+                            <ScrollEdge edge="top" />
                             <ScrollEdge edge="bottom" />
                         </div>
                     {/if}

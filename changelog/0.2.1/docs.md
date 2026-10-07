@@ -6,7 +6,7 @@
 - Redesign search as a compact palette with page icons, open tabs, and quick actions. It finds section headings and prop names, so "placement" or "closeDelay" lead to the right page.
 - Show each page's breadcrumb, title, and summary at the top of the page. The top bar names the section you are reading and jumps back to its start.
 - Give Blocks, AI components and Chart components their own catalog pages, like Inputs and the other component types.
-- Fade and softly blur the open edges of scrolling regions in Docs and Studio while more content lies beyond them. An edge under the top bar uses its hairline instead.
+- Fade and softly blur the edges of every scrolling region in Docs and Studio while more content lies beyond them.
 - Open navigation and the Studio inspector in a sheet on small screens, and show Themes and Changelog without the docs sidebar.
 - The docs site uses Manrope by default, matching the default theme.
 - Add an Agent skill icon to the rail, under Changelog. The Agent skill page fills the panel without the docs sidebar.

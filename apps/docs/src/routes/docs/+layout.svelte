@@ -48,5 +48,6 @@
             </aside>
         </div>
     </div>
+    <ScrollEdge edge="top" fill />
     <ScrollEdge edge="bottom" />
 </div>

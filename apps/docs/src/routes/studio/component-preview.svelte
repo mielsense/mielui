@@ -55,7 +55,7 @@
     }
 </script>
 
-<FadeScrollArea class="h-full">
+<FadeScrollArea class="h-full" start>
     <div class="@container w-full">
         <h2 class="sr-only">Components</h2>
         <div class="mx-auto max-w-[80rem] columns-1 gap-6 p-5 @2xl:columns-2 @6xl:columns-3 sm:p-8">
