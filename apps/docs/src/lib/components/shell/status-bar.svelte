@@ -54,7 +54,9 @@
         'inline-flex h-6 min-w-0 items-center gap-1.5 rounded-[6px] px-1.5 transition-colors [transition-duration:var(--motion-duration-hover)] hover:bg-[var(--docs-pill)] hover:text-foreground focus-visible:outline-none focus-visible:shadow-[var(--focus-ring)] motion-reduce:transition-none';
 </script>
 
-<div class="hidden h-10 shrink-0 items-center gap-1 px-3 text-[13px] text-foreground-muted lg:flex">
+<div
+    class="hidden h-9 shrink-0 items-center gap-1 border-t-[length:var(--border-size)] border-border px-2 text-[13px] text-foreground-muted lg:flex"
+>
     <a href={resolve('/docs/changelog')} class={itemClass}>
         <span aria-hidden="true" class="size-1.5 rounded-full bg-primary"></span>
         <span class="font-medium tabular-nums text-foreground">{`mielui ${manifest.version}`}</span>

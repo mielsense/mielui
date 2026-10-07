@@ -13,7 +13,9 @@
     );
 </script>
 
-<div class="flex h-10 shrink-0 items-center gap-3 px-[calc(var(--spacing)*4+var(--spacing)*2.5)]">
+<div
+    class="flex h-9 shrink-0 items-center gap-3 border-t-[length:var(--border-size)] border-border px-[calc(17px+var(--spacing)*2)]"
+>
     <div aria-hidden="true" class="flex h-3 min-w-0 flex-1 items-stretch gap-[3px]">
         {#each { length: SEGMENTS } as _, index (index)}
             <span

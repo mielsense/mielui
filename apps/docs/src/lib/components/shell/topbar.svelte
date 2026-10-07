@@ -22,7 +22,7 @@
     const shell = getShell();
 </script>
 
-<header class="flex h-14 w-full min-w-0 shrink-0 items-center gap-1.5 px-3.5">
+<header class="flex h-[50px] w-full min-w-0 shrink-0 items-center gap-1.5 px-2.5">
     {@render leading?.()}
     {#if sidebar && shell.collapsed}
         <div class="hidden lg:block">

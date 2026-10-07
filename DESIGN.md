@@ -312,16 +312,13 @@ changed prop ships with its sentence and, when it changes what people see, its
 example.
 
 Docs and Studio share one app shell. It fills the window edge to edge, with no
-outer frame, inset panel or rounded corners. Three full-height columns sit side
-by side: an icon rail, the sidebar, then the content column. Tone divides them,
-not lines. Each column has its own surface, `--docs-rail`, `--docs-side` and
-`--docs-content`, stepping toward the content. In light mode the rail is the
-grayest and the content is white. In dark mode the rail is the lightest and the
-content the darkest. Do not draw borders between the columns or under the top
-bar, the sidebar or the status line.
+outer frame, inset panel or rounded corners. Full-height columns sit side by
+side and hairlines in the border color divide them: an icon rail, the sidebar,
+then the content column. Structural lines use the full border color, not the
+softer `--docs-rule` used inside pages.
 
-The rail is 16 spacing units wide, on its own surface. Its first row is as tall
-as the top bar and holds the brand
+The rail is 16 spacing units wide, on the sidebar's surface, with a hairline on
+its trailing edge. Its first row is as tall as the top bar and holds the brand
 mark on a primary rounded tile. The mark is always white, in both themes and
 whatever the theme's on-primary color is. Then come the Documentation,
 Components, Theme Studio, Themes, Changelog and Agent skill links, a short rule
@@ -332,13 +329,13 @@ current section use the pill fill (`--docs-pill`) with foreground color. Do not
 add glows, blurs or brand tints to rail items. The rail follows the theme and is
 never fixed dark. Use Hugeicons throughout the shell.
 
-The sidebar has a title row with the
+Hairlines split the panel, not gaps. The sidebar has a title row with the
 workspace switcher and a hide button. The switcher shows the title and chevrons
 and opens a menu of Documentation, Theme Studio, and Themes. The content column
 has a top bar of the same height. The sidebar can be hidden and shown again from the top bar or
-with Cmd/Ctrl+B, and the choice persists. The pill and soft fills
-(`--docs-pill`, `--docs-soft`) are translucent foreground tints, so they read on
-all three surfaces. Only docs pages with navigation show the
+with Cmd/Ctrl+B, and the choice persists. In light mode the rail and sidebar use the page
+background and the content column the card color; in dark mode they share one
+surface. Only docs pages with navigation show the
 sidebar. Themes, Changelog and Agent skill use the full panel.
 
 The Changelog page lists each version with its sections in a fixed order:
@@ -349,7 +346,7 @@ collapsed; the others start open. The Markdown changelogs keep the same order.
 Docs navigation starts with icon rows for search and the guides, then one group
 per component type. Every group label links to that group's own catalog page at
 `/docs/components/<id>`, including Blocks, AI components and Chart components.
-Do not link a group to an anchor on the Components index. Rows are 9 spacing units tall with medium text and a 1-unit gap; the current
+Do not link a group to an anchor on the Components index. Rows are 8 spacing units tall with medium text; the current
 page uses the pill fill (`--docs-pill`). Group labels are muted, stay pinned to
 the top of the sidebar while their group scrolls, and turn semibold foreground
 while pinned. A pinned label has an opaque background, so no row shows behind
@@ -373,8 +370,9 @@ show one static pill with their name. Studio uses the same pills for its preview
 modes.
 
 The status line is flat muted text at the bottom of the content column, 9
-spacing units tall, with no pills or fills. The sidebar's page progress row is
-the same height, so the two sit on one baseline. Theme Studio has no status line. It shows the package version linking to the changelog, the component count, the
+spacing units tall, under a hairline, with no pills or fills. The sidebar's page
+progress row is the same height under the same hairline, so one line runs across
+both. Theme Studio has no status line. It shows the package version linking to the changelog, the component count, the
 install command for the current component, and previous and next links at the
 end. Clicking the command copies it. Put only real, current information there.
 
@@ -485,7 +483,7 @@ keep their HTML, Markdown, navigation, and search metadata aligned.
 ### Shared shell geometry
 
 The docs sidebar starts 18.5rem wide and the Studio sidebar 21rem. Drag the sidebar's edge to resize it between 240 and 520 pixels. Each of the two remembers its own width in the browser. The edge shows a primary line on hover, focus and while dragging. It is a focusable separator: arrow keys move it 16 pixels, Home and End jump to the limits, and a double click restores the starting width. The sidebar title
-row, the rail's first row and the top bar are all 14 spacing units tall. Top bar controls use the small control
+row and the top bar are both 50px tall. Top bar controls use the small control
 height with the Button's own radius and type; outline is reserved for the Copy
 page group. Separate control groups with a gap, not a divider.
 
