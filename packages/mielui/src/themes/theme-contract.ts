@@ -110,7 +110,7 @@ export const DEFAULT_THEME: Theme = {
     version: THEME_VERSION,
     slug: 'default',
     name: 'Default',
-    description: 'Mielui default — a calm, warm-neutral interface system.',
+    description: 'The Mielui default. A calm, warm-neutral interface system.',
     publisher: 'mielui',
     brand: '#ba7ca5',
     neutral: 'warm',

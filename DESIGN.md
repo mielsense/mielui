@@ -313,7 +313,7 @@ and a slim status line under it.
 
 The rail is 16 spacing units wide. It starts with the brand mark in white on a
 primary rounded tile, then the Documentation, Components, Theme Studio, Themes,
-and Changelog links, a short rule, then search and GitHub. Rail
+Changelog and Agent skill links, a short rule, then search and GitHub. Rail
 items are icon buttons with tooltips that open to the right; the current section
 has a flat translucent white fill. Do not add glows or blurs to rail items. Rail
 colors are fixed light-on-dark in both themes. Use Hugeicons throughout the shell.
@@ -325,7 +325,7 @@ has a top bar of the same height. The sidebar can be hidden and shown again from
 with Cmd/Ctrl+B, and the choice persists. In light mode the sidebar uses the page
 background and the content column the card color; in dark mode both share one
 surface that contrasts with the frame. Only docs pages with navigation show the
-sidebar. Themes and Changelog use the full panel.
+sidebar. Themes, Changelog and Agent skill use the full panel.
 
 The Changelog page lists each version with its sections in a fixed order:
 Breaking changes, Features, Fixes, then Docs last. Every section is a

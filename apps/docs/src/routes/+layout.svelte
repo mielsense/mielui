@@ -10,7 +10,7 @@
     import { setSearch } from '$lib/components/search/context';
     import SiteSearch from '$lib/components/search/palette.svelte';
     import MobileActions from '$lib/components/shell/mobile-actions.svelte';
-    import { pageIcon } from '$lib/components/shell/page-icon';
+    import { pageIcon, usesDocsSidebar } from '$lib/components/shell/page-icon';
     import PageTabs from '$lib/components/shell/page-tabs.svelte';
     import Rail from '$lib/components/shell/rail.svelte';
     import ScrollEdge from '$lib/components/shell/scroll-edge.svelte';
@@ -50,7 +50,7 @@
     const isHome = $derived(page.url.pathname === '/');
     const isDocs = $derived(page.url.pathname.startsWith('/docs'));
     const isThemeStudio = $derived(page.url.pathname.startsWith('/studio'));
-    const hasSidebar = $derived(isDocs && !page.url.pathname.startsWith('/docs/changelog'));
+    const hasSidebar = $derived(usesDocsSidebar(page.url.pathname));
     const pageLabel = $derived(getBreadcrumbs(page.url.pathname).at(-1)?.label ?? 'mielui');
 
     // `--font-header` defaults to `var(--font-sans)`, so one custom property re-skins every page.

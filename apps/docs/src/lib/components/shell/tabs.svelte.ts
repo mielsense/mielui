@@ -2,6 +2,7 @@ import { untrack } from 'svelte';
 import { goto } from '$app/navigation';
 import { page } from '$app/state';
 import { getBreadcrumbs } from '$lib/components/docs/breadcrumbs';
+import { usesDocsSidebar } from './page-icon';
 
 export type DocsTab = {
     id: string;
@@ -17,7 +18,7 @@ function labelFor(pathname: string) {
 }
 
 function tracks(pathname: string) {
-    return pathname.startsWith('/docs') && !pathname.startsWith('/docs/changelog');
+    return usesDocsSidebar(pathname);
 }
 
 function isTab(value: unknown): value is DocsTab {

@@ -1,5 +1,6 @@
 <script lang="ts">
     import {
+        ArtificialIntelligence04Icon as Agent,
         BookOpen01Icon as Book,
         Clock01Icon as Clock,
         GithubIcon as Github,
@@ -14,6 +15,7 @@
     import { resolve } from '$app/paths';
     import { page } from '$app/state';
     import { getSearch } from '$lib/components/search/context';
+    import { usesDocsSidebar } from './page-icon';
 
     const search = getSearch();
     const pathname = $derived(page.url.pathname);
@@ -22,10 +24,7 @@
             href: resolve('/docs/introduction'),
             label: 'Documentation',
             icon: Book,
-            current:
-                pathname.startsWith('/docs') &&
-                !pathname.startsWith('/docs/components') &&
-                !pathname.startsWith('/docs/changelog')
+            current: usesDocsSidebar(pathname) && !pathname.startsWith('/docs/components')
         },
         {
             href: resolve('/docs/components'),
@@ -50,6 +49,12 @@
             label: 'Changelog',
             icon: Clock,
             current: pathname.startsWith('/docs/changelog')
+        },
+        {
+            href: resolve('/docs/agent-skill'),
+            label: 'Agent skill',
+            icon: Agent,
+            current: pathname.startsWith('/docs/agent-skill')
         }
     ]);
     const itemClass =

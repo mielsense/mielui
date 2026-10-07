@@ -9,6 +9,7 @@
 - Fade and softly blur the edges of every scrolling region in Docs and Studio while more content lies beyond them.
 - Open navigation and the Studio inspector in a sheet on small screens, and show Themes and Changelog without the docs sidebar.
 - The docs site uses Manrope by default, matching the default theme.
+- Add an Agent skill icon to the rail, under Changelog. The Agent skill page fills the panel without the docs sidebar.
 - The changelog lists Docs notes last in each version. Every section is collapsible, and Docs starts collapsed.
 - Rebuild the API reference as rows with each prop's name, type, description, and default, and describe every prop of every component.
 - Explain every prop in prose on its component page, in 91 feature sections added to 62 pages, with 41 new live examples.
