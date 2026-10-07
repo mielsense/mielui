@@ -174,7 +174,7 @@
     --color-foreground-muted: var(--mielui-neutral-500);
     --color-primary: #ba7ca5;
     --color-primary-hover: color-mix(in srgb, var(--color-primary) 88%, white);
-    --color-on-primary: #21151e;
+    --color-on-primary: #ffffff;
     --color-button-foreground: var(--color-foreground);
     --color-primary-stroke: color-mix(in srgb, black 14%, transparent);
     --color-accent-tint: var(--mielui-blue-50);
@@ -242,6 +242,7 @@
     --mielui-warning: hsl(37.3 72.6% 55.7%);
     --mielui-error: hsl(0 66.7% 63.5%);
     --color-primary-stroke: color-mix(in srgb, white 24%, transparent);
+    --color-on-primary: #21151e;
     --color-background: hsl(0 0% 4%);
     --color-card: hsl(0 0% 9%);
     --color-panel: hsl(0 0% 11.5%);

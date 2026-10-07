@@ -158,7 +158,7 @@ function brandDeclarations(brand: string, mode: 'light' | 'dark') {
     return [
         `--color-primary: ${brand};`,
         `--color-primary-hover: color-mix(in srgb, ${brand} ${isDefault ? '88%, white' : '78%, black'});`,
-        `--color-on-primary: ${isDefault ? '#21151e' : '#ffffff'};`,
+        `--color-on-primary: ${isDefault && mode === 'dark' ? '#21151e' : '#ffffff'};`,
         `--color-ring: color-mix(in srgb, ${brand} 80%, transparent);`,
         `--mielui-blue-500: ${brand};`,
         `--mielui-blue-50: color-mix(in srgb, ${brand} 12%, ${mode === 'light' ? 'white' : 'black'});`

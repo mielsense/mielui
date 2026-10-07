@@ -76,7 +76,7 @@ export const DEFAULT_FOUNDATION_COLORS: FoundationColors = {
         secondary: '#f0f0ee',
         foreground: '#1c1c19',
         foregroundMuted: '#6d6d67',
-        onPrimary: '#21151e',
+        onPrimary: '#ffffff',
         buttonForeground: '#1c1c19'
     },
     dark: {
