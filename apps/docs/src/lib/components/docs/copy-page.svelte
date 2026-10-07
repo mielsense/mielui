@@ -25,7 +25,6 @@
         `Read ${new URL(markdownPath, 'https://ui.miel.my').href} so I can ask questions about it. Use Svelte 5 when writing examples.`
     );
     const links = $derived([
-        { label: 'View as Markdown', href: markdownPath },
         { label: 'Open in v0', href: `https://v0.dev/?q=${encodeURIComponent(prompt)}` },
         { label: 'Open in ChatGPT', href: `https://chatgpt.com/?q=${encodeURIComponent(prompt)}` },
         { label: 'Open in Claude', href: `https://claude.ai/new?q=${encodeURIComponent(prompt)}` },
@@ -74,7 +73,7 @@
 </script>
 
 <Popover.Root bind:open placement="bottom-end">
-    <Group.Root aria-label="Page actions">
+    <Group.Root aria-label="Page actions" class="[--radius-lg:var(--radius-sm)]">
         <Button
             variant="outline"
             size="sm"
@@ -100,23 +99,32 @@
     <Popover.Content class="w-48" surfaceClass="p-1" focusTrap={false} lockScroll={false}>
         <nav aria-label="Page resources" class="flex flex-col gap-0.5">
             {#each links as link (link.label)}
-                <Button
-                    variant="ghost"
-                    size="sm"
-                    class="w-full justify-start px-2 text-sm"
-                    href={link.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    onclick={() => {
-                        open = false;
-                    }}
-                >
-                    {link.label}
-                </Button>
+                {@render resource(link.label, link.href)}
             {/each}
+            <div
+                role="separator"
+                class="-mx-1 my-0.5 h-[length:var(--border-size)] bg-border"
+            ></div>
+            {@render resource('View as Markdown', markdownPath)}
         </nav>
     </Popover.Content>
 </Popover.Root>
+{#snippet resource(label: string, href: string)}
+    <Button
+        variant="ghost"
+        size="sm"
+        class="w-full justify-start px-2 text-sm"
+        {href}
+        target="_blank"
+        rel="noopener noreferrer"
+        onclick={() => {
+            open = false;
+        }}
+    >
+        {label}
+    </Button>
+{/snippet}
+
 <span role="status" class="sr-only">
     {statusMessage}
 </span>

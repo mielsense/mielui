@@ -52,3 +52,4 @@
 - Drag the edge of the docs or Studio sidebar to resize it. Each keeps its own width between visits, and a double click resets it.
 - Rebalance the search palette: a taller search row and key hint bar, and shorter result rows.
 - The docs site uses Manrope by default, matching the default theme.
+- Copy page matches the tabs' corner radius, and its menu lists View as Markdown last under a divider.
