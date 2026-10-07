@@ -4,7 +4,8 @@
 - Pin sidebar group labels while their group scrolls, mark pages that are open in another tab, and show the current page's position in the docs as a row of bars with the page count.
 - Drag the edge of the docs or Studio sidebar to resize it. Each keeps its own width between visits, and a double click resets it.
 - Redesign search as a compact palette with page icons, open tabs, and quick actions. It finds section headings and prop names, so "placement" or "closeDelay" lead to the right page.
-- Show each page's breadcrumb, title, and summary at the top of the page, and keep section titles pinned under the top bar.
+- Show each page's breadcrumb, title, and summary at the top of the page. The top bar names the section you are reading and jumps back to its start.
+- Give Blocks, AI components and Chart components their own catalog pages, like Inputs and the other component types.
 - Fade and softly blur the edges of every scrolling region in Docs and Studio while more content lies beyond them.
 - Open navigation and the Studio inspector in a sheet on small screens, and show Themes and Changelog without the docs sidebar.
 - The docs site uses Manrope by default, matching the default theme.

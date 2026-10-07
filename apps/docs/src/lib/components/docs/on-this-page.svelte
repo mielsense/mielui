@@ -1,9 +1,8 @@
 <script lang="ts">
     import { fadeY, scrollFade } from '$lib/components/shell/scroll-fade';
-    import { createPageOutline } from './page-outline.svelte';
+    import type { PageOutline } from './page-outline.svelte';
 
-    let { content }: { content: HTMLElement | undefined } = $props();
-    const outline = createPageOutline(() => content);
+    let { outline }: { outline: PageOutline } = $props();
 </script>
 
 {#if outline.headings.length}

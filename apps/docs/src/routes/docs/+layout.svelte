@@ -4,8 +4,10 @@
     import DocsPager from '$lib/components/docs/docs-pager.svelte';
     import { magneticHeadings } from '$lib/components/docs/magnetic-headings';
     import OnThisPage from '$lib/components/docs/on-this-page.svelte';
+    import { createPageOutline } from '$lib/components/docs/page-outline.svelte';
     import ScrollEdge from '$lib/components/shell/scroll-edge.svelte';
     import { fadeYEnd, scrollFade } from '$lib/components/shell/scroll-fade';
+    import { getShell } from '$lib/components/shell/shell.svelte';
     import '$lib/components/docs/docs-layout.css';
 
     const { children }: { children: Snippet } = $props();
@@ -13,6 +15,16 @@
         '[data-docs-page] > section:not([data-docs-toolbar]), #api-reference'
     );
     let content = $state<HTMLDivElement>();
+    const shell = getShell();
+    const outline = createPageOutline(() => content);
+
+    $effect(() => {
+        shell.outline = outline;
+
+        return () => {
+            shell.outline = undefined;
+        };
+    });
 </script>
 
 <div class="relative h-full min-h-0 w-full">
@@ -32,7 +44,7 @@
                 {/if}
             </div>
             <aside class="sticky top-12 hidden w-52 shrink-0 self-start xl:block">
-                <OnThisPage {content} />
+                <OnThisPage {outline} />
             </aside>
         </div>
     </div>

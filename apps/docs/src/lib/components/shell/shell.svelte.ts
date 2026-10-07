@@ -1,4 +1,5 @@
 import { getContext, setContext, untrack } from 'svelte';
+import type { PageOutline } from '$lib/components/docs/page-outline.svelte';
 import { createDocsTabs } from './tabs.svelte';
 
 const SHELL_KEY = Symbol('docs-shell');
@@ -26,6 +27,7 @@ export function createShell() {
         studio: sidebarWidths.studio
     });
     const tabs = createDocsTabs();
+    let outline = $state.raw<PageOutline>();
 
     $effect(() => {
         untrack(() => {
@@ -67,6 +69,13 @@ export function createShell() {
         },
         sidebarWidth(kind: SidebarKind) {
             return widths[kind];
+        },
+        /** The outline of the docs page on screen, for the top bar's section trail. */
+        get outline() {
+            return outline;
+        },
+        set outline(next: PageOutline | undefined) {
+            outline = next;
         },
         resizeSidebar,
         tabs,

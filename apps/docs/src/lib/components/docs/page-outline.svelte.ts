@@ -5,12 +5,23 @@ import { page } from '$app/state';
 
 type Heading = { id: string; label: string; level: number; node: HTMLElement };
 
-/** Gap kept between a pinned section title and the heading scrolled under it. */
-const STICKY_GAP = 8;
-
 export function createPageOutline(getContent: () => HTMLElement | undefined) {
     let headings = $state<Heading[]>([]);
     let active = $state('');
+    let reached = $state(false);
+    const trail = $derived.by(() => {
+        const index = headings.findIndex((heading) => heading.id === active);
+        if (!reached || index === -1) {
+            return [];
+        }
+        const current = headings[index];
+        if (current.level === 2) {
+            return [current];
+        }
+        const parent = headings.slice(0, index).findLast((heading) => heading.level === 2);
+
+        return parent ? [parent, current] : [current];
+    });
     let destination: string | null = null;
     let jumpVersion = 0;
     let jumpStarted = false;
@@ -21,24 +32,10 @@ export function createPageOutline(getContent: () => HTMLElement | undefined) {
         return anchor.getBoundingClientRect().top;
     }
 
-    function headingInset(heading: Heading) {
+    function headingInset() {
         const toolbar = getContent()?.querySelector<HTMLElement>('[data-docs-toolbar]');
-        const toolbarHeight = toolbar?.getBoundingClientRect().height ?? 0;
-        if (heading.level !== 3) {
-            return toolbarHeight;
-        }
-        let section = heading.node.closest('section');
-        while (section) {
-            const title = section.querySelector<HTMLElement>(
-                ':scope > h2, :scope > div:first-child:has(> h2)'
-            );
-            if (title) {
-                return toolbarHeight + title.getBoundingClientRect().height + STICKY_GAP;
-            }
-            section = section.parentElement?.closest('section') ?? null;
-        }
 
-        return toolbarHeight;
+        return toolbar?.getBoundingClientRect().height ?? 0;
     }
 
     async function navigate(event: MouseEvent, heading: Heading) {
@@ -76,7 +73,7 @@ export function createPageOutline(getContent: () => HTMLElement | undefined) {
             scroll.scrollTop +
             headingTop(heading) -
             scroll.getBoundingClientRect().top -
-            headingInset(heading);
+            headingInset();
         replaceState(`#${heading.id}`, page.state);
         heading.node.setAttribute('tabindex', '-1');
         heading.node.classList.add('focus:outline-none');
@@ -107,11 +104,14 @@ export function createPageOutline(getContent: () => HTMLElement | undefined) {
             }
             const top = (scroll?.getBoundingClientRect().top ?? 0) + 2;
             let current = headings[0]?.id ?? '';
+            let passed = false;
             for (const heading of headings) {
-                if (headingTop(heading) <= top + headingInset(heading)) {
+                if (headingTop(heading) <= top + headingInset()) {
                     current = heading.id;
+                    passed = true;
                 }
             }
+            reached = passed;
             if (scroll && scroll.scrollHeight - scroll.scrollTop - scroll.clientHeight < 4) {
                 current = headings.at(-1)?.id ?? current;
             }
@@ -245,6 +245,15 @@ export function createPageOutline(getContent: () => HTMLElement | undefined) {
         get active() {
             return active;
         },
+        /**
+         * The section the reader is in, and the subsection under it when there is one. Empty
+         * until the first heading has scrolled to the top.
+         */
+        get trail() {
+            return trail;
+        },
         navigate
     };
 }
+
+export type PageOutline = ReturnType<typeof createPageOutline>;

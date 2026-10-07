@@ -24,25 +24,8 @@
     @apply sticky top-0 z-40 h-[var(--docs-row-height)] shrink-0 justify-center bg-[var(--docs-content)] py-0;
 }
 
-/* Section titles are plain headings that stay pinned under the top bar. The row
-   is opaque so nothing shows behind it, and a short blurred fade appears beneath
-   it only while it is pinned. */
 .docs-article :is([data-docs-page] > section, #api-reference) > :is(h2, div:first-child:has(> h2)) {
-    @apply sticky top-[var(--docs-sticky-offset,0px)] z-30 m-0 flex h-12 w-full items-center gap-2 rounded-none border-0 bg-[var(--docs-content)] p-0 shadow-none [container-type:scroll-state];
-}
-
-.docs-article
-    :is([data-docs-page] > section, #api-reference)
-    > :is(h2, div:first-child:has(> h2))::after {
-    @apply pointer-events-none absolute inset-x-0 top-full h-5 bg-linear-to-b from-[var(--docs-content)] to-transparent opacity-0 backdrop-blur-[3px] content-[''] [mask-image:linear-gradient(to_bottom,black,transparent)];
-}
-
-@container scroll-state(stuck: top) {
-    .docs-article
-        :is([data-docs-page] > section, #api-reference)
-        > :is(h2, div:first-child:has(> h2))::after {
-        @apply opacity-100;
-    }
+    @apply m-0 flex h-12 w-full items-center gap-2 rounded-none border-0 p-0 shadow-none;
 }
 
 .docs-article
@@ -57,12 +40,6 @@
 
 .docs-article :is([data-docs-page] > section, #api-reference) > div:first-child > h2 {
     @apply m-0;
-}
-
-.docs-article
-    :is([data-docs-page] > section, #api-reference)
-    > :not(h2, div:first-child:has(> h2)) {
-    @apply isolate;
 }
 
 .docs-article [data-docs-page] > #hero [data-preview-canvas] {

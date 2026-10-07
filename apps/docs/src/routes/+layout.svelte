@@ -15,6 +15,7 @@
     import Rail from '$lib/components/shell/rail.svelte';
     import ScrollEdge from '$lib/components/shell/scroll-edge.svelte';
     import { fadeY, scrollFade } from '$lib/components/shell/scroll-fade';
+    import SectionTrail from '$lib/components/shell/section-trail.svelte';
     import { createShell, setShell } from '$lib/components/shell/shell.svelte';
     import Sidebar from '$lib/components/shell/sidebar.svelte';
     import SidebarCard from '$lib/components/shell/sidebar-card.svelte';
@@ -175,6 +176,9 @@
                             {/if}
                             {#snippet actions()}
                                 {#if isDocs && page.status < 400}
+                                    <div class="hidden min-w-0 md:block">
+                                        <SectionTrail />
+                                    </div>
                                     <div class="hidden sm:block">
                                         <CopyPage />
                                     </div>

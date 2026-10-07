@@ -333,7 +333,9 @@ collapsible row with its bullet count, divided by a hairline rule. Docs starts
 collapsed; the others start open. The Markdown changelogs keep the same order.
 
 Docs navigation starts with icon rows for search and the guides, then one group
-per component type. Rows are 8 spacing units tall with medium text; the current
+per component type. Every group label links to that group's own catalog page at
+`/docs/components/<id>`, including Blocks, AI components and Chart components.
+Do not link a group to an anchor on the Components index. Rows are 8 spacing units tall with medium text; the current
 page uses the pill fill (`--docs-pill`). Group labels are muted, stay pinned to
 the top of the sidebar while their group scrolls, and turn semibold foreground
 while pinned. A pinned label has an opaque background, so no row shows behind
@@ -374,11 +376,14 @@ behind a hover card.
 The content column fills the panel. Prose, previews, code, catalog grids, and API
 rows all use the full width of the column. The page outline sits at the far
 right at extra-large widths as plain text links; the current heading uses medium
-foreground text. Section titles are plain semibold headings on a full-width row that stays
-pinned under the top bar. The row has the opaque content background, so nothing
-shows behind or beside it, and a short blurred fade appears beneath it only while
-it is pinned. This is the same treatment as pinned sidebar group labels. Do not
-use inverted or pill-shaped section titles. Put an optional section explanation
+foreground text. Section titles are plain semibold headings on a full-width row.
+They scroll with the page and are never pinned, because a pinned title costs a
+row of vertical space on every screen. The top bar names the current section
+instead: a quiet trail before Copy page shows the section, and the subsection
+when there is one, with a short divider after it. Each name jumps back to the
+start of its section. The trail appears once the first heading reaches the top
+and is hidden below the medium breakpoint. Do not use inverted or pill-shaped
+section titles. Put an optional section explanation
 behind a labelled info control beside the title.
 When a downward scroll stops with the next section just below the top, the page
 settles that section into place. The settle never runs during a drag, under
@@ -447,8 +452,7 @@ export actions, the content column and Studio previews under the top bar and at
 the bottom of the panel, the navigation sheet, the page outline, the tab strip, and overflowing
 preview controls. The top bar has no bottom border. Content fades and blurs as
 it passes under the bar, so the bar and the page read as one surface at rest.
-In docs the top edge is a short fill to the content color instead of a mask, so
-it does not dim the pinned section titles.
+In docs the top edge is a short fill to the content color instead of a mask.
 Skip the top fade only in the docs sidebar, where pinned group labels mark the
 edge. Wrap a ScrollArea in `FadeScrollArea` instead of enabling
 its chevron cues.
