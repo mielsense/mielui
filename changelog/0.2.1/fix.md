@@ -13,3 +13,4 @@
 - Classes passed to `Command.Header` now override its default padding and text color.
 - Keep the Command search row at its full height when the results are long.
 - Color Picker no longer outlines its color area when opened with the mouse. The focus ring shows for keyboard focus only.
+- Keep the divider between grouped controls visible after one of them is clicked. A focused control now rises above its neighbors only while its focus ring shows.
