@@ -7,7 +7,6 @@
         label,
         icon,
         current = false,
-        fixed = false,
         href,
         onclick,
         onclose
@@ -15,7 +14,6 @@
         label: string;
         icon: ShellIcon;
         current?: boolean;
-        fixed?: boolean;
         href?: string;
         onclick?: () => void;
         onclose?: () => void;
@@ -28,7 +26,7 @@
 
 <div
     data-current={current || undefined}
-    class={`group/tab relative flex h-8 shrink-0 items-center rounded-[var(--radius-sm)] transition-colors [transition-duration:var(--motion-duration-hover)] motion-reduce:transition-none ${fixed ? 'w-[11.25rem]' : ''} ${current ? 'bg-[var(--docs-pill)] text-foreground' : 'bg-[color-mix(in_oklab,var(--docs-pill)_45%,transparent)] text-foreground-muted hover:bg-[var(--docs-pill)] hover:text-foreground'}`}
+    class={`group/tab relative flex h-8 max-w-56 shrink-0 items-center rounded-[var(--radius-sm)] transition-colors [transition-duration:var(--motion-duration-hover)] motion-reduce:transition-none ${current ? 'bg-[var(--docs-pill)] text-foreground' : 'bg-[color-mix(in_oklab,var(--docs-pill)_45%,transparent)] text-foreground-muted hover:bg-[var(--docs-pill)] hover:text-foreground'}`}
 >
     {#if href}
         <a {href} aria-current={current ? 'page' : undefined} class={bodyClass}>

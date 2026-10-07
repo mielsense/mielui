@@ -1,5 +1,5 @@
 - Redesign Docs and Studio as one app shell that fills the window: an icon rail, a collapsible sidebar and a full-width content column, divided by hairlines, with a slim status line under the content.
-- Add page tabs to the docs top bar so several pages stay open at once. Tabs persist across reloads, Cmd or Ctrl-click a sidebar link to open one in the background, and drag tabs or press Alt with an arrow key to reorder them.
+- Add page tabs to the docs top bar so several pages stay open at once. Each tab is as wide as its label and shows an icon for its component group or guide. Tabs persist across reloads, Cmd or Ctrl-click a sidebar link to open one in the background, and drag tabs or press Alt with an arrow key to reorder them.
 - Show the package version, the install command for the current component, and previous and next links in the status line.
 - Pin sidebar group labels while their group scrolls, mark pages that are open in another tab, and show the current page's position in the docs as a row of bars with the page count.
 - Drag the edge of the docs or Studio sidebar to resize it. Each keeps its own width between visits, and a double click resets it.

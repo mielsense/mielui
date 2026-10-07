@@ -353,7 +353,10 @@ card, label, or icon.
 
 The docs top bar is a tab strip. The add button opens the component catalog in a
 new tab; following a link changes the current tab, or switches to the tab that
-already shows that page. Tabs are fixed-width pills with a page icon, a label,
+already shows that page. Tabs are pills as wide as their label, up to 56 spacing units, where the
+label truncates. Each has an icon for its kind of page: one per component group,
+shared by that group's catalog page and its components, and one per guide. Do
+not give every component the same icon. A tab has a page icon, a label,
 and a close button on hover. The current tab uses the pill fill and the others a
 fainter one. Cmd or Ctrl-click on a sidebar link opens it as a tab in the background. Drag a
 tab onto another to reorder, or press Alt with the left or right arrow on a

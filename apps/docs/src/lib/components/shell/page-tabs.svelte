@@ -119,7 +119,6 @@
                 class={`shrink-0 rounded-[var(--radius-sm)] transition-opacity [transition-duration:var(--motion-duration-hover)] motion-reduce:transition-none ${dragged === tab.id ? 'opacity-40' : ''} ${target === tab.id ? 'shadow-[var(--focus-ring)]' : ''}`}
             >
                 <TabPill
-                    fixed
                     label={tab.label}
                     icon={pageIcon(tab.href)}
                     href={tab.href}
