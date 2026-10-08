@@ -82,6 +82,7 @@
                         <span class="text-sm font-medium">Workspace address</span>
                         <Group.Root aria-label="Workspace address" class="w-full">
                             <Group.Text>mielui.dev/</Group.Text>
+                            <Group.Separator />
                             <Input
                                 aria-label="Workspace slug"
                                 bind:value={slug}

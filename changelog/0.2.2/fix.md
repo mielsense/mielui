@@ -1,0 +1,2 @@
+- The Workspace address field in the Studio preview has a divider between the `mielui.dev/` prefix and the slug, so the two no longer read as one field with a gap in it.
+- Outline buttons inside a Group use the same border color as the inputs, text, and dividers beside them. They kept a lighter border, so the frame changed color partway around.
