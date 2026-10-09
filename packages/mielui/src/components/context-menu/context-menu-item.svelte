@@ -14,6 +14,7 @@
         element = $bindable(),
         inset = false,
         callback,
+        variant,
         ...rest
     }: ContextMenuItemProps = $props();
 </script>
@@ -34,7 +35,13 @@
             bind:element
             disabled={disabled ?? undefined}
             data-collection-item
-            class={cn(className, 'mielui-menu-item flex-row gap-3 text-sm', inset && 'ps-8')}
+            data-destructive={variant === 'destructive' || undefined}
+            class={cn(
+                className,
+                'mielui-menu-item flex-row text-sm',
+                inset && 'ps-8',
+                variant === 'destructive' && 'text-[var(--mielui-error-text)]'
+            )}
             unstyled
         >
             {@render children?.()}

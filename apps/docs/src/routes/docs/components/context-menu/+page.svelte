@@ -52,12 +52,11 @@
     <section id="usage" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Usage</Typography.H2>
         <Typography.Text variant="supporting">
-            The theme setting chrome.borders chooses "single" or "double" framing. Single is the
-            default. Single removes the extra frame while preserving content padding, composition,
-            and inset variants.
+            The panel is one floating layer with a single hairline edge. The theme setting
+            chrome.borders does not change it.
         </Typography.Text>
         <Typography.Text variant="supporting">
-            Separators span the inner panel width, including submenus. Menu items retain their
+            Separators are inset from the panel edges, including in submenus. Menu items keep their
             padding.
         </Typography.Text>
         <Typography.Text variant="supporting">
@@ -134,7 +133,7 @@
         <Typography.H2 class="docs-section-heading">Items and other parts</Typography.H2>
         <Typography.Text variant="supporting">
             <InlineText
-                text={"Item and CheckboxItem are built on [Button](/docs/components/button). `size` changes the row height and `loading` with `loadingLabel`, `successLabel` and `errorLabel` shows progress. `element` binds the DOM node, `unstyled` removes the Button classes, and `onkeydown` runs before the menu handles the key. A row is always a button and does not take `href`. Navigate from `callback`."}
+                text={"Item and CheckboxItem are built on [Button](/docs/components/button). `size` changes the row height and `loading` with `loadingLabel`, `successLabel` and `errorLabel` shows progress. `variant=\"destructive\"` on Item colors the row for an action that removes something and tints the highlight while it is active. `element` binds the DOM node, `unstyled` removes the Button classes, and `onkeydown` runs before the menu handles the key. A row is always a button and does not take `href`. Navigate from `callback`."}
             />
         </Typography.Text>
         <Typography.Text variant="supporting">

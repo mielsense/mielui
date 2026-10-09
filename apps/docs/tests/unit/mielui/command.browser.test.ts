@@ -38,7 +38,7 @@ describe('Command -- open and close', () => {
         await expect.element(page.getByPlaceholder('Search commands')).toBeInTheDocument();
     });
 
-    it('uses a modal Dialog overlay without entrance motion', async () => {
+    it('uses a modal Dialog overlay and the dialog pop', async () => {
         render(CommandFixture, {});
         await flush();
         await openCommand();
@@ -49,7 +49,7 @@ describe('Command -- open and close', () => {
         expect(dialog).toBeInTheDocument();
 
         const className = dialog?.getAttribute('class') ?? '';
-        expect(dialog?.getAttribute('data-motion')).toBe('none');
+        expect(dialog?.getAttribute('data-motion')).toBe('dialog');
         expect(dialog?.getAttribute('aria-modal')).toBe('true');
         expect(className).toContain('origin-center');
     });

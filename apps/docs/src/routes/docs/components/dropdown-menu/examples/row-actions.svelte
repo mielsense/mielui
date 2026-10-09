@@ -53,8 +53,8 @@
                 </span>
             </DropdownMenu.Item>
             <DropdownMenu.Separator />
-            <DropdownMenu.Item callback={remove}>
-                <span class="flex items-center gap-2 text-[var(--mielui-error-text)]">
+            <DropdownMenu.Item variant="destructive" callback={remove}>
+                <span class="flex items-center gap-2">
                     <HugeiconsIcon icon={Trash} size={13} />
                     Delete
                 </span>

@@ -95,7 +95,7 @@
         className,
         overlaySurface(surface),
         !toast.description && !toast.actions?.length && 'w-fit max-w-full',
-        'mielui-inset-frame relative ml-auto flex w-full flex-col text-foreground shadow-[var(--elevation-float)] [--mielui-modal-inset:calc(var(--spacing)*var(--mielui-border-inset-scale,1))] has-[[data-ui=toast-close]]:[&_[data-ui=toast-content]]:pr-11 has-[[data-ui=toast-close]]:[&>[data-ui=toast-footer][data-inset-position=top]]:pr-10'
+        'mielui-inset-frame relative ml-auto flex w-full flex-col text-foreground shadow-[var(--elevation-float)] [--mielui-plate-radius:calc(var(--radius-xl)*var(--mielui-squircle,1))] has-[[data-ui=toast-close]]:[&_[data-ui=toast-content]]:pr-11 has-[[data-ui=toast-close]]:[&>[data-ui=toast-footer][data-inset-position=top]]:pr-10'
     )}
     onmouseenter={(event: MouseEvent & { currentTarget: EventTarget & HTMLDivElement }) => {
         hovered = true;
@@ -130,7 +130,7 @@
                 <span>{toast.description}</span>
             </Content>
         {:else}
-            <Content class="flex min-h-14 flex-row items-center gap-2 px-4 py-4">
+            <Content class="min-h-0 flex-row items-center justify-start gap-2">
                 <Icon />
                 <Title />
             </Content>
@@ -145,3 +145,59 @@
         {/if}
     {/if}
 </motion.div>
+
+<style>
+    :global {
+        @media (prefers-reduced-motion: no-preference) {
+            [data-ui='toast'][data-type='success']:not([data-ui='notch-body'] *) {
+                animation: mielui-toast-success calc(var(--motion-duration-toast-in) * 0.82)
+                    cubic-bezier(0.5, 1, 0.89, 1) calc(var(--motion-duration-toast-in) * 0.5) both;
+            }
+
+            [data-ui='toast'][data-type='error']:not([data-ui='notch-body'] *) {
+                animation: mielui-toast-error calc(var(--motion-duration-toast-in) * 0.72)
+                    cubic-bezier(0.5, 1, 0.89, 1) calc(var(--motion-duration-toast-in) * 0.5) both;
+            }
+        }
+
+        @keyframes mielui-toast-success {
+            0% {
+                scale: 1;
+            }
+
+            30% {
+                scale: 1.025;
+            }
+
+            60% {
+                scale: 0.99;
+            }
+
+            100% {
+                scale: 1;
+            }
+        }
+
+        @keyframes mielui-toast-error {
+            0% {
+                translate: 0 0;
+            }
+
+            25% {
+                translate: -3px 0;
+            }
+
+            50% {
+                translate: 3px 0;
+            }
+
+            75% {
+                translate: -3px 0;
+            }
+
+            100% {
+                translate: 0 0;
+            }
+        }
+    }
+</style>

@@ -49,9 +49,8 @@
     <section id="usage" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Usage</Typography.H2>
         <Typography.Text variant="supporting">
-            The theme setting chrome.borders chooses "single" or "double" framing. Single is the
-            default. Single removes the extra frame while preserving content padding, composition,
-            and inset variants.
+            The panel is one floating layer with a single hairline edge. The theme setting
+            chrome.borders does not change it.
         </Typography.Text>
         <Typography.Text>
             Put the preview in Content and its link or label in Trigger. The card opens on hover or

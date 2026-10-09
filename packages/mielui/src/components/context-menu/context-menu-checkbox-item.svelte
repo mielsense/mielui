@@ -61,7 +61,7 @@
             bind:element
             disabled={disabled ?? undefined}
             data-collection-item
-            class={cn(className, 'mielui-menu-item flex-row gap-3 text-sm', inset && 'ps-8')}
+            class={cn(className, 'mielui-menu-item flex-row text-sm', inset && 'ps-8')}
             unstyled
         >
             <span class="grid size-4 shrink-0 place-items-center" aria-hidden="true">

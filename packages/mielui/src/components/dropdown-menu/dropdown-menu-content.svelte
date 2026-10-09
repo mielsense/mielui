@@ -74,14 +74,14 @@
                         class={cn(
                             className,
                             overlaySurface(surface),
-                            'mielui-float-frame z-[130] flex max-h-[var(--bits-floating-available-height)] max-w-[var(--bits-floating-available-width)] origin-[var(--bits-floating-transform-origin)] flex-col overflow-hidden text-sm text-foreground outline-none shadow-[var(--elevation-float)] [--mielui-modal-inset:calc(var(--spacing)*0.5*var(--mielui-border-inset-scale,1))]',
-                            'min-w-[max(calc(var(--spacing)*44),var(--bits-floating-anchor-width,0px))]'
+                            'mielui-float-frame z-[130] flex max-h-[var(--bits-floating-available-height)] max-w-[var(--bits-floating-available-width)] origin-[var(--bits-floating-transform-origin)] flex-col overflow-hidden text-sm text-foreground outline-none shadow-[var(--elevation-float)]',
+                            'min-w-[max(calc(var(--spacing)*48),var(--bits-floating-anchor-width,0px))]'
                         )}
                     >
                         <div
                             use:travelingHighlight
                             use:dynamicWidth={{ enabled: dynamic }}
-                            class="mielui-inset-surface flex min-h-0 flex-col overflow-auto overscroll-contain p-1 [&>*]:shrink-0"
+                            class="mielui-inset-surface flex min-h-0 flex-col overflow-auto overscroll-contain p-1 [&>*]:shrink-0 [&:has([data-destructive]:is(:hover,:focus-visible,[data-highlighted]))>.mielui-item-highlight]:bg-[var(--color-error-soft)]"
                         >
                             {@render children?.()}
                         </div>

@@ -1,6 +1,5 @@
 <script lang="ts">
     import * as Dialog from '@mielui/svelte/components/dialog';
-    import { cn } from '@mielui/svelte/utils';
 
     import type { AlertDialogContentProps } from '.';
 
@@ -23,7 +22,7 @@
     panelIdPrefix="alert-dialog"
     data-ui="alert-dialog-content"
     aria-busy={ariaBusy}
-    class={cn(className, 'rounded-[var(--radius-xl)]')}
+    class={className}
     {...rest}
 >
     {@render children?.()}

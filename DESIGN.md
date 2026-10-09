@@ -717,10 +717,13 @@ Toolbar.Root is flat by default. Opt into depth with `variant="depth"`; its
 Button, Link, and Item inherit the choice. Toolbar depth uses the shared floating elevation for its shell and theme-owned
 `--mielui-toolbar-raised` relief for its keys. Selected tools use
 `--mielui-toolbar-pressed` and the background fill;
-compose focus rings with that relief. The composer toolbar stays flat: it joins
-the input on one surface by default. The input starts compact and grows with
+compose focus rings with that relief. Composer is the one two-layer surface
+with its layers the other way round: a recessed frame in the stage color holding
+a white writing surface, because a field is always white. Its primary border and
+focus ring show only while the textarea has focus. The composer toolbar stays
+flat: it joins the input on one surface by default. The input starts compact and grows with
 its content. `variant="inset"` puts the input on its own inset surface and the
-toolbar in the frame under it, matching an inset Card and its footer. Toolbar
+toolbar on the recessed frame under it. Toolbar
 controls are ghost buttons and triggers. Outline ones in either placement render
 as flat pills with a hairline border, no control edge, and the small control
 height. The toolbar scopes that size to everything inside it, including the send

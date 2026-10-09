@@ -66,8 +66,8 @@
             ? { duration: 0 }
             : {
                   type: 'spring' as const,
-                  visualDuration: Math.max(0.12, (duration / 260) * (context.open ? 0.34 : 0.28)),
-                  bounce: 0.04
+                  visualDuration: Math.max(0.12, (duration / 200) * (context.open ? 0.27 : 0.22)),
+                  bounce: context.open ? 0.15 : 0
               }
     );
     const outline = $derived(notchShape(drawnWidth, drawnHeight, context.side));
@@ -339,7 +339,7 @@
     onpointerup={handlePointerUp}
     onpointercancel={handlePointerCancel}
     onlostpointercapture={handleLostPointerCapture}
-    class={cn(overlaySurface(context.surface), 'fixed m-0 overflow-hidden border-0 [--mielui-modal-inset:calc(var(--spacing)*var(--mielui-border-inset-scale,1))] bg-[color-mix(in_oklab,var(--color-secondary)_97%,white)] dark:bg-[color-mix(in_oklab,var(--color-background)_97%,white)] p-0 text-foreground [inset:auto] [clip-path:var(--notch-clip)]',
+    class={cn(overlaySurface(context.surface), 'fixed m-0 overflow-hidden border-0 [--mielui-modal-inset:calc(var(--spacing)*var(--mielui-border-inset-scale,1))] bg-card p-0 text-foreground [inset:auto] [clip-path:var(--notch-clip)]',
         context.side === 'top' && 'top-0 left-1/2 -translate-x-1/2',
         context.side === 'bottom' && 'bottom-0 left-1/2 -translate-x-1/2',
         context.side === 'left' && 'left-0 top-1/2 -translate-y-1/2',
@@ -375,7 +375,7 @@
             {:else}
                 <span
                     aria-hidden="true"
-                    class={vertical ? 'h-1 w-10 rounded-full bg-foreground-muted/50' : 'h-28 w-1 rounded-full bg-foreground-muted/50'}
+                    class={vertical ? 'h-1 w-10 rounded-full bg-[var(--color-border-strong)]' : 'h-28 w-1 rounded-full bg-[var(--color-border-strong)]'}
                 ></span>
             {/if}
         </button>

@@ -8,7 +8,7 @@
 <div
     {...rest}
     data-ui="toast-footer"
-    class={cn(className, 'flex flex-wrap items-center gap-2 px-2 py-1')}
+    class={cn(className, 'flex flex-wrap items-center gap-2 p-1')}
 >
     {#if children}
         {@render children()}

@@ -18,8 +18,6 @@
     import GlassSrc from './examples/glass.svelte?raw';
     import Hero from './examples/hero.svelte';
     import HeroSrc from './examples/hero.svelte?raw';
-    import OverlayBorders from './examples/overlay-borders.svelte';
-    import OverlayBordersSrc from './examples/overlay-borders.svelte?raw';
     import RowActions from './examples/row-actions.svelte';
     import RowActionsSrc from './examples/row-actions.svelte?raw';
     import ShareMenu from './examples/share-menu.svelte';
@@ -61,8 +59,9 @@
     <section id="usage" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Usage</Typography.H2>
         <Typography.Text variant="supporting">
-            Separators span the inner panel width, including submenus. Menu items retain their
-            padding.
+            The panel is one floating layer with a single hairline edge; the theme setting
+            chrome.borders does not change it. Separators are inset from the panel edges, including
+            in submenus. Menu items keep their padding.
         </Typography.Text>
         <Typography.Text variant="supporting">
             Use Arrow keys, Home, End, or type a label to move between enabled items. Submenus
@@ -145,14 +144,6 @@
             </ComponentPreview>
         </div>
     </section>
-    <section id="overlay-borders" class="flex flex-col gap-4">
-        <Typography.H2 class="docs-section-heading">Borders</Typography.H2>
-        <Typography.Text variant="supporting">
-            Set chrome.borders to "single" or "double" in your theme. Single is the default. This
-            example overrides the generated inset token locally so you can compare both styles.
-        </Typography.Text>
-        <ComponentPreview code={OverlayBordersSrc}><OverlayBorders /></ComponentPreview>
-    </section>
     <section id="glass" class="flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Glass surface</Typography.H2>
         <Typography.Text variant="supporting">
@@ -173,7 +164,7 @@
         </Typography.Text>
         <Typography.Text variant="supporting">
             <InlineText
-                text={"RadioGroup holds one choice among its RadioItem children. Bind `value` on the group, or use `onValueChange` to react to the new value. Each RadioItem needs its own `value`."}
+                text={"RadioGroup holds one choice among its RadioItem children. Bind `value` on the group, or use `onValueChange` to react to the new value. Each RadioItem needs its own `value`. A checked CheckboxItem shows a check and the selected RadioItem shows a dot."}
             />
         </Typography.Text>
         <ComponentPreview code={CheckboxRadioExampleSrc}>
@@ -208,7 +199,7 @@
         <Typography.H2 class="docs-section-heading">Items and other parts</Typography.H2>
         <Typography.Text variant="supporting">
             <InlineText
-                text={"Item runs `callback` when chosen and then closes the menu. It is built on [Button](/docs/components/button), so `disabled` skips it, and `loading` with `loadingLabel`, `successLabel` and `errorLabel` shows progress on a row that starts slow work. Item, CheckboxItem, RadioItem, Trigger and SubTrigger accept `element` to bind the DOM node. `unstyled` removes the Button classes on Item, Trigger and SubTrigger, and `onkeydown` on Item runs before the menu handles the key. A row is always a button and does not take `href`. Navigate from `callback`."}
+                text={"Item runs `callback` when chosen and then closes the menu. It is built on [Button](/docs/components/button), so `disabled` skips it, and `loading` with `loadingLabel`, `successLabel` and `errorLabel` shows progress on a row that starts slow work. `variant=\"destructive\"` colors the row for an action that removes something and tints the highlight while it is active. Item, CheckboxItem, RadioItem, Trigger and SubTrigger accept `element` to bind the DOM node. `unstyled` removes the Button classes on Item, Trigger and SubTrigger, and `onkeydown` on Item runs before the menu handles the key. A row is always a button and does not take `href`. Navigate from `callback`."}
             />
         </Typography.Text>
         <Typography.Text variant="supporting">

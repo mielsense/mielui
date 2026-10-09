@@ -202,10 +202,16 @@ export function travelingHighlight(node: HTMLElement, options: TravelingHighligh
 
         const container = node.getBoundingClientRect();
         const rect = target.getBoundingClientRect();
-        const x = rect.left - container.left - node.clientLeft + node.scrollLeft;
-        const y = rect.top - container.top - node.clientTop + node.scrollTop;
-        highlight.style.width = `${rect.width}px`;
-        highlight.style.height = `${rect.height}px`;
+        const renderedScaleX =
+            node.offsetWidth > 0 && container.width > 0 ? container.width / node.offsetWidth : 1;
+        const renderedScaleY =
+            node.offsetHeight > 0 && container.height > 0
+                ? container.height / node.offsetHeight
+                : 1;
+        const x = (rect.left - container.left) / renderedScaleX - node.clientLeft + node.scrollLeft;
+        const y = (rect.top - container.top) / renderedScaleY - node.clientTop + node.scrollTop;
+        highlight.style.width = `${rect.width / renderedScaleX}px`;
+        highlight.style.height = `${rect.height / renderedScaleY}px`;
         highlight.style.transform = `translate3d(${x}px, ${y}px, 0)`;
         highlight.style.opacity = '1';
 
