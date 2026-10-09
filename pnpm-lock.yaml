@@ -250,10 +250,10 @@ importers:
       '@floating-ui/dom':
         specifier: 1.7.6
         version: 1.7.6
-      '@fontsource/jetbrains-mono':
+      '@fontsource/geist-mono':
         specifier: 5.3.0
         version: 5.3.0
-      '@fontsource/manrope':
+      '@fontsource/inter-tight':
         specifier: 5.3.0
         version: 5.3.0
       '@hugeicons/core-free-icons':
@@ -855,11 +855,14 @@ packages:
   '@fontsource/dm-sans@5.3.0':
     resolution: {integrity: sha512-lYJtMXXO28q1z+yz+z8XKd0s4hXaa9QdkETzkyD760sidCv5heI86weYA0sx0Nc4pAMAQTUuyf4gO44cYKKS9g==}
 
+  '@fontsource/geist-mono@5.3.0':
+    resolution: {integrity: sha512-UtJ1BBBCVpMYdIcW7nEB45UAoAw5M53ZXs2t0ciPW+IokuAAIc56M8+kW5tXbRJCTpDw4XTtU7proT6NdQAHTg==}
+
+  '@fontsource/inter-tight@5.3.0':
+    resolution: {integrity: sha512-uRwIrjKSUcCKIFeO2qm3yECA9phwge6Y1qQZvUmwqFgiIVWUELwwuq7pFlmlpPtO33ZtFQVOXQGNuvna1JPs6A==}
+
   '@fontsource/jetbrains-mono@5.3.0':
     resolution: {integrity: sha512-fqDfB5I9f1p1TV486aUgB9t8zP84P0O1FtQR5Ol9vjwPy+S+EIGlVYm1cvj2W5shcZMTg2nZFdVMoH5wFu8a1A==}
-
-  '@fontsource/manrope@5.3.0':
-    resolution: {integrity: sha512-obJ1Dv3+uCA6HlHgW8u4BGYxJR9In2HW7gjJhlflEvkrj1X1iSEwu0fToL+JYGC/FEKFfIz1sBuPduvcL2gIAA==}
 
   '@hugeicons/core-free-icons@4.3.3':
     resolution: {integrity: sha512-rpCPwJXhIjEKhMYb2AbNU6nS1HD2vXjeT65LL8SOaEHoN0cI57UTgnroU8q/TlocQQfnxeGz9C3KiyIausfzxg==}
@@ -3921,9 +3924,11 @@ snapshots:
 
   '@fontsource/dm-sans@5.3.0': {}
 
-  '@fontsource/jetbrains-mono@5.3.0': {}
+  '@fontsource/geist-mono@5.3.0': {}
 
-  '@fontsource/manrope@5.3.0': {}
+  '@fontsource/inter-tight@5.3.0': {}
+
+  '@fontsource/jetbrains-mono@5.3.0': {}
 
   '@hugeicons/core-free-icons@4.3.3': {}
 
@@ -4839,20 +4844,6 @@ snapshots:
       - msw
       - utf-8-validate
       - vite
-
-  '@vitest/browser-playwright@4.1.11(playwright@1.63.0)(vite@8.1.4(@types/node@22.19.19)(esbuild@0.28.2)(jiti@2.7.0)(tsx@4.23.13))(vitest@4.1.11)':
-    dependencies:
-      '@vitest/browser': 4.1.11(vite@8.1.4(@types/node@22.19.19)(esbuild@0.28.2)(jiti@2.7.0)(tsx@4.23.13))(vitest@4.1.11)
-      '@vitest/mocker': 4.1.11(vite@8.1.4(@types/node@22.19.19)(esbuild@0.28.2)(jiti@2.7.0)(tsx@4.23.13))
-      playwright: 1.63.0
-      tinyrainbow: 3.1.1
-      vitest: 4.1.11(@types/node@22.19.19)(@vitest/browser-playwright@4.1.11)(jsdom@29.1.1)(vite@8.1.4(@types/node@22.19.19)(esbuild@0.28.2)(jiti@2.7.0)(tsx@4.23.13))
-    transitivePeerDependencies:
-      - bufferutil
-      - msw
-      - utf-8-validate
-      - vite
-    optional: true
 
   '@vitest/browser-playwright@4.1.11(playwright@1.63.0)(vite@8.3.0(@types/node@22.19.19)(esbuild@0.28.1)(jiti@2.7.0)(tsx@4.23.13))(vitest@4.1.11)':
     dependencies:
@@ -6476,7 +6467,7 @@ snapshots:
       why-is-node-running: 2.3.0
     optionalDependencies:
       '@types/node': 22.19.19
-      '@vitest/browser-playwright': 4.1.11(playwright@1.63.0)(vite@8.1.4(@types/node@22.19.19)(esbuild@0.28.2)(jiti@2.7.0)(tsx@4.23.13))(vitest@4.1.11)
+      '@vitest/browser-playwright': 4.1.11(playwright@1.60.0)(vite@8.1.4(@types/node@22.19.19)(esbuild@0.28.2)(jiti@2.7.0)(tsx@4.23.13))(vitest@4.1.11)
       jsdom: 29.1.1
     transitivePeerDependencies:
       - msw

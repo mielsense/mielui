@@ -16,7 +16,7 @@
         {...rest}
         bind:ref
         data-ui="calendar-month-select"
-        class={cn(className, 'h-[var(--size-control-sm)] min-w-0 rounded-[var(--radius-md)] border-[length:var(--border-size)] border-[var(--color-input)] bg-[var(--color-field)] ps-2.5 pe-7 text-sm text-[var(--color-field-foreground)] appearance-none [color-scheme:light] dark:[color-scheme:dark] outline-none focus-visible:shadow-[var(--focus-ring)] transition-[background-color,border-color,box-shadow] [transition-duration:var(--motion-duration-press)] ease-[var(--ease-press)] motion-reduce:transition-none enabled:hover:bg-[var(--color-field-hover)] disabled:cursor-not-allowed disabled:opacity-[var(--opacity-disabled)]')}
+        class={cn(className, 'h-[var(--size-control-sm)] min-w-0 rounded-[var(--radius-control)] border-[length:var(--border-size)] border-[var(--color-input)] bg-[var(--color-field)] ps-2.5 pe-7 text-sm text-[var(--color-field-foreground)] appearance-none [color-scheme:light] dark:[color-scheme:dark] outline-none focus-visible:shadow-[var(--focus-ring)] transition-[background-color,border-color,box-shadow] [transition-duration:var(--motion-duration-press)] ease-[var(--ease-press)] motion-reduce:transition-none enabled:hover:bg-[var(--color-field-hover)] disabled:cursor-not-allowed disabled:opacity-[var(--opacity-disabled)]')}
     />
     <HugeiconsIcon
         icon={ArrowDown01Icon}

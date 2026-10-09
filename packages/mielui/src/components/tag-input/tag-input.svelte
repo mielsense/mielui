@@ -270,7 +270,7 @@
         onclick={handleFieldClick}
         class={cn(
             className,
-            'flex min-h-[calc(var(--size-control-md)-var(--size-hairline))] w-full cursor-text flex-wrap items-center gap-1 rounded-[var(--radius-lg)] border-[length:var(--border-size)] p-1 transition-[background-color,border-color,box-shadow] [transition-duration:var(--motion-duration-press)] ease-[var(--ease-out)] motion-reduce:transition-none has-[input:focus-visible]:shadow-[var(--focus-ring)] has-[input:disabled]:cursor-not-allowed has-[input:disabled]:opacity-[var(--opacity-disabled)]',
+            'flex min-h-[calc(var(--size-control-md)-var(--size-hairline))] w-full cursor-text flex-wrap items-center gap-1 rounded-[var(--radius-xl)] border-[length:var(--border-size)] p-1 transition-[background-color,border-color,box-shadow] [transition-duration:var(--motion-duration-press)] ease-[var(--ease-out)] motion-reduce:transition-none has-[input:focus-visible]:shadow-[var(--focus-ring)] has-[input:disabled]:cursor-not-allowed has-[input:disabled]:opacity-[var(--opacity-disabled)]',
             controlClass,
             error && 'border-[var(--color-error)] has-[input:focus-visible]:border-[var(--color-error)]'
         )}

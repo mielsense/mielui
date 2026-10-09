@@ -56,7 +56,7 @@ proportion, hierarchy, density, alignment, or placement before adding effects.
 Use the project's configured sans typeface for interface text and headings.
 Reserve the mono typeface for code, commands, paths, timestamps, and short
 technical identifiers. Use existing type and weight tokens rather than
-inventing isolated values.
+inventing isolated values. Weight stops at 500.
 
 - Create hierarchy with type before adding surfaces, borders, or color.
 - Use one page title, clear section headings, readable body text, compact
@@ -88,19 +88,18 @@ Use existing semantic color tokens and preserve their meaning in every theme.
 Color should communicate state, action, or data, not compensate for weak
 hierarchy. Pair color-coded states with text, shape, or another non-color cue.
 
-The interface should normally feel like one continuous canvas. Add a surface,
-border, radius, or shadow only when it communicates grouping, interaction,
-selection, or state more clearly than spacing can. Default to stillness; add
-motion only to explain a state change, preserve continuity, or confirm an
-action.
+The interface is plates on a stage. Add a plate, border, or shadow only when it
+communicates grouping, interaction, selection, or state more clearly than
+spacing can. Default to stillness; add motion only to explain a state change,
+preserve continuity, or confirm an action.
 
 ## Reject Generated-Design Reflexes
 
 Do not ship:
 
 - All-caps or widely tracked eyebrows, kickers, and overlines.
-- Decorative gradients, glows, blobs, textures, glass effects, or ornamental
-  shadows.
+- Decorative gradients, blobs, textures, or ornamental shadows. The lit pill is
+  a control material, not decoration: do not put it on a surface or a label.
 - A generic centered hero followed by a grid of cards.
 - A card, border, or rounded container around every section or metric.
 - Pills for ordinary metadata, labels, or status that does not need a badge.
@@ -168,117 +167,204 @@ Respect reduced motion and the theme's motion settings. Do not delay input,
 navigation, or content visibility to finish an animation.
 
 
+## The look in one sentence
+
+White plates with continuous-curvature corners rest on a quiet grey stage, drawn
+in a single ink. Everything pressable is a pill, filled actions are lit, and one
+spring family moves it all.
+
+## The ten rules
+
+1. **One ink, everything derived.** Neutrals are never picked by eye. Borders
+   are the foreground mixed into transparency at 12% (14% in dark), inputs at
+   14% (16%), and the hover wash at 5% (6%). When a new neutral is needed, mix
+   the foreground. Do not add a grey hex.
+2. **Two layers, and the gap is the page.** A surface is a white frame holding a
+   recessed inset in the stage color. Sections are plates, and the space between
+   them is the only divider. Do not draw horizontal rules between sections.
+3. **Squircles for surfaces, pills for controls.** Plates take continuous
+   corners. Everything pressable that is not a plate takes `--radius-control`.
+   A rounded rectangle button is the sign of a foreign component.
+4. **Lit pills for filled actions.** Primary, secondary, destructive, and glow
+   buttons, moving thumbs, and selected segments share one material,
+   `.mielui-glow`. Fields, outline, ghost, and quiet controls stay flat.
+5. **One spring family.** Panel 550/38, layout 550/40, pop 400/26, flick 900/50.
+   Do not invent another curve.
+6. **Weight stops at 500.** Inter Tight at 400 and 500, Geist Mono for code.
+   Hierarchy comes from size, color, and spacing, never from heaviness.
+7. **One accent, spent in one place.** The primary color belongs to the primary
+   action and the primary data series. Status colors are text tints and small
+   dots, not panel fills.
+8. **Elevation is binary.** A thing is resting (`--elevation-1`) or floating
+   (`--elevation-float`). There is no ramp and no glow halo.
+9. **Exits are faster than entrances.** Things arrive with presence and leave
+   without ceremony.
+10. **Quality floor, always.** Focus rings, `role="status"`, `aria-hidden`
+    decoration, reduced motion, and no horizontal page scroll.
+
 ## Required shared appearance and interaction contracts
 
 These rules apply to every component and every docs or Studio example. Reuse the
 existing implementation before adding local styling. A new component must follow
 the same contracts; a visual exception must have a specific functional reason.
 
-### Edges and surfaces
+### Color
 
-- Filled buttons use `--elevation-control-edge` for the subtle top highlight and
-  lower inset shading: primary, secondary, outline, and destructive. Moving thumbs
-  keep it too. Text fields, selection triggers, checkboxes, and radios are flat:
-  one hairline border and no inset shading. Keep ghost, quiet, and plain text
-  controls flat until their existing hover or selected state calls for a fill.
-- Checked checkboxes use the centered dash indicator. Preserve the native checked
-  state and boolean API; the dash is the selected appearance.
-- Unchecked checkboxes and radios use `--mielui-control-border` so their edge
-  stays visible in both themes. Do not use `--color-border` for control edges.
+- `--color-background` is the grey stage. `--color-card` is the white plate.
+  `--color-panel` is the floating panel. In dark mode the plate is lighter than
+  the stage, so an inset in the stage color still reads as recessed.
+- `--color-border`, `--color-border-strong`, `--color-input`, and `--color-wash`
+  are the foreground mixed into transparency. Use `--color-wash` for every hover
+  and selected row fill. Do not write a `foreground/[0.06]` tint by hand.
+- `--color-secondary` is the flat grey for tracks, chips, and the secondary
+  button fill.
 - Status text uses `--mielui-success-text`, `--mielui-warning-text`,
   `--mielui-error-text`, and `--mielui-info-text`. They mix the status color with
   the foreground to reach 4.5:1 on soft tints and cards. Keep the raw status
-  colors for fills, icons inside fills, and chart tones.
-- Primary buttons are the one exception to the contrast rule. In light mode the
-  default theme sets white text on the brand pink, which measures 2.73:1. This is
-  a deliberate brand choice. The contrast tests leave primary buttons out and
-  check everything else. Do not extend the exception to other text.
-- Preserve the primary button's optional `--color-primary-stroke`. The light edge
-  does not enable a perimeter border when Studio's primary stroke is disabled.
-- Floating panels use `--elevation-float`; dialogs use `--elevation-modal`; raised
-  cards use `--elevation-1`. These tokens include the shared surface highlight.
-  Do not add a separate hardcoded white border or shadow to reproduce it.
-- Use the shared `mielui-modal-frame` or `mielui-inset-frame` and
-  `mielui-inset-surface` composition for double edges. Keep inner corners concentric
-  with the outer frame. A frame attached to a viewport edge stays flush on that
-  edge; its inset appears only along exposed edges. Drawer is not attached. It
-  floats a two-spacing-unit gap from its edge with all corners rounded.
-- Card takes `surface="glass"` and is solid by default. It does not inherit the
-  theme's glass setting. Glass frosts the frame of inset and panel cards and
-  leaves the content on a solid surface. In light mode the frame is a light
-  foreground tint under a white veil. In dark mode it is a black tint with no
-  white veil, so frost never reads as a pale haze on a dark page. It follows the
-  border setting: a gutter with double borders, the footer strip with single
-  borders.
-- Glass uses the shared surface helper and inherited theme setting. Keep the
-  inner panel translucent enough to reveal the backdrop. Explicit solid surfaces
-  remain opaque, including chart tooltips.
-- Compose focus rings with the existing edge or elevation instead of replacing
-  it. Disabling shadows must remove decorative relief while preserving borders,
-  validation states, and visible keyboard focus.
-- Joined controls have one seam and flat adjoining corners. Use Group and its
-  Separator; do not layer separate rounded borders through the shared seam.
-- Read colors from semantic `--color-*` tokens. Use `--border-size` for frame
-  thickness. Light, dark, and scoped Studio themes must share the same geometry.
+  colors for small dots, icons, and chart tones. A status never fills a panel.
+- The primary button uses `--color-on-primary`, which is dark on the default
+  brand in both themes. No control is exempt from the contrast rule.
+- Read colors from semantic `--color-*` tokens. Light, dark, and scoped Studio
+  themes must share the same geometry.
 
-Moving controls put the raised control edge on the thumb, not the track or fill.
-Passive tracks, progress fills, metadata, and grouping wrappers stay flat. Composite
-text fields use one edge around their editable boundary. Focus rings add to that
-edge rather than replacing it.
+### Type
 
-Composite fields with focusable parts inside them, such as TagInput tags and
-NumberField steppers, show the field ring only while the text input has focus
-(`has-[input:focus-visible]`). A focused part shows its own ring; never both.
-Dialog panels carry `data-dialog-panel`; shared overlay styles and stacking key
-on that attribute, because wrappers may replace `data-ui`. Viewport-level hosts
-that must stay usable above a modal, such as the Toaster, carry
-`data-overlay-root`.
+- Inter Tight is the interface face and Geist Mono the code face. Both ship with
+  the package. `font-semibold` and `font-bold` resolve to 500, so do not use
+  them to create hierarchy. Use size, `text-foreground` against
+  `text-foreground-muted`, and spacing.
+- Headings are `font-medium` with `--tracking-header`. Body text is 14px, and
+  secondary lines are 12 or 13px.
+- Use `tabular-nums` for any number that sits in a column or changes in place.
+- Sentence case everywhere: titles, buttons, labels, and tabs.
 
-### Glow buttons
+### Shape
 
-`variant="glow"` on Button is the lit headline action, after the Lime design
-system's "glow" on design.how. Use it for the one primary call to action on a
-landing or marketing surface, never for routine controls, toolbars, or more than
-one button in a view. The shared `.mielui-glow` class owns the look: a vertical
-gradient of the button's own color under three faint white light layers, with
-the rim, hairline edge, and top and bottom lines all drawn by `box-shadow`. It
-never casts a drop shadow. Hover fades in a brighter copy of the same stack and
-press darkens the fill. Change the fill with `--mielui-glow-color` and scale the
-white light with `--mielui-glow-light`; lower it on dark fills, where full light
-turns into gloss. Do not rebuild the effect with local gradients or shadows, and
-keep the focus ring in the same shadow list as the edges so neither replaces the
-other. It is always a pill. The default fill is a light tint of the primary
-color with dark text and full light, because the effect needs a bright fill to
-read as lit; a mid-tone fill with reduced light looks flat.
+- `--radius-control` is the pill. Buttons, toggles, tab triggers, badges, chips,
+  single-line fields, select triggers, pagination items, calendar days, and
+  breadcrumb items use it. Sharp themes set it to a small radius, so never
+  write `rounded-full` on a control.
+- Multi-line fields (Textarea, TagInput, Composer input) use `--radius-xl`. It
+  equals half a medium control, so a one-line field still reads as a pill.
+- Rows inside panels (menu items, list rows, calendar cells in a range) use
+  `--radius-md`. Small marks (checkbox, kbd, inline code) use `--radius-sm`.
+- Floating panels use `--radius-xl`. Plates use `--radius-2xl`, scaled by
+  `--mielui-squircle` where the browser supports `corner-shape: squircle`.
+- Indicators that are round by nature keep `rounded-full`: avatars, dots, radio
+  marks, switch tracks and thumbs, slider thumbs, and progress tracks.
+
+### Surfaces
+
+- `.mielui-plate` is the resting surface: card fill, one hairline, plate radius,
+  and `--elevation-1`. The default Card is a plate.
+- `.mielui-inset-frame` or `.mielui-modal-frame` with `.mielui-inset-surface`
+  is the two-layer surface: a white frame with a one-unit gutter around a
+  recessed inset in the stage color. Header and footer strips sit on the frame.
+  Content sits in the inset. Fields inside an inset are white, so they read as
+  raised. Keep inner corners concentric: the contract computes them from
+  `--mielui-plate-radius`.
+- `.mielui-float-frame` is the floating panel: one layer, panel fill, hairline,
+  `--radius-xl`, and `--elevation-float`. Menus, selects, comboboxes, popovers,
+  hover cards, date-picker panels, and chart tooltips use it. They never show a
+  double edge.
+- Dialogs, sheets, drawers, and Command use `.mielui-modal-frame` with
+  `--elevation-modal`.
+- A frame attached to a viewport edge stays flush on that edge. Drawer floats a
+  two-unit gap from its edge with all corners rounded.
+- Card takes `surface="glass"` and is solid by default. Glass frosts the frame
+  and leaves content on a solid inset. Explicit solid surfaces stay opaque,
+  including chart tooltips.
+- Do not add a hardcoded white border, an inner ring, or a second shadow to a
+  surface. The contracts already draw every edge.
+
+### The lit pill
+
+`.mielui-glow` is a gradient of the control's own color under faint white light
+layers, with every edge drawn by box-shadow and no drop shadow. It brightens on
+hover and darkens on press.
+
+- Set `--mielui-glow-color` for the fill. Set `--mielui-glow-light` from 0 to 1
+  for how much light it catches. Lower it on dark fills. Set
+  `--mielui-glow-ring` when the outer edge should be a hairline instead of a
+  darker tint of the fill.
+- Always pair it with `shadow-[var(--mielui-glow-shadow)]` and
+  `focus-visible:shadow-[var(--focus-ring),var(--mielui-glow-shadow)]`, so the
+  focus ring adds to the edge instead of replacing it.
+- The theme's edge highlight (`chrome.edgeHighlight`, 0 to 1, default 0.5)
+  scales the light on every lit pill at once.
+- Lit: primary, secondary, destructive, and glow buttons; switch and slider
+  thumbs; the selected segment in Tabs, ToggleGroup, and segmented controls;
+  the checked checkbox and radio fill.
+- Flat: text fields, select and combobox triggers, outline, ghost, and quiet
+  buttons, tracks, progress fills, badges, and metadata.
 
 ### Control geometry
 
 Controls use three heights: `--size-control-sm`, `--size-control-md`, and
 `--size-control-lg`, each minus `--size-hairline` for buttons. Icon buttons use
-`--size-icon-md`, which equals a medium button. Do not size controls with raw
-`h-7`, `h-8`, `size-9`, or `h-10`. Keyboard focus uses `--focus-ring`, a 2px ring
-at 80% of the primary color, composed with any existing edge.
+`--size-icon-md`, which equals a medium button and reads as a circle. Do not
+size controls with raw `h-7`, `h-8`, `size-9`, or `h-10`. Keyboard focus uses
+`--focus-ring`, a 3px ring at half the primary color, composed with any existing
+edge.
 
-### Micro-interactions
+- Checked checkboxes use the centered dash indicator. Preserve the native checked
+  state and boolean API.
+- Unchecked checkboxes and radios use `--mielui-control-border`, so their edge
+  stays visible in both themes.
+- Joined controls have one seam and flat adjoining corners. Use Group and its
+  Separator. The outer ends keep the control radius, so a joined field and
+  button read as one pill.
+- Composite fields with focusable parts inside them, such as TagInput tags and
+  NumberField steppers, show the field ring only while the text input has focus
+  (`has-[input:focus-visible]`). A focused part shows its own ring; never both.
+- Dialog panels carry `data-dialog-panel`; shared overlay styles and stacking key
+  on that attribute. Viewport-level hosts that must stay usable above a modal,
+  such as the Toaster, carry `data-overlay-root`.
 
-- Buttons and clickable controls reuse the shared pressable behavior and variant
-  styles. Disabled and pending controls retain their existing interaction rules;
-  decorative feedback must not re-enable them or change layout dimensions.
-- Hover, press, selection, panel, and sheet motion use the corresponding theme
-  duration and easing tokens. Do not copy one fixed duration across every action.
-- Collection selection uses the existing traveling highlight. Overlay wrappers
-  retain the shared transition and focus-management helpers. Do not add another
-  animation or dismissal controller around an existing primitive.
+### Motion
+
+| Spring | Token | Used for |
+| --- | --- | --- |
+| Panel 550/38 | `--ease-spring-panel`, `panelIn` | menus, selects, popovers, anything that opens in place |
+| Layout 550/40 | `--ease-spring-layout` | traveling highlights, sliding pills, measured width and height |
+| Pop 400/26 | `--ease-spring-pop`, `dialogIn` | dialog and toast entrance |
+| Flick 900/50 | `--ease-spring-flick` | icon micro-moves: a chevron turning, a glyph swap |
+
+Springs run for `--motion-duration-spring` (350ms), `--motion-duration-pop`
+(500ms), or `--motion-duration-flick` (270ms). Plain fades run for
+`--motion-duration-hover` (150ms). Nothing in control chrome tweens longer than
+200ms; if it feels slow, use a spring.
+
+- Panels spring open from a 4px offset and 0.98 scale, and leave on a 100ms
+  fade. Dialogs pop from 0.96 scale and 8px, and leave in 150ms. They never
+  slide from an edge. Sheets and drawers are the exception and keep the drawer
+  curve.
+- Selection in a collection is one shared highlight that travels on the layout
+  spring. Never flip a background per item.
+- Hover changes color only. Cards do not lift, scale, or glow. The press effect
+  on a control is the only geometry change a pointer causes.
+- Use the shared helpers in `transition.ts` and the `--ease-spring-*` tokens.
+  Do not add another animation or dismissal controller around an existing
+  primitive, and do not write a local `cubic-bezier`.
 - Size changes and interruptible entry or exit use the established Humanspeak
   motion implementation. Continue from the current rendered state when reversed.
-  Avoid restarting a reveal from zero when data changes during an animation.
 - Honor reduced motion and zero-duration theme settings, including preference
-  changes after mount. Cancel animation frames, observers, and timers on teardown.
-  Continuous chart effects pause offscreen and in hidden documents; they never
-  alter values or make a static dataset appear to change.
+  changes after mount. Cancel animation frames, observers, and timers on
+  teardown. Continuous chart effects pause offscreen and in hidden documents.
 - Keep interaction feedback local. A documentation example must not cover the
   surrounding page with a viewport-bound activity or notification. Use the shared
   isolated preview for Notch and other global overlays.
+
+### States and copy
+
+- A standing condition is a strip or pill that lives exactly as long as the
+  state does. A one-off outcome is a toast that retires alone. Alert is the
+  notice strip: a card plate with one medium claim, one muted sentence, and at
+  most one secondary action.
+- Buttons say what happens: "Save changes", then "Saved". Errors name the cause
+  and the way out, without apology or blame. Empty states invite one action.
+- A loading button keeps its label and gains a spinner beside it, so its width
+  never jumps.
 
 ### Review requirements
 
@@ -291,30 +377,25 @@ the changelog; do not leave the next agent to infer them from one example.
 
 ## Borders
 
-`chrome.borders` accepts `double` or `single` and defaults to `single`. It applies
-to inset layouts: dialogs, sheets, drawers, toasts, Notch, code blocks, diffs,
-inset tables, inset and panel cards, alerts, and composers. Menus, selects,
-comboboxes, popovers, hover cards, date-picker panels, and chart tooltips are
-always single: set `[--mielui-border-inset-scale:0]` on their frame so a small
-floating panel never shows stacked borders.
+`chrome.borders` accepts `double` or `single` and defaults to `double`. Double
+gives every two-layer surface its gutter: dialogs, sheets, drawers, toasts,
+Notch, code blocks, diffs, inset tables, inset and panel cards, alerts, and
+composers. Single removes the gutter, so the inset meets the frame's border.
+Floating panels are always one layer.
 
-Shared frames scale their decorative inset with `--mielui-border-inset-scale`.
-Panel cards also scale their inner ring. Notch retains its outer SVG outline,
-hides the inner outline, and fills the outer clip when the scale is zero.
-Single uses zero; double uses one. Keep the outer border and concentric inner
-radius in both styles. Preserve content padding, footer composition, inset
-variants, and viewport-attached geometry. Existing single-border surfaces do
-not gain an extra border. Glass, elevation, focus, and edge highlights remain
-independent. New double-frame treatments must honor this shared setting.
+Shared frames scale their gutter and inner ring with
+`--mielui-border-inset-scale`. Single uses zero; double uses one. Keep the outer
+border and concentric inner radius in both styles. Never set
+`--mielui-modal-inset` to a fixed length on a frame. Multiply by
+`--mielui-border-inset-scale` when a component needs a narrower gutter.
 
 ## Edge highlight strength
 
-Use the shared elevation tokens for light-catching inset edges, including keycaps.
 The theme setting `chrome.edgeHighlight` accepts 0 to 1 and defaults to 0.5.
-Studio presents it as a percentage under Edges. Scale only the light inset edge;
-keep structural borders, focus rings, dark inset shading, and cast shadows intact.
-Do not add fixed white inset shadows to individual components. Shadow switches
-still disable their corresponding elevation effects.
+Studio presents it as a percentage under Edges. It scales the light on lit pills
+and the light inset edge on thumbs and keycaps. Structural borders, focus rings,
+and cast shadows stay intact. Do not add fixed white inset shadows to individual
+components. Shadow switches still disable their corresponding elevation tokens.
 
 ## Documentation composition
 

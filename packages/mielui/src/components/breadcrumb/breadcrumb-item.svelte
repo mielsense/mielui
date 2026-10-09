@@ -18,7 +18,7 @@
         aria-current={current ? 'page' : undefined}
         class={cn(
             className,
-            'rounded-[var(--radius-sm)] [font-size:var(--font-size-body)] outline-none transition-colors [transition-duration:var(--motion-duration-hover)] focus-visible:shadow-[var(--focus-ring)]',
+            'rounded-[var(--radius-control)] [font-size:var(--font-size-body)] outline-none transition-colors [transition-duration:var(--motion-duration-hover)] focus-visible:shadow-[var(--focus-ring)]',
             current
                 ? 'text-foreground [font-weight:var(--font-weight-header)] [letter-spacing:var(--tracking-body)]'
                 : 'text-foreground-muted hover:text-foreground'

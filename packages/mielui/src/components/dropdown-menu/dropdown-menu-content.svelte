@@ -74,7 +74,7 @@
                         class={cn(
                             className,
                             overlaySurface(surface),
-                            'mielui-modal-frame [--mielui-border-inset-scale:0] z-[130] flex max-h-[var(--bits-floating-available-height)] max-w-[var(--bits-floating-available-width)] origin-[var(--bits-floating-transform-origin)] flex-col overflow-hidden text-sm text-foreground outline-none shadow-[var(--elevation-float)] [--mielui-modal-inset:calc(var(--spacing)*0.5*var(--mielui-border-inset-scale,1))]',
+                            'mielui-float-frame z-[130] flex max-h-[var(--bits-floating-available-height)] max-w-[var(--bits-floating-available-width)] origin-[var(--bits-floating-transform-origin)] flex-col overflow-hidden text-sm text-foreground outline-none shadow-[var(--elevation-float)] [--mielui-modal-inset:calc(var(--spacing)*0.5*var(--mielui-border-inset-scale,1))]',
                             'min-w-[max(calc(var(--spacing)*44),var(--bits-floating-anchor-width,0px))]'
                         )}
                     >

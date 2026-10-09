@@ -1,41 +1,42 @@
 import { tv } from 'tailwind-variants';
 
 export const button = tv({
-    base: 'mielui-press inline-flex h-[calc(var(--size-control-md)-var(--size-hairline))] hover:cursor-[var(--ui-cursor-interactive)] items-center justify-center gap-2 whitespace-nowrap select-none rounded-[var(--radius-lg)] px-[calc(var(--spacing)*3+var(--size-hairline))] [font-size:var(--font-size-button)] [font-weight:var(--font-weight-button)] [letter-spacing:var(--tracking-button)] leading-none antialiased transition-[background-color,border-color,color,box-shadow,transform,scale] [transition-duration:var(--motion-duration-press)] ease-[var(--ease-press)] motion-reduce:transition-none focus-visible:outline-none focus-visible:ring-0 focus-visible:shadow-[var(--focus-ring)] disabled:pointer-events-none disabled:opacity-[var(--opacity-disabled)] aria-disabled:cursor-default [&_svg]:pointer-events-none [&_svg:not([class*="size-"])]:size-4 [&_svg]:shrink-0 [&_.truncate]:leading-normal',
+    base: 'mielui-press inline-flex h-[calc(var(--size-control-md)-var(--size-hairline))] hover:cursor-[var(--ui-cursor-interactive)] items-center justify-center gap-2 whitespace-nowrap select-none rounded-[var(--radius-control)] px-[calc(var(--spacing)*3.5+var(--size-hairline))] [font-size:var(--font-size-button)] [font-weight:var(--font-weight-button)] [letter-spacing:var(--tracking-button)] leading-none antialiased transition-[background-color,border-color,color,box-shadow,transform,scale] [transition-duration:var(--motion-duration-press)] ease-[var(--ease-press)] motion-reduce:transition-none focus-visible:outline-none focus-visible:ring-0 focus-visible:shadow-[var(--focus-ring)] disabled:pointer-events-none disabled:opacity-[var(--opacity-disabled)] aria-disabled:cursor-default [&_svg]:pointer-events-none [&_svg:not([class*="size-"])]:size-4 [&_svg]:shrink-0 [&_.truncate]:leading-normal',
     variants: {
         variant: {
             /**
-             * `data-[state=open]` mirrors the hover fill on every variant so a
-             * popover or menu trigger reads as hovered for as long as its surface
-             * is open.
+             * Filled variants are lit pills: the fill, light layers, and every edge
+             * come from `.mielui-glow` in ui.css, and each variant only names its
+             * color and how much light it catches. The shadow utilities keep the
+             * focus ring from replacing the edge shadows. Outline, ghost, and
+             * quiet stay flat. `data-[state=open]` mirrors hover so a menu trigger
+             * reads as hovered while its surface is open.
              */
             primary:
-                'bg-primary text-[var(--color-on-primary)] shadow-[var(--elevation-control-edge),inset_0_0_0_var(--border-size)_var(--color-primary-stroke)] focus-visible:shadow-[var(--focus-ring),var(--elevation-control-edge),inset_0_0_0_var(--border-size)_var(--color-primary-stroke)] hover:bg-[var(--color-primary-hover)] data-[state=open]:bg-[var(--color-primary-hover)]',
+                'mielui-glow [--mielui-glow-color:var(--color-primary)] [--mielui-glow-light:0.6] text-[var(--color-on-primary)] shadow-[var(--mielui-glow-shadow)] focus-visible:shadow-[var(--focus-ring),var(--mielui-glow-shadow)]',
             secondary:
-                'shadow-[var(--elevation-control-edge)] focus-visible:shadow-[var(--focus-ring),var(--elevation-control-edge)] bg-secondary text-[var(--color-button-foreground)] hover:bg-[color-mix(in_srgb,var(--color-secondary)_92%,var(--color-foreground))] data-[state=open]:bg-[color-mix(in_srgb,var(--color-secondary)_92%,var(--color-foreground))]',
-            ghost: 'bg-transparent text-[var(--color-button-foreground)] hover:bg-foreground/[0.08] data-[state=open]:bg-foreground/[0.08]',
+                'mielui-glow [--mielui-glow-color:var(--color-secondary)] [--mielui-glow-light:0.55] [--mielui-glow-ring:var(--color-border)] dark:[--mielui-glow-light:0.1] text-[var(--color-button-foreground)] shadow-[var(--mielui-glow-shadow)] focus-visible:shadow-[var(--focus-ring),var(--mielui-glow-shadow)]',
+            ghost: 'bg-transparent text-[var(--color-button-foreground)] hover:bg-[var(--color-wash)] data-[state=open]:bg-[var(--color-wash)]',
             quiet: 'bg-transparent text-[var(--color-button-foreground)]',
             outline:
-                'border-[length:var(--border-size)] border-[var(--color-input)] bg-card text-[var(--color-button-foreground)] shadow-[var(--elevation-control-edge)] hover:bg-secondary data-[state=open]:bg-secondary focus-visible:shadow-[var(--focus-ring),var(--elevation-control-edge)]',
+                'border-[length:var(--border-size)] border-[var(--color-input)] bg-[var(--color-field)] text-[var(--color-button-foreground)] hover:bg-[color-mix(in_srgb,var(--color-foreground)_4%,var(--color-field))] data-[state=open]:bg-[color-mix(in_srgb,var(--color-foreground)_4%,var(--color-field))]',
             destructive:
-                'shadow-[var(--elevation-control-edge)] focus-visible:shadow-[var(--focus-ring),var(--elevation-control-edge)] bg-error-soft text-[var(--mielui-error-text)] hover:bg-[color-mix(in_srgb,var(--color-error)_20%,transparent)] data-[state=open]:bg-[color-mix(in_srgb,var(--color-error)_20%,transparent)]',
+                'mielui-glow [--mielui-glow-color:color-mix(in_oklab,var(--color-error)_20%,var(--color-card))] [--mielui-glow-light:0.7] dark:[--mielui-glow-light:0.1] text-[var(--mielui-error-text)] shadow-[var(--mielui-glow-shadow)] focus-visible:shadow-[var(--focus-ring),var(--mielui-glow-shadow)]',
             /**
-             * The fill, light layers, and every edge come from `.mielui-glow` in
-             * ui.css. The shadow utilities here keep the focus ring from replacing
-             * the edge shadows.
+             * The headline action: a lighter tint of the primary color under
+             * dark text, at full light.
              */
-            glow: 'mielui-glow rounded-full text-[color-mix(in_oklab,var(--color-primary)_12%,#18181b)] shadow-[var(--mielui-glow-shadow)] focus-visible:shadow-[var(--focus-ring),var(--mielui-glow-shadow)]',
+            glow: 'mielui-glow text-[color-mix(in_oklab,var(--color-primary)_12%,#18181b)] shadow-[var(--mielui-glow-shadow)] focus-visible:shadow-[var(--focus-ring),var(--mielui-glow-shadow)]',
             /**
-             * A clickable Panel: the same interaction as `outline` wearing Panel's
-             * concentric frame -- the semantic border outside and the inset surface
-             * ring inside read as Panel's double edge.
+             * A clickable plate: the same interaction as `outline` wearing the
+             * resting surface, so a whole card can be the control.
              */
-            panel: 'border-[length:var(--border-size)] border-border bg-card text-[var(--color-button-foreground)] shadow-[var(--elevation-1)] ring-1 ring-inset ring-[color-mix(in_oklab,var(--color-border)_50%,transparent)] hover:bg-secondary data-[state=open]:bg-secondary focus-visible:shadow-[var(--focus-ring),var(--elevation-1)]'
+            panel: 'rounded-[var(--radius-xl)] border-[length:var(--border-size)] border-border bg-card text-[var(--color-button-foreground)] shadow-[var(--elevation-1)] hover:bg-[color-mix(in_srgb,var(--color-foreground)_3%,var(--color-card))] data-[state=open]:bg-[color-mix(in_srgb,var(--color-foreground)_3%,var(--color-card))] focus-visible:shadow-[var(--focus-ring),var(--elevation-1)]'
         },
         size: {
-            sm: 'h-[calc(var(--size-control-sm)-var(--size-hairline))] px-[calc(var(--spacing)*3+var(--size-hairline)/4)]',
+            sm: 'h-[calc(var(--size-control-sm)-var(--size-hairline))] px-[calc(var(--spacing)*3)] [font-size:var(--font-size-label)]',
             md: 'h-[calc(var(--size-control-md)-var(--size-hairline))]',
-            lg: 'h-[calc(var(--size-control-lg)-var(--size-hairline))] px-4',
+            lg: 'h-[calc(var(--size-control-lg)-var(--size-hairline))] px-5',
             icon: 'h-[var(--size-icon-md)] w-[var(--size-icon-md)] min-w-[var(--size-icon-md)] justify-center px-0'
         }
     },

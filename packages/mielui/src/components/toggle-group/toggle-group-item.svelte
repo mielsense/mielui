@@ -29,7 +29,7 @@
             disabled={isDisabled}
             class={cn(
                 className,
-                'mielui-press inline-flex select-none items-center justify-center gap-1.5 rounded-[var(--radius-md)] [font-weight:var(--font-weight-label)] [letter-spacing:var(--tracking-label)] transition-[background-color,color,transform,scale] [transition-duration:var(--motion-duration-press)] ease-[var(--ease-press)] motion-reduce:transition-none focus-visible:outline-none focus-visible:shadow-[var(--focus-ring)] disabled:cursor-not-allowed disabled:opacity-[var(--opacity-disabled)]',
+                'mielui-press inline-flex select-none items-center justify-center gap-1.5 rounded-[var(--radius-control)] [font-weight:var(--font-weight-label)] [letter-spacing:var(--tracking-label)] transition-[background-color,color,transform,scale] [transition-duration:var(--motion-duration-press)] ease-[var(--ease-press)] motion-reduce:transition-none focus-visible:outline-none focus-visible:shadow-[var(--focus-ring)] disabled:cursor-not-allowed disabled:opacity-[var(--opacity-disabled)]',
                 sizes[ctx.size],
                 active
                     ? 'bg-secondary text-foreground'

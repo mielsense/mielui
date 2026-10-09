@@ -1,4 +1,4 @@
-import { cubicOut, quintOut } from 'svelte/easing';
+import { cubicOut } from 'svelte/easing';
 import { type EasingFunction, fade, type TransitionConfig } from 'svelte/transition';
 
 /**
@@ -75,6 +75,46 @@ function sampleBezier(t: number, p1: number, p2: number) {
 /** iOS-like drawer curve: cubic-bezier(0.32, 0.72, 0, 1) */
 const drawerEase = cubicBezier(0.32, 0.72, 0, 1);
 
+/**
+ * Unit-step response of a damped spring, time-normalized so it settles at `t = 1`.
+ * The transition helpers share one family with the `--ease-spring-*` curves in
+ * ui.css: panel 550/38, layout 550/40, pop 400/26, pop exit 380/28.
+ */
+export function springEase(stiffness: number, damping: number): EasingFunction {
+    const frequency = Math.sqrt(stiffness);
+    const ratio = Math.min(damping / (2 * frequency), 0.999);
+    const damped = frequency * Math.sqrt(1 - ratio * ratio);
+    const position = (seconds: number) => {
+        const decay = Math.exp(-ratio * frequency * seconds);
+        const wave =
+            Math.cos(damped * seconds) +
+            ((ratio * frequency) / damped) * Math.sin(damped * seconds);
+
+        return 1 - decay * wave;
+    };
+    let settle = 2;
+    for (let seconds = 2; seconds > 0; seconds -= 0.005) {
+        if (Math.abs(position(seconds) - 1) > 0.002) {
+            settle = seconds;
+            break;
+        }
+    }
+
+    return (t: number) => {
+        if (t <= 0) {
+            return 0;
+        }
+        if (t >= 1) {
+            return 1;
+        }
+
+        return position(t * settle);
+    };
+}
+
+const panelSpring = springEase(550, 38);
+const popSpring = springEase(400, 26);
+
 function readCssEasing(node: Element, fallback: EasingFunction): EasingFunction {
     const value = getComputedStyle(node).getPropertyValue('--ease-out').trim();
     const match =
@@ -110,8 +150,6 @@ function panelTransition(
     fallbackDuration: number,
     options?: {
         easing?: EasingFunction;
-        /** Exit mirrors the enter path upward instead of retracing it. */
-        exit?: boolean;
         offsetVars?: string[];
         offsetFallback?: number;
         scaleVars?: string[];
@@ -120,28 +158,27 @@ function panelTransition(
         blurFallback?: number;
         opacityVars?: string[];
         opacityFallback?: number;
+        /**
+         * Moves on a spring while opacity and blur finish early on a plain fade,
+         * so an overshoot never brightens or re-blurs the panel.
+         */
+        spring?: EasingFunction;
     }
 ): TransitionConfig {
     const style = getComputedStyle(node);
     const opacity = Number(style.opacity);
     const baseTransform = style.transform === 'none' ? '' : style.transform;
     const baseFilter = style.filter === 'none' ? '' : style.filter;
-    const direction = options?.exit ? -1 : 1;
-    const offsetY =
-        direction *
-        readCssNumber(
-            node,
-            options?.offsetVars ?? ['--motion-panel-y'],
-            options?.offsetFallback ?? 2
-        );
-    const startScale = readCssNumber(
+    const offsetY = readCssNumber(
+        node,
+        options?.offsetVars ?? ['--motion-panel-y'],
+        options?.offsetFallback ?? 4
+    );
+    const endScale = readCssNumber(
         node,
         options?.scaleVars ?? ['--motion-panel-scale-start'],
-        options?.scaleFallback ?? 0.97
+        options?.scaleFallback ?? 0.98
     );
-    // Exits shrink a quarter as far as enters grow, so the shared start-scale
-    // token keeps close animations subtle while open animations stay expressive.
-    const endScale = options?.exit ? 1 - (1 - startScale) * 0.25 : startScale;
     const blur = readCssNumber(node, options?.blurVars ?? [], options?.blurFallback ?? 2);
     const opacityStart = readCssNumber(
         node,
@@ -149,11 +186,27 @@ function panelTransition(
         options?.opacityFallback ?? 0
     );
 
+    const spring = options?.spring;
+    if (spring) {
+        return {
+            duration: motionDuration(node, durationVariable, fallbackDuration),
+            css: (t) => {
+                const move = spring(t);
+                const fadeProgress = cubicOut(Math.min(t * 2.2, 1));
+                const filter = blur > 0 ? `${baseFilter} blur(${(1 - fadeProgress) * blur}px)` : '';
+
+                return `opacity:${(opacityStart + (1 - opacityStart) * fadeProgress) * opacity};transform:${baseTransform} translateY(${(1 - move) * offsetY}px) scale(${endScale + (1 - endScale) * move});${filter ? `filter:${filter}` : ''}`;
+            }
+        };
+    }
+
     return {
         duration: motionDuration(node, durationVariable, fallbackDuration),
         easing: readCssEasing(node, options?.easing ?? cubicOut),
         css: (t) => {
-            return `opacity:${(opacityStart + (1 - opacityStart) * t) * opacity};transform:${baseTransform} translateY(${(1 - t) * offsetY}px) scale(${endScale + (1 - endScale) * t});filter:${baseFilter} blur(${(1 - t) * blur}px)`;
+            const filter = blur > 0 ? `filter:${baseFilter} blur(${(1 - t) * blur}px)` : '';
+
+            return `opacity:${(opacityStart + (1 - opacityStart) * t) * opacity};transform:${baseTransform} translateY(${(1 - t) * offsetY}px) scale(${endScale + (1 - endScale) * t});${filter}`;
         }
     };
 }
@@ -167,44 +220,48 @@ const MENU_MOVEMENT: {
     blurFallback: number;
 } = {
     offsetVars: ['--motion-menu-y', '--motion-panel-y'],
-    offsetFallback: 2,
+    offsetFallback: 4,
     scaleVars: ['--motion-menu-scale-start', '--motion-panel-scale-start'],
-    scaleFallback: 0.97,
+    scaleFallback: 0.98,
     blurVars: ['--motion-menu-blur'],
-    blurFallback: 2
+    blurFallback: 0
 };
 
 const MODAL_MOVEMENT: typeof MENU_MOVEMENT = {
     offsetVars: ['--motion-modal-y'],
-    offsetFallback: 4,
+    offsetFallback: 8,
     scaleVars: ['--motion-modal-scale-start'],
-    scaleFallback: 0.93,
+    scaleFallback: 0.96,
     blurVars: ['--motion-modal-blur'],
-    blurFallback: 2
+    blurFallback: 0
 };
 
+/** Panel enter: springs open in place from a small offset (panel spring, 550/38). */
 export function panelIn(node: Element) {
-    return panelTransition(node, '--motion-duration-panel-in', 110, { ...MENU_MOVEMENT });
-}
-
-export function panelOut(node: Element) {
-    return panelTransition(node, '--motion-duration-panel-out', 150, { ...MENU_MOVEMENT });
-}
-
-/** Dialog enter: a soft centered scale that rises into place. */
-export function dialogIn(node: Element) {
-    return panelTransition(node, '--motion-duration-modal-in', 180, {
-        ...MODAL_MOVEMENT,
-        easing: quintOut
+    return panelTransition(node, '--motion-duration-panel-in', 350, {
+        ...MENU_MOVEMENT,
+        spring: panelSpring
     });
 }
 
-/** Dialog exit: move slightly upward instead of retracing the enter path. */
-export function dialogOut(node: Element) {
-    return panelTransition(node, '--motion-duration-modal-out', 110, {
+/** Panel exit: a short fade. A closing menu gets out of the way. */
+export function panelOut(node: Element) {
+    return panelTransition(node, '--motion-duration-panel-out', 100, { ...MENU_MOVEMENT });
+}
+
+/** Dialog enter: pops from a slight shrink (pop spring, 400/26). It never slides from an edge. */
+export function dialogIn(node: Element) {
+    return panelTransition(node, '--motion-duration-modal-in', 500, {
         ...MODAL_MOVEMENT,
-        easing: cubicOut,
-        exit: true
+        spring: popSpring
+    });
+}
+
+/** Dialog exit: softer and faster than the entrance, retracing a quarter of its path. */
+export function dialogOut(node: Element) {
+    return panelTransition(node, '--motion-duration-modal-out', 150, {
+        ...MODAL_MOVEMENT,
+        easing: cubicOut
     });
 }
 
