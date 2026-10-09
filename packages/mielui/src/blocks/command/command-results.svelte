@@ -18,10 +18,7 @@
     role="listbox"
     aria-label="Command results"
     use:travelingHighlight
-    class={cn(
-        className,
-        'max-h-full overflow-y-auto overscroll-contain px-1 py-2 [scrollbar-gutter:stable] [mask-image:linear-gradient(to_bottom,transparent,black_calc(var(--spacing)*3),black_calc(100%-var(--spacing)*3),transparent)]'
-    )}
+    class={cn(className, 'max-h-full overflow-y-auto overscroll-contain p-1 [scrollbar-gutter:stable]')}
 >
     {@render children?.()}
     {#if command.searchContent !== '' && command.results.length === 0}

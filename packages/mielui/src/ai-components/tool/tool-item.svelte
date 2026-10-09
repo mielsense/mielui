@@ -23,7 +23,7 @@
 <div
     data-ui="tool-item"
     data-kind={kind}
-    class={cn(className, 'flex min-h-6 min-w-0 items-center gap-2')}
+    class={cn(className, 'flex min-w-0 items-center gap-2')}
     {...rest}
 >
     <HugeiconsIcon
@@ -32,11 +32,7 @@
         aria-hidden="true"
         class="shrink-0 text-foreground-muted"
     />
-    <span
-        class="shrink-0 [font-size:var(--font-size-label)] [font-weight:var(--font-weight-label)] text-foreground"
-    >
-        {name}
-    </span>
+    <span class="shrink-0 [font-weight:var(--font-weight-label)] text-foreground">{name}</span>
     {#if children}
         {@render children()}
     {:else if detail}

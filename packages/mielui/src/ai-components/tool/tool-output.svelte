@@ -11,14 +11,14 @@
     data-ui="tool-output"
     class={cn(
         className,
-        'flex min-w-0 flex-col gap-0.5 px-0.5 [[data-ui=tool-input]+&]:mt-1'
+        'flex flex-col gap-1 rounded-[var(--radius-md)] bg-secondary/50 px-2.5 py-2 [[data-ui=tool-input]+&]:-mt-1.5 [[data-ui=tool-input]+&]:rounded-t-none [[data-ui=tool-input]+&]:border-t-[length:var(--border-size)] [[data-ui=tool-input]+&]:border-border'
     )}
     {...rest}
 >
     <span class="text-xs [font-weight:var(--font-weight-label)] text-foreground-muted">
         {label ?? labels?.()?.output ?? 'Output'}
     </span>
-    <div class="font-mono text-xs leading-5 text-foreground">
+    <div class="text-sm leading-5 text-foreground">
         {@render children?.()}
     </div>
 </div>

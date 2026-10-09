@@ -11,7 +11,7 @@
     data-ui="tool-input"
     class={cn(
         className,
-        'flex min-w-0 flex-col gap-0.5 px-0.5'
+        'flex flex-col gap-1 rounded-[var(--radius-md)] bg-secondary/50 px-2.5 py-2 [&:has(+[data-ui=tool-output])]:rounded-b-none'
     )}
     {...rest}
 >

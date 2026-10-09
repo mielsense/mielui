@@ -11,7 +11,7 @@
         get children() {
             return children;
         },
-        className: cn(className, 'px-3 py-1.5 text-xs text-foreground-muted'),
+        className: cn(className, 'px-3 pt-1.5 pb-1 text-foreground-muted'),
         rest
     }));
 </script>

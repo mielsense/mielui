@@ -36,7 +36,7 @@
         class={cn(
             className,
             isDisabled && 'cursor-not-allowed opacity-[var(--opacity-disabled)]',
-            'group relative flex min-h-12 cursor-[var(--ui-cursor-interactive)] items-start gap-3 rounded-[var(--radius-md)] px-2.5 py-2.5 text-start transition-[background-color,box-shadow] [transition-duration:var(--motion-duration-hover)] ease-[var(--ease-out)] [counter-increment:question-option] motion-reduce:transition-none has-[:focus-visible]:shadow-[var(--focus-ring)] [&:not([data-disabled]):hover]:bg-[var(--color-wash)] [&:nth-of-type(n+10)_[data-ui=question-option-key]]:hidden'
+            'group relative flex cursor-[var(--ui-cursor-interactive)] items-start gap-3 rounded-[var(--radius-md)] px-2.5 py-2 text-start transition-[background-color,box-shadow] [transition-duration:var(--motion-duration-hover)] ease-[var(--ease-out)] [counter-increment:question-option] motion-reduce:transition-none has-[:focus-visible]:shadow-[var(--focus-ring)] data-[state=checked]:bg-[var(--color-wash)] [&:not([data-disabled]):hover]:bg-[var(--color-wash)] [&:nth-of-type(n+10)_[data-ui=question-option-key]]:hidden'
         )}
     >
         <input
@@ -85,7 +85,7 @@
             <span
                 data-state={selected ? 'checked' : 'unchecked'}
                 class={cn(
-                    'flex size-[calc(var(--size-hairline)*9)] shrink-0 items-center justify-center rounded-full border-[length:var(--border-size)] bg-origin-border transition-[background-color,border-color,box-shadow] [transition-duration:var(--motion-duration-press)] ease-[var(--ease-press)] motion-reduce:transition-none',
+                    'mt-px flex size-[calc(var(--size-hairline)*9)] shrink-0 items-center justify-center rounded-full border-[length:var(--border-size)] bg-origin-border transition-[background-color,border-color,box-shadow] [transition-duration:var(--motion-duration-press)] ease-[var(--ease-press)] motion-reduce:transition-none',
                     selected
                         ? 'mielui-glow border-transparent shadow-[var(--mielui-glow-shadow)] [--mielui-glow-color:var(--color-primary)] [--mielui-glow-light:0.3]'
                         : 'border-[var(--mielui-control-border)] bg-[var(--color-field)]',
@@ -98,7 +98,7 @@
                 <span
                     class={cn(
                         'size-[calc(var(--size-hairline)*3)] rounded-full bg-[var(--color-on-primary)] transition-[opacity,scale] [transition-duration:var(--motion-duration-flick)] ease-[var(--ease-spring-flick)] motion-reduce:transition-none',
-                        selected ? 'scale-100 opacity-100' : 'scale-[0.25] opacity-0'
+                        selected ? 'scale-100 opacity-100' : 'scale-90 opacity-0'
                     )}
                 ></span>
             </span>
@@ -120,7 +120,7 @@
         <kbd
             aria-hidden="true"
             data-ui="question-option-key"
-            class="mt-0.5 grid h-5 min-w-5 shrink-0 place-items-center rounded-[calc(var(--radius-sm)*0.75)] border-[length:var(--border-size)] border-border bg-card px-1 font-mono text-xs leading-none tabular-nums text-foreground-muted before:content-[counter(question-option)]"
+            class="grid h-5 min-w-5 shrink-0 place-items-center self-center font-mono text-[length:var(--font-size-meta)] leading-none tabular-nums text-foreground-muted opacity-70 before:content-[counter(question-option)]"
         ></kbd>
     </label>
 {/if}

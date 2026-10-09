@@ -110,10 +110,10 @@
                         class={cn(
                     className,
                     overlaySurface(surface),
-                    'fixed top-[var(--mielui-viewport-top)] bottom-auto z-[120] flex h-[var(--mielui-viewport-height)] w-[calc(100%-var(--spacing)*8)] max-w-sm flex-col overflow-hidden border-y-0 pt-[max(var(--mielui-modal-inset),env(safe-area-inset-top))] pb-[max(var(--mielui-modal-inset),env(safe-area-inset-bottom))] text-foreground shadow-[var(--elevation-modal)] will-change-transform [backface-visibility:hidden]',
-                    side === 'left'
-                        ? 'left-0 rounded-l-none border-l-0 pl-[max(var(--mielui-modal-inset),env(safe-area-inset-left))]'
-                        : 'right-0 rounded-r-none border-r-0 pr-[max(var(--mielui-modal-inset),env(safe-area-inset-right))]',
+                    // token-lint-disable-next-line no-literal-length
+                    `fixed top-[calc(var(--mielui-viewport-top)+0.5rem)] bottom-auto z-[120] flex h-[calc(var(--mielui-viewport-height)-1rem)] w-[calc(100%-1rem)] max-w-sm flex-col overflow-hidden text-foreground shadow-[var(--elevation-float)] will-change-transform [backface-visibility:hidden] ${
+                        side === 'left' ? 'left-2' : 'right-2'
+                    }`,
                     'mielui-modal-frame'
                 )}
                         role="dialog"
@@ -128,9 +128,6 @@
                             data-ui="sheet-surface"
                             class={cn(
                         'mielui-inset-surface relative flex min-h-0 flex-1 flex-col gap-4 overflow-y-auto overscroll-contain p-5',
-                        side === 'left'
-                            ? 'rounded-l-[calc((var(--mielui-plate-radius)-var(--border-size)-var(--mielui-modal-inset))*var(--mielui-border-inset-scale,1))]'
-                            : 'rounded-r-[calc((var(--mielui-plate-radius)-var(--border-size)-var(--mielui-modal-inset))*var(--mielui-border-inset-scale,1))]',
                         '[&_[data-ui=sheet-header]]:pr-8'
                     )}
                         >

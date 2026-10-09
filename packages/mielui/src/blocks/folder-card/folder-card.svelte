@@ -30,14 +30,12 @@
     });
 
     const frameClasses = [
-        'mielui-inset-frame flex aspect-5/4 min-w-0 flex-col shadow-[var(--elevation-1)]',
+        'mielui-inset-frame flex aspect-5/4 min-w-0 flex-col overflow-clip shadow-[var(--elevation-1)]',
+        '[--mielui-border-inset-scale:0] [--mielui-plate-radius:var(--radius-xl)]',
         '[--folder-card-radius:var(--radius-lg)]',
-        '[--folder-card-body:var(--color-foreground)]',
-        '[--folder-card-ink:var(--color-card)]',
-        '[--folder-card-ink-muted:color-mix(in_oklab,var(--color-card)_70%,var(--color-foreground))]',
-        'dark:[--folder-card-body:var(--color-background)]',
-        'dark:[--folder-card-ink:var(--color-foreground)]',
-        'dark:[--folder-card-ink-muted:var(--color-foreground-muted)]'
+        '[--folder-card-body:var(--color-card)]',
+        '[--folder-card-ink:var(--color-foreground)]',
+        '[--folder-card-ink-muted:var(--color-foreground-muted)]'
     ];
 
     const linkClasses = [

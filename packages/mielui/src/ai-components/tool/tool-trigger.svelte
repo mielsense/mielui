@@ -72,7 +72,7 @@
             <Spinner
                 size={DISCLOSURE_ICON_SIZE}
                 aria-hidden="true"
-                class="size-3.5 shrink-0 text-primary"
+                class="size-3.5 shrink-0 text-foreground-muted"
             />
         {:else if state === 'error'}
             <HugeiconsIcon
@@ -86,27 +86,21 @@
             <HugeiconsIcon
                 icon={CircleCheck}
                 size={DISCLOSURE_ICON_SIZE}
-                strokeWidth={2}
                 aria-hidden="true"
-                class="size-3.5 shrink-0 text-[var(--mielui-success-text)]"
+                class="size-3.5 shrink-0 text-foreground-muted"
             />
         {/if}
         <span
             class={cn(
-                'shrink-0 [font-size:var(--font-size-label)] [font-weight:var(--font-weight-label)]',
+                'shrink-0 [font-weight:var(--font-weight-label)]',
                 state === 'error' ? 'text-[var(--mielui-error-text)]' : 'text-foreground'
             )}
         >
             {label}
         </span>
-        <span class="min-w-0 truncate font-mono text-xs text-foreground-muted">{name}</span>
+        <span class="min-w-0 truncate text-foreground-muted">{name}</span>
         {#if duration}
-            <span
-                class={cn(
-                    'shrink-0 font-mono text-xs tabular-nums text-foreground-muted',
-                    variant === 'quiet' ? '' : 'ms-auto'
-                )}
-            >
+            <span class="shrink-0 font-mono text-xs tabular-nums text-foreground-muted">
                 {#if canAnimateDuration}
                     <span use:numberShuffle={{ value: numericDuration, format: formatDuration }}>
                         {duration}
@@ -120,7 +114,7 @@
             icon={ChevronDown}
             size={DISCLOSURE_ICON_SIZE}
             aria-hidden="true"
-            class={cn(variant === 'quiet' || duration ? '' : 'ms-auto', disclosureChevron({ open }))}
+            class={cn(variant === 'quiet' ? '' : 'ms-auto', disclosureChevron({ open }))}
         />
     {/if}
 </button>

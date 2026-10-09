@@ -1,6 +1,5 @@
 <script lang="ts">
     import { Search01Icon as Search } from '@hugeicons/core-free-icons';
-    import { numberShuffle } from '@mielui/svelte/actions/number-shuffle';
     import { cn } from '@mielui/svelte/utils';
     import { onMount } from 'svelte';
     import HugeiconsIcon from '../../hugeicons-icon.svelte';
@@ -104,11 +103,16 @@
 </script>
 
 {#snippet defaultIcon()}
-    <HugeiconsIcon icon={Search} size={16} class="shrink-0 text-foreground-muted" />
+    <HugeiconsIcon
+        icon={Search}
+        size={15}
+        strokeWidth={1.75}
+        class="shrink-0 text-foreground-muted"
+    />
 {/snippet}
 
 {#snippet defaultCount(total: number)}
-    <span use:numberShuffle={{ value: total }}>{total}</span>
+    <span>{total}</span>
 {/snippet}
 
 {#snippet defaultAnnouncement(message: string)}
@@ -116,7 +120,7 @@
 {/snippet}
 
 <div
-    class="relative flex h-[var(--size-touch)] w-full shrink-0 items-center gap-2 px-[calc(var(--spacing)*3+var(--border-size))] after:absolute after:inset-x-3 after:bottom-0 after:h-[length:var(--border-size)] after:bg-border"
+    class="flex h-[var(--size-touch)] w-full shrink-0 items-center gap-2.5 border-b-[length:var(--border-size)] border-border px-3"
 >
     {@render (icon ?? defaultIcon)()}
     <input

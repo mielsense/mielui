@@ -5,7 +5,7 @@ export const manifest: Manifest = {
     version: '1.2.0',
     visibility: 'public',
     description:
-        'Compact, expandable AI tool calls for chat transcripts, drawn as a two-layer card. Use variant="quiet" for a content-width task summary inside a response.',
+        'Compact, expandable AI tool calls for chat transcripts. Use variant="quiet" for a content-width task summary inside a response.',
     files: [
         'actions/number-shuffle/index.ts',
         'actions/number-shuffle/render.ts',
