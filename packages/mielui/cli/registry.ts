@@ -9,8 +9,8 @@ export const BASE_PEER_DEPENDENCIES = [
     'tailwindcss',
     'cnfast',
     '@floating-ui/dom',
-    '@fontsource/manrope',
-    '@fontsource/jetbrains-mono'
+    '@fontsource/inter-tight',
+    '@fontsource/geist-mono'
 ];
 
 /**

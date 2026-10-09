@@ -10,7 +10,7 @@
     import HugeiconsIcon from '@mielui/svelte/hugeicons-icon';
     import { builtInThemePresets } from '@mielui/svelte/themes/builtin-presets';
     import { applyLiveThemeCss } from '@mielui/svelte/themes/live';
-    import { type Theme, themeToCss } from '@mielui/svelte/themes/theme';
+    import { DEFAULT_THEME, type Theme, themeToCss } from '@mielui/svelte/themes/theme';
     import { mode } from 'mode-watcher';
     import { handOffTheme } from '$lib/studio/handoff';
     import type { PageData } from './$types';
@@ -62,16 +62,17 @@
     function specimen(theme: Theme) {
         const dark = mode.current === 'dark';
         const foundation = dark ? theme.foundation?.dark : theme.foundation?.light;
-        const radii = { sharp: '4px', default: '10px', rounded: '999px' };
+        const radii = { sharp: '4px', default: '999px', rounded: '999px' };
         const accent = (dark ? theme.tokens?.dark?.['--color-primary'] : undefined) ?? theme.brand;
+        const defaultBrand = theme.brand.toLowerCase() === DEFAULT_THEME.brand;
 
         return {
-            background: foundation?.background ?? (dark ? '#0f0f0f' : '#fdfdfc'),
-            base: foundation?.base ?? (dark ? '#171717' : '#ffffff'),
-            secondary: foundation?.secondary ?? (dark ? '#252525' : '#efefee'),
-            border: foundation?.border ?? (dark ? '#2a2a2a' : '#dedede'),
-            foreground: foundation?.foreground ?? (dark ? '#f5f5f5' : '#171717'),
-            onBrand: foundation?.onPrimary ?? '#ffffff',
+            background: foundation?.background ?? (dark ? '#121212' : '#f6f6f6'),
+            base: foundation?.base ?? (dark ? '#1a1a1a' : '#ffffff'),
+            secondary: foundation?.secondary ?? (dark ? '#272727' : '#e9e9e9'),
+            border: foundation?.border ?? (dark ? '#303030' : '#e0e0e0'),
+            foreground: foundation?.foreground ?? (dark ? '#ededed' : '#292929'),
+            onBrand: foundation?.onPrimary ?? (defaultBrand ? '#21151e' : '#ffffff'),
             accent,
             swatches: [
                 accent,
@@ -150,7 +151,7 @@
 <div class="flex w-full flex-col gap-8 pb-10">
     <header class="flex flex-col gap-3">
         <h1
-            class="m-0 text-[2rem] leading-10 font-semibold tracking-[-0.025em] text-foreground [font-family:var(--font-header)]"
+            class="m-0 text-[2.5rem] leading-[1.1] font-medium tracking-[-0.03em] text-foreground [font-family:var(--font-header)]"
         >
             Themes
         </h1>

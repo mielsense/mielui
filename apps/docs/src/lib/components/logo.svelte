@@ -5,7 +5,7 @@
 
 <a
     href={resolve('/')}
-    class="flex items-center gap-2.5 rounded-[var(--radius-md)] no-underline focus-visible:outline-none focus-visible:shadow-[var(--focus-ring)]"
+    class="flex shrink-0 items-center gap-2.5 rounded-[var(--radius-control)] pe-2 no-underline focus-visible:outline-none focus-visible:shadow-[var(--focus-ring)]"
     aria-label="mielui Home"
 >
     <span
@@ -13,5 +13,5 @@
     >
         <BrandMark size={19} />
     </span>
-    <span class="font-semibold tracking-[-0.02em] text-foreground">mielui</span>
+    <span class="text-[15px] font-medium tracking-[-0.02em] text-foreground">mielui</span>
 </a>

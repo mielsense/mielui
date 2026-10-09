@@ -1,6 +1,5 @@
 <script lang="ts">
     import type { Snippet } from 'svelte';
-    import ThemeToggle from './theme-toggle.svelte';
 
     const {
         leading,
@@ -13,13 +12,17 @@
     } = $props();
 </script>
 
-<header class="flex h-[50px] w-full min-w-0 shrink-0 items-center gap-1.5 px-2.5">
+<!--
+    @component
+    A strip of controls on a frame, above the inset it acts on.
+-->
+
+<div class="flex h-10 w-full min-w-0 shrink-0 items-center gap-1.5 px-1.5">
     {@render leading?.()}
     <div class="flex min-w-0 flex-1 items-center gap-1.5">
         {@render children?.()}
     </div>
-    <div class="flex shrink-0 items-center gap-1.5">
+    <div class="flex shrink-0 items-center gap-1">
         {@render actions?.()}
-        <ThemeToggle />
     </div>
-</header>
+</div>

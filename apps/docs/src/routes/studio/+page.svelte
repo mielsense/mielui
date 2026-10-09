@@ -16,7 +16,6 @@
     import * as Tooltip from '@mielui/svelte/components/tooltip';
     import HugeiconsIcon from '@mielui/svelte/hugeicons-icon';
     import { cn } from '@mielui/svelte/utils';
-    import MobileActions from '$lib/components/shell/mobile-actions.svelte';
     import Sidebar from '$lib/components/shell/sidebar.svelte';
     import Topbar from '$lib/components/shell/topbar.svelte';
     import { getStudioContext } from '$lib/studio-context';
@@ -76,13 +75,13 @@
     <meta name="description" content="Build, preview, and export a Mielui theme." />
 </svelte:head>
 
-<Sidebar label="Theme configuration" title="Theme Studio" wide>
+<Sidebar label="Theme configuration" wide>
     <Inspector />
 </Sidebar>
 
 <div
     data-docs-page
-    class="flex min-h-0 min-w-0 flex-1 flex-col bg-[var(--docs-side)] text-foreground [--docs-content:var(--docs-side)]"
+    class="mielui-inset-frame flex min-h-0 min-w-0 flex-1 flex-col text-foreground shadow-[var(--elevation-1)] [--docs-content:var(--color-background)]"
 >
     <h1 class="sr-only">Theme Studio</h1>
     <Topbar>
@@ -211,12 +210,11 @@
                     </Popover.Content>
                 </Popover.Root>
             </div>
-            <MobileActions />
         {/snippet}
     </Topbar>
     <section
         aria-label="Theme preview"
-        class="relative flex min-h-0 flex-1 justify-center overflow-clip bg-[var(--docs-soft)]"
+        class="mielui-inset-surface relative flex min-h-0 flex-1 justify-center overflow-clip"
     >
         <div
             class="pointer-events-none absolute inset-x-0 bottom-5 z-30 hidden justify-center md:flex"
@@ -251,7 +249,7 @@
         </div>
         <div
             class={cn(
-                'h-full min-h-0 w-full overflow-clip bg-[var(--docs-side)] font-[var(--font-sans)] text-foreground [&[data-picking]_*]:cursor-crosshair!',
+                'h-full min-h-0 w-full overflow-clip font-[var(--font-sans)] text-foreground [&[data-picking]_*]:cursor-crosshair!',
                 studio.width === 'narrow'
                     ? 'max-w-[390px] border-x-[length:var(--border-size)] border-[var(--docs-rule)]'
                     : 'max-w-none',

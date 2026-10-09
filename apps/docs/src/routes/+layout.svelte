@@ -2,25 +2,21 @@
     import { Toaster } from '@mielui/svelte/components/toast';
     import { getStoredLiveThemeCss, hydrateLiveThemeCss } from '@mielui/svelte/themes/live';
     import { ModeWatcher } from 'mode-watcher';
-    import { getBreadcrumbs } from '$lib/components/docs/breadcrumbs';
     import CopyPage from '$lib/components/docs/copy-page.svelte';
     import Navigation from '$lib/components/docs/navigation.svelte';
     import NavigationSheet from '$lib/components/docs/navigation-sheet.svelte';
     import { stayOnPage } from '$lib/components/docs/stay-on-page';
     import { setSearch } from '$lib/components/search/context';
     import SiteSearch from '$lib/components/search/palette.svelte';
-    import MobileActions from '$lib/components/shell/mobile-actions.svelte';
-    import { pageIcon, usesDocsSidebar } from '$lib/components/shell/page-icon';
-    import PageTabs from '$lib/components/shell/page-tabs.svelte';
-    import Rail from '$lib/components/shell/rail.svelte';
+    import Header from '$lib/components/shell/header.svelte';
+    import PageDock from '$lib/components/shell/page-dock.svelte';
+    import { usesDocsSidebar } from '$lib/components/shell/page-icon';
     import ScrollEdge from '$lib/components/shell/scroll-edge.svelte';
     import { fadeY, scrollFade } from '$lib/components/shell/scroll-fade';
     import SectionTrail from '$lib/components/shell/section-trail.svelte';
     import { createShell, setShell } from '$lib/components/shell/shell.svelte';
     import Sidebar from '$lib/components/shell/sidebar.svelte';
     import SidebarCard from '$lib/components/shell/sidebar-card.svelte';
-    import TabPill from '$lib/components/shell/tab-pill.svelte';
-    import Topbar from '$lib/components/shell/topbar.svelte';
     import { setStudioContext } from '$lib/studio-context';
     import '@mielui/svelte/ui.css';
     import '../app.css';
@@ -50,7 +46,6 @@
     const isDocs = $derived(page.url.pathname.startsWith('/docs'));
     const isThemeStudio = $derived(page.url.pathname.startsWith('/studio'));
     const hasSidebar = $derived(usesDocsSidebar(page.url.pathname));
-    const pageLabel = $derived(getBreadcrumbs(page.url.pathname).at(-1)?.label ?? 'mielui');
 
     // `--font-header` defaults to `var(--font-sans)`, so one custom property re-skins every page.
     $effect(() => {
@@ -123,31 +118,34 @@
         {@render children?.()}
     </main>
 {:else if isHome}
-    <main
-        class="min-h-dvh w-screen bg-background [--docs-rule:color-mix(in_oklab,var(--color-border)_62%,transparent)] [--docs-soft:color-mix(in_oklab,var(--color-secondary)_55%,var(--color-background))]"
-    >
-        <div class="relative mx-auto flex min-h-dvh w-full max-w-none flex-col">
-            {@render children?.()}
-        </div>
+    <main class="min-h-dvh w-full bg-background">
+        {@render children?.()}
     </main>
 {:else}
     <main
-        class="fixed inset-0 flex overflow-clip bg-[var(--docs-content)] [--docs-row-height:calc(var(--spacing)*14)] [--docs-rule:color-mix(in_oklab,var(--color-border)_62%,transparent)] [--docs-content:var(--color-card)] [--docs-chrome:color-mix(in_oklab,var(--color-secondary)_97%,white)] [--docs-side:var(--color-background)] [--docs-soft:color-mix(in_oklab,var(--color-secondary)_55%,var(--color-background))] [--docs-pill:color-mix(in_oklab,var(--color-secondary)_62%,var(--color-background))] dark:[--docs-content:color-mix(in_oklab,var(--color-card)_35%,var(--color-background))] dark:[--docs-side:var(--docs-content)] dark:[--docs-chrome:color-mix(in_oklab,var(--color-background),var(--color-secondary)_20%)] dark:[--docs-soft:color-mix(in_oklab,var(--color-secondary)_55%,var(--color-card))] dark:[--docs-pill:color-mix(in_oklab,var(--color-secondary)_80%,var(--color-card))]"
+        class="fixed inset-0 flex flex-col overflow-clip bg-background [--docs-row-height:calc(var(--spacing)*14)] [--docs-content:var(--color-card)] [--docs-pill:var(--color-wash)] [--docs-rule:var(--color-border)] [--docs-side:var(--color-background)] [--docs-soft:var(--color-wash)]"
     >
-        <Rail />
-        <div class="flex min-h-0 min-w-0 flex-1 overflow-clip">
+        <Header starCount={data.starCount ?? null}>
+            {#snippet leading()}
+                <NavigationSheet />
+            {/snippet}
+        </Header>
+        <div class="flex min-h-0 min-w-0 flex-1 overflow-clip px-1.5 pb-1.5 sm:px-2 sm:pb-2">
             {#if isThemeStudio}
                 {@render children?.()}
             {:else}
                 {#if hasSidebar}
-                    <Sidebar label="Documentation" title="Documentation">
+                    <Sidebar label="Documentation">
                         <Navigation />
                         {#snippet footer()}
                             <SidebarCard />
                         {/snippet}
                     </Sidebar>
                 {/if}
-                <div class="flex min-h-0 min-w-0 flex-1 flex-col">
+                <div
+                    data-shell-plate
+                    class="mielui-plate relative flex min-h-0 min-w-0 flex-1 flex-col overflow-clip"
+                >
                     {#if isDocs}
                         <div bind:this={docsScrollEl} class="min-h-0 min-w-0 flex-1">
                             {@render children?.()}
@@ -160,7 +158,7 @@
                                 class={`h-full overflow-y-auto overscroll-contain ${fadeY}`}
                             >
                                 <div
-                                    class="flex w-full flex-col gap-5 px-5 pt-8 pb-16 sm:px-10 lg:flex-row lg:gap-0"
+                                    class="flex w-full flex-col gap-5 px-5 pt-8 pb-24 sm:px-10 lg:flex-row lg:gap-0"
                                 >
                                     {@render children?.()}
                                 </div>
@@ -169,39 +167,19 @@
                             <ScrollEdge edge="bottom" />
                         </div>
                     {/if}
-                    <Topbar>
-                        {#snippet leading()}
-                            <NavigationSheet />
-                        {/snippet}
-                        {#if hasSidebar}
-                            <PageTabs />
-                        {:else}
-                            <span
-                                class="min-w-0 truncate text-sm font-medium text-foreground sm:hidden"
-                            >
-                                {pageLabel}
-                            </span>
-                            <div class="hidden sm:block">
-                                <TabPill
-                                    current
-                                    label={pageLabel}
-                                    icon={pageIcon(page.url.pathname)}
-                                    href={page.url.pathname}
-                                />
+                    {#if isDocs && page.status < 400}
+                        <div
+                            class="pointer-events-none absolute end-3 top-3 z-30 hidden items-center gap-1 sm:flex [&>*]:pointer-events-auto"
+                        >
+                            <div class="hidden min-w-0 lg:block">
+                                <SectionTrail />
                             </div>
-                        {/if}
-                        {#snippet actions()}
-                            {#if isDocs && page.status < 400}
-                                <div class="hidden min-w-0 md:block">
-                                    <SectionTrail />
-                                </div>
-                                <div class="hidden sm:block">
-                                    <CopyPage />
-                                </div>
-                            {/if}
-                            <MobileActions />
-                        {/snippet}
-                    </Topbar>
+                            <CopyPage />
+                        </div>
+                    {/if}
+                    {#if hasSidebar}
+                        <PageDock />
+                    {/if}
                 </div>
             {/if}
         </div>

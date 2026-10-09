@@ -108,7 +108,7 @@
                         <Card.Description>{`January to June ${year}`}</Card.Description>
                     </Card.Header>
                     <Card.Content class="flex min-w-0 flex-col">
-                        <p class="m-0 mb-5 text-3xl font-semibold tabular-nums tracking-tight">
+                        <p class="m-0 mb-5 text-3xl font-medium tabular-nums tracking-tight">
                             <span
                                 use:numberShuffle={{ value: total, format: (value) => money.format(value) }}
                             >

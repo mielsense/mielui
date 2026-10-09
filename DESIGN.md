@@ -409,115 +409,110 @@ inherits from Button get one sentence and a link to the Button page. A new or
 changed prop ships with its sentence and, when it changes what people see, its
 example.
 
-Docs and Studio share one app shell. It fills the window edge to edge, with no
-outer frame, inset panel or rounded corners. Full-height columns sit side by
-side and hairlines in the border color divide them: an icon rail, the sidebar,
-then the content column. Structural lines use the full border color, not the
-softer `--docs-rule` used inside pages.
+Docs, Studio, Themes, and the Changelog share one shell: plates on a stage. The
+window is the grey stage (`--color-background`). A header sits directly on it,
+the sidebar sits directly on it, and the page is one white plate with squircle
+corners, a hairline, and the resting shadow, inset two spacing units from the
+window's edges. Nothing in the shell draws a rule. The gap between the sidebar
+and the plate is the only divider.
 
-The rail is 16 spacing units wide, on the sidebar's surface, with a hairline on
-its trailing edge. Its first row is as tall as the top bar and holds the brand
-mark on a primary rounded tile. The mark is always white, in both themes and
-whatever the theme's on-primary color is. Then come the Documentation,
-Components, Theme Studio, Themes, Changelog and Agent skill links, a short rule
-and search. GitHub sits at the bottom, inset from the edge as far as the brand
-tile is from the top. Rail items
-are muted icon buttons with tooltips that open to the right. Hover and the
-current section use the pill fill (`--docs-pill`) with foreground color. Do not
-add glows, blurs or brand tints to rail items. The rail follows the theme and is
-never fixed dark. Use Hugeicons throughout the shell.
+The header is 52px tall and has no background or border of its own. It holds
+the brand mark on a primary rounded tile with the wordmark beside it, the
+sidebar toggle, the primary pages (Docs, Components, Studio, Themes, Changelog),
+then search, the GitHub star count, and the theme toggle at the end. The mark is
+always white, in both themes and whatever the theme's on-primary color is. The
+primary pages are plain text links, muted until current. One neutral lit pill
+marks the current page and travels between links on the layout spring. Do not
+give each link its own background. Search is a compact field pill that opens the
+palette, and collapses to an icon button below the extra-large breakpoint. Use
+Hugeicons throughout the shell.
 
-Hairlines split the panel, not gaps. The sidebar has a title row with the
-workspace switcher and a hide button. The switcher shows the title and chevrons
-and opens a menu of Documentation, Theme Studio, and Themes. The content column
-has a top bar of the same height. The sidebar is hidden from its title row and shown again from the icon rail, or
-with Cmd/Ctrl+B either way, and the choice persists. The show control is a rail
-item after search and appears only while the sidebar is hidden; it never sits
-in the tab bar. In light mode the rail and sidebar use the page
-background and the content column the card color; in dark mode they share one
-surface. Only docs pages with navigation show the
-sidebar. Themes, Changelog and Agent skill use the full panel.
+The sidebar is toggled from the header or with Cmd/Ctrl+B, and the choice
+persists. It has no title row, no workspace switcher, and no border. Only docs
+pages with navigation show the sidebar. Themes, Changelog, and Agent skill use
+the full plate.
 
 The Changelog page lists each version with its sections in a fixed order:
-Breaking changes, Features, Fixes, then Docs last. Every section is a
-collapsible row with its bullet count, divided by a hairline rule. Docs starts
-collapsed; the others start open. The Markdown changelogs keep the same order.
+Breaking changes, Features, Fixes, then Docs last. Each version is a two-layer
+frame, and every section is a collapsible row in its inset with its bullet
+count. Docs starts collapsed; the others start open. The Markdown changelogs
+keep the same order.
 
 Docs navigation is a plain text list: the guides first, then one group per
-component type, with 2rem between groups. No row carries an icon, and search
-lives in the rail and behind Cmd/Ctrl+K, not in the list. The navigation sheet
-is the exception because it has no rail: it keeps a search row and icons on its
-guide and site links. Every group label links to that group's own catalog page
-at `/docs/components/<id>`, including Blocks, AI components and Chart
-components. Do not link a group to an anchor on the Components index. Rows are
-8 spacing units tall in muted regular text; the current page uses the pill fill
-(`--docs-pill`) with medium foreground text. Group labels are medium foreground
-text, stay pinned to the top of the sidebar while their group scrolls, and turn
-semibold while pinned. A pinned label has an opaque background, so no row shows
-behind it, and a short blurred fade directly beneath it. A small dot marks pages
-that are open in another tab. A bare row pinned at the bottom shows the current
-page's position in the docs: a segmented meter with the page count beside it. It
-has no top border, card, label, or icon.
+component type. No row carries an icon, and search lives in the header and
+behind Cmd/Ctrl+K, not in the list. The navigation sheet is the exception: it
+keeps a search row and icons on its guide and site links. Every group label
+links to that group's own catalog page at `/docs/components/<id>`, including
+Blocks, AI components and Chart components. Do not link a group to an anchor on
+the Components index. Rows are 8 spacing units tall, pill shaped, in muted
+regular text. The current page is medium foreground text on one neutral lit
+pill, and that pill travels to the next page on the layout spring. Group labels
+are small muted medium text and stay pinned to the top of the sidebar while
+their group scrolls. A pinned label has an opaque stage background, so no row
+shows behind it, and a short blurred fade directly beneath it. A small dot marks
+pages that are open in another tab. A bare row pinned at the bottom shows the
+current page's position in the docs: a segmented meter with the page count
+beside it. It has no top border, card, label, or icon.
 
-In docs and the other pages that share its shell, the bar with the tab strip
-sits at the bottom of the content column, level with the sidebar's page meter,
-so the page starts at the top edge. Studio keeps its bar at the top. The rest of
-this section still calls it the top bar.
+Open pages are tabs in a floating dock at the bottom center of the plate: a
+translucent card-colored pill with a hairline and the floating shadow. The add
+button opens the component catalog in a new tab; following a link changes the
+current tab, or switches to the tab that already shows that page. Tabs are pills
+as wide as their label, up to 52 spacing units, where the label truncates. Each
+has an icon for its kind of page: one per component group, shared by that
+group's catalog page and its components, and one per guide. Do not give every
+component the same icon. A tab has a page icon, a label, and a close button on
+hover. The current tab uses the secondary fill and the others are plain until
+hovered. Cmd or Ctrl-click on a sidebar link opens it as a tab in the
+background. Drag a tab onto another to reorder, or press Alt with the left or
+right arrow on a focused tab. Error pages are never saved as tabs; they persist
+in local storage and scroll sideways when they overflow. The dock appears only
+on pages with the docs sidebar and is hidden below the small breakpoint.
 
-The docs top bar is a tab strip. The add button opens the component catalog in a
-new tab; following a link changes the current tab, or switches to the tab that
-already shows that page. Tabs are pills as wide as their label, up to 56 spacing units, where the
-label truncates. Each has an icon for its kind of page: one per component group,
-shared by that group's catalog page and its components, and one per guide. Do
-not give every component the same icon. A tab has a page icon, a label,
-and a close button on hover. The current tab uses the pill fill and the others a
-fainter one. Cmd or Ctrl-click on a sidebar link opens it as a tab in the background. Drag a
-tab onto another to reorder, or press Alt with the left or right arrow on a
-focused tab. Error pages are never saved as tabs; they persist in local storage and scroll sideways
-when they overflow. Copy page and the theme toggle sit at the end of the bar, in docs and in Studio. Pages without tabs
-show one static pill with their name.
+The shell has no status line. Do not add a bar under the plate for the version,
+counts, the install command, or page position. The install command is on the
+page, the version is in the changelog, and previous and next links close the
+article.
 
-The shell has no status line. Do not add a
-bar under the content column for the version, counts, the install command, or
-page position. The install command is on the page, the version is in the
-changelog, and previous and next links close the article.
+Below the medium breakpoint the primary pages leave the header. Below the large
+breakpoint the sidebar opens as a Sheet from a menu button at the start of the
+header.
 
-Below large widths the rail disappears, the tab strip collapses to the current page name, and the sidebar
-opens as a Sheet.
-
-The shell is fixed to the viewport. Only the sidebar and the content column
-scroll, never the document. Links and link buttons inside previews never
-navigate; the shared preview cancels them.
+The shell is fixed to the viewport. Only the sidebar and the plate scroll, never
+the document. Links and link buttons inside previews never navigate; the shared
+preview cancels them.
 
 Each page opens with a breadcrumb of its parents when it has more than one
 level, then a visible title and its summary as muted lead text. `PageIntro` owns
-this header. Copy page sits in the top bar. Do not hide the title or summary
-behind a hover card.
+this header. Copy page floats at the top end of the plate, with the current
+section's trail before it. Do not hide the title or summary behind a hover
+card.
 
-The article is centered in the content column and at most 60rem wide. Previews,
-code, and API rows use that full width, and prose stops at 44rem so lines stay
-readable. Catalog pages are the exception and fill the column. The page outline
-is a minimap at the far right at extra-large widths: a centered rail of hairline
-dashes, one per heading, longer for sections than for subsections, with no
-title and no text at rest. The current heading's dash is longer and uses the
+The article is centered in the plate and at most 60rem wide. Previews, code, and
+API rows use that full width, and prose stops at 44rem so lines stay readable.
+Catalog pages are the exception and fill the plate. The page outline is a
+minimap at the far right at extra-large widths: a centered rail of hairline
+dashes, one per heading, longer for sections than for subsections, with no title
+and no text at rest. The current heading's dash is longer and uses the
 foreground color. Dashes swell toward the pointer, and the nearest one shows its
 heading in a small label beside the rail; a focused dash shows the same label.
-Do not bring back a persistent list of outline links. Section titles are plain semibold headings on a full-width row.
-They scroll with the page and are never pinned, because a pinned title costs a
-row of vertical space on every screen. The top bar names the current section
-instead: a quiet trail before Copy page shows the section, and the subsection
-when there is one, with a short divider after it. Each name jumps back to the
-start of its section. The trail appears once the first heading reaches the top
-and is hidden below the medium breakpoint. Do not use inverted or pill-shaped
-section titles. Put an optional section explanation
-behind a labelled info control beside the title.
+Do not bring back a persistent list of outline links. Section titles are plain
+medium headings on a full-width row. They scroll with the page and are never
+pinned, because a pinned title costs a row of vertical space on every screen.
+The trail beside Copy page names the current section instead, and the
+subsection when there is one. Each name jumps back to the start of its section.
+The trail appears once the first heading reaches the top and is hidden below
+the large breakpoint. Do not use inverted or pill-shaped section titles. Put an
+optional section explanation behind a labelled info control beside the title.
 When a downward scroll stops with the next section just below the top, the page
 settles that section into place. The settle never runs during a drag, under
-reduced motion, or with zero-duration motion. Sections are separated by
-4rem and their content by 1rem; the shared layout owns these distances. Previous
-and next links close the article as labelled ghost Buttons above a hairline rule.
-Do not float shell chrome as pills; the Studio preview switch is the one
-exception.
+reduced motion, or with zero-duration motion. Sections are separated by 4rem and
+their content by 1rem; the shared layout owns these distances. Previous and next
+links close the article as two panel Buttons side by side, each with a small
+muted direction above the page name.
+
+Floating shell chrome is limited to three things: the page dock, the Copy page
+cluster, and the Studio preview switch. Do not add another.
 
 Use rows for short facts and link lists. A row group is an inset frame of rows
 separated by hairlines, with a muted label in a fixed column at the start and the
@@ -530,11 +525,11 @@ one group. Catalog tiles are an inset preview above the name and summary, with n
 footer bar or hover card.
 
 Previews, code blocks, row groups, API lists, and catalog tiles use the shared
-inset frame, a chrome-colored frame around a card-colored surface. Frames follow
-the theme's border mode, exactly like cards. With single borders the surface is
-flush with the frame on every side except the one carrying a tab or toolbar
-strip, which stays on the frame. With double borders a gutter surrounds the
-surface. Do not force the gutter on docs previews or code blocks. The leading
+inset frame: a white frame around a recessed inset in the stage color. Frames
+follow the theme's border mode, exactly like cards. With double borders a gutter
+surrounds the inset. With single borders the inset is flush with the frame on
+every side except the one carrying a tab or toolbar strip, which stays on the
+frame. Do not force the gutter on docs previews or code blocks. The leading
 preview keeps its ghost Preview and Code tabs in the frame chrome with the source
 inside the same frame. While the source is shown, its copy button sits at the end
 of that chrome row, not over the code, and example state is preserved when switching to code.
@@ -575,11 +570,9 @@ A scroller never ends in a hard cut against another region. Use the shared
 distance from each end and disappears when the scroller reaches it, so content at
 rest is never dimmed. Vertical scrollers that meet a pinned region also get a
 `ScrollEdge`, a short masked blur over that edge. This applies to the docs
-sidebar above the page meter, the Studio inspector under its title and above the
-export actions, the content column and Studio previews under the top bar and at
-their bottom edge, the navigation sheet, the tab strip, and overflowing
-preview controls. The top bar has no bottom border. Content fades and blurs as
-it passes under the bar, so the bar and the page read as one surface at rest.
+sidebar above the page meter, the Studio inspector above the export actions, the
+plate and Studio previews at their top and bottom edges, the navigation sheet,
+the tab dock, and overflowing preview controls.
 In docs the top edge is a short fill to the content color instead of a mask, so
 the sticky catalog search row is not dimmed. That row gets its own short blurred
 fade beneath it while it is pinned, so cards ease out under it. Skip the top fade only in the docs
@@ -595,29 +588,29 @@ keep their HTML, Markdown, navigation, and search metadata aligned.
 
 ### Shared shell geometry
 
-The docs sidebar starts 18.5rem wide and the Studio sidebar 21rem. Drag the sidebar's edge to resize it between 240 and 520 pixels. Each of the two remembers its own width in the browser. The edge shows a primary line on hover, focus and while dragging. It is a focusable separator: arrow keys move it 16 pixels, Home and End jump to the limits, and a double click restores the starting width. The sidebar title
-row and the top bar are both 50px tall. Top bar controls use the small control
-height with the Button's own radius and type; outline is reserved for the Copy
-page group. Separate control groups with a gap, not a divider.
+The docs sidebar starts 18.5rem wide and the Studio sidebar 21rem. Drag the sidebar's edge to resize it between 240 and 520 pixels. Each of the two remembers its own width in the browser. The edge shows a primary line on hover, focus and while dragging. It is a focusable separator: arrow keys move it 16 pixels, Home and End jump to the limits, and a double click restores the starting width. The header
+is 52px tall. Header and strip controls use the small control height with the
+Button's own radius and type; outline is reserved for the Copy page group.
+Separate control groups with a gap, not a divider.
+
+In Studio the page is a two-layer frame instead of a plate: an action strip on
+the white frame, and the preview as the recessed inset in the stage color, so
+demo cards read as plates on the stage. The strip holds only icon buttons at
+its end: token picking, Undo, Redo, and preview options. Preview width and the
+glass backdrop switch live in the preview options popover, not in the strip. Do
+not add another toolbar row or more always-visible controls. Every icon button
+in the strip has a tooltip.
 
 Studio preview modes are a floating segmented control at the bottom center of
-the preview: a fully rounded track with a hairline border on the background
-color and the floating elevation, holding text-only ToggleGroup items with a
-quiet fill on the selected one. One mode is always selected. The Studio top bar
-holds only icon buttons at its end: token picking, Undo, Redo, preview options,
-and the theme toggle. Preview width and the
-glass backdrop switch live in the preview options popover, not in the bar. Do not
-add another toolbar row or more always-visible controls. Below the medium breakpoint the
-floating switch is hidden and the modes become a select in the top bar that
-shrinks before anything overlaps, the sheet trigger
-reads Edit, and token picking and preview options are hidden. Every icon button
-in the bar has a tooltip. In Studio the top bar,
-the preview page and the sidebar share one background (`--docs-side`) in both
-themes, so the bar reads as part of the page with only the scroll-edge blur under
-it.
+the preview: a pill track with a hairline border on the card color and the
+floating elevation, holding text-only ToggleGroup items with the selected one
+marked. One mode is always selected. Below the medium breakpoint the floating
+switch is hidden and the modes become a select in the strip that shrinks before
+anything overlaps, the sheet trigger reads Edit, and token picking and preview
+options are hidden.
 
-Section headings use semibold or medium weight with the configured
-header font. Keep body labels and tabs lighter so section titles remain distinct.
+Section headings use medium weight with the configured header font. Keep body
+labels and tabs in regular or muted text so section titles remain distinct.
 
 Live chart motion must preserve values and proportions. Animate the area fill,
 use a staggered sweep within bar bounds, and brighten pie segments in sequence
@@ -663,7 +656,7 @@ group. A search reaches across all tabs and shows no tab as selected. Choosing a
 tab clears the search. Disclosures open while searching, and an empty result
 offers a Clear search button. A setting that differs from the selected preset shows a small reset button
 beside its label, which puts that one setting back. For a token, that removes
-the override. Undo and Redo sit at the start of the top bar actions and answer
+the override. Undo and Redo sit in the action strip and answer
 Cmd or Ctrl+Z and Shift+Cmd or Ctrl+Z. They cover every edit, preset switch and
 reset. One drag is one step.
 
@@ -683,7 +676,7 @@ puts the whole theme in the link's hash, so nothing is stored on a server.
 Opening such a link asks before it replaces the current draft. A theme applied on the
 Themes page is handed to the Studio, which opens on it instead of its old draft. The export actions stay pinned
 under the scrolling groups, with Copy share link above Export theme so the
-primary action sits at the bottom edge. The preview fills the content column under the top bar.
+primary action sits at the bottom edge. The preview fills the inset under the action strip.
 
 Studio demos are composed cards, not loose controls or section headings. The
 Components demo is a masonry of inset cards, each a small realistic task; chart
@@ -717,9 +710,8 @@ the title's first line. Overlay footers sit on the outer frame below the inner
 surface, in one row: the ghost Close or Cancel at the start and the confirming
 action at the end. Command separators follow the menu separator rule below.
 
-Menu separators span the full inner panel width, including submenus. Cancel the
-shared item padding at the separator rather than removing padding from menu items.
-Keep separators square at the panel edges.
+Menu separators are one hairline inset two spacing units from the panel's
+edges, including in submenus. Use them sparingly, between groups of items.
 
 Toolbar.Root is flat by default. Opt into depth with `variant="depth"`; its
 Button, Link, and Item inherit the choice. Toolbar depth uses the shared floating elevation for its shell and theme-owned
@@ -777,8 +769,9 @@ Use these tokens in examples, legends, and tooltips; retain explicit series colo
 and semantic status tones. Studio edits the active color mode and exports those
 values as theme tokens.
 
-The default radius scale is 8/10/14/20px. Table cell corners subtract the frame
-border and inset from its outer radius; never substitute a smaller fixed radius.
+The default radius scale is 8/10/14/18px, with 26px plates and pill controls.
+Table cell corners subtract the frame border and inset from its outer radius;
+never substitute a smaller fixed radius.
 Preview frames clip their toolbar backgrounds to preserve the perimeter.
 
 `--mielui-inset-position: top | bottom` moves exposed inset chrome in DOM order.
@@ -813,20 +806,31 @@ color shows between them under a fractional transform. Glass keeps the two edges
 flush, because overlapping translucent fills would draw a line.
 The Studio glass backdrop is preview-only and never exported with a theme.
 
-## Landing page showcase
+## Landing page
 
-The landing page pairs concise left-aligned copy with a compact interactive
-component showcase in a muted hero derived from the active primary color. Keep equal outer side gutters, use
-the active theme palette, and avoid recreating another site's gradient treatment. This
-marketing surface is an intentional exception to the neutral documentation
-canvas. Keep the header simple, use actual Mielui components in the featured
-preview, and make faded background samples inert and hidden from assistive
-technology. Avoid invented endorsements or usage counts. On narrow screens,
-stack the content and allow normal page scrolling rather than clipping the hero
-to a fixed viewport.
+The landing page sits on the stage in one 76rem column, so every section shares
+the same edges. Its header is the shell header in its floating form: a full
+width transparent bar that morphs into a glass pill once the page scrolls, over
+700ms on `cubic-bezier(0.32, 0.72, 0, 1)`. The header keeps a constant flow
+height; only the pill inside it changes. This slow curve belongs to scroll
+effects on this page only. Pointer interactions keep the shared springs.
 
-Below the hero, the page continues on the page background with a few sections
-in one 84rem column, so every section shares the same edges. The first is the
+The hero is one two-layer frame. Concise left-aligned copy sits on the white
+frame: a small version pill that links to the changelog, a display headline at
+weight 500 whose second line is muted, one sentence, a glow action, a secondary
+action, and the install command with a copy button. The recessed inset beside
+it holds a compact live showcase built from real Mielui components. Do not add
+gradients, faded sample grids, or tinted palettes to the hero. Avoid invented
+endorsements or usage counts. On narrow screens, stack the copy above the inset
+and allow normal page scrolling.
+
+Sections below the fold reveal once, the first time they are genuinely on
+screen: 14px of travel and a fade over 700ms. Use the shared `reveal`
+attachment. It leaves anything already in view alone, never replays, and does
+nothing under reduced motion or without scripting. Do not reveal more than
+three siblings in sequence, and do not use it anywhere outside this page.
+
+Below the hero, the page continues on the stage with a few sections. The first is the
 live demos: a heading and two sentences of copy, then one inset frame with ghost
 tabs for Coding agent, Chat, and Issue. Show one demo at a time at a fixed
 height. Do not stack the demos or add a preset switcher there. Each demo is
@@ -842,16 +846,15 @@ transcript opens at its first message and follows new messages only after the
 visitor sends one.
 
 The remaining sections each have a heading and one-line summary at the start and
-an install command, code block, or row group beside it. Cap the hero height on
-tall screens so the first section is visible. Do not add card grids,
-testimonials, or decoration there.
+an install command, code block, or row group beside it. The page closes with one
+plate: a two-part headline, a glow action, and a ghost action. Do not add card
+grids, testimonials, or decoration.
 
-Preserve the original restrained hero gradient and lighter featured showcase. The featured preview uses the shared `mielui-inset-frame` with
-its ghost tabs in the frame chrome and the demo on `mielui-inset-surface`. The featured preview follows the page theme: a light palette on white frost in light mode, and a dark palette on black frost in dark mode. Composer
-actions join the input on one surface unless a demo explicitly opts into the
-inset toolbar. Each featured tab is one small real task with plain labels: a composer with
-example prompts, a few notification settings, and a weekly chart with its total.
-The panel keeps one height across tabs. Do not use slogans as control labels.
+The showcase uses the shared `mielui-inset-frame` with segmented tabs on the
+frame and the demo on `mielui-inset-surface`, and follows the page theme. Each
+tab is one small real task with plain labels: a few notification settings, a
+composer with example prompts, and a weekly chart with its total. The panel
+keeps one height across tabs. Do not use slogans as control labels.
 
 Component catalog previews render real components in a decorative, inert and
 `aria-hidden` region marked `data-component-preview`, which keeps their headings
@@ -870,8 +873,8 @@ pagination until content loads successfully.
 
 Menu rows and their traveling highlight share a corner radius capped at `--radius-md` and bounded by the panel radius minus its border and row inset. Short rows must not become pill-shaped inside the larger menu frame.
 
-The default appearance uses single borders, bottom inset strips, solid surfaces,
-half-strength edge highlights, and a primary button border. Cards and menus have
-no surface shadows; control and dialog shadows remain enabled. Explicit theme
+The default appearance uses double borders, bottom inset strips, solid surfaces,
+and half-strength edge highlights. Cards rest on the resting shadow, menus and
+dialogs float, and control shadows remain enabled. Explicit theme
 settings and per-component surface choices override these defaults. The default
 chart palette places pink in Chart 2 and blue in Chart 3.

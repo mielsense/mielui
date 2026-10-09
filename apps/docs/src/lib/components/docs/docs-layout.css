@@ -47,7 +47,7 @@
         #api-reference > h2,
         #api-reference > div:first-child > h2
     ) {
-    @apply text-[1.3125rem] leading-7 font-semibold tracking-[-0.02em] text-foreground;
+    @apply text-[1.3125rem] leading-7 font-medium tracking-[-0.02em] text-foreground;
 }
 
 .docs-article :is([data-docs-page] > section, #api-reference) > div:first-child > h2 {

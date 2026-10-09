@@ -84,17 +84,14 @@
     }
 </script>
 
-<span class="min-w-0 truncate text-sm font-medium text-foreground sm:hidden">
-    {tabs.find((tab) => tab.id === active)?.label}
-</span>
-<div class="hidden min-w-0 flex-1 items-center gap-1.5 sm:flex">
+<div class="flex min-w-0 flex-1 items-center gap-0.5">
     <Tooltip.Root>
         <Tooltip.Trigger>
             <Button
                 variant="ghost"
                 size="icon"
                 aria-label="Open a new tab"
-                class="size-8 shrink-0 rounded-[var(--radius-sm)] text-foreground-muted hover:text-foreground"
+                class="size-8 shrink-0 text-foreground-muted hover:text-foreground"
                 onclick={openNew}
             >
                 <HugeiconsIcon icon={Plus} size={16} />
@@ -105,7 +102,7 @@
     <nav
         aria-label="Open pages"
         {@attach scrollFade({ axis: 'x', size: 32 })}
-        class={`hide-scrollbar-all flex min-w-0 flex-1 items-center gap-1 overflow-x-auto p-0.5 ${fadeX}`}
+        class={`hide-scrollbar-all flex min-w-0 flex-1 items-center gap-0.5 overflow-x-auto ${fadeX}`}
     >
         {#each tabs as tab (tab.id)}
             <div
@@ -116,7 +113,7 @@
                 ondrop={(event) => drop(event, tab.id)}
                 ondragend={endDrag}
                 onkeydown={(event) => moveWithKeys(event, tab.id)}
-                class={`shrink-0 rounded-[var(--radius-sm)] transition-opacity [transition-duration:var(--motion-duration-hover)] motion-reduce:transition-none ${dragged === tab.id ? 'opacity-40' : ''} ${target === tab.id ? 'shadow-[var(--focus-ring)]' : ''}`}
+                class={`shrink-0 rounded-[var(--radius-control)] transition-opacity [transition-duration:var(--motion-duration-hover)] motion-reduce:transition-none ${dragged === tab.id ? 'opacity-40' : ''} ${target === tab.id ? 'shadow-[var(--focus-ring)]' : ''}`}
             >
                 <TabPill
                     label={tab.label}

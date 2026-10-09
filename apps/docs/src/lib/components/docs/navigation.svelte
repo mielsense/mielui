@@ -37,9 +37,9 @@
     const search = getSearch();
 
     const rowClass =
-        'group/row flex h-8 w-full min-w-0 items-center gap-3 rounded-[var(--radius-sm)] px-2.5 text-start text-sm text-foreground-muted transition-colors [transition-duration:var(--motion-duration-hover)] hover:bg-[var(--docs-pill)] hover:text-foreground focus-visible:outline-none focus-visible:shadow-[var(--focus-ring)] aria-[current=page]:bg-[var(--docs-pill)] aria-[current=page]:font-medium aria-[current=page]:text-foreground motion-reduce:transition-none';
+        'group/row flex h-8 w-full min-w-0 items-center gap-3 rounded-[var(--radius-control)] px-3 text-start text-sm text-foreground-muted transition-colors [transition-duration:var(--motion-duration-hover)] hover:text-foreground focus-visible:outline-none focus-visible:shadow-[var(--focus-ring)] aria-[current=page]:font-medium aria-[current=page]:text-foreground motion-reduce:transition-none';
     const labelClass =
-        'flex h-8 items-center rounded-[var(--radius-sm)] px-2.5 text-[13px] font-medium text-foreground [@container_scroll-state(stuck:top)]:font-semibold';
+        'flex h-8 items-center rounded-[var(--radius-control)] px-3 text-xs font-medium text-foreground-muted transition-colors [transition-duration:var(--motion-duration-hover)] hover:text-foreground aria-[current=page]:text-foreground motion-reduce:transition-none';
 
     const guides = [
         { label: 'Introduction', href: resolve('/docs/introduction'), icon: Book },
@@ -89,6 +89,39 @@
     ];
 
     let nav = $state<HTMLElement>();
+    let pill = $state<{ top: number; height: number }>();
+    let pillReady = $state(false);
+
+    function measurePill() {
+        const current = nav?.querySelector<HTMLElement>('[data-nav-row][aria-current="page"]');
+        if (!nav || !current) {
+            pill = undefined;
+
+            return;
+        }
+        pill = {
+            top: current.getBoundingClientRect().top - nav.getBoundingClientRect().top,
+            height: current.offsetHeight
+        };
+    }
+
+    $effect(() => {
+        void page.url.pathname;
+        measurePill();
+        if (!nav) {
+            return;
+        }
+        const observer = new ResizeObserver(measurePill);
+        observer.observe(nav);
+        const frame = requestAnimationFrame(() => {
+            pillReady = true;
+        });
+
+        return () => {
+            observer.disconnect();
+            cancelAnimationFrame(frame);
+        };
+    });
 
     function isOpen(href: string) {
         return href !== page.url.pathname && shell.tabs.tabs.some((tab) => tab.href === href);
@@ -137,7 +170,19 @@
     });
 </script>
 
-<nav bind:this={nav} aria-label="Documentation" class="flex flex-col gap-8 px-[15px] pt-3 pb-10">
+<nav
+    bind:this={nav}
+    aria-label="Documentation"
+    class="relative isolate flex flex-col gap-7 px-3 pt-1 pb-10"
+>
+    <span
+        aria-hidden="true"
+        class="mielui-glow mielui-glow-neutral pointer-events-none absolute inset-x-3 -z-10 shadow-[var(--mielui-glow-shadow),var(--elevation-1)] transition-[top,height,opacity] [transition-duration:var(--motion-duration-spring)] ease-[var(--ease-spring-layout)] motion-reduce:transition-none"
+        style:top={`${pill?.top ?? 0}px`}
+        style:height={`${pill?.height ?? 0}px`}
+        style:opacity={pill ? 1 : 0}
+        style:transition={pillReady ? undefined : 'none'}
+    ></span>
     <div class="flex flex-col gap-0.5">
         {#if siteLinks}
             <button type="button" class={rowClass} onclick={openSearch}>
@@ -149,6 +194,7 @@
         {#each guides as item (item.href)}
             <a
                 href={item.href}
+                data-nav-row
                 class={rowClass}
                 aria-current={page.url.pathname === item.href ? 'page' : undefined}
                 onclick={(event) => follow(event, item.href)}
@@ -173,7 +219,7 @@
     {#each sections as section (section.id)}
         <section class="flex flex-col gap-0.5">
             <h2
-                class="sticky top-0 z-10 -mx-[15px] m-0 bg-[var(--docs-side)] px-[15px] [container-type:scroll-state]"
+                class="sticky top-0 z-10 -mx-3 m-0 bg-[var(--docs-side)] px-3 [container-type:scroll-state]"
             >
                 <span
                     aria-hidden="true"
@@ -191,6 +237,7 @@
             {#each section.items as item (item.href)}
                 <a
                     href={item.href}
+                    data-nav-row
                     class={`${rowClass} ${item.nested ? 'ps-6' : ''}`}
                     aria-current={page.url.pathname === item.href ? 'page' : undefined}
                     onclick={(event) => follow(event, item.href)}

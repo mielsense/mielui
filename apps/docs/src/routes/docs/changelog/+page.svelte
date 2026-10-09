@@ -53,39 +53,40 @@
                     <Badge variant="secondary">Unreleased</Badge>
                 {/if}
             </div>
-            <div class="flex flex-col">
-                {#each release.sections as section (section.key)}
-                    <Collapsible.Root bind:open={open[section.key]}>
-                        <div
-                            data-changelog-section={section.type}
-                            class="border-t-[length:var(--border-size)] border-[var(--docs-rule)] py-1"
-                        >
-                            <Collapsible.Trigger
-                                class="-mx-2 w-[calc(100%+var(--spacing)*4)] justify-between"
-                            >
-                                <span class="flex items-baseline gap-2.5">
-                                    <span
-                                        class="[font-weight:var(--font-weight-label)] text-foreground"
-                                    >
-                                        {section.label}
+            <div class="mielui-inset-frame">
+                <div
+                    class="mielui-inset-surface flex flex-col divide-y-[length:var(--border-size)] divide-[var(--docs-rule)] overflow-hidden"
+                >
+                    {#each release.sections as section (section.key)}
+                        <Collapsible.Root bind:open={open[section.key]}>
+                            <div data-changelog-section={section.type} class="px-5 py-1.5">
+                                <Collapsible.Trigger
+                                    class="-mx-2 w-[calc(100%+var(--spacing)*4)] justify-between"
+                                >
+                                    <span class="flex items-baseline gap-2.5">
+                                        <span
+                                            class="[font-weight:var(--font-weight-label)] text-foreground"
+                                        >
+                                            {section.label}
+                                        </span>
+                                        <span class="text-sm tabular-nums text-foreground-muted">
+                                            {section.count}
+                                        </span>
                                     </span>
-                                    <span class="text-sm tabular-nums text-foreground-muted">
-                                        {section.count}
-                                    </span>
-                                </span>
-                                <HugeiconsIcon
-                                    icon={ChevronDown}
-                                    size={14}
-                                    aria-hidden="true"
-                                    class={`shrink-0 text-foreground-muted transition-transform [transition-duration:var(--motion-duration-panel)] ease-[var(--ease-out)] motion-reduce:transition-none ${open[section.key] ? 'rotate-180' : ''}`}
-                                />
-                            </Collapsible.Trigger>
-                            <Collapsible.Content class="pt-2 pb-4">
-                                <Markdown content={section.content} />
-                            </Collapsible.Content>
-                        </div>
-                    </Collapsible.Root>
-                {/each}
+                                    <HugeiconsIcon
+                                        icon={ChevronDown}
+                                        size={14}
+                                        aria-hidden="true"
+                                        class={`shrink-0 text-foreground-muted transition-transform [transition-duration:var(--motion-duration-flick)] ease-[var(--ease-spring-flick)] motion-reduce:transition-none ${open[section.key] ? 'rotate-180' : ''}`}
+                                    />
+                                </Collapsible.Trigger>
+                                <Collapsible.Content class="pt-2 pb-4">
+                                    <Markdown content={section.content} />
+                                </Collapsible.Content>
+                            </div>
+                        </Collapsible.Root>
+                    {/each}
+                </div>
             </div>
         </section>
     {/each}

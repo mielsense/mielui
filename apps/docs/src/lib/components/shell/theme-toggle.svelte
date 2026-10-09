@@ -18,7 +18,7 @@
             variant="ghost"
             size="icon"
             aria-label={label}
-            class="size-8 shrink-0 rounded-[var(--radius-sm)] text-foreground-muted hover:text-foreground"
+            class="size-8 shrink-0 text-foreground-muted hover:text-foreground"
             onclick={toggleMode}
         >
             <span

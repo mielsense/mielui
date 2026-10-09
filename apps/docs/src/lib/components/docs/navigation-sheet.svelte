@@ -22,7 +22,7 @@
             <Sheet.Header>
                 <Sheet.Title>Documentation</Sheet.Title>
             </Sheet.Header>
-            <div class="relative -mx-[15px] flex min-h-0 flex-1 flex-col">
+            <div class="relative -mx-3 flex min-h-0 flex-1 flex-col">
                 <div
                     {@attach scrollFade({ start: false, size: 56, target: 'parent' })}
                     class={`min-h-0 flex-1 overflow-y-auto pt-1 [--docs-side:var(--color-card)] ${fadeY}`}

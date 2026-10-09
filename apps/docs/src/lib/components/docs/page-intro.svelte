@@ -14,7 +14,7 @@
         <BreadcrumbNav items={trail} />
     {/if}
     <h1
-        class="m-0 text-[2.5rem] leading-[1.1] font-semibold tracking-[-0.03em] text-foreground [font-family:var(--font-header)]"
+        class="m-0 text-[2.5rem] leading-[1.1] font-medium tracking-[-0.03em] text-foreground [font-family:var(--font-header)]"
     >
         {title}
     </h1>
