@@ -20,31 +20,22 @@
 </script>
 
 {#if prevPage || nextPage}
-    <nav aria-label="Adjacent pages" class="mt-16 grid grid-cols-2 gap-3">
+    <nav
+        aria-label="Adjacent pages"
+        class="mt-16 flex items-center justify-between gap-4 border-t border-[var(--docs-rule)] pt-5"
+    >
         {#if prevPage}
-            <Button
-                href={prevPage.href}
-                variant="panel"
-                class="h-auto min-w-0 flex-col items-start gap-1 px-5 py-4 whitespace-normal"
-            >
-                <span class="flex items-center gap-1.5 text-xs font-normal text-foreground-muted">
-                    <HugeiconsIcon icon={ChevronLeft} size={12} />
-                    Previous
-                </span>
-                <span class="max-w-full truncate text-[15px] leading-6">{prevPage.label}</span>
+            <Button href={prevPage.href} variant="ghost" class="-ms-3 min-w-0">
+                <HugeiconsIcon icon={ChevronLeft} size={16} />
+                <span class="sr-only">Previous:</span>
+                <span class="truncate">{prevPage.label}</span>
             </Button>
         {/if}
         {#if nextPage}
-            <Button
-                href={nextPage.href}
-                variant="panel"
-                class="col-start-2 h-auto min-w-0 flex-col items-end gap-1 px-5 py-4 whitespace-normal"
-            >
-                <span class="flex items-center gap-1.5 text-xs font-normal text-foreground-muted">
-                    Next
-                    <HugeiconsIcon icon={ChevronRight} size={12} />
-                </span>
-                <span class="max-w-full truncate text-[15px] leading-6">{nextPage.label}</span>
+            <Button href={nextPage.href} variant="ghost" class="ms-auto -me-3 min-w-0">
+                <span class="sr-only">Next:</span>
+                <span class="truncate">{nextPage.label}</span>
+                <HugeiconsIcon icon={ChevronRight} size={16} />
             </Button>
         {/if}
     </nav>

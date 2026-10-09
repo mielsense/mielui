@@ -43,10 +43,10 @@
 -->
 
 <section aria-labelledby="home-demos" class="flex min-w-0 flex-col gap-8">
-    <div class="flex flex-col gap-2 px-1">
+    <div class="flex flex-col gap-2">
         <h2
             id="home-demos"
-            class="m-0 text-2xl leading-8 font-medium tracking-[-0.025em] text-foreground"
+            class="m-0 text-xl leading-7 font-semibold tracking-[-0.015em] text-foreground"
         >
             Try it before you install it
         </h2>
