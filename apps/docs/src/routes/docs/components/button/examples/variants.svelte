@@ -10,4 +10,5 @@
     <Button variant="quiet">Quiet</Button>
     <Button variant="destructive">Destructive</Button>
     <Button variant="panel">Panel</Button>
+    <Button variant="glow">Glow</Button>
 </div>

@@ -11,6 +11,8 @@
 
     import Attachments from './examples/attachments.svelte';
     import AttachmentsSrc from './examples/attachments.svelte?raw';
+    import Footer from './examples/footer.svelte';
+    import FooterSrc from './examples/footer.svelte?raw';
     import Glass from './examples/glass.svelte';
     import GlassSource from './examples/glass.svelte?raw';
     import Hero from './examples/hero.svelte';
@@ -87,6 +89,9 @@ async function sendPrompt(prompt: string) {
     </Composer.Actions>
     <Composer.Submit />
   </Composer.Toolbar>
+  <Composer.Footer>
+    <!-- Optional: a strip on the frame under the writing surface. -->
+  </Composer.Footer>
 </Composer.Root>`}
             lang="svelte"
             copy="overlay"
@@ -165,10 +170,21 @@ async function sendPrompt(prompt: string) {
                 <Typography.InlineCode>variant="inset"</Typography.InlineCode>
                 {' '}
                 to put the input on its own inset surface with the toolbar in the frame under it,
-                the way an inset Card holds its footer. Outline buttons and triggers in the toolbar
-                render as flat pills at one height.
+                the way an inset Card holds its footer. Toolbar controls are ghost buttons and
+                triggers. Outline ones render as flat pills at the same height.
             </Typography.Text>
             <ComponentPreview code={ToolbarInsetSrc}><ToolbarInset /></ComponentPreview>
+        </div>
+
+        <div id="footer" class="scroll-mt-20 flex flex-col gap-3">
+            <Typography.H3 class="docs-subsection-heading">Footer</Typography.H3>
+            <Typography.Text variant="supporting">
+                Composer.Footer is a strip on the frame under the writing surface, for a hint,
+                connected apps, or a setting that applies to the whole message. The input and
+                toolbar stay joined above it. Its text is muted and its controls use the small
+                control height. It takes no space while it is empty.
+            </Typography.Text>
+            <ComponentPreview code={FooterSrc}><Footer /></ComponentPreview>
         </div>
     </section>
     <section id="empty-and-disabled" class="flex flex-col gap-4">
@@ -198,7 +214,7 @@ async function sendPrompt(prompt: string) {
         </Typography.Text>
         <Typography.Text variant="supporting">
             <InlineText
-                text={"Root, Header, Toolbar, Actions and Submit render their `children` and accept `class` and `style` like any element."}
+                text={"Root, Header, Toolbar, Actions, Submit and Footer render their `children` and accept `class` and `style` like any element."}
             />
         </Typography.Text>
     </section>

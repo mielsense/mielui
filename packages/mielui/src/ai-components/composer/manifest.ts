@@ -12,6 +12,7 @@ export const manifest: Manifest = {
         'components/composer/composer-input.svelte',
         'components/composer/composer-toolbar.svelte',
         'components/composer/composer-actions.svelte',
+        'components/composer/composer-footer.svelte',
         'components/composer/composer-submit.svelte',
         'components/composer/context.svelte.ts',
         'components/composer/index.ts',

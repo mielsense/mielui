@@ -213,7 +213,8 @@
             <div class="mt-6 flex flex-wrap items-center gap-x-5 gap-y-3">
                 <Button
                     href={resolve('/docs/components')}
-                    class="h-10 bg-[color-mix(in_oklab,var(--color-primary)_10%,white)] px-4 text-[color-mix(in_oklab,var(--color-primary)_25%,#18181b)] shadow-[0_2px_6px_#160f1b30] hover:bg-white focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white"
+                    variant="glow"
+                    class="h-10 px-4 text-[color-mix(in_oklab,var(--color-primary)_25%,#18181b)] [--mielui-glow-color:color-mix(in_oklab,var(--color-primary)_16%,white)] [--mielui-glow-light:1] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white"
                 >
                     Browse components<HugeiconsIcon icon={ArrowRight} size={15} />
                 </Button>

@@ -1,31 +1,27 @@
 <script lang="ts">
     import {
-        Tick02Icon as Check,
-        ArrowDown01Icon as ChevronDown,
-        ShieldCheckIcon as ShieldCheck,
-        WorkflowSquare01Icon as Workflow
+        GoogleDriveIcon as Drive,
+        HandIcon as Hand,
+        Mic01Icon as Microphone,
+        NotionIcon as Notion,
+        SlackIcon as Slack
     } from '@hugeicons/core-free-icons';
     import * as Attachment from '@mielui/svelte/components/attachment';
+    import { Button } from '@mielui/svelte/components/button';
     import * as Composer from '@mielui/svelte/components/composer';
-    import * as DropdownMenu from '@mielui/svelte/components/dropdown-menu';
     import * as Select from '@mielui/svelte/components/select';
     import HugeiconsIcon from '@mielui/svelte/hugeicons-icon';
     import { onDestroy } from 'svelte';
 
-    const models = ['Mielui 3.1', 'Mielui Mini'];
-    const modes = ['Plan', 'Build'];
-    const permissions = ['Ask first', 'Auto approve'];
-    const efforts = ['Low', 'Medium', 'High'];
+    const permissions = ['Request approval', 'Auto approve'];
+    const models = ['Auto', 'Mielui 3.1', 'Mielui Mini'];
+    const apps = [Drive, Slack, Notion];
 
-    let value = $state('Review the release notes and call out any migration risks.');
-    let files = $state<File[]>([
-        new File(['Notes'], 'release-notes.md', { type: 'text/markdown' }),
-        new File(['Plan'], 'migration-plan.pdf', { type: 'application/pdf' })
-    ]);
-    let model = $state(models[0]);
-    let mode = $state(modes[0]);
+    let value = $state('');
+    let files = $state<File[]>([]);
     let permission = $state(permissions[0]);
-    let effort = $state(efforts[2]);
+    let model = $state(models[0]);
+    let connected = $state(false);
     let timer: ReturnType<typeof setTimeout> | undefined;
     let settle: (() => void) | undefined;
 
@@ -57,40 +53,20 @@
         }
         settle?.();
     });
-    function selectModel(option: string) {
-        model = option;
-    }
-
-    function selectEffort(option: string) {
-        effort = option;
-    }
 </script>
 
 <Attachment.Root bind:files class="flex w-full max-w-2xl flex-col gap-2">
     <Attachment.List variant="chip" class="overflow-x-auto" />
     <Composer.Root bind:value onSubmit={submitPrompt} onStop={stopSubmission}>
-        <Composer.Input aria-label="Prompt" placeholder="Ask the agent..." />
+        <Composer.Input aria-label="Prompt" placeholder="Start by typing..." />
 
         <Composer.Toolbar>
             <Composer.Actions>
-                <Attachment.Trigger variant="outline" />
-
-                <Select.Root bind:value={mode}>
-                    <Select.Trigger variant="outline" class="w-auto max-w-32">
-                        <HugeiconsIcon icon={Workflow} size={14} aria-hidden="true" />
-                        <span class="truncate">{mode}</span>
-                    </Select.Trigger>
-                    <Select.Content dynamic>
-                        <Select.Label>Mode</Select.Label>
-                        {#each modes as option (option)}
-                            <Select.Item value={option}>{option}</Select.Item>
-                        {/each}
-                    </Select.Content>
-                </Select.Root>
+                <Attachment.Trigger />
 
                 <Select.Root bind:value={permission}>
-                    <Select.Trigger variant="outline" class="w-auto max-w-44">
-                        <HugeiconsIcon icon={ShieldCheck} size={14} aria-hidden="true" />
+                    <Select.Trigger variant="ghost" aria-label="Permission" class="w-auto">
+                        <HugeiconsIcon icon={Hand} size={16} aria-hidden="true" />
                         <span class="truncate">{permission}</span>
                     </Select.Trigger>
                     <Select.Content dynamic>
@@ -103,60 +79,42 @@
             </Composer.Actions>
 
             <div class="ms-auto flex shrink-0 items-center gap-1">
-                <DropdownMenu.Root>
-                    <DropdownMenu.Trigger variant="outline" class="w-auto max-w-52">
-                        <span class="flex min-w-0 flex-1 items-center gap-1.5">
-                            <span class="truncate">{model}</span>
-                            <span class="text-foreground-muted">{effort}</span>
-                        </span>
-                        <HugeiconsIcon
-                            icon={ChevronDown}
-                            size={12}
-                            class="ml-auto shrink-0 text-foreground-muted"
-                            aria-hidden="true"
-                        />
-                    </DropdownMenu.Trigger>
-                    <DropdownMenu.Content dynamic>
-                        <DropdownMenu.Label>Configuration</DropdownMenu.Label>
-                        <DropdownMenu.Sub>
-                            <DropdownMenu.SubTrigger>Model</DropdownMenu.SubTrigger>
-                            <DropdownMenu.SubContent dynamic>
-                                {#each models as option (option)}
-                                    <DropdownMenu.Item callback={() => selectModel(option)}>
-                                        <span class="flex-1">{option}</span>
-                                        {#if model === option}
-                                            <HugeiconsIcon
-                                                icon={Check}
-                                                size={13}
-                                                aria-hidden="true"
-                                            />
-                                        {/if}
-                                    </DropdownMenu.Item>
-                                {/each}
-                            </DropdownMenu.SubContent>
-                        </DropdownMenu.Sub>
-                        <DropdownMenu.Sub>
-                            <DropdownMenu.SubTrigger>Effort</DropdownMenu.SubTrigger>
-                            <DropdownMenu.SubContent dynamic>
-                                {#each efforts as option (option)}
-                                    <DropdownMenu.Item callback={() => selectEffort(option)}>
-                                        <span class="flex-1">{option}</span>
-                                        {#if effort === option}
-                                            <HugeiconsIcon
-                                                icon={Check}
-                                                size={13}
-                                                aria-hidden="true"
-                                            />
-                                        {/if}
-                                    </DropdownMenu.Item>
-                                {/each}
-                            </DropdownMenu.SubContent>
-                        </DropdownMenu.Sub>
-                    </DropdownMenu.Content>
-                </DropdownMenu.Root>
+                <Select.Root bind:value={model}>
+                    <Select.Trigger variant="ghost" aria-label="Model" class="w-auto">
+                        <span class="truncate">{model}</span>
+                    </Select.Trigger>
+                    <Select.Content dynamic>
+                        <Select.Label>Model</Select.Label>
+                        {#each models as option (option)}
+                            <Select.Item value={option}>{option}</Select.Item>
+                        {/each}
+                    </Select.Content>
+                </Select.Root>
+
+                <Button variant="ghost" size="icon" aria-label="Dictate">
+                    <HugeiconsIcon icon={Microphone} size={17} aria-hidden="true" />
+                </Button>
 
                 <Composer.Submit />
             </div>
         </Composer.Toolbar>
+
+        <Composer.Footer>
+            <Button
+                variant="ghost"
+                class="text-foreground-muted hover:text-foreground"
+                aria-pressed={connected}
+                onclick={() => {
+                    connected = !connected;
+                }}
+            >
+                <span class="flex items-center gap-1" aria-hidden="true">
+                    {#each apps as app (app)}
+                        <HugeiconsIcon icon={app} size={15} />
+                    {/each}
+                </span>
+                {connected ? 'Apps connected' : 'Connect apps'}
+            </Button>
+        </Composer.Footer>
     </Composer.Root>
 </Attachment.Root>

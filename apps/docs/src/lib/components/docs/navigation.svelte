@@ -37,9 +37,9 @@
     const search = getSearch();
 
     const rowClass =
-        'group/row flex h-8 w-full min-w-0 items-center gap-3 rounded-[var(--radius-sm)] px-2.5 text-start text-sm font-medium text-foreground/85 transition-colors [transition-duration:var(--motion-duration-hover)] hover:bg-[var(--docs-pill)] hover:text-foreground focus-visible:outline-none focus-visible:shadow-[var(--focus-ring)] aria-[current=page]:bg-[var(--docs-pill)] aria-[current=page]:text-foreground motion-reduce:transition-none';
+        'group/row flex h-8 w-full min-w-0 items-center gap-3 rounded-[var(--radius-sm)] px-2.5 text-start text-sm text-foreground-muted transition-colors [transition-duration:var(--motion-duration-hover)] hover:bg-[var(--docs-pill)] hover:text-foreground focus-visible:outline-none focus-visible:shadow-[var(--focus-ring)] aria-[current=page]:bg-[var(--docs-pill)] aria-[current=page]:font-medium aria-[current=page]:text-foreground motion-reduce:transition-none';
     const labelClass =
-        'flex h-8 items-center rounded-[var(--radius-sm)] px-2.5 text-[13px] font-medium text-foreground-muted [@container_scroll-state(stuck:top)]:font-semibold [@container_scroll-state(stuck:top)]:text-foreground';
+        'flex h-8 items-center rounded-[var(--radius-sm)] px-2.5 text-[13px] font-medium text-foreground [@container_scroll-state(stuck:top)]:font-semibold';
 
     const guides = [
         { label: 'Introduction', href: resolve('/docs/introduction'), icon: Book },
@@ -137,13 +137,15 @@
     });
 </script>
 
-<nav bind:this={nav} aria-label="Documentation" class="flex flex-col gap-5 px-[15px] pt-1 pb-6">
+<nav bind:this={nav} aria-label="Documentation" class="flex flex-col gap-8 px-[15px] pt-3 pb-10">
     <div class="flex flex-col gap-0.5">
-        <button type="button" class={rowClass} onclick={openSearch}>
-            <HugeiconsIcon icon={Search} size={16} class="shrink-0" aria-hidden="true" />
-            <span class="flex-1 truncate">Search</span>
-            <Kbd shortcut="cmd+K" />
-        </button>
+        {#if siteLinks}
+            <button type="button" class={rowClass} onclick={openSearch}>
+                <HugeiconsIcon icon={Search} size={16} class="shrink-0" aria-hidden="true" />
+                <span class="flex-1 truncate">Search</span>
+                <Kbd shortcut="cmd+K" />
+            </button>
+        {/if}
         {#each guides as item (item.href)}
             <a
                 href={item.href}
@@ -151,7 +153,9 @@
                 aria-current={page.url.pathname === item.href ? 'page' : undefined}
                 onclick={(event) => follow(event, item.href)}
             >
-                <HugeiconsIcon icon={item.icon} size={16} class="shrink-0" aria-hidden="true" />
+                {#if siteLinks}
+                    <HugeiconsIcon icon={item.icon} size={16} class="shrink-0" aria-hidden="true" />
+                {/if}
                 <span class="flex-1 truncate">{item.label}</span>
                 {@render openDot(item.href)}
             </a>
@@ -177,7 +181,7 @@
                 ></span>
                 <a
                     href={section.href}
-                    class={`${labelClass} transition-colors [transition-duration:var(--motion-duration-hover)] hover:text-foreground focus-visible:outline-none focus-visible:shadow-[var(--focus-ring)] aria-[current=page]:text-foreground motion-reduce:transition-none`}
+                    class={`${labelClass} focus-visible:outline-none focus-visible:shadow-[var(--focus-ring)]`}
                     aria-current={page.url.pathname === section.href ? 'page' : undefined}
                     onclick={(event) => follow(event, section.href)}
                 >
@@ -187,7 +191,7 @@
             {#each section.items as item (item.href)}
                 <a
                     href={item.href}
-                    class={`${rowClass} ${item.nested ? 'ps-6 font-normal text-foreground-muted' : ''}`}
+                    class={`${rowClass} ${item.nested ? 'ps-6' : ''}`}
                     aria-current={page.url.pathname === item.href ? 'page' : undefined}
                     onclick={(event) => follow(event, item.href)}
                 >

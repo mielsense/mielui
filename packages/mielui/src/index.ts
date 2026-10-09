@@ -37,6 +37,7 @@ export type {
 export * as Attachment from './ai-components/attachment';
 export type {
     ComposerActionsProps,
+    ComposerFooterProps,
     ComposerHeaderProps,
     ComposerInputProps,
     ComposerProps,

@@ -3,7 +3,7 @@ import type { Snippet } from 'svelte';
 import type { HTMLAnchorAttributes, HTMLButtonAttributes } from 'svelte/elements';
 import Button from './button.svelte';
 
-export type ButtonVariant = Intent | 'panel' | 'quiet';
+export type ButtonVariant = Intent | 'glow' | 'panel' | 'quiet';
 export type ButtonStatus = 'idle' | 'loading' | 'success' | 'error';
 
 type ButtonSharedProps = {

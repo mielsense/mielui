@@ -9,15 +9,15 @@
 }
 
 .docs-article :is([data-docs-page] > section:not([data-docs-toolbar]), #api-reference) {
-    @apply relative gap-3 pt-2 pb-8;
+    @apply relative gap-4 pt-4 pb-12;
 }
 
 .docs-article [data-docs-page] > :is(#hero, section[data-docs-toolbar]) {
-    @apply mt-8 pt-0;
+    @apply mt-10 pt-0;
 }
 
 .docs-article [data-docs-page] > [data-docs-intro] + section:not(#hero, [data-docs-toolbar]) {
-    @apply mt-6;
+    @apply mt-8;
 }
 
 /* The catalog search row stays pinned. A short blurred fade appears under it only
@@ -47,7 +47,7 @@
         #api-reference > h2,
         #api-reference > div:first-child > h2
     ) {
-    @apply text-[1.1875rem] leading-7 font-semibold tracking-[-0.015em] text-foreground;
+    @apply text-[1.3125rem] leading-7 font-semibold tracking-[-0.02em] text-foreground;
 }
 
 .docs-article :is([data-docs-page] > section, #api-reference) > div:first-child > h2 {
@@ -59,7 +59,12 @@
 }
 
 .docs-article #examples > [id] + [id] {
-    @apply mt-4;
+    @apply mt-8;
+}
+
+/* Prose keeps a readable measure while previews, code, and rows use the full column. */
+.docs-article :is([data-docs-page] > section, #examples > [id]) > p {
+    @apply max-w-[44rem];
 }
 
 .docs-article :is(#examples, #api-reference) h3:not([data-component-preview] h3) {
