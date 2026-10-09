@@ -1,8 +1,0 @@
-- The docs, Theme Studio, Themes, and Changelog share a new shell: a header and sidebar on a grey stage, and the page on one white plate. The icon rail and the bar under the page are gone.
-- The header lists Docs, Components, Studio, Themes, and Changelog, with search, the GitHub star count, and the theme toggle at the end. One lit pill marks the current page and slides to the next.
-- The sidebar's current page is marked by a pill that slides between pages. The sidebar toggle is in the header.
-- Open pages are tabs in a floating dock at the bottom of the page. Copy page sits at the top end of the page.
-- Theme Studio shows its preview on a recessed inset with its actions in a strip above.
-- The landing page has a new hero with a live component card, a header that becomes a floating pill on scroll, and a closing call to action.
-- Each version on the Changelog page is a framed card.
-- Previous and next links at the end of a page are two cards.

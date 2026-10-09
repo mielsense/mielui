@@ -46,20 +46,32 @@ Neutrals are derived, not picked. `--color-border` is the foreground at 12% (14%
 
 Surfaces have three roles. `--color-background` is the grey stage, `--color-card` is the white plate, and `--color-panel` is the floating panel. Use the class contracts rather than rebuilding them: `mielui-plate` is a resting plate with its hairline, radius, and shadow; `mielui-float-frame` is a floating panel; `mielui-inset-frame` with a `mielui-inset-surface` child is the two-layer surface.
 
-The two layers swapped. `mielui-inset-frame` and `mielui-modal-frame` are now the card color, and `mielui-inset-surface` is the stage color with a hairline ring. Put header, toolbar, and footer strips on the frame and content in the inset. Do not force `bg-card` onto an inset to get the old white surface back, and do not add a ring or border to it. Fields inside an inset are white through `--color-field`. `chrome.borders` now defaults to `double`, so the gutter shows unless a theme asks for `single`.
+The two layers swapped. `mielui-inset-frame` and `mielui-modal-frame` are now the card color, and `mielui-inset-surface` is the stage color with a hairline ring. Put header, toolbar, and footer strips on the frame and content in the inset. Do not force `bg-card` onto an inset to get the old white surface back, and do not add a ring or border to it. Fields inside an inset are white through `--color-field`. `chrome.borders` still defaults to `single`, so the inset meets the frame's border unless a theme asks for `double`.
 
-Controls are pills through a token. Use `rounded-[var(--radius-control)]` on anything pressable and on single-line fields. Do not write `rounded-full` on a control, because sharp themes set `--radius-control` to a few pixels, and do not write `rounded-[var(--radius-lg)]` on a button, which is now the wrong shape. Multi-line fields use `--radius-xl`, rows inside panels `--radius-md`, floating panels `--radius-xl`, and plates `--radius-2xl`.
+Controls share one radius through a token. Use `rounded-[var(--radius-control)]` on anything pressable and on single-line fields. It is 12px by default, 4px in the sharp scale, and a pill in the rounded scale. Do not write `rounded-full` or `rounded-[var(--radius-lg)]` on a control, because either one breaks in two of the three scales. Multi-line fields use `--radius-xl`, rows inside panels `--radius-md`, floating panels `--radius-xl`, and plates `--radius-2xl`.
 
-Filled actions are lit. `Button` variants `primary`, `secondary`, `destructive`, and `glow` all use the `mielui-glow` material, and each only sets its color and light. To make your own lit pill, add `mielui-glow`, set `--mielui-glow-color`, set `--mielui-glow-light` between 0 and 1 (lower on dark fills), and pair it with `shadow-[var(--mielui-glow-shadow)]` and `focus-visible:shadow-[var(--focus-ring),var(--mielui-glow-shadow)]`. Set `--mielui-glow-ring` when the outer edge should be a hairline. Add `mielui-glow-neutral` for the white selected pill on a grey track; it handles dark mode itself. `outline`, `ghost`, and `quiet` are flat, and so are fields, triggers, tracks, and badges. Do not put the lit material on a card or a label.
+Filled actions are lit. `Button` variants `primary`, `secondary`, `destructive`, and `glow` all use the `mielui-glow` material, and each only sets its color and light. To make your own lit pill, add `mielui-glow`, set `--mielui-glow-color`, set `--mielui-glow-light` between 0 and 1 (lower on dark fills), and pair it with `shadow-[var(--mielui-glow-shadow)]` and `focus-visible:shadow-[var(--focus-ring),var(--mielui-glow-shadow)]`. Set `--mielui-glow-ring` when the outer edge should be a hairline. Add `mielui-glow-neutral` for the white selected fill on a grey track; it handles dark mode itself. `outline`, `ghost`, and `quiet` are flat, and so are fields, triggers, tracks, and badges. Do not put the lit material on a card or a label.
 
 The primary button's text is `--color-on-primary`, which is dark on the default brand in both themes. Do not hard-code white text on a primary fill.
 
 Weight stops at 500. `font-semibold` and `font-bold` still compile but render at 500, so a heading that relied on them no longer stands out by weight. Use size and `text-foreground` against `text-foreground-muted`.
 
-Motion uses four springs exposed as easing tokens. Use `ease-[var(--ease-spring-layout)]` with `[transition-duration:var(--motion-duration-spring)]` for anything that slides or resizes, `ease-[var(--ease-spring-flick)]` with `[transition-duration:var(--motion-duration-flick)]` for a chevron or glyph swap, and the `panelIn`, `panelOut`, `dialogIn`, and `dialogOut` helpers from `@mielui/svelte/transition` for things that open. Do not write a local `cubic-bezier` or a literal duration, because the duration tokens are what collapse to zero under reduced motion and the none motion theme. Hover changes color only.
-
-Menu separators are inset. `mielui-menu-separator` no longer cancels the panel padding, so do not add negative margins to stretch it.
+Motion uses four springs exposed as easing tokens, and interface motion stays under 300ms. Keyboard-driven changes do not animate: the traveling highlight snaps for arrow keys and only glides for a pointer, so do not add a transition to a row's active state. Use `ease-[var(--ease-spring-layout)]` with `[transition-duration:var(--motion-duration-spring)]` for anything that slides or resizes, `ease-[var(--ease-spring-flick)]` with `[transition-duration:var(--motion-duration-flick)]` for a chevron or glyph swap, and the `panelIn`, `panelOut`, `dialogIn`, and `dialogOut` helpers from `@mielui/svelte/transition` for things that open. Do not write a local `cubic-bezier` or a literal duration, because the duration tokens are what collapse to zero under reduced motion and the none motion theme. Hover changes color only.
 
 Elevation is binary. Use `shadow-[var(--elevation-1)]` for a resting plate and `shadow-[var(--elevation-float)]` for anything floating. Dialogs use `--elevation-modal`. Do not compose another shadow.
 
 Exported component names, props, and variants are unchanged. `springEase(stiffness, damping)` is new in `@mielui/svelte/transition`.
+
+## Nested corner radii
+
+Frames that hold controls near their corners no longer use the plate radius. `.mielui-modal-frame` and `.mielui-inset-frame` now resolve `--mielui-plate-radius` to the control radius plus two spacing units plus the border, capped at `--radius-2xl` (about 20px by default instead of 26px). `.mielui-float-frame` resolves it to the control radius plus one spacing unit plus the border, capped at `--radius-xl` (16.6px instead of 18px). `.mielui-plate` is unchanged.
+
+The rule is inner radius = outer radius - border - gap. Compose with it instead of picking radii:
+
+- A footer or header strip on a two-layer frame pads by two spacing units (`p-2`). Card, Dialog, Sheet, and Drawer footers already do. A custom strip with a smaller padding puts its buttons off-centre against the frame corner.
+- Menu rows and `.mielui-item-highlight` use the control radius, not `--radius-md`. Do not override a row radius inside a floating panel.
+- CodeBlock sets its own tighter `--mielui-plate-radius` and pads its header by one spacing unit.
+- A custom track that pads control-radius items by one spacing unit uses `rounded-[calc(var(--radius-control)+var(--spacing))]`, as Toolbar does.
+
+If you set `--mielui-plate-radius` on a frame yourself, keep the squircle factor: multiply by `var(--mielui-squircle, 1)` on frames that draw squircle corners.
+

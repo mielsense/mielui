@@ -157,7 +157,7 @@ Surfaces are solid by default. Glass is opt-in: set `--mielui-surface: glass` on
 
 Card is solid unless you pass `surface="glass"` to Card.Root. It does not follow the theme's glass setting the way overlays do. On inset and panel cards only the frame frosts and the content stays solid.
 
-Frames are two layers: a white frame holding a recessed inset in the stage color (`--color-background`), with header, toolbar and footer strips on the frame. They follow the theme's border setting. With double borders, the default, a gutter separates the frame and the inset, and with single borders the inset meets the frame's border. This applies to inset cards, dialogs, sheets, data tables, composers, toasts and code blocks. Never give a frame a fixed `--mielui-modal-inset`. Multiply by `--mielui-border-inset-scale`, which is 0 for single and 1 for double.
+Frames are two layers: a white frame holding a recessed inset in the stage color (`--color-background`), with header, toolbar and footer strips on the frame. They follow the theme's border setting. With single borders, the default, the inset meets the frame's border, and with double borders a gutter separates them. This applies to inset cards, dialogs, sheets, data tables, composers, toasts and code blocks. Never give a frame a fixed `--mielui-modal-inset`. Multiply by `--mielui-border-inset-scale`, which is 0 for single and 1 for double.
 
 Composer.Toolbar joins the input on one surface by default. Set `variant="inset"` to keep the input on its own inset surface with the toolbar in the frame under it, like an inset Card and its footer. There is no `chrome` variant.
 

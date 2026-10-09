@@ -7,3 +7,10 @@
 - Outline buttons wrapped in a Tooltip or another trigger inside a Group take the group's border color too, so the frame no longer changes color at the wrapped button.
 - Theme Studio switches preview modes with a floating segmented control at the bottom center of the preview instead of tabs in the top bar.
 - The traveling highlight in menus and the command palette is measured correctly while its panel is still scaling in, so the first highlighted row is no longer too narrow after a keyboard open.
+- The traveling highlight snaps to the active row for arrow keys and selection changes, and only glides for a pointer.
+- Combobox results no longer animate their height on every keystroke.
+- An indeterminate Progress pulses under reduced motion instead of freezing as a one-third bar.
+- Popover scales from the side its trigger is on, and tooltips scale from their trigger instead of their center.
+- Toasts fade in as they rise instead of appearing at full opacity.
+- A live theme saved by an earlier version is rebuilt from the Studio draft instead of being applied as stale CSS, which left the page and the content plate the same color in light mode.
+- Nested corners now share a centre. Dialog, Sheet, Drawer, inset Card, Table, and Composer frames take their radius from the control radius and a two-unit footer gap, menus and popovers from their rows, and CodeBlock, Toolbar, and the Reorder List handle follow the same rule.

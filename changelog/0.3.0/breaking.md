@@ -1,23 +1,23 @@
-- The default theme is redesigned. Surfaces are white plates on a grey stage, every neutral is derived from the foreground color, everything pressable is a pill, and filled buttons are lit. Explicit themes keep their colors, and every theme picks up the new shapes and motion.
+- The default theme is redesigned. Surfaces are white plates on a grey stage, every neutral is derived from the foreground color, every control shares one radius, and filled buttons are lit. Explicit themes keep their colors, and every theme picks up the new shapes and motion.
 - The default fonts are Inter Tight and Geist Mono instead of Manrope and JetBrains Mono. `ui.css` now imports `@fontsource/inter-tight` and `@fontsource/geist-mono`, and the package no longer depends on the old two. To keep Manrope, install `@fontsource/manrope`, import its CSS, and set `--font-sans: 'Manrope', sans-serif`.
 - Text weight stops at 500. `font-semibold` and `font-bold` resolve to 500, and `--font-weight-header` is 500. Build hierarchy from size and color, or set `--font-weight-semibold` and `--font-weight-bold` back to 600 and 700.
 - `--color-border`, `--color-border-strong`, and `--color-input` are translucent mixes of the foreground instead of opaque greys. A theme that sets `foundation.border` keeps its own color.
 - Two-layer surfaces swap their layers. The frame is now the card color and the inner surface is the page background, so content in an inset Card, a Dialog, a CodeBlock, or a Composer sits on the recessed stage color with white fields on top.
-- The default theme uses double borders and resting shadows. `chrome.borders` defaults to `double` and `chrome.surfaceShadows` to `true`. Set them to `single` and `false` for the old flat frames.
-- The radius scale changes. `--radius-xl` is 18px instead of 20px, plates use the new `--radius-2xl` (26px), and controls use the new `--radius-control`, a pill in the default and rounded scales. Set `--radius-control` to a length for rectangular controls.
-- Buttons are pills. Primary, secondary, and destructive are lit like `glow`. Outline is flat: a hairline on the field color with no inset shading.
+- The default edge highlight is 33% instead of 50%. Borders stay single and cards and menus stay without shadows, as before.
+- The radius scale changes. `--radius-xl` is 18px instead of 20px, plates use the new `--radius-2xl` (26px), and controls use the new `--radius-control`: 4px in the sharp scale, 12px in the default scale, and a pill in the rounded scale. Buttons were 14px before.
+- Primary, secondary, and destructive buttons are lit like `glow`. Outline is flat: a hairline on the field color with no inset shading.
 - The primary button's text is dark on the default brand in light mode as well as dark, so it passes contrast. `--color-on-primary` is `#21151e` in both.
-- Text fields, native selects, select and combobox triggers, and number fields are pills. Textarea and TagInput use `--radius-xl`.
-- Menu separators are inset from the panel's edges instead of spanning its full width.
+- Text fields, native selects, select and combobox triggers, and number fields take `--radius-control` like buttons. Textarea and TagInput use `--radius-xl`.
 - The focus ring is 3px at half the primary color instead of 2px at 80%.
-- Menus, selects, and popovers spring open and close on a 100ms fade. Dialogs pop from 96% scale and leave in 150ms. The blur on both is gone. `--motion-duration-panel-in`, `--motion-duration-modal-in`, and the menu and modal offset tokens have new defaults.
+- Menus, selects, and popovers spring open in 220ms from their trigger's side and close on a 100ms fade. Dialogs pop from 96% scale in 400ms and leave in 150ms. The blur on both is gone. `--motion-duration-panel-in`, `--motion-duration-modal-in`, and the menu and modal offset tokens have new defaults.
 - ToggleGroup sits in a segmented track, so it is two spacing units taller and wider. Its selected item is a lit pill that travels between items.
 - Table's default variant has no outer frame or header fill. `variant="inset"` and DataTable put the header and footer on the frame and the rows on a recessed surface.
 - Alert is one notice strip. Status variants tint the icon only, with no colored fill or border.
 - ScrollArea no longer shows chevrons at an edge with more content. `showCues` fades the edge instead, and the thumb stays hidden until hover, focus, or scroll.
-- Sheet attaches flush to its edge at full height and rounds only its exposed corners.
 - Composer is a recessed frame holding a white writing surface. Its focus ring shows only while the textarea is focused.
 - Toolbar's flat variant paints a grey pill track behind its keys.
 - Badge status variants have no colored border, and the Checkbox `primary` card row no longer tints with the primary color.
 - Collapsible content is muted and inset to line up with its trigger text.
-- Breadcrumb items are padded pills, so the trail's text starts one item padding further in.
+- Breadcrumb items are padded, so the trail's text starts one item padding further in.
+- Tooltips reposition instantly when the pointer moves to the next trigger instead of gliding there.
+- Switch thumbs no longer stretch while pressed.

@@ -1,0 +1,8 @@
+- The docs, Theme Studio, Themes, and Changelog share a new shell: a near-black frame with an icon rail, around one panel that holds the sidebar and the page. The frame is the same in light and dark mode.
+- The rail holds the brand and the sidebar toggle at the top, Docs, Components, Theme Studio, Themes, and Changelog in the middle, and search, the theme toggle, and GitHub at the bottom. One highlight marks the current page and slides to the next.
+- The sidebar's current page is marked by a highlight sized to its label that slides between pages. Pinned section titles stay fully legible while their section scrolls.
+- Docs text runs the full width of the article, level with previews and code.
+- Open pages are tabs in a floating dock at the bottom of the page, styled like a toggle group. Copy page sits at the top end of the page.
+- Theme Studio shows its preview on the panel, with its tools in a floating menu at the top end.
+- Theme Studio no longer has a Primary button border setting. Lit buttons draw their own edge, so it had no effect.
+- The fade at the bottom edge of the page and the sidebar is shorter and no longer blurs far into the text.
