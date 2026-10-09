@@ -20,7 +20,7 @@
     --chart-3: #8bc7f5;
     --chart-4: #8ed8b0;
     --chart-5: #f2d77d;
-    --mielui-border-inset-scale: 1;
+    --mielui-border-inset-scale: 0;
     --mielui-surface: solid;
     --mielui-inset-position: bottom;
 
@@ -64,13 +64,14 @@
     --opacity-disabled: 0.4;
 
     /* One base scale. Plates take 2xl, floating panels xl, multi-line fields lg,
-       rows md. Everything pressable takes the control radius: a pill. */
+       rows md. Everything pressable takes the control radius, which the rounded
+       scale turns into a pill. */
     --radius-sm: 8px;
     --radius-md: 10px;
     --radius-lg: 14px;
     --radius-xl: 18px;
     --radius-2xl: 26px;
-    --radius-control: 9999px;
+    --radius-control: 12px;
     --mielui-squircle: 1;
     --font-size-header: 16px;
     --font-size-body: 14px;
@@ -110,8 +111,10 @@
     --tracking-button: 0em;
     --tracking-badge: 0em;
 
-    /* Elevation is binary: a thing is resting or it is floating. */
-    --mielui-edge-highlight: 0.5;
+    /* Elevation is binary: resting or floating. The default theme draws cards and
+       menus with a hairline alone and keeps shadows for dialogs; themes can turn
+       surface shadows on. */
+    --mielui-edge-highlight: 0.33;
     --elevation-control-edge:
         inset 0 1px 0 0 rgb(255 255 255 / calc(0.7 * var(--mielui-edge-highlight))),
         inset 0 -1px 0 0 rgb(0 0 0 / 0.05);
@@ -126,8 +129,8 @@
     --mielui-toolbar-pressed:
         inset 0 0 0 var(--border-size) var(--color-border), inset 0 1px 2px rgb(0 0 0 / 0.1);
     --elevation-surface-edge: inset 0 1px 0 0 rgb(255 255 255 / 0);
-    --elevation-1: 0 1px 2px rgb(0 0 0 / 0.06);
-    --elevation-float: 0 1px 2px rgb(0 0 0 / 0.08), 0 8px 24px rgb(0 0 0 / 0.08);
+    --elevation-1: 0 0 0 0 transparent;
+    --elevation-float: 0 0 0 0 transparent;
     --elevation-modal: 0 1px 2px rgb(0 0 0 / 0.08), 0 16px 48px -8px rgb(0 0 0 / 0.16);
     --elevation-control: inset 0 0 0 var(--border-size) var(--color-input);
     --elevation-button-outline:
@@ -214,16 +217,16 @@
         1.003,
         1
     );
-    --motion-duration-spring: 350ms;
-    --motion-duration-pop: 500ms;
-    --motion-duration-flick: 270ms;
+    --motion-duration-spring: 280ms;
+    --motion-duration-pop: 400ms;
+    --motion-duration-flick: 240ms;
     --motion-duration-hover: 150ms;
     --motion-duration-menu: 60ms;
     --motion-duration-panel: 200ms;
     --motion-duration-sheet: 420ms;
     --motion-duration-sheet-out: 294ms;
     --motion-duration-overlay: 150ms;
-    --motion-duration-toast-in: 390ms;
+    --motion-duration-toast-in: 300ms;
     --motion-duration-toast-out: 180ms;
     --motion-panel-y: 4px;
     --motion-panel-scale-start: 0.98;
@@ -234,16 +237,17 @@
     --motion-modal-scale-start: 0.96;
     --motion-modal-blur: 0px;
     --motion-opacity-start: 0;
-    --motion-duration-panel-in: 350ms;
+    --motion-duration-panel-in: 220ms;
     --motion-duration-panel-out: 100ms;
-    --motion-duration-modal-in: 500ms;
+    --motion-duration-modal-in: 400ms;
     --motion-duration-modal-out: 150ms;
     --motion-press-px: var(--size-hairline);
     --motion-duration-press: 160ms;
-    --motion-duration-item: 350ms;
+    --motion-duration-item: 110ms;
     --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
     --ease-press: cubic-bezier(0.22, 1, 0.36, 1);
     --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
+    --ease-drawer: cubic-bezier(0.32, 0.72, 0, 1);
     --border-size: 1px;
     --ui-cursor-interactive: default;
 
@@ -312,15 +316,15 @@
     --file-diff-token-meta: var(--color-code-meta);
 }
 
-/* Dark is the same recipe re-inked, not an inversion: hairlines rise two points
-   and the plate sits lighter than the stage, so insets still read as recessed. */
+/* Dark is the same recipe re-inked: hairlines rise two points, the plate is the
+   darkest surface, and the stage and insets sit one step lighter around it. */
 .dark {
-    --mielui-neutral-0: #1a1a1a;
-    --mielui-neutral-10: #121212;
+    --mielui-neutral-0: #131313;
+    --mielui-neutral-10: #1a1a1a;
     --mielui-neutral-50: #1e1e1e;
-    --mielui-neutral-100: #272727;
-    --mielui-neutral-150: #2d2d2d;
-    --mielui-neutral-300: #3f3f3f;
+    --mielui-neutral-100: #262626;
+    --mielui-neutral-150: #2c2c2c;
+    --mielui-neutral-300: #3d3d3d;
     --mielui-neutral-500: #969696;
     --mielui-neutral-900: #ededed;
     --mielui-blue-50: color-mix(in srgb, #ba7ca5 12%, black);
@@ -332,7 +336,7 @@
     --color-on-primary: #21151e;
     --color-background: var(--mielui-neutral-10);
     --color-card: var(--mielui-neutral-0);
-    --color-panel: #1e1e1e;
+    --color-panel: var(--mielui-neutral-50);
     --color-secondary: var(--mielui-neutral-100);
     --color-foreground: var(--mielui-neutral-900);
     --color-foreground-muted: var(--mielui-neutral-500);
@@ -341,7 +345,7 @@
     --color-input: color-mix(in srgb, var(--color-foreground) 16%, transparent);
     --color-wash: color-mix(in srgb, var(--color-foreground) 6%, transparent);
     --color-overlay: rgb(0 0 0 / 0.55);
-    --color-field: color-mix(in srgb, var(--color-foreground) 4%, var(--color-card));
+    --color-field: color-mix(in srgb, var(--color-foreground) 6%, var(--color-background));
     --color-code-comment: #8b949e;
     --color-code-keyword: #ff7b72;
     --color-code-string: #a5d6ff;
@@ -369,9 +373,8 @@
         inset 0 0 0 var(--border-size) rgb(0 0 0 / 0.35), inset 0 1px 2px rgb(0 0 0 / 0.3);
     --elevation-surface-edge: inset 0 1px 0 0
         rgb(255 255 255 / calc(0.08 * var(--mielui-edge-highlight)));
-    --elevation-1: var(--elevation-surface-edge), 0 1px 2px rgb(0 0 0 / 0.3);
-    --elevation-float:
-        var(--elevation-surface-edge), 0 1px 2px rgb(0 0 0 / 0.4), 0 12px 32px rgb(0 0 0 / 0.45);
+    --elevation-1: 0 0 0 0 transparent;
+    --elevation-float: 0 0 0 0 transparent;
     --elevation-modal:
         var(--elevation-surface-edge), 0 1px 2px rgb(0 0 0 / 0.4), 0 24px 56px -8px rgb(0 0 0 / 0.6);
     --elevation-button-outline:
@@ -410,7 +413,7 @@
         gap: calc(var(--spacing) * 2);
         border: var(--border-size) solid transparent;
         border-radius: min(
-            var(--radius-md),
+            var(--radius-control),
             calc(var(--radius-xl) - var(--border-size) - var(--spacing))
         );
         padding-inline: calc(var(--spacing) * 2);
@@ -471,8 +474,8 @@
         isolation: isolate;
     }
 
-    /* The traveling highlight: one wash that moves between rows on the layout
-       spring. The eye follows the object; repainting each row reads as flicker. */
+    /* The traveling highlight: one wash that glides between rows for a pointer. The
+       glide is short on purpose: long enough to follow, too quick to trail the cursor. */
     .mielui-item-highlight {
         pointer-events: none;
         position: absolute;
@@ -481,7 +484,7 @@
         z-index: 0;
         display: block;
         border-radius: min(
-            var(--radius-md),
+            var(--radius-control),
             calc(var(--radius-xl) - var(--border-size) - var(--spacing))
         );
         background-color: var(--color-wash);
@@ -492,13 +495,12 @@
             var(--mielui-traveling-highlight, var(--motion-duration-item)),
             var(--mielui-traveling-highlight, var(--motion-duration-item)),
             var(--mielui-traveling-highlight, var(--motion-duration-hover));
-        transition-timing-function:
-            var(--ease-spring-layout), var(--ease-spring-layout), var(--ease-spring-layout),
-            var(--ease-out);
+        transition-timing-function: var(--ease-out);
         will-change: transform;
     }
 
-    .mielui-item-highlight:not([data-ready='true']) {
+    .mielui-item-highlight:not([data-ready='true']),
+    .mielui-item-highlight[data-snap] {
         transition: none;
     }
 
@@ -512,13 +514,26 @@
     }
 
     /* Two layers: a white frame holding a recessed inset in the stage color.
-       Inner radius = outer - border - gutter, so the corners stay concentric. */
+       Inner radius = outer - border - gutter, so the corners stay concentric.
+       These frames hold controls in their chrome (footer and header strips two
+       spacing units from the edge), so the frame radius is the control radius
+       plus that gap, capped at the plate radius. A strip that keeps the two-unit
+       gap puts its buttons on the same centre as the frame corner. */
     .mielui-card-frame,
     .mielui-modal-frame,
     .mielui-inset-frame,
     .mielui-float-frame {
         --mielui-modal-inset: calc(var(--spacing) * var(--mielui-border-inset-scale, 1));
-        --mielui-plate-radius: calc(var(--radius-2xl) * var(--mielui-squircle, 1));
+        --mielui-plate-radius: calc(
+            min(
+                var(--radius-2xl),
+                var(--radius-control) +
+                var(--spacing) *
+                2 +
+                var(--border-size)
+            ) *
+            var(--mielui-squircle, 1)
+        );
         gap: var(--mielui-modal-inset);
         padding: var(--mielui-modal-inset);
         border: var(--border-size) solid var(--color-border);
@@ -532,10 +547,15 @@
         --mielui-plate-radius: calc(var(--radius-xl) * var(--mielui-squircle, 1));
     }
 
-    /* Floating panels are one layer: menus, selects, popovers, and tooltips. */
+    /* Floating panels are one layer: menus, selects, popovers, and tooltips. Rows
+       sit one spacing unit inside, so the panel radius is the row radius plus
+       that gap and the border. */
     .mielui-float-frame {
         --mielui-border-inset-scale: 0;
-        --mielui-plate-radius: var(--radius-xl);
+        --mielui-plate-radius: min(
+            var(--radius-xl),
+            calc(var(--radius-control) + var(--spacing) + var(--border-size))
+        );
         corner-shape: round;
         background-color: var(--color-panel);
     }
@@ -702,14 +722,9 @@
         box-shadow:
             0 0 0 var(--border-size) color-mix(in srgb, var(--color-foreground) 12%, transparent),
             var(--elevation-float);
-        transition-property: left, top, width, opacity, transform;
-        transition-duration:
-            var(--motion-duration-spring), var(--motion-duration-spring),
-            var(--motion-duration-spring), var(--motion-duration-hover),
-            var(--motion-duration-panel);
-        transition-timing-function:
-            var(--ease-spring-layout), var(--ease-spring-layout), var(--ease-spring-layout),
-            var(--ease-out), var(--ease-out);
+        transition-property: opacity, transform;
+        transition-duration: var(--motion-duration-hover), var(--motion-duration-panel);
+        transition-timing-function: var(--ease-out);
     }
 
     .mielui-tooltip-measure {
@@ -753,7 +768,7 @@
     }
 
     .mielui-menu-separator {
-        margin-inline: calc(var(--spacing) * 2);
+        @apply -mx-1 rounded-none;
         margin-block: calc(var(--spacing) * 1);
         height: var(--border-size);
         background-color: var(--color-border);

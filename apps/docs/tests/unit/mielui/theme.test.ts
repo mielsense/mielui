@@ -29,7 +29,7 @@ describe('themeToCss', () => {
         expect(css).toContain("--font-sans: 'Inter Tight', sans-serif");
         expect(css).toContain('--radius-lg: 14px');
         expect(css).toContain('--radius-2xl: 26px');
-        expect(css).toContain('--radius-control: 9999px');
+        expect(css).toContain('--radius-control: 12px');
         expect(css).toContain('--color-primary: #ba7ca5');
         expect(css).toContain('--mielui-space-unit: 3.6px');
         expect(css).toContain('--motion-duration-menu: 60ms');
@@ -40,12 +40,11 @@ describe('themeToCss', () => {
     it('inherits appearance defaults when chrome and tokens are omitted', () => {
         const css = themeToCss({ ...DEFAULT_THEME, chrome: undefined, tokens: undefined });
 
-        expect(css).toContain('--mielui-border-inset-scale: 1;');
+        expect(css).toContain('--mielui-border-inset-scale: 0;');
         expect(css).toContain('--mielui-surface: solid;');
         expect(css).toContain('--mielui-inset-position: bottom;');
-        expect(css).toContain('--elevation-1: 0 1px 2px rgb(0 0 0 / 0.06);');
-        expect(css).not.toContain('--elevation-1: 0 0 0 0 transparent;');
-        expect(css).not.toContain('--elevation-float: 0 0 0 0 transparent;');
+        expect(css).toContain('--elevation-1: 0 0 0 0 transparent;');
+        expect(css).toContain('--elevation-float: 0 0 0 0 transparent;');
         expect(css).toContain(
             '--color-primary-stroke: color-mix(in srgb, black 14%, transparent);'
         );
@@ -60,8 +59,8 @@ describe('themeToCss', () => {
         const css = themeToCss({
             ...DEFAULT_THEME,
             chrome: {
-                borders: 'single',
-                surfaceShadows: false,
+                borders: 'double',
+                surfaceShadows: true,
                 primaryStroke: false
             },
             tokens: {
@@ -73,9 +72,8 @@ describe('themeToCss', () => {
             }
         });
 
-        expect(css).toContain('--mielui-border-inset-scale: 0;');
-        expect(css).toContain('--elevation-1: 0 0 0 0 transparent;');
-        expect(css).toContain('--elevation-float: 0 0 0 0 transparent;');
+        expect(css).toContain('--mielui-border-inset-scale: 1;');
+        expect(css).not.toContain('--elevation-1: 0 0 0 0 transparent;');
         expect(css).toContain('--color-primary-stroke: transparent;');
         expect(css.lastIndexOf('--mielui-surface: glass;')).toBeGreaterThan(
             css.indexOf('--mielui-surface: solid;')
@@ -148,8 +146,8 @@ describe('parseTheme', () => {
 });
 
 describe('edge highlight strength', () => {
-    it('uses half strength when older themes omit the setting', () => {
-        expect(themeToCss(DEFAULT_THEME)).toContain('--mielui-edge-highlight: 0.5;');
+    it('uses the default strength when older themes omit the setting', () => {
+        expect(themeToCss(DEFAULT_THEME)).toContain('--mielui-edge-highlight: 0.33;');
     });
 
     it.each([0, 0.5, 1])(

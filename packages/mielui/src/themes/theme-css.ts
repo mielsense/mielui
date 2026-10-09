@@ -28,7 +28,7 @@ const RADII: Record<RadiusScale, RadiusSet> = {
         lg: '6px',
         xl: '8px',
         plate: '10px',
-        control: '6px'
+        control: '4px'
     },
     default: {
         sm: '8px',
@@ -36,7 +36,7 @@ const RADII: Record<RadiusScale, RadiusSet> = {
         lg: '14px',
         xl: '18px',
         plate: '26px',
-        control: '9999px'
+        control: '12px'
     },
     rounded: {
         sm: '10px',
@@ -89,7 +89,7 @@ const MOTION: Record<MotionFeel, MotionSet> = {
         panel: '200ms',
         sheet: '420ms',
         overlay: '150ms',
-        toastIn: '390ms',
+        toastIn: '300ms',
         toastOut: '180ms'
     },
     expressive: {
@@ -106,28 +106,33 @@ const MOTION: Record<MotionFeel, MotionSet> = {
 const NEUTRAL_STEPS = [0, 10, 50, 100, 150, 300, 500, 900] as const;
 type NeutralRamp = Record<(typeof NEUTRAL_STEPS)[number], string>;
 
-// Immutable source values keep generated declarations acyclic in every mode.
+/**
+ * Immutable source values keep generated declarations acyclic in every mode.
+ * Step 0 is the plate and step 10 is the stage in every ramp. The plate is white
+ * on a tinted stage in light mode and the darkest surface in dark mode.
+ * Tints stay faint: a strong hue at low lightness reads as brown or navy.
+ */
 const NEUTRALS: Record<NeutralTemp, { light: NeutralRamp; dark: NeutralRamp }> = {
     warm: {
         light: {
             0: 'hsl(0 0% 100%)',
-            10: 'hsl(60 11.1% 99.2%)',
-            50: 'hsl(60 11.1% 96.5%)',
-            100: 'hsl(60 6.2% 93.7%)',
-            150: 'hsl(60 4.2% 90.6%)',
-            300: 'hsl(60 4.4% 82.4%)',
-            500: 'hsl(60 3% 41.5%)',
-            900: 'hsl(60 5.7% 10.4%)'
+            10: 'hsl(48 12% 96.5%)',
+            50: 'hsl(48 9% 94.5%)',
+            100: 'hsl(48 8% 91.5%)',
+            150: 'hsl(48 6% 89%)',
+            300: 'hsl(48 5% 81%)',
+            500: 'hsl(48 3% 42%)',
+            900: 'hsl(48 6% 15%)'
         },
         dark: {
-            0: 'hsl(0 0% 5%)',
-            10: 'hsl(60 11.1% 7%)',
-            50: 'hsl(0 0% 10%)',
-            100: 'hsl(0 0% 13%)',
-            150: 'hsl(0 0% 15.7%)',
-            300: 'hsl(0 0% 22.7%)',
-            500: 'hsl(0 0% 65%)',
-            900: 'hsl(0 0% 93%)'
+            0: 'hsl(40 3% 5.5%)',
+            10: 'hsl(40 4% 8.5%)',
+            50: 'hsl(40 3% 10.5%)',
+            100: 'hsl(40 3% 14%)',
+            150: 'hsl(40 3% 16.5%)',
+            300: 'hsl(40 3% 23.5%)',
+            500: 'hsl(40 3% 60%)',
+            900: 'hsl(40 6% 93%)'
         }
     },
     /** The default ramp: one ink on a grey stage, with a white plate above it. */
@@ -143,12 +148,12 @@ const NEUTRALS: Record<NeutralTemp, { light: NeutralRamp; dark: NeutralRamp }> =
             900: '#292929'
         },
         dark: {
-            0: '#1a1a1a',
-            10: '#121212',
+            0: '#131313',
+            10: '#1a1a1a',
             50: '#1e1e1e',
-            100: '#272727',
-            150: '#2d2d2d',
-            300: '#3f3f3f',
+            100: '#262626',
+            150: '#2c2c2c',
+            300: '#3d3d3d',
             500: '#969696',
             900: '#ededed'
         }
@@ -156,26 +161,51 @@ const NEUTRALS: Record<NeutralTemp, { light: NeutralRamp; dark: NeutralRamp }> =
     cool: {
         light: {
             0: 'hsl(220 20% 100%)',
-            10: 'hsl(220 20% 99%)',
-            50: 'hsl(220 16% 96%)',
-            100: 'hsl(220 14% 93%)',
-            150: 'hsl(220 12% 90%)',
+            10: 'hsl(220 16% 96.5%)',
+            50: 'hsl(220 14% 94.5%)',
+            100: 'hsl(220 13% 91.5%)',
+            150: 'hsl(220 12% 89%)',
             300: 'hsl(220 10% 81%)',
             500: 'hsl(220 8% 42%)',
-            900: 'hsl(220 12% 10%)'
+            900: 'hsl(220 12% 14%)'
         },
         dark: {
-            0: 'hsl(220 12% 5%)',
-            10: 'hsl(220 12% 7%)',
-            50: 'hsl(220 11% 10%)',
-            100: 'hsl(220 10% 13%)',
-            150: 'hsl(220 9% 16%)',
-            300: 'hsl(220 8% 23%)',
-            500: 'hsl(220 7% 65%)',
+            0: 'hsl(220 7% 5.5%)',
+            10: 'hsl(220 9% 8.5%)',
+            50: 'hsl(220 7% 10.5%)',
+            100: 'hsl(220 7% 14%)',
+            150: 'hsl(220 7% 16.5%)',
+            300: 'hsl(220 7% 23.5%)',
+            500: 'hsl(220 6% 62%)',
             900: 'hsl(220 10% 93%)'
         }
     }
 };
+
+/** How far each motion feel stretches the spring, pop, flick, and item durations. */
+const MOTION_SCALE: Record<MotionFeel, number> = {
+    none: 0,
+    subtle: 0.75,
+    default: 1,
+    expressive: 1.25
+};
+
+const SPRING_DURATIONS = {
+    '--motion-duration-spring': 280,
+    '--motion-duration-pop': 400,
+    '--motion-duration-flick': 240,
+    '--motion-duration-item': 110,
+    '--motion-duration-panel-in': 220,
+    '--motion-duration-modal-in': 400
+} as const;
+
+function springDeclarations(feel: MotionFeel): string[] {
+    const scale = MOTION_SCALE[feel];
+
+    return Object.entries(SPRING_DURATIONS).map(([token, milliseconds]) => {
+        return `${token}: ${Math.round(milliseconds * scale)}ms;`;
+    });
+}
 
 function block(selector: string, declarations: string[]): string {
     return `${selector} {\n${declarations.map((declaration) => `\t${declaration}`).join('\n')}\n}\n`;
@@ -355,7 +385,7 @@ export function themeToCss(themeInput: Theme): string {
         '--chart-4: #8ed8b0;',
         '--chart-5: #f2d77d;',
         `--mielui-border-inset-scale: ${borderInsetScale};`,
-        `--mielui-edge-highlight: ${chrome.edgeHighlight ?? 0.5};`,
+        `--mielui-edge-highlight: ${chrome.edgeHighlight ?? 0.33};`,
         ...tokenMapDeclarations(DEFAULT_THEME.tokens?.shared),
         `--font-sans: ${theme.fontSans};`,
         `--font-mono: ${theme.fontMono};`,
@@ -374,19 +404,14 @@ export function themeToCss(themeInput: Theme): string {
         `--motion-duration-sheet-out: ${scaleMotionMs(motion.sheet, 0.7)};`,
         `--motion-duration-overlay: ${motion.overlay};`,
         `--motion-duration-toast-in: ${motion.toastIn};`,
-        `--motion-duration-toast-out: ${motion.toastOut};`
+        `--motion-duration-toast-out: ${motion.toastOut};`,
+        ...springDeclarations(theme.motion)
     ];
     if (theme.motion === 'none') {
         shared.push(
-            '--motion-duration-panel-in: 0ms;',
             '--motion-duration-panel-out: 0ms;',
-            '--motion-duration-modal-in: 0ms;',
             '--motion-duration-modal-out: 0ms;',
-            '--motion-duration-press: 0ms;',
-            '--motion-duration-item: 0ms;',
-            '--motion-duration-spring: 0ms;',
-            '--motion-duration-pop: 0ms;',
-            '--motion-duration-flick: 0ms;'
+            '--motion-duration-press: 0ms;'
         );
     }
 

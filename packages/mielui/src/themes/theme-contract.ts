@@ -57,7 +57,7 @@ export type ThemeTypography = {
 
 export type ThemeChrome = {
     shadows?: boolean;
-    /** Strength of light-catching inset edges, from 0 to 1. Defaults to 0.5. */
+    /** Strength of light-catching inset edges, from 0 to 1. Defaults to 0.33. */
     edgeHighlight?: number;
     borders?: 'double' | 'single';
     /** Shadows on cards, floating menus, and other surfaces (`--elevation-1`, `--elevation-float`). */
@@ -121,9 +121,9 @@ export const DEFAULT_THEME: Theme = {
     fontMono: "'Geist Mono', monospace",
     fontHeader: 'var(--font-sans)',
     chrome: {
-        borders: 'double',
-        edgeHighlight: 0.5,
-        surfaceShadows: true,
+        borders: 'single',
+        edgeHighlight: 0.33,
+        surfaceShadows: false,
         controlShadows: true,
         dialogShadows: true,
         primaryStroke: true

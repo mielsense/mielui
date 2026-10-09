@@ -19,7 +19,7 @@ describe('ui.css Tier 1 primitives', () => {
     });
     it('overrides the neutral ramp under .dark', () => {
         const darkBlock = css.slice(css.indexOf('.dark'));
-        expect(darkBlock).toContain('--mielui-neutral-0: #1a1a1a');
+        expect(darkBlock).toContain('--mielui-neutral-0: #131313');
     });
 });
 

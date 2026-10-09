@@ -3,10 +3,10 @@ import { describe, expect, it } from 'vitest';
 import { readThemeAppearance } from '../../src/routes/studio/editor/appearance';
 
 const defaults = {
-    borders: 'double',
+    borders: 'single',
     insetPosition: 'bottom',
-    edgeHighlight: 0.5,
-    surfaceShadows: true,
+    edgeHighlight: 0.33,
+    surfaceShadows: false,
     controlShadows: true,
     dialogShadows: true,
     glassSurfaces: false,
@@ -32,9 +32,9 @@ describe('Studio appearance hydration', () => {
             readThemeAppearance({
                 ...DEFAULT_THEME,
                 chrome: {
-                    borders: 'single',
+                    borders: 'double',
                     edgeHighlight: 0,
-                    surfaceShadows: false,
+                    surfaceShadows: true,
                     controlShadows: false,
                     dialogShadows: false,
                     primaryStroke: false
@@ -48,10 +48,10 @@ describe('Studio appearance hydration', () => {
             })
         ).toEqual({
             ...defaults,
-            borders: 'single',
+            borders: 'double',
             insetPosition: 'top',
             edgeHighlight: 0,
-            surfaceShadows: false,
+            surfaceShadows: true,
             controlShadows: false,
             dialogShadows: false,
             glassSurfaces: true,
