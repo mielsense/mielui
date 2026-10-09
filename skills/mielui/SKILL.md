@@ -38,6 +38,7 @@ Load documentation progressively:
 | AI or coding-agent UI | Candidate AI component pages plus `references/component-selection.md` from this skill |
 | Upgrading or resolving an API mismatch | Installed version, the compiled changelog, the LLM changelog page when linked, and component pages |
 | Visual design or review | `references/design-language.md` from this skill |
+| Laying out a whole page, app, or website | The `mielui-design` skill, when it is installed |
 
 Each generated component page contains its current version, dependencies, install command, prop tables for exported parts, public `index.ts` API, and runnable examples. `/llms-full.txt` combines the full reference; prefer individual pages for focused tasks. Read the exact page before using a component that is new to the project. Never invent a part, prop, event, variant, slot/snippet contract, or import path.
 

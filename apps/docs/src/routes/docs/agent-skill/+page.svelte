@@ -19,6 +19,11 @@
             label: 'Skill instructions',
             value: 'Describe the workflow used by the installed skill.',
             href: '/docs/skill.md'
+        },
+        {
+            label: 'Design skill instructions',
+            value: 'Give the layouts, scales, and rules of the design skill.',
+            href: '/docs/design-skill.md'
         }
     ];
 </script>
@@ -63,6 +68,36 @@ Check the installed version and use the documented component parts.`}
             The skill checks your installation method and the relevant component pages before
             proposing code. Its review covers keyboard behavior, responsive layout, reduced motion,
             and nested overlays.
+        </Typography.Text>
+    </section>
+
+    <section id="design-skill" class="scroll-mt-20 flex flex-col gap-4">
+        <Typography.H2 class="docs-section-heading">Add the design skill</Typography.H2>
+        <Typography.Text variant="body" class="m-0">
+            The first skill covers components. The design skill covers the page around them: the app
+            shell, the page header, the grid, the spacing between sections, and what to leave out.
+            Install it when you want an agent to build a dashboard, an admin app, a chat workspace,
+            or a marketing site.
+        </Typography.Text>
+        <CodeBlock
+            copy="overlay"
+            code="npx skills add mielsense/mielui --skill mielui-design"
+            lang="sh"
+        />
+        <Typography.Text variant="body" class="m-0">
+            Then describe the product and the pages you need:
+        </Typography.Text>
+        <CodeBlock
+            copy="overlay"
+            code={`Use the mielui-design skill to build an analytics dashboard for our store.
+It needs an overview, an orders table, and a settings page.`}
+            lang="text"
+        />
+        <Typography.Text variant="body" class="m-0">
+            It carries layout skeletons for three app shells, dashboards, data tables, settings,
+            chat workspaces, and marketing pages, along with the spacing and type scales. It asks
+            the agent to open the result at desktop and phone widths in both themes before it
+            reports back.
         </Typography.Text>
     </section>
 

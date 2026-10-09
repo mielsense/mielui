@@ -18,3 +18,4 @@
 - FolderCard is a single plate with the cover flush to its edge and a card-colored body.
 - The theme's motion feel scales the spring, pop, flick, item, panel, and dialog durations together, and `--ease-drawer` is a theme token.
 - Panels open from their trigger's side: a menu below its trigger starts slightly higher and one above starts slightly lower.
+- A second agent skill, `mielui-design`, teaches coding agents to lay out whole pages with Mielui: app shells, dashboards, data tables, settings, chat workspaces, and marketing sites. Install it with `npx skills add mielsense/mielui --skill mielui-design`.
