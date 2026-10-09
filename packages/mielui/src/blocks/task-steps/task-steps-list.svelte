@@ -10,7 +10,7 @@
     {...rest}
     data-ui="task-steps-list"
     aria-label={context.label}
-    class={cn(className, "space-y-0.5")}
+    class={cn(className, 'm-0 list-none space-y-0.5 p-0')}
 >
     {@render children?.()}
 </ol>

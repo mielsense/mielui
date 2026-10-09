@@ -17,9 +17,9 @@
     {#key status}
         {#if status === 'done'}
             <span
-                class="mielui-task-mark grid size-4 place-items-center rounded-[var(--radius-sm)] bg-[color-mix(in_srgb,var(--color-success)_14%,transparent)] text-[var(--mielui-success-text)]"
+                class="mielui-task-mark grid size-4 place-items-center rounded-full bg-success-soft text-[var(--mielui-success-text)]"
             >
-                <svg viewBox="0 0 12 12" class="size-3" fill="none">
+                <svg viewBox="0 0 12 12" class="size-2.5" fill="none">
                     <path
                         d="M2.4 6.2 4.8 8.5 9.6 3.5"
                         stroke="currentColor"
@@ -31,9 +31,9 @@
             </span>
         {:else if status === 'error'}
             <span
-                class="mielui-task-mark grid size-4 place-items-center rounded-[var(--radius-sm)] bg-[color-mix(in_srgb,var(--color-error)_13%,transparent)] text-[var(--mielui-error-text)]"
+                class="mielui-task-mark grid size-4 place-items-center rounded-full bg-error-soft text-[var(--mielui-error-text)]"
             >
-                <svg viewBox="0 0 12 12" class="size-3" fill="none">
+                <svg viewBox="0 0 12 12" class="size-2.5" fill="none">
                     <path
                         d="M3 3l6 6M9 3 3 9"
                         stroke="currentColor"
@@ -43,21 +43,21 @@
                 </svg>
             </span>
         {:else if status === 'active'}
-            <Spinner size={12} aria-hidden="true" class="text-foreground-muted" />
+            <Spinner size={12} aria-hidden="true" class="text-primary" />
         {:else}
-            <span class="size-1 rounded-[var(--radius-xs)] bg-border-strong"></span>
+            <span class="size-1.5 rounded-full bg-border-strong"></span>
         {/if}
     {/key}
 </span>
 <style>
     .mielui-task-mark {
-        animation: mielui-task-mark-in var(--motion-duration-panel) var(--ease-out) both;
+        animation: mielui-task-mark-in var(--motion-duration-flick) var(--ease-spring-flick) both;
     }
 
     @keyframes mielui-task-mark-in {
         from {
             opacity: 0;
-            scale: 0.95;
+            scale: 0.6;
         }
     }
 

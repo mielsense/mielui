@@ -5,10 +5,6 @@
     let { children, class: className, ...rest }: HTMLAttributes<HTMLTableSectionElement> = $props();
 </script>
 
-<thead
-    {...rest}
-    data-ui="table-header"
-    class={cn(className, 'text-foreground-muted [&_th]:bg-secondary/40')}
->
+<thead {...rest} data-ui="table-header" class={cn(className, 'text-foreground-muted')}>
     {@render children?.()}
 </thead>

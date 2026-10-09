@@ -14,7 +14,11 @@
             type="button"
             use:pressable
             data-ui="collapsible-trigger"
-            class={cn(className, disclosureTrigger({ layout: 'inline' }))}
+            class={cn(
+                className,
+                '[font-size:var(--font-size-body)] font-medium text-foreground',
+                disclosureTrigger({ layout: 'inline' })
+            )}
         >
             {@render children?.()}
         </button>

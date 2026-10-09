@@ -43,7 +43,7 @@
                 data-state={open ? 'open' : 'closed'}
                 class={cn(
                     className,
-                    'justify-between gap-3 text-[length:var(--font-size-header)] [font-weight:var(--font-weight-button)] [letter-spacing:var(--tracking-button)] text-foreground',
+                    'min-h-[var(--size-control-md)] justify-between gap-3 py-1.5 text-[length:var(--font-size-header)] font-medium [letter-spacing:var(--tracking-header)] leading-snug text-foreground',
                     disclosureTrigger({ layout: 'row' })
                 )}
             >

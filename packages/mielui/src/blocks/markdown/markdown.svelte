@@ -21,7 +21,7 @@
     aria-busy={streaming}
     class={cn(
         className,
-        'min-w-0 w-full select-text [font-size:var(--font-size-body)] leading-body [font-weight:var(--font-weight-body)] [letter-spacing:var(--tracking-body)] text-foreground [overflow-wrap:break-word] [&>*:first-child]:mt-0 [&>*:last-child]:mb-0'
+        'min-w-0 w-full select-text [font-size:var(--font-size-body)] leading-relaxed [font-weight:var(--font-weight-body)] [letter-spacing:var(--tracking-body)] text-foreground [overflow-wrap:break-word] [&>*:first-child]:mt-0 [&>*:last-child]:mb-0'
     )}
 >
     <TokenRenderer {tokens} />

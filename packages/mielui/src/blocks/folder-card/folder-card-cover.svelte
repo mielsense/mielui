@@ -21,9 +21,6 @@
         '[mask-size:100%_calc(100%-var(--folder-card-radius)),var(--folder-card-radius)_var(--folder-card-radius)]',
         '[mask-position:top,bottom_right] [mask-repeat:no-repeat]'
     ];
-
-    const motionClasses =
-        'transition-[filter] duration-[var(--motion-duration-hover)] ease-[var(--ease-out)] group-hover/folder-card:brightness-105 motion-reduce:transition-none';
 </script>
 
 <div
@@ -33,7 +30,6 @@
         className,
         shapeClasses,
         toneClasses[folderCard.tone],
-        motionClasses,
         'bg-[color-mix(in_oklab,var(--folder-card-tone)_55%,var(--color-card))]'
     )}
 >

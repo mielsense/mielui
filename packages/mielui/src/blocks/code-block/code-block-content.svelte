@@ -107,11 +107,11 @@
     inert={!isActive}
     class={cn(
         className,
-        'w-full max-h-[var(--code-block-max-height,32rem)] overflow-auto font-mono font-medium text-foreground',
+        'w-full max-h-[var(--code-block-max-height,32rem)] overflow-auto font-mono font-normal text-foreground',
         !registry?.contained && 'mielui-inset-surface',
         !isActive && !registry?.contained && 'hidden',
         registry?.contained &&
-            'max-h-none overflow-visible rounded-none border-0 bg-transparent shadow-none ring-0 transition-[transform,opacity] [transition-duration:var(--motion-duration-panel)] ease-[var(--ease-out)] motion-reduce:transition-none will-change-[transform,opacity]',
+            'max-h-none overflow-visible rounded-none border-0 bg-transparent shadow-none ring-0 transition-[transform,opacity] [transition-duration:var(--motion-duration-spring)] ease-[var(--ease-spring-layout)] motion-reduce:transition-none will-change-[transform,opacity]',
         registry?.contained && isActive && 'relative z-[1]',
         registry?.contained && !isActive && 'pointer-events-none absolute inset-0 block'
     )}
@@ -128,14 +128,14 @@
                 ><code
                         >{@html html}</code
                     ></pre>
-                <Copy class="mr-1.5 shrink-0" />
+                <Copy class="me-1.5 shrink-0" />
             </div>
         {:else}
             <div class={cn(themed && CODE_SURFACE, 'w-full')}>
                 {#if showLineNumbers}
                     <pre
                         aria-hidden="true"
-                        class="m-0 shrink-0 select-none border-r-[length:var(--border-size)] border-border px-3 py-[var(--code-block-padding-y)] text-right text-[length:var(--font-size-label)] leading-[var(--code-block-line-height)] text-[var(--code-block-gutter)]"
+                        class="m-0 shrink-0 select-none py-[var(--code-block-padding-y)] ps-[var(--code-block-padding-x)] text-end text-[length:var(--font-size-label)] leading-[var(--code-block-line-height)] text-[var(--code-block-gutter)] tabular-nums"
                     >{#each Array.from({ length: lineCount }, (_, i) => i) as i (i)}{i +
                                 1}{newline}{/each}</pre>
                 {/if}
@@ -153,7 +153,7 @@
         {#if copyPlacement === 'overlay'}
             <Copy
                 class={cn(
-                    'absolute end-2 z-10 bg-card before:pointer-events-none before:absolute before:inset-y-0 before:end-full before:w-5 before:bg-linear-to-r before:from-transparent before:to-card rtl:before:bg-linear-to-l after:pointer-events-none after:absolute after:inset-y-0 after:start-full after:w-2 after:bg-card',
+                    'absolute end-2 z-10 bg-background before:pointer-events-none before:absolute before:inset-y-0 before:end-full before:w-5 before:bg-linear-to-r before:from-transparent before:to-background rtl:before:bg-linear-to-l after:pointer-events-none after:absolute after:inset-y-0 after:start-full after:w-2 after:bg-background',
                     layout === 'single-line' ? 'top-1/2 -translate-y-1/2' : 'top-2'
                 )}
             />

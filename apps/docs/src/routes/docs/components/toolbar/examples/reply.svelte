@@ -49,7 +49,7 @@
                     </DropdownMenu.Content>
                 </DropdownMenu.Root>
             </div>
-            <Button type="button" size="md" class="size-7 rounded-full p-0" aria-label="Reply">
+            <Button type="button" size="md" class="size-7 p-0" aria-label="Reply">
                 <HugeiconsIcon icon={ArrowUp} size={14} />
             </Button>
         </Toolbar>

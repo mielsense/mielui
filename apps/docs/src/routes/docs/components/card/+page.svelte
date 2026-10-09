@@ -72,11 +72,12 @@
     <section id="borders" class="flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Borders</Typography.H2>
         <Typography.Text variant="supporting">
-            The theme setting chrome.borders is "single" by default, which removes the extra frame
-            from inset and panel cards. Set it to "double" to show that frame. Content padding and
-            footer composition stay intact. Default cards always have one border. This setting also
-            applies to dialogs, sheets, Notch, Toast, and other inset surfaces; shadows and edge
-            highlights remain independent.
+            The theme setting chrome.borders is "double" by default, which gives inset and panel
+            cards a white frame with a gutter around the recessed content surface. Set it to
+            "single" to remove the gutter, so the surface meets the frame's border. Content padding
+            and footer composition stay intact. Default cards are one plate and always have one
+            border. This setting also applies to dialogs, sheets, Notch, Toast, and other inset
+            surfaces; shadows and edge highlights remain independent.
         </Typography.Text>
     </section>
 
@@ -87,8 +88,8 @@
             Set{' '}
             <Typography.InlineCode>surface="glass"</Typography.InlineCode>
             on Root to frost the card so a backdrop behind it shows through. On inset and panel
-            cards only the frame is frosted. The content stays on a solid surface, so text keeps its
-            contrast. A default card has one surface, which turns translucent.
+            cards the frame is frosted and the content surface stays close to opaque, so text keeps
+            its contrast. A default card has one surface, which turns translucent.
         </Typography.Text>
         <Typography.Text variant="supporting">
             Cards are solid unless you ask for glass. They do not follow the theme's glass setting

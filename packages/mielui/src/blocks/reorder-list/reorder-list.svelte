@@ -1,8 +1,7 @@
 <script lang="ts" generics="T">
-    import { getCssDuration } from '@mielui/svelte/transition';
+    import { getCssDuration, springEase } from '@mielui/svelte/transition';
     import { cn } from '@mielui/svelte/utils';
     import { flip } from 'svelte/animate';
-    import { cubicOut } from 'svelte/easing';
     import type { ReorderListProps } from '.';
     import { setReorderList } from './context.svelte';
     import { createReorderGesture } from './gesture.svelte';
@@ -25,6 +24,7 @@
         ...rest
     }: ReorderListProps<T> = $props();
     const uid = $props.id();
+    const layoutSpring = springEase(550, 40);
 
     let listElement = $state<HTMLOListElement>();
     const gesture = createReorderGesture({
@@ -66,8 +66,10 @@
     ) {
         return flip(node, positions, {
             duration:
-                gesture.reduced || lifted ? 0 : getCssDuration(node, '--motion-duration-item', 180),
-            easing: cubicOut
+                gesture.reduced || lifted
+                    ? 0
+                    : getCssDuration(node, '--motion-duration-spring', 350),
+            easing: layoutSpring
         });
     }
 </script>

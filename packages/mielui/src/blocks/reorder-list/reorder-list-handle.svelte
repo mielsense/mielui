@@ -52,7 +52,11 @@
         ondragstart?.(event);
         event.preventDefault();
     }}
-    class={cn(className, 'flex size-7 shrink-0 touch-pinch-zoom select-none items-center justify-center rounded-[var(--radius-sm)] text-foreground-muted outline-none hover:text-foreground focus-visible:shadow-[var(--focus-ring)] disabled:cursor-not-allowed', root.lifted(item.id) ? 'cursor-grabbing' : 'cursor-grab')}
+    class={cn(
+        className,
+        'flex size-7 shrink-0 touch-pinch-zoom select-none items-center justify-center rounded-[var(--radius-sm)] text-foreground-muted outline-none transition-[background-color,color,box-shadow] [transition-duration:var(--motion-duration-hover)] ease-[var(--ease-out)] motion-reduce:transition-none enabled:hover:bg-[var(--color-wash)] enabled:hover:text-foreground focus-visible:shadow-[var(--focus-ring)] disabled:cursor-not-allowed',
+        root.lifted(item.id) ? 'cursor-grabbing bg-[var(--color-wash)] text-foreground' : 'cursor-grab'
+    )}
 >
     {#if children}
         {@render children()}

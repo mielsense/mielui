@@ -63,6 +63,11 @@
     </section>
     <section id="inset" class="flex flex-col gap-4">
         <Typography.H2>Inset</Typography.H2>
+        <Typography.Text>
+            The default table has no frame: muted column headings, hairline row dividers, and a wash
+            on the hovered row. Set variant="inset" on Root for a two-layer surface. Header and
+            Footer sit on a white frame, and the body rows sit on a recessed surface inside it.
+        </Typography.Text>
         <ComponentPreview code={InsetSource}><Inset /></ComponentPreview>
     </section>
     <section id="sorting-and-selection" class="flex flex-col gap-4">

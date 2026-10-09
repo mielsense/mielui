@@ -272,8 +272,8 @@ the same contracts; a visual exception must have a specific functional reason.
 - A frame attached to a viewport edge stays flush on that edge. Drawer floats a
   two-unit gap from its edge with all corners rounded.
 - Card takes `surface="glass"` and is solid by default. Glass frosts the frame
-  and leaves content on a solid inset. Explicit solid surfaces stay opaque,
-  including chart tooltips.
+  and keeps content on a contrasting translucent inset. Explicit solid surfaces
+  stay opaque, including chart tooltips.
 - Do not add a hardcoded white border, an inner ring, or a second shadow to a
   surface. The contracts already draw every edge.
 
@@ -379,8 +379,8 @@ the changelog; do not leave the next agent to infer them from one example.
 
 `chrome.borders` accepts `double` or `single` and defaults to `double`. Double
 gives every two-layer surface its gutter: dialogs, sheets, drawers, toasts,
-Notch, code blocks, diffs, inset tables, inset and panel cards, alerts, and
-composers. Single removes the gutter, so the inset meets the frame's border.
+Notch, code blocks, diffs, inset tables, inset and panel cards, and composers.
+Alert is a single plate and has no gutter. Single removes the gutter, so the inset meets the frame's border.
 Floating panels are always one layer.
 
 Shared frames scale their gutter and inner ring with
@@ -713,10 +713,12 @@ action at the end. Command separators follow the menu separator rule below.
 Menu separators are one hairline inset two spacing units from the panel's
 edges, including in submenus. Use them sparingly, between groups of items.
 
-Toolbar.Root is flat by default. Opt into depth with `variant="depth"`; its
-Button, Link, and Item inherit the choice. Toolbar depth uses the shared floating elevation for its shell and theme-owned
-`--mielui-toolbar-raised` relief for its keys. Selected tools use
-`--mielui-toolbar-pressed` and the background fill;
+Toolbar.Root is flat by default: a pill track in the secondary color with ghost
+keys, one traveling hover wash, and a neutral lit pill on selected keys. Opt
+into depth with `variant="depth"`; its Button, Link, and Item inherit the
+choice. Toolbar depth uses the shared floating elevation for its shell and theme-owned
+`--mielui-toolbar-raised` relief for its keys. Selected tools in the depth
+variant use `--mielui-toolbar-pressed` and the background fill;
 compose focus rings with that relief. Composer is the one two-layer surface
 with its layers the other way round: a recessed frame in the stage color holding
 a white writing surface, because a field is always white. Its primary border and
@@ -783,10 +785,8 @@ layout action, and override the token on a particular frame when its content
 requires a fixed order. Install command tabs and File Diff headers stay on top.
 DataTable inset mode frames only the table and its footer. The toolbar floats
 above the frame as plain controls with a gap, never inside it. Root lifts the
-Toolbar out of the frame the way an inset Card lifts its Footer. With the inset
-position at the bottom, the footer sits in the frame under the table. With it at
-the top, the footer joins the table's surface under a hairline and the table's
-bottom corners are square where they meet it.
+Toolbar out of the frame the way an inset Card lifts its Footer. The header row
+and the footer sit on the frame, and the body rows are the recessed inset.
 
 Every frame follows the border setting. Single borders remove the gutter from
 cards, dialogs, sheets, data tables, composers, toasts, code blocks and docs

@@ -149,13 +149,13 @@
     data-ui="code-block"
     class={cn(
         className,
-        '[--mielui-modal-inset:calc(var(--spacing)*var(--mielui-border-inset-scale,1))] mielui-inset-frame flex max-h-[var(--code-block-max-height)] w-full flex-col overflow-hidden text-foreground',
+        'mielui-inset-frame flex max-h-[var(--code-block-max-height)] w-full flex-col overflow-hidden text-foreground shadow-[var(--elevation-1)]',
         // token-lint-disable-next-line no-literal-length: code-block geometry contract
         '[--code-block-gutter:var(--color-foreground-muted)] [--code-block-padding-x:1.1rem] [--code-block-padding-y:0.9rem] [--code-block-line-height:1.7] [--code-block-max-height:min(32rem,70vh)] [--code-block-slide:1.25rem]'
     )}
     {...rest}
 >
-    <Tabs.Root bind:value variant="segmented" class="contents">
+    <Tabs.Root bind:value variant="ghost" class="contents">
         <div class="contents" use:insetLayout>
             {#if isHighLevel}
                 {#if hasTabRow || actions || copy === 'actionbar'}
@@ -175,9 +175,7 @@
 				     panels slide inside it (and clips the slide). -->
                     <div
                         data-ui="code-block-surface"
-                        class={cn(
-                        'mielui-inset-surface relative flex min-h-0 w-full self-stretch flex-1 overflow-auto'
-                    )}
+                        class="mielui-inset-surface relative flex min-h-0 w-full flex-1 self-stretch overflow-auto"
                     >
                         {#if hasTabRow}
                             {#each resolvedTabs as t (t.value)}

@@ -42,13 +42,13 @@
 
     const linkClasses = [
         'group/folder-card outline-none',
-        'transition-[border-color,box-shadow] duration-[var(--motion-duration-hover)] ease-[var(--ease-out)] motion-reduce:transition-none',
+        'transition-[border-color,box-shadow] [transition-duration:var(--motion-duration-hover)] ease-[var(--ease-out)] motion-reduce:transition-none',
         'hover:border-border-strong focus-visible:shadow-[var(--focus-ring),var(--elevation-1)]'
     ];
 
     const buttonClasses = [
         'group/folder-card relative',
-        'transition-[border-color,box-shadow] duration-[var(--motion-duration-hover)] ease-[var(--ease-out)] motion-reduce:transition-none',
+        'transition-[border-color,box-shadow] [transition-duration:var(--motion-duration-hover)] ease-[var(--ease-out)] motion-reduce:transition-none',
         'hover:border-border-strong has-[[data-ui=folder-card-action]:focus-visible]:shadow-[var(--focus-ring),var(--elevation-1)]'
     ];
 </script>

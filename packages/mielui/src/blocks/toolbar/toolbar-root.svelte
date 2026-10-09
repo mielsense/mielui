@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { cn } from '@mielui/svelte/utils';
+    import { cn, travelingHighlight } from '@mielui/svelte/utils';
     import { Toolbar as Primitive } from 'bits-ui';
     import type { ToolbarRootProps } from '.';
     import { setToolbarOrientation, setToolbarVariant } from './context';
@@ -14,6 +14,28 @@
     }: ToolbarRootProps = $props();
     setToolbarOrientation(() => orientation);
     setToolbarVariant(() => variant);
+
+    const shell =
+        'flex items-center gap-1 rounded-[min(var(--radius-control),calc(var(--size-control-sm)/2+var(--spacing)))] p-1 text-foreground';
+    const flat =
+        'mielui-collection-surface bg-secondary [&>.mielui-item-highlight]:rounded-[var(--radius-control)]';
+    const depth =
+        'gap-2 border-[length:var(--border-size)] border-border bg-card shadow-[var(--elevation-float)]';
+
+    $effect(() => {
+        if (!element || variant === 'depth') {
+            return;
+        }
+        const highlight = travelingHighlight(element, {
+            itemSelector:
+                '[data-ui=toolbar-item], [data-ui=toolbar-button], [data-ui=toolbar-link]',
+            restingSelector: '[data-toolbar-highlight-rest]'
+        });
+
+        return () => {
+            highlight.destroy?.();
+        };
+    });
 </script>
 <Primitive.Root
     {...rest}
@@ -21,7 +43,12 @@
     {orientation}
     data-ui="toolbar"
     data-variant={variant}
-    class={cn(className, variant === 'depth' ? 'flex items-center gap-2 rounded-[calc(var(--radius-lg)+var(--spacing))] border-[length:var(--border-size)] border-border bg-card p-1 text-foreground shadow-[var(--elevation-float)]' : 'flex items-center gap-1 rounded-[var(--radius-lg)] p-1.5 text-foreground', orientation === 'vertical' && 'flex-col')}
+    class={cn(
+        className,
+        variant === 'depth' ? depth : flat,
+        shell,
+        orientation === 'vertical' && 'flex-col'
+    )}
 >
     {@render children?.()}
 </Primitive.Root>

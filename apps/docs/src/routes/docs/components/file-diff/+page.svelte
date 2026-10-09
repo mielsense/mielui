@@ -63,10 +63,10 @@
     <section id="usage" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Usage</Typography.H2>
         <Typography.Text variant="supporting">
-            The theme setting chrome.borders chooses "single" or "double" framing. Single is the
-            default. Single removes the extra frame while preserving content padding, composition,
-            and inset variants. The filename and change counts stay above the diff, independently of
-            the theme's inset strip position.
+            The theme setting chrome.borders chooses "double" or "single" framing. Double is the
+            default: a white frame with a gutter around the recessed diff. Single removes the gutter
+            while preserving content padding and composition. The filename and change counts stay
+            above the diff, independently of the theme's inset strip position.
         </Typography.Text>
         <Typography.Text variant="supporting">
             Pass a{' '}

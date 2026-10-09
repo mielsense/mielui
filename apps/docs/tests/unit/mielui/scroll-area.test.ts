@@ -159,6 +159,7 @@ describe('ScrollArea -- edge cues', () => {
 
         expect(root.className).toContain('overflow-hidden');
         expect(viewport.className).toContain('rounded-[inherit]');
+        expect(viewport.className).toContain('[mask-composite:intersect]');
         expect(topCue.className).toContain('backdrop-blur-sm');
         expect(topCue.className).toContain('-top-px');
         expect(topCue.className).toContain('rounded-t-[inherit]');
@@ -194,8 +195,11 @@ describe('ScrollArea -- edge cues', () => {
             viewport.querySelectorAll<HTMLElement>('[aria-hidden="true"] > div')
         )) {
             expect(cue.className.split(/\s+/)).not.toContain('backdrop-blur-sm');
-            expect(cue.className).toContain('bg-[linear-gradient(');
         }
+        expect(viewport.className).toContain(
+            '[mask-image:linear-gradient(to_bottom,transparent,black_var(--scroll-area-fade)),linear-gradient(to_top,transparent,black_var(--scroll-area-fade))]'
+        );
+        expect(viewport.className).toContain('[--scroll-area-fade-top:0]');
     });
 });
 

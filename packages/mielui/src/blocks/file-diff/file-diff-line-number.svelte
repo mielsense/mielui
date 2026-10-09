@@ -19,7 +19,7 @@
     aria-hidden="true"
     class={cn(
         className,
-        'w-full shrink-0 truncate pr-2 text-right font-medium tabular-nums select-none',
+        'w-full shrink-0 truncate pe-2 text-end tabular-nums select-none',
         toneClass
     )}
     {...rest}

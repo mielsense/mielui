@@ -13,13 +13,23 @@
         ...rest
     }: ToolbarItemProps = $props();
     const variant = getToolbarVariant();
-    const controlClass = $derived(
-        cn(className, toolbarControlClass(variant()), button({ variant: 'quiet', size: 'sm' }))
-    );
 </script>
 <Primitive.GroupItem {...rest} bind:ref={element}>
     {#snippet child({ props, pressed })}
-        <button type="button" {...props} use:pressable data-ui="toolbar-item" class={controlClass}>
+        <button
+            type="button"
+            {...props}
+            use:pressable
+            data-ui="toolbar-item"
+            class={cn(
+                className,
+                toolbarControlClass(variant(), pressed),
+                button({
+                    variant: 'quiet',
+                    size: 'sm'
+                })
+            )}
+        >
             {@render children?.({ pressed })}
         </button>
     {/snippet}

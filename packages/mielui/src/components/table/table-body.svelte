@@ -8,7 +8,10 @@
 <tbody
     {...rest}
     data-ui="table-body"
-    class={cn(className, '[&>tr:not(:last-child)>*]:border-b [&>tr:not(:last-child)>*]:border-border')}
+    class={cn(
+        className,
+        '[&>tr:not(:last-child)>*]:border-b-[length:var(--border-size)] [&>tr:not(:last-child)>*]:border-border'
+    )}
 >
     {@render children?.()}
 </tbody>

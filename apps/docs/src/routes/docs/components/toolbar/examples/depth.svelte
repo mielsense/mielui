@@ -57,7 +57,7 @@
                         <Toolbar.Item
                             value={tool.id}
                             aria-label={tool.label}
-                            class="relative size-8 shrink-0 p-0"
+                            class="size-8 shrink-0 p-0"
                         >
                             <HugeiconsIcon
                                 icon={tool.icon}
@@ -66,12 +66,6 @@
                                 aria-hidden="true"
                             />
                             <span class="sr-only"><Kbd shortcut={tool.shortcut} /></span>
-                            {#if activeTool === tool.id}
-                                <span
-                                    class="absolute end-1 top-1 size-1 rounded-full bg-primary"
-                                    aria-hidden="true"
-                                ></span>
-                            {/if}
                         </Toolbar.Item>
                     </Tooltip.Trigger>
                     <Tooltip.Content

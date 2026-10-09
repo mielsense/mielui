@@ -32,7 +32,7 @@
         title={hint}
         class={cn(
             className,
-            'group/sort -mx-1.5 inline-flex min-h-8 cursor-pointer items-center gap-1.5 rounded-[var(--radius-sm)] px-1.5 text-start font-medium text-foreground-muted outline-none transition-colors [transition-duration:var(--motion-duration-hover)] hover:bg-foreground/[0.06] hover:text-foreground focus-visible:shadow-[var(--focus-ring)] data-sorted:text-foreground motion-reduce:transition-none'
+            'group/sort -mx-2 inline-flex min-h-[calc(var(--spacing)*7)] items-center gap-1.5 rounded-[var(--radius-control)] px-2 text-start font-medium text-foreground-muted outline-none transition-[background-color,color,box-shadow] [transition-duration:var(--motion-duration-hover)] hover:cursor-[var(--ui-cursor-interactive)] hover:bg-[var(--color-wash)] hover:text-foreground focus-visible:shadow-[var(--focus-ring)] data-sorted:text-foreground motion-reduce:transition-none'
         )}
         onclick={(event) => {
             column.toggleSorting?.(undefined, event.shiftKey);

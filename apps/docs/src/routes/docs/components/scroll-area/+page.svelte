@@ -61,17 +61,19 @@
             Import the Scroll Area and use it to wrap content:
         </Typography.Text>
         <CodeBlock
-            code={`import { ScrollArea } from '@mielui/svelte/components/scroll-area';\n\n<ScrollArea class="h-48 w-64 rounded-lg border">\n  <div>Your content here</div>\n</ScrollArea>`}
+            code={`import { ScrollArea } from '@mielui/svelte/components/scroll-area';\n\n<ScrollArea class="h-48 w-64">\n  <div>Your content here</div>\n</ScrollArea>`}
             lang="svelte"
             copy="overlay"
         />
 
         <Typography.Text variant="supporting">
-            A vertical Scroll Area fades its overflowing edges with a blurred cue. Pass{' '}
+            A vertical Scroll Area fades its overflowing edges into whatever surface it sits on and
+            blurs the content passing under them. The scrollbar thumb stays hidden until the area is
+            hovered, focused, or scrolled. Pass{' '}
             <Typography.InlineCode>{'showCues={false}'}</Typography.InlineCode>
             to drop the cues entirely, or{' '}
             <Typography.InlineCode>{'blur={false}'}</Typography.InlineCode>
-            to keep the fade and chevrons without a backdrop filter.
+            to keep the fade without a backdrop filter.
         </Typography.Text>
     </section>
 
@@ -95,8 +97,8 @@
             <Typography.Text variant="supporting">
                 The cue blurs the content passing under it. Pass{' '}
                 <Typography.InlineCode>{'blur={false}'}</Typography.InlineCode>
-                to keep the fade and chevrons without a backdrop filter, which is worth doing over
-                long or animated content.
+                to keep the fade without a backdrop filter, which is worth doing over long or
+                animated content.
             </Typography.Text>
             <ComponentPreview code={BlurSrc}>
                 <Blur />

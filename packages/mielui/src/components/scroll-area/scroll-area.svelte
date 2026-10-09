@@ -1,10 +1,5 @@
 <script lang="ts">
-    import {
-        ArrowDown01Icon as ChevronDown,
-        ArrowUp01Icon as ChevronUp
-    } from '@hugeicons/core-free-icons';
     import { cn } from '@mielui/svelte/utils';
-    import HugeiconsIcon from '../../hugeicons-icon.svelte';
     import type { ScrollAreaProps } from '.';
 
     let {
@@ -23,6 +18,8 @@
     let clientHeight = $state(0);
     let scrollWidth = $state(0);
     let clientWidth = $state(0);
+    let scrolling = $state(false);
+    let scrollTimer: ReturnType<typeof setTimeout> | undefined;
 
     const atTop = $derived(scrollTop <= 1);
     const atBottom = $derived(scrollTop + clientHeight >= scrollHeight - 1);
@@ -34,6 +31,14 @@
     );
     const cuesVisible = $derived(showCues && orientation === 'vertical' && overflows);
     const blurClass = $derived(blur ? 'backdrop-blur-sm' : undefined);
+
+    function markScrolling() {
+        scrolling = true;
+        clearTimeout(scrollTimer);
+        scrollTimer = setTimeout(() => {
+            scrolling = false;
+        }, 800);
+    }
 
     function measure() {
         if (!element) {
@@ -75,6 +80,7 @@
         mutationObserver.observe(viewport, { childList: true, subtree: true, characterData: true });
         syncChildren();
         return () => {
+            clearTimeout(scrollTimer);
             mutationObserver.disconnect();
             resizeObserver.disconnect();
         };
@@ -89,11 +95,21 @@
     <div
         bind:this={element}
         data-ui="scroll-area-viewport"
+        data-scrolling={scrolling || undefined}
         class={cn(
-            'relative min-h-0 min-w-0 w-full flex-1 rounded-[inherit] [scrollbar-color:color-mix(in_srgb,var(--color-foreground)_22%,transparent)_transparent] [scrollbar-width:thin]',
+            'relative min-h-0 min-w-0 w-full flex-1 rounded-[inherit] [scrollbar-color:transparent_transparent] [scrollbar-width:thin] hover:[scrollbar-color:var(--color-border-strong)_transparent] focus-visible:[scrollbar-color:var(--color-border-strong)_transparent] data-scrolling:[scrollbar-color:var(--color-border-strong)_transparent]',
             '[&::-webkit-scrollbar]:size-2.5 [&::-webkit-scrollbar-track]:bg-transparent',
-            '[&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:border-2 [&::-webkit-scrollbar-thumb]:border-transparent [&::-webkit-scrollbar-thumb]:bg-[color-mix(in_srgb,var(--color-foreground)_18%,transparent)] [&::-webkit-scrollbar-thumb]:bg-clip-padding',
-            '[&::-webkit-scrollbar-thumb:hover]:bg-[color-mix(in_srgb,var(--color-foreground)_32%,transparent)] [&::-webkit-scrollbar-thumb:hover]:bg-clip-padding',
+            '[&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:border-2 [&::-webkit-scrollbar-thumb]:border-transparent [&::-webkit-scrollbar-thumb]:bg-[var(--color-border-strong)] [&::-webkit-scrollbar-thumb]:bg-clip-padding',
+            cuesVisible &&
+                '[--scroll-area-fade:calc(var(--spacing)*9)] [mask-image:linear-gradient(to_bottom,transparent,black_var(--scroll-area-fade)),linear-gradient(to_top,transparent,black_var(--scroll-area-fade))] [mask-composite:intersect] [mask-repeat:no-repeat] [mask-size:100%_calc(100%+var(--scroll-area-fade))] [mask-position:0_var(--scroll-area-fade-top),0_var(--scroll-area-fade-bottom)] transition-[mask-position] [transition-duration:var(--motion-duration-hover)] ease-[var(--ease-out)] motion-reduce:transition-none',
+            cuesVisible &&
+                (atTop
+                    ? '[--scroll-area-fade-top:calc(var(--scroll-area-fade)*-1)]'
+                    : '[--scroll-area-fade-top:0]'),
+            cuesVisible &&
+                (atBottom
+                    ? '[--scroll-area-fade-bottom:0]'
+                    : '[--scroll-area-fade-bottom:calc(var(--scroll-area-fade)*-1)]'),
             orientation === 'horizontal'
                 ? 'max-w-[inherit] overflow-x-auto overflow-y-hidden'
                 : orientation === 'vertical'
@@ -103,6 +119,7 @@
         )}
         onscroll={(event) => {
             measure();
+            markScrolling();
             onscroll?.(event);
         }}
         {...rest}
@@ -111,17 +128,11 @@
             <div aria-hidden="true" class="sticky top-0 z-10 h-0">
                 <div
                     class={cn(
-                        'pointer-events-none absolute inset-x-0 -top-px flex h-7 items-start justify-center rounded-t-[inherit] bg-[linear-gradient(to_bottom,color-mix(in_srgb,var(--color-panel)_96%,transparent),transparent)] [-webkit-mask-image:linear-gradient(to_bottom,black_0%,black_40%,transparent_100%)] [mask-image:linear-gradient(to_bottom,black_0%,black_40%,transparent_100%)] transition-opacity [transition-duration:var(--motion-duration-hover)] motion-reduce:transition-none',
+                        'pointer-events-none absolute inset-x-0 -top-px h-9 rounded-t-[inherit] [-webkit-mask-image:linear-gradient(to_bottom,black_0%,black_40%,transparent_100%)] [mask-image:linear-gradient(to_bottom,black_0%,black_40%,transparent_100%)] transition-opacity [transition-duration:var(--motion-duration-hover)] motion-reduce:transition-none',
                         blurClass,
                         atTop ? 'opacity-0' : 'opacity-100'
                     )}
-                >
-                    <HugeiconsIcon
-                        icon={ChevronUp}
-                        size={13}
-                        class="mt-0.5 text-foreground-muted"
-                    />
-                </div>
+                ></div>
             </div>
         {/if}
 
@@ -131,17 +142,11 @@
             <div aria-hidden="true" class="sticky bottom-0 z-10 h-0">
                 <div
                     class={cn(
-                        'pointer-events-none absolute inset-x-0 -bottom-px flex h-7 items-end justify-center rounded-b-[inherit] bg-[linear-gradient(to_top,color-mix(in_srgb,var(--color-panel)_96%,transparent),transparent)] [-webkit-mask-image:linear-gradient(to_top,black_0%,black_40%,transparent_100%)] [mask-image:linear-gradient(to_top,black_0%,black_40%,transparent_100%)] transition-opacity [transition-duration:var(--motion-duration-hover)] motion-reduce:transition-none',
+                        'pointer-events-none absolute inset-x-0 -bottom-px h-9 rounded-b-[inherit] [-webkit-mask-image:linear-gradient(to_top,black_0%,black_40%,transparent_100%)] [mask-image:linear-gradient(to_top,black_0%,black_40%,transparent_100%)] transition-opacity [transition-duration:var(--motion-duration-hover)] motion-reduce:transition-none',
                         blurClass,
                         atBottom ? 'opacity-0' : 'opacity-100'
                     )}
-                >
-                    <HugeiconsIcon
-                        icon={ChevronDown}
-                        size={13}
-                        class="mb-0.5 text-foreground-muted"
-                    />
-                </div>
+                ></div>
             </div>
         {/if}
     </div>

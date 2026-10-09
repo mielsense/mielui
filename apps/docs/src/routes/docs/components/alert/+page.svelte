@@ -4,7 +4,8 @@
     import { ComponentPreview, InstallCommand } from '$lib/components/docs';
     import InlineText from '$lib/components/docs/inline-text.svelte';
     import PageIntro from '$lib/components/docs/page-intro.svelte';
-
+    import Action from './examples/action.svelte';
+    import ActionSrc from './examples/action.svelte?raw';
     import Hero from './examples/hero.svelte';
     import HeroSrc from './examples/hero.svelte?raw';
 
@@ -24,7 +25,7 @@
     </title>
     <meta
         name="description"
-        content="Inset callouts for inline status, confirmation, and warnings."
+        content="Notice strips for inline status, confirmation, and warnings."
     />
 </svelte:head>
 
@@ -51,9 +52,11 @@
     <section id="usage" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Usage</Typography.H2>
         <Typography.Text variant="supporting">
-            The theme setting chrome.borders chooses "single" or "double" framing. Single is the
-            default. Single removes the extra frame while preserving content padding, composition,
-            and inset variants.
+            An alert is a notice strip: one white plate with a hairline edge, a medium-weight Title,
+            and a muted Description. The variant tints the icon only. It never fills the plate or
+            colors its border. Put one button or link directly inside Root for a single follow-up
+            action. It sits at the end of the strip, and moves under the text when the alert is
+            narrow.
         </Typography.Text>
         <Typography.Text variant="supporting">
             Set{' '}
@@ -92,6 +95,15 @@
         <div id="variants" class="scroll-mt-20 flex flex-col gap-3">
             <Typography.H3 class="docs-subsection-heading">Status tones</Typography.H3>
             <ComponentPreview code={VariantsSrc}><Variants /></ComponentPreview>
+        </div>
+
+        <div id="action" class="scroll-mt-20 flex flex-col gap-3">
+            <Typography.H3 class="docs-subsection-heading">With an action</Typography.H3>
+            <Typography.Text variant="supporting">
+                A button or link placed directly in Root becomes the strip's one action. Keep it
+                secondary, and name what it does.
+            </Typography.Text>
+            <ComponentPreview code={ActionSrc}><Action /></ComponentPreview>
         </div>
     </section>
     <section id="parts" class="flex flex-col gap-4">

@@ -5,7 +5,7 @@ export const manifest: Manifest = {
     version: '1.0.0',
     visibility: 'public',
     description:
-        'Inset callout with separate visual variant and optional polite or assertive announcements.',
+        'Notice strip with separate visual variant and optional polite or assertive announcements.',
     role: 'alert',
     files: [
         'components/alert/alert.svelte',

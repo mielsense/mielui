@@ -72,9 +72,7 @@ const worker = {
             {streaming ? 'Stop stream' : content ? 'Replay response' : 'Start response'}
         </Button>
     </div>
-    <div
-        class="max-h-112 min-h-52 overflow-y-auto rounded-[var(--radius-xl)] border-[length:var(--border-size)] border-border bg-card p-5"
-    >
+    <div class="mielui-plate max-h-112 min-h-52 overflow-y-auto p-5">
         <Markdown {content} {streaming} />
     </div>
 </div>

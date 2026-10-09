@@ -186,10 +186,10 @@
         <Typography.Text>
             Set variant="inset" on Root to frame the table with its footer. Toolbar floats above the
             frame as plain controls, wherever you place it inside Root. Place Summary and Pagination
-            in a div with data-ui="data-table-footer" for the strip under the table. A theme with
-            the inset position at the top joins that footer to the table's surface instead. The
-            children snippet lets you omit the toolbar, reorder controls, or replace cells.
-            Pagination uses the shared Pagination component for known page counts.
+            in a div with data-ui="data-table-footer" for the strip under the table. Column headings
+            and that footer sit on the white frame, and the rows sit on the recessed surface between
+            them. The children snippet lets you omit the toolbar, reorder controls, or replace
+            cells. Pagination uses the shared Pagination component for known page counts.
         </Typography.Text>
         <ComponentPreview code={InsetSrc}><Inset /></ComponentPreview>
     </section>

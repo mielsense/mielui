@@ -60,10 +60,7 @@
         onValueChange={updateValue}
         data-ui="accordion"
         data-type={type}
-        class={cn(
-        className,
-        'divide-y-[length:var(--border-size)] divide-border'
-    )}
+        class={cn(className, 'divide-y-[length:var(--border-size)] divide-border')}
         {...attributes}
     >
         {@render children?.()}
@@ -74,10 +71,7 @@
         bind:value={singleValue, updateValue}
         data-ui="accordion"
         data-type={type}
-        class={cn(
-        className,
-        'divide-y-[length:var(--border-size)] divide-border'
-    )}
+        class={cn(className, 'divide-y-[length:var(--border-size)] divide-border')}
         {...attributes}
     >
         {@render children?.()}

@@ -14,8 +14,10 @@
 
     const blur =
         'backdrop-blur-[calc(var(--spacing)*7)] backdrop-saturate-150 [@media(prefers-reduced-transparency:reduce)]:backdrop-filter-none';
-    const frameGlass = `${blur} border-foreground/10! supports-[backdrop-filter:blur(0)]:bg-foreground/[0.06]! supports-[backdrop-filter:blur(0)]:dark:bg-black/45! supports-[backdrop-filter:blur(0)]:bg-[linear-gradient(rgb(255_255_255/0.25),rgb(255_255_255/0.25))] supports-[backdrop-filter:blur(0)]:dark:bg-none [@media(prefers-reduced-transparency:reduce)]:bg-none [@media(prefers-reduced-transparency:reduce)]:bg-secondary!`;
-    const surfaceGlass = `${blur} border-foreground/10! supports-[backdrop-filter:blur(0)]:bg-card/75! [@media(prefers-reduced-transparency:reduce)]:bg-card!`;
+    const frameGlass = `${blur} supports-[backdrop-filter:blur(0)]:bg-card/60 [@media(prefers-reduced-transparency:reduce)]:bg-card`;
+    const insetGlass =
+        'supports-[backdrop-filter:blur(0)]:bg-background/70 [@media(prefers-reduced-transparency:reduce)]:bg-background';
+    const surfaceGlass = `${blur} supports-[backdrop-filter:blur(0)]:bg-card/70 [@media(prefers-reduced-transparency:reduce)]:bg-card`;
     const glass = $derived(surface === 'glass');
     const card = $state({
         get variant() {
@@ -41,7 +43,7 @@
     >
         <div
             data-ui="card-surface"
-            class={cn('mielui-inset-surface flex min-h-0 flex-1 flex-col p-6')}
+            class={cn('mielui-inset-surface flex min-h-0 flex-1 flex-col p-6', glass && insetGlass)}
         >
             {@render children?.()}
         </div>
@@ -51,7 +53,7 @@
                 data-ui="card-footer"
                 class={cn(
                     card.footerSlot?.className,
-                    'flex w-full flex-row items-center justify-end gap-2 px-1 py-1.5'
+                    'flex w-full flex-row flex-wrap items-center justify-end gap-2 px-1.5 py-1.5'
                 )}
             >
                 {@render card.footerSlot?.children?.()}
@@ -68,7 +70,7 @@
     >
         <div
             data-ui="card-surface"
-            class={cn('mielui-card-surface flex min-h-0 flex-1 flex-col p-6')}
+            class={cn('mielui-card-surface flex min-h-0 flex-1 flex-col p-6', glass && insetGlass)}
         >
             {@render children?.()}
         </div>
@@ -81,7 +83,7 @@
         {...rest}
         class={cn(
             classProp,
-            'flex flex-col rounded-[var(--radius-lg)] border-[length:var(--border-size)] border-border bg-card p-6',
+            'mielui-plate flex flex-col p-6',
             glass && surfaceGlass
         )}
     >

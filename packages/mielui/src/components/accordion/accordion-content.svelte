@@ -1,8 +1,8 @@
 <script lang="ts">
-    import { themedSlide } from '@mielui/svelte/transition';
     import { cn } from '@mielui/svelte/utils';
     import { Accordion as BitsAccordion } from 'bits-ui';
     import { onDestroy, untrack } from 'svelte';
+    import { disclosureSlide } from '../_internal/disclosure/slide';
     import type { AccordionContentProps } from '.';
     import { getAccordionItemContext } from './item-context';
 
@@ -31,13 +31,13 @@
                 role={item.trigger ? 'region' : undefined}
                 aria-labelledby={item.trigger?.()}
                 data-state="open"
-                transition:themedSlide={{ durationVar: '--motion-duration-panel', fallback: 220 }}
+                transition:disclosureSlide
                 class={cn(
-            className,
-            'overflow-hidden [font-size:var(--font-size-body)] [font-weight:var(--font-weight-body)] [letter-spacing:var(--tracking-body)] text-foreground-muted'
-        )}
+                    className,
+                    'overflow-hidden [font-size:var(--font-size-body)] [font-weight:var(--font-weight-body)] [letter-spacing:var(--tracking-body)] leading-relaxed text-pretty text-foreground-muted'
+                )}
             >
-                <div class="px-2 pt-1 pb-2">
+                <div class="px-2 pt-0.5 pb-3">
                     {@render children?.()}
                 </div>
             </div>
