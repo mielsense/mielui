@@ -10,9 +10,9 @@ export type SidebarKind = 'docs' | 'studio';
 
 /** Sidebar widths in pixels: what each starts at, and how far it can be dragged. */
 export const sidebarWidths = {
-    docs: 296,
+    docs: 240,
     studio: 336,
-    min: 240,
+    min: 200,
     max: 520
 };
 

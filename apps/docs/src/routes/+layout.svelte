@@ -11,8 +11,9 @@
     import Header from '$lib/components/shell/header.svelte';
     import PageDock from '$lib/components/shell/page-dock.svelte';
     import { usesDocsSidebar } from '$lib/components/shell/page-icon';
+    import Rail from '$lib/components/shell/rail.svelte';
     import ScrollEdge from '$lib/components/shell/scroll-edge.svelte';
-    import { fadeY, scrollFade } from '$lib/components/shell/scroll-fade';
+    import { fadeYStart, scrollFade } from '$lib/components/shell/scroll-fade';
     import SectionTrail from '$lib/components/shell/section-trail.svelte';
     import { createShell, setShell } from '$lib/components/shell/shell.svelte';
     import Sidebar from '$lib/components/shell/sidebar.svelte';
@@ -118,70 +119,84 @@
         {@render children?.()}
     </main>
 {:else if isHome}
-    <main class="min-h-dvh w-full bg-background">
-        {@render children?.()}
+    <main
+        class="min-h-dvh w-screen bg-background [--docs-rule:var(--color-border)] [--docs-soft:var(--color-wash)]"
+    >
+        <div class="relative mx-auto flex min-h-dvh w-full max-w-none flex-col">
+            {@render children?.()}
+        </div>
     </main>
 {:else}
     <main
-        class="fixed inset-0 flex flex-col overflow-clip bg-background [--docs-row-height:calc(var(--spacing)*14)] [--docs-content:var(--color-card)] [--docs-pill:var(--color-wash)] [--docs-rule:var(--color-border)] [--docs-side:var(--color-background)] [--docs-soft:var(--color-wash)]"
+        class="fixed inset-0 isolate flex overflow-clip [--docs-row-height:calc(var(--spacing)*14)] [--docs-content:var(--color-card)] [--docs-pill:var(--color-wash)] [--docs-rule:var(--color-border)] [--docs-side:var(--color-card)] [--docs-soft:var(--color-wash)]"
     >
-        <Header starCount={data.starCount ?? null}>
-            {#snippet leading()}
-                <NavigationSheet />
-            {/snippet}
-        </Header>
-        <div class="flex min-h-0 min-w-0 flex-1 overflow-clip px-1.5 pb-1.5 sm:px-2 sm:pb-2">
-            {#if isThemeStudio}
-                {@render children?.()}
-            {:else}
-                {#if hasSidebar}
-                    <Sidebar label="Documentation">
-                        <Navigation />
-                        {#snippet footer()}
-                            <SidebarCard />
-                        {/snippet}
-                    </Sidebar>
-                {/if}
-                <div
-                    data-shell-plate
-                    class="mielui-plate relative flex min-h-0 min-w-0 flex-1 flex-col overflow-clip"
-                >
-                    {#if isDocs}
-                        <div bind:this={docsScrollEl} class="min-h-0 min-w-0 flex-1">
-                            {@render children?.()}
-                        </div>
+        <div aria-hidden="true" class="absolute inset-0 -z-10 bg-[#060606]"></div>
+        <Rail starCount={data.starCount ?? null} />
+        <div class="flex min-h-0 min-w-0 flex-1 flex-col">
+            <div class="dark text-foreground lg:hidden">
+                <Header starCount={data.starCount ?? null}>
+                    {#snippet leading()}
+                        <NavigationSheet />
+                    {/snippet}
+                </Header>
+            </div>
+            <div
+                class="flex min-h-0 min-w-0 flex-1 overflow-clip px-1.5 pb-1.5 sm:px-2 sm:pb-2 lg:ps-0 lg:pt-2"
+            >
+                <div class="mielui-plate flex min-h-0 min-w-0 flex-1 overflow-clip">
+                    {#if isThemeStudio}
+                        {@render children?.()}
                     {:else}
-                        <div class="relative min-h-0 min-w-0 flex-1">
-                            <div
-                                bind:this={docsScrollEl}
-                                {@attach scrollFade({ size: 44, target: 'parent' })}
-                                class={`h-full overflow-y-auto overscroll-contain ${fadeY}`}
-                            >
-                                <div
-                                    class="flex w-full flex-col gap-5 px-5 pt-8 pb-24 sm:px-10 lg:flex-row lg:gap-0"
-                                >
+                        {#if hasSidebar}
+                            <Sidebar label="Documentation">
+                                <Navigation />
+                                {#snippet footer()}
+                                    <SidebarCard />
+                                {/snippet}
+                            </Sidebar>
+                        {/if}
+                        <div
+                            data-shell-plate
+                            class="relative flex min-h-0 min-w-0 flex-1 flex-col overflow-clip"
+                        >
+                            {#if isDocs}
+                                <div bind:this={docsScrollEl} class="min-h-0 min-w-0 flex-1">
                                     {@render children?.()}
                                 </div>
-                            </div>
-                            <ScrollEdge edge="top" />
-                            <ScrollEdge edge="bottom" />
+                            {:else}
+                                <div class="relative min-h-0 min-w-0 flex-1">
+                                    <div
+                                        bind:this={docsScrollEl}
+                                        {@attach scrollFade({ size: 44, target: 'parent' })}
+                                        class={`h-full overflow-y-auto overscroll-contain ${fadeYStart}`}
+                                    >
+                                        <div
+                                            class="flex w-full flex-col gap-5 px-5 pt-8 pb-24 sm:px-10 lg:flex-row lg:gap-0"
+                                        >
+                                            {@render children?.()}
+                                        </div>
+                                    </div>
+                                    <ScrollEdge edge="top" />
+                                    <ScrollEdge edge="bottom" fill />
+                                </div>
+                            {/if}
+                            {#if isDocs && page.status < 400}
+                                <div
+                                    class="absolute end-3 top-3 z-30 hidden h-10 items-center gap-1 rounded-[calc(var(--radius-control)+var(--spacing))] border-[length:var(--border-size)] border-border bg-card/75 p-1 shadow-[var(--elevation-float)] backdrop-blur-xl backdrop-saturate-150 sm:flex [@media(prefers-reduced-transparency:reduce)]:bg-card"
+                                >
+                                    <div class="hidden min-w-0 lg:block">
+                                        <SectionTrail />
+                                    </div>
+                                    <CopyPage />
+                                </div>
+                            {/if}
+                            {#if hasSidebar}
+                                <PageDock />
+                            {/if}
                         </div>
-                    {/if}
-                    {#if isDocs && page.status < 400}
-                        <div
-                            class="absolute end-3 top-3 z-30 hidden h-10 items-center gap-1 rounded-[var(--radius-control)] border-[length:var(--border-size)] border-border bg-card/75 p-1 shadow-[var(--elevation-float)] backdrop-blur-xl backdrop-saturate-150 sm:flex [@media(prefers-reduced-transparency:reduce)]:bg-card"
-                        >
-                            <div class="hidden min-w-0 lg:block">
-                                <SectionTrail />
-                            </div>
-                            <CopyPage />
-                        </div>
-                    {/if}
-                    {#if hasSidebar}
-                        <PageDock />
                     {/if}
                 </div>
-            {/if}
+            </div>
         </div>
     </main>
 {/if}

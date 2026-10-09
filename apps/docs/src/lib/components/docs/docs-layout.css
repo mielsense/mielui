@@ -62,11 +62,6 @@
     @apply mt-8;
 }
 
-/* Prose keeps a readable measure while previews, code, and rows use the full column. */
-.docs-article :is([data-docs-page] > section, #examples > [id]) > p {
-    @apply max-w-[44rem];
-}
-
 .docs-article :is(#examples, #api-reference) h3:not([data-component-preview] h3) {
     @apply text-[15px] leading-6 font-medium text-foreground;
 }

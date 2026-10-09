@@ -101,7 +101,10 @@
             {#each links as link (link.label)}
                 {@render resource(link.label, link.href)}
             {/each}
-            <div role="separator" class="mx-2 my-0.5 h-[length:var(--border-size)] bg-border"></div>
+            <div
+                role="separator"
+                class="-mx-1 my-0.5 h-[length:var(--border-size)] bg-border"
+            ></div>
             {@render resource('View as Markdown', markdownPath)}
         </nav>
     </Popover.Content>

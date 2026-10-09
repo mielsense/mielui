@@ -19,7 +19,7 @@
         {title}
     </h1>
     {#if children}
-        <div class="max-w-[44rem] text-[1.0625rem] leading-7 text-foreground-muted">
+        <div class="text-[1.0625rem] leading-7 text-foreground-muted">
             {@render children()}
         </div>
     {/if}

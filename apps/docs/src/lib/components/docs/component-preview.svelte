@@ -107,7 +107,7 @@
                                             icon={RefreshCw}
                                             size={15}
                                             class={previewVersion > 0
-                                                ? 'animate-[spin_360ms_ease-out_1] motion-reduce:animate-none'
+                                                ? 'animate-[spin_var(--motion-duration-spring)_var(--ease-out)_1] motion-reduce:animate-none'
                                                 : undefined}
                                         />
                                     {/key}

@@ -3,6 +3,8 @@
     import { Button } from '@mielui/svelte/components/button';
     import * as Tooltip from '@mielui/svelte/components/tooltip';
     import HugeiconsIcon from '@mielui/svelte/hugeicons-icon';
+    import { getCssDuration, springEase } from '@mielui/svelte/transition';
+    import { flip } from 'svelte/animate';
     import { resolve } from '$app/paths';
     import { page } from '$app/state';
     import { getBreadcrumbs } from '$lib/components/docs/breadcrumbs';
@@ -24,6 +26,12 @@
     ]);
     const tabs = $derived(shell.tabs.tabs.length ? shell.tabs.tabs : fallback);
     const active = $derived(shell.tabs.tabs.length ? shell.tabs.active : 'current');
+
+    const settle = springEase(550, 40);
+
+    function settleDuration() {
+        return getCssDuration(document.documentElement, '--motion-duration-spring', 280);
+    }
 
     let dragged = $state<string | null>(null);
     let target = $state<string | null>(null);
@@ -99,6 +107,7 @@
         </Tooltip.Trigger>
         <Tooltip.Content>New tab</Tooltip.Content>
     </Tooltip.Root>
+    <span aria-hidden="true" class="mx-1 h-4 w-px shrink-0 bg-border"></span>
     <nav
         aria-label="Open pages"
         {@attach scrollFade({ axis: 'x', size: 32 })}
@@ -107,6 +116,7 @@
         {#each tabs as tab (tab.id)}
             <div
                 role="presentation"
+                animate:flip={{ duration: settleDuration, easing: settle }}
                 draggable={tabs.length > 1}
                 ondragstart={(event) => startDrag(event, tab.id)}
                 ondragover={(event) => dragOver(event, tab.id)}

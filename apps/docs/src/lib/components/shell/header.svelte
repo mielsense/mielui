@@ -20,12 +20,9 @@
     import ThemeToggle from './theme-toggle.svelte';
 
     const {
-        floating = false,
         starCount = null,
         leading
     }: {
-        /** Morphs into a floating glass pill once the page scrolls. Used on the landing page. */
-        floating?: boolean;
         starCount?: number | null;
         leading?: Snippet;
     } = $props();
@@ -69,7 +66,6 @@
     let nav = $state<HTMLElement>();
     let pill = $state<{ left: number; width: number }>();
     let ready = $state(false);
-    let scrolled = $state(false);
 
     function measure() {
         const current = nav?.querySelector<HTMLElement>('[aria-current="page"]');
@@ -94,21 +90,6 @@
         };
     });
 
-    $effect(() => {
-        if (!floating) {
-            return;
-        }
-        const update = () => {
-            scrolled = window.scrollY > 12;
-        };
-        update();
-        window.addEventListener('scroll', update, { passive: true });
-
-        return () => {
-            window.removeEventListener('scroll', update);
-        };
-    });
-
     function openSearch() {
         search.open = true;
     }
@@ -117,25 +98,14 @@
 <!--
     @component
     The site header: brand, the primary pages with one traveling lit pill, search, and theme.
-    On the landing page it morphs into a floating glass pill once the page scrolls.
 -->
 
-<header
-    data-floating={floating || undefined}
-    data-scrolled={scrolled || undefined}
-    class={floating
-        ? 'pointer-events-none sticky top-0 z-40 flex h-16 w-full items-start justify-center px-3'
-        : 'flex h-[52px] w-full shrink-0 items-center px-3 lg:px-4'}
->
-    <div
-        class={floating
-            ? 'pointer-events-auto mt-0 flex h-16 w-full max-w-[76rem] items-center gap-3 rounded-[var(--radius-control)] border-[length:var(--border-size)] border-transparent px-2 transition-[max-width,height,margin,padding,background-color,border-color,box-shadow,backdrop-filter] duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] motion-reduce:transition-none in-data-[scrolled]:mt-3 in-data-[scrolled]:h-12 in-data-[scrolled]:max-w-3xl in-data-[scrolled]:border-border in-data-[scrolled]:bg-card/70 in-data-[scrolled]:ps-4 in-data-[scrolled]:pe-2 in-data-[scrolled]:shadow-[var(--elevation-float)] in-data-[scrolled]:backdrop-blur-xl in-data-[scrolled]:backdrop-saturate-150'
-            : 'flex w-full min-w-0 items-center gap-3'}
-    >
+<header class="flex h-13 w-full shrink-0 items-center px-3 lg:ps-8 lg:pe-5">
+    <div class="flex w-full min-w-0 items-center gap-3">
         <div class="flex min-w-0 flex-1 items-center gap-1.5">
             {@render leading?.()}
             <Logo />
-            {#if !floating && hasSidebar}
+            {#if hasSidebar}
                 <Tooltip.Root>
                     <Tooltip.Trigger>
                         <Button
@@ -162,8 +132,8 @@
         >
             <span
                 aria-hidden="true"
-                class="mielui-glow mielui-glow-neutral pointer-events-none absolute inset-y-0 -z-10 shadow-[var(--mielui-glow-shadow),var(--elevation-1)] transition-[left,width,opacity] [transition-duration:var(--motion-duration-spring)] ease-[var(--ease-spring-layout)] motion-reduce:transition-none"
-                style:left={`${pill?.left ?? 0}px`}
+                class="mielui-glow pointer-events-none absolute [--mielui-glow-color:var(--color-foreground)] [--mielui-glow-light:0.16] [--mielui-glow-ring:transparent] dark:[--mielui-glow-color:color-mix(in_srgb,var(--color-foreground)_16%,var(--color-card))] dark:[--mielui-glow-light:0.12] dark:[--mielui-glow-ring:var(--color-border)] inset-y-0 left-0 -z-10 shadow-[var(--mielui-glow-shadow),var(--elevation-1)] transition-[translate,width,opacity] [transition-duration:var(--motion-duration-item)] ease-[var(--ease-out)] motion-reduce:transition-none"
+                style:translate={`${pill?.left ?? 0}px 0`}
                 style:width={`${pill?.width ?? 0}px`}
                 style:opacity={pill ? 1 : 0}
                 style:transition={ready ? undefined : 'none'}
@@ -172,7 +142,7 @@
                 <a
                     href={link.href}
                     aria-current={link.current ? 'page' : undefined}
-                    class="flex h-8 items-center rounded-[var(--radius-control)] px-3 text-sm font-medium text-foreground-muted transition-colors [transition-duration:var(--motion-duration-hover)] hover:text-foreground focus-visible:shadow-[var(--focus-ring)] focus-visible:outline-none aria-[current=page]:text-foreground motion-reduce:transition-none"
+                    class="flex h-8 items-center rounded-[var(--radius-control)] px-3 text-sm font-medium text-foreground-muted transition-colors [transition-duration:var(--motion-duration-hover)] hover:text-foreground focus-visible:shadow-[var(--focus-ring)] focus-visible:outline-none aria-[current=page]:text-card dark:aria-[current=page]:text-foreground motion-reduce:transition-none"
                 >
                     {link.label}
                 </a>

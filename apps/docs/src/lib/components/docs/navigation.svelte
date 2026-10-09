@@ -37,7 +37,7 @@
     const search = getSearch();
 
     const rowClass =
-        'group/row flex h-8 w-full min-w-0 items-center gap-3 rounded-[var(--radius-control)] px-3 text-start text-sm text-foreground-muted transition-colors [transition-duration:var(--motion-duration-hover)] hover:text-foreground focus-visible:outline-none focus-visible:shadow-[var(--focus-ring)] aria-[current=page]:font-medium aria-[current=page]:text-foreground motion-reduce:transition-none';
+        'group/row flex h-8 w-full min-w-0 items-center gap-3 rounded-[var(--radius-control)] px-3 text-start text-sm text-foreground-muted transition-colors [transition-duration:var(--motion-duration-hover)] hover:text-foreground focus-visible:outline-none focus-visible:shadow-[var(--focus-ring)] aria-[current=page]:font-medium aria-[current=page]:text-card dark:aria-[current=page]:text-foreground motion-reduce:transition-none';
     const labelClass =
         'flex h-8 items-center rounded-[var(--radius-control)] px-3 text-xs font-medium text-foreground-muted transition-colors [transition-duration:var(--motion-duration-hover)] hover:text-foreground aria-[current=page]:text-foreground motion-reduce:transition-none';
 
@@ -88,8 +88,10 @@
             }))
     ];
 
+    const PILL_PADDING = 12;
+
     let nav = $state<HTMLElement>();
-    let pill = $state<{ top: number; height: number }>();
+    let pill = $state<{ top: number; left: number; width: number; height: number }>();
     let pillReady = $state(false);
 
     function measurePill() {
@@ -99,8 +101,16 @@
 
             return;
         }
+        const label = current.querySelector<HTMLElement>('[data-nav-label]') ?? current;
+        const lead = current.firstElementChild ?? label;
+        const bounds = nav.getBoundingClientRect();
+        const row = current.getBoundingClientRect();
+        const start = Math.max(row.left, lead.getBoundingClientRect().left - PILL_PADDING);
+        const end = Math.min(row.right, label.getBoundingClientRect().right + PILL_PADDING);
         pill = {
-            top: current.getBoundingClientRect().top - nav.getBoundingClientRect().top,
+            top: row.top - bounds.top,
+            left: start - bounds.left,
+            width: end - start,
             height: current.offsetHeight
         };
     }
@@ -173,12 +183,13 @@
 <nav
     bind:this={nav}
     aria-label="Documentation"
-    class="relative isolate flex flex-col gap-7 px-3 pt-1 pb-10"
+    class="relative isolate flex flex-col gap-7 px-3 pt-1 pb-10 lg:pt-0"
 >
     <span
         aria-hidden="true"
-        class="mielui-glow mielui-glow-neutral pointer-events-none absolute inset-x-3 -z-10 shadow-[var(--mielui-glow-shadow),var(--elevation-1)] transition-[top,height,opacity] [transition-duration:var(--motion-duration-spring)] ease-[var(--ease-spring-layout)] motion-reduce:transition-none"
-        style:top={`${pill?.top ?? 0}px`}
+        class="mielui-glow pointer-events-none absolute [--mielui-glow-color:var(--color-foreground)] [--mielui-glow-light:0.16] [--mielui-glow-ring:transparent] dark:[--mielui-glow-color:color-mix(in_srgb,var(--color-foreground)_16%,var(--color-card))] dark:[--mielui-glow-light:0.12] dark:[--mielui-glow-ring:var(--color-border)] top-0 left-0 -z-10 shadow-[var(--mielui-glow-shadow),var(--elevation-1)] transition-[translate,width,height,opacity] [transition-duration:var(--motion-duration-item)] ease-[var(--ease-out)] motion-reduce:transition-none"
+        style:translate={`${pill?.left ?? 0}px ${pill?.top ?? 0}px`}
+        style:width={`${pill?.width ?? 0}px`}
         style:height={`${pill?.height ?? 0}px`}
         style:opacity={pill ? 1 : 0}
         style:transition={pillReady ? undefined : 'none'}
@@ -202,7 +213,8 @@
                 {#if siteLinks}
                     <HugeiconsIcon icon={item.icon} size={16} class="shrink-0" aria-hidden="true" />
                 {/if}
-                <span class="flex-1 truncate">{item.label}</span>
+                <span data-nav-label class="min-w-0 truncate">{item.label}</span>
+                <span class="flex-1"></span>
                 {@render openDot(item.href)}
             </a>
         {/each}
@@ -210,7 +222,8 @@
             {#each site as item (item.href)}
                 <a href={item.href} class={rowClass} onclick={close}>
                     <HugeiconsIcon icon={item.icon} size={16} class="shrink-0" aria-hidden="true" />
-                    <span class="flex-1 truncate">{item.label}</span>
+                    <span data-nav-label class="min-w-0 truncate">{item.label}</span>
+                    <span class="flex-1"></span>
                 </a>
             {/each}
         {/if}
@@ -227,7 +240,7 @@
                 ></span>
                 <a
                     href={section.href}
-                    class={`${labelClass} focus-visible:outline-none focus-visible:shadow-[var(--focus-ring)]`}
+                    class={`${labelClass} focus-visible:outline-none focus-visible:shadow-[var(--focus-ring)] [@container_scroll-state(stuck:top)]:text-foreground`}
                     aria-current={page.url.pathname === section.href ? 'page' : undefined}
                     onclick={(event) => follow(event, section.href)}
                 >
@@ -242,7 +255,8 @@
                     aria-current={page.url.pathname === item.href ? 'page' : undefined}
                     onclick={(event) => follow(event, item.href)}
                 >
-                    <span class="flex-1 truncate">{item.label}</span>
+                    <span data-nav-label class="min-w-0 truncate">{item.label}</span>
+                    <span class="flex-1"></span>
                     {@render openDot(item.href)}
                 </a>
             {/each}

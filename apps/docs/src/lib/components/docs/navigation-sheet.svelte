@@ -15,7 +15,12 @@
 
 <div class="lg:hidden">
     <Sheet.Root bind:open>
-        <Sheet.Trigger variant="ghost" size="icon" aria-label="Open navigation" class="-ms-2">
+        <Sheet.Trigger
+            variant="ghost"
+            size="icon"
+            aria-label="Open navigation"
+            class="-ms-2 text-foreground-muted hover:text-foreground"
+        >
             <HugeiconsIcon icon={Menu} size={16} />
         </Sheet.Trigger>
         <Sheet.Content side="left" surface="solid">

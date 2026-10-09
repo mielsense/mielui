@@ -105,15 +105,15 @@
                 >
                     <span
                         style:transform={`scaleX(${length(heading.level, outline.active === heading.id, index) / 40})`}
-                        class={`block h-px w-10 origin-right transition-[transform,background-color] duration-150 ease-[var(--ease-out)] motion-reduce:transition-none ${tone(heading.id, heading.level)}`}
+                        class={`block h-px w-10 origin-right transition-[transform,background-color] [transition-duration:var(--motion-duration-hover)] ease-[var(--ease-out)] motion-reduce:transition-none ${tone(heading.id, heading.level)}`}
                     ></span>
                 </a>
             {/each}
         </div>
         <div
             aria-hidden="true"
-            style:top={`${(Math.max(0, labelIndex) + 0.5) * step}px`}
-            class={`pointer-events-none absolute end-[calc(100%-var(--spacing)*4)] -translate-y-1/2 rounded-[var(--radius-sm)] bg-[var(--docs-content)] px-2 py-1 text-xs leading-4 font-medium whitespace-nowrap text-foreground shadow-[0_0_0_var(--border-size)_var(--color-border),var(--elevation-1)] transition-[top,opacity] duration-150 ease-[var(--ease-out)] motion-reduce:transition-none ${labelled ? 'opacity-100' : 'opacity-0'}`}
+            style:translate={`0 calc(${(Math.max(0, labelIndex) + 0.5) * step}px - 50%)`}
+            class={`pointer-events-none absolute top-0 end-[calc(100%-var(--spacing)*4)] rounded-[var(--radius-sm)] bg-[var(--docs-content)] px-2 py-1 text-xs leading-4 font-medium whitespace-nowrap text-foreground shadow-[0_0_0_var(--border-size)_var(--color-border),var(--elevation-1)] transition-[translate,opacity] [transition-duration:var(--motion-duration-hover)] ease-[var(--ease-out)] motion-reduce:transition-none ${labelled ? 'opacity-100' : 'opacity-0'}`}
         >
             {labelled?.label ?? ''}
         </div>

@@ -26,7 +26,7 @@
 
 <div
     data-current={current || undefined}
-    class={`group/tab relative flex h-8 max-w-52 shrink-0 items-center rounded-[var(--radius-control)] transition-colors [transition-duration:var(--motion-duration-hover)] motion-reduce:transition-none ${current ? 'bg-secondary text-foreground' : 'text-foreground-muted hover:bg-[var(--color-wash)] hover:text-foreground'}`}
+    class={`group/tab relative flex h-8 max-w-52 shrink-0 items-center rounded-[var(--radius-control)] transition-colors [transition-duration:var(--motion-duration-hover)] motion-reduce:transition-none ${current ? 'mielui-glow mielui-glow-neutral text-foreground shadow-[var(--mielui-glow-shadow)]' : 'text-foreground-muted hover:bg-[var(--color-wash)] hover:text-foreground'}`}
 >
     {#if href}
         <a {href} aria-current={current ? 'page' : undefined} class={bodyClass}>
