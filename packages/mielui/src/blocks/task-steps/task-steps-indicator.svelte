@@ -57,7 +57,7 @@
     @keyframes mielui-task-mark-in {
         from {
             opacity: 0;
-            scale: 0.6;
+            scale: 0.9;
         }
     }
 

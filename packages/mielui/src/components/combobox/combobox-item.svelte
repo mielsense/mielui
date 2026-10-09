@@ -57,7 +57,7 @@
     data-visible={context.matches(value)}
     aria-hidden={!context.matches(value) || undefined}
     inert={!context.matches(value)}
-    class="grid transition-[grid-template-rows] [transition-duration:var(--motion-duration-panel)] ease-[var(--ease-out)] motion-reduce:transition-none"
+    class="grid"
     style:grid-template-rows={context.matches(value) ? '1fr' : '0fr'}
 >
     <div class="min-h-0 overflow-hidden">

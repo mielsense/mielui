@@ -28,7 +28,7 @@
     {#if indeterminate}
         <div
             {@attach motionLoop}
-            class="[animation-play-state:var(--mielui-loop-play-state)] absolute inset-y-0 left-0 w-1/3 animate-[mielui-progress-slide_1.4s_linear_infinite] rounded-full bg-primary motion-reduce:animate-none"
+            class="[animation-play-state:var(--mielui-loop-play-state)] absolute inset-y-0 left-0 w-1/3 animate-[mielui-progress-slide_1.4s_linear_infinite] rounded-full bg-primary motion-reduce:w-full motion-reduce:animate-pulse"
         ></div>
     {:else}
         <div

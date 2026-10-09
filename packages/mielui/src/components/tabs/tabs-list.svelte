@@ -12,6 +12,7 @@
     const variant = $derived(tabsState.variant);
     const vertical = $derived(tabsState.orientation === 'vertical');
     let listEl = $state<HTMLDivElement | null>(null);
+    let keyboardDriven = $state(false);
     const indicators = createTabIndicators({
         get element() {
             return listEl;
@@ -38,6 +39,15 @@
         variant === 'ghost' && 'gap-1',
         variant === 'default' && (vertical ? 'gap-1 pe-1' : 'gap-1 pb-1')
     )}
+    onkeydowncapture={() => {
+        keyboardDriven = true;
+    }}
+    onpointermovecapture={() => {
+        keyboardDriven = false;
+    }}
+    onpointerdowncapture={() => {
+        keyboardDriven = false;
+    }}
     onmouseover={indicators.handleMouseOver}
     onfocusin={indicators.handleMouseOver}
     onmouseleave={indicators.handleMouseLeave}
@@ -47,9 +57,8 @@
     {#if variant === 'default' && indicators.hover}
         <div
             aria-hidden="true"
-            class="pointer-events-none absolute rounded-[var(--radius-control)] bg-[var(--color-wash)] transition-[left,top,width,height,opacity] [transition-duration:var(--motion-duration-spring),var(--motion-duration-spring),var(--motion-duration-spring),var(--motion-duration-spring),var(--motion-duration-hover)] [transition-timing-function:var(--ease-spring-layout),var(--ease-spring-layout),var(--ease-spring-layout),var(--ease-spring-layout),var(--ease-out)] motion-reduce:transition-none"
-            style:left={`${indicators.hover.left}px`}
-            style:top={`${indicators.hover.top}px`}
+            class="pointer-events-none absolute rounded-[var(--radius-control)] top-0 left-0 bg-[var(--color-wash)] transition-[translate,width,height,opacity] [transition-duration:var(--motion-duration-item),var(--motion-duration-item),var(--motion-duration-item),var(--motion-duration-hover)] ease-[var(--ease-out)] motion-reduce:transition-none"
+            style:translate={`${indicators.hover.left}px ${indicators.hover.top}px`}
             style:width={`${indicators.hover.width}px`}
             style:height={`${indicators.hover.height}px`}
             style:opacity={indicators.hovering ? 1 : 0}
@@ -58,12 +67,11 @@
     {#if variant === 'ghost' && indicators.ghostRect}
         <div
             aria-hidden="true"
-            class="pointer-events-none absolute rounded-[var(--radius-control)] bg-[var(--color-wash)] transition-[left,top,width,height] [transition-duration:var(--motion-duration-spring)] ease-[var(--ease-spring-layout)] motion-reduce:transition-none"
-            style:left={`${indicators.ghostRect.left}px`}
-            style:top={`${indicators.ghostRect.top}px`}
+            class="pointer-events-none absolute rounded-[var(--radius-control)] top-0 left-0 bg-[var(--color-wash)] transition-[translate,width,height] [transition-duration:var(--motion-duration-item)] ease-[var(--ease-out)] motion-reduce:transition-none"
+            style:translate={`${indicators.ghostRect.left}px ${indicators.ghostRect.top}px`}
             style:width={`${indicators.ghostRect.width}px`}
             style:height={`${indicators.ghostRect.height}px`}
-            style:transition={indicators.ready ? undefined : 'none'}
+            style:transition={indicators.ready && !keyboardDriven ? undefined : 'none'}
         ></div>
     {/if}
     {#if indicators.indicator}
@@ -71,26 +79,26 @@
             <div
                 aria-hidden="true"
                 class={cn(
-                    'pointer-events-none absolute rounded-full bg-foreground [transition-duration:var(--motion-duration-spring)] ease-[var(--ease-spring-layout)] motion-reduce:transition-none',
+                    'pointer-events-none absolute rounded-full bg-foreground [transition-duration:var(--motion-duration-item)] ease-[var(--ease-out)] motion-reduce:transition-none',
                     vertical
-                        ? 'end-0 w-[var(--size-hairline)] transition-[top,height]'
-                        : 'bottom-0 h-[var(--size-hairline)] transition-[left,width]'
+                        ? 'end-0 top-0 w-[var(--size-hairline)] transition-[translate,height]'
+                        : 'bottom-0 left-0 h-[var(--size-hairline)] transition-[translate,width]'
                 )}
-                style:left={vertical ? undefined : `${indicators.indicator.left}px`}
-                style:top={vertical ? `${indicators.indicator.top}px` : undefined}
+                style:translate={vertical
+                    ? `0 ${indicators.indicator.top}px`
+                    : `${indicators.indicator.left}px 0`}
                 style:width={vertical ? undefined : `${indicators.indicator.width}px`}
                 style:height={vertical ? `${indicators.indicator.height}px` : undefined}
-                style:transition={indicators.ready ? undefined : 'none'}
+                style:transition={indicators.ready && !keyboardDriven ? undefined : 'none'}
             ></div>
         {:else if variant === 'segmented'}
             <div
                 aria-hidden="true"
-                class="mielui-glow mielui-glow-neutral pointer-events-none absolute rounded-[min(calc(var(--radius-control)-var(--spacing)),calc(var(--size-control-sm)/2))] shadow-[var(--mielui-glow-shadow)] transition-[left,top,width,height] [transition-duration:var(--motion-duration-spring)] ease-[var(--ease-spring-layout)] motion-reduce:transition-none"
-                style:left={`${indicators.indicator.left}px`}
-                style:top={`${indicators.indicator.top}px`}
+                class="mielui-glow mielui-glow-neutral pointer-events-none absolute rounded-[min(calc(var(--radius-control)-var(--spacing)),calc(var(--size-control-sm)/2))] top-0 left-0 shadow-[var(--mielui-glow-shadow)] transition-[translate,width,height] [transition-duration:var(--motion-duration-item)] ease-[var(--ease-out)] motion-reduce:transition-none"
+                style:translate={`${indicators.indicator.left}px ${indicators.indicator.top}px`}
                 style:width={`${indicators.indicator.width}px`}
                 style:height={`${indicators.indicator.height}px`}
-                style:transition={indicators.ready ? undefined : 'none'}
+                style:transition={indicators.ready && !keyboardDriven ? undefined : 'none'}
             ></div>
         {/if}
     {/if}

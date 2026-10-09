@@ -303,7 +303,7 @@
                     class={cn(
                 classProp,
                     overlaySurface(surface),
-                'm-auto flex origin-top-left flex-col overflow-hidden text-sm text-[var(--color-foreground)]',
+                'm-auto flex origin-top-left flex-col overflow-hidden text-sm text-[var(--color-foreground)] [&[data-placement=bottom]]:origin-top [&[data-placement=bottom-end]]:origin-top-right [&[data-placement=top-start]]:origin-bottom-left [&[data-placement=top]]:origin-bottom [&[data-placement=top-end]]:origin-bottom-right [&[data-placement^=left]]:origin-right [&[data-placement^=right]]:origin-left',
                 'mielui-float-frame shadow-[var(--elevation-float)]',
                 'max-w-[min(var(--popover-available-width,calc(100vw-2*var(--popover-viewport-margin))),calc(100vw-2*var(--popover-viewport-margin)))] max-h-[min(var(--popover-available-height,calc(100vh-2*var(--popover-viewport-margin))),calc(100vh-2*var(--popover-viewport-margin)))]'
             )}

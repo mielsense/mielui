@@ -172,11 +172,19 @@ export function createTooltipManager() {
             placement,
             middleware: [offset(8), flip({ padding: 8 }), shift({ padding: 8 })]
         })
-            .then(({ x, y }) => {
+            .then(({ x, y, placement: resolved }) => {
                 if (!bubble || activeRef !== ref) {
                     return;
                 }
                 const horizontal = placement === 'top' || placement === 'bottom';
+                const side = resolved.split('-')[0];
+                const origins: Record<string, string> = {
+                    top: 'center bottom',
+                    bottom: 'center top',
+                    left: 'right center',
+                    right: 'left center'
+                };
+                bubble.style.transformOrigin = origins[side] ?? 'center';
                 const center = horizontal ? 'translateX(-50%)' : 'translateY(-50%)';
                 lastCenter = center;
                 const left = horizontal ? x + bubble.offsetWidth / 2 : x;

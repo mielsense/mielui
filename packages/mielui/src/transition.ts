@@ -163,17 +163,20 @@ function panelTransition(
          * so an overshoot never brightens or re-blurs the panel.
          */
         spring?: EasingFunction;
+        /** Starts on the trigger's side of the panel, so it emerges from what opened it. */
+        anchored?: boolean;
     }
 ): TransitionConfig {
     const style = getComputedStyle(node);
     const opacity = Number(style.opacity);
     const baseTransform = style.transform === 'none' ? '' : style.transform;
     const baseFilter = style.filter === 'none' ? '' : style.filter;
-    const offsetY = readCssNumber(
+    const distance = readCssNumber(
         node,
         options?.offsetVars ?? ['--motion-panel-y'],
         options?.offsetFallback ?? 4
     );
+    const offsetY = options?.anchored ? distance * anchoredDirection(node) : distance;
     const endScale = readCssNumber(
         node,
         options?.scaleVars ?? ['--motion-panel-scale-start'],
@@ -211,6 +214,14 @@ function panelTransition(
     };
 }
 
+/** -1 when the panel sits below its trigger and must start higher, 1 when it sits above. */
+function anchoredDirection(node: Element) {
+    const side =
+        node.getAttribute('data-side') ?? node.getAttribute('data-placement')?.split('-')[0];
+
+    return side === 'top' ? 1 : -1;
+}
+
 const MENU_MOVEMENT: {
     offsetVars: string[];
     offsetFallback: number;
@@ -238,20 +249,24 @@ const MODAL_MOVEMENT: typeof MENU_MOVEMENT = {
 
 /** Panel enter: springs open in place from a small offset (panel spring, 550/38). */
 export function panelIn(node: Element) {
-    return panelTransition(node, '--motion-duration-panel-in', 350, {
+    return panelTransition(node, '--motion-duration-panel-in', 220, {
         ...MENU_MOVEMENT,
-        spring: panelSpring
+        spring: panelSpring,
+        anchored: true
     });
 }
 
 /** Panel exit: a short fade. A closing menu gets out of the way. */
 export function panelOut(node: Element) {
-    return panelTransition(node, '--motion-duration-panel-out', 100, { ...MENU_MOVEMENT });
+    return panelTransition(node, '--motion-duration-panel-out', 100, {
+        ...MENU_MOVEMENT,
+        anchored: true
+    });
 }
 
 /** Dialog enter: pops from a slight shrink (pop spring, 400/26). It never slides from an edge. */
 export function dialogIn(node: Element) {
-    return panelTransition(node, '--motion-duration-modal-in', 500, {
+    return panelTransition(node, '--motion-duration-modal-in', 400, {
         ...MODAL_MOVEMENT,
         spring: popSpring
     });
@@ -267,7 +282,7 @@ export function dialogOut(node: Element) {
 
 export function overlayIn(node: Element) {
     return fade(node, {
-        duration: motionDuration(node, '--motion-duration-overlay', 120)
+        duration: motionDuration(node, '--motion-duration-overlay', 150)
     });
 }
 
@@ -296,12 +311,12 @@ function sheetSlide(
 
 /** Sheet enter: slides in from the anchored edge with the drawer curve. */
 export function sheetIn(node: Element, params: { side?: SheetSide } = {}) {
-    return sheetSlide(node, params.side ?? 'right', '--motion-duration-sheet', 280);
+    return sheetSlide(node, params.side ?? 'right', '--motion-duration-sheet', 420);
 }
 
 /** Sheet exit: same path, slightly faster so dismiss feels snappy. */
 export function sheetOut(node: Element, params: { side?: SheetSide } = {}) {
-    return sheetSlide(node, params.side ?? 'right', '--motion-duration-sheet-out', 200);
+    return sheetSlide(node, params.side ?? 'right', '--motion-duration-sheet-out', 294);
 }
 
 type ThemedSlideParams = {
@@ -314,7 +329,7 @@ export const themedSlide = (node: Element, params: ThemedSlideParams = {}): Tran
     const duration = motionDuration(
         node,
         params.durationVar ?? '--motion-duration-panel',
-        params.fallback ?? 220
+        params.fallback ?? 200
     );
     const style = getComputedStyle(node);
     const opacity = +style.opacity;

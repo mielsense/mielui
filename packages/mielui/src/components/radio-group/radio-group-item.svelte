@@ -65,7 +65,7 @@
         <span
             class={cn(
                 'size-[calc(var(--size-hairline)*3)] rounded-full bg-[var(--color-on-primary)] transition-[opacity,scale] [transition-duration:var(--motion-duration-press)] ease-[var(--ease-press)] motion-reduce:transition-none',
-                selected ? 'scale-100 opacity-100' : 'scale-[0.25] opacity-0'
+                selected ? 'scale-100 opacity-100' : 'scale-90 opacity-0'
             )}
         ></span>
     </span>

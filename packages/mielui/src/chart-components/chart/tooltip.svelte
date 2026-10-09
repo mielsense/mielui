@@ -166,7 +166,7 @@
     <ChartTooltipSurface
         bind:width
         bind:height
-        style={`left: ${position.current.x}px; top: ${position.current.y}px`}
+        style={`left: 0; top: 0; translate: ${position.current.x}px ${position.current.y}px`}
         data-ui="chart-tooltip"
         role="status"
         class={className}

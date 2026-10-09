@@ -82,11 +82,10 @@
             aria-hidden="true"
             data-state={isOn ? 'checked' : 'unchecked'}
             class={cn(
-                'mielui-glow mielui-glow-neutral block h-full w-6 shrink-0 rounded-full shadow-[var(--mielui-glow-shadow)] dark:[--mielui-glow-color:var(--color-foreground)] will-change-transform transition-[translate,scale] [transition-duration:var(--motion-duration-spring)] ease-[var(--ease-spring-layout)] motion-reduce:transition-none',
+                'mielui-glow mielui-glow-neutral block h-full w-6 shrink-0 rounded-full shadow-[var(--mielui-glow-shadow)] dark:[--mielui-glow-color:var(--color-foreground)] will-change-transform transition-[translate] [transition-duration:var(--motion-duration-spring)] ease-[var(--ease-spring-layout)] motion-reduce:transition-none',
                 isOn
-                    ? 'origin-right translate-x-[calc(var(--spacing)*5-var(--size-hairline)*2)] rtl:origin-left rtl:-translate-x-[calc(var(--spacing)*5-var(--size-hairline)*2)]'
-                    : 'origin-left translate-x-0 rtl:origin-right',
-                !disabled && 'group-active:scale-x-110 motion-reduce:group-active:scale-x-100'
+                    ? 'translate-x-[calc(var(--spacing)*5-var(--size-hairline)*2)] rtl:-translate-x-[calc(var(--spacing)*5-var(--size-hairline)*2)]'
+                    : 'translate-x-0'
             )}
         ></span>
     </BitsSwitch.Root>

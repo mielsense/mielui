@@ -101,7 +101,7 @@
                         'mielui-float-frame z-[130] flex max-h-[var(--bits-combobox-content-available-height)] max-w-[var(--bits-combobox-content-available-width)] w-[var(--bits-combobox-anchor-width)] min-w-[var(--bits-combobox-anchor-width)] flex-col overflow-hidden text-sm text-foreground shadow-[var(--elevation-float)] outline-none origin-[var(--bits-combobox-content-transform-origin)] motion-reduce:transition-none',
                         open
                             ? 'visible translate-y-0 scale-100 opacity-100 blur-none transition-[opacity,filter,scale,translate] [transition-duration:var(--motion-duration-hover),var(--motion-duration-hover),var(--motion-duration-panel-in),var(--motion-duration-panel-in)] [transition-timing-function:var(--ease-out),var(--ease-out),var(--ease-spring-panel),var(--ease-spring-panel)]'
-                            : 'invisible translate-y-[var(--motion-menu-y)] scale-[var(--motion-menu-scale-start)] opacity-0 blur-[var(--motion-menu-blur)] transition-[opacity,filter,scale,translate,visibility] [transition-duration:var(--motion-duration-panel-out)] ease-[var(--ease-out)]'
+                            : 'invisible -translate-y-[var(--motion-menu-y)] data-[side=top]:translate-y-[var(--motion-menu-y)] scale-[var(--motion-menu-scale-start)] opacity-0 blur-[var(--motion-menu-blur)] transition-[opacity,filter,scale,translate,visibility] [transition-duration:var(--motion-duration-panel-out)] ease-[var(--ease-out)]'
                     )}
                 >
                     <div

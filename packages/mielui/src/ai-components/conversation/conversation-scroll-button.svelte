@@ -49,23 +49,8 @@
             }
         }}
     >
-        <span class="mielui-conversation-scroll-glyph grid place-items-center">
+        <span class="grid place-items-center">
             <HugeiconsIcon icon={ChevronDown} size={15} strokeWidth={2} aria-hidden="true" />
         </span>
     </button>
 </div>
-
-<style>
-    @media (prefers-reduced-motion: no-preference) {
-        [data-state='visible'] .mielui-conversation-scroll-glyph {
-            animation: mielui-conversation-scroll-bob calc(var(--motion-duration-spring) * 4)
-                ease-in-out infinite;
-        }
-    }
-
-    @keyframes mielui-conversation-scroll-bob {
-        50% {
-            translate: 0 calc(var(--spacing) * 0.6);
-        }
-    }
-</style>

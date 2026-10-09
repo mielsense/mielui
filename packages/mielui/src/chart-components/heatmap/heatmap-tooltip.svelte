@@ -114,7 +114,7 @@
         bind:width
         bind:height
         aria-hidden="true"
-        style={`${props.style ?? ''}; left: ${position.current.x}px; top: ${position.current.y}px; visibility: ${placed ? 'visible' : 'hidden'}`}
+        style={`${props.style ?? ''}; left: 0; top: 0; translate: ${position.current.x}px ${position.current.y}px; visibility: ${placed ? 'visible' : 'hidden'}`}
         data-ui="heatmap-tooltip"
         class={className}
     >

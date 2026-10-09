@@ -98,14 +98,14 @@
     <ChartTooltipSurface
         {...rest}
         bind:ref={element}
-        style={`${rest.style ?? ''}; left: ${left}px; top: ${top}px; visibility: ${positioned ? 'visible' : 'hidden'}`}
+        style={`${rest.style ?? ''}; left: 0; top: 0; translate: ${left}px ${top}px; visibility: ${positioned ? 'visible' : 'hidden'}`}
         data-ui="pie-chart-tooltip"
         role="status"
         class={cn(
             className,
             following &&
                 context.motion &&
-                'transition-[left,top] [transition-duration:var(--motion-duration-spring)] ease-[var(--ease-spring-layout)] motion-reduce:transition-none'
+                'transition-[translate] [transition-duration:var(--motion-duration-spring)] ease-[var(--ease-spring-layout)] motion-reduce:transition-none'
         )}
     >
         {#if children}

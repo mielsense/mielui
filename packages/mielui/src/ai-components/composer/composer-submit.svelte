@@ -60,7 +60,7 @@
         return {
             duration: getCssDuration(node, '--motion-duration-flick', 270),
             css: (t) => {
-                const scale = 0.6 + 0.4 * flickSpring(t);
+                const scale = 0.9 + 0.1 * flickSpring(t);
                 const opacity = Math.min(t * 2.2, 1);
 
                 return `opacity:${opacity};transform:scale(${scale})`;
