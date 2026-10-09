@@ -27,11 +27,13 @@
     {variant}
     class={cn(
         className,
-        'group w-full justify-start gap-2 px-2.5 shadow-none focus-visible:shadow-[var(--focus-ring)]'
+        'group w-full justify-start gap-2 ps-2 pe-[calc(var(--spacing)*3.5)]',
+        variant === 'outline' &&
+            '[font-weight:var(--font-weight-body)] hover:border-[var(--color-border-strong)] hover:bg-[var(--color-field)] focus-visible:border-primary data-[state=open]:border-[var(--color-border-strong)] data-[state=open]:bg-[var(--color-field)]'
     )}
 >
     <span
-        class="size-5 shrink-0 self-center rounded-full ring-1 ring-inset ring-[color-mix(in_srgb,var(--color-foreground)_10%,transparent)]"
+        class="size-5 shrink-0 self-center rounded-full shadow-[inset_0_0_0_var(--border-size)_var(--color-border)]"
         style:background={isValidHex(ctx.value) ? ctx.value : '#888888'}
     ></span>
     <span

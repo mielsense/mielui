@@ -11,3 +11,13 @@
 - Menu separators are inset from the panel's edges instead of spanning its full width.
 - The focus ring is 3px at half the primary color instead of 2px at 80%.
 - Menus, selects, and popovers spring open and close on a 100ms fade. Dialogs pop from 96% scale and leave in 150ms. The blur on both is gone. `--motion-duration-panel-in`, `--motion-duration-modal-in`, and the menu and modal offset tokens have new defaults.
+- ToggleGroup sits in a segmented track, so it is two spacing units taller and wider. Its selected item is a lit pill that travels between items.
+- Table's default variant has no outer frame or header fill. `variant="inset"` and DataTable put the header and footer on the frame and the rows on a recessed surface.
+- Alert is one notice strip. Status variants tint the icon only, with no colored fill or border.
+- ScrollArea no longer shows chevrons at an edge with more content. `showCues` fades the edge instead, and the thumb stays hidden until hover, focus, or scroll.
+- Sheet attaches flush to its edge at full height and rounds only its exposed corners.
+- Composer is a recessed frame holding a white writing surface. Its focus ring shows only while the textarea is focused.
+- Toolbar's flat variant paints a grey pill track behind its keys.
+- Badge status variants have no colored border, and the Checkbox `primary` card row no longer tints with the primary color.
+- Collapsible content is muted and inset to line up with its trigger text.
+- Breadcrumb items are padded pills, so the trail's text starts one item padding further in.

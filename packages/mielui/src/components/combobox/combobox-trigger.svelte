@@ -32,28 +32,45 @@
     }: ComboboxTriggerProps = $props();
 
     const isInputAppearance = $derived(appearance === 'input');
-    const focusClasses = $derived.by(() => {
+    const isFieldPill = $derived(isInputAppearance || variant === 'outline');
+    const isLit = $derived(
+        variant === 'primary' ||
+            variant === 'secondary' ||
+            variant === 'destructive' ||
+            variant === 'glow'
+    );
+    const inheritsText = $derived(
+        variant === 'primary' || variant === 'destructive' || variant === 'glow'
+    );
+    const frameClasses = $derived.by(() => {
         if (isInputAppearance) {
-            return 'items-center gap-2 focus-within:shadow-[var(--focus-ring)]';
+            return 'items-center gap-2 has-[input:focus-visible]:border-primary has-[input:focus-visible]:shadow-[var(--focus-ring)]';
         }
-        if (variant === 'ghost' || variant === 'quiet') {
-            return 'focus-within:shadow-[var(--focus-ring)]';
+        if (variant === 'outline') {
+            return 'px-[calc(var(--spacing)*3.5)] hover:border-[var(--color-border-strong)] hover:bg-[var(--color-field)] data-[state=open]:border-[var(--color-border-strong)] data-[state=open]:bg-[var(--color-field)] has-[:focus-visible]:border-primary has-[:focus-visible]:shadow-[var(--focus-ring)]';
         }
-        if (variant === 'primary') {
-            return 'focus-within:shadow-[var(--focus-ring),inset_0_0_0_var(--border-size)_var(--color-primary-stroke)]';
+        if (isLit) {
+            return 'has-[:focus-visible]:shadow-[var(--focus-ring),var(--mielui-glow-shadow)]';
         }
         if (variant === 'panel') {
-            return 'focus-within:shadow-[var(--focus-ring),var(--elevation-1)]';
+            return 'has-[:focus-visible]:shadow-[var(--focus-ring),var(--elevation-1)]';
         }
-        return 'focus-within:shadow-[var(--focus-ring)]';
+        return 'has-[:focus-visible]:shadow-[var(--focus-ring)]';
     });
     const inputClasses = $derived(
         cn(
-            'min-w-0 flex-1 bg-transparent text-left text-[length:var(--font-size-button)] [font-weight:var(--font-weight-button)] [letter-spacing:var(--tracking-button)] outline-none placeholder:text-foreground-muted',
+            'min-w-0 flex-1 bg-transparent text-left outline-none placeholder:text-foreground-muted',
+            isFieldPill
+                ? 'text-[length:var(--font-size-body)] [font-weight:var(--font-weight-body)] [letter-spacing:var(--tracking-body)]'
+                : 'text-[length:var(--font-size-button)] [font-weight:var(--font-weight-button)] [letter-spacing:var(--tracking-button)]',
             isInputAppearance
                 ? 'h-auto cursor-text'
                 : 'h-full cursor-[var(--ui-cursor-interactive)]',
-            combobox.open || combobox.selected ? 'text-foreground' : 'text-foreground-muted',
+            inheritsText
+                ? 'text-inherit placeholder:text-inherit'
+                : combobox.open || combobox.selected
+                  ? 'text-foreground'
+                  : 'text-foreground-muted',
             !isInputAppearance && 'pe-7'
         )
     );
@@ -112,9 +129,11 @@
     role="presentation"
     class={cn(
         className,
-        isInputAppearance ? input({ variant: variant === 'secondary' ? 'secondary' : 'outline' }) : button({ variant, size }),
+        frameClasses,
+        isInputAppearance
+            ? input({ variant: variant === 'secondary' ? 'secondary' : 'outline' })
+            : button({ variant, size }),
         'relative select-none',
-        focusClasses,
         disabled && 'pointer-events-none opacity-[var(--opacity-disabled)]'
     )}
 >
@@ -172,7 +191,7 @@
             aria-label={labels?.()?.clear ?? 'Clear search'}
             {disabled}
             data-ui="combobox-trigger-clear"
-            class="flex shrink-0 cursor-pointer items-center rounded-full text-foreground-muted transition-colors outline-none hover:text-foreground focus-visible:shadow-[var(--focus-ring)] [&_svg]:size-4 [&_svg]:shrink-0"
+            class="-me-1 grid size-6 shrink-0 cursor-pointer place-items-center rounded-[var(--radius-control)] text-foreground-muted outline-none transition-[background-color,color] [transition-duration:var(--motion-duration-hover)] ease-[var(--ease-out)] motion-reduce:transition-none hover:bg-[var(--color-wash)] hover:text-foreground focus-visible:shadow-[var(--focus-ring)] [&_svg]:size-4 [&_svg]:shrink-0"
             onmousedown={(event) => {
                 event.preventDefault();
             }}
@@ -186,7 +205,11 @@
     {:else if trailing}
         <span
             data-ui="combobox-trigger-trailing"
-            class={cn('flex shrink-0 items-center text-foreground-muted [&_svg]:size-4 [&_svg]:shrink-0', !isInputAppearance && 'absolute top-1/2 end-3 -translate-y-1/2')}
+            class={cn(
+                'flex shrink-0 items-center text-foreground-muted [&_svg]:size-4 [&_svg]:shrink-0',
+                !isInputAppearance &&
+                    'absolute top-1/2 end-[calc(var(--spacing)*3.5)] -translate-y-1/2'
+            )}
             aria-hidden="true"
         >
             {@render trailing()}
@@ -195,7 +218,11 @@
         <HugeiconsIcon
             icon={ChevronDown}
             size={16}
-            class="pointer-events-none absolute top-1/2 end-3 shrink-0 -translate-y-1/2 text-foreground-muted"
+            class={cn(
+                'pointer-events-none absolute top-1/2 end-[calc(var(--spacing)*3.5)] shrink-0 -translate-y-1/2 transition-[rotate] [transition-duration:var(--motion-duration-flick)] ease-[var(--ease-spring-flick)] motion-reduce:transition-none',
+                inheritsText ? 'text-inherit opacity-70' : 'text-foreground-muted',
+                combobox.open && 'rotate-180'
+            )}
             aria-hidden="true"
         />
     {/if}

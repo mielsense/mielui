@@ -113,7 +113,7 @@
     bind:this={element}
     data-ui="number-field"
     data-disabled={disabled || undefined}
-    class={cn(className, 'flex min-w-0 flex-col gap-2')}
+    class={cn(className, 'flex min-w-0 flex-col gap-1.5')}
 >
     {@render children?.({ value })}
 </div>

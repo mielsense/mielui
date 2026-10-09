@@ -6,3 +6,4 @@
 - The docs shell drops the status line under the page. Sidebar navigation is a plain text list with more space between groups, and search stays in the header and on Cmd/Ctrl+K.
 - Outline buttons wrapped in a Tooltip or another trigger inside a Group take the group's border color too, so the frame no longer changes color at the wrapped button.
 - Theme Studio switches preview modes with a floating segmented control at the bottom center of the preview instead of tabs in the top bar.
+- The traveling highlight in menus and the command palette is measured correctly while its panel is still scaling in, so the first highlighted row is no longer too narrow after a keyboard open.

@@ -88,11 +88,13 @@
     <section id="composition" class="flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Composition</Typography.H2>
         <Typography.Text>
-            Text is optional. Controls keep their own sizes, variants, borders, shadows, focus
-            rings, events and disabled states. Group does not replace a variant’s surface treatment.
-            Hidden form inputs do not affect which visible control receives rounded ends. Nested
-            Group.Root elements retain separate rounded ends with a gap between groups. Set class on
-            any part to restyle it.
+            Text is optional. Controls keep their own sizes, variants, focus rings, events and
+            disabled states. Joined controls share one hairline seam and flat adjoining corners, and
+            the outer ends keep the control radius. Filled buttons keep their lit edge and sit flush
+            with the frame. Group does not replace a variant’s surface treatment. Hidden form inputs
+            do not affect which visible control receives rounded ends. Nested Group.Root elements
+            retain separate rounded ends with a gap between groups. Set class on any part to restyle
+            it.
         </Typography.Text>
         <Typography.Text>
             Root and Separator accept orientation="horizontal" or "vertical". Separator defaults to

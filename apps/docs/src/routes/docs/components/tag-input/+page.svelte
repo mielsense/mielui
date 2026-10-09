@@ -41,7 +41,7 @@ let tags = $state(['svelte']);
 <div data-docs-page class="flex flex-col gap-10">
     <!-- ─── Header ────────────────────────────────────────────────── -->
     <PageIntro title="Tag Input">
-        A field that turns typed text into removable tags with badge outlines. Type a value, press
+        A field that turns typed text into removable tags shown as flat pills. Type a value, press
         Enter, and keep going.
     </PageIntro>
 

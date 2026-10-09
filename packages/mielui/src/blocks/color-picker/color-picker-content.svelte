@@ -31,12 +31,10 @@
     {#if children}
         {@render children()}
     {:else}
-        <Plane />
-        <div
-            class="flex items-center gap-2.5 border-b-[length:var(--border-size)] border-border p-2"
-        >
+        <Plane class="mx-1.5 mt-1.5 w-auto" />
+        <div class="flex items-center gap-2.5 px-2.5 pt-2.5 pb-1">
             <Preview />
-            <div class="min-w-0 flex-1 space-y-1.5">
+            <div class="min-w-0 flex-1 space-y-2">
                 <Hue />
                 <HexInput />
             </div>

@@ -31,7 +31,7 @@
                 "required": false,
                 "bindable": false,
                 "default": "'info'",
-                "description": "Status the alert reports. It sets the icon and the text color.",
+                "description": "Status the alert reports. It sets the icon and its tint.",
                 "inherited": false
             },
             {

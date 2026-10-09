@@ -33,7 +33,7 @@
     disabled={disabled || context.disabled || context.readonly || atBound}
     class={cn(
         rest.class,
-        'size-[calc(var(--size-icon-md)-var(--border-size)*2)] min-w-[calc(var(--size-icon-md)-var(--border-size)*2)]'
+        'relative h-auto w-[var(--size-control-md)] min-w-[var(--size-control-md)] shrink-0 rounded-none border-0 border-[var(--color-input)] text-foreground-muted hover:text-foreground focus-visible:z-10 first:rounded-s-[calc(var(--radius-control)-var(--border-size))] first:ps-0.5 not-first:border-s-[length:var(--border-size)] last:rounded-e-[calc(var(--radius-control)-var(--border-size))] last:pe-0.5 has-[+input]:border-e-[length:var(--border-size)]'
     )}
     onclick={(event) => {
         onclick?.(event);

@@ -61,7 +61,12 @@
                 context.setOpen(!context.open);
             }}
             {variant}
-            class={cn(className, 'flex flex-row items-center justify-between shadow-none focus-visible:shadow-[var(--focus-ring)]')}
+            class={cn(
+                className,
+                'flex flex-row items-center justify-between',
+                variant === 'outline' &&
+                    'px-[calc(var(--spacing)*3.5)] [font-weight:var(--font-weight-body)] hover:border-[var(--color-border-strong)] hover:bg-[var(--color-field)] focus-visible:border-primary data-[state=open]:border-[var(--color-border-strong)] data-[state=open]:bg-[var(--color-field)] aria-invalid:border-error aria-invalid:focus-visible:shadow-[0_0_0_calc(var(--border-size)*3)_color-mix(in_srgb,var(--color-error)_30%,transparent)]'
+            )}
         >
             <div
                 id={`${context.id}-value`}
@@ -79,7 +84,10 @@
             <HugeiconsIcon
                 icon={ChevronDown}
                 aria-hidden="true"
-                class="shrink-0 text-foreground-muted"
+                class={cn(
+                    'shrink-0 text-foreground-muted transition-transform [transition-duration:var(--motion-duration-flick)] ease-[var(--ease-spring-flick)] motion-reduce:transition-none',
+                    context.open && 'rotate-180'
+                )}
             />
         </Button>
     {/snippet}

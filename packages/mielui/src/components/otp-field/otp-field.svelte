@@ -22,6 +22,8 @@
     const initialValue = untrack(() => value);
     const count = $derived(Number.isFinite(length) ? Math.max(1, Math.trunc(length)) : 6);
 
+    const invalid = $derived(Boolean(rest['aria-invalid']) && rest['aria-invalid'] !== 'false');
+
     const normalizedValue = $derived(value.slice(0, count));
     $effect(() => {
         if (value !== normalizedValue) {
@@ -70,7 +72,13 @@
     {onValueChange}
     {onComplete}
     data-ui="otp-field"
-    class={cn(className, 'flex items-center gap-2 has-disabled:opacity-[var(--opacity-disabled)]', rest['aria-invalid'] && rest['aria-invalid'] !== 'false' && '[&_[data-ui=otp-field-cell]]:border-error')}
+    class={cn(
+        className,
+        'flex items-center gap-2 has-disabled:opacity-[var(--opacity-disabled)]',
+        invalid
+            ? '[&_[data-ui=otp-field-cell]]:border-error [&_[data-ui=otp-field-cell][data-active]]:border-error [&_[data-ui=otp-field-cell][data-active]]:shadow-[0_0_0_calc(var(--border-size)*3)_color-mix(in_srgb,var(--color-error)_30%,transparent)]'
+            : '[&:hover:not(:has(:disabled))_[data-ui=otp-field-cell]:not([data-active])]:border-[var(--color-border-strong)]'
+    )}
 >
     {#snippet children({ cells, isFocused })}
         {#if content}

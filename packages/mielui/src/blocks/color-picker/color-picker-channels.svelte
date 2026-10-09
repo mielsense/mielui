@@ -41,12 +41,16 @@
     }
 </script>
 
-<div {...rest} data-ui="color-picker-channels" class={cn(className, 'flex flex-col gap-1.5 p-2')}>
+<div
+    {...rest}
+    data-ui="color-picker-channels"
+    class={cn(className, 'flex flex-col gap-1.5 px-2.5 py-2')}
+>
     {#each channels as channel (channel.key)}
         <div class="flex items-center gap-2">
             <span
                 aria-hidden="true"
-                class="w-3 shrink-0 font-mono text-sm uppercase text-foreground-muted"
+                class="w-3 shrink-0 font-mono text-xs uppercase text-foreground-muted"
             >
                 {channel.key}
             </span>
@@ -61,12 +65,11 @@
             />
             <span
                 aria-hidden="true"
-                class="w-10 shrink-0 text-right font-mono text-xs tabular-nums"
+                class="w-10 shrink-0 text-end font-mono text-xs tabular-nums text-foreground"
             >
                 <span use:numberShuffle={{ value: Math.round(channel.value) }}>
                     {Math.round(channel.value)}
-                </span>
-                {channel.unit}
+                </span>{channel.unit}
             </span>
         </div>
     {/each}

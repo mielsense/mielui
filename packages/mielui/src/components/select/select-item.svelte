@@ -62,11 +62,19 @@
             bind:element
             disabled={disabled ?? undefined}
             unstyled
-            class={cn(className, 'mielui-menu-item')}
+            class={cn(
+                className,
+                'mielui-menu-item',
+                selected
+                    ? '[font-weight:var(--font-weight-label)]'
+                    : '[font-weight:var(--font-weight-body)]'
+            )}
         >
             {@render children?.()}
             {#if selected}
-                <span aria-hidden="true" class="ms-auto"><HugeiconsIcon icon={Check} /></span>
+                <span aria-hidden="true" class="ms-auto ps-2 text-foreground-muted">
+                    <HugeiconsIcon icon={Check} />
+                </span>
             {/if}
         </Button>
     {/snippet}

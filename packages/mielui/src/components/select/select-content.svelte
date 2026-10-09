@@ -31,8 +31,14 @@
                     inert={!open}
                     aria-hidden={!open || undefined}
                     data-state={open ? 'open' : 'closed'}
-                    class={cn(className, 'mielui-float-frame z-[130] flex min-w-[var(--bits-select-anchor-width)] max-h-[var(--bits-select-content-available-height)] flex-col overflow-hidden text-sm text-foreground shadow-[var(--elevation-float)] [--mielui-modal-inset:calc(var(--spacing)*0.5*var(--mielui-border-inset-scale,1))] outline-none origin-[var(--bits-select-content-transform-origin)] transition-[opacity,scale,filter,visibility] [transition-duration:var(--motion-duration-panel)] ease-[var(--ease-out)] motion-reduce:transition-none',
-                        open ? 'visible scale-100 opacity-100 blur-none' : 'invisible scale-[0.98] opacity-0 blur-[var(--motion-menu-blur)]', overlaySurface(surface))}
+                    class={cn(
+                        className,
+                        'mielui-float-frame z-[130] flex min-w-[var(--bits-select-anchor-width)] max-h-[var(--bits-select-content-available-height)] flex-col overflow-hidden text-sm text-foreground shadow-[var(--elevation-float)] outline-none origin-[var(--bits-select-content-transform-origin)] transition-[opacity,filter,visibility,scale,translate] motion-reduce:transition-none',
+                        open
+                            ? 'visible translate-y-0 scale-100 opacity-100 blur-none [transition-duration:var(--motion-duration-hover),var(--motion-duration-hover),0s,var(--motion-duration-panel-in),var(--motion-duration-panel-in)] [transition-timing-function:var(--ease-out),var(--ease-out),linear,var(--ease-spring-panel),var(--ease-spring-panel)]'
+                            : 'invisible translate-y-[var(--motion-menu-y)] scale-[var(--motion-menu-scale-start)] opacity-0 blur-[var(--motion-menu-blur)] [transition-duration:var(--motion-duration-panel-out)] ease-[var(--ease-out)]',
+                        overlaySurface(surface)
+                    )}
                 >
                     <div
                         use:travelingHighlight

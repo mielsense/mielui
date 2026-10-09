@@ -13,5 +13,5 @@
     {...rest}
     bind:ref
     data-ui="calendar-cell"
-    class={cn(className, 'relative p-0 text-center align-middle focus-within:z-10')}
+    class={cn(className, 'relative px-0 py-px text-center align-middle focus-within:z-10')}
 />

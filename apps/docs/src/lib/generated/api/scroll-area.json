@@ -17,7 +17,7 @@
                 "required": false,
                 "bindable": false,
                 "default": "true",
-                "description": "Shows a fade and chevron at an edge that has more content.",
+                "description": "Fades an edge that has more content.",
                 "inherited": false
             },
             {
@@ -26,7 +26,7 @@
                 "required": false,
                 "bindable": false,
                 "default": "true",
-                "description": "Blurs content under the edge cues.",
+                "description": "Blurs content as it passes under a faded edge.",
                 "inherited": false
             },
             {

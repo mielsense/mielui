@@ -13,5 +13,8 @@
     {...rest}
     bind:ref
     data-ui="date-range-picker-label"
-    class={cn(className, 'text-sm font-medium text-foreground data-disabled:opacity-[var(--opacity-disabled)]')}
+    class={cn(
+        className,
+        'w-fit [font-size:var(--font-size-label)] [font-weight:var(--font-weight-label)] [letter-spacing:var(--tracking-label)] leading-label text-foreground data-disabled:opacity-[var(--opacity-disabled)]'
+    )}
 />

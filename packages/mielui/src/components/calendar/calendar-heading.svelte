@@ -13,5 +13,8 @@
     {...rest}
     bind:ref
     data-ui="calendar-heading"
-    class={cn(className, 'text-center text-sm font-medium tabular-nums')}
+    class={cn(
+        className,
+        'text-center text-sm font-medium tabular-nums text-foreground [letter-spacing:var(--tracking-header)]'
+    )}
 />
