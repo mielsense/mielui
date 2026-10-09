@@ -151,7 +151,7 @@
         className,
         'mielui-inset-frame flex max-h-[var(--code-block-max-height)] w-full flex-col overflow-hidden text-foreground shadow-[var(--elevation-1)]',
         // token-lint-disable-next-line no-literal-length: code-block geometry contract
-        '[--code-block-gutter:var(--color-foreground-muted)] [--code-block-padding-x:1.1rem] [--code-block-padding-y:0.9rem] [--code-block-line-height:1.7] [--code-block-max-height:min(32rem,70vh)] [--code-block-slide:1.25rem]'
+        '[--mielui-plate-radius:calc(min(var(--radius-xl),var(--radius-control)+var(--spacing)+var(--border-size))*var(--mielui-squircle,1))] [--code-block-gutter:var(--color-foreground-muted)] [--code-block-padding-x:1.1rem] [--code-block-padding-y:0.9rem] [--code-block-line-height:1.7] [--code-block-max-height:min(32rem,70vh)] [--code-block-slide:1.25rem]'
     )}
     {...rest}
 >

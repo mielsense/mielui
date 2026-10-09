@@ -53,7 +53,7 @@
                 data-ui="card-footer"
                 class={cn(
                     card.footerSlot?.className,
-                    'flex w-full flex-row flex-wrap items-center justify-end gap-2 px-1.5 py-1.5'
+                    'flex w-full flex-row flex-wrap items-center justify-end gap-2 p-2'
                 )}
             >
                 {@render card.footerSlot?.children?.()}

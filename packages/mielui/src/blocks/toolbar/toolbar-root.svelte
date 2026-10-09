@@ -16,7 +16,7 @@
     setToolbarVariant(() => variant);
 
     const shell =
-        'flex items-center gap-1 rounded-[min(var(--radius-control),calc(var(--size-control-sm)/2+var(--spacing)))] p-1 text-foreground';
+        'flex items-center gap-1 rounded-[min(calc(var(--radius-control)+var(--spacing)),calc(var(--size-control-sm)/2+var(--spacing)))] p-1 text-foreground';
     const flat =
         'mielui-collection-surface bg-secondary [&>.mielui-item-highlight]:rounded-[var(--radius-control)]';
     const depth =

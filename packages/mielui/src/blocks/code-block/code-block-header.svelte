@@ -8,7 +8,7 @@
 <!-- The tab List flows from the left; Actions carries `ml-auto` to pin right. -->
 <div
     data-ui="code-block-header"
-    class={cn(className, 'flex w-full flex-row items-center gap-2 px-1 py-0.5')}
+    class={cn(className, 'flex w-full flex-row items-center gap-2 p-1')}
     {...rest}
 >
     {@render children?.()}

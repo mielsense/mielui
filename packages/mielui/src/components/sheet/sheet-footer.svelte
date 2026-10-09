@@ -23,7 +23,7 @@
         data-orientation="vertical"
         class={cn(
             className,
-            'flex w-full flex-row items-center gap-2 px-1 py-1.5 [&>[data-ui=sheet-close]]:me-auto'
+            'flex w-full flex-row items-center gap-2 p-2 [&>[data-ui=sheet-close]]:me-auto'
         )}
     >
         {@render children?.()}

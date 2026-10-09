@@ -216,7 +216,7 @@
                                 data-orientation={dialog.state.orientation}
                                 class={cn(
                             dialog.footerSlot.className,
-                            'flex w-full flex-row items-center gap-2 px-1 py-1.5'
+                            'flex w-full flex-row items-center gap-2 p-2'
                         )}
                             >
                                 {@render dialog.footerSlot.children?.()}

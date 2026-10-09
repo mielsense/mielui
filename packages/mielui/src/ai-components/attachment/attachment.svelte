@@ -158,7 +158,7 @@
             data-ui="attachment-drop-overlay"
             data-state="dragging"
             aria-hidden="true"
-            class="pointer-events-none absolute inset-0 z-10 grid place-items-center rounded-[calc(var(--radius-2xl)*var(--mielui-squircle,1))] [corner-shape:squircle] border-[length:var(--border-size)] border-dashed border-primary bg-[color-mix(in_srgb,var(--color-primary)_8%,var(--color-card))] text-foreground"
+            class="pointer-events-none absolute inset-0 z-10 grid place-items-center rounded-[calc(min(var(--radius-2xl),var(--radius-control)+var(--spacing)*2+var(--border-size))*var(--mielui-squircle,1))] [corner-shape:squircle] border-[length:var(--border-size)] border-dashed border-primary bg-[color-mix(in_srgb,var(--color-primary)_8%,var(--color-card))] text-foreground"
         >
             <span
                 class="flex h-[var(--size-control-sm)] items-center gap-1.5 rounded-[var(--radius-control)] border-[length:var(--border-size)] border-border bg-card px-3 [font-size:var(--font-size-label)] font-label shadow-[var(--elevation-float)]"
