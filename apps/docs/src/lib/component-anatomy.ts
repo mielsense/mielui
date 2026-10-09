@@ -197,7 +197,8 @@ export const componentAnatomy = {
         { name: 'Composer.Input', description: 'Accepts the prompt text.' },
         { name: 'Composer.Toolbar', description: 'Groups composer controls.' },
         { name: 'Composer.Actions', description: 'Groups composer actions.' },
-        { name: 'Composer.Submit', description: 'Submits or stops the prompt.' }
+        { name: 'Composer.Submit', description: 'Submits or stops the prompt.' },
+        { name: 'Composer.Footer', description: 'Holds a strip under the writing surface.' }
     ],
     question: [
         { name: 'Question.Root', description: 'Renders a full question form.' },

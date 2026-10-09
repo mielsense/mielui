@@ -19,7 +19,6 @@
     import { createShell, setShell } from '$lib/components/shell/shell.svelte';
     import Sidebar from '$lib/components/shell/sidebar.svelte';
     import SidebarCard from '$lib/components/shell/sidebar-card.svelte';
-    import StatusBar from '$lib/components/shell/status-bar.svelte';
     import TabPill from '$lib/components/shell/tab-pill.svelte';
     import Topbar from '$lib/components/shell/topbar.svelte';
     import { setStudioContext } from '$lib/studio-context';
@@ -133,7 +132,7 @@
     </main>
 {:else}
     <main
-        class="fixed inset-0 flex overflow-clip bg-[var(--docs-content)] [--docs-row-height:calc(var(--spacing)*14)] [--docs-rule:color-mix(in_oklab,var(--color-border)_62%,transparent)] [--docs-content:var(--color-card)] [--docs-chrome:color-mix(in_oklab,var(--color-secondary)_97%,white)] [--docs-side:var(--color-background)] [--docs-soft:color-mix(in_oklab,var(--color-secondary)_55%,var(--color-background))] [--docs-pill:color-mix(in_oklab,var(--color-secondary)_62%,var(--color-background))] dark:[--docs-content:color-mix(in_oklab,var(--color-card)_60%,var(--color-background))] dark:[--docs-side:var(--docs-content)] dark:[--docs-chrome:color-mix(in_oklab,var(--color-background),var(--color-secondary)_20%)] dark:[--docs-soft:color-mix(in_oklab,var(--color-secondary)_55%,var(--color-card))] dark:[--docs-pill:color-mix(in_oklab,var(--color-secondary)_80%,var(--color-card))]"
+        class="fixed inset-0 flex overflow-clip bg-[var(--docs-content)] [--docs-row-height:calc(var(--spacing)*14)] [--docs-rule:color-mix(in_oklab,var(--color-border)_62%,transparent)] [--docs-content:var(--color-card)] [--docs-chrome:color-mix(in_oklab,var(--color-secondary)_97%,white)] [--docs-side:var(--color-background)] [--docs-soft:color-mix(in_oklab,var(--color-secondary)_55%,var(--color-background))] [--docs-pill:color-mix(in_oklab,var(--color-secondary)_62%,var(--color-background))] dark:[--docs-content:color-mix(in_oklab,var(--color-card)_35%,var(--color-background))] dark:[--docs-side:var(--docs-content)] dark:[--docs-chrome:color-mix(in_oklab,var(--color-background),var(--color-secondary)_20%)] dark:[--docs-soft:color-mix(in_oklab,var(--color-secondary)_55%,var(--color-card))] dark:[--docs-pill:color-mix(in_oklab,var(--color-secondary)_80%,var(--color-card))]"
     >
         <Rail />
         <div class="flex min-h-0 min-w-0 flex-1 overflow-clip">
@@ -149,6 +148,27 @@
                     </Sidebar>
                 {/if}
                 <div class="flex min-h-0 min-w-0 flex-1 flex-col">
+                    {#if isDocs}
+                        <div bind:this={docsScrollEl} class="min-h-0 min-w-0 flex-1">
+                            {@render children?.()}
+                        </div>
+                    {:else}
+                        <div class="relative min-h-0 min-w-0 flex-1">
+                            <div
+                                bind:this={docsScrollEl}
+                                {@attach scrollFade({ size: 44, target: 'parent' })}
+                                class={`h-full overflow-y-auto overscroll-contain ${fadeY}`}
+                            >
+                                <div
+                                    class="flex w-full flex-col gap-5 px-5 pt-8 pb-16 sm:px-10 lg:flex-row lg:gap-0"
+                                >
+                                    {@render children?.()}
+                                </div>
+                            </div>
+                            <ScrollEdge edge="top" />
+                            <ScrollEdge edge="bottom" />
+                        </div>
+                    {/if}
                     <Topbar sidebar={hasSidebar}>
                         {#snippet leading()}
                             <NavigationSheet />
@@ -182,28 +202,6 @@
                             <MobileActions />
                         {/snippet}
                     </Topbar>
-                    {#if isDocs}
-                        <div bind:this={docsScrollEl} class="min-h-0 min-w-0 flex-1">
-                            {@render children?.()}
-                        </div>
-                    {:else}
-                        <div class="relative min-h-0 min-w-0 flex-1">
-                            <div
-                                bind:this={docsScrollEl}
-                                {@attach scrollFade({ size: 44, target: 'parent' })}
-                                class={`h-full overflow-y-auto overscroll-contain ${fadeY}`}
-                            >
-                                <div
-                                    class="flex w-full flex-col gap-5 px-5 pt-8 pb-16 sm:px-10 lg:flex-row lg:gap-0"
-                                >
-                                    {@render children?.()}
-                                </div>
-                            </div>
-                            <ScrollEdge edge="top" />
-                            <ScrollEdge edge="bottom" />
-                        </div>
-                    {/if}
-                    <StatusBar />
                 </div>
             {/if}
         </div>

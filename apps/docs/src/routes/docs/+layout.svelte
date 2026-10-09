@@ -3,7 +3,7 @@
     import { page } from '$app/state';
     import DocsPager from '$lib/components/docs/docs-pager.svelte';
     import { magneticHeadings } from '$lib/components/docs/magnetic-headings';
-    import OnThisPage from '$lib/components/docs/on-this-page.svelte';
+    import PageMinimap from '$lib/components/docs/page-minimap.svelte';
     import { createPageOutline } from '$lib/components/docs/page-outline.svelte';
     import ScrollEdge from '$lib/components/shell/scroll-edge.svelte';
     import { fadeYEnd, scrollFade } from '$lib/components/shell/scroll-fade';
@@ -34,8 +34,10 @@
         {@attach scrollFade({ size: 44, target: 'parent' })}
         class={`h-full min-h-0 w-full overflow-y-auto overscroll-contain [container-type:inline-size] ${fadeYEnd}`}
     >
-        <div class="flex w-full gap-12 px-5 pt-8 pb-24 sm:px-10 lg:pt-12 2xl:gap-16 2xl:px-14">
-            <div class="flex w-full min-w-0 flex-1 flex-col">
+        <div class="w-full px-5 pt-8 pb-24 sm:px-10 lg:pt-14 xl:px-20">
+            <div
+                class="mx-auto flex w-full max-w-[60rem] min-w-0 flex-col has-[[data-docs-toolbar]]:max-w-none"
+            >
                 <div bind:this={content} class="docs-article w-full min-w-0">
                     {@render children?.()}
                 </div>
@@ -43,11 +45,13 @@
                     <DocsPager />
                 {/if}
             </div>
-            <aside class="sticky top-12 hidden w-52 shrink-0 self-start xl:block">
-                <OnThisPage {outline} />
-            </aside>
         </div>
     </div>
+    <aside
+        class="pointer-events-none absolute inset-y-0 end-5 z-20 hidden items-center py-24 xl:flex [&>nav]:pointer-events-auto"
+    >
+        <PageMinimap {outline} />
+    </aside>
     <ScrollEdge edge="top" fill />
     <ScrollEdge edge="bottom" />
 </div>

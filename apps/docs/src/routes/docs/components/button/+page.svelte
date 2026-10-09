@@ -21,6 +21,8 @@
     import TrailingIcon from './examples/trailing-icon.svelte';
     import TrailingIconSrc from './examples/trailing-icon.svelte?raw';
 
+    import VariantGlow from './examples/variant-glow.svelte';
+    import VariantGlowSrc from './examples/variant-glow.svelte?raw';
     import Variants from './examples/variants.svelte';
     import VariantsSrc from './examples/variants.svelte?raw';
 
@@ -84,6 +86,15 @@ let status = $state<'idle' | 'loading' | 'success' | 'error'>('idle');
         <div id="variants" class="scroll-mt-20 flex flex-col gap-3">
             <Typography.H3 class="docs-subsection-heading">Variants</Typography.H3>
             <ComponentPreview code={VariantsSrc}><Variants /></ComponentPreview>
+        </div>
+        <div id="glow" class="scroll-mt-20 flex flex-col gap-3">
+            <Typography.H3 class="docs-subsection-heading">Glow</Typography.H3>
+            <Typography.Text variant="supporting">
+                <InlineText
+                    text={"`variant=\"glow\"` is a lit version of the primary action for a page's one headline button. It is a pill filled with a light tint of the primary color under dark text, with a white inner rim. It brightens on hover, darkens on press, and never casts a drop shadow. Set `--mielui-glow-color` to change the fill and a text color class to match it. `--mielui-glow-light` scales the white light from 0 to 1 and starts at 1: lower it on dark fills so the light stays soft."}
+                />
+            </Typography.Text>
+            <ComponentPreview code={VariantGlowSrc}><VariantGlow /></ComponentPreview>
         </div>
         <div id="sizes" class="scroll-mt-20 flex flex-col gap-3">
             <Typography.H3 class="docs-subsection-heading">Sizes</Typography.H3>

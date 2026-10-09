@@ -9,17 +9,17 @@
     const trail = $derived(getBreadcrumbs(page.url.pathname).slice(1));
 </script>
 
-<header data-docs-intro class="flex flex-col gap-3">
+<header data-docs-intro class="flex flex-col gap-4">
     {#if trail.length > 1}
         <BreadcrumbNav items={trail} />
     {/if}
     <h1
-        class="m-0 text-[2rem] leading-10 font-semibold tracking-[-0.025em] text-foreground [font-family:var(--font-header)]"
+        class="m-0 text-[2.5rem] leading-[1.1] font-semibold tracking-[-0.03em] text-foreground [font-family:var(--font-header)]"
     >
         {title}
     </h1>
     {#if children}
-        <div class="text-base leading-7 text-foreground-muted">
+        <div class="max-w-[44rem] text-[1.0625rem] leading-7 text-foreground-muted">
             {@render children()}
         </div>
     {/if}

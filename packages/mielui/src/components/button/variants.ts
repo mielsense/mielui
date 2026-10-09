@@ -20,6 +20,12 @@ export const button = tv({
             destructive:
                 'shadow-[var(--elevation-control-edge)] focus-visible:shadow-[var(--focus-ring),var(--elevation-control-edge)] bg-error-soft text-[var(--mielui-error-text)] hover:bg-[color-mix(in_srgb,var(--color-error)_20%,transparent)] data-[state=open]:bg-[color-mix(in_srgb,var(--color-error)_20%,transparent)]',
             /**
+             * The fill, light layers, and every edge come from `.mielui-glow` in
+             * ui.css. The shadow utilities here keep the focus ring from replacing
+             * the edge shadows.
+             */
+            glow: 'mielui-glow rounded-full text-[color-mix(in_oklab,var(--color-primary)_12%,#18181b)] shadow-[var(--mielui-glow-shadow)] focus-visible:shadow-[var(--focus-ring),var(--mielui-glow-shadow)]',
+            /**
              * A clickable Panel: the same interaction as `outline` wearing Panel's
              * concentric frame -- the semantic border outside and the inset surface
              * ring inside read as Panel's double edge.

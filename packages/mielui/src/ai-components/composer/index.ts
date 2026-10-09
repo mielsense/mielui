@@ -8,6 +8,7 @@ import type {
 } from 'svelte/elements';
 import Root from './composer.svelte';
 import Actions from './composer-actions.svelte';
+import Footer from './composer-footer.svelte';
 import Header from './composer-header.svelte';
 import Input from './composer-input.svelte';
 import Submit from './composer-submit.svelte';
@@ -80,6 +81,13 @@ export type ComposerActionsProps = {
     children?: Snippet;
 } & Omit<HTMLAttributes<HTMLDivElement>, 'children' | 'class'>;
 
+export type ComposerFooterProps = {
+    /** Classes added to the element. */
+    class?: string;
+    /** Content rendered inside. */
+    children?: Snippet;
+} & Omit<HTMLAttributes<HTMLDivElement>, 'children' | 'class'>;
+
 export type ComposerSubmitProps = {
     /** Accessible name of the send button. */
     label?: string;
@@ -108,4 +116,4 @@ export type ComposerSubmitState = Readonly<{
     empty: boolean;
 }>;
 
-export { Actions, Header, Input, Root, Submit, Toolbar };
+export { Actions, Footer, Header, Input, Root, Submit, Toolbar };

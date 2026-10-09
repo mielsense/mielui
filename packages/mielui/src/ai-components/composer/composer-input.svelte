@@ -99,7 +99,7 @@
     }}
     class={cn(
         className,
-        'mielui-inset-surface min-h-20 max-h-52 w-full resize-none overflow-y-hidden px-4 pt-3.5 pb-3 [font-size:var(--font-size-body)] leading-body text-foreground outline-none placeholder:text-foreground-muted disabled:cursor-not-allowed disabled:opacity-[var(--opacity-disabled)] read-only:cursor-default',
+        'mielui-inset-surface min-h-24 max-h-52 w-full resize-none overflow-y-hidden px-4.5 pt-4 pb-3 [font-size:var(--font-size-body)] leading-body text-foreground outline-none placeholder:text-foreground-muted disabled:cursor-not-allowed disabled:opacity-[var(--opacity-disabled)] read-only:cursor-default',
         context.joinedToolbar && 'rounded-b-none'
     )}
 ></textarea>
