@@ -1,12 +1,8 @@
 <script lang="ts">
     import {
-        Analytics01Icon,
-        BrowserIcon,
         CursorPointer02Icon,
-        GridViewIcon,
         Redo02Icon,
         SlidersHorizontalIcon,
-        SparklesIcon,
         Undo02Icon
     } from '@hugeicons/core-free-icons';
     import { Button } from '@mielui/svelte/components/button';
@@ -16,13 +12,12 @@
     import * as Sheet from '@mielui/svelte/components/sheet';
     import { Switch } from '@mielui/svelte/components/switch';
     import * as Tabs from '@mielui/svelte/components/tabs';
+    import * as ToggleGroup from '@mielui/svelte/components/toggle-group';
     import * as Tooltip from '@mielui/svelte/components/tooltip';
     import HugeiconsIcon from '@mielui/svelte/hugeicons-icon';
     import { cn } from '@mielui/svelte/utils';
     import MobileActions from '$lib/components/shell/mobile-actions.svelte';
-    import { fadeX, scrollFade } from '$lib/components/shell/scroll-fade';
     import Sidebar from '$lib/components/shell/sidebar.svelte';
-    import TabPill from '$lib/components/shell/tab-pill.svelte';
     import Topbar from '$lib/components/shell/topbar.svelte';
     import { getStudioContext } from '$lib/studio-context';
     import AiPreview from './ai-preview.svelte';
@@ -45,10 +40,10 @@
     let picking = $state(false);
     let preview = $state<HTMLDivElement>();
     const previewTabs = [
-        { value: 'components', label: 'Components', icon: GridViewIcon },
-        { value: 'charts', label: 'Charts', icon: Analytics01Icon },
-        { value: 'ai', label: 'AI components', icon: SparklesIcon },
-        { value: 'app', label: 'App preview', icon: BrowserIcon }
+        { value: 'components', label: 'Components' },
+        { value: 'charts', label: 'Charts' },
+        { value: 'ai', label: 'AI components' },
+        { value: 'app', label: 'App preview' }
     ];
     let appMounted = $state(false);
     $effect(() => {
@@ -109,23 +104,6 @@
                 </Sheet.Root>
             </div>
         {/snippet}
-        <div
-            role="group"
-            aria-label="Preview content"
-            {@attach scrollFade({ axis: 'x', size: 32 })}
-            class={`hide-scrollbar-all hidden min-w-0 flex-1 items-center gap-1 overflow-x-auto p-0.5 md:flex ${fadeX}`}
-        >
-            {#each previewTabs as tab (tab.value)}
-                <TabPill
-                    label={tab.label}
-                    icon={tab.icon}
-                    current={studio.mode === tab.value}
-                    onclick={() => {
-                        studio.mode = tab.value;
-                    }}
-                />
-            {/each}
-        </div>
         <div class="min-w-0 flex-1 md:hidden">
             <Select.Root bind:value={studio.mode}>
                 <Select.Trigger aria-label="Preview content" class="w-auto max-w-full min-w-0">
@@ -238,8 +216,39 @@
     </Topbar>
     <section
         aria-label="Theme preview"
-        class="flex min-h-0 flex-1 justify-center overflow-clip bg-[var(--docs-soft)]"
+        class="relative flex min-h-0 flex-1 justify-center overflow-clip bg-[var(--docs-soft)]"
     >
+        <div
+            class="pointer-events-none absolute inset-x-0 bottom-5 z-30 hidden justify-center md:flex"
+        >
+            <ToggleGroup.Root
+                type="single"
+                aria-label="Preview content"
+                bind:value={
+                    () => studio.mode,
+                    (next) => {
+                        if (next) {
+                            studio.mode = next;
+                        }
+                    }
+                }
+                class="pointer-events-auto flex gap-0.5 rounded-full border-[length:var(--border-size)] border-border bg-background p-1 shadow-[var(--elevation-float)]"
+            >
+                {#each previewTabs as tab (tab.value)}
+                    <ToggleGroup.Item
+                        value={tab.value}
+                        onclickcapture={(event) => {
+                            if (studio.mode === tab.value) {
+                                event.preventDefault();
+                            }
+                        }}
+                        class="h-8 rounded-full px-3.5 text-foreground-muted data-[state=on]:bg-foreground/[0.1] data-[state=on]:text-foreground"
+                    >
+                        {tab.label}
+                    </ToggleGroup.Item>
+                {/each}
+            </ToggleGroup.Root>
+        </div>
         <div
             class={cn(
                 'h-full min-h-0 w-full overflow-clip bg-[var(--docs-side)] font-[var(--font-sans)] text-foreground [&[data-picking]_*]:cursor-crosshair!',

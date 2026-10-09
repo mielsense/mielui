@@ -83,7 +83,7 @@
                     <Select.Trigger variant="ghost" aria-label="Model" class="w-auto">
                         <span class="truncate">{model}</span>
                     </Select.Trigger>
-                    <Select.Content dynamic align="end">
+                    <Select.Content dynamic>
                         <Select.Label>Model</Select.Label>
                         {#each models as option (option)}
                             <Select.Item value={option}>{option}</Select.Item>

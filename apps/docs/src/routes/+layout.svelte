@@ -169,7 +169,7 @@
                             <ScrollEdge edge="bottom" />
                         </div>
                     {/if}
-                    <Topbar sidebar={hasSidebar}>
+                    <Topbar>
                         {#snippet leading()}
                             <NavigationSheet />
                         {/snippet}

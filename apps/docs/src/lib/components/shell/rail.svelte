@@ -7,6 +7,7 @@
         GridViewIcon as Grid,
         PaintBoardIcon as Palette,
         Search01Icon as Search,
+        SidebarLeft01Icon as SidebarIcon,
         SwatchIcon as Swatch
     } from '@hugeicons/core-free-icons';
     import BrandMark from '@mielui/svelte/brand-mark';
@@ -16,9 +17,12 @@
     import { page } from '$app/state';
     import { getSearch } from '$lib/components/search/context';
     import { usesDocsSidebar } from './page-icon';
+    import { getShell } from './shell.svelte';
 
     const search = getSearch();
+    const shell = getShell();
     const pathname = $derived(page.url.pathname);
+    const hasSidebar = $derived(usesDocsSidebar(pathname) || pathname.startsWith('/studio'));
     const items = $derived([
         {
             href: resolve('/docs/introduction'),
@@ -112,6 +116,21 @@
             </Tooltip.Trigger>
             <Tooltip.Content>Search</Tooltip.Content>
         </Tooltip.Root>
+        {#if hasSidebar && shell.collapsed}
+            <Tooltip.Root placement="right">
+                <Tooltip.Trigger>
+                    <button
+                        type="button"
+                        aria-label="Show sidebar"
+                        class={itemClass}
+                        onclick={shell.toggle}
+                    >
+                        <HugeiconsIcon icon={SidebarIcon} size={20} strokeWidth={1.8} />
+                    </button>
+                </Tooltip.Trigger>
+                <Tooltip.Content>Show sidebar</Tooltip.Content>
+            </Tooltip.Root>
+        {/if}
     </div>
     <div class="mt-auto flex h-[50px] shrink-0 items-center">
         <Tooltip.Root placement="right">

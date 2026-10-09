@@ -349,8 +349,10 @@ never fixed dark. Use Hugeicons throughout the shell.
 Hairlines split the panel, not gaps. The sidebar has a title row with the
 workspace switcher and a hide button. The switcher shows the title and chevrons
 and opens a menu of Documentation, Theme Studio, and Themes. The content column
-has a top bar of the same height. The sidebar can be hidden and shown again from the top bar or
-with Cmd/Ctrl+B, and the choice persists. In light mode the rail and sidebar use the page
+has a top bar of the same height. The sidebar is hidden from its title row and shown again from the icon rail, or
+with Cmd/Ctrl+B either way, and the choice persists. The show control is a rail
+item after search and appears only while the sidebar is hidden; it never sits
+in the tab bar. In light mode the rail and sidebar use the page
 background and the content column the card color; in dark mode they share one
 surface. Only docs pages with navigation show the
 sidebar. Themes, Changelog and Agent skill use the full panel.
@@ -392,8 +394,7 @@ fainter one. Cmd or Ctrl-click on a sidebar link opens it as a tab in the backgr
 tab onto another to reorder, or press Alt with the left or right arrow on a
 focused tab. Error pages are never saved as tabs; they persist in local storage and scroll sideways
 when they overflow. Copy page and the theme toggle sit at the end of the bar, in docs and in Studio. Pages without tabs
-show one static pill with their name. Studio uses the same pills for its preview
-modes.
+show one static pill with their name.
 
 The shell has no status line. Do not add a
 bar under the content column for the version, counts, the install command, or
@@ -434,7 +435,8 @@ settles that section into place. The settle never runs during a drag, under
 reduced motion, or with zero-duration motion. Sections are separated by
 4rem and their content by 1rem; the shared layout owns these distances. Previous
 and next links close the article as labelled ghost Buttons above a hairline rule.
-Do not use floating pills for shell chrome.
+Do not float shell chrome as pills; the Studio preview switch is the one
+exception.
 
 Use rows for short facts and link lists. A row group is an inset frame of rows
 separated by hairlines, with a muted label in a fixed column at the start and the
@@ -517,12 +519,16 @@ row and the top bar are both 50px tall. Top bar controls use the small control
 height with the Button's own radius and type; outline is reserved for the Copy
 page group. Separate control groups with a gap, not a divider.
 
-Studio preview modes sit at the start of the top bar as the same pills the docs
-tabs use, each with its icon. The end of the bar holds only icon buttons: token
-picking, Undo, Redo, preview options, and the theme toggle. Preview width and the
+Studio preview modes are a floating segmented control at the bottom center of
+the preview: a fully rounded track with a hairline border on the background
+color and the floating elevation, holding text-only ToggleGroup items with a
+quiet fill on the selected one. One mode is always selected. The Studio top bar
+holds only icon buttons at its end: token picking, Undo, Redo, preview options,
+and the theme toggle. Preview width and the
 glass backdrop switch live in the preview options popover, not in the bar. Do not
 add another toolbar row or more always-visible controls. Below the medium breakpoint the
-modes become a select that shrinks before anything overlaps, the sheet trigger
+floating switch is hidden and the modes become a select in the top bar that
+shrinks before anything overlaps, the sheet trigger
 reads Edit, and token picking and preview options are hidden. Every icon button
 in the bar has a tooltip. In Studio the top bar,
 the preview page and the sidebar share one background (`--docs-side`) in both

@@ -5,3 +5,6 @@
 - Composer gives the input and its joined toolbar more padding.
 - The docs shell drops the status line under the page. Sidebar navigation is a plain text list with more space between groups, and search stays in the rail and on Cmd/Ctrl+K.
 - The docs tab strip, Copy page, and the theme toggle sit in a bar at the bottom of the page instead of the top, and the dark shell background is slightly darker.
+- Outline buttons wrapped in a Tooltip or another trigger inside a Group take the group's border color too, so the frame no longer changes color at the wrapped button.
+- The control that shows a hidden sidebar is in the icon rail instead of the tab bar.
+- Theme Studio switches preview modes with a floating segmented control at the bottom center of the preview instead of tabs in the top bar.
