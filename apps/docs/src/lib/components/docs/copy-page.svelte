@@ -73,9 +73,9 @@
 </script>
 
 <Popover.Root bind:open placement="bottom-end">
-    <Group.Root aria-label="Page actions" class="[--radius-lg:var(--radius-sm)]">
+    <Group.Root aria-label="Page actions">
         <Button
-            variant="outline"
+            variant="ghost"
             size="sm"
             {status}
             loadingLabel="Copying…"
@@ -88,7 +88,7 @@
         </Button>
         <Group.Separator />
         <Popover.Trigger
-            variant="outline"
+            variant="ghost"
             size="icon"
             class="size-[var(--size-control-sm)]"
             aria-label="More page actions"
@@ -101,10 +101,7 @@
             {#each links as link (link.label)}
                 {@render resource(link.label, link.href)}
             {/each}
-            <div
-                role="separator"
-                class="-mx-1 my-0.5 h-[length:var(--border-size)] bg-border"
-            ></div>
+            <div role="separator" class="mx-2 my-0.5 h-[length:var(--border-size)] bg-border"></div>
             {@render resource('View as Markdown', markdownPath)}
         </nav>
     </Popover.Content>

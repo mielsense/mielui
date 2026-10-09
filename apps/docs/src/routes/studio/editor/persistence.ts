@@ -23,7 +23,11 @@ function withoutLegacyDefaults(
     const entries = Object.entries(saved).filter(([key, value]) => {
         const name = key as keyof FoundationPalette;
 
-        return stated?.[name] !== undefined || value !== LEGACY_FOUNDATION_COLORS[colorMode][name];
+        const legacy = LEGACY_FOUNDATION_COLORS.some((palette) => {
+            return palette[colorMode][name] === value;
+        });
+
+        return stated?.[name] !== undefined || !legacy;
     });
 
     return Object.fromEntries(entries) as Partial<FoundationPalette>;

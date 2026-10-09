@@ -1,0 +1,13 @@
+- The default theme is redesigned. Surfaces are white plates on a grey stage, every neutral is derived from the foreground color, everything pressable is a pill, and filled buttons are lit. Explicit themes keep their colors, and every theme picks up the new shapes and motion.
+- The default fonts are Inter Tight and Geist Mono instead of Manrope and JetBrains Mono. `ui.css` now imports `@fontsource/inter-tight` and `@fontsource/geist-mono`, and the package no longer depends on the old two. To keep Manrope, install `@fontsource/manrope`, import its CSS, and set `--font-sans: 'Manrope', sans-serif`.
+- Text weight stops at 500. `font-semibold` and `font-bold` resolve to 500, and `--font-weight-header` is 500. Build hierarchy from size and color, or set `--font-weight-semibold` and `--font-weight-bold` back to 600 and 700.
+- `--color-border`, `--color-border-strong`, and `--color-input` are translucent mixes of the foreground instead of opaque greys. A theme that sets `foundation.border` keeps its own color.
+- Two-layer surfaces swap their layers. The frame is now the card color and the inner surface is the page background, so content in an inset Card, a Dialog, a CodeBlock, or a Composer sits on the recessed stage color with white fields on top.
+- The default theme uses double borders and resting shadows. `chrome.borders` defaults to `double` and `chrome.surfaceShadows` to `true`. Set them to `single` and `false` for the old flat frames.
+- The radius scale changes. `--radius-xl` is 18px instead of 20px, plates use the new `--radius-2xl` (26px), and controls use the new `--radius-control`, a pill in the default and rounded scales. Set `--radius-control` to a length for rectangular controls.
+- Buttons are pills. Primary, secondary, and destructive are lit like `glow`. Outline is flat: a hairline on the field color with no inset shading.
+- The primary button's text is dark on the default brand in light mode as well as dark, so it passes contrast. `--color-on-primary` is `#21151e` in both.
+- Text fields, native selects, select and combobox triggers, and number fields are pills. Textarea and TagInput use `--radius-xl`.
+- Menu separators are inset from the panel's edges instead of spanning its full width.
+- The focus ring is 3px at half the primary color instead of 2px at 80%.
+- Menus, selects, and popovers spring open and close on a 100ms fade. Dialogs pop from 96% scale and leave in 150ms. The blur on both is gone. `--motion-duration-panel-in`, `--motion-duration-modal-in`, and the menu and modal offset tokens have new defaults.

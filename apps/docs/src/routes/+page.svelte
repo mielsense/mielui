@@ -119,7 +119,7 @@
                 </a>
                 <h1
                     id="home-title"
-                    class="m-0 mt-7 text-[clamp(2.75rem,7cqw,4.75rem)] leading-[1] font-medium tracking-[-0.045em] text-foreground"
+                    class="m-0 mt-7 text-[clamp(2.75rem,7cqw,4.75rem)] leading-[1] font-medium tracking-[-0.035em] text-foreground"
                 >
                     Svelte UI.
                     <span class="block text-foreground-muted">Your way.</span>
@@ -196,7 +196,7 @@
         >
             <h2
                 id="home-start"
-                class="m-0 max-w-[18ch] text-[clamp(2rem,5cqw,3.25rem)] leading-[1.05] font-medium tracking-[-0.04em] text-balance text-foreground"
+                class="m-0 max-w-[18ch] text-[clamp(2rem,5cqw,3.25rem)] leading-[1.05] font-medium tracking-[-0.03em] text-balance text-foreground"
             >
                 Start with a button.
                 <span class="text-foreground-muted">Keep the whole kit.</span>

@@ -1,2 +1,7 @@
 - Composer has a `Footer` part: a strip on the frame under the writing surface for hints, connected apps, or message-wide settings.
 - Button has a `glow` variant: a lit fill for a page's headline action, with `--mielui-glow-color` and `--mielui-glow-light` to change its color and brightness.
+- Three surface contracts ship in `ui.css`: `mielui-plate` for a resting surface, `mielui-float-frame` for a floating panel, and `mielui-glow-neutral` for the white selected pill on a track.
+- `--color-wash` is the one hover and selected-row fill, and `--mielui-glow-ring` sets a lit pill's outer edge.
+- Four spring curves are theme tokens: `--ease-spring-panel`, `--ease-spring-layout`, `--ease-spring-pop`, and `--ease-spring-flick`, with `--motion-duration-spring`, `--motion-duration-pop`, and `--motion-duration-flick`. `springEase` in `@mielui/svelte/transition` builds the same curves for Svelte transitions.
+- Plates and frames use continuous-curvature corners where the browser supports `corner-shape: squircle`.
+- The theme's edge highlight now scales the light on every lit pill.

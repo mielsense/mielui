@@ -574,7 +574,11 @@
         --mielui-glow-light: 1;
         --mielui-glow-l: calc(var(--mielui-glow-light) * var(--mielui-edge-highlight, 0.5) * 2);
         --mielui-glow-top: color-mix(in oklab, var(--mielui-glow-color) 95%, #000);
-        --mielui-glow-bottom: color-mix(in oklab, var(--mielui-glow-color) 70%, #fff);
+        --mielui-glow-bottom: color-mix(
+            in oklab,
+            var(--mielui-glow-color) calc(100% - 30% * var(--mielui-glow-l)),
+            #fff
+        );
         --mielui-glow-ring: color-mix(
             in srgb,
             color-mix(in oklab, var(--mielui-glow-color) 45%, #000) 26%,
@@ -639,7 +643,12 @@
             linear-gradient(
                 180deg,
                 var(--mielui-glow-color) 9%,
-                color-mix(in oklab, var(--mielui-glow-color) 58%, #fff) 100%
+                color-mix(
+                        in oklab,
+                        var(--mielui-glow-color) calc(100% - 42% * var(--mielui-glow-l)),
+                        #fff
+                    )
+                    100%
             );
         box-shadow: inset 0 -1px 3px 0 rgb(255 255 255 / calc(0.9 * var(--mielui-glow-l)));
     }
@@ -651,7 +660,11 @@
 
     .mielui-glow:active:not(:disabled):not([aria-disabled='true']) {
         --mielui-glow-top: color-mix(in oklab, var(--mielui-glow-color) 86%, #000);
-        --mielui-glow-bottom: color-mix(in oklab, var(--mielui-glow-color) 88%, #fff);
+        --mielui-glow-bottom: color-mix(
+            in oklab,
+            var(--mielui-glow-color) calc(100% - 12% * var(--mielui-glow-l)),
+            #fff
+        );
     }
 
     .mielui-glow:active::before,

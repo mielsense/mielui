@@ -85,13 +85,18 @@ let status = $state<'idle' | 'loading' | 'success' | 'error'>('idle');
         </div>
         <div id="variants" class="scroll-mt-20 flex flex-col gap-3">
             <Typography.H3 class="docs-subsection-heading">Variants</Typography.H3>
+            <Typography.Text variant="supporting">
+                <InlineText
+                    text={"Every button is a pill. `primary`, `secondary`, and `destructive` are lit: a gradient of the button's own color under faint white light, with every edge drawn by an inner rim instead of a drop shadow. They brighten on hover and darken on press. `outline` is a flat hairline on the field color, `ghost` shows a wash on hover, and `quiet` is text alone. `panel` wears the resting plate, so a whole card can be the control. Use one primary action per view."}
+                />
+            </Typography.Text>
             <ComponentPreview code={VariantsSrc}><Variants /></ComponentPreview>
         </div>
         <div id="glow" class="scroll-mt-20 flex flex-col gap-3">
             <Typography.H3 class="docs-subsection-heading">Glow</Typography.H3>
             <Typography.Text variant="supporting">
                 <InlineText
-                    text={"`variant=\"glow\"` is a lit version of the primary action for a page's one headline button. It is a pill filled with a light tint of the primary color under dark text, with a white inner rim. It brightens on hover, darkens on press, and never casts a drop shadow. Set `--mielui-glow-color` to change the fill and a text color class to match it. `--mielui-glow-light` scales the white light from 0 to 1 and starts at 1: lower it on dark fills so the light stays soft."}
+                    text={"`variant=\"glow\"` is the same lit material at full light, for a page's one headline button. It is filled with a light tint of the primary color under dark text. Set `--mielui-glow-color` to change the fill and a text color class to match it. `--mielui-glow-light` scales the white light from 0 to 1 and starts at 1: lower it on dark fills so the light stays soft. `--mielui-glow-ring` replaces the outer edge, which is a darker tint of the fill by default. The same three properties work on any lit variant."}
                 />
             </Typography.Text>
             <ComponentPreview code={VariantGlowSrc}><VariantGlow /></ComponentPreview>
