@@ -54,9 +54,9 @@
     <section id="usage" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Usage</Typography.H2>
         <Typography.Text variant="supporting">
-            The theme setting chrome.borders chooses "single" or "double" framing. Double is the
-            default: a recessed frame with a gutter around the white writing surface. Single removes
-            the gutter while preserving content padding, composition, and inset variants.
+            The theme setting chrome.borders chooses "single" or "double" framing. Single is the
+            default. Single removes the extra frame while preserving content padding, composition,
+            and inset variants.
         </Typography.Text>
         <Typography.Text variant="supporting">
             Bind the prompt value on Root and handle submission with onSubmit. Composer waits for

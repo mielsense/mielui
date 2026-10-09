@@ -52,14 +52,12 @@
             to list the commands, searches, and reads completed within a task.
         </Typography.Text>
         <Typography.Text variant="supporting">
-            The default variant is a two-layer card: the trigger is a strip on the frame and the
-            content sits on a recessed inset. The trigger leads with a status icon and label: a
-            spinner while running, a green check when complete, and an alert icon with red "Task
-            failed" text when the task fails. The name and duration are set in mono. Item names use
-            the foreground color; the kind icon distinguishes commands, searches, and reads. Input
-            and Output are labelled mono blocks on the same inset. Tool.Item renders supplied
-            children in place of its detail text, so you can compose a link or custom detail without
-            replacing its name and icon.
+            The trigger leads with a status icon and label: a spinner while running, a check when
+            complete, and an alert icon with red "Task failed" text when the task fails. Tool names
+            use the foreground color; the kind icon distinguishes commands, searches, and reads.
+            Input and Output share one quiet surface divided by a hairline. Tool.Item renders
+            supplied children in place of its detail text, so you can compose a link or custom
+            detail without replacing its name and icon.
         </Typography.Text>
         <CodeBlock
             code={`import * as Tool from '@mielui/svelte/components/tool';\n\n<Tool.Root name="1 file, 1 search, and 1 command" state="complete" duration="6s" variant="quiet">\n  <Tool.Item name="Bash" detail="pnpm lint" />\n  <Tool.Item name="Grep" detail="InputBar" kind="search" />\n  <Tool.Item name="Read" detail="/lib/input-bar.tsx" kind="read" />\n</Tool.Root>`}

@@ -26,7 +26,7 @@
 
 <div class="flex max-w-full items-center justify-center p-2 sm:p-6">
     <div
-        class="flex flex-wrap gap-1 rounded-[var(--radius-control)] border border-border bg-card p-1 shadow-[var(--elevation-1)]"
+        class="flex flex-wrap gap-1 rounded-[calc(var(--radius-control)+var(--spacing)+var(--border-size))] border border-border bg-card p-1 shadow-[var(--elevation-1)]"
     >
         {#each tools as tool (tool.id)}
             <Tooltip.Root placement="top" delay={300}>

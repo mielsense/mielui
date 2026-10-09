@@ -60,8 +60,8 @@
         <Typography.H2 class="docs-section-heading">Usage</Typography.H2>
         <Typography.Text variant="supporting">
             The panel is one floating layer with a single hairline edge; the theme setting
-            chrome.borders does not change it. Separators are inset from the panel edges, including
-            in submenus. Menu items keep their padding.
+            chrome.borders does not change it. Separators span the inner panel width, including
+            submenus. Menu items keep their padding.
         </Typography.Text>
         <Typography.Text variant="supporting">
             Use Arrow keys, Home, End, or type a label to move between enabled items. Submenus

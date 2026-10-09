@@ -12,7 +12,7 @@
   --color-primary: #155eef;
   --color-background: #fcfcfd;
   --color-foreground: #101828;
-  --radius-control: 0.55rem;
+  --radius-control: 9999px;
   --font-sans: 'DM Sans', sans-serif;
 }
 
@@ -254,7 +254,7 @@ src/lib/mielui/components/button/
         </Table.ScrollArea>
         <Typography.Text variant="body" class="m-0">
             <InlineText
-                text="Controls use three heights. Icon buttons match the medium height. `--focus-ring` is a 3px ring at half the primary color, and it composes with each control's existing edge. The default radius scale is 8, 10, 14, and 18 pixels from small to extra large. Plates use `--radius-2xl`, 26 pixels, and everything pressable uses `--radius-control`, a pill. Set `--radius-control` to a length for rectangular buttons and fields."
+                text="Controls use three heights. Icon buttons match the medium height. `--focus-ring` is a 3px ring at half the primary color, and it composes with each control's existing edge. The default radius scale is 8, 10, 14, and 18 pixels from small to extra large. Plates use `--radius-2xl`, 26 pixels, and everything pressable uses `--radius-control`: 4 pixels in the sharp scale, 12 in the default scale, and a pill in the rounded scale."
             />
         </Typography.Text>
         <Typography.Text variant="body" class="m-0">
@@ -349,7 +349,7 @@ src/lib/mielui/components/button/
         <Typography.H2 class="docs-section-heading">Borders</Typography.H2>
         <Typography.Text variant="body" class="m-0">
             <InlineText
-                text='Framed surfaces are a white frame holding a recessed inset in the page background. Set `chrome.borders` to `"double"` for a gutter between the two, or `"single"` so the inset meets the border of the frame. The default is `"double"`. Explicit saved settings remain respected. Studio exposes this choice under Appearance.'
+                text='Framed surfaces are a white frame holding a recessed inset in the page background. Set `chrome.borders` to `"single"` so the inset meets the border of the frame, or `"double"` for a gutter between the two. The default is `"single"`. Explicit saved settings remain respected. Studio exposes this choice under Appearance.'
             />
         </Typography.Text>
         <CodeBlock
@@ -412,7 +412,7 @@ const css = themeToCss(theme);`}
         <Typography.H2 class="docs-section-heading">Edge highlights</Typography.H2>
         <Typography.Text variant="body" class="m-0">
             <InlineText
-                text="Set `chrome.edgeHighlight` to adjust the light on lit pills: filled buttons, moving thumbs, and selected segments. It also scales the light edge on keycaps. Text fields, selection triggers, and outline buttons stay flat. The default is 0.5. Use 0 to remove that light or 1 for full strength. Focus rings, borders, and drop shadows keep their existing colors and opacity. Shadow switches still take precedence."
+                text="Set `chrome.edgeHighlight` to adjust the light on lit pills: filled buttons, moving thumbs, and selected segments. It also scales the light edge on keycaps. Text fields, selection triggers, and outline buttons stay flat. The default is 0.33. Use 0 to remove that light or 1 for full strength. Focus rings, borders, and drop shadows keep their existing colors and opacity. Shadow switches still take precedence."
             />
         </Typography.Text>
         <CodeBlock

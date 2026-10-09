@@ -87,7 +87,7 @@ let status = $state<'idle' | 'loading' | 'success' | 'error'>('idle');
             <Typography.H3 class="docs-subsection-heading">Variants</Typography.H3>
             <Typography.Text variant="supporting">
                 <InlineText
-                    text={"Every button is a pill. `primary`, `secondary`, and `destructive` are lit: a gradient of the button's own color under faint white light, with every edge drawn by an inner rim instead of a drop shadow. They brighten on hover and darken on press. `outline` is a flat hairline on the field color, `ghost` shows a wash on hover, and `quiet` is text alone. `panel` wears the resting plate, so a whole card can be the control. Use one primary action per view."}
+                    text={"Every button takes the theme's control radius. `primary`, `secondary`, and `destructive` are lit: a gradient of the button's own color under faint white light, with every edge drawn by an inner rim instead of a drop shadow. They brighten on hover and darken on press. `outline` is a flat hairline on the field color, `ghost` shows a wash on hover, and `quiet` is text alone. `panel` wears the resting plate, so a whole card can be the control. Use one primary action per view."}
                 />
             </Typography.Text>
             <ComponentPreview code={VariantsSrc}><Variants /></ComponentPreview>

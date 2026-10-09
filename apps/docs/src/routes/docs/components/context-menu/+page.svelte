@@ -56,7 +56,7 @@
             chrome.borders does not change it.
         </Typography.Text>
         <Typography.Text variant="supporting">
-            Separators are inset from the panel edges, including in submenus. Menu items keep their
+            Separators span the inner panel width, including submenus. Menu items keep their
             padding.
         </Typography.Text>
         <Typography.Text variant="supporting">
