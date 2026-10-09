@@ -39,7 +39,7 @@
     } = $props();
 
     const bar =
-        'rounded-[var(--radius-md)] bg-[var(--docs-soft,color-mix(in_oklab,var(--color-secondary)_55%,transparent))]';
+        'rounded-[calc(var(--radius-control)+var(--spacing))] bg-[var(--docs-soft,color-mix(in_oklab,var(--color-secondary)_55%,transparent))]';
     const filter = getSettingFilter();
     const section = getSettingSection();
     const visible = $derived(

@@ -16,7 +16,7 @@
     });
 </script>
 
-<div class="h-full min-h-0 w-full p-4 sm:p-5">
+<div class="h-full min-h-0 w-full p-4 pt-16 sm:p-5 sm:pt-16">
     <h2 class="sr-only">App preview</h2>
     <DemoFrame title="Ledger app" description="A sidebar, a data table, dialogs, and settings" fill>
         <Tabs.Root bind:value={model.studioView} variant="ghost" class="flex h-full min-h-0">

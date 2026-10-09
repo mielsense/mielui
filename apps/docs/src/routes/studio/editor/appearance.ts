@@ -8,10 +8,10 @@ export function readThemeAppearance(theme: Theme) {
         tokens['--mielui-inset-position'] === 'top' ? 'top' : 'bottom';
 
     return {
-        borders: chrome.borders ?? 'double',
+        borders: chrome.borders ?? 'single',
         insetPosition,
-        edgeHighlight: chrome.edgeHighlight ?? 0.5,
-        surfaceShadows: shadows && (chrome.surfaceShadows ?? true),
+        edgeHighlight: chrome.edgeHighlight ?? 0.33,
+        surfaceShadows: shadows && (chrome.surfaceShadows ?? false),
         controlShadows: shadows && (chrome.controlShadows ?? true),
         dialogShadows: shadows && (chrome.dialogShadows ?? true),
         glassSurfaces: tokens['--mielui-surface'] === 'glass',

@@ -62,15 +62,15 @@
     function specimen(theme: Theme) {
         const dark = mode.current === 'dark';
         const foundation = dark ? theme.foundation?.dark : theme.foundation?.light;
-        const radii = { sharp: '4px', default: '999px', rounded: '999px' };
+        const radii = { sharp: '4px', default: '12px', rounded: '999px' };
         const accent = (dark ? theme.tokens?.dark?.['--color-primary'] : undefined) ?? theme.brand;
         const defaultBrand = theme.brand.toLowerCase() === DEFAULT_THEME.brand;
 
         return {
-            background: foundation?.background ?? (dark ? '#121212' : '#f6f6f6'),
-            base: foundation?.base ?? (dark ? '#1a1a1a' : '#ffffff'),
-            secondary: foundation?.secondary ?? (dark ? '#272727' : '#e9e9e9'),
-            border: foundation?.border ?? (dark ? '#303030' : '#e0e0e0'),
+            background: foundation?.background ?? (dark ? '#1a1a1a' : '#f6f6f6'),
+            base: foundation?.base ?? (dark ? '#131313' : '#ffffff'),
+            secondary: foundation?.secondary ?? (dark ? '#262626' : '#e9e9e9'),
+            border: foundation?.border ?? (dark ? '#2d2d2d' : '#e0e0e0'),
             foreground: foundation?.foreground ?? (dark ? '#ededed' : '#292929'),
             onBrand: foundation?.onPrimary ?? (defaultBrand ? '#21151e' : '#ffffff'),
             accent,

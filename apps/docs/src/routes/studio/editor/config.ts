@@ -83,10 +83,10 @@ export const DEFAULT_FOUNDATION_COLORS: FoundationColors = {
         buttonForeground: '#292929'
     },
     dark: {
-        base: '#1a1a1a',
-        border: '#353535',
-        background: '#121212',
-        secondary: '#272727',
+        base: '#131313',
+        border: '#2d2d2d',
+        background: '#1a1a1a',
+        secondary: '#262626',
         foreground: '#ededed',
         foregroundMuted: '#969696',
         onPrimary: '#21151e',
@@ -143,6 +143,50 @@ export const LEGACY_FOUNDATION_COLORS: FoundationColors[] = [
             onPrimary: '#21151e',
             buttonForeground: '#ededed'
         }
+    },
+    {
+        light: {
+            base: '#ffffff',
+            border: '#e5e5e5',
+            background: '#f6f6f6',
+            secondary: '#e9e9e9',
+            foreground: '#292929',
+            foregroundMuted: '#6d6d6d',
+            onPrimary: '#21151e',
+            buttonForeground: '#292929'
+        },
+        dark: {
+            base: '#1a1a1a',
+            border: '#353535',
+            background: '#121212',
+            secondary: '#272727',
+            foreground: '#ededed',
+            foregroundMuted: '#969696',
+            onPrimary: '#21151e',
+            buttonForeground: '#ededed'
+        }
+    },
+    {
+        light: {
+            base: '#ffffff',
+            border: '#e5e5e5',
+            background: '#f6f6f6',
+            secondary: '#e9e9e9',
+            foreground: '#292929',
+            foregroundMuted: '#6d6d6d',
+            onPrimary: '#21151e',
+            buttonForeground: '#292929'
+        },
+        dark: {
+            base: '#0e0e0e',
+            border: '#2d2d2d',
+            background: '#161616',
+            secondary: '#232323',
+            foreground: '#ededed',
+            foregroundMuted: '#969696',
+            onPrimary: '#21151e',
+            buttonForeground: '#ededed'
+        }
     }
 ];
 
@@ -170,28 +214,28 @@ export const baseSwatches = [
     { label: 'White', value: '#ffffff' },
     { label: 'Porcelain', value: '#fafaf9' },
     { label: 'Graphite', value: '#202020' },
-    { label: 'Ink', value: '#1a1a1a' }
+    { label: 'Ink', value: '#131313' }
 ];
 
 export const borderSwatches = [
     { label: 'Mist', value: '#e5e5e5' },
     { label: 'Silver', value: '#d4d4d2' },
     { label: 'Graphite', value: '#454545' },
-    { label: 'Charcoal', value: '#353535' }
+    { label: 'Charcoal', value: '#2d2d2d' }
 ];
 
 export const backgroundSwatches = [
     { label: 'Stage', value: '#f6f6f6' },
     { label: 'Paper', value: '#fdfdfd' },
     { label: 'Slate', value: '#111318' },
-    { label: 'Night', value: '#121212' }
+    { label: 'Night', value: '#1a1a1a' }
 ];
 
 export const secondarySwatches = [
     { label: 'Soft', value: '#e9e9e9' },
     { label: 'Stone', value: '#e7e5e4' },
     { label: 'Smoke', value: '#303030' },
-    { label: 'Carbon', value: '#272727' }
+    { label: 'Carbon', value: '#262626' }
 ];
 
 export const foregroundSwatches = [
