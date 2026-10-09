@@ -25,7 +25,7 @@
         {#each levels as level}
             <span
                 aria-hidden="true"
-                class={cn(level, 'size-2.5 rounded-[calc(var(--radius-xs)*1.5)]')}
+                class={cn(level, 'size-2.5 rounded-[calc(var(--radius-sm)*0.375)]')}
             ></span>
         {/each}
         <span class="ms-1">{context.labels?.more ?? 'More'}</span>

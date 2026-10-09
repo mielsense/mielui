@@ -1,5 +1,6 @@
 <script lang="ts">
     import { numberShuffle } from '@mielui/svelte/actions/number-shuffle';
+    import { cn } from '@mielui/svelte/utils';
     import ChartTooltipSurface from '../../components/_internal/chart-tooltip-surface.svelte';
     import { getPieContext } from './context';
     import type { PieChartTooltipProps } from './index';
@@ -10,6 +11,7 @@
     let left = $state(0);
     let top = $state(0);
     let positioned = $state(false);
+    let following = $state(false);
     function clamp(value: number, minimum: number, maximum: number) {
         return Math.max(minimum, Math.min(value, Math.max(minimum, maximum)));
     }
@@ -56,6 +58,20 @@
     }
 
     $effect(() => {
+        if (!element) {
+            following = false;
+            return;
+        }
+        const frame = requestAnimationFrame(() => {
+            following = true;
+        });
+
+        return () => {
+            cancelAnimationFrame(frame);
+        };
+    });
+
+    $effect(() => {
         position();
     });
 
@@ -85,7 +101,12 @@
         style={`${rest.style ?? ''}; left: ${left}px; top: ${top}px; visibility: ${positioned ? 'visible' : 'hidden'}`}
         data-ui="pie-chart-tooltip"
         role="status"
-        class={className}
+        class={cn(
+            className,
+            following &&
+                context.motion &&
+                'transition-[left,top] [transition-duration:var(--motion-duration-spring)] ease-[var(--ease-spring-layout)] motion-reduce:transition-none'
+        )}
     >
         {#if children}
             {@render children({ item, label: context.label(item.key), value: context.format(item), percentage: context.total ? item.value / context.total * 100 : 0 })}

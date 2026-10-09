@@ -19,7 +19,7 @@
             <Composer.Submit />
         </Composer.Toolbar>
         <Composer.Footer>
-            <span class="px-1">Answers can cite the web.</span>
+            <span class="px-2.5">Answers can cite the web.</span>
             <Button
                 variant="ghost"
                 class="ms-auto"

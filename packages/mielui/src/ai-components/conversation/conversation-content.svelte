@@ -42,7 +42,7 @@
     tabindex={tabindex ?? (conversation.scrollable ? 0 : undefined)}
     class={cn(
         className,
-        'h-full min-h-0 [scrollbar-gutter:stable] focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-primary/50'
+        'h-full min-h-0 [mask-image:linear-gradient(to_bottom,transparent,black_calc(var(--spacing)*6),black_calc(100%-var(--spacing)*6),transparent)] [scrollbar-gutter:stable] [&>[data-ui=conversation-content]]:outline-none'
     )}
     onscroll={(event) => {
         conversation.handleScroll(event.currentTarget);

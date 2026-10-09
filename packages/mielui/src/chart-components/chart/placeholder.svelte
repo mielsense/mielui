@@ -19,7 +19,7 @@
             <div class="flex-1" style:height={`${height}%`}>
                 <Skeleton
                     variant={loading && chart.motion && chart.animation !== 'none' ? 'shimmer' : 'default'}
-                    class="h-full w-full rounded-t-[var(--radius-md)] rounded-b-none"
+                    class="h-full w-full rounded-t-[calc(var(--radius-sm)*0.5)] rounded-b-none"
                 />
             </div>
         {/each}

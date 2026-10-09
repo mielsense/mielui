@@ -1,12 +1,13 @@
 <script lang="ts">
+    import { springEase } from '@mielui/svelte/transition';
     import { getChartContext } from 'layerchart';
-    import { cubicOut } from 'svelte/easing';
     import { Tween } from 'svelte/motion';
     import { getChart } from './context.svelte';
 
     const layer = getChartContext();
     const chart = getChart();
     let group: SVGGElement;
+    const followSpring = springEase(550, 40);
     const selected = Tween.of(
         () =>
             chart.active === null
@@ -18,8 +19,8 @@
                   ),
         {
             duration: () =>
-                chart.motion && chart.animation !== 'none' ? 120 * chart.motionScale : 0,
-            easing: cubicOut
+                chart.motion && chart.animation !== 'none' ? 320 * chart.motionScale : 0,
+            easing: followSpring
         }
     );
     $effect(() => {
@@ -67,7 +68,7 @@
             x2={horizontal ? layer.width : selected.current}
             y1={horizontal ? selected.current : 0}
             y2={horizontal ? selected.current : layer.height}
-            class="stroke-foreground/15"
+            class="stroke-[var(--color-border-strong)]"
             stroke-dasharray="3 4"
         />
     {/if}

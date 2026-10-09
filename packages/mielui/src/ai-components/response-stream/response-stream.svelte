@@ -22,6 +22,7 @@
     }: ResponseStreamProps = $props();
 
     let motionDuration = $state(180);
+    let motionEasing = $state('ease-out');
     const instant = $derived(prefersReducedMotion.current || motionDuration === 0);
 
     const stream = createResponseStream({
@@ -56,6 +57,8 @@
         const element = box;
         function updateMotion() {
             motionDuration = getCssDuration(element, '--motion-duration-panel', 180);
+            motionEasing =
+                getComputedStyle(element).getPropertyValue('--ease-out').trim() || 'ease-out';
         }
         updateMotion();
         const observer = new MutationObserver(updateMotion);
@@ -82,7 +85,7 @@
 
     const rollTransition = $derived({
         duration: instant ? 0 : Math.min(getRollDuration(speed), motionDuration),
-        easing: 'cubic-bezier(0.23, 1, 0.32, 1)'
+        easing: motionEasing
     });
 
     const lines = $derived(stream.text.split('\n'));
@@ -133,7 +136,7 @@
     aria-busy={streaming || !stream.complete}
     class={cn(
         className,
-        'block [font-weight:var(--font-weight-body)] whitespace-pre-wrap text-[length:var(--font-size-body)] leading-body text-foreground'
+        'block [font-weight:var(--font-weight-body)] whitespace-pre-wrap text-[length:var(--font-size-body)] leading-relaxed text-foreground'
     )}
     {...rest}
 >

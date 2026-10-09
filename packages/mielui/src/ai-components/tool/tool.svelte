@@ -69,7 +69,7 @@
         className,
         variant === 'quiet'
             ? 'inline-block max-w-full text-sm text-foreground'
-            : 'w-full max-w-full text-sm text-foreground'
+            : 'mielui-inset-frame flex w-full max-w-full flex-col gap-0 text-sm text-foreground [--mielui-modal-inset:calc(var(--spacing)*0.75*var(--mielui-border-inset-scale,1))] [--mielui-plate-radius:calc(var(--radius-lg)*var(--mielui-squircle,1))]'
     )}
     {...rest}
 >

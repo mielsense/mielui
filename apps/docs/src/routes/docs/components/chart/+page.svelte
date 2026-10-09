@@ -74,7 +74,7 @@ const config = {
             {#each guides as guide}
                 <a
                     href={`/docs/components/${guide.component}/${guide.slug}`}
-                    class="rounded-lg border border-border p-4 transition-colors hover:bg-secondary focus-visible:outline-2 focus-visible:outline-primary"
+                    class="mielui-plate block p-4 transition-[background-color,box-shadow] [transition-duration:var(--motion-duration-hover)] hover:bg-[color-mix(in_srgb,var(--color-foreground)_3%,var(--color-card))] focus-visible:shadow-[var(--focus-ring),var(--elevation-1)] focus-visible:outline-none motion-reduce:transition-none"
                 >
                     <span class="font-medium">{guide.title}</span>
                     <p class="mt-1 text-sm text-foreground-muted">{guide.description}</p>

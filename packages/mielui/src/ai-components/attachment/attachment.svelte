@@ -158,12 +158,12 @@
             data-ui="attachment-drop-overlay"
             data-state="dragging"
             aria-hidden="true"
-            class="pointer-events-none absolute inset-1 z-10 grid place-items-center rounded-[var(--radius-lg)] border-2 border-dashed border-primary/60 bg-[color-mix(in_srgb,var(--color-primary)_10%,var(--color-card))] text-primary shadow-[var(--elevation-1)]"
+            class="pointer-events-none absolute inset-0 z-10 grid place-items-center rounded-[calc(var(--radius-2xl)*var(--mielui-squircle,1))] [corner-shape:squircle] border-[length:var(--border-size)] border-dashed border-primary bg-[color-mix(in_srgb,var(--color-primary)_8%,var(--color-card))] text-foreground"
         >
             <span
-                class="flex items-center gap-2 rounded-full bg-card/90 px-3 py-1.5 text-sm font-label"
+                class="flex h-[var(--size-control-sm)] items-center gap-1.5 rounded-[var(--radius-control)] border-[length:var(--border-size)] border-border bg-card px-3 [font-size:var(--font-size-label)] font-label shadow-[var(--elevation-float)]"
             >
-                <HugeiconsIcon icon={Paperclip} size={16} strokeWidth={2} />
+                <HugeiconsIcon icon={Paperclip} size={15} strokeWidth={2} class="text-primary" />
                 {labels?.dropzone ?? 'Drop files to attach'}
             </span>
         </div>

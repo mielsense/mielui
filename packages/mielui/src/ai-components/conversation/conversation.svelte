@@ -30,7 +30,10 @@
     {...rest}
     data-ui="conversation"
     data-state={follow ? 'following' : 'paused'}
-    class={cn(className, 'relative min-h-0 overflow-hidden')}
+    class={cn(
+        className,
+        'relative min-h-0 overflow-hidden has-[[data-ui=conversation-content]:focus-visible]:outline-2 has-[[data-ui=conversation-content]:focus-visible]:-outline-offset-2 has-[[data-ui=conversation-content]:focus-visible]:outline-[var(--color-ring)]'
+    )}
 >
     {@render children?.()}
 </div>

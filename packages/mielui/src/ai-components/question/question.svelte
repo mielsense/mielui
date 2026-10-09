@@ -314,7 +314,7 @@
                 data-state={displayStatus}
                 class={cn(
                     variant === 'default' && 'p-0',
-                    'w-full transition-[border-color,box-shadow] [transition-duration:var(--motion-duration-press)] ease-[var(--ease-out)] motion-reduce:transition-none data-[state=error]:border-error [&>[data-ui=card-surface]]:p-0'
+                    'w-full transition-[border-color,box-shadow] [transition-duration:var(--motion-duration-press)] ease-[var(--ease-out)] motion-reduce:transition-none data-[state=error]:border-[color-mix(in_srgb,var(--color-error)_70%,transparent)] [&>[data-ui=card-surface]]:p-0'
                 )}
             >
                 <fieldset class="m-0 flex min-w-0 flex-col border-0 p-0">

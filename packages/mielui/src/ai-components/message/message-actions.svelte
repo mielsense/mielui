@@ -23,7 +23,7 @@
     aria-label={ariaLabel ?? labels?.()?.actions ?? 'Message actions'}
     class={cn(
         className,
-        'mielui-message-actions flex min-h-8 max-w-full flex-wrap items-center gap-1 text-foreground-muted',
+        'mielui-message-actions -mx-1.5 flex min-h-[var(--size-control-sm)] max-w-[calc(100%+var(--spacing)*3)] flex-wrap items-center gap-0.5 text-foreground-muted [--size-control-md:var(--size-control-sm)] [--size-icon-md:calc(var(--size-control-sm)-var(--size-hairline))]',
         message.from === 'user'
             ? 'justify-end'
             : message.from === 'system'
@@ -44,6 +44,7 @@
         }
 
         :global([data-ui='message']:hover) .mielui-message-actions,
+        :global([data-ui='message'][data-state='error']) .mielui-message-actions,
         .mielui-message-actions:focus-within {
             opacity: 1;
         }

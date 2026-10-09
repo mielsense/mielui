@@ -1,5 +1,6 @@
 <script lang="ts">
     import { ArrowDown01Icon as ChevronDown } from '@hugeicons/core-free-icons';
+    import { shimmer } from '@mielui/svelte/actions/shimmer';
     import { Button } from '@mielui/svelte/components/button';
     import { cn } from '@mielui/svelte/utils';
     import { getContext } from 'svelte';
@@ -36,7 +37,7 @@
     }}
     class={cn(
         className,
-        'h-auto flex-col items-start justify-center gap-0.5 py-1 whitespace-normal [font-size:var(--font-size-body)] [font-weight:var(--font-weight-body)] [letter-spacing:var(--tracking-body)] leading-[var(--leading-body)] text-foreground-muted enabled:hover:text-foreground',
+        'h-auto flex-col items-start justify-center gap-0.5 py-1 whitespace-normal [font-size:var(--font-size-label)] [font-weight:var(--font-weight-body)] [letter-spacing:var(--tracking-label)] leading-[var(--leading-body)] text-foreground-muted enabled:hover:text-foreground',
         disclosureTrigger({
             layout: 'inline',
             bleed: true
@@ -49,13 +50,15 @@
         <span class="flex items-center gap-1.5">
             <span class="[font-weight:var(--font-weight-label)]">
                 {#if reasoning.streaming}
-                    {labels?.()?.thinking ?? 'Thinking'}
+                    <span use:shimmer class="inline-block">
+                        {labels?.()?.thinking ?? 'Thinking'}
+                    </span>
                 {:else if duration && labels?.()?.thoughtFor}
                     {labels?.()?.thoughtFor?.(duration)}
                 {:else}
                     {labels?.()?.thought ?? 'Thought'}
                     {#if duration}
-                        <span class="[font-weight:var(--font-weight-body)]">
+                        <span class="[font-weight:var(--font-weight-body)] tabular-nums">
                             {`for ${duration}`}
                         </span>
                     {/if}

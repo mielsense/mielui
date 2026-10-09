@@ -54,9 +54,9 @@
     <section id="usage" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Usage</Typography.H2>
         <Typography.Text variant="supporting">
-            The theme setting chrome.borders chooses "single" or "double" framing. Single is the
-            default. Single removes the extra frame while preserving content padding, composition,
-            and inset variants.
+            The theme setting chrome.borders chooses "single" or "double" framing. Double is the
+            default: a recessed frame with a gutter around the white writing surface. Single removes
+            the gutter while preserving content padding, composition, and inset variants.
         </Typography.Text>
         <Typography.Text variant="supporting">
             Bind the prompt value on Root and handle submission with onSubmit. Composer waits for
@@ -112,9 +112,9 @@ async function sendPrompt(prompt: string) {
     <section id="glass-surface" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Glass surface</Typography.H2>
         <Typography.Text variant="supporting">
-            Composer follows the theme's surface setting, which is solid by default. Glass gives it
-            a frosted frame with a darker input well. Set surface="glass" or surface="solid" on
-            Composer.Root to force one regardless of the theme.
+            Composer follows the theme's surface setting, which is solid by default. Glass frosts
+            the frame and keeps the writing surface on a more opaque fill. Set surface="glass" or
+            surface="solid" on Composer.Root to force one regardless of the theme.
         </Typography.Text>
         <ComponentPreview code={GlassSource}><Glass /></ComponentPreview>
     </section>
@@ -166,12 +166,14 @@ async function sendPrompt(prompt: string) {
         <div id="toolbar-inset" class="scroll-mt-20 flex flex-col gap-3">
             <Typography.H3 class="docs-subsection-heading">Toolbar placement</Typography.H3>
             <Typography.Text variant="supporting">
-                The toolbar joins the input on one surface by default. Set{' '}
+                The composer is a recessed frame holding a raised writing surface. The toolbar joins
+                the input on that surface by default. Set{' '}
                 <Typography.InlineCode>variant="inset"</Typography.InlineCode>
                 {' '}
-                to put the input on its own inset surface with the toolbar in the frame under it,
-                the way an inset Card holds its footer. Toolbar controls are ghost buttons and
-                triggers. Outline ones render as flat pills at the same height.
+                to keep the input on its own surface with the toolbar on the frame under it. Toolbar
+                controls are ghost buttons and triggers. Outline ones render as flat pills at the
+                same height. Send is the one lit pill, and it turns neutral while it stops a
+                response.
             </Typography.Text>
             <ComponentPreview code={ToolbarInsetSrc}><ToolbarInset /></ComponentPreview>
         </div>

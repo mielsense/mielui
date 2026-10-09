@@ -67,13 +67,13 @@
         title={status === 'error' ? statusText : file.name}
         class={cn(
             className,
-            'inline-flex h-[var(--size-control-sm)] max-w-60 min-w-0 shrink-0 items-center gap-1.5 rounded-full border-[length:var(--border-size)] border-border bg-card ps-1.5 text-sm font-label text-foreground motion-reduce:transition-none transition-[border-color] [transition-duration:var(--motion-duration-hover)] ease-[var(--ease-out)] data-[state=error]:border-[color-mix(in_srgb,var(--color-error)_60%,transparent)]',
-            removable && onRemove ? 'pe-1' : 'pe-3'
+            'inline-flex h-[var(--size-control-sm)] max-w-60 min-w-0 shrink-0 items-center gap-1.5 rounded-[var(--radius-control)] border-[length:var(--border-size)] border-border bg-card ps-1 [font-size:var(--font-size-label)] font-label leading-label text-foreground transition-[border-color] [transition-duration:var(--motion-duration-hover)] ease-[var(--ease-out)] motion-reduce:transition-none data-[state=error]:border-[color-mix(in_srgb,var(--color-error)_60%,transparent)]',
+            removable && onRemove ? 'pe-0.5' : 'pe-3'
         )}
     >
         <span
             aria-hidden="true"
-            class="grid size-5 shrink-0 place-items-center overflow-hidden rounded-[var(--radius-sm)] text-foreground-muted"
+            class="grid size-5.5 shrink-0 place-items-center overflow-hidden rounded-[calc(var(--radius-control)-var(--spacing))] text-foreground-muted"
         >
             {#if status === 'uploading'}
                 <Spinner size={14} aria-hidden="true" />
@@ -89,7 +89,7 @@
                     {@attach preview}
                     alt=""
                     draggable="false"
-                    class="size-full object-cover ring-1 ring-inset ring-[color-mix(in_srgb,var(--color-foreground)_10%,transparent)]"
+                    class="size-full rounded-[inherit] object-cover"
                 />
             {:else}
                 <HugeiconsIcon {icon} size={15} strokeWidth={1.75} />
@@ -122,7 +122,7 @@
                 data-ui="attachment-remove"
                 aria-label={removeLabel}
                 onclick={() => onRemove(file)}
-                class="size-6 min-w-6 shrink-0 rounded-full text-foreground-muted hover:text-foreground"
+                class="size-6 min-w-6 shrink-0 text-foreground-muted hover:text-foreground"
             >
                 <HugeiconsIcon icon={X} size={13} strokeWidth={2} aria-hidden="true" />
             </Button>
@@ -135,18 +135,24 @@
         data-state={status}
         class={cn(
             className,
-            'flex min-w-0 items-center gap-3 rounded-[var(--radius-lg)] border-[length:var(--border-size)] border-border bg-card p-2 text-foreground data-[state=error]:border-[var(--color-error)]'
+            'flex min-w-0 items-center gap-3 rounded-[var(--radius-lg)] border-[length:var(--border-size)] border-border bg-card p-1.5 pe-2 text-foreground shadow-[var(--elevation-1)] transition-[border-color] [transition-duration:var(--motion-duration-hover)] ease-[var(--ease-out)] motion-reduce:transition-none data-[state=error]:border-[color-mix(in_srgb,var(--color-error)_60%,transparent)]'
         )}
     >
         <div
-            class="relative grid size-[var(--size-touch)] shrink-0 place-items-center overflow-hidden rounded-[var(--radius-md)] bg-secondary text-foreground-muted ring-1 ring-inset ring-[color-mix(in_srgb,var(--color-foreground)_10%,transparent)]"
+            class="relative grid size-[var(--size-touch)] shrink-0 place-items-center overflow-hidden rounded-[var(--radius-sm)] bg-background text-foreground-muted ring-1 ring-inset ring-border"
         >
             {#if isImage && status !== 'error'}
                 <img {@attach preview} alt="" draggable="false" class="size-full object-cover" />
             {:else}
-                <HugeiconsIcon icon={FileText} size={18} strokeWidth={1.75} aria-hidden="true" />
+                <HugeiconsIcon
+                    icon={FileText}
+                    size={18}
+                    strokeWidth={1.75}
+                    aria-hidden="true"
+                    class="-translate-y-1.5"
+                />
                 <span
-                    class="absolute inset-x-0 bottom-0 truncate bg-card/90 px-1 py-0.5 text-center text-xs [font-weight:var(--font-weight-header)] leading-none text-foreground-muted"
+                    class="absolute inset-x-0 bottom-0 truncate px-1 pb-1 text-center font-mono [font-size:var(--font-size-meta)] [font-weight:var(--font-weight-label)] leading-none text-foreground-muted"
                 >
                     {extension}
                 </span>
@@ -155,7 +161,10 @@
 
         <div class={cn('flex min-w-0 flex-1 flex-col', status === 'uploading' ? 'gap-2' : 'gap-1')}>
             <div class="flex min-w-0 items-baseline gap-2">
-                <span class="min-w-0 flex-1 truncate text-sm font-label" title={file.name}>
+                <span
+                    class="min-w-0 flex-1 truncate [font-size:var(--font-size-label)] font-label"
+                    title={file.name}
+                >
                     {file.name}
                 </span>
                 <span
@@ -225,7 +234,7 @@
                 data-ui="attachment-remove"
                 aria-label={removeLabel}
                 onclick={() => onRemove(file)}
-                class="shrink-0 rounded-full text-foreground-muted hover:text-foreground"
+                class="shrink-0 text-foreground-muted hover:text-foreground"
             >
                 <HugeiconsIcon icon={X} size={15} strokeWidth={2} aria-hidden="true" />
             </Button>

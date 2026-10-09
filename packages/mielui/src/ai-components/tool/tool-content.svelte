@@ -1,7 +1,7 @@
 <script lang="ts">
-    import { themedSlide } from '@mielui/svelte/transition';
     import { cn } from '@mielui/svelte/utils';
     import { onDestroy } from 'svelte';
+    import { disclosureSlide } from '../../components/_internal/disclosure/slide';
     import type { ToolContentProps } from '.';
     import { getToolContext } from './context.svelte';
 
@@ -51,17 +51,17 @@
         data-ui="tool-content"
         inert={!tool.open}
         aria-hidden={!tool.open}
-        transition:themedSlide={{ durationVar: '--motion-duration-panel', fallback: 220 }}
+        transition:disclosureSlide
         onintrostart={handleIntroStart}
         onintroend={handleIntroEnd}
         onoutrostart={handleOutroStart}
         onoutroend={handleOutroEnd}
         class={cn(
             className,
-            'mt-1 flex flex-col gap-1.5 pb-1',
+            'flex flex-col gap-1.5 overflow-hidden',
             tool.variant === 'quiet'
-                ? 'ps-[calc(var(--spacing)*5)]'
-                : 'ps-[calc(var(--spacing)*7)] pe-2'
+                ? 'ms-[calc(var(--spacing)*1.75)] mt-1 border-s-[length:var(--border-size)] border-border py-0.5 ps-3'
+                : 'mielui-inset-surface mt-[var(--mielui-modal-inset)] px-2 py-2'
         )}
     >
         {@render children?.()}

@@ -9,7 +9,7 @@
 <span
     {...rest}
     data-ui="message-name"
-    class={cn(className, 'truncate font-[var(--font-weight-label)]')}
+    class={cn(className, 'truncate [font-weight:var(--font-weight-label)]')}
 >
     {#if children}
         {@render children()}

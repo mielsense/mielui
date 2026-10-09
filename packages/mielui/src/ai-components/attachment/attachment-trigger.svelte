@@ -42,7 +42,7 @@
             context.open();
         }
     }}
-    class={cn(className, 'rounded-[var(--radius-md)] text-foreground-muted hover:text-foreground')}
+    class={cn(className, 'text-foreground-muted hover:text-foreground')}
 >
     <HugeiconsIcon icon={Paperclip} size={17} strokeWidth={2} aria-hidden="true" />
     {@render children?.()}
