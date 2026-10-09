@@ -120,7 +120,7 @@
         <Typography.H2 class="docs-section-heading">Events and the primary variant</Typography.H2>
         <Typography.Text variant="supporting">
             <InlineText
-                text={"`onCheckedChange` runs with the new state each time the box is ticked or cleared, for when you want to react without binding `checked`. `variant=\"primary\"` fills the ticked box with the primary color, which helps a single important checkbox stand out. Put content in `children` when the label needs a link or other markup."}
+                text={"`onCheckedChange` runs with the new state each time the box is ticked or cleared, for when you want to react without binding `checked`. `variant=\"primary\"` sets the checkbox in a card row whose edge strengthens when ticked, which helps a single important checkbox stand out. Put content in `children` when the label needs a link or other markup."}
             />
         </Typography.Text>
         <ComponentPreview code={EventsExampleSrc}>

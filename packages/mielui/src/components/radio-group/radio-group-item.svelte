@@ -52,15 +52,19 @@
         data-ui="radio-group-item"
         data-state={selected ? 'checked' : 'unchecked'}
         class={cn(
-            'mielui-press mt-px flex size-[calc(var(--size-hairline)*9)] shrink-0 items-center justify-center rounded-full border-[length:var(--border-size)] bg-card transition-[background-color,border-color,box-shadow,transform,scale] [transition-duration:var(--motion-duration-press)] ease-[var(--ease-press)] motion-reduce:transition-none peer-focus-visible:shadow-[var(--focus-ring)] peer-aria-invalid:border-[var(--color-error)]',
-            selected ? 'border-primary' : 'border-[var(--mielui-control-border)]',
-            !isDisabled && !selected && 'hover:border-[color-mix(in_oklab,var(--color-foreground)_45%,var(--color-card))]'
+            'mielui-press mt-px flex size-[calc(var(--size-hairline)*9)] shrink-0 items-center justify-center rounded-full border-[length:var(--border-size)] bg-origin-border transition-[background-color,border-color,box-shadow,transform,scale] [transition-duration:var(--motion-duration-press)] ease-[var(--ease-press)] motion-reduce:transition-none peer-focus-visible:shadow-[var(--focus-ring)] peer-aria-invalid:border-[var(--color-error)]',
+            selected
+                ? 'mielui-glow [--mielui-glow-color:var(--color-primary)] [--mielui-glow-light:0.3] border-transparent shadow-[var(--mielui-glow-shadow)] peer-focus-visible:shadow-[var(--focus-ring),var(--mielui-glow-shadow)]'
+                : 'border-[var(--mielui-control-border)] bg-[var(--color-field)]',
+            !isDisabled &&
+                !selected &&
+                'hover:border-[color-mix(in_oklab,var(--color-foreground)_45%,var(--color-card))]'
         )}
         aria-hidden="true"
     >
         <span
             class={cn(
-                'size-2.5 rounded-full bg-primary transition-[opacity,scale] [transition-duration:var(--motion-duration-press)] ease-[var(--ease-press)] motion-reduce:transition-none',
+                'size-[calc(var(--size-hairline)*3)] rounded-full bg-[var(--color-on-primary)] transition-[opacity,scale] [transition-duration:var(--motion-duration-press)] ease-[var(--ease-press)] motion-reduce:transition-none',
                 selected ? 'scale-100 opacity-100' : 'scale-[0.25] opacity-0'
             )}
         ></span>

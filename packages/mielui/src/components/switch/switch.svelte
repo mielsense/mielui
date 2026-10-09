@@ -33,7 +33,7 @@
     );
 
     const buttonClasses =
-        'group relative inline-flex h-5 w-11 shrink-0 items-center rounded-full border-[length:var(--border-size)] p-0.5 transition-[background-color,border-color,box-shadow] [transition-duration:var(--motion-duration-panel)] ease-[var(--ease-out)] motion-reduce:transition-none focus-visible:outline-none focus-visible:ring-0 focus-visible:shadow-[var(--focus-ring)] disabled:cursor-not-allowed disabled:opacity-[var(--opacity-disabled)]';
+        'group relative inline-flex h-5 w-11 shrink-0 items-center rounded-full p-[var(--size-hairline)] hover:cursor-[var(--ui-cursor-interactive)] transition-[background-color,box-shadow] [transition-duration:var(--motion-duration-hover)] ease-[var(--ease-out)] motion-reduce:transition-none focus-visible:outline-none focus-visible:ring-0 focus-visible:shadow-[var(--focus-ring)] disabled:cursor-not-allowed disabled:opacity-[var(--opacity-disabled)]';
 
     function getElement() {
         return element ?? null;
@@ -74,9 +74,7 @@
         class={cn(
             className,
             buttonClasses,
-            isOn
-                ? 'border-[var(--color-primary-hover)] bg-primary'
-                : 'border-[color-mix(in_srgb,var(--color-border-strong)_88%,transparent)] bg-[color-mix(in_srgb,var(--color-foreground)_18%,transparent)] dark:bg-[color-mix(in_srgb,var(--color-foreground)_24%,transparent)]'
+            isOn ? 'bg-primary' : 'bg-[var(--color-border-strong)]'
         )}
         onclick={userOnclick}
     >
@@ -84,8 +82,10 @@
             aria-hidden="true"
             data-state={isOn ? 'checked' : 'unchecked'}
             class={cn(
-                'block h-3.5 w-6 shrink-0 rounded-full bg-background ring-1 ring-inset ring-[color-mix(in_srgb,var(--color-foreground)_8%,transparent)] shadow-[var(--elevation-control-edge)] dark:bg-foreground will-change-transform transition-transform [transition-duration:var(--motion-duration-panel)] ease-[var(--ease-out)] motion-reduce:transition-none',
-                isOn ? 'translate-x-3.5 rtl:-translate-x-3.5' : 'translate-x-0',
+                'mielui-glow mielui-glow-neutral block h-full w-6 shrink-0 rounded-full shadow-[var(--mielui-glow-shadow)] dark:[--mielui-glow-color:var(--color-foreground)] will-change-transform transition-[translate,scale] [transition-duration:var(--motion-duration-spring)] ease-[var(--ease-spring-layout)] motion-reduce:transition-none',
+                isOn
+                    ? 'origin-right translate-x-[calc(var(--spacing)*5-var(--size-hairline)*2)] rtl:origin-left rtl:-translate-x-[calc(var(--spacing)*5-var(--size-hairline)*2)]'
+                    : 'origin-left translate-x-0 rtl:origin-right',
                 !disabled && 'group-active:scale-x-110 motion-reduce:group-active:scale-x-100'
             )}
         ></span>

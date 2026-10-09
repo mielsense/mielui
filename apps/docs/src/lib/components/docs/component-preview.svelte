@@ -74,7 +74,7 @@
     <div class={cn(classProp, 'w-full min-w-0')}>
         <div
             data-preview-toolbar
-            class="flex min-w-0 items-center justify-between gap-3 px-2 py-1 [--size-icon-md:var(--size-control-sm)] [&_[data-ui=tabs-trigger]]:inline-flex [&_[data-ui=tabs-trigger]]:min-h-[var(--size-control-sm)] [&_[data-ui=tabs-trigger]]:items-center [&_[data-ui=tabs-trigger]]:py-0 [&_[data-ui=tabs-list][data-variant=ghost]>div[aria-hidden]]:bg-card [&_[data-ui=tabs-list][data-variant=ghost]>div[aria-hidden]]:shadow-[var(--elevation-control-edge)] dark:[&_[data-ui=tabs-list][data-variant=ghost]>div[aria-hidden]]:bg-secondary"
+            class="flex min-w-0 items-center justify-between gap-3 px-2 py-1 [--size-icon-md:var(--size-control-sm)] [&_[data-ui=tabs-trigger]]:inline-flex [&_[data-ui=tabs-trigger]]:min-h-[var(--size-control-sm)] [&_[data-ui=tabs-trigger]]:items-center [&_[data-ui=tabs-trigger]]:py-0"
         >
             <Tabs.Root bind:value variant="ghost" class="shrink-0">
                 <Tabs.List class="w-fit">

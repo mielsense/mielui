@@ -47,7 +47,7 @@ for (const orientation of ['horizontal', 'vertical'] as const) {
             }
             second.active.style.scale = '0.94';
             window.dispatchEvent(new Event('resize'));
-            await new Promise((resolve) => setTimeout(resolve, 250));
+            await new Promise((resolve) => setTimeout(resolve, 500));
             expect(parseFloat(second.indicator.style.width)).toBeCloseTo(
                 parseFloat(getComputedStyle(second.active).width),
                 2

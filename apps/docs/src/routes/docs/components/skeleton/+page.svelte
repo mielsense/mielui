@@ -63,7 +63,8 @@
             Use{' '}
             <Typography.InlineCode>SkeletonSwap</Typography.InlineCode>
             around asynchronous content. Fast responses skip the placeholder; once shown, it stays
-            visible long enough to avoid a flash.
+            visible long enough to avoid a flash. Its placeholder lines sweep slowly and out of
+            phase, and arriving content sharpens from a slight blur. Reduced motion turns both off.
         </Typography.Text>
         <CodeBlock
             code={`import { SkeletonSwap } from '@mielui/svelte/components/skeleton';

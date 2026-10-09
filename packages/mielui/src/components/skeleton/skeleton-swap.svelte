@@ -47,6 +47,10 @@
               : lineCount * 21
     );
     const contentVisible = $derived(ready && !showSkeleton);
+    let waited = $state(false);
+    const sweepStagger = 370;
+    const barClasses =
+        'rounded-[var(--radius-sm)] bg-[linear-gradient(90deg,var(--mielui-skeleton-ink),var(--mielui-skeleton-light),var(--mielui-skeleton-ink))] bg-[length:200%_100%] [--mielui-skeleton-ink:color-mix(in_srgb,var(--color-foreground-muted)_15%,transparent)] [--mielui-skeleton-light:color-mix(in_srgb,var(--color-foreground-muted)_7%,transparent)] animate-[mielui-skeleton-sweep_linear_infinite] [animation-duration:calc(var(--motion-duration-spring)*6)] motion-reduce:animate-none';
 
     function widthFor(index: number) {
         if (lineCount > 1 && index === lineCount - 1) {
@@ -54,6 +58,12 @@
         }
         return widths[(index * 7 + 3) % widths.length];
     }
+
+    $effect(() => {
+        if (!contentVisible) {
+            waited = true;
+        }
+    });
 
     $effect(() => {
         if (!shell) {
@@ -94,6 +104,7 @@
         aria-hidden={!contentVisible}
         inert={!contentVisible || undefined}
         data-visible={contentVisible}
+        data-arriving={waited && contentVisible}
         class="mielui-skeleton-content col-start-1 row-start-1 min-w-0 origin-top-left"
     >
         {@render children?.()}
@@ -112,9 +123,10 @@
                 {#each Array(lineCount) as _, index (index)}
                     <div class="flex items-center" style:height={`${safeLineHeight}px`}>
                         <div
-                            class="rounded-[var(--radius-sm)] bg-secondary"
+                            class={barClasses}
                             style:height={`${safeBarHeight}px`}
                             style:width={`${widthFor(index)}%`}
+                            style:animation-delay={`${-index * sweepStagger}ms`}
                         ></div>
                     </div>
                 {/each}
@@ -128,34 +140,54 @@
 </div>
 
 <style>
-    .mielui-skeleton-content,
     .mielui-skeleton-placeholder {
-        transition-property: opacity, scale, filter;
-        transition-duration: var(--motion-duration-panel);
+        transition-property: opacity;
         transition-timing-function: var(--ease-out);
     }
 
     .mielui-skeleton-content[data-visible='false'] {
         pointer-events: none;
         opacity: 0;
-        scale: 0.99;
-        filter: blur(4px);
     }
 
-    .mielui-skeleton-content[data-visible='true'],
+    .mielui-skeleton-content[data-arriving='true'] {
+        animation: mielui-skeleton-arrive calc(var(--motion-duration-hover) * 2) var(--ease-out);
+    }
+
     .mielui-skeleton-placeholder[data-visible='true'] {
         opacity: 1;
-        scale: 1;
-        filter: blur(0);
+        transition-duration: var(--motion-duration-hover);
     }
 
     .mielui-skeleton-placeholder[data-visible='false'] {
         opacity: 0;
-        filter: blur(3px);
+        transition-duration: var(--motion-duration-panel-out);
+    }
+
+    @keyframes mielui-skeleton-arrive {
+        from {
+            opacity: 0.4;
+            filter: blur(4px);
+        }
+        to {
+            opacity: 1;
+            filter: blur(0);
+        }
+    }
+
+    :global {
+        @keyframes mielui-skeleton-sweep {
+            to {
+                background-position: -200% 0;
+            }
+        }
     }
 
     @media (prefers-reduced-motion: reduce) {
-        .mielui-skeleton-content,
+        .mielui-skeleton-content[data-arriving='true'] {
+            animation: none;
+        }
+
         .mielui-skeleton-placeholder {
             transition: none;
         }

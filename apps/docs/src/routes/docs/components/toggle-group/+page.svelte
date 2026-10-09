@@ -53,7 +53,9 @@
         <Typography.H2 class="docs-section-heading">Usage</Typography.H2>
         <Typography.Text>
             Arrow keys navigate enabled items with a single tab stop. Single mode allows the active
-            item to be cleared; multiple mode keeps an array of selected values.
+            item to be cleared; multiple mode keeps an array of selected values. Items share one
+            track: in single mode the selected pill travels between items, and in multiple mode each
+            pressed item is its own pill.
         </Typography.Text>
 
         <Typography.Text variant="supporting">

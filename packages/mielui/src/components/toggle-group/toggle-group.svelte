@@ -57,6 +57,28 @@
         setValue: updateValue
     };
     setContext('toggle-group', ctx);
+
+    const selection = {
+        itemSelector: '[data-collection-item][data-collection-active="true"]'
+    };
+    const track =
+        'relative inline-flex items-center gap-1 rounded-[min(var(--radius-control),calc(var(--mielui-toggle-group-item)/2+var(--spacing)))] bg-secondary p-1 data-[size=sm]:[--mielui-toggle-group-item:var(--size-control-sm)] data-[size=md]:[--mielui-toggle-group-item:var(--size-control-md)] data-[size=lg]:[--mielui-toggle-group-item:var(--size-control-lg)]';
+
+    /**
+     * Dresses the shared traveling highlight as the neutral lit pill. Must run
+     * after `travelingHighlight`, which creates the element.
+     */
+    function litPill(node: HTMLElement) {
+        const pill = node.querySelector(':scope > .mielui-item-highlight');
+
+        pill?.classList.add(
+            'mielui-glow',
+            'mielui-glow-neutral',
+            'absolute',
+            'rounded-[min(calc(var(--radius-control)-var(--spacing)),calc(var(--mielui-toggle-group-item)/2))]',
+            'shadow-[var(--mielui-glow-shadow)]'
+        );
+    }
 </script>
 
 {#if type === 'multiple'}
@@ -72,8 +94,9 @@
                 {...props}
                 data-ui="toggle-group"
                 data-size={size}
-                use:travelingHighlight
-                class={cn(className, 'inline-flex items-center gap-1')}
+                use:travelingHighlight={selection}
+                use:litPill
+                class={cn(className, track)}
             >
                 {@render children?.()}
             </div>
@@ -92,8 +115,9 @@
                 {...props}
                 data-ui="toggle-group"
                 data-size={size}
-                use:travelingHighlight
-                class={cn(className, 'inline-flex items-center gap-1')}
+                use:travelingHighlight={selection}
+                use:litPill
+                class={cn(className, track)}
             >
                 {@render children?.()}
             </div>

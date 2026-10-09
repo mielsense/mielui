@@ -94,9 +94,9 @@
             : 'relative flex min-h-[var(--size-touch)] w-full select-none items-center md:min-h-6'
     );
     const fieldThumbClasses =
-        'h-3.5 w-0.5 shrink-0 rounded-full bg-foreground/25 outline-none transition-colors [transition-duration:var(--motion-duration-hover)] ease-[var(--ease-out)] group-hover:bg-foreground/40 data-active:bg-foreground/60 motion-reduce:transition-none';
+        'h-3.5 w-0.5 shrink-0 rounded-full bg-[var(--color-border-strong)] outline-none transition-colors [transition-duration:var(--motion-duration-hover)] ease-[var(--ease-out)] group-hover:bg-foreground-muted data-active:bg-foreground motion-reduce:transition-none';
     const thumbClasses =
-        'h-4 w-6 shrink-0 cursor-grab rounded-full border-[length:var(--border-size)] border-border-strong bg-background shadow-[var(--elevation-control-edge)] outline-none transition-shadow [transition-duration:var(--motion-duration-press)] ease-[var(--ease-out)] dark:bg-foreground focus-visible:shadow-[var(--focus-ring),var(--elevation-control-edge)] data-active:cursor-grabbing data-active:shadow-[var(--focus-ring),var(--elevation-control-edge)] data-disabled:cursor-not-allowed motion-reduce:transition-none';
+        'mielui-glow mielui-glow-neutral h-4 w-6 shrink-0 cursor-grab rounded-full shadow-[var(--mielui-glow-shadow)] outline-none transition-shadow [transition-duration:var(--motion-duration-hover)] ease-[var(--ease-out)] [--mielui-glow-ring:var(--color-border-strong)] dark:[--mielui-glow-color:var(--color-foreground)] focus-visible:shadow-[var(--focus-ring),var(--mielui-glow-shadow)] data-active:cursor-grabbing data-active:shadow-[var(--focus-ring),var(--mielui-glow-shadow)] data-disabled:cursor-not-allowed motion-reduce:transition-none';
 
     onMount(() => {
         function updateDirection() {
@@ -438,7 +438,7 @@
     class={cn(
         className,
         field
-            ? 'group relative flex h-[var(--size-control-md)] w-full touch-pan-y items-center overflow-hidden rounded-[var(--radius-lg)] bg-secondary select-none has-[[data-ui=slider-thumb]:focus-visible]:shadow-[var(--focus-ring)]'
+            ? 'group relative flex h-[var(--size-control-md)] w-full touch-pan-y items-center overflow-hidden rounded-[var(--radius-control)] bg-secondary select-none has-[[data-ui=slider-thumb]:focus-visible]:shadow-[var(--focus-ring)]'
             : 'w-full px-3',
         field && (unavailable ? 'cursor-not-allowed' : 'cursor-ew-resize'),
         unavailable && 'opacity-[var(--opacity-disabled)]'
@@ -490,12 +490,12 @@
             <span
                 data-ui="slider-range"
                 aria-hidden="true"
-                class="pointer-events-none absolute inset-y-0 start-0 bg-foreground/[0.07] transition-colors [transition-duration:var(--motion-duration-hover)] ease-[var(--ease-out)] group-hover:bg-foreground/[0.09] motion-reduce:transition-none"
+                class="pointer-events-none absolute inset-y-0 start-0 bg-[var(--color-border)] transition-colors [transition-duration:var(--motion-duration-hover)] ease-[var(--ease-out)] group-hover:bg-[var(--color-input)] motion-reduce:transition-none"
                 style:width={`calc(${fieldFill} * (100% - 0.75rem) + 0.75rem)`}
             ></span>
         {/if}
         <span
-            class="pointer-events-none relative z-10 flex w-full min-w-0 items-center justify-between gap-3 px-3"
+            class="pointer-events-none relative z-10 flex w-full min-w-0 items-center justify-between gap-3 px-3.5"
         >
             <span
                 bind:clientWidth={fieldLabelWidth}

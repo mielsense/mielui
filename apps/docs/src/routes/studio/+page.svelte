@@ -230,7 +230,7 @@
                         }
                     }
                 }
-                class="pointer-events-auto flex gap-0.5 rounded-full border-[length:var(--border-size)] border-border bg-background p-1 shadow-[var(--elevation-float)]"
+                class="pointer-events-auto shadow-[var(--elevation-float)] ring-1 ring-border"
             >
                 {#each previewTabs as tab (tab.value)}
                     <ToggleGroup.Item
@@ -240,7 +240,7 @@
                                 event.preventDefault();
                             }
                         }}
-                        class="h-8 rounded-full px-3.5 text-foreground-muted data-[state=on]:bg-foreground/[0.1] data-[state=on]:text-foreground"
+                        class="px-3.5"
                     >
                         {tab.label}
                     </ToggleGroup.Item>

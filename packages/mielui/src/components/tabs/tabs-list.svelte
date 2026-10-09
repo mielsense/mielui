@@ -34,7 +34,7 @@
         'relative inline-flex',
         vertical ? 'flex-col items-stretch' : 'items-center',
         variant === 'segmented' &&
-            'rounded-[var(--radius-xl)] bg-secondary p-1 dark:bg-background dark:ring-1 dark:ring-inset dark:ring-border',
+            'rounded-[min(var(--radius-control),calc(var(--size-control-sm)/2+var(--spacing)))] bg-secondary p-1',
         variant === 'ghost' && 'gap-1',
         variant === 'default' && (vertical ? 'gap-1 pe-1' : 'gap-1 pb-1')
     )}
@@ -47,7 +47,7 @@
     {#if variant === 'default' && indicators.hover}
         <div
             aria-hidden="true"
-            class="pointer-events-none absolute rounded-[var(--radius-md)] bg-foreground/[0.06] transition-[left,top,width,height,opacity] [transition-duration:var(--motion-duration-panel)] ease-[var(--ease-out)] motion-reduce:transition-none"
+            class="pointer-events-none absolute rounded-[var(--radius-control)] bg-[var(--color-wash)] transition-[left,top,width,height,opacity] [transition-duration:var(--motion-duration-spring),var(--motion-duration-spring),var(--motion-duration-spring),var(--motion-duration-spring),var(--motion-duration-hover)] [transition-timing-function:var(--ease-spring-layout),var(--ease-spring-layout),var(--ease-spring-layout),var(--ease-spring-layout),var(--ease-out)] motion-reduce:transition-none"
             style:left={`${indicators.hover.left}px`}
             style:top={`${indicators.hover.top}px`}
             style:width={`${indicators.hover.width}px`}
@@ -58,7 +58,7 @@
     {#if variant === 'ghost' && indicators.ghostRect}
         <div
             aria-hidden="true"
-            class="pointer-events-none absolute rounded-[var(--radius-md)] bg-secondary/70 transition-[left,top,width,height] [transition-duration:var(--motion-duration-panel)] ease-[var(--ease-out)] motion-reduce:transition-none"
+            class="pointer-events-none absolute rounded-[var(--radius-control)] bg-[var(--color-wash)] transition-[left,top,width,height] [transition-duration:var(--motion-duration-spring)] ease-[var(--ease-spring-layout)] motion-reduce:transition-none"
             style:left={`${indicators.ghostRect.left}px`}
             style:top={`${indicators.ghostRect.top}px`}
             style:width={`${indicators.ghostRect.width}px`}
@@ -71,7 +71,7 @@
             <div
                 aria-hidden="true"
                 class={cn(
-                    'pointer-events-none absolute rounded-full bg-foreground [transition-duration:var(--motion-duration-panel)] ease-[var(--ease-out)] motion-reduce:transition-none',
+                    'pointer-events-none absolute rounded-full bg-foreground [transition-duration:var(--motion-duration-spring)] ease-[var(--ease-spring-layout)] motion-reduce:transition-none',
                     vertical
                         ? 'end-0 w-[var(--size-hairline)] transition-[top,height]'
                         : 'bottom-0 h-[var(--size-hairline)] transition-[left,width]'
@@ -85,7 +85,7 @@
         {:else if variant === 'segmented'}
             <div
                 aria-hidden="true"
-                class="pointer-events-none absolute rounded-[calc(var(--radius-xl)-var(--spacing))] bg-card shadow-[var(--elevation-control-edge)] ring-1 ring-border/50 dark:bg-secondary transition-[left,top,width,height] [transition-duration:var(--motion-duration-panel)] ease-[var(--ease-out)] motion-reduce:transition-none"
+                class="mielui-glow mielui-glow-neutral pointer-events-none absolute rounded-[min(calc(var(--radius-control)-var(--spacing)),calc(var(--size-control-sm)/2))] shadow-[var(--mielui-glow-shadow)] transition-[left,top,width,height] [transition-duration:var(--motion-duration-spring)] ease-[var(--ease-spring-layout)] motion-reduce:transition-none"
                 style:left={`${indicators.indicator.left}px`}
                 style:top={`${indicators.indicator.top}px`}
                 style:width={`${indicators.indicator.width}px`}

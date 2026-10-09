@@ -32,8 +32,8 @@
         ></div>
     {:else}
         <div
-            class="h-full w-full origin-left rtl:origin-right rounded-full bg-primary transition-transform [transition-duration:var(--motion-duration-panel)] ease-out motion-reduce:transition-none"
-            style:transform={`scaleX(${pct / 100})`}
+            class="h-full w-full translate-x-[var(--mielui-progress-offset)] rounded-full bg-primary transition-[translate] [transition-duration:var(--motion-duration-spring)] ease-[var(--ease-spring-layout)] rtl:translate-x-[calc(var(--mielui-progress-offset)*-1)] motion-reduce:transition-none"
+            style:--mielui-progress-offset={`${pct - 100}%`}
         ></div>
     {/if}
 </div>

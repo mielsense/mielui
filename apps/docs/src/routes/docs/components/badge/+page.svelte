@@ -59,8 +59,8 @@
         <div id="shapes" class="scroll-mt-20 flex flex-col gap-3">
             <Typography.H3 class="docs-subsection-heading">Shapes</Typography.H3>
             <Typography.Text variant="supporting">
-                Badges are small pills with a hairline edge, so every variant shares one height. Use
-                class to adjust the corner radius.
+                Badges are small flat pills that share one height. Only the outline variant draws a
+                hairline. Use class to adjust the corner radius.
             </Typography.Text>
             <ComponentPreview code={ShapesSrc}>
                 <Shapes />

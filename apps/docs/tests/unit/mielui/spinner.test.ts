@@ -8,7 +8,7 @@ afterEach(() => {
 });
 
 describe('Spinner', () => {
-    it('renders a LoaderCircle icon with a continuous spin at the default speed', () => {
+    it('renders a ring with a continuous spin at the default speed', () => {
         const { container } = render(Spinner, { props: { size: 20 } });
         const spinner = container.querySelector('[data-ui="spinner"]');
         const loader = spinner?.querySelector('svg');
