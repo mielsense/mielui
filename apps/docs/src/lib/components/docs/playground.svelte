@@ -55,7 +55,7 @@
     {#if control.kind === 'select'}
         <Select.Root
             value={values[key] as string}
-            onValueChange={(next) => {
+            onValueChange={(next: string) => {
                 values[key] = next;
             }}
         >
