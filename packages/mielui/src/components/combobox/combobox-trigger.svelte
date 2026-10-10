@@ -59,7 +59,7 @@
     });
     const inputClasses = $derived(
         cn(
-            'min-w-0 flex-1 bg-transparent text-left outline-none placeholder:text-foreground-muted',
+            'min-w-0 flex-1 bg-transparent text-left outline-none',
             isFieldPill
                 ? 'text-[length:var(--font-size-body)] [font-weight:var(--font-weight-body)] [letter-spacing:var(--tracking-body)]'
                 : 'text-[length:var(--font-size-button)] [font-weight:var(--font-weight-button)] [letter-spacing:var(--tracking-button)]',
@@ -67,10 +67,10 @@
                 ? 'h-auto cursor-text'
                 : 'h-full cursor-[var(--ui-cursor-interactive)]',
             inheritsText
-                ? 'text-inherit placeholder:text-inherit'
-                : combobox.open || combobox.selected
-                  ? 'text-foreground'
-                  : 'text-foreground-muted',
+                ? 'text-inherit placeholder:text-inherit placeholder:opacity-75'
+                : 'placeholder:text-foreground-muted',
+            !inheritsText &&
+                (combobox.open || combobox.selected ? 'text-foreground' : 'text-foreground-muted'),
             !isInputAppearance && 'pe-7'
         )
     );
@@ -183,7 +183,11 @@
             oninput={context.handleInput}
             onkeydown={context.handleKeydown}
             class={inputClasses}
-        />
+        >
+            {#snippet child({ props })}
+                <input {...props} value={context.inputValue} />
+            {/snippet}
+        </ComboboxPrimitive.Input>
     {/if}
     {#if isInputAppearance && (combobox.searchContent !== '' || combobox.selected)}
         <button

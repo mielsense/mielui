@@ -12,3 +12,5 @@
 - Every component page opens with a playground. Pick a variant in the toolbar, change the other props in the Props menu, and the code under the preview follows. The earlier hero examples stay on the page under Examples.
 - The code under an example slides open, and long sources expand with the same motion.
 - The Copy page control at the top of a docs page is smaller, with less space around its buttons.
+- The calendar and date picker pages say that days outside the month are disabled by default, and the API tables list that default.
+- The Data Table `variant` description says what each variant frames.

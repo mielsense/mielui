@@ -46,5 +46,9 @@
         oninput={context.handleInput}
         onkeydown={context.handleKeydown}
         class="min-w-0 flex-1 bg-transparent text-[length:var(--font-size-body)] [font-weight:var(--font-weight-body)] [letter-spacing:var(--tracking-body)] text-foreground outline-none placeholder:text-foreground-muted"
-    />
+    >
+        {#snippet child({ props })}
+            <input {...props} value={context.inputValue} />
+        {/snippet}
+    </ComboboxPrimitive.Input>
 </div>

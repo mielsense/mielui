@@ -20,6 +20,7 @@
         class?: string;
         variant?: ButtonVariant;
         'aria-labelledby'?: string;
+        'aria-invalid'?: HTMLButtonAttributes['aria-invalid'];
     } & Omit<Popover.PopoverTriggerProps, 'children' | 'class' | 'variant'>;
 
     let {
@@ -30,6 +31,10 @@
         onclick,
         ...rest
     }: Props = $props();
+    const inheritsText = $derived(
+        variant === 'primary' || variant === 'destructive' || variant === 'glow'
+    );
+
     $effect.pre(() => {
         context.triggerId = rest.id ?? `${context.id}-trigger`;
     });
@@ -72,7 +77,11 @@
                 id={`${context.id}-value`}
                 class={cn(
                     'flex min-w-0 flex-1 items-center gap-2 overflow-hidden pe-2 text-start leading-normal [&_svg]:shrink-0',
-                    state.value.length > 0 ? 'text-foreground' : 'text-foreground-muted'
+                    inheritsText
+                        ? 'text-inherit [&_[data-ui=select-value]]:text-inherit [&_[data-ui=select-value][data-placeholder]]:opacity-75'
+                        : state.value.length > 0
+                          ? 'text-foreground'
+                          : 'text-foreground-muted'
                 )}
             >
                 {#if children}
@@ -85,7 +94,8 @@
                 icon={ChevronDown}
                 aria-hidden="true"
                 class={cn(
-                    'shrink-0 text-foreground-muted transition-transform [transition-duration:var(--motion-duration-flick)] ease-[var(--ease-spring-flick)] motion-reduce:transition-none',
+                    'shrink-0 transition-transform [transition-duration:var(--motion-duration-flick)] ease-[var(--ease-spring-flick)] motion-reduce:transition-none',
+                    inheritsText ? 'text-inherit opacity-75' : 'text-foreground-muted',
                     context.open && 'rotate-180'
                 )}
             />

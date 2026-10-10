@@ -242,7 +242,7 @@
         <Typography.H2 class="docs-section-heading">Grid, formats and parts</Typography.H2>
         <Typography.Text variant="supporting">
             <InlineText
-                text={"`weekStartsOn` sets the first column, from 0 for Sunday to 6 for Saturday, and falls back to the locale. `weekdayFormat` picks `narrow`, `short` or `long` weekday names. `fixedWeeks` is on by default and always draws six rows so the height never jumps between months. Turn it off to draw only the weeks a month needs. Days from the neighbouring months fill the grid, and `disableDaysOutsideMonth` makes them unselectable."}
+                text={"`weekStartsOn` sets the first column, from 0 for Sunday to 6 for Saturday, and falls back to the locale. `weekdayFormat` picks `narrow`, `short` or `long` weekday names. `fixedWeeks` is on by default and always draws six rows so the height never jumps between months. Turn it off to draw only the weeks a month needs. Days from the neighbouring months fill the grid and cannot be selected. Set `disableDaysOutsideMonth={false}` to make them selectable."}
             />
         </Typography.Text>
         <Typography.Text variant="supporting">

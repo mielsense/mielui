@@ -16,6 +16,7 @@ export const manifest: Manifest = {
         'components/date-picker/date-picker-segment.svelte',
         'components/date-picker/date-picker-trigger.svelte',
         'components/date-picker/date-picker.svelte',
+        'components/date-picker/segments.ts',
         'components/date-picker/index.ts',
         'components/date-picker/manifest.ts'
     ],

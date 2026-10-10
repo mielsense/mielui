@@ -20,3 +20,16 @@
 - `Message.Content` caps assistant and system text at 65 characters per line, as intended. The cap was losing to a full-width class.
 - Closing a Dialog or Sheet from a menu item or confirmation inside it, in the same tick, no longer logs Svelte's `derived_inert` warning.
 - The info status color and the accent tint follow `--color-primary`, so setting that one token rebrands them too.
+- `Command.Header` leaves the palette when it is removed instead of staying until the page reloads.
+- `Popover.Trigger` renders the chevron its `icon` prop describes. It is off by default and turns while the popover is open.
+- CodeBlock keeps its gutter beside the code when `theme="custom"` is combined with line numbers or an inline copy button.
+- `Toolbar.Group` stacks its items in a vertical toolbar, and vertical items share one width.
+- Calendar, Range Calendar, Date Picker, and Date Range Picker keep the visible month when their props change, which also stops a crash in the month and year selects when props are spread onto the root.
+- Long weekday names are cut with an ellipsis instead of overlapping in the calendar header.
+- A date field with `granularity="hour"` no longer shows a stray "(second: 00)" after the hour.
+- `Select.Trigger` accepts `aria-invalid` in its type.
+- The placeholder and chevron on primary, destructive, and glow Select and Combobox triggers take the button's text color, so they are readable on the fill.
+- A Combobox search field keeps the typed query after a pick instead of showing the picked label.
+- A Textarea with a footer no longer shows the browser's resize grip inside its frame.
+- `Group.Text` matches the height of the controls beside it in a vertical group.
+- Checked task items in Markdown show a tick instead of a dash.

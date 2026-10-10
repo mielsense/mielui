@@ -97,7 +97,7 @@
         class={cn(
             classProp,
             children &&
-                'rounded-none border-0 bg-transparent shadow-none focus-visible:shadow-none aria-invalid:focus-visible:shadow-none disabled:opacity-100',
+                'resize-none rounded-none border-0 bg-transparent shadow-none focus-visible:shadow-none aria-invalid:focus-visible:shadow-none disabled:opacity-100',
             autoresize && 'resize-none overflow-y-hidden',
             'min-h-16 resize-y rounded-[var(--radius-xl)] py-2.5 leading-body',
             input({ variant })

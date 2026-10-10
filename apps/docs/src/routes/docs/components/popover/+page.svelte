@@ -214,7 +214,7 @@
         <Typography.H2 class="docs-section-heading">Trigger and state</Typography.H2>
         <Typography.Text variant="supporting">
             <InlineText
-                text={"Trigger is a Button with a chevron. `icon={false}` hides the chevron, `unstyled` removes the Button classes, and `style` sets inline styles. `onopen` runs just before this trigger opens the popover, which is the place to load the panel's data."}
+                text={"Trigger is a Button. `icon` adds a chevron after the label that turns while the popover is open, `unstyled` removes the Button classes, and `style` sets inline styles. `onopen` runs just before this trigger opens the popover, which is the place to load the panel's data."}
             />
         </Typography.Text>
         <Typography.Text variant="supporting">

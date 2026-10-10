@@ -7,8 +7,8 @@
     import Copy from './code-block-copy.svelte';
     import { highlight } from './highlight';
 
-    const CODE_SURFACE =
-        'flex min-w-full [&_:is(.hljs-comment,.hljs-quote)]:text-[var(--code-block-token-comment)] [&_:is(.hljs-comment,.hljs-quote)]:italic [&_:is(.hljs-keyword,.hljs-selector-tag,.hljs-literal,.hljs-section,.hljs-link,.hljs-doctag)]:text-[var(--code-block-token-keyword)] [&_:is(.hljs-string,.hljs-meta-string,.hljs-regexp,.hljs-template-tag)]:text-[var(--code-block-token-string)] [&_:is(.hljs-number,.hljs-symbol,.hljs-bullet)]:text-[var(--code-block-token-number)] [&_.hljs-title]:text-[var(--code-block-token-function)] [&_:is(.hljs-attr,.hljs-attribute,.hljs-property,.hljs-variable,.hljs-template-variable,.hljs-operator,.hljs-selector-attr,.hljs-selector-class,.hljs-selector-id)]:text-[var(--code-block-token-property)] [&_:is(.hljs-built_in,.hljs-type,.hljs-params)]:text-[var(--code-block-token-builtin)] [&_.hljs-class_.hljs-title]:text-[var(--code-block-token-builtin)] [&_.hljs-title.class\\_]:text-[var(--code-block-token-builtin)] [&_:is(.hljs-name,.hljs-selector-pseudo)]:text-[var(--code-block-token-entity)] [&_.hljs-meta]:text-[var(--code-block-token-meta)] [&_.hljs-meta_.hljs-keyword]:text-[var(--code-block-token-meta)] [&_.hljs-emphasis]:italic [&_.hljs-strong]:[font-weight:var(--font-weight-header)] [&_.hljs-addition]:text-[var(--mielui-success-text)] [&_.hljs-deletion]:text-[var(--mielui-error-text)]';
+    const CODE_TOKENS =
+        '[&_:is(.hljs-comment,.hljs-quote)]:text-[var(--code-block-token-comment)] [&_:is(.hljs-comment,.hljs-quote)]:italic [&_:is(.hljs-keyword,.hljs-selector-tag,.hljs-literal,.hljs-section,.hljs-link,.hljs-doctag)]:text-[var(--code-block-token-keyword)] [&_:is(.hljs-string,.hljs-meta-string,.hljs-regexp,.hljs-template-tag)]:text-[var(--code-block-token-string)] [&_:is(.hljs-number,.hljs-symbol,.hljs-bullet)]:text-[var(--code-block-token-number)] [&_.hljs-title]:text-[var(--code-block-token-function)] [&_:is(.hljs-attr,.hljs-attribute,.hljs-property,.hljs-variable,.hljs-template-variable,.hljs-operator,.hljs-selector-attr,.hljs-selector-class,.hljs-selector-id)]:text-[var(--code-block-token-property)] [&_:is(.hljs-built_in,.hljs-type,.hljs-params)]:text-[var(--code-block-token-builtin)] [&_.hljs-class_.hljs-title]:text-[var(--code-block-token-builtin)] [&_.hljs-title.class\\_]:text-[var(--code-block-token-builtin)] [&_:is(.hljs-name,.hljs-selector-pseudo)]:text-[var(--code-block-token-entity)] [&_.hljs-meta]:text-[var(--code-block-token-meta)] [&_.hljs-meta_.hljs-keyword]:text-[var(--code-block-token-meta)] [&_.hljs-emphasis]:italic [&_.hljs-strong]:[font-weight:var(--font-weight-header)] [&_.hljs-addition]:text-[var(--mielui-success-text)] [&_.hljs-deletion]:text-[var(--mielui-error-text)]';
 
     let {
         value = 'default',
@@ -122,7 +122,7 @@
     <div class="relative w-full overflow-x-auto">
         <!-- Keep the highlighted markup on this element so the descendant Tailwind selectors apply. -->
         {#if copyPlacement === 'inline'}
-            <div class={cn(themed && CODE_SURFACE, 'w-full items-center')}>
+            <div class={cn(themed && CODE_TOKENS, 'flex w-full min-w-full items-center')}>
                 <pre
                     class="m-0 min-w-0 flex-1 overflow-x-auto whitespace-pre px-[var(--code-block-padding-x)] py-[var(--code-block-padding-y)] text-[length:var(--font-size-label)] leading-[var(--code-block-line-height)]"
                 ><code
@@ -131,7 +131,7 @@
                 <Copy class="me-1.5 shrink-0" />
             </div>
         {:else}
-            <div class={cn(themed && CODE_SURFACE, 'w-full')}>
+            <div class={cn(themed && CODE_TOKENS, 'flex w-full min-w-full')}>
                 {#if showLineNumbers}
                     <pre
                         aria-hidden="true"

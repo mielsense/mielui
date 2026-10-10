@@ -46,8 +46,8 @@
     class={cn(
         className,
         variant === 'depth' ? depth : flat,
-        shell,
-        orientation === 'vertical' && 'flex-col'
+        orientation === 'vertical' && 'flex-col items-stretch',
+        shell
     )}
 >
     {@render children?.()}

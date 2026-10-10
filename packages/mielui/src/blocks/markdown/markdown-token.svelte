@@ -11,7 +11,10 @@
 
     const taskCheckboxClass =
         // token-lint-disable-next-line no-literal-length: checkbox aligns to surrounding text
-        'absolute top-[0.32em] -start-5 size-3.5 appearance-none rounded-[calc(var(--radius-sm)*0.5)] border-[length:var(--border-size)] border-[var(--mielui-control-border)] bg-card bg-[length:8px_1.5px] bg-center bg-no-repeat checked:border-primary checked:bg-primary checked:bg-[image:linear-gradient(var(--color-on-primary),var(--color-on-primary))]';
+        'absolute top-[0.32em] -start-5 size-3.5 appearance-none rounded-[calc(var(--radius-sm)*0.5)] border-[length:var(--border-size)] border-[var(--mielui-control-border)] bg-card checked:border-primary checked:bg-primary';
+    const taskTickClass =
+        // token-lint-disable-next-line no-literal-length: tick sits on the checkbox
+        'pointer-events-none absolute top-[0.32em] -start-5 size-3.5 text-[var(--color-on-primary)]';
     const tableClass =
         // token-lint-disable-next-line no-literal-length: table type scales with surrounding text
         'w-full min-w-max border-collapse text-[0.925em] tabular-nums';
@@ -92,6 +95,32 @@
         return index;
     }
 </script>
+
+{#snippet taskBox(checked: boolean)}
+    <input
+        type="checkbox"
+        {checked}
+        disabled
+        aria-label={checked
+            ? (labels?.()?.completedTask ?? 'Completed task')
+            : (labels?.()?.incompleteTask ?? 'Incomplete task')}
+        class={taskCheckboxClass}
+    />
+    {#if checked}
+        <svg
+            viewBox="0 0 14 14"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.75"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+            class={taskTickClass}
+        >
+            <path d="M3.5 7.4 6 9.8l4.5-5.2" />
+        </svg>
+    {/if}
+{/snippet}
 
 {#each tokens as token, index (tokenKey(token, index))}
     {#if token.type === 'space' || token.type === 'def'}
@@ -194,15 +223,7 @@
                 {#each token.items ?? [] as item, index (tokenKey(item, index))}
                     <li class={item.task ? 'relative list-none' : undefined}>
                         {#if item.task}
-                            <input
-                                type="checkbox"
-                                checked={item.checked}
-                                disabled
-                                aria-label={item.checked
-                                    ? (labels?.()?.completedTask ?? 'Completed task')
-                                    : (labels?.()?.incompleteTask ?? 'Incomplete task')}
-                                class={taskCheckboxClass}
-                            />
+                            {@render taskBox(item.checked ?? false)}
                         {/if}
                         <Self tokens={item.tokens ?? [{ type: 'text', text: item.text ?? '' }]} />
                     </li>
@@ -213,15 +234,7 @@
                 {#each token.items ?? [] as item, index (tokenKey(item, index))}
                     <li class={item.task ? 'relative list-none' : undefined}>
                         {#if item.task}
-                            <input
-                                type="checkbox"
-                                checked={item.checked}
-                                disabled
-                                aria-label={item.checked
-                                    ? (labels?.()?.completedTask ?? 'Completed task')
-                                    : (labels?.()?.incompleteTask ?? 'Incomplete task')}
-                                class={taskCheckboxClass}
-                            />
+                            {@render taskBox(item.checked ?? false)}
                         {/if}
                         <Self tokens={item.tokens ?? [{ type: 'text', text: item.text ?? '' }]} />
                     </li>

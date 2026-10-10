@@ -3,6 +3,7 @@
     import { DateRangePicker as DatePickerPrimitive } from 'bits-ui';
     import FormField from '../date-picker/date-picker-form-field.svelte';
     import Segment from '../date-picker/date-picker-segment.svelte';
+    import { fieldSegments } from '../date-picker/segments';
     import { input } from '../input/variants';
 
     let {
@@ -29,10 +30,11 @@
     )}
 >
     {#snippet children(data)}
+        {@const segments = fieldSegments(data.segments)}
         {#if content}
-            {@render content(data)}
+            {@render content({ ...data, segments })}
         {:else}
-            {#each data.segments as segment, index (index)}
+            {#each segments as segment, index (index)}
                 <Segment part={segment.part}>{segment.value}</Segment>
             {/each}
         {/if}
