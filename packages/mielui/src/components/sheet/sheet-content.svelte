@@ -3,7 +3,7 @@
     import { cn, inertOutside, lockBodyScroll, visualViewportBounds } from '@mielui/svelte/utils';
     import { Dialog as DialogPrimitive } from 'bits-ui';
     import { tick } from 'svelte';
-    import { useOverlayPresentation } from '../_internal/overlay/overlay.svelte';
+    import { useDeferredClose, useOverlayPresentation } from '../_internal/overlay/overlay.svelte';
     import { overlaySurface } from '../_internal/surface';
     import type { SheetContentProps } from '.';
     import { getSheetContext } from './context.svelte';
@@ -25,6 +25,7 @@
         isOpen: () => sheetState.open,
         panelEl: () => element
     });
+    const mounted = useDeferredClose(() => sheetState.open);
 
     /**
      * Portal to `<body>` so the sheet escapes ancestor stacking contexts, the same
@@ -82,8 +83,8 @@
             }
         }}
     >
-        {#snippet child({ props, open })}
-            {#if open}
+        {#snippet child({ props })}
+            {#if mounted.current}
                 <div
                     class="pointer-events-none fixed inset-x-0 top-[var(--mielui-viewport-top)] z-[115] h-[var(--mielui-viewport-height)] [&>*]:pointer-events-auto"
                 >

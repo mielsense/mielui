@@ -14,6 +14,7 @@
         forceMount
         escapeKeydownBehavior="close"
         sideOffset={4}
+        collisionPadding={8}
         align="start"
     >
         {#snippet child({ props, wrapperProps, open })}

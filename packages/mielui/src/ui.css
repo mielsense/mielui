@@ -36,8 +36,8 @@
     --mielui-neutral-300: #cfcfcf;
     --mielui-neutral-500: #6d6d6d;
     --mielui-neutral-900: #292929;
-    --mielui-blue-50: color-mix(in srgb, #ba7ca5 12%, white);
-    --mielui-blue-500: #ba7ca5;
+    --mielui-blue-50: color-mix(in srgb, var(--color-primary) 12%, white);
+    --mielui-blue-500: var(--color-primary);
     --mielui-success: hsl(148.7 42.2% 42.7%);
     --mielui-warning: hsl(36.1 64.8% 47.8%);
     --mielui-error: hsl(0 57.7% 56.5%);
@@ -327,8 +327,8 @@
     --mielui-neutral-300: #3d3d3d;
     --mielui-neutral-500: #969696;
     --mielui-neutral-900: #ededed;
-    --mielui-blue-50: color-mix(in srgb, #ba7ca5 12%, black);
-    --mielui-blue-500: #ba7ca5;
+    --mielui-blue-50: color-mix(in srgb, var(--color-primary) 12%, black);
+    --mielui-blue-500: var(--color-primary);
     --mielui-success: hsl(149.7 39.4% 49.2%);
     --mielui-warning: hsl(37.3 72.6% 55.7%);
     --mielui-error: hsl(0 66.7% 63.5%);

@@ -73,6 +73,7 @@
         {side}
         {align}
         sideOffset={6}
+        collisionPadding={8}
         customAnchor={anchor}
         preventScroll={state.open && lockScroll && !context.hoverable}
         onInteractOutside={(event) => {
@@ -84,7 +85,11 @@
         }}
     >
         {#snippet child({ props, wrapperProps, open })}
-            <div {...wrapperProps} data-overlay-root class="z-[130]">
+            <div
+                {...wrapperProps}
+                data-overlay-root
+                class={cn('z-[130]', !open && 'pointer-events-none!')}
+            >
                 <div
                     {...mergeProps(props, { onmouseenter: context.cancelHover, onmouseleave: context.hoverLeave })}
                     bind:this={context.panel}

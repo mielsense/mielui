@@ -21,9 +21,19 @@
 </script>
 
 <BitsSelect.Portal>
-    <BitsSelect.Content id={`${context.id}-content`} forceMount sideOffset={6} align="start">
+    <BitsSelect.Content
+        id={`${context.id}-content`}
+        forceMount
+        sideOffset={6}
+        align="start"
+        collisionPadding={8}
+    >
         {#snippet child({ props, wrapperProps, open })}
-            <div {...wrapperProps} data-overlay-root class="z-[130]">
+            <div
+                {...wrapperProps}
+                data-overlay-root
+                class={cn('z-[130]', !open && 'pointer-events-none!')}
+            >
                 <div
                     {...props}
                     data-ui="select-content"

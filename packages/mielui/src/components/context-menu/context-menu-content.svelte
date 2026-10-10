@@ -9,7 +9,7 @@
 </script>
 
 <MenuPrimitive.Portal>
-    <MenuPrimitive.Content {...rest} forceMount sideOffset={4} align="start">
+    <MenuPrimitive.Content {...rest} forceMount sideOffset={4} collisionPadding={8} align="start">
         {#snippet child({ props, wrapperProps, open })}
             {#if open}
                 <div {...wrapperProps} data-overlay-root class="z-[130]">

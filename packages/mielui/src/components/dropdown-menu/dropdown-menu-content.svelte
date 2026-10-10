@@ -45,6 +45,7 @@
         id={rest.id ?? undefined}
         forceMount
         sideOffset={4}
+        collisionPadding={8}
         side={refElement ? 'right' : 'bottom'}
         {customAnchor}
         align="start"

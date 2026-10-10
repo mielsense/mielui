@@ -14,3 +14,9 @@
 - Toasts fade in as they rise instead of appearing at full opacity.
 - A live theme saved by an earlier version is rebuilt from the Studio draft instead of being applied as stale CSS, which left the page and the content plate the same color in light mode.
 - Nested corners now share a centre. Dialog, Sheet, Drawer, inset Card, Table, and Composer frames take their radius from the control radius and a two-unit footer gap, menus and popovers from their rows, and CodeBlock, Toolbar, and the Reorder List handle follow the same rule.
+- A closed Select or Combobox no longer intercepts clicks on whatever sits below its trigger.
+- Dropdown menus, context menus, their submenus, and Select and Combobox lists keep an 8px margin from the window edge instead of sitting flush against it.
+- Collapsing an Accordion, Collapsible, Reasoning, or Tool no longer logs an "Invalid keyframe value for property height" warning.
+- `Message.Content` caps assistant and system text at 65 characters per line, as intended. The cap was losing to a full-width class.
+- Closing a Dialog or Sheet from a menu item or confirmation inside it, in the same tick, no longer logs Svelte's `derived_inert` warning.
+- The info status color and the accent tint follow `--color-primary`, so setting that one token rebrands them too.

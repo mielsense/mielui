@@ -345,16 +345,18 @@ export const themedSlide = (node: Element, params: ThemedSlideParams = {}): Tran
         delay: 0,
         easing: readCssEasing(node, cubicOut),
         css: (t) => {
+            const size = Math.max(t, 0);
+
             return (
                 `overflow: hidden;` +
-                `opacity: ${Math.min(t * 20, 1) * opacity};` +
-                `height: ${t * height}px;` +
-                `padding-top: ${t * paddingTop}px;` +
-                `padding-bottom: ${t * paddingBottom}px;` +
-                `margin-top: ${t * marginTop}px;` +
-                `margin-bottom: ${t * marginBottom}px;` +
-                `border-top-width: ${t * borderTopWidth}px;` +
-                `border-bottom-width: ${t * borderBottomWidth}px;`
+                `opacity: ${Math.min(size * 20, 1) * opacity};` +
+                `height: ${size * height}px;` +
+                `padding-top: ${size * paddingTop}px;` +
+                `padding-bottom: ${size * paddingBottom}px;` +
+                `margin-top: ${size * marginTop}px;` +
+                `margin-bottom: ${size * marginBottom}px;` +
+                `border-top-width: ${size * borderTopWidth}px;` +
+                `border-bottom-width: ${size * borderBottomWidth}px;`
             );
         }
     };
