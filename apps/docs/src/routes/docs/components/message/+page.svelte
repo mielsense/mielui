@@ -1,7 +1,10 @@
 <script lang="ts">
+    import * as Avatar from '@mielui/svelte/components/avatar';
     import { CodeBlock } from '@mielui/svelte/components/code-block';
+    import { CopyButton } from '@mielui/svelte/components/copy-button';
+    import * as Message from '@mielui/svelte/components/message';
     import * as Typography from '@mielui/svelte/components/typography';
-    import { ComponentPreview, InstallCommand } from '$lib/components/docs';
+    import { ComponentPreview, InstallCommand, Playground } from '$lib/components/docs';
     import InlineText from '$lib/components/docs/inline-text.svelte';
     import PageIntro from '$lib/components/docs/page-intro.svelte';
     import SectionHeading from '$lib/components/docs/section-heading.svelte';
@@ -12,6 +15,11 @@
     import RoleVariantsSrc from './examples/role-variants.svelte?raw';
     import States from './examples/states.svelte';
     import StatesSrc from './examples/states.svelte?raw';
+    import {
+        code as playgroundCode,
+        controls as playgroundControls,
+        messages as playgroundMessages
+    } from './playground';
 
     const installCommand = 'pnpm dlx @mielui/svelte add message';
     const usageSnippet = `import * as Message from '@mielui/svelte/components/message';
@@ -40,7 +48,38 @@
     </PageIntro>
 
     <section id="hero" class="scroll-mt-20 flex flex-col gap-4">
-        <ComponentPreview code={HeroSrc}><Hero /></ComponentPreview>
+        <Playground controls={playgroundControls} code={playgroundCode}>
+            {#snippet children(values)}
+                {#snippet avatar()}
+                    <Avatar.Root size="sm">
+                        <Avatar.Fallback>MI</Avatar.Fallback>
+                    </Avatar.Root>
+                {/snippet}
+                <div class="w-full max-w-xl">
+                    <Message.Root
+                        from={values.from}
+                        status={values.status}
+                        name={values.name || undefined}
+                        timestamp={values.timestamp || undefined}
+                        avatar={values.avatar ? avatar : undefined}
+                    >
+                        <Message.Content>{playgroundMessages[values.from]}</Message.Content>
+                        {#if values.actions}
+                            <Message.Actions>
+                                <CopyButton
+                                    text={playgroundMessages[values.from]}
+                                    label="Copy message"
+                                    copiedLabel="Message copied"
+                                    variant="ghost"
+                                    size="md"
+                                    class="size-8 rounded-[var(--radius-md)] p-0"
+                                />
+                            </Message.Actions>
+                        {/if}
+                    </Message.Root>
+                </div>
+            {/snippet}
+        </Playground>
     </section>
 
     <section id="installation" class="scroll-mt-20 flex flex-col gap-4">
@@ -105,6 +144,14 @@
                 Use role and status to communicate structure before adding custom presentation.
             {/snippet}
         </SectionHeading>
+
+        <div id="assistant-reply" class="scroll-mt-20 flex flex-col gap-3">
+            <Typography.H3 class="docs-subsection-heading">Assistant reply</Typography.H3>
+            <Typography.Text variant="supporting">
+                A user prompt followed by an assistant reply with reasoning, markdown, and actions.
+            </Typography.Text>
+            <ComponentPreview code={HeroSrc}><Hero /></ComponentPreview>
+        </div>
 
         <div id="role-variants" class="scroll-mt-20 flex flex-col gap-3">
             <Typography.H3 class="docs-subsection-heading">Role variants</Typography.H3>

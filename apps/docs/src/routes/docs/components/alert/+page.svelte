@@ -1,16 +1,19 @@
 <script lang="ts">
+    import { Megaphone01Icon } from '@hugeicons/core-free-icons';
+    import * as Alert from '@mielui/svelte/components/alert';
+    import { Button } from '@mielui/svelte/components/button';
     import { CodeBlock } from '@mielui/svelte/components/code-block';
     import * as Typography from '@mielui/svelte/components/typography';
-    import { ComponentPreview, InstallCommand } from '$lib/components/docs';
+    import HugeiconsIcon from '@mielui/svelte/hugeicons-icon';
+    import { ComponentPreview, InstallCommand, Playground } from '$lib/components/docs';
     import InlineText from '$lib/components/docs/inline-text.svelte';
     import PageIntro from '$lib/components/docs/page-intro.svelte';
     import Action from './examples/action.svelte';
     import ActionSrc from './examples/action.svelte?raw';
-    import Hero from './examples/hero.svelte';
-    import HeroSrc from './examples/hero.svelte?raw';
 
     import Variants from './examples/variants.svelte';
     import VariantsSrc from './examples/variants.svelte?raw';
+    import { code as playgroundCode, controls as playgroundControls } from './playground';
 
     const TITLE = 'Alert';
     const SLUG = 'alert';
@@ -37,9 +40,47 @@
 
     <!-- ─── Hero Example ──────────────────────────────────────────── -->
     <section id="hero" class="scroll-mt-20 flex flex-col gap-4">
-        <ComponentPreview code={HeroSrc}>
-            <Hero />
-        </ComponentPreview>
+        <Playground controls={playgroundControls} code={playgroundCode}>
+            {#snippet children(values)}
+                {#snippet body()}
+                    {#if values.title}
+                        <Alert.Title>Heads up</Alert.Title>
+                    {/if}
+                    {#if values.description}
+                        <Alert.Description>
+                            You can add components to your app using the command line.
+                        </Alert.Description>
+                    {/if}
+                    {#if values.action}
+                        <Button variant="secondary" size="sm" href="/docs/installation">
+                            Read the guide
+                        </Button>
+                    {/if}
+                {/snippet}
+                <div class="w-full max-w-lg">
+                    {#if values.icon === 'custom'}
+                        <Alert.Root variant={values.variant} announcement={values.announcement}>
+                            {#snippet icon()}
+                                <HugeiconsIcon
+                                    icon={Megaphone01Icon}
+                                    size={16}
+                                    aria-hidden="true"
+                                />
+                            {/snippet}
+                            {@render body()}
+                        </Alert.Root>
+                    {:else}
+                        <Alert.Root
+                            variant={values.variant}
+                            icon={values.icon === 'hidden' ? false : undefined}
+                            announcement={values.announcement}
+                        >
+                            {@render body()}
+                        </Alert.Root>
+                    {/if}
+                </div>
+            {/snippet}
+        </Playground>
     </section>
 
     <!-- ─── Installation ──────────────────────────────────────────── -->

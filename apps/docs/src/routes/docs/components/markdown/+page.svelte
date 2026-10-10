@@ -1,7 +1,8 @@
 <script lang="ts">
     import { CodeBlock } from '@mielui/svelte/components/code-block';
+    import { Markdown } from '@mielui/svelte/components/markdown';
     import * as Typography from '@mielui/svelte/components/typography';
-    import { ComponentPreview, InstallCommand } from '$lib/components/docs';
+    import { ComponentPreview, InstallCommand, Playground } from '$lib/components/docs';
     import PageIntro from '$lib/components/docs/page-intro.svelte';
     import SectionHeading from '$lib/components/docs/section-heading.svelte';
 
@@ -11,6 +12,11 @@
     import SafeHtmlSrc from './examples/safe-html.svelte?raw';
     import Streaming from './examples/streaming.svelte';
     import StreamingSrc from './examples/streaming.svelte?raw';
+    import {
+        code as playgroundCode,
+        controls as playgroundControls,
+        source as playgroundSource
+    } from './playground';
 
     const installCommand = 'pnpm dlx @mielui/svelte add markdown';
     const usageSnippet = `import { Markdown } from '@mielui/svelte/components/markdown';
@@ -43,7 +49,15 @@ const content = [
     </PageIntro>
 
     <section id="hero" class="scroll-mt-20 flex flex-col gap-4">
-        <ComponentPreview code={HeroSrc}><Hero /></ComponentPreview>
+        <Playground controls={playgroundControls} code={playgroundCode}>
+            {#snippet children(values)}
+                <Markdown
+                    content={playgroundSource(values)}
+                    streaming={values.streaming}
+                    class="w-full max-w-xl"
+                />
+            {/snippet}
+        </Playground>
     </section>
 
     <section id="installation" class="scroll-mt-20 flex flex-col gap-4">
@@ -73,6 +87,14 @@ const content = [
                 Show incomplete output honestly and keep untrusted model content inert.
             {/snippet}
         </SectionHeading>
+
+        <div id="rollout-report" class="scroll-mt-20 flex flex-col gap-3">
+            <Typography.H3 class="docs-subsection-heading">Rollout report</Typography.H3>
+            <Typography.Text variant="supporting">
+                A full report with a quote, a table, a task list, and a code block.
+            </Typography.Text>
+            <ComponentPreview code={HeroSrc}><Hero /></ComponentPreview>
+        </div>
 
         <div id="streaming" class="scroll-mt-20 flex flex-col gap-3">
             <Typography.H3 class="docs-subsection-heading">Streaming response</Typography.H3>

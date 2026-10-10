@@ -1,16 +1,34 @@
 <script lang="ts">
+    import { Checkbox } from '@mielui/svelte/components/checkbox';
     import { CodeBlock } from '@mielui/svelte/components/code-block';
+    import * as Field from '@mielui/svelte/components/field';
+    import { Input } from '@mielui/svelte/components/input';
     import * as Typography from '@mielui/svelte/components/typography';
-    import { ComponentPreview, InstallCommand } from '$lib/components/docs';
+    import { ComponentPreview, InstallCommand, Playground } from '$lib/components/docs';
     import PageIntro from '$lib/components/docs/page-intro.svelte';
     import Composite from './examples/composite.svelte';
     import CompositeSrc from './examples/composite.svelte?raw';
-    import Hero from './examples/hero.svelte';
     import HeroSrc from './examples/hero.svelte?raw';
     import Horizontal from './examples/horizontal.svelte';
     import HorizontalSrc from './examples/horizontal.svelte?raw';
     import Validation from './examples/validation.svelte';
     import ValidationSrc from './examples/validation.svelte?raw';
+    import {
+        COPY,
+        ISSUE_COUNT,
+        code as playgroundCode,
+        controls as playgroundControls
+    } from './playground';
+
+    function issuesFor(orientation: 'vertical' | 'horizontal', amount: 'none' | 'one' | 'two') {
+        const messages = COPY[orientation].issues.slice(0, ISSUE_COUNT[amount]);
+
+        return messages.map((message) => {
+            return {
+                message
+            };
+        });
+    }
 </script>
 
 <svelte:head>
@@ -24,7 +42,75 @@
 <div data-docs-page class="flex flex-col gap-10">
     <PageIntro title="Field">Keep a control, its label, and its feedback connected.</PageIntro>
     <section id="hero" class="scroll-mt-20 flex flex-col gap-4">
-        <ComponentPreview code={HeroSrc}><Hero /></ComponentPreview>
+        <Playground controls={playgroundControls} code={playgroundCode}>
+            {#snippet children(values)}
+                {@const copy = COPY[values.orientation]}
+                {@const issues = issuesFor(values.orientation, values.issues)}
+                {#if values.orientation === 'horizontal'}
+                    <Field.Root
+                        orientation="horizontal"
+                        required={values.required}
+                        disabled={values.disabled}
+                        invalid={values.invalid ? true : undefined}
+                        {issues}
+                        class="max-w-sm gap-3"
+                    >
+                        <Field.Control>
+                            {#snippet children(control)}
+                                <Checkbox
+                                    {...control}
+                                    name="updates"
+                                    aria-label={values.label ? undefined : copy.label}
+                                    class="mt-0.5"
+                                />
+                            {/snippet}
+                        </Field.Control>
+                        {#if values.label || values.description || issues.length > 0}
+                            <Field.Content>
+                                {#if values.label}
+                                    <Field.Label>{copy.label}</Field.Label>
+                                {/if}
+                                {#if values.description}
+                                    <Field.Description>{copy.description}</Field.Description>
+                                {/if}
+                                {#if issues.length > 0}
+                                    <Field.Error />
+                                {/if}
+                            </Field.Content>
+                        {/if}
+                    </Field.Root>
+                {:else}
+                    <Field.Root
+                        required={values.required}
+                        disabled={values.disabled}
+                        invalid={values.invalid ? true : undefined}
+                        {issues}
+                        class="w-full max-w-sm"
+                    >
+                        {#if values.label}
+                            <Field.Label>{copy.label}</Field.Label>
+                        {/if}
+                        <Field.Control>
+                            {#snippet children(control)}
+                                <Input
+                                    {...control}
+                                    type="email"
+                                    name="email"
+                                    aria-label={values.label ? undefined : copy.label}
+                                    placeholder="you@company.com"
+                                />
+                            {/snippet}
+                        </Field.Control>
+                        {#if values.description}
+                            <Field.Description>{copy.description}</Field.Description>
+                        {/if}
+                        {#if issues.length > 0}
+                            <Field.Error />
+                        {/if}
+                    </Field.Root>
+                {/if}
+            {/snippet}
+        </Playground>
     </section>
     <section id="installation" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Installation</Typography.H2>

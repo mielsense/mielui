@@ -1,7 +1,8 @@
 <script lang="ts">
     import { CodeBlock } from '@mielui/svelte/components/code-block';
+    import * as HoverCard from '@mielui/svelte/components/hover-card';
     import * as Typography from '@mielui/svelte/components/typography';
-    import { ComponentPreview, InstallCommand } from '$lib/components/docs';
+    import { ComponentPreview, InstallCommand, Playground } from '$lib/components/docs';
     import InlineText from '$lib/components/docs/inline-text.svelte';
     import PageIntro from '$lib/components/docs/page-intro.svelte';
     import Definition from './examples/definition.svelte';
@@ -14,6 +15,7 @@
     import PlacementSrc from './examples/placement.svelte?raw';
     import UserPreview from './examples/user-preview.svelte';
     import UserPreviewSrc from './examples/user-preview.svelte?raw';
+    import { code as playgroundCode, controls as playgroundControls } from './playground';
 
     const SLUG = 'hover-card';
 
@@ -34,9 +36,31 @@
 
     <!-- ─── Hero Example ──────────────────────────────────────────── -->
     <section id="hero" class="scroll-mt-20 flex flex-col gap-4">
-        <ComponentPreview code={UserPreviewSrc}>
-            <UserPreview />
-        </ComponentPreview>
+        <Playground controls={playgroundControls} code={playgroundCode}>
+            {#snippet children(values)}
+                <HoverCard.Root openDelay={values.openDelay} closeDelay={values.closeDelay}>
+                    <HoverCard.Trigger href={values.link ? 'https://ui.miel.my' : undefined}>
+                        Mielui
+                    </HoverCard.Trigger>
+                    <HoverCard.Content
+                        side={values.side}
+                        align={values.align}
+                        sideOffset={values.sideOffset}
+                        surface={values.glass ? 'glass' : undefined}
+                    >
+                        {#if values.title}
+                            <HoverCard.Title>Mielui</HoverCard.Title>
+                        {/if}
+                        {#if values.description}
+                            <HoverCard.Description>
+                                Accessible Svelte 5 components styled with Tailwind CSS.
+                            </HoverCard.Description>
+                        {/if}
+                        <p class="mt-2 text-xs text-foreground-muted">ui.miel.my</p>
+                    </HoverCard.Content>
+                </HoverCard.Root>
+            {/snippet}
+        </Playground>
     </section>
 
     <!-- ─── Installation ──────────────────────────────────────────── -->
@@ -75,6 +99,16 @@
     <section id="examples" class="scroll-mt-20 flex flex-col gap-10">
         <div>
             <Typography.H2 class="docs-section-heading">Examples</Typography.H2>
+        </div>
+
+        <div id="user-mention" class="scroll-mt-20 flex flex-col gap-3">
+            <Typography.H3 class="docs-subsection-heading">User mention</Typography.H3>
+            <Typography.Text variant="supporting">
+                A mention inside a sentence previews the profile, with a follow button in the card.
+            </Typography.Text>
+            <ComponentPreview code={UserPreviewSrc}>
+                <UserPreview />
+            </ComponentPreview>
         </div>
 
         <!-- Link preview -->

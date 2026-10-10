@@ -1,26 +1,25 @@
 <script lang="ts">
     import { CodeBlock } from '@mielui/svelte/components/code-block';
-    import * as Tabs from '@mielui/svelte/components/tabs';
+    import * as Heatmap from '@mielui/svelte/components/heatmap';
     import * as Typography from '@mielui/svelte/components/typography';
-    import { ComponentPreview, InstallCommand } from '$lib/components/docs';
+    import { ComponentPreview, InstallCommand, Playground } from '$lib/components/docs';
     import PageIntro from '$lib/components/docs/page-intro.svelte';
     import SectionHeading from '$lib/components/docs/section-heading.svelte';
     import Composed from './examples/composed.svelte';
     import ComposedSrc from './examples/composed.svelte?raw';
-    import Hero from './examples/hero.svelte';
-    import HeroSrc from './examples/hero.svelte?raw';
+    import { days } from './examples/data';
     import Range from './examples/range.svelte';
     import RangeSource from './examples/range.svelte?raw';
     import States from './examples/states.svelte';
     import StatesSource from './examples/states.svelte?raw';
+    import {
+        locales,
+        code as playgroundCode,
+        controls as playgroundControls,
+        weekStarts
+    } from './playground';
 
-    let animation = $state<'rows' | 'columns' | 'live' | 'none'>('rows');
-
-    function changeAnimation(value: string) {
-        if (value === 'rows' || value === 'columns' || value === 'live' || value === 'none') {
-            animation = value;
-        }
-    }
+    const noDays: typeof days = [];
 </script>
 <svelte:head>
     <title>Mielui · Heatmap</title>
@@ -29,21 +28,51 @@
 <div data-docs-page class="flex flex-col gap-10">
     <PageIntro title="Heatmap">Daily activity in a contribution calendar.</PageIntro>
     <section id="hero" class="flex scroll-mt-20 flex-col gap-4">
-        <ComponentPreview refreshable code={HeroSrc}>
-            {#snippet controls()}
-                <Tabs.Root value={animation} onValueChange={changeAnimation} variant="ghost">
-                    <div role="group" aria-label="Entrance direction">
-                        <Tabs.List>
-                            <Tabs.Trigger value="rows">Rows</Tabs.Trigger>
-                            <Tabs.Trigger value="columns">Columns</Tabs.Trigger>
-                            <Tabs.Trigger value="live">Live</Tabs.Trigger>
-                            <Tabs.Trigger value="none">None</Tabs.Trigger>
-                        </Tabs.List>
-                    </div>
-                </Tabs.Root>
+        <Playground controls={playgroundControls} code={playgroundCode} refreshable>
+            {#snippet children(values)}
+                <div class="w-full max-w-xl">
+                    {#key values.animation}
+                        <Heatmap.Root
+                            days={values.empty ? noDays : days}
+                            weeks={values.weeks}
+                            endDate="2026-09-15"
+                            weekStartsOn={weekStarts[values.weekStartsOn]}
+                            locale={locales[values.locale]}
+                            animation={values.animation}
+                            loading={values.loading}
+                        >
+                            {#if values.summary}
+                                <Heatmap.Header>
+                                    <Heatmap.Summary />
+                                </Heatmap.Header>
+                            {/if}
+                            <Heatmap.Calendar>
+                                {#if values.monthLabels}
+                                    <Heatmap.MonthLabels />
+                                {/if}
+                                {#if values.weekdayLabels}
+                                    <Heatmap.WeekdayLabels />
+                                {/if}
+                                <Heatmap.Grid />
+                            </Heatmap.Calendar>
+                            {#if values.tooltip}
+                                <Heatmap.Tooltip />
+                            {/if}
+                            {#if values.detail || values.legend}
+                                <Heatmap.Footer>
+                                    {#if values.detail}
+                                        <Heatmap.Detail />
+                                    {/if}
+                                    {#if values.legend}
+                                        <Heatmap.Legend />
+                                    {/if}
+                                </Heatmap.Footer>
+                            {/if}
+                        </Heatmap.Root>
+                    {/key}
+                </div>
             {/snippet}
-            <Hero {animation} />
-        </ComponentPreview>
+        </Playground>
     </section>
     <section id="installation" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Installation</Typography.H2>

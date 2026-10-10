@@ -1,7 +1,8 @@
 <script lang="ts">
+    import * as AlertDialog from '@mielui/svelte/components/alert-dialog';
     import { CodeBlock } from '@mielui/svelte/components/code-block';
     import * as Typography from '@mielui/svelte/components/typography';
-    import { ComponentPreview, InstallCommand } from '$lib/components/docs';
+    import { ComponentPreview, InstallCommand, Playground } from '$lib/components/docs';
     import InlineText from '$lib/components/docs/inline-text.svelte';
     import PageIntro from '$lib/components/docs/page-intro.svelte';
     import SectionHeading from '$lib/components/docs/section-heading.svelte';
@@ -15,6 +16,7 @@
     import HeroSrc from './examples/hero.svelte?raw';
     import SignOut from './examples/sign-out.svelte';
     import SignOutSrc from './examples/sign-out.svelte?raw';
+    import { code as playgroundCode, controls as playgroundControls } from './playground';
 
     const installCommand = 'pnpm dlx @mielui/svelte add alert-dialog';
 </script>
@@ -35,9 +37,36 @@
 
     <!-- ─── Hero Example ──────────────────────────────────────────── -->
     <section id="hero" class="scroll-mt-20 flex flex-col gap-4">
-        <ComponentPreview code={HeroSrc}>
-            <Hero />
-        </ComponentPreview>
+        <Playground controls={playgroundControls} code={playgroundCode}>
+            {#snippet children(values)}
+                <AlertDialog.Root error={values.error} orientation={values.orientation}>
+                    <AlertDialog.Trigger variant={values.trigger}
+                        >Delete project</AlertDialog.Trigger
+                    >
+                    <AlertDialog.Content
+                        size={values.size}
+                        surface={values.glass ? 'glass' : undefined}
+                        allowEscape={values.allowEscape}
+                    >
+                        <AlertDialog.Header>
+                            <AlertDialog.Title>Delete this project?</AlertDialog.Title>
+                            {#if values.description}
+                                <AlertDialog.Description>
+                                    All branches, issues, and deploy history will be permanently
+                                    removed.
+                                </AlertDialog.Description>
+                            {/if}
+                        </AlertDialog.Header>
+                        <AlertDialog.Footer>
+                            <AlertDialog.Exit>Cancel</AlertDialog.Exit>
+                            <AlertDialog.Confirm closeOnClick={values.closeOnClick}>
+                                Delete project
+                            </AlertDialog.Confirm>
+                        </AlertDialog.Footer>
+                    </AlertDialog.Content>
+                </AlertDialog.Root>
+            {/snippet}
+        </Playground>
     </section>
 
     <!-- ─── Installation ──────────────────────────────────────────── -->
@@ -75,6 +104,16 @@
                 Common patterns for destructive actions and sign-out flows.
             {/snippet}
         </SectionHeading>
+
+        <div id="workspace-deletion" class="scroll-mt-20 flex flex-col gap-3">
+            <Typography.H3 class="docs-subsection-heading">Workspace deletion</Typography.H3>
+            <Typography.Text variant="supporting">
+                The trigger and title carry an icon, and a status line reports the result.
+            </Typography.Text>
+            <ComponentPreview code={HeroSrc}>
+                <Hero />
+            </ComponentPreview>
+        </div>
 
         <!-- Destructive confirmation -->
         <div id="destructive" class="scroll-mt-20 flex flex-col gap-3">

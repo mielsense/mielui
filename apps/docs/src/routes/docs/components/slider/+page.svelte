@@ -1,7 +1,8 @@
 <script lang="ts">
     import { CodeBlock } from '@mielui/svelte/components/code-block';
+    import { Slider } from '@mielui/svelte/components/slider';
     import * as Typography from '@mielui/svelte/components/typography';
-    import { ComponentPreview, InstallCommand } from '$lib/components/docs';
+    import { ComponentPreview, InstallCommand, Playground } from '$lib/components/docs';
     import InlineText from '$lib/components/docs/inline-text.svelte';
     import PageIntro from '$lib/components/docs/page-intro.svelte';
     import Basic from './examples/basic.svelte';
@@ -18,11 +19,19 @@
     import RtlSrc from './examples/rtl.svelte?raw';
     import Stepped from './examples/stepped.svelte';
     import SteppedSrc from './examples/stepped.svelte?raw';
+    import { code as playgroundCode, controls as playgroundControls } from './playground';
 
     const TITLE = 'Slider';
     const SLUG = 'slider';
 
     const installCommand = `pnpm dlx @mielui/svelte add ${SLUG}`;
+
+    let playgroundValue = $state(64);
+    let playgroundRange = $state<[number, number]>([20, 80]);
+
+    function percent(value: number) {
+        return `${value}%`;
+    }
 </script>
 
 <svelte:head>
@@ -44,9 +53,38 @@
 
     <!-- ─── Hero Example ──────────────────────────────────────────── -->
     <section id="hero" class="scroll-mt-20 flex flex-col gap-4">
-        <ComponentPreview code={HeroSrc}>
-            <Hero />
-        </ComponentPreview>
+        <Playground controls={playgroundControls} code={playgroundCode}>
+            {#snippet children(values)}
+                <div class="w-full max-w-sm">
+                    {#if values.range}
+                        <Slider
+                            range
+                            bind:value={playgroundRange}
+                            label={values.label || undefined}
+                            min={values.min}
+                            max={values.max}
+                            step={values.step}
+                            format={values.format ? percent : undefined}
+                            disabled={values.disabled}
+                            dir={values.rtl ? 'rtl' : undefined}
+                        />
+                    {:else}
+                        <Slider
+                            bind:value={playgroundValue}
+                            variant={values.variant}
+                            label={values.label || undefined}
+                            min={values.min}
+                            max={values.max}
+                            step={values.step}
+                            format={values.format ? percent : undefined}
+                            editable={values.editable}
+                            disabled={values.disabled}
+                            dir={values.rtl ? 'rtl' : undefined}
+                        />
+                    {/if}
+                </div>
+            {/snippet}
+        </Playground>
     </section>
 
     <!-- ─── Installation ──────────────────────────────────────────── -->
@@ -118,6 +156,16 @@
     <section id="examples" class="scroll-mt-20 flex flex-col gap-10">
         <div>
             <Typography.H2 class="docs-section-heading">Examples</Typography.H2>
+        </div>
+
+        <div id="value-readout" class="scroll-mt-20 flex flex-col gap-3">
+            <Typography.H3 class="docs-subsection-heading">Value readout</Typography.H3>
+            <Typography.Text variant="supporting">
+                A label and the current value sit above the track and follow the thumb.
+            </Typography.Text>
+            <ComponentPreview code={HeroSrc}>
+                <Hero />
+            </ComponentPreview>
         </div>
 
         <!-- Basic -->

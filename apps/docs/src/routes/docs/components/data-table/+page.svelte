@@ -1,17 +1,36 @@
 <script lang="ts">
+    import { Badge } from '@mielui/svelte/components/badge';
     import { CodeBlock } from '@mielui/svelte/components/code-block';
+    import * as DataTable from '@mielui/svelte/components/data-table';
     import * as Typography from '@mielui/svelte/components/typography';
-    import { ComponentPreview, InstallCommand } from '$lib/components/docs';
+    import { createTable, FlexRender } from '@tanstack/svelte-table';
+    import { ComponentPreview, InstallCommand, Playground } from '$lib/components/docs';
     import PageIntro from '$lib/components/docs/page-intro.svelte';
     import Controlled from './examples/controlled.svelte';
     import ControlledSrc from './examples/controlled.svelte?raw';
+    import { columns, features, filters, members } from './examples/data';
     import SetupSrc from './examples/data.ts?raw';
     import Empty from './examples/empty.svelte';
     import EmptySrc from './examples/empty.svelte?raw';
-    import Hero from './examples/hero.svelte';
-    import HeroSrc from './examples/hero.svelte?raw';
     import Inset from './examples/inset.svelte';
     import InsetSrc from './examples/inset.svelte?raw';
+    import { code as playgroundCode, controls as playgroundControls } from './playground';
+
+    const table = createTable({
+        features,
+        columns,
+        data: members,
+        getRowId: (member) => member.id,
+        initialState: {
+            columnVisibility: {
+                joined: false
+            },
+            pagination: {
+                pageIndex: 0,
+                pageSize: 5
+            }
+        }
+    });
 </script>
 <svelte:head>
     <title>Mielui · Data Table</title>
@@ -26,7 +45,65 @@
         data.
     </PageIntro>
     <section id="hero" class="flex flex-col gap-4">
-        <ComponentPreview code={HeroSrc} class="w-full"><Hero /></ComponentPreview>
+        <Playground controls={playgroundControls} code={playgroundCode} class="w-full">
+            {#snippet children(values)}
+                <DataTable.Root
+                    {table}
+                    variant={values.variant}
+                    loading={values.loading}
+                    class="w-full"
+                >
+                    {#snippet children()}
+                        {#if values.toolbar}
+                            <DataTable.Toolbar>
+                                <DataTable.Filters {table} {filters} class="min-w-0 flex-1">
+                                    <DataTable.Filter
+                                        {table}
+                                        column="name"
+                                        label="Filter members by name"
+                                        placeholder="Filter members…"
+                                        class="min-w-0 flex-1"
+                                    />
+                                </DataTable.Filters>
+                                <DataTable.Sort {table} class="ms-auto" />
+                            </DataTable.Toolbar>
+                        {/if}
+                        <DataTable.View
+                            {table}
+                            loading={values.loading}
+                            selectable={values.selectable}
+                            caption="Workspace members"
+                            rowLabel={(row) => row.original.name}
+                        >
+                            {#snippet cell(cell)}
+                                {#if cell.column.id === 'role'}
+                                    <Badge variant="secondary">{String(cell.getValue())}</Badge>
+                                {:else}
+                                    <FlexRender {cell} />
+                                {/if}
+                            {/snippet}
+                        </DataTable.View>
+                        {#if values.summary || values.pagination}
+                            <div
+                                data-ui="data-table-footer"
+                                class="flex flex-wrap items-center justify-between gap-3"
+                            >
+                                {#if values.summary}
+                                    <DataTable.Summary {table} />
+                                {/if}
+                                {#if values.pagination}
+                                    <DataTable.Pagination
+                                        {table}
+                                        loading={values.loading}
+                                        class="ms-auto"
+                                    />
+                                {/if}
+                            </div>
+                        {/if}
+                    {/snippet}
+                </DataTable.Root>
+            {/snippet}
+        </Playground>
     </section>
     <section id="installation" class="flex flex-col gap-4">
         <Typography.H2>Installation</Typography.H2>

@@ -1,7 +1,8 @@
 <script lang="ts">
+    import * as Avatar from '@mielui/svelte/components/avatar';
     import { CodeBlock } from '@mielui/svelte/components/code-block';
     import * as Typography from '@mielui/svelte/components/typography';
-    import { ComponentPreview, InstallCommand } from '$lib/components/docs';
+    import { ComponentPreview, InstallCommand, Playground } from '$lib/components/docs';
     import InlineText from '$lib/components/docs/inline-text.svelte';
     import PageIntro from '$lib/components/docs/page-intro.svelte';
 
@@ -13,6 +14,11 @@
     import SizesSrc from './examples/sizes.svelte?raw';
     import WithImage from './examples/with-image.svelte';
     import WithImageSrc from './examples/with-image.svelte?raw';
+    import {
+        code as playgroundCode,
+        controls as playgroundControls,
+        sources as playgroundSources
+    } from './playground';
 
     const TITLE = 'Avatar';
     const SLUG = 'avatar';
@@ -36,9 +42,19 @@
 
     <!-- ─── Hero Example ──────────────────────────────────────────── -->
     <section id="hero" class="scroll-mt-20 flex flex-col gap-4">
-        <ComponentPreview code={HeroSrc}>
-            <Hero />
-        </ComponentPreview>
+        <Playground controls={playgroundControls} code={playgroundCode}>
+            {#snippet children(values)}
+                {@const src = playgroundSources[values.image]}
+                <Avatar.Root shape={values.shape} size={values.size}>
+                    {#if src !== undefined}
+                        <Avatar.Image {src} alt={values.alt} />
+                    {/if}
+                    {#if values.fallback}
+                        <Avatar.Fallback>{values.fallback}</Avatar.Fallback>
+                    {/if}
+                </Avatar.Root>
+            {/snippet}
+        </Playground>
     </section>
 
     <!-- ─── Installation ──────────────────────────────────────────── -->
@@ -67,6 +83,16 @@
     <section id="examples" class="scroll-mt-20 flex flex-col gap-10">
         <div>
             <Typography.H2 class="docs-section-heading">Examples</Typography.H2>
+        </div>
+
+        <div id="team-list" class="scroll-mt-20 flex flex-col gap-3">
+            <Typography.H3 class="docs-subsection-heading">Team list</Typography.H3>
+            <Typography.Text variant="supporting">
+                A large avatar with a photo heads the list, and small initials mark each member.
+            </Typography.Text>
+            <ComponentPreview code={HeroSrc}>
+                <Hero />
+            </ComponentPreview>
         </div>
 
         <!-- Sizes -->

@@ -1,7 +1,8 @@
 <script lang="ts">
     import { CodeBlock } from '@mielui/svelte/components/code-block';
+    import { Switch } from '@mielui/svelte/components/switch';
     import * as Typography from '@mielui/svelte/components/typography';
-    import { ComponentPreview, InstallCommand } from '$lib/components/docs';
+    import { ComponentPreview, InstallCommand, Playground } from '$lib/components/docs';
     import InlineText from '$lib/components/docs/inline-text.svelte';
     import PageIntro from '$lib/components/docs/page-intro.svelte';
     import Basic from './examples/basic.svelte';
@@ -10,8 +11,7 @@
     import DescriptionSrc from './examples/description.svelte?raw';
     import Disabled from './examples/disabled.svelte';
     import DisabledSrc from './examples/disabled.svelte?raw';
-    import Hero from './examples/hero.svelte';
-    import HeroSrc from './examples/hero.svelte?raw';
+    import { code as playgroundCode, controls as playgroundControls } from './playground';
 
     const TITLE = 'Switch';
 
@@ -32,9 +32,17 @@
 
     <!-- ─── Hero Example ──────────────────────────────────────────── -->
     <section id="hero" class="scroll-mt-20 flex flex-col gap-4">
-        <ComponentPreview code={HeroSrc}>
-            <Hero />
-        </ComponentPreview>
+        <Playground controls={playgroundControls} code={playgroundCode}>
+            {#snippet children(values)}
+                <Switch
+                    checked={values.checked}
+                    label={values.label ? 'Push notifications' : undefined}
+                    aria-label={values.label ? undefined : 'Push notifications'}
+                    description={values.description ? 'Sent when someone mentions you.' : undefined}
+                    disabled={values.disabled}
+                />
+            {/snippet}
+        </Playground>
     </section>
 
     <!-- ─── Installation ──────────────────────────────────────────── -->

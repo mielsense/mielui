@@ -1,7 +1,9 @@
 <script lang="ts">
     import { CodeBlock } from '@mielui/svelte/components/code-block';
+    import type { TaskStep } from '@mielui/svelte/components/task-steps';
+    import * as TaskSteps from '@mielui/svelte/components/task-steps';
     import * as Typography from '@mielui/svelte/components/typography';
-    import { ComponentPreview, InstallCommand } from '$lib/components/docs';
+    import { ComponentPreview, InstallCommand, Playground } from '$lib/components/docs';
     import PageIntro from '$lib/components/docs/page-intro.svelte';
     import SectionHeading from '$lib/components/docs/section-heading.svelte';
     import Bare from './examples/bare.svelte';
@@ -10,8 +12,38 @@
     import HeroSrc from './examples/hero.svelte?raw';
     import Retry from './examples/retry.svelte';
     import RetrySrc from './examples/retry.svelte?raw';
+    import { code as playgroundCode, controls as playgroundControls } from './playground';
 
     const installCommand = 'pnpm dlx @mielui/svelte add task-steps';
+
+    const playgroundSteps: TaskStep[] = [
+        {
+            id: 'queue',
+            label: 'Queued',
+            meta: '0.2s'
+        },
+        {
+            id: 'build',
+            label: 'Building',
+            meta: '8.1s'
+        },
+        {
+            id: 'checks',
+            label: 'Running checks',
+            meta: '3.4s'
+        },
+        {
+            id: 'deploy',
+            label: 'Deploying',
+            meta: '5.0s'
+        }
+    ];
+    const playgroundPlainSteps: TaskStep[] = playgroundSteps.map((step) => {
+        return {
+            id: step.id,
+            label: step.label
+        };
+    });
 </script>
 
 <svelte:head>
@@ -23,7 +55,44 @@
     <PageIntro title="Task Steps">Show the current step and completed steps in a task.</PageIntro>
 
     <section id="hero" class="scroll-mt-20 flex flex-col gap-4">
-        <ComponentPreview code={HeroSrc} refreshable><Hero /></ComponentPreview>
+        <Playground controls={playgroundControls} code={playgroundCode}>
+            {#snippet children(values)}
+                {#if values.summary}
+                    <TaskSteps.Root
+                        steps={values.durations ? playgroundSteps : playgroundPlainSteps}
+                        current={values.current}
+                        failed={values.failed}
+                        label="Deploy progress"
+                        class="max-w-sm"
+                    >
+                        {#snippet children(progress)}
+                            <TaskSteps.List>
+                                {#each progress.rows as row (row.id)}
+                                    <TaskSteps.Item status={row.status}>
+                                        <TaskSteps.Indicator />
+                                        <TaskSteps.Label>{row.label}</TaskSteps.Label>
+                                        {#if row.meta}
+                                            <TaskSteps.Meta>{row.meta}</TaskSteps.Meta>
+                                        {/if}
+                                    </TaskSteps.Item>
+                                {/each}
+                            </TaskSteps.List>
+                            <TaskSteps.Summary
+                                class="mt-3 block px-1 text-sm text-foreground-muted"
+                            />
+                        {/snippet}
+                    </TaskSteps.Root>
+                {:else}
+                    <TaskSteps.Root
+                        steps={values.durations ? playgroundSteps : playgroundPlainSteps}
+                        current={values.current}
+                        failed={values.failed}
+                        label="Deploy progress"
+                        class="max-w-sm"
+                    />
+                {/if}
+            {/snippet}
+        </Playground>
     </section>
 
     <section id="installation" class="scroll-mt-20 flex flex-col gap-4">
@@ -90,6 +159,14 @@
                 Render the steps without a surrounding card.
             {/snippet}
         </SectionHeading>
+
+        <div id="deploy-card" class="scroll-mt-20 flex flex-col gap-3">
+            <Typography.H3 class="docs-subsection-heading">Deploy card</Typography.H3>
+            <Typography.Text variant="supporting">
+                Steps advance on a timer inside a card. Replay the preview to watch the run again.
+            </Typography.Text>
+            <ComponentPreview code={HeroSrc} refreshable><Hero /></ComponentPreview>
+        </div>
 
         <div id="bare" class="scroll-mt-20 flex flex-col gap-3">
             <Typography.H3 class="docs-subsection-heading">Bare</Typography.H3>

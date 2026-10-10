@@ -8,3 +8,6 @@
 - The fade at the bottom edge of the page and the sidebar is shorter and no longer blurs far into the text.
 - The Markdown theming guide at `/docs/theming.md` now carries the full guide: token overrides, the public token table, presets, theme JSON, and selectors.
 - Component Markdown references include the modules their examples import, such as the Data Table and Heatmap `data.ts` files.
+- Every example frame keeps its preview in view: a code button opens the source under it, long sources start collapsed, and a full screen button opens the preview on its own.
+- Every component page opens with a playground. Pick a variant in the toolbar, change the other props in the Props menu, and the code under the preview follows. The earlier hero examples stay on the page under Examples.
+- The code under an example slides open, and long sources expand with the same motion.

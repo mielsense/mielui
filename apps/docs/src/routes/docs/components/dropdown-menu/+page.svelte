@@ -1,7 +1,17 @@
 <script lang="ts">
+    import {
+        ArrowDown01Icon as ChevronDown,
+        CreditCardIcon as CreditCard,
+        Logout01Icon as LogOut,
+        PaintBoardIcon as Palette,
+        Settings01Icon as Settings,
+        UserIcon as User
+    } from '@hugeicons/core-free-icons';
     import { CodeBlock } from '@mielui/svelte/components/code-block';
+    import * as DropdownMenu from '@mielui/svelte/components/dropdown-menu';
     import * as Typography from '@mielui/svelte/components/typography';
-    import { ComponentPreview, InstallCommand } from '$lib/components/docs';
+    import HugeiconsIcon from '@mielui/svelte/hugeicons-icon';
+    import { ComponentPreview, InstallCommand, Playground } from '$lib/components/docs';
     import InlineText from '$lib/components/docs/inline-text.svelte';
     import PageIntro from '$lib/components/docs/page-intro.svelte';
     import BasicMenu from './examples/basic-menu.svelte';
@@ -26,8 +36,12 @@
     import SortMenuSrc from './examples/sort-menu.svelte?raw';
     import UserMenu from './examples/user-menu.svelte';
     import UserMenuSrc from './examples/user-menu.svelte?raw';
+    import { code as playgroundCode, controls as playgroundControls } from './playground';
 
     const installCommand = 'pnpm dlx @mielui/svelte add dropdown-menu';
+
+    let notifications = $state(true);
+    let theme = $state('system');
 </script>
 
 <svelte:head>
@@ -44,9 +58,108 @@
 
     <!-- ─── Hero Example ──────────────────────────────────────────── -->
     <section id="hero" class="scroll-mt-20 flex flex-col gap-4">
-        <ComponentPreview code={HeroSrc}>
-            <Hero />
-        </ComponentPreview>
+        <Playground controls={playgroundControls} code={playgroundCode}>
+            {#snippet children(values)}
+                <DropdownMenu.Root>
+                    <DropdownMenu.Trigger
+                        variant={values.variant}
+                        size={values.size}
+                        disabled={values.disabled}
+                    >
+                        My account
+                        <HugeiconsIcon icon={ChevronDown} size={16} class="text-foreground-muted" />
+                    </DropdownMenu.Trigger>
+                    <DropdownMenu.Content
+                        surface={values.glass ? 'glass' : undefined}
+                        dynamic={values.dynamic}
+                        allowClickOutside={values.allowClickOutside}
+                        dismissLayer={values.dismissLayer}
+                        focusTrap={values.focusTrap}
+                        lockScroll={values.lockScroll}
+                        portal={values.portal}
+                    >
+                        {#if values.label}
+                            <DropdownMenu.Label>alex@example.com</DropdownMenu.Label>
+                        {/if}
+                        <DropdownMenu.Item>
+                            {#if values.icons}
+                                <span class="flex items-center gap-2">
+                                    <HugeiconsIcon icon={User} size={13} />
+                                    Profile
+                                </span>
+                            {:else}
+                                Profile
+                            {/if}
+                        </DropdownMenu.Item>
+                        <DropdownMenu.Item disabled={values.disabledItem}>
+                            {#if values.icons}
+                                <span class="flex items-center gap-2">
+                                    <HugeiconsIcon icon={CreditCard} size={13} />
+                                    Billing
+                                </span>
+                            {:else}
+                                Billing
+                            {/if}
+                        </DropdownMenu.Item>
+                        <DropdownMenu.Item>
+                            {#if values.icons}
+                                <span class="flex items-center gap-2">
+                                    <HugeiconsIcon icon={Settings} size={13} />
+                                    Settings
+                                </span>
+                            {:else}
+                                Settings
+                            {/if}
+                        </DropdownMenu.Item>
+                        {#if values.checkbox}
+                            <DropdownMenu.CheckboxItem bind:checked={notifications}>
+                                Email notifications
+                            </DropdownMenu.CheckboxItem>
+                        {/if}
+                        {#if values.submenu}
+                            <DropdownMenu.Sub>
+                                <DropdownMenu.SubTrigger>
+                                    {#if values.icons}
+                                        <span class="flex items-center gap-2">
+                                            <HugeiconsIcon icon={Palette} size={13} />
+                                            Theme
+                                        </span>
+                                    {:else}
+                                        Theme
+                                    {/if}
+                                </DropdownMenu.SubTrigger>
+                                <DropdownMenu.SubContent
+                                    surface={values.glass ? 'glass' : undefined}
+                                >
+                                    <DropdownMenu.RadioGroup bind:value={theme}>
+                                        <DropdownMenu.RadioItem value="light">
+                                            Light
+                                        </DropdownMenu.RadioItem>
+                                        <DropdownMenu.RadioItem value="dark">
+                                            Dark
+                                        </DropdownMenu.RadioItem>
+                                        <DropdownMenu.RadioItem value="system">
+                                            System
+                                        </DropdownMenu.RadioItem>
+                                    </DropdownMenu.RadioGroup>
+                                </DropdownMenu.SubContent>
+                            </DropdownMenu.Sub>
+                        {/if}
+                        <DropdownMenu.Separator />
+                        <DropdownMenu.Item variant={values.destructive ? 'destructive' : undefined}>
+                            {#if values.icons}
+                                <span class="flex items-center gap-2">
+                                    <HugeiconsIcon icon={LogOut} size={13} />
+                                    Sign out
+                                </span>
+                            {:else}
+                                Sign out
+                            {/if}
+                        </DropdownMenu.Item>
+                    </DropdownMenu.Content>
+                </DropdownMenu.Root>
+            {/snippet}
+        </Playground>
     </section>
 
     <!-- ─── Installation ──────────────────────────────────────────── -->
@@ -81,6 +194,16 @@
     <section id="examples" class="scroll-mt-20 flex flex-col gap-10">
         <div>
             <Typography.H2 class="docs-section-heading">Examples</Typography.H2>
+        </div>
+
+        <div id="item-callbacks" class="scroll-mt-20 flex flex-col gap-3">
+            <Typography.H3 class="docs-subsection-heading">Item callbacks</Typography.H3>
+            <Typography.Text variant="supporting">
+                Each item runs a callback, and the line under the menu reports the last choice.
+            </Typography.Text>
+            <ComponentPreview code={HeroSrc}>
+                <Hero />
+            </ComponentPreview>
         </div>
 
         <!-- Basic menu -->

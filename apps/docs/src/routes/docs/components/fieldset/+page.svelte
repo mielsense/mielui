@@ -1,12 +1,17 @@
 <script lang="ts">
     import { CodeBlock } from '@mielui/svelte/components/code-block';
+    import * as Field from '@mielui/svelte/components/field';
+    import * as Fieldset from '@mielui/svelte/components/fieldset';
+    import { Input } from '@mielui/svelte/components/input';
     import * as Typography from '@mielui/svelte/components/typography';
-    import { ComponentPreview, InstallCommand } from '$lib/components/docs';
+    import { ComponentPreview, InstallCommand, Playground } from '$lib/components/docs';
     import PageIntro from '$lib/components/docs/page-intro.svelte';
     import Disabled from './examples/disabled.svelte';
     import DisabledSrc from './examples/disabled.svelte?raw';
-    import Hero from './examples/hero.svelte';
     import HeroSrc from './examples/hero.svelte?raw';
+    import { code as playgroundCode, controls as playgroundControls } from './playground';
+
+    const detailsId = $props.id();
 </script>
 
 <svelte:head>
@@ -22,7 +27,54 @@
         Give related fields one clear name and a shared boundary.
     </PageIntro>
     <section id="hero" class="scroll-mt-20 flex flex-col gap-4">
-        <ComponentPreview code={HeroSrc}><Hero /></ComponentPreview>
+        <Playground controls={playgroundControls} code={playgroundCode}>
+            {#snippet children(values)}
+                <Fieldset.Root
+                    disabled={values.disabled}
+                    aria-label={values.legend ? undefined : 'Contact details'}
+                    aria-describedby={values.description ? detailsId : undefined}
+                    class="w-full max-w-sm"
+                >
+                    {#if values.legend}
+                        <Fieldset.Legend>Contact details</Fieldset.Legend>
+                    {/if}
+                    {#if values.description}
+                        <Fieldset.Description id={detailsId}>
+                            How we can reach you about your workspace.
+                        </Fieldset.Description>
+                    {/if}
+                    <Field.Group>
+                        <Field.Root>
+                            <Field.Label>Full name</Field.Label>
+                            <Field.Control>
+                                {#snippet children(control)}
+                                    <Input
+                                        {...control}
+                                        name="name"
+                                        autocomplete="name"
+                                        placeholder="Sam Rivera"
+                                    />
+                                {/snippet}
+                            </Field.Control>
+                        </Field.Root>
+                        <Field.Root>
+                            <Field.Label>Email address</Field.Label>
+                            <Field.Control>
+                                {#snippet children(control)}
+                                    <Input
+                                        {...control}
+                                        type="email"
+                                        name="email"
+                                        autocomplete="email"
+                                        placeholder="sam@company.com"
+                                    />
+                                {/snippet}
+                            </Field.Control>
+                        </Field.Root>
+                    </Field.Group>
+                </Fieldset.Root>
+            {/snippet}
+        </Playground>
     </section>
     <section id="installation" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Installation</Typography.H2>

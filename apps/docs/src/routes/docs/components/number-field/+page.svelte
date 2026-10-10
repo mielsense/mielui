@@ -1,6 +1,7 @@
 <script lang="ts">
+    import * as NumberField from '@mielui/svelte/components/number-field';
     import * as Typography from '@mielui/svelte/components/typography';
-    import { ComponentPreview, InstallCommand } from '$lib/components/docs';
+    import { ComponentPreview, InstallCommand, Playground } from '$lib/components/docs';
     import InlineText from '$lib/components/docs/inline-text.svelte';
     import PageIntro from '$lib/components/docs/page-intro.svelte';
     import Decimal from './examples/decimal.svelte';
@@ -9,8 +10,9 @@
     import DisabledSrc from './examples/disabled.svelte?raw';
     import Form from './examples/form.svelte';
     import FormSrc from './examples/form.svelte?raw';
-    import Hero from './examples/hero.svelte';
-    import HeroSrc from './examples/hero.svelte?raw';
+    import { code as playgroundCode, controls as playgroundControls } from './playground';
+
+    let playgroundSeats = $state<number | undefined>(2);
 </script>
 <svelte:head>
     <title>Mielui · Number Field</title>
@@ -24,7 +26,34 @@
         Numeric input with native validation and composable step controls.
     </PageIntro>
     <section id="hero">
-        <ComponentPreview code={HeroSrc}><Hero /></ComponentPreview>
+        <Playground controls={playgroundControls} code={playgroundCode}>
+            {#snippet children(values)}
+                <NumberField.Root
+                    bind:value={playgroundSeats}
+                    min={values.min}
+                    max={values.max}
+                    step={values.step}
+                    disabled={values.disabled}
+                    readonly={values.readonly}
+                >
+                    {#if values.label}
+                        <NumberField.Label>Seats</NumberField.Label>
+                    {/if}
+                    <NumberField.Group class="w-36">
+                        {#if values.steppers}
+                            <NumberField.Decrement />
+                        {/if}
+                        <NumberField.Input
+                            aria-label={values.label ? undefined : 'Seats'}
+                            aria-invalid={values.invalid ? 'true' : undefined}
+                        />
+                        {#if values.steppers}
+                            <NumberField.Increment />
+                        {/if}
+                    </NumberField.Group>
+                </NumberField.Root>
+            {/snippet}
+        </Playground>
     </section>
     <section id="installation" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Installation</Typography.H2>

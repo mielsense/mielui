@@ -1,7 +1,8 @@
 <script lang="ts">
     import { CodeBlock } from '@mielui/svelte/components/code-block';
+    import * as TagInput from '@mielui/svelte/components/tag-input';
     import * as Typography from '@mielui/svelte/components/typography';
-    import { ComponentPreview, InstallCommand } from '$lib/components/docs';
+    import { ComponentPreview, InstallCommand, Playground } from '$lib/components/docs';
     import InlineText from '$lib/components/docs/inline-text.svelte';
     import PageIntro from '$lib/components/docs/page-intro.svelte';
     import SectionHeading from '$lib/components/docs/section-heading.svelte';
@@ -17,6 +18,7 @@
     import RequiredExampleSrc from './examples/required.svelte?raw';
     import Validation from './examples/validation.svelte';
     import ValidationSrc from './examples/validation.svelte?raw';
+    import { code as playgroundCode, controls as playgroundControls } from './playground';
 
     const installCommand = 'pnpm dlx @mielui/svelte add tag-input';
 
@@ -28,6 +30,8 @@ let tags = $state(['svelte']);
   <TagInput.List />
   <TagInput.Input placeholder="Add a topic…" />
 </TagInput.Root>`;
+
+    let playgroundTags = $state(['svelte', 'design-system']);
 </script>
 
 <svelte:head>
@@ -47,9 +51,43 @@ let tags = $state(['svelte']);
 
     <!-- ─── Hero Example ──────────────────────────────────────────── -->
     <section id="hero" class="scroll-mt-20 flex flex-col gap-4">
-        <ComponentPreview code={HeroSrc}>
-            <Hero />
-        </ComponentPreview>
+        <Playground controls={playgroundControls} code={playgroundCode}>
+            {#snippet children(values)}
+                <div class="w-full max-w-md">
+                    <TagInput.Root
+                        bind:tags={playgroundTags}
+                        variant={values.variant}
+                        label={values.label ? 'Topics' : undefined}
+                        description={values.description
+                            ? 'Type a topic and press Enter.'
+                            : undefined}
+                        error={values.error ? 'Topics must be lowercase.' : undefined}
+                        max={values.max ? 3 : undefined}
+                        allowDuplicates={values.allowDuplicates}
+                        delimiters={values.space ? [',', ' '] : undefined}
+                        addOnBlur={values.addOnBlur}
+                        addOnPaste={values.addOnPaste}
+                        disabled={values.disabled}
+                    >
+                        {#if values.removable}
+                            <TagInput.List />
+                        {:else}
+                            <TagInput.List>
+                                {#each playgroundTags as tag, index (index)}
+                                    <li class="contents">
+                                        <TagInput.Tag value={tag} {index} removable={false} />
+                                    </li>
+                                {/each}
+                            </TagInput.List>
+                        {/if}
+                        <TagInput.Input
+                            aria-label={values.label ? undefined : 'Topics'}
+                            placeholder={values.placeholder || undefined}
+                        />
+                    </TagInput.Root>
+                </div>
+            {/snippet}
+        </Playground>
     </section>
 
     <!-- ─── Installation ──────────────────────────────────────────── -->
@@ -89,6 +127,17 @@ let tags = $state(['svelte']);
                 maximum.
             {/snippet}
         </SectionHeading>
+
+        <div id="saving-topics" class="scroll-mt-20 flex flex-col gap-3">
+            <Typography.H3 class="docs-subsection-heading">Saving topics</Typography.H3>
+            <Typography.Text variant="supporting">
+                A tag field with a count, a clear button, and a save button that reads the current
+                tags.
+            </Typography.Text>
+            <ComponentPreview code={HeroSrc}>
+                <Hero />
+            </ComponentPreview>
+        </div>
 
         <div id="controlled" class="scroll-mt-20 flex flex-col gap-3">
             <Typography.H3 class="docs-subsection-heading">Responding to changes</Typography.H3>

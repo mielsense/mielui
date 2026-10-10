@@ -1,20 +1,36 @@
 <script lang="ts">
+    import * as Attachment from '@mielui/svelte/components/attachment';
     import { CodeBlock } from '@mielui/svelte/components/code-block';
     import * as Typography from '@mielui/svelte/components/typography';
-    import { ComponentPreview, InstallCommand } from '$lib/components/docs';
+    import { onMount } from 'svelte';
+    import { ComponentPreview, InstallCommand, Playground } from '$lib/components/docs';
     import InlineText from '$lib/components/docs/inline-text.svelte';
     import PageIntro from '$lib/components/docs/page-intro.svelte';
     import SectionHeading from '$lib/components/docs/section-heading.svelte';
     import ChipStatus from './examples/chip-status.svelte';
     import ChipStatusSrc from './examples/chip-status.svelte?raw';
-    import Hero from './examples/hero.svelte';
-    import HeroSrc from './examples/hero.svelte?raw';
     import SingleExample from './examples/single.svelte';
     import SingleExampleSrc from './examples/single.svelte?raw';
     import StatusVariants from './examples/status-variants.svelte';
     import StatusVariantsSrc from './examples/status-variants.svelte?raw';
+    import {
+        code as playgroundCode,
+        controls as playgroundControls,
+        usesItems as playgroundUsesItems
+    } from './playground';
 
     const installCommand = 'pnpm dlx @mielui/svelte add attachment';
+
+    let playgroundFiles = $state<File[]>([]);
+    let playgroundRejected = $state<Attachment.AttachmentRejection[]>([]);
+
+    onMount(() => {
+        playgroundFiles = [
+            new File([new Uint8Array(620_000)], 'architecture.pdf', {
+                type: 'application/pdf'
+            })
+        ];
+    });
 </script>
 
 <svelte:head>
@@ -31,7 +47,77 @@
     </PageIntro>
 
     <section id="hero" class="scroll-mt-20 flex flex-col gap-4">
-        <ComponentPreview code={HeroSrc}><Hero /></ComponentPreview>
+        <Playground controls={playgroundControls} code={playgroundCode}>
+            {#snippet children(values)}
+                {@const chip = values.variant === 'chip'}
+                <Attachment.Root
+                    bind:files={playgroundFiles}
+                    accept={values.accept || undefined}
+                    multiple={values.multiple}
+                    maxFiles={values.maxFiles}
+                    maxSize={values.maxSize * 1024 * 1024}
+                    disabled={values.disabled}
+                    onReject={(rejections) => {
+                        playgroundRejected = rejections;
+                    }}
+                    class="flex w-full max-w-sm flex-col items-center gap-3"
+                >
+                    {#if values.triggerLabel}
+                        <Attachment.Trigger
+                            variant={values.triggerVariant}
+                            size={values.triggerSize}
+                        >
+                            Choose files
+                        </Attachment.Trigger>
+                    {:else}
+                        <Attachment.Trigger variant={values.triggerVariant} />
+                    {/if}
+                    {#if playgroundUsesItems(values)}
+                        {#each playgroundFiles as file (file)}
+                            <Attachment.Item
+                                {file}
+                                variant={values.variant}
+                                status={values.status}
+                                progress={values.status === 'uploading'
+                                    ? values.progress
+                                    : undefined}
+                                error={values.status === 'error'
+                                    ? values.error || undefined
+                                    : undefined}
+                                removable={values.removable}
+                                class={chip ? undefined : 'w-72 max-w-full'}
+                                onRemove={values.removable
+                                    ? () => {
+                                          playgroundFiles = playgroundFiles.filter(
+                                              (item) => item !== file
+                                          );
+                                      }
+                                    : undefined}
+                            />
+                        {/each}
+                    {:else}
+                        <Attachment.List
+                            variant={values.variant}
+                            class="items-center self-stretch sm:justify-center"
+                        />
+                    {/if}
+                    {#each playgroundRejected as rejection (rejection.file)}
+                        <Attachment.Item
+                            file={rejection.file}
+                            variant={values.variant}
+                            status="error"
+                            error={rejection.reason}
+                            class={chip ? undefined : 'w-72 max-w-full'}
+                            onRemove={() => {
+                                playgroundRejected = playgroundRejected.filter(
+                                    (item) => item !== rejection
+                                );
+                            }}
+                        />
+                    {/each}
+                </Attachment.Root>
+            {/snippet}
+        </Playground>
     </section>
 
     <section id="installation" class="scroll-mt-20 flex flex-col gap-4">

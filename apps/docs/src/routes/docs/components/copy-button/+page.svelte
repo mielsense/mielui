@@ -1,7 +1,8 @@
 <script lang="ts">
     import { CodeBlock } from '@mielui/svelte/components/code-block';
+    import { CopyButton } from '@mielui/svelte/components/copy-button';
     import * as Typography from '@mielui/svelte/components/typography';
-    import { ComponentPreview, InstallCommand } from '$lib/components/docs';
+    import { ComponentPreview, InstallCommand, Playground } from '$lib/components/docs';
     import InlineText from '$lib/components/docs/inline-text.svelte';
     import PageIntro from '$lib/components/docs/page-intro.svelte';
     import Basic from './examples/basic.svelte';
@@ -12,6 +13,7 @@
     import HeroSrc from './examples/hero.svelte?raw';
     import Variants from './examples/variants.svelte';
     import VariantsSrc from './examples/variants.svelte?raw';
+    import { code as playgroundCode, controls as playgroundControls } from './playground';
 
     const installCommand = 'pnpm dlx @mielui/svelte add copy-button';
 </script>
@@ -32,9 +34,35 @@
 
     <!-- ─── Hero Example ──────────────────────────────────────────── -->
     <section id="hero" class="scroll-mt-20 flex flex-col gap-4">
-        <ComponentPreview code={HeroSrc}>
-            <Hero />
-        </ComponentPreview>
+        <Playground controls={playgroundControls} code={playgroundCode}>
+            {#snippet children(values)}
+                <div class="flex items-center gap-3">
+                    <code class="text-sm">pnpm add @mielui/svelte</code>
+                    {#if values.size === 'icon'}
+                        <CopyButton
+                            text="pnpm add @mielui/svelte"
+                            variant={values.variant}
+                            label={values.label}
+                            copiedLabel={values.copiedLabel}
+                            duration={values.duration}
+                            disabled={values.disabled}
+                        />
+                    {:else}
+                        <CopyButton
+                            text="pnpm add @mielui/svelte"
+                            variant={values.variant}
+                            size={values.size}
+                            label={values.label}
+                            copiedLabel={values.copiedLabel}
+                            duration={values.duration}
+                            disabled={values.disabled}
+                        >
+                            Copy command
+                        </CopyButton>
+                    {/if}
+                </div>
+            {/snippet}
+        </Playground>
     </section>
 
     <!-- ─── Installation ──────────────────────────────────────────── -->
@@ -65,6 +93,16 @@
     <section id="examples" class="scroll-mt-20 flex flex-col gap-10">
         <div>
             <Typography.H2 class="docs-section-heading">Examples</Typography.H2>
+        </div>
+
+        <div id="copy-confirmation" class="scroll-mt-20 flex flex-col gap-3">
+            <Typography.H3 class="docs-subsection-heading">Copy confirmation</Typography.H3>
+            <Typography.Text variant="supporting">
+                A status line under the command updates after a successful copy.
+            </Typography.Text>
+            <ComponentPreview code={HeroSrc}>
+                <Hero />
+            </ComponentPreview>
         </div>
 
         <div id="in-a-field" class="scroll-mt-20 flex flex-col gap-3">

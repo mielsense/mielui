@@ -1,7 +1,10 @@
 <script lang="ts">
+    import { GitBranchIcon as GitBranch } from '@hugeicons/core-free-icons';
     import { CodeBlock } from '@mielui/svelte/components/code-block';
+    import { Input } from '@mielui/svelte/components/input';
     import * as Typography from '@mielui/svelte/components/typography';
-    import { ComponentPreview, InstallCommand } from '$lib/components/docs';
+    import HugeiconsIcon from '@mielui/svelte/hugeicons-icon';
+    import { ComponentPreview, InstallCommand, Playground } from '$lib/components/docs';
     import PageIntro from '$lib/components/docs/page-intro.svelte';
     import SectionHeading from '$lib/components/docs/section-heading.svelte';
 
@@ -15,6 +18,7 @@
     import VariantOutlineSrc from './examples/variant-outline.svelte?raw';
     import VariantSecondary from './examples/variant-secondary.svelte';
     import VariantSecondarySrc from './examples/variant-secondary.svelte?raw';
+    import { code as playgroundCode, controls as playgroundControls } from './playground';
 
     const installCommand = 'pnpm dlx @mielui/svelte add input';
 </script>
@@ -27,6 +31,14 @@
     />
 </svelte:head>
 
+{#snippet playgroundLeading()}
+    <HugeiconsIcon icon={GitBranch} />
+{/snippet}
+
+{#snippet playgroundTrailing()}
+    <span>.git</span>
+{/snippet}
+
 <div data-docs-page class="flex flex-col gap-10">
     <!-- ─── Header ────────────────────────────────────────────────── -->
     <PageIntro title="Input">
@@ -36,9 +48,44 @@
 
     <!-- ─── Hero Example ──────────────────────────────────────────── -->
     <section id="hero" class="scroll-mt-20 flex flex-col gap-4">
-        <ComponentPreview code={HeroSrc}>
-            <Hero />
-        </ComponentPreview>
+        <Playground controls={playgroundControls} code={playgroundCode}>
+            {#snippet children(values)}
+                <div class="w-full max-w-xs">
+                    {#if values.type === 'file'}
+                        <Input
+                            type="file"
+                            variant={values.variant}
+                            label={values.label ? 'Project name' : undefined}
+                            aria-label={values.label ? undefined : 'Project name'}
+                            description={values.description
+                                ? 'The name shown in your workspace.'
+                                : undefined}
+                            disabled={values.disabled}
+                            readonly={values.readonly}
+                            required={values.required}
+                            aria-invalid={values.invalid ? 'true' : undefined}
+                        />
+                    {:else}
+                        <Input
+                            type={values.type}
+                            variant={values.variant}
+                            label={values.label ? 'Project name' : undefined}
+                            aria-label={values.label ? undefined : 'Project name'}
+                            description={values.description
+                                ? 'The name shown in your workspace.'
+                                : undefined}
+                            placeholder={values.placeholder}
+                            leading={values.leading ? playgroundLeading : undefined}
+                            trailing={values.trailing ? playgroundTrailing : undefined}
+                            disabled={values.disabled}
+                            readonly={values.readonly}
+                            required={values.required}
+                            aria-invalid={values.invalid ? 'true' : undefined}
+                        />
+                    {/if}
+                </div>
+            {/snippet}
+        </Playground>
     </section>
 
     <!-- ─── Installation ──────────────────────────────────────────── -->
@@ -88,6 +135,16 @@
                 Add context with adornments, choose a visual variant, and use native validation.
             {/snippet}
         </SectionHeading>
+
+        <div id="in-a-form" class="scroll-mt-20 flex flex-col gap-3">
+            <Typography.H3 class="docs-subsection-heading">In a form</Typography.H3>
+            <Typography.Text variant="supporting">
+                Two fields with descriptions, saved together by one button.
+            </Typography.Text>
+            <ComponentPreview code={HeroSrc}>
+                <Hero />
+            </ComponentPreview>
+        </div>
 
         <div id="adornments" class="scroll-mt-20 flex flex-col gap-3">
             <Typography.H3 class="docs-subsection-heading">Adornments</Typography.H3>

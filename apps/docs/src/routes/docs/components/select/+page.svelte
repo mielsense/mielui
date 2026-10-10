@@ -1,7 +1,8 @@
 <script lang="ts">
     import { CodeBlock } from '@mielui/svelte/components/code-block';
+    import * as Select from '@mielui/svelte/components/select';
     import * as Typography from '@mielui/svelte/components/typography';
-    import { ComponentPreview, InstallCommand } from '$lib/components/docs';
+    import { ComponentPreview, InstallCommand, Playground } from '$lib/components/docs';
     import InlineText from '$lib/components/docs/inline-text.svelte';
     import PageIntro from '$lib/components/docs/page-intro.svelte';
     import ControlledExample from './examples/controlled.svelte';
@@ -10,14 +11,16 @@
     import DynamicWidthSrc from './examples/dynamic-width.svelte?raw';
     import Glass from './examples/glass.svelte';
     import GlassSrc from './examples/glass.svelte?raw';
-    import Hero from './examples/hero.svelte';
-    import HeroSrc from './examples/hero.svelte?raw';
     import Multiple from './examples/multiple.svelte';
     import MultipleSrc from './examples/multiple.svelte?raw';
     import Scrollable from './examples/scrollable.svelte';
     import ScrollableSrc from './examples/scrollable.svelte?raw';
+    import { code as playgroundCode, controls as playgroundControls } from './playground';
 
     const installCommand = 'pnpm dlx @mielui/svelte add select';
+
+    let playgroundPriority = $state('');
+    let playgroundPriorities = $state<string[]>([]);
 </script>
 
 <svelte:head>
@@ -28,6 +31,16 @@
     />
 </svelte:head>
 
+{#snippet playgroundItems(groupLabel: boolean, disabledItem: boolean)}
+    {#if groupLabel}
+        <Select.Label>Priority</Select.Label>
+    {/if}
+    <Select.Item value="urgent">Urgent</Select.Item>
+    <Select.Item value="high">High</Select.Item>
+    <Select.Item value="medium">Medium</Select.Item>
+    <Select.Item value="low" disabled={disabledItem}>Low</Select.Item>
+{/snippet}
+
 <div data-docs-page class="flex flex-col gap-10">
     <!-- ─── Header ────────────────────────────────────────────────── -->
     <PageIntro title="Select">
@@ -36,9 +49,49 @@
 
     <!-- ─── Hero Example ──────────────────────────────────────────── -->
     <section id="hero" class="scroll-mt-20 flex flex-col gap-4">
-        <ComponentPreview code={HeroSrc}>
-            <Hero />
-        </ComponentPreview>
+        <Playground controls={playgroundControls} code={playgroundCode}>
+            {#snippet children(values)}
+                {#if values.multiple}
+                    <Select.Root
+                        type="multiple"
+                        bind:value={playgroundPriorities}
+                        disabled={values.disabled}
+                    >
+                        <Select.Trigger
+                            aria-label="Priority"
+                            variant={values.variant}
+                            size={values.size}
+                            class="min-w-56"
+                        >
+                            <Select.Value placeholder={values.placeholder || undefined} />
+                        </Select.Trigger>
+                        <Select.Content
+                            surface={values.surface === 'inherit' ? undefined : values.surface}
+                            dynamic={values.dynamic}
+                        >
+                            {@render playgroundItems(values.groupLabel, values.disabledItem)}
+                        </Select.Content>
+                    </Select.Root>
+                {:else}
+                    <Select.Root bind:value={playgroundPriority} disabled={values.disabled}>
+                        <Select.Trigger
+                            aria-label="Priority"
+                            variant={values.variant}
+                            size={values.size}
+                            class="min-w-56"
+                        >
+                            <Select.Value placeholder={values.placeholder || undefined} />
+                        </Select.Trigger>
+                        <Select.Content
+                            surface={values.surface === 'inherit' ? undefined : values.surface}
+                            dynamic={values.dynamic}
+                        >
+                            {@render playgroundItems(values.groupLabel, values.disabledItem)}
+                        </Select.Content>
+                    </Select.Root>
+                {/if}
+            {/snippet}
+        </Playground>
     </section>
 
     <!-- ─── Installation ──────────────────────────────────────────── -->

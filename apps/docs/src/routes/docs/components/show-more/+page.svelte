@@ -1,17 +1,17 @@
 <script lang="ts">
     import { CodeBlock } from '@mielui/svelte/components/code-block';
+    import { ShowMore } from '@mielui/svelte/components/show-more';
     import * as Typography from '@mielui/svelte/components/typography';
-    import { ComponentPreview, InstallCommand } from '$lib/components/docs';
+    import { ComponentPreview, InstallCommand, Playground } from '$lib/components/docs';
     import InlineText from '$lib/components/docs/inline-text.svelte';
     import PageIntro from '$lib/components/docs/page-intro.svelte';
     import Capped from './examples/capped.svelte';
     import CappedSrc from './examples/capped.svelte?raw';
-    import Hero from './examples/hero.svelte';
-    import HeroSrc from './examples/hero.svelte?raw';
     import Interactive from './examples/interactive.svelte';
     import InteractiveSrc from './examples/interactive.svelte?raw';
     import LabelsExample from './examples/labels.svelte';
     import LabelsExampleSrc from './examples/labels.svelte?raw';
+    import { code as playgroundCode, controls as playgroundControls } from './playground';
 
     const TITLE = 'Show More';
     const installCommand = 'pnpm dlx @mielui/svelte add show-more';
@@ -31,9 +31,39 @@
     </PageIntro>
 
     <section id="hero" class="scroll-mt-20 flex flex-col gap-4">
-        <ComponentPreview code={HeroSrc}>
-            <Hero />
-        </ComponentPreview>
+        <Playground controls={playgroundControls} code={playgroundCode}>
+            {#snippet children(values)}
+                {#key values.defaultExpanded}
+                    <ShowMore
+                        lines={values.lines}
+                        maxHeight={values.maxHeight}
+                        moreLabel={values.moreLabel}
+                        lessLabel={values.lessLabel}
+                        defaultExpanded={values.defaultExpanded}
+                        label="Migration details"
+                        class="w-full max-w-md"
+                    >
+                        <div class="flex flex-col gap-2">
+                            <p>
+                                The workspace migration is scheduled for Tuesday at 09:00 UTC. Your
+                                projects, comments, and uploaded files will move together. Read-only
+                                access remains available during the transfer.
+                            </p>
+                            <p>
+                                Before the migration, export any reports needed for the morning
+                                meeting. Scheduled jobs will pause for up to fifteen minutes and
+                                resume after the new workspace passes its health checks.
+                            </p>
+                            <p>
+                                If a check fails, the team will restore the previous workspace and
+                                notify its owners. Existing links will continue to work after the
+                                transfer.
+                            </p>
+                        </div>
+                    </ShowMore>
+                {/key}
+            {/snippet}
+        </Playground>
     </section>
 
     <section id="installation" class="scroll-mt-20 flex flex-col gap-4">

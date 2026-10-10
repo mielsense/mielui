@@ -1,15 +1,16 @@
 <script lang="ts">
+    import { ArrowRight02Icon as ArrowRight, Add01Icon as Plus } from '@hugeicons/core-free-icons';
+    import { Button } from '@mielui/svelte/components/button';
     import { CodeBlock } from '@mielui/svelte/components/code-block';
     import * as Typography from '@mielui/svelte/components/typography';
-    import { ComponentPreview, InstallCommand } from '$lib/components/docs';
+    import HugeiconsIcon from '@mielui/svelte/hugeicons-icon';
+    import { ComponentPreview, InstallCommand, Playground } from '$lib/components/docs';
     import InlineText from '$lib/components/docs/inline-text.svelte';
     import PageIntro from '$lib/components/docs/page-intro.svelte';
     import AsLink from './examples/as-link.svelte';
     import AsLinkSrc from './examples/as-link.svelte?raw';
     import Disabled from './examples/disabled.svelte';
     import DisabledSrc from './examples/disabled.svelte?raw';
-    import Hero from './examples/hero.svelte';
-    import HeroSrc from './examples/hero.svelte?raw';
     import IconGroup from './examples/icon-group.svelte';
     import IconGroupSrc from './examples/icon-group.svelte?raw';
     import LeadingIcon from './examples/leading-icon.svelte';
@@ -25,6 +26,11 @@
     import VariantGlowSrc from './examples/variant-glow.svelte?raw';
     import Variants from './examples/variants.svelte';
     import VariantsSrc from './examples/variants.svelte?raw';
+    import {
+        customLabel,
+        code as playgroundCode,
+        controls as playgroundControls
+    } from './playground';
 
     const installCommand = 'pnpm dlx @mielui/svelte add button';
 </script>
@@ -42,9 +48,58 @@
         A clickable action in several variants and sizes. Pick a variant for what the action means.
     </PageIntro>
     <section id="hero" class="scroll-mt-20 flex flex-col gap-4">
-        <ComponentPreview code={HeroSrc}>
-            <Hero />
-        </ComponentPreview>
+        <Playground controls={playgroundControls} code={playgroundCode}>
+            {#snippet children(values)}
+                {@const iconOnly = values.size === 'icon'}
+                {@const status = values.status === 'idle' ? undefined : values.status}
+                {@const loadingLabel = customLabel(values.loadingLabel, 'Loading…')}
+                {@const successLabel = customLabel(values.successLabel, 'Done')}
+                {@const errorLabel = customLabel(values.errorLabel, 'Try again')}
+                {#snippet face()}
+                    {#if iconOnly || values.leadingIcon}
+                        <HugeiconsIcon icon={Plus} size={14} />
+                    {/if}
+                    {#if !iconOnly}
+                        {values.label}
+                    {/if}
+                    {#if !iconOnly && values.trailingIcon}
+                        <HugeiconsIcon icon={ArrowRight} size={14} />
+                    {/if}
+                {/snippet}
+                {#if values.link}
+                    <Button
+                        variant={values.variant}
+                        size={values.size}
+                        unstyled={values.unstyled}
+                        {status}
+                        loading={values.loading || undefined}
+                        {loadingLabel}
+                        {successLabel}
+                        {errorLabel}
+                        disabled={values.disabled}
+                        aria-label={iconOnly ? values.label : undefined}
+                        href="/docs/installation"
+                    >
+                        {@render face()}
+                    </Button>
+                {:else}
+                    <Button
+                        variant={values.variant}
+                        size={values.size}
+                        unstyled={values.unstyled}
+                        {status}
+                        loading={values.loading || undefined}
+                        {loadingLabel}
+                        {successLabel}
+                        {errorLabel}
+                        disabled={values.disabled}
+                        aria-label={iconOnly ? values.label : undefined}
+                    >
+                        {@render face()}
+                    </Button>
+                {/if}
+            {/snippet}
+        </Playground>
     </section>
     <section id="installation" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Installation</Typography.H2>

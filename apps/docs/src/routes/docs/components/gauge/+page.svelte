@@ -1,7 +1,8 @@
 <script lang="ts">
     import { CodeBlock } from '@mielui/svelte/components/code-block';
+    import { Gauge } from '@mielui/svelte/components/gauge';
     import * as Typography from '@mielui/svelte/components/typography';
-    import { ComponentPreview, InstallCommand } from '$lib/components/docs';
+    import { ComponentPreview, InstallCommand, Playground } from '$lib/components/docs';
     import PageIntro from '$lib/components/docs/page-intro.svelte';
     import SectionHeading from '$lib/components/docs/section-heading.svelte';
     import ContextWindow from './examples/context-window.svelte';
@@ -14,6 +15,7 @@
     import StatesSource from './examples/states.svelte?raw';
     import UsageLimit from './examples/usage-limit.svelte';
     import UsageLimitSrc from './examples/usage-limit.svelte?raw';
+    import { code as playgroundCode, controls as playgroundControls } from './playground';
 
     const installCommand = 'pnpm dlx @mielui/svelte add gauge';
 </script>
@@ -33,7 +35,29 @@
     </PageIntro>
 
     <section id="hero" class="scroll-mt-20 flex flex-col gap-4">
-        <ComponentPreview refreshable code={HeroSrc}><Hero /></ComponentPreview>
+        <Playground controls={playgroundControls} code={playgroundCode} refreshable>
+            {#snippet children(values)}
+                {@const gauge = {
+                    value: values.empty ? null : values.value,
+                    max: values.max,
+                    label: values.label || undefined,
+                    size: values.size,
+                    strokeWidth: values.strokeWidth > 0 ? values.strokeWidth : undefined,
+                    tone: values.tone,
+                    animation: values.animation,
+                    loading: values.loading
+                }}
+                {#if values.unit}
+                    <Gauge {...gauge}>
+                        <span>
+                            {values.value}<span class="text-base text-foreground-muted">%</span>
+                        </span>
+                    </Gauge>
+                {:else}
+                    <Gauge {...gauge} />
+                {/if}
+            {/snippet}
+        </Playground>
     </section>
 
     <section id="installation" class="scroll-mt-20 flex flex-col gap-4">
@@ -104,6 +128,14 @@
                 Compare bounded quantities with explicit units and a label beside each meter.
             {/snippet}
         </SectionHeading>
+
+        <div id="usage-update" class="scroll-mt-20 flex flex-col gap-3">
+            <Typography.H3 class="docs-subsection-heading">Usage update</Typography.H3>
+            <Typography.Text variant="supporting">
+                The arc, the number, and the tone follow the value when it changes.
+            </Typography.Text>
+            <ComponentPreview refreshable code={HeroSrc}><Hero /></ComponentPreview>
+        </div>
 
         <div id="context-window" class="scroll-mt-20 flex flex-col gap-3">
             <Typography.H3 class="docs-subsection-heading">Compact and detailed</Typography.H3>

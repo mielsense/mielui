@@ -1,8 +1,12 @@
 <script lang="ts">
+    import { Button } from '@mielui/svelte/components/button';
     import { CodeBlock } from '@mielui/svelte/components/code-block';
+    import { toast } from '@mielui/svelte/components/toast';
     import * as Typography from '@mielui/svelte/components/typography';
-    import { ComponentPreview, InstallCommand } from '$lib/components/docs';
+    import { onDestroy } from 'svelte';
+    import { ComponentPreview, InstallCommand, Playground } from '$lib/components/docs';
     import PageIntro from '$lib/components/docs/page-intro.svelte';
+    import type { PlaygroundValues } from '$lib/components/docs/playground';
     import SectionHeading from '$lib/components/docs/section-heading.svelte';
     import ViewportPreview from '$lib/components/docs/viewport-preview.svelte';
     import ActionsSrc from './examples/actions.svelte?raw';
@@ -13,8 +17,39 @@
     import NotchSrc from './examples/notch.svelte?raw';
 
     import PromiseSrc from './examples/promise.svelte?raw';
+    import { code as playgroundCode, controls as playgroundControls } from './playground';
 
     const installCommand = 'pnpm dlx @mielui/svelte add toast';
+
+    onDestroy(() => {
+        toast.dismiss();
+    });
+
+    function viewDetails() {
+        toast.info('Opening details');
+    }
+
+    function notify(values: PlaygroundValues<typeof playgroundControls>) {
+        toast({
+            title: values.title,
+            type: values.type,
+            description: values.description ? 'Preview build for the main branch.' : undefined,
+            surface: values.glass ? 'glass' : undefined,
+            actions:
+                values.action === 'none'
+                    ? undefined
+                    : [
+                          {
+                              label: 'View details',
+                              variant: values.action,
+                              callback: viewDetails
+                          }
+                      ],
+            exitable: values.exitable,
+            persistent: values.persistent,
+            duration: values.duration
+        });
+    }
 </script>
 
 <svelte:head>
@@ -30,9 +65,17 @@
 
     <!-- ─── Hero Example ──────────────────────────────────────────── -->
     <section id="hero" class="scroll-mt-20 flex flex-col gap-4">
-        <ComponentPreview code={HeroSrc} class="[&_[data-preview-canvas]]:p-0">
-            <ViewportPreview example="toast/hero" title="Toast hero preview" />
-        </ComponentPreview>
+        <Playground controls={playgroundControls} code={playgroundCode}>
+            {#snippet children(values)}
+                <Button
+                    onclick={() => {
+                        notify(values);
+                    }}
+                >
+                    Show toast
+                </Button>
+            {/snippet}
+        </Playground>
     </section>
 
     <!-- ─── Installation ──────────────────────────────────────────── -->
@@ -107,6 +150,16 @@
                 Toast variants for different notification types.
             {/snippet}
         </SectionHeading>
+
+        <div id="follow-up" class="scroll-mt-20 flex flex-col gap-3">
+            <Typography.H3 class="docs-subsection-heading">Follow-up toast</Typography.H3>
+            <Typography.Text variant="supporting">
+                The action on the first toast opens a second one with the details.
+            </Typography.Text>
+            <ComponentPreview code={HeroSrc} class="[&_[data-preview-canvas]]:p-0">
+                <ViewportPreview example="toast/hero" title="Toast hero preview" />
+            </ComponentPreview>
+        </div>
 
         <div id="actions" class="scroll-mt-20 flex flex-col gap-3">
             <Typography.H3 class="docs-subsection-heading">Action buttons</Typography.H3>

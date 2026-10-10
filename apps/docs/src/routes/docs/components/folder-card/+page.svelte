@@ -1,7 +1,8 @@
 <script lang="ts">
     import { CodeBlock } from '@mielui/svelte/components/code-block';
+    import * as FolderCard from '@mielui/svelte/components/folder-card';
     import * as Typography from '@mielui/svelte/components/typography';
-    import { ComponentPreview, InstallCommand } from '$lib/components/docs';
+    import { ComponentPreview, InstallCommand, Playground } from '$lib/components/docs';
     import InlineText from '$lib/components/docs/inline-text.svelte';
     import PageIntro from '$lib/components/docs/page-intro.svelte';
     import ClickActionExample from './examples/click-action.svelte';
@@ -14,9 +15,20 @@
     import ImageCoverSrc from './examples/image-cover.svelte?raw';
     import LiveCount from './examples/live-count.svelte';
     import LiveCountSrc from './examples/live-count.svelte?raw';
+    import { code as playgroundCode, controls as playgroundControls } from './playground';
 
     const TITLE = 'Folder Card';
     const installCommand = 'pnpm dlx @mielui/svelte add folder-card';
+
+    const playgroundTones: Record<'1' | '2' | '3' | '4' | '5', 1 | 2 | 3 | 4 | 5> = {
+        '1': 1,
+        '2': 2,
+        '3': 3,
+        '4': 4,
+        '5': 5
+    };
+
+    let playgroundOpened = $state(false);
 </script>
 
 <svelte:head>
@@ -37,9 +49,60 @@
     </PageIntro>
 
     <section id="hero" class="scroll-mt-20 flex flex-col gap-4">
-        <ComponentPreview code={HeroSrc}>
-            <Hero />
-        </ComponentPreview>
+        <Playground controls={playgroundControls} code={playgroundCode}>
+            {#snippet children(values)}
+                {#snippet folder()}
+                    {#if values.cover === 'image'}
+                        <FolderCard.Cover src="/og-default.png" />
+                    {:else if values.cover === 'tone'}
+                        <FolderCard.Cover />
+                    {/if}
+                    <FolderCard.Tab>
+                        <FolderCard.Title>{values.title}</FolderCard.Title>
+                        {#if values.description}
+                            <FolderCard.Description>Brand, web, and product</FolderCard.Description>
+                        {/if}
+                    </FolderCard.Tab>
+                    {#if values.index || values.count}
+                        <FolderCard.Footer>
+                            {#if values.index}
+                                <FolderCard.Index>001</FolderCard.Index>
+                            {/if}
+                            {#if values.count}
+                                <FolderCard.Count value={values.value} unit={values.unit} />
+                            {/if}
+                        </FolderCard.Footer>
+                    {/if}
+                {/snippet}
+                <div class="flex w-full max-w-xs flex-col gap-3">
+                    {#if values.action === 'link'}
+                        <FolderCard.Root
+                            href="/docs/components"
+                            tone={playgroundTones[values.tone]}
+                        >
+                            {@render folder()}
+                        </FolderCard.Root>
+                    {:else if values.action === 'button'}
+                        <FolderCard.Root
+                            tone={playgroundTones[values.tone]}
+                            disabled={values.disabled}
+                            onclick={() => {
+                                playgroundOpened = true;
+                            }}
+                        >
+                            {@render folder()}
+                        </FolderCard.Root>
+                        <p role="status" class="text-sm text-foreground-muted">
+                            {playgroundOpened ? 'Opened the folder' : 'Nothing opened yet'}
+                        </p>
+                    {:else}
+                        <FolderCard.Root tone={playgroundTones[values.tone]}>
+                            {@render folder()}
+                        </FolderCard.Root>
+                    {/if}
+                </div>
+            {/snippet}
+        </Playground>
     </section>
 
     <section id="installation" class="scroll-mt-20 flex flex-col gap-4">
@@ -97,6 +160,16 @@
     <section id="examples" class="scroll-mt-20 flex flex-col gap-10">
         <div>
             <Typography.H2 class="docs-section-heading">Examples</Typography.H2>
+        </div>
+
+        <div id="custom-cover" class="scroll-mt-20 flex flex-col gap-3">
+            <Typography.H3 class="docs-subsection-heading">Custom cover</Typography.H3>
+            <Typography.Text variant="supporting">
+                Paper sheets drawn inside Cover sit above the tone wash.
+            </Typography.Text>
+            <ComponentPreview code={HeroSrc}>
+                <Hero />
+            </ComponentPreview>
         </div>
 
         <div id="image-cover" class="scroll-mt-20 flex flex-col gap-3">

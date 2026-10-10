@@ -1,7 +1,9 @@
 <script lang="ts">
+    import { CalendarDate, type DateValue, isWeekend } from '@internationalized/date';
+    import * as Calendar from '@mielui/svelte/components/calendar';
     import { CodeBlock } from '@mielui/svelte/components/code-block';
     import * as Typography from '@mielui/svelte/components/typography';
-    import { ComponentPreview, InstallCommand } from '$lib/components/docs';
+    import { ComponentPreview, InstallCommand, Playground } from '$lib/components/docs';
     import InlineText from '$lib/components/docs/inline-text.svelte';
     import PageIntro from '$lib/components/docs/page-intro.svelte';
     import Example0 from './examples/constraints.svelte';
@@ -16,6 +18,26 @@
     import UnavailableExampleSrc from './examples/unavailable.svelte?raw';
     import WeeksExample from './examples/weeks.svelte';
     import WeeksExampleSrc from './examples/weeks.svelte?raw';
+    import {
+        code as playgroundCode,
+        controls as playgroundControls,
+        WEEK_START
+    } from './playground';
+
+    const booked = [8, 9, 22];
+    const minDate = new CalendarDate(2026, 9, 7);
+    const maxDate = new CalendarDate(2026, 10, 16);
+    let date = $state<DateValue | undefined>(new CalendarDate(2026, 9, 17));
+
+    function isBooked(day: DateValue) {
+        return day.month === 9 && booked.includes(day.day);
+    }
+
+    function weekendMatcher(locale: string) {
+        return (day: DateValue) => {
+            return isWeekend(day, locale);
+        };
+    }
 </script>
 
 <svelte:head>
@@ -26,7 +48,72 @@
 <div data-docs-page class="flex flex-col gap-10">
     <PageIntro title="Calendar">A composable calendar for choosing a single date.</PageIntro>
     <section id="hero" class="scroll-mt-20 flex flex-col gap-4">
-        <ComponentPreview code={HeroSrc}><Hero /></ComponentPreview>
+        <Playground controls={playgroundControls} code={playgroundCode}>
+            {#snippet children(values)}
+                <div class="mielui-plate max-w-full">
+                    {#if values.header === 'selects'}
+                        <Calendar.Root
+                            bind:value={date}
+                            calendarLabel="Meeting date"
+                            locale={values.locale}
+                            weekdayFormat={values.weekdayFormat}
+                            monthFormat={values.monthFormat}
+                            yearFormat={values.yearFormat}
+                            weekStartsOn={WEEK_START[values.weekStartsOn]}
+                            numberOfMonths={values.numberOfMonths}
+                            fixedWeeks={values.fixedWeeks}
+                            disabled={values.disabled}
+                            readonly={values.readonly}
+                            minValue={values.bounds ? minDate : undefined}
+                            maxValue={values.bounds ? maxDate : undefined}
+                            isDateDisabled={values.weekends ? weekendMatcher(values.locale) : undefined}
+                            isDateUnavailable={values.unavailable ? isBooked : undefined}
+                            preventDeselect={values.preventDeselect}
+                            pagedNavigation={values.pagedNavigation}
+                            disableDaysOutsideMonth={values.disableDaysOutsideMonth}
+                        >
+                            {#snippet children({ months, weekdays })}
+                                <Calendar.Header>
+                                    <Calendar.MonthSelect />
+                                    <Calendar.YearSelect />
+                                </Calendar.Header>
+                                <div class="flex max-w-full flex-wrap justify-center gap-3">
+                                    {#each months as month (month.value.toString())}
+                                        <Calendar.Month
+                                            {month}
+                                            {weekdays}
+                                            locale={values.locale}
+                                            showHeading={values.numberOfMonths > 1}
+                                        />
+                                    {/each}
+                                </div>
+                            {/snippet}
+                        </Calendar.Root>
+                    {:else}
+                        <Calendar.Root
+                            bind:value={date}
+                            calendarLabel="Meeting date"
+                            locale={values.locale}
+                            weekdayFormat={values.weekdayFormat}
+                            monthFormat={values.monthFormat}
+                            yearFormat={values.yearFormat}
+                            weekStartsOn={WEEK_START[values.weekStartsOn]}
+                            numberOfMonths={values.numberOfMonths}
+                            fixedWeeks={values.fixedWeeks}
+                            disabled={values.disabled}
+                            readonly={values.readonly}
+                            minValue={values.bounds ? minDate : undefined}
+                            maxValue={values.bounds ? maxDate : undefined}
+                            isDateDisabled={values.weekends ? weekendMatcher(values.locale) : undefined}
+                            isDateUnavailable={values.unavailable ? isBooked : undefined}
+                            preventDeselect={values.preventDeselect}
+                            pagedNavigation={values.pagedNavigation}
+                            disableDaysOutsideMonth={values.disableDaysOutsideMonth}
+                        />
+                    {/if}
+                </div>
+            {/snippet}
+        </Playground>
     </section>
     <section id="installation" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Installation</Typography.H2>
@@ -56,6 +143,13 @@
     </section>
     <section id="examples" class="scroll-mt-20 flex flex-col gap-8">
         <Typography.H2 class="docs-section-heading">Examples</Typography.H2>
+        <div id="bound-value" class="scroll-mt-20 flex flex-col gap-3">
+            <Typography.H3 class="docs-subsection-heading">Bound value</Typography.H3>
+            <Typography.Text variant="supporting">
+                The line under the calendar prints the bound date each time the selection changes.
+            </Typography.Text>
+            <ComponentPreview code={HeroSrc}><Hero /></ComponentPreview>
+        </div>
         <div id="constraints" class="scroll-mt-20 flex flex-col gap-3">
             <Typography.H3 class="docs-subsection-heading">Constraints</Typography.H3>
             <Typography.Text variant="supporting">

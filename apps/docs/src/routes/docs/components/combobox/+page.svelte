@@ -1,15 +1,16 @@
 <script lang="ts">
+    import { Search01Icon as Search } from '@hugeicons/core-free-icons';
     import { CodeBlock } from '@mielui/svelte/components/code-block';
+    import * as Combobox from '@mielui/svelte/components/combobox';
     import * as Typography from '@mielui/svelte/components/typography';
-    import { ComponentPreview, InstallCommand } from '$lib/components/docs';
+    import HugeiconsIcon from '@mielui/svelte/hugeicons-icon';
+    import { ComponentPreview, InstallCommand, Playground } from '$lib/components/docs';
     import InlineText from '$lib/components/docs/inline-text.svelte';
     import PageIntro from '$lib/components/docs/page-intro.svelte';
     import Basic from './examples/basic.svelte';
     import BasicSrc from './examples/basic.svelte?raw';
     import Glass from './examples/glass.svelte';
     import GlassSrc from './examples/glass.svelte?raw';
-    import Hero from './examples/hero.svelte';
-    import HeroSrc from './examples/hero.svelte?raw';
     import InputSearch from './examples/input-search.svelte';
     import InputSearchSrc from './examples/input-search.svelte?raw';
     import MenuSearch from './examples/menu-search.svelte';
@@ -22,11 +23,15 @@
     import ScrollableSrc from './examples/scrollable.svelte?raw';
     import ThresholdExample from './examples/threshold.svelte';
     import ThresholdExampleSrc from './examples/threshold.svelte?raw';
+    import { code as playgroundCode, controls as playgroundControls } from './playground';
 
     const TITLE = 'Combobox';
     const SLUG = 'combobox';
 
     const installCommand = `pnpm dlx @mielui/svelte add ${SLUG}`;
+
+    let playgroundFramework = $state('');
+    let playgroundFrameworks = $state<string[]>([]);
 </script>
 
 <svelte:head>
@@ -37,15 +42,98 @@
     <meta name="description" content="Searchable select dropdown with fuzzy matching." />
 </svelte:head>
 
+{#snippet playgroundTrailing()}
+    <HugeiconsIcon icon={Search} />
+{/snippet}
+
 <div data-docs-page class="flex flex-col gap-10">
     <!-- ─── Header ────────────────────────────────────────────────── -->
     <PageIntro title={TITLE}>A searchable dropdown that filters options as you type.</PageIntro>
 
     <!-- ─── Hero Example ──────────────────────────────────────────── -->
     <section id="hero" class="scroll-mt-20 flex flex-col gap-4">
-        <ComponentPreview code={HeroSrc}>
-            <Hero />
-        </ComponentPreview>
+        <Playground controls={playgroundControls} code={playgroundCode}>
+            {#snippet children(values)}
+                {#if values.multiple}
+                    <Combobox.Root
+                        type="multiple"
+                        bind:value={playgroundFrameworks}
+                        placement={values.placement}
+                        hoverable={values.hoverable}
+                        delay={values.delay}
+                        closeDelay={values.closeDelay}
+                    >
+                        <Combobox.Trigger
+                            variant={values.variant}
+                            appearance={values.appearance}
+                            size={values.size}
+                            placeholder={values.placeholder || undefined}
+                            searchPlacement={values.searchPlacement}
+                            threshold={values.threshold}
+                            trailing={values.trailing ? playgroundTrailing : undefined}
+                            disabled={values.disabled}
+                            class="w-64"
+                        />
+                        <Combobox.Content
+                            surface={values.surface === 'inherit' ? undefined : values.surface}
+                        >
+                            <Combobox.Results>
+                                {#if values.groupLabel}
+                                    <Combobox.Label>Frameworks</Combobox.Label>
+                                {/if}
+                                <Combobox.Item value="nextjs" label="Next.js" />
+                                <Combobox.Item value="sveltekit" label="SvelteKit" />
+                                <Combobox.Item value="nuxtjs" label="Nuxt.js" />
+                                <Combobox.Item value="remix" label="Remix" />
+                                <Combobox.Item
+                                    value="astro"
+                                    label="Astro"
+                                    disabled={values.disabledItem}
+                                />
+                            </Combobox.Results>
+                        </Combobox.Content>
+                    </Combobox.Root>
+                {:else}
+                    <Combobox.Root
+                        bind:value={playgroundFramework}
+                        placement={values.placement}
+                        hoverable={values.hoverable}
+                        delay={values.delay}
+                        closeDelay={values.closeDelay}
+                    >
+                        <Combobox.Trigger
+                            variant={values.variant}
+                            appearance={values.appearance}
+                            size={values.size}
+                            placeholder={values.placeholder || undefined}
+                            searchPlacement={values.searchPlacement}
+                            threshold={values.threshold}
+                            trailing={values.trailing ? playgroundTrailing : undefined}
+                            disabled={values.disabled}
+                            class="w-64"
+                        />
+                        <Combobox.Content
+                            surface={values.surface === 'inherit' ? undefined : values.surface}
+                        >
+                            <Combobox.Results>
+                                {#if values.groupLabel}
+                                    <Combobox.Label>Frameworks</Combobox.Label>
+                                {/if}
+                                <Combobox.Item value="nextjs" label="Next.js" />
+                                <Combobox.Item value="sveltekit" label="SvelteKit" />
+                                <Combobox.Item value="nuxtjs" label="Nuxt.js" />
+                                <Combobox.Item value="remix" label="Remix" />
+                                <Combobox.Item
+                                    value="astro"
+                                    label="Astro"
+                                    disabled={values.disabledItem}
+                                />
+                            </Combobox.Results>
+                        </Combobox.Content>
+                    </Combobox.Root>
+                {/if}
+            {/snippet}
+        </Playground>
     </section>
 
     <!-- ─── Installation ──────────────────────────────────────────── -->

@@ -1,7 +1,7 @@
 <script lang="ts">
     import { CodeBlock } from '@mielui/svelte/components/code-block';
     import * as Typography from '@mielui/svelte/components/typography';
-    import { ComponentPreview, InstallCommand } from '$lib/components/docs';
+    import { ComponentPreview, InstallCommand, Playground } from '$lib/components/docs';
     import InlineText from '$lib/components/docs/inline-text.svelte';
     import PageIntro from '$lib/components/docs/page-intro.svelte';
     import SectionHeading from '$lib/components/docs/section-heading.svelte';
@@ -14,6 +14,12 @@
     import MetadataSrc from './examples/metadata.svelte?raw';
     import TextRoles from './examples/text-roles.svelte';
     import TextRolesSrc from './examples/text-roles.svelte?raw';
+    import {
+        headingLevel,
+        code as playgroundCode,
+        controls as playgroundControls,
+        samples as playgroundSamples
+    } from './playground';
 
     const installCommand = 'pnpm dlx @mielui/svelte add typography';
     const usage = `import * as Typography from '@mielui/svelte/components/typography';
@@ -83,9 +89,41 @@
     </PageIntro>
 
     <section id="hero" class="scroll-mt-20 flex flex-col gap-4">
-        <ComponentPreview code={HeroSrc}>
-            <Hero />
-        </ComponentPreview>
+        <Playground controls={playgroundControls} code={playgroundCode}>
+            {#snippet children(values)}
+                <div class="max-w-xl">
+                    {#if values.role === 'h1'}
+                        <Typography.H1>{playgroundSamples.heading}</Typography.H1>
+                    {:else if values.role === 'h2'}
+                        <Typography.H2>{playgroundSamples.heading}</Typography.H2>
+                    {:else if values.role === 'h3'}
+                        <Typography.H3>{playgroundSamples.heading}</Typography.H3>
+                    {:else if values.role === 'h4'}
+                        <Typography.H4>{playgroundSamples.heading}</Typography.H4>
+                    {:else if values.role === 'h5'}
+                        <Typography.H5>{playgroundSamples.heading}</Typography.H5>
+                    {:else if values.role === 'h6'}
+                        <Typography.H6>{playgroundSamples.heading}</Typography.H6>
+                    {:else if values.role === 'title'}
+                        <Typography.Title level={headingLevel(values.level)}>
+                            {playgroundSamples.heading}
+                        </Typography.Title>
+                    {:else if values.role === 'description'}
+                        <Typography.Description>
+                            {playgroundSamples.paragraph}
+                        </Typography.Description>
+                    {:else if values.role === 'text'}
+                        <Typography.Text variant={values.variant}>
+                            {playgroundSamples.paragraph}
+                        </Typography.Text>
+                    {:else if values.role === 'metadata'}
+                        <Typography.Metadata>{playgroundSamples.metadata}</Typography.Metadata>
+                    {:else}
+                        <Typography.InlineCode>{playgroundSamples.code}</Typography.InlineCode>
+                    {/if}
+                </div>
+            {/snippet}
+        </Playground>
     </section>
 
     <section id="installation" class="scroll-mt-20 flex flex-col gap-4">
@@ -136,6 +174,16 @@
                 compared.
             {/snippet}
         </SectionHeading>
+
+        <div id="article-header" class="scroll-mt-20 flex flex-col gap-3">
+            <Typography.H3 class="docs-subsection-heading">Article header</Typography.H3>
+            <Typography.Text variant="supporting" class="m-0 max-w-2xl">
+                Metadata, Title and Description stack into the top of an article or a card.
+            </Typography.Text>
+            <ComponentPreview code={HeroSrc}>
+                <Hero />
+            </ComponentPreview>
+        </div>
 
         <div id="heading-levels" class="scroll-mt-20 flex flex-col gap-3">
             <Typography.H3 class="docs-subsection-heading">Heading levels</Typography.H3>

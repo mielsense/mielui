@@ -1,7 +1,9 @@
 <script lang="ts">
+    import { Button } from '@mielui/svelte/components/button';
     import { CodeBlock } from '@mielui/svelte/components/code-block';
+    import Kbd from '@mielui/svelte/components/kbd';
     import * as Typography from '@mielui/svelte/components/typography';
-    import { ComponentPreview, InstallCommand } from '$lib/components/docs';
+    import { ComponentPreview, InstallCommand, Playground } from '$lib/components/docs';
     import PageIntro from '$lib/components/docs/page-intro.svelte';
     import SectionHeading from '$lib/components/docs/section-heading.svelte';
     import Basic from './examples/basic.svelte';
@@ -12,10 +14,17 @@
     import HeroSrc from './examples/hero.svelte?raw';
     import Modifiers from './examples/modifiers.svelte';
     import ModifiersSrc from './examples/modifiers.svelte?raw';
+    import { code as playgroundCode, controls as playgroundControls } from './playground';
 
     const TITLE = 'Kbd';
 
     const installCommand = 'pnpm dlx @mielui/svelte add kbd';
+
+    let runs = $state(0);
+
+    function run() {
+        runs += 1;
+    }
 </script>
 
 <svelte:head>
@@ -34,9 +43,33 @@
 
     <!-- ─── Hero Example ──────────────────────────────────────────── -->
     <section id="hero" class="scroll-mt-20 flex flex-col gap-4">
-        <ComponentPreview code={HeroSrc}>
-            <Hero />
-        </ComponentPreview>
+        <Playground controls={playgroundControls} code={playgroundCode}>
+            {#snippet children(values)}
+                {@const ontrigger = values.listen ? run : undefined}
+                {#snippet kbd()}
+                    {#if values.label}
+                        <Kbd shortcut={values.shortcut} {ontrigger}>{values.label}</Kbd>
+                    {:else}
+                        <Kbd shortcut={values.shortcut} {ontrigger} />
+                    {/if}
+                {/snippet}
+                {#if values.button || values.listen}
+                    <div class="flex flex-col items-center gap-3">
+                        {#if values.button}
+                            <Button variant="secondary" onclick={run}>
+                                Search
+                                {@render kbd()}
+                            </Button>
+                        {:else}
+                            {@render kbd()}
+                        {/if}
+                        <p role="status" class="m-0 text-sm text-foreground-muted">Runs: {runs}</p>
+                    </div>
+                {:else}
+                    {@render kbd()}
+                {/if}
+            {/snippet}
+        </Playground>
     </section>
 
     <!-- ─── Installation ──────────────────────────────────────────── -->
@@ -85,6 +118,16 @@
                 Kbd in various compositions and contexts.
             {/snippet}
         </SectionHeading>
+
+        <div id="shortcuts-in-buttons" class="scroll-mt-20 flex flex-col gap-3">
+            <Typography.H3 class="docs-subsection-heading">Shortcuts in buttons</Typography.H3>
+            <Typography.Text variant="supporting">
+                Each chip names the key that runs its button. The lone chip calls ontrigger instead.
+            </Typography.Text>
+            <ComponentPreview code={HeroSrc}>
+                <Hero />
+            </ComponentPreview>
+        </div>
 
         <!-- Basic -->
         <div id="basic" class="scroll-mt-20 flex flex-col gap-3">

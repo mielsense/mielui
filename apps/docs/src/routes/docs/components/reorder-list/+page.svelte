@@ -1,7 +1,8 @@
 <script lang="ts">
     import { CodeBlock } from '@mielui/svelte/components/code-block';
+    import * as ReorderList from '@mielui/svelte/components/reorder-list';
     import * as Typography from '@mielui/svelte/components/typography';
-    import { ComponentPreview, InstallCommand } from '$lib/components/docs';
+    import { ComponentPreview, InstallCommand, Playground } from '$lib/components/docs';
     import InlineText from '$lib/components/docs/inline-text.svelte';
     import PageIntro from '$lib/components/docs/page-intro.svelte';
     import EventsExample from './examples/events.svelte';
@@ -13,6 +14,30 @@
 
     import Additional from './examples/handles.svelte';
     import AdditionalSrc from './examples/handles.svelte?raw';
+    import { code as playgroundCode, controls as playgroundControls } from './playground';
+
+    let playgroundItems = $state([
+        {
+            id: 'opening',
+            name: 'Opening remarks',
+            duration: '5 min'
+        },
+        {
+            id: 'roadmap',
+            name: 'Roadmap review',
+            duration: '15 min'
+        },
+        {
+            id: 'critique',
+            name: 'Design critique',
+            duration: '20 min'
+        },
+        {
+            id: 'questions',
+            name: 'Open questions',
+            duration: '10 min'
+        }
+    ]);
 </script>
 
 <svelte:head>
@@ -26,7 +51,54 @@
     </PageIntro>
 
     <section id="hero" class="scroll-mt-20 flex flex-col gap-4">
-        <ComponentPreview code={HeroSrc}><Hero /></ComponentPreview>
+        <Playground controls={playgroundControls} code={playgroundCode}>
+            {#snippet children(values)}
+                {#snippet content(item: (typeof playgroundItems)[number])}
+                    {#if values.duration}
+                        <span class="flex min-w-0 items-center justify-between gap-4">
+                            <span class="truncate font-medium">{item.name}</span>
+                            <span class="shrink-0 text-xs text-foreground-muted tabular-nums">
+                                {item.duration}
+                            </span>
+                        </span>
+                    {:else}
+                        <span class="truncate font-medium">{item.name}</span>
+                    {/if}
+                {/snippet}
+                {#if values.handle === 'end'}
+                    <ReorderList.Root
+                        bind:items={playgroundItems}
+                        getId={(item) => item.id}
+                        getLabel={(item) => item.name}
+                        label="Meeting agenda"
+                        disabled={values.disabled}
+                        class="w-full max-w-sm"
+                    >
+                        {#snippet row(item)}
+                            <ReorderList.Item id={item.id} label={item.name}>
+                                <ReorderList.Content class="ps-1.5">
+                                    {@render content(item)}
+                                </ReorderList.Content>
+                                <ReorderList.Handle />
+                            </ReorderList.Item>
+                        {/snippet}
+                    </ReorderList.Root>
+                {:else}
+                    <ReorderList.Root
+                        bind:items={playgroundItems}
+                        getId={(item) => item.id}
+                        getLabel={(item) => item.name}
+                        label="Meeting agenda"
+                        disabled={values.disabled}
+                        class="w-full max-w-sm"
+                    >
+                        {#snippet children(item)}
+                            {@render content(item)}
+                        {/snippet}
+                    </ReorderList.Root>
+                {/if}
+            {/snippet}
+        </Playground>
     </section>
 
     <section id="installation" class="scroll-mt-20 flex flex-col gap-4">
@@ -80,6 +152,13 @@
             lang="svelte"
             copy="overlay"
         />
+    </section>
+    <section id="agenda-with-reset" class="scroll-mt-20 flex flex-col gap-4">
+        <Typography.H2 class="docs-section-heading">Agenda with reset</Typography.H2>
+        <Typography.Text variant="supporting">
+            A Reset button restores the starting order, and a hint explains the keyboard controls.
+        </Typography.Text>
+        <ComponentPreview code={HeroSrc}><Hero /></ComponentPreview>
     </section>
     <section id="handles" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Handle after content</Typography.H2>

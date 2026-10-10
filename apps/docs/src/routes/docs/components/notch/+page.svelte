@@ -1,7 +1,11 @@
 <script lang="ts">
+    import { Settings01Icon as Settings } from '@hugeicons/core-free-icons';
+    import { Button } from '@mielui/svelte/components/button';
     import { CodeBlock } from '@mielui/svelte/components/code-block';
+    import * as Notch from '@mielui/svelte/components/notch';
     import * as Typography from '@mielui/svelte/components/typography';
-    import { ComponentPreview, InstallCommand } from '$lib/components/docs';
+    import HugeiconsIcon from '@mielui/svelte/hugeicons-icon';
+    import { ComponentPreview, InstallCommand, Playground } from '$lib/components/docs';
     import InlineText from '$lib/components/docs/inline-text.svelte';
     import PageIntro from '$lib/components/docs/page-intro.svelte';
     import ViewportPreview from '$lib/components/docs/viewport-preview.svelte';
@@ -9,6 +13,13 @@
     import GlassSrc from './examples/glass.svelte?raw';
     import HeroSrc from './examples/hero.svelte?raw';
     import PeekSrc from './examples/peek.svelte?raw';
+    import { code as playgroundCode, controls as playgroundControls } from './playground';
+
+    let playgroundOpen = $state(false);
+
+    function showPlayground() {
+        playgroundOpen = true;
+    }
 </script>
 <svelte:head>
     <title>Mielui · Notch</title>
@@ -23,9 +34,58 @@
         stays usable.
     </PageIntro>
     <section id="hero" class="scroll-mt-20 flex flex-col gap-4">
-        <ComponentPreview code={HeroSrc} class="[&_[data-preview-canvas]]:p-0">
-            <ViewportPreview example="notch/hero" title="Notch hero preview" />
-        </ComponentPreview>
+        <Playground controls={playgroundControls} code={playgroundCode}>
+            {#snippet children(values)}
+                <Button variant="secondary" onclick={showPlayground}>Show notch</Button>
+                <Notch.Root
+                    bind:open={playgroundOpen}
+                    side={values.side}
+                    mode={values.mode}
+                    duration={values.duration}
+                    surface={values.glass ? 'glass' : undefined}
+                >
+                    {#if values.sideAction !== 'none'}
+                        <Notch.SideAction side={values.sideAction} aria-label="Sync settings">
+                            <HugeiconsIcon icon={Settings} size={16} />
+                        </Notch.SideAction>
+                    {/if}
+                    <Notch.Content
+                        aria-label="Sync status"
+                        class={values.side === 'left' || values.side === 'right'
+                            ? 'w-44 justify-center px-5'
+                            : undefined}
+                    >
+                        <Notch.Header>
+                            <Notch.Title class="text-sm">All synced</Notch.Title>
+                            {#if values.description}
+                                <Notch.Description class="text-xs">
+                                    Your files are up to date.
+                                </Notch.Description>
+                            {/if}
+                        </Notch.Header>
+                        {#if values.actions}
+                            <Notch.Actions>
+                                <Button variant="secondary" size="sm">View files</Button>
+                            </Notch.Actions>
+                        {/if}
+                        {#if values.close}
+                            <Notch.Close />
+                        {/if}
+                    </Notch.Content>
+                    {#if values.peekLabel}
+                        <Notch.Peek>Synced</Notch.Peek>
+                    {/if}
+                    {#if values.accessory}
+                        <Notch.Accessory
+                            class="rounded-[var(--radius-control)] border border-border bg-card px-2.5 py-1 text-xs tabular-nums text-foreground-muted"
+                            aria-label="3 of 3 files synced"
+                        >
+                            3 of 3
+                        </Notch.Accessory>
+                    {/if}
+                </Notch.Root>
+            {/snippet}
+        </Playground>
     </section>
     <section id="installation" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Installation</Typography.H2>
@@ -91,6 +151,16 @@
 
     <section id="examples" class="scroll-mt-20 flex flex-col gap-10">
         <Typography.H2 class="docs-section-heading">Examples</Typography.H2>
+        <div id="each-edge" class="scroll-mt-20 flex flex-col gap-3">
+            <Typography.H3 class="docs-subsection-heading">Each edge</Typography.H3>
+            <Typography.Text variant="supporting">
+                One notch opened from each edge of its own viewport, with a taller layout on the
+                left and right.
+            </Typography.Text>
+            <ComponentPreview code={HeroSrc} class="[&_[data-preview-canvas]]:p-0">
+                <ViewportPreview example="notch/hero" title="Notch hero preview" />
+            </ComponentPreview>
+        </div>
         <div id="activity" class="scroll-mt-20 flex flex-col gap-3">
             <Typography.H3 class="docs-subsection-heading">Detached controls</Typography.H3>
             <Typography.Text variant="supporting">

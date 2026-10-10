@@ -1,7 +1,10 @@
 <script lang="ts">
+    import { Button } from '@mielui/svelte/components/button';
     import { CodeBlock } from '@mielui/svelte/components/code-block';
+    import * as Drawer from '@mielui/svelte/components/drawer';
+    import { Switch } from '@mielui/svelte/components/switch';
     import * as Typography from '@mielui/svelte/components/typography';
-    import { ComponentPreview, InstallCommand } from '$lib/components/docs';
+    import { ComponentPreview, InstallCommand, Playground } from '$lib/components/docs';
     import InlineText from '$lib/components/docs/inline-text.svelte';
     import PageIntro from '$lib/components/docs/page-intro.svelte';
     import DismissalExample from './examples/dismissal.svelte';
@@ -14,6 +17,15 @@
     import NestedSrc from './examples/nested.svelte?raw';
     import Sides from './examples/sides.svelte';
     import SidesSrc from './examples/sides.svelte?raw';
+    import { code as playgroundCode, controls as playgroundControls } from './playground';
+
+    let playgroundOpen = $state(false);
+    let unreadOnly = $state(true);
+    let showArchived = $state(false);
+
+    function applyPlayground() {
+        playgroundOpen = false;
+    }
 </script>
 <svelte:head>
     <title>Mielui · Drawer</title>
@@ -27,7 +39,43 @@
         Swipeable edge panel with accessible focus management and direct manipulation.
     </PageIntro>
     <section id="hero" class="flex flex-col gap-4">
-        <ComponentPreview code={HeroSrc}><Hero /></ComponentPreview>
+        <Playground controls={playgroundControls} code={playgroundCode}>
+            {#snippet children(values)}
+                <Drawer.Root
+                    bind:open={playgroundOpen}
+                    direction={values.direction}
+                    dismissible={values.dismissible}
+                    handleOnly={values.handleOnly}
+                    closeThreshold={values.closeThreshold}
+                >
+                    <Drawer.Trigger>Filters</Drawer.Trigger>
+                    <Drawer.Portal>
+                        <Drawer.Overlay />
+                        <Drawer.Content surface={values.glass ? 'glass' : undefined}>
+                            {#if values.handle}
+                                <Drawer.Handle />
+                            {/if}
+                            <Drawer.Header>
+                                <Drawer.Title>Filters</Drawer.Title>
+                                {#if values.description}
+                                    <Drawer.Description>
+                                        Choose what appears in your reading list.
+                                    </Drawer.Description>
+                                {/if}
+                            </Drawer.Header>
+                            <Drawer.Body class="flex flex-col gap-4">
+                                <Switch bind:checked={unreadOnly} label="Unread only" />
+                                <Switch bind:checked={showArchived} label="Show archived" />
+                            </Drawer.Body>
+                            <Drawer.Footer>
+                                <Drawer.Close>Close</Drawer.Close>
+                                <Button onclick={applyPlayground}>Apply</Button>
+                            </Drawer.Footer>
+                        </Drawer.Content>
+                    </Drawer.Portal>
+                </Drawer.Root>
+            {/snippet}
+        </Playground>
     </section>
 
     <section id="installation" class="flex flex-col gap-4">
@@ -87,6 +135,14 @@
             Reduced motion removes opening and settling animations while preserving dragging. Use
             Sheet when the panel does not need swipe gestures.
         </Typography.Text>
+    </section>
+    <section id="reading-preferences" class="flex flex-col gap-4">
+        <Typography.H2>Reading preferences</Typography.H2>
+        <Typography.Text>
+            A settings drawer that drags from its handle only and restores the saved values when it
+            is dismissed.
+        </Typography.Text>
+        <ComponentPreview code={HeroSrc}><Hero /></ComponentPreview>
     </section>
     <section id="directions" class="flex flex-col gap-4">
         <Typography.H2>Directions</Typography.H2>

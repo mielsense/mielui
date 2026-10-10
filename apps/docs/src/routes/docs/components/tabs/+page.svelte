@@ -1,7 +1,14 @@
 <script lang="ts">
+    import {
+        Activity01Icon as Activity,
+        File01Icon as File,
+        Home01Icon as Home
+    } from '@hugeicons/core-free-icons';
     import { CodeBlock } from '@mielui/svelte/components/code-block';
+    import * as Tabs from '@mielui/svelte/components/tabs';
     import * as Typography from '@mielui/svelte/components/typography';
-    import { ComponentPreview, InstallCommand } from '$lib/components/docs';
+    import HugeiconsIcon from '@mielui/svelte/hugeicons-icon';
+    import { ComponentPreview, InstallCommand, Playground } from '$lib/components/docs';
     import InlineText from '$lib/components/docs/inline-text.svelte';
     import PageIntro from '$lib/components/docs/page-intro.svelte';
     import Hero from './examples/hero.svelte';
@@ -16,8 +23,11 @@
     import VariantSegmentedSrc from './examples/variant-segmented.svelte?raw';
     import Vertical from './examples/vertical.svelte';
     import VerticalSrc from './examples/vertical.svelte?raw';
+    import { code as playgroundCode, controls as playgroundControls } from './playground';
 
     const installCommand = 'pnpm dlx @mielui/svelte add tabs';
+
+    let playgroundTab = $state('overview');
 </script>
 
 <svelte:head>
@@ -36,9 +46,75 @@
 
     <!-- ─── Hero Example ──────────────────────────────────────────── -->
     <section id="hero" class="scroll-mt-20 flex flex-col gap-4">
-        <ComponentPreview code={HeroSrc}>
-            <Hero />
-        </ComponentPreview>
+        <Playground controls={playgroundControls} code={playgroundCode}>
+            {#snippet children(values)}
+                {@const gap = values.icons ? 'gap-1.5' : undefined}
+                {@const panelClass = [
+                    values.orientation === 'vertical' ? 'py-1.5' : 'pt-3',
+                    'text-sm text-foreground-muted'
+                ].join(' ')}
+                <div class={values.panels ? 'w-full max-w-sm' : 'contents'}>
+                    <Tabs.Root
+                        bind:value={playgroundTab}
+                        variant={values.variant}
+                        orientation={values.orientation}
+                        activationMode={values.activationMode}
+                    >
+                        <Tabs.List>
+                            <Tabs.Trigger value="overview" class={gap}>
+                                {#if values.icons}
+                                    <HugeiconsIcon icon={Home} size={14} />
+                                {/if}
+                                Overview
+                            </Tabs.Trigger>
+                            <Tabs.Trigger
+                                value="activity"
+                                class={values.icons || values.count ? 'gap-1.5' : undefined}
+                            >
+                                {#if values.icons}
+                                    <HugeiconsIcon icon={Activity} size={14} />
+                                {/if}
+                                Activity
+                                {#if values.count}
+                                    <span class="text-xs tabular-nums text-foreground-muted">
+                                        12
+                                    </span>
+                                {/if}
+                            </Tabs.Trigger>
+                            <Tabs.Trigger value="files" disabled={values.disabled} class={gap}>
+                                {#if values.icons}
+                                    <HugeiconsIcon icon={File} size={14} />
+                                {/if}
+                                Files
+                            </Tabs.Trigger>
+                        </Tabs.List>
+                        {#if values.panels}
+                            <Tabs.Content
+                                value="overview"
+                                forceMount={values.forceMount}
+                                class={panelClass}
+                            >
+                                Everything is up to date.
+                            </Tabs.Content>
+                            <Tabs.Content
+                                value="activity"
+                                forceMount={values.forceMount}
+                                class={panelClass}
+                            >
+                                You updated the project settings.
+                            </Tabs.Content>
+                            <Tabs.Content
+                                value="files"
+                                forceMount={values.forceMount}
+                                class={panelClass}
+                            >
+                                README.md and package.json
+                            </Tabs.Content>
+                        {/if}
+                    </Tabs.Root>
+                </div>
+            {/snippet}
+        </Playground>
     </section>
 
     <!-- ─── Installation ──────────────────────────────────────────── -->
@@ -86,6 +162,16 @@
     <section id="examples" class="scroll-mt-20 flex flex-col gap-10">
         <div>
             <Typography.H2 class="docs-section-heading">Examples</Typography.H2>
+        </div>
+
+        <div id="with-panels" class="scroll-mt-20 flex flex-col gap-3">
+            <Typography.H3 class="docs-subsection-heading">With panels</Typography.H3>
+            <Typography.Text variant="supporting">
+                Each tab shows its own panel under the list.
+            </Typography.Text>
+            <ComponentPreview code={HeroSrc}>
+                <Hero />
+            </ComponentPreview>
         </div>
 
         <div id="variant-default" class="scroll-mt-20 flex flex-col gap-3">

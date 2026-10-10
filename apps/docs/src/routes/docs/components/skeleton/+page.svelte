@@ -1,7 +1,8 @@
 <script lang="ts">
     import { CodeBlock } from '@mielui/svelte/components/code-block';
+    import { Skeleton, SkeletonSwap } from '@mielui/svelte/components/skeleton';
     import * as Typography from '@mielui/svelte/components/typography';
-    import { ComponentPreview, InstallCommand } from '$lib/components/docs';
+    import { ComponentPreview, InstallCommand, Playground } from '$lib/components/docs';
     import InlineText from '$lib/components/docs/inline-text.svelte';
     import PageIntro from '$lib/components/docs/page-intro.svelte';
     import SectionHeading from '$lib/components/docs/section-heading.svelte';
@@ -17,6 +18,12 @@
     import ShimmerSrc from './examples/shimmer.svelte?raw';
     import TimingExample from './examples/timing.svelte';
     import TimingExampleSrc from './examples/timing.svelte?raw';
+    import {
+        code as playgroundCode,
+        controls as playgroundControls,
+        shapeCode,
+        shapeControls
+    } from './playground';
 
     const TITLE = 'Skeleton';
 
@@ -39,9 +46,52 @@
 
     <!-- ─── Hero Example ──────────────────────────────────────────── -->
     <section id="hero" class="scroll-mt-20 flex flex-col gap-4">
-        <ComponentPreview code={HeroSrc} refreshable>
-            <Hero />
-        </ComponentPreview>
+        <Playground controls={playgroundControls} code={playgroundCode} refreshable>
+            {#snippet children(values)}
+                {#snippet content()}
+                    <p class="m-0 text-sm leading-6 text-foreground-muted">
+                        Your workspace has 12 active projects. Three are ready for review, and the
+                        next team check-in is on Friday.
+                    </p>
+                {/snippet}
+                <div class="w-full max-w-sm">
+                    {#if values.custom}
+                        <SkeletonSwap
+                            ready={values.ready}
+                            lines={values.lines}
+                            lineHeight={values.lineHeight}
+                            barHeight={values.barHeight}
+                            reserve={values.reserve ? values.reserveHeight : undefined}
+                            delay={values.delay}
+                            minVisible={values.minVisible}
+                            label={values.label || undefined}
+                        >
+                            {#snippet skeleton()}
+                                <div class="flex flex-col gap-3 py-1.5">
+                                    <Skeleton variant="shimmer" class="h-3 w-full" />
+                                    <Skeleton variant="shimmer" class="h-3 w-full" />
+                                    <Skeleton variant="shimmer" class="h-3 w-2/3" />
+                                </div>
+                            {/snippet}
+                            {@render content()}
+                        </SkeletonSwap>
+                    {:else}
+                        <SkeletonSwap
+                            ready={values.ready}
+                            lines={values.lines}
+                            lineHeight={values.lineHeight}
+                            barHeight={values.barHeight}
+                            reserve={values.reserve ? values.reserveHeight : undefined}
+                            delay={values.delay}
+                            minVisible={values.minVisible}
+                            label={values.label || undefined}
+                        >
+                            {@render content()}
+                        </SkeletonSwap>
+                    {/if}
+                </div>
+            {/snippet}
+        </Playground>
     </section>
 
     <!-- ─── Installation ──────────────────────────────────────────── -->
@@ -84,6 +134,39 @@
                 Combine Skeleton shapes to match the content being loaded.
             {/snippet}
         </SectionHeading>
+
+        <div id="reloading-content" class="scroll-mt-20 flex flex-col gap-3">
+            <Typography.H3 class="docs-subsection-heading">Reloading content</Typography.H3>
+            <Typography.Text variant="supporting">
+                The button starts a 1.2 second load. The placeholder holds the height of the text,
+                so nothing below it moves.
+            </Typography.Text>
+            <ComponentPreview code={HeroSrc} refreshable>
+                <Hero />
+            </ComponentPreview>
+        </div>
+
+        <div id="single-shape" class="scroll-mt-20 flex flex-col gap-3">
+            <Typography.H3 class="docs-subsection-heading">Single shape</Typography.H3>
+            <Typography.Text variant="supporting">
+                Skeleton is one block. Size it with w, h and unit, and round it with a class.
+            </Typography.Text>
+            <Playground controls={shapeControls} code={shapeCode}>
+                {#snippet children(values)}
+                    <div
+                        class="flex h-48 w-full max-w-sm items-center justify-center overflow-hidden"
+                    >
+                        <Skeleton
+                            variant={values.variant}
+                            w={values.w}
+                            h={values.h}
+                            unit={values.unit}
+                            class={values.circle ? 'rounded-full' : undefined}
+                        />
+                    </div>
+                {/snippet}
+            </Playground>
+        </div>
 
         <div class="flex flex-col gap-3">
             <Typography.H3>Shimmer</Typography.H3>

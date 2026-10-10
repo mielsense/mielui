@@ -1,16 +1,22 @@
 <script lang="ts">
+    import { Home01Icon as Home } from '@hugeicons/core-free-icons';
+    import * as Breadcrumb from '@mielui/svelte/components/breadcrumb';
     import { CodeBlock } from '@mielui/svelte/components/code-block';
     import * as Typography from '@mielui/svelte/components/typography';
-    import { ComponentPreview, InstallCommand } from '$lib/components/docs';
+    import HugeiconsIcon from '@mielui/svelte/hugeicons-icon';
+    import { ComponentPreview, InstallCommand, Playground } from '$lib/components/docs';
     import InlineText from '$lib/components/docs/inline-text.svelte';
     import PageIntro from '$lib/components/docs/page-intro.svelte';
 
-    import Hero from './examples/hero.svelte';
-    import HeroSrc from './examples/hero.svelte?raw';
     import Separators from './examples/separators.svelte';
     import SeparatorsSrc from './examples/separators.svelte?raw';
     import WithIcon from './examples/with-icon.svelte';
     import WithIconSrc from './examples/with-icon.svelte?raw';
+    import {
+        code as playgroundCode,
+        controls as playgroundControls,
+        pages as playgroundPages
+    } from './playground';
 
     const TITLE = 'Breadcrumb';
     const SLUG = 'breadcrumb';
@@ -37,9 +43,31 @@
 
     <!-- ─── Hero Example ──────────────────────────────────────────── -->
     <section id="hero" class="scroll-mt-20 flex flex-col gap-4">
-        <ComponentPreview code={HeroSrc}>
-            <Hero />
-        </ComponentPreview>
+        <Playground controls={playgroundControls} code={playgroundCode}>
+            {#snippet children(values)}
+                {@const pages = playgroundPages(values.items)}
+                <Breadcrumb.Root aria-label={values.label || undefined}>
+                    {#each pages as page, index (page.href)}
+                        {@const current = index === pages.length - 1 && values.current}
+                        {@const href = current && !values.currentLink ? undefined : page.href}
+                        {#if index > 0}
+                            {#if values.slash}
+                                <Breadcrumb.Separator>/</Breadcrumb.Separator>
+                            {:else}
+                                <Breadcrumb.Separator />
+                            {/if}
+                        {/if}
+                        {#if index === 0 && values.homeIcon}
+                            <Breadcrumb.Item {href} {current} aria-label={page.label}>
+                                <HugeiconsIcon icon={Home} size={13} />
+                            </Breadcrumb.Item>
+                        {:else}
+                            <Breadcrumb.Item {href} {current}>{page.label}</Breadcrumb.Item>
+                        {/if}
+                    {/each}
+                </Breadcrumb.Root>
+            {/snippet}
+        </Playground>
     </section>
 
     <!-- ─── Installation ──────────────────────────────────────────── -->

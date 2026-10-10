@@ -1,8 +1,10 @@
 <script lang="ts">
+    import { Badge } from '@mielui/svelte/components/badge';
     import { CodeBlock } from '@mielui/svelte/components/code-block';
+    import * as Composer from '@mielui/svelte/components/composer';
     import Kbd from '@mielui/svelte/components/kbd';
     import * as Typography from '@mielui/svelte/components/typography';
-    import { ComponentPreview, InstallCommand } from '$lib/components/docs';
+    import { ComponentPreview, InstallCommand, Playground } from '$lib/components/docs';
     import InlineText from '$lib/components/docs/inline-text.svelte';
     import PageIntro from '$lib/components/docs/page-intro.svelte';
     import SectionHeading from '$lib/components/docs/section-heading.svelte';
@@ -25,8 +27,11 @@
     import SubmittingSrc from './examples/submitting.svelte?raw';
     import ToolbarInset from './examples/toolbar-inset.svelte';
     import ToolbarInsetSrc from './examples/toolbar-inset.svelte?raw';
+    import { code as playgroundCode, controls as playgroundControls } from './playground';
 
     const installCommand = 'pnpm dlx @mielui/svelte add composer';
+
+    let playgroundValue = $state('');
 </script>
 
 <svelte:head>
@@ -43,7 +48,49 @@
     </PageIntro>
 
     <section id="hero" class="scroll-mt-20 flex flex-col gap-4">
-        <ComponentPreview code={HeroSrc}><Hero /></ComponentPreview>
+        <Playground controls={playgroundControls} code={playgroundCode}>
+            {#snippet children(values)}
+                <div class="w-full max-w-xl">
+                    <Composer.Root
+                        bind:value={playgroundValue}
+                        onSubmit={() => {
+                            playgroundValue = '';
+                        }}
+                        surface={values.surface === 'theme' ? undefined : values.surface}
+                        status={values.status}
+                        generating={values.generating || undefined}
+                        disabled={values.disabled}
+                        allowEmpty={values.allowEmpty}
+                        errorMessage={values.errorMessage}
+                    >
+                        {#if values.header}
+                            <Composer.Header>
+                                <Badge variant="outline">release-notes.md</Badge>
+                            </Composer.Header>
+                        {/if}
+                        <Composer.Input
+                            placeholder={values.placeholder}
+                            submitOnEnter={values.submitOnEnter}
+                        />
+                        <Composer.Toolbar variant={values.toolbar}>
+                            {#if values.actions}
+                                <Composer.Actions>
+                                    <span class="px-2 text-xs text-foreground-muted">
+                                        Mielui 3.1
+                                    </span>
+                                </Composer.Actions>
+                            {/if}
+                            <Composer.Submit />
+                        </Composer.Toolbar>
+                        {#if values.footer}
+                            <Composer.Footer>
+                                <span class="px-2.5">Answers can cite the web.</span>
+                            </Composer.Footer>
+                        {/if}
+                    </Composer.Root>
+                </div>
+            {/snippet}
+        </Playground>
     </section>
 
     <section id="installation" class="scroll-mt-20 flex flex-col gap-4">
@@ -135,6 +182,15 @@ async function sendPrompt(prompt: string) {
                 Send a prompt, stop pending work, and retry a failed submission.
             {/snippet}
         </SectionHeading>
+
+        <div id="agent-prompt" class="scroll-mt-20 flex flex-col gap-3">
+            <Typography.H3 class="docs-subsection-heading">Agent prompt</Typography.H3>
+            <Typography.Text variant="supporting">
+                A composer with attachments, permission and model pickers, dictation, and a footer
+                action.
+            </Typography.Text>
+            <ComponentPreview code={HeroSrc}><Hero /></ComponentPreview>
+        </div>
 
         <div id="idle" class="scroll-mt-20 flex flex-col gap-3">
             <Typography.H3 class="docs-subsection-heading">Idle</Typography.H3>

@@ -1,7 +1,8 @@
 <script lang="ts">
     import { CodeBlock } from '@mielui/svelte/components/code-block';
+    import { ResponseStream } from '@mielui/svelte/components/response-stream';
     import * as Typography from '@mielui/svelte/components/typography';
-    import { ComponentPreview, InstallCommand } from '$lib/components/docs';
+    import { ComponentPreview, InstallCommand, Playground } from '$lib/components/docs';
     import InlineText from '$lib/components/docs/inline-text.svelte';
     import PageIntro from '$lib/components/docs/page-intro.svelte';
     import EventsExample from './examples/events.svelte';
@@ -12,6 +13,11 @@
 
     import Lifecycle from './examples/lifecycle.svelte';
     import LifecycleSource from './examples/lifecycle.svelte?raw';
+    import {
+        code as playgroundCode,
+        controls as playgroundControls,
+        response as playgroundResponse
+    } from './playground';
 
     const TITLE = 'Response Stream';
     const SLUG = 'response-stream';
@@ -39,7 +45,23 @@
     </PageIntro>
 
     <section id="hero" class="scroll-mt-20 flex flex-col gap-4">
-        <ComponentPreview code={HeroSrc} refreshable><Hero /></ComponentPreview>
+        <Playground controls={playgroundControls} code={playgroundCode} refreshable>
+            {#snippet children(values)}
+                <div class="w-full max-w-xl">
+                    {#key `${values.speed}:${values.characterChunkSize}`}
+                        <ResponseStream
+                            textStream={playgroundResponse}
+                            as={values.as}
+                            speed={values.speed}
+                            characterChunkSize={values.characterChunkSize > 0
+                                ? values.characterChunkSize
+                                : undefined}
+                            streaming={values.streaming}
+                        />
+                    {/key}
+                </div>
+            {/snippet}
+        </Playground>
     </section>
 
     <section id="installation" class="scroll-mt-20 flex flex-col gap-4">
@@ -98,6 +120,14 @@
                 copy="overlay"
             />
         </div>
+    </section>
+    <section id="async-stream" class="scroll-mt-20 flex flex-col gap-4">
+        <Typography.H2 class="docs-section-heading">Async stream</Typography.H2>
+        <Typography.Text variant="supporting">
+            Chunks from an async iterable appear as they arrive. A caret waits until the first one
+            lands.
+        </Typography.Text>
+        <ComponentPreview code={HeroSrc} refreshable><Hero /></ComponentPreview>
     </section>
     <section id="lifecycle" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Stop and retry a response</Typography.H2>
