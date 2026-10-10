@@ -11,3 +11,4 @@
 - Every example frame keeps its preview in view: a code button opens the source under it, long sources start collapsed, and a full screen button opens the preview on its own.
 - Every component page opens with a playground. Pick a variant in the toolbar, change the other props in the Props menu, and the code under the preview follows. The earlier hero examples stay on the page under Examples.
 - The code under an example slides open, and long sources expand with the same motion.
+- The Copy page control at the top of a docs page is smaller, with less space around its buttons.

@@ -182,7 +182,7 @@
                             {/if}
                             {#if isDocs && page.status < 400}
                                 <div
-                                    class="absolute end-3 top-3 z-30 hidden h-10 items-center gap-1 rounded-[calc(var(--radius-control)+var(--spacing))] border-[length:var(--border-size)] border-border bg-card/75 p-1 shadow-[var(--elevation-float)] backdrop-blur-xl backdrop-saturate-150 sm:flex [@media(prefers-reduced-transparency:reduce)]:bg-card"
+                                    class="absolute end-3 top-3 z-30 hidden items-center rounded-[calc(var(--radius-control)+var(--spacing)*0.5)] p-0.5 border-[length:var(--border-size)] border-border bg-card/75 shadow-[var(--elevation-float)] backdrop-blur-xl backdrop-saturate-150 sm:flex [@media(prefers-reduced-transparency:reduce)]:bg-card"
                                 >
                                     <div class="hidden min-w-0 lg:block">
                                         <SectionTrail />
