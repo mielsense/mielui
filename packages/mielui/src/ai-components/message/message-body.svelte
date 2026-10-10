@@ -9,7 +9,7 @@
 <div
     {...rest}
     data-ui="message-body"
-    class={cn(className, 'flex min-w-0 max-w-full flex-col gap-1.5', message.from === 'user' ? 'max-w-[90%] items-end sm:max-w-2xl' : message.from === 'system' ? 'w-full max-w-3xl items-center text-center' : 'flex-1 items-start')}
+    class={cn(className, 'flex min-w-0 flex-col gap-1.5', message.from === 'user' ? 'max-w-[90%] items-end sm:max-w-2xl' : message.from === 'system' ? 'w-full max-w-3xl items-center text-center' : 'max-w-full flex-1 items-start')}
 >
     {@render children?.()}
 </div>

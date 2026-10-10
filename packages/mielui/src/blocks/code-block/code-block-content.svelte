@@ -107,7 +107,8 @@
     inert={!isActive}
     class={cn(
         className,
-        'w-full max-h-[var(--code-block-max-height,32rem)] overflow-auto font-mono font-normal text-foreground',
+        'w-full font-mono font-normal text-foreground',
+        !registry?.contained && 'max-h-[var(--code-block-max-height,32rem)] overflow-auto',
         !registry?.contained && 'mielui-inset-surface',
         !isActive && !registry?.contained && 'hidden',
         registry?.contained &&

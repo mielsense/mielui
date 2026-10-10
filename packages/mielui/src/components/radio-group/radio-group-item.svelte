@@ -25,9 +25,11 @@
     for={inputId}
     class={cn(
         className,
-        'flex min-h-[var(--size-touch)] cursor-[var(--ui-cursor-interactive)] gap-2.5 md:min-h-0',
+        'flex min-h-[var(--size-touch)] gap-2.5 md:min-h-0',
         description ? 'items-start' : 'items-center',
-        isDisabled && 'cursor-not-allowed opacity-[var(--opacity-disabled)]'
+        isDisabled
+            ? 'cursor-not-allowed opacity-[var(--opacity-disabled)]'
+            : 'cursor-[var(--ui-cursor-interactive)]'
     )}
 >
     <input
@@ -52,10 +54,10 @@
         data-ui="radio-group-item"
         data-state={selected ? 'checked' : 'unchecked'}
         class={cn(
-            'mielui-press mt-px flex size-[calc(var(--size-hairline)*9)] shrink-0 items-center justify-center rounded-full border-[length:var(--border-size)] bg-origin-border transition-[background-color,border-color,box-shadow,transform,scale] [transition-duration:var(--motion-duration-press)] ease-[var(--ease-press)] motion-reduce:transition-none peer-focus-visible:shadow-[var(--focus-ring)] peer-aria-invalid:border-[var(--color-error)]',
+            'mielui-press mt-px flex size-[calc(var(--size-hairline)*9)] shrink-0 items-center justify-center rounded-full border-[length:var(--border-size)] bg-origin-border transition-[background-color,border-color,box-shadow,transform,scale] [transition-duration:var(--motion-duration-press)] ease-[var(--ease-press)] motion-reduce:transition-none peer-aria-invalid:border-[var(--color-error)]',
             selected
                 ? 'mielui-glow [--mielui-glow-color:var(--color-primary)] [--mielui-glow-light:0.3] border-transparent shadow-[var(--mielui-glow-shadow)] peer-focus-visible:shadow-[var(--focus-ring),var(--mielui-glow-shadow)]'
-                : 'border-[var(--mielui-control-border)] bg-[var(--color-field)]',
+                : 'border-[var(--mielui-control-border)] bg-[var(--color-field)] peer-focus-visible:shadow-[var(--focus-ring)]',
             !isDisabled &&
                 !selected &&
                 'hover:border-[color-mix(in_oklab,var(--color-foreground)_45%,var(--color-card))]'

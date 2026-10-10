@@ -33,3 +33,11 @@
 - A Textarea with a footer no longer shows the browser's resize grip inside its frame.
 - `Group.Text` matches the height of the controls beside it in a vertical group.
 - Checked task items in Markdown show a tick instead of a dash.
+- The Conversation scroll button no longer catches clicks while it is hidden.
+- User messages are capped at 90% of the transcript width and system messages at their own measure. Both caps were losing to a full-width class.
+- A selected radio and a selected Toggle Group item keep their lit edge while focused, instead of showing only the focus ring.
+- A disabled radio's label shows the not-allowed cursor.
+- The Reorder List handle darkens while its row is lifted.
+- A tabbed CodeBlock scrolls in one place. Its panels no longer carry a second, competing height limit.
+- `Tabs.List` accepts `id`, `aria-label`, and `aria-labelledby` in its type, and `Combobox.Trigger` accepts `aria-labelledby`.
+- A standalone Label uses the same line height as the labels built into fields.

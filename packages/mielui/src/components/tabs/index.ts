@@ -26,7 +26,14 @@ export type TabsProps = {
     variant?: TabsVariant;
 } & DefaultProps;
 
-export type TabsListProps = DefaultProps;
+export type TabsListProps = DefaultProps & {
+    /** Id of the tab list element. */
+    id?: string;
+    /** Accessible name for the tab list. */
+    'aria-label'?: string;
+    /** Id of the element that names the tab list. */
+    'aria-labelledby'?: string;
+};
 
 export type TabsTriggerProps = {
     /** Identifies the tab. It matches a panel's value. */

@@ -30,12 +30,12 @@
             disabled={isDisabled}
             class={cn(
                 className,
-                'mielui-press relative z-10 inline-flex select-none items-center justify-center gap-1.5 rounded-[min(calc(var(--radius-control)-var(--spacing)),calc(var(--mielui-toggle-group-item)/2))] hover:cursor-[var(--ui-cursor-interactive)] [font-weight:var(--font-weight-label)] [letter-spacing:var(--tracking-label)] leading-none transition-[color,box-shadow,transform,scale] [transition-duration:var(--motion-duration-press)] ease-[var(--ease-press)] motion-reduce:transition-none focus-visible:outline-none focus-visible:shadow-[var(--focus-ring)] disabled:cursor-not-allowed disabled:opacity-[var(--opacity-disabled)] [&_svg]:pointer-events-none [&_svg]:shrink-0',
+                'mielui-press relative z-10 inline-flex select-none items-center justify-center gap-1.5 rounded-[min(calc(var(--radius-control)-var(--spacing)),calc(var(--mielui-toggle-group-item)/2))] hover:cursor-[var(--ui-cursor-interactive)] [font-weight:var(--font-weight-label)] [letter-spacing:var(--tracking-label)] leading-none transition-[color,box-shadow,transform,scale] [transition-duration:var(--motion-duration-press)] ease-[var(--ease-press)] motion-reduce:transition-none focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-[var(--opacity-disabled)] [&_svg]:pointer-events-none [&_svg]:shrink-0',
                 sizes[ctx.size],
                 active ? 'text-foreground' : 'bg-transparent text-foreground-muted hover:text-foreground',
-                active &&
-                    !traveling &&
-                    'mielui-glow mielui-glow-neutral shadow-[var(--mielui-glow-shadow)] focus-visible:shadow-[var(--focus-ring),var(--mielui-glow-shadow)]'
+                active && !traveling
+                    ? 'mielui-glow mielui-glow-neutral shadow-[var(--mielui-glow-shadow)] focus-visible:shadow-[var(--focus-ring),var(--mielui-glow-shadow)]'
+                    : 'focus-visible:shadow-[var(--focus-ring)]'
             )}
         >
             {@render children?.()}

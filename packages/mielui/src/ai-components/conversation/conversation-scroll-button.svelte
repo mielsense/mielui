@@ -37,9 +37,9 @@
         tabindex={visible ? undefined : -1}
         class={cn(
             className,
-            'mielui-press pointer-events-auto inline-flex size-[var(--size-control-sm)] items-center justify-center rounded-[var(--radius-control)] border-[length:var(--border-size)] border-border bg-[var(--color-panel)] text-foreground-muted shadow-[var(--elevation-float)] transition-[background-color,color,box-shadow,opacity,translate,scale] ease-[var(--ease-out),var(--ease-out),var(--ease-out),var(--ease-out),var(--ease-spring-panel),var(--ease-press)] hover:bg-[color-mix(in_srgb,var(--color-foreground)_4%,var(--color-panel))] hover:text-foreground focus-visible:outline-none focus-visible:shadow-[var(--focus-ring),var(--elevation-float)] motion-reduce:translate-y-0 motion-reduce:transition-none',
+            'mielui-press inline-flex size-[var(--size-control-sm)] items-center justify-center rounded-[var(--radius-control)] border-[length:var(--border-size)] border-border bg-[var(--color-panel)] text-foreground-muted shadow-[var(--elevation-float)] transition-[background-color,color,box-shadow,opacity,translate,scale] ease-[var(--ease-out),var(--ease-out),var(--ease-out),var(--ease-out),var(--ease-spring-panel),var(--ease-press)] hover:bg-[color-mix(in_srgb,var(--color-foreground)_4%,var(--color-panel))] hover:text-foreground focus-visible:outline-none focus-visible:shadow-[var(--focus-ring),var(--elevation-float)] motion-reduce:translate-y-0 motion-reduce:transition-none',
             visible
-                ? 'translate-y-0 opacity-100 [transition-duration:var(--motion-duration-hover),var(--motion-duration-hover),var(--motion-duration-hover),var(--motion-duration-hover),var(--motion-duration-spring),var(--motion-duration-press)]'
+                ? 'pointer-events-auto translate-y-0 opacity-100 [transition-duration:var(--motion-duration-hover),var(--motion-duration-hover),var(--motion-duration-hover),var(--motion-duration-hover),var(--motion-duration-spring),var(--motion-duration-press)]'
                 : 'pointer-events-none translate-y-1.5 opacity-0 [transition-duration:var(--motion-duration-panel-out)]'
         )}
         onclick={(event) => {
