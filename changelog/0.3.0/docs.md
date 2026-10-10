@@ -6,3 +6,5 @@
 - Theme Studio shows its preview on the panel, with its tools in a floating menu at the top end.
 - Theme Studio no longer has a Primary button border setting. Lit buttons draw their own edge, so it had no effect.
 - The fade at the bottom edge of the page and the sidebar is shorter and no longer blurs far into the text.
+- The Markdown theming guide at `/docs/theming.md` now carries the full guide: token overrides, the public token table, presets, theme JSON, and selectors.
+- Component Markdown references include the modules their examples import, such as the Data Table and Heatmap `data.ts` files.
