@@ -69,7 +69,7 @@
     onValueChange={openGroup}
     class="flex min-h-0 flex-1 flex-col"
 >
-    <div class="flex shrink-0 flex-col gap-2 px-3 pt-1">
+    <div class="flex shrink-0 flex-col gap-2 px-3 pt-1 lg:pt-0">
         <Input
             bind:value={filter.query}
             type="search"

@@ -1,15 +1,19 @@
 <script lang="ts">
+    import { Megaphone01Icon } from '@hugeicons/core-free-icons';
+    import * as Alert from '@mielui/svelte/components/alert';
+    import { Button } from '@mielui/svelte/components/button';
     import { CodeBlock } from '@mielui/svelte/components/code-block';
     import * as Typography from '@mielui/svelte/components/typography';
-    import { ComponentPreview, InstallCommand } from '$lib/components/docs';
+    import HugeiconsIcon from '@mielui/svelte/hugeicons-icon';
+    import { ComponentPreview, InstallCommand, Playground } from '$lib/components/docs';
     import InlineText from '$lib/components/docs/inline-text.svelte';
     import PageIntro from '$lib/components/docs/page-intro.svelte';
-
-    import Hero from './examples/hero.svelte';
-    import HeroSrc from './examples/hero.svelte?raw';
+    import Action from './examples/action.svelte';
+    import ActionSrc from './examples/action.svelte?raw';
 
     import Variants from './examples/variants.svelte';
     import VariantsSrc from './examples/variants.svelte?raw';
+    import { code as playgroundCode, controls as playgroundControls } from './playground';
 
     const TITLE = 'Alert';
     const SLUG = 'alert';
@@ -24,7 +28,7 @@
     </title>
     <meta
         name="description"
-        content="Inset callouts for inline status, confirmation, and warnings."
+        content="Notice strips for inline status, confirmation, and warnings."
     />
 </svelte:head>
 
@@ -36,9 +40,47 @@
 
     <!-- ─── Hero Example ──────────────────────────────────────────── -->
     <section id="hero" class="scroll-mt-20 flex flex-col gap-4">
-        <ComponentPreview code={HeroSrc}>
-            <Hero />
-        </ComponentPreview>
+        <Playground controls={playgroundControls} code={playgroundCode}>
+            {#snippet children(values)}
+                {#snippet body()}
+                    {#if values.title}
+                        <Alert.Title>Heads up</Alert.Title>
+                    {/if}
+                    {#if values.description}
+                        <Alert.Description>
+                            You can add components to your app using the command line.
+                        </Alert.Description>
+                    {/if}
+                    {#if values.action}
+                        <Button variant="secondary" size="sm" href="/docs/installation">
+                            Read the guide
+                        </Button>
+                    {/if}
+                {/snippet}
+                <div class="w-full max-w-lg">
+                    {#if values.icon === 'custom'}
+                        <Alert.Root variant={values.variant} announcement={values.announcement}>
+                            {#snippet icon()}
+                                <HugeiconsIcon
+                                    icon={Megaphone01Icon}
+                                    size={16}
+                                    aria-hidden="true"
+                                />
+                            {/snippet}
+                            {@render body()}
+                        </Alert.Root>
+                    {:else}
+                        <Alert.Root
+                            variant={values.variant}
+                            icon={values.icon === 'hidden' ? false : undefined}
+                            announcement={values.announcement}
+                        >
+                            {@render body()}
+                        </Alert.Root>
+                    {/if}
+                </div>
+            {/snippet}
+        </Playground>
     </section>
 
     <!-- ─── Installation ──────────────────────────────────────────── -->
@@ -51,9 +93,11 @@
     <section id="usage" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Usage</Typography.H2>
         <Typography.Text variant="supporting">
-            The theme setting chrome.borders chooses "single" or "double" framing. Single is the
-            default. Single removes the extra frame while preserving content padding, composition,
-            and inset variants.
+            An alert is a notice strip: one white plate with a hairline edge, a medium-weight Title,
+            and a muted Description. The variant tints the icon only. It never fills the plate or
+            colors its border. Put one button or link directly inside Root for a single follow-up
+            action. It sits at the end of the strip, and moves under the text when the alert is
+            narrow.
         </Typography.Text>
         <Typography.Text variant="supporting">
             Set{' '}
@@ -92,6 +136,15 @@
         <div id="variants" class="scroll-mt-20 flex flex-col gap-3">
             <Typography.H3 class="docs-subsection-heading">Status tones</Typography.H3>
             <ComponentPreview code={VariantsSrc}><Variants /></ComponentPreview>
+        </div>
+
+        <div id="action" class="scroll-mt-20 flex flex-col gap-3">
+            <Typography.H3 class="docs-subsection-heading">With an action</Typography.H3>
+            <Typography.Text variant="supporting">
+                A button or link placed directly in Root becomes the strip's one action. Keep it
+                secondary, and name what it does.
+            </Typography.Text>
+            <ComponentPreview code={ActionSrc}><Action /></ComponentPreview>
         </div>
     </section>
     <section id="parts" class="flex flex-col gap-4">

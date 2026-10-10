@@ -76,16 +76,19 @@
         {...rest}
         bind:this={element}
         data-ui="form-error-summary"
-        class={cn(className, 'rounded-lg border border-error/30 bg-error/5 p-4 text-sm text-[var(--mielui-error-text)] outline-none focus-visible:shadow-[var(--focus-ring)]')}
+        class={cn(
+            className,
+            'rounded-[calc(var(--radius-xl)*var(--mielui-squircle,1))] [corner-shape:squircle] border-[length:var(--border-size)] border-border bg-card px-4 py-3 text-sm text-foreground-muted shadow-[var(--elevation-1)] outline-none focus-visible:shadow-[var(--focus-ring),var(--elevation-1)]'
+        )}
     >
-        <div id={`${uid}-heading`} class="font-medium">
+        <div id={`${uid}-heading`} class="font-medium text-[var(--mielui-error-text)]">
             {#if heading}
                 {@render heading()}
             {:else}
                 Review your details
             {/if}
         </div>
-        <div class="mt-2">
+        <div class="mt-1.5 leading-body">
             {#if children}
                 {@render children(messages)}
             {:else}
@@ -96,14 +99,14 @@
                                 <a
                                     href={`#${encodeURIComponent(issue.controlId)}`}
                                     onclick={() => focusField(issue)}
-                                    class="underline underline-offset-4"
+                                    class="rounded-[var(--radius-sm)] text-foreground underline decoration-[var(--color-border-strong)] underline-offset-4 outline-none transition-[text-decoration-color] [transition-duration:var(--motion-duration-hover)] ease-[var(--ease-out)] hover:decoration-current focus-visible:shadow-[var(--focus-ring)] motion-reduce:transition-none"
                                 >
                                     {issue.message}
                                 </a>
                             {:else if issue.path?.length}
                                 <button
                                     type="button"
-                                    class="text-start underline underline-offset-4"
+                                    class="text-start rounded-[var(--radius-sm)] text-foreground underline decoration-[var(--color-border-strong)] underline-offset-4 outline-none transition-[text-decoration-color] [transition-duration:var(--motion-duration-hover)] ease-[var(--ease-out)] hover:decoration-current focus-visible:shadow-[var(--focus-ring)] motion-reduce:transition-none"
                                     onclick={() => focusField(issue)}
                                 >
                                     {issue.message}

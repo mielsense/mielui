@@ -6,9 +6,9 @@ import ScrollArea from './scroll-area.svelte';
 export type ScrollAreaProps = {
     /** Scroll direction. */
     orientation?: 'vertical' | 'horizontal' | 'both';
-    /** Shows a fade and chevron at an edge that has more content. */
+    /** Fades an edge that has more content. */
     showCues?: boolean;
-    /** Blurs content under the edge cues. */
+    /** Blurs content as it passes under a faded edge. */
     blur?: boolean;
     /** Content rendered inside. */
     children?: Snippet;

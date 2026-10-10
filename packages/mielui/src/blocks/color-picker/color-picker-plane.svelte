@@ -9,23 +9,26 @@
     const controller = getColorPickerController();
     const hsvBlack = '#000';
     const hsvWhite = '#fff';
+    const thumbInset = 'calc(var(--spacing) * 2 + var(--border-size) * 3)';
 </script>
 
 <div
     {...rest}
     data-ui="color-picker-plane"
     use:colorPlanePointer={controller.setPlane}
-    class={cn(className, 'relative h-37 w-full touch-none cursor-crosshair overflow-hidden rounded-b-[var(--radius-md)] bg-[linear-gradient(to_bottom,transparent,var(--picker-black)),linear-gradient(to_right,var(--picker-white),var(--picker-hue))] has-[:focus-visible]:ring-2 has-[:focus-visible]:ring-inset has-[:focus-visible]:ring-[var(--color-ring)]')}
+    class={cn(
+        className,
+        'relative h-37 w-full touch-none cursor-crosshair rounded-[var(--radius-md)] bg-[linear-gradient(to_bottom,transparent,var(--picker-black)),linear-gradient(to_right,var(--picker-white),var(--picker-hue))] shadow-[inset_0_0_0_var(--border-size)_var(--color-border)] transition-shadow [transition-duration:var(--motion-duration-hover)] ease-[var(--ease-out)] motion-reduce:transition-none has-[:focus-visible]:shadow-[var(--focus-ring),inset_0_0_0_var(--border-size)_var(--color-border)]'
+    )}
     style:--picker-black={hsvBlack}
     style:--picker-white={hsvWhite}
     style:--picker-hue={controller.hueColor}
 >
     <div
         aria-hidden="true"
-        class="pointer-events-none absolute size-3.5 -translate-x-1/2 -translate-y-1/2 rounded-full border-2 border-white shadow-[var(--elevation-control)]"
-        style:left={`${controller.state.sat}%`}
-        style:top={`${100 - controller.state.val}%`}
-        style:background={controller.previewHex}
+        class="mielui-glow mielui-glow-neutral pointer-events-none absolute size-4 -translate-x-1/2 -translate-y-1/2 rounded-full shadow-[var(--mielui-glow-shadow),0_0_0_calc(var(--border-size)*3)_white] [--mielui-glow-ring:var(--color-border-strong)] dark:[--mielui-glow-color:var(--color-foreground)]"
+        style:left={`clamp(${thumbInset}, ${controller.state.sat}%, calc(100% - ${thumbInset}))`}
+        style:top={`clamp(${thumbInset}, ${100 - controller.state.val}%, calc(100% - ${thumbInset}))`}
     ></div>
     <Slider
         class="sr-only"

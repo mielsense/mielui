@@ -46,7 +46,7 @@
 
 <ul
     data-ui="pie-chart-legend"
-    class={cn(className, 'flex flex-wrap justify-center gap-x-5 gap-y-2 text-sm')}
+    class={cn(className, 'flex flex-wrap justify-center gap-x-2 gap-y-1 text-xs')}
     {...rest}
 >
     {#each context.data as item (item.key)}
@@ -54,7 +54,7 @@
             <button
                 type="button"
                 aria-label={`${context.label(item.key)}: ${context.format(item)}`}
-                class="flex items-center gap-2 rounded-[var(--radius-sm)] px-1 py-1 text-foreground-muted outline-none focus-visible:shadow-[var(--focus-ring)]"
+                class="flex items-center gap-2 rounded-[var(--radius-control)] px-2.5 py-1 text-foreground-muted outline-none transition-[background-color,box-shadow] [transition-duration:var(--motion-duration-hover)] ease-[var(--ease-out)] hover:bg-[var(--color-wash)] focus-visible:shadow-[var(--focus-ring)] motion-reduce:transition-none"
                 onfocus={(event) => focusItem(item.key, event)}
                 onblur={clearFocus}
                 onpointerenter={(event) => activate(item.key, event.currentTarget)}

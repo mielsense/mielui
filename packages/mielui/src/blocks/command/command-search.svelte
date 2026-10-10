@@ -1,6 +1,5 @@
 <script lang="ts">
     import { Search01Icon as Search } from '@hugeicons/core-free-icons';
-    import { numberShuffle } from '@mielui/svelte/actions/number-shuffle';
     import { cn } from '@mielui/svelte/utils';
     import { onMount } from 'svelte';
     import HugeiconsIcon from '../../hugeicons-icon.svelte';
@@ -113,7 +112,7 @@
 {/snippet}
 
 {#snippet defaultCount(total: number)}
-    <span use:numberShuffle={{ value: total }}>{total}</span>
+    <span>{total}</span>
 {/snippet}
 
 {#snippet defaultAnnouncement(message: string)}

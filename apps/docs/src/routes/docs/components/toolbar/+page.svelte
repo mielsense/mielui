@@ -1,7 +1,8 @@
 <script lang="ts">
     import { CodeBlock } from '@mielui/svelte/components/code-block';
+    import * as Toolbar from '@mielui/svelte/components/toolbar';
     import * as Typography from '@mielui/svelte/components/typography';
-    import { ComponentPreview, InstallCommand } from '$lib/components/docs';
+    import { ComponentPreview, InstallCommand, Playground } from '$lib/components/docs';
     import InlineText from '$lib/components/docs/inline-text.svelte';
     import PageIntro from '$lib/components/docs/page-intro.svelte';
     import Depth from './examples/depth.svelte';
@@ -10,6 +11,10 @@
     import AdditionalSrc from './examples/formatting.svelte?raw';
     import Hero from './examples/hero.svelte';
     import HeroSrc from './examples/hero.svelte?raw';
+    import { code as playgroundCode, controls as playgroundControls } from './playground';
+
+    let playgroundFormats = $state<string[]>(['bold']);
+    let playgroundFormat = $state('bold');
 </script>
 <svelte:head>
     <title>Mielui · Toolbar</title>
@@ -23,7 +28,57 @@
         Composable keyboard toolbar with buttons, links, and selectable groups.
     </PageIntro>
     <section id="hero" class="flex flex-col gap-4">
-        <ComponentPreview code={HeroSrc}><Hero /></ComponentPreview>
+        <Playground controls={playgroundControls} code={playgroundCode}>
+            {#snippet children(values)}
+                {#snippet items()}
+                    <Toolbar.Item value="bold">Bold</Toolbar.Item>
+                    <Toolbar.Item value="italic">Italic</Toolbar.Item>
+                    <Toolbar.Item value="underline" disabled={values.disabled}>
+                        Underline
+                    </Toolbar.Item>
+                {/snippet}
+                <Toolbar.Root
+                    aria-label="Text formatting"
+                    variant={values.variant}
+                    orientation={values.orientation}
+                    loop={values.loop}
+                >
+                    {#if values.type === 'multiple'}
+                        <Toolbar.Group
+                            type="multiple"
+                            bind:value={playgroundFormats}
+                            aria-label="Text styles"
+                            class={values.orientation === 'vertical' ? 'flex-col' : undefined}
+                        >
+                            {@render items()}
+                        </Toolbar.Group>
+                    {:else}
+                        <Toolbar.Group
+                            type="single"
+                            bind:value={playgroundFormat}
+                            aria-label="Text styles"
+                            class={values.orientation === 'vertical' ? 'flex-col' : undefined}
+                        >
+                            {@render items()}
+                        </Toolbar.Group>
+                    {/if}
+                    {#if values.separator}
+                        <Toolbar.Separator />
+                    {/if}
+                    <Toolbar.Button
+                        onclick={() => {
+                            playgroundFormats = [];
+                            playgroundFormat = '';
+                        }}
+                    >
+                        Clear
+                    </Toolbar.Button>
+                    {#if values.link}
+                        <Toolbar.Link href="/docs/components/toolbar">Help</Toolbar.Link>
+                    {/if}
+                </Toolbar.Root>
+            {/snippet}
+        </Playground>
     </section>
     <section id="installation" class="flex flex-col gap-4">
         <Typography.H2>Installation</Typography.H2>
@@ -32,11 +87,12 @@
     <section id="usage" class="flex flex-col gap-4">
         <Typography.H2>Usage</Typography.H2>
         <Typography.Text>
-            Toolbars are flat by default. Set variant="depth" on Toolbar.Root to opt into raised
-            keys and recessed selections. Button, Link, and Item inherit the variant. Depth follows
-            the theme's shadow, edge-highlight, and reduced-motion settings. Both examples include
-            zoom controls with number shuffle for the changing percentage. Tooltips use the input
-            surface colors.
+            Toolbars are flat by default: a grey track holding ghost keys, with one hover wash that
+            travels between them and a lit pill on each selected Item. Set variant="depth" on
+            Toolbar.Root to opt into a floating shell with raised keys and recessed selections.
+            Button, Link, and Item inherit the variant. Depth follows the theme's shadow,
+            edge-highlight, and reduced-motion settings. Both examples include zoom controls with
+            number shuffle for the changing percentage. Tooltips use the input surface colors.
         </Typography.Text>
         <Typography.Text>
             Import the component subpath as a namespace. Root owns one roving keyboard collection:
@@ -64,6 +120,14 @@
             available for existing integrations; new compositions use Toolbar.Root from the
             component subpath.
         </Typography.Text>
+    </section>
+    <section id="design-tools" class="scroll-mt-20 flex flex-col gap-4">
+        <Typography.H2 class="docs-section-heading">Design tools</Typography.H2>
+        <Typography.Text variant="supporting">
+            Icon tools with shortcut tooltips sit beside zoom buttons, and a status line names the
+            selected tool.
+        </Typography.Text>
+        <ComponentPreview code={HeroSrc}><Hero /></ComponentPreview>
     </section>
     <section id="depth" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Depth variant</Typography.H2>

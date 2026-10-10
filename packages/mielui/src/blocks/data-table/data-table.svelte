@@ -37,14 +37,11 @@
     setDataTableContext(dataTable);
 
     const insetClasses = [
-        '[--mielui-modal-inset:calc(var(--spacing)*var(--mielui-border-inset-scale,1))] mielui-inset-frame',
-        '[--data-table-radius:calc(var(--radius-xl)-var(--border-size)-var(--mielui-modal-inset))]',
-        '[&_[data-ui=table]]:[--table-inner-radius:var(--data-table-radius)] [&_[data-ui=table]]:rounded-[var(--data-table-radius)] [&_[data-ui=table]]:border-0 [&_[data-ui=table]]:bg-card [&_[data-ui=table]]:p-0',
-        '[&>[data-ui=table-scroll-area]]:rounded-[var(--data-table-radius)]',
-        '[&>[data-ui=table-scroll-area]~*]:[--size-icon-md:var(--size-control-sm)] [&>[data-ui=table-scroll-area]~*]:px-3',
-        '[&>[data-ui=table-scroll-area]~*]:py-1',
-        '[@container_style(--mielui-inset-position:top)]:[&>[data-ui=table-scroll-area]:has(+*)]:rounded-b-none [@container_style(--mielui-inset-position:top)]:[&>[data-ui=table-scroll-area]:has(+*)_[data-ui=table]]:rounded-b-none',
-        '[@container_style(--mielui-inset-position:top)]:[&>[data-ui=table-scroll-area]~*]:-mt-[var(--mielui-modal-inset)] [@container_style(--mielui-inset-position:top)]:[&>[data-ui=table-scroll-area]~*]:rounded-b-[var(--data-table-radius)] [@container_style(--mielui-inset-position:top)]:[&>[data-ui=table-scroll-area]~*]:border-t-[length:var(--border-size)] [@container_style(--mielui-inset-position:top)]:[&>[data-ui=table-scroll-area]~*]:border-border [@container_style(--mielui-inset-position:top)]:[&>[data-ui=table-scroll-area]~*]:bg-card [@container_style(--mielui-inset-position:top)]:[&>[data-ui=table-scroll-area]~*]:py-2'
+        'mielui-inset-frame shadow-[var(--elevation-1)]',
+        '[--data-table-radius:calc(var(--mielui-plate-radius)-var(--border-size)-var(--mielui-modal-inset))]',
+        '[&_[data-ui=table]]:rounded-none [&_[data-ui=table]]:border-0 [&_[data-ui=table]]:bg-transparent [&_[data-ui=table]]:p-0 [&_[data-ui=table]]:shadow-none',
+        '[&>[data-ui=table-scroll-area]]:rounded-[var(--data-table-radius)]! [&>[data-ui=table-scroll-area]]:[corner-shape:squircle]',
+        '[&>[data-ui=table-scroll-area]~*]:[--size-icon-md:var(--size-control-sm)] [&>[data-ui=table-scroll-area]~*]:px-3 [&>[data-ui=table-scroll-area]~*]:py-1'
     ];
 </script>
 {#snippet body()}

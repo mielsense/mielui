@@ -8,7 +8,7 @@
 <div
     {...rest}
     data-slot="empty-state-header"
-    class={cn(classProp, 'flex w-full max-w-sm flex-col items-center gap-2')}
+    class={cn(classProp, 'flex w-full max-w-sm flex-col items-center gap-1.5')}
 >
     {@render children?.()}
 </div>

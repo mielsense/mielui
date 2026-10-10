@@ -13,8 +13,16 @@
         ...rest
     }: ToolbarButtonProps = $props();
     const variant = getToolbarVariant();
+    const on = $derived((rest as { 'data-state'?: unknown })['data-state'] === 'on');
     const controlClass = $derived(
-        cn(className, toolbarControlClass(variant()), button({ variant: 'quiet', size: 'sm' }))
+        cn(
+            className,
+            toolbarControlClass(variant(), on),
+            button({
+                variant: 'quiet',
+                size: 'sm'
+            })
+        )
     );
 </script>
 <Primitive.Button {...rest} bind:ref={element}>

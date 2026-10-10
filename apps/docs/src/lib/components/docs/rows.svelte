@@ -47,7 +47,7 @@
                             icon={ChevronRight}
                             size={14}
                             aria-hidden="true"
-                            class="shrink-0 text-foreground-muted transition-transform [transition-duration:var(--motion-duration-hover)] group-hover:translate-x-0.5 motion-reduce:transition-none"
+                            class="shrink-0 text-foreground-muted transition-colors [transition-duration:var(--motion-duration-hover)] group-hover:text-foreground motion-reduce:transition-none"
                         />
                     </a>
                 {:else}

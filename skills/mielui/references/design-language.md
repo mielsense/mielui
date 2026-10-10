@@ -49,12 +49,12 @@ Give each visible gap one owner. Prefer a parent stack or grid over competing ch
 
 Use Mielui semantic color tokens and preserve their meaning in every theme. Pair color-coded state with text, shape, or another non-color cue.
 
-Treat the interface as one continuous canvas. Add a surface, border, radius, or shadow only when it clarifies grouping, interaction, selection, or state better than spacing can. Default to stillness; add motion only to explain state change, preserve continuity, or confirm an action.
+Treat the interface as white plates on a grey stage, drawn in one ink. Add a plate, border, or shadow only when it clarifies grouping, interaction, selection, or state better than spacing can. Separate sections with space, not horizontal rules. Default to stillness; add motion only to explain state change, preserve continuity, or confirm an action.
 
 Do not ship:
 
 - All-caps or widely tracked eyebrows, kickers, and overlines.
-- Decorative gradients, glows, blobs, textures, hand-rolled glass effects, or ornamental shadows. Use the theme's glass surface setting instead.
+- Decorative gradients, blobs, textures, hand-rolled glass effects, or ornamental shadows. Use the theme's glass surface setting instead. The lit pill is a control material: do not put it on a surface or a label.
 - A generic centered hero followed by a uniform card grid.
 - A rounded container around every section or metric.
 - Pills for ordinary metadata, labels, or status that does not need badge semantics.
@@ -86,9 +86,18 @@ Fix the highest-impact structural problem first, then inspect again.
 
 ## Shared appearance and motion
 
-Use the installed token sheet for control edges, elevation, insets, focus, press feedback, and motion. Filled controls use `--elevation-control-edge`; Switch and Slider apply it to their thumbs. Keep tracks, progress fills, and passive grouping wrappers flat. Text fields, selection triggers, checkboxes, and radios are flat with one hairline border. Composite fields have one edge around their editable boundary, not a border on every nested input.
+Use the installed token sheet for color, shape, elevation, insets, focus, press feedback, and motion. The rules that make an interface read as Mielui:
 
-Frames follow the theme's border setting. Single borders remove the gutter between a frame and its inner surface, and double borders show it. Scale any frame gutter by `--mielui-border-inset-scale` and never hard-code it. A frame shows one strip of chrome, such as a card footer or a composer toolbar, never one above and one below.
+- One ink. Borders (`--color-border`), inputs (`--color-input`), and the hover wash (`--color-wash`) are the foreground mixed into transparency. Do not pick a grey by eye.
+- `--color-background` is the grey stage, `--color-card` the white plate, and `--color-panel` the floating panel.
+- Everything pressable shares one radius: use `rounded-[var(--radius-control)]`, which is 12px by default and a pill in the rounded scale. Never write `rounded-full` or a fixed radius on a control. Multi-line fields use `--radius-xl`, rows inside panels `--radius-md`, floating panels `--radius-xl`, and plates `--radius-2xl`.
+- Filled actions are lit pills. Primary, secondary, destructive, and glow Buttons, Switch and Slider thumbs, and selected segments share the `mielui-glow` material. Keep text fields, selection triggers, outline and ghost buttons, tracks, progress fills, and badges flat.
+- Weight stops at 500. `font-semibold` and `font-bold` resolve to 500, so build hierarchy from size, `text-foreground` against `text-foreground-muted`, and spacing. Use `tabular-nums` for numbers in columns.
+- Elevation is binary: `--elevation-1` for a resting plate, `--elevation-float` for anything floating. The default theme turns both off and holds cards and menus with a hairline. Do not add another shadow.
+- Status colors are text tints and small dots. Do not fill a panel with a status color.
+- Hover changes color only. Nothing lifts or scales on hover. Use the shared springs (`--ease-spring-panel`, `--ease-spring-layout`, `--ease-spring-pop`, `--ease-spring-flick`) instead of a local curve.
+
+Frames are two layers: a white frame (`mielui-inset-frame`) holding a recessed inset in the stage color (`mielui-inset-surface`), with header, toolbar, and footer strips on the frame and content in the inset. They follow the theme's border setting. Single borders, the default, let the inset meet the frame's border, and double borders show a gutter between them. Scale any frame gutter by `--mielui-border-inset-scale` and never hard-code it. A frame shows one strip of chrome, such as a card footer or a composer toolbar, never one above and one below. Use `mielui-plate` for a plain resting surface and `mielui-float-frame` for a floating one.
 
 Overlay frames own their documented solid or glass treatment. Preserve the translucent inset in glass mode and compose focus shadows with existing elevation rather than replacing it. Check both themes and the theme's shadow switches when restyling controls.
 

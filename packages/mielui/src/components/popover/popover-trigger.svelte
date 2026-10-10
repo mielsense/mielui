@@ -1,4 +1,5 @@
 <script lang="ts">
+    import { ArrowDown01Icon as ChevronDown } from '@hugeicons/core-free-icons';
     import { Button } from '@mielui/svelte/components/button';
     import {
         cn,
@@ -6,6 +7,7 @@
         positionFloatingPanel,
         submenuPanelOffset
     } from '@mielui/svelte/utils';
+    import HugeiconsIcon from '../../hugeicons-icon.svelte';
     import { buttonAttributes } from '../_internal/button-attributes';
     import type { Placement, PopoverTriggerProps } from '.';
     import { getPopoverContext } from './context.svelte';
@@ -16,6 +18,7 @@
 
     let {
         children,
+        icon = false,
         element = $bindable(),
         class: classProp,
         onclick,
@@ -147,4 +150,14 @@
     id={id ?? `popover-${String(key)}-controls`}
 >
     {@render children?.()}
+    {#if icon}
+        <HugeiconsIcon
+            icon={ChevronDown}
+            aria-hidden="true"
+            class={cn(
+                'shrink-0 text-foreground-muted transition-transform [transition-duration:var(--motion-duration-flick)] ease-[var(--ease-spring-flick)] motion-reduce:transition-none',
+                popoverState.open && 'rotate-180'
+            )}
+        />
+    {/if}
 </Button>

@@ -3,6 +3,8 @@
     import { Button } from '@mielui/svelte/components/button';
     import * as Tooltip from '@mielui/svelte/components/tooltip';
     import HugeiconsIcon from '@mielui/svelte/hugeicons-icon';
+    import { getCssDuration, springEase } from '@mielui/svelte/transition';
+    import { flip } from 'svelte/animate';
     import { resolve } from '$app/paths';
     import { page } from '$app/state';
     import { getBreadcrumbs } from '$lib/components/docs/breadcrumbs';
@@ -24,6 +26,12 @@
     ]);
     const tabs = $derived(shell.tabs.tabs.length ? shell.tabs.tabs : fallback);
     const active = $derived(shell.tabs.tabs.length ? shell.tabs.active : 'current');
+
+    const settle = springEase(550, 40);
+
+    function settleDuration() {
+        return getCssDuration(document.documentElement, '--motion-duration-spring', 280);
+    }
 
     let dragged = $state<string | null>(null);
     let target = $state<string | null>(null);
@@ -84,17 +92,14 @@
     }
 </script>
 
-<span class="min-w-0 truncate text-sm font-medium text-foreground sm:hidden">
-    {tabs.find((tab) => tab.id === active)?.label}
-</span>
-<div class="hidden min-w-0 flex-1 items-center gap-1.5 sm:flex">
+<div class="flex min-w-0 flex-1 items-center gap-0.5">
     <Tooltip.Root>
         <Tooltip.Trigger>
             <Button
                 variant="ghost"
                 size="icon"
                 aria-label="Open a new tab"
-                class="size-8 shrink-0 rounded-[var(--radius-sm)] text-foreground-muted hover:text-foreground"
+                class="size-8 shrink-0 text-foreground-muted hover:text-foreground"
                 onclick={openNew}
             >
                 <HugeiconsIcon icon={Plus} size={16} />
@@ -102,21 +107,23 @@
         </Tooltip.Trigger>
         <Tooltip.Content>New tab</Tooltip.Content>
     </Tooltip.Root>
+    <span aria-hidden="true" class="mx-1 h-4 w-px shrink-0 bg-border"></span>
     <nav
         aria-label="Open pages"
         {@attach scrollFade({ axis: 'x', size: 32 })}
-        class={`hide-scrollbar-all flex min-w-0 flex-1 items-center gap-1 overflow-x-auto p-0.5 ${fadeX}`}
+        class={`hide-scrollbar-all flex min-w-0 flex-1 items-center gap-0.5 overflow-x-auto ${fadeX}`}
     >
         {#each tabs as tab (tab.id)}
             <div
                 role="presentation"
+                animate:flip={{ duration: settleDuration, easing: settle }}
                 draggable={tabs.length > 1}
                 ondragstart={(event) => startDrag(event, tab.id)}
                 ondragover={(event) => dragOver(event, tab.id)}
                 ondrop={(event) => drop(event, tab.id)}
                 ondragend={endDrag}
                 onkeydown={(event) => moveWithKeys(event, tab.id)}
-                class={`shrink-0 rounded-[var(--radius-sm)] transition-opacity [transition-duration:var(--motion-duration-hover)] motion-reduce:transition-none ${dragged === tab.id ? 'opacity-40' : ''} ${target === tab.id ? 'shadow-[var(--focus-ring)]' : ''}`}
+                class={`shrink-0 rounded-[var(--radius-control)] transition-opacity [transition-duration:var(--motion-duration-hover)] motion-reduce:transition-none ${dragged === tab.id ? 'opacity-40' : ''} ${target === tab.id ? 'shadow-[var(--focus-ring)]' : ''}`}
             >
                 <TabPill
                     label={tab.label}

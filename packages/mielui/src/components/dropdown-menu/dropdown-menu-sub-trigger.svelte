@@ -42,7 +42,7 @@
             <HugeiconsIcon
                 icon={ChevronRight}
                 class="ms-2 shrink-0 text-foreground-muted rtl:rotate-180"
-                size={18}
+                size={16}
             />
         </Button>
     {/snippet}

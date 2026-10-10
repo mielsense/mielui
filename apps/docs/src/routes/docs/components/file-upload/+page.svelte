@@ -1,7 +1,8 @@
 <script lang="ts">
     import { CodeBlock } from '@mielui/svelte/components/code-block';
+    import * as FileUpload from '@mielui/svelte/components/file-upload';
     import * as Typography from '@mielui/svelte/components/typography';
-    import { ComponentPreview, InstallCommand } from '$lib/components/docs';
+    import { ComponentPreview, InstallCommand, Playground } from '$lib/components/docs';
     import InlineText from '$lib/components/docs/inline-text.svelte';
     import PageIntro from '$lib/components/docs/page-intro.svelte';
     import DisabledExample from './examples/disabled.svelte';
@@ -10,6 +11,34 @@
     import HeroSrc from './examples/hero.svelte?raw';
     import Single from './examples/single.svelte';
     import SingleSrc from './examples/single.svelte?raw';
+    import { code as playgroundCode, controls as playgroundControls } from './playground';
+
+    type UploadOptions = Parameters<FileUpload.FileUploadProps['onUpload']>[1];
+
+    function wait(milliseconds: number) {
+        return new Promise((resolve) => {
+            setTimeout(resolve, milliseconds);
+        });
+    }
+
+    function createUpload(reportProgress: boolean, fail: boolean) {
+        return async (_file: File, { signal, onProgress }: UploadOptions) => {
+            if (reportProgress) {
+                for (let percent = 10; percent <= 100; percent += 10) {
+                    await wait(180);
+                    signal.throwIfAborted();
+                    onProgress(percent);
+                }
+            } else {
+                await wait(1800);
+                signal.throwIfAborted();
+            }
+
+            if (fail) {
+                throw new Error('Connection interrupted. Try uploading again.');
+            }
+        };
+    }
 </script>
 <svelte:head>
     <title>Mielui · File Upload</title>
@@ -23,7 +52,48 @@
         Drop files, follow their progress, and retry failed uploads.
     </PageIntro>
     <section id="hero" class="scroll-mt-20 flex flex-col gap-4">
-        <ComponentPreview code={HeroSrc}><Hero /></ComponentPreview>
+        <Playground controls={playgroundControls} code={playgroundCode}>
+            {#snippet children(values)}
+                {#if values.summary}
+                    <FileUpload.Root
+                        accept={values.accept.replaceAll('"', '') || undefined}
+                        maxFiles={values.maxFiles}
+                        maxSize={values.maxSize * 1024 * 1024}
+                        disabled={values.disabled}
+                        labels={{
+                            dropzoneTitle: values.dropzoneTitle,
+                            dropzoneDescription: values.dropzoneDescription,
+                            choose: values.choose
+                        }}
+                        onUpload={createUpload(values.progress, values.fail)}
+                        class="w-full max-w-md"
+                    >
+                        {#snippet children({ complete, total })}
+                            <FileUpload.Dropzone />
+                            <p class="text-xs text-foreground-muted">
+                                {complete}
+                                of {total} uploaded
+                            </p>
+                            <FileUpload.List />
+                        {/snippet}
+                    </FileUpload.Root>
+                {:else}
+                    <FileUpload.Root
+                        accept={values.accept.replaceAll('"', '') || undefined}
+                        maxFiles={values.maxFiles}
+                        maxSize={values.maxSize * 1024 * 1024}
+                        disabled={values.disabled}
+                        labels={{
+                            dropzoneTitle: values.dropzoneTitle,
+                            dropzoneDescription: values.dropzoneDescription,
+                            choose: values.choose
+                        }}
+                        onUpload={createUpload(values.progress, values.fail)}
+                        class="w-full max-w-md"
+                    />
+                {/if}
+            {/snippet}
+        </Playground>
     </section>
     <section id="installation" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Installation</Typography.H2>
@@ -113,11 +183,12 @@
     <section id="retry-and-cancel" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Retry and cancellation</Typography.H2>
         <Typography.Text variant="supporting">
-            In the first example, turn on Fail the next upload before choosing a file. Retry keeps
-            the original file and starts a new request. Remove cancels a pending upload and removes
-            its card. Your upload handler must pass the supplied signal to fetch or abort its own
+            In this example, turn on Fail the next upload before choosing a file. Retry keeps the
+            original file and starts a new request. Remove cancels a pending upload and removes its
+            card. Your upload handler must pass the supplied signal to fetch or abort its own
             transport when the signal fires.
         </Typography.Text>
+        <ComponentPreview code={HeroSrc}><Hero /></ComponentPreview>
         <Typography.Text variant="supporting">
             Progress measures bytes sent, not server acceptance. Keep the promise pending until the
             server confirms completion. An image preview stays attached to the same file during

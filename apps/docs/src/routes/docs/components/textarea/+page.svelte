@@ -1,7 +1,9 @@
 <script lang="ts">
+    import { Button } from '@mielui/svelte/components/button';
     import { CodeBlock } from '@mielui/svelte/components/code-block';
+    import { Textarea } from '@mielui/svelte/components/textarea';
     import * as Typography from '@mielui/svelte/components/typography';
-    import { ComponentPreview, InstallCommand } from '$lib/components/docs';
+    import { ComponentPreview, InstallCommand, Playground } from '$lib/components/docs';
     import InlineText from '$lib/components/docs/inline-text.svelte';
     import PageIntro from '$lib/components/docs/page-intro.svelte';
     import Basic from './examples/basic.svelte';
@@ -10,10 +12,9 @@
     import ComposerSrc from './examples/composer.svelte?raw';
     import Disabled from './examples/disabled.svelte';
     import DisabledSrc from './examples/disabled.svelte?raw';
-    import Hero from './examples/hero.svelte';
-    import HeroSrc from './examples/hero.svelte?raw';
     import Labeled from './examples/labeled.svelte';
     import LabeledSrc from './examples/labeled.svelte?raw';
+    import { code as playgroundCode, controls as playgroundControls } from './playground';
 
     const TITLE = 'Textarea';
 
@@ -31,15 +32,41 @@
     />
 </svelte:head>
 
+{#snippet playgroundFooter()}
+    <div class="flex items-center justify-between gap-3 px-3 pb-3">
+        <span class="text-xs text-foreground-muted">Markdown is supported.</span>
+        <Button size="sm">Send</Button>
+    </div>
+{/snippet}
+
 <div data-docs-page class="flex flex-col gap-10">
     <!-- ─── Header ────────────────────────────────────────────────── -->
     <PageIntro title={TITLE}>A multi-line text input that shares the Input styling.</PageIntro>
 
     <!-- ─── Hero Example ──────────────────────────────────────────── -->
     <section id="hero" class="scroll-mt-20 flex flex-col gap-4">
-        <ComponentPreview code={HeroSrc}>
-            <Hero />
-        </ComponentPreview>
+        <Playground controls={playgroundControls} code={playgroundCode}>
+            {#snippet children(values)}
+                <div class="w-full max-w-sm">
+                    <Textarea
+                        variant={values.variant}
+                        label={values.label ? 'Message' : undefined}
+                        aria-label={values.label ? undefined : 'Message'}
+                        description={values.description
+                            ? 'Sent to everyone on the project.'
+                            : undefined}
+                        placeholder={values.placeholder}
+                        rows={values.rows}
+                        autoresize={values.autoresize}
+                        disabled={values.disabled}
+                        readonly={values.readonly}
+                        required={values.required}
+                        aria-invalid={values.invalid ? 'true' : undefined}
+                        children={values.footer ? playgroundFooter : undefined}
+                    />
+                </div>
+            {/snippet}
+        </Playground>
     </section>
 
     <!-- ─── Installation ──────────────────────────────────────────── -->

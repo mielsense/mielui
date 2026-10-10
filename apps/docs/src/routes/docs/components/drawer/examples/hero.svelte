@@ -67,7 +67,7 @@
                     </div>
                     <Switch bind:checked={comfortableSpacing} label="Comfortable spacing" />
                     <p
-                        class="rounded-[var(--radius-lg)] bg-secondary p-4 text-foreground-muted"
+                        class="rounded-[var(--radius-xl)] border border-border bg-card p-4 text-foreground-muted"
                         style:font-size={`${textSize}px`}
                         style:line-height={comfortableSpacing ? 1.8 : 1.4}
                     >

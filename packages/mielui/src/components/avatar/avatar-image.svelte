@@ -46,7 +46,7 @@
             }}
             class={cn(
                 className,
-                'absolute inset-0 h-full w-full object-cover outline outline-1 -outline-offset-1 outline-[color-mix(in_srgb,var(--color-foreground)_10%,transparent)]'
+                'absolute inset-0 h-full w-full rounded-[inherit] object-cover outline outline-1 -outline-offset-1 outline-[var(--color-border)]'
             )}
         />
     {/if}

@@ -21,9 +21,6 @@
         '[mask-size:100%_calc(100%-var(--folder-card-radius)),var(--folder-card-radius)_var(--folder-card-radius)]',
         '[mask-position:top,bottom_right] [mask-repeat:no-repeat]'
     ];
-
-    const motionClasses =
-        'transition-[filter] duration-[var(--motion-duration-hover)] ease-[var(--ease-out)] group-hover/folder-card:brightness-105 motion-reduce:transition-none';
 </script>
 
 <div
@@ -33,8 +30,7 @@
         className,
         shapeClasses,
         toneClasses[folderCard.tone],
-        motionClasses,
-        'bg-[color-mix(in_oklab,var(--folder-card-tone)_55%,var(--color-card))]'
+        'bg-[color-mix(in_oklab,var(--folder-card-tone)_38%,var(--color-card))]'
     )}
 >
     {#if src}
@@ -42,7 +38,7 @@
     {:else}
         <span
             aria-hidden="true"
-            class="absolute inset-0 bg-[radial-gradient(ellipse_at_82%_18%,var(--folder-card-tone),transparent_70%),radial-gradient(ellipse_at_8%_92%,color-mix(in_oklab,var(--folder-card-tone)_35%,var(--color-card)),transparent_60%)]"
+            class="absolute inset-0 bg-[radial-gradient(ellipse_at_80%_10%,color-mix(in_oklab,var(--folder-card-tone)_70%,transparent),transparent_65%)]"
         ></span>
     {/if}
     {@render children?.()}

@@ -34,7 +34,7 @@
                     <HugeiconsIcon icon={BookOpen} size={14} />
                 </Button>
             </div>
-            <Button type="button" size="md" class="size-7 rounded-full p-0" aria-label="Send reply">
+            <Button type="button" size="md" class="size-7 p-0" aria-label="Send reply">
                 <HugeiconsIcon icon={ArrowUp} size={14} />
             </Button>
         </Toolbar>

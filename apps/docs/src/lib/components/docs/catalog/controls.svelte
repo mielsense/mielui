@@ -404,7 +404,7 @@
     </ColorPicker.Root>
 {:else if slug === 'copy-button'}
     <div
-        class="flex items-center gap-3 rounded-[var(--radius-lg)] border-[length:var(--border-size)] border-border bg-card py-1 pr-1 pl-3"
+        class="flex items-center gap-3 rounded-[calc(var(--radius-control)+var(--spacing)+var(--border-size))] border-[length:var(--border-size)] border-border bg-card py-1 pr-1 pl-3"
     >
         <code class="font-mono text-sm">pnpm add @mielui/svelte</code>
         <CopyButton text="pnpm add @mielui/svelte" label="Copy install command" />

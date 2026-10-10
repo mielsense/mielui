@@ -1,16 +1,16 @@
 <script lang="ts">
+    import * as Accordion from '@mielui/svelte/components/accordion';
     import { CodeBlock } from '@mielui/svelte/components/code-block';
     import * as Typography from '@mielui/svelte/components/typography';
-    import { ComponentPreview, InstallCommand } from '$lib/components/docs';
+    import { ComponentPreview, InstallCommand, Playground } from '$lib/components/docs';
     import InlineText from '$lib/components/docs/inline-text.svelte';
     import PageIntro from '$lib/components/docs/page-intro.svelte';
 
-    import Hero from './examples/hero.svelte';
-    import HeroSrc from './examples/hero.svelte?raw';
     import MultipleMode from './examples/multiple-mode.svelte';
     import MultipleModeSrc from './examples/multiple-mode.svelte?raw';
     import SingleMode from './examples/single-mode.svelte';
     import SingleModeSrc from './examples/single-mode.svelte?raw';
+    import { code as playgroundCode, controls as playgroundControls } from './playground';
 
     const TITLE = 'Accordion';
     const SLUG = 'accordion';
@@ -38,9 +38,45 @@
 
     <!-- ─── Hero Example ──────────────────────────────────────────── -->
     <section id="hero" class="scroll-mt-20 flex flex-col gap-4">
-        <ComponentPreview code={HeroSrc}>
-            <Hero />
-        </ComponentPreview>
+        <Playground controls={playgroundControls} code={playgroundCode}>
+            {#snippet children(values)}
+                {#snippet items()}
+                    <Accordion.Item value="access">
+                        <Accordion.Trigger>Who can access this workspace?</Accordion.Trigger>
+                        <Accordion.Content>
+                            Only invited members can open projects. Owners can invite people and
+                            change their roles.
+                        </Accordion.Content>
+                    </Accordion.Item>
+                    <Accordion.Item value="plan">
+                        <Accordion.Trigger>Can I change my plan?</Accordion.Trigger>
+                        <Accordion.Content>
+                            Change your plan from Billing. New limits apply immediately.
+                        </Accordion.Content>
+                    </Accordion.Item>
+                    <Accordion.Item value="export" disabled={values.disabled}>
+                        <Accordion.Trigger>How do I export my data?</Accordion.Trigger>
+                        <Accordion.Content>
+                            Open Settings and choose Export. The archive includes your projects and
+                            files.
+                        </Accordion.Content>
+                    </Accordion.Item>
+                {/snippet}
+                {#if values.type === 'multiple'}
+                    <Accordion.Root type="multiple" value={['access']} class="w-full max-w-md">
+                        {@render items()}
+                    </Accordion.Root>
+                {:else}
+                    <Accordion.Root
+                        value="access"
+                        collapsible={values.collapsible}
+                        class="w-full max-w-md"
+                    >
+                        {@render items()}
+                    </Accordion.Root>
+                {/if}
+            {/snippet}
+        </Playground>
     </section>
 
     <!-- ─── Installation ──────────────────────────────────────────── -->

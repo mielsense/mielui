@@ -29,7 +29,7 @@
     class={cn(
         className,
         overlaySurface(),
-        'mielui-modal-frame [--mielui-border-inset-scale:0] pointer-events-none absolute z-10 min-w-40 max-w-[min(calc(var(--spacing)*80),calc(100%-var(--spacing)*4))] break-words text-xs text-foreground shadow-[var(--elevation-float)]'
+        'mielui-float-frame pointer-events-none absolute z-10 min-w-40 max-w-[min(calc(var(--spacing)*80),calc(100%-var(--spacing)*4))] break-words text-xs text-foreground shadow-[var(--elevation-float)]'
     )}
 >
     <div class="mielui-inset-surface p-3">

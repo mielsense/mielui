@@ -3,7 +3,7 @@
     import HugeiconsIcon from '@mielui/svelte/hugeicons-icon';
 
     export const floatingFrame =
-        'mielui-modal-frame [--mielui-border-inset-scale:0] [--mielui-modal-inset:calc(var(--spacing)*0.5*var(--mielui-border-inset-scale,1))] flex flex-col overflow-hidden text-sm text-foreground shadow-[var(--elevation-float)]';
+        'mielui-float-frame flex flex-col overflow-hidden text-sm text-foreground shadow-[var(--elevation-float)]';
     export const floatingSurface = 'mielui-inset-surface flex flex-col p-1';
     export const modalFrame =
         'mielui-modal-frame flex flex-col overflow-hidden text-foreground shadow-[var(--elevation-modal)]';

@@ -6,7 +6,7 @@ import {
     pushEscapeLayer,
     trapFocus
 } from '@mielui/svelte/utils';
-import { getContext, setContext } from 'svelte';
+import { getContext, setContext, tick, untrack } from 'svelte';
 
 type OverlayKind = 'dialog' | 'sheet' | 'other';
 
@@ -165,6 +165,33 @@ export function useOverlayPresentation(options: {
                 escapeHandled = false;
             }, 0);
             return true;
+        }
+    };
+}
+
+/**
+ * Mirrors an overlay's open state for its mount block, reporting a close one
+ * tick late. A layer nested inside the overlay that closes in the same tick
+ * then tears down its own listeners before the overlay's exit pauses it.
+ */
+export function useDeferredClose(isOpen: () => boolean) {
+    let mounted = $state(untrack(isOpen));
+
+    $effect.pre(() => {
+        if (isOpen()) {
+            mounted = true;
+            return;
+        }
+        void tick().then(() => {
+            if (!isOpen()) {
+                mounted = false;
+            }
+        });
+    });
+
+    return {
+        get current() {
+            return mounted || isOpen();
         }
     };
 }

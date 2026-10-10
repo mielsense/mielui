@@ -1,15 +1,44 @@
 <script lang="ts">
     import { CodeBlock } from '@mielui/svelte/components/code-block';
+    import * as PieChart from '@mielui/svelte/components/pie-chart';
     import * as Typography from '@mielui/svelte/components/typography';
     import { chartGuides } from '$lib/chart-guides';
-    import { ComponentPreview, InstallCommand } from '$lib/components/docs';
+    import { ComponentPreview, InstallCommand, Playground } from '$lib/components/docs';
     import PageIntro from '$lib/components/docs/page-intro.svelte';
-    import Hero from './examples/hero.svelte';
-    import HeroSource from './examples/hero.svelte?raw';
     import States from './examples/states.svelte';
     import StatesSource from './examples/states.svelte?raw';
+    import { code as playgroundCode, controls as playgroundControls } from './playground';
 
     const guides = chartGuides.filter((guide) => guide.component === 'pie-chart');
+    const sessions: PieChart.PieChartDatum[] = [
+        {
+            key: 'direct',
+            value: 1240
+        },
+        {
+            key: 'search',
+            value: 860
+        },
+        {
+            key: 'referral',
+            value: 420
+        }
+    ];
+    const noSessions: PieChart.PieChartDatum[] = [];
+    const sessionsConfig = {
+        direct: {
+            label: 'Direct',
+            color: 'var(--chart-1)'
+        },
+        search: {
+            label: 'Search',
+            color: 'var(--chart-2)'
+        },
+        referral: {
+            label: 'Referral',
+            color: 'var(--chart-3)'
+        }
+    };
 </script>
 <svelte:head>
     <title>Mielui · Pie Chart</title>
@@ -23,7 +52,36 @@
         Pie and donut charts with exact values, keyboard inspection, and composed labels.
     </PageIntro>
     <section id="hero" class="flex scroll-mt-20 flex-col gap-4">
-        <ComponentPreview refreshable code={HeroSource}><Hero /></ComponentPreview>
+        <Playground controls={playgroundControls} code={playgroundCode} refreshable>
+            {#snippet children(values)}
+                <div class="w-full max-w-lg">
+                    <PieChart.Root
+                        data={values.empty ? noSessions : sessions}
+                        config={sessionsConfig}
+                        aria-label="Monthly sessions by acquisition channel"
+                        animation={values.animation}
+                        loading={values.loading}
+                    >
+                        <PieChart.Plot class="h-64">
+                            <PieChart.Arc
+                                innerRadius={values.innerRadius}
+                                cornerRadius={values.cornerRadius}
+                                padAngle={values.padAngle}
+                            />
+                            {#if values.label}
+                                <PieChart.Label />
+                            {/if}
+                        </PieChart.Plot>
+                        {#if values.tooltip}
+                            <PieChart.Tooltip />
+                        {/if}
+                        {#if values.legend}
+                            <PieChart.Legend />
+                        {/if}
+                    </PieChart.Root>
+                </div>
+            {/snippet}
+        </Playground>
     </section>
     <section id="installation" class="flex scroll-mt-20 flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Installation</Typography.H2>
@@ -77,7 +135,7 @@ const config = {
             {#each guides as guide}
                 <a
                     href={`/docs/components/${guide.component}/${guide.slug}`}
-                    class="rounded-lg border border-border p-4 transition-colors hover:bg-secondary focus-visible:outline-2 focus-visible:outline-primary"
+                    class="mielui-plate block p-4 transition-[background-color,box-shadow] [transition-duration:var(--motion-duration-hover)] hover:bg-[color-mix(in_srgb,var(--color-foreground)_3%,var(--color-card))] focus-visible:shadow-[var(--focus-ring),var(--elevation-1)] focus-visible:outline-none motion-reduce:transition-none"
                 >
                     <span class="font-medium">{guide.title}</span>
                     <p class="mt-1 text-sm text-foreground-muted">{guide.description}</p>

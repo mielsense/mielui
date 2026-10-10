@@ -44,7 +44,7 @@
     data-ui="accordion-item"
     data-value={value}
     data-disabled={disabled ? '' : undefined}
-    class={cn(className, 'group py-1.5')}
+    class={cn(className, 'group py-1')}
     {...rest}
 >
     {@render children?.()}

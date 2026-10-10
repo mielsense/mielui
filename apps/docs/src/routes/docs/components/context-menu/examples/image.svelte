@@ -33,7 +33,7 @@
                 role="img"
                 aria-label="Geometric illustration"
                 viewBox="0 0 160 120"
-                class="h-32 w-44 rounded-[var(--radius-lg)] border border-border bg-secondary p-4"
+                class="h-32 w-44 rounded-[var(--radius-xl)] border border-border bg-secondary p-4"
             >
                 <g transform={`rotate(${rotation} 80 60)`}>
                     <circle cx="100" cy="35" r="16" fill="var(--color-primary)" />

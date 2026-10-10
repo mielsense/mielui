@@ -41,9 +41,14 @@
     setColorPickerController(createColorPickerController(context));
 </script>
 
-<div class={cn(className, 'space-y-1')}>
+<div class={cn(className, 'flex flex-col gap-1.5')}>
     {#if label}
-        <p id={labelId} class="text-sm text-foreground-muted">{label}</p>
+        <p
+            id={labelId}
+            class="[font-size:var(--font-size-label)] [font-weight:var(--font-weight-label)] [letter-spacing:var(--tracking-label)] leading-label text-foreground"
+        >
+            {label}
+        </p>
     {/if}
 
     <Popover.Root placement="bottom">{@render children?.()} </Popover.Root>

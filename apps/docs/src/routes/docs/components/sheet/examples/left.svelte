@@ -57,8 +57,6 @@
             {/each}
         </nav>
 
-        <div class="h-px w-full bg-border" role="separator"></div>
-
         <div class="flex items-center gap-3">
             <Avatar.Root size="sm">
                 <Avatar.Fallback>AN</Avatar.Fallback>

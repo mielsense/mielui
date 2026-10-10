@@ -64,6 +64,8 @@ export type ComboboxTriggerProps = Omit<
     PopoverTriggerProps,
     'children' | 'element' | 'value' | 'type'
 > & {
+    /** Id of the element that names the control, such as a visible label. */
+    'aria-labelledby'?: string;
     /** Content at the end of the trigger. */
     trailing?: Snippet;
     /** Text shown while there is no value. */

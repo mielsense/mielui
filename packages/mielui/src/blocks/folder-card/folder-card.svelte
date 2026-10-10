@@ -30,25 +30,23 @@
     });
 
     const frameClasses = [
-        'mielui-inset-frame flex aspect-5/4 min-w-0 flex-col shadow-[var(--elevation-1)]',
+        'mielui-inset-frame flex aspect-5/4 min-w-0 flex-col overflow-clip shadow-[var(--elevation-1)]',
+        '[--mielui-border-inset-scale:0] [--mielui-plate-radius:var(--radius-xl)]',
         '[--folder-card-radius:var(--radius-lg)]',
-        '[--folder-card-body:var(--color-foreground)]',
-        '[--folder-card-ink:var(--color-card)]',
-        '[--folder-card-ink-muted:color-mix(in_oklab,var(--color-card)_70%,var(--color-foreground))]',
-        'dark:[--folder-card-body:var(--color-background)]',
-        'dark:[--folder-card-ink:var(--color-foreground)]',
-        'dark:[--folder-card-ink-muted:var(--color-foreground-muted)]'
+        '[--folder-card-body:var(--color-card)]',
+        '[--folder-card-ink:var(--color-foreground)]',
+        '[--folder-card-ink-muted:var(--color-foreground-muted)]'
     ];
 
     const linkClasses = [
         'group/folder-card outline-none',
-        'transition-[border-color,box-shadow] duration-[var(--motion-duration-hover)] ease-[var(--ease-out)] motion-reduce:transition-none',
+        'transition-[border-color,box-shadow] [transition-duration:var(--motion-duration-hover)] ease-[var(--ease-out)] motion-reduce:transition-none',
         'hover:border-border-strong focus-visible:shadow-[var(--focus-ring),var(--elevation-1)]'
     ];
 
     const buttonClasses = [
         'group/folder-card relative',
-        'transition-[border-color,box-shadow] duration-[var(--motion-duration-hover)] ease-[var(--ease-out)] motion-reduce:transition-none',
+        'transition-[border-color,box-shadow] [transition-duration:var(--motion-duration-hover)] ease-[var(--ease-out)] motion-reduce:transition-none',
         'hover:border-border-strong has-[[data-ui=folder-card-action]:focus-visible]:shadow-[var(--focus-ring),var(--elevation-1)]'
     ];
 </script>

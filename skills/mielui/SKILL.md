@@ -38,6 +38,7 @@ Load documentation progressively:
 | AI or coding-agent UI | Candidate AI component pages plus `references/component-selection.md` from this skill |
 | Upgrading or resolving an API mismatch | Installed version, the compiled changelog, the LLM changelog page when linked, and component pages |
 | Visual design or review | `references/design-language.md` from this skill |
+| Laying out a whole page, app, or website | The `mielui-design` skill, when it is installed |
 
 Each generated component page contains its current version, dependencies, install command, prop tables for exported parts, public `index.ts` API, and runnable examples. `/llms-full.txt` combines the full reference; prefer individual pages for focused tasks. Read the exact page before using a component that is new to the project. Never invent a part, prop, event, variant, slot/snippet contract, or import path.
 
@@ -157,7 +158,7 @@ Surfaces are solid by default. Glass is opt-in: set `--mielui-surface: glass` on
 
 Card is solid unless you pass `surface="glass"` to Card.Root. It does not follow the theme's glass setting the way overlays do. On inset and panel cards only the frame frosts and the content stays solid.
 
-Frames follow the theme's border setting. With single borders the inner surface meets the frame's border, and with double borders a gutter separates them. This applies to inset cards, dialogs, sheets, data tables, composers, toasts and code blocks. Never give a frame a fixed `--mielui-modal-inset`. Multiply by `--mielui-border-inset-scale`, which is 0 for single and 1 for double.
+Frames are two layers: a white frame holding a recessed inset in the stage color (`--color-background`), with header, toolbar and footer strips on the frame. They follow the theme's border setting. With single borders, the default, the inset meets the frame's border, and with double borders a gutter separates them. This applies to inset cards, dialogs, sheets, data tables, composers, toasts and code blocks. Never give a frame a fixed `--mielui-modal-inset`. Multiply by `--mielui-border-inset-scale`, which is 0 for single and 1 for double.
 
 Composer.Toolbar joins the input on one surface by default. Set `variant="inset"` to keep the input on its own inset surface with the toolbar in the frame under it, like an inset Card and its footer. There is no `chrome` variant.
 
@@ -169,7 +170,7 @@ Drawer.Content is a floating panel with a fixed width, not a full-width sheet. S
 
 FolderCard.Root is a link with `href`, a button with `onclick` and no `href`, and a static article with neither. Keep a FolderCard.Title in the button form, because it names the button.
 
-The default sans font is Manrope, loaded by `ui.css` from `@fontsource/manrope`. A project that wants another font installs it and sets `--font-sans` after importing `ui.css`.
+The default sans font is Inter Tight and the mono font is Geist Mono, loaded by `ui.css` from `@fontsource/inter-tight` and `@fontsource/geist-mono` at weights up to 500. `font-semibold` and `font-bold` resolve to 500, so build hierarchy from size and color. A project that wants another font installs it and sets `--font-sans` after importing `ui.css`.
 
 Heatmap.Root accepts `animation="rows" | "columns" | "live" | "none"`, defaulting to rows. Reduced motion disables entrances. Slider range mode binds a pair of numbers, accepts thumbLabels, and supports dir="rtl". Slider `variant="field"` is one bar with its label and value inside, for panels that stack many numeric settings. It holds a single value, so it cannot combine with `range`. Read each page before using these APIs, particularly when the locked package predates the unreleased changelog.
 

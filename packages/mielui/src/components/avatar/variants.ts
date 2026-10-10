@@ -1,7 +1,7 @@
 import { tv } from 'tailwind-variants';
 
 export const avatar = tv({
-    base: 'relative inline-flex shrink-0 select-none items-center justify-center overflow-hidden bg-secondary text-foreground-muted [font-size:var(--font-size-body)] [font-weight:var(--font-weight-body)] [letter-spacing:var(--tracking-body)]',
+    base: 'relative inline-flex shrink-0 select-none items-center justify-center overflow-hidden bg-secondary text-foreground-muted [font-size:var(--font-size-body)] [font-weight:var(--font-weight-label)] [letter-spacing:var(--tracking-label)] leading-none',
     variants: {
         size: {
             sm: 'size-7 text-[length:var(--font-size-meta)]',

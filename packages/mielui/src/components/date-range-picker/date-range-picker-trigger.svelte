@@ -23,7 +23,11 @@
     disabled={disabled || context.disabled}
     data-ui="date-range-picker-trigger"
     aria-label={ariaLabel ?? (children ? undefined : context.labels.trigger)}
-    class={cn(className, 'shrink-0 hover:bg-[color-mix(in_srgb,var(--color-secondary)_88%,var(--color-foreground))] data-[state=open]:bg-[color-mix(in_srgb,var(--color-secondary)_88%,var(--color-foreground))]', button({ variant: 'outline', size: children ? 'md' : 'icon' }))}
+    class={cn(
+        className,
+        'shrink-0 text-foreground-muted hover:text-foreground data-[state=open]:text-foreground',
+        button({ variant: 'outline', size: children ? 'md' : 'icon' })
+    )}
 >
     {#if children}
         {@render children()}

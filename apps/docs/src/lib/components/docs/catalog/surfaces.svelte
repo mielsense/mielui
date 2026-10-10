@@ -178,7 +178,7 @@
             <Kbd shortcut="P" />
         </span>
         <div
-            class="flex gap-1 rounded-[var(--radius-lg)] border-[length:var(--border-size)] border-border bg-card p-1"
+            class="flex gap-1 rounded-[calc(var(--radius-control)+var(--spacing)+var(--border-size))] border-[length:var(--border-size)] border-border bg-card p-1"
         >
             <Button variant="ghost" size="icon" aria-label="Copy">
                 <HugeiconsIcon icon={Copy} size={16} aria-hidden="true" />

@@ -4,6 +4,7 @@ export function reveal(element: SVGElement, chart: ChartContext, kind: 'bar' | '
     if (!chart.motion || chart.animation === 'none') {
         return;
     }
+    const easing = getComputedStyle(element).getPropertyValue('--ease-out').trim() || 'ease-out';
     const animation =
         kind === 'line'
             ? element.animate(
@@ -11,7 +12,7 @@ export function reveal(element: SVGElement, chart: ChartContext, kind: 'bar' | '
                       { opacity: 0, clipPath: 'inset(0 100% 0 0)' },
                       { opacity: 1, clipPath: 'inset(0 0% 0 0)' }
                   ],
-                  { duration: 500 * chart.motionScale, easing: 'cubic-bezier(.2,.8,.2,1)' }
+                  { duration: 500 * chart.motionScale, easing }
               )
             : element.animate(
                   [
@@ -21,7 +22,7 @@ export function reveal(element: SVGElement, chart: ChartContext, kind: 'bar' | '
                       },
                       { opacity: 1, transform: 'scale(1)' }
                   ],
-                  { duration: 500 * chart.motionScale, easing: 'cubic-bezier(.2,.8,.2,1)' }
+                  { duration: 500 * chart.motionScale, easing }
               );
     return () => {
         animation.cancel();

@@ -13,7 +13,6 @@
         | 'insetPosition'
         | 'glassSurfaces'
         | 'edgeHighlight'
-        | 'primaryStroke'
         | 'surfaceShadows'
         | 'controlShadows'
         | 'dialogShadows';
@@ -55,7 +54,7 @@
     </Row>
 </EditorSection>
 
-<EditorSection title="Edges" keywords="highlight stroke outline">
+<EditorSection title="Edges" keywords="highlight light rim">
     <Row label="Edge highlight" reset={resetAppearance('edgeHighlight')}>
         <Switch
             bind:checked={() => editor.state.edgeHighlight > 0, editor.setEdgeHighlightEnabled}
@@ -77,9 +76,6 @@
             }}
         />
     {/if}
-    <Row label="Primary button border" reset={resetAppearance('primaryStroke')}>
-        <Switch bind:checked={editor.state.primaryStroke} aria-label="Primary button border" />
-    </Row>
 </EditorSection>
 
 <EditorSection title="Shadows" keywords="elevation depth">

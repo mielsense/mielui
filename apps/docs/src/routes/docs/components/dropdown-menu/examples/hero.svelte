@@ -58,8 +58,8 @@
                     Help & feedback
                 </span>
             </DropdownMenu.Item>
-            <DropdownMenu.Item callback={() => selectSection('Sign out')}>
-                <span class="flex items-center gap-2 text-[var(--mielui-error-text)]">
+            <DropdownMenu.Item variant="destructive" callback={() => selectSection('Sign out')}>
+                <span class="flex items-center gap-2">
                     <HugeiconsIcon icon={LogOut} size={13} />
                     Sign out
                 </span>

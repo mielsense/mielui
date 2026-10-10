@@ -9,8 +9,12 @@
 <span
     {...rest}
     data-ui="task-steps-meta"
-    aria-hidden={item.status !== "done"}
-    class={cn(className, "shrink-0 font-mono text-[length:var(--font-size-meta)] tabular-nums text-foreground-muted transition-opacity [transition-duration:var(--motion-duration-press)] motion-reduce:transition-none", item.status === "done" ? "opacity-100" : "opacity-0")}
+    aria-hidden={item.status !== 'done'}
+    class={cn(
+        className,
+        'shrink-0 font-mono text-[length:var(--font-size-meta)] tabular-nums text-foreground-muted transition-opacity [transition-duration:var(--motion-duration-hover)] motion-reduce:transition-none',
+        item.status === 'done' ? 'opacity-100' : 'opacity-0'
+    )}
 >
     {@render children?.()}
 </span>

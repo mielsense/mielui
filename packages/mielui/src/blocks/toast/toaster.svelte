@@ -105,12 +105,13 @@
     function toastIn(node: Element): TransitionConfig {
         const duration = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches
             ? 0
-            : getCssDuration(node, '--motion-duration-toast-in', 440);
+            : getCssDuration(node, '--motion-duration-toast-in', 300);
         return {
             duration,
             easing: quartOut,
             css: (t: number) => {
                 return `
+					opacity: ${Math.min(1, t * 2)};
 					filter: blur(${(1 - t) * 2}px);
 					transform: translateY(${(1 - t) * 16}px) scale(${0.985 + t * 0.015});
 				`;
@@ -121,7 +122,7 @@
     function toastOut(node: Element): TransitionConfig {
         const duration = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches
             ? 0
-            : getCssDuration(node, '--motion-duration-toast-out', 340);
+            : getCssDuration(node, '--motion-duration-toast-out', 180);
         return {
             duration,
             easing: cubicOut,

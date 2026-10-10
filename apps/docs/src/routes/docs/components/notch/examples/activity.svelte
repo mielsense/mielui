@@ -48,9 +48,9 @@
             </Notch.Header>
         </div>
         {#if expanded}
-            <ul class="divide-y divide-border text-sm">
+            <ul class="flex flex-col text-sm">
                 {#each files as file (file.name)}
-                    <li class="flex items-center justify-between gap-4 py-2">
+                    <li class="flex items-center justify-between gap-4 py-1.5">
                         <span>{file.name}</span>
                         <span class="text-xs tabular-nums text-foreground-muted">{file.size}</span>
                     </li>
@@ -59,7 +59,7 @@
         {/if}
     </Notch.Content>
     <Notch.Accessory
-        class="rounded-full bg-card px-2 py-1 text-xs tabular-nums text-foreground-muted shadow-[var(--elevation-control-edge)]"
+        class="rounded-[var(--radius-control)] border border-border bg-card px-2.5 py-1 text-xs tabular-nums text-foreground-muted"
         aria-label="3 of 3 files exported"
     >
         3 of 3

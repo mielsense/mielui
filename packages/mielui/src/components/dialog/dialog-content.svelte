@@ -5,7 +5,7 @@
     import { onDestroy, tick } from 'svelte';
     import type { TransitionConfig } from 'svelte/transition';
     import { insetLayout } from '../_internal/inset-layout';
-    import { useOverlayPresentation } from '../_internal/overlay/overlay.svelte';
+    import { useDeferredClose, useOverlayPresentation } from '../_internal/overlay/overlay.svelte';
     import OverlayClose from '../_internal/overlay-close.svelte';
     import { overlaySurface } from '../_internal/surface';
     import type { DialogContentProps } from '.';
@@ -64,6 +64,7 @@
         isOpen: () => dialog.state.open,
         panelEl: () => element
     });
+    const mounted = useDeferredClose(() => dialog.state.open);
 
     $effect(() => {
         dialog.contentId = contentId;
@@ -136,8 +137,8 @@
             }
         }}
     >
-        {#snippet child({ props, open })}
-            {#if open}
+        {#snippet child({ props })}
+            {#if mounted.current}
                 <div
                     class="fixed inset-x-0 top-[var(--mielui-viewport-top)] z-[115] h-[var(--mielui-viewport-height)]"
                 >
@@ -216,7 +217,7 @@
                                 data-orientation={dialog.state.orientation}
                                 class={cn(
                             dialog.footerSlot.className,
-                            'flex w-full flex-row items-center gap-2 px-1 py-1.5'
+                            'flex w-full flex-row items-center gap-2 p-2'
                         )}
                             >
                                 {@render dialog.footerSlot.children?.()}

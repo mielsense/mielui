@@ -1,7 +1,9 @@
 <script lang="ts">
+    import { Button } from '@mielui/svelte/components/button';
     import { CodeBlock } from '@mielui/svelte/components/code-block';
+    import * as Tooltip from '@mielui/svelte/components/tooltip';
     import * as Typography from '@mielui/svelte/components/typography';
-    import { ComponentPreview, InstallCommand } from '$lib/components/docs';
+    import { ComponentPreview, InstallCommand, Playground } from '$lib/components/docs';
     import InlineText from '$lib/components/docs/inline-text.svelte';
     import PageIntro from '$lib/components/docs/page-intro.svelte';
     import Bottom from './examples/bottom.svelte';
@@ -14,6 +16,7 @@
     import RightSrc from './examples/right.svelte?raw';
     import Top from './examples/top.svelte';
     import TopSrc from './examples/top.svelte?raw';
+    import { code as playgroundCode, controls as playgroundControls } from './playground';
 
     const TITLE = 'Tooltip';
 
@@ -37,9 +40,34 @@
 
     <!-- ─── Hero Example ──────────────────────────────────────────── -->
     <section id="hero" class="scroll-mt-20 flex flex-col gap-4">
-        <ComponentPreview code={HeroSrc}>
-            <Hero />
-        </ComponentPreview>
+        <Playground controls={playgroundControls} code={playgroundCode}>
+            {#snippet children(values)}
+                <Tooltip.Root
+                    placement={values.placement}
+                    delay={values.delay}
+                    closeDelay={values.closeDelay}
+                >
+                    <Tooltip.Trigger showOnClick={values.showOnClick}>
+                        <Button variant="outline">Sync status</Button>
+                    </Tooltip.Trigger>
+                    {#if values.rich}
+                        <Tooltip.Content rich surface={values.glass ? 'glass' : undefined}>
+                            <span class="flex items-center gap-2">
+                                <span
+                                    aria-hidden="true"
+                                    class="size-1.5 rounded-full bg-success"
+                                ></span>
+                                {values.label}
+                            </span>
+                        </Tooltip.Content>
+                    {:else}
+                        <Tooltip.Content surface={values.glass ? 'glass' : undefined}>
+                            {values.label}
+                        </Tooltip.Content>
+                    {/if}
+                </Tooltip.Root>
+            {/snippet}
+        </Playground>
     </section>
 
     <!-- ─── Installation ──────────────────────────────────────────── -->
@@ -86,6 +114,16 @@
     <section id="examples" class="scroll-mt-20 flex flex-col gap-10">
         <div>
             <Typography.H2 class="docs-section-heading">Examples</Typography.H2>
+        </div>
+
+        <div id="toolbar-shortcuts" class="scroll-mt-20 flex flex-col gap-3">
+            <Typography.H3 class="docs-subsection-heading">Toolbar shortcuts</Typography.H3>
+            <Typography.Text variant="supporting">
+                Each icon button names its tool and shows the keyboard shortcut beside it.
+            </Typography.Text>
+            <ComponentPreview code={HeroSrc}>
+                <Hero />
+            </ComponentPreview>
         </div>
 
         <!-- Top placement -->

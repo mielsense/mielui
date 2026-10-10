@@ -1,7 +1,8 @@
 <script lang="ts">
     import { CodeBlock } from '@mielui/svelte/components/code-block';
+    import * as ColorPicker from '@mielui/svelte/components/color-picker';
     import * as Typography from '@mielui/svelte/components/typography';
-    import { ComponentPreview, InstallCommand } from '$lib/components/docs';
+    import { ComponentPreview, InstallCommand, Playground } from '$lib/components/docs';
     import InlineText from '$lib/components/docs/inline-text.svelte';
     import PageIntro from '$lib/components/docs/page-intro.svelte';
     import Composition from './examples/composition.svelte';
@@ -12,15 +13,39 @@
     import FormatsSrc from './examples/formats.svelte?raw';
     import Glass from './examples/glass.svelte';
     import GlassSrc from './examples/glass.svelte?raw';
-    import Hero from './examples/hero.svelte';
-    import HeroSrc from './examples/hero.svelte?raw';
     import WithPresets from './examples/with-presets.svelte';
     import WithPresetsSrc from './examples/with-presets.svelte?raw';
+    import {
+        CHANNELS_SEAM,
+        isDefaultContent,
+        code as playgroundCode,
+        controls as playgroundControls
+    } from './playground';
 
     const TITLE = 'Color Picker';
     const SLUG = 'color-picker';
 
     const installCommand = `pnpm dlx @mielui/svelte add ${SLUG}`;
+
+    const playgroundOptions = [
+        {
+            label: 'Indigo',
+            value: '#5e6ad2'
+        },
+        {
+            label: 'Rose',
+            value: '#e65c86'
+        },
+        {
+            label: 'Green',
+            value: '#36a375'
+        },
+        {
+            label: 'Amber',
+            value: '#d9902f'
+        }
+    ];
+    let color = $state('#5e6ad2');
 </script>
 
 <svelte:head>
@@ -39,9 +64,64 @@
 
     <!-- ─── Hero Example ──────────────────────────────────────────── -->
     <section id="hero" class="scroll-mt-20 flex flex-col gap-4">
-        <ComponentPreview code={HeroSrc}>
-            <Hero />
-        </ComponentPreview>
+        <Playground controls={playgroundControls} code={playgroundCode}>
+            {#snippet children(values)}
+                <ColorPicker.Root
+                    bind:value={color}
+                    label={values.label ? 'Accent color' : undefined}
+                    options={values.presets ? playgroundOptions : undefined}
+                    format={values.format}
+                >
+                    <ColorPicker.Trigger variant={values.variant} />
+                    {#if isDefaultContent(values)}
+                        <ColorPicker.Content
+                            surface={values.surface === 'theme' ? undefined : values.surface}
+                            allowClickOutside={values.allowClickOutside}
+                            dismissLayer={values.dismissLayer}
+                            focusTrap={values.focusTrap}
+                            lockScroll={values.lockScroll}
+                        />
+                    {:else}
+                        <ColorPicker.Content
+                            surface={values.surface === 'theme' ? undefined : values.surface}
+                            allowClickOutside={values.allowClickOutside}
+                            dismissLayer={values.dismissLayer}
+                            focusTrap={values.focusTrap}
+                            lockScroll={values.lockScroll}
+                        >
+                            {#if values.plane}
+                                <ColorPicker.Plane class="mx-1.5 mt-1.5 w-auto" />
+                            {/if}
+                            {#if values.preview || values.hue || values.hexInput}
+                                <div class="flex items-center gap-2.5 px-2.5 pt-2.5 pb-1">
+                                    {#if values.preview}
+                                        <ColorPicker.Preview />
+                                    {/if}
+                                    {#if values.hue || values.hexInput}
+                                        <div class="min-w-0 flex-1 space-y-2">
+                                            {#if values.hue}
+                                                <ColorPicker.Hue />
+                                            {/if}
+                                            {#if values.hexInput}
+                                                <ColorPicker.HexInput />
+                                            {/if}
+                                        </div>
+                                    {/if}
+                                </div>
+                            {/if}
+                            {#if values.channels}
+                                <ColorPicker.Channels
+                                    class={values.presets ? CHANNELS_SEAM : undefined}
+                                />
+                            {/if}
+                            {#if values.presets}
+                                <ColorPicker.Presets />
+                            {/if}
+                        </ColorPicker.Content>
+                    {/if}
+                </ColorPicker.Root>
+            {/snippet}
+        </Playground>
     </section>
 
     <!-- ─── Installation ──────────────────────────────────────────── -->

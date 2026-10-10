@@ -13,5 +13,8 @@
     {...rest}
     bind:ref
     data-ui="calendar-head-cell"
-    class={cn(className, 'h-8 p-0 text-center text-xs font-normal text-foreground-muted')}
+    class={cn(
+        className,
+        'h-8 max-w-[var(--calendar-cell-size)] truncate p-0 text-center text-xs [font-weight:var(--font-weight-body)] text-foreground-muted'
+    )}
 />

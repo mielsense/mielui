@@ -1,18 +1,24 @@
 <script lang="ts">
+    import { ArrowDown01Icon } from '@hugeicons/core-free-icons';
     import { CodeBlock } from '@mielui/svelte/components/code-block';
+    import * as Collapsible from '@mielui/svelte/components/collapsible';
     import * as Typography from '@mielui/svelte/components/typography';
-    import { ComponentPreview, InstallCommand } from '$lib/components/docs';
+    import HugeiconsIcon from '@mielui/svelte/hugeicons-icon';
+    import { ComponentPreview, InstallCommand, Playground } from '$lib/components/docs';
     import InlineText from '$lib/components/docs/inline-text.svelte';
     import PageIntro from '$lib/components/docs/page-intro.svelte';
     import Default from './examples/default.svelte';
     import DefaultSrc from './examples/default.svelte?raw';
     import Hero from './examples/hero.svelte';
     import HeroSrc from './examples/hero.svelte?raw';
+    import { code as playgroundCode, controls as playgroundControls } from './playground';
 
     const TITLE = 'Collapsible';
     const SLUG = 'collapsible';
 
     const installCommand = `pnpm dlx @mielui/svelte add ${SLUG}`;
+
+    let playgroundOpen = $state(true);
 </script>
 
 <svelte:head>
@@ -29,9 +35,34 @@
 
     <!-- ─── Hero Example ──────────────────────────────────────────── -->
     <section id="hero" class="scroll-mt-20 flex flex-col gap-4">
-        <ComponentPreview code={HeroSrc}>
-            <Hero />
-        </ComponentPreview>
+        <Playground controls={playgroundControls} code={playgroundCode}>
+            {#snippet children(values)}
+                <div class="w-full max-w-sm">
+                    <Collapsible.Root bind:open={playgroundOpen} disabled={values.disabled}>
+                        <Collapsible.Trigger
+                            class={values.fullWidth ? 'w-full justify-between' : undefined}
+                        >
+                            Weekly sync, June 18
+                            {#if values.chevron}
+                                <HugeiconsIcon
+                                    icon={ArrowDown01Icon}
+                                    size={14}
+                                    aria-hidden="true"
+                                    class={[
+                                        'shrink-0 text-foreground-muted transition-transform',
+                                        playgroundOpen && 'rotate-180'
+                                    ]}
+                                />
+                            {/if}
+                        </Collapsible.Trigger>
+                        <Collapsible.Content class="pt-1 pb-2">
+                            The export flow is ready for testing. Maya owns the migration guide, and
+                            Sam will review keyboard navigation before Friday.
+                        </Collapsible.Content>
+                    </Collapsible.Root>
+                </div>
+            {/snippet}
+        </Playground>
     </section>
 
     <!-- ─── Installation ──────────────────────────────────────────── -->
@@ -75,6 +106,16 @@
     <section id="examples" class="scroll-mt-20 flex flex-col gap-10">
         <div>
             <Typography.H2 class="docs-section-heading">Examples</Typography.H2>
+        </div>
+
+        <div id="meeting-notes" class="scroll-mt-20 flex flex-col gap-3">
+            <Typography.H3 class="docs-subsection-heading">Meeting notes</Typography.H3>
+            <Typography.Text variant="supporting">
+                A full-width trigger with a chevron opens a paragraph and a list of action items.
+            </Typography.Text>
+            <ComponentPreview code={HeroSrc}>
+                <Hero />
+            </ComponentPreview>
         </div>
 
         <!-- Default -->

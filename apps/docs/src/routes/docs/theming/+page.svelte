@@ -7,130 +7,19 @@
     import InlineText from '$lib/components/docs/inline-text.svelte';
     import PackageCommand from '$lib/components/docs/package-command.svelte';
     import PageIntro from '$lib/components/docs/page-intro.svelte';
-
-    const overrideCss = `@theme {
-  --color-primary: #155eef;
-  --color-background: #fcfcfd;
-  --color-foreground: #101828;
-  --radius-lg: 0.55rem;
-  --font-sans: 'DM Sans', sans-serif;
-}
-
-.dark {
-  --color-background: #0d1118;
-  --color-foreground: #f5f7fb;
-  --color-primary: #7aa2ff;
-}`;
-
-    const themeImport = `@import './lib/mielui/ui.css';
-@import './lib/mielui/theme.css';`;
-
-    const classExample = '<Button class="w-full rounded-2xl">Continue</Button>';
-
-    const dataUiExample = `[data-ui='button'][data-variant='primary'] {
-  border-radius: 999px;
-}
-
-[data-ui='badge'][data-variant='secondary'] {
-  text-transform: uppercase;
-}`;
-
-    const sourceExample = `# after: pnpm dlx @mielui/svelte add button
-src/lib/mielui/components/button/
-├── button.svelte
-└── index.ts`;
+    import {
+        classExample,
+        dataUiExample,
+        overrideCss,
+        sourceExample,
+        themeImport,
+        themeJsonFields,
+        tokenGroups
+    } from '$lib/theming';
 
     const presetSlugs = builtInThemePresets.map((preset) => `\`${preset.slug}\``);
 
     const presetList = `${presetSlugs.slice(0, -1).join(', ')}, and ${presetSlugs.at(-1)}`;
-
-    const tokenGroups = [
-        {
-            group: 'Color',
-            tokens: [
-                '--color-background',
-                '--color-card',
-                '--color-panel',
-                '--color-secondary',
-                '--color-foreground',
-                '--color-foreground-muted',
-                '--color-primary',
-                '--color-on-primary',
-                '--color-button-foreground',
-                '--color-border',
-                '--color-input',
-                '--color-ring'
-            ]
-        },
-        {
-            group: 'Status text',
-            tokens: [
-                '--mielui-success-text',
-                '--mielui-warning-text',
-                '--mielui-error-text',
-                '--mielui-info-text'
-            ]
-        },
-        {
-            group: 'Controls',
-            tokens: [
-                '--size-control-sm',
-                '--size-control-md',
-                '--size-control-lg',
-                '--size-icon-md',
-                '--mielui-control-border',
-                '--focus-ring'
-            ]
-        },
-        {
-            group: 'Type',
-            tokens: [
-                '--font-sans',
-                '--font-mono',
-                '--font-header',
-                '--font-size-header',
-                '--font-weight-body',
-                '--font-weight-label',
-                '--font-weight-button'
-            ]
-        },
-        {
-            group: 'Radius and density',
-            tokens: [
-                '--radius-sm',
-                '--radius-md',
-                '--radius-lg',
-                '--radius-xl',
-                '--mielui-space-unit'
-            ]
-        },
-        {
-            group: 'Motion',
-            tokens: [
-                '--motion-duration-hover',
-                '--motion-duration-menu',
-                '--motion-duration-panel',
-                '--motion-duration-sheet'
-            ]
-        },
-        {
-            group: 'Elevation',
-            tokens: [
-                '--elevation-1',
-                '--elevation-float',
-                '--elevation-control',
-                '--elevation-control-edge',
-                '--elevation-modal'
-            ]
-        }
-    ];
-
-    const themeJsonFields = [
-        "`foundation.light` and `foundation.dark` hold each mode's base, border, background, secondary, foreground, foregroundMuted, and onPrimary colors.",
-        '`typography` contains headerSize, headerWeight, and roleWeights for body, label, button, badge, and description text.',
-        '`tokens.shared`, `tokens.light`, and `tokens.dark` hold raw token overrides, including per-mode values for `--color-primary`.',
-        '`chrome` controls borders, edgeHighlight, surfaceShadows, controlShadows, dialogShadows, travelingHighlight, primaryStroke, and interactiveCursor. Turning off travelingHighlight keeps the selected fill and removes its movement.'
-    ];
 </script>
 
 <svelte:head>
@@ -214,6 +103,11 @@ src/lib/mielui/components/button/
             />
         </Typography.Text>
         <CodeBlock code={overrideCss} lang="css" copy="overlay" />
+        <Typography.Text variant="body" class="m-0">
+            <InlineText
+                text="The focus ring, the info status color, and the accent tint are mixed from `--color-primary`, so one value rebrands all of them. Set `--color-on-primary` when the text on filled buttons needs a different color."
+            />
+        </Typography.Text>
     </section>
 
     <section id="useful-tokens" class="scroll-mt-20 flex flex-col gap-4">
@@ -252,7 +146,7 @@ src/lib/mielui/components/button/
         </Table.ScrollArea>
         <Typography.Text variant="body" class="m-0">
             <InlineText
-                text="Controls use three heights. Icon buttons match the medium height. `--focus-ring` is a 2px ring at 80% of the primary color, and it composes with each control's existing edge. The default radius scale is 8, 10, 14, and 20 pixels from small to extra large."
+                text="Controls use three heights. Icon buttons match the medium height. `--focus-ring` is a 3px ring at half the primary color, and it composes with each control's existing edge. The default radius scale is 8, 10, 14, and 18 pixels from small to extra large. Plates use `--radius-2xl`, 26 pixels, and everything pressable uses `--radius-control`: 4 pixels in the sharp scale, 12 in the default scale, and a pill in the rounded scale."
             />
         </Typography.Text>
         <Typography.Text variant="body" class="m-0">
@@ -347,7 +241,7 @@ src/lib/mielui/components/button/
         <Typography.H2 class="docs-section-heading">Borders</Typography.H2>
         <Typography.Text variant="body" class="m-0">
             <InlineText
-                text='Set `chrome.borders` to `"single"` for one perimeter border on framed surfaces, or `"double"` for the inset frame. The default is `"single"`. Explicit saved settings remain respected. Studio exposes this choice under Appearance.'
+                text='Framed surfaces are a white frame holding a recessed inset in the page background. Set `chrome.borders` to `"single"` so the inset meets the border of the frame, or `"double"` for a gutter between the two. The default is `"single"`. Explicit saved settings remain respected. Studio exposes this choice under Appearance.'
             />
         </Typography.Text>
         <CodeBlock
@@ -410,7 +304,7 @@ const css = themeToCss(theme);`}
         <Typography.H2 class="docs-section-heading">Edge highlights</Typography.H2>
         <Typography.Text variant="body" class="m-0">
             <InlineText
-                text="Set `chrome.edgeHighlight` to adjust the thin light-catching edges on filled buttons, moving thumbs, keycaps, and raised surfaces. Text fields, selection triggers, checkboxes, and radios stay flat. The default is 0.5. Use 0 to remove that light or 1 for full strength. Focus rings, borders, and drop shadows keep their existing colors and opacity. Shadow switches still take precedence."
+                text="Set `chrome.edgeHighlight` to adjust the light on lit pills: filled buttons, moving thumbs, and selected segments. It also scales the light edge on keycaps. Text fields, selection triggers, and outline buttons stay flat. The default is 0.33. Use 0 to remove that light or 1 for full strength. Focus rings, borders, and drop shadows keep their existing colors and opacity. Shadow switches still take precedence."
             />
         </Typography.Text>
         <CodeBlock

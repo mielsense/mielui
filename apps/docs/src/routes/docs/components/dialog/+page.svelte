@@ -1,7 +1,9 @@
 <script lang="ts">
     import { CodeBlock } from '@mielui/svelte/components/code-block';
+    import * as Dialog from '@mielui/svelte/components/dialog';
+    import { Input } from '@mielui/svelte/components/input';
     import * as Typography from '@mielui/svelte/components/typography';
-    import { ComponentPreview, InstallCommand } from '$lib/components/docs';
+    import { ComponentPreview, InstallCommand, Playground } from '$lib/components/docs';
     import InlineText from '$lib/components/docs/inline-text.svelte';
     import PageIntro from '$lib/components/docs/page-intro.svelte';
     import AsyncConfirmExample from './examples/async-confirm.svelte';
@@ -26,6 +28,9 @@
     import WideSrc from './examples/size-wide.svelte?raw';
     import WithSelect from './examples/with-select.svelte';
     import WithSelectSrc from './examples/with-select.svelte?raw';
+    import { code as playgroundCode, controls as playgroundControls } from './playground';
+
+    let playgroundName = $state('Mielui docs');
 
     const installCommand = 'pnpm dlx @mielui/svelte add dialog';
 </script>
@@ -43,9 +48,41 @@
 
     <!-- ─── Hero Example ──────────────────────────────────────────── -->
     <section id="hero" class="scroll-mt-20 flex flex-col gap-4">
-        <ComponentPreview code={HeroSrc}>
-            <Hero />
-        </ComponentPreview>
+        <Playground controls={playgroundControls} code={playgroundCode}>
+            {#snippet children(values)}
+                <Dialog.Root orientation={values.orientation} error={values.error}>
+                    <Dialog.Trigger variant={values.trigger}>Rename project</Dialog.Trigger>
+                    <Dialog.Content
+                        size={values.size}
+                        surface={values.glass ? 'glass' : undefined}
+                        role={values.role}
+                        showClose={values.showClose}
+                        allowClickOutside={values.allowClickOutside}
+                        allowEscape={values.allowEscape}
+                    >
+                        <Dialog.Header>
+                            <Dialog.Title>Rename project</Dialog.Title>
+                            {#if values.description}
+                                <Dialog.Description>
+                                    The new name shows up everywhere this project is listed.
+                                </Dialog.Description>
+                            {/if}
+                        </Dialog.Header>
+                        {#if values.body}
+                            <Dialog.Body>
+                                <Input bind:value={playgroundName} label="Project name" />
+                            </Dialog.Body>
+                        {/if}
+                        {#if values.footer}
+                            <Dialog.Footer>
+                                <Dialog.Close>Cancel</Dialog.Close>
+                                <Dialog.Confirm>Rename</Dialog.Confirm>
+                            </Dialog.Footer>
+                        {/if}
+                    </Dialog.Content>
+                </Dialog.Root>
+            {/snippet}
+        </Playground>
     </section>
 
     <!-- ─── Installation ──────────────────────────────────────────── -->
@@ -90,6 +127,17 @@
     <section id="examples" class="scroll-mt-20 flex flex-col gap-10">
         <div>
             <Typography.H2 class="docs-section-heading">Examples</Typography.H2>
+        </div>
+
+        <div id="form" class="scroll-mt-20 flex flex-col gap-3">
+            <Typography.H3 class="docs-subsection-heading">Form in a dialog</Typography.H3>
+            <Typography.Text variant="supporting">
+                A vertical dialog with an icon beside the title, one field, and shortcut hints on
+                the actions.
+            </Typography.Text>
+            <ComponentPreview code={HeroSrc}>
+                <Hero />
+            </ComponentPreview>
         </div>
 
         <div id="basic" class="scroll-mt-20 flex flex-col gap-3">

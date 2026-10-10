@@ -78,7 +78,7 @@
 
 <FadeScrollArea class="h-full" start>
     <div class="@container w-full">
-        <div class="flex flex-wrap items-center justify-between gap-3 px-5 pt-5">
+        <div class="flex flex-wrap items-center justify-between gap-3 px-5 pt-16">
             <h2 class="m-0 text-[15px] leading-6 font-medium text-foreground">Analytics</h2>
             <div class="flex flex-wrap items-center gap-4">
                 <Tabs.Root bind:value={year} variant="ghost">
@@ -108,7 +108,7 @@
                         <Card.Description>{`January to June ${year}`}</Card.Description>
                     </Card.Header>
                     <Card.Content class="flex min-w-0 flex-col">
-                        <p class="m-0 mb-5 text-3xl font-semibold tabular-nums tracking-tight">
+                        <p class="m-0 mb-5 text-3xl font-medium tabular-nums tracking-tight">
                             <span
                                 use:numberShuffle={{ value: total, format: (value) => money.format(value) }}
                             >

@@ -30,7 +30,8 @@
             <div class="flex items-center gap-2 text-sm">
                 <span class="h-0.5 w-5 rounded-full" style:background={color}></span>
                 {label}
-                <span class="rounded-full bg-success/10 px-2 py-0.5 text-xs text-success">
+                <span class="flex items-center gap-1.5 text-xs text-[var(--mielui-success-text)]">
+                    <span class="size-1.5 rounded-full bg-success" aria-hidden="true"></span>
                     Live example
                 </span>
             </div>

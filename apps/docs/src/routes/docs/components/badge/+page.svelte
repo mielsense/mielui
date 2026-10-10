@@ -1,17 +1,20 @@
 <script lang="ts">
+    import { Badge } from '@mielui/svelte/components/badge';
     import { CodeBlock } from '@mielui/svelte/components/code-block';
     import * as Typography from '@mielui/svelte/components/typography';
-    import { ComponentPreview, InstallCommand } from '$lib/components/docs';
+    import { ComponentPreview, InstallCommand, Playground } from '$lib/components/docs';
     import InlineText from '$lib/components/docs/inline-text.svelte';
     import PageIntro from '$lib/components/docs/page-intro.svelte';
 
     import Hero from './examples/hero.svelte';
     import HeroSrc from './examples/hero.svelte?raw';
+    import PencilIcon from './examples/pencil-icon.svelte';
     import Shapes from './examples/shapes.svelte';
     import ShapesSrc from './examples/shapes.svelte?raw';
 
     import Variants from './examples/variants.svelte';
     import VariantsSrc from './examples/variants.svelte?raw';
+    import { code as playgroundCode, controls as playgroundControls } from './playground';
 
     const installCommand = 'pnpm dlx @mielui/svelte add badge';
 </script>
@@ -24,9 +27,31 @@
 <div data-docs-page class="flex flex-col gap-10">
     <PageIntro title="Badge">A compact label for status, counts, and tags.</PageIntro>
     <section id="hero" class="scroll-mt-20 flex flex-col gap-4">
-        <ComponentPreview code={HeroSrc}>
-            <Hero />
-        </ComponentPreview>
+        <Playground controls={playgroundControls} code={playgroundCode}>
+            {#snippet children(values)}
+                {@const icon = values.icon ? PencilIcon : undefined}
+                {#if values.link}
+                    <Badge
+                        variant={values.variant}
+                        {icon}
+                        iconSize={values.iconSize}
+                        dot={values.dot}
+                        href="/docs/components/badge"
+                    >
+                        {values.label}
+                    </Badge>
+                {:else}
+                    <Badge
+                        variant={values.variant}
+                        {icon}
+                        iconSize={values.iconSize}
+                        dot={values.dot}
+                    >
+                        {values.label}
+                    </Badge>
+                {/if}
+            {/snippet}
+        </Playground>
     </section>
     <section id="installation" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Installation</Typography.H2>
@@ -56,11 +81,21 @@
             <Typography.H2 class="docs-section-heading">Examples</Typography.H2>
         </div>
 
+        <div id="status-list" class="scroll-mt-20 flex flex-col gap-3">
+            <Typography.H3 class="docs-subsection-heading">Status list</Typography.H3>
+            <Typography.Text variant="supporting">
+                A badge at the end of each row reports the state of that row.
+            </Typography.Text>
+            <ComponentPreview code={HeroSrc}>
+                <Hero />
+            </ComponentPreview>
+        </div>
+
         <div id="shapes" class="scroll-mt-20 flex flex-col gap-3">
             <Typography.H3 class="docs-subsection-heading">Shapes</Typography.H3>
             <Typography.Text variant="supporting">
-                Badges are small pills with a hairline edge, so every variant shares one height. Use
-                class to adjust the corner radius.
+                Badges are small flat pills that share one height. Only the outline variant draws a
+                hairline. Use class to adjust the corner radius.
             </Typography.Text>
             <ComponentPreview code={ShapesSrc}>
                 <Shapes />

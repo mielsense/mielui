@@ -24,10 +24,7 @@
         <Table.Body>
             {#each invoices as invoice (invoice.id)}
                 <Table.Row>
-                    <Table.Head
-                        {...{ scope: 'row' as const }}
-                        class="border-0 font-medium text-foreground"
-                    >
+                    <Table.Head {...{ scope: 'row' as const }} class="text-foreground">
                         {invoice.id}
                     </Table.Head>
                     <Table.Cell>

@@ -1,7 +1,8 @@
 <script lang="ts">
+    import { Checkbox } from '@mielui/svelte/components/checkbox';
     import { CodeBlock } from '@mielui/svelte/components/code-block';
     import * as Typography from '@mielui/svelte/components/typography';
-    import { ComponentPreview, InstallCommand } from '$lib/components/docs';
+    import { ComponentPreview, InstallCommand, Playground } from '$lib/components/docs';
     import InlineText from '$lib/components/docs/inline-text.svelte';
     import PageIntro from '$lib/components/docs/page-intro.svelte';
     import Checked from './examples/checked.svelte';
@@ -18,6 +19,7 @@
     import SizesSrc from './examples/sizes.svelte?raw';
     import WithDescription from './examples/with-description.svelte';
     import WithDescriptionSrc from './examples/with-description.svelte?raw';
+    import { code as playgroundCode, controls as playgroundControls } from './playground';
 
     const TITLE = 'Checkbox';
     const SLUG = 'checkbox';
@@ -41,9 +43,22 @@
 
     <!-- ─── Hero Example ──────────────────────────────────────────── -->
     <section id="hero" class="scroll-mt-20 flex flex-col gap-4">
-        <ComponentPreview code={HeroSrc}>
-            <Hero />
-        </ComponentPreview>
+        <Playground controls={playgroundControls} code={playgroundCode}>
+            {#snippet children(values)}
+                <Checkbox
+                    variant={values.variant}
+                    size={values.size}
+                    checked={values.checked}
+                    label={values.label ? 'Product updates' : undefined}
+                    aria-label={values.label ? undefined : 'Product updates'}
+                    description={values.description
+                        ? 'Get an email when a new version ships.'
+                        : undefined}
+                    disabled={values.disabled}
+                    aria-invalid={values.invalid ? 'true' : undefined}
+                />
+            {/snippet}
+        </Playground>
     </section>
 
     <!-- ─── Installation ──────────────────────────────────────────── -->
@@ -74,6 +89,16 @@
     <section id="examples" class="scroll-mt-20 flex flex-col gap-10">
         <div>
             <Typography.H2 class="docs-section-heading">Examples</Typography.H2>
+        </div>
+
+        <div id="launch-checklist" class="scroll-mt-20 flex flex-col gap-3">
+            <Typography.H3 class="docs-subsection-heading">Launch checklist</Typography.H3>
+            <Typography.Text variant="supporting">
+                A list of tasks with a count of the ones that are done.
+            </Typography.Text>
+            <ComponentPreview code={HeroSrc}>
+                <Hero />
+            </ComponentPreview>
         </div>
 
         <div id="sizes" class="scroll-mt-20 flex flex-col gap-3">
@@ -120,7 +145,7 @@
         <Typography.H2 class="docs-section-heading">Events and the primary variant</Typography.H2>
         <Typography.Text variant="supporting">
             <InlineText
-                text={"`onCheckedChange` runs with the new state each time the box is ticked or cleared, for when you want to react without binding `checked`. `variant=\"primary\"` fills the ticked box with the primary color, which helps a single important checkbox stand out. Put content in `children` when the label needs a link or other markup."}
+                text={"`onCheckedChange` runs with the new state each time the box is ticked or cleared, for when you want to react without binding `checked`. `variant=\"primary\"` sets the checkbox in a card row whose edge strengthens when ticked, which helps a single important checkbox stand out. Put content in `children` when the label needs a link or other markup."}
             />
         </Typography.Text>
         <ComponentPreview code={EventsExampleSrc}>

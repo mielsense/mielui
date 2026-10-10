@@ -8,7 +8,10 @@
 <p
     {...rest}
     data-ui="fieldset-description"
-    class={cn(className, 'text-sm leading-body text-foreground-muted')}
+    class={cn(
+        className,
+        '[font-size:var(--font-size-label)] [font-weight:var(--font-weight-description)] leading-snug text-foreground-muted'
+    )}
 >
     {@render children?.()}
 </p>

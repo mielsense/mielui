@@ -1,16 +1,17 @@
 <script lang="ts">
     import { CodeBlock } from '@mielui/svelte/components/code-block';
+    import { Input } from '@mielui/svelte/components/input';
+    import { Label } from '@mielui/svelte/components/label';
     import * as Typography from '@mielui/svelte/components/typography';
-    import { ComponentPreview, InstallCommand } from '$lib/components/docs';
+    import { ComponentPreview, InstallCommand, Playground } from '$lib/components/docs';
     import InlineText from '$lib/components/docs/inline-text.svelte';
     import PageIntro from '$lib/components/docs/page-intro.svelte';
     import SectionHeading from '$lib/components/docs/section-heading.svelte';
     import Disabled from './examples/disabled.svelte';
     import DisabledSrc from './examples/disabled.svelte?raw';
-    import Hero from './examples/hero.svelte';
-    import HeroSrc from './examples/hero.svelte?raw';
     import WithRequired from './examples/with-required.svelte';
     import WithRequiredSrc from './examples/with-required.svelte?raw';
+    import { code as playgroundCode, controls as playgroundControls } from './playground';
 
     const installCommand = 'pnpm dlx @mielui/svelte add label';
 </script>
@@ -26,9 +27,28 @@
 
     <!-- ─── Hero Example ──────────────────────────────────────────── -->
     <section id="hero" class="scroll-mt-20 flex flex-col gap-4">
-        <ComponentPreview code={HeroSrc}>
-            <Hero />
-        </ComponentPreview>
+        <Playground controls={playgroundControls} code={playgroundCode}>
+            {#snippet children(values)}
+                <div class="flex flex-col gap-1.5">
+                    <Label
+                        for="email"
+                        required={values.required}
+                        class={values.disabled
+                            ? 'cursor-not-allowed opacity-[var(--opacity-disabled)]'
+                            : undefined}
+                    >
+                        {values.text}
+                    </Label>
+                    <Input
+                        id="email"
+                        type="email"
+                        placeholder="you@ui.miel.my"
+                        required={values.required}
+                        disabled={values.disabled}
+                    />
+                </div>
+            {/snippet}
+        </Playground>
     </section>
 
     <!-- ─── Installation ──────────────────────────────────────────── -->

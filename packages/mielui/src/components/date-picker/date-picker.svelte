@@ -13,11 +13,13 @@
         readonly = false,
         required = false,
         fixedWeeks = true,
+        disableDaysOutsideMonth = true,
         weekdayFormat = 'short',
         labels,
         children,
         ...rest
     }: DatePickerProps = $props();
+    let keptPlaceholder = $state(untrack(() => placeholder));
     const initialValue = untrack(() => value);
     setDatePickerContext({
         get labels() {
@@ -53,13 +55,20 @@
 <DatePickerPrimitive.Root
     {...rest}
     bind:value
-    bind:placeholder
+    bind:placeholder={
+        () => placeholder ?? keptPlaceholder,
+        (next) => {
+            keptPlaceholder = next;
+            placeholder = next;
+        }
+    }
     bind:open
     {locale}
     {disabled}
     {readonly}
     {required}
     {fixedWeeks}
+    {disableDaysOutsideMonth}
     {weekdayFormat}
 >
     {@render children?.()}

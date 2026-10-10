@@ -17,7 +17,7 @@
         aria-valuemin={0}
         aria-valuemax={100}
         aria-valuenow={item().progress}
-        class={cn(className, 'h-1 overflow-hidden rounded-full bg-secondary')}
+        class={cn(className, 'h-1.5 overflow-hidden rounded-full bg-secondary')}
     >
         {#if children}
             {@render children()}

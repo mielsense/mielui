@@ -10,7 +10,7 @@ export function readThemeAppearance(theme: Theme) {
     return {
         borders: chrome.borders ?? 'single',
         insetPosition,
-        edgeHighlight: chrome.edgeHighlight ?? 0.5,
+        edgeHighlight: chrome.edgeHighlight ?? 0.33,
         surfaceShadows: shadows && (chrome.surfaceShadows ?? false),
         controlShadows: shadows && (chrome.controlShadows ?? true),
         dialogShadows: shadows && (chrome.dialogShadows ?? true),

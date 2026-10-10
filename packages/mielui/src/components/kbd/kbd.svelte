@@ -29,9 +29,10 @@
     {...rest}
     class={cn(
         className,
-        'hidden min-h-4 min-w-4 shrink-0 select-none items-center justify-center rounded-[var(--radius-sm)] border-[length:var(--border-size)] border-border bg-card shadow-[var(--elevation-control-edge)] px-1 py-1 align-middle font-sans text-[length:var(--font-size-meta)] font-medium leading-none text-foreground-muted sm:inline-flex',
-        '[[data-variant=primary]_&]:border-transparent [[data-variant=primary]_&]:bg-[color-mix(in_oklab,var(--color-on-primary)_18%,transparent)] [[data-variant=primary]_&]:text-[var(--color-on-primary)]',
-        '[[data-variant=destructive]_&]:border-transparent [[data-variant=destructive]_&]:bg-[color-mix(in_oklab,currentColor_16%,transparent)] [[data-variant=destructive]_&]:text-current'
+        'hidden min-h-5 min-w-5 shrink-0 select-none items-center justify-center rounded-[calc(var(--radius-sm)*0.625)] border-[length:var(--border-size)] border-border bg-card shadow-[var(--elevation-control-edge)] px-1 align-middle font-mono text-[length:var(--font-size-meta)] font-medium leading-none text-foreground-muted sm:inline-flex',
+        '[[data-variant=primary]_&]:border-transparent [[data-variant=primary]_&]:bg-[color-mix(in_oklab,var(--color-on-primary)_14%,transparent)] [[data-variant=primary]_&]:text-[var(--color-on-primary)] [[data-variant=primary]_&]:shadow-none',
+        '[[data-variant=destructive]_&]:border-transparent [[data-variant=destructive]_&]:bg-[color-mix(in_oklab,currentColor_14%,transparent)] [[data-variant=destructive]_&]:text-current [[data-variant=destructive]_&]:shadow-none',
+        '[.mielui-tooltip_&]:border-transparent [.mielui-tooltip_&]:bg-[color-mix(in_oklab,var(--color-tooltip-foreground)_16%,transparent)] [.mielui-tooltip_&]:text-[var(--color-tooltip-foreground)] [.mielui-tooltip_&]:shadow-none'
     )}
 >
     {#if children}

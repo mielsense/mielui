@@ -11,6 +11,6 @@
     {...rest}
     data-ui="color-picker-preview"
     aria-hidden="true"
-    class={cn(className, 'block size-7 shrink-0 rounded-[var(--radius-md)] ring-1 ring-inset ring-border')}
+    class={cn(className, 'block size-7 shrink-0 rounded-full shadow-[inset_0_0_0_var(--border-size)_var(--color-border)]')}
     style:background={controller.previewHex}
 ></span>

@@ -1,16 +1,16 @@
 <script lang="ts">
     import { CodeBlock } from '@mielui/svelte/components/code-block';
+    import * as Reasoning from '@mielui/svelte/components/reasoning';
     import * as Typography from '@mielui/svelte/components/typography';
-    import { ComponentPreview, InstallCommand } from '$lib/components/docs';
+    import { ComponentPreview, InstallCommand, Playground } from '$lib/components/docs';
     import InlineText from '$lib/components/docs/inline-text.svelte';
     import PageIntro from '$lib/components/docs/page-intro.svelte';
     import EventsExample from './examples/events.svelte';
     import EventsExampleSrc from './examples/events.svelte?raw';
 
-    import Hero from './examples/hero.svelte';
-    import HeroSrc from './examples/hero.svelte?raw';
     import Streaming from './examples/streaming.svelte';
     import StreamingSrc from './examples/streaming.svelte?raw';
+    import { code as playgroundCode, controls as playgroundControls } from './playground';
 
     const TITLE = 'Reasoning';
     const SLUG = 'reasoning';
@@ -32,7 +32,30 @@
     <PageIntro title={TITLE}>Show an assistant's progress in a collapsible section.</PageIntro>
 
     <section id="hero" class="scroll-mt-20 flex flex-col gap-4">
-        <ComponentPreview code={HeroSrc}><Hero /></ComponentPreview>
+        <Playground controls={playgroundControls} code={playgroundCode}>
+            {#snippet children(values)}
+                <div class="w-full max-w-xl">
+                    <Reasoning.Root streaming={values.streaming} open={values.open}>
+                        <Reasoning.Trigger
+                            title={values.title || undefined}
+                            duration={values.duration || undefined}
+                        />
+                        <Reasoning.Content>
+                            <div class="space-y-3">
+                                <p>
+                                    Compared the incident timeline with the last five production
+                                    deployments.
+                                </p>
+                                <p>
+                                    Filtered payment errors by issuer country and found the
+                                    regression only affects non-US cards.
+                                </p>
+                            </div>
+                        </Reasoning.Content>
+                    </Reasoning.Root>
+                </div>
+            {/snippet}
+        </Playground>
     </section>
 
     <section id="installation" class="scroll-mt-20 flex flex-col gap-4">
@@ -56,7 +79,8 @@
         <Typography.Text variant="supporting">
             The trigger shares the disclosure row used by Accordion, Collapsible, and Tool, with a
             ghost hover fill, a rounded focus ring, and a trailing chevron. Its label aligns with
-            the surrounding text, and expanded content sits behind a hairline rule.
+            the surrounding text and shimmers while the model is thinking, and expanded content sits
+            behind a hairline rule.
         </Typography.Text>
         <CodeBlock
             code={`import * as Reasoning from '@mielui/svelte/components/reasoning';

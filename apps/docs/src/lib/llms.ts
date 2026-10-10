@@ -1,8 +1,18 @@
+import { builtInThemePresets } from '@mielui/svelte/themes/builtin-presets';
 import { changelogLlmVersions, changelogVersions } from '$lib/changelog';
 import { componentGroups, components, sanitizeComponent } from '$lib/components';
 import { catalogSections, componentGuidePages } from '$lib/docs-pages';
 import { componentReference } from '$lib/server/api-reference';
 import { mieluiGuideMarkdown } from '$lib/skill';
+import {
+    classExample,
+    dataUiExample,
+    overrideCss,
+    sourceExample,
+    themeImport,
+    themeJsonFields,
+    tokenGroups
+} from '$lib/theming';
 
 type ComponentManifest = {
     name: string;
@@ -52,6 +62,14 @@ const examples = import.meta.glob<string>('../routes/docs/components/*/examples/
     query: '?raw',
     import: 'default'
 });
+const exampleModules = import.meta.glob<string>(
+    ['../routes/docs/components/*/examples/*.ts', '!**/*.remote.ts'],
+    {
+        eager: true,
+        query: '?raw',
+        import: 'default'
+    }
+);
 
 function sourceFor(sources: Record<string, string>, component: string, suffix: string): string {
     const entry = Object.entries(sources).find(([path]) =>
@@ -65,6 +83,30 @@ function sourceFor(sources: Record<string, string>, component: string, suffix: s
 
 function fence(language: string, content: string): string {
     return `~~~~${language}\n${content.trim()}\n~~~~`;
+}
+
+/** Modules the given example sources import by relative path, such as `./data`. */
+function exampleModuleSections(component: string, sources: string[]): string[] {
+    return Object.entries(exampleModules)
+        .filter(([path]) => path.includes(`/components/${component}/examples/`))
+        .sort(([left], [right]) => left.localeCompare(right))
+        .flatMap(([path, source]) => {
+            const file = path.slice(path.lastIndexOf('/') + 1);
+            const specifier = `./${file.replace(/\.ts$/, '')}`;
+            const imported = sources.some((example) => example.includes(`'${specifier}'`));
+            if (!imported) {
+                return [];
+            }
+
+            return [
+                '',
+                `### ${file}`,
+                '',
+                `The examples import this module as \`${specifier}\`. It sits beside them in the same folder.`,
+                '',
+                fence('ts', source)
+            ];
+        });
 }
 
 function titleFromFile(path: string): string {
@@ -169,7 +211,11 @@ export function componentMarkdown(component: string): string | undefined {
                       `### ${titleFromFile(path)}`,
                       '',
                       fence('svelte', source)
-                  ])
+                  ]),
+                  ...exampleModuleSections(
+                      component,
+                      componentExamples.map(([, source]) => source)
+                  )
               ]
             : []),
         '',
@@ -186,6 +232,10 @@ export function chartGuideMarkdown(component: string, slug: string): string | un
         return undefined;
     }
     const referencePath = `/docs/components/${component}`;
+    const guideSources = guide.examples.map((example) => {
+        return sourceFor(examples, component, `examples/${example.name}.svelte`);
+    });
+
     return [
         `# ${guide.title}`,
         '',
@@ -212,6 +262,7 @@ export function chartGuideMarkdown(component: string, slug: string): string | un
                 fence('svelte', source)
             ];
         }),
+        ...exampleModuleSections(component, guideSources),
         '',
         `For the rendered guide, visit [${guide.title}](${guide.href}).`,
         ''
@@ -249,6 +300,141 @@ export function brandMarkMarkdown(): string {
 const catalogList = catalogSections
     .map((section) => `- [${section.label}](${section.href}): ${section.value}`)
     .join('\n');
+
+function themingMarkdown(): string {
+    const presetSlugs = builtInThemePresets.map((preset) => `\`${preset.slug}\``);
+    const presetList = `${presetSlugs.slice(0, -1).join(', ')}, and ${presetSlugs.at(-1)}`;
+
+    return [
+        '# Theming',
+        '',
+        'Components read CSS variables. Change tokens for a system-wide look, or override a single component with classes and selectors.',
+        '',
+        '## Where tokens live',
+        '',
+        'Package installs use `@mielui/svelte/ui.css`. CLI installs use `src/lib/mielui/ui.css`. Both define the same color, typography, radius, and motion tokens.',
+        '',
+        '## Override tokens',
+        '',
+        "Set values in your app CSS after importing Mielui's sheet. Light defaults go in `@theme`. Dark values go under `.dark`.",
+        '',
+        fence('css', overrideCss),
+        '',
+        'The focus ring, the info status color, and the accent tint are mixed from `--color-primary`, so one value rebrands all of them. Set `--color-on-primary` when the text on filled buttons needs a different color.',
+        '',
+        '## Useful public tokens',
+        '',
+        '| Group | Tokens |',
+        '| --- | --- |',
+        ...tokenGroups.map((group) => {
+            return `| ${group.group} | ${group.tokens.map((token) => `\`${token}\``).join(', ')} |`;
+        }),
+        '',
+        "Controls use three heights. Icon buttons match the medium height. `--focus-ring` is a 3px ring at half the primary color, and it composes with each control's existing edge. The default radius scale is 8, 10, 14, and 18 pixels from small to extra large. Plates use `--radius-2xl`, 26 pixels, and everything pressable uses `--radius-control`: 4 pixels in the sharp scale, 12 in the default scale, and a pill in the rounded scale.",
+        '',
+        'Use the status text tokens for success, warning, error, and info copy on tinted backgrounds and cards. They reach 4.5:1 contrast, while the raw status colors remain for fills, icons, and charts.',
+        '',
+        '## Dark mode',
+        '',
+        'Toggle a `.dark` class on `<html>`. Components do not manage the class for you.',
+        '',
+        '## Built-in presets',
+        '',
+        `Mielui ships ${builtInThemePresets.length} built-in presets: ${presetList}. Preview them on the [themes page](/themes), where you can copy each preset's CSS or JSON.`,
+        '',
+        'With the CLI, install a preset into `theme.css`:',
+        '',
+        fence('sh', 'pnpm dlx @mielui/svelte add theme open'),
+        '',
+        'Import it after `ui.css` to apply its overrides:',
+        '',
+        fence('css', themeImport),
+        '',
+        '`mielui list` shows available built-in theme slugs.',
+        '',
+        '## Theme Studio',
+        '',
+        '[Theme Studio](/studio) lets you start from a preset and adjust colors, fonts, spacing, motion, and surface effects. Open Advanced colors for individual color tokens.',
+        '',
+        'Choose Export theme, open the CLI tab, download `mielui-theme.json` into your project root, and run the command for a new or existing Mielui setup. The JSON includes both color modes and all Studio overrides. New setups get `styles.css`, which imports `ui.css` followed by `theme.css`. Load that stylesheet in your root layout. Fonts must also be loaded by your app.',
+        '',
+        fence('sh', 'pnpm dlx @mielui/svelte init --preset ./mielui-theme.json'),
+        '',
+        'For an existing setup, run the command below. It replaces `theme.css`. Built-in preset slugs, such as `default`, can be used in place of the JSON path.',
+        '',
+        fence('sh', 'pnpm dlx @mielui/svelte add theme ./mielui-theme.json'),
+        '',
+        '## Theme JSON',
+        '',
+        'Theme JSON version 4 is the format shared by Studio and the CLI. Export it from Studio to preserve both color modes and your overrides.',
+        '',
+        ...themeJsonFields.map((field) => `- ${field}`),
+        '',
+        'Set `motion: "none"` to disable animations, including dialogs, menus, and the traveling highlight. Edge highlight strength ranges from 0 to 1.',
+        '',
+        '## Global glass surfaces',
+        '',
+        'Surfaces are solid by default. Set `--mielui-surface: glass` on `:root` and components with surface support inherit that choice when the prop is omitted. Set `surface="solid"` or `surface="glass"` on one component to override the theme. Put the variable on `:root` so portaled menus and dialogs inherit it too.',
+        '',
+        fence('css', ':root {\n  --mielui-surface: glass;\n}'),
+        '',
+        'The global setting uses CSS style queries. Browsers without style-query support retain solid surfaces. Explicit `surface="glass"` still works with backdrop-filter support. Reduced transparency keeps an opaque background and removes blur.',
+        '',
+        '## Class overrides',
+        '',
+        'Styled components accept `class`. Use Tailwind utilities or your own classes for one-off tweaks. Your classes win over the component defaults.',
+        '',
+        fence('svelte', classExample),
+        '',
+        '## Component selectors',
+        '',
+        'Components render `data-ui`, and often `data-variant` or `data-size`. Scope CSS to a family without forking files.',
+        '',
+        fence('css', dataUiExample),
+        '',
+        '## Edit the source',
+        '',
+        'With the CLI path, files live under `src/lib/mielui/components/<name>/`. Edit them when you need behavior changes, not just style.',
+        '',
+        fence('console', sourceExample),
+        '',
+        '## Borders',
+        '',
+        'Framed surfaces are a white frame holding a recessed inset in the page background. Set `chrome.borders` to `"single"` so the inset meets the border of the frame, or `"double"` for a gutter between the two. The default is `"single"`.',
+        '',
+        fence(
+            'ts',
+            "const theme = {\n    ...DEFAULT_THEME,\n    chrome: { borders: 'single' as const }\n};\n\nconst css = themeToCss(theme);"
+        ),
+        '',
+        'The setting covers inset layouts: dialogs, sheets, drawers, toasts, Notch, code blocks, diffs, inset tables, inset and panel cards, alerts, and composers. Menus, selects, comboboxes, popovers, hover cards, date-picker panels, and chart tooltips always use a single border.',
+        '',
+        '## Chart colors',
+        '',
+        '`--chart-1` through `--chart-5` color data series in order. Cartesian charts, pie charts, gauges, and heatmaps read them. Explicit series colors and semantic gauge tones still take precedence.',
+        '',
+        fence(
+            'css',
+            ':root {\n  --chart-1: #b8a1f2;\n  --chart-2: #f49d9d;\n  --chart-3: #8bc7f5;\n  --chart-4: #8ed8b0;\n  --chart-5: #f2d77d;\n}'
+        ),
+        '',
+        '## Inset strip position',
+        '',
+        '`--mielui-inset-position` moves exposed chrome above or below its inset content. It takes `top` or `bottom`. Without that token, components keep their authored order. Override it locally with `class="[--mielui-inset-position:top]"` when a header must stay above its content. Data tables keep filters above rows and pagination below them.',
+        '',
+        '## Edge highlights',
+        '',
+        'Set `chrome.edgeHighlight` to adjust the light on lit pills: filled buttons, moving thumbs, and selected segments. It also scales the light edge on keycaps. Text fields, selection triggers, and outline buttons stay flat. The default is 0.33. Use 0 to remove that light or 1 for full strength.',
+        '',
+        fence(
+            'ts',
+            'const theme = {\n    ...DEFAULT_THEME,\n    chrome: { edgeHighlight: 0.5 }\n};\n\nconst css = themeToCss(theme);'
+        ),
+        '',
+        'For the rendered guide, visit [/docs/theming](/docs/theming).',
+        ''
+    ].join('\n');
+}
 
 const coreDocs = {
     introduction: `# Introduction
@@ -421,12 +607,7 @@ pnpm dlx @mielui/svelte list
 - [Theming](/docs/theming.md): Apply your brand with a preset or your own tokens.
 - [Components](/docs/components.md): Browse live examples and APIs.
 `,
-    theming: `# Theming
-
-Mielui components use CSS custom properties from \`@mielui/svelte/ui.css\`. Import that stylesheet, then override the tokens in your application CSS to adapt colors, radii, typography, and spacing to your product.
-
-See the rendered guide at [/docs/theming](/docs/theming) for token examples and theme presets.
-`
+    theming: themingMarkdown()
 } as const;
 
 export function coreMarkdown(page: keyof typeof coreDocs): string {
@@ -448,6 +629,7 @@ export function llmsTxt(origin: string): string {
         ['Components index', '/docs/components.md'],
         ['Brand Mark', '/docs/brand-mark.md'],
         ['Mielui skill', '/docs/skill.md'],
+        ['Mielui design skill', '/docs/design-skill.md'],
         ['Component selection', '/docs/component-selection.md'],
         ['Design language', '/docs/design-language.md'],
         ['XML sitemap', '/sitemap.xml'],
@@ -477,6 +659,12 @@ export function llmsTxt(origin: string): string {
         fence('sh', 'npx skills add mielsense/mielui --skill mielui'),
         '',
         `The skill fetches ${origin}/llms.txt as the live catalog. If you are reading this file directly, follow the usage guide below, then load only the Markdown pages you need.`,
+        '',
+        'Install the design skill as well when the task is a whole page, app, or website. It covers app shells, dashboards, settings, chat workspaces, and marketing pages, with the spacing and type scales and layout skeletons:',
+        '',
+        fence('sh', 'npx skills add mielsense/mielui --skill mielui-design'),
+        '',
+        `Its instructions are at ${origin}/docs/design-skill.md.`,
         '',
         '## How to use Mielui',
         '',

@@ -1,16 +1,16 @@
 <script lang="ts">
     import { CodeBlock } from '@mielui/svelte/components/code-block';
+    import { Spinner } from '@mielui/svelte/components/spinner';
     import * as Typography from '@mielui/svelte/components/typography';
-    import { ComponentPreview, InstallCommand } from '$lib/components/docs';
+    import { ComponentPreview, InstallCommand, Playground } from '$lib/components/docs';
     import InlineText from '$lib/components/docs/inline-text.svelte';
     import PageIntro from '$lib/components/docs/page-intro.svelte';
 
-    import Hero from './examples/hero.svelte';
-    import HeroSrc from './examples/hero.svelte?raw';
     import Pace from './examples/pace.svelte';
     import PaceSrc from './examples/pace.svelte?raw';
     import ReadyState from './examples/ready-state.svelte';
     import ReadyStateSrc from './examples/ready-state.svelte?raw';
+    import { code as playgroundCode, controls as playgroundControls } from './playground';
 
     const installCommand = 'pnpm dlx @mielui/svelte add spinner';
 </script>
@@ -26,7 +26,30 @@
     </PageIntro>
 
     <section id="hero" class="scroll-mt-20 flex flex-col gap-4">
-        <ComponentPreview code={HeroSrc}><Hero /></ComponentPreview>
+        <Playground controls={playgroundControls} code={playgroundCode}>
+            {#snippet children(values)}
+                {#if values.label}
+                    <div class="flex items-center gap-3 text-sm text-foreground-muted">
+                        <Spinner
+                            size={values.size}
+                            ready={values.ready}
+                            speed={values.speed}
+                            curved={values.curved}
+                            aria-hidden="true"
+                        />
+                        <span>Checking for updates</span>
+                    </div>
+                {:else}
+                    <Spinner
+                        size={values.size}
+                        ready={values.ready}
+                        speed={values.speed}
+                        curved={values.curved}
+                        aria-label="Checking for updates"
+                    />
+                {/if}
+            {/snippet}
+        </Playground>
     </section>
 
     <section id="installation" class="scroll-mt-20 flex flex-col gap-4">

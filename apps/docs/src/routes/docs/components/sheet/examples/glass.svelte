@@ -82,7 +82,7 @@
                 <Sheet.Description>Create a new issue in Engineering.</Sheet.Description>
             </Sheet.Header>
 
-            <div class="flex flex-col gap-4">
+            <div class="flex flex-col gap-5">
                 <Input
                     bind:value={issueTitle}
                     label="Title"
@@ -96,8 +96,6 @@
                     placeholder="Add description…"
                     class="min-h-[120px]"
                 />
-
-                <div class="h-px w-full bg-border" role="separator"></div>
 
                 <div class="flex flex-col gap-3">
                     <div class="flex flex-col gap-1.5">

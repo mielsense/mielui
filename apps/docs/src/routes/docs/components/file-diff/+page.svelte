@@ -1,21 +1,60 @@
 <script lang="ts">
+    import { ArrowExpandIcon } from '@hugeicons/core-free-icons';
+    import { Button } from '@mielui/svelte/components/button';
     import { CodeBlock } from '@mielui/svelte/components/code-block';
+    import type { FileDiffLine } from '@mielui/svelte/components/file-diff';
+    import * as FileDiff from '@mielui/svelte/components/file-diff';
     import * as Typography from '@mielui/svelte/components/typography';
-    import { ComponentPreview, InstallCommand } from '$lib/components/docs';
+    import HugeiconsIcon from '@mielui/svelte/hugeicons-icon';
+    import { ComponentPreview, InstallCommand, Playground } from '$lib/components/docs';
     import InlineText from '$lib/components/docs/inline-text.svelte';
     import PageIntro from '$lib/components/docs/page-intro.svelte';
     import Compound from './examples/compound.svelte';
     import CompoundSrc from './examples/compound.svelte?raw';
-    import Hero from './examples/hero.svelte';
-    import HeroSrc from './examples/hero.svelte?raw';
     import Live from './examples/live.svelte';
     import LiveSrc from './examples/live.svelte?raw';
     import Stacked from './examples/stacked.svelte';
     import StackedSrc from './examples/stacked.svelte?raw';
     import WithoutLineNumbers from './examples/without-line-numbers.svelte';
     import WithoutLineNumbersSrc from './examples/without-line-numbers.svelte?raw';
+    import { code as playgroundCode, controls as playgroundControls } from './playground';
 
     const installCommand = 'pnpm dlx @mielui/svelte add file-diff';
+
+    const playgroundDiff: FileDiffLine[] = [
+        {
+            type: 'context',
+            oldLineNumber: 12,
+            newLineNumber: 12,
+            content: 'export function getToken() {'
+        },
+        {
+            type: 'remove',
+            oldLineNumber: 13,
+            content: '  return localStorage.token;'
+        },
+        {
+            type: 'add',
+            newLineNumber: 13,
+            content: '  const token = cookies.get("session");'
+        },
+        {
+            type: 'add',
+            newLineNumber: 14,
+            content: '  if (!token) throw new Error("no session");'
+        },
+        {
+            type: 'add',
+            newLineNumber: 15,
+            content: '  return token;'
+        },
+        {
+            type: 'context',
+            oldLineNumber: 14,
+            newLineNumber: 16,
+            content: '}'
+        }
+    ];
 
     const usageSnippet = `import * as FileDiff from '@mielui/svelte/components/file-diff';
 
@@ -42,9 +81,61 @@
 
     <!-- ─── Hero Example ──────────────────────────────────────────── -->
     <section id="hero" class="scroll-mt-20 flex flex-col gap-4">
-        <ComponentPreview code={HeroSrc}>
-            <Hero />
-        </ComponentPreview>
+        <Playground controls={playgroundControls} code={playgroundCode}>
+            {#snippet children(values)}
+                {#if values.topBar && values.counts && !values.action}
+                    <FileDiff.Root
+                        diff={playgroundDiff}
+                        file={values.file}
+                        lang="ts"
+                        additions={values.additions}
+                        deletions={values.deletions}
+                        showLineNumbers={values.showLineNumbers}
+                        theme={values.theme}
+                        class="max-w-2xl"
+                    />
+                {:else}
+                    <FileDiff.Root
+                        file={values.file}
+                        lang="ts"
+                        additions={values.additions}
+                        deletions={values.deletions}
+                        showLineNumbers={values.showLineNumbers}
+                        theme={values.theme}
+                        class="max-w-2xl"
+                    >
+                        {#if values.topBar}
+                            <FileDiff.TopBar>
+                                <FileDiff.Filename />
+                                {#if values.counts}
+                                    <FileDiff.PlusMinus />
+                                {/if}
+                                {#if values.action}
+                                    <Button
+                                        variant="ghost"
+                                        size="icon"
+                                        class="size-7"
+                                        aria-label="Expand diff"
+                                    >
+                                        <HugeiconsIcon icon={ArrowExpandIcon} size={14} />
+                                    </Button>
+                                {/if}
+                            </FileDiff.TopBar>
+                        {/if}
+                        <FileDiff.Content>
+                            {#each playgroundDiff as line, index (index)}
+                                <FileDiff.Row
+                                    type={line.type}
+                                    oldLine={line.oldLineNumber}
+                                    newLine={line.newLineNumber}
+                                    code={line.content}
+                                />
+                            {/each}
+                        </FileDiff.Content>
+                    </FileDiff.Root>
+                {/if}
+            {/snippet}
+        </Playground>
     </section>
 
     <!-- ─── Installation ──────────────────────────────────────────── -->

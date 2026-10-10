@@ -57,7 +57,7 @@
     data-visible={context.matches(value)}
     aria-hidden={!context.matches(value) || undefined}
     inert={!context.matches(value)}
-    class="grid transition-[grid-template-rows] [transition-duration:var(--motion-duration-panel)] ease-[var(--ease-out)] motion-reduce:transition-none"
+    class="grid"
     style:grid-template-rows={context.matches(value) ? '1fr' : '0fr'}
 >
     <div class="min-h-0 overflow-hidden">
@@ -79,7 +79,13 @@
                     data-collection-active={highlighted}
                     data-combobox-value={value}
                     tabindex={-1}
-                    class={cn(className, 'mielui-menu-item flex-row gap-3 overflow-hidden text-sm')}
+                    class={cn(
+                        className,
+                        'mielui-menu-item flex-row gap-3 overflow-hidden text-sm',
+                        selected
+                            ? '[font-weight:var(--font-weight-label)]'
+                            : '[font-weight:var(--font-weight-body)]'
+                    )}
                     unstyled
                 >
                     {#if children}
@@ -88,7 +94,7 @@
                         {label}
                     {/if}
                     {#if selected}
-                        <span aria-hidden="true" class="ms-auto">
+                        <span aria-hidden="true" class="ms-auto text-foreground-muted">
                             <HugeiconsIcon icon={Check} />
                         </span>
                     {/if}

@@ -77,8 +77,8 @@
 
     const composerClass = $derived(
         variant === 'secondary'
-            ? 'border-transparent bg-secondary focus-within:border-[color-mix(in_srgb,var(--color-secondary)_45%,var(--color-primary))]'
-            : 'border-[var(--color-input)] bg-[var(--color-field)] focus-within:border-primary'
+            ? 'border-transparent bg-secondary hover:border-[var(--color-input)] has-[textarea:disabled]:border-transparent'
+            : 'border-[var(--color-input)] bg-[var(--color-field)] hover:border-[var(--color-border-strong)] has-[textarea:disabled]:border-[var(--color-input)]'
     );
 </script>
 
@@ -96,9 +96,10 @@
         data-variant={variant}
         class={cn(
             classProp,
-            children && 'rounded-none border-0 bg-transparent shadow-none focus-visible:shadow-none',
+            children &&
+                'resize-none rounded-none border-0 bg-transparent shadow-none focus-visible:shadow-none aria-invalid:focus-visible:shadow-none disabled:opacity-100',
             autoresize && 'resize-none overflow-y-hidden',
-            'min-h-16 resize-y py-2.5 leading-body',
+            'min-h-16 resize-y rounded-[var(--radius-xl)] py-2.5 leading-body',
             input({ variant })
         )}
         {...rest}
@@ -112,7 +113,7 @@
             data-ui="textarea-composer"
             data-variant={variant}
             class={cn(
-                'overflow-hidden rounded-[var(--radius-xl)] border-[length:var(--border-size)] transition-[border-color,box-shadow] [transition-duration:var(--motion-duration-press)] ease-[var(--ease-out)] focus-within:shadow-[var(--focus-ring)] motion-reduce:transition-none has-[[aria-invalid=true]]:border-error has-[[aria-invalid=true]]:focus-within:border-error',
+                'overflow-hidden rounded-[var(--radius-xl)] border-[length:var(--border-size)] transition-[background-color,border-color,box-shadow] [transition-duration:var(--motion-duration-hover)] ease-[var(--ease-out)] motion-reduce:transition-none has-[textarea:focus-visible]:border-primary has-[textarea:focus-visible]:shadow-[var(--focus-ring)] has-[[aria-invalid=true]]:border-error has-[[aria-invalid=true]]:has-[textarea:focus-visible]:border-error has-[[aria-invalid=true]]:has-[textarea:focus-visible]:shadow-[0_0_0_calc(var(--border-size)*3)_color-mix(in_srgb,var(--color-error)_30%,transparent)] has-[textarea:disabled]:cursor-not-allowed has-[textarea:disabled]:opacity-[var(--opacity-disabled)]',
                 composerClass
             )}
         >
@@ -128,7 +129,7 @@
     {#if label}
         <label
             for={metadata.controlId}
-            class="[font-size:var(--font-size-label)] [font-weight:var(--font-weight-label)] [letter-spacing:var(--tracking-label)] text-foreground [font-family:var(--font-sans),sans-serif]"
+            class="w-fit select-none [font-size:var(--font-size-label)] [font-weight:var(--font-weight-label)] [letter-spacing:var(--tracking-label)] leading-label text-foreground [font-family:var(--font-sans),sans-serif]"
         >
             {label}
             {#if rest.required}
@@ -145,7 +146,7 @@
     {#if description}
         <span
             id={metadata.descriptionId}
-            class="[font-size:var(--font-size-body)] [font-weight:var(--font-weight-body)] [letter-spacing:var(--tracking-body)] text-foreground-muted"
+            class="[font-size:var(--font-size-label)] [font-weight:var(--font-weight-description)] [letter-spacing:var(--tracking-body)] leading-snug text-foreground-muted"
         >
             {description}
         </span>
@@ -153,9 +154,9 @@
 {/snippet}
 
 {#if label}
-    <div class="flex flex-col gap-1">{@render meta()} </div>
+    <div class="flex flex-col gap-1.5">{@render meta()} </div>
 {:else if description}
-    <div class="flex flex-col gap-1">
+    <div class="flex flex-col gap-1.5">
         {@render meta()}
     </div>
 {:else}

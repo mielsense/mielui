@@ -30,7 +30,7 @@
     <dl class="grid grid-cols-2 gap-6 border-y border-border py-6 @2xl:grid-cols-3">
         <div>
             <dt class="text-sm text-foreground-muted">Outstanding</dt>
-            <dd class="mt-2 text-2xl font-semibold tabular-nums">
+            <dd class="mt-2 text-2xl font-medium tabular-nums">
                 <span
                     use:numberShuffle={{
                         value: model.outstandingTotal,
@@ -43,13 +43,13 @@
         </div>
         <div>
             <dt class="text-sm text-foreground-muted">Overdue invoices</dt>
-            <dd class="mt-2 text-2xl font-semibold tabular-nums">
+            <dd class="mt-2 text-2xl font-medium tabular-nums">
                 <span use:numberShuffle={{ value: model.overdueCount }}>{model.overdueCount}</span>
             </dd>
         </div>
         <div>
             <dt class="text-sm text-foreground-muted">Cash coverage</dt>
-            <dd class="mt-2 text-2xl font-semibold tabular-nums">
+            <dd class="mt-2 text-2xl font-medium tabular-nums">
                 <span
                     use:numberShuffle={{
                         value: model.coverageValue,
@@ -63,7 +63,7 @@
     </dl>
     <div class="grid gap-8 @2xl:grid-cols-[1fr_18rem]">
         <section class="min-w-0">
-            <h2 class="mb-4 text-base font-semibold">Needs attention</h2>
+            <h2 class="mb-4 text-base font-medium">Needs attention</h2>
             {#each model.overdueInvoices as invoice (invoice.reference)}
                 <div
                     class="flex flex-wrap items-center justify-between gap-3 border-b border-border py-4"

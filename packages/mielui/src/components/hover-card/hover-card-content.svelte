@@ -39,9 +39,9 @@
                         aria-describedby={context.state.description ? `${context.id}-description` : undefined}
                         in:panelIn
                         out:panelOut
-                        class={cn(className, overlaySurface(surface), 'mielui-modal-frame [--mielui-border-inset-scale:0] z-[130] w-64 max-w-[calc(100vw-var(--spacing)*4)] origin-[var(--bits-link-preview-content-transform-origin)] overflow-hidden text-[var(--font-size-body)] text-foreground shadow-[var(--elevation-float)] [--mielui-modal-inset:calc(var(--spacing)*0.5*var(--mielui-border-inset-scale,1))]')}
+                        class={cn(className, overlaySurface(surface), 'mielui-float-frame z-[130] w-64 max-w-[calc(100vw-var(--spacing)*4)] origin-[var(--bits-link-preview-content-transform-origin)] overflow-hidden text-[var(--font-size-body)] text-foreground shadow-[var(--elevation-float)]')}
                     >
-                        <div class="mielui-inset-surface p-3">{@render children?.()}</div>
+                        <div class="mielui-inset-surface p-4">{@render children?.()}</div>
                     </div>
                 </div>
             {/if}

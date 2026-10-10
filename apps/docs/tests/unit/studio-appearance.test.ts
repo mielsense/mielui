@@ -5,7 +5,7 @@ import { readThemeAppearance } from '../../src/routes/studio/editor/appearance';
 const defaults = {
     borders: 'single',
     insetPosition: 'bottom',
-    edgeHighlight: 0.5,
+    edgeHighlight: 0.33,
     surfaceShadows: false,
     controlShadows: true,
     dialogShadows: true,

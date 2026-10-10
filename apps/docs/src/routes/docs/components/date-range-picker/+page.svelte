@@ -1,7 +1,14 @@
 <script lang="ts">
+    import {
+        CalendarDate,
+        CalendarDateTime,
+        type DateValue,
+        isWeekend
+    } from '@internationalized/date';
     import { CodeBlock } from '@mielui/svelte/components/code-block';
+    import * as DateRangePicker from '@mielui/svelte/components/date-range-picker';
     import * as Typography from '@mielui/svelte/components/typography';
-    import { ComponentPreview, InstallCommand } from '$lib/components/docs';
+    import { ComponentPreview, InstallCommand, Playground } from '$lib/components/docs';
     import InlineText from '$lib/components/docs/inline-text.svelte';
     import PageIntro from '$lib/components/docs/page-intro.svelte';
     import Example1 from './examples/disabled.svelte';
@@ -18,6 +25,45 @@
     import RangeLengthExampleSrc from './examples/range-length.svelte?raw';
     import Example0 from './examples/two-months.svelte';
     import Example0Src from './examples/two-months.svelte?raw';
+    import {
+        HOUR_CYCLE,
+        code as playgroundCode,
+        controls as playgroundControls,
+        WEEK_START
+    } from './playground';
+
+    const booked = [8, 9, 22];
+    const minDate = new CalendarDate(2026, 9, 7);
+    const maxDate = new CalendarDate(2026, 10, 16);
+    const playgroundLabels = {
+        trigger: 'Open the travel calendar',
+        content: 'Travel dates calendar',
+        invalid: 'Enter a valid travel date.'
+    };
+    let range = $state<{
+        start: DateValue | undefined;
+        end: DateValue | undefined;
+    }>({
+        start: new CalendarDate(2026, 9, 17),
+        end: new CalendarDate(2026, 9, 23)
+    });
+    let timeRange = $state<{
+        start: DateValue | undefined;
+        end: DateValue | undefined;
+    }>({
+        start: new CalendarDateTime(2026, 9, 17, 9, 30),
+        end: new CalendarDateTime(2026, 9, 23, 18, 0)
+    });
+
+    function isBooked(day: DateValue) {
+        return day.month === 9 && booked.includes(day.day);
+    }
+
+    function weekendMatcher(locale: string) {
+        return (day: DateValue) => {
+            return isWeekend(day, locale);
+        };
+    }
 </script>
 
 <svelte:head>
@@ -30,7 +76,81 @@
         Editable start and end dates with a shared calendar popup.
     </PageIntro>
     <section id="hero" class="scroll-mt-20 flex flex-col gap-4">
-        <ComponentPreview code={HeroSrc}><Hero /></ComponentPreview>
+        <Playground controls={playgroundControls} code={playgroundCode}>
+            {#snippet children(values)}
+                {@const withTime = values.granularity !== 'day'}
+                <div class="w-full max-w-lg">
+                    {#key withTime}
+                        <DateRangePicker.Root
+                            bind:value={
+                                () => (withTime ? timeRange : range),
+                                (next) => {
+                                    if (withTime) {
+                                        timeRange = next;
+                                    } else {
+                                        range = next;
+                                    }
+                                }
+                            }
+                            calendarLabel="Travel dates"
+                            locale={values.locale}
+                            granularity={values.granularity}
+                            hourCycle={withTime ? HOUR_CYCLE[values.hourCycle] : undefined}
+                            weekdayFormat={values.weekdayFormat}
+                            monthFormat={values.monthFormat}
+                            yearFormat={values.yearFormat}
+                            weekStartsOn={WEEK_START[values.weekStartsOn]}
+                            numberOfMonths={values.numberOfMonths}
+                            fixedWeeks={values.fixedWeeks}
+                            disabled={values.disabled}
+                            readonly={values.readonly}
+                            required={values.required}
+                            minValue={values.bounds ? minDate : undefined}
+                            maxValue={values.bounds ? maxDate : undefined}
+                            isDateDisabled={values.weekends
+                                ? weekendMatcher(values.locale)
+                                : undefined}
+                            isDateUnavailable={values.unavailable ? isBooked : undefined}
+                            closeOnRangeSelect={values.closeOnRangeSelect}
+                            minDays={values.limit ? 2 : undefined}
+                            maxDays={values.limit ? 7 : undefined}
+                            excludeDisabled={values.excludeDisabled}
+                            preventDeselect={values.preventDeselect}
+                            pagedNavigation={values.pagedNavigation}
+                            disableDaysOutsideMonth={values.disableDaysOutsideMonth}
+                            labels={values.labels ? playgroundLabels : undefined}
+                        >
+                            <div class="grid gap-2">
+                                {#if values.label}
+                                    <DateRangePicker.Label>Travel dates</DateRangePicker.Label>
+                                {/if}
+                                <div class="flex flex-wrap items-center gap-2">
+                                    <DateRangePicker.Input
+                                        type="start"
+                                        name="startDate"
+                                        aria-label="Start date"
+                                    />
+                                    <DateRangePicker.Input
+                                        type="end"
+                                        name="endDate"
+                                        aria-label="End date"
+                                    />
+                                    <DateRangePicker.Trigger openOnHover={values.openOnHover} />
+                                </div>
+                            </div>
+                            <DateRangePicker.Content
+                                side={values.side}
+                                align={values.align}
+                                sideOffset={values.sideOffset}
+                                surface={values.surface === 'theme' ? undefined : values.surface}
+                            >
+                                <DateRangePicker.Calendar />
+                            </DateRangePicker.Content>
+                        </DateRangePicker.Root>
+                    {/key}
+                </div>
+            {/snippet}
+        </Playground>
     </section>
     <section id="installation" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Installation</Typography.H2>
@@ -68,6 +188,13 @@
     </section>
     <section id="examples" class="scroll-mt-20 flex flex-col gap-8">
         <Typography.H2 class="docs-section-heading">Examples</Typography.H2>
+        <div id="helper-text" class="scroll-mt-20 flex flex-col gap-3">
+            <Typography.H3 class="docs-subsection-heading">Helper text</Typography.H3>
+            <Typography.Text variant="supporting">
+                A line under the fields tells people they can type each date or pick the range.
+            </Typography.Text>
+            <ComponentPreview code={HeroSrc}><Hero /></ComponentPreview>
+        </div>
         <div id="two-months" class="scroll-mt-20 flex flex-col gap-3">
             <Typography.H3 class="docs-subsection-heading">Across months</Typography.H3>
             <Typography.Text variant="supporting">
@@ -181,7 +308,7 @@
         >
         <Typography.Text variant="supporting">
             <InlineText
-                text={"`weekStartsOn` sets the first column, from 0 for Sunday to 6 for Saturday, and falls back to the locale. `weekdayFormat` picks `narrow`, `short` or `long` weekday names. `fixedWeeks` is on by default and always draws six rows so the height never jumps between months. Turn it off to draw only the weeks a month needs. Days from the neighbouring months fill the grid, and `disableDaysOutsideMonth` makes them unselectable."}
+                text={"`weekStartsOn` sets the first column, from 0 for Sunday to 6 for Saturday, and falls back to the locale. `weekdayFormat` picks `narrow`, `short` or `long` weekday names. `fixedWeeks` is on by default and always draws six rows so the height never jumps between months. Turn it off to draw only the weeks a month needs. Days from the neighbouring months fill the grid and cannot be selected. Set `disableDaysOutsideMonth={false}` to make them selectable."}
             />
         </Typography.Text>
         <Typography.Text variant="supporting">

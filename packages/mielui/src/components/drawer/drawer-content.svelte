@@ -61,7 +61,7 @@
         }
         panel.style.transform = transform;
         void panel.offsetHeight;
-        panel.style.transition = 'transform var(--motion-duration-sheet) var(--ease-out)';
+        panel.style.transition = 'transform var(--motion-duration-sheet) var(--ease-drawer)';
         panel.style.transform = 'translate3d(0, 0, 0)';
         if (drawer.overlay) {
             drawer.overlay.style.opacity = '1';
@@ -85,7 +85,7 @@
         'data-[vaul-drawer-direction=top]:inset-x-0 data-[vaul-drawer-direction=top]:top-0 data-[vaul-drawer-direction=top]:mx-auto data-[vaul-drawer-direction=top]:w-fit data-[vaul-drawer-direction=top]:max-w-full data-[vaul-drawer-direction=top]:px-[var(--drawer-gap)] data-[vaul-drawer-direction=top]:pt-[max(var(--drawer-gap),env(safe-area-inset-top))]',
         'data-[vaul-drawer-direction=left]:inset-y-0 data-[vaul-drawer-direction=left]:left-0 data-[vaul-drawer-direction=left]:max-w-full data-[vaul-drawer-direction=left]:py-[var(--drawer-gap)] data-[vaul-drawer-direction=left]:pl-[max(var(--drawer-gap),env(safe-area-inset-left))]',
         'data-[vaul-drawer-direction=right]:inset-y-0 data-[vaul-drawer-direction=right]:right-0 data-[vaul-drawer-direction=right]:max-w-full data-[vaul-drawer-direction=right]:py-[var(--drawer-gap)] data-[vaul-drawer-direction=right]:pr-[max(var(--drawer-gap),env(safe-area-inset-right))]',
-        '[animation-duration:var(--motion-duration-sheet)]! [animation-timing-function:var(--ease-out)]! [transition-duration:var(--motion-duration-sheet)]! [&.vaul-dragging]:[transition-duration:0ms]! [transition-timing-function:var(--ease-out)]! data-[state=closed]:[animation-duration:var(--motion-duration-sheet-out)]! data-[state=closed]:[animation-fill-mode:forwards]! motion-reduce:[animation-duration:0ms]! motion-reduce:[transition-duration:0ms]!'
+        '[animation-duration:var(--motion-duration-sheet)]! [animation-timing-function:var(--ease-drawer)]! [transition-duration:var(--motion-duration-sheet)]! [&.vaul-dragging]:[transition-duration:0ms]! [transition-timing-function:var(--ease-out)]! data-[state=closed]:[animation-duration:var(--motion-duration-sheet-out)]! data-[state=closed]:[animation-fill-mode:forwards]! motion-reduce:[animation-duration:0ms]! motion-reduce:[transition-duration:0ms]!'
     )}
 >
     <div

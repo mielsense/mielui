@@ -73,6 +73,7 @@
         {side}
         {align}
         sideOffset={6}
+        collisionPadding={8}
         customAnchor={anchor}
         preventScroll={state.open && lockScroll && !context.hoverable}
         onInteractOutside={(event) => {
@@ -84,7 +85,11 @@
         }}
     >
         {#snippet child({ props, wrapperProps, open })}
-            <div {...wrapperProps} data-overlay-root class="z-[130]">
+            <div
+                {...wrapperProps}
+                data-overlay-root
+                class={cn('z-[130]', !open && 'pointer-events-none!')}
+            >
                 <div
                     {...mergeProps(props, { onmouseenter: context.cancelHover, onmouseleave: context.hoverLeave })}
                     bind:this={context.panel}
@@ -98,8 +103,10 @@
                     class={cn(
                         className,
                         overlaySurface(surface),
-                        'mielui-modal-frame [--mielui-border-inset-scale:0] z-[130] flex max-h-[var(--bits-combobox-content-available-height)] max-w-[var(--bits-combobox-content-available-width)] w-[var(--bits-combobox-anchor-width)] min-w-[var(--bits-combobox-anchor-width)] flex-col overflow-hidden text-sm text-foreground shadow-[var(--elevation-float)] [--mielui-modal-inset:calc(var(--spacing)*0.5*var(--mielui-border-inset-scale,1))] outline-none origin-[var(--bits-combobox-content-transform-origin)] [transition-duration:var(--motion-duration-panel)] ease-[var(--ease-out)] motion-reduce:transition-none',
-                        open ? 'visible scale-100 opacity-100 blur-none transition-[opacity,scale,filter]' : 'invisible scale-[0.98] opacity-0 blur-[var(--motion-menu-blur)] transition-[opacity,scale,filter,visibility]'
+                        'mielui-float-frame z-[130] flex max-h-[var(--bits-combobox-content-available-height)] max-w-[var(--bits-combobox-content-available-width)] w-[var(--bits-combobox-anchor-width)] min-w-[var(--bits-combobox-anchor-width)] flex-col overflow-hidden text-sm text-foreground shadow-[var(--elevation-float)] outline-none origin-[var(--bits-combobox-content-transform-origin)] motion-reduce:transition-none',
+                        open
+                            ? 'visible translate-y-0 scale-100 opacity-100 blur-none transition-[opacity,filter,scale,translate] [transition-duration:var(--motion-duration-hover),var(--motion-duration-hover),var(--motion-duration-panel-in),var(--motion-duration-panel-in)] [transition-timing-function:var(--ease-out),var(--ease-out),var(--ease-spring-panel),var(--ease-spring-panel)]'
+                            : 'invisible -translate-y-[var(--motion-menu-y)] data-[side=top]:translate-y-[var(--motion-menu-y)] scale-[var(--motion-menu-scale-start)] opacity-0 blur-[var(--motion-menu-blur)] transition-[opacity,filter,scale,translate,visibility] [transition-duration:var(--motion-duration-panel-out)] ease-[var(--ease-out)]'
                     )}
                 >
                     <div

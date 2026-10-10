@@ -53,8 +53,8 @@
     const atMax = $derived(max !== undefined && safeTags.length >= max);
     const controlClass = $derived(
         variant === 'secondary'
-            ? 'border-transparent bg-secondary has-[input:focus-visible]:border-[color-mix(in_srgb,var(--color-secondary)_45%,var(--color-primary))]'
-            : 'border-[var(--color-input)] bg-[var(--color-field)] has-[input:focus-visible]:border-primary'
+            ? 'border-transparent bg-secondary hover:border-[var(--color-input)] has-[input:disabled]:border-transparent'
+            : 'border-[var(--color-input)] bg-[var(--color-field)] hover:border-[var(--color-border-strong)] has-[input:disabled]:border-[var(--color-input)]'
     );
 
     function toCandidate(raw: string) {
@@ -270,9 +270,11 @@
         onclick={handleFieldClick}
         class={cn(
             className,
-            'flex min-h-[calc(var(--size-control-md)-var(--size-hairline))] w-full cursor-text flex-wrap items-center gap-1 rounded-[var(--radius-lg)] border-[length:var(--border-size)] p-1 transition-[background-color,border-color,box-shadow] [transition-duration:var(--motion-duration-press)] ease-[var(--ease-out)] motion-reduce:transition-none has-[input:focus-visible]:shadow-[var(--focus-ring)] has-[input:disabled]:cursor-not-allowed has-[input:disabled]:opacity-[var(--opacity-disabled)]',
-            controlClass,
-            error && 'border-[var(--color-error)] has-[input:focus-visible]:border-[var(--color-error)]'
+            'flex min-h-[calc(var(--size-control-md)-var(--size-hairline))] w-full cursor-text flex-wrap items-center gap-1 rounded-[var(--radius-xl)] border-[length:var(--border-size)] p-1 transition-[background-color,border-color,box-shadow] [transition-duration:var(--motion-duration-hover)] ease-[var(--ease-out)] motion-reduce:transition-none has-[input:disabled]:cursor-not-allowed has-[input:disabled]:opacity-[var(--opacity-disabled)]',
+            error
+                ? 'border-error has-[input:focus-visible]:shadow-[0_0_0_calc(var(--border-size)*3)_color-mix(in_srgb,var(--color-error)_30%,transparent)]'
+                : 'has-[input:focus-visible]:border-primary has-[input:focus-visible]:shadow-[var(--focus-ring)]',
+            controlClass
         )}
     >
         {@render children?.()}
@@ -289,7 +291,7 @@
     {#if label}
         <label
             for={metadata.controlId}
-            class="mb-0.5 select-none [font-size:var(--font-size-label)] [font-weight:var(--font-weight-label)] [letter-spacing:var(--tracking-label)] leading-none text-foreground [font-family:var(--font-sans),sans-serif]"
+            class="w-fit select-none [font-size:var(--font-size-label)] [font-weight:var(--font-weight-label)] [letter-spacing:var(--tracking-label)] leading-label text-foreground [font-family:var(--font-sans),sans-serif]"
         >
             {label}
         </label>
@@ -299,14 +301,14 @@
         <span
             id={metadata.errorId}
             role="alert"
-            class="[font-size:var(--font-size-body)] [font-weight:var(--font-weight-body)] text-[var(--mielui-error-text)]"
+            class="[font-size:var(--font-size-label)] [font-weight:var(--font-weight-description)] leading-snug text-[var(--mielui-error-text)]"
         >
             {error}
         </span>
     {:else if description}
         <span
             id={metadata.descriptionId}
-            class="[font-size:var(--font-size-body)] [font-weight:var(--font-weight-body)] [letter-spacing:var(--tracking-body)] text-foreground-muted"
+            class="[font-size:var(--font-size-label)] [font-weight:var(--font-weight-description)] [letter-spacing:var(--tracking-body)] leading-snug text-foreground-muted"
         >
             {description}
         </span>
@@ -314,7 +316,7 @@
 {/snippet}
 
 {#if label || description || error}
-    <div data-ui="tag-input-field" class="flex w-full flex-col gap-1">
+    <div data-ui="tag-input-field" class="flex w-full flex-col gap-1.5">
         {@render meta()}
     </div>
 {:else}

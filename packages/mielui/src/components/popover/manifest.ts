@@ -32,10 +32,11 @@ import type { Manifest } from '@mielui/svelte/_manifest/types';
  * 3.2.0 -- Content registers its Escape layer one rank above the enclosing
  *          overlay, so menus opened inside a dialog or sheet peel before
  *          their host instead of closing it.
+ * 3.2.1 -- Trigger renders the chevron its `icon` prop always described.
  */
 export const manifest: Manifest = {
     name: 'popover',
-    version: '3.2.0',
+    version: '3.2.1',
     visibility: 'public',
     description:
         'Floating content positioned by @floating-ui. Click or hover triggers, Title/Content subparts, inert outside content, click-outside + Escape dismiss, optional portal.',
@@ -54,6 +55,7 @@ export const manifest: Manifest = {
     shared: [
         'components/_internal/button-attributes',
         'components/_internal/surface',
+        'hugeicons-icon',
         'utils.clickOutside',
         'utils.cn',
         'utils.createContext',
@@ -69,6 +71,7 @@ export const manifest: Manifest = {
     peerDependencies: {
         'bits-ui': '^2.19.2',
         '@floating-ui/dom': '^1.0.0',
+        '@hugeicons/core-free-icons': '^4.3.0',
         cnfast: '^0.0.8',
         svelte: '^5.56.0'
     }

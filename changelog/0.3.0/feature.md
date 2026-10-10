@@ -1,0 +1,21 @@
+- Composer has a `Footer` part: a strip on the frame under the writing surface for hints, connected apps, or message-wide settings.
+- Button has a `glow` variant: a lit fill for a page's headline action, with `--mielui-glow-color` and `--mielui-glow-light` to change its color and brightness.
+- Three surface contracts ship in `ui.css`: `mielui-plate` for a resting surface, `mielui-float-frame` for a floating panel, and `mielui-glow-neutral` for the white selected pill on a track.
+- `--color-wash` is the one hover and selected-row fill, and `--mielui-glow-ring` sets a lit pill's outer edge.
+- Four spring curves are theme tokens: `--ease-spring-panel`, `--ease-spring-layout`, `--ease-spring-pop`, and `--ease-spring-flick`, with `--motion-duration-spring`, `--motion-duration-pop`, and `--motion-duration-flick`. `springEase` in `@mielui/svelte/transition` builds the same curves for Svelte transitions.
+- Plates and frames use continuous-curvature corners where the browser supports `corner-shape: squircle`.
+- The theme's edge highlight now scales the light on every lit pill.
+- Tabs, ToggleGroup, Toggle, and Pagination mark selection with a lit fill. Tabs and ToggleGroup indicators travel on the layout spring.
+- Switch and Slider thumbs, the checked Checkbox and Radio, and the selected Calendar day are lit.
+- `DropdownMenu.Item` and `ContextMenu.Item` render `variant="destructive"` as an error-colored row with a tinted highlight. Radio items show a dot.
+- A direct button or link inside Alert becomes its one action, at the end on wide layouts and last when stacked.
+- SkeletonSwap lines sweep out of phase, and arriving content sharpens from a slight blur.
+- Composer's send button becomes a lit stop control while streaming, and Reasoning's label shimmers while thinking.
+- Chart, pie, and heatmap tooltips and the crosshair follow the pointer on the layout spring.
+- Calendar days are circles with a dot under today, a selected range is a continuous wash, and date and color pickers open as floating panels.
+- Kbd is a mono keycap and takes an inverse look inside tooltips. Spinner is a thin ring.
+- Question options are bordered rows on the field color. The selected row takes the primary border and a light primary tint.
+- FolderCard is a single plate with the cover flush to its edge and a card-colored body.
+- The theme's motion feel scales the spring, pop, flick, item, panel, and dialog durations together, and `--ease-drawer` is a theme token.
+- Panels open from their trigger's side: a menu below its trigger starts slightly higher and one above starts slightly lower.
+- A second agent skill, `mielui-design`, teaches coding agents to lay out whole pages with Mielui: app shells, dashboards, data tables, settings, chat workspaces, and marketing sites. Install it with `npx skills add mielsense/mielui --skill mielui-design`.

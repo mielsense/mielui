@@ -1,6 +1,9 @@
 <script lang="ts">
+    import { Button } from '@mielui/svelte/components/button';
+    import * as Group from '@mielui/svelte/components/group';
+    import { Input } from '@mielui/svelte/components/input';
     import * as Typography from '@mielui/svelte/components/typography';
-    import { ComponentPreview, InstallCommand } from '$lib/components/docs';
+    import { ComponentPreview, InstallCommand, Playground } from '$lib/components/docs';
     import PageIntro from '$lib/components/docs/page-intro.svelte';
     import Basic from './examples/basic.svelte';
     import BasicSrc from './examples/basic.svelte?raw';
@@ -16,6 +19,9 @@
     import TextSrc from './examples/text.svelte?raw';
     import Vertical from './examples/vertical.svelte';
     import VerticalSrc from './examples/vertical.svelte?raw';
+    import { code as playgroundCode, controls as playgroundControls } from './playground';
+
+    const id = $props.id();
 </script>
 
 <svelte:head>
@@ -29,7 +35,43 @@
 <div data-docs-page class="flex flex-col gap-10">
     <PageIntro title="Group">Visually connect related controls.</PageIntro>
     <section id="hero" class="flex scroll-mt-20 flex-col gap-4">
-        <ComponentPreview code={BasicSrc}><Basic /></ComponentPreview>
+        <Playground controls={playgroundControls} code={playgroundCode}>
+            {#snippet children(values)}
+                {@const separatorOrientation =
+                    values.orientation === 'vertical' ? 'horizontal' : 'vertical'}
+                <Group.Root
+                    orientation={values.orientation}
+                    aria-label={values.content === 'input' ? 'Website' : 'Page navigation'}
+                    class={values.content === 'input' ? 'w-full max-w-xs' : undefined}
+                >
+                    {#if values.text}
+                        {#if values.content === 'input'}
+                            <Group.Text as="label" for={id}>https://</Group.Text>
+                        {:else}
+                            <Group.Text>Page 2 of 8</Group.Text>
+                        {/if}
+                        {#if values.separators}
+                            <Group.Separator orientation={separatorOrientation} />
+                        {/if}
+                    {/if}
+                    {#if values.content === 'input'}
+                        <Input
+                            id={values.text ? id : undefined}
+                            aria-label={values.text ? undefined : 'Website'}
+                            placeholder="example.com"
+                        />
+                    {:else}
+                        <Button variant={values.variant} size={values.size}>Previous</Button>
+                    {/if}
+                    {#if values.separators}
+                        <Group.Separator orientation={separatorOrientation} />
+                    {/if}
+                    <Button variant={values.variant} size={values.size}>
+                        {values.content === 'input' ? 'Visit' : 'Next'}
+                    </Button>
+                </Group.Root>
+            {/snippet}
+        </Playground>
     </section>
     <section id="installation" class="flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Installation</Typography.H2>
@@ -52,6 +94,13 @@
             Use Group for actions and ToggleGroup for controls that select a state. Group does not
             add arrow-key navigation or selection.
         </Typography.Text>
+    </section>
+    <section id="undo-and-redo" class="flex flex-col gap-4">
+        <Typography.H2 class="docs-section-heading">Undo and redo</Typography.H2>
+        <Typography.Text>
+            Two joined buttons step through a list of revisions and disable at each end.
+        </Typography.Text>
+        <ComponentPreview code={BasicSrc}><Basic /></ComponentPreview>
     </section>
     <section id="vertical" class="flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Vertical</Typography.H2>
@@ -88,11 +137,13 @@
     <section id="composition" class="flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Composition</Typography.H2>
         <Typography.Text>
-            Text is optional. Controls keep their own sizes, variants, borders, shadows, focus
-            rings, events and disabled states. Group does not replace a variant’s surface treatment.
-            Hidden form inputs do not affect which visible control receives rounded ends. Nested
-            Group.Root elements retain separate rounded ends with a gap between groups. Set class on
-            any part to restyle it.
+            Text is optional. Controls keep their own sizes, variants, focus rings, events and
+            disabled states. Joined controls share one hairline seam and flat adjoining corners, and
+            the outer ends keep the control radius. Filled buttons keep their lit edge and sit flush
+            with the frame. Group does not replace a variant’s surface treatment. Hidden form inputs
+            do not affect which visible control receives rounded ends. Nested Group.Root elements
+            retain separate rounded ends with a gap between groups. Set class on any part to restyle
+            it.
         </Typography.Text>
         <Typography.Text>
             Root and Separator accept orientation="horizontal" or "vertical". Separator defaults to

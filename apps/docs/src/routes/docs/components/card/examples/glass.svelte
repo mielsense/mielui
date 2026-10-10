@@ -24,7 +24,7 @@
                 {#each stats as stat (stat.label)}
                     <div class="flex flex-col-reverse gap-1">
                         <dt class="text-sm text-foreground-muted">{stat.label}</dt>
-                        <dd class="m-0 text-2xl font-semibold">{stat.value}</dd>
+                        <dd class="m-0 text-2xl font-medium tabular-nums">{stat.value}</dd>
                     </div>
                 {/each}
             </dl>

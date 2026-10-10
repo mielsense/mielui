@@ -36,12 +36,15 @@
 <div
     {...rest}
     data-ui="color-picker-hex-input"
-    class={cn(className, 'flex items-center gap-1 rounded-[var(--radius-md)] border-[length:var(--border-size)] border-border bg-background px-1.5 focus-within:shadow-[var(--focus-ring)]')}
+    class={cn(
+        className,
+        'flex h-[calc(var(--size-control-sm)-var(--size-hairline))] items-center gap-1 rounded-[var(--radius-control)] border-[length:var(--border-size)] border-[var(--color-input)] bg-[var(--color-field)] ps-2.5 pe-1 transition-[border-color,box-shadow] [transition-duration:var(--motion-duration-hover)] ease-[var(--ease-out)] motion-reduce:transition-none hover:border-[var(--color-border-strong)] has-[input:focus-visible]:border-primary has-[input:focus-visible]:shadow-[var(--focus-ring)]'
+    )}
 >
-    <span aria-hidden="true" class="font-mono text-sm text-foreground-muted">#</span>
+    <span aria-hidden="true" class="font-mono text-xs text-foreground-muted">#</span>
     <input
         aria-label="Hex color"
-        class="h-6 min-w-0 flex-1 select-text bg-transparent font-mono text-sm uppercase text-foreground outline-none"
+        class="h-full min-w-0 flex-1 select-text bg-transparent font-mono text-xs uppercase tabular-nums text-[var(--color-field-foreground)] outline-none placeholder:text-foreground-muted"
         value={controller.state.hexInput.replace(/^#/, '')}
         placeholder="000000"
         spellcheck={false}
@@ -67,7 +70,7 @@
             aria-label="Pick a color from the screen"
             title="Pick a color from the screen"
             data-ui="color-picker-eyedropper"
-            class="-me-0.5 grid size-5 shrink-0 place-items-center rounded-[var(--radius-sm)] text-foreground-muted outline-none transition-colors [transition-duration:var(--motion-duration-hover)] hover:bg-secondary hover:text-foreground focus-visible:shadow-[var(--focus-ring)] motion-reduce:transition-none"
+            class="grid size-5 shrink-0 place-items-center rounded-[var(--radius-control)] text-foreground-muted outline-none transition-[background-color,color,box-shadow] [transition-duration:var(--motion-duration-hover)] ease-[var(--ease-out)] hover:bg-[var(--color-wash)] hover:text-foreground focus-visible:shadow-[var(--focus-ring)] motion-reduce:transition-none"
             onclick={pickFromScreen}
         >
             <HugeiconsIcon icon={Pipette} size={13} aria-hidden="true" />

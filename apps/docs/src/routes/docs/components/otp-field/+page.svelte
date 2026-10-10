@@ -1,6 +1,7 @@
 <script lang="ts">
+    import * as OTPField from '@mielui/svelte/components/otp-field';
     import * as Typography from '@mielui/svelte/components/typography';
-    import { ComponentPreview, InstallCommand } from '$lib/components/docs';
+    import { ComponentPreview, InstallCommand, Playground } from '$lib/components/docs';
     import InlineText from '$lib/components/docs/inline-text.svelte';
     import PageIntro from '$lib/components/docs/page-intro.svelte';
     import Alphanumeric from './examples/alphanumeric.svelte';
@@ -11,8 +12,9 @@
     import EventsExampleSrc from './examples/events.svelte?raw';
     import Form from './examples/form.svelte';
     import FormSrc from './examples/form.svelte?raw';
-    import Hero from './examples/hero.svelte';
-    import HeroSrc from './examples/hero.svelte?raw';
+    import { code as playgroundCode, controls as playgroundControls } from './playground';
+
+    let playgroundValue = $state('');
 </script>
 <svelte:head>
     <title>Mielui · OTP Field</title>
@@ -23,7 +25,47 @@
         One accessible input, presented as individual code cells.
     </PageIntro>
     <section id="hero">
-        <ComponentPreview code={HeroSrc}><Hero /></ComponentPreview>
+        <Playground controls={playgroundControls} code={playgroundCode}>
+            {#snippet children(values)}
+                {@const alphanumeric = values.characters === 'alphanumeric'}
+                {#if values.separator}
+                    <OTPField.Root
+                        bind:value={playgroundValue}
+                        aria-label="Verification code"
+                        length={values.length}
+                        pattern={alphanumeric ? '^[a-zA-Z0-9]*$' : undefined}
+                        inputmode={alphanumeric ? 'text' : undefined}
+                        disabled={values.disabled}
+                        aria-invalid={values.invalid ? 'true' : undefined}
+                    >
+                        {#snippet children({ cells })}
+                            {@const half = Math.ceil(values.length / 2)}
+                            <OTPField.Group>
+                                {#each cells.slice(0, half) as cell, index (index)}
+                                    <OTPField.Cell {cell} />
+                                {/each}
+                            </OTPField.Group>
+                            <OTPField.Separator />
+                            <OTPField.Group>
+                                {#each cells.slice(half) as cell, index (index)}
+                                    <OTPField.Cell {cell} />
+                                {/each}
+                            </OTPField.Group>
+                        {/snippet}
+                    </OTPField.Root>
+                {:else}
+                    <OTPField.Root
+                        bind:value={playgroundValue}
+                        aria-label="Verification code"
+                        length={values.length}
+                        pattern={alphanumeric ? '^[a-zA-Z0-9]*$' : undefined}
+                        inputmode={alphanumeric ? 'text' : undefined}
+                        disabled={values.disabled}
+                        aria-invalid={values.invalid ? 'true' : undefined}
+                    />
+                {/if}
+            {/snippet}
+        </Playground>
     </section>
     <section id="installation" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Installation</Typography.H2>

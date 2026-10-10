@@ -303,16 +303,16 @@
                     class={cn(
                 classProp,
                     overlaySurface(surface),
-                'm-auto flex origin-top-left flex-col overflow-hidden text-sm text-[var(--color-foreground)]',
-                'mielui-modal-frame [--mielui-border-inset-scale:0] shadow-[var(--elevation-float)] [--mielui-modal-inset:calc(var(--spacing)*0.5*var(--mielui-border-inset-scale,1))]',
+                'm-auto flex origin-top-left flex-col overflow-hidden text-sm text-[var(--color-foreground)] [&[data-placement=bottom]]:origin-top [&[data-placement=bottom-end]]:origin-top-right [&[data-placement=top-start]]:origin-bottom-left [&[data-placement=top]]:origin-bottom [&[data-placement=top-end]]:origin-bottom-right [&[data-placement^=left]]:origin-right [&[data-placement^=right]]:origin-left',
+                'mielui-float-frame shadow-[var(--elevation-float)]',
                 'max-w-[min(var(--popover-available-width,calc(100vw-2*var(--popover-viewport-margin))),calc(100vw-2*var(--popover-viewport-margin)))] max-h-[min(var(--popover-available-height,calc(100vh-2*var(--popover-viewport-margin))),calc(100vh-2*var(--popover-viewport-margin)))]'
             )}
                 >
-                    <!-- The inset surface: children live here, on the card fill. -->
+                    <!-- The inner surface: children live here, on the panel fill. -->
                     <div
                         class={cn(
                     surfaceClass,
-                    'min-h-0 max-h-[inherit] flex-1 overflow-auto overscroll-contain mielui-inset-surface p-3'
+                    'min-h-0 max-h-[inherit] flex-1 overflow-auto overscroll-contain mielui-inset-surface p-4'
                 )}
                     >
                         {@render children?.()}

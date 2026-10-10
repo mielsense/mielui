@@ -1,7 +1,10 @@
 <script lang="ts">
+    import { LinkSquare02Icon } from '@hugeicons/core-free-icons';
+    import { Button } from '@mielui/svelte/components/button';
     import { CodeBlock } from '@mielui/svelte/components/code-block';
     import * as Typography from '@mielui/svelte/components/typography';
-    import { ComponentPreview, InstallCommand } from '$lib/components/docs';
+    import HugeiconsIcon from '@mielui/svelte/hugeicons-icon';
+    import { ComponentPreview, InstallCommand, Playground } from '$lib/components/docs';
     import InlineText from '$lib/components/docs/inline-text.svelte';
     import PageIntro from '$lib/components/docs/page-intro.svelte';
     import Compound from './examples/compound.svelte';
@@ -24,8 +27,28 @@
     import MultiLanguageSrc from './examples/multi-language.svelte?raw';
     import Single from './examples/single.svelte';
     import SingleSrc from './examples/single.svelte?raw';
+    import {
+        code as playgroundCode,
+        command as playgroundCommand,
+        controls as playgroundControls,
+        python as playgroundPython,
+        typescript as playgroundTypescript
+    } from './playground';
 
     const installCommand = 'pnpm dlx @mielui/svelte add code-block';
+
+    const playgroundTabs = [
+        {
+            label: 'TypeScript',
+            lang: 'typescript',
+            code: playgroundTypescript
+        },
+        {
+            label: 'Python',
+            lang: 'python',
+            code: playgroundPython
+        }
+    ];
 
     const usageSnippet = `import { CodeBlock } from '@mielui/svelte/components/code-block';
 
@@ -51,6 +74,12 @@ import { CodeBlock } from '@mielui/svelte/components/code-block';
     />
 </svelte:head>
 
+{#snippet playgroundActions()}
+    <Button variant="ghost" size="icon" aria-label="Open in editor">
+        <HugeiconsIcon icon={LinkSquare02Icon} size={15} />
+    </Button>
+{/snippet}
+
 <div data-docs-page class="flex flex-col gap-10">
     <!-- ─── Header ────────────────────────────────────────────────── -->
     <PageIntro title="Code Block">
@@ -59,9 +88,26 @@ import { CodeBlock } from '@mielui/svelte/components/code-block';
 
     <!-- ─── Hero Example ──────────────────────────────────────────── -->
     <section id="hero" class="scroll-mt-20 flex flex-col gap-4">
-        <ComponentPreview code={HeroSrc}>
-            <Hero />
-        </ComponentPreview>
+        <Playground controls={playgroundControls} code={playgroundCode}>
+            {#snippet children(values)}
+                {#key values.content}
+                    <CodeBlock
+                        tabs={values.content === 'tabs' ? playgroundTabs : undefined}
+                        code={values.content === 'snippet'
+                            ? playgroundTypescript
+                            : values.content === 'command'
+                              ? playgroundCommand
+                              : undefined}
+                        lang={values.content === 'command' ? 'bash' : 'typescript'}
+                        copy={values.copy}
+                        theme={values.theme}
+                        showLineNumbers={values.showLineNumbers}
+                        actions={values.actions ? playgroundActions : undefined}
+                        class="max-w-xl"
+                    />
+                {/key}
+            {/snippet}
+        </Playground>
     </section>
 
     <!-- ─── Installation ──────────────────────────────────────────── -->
@@ -117,6 +163,16 @@ import { CodeBlock } from '@mielui/svelte/components/code-block';
     <section id="examples" class="scroll-mt-20 flex flex-col gap-10">
         <div>
             <Typography.H2 class="docs-section-heading">Examples</Typography.H2>
+        </div>
+
+        <div id="composed-header" class="scroll-mt-20 flex flex-col gap-3">
+            <Typography.H3 class="docs-subsection-heading">Composed header</Typography.H3>
+            <Typography.Text variant="supporting">
+                Five languages share one block, with two extra actions beside the copy button.
+            </Typography.Text>
+            <ComponentPreview code={HeroSrc}>
+                <Hero />
+            </ComponentPreview>
         </div>
 
         <div id="single" class="scroll-mt-20 flex flex-col gap-3">

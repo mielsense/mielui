@@ -71,7 +71,7 @@
                     </li>
                 {/each}
             </ul>
-            <div class="flex items-center justify-between gap-2 border-t border-border pt-2">
+            <div class="flex items-center justify-between gap-2">
                 <span class="text-xs text-foreground-muted">Documentation</span>
                 <Button variant="ghost" size="sm" onclick={copyLink}>Copy link</Button>
             </div>

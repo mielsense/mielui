@@ -25,7 +25,9 @@
 </script>
 
 <div class="flex max-w-full items-center justify-center p-2 sm:p-6">
-    <div class="flex flex-wrap gap-1 rounded-[var(--radius-lg)] border border-border bg-card p-1">
+    <div
+        class="flex flex-wrap gap-1 rounded-[calc(var(--radius-control)+var(--spacing)+var(--border-size))] border border-border bg-card p-1 shadow-[var(--elevation-1)]"
+    >
         {#each tools as tool (tool.id)}
             <Tooltip.Root placement="top" delay={300}>
                 <Tooltip.Trigger>
@@ -33,9 +35,9 @@
                         variant="ghost"
                         size="icon"
                         type="button"
-                        class={`size-8 ${activeTool === tool.id
-                            ? 'bg-secondary text-foreground'
-                            : 'text-foreground-muted hover:bg-secondary hover:text-foreground'}`}
+                        class={activeTool === tool.id
+                            ? 'bg-[var(--color-wash)] text-foreground'
+                            : 'text-foreground-muted hover:text-foreground'}
                         onclick={() => (activeTool = tool.id)}
                         aria-label={tool.label}
                         aria-pressed={activeTool === tool.id}
@@ -46,7 +48,10 @@
                 <Tooltip.Content rich>
                     <div class="flex items-center gap-2">
                         <span>{tool.label}</span>
-                        <Kbd shortcut={tool.shortcut} />
+                        <Kbd
+                            shortcut={tool.shortcut}
+                            class="border-transparent bg-[color-mix(in_oklab,var(--color-tooltip-foreground)_16%,transparent)] text-[var(--color-tooltip-foreground)] shadow-none"
+                        />
                     </div>
                 </Tooltip.Content>
             </Tooltip.Root>

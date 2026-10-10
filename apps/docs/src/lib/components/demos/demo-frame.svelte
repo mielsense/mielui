@@ -58,7 +58,7 @@
             <a
                 {href}
                 aria-label={linkLabel}
-                class="grid size-7 shrink-0 place-items-center rounded-[var(--radius-sm)] text-foreground-muted transition-colors [transition-duration:var(--motion-duration-hover)] hover:bg-foreground/[0.06] hover:text-foreground focus-visible:outline-none focus-visible:shadow-[var(--focus-ring)] motion-reduce:transition-none"
+                class="grid size-7 shrink-0 place-items-center rounded-full text-foreground-muted transition-colors [transition-duration:var(--motion-duration-hover)] hover:bg-[var(--color-wash)] hover:text-foreground focus-visible:outline-none focus-visible:shadow-[var(--focus-ring)] motion-reduce:transition-none"
             >
                 <HugeiconsIcon icon={ArrowUpRight} size={15} />
             </a>

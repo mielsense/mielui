@@ -58,7 +58,9 @@
 <FadeScrollArea class="h-full" start>
     <div class="@container w-full">
         <h2 class="sr-only">Components</h2>
-        <div class="mx-auto max-w-[80rem] columns-1 gap-6 p-5 @2xl:columns-2 @6xl:columns-3 sm:p-8">
+        <div
+            class="mx-auto max-w-[80rem] columns-1 gap-6 p-5 pt-16 @2xl:columns-2 @6xl:columns-3 sm:p-8 sm:pt-16"
+        >
             <Card.Root variant="inset" {surface} class={cardClass}>
                 <Card.Header>
                     <Card.Title>Workspace profile</Card.Title>

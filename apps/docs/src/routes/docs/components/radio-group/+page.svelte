@@ -1,7 +1,8 @@
 <script lang="ts">
     import { CodeBlock } from '@mielui/svelte/components/code-block';
+    import * as RadioGroup from '@mielui/svelte/components/radio-group';
     import * as Typography from '@mielui/svelte/components/typography';
-    import { ComponentPreview, InstallCommand } from '$lib/components/docs';
+    import { ComponentPreview, InstallCommand, Playground } from '$lib/components/docs';
     import InlineText from '$lib/components/docs/inline-text.svelte';
     import PageIntro from '$lib/components/docs/page-intro.svelte';
     import Descriptions from './examples/descriptions.svelte';
@@ -10,8 +11,7 @@
     import DisabledSrc from './examples/disabled.svelte?raw';
     import EventsExample from './examples/events.svelte';
     import EventsExampleSrc from './examples/events.svelte?raw';
-    import Hero from './examples/hero.svelte';
-    import HeroSrc from './examples/hero.svelte?raw';
+    import { code as playgroundCode, controls as playgroundControls } from './playground';
 
     const installCommand = 'pnpm dlx @mielui/svelte add radio-group';
 </script>
@@ -27,9 +27,40 @@
 
     <!-- ─── Hero Example ──────────────────────────────────────────── -->
     <section id="hero" class="scroll-mt-20 flex flex-col gap-4">
-        <ComponentPreview code={HeroSrc}>
-            <Hero />
-        </ComponentPreview>
+        <Playground controls={playgroundControls} code={playgroundCode}>
+            {#snippet children(values)}
+                <RadioGroup.Root
+                    value="pro"
+                    name="plan"
+                    aria-label="Plan"
+                    disabled={values.disabled}
+                >
+                    <RadioGroup.Item
+                        value="free"
+                        label="Free"
+                        description={values.descriptions ? 'For solo hobby projects.' : undefined}
+                        aria-invalid={values.invalid ? 'true' : undefined}
+                    />
+                    <RadioGroup.Item
+                        value="pro"
+                        label="Pro"
+                        description={values.descriptions
+                            ? 'For small teams and side projects.'
+                            : undefined}
+                        aria-invalid={values.invalid ? 'true' : undefined}
+                    />
+                    <RadioGroup.Item
+                        value="team"
+                        label="Team"
+                        description={values.descriptions
+                            ? 'Audit log, SSO, and priority support.'
+                            : undefined}
+                        disabled={values.disabledItem}
+                        aria-invalid={values.invalid ? 'true' : undefined}
+                    />
+                </RadioGroup.Root>
+            {/snippet}
+        </Playground>
     </section>
 
     <!-- ─── Installation ──────────────────────────────────────────── -->

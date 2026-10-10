@@ -3,6 +3,7 @@
     import { DatePicker as DatePickerPrimitive } from 'bits-ui';
     import FormField from '../date-picker/date-picker-form-field.svelte';
     import Segment from '../date-picker/date-picker-segment.svelte';
+    import { fieldSegments } from '../date-picker/segments';
     import { input } from '../input/variants';
 
     let {
@@ -20,13 +21,18 @@
     name=""
     bind:ref
     data-ui="date-picker-input"
-    class={cn(className, input({ variant: 'outline' }), 'inline-flex w-auto min-w-max flex-1 items-center gap-0.5 py-1 focus-within:shadow-[var(--focus-ring)] data-disabled:opacity-[var(--opacity-disabled)] data-invalid:border-error')}
+    class={cn(
+        className,
+        'inline-flex w-auto min-w-max flex-1 items-center gap-0.5 py-1 has-[:focus]:border-primary has-[:focus]:shadow-[var(--focus-ring)] data-disabled:cursor-not-allowed data-disabled:border-[var(--color-input)] data-disabled:opacity-[var(--opacity-disabled)] data-invalid:border-error data-invalid:has-[:focus]:shadow-[0_0_0_calc(var(--border-size)*3)_color-mix(in_srgb,var(--color-error)_30%,transparent)]',
+        input({ variant: 'outline' })
+    )}
 >
     {#snippet children(data)}
+        {@const segments = fieldSegments(data.segments)}
         {#if content}
-            {@render content(data)}
+            {@render content({ ...data, segments })}
         {:else}
-            {#each data.segments as segment, index (index)}
+            {#each segments as segment, index (index)}
                 <Segment part={segment.part}>{segment.value}</Segment>
             {/each}
         {/if}

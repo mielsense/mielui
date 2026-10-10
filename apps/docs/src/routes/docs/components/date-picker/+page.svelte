@@ -1,7 +1,15 @@
 <script lang="ts">
+    import {
+        CalendarDate,
+        CalendarDateTime,
+        type DateValue,
+        isWeekend
+    } from '@internationalized/date';
     import { CodeBlock } from '@mielui/svelte/components/code-block';
+    import * as DatePicker from '@mielui/svelte/components/date-picker';
+    import * as Group from '@mielui/svelte/components/group';
     import * as Typography from '@mielui/svelte/components/typography';
-    import { ComponentPreview, InstallCommand } from '$lib/components/docs';
+    import { ComponentPreview, InstallCommand, Playground } from '$lib/components/docs';
     import InlineText from '$lib/components/docs/inline-text.svelte';
     import PageIntro from '$lib/components/docs/page-intro.svelte';
     import CalendarOptionsExample from './examples/calendar-options.svelte';
@@ -18,6 +26,33 @@
     import StayOpenExampleSrc from './examples/stay-open.svelte?raw';
     import ValidateExample from './examples/validate.svelte';
     import ValidateExampleSrc from './examples/validate.svelte?raw';
+    import {
+        HOUR_CYCLE,
+        code as playgroundCode,
+        controls as playgroundControls,
+        WEEK_START
+    } from './playground';
+
+    const booked = [8, 9, 22];
+    const minDate = new CalendarDate(2026, 9, 7);
+    const maxDate = new CalendarDate(2026, 10, 16);
+    const playgroundLabels = {
+        trigger: 'Open the publish calendar',
+        content: 'Publish date calendar',
+        invalid: 'Enter a valid publish date.'
+    };
+    let date = $state<DateValue | undefined>(new CalendarDate(2026, 9, 17));
+    let dateTime = $state<DateValue | undefined>(new CalendarDateTime(2026, 9, 17, 9, 30));
+
+    function isBooked(day: DateValue) {
+        return day.month === 9 && booked.includes(day.day);
+    }
+
+    function weekendMatcher(locale: string) {
+        return (day: DateValue) => {
+            return isWeekend(day, locale);
+        };
+    }
 </script>
 
 <svelte:head>
@@ -28,7 +63,73 @@
 <div data-docs-page class="flex flex-col gap-10">
     <PageIntro title="Date Picker">An editable date field with a calendar popup.</PageIntro>
     <section id="hero" class="scroll-mt-20 flex flex-col gap-4">
-        <ComponentPreview code={HeroSrc}><Hero /></ComponentPreview>
+        <Playground controls={playgroundControls} code={playgroundCode}>
+            {#snippet children(values)}
+                {@const withTime = values.granularity !== 'day'}
+                <div class="w-full max-w-sm">
+                    {#key withTime}
+                        <DatePicker.Root
+                            bind:value={
+                                () => (withTime ? dateTime : date),
+                                (next) => {
+                                    if (withTime) {
+                                        dateTime = next;
+                                    } else {
+                                        date = next;
+                                    }
+                                }
+                            }
+                            calendarLabel="Publish date"
+                            locale={values.locale}
+                            granularity={values.granularity}
+                            hourCycle={withTime ? HOUR_CYCLE[values.hourCycle] : undefined}
+                            weekdayFormat={values.weekdayFormat}
+                            monthFormat={values.monthFormat}
+                            yearFormat={values.yearFormat}
+                            weekStartsOn={WEEK_START[values.weekStartsOn]}
+                            numberOfMonths={values.numberOfMonths}
+                            fixedWeeks={values.fixedWeeks}
+                            disabled={values.disabled}
+                            readonly={values.readonly}
+                            required={values.required}
+                            minValue={values.bounds ? minDate : undefined}
+                            maxValue={values.bounds ? maxDate : undefined}
+                            isDateDisabled={values.weekends
+                                ? weekendMatcher(values.locale)
+                                : undefined}
+                            isDateUnavailable={values.unavailable ? isBooked : undefined}
+                            closeOnDateSelect={values.closeOnDateSelect}
+                            preventDeselect={values.preventDeselect}
+                            pagedNavigation={values.pagedNavigation}
+                            disableDaysOutsideMonth={values.disableDaysOutsideMonth}
+                            labels={values.labels ? playgroundLabels : undefined}
+                        >
+                            <div class="grid gap-2">
+                                {#if values.label}
+                                    <DatePicker.Label>Publish date</DatePicker.Label>
+                                {/if}
+                                <Group.Root aria-label="Publish date controls" class="w-full">
+                                    <DatePicker.Input
+                                        name="publishDate"
+                                        aria-label={values.label ? undefined : 'Publish date'}
+                                    />
+                                    <Group.Separator />
+                                    <DatePicker.Trigger openOnHover={values.openOnHover} />
+                                </Group.Root>
+                            </div>
+                            <DatePicker.Content
+                                side={values.side}
+                                align={values.align}
+                                sideOffset={values.sideOffset}
+                                surface={values.surface === 'theme' ? undefined : values.surface}
+                            >
+                                <DatePicker.Calendar />
+                            </DatePicker.Content>
+                        </DatePicker.Root>
+                    {/key}
+                </div>
+            {/snippet}
+        </Playground>
     </section>
     <section id="installation" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Installation</Typography.H2>
@@ -65,6 +166,13 @@
     </section>
     <section id="examples" class="scroll-mt-20 flex flex-col gap-8">
         <Typography.H2 class="docs-section-heading">Examples</Typography.H2>
+        <div id="helper-text" class="scroll-mt-20 flex flex-col gap-3">
+            <Typography.H3 class="docs-subsection-heading">Helper text</Typography.H3>
+            <Typography.Text variant="supporting">
+                A line under the field tells people they can type the date or pick it.
+            </Typography.Text>
+            <ComponentPreview code={HeroSrc}><Hero /></ComponentPreview>
+        </div>
         <div id="localized" class="scroll-mt-20 flex flex-col gap-3">
             <Typography.H3 class="docs-subsection-heading">Localized input</Typography.H3>
             <Typography.Text variant="supporting">

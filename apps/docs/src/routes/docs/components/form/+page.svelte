@@ -1,7 +1,11 @@
 <script lang="ts">
+    import { Button } from '@mielui/svelte/components/button';
     import { CodeBlock } from '@mielui/svelte/components/code-block';
+    import * as Field from '@mielui/svelte/components/field';
+    import * as Form from '@mielui/svelte/components/form';
+    import { Input } from '@mielui/svelte/components/input';
     import * as Typography from '@mielui/svelte/components/typography';
-    import { ComponentPreview, InstallCommand } from '$lib/components/docs';
+    import { ComponentPreview, InstallCommand, Playground } from '$lib/components/docs';
     import InlineText from '$lib/components/docs/inline-text.svelte';
     import PageIntro from '$lib/components/docs/page-intro.svelte';
     import Hero from './examples/hero.svelte';
@@ -12,6 +16,21 @@
     import RemoteBasicSrc from './examples/remote-basic.svelte?raw';
     import StatusToneExample from './examples/status-tone.svelte';
     import StatusToneExampleSrc from './examples/status-tone.svelte?raw';
+    import { code as playgroundCode, controls as playgroundControls, STATUS } from './playground';
+
+    const playgroundIssues = [
+        {
+            message: 'Enter a valid email address.',
+            path: ['email']
+        },
+        {
+            message: 'This profile cannot be saved right now.'
+        }
+    ];
+
+    function preventSubmit(event: SubmitEvent) {
+        event.preventDefault();
+    }
 
     const RemoteServerSrc =
         "import { invalid } from '@sveltejs/kit';\nimport { form } from '$app/server';\nimport * as v from 'valibot';\n\nexport const validateProfile = form(\n    v.object({\n        username: v.pipe(\n            v.string(),\n            v.trim(),\n            v.minLength(3, 'Use at least 3 characters.'),\n            v.maxLength(40, 'Use at most 40 characters.')\n        ),\n        email: v.pipe(v.string(), v.email('Enter a valid email address.')),\n        intent: v.picklist(['validate', 'validate-reset'])\n    }),\n    async ({ username, intent }, issue) => {\n        await new Promise((resolve) => setTimeout(resolve, 350));\n        if (username.toLowerCase() === 'admin') {\n            invalid(issue.username('This username is reserved. Choose another one.'));\n        }\n        if (username.toLowerCase() === 'system') {\n            invalid('This profile cannot be validated right now. Choose another demo username.');\n        }\n        return { username, intent };\n    }\n);\n";
@@ -46,7 +65,63 @@ export default config;`;
         Keep native submission intact, with clear feedback from the first field to the final action.
     </PageIntro>
     <section id="hero" class="scroll-mt-20 flex flex-col gap-4">
-        <ComponentPreview code={HeroSrc}><Hero /></ComponentPreview>
+        <Playground controls={playgroundControls} code={playgroundCode}>
+            {#snippet children(values)}
+                <Form.Root
+                    class="w-full max-w-sm"
+                    onsubmit={preventSubmit}
+                    pending={values.pending}
+                >
+                    {#if values.errorSummary}
+                        {#if values.heading}
+                            <Form.ErrorSummary
+                                issues={playgroundIssues}
+                                focusOnError={values.focusOnError}
+                            >
+                                {#snippet heading()}
+                                    Two details need another look
+                                {/snippet}
+                            </Form.ErrorSummary>
+                        {:else}
+                            <Form.ErrorSummary
+                                issues={playgroundIssues}
+                                focusOnError={values.focusOnError}
+                            />
+                        {/if}
+                    {/if}
+                    <Field.Root>
+                        <Field.Label>Work email</Field.Label>
+                        <Field.Control>
+                            {#snippet children(control)}
+                                <Input
+                                    {...control}
+                                    type="email"
+                                    name="email"
+                                    placeholder="sam@company.com"
+                                />
+                            {/snippet}
+                        </Field.Control>
+                    </Field.Root>
+                    <Form.Actions>
+                        <Form.Submit
+                            variant={values.submitVariant}
+                            size={values.submitSize}
+                            disabled={values.submitDisabled}
+                        >
+                            Save profile
+                        </Form.Submit>
+                        {#if values.reset}
+                            <Button type="reset" variant="ghost" size={values.submitSize}>
+                                Reset
+                            </Button>
+                        {/if}
+                    </Form.Actions>
+                    {#if values.status}
+                        <Form.Status tone={values.tone}>{STATUS[values.tone]}</Form.Status>
+                    {/if}
+                </Form.Root>
+            {/snippet}
+        </Playground>
     </section>
     <section id="installation" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Installation</Typography.H2>
@@ -74,6 +149,14 @@ export default config;`;
             FormData. Root’s element binding exposes the actual form. Use element.requestSubmit() to
             preserve validation and submitter behavior; element.submit() bypasses them.
         </Typography.Text>
+    </section>
+    <section id="profile-form" class="scroll-mt-20 flex flex-col gap-4">
+        <Typography.H2 class="docs-section-heading">Profile form</Typography.H2>
+        <Typography.Text variant="supporting">
+            A fieldset with two required fields. Submitting shows the pending state, then a status
+            message.
+        </Typography.Text>
+        <ComponentPreview code={HeroSrc}><Hero /></ComponentPreview>
     </section>
     <section id="error-summary" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">A complete error summary</Typography.H2>

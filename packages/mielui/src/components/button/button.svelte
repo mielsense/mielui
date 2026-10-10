@@ -31,9 +31,9 @@
         unstyled
             ? undefined
             : visualStatus === 'success'
-              ? 'bg-[color-mix(in_srgb,var(--color-success)_12%,var(--color-card))] text-[var(--mielui-success-text)] hover:bg-[color-mix(in_srgb,var(--color-success)_18%,var(--color-card))] data-[state=open]:bg-[color-mix(in_srgb,var(--color-success)_18%,var(--color-card))]'
+              ? 'bg-[color-mix(in_srgb,var(--color-success)_16%,var(--color-card))] [--mielui-glow-color:color-mix(in_srgb,var(--color-success)_16%,var(--color-card))] text-[var(--mielui-success-text)]'
               : visualStatus === 'error'
-                ? 'bg-[color-mix(in_srgb,var(--color-error)_12%,var(--color-card))] text-[var(--mielui-error-text)] hover:bg-[color-mix(in_srgb,var(--color-error)_18%,var(--color-card))] data-[state=open]:bg-[color-mix(in_srgb,var(--color-error)_18%,var(--color-card))]'
+                ? 'bg-[color-mix(in_srgb,var(--color-error)_16%,var(--color-card))] [--mielui-glow-color:color-mix(in_srgb,var(--color-error)_16%,var(--color-card))] text-[var(--mielui-error-text)]'
                 : undefined
     );
     const styledClasses = $derived(

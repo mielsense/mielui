@@ -14,7 +14,7 @@
     y={0}
     text-anchor="middle"
     dominant-baseline="middle"
-    class={cn(className, 'fill-current text-3xl font-semibold tabular-nums')}
+    class={cn(className, 'fill-current text-3xl font-medium tabular-nums [letter-spacing:var(--tracking-header)]')}
     {...rest}
 >
     {#if children}

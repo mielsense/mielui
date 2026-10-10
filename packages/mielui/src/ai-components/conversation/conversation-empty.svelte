@@ -38,7 +38,11 @@
                 {/if}
             </div>
             {#if title}
-                <p class="font-[var(--font-weight-label)] text-foreground">{title}</p>
+                <p
+                    class="[font-size:var(--font-size-body)] [font-weight:var(--font-weight-label)] text-foreground"
+                >
+                    {title}
+                </p>
             {/if}
             {#if description}
                 <p class="mt-1 max-w-xs text-sm leading-body text-foreground-muted">

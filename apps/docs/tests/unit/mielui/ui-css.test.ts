@@ -19,13 +19,13 @@ describe('ui.css Tier 1 primitives', () => {
     });
     it('overrides the neutral ramp under .dark', () => {
         const darkBlock = css.slice(css.indexOf('.dark'));
-        expect(darkBlock).toContain('--mielui-neutral-0: hsl(0 0% 5%)');
+        expect(darkBlock).toContain('--mielui-neutral-0: #131313');
     });
 });
 
 describe('ui.css typography tokens', () => {
     it('defines all semantic font-weight roles', () => {
-        expect(css).toContain('--font-weight-header: 600;');
+        expect(css).toContain('--font-weight-header: 500;');
         expect(css).toContain('--font-weight-body: 400;');
         expect(css).toContain('--font-weight-label: 500;');
         expect(css).toContain('--font-weight-button: 500;');
@@ -66,7 +66,10 @@ describe('ui.css Tier 2 semantic', () => {
         expect(css).toContain('--color-card: var(--mielui-neutral-0)');
         expect(css).toContain('--color-primary: #ba7ca5');
         expect(css).toContain(
-            '--color-ring: color-mix(in srgb, var(--color-primary) 80%, transparent)'
+            '--color-ring: color-mix(in srgb, var(--color-primary) 50%, transparent)'
+        );
+        expect(css).toContain(
+            '--color-border: color-mix(in srgb, var(--color-foreground) 12%, transparent)'
         );
     });
     it('keeps canonical semantics and drops the retired aliases (consumers migrated)', () => {
@@ -107,13 +110,17 @@ describe('ui.css Tier 3 + structure', () => {
             .replace(/\/\*[\s\S]*?\*\//g, '')
             .replace(/\s+/g, ' ')
             .trim();
-        expect(Buffer.byteLength(normalizedCss)).toBeLessThanOrEqual(19 * 1024);
+        expect(Buffer.byteLength(normalizedCss)).toBeLessThanOrEqual(24 * 1024);
     });
 
     it('declares the shared surface contracts in the components layer', () => {
         expect(css).toContain('@layer components');
         for (const contract of [
             '.mielui-menu-item',
+            '.mielui-plate',
+            '.mielui-float-frame',
+            '.mielui-glow',
+            '.mielui-glow-neutral',
             '.mielui-card-frame',
             '.mielui-card-surface',
             '.mielui-modal-frame',

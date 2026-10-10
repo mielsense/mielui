@@ -1,8 +1,10 @@
-import { parseTheme, THEME_VERSION, type Theme } from './theme';
+import { parseTheme, THEME_VERSION, type Theme, themeToCss } from './theme';
 
 const browser = typeof window !== 'undefined' && typeof document !== 'undefined';
 
-const STORAGE_KEY = 'mielui-live-theme-css';
+const STORAGE_KEY = 'mielui-live-theme-css-v2';
+/** CSS written by an earlier generator. It lacks tokens the stylesheet now reads, so it is rebuilt and never applied. */
+const STALE_CSS_KEY = 'mielui-live-theme-css';
 const STYLE_ID = 'mielui-live-theme-style';
 const STUDIO_THEME_KEY = 'mielui-studio-theme-v2';
 const SAVED_THEMES_KEY = 'mielui-saved-themes-v2';
@@ -70,11 +72,26 @@ export function applyLiveThemeCss(css: string) {
     writeStored(STORAGE_KEY, css);
 }
 
+function rebuildStaleThemeCss() {
+    if (readStored(STALE_CSS_KEY) === null) {
+        return null;
+    }
+    removeStored(STALE_CSS_KEY);
+    const theme = loadStudioTheme();
+    if (!theme) {
+        return null;
+    }
+    const css = themeToCss(theme);
+    writeStored(STORAGE_KEY, css);
+
+    return css;
+}
+
 export function hydrateLiveThemeCss() {
     if (!browser) {
         return;
     }
-    const stored = readStored(STORAGE_KEY);
+    const stored = readStored(STORAGE_KEY) ?? rebuildStaleThemeCss();
     if (!stored) {
         return;
     }
@@ -85,7 +102,11 @@ export function hydrateLiveThemeCss() {
 }
 
 export function getStoredLiveThemeCss() {
-    return browser ? readStored(STORAGE_KEY) : null;
+    if (!browser) {
+        return null;
+    }
+
+    return readStored(STORAGE_KEY) ?? rebuildStaleThemeCss();
 }
 
 export function clearLiveThemeCss() {
@@ -93,6 +114,7 @@ export function clearLiveThemeCss() {
         return;
     }
     removeStored(STORAGE_KEY);
+    removeStored(STALE_CSS_KEY);
     document.getElementById(STYLE_ID)?.remove();
 }
 

@@ -29,7 +29,10 @@
         transition:themedSlide={{ durationVar: '--motion-duration-press', fallback: 160 }}
         data-ui="field-error"
         data-field-error
-        class={cn(className, 'text-sm leading-body text-[var(--mielui-error-text)]')}
+        class={cn(
+            className,
+            '[font-size:var(--font-size-label)] [font-weight:var(--font-weight-description)] leading-snug text-[var(--mielui-error-text)]'
+        )}
     >
         {#if children}
             {@render children()}

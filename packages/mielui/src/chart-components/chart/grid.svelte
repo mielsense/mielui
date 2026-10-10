@@ -19,7 +19,6 @@
             x2={chart.orientation === 'horizontal' ? layer.xScale(value) : layer.width}
             y1={chart.orientation === 'horizontal' ? 0 : layer.yScale(value)}
             y2={chart.orientation === 'horizontal' ? layer.height : layer.yScale(value)}
-            stroke-dasharray="3 5"
         />
     {/each}
 </g>

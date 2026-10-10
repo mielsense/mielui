@@ -30,6 +30,13 @@
         Number.isFinite(siblings) ? Math.min(100, Math.max(0, Math.floor(siblings))) : 1
     );
 
+    const itemClasses =
+        'mielui-press inline-flex h-[var(--size-icon-md)] min-w-[var(--size-icon-md)] items-center justify-center rounded-[var(--radius-control)] hover:cursor-[var(--ui-cursor-interactive)] transition-[background-color,color,box-shadow,transform,scale] [transition-duration:var(--motion-duration-press)] ease-[var(--ease-press)] motion-reduce:transition-none focus-visible:outline-none focus-visible:shadow-[var(--focus-ring)]';
+    const arrowClasses = cn(
+        itemClasses,
+        'text-foreground-muted hover:bg-[var(--color-wash)] hover:text-foreground disabled:cursor-not-allowed disabled:opacity-[var(--opacity-disabled)]'
+    );
+
     function go(next: number) {
         const clamped = Math.min(Math.max(next, 1), totalPages);
         if (clamped === page) {
@@ -73,7 +80,7 @@
         aria-label={labels?.previous ?? 'Previous page'}
         disabled={currentPage <= 1}
         onclick={() => go(currentPage - 1)}
-        class="mielui-press inline-flex size-[var(--size-icon-md)] items-center justify-center rounded-[var(--radius-md)] text-foreground-muted transition-[background-color,color,box-shadow,transform,scale] [transition-duration:var(--motion-duration-press)] ease-[var(--ease-press)] motion-reduce:transition-none hover:bg-secondary hover:text-foreground focus-visible:outline-none focus-visible:shadow-[var(--focus-ring)] disabled:cursor-not-allowed disabled:opacity-[var(--opacity-disabled)]"
+        class={arrowClasses}
     >
         <HugeiconsIcon icon={ChevronLeft} size={15} class="rtl:rotate-180" />
     </button>
@@ -94,10 +101,11 @@
                 aria-current={p === currentPage ? 'page' : undefined}
                 onclick={() => go(p)}
                 class={cn(
-                    'mielui-press inline-flex size-[var(--size-icon-md)] items-center justify-center rounded-[var(--radius-md)] text-[length:var(--font-size-label)] tabular-nums [font-weight:var(--font-weight-button)] [letter-spacing:var(--tracking-button)] transition-[background-color,color,box-shadow,transform,scale] [transition-duration:var(--motion-duration-press)] ease-[var(--ease-press)] motion-reduce:transition-none focus-visible:outline-none focus-visible:shadow-[var(--focus-ring)]',
+                    itemClasses,
+                    'px-2 text-[length:var(--font-size-label)] tabular-nums [font-weight:var(--font-weight-button)] [letter-spacing:var(--tracking-button)] leading-none',
                     p === currentPage
-                        ? 'bg-card text-foreground shadow-[var(--elevation-control)] focus-visible:shadow-[var(--focus-ring),var(--elevation-control)] hover:bg-secondary'
-                        : 'text-foreground-muted hover:bg-secondary hover:text-foreground'
+                        ? 'mielui-glow mielui-glow-neutral text-foreground shadow-[var(--mielui-glow-shadow)] focus-visible:shadow-[var(--focus-ring),var(--mielui-glow-shadow)]'
+                        : 'text-foreground-muted hover:bg-[var(--color-wash)] hover:text-foreground'
                 )}
             >
                 {p}
@@ -111,7 +119,7 @@
         aria-label={labels?.next ?? 'Next page'}
         disabled={currentPage >= totalPages}
         onclick={() => go(currentPage + 1)}
-        class="mielui-press inline-flex size-[var(--size-icon-md)] items-center justify-center rounded-[var(--radius-md)] text-foreground-muted transition-[background-color,color,box-shadow,transform,scale] [transition-duration:var(--motion-duration-press)] ease-[var(--ease-press)] motion-reduce:transition-none hover:bg-secondary hover:text-foreground focus-visible:outline-none focus-visible:shadow-[var(--focus-ring)] disabled:cursor-not-allowed disabled:opacity-[var(--opacity-disabled)]"
+        class={arrowClasses}
     >
         <HugeiconsIcon icon={ChevronRight} size={15} class="rtl:rotate-180" />
     </button>

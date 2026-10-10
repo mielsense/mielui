@@ -28,12 +28,12 @@
     {#if indeterminate}
         <div
             {@attach motionLoop}
-            class="[animation-play-state:var(--mielui-loop-play-state)] absolute inset-y-0 left-0 w-1/3 animate-[mielui-progress-slide_1.4s_linear_infinite] rounded-full bg-primary motion-reduce:animate-none"
+            class="[animation-play-state:var(--mielui-loop-play-state)] absolute inset-y-0 left-0 w-1/3 animate-[mielui-progress-slide_1.4s_linear_infinite] rounded-full bg-primary motion-reduce:w-full motion-reduce:animate-pulse"
         ></div>
     {:else}
         <div
-            class="h-full w-full origin-left rtl:origin-right rounded-full bg-primary transition-transform [transition-duration:var(--motion-duration-panel)] ease-out motion-reduce:transition-none"
-            style:transform={`scaleX(${pct / 100})`}
+            class="h-full w-full translate-x-[var(--mielui-progress-offset)] rounded-full bg-primary transition-[translate] [transition-duration:var(--motion-duration-spring)] ease-[var(--ease-spring-layout)] rtl:translate-x-[calc(var(--mielui-progress-offset)*-1)] motion-reduce:transition-none"
+            style:--mielui-progress-offset={`${pct - 100}%`}
         ></div>
     {/if}
 </div>

@@ -1,0 +1,43 @@
+- The Workspace address field in the Studio preview has a divider between the `mielui.dev/` prefix and the slug, so the two no longer read as one field with a gap in it.
+- Outline buttons inside a Group use the same border color as the inputs, text, and dividers beside them. They kept a lighter border, so the frame changed color partway around.
+- Documentation pages center the article in a narrower column with more space between sections, a larger page title, and prose held to a readable line length.
+- The docs page outline is a minimap of dashes at the right edge instead of an "On this page" list. Dashes grow toward the pointer and the nearest one shows its heading.
+- Composer gives the input and its joined toolbar more padding.
+- The docs shell drops the status line under the page. Sidebar navigation is a plain text list with more space between groups, and search stays in the header and on Cmd/Ctrl+K.
+- Outline buttons wrapped in a Tooltip or another trigger inside a Group take the group's border color too, so the frame no longer changes color at the wrapped button.
+- Theme Studio switches preview modes with a floating segmented control at the bottom center of the preview instead of tabs in the top bar.
+- The traveling highlight in menus and the command palette is measured correctly while its panel is still scaling in, so the first highlighted row is no longer too narrow after a keyboard open.
+- The traveling highlight snaps to the active row for arrow keys and selection changes, and only glides for a pointer.
+- Combobox results no longer animate their height on every keystroke.
+- An indeterminate Progress pulses under reduced motion instead of freezing as a one-third bar.
+- Popover scales from the side its trigger is on, and tooltips scale from their trigger instead of their center.
+- Toasts fade in as they rise instead of appearing at full opacity.
+- A live theme saved by an earlier version is rebuilt from the Studio draft instead of being applied as stale CSS, which left the page and the content plate the same color in light mode.
+- Nested corners now share a centre. Dialog, Sheet, Drawer, inset Card, Table, and Composer frames take their radius from the control radius and a two-unit footer gap, menus and popovers from their rows, and CodeBlock, Toolbar, and the Reorder List handle follow the same rule.
+- A closed Select or Combobox no longer intercepts clicks on whatever sits below its trigger.
+- Dropdown menus, context menus, their submenus, and Select and Combobox lists keep an 8px margin from the window edge instead of sitting flush against it.
+- Collapsing an Accordion, Collapsible, Reasoning, or Tool no longer logs an "Invalid keyframe value for property height" warning.
+- `Message.Content` caps assistant and system text at 65 characters per line, as intended. The cap was losing to a full-width class.
+- Closing a Dialog or Sheet from a menu item or confirmation inside it, in the same tick, no longer logs Svelte's `derived_inert` warning.
+- The info status color and the accent tint follow `--color-primary`, so setting that one token rebrands them too.
+- `Command.Header` leaves the palette when it is removed instead of staying until the page reloads.
+- `Popover.Trigger` renders the chevron its `icon` prop describes. It is off by default and turns while the popover is open.
+- CodeBlock keeps its gutter beside the code when `theme="custom"` is combined with line numbers or an inline copy button.
+- `Toolbar.Group` stacks its items in a vertical toolbar, and vertical items share one width.
+- Calendar, Range Calendar, Date Picker, and Date Range Picker keep the visible month when their props change, which also stops a crash in the month and year selects when props are spread onto the root.
+- Long weekday names are cut with an ellipsis instead of overlapping in the calendar header.
+- A date field with `granularity="hour"` no longer shows a stray "(second: 00)" after the hour.
+- `Select.Trigger` accepts `aria-invalid` in its type.
+- The placeholder and chevron on primary, destructive, and glow Select and Combobox triggers take the button's text color, so they are readable on the fill.
+- A Combobox search field keeps the typed query after a pick instead of showing the picked label.
+- A Textarea with a footer no longer shows the browser's resize grip inside its frame.
+- `Group.Text` matches the height of the controls beside it in a vertical group.
+- Checked task items in Markdown show a tick instead of a dash.
+- The Conversation scroll button no longer catches clicks while it is hidden.
+- User messages are capped at 90% of the transcript width and system messages at their own measure. Both caps were losing to a full-width class.
+- A selected radio and a selected Toggle Group item keep their lit edge while focused, instead of showing only the focus ring.
+- A disabled radio's label shows the not-allowed cursor.
+- The Reorder List handle darkens while its row is lifted.
+- A tabbed CodeBlock scrolls in one place. Its panels no longer carry a second, competing height limit.
+- `Tabs.List` accepts `id`, `aria-label`, and `aria-labelledby` in its type, and `Combobox.Trigger` accepts `aria-labelledby`.
+- A standalone Label uses the same line height as the labels built into fields.

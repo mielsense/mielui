@@ -21,7 +21,7 @@
     data-ui="skeleton"
     data-variant={variant}
     {...rest}
-    class={cn(classProp, 'rounded-[var(--radius-md)] bg-secondary')}
+    class={cn(classProp, 'rounded-[var(--radius-sm)] bg-foreground-muted/15')}
     style:height={height == null ? undefined : `${height}${unit}`}
     style:width={width == null ? undefined : `${width}${unit}`}
 >

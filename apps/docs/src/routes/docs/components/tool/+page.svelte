@@ -1,15 +1,15 @@
 <script lang="ts">
     import { CodeBlock } from '@mielui/svelte/components/code-block';
+    import * as Tool from '@mielui/svelte/components/tool';
     import * as Typography from '@mielui/svelte/components/typography';
-    import { ComponentPreview, InstallCommand } from '$lib/components/docs';
+    import { ComponentPreview, InstallCommand, Playground } from '$lib/components/docs';
     import PageIntro from '$lib/components/docs/page-intro.svelte';
 
-    import Hero from './examples/hero.svelte';
-    import HeroSrc from './examples/hero.svelte?raw';
     import Quiet from './examples/quiet.svelte';
     import QuietSrc from './examples/quiet.svelte?raw';
     import ToolStates from './examples/tool-states.svelte';
     import ToolStatesSrc from './examples/tool-states.svelte?raw';
+    import { code as playgroundCode, controls as playgroundControls } from './playground';
 
     const TITLE = 'Tool';
     const SLUG = 'tool';
@@ -36,7 +36,52 @@
     </PageIntro>
 
     <section id="hero" class="scroll-mt-20 flex flex-col gap-4">
-        <ComponentPreview code={HeroSrc}><Hero /></ComponentPreview>
+        <Playground controls={playgroundControls} code={playgroundCode}>
+            {#snippet children(values)}
+                {#snippet steps()}
+                    <Tool.Item name="Bash" detail={values.details ? 'pnpm lint' : undefined} />
+                    <Tool.Item
+                        name="Grep"
+                        detail={values.details ? 'Composer' : undefined}
+                        kind="search"
+                    />
+                    <Tool.Item
+                        name="Read"
+                        detail={values.details ? 'src/components/composer.svelte' : undefined}
+                        kind="read"
+                    />
+                    {#if values.sections}
+                        <Tool.Input>pnpm lint</Tool.Input>
+                        <Tool.Output>Checked 214 files. No fixes applied.</Tool.Output>
+                    {/if}
+                {/snippet}
+                <div class="w-full max-w-xl">
+                    {#if values.composed}
+                        <Tool.Root
+                            name={values.name}
+                            state={values.state}
+                            duration={values.duration || undefined}
+                            variant={values.variant}
+                            open={values.open}
+                            composed
+                        >
+                            <Tool.Trigger />
+                            <Tool.Content> {@render steps()} </Tool.Content>
+                        </Tool.Root>
+                    {:else}
+                        <Tool.Root
+                            name={values.name}
+                            state={values.state}
+                            duration={values.duration || undefined}
+                            variant={values.variant}
+                            open={values.open}
+                        >
+                            {@render steps()}
+                        </Tool.Root>
+                    {/if}
+                </div>
+            {/snippet}
+        </Playground>
     </section>
 
     <section id="installation" class="scroll-mt-20 flex flex-col gap-4">

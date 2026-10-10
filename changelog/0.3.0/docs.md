@@ -1,0 +1,16 @@
+- The docs, Theme Studio, Themes, and Changelog share a new shell: a near-black frame with an icon rail, around one panel that holds the sidebar and the page. The frame is the same in light and dark mode.
+- The rail holds the brand and the sidebar toggle at the top, Docs, Components, Theme Studio, Themes, and Changelog in the middle, and search, the theme toggle, and GitHub at the bottom. One highlight marks the current page and slides to the next.
+- The sidebar's current page is marked by a highlight sized to its label that slides between pages. Pinned section titles stay fully legible while their section scrolls.
+- Docs text runs the full width of the article, level with previews and code.
+- Open pages are tabs in a floating dock at the bottom of the page, styled like a toggle group. Copy page sits at the top end of the page.
+- Theme Studio shows its preview on the panel, with its tools in a floating menu at the top end.
+- Theme Studio no longer has a Primary button border setting. Lit buttons draw their own edge, so it had no effect.
+- The fade at the bottom edge of the page and the sidebar is shorter and no longer blurs far into the text.
+- The Markdown theming guide at `/docs/theming.md` now carries the full guide: token overrides, the public token table, presets, theme JSON, and selectors.
+- Component Markdown references include the modules their examples import, such as the Data Table and Heatmap `data.ts` files.
+- Every example frame keeps its preview in view: a code button opens the source under it, long sources start collapsed, and a full screen button opens the preview on its own.
+- Every component page opens with a playground. Pick a variant in the toolbar, change the other props in the Props menu, and the code under the preview follows. The earlier hero examples stay on the page under Examples.
+- The code under an example slides open, and long sources expand with the same motion.
+- The Copy page control at the top of a docs page is smaller, with less space around its buttons.
+- The calendar and date picker pages say that days outside the month are disabled by default, and the API tables list that default.
+- The Data Table `variant` description says what each variant frames.

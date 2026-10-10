@@ -260,7 +260,7 @@ export function createThemeEditor() {
             dark: preset.tokens?.dark?.['--color-primary'] ?? preset.brand
         };
         Object.assign(state, readThemeAppearance(preset));
-        state.rememberedEdgeHighlight = state.edgeHighlight || 0.5;
+        state.rememberedEdgeHighlight = state.edgeHighlight || 0.33;
         syncFontSelections(state.theme);
     }
 
@@ -303,7 +303,7 @@ export function createThemeEditor() {
         if (storedTheme) {
             state.theme = { ...storedTheme };
             Object.assign(state, readThemeAppearance(storedTheme));
-            state.rememberedEdgeHighlight = state.edgeHighlight || 0.5;
+            state.rememberedEdgeHighlight = state.edgeHighlight || 0.33;
             syncFontSelections(state.theme);
         }
         storage.load();

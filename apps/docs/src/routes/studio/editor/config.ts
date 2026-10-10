@@ -67,57 +67,128 @@ export type RoleWeights = {
 
 export const STUDIO_EXTENSIONS_KEY = 'mielui-studio-extensions-v1';
 
-/** The default theme's colors, exactly as `ui.css` resolves them. */
+/**
+ * The default theme's colors, as `ui.css` resolves them. The border is the opaque
+ * equivalent of the stylesheet's translucent ink mix on a card.
+ */
 export const DEFAULT_FOUNDATION_COLORS: FoundationColors = {
     light: {
         base: '#ffffff',
-        border: '#e8e8e6',
-        background: '#fdfdfd',
-        secondary: '#f0f0ee',
-        foreground: '#1c1c19',
-        foregroundMuted: '#6d6d67',
-        onPrimary: '#ffffff',
-        buttonForeground: '#1c1c19'
+        border: '#e5e5e5',
+        background: '#f6f6f6',
+        secondary: '#e9e9e9',
+        foreground: '#292929',
+        foregroundMuted: '#6d6d6d',
+        onPrimary: '#21151e',
+        buttonForeground: '#292929'
     },
     dark: {
-        base: '#171717',
-        border: '#2a2a2a',
-        background: '#0a0a0a',
-        secondary: '#252525',
+        base: '#131313',
+        border: '#2d2d2d',
+        background: '#1a1a1a',
+        secondary: '#262626',
         foreground: '#ededed',
-        foregroundMuted: '#a6a6a6',
+        foregroundMuted: '#969696',
         onPrimary: '#21151e',
         buttonForeground: '#ededed'
     }
 };
 
 /**
- * The defaults the Studio used before 0.2.1. They drifted from the stylesheet, most visibly
- * with white text on primary buttons. A saved draft that still holds one of these values
- * never chose it, so restoring a draft replaces it with the current default.
+ * Defaults the Studio used in earlier versions, oldest first. A saved draft that still
+ * holds one of these values never chose it, so restoring a draft replaces it with the
+ * current default.
  */
-export const LEGACY_FOUNDATION_COLORS: FoundationColors = {
-    light: {
-        base: '#ffffff',
-        border: '#e8e8e6',
-        background: '#fdfdfc',
-        secondary: '#efefee',
-        foreground: '#1c1c1b',
-        foregroundMuted: '#737373',
-        onPrimary: '#ffffff',
-        buttonForeground: '#1c1c1b'
+export const LEGACY_FOUNDATION_COLORS: FoundationColors[] = [
+    {
+        light: {
+            base: '#ffffff',
+            border: '#e8e8e6',
+            background: '#fdfdfc',
+            secondary: '#efefee',
+            foreground: '#1c1c1b',
+            foregroundMuted: '#737373',
+            onPrimary: '#ffffff',
+            buttonForeground: '#1c1c1b'
+        },
+        dark: {
+            base: '#171717',
+            border: '#2a2a2a',
+            background: '#0a0a0a',
+            secondary: '#252525',
+            foreground: '#ededed',
+            foregroundMuted: '#a3a3a3',
+            onPrimary: '#ffffff',
+            buttonForeground: '#ededed'
+        }
     },
-    dark: {
-        base: '#171717',
-        border: '#2a2a2a',
-        background: '#0a0a0a',
-        secondary: '#252525',
-        foreground: '#ededed',
-        foregroundMuted: '#a3a3a3',
-        onPrimary: '#ffffff',
-        buttonForeground: '#ededed'
+    {
+        light: {
+            base: '#ffffff',
+            border: '#e8e8e6',
+            background: '#fdfdfd',
+            secondary: '#f0f0ee',
+            foreground: '#1c1c19',
+            foregroundMuted: '#6d6d67',
+            onPrimary: '#ffffff',
+            buttonForeground: '#1c1c19'
+        },
+        dark: {
+            base: '#171717',
+            border: '#2a2a2a',
+            background: '#0a0a0a',
+            secondary: '#252525',
+            foreground: '#ededed',
+            foregroundMuted: '#a6a6a6',
+            onPrimary: '#21151e',
+            buttonForeground: '#ededed'
+        }
+    },
+    {
+        light: {
+            base: '#ffffff',
+            border: '#e5e5e5',
+            background: '#f6f6f6',
+            secondary: '#e9e9e9',
+            foreground: '#292929',
+            foregroundMuted: '#6d6d6d',
+            onPrimary: '#21151e',
+            buttonForeground: '#292929'
+        },
+        dark: {
+            base: '#1a1a1a',
+            border: '#353535',
+            background: '#121212',
+            secondary: '#272727',
+            foreground: '#ededed',
+            foregroundMuted: '#969696',
+            onPrimary: '#21151e',
+            buttonForeground: '#ededed'
+        }
+    },
+    {
+        light: {
+            base: '#ffffff',
+            border: '#e5e5e5',
+            background: '#f6f6f6',
+            secondary: '#e9e9e9',
+            foreground: '#292929',
+            foregroundMuted: '#6d6d6d',
+            onPrimary: '#21151e',
+            buttonForeground: '#292929'
+        },
+        dark: {
+            base: '#0e0e0e',
+            border: '#2d2d2d',
+            background: '#161616',
+            secondary: '#232323',
+            foreground: '#ededed',
+            foregroundMuted: '#969696',
+            onPrimary: '#21151e',
+            buttonForeground: '#ededed'
+        }
     }
-};
+];
 
 export const DEFAULT_ROLE_WEIGHTS: RoleWeights = {
     body: '400',
@@ -143,35 +214,35 @@ export const baseSwatches = [
     { label: 'White', value: '#ffffff' },
     { label: 'Porcelain', value: '#fafaf9' },
     { label: 'Graphite', value: '#202020' },
-    { label: 'Ink', value: '#171717' }
+    { label: 'Ink', value: '#131313' }
 ];
 
 export const borderSwatches = [
-    { label: 'Mist', value: '#e8e8e6' },
+    { label: 'Mist', value: '#e5e5e5' },
     { label: 'Silver', value: '#d4d4d2' },
-    { label: 'Graphite', value: '#3a3a3a' },
-    { label: 'Charcoal', value: '#2a2a2a' }
+    { label: 'Graphite', value: '#454545' },
+    { label: 'Charcoal', value: '#2d2d2d' }
 ];
 
 export const backgroundSwatches = [
-    { label: 'Canvas', value: '#fdfdfd' },
-    { label: 'Cloud', value: '#f7f7f5' },
+    { label: 'Stage', value: '#f6f6f6' },
+    { label: 'Paper', value: '#fdfdfd' },
     { label: 'Slate', value: '#111318' },
-    { label: 'Night', value: '#0a0a0a' }
+    { label: 'Night', value: '#1a1a1a' }
 ];
 
 export const secondarySwatches = [
-    { label: 'Soft', value: '#f0f0ee' },
+    { label: 'Soft', value: '#e9e9e9' },
     { label: 'Stone', value: '#e7e5e4' },
     { label: 'Smoke', value: '#303030' },
-    { label: 'Carbon', value: '#252525' }
+    { label: 'Carbon', value: '#262626' }
 ];
 
 export const foregroundSwatches = [
-    { label: 'Ink', value: '#1c1c19' },
+    { label: 'Ink', value: '#292929' },
     { label: 'Charcoal', value: '#3a3a3a' },
-    { label: 'Pewter', value: '#6d6d67' },
-    { label: 'Mist', value: '#a6a6a6' },
+    { label: 'Pewter', value: '#6d6d6d' },
+    { label: 'Mist', value: '#969696' },
     { label: 'Snow', value: '#ededed' }
 ];
 

@@ -1,6 +1,5 @@
 <script lang="ts">
     import {
-        Mortarboard01Icon as Agent,
         BookOpen01Icon as Book,
         Clock01Icon as Clock,
         GithubIcon as Github,
@@ -16,8 +15,12 @@
     import { resolve } from '$app/paths';
     import { page } from '$app/state';
     import { getSearch } from '$lib/components/search/context';
+    import { formatStarCount } from '$lib/github';
     import { usesDocsSidebar } from './page-icon';
     import { getShell } from './shell.svelte';
+    import ThemeToggle from './theme-toggle.svelte';
+
+    const { starCount = null }: { starCount?: number | null } = $props();
 
     const search = getSearch();
     const shell = getShell();
@@ -26,15 +29,19 @@
     const items = $derived([
         {
             href: resolve('/docs/introduction'),
-            label: 'Documentation',
+            label: 'Docs',
             icon: Book,
-            current: usesDocsSidebar(pathname) && !pathname.startsWith('/docs/components')
+            current:
+                pathname.startsWith('/docs') &&
+                !pathname.startsWith('/docs/components') &&
+                !pathname.startsWith('/docs/actions') &&
+                !pathname.startsWith('/docs/changelog')
         },
         {
             href: resolve('/docs/components'),
             label: 'Components',
             icon: Grid,
-            current: pathname.startsWith('/docs/components')
+            current: pathname.startsWith('/docs/components') || pathname.startsWith('/docs/actions')
         },
         {
             href: resolve('/studio'),
@@ -53,31 +60,54 @@
             label: 'Changelog',
             icon: Clock,
             current: pathname.startsWith('/docs/changelog')
-        },
-        {
-            href: resolve('/docs/agent-skill'),
-            label: 'Agent skill',
-            icon: Agent,
-            current: pathname.startsWith('/docs/agent-skill')
         }
     ]);
     const itemClass =
-        'relative grid size-9 place-items-center rounded-[var(--radius-md)] text-foreground-muted transition-colors [transition-duration:var(--motion-duration-hover)] hover:bg-[var(--docs-pill)] hover:text-foreground focus-visible:outline-none focus-visible:shadow-[var(--focus-ring)] aria-[current=page]:bg-[var(--docs-pill)] aria-[current=page]:text-foreground motion-reduce:transition-none';
+        'relative grid size-9 place-items-center rounded-[var(--radius-control)] text-foreground-muted transition-colors [transition-duration:var(--motion-duration-hover)] hover:text-foreground focus-visible:shadow-[var(--focus-ring)] focus-visible:outline-none motion-reduce:transition-none';
+
+    let list = $state<HTMLElement>();
+    let pill = $state<{ top: number; height: number }>();
+    let ready = $state(false);
+
+    function measure() {
+        const current = list?.querySelector<HTMLElement>('[aria-current="page"]');
+        pill = current ? { top: current.offsetTop, height: current.offsetHeight } : undefined;
+    }
+
+    $effect(() => {
+        void pathname;
+        measure();
+        const frame = requestAnimationFrame(() => {
+            ready = true;
+        });
+
+        return () => {
+            cancelAnimationFrame(frame);
+        };
+    });
 
     function openSearch() {
         search.open = true;
     }
 </script>
 
+<!--
+    @component
+    The icon rail: brand and the sidebar toggle at the top, the primary pages with one
+    traveling highlight spaced evenly between the groups, and search, the theme toggle, and
+    GitHub at the bottom.
+    It sits on the dark outer frame in both themes, so it always renders with the dark tokens.
+-->
+
 <nav
     aria-label="Primary"
-    class="hidden w-16 shrink-0 flex-col items-center border-e-[length:var(--border-size)] border-border bg-[var(--docs-side)] lg:flex"
+    class="dark hidden w-17 shrink-0 flex-col items-center justify-between py-3 text-foreground lg:flex"
 >
-    <div class="flex h-[50px] shrink-0 items-center">
+    <div class="flex flex-col items-center gap-1">
         <a
             href={resolve('/')}
             aria-label="mielui Home"
-            class="grid size-9 place-items-center rounded-[var(--radius-md)] focus-visible:outline-none focus-visible:shadow-[var(--focus-ring)]"
+            class="mb-1 grid size-9 place-items-center rounded-[var(--radius-control)] focus-visible:shadow-[var(--focus-ring)] focus-visible:outline-none"
         >
             <span
                 class="grid size-7 place-items-center rounded-[8px] bg-primary [--color-foreground:white]"
@@ -85,8 +115,33 @@
                 <BrandMark size={19} />
             </span>
         </a>
+        <Tooltip.Root placement="right">
+            <Tooltip.Trigger>
+                <button
+                    type="button"
+                    aria-label={shell.collapsed ? 'Show sidebar' : 'Hide sidebar'}
+                    aria-pressed={hasSidebar ? !shell.collapsed : undefined}
+                    disabled={!hasSidebar}
+                    class={`${itemClass} disabled:pointer-events-none disabled:opacity-60`}
+                    onclick={shell.toggle}
+                >
+                    <HugeiconsIcon icon={SidebarIcon} size={18} strokeWidth={1.8} />
+                </button>
+            </Tooltip.Trigger>
+            <Tooltip.Content>
+                {shell.collapsed ? 'Show sidebar' : 'Hide sidebar'}
+            </Tooltip.Content>
+        </Tooltip.Root>
     </div>
-    <div class="flex flex-col items-center gap-1.5 pt-2">
+    <div bind:this={list} class="relative isolate flex flex-col items-center gap-1">
+        <span
+            aria-hidden="true"
+            class="mielui-glow pointer-events-none absolute inset-x-0 top-0 -z-10 shadow-[var(--mielui-glow-shadow)] transition-[translate,height,opacity] [transition-duration:var(--motion-duration-item)] ease-[var(--ease-out)] [--mielui-glow-color:var(--color-foreground)] [--mielui-glow-light:0.16] [--mielui-glow-ring:transparent] motion-reduce:transition-none dark:[--mielui-glow-color:color-mix(in_srgb,var(--color-foreground)_16%,var(--color-card))] dark:[--mielui-glow-light:0.12] dark:[--mielui-glow-ring:var(--color-border)]"
+            style:translate={`0 ${pill?.top ?? 0}px`}
+            style:height={`${pill?.height ?? 0}px`}
+            style:opacity={pill ? 1 : 0}
+            style:transition={ready ? undefined : 'none'}
+        ></span>
         {#each items as item (item.href)}
             <Tooltip.Root placement="right">
                 <Tooltip.Trigger>
@@ -94,15 +149,16 @@
                         href={item.href}
                         aria-label={item.label}
                         aria-current={item.current ? 'page' : undefined}
-                        class={itemClass}
+                        class={`${itemClass} aria-[current=page]:text-card dark:aria-[current=page]:text-foreground`}
                     >
-                        <HugeiconsIcon icon={item.icon} size={20} strokeWidth={1.8} />
+                        <HugeiconsIcon icon={item.icon} size={18} strokeWidth={1.8} />
                     </a>
                 </Tooltip.Trigger>
                 <Tooltip.Content>{item.label}</Tooltip.Content>
             </Tooltip.Root>
         {/each}
-        <span aria-hidden="true" class="my-1 h-px w-6 bg-[var(--docs-rule)]"></span>
+    </div>
+    <div class="flex flex-col items-center gap-1">
         <Tooltip.Root placement="right">
             <Tooltip.Trigger>
                 <button
@@ -111,41 +167,27 @@
                     class={itemClass}
                     onclick={openSearch}
                 >
-                    <HugeiconsIcon icon={Search} size={20} strokeWidth={1.8} />
+                    <HugeiconsIcon icon={Search} size={18} strokeWidth={1.8} />
                 </button>
             </Tooltip.Trigger>
             <Tooltip.Content>Search</Tooltip.Content>
         </Tooltip.Root>
-        {#if hasSidebar && shell.collapsed}
-            <Tooltip.Root placement="right">
-                <Tooltip.Trigger>
-                    <button
-                        type="button"
-                        aria-label="Show sidebar"
-                        class={itemClass}
-                        onclick={shell.toggle}
-                    >
-                        <HugeiconsIcon icon={SidebarIcon} size={20} strokeWidth={1.8} />
-                    </button>
-                </Tooltip.Trigger>
-                <Tooltip.Content>Show sidebar</Tooltip.Content>
-            </Tooltip.Root>
-        {/if}
-    </div>
-    <div class="mt-auto flex h-[50px] shrink-0 items-center">
+        <ThemeToggle />
         <Tooltip.Root placement="right">
             <Tooltip.Trigger>
                 <a
                     href="https://github.com/mielsense/mielui"
                     target="_blank"
                     rel="noreferrer"
-                    aria-label="mielui on GitHub"
+                    aria-label="Star mielui on GitHub"
                     class={itemClass}
                 >
-                    <HugeiconsIcon icon={Github} size={20} strokeWidth={1.8} />
+                    <HugeiconsIcon icon={Github} size={18} strokeWidth={1.8} />
                 </a>
             </Tooltip.Trigger>
-            <Tooltip.Content>GitHub</Tooltip.Content>
+            <Tooltip.Content>
+                <span class="tabular-nums">GitHub · {formatStarCount(starCount)}</span>
+            </Tooltip.Content>
         </Tooltip.Root>
     </div>
 </nav>

@@ -19,7 +19,7 @@
 </script>
 
 <div
-    class="flex w-full max-w-sm items-center justify-between gap-4 rounded-[var(--radius-md)] border border-border bg-card px-3 py-2"
+    class="flex w-full max-w-sm items-center justify-between gap-4 rounded-[var(--radius-xl)] border border-border bg-card py-2 ps-4 pe-2"
 >
     <div class="flex items-center gap-2 text-sm text-foreground-muted">
         <Spinner {ready} aria-hidden="true" />

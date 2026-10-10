@@ -1,15 +1,22 @@
 <script lang="ts">
+    import { PackageIcon } from '@hugeicons/core-free-icons';
+    import { Button } from '@mielui/svelte/components/button';
     import { CodeBlock } from '@mielui/svelte/components/code-block';
+    import * as EmptyState from '@mielui/svelte/components/empty-state';
     import * as Typography from '@mielui/svelte/components/typography';
-    import { ComponentPreview, InstallCommand } from '$lib/components/docs';
+    import HugeiconsIcon from '@mielui/svelte/hugeicons-icon';
+    import { ComponentPreview, InstallCommand, Playground } from '$lib/components/docs';
     import InlineText from '$lib/components/docs/inline-text.svelte';
     import PageIntro from '$lib/components/docs/page-intro.svelte';
-    import Hero from './examples/hero.svelte';
-    import HeroSrc from './examples/hero.svelte?raw';
     import Inbox from './examples/inbox.svelte';
     import InboxSrc from './examples/inbox.svelte?raw';
     import Search from './examples/search.svelte';
     import SearchSrc from './examples/search.svelte?raw';
+    import {
+        headingLevel,
+        code as playgroundCode,
+        controls as playgroundControls
+    } from './playground';
 </script>
 
 <svelte:head>
@@ -26,7 +33,43 @@
     </PageIntro>
 
     <section id="hero" class="scroll-mt-20 flex flex-col gap-4">
-        <ComponentPreview code={HeroSrc}><Hero /></ComponentPreview>
+        <Playground controls={playgroundControls} code={playgroundCode}>
+            {#snippet children(values)}
+                <EmptyState.Root class="max-w-sm">
+                    {#if values.media}
+                        <EmptyState.Media aria-hidden="true">
+                            <HugeiconsIcon icon={PackageIcon} class="size-6" />
+                        </EmptyState.Media>
+                    {/if}
+                    {#if values.title || values.description}
+                        <EmptyState.Header>
+                            {#if values.title}
+                                <EmptyState.Title level={headingLevel(values.level)}>
+                                    No components yet
+                                </EmptyState.Title>
+                            {/if}
+                            {#if values.description}
+                                <EmptyState.Description>
+                                    Add your first component to start building your interface.
+                                </EmptyState.Description>
+                            {/if}
+                        </EmptyState.Header>
+                    {/if}
+                    {#if values.content}
+                        <EmptyState.Content>
+                            <Typography.InlineCode>
+                                pnpm dlx @mielui/svelte add button
+                            </Typography.InlineCode>
+                        </EmptyState.Content>
+                    {/if}
+                    {#if values.actions}
+                        <EmptyState.Actions>
+                            <Button href="/docs/installation">Add a component</Button>
+                        </EmptyState.Actions>
+                    {/if}
+                </EmptyState.Root>
+            {/snippet}
+        </Playground>
     </section>
 
     <section id="installation" class="scroll-mt-20 flex flex-col gap-4">

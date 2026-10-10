@@ -9,8 +9,6 @@
     let emailTouched = $state(false);
     let workspaceSlugTouched = $state(false);
     let submitted = $state(false);
-    const errorInputClass =
-        'border-[color-mix(in_srgb,var(--color-error)_70%,transparent)] shadow-[0_0_0_calc(var(--border-size)*2)_color-mix(in_srgb,var(--color-error)_25%,transparent)]';
 
     function emailValidationMessage(
         value: string,
@@ -81,25 +79,21 @@
             aria-invalid={emailError ? 'true' : undefined}
             aria-describedby={emailError ? 'email-error email-description' : 'email-description'}
             aria-errormessage={emailError ? 'email-error' : undefined}
-            class={emailError ? errorInputClass : undefined}
         />
         <div
             data-state={emailError ? 'error' : undefined}
-            class="-mt-1.5 max-h-0 overflow-hidden opacity-0 transition-[margin,max-height,opacity] [transition-duration:220ms] ease-[var(--ease-out)] motion-reduce:transition-none data-[state=error]:mt-0 data-[state=error]:max-h-24 data-[state=error]:opacity-100"
+            class="-mt-1.5 max-h-0 overflow-hidden opacity-0 transition-[margin,max-height,opacity] [transition-duration:var(--motion-duration-panel)] ease-[var(--ease-out)] motion-reduce:transition-none data-[state=error]:mt-0 data-[state=error]:max-h-24 data-[state=error]:opacity-100"
         >
             <p
                 id="email-error"
-                class="text-sm font-medium text-[var(--mielui-error-text)]"
+                class="text-label text-[var(--mielui-error-text)]"
                 role={emailError ? 'alert' : undefined}
                 aria-hidden={emailError ? undefined : 'true'}
             >
                 {emailError}
             </p>
         </div>
-        <p
-            id="email-description"
-            class="text-foreground-muted [font-size:var(--font-size-body,16px)]"
-        >
+        <p id="email-description" class="text-label text-foreground-muted">
             We'll use this to send workspace invites.
         </p>
     </div>
@@ -120,25 +114,21 @@
                 ? 'workspace-slug-error workspace-slug-description'
                 : 'workspace-slug-description'}
             aria-errormessage={workspaceSlugError ? 'workspace-slug-error' : undefined}
-            class={workspaceSlugError ? errorInputClass : undefined}
         />
         <div
             data-state={workspaceSlugError ? 'error' : undefined}
-            class="-mt-1.5 max-h-0 overflow-hidden opacity-0 transition-[margin,max-height,opacity] [transition-duration:220ms] ease-[var(--ease-out)] motion-reduce:transition-none data-[state=error]:mt-0 data-[state=error]:max-h-24 data-[state=error]:opacity-100"
+            class="-mt-1.5 max-h-0 overflow-hidden opacity-0 transition-[margin,max-height,opacity] [transition-duration:var(--motion-duration-panel)] ease-[var(--ease-out)] motion-reduce:transition-none data-[state=error]:mt-0 data-[state=error]:max-h-24 data-[state=error]:opacity-100"
         >
             <p
                 id="workspace-slug-error"
-                class="text-sm font-medium text-[var(--mielui-error-text)]"
+                class="text-label text-[var(--mielui-error-text)]"
                 role={workspaceSlugError ? 'alert' : undefined}
                 aria-hidden={workspaceSlugError ? undefined : 'true'}
             >
                 {workspaceSlugError}
             </p>
         </div>
-        <p
-            id="workspace-slug-description"
-            class="text-foreground-muted [font-size:var(--font-size-body,16px)]"
-        >
+        <p id="workspace-slug-description" class="text-label text-foreground-muted">
             Lowercase letters, numbers, and hyphens only.
         </p>
     </div>
@@ -146,7 +136,7 @@
     <div class="flex items-center gap-3">
         <Button type="submit" size="md">Validate fields</Button>
         {#if isValid}
-            <p class="text-sm text-[var(--mielui-success-text)]" role="status">
+            <p class="text-label text-[var(--mielui-success-text)]" role="status">
                 Both fields are valid.
             </p>
         {/if}

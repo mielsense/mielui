@@ -11,13 +11,16 @@
 
     const taskCheckboxClass =
         // token-lint-disable-next-line no-literal-length: checkbox aligns to surrounding text
-        'absolute top-[0.32em] -start-5 size-3.5 appearance-none rounded-[calc(var(--radius-sm)*0.5)] border-[length:var(--border-size)] border-[var(--mielui-control-border)] bg-card bg-[length:8px_1.5px] bg-center bg-no-repeat checked:border-primary checked:bg-primary checked:bg-[image:linear-gradient(var(--color-on-primary),var(--color-on-primary))]';
+        'absolute top-[0.32em] -start-5 size-3.5 appearance-none rounded-[calc(var(--radius-sm)*0.5)] border-[length:var(--border-size)] border-[var(--mielui-control-border)] bg-card checked:border-primary checked:bg-primary';
+    const taskTickClass =
+        // token-lint-disable-next-line no-literal-length: tick sits on the checkbox
+        'pointer-events-none absolute top-[0.32em] -start-5 size-3.5 text-[var(--color-on-primary)]';
     const tableClass =
         // token-lint-disable-next-line no-literal-length: table type scales with surrounding text
-        'w-full min-w-max border-collapse text-[0.925em]';
+        'w-full min-w-max border-collapse text-[0.925em] tabular-nums';
     const htmlBlockClass =
         // token-lint-disable-next-line no-literal-length: inline code scales with surrounding text
-        'my-3 overflow-x-auto whitespace-pre-wrap rounded-[var(--radius-md)] border-[length:var(--border-size)] border-border bg-secondary/50 px-3 py-2 font-mono text-[0.875em] leading-relaxed text-foreground-muted';
+        'my-3 overflow-x-auto whitespace-pre-wrap rounded-[var(--radius-md)] bg-[var(--color-wash)] px-3 py-2 font-mono text-[0.875em] leading-relaxed text-foreground-muted';
     const htmlInlineClass =
         // token-lint-disable-next-line no-literal-length: inline code scales with surrounding text
         'font-mono text-[0.875em] text-foreground-muted';
@@ -93,6 +96,32 @@
     }
 </script>
 
+{#snippet taskBox(checked: boolean)}
+    <input
+        type="checkbox"
+        {checked}
+        disabled
+        aria-label={checked
+            ? (labels?.()?.completedTask ?? 'Completed task')
+            : (labels?.()?.incompleteTask ?? 'Incomplete task')}
+        class={taskCheckboxClass}
+    />
+    {#if checked}
+        <svg
+            viewBox="0 0 14 14"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.75"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+            class={taskTickClass}
+        >
+            <path d="M3.5 7.4 6 9.8l4.5-5.2" />
+        </svg>
+    {/if}
+{/snippet}
+
 {#each tokens as token, index (tokenKey(token, index))}
     {#if token.type === 'space' || token.type === 'def'}
     <!-- Markdown spacing and reference definitions do not produce visible nodes. -->
@@ -135,11 +164,13 @@
             <Self tokens={token.tokens ?? [{ type: 'text', text: token.text ?? '' }]} />
         </em>
     {:else if token.type === 'del'}
-        <del class="decoration-foreground-muted/70">
+        <del class="text-foreground-muted decoration-[var(--color-border-strong)]">
             <Self tokens={token.tokens ?? [{ type: 'text', text: token.text ?? '' }]} />
         </del>
     {:else if token.type === 'codespan'}
-        <Typography.InlineCode>{token.text ?? ''}</Typography.InlineCode>
+        <Typography.InlineCode class="bg-[var(--color-wash)] font-normal">
+            {token.text ?? ''}
+        </Typography.InlineCode>
     {:else if token.type === 'code'}
         <CodeBlock
             code={token.text ?? ''}
@@ -155,7 +186,7 @@
                 title={token.title ?? undefined}
                 target={isExternalUrl(href) ? '_blank' : undefined}
                 rel={isExternalUrl(href) ? 'noopener noreferrer' : undefined}
-                class="break-words text-foreground underline decoration-primary underline-offset-2 [text-decoration-skip-ink:auto] [text-decoration-thickness:from-font] [text-underline-position:from-font] transition-[text-decoration-color] [transition-duration:var(--motion-duration-hover)] ease-[var(--ease-out)] hover:decoration-foreground motion-reduce:transition-none focus-visible:rounded-[var(--radius-sm)] focus-visible:outline-none focus-visible:shadow-[var(--focus-ring)]"
+                class="break-words text-foreground underline decoration-[var(--color-border-strong)] underline-offset-2 [text-decoration-skip-ink:auto] [text-decoration-thickness:from-font] [text-underline-position:from-font] transition-[color,text-decoration-color] [transition-duration:var(--motion-duration-hover)] ease-[var(--ease-out)] hover:text-primary hover:decoration-primary motion-reduce:transition-none focus-visible:rounded-[var(--radius-sm)] focus-visible:outline-none focus-visible:shadow-[var(--focus-ring)]"
             >
                 <Self tokens={token.tokens ?? [{ type: 'text', text: token.text ?? href }]} />
             </a>
@@ -178,7 +209,7 @@
                 loading="lazy"
                 decoding="async"
                 referrerpolicy="no-referrer"
-                class="my-4 h-auto max-w-full rounded-[var(--radius-md)] outline outline-1 -outline-offset-1 outline-[color-mix(in_srgb,var(--color-foreground)_10%,transparent)]"
+                class="my-4 h-auto max-w-full rounded-[var(--radius-md)] outline outline-1 -outline-offset-1 outline-border"
             />
         {:else}
             {token.text ?? ''}
@@ -192,15 +223,7 @@
                 {#each token.items ?? [] as item, index (tokenKey(item, index))}
                     <li class={item.task ? 'relative list-none' : undefined}>
                         {#if item.task}
-                            <input
-                                type="checkbox"
-                                checked={item.checked}
-                                disabled
-                                aria-label={item.checked
-                                    ? (labels?.()?.completedTask ?? 'Completed task')
-                                    : (labels?.()?.incompleteTask ?? 'Incomplete task')}
-                                class={taskCheckboxClass}
-                            />
+                            {@render taskBox(item.checked ?? false)}
                         {/if}
                         <Self tokens={item.tokens ?? [{ type: 'text', text: item.text ?? '' }]} />
                     </li>
@@ -211,15 +234,7 @@
                 {#each token.items ?? [] as item, index (tokenKey(item, index))}
                     <li class={item.task ? 'relative list-none' : undefined}>
                         {#if item.task}
-                            <input
-                                type="checkbox"
-                                checked={item.checked}
-                                disabled
-                                aria-label={item.checked
-                                    ? (labels?.()?.completedTask ?? 'Completed task')
-                                    : (labels?.()?.incompleteTask ?? 'Incomplete task')}
-                                class={taskCheckboxClass}
-                            />
+                            {@render taskBox(item.checked ?? false)}
                         {/if}
                         <Self tokens={item.tokens ?? [{ type: 'text', text: item.text ?? '' }]} />
                     </li>
@@ -229,7 +244,9 @@
     {:else if token.type === 'checkbox'}
     <!-- Task-list checkboxes are rendered by the containing list item. -->
     {:else if token.type === 'blockquote'}
-        <blockquote class="my-4 border-s-2 border-border ps-4 text-foreground-muted">
+        <blockquote
+            class="my-4 border-s-[length:var(--border-size)] border-border ps-4 text-foreground-muted"
+        >
             <Self tokens={token.tokens ?? [{ type: 'text', text: token.text ?? '' }]} />
         </blockquote>
     {:else if token.type === 'hr'}
@@ -241,15 +258,15 @@
             role="region"
             aria-label={labels?.()?.table ?? 'Markdown table'}
             tabindex="0"
-            class="my-4 max-w-full overflow-x-auto rounded-[var(--radius-md)] border-[length:var(--border-size)] border-border focus-visible:outline-none focus-visible:shadow-[var(--focus-ring)]"
+            class="my-4 max-w-full overflow-x-auto rounded-[var(--radius-md)] focus-visible:outline-none focus-visible:shadow-[var(--focus-ring)]"
         >
             <table class={tableClass}>
-                <thead class="bg-secondary/60 text-foreground">
+                <thead class="text-foreground-muted">
                     <tr>
                         {#each token.header ?? [] as cell, column (cellKey(cell, column))}
                             <th
                                 scope="col"
-                                class={`border-b-[length:var(--border-size)] border-border px-3 py-2 [font-weight:var(--font-weight-header)] ${alignmentClass(token.align?.[column])}`}
+                                class={`border-b-[length:var(--border-size)] border-border px-3 py-2 text-[length:var(--font-size-label)] font-medium ${alignmentClass(token.align?.[column])}`}
                             >
                                 <Self tokens={cellTokens(cell)} />
                             </th>
@@ -259,7 +276,7 @@
                 <tbody>
                     {#each token.rows ?? [] as row, rowIndex (rowKey(row, rowIndex))}
                         <tr
-                            class="border-b-[length:var(--border-size)] border-border/70 last:border-b-0"
+                            class="border-b-[length:var(--border-size)] border-border last:border-b-0"
                         >
                             {#each row as cell, column (cellKey(cell, column))}
                                 <td

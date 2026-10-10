@@ -1,7 +1,8 @@
 <script lang="ts">
     import { CodeBlock } from '@mielui/svelte/components/code-block';
+    import * as Question from '@mielui/svelte/components/question';
     import * as Typography from '@mielui/svelte/components/typography';
-    import { ComponentPreview, InstallCommand } from '$lib/components/docs';
+    import { ComponentPreview, InstallCommand, Playground } from '$lib/components/docs';
     import InlineText from '$lib/components/docs/inline-text.svelte';
     import PageIntro from '$lib/components/docs/page-intro.svelte';
     import SectionHeading from '$lib/components/docs/section-heading.svelte';
@@ -15,8 +16,16 @@
     import HeroSrc from './examples/hero.svelte?raw';
     import MultipleChoice from './examples/multiple-choice.svelte';
     import MultipleChoiceSrc from './examples/multiple-choice.svelte?raw';
+    import {
+        code as playgroundCode,
+        controls as playgroundControls,
+        options as playgroundOptions
+    } from './playground';
 
     const installCommand = 'pnpm dlx @mielui/svelte add question';
+
+    let playgroundAnswer = $state('');
+    let playgroundAnswers = $state<string[]>([]);
     const usageSnippet = `import * as Question from '@mielui/svelte/components/question';
 
 let answer = $state('');
@@ -56,7 +65,82 @@ async function submitAnswer(value: string) {
     </PageIntro>
 
     <section id="hero" class="scroll-mt-20 flex flex-col gap-4">
-        <ComponentPreview code={HeroSrc}><Hero /></ComponentPreview>
+        <Playground controls={playgroundControls} code={playgroundCode}>
+            {#snippet children(values)}
+                {@const root = {
+                    variant: values.variant,
+                    status: values.status,
+                    disabled: values.disabled,
+                    required: values.required,
+                    autofocus: values.autofocus,
+                    errorMessage: values.errorMessage
+                }}
+                {#snippet parts()}
+                    <Question.Content>
+                        <Question.Title>Where should we start?</Question.Title>
+                        {#if values.description}
+                            <Question.Description>
+                                This sets the focus for the next round of work.
+                            </Question.Description>
+                        {/if}
+                        {#if values.type === 'text'}
+                            <Question.Input
+                                placeholder={values.placeholder}
+                                rows={values.rows}
+                                submitOnEnter={values.submitOnEnter}
+                                autoresize={values.autoresize}
+                            />
+                        {:else}
+                            <Question.Options>
+                                {#each playgroundOptions as option (option.value)}
+                                    <Question.Option
+                                        value={option.value}
+                                        label={option.label}
+                                        description={values.optionDescriptions
+                                            ? option.description
+                                            : undefined}
+                                    />
+                                {/each}
+                            </Question.Options>
+                        {/if}
+                    </Question.Content>
+                    <Question.Actions>
+                        {#if values.cancel}
+                            <Question.Cancel>Skip</Question.Cancel>
+                        {/if}
+                        <Question.Submit
+                            label={values.submitLabel}
+                            loadingLabel={values.loadingLabel}
+                        />
+                    </Question.Actions>
+                {/snippet}
+                <div class="w-full max-w-xl">
+                    {#if values.type === 'multiple'}
+                        <Question.Root
+                            {...root}
+                            type="multiple"
+                            bind:value={playgroundAnswers}
+                            onSubmit={() => {
+                                playgroundAnswers = [];
+                            }}
+                        >
+                            {@render parts()}
+                        </Question.Root>
+                    {:else}
+                        <Question.Root
+                            {...root}
+                            type={values.type}
+                            bind:value={playgroundAnswer}
+                            onSubmit={() => {
+                                playgroundAnswer = '';
+                            }}
+                        >
+                            {@render parts()}
+                        </Question.Root>
+                    {/if}
+                </div>
+            {/snippet}
+        </Playground>
     </section>
 
     <section id="installation" class="scroll-mt-20 flex flex-col gap-4">
@@ -88,10 +172,10 @@ async function submitAnswer(value: string) {
         </Typography.Text>
         <Typography.Text variant="supporting">
             Options use the same indicators as Checkbox and RadioGroup: square checkboxes in
-            multiple mode and round radios otherwise. Selection and hover change the row fill, not
-            its border. An error shows one message above the frame and one red frame edge; the
-            answer field keeps its neutral border while it stays marked invalid for assistive
-            technology.
+            multiple mode and round radios otherwise. Hover washes the row, and selection lights the
+            indicator instead of filling the row. An error shows one message above the frame and one
+            red frame edge; the answer field keeps its neutral border while it stays marked invalid
+            for assistive technology.
         </Typography.Text>
     </section>
 
@@ -163,6 +247,14 @@ async function submitAnswer(value: string) {
                 question beneath a live transcript.
             {/snippet}
         </SectionHeading>
+
+        <div id="question-series" class="scroll-mt-20 flex flex-col gap-3">
+            <Typography.H3 class="docs-subsection-heading">Question series</Typography.H3>
+            <Typography.Text variant="supporting">
+                Three questions in a row with a back button, a step count, and a summary at the end.
+            </Typography.Text>
+            <ComponentPreview code={HeroSrc}><Hero /></ComponentPreview>
+        </div>
 
         <div id="multiple-choice" class="scroll-mt-20 flex flex-col gap-3">
             <Typography.H3 class="docs-subsection-heading">Multiple choice</Typography.H3>

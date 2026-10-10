@@ -17,10 +17,10 @@
     const classes = $derived(
         cn(
             className,
-            'w-full min-w-0 rounded-[var(--radius-lg)] border-[length:var(--border-size)] border-[var(--color-input)] bg-[var(--color-field)] px-3 text-[length:var(--font-size-body)] text-[var(--color-field-foreground)] [color-scheme:light] dark:[color-scheme:dark] transition-[background-color,border-color,box-shadow] ease-[var(--ease-press)] enabled:hover:bg-[var(--color-field-hover)] [transition-duration:var(--motion-duration-press)] motion-reduce:transition-none focus-visible:border-primary focus-visible:outline-none focus-visible:shadow-[var(--focus-ring)] disabled:cursor-not-allowed disabled:opacity-[var(--opacity-disabled)] aria-invalid:border-[var(--color-error)] aria-invalid:focus-visible:border-[var(--color-error)]',
+            'w-full min-w-0 border-[length:var(--border-size)] border-[var(--color-input)] bg-[var(--color-field)] text-[length:var(--font-size-body)] text-[var(--color-field-foreground)] [color-scheme:light] dark:[color-scheme:dark] transition-[background-color,border-color,box-shadow] [transition-duration:var(--motion-duration-hover)] ease-[var(--ease-out)] motion-reduce:transition-none hover:border-[var(--color-border-strong)] focus-visible:border-primary focus-visible:outline-none focus-visible:shadow-[var(--focus-ring)] disabled:cursor-not-allowed disabled:border-[var(--color-input)] disabled:opacity-[var(--opacity-disabled)] aria-invalid:border-error aria-invalid:focus-visible:border-error aria-invalid:focus-visible:shadow-[0_0_0_calc(var(--border-size)*3)_color-mix(in_srgb,var(--color-error)_30%,transparent)]',
             multiple || (size != null && size > 1)
-                ? 'min-h-24 appearance-auto py-1'
-                : 'h-[calc(var(--size-control-md)-var(--size-hairline))] appearance-none pe-10'
+                ? 'min-h-24 appearance-auto rounded-[var(--radius-xl)] px-2 py-2'
+                : 'h-[calc(var(--size-control-md)-var(--size-hairline))] appearance-none rounded-[var(--radius-control)] ps-[calc(var(--spacing)*3.5)] pe-10'
         )
     );
 </script>
@@ -42,7 +42,7 @@
             icon={ArrowDown01Icon}
             size={16}
             aria-hidden="true"
-            class="pointer-events-none absolute end-3 top-1/2 -translate-y-1/2 text-foreground-muted"
+            class="pointer-events-none absolute end-[calc(var(--spacing)*3.5)] top-1/2 -translate-y-1/2 text-foreground-muted"
         />
     </span>
 {/if}

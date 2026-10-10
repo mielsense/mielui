@@ -1,7 +1,12 @@
 <script lang="ts">
+    import { File01Icon as FileText } from '@hugeicons/core-free-icons';
+    import { Button } from '@mielui/svelte/components/button';
     import { CodeBlock } from '@mielui/svelte/components/code-block';
+    import * as Conversation from '@mielui/svelte/components/conversation';
+    import * as Message from '@mielui/svelte/components/message';
     import * as Typography from '@mielui/svelte/components/typography';
-    import { ComponentPreview, InstallCommand } from '$lib/components/docs';
+    import HugeiconsIcon from '@mielui/svelte/hugeicons-icon';
+    import { ComponentPreview, InstallCommand, Playground } from '$lib/components/docs';
     import InlineText from '$lib/components/docs/inline-text.svelte';
     import PageIntro from '$lib/components/docs/page-intro.svelte';
     import SectionHeading from '$lib/components/docs/section-heading.svelte';
@@ -11,6 +16,11 @@
     import FollowOutputSrc from './examples/follow-output.svelte?raw';
     import Hero from './examples/hero.svelte';
     import HeroSrc from './examples/hero.svelte?raw';
+    import {
+        code as playgroundCode,
+        controls as playgroundControls,
+        transcript as playgroundTranscript
+    } from './playground';
 
     const installCommand = 'pnpm dlx @mielui/svelte add conversation';
     const usageSnippet = `import * as Conversation from '@mielui/svelte/components/conversation';
@@ -42,7 +52,46 @@ let follow = $state(true);
     </PageIntro>
 
     <section id="hero" class="scroll-mt-20 flex flex-col gap-4">
-        <ComponentPreview code={HeroSrc}><Hero /></ComponentPreview>
+        <Playground controls={playgroundControls} code={playgroundCode}>
+            {#snippet children(values)}
+                {#snippet emptyIcon()}
+                    <HugeiconsIcon
+                        icon={FileText}
+                        size={18}
+                        strokeWidth={1.75}
+                        aria-hidden="true"
+                    />
+                {/snippet}
+                {#snippet emptyAction()}
+                    <Button size="md">Draft a release plan</Button>
+                {/snippet}
+                <Conversation.Root
+                    follow={values.follow}
+                    threshold={values.threshold}
+                    class="mielui-plate h-72 w-full max-w-xl"
+                >
+                    <Conversation.Content aria-label="Checkout incident conversation">
+                        {#if values.empty}
+                            <Conversation.Empty
+                                icon={values.emptyIcon ? emptyIcon : undefined}
+                                title={values.emptyTitle}
+                                description={values.emptyDescription}
+                                action={values.emptyAction ? emptyAction : undefined}
+                            />
+                        {:else}
+                            {#each playgroundTranscript as message (message.text)}
+                                <Message.Root from={message.from}>
+                                    <Message.Content>{message.text}</Message.Content>
+                                </Message.Root>
+                            {/each}
+                        {/if}
+                    </Conversation.Content>
+                    {#if values.scrollButton}
+                        <Conversation.ScrollButton />
+                    {/if}
+                </Conversation.Root>
+            {/snippet}
+        </Playground>
     </section>
 
     <section id="installation" class="scroll-mt-20 flex flex-col gap-4">
@@ -82,6 +131,14 @@ let follow = $state(true);
                 Compose the viewport around an empty start or continuously arriving output.
             {/snippet}
         </SectionHeading>
+
+        <div id="incident-review" class="scroll-mt-20 flex flex-col gap-3">
+            <Typography.H3 class="docs-subsection-heading">Incident review</Typography.H3>
+            <Typography.Text variant="supporting">
+                A longer transcript with reasoning, markdown, and a code block inside the messages.
+            </Typography.Text>
+            <ComponentPreview code={HeroSrc}><Hero /></ComponentPreview>
+        </div>
 
         <div id="empty-state" class="scroll-mt-20 flex flex-col gap-3">
             <Typography.H3 class="docs-subsection-heading">Empty state</Typography.H3>

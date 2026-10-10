@@ -40,10 +40,7 @@
 </script>
 
 <div class="@container flex w-full flex-col items-center gap-3">
-    <Toolbar.Root
-        aria-label="Design tools"
-        class="max-w-full flex-wrap justify-center gap-2 border border-border bg-card p-1"
-    >
+    <Toolbar.Root aria-label="Design tools" class="max-w-full flex-wrap justify-center gap-2">
         <Toolbar.Group
             type="single"
             bind:value={activeTool}
@@ -56,7 +53,7 @@
                         <Toolbar.Item
                             value={tool.id}
                             aria-label={tool.label}
-                            class="relative size-8 shrink-0 p-0"
+                            class="size-8 shrink-0 p-0"
                         >
                             <HugeiconsIcon
                                 icon={tool.icon}
@@ -65,12 +62,6 @@
                                 aria-hidden="true"
                             />
                             <span class="sr-only"><Kbd shortcut={tool.shortcut} /></span>
-                            {#if activeTool === tool.id}
-                                <span
-                                    class="absolute end-1 top-1 size-1 rounded-full bg-primary"
-                                    aria-hidden="true"
-                                ></span>
-                            {/if}
                         </Toolbar.Item>
                     </Tooltip.Trigger>
                     <Tooltip.Content
@@ -101,7 +92,7 @@
             </Toolbar.Button>
             <Toolbar.Button
                 aria-label="Reset zoom"
-                class="h-8 min-w-16 bg-none bg-background font-mono text-xs tabular-nums shadow-[var(--elevation-control)]"
+                class="min-w-16 font-mono text-xs tabular-nums"
                 onclick={resetZoom}
             >
                 <span use:numberShuffle={{ value: zoom, format: (value) => `${value}%` }}>

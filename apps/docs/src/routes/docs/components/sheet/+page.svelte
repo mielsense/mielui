@@ -1,7 +1,10 @@
 <script lang="ts">
+    import { Button } from '@mielui/svelte/components/button';
     import { CodeBlock } from '@mielui/svelte/components/code-block';
+    import { Input } from '@mielui/svelte/components/input';
+    import * as Sheet from '@mielui/svelte/components/sheet';
     import * as Typography from '@mielui/svelte/components/typography';
-    import { ComponentPreview, InstallCommand } from '$lib/components/docs';
+    import { ComponentPreview, InstallCommand, Playground } from '$lib/components/docs';
     import InlineText from '$lib/components/docs/inline-text.svelte';
     import PageIntro from '$lib/components/docs/page-intro.svelte';
     import Glass from './examples/glass.svelte';
@@ -14,10 +17,17 @@
     import RightSrc from './examples/right.svelte?raw';
     import StayOpenExample from './examples/stay-open.svelte';
     import StayOpenExampleSrc from './examples/stay-open.svelte?raw';
+    import { code as playgroundCode, controls as playgroundControls } from './playground';
 
     const TITLE = 'Sheet';
 
     const installCommand = 'pnpm dlx @mielui/svelte add sheet';
+
+    let playgroundOpen = $state(false);
+
+    function savePlayground() {
+        playgroundOpen = false;
+    }
 </script>
 
 <svelte:head>
@@ -37,9 +47,37 @@
 
     <!-- ─── Hero Example ──────────────────────────────────────────── -->
     <section id="hero" class="scroll-mt-20 flex flex-col gap-4">
-        <ComponentPreview code={HeroSrc}>
-            <Hero />
-        </ComponentPreview>
+        <Playground controls={playgroundControls} code={playgroundCode}>
+            {#snippet children(values)}
+                <Sheet.Root bind:open={playgroundOpen}>
+                    <Sheet.Trigger variant={values.trigger}>Edit profile</Sheet.Trigger>
+                    <Sheet.Content
+                        side={values.side}
+                        surface={values.glass ? 'glass' : undefined}
+                        allowClickOutside={values.allowClickOutside}
+                    >
+                        <Sheet.Header close={values.close}>
+                            <Sheet.Title>Edit profile</Sheet.Title>
+                            {#if values.description}
+                                <Sheet.Description>
+                                    Changes apply to your account right away.
+                                </Sheet.Description>
+                            {/if}
+                        </Sheet.Header>
+                        <div class="flex flex-col gap-4">
+                            <Input label="Name" placeholder="Ada Lovelace" />
+                            <Input label="Email" type="email" placeholder="ada@example.com" />
+                        </div>
+                        {#if values.footer}
+                            <Sheet.Footer>
+                                <Sheet.Close>Cancel</Sheet.Close>
+                                <Button onclick={savePlayground}>Save changes</Button>
+                            </Sheet.Footer>
+                        {/if}
+                    </Sheet.Content>
+                </Sheet.Root>
+            {/snippet}
+        </Playground>
     </section>
 
     <!-- ─── Installation ──────────────────────────────────────────── -->
@@ -89,6 +127,16 @@
     <section id="examples" class="scroll-mt-20 flex flex-col gap-10">
         <div>
             <Typography.H2 class="docs-section-heading">Examples</Typography.H2>
+        </div>
+
+        <div id="issue-form" class="scroll-mt-20 flex flex-col gap-3">
+            <Typography.H3 class="docs-subsection-heading">Issue form</Typography.H3>
+            <Typography.Text variant="supporting">
+                A full form with selects in the body and the submit action in the footer.
+            </Typography.Text>
+            <ComponentPreview code={HeroSrc}>
+                <Hero />
+            </ComponentPreview>
         </div>
 
         <!-- Left side -->

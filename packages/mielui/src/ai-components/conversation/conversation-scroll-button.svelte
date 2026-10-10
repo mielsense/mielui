@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { ArrowDown02Icon as ArrowDown } from '@hugeicons/core-free-icons';
+    import { ArrowDown01Icon as ChevronDown } from '@hugeicons/core-free-icons';
     import { getCssDuration } from '@mielui/svelte/transition';
     import { cn, pressable } from '@mielui/svelte/utils';
     import HugeiconsIcon from '../../hugeicons-icon.svelte';
@@ -37,8 +37,10 @@
         tabindex={visible ? undefined : -1}
         class={cn(
             className,
-            'mielui-press pointer-events-auto inline-flex size-9 items-center justify-center rounded-full border-[length:var(--border-size)] border-[var(--color-input)] bg-card text-foreground shadow-[var(--elevation-control-edge)] transition-[background-color,color,opacity,translate,transform,scale] [transition-duration:var(--motion-duration-hover)] ease-[var(--ease-out)] hover:bg-secondary focus-visible:outline-none focus-visible:shadow-[var(--focus-ring),var(--elevation-control-edge)] motion-reduce:translate-y-0 motion-reduce:transition-none',
-            visible ? 'translate-y-0 opacity-100' : 'pointer-events-none translate-y-1.5 opacity-0'
+            'mielui-press inline-flex size-[var(--size-control-sm)] items-center justify-center rounded-[var(--radius-control)] border-[length:var(--border-size)] border-border bg-[var(--color-panel)] text-foreground-muted shadow-[var(--elevation-float)] transition-[background-color,color,box-shadow,opacity,translate,scale] ease-[var(--ease-out),var(--ease-out),var(--ease-out),var(--ease-out),var(--ease-spring-panel),var(--ease-press)] hover:bg-[color-mix(in_srgb,var(--color-foreground)_4%,var(--color-panel))] hover:text-foreground focus-visible:outline-none focus-visible:shadow-[var(--focus-ring),var(--elevation-float)] motion-reduce:translate-y-0 motion-reduce:transition-none',
+            visible
+                ? 'pointer-events-auto translate-y-0 opacity-100 [transition-duration:var(--motion-duration-hover),var(--motion-duration-hover),var(--motion-duration-hover),var(--motion-duration-hover),var(--motion-duration-spring),var(--motion-duration-press)]'
+                : 'pointer-events-none translate-y-1.5 opacity-0 [transition-duration:var(--motion-duration-panel-out)]'
         )}
         onclick={(event) => {
             onclick?.(event);
@@ -47,6 +49,8 @@
             }
         }}
     >
-        <HugeiconsIcon icon={ArrowDown} size={16} strokeWidth={2} aria-hidden="true" />
+        <span class="grid place-items-center">
+            <HugeiconsIcon icon={ChevronDown} size={15} strokeWidth={2} aria-hidden="true" />
+        </span>
     </button>
 </div>

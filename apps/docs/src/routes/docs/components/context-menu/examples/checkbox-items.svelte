@@ -7,7 +7,7 @@
 
 <ContextMenu.Root>
     <ContextMenu.Trigger
-        class="grid h-32 w-72 place-items-center rounded-[var(--radius-lg)] border border-dashed border-border text-sm text-foreground-muted"
+        class="grid h-32 w-72 place-items-center rounded-[var(--radius-xl)] border border-dashed border-border text-sm text-foreground-muted"
     >
         Right-click the canvas. Grid {grid ? 'on' : 'off'}, rulers {rulers ? 'on' : 'off'}.
     </ContextMenu.Trigger>

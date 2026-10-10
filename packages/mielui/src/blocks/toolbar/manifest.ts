@@ -19,6 +19,6 @@ export const manifest: Manifest = {
         'components/toolbar/manifest.ts'
     ],
     components: ['_internal/utils', 'button', 'separator'],
-    shared: ['utils.cn', 'utils.pressable'],
+    shared: ['utils.cn', 'utils.pressable', 'utils.travelingHighlight'],
     peerDependencies: { 'bits-ui': '^2.19.2', cnfast: '^0.0.8', svelte: '^5.56.0' }
 };

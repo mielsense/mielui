@@ -14,7 +14,7 @@
     this={as}
     {...rest}
     data-ui="group-text"
-    class={cn(className, 'inline-flex items-center gap-2 whitespace-nowrap rounded-[var(--radius-lg)] border-[length:var(--border-size)] border-border bg-secondary px-3 text-label text-foreground-muted')}
+    class={cn(className, 'inline-flex min-h-[calc(var(--mielui-group-control-size,var(--size-control-md))-var(--size-hairline))] items-center gap-2 whitespace-nowrap rounded-[var(--radius-control)] border-[length:var(--border-size)] border-[var(--color-input)] bg-secondary bg-clip-padding px-[calc(var(--spacing)*3.5)] text-label text-foreground-muted')}
 >
     {@render children?.()}
 </svelte:element>

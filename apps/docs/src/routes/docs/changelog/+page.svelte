@@ -77,7 +77,7 @@
                                     icon={ChevronDown}
                                     size={14}
                                     aria-hidden="true"
-                                    class={`shrink-0 text-foreground-muted transition-transform [transition-duration:var(--motion-duration-panel)] ease-[var(--ease-out)] motion-reduce:transition-none ${open[section.key] ? 'rotate-180' : ''}`}
+                                    class={`shrink-0 text-foreground-muted transition-transform [transition-duration:var(--motion-duration-flick)] ease-[var(--ease-spring-flick)] motion-reduce:transition-none ${open[section.key] ? 'rotate-180' : ''}`}
                                 />
                             </Collapsible.Trigger>
                             <Collapsible.Content class="pt-2 pb-4">

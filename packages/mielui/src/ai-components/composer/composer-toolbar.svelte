@@ -35,10 +35,10 @@
     aria-label={ariaLabel}
     class={cn(
         className,
-        'flex min-w-0 flex-wrap items-center justify-between gap-2 [--size-control-md:var(--size-control-sm)] [--size-icon-md:calc(var(--size-control-sm)-var(--size-hairline))] [&_[data-variant=outline]]:rounded-full [&_[data-variant=outline]]:border-border [&_[data-variant=outline]]:shadow-none [&_[data-variant=outline]:not(:hover,[data-state=open])]:bg-transparent [&_[data-variant=outline]]:focus-visible:shadow-[var(--focus-ring)]',
+        'flex min-w-0 flex-wrap items-center justify-between gap-2 [--size-control-md:var(--size-control-sm)] [--size-icon-md:calc(var(--size-control-sm)-var(--size-hairline))] [&_[data-variant=outline]]:rounded-[var(--radius-control)] [&_[data-variant=outline]]:border-border [&_[data-variant=outline]]:shadow-none [&_[data-variant=outline]:not(:hover,[data-state=open])]:bg-transparent [&_[data-variant=outline]]:focus-visible:shadow-[var(--focus-ring)]',
         joined
-            ? 'mielui-inset-surface -mt-[calc(var(--mielui-modal-inset)+var(--composer-toolbar-overlap))] min-h-9 rounded-t-none px-2.5 pt-[calc(var(--spacing)*1.5+var(--composer-toolbar-overlap))] pb-2.5 [--composer-toolbar-overlap:calc(var(--size-hairline)/2*var(--composer-toolbar-overlap-scale,1))]'
-            : 'min-h-9 p-1'
+            ? 'mielui-inset-surface -mt-[calc(var(--mielui-modal-inset)+var(--composer-toolbar-overlap))] min-h-9 rounded-t-none border-[length:calc(var(--border-size)*var(--mielui-border-inset-scale,1))] border-t-0 border-border bg-[var(--color-field)] px-2.5 pt-[calc(var(--spacing)*1.5+var(--composer-toolbar-overlap))] pb-2.5 shadow-none [--composer-toolbar-overlap:calc(var(--size-hairline)/2*var(--composer-toolbar-overlap-scale,1))]'
+            : 'min-h-9 p-1.5'
     )}
 >
     {@render children?.()}

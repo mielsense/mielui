@@ -20,10 +20,10 @@
 {#snippet commitList()}
     <div class="flex flex-col p-2">
         {#each commits as commit (commit.hash)}
-            <div
-                class="flex items-baseline gap-3 rounded-[var(--radius-md)] px-3 py-2 text-[0.85rem]"
-            >
-                <span class="font-mono text-[0.75rem] text-foreground-muted">{commit.hash}</span>
+            <div class="flex items-baseline gap-3 rounded-[var(--radius-md)] px-3 py-2 text-sm">
+                <span class="font-mono text-xs text-foreground-muted tabular-nums"
+                    >{commit.hash}</span
+                >
                 <span class="truncate text-foreground">{commit.message}</span>
             </div>
         {/each}
@@ -32,29 +32,25 @@
 
 <div class="flex flex-wrap items-start justify-center gap-6 p-10">
     <div class="flex flex-col gap-2">
-        <span class="text-[0.7rem] font-semibold uppercase tracking-wider text-foreground-muted">
-            Default
-        </span>
+        <span class="px-1 text-xs font-medium text-foreground-muted"> Blurred cue </span>
         <ScrollArea
             tabindex={0}
             role="region"
             aria-label="Commits with a blurred edge cue"
-            class="h-56 w-72 rounded-[var(--radius-lg)] border border-border bg-panel"
+            class="h-56 w-72 rounded-[var(--radius-xl)] border border-border bg-card shadow-[var(--elevation-1)]"
         >
             {@render commitList()}
         </ScrollArea>
     </div>
 
     <div class="flex flex-col gap-2">
-        <span class="text-[0.7rem] font-semibold uppercase tracking-wider text-foreground-muted">
-            blur=&#123;false&#125;
-        </span>
+        <span class="px-1 text-xs font-medium text-foreground-muted"> Fade only </span>
         <ScrollArea
             blur={false}
             tabindex={0}
             role="region"
             aria-label="Commits without a blurred edge cue"
-            class="h-56 w-72 rounded-[var(--radius-lg)] border border-border bg-panel"
+            class="h-56 w-72 rounded-[var(--radius-xl)] border border-border bg-card shadow-[var(--elevation-1)]"
         >
             {@render commitList()}
         </ScrollArea>

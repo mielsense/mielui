@@ -1,7 +1,9 @@
 <script lang="ts">
+    import { Button } from '@mielui/svelte/components/button';
+    import * as Card from '@mielui/svelte/components/card';
     import { CodeBlock } from '@mielui/svelte/components/code-block';
     import * as Typography from '@mielui/svelte/components/typography';
-    import { ComponentPreview, InstallCommand } from '$lib/components/docs';
+    import { ComponentPreview, InstallCommand, Playground } from '$lib/components/docs';
     import InlineText from '$lib/components/docs/inline-text.svelte';
     import PageIntro from '$lib/components/docs/page-intro.svelte';
     import ContentOnly from './examples/content-only.svelte';
@@ -20,6 +22,12 @@
     import InsetPositionSrc from './examples/inset-position.svelte?raw';
     import Panel from './examples/panel.svelte';
     import PanelSrc from './examples/panel.svelte?raw';
+    import {
+        headingLevel,
+        backdrop as playgroundBackdrop,
+        code as playgroundCode,
+        controls as playgroundControls
+    } from './playground';
 
     const installCommand = 'pnpm dlx @mielui/svelte add card';
 </script>
@@ -37,9 +45,60 @@
 
     <!-- ─── Hero Example ──────────────────────────────────────────── -->
     <section id="hero" class="scroll-mt-20 flex flex-col gap-4">
-        <ComponentPreview code={HeroSrc}>
-            <Hero />
-        </ComponentPreview>
+        <Playground controls={playgroundControls} code={playgroundCode}>
+            {#snippet children(values)}
+                {@const glass = values.surface === 'glass'}
+                {#snippet card()}
+                    <Card.Root
+                        variant={values.variant}
+                        surface={values.surface}
+                        class={glass ? 'mx-auto w-full max-w-sm' : 'w-full max-w-sm'}
+                    >
+                        {#if values.title || values.description}
+                            <Card.Header>
+                                {#if values.title}
+                                    <Card.Title level={headingLevel(values.level)}>
+                                        Checkout redesign
+                                    </Card.Title>
+                                {/if}
+                                {#if values.description}
+                                    <Card.Description>
+                                        A shorter payment flow for the web and mobile stores.
+                                    </Card.Description>
+                                {/if}
+                            </Card.Header>
+                        {/if}
+                        {#if values.content}
+                            <Card.Content>
+                                <dl class="m-0 grid grid-cols-2 gap-4 text-sm">
+                                    <div>
+                                        <dt class="text-foreground-muted">Lead</dt>
+                                        <dd class="m-0 mt-1">Ines Moreau</dd>
+                                    </div>
+                                    <div>
+                                        <dt class="text-foreground-muted">Due</dt>
+                                        <dd class="m-0 mt-1">October 30</dd>
+                                    </div>
+                                </dl>
+                            </Card.Content>
+                        {/if}
+                        {#if values.footer}
+                            <Card.Footer>
+                                <Button variant="outline">Share</Button>
+                                <Button>Open project</Button>
+                            </Card.Footer>
+                        {/if}
+                    </Card.Root>
+                {/snippet}
+                {#if glass}
+                    <div class={playgroundBackdrop}>
+                        {@render card()}
+                    </div>
+                {:else}
+                    {@render card()}
+                {/if}
+            {/snippet}
+        </Playground>
     </section>
 
     <!-- ─── Installation ──────────────────────────────────────────── -->
@@ -72,11 +131,12 @@
     <section id="borders" class="flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Borders</Typography.H2>
         <Typography.Text variant="supporting">
-            The theme setting chrome.borders is "single" by default, which removes the extra frame
-            from inset and panel cards. Set it to "double" to show that frame. Content padding and
-            footer composition stay intact. Default cards always have one border. This setting also
-            applies to dialogs, sheets, Notch, Toast, and other inset surfaces; shadows and edge
-            highlights remain independent.
+            The theme setting chrome.borders is "double" by default, which gives inset and panel
+            cards a white frame with a gutter around the recessed content surface. Set it to
+            "single" to remove the gutter, so the surface meets the frame's border. Content padding
+            and footer composition stay intact. Default cards are one plate and always have one
+            border. This setting also applies to dialogs, sheets, Notch, Toast, and other inset
+            surfaces; shadows and edge highlights remain independent.
         </Typography.Text>
     </section>
 
@@ -87,8 +147,8 @@
             Set{' '}
             <Typography.InlineCode>surface="glass"</Typography.InlineCode>
             on Root to frost the card so a backdrop behind it shows through. On inset and panel
-            cards only the frame is frosted. The content stays on a solid surface, so text keeps its
-            contrast. A default card has one surface, which turns translucent.
+            cards the frame is frosted and the content surface stays close to opaque, so text keeps
+            its contrast. A default card has one surface, which turns translucent.
         </Typography.Text>
         <Typography.Text variant="supporting">
             Cards are solid unless you ask for glass. They do not follow the theme's glass setting
@@ -101,6 +161,17 @@
     <section id="examples" class="scroll-mt-20 flex flex-col gap-10">
         <div>
             <Typography.H2 class="docs-section-heading">Examples</Typography.H2>
+        </div>
+
+        <div id="project-progress" class="scroll-mt-20 flex flex-col gap-3">
+            <Typography.H3 class="docs-subsection-heading">Project progress</Typography.H3>
+            <Typography.Text variant="supporting">
+                A badge, a progress bar and two actions follow one project. Completing a task
+                updates all three.
+            </Typography.Text>
+            <ComponentPreview code={HeroSrc}>
+                <Hero />
+            </ComponentPreview>
         </div>
 
         <div id="full" class="scroll-mt-20 flex flex-col gap-3">

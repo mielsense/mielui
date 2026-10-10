@@ -12,7 +12,11 @@
     for={htmlFor ?? field.controlId}
     data-ui="field-label"
     data-required={field.required || undefined}
-    class={cn(className, 'flex w-fit items-center gap-1.5 text-sm font-label leading-none text-foreground', field.disabled && 'cursor-not-allowed')}
+    class={cn(
+        className,
+        'flex w-fit items-center gap-1.5 [font-size:var(--font-size-label)] [font-weight:var(--font-weight-label)] [letter-spacing:var(--tracking-label)] leading-label text-foreground',
+        field.disabled && 'cursor-not-allowed'
+    )}
 >
     {@render children?.()}
     {#if field.required}

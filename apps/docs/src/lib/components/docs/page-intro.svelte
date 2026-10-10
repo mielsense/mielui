@@ -14,12 +14,12 @@
         <BreadcrumbNav items={trail} />
     {/if}
     <h1
-        class="m-0 text-[2.5rem] leading-[1.1] font-semibold tracking-[-0.03em] text-foreground [font-family:var(--font-header)]"
+        class="m-0 text-[2.5rem] leading-[1.1] font-medium tracking-[-0.03em] text-foreground [font-family:var(--font-header)]"
     >
         {title}
     </h1>
     {#if children}
-        <div class="max-w-[44rem] text-[1.0625rem] leading-7 text-foreground-muted">
+        <div class="text-[1.0625rem] leading-7 text-foreground-muted">
             {@render children()}
         </div>
     {/if}

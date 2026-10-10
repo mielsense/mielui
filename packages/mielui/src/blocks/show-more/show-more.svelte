@@ -115,7 +115,7 @@
             tabindex={scrollable ? 0 : undefined}
             data-scrollable={scrollable}
             data-veiled={veiled}
-            class="transition-[height] [transition-duration:var(--motion-duration-panel)] ease-[var(--ease-out)] motion-reduce:transition-none data-[veiled=true]:[mask-image:linear-gradient(to_bottom,black_calc(100%_-_var(--spacing)_*_9),transparent)] overscroll-contain rounded-[var(--radius-sm)] outline-none focus-visible:shadow-[var(--focus-ring)]"
+            class="transition-[height] [transition-duration:var(--motion-duration-spring)] ease-[var(--ease-spring-layout)] motion-reduce:transition-none data-[veiled=true]:[mask-image:linear-gradient(to_bottom,black_calc(100%_-_var(--spacing)_*_9),transparent)] overscroll-contain rounded-[var(--radius-sm)] outline-none focus-visible:shadow-[var(--focus-ring)]"
             style:height={preview || height === undefined ? undefined : `${height}px`}
             style:max-height={preview ? `${heightLimit}px` : height === undefined && !open ? `${visibleLines}lh` : undefined}
             style:overflow-y={preview || scrollable ? 'auto' : 'hidden'}
@@ -142,18 +142,18 @@
             <button
                 {...triggerProps}
                 type="button"
-                class="mt-2 inline-flex min-h-[var(--size-control-sm)] items-center gap-1.5 rounded-[var(--radius-md)] px-2 [font-size:var(--font-size-button)] [font-weight:var(--font-weight-button)] text-foreground-muted transition-[background-color,color] duration-[var(--motion-duration-press)] ease-[var(--ease-press)] hover:bg-secondary hover:text-foreground focus-visible:outline-none focus-visible:shadow-[var(--focus-ring)] motion-reduce:transition-none"
+                class="mt-2 -ms-2.5 inline-flex min-h-[var(--size-control-sm)] items-center gap-1.5 rounded-[var(--radius-control)] px-2.5 [font-size:var(--font-size-label)] [font-weight:var(--font-weight-button)] text-foreground-muted transition-[background-color,color,box-shadow] [transition-duration:var(--motion-duration-hover)] ease-[var(--ease-out)] hover:cursor-[var(--ui-cursor-interactive)] hover:bg-[var(--color-wash)] hover:text-foreground focus-visible:outline-none focus-visible:shadow-[var(--focus-ring)] motion-reduce:transition-none"
             >
                 <span class="grid text-start">
                     <span
-                        class="col-start-1 row-start-1 transition-[opacity,translate] [transition-duration:var(--motion-duration-press)] ease-[var(--ease-out)] data-[active=false]:opacity-0 data-[active=false]:translate-y-0.5 motion-reduce:transition-none"
+                        class="col-start-1 row-start-1 transition-[opacity,translate] [transition-duration:var(--motion-duration-flick)] ease-[var(--ease-spring-flick)] data-[active=false]:translate-y-0.5 data-[active=false]:opacity-0 motion-reduce:transition-none"
                         data-active={!open}
                         aria-hidden={open}
                     >
                         {moreLabel}
                     </span>
                     <span
-                        class="col-start-1 row-start-1 transition-[opacity,translate] [transition-duration:var(--motion-duration-press)] ease-[var(--ease-out)] data-[active=false]:opacity-0 data-[active=false]:translate-y-0.5 motion-reduce:transition-none"
+                        class="col-start-1 row-start-1 transition-[opacity,translate] [transition-duration:var(--motion-duration-flick)] ease-[var(--ease-spring-flick)] data-[active=false]:translate-y-0.5 data-[active=false]:opacity-0 motion-reduce:transition-none"
                         data-active={open}
                         aria-hidden={!open}
                     >
@@ -166,7 +166,7 @@
                     height="12"
                     viewBox="0 0 12 12"
                     fill="none"
-                    class="transition-transform [transition-duration:var(--motion-duration-press)] ease-[var(--ease-out)] data-[open=true]:rotate-180 motion-reduce:transition-none"
+                    class="transition-transform [transition-duration:var(--motion-duration-flick)] ease-[var(--ease-spring-flick)] data-[open=true]:rotate-180 motion-reduce:transition-none"
                     data-open={open}
                 >
                     <path

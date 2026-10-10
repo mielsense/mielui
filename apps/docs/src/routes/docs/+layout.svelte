@@ -6,7 +6,7 @@
     import PageMinimap from '$lib/components/docs/page-minimap.svelte';
     import { createPageOutline } from '$lib/components/docs/page-outline.svelte';
     import ScrollEdge from '$lib/components/shell/scroll-edge.svelte';
-    import { fadeYEnd, scrollFade } from '$lib/components/shell/scroll-fade';
+    import { scrollFade } from '$lib/components/shell/scroll-fade';
     import { getShell } from '$lib/components/shell/shell.svelte';
     import '$lib/components/docs/docs-layout.css';
 
@@ -27,12 +27,14 @@
     });
 </script>
 
-<div class="relative h-full min-h-0 w-full">
+<div
+    class="relative h-full min-h-0 w-full has-[[data-docs-toolbar]]:[&>[data-scroll-edge=top]]:hidden"
+>
     <div
         data-docs-scroll
         {@attach settleHeading}
         {@attach scrollFade({ size: 44, target: 'parent' })}
-        class={`h-full min-h-0 w-full overflow-y-auto overscroll-contain [container-type:inline-size] ${fadeYEnd}`}
+        class={`h-full min-h-0 w-full overflow-y-auto overscroll-contain [container-type:inline-size]`}
     >
         <div class="w-full px-5 pt-8 pb-24 sm:px-10 lg:pt-14 xl:px-20">
             <div
@@ -53,5 +55,5 @@
         <PageMinimap {outline} />
     </aside>
     <ScrollEdge edge="top" fill />
-    <ScrollEdge edge="bottom" />
+    <ScrollEdge edge="bottom" fill />
 </div>

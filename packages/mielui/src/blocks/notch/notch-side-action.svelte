@@ -259,7 +259,7 @@
             bind:element
             {size}
             {variant}
-            class={cn(className, variant === 'panel' ? overlaySurface(context.surface) : undefined, 'rounded-full')}
+            class={cn(className, variant === 'panel' ? overlaySurface(context.surface) : undefined, 'rounded-[var(--radius-control)]')}
         >
             <span class="inline-flex items-center justify-center"> {@render children?.()} </span>
         </Button>

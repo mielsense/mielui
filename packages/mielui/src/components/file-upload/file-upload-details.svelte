@@ -19,7 +19,7 @@
     {#if children}
         {@render children()}
     {:else}
-        <span class="min-w-0 flex-1 truncate font-medium" title={item().file.name}>
+        <span class="min-w-0 flex-1 truncate font-medium text-foreground" title={item().file.name}>
             {item().file.name}
         </span>
         <span class="shrink-0 text-xs tabular-nums text-foreground-muted">{size}</span>

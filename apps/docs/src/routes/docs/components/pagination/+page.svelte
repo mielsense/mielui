@@ -1,7 +1,8 @@
 <script lang="ts">
     import { CodeBlock } from '@mielui/svelte/components/code-block';
+    import { Pagination } from '@mielui/svelte/components/pagination';
     import * as Typography from '@mielui/svelte/components/typography';
-    import { ComponentPreview, InstallCommand } from '$lib/components/docs';
+    import { ComponentPreview, InstallCommand, Playground } from '$lib/components/docs';
     import InlineText from '$lib/components/docs/inline-text.svelte';
     import PageIntro from '$lib/components/docs/page-intro.svelte';
     import SectionHeading from '$lib/components/docs/section-heading.svelte';
@@ -10,8 +11,18 @@
     import HeroSrc from './examples/hero.svelte?raw';
     import Siblings from './examples/siblings.svelte';
     import SiblingsSrc from './examples/siblings.svelte?raw';
+    import { code as playgroundCode, controls as playgroundControls } from './playground';
 
     const installCommand = 'pnpm dlx @mielui/svelte add pagination';
+
+    const playgroundLabels = {
+        navigation: 'Search results pages',
+        previous: 'Previous results',
+        next: 'Next results',
+        page: (page: number) => {
+            return `Results page ${page}`;
+        }
+    };
 </script>
 
 <svelte:head>
@@ -30,9 +41,16 @@
 
     <!-- ─── Hero Example ──────────────────────────────────────────── -->
     <section id="hero" class="scroll-mt-20 flex flex-col gap-4">
-        <ComponentPreview code={HeroSrc}>
-            <Hero />
-        </ComponentPreview>
+        <Playground controls={playgroundControls} code={playgroundCode}>
+            {#snippet children(values)}
+                <Pagination
+                    page={values.page}
+                    total={values.total}
+                    siblings={values.siblings}
+                    labels={values.labels ? playgroundLabels : undefined}
+                />
+            {/snippet}
+        </Playground>
     </section>
 
     <!-- ─── Installation ──────────────────────────────────────────── -->
@@ -79,6 +97,16 @@
                 Tune how many pages surround the current one.
             {/snippet}
         </SectionHeading>
+
+        <div id="result-list" class="scroll-mt-20 flex flex-col gap-3">
+            <Typography.H3 class="docs-subsection-heading">Result list</Typography.H3>
+            <Typography.Text variant="supporting">
+                The pager sits under a list and decides which five results are shown.
+            </Typography.Text>
+            <ComponentPreview code={HeroSrc}>
+                <Hero />
+            </ComponentPreview>
+        </div>
 
         <div id="siblings" class="scroll-mt-20 flex flex-col gap-3">
             <Typography.H3 class="docs-subsection-heading">Sibling count</Typography.H3>

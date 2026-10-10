@@ -10,7 +10,7 @@
     data-ui="alert-description"
     class={cn(
         classProp,
-        '[[data-alert-icon]~&]:col-start-2 m-0 min-w-0 [font-size:var(--font-size-body)] leading-body [font-weight:var(--font-weight-body)] [letter-spacing:var(--tracking-body)] break-words text-foreground-muted'
+        'col-start-2 m-0 min-w-0 [font-size:var(--font-size-body)] leading-body [font-weight:var(--font-weight-body)] [letter-spacing:var(--tracking-body)] break-words text-pretty text-foreground-muted'
     )}
 >
     {@render children?.()}

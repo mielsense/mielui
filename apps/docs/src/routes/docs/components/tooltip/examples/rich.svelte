@@ -11,7 +11,7 @@
         <Tooltip.Content rich>
             <span class="flex items-center gap-2">
                 <span aria-hidden="true" class="size-1.5 rounded-full bg-success"></span>
-                <span><strong>Synced</strong> · just now</span>
+                <span><span class="font-medium">Synced</span> · just now</span>
             </span>
         </Tooltip.Content>
     </Tooltip.Root>

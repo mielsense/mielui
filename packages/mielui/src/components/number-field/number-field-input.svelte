@@ -56,5 +56,5 @@
     bind:value={() => context.value, context.setValue}
     oninput={handleInput}
     data-ui="number-field-input"
-    class={cn(className, 'min-h-[calc(var(--size-control-md)-var(--size-hairline)-var(--border-size)*2)] w-full min-w-0 flex-1 appearance-textfield rounded-[var(--radius-md)] bg-transparent px-3 text-center text-foreground tabular-nums [font-size:var(--font-size-body)] outline-none placeholder:text-foreground-muted disabled:cursor-not-allowed [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none')}
+    class={cn(className, 'min-h-[calc(var(--size-control-md)-var(--size-hairline)-var(--border-size)*2)] w-full min-w-0 flex-1 appearance-textfield rounded-[calc(var(--radius-control)-var(--border-size))] bg-transparent px-[calc(var(--spacing)*3.5)] text-center text-foreground tabular-nums [font-size:var(--font-size-body)] outline-none placeholder:text-foreground-muted disabled:cursor-not-allowed [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none')}
 />

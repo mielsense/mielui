@@ -5,15 +5,16 @@ export const manifest: Manifest = {
     version: '1.0.0',
     visibility: 'internal',
     description:
-        'Private disclosure lifecycle shared by Tool and Reasoning, and the trigger row and chevron recipe shared by every disclosure.',
+        'Private disclosure lifecycle shared by Tool and Reasoning, and the trigger row, chevron, and measured-height slide shared by every disclosure.',
     files: [
         'components/_internal/disclosure/index.ts',
         'components/_internal/disclosure/lifecycle.svelte.ts',
+        'components/_internal/disclosure/slide.ts',
         'components/_internal/disclosure/variants.ts',
         'components/_internal/disclosure/manifest.ts'
     ],
     components: [],
-    shared: [],
+    shared: ['transition'],
     peerDependencies: {
         svelte: '^5.0.0',
         'tailwind-merge': '^3.0.0',

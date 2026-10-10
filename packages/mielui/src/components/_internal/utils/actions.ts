@@ -112,6 +112,10 @@ type TravelingHighlightOptions = {
  * Draws one highlight that travels between the active items in a collection.
  * Geometry is written directly so pointer movement never causes a component render.
  *
+ * The highlight only travels for a pointer. Keyboard navigation, selection
+ * changes, and resizes snap it into place, because a row reached by arrow key
+ * must be marked the instant the key lands.
+ *
  * Touch pointers never move the highlight -- `onPointerMove` / `onPointerOver`
  * ignore them -- so on a coarse-pointer device it follows keyboard focus only.
  * The action still mounts everywhere: skipping it on touch would drop the
@@ -137,8 +141,9 @@ export function travelingHighlight(node: HTMLElement, options: TravelingHighligh
     let readyFrame = 0;
     let ready = false;
     let disposed = false;
+    let pointerDriven = false;
     let observedTarget: HTMLElement | undefined;
-    const resizeObserver = new ResizeObserver(() => schedule(current ?? restingTarget()));
+    const resizeObserver = new ResizeObserver(() => schedule(current ?? restingTarget(), 'keep'));
     resizeObserver.observe(node);
 
     function usableItem(target: EventTarget | null) {
@@ -170,12 +175,15 @@ export function travelingHighlight(node: HTMLElement, options: TravelingHighligh
         return undefined;
     }
 
-    function measure(target: HTMLElement | undefined) {
+    function measure(target: HTMLElement | undefined, travel: boolean | 'keep') {
         if (disposed) {
             return;
         }
         cancelAnimationFrame(frame);
         current = target;
+        if (travel !== 'keep') {
+            highlight.toggleAttribute('data-snap', !travel);
+        }
         if (!target?.isConnected || target.hidden) {
             if (observedTarget) {
                 resizeObserver.unobserve(observedTarget);
@@ -202,10 +210,16 @@ export function travelingHighlight(node: HTMLElement, options: TravelingHighligh
 
         const container = node.getBoundingClientRect();
         const rect = target.getBoundingClientRect();
-        const x = rect.left - container.left - node.clientLeft + node.scrollLeft;
-        const y = rect.top - container.top - node.clientTop + node.scrollTop;
-        highlight.style.width = `${rect.width}px`;
-        highlight.style.height = `${rect.height}px`;
+        const renderedScaleX =
+            node.offsetWidth > 0 && container.width > 0 ? container.width / node.offsetWidth : 1;
+        const renderedScaleY =
+            node.offsetHeight > 0 && container.height > 0
+                ? container.height / node.offsetHeight
+                : 1;
+        const x = (rect.left - container.left) / renderedScaleX - node.clientLeft + node.scrollLeft;
+        const y = (rect.top - container.top) / renderedScaleY - node.clientTop + node.scrollTop;
+        highlight.style.width = `${rect.width / renderedScaleX}px`;
+        highlight.style.height = `${rect.height / renderedScaleY}px`;
         highlight.style.transform = `translate3d(${x}px, ${y}px, 0)`;
         highlight.style.opacity = '1';
 
@@ -218,18 +232,19 @@ export function travelingHighlight(node: HTMLElement, options: TravelingHighligh
         }
     }
 
-    function schedule(target: HTMLElement | undefined) {
+    function schedule(target: HTMLElement | undefined, travel: boolean | 'keep' = pointerDriven) {
         if (disposed) {
             return;
         }
         cancelAnimationFrame(frame);
-        frame = requestAnimationFrame(() => measure(target));
+        frame = requestAnimationFrame(() => measure(target, travel));
     }
 
     function onPointerMove(event: PointerEvent) {
         if (event.pointerType === 'touch') {
             return;
         }
+        pointerDriven = true;
         const item = usableItem(event.target);
         if (item && item !== current) {
             schedule(item);
@@ -240,6 +255,7 @@ export function travelingHighlight(node: HTMLElement, options: TravelingHighligh
         if (event.pointerType === 'touch') {
             return;
         }
+        pointerDriven = true;
         const item = usableItem(event.target);
         if (item && item !== current) {
             schedule(item);
@@ -248,6 +264,10 @@ export function travelingHighlight(node: HTMLElement, options: TravelingHighligh
 
     function onPointerLeave() {
         schedule(restingTarget());
+    }
+
+    function onKeyDown() {
+        pointerDriven = false;
     }
 
     function onFocusIn(event: FocusEvent) {
@@ -286,7 +306,8 @@ export function travelingHighlight(node: HTMLElement, options: TravelingHighligh
     node.addEventListener('pointerleave', onPointerLeave);
     node.addEventListener('focusin', onFocusIn);
     node.addEventListener('focusout', onFocusOut);
-    queueMicrotask(() => schedule(restingTarget()));
+    document.addEventListener('keydown', onKeyDown, true);
+    queueMicrotask(() => schedule(restingTarget(), false));
 
     return {
         destroy() {
@@ -300,6 +321,7 @@ export function travelingHighlight(node: HTMLElement, options: TravelingHighligh
             node.removeEventListener('pointerleave', onPointerLeave);
             node.removeEventListener('focusin', onFocusIn);
             node.removeEventListener('focusout', onFocusOut);
+            document.removeEventListener('keydown', onKeyDown, true);
             highlight.remove();
             node.classList.remove('mielui-collection-surface');
         }

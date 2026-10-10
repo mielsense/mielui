@@ -39,7 +39,7 @@
 <div class="flex w-full min-w-0 items-center justify-center p-2 sm:p-6">
     <ScrollArea
         aria-label="Recent chats"
-        class="h-72 w-full max-w-72 rounded-[var(--radius-lg)] border border-border bg-panel"
+        class="h-72 w-full max-w-72 rounded-[var(--radius-xl)] border border-border bg-card shadow-[var(--elevation-1)]"
     >
         <div class="flex flex-col p-2">
             {#each groupedChats as group (group.date)}
@@ -52,10 +52,10 @@
                         type="button"
                         aria-pressed={activeChatId === chat.id}
                         onclick={() => (activeChatId = chat.id)}
-                        class="w-full truncate rounded-[var(--radius-md)] px-3 py-2 text-start text-[0.85rem] transition-colors {activeChatId ===
+                        class="w-full truncate rounded-[var(--radius-md)] px-3 py-2 text-start text-sm transition-colors [transition-duration:var(--motion-duration-hover)] focus-visible:outline-none focus-visible:shadow-[var(--focus-ring)] motion-reduce:transition-none {activeChatId ===
                             chat.id
-                            ? 'bg-secondary text-foreground'
-                            : 'text-foreground-muted hover:bg-secondary/50 hover:text-foreground'}"
+                            ? 'bg-[var(--color-wash)] font-medium text-foreground'
+                            : 'text-foreground-muted hover:bg-[var(--color-wash)] hover:text-foreground'}"
                     >
                         {chat.title}
                     </button>

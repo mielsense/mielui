@@ -42,7 +42,7 @@
                             event.preventDefault();
                         }
                     }}
-                    class="h-7 min-w-0 rounded-[var(--radius-sm)] px-2.5 data-[state=on]:bg-foreground/[0.08]"
+                    class="h-7 min-w-0 px-2.5"
                 >
                     {formatChoice(option)}
                 </ToggleGroup.Item>

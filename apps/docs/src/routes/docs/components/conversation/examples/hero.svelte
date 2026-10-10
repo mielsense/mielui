@@ -28,9 +28,7 @@
     ].join('\n');
 </script>
 
-<Conversation.Root
-    class="h-[30rem] w-full max-w-3xl rounded-[var(--radius-xl)] border-[length:var(--border-size)] border-border bg-panel"
->
+<Conversation.Root class="h-[30rem] w-full max-w-3xl mielui-plate">
     <Conversation.Content aria-label="Checkout incident conversation">
         <Message.Root from="user">
             <Message.Content>

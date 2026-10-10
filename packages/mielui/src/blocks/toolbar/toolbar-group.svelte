@@ -2,6 +2,7 @@
     import { cn } from '@mielui/svelte/utils';
     import { Toolbar as Primitive } from 'bits-ui';
     import type { ToolbarGroupProps } from '.';
+    import { getToolbarOrientation } from './context';
 
     let {
         element = $bindable(null),
@@ -10,6 +11,14 @@
         class: className,
         ...rest
     }: ToolbarGroupProps = $props();
+    const orientation = getToolbarOrientation();
+    const groupClass = $derived(
+        cn(
+            className,
+            orientation?.() === 'vertical' && 'flex-col items-stretch',
+            'flex items-center gap-1'
+        )
+    );
 
     function updateMultiple(next: string[]) {
         value = next;
@@ -33,7 +42,7 @@
         onValueChange={updateMultiple}
         bind:ref={element}
         data-ui="toolbar-group"
-        class={cn(className, 'flex items-center gap-1')}
+        class={groupClass}
     >
         {@render children?.()}
     </Primitive.Group>
@@ -45,7 +54,7 @@
         onValueChange={updateSingle}
         bind:ref={element}
         data-ui="toolbar-group"
-        class={cn(className, 'flex items-center gap-1')}
+        class={groupClass}
     >
         {@render children?.()}
     </Primitive.Group>

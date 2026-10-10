@@ -8,7 +8,7 @@
 <td
     {...rest}
     data-ui="table-cell"
-    class={cn(className, 'px-4 py-3 text-start align-middle text-foreground')}
+    class={cn(className, 'h-10 px-3 py-1.5 text-start align-middle text-foreground')}
 >
     {@render children?.()}
 </td>

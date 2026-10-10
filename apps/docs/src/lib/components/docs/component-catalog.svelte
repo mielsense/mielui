@@ -90,7 +90,7 @@
                 </Input>
             </div>
             <Typography.Metadata
-                class="sr-only shrink-0 whitespace-nowrap tabular-nums sm:not-sr-only"
+                class="sr-only shrink-0 whitespace-nowrap tabular-nums transition-opacity [transition-duration:var(--motion-duration-hover)] motion-reduce:transition-none sm:not-sr-only [@container_scroll-state(stuck:top)]:opacity-0"
                 aria-live="polite"
             >
                 {countLabel}

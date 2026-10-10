@@ -306,8 +306,8 @@ describe('Combobox -- menu search', () => {
         expect(searchField).toHaveAttribute('data-variant', 'secondary');
         expect(searchField).toHaveClass(
             'h-[calc(var(--size-control-sm)+var(--spacing))]',
-            'rounded-[var(--radius-lg)]',
-            'bg-secondary'
+            'border-b-[length:var(--border-size)]',
+            'border-border'
         );
         expect(searchField?.parentElement?.firstElementChild).toBe(searchField);
         const searchFieldStyles = getComputedStyle(searchField as HTMLElement);
@@ -316,13 +316,14 @@ describe('Combobox -- menu search', () => {
             searchFieldStyles.borderRightWidth,
             searchFieldStyles.borderBottomWidth,
             searchFieldStyles.borderLeftWidth
-        ]).toEqual(['1px', '1px', '1px', '1px']);
+        ]).toEqual(['0px', '0px', '1px', '0px']);
         expect([
             searchFieldStyles.borderTopLeftRadius,
             searchFieldStyles.borderTopRightRadius,
             searchFieldStyles.borderBottomRightRadius,
             searchFieldStyles.borderBottomLeftRadius
-        ]).not.toContain('0px');
+        ]).toEqual(['0px', '0px', '0px', '0px']);
+        expect(searchFieldStyles.backgroundColor).toBe('rgba(0, 0, 0, 0)');
         const triggerFrame = trigger.element().closest('[data-ui="combobox-trigger"]');
         if (!triggerFrame) {
             throw new Error('Missing combobox trigger frame');

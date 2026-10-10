@@ -184,7 +184,7 @@
                 icon={ChevronDown}
                 size={14}
                 aria-hidden="true"
-                class="shrink-0 transition-transform [transition-duration:var(--motion-duration-panel)] ease-[var(--ease-out)] group-aria-expanded:rotate-180 motion-reduce:transition-none"
+                class="shrink-0 transition-transform [transition-duration:var(--motion-duration-flick)] ease-[var(--ease-spring-flick)] group-aria-expanded:rotate-180 motion-reduce:transition-none"
             />
         </span>
     </button>

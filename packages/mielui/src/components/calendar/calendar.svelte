@@ -1,6 +1,7 @@
 <script lang="ts">
     import { cn } from '@mielui/svelte/utils';
     import { Calendar as CalendarPrimitive } from 'bits-ui';
+    import { untrack } from 'svelte';
     import Header from '../calendar/calendar-header.svelte';
     import Heading from '../calendar/calendar-heading.svelte';
     import NextButton from '../calendar/calendar-next-button.svelte';
@@ -15,19 +16,28 @@
         class: className,
         children: content,
         fixedWeeks = true,
+        disableDaysOutsideMonth = true,
         weekdayFormat = 'short',
         locale = 'en-US',
         ...rest
     }: CalendarProps = $props();
+    let keptPlaceholder = $state(untrack(() => placeholder));
 </script>
 
 <CalendarPrimitive.Root
     {...rest}
     type="single"
     bind:value
-    bind:placeholder
+    bind:placeholder={
+        () => placeholder ?? keptPlaceholder,
+        (next) => {
+            keptPlaceholder = next;
+            placeholder = next;
+        }
+    }
     bind:ref
     {fixedWeeks}
+    {disableDaysOutsideMonth}
     {weekdayFormat}
     {locale}
     data-ui="calendar"

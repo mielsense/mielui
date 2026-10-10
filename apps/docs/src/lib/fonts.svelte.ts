@@ -3,14 +3,15 @@ import { getContext, onMount, setContext } from 'svelte';
 export type FontCategory = 'Sans serif' | 'Serif' | 'Monospace';
 export type DocsFont = { name: string; category: FontCategory; family: string };
 
-export const DEFAULT_FONT = 'Manrope';
+export const DEFAULT_FONT = 'Inter Tight';
 
 /**
- * Every family loaded by app.html from Google Fonts. Only these can be
- * previewed — anything else would fall back to a system font.
+ * Every family the docs can preview. Inter Tight ships with ui.css; app.html
+ * loads the rest from Google Fonts. Anything else would fall back to a system font.
  */
 export const fonts: DocsFont[] = [
     ...[
+        'Inter Tight',
         'DM Sans',
         'Geist',
         'Inter',
