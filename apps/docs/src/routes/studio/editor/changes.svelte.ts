@@ -27,7 +27,9 @@ const appearanceKeys = [
 /** Counts how many settings of the draft differ from the selected preset. */
 export function createThemeChanges(state: ThemeEditorState, getBaseline: () => ThemeBaseline) {
     const axisChanges = $derived(
-        themeAxes.filter((axis) => state.theme[axis] !== state.baseTheme[axis]).length
+        themeAxes.filter((axis) => {
+            return axis !== 'brand' && state.theme[axis] !== state.baseTheme[axis];
+        }).length
     );
 
     const foundationColorChanges = $derived(

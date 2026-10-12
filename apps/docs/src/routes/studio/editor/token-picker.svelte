@@ -68,13 +68,6 @@
             { value: 'motion', label: 'Motion', count: motions.length }
         ].filter((section) => section.count > 0)
     );
-    const activeView = $derived.by(() => {
-        if (sections.some((section) => section.value === view)) {
-            return view;
-        }
-
-        return sections[0]?.value ?? view;
-    });
     const resets = $derived([
         ...colors.map((token) => editor.tokens.colorTokenReset(token.name)),
         ...shapes.map((token) => editor.tokens.spacingTokenReset(token.name)),
@@ -104,12 +97,21 @@
     });
 
     function select(element: Element | null) {
-        view = activeView;
         picker.select(element);
         if (element && !sections.some((section) => section.value === view)) {
             view = sections[0]?.value ?? 'color';
         }
     }
+
+    $effect(() => {
+        if (
+            picker.selected &&
+            sections.length &&
+            !sections.some((section) => section.value === view)
+        ) {
+            view = sections[0].value;
+        }
+    });
 
     function selectParent() {
         select(picker.selected?.parentElement?.closest('[data-ui]') ?? null);
@@ -146,12 +148,7 @@
     {/if}
     {#if picker.selected && panel}
         <TokenPanel
-            bind:view={
-                () => activeView,
-                (value) => {
-                    view = value;
-                }
-            }
+            bind:view
             {title}
             position={panel}
             {sections}

@@ -41,7 +41,9 @@ export function createThemeShare(options: {
                 }
             })
             .catch(() => {
-                link = '';
+                if (current) {
+                    link = '';
+                }
             });
 
         return () => {
