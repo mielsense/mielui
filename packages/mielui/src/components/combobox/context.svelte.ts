@@ -1,4 +1,5 @@
 import { createContext } from '@mielui/svelte/utils';
+import type { ComboboxLabels } from '.';
 import type { createComboboxController } from './controller.svelte';
 
 export type ComboboxContext = ReturnType<typeof createComboboxController> & {
@@ -8,4 +9,7 @@ export type ComboboxContext = ReturnType<typeof createComboboxController> & {
 const { set: setComboboxContext, get: getComboboxContext } =
     createContext<ComboboxContext>('combobox');
 
-export { getComboboxContext, setComboboxContext };
+const { set: setComboboxLabels, find: findComboboxLabels } =
+    createContext<() => ComboboxLabels | undefined>('combobox-labels');
+
+export { findComboboxLabels, getComboboxContext, setComboboxContext, setComboboxLabels };

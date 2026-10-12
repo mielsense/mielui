@@ -4,6 +4,7 @@
     import { onMount } from 'svelte';
     import HugeiconsIcon from '../../hugeicons-icon.svelte';
     import type { ColorPickerHexInputProps } from '.';
+    import { getColorPickerContext } from './context';
     import { getColorPickerController } from './controller.svelte';
 
     type EyeDropper = new () => {
@@ -14,6 +15,8 @@
 
     let { class: className, ...rest }: ColorPickerHexInputProps = $props();
     const controller = getColorPickerController();
+    const context = getColorPickerContext();
+    const eyedropperLabel = $derived(context.labels?.eyedropper ?? 'Pick a color from the screen');
     let eyeDropper = $state<EyeDropper>();
 
     onMount(() => {
@@ -43,7 +46,7 @@
 >
     <span aria-hidden="true" class="font-mono text-xs text-foreground-muted">#</span>
     <input
-        aria-label="Hex color"
+        aria-label={context.labels?.hex ?? 'Hex color'}
         class="h-full min-w-0 flex-1 select-text bg-transparent font-mono text-xs uppercase tabular-nums text-[var(--color-field-foreground)] outline-none placeholder:text-foreground-muted"
         value={controller.state.hexInput.replace(/^#/, '')}
         placeholder="000000"
@@ -67,8 +70,8 @@
     {#if eyeDropper}
         <button
             type="button"
-            aria-label="Pick a color from the screen"
-            title="Pick a color from the screen"
+            aria-label={eyedropperLabel}
+            title={eyedropperLabel}
             data-ui="color-picker-eyedropper"
             class="grid size-5 shrink-0 place-items-center rounded-[var(--radius-control)] text-foreground-muted outline-none transition-[background-color,color,box-shadow] [transition-duration:var(--motion-duration-hover)] ease-[var(--ease-out)] hover:bg-[var(--color-wash)] hover:text-foreground focus-visible:shadow-[var(--focus-ring)] motion-reduce:transition-none"
             onclick={pickFromScreen}

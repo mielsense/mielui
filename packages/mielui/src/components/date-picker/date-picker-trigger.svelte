@@ -1,6 +1,6 @@
 <script lang="ts">
     import { Calendar03Icon } from '@hugeicons/core-free-icons';
-    import { cn } from '@mielui/svelte/utils';
+    import { cn, type WithElement } from '@mielui/svelte/utils';
     import { DatePicker as DatePickerPrimitive } from 'bits-ui';
     import HugeiconsIcon from '../../hugeicons-icon.svelte';
     import { button } from '../button/variants';
@@ -10,16 +10,16 @@
         class: className,
         children,
         disabled = false,
-        ref = $bindable(null),
+        element = $bindable(null),
         'aria-label': ariaLabel,
         ...rest
-    }: Omit<DatePickerPrimitive.TriggerProps, 'child'> = $props();
+    }: WithElement<Omit<DatePickerPrimitive.TriggerProps, 'child'>> = $props();
     const context = getDatePickerContext();
 </script>
 
 <DatePickerPrimitive.Trigger
     {...rest}
-    bind:ref
+    bind:ref={element}
     disabled={disabled || context.disabled}
     data-ui="date-picker-trigger"
     aria-label={ariaLabel ?? (children ? undefined : context.labels.trigger)}

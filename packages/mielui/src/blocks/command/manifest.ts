@@ -2,7 +2,7 @@ import type { Manifest } from '@mielui/svelte/_manifest/types';
 
 export const manifest: Manifest = {
     name: 'command',
-    version: '1.2.0',
+    version: '1.3.0',
     visibility: 'public',
     description: 'Dialog command palette with search, grouped items, and separators.',
     files: [

@@ -1,9 +1,8 @@
 <script lang="ts">
     import { CodeBlock } from '@mielui/svelte/components/code-block';
     import * as Typography from '@mielui/svelte/components/typography';
-    import { getContext } from 'svelte';
-    import type { MarkdownLabels } from '.';
     import type { MarkdownToken } from './_types';
+    import { findMarkdownLabels } from './context.svelte';
     import Self from './markdown-token.svelte';
     import {
         alignmentClass,
@@ -16,7 +15,7 @@
     } from './token';
 
     let { tokens }: { tokens: MarkdownToken[] } = $props();
-    const labels = getContext<(() => MarkdownLabels | undefined) | undefined>('markdown-labels');
+    const labels = findMarkdownLabels();
 
     const taskCheckboxClass =
         // token-lint-disable-next-line no-literal-length: checkbox aligns to surrounding text

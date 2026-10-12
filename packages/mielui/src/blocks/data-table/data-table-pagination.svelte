@@ -4,10 +4,10 @@
 >
     import { numberShuffle } from '@mielui/svelte/actions/number-shuffle';
     import { cn } from '@mielui/svelte/utils';
-    import { getContext } from 'svelte';
     import { Button } from '../../components/button';
     import Pagination from '../../components/pagination';
-    import type { DataTableLabels, DataTablePaginationProps } from '.';
+    import type { DataTablePaginationProps } from '.';
+    import { findDataTableLabels } from './context.svelte';
     import { pagination } from './features';
 
     let {
@@ -16,7 +16,7 @@
         class: className,
         ...rest
     }: DataTablePaginationProps<TFeatures, TData> = $props();
-    const labels = getContext<(() => DataTableLabels | undefined) | undefined>('data-table-labels');
+    const labels = findDataTableLabels();
     const api = $derived(pagination(table));
     const pageCount = $derived(api.getPageCount?.() ?? 0);
     const state = $derived(table.store.get() as { pagination?: { pageIndex: number } });
@@ -63,7 +63,7 @@
                 api.previousPage?.();
             }}
             >
-                Previous
+                {labels?.()?.previous ?? 'Previous'}
             </Button>
             <Button
                 variant="outline"
@@ -73,7 +73,7 @@
                 api.nextPage?.();
             }}
             >
-                Next
+                {labels?.()?.next ?? 'Next'}
             </Button>
         {/if}
     </div>

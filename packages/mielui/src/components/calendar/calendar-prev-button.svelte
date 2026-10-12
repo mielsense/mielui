@@ -1,6 +1,6 @@
 <script lang="ts">
     import { ArrowLeft01Icon } from '@hugeicons/core-free-icons';
-    import { cn } from '@mielui/svelte/utils';
+    import { cn, type WithElement } from '@mielui/svelte/utils';
     import { Calendar as CalendarPrimitive } from 'bits-ui';
     import HugeiconsIcon from '../../hugeicons-icon.svelte';
     import { button } from '../button/variants';
@@ -8,14 +8,14 @@
     let {
         class: className,
         children,
-        ref = $bindable(null),
+        element = $bindable(null),
         ...rest
-    }: CalendarPrimitive.PrevButtonProps = $props();
+    }: WithElement<CalendarPrimitive.PrevButtonProps> = $props();
 </script>
 
 <CalendarPrimitive.PrevButton
     {...rest}
-    bind:ref
+    bind:ref={element}
     data-ui="calendar-prev-button"
     class={cn(className, button({ variant: 'ghost', size: 'icon' }), 'rtl:rotate-180')}
 >

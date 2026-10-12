@@ -1,7 +1,7 @@
 import type { Manifest } from '@mielui/svelte/_manifest/types';
 export const manifest: Manifest = {
     name: 'notch',
-    version: '1.0.0',
+    version: '1.1.0',
     visibility: 'public',
     description:
         'A nonmodal panel attached to a viewport edge, with spring motion and composable content.',

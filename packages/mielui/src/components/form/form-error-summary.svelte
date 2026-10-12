@@ -3,7 +3,7 @@
     import { cn } from '@mielui/svelte/utils';
     import { tick } from 'svelte';
     import type { FormErrorSummaryProps, FormIssue } from '.';
-    import { getOptionalFormContext } from './context.svelte';
+    import { findFormContext } from './context.svelte';
 
     let {
         issues = [],
@@ -15,7 +15,7 @@
         ...rest
     }: FormErrorSummaryProps = $props();
     const uid = $props.id();
-    const form = getOptionalFormContext();
+    const form = findFormContext();
     let focusedSubmission = 0;
 
     function focusField(issue: FormIssue) {

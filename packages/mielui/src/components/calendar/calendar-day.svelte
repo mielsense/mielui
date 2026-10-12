@@ -1,13 +1,17 @@
 <script lang="ts">
-    import { cn } from '@mielui/svelte/utils';
+    import { cn, type WithElement } from '@mielui/svelte/utils';
     import { Calendar as CalendarPrimitive } from 'bits-ui';
 
-    let { class: className, ref = $bindable(null), ...rest }: CalendarPrimitive.DayProps = $props();
+    let {
+        class: className,
+        element = $bindable(null),
+        ...rest
+    }: WithElement<CalendarPrimitive.DayProps> = $props();
 </script>
 
 <CalendarPrimitive.Day
     {...rest}
-    bind:ref
+    bind:ref={element}
     data-ui="calendar-day"
     class={cn(
         className,

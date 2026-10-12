@@ -3,14 +3,14 @@
     generics="TFeatures extends import('@tanstack/svelte-table').TableFeatures, TData extends import('@tanstack/svelte-table').RowData"
 >
     import { cn } from '@mielui/svelte/utils';
-    import { getContext } from 'svelte';
     import { Button } from '../../components/button';
     import { Checkbox } from '../../components/checkbox';
     import * as DatePicker from '../../components/date-picker';
     import { Input } from '../../components/input';
     import * as NativeSelect from '../../components/native-select';
     import * as Popover from '../../components/popover';
-    import type { DataTableFacetProps, DataTableLabels } from '.';
+    import type { DataTableFacetProps } from '.';
+    import { findDataTableLabels } from './context.svelte';
     import { filterableColumn } from './features';
     import {
         defaultFilterOperator,
@@ -34,7 +34,7 @@
         onRemove,
         class: className
     }: DataTableFacetProps<TFeatures, TData> = $props();
-    const labels = getContext<(() => DataTableLabels | undefined) | undefined>('data-table-labels');
+    const labels = findDataTableLabels();
 
     const target = $derived(table.getColumn(filter.column));
     const column = $derived(target ? filterableColumn(target) : undefined);
@@ -260,7 +260,7 @@
                     onRemove?.();
                 }}
             >
-                Remove filter
+                {labels?.()?.removeFilter ?? 'Remove filter'}
             </Button>
             <Button
                 variant="secondary"
@@ -270,7 +270,7 @@
                     onOpenChange?.(false);
                 }}
             >
-                Done
+                {labels?.()?.done ?? 'Done'}
             </Button>
         </div>
     </Popover.Content>

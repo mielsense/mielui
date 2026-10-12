@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { cn } from '@mielui/svelte/utils';
+    import { cn, type WithElement } from '@mielui/svelte/utils';
     import { DateRangePicker as DatePickerPrimitive } from 'bits-ui';
     import Header from '../calendar/calendar-header.svelte';
     import Heading from '../calendar/calendar-heading.svelte';
@@ -11,15 +11,15 @@
     let {
         class: className,
         children: content,
-        ref = $bindable(null),
+        element = $bindable(null),
         ...rest
-    }: Omit<DatePickerPrimitive.CalendarProps, 'child'> = $props();
+    }: WithElement<Omit<DatePickerPrimitive.CalendarProps, 'child'>> = $props();
     const context = getDatePickerContext();
 </script>
 
 <DatePickerPrimitive.Calendar
     {...rest}
-    bind:ref
+    bind:ref={element}
     data-ui="date-range-picker-calendar"
     class={cn(className, 'w-fit max-w-full space-y-3 p-3 text-foreground [--calendar-cell-size:calc(var(--spacing)*10)]')}
 >

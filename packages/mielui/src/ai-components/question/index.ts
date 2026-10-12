@@ -22,7 +22,23 @@ export type QuestionType = 'single' | 'multiple' | 'text';
 export type QuestionAnswer = string | string[];
 export type QuestionStatus = 'idle' | 'submitting' | 'error';
 
+export type QuestionLabels = {
+    /** Validation message for a required single-choice question with no answer. */
+    selectAnswer?: string;
+    /** Validation message for a required multiple-choice question with no answer. */
+    selectAnswers?: string;
+    /** Validation message for a required text question with no answer. */
+    enterAnswer?: string;
+    /** Shown when `onSubmit` rejects. `errorMessage` wins. */
+    submitError?: string;
+};
+
 export type QuestionProps = {
+    /**
+     * Overrides the built-in text and accessible names. Every key is optional and English is the
+     * fallback.
+     */
+    labels?: QuestionLabels;
     /** `inset` frames the question with its actions on the frame. */
     variant?: 'default' | 'inset';
     /** Current state, which drives the submit control. */
@@ -35,7 +51,7 @@ export type QuestionProps = {
     autofocus?: boolean;
     /** Field name of the answer. */
     name?: string;
-    /** Message shown when `onSubmit` rejects. */
+    /** Message shown when `onSubmit` rejects. Overrides `labels.submitError`. */
     errorMessage?: string;
     /** Called with the error when the action fails. */
     onError?: (error: unknown) => void;

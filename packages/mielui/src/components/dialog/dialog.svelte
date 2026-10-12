@@ -54,6 +54,7 @@
         onOpenChange,
         error = false,
         orientation = 'horizontal',
+        labels,
         children
     }: DialogProps = $props();
     const id = $props.id();
@@ -78,6 +79,9 @@
     };
     const modalContext = $state({
         id,
+        get labels() {
+            return labels;
+        },
         titleId: undefined as string | undefined,
         descriptionId: undefined as string | undefined,
         contentId: `dialog-${id}`,

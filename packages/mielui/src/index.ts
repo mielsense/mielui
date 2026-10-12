@@ -75,6 +75,7 @@ export type {
     QuestionAnswer,
     QuestionDescriptionProps,
     QuestionInputProps,
+    QuestionLabels,
     QuestionOptionProps,
     QuestionOptionsProps,
     QuestionProps,
@@ -128,6 +129,7 @@ export type {
     ColorPickerContentProps,
     ColorPickerHexInputProps,
     ColorPickerHueProps,
+    ColorPickerLabels,
     ColorPickerPlaneProps,
     ColorPickerPresetsProps,
     ColorPickerPreviewProps,
@@ -137,6 +139,7 @@ export * as ColorPicker from './blocks/color-picker';
 export type {
     CommandItem,
     CommandItemProps,
+    CommandLabels,
     CommandProps,
     CommandResultsProps,
     CommandSearchProps
@@ -192,6 +195,7 @@ export type {
 export * as FolderCard from './blocks/folder-card';
 export type { MarkdownLabels, MarkdownProps } from './blocks/markdown';
 export { Markdown } from './blocks/markdown';
+export type { NotchLabels, NotchProps } from './blocks/notch';
 export * as Notch from './blocks/notch';
 export type {
     ReorderListContentProps,
@@ -219,6 +223,7 @@ export { TaskSteps } from './blocks/task-steps';
 export type {
     ToastAction,
     ToastFn,
+    ToastLabels,
     ToastState,
     ToastType,
     ToastUIState
@@ -236,7 +241,7 @@ export type {
 export { Toolbar } from './blocks/toolbar';
 export type { ChartLabels } from './chart-components/chart';
 export * as Chart from './chart-components/chart';
-export type { GaugeProps, GaugeTone } from './chart-components/gauge';
+export type { GaugeLabels, GaugeProps, GaugeTone } from './chart-components/gauge';
 export { Gauge } from './chart-components/gauge';
 export type { HeatmapLabels } from './chart-components/heatmap';
 export * as Heatmap from './chart-components/heatmap';
@@ -328,6 +333,7 @@ export type {
     DialogDescriptionProps,
     DialogFooterProps,
     DialogHeaderProps,
+    DialogLabels,
     DialogOrientation,
     DialogProps,
     DialogSize,
@@ -413,6 +419,7 @@ export type {
     NumberFieldGroupProps,
     NumberFieldInputProps,
     NumberFieldLabelProps,
+    NumberFieldLabels,
     NumberFieldProps,
     NumberFieldStepperProps
 } from './components/number-field';
@@ -453,6 +460,7 @@ export type {
     SheetDescriptionProps,
     SheetFooterProps,
     SheetHeaderProps,
+    SheetLabels,
     SheetProps,
     SheetTitleProps,
     SheetTriggerProps
@@ -460,7 +468,7 @@ export type {
 export * as Sheet from './components/sheet';
 export type { SkeletonProps, SkeletonSwapProps } from './components/skeleton';
 export { Skeleton, SkeletonSwap } from './components/skeleton';
-export type { SliderProps } from './components/slider';
+export type { SliderLabels, SliderProps } from './components/slider';
 export { Slider } from './components/slider';
 export type { SpinnerProps } from './components/spinner';
 export { Spinner } from './components/spinner';

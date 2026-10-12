@@ -16,6 +16,7 @@
         readonly = false,
         required = false,
         onValueChange,
+        labels,
         children,
         class: className,
         element = $bindable(),
@@ -54,6 +55,9 @@
     setNumberFieldContext({
         get id() {
             return id;
+        },
+        get labels() {
+            return labels;
         },
         get value() {
             return value;

@@ -6,7 +6,8 @@
 
     let { class: className, children, close = true, ...rest }: SheetHeaderProps = $props();
 
-    const { state: sheetState } = getSheetContext();
+    const sheet = getSheetContext();
+    const sheetState = sheet.state;
 </script>
 
 <div
@@ -18,6 +19,7 @@
     {@render children?.()}
     {#if close}
         <OverlayClose
+            aria-label={sheet.labels?.close}
             onclick={() => {
                 sheetState.open = false;
             }}

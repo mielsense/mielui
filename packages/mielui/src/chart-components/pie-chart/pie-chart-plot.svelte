@@ -3,12 +3,11 @@
     import { Skeleton } from '@mielui/svelte/components/skeleton';
     import { cn } from '@mielui/svelte/utils';
     import { Chart, Svg } from 'layerchart';
-    import { getContext } from 'svelte';
-    import { getPieContext } from './context';
-    import type { PieChartLabels, PieChartPlotProps } from './index';
+    import { findPieChartLabels, getPieContext } from './context';
+    import type { PieChartPlotProps } from './index';
 
     let { children, class: className, ...rest }: PieChartPlotProps = $props();
-    const labels = getContext<(() => PieChartLabels | undefined) | undefined>('pie-chart-labels');
+    const labels = findPieChartLabels();
     const context = getPieContext();
 </script>
 

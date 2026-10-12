@@ -12,7 +12,19 @@ import Increment from './number-field-increment.svelte';
 import Input from './number-field-input.svelte';
 import Label from './number-field-label.svelte';
 
+export type NumberFieldLabels = {
+    /** Accessible name of the button that steps the value down. */
+    decrease?: string;
+    /** Accessible name of the button that steps the value up. */
+    increase?: string;
+};
+
 export type NumberFieldProps = Omit<HTMLAttributes<HTMLDivElement>, 'children' | 'onchange'> & {
+    /**
+     * Overrides the built-in text and accessible names. Every key is optional and English is the
+     * fallback.
+     */
+    labels?: NumberFieldLabels;
     /** Current number. Bindable. */
     value?: number;
     /** Id of the input, for a label outside the field. */

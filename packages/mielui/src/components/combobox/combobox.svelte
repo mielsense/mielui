@@ -1,8 +1,8 @@
 <script lang="ts">
     import { Combobox as ComboboxPrimitive } from 'bits-ui';
-    import { setContext, untrack } from 'svelte';
-    import type { ComboboxLabels, ComboboxRootProps } from '.';
-    import { setComboboxContext } from './context.svelte';
+    import { untrack } from 'svelte';
+    import type { ComboboxRootProps } from '.';
+    import { setComboboxContext, setComboboxLabels } from './context.svelte';
     import { createComboboxController } from './controller.svelte';
 
     let {
@@ -21,7 +21,7 @@
         ...selection
     }: ComboboxRootProps = $props();
 
-    setContext<() => ComboboxLabels | undefined>('combobox-labels', () => labels);
+    setComboboxLabels(() => labels);
 
     const generatedKey = $props.id();
     const id = untrack(() => stateKey ?? state_key ?? generatedKey);

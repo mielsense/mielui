@@ -2,7 +2,7 @@ import type { Manifest } from '@mielui/svelte/_manifest/types';
 
 export const manifest: Manifest = {
     name: 'question',
-    version: '1.0.1',
+    version: '1.1.0',
     visibility: 'public',
     description:
         'Inline agent question form with single-choice, multiple-choice, and free-text answers.',

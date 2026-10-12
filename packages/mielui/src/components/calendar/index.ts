@@ -1,11 +1,10 @@
 import type { DateValue } from '@internationalized/date';
-import type { DefaultProps } from '@mielui/svelte/utils';
+import type { DefaultProps, WithElement } from '@mielui/svelte/utils';
 import type { Calendar as CalendarPrimitive, CalendarRootSnippetProps } from 'bits-ui';
 import type { Snippet } from 'svelte';
 
-export type CalendarProps = Omit<
-    Extract<CalendarPrimitive.RootProps, { type: 'single' }>,
-    'type' | 'child'
+export type CalendarProps = WithElement<
+    Omit<Extract<CalendarPrimitive.RootProps, { type: 'single' }>, 'type' | 'child'>
 >;
 export type CalendarMonthProps = Omit<DefaultProps, 'children'> & {
     /** Month data from the Root snippet. */

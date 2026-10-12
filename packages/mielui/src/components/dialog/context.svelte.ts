@@ -1,6 +1,6 @@
 import { createContext } from '@mielui/svelte/utils';
 import type { Snippet } from 'svelte';
-import type { DialogFooterProps, DialogState } from '.';
+import type { DialogFooterProps, DialogLabels, DialogState } from '.';
 
 export type DialogFooterSlot = {
     children?: Snippet;
@@ -10,6 +10,7 @@ export type DialogFooterSlot = {
 
 export type DialogContext = {
     id: string;
+    readonly labels?: DialogLabels;
     motion?: 'none';
     titleId?: string;
     descriptionId?: string;

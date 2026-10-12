@@ -1,10 +1,10 @@
 <script lang="ts">
     import { cn } from '@mielui/svelte/utils';
     import type { HTMLAttributes } from 'svelte/elements';
-    import { useHeatmap } from './context.svelte';
+    import { getHeatmapContext } from './context.svelte';
 
     let { children, class: className, ...props }: HTMLAttributes<HTMLDivElement> = $props();
-    const context = useHeatmap();
+    const context = getHeatmapContext();
 </script>
 <div
     {...props}

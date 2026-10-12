@@ -665,7 +665,7 @@
                 "type": "boolean | undefined",
                 "required": false,
                 "bindable": false,
-                "default": null,
+                "default": "false",
                 "description": "Shows the chevron after the label.",
                 "inherited": false
             },

@@ -20,6 +20,7 @@
         class?: string;
         variant?: ButtonVariant;
         'aria-labelledby'?: string;
+        /** Marks the trigger as invalid for assistive technology and error styling. */
         'aria-invalid'?: HTMLButtonAttributes['aria-invalid'];
     } & Omit<Popover.PopoverTriggerProps, 'children' | 'class' | 'variant'>;
 

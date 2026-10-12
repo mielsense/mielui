@@ -2,7 +2,7 @@ import type { Manifest } from '@mielui/svelte/_manifest/types';
 
 export const manifest: Manifest = {
     name: 'date-range-picker',
-    version: '1.0.0',
+    version: '2.0.0',
     visibility: 'public',
     description: 'Segmented start/end date fields and a range calendar popup.',
     files: [

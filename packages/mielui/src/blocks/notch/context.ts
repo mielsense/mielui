@@ -4,6 +4,7 @@ import type { NotchProps } from '.';
 
 type NotchContext = {
     open: boolean;
+    readonly labels: NotchProps['labels'];
     readonly actionCount: number;
     width: number;
     height: number;

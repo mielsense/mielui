@@ -1,8 +1,8 @@
 <script lang="ts">
     import { cn } from '@mielui/svelte/utils';
-    import { setContext } from 'svelte';
     import { insetLayout } from '../../components/_internal/inset-layout';
     import type { FileDiffContext, FileDiffRootProps } from '.';
+    import { setFileDiffContext } from './context.svelte';
     import Content from './file-diff-content.svelte';
     import Row from './file-diff-row.svelte';
     import TopBar from './file-diff-top-bar.svelte';
@@ -52,7 +52,7 @@
             return theme;
         }
     };
-    setContext('file-diff', context);
+    setFileDiffContext(context);
 </script>
 
 <div

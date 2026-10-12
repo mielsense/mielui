@@ -3,9 +3,12 @@
     generics="TFeatures extends import('@tanstack/svelte-table').TableFeatures, TData extends import('@tanstack/svelte-table').RowData"
 >
     import { cn } from '@mielui/svelte/utils';
-    import { setContext } from 'svelte';
-    import type { DataTableLabels, DataTableProps } from '.';
-    import { type DataTableToolbarSlot, setDataTableContext } from './context.svelte';
+    import type { DataTableProps } from '.';
+    import {
+        type DataTableToolbarSlot,
+        setDataTableContext,
+        setDataTableLabels
+    } from './context.svelte';
     import Pagination from './data-table-pagination.svelte';
     import Summary from './data-table-summary.svelte';
     import View from './data-table-view.svelte';
@@ -26,7 +29,7 @@
         class: className,
         ...rest
     }: DataTableProps<TFeatures, TData> = $props();
-    setContext<() => DataTableLabels | undefined>('data-table-labels', () => labels);
+    setDataTableLabels(() => labels);
     const tableSummary = $derived(summary(table));
     const dataTable = $state({
         get variant() {

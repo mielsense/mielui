@@ -21,7 +21,6 @@ export function createPopoverPosition(options: PositionOptions) {
     const popoverState = options.state;
 
     let positionFrame: number | undefined;
-    let mounted = false;
 
     function updatePosition() {
         if (!options.popover) {
@@ -62,7 +61,6 @@ export function createPopoverPosition(options: PositionOptions) {
     }
 
     onMount(() => {
-        mounted = true;
         window.addEventListener('resize', schedulePosition);
         window.addEventListener('scroll', schedulePosition, true);
         window.visualViewport?.addEventListener('resize', schedulePosition);
@@ -84,45 +82,11 @@ export function createPopoverPosition(options: PositionOptions) {
             ro.observe(options.popover);
         }
 
-        /** Focus events fire mid-unmount, so state writes wait a microtask to avoid `state_unsafe_mutation`. */
-        const handleFocusIn = (e: FocusEvent) => {
-            const target = e.target as HTMLElement;
-
-            if (!target) {
-                return;
-            }
-
-            const openPopovers = Array.from(
-                document.querySelectorAll<HTMLElement>('[data-floating-content]')
-            );
-            const inside = openPopovers.some((el) => el.contains(target));
-
-            queueMicrotask(() => {
-                if (mounted) {
-                    popoverState.focusedInside = inside;
-                }
-            });
-        };
-
-        const handleFocusOut = () => {
-            queueMicrotask(() => {
-                if (mounted) {
-                    popoverState.focusedInside = false;
-                }
-            });
-        };
-
-        document.addEventListener('focusin', handleFocusIn);
-        document.addEventListener('focusout', handleFocusOut);
-
         return () => {
-            mounted = false;
             window.removeEventListener('resize', schedulePosition);
             window.removeEventListener('scroll', schedulePosition, true);
             window.visualViewport?.removeEventListener('resize', schedulePosition);
             window.visualViewport?.removeEventListener('scroll', schedulePosition);
-            document.removeEventListener('focusin', handleFocusIn);
-            document.removeEventListener('focusout', handleFocusOut);
             ro.disconnect();
 
             if (positionFrame !== undefined) {

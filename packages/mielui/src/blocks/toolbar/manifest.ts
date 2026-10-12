@@ -1,7 +1,7 @@
 import type { Manifest } from '@mielui/svelte/_manifest/types';
 export const manifest: Manifest = {
     name: 'toolbar',
-    version: '1.0.0',
+    version: '1.0.1',
     visibility: 'public',
     description: 'Composable keyboard toolbar with buttons, links, and selectable groups.',
     files: [
@@ -19,6 +19,6 @@ export const manifest: Manifest = {
         'components/toolbar/manifest.ts'
     ],
     components: ['_internal/utils', 'button', 'separator'],
-    shared: ['utils.cn', 'utils.pressable', 'utils.travelingHighlight'],
+    shared: ['utils.cn', 'utils.pressable', 'utils.travelingHighlight', 'utils.createContext'],
     peerDependencies: { 'bits-ui': '^2.19.2', cnfast: '^0.0.8', svelte: '^5.56.0' }
 };

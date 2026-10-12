@@ -1,4 +1,5 @@
 import { createContext } from '@mielui/svelte/utils';
+import type { AttachmentLabels } from '.';
 
 export type AttachmentContext = {
     readonly files: File[];
@@ -10,4 +11,7 @@ export type AttachmentContext = {
 const { set: setAttachmentContext, get: getAttachmentContext } =
     createContext<AttachmentContext>('attachment');
 
-export { getAttachmentContext, setAttachmentContext };
+const { set: setAttachmentLabels, find: findAttachmentLabels } =
+    createContext<() => AttachmentLabels | undefined>('attachment-labels');
+
+export { findAttachmentLabels, getAttachmentContext, setAttachmentContext, setAttachmentLabels };

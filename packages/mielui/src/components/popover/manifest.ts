@@ -37,7 +37,7 @@ import type { Manifest } from '@mielui/svelte/_manifest/types';
  */
 export const manifest: Manifest = {
     name: 'popover',
-    version: '3.2.2',
+    version: '3.3.0',
     visibility: 'public',
     description:
         'Floating content positioned by @floating-ui. Click or hover triggers, Title/Content subparts, inert outside content, click-outside + Escape dismiss, optional portal.',

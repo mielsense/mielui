@@ -13,7 +13,7 @@ import type { Manifest } from '@mielui/svelte/_manifest/types';
  */
 export const manifest: Manifest = {
     name: 'color-picker',
-    version: '3.0.0',
+    version: '3.1.0',
     visibility: 'public',
     description:
         'Popover-based color picker with SB drag, hue strip, hex input, and HSL sliders. Optional preset swatches. Composable Root, Trigger, Content, Plane, Hue, Preview, HexInput, Channels, and Presets.',

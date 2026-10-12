@@ -2,7 +2,7 @@ import type { Manifest } from '@mielui/svelte/_manifest/types';
 
 export const manifest: Manifest = {
     name: 'date-picker',
-    version: '1.0.0',
+    version: '2.0.0',
     visibility: 'public',
     description:
         'Segmented date field and calendar popup with locale, validation, and form support.',

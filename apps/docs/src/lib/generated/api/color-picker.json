@@ -3153,6 +3153,15 @@
         "name": "Root",
         "properties": [
             {
+                "name": "labels",
+                "type": "ColorPickerLabels | undefined",
+                "required": false,
+                "bindable": false,
+                "default": null,
+                "description": "Overrides the built-in text and accessible names. Every key is optional and English is the fallback.",
+                "inherited": false
+            },
+            {
                 "name": "label",
                 "type": "string | undefined",
                 "required": false,

@@ -4,10 +4,10 @@
     import type { HTMLAttributes } from 'svelte/elements';
     import { prefersReducedMotion, Tween } from 'svelte/motion';
     import ChartTooltipSurface from '../../components/_internal/chart-tooltip-surface.svelte';
-    import { useHeatmap } from './context.svelte';
+    import { getHeatmapContext } from './context.svelte';
 
     let { children, class: className, ...props }: HTMLAttributes<HTMLDivElement> = $props();
-    const context = useHeatmap();
+    const context = getHeatmapContext();
     const gap = 8;
     let element = $state<HTMLDivElement>();
     let width = $state(0);
@@ -110,7 +110,7 @@
 {#if target && day}
     <ChartTooltipSurface
         {...props}
-        bind:ref={element}
+        bind:element
         bind:width
         bind:height
         aria-hidden="true"

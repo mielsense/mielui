@@ -1,7 +1,9 @@
 import { createContext } from '@mielui/svelte/utils';
+import type { NumberFieldLabels } from '.';
 
 type NumberFieldContext = {
     readonly id: string;
+    readonly labels: NumberFieldLabels | undefined;
     readonly value: number | undefined;
     readonly initialValue: number | undefined;
     readonly min: number | undefined;

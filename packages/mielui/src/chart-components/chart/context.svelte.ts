@@ -1,4 +1,5 @@
-import { getContext, setContext } from 'svelte';
+import { createContext } from '@mielui/svelte/utils';
+import type { ChartLabels } from '.';
 
 type Row = Record<string, string | number | Date | null | undefined>;
 export type Config = Record<
@@ -31,14 +32,10 @@ export interface ChartContext {
     label(row: number): string;
     format(key: string, value: number): string;
 }
-const key = Symbol('mielui-chart');
-export function setChart(context: ChartContext) {
-    setContext(key, context);
-}
-export function getChart(): ChartContext {
-    const context = getContext<ChartContext | undefined>(key);
-    if (!context) {
-        throw new Error('Chart parts must be placed inside Chart.Root.');
-    }
-    return context;
-}
+
+const { set: setChart, get: getChart } = createContext<ChartContext>('chart');
+
+const { set: setChartLabels, find: findChartLabels } =
+    createContext<() => ChartLabels | undefined>('chart-labels');
+
+export { findChartLabels, getChart, setChart, setChartLabels };

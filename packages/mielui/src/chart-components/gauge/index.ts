@@ -3,7 +3,21 @@ import Gauge from './gauge.svelte';
 
 export type GaugeTone = 'primary' | 'muted' | 'success' | 'warning' | 'error';
 
+export type GaugeLabels = {
+    /** Accessible name while loading. `name` is the gauge's `label`, when it has one. */
+    loading?: (name: string | undefined) => string;
+    /** Accessible name when there is no measurement. */
+    empty?: (name: string | undefined) => string;
+    /** Accessible name of a gauge with no `label`. */
+    value?: (value: number, max: number) => string;
+};
+
 export type GaugeProps = {
+    /**
+     * Overrides the built-in text and accessible names. Every key is optional and English is the
+     * fallback.
+     */
+    labels?: GaugeLabels;
     /** The bounded quantity shown by the filled arc. Pass null when no measurement is available. */
     value: number | null;
     /** Show a loading ring while the measurement is being fetched. */

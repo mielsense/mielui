@@ -1,11 +1,13 @@
 import { createContext } from '@mielui/svelte/utils';
-import type { CommandState } from '.';
+import type { CommandLabels, CommandState } from '.';
 import type { createCommandController } from './controller.svelte';
 
 const { set: setCommandContext, get: getCommandContext } =
     createContext<ReturnType<typeof createCommandController>>('command');
+const { set: setCommandLabels, find: findCommandLabels } =
+    createContext<() => CommandLabels | undefined>('command-labels');
 
-export { getCommandContext, setCommandContext };
+export { findCommandLabels, getCommandContext, setCommandContext, setCommandLabels };
 
 /** Items eligible for keyboard navigation, in rendered order: the active result set minus disabled rows. */
 export function getCommandResults(state: CommandState) {

@@ -1,13 +1,13 @@
 <script lang="ts">
     import { FileDiffIcon } from '@hugeicons/core-free-icons';
     import { cn } from '@mielui/svelte/utils';
-    import { getContext } from 'svelte';
     import HugeiconsIcon from '../../hugeicons-icon.svelte';
-    import type { FileDiffContext, FileDiffFilenameProps } from '.';
+    import type { FileDiffFilenameProps } from '.';
+    import { findFileDiffContext } from './context.svelte';
 
     let { class: className, file, ...rest }: FileDiffFilenameProps = $props();
 
-    const context = getContext<FileDiffContext>('file-diff');
+    const context = findFileDiffContext();
     const resolvedFile = $derived(file ?? context?.file ?? '');
 </script>
 

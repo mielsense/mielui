@@ -7,18 +7,17 @@
     import { numberShuffle } from '@mielui/svelte/actions/number-shuffle';
     import { Spinner } from '@mielui/svelte/components/spinner';
     import { cn, pressable } from '@mielui/svelte/utils';
-    import { getContext } from 'svelte';
     import {
         DISCLOSURE_ICON_SIZE,
         disclosureChevron,
         disclosureTrigger
     } from '../../components/_internal/disclosure/variants';
     import HugeiconsIcon from '../../hugeicons-icon.svelte';
-    import type { ToolLabels, ToolTriggerProps } from '.';
-    import { getToolContext } from './context.svelte';
+    import type { ToolTriggerProps } from '.';
+    import { findToolLabels, getToolContext } from './context.svelte';
 
     let { children, class: className, onclick, ...rest }: ToolTriggerProps = $props();
-    const labels = getContext<(() => ToolLabels | undefined) | undefined>('tool-labels');
+    const labels = findToolLabels();
     const tool = getToolContext();
     const id = tool.id;
     const durationMatch = $derived(tool.duration?.match(/^(\d+)(?:\.(\d+))?(ms|s)$/));

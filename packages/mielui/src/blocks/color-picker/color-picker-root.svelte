@@ -11,6 +11,7 @@
         onValueChange,
         options = [],
         format = 'hsl',
+        labels,
         class: className,
         children
     }: ColorPickerProps = $props();
@@ -21,6 +22,9 @@
         labelId,
         get label() {
             return label;
+        },
+        get labels() {
+            return labels;
         },
         get value() {
             return value;

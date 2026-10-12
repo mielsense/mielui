@@ -8,9 +8,9 @@
     import { Button } from '@mielui/svelte/components/button';
     import { Spinner } from '@mielui/svelte/components/spinner';
     import { cn } from '@mielui/svelte/utils';
-    import { getContext } from 'svelte';
     import HugeiconsIcon from '../../hugeicons-icon.svelte';
-    import type { AttachmentItemProps, AttachmentLabels } from '.';
+    import type { AttachmentItemProps } from '.';
+    import { findAttachmentLabels } from './context.svelte';
     import { fileExtension, fileIcon } from './file-icon';
     import { formatBytes } from './validation';
 
@@ -25,9 +25,7 @@
         class: className,
         ...rest
     }: AttachmentItemProps = $props();
-    const labels = getContext<(() => AttachmentLabels | undefined) | undefined>(
-        'attachment-labels'
-    );
+    const labels = findAttachmentLabels();
 
     const safeProgress = $derived(
         typeof progress === 'number' && Number.isFinite(progress)

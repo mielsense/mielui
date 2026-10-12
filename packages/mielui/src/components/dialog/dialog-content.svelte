@@ -205,6 +205,7 @@
                         >
                             {#if showClose}
                                 <OverlayClose
+                                    aria-label={dialog.labels?.close}
                                     onclick={() => {
                                         dialog.state.open = false;
                                     }}

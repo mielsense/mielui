@@ -118,7 +118,9 @@ export function createTagInputController(options: ControllerOptions) {
 
         emit(next);
         options.setQuery('');
-        spoken = `${candidate} added. ${next.length} ${next.length === 1 ? 'tag' : 'tags'} total.`;
+        spoken =
+            options.getLabels()?.added?.(candidate, next.length) ??
+            `${candidate} added. ${next.length} ${next.length === 1 ? 'tag' : 'tags'} total.`;
         options.getOnAdd()?.(candidate);
 
         return true;
@@ -137,7 +139,9 @@ export function createTagInputController(options: ControllerOptions) {
         const next = safeTags.filter((_, position) => position !== index);
 
         emit(next);
-        spoken = `${removed} removed. ${next.length} ${next.length === 1 ? 'tag' : 'tags'} total.`;
+        spoken =
+            options.getLabels()?.removed?.(removed, next.length) ??
+            `${removed} removed. ${next.length} ${next.length === 1 ? 'tag' : 'tags'} total.`;
         options.getOnRemove()?.(removed);
     }
 

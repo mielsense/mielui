@@ -132,17 +132,12 @@ export type Placement =
 
 export type PopoverState = {
     open: boolean;
-    focusedInside?: boolean;
-    trigger: HTMLElement | null;
-    focusedElement: HTMLElement | null;
     buttonRef: HTMLElement | null;
     popoverRef: HTMLElement | undefined;
     placement: Placement;
-    onclick: (() => void) | undefined;
     closeTimeout: ReturnType<typeof setTimeout> | undefined;
     hoverTimeout?: ReturnType<typeof setTimeout> | undefined;
     hoverable: boolean;
-    hovering?: boolean;
     delay: number | undefined;
     closeDelay: number | undefined;
     inert: boolean;

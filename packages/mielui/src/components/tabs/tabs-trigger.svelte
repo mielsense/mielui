@@ -1,8 +1,8 @@
 <script lang="ts">
     import { cn, pressable } from '@mielui/svelte/utils';
     import { Tabs as BitsTabs } from 'bits-ui';
-    import { getContext } from 'svelte';
-    import type { TabsState, TabsTriggerProps } from '.';
+    import type { TabsTriggerProps } from '.';
+    import { getTabsContext } from './context.svelte';
     import { tabContentId, tabTriggerId } from './id';
 
     let {
@@ -13,7 +13,7 @@
         ...rest
     }: TabsTriggerProps = $props();
 
-    const tabsState = getContext<TabsState>('tabs');
+    const tabsState = getTabsContext();
 
     const active = $derived(tabsState.value === value);
 

@@ -1,10 +1,9 @@
 <script lang="ts">
     import { Attachment01Icon as Paperclip } from '@hugeicons/core-free-icons';
     import { cn } from '@mielui/svelte/utils';
-    import { setContext } from 'svelte';
     import HugeiconsIcon from '../../hugeicons-icon.svelte';
-    import type { AttachmentLabels, AttachmentProps } from '.';
-    import { setAttachmentContext } from './context.svelte';
+    import type { AttachmentProps } from '.';
+    import { setAttachmentContext, setAttachmentLabels } from './context.svelte';
     import { validateFiles } from './validation';
 
     let {
@@ -24,7 +23,7 @@
         labels,
         ...rest
     }: AttachmentProps = $props();
-    setContext<() => AttachmentLabels | undefined>('attachment-labels', () => labels);
+    setAttachmentLabels(() => labels);
 
     let input: HTMLInputElement | undefined;
     let dragDepth = 0;

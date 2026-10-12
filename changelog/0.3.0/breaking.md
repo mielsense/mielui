@@ -21,3 +21,8 @@
 - Breadcrumb items are padded, so the trail's text starts one item padding further in.
 - Tooltips reposition instantly when the pointer moves to the next trigger instead of gliding there.
 - Switch thumbs no longer stretch while pressed.
+- Calendar, RangeCalendar, DatePicker, DateRangePicker, and OTPField parts expose their DOM node as `bind:element`, like every other component. `bind:ref` on those parts no longer works. HugeiconsIcon's `ref` prop is `element` too.
+- The exported `PopoverState` type loses `focusedInside`, `trigger`, `focusedElement`, `onclick`, and `hovering`. Nothing read them.
+- `closeMenuLayers` is no longer exported from `@mielui/svelte/utils`. No component used it.
+- The internal overlay module no longer exports `useOverlay`, `OverlayOptions`, or `parentOverlayDepth`. Dialog and Sheet stopped using them when Bits UI took over focus and dismissal.
+- Tabs, CodeBlock, FileDiff, and the `labels` of every family share state under private keys. Code that read them with `getContext('tabs')` or a similar string key gets `undefined`.

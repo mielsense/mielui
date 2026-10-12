@@ -1,13 +1,12 @@
 <script lang="ts">
     import { Search01Icon as Search } from '@hugeicons/core-free-icons';
     import { Combobox as ComboboxPrimitive } from 'bits-ui';
-    import { getContext, untrack } from 'svelte';
+    import { untrack } from 'svelte';
     import HugeiconsIcon from '../../hugeicons-icon.svelte';
-    import type { ComboboxLabels } from '.';
-    import { getComboboxContext } from './context.svelte';
+    import { findComboboxLabels, getComboboxContext } from './context.svelte';
 
     const context = getComboboxContext();
-    const labels = getContext<(() => ComboboxLabels | undefined) | undefined>('combobox-labels');
+    const labels = findComboboxLabels();
 
     let input = $state<HTMLInputElement | null>(null);
 

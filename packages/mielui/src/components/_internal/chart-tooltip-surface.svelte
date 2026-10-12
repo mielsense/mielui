@@ -5,14 +5,14 @@
     import { overlaySurface } from './surface';
 
     type Props = Omit<HTMLAttributes<HTMLDivElement>, 'children'> & {
-        ref?: HTMLDivElement;
+        element?: HTMLDivElement;
         width?: number;
         height?: number;
         children: Snippet;
     };
 
     let {
-        ref = $bindable(),
+        element = $bindable(),
         width = $bindable(0),
         height = $bindable(0),
         class: className,
@@ -23,7 +23,7 @@
 
 <div
     {...rest}
-    bind:this={ref}
+    bind:this={element}
     bind:clientWidth={width}
     bind:clientHeight={height}
     class={cn(

@@ -24,7 +24,7 @@
 <Popover.Content
     {...rest}
     {surface}
-    aria-label={ariaLabel ?? context.label ?? 'Color picker'}
+    aria-label={ariaLabel ?? context.label ?? context.labels?.picker ?? 'Color picker'}
     class={cn(className, 'w-61 select-none')}
     surfaceClass={cn(surfaceClass, 'overflow-hidden p-0')}
 >

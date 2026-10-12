@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { cn } from '@mielui/svelte/utils';
+    import { cn, type WithElement } from '@mielui/svelte/utils';
     import { DatePicker as DatePickerPrimitive } from 'bits-ui';
     import { input } from '../input/variants';
     import FormField from './date-picker-form-field.svelte';
@@ -11,15 +11,15 @@
         name,
         form,
         children: content,
-        ref = $bindable(null),
+        element = $bindable(null),
         ...rest
-    }: Omit<DatePickerPrimitive.InputProps, 'child'> & { form?: string } = $props();
+    }: WithElement<Omit<DatePickerPrimitive.InputProps, 'child'> & { form?: string }> = $props();
 </script>
 
 <DatePickerPrimitive.Input
     {...rest}
     name=""
-    bind:ref
+    bind:ref={element}
     data-ui="date-picker-input"
     class={cn(
         className,
@@ -39,4 +39,4 @@
     {/snippet}
 </DatePickerPrimitive.Input>
 
-<FormField {name} {form} field={ref} />
+<FormField {name} {form} field={element} />

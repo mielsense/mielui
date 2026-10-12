@@ -3,14 +3,15 @@
     import { cn } from '@mielui/svelte/utils';
     import type { HTMLButtonAttributes } from 'svelte/elements';
     import HugeiconsIcon from '../../hugeicons-icon.svelte';
-    import { getToastContext } from './context.svelte';
+    import { findToastLabels, getToastContext } from './context.svelte';
 
     let { children, class: className, onclick, ...rest }: HTMLButtonAttributes = $props();
     const context = getToastContext();
+    const labels = findToastLabels();
 </script>
 
 <button
-    aria-label="Dismiss notification"
+    aria-label={labels?.()?.dismiss ?? 'Dismiss notification'}
     {...rest}
     type="button"
     data-ui="toast-close"

@@ -1,8 +1,8 @@
 <script lang="ts">
     import { cn } from '@mielui/svelte/utils';
     import { Tabs as BitsTabs } from 'bits-ui';
-    import { setContext } from 'svelte';
     import type { TabsProps } from '.';
+    import { setTabsContext } from './context.svelte';
 
     let {
         children,
@@ -16,7 +16,13 @@
     }: TabsProps = $props();
 
     const id = $props.id();
-    setContext('tabs', {
+
+    function updateValue(next: string) {
+        value = next;
+        onValueChange?.(next);
+    }
+
+    setTabsContext({
         id,
         get value() {
             return value;
@@ -26,15 +32,9 @@
         },
         get variant() {
             return variant;
-        }
+        },
+        select: updateValue
     });
-
-    setContext('tabs-selection', updateValue);
-
-    function updateValue(next: string) {
-        value = next;
-        onValueChange?.(next);
-    }
 </script>
 
 <BitsTabs.Root

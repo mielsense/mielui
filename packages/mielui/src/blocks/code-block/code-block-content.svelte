@@ -1,10 +1,15 @@
 <script lang="ts">
-    import type { TabsState } from '@mielui/svelte/components/tabs';
     import { cn } from '@mielui/svelte/utils';
-    import { getContext, untrack } from 'svelte';
+    import { untrack } from 'svelte';
+    import { findTabsContext } from '../../components/tabs/context.svelte';
     import { tabContentId, tabTriggerId } from '../../components/tabs/id';
-    import type { CodeBlockContentProps, CodeBlockLabels, CodeBlockRegistry } from '.';
+    import type { CodeBlockContentProps } from '.';
     import Copy from './code-block-copy.svelte';
+    import {
+        findCodeBlockLabels,
+        findCodeBlockPanel,
+        findCodeBlockRegistry
+    } from './context.svelte';
     import { highlight } from './highlight';
 
     const CODE_TOKENS =
@@ -19,11 +24,11 @@
         class: className,
         ...rest
     }: CodeBlockContentProps = $props();
-    const labels = getContext<(() => CodeBlockLabels | undefined) | undefined>('code-block-labels');
+    const labels = findCodeBlockLabels();
 
-    const registry = getContext<CodeBlockRegistry>('code-block');
-    const tabs = getContext<TabsState>('tabs');
-    const panel = getContext<{ readonly tabbed: boolean } | undefined>('code-block-panel');
+    const registry = findCodeBlockRegistry();
+    const tabs = findTabsContext();
+    const panel = findCodeBlockPanel();
 
     if (registry) {
         untrack(() => {

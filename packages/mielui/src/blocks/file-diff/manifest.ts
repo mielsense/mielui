@@ -2,7 +2,7 @@ import type { Manifest } from '@mielui/svelte/_manifest/types';
 
 export const manifest: Manifest = {
     name: 'file-diff',
-    version: '1.3.0',
+    version: '1.3.1',
     visibility: 'public',
     description:
         'Unified file diff with a path top bar, addition/deletion counts, dual line-number gutters, and per-row syntax highlighting via highlight.js with a built-in GitHub palette; theme="custom" skips the token colors for any highlight.js theme stylesheet.',
@@ -18,11 +18,17 @@ export const manifest: Manifest = {
         'components/file-diff/file-diff-row.svelte',
         'components/file-diff/file-diff-line-number.svelte',
         'components/file-diff/highlight.ts',
+        'components/file-diff/context.svelte.ts',
         'components/file-diff/index.ts',
         'components/file-diff/manifest.ts'
     ],
     components: ['_internal/utils', '_internal/highlight'],
-    shared: ['components/_internal/inset-layout', 'hugeicons-icon', 'utils.cn'],
+    shared: [
+        'components/_internal/inset-layout',
+        'hugeicons-icon',
+        'utils.cn',
+        'utils.createContext'
+    ],
     peerDependencies: {
         '@floating-ui/dom': '1.7.6',
         '@hugeicons/core-free-icons': '^4.3.0',

@@ -1,17 +1,17 @@
 <script lang="ts">
-    import { cn } from '@mielui/svelte/utils';
+    import { cn, type WithElement } from '@mielui/svelte/utils';
     import { RangeCalendar as CalendarPrimitive } from 'bits-ui';
 
     let {
         class: className,
-        ref = $bindable(null),
+        element = $bindable(null),
         ...rest
-    }: CalendarPrimitive.CellProps = $props();
+    }: WithElement<CalendarPrimitive.CellProps> = $props();
 </script>
 
 <CalendarPrimitive.Cell
     {...rest}
-    bind:ref
+    bind:ref={element}
     data-ui="range-calendar-cell"
     class={cn(
         className,

@@ -12,7 +12,8 @@
         children?: Snippet;
         height?: number | string | null;
         icon: HugeiconData;
-        ref?: SVGSVGElement | null;
+        /** Bindable reference to the DOM element. */
+        element?: SVGSVGElement | null;
         size?: number | string;
         strokeWidth?: number | string | null;
         width?: number | string | null;
@@ -36,7 +37,7 @@
         fill,
         height,
         icon,
-        ref = $bindable(null),
+        element = $bindable(null),
         size = 24,
         stroke,
         'stroke-linecap': strokeLinecap,
@@ -132,7 +133,7 @@
     stroke-linejoin={strokeLinejoin}
     stroke-width={resolvedStrokeWidth}
     class={cn(className)}
-    bind:this={ref}
+    bind:this={element}
 >
     {#each nodes as node}
         {#if node.tag === "path"}

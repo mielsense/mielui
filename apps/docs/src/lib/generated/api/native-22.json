@@ -738,15 +738,6 @@
         "inherited": true
     },
     {
-        "name": "aria-label",
-        "type": "string | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": "'Close notification'",
-        "description": "Defines a string value that labels the current element.",
-        "inherited": true
-    },
-    {
         "name": "tabindex",
         "type": "number | null | undefined",
         "required": false,
@@ -2242,6 +2233,15 @@
     },
     {
         "name": "ondragleavecapture",
+        "type": "DragEventHandler<HTMLLIElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "on:dragover",
         "type": "DragEventHandler<HTMLLIElement> | null | undefined",
         "required": false,
         "bindable": false,

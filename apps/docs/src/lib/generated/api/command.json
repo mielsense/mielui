@@ -217,6 +217,15 @@
         "name": "Root",
         "properties": [
             {
+                "name": "labels",
+                "type": "CommandLabels | undefined",
+                "required": false,
+                "bindable": false,
+                "default": null,
+                "description": "Overrides the built-in text and accessible names. Every key is optional and English is the fallback.",
+                "inherited": false
+            },
+            {
                 "name": "open",
                 "type": "boolean | undefined",
                 "required": false,

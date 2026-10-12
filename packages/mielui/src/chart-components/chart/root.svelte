@@ -1,12 +1,12 @@
 <script lang="ts" generics="T extends Record<string, string | number | Date | null | undefined>">
     import { getCssDuration } from '@mielui/svelte/transition';
     import { cn } from '@mielui/svelte/utils';
-    import { onMount, type Snippet, setContext } from 'svelte';
+    import { onMount, type Snippet } from 'svelte';
     import type { HTMLAttributes } from 'svelte/elements';
     import { Tween } from 'svelte/motion';
     import { SvelteMap } from 'svelte/reactivity';
     import type { ChartLabels } from '.';
-    import { type Config, setChart } from './context.svelte';
+    import { type Config, setChart, setChartLabels } from './context.svelte';
     import { categoryExtent, valueExtent } from './domains';
 
     let {
@@ -34,7 +34,7 @@
         'aria-label': string;
         children?: Snippet;
     } = $props();
-    setContext<() => ChartLabels | undefined>('chart-labels', () => labels);
+    setChartLabels(() => labels);
     const numberFormatter = new Intl.NumberFormat(undefined, { maximumFractionDigits: 2 });
     const dateFormatter = new Intl.DateTimeFormat(undefined, { month: 'short', day: 'numeric' });
     let element = $state<HTMLDivElement>();
@@ -272,7 +272,7 @@
                         <th scope="row">{String(row[x] ?? '')}</th>
                         {#each keys as key (key)}
                             <td>
-                                {typeof row[key] === 'number' && Number.isFinite(row[key]) ? config[key].format?.(row[key] as number) ?? row[key] : 'No data'}
+                                {typeof row[key] === 'number' && Number.isFinite(row[key]) ? config[key].format?.(row[key] as number) ?? row[key] : (labels?.noData ?? 'No data')}
                             </td>
                         {/each}
                     </tr>

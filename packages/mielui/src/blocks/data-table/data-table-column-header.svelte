@@ -5,13 +5,13 @@
     import { ArrowDown02Icon, ArrowUp02Icon, ArrowUpDownIcon } from '@hugeicons/core-free-icons';
     import { cn } from '@mielui/svelte/utils';
     import { FlexRender } from '@tanstack/svelte-table';
-    import { getContext } from 'svelte';
     import HugeiconsIcon from '../../hugeicons-icon.svelte';
-    import type { DataTableColumnHeaderProps, DataTableLabels } from '.';
+    import type { DataTableColumnHeaderProps } from '.';
+    import { findDataTableLabels } from './context.svelte';
     import { sortableColumn } from './features';
 
     let { header, class: className }: DataTableColumnHeaderProps<TFeatures, TData> = $props();
-    const labels = getContext<(() => DataTableLabels | undefined) | undefined>('data-table-labels');
+    const labels = findDataTableLabels();
     const column = $derived(sortableColumn(header.column));
     const sorted = $derived(column.getIsSorted?.());
     const next = $derived(column.getNextSortingOrder?.());

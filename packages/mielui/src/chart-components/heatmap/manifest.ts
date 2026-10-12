@@ -1,7 +1,7 @@
 import type { Manifest } from '@mielui/svelte/_manifest/types';
 export const manifest: Manifest = {
     name: 'heatmap',
-    version: '1.0.0',
+    version: '1.1.0',
     visibility: 'public',
     description: 'Daily activity in a keyboard-navigable contribution calendar.',
     files: [
@@ -30,7 +30,8 @@ export const manifest: Manifest = {
         'components/_internal/surface',
         'components/_internal/chart-tooltip-surface',
         'utils.cn',
-        'transition'
+        'transition',
+        'utils.createContext'
     ],
     peerDependencies: {
         '@floating-ui/dom': '1.7.6',

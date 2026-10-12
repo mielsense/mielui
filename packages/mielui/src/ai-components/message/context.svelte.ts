@@ -1,6 +1,6 @@
 import { createContext } from '@mielui/svelte/utils';
 import type { Snippet } from 'svelte';
-import type { MessageFrom, MessageStatus } from '.';
+import type { MessageFrom, MessageLabels, MessageStatus } from '.';
 
 export type MessageContext = {
     readonly name?: string;
@@ -12,4 +12,7 @@ export type MessageContext = {
 
 const { set: setMessageContext, get: getMessageContext } = createContext<MessageContext>('message');
 
-export { getMessageContext, setMessageContext };
+const { set: setMessageLabels, find: findMessageLabels } =
+    createContext<() => MessageLabels | undefined>('message-labels');
+
+export { findMessageLabels, getMessageContext, setMessageContext, setMessageLabels };

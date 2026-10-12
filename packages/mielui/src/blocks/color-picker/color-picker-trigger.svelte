@@ -18,7 +18,9 @@
         ctx.options.find((o) => o.value.toLowerCase() === (ctx.value ?? '').toLowerCase())?.label ??
             null
     );
-    const valueLabel = $derived(selectedLabel ?? (ctx.value || 'Choose color'));
+    const valueLabel = $derived(
+        selectedLabel ?? (ctx.value || (ctx.labels?.choose ?? 'Choose color'))
+    );
     const triggerLabel = $derived(ctx.label ? `${ctx.label}: ${valueLabel}` : valueLabel);
 </script>
 

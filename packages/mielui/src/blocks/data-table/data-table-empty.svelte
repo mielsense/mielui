@@ -1,11 +1,11 @@
 <script lang="ts">
     import { cn } from '@mielui/svelte/utils';
-    import { getContext } from 'svelte';
     import * as Table from '../../components/table';
-    import type { DataTableEmptyProps, DataTableLabels } from '.';
+    import type { DataTableEmptyProps } from '.';
+    import { findDataTableLabels } from './context.svelte';
 
     let { columns, loading = false, children, class: className }: DataTableEmptyProps = $props();
-    const labels = getContext<(() => DataTableLabels | undefined) | undefined>('data-table-labels');
+    const labels = findDataTableLabels();
 </script>
 <Table.Row>
     <Table.Cell colspan={columns} class={cn(className, 'h-32 text-center text-foreground-muted')}>

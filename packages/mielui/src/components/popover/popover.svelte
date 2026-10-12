@@ -30,14 +30,11 @@
             open = value;
             onOpenChange?.(value);
         },
-        trigger: null,
-        focusedElement: null,
         buttonRef: null,
         popoverRef: undefined,
         get placement() {
             return placement;
         },
-        onclick: undefined,
         closeTimeout: undefined,
         get hoverable() {
             return hoverable ?? false;

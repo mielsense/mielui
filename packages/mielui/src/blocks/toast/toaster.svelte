@@ -4,17 +4,27 @@
     import { untrack } from 'svelte';
     import { cubicOut, quartOut } from 'svelte/easing';
     import type { TransitionConfig } from 'svelte/transition';
+    import type { ToastLabels } from '.';
+    import { setToastLabels } from './context.svelte';
     import { getToastPrimaryHostId, setToastUIState } from './lib.svelte';
     import NotchHost from './notch-host.svelte';
     import Toast from './toast.svelte';
 
     let {
         variant = 'default',
-        side = 'top'
+        side = 'top',
+        labels
     }: {
         variant?: 'default' | 'notch';
         side?: 'top' | 'bottom' | 'left' | 'right';
+        /**
+         * Overrides the built-in text and accessible names. Every key is optional and English is
+         * the fallback.
+         */
+        labels?: ToastLabels;
     } = $props();
+
+    setToastLabels(() => labels);
 
     const { state: toastState, hostId } = setToastUIState();
     const isPrimary = $derived(getToastPrimaryHostId() === hostId);
@@ -138,12 +148,12 @@
 </script>
 
 {#if isPrimary && variant === 'notch'}
-    <NotchHost toasts={toastState.data.toasts} {side} />
+    <NotchHost toasts={toastState.data.toasts} {side} {labels} />
 {:else if isPrimary}
     <div bind:this={portalEl} use:visualViewportBounds data-overlay-root class={viewportClass}>
         <div
             role="region"
-            aria-label="Notifications"
+            aria-label={labels?.region ?? 'Notifications'}
             class={stackClass}
             style:height={`${containerHeight}px`}
             onmouseenter={() => {

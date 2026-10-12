@@ -1,9 +1,10 @@
 import { createContext } from '@mielui/svelte/utils';
 import type { Snippet } from 'svelte';
-import type { SheetState } from '.';
+import type { SheetLabels, SheetState } from '.';
 
 export type SheetContext = {
     id: string;
+    readonly labels?: SheetLabels;
     titleId?: string;
     descriptionId?: string;
     footer?: Snippet;

@@ -1,7 +1,7 @@
 import type { Manifest } from '@mielui/svelte/_manifest/types';
 export const manifest: Manifest = {
     name: 'data-table',
-    version: '1.0.0',
+    version: '1.1.0',
     visibility: 'public',
     description:
         'Composable TanStack Table v9 presentation with native table semantics, sorting, filtering, selection, and pagination.',

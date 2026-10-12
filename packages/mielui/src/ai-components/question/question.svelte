@@ -16,7 +16,8 @@
         required = true,
         autofocus = false,
         name = 'answer',
-        errorMessage = 'Answer could not be submitted.',
+        errorMessage,
+        labels,
         onSubmit,
         onError,
         onCancel,
@@ -54,7 +55,10 @@
             return name;
         },
         get errorMessage() {
-            return errorMessage;
+            return errorMessage ?? labels?.submitError ?? 'Answer could not be submitted.';
+        },
+        get labels() {
+            return labels;
         },
         get form() {
             return form;

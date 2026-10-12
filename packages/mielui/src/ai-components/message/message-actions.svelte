@@ -1,8 +1,7 @@
 <script lang="ts">
     import { cn } from '@mielui/svelte/utils';
-    import { getContext } from 'svelte';
-    import type { MessageActionsProps, MessageLabels } from '.';
-    import { getMessageContext } from './context.svelte';
+    import type { MessageActionsProps } from '.';
+    import { findMessageLabels, getMessageContext } from './context.svelte';
 
     let {
         children,
@@ -10,7 +9,7 @@
         'aria-label': ariaLabel,
         ...rest
     }: MessageActionsProps = $props();
-    const labels = getContext<(() => MessageLabels | undefined) | undefined>('message-labels');
+    const labels = findMessageLabels();
     const message = getMessageContext();
 </script>
 

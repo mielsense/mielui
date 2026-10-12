@@ -1,10 +1,9 @@
 <script lang="ts">
     import { panelIn, panelOut } from '@mielui/svelte/transition';
     import { cn } from '@mielui/svelte/utils';
-    import { getContext } from 'svelte';
-    import type { AttachmentLabels, AttachmentListProps } from '.';
+    import type { AttachmentListProps } from '.';
     import Item from './attachment-item.svelte';
-    import { getAttachmentContext } from './context.svelte';
+    import { findAttachmentLabels, getAttachmentContext } from './context.svelte';
 
     let {
         label,
@@ -13,9 +12,7 @@
         'aria-label': ariaLabel,
         ...rest
     }: AttachmentListProps = $props();
-    const labels = getContext<(() => AttachmentLabels | undefined) | undefined>(
-        'attachment-labels'
-    );
+    const labels = findAttachmentLabels();
 
     const context = getAttachmentContext();
     const edgeFades = {

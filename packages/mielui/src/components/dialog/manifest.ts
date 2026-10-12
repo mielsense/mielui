@@ -19,7 +19,7 @@ import type { Manifest } from '@mielui/svelte/_manifest/types';
  */
 export const manifest: Manifest = {
     name: 'dialog',
-    version: '1.3.1',
+    version: '1.4.0',
     visibility: 'public',
     description:
         'Centered dialog overlay with portal, inert background, focus trap, click-outside, nested stacking, and Svelte transitions. Composes _internal/overlay for shared mechanics.',

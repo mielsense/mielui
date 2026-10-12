@@ -9,6 +9,7 @@
         surface,
         mode = 'triggered',
         duration = 5000,
+        labels,
         children
     }: NotchProps = $props();
     let hovered = $state(false);
@@ -28,6 +29,9 @@
     let previousDuration = -1;
     let previousMode: NotchProps['mode'];
     notchContext.set({
+        get labels() {
+            return labels;
+        },
         scheduleCollapse() {
             clearTimeout(collapseTimer);
             if (actionCount === 0) {

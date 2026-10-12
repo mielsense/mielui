@@ -45,3 +45,4 @@
 - `mielui add data-table` lists the shared context helper its parts use.
 - A part of Accordion, Radio Group, Toggle Group, Hover Card, Tooltip, or File Upload used outside its root throws an error that names the missing root.
 - `Combobox.Label` no longer copies its own props onto the paragraph as HTML attributes.
+- `FileUpload.Trigger` shows `labels.choose` when it has no children. It ignored the label before.

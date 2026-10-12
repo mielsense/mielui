@@ -1,7 +1,7 @@
 import type { Manifest } from '@mielui/svelte/_manifest/types';
 export const manifest: Manifest = {
     name: 'drawer',
-    version: '1.0.0',
+    version: '1.0.1',
     visibility: 'public',
     description: 'Swipeable edge panel with accessible focus management and direct manipulation.',
     files: [
@@ -22,7 +22,7 @@ export const manifest: Manifest = {
         'components/drawer/manifest.ts'
     ],
     components: ['_internal/utils', 'button', 'typography'],
-    shared: ['components/_internal/surface', 'utils.cn', 'utils.pressable'],
+    shared: ['components/_internal/surface', 'utils.cn', 'utils.pressable', 'utils.createContext'],
     peerDependencies: {
         'bits-ui': '^2.19.2',
         cnfast: '^0.0.8',

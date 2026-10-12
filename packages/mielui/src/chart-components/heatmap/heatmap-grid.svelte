@@ -3,7 +3,7 @@
     import type { Snippet } from 'svelte';
     import type { HTMLAttributes } from 'svelte/elements';
     import { type Cell, weekColumns } from './calendar';
-    import { useHeatmap } from './context.svelte';
+    import { getHeatmapContext } from './context.svelte';
     import HeatmapCell from './heatmap-cell.svelte';
     import { liveCalendar } from './live';
 
@@ -14,7 +14,7 @@
     }: Omit<HTMLAttributes<HTMLDivElement>, 'children'> & {
         children?: Snippet<[readonly Cell[]]>;
     } = $props();
-    const context = useHeatmap();
+    const context = getHeatmapContext();
 </script>
 <div
     use:liveCalendar={context.ready && context.animation === 'live'}

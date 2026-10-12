@@ -1,10 +1,9 @@
 <script lang="ts">
     import { cn } from '@mielui/svelte/utils';
     import { Chart, Svg } from 'layerchart';
-    import { getContext, type Snippet } from 'svelte';
+    import type { Snippet } from 'svelte';
     import type { HTMLAttributes } from 'svelte/elements';
-    import type { ChartLabels } from '.';
-    import { getChart } from './context.svelte';
+    import { findChartLabels, getChart } from './context.svelte';
     import Interaction from './interaction.svelte';
     import Placeholder from './placeholder.svelte';
 
@@ -19,7 +18,7 @@
         empty?: Snippet;
         loading?: Snippet;
     } = $props();
-    const labels = getContext<(() => ChartLabels | undefined) | undefined>('chart-labels');
+    const labels = findChartLabels();
     const chart = getChart();
     const categories = $derived(chart.categoryDomain);
 </script>

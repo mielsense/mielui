@@ -2,7 +2,7 @@ import type { Manifest } from '@mielui/svelte/_manifest/types';
 
 export const manifest: Manifest = {
     name: 'calendar',
-    version: '1.0.0',
+    version: '2.0.0',
     visibility: 'public',
     description:
         'Composable single-date calendar with localized keyboard navigation and month/year controls.',

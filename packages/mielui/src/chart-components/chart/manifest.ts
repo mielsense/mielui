@@ -1,7 +1,7 @@
 import type { Manifest } from '@mielui/svelte/_manifest/types';
 export const manifest: Manifest = {
     name: 'chart',
-    version: '1.0.0',
+    version: '1.1.0',
     visibility: 'public',
     description: 'Composable animated bar, line, and area charts built on LayerChart.',
     files: [
@@ -33,7 +33,8 @@ export const manifest: Manifest = {
         'components/_internal/surface',
         'components/_internal/chart-tooltip-surface',
         'transition',
-        'utils.cn'
+        'utils.cn',
+        'utils.createContext'
     ],
     peerDependencies: { layerchart: '^2.5.0', cnfast: '^0.0.8', svelte: '^5.56.0' }
 };

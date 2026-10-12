@@ -1,5 +1,4 @@
 import { createContext } from '@mielui/svelte/utils';
-import { getContext, setContext } from 'svelte';
 import type { TooltipState } from '.';
 import { sharedTooltip, type TooltipManager } from './shared-tooltip';
 
@@ -15,16 +14,13 @@ export type TooltipContext = {
     content: TooltipContentState;
 };
 
-const managerKey = Symbol('mielui.tooltip-manager');
-
 const { set: setTooltipContext, get: getTooltipContext } = createContext<TooltipContext>('tooltip');
 
-export function setTooltipManager(manager: TooltipManager) {
-    setContext(managerKey, manager);
+const { set: setTooltipManager, find: findTooltipManager } =
+    createContext<TooltipManager>('tooltip-manager');
+
+function getTooltipManager(): TooltipManager {
+    return findTooltipManager() ?? sharedTooltip;
 }
 
-export function getTooltipManager() {
-    return getContext<TooltipManager | undefined>(managerKey) ?? sharedTooltip;
-}
-
-export { getTooltipContext, setTooltipContext };
+export { getTooltipContext, getTooltipManager, setTooltipContext, setTooltipManager };

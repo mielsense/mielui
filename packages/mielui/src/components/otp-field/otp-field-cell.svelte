@@ -3,12 +3,17 @@
     import { PinInput } from 'bits-ui';
     import type { OTPFieldCellProps } from '.';
 
-    let { cell, ref = $bindable(null), class: className, ...rest }: OTPFieldCellProps = $props();
+    let {
+        cell,
+        element = $bindable(null),
+        class: className,
+        ...rest
+    }: OTPFieldCellProps = $props();
 </script>
 <PinInput.Cell
     {...rest}
     {cell}
-    bind:ref
+    bind:ref={element}
     aria-hidden="true"
     data-ui="otp-field-cell"
     class={cn(

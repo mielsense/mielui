@@ -1,4 +1,5 @@
 import { createContext } from '@mielui/svelte/utils';
+import type { ReasoningLabels } from '.';
 
 export type ReasoningContext = {
     id: string;
@@ -13,4 +14,7 @@ export type ReasoningContext = {
 const { set: setReasoningContext, get: getReasoningContext } =
     createContext<ReasoningContext>('reasoning');
 
-export { getReasoningContext, setReasoningContext };
+const { set: setReasoningLabels, find: findReasoningLabels } =
+    createContext<() => ReasoningLabels | undefined>('reasoning-labels');
+
+export { findReasoningLabels, getReasoningContext, setReasoningContext, setReasoningLabels };

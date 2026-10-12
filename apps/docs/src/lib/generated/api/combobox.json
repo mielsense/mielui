@@ -1381,6 +1381,15 @@
                 "inherited": false
             },
             {
+                "name": "aria-labelledby",
+                "type": "string | undefined",
+                "required": false,
+                "bindable": false,
+                "default": null,
+                "description": "Id of the element that names the control, such as a visible label.",
+                "inherited": false
+            },
+            {
                 "name": "trailing",
                 "type": "Snippet<[]> | undefined",
                 "required": false,

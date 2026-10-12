@@ -1,24 +1,14 @@
-import { getContext, setContext } from 'svelte';
+import { createContext } from '@mielui/svelte/utils';
 
 type FormContext = {
     readonly pending: boolean;
     readonly submissions: number;
 };
 
-const key = Symbol('mielui.form');
+const {
+    set: setFormContext,
+    get: getFormContext,
+    find: findFormContext
+} = createContext<FormContext>('form');
 
-export function setFormContext(value: FormContext) {
-    setContext(key, value);
-}
-
-export function getOptionalFormContext() {
-    return getContext<FormContext | undefined>(key);
-}
-
-export function getFormContext() {
-    const context = getOptionalFormContext();
-    if (!context) {
-        throw new Error('Form components must be used within <Form.Root>.');
-    }
-    return context;
-}
+export { findFormContext, getFormContext, setFormContext };

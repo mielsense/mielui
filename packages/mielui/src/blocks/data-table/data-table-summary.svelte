@@ -4,8 +4,8 @@
 >
     import { numberShuffle } from '@mielui/svelte/actions/number-shuffle';
     import { cn } from '@mielui/svelte/utils';
-    import { getContext } from 'svelte';
-    import type { DataTableLabels, DataTableSummaryProps } from '.';
+    import type { DataTableSummaryProps } from '.';
+    import { findDataTableLabels } from './context.svelte';
     import { summary } from './features';
 
     let {
@@ -14,7 +14,7 @@
         class: className,
         ...rest
     }: DataTableSummaryProps<TFeatures, TData> = $props();
-    const labels = getContext<(() => DataTableLabels | undefined) | undefined>('data-table-labels');
+    const labels = findDataTableLabels();
     const state = $derived(summary(table));
 </script>
 <p

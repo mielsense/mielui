@@ -358,7 +358,7 @@
     {#if context.mode === 'peek'}
         <button
             type="button"
-            aria-label="Expand notification"
+            aria-label={context.labels?.expand ?? 'Expand notification'}
             aria-expanded={context.open}
             tabindex={context.open ? -1 : 0}
             inert={context.open}

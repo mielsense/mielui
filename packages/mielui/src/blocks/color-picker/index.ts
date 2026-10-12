@@ -15,7 +15,23 @@ import type { ColorFormat, ColorOption } from './context';
 
 export type { ColorFormat, ColorOption, ColorPickerContext } from './context';
 
+export type ColorPickerLabels = {
+    /** Trigger text and name when no color is chosen. */
+    choose?: string;
+    /** Accessible name of the panel when Root has no `label`. */
+    picker?: string;
+    /** Accessible name of the hex input. */
+    hex?: string;
+    /** Accessible name of the button that picks a color from the screen. */
+    eyedropper?: string;
+};
+
 export type ColorPickerProps = {
+    /**
+     * Overrides the built-in text and accessible names. Every key is optional and English is the
+     * fallback.
+     */
+    labels?: ColorPickerLabels;
     /** Accessible name of the trigger. */
     label?: string;
     /** Selected color as a hex string. Bindable. */

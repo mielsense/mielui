@@ -4,10 +4,12 @@
     import { onMount } from 'svelte';
     import HugeiconsIcon from '../../hugeicons-icon.svelte';
     import type { CommandSearchProps } from '.';
-    import { getCommandContext, getCommandResults } from './context.svelte';
+    import { findCommandLabels, getCommandContext, getCommandResults } from './context.svelte';
     import { DEFAULT_COMMAND_SEARCH_THRESHOLD } from './search';
 
     const controller = getCommandContext();
+
+    const labels = findCommandLabels();
     const { state: command } = controller;
 
     let searchInput = $state<HTMLInputElement | undefined>();
@@ -130,8 +132,8 @@
             className,
             'min-w-0 flex-1 bg-transparent text-[length:var(--font-size-body)] [font-weight:var(--font-weight-body)] [letter-spacing:var(--tracking-body)] text-foreground placeholder:text-foreground-muted focus-visible:outline-none'
         )}
-        placeholder="Type a command or search..."
-        aria-label="Search commands"
+        placeholder={labels?.()?.searchPlaceholder ?? 'Type a command or search...'}
+        aria-label={labels?.()?.search ?? 'Search commands'}
         role="combobox"
         aria-autocomplete="list"
         aria-expanded="true"

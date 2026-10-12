@@ -34,6 +34,12 @@
         return context.max !== undefined && context.value >= context.max;
     });
 
+    const builtInLabel = $derived(
+        decreasing
+            ? (context.labels?.decrease ?? 'Decrease value')
+            : (context.labels?.increase ?? 'Increase value')
+    );
+
     function setElement(node: HTMLButtonElement | HTMLAnchorElement | undefined) {
         element = node?.tagName === 'BUTTON' ? (node as HTMLButtonElement) : undefined;
     }
@@ -46,7 +52,7 @@
     variant="ghost"
     size="icon"
     type="button"
-    aria-label={rest['aria-label'] ?? (decreasing ? 'Decrease value' : 'Increase value')}
+    aria-label={rest['aria-label'] ?? builtInLabel}
     disabled={disabled || context.disabled || context.readonly || atBound}
     class={cn(
         rest.class,

@@ -8,7 +8,7 @@
         value = $bindable(),
         placeholder = $bindable(),
         open = $bindable(false),
-        ref = $bindable(null),
+        element = $bindable(null),
         locale = 'en-US',
         disabled = false,
         readonly = false,
@@ -64,7 +64,7 @@
         }
     }
     bind:open
-    bind:ref
+    bind:ref={element}
     {locale}
     {disabled}
     {readonly}

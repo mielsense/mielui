@@ -23,6 +23,6 @@
     {#if children}
         {@render children()}
     {:else}
-        Choose files
+        {root.labels?.choose ?? 'Choose files'}
     {/if}
 </Button>

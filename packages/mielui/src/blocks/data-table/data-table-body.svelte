@@ -3,9 +3,9 @@
     generics="TFeatures extends import('@tanstack/svelte-table').TableFeatures, TData extends import('@tanstack/svelte-table').RowData"
 >
     import { FlexRender } from '@tanstack/svelte-table';
-    import { getContext } from 'svelte';
     import * as Table from '../../components/table';
-    import type { DataTableBodyProps, DataTableLabels } from '.';
+    import type { DataTableBodyProps } from '.';
+    import { findDataTableLabels } from './context.svelte';
     import Empty from './data-table-empty.svelte';
     import Selection from './data-table-selection.svelte';
     import { selectedRow, selection, visibleCells, visibleColumnCount } from './features';
@@ -19,7 +19,7 @@
         empty,
         ...rest
     }: DataTableBodyProps<TFeatures, TData> = $props();
-    const labels = getContext<(() => DataTableLabels | undefined) | undefined>('data-table-labels');
+    const labels = findDataTableLabels();
     const rows = $derived(table.getRowModel().rows);
     const canSelect = $derived(selectable && !!selection(table).toggleAllPageRowsSelected);
     const columns = $derived(visibleColumnCount(table) + (canSelect ? 1 : 0));

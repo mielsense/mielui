@@ -1,14 +1,15 @@
 <script lang="ts">
     import * as Tabs from '@mielui/svelte/components/tabs';
     import { cn } from '@mielui/svelte/utils';
-    import { setContext, untrack } from 'svelte';
+    import { untrack } from 'svelte';
     import { insetLayout } from '../../components/_internal/inset-layout';
-    import type { CodeBlockLabels, CodeBlockProps, CodeBlockTab } from '.';
+    import type { CodeBlockProps, CodeBlockTab } from '.';
     import Actions from './code-block-actions.svelte';
     import Content from './code-block-content.svelte';
     import Header from './code-block-header.svelte';
     import List from './code-block-list.svelte';
     import Trigger from './code-block-trigger.svelte';
+    import { setCodeBlockLabels, setCodeBlockPanel, setCodeBlockRegistry } from './context.svelte';
     import { createCodeBlockRegistry } from './registry.svelte';
 
     let {
@@ -25,7 +26,7 @@
         labels,
         ...rest
     }: CodeBlockProps = $props();
-    setContext<() => CodeBlockLabels | undefined>('code-block-labels', () => labels);
+    setCodeBlockLabels(() => labels);
 
     let element = $state<HTMLDivElement>();
 
@@ -85,8 +86,8 @@
         getHighLevelOrder: highLevelOrder,
         getTheme: () => theme
     });
-    setContext('code-block', codeBlock.registry);
-    setContext('code-block-panel', {
+    setCodeBlockRegistry(codeBlock.registry);
+    setCodeBlockPanel({
         get tabbed() {
             return isHighLevel ? hasTabRow : codeBlock.composedTriggerCount > 0;
         }

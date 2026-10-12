@@ -74,6 +74,14 @@ export type DataTableLabels = {
     facetValue?: (filter: string) => string;
     facetMinimum?: (filter: string) => string;
     facetMaximum?: (filter: string) => string;
+    /** Button in a filter's editor that removes the filter. */
+    removeFilter?: string;
+    /** Button that closes a filter's editor. */
+    done?: string;
+    /** Pagination button for the previous page. */
+    previous?: string;
+    /** Pagination button for the next page. */
+    next?: string;
 };
 
 export type DataTableProps<TFeatures extends TableFeatures, TData extends RowData> = Omit<

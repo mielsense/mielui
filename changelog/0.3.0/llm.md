@@ -75,3 +75,11 @@ The rule is inner radius = outer radius - border - gap. Compose with it instead 
 
 If you set `--mielui-plate-radius` on a frame yourself, keep the squircle factor: multiply by `var(--mielui-squircle, 1)` on frames that draw squircle corners.
 
+
+## One name for the DOM node, one prop for built-in text
+
+Every component part exposes its DOM node as a bindable `element`. Before 0.3.0 the Calendar, RangeCalendar, DatePicker, DateRangePicker, and OTPField parts used `ref`, and so did HugeiconsIcon. Replace `bind:ref` with `bind:element` on those. The old spelling still compiles in some setups because Svelte passes unknown props through, but nothing is bound and the variable stays empty. When you wrap a Bits UI primitive yourself, type the wrapper with `WithElement<PrimitiveProps>` from `@mielui/svelte/utils` and pass `bind:ref={element}` to the primitive.
+
+Built-in text and accessible names are overridden with one `labels` object on the root, never with one prop per string. Every key is optional and English is the fallback. A key that inserts a value is a function, for example `position: (position, total) => string` on Toaster or `added: (tag, count) => string` on TagInput. In 0.3.0 Slider, NumberField, Dialog, Sheet, Notch, Toaster, Command, ColorPicker, Question, and Gauge gain the prop, and TagInput, FileUpload, DataTable, Chart, and Heatmap gain keys. Where a component already had a prop for one string, such as `requiredMessage` on TagInput or `errorMessage` on Question, the prop still wins over `labels`.
+
+`createContext(name)` from `@mielui/svelte/utils` now returns three helpers. `set` and `get` are unchanged, and `get` still throws `<Name> components must be used within <Name.Root>.` outside the root. `find` returns `undefined` there. Use `find` for a part that also renders on its own, the way Tabs, CodeBlock, and FileDiff parts do. Do not read library contexts with `getContext('tabs')` or another string key. Those keys are private symbols now and the call returns `undefined`.

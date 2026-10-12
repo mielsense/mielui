@@ -1070,8 +1070,8 @@
                 "type": "string | undefined",
                 "required": false,
                 "bindable": false,
-                "default": "'Add at least one tag.'",
-                "description": "Validation message shown when `required` is set and no tags are added.",
+                "default": null,
+                "description": "Validation message shown when `required` is set and no tags are added. Overrides `labels.required`.",
                 "inherited": false
             },
             {

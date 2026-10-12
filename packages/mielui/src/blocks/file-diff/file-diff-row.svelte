@@ -1,7 +1,7 @@
 <script lang="ts">
     import { cn } from '@mielui/svelte/utils';
-    import { getContext } from 'svelte';
-    import type { FileDiffContext, FileDiffRowProps } from '.';
+    import type { FileDiffRowProps } from '.';
+    import { findFileDiffContext } from './context.svelte';
     import LineNumber from './file-diff-line-number.svelte';
     import { highlight } from './highlight';
 
@@ -19,7 +19,7 @@
         ...rest
     }: FileDiffRowProps = $props();
 
-    const context = getContext<FileDiffContext>('file-diff');
+    const context = findFileDiffContext();
     const themed = $derived(context?.theme !== 'custom');
     const resolvedLang = $derived(lang ?? context?.lang ?? '');
     const showLineNumbers = $derived(context?.showLineNumbers ?? true);

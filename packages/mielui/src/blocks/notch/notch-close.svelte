@@ -8,7 +8,7 @@
         children,
         class: className,
         onclick,
-        'aria-label': label = 'Close notification',
+        'aria-label': label,
         ...rest
     }: NotchCloseProps = $props();
     const context = notchContext.get();
@@ -17,7 +17,7 @@
 <OverlayClose
     {...rest}
     {children}
-    aria-label={label}
+    aria-label={label ?? context.labels?.close ?? 'Close notification'}
     data-ui="notch-close"
     class={cn(className, 'right-5')}
     onclick={(event) => {

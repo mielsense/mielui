@@ -16,10 +16,20 @@ export type TagInputRejection = {
 export type TagInputVariant = 'outline' | 'secondary';
 
 export type TagInputLabels = {
+    /** Accessible name of a tag's remove button. */
     remove?: (tag: string) => string;
+    /** Announced when a tag is refused because it is already in the list. */
     duplicate?: (tag: string) => string;
+    /** Announced when a tag is refused because the list is full. */
     maxReached?: (max: number) => string;
+    /** Announced when `validate` refuses a tag without its own message. */
     invalid?: (tag: string) => string;
+    /** Announced after a tag is added. `count` is the new number of tags. */
+    added?: (tag: string, count: number) => string;
+    /** Announced after a tag is removed. `count` is the new number of tags. */
+    removed?: (tag: string, count: number) => string;
+    /** Validation message when `required` is set and the list is empty. `requiredMessage` wins. */
+    required?: string;
 };
 
 export type TagInputProps = {
@@ -52,7 +62,7 @@ export type TagInputProps = {
      * constraint validation.
      */
     required?: boolean;
-    /** Validation message shown when `required` is set and no tags are added. */
+    /** Validation message shown when `required` is set and no tags are added. Overrides `labels.required`. */
     requiredMessage?: string;
     /** `outline` has a border. `secondary` has a filled background. */
     variant?: TagInputVariant;

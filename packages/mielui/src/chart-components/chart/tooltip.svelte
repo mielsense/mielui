@@ -1,10 +1,9 @@
 <script lang="ts">
     import { numberShuffle } from '@mielui/svelte/actions/number-shuffle';
-    import { getContext, type Snippet } from 'svelte';
+    import type { Snippet } from 'svelte';
     import { Tween } from 'svelte/motion';
     import ChartTooltipSurface from '../../components/_internal/chart-tooltip-surface.svelte';
-    import type { ChartLabels } from '.';
-    import { getChart } from './context.svelte';
+    import { findChartLabels, getChart } from './context.svelte';
     import { followSpring } from './motion';
 
     let {
@@ -27,7 +26,7 @@
             ]
         >;
     } = $props();
-    const labels = getContext<(() => ChartLabels | undefined) | undefined>('chart-labels');
+    const labels = findChartLabels();
     const chart = getChart();
     const selected = $derived(
         chart.active === null ? null : chart.data[chart.active] ? chart.active : null

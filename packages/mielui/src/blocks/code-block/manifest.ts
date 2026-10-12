@@ -2,7 +2,7 @@ import type { Manifest } from '@mielui/svelte/_manifest/types';
 
 export const manifest: Manifest = {
     name: 'code-block',
-    version: '2.0.1',
+    version: '2.0.2',
     visibility: 'public',
     description:
         'Code block with syntax-highlighted snippets, a multi-language tab switcher, built-in copy button, and an actions slot. Highlighting via highlight.js with a built-in GitHub palette; theme="custom" skips the token colors for any highlight.js theme stylesheet.',
@@ -17,11 +17,12 @@ export const manifest: Manifest = {
         'components/code-block/code-block-content.svelte',
         'components/code-block/highlight.ts',
         'components/code-block/registry.svelte.ts',
+        'components/code-block/context.svelte.ts',
         'components/code-block/index.ts',
         'components/code-block/manifest.ts'
     ],
     components: ['_internal/utils', 'tabs', 'copy-button', 'card', '_internal/highlight'],
-    shared: ['components/_internal/inset-layout', 'utils.cn'],
+    shared: ['components/_internal/inset-layout', 'utils.cn', 'utils.createContext'],
     peerDependencies: {
         '@floating-ui/dom': '1.7.6',
         'highlight.js': '^11.0.0',

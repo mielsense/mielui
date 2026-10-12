@@ -2,7 +2,7 @@ import type { Manifest } from '@mielui/svelte/_manifest/types';
 
 export const manifest: Manifest = {
     name: 'number-field',
-    version: '1.0.1',
+    version: '1.1.0',
     visibility: 'public',
     description: 'Native numeric input with composable label and step controls.',
     files: [

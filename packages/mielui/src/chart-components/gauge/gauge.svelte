@@ -15,6 +15,7 @@
         loading = false,
         max = 100,
         label,
+        labels,
         size = 120,
         strokeWidth,
         tone = 'primary',
@@ -104,14 +105,14 @@
     });
     const accessibleLabel = $derived.by(() => {
         if (loading) {
-            return `Loading ${label ?? 'measurement'}`;
+            return labels?.loading?.(label) ?? `Loading ${label ?? 'measurement'}`;
         }
 
         if (empty) {
-            return `No data for ${label ?? 'measurement'}`;
+            return labels?.empty?.(label) ?? `No data for ${label ?? 'measurement'}`;
         }
 
-        return label ?? `${clamped} of ${safeMax}`;
+        return label ?? labels?.value?.(clamped, safeMax) ?? `${clamped} of ${safeMax}`;
     });
     const loadingMask = $derived(
         `radial-gradient(circle at center, transparent ${radius - safeStrokeWidth / 2}px, var(--color-foreground) ${radius - safeStrokeWidth / 2 + 0.5}px, var(--color-foreground) ${radius + safeStrokeWidth / 2 - 0.5}px, transparent ${radius + safeStrokeWidth / 2}px)`

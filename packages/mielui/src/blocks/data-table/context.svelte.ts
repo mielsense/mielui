@@ -1,7 +1,7 @@
 import { createContext } from '@mielui/svelte/utils';
 import type { Snippet } from 'svelte';
 import type { ClassValue } from 'svelte/elements';
-import type { DataTableToolbarProps } from '.';
+import type { DataTableLabels, DataTableToolbarProps } from '.';
 
 export type DataTableToolbarSlot = {
     children?: Snippet;
@@ -17,4 +17,7 @@ export type DataTableContext = {
 const { set: setDataTableContext, get: getDataTableContext } =
     createContext<DataTableContext>('data-table');
 
-export { getDataTableContext, setDataTableContext };
+const { set: setDataTableLabels, find: findDataTableLabels } =
+    createContext<() => DataTableLabels | undefined>('data-table-labels');
+
+export { findDataTableLabels, getDataTableContext, setDataTableContext, setDataTableLabels };

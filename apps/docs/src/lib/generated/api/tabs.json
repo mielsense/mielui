@@ -60,6 +60,33 @@
                 "default": null,
                 "description": "Content rendered inside.",
                 "inherited": false
+            },
+            {
+                "name": "id",
+                "type": "string | undefined",
+                "required": false,
+                "bindable": false,
+                "default": null,
+                "description": "Id of the tab list element.",
+                "inherited": false
+            },
+            {
+                "name": "aria-label",
+                "type": "string | undefined",
+                "required": false,
+                "bindable": false,
+                "default": null,
+                "description": "Accessible name for the tab list.",
+                "inherited": false
+            },
+            {
+                "name": "aria-labelledby",
+                "type": "string | undefined",
+                "required": false,
+                "bindable": false,
+                "default": null,
+                "description": "Id of the element that names the tab list.",
+                "inherited": false
             }
         ]
     },

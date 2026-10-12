@@ -19,3 +19,7 @@
 - The theme's motion feel scales the spring, pop, flick, item, panel, and dialog durations together, and `--ease-drawer` is a theme token.
 - Panels open from their trigger's side: a menu below its trigger starts slightly higher and one above starts slightly lower.
 - A second agent skill, `mielui-design`, teaches coding agents to lay out whole pages with Mielui: app shells, dashboards, data tables, settings, chat workspaces, and marketing sites. Install it with `npx skills add mielsense/mielui --skill mielui-design`.
+- Slider, NumberField, Dialog, Sheet, Notch, Toaster, Command, ColorPicker, Question, and Gauge take a `labels` prop that translates their built-in text and accessible names. Each exports its `<Name>Labels` type.
+- `TagInputLabels` adds `added`, `removed`, and `required`. `FileUploadLabels` adds `uploadFailed`. `DataTableLabels` adds `removeFilter`, `done`, `previous`, and `next`. `ChartLabels` adds `noData`, and `HeatmapLabels` adds `summaryPending`.
+- `createContext` from `@mielui/svelte/utils` returns `find()` next to `get()` and `set()`. `find()` returns `undefined` outside the root instead of throwing.
+- `@mielui/svelte/utils` exports the `WithElement` type, which swaps a primitive's `ref` prop for a bindable `element`.

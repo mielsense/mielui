@@ -3,7 +3,7 @@
     import { cn } from '@mielui/svelte/utils';
     import type { Snippet } from 'svelte';
     import type { HTMLAttributes } from 'svelte/elements';
-    import { useHeatmap } from './context.svelte';
+    import { getHeatmapContext } from './context.svelte';
 
     let {
         children,
@@ -12,13 +12,13 @@
     }: Omit<HTMLAttributes<HTMLParagraphElement>, 'children'> & {
         children?: Snippet<[number]>;
     } = $props();
-    const context = useHeatmap();
+    const context = getHeatmapContext();
 </script>
 <p {...props} data-ui="heatmap-summary" class={cn(className, 'text-sm font-medium tabular-nums')}>
     {#if children}
         {@render children(context.model.total)}
     {:else if !context.ready}
-        Activity
+        {context.labels?.summaryPending ?? 'Activity'}
     {:else}
         <span
             use:numberShuffle={{ value: context.model.total, format: (value) => new Intl.NumberFormat(context.locale).format(value) }}

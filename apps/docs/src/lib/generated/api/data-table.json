@@ -510,7 +510,7 @@
                 "required": false,
                 "bindable": false,
                 "default": "'default'",
-                "description": "`inset` frames the table with its footer on the frame. A Toolbar sits above the frame.",
+                "description": "Both variants draw the rows in an inset table. `default` leaves the toolbar and footer outside it. `inset` puts the table and its footer in one frame, with the Toolbar above.",
                 "inherited": false
             },
             {

@@ -2,7 +2,7 @@ import type { Manifest } from '@mielui/svelte/_manifest/types';
 
 export const manifest: Manifest = {
     name: 'context-menu',
-    version: '1.1.0',
+    version: '1.1.1',
     visibility: 'public',
     description:
         'Contextual menu opened by right-click, long-press, or the keyboard, with submenus and checkbox items.',
@@ -27,7 +27,6 @@ export const manifest: Manifest = {
         'transition',
         'components/_internal/surface',
         'hugeicons-icon',
-        'utils.closeMenuLayers',
         'utils.cn',
         'utils.createContext',
         'utils.travelingHighlight'

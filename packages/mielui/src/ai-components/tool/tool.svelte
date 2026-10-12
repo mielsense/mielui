@@ -1,9 +1,8 @@
 <script lang="ts">
     import { createDisclosureLifecycle } from '@mielui/svelte/components/_internal/disclosure';
     import { cn } from '@mielui/svelte/utils';
-    import { setContext } from 'svelte';
-    import type { ToolLabels, ToolProps } from '.';
-    import { setToolContext } from './context.svelte';
+    import type { ToolProps } from '.';
+    import { setToolContext, setToolLabels } from './context.svelte';
     import Content from './tool-content.svelte';
     import Trigger from './tool-trigger.svelte';
 
@@ -22,7 +21,7 @@
         labels,
         ...rest
     }: ToolProps = $props();
-    setContext<() => ToolLabels | undefined>('tool-labels', () => labels);
+    setToolLabels(() => labels);
 
     const id = $props.id();
     const lifecycle = createDisclosureLifecycle({

@@ -2,12 +2,11 @@
     import { ScrollArea } from '@mielui/svelte/components/scroll-area';
     import { travelingHighlight } from '@mielui/svelte/utils';
     import { Combobox as ComboboxPrimitive } from 'bits-ui';
-    import { getContext, type Snippet } from 'svelte';
-    import type { ComboboxLabels } from '.';
-    import { getComboboxContext } from './context.svelte';
+    import type { Snippet } from 'svelte';
+    import { findComboboxLabels, getComboboxContext } from './context.svelte';
 
     let { children }: { children?: Snippet } = $props();
-    const labels = getContext<(() => ComboboxLabels | undefined) | undefined>('combobox-labels');
+    const labels = findComboboxLabels();
     const context = getComboboxContext();
 </script>
 

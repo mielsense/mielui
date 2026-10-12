@@ -97,7 +97,7 @@
 {#if item && !context.loading && context.total > 0}
     <ChartTooltipSurface
         {...rest}
-        bind:ref={element}
+        bind:element
         style={`${rest.style ?? ''}; left: 0; top: 0; translate: ${left}px ${top}px; visibility: ${positioned ? 'visible' : 'hidden'}`}
         data-ui="pie-chart-tooltip"
         role="status"

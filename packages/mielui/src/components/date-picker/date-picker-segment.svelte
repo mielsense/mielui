@@ -1,17 +1,17 @@
 <script lang="ts">
-    import { cn } from '@mielui/svelte/utils';
+    import { cn, type WithElement } from '@mielui/svelte/utils';
     import { DatePicker as DatePickerPrimitive } from 'bits-ui';
 
     let {
         class: className,
-        ref = $bindable(null),
+        element = $bindable(null),
         ...rest
-    }: DatePickerPrimitive.SegmentProps = $props();
+    }: WithElement<DatePickerPrimitive.SegmentProps> = $props();
 </script>
 
 <DatePickerPrimitive.Segment
     {...rest}
-    bind:ref
+    bind:ref={element}
     data-ui="date-picker-segment"
     class={cn(
         className,

@@ -14,6 +14,7 @@
         step = 1,
         disabled = false,
         label,
+        labels,
         format,
         id = generatedId,
         name,
@@ -25,6 +26,9 @@
         dir,
         ...mode
     }: SliderProps = $props();
+
+    const named = $derived(ariaLabel ?? label);
+    const thumbNames = $derived([labels?.minimum ?? 'minimum', labels?.maximum ?? 'maximum']);
 
     const rootAttributes = $derived.by(() => {
         const {
@@ -103,7 +107,7 @@
             {#snippet child({ props, active })}
                 <span
                     {...props}
-                    aria-label={mode.range ? (mode.thumbLabels?.[index] ?? `${ariaLabel ?? label ?? 'Range'} ${index === 0 ? 'minimum' : 'maximum'}`) : (ariaLabel ?? label)}
+                    aria-label={mode.range ? (mode.thumbLabels?.[index] ?? `${named ?? labels?.range ?? 'Range'} ${thumbNames[index]}`) : named}
                     aria-labelledby={labelledBy ? (mode.range ? `${labelledBy} ${id}-label-${index}` : labelledBy) : undefined}
                     aria-describedby={describedBy}
                     aria-valuemin={mode.range && index === 1 ? slider.values[0] : slider.minimum}
@@ -127,7 +131,7 @@
         </SliderPrimitive.Thumb>
         {#if mode.range && labelledBy}
             <span id={`${id}-label-${index}`} class="sr-only">
-                {mode.thumbLabels?.[index] ?? (index === 0 ? 'minimum' : 'maximum')}
+                {mode.thumbLabels?.[index] ?? thumbNames[index]}
             </span>
         {/if}
     {/each}
@@ -202,7 +206,7 @@
                     inputmode="decimal"
                     autocomplete="off"
                     spellcheck="false"
-                    aria-label={`${ariaLabel ?? label ?? 'Slider'} value`}
+                    aria-label={labels?.value?.(named) ?? `${named ?? 'Slider'} value`}
                     data-ui="slider-value-input"
                     value={String(slider.values[0])}
                     class="pointer-events-auto m-0 min-w-[3ch] shrink-0 cursor-text border-0 bg-transparent p-0 text-end font-mono text-xs tabular-nums text-foreground outline-none [field-sizing:content]"
@@ -228,7 +232,7 @@
                 <button
                     type="button"
                     tabindex={-1}
-                    aria-label={`Edit ${ariaLabel ?? label ?? 'slider'} value`}
+                    aria-label={labels?.edit?.(named) ?? `Edit ${named ?? 'slider'} value`}
                     data-ui="slider-value"
                     data-editable
                     class="pointer-events-auto m-0 shrink-0 cursor-text border-0 bg-transparent p-0 font-mono text-xs tabular-nums text-foreground decoration-foreground-muted/50 underline-offset-4 hover:underline hover:decoration-dotted"

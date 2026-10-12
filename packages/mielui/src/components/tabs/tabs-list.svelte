@@ -1,13 +1,12 @@
 <script lang="ts">
     import { cn } from '@mielui/svelte/utils';
     import { Tabs as BitsTabs } from 'bits-ui';
-    import { getContext } from 'svelte';
-    import type { TabsListProps, TabsState } from '.';
+    import type { TabsListProps } from '.';
+    import { getTabsContext } from './context.svelte';
     import { createTabIndicators } from './indicators.svelte';
 
     let { children, class: className, ...rest }: TabsListProps = $props();
-    const tabsState = getContext<TabsState>('tabs');
-    const select = getContext<(value: string) => void>('tabs-selection');
+    const tabsState = getTabsContext();
 
     const variant = $derived(tabsState.variant);
     const vertical = $derived(tabsState.orientation === 'vertical');
@@ -20,7 +19,7 @@
         get state() {
             return tabsState;
         },
-        select
+        select: tabsState.select
     });
 
     type HighlightRect = NonNullable<typeof indicators.indicator>;

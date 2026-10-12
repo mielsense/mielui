@@ -10,7 +10,7 @@ import type { Manifest } from '@mielui/svelte/_manifest/types';
  */
 export const manifest: Manifest = {
     name: 'dropdown-menu',
-    version: '2.2.0',
+    version: '2.2.1',
     visibility: 'public',
     description:
         'Click-triggered menu popover with items, labels, separators, and nested submenus.',
@@ -38,7 +38,6 @@ export const manifest: Manifest = {
         'transition',
         'components/_internal/surface',
         'hugeicons-icon',
-        'utils.closeMenuLayers',
         'utils.cn',
         'utils.createContext',
         'utils.dynamicWidth',

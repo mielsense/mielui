@@ -1,5 +1,5 @@
 import { createContext } from '@mielui/svelte/utils';
-import type { ToolState, ToolVariant } from '.';
+import type { ToolLabels, ToolState, ToolVariant } from '.';
 
 type ToolContext = {
     readonly id: string;
@@ -16,4 +16,7 @@ type ToolContext = {
 
 const { set: setToolContext, get: getToolContext } = createContext<ToolContext>('tool');
 
-export { getToolContext, setToolContext };
+const { set: setToolLabels, find: findToolLabels } =
+    createContext<() => ToolLabels | undefined>('tool-labels');
+
+export { findToolLabels, getToolContext, setToolContext, setToolLabels };

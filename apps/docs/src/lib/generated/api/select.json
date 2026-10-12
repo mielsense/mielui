@@ -768,6 +768,15 @@
                 "description": "Id of the element that labels it.",
                 "inherited": false
             },
+            {
+                "name": "aria-invalid",
+                "type": "Booleanish | \"grammar\" | \"spelling\" | null | undefined",
+                "required": false,
+                "bindable": false,
+                "default": null,
+                "description": "",
+                "inherited": false
+            },
             10,
             {
                 "name": "style",

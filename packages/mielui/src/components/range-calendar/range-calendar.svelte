@@ -12,7 +12,7 @@
     let {
         value = $bindable(),
         placeholder = $bindable(),
-        ref = $bindable(null),
+        element = $bindable(null),
         class: className,
         children: content,
         fixedWeeks = true,
@@ -34,7 +34,7 @@
             placeholder = next;
         }
     }
-    bind:ref
+    bind:ref={element}
     {fixedWeeks}
     {disableDaysOutsideMonth}
     {weekdayFormat}

@@ -92,7 +92,6 @@
         } else {
             openPopover();
         }
-        popoverState.hovering = true;
     }
 
     function handleLeave(event: MouseEvent | FocusEvent) {
@@ -116,7 +115,6 @@
                         resolvedPlacement
                     ));
             closePopover(inContactTriangle ? (popoverState.closeDelay ?? 180) : 0);
-            popoverState.hovering = false;
         }
     }
 </script>

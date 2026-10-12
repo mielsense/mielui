@@ -1,3 +1,4 @@
+import type { WithElement } from '@mielui/svelte/utils';
 import type { DatePicker as DatePickerPrimitive } from 'bits-ui';
 
 import type { DatePickerLabels } from './context.svelte';
@@ -12,9 +13,8 @@ export type DatePickerProps = Omit<DatePickerPrimitive.RootProps, 'child'> & {
     labels?: DatePickerLabels;
 };
 
-export type DatePickerContentProps = Omit<
-    DatePickerPrimitive.ContentProps,
-    'child' | 'forceMount'
+export type DatePickerContentProps = WithElement<
+    Omit<DatePickerPrimitive.ContentProps, 'child' | 'forceMount'>
 > & {
     /** Surface treatment. Omit it to inherit `--mielui-surface` from the theme. */
     surface?: 'solid' | 'glass';

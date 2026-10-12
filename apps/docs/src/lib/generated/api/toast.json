@@ -3562,6 +3562,15 @@
                 "default": "'top'",
                 "description": "Viewport edge toasts appear from.",
                 "inherited": false
+            },
+            {
+                "name": "labels",
+                "type": "ToastLabels | undefined",
+                "required": false,
+                "bindable": false,
+                "default": null,
+                "description": "Overrides the built-in text and accessible names. Every key is optional and English is the fallback.",
+                "inherited": false
             }
         ]
     }

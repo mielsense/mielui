@@ -4,7 +4,7 @@
     import type { HTMLAttributes } from 'svelte/elements';
     import type { HeatmapLabels } from '.';
     import { type Cell, calendar, type Day } from './calendar';
-    import { provide } from './context.svelte';
+    import { setHeatmapContext } from './context.svelte';
     import Calendar from './heatmap-calendar.svelte';
     import Detail from './heatmap-detail.svelte';
     import Footer from './heatmap-footer.svelte';
@@ -53,7 +53,7 @@
     const active = $derived(
         model.cells.find((day) => day.date === activeDate) ?? model.cells.at(-1)
     );
-    provide({
+    setHeatmapContext({
         get labels() {
             return labels;
         },

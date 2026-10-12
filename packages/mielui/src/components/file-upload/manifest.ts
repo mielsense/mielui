@@ -2,7 +2,7 @@ import type { Manifest } from '@mielui/svelte/_manifest/types';
 
 export const manifest: Manifest = {
     name: 'file-upload',
-    version: '1.0.1',
+    version: '1.1.0',
     visibility: 'public',
     description:
         'Upload cards with validation, progress, cancellation, retry, and animated completion.',

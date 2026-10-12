@@ -1,11 +1,17 @@
 <script lang="ts">
+    import type { WithElement } from '@mielui/svelte/utils';
     import { Calendar as CalendarPrimitive } from 'bits-ui';
 
     let {
         class: className,
-        ref = $bindable(null),
+        element = $bindable(null),
         ...rest
-    }: CalendarPrimitive.GridBodyProps = $props();
+    }: WithElement<CalendarPrimitive.GridBodyProps> = $props();
 </script>
 
-<CalendarPrimitive.GridBody {...rest} bind:ref data-ui="calendar-grid-body" class={className} />
+<CalendarPrimitive.GridBody
+    {...rest}
+    bind:ref={element}
+    data-ui="calendar-grid-body"
+    class={className}
+/>

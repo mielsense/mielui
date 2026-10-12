@@ -3330,6 +3330,15 @@
         "name": "Root",
         "properties": [
             {
+                "name": "labels",
+                "type": "QuestionLabels | undefined",
+                "required": false,
+                "bindable": false,
+                "default": null,
+                "description": "Overrides the built-in text and accessible names. Every key is optional and English is the fallback.",
+                "inherited": false
+            },
+            {
                 "name": "variant",
                 "type": "\"default\" | \"inset\" | undefined",
                 "required": false,
@@ -3388,8 +3397,8 @@
                 "type": "string | undefined",
                 "required": false,
                 "bindable": false,
-                "default": "'Answer could not be submitted.'",
-                "description": "Message shown when `onSubmit` rejects.",
+                "default": null,
+                "description": "Message shown when `onSubmit` rejects. Overrides `labels.submitError`.",
                 "inherited": false
             },
             {

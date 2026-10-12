@@ -9,7 +9,7 @@
     let {
         children,
         class: className,
-        ref = $bindable(null),
+        element = $bindable(null),
         surface,
         portal = true,
         sideOffset = 6,
@@ -24,7 +24,7 @@
 <DatePickerPrimitive.Portal disabled={!portal}>
     <DatePickerPrimitive.Content
         {...rest}
-        bind:ref
+        bind:ref={element}
         forceMount
         {sideOffset}
         {align}

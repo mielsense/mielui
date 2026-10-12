@@ -1,8 +1,10 @@
-import { getContext, onDestroy, setContext } from 'svelte';
+import { createContext } from '@mielui/svelte/utils';
+import { onDestroy } from 'svelte';
 
-const STATE_KEY = Symbol('TOAST');
 const DEFAULT_DURATION = 5600;
 const SHORT_DURATION = 4200;
+
+const { set: setToastState, find: findToastState } = createContext<ToastState>('toast-state');
 
 const toastTimeouts = new Map<
     number,
@@ -329,7 +331,7 @@ toast.dismiss = (id?: number) => {
 };
 
 function getToastUIState(): ToastState | undefined {
-    return getContext(STATE_KEY);
+    return findToastState();
 }
 
 type ToastHost = {
@@ -353,7 +355,7 @@ function setToastUIState(): ToastHost {
     const fresh = $state<ToastState>({ data: { toasts: [] } });
 
     if (typeof document === 'undefined') {
-        setContext(STATE_KEY, fresh);
+        setToastState(fresh);
         return { state: fresh, hostId: -1 };
     }
 
@@ -368,7 +370,7 @@ function setToastUIState(): ToastHost {
         primaryHostId = hostId;
     }
     activeState = state;
-    setContext(STATE_KEY, state);
+    setToastState(state);
 
     onDestroy(() => {
         const idx = liveHosts.indexOf(hostId);

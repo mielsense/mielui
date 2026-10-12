@@ -3,7 +3,7 @@
     import type { Snippet } from 'svelte';
     import type { HTMLAttributes } from 'svelte/elements';
     import type { Cell } from './calendar';
-    import { useHeatmap } from './context.svelte';
+    import { getHeatmapContext } from './context.svelte';
 
     let {
         children,
@@ -12,7 +12,7 @@
     }: Omit<HTMLAttributes<HTMLParagraphElement>, 'children'> & {
         children?: Snippet<[Cell | undefined]>;
     } = $props();
-    const context = useHeatmap();
+    const context = getHeatmapContext();
 </script>
 <p
     {...props}

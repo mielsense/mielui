@@ -1,12 +1,11 @@
 <script lang="ts">
     import * as Card from '@mielui/svelte/components/card';
     import { Skeleton } from '@mielui/svelte/components/skeleton';
-    import { getContext, type Snippet } from 'svelte';
-    import type { ChartLabels } from '.';
-    import { getChart } from './context.svelte';
+    import type { Snippet } from 'svelte';
+    import { findChartLabels, getChart } from './context.svelte';
 
     let { loading, children }: { loading: boolean; children?: Snippet } = $props();
-    const labels = getContext<(() => ChartLabels | undefined) | undefined>('chart-labels');
+    const labels = findChartLabels();
     const chart = getChart();
     const heights = [32, 56, 44, 70, 58, 82, 66, 90];
 </script>

@@ -4,6 +4,8 @@ export type ChartLabels = {
     loading?: string;
     empty?: string;
     emptyDescription?: string;
+    /** Cell text in the accessible data table when a point has no value. */
+    noData?: string;
 };
 
 export { default as Area } from './area.svelte';

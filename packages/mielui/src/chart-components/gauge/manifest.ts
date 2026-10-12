@@ -2,7 +2,7 @@ import type { Manifest } from '@mielui/svelte/_manifest/types';
 
 export const manifest: Manifest = {
     name: 'gauge',
-    version: '1.0.0',
+    version: '1.1.0',
     visibility: 'public',
     description:
         'Circular meter for bounded quantities such as context remaining, usage limits, storage, and seats.',

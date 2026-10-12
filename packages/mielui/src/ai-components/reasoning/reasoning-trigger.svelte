@@ -3,7 +3,6 @@
     import { shimmer } from '@mielui/svelte/actions/shimmer';
     import { Button } from '@mielui/svelte/components/button';
     import { cn } from '@mielui/svelte/utils';
-    import { getContext } from 'svelte';
     import { buttonAttributes } from '../../components/_internal/button-attributes';
     import {
         DISCLOSURE_ICON_SIZE,
@@ -11,8 +10,8 @@
         disclosureTrigger
     } from '../../components/_internal/disclosure/variants';
     import HugeiconsIcon from '../../hugeicons-icon.svelte';
-    import type { ReasoningLabels, ReasoningTriggerProps } from '.';
-    import { getReasoningContext } from './context.svelte';
+    import type { ReasoningTriggerProps } from '.';
+    import { findReasoningLabels, getReasoningContext } from './context.svelte';
 
     let {
         title = 'Draft',
@@ -21,7 +20,7 @@
         class: className,
         ...rest
     }: ReasoningTriggerProps = $props();
-    const labels = getContext<(() => ReasoningLabels | undefined) | undefined>('reasoning-labels');
+    const labels = findReasoningLabels();
     const reasoning = getReasoningContext();
 </script>
 

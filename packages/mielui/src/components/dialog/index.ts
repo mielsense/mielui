@@ -57,7 +57,17 @@ export type DialogContentProps = {
 } & DefaultProps &
     Partial<Record<`aria-${string}`, string | boolean | null | undefined>>;
 
+export type DialogLabels = {
+    /** Accessible name of the close button in the corner of the panel. */
+    close?: string;
+};
+
 export type DialogProps = {
+    /**
+     * Overrides the built-in text and accessible names. Every key is optional and English is the
+     * fallback.
+     */
+    labels?: DialogLabels;
     /** Whether it is open. Bind it to control the state from outside. */
     open?: boolean;
     /** Called with the new state whenever it opens or closes. */

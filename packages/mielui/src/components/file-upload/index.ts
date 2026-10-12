@@ -43,6 +43,8 @@ export type FileUploadLabels = {
     tooLarge?: (megabytes: number) => string;
     duplicate?: string;
     tooMany?: (maxFiles: number) => string;
+    /** Shown on a file whose upload failed without an error message. */
+    uploadFailed?: string;
 };
 
 export type FileUploadProps = Omit<HTMLAttributes<HTMLDivElement>, 'children'> & {

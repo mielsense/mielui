@@ -8,6 +8,8 @@ export type HeatmapLabels = {
     gridEmpty?: string;
     detailLoading?: string;
     detailEmpty?: string;
+    /** Text Summary shows before the data is ready. */
+    summaryPending?: string;
 };
 
 export { default as Root } from './heatmap.svelte';

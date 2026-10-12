@@ -1,8 +1,8 @@
-import { getContext, setContext } from 'svelte';
+import { createContext } from '@mielui/svelte/utils';
 import type { HeatmapLabels } from '.';
 import type { Cell, calendar } from './calendar';
 
-type Context = {
+type HeatmapContext = {
     readonly labels: HeatmapLabels | undefined;
     tooltipCount: number;
     hoveredElement: HTMLButtonElement | undefined;
@@ -19,14 +19,7 @@ type Context = {
     focus: (date: string) => void;
     select: (day: Cell) => void;
 };
-const key = Symbol('mielui.heatmap');
-export function provide(context: Context) {
-    setContext(key, context);
-}
-export function useHeatmap(): Context {
-    const context = getContext<Context | undefined>(key);
-    if (!context) {
-        throw new Error('Heatmap parts must be inside Heatmap.Root.');
-    }
-    return context;
-}
+
+const { set: setHeatmapContext, get: getHeatmapContext } = createContext<HeatmapContext>('heatmap');
+
+export { getHeatmapContext, setHeatmapContext };

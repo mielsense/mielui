@@ -13,7 +13,19 @@ import Peek from './notch-peek.svelte';
 import SideAction from './notch-side-action.svelte';
 import Title from './notch-title.svelte';
 
+export type NotchLabels = {
+    /** Accessible name of the close button. An `aria-label` on Close wins. */
+    close?: string;
+    /** Accessible name of the handle that expands a peeking notch. */
+    expand?: string;
+};
+
 export type NotchProps = {
+    /**
+     * Overrides the built-in text and accessible names. Every key is optional and English is the
+     * fallback.
+     */
+    labels?: NotchLabels;
     /** Whether it is open. Bind it to control the state from outside. */
     open?: boolean;
     /** `triggered` opens fully. `peek` rests as a small handle that expands. */

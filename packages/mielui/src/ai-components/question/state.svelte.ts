@@ -12,6 +12,7 @@ type QuestionStateOptions = {
     readonly autofocus: boolean;
     readonly name: string;
     readonly errorMessage: string;
+    readonly labels: QuestionProps['labels'];
     readonly form: HTMLFormElement | undefined;
     readonly onSubmit: QuestionProps['onSubmit'];
     readonly onError: QuestionProps['onError'];
@@ -31,12 +32,16 @@ function normalizeAnswer(
     return typeof currentValue === 'string' ? currentValue : '';
 }
 
-function getValidationMessage(questionType: QuestionType) {
+function getValidationMessage(questionType: QuestionType, labels: QuestionProps['labels']) {
     if (questionType === 'multiple') {
-        return 'Select at least one answer.';
+        return labels?.selectAnswers ?? 'Select at least one answer.';
     }
 
-    return questionType === 'text' ? 'Enter an answer.' : 'Select an answer.';
+    if (questionType === 'text') {
+        return labels?.enterAnswer ?? 'Enter an answer.';
+    }
+
+    return labels?.selectAnswer ?? 'Select an answer.';
 }
 
 export function createQuestionState(options: QuestionStateOptions) {
@@ -66,7 +71,7 @@ export function createQuestionState(options: QuestionStateOptions) {
     );
     const validationMessage = $derived(
         validationAttempt?.type === options.type && options.required && !hasAnswer
-            ? getValidationMessage(options.type)
+            ? getValidationMessage(options.type, options.labels)
             : ''
     );
     const displayStatus = $derived<QuestionStatus>(

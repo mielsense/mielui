@@ -1,5 +1,5 @@
-import { getContext, setContext } from 'svelte';
-import type { PieChartConfig, PieChartDatum } from './index';
+import { createContext } from '@mielui/svelte/utils';
+import type { PieChartConfig, PieChartDatum, PieChartLabels } from './index';
 
 type PieContext = {
     readonly element: HTMLElement | undefined;
@@ -21,14 +21,10 @@ type PieContext = {
     label(key: string): string;
     format(item: PieChartDatum): string;
 };
-const key = Symbol('mielui-pie-chart');
-export function setPieContext(context: PieContext) {
-    return setContext(key, context);
-}
-export function getPieContext(): PieContext {
-    const context = getContext<PieContext>(key);
-    if (!context) {
-        throw new Error('PieChart parts must be rendered inside PieChart.Root.');
-    }
-    return context;
-}
+
+const { set: setPieContext, get: getPieContext } = createContext<PieContext>('pie-chart');
+
+const { set: setPieChartLabels, find: findPieChartLabels } =
+    createContext<() => PieChartLabels | undefined>('pie-chart-labels');
+
+export { findPieChartLabels, getPieContext, setPieChartLabels, setPieContext };

@@ -75,7 +75,10 @@ export function createFileUploadController(options: Options) {
             if (!controller.signal.aborted) {
                 update(id, {
                     status: 'error',
-                    error: error instanceof Error ? error.message : 'Upload failed. Try again.'
+                    error:
+                        error instanceof Error
+                            ? error.message
+                            : (options.labels()?.uploadFailed ?? 'Upload failed. Try again.')
                 });
             }
         } finally {

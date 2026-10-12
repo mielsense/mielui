@@ -5,7 +5,7 @@
     import { untrack } from 'svelte';
     import type { HTMLButtonAttributes } from 'svelte/elements';
     import { type Cell, levelClasses } from './calendar';
-    import { useHeatmap } from './context.svelte';
+    import { getHeatmapContext } from './context.svelte';
 
     let {
         day,
@@ -20,7 +20,7 @@
         ...props
     }: HTMLButtonAttributes & { day: Cell } = $props();
 
-    const context = useHeatmap();
+    const context = getHeatmapContext();
     let element = $state<HTMLButtonElement>();
 
     $effect(() => {

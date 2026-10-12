@@ -1,20 +1,13 @@
-import { getContext, setContext } from 'svelte';
+import { createContext } from '@mielui/svelte/utils';
+import type { ToastLabels } from '.';
 import type { Toast } from './lib.svelte';
-
-const key = Symbol('toast-item');
 
 type ToastContext = {
     readonly toast: Toast;
 };
 
-export function setToastContext(context: ToastContext) {
-    setContext(key, context);
-}
+const { set: setToastContext, get: getToastContext } = createContext<ToastContext>('toast');
+const { set: setToastLabels, find: findToastLabels } =
+    createContext<() => ToastLabels | undefined>('toast-labels');
 
-export function getToastContext(): ToastContext {
-    const context = getContext<ToastContext | undefined>(key);
-    if (!context) {
-        throw new Error('Toast parts must be rendered inside Toast.Root.');
-    }
-    return context;
-}
+export { findToastLabels, getToastContext, setToastContext, setToastLabels };

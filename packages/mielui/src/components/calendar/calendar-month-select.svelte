@@ -1,20 +1,20 @@
 <script lang="ts">
     import { ArrowDown01Icon } from '@hugeicons/core-free-icons';
-    import { cn } from '@mielui/svelte/utils';
+    import { cn, type WithElement } from '@mielui/svelte/utils';
     import { Calendar as CalendarPrimitive } from 'bits-ui';
     import HugeiconsIcon from '../../hugeicons-icon.svelte';
 
     let {
         class: className,
-        ref = $bindable(null),
+        element = $bindable(null),
         ...rest
-    }: CalendarPrimitive.MonthSelectProps = $props();
+    }: WithElement<CalendarPrimitive.MonthSelectProps> = $props();
 </script>
 
 <span class="relative inline-flex min-w-0">
     <CalendarPrimitive.MonthSelect
         {...rest}
-        bind:ref
+        bind:ref={element}
         data-ui="calendar-month-select"
         class={cn(
             className,

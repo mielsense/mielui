@@ -2,7 +2,7 @@ import type { Manifest } from '@mielui/svelte/_manifest/types';
 
 export const manifest: Manifest = {
     name: 'pie-chart',
-    version: '1.0.0',
+    version: '1.0.1',
     visibility: 'public',
     description:
         'Composable pie and donut charts with animated updates, accessible values, tooltips, and legends.',
@@ -24,7 +24,8 @@ export const manifest: Manifest = {
     shared: [
         'components/_internal/surface',
         'components/_internal/chart-tooltip-surface',
-        'utils.cn'
+        'utils.cn',
+        'utils.createContext'
     ],
     peerDependencies: {
         layerchart: '^2.5.0',
