@@ -303,4 +303,17 @@ async function submitAnswer(value: string) {
             />
         </Typography.Text>
     </section>
+    <section id="labels" class="flex scroll-mt-20 flex-col gap-4">
+        <Typography.H2 class="docs-section-heading">Labels</Typography.H2>
+        <Typography.Text>
+            Built-in text is English by default. Pass labels to Question.Root to translate the three
+            validation messages and the message shown when submitting fails. Every key is optional;
+            omitted keys keep their default.
+        </Typography.Text>
+        <CodeBlock
+            code={`<Question.Root labels={{ selectAnswer: 'Choisissez une réponse.', submitError: 'Envoi impossible.' }} />`}
+            lang="svelte"
+            copy="overlay"
+        />
+    </section>
 </div>

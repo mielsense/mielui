@@ -159,4 +159,17 @@
         </SectionHeading>
         <ComponentPreview code={StatesSource}><States /></ComponentPreview>
     </section>
+    <section id="labels" class="flex scroll-mt-20 flex-col gap-4">
+        <Typography.H2 class="docs-section-heading">Labels</Typography.H2>
+        <Typography.Text>
+            Built-in text is English by default. Pass labels to Gauge to translate the accessible
+            name it builds while loading, when it has no data, and when it has no label. Every key
+            is optional; omitted keys keep their default.
+        </Typography.Text>
+        <CodeBlock
+            code={`<Gauge value={72} labels={{ loading: (name) => \`Chargement de \${name ?? 'la mesure'}\`, value: (value, max) => \`\${value} sur \${max}\` }} />`}
+            lang="svelte"
+            copy="overlay"
+        />
+    </section>
 </div>

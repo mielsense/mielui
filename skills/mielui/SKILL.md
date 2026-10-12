@@ -174,6 +174,12 @@ The default sans font is Inter Tight and the mono font is Geist Mono, loaded by 
 
 Heatmap.Root accepts `animation="rows" | "columns" | "live" | "none"`, defaulting to rows. Reduced motion disables entrances. Slider range mode binds a pair of numbers, accepts thumbLabels, and supports dir="rtl". Slider `variant="field"` is one bar with its label and value inside, for panels that stack many numeric settings. It holds a single value, so it cannot combine with `range`. Read each page before using these APIs, particularly when the locked package predates the unreleased changelog.
 
+Bind a component's DOM node with `bind:element`. Every part uses that name, including the Calendar, RangeCalendar, DatePicker, DateRangePicker and OTPField parts, which used `bind:ref` before 0.3.0. HugeiconsIcon follows the same rule.
+
+Translate or reword built-in text with the `labels` prop on the root. It is an object of optional keys with English fallbacks, and keys that insert a value are functions: `<Toaster labels={{ dismiss: 'Fermer', position: (position, total) => `${position} sur ${total}` }} />`. Roots that take it: Attachment, Chart, CodeBlock, ColorPicker, Combobox, Command, DataTable, DatePicker, DateRangePicker, Dialog, FileDiff, FileUpload, Gauge, Heatmap, Markdown, Message, Notch, NumberField, Pagination, PieChart, Question, Reasoning, ReorderList, Sheet, Slider, TagInput, Toaster and Tool. Read the component's reference for its keys. Do not add one prop per string.
+
+A part used outside its root throws `<Name> components must be used within <Name.Root>.` Tabs, CodeBlock and FileDiff parts also render on their own.
+
 ## Tables, native selects, and loading placeholders
 
 Compose Table.Root with Header, Body, Row, Head, and Cell. Caption, Footer, and ScrollArea are optional. Use variant="inset" for a recessed table. Sorting and selection remain application state; use native aria-sort and existing Button or Checkbox controls.

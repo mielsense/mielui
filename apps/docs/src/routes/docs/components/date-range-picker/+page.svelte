@@ -233,11 +233,11 @@
             another documented composition.
         </Typography.Text>
         <Typography.Text>
-            Styled parts forward native attributes and expose bind:ref for their underlying element.
-            Arrow keys move between days, Page Up and Page Down change the visible month, and Enter
-            or Space selects. Focus and selection are distinct. Disabled dates cannot be selected;
-            readonly calendars remain navigable. The today indicator and unavailable strike-through
-            provide cues beyond color.
+            Styled parts forward native attributes and expose bind:element for their underlying
+            element. Arrow keys move between days, Page Up and Page Down change the visible month,
+            and Enter or Space selects. Focus and selection are distinct. Disabled dates cannot be
+            selected; readonly calendars remain navigable. The today indicator and unavailable
+            strike-through provide cues beyond color.
         </Typography.Text>
         <Typography.Text>
             Input exposes a children snippet with segments for custom field composition. Render each

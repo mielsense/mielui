@@ -230,4 +230,17 @@
             layout and call toast from the components that own each action.
         </Typography.Text>
     </section>
+    <section id="labels" class="flex scroll-mt-20 flex-col gap-4">
+        <Typography.H2 class="docs-section-heading">Labels</Typography.H2>
+        <Typography.Text>
+            Built-in text is English by default. Pass labels to Toaster to translate the name of the
+            notifications region, the dismiss button, and the previous, next, and position controls
+            of the notch variant. Every key is optional; omitted keys keep their default.
+        </Typography.Text>
+        <CodeBlock
+            code={`<Toaster labels={{ region: 'Notifications', dismiss: 'Fermer', position: (position, total) => \`\${position} sur \${total}\` }} />`}
+            lang="svelte"
+            copy="overlay"
+        />
+    </section>
 </div>

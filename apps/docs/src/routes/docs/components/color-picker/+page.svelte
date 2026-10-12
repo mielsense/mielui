@@ -192,4 +192,17 @@
             />
         </Typography.Text>
     </section>
+    <section id="labels" class="flex scroll-mt-20 flex-col gap-4">
+        <Typography.H2 class="docs-section-heading">Labels</Typography.H2>
+        <Typography.Text>
+            Built-in text is English by default. Pass labels to ColorPicker.Root to translate the
+            empty trigger text and the names of the panel, the hex input, and the screen color
+            button. Every key is optional; omitted keys keep their default.
+        </Typography.Text>
+        <CodeBlock
+            code={`<ColorPicker.Root labels={{ choose: 'Choisir une couleur', hex: 'Couleur hexadécimale' }} />`}
+            lang="svelte"
+            copy="overlay"
+        />
+    </section>
 </div>

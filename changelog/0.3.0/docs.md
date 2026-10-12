@@ -18,3 +18,5 @@
 - Playground code for Folder Card, Tool, and Tooltip stays valid when the text you type contains quotes, braces, or angle brackets.
 - Clearing a text control in a playground gives the same result in the preview and in the code.
 - Theme Studio undo keeps recording after the page settles, and separate edits stay separate steps.
+- Slider, Number Field, Dialog, Sheet, Notch, Toast, Command, Color Picker, Question, and Gauge pages have a Labels section.
+- The agent skill explains `bind:element` and the `labels` prop.

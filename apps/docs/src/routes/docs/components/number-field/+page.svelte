@@ -1,4 +1,5 @@
 <script lang="ts">
+    import { CodeBlock } from '@mielui/svelte/components/code-block';
     import * as NumberField from '@mielui/svelte/components/number-field';
     import * as Typography from '@mielui/svelte/components/typography';
     import { ComponentPreview, InstallCommand, Playground } from '$lib/components/docs';
@@ -106,5 +107,18 @@
                 text={"Root, Input, Decrement and Increment accept `element` to bind their DOM nodes, for example to focus the input after a reset. Decrement and Increment take `onclick`, which runs before the value steps. Call `preventDefault()` there to cancel the step. Root renders its `children`, so you choose the order of the input and the two buttons."}
             />
         </Typography.Text>
+    </section>
+    <section id="labels" class="flex scroll-mt-20 flex-col gap-4">
+        <Typography.H2 class="docs-section-heading">Labels</Typography.H2>
+        <Typography.Text>
+            Built-in text is English by default. Pass labels to NumberField.Root to translate the
+            accessible names of the two stepper buttons. Every key is optional; omitted keys keep
+            their default.
+        </Typography.Text>
+        <CodeBlock
+            code={`<NumberField.Root labels={{ decrease: 'Diminuer', increase: 'Augmenter' }} />`}
+            lang="svelte"
+            copy="overlay"
+        />
     </section>
 </div>

@@ -237,4 +237,17 @@
             />
         </Typography.Text>
     </section>
+    <section id="labels" class="flex scroll-mt-20 flex-col gap-4">
+        <Typography.H2 class="docs-section-heading">Labels</Typography.H2>
+        <Typography.Text>
+            Built-in text is English by default. Pass labels to Command.Root to translate the search
+            placeholder, the names of the search input and the results list, and the empty message.
+            Every key is optional; omitted keys keep their default.
+        </Typography.Text>
+        <CodeBlock
+            code={`<Command.Root labels={{ searchPlaceholder: 'Rechercher une commande…', empty: 'Aucun résultat' }} />`}
+            lang="svelte"
+            copy="overlay"
+        />
+    </section>
 </div>

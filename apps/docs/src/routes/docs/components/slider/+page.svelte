@@ -232,4 +232,17 @@
             />
         </Typography.Text>
     </section>
+    <section id="labels" class="flex scroll-mt-20 flex-col gap-4">
+        <Typography.H2 class="docs-section-heading">Labels</Typography.H2>
+        <Typography.Text>
+            Built-in text is English by default. Pass labels to Slider to translate the accessible
+            names of a range and its two thumbs, and of the value input and its edit button. Every
+            key is optional; omitted keys keep their default.
+        </Typography.Text>
+        <CodeBlock
+            code={`<Slider label="Prix" labels={{ minimum: 'minimum', maximum: 'maximum', edit: (name) => \`Modifier \${name ?? 'la valeur'}\` }} />`}
+            lang="svelte"
+            copy="overlay"
+        />
+    </section>
 </div>
