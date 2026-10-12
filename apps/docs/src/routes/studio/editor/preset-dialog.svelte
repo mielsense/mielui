@@ -20,7 +20,11 @@
             </AlertDialog.Description>
         </AlertDialog.Header>
         <AlertDialog.Footer>
-            <AlertDialog.Exit onclick={() => (editor.state.pendingPreset = null)}>
+            <AlertDialog.Exit
+                onclick={() => {
+                    editor.state.pendingPreset = null;
+                }}
+            >
                 Keep draft
                 <Kbd shortcut="esc" />
             </AlertDialog.Exit>

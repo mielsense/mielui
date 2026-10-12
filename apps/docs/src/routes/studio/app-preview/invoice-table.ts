@@ -8,7 +8,7 @@ import {
     sortFns,
     tableFeatures
 } from '@tanstack/svelte-table';
-import type { Invoice } from './data';
+import { type Invoice, invoiceAmount } from './data';
 
 export const invoiceFeatures = tableFeatures({
     rowPaginationFeature,
@@ -26,7 +26,7 @@ export const invoiceColumns: ColumnDef<typeof invoiceFeatures, Invoice>[] = [
     {
         id: 'amount',
         header: 'Amount',
-        accessorFn: (invoice) => Number.parseFloat(invoice.amount.replace(/[$,]/g, ''))
+        accessorFn: invoiceAmount
     },
     { id: 'actions', header: 'Actions', enableSorting: false }
 ];

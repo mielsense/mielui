@@ -18,7 +18,9 @@
                 variant="ghost"
                 size="icon"
                 class="relative"
-                aria-label={model.unreadNotificationCount > 0 ? `Notifications, ${model.unreadNotificationCount} unread` : 'Notifications'}
+                aria-label={model.unreadNotificationCount > 0
+                    ? `Notifications, ${model.unreadNotificationCount} unread`
+                    : 'Notifications'}
             >
                 <HugeiconsIcon icon={Bell} size={16} />
                 {#if model.unreadNotificationCount > 0}
@@ -52,14 +54,15 @@
                     variant="ghost"
                     class="h-auto w-full items-start justify-start gap-3 whitespace-normal rounded-[var(--radius-md)] px-2 py-2 text-left leading-normal"
                     onclick={() => {
-            model.markNotificationRead(notification.id);
-        }}
+                        model.markNotificationRead(notification.id);
+                    }}
                 >
                     <span class="flex min-w-0 flex-1 flex-col items-start gap-0.5">
                         <span
-                            class="w-full text-left text-[length:var(--font-size-body)] leading-snug text-pretty text-foreground {notification.read
-                                    ? 'font-normal'
-                                    : 'font-medium'}"
+                            class={[
+                                'w-full text-left text-[length:var(--font-size-body)] leading-snug text-pretty text-foreground',
+                                notification.read ? 'font-normal' : 'font-medium'
+                            ]}
                         >
                             {notification.title}
                         </span>

@@ -24,6 +24,15 @@
 
     let view = $state('css');
     let setup = $state('new');
+
+    const summary = $derived.by(() => {
+        if (changes === 0) {
+            return 'This matches the preset. Copy it into your project, or keep the JSON to load it again later.';
+        }
+        const differs = changes === 1 ? 'setting differs' : 'settings differ';
+
+        return `${changes} ${differs} from the preset. Copy the theme into your project, or keep the JSON to load it again later.`;
+    });
     const command = $derived(
         setup === 'new'
             ? 'pnpm dlx @mielui/svelte init --preset ./mielui-theme.json'
@@ -36,7 +45,9 @@
         link.href = url;
         link.download = 'mielui-theme.json';
         link.click();
-        window.setTimeout(() => URL.revokeObjectURL(url), 1000);
+        window.setTimeout(() => {
+            URL.revokeObjectURL(url);
+        }, 1000);
     }
 </script>
 
@@ -50,9 +61,7 @@
         <Sheet.Header>
             <Sheet.Title>{`Export ${name}`}</Sheet.Title>
             <Sheet.Description>
-                {changes === 0
-                    ? 'This matches the preset. Copy it into your project, or keep the JSON to load it again later.'
-                    : `${changes} ${changes === 1 ? 'setting differs' : 'settings differ'} from the preset. Copy the theme into your project, or keep the JSON to load it again later.`}
+                {summary}
             </Sheet.Description>
         </Sheet.Header>
         <Tabs.Root bind:value={view} variant="ghost" class="flex min-h-0 flex-1 flex-col gap-3">

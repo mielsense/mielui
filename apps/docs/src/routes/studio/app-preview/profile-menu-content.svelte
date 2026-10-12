@@ -23,8 +23,8 @@
     <DropdownMenu.Label>avery@northstar.dev</DropdownMenu.Label>
     <DropdownMenu.Item
         callback={() => {
-    model.studioView = 'settings';
-}}
+            model.studioView = 'settings';
+        }}
     >
         <span class="flex items-center gap-2">
             <HugeiconsIcon icon={User} size={13} />
@@ -34,8 +34,8 @@
     </DropdownMenu.Item>
     <DropdownMenu.Item
         callback={() => {
-    model.studioView = 'settings';
-}}
+            model.studioView = 'settings';
+        }}
     >
         <span class="flex items-center gap-2">
             <HugeiconsIcon icon={Settings} size={13} />
@@ -45,11 +45,8 @@
     </DropdownMenu.Item>
     <DropdownMenu.Item
         callback={() => {
-                model.runDashboardAction(
-                        'Billing opened',
-                        'The billing portal is on its way.'
-                    );
-            }}
+            model.runDashboardAction('Billing opened', 'The billing portal is on its way.');
+        }}
     >
         <span class="flex items-center gap-2">
             <HugeiconsIcon icon={CreditCard} size={13} />
@@ -60,11 +57,8 @@
     <DropdownMenu.Separator />
     <DropdownMenu.Item
         callback={() => {
-                model.runDashboardAction(
-                        'Support pinged',
-                        'We will follow up shortly.'
-                    );
-            }}
+            model.runDashboardAction('Support pinged', 'We will follow up shortly.');
+        }}
     >
         <span class="flex items-center gap-2">
             <HugeiconsIcon icon={LifeBuoy} size={13} />
@@ -73,8 +67,8 @@
     </DropdownMenu.Item>
     <DropdownMenu.Item
         callback={() => {
-                model.runDashboardAction('Signed out', 'The session ended.');
-            }}
+            model.runDashboardAction('Signed out', 'The session ended.');
+        }}
     >
         <span class="flex items-center gap-2 text-[var(--mielui-error-text)]">
             <HugeiconsIcon icon={LogOut} size={13} />

@@ -1,11 +1,7 @@
 <script lang="ts">
     import { ArrowDown01Icon as ChevronDown } from '@hugeicons/core-free-icons';
     import HugeiconsIcon from '@mielui/svelte/hugeicons-icon';
-    import {
-        type ColorTokenDefinition,
-        colorTokenGroups,
-        formatCssColor
-    } from '$lib/studio-advanced-tokens';
+    import { colorTokenGroups } from '$lib/studio-advanced-tokens';
     import {
         backgroundSwatches,
         baseSwatches,
@@ -17,9 +13,18 @@
         secondarySwatches
     } from './config';
     import { getThemeEditor } from './context';
-    import { colorRow } from './controls.svelte';
+    import { colorRow, colorTokenRow } from './controls.svelte';
     import EditorSection from './section.svelte';
     import { getSettingFilter } from './setting-filter.svelte';
+
+    type FoundationRow = {
+        key: keyof FoundationPalette;
+        label: string;
+        swatches: {
+            label: string;
+            value: string;
+        }[];
+    };
 
     const editor = getThemeEditor();
     const filter = getSettingFilter();
@@ -34,10 +39,26 @@
     };
     const tokenGroups = colorTokenGroups.filter((group) => group.label !== 'Charts');
     const tokenCount = tokenGroups.reduce((count, group) => count + group.tokens.length, 0);
+    const chartTokens = chartGroup?.tokens ?? [];
+    const onBrandRow: FoundationRow = {
+        key: 'onPrimary',
+        label: 'On brand',
+        swatches: onPrimarySwatches
+    };
+    const backgroundRows: FoundationRow[] = [
+        { key: 'background', label: 'Background', swatches: backgroundSwatches },
+        { key: 'base', label: 'Base', swatches: baseSwatches },
+        { key: 'secondary', label: 'Secondary', swatches: secondarySwatches },
+        { key: 'border', label: 'Border', swatches: borderSwatches }
+    ];
+    const textRows: FoundationRow[] = [
+        { key: 'foreground', label: 'Foreground', swatches: foregroundSwatches },
+        { key: 'foregroundMuted', label: 'Muted text', swatches: foregroundSwatches },
+        { key: 'buttonForeground', label: 'Button text', swatches: foregroundSwatches }
+    ];
 
     let allTokens = $state(false);
     let chartsOpen = $state(false);
-    const chartTokens = chartGroup?.tokens ?? [];
 
     function sameColor(first: string | undefined, second: string | undefined) {
         return (first ?? '').toLowerCase() === (second ?? '').toLowerCase();
@@ -48,7 +69,9 @@
 
         return {
             changed: !sameColor(editor.state.brandColors[editor.appMode], base),
-            run: () => editor.updateBrand(base)
+            run: () => {
+                editor.updateBrand(base);
+            }
         };
     }
 
@@ -66,19 +89,15 @@
     }
 </script>
 
-{#snippet tokenRow(definition: ColorTokenDefinition)}
-    {const resolved = $derived(editor.tokens.resolveColorToken(definition))}
+{#snippet foundationRow(row: FoundationRow)}
     {@render colorRow(
-        definition.label,
-        resolved.hex,
-        [],
-        (hex) => {
-            editor.tokens.updateAdvancedColorToken(
-                definition.name,
-                formatCssColor(hex, resolved.alpha)
-            );
+        row.label,
+        editor.state.foundationColors[editor.appMode][row.key],
+        row.swatches,
+        (value) => {
+            editor.updateFoundationColor(row.key, value);
         },
-        editor.tokens.colorTokenReset(definition.name)
+        resetFoundation(row.key)
     )}
 {/snippet}
 
@@ -90,84 +109,19 @@
         editor.updateBrand,
         resetBrand()
     )}
-    {@render colorRow(
-        'On brand',
-        editor.state.foundationColors[editor.appMode].onPrimary,
-        onPrimarySwatches,
-        (value) => {
-            editor.updateFoundationColor('onPrimary', value);
-        },
-        resetFoundation('onPrimary')
-    )}
+    {@render foundationRow(onBrandRow)}
 </EditorSection>
 
 <EditorSection title="Backgrounds" keywords="color colour palette surface fill">
-    {@render colorRow(
-        'Background',
-        editor.state.foundationColors[editor.appMode].background,
-        backgroundSwatches,
-        (value) => {
-            editor.updateFoundationColor('background', value);
-        },
-        resetFoundation('background')
-    )}
-    {@render colorRow(
-        'Base',
-        editor.state.foundationColors[editor.appMode].base,
-        baseSwatches,
-        (value) => {
-            editor.updateFoundationColor('base', value);
-        },
-        resetFoundation('base')
-    )}
-    {@render colorRow(
-        'Secondary',
-        editor.state.foundationColors[editor.appMode].secondary,
-        secondarySwatches,
-        (value) => {
-            editor.updateFoundationColor('secondary', value);
-        },
-        resetFoundation('secondary')
-    )}
-    {@render colorRow(
-        'Border',
-        editor.state.foundationColors[editor.appMode].border,
-        borderSwatches,
-        (value) => {
-            editor.updateFoundationColor('border', value);
-        },
-        resetFoundation('border')
-    )}
+    {#each backgroundRows as row (row.key)}
+        {@render foundationRow(row)}
+    {/each}
 </EditorSection>
 
 <EditorSection title="Text" keywords="color colour palette foreground">
-    {@render colorRow(
-        'Foreground',
-        editor.state.foundationColors[editor.appMode].foreground,
-        foregroundSwatches,
-        (value) => {
-            editor.updateFoundationColor('foreground', value);
-        },
-        resetFoundation('foreground')
-    )}
-    {@render colorRow(
-        'Muted text',
-        editor.state.foundationColors[editor.appMode].foregroundMuted,
-        foregroundSwatches,
-        (value) => {
-            editor.updateFoundationColor('foregroundMuted', value);
-        },
-        resetFoundation('foregroundMuted')
-    )}
-    {@render colorRow(
-        'Button text',
-        editor.state.foundationColors[editor.appMode].buttonForeground,
-        foregroundSwatches,
-        (value) => {
-            editor.updateFoundationColor('buttonForeground', value);
-        },
-        resetFoundation('buttonForeground')
-    )}
+    {#each textRows as row (row.key)}
+        {@render foundationRow(row)}
+    {/each}
 </EditorSection>
 
 {#snippet disclosure(label: string, count: number, open: boolean, toggle: () => void)}
@@ -200,7 +154,7 @@
         <div class="pb-3">
             <EditorSection title="Charts" keywords="color colour palette data series">
                 {#each chartTokens as definition (definition.name)}
-                    {@render tokenRow(definition)}
+                    {@render colorTokenRow(editor.tokens, definition)}
                 {/each}
             </EditorSection>
         </div>
@@ -219,7 +173,7 @@
             keywords="color colour token variable"
         >
             {#each group.tokens as definition (definition.name)}
-                {@render tokenRow(definition)}
+                {@render colorTokenRow(editor.tokens, definition)}
             {/each}
         </EditorSection>
     {/each}

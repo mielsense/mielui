@@ -1,6 +1,5 @@
 <script lang="ts">
     import * as Tabs from '@mielui/svelte/components/tabs';
-    import { onDestroy } from 'svelte';
     import DemoFrame from '$lib/components/demos/demo-frame.svelte';
     import FadeScrollArea from '$lib/components/shell/fade-scroll-area.svelte';
     import Header from './app-preview/header.svelte';
@@ -11,8 +10,11 @@
     import Sidebar from './app-preview/sidebar.svelte';
 
     const model = new AppPreviewModel();
-    onDestroy(() => {
-        model.destroy();
+
+    $effect(() => {
+        return () => {
+            model.destroy();
+        };
     });
 </script>
 

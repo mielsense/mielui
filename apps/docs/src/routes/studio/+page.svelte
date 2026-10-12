@@ -1,27 +1,14 @@
 <script lang="ts">
-    import {
-        CursorPointer02Icon,
-        Redo02Icon,
-        SlidersHorizontalIcon,
-        Undo02Icon
-    } from '@hugeicons/core-free-icons';
-    import { Button } from '@mielui/svelte/components/button';
-    import Kbd from '@mielui/svelte/components/kbd';
-    import * as Popover from '@mielui/svelte/components/popover';
     import * as Select from '@mielui/svelte/components/select';
     import * as Sheet from '@mielui/svelte/components/sheet';
-    import { Switch } from '@mielui/svelte/components/switch';
-    import * as Tabs from '@mielui/svelte/components/tabs';
     import * as ToggleGroup from '@mielui/svelte/components/toggle-group';
-    import * as Tooltip from '@mielui/svelte/components/tooltip';
-    import HugeiconsIcon from '@mielui/svelte/hugeicons-icon';
     import { cn } from '@mielui/svelte/utils';
     import Sidebar from '$lib/components/shell/sidebar.svelte';
     import { getStudioContext } from '$lib/studio-context';
     import AiPreview from './ai-preview.svelte';
     import AppPreview from './app-preview.svelte';
     import ChartPreview from './chart-preview.svelte';
-    import ComponentPreview from './component-preview.svelte';
+    import ComponentGallery from './component-gallery.svelte';
     import { setThemeEditor } from './editor/context';
     import { createThemeEditor } from './editor/controller.svelte';
     import Inspector from './editor/inspector.svelte';
@@ -29,6 +16,15 @@
     import SharedThemeDialog from './editor/shared-theme-dialog.svelte';
     import TokenPicker from './editor/token-picker.svelte';
     import ExportPanel from './export-panel.svelte';
+    import PreviewToolbar from './preview-toolbar.svelte';
+
+    const previewTabs = [
+        { value: 'components', label: 'Components' },
+        { value: 'charts', label: 'Charts' },
+        { value: 'ai', label: 'AI components' },
+        { value: 'app', label: 'App preview' }
+    ];
+    const typingTags = ['INPUT', 'TEXTAREA', 'SELECT'];
 
     const studio = getStudioContext();
     const editor = createThemeEditor();
@@ -37,26 +33,20 @@
     let inspectorOpen = $state(false);
     let picking = $state(false);
     let preview = $state<HTMLDivElement>();
-    const previewTabs = [
-        { value: 'components', label: 'Components' },
-        { value: 'charts', label: 'Charts' },
-        { value: 'ai', label: 'AI components' },
-        { value: 'app', label: 'App preview' }
-    ];
-    let appMounted = $state(false);
-    $effect(() => {
-        if (studio.mode === 'app') {
+    let appMounted = $state(studio.mode === 'app');
+
+    function setMode(next: string) {
+        studio.mode = next;
+        if (next === 'app') {
             appMounted = true;
         }
-    });
-</script>
+    }
 
-<svelte:window
-    onkeydown={(event) => {
+    function handleHistoryShortcut(event: KeyboardEvent) {
         const target = event.target;
         const typing =
             target instanceof HTMLElement &&
-            (target.isContentEditable || ['INPUT', 'TEXTAREA', 'SELECT'].includes(target.tagName));
+            (target.isContentEditable || typingTags.includes(target.tagName));
         if (typing || !(event.metaKey || event.ctrlKey) || event.key.toLowerCase() !== 'z') {
             return;
         }
@@ -66,8 +56,10 @@
         } else {
             editor.history.undo();
         }
-    }}
-/>
+    }
+</script>
+
+<svelte:window onkeydown={handleHistoryShortcut} />
 
 <svelte:head>
     <title>Mielui · Theme Studio</title>
@@ -105,7 +97,7 @@
                     </Sheet.Root>
                 </div>
                 <div class="pointer-events-auto min-w-0 md:hidden">
-                    <Select.Root bind:value={studio.mode}>
+                    <Select.Root bind:value={() => studio.mode, setMode}>
                         <Select.Trigger
                             aria-label="Preview content"
                             class="w-auto max-w-full min-w-0"
@@ -122,104 +114,7 @@
                     </Select.Root>
                 </div>
             </div>
-            <div
-                role="toolbar"
-                aria-label="Preview tools"
-                class="pointer-events-auto flex h-10 shrink-0 items-center gap-0.5 rounded-[calc(var(--radius-control)+var(--spacing))] border-[length:var(--border-size)] border-border bg-card/75 p-1 shadow-[var(--elevation-float)] backdrop-blur-xl backdrop-saturate-150 [@media(prefers-reduced-transparency:reduce)]:bg-card"
-            >
-                <div class="hidden md:block">
-                    <Tooltip.Root>
-                        <Tooltip.Trigger>
-                            <Button
-                                variant={picking ? 'secondary' : 'ghost'}
-                                size="icon"
-                                aria-label="Edit tokens by clicking an element"
-                                aria-pressed={picking}
-                                onclick={() => {
-                                    picking = !picking;
-                                }}
-                            >
-                                <HugeiconsIcon icon={CursorPointer02Icon} size={16} />
-                            </Button>
-                        </Tooltip.Trigger>
-                        <Tooltip.Content>
-                            {picking ? 'Stop editing tokens' : 'Click an element to edit its tokens'}
-                        </Tooltip.Content>
-                    </Tooltip.Root>
-                </div>
-                <div role="group" aria-label="History" class="flex items-center">
-                    <Tooltip.Root>
-                        <Tooltip.Trigger>
-                            <Button
-                                variant="ghost"
-                                size="icon"
-                                aria-label="Undo"
-                                disabled={!editor.history.canUndo}
-                                onclick={editor.history.undo}
-                            >
-                                <HugeiconsIcon icon={Undo02Icon} size={16} />
-                            </Button>
-                        </Tooltip.Trigger>
-                        <Tooltip.Content>
-                            Undo
-                            <Kbd shortcut="cmd+Z" />
-                        </Tooltip.Content>
-                    </Tooltip.Root>
-                    <Tooltip.Root>
-                        <Tooltip.Trigger>
-                            <Button
-                                variant="ghost"
-                                size="icon"
-                                aria-label="Redo"
-                                disabled={!editor.history.canRedo}
-                                onclick={editor.history.redo}
-                            >
-                                <HugeiconsIcon icon={Redo02Icon} size={16} />
-                            </Button>
-                        </Tooltip.Trigger>
-                        <Tooltip.Content>
-                            Redo
-                            <Kbd shortcut="shift+cmd+Z" />
-                        </Tooltip.Content>
-                    </Tooltip.Root>
-                </div>
-                <div class="hidden md:block">
-                    <Popover.Root placement="bottom-end">
-                        <Tooltip.Root>
-                            <Tooltip.Trigger>
-                                <Popover.Trigger
-                                    variant="ghost"
-                                    size="icon"
-                                    icon={false}
-                                    aria-label="Preview options"
-                                >
-                                    <HugeiconsIcon icon={SlidersHorizontalIcon} size={16} />
-                                </Popover.Trigger>
-                            </Tooltip.Trigger>
-                            <Tooltip.Content>Preview options</Tooltip.Content>
-                        </Tooltip.Root>
-                        <Popover.Content class="w-64" surfaceClass="flex flex-col gap-4 p-4">
-                            <Popover.Title>Preview</Popover.Title>
-                            <div class="flex items-center justify-between gap-3">
-                                <span id="studio-preview-width" class="text-sm">Width</span>
-                                <Tabs.Root bind:value={studio.width} variant="segmented">
-                                    <div role="group" aria-labelledby="studio-preview-width">
-                                        <Tabs.List>
-                                            <Tabs.Trigger value="wide">Wide</Tabs.Trigger>
-                                            <Tabs.Trigger value="narrow">Narrow</Tabs.Trigger>
-                                        </Tabs.List>
-                                    </div>
-                                </Tabs.Root>
-                            </div>
-                            <Switch
-                                bind:checked={studio.glassBackdrop}
-                                label="Glass backdrop"
-                                description="A gradient behind the preview, to judge glass surfaces."
-                            />
-                        </Popover.Content>
-                    </Popover.Root>
-                </div>
-            </div>
+            <PreviewToolbar bind:picking />
         </div>
         <div
             class="pointer-events-none absolute inset-x-0 bottom-5 z-30 hidden justify-center md:flex"
@@ -231,7 +126,7 @@
                     () => studio.mode,
                     (next) => {
                         if (next) {
-                            studio.mode = next;
+                            setMode(next);
                         }
                     }
                 }
@@ -266,7 +161,7 @@
             data-picking={picking || undefined}
         >
             {#if studio.mode === 'components'}
-                <ComponentPreview />
+                <ComponentGallery />
             {:else if studio.mode === 'charts'}
                 <ChartPreview />
             {:else if studio.mode === 'ai'}

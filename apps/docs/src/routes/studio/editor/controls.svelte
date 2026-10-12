@@ -1,14 +1,32 @@
-<script module lang="ts">
+<script lang="ts" module>
     import * as ColorPicker from '@mielui/svelte/components/color-picker';
     import * as Select from '@mielui/svelte/components/select';
     import * as ToggleGroup from '@mielui/svelte/components/toggle-group';
-    import { easingOptions, normalizeEase } from '$lib/studio-advanced-tokens';
+    import {
+        type AnimationTokenDefinition,
+        type ColorTokenDefinition,
+        easingOptions,
+        formatCssColor,
+        formatPx,
+        normalizeEase,
+        type SpacingTokenDefinition
+    } from '$lib/studio-advanced-tokens';
     import { type FontWeight, fontWeights, formatChoice } from './config';
     import Row, { type SettingReset } from './row.svelte';
+    import type { ThemeTokenEditor } from './tokens';
 
-    export { colorRow, easeRow, selectRow, toggleChoice, weightRow };
+    export {
+        animationTokenRow,
+        colorRow,
+        colorTokenRow,
+        easeRow,
+        selectRow,
+        spacingTokenRow,
+        toggleChoice,
+        weightRow
+    };
 
-    const selectTrigger = 'h-7 w-auto max-w-44 gap-1.5 px-2';
+    export const selectTrigger = 'h-7 w-auto max-w-44 gap-1.5 px-2';
 
     function toWeight(value: number) {
         return fontWeights.find((weight) => Number(weight) === value);
@@ -152,4 +170,62 @@
             </Select.Content>
         </Select.Root>
     </Row>
+{/snippet}
+
+{#snippet colorTokenRow(tokens: ThemeTokenEditor, definition: ColorTokenDefinition)}
+    {const resolved = $derived(tokens.resolveColorToken(definition))}
+    {@render colorRow(
+        definition.label,
+        resolved.hex,
+        [],
+        (hex) => {
+            tokens.updateAdvancedColorToken(definition.name, formatCssColor(hex, resolved.alpha));
+        },
+        tokens.colorTokenReset(definition.name)
+    )}
+{/snippet}
+
+{#snippet spacingTokenRow(tokens: ThemeTokenEditor, definition: SpacingTokenDefinition)}
+    <Row
+        label={definition.label}
+        reset={tokens.spacingTokenReset(definition.name)}
+        slider={{
+            value: tokens.resolveSpacingToken(definition),
+            min: definition.min,
+            max: definition.max,
+            step: definition.step,
+            format: formatPx,
+            onValueChange: (value) => {
+                tokens.updateAdvancedSpacingToken(definition.name, formatPx(value));
+            }
+        }}
+    />
+{/snippet}
+
+{#snippet animationTokenRow(tokens: ThemeTokenEditor, definition: AnimationTokenDefinition)}
+    {#if definition.kind === 'ease'}
+        {@render easeRow(
+            definition.label,
+            tokens.animationEaseValue(definition),
+            (value) => {
+                tokens.updateAdvancedAnimationToken(definition.name, value);
+            },
+            tokens.animationTokenReset(definition.name)
+        )}
+    {:else}
+        <Row
+            label={definition.label}
+            reset={tokens.animationTokenReset(definition.name)}
+            slider={{
+                value: tokens.animationSliderValue(definition),
+                min: definition.min,
+                max: definition.max,
+                step: definition.step,
+                format: (value) => tokens.animationSliderDisplay(definition, value),
+                onValueChange: (value) => {
+                    tokens.commitAnimationSlider(definition, value);
+                }
+            }}
+        />
+    {/if}
 {/snippet}

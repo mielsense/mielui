@@ -77,8 +77,8 @@
                     <Button
                         variant="outline"
                         onclick={() => {
-            model.markInvoicePaid(invoice.reference);
-        }}
+                            model.markInvoicePaid(invoice.reference);
+                        }}
                     >
                         Record payment
                     </Button>

@@ -11,11 +11,13 @@
     import * as Typography from '@mielui/svelte/components/typography';
     import HugeiconsIcon from '@mielui/svelte/hugeicons-icon';
     import { createTable, FlexRender } from '@tanstack/svelte-table';
+    import { capitalize } from '$lib/text';
     import InvoiceDialog from './invoice-dialog.svelte';
     import { invoiceColumns, invoiceFeatures } from './invoice-table';
     import type { AppPreviewModel } from './model.svelte';
 
     let { model }: { model: AppPreviewModel } = $props();
+
     const table = createTable({
         features: invoiceFeatures,
         columns: invoiceColumns,
@@ -52,7 +54,9 @@
                             aria-label="Invoice status"
                             class="w-auto shrink-0"
                         >
-                            {model.invoiceStatus === 'all' ? 'All statuses' : model.invoiceStatus.charAt(0).toUpperCase() + model.invoiceStatus.slice(1)}
+                            {model.invoiceStatus === 'all'
+                                ? 'All statuses'
+                                : capitalize(model.invoiceStatus)}
                         </Select.Trigger>
                         <Select.Content>
                             <Select.Item value="all">All statuses</Select.Item>
@@ -99,15 +103,15 @@
                                 <DropdownMenu.Item
                                     disabled={invoice.status === 'Paid'}
                                     callback={() => {
-            model.markInvoicePaid(invoice.reference);
-        }}
+                                        model.markInvoicePaid(invoice.reference);
+                                    }}
                                 >
                                     Record payment
                                 </DropdownMenu.Item>
                                 <DropdownMenu.Item
                                     callback={() => {
-            model.copyInvoiceNumber(invoice.reference);
-        }}
+                                        model.copyInvoiceNumber(invoice.reference);
+                                    }}
                                 >
                                     Copy invoice number
                                 </DropdownMenu.Item>

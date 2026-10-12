@@ -25,6 +25,21 @@
     import { getThemeEditor } from './editor/context';
 
     const uid = $props.id();
+    const cardClass = 'mb-6 min-w-0 break-inside-avoid';
+    const members = [
+        {
+            name: 'Alex Morgan',
+            initials: 'AM',
+            role: 'Owner'
+        },
+        {
+            name: 'Sam Rivera',
+            initials: 'SR',
+            role: 'Editor'
+        }
+    ];
+    const editor = getThemeEditor();
+
     let access = $state('team');
     let digest = $state(true);
     let slug = $state('');
@@ -32,28 +47,46 @@
     let role = $state('editor');
     let notifications = $state(true);
     let volume = $state(60);
-    function save() {
-        toast.success('Changes saved');
-    }
     let reviewed = $state(true);
     let tested = $state(false);
     let notes = $state('Review the release notes before publishing.');
     let tags = $state(['Design', 'Release']);
     let publicLink = $state(false);
 
-    const cardClass = 'mb-6 min-w-0 break-inside-avoid';
-    const editor = getThemeEditor();
-    const surface = $derived(editor.state.glassSurfaces ? 'glass' : 'solid');
+    function save() {
+        toast.success('Changes saved');
+    }
 
-    async function copyAddress() {
+    async function copy(text: string, copied: string, failed: string) {
         try {
-            await navigator.clipboard.writeText(`https://mielui.dev/${slug || 'your-workspace'}`);
-            toast.success('Address copied');
+            await navigator.clipboard.writeText(text);
+            toast.success(copied);
         } catch {
-            toast.error('Could not copy the address');
+            toast.error(failed);
         }
     }
+
+    function copyAddress() {
+        return copy(
+            `https://mielui.dev/${slug || 'your-workspace'}`,
+            'Address copied',
+            'Could not copy the address'
+        );
+    }
+
+    function copyDemoLink() {
+        return copy(
+            'https://mielui.dev/workspace/demo',
+            'Demo link copied',
+            'Could not copy the demo link'
+        );
+    }
 </script>
+
+<!--
+    @component
+    The Studio's gallery of sample cards, which shows the draft theme on everyday components.
+-->
 
 <FadeScrollArea class="h-full" start>
     <div class="@container w-full">
@@ -61,7 +94,7 @@
         <div
             class="mx-auto max-w-[80rem] columns-1 gap-6 p-5 pt-16 @2xl:columns-2 @6xl:columns-3 sm:p-8 sm:pt-16"
         >
-            <Card.Root variant="inset" {surface} class={cardClass}>
+            <Card.Root variant="inset" surface={editor.surface} class={cardClass}>
                 <Card.Header>
                     <Card.Title>Workspace profile</Card.Title>
                     <Card.Description>How your workspace appears to teammates.</Card.Description>
@@ -103,7 +136,7 @@
                     <Button onclick={save}>Save changes</Button>
                 </Card.Footer>
             </Card.Root>
-            <Card.Root variant="inset" {surface} class={cardClass}>
+            <Card.Root variant="inset" surface={editor.surface} class={cardClass}>
                 <Card.Header>
                     <Card.Title>Release checklist</Card.Title>
                     <Card.Description>
@@ -120,7 +153,7 @@
                     <Button onclick={save}>Save checklist</Button>
                 </Card.Footer>
             </Card.Root>
-            <Card.Root variant="inset" {surface} class={cardClass}>
+            <Card.Root variant="inset" surface={editor.surface} class={cardClass}>
                 <Card.Header>
                     <Card.Title>Project labels</Card.Title>
                     <Card.Description>Keep related work together.</Card.Description>
@@ -137,7 +170,7 @@
                     </TagInput.Root>
                 </Card.Content>
             </Card.Root>
-            <Card.Root variant="inset" {surface} class={cardClass}>
+            <Card.Root variant="inset" surface={editor.surface} class={cardClass}>
                 <Card.Header>
                     <Card.Title>Buttons and states</Card.Title>
                     <Card.Description>Variants, feedback, and validation.</Card.Description>
@@ -177,13 +210,13 @@
                     </div>
                 </Card.Content>
             </Card.Root>
-            <Card.Root variant="inset" {surface} class={cardClass}>
+            <Card.Root variant="inset" surface={editor.surface} class={cardClass}>
                 <Card.Header>
                     <Card.Title>Your team</Card.Title>
                     <Card.Description>People with access to this workspace.</Card.Description>
                 </Card.Header>
                 <Card.Content class="space-y-4">
-                    {#each [{ name: 'Alex Morgan', initials: 'AM', role: 'Owner' }, { name: 'Sam Rivera', initials: 'SR', role: 'Editor' }] as member}
+                    {#each members as member (member.name)}
                         <div class="flex items-center gap-3">
                             <Avatar.Root>
                                 <Avatar.Fallback>{member.initials}</Avatar.Fallback>
@@ -196,13 +229,17 @@
                 <Card.Footer>
                     <Button
                         variant="outline"
-                        onclick={() => toast.info('Invitation preview', { description: 'Your team invitation would appear here.' })}
+                        onclick={() => {
+                            toast.info('Invitation preview', {
+                                description: 'Your team invitation would appear here.'
+                            });
+                        }}
                     >
                         Invite a teammate
                     </Button>
                 </Card.Footer>
             </Card.Root>
-            <Card.Root variant="inset" {surface} class={cardClass}>
+            <Card.Root variant="inset" surface={editor.surface} class={cardClass}>
                 <Card.Header>
                     <Card.Title>Choose a date</Card.Title>
                     <Card.Description>Plan your next team check-in.</Card.Description>
@@ -211,7 +248,7 @@
                     <Calendar.Root calendarLabel="Team check-in" class="mx-auto w-fit p-0" />
                 </Card.Content>
             </Card.Root>
-            <Card.Root variant="inset" {surface} class={cardClass}>
+            <Card.Root variant="inset" surface={editor.surface} class={cardClass}>
                 <Card.Header>
                     <Card.Title>Preferences</Card.Title>
                     <Card.Description>
@@ -226,9 +263,9 @@
                             <span
                                 class="tabular-nums text-foreground-muted"
                                 use:numberShuffle={{
-                                value: volume,
-                                format: (value) => `${value}%`
-                            }}
+                                    value: volume,
+                                    format: (value) => `${value}%`
+                                }}
                             >
                                 {`${volume}%`}
                             </span>
@@ -249,7 +286,7 @@
                     </Popover.Root>
                 </Card.Footer>
             </Card.Root>
-            <Card.Root variant="inset" {surface} class={cardClass}>
+            <Card.Root variant="inset" surface={editor.surface} class={cardClass}>
                 <Card.Header>
                     <Card.Title>Release workspace</Card.Title>
                     <Card.Description>Design system · 12 members</Card.Description>
@@ -303,7 +340,7 @@
                     </Menu.Root>
                 </Card.Footer>
             </Card.Root>
-            <Card.Root variant="inset" {surface} class={cardClass}>
+            <Card.Root variant="inset" surface={editor.surface} class={cardClass}>
                 <Card.Header><Card.Title>Notifications</Card.Title></Card.Header>
                 <Card.Content>
                     <Tabs.Root value="inbox" variant="ghost">
@@ -335,7 +372,7 @@
                     </Tabs.Root>
                 </Card.Content>
             </Card.Root>
-            <Card.Root variant="inset" {surface} class={cardClass}>
+            <Card.Root variant="inset" surface={editor.surface} class={cardClass}>
                 <Card.Header>
                     <Card.Title>Questions</Card.Title>
                     <Card.Description>
@@ -361,7 +398,7 @@
                     </Accordion.Root>
                 </Card.Content>
             </Card.Root>
-            <Card.Root variant="inset" {surface} class={cardClass}>
+            <Card.Root variant="inset" surface={editor.surface} class={cardClass}>
                 <Card.Header>
                     <Card.Title>Workspace storage</Card.Title>
                     <Card.Description>6.4 GB of 10 GB used</Card.Description>
@@ -378,7 +415,7 @@
                     </Button>
                 </Card.Footer>
             </Card.Root>
-            <Card.Root variant="inset" {surface} class={cardClass}>
+            <Card.Root variant="inset" surface={editor.surface} class={cardClass}>
                 <Card.Header>
                     <Card.Title>Share this workspace</Card.Title>
                     <Card.Description>
@@ -389,18 +426,7 @@
                     <Switch bind:checked={publicLink} label="Public link" />
                 </Card.Content>
                 <Card.Footer>
-                    <Button
-                        variant="outline"
-                        disabled={!publicLink}
-                        onclick={async () => {
-            try {
-                await navigator.clipboard.writeText('https://mielui.dev/workspace/demo');
-                toast.success('Demo link copied');
-            } catch {
-                toast.error('Could not copy the demo link');
-            }
-        }}
-                    >
+                    <Button variant="outline" disabled={!publicLink} onclick={copyDemoLink}>
                         Copy demo link
                     </Button>
                 </Card.Footer>

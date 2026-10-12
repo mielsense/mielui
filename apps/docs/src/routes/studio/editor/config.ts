@@ -11,6 +11,7 @@ import type {
     ColorTokenName,
     SpacingTokenName
 } from '$lib/studio-advanced-tokens';
+import { capitalize } from '$lib/text';
 
 export type FoundationPalette = {
     base: string;
@@ -350,7 +351,8 @@ export function formatChoice(value: string) {
     if (value === 'true') {
         return 'True';
     }
-    return value.charAt(0).toUpperCase() + value.slice(1);
+
+    return capitalize(value);
 }
 
 export function isRadiusScale(value: string): value is Theme['radius'] {
