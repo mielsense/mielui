@@ -17,3 +17,4 @@
 - Playground code leaves out a variant that matches the component default on Alert, Badge, and Button.
 - Playground code for Folder Card, Tool, and Tooltip stays valid when the text you type contains quotes, braces, or angle brackets.
 - Clearing a text control in a playground gives the same result in the preview and in the code.
+- Theme Studio undo keeps recording after the page settles, and separate edits stay separate steps.

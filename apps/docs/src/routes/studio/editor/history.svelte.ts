@@ -85,7 +85,9 @@ export function createThemeHistory(state: ThemeEditorState) {
                 inBurst = false;
             }, BURST);
         });
+    });
 
+    $effect(() => {
         return () => {
             clearTimeout(burstTimer);
             clearTimeout(readyTimer);
