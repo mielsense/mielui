@@ -41,7 +41,7 @@ export const manifest: Manifest = {
         'native-select',
         'date-picker'
     ],
-    shared: ['utils.cn', 'utils.pressable', 'hugeicons-icon'],
+    shared: ['utils.cn', 'utils.createContext', 'utils.pressable', 'hugeicons-icon'],
     peerDependencies: {
         '@tanstack/svelte-table': '9.2.4',
         'bits-ui': '^2.19.2',

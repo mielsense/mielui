@@ -41,3 +41,6 @@
 - A tabbed CodeBlock scrolls in one place. Its panels no longer carry a second, competing height limit.
 - `Tabs.List` accepts `id`, `aria-label`, and `aria-labelledby` in its type, and `Combobox.Trigger` accepts `aria-labelledby`.
 - A standalone Label uses the same line height as the labels built into fields.
+- `mielui add kbd` installs the two modules Kbd imports. Its manifest left them out, so a CLI install could not compile.
+- `mielui add data-table` lists the shared context helper its parts use.
+- `Combobox.Label` no longer copies its own props onto the paragraph as HTML attributes.

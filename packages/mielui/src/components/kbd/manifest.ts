@@ -2,11 +2,17 @@ import type { Manifest } from '@mielui/svelte/_manifest/types';
 
 export const manifest: Manifest = {
     name: 'kbd',
-    version: '1.1.0',
+    version: '1.1.1',
     visibility: 'public',
     description:
         'Keyboard shortcut indicator. Activates its nearest interactive owner or an explicit ontrigger callback.',
-    files: ['components/kbd/kbd.svelte', 'components/kbd/index.ts', 'components/kbd/manifest.ts'],
+    files: [
+        'components/kbd/kbd.svelte',
+        'components/kbd/keyboard.ts',
+        'components/kbd/shortcut.ts',
+        'components/kbd/index.ts',
+        'components/kbd/manifest.ts'
+    ],
     components: ['_internal/utils'],
     shared: ['utils.cn'],
     peerDependencies: {
