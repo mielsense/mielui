@@ -2,11 +2,10 @@
     import { AlertCircleIcon as CircleAlert } from '@hugeicons/core-free-icons';
     import * as Card from '@mielui/svelte/components/card';
     import { cn } from '@mielui/svelte/utils';
-    import { untrack } from 'svelte';
-    import { createSubmission } from '../../components/_internal/submission.svelte';
     import HugeiconsIcon from '../../hugeicons-icon.svelte';
-    import type { QuestionAnswer, QuestionProps, QuestionStatus, QuestionType } from '.';
+    import type { QuestionProps } from '.';
     import { setQuestionContext } from './context.svelte';
+    import { createQuestionState } from './state.svelte';
 
     let {
         variant = 'default',
@@ -26,264 +25,78 @@
         ...rest
     }: QuestionProps = $props();
 
-    const initialType = untrack(() => type);
-    value = normalizeAnswer(initialType, value);
-
     let form: HTMLFormElement | undefined;
-    const submission = createSubmission();
-    const pending = $derived(submission.pending);
-    let validationAttempt = $state<{ type: QuestionType; revision: number }>();
-    let focused = false;
-    let previousType = initialType;
-    let modeRevision = 0;
-
-    const effectiveStatus = $derived<QuestionStatus>(
-        status === 'submitting' || pending ? 'submitting' : submission.failed ? 'error' : status
-    );
-    const answer = $derived.by<QuestionAnswer>(() => normalizeAnswer(type, value));
-    const hasAnswer = $derived(
-        Array.isArray(answer) ? answer.length > 0 : answer.trim().length > 0
-    );
-    const validationMessage = $derived(
-        validationAttempt?.type === type &&
-            validationAttempt.revision === modeRevision &&
-            required &&
-            !hasAnswer
-            ? getValidationMessage(type)
-            : ''
-    );
-    const displayStatus = $derived<QuestionStatus>(
-        effectiveStatus === 'error' || validationMessage ? 'error' : effectiveStatus
-    );
-    const displayErrorMessage = $derived(validationMessage || errorMessage);
-    const interactiveDisabled = $derived(disabled || effectiveStatus === 'submitting');
     const errorNoticeClass = 'mielui-error-notice';
 
-    const context = setQuestionContext({
+    const question = createQuestionState({
         get type() {
             return type;
         },
-        get answer() {
-            return answer;
+        get value() {
+            return value;
+        },
+        set value(next) {
+            value = next;
         },
         get status() {
-            return effectiveStatus;
+            return status;
         },
         get disabled() {
             return disabled;
         },
-        get busy() {
-            return effectiveStatus === 'submitting';
-        },
         get required() {
             return required;
         },
-        get canSubmit() {
-            return !required || hasAnswer;
-        },
-        get validationMessage() {
-            return validationMessage;
+        get autofocus() {
+            return autofocus;
         },
         get name() {
             return name;
         },
-        isSelected(optionValue: string) {
-            return Array.isArray(answer) ? answer.includes(optionValue) : answer === optionValue;
+        get errorMessage() {
+            return errorMessage;
         },
-        select(optionValue: string) {
-            if (disabled || effectiveStatus === 'submitting' || type === 'text') {
-                return;
-            }
-
-            if (type === 'multiple') {
-                const selected = Array.isArray(answer) ? answer : [];
-                value = selected.includes(optionValue)
-                    ? selected.filter((item) => item !== optionValue)
-                    : [...selected, optionValue];
-                validationAttempt = undefined;
-                return;
-            }
-
-            value = optionValue;
-            validationAttempt = undefined;
+        get form() {
+            return form;
         },
-        setText(nextValue: string) {
-            if (!disabled && effectiveStatus !== 'submitting' && type === 'text') {
-                value = nextValue;
-                validationAttempt = undefined;
-            }
+        get onSubmit() {
+            return onSubmit;
         },
-        submit() {
-            if (!disabled && effectiveStatus !== 'submitting') {
-                form?.requestSubmit();
-            }
+        get onError() {
+            return onError;
         },
-        cancel(event: MouseEvent) {
-            if (!disabled && effectiveStatus !== 'submitting') {
-                onCancel?.(event);
-            }
+        get onCancel() {
+            return onCancel;
         }
     });
 
-    $effect.pre(() => {
-        if (type !== previousType) {
-            previousType = type;
-            modeRevision += 1;
-            submission.reset();
-            value = type === 'multiple' ? [] : '';
-            focused = false;
-            return;
-        }
-
-        if (type === 'multiple' && !Array.isArray(value)) {
-            value = [];
-        } else if (type !== 'multiple' && typeof value !== 'string') {
-            value = '';
-        }
-    });
-
-    $effect(() => {
-        type;
-        if (!autofocus) {
-            focused = false;
-            return;
-        }
-
-        if (!form || focused || interactiveDisabled) {
-            return;
-        }
-
-        let observer: MutationObserver | undefined;
-        const focusFirstControl = () => {
-            const control = form?.querySelector<HTMLElement>(
-                '[data-question-control]:not(:disabled)'
-            );
-            control?.focus();
-            focused = document.activeElement === control;
-            if (focused) {
-                observer?.disconnect();
-            }
-        };
-
-        focusFirstControl();
-        if (focused) {
-            return;
-        }
-
-        observer = new MutationObserver(focusFirstControl);
-        observer.observe(form, {
-            childList: true,
-            subtree: true,
-            attributes: true,
-            attributeFilter: ['disabled']
-        });
-
-        return () => observer.disconnect();
-    });
-
-    async function handleSubmit(event: SubmitEvent) {
-        event.preventDefault();
-        if (context.disabled || context.busy) {
-            return;
-        }
-
-        if (!context.canSubmit) {
-            validationAttempt = {
-                type,
-                revision: modeRevision
-            };
-            queueMicrotask(() => {
-                form?.querySelector<HTMLElement>('[data-question-control]:not(:disabled)')?.focus();
-            });
-            return;
-        }
-
-        validationAttempt = undefined;
-        const submittedAnswer = context.answer;
-        await submission.run(() => {
-            if (type === 'multiple') {
-                return (onSubmit as (answer: string[], event: SubmitEvent) => void | Promise<void>)(
-                    Array.isArray(submittedAnswer) ? submittedAnswer : [],
-                    event
-                );
-            }
-            return (onSubmit as (answer: string, event: SubmitEvent) => void | Promise<void>)(
-                typeof submittedAnswer === 'string' ? submittedAnswer : '',
-                event
-            );
-        }, onError);
-    }
-
-    function normalizeAnswer(
-        questionType: QuestionType,
-        currentValue: QuestionAnswer | undefined
-    ): QuestionAnswer {
-        if (questionType === 'multiple') {
-            return Array.isArray(currentValue) ? currentValue : [];
-        }
-
-        return typeof currentValue === 'string' ? currentValue : '';
-    }
-
-    function getValidationMessage(questionType: QuestionType) {
-        if (questionType === 'multiple') {
-            return 'Select at least one answer.';
-        }
-
-        return questionType === 'text' ? 'Enter an answer.' : 'Select an answer.';
-    }
-
-    function handleKeydown(event: KeyboardEvent & { currentTarget: HTMLFormElement }) {
-        const index = Number(event.key);
-        const target = event.target;
-        const typing =
-            target instanceof HTMLTextAreaElement ||
-            (target instanceof HTMLInputElement && target.dataset.ui !== 'question-option-input');
-        if (
-            event.defaultPrevented ||
-            event.altKey ||
-            event.ctrlKey ||
-            event.metaKey ||
-            typing ||
-            !Number.isInteger(index) ||
-            index < 1
-        ) {
-            return;
-        }
-        const control = event.currentTarget.querySelectorAll<HTMLInputElement>(
-            '[data-ui="question-option-input"]'
-        )[index - 1];
-        if (!control || control.disabled) {
-            return;
-        }
-        event.preventDefault();
-        control.focus();
-        control.click();
-    }
+    setQuestionContext(question.context);
 </script>
 
 <div
     data-ui="question"
     data-type={type}
     data-variant={variant}
-    data-state={displayStatus}
+    data-state={question.displayStatus}
     data-disabled={disabled || undefined}
-    aria-busy={effectiveStatus === 'submitting'}
+    aria-busy={question.effectiveStatus === 'submitting'}
     class="w-full"
 >
     <div
-        data-state={displayStatus}
+        data-state={question.displayStatus}
         class="max-h-0 overflow-hidden transition-[max-height] [transition-duration:var(--motion-duration-panel)] ease-[var(--ease-out)] motion-reduce:transition-none data-[state=error]:max-h-24"
     >
         <div
             data-ui="question-error"
-            role={effectiveStatus === 'error' && !validationMessage ? 'alert' : undefined}
-            aria-hidden={displayStatus !== 'error'}
+            role={question.effectiveStatus === 'error' && !question.validationMessage
+                ? 'alert'
+                : undefined}
+            aria-hidden={question.displayStatus !== 'error'}
             class={cn(errorNoticeClass, 'text-[var(--mielui-error-text)]')}
-            data-state={displayStatus}
+            data-state={question.displayStatus}
         >
             <HugeiconsIcon icon={CircleAlert} size={14} strokeWidth={2} aria-hidden="true" />
-            <span>{displayErrorMessage}</span>
+            <span>{question.displayErrorMessage}</span>
         </div>
     </div>
 
@@ -292,12 +105,12 @@
         {...rest}
         data-ui="question-form"
         data-type={type}
-        data-state={displayStatus}
+        data-state={question.displayStatus}
         data-disabled={disabled || undefined}
-        aria-busy={effectiveStatus === 'submitting'}
+        aria-busy={question.effectiveStatus === 'submitting'}
         novalidate
-        onsubmit={handleSubmit}
-        onkeydown={handleKeydown}
+        onsubmit={question.handleSubmit}
+        onkeydown={question.handleKeydown}
         class={cn(className, 'relative w-full min-w-0 text-foreground')}
     >
         <p
@@ -306,12 +119,12 @@
             aria-live="polite"
             class="sr-only"
         >
-            {validationMessage}
+            {question.validationMessage}
         </p>
         <fieldset {disabled} class="m-0 min-w-0 border-0 p-0">
             <Card.Root
                 {variant}
-                data-state={displayStatus}
+                data-state={question.displayStatus}
                 class={cn(
                     variant === 'default' && 'p-0',
                     'w-full transition-[border-color,box-shadow] [transition-duration:var(--motion-duration-press)] ease-[var(--ease-out)] motion-reduce:transition-none data-[state=error]:border-[color-mix(in_srgb,var(--color-error)_70%,transparent)] [&>[data-ui=card-surface]]:p-0'

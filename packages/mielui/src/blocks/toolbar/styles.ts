@@ -1,3 +1,5 @@
+import { cn } from '@mielui/svelte/utils';
+import { button } from '../../components/button/variants';
 import type { ToolbarRootProps } from './index';
 
 const depth =
@@ -13,4 +15,19 @@ export function toolbarControlClass(variant: ToolbarRootProps['variant'], on = f
     }
 
     return on ? `${flat} ${selected}` : flat;
+}
+
+export function toolbarActionClass(
+    className: Parameters<typeof cn>[number],
+    variant: ToolbarRootProps['variant'],
+    on: boolean
+) {
+    return cn(
+        className,
+        toolbarControlClass(variant, on),
+        button({
+            variant: 'quiet',
+            size: 'sm'
+        })
+    );
 }

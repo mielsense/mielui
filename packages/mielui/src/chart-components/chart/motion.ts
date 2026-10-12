@@ -1,4 +1,7 @@
+import { springEase } from '@mielui/svelte/transition';
 import type { ChartContext } from './context.svelte';
+
+export const followSpring = springEase(550, 40);
 
 export function reveal(element: SVGElement, chart: ChartContext, kind: 'bar' | 'line') {
     if (!chart.motion || chart.animation === 'none') {

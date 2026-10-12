@@ -325,21 +325,21 @@ type ThemedSlideParams = {
 };
 
 /** Vertical slide that reads its duration from a CSS motion variable. */
-export const themedSlide = (node: Element, params: ThemedSlideParams = {}): TransitionConfig => {
+export function themedSlide(node: Element, params: ThemedSlideParams = {}): TransitionConfig {
     const duration = motionDuration(
         node,
         params.durationVar ?? '--motion-duration-panel',
         params.fallback ?? 200
     );
     const style = getComputedStyle(node);
-    const opacity = +style.opacity;
-    const height = parseFloat(style.height);
-    const paddingTop = parseFloat(style.paddingTop);
-    const paddingBottom = parseFloat(style.paddingBottom);
-    const marginTop = parseFloat(style.marginTop);
-    const marginBottom = parseFloat(style.marginBottom);
-    const borderTopWidth = parseFloat(style.borderTopWidth);
-    const borderBottomWidth = parseFloat(style.borderBottomWidth);
+    const opacity = Number(style.opacity);
+    const height = Number.parseFloat(style.height);
+    const paddingTop = Number.parseFloat(style.paddingTop);
+    const paddingBottom = Number.parseFloat(style.paddingBottom);
+    const marginTop = Number.parseFloat(style.marginTop);
+    const marginBottom = Number.parseFloat(style.marginBottom);
+    const borderTopWidth = Number.parseFloat(style.borderTopWidth);
+    const borderBottomWidth = Number.parseFloat(style.borderBottomWidth);
     return {
         duration,
         delay: 0,
@@ -360,4 +360,4 @@ export const themedSlide = (node: Element, params: ThemedSlideParams = {}): Tran
             );
         }
     };
-};
+}

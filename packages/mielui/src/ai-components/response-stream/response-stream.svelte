@@ -115,11 +115,7 @@
                     Scritto = module.default as ScrittoComponent;
                 }
             })
-            .catch(() => {
-                if (!cancelled) {
-                    Scritto = null;
-                }
-            });
+            .catch(() => {});
 
         return () => {
             cancelled = true;

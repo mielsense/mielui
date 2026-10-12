@@ -1,7 +1,7 @@
 import { createContext } from '@mielui/svelte/utils';
 
 export type AttachmentContext = {
-    files: File[];
+    readonly files: File[];
     readonly disabled: boolean;
     open: () => void;
     remove: (file: File) => void;

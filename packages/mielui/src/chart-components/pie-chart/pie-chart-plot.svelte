@@ -1,9 +1,9 @@
 <script lang="ts">
     import * as Card from '@mielui/svelte/components/card';
+    import { Skeleton } from '@mielui/svelte/components/skeleton';
     import { cn } from '@mielui/svelte/utils';
     import { Chart, Svg } from 'layerchart';
     import { getContext } from 'svelte';
-    import { Skeleton } from '../../components/skeleton';
     import { getPieContext } from './context';
     import type { PieChartLabels, PieChartPlotProps } from './index';
 

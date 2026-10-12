@@ -1,6 +1,8 @@
 import { getContext, onDestroy, setContext } from 'svelte';
 
-export const STATE_KEY = Symbol('TOAST');
+const STATE_KEY = Symbol('TOAST');
+const DEFAULT_DURATION = 5600;
+const SHORT_DURATION = 4200;
 
 const toastTimeouts = new Map<
     number,
@@ -64,14 +66,14 @@ type ToastInput = Omit<
     'id' | 'exit' | 'update' | 'createdAt' | 'remaining' | 'paused' | 'leaving'
 >;
 
-interface PromiseMessages<T> {
+type PromiseMessages<T> = {
     loading: string;
     success: string | ((data: T) => string);
     error: string | ((error: unknown) => string);
     loadingDescription?: string;
     successDescription?: string | ((data: T) => string);
     errorDescription?: string | ((error: unknown) => string);
-}
+};
 
 export interface ToastFn {
     (data: ToastInput): Toast;
@@ -139,7 +141,10 @@ function pauseToast(id: number) {
     }
     current.paused = true;
     const elapsed = Date.now() - (current.createdAt ?? Date.now());
-    current.remaining = Math.max((current.remaining ?? current.duration ?? 5600) - elapsed, 0);
+    current.remaining = Math.max(
+        (current.remaining ?? current.duration ?? DEFAULT_DURATION) - elapsed,
+        0
+    );
     clearToastTimeout(id);
 }
 
@@ -158,7 +163,7 @@ function resumeToast(id: number) {
         return;
     }
     current.createdAt = Date.now();
-    scheduleToastRemoval(id, current.remaining ?? current.duration ?? 4200);
+    scheduleToastRemoval(id, current.remaining ?? current.duration ?? SHORT_DURATION);
 }
 
 /** Updates a toast in place and reschedules dismissal when needed. */
@@ -182,7 +187,7 @@ function updateToastForState(state: ToastState | undefined, id: number, updates:
     }
     if (updates.duration !== undefined || wasPersistent || wasLeaving) {
         clearToastTimeout(id);
-        current.remaining = current.duration ?? 5600;
+        current.remaining = current.duration ?? DEFAULT_DURATION;
         current.createdAt = Date.now();
         if (!current.paused) {
             scheduleToastRemoval(id, current.remaining, state);
@@ -202,7 +207,7 @@ function createToast(toastData: ToastInput, state = activeState): Toast {
 
     nextToastId += 1;
     const toastId = nextToastId;
-    const duration = toastData.duration ?? 5600;
+    const duration = toastData.duration ?? DEFAULT_DURATION;
 
     const nextToast: Toast = {
         ...toastData,
@@ -267,10 +272,10 @@ function toastPromise<T>(promise: Promise<T>, messages: PromiseMessages<T>): Toa
                 description,
                 type: 'success',
                 persistent: false,
-                duration: 4200,
+                duration: SHORT_DURATION,
                 exitable: true,
                 createdAt: Date.now(),
-                remaining: 4200
+                remaining: SHORT_DURATION
             });
         })
         .catch((err) => {
@@ -289,10 +294,10 @@ function toastPromise<T>(promise: Promise<T>, messages: PromiseMessages<T>): Toa
                 description,
                 type: 'error',
                 persistent: false,
-                duration: 4200,
+                duration: SHORT_DURATION,
                 exitable: true,
                 createdAt: Date.now(),
-                remaining: 4200
+                remaining: SHORT_DURATION
             });
         });
 
@@ -327,10 +332,10 @@ function getToastUIState(): ToastState | undefined {
     return getContext(STATE_KEY);
 }
 
-export interface ToastHost {
+type ToastHost = {
     state: ToastState;
     hostId: number;
-}
+};
 
 /**
  * Registers a <Toaster /> host.
@@ -338,16 +343,15 @@ export interface ToastHost {
  * Browser: joins the shared client store and claims primary render if
  * none exists. SSR: returns inert local state and never publishes it
  * as activeState (P3-F12).
+ *
+ * `$state` must be a declaration initializer, so one is always created and
+ * then kept as the shared client store or discarded. Unmounting keeps
+ * `activeState` and `clientState` so `toast()`, dismiss, and in-flight timers
+ * survive Toaster remounts; nothing renders until a primary host mounts again.
  */
 function setToastUIState(): ToastHost {
-    /**
-     * `$state` must be a declaration initializer, so this always creates one and
-     * then either keeps it as the shared client store or discards it, which is
-     * what happens under SSR and for subsequent hosts.
-     */
     const fresh = $state<ToastState>({ data: { toasts: [] } });
 
-    /** SSR and other non-DOM hosts get isolated inert state; `toast()` no-ops. */
     if (typeof document === 'undefined') {
         setContext(STATE_KEY, fresh);
         return { state: fresh, hostId: -1 };
@@ -375,11 +379,6 @@ function setToastUIState(): ToastHost {
         if (primaryHostId === hostId) {
             primaryHostId = liveHosts[0] ?? null;
         }
-        /**
-         * Keeps `activeState` and `clientState` across host gaps so `toast()`,
-         * dismiss, and in-flight timers survive page Toaster remounts. Nothing
-         * renders until a primary host mounts again.
-         */
     });
 
     return { state, hostId };

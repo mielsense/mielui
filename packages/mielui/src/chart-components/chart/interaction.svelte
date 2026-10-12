@@ -1,13 +1,12 @@
 <script lang="ts">
-    import { springEase } from '@mielui/svelte/transition';
     import { getChartContext } from 'layerchart';
     import { Tween } from 'svelte/motion';
     import { getChart } from './context.svelte';
+    import { followSpring } from './motion';
 
     const layer = getChartContext();
     const chart = getChart();
     let group: SVGGElement;
-    const followSpring = springEase(550, 40);
     const selected = Tween.of(
         () =>
             chart.active === null

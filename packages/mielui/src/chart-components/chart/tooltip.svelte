@@ -1,11 +1,11 @@
 <script lang="ts">
     import { numberShuffle } from '@mielui/svelte/actions/number-shuffle';
-    import { springEase } from '@mielui/svelte/transition';
     import { getContext, type Snippet } from 'svelte';
     import { Tween } from 'svelte/motion';
     import ChartTooltipSurface from '../../components/_internal/chart-tooltip-surface.svelte';
     import type { ChartLabels } from '.';
     import { getChart } from './context.svelte';
+    import { followSpring } from './motion';
 
     let {
         class: className,
@@ -79,7 +79,6 @@
             y: Math.max(8, Math.min(top, bounds.height - height - 8))
         };
     });
-    const followSpring = springEase(550, 40);
     const position = Tween.of(() => destination, {
         duration: () => (chart.motion && chart.animation !== 'none' ? 320 * chart.motionScale : 0),
         easing: followSpring
@@ -176,7 +175,7 @@
         {:else}
             <div class="mb-2 font-medium text-foreground">{chart.label(selected)}</div>
             <div class="grid gap-2">
-                {#each values as item}
+                {#each values as item (item.key)}
                     <div class="flex items-center gap-2">
                         <span
                             class="size-2 shrink-0 rounded-full"

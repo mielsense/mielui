@@ -13,7 +13,6 @@
  * `@mielui/svelte/components/<name>` for finer-grained imports.
  */
 
-// ─── Single-element components ───────────────────────────────────────
 export { default as BrandMark } from './brand-mark.svelte';
 
 export type BrandMarkProps = {
@@ -249,7 +248,6 @@ export type {
     AccordionProps,
     AccordionTriggerProps
 } from './components/accordion';
-// ─── Compound components (namespaced) ────────────────────────────────
 export * as Accordion from './components/accordion';
 export type {
     AlertDescriptionProps,

@@ -3,14 +3,14 @@
     import type { ToolbarProps } from '.';
     import { toolbarNavigation } from './navigation';
 
-    let { children, class: classProp, ...rest }: ToolbarProps = $props();
+    let { children, class: className, ...rest }: ToolbarProps = $props();
 </script>
 
 <div
     use:toolbarNavigation
     data-ui="toolbar"
     role="toolbar"
-    class={cn(classProp, 'flex flex-wrap items-center justify-between gap-1 p-1.5 text-foreground')}
+    class={cn(className, 'flex flex-wrap items-center justify-between gap-1 p-1.5 text-foreground')}
     {...rest}
 >
     {@render children?.()}

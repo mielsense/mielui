@@ -2,14 +2,12 @@
     import { cn } from '@mielui/svelte/utils';
     import { getChartContext } from 'layerchart';
     import { getChart } from './context.svelte';
-    import { numericTicks } from './ticks';
+    import { numericTicks, tickCount } from './ticks';
 
     let { class: className, ticks = 5 }: { class?: string; ticks?: number } = $props();
     const layer = getChartContext();
     const chart = getChart();
-    const count = $derived(
-        Number.isFinite(ticks) ? Math.max(2, Math.min(12, Math.floor(ticks))) : 5
-    );
+    const count = $derived(tickCount(ticks));
     const values = $derived(numericTicks(chart.domain, count));
 </script>
 <g data-ui="chart-grid" class={cn(className, 'stroke-border/65')}>

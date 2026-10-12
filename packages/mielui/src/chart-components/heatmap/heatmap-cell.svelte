@@ -1,9 +1,10 @@
 <script lang="ts">
+    import { Skeleton } from '@mielui/svelte/components/skeleton';
+    import { getCssDuration } from '@mielui/svelte/transition';
+    import { cn } from '@mielui/svelte/utils';
     import { untrack } from 'svelte';
     import type { HTMLButtonAttributes } from 'svelte/elements';
-    import { Skeleton } from '../../components/skeleton';
-    import { cn } from '../../utils';
-    import type { Cell } from './calendar';
+    import { type Cell, levelClasses } from './calendar';
     import { useHeatmap } from './context.svelte';
 
     let {
@@ -27,16 +28,8 @@
             return;
         }
         const preference = window.matchMedia('(prefers-reduced-motion: reduce)');
-        const themeDuration = getComputedStyle(element)
-            .getPropertyValue('--motion-duration-panel')
-            .trim();
-        const parsedDuration = Number.parseFloat(themeDuration);
-        const milliseconds = themeDuration.endsWith('ms')
-            ? parsedDuration
-            : themeDuration.endsWith('s')
-              ? parsedDuration * 1000
-              : parsedDuration;
-        const motionScale = Number.isFinite(milliseconds) ? Math.max(0, milliseconds / 180) : 1;
+        const milliseconds = getCssDuration(element, '--motion-duration-panel', 180);
+        const motionScale = Math.max(0, milliseconds / 180);
         if (
             preference.matches ||
             context.animation === 'none' ||
@@ -75,13 +68,6 @@
         };
     });
 
-    const levels = [
-        'bg-secondary',
-        'bg-[color-mix(in_oklab,var(--chart-1)_25%,transparent)]',
-        'bg-[color-mix(in_oklab,var(--chart-1)_45%,transparent)]',
-        'bg-[color-mix(in_oklab,var(--chart-1)_70%,transparent)]',
-        'bg-[var(--chart-1)]'
-    ];
     function navigate(event: KeyboardEvent & { currentTarget: EventTarget & HTMLButtonElement }) {
         onkeydown?.(event);
         if (event.defaultPrevented) {
@@ -170,7 +156,7 @@
         aria-label={day.label}
         title={context.tooltipCount ? undefined : day.label}
         tabindex={context.focused === day.date ? 0 : -1}
-        class={cn(className, levels[day.level], 'aspect-square min-h-2.5 min-w-2.5 rounded-[calc(var(--radius-sm)*0.375)] outline-none ring-inset hover:ring-1 hover:ring-[var(--color-border-strong)] focus-visible:z-10 focus-visible:shadow-[var(--focus-ring)]')}
+        class={cn(className, levelClasses[day.level], 'aspect-square min-h-2.5 min-w-2.5 rounded-[calc(var(--radius-sm)*0.375)] outline-none ring-inset hover:ring-1 hover:ring-[var(--color-border-strong)] focus-visible:z-10 focus-visible:shadow-[var(--focus-ring)]')}
         style:grid-column={day.column}
         style:grid-row={day.row}
         onkeydown={navigate}

@@ -18,6 +18,5 @@ export function getCommandResults(state: CommandState) {
 
 export function resetCommand(state: CommandState) {
     state.searchContent = '';
-    state.results = [...state.items];
     state.activeId = getCommandResults(state)[0]?.id;
 }

@@ -6,6 +6,7 @@
 </script>
 
 <div class="relative min-w-0 overflow-hidden">
+    <!-- svelte-ignore a11y_no_noninteractive_tabindex -->
     <fieldset
         {...rest}
         data-ui="question-content"

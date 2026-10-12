@@ -1,4 +1,5 @@
 <script lang="ts" generics="T extends Record<string, string | number | Date | null | undefined>">
+    import { getCssDuration } from '@mielui/svelte/transition';
     import { cn } from '@mielui/svelte/utils';
     import { onMount, type Snippet, setContext } from 'svelte';
     import type { HTMLAttributes } from 'svelte/elements';
@@ -214,20 +215,13 @@
         }
     });
     onMount(() => {
-        const root = element;
-        if (!root) {
+        if (!element) {
             return;
         }
-        const rootElement: HTMLDivElement = root;
+        const root = element;
         const media = matchMedia('(prefers-reduced-motion: reduce)');
         function update() {
-            const token = getComputedStyle(rootElement)
-                .getPropertyValue('--motion-duration-panel')
-                .trim();
-            const duration =
-                Number.parseFloat(token) *
-                (token.endsWith('ms') ? 1 : token.endsWith('s') ? 1000 : 1);
-            motionScale = Number.isFinite(duration) ? duration / 180 : 1;
+            motionScale = getCssDuration(root, '--motion-duration-panel', 180) / 180;
             motion = !media.matches && motionScale > 0;
         }
         update();
@@ -236,7 +230,7 @@
         });
         media.addEventListener('change', update);
         const observer = new MutationObserver(update);
-        let ancestor: HTMLElement | null = rootElement;
+        let ancestor: HTMLElement | null = root;
         while (ancestor) {
             observer.observe(ancestor, { attributes: true, attributeFilter: ['style', 'class'] });
             ancestor = ancestor.parentElement;
@@ -267,7 +261,7 @@
             <thead>
                 <tr>
                     <th scope="col">{x}</th>
-                    {#each keys as key}
+                    {#each keys as key (key)}
                         <th scope="col">{config[key].label}</th>
                     {/each}
                 </tr>
@@ -276,7 +270,7 @@
                 {#each data as row}
                     <tr>
                         <th scope="row">{String(row[x] ?? '')}</th>
-                        {#each keys as key}
+                        {#each keys as key (key)}
                             <td>
                                 {typeof row[key] === 'number' && Number.isFinite(row[key]) ? config[key].format?.(row[key] as number) ?? row[key] : 'No data'}
                             </td>

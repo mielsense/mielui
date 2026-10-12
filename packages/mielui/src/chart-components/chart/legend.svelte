@@ -14,7 +14,7 @@
     data-ui="chart-legend"
     class={cn(className, 'flex flex-wrap items-center gap-x-5 gap-y-2 py-3 text-xs text-foreground-muted')}
 >
-    {#each chart.keys as key}
+    {#each chart.keys as key (key)}
         {#if children}
             {@render children({ key, label: chart.config[key].label, color: chart.color(key) })}
         {:else}

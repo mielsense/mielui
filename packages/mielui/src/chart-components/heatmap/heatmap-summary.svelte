@@ -1,8 +1,8 @@
 <script lang="ts">
     import { numberShuffle } from '@mielui/svelte/actions/number-shuffle';
+    import { cn } from '@mielui/svelte/utils';
     import type { Snippet } from 'svelte';
     import type { HTMLAttributes } from 'svelte/elements';
-    import { cn } from '../../utils';
     import { useHeatmap } from './context.svelte';
 
     let {

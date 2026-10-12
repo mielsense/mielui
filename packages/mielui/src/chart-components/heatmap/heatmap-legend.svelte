@@ -1,17 +1,11 @@
 <script lang="ts">
+    import { cn } from '@mielui/svelte/utils';
     import type { HTMLAttributes } from 'svelte/elements';
-    import { cn } from '../../utils';
+    import { levelClasses } from './calendar';
     import { useHeatmap } from './context.svelte';
 
     let { children, class: className, ...props }: HTMLAttributes<HTMLDivElement> = $props();
     const context = useHeatmap();
-    const levels = [
-        'bg-secondary',
-        'bg-[color-mix(in_oklab,var(--chart-1)_25%,transparent)]',
-        'bg-[color-mix(in_oklab,var(--chart-1)_45%,transparent)]',
-        'bg-[color-mix(in_oklab,var(--chart-1)_70%,transparent)]',
-        'bg-[var(--chart-1)]'
-    ];
 </script>
 <div
     {...props}
@@ -22,7 +16,7 @@
         {@render children()}
     {:else}
         <span class="me-1">{context.labels?.less ?? 'Less'}</span>
-        {#each levels as level}
+        {#each levelClasses as level (level)}
             <span
                 aria-hidden="true"
                 class={cn(level, 'size-2.5 rounded-[calc(var(--radius-sm)*0.375)]')}

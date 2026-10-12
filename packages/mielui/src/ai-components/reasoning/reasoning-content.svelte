@@ -1,6 +1,5 @@
 <script lang="ts">
     import { cn } from '@mielui/svelte/utils';
-    import { onDestroy } from 'svelte';
     import { disclosureSlide } from '../../components/_internal/disclosure/slide';
     import type { ReasoningContentProps } from '.';
     import { getReasoningContext } from './context.svelte';
@@ -17,7 +16,10 @@
     const reasoning = getReasoningContext();
     const unregister = reasoning.registerContent();
     let transitionRevision = 0;
-    onDestroy(unregister);
+
+    $effect(() => {
+        return unregister;
+    });
 
     type TransitionEvent = CustomEvent<null> & {
         currentTarget: EventTarget & HTMLDivElement;

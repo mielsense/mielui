@@ -1,8 +1,8 @@
 <script lang="ts">
+    import { cn } from '@mielui/svelte/utils';
     import type { Snippet } from 'svelte';
     import type { HTMLAttributes } from 'svelte/elements';
-    import { cn } from '../../utils';
-    import type { Cell } from './calendar';
+    import { type Cell, weekColumns } from './calendar';
     import { useHeatmap } from './context.svelte';
     import HeatmapCell from './heatmap-cell.svelte';
     import { liveCalendar } from './live';
@@ -27,7 +27,7 @@
     {...props}
     data-ui="heatmap-grid"
     class={cn(className, 'col-start-2 row-start-2 grid grid-rows-7 gap-1')}
-    style:grid-template-columns={`repeat(${context.model.weeks}, minmax(10px, 1fr))`}
+    style:grid-template-columns={weekColumns(context.model.weeks)}
 >
     {#if children}
         {@render children(context.model.cells)}

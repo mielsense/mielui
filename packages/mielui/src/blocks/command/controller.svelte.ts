@@ -3,10 +3,12 @@ import type { CommandItem, CommandState } from '.';
 import { DEFAULT_COMMAND_SEARCH_THRESHOLD, searchCommandItems } from './search';
 
 export function createCommandController(id: string) {
-    const state = $state<CommandState>({
+    const state: CommandState = $state({
         id,
         items: [],
-        results: [],
+        get results(): CommandItem[] {
+            return results;
+        },
         searchContent: '',
         activeId: undefined,
         itemsVersion: 0
@@ -22,24 +24,28 @@ export function createCommandController(id: string) {
         }))
     );
 
-    function reconcile(items = state.items, search = state.searchContent, sensitivity = threshold) {
-        const query = search.trim();
-        const results = searchCommandItems(items, query, sensitivity);
-        const enabled = results.filter((item) => !item.disabled);
+    const results: CommandItem[] = $derived(
+        searchCommandItems(
+            registry.map((entry) => entry.item),
+            state.searchContent.trim(),
+            threshold
+        )
+    );
+
+    function reconcile(matches = results) {
+        const query = state.searchContent.trim();
+        const enabled = matches.filter((item) => !item.disabled);
         const queryChanged = query !== previousQuery;
         previousQuery = query;
-        state.results = results;
         if (queryChanged || !enabled.some((item) => item.id === state.activeId)) {
             state.activeId = enabled[0]?.id;
         }
     }
 
     $effect(() => {
-        const items = registry.map((entry) => entry.item);
-        const query = state.searchContent;
-        const sensitivity = threshold;
+        const matches = results;
         untrack(() => {
-            reconcile(items, query, sensitivity);
+            reconcile(matches);
         });
     });
 
@@ -54,10 +60,8 @@ export function createCommandController(id: string) {
         reconcile,
         register(item: CommandItem) {
             state.items.push(item);
-            state.itemsVersion += 1;
             return () => {
                 state.items = state.items.filter((candidate) => candidate.id !== item.id);
-                state.itemsVersion += 1;
             };
         }
     };

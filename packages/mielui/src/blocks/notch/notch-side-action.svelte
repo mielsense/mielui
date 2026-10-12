@@ -6,7 +6,7 @@
     import { overlaySurface } from '../../components/_internal/surface';
     import { Button } from '../../components/button';
     import type { NotchSideActionProps } from '.';
-    import { notchContext } from './context';
+    import { closePopover, notchContext, openPopover } from './context';
 
     let {
         side = 'end',
@@ -136,9 +136,7 @@
 
     function finishExit() {
         if (!context.open && host) {
-            if (typeof host.hidePopover === 'function' && host.matches(':popover-open')) {
-                host.hidePopover();
-            }
+            closePopover(host);
             shown = false;
         }
     }
@@ -148,9 +146,7 @@
         }
         if (context.open) {
             host.hidden = false;
-            if (typeof host.showPopover === 'function' && !host.matches(':popover-open')) {
-                host.showPopover();
-            }
+            openPopover(host);
             shown = true;
         } else if (reduced.current || duration === 0) {
             finishExit();

@@ -3,8 +3,17 @@
     import * as Typography from '@mielui/svelte/components/typography';
     import { getContext } from 'svelte';
     import type { MarkdownLabels } from '.';
-    import type { MarkdownTableCell, MarkdownToken } from './_types';
+    import type { MarkdownToken } from './_types';
     import Self from './markdown-token.svelte';
+    import {
+        alignmentClass,
+        cellTokens,
+        codeLanguage,
+        isExternalUrl,
+        listStart,
+        safeImageUrl,
+        safeUrl
+    } from './token';
 
     let { tokens }: { tokens: MarkdownToken[] } = $props();
     const labels = getContext<(() => MarkdownLabels | undefined) | undefined>('markdown-labels');
@@ -25,74 +34,8 @@
         // token-lint-disable-next-line no-literal-length: inline code scales with surrounding text
         'font-mono text-[0.875em] text-foreground-muted';
 
-    function safeUrl(value?: string) {
-        const url = value?.trim();
-        if (!url) {
-            return undefined;
-        }
-
-        const compact = url.replace(/[\u0000-\u0020]/g, '');
-        const scheme = compact.match(/^([a-z][a-z\d+.-]*):/i)?.[1]?.toLowerCase();
-        if (scheme && scheme !== 'http' && scheme !== 'https' && scheme !== 'mailto') {
-            return undefined;
-        }
-
-        return url;
-    }
-
-    function isExternalUrl(value: string) {
-        return /^(?:https?:|\/\/)/i.test(value.replace(/[\u0000-\u0020]/g, ''));
-    }
-
-    function safeImageUrl(value?: string) {
-        const url = safeUrl(value);
-        if (!url) {
-            return undefined;
-        }
-        try {
-            const base = new URL('https://mielui.invalid/');
-            return new URL(url, base).origin === base.origin ? url : undefined;
-        } catch {
-            return undefined;
-        }
-    }
-
-    function codeLanguage(value?: string) {
-        return value?.trim().split(/\s+/, 1)[0] || undefined;
-    }
-
-    function listStart(value?: number | string) {
-        const start = typeof value === 'number' ? value : Number.parseInt(value ?? '', 10);
-        return Number.isFinite(start) ? start : undefined;
-    }
-
-    function cellTokens(cell: MarkdownTableCell) {
-        return cell.tokens ?? [{ type: 'text', text: cell.text ?? '' }];
-    }
-
-    function alignmentClass(alignment?: 'center' | 'left' | 'right' | null) {
-        if (alignment === 'center') {
-            return 'text-center';
-        }
-        if (alignment === 'right') {
-            return 'text-right';
-        }
-        if (alignment === 'left') {
-            return 'text-left';
-        }
-        return 'text-start';
-    }
-
     function tokenKey(token: MarkdownToken, index: number) {
         return `${index}:${token.type}`;
-    }
-
-    function cellKey(_cell: MarkdownTableCell, index: number) {
-        return index;
-    }
-
-    function rowKey(_row: MarkdownTableCell[], index: number) {
-        return index;
     }
 </script>
 
@@ -263,7 +206,7 @@
             <table class={tableClass}>
                 <thead class="text-foreground-muted">
                     <tr>
-                        {#each token.header ?? [] as cell, column (cellKey(cell, column))}
+                        {#each token.header ?? [] as cell, column (column)}
                             <th
                                 scope="col"
                                 class={`border-b-[length:var(--border-size)] border-border px-3 py-2 text-[length:var(--font-size-label)] font-medium ${alignmentClass(token.align?.[column])}`}
@@ -274,11 +217,11 @@
                     </tr>
                 </thead>
                 <tbody>
-                    {#each token.rows ?? [] as row, rowIndex (rowKey(row, rowIndex))}
+                    {#each token.rows ?? [] as row, rowIndex (rowIndex)}
                         <tr
                             class="border-b-[length:var(--border-size)] border-border last:border-b-0"
                         >
-                            {#each row as cell, column (cellKey(cell, column))}
+                            {#each row as cell, column (column)}
                                 <td
                                     class={`px-3 py-2 align-top ${alignmentClass(token.align?.[column])}`}
                                 >

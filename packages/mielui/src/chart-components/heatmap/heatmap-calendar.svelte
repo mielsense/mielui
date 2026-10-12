@@ -1,6 +1,6 @@
 <script lang="ts">
+    import { cn } from '@mielui/svelte/utils';
     import type { HTMLAttributes } from 'svelte/elements';
-    import { cn } from '../../utils';
 
     let { children, class: className, ...props }: HTMLAttributes<HTMLDivElement> = $props();
 </script>

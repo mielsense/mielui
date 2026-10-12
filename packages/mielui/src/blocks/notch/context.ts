@@ -20,3 +20,15 @@ type NotchContext = {
     readonly surface: NotchProps['surface'];
 };
 export const notchContext = createContext<NotchContext>('notch');
+
+export function openPopover(host: HTMLElement) {
+    if (typeof host.showPopover === 'function' && !host.matches(':popover-open')) {
+        host.showPopover();
+    }
+}
+
+export function closePopover(host: HTMLElement) {
+    if (typeof host.hidePopover === 'function' && host.matches(':popover-open')) {
+        host.hidePopover();
+    }
+}

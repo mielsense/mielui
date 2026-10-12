@@ -65,9 +65,6 @@
         get files() {
             return files;
         },
-        set files(next: File[]) {
-            files = next;
-        },
         get disabled() {
             return disabled;
         },

@@ -14,8 +14,8 @@
     let composing = false;
     let spoken = $state('');
 
-    const {
-        class: classProp,
+    let {
+        class: className,
         threshold = DEFAULT_COMMAND_SEARCH_THRESHOLD,
         icon,
         count,
@@ -127,7 +127,7 @@
         bind:this={searchInput}
         bind:value={command.searchContent}
         class={cn(
-            classProp,
+            className,
             'min-w-0 flex-1 bg-transparent text-[length:var(--font-size-body)] [font-weight:var(--font-weight-body)] [letter-spacing:var(--tracking-body)] text-foreground placeholder:text-foreground-muted focus-visible:outline-none'
         )}
         placeholder="Type a command or search..."

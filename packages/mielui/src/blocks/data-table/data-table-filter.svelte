@@ -2,8 +2,8 @@
     lang="ts"
     generics="TFeatures extends import('@tanstack/svelte-table').TableFeatures, TData extends import('@tanstack/svelte-table').RowData"
 >
+    import { cn } from '@mielui/svelte/utils';
     import { Input } from '../../components/input';
-    import { cn } from '../../utils';
     import type { DataTableFilterProps } from '.';
     import { filterableColumn } from './features';
 

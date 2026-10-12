@@ -5,7 +5,7 @@
     import { onMount, tick } from 'svelte';
     import { overlaySurface } from '../../components/_internal/surface';
     import type { NotchContentProps } from '.';
-    import { notchContext } from './context';
+    import { closePopover, notchContext, openPopover } from './context';
     import { notchShape } from './shape';
     import { createNotchSwipe } from './swipe.svelte';
 
@@ -142,9 +142,7 @@
             if (context.mode === 'peek') {
                 return;
             }
-            if (typeof host.hidePopover === 'function' && host.matches(':popover-open')) {
-                host.hidePopover();
-            }
+            closePopover(host);
             presented = false;
         }
     }
@@ -202,9 +200,7 @@
                 context.returnFocus = document.activeElement;
             }
             host.hidden = false;
-            if (typeof host.showPopover === 'function' && !host.matches(':popover-open')) {
-                host.showPopover();
-            }
+            openPopover(host);
             measure();
             presented = true;
         } else if (instant) {

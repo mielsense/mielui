@@ -2,7 +2,7 @@ import type { Manifest } from '@mielui/svelte/_manifest/types';
 
 export const manifest: Manifest = {
     name: 'markdown',
-    version: '1.1.0',
+    version: '1.1.1',
     visibility: 'public',
     description:
         'Safe GFM markdown renderer for dense agent output, with token-based rendering and Mielui code blocks.',
@@ -10,6 +10,7 @@ export const manifest: Manifest = {
         'components/markdown/markdown.svelte',
         'components/markdown/markdown-token.svelte',
         'components/markdown/_types.ts',
+        'components/markdown/token.ts',
         'components/markdown/index.ts',
         'components/markdown/manifest.ts'
     ],

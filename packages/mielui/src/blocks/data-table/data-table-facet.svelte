@@ -2,7 +2,6 @@
     lang="ts"
     generics="TFeatures extends import('@tanstack/svelte-table').TableFeatures, TData extends import('@tanstack/svelte-table').RowData"
 >
-    import { parseDate } from '@internationalized/date';
     import { cn } from '@mielui/svelte/utils';
     import { getContext } from 'svelte';
     import { Button } from '../../components/button';
@@ -13,7 +12,16 @@
     import * as Popover from '../../components/popover';
     import type { DataTableFacetProps, DataTableLabels } from '.';
     import { filterableColumn } from './features';
-    import { filterSummary, readFilter } from './filter';
+    import {
+        defaultFilterOperator,
+        filterClause,
+        filterDate,
+        filterOperators,
+        filterSummary,
+        operandForOperator,
+        readFilter,
+        withBound
+    } from './filter';
 
     const editorControlClass =
         'min-h-[calc(var(--size-control-sm)-var(--size-hairline))] rounded-[var(--radius-md)] px-2';
@@ -27,22 +35,26 @@
         class: className
     }: DataTableFacetProps<TFeatures, TData> = $props();
     const labels = getContext<(() => DataTableLabels | undefined) | undefined>('data-table-labels');
+
     const target = $derived(table.getColumn(filter.column));
     const column = $derived(target ? filterableColumn(target) : undefined);
     const raw = $derived(column?.getFilterValue?.());
     const clause = $derived(readFilter(raw));
+    const value = $derived(clause?.value);
+
     let chosenOperator = $state<string>();
     const operator = $derived(
-        chosenOperator ??
-            clause?.operator ??
-            (filter.type === 'text' ? 'contains' : filter.type === 'select' ? 'in' : 'between')
+        chosenOperator ?? clause?.operator ?? defaultFilterOperator(filter.type)
     );
+    const operators = $derived(filterOperators(filter.type, labels?.()));
     const dateIndices = $derived<readonly (0 | 1)[]>(operator === 'between' ? [0, 1] : [0]);
+
     $effect(() => {
         if (clause) {
             chosenOperator = clause.operator;
         }
     });
+
     const description = $derived.by(() => {
         if (filter.type === 'select' && clause?.type === 'select' && clause.value.length === 1) {
             const label = filter.options.find((option) => option.value === clause.value[0])?.label;
@@ -52,75 +64,28 @@
         }
         return filterSummary(clause);
     });
-    const value = $derived(clause?.value);
-    const operators = $derived(
-        filter.type === 'text'
-            ? [
-                  { value: 'contains', label: labels?.()?.contains ?? 'Contains' },
-                  { value: 'equals', label: labels?.()?.equals ?? 'Is exactly' },
-                  { value: 'not', label: labels?.()?.not ?? 'Is not' }
-              ]
-            : filter.type === 'select'
-              ? [
-                    { value: 'in', label: labels?.()?.anyOf ?? 'Is any of' },
-                    { value: 'notIn', label: labels?.()?.noneOf ?? 'Is none of' }
-                ]
-              : [
-                    { value: 'between', label: labels?.()?.between ?? 'Between' },
-                    { value: 'equals', label: labels?.()?.equals ?? 'Is exactly' },
-                    {
-                        value: 'gte',
-                        label:
-                            filter.type === 'date'
-                                ? (labels?.()?.onOrAfter ?? 'On or after')
-                                : (labels?.()?.atLeast ?? 'At least')
-                    },
-                    {
-                        value: 'lte',
-                        label:
-                            filter.type === 'date'
-                                ? (labels?.()?.onOrBefore ?? 'On or before')
-                                : (labels?.()?.atMost ?? 'At most')
-                    }
-                ]
-    );
+
     function setValue(next: unknown) {
         column?.setFilterValue?.(next);
     }
+
     function commit(next: unknown, nextOperator = operator) {
-        const empty =
-            next === undefined ||
-            next === '' ||
-            (Array.isArray(next) && next.every((item) => item === undefined || item === ''));
-        if (empty) {
-            setValue(undefined);
-            return;
-        }
-        const nextClause = readFilter({ type: filter.type, operator: nextOperator, value: next });
-        setValue(nextClause);
+        setValue(filterClause(filter.type, nextOperator, next));
     }
+
     function changeOperator(next: string) {
         chosenOperator = next;
         if (filter.type === 'number' || filter.type === 'date') {
-            commit(
-                next === 'between'
-                    ? Array.isArray(value)
-                        ? value
-                        : [value, undefined]
-                    : Array.isArray(value)
-                      ? value[0]
-                      : value,
-                next
-            );
+            commit(operandForOperator(next, value), next);
         } else {
             commit(value, next);
         }
     }
+
     function setBound(index: 0 | 1, next: string | number | undefined) {
-        const bounds = Array.isArray(value) ? [...value] : [undefined, undefined];
-        bounds[index] = next;
-        commit(bounds);
+        commit(withBound(value, index, next));
     }
+
     function numericValue(input: HTMLInputElement, index?: 0 | 1) {
         if (!input.validity.valid) {
             input.reportValidity();
@@ -131,16 +96,6 @@
             commit(next);
         } else {
             setBound(index, next);
-        }
-    }
-    function dateValue(source: unknown) {
-        if (typeof source !== 'string' || !source) {
-            return undefined;
-        }
-        try {
-            return parseDate(source);
-        } catch {
-            return undefined;
         }
     }
 </script>
@@ -263,9 +218,9 @@
                     />
                 {/if}
             {:else}
-                {#each dateIndices as index}
+                {#each dateIndices as index (index)}
                     <DatePicker.Root
-                        value={dateValue(Array.isArray(value) ? value[index] : value)}
+                        value={filterDate(Array.isArray(value) ? value[index] : value)}
                         onValueChange={(date) => {
                             if (operator === 'between') {
                                 setBound(index, date?.toString());

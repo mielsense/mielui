@@ -1,6 +1,6 @@
 import { getContext, setContext } from 'svelte';
 
-export type Row = Record<string, string | number | Date | null | undefined>;
+type Row = Record<string, string | number | Date | null | undefined>;
 export type Config = Record<
     string,
     { label: string; color?: string; format?: (value: number) => string }

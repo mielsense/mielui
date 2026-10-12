@@ -5,7 +5,7 @@
 
     const { state: command } = getCommandContext();
 
-    const { children, empty, class: className, ...rest }: CommandResultsProps = $props();
+    let { children, empty, class: className, ...rest }: CommandResultsProps = $props();
 </script>
 
 {#snippet defaultEmpty()}

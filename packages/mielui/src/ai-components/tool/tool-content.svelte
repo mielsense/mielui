@@ -1,7 +1,6 @@
 <script lang="ts">
     import { themedSlide } from '@mielui/svelte/transition';
     import { cn } from '@mielui/svelte/utils';
-    import { onDestroy } from 'svelte';
     import type { ToolContentProps } from '.';
     import { getToolContext } from './context.svelte';
 
@@ -17,7 +16,10 @@
     const tool = getToolContext();
     const unregister = tool.registerContent();
     let transitionRevision = 0;
-    onDestroy(unregister);
+
+    $effect(() => {
+        return unregister;
+    });
 
     type TransitionEvent = CustomEvent<null> & {
         currentTarget: EventTarget & HTMLDivElement;

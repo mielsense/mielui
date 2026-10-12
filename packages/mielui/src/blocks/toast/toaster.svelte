@@ -1,6 +1,6 @@
 <script lang="ts">
     import { getCssDuration } from '@mielui/svelte/transition';
-    import { visualViewportBounds } from '@mielui/svelte/utils';
+    import { cn, visualViewportBounds } from '@mielui/svelte/utils';
     import { untrack } from 'svelte';
     import { cubicOut, quartOut } from 'svelte/easing';
     import type { TransitionConfig } from 'svelte/transition';
@@ -139,7 +139,7 @@
 
 {#if isPrimary && variant === 'notch'}
     <NotchHost toasts={toastState.data.toasts} {side} />
-{:else if isPrimary && toastState.data}
+{:else if isPrimary}
     <div bind:this={portalEl} use:visualViewportBounds data-overlay-root class={viewportClass}>
         <div
             role="region"
@@ -162,11 +162,13 @@
             {#each reversedToasts as toast, i (toast.id)}
                 <div
                     inert={!expanded && i >= MAX_VISIBLE}
-                    class="absolute bottom-0 w-full transition-[transform,opacity] [transition-duration:var(--motion-duration-toast-in)] ease-[var(--ease-out)] motion-reduce:transition-none"
+                    class={cn(
+                        'absolute bottom-0 w-full transition-[transform,opacity] [transition-duration:var(--motion-duration-toast-in)] ease-[var(--ease-out)] motion-reduce:transition-none',
+                        i < MAX_VISIBLE || expanded ? 'pointer-events-auto' : 'pointer-events-none'
+                    )}
                     style:transform={getTransform(i)}
                     style:opacity={getOpacity(i)}
                     style:z-index={reversedToasts.length - i}
-                    style:pointer-events={i < MAX_VISIBLE || expanded ? 'auto' : 'none'}
                     bind:clientHeight={heights[toast.id ?? -1]}
                 >
                     <div

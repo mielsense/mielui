@@ -15,7 +15,7 @@
         label?: string;
     };
 
-    const {
+    let {
         children,
         class: className,
         allowClickOutside = true,

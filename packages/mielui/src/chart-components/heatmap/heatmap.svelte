@@ -1,7 +1,7 @@
 <script lang="ts">
+    import { cn } from '@mielui/svelte/utils';
     import type { Snippet } from 'svelte';
     import type { HTMLAttributes } from 'svelte/elements';
-    import { cn } from '../../utils';
     import type { HeatmapLabels } from '.';
     import { type Cell, calendar, type Day } from './calendar';
     import { provide } from './context.svelte';

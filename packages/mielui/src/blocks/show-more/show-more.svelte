@@ -1,6 +1,5 @@
 <script lang="ts">
     import { cn } from '@mielui/svelte/utils';
-    import { onMount } from 'svelte';
     import type { ShowMoreProps } from '.';
 
     let {
@@ -90,7 +89,7 @@
         }
     });
 
-    onMount(() => {
+    $effect(() => {
         measure();
         if (!content) {
             return;
@@ -115,10 +114,12 @@
             tabindex={scrollable ? 0 : undefined}
             data-scrollable={scrollable}
             data-veiled={veiled}
-            class="transition-[height] [transition-duration:var(--motion-duration-spring)] ease-[var(--ease-spring-layout)] motion-reduce:transition-none data-[veiled=true]:[mask-image:linear-gradient(to_bottom,black_calc(100%_-_var(--spacing)_*_9),transparent)] overscroll-contain rounded-[var(--radius-sm)] outline-none focus-visible:shadow-[var(--focus-ring)]"
+            class={cn(
+                'transition-[height] [transition-duration:var(--motion-duration-spring)] ease-[var(--ease-spring-layout)] motion-reduce:transition-none data-[veiled=true]:[mask-image:linear-gradient(to_bottom,black_calc(100%_-_var(--spacing)_*_9),transparent)] overscroll-contain rounded-[var(--radius-sm)] outline-none focus-visible:shadow-[var(--focus-ring)]',
+                preview || scrollable ? 'overflow-y-auto' : 'overflow-y-hidden'
+            )}
             style:height={preview || height === undefined ? undefined : `${height}px`}
             style:max-height={preview ? `${heightLimit}px` : height === undefined && !open ? `${visibleLines}lh` : undefined}
-            style:overflow-y={preview || scrollable ? 'auto' : 'hidden'}
             style:scrollbar-gutter={capped ? 'stable' : undefined}
         >
             <div

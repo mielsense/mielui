@@ -28,9 +28,7 @@
     const submission = createSubmission();
     const pending = $derived(submission.pending);
     let joinedToolbar = $state(false);
-    const effectiveStatus = $derived<ComposerStatus>(
-        status === 'submitting' || pending ? 'submitting' : submission.failed ? 'error' : status
-    );
+    const effectiveStatus = $derived.by(resolveStatus);
     const errorNoticeClass = 'mielui-error-notice';
 
     const context = setComposerContext({
@@ -76,11 +74,22 @@
         }
     });
 
+    function resolveStatus(): ComposerStatus {
+        if (status === 'submitting' || pending) {
+            return 'submitting';
+        }
+
+        if (submission.failed) {
+            return 'error';
+        }
+
+        return status;
+    }
+
     async function handleSubmit(event: SubmitEvent) {
         event.preventDefault();
         if (
             context.disabled ||
-            context.pending ||
             effectiveStatus === 'submitting' ||
             (!context.allowEmpty && context.value.trim() === '')
         ) {

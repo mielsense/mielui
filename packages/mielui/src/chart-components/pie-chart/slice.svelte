@@ -56,6 +56,13 @@
             illumination?.pause();
         }
     });
+
+    function trackPointer(event: PointerEvent & { currentTarget: EventTarget & SVGPathElement }) {
+        context.anchor = event.currentTarget;
+        context.pointer = { x: event.clientX, y: event.clientY };
+        context.active = item.key;
+    }
+
     let entered = false;
     $effect(() => {
         if (!context.ready) {
@@ -80,16 +87,8 @@
         class={cn(className, 'outline-none transition-opacity [transition-duration:var(--motion-duration-hover)] motion-reduce:transition-none')}
         style={context.motion ? undefined : 'transition-duration: 0ms'}
         opacity={context.active && context.active !== item.key ? 0.45 : 1}
-        onpointermove={(event) => {
-            context.anchor = event.currentTarget;
-            context.pointer = { x: event.clientX, y: event.clientY };
-            context.active = item.key;
-        }}
-        onpointerenter={(event) => {
-            context.anchor = event.currentTarget;
-            context.pointer = { x: event.clientX, y: event.clientY };
-            context.active = item.key;
-        }}
+        onpointermove={trackPointer}
+        onpointerenter={trackPointer}
         onpointerleave={() => {
             context.active = context.focused;
             context.pointer = undefined;

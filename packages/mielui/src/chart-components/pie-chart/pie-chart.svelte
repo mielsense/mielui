@@ -17,7 +17,7 @@
     }: PieChartProps = $props();
     setContext<() => PieChartLabels | undefined>('pie-chart-labels', () => labels);
     const numberFormatter = new Intl.NumberFormat();
-    let element: HTMLDivElement;
+    let element = $state<HTMLDivElement>();
     let active = $state<string>();
     let anchor = $state<Element>();
     let pointer = $state<{ x: number; y: number }>();
@@ -115,9 +115,13 @@
         }
     });
     onMount(() => {
+        if (!element) {
+            return;
+        }
+        const root = element;
         const preference = matchMedia('(prefers-reduced-motion: reduce)');
         function update() {
-            const duration = getComputedStyle(element)
+            const duration = getComputedStyle(root)
                 .getPropertyValue('--motion-duration-panel')
                 .trim();
             const parsed = Number.parseFloat(duration);
@@ -133,9 +137,9 @@
         const observer = new IntersectionObserver(([entry]) => {
             visible = entry.isIntersecting;
         });
-        observer.observe(element);
+        observer.observe(root);
         const theme = new MutationObserver(update);
-        let ancestor: HTMLElement | null = element;
+        let ancestor: HTMLElement | null = root;
         while (ancestor) {
             theme.observe(ancestor, { attributes: true, attributeFilter: ['style', 'class'] });
             ancestor = ancestor.parentElement;

@@ -2,7 +2,7 @@
     import { cn } from '@mielui/svelte/utils';
     import { getChartContext } from 'layerchart';
     import { getChart } from './context.svelte';
-    import { numericTicks } from './ticks';
+    import { numericTicks, tickCount } from './ticks';
 
     let {
         axis,
@@ -22,9 +22,7 @@
     const layer = getChartContext();
     const chart = getChart();
     const categorical = $derived((axis === 'x') !== (chart.orientation === 'horizontal'));
-    const count = $derived(
-        Number.isFinite(ticks) ? Math.max(2, Math.min(12, Math.floor(ticks))) : 5
-    );
+    const count = $derived(tickCount(ticks));
     const values = $derived(
         categorical ? chart.data.map((_, i) => i) : numericTicks(chart.domain, count)
     );

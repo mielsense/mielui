@@ -102,13 +102,17 @@
             return gaugeLiveMotion(arc, duration / 360);
         }
     });
-    const accessibleLabel = $derived(
-        loading
-            ? `Loading ${label ?? 'measurement'}`
-            : empty
-              ? `No data for ${label ?? 'measurement'}`
-              : (label ?? `${clamped} of ${safeMax}`)
-    );
+    const accessibleLabel = $derived.by(() => {
+        if (loading) {
+            return `Loading ${label ?? 'measurement'}`;
+        }
+
+        if (empty) {
+            return `No data for ${label ?? 'measurement'}`;
+        }
+
+        return label ?? `${clamped} of ${safeMax}`;
+    });
     const loadingMask = $derived(
         `radial-gradient(circle at center, transparent ${radius - safeStrokeWidth / 2}px, var(--color-foreground) ${radius - safeStrokeWidth / 2 + 0.5}px, var(--color-foreground) ${radius + safeStrokeWidth / 2 - 0.5}px, transparent ${radius + safeStrokeWidth / 2}px)`
     );

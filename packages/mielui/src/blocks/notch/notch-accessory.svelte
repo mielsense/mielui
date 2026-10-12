@@ -4,7 +4,7 @@
     import { cn } from '@mielui/svelte/utils';
     import { onMount } from 'svelte';
     import type { NotchAccessoryProps } from '.';
-    import { notchContext } from './context';
+    import { closePopover, notchContext, openPopover } from './context';
 
     let { children, class: className, ...rest }: NotchAccessoryProps = $props();
     const context = notchContext.get();
@@ -59,9 +59,7 @@
 
     function finishExit() {
         if (!context.open && host) {
-            if (typeof host.hidePopover === 'function' && host.matches(':popover-open')) {
-                host.hidePopover();
-            }
+            closePopover(host);
             shown = false;
         }
     }
@@ -72,9 +70,7 @@
         }
         if (context.open) {
             host.hidden = false;
-            if (typeof host.showPopover === 'function' && !host.matches(':popover-open')) {
-                host.showPopover();
-            }
+            openPopover(host);
             shown = true;
         } else if (reduced.current || duration === 0) {
             finishExit();

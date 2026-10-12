@@ -1,6 +1,13 @@
 import { parseDate } from '@internationalized/date';
 import type { Row, RowData, TableFeatures } from '@tanstack/svelte-table';
-import type { DataTableFilterClause } from '.';
+import type { DataTableFilterClause, DataTableFilterDefinition, DataTableLabels } from '.';
+
+type FilterType = DataTableFilterDefinition['type'];
+
+type FilterOperatorOption = {
+    value: string;
+    label: string;
+};
 
 function validDate(value: unknown) {
     if (typeof value !== 'string' || !/^\d{4}-\d{2}-\d{2}$/.test(value)) {
@@ -149,4 +156,88 @@ export function filterSummary(clause: DataTableFilterClause | undefined) {
         gte: '≥'
     };
     return `${operators[clause.operator]} ${clause.value}`;
+}
+
+export function defaultFilterOperator(type: FilterType) {
+    if (type === 'text') {
+        return 'contains';
+    }
+    if (type === 'select') {
+        return 'in';
+    }
+    return 'between';
+}
+
+export function filterOperators(
+    type: FilterType,
+    labels: DataTableLabels | undefined
+): FilterOperatorOption[] {
+    if (type === 'text') {
+        return [
+            { value: 'contains', label: labels?.contains ?? 'Contains' },
+            { value: 'equals', label: labels?.equals ?? 'Is exactly' },
+            { value: 'not', label: labels?.not ?? 'Is not' }
+        ];
+    }
+    if (type === 'select') {
+        return [
+            { value: 'in', label: labels?.anyOf ?? 'Is any of' },
+            { value: 'notIn', label: labels?.noneOf ?? 'Is none of' }
+        ];
+    }
+    return [
+        { value: 'between', label: labels?.between ?? 'Between' },
+        { value: 'equals', label: labels?.equals ?? 'Is exactly' },
+        {
+            value: 'gte',
+            label:
+                type === 'date'
+                    ? (labels?.onOrAfter ?? 'On or after')
+                    : (labels?.atLeast ?? 'At least')
+        },
+        {
+            value: 'lte',
+            label:
+                type === 'date'
+                    ? (labels?.onOrBefore ?? 'On or before')
+                    : (labels?.atMost ?? 'At most')
+        }
+    ];
+}
+
+/** The clause to store for an edited operand, or `undefined` when it is empty or invalid. */
+export function filterClause(type: FilterType, operator: string, value: unknown) {
+    const empty =
+        value === undefined ||
+        value === '' ||
+        (Array.isArray(value) && value.every((item) => item === undefined || item === ''));
+    if (empty) {
+        return undefined;
+    }
+    return readFilter({ type, operator, value });
+}
+
+/** Reshapes a number or date operand when the operator switches to or from `between`. */
+export function operandForOperator(operator: string, value: unknown): unknown {
+    if (operator === 'between') {
+        return Array.isArray(value) ? value : [value, undefined];
+    }
+    return Array.isArray(value) ? value[0] : value;
+}
+
+export function withBound(value: unknown, index: 0 | 1, next: string | number | undefined) {
+    const bounds: unknown[] = Array.isArray(value) ? [...value] : [undefined, undefined];
+    bounds[index] = next;
+    return bounds;
+}
+
+export function filterDate(source: unknown) {
+    if (typeof source !== 'string' || !source) {
+        return undefined;
+    }
+    try {
+        return parseDate(source);
+    } catch {
+        return undefined;
+    }
 }
