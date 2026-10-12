@@ -3,12 +3,14 @@
     import { flip } from 'svelte/animate';
     import { cubicOut } from 'svelte/easing';
     import type { FileUploadListProps } from '.';
-    import { getRoot } from './context.svelte';
+    import { getFileUploadContext } from './context.svelte';
     import Item from './file-upload-item.svelte';
 
     let { children, class: className, ...rest }: FileUploadListProps = $props();
-    const root = getRoot();
+
+    const root = getFileUploadContext();
 </script>
+
 {#if root.summary.total}
     <ul
         {...rest}

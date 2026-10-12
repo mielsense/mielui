@@ -33,10 +33,11 @@ import type { Manifest } from '@mielui/svelte/_manifest/types';
  *          overlay, so menus opened inside a dialog or sheet peel before
  *          their host instead of closing it.
  * 3.2.1 -- Trigger renders the chevron its `icon` prop always described.
+ * 3.2.2 -- Content positioning and hover-close timers moved to position.svelte.ts.
  */
 export const manifest: Manifest = {
     name: 'popover',
-    version: '3.2.1',
+    version: '3.2.2',
     visibility: 'public',
     description:
         'Floating content positioned by @floating-ui. Click or hover triggers, Title/Content subparts, inert outside content, click-outside + Escape dismiss, optional portal.',
@@ -47,6 +48,7 @@ export const manifest: Manifest = {
         'components/popover/popover-content.svelte',
         'components/popover/popover-title.svelte',
         'components/popover/context.svelte.ts',
+        'components/popover/position.svelte.ts',
         'components/popover/inert.ts',
         'components/popover/index.ts',
         'components/popover/manifest.ts'

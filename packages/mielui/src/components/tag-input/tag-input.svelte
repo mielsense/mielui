@@ -1,8 +1,9 @@
 <script lang="ts">
     import { cn } from '@mielui/svelte/utils';
     import { fieldMetadata } from '../_internal/field-metadata';
-    import type { TagInputProps, TagInputRejection } from '.';
+    import type { TagInputProps } from '.';
     import { setTagInputContext } from './context.svelte';
+    import { createTagInputController } from './controller.svelte';
 
     let {
         tags = $bindable([]),
@@ -46,139 +47,41 @@
         })
     );
 
-    let inputElement = $state<HTMLInputElement | undefined>(undefined);
-    let spoken = $state('');
-
-    const safeTags = $derived(Array.isArray(tags) ? tags : []);
-    const atMax = $derived(max !== undefined && safeTags.length >= max);
+    const controller = createTagInputController({
+        getTags: () => tags,
+        setTags: (next) => {
+            tags = next;
+        },
+        getQuery: () => query,
+        setQuery: (next) => {
+            query = next;
+        },
+        getMax: () => max,
+        getAllowDuplicates: () => allowDuplicates,
+        getDisabled: () => disabled,
+        getRequired: () => required,
+        getRequiredMessage: () => requiredMessage,
+        getLabels: () => labels,
+        getValidate: () => validate,
+        getNormalize: () => normalize,
+        getOnTagsChange: () => onTagsChange,
+        getOnAdd: () => onAdd,
+        getOnRemove: () => onRemove,
+        getOnReject: () => onReject
+    });
     const controlClass = $derived(
         variant === 'secondary'
             ? 'border-transparent bg-secondary hover:border-[var(--color-input)] has-[input:disabled]:border-transparent'
             : 'border-[var(--color-input)] bg-[var(--color-field)] hover:border-[var(--color-border-strong)] has-[input:disabled]:border-[var(--color-input)]'
     );
 
-    function toCandidate(raw: string) {
-        if (normalize) {
-            return normalize(raw);
-        }
-
-        return raw.trim();
-    }
-
-    function emit(next: string[]) {
-        tags = next;
-        onTagsChange?.(next);
-    }
-
-    /**
-     * Reports a refused candidate to the consumer and to assistive tech.
-     *
-     * `onReject` alone is invisible to a screen reader: the draft just clears.
-     * Routing the reason through the same live region that announces additions
-     * and removals keeps refusals audible without a second mechanism.
-     */
-    function reject(rejection: TagInputRejection) {
-        spoken = rejection.reason;
-        onReject?.(rejection);
-
-        return false;
-    }
-
-    function add(raw: string) {
-        if (disabled) {
-            return false;
-        }
-
-        const candidate = toCandidate(raw);
-
-        if (candidate === '') {
-            return false;
-        }
-
-        if (!allowDuplicates && safeTags.includes(candidate)) {
-            return reject({
-                code: 'duplicate',
-                reason: labels?.duplicate?.(candidate) ?? `"${candidate}" is already added.`,
-                value: candidate
-            });
-        }
-
-        if (max !== undefined && safeTags.length >= max) {
-            return reject({
-                code: 'max-tags',
-                reason:
-                    labels?.maxReached?.(max) ??
-                    `Only ${max} ${max === 1 ? 'tag is' : 'tags are'} allowed.`,
-                value: candidate
-            });
-        }
-
-        if (validate) {
-            const result = validate(candidate);
-
-            if (result === false) {
-                return reject({
-                    code: 'invalid',
-                    reason: labels?.invalid?.(candidate) ?? `"${candidate}" is not a valid tag.`,
-                    value: candidate
-                });
-            }
-
-            if (typeof result === 'string' && result !== '') {
-                return reject({
-                    code: 'invalid',
-                    reason: result,
-                    value: candidate
-                });
-            }
-        }
-
-        const next = [...safeTags, candidate];
-        emit(next);
-        query = '';
-        spoken = `${candidate} added. ${next.length} ${next.length === 1 ? 'tag' : 'tags'} total.`;
-        onAdd?.(candidate);
-
-        return true;
-    }
-
-    function removeAt(index: number) {
-        if (disabled) {
-            return;
-        }
-
-        if (index < 0 || index >= safeTags.length) {
-            return;
-        }
-
-        const removed = safeTags[index] ?? '';
-        const next = safeTags.filter((_, position) => position !== index);
-        emit(next);
-        spoken = `${removed} removed. ${next.length} ${next.length === 1 ? 'tag' : 'tags'} total.`;
-        onRemove?.(removed);
-    }
-
-    function removeValue(value: string) {
-        const index = safeTags.indexOf(value);
-
-        if (index >= 0) {
-            removeAt(index);
-        }
-    }
-
-    function commitDraft() {
-        return add(query);
-    }
-
-    function focusInput() {
-        inputElement?.focus({ preventScroll: true });
-    }
-
     function handleFieldClick(event: MouseEvent & { currentTarget: EventTarget & HTMLDivElement }) {
         onclick?.(event);
+
         if (event.defaultPrevented) {
             return;
         }
+
         const target = event.target as HTMLElement | null;
 
         if (target?.closest('[data-ui="tag-input-tag-remove"]')) {
@@ -186,31 +89,16 @@
         }
 
         if (!disabled) {
-            focusInput();
+            controller.focusInput();
         }
     }
-
-    /**
-     * Carries `required` on the visible text input via `setCustomValidity`.
-     *
-     * The per-tag `name` inputs cannot hold the constraint: `type="hidden"` is
-     * barred from constraint validation, and they do not exist at all while
-     * the list is empty -- the one case `required` is for. A custom validity
-     * message invalidates a control on its own, so the `required` attribute
-     * stays off and the draft text never satisfies the constraint by itself.
-     * Anchoring it here also means the browser focuses the real field and
-     * shows its bubble there.
-     */
-    $effect(() => {
-        inputElement?.setCustomValidity(required && safeTags.length === 0 ? requiredMessage : '');
-    });
 
     setTagInputContext({
         get labels() {
             return labels;
         },
         get tags() {
-            return safeTags;
+            return controller.tags;
         },
         get disabled() {
             return disabled;
@@ -228,7 +116,7 @@
             return query;
         },
         get atMax() {
-            return atMax;
+            return controller.atMax;
         },
         get delimiters() {
             return delimiters;
@@ -248,14 +136,12 @@
         setDraft(next: string) {
             query = next;
         },
-        setInputElement(element: HTMLInputElement | undefined) {
-            inputElement = element;
-        },
-        focusInput,
-        add,
-        commitDraft,
-        removeAt,
-        removeValue
+        setInputElement: controller.setInputElement,
+        focusInput: controller.focusInput,
+        add: controller.add,
+        commitDraft: controller.commitDraft,
+        removeAt: controller.removeAt,
+        removeValue: controller.removeValue
     });
 </script>
 
@@ -280,11 +166,11 @@
         {@render children?.()}
     </div>
     {#if name}
-        {#each safeTags as tag, index (`${tag}-${index}`)}
+        {#each controller.tags as tag, index (`${tag}-${index}`)}
             <input type="hidden" {name} {disabled} value={tag} />
         {/each}
     {/if}
-    <span role="status" aria-live="polite" class="sr-only">{spoken}</span>
+    <span role="status" aria-live="polite" class="sr-only">{controller.spoken}</span>
 {/snippet}
 
 {#snippet meta()}

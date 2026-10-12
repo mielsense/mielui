@@ -7,7 +7,7 @@
     let {
         variant = 'secondary',
         children,
-        class: classProp,
+        class: className,
         href,
         icon: Icon,
         iconSize = 13,
@@ -35,7 +35,7 @@
         data-ui="badge"
         data-variant={variant}
         {href}
-        class={cn(classProp, badge({ variant }))}
+        class={cn(className, badge({ variant }))}
         {...rest as HTMLAnchorAttributes}
     >
         {@render inner()}
@@ -44,7 +44,7 @@
     <div
         data-ui="badge"
         data-variant={variant}
-        class={cn(classProp, badge({ variant }))}
+        class={cn(className, badge({ variant }))}
         {...rest as HTMLAttributes<HTMLDivElement>}
     >
         {@render inner()}

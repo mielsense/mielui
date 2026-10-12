@@ -3,7 +3,7 @@
     import { Tabs as BitsTabs } from 'bits-ui';
     import { getContext } from 'svelte';
     import type { TabsState, TabsTriggerProps } from '.';
-    import { toTabIdPart } from './id';
+    import { tabContentId, tabTriggerId } from './id';
 
     let {
         children,
@@ -27,8 +27,8 @@
 </script>
 
 <BitsTabs.Trigger
-    id={`${tabsState.id}-trigger-${toTabIdPart(value)}`}
-    aria-controls={`${tabsState.id}-content-${toTabIdPart(value)}`}
+    id={tabTriggerId(tabsState.id, value)}
+    aria-controls={tabContentId(tabsState.id, value)}
     {value}
     {disabled}
     {...rest}

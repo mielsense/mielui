@@ -13,8 +13,7 @@
                 open = next;
             },
             checkboxItems: new Map()
-        },
-        ancestors: []
+        }
     });
 </script>
 

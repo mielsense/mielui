@@ -4,7 +4,7 @@
     import { onDestroy, untrack } from 'svelte';
     import { disclosureSlide } from '../_internal/disclosure/slide';
     import type { AccordionContentProps } from '.';
-    import { getAccordionItemContext } from './item-context';
+    import { getAccordionItemContext } from './context.svelte';
 
     let { class: className, children, ...rest }: AccordionContentProps = $props();
     const item = getAccordionItemContext();

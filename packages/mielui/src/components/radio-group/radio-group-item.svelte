@@ -1,7 +1,7 @@
 <script lang="ts">
     import { cn, pressable } from '@mielui/svelte/utils';
-    import { getContext } from 'svelte';
-    import type { RadioGroupContext, RadioGroupItemProps } from '.';
+    import type { RadioGroupItemProps } from '.';
+    import { getRadioGroupContext } from './context.svelte';
 
     let {
         class: className,
@@ -14,7 +14,7 @@
         ...rest
     }: RadioGroupItemProps = $props();
 
-    const ctx = getContext<RadioGroupContext>('radio-group');
+    const ctx = getRadioGroupContext();
     const selected = $derived(ctx.isSelected(value));
     const isDisabled = $derived(disabled || ctx.disabled);
     const generatedId = $props.id();

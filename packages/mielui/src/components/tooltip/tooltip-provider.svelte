@@ -1,12 +1,12 @@
 <script lang="ts">
-    import { onDestroy, setContext } from 'svelte';
+    import { onDestroy } from 'svelte';
     import type { TooltipProviderProps } from '.';
-    import { tooltipManagerKey } from './manager-context';
+    import { setTooltipManager } from './manager-context';
     import { createTooltipManager } from './shared-tooltip';
 
     let { children }: TooltipProviderProps = $props();
     const manager = createTooltipManager();
-    setContext(tooltipManagerKey, manager);
+    setTooltipManager(manager);
     onDestroy(manager.destroy);
 </script>
 

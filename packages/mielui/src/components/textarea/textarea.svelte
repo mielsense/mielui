@@ -10,7 +10,7 @@
         description,
         variant = 'outline',
         autoresize = false,
-        class: classProp,
+        class: className,
         children,
         element = $bindable<HTMLTextAreaElement>(),
         value = $bindable<string | number | null | undefined>(),
@@ -95,7 +95,7 @@
         data-ui="textarea"
         data-variant={variant}
         class={cn(
-            classProp,
+            className,
             children &&
                 'resize-none rounded-none border-0 bg-transparent shadow-none focus-visible:shadow-none aria-invalid:focus-visible:shadow-none disabled:opacity-100',
             autoresize && 'resize-none overflow-y-hidden',

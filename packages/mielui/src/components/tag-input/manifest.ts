@@ -10,7 +10,7 @@ import type { Manifest } from '@mielui/svelte/_manifest/types';
  */
 export const manifest: Manifest = {
     name: 'tag-input',
-    version: '1.0.0',
+    version: '1.0.1',
     visibility: 'public',
     description:
         'Tokenized tag entry field with keyboard, paste, and validation support. Compound: Root / List / Tag / Input.',
@@ -20,6 +20,7 @@ export const manifest: Manifest = {
         'components/tag-input/tag-input-tag.svelte',
         'components/tag-input/tag-input-input.svelte',
         'components/tag-input/context.svelte.ts',
+        'components/tag-input/controller.svelte.ts',
         'components/tag-input/index.ts',
         'components/tag-input/manifest.ts'
     ],

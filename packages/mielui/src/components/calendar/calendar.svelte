@@ -2,12 +2,12 @@
     import { cn } from '@mielui/svelte/utils';
     import { Calendar as CalendarPrimitive } from 'bits-ui';
     import { untrack } from 'svelte';
-    import Header from '../calendar/calendar-header.svelte';
-    import Heading from '../calendar/calendar-heading.svelte';
-    import NextButton from '../calendar/calendar-next-button.svelte';
-    import PrevButton from '../calendar/calendar-prev-button.svelte';
     import type { CalendarProps } from '.';
+    import Header from './calendar-header.svelte';
+    import Heading from './calendar-heading.svelte';
     import Month from './calendar-month.svelte';
+    import NextButton from './calendar-next-button.svelte';
+    import PrevButton from './calendar-prev-button.svelte';
 
     let {
         value = $bindable(),

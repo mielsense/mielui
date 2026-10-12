@@ -89,11 +89,10 @@ function syncStackedModals() {
     }
     const modals = overlayStack
         .filter((layer) => layer.kind === 'dialog')
-        .slice()
         .sort((a, b) => a.depth - b.depth);
     for (const layer of modals) {
         const modalIndex = modals.indexOf(layer);
-        const behind = modalIndex >= 0 && modalIndex < modals.length - 1;
+        const behind = modalIndex < modals.length - 1;
         const nested = modalIndex > 0;
         const root = layer.panel.closest('[data-overlay-root]');
         const scrim = modalScrim(layer.panel);

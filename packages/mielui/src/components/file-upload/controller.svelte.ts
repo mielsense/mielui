@@ -8,8 +8,21 @@ type Options = {
     labels: () => FileUploadProps['labels'];
 };
 
+function matchesRule(file: File, rule: string) {
+    if (rule.startsWith('.')) {
+        return file.name.toLowerCase().endsWith(rule);
+    }
+
+    if (rule.endsWith('/*')) {
+        return file.type.toLowerCase().startsWith(rule.slice(0, -1));
+    }
+
+    return file.type.toLowerCase() === rule;
+}
+
 export function createFileUploadController(options: Options) {
     let items = $state<FileUploadEntry[]>([]);
+
     const requests = new Map<string, AbortController>();
     const summary = $derived({
         items,
@@ -17,17 +30,27 @@ export function createFileUploadController(options: Options) {
         uploading: items.filter((item) => item.status === 'uploading').length,
         complete: items.filter((item) => item.status === 'complete').length
     });
+
     function update(id: string, patch: Partial<FileUploadEntry>) {
         items = items.map((item) => (item.id === id ? { ...item, ...patch } : item));
     }
+
     async function upload(id: string) {
         const item = items.find((item) => item.id === id);
+
         if (!item || options.disabled() || requests.has(id)) {
             return;
         }
+
         const controller = new AbortController();
+
         requests.set(id, controller);
-        update(id, { status: 'uploading', progress: undefined, error: undefined });
+        update(id, {
+            status: 'uploading',
+            progress: undefined,
+            error: undefined
+        });
+
         try {
             await options.onUpload()(item.file, {
                 signal: controller.signal,
@@ -41,8 +64,12 @@ export function createFileUploadController(options: Options) {
                     }
                 }
             });
+
             if (!controller.signal.aborted) {
-                update(id, { status: 'complete', progress: 100 });
+                update(id, {
+                    status: 'complete',
+                    progress: 100
+                });
             }
         } catch (error) {
             if (!controller.signal.aborted) {
@@ -57,10 +84,12 @@ export function createFileUploadController(options: Options) {
             }
         }
     }
+
     function add(incoming: FileList) {
         if (options.disabled()) {
             return;
         }
+
         const { accept, maxSize, maxFiles } = options.constraints();
         const rules =
             accept
@@ -69,21 +98,17 @@ export function createFileUploadController(options: Options) {
                 .map((rule) => rule.trim())
                 .filter(Boolean) ?? [];
         const labels = options.labels();
+
         for (const file of incoming) {
             let error: string | undefined;
-            const matches =
-                rules.length === 0 ||
-                rules.some((rule) =>
-                    rule.startsWith('.')
-                        ? file.name.toLowerCase().endsWith(rule)
-                        : rule.endsWith('/*')
-                          ? file.type.toLowerCase().startsWith(rule.slice(0, -1))
-                          : file.type.toLowerCase() === rule
-                );
+
+            const matches = rules.length === 0 || rules.some((rule) => matchesRule(file, rule));
+
             if (!matches) {
                 error = labels?.typeRejected ?? 'This file type is not accepted.';
             } else if (maxSize !== undefined && file.size > maxSize) {
                 const megabytes = maxSize / 1024 / 1024;
+
                 error =
                     labels?.tooLarge?.(megabytes) ??
                     `File exceeds the ${megabytes.toLocaleString()} MB limit.`;
@@ -103,20 +128,31 @@ export function createFileUploadController(options: Options) {
             ) {
                 error = labels?.tooMany?.(maxFiles) ?? `Choose up to ${maxFiles} files.`;
             }
+
             const id = crypto.randomUUID();
+
             items = [
                 ...items,
-                { id, file, status: error ? 'error' : 'uploading', error, retryable: !error }
+                {
+                    id,
+                    file,
+                    status: error ? 'error' : 'uploading',
+                    error,
+                    retryable: !error
+                }
             ];
+
             if (!error) {
                 void upload(id);
             }
         }
     }
+
     function remove(id: string) {
         if (options.disabled()) {
             return;
         }
+
         requests.get(id)?.abort();
         requests.delete(id);
         items = items.filter((item) => item.id !== id);
@@ -132,6 +168,7 @@ export function createFileUploadController(options: Options) {
         for (const controller of requests.values()) {
             controller.abort();
         }
+
         requests.clear();
     });
 

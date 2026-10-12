@@ -3,7 +3,6 @@
     import { Button } from '@mielui/svelte/components/button';
     import { cn } from '@mielui/svelte/utils';
     import { Combobox as ComboboxPrimitive, mergeProps } from 'bits-ui';
-    import { onMount } from 'svelte';
     import type { HTMLButtonAttributes } from 'svelte/elements';
     import HugeiconsIcon from '../../hugeicons-icon.svelte';
     import { type ButtonOnlyProps, buttonAttributes } from '../_internal/button-attributes';
@@ -47,25 +46,27 @@
             return disabled;
         }
     };
-    onMount(() => {
+    const visible = $derived(context.matches(value));
+
+    $effect(() => {
         return context.register(item);
     });
 </script>
 
 <div
     data-combobox-result={value}
-    data-visible={context.matches(value)}
-    aria-hidden={!context.matches(value) || undefined}
-    inert={!context.matches(value)}
+    data-visible={visible}
+    aria-hidden={!visible || undefined}
+    inert={!visible}
     class="grid"
-    style:grid-template-rows={context.matches(value) ? '1fr' : '0fr'}
+    style:grid-template-rows={visible ? '1fr' : '0fr'}
 >
     <div class="min-h-0 overflow-hidden">
         <ComboboxPrimitive.Item
             id={rest.id ?? optionId}
             {value}
             {label}
-            disabled={disabled || !context.matches(value)}
+            disabled={disabled || !visible}
             onHighlight={() => {
                 context.state.activeValue = value;
             }}
@@ -74,7 +75,7 @@
                 <Button
                     {...buttonAttributes(mergeProps(rest, { ...props as HTMLButtonAttributes }))}
                     bind:element
-                    disabled={disabled || !context.matches(value)}
+                    disabled={disabled || !visible}
                     data-collection-item
                     data-collection-active={highlighted}
                     data-combobox-value={value}

@@ -1,16 +1,18 @@
 <script lang="ts">
     import { cn } from '@mielui/svelte/utils';
     import type { FileUploadPartProps } from '.';
-    import { getItem } from './context.svelte';
+    import { getFileUploadItem } from './context.svelte';
 
     let { children, class: className, ...rest }: FileUploadPartProps = $props();
-    const item = getItem();
+
+    const item = getFileUploadItem();
     const size = $derived(
         item().file.size < 1024 * 1024
             ? `${Math.ceil(item().file.size / 1024)} KB`
             : `${(item().file.size / 1024 / 1024).toFixed(1)} MB`
     );
 </script>
+
 <div
     {...rest}
     data-ui="file-upload-details"

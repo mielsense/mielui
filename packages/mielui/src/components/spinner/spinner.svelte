@@ -16,7 +16,7 @@
         ready = false,
         speed = 1,
         curved = false,
-        class: classProp,
+        class: className,
         'aria-label': ariaLabel,
         'aria-hidden': ariaHidden
     }: SpinnerProps = $props();
@@ -90,7 +90,7 @@
         aria-label={ariaLabel}
         aria-hidden={ariaHidden}
         class={cn(
-            classProp,
+            className,
             'relative inline-flex shrink-0 overflow-hidden transition-[width] duration-[var(--motion-duration-panel)] ease-[var(--ease-out)] motion-reduce:transition-none'
         )}
         style:height={`${size}px`}

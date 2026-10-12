@@ -1,7 +1,7 @@
 <script lang="ts">
     import { LinkPreview } from 'bits-ui';
-    import { setContext } from 'svelte';
     import type { HoverCardProps } from '.';
+    import { setHoverCardContext } from './context.svelte';
 
     let {
         open = $bindable(false),
@@ -11,7 +11,7 @@
     }: HoverCardProps = $props();
     const id = $props.id();
     const state = $state({ title: false, description: false });
-    setContext('mielui-hover-card', {
+    setHoverCardContext({
         id,
         state,
         get open() {

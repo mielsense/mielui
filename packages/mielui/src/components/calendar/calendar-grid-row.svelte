@@ -1,5 +1,4 @@
 <script lang="ts">
-    import { cn } from '@mielui/svelte/utils';
     import { Calendar as CalendarPrimitive } from 'bits-ui';
 
     let {
@@ -9,9 +8,4 @@
     }: CalendarPrimitive.GridRowProps = $props();
 </script>
 
-<CalendarPrimitive.GridRow
-    {...rest}
-    bind:ref
-    data-ui="calendar-grid-row"
-    class={cn(className, '')}
-/>
+<CalendarPrimitive.GridRow {...rest} bind:ref data-ui="calendar-grid-row" class={className} />

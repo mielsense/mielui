@@ -2,7 +2,7 @@
     import type { TabsState } from '@mielui/svelte/components/tabs';
     import { cn } from '@mielui/svelte/utils';
     import { getContext, untrack } from 'svelte';
-    import { toTabIdPart } from '../../components/tabs/id';
+    import { tabContentId, tabTriggerId } from '../../components/tabs/id';
     import type { CodeBlockContentProps, CodeBlockLabels, CodeBlockRegistry } from '.';
     import Copy from './code-block-copy.svelte';
     import { highlight } from './highlight';
@@ -87,12 +87,8 @@
     const newline = '\n';
 
     const isTabbed = $derived(panel?.tabbed ?? Boolean(tabs));
-    const panelId = $derived(
-        isTabbed && tabs ? `${tabs.id}-content-${toTabIdPart(value)}` : undefined
-    );
-    const tabId = $derived(
-        isTabbed && tabs ? `${tabs.id}-trigger-${toTabIdPart(value)}` : undefined
-    );
+    const panelId = $derived(isTabbed && tabs ? tabContentId(tabs.id, value) : undefined);
+    const tabId = $derived(isTabbed && tabs ? tabTriggerId(tabs.id, value) : undefined);
 </script>
 
 <div

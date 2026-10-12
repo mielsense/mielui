@@ -3,7 +3,7 @@
     import { Tabs as BitsTabs } from 'bits-ui';
     import { getContext } from 'svelte';
     import type { TabsContentProps, TabsState } from '.';
-    import { toTabIdPart } from './id';
+    import { tabContentId, tabTriggerId } from './id';
 
     let {
         children,
@@ -20,8 +20,8 @@
 
 {#if forceMount || active}
     <BitsTabs.Content
-        id={`${tabsState.id}-content-${toTabIdPart(value)}`}
-        aria-labelledby={`${tabsState.id}-trigger-${toTabIdPart(value)}`}
+        id={tabContentId(tabsState.id, value)}
+        aria-labelledby={tabTriggerId(tabsState.id, value)}
         {value}
         data-ui="tabs-content"
         data-state={active ? 'active' : 'inactive'}

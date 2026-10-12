@@ -37,13 +37,13 @@
         }
         return 'bottom';
     });
-    const align = $derived(
-        refElement || context.placement.endsWith('start')
-            ? 'start'
-            : context.placement.endsWith('end')
-              ? 'end'
-              : 'center'
-    );
+    const align = $derived.by(() => {
+        if (refElement || context.placement.endsWith('start')) {
+            return 'start';
+        }
+
+        return context.placement.endsWith('end') ? 'end' : 'center';
+    });
     const anchor = $derived(
         refElement
             ? {
@@ -90,6 +90,7 @@
                 data-overlay-root
                 class={cn('z-[130]', !open && 'pointer-events-none!')}
             >
+                <!-- svelte-ignore a11y_no_noninteractive_tabindex -->
                 <div
                     {...mergeProps(props, { onmouseenter: context.cancelHover, onmouseleave: context.hoverLeave })}
                     bind:this={context.panel}

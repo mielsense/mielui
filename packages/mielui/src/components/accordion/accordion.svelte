@@ -1,8 +1,8 @@
 <script lang="ts">
     import { cn } from '@mielui/svelte/utils';
     import { Accordion as BitsAccordion } from 'bits-ui';
-    import { setContext } from 'svelte';
-    import type { AccordionContext, AccordionProps } from '.';
+    import type { AccordionProps } from '.';
+    import { setAccordionContext } from './context.svelte';
 
     let {
         class: className,
@@ -49,8 +49,10 @@
         }
     }
 
-    const ctx: AccordionContext = { isOpen, toggle: updateValue };
-    setContext('accordion', ctx);
+    setAccordionContext({
+        isOpen,
+        toggle: updateValue
+    });
 </script>
 
 {#if type === 'multiple'}

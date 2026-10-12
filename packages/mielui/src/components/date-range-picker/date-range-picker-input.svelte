@@ -30,7 +30,7 @@
     )}
 >
     {#snippet children(data)}
-        {@const segments = fieldSegments(data.segments)}
+        {const segments = fieldSegments(data.segments)}
         {#if content}
             {@render content({ ...data, segments })}
         {:else}

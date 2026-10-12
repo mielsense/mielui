@@ -20,7 +20,7 @@
         children,
         icon = false,
         element = $bindable(),
-        class: classProp,
+        class: className,
         onclick,
         onopen,
         style,
@@ -125,13 +125,15 @@
     bind:element
     {...buttonAttributes(rest)}
     class={cn(
-        classProp,
+        className,
         popoverState.open && !popoverState.hoverable && popoverState.inert && 'relative z-[130]'
     )}
     {style}
     onclick={(event) => {
         onclick?.(event);
-        if (event.defaultPrevented) { return; }
+        if (event.defaultPrevented) {
+            return;
+        }
         if (popoverState.open) {
             closePopover(0);
         } else {

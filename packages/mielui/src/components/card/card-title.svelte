@@ -4,7 +4,7 @@
     import { titleClasses } from '../typography/variants';
     import type { CardTitleProps } from '.';
 
-    let { children, level = 2, class: classProp, ...rest }: CardTitleProps = $props();
+    let { children, level = 2, class: className, ...rest }: CardTitleProps = $props();
     const tag = $derived(`h${level}` as HeadingTag);
 </script>
 
@@ -12,7 +12,7 @@
     this={tag}
     {...rest}
     class={cn(
-        classProp,
+        className,
         'py-1',
         titleClasses
     )}

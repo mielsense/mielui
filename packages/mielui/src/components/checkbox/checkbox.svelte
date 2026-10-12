@@ -14,7 +14,7 @@
         disabled,
         variant = 'default',
         size = 'md',
-        class: classProp,
+        class: className,
         onCheckedChange,
         oninput,
         id,
@@ -75,7 +75,7 @@
     for={metadata.controlId}
     data-size={size}
     class={cn(
-        classProp,
+        className,
         'min-h-[var(--size-touch)] md:min-h-0',
         !description && 'items-center',
         checkbox({ variant, disabled: disabled ?? false, checked: checked ?? false })

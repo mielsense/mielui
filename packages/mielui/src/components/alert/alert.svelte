@@ -15,7 +15,7 @@
         icon,
         announcement = 'off',
         children,
-        class: classProp,
+        class: className,
         ...rest
     }: AlertProps = $props();
 
@@ -36,7 +36,7 @@
     aria-live={announcement === 'off' ? undefined : announcement}
     aria-atomic={announcement === 'off' ? undefined : true}
     data-ui="alert"
-    class={cn(classProp, alert())}
+    class={cn(className, alert())}
 >
     <div data-ui="alert-surface" class={alertSurface()}>
         {#if icon}

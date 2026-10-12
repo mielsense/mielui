@@ -86,7 +86,7 @@
         footerSlot: undefined as DialogFooterSlot | undefined,
         headerSlot: undefined as DialogFooterSlot | undefined
     });
-    let wasOpen = $state(false);
+    let wasOpen = false;
     setDialogContext(modalContext);
 
     $effect.pre(() => {

@@ -1,6 +1,5 @@
 <script lang="ts">
     import { cn } from '@mielui/svelte/utils';
-    import { onMount } from 'svelte';
     import type { KbdProps } from '.';
     import { registerShortcut } from './keyboard';
     import { parseShortcut } from './shortcut';
@@ -11,16 +10,16 @@
     const parsed = $derived(parseShortcut(shortcut));
     const caps = $derived(parsed?.caps ?? []);
 
-    onMount(() =>
-        registerShortcut(element, {
+    $effect(() => {
+        return registerShortcut(element, {
             get shortcut() {
                 return parsed;
             },
             get ontrigger() {
                 return ontrigger;
             }
-        })
-    );
+        });
+    });
 </script>
 
 <kbd

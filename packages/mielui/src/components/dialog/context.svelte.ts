@@ -1,11 +1,11 @@
 import { createContext } from '@mielui/svelte/utils';
 import type { Snippet } from 'svelte';
-import type { DialogState } from '.';
+import type { DialogFooterProps, DialogState } from '.';
 
 export type DialogFooterSlot = {
     children?: Snippet;
     className?: string;
-    rest: Record<string, unknown>;
+    rest: Omit<DialogFooterProps, 'class' | 'children'>;
 };
 
 export type DialogContext = {

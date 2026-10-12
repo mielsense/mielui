@@ -9,7 +9,7 @@ import type { Manifest } from '@mielui/svelte/_manifest/types';
  */
 export const manifest: Manifest = {
     name: 'tooltip',
-    version: '2.1.0',
+    version: '2.1.1',
     visibility: 'public',
     description:
         'Hover-revealed inline guidance with a shared Tailwind-styled surface, role="tooltip", and small default delays.',
@@ -26,7 +26,7 @@ export const manifest: Manifest = {
         'components/tooltip/manifest.ts'
     ],
     components: ['_internal/utils'],
-    shared: ['transition', 'components/_internal/surface', 'utils.cn'],
+    shared: ['transition', 'components/_internal/surface', 'utils.cn', 'utils.createContext'],
     peerDependencies: {
         '@floating-ui/dom': '^1.0.0',
         '@scritto/core': '^0.1.0',

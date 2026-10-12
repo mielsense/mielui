@@ -6,7 +6,7 @@
 
     let {
         children,
-        class: classProp,
+        class: className,
         w: width,
         h: height,
         unit = 'px',
@@ -21,7 +21,7 @@
     data-ui="skeleton"
     data-variant={variant}
     {...rest}
-    class={cn(classProp, 'rounded-[var(--radius-sm)] bg-foreground-muted/15')}
+    class={cn(className, 'rounded-[var(--radius-sm)] bg-foreground-muted/15')}
     style:height={height == null ? undefined : `${height}${unit}`}
     style:width={width == null ? undefined : `${width}${unit}`}
 >

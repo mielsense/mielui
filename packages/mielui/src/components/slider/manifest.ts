@@ -2,13 +2,14 @@ import type { Manifest } from '@mielui/svelte/_manifest/types';
 
 export const manifest: Manifest = {
     name: 'slider',
-    version: '1.2.0',
+    version: '1.2.1',
     visibility: 'public',
     description:
         'Single-value and two-handle range slider with pill handles, a scrub field variant, keyboard controls, and RTL support.',
     role: 'slider',
     files: [
         'components/slider/slider.svelte',
+        'components/slider/controller.svelte.ts',
         'components/slider/range.ts',
         'components/slider/index.ts',
         'components/slider/manifest.ts'

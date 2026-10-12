@@ -122,7 +122,6 @@ const ALIASES: Record<string, string> = {
     svg: 'xml',
     md: 'markdown',
     patch: 'diff',
-    dockerfile: 'dockerfile',
     ex: 'elixir',
     exs: 'elixir',
     hs: 'haskell',
@@ -132,7 +131,6 @@ const ALIASES: Record<string, string> = {
     pl: 'perl',
     ps1: 'powershell',
     proto: 'protobuf',
-    r: 'r',
     toml: 'ini'
 };
 

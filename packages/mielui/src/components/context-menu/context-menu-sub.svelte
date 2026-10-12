@@ -5,8 +5,10 @@
 
     let { children }: { children?: Snippet } = $props();
     setContextMenuContext({
-        state: { open: false, checkboxItems: new Map() },
-        ancestors: []
+        state: {
+            open: false,
+            checkboxItems: new Map()
+        }
     });
 </script>
 

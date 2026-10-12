@@ -41,10 +41,10 @@ export {
     PrevButton,
     YearSelect
 } from '../calendar';
-export { default as Content } from '../date-picker/date-picker-content.svelte';
-export { default as Label } from '../date-picker/date-picker-label.svelte';
-export { default as Segment } from '../date-picker/date-picker-segment.svelte';
 export { default as Root } from './date-picker.svelte';
 export { default as Calendar } from './date-picker-calendar.svelte';
+export { default as Content } from './date-picker-content.svelte';
 export { default as Input } from './date-picker-input.svelte';
+export { default as Label } from './date-picker-label.svelte';
+export { default as Segment } from './date-picker-segment.svelte';
 export { default as Trigger } from './date-picker-trigger.svelte';

@@ -1,11 +1,11 @@
 <script lang="ts">
     import { cn, pressable } from '@mielui/svelte/utils';
     import { ToggleGroup as BitsToggleGroup } from 'bits-ui';
-    import { getContext } from 'svelte';
-    import type { ToggleGroupContext, ToggleGroupItemProps } from '.';
+    import type { ToggleGroupItemProps } from '.';
+    import { getToggleGroupContext } from './context.svelte';
 
     let { class: className, value, disabled, children, ...rest }: ToggleGroupItemProps = $props();
-    const ctx = getContext<ToggleGroupContext>('toggle-group');
+    const ctx = getToggleGroupContext();
 
     const active = $derived(ctx.isActive(value));
     const isDisabled = $derived(disabled || ctx.disabled);

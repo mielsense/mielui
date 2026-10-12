@@ -26,7 +26,7 @@
         description,
         type = 'text',
         variant = 'outline',
-        class: classProp,
+        class: className,
         leading,
         trailing,
         element = $bindable<HTMLInputElement>(),
@@ -58,7 +58,26 @@
             ? 'border-transparent bg-secondary hover:border-[var(--color-input)] has-[input:disabled]:border-transparent'
             : 'border-[var(--color-input)] bg-[var(--color-field)] hover:border-[var(--color-border-strong)] has-[input:disabled]:border-[var(--color-input)]'
     );
+    const controlAttributes = $derived({
+        id: metadata.controlId,
+        'aria-describedby': metadata.describedBy,
+        oninput,
+        'data-ui': 'input',
+        'data-variant': variant
+    });
 </script>
+
+{#snippet textControl(classes: string)}
+    <input
+        bind:this={element}
+        {...controlAttributes}
+        bind:value
+        {type}
+        class={cn(className, classes)}
+        {...rest}
+        {placeholder}
+    />
+{/snippet}
 
 {#snippet field()}
     {#if hasAdornment}
@@ -79,19 +98,7 @@
                 </span>
             {/if}
 
-            <input
-                bind:this={element}
-                id={metadata.controlId}
-                aria-describedby={metadata.describedBy}
-                bind:value
-                {oninput}
-                {type}
-                data-ui="input"
-                data-variant={variant}
-                class={cn(classProp, adornedInputClass)}
-                {...rest}
-                {placeholder}
-            />
+            {@render textControl(adornedInputClass)}
 
             {#if trailing}
                 <span
@@ -105,37 +112,28 @@
     {:else if normalizedType === 'file'}
         <input
             bind:this={element}
-            id={metadata.controlId}
-            aria-describedby={metadata.describedBy}
+            {...controlAttributes}
             bind:files
-            {oninput}
             type="file"
-            data-ui="input"
-            data-variant={variant}
-            class={cn(classProp, input({ variant }))}
+            class={cn(className, input({ variant }))}
             {...rest}
             {placeholder}
         />
     {:else if normalizedType === 'checkbox'}
         <input
             bind:this={element}
-            id={metadata.controlId}
-            aria-describedby={metadata.describedBy}
+            {...controlAttributes}
             bind:checked
             {value}
-            {oninput}
             type="checkbox"
-            data-ui="input"
-            data-variant={variant}
-            class={cn(classProp, input({ variant }))}
+            class={cn(className, input({ variant }))}
             {...rest}
             {placeholder}
         />
     {:else if normalizedType === 'radio'}
         <input
             bind:this={element}
-            id={metadata.controlId}
-            aria-describedby={metadata.describedBy}
+            {...controlAttributes}
             type="radio"
             use:radioChecked={{
                 checked,
@@ -145,26 +143,11 @@
             }}
             {value}
             {checked}
-            {oninput}
-            data-ui="input"
-            data-variant={variant}
-            class={cn(classProp, input({ variant }))}
+            class={cn(className, input({ variant }))}
             {...rest}
         />
     {:else}
-        <input
-            bind:this={element}
-            id={metadata.controlId}
-            aria-describedby={metadata.describedBy}
-            bind:value
-            {oninput}
-            {type}
-            data-ui="input"
-            data-variant={variant}
-            class={cn(classProp, input({ variant }))}
-            {...rest}
-            {placeholder}
-        />
+        {@render textControl(input({ variant }))}
     {/if}
 {/snippet}
 

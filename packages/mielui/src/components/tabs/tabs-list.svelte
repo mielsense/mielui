@@ -22,7 +22,27 @@
         },
         select
     });
+
+    type HighlightRect = NonNullable<typeof indicators.indicator>;
+    type HighlightStyles = {
+        opacity?: number;
+        transition?: string;
+    };
+
+    const settle = $derived(indicators.ready && !keyboardDriven ? undefined : 'none');
 </script>
+
+{#snippet highlight(rect: HighlightRect, classes: string, styles: HighlightStyles)}
+    <div
+        aria-hidden="true"
+        class={classes}
+        style:translate={`${rect.left}px ${rect.top}px`}
+        style:width={`${rect.width}px`}
+        style:height={`${rect.height}px`}
+        style:opacity={styles.opacity}
+        style:transition={styles.transition}
+    ></div>
+{/snippet}
 
 <BitsTabs.List
     bind:ref={listEl}
@@ -55,24 +75,18 @@
     {...rest}
 >
     {#if variant === 'default' && indicators.hover}
-        <div
-            aria-hidden="true"
-            class="pointer-events-none absolute rounded-[var(--radius-control)] top-0 left-0 bg-[var(--color-wash)] transition-[translate,width,height,opacity] [transition-duration:var(--motion-duration-item),var(--motion-duration-item),var(--motion-duration-item),var(--motion-duration-hover)] ease-[var(--ease-out)] motion-reduce:transition-none"
-            style:translate={`${indicators.hover.left}px ${indicators.hover.top}px`}
-            style:width={`${indicators.hover.width}px`}
-            style:height={`${indicators.hover.height}px`}
-            style:opacity={indicators.hovering ? 1 : 0}
-        ></div>
+        {@render highlight(
+            indicators.hover,
+            'pointer-events-none absolute rounded-[var(--radius-control)] top-0 left-0 bg-[var(--color-wash)] transition-[translate,width,height,opacity] [transition-duration:var(--motion-duration-item),var(--motion-duration-item),var(--motion-duration-item),var(--motion-duration-hover)] ease-[var(--ease-out)] motion-reduce:transition-none',
+            { opacity: indicators.hovering ? 1 : 0 }
+        )}
     {/if}
     {#if variant === 'ghost' && indicators.ghostRect}
-        <div
-            aria-hidden="true"
-            class="pointer-events-none absolute rounded-[var(--radius-control)] top-0 left-0 bg-[var(--color-wash)] transition-[translate,width,height] [transition-duration:var(--motion-duration-item)] ease-[var(--ease-out)] motion-reduce:transition-none"
-            style:translate={`${indicators.ghostRect.left}px ${indicators.ghostRect.top}px`}
-            style:width={`${indicators.ghostRect.width}px`}
-            style:height={`${indicators.ghostRect.height}px`}
-            style:transition={indicators.ready && !keyboardDriven ? undefined : 'none'}
-        ></div>
+        {@render highlight(
+            indicators.ghostRect,
+            'pointer-events-none absolute rounded-[var(--radius-control)] top-0 left-0 bg-[var(--color-wash)] transition-[translate,width,height] [transition-duration:var(--motion-duration-item)] ease-[var(--ease-out)] motion-reduce:transition-none',
+            { transition: settle }
+        )}
     {/if}
     {#if indicators.indicator}
         {#if variant === 'default'}
@@ -89,17 +103,14 @@
                     : `${indicators.indicator.left}px 0`}
                 style:width={vertical ? undefined : `${indicators.indicator.width}px`}
                 style:height={vertical ? `${indicators.indicator.height}px` : undefined}
-                style:transition={indicators.ready && !keyboardDriven ? undefined : 'none'}
+                style:transition={settle}
             ></div>
         {:else if variant === 'segmented'}
-            <div
-                aria-hidden="true"
-                class="mielui-glow mielui-glow-neutral pointer-events-none absolute rounded-[min(calc(var(--radius-control)-var(--spacing)),calc(var(--size-control-sm)/2))] top-0 left-0 shadow-[var(--mielui-glow-shadow)] transition-[translate,width,height] [transition-duration:var(--motion-duration-item)] ease-[var(--ease-out)] motion-reduce:transition-none"
-                style:translate={`${indicators.indicator.left}px ${indicators.indicator.top}px`}
-                style:width={`${indicators.indicator.width}px`}
-                style:height={`${indicators.indicator.height}px`}
-                style:transition={indicators.ready && !keyboardDriven ? undefined : 'none'}
-            ></div>
+            {@render highlight(
+                indicators.indicator,
+                'mielui-glow mielui-glow-neutral pointer-events-none absolute rounded-[min(calc(var(--radius-control)-var(--spacing)),calc(var(--size-control-sm)/2))] top-0 left-0 shadow-[var(--mielui-glow-shadow)] transition-[translate,width,height] [transition-duration:var(--motion-duration-item)] ease-[var(--ease-out)] motion-reduce:transition-none',
+                { transition: settle }
+            )}
         {/if}
     {/if}
     {@render children?.()}

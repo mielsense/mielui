@@ -1,8 +1,8 @@
 <script lang="ts">
     import { cn, travelingHighlight } from '@mielui/svelte/utils';
     import { ToggleGroup as BitsToggleGroup } from 'bits-ui';
-    import { setContext } from 'svelte';
-    import type { ToggleGroupContext, ToggleGroupProps } from '.';
+    import type { ToggleGroupProps } from '.';
+    import { setToggleGroupContext } from './context.svelte';
 
     let {
         class: className,
@@ -43,7 +43,7 @@
         }
     }
 
-    const ctx: ToggleGroupContext = {
+    setToggleGroupContext({
         get type() {
             return type;
         },
@@ -55,8 +55,7 @@
         },
         isActive,
         setValue: updateValue
-    };
-    setContext('toggle-group', ctx);
+    });
 
     const selection = {
         itemSelector: '[data-collection-item][data-collection-active="true"]'
@@ -81,6 +80,19 @@
     }
 </script>
 
+{#snippet group(props: Record<string, unknown>)}
+    <div
+        {...props}
+        data-ui="toggle-group"
+        data-size={size}
+        use:travelingHighlight={selection}
+        use:litPill
+        class={cn(className, track)}
+    >
+        {@render children?.()}
+    </div>
+{/snippet}
+
 {#if type === 'multiple'}
     <BitsToggleGroup.Root
         type="multiple"
@@ -90,16 +102,7 @@
         {...attributes}
     >
         {#snippet child({ props })}
-            <div
-                {...props}
-                data-ui="toggle-group"
-                data-size={size}
-                use:travelingHighlight={selection}
-                use:litPill
-                class={cn(className, track)}
-            >
-                {@render children?.()}
-            </div>
+            {@render group(props)}
         {/snippet}
     </BitsToggleGroup.Root>
 {:else}
@@ -111,16 +114,7 @@
         {...attributes}
     >
         {#snippet child({ props })}
-            <div
-                {...props}
-                data-ui="toggle-group"
-                data-size={size}
-                use:travelingHighlight={selection}
-                use:litPill
-                class={cn(className, track)}
-            >
-                {@render children?.()}
-            </div>
+            {@render group(props)}
         {/snippet}
     </BitsToggleGroup.Root>
 {/if}

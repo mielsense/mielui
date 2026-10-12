@@ -2,11 +2,12 @@ import type { Manifest } from '@mielui/svelte/_manifest/types';
 
 export const manifest: Manifest = {
     name: 'scroll-area',
-    version: '1.0.0',
+    version: '1.0.1',
     visibility: 'public',
     description: 'Themed scroll container with vertical or horizontal overflow.',
     files: [
         'components/scroll-area/scroll-area.svelte',
+        'components/scroll-area/measure.svelte.ts',
         'components/scroll-area/index.ts',
         'components/scroll-area/manifest.ts'
     ],

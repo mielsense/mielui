@@ -2,7 +2,7 @@ import type { Manifest } from '@mielui/svelte/_manifest/types';
 
 export const manifest: Manifest = {
     name: 'accordion',
-    version: '1.1.0',
+    version: '1.1.1',
     visibility: 'public',
     description: 'Vertically stacked disclosure panels. Single or multiple expanded items.',
     files: [
@@ -11,11 +11,11 @@ export const manifest: Manifest = {
         'components/accordion/accordion-trigger.svelte',
         'components/accordion/accordion-content.svelte',
         'components/accordion/index.ts',
-        'components/accordion/item-context.ts',
+        'components/accordion/context.svelte.ts',
         'components/accordion/manifest.ts'
     ],
     components: ['_internal/utils', '_internal/disclosure'],
-    shared: ['hugeicons-icon', 'utils.cn', 'transition'],
+    shared: ['hugeicons-icon', 'utils.cn', 'utils.createContext', 'transition'],
     peerDependencies: {
         '@floating-ui/dom': '1.7.6',
         'bits-ui': '^2.19.2',

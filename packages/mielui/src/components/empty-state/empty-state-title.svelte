@@ -4,7 +4,7 @@
     import { titleClasses } from '../typography/variants';
     import type { EmptyStateTitleProps } from '.';
 
-    let { children, level = 2, class: classProp, ...rest }: EmptyStateTitleProps = $props();
+    let { children, level = 2, class: className, ...rest }: EmptyStateTitleProps = $props();
     const tag = $derived(`h${level}` as HeadingTag);
 </script>
 
@@ -12,7 +12,7 @@
     this={tag}
     {...rest}
     data-slot="empty-state-title"
-    class={cn(classProp, titleClasses)}
+    class={cn(className, titleClasses)}
 >
     {@render children?.()}
 </svelte:element>

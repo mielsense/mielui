@@ -63,6 +63,7 @@
                     <div data-overlay-root aria-hidden="true" class="fixed inset-0 z-[129]"></div>
                 {/if}
                 <div {...wrapperProps} data-overlay-root class="z-[130]">
+                    <!-- svelte-ignore a11y_no_noninteractive_tabindex -->
                     <div
                         {...props}
                         dir={rest.dir}

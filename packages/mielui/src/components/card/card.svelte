@@ -6,7 +6,7 @@
 
     let {
         children,
-        class: classProp,
+        class: className,
         variant = 'default',
         surface = 'solid',
         ...rest
@@ -36,7 +36,7 @@
         data-surface={surface}
         {...rest}
         class={cn(
-            classProp,
+            className,
             'mielui-modal-frame flex flex-col overflow-hidden shadow-[var(--elevation-1)]',
             glass && frameGlass
         )}
@@ -66,7 +66,7 @@
         data-variant="panel"
         data-surface={surface}
         {...rest}
-        class={cn(classProp, 'mielui-card-frame flex flex-col', glass && frameGlass)}
+        class={cn(className, 'mielui-card-frame flex flex-col', glass && frameGlass)}
     >
         <div
             data-ui="card-surface"
@@ -82,7 +82,7 @@
         data-surface={surface}
         {...rest}
         class={cn(
-            classProp,
+            className,
             'mielui-plate flex flex-col p-6',
             glass && surfaceGlass
         )}

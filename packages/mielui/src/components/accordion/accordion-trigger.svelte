@@ -2,19 +2,19 @@
     import { ArrowDown01Icon as ChevronDown } from '@hugeicons/core-free-icons';
     import { cn, pressable } from '@mielui/svelte/utils';
     import { Accordion as BitsAccordion } from 'bits-ui';
-    import { getContext, onDestroy, untrack } from 'svelte';
+    import { onDestroy, untrack } from 'svelte';
     import HugeiconsIcon from '../../hugeicons-icon.svelte';
     import {
         DISCLOSURE_ICON_SIZE,
         disclosureChevron,
         disclosureTrigger
     } from '../_internal/disclosure/variants';
-    import type { AccordionContext, AccordionTriggerProps } from '.';
-    import { getAccordionItemContext } from './item-context';
+    import type { AccordionTriggerProps } from '.';
+    import { getAccordionContext, getAccordionItemContext } from './context.svelte';
 
     let { class: className, children, ...rest }: AccordionTriggerProps = $props();
 
-    const ctx = getContext<AccordionContext>('accordion');
+    const ctx = getAccordionContext();
     const item = getAccordionItemContext();
     const resolvedId = `${item.id}-trigger`;
     const readId = () => {

@@ -1,14 +1,14 @@
 <script lang="ts">
     import { DateFormatter } from '@internationalized/date';
     import { cn } from '@mielui/svelte/utils';
-    import Grid from '../calendar/calendar-grid.svelte';
-    import GridBody from '../calendar/calendar-grid-body.svelte';
-    import GridHead from '../calendar/calendar-grid-head.svelte';
-    import GridRow from '../calendar/calendar-grid-row.svelte';
-    import HeadCell from '../calendar/calendar-head-cell.svelte';
     import type { CalendarMonthProps } from '.';
     import Cell from './calendar-cell.svelte';
     import Day from './calendar-day.svelte';
+    import Grid from './calendar-grid.svelte';
+    import GridBody from './calendar-grid-body.svelte';
+    import GridHead from './calendar-grid-head.svelte';
+    import GridRow from './calendar-grid-row.svelte';
+    import HeadCell from './calendar-head-cell.svelte';
 
     let {
         month,

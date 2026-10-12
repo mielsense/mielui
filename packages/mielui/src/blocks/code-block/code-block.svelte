@@ -3,12 +3,13 @@
     import { cn } from '@mielui/svelte/utils';
     import { setContext, untrack } from 'svelte';
     import { insetLayout } from '../../components/_internal/inset-layout';
-    import type { CodeBlockLabels, CodeBlockProps, CodeBlockRegistry, CodeBlockTab } from '.';
+    import type { CodeBlockLabels, CodeBlockProps, CodeBlockTab } from '.';
     import Actions from './code-block-actions.svelte';
     import Content from './code-block-content.svelte';
     import Header from './code-block-header.svelte';
     import List from './code-block-list.svelte';
     import Trigger from './code-block-trigger.svelte';
+    import { createCodeBlockRegistry } from './registry.svelte';
 
     let {
         children,
@@ -54,27 +55,40 @@
      */
     const initialValue = untrack(() => {
         const firstTab = tabs?.[0];
-        return firstTab ? (firstTab.value ?? firstTab.lang) : code != null ? SINGLE : '';
+        if (firstTab) {
+            return firstTab.value ?? firstTab.lang;
+        }
+        if (code != null) {
+            return SINGLE;
+        }
+        return '';
     });
     value ??= initialValue;
 
-    /**
-     * Raw code per tab -- Copy reads the active one -- plus the active/order
-     * tracking that drives the directional slide between tabs.
-     */
-    const registry = $state({
-        codes: {},
-        langs: {},
-        active: untrack(() => value ?? ''),
-        order: [],
-        contained: untrack(() => isHighLevel),
-        theme: untrack(() => theme)
-    } as CodeBlockRegistry);
-    let composedTriggerCount = $state(0);
-    setContext('code-block', registry);
+    function highLevelOrder() {
+        if (resolvedTabs.length > 0) {
+            return resolvedTabs.map((tab) => tab.value as string);
+        }
+        if (code != null) {
+            return [SINGLE];
+        }
+        return [];
+    }
+
+    const codeBlock = createCodeBlockRegistry({
+        getValue: () => value,
+        setValue: (next) => {
+            value = next;
+        },
+        getElement: () => element,
+        getHighLevel: () => isHighLevel,
+        getHighLevelOrder: highLevelOrder,
+        getTheme: () => theme
+    });
+    setContext('code-block', codeBlock.registry);
     setContext('code-block-panel', {
         get tabbed() {
-            return isHighLevel ? hasTabRow : composedTriggerCount > 0;
+            return isHighLevel ? hasTabRow : codeBlock.composedTriggerCount > 0;
         }
     });
 
@@ -89,58 +103,6 @@
         if (available.length > 0 && !available.includes(value ?? '')) {
             value = available[0];
         }
-    });
-
-    $effect(() => {
-        registry.active = value ?? '';
-        registry.contained = isHighLevel;
-        registry.theme = theme;
-        if (isHighLevel) {
-            registry.order =
-                resolvedTabs.length > 0
-                    ? resolvedTabs.map((tab) => tab.value as string)
-                    : code != null
-                      ? [SINGLE]
-                      : [];
-        }
-    });
-    $effect(() => {
-        if (isHighLevel || !element) {
-            return;
-        }
-        const root = element;
-        function reconcileOrder() {
-            const triggers = Array.from(
-                root.querySelectorAll<HTMLButtonElement>('[data-code-block-value]')
-            ).filter((trigger) => trigger.closest('[data-ui="code-block"]') === root);
-            composedTriggerCount = triggers.length;
-            if (triggers.length === 0) {
-                if (!registry.order.includes(value ?? '') && registry.order.length > 0) {
-                    value = registry.order[0];
-                }
-                return;
-            }
-            const order = triggers.map((trigger) => trigger.dataset.codeBlockValue ?? '');
-            if (
-                order.length !== registry.order.length ||
-                order.some((entry, index) => entry !== registry.order[index])
-            ) {
-                registry.order = order;
-            }
-            const enabled = triggers.filter((trigger) => !trigger.disabled);
-            if (!enabled.some((trigger) => trigger.dataset.codeBlockValue === value)) {
-                value = enabled[0]?.dataset.codeBlockValue ?? '';
-            }
-        }
-        const observer = new MutationObserver(reconcileOrder);
-        observer.observe(root, {
-            childList: true,
-            subtree: true,
-            attributes: true,
-            attributeFilter: ['data-code-block-value', 'disabled']
-        });
-        untrack(reconcileOrder);
-        return () => observer.disconnect();
     });
 </script>
 
@@ -171,8 +133,6 @@
                     </Header>
                 {/if}
                 {#if hasTabRow || code != null}
-                    <!-- The static card: holds the background/ring while only the text
-				     panels slide inside it (and clips the slide). -->
                     <div
                         data-ui="code-block-surface"
                         class="mielui-inset-surface relative flex min-h-0 w-full flex-1 self-stretch overflow-auto"

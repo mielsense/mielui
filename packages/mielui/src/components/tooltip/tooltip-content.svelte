@@ -1,16 +1,12 @@
 <script lang="ts">
-    import { getContext, onMount } from 'svelte';
+    import { onMount } from 'svelte';
     import { tooltipSurface } from '../_internal/surface';
-    import type { TooltipContentProps, TooltipState } from '.';
-    import type { TooltipContentState } from './manager-context';
+    import type { TooltipContentProps } from '.';
+    import { getTooltipContext } from './manager-context';
 
     let { children, class: className, surface, rich = false }: TooltipContentProps = $props();
 
-    const tip = getContext('mielui-tooltip') as TooltipState;
-
-    const content = getContext<TooltipContentState>('mielui-tooltip-content');
-
-    const descriptionId = getContext<string>('mielui-tooltip-id');
+    const { tip, content, descriptionId } = getTooltipContext();
     let el = $state<HTMLElement>();
 
     $effect(() => {

@@ -28,7 +28,7 @@
         footer: undefined as Snippet | undefined
     });
     setSheetContext(context);
-    let wasOpen = $state(false);
+    let wasOpen = false;
 
     $effect.pre(() => {
         if (

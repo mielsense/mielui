@@ -1,31 +1,43 @@
 <script lang="ts">
-    import { setContext, untrack } from 'svelte';
     import type { TooltipProps, TooltipState } from '.';
-    import type { TooltipContentState } from './manager-context';
+    import { setTooltipContext, type TooltipContentState } from './manager-context';
 
     let { children, delay = 125, closeDelay = 100, placement = 'top' }: TooltipProps = $props();
 
-    const tip = $state<TooltipState>(
-        untrack(() => ({
-            text: '',
-            placement,
-            delay,
-            closeDelay,
-            className: ''
-        }))
-    );
-
-    $effect(() => {
-        tip.placement = placement;
-        tip.delay = delay;
-        tip.closeDelay = closeDelay;
-    });
-
-    const content = $state<TooltipContentState>({ rich: false, revision: 0 });
-    setContext('mielui-tooltip-content', content);
-    setContext('mielui-tooltip', tip);
     const id = $props.id();
-    setContext('mielui-tooltip-id', `tooltip-${id}`);
+    let text = $state('');
+    let className = $state('');
+    const content = $state<TooltipContentState>({ rich: false, revision: 0 });
+
+    const tip: TooltipState = {
+        get text() {
+            return text;
+        },
+        set text(next) {
+            text = next;
+        },
+        get className() {
+            return className;
+        },
+        set className(next) {
+            className = next;
+        },
+        get placement() {
+            return placement;
+        },
+        get delay() {
+            return delay;
+        },
+        get closeDelay() {
+            return closeDelay;
+        }
+    };
+
+    setTooltipContext({
+        descriptionId: `tooltip-${id}`,
+        tip,
+        content
+    });
 </script>
 
 {@render children?.()}

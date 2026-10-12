@@ -17,13 +17,16 @@
     }: SelectProps = $props();
     const singleValue = $derived(typeof value === 'string' ? value : '');
     const multipleValue = $derived(Array.isArray(value) ? value : []);
-    const selectedValues = $derived(
-        type === 'multiple' ? multipleValue : singleValue ? [singleValue] : []
-    );
+    const selectedValues = $derived.by(() => {
+        if (type === 'multiple') {
+            return multipleValue;
+        }
+
+        return singleValue ? [singleValue] : [];
+    });
     const id = $props.id();
     let triggerId = $state(`${id}-trigger`);
     const labels = new SvelteMap<string, string>();
-    const values = new Set<string>();
     const selectionState = {
         get value() {
             return type === 'multiple' ? multipleValue : singleValue;
@@ -50,7 +53,6 @@
         },
         state: selectionState,
         labels,
-        values,
         get open() {
             return open;
         },

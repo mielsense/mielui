@@ -20,8 +20,6 @@ export type CalendarMonthProps = Omit<DefaultProps, 'children'> & {
     day?: Snippet<[date: DateValue]>;
 };
 
-export { default as NextButton } from '../calendar/calendar-next-button.svelte';
-export { default as PrevButton } from '../calendar/calendar-prev-button.svelte';
 export { default as Root } from './calendar.svelte';
 export { default as Cell } from './calendar-cell.svelte';
 export { default as Day } from './calendar-day.svelte';
@@ -34,4 +32,6 @@ export { default as Header } from './calendar-header.svelte';
 export { default as Heading } from './calendar-heading.svelte';
 export { default as Month } from './calendar-month.svelte';
 export { default as MonthSelect } from './calendar-month-select.svelte';
+export { default as NextButton } from './calendar-next-button.svelte';
+export { default as PrevButton } from './calendar-prev-button.svelte';
 export { default as YearSelect } from './calendar-year-select.svelte';

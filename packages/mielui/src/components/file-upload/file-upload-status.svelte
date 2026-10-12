@@ -5,19 +5,26 @@
     import { Spinner } from '@mielui/svelte/components/spinner';
     import { cn } from '@mielui/svelte/utils';
     import HugeiconsIcon from '../../hugeicons-icon.svelte';
-    import type { FileUploadPartProps } from '.';
-    import { getItem, getRoot } from './context.svelte';
+    import type { FileUploadEntry, FileUploadPartProps } from '.';
+    import { getFileUploadContext, getFileUploadItem } from './context.svelte';
+
+    const statusTones: Partial<Record<FileUploadEntry['status'], string>> = {
+        error: 'text-[var(--mielui-error-text)]',
+        complete: 'text-[var(--mielui-success-text)]'
+    };
 
     let { children, class: className, ...rest }: FileUploadPartProps = $props();
-    const item = getItem();
-    const root = getRoot();
+
+    const item = getFileUploadItem();
+    const root = getFileUploadContext();
 </script>
+
 <div
     {...rest}
     role="status"
     aria-live="polite"
     data-ui="file-upload-status"
-    class={cn(className, 'text-xs', item().status === 'error' ? 'text-[var(--mielui-error-text)]' : item().status === 'complete' ? 'text-[var(--mielui-success-text)]' : 'text-foreground-muted')}
+    class={cn(className, 'text-xs', statusTones[item().status] ?? 'text-foreground-muted')}
 >
     {#if children}
         {@render children()}

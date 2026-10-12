@@ -2,9 +2,9 @@
     import { panelIn, panelOut } from '@mielui/svelte/transition';
     import { cn } from '@mielui/svelte/utils';
     import { LinkPreview } from 'bits-ui';
-    import { getContext } from 'svelte';
     import { overlaySurface } from '../_internal/surface';
     import type { HoverCardContentProps } from '.';
+    import { getHoverCardContext } from './context.svelte';
 
     let {
         class: className,
@@ -15,13 +15,7 @@
         surface,
         ...rest
     }: HoverCardContentProps = $props();
-    const context = getContext<{
-        id: string;
-        state: {
-            title: boolean;
-            description: boolean;
-        };
-    }>('mielui-hover-card');
+    const context = getHoverCardContext();
 </script>
 
 <LinkPreview.Portal>

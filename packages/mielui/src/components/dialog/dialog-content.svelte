@@ -9,6 +9,7 @@
     import OverlayClose from '../_internal/overlay-close.svelte';
     import { overlaySurface } from '../_internal/surface';
     import type { DialogContentProps } from '.';
+    import type { DialogFooterSlot } from './context.svelte';
     import { getDialogContext } from './context.svelte';
 
     let {
@@ -96,6 +97,19 @@
     });
 </script>
 
+{#snippet frameSlot(slot: DialogFooterSlot | undefined, part: string, classes: string)}
+    {#if slot}
+        <div
+            {...slot.rest}
+            data-ui={part}
+            data-orientation={dialog.state.orientation}
+            class={cn(slot.className, classes)}
+        >
+            {@render slot.children?.()}
+        </div>
+    {/if}
+{/snippet}
+
 <!-- Keep the host in body before opening so Safari does not reparent active transitions. -->
 <div bind:this={portalEl} use:visualViewportBounds data-overlay-root>
     <DialogPrimitive.Content
@@ -180,19 +194,7 @@
                         {...rest}
                         data-dialog-panel
                     >
-                        {#if dialog.headerSlot}
-                            <div
-                                {...dialog.headerSlot.rest}
-                                data-ui="dialog-frame-header"
-                                data-orientation={dialog.state.orientation}
-                                class={cn(
-                            dialog.headerSlot.className,
-                            'flex w-full flex-row items-center gap-2'
-                        )}
-                            >
-                                {@render dialog.headerSlot.children?.()}
-                            </div>
-                        {/if}
+                        {@render frameSlot(dialog.headerSlot, 'dialog-frame-header', 'flex w-full flex-row items-center gap-2')}
                         <div
                             class={cn(
                         surfaceClass,
@@ -210,19 +212,7 @@
                             {/if}
                             {@render children?.()}
                         </div>
-                        {#if dialog.footerSlot}
-                            <div
-                                {...dialog.footerSlot.rest}
-                                data-ui="dialog-footer"
-                                data-orientation={dialog.state.orientation}
-                                class={cn(
-                            dialog.footerSlot.className,
-                            'flex w-full flex-row items-center gap-2 p-2'
-                        )}
-                            >
-                                {@render dialog.footerSlot.children?.()}
-                            </div>
-                        {/if}
+                        {@render frameSlot(dialog.footerSlot, 'dialog-footer', 'flex w-full flex-row items-center gap-2 p-2')}
                     </div>
                 </div>
             {/if}

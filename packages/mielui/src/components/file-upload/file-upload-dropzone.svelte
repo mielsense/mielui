@@ -4,12 +4,14 @@
     import { cn } from '@mielui/svelte/utils';
     import HugeiconsIcon from '../../hugeicons-icon.svelte';
     import type { FileUploadPartProps } from '.';
-    import { getRoot } from './context.svelte';
+    import { getFileUploadContext } from './context.svelte';
     import Trigger from './file-upload-trigger.svelte';
 
     let { children, class: className, ...rest }: FileUploadPartProps = $props();
-    const root = getRoot();
+
+    const root = getFileUploadContext();
 </script>
+
 <motion.div
     {...rest}
     style={rest.style ?? undefined}
@@ -20,7 +22,10 @@
         className,
         'flex flex-col items-center justify-center gap-3 rounded-[var(--radius-xl)] border-[length:var(--border-size)] border-dashed border-[var(--color-border-strong)] bg-background px-6 text-center transition-[border-color] [transition-duration:var(--motion-duration-hover)] ease-[var(--ease-out)] motion-reduce:transition-none data-[dragging]:border-primary data-[dragging]:bg-[image:linear-gradient(var(--color-wash),var(--color-wash))]'
     )}
-    animate={{ paddingTop: root.summary.total ? 16 : 32, paddingBottom: root.summary.total ? 16 : 32 }}
+    animate={{
+        paddingTop: root.summary.total ? 16 : 32,
+        paddingBottom: root.summary.total ? 16 : 32
+    }}
 >
     {#if children}
         {@render children()}

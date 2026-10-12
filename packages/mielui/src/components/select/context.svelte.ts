@@ -9,7 +9,6 @@ export type SelectContext = {
     setOpen: (open: boolean) => void;
     state: SelectState<string | string[]>;
     labels: Map<string, string>;
-    values: Set<string>;
 };
 
 const { set: setSelectContext, get: getSelectContext } = createContext<SelectContext>('select');

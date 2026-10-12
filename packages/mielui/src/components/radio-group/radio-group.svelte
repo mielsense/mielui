@@ -1,7 +1,8 @@
 <script lang="ts">
     import { cn } from '@mielui/svelte/utils';
-    import { setContext, untrack } from 'svelte';
-    import type { RadioGroupContext, RadioGroupProps } from '.';
+    import { untrack } from 'svelte';
+    import type { RadioGroupProps } from '.';
+    import { setRadioGroupContext } from './context.svelte';
 
     let {
         class: className,
@@ -28,7 +29,7 @@
         onValueChange?.(itemValue);
     }
 
-    const ctx: RadioGroupContext = {
+    setRadioGroupContext({
         get name() {
             return name ?? generatedName;
         },
@@ -37,8 +38,7 @@
         },
         isSelected,
         setValue
-    };
-    setContext('radio-group', ctx);
+    });
 
     $effect(() => {
         const form = root?.querySelector<HTMLInputElement>('input[type="radio"]')?.form;

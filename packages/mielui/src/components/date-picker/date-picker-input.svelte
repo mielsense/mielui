@@ -1,10 +1,10 @@
 <script lang="ts">
     import { cn } from '@mielui/svelte/utils';
     import { DatePicker as DatePickerPrimitive } from 'bits-ui';
-    import FormField from '../date-picker/date-picker-form-field.svelte';
-    import Segment from '../date-picker/date-picker-segment.svelte';
-    import { fieldSegments } from '../date-picker/segments';
     import { input } from '../input/variants';
+    import FormField from './date-picker-form-field.svelte';
+    import Segment from './date-picker-segment.svelte';
+    import { fieldSegments } from './segments';
 
     let {
         class: className,
@@ -28,7 +28,7 @@
     )}
 >
     {#snippet children(data)}
-        {@const segments = fieldSegments(data.segments)}
+        {const segments = fieldSegments(data.segments)}
         {#if content}
             {@render content({ ...data, segments })}
         {:else}

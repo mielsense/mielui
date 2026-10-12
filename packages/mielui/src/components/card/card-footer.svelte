@@ -4,7 +4,7 @@
     import type { CardFooterProps } from '.';
     import { type CardFooterSlot, getCardContext } from './context.svelte';
 
-    let { children, class: classProp, ...rest }: CardFooterProps = $props();
+    let { children, class: className, ...rest }: CardFooterProps = $props();
 
     function readCardContext() {
         try {
@@ -21,7 +21,7 @@
             return children;
         },
         get className() {
-            return classProp;
+            return className;
         },
         get rest() {
             return rest;
@@ -64,7 +64,7 @@
         {...rest}
         data-ui="card-footer"
         class={cn(
-            classProp,
+            className,
             'mt-6 flex w-full flex-row flex-wrap items-center justify-end gap-2 [[data-ui=card-header]+&]:mt-0'
         )}
     >

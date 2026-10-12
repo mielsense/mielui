@@ -1,11 +1,11 @@
 <script lang="ts">
     import { cn } from '@mielui/svelte/utils';
     import { LinkPreview } from 'bits-ui';
-    import { getContext } from 'svelte';
     import type { HoverCardTriggerProps } from '.';
+    import { getHoverCardContext } from './context.svelte';
 
     let { class: className, children, href, ...rest }: HoverCardTriggerProps = $props();
-    const hoverCard = getContext<{ open: boolean }>('mielui-hover-card');
+    const hoverCard = getHoverCardContext();
 </script>
 
 <LinkPreview.Trigger {href} {...rest}>

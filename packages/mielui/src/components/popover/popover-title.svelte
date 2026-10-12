@@ -6,7 +6,7 @@
     const popover = getPopoverContext();
     const key = popover.id;
 
-    let { children, class: classProp, ...rest }: PopoverTitleProps = $props();
+    let { children, class: className, ...rest }: PopoverTitleProps = $props();
     const id = `popover-${String(key)}-title`;
 
     $effect(() => {
@@ -24,7 +24,7 @@
     {id}
     {...rest}
     class={cn(
-        classProp,
+        className,
         'm-0 [font-family:var(--font-header)] [font-size:var(--font-size-body)] [font-weight:var(--font-weight-header)] [letter-spacing:var(--tracking-header)] text-balance leading-tight text-foreground'
     )}
 >

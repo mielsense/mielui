@@ -1,9 +1,7 @@
-import { getContext, setContext } from 'svelte';
+import { createContext } from '@mielui/svelte/utils';
 import type { FileUploadEntry, FileUploadLabels, FileUploadSummary } from '.';
 
-const rootKey = Symbol('file-upload');
-const itemKey = Symbol('file-upload-item');
-type RootContext = {
+export type FileUploadContext = {
     readonly labels: FileUploadLabels | undefined;
     readonly summary: FileUploadSummary;
     readonly disabled: boolean;
@@ -13,23 +11,10 @@ type RootContext = {
     remove: (id: string) => void;
     retry: (id: string) => void;
 };
-export function setRoot(context: RootContext) {
-    setContext(rootKey, context);
-}
-export function getRoot(): RootContext {
-    const context = getContext<RootContext>(rootKey);
-    if (!context) {
-        throw new Error('FileUpload parts must be inside FileUpload.Root.');
-    }
-    return context;
-}
-export function setItem(item: () => FileUploadEntry) {
-    setContext(itemKey, item);
-}
-export function getItem(): () => FileUploadEntry {
-    const item = getContext<() => FileUploadEntry>(itemKey);
-    if (!item) {
-        throw new Error('This part must be inside FileUpload.Item.');
-    }
-    return item;
-}
+
+const { set: setFileUploadContext, get: getFileUploadContext } =
+    createContext<FileUploadContext>('file-upload');
+const { set: setFileUploadItem, get: getFileUploadItem } =
+    createContext<() => FileUploadEntry>('file-upload-item');
+
+export { getFileUploadContext, getFileUploadItem, setFileUploadContext, setFileUploadItem };

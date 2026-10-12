@@ -9,7 +9,7 @@
     import type { SelectItemProps } from '.';
     import { getSelectContext } from './context.svelte';
 
-    const { labels, values } = getSelectContext();
+    const { labels } = getSelectContext();
     let {
         children,
         class: className,
@@ -24,7 +24,6 @@
 
     $effect(() => {
         const itemValue = value;
-        values.add(itemValue);
         const node = element;
         function updateLabel() {
             resolvedLabel =
@@ -41,7 +40,6 @@
         }
         return () => {
             observer.disconnect();
-            values.delete(itemValue);
             labels.delete(itemValue);
         };
     });

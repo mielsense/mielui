@@ -2,7 +2,7 @@
     import { motion } from '@humanspeak/svelte-motion';
     import { cn } from '@mielui/svelte/utils';
     import type { FileUploadItemProps } from '.';
-    import { getRoot, setItem } from './context.svelte';
+    import { getFileUploadContext, setFileUploadItem } from './context.svelte';
     import Details from './file-upload-details.svelte';
     import Preview from './file-upload-preview.svelte';
     import Progress from './file-upload-progress.svelte';
@@ -11,9 +11,12 @@
     import Status from './file-upload-status.svelte';
 
     let { item, children, class: className, ...rest }: FileUploadItemProps = $props();
-    const root = getRoot();
-    setItem(() => item);
+
+    const root = getFileUploadContext();
+
+    setFileUploadItem(() => item);
 </script>
+
 <motion.div
     {...rest}
     style={rest.style ?? undefined}

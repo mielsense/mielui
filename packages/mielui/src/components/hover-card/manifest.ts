@@ -17,7 +17,7 @@ import type { Manifest } from '@mielui/svelte/_manifest/types';
  */
 export const manifest: Manifest = {
     name: 'hover-card',
-    version: '2.0.0',
+    version: '2.0.1',
     visibility: 'public',
     description:
         'Rich preview card revealed on hover or keyboard focus, with open and close delays, side and align placement, and Title and Description parts wired to its accessible name.',
@@ -28,11 +28,12 @@ export const manifest: Manifest = {
         'components/hover-card/hover-card-trigger.svelte',
         'components/hover-card/hover-card-title.svelte',
         'components/hover-card/hover-card-description.svelte',
+        'components/hover-card/context.svelte.ts',
         'components/hover-card/index.ts',
         'components/hover-card/manifest.ts'
     ],
     components: ['_internal/utils', 'popover'],
-    shared: ['transition', 'components/_internal/surface', 'utils.cn'],
+    shared: ['transition', 'components/_internal/surface', 'utils.cn', 'utils.createContext'],
     peerDependencies: {
         '@floating-ui/dom': '1.7.6',
         'bits-ui': '^2.19.2',
