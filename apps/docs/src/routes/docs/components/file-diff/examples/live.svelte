@@ -15,7 +15,13 @@
 </script>
 
 <div class="flex w-full max-w-2xl flex-col gap-4">
-    <Button variant="outline" class="w-fit" onclick={() => { revised = !revised; }}>
+    <Button
+        variant="outline"
+        class="w-fit"
+        onclick={() => {
+            revised = !revised;
+        }}
+    >
         {revised ? 'Show original patch' : 'Revise patch'}
     </Button>
     <FileDiff.Root file="src/config.ts" lang="ts" {diff} />

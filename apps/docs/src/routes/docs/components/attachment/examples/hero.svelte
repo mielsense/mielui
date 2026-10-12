@@ -18,7 +18,7 @@
     <Attachment.Trigger variant="outline" size="md">Choose files</Attachment.Trigger>
     <p class="text-sm text-foreground-muted">PNG, JPEG, or PDF. Up to 3 files, 5 MB each.</p>
     <Attachment.List class="self-stretch items-center sm:justify-center" />
-    {#each rejected as rejection}
+    {#each rejected as rejection (rejection.file)}
         <Attachment.Item
             file={rejection.file}
             status="error"

@@ -24,53 +24,18 @@
     import SingleSrc from './examples/single.svelte?raw';
     import Sizes from './examples/sizes.svelte';
     import SizesSrc from './examples/sizes.svelte?raw';
-    import { code as playgroundCode, controls as playgroundControls } from './playground';
+    import { ITEMS, code as playgroundCode, controls as playgroundControls } from './playground';
 
     const TITLE = 'Toggle Group';
-    const SLUG = 'toggle-group';
 
-    const installCommand = `pnpm dlx @mielui/svelte add ${SLUG}`;
-
-    const alignments = [
-        {
-            value: 'left',
-            text: 'Left',
-            label: 'Align left',
-            icon: AlignLeft
-        },
-        {
-            value: 'center',
-            text: 'Center',
-            label: 'Align center',
-            icon: AlignCenter
-        },
-        {
-            value: 'right',
-            text: 'Right',
-            label: 'Align right',
-            icon: AlignRight
-        }
-    ];
-    const formats = [
-        {
-            value: 'bold',
-            text: 'Bold',
-            label: 'Bold',
-            icon: Bold
-        },
-        {
-            value: 'italic',
-            text: 'Italic',
-            label: 'Italic',
-            icon: Italic
-        },
-        {
-            value: 'underline',
-            text: 'Underline',
-            label: 'Underline',
-            icon: Underline
-        }
-    ];
+    const icons: Record<string, typeof Bold> = {
+        AlignCenter,
+        AlignLeft,
+        AlignRight,
+        Bold,
+        Italic,
+        Underline
+    };
 
     let alignment = $state<string | undefined>('center');
     let formatting = $state(['bold']);
@@ -85,15 +50,29 @@
 </svelte:head>
 
 <div data-docs-page class="flex flex-col gap-10">
-    <!-- ─── Header ────────────────────────────────────────────────── -->
     <PageIntro title={TITLE}>
         A row of toggles with shared selection, for single or multiple choice.
     </PageIntro>
 
-    <!-- ─── Hero Example ──────────────────────────────────────────── -->
     <section id="hero" class="scroll-mt-20 flex flex-col gap-4">
         <Playground controls={playgroundControls} code={playgroundCode}>
             {#snippet children(values)}
+                {const items = ITEMS[values.type]}
+                {#snippet toggles()}
+                    {#each items as item, index (item.value)}
+                        <ToggleGroup.Item
+                            value={item.value}
+                            aria-label={values.content === 'icon' ? item.label : undefined}
+                            disabled={values.disabledItem && index === items.length - 1}
+                        >
+                            {#if values.content === 'icon'}
+                                <HugeiconsIcon icon={icons[item.icon]} size={14} />
+                            {:else}
+                                {item.text}
+                            {/if}
+                        </ToggleGroup.Item>
+                    {/each}
+                {/snippet}
                 {#if values.type === 'multiple'}
                     <ToggleGroup.Root
                         type="multiple"
@@ -102,19 +81,7 @@
                         disabled={values.disabled}
                         aria-label="Text formatting"
                     >
-                        {#each formats as item, index (item.value)}
-                            <ToggleGroup.Item
-                                value={item.value}
-                                aria-label={values.content === 'icon' ? item.label : undefined}
-                                disabled={values.disabledItem && index === formats.length - 1}
-                            >
-                                {#if values.content === 'icon'}
-                                    <HugeiconsIcon icon={item.icon} size={14} />
-                                {:else}
-                                    {item.text}
-                                {/if}
-                            </ToggleGroup.Item>
-                        {/each}
+                        {@render toggles()}
                     </ToggleGroup.Root>
                 {:else}
                     <ToggleGroup.Root
@@ -124,32 +91,18 @@
                         disabled={values.disabled}
                         aria-label="Text alignment"
                     >
-                        {#each alignments as item, index (item.value)}
-                            <ToggleGroup.Item
-                                value={item.value}
-                                aria-label={values.content === 'icon' ? item.label : undefined}
-                                disabled={values.disabledItem && index === alignments.length - 1}
-                            >
-                                {#if values.content === 'icon'}
-                                    <HugeiconsIcon icon={item.icon} size={14} />
-                                {:else}
-                                    {item.text}
-                                {/if}
-                            </ToggleGroup.Item>
-                        {/each}
+                        {@render toggles()}
                     </ToggleGroup.Root>
                 {/if}
             {/snippet}
         </Playground>
     </section>
 
-    <!-- ─── Installation ──────────────────────────────────────────── -->
     <section id="installation" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Installation</Typography.H2>
-        <InstallCommand command={installCommand} />
+        <InstallCommand command="pnpm dlx @mielui/svelte add toggle-group" />
     </section>
 
-    <!-- ─── Usage ─────────────────────────────────────────────────── -->
     <section id="usage" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Usage</Typography.H2>
         <Typography.Text>
@@ -171,7 +124,6 @@
         />
     </section>
 
-    <!-- ─── Examples ──────────────────────────────────────────────── -->
     <section id="examples" class="scroll-mt-20 flex flex-col gap-10">
         <SectionHeading title="Examples">
             {#snippet description()}
@@ -189,7 +141,6 @@
             </ComponentPreview>
         </div>
 
-        <!-- Single select -->
         <div id="single" class="scroll-mt-20 flex flex-col gap-3">
             <Typography.H3 class="docs-subsection-heading">Single select</Typography.H3>
             <ComponentPreview code={SingleSrc}>
@@ -197,7 +148,6 @@
             </ComponentPreview>
         </div>
 
-        <!-- Multiple select -->
         <div id="multiple" class="scroll-mt-20 flex flex-col gap-3">
             <Typography.H3 class="docs-subsection-heading">Multiple select</Typography.H3>
             <ComponentPreview code={MultipleSrc}>

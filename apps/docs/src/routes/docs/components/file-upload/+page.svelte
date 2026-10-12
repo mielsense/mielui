@@ -54,20 +54,20 @@
     <section id="hero" class="scroll-mt-20 flex flex-col gap-4">
         <Playground controls={playgroundControls} code={playgroundCode}>
             {#snippet children(values)}
+                {const root = {
+                    accept: values.accept.replaceAll('"', '') || undefined,
+                    maxFiles: values.maxFiles,
+                    maxSize: values.maxSize * 1024 * 1024,
+                    disabled: values.disabled,
+                    labels: {
+                        dropzoneTitle: values.dropzoneTitle,
+                        dropzoneDescription: values.dropzoneDescription,
+                        choose: values.choose
+                    },
+                    onUpload: createUpload(values.progress, values.fail)
+                }}
                 {#if values.summary}
-                    <FileUpload.Root
-                        accept={values.accept.replaceAll('"', '') || undefined}
-                        maxFiles={values.maxFiles}
-                        maxSize={values.maxSize * 1024 * 1024}
-                        disabled={values.disabled}
-                        labels={{
-                            dropzoneTitle: values.dropzoneTitle,
-                            dropzoneDescription: values.dropzoneDescription,
-                            choose: values.choose
-                        }}
-                        onUpload={createUpload(values.progress, values.fail)}
-                        class="w-full max-w-md"
-                    >
+                    <FileUpload.Root {...root} class="w-full max-w-md">
                         {#snippet children({ complete, total })}
                             <FileUpload.Dropzone />
                             <p class="text-xs text-foreground-muted">
@@ -78,19 +78,7 @@
                         {/snippet}
                     </FileUpload.Root>
                 {:else}
-                    <FileUpload.Root
-                        accept={values.accept.replaceAll('"', '') || undefined}
-                        maxFiles={values.maxFiles}
-                        maxSize={values.maxSize * 1024 * 1024}
-                        disabled={values.disabled}
-                        labels={{
-                            dropzoneTitle: values.dropzoneTitle,
-                            dropzoneDescription: values.dropzoneDescription,
-                            choose: values.choose
-                        }}
-                        onUpload={createUpload(values.progress, values.fail)}
-                        class="w-full max-w-md"
-                    />
+                    <FileUpload.Root {...root} class="w-full max-w-md" />
                 {/if}
             {/snippet}
         </Playground>

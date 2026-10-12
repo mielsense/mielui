@@ -17,8 +17,6 @@
     import ScrollableSrc from './examples/scrollable.svelte?raw';
     import { code as playgroundCode, controls as playgroundControls } from './playground';
 
-    const installCommand = 'pnpm dlx @mielui/svelte add select';
-
     let playgroundPriority = $state('');
     let playgroundPriorities = $state<string[]>([]);
 </script>
@@ -42,65 +40,51 @@
 {/snippet}
 
 <div data-docs-page class="flex flex-col gap-10">
-    <!-- ─── Header ────────────────────────────────────────────────── -->
     <PageIntro title="Select">
         A dropdown for choosing one or more options from a short list.
     </PageIntro>
 
-    <!-- ─── Hero Example ──────────────────────────────────────────── -->
     <section id="hero" class="scroll-mt-20 flex flex-col gap-4">
         <Playground controls={playgroundControls} code={playgroundCode}>
             {#snippet children(values)}
+                {#snippet parts()}
+                    <Select.Trigger
+                        aria-label="Priority"
+                        variant={values.variant}
+                        size={values.size}
+                        class="min-w-56"
+                    >
+                        <Select.Value placeholder={values.placeholder || undefined} />
+                    </Select.Trigger>
+                    <Select.Content
+                        surface={values.surface === 'inherit' ? undefined : values.surface}
+                        dynamic={values.dynamic}
+                    >
+                        {@render playgroundItems(values.groupLabel, values.disabledItem)}
+                    </Select.Content>
+                {/snippet}
                 {#if values.multiple}
                     <Select.Root
                         type="multiple"
                         bind:value={playgroundPriorities}
                         disabled={values.disabled}
                     >
-                        <Select.Trigger
-                            aria-label="Priority"
-                            variant={values.variant}
-                            size={values.size}
-                            class="min-w-56"
-                        >
-                            <Select.Value placeholder={values.placeholder || undefined} />
-                        </Select.Trigger>
-                        <Select.Content
-                            surface={values.surface === 'inherit' ? undefined : values.surface}
-                            dynamic={values.dynamic}
-                        >
-                            {@render playgroundItems(values.groupLabel, values.disabledItem)}
-                        </Select.Content>
+                        {@render parts()}
                     </Select.Root>
                 {:else}
                     <Select.Root bind:value={playgroundPriority} disabled={values.disabled}>
-                        <Select.Trigger
-                            aria-label="Priority"
-                            variant={values.variant}
-                            size={values.size}
-                            class="min-w-56"
-                        >
-                            <Select.Value placeholder={values.placeholder || undefined} />
-                        </Select.Trigger>
-                        <Select.Content
-                            surface={values.surface === 'inherit' ? undefined : values.surface}
-                            dynamic={values.dynamic}
-                        >
-                            {@render playgroundItems(values.groupLabel, values.disabledItem)}
-                        </Select.Content>
+                        {@render parts()}
                     </Select.Root>
                 {/if}
             {/snippet}
         </Playground>
     </section>
 
-    <!-- ─── Installation ──────────────────────────────────────────── -->
     <section id="installation" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Installation</Typography.H2>
-        <InstallCommand command={installCommand} />
+        <InstallCommand command="pnpm dlx @mielui/svelte add select" />
     </section>
 
-    <!-- ─── Usage ─────────────────────────────────────────────────── -->
     <section id="usage" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Usage</Typography.H2>
         <Typography.Text>
@@ -127,7 +111,6 @@
         />
     </section>
 
-    <!-- ─── Examples ──────────────────────────────────────────────── -->
     <section id="examples" class="scroll-mt-20 flex flex-col gap-10">
         <div>
             <Typography.H2 class="docs-section-heading">Examples</Typography.H2>

@@ -1,6 +1,9 @@
 import {
     attributes,
-    expression,
+    BUTTON_VARIANTS,
+    changed,
+    compact,
+    defaultOn,
     type PlaygroundValues,
     select,
     toggle
@@ -9,12 +12,7 @@ import {
 export const controls = {
     size: select('Size', ['sm', 'md', 'lg', 'xl'], 'lg'),
     orientation: select('Orientation', ['horizontal', 'vertical'], 'horizontal', 'Appearance'),
-    trigger: select(
-        'Trigger variant',
-        ['primary', 'secondary', 'outline', 'ghost', 'destructive', 'glow', 'panel', 'quiet'],
-        'primary',
-        'Appearance'
-    ),
+    trigger: select('Trigger variant', BUTTON_VARIANTS, 'primary', 'Appearance'),
     glass: toggle('Glass surface', 'Appearance'),
     description: toggle('Description', 'Content', true),
     body: toggle('Body', 'Content', true),
@@ -26,26 +24,31 @@ export const controls = {
     role: select('Role', ['dialog', 'alertdialog'], 'dialog', 'Behavior')
 };
 
-export function code(values: PlaygroundValues<typeof controls>): string {
+type Values = PlaygroundValues<typeof controls>;
+
+export function code(values: Values): string {
     const defaultSize = values.orientation === 'horizontal' ? 'lg' : 'md';
     const root = attributes({
-        orientation: values.orientation !== 'horizontal' && values.orientation,
+        orientation: changed(values.orientation, 'horizontal'),
         error: values.error
     });
     const trigger = attributes({
-        variant: values.trigger !== 'primary' && values.trigger
+        variant: changed(values.trigger, 'primary')
     });
     const content = attributes({
-        size: values.size !== defaultSize && values.size,
+        size: changed(values.size, defaultSize),
         surface: values.glass && 'glass',
-        role: values.role !== 'dialog' && values.role,
-        showClose: values.showClose ? undefined : expression('false'),
-        allowClickOutside: values.allowClickOutside ? undefined : expression('false'),
-        allowEscape: values.allowEscape ? undefined : expression('false')
+        role: changed(values.role, 'dialog'),
+        showClose: defaultOn(values.showClose),
+        allowClickOutside: defaultOn(values.allowClickOutside),
+        allowEscape: defaultOn(values.allowEscape)
     });
-    const imports = values.body
+    const imports = compact([
+        "import * as Dialog from '@mielui/svelte/components/dialog';",
+        values.body && "import { Input } from '@mielui/svelte/components/input';"
+    ]).join('\n    ');
+    const state = values.body
         ? `
-    import { Input } from '@mielui/svelte/components/input';
 
     let name = $state('Mielui docs');`
         : '';
@@ -70,7 +73,7 @@ export function code(values: PlaygroundValues<typeof controls>): string {
         : '';
 
     return `<script lang="ts">
-    import * as Dialog from '@mielui/svelte/components/dialog';${imports}
+    ${imports}${state}
 </script>
 
 <Dialog.Root${root}>

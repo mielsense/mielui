@@ -1,14 +1,22 @@
-import { attributes, type PlaygroundValues, select, toggle } from '$lib/components/docs/playground';
+import {
+    attributes,
+    CONTROL_SIZES,
+    changed,
+    compact,
+    type PlaygroundValues,
+    select,
+    toggle
+} from '$lib/components/docs/playground';
 
 export const controls = {
     type: select('Type', ['single', 'multiple'], 'single'),
-    size: select('Size', ['sm', 'md', 'lg'], 'sm', 'Appearance'),
+    size: select('Size', CONTROL_SIZES, 'sm', 'Appearance'),
     content: select('Content', ['icon', 'text'], 'icon', 'Content'),
     disabled: toggle('Disabled', 'State'),
     disabledItem: toggle('Disabled item', 'State')
 };
 
-const ITEMS = {
+export const ITEMS = {
     single: [
         {
             value: 'left',
@@ -61,20 +69,23 @@ export function code(values: PlaygroundValues<typeof controls>): string {
     const multiple = values.type === 'multiple';
     const withIcons = values.content === 'icon';
     const items = ITEMS[values.type];
+    const type = attributes({
+        type: values.type
+    });
     const props = attributes({
-        size: values.size !== 'sm' && values.size,
+        size: changed(values.size, 'sm'),
         disabled: values.disabled,
         'aria-label': multiple ? 'Text formatting' : 'Text alignment'
     });
     const iconSources = items
         .map((item) => `${item.source} as ${item.icon}`)
         .sort((a, b) => a.localeCompare(b));
-    const imports = [
+    const imports = compact([
         withIcons &&
-            `    import {\n        ${iconSources.join(',\n        ')}\n    } from '@hugeicons/core-free-icons';`,
-        "    import * as ToggleGroup from '@mielui/svelte/components/toggle-group';",
-        withIcons && "    import HugeiconsIcon from '@mielui/svelte/hugeicons-icon';"
-    ].filter((line) => line !== false);
+            `import {\n        ${iconSources.join(',\n        ')}\n    } from '@hugeicons/core-free-icons';`,
+        "import * as ToggleGroup from '@mielui/svelte/components/toggle-group';",
+        withIcons && "import HugeiconsIcon from '@mielui/svelte/hugeicons-icon';"
+    ]).join('\n    ');
     const state = multiple
         ? "let formatting = $state(['bold']);"
         : "let alignment = $state<string | undefined>('center');";
@@ -95,12 +106,12 @@ export function code(values: PlaygroundValues<typeof controls>): string {
     });
 
     return `<script lang="ts">
-${imports.join('\n')}
+    ${imports}
 
     ${state}
 </script>
 
-<ToggleGroup.Root type="${values.type}" bind:value={${multiple ? 'formatting' : 'alignment'}}${props}>
+<ToggleGroup.Root${type} bind:value={${multiple ? 'formatting' : 'alignment'}}${props}>
 ${itemLines.join('\n')}
 </ToggleGroup.Root>`;
 }

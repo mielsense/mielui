@@ -22,8 +22,6 @@
         "let { surface }: { surface?: 'solid' | 'glass' } = $props();",
         "const surface = 'glass';"
     );
-
-    const installCommand = 'pnpm dlx @mielui/svelte add popover';
 </script>
 
 <svelte:head>
@@ -32,13 +30,11 @@
 </svelte:head>
 
 <div data-docs-page class="flex flex-col gap-10">
-    <!-- ─── Header ────────────────────────────────────────────────── -->
     <PageIntro title="Popover">
         A floating surface anchored to a trigger. Place it on any side, optionally aligned to the
         start or end of the trigger.
     </PageIntro>
 
-    <!-- ─── Hero Example ──────────────────────────────────────────── -->
     <section id="hero" class="scroll-mt-20 flex flex-col gap-4">
         <Playground controls={playgroundControls} code={playgroundCode}>
             {#snippet children(values)}
@@ -83,13 +79,11 @@
         </Playground>
     </section>
 
-    <!-- ─── Installation ──────────────────────────────────────────── -->
     <section id="installation" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Installation</Typography.H2>
-        <InstallCommand command={installCommand} />
+        <InstallCommand command="pnpm dlx @mielui/svelte add popover" />
     </section>
 
-    <!-- ─── Usage ─────────────────────────────────────────────────── -->
     <section id="usage" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Usage</Typography.H2>
         <Typography.Text variant="supporting">
@@ -127,7 +121,6 @@
         />
     </section>
 
-    <!-- ─── Examples ──────────────────────────────────────────────── -->
     <section id="examples" class="scroll-mt-20 flex flex-col gap-10">
         <SectionHeading title="Examples">
             {#snippet description()}
@@ -145,7 +138,6 @@
             </ComponentPreview>
         </div>
 
-        <!-- Basic popover -->
         <div id="basic" class="scroll-mt-20 flex flex-col gap-3">
             <Typography.H3 class="docs-subsection-heading">Basic popover</Typography.H3>
             <ComponentPreview code={BasicSrc}>
@@ -153,7 +145,6 @@
             </ComponentPreview>
         </div>
 
-        <!-- Placement variants -->
         <div id="placements" class="scroll-mt-20 flex flex-col gap-3">
             <Typography.H3 class="docs-subsection-heading">Placement variants</Typography.H3>
             <ComponentPreview code={PlacementsSrc}>

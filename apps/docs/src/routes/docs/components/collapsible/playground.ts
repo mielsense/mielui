@@ -1,4 +1,9 @@
-import { attributes, type PlaygroundValues, toggle } from '$lib/components/docs/playground';
+import {
+    attributes,
+    compact,
+    type PlaygroundValues,
+    toggle
+} from '$lib/components/docs/playground';
 
 export const controls = {
     fullWidth: toggle('Full width trigger', 'Appearance', true),
@@ -6,21 +11,20 @@ export const controls = {
     disabled: toggle('Disabled', 'State')
 };
 
-export function code(values: PlaygroundValues<typeof controls>): string {
+type Values = PlaygroundValues<typeof controls>;
+
+export function code(values: Values): string {
     const props = attributes({
         disabled: values.disabled
     });
     const trigger = attributes({
         class: values.fullWidth && 'w-full justify-between'
     });
-    const imports = values.chevron
-        ? `
-    import { ArrowDown01Icon } from '@hugeicons/core-free-icons';`
-        : '';
-    const iconImport = values.chevron
-        ? `
-    import HugeiconsIcon from '@mielui/svelte/hugeicons-icon';`
-        : '';
+    const imports = compact([
+        values.chevron && "import { ArrowDown01Icon } from '@hugeicons/core-free-icons';",
+        "import * as Collapsible from '@mielui/svelte/components/collapsible';",
+        values.chevron && "import HugeiconsIcon from '@mielui/svelte/hugeicons-icon';"
+    ]).join('\n    ');
     const chevron = values.chevron
         ? `
         <HugeiconsIcon
@@ -31,8 +35,8 @@ export function code(values: PlaygroundValues<typeof controls>): string {
         />`
         : '';
 
-    return `<script lang="ts">${imports}
-    import * as Collapsible from '@mielui/svelte/components/collapsible';${iconImport}
+    return `<script lang="ts">
+    ${imports}
 
     let open = $state(true);
 </script>

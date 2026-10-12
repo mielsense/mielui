@@ -1,7 +1,13 @@
 import {
     attributes,
+    CONTROL_SIZES,
+    changed,
+    compact,
+    content,
+    defaultOn,
     expression,
     type PlaygroundValues,
+    quote,
     select,
     toggle
 } from '$lib/components/docs/playground';
@@ -14,7 +20,7 @@ export const controls = {
         'primary',
         'Appearance'
     ),
-    submitSize: select('Submit size', ['sm', 'md', 'lg'], 'md', 'Appearance'),
+    submitSize: select('Submit size', CONTROL_SIZES, 'md', 'Appearance'),
     status: toggle('Status', 'Content', true),
     reset: toggle('Reset button', 'Content', true),
     errorSummary: toggle('Error summary', 'Content'),
@@ -30,28 +36,64 @@ export const STATUS = {
     error: 'We could not reach the server. Try again.'
 };
 
-export function code(values: PlaygroundValues<typeof controls>): string {
+type Values = PlaygroundValues<typeof controls>;
+
+type Issue = {
+    message: string;
+    path?: string[];
+};
+
+export const issues: Issue[] = [
+    {
+        message: 'Enter a valid email address.',
+        path: ['email']
+    },
+    {
+        message: 'This profile cannot be saved right now.'
+    }
+];
+
+function declaration(): string {
+    const entries = issues.map((issue) => {
+        const fields = compact([
+            `message: ${quote(issue.message)}`,
+            issue.path && `path: [${issue.path.map(quote).join(', ')}]`
+        ]);
+
+        return `        {
+            ${fields.join(',\n            ')}
+        }`;
+    });
+
+    return `
+
+    const issues = [
+${entries.join(',\n')}
+    ];`;
+}
+
+export function code(values: Values): string {
     const rootProps = attributes({
         class: 'w-full max-w-sm',
         onsubmit: expression('submit'),
         pending: values.pending
     });
     const submitProps = attributes({
-        variant: values.submitVariant !== 'primary' && values.submitVariant,
-        size: values.submitSize !== 'md' && values.submitSize,
+        variant: changed(values.submitVariant, 'primary'),
+        size: changed(values.submitSize, 'md'),
         disabled: values.submitDisabled
     });
     const resetProps = attributes({
         type: 'reset',
         variant: 'ghost',
-        size: values.submitSize !== 'md' && values.submitSize
+        size: changed(values.submitSize, 'md')
     });
     const summaryProps = attributes({
         issues: expression('issues'),
-        focusOnError: values.focusOnError ? undefined : expression('false')
+        focusOnError: defaultOn(values.focusOnError)
     });
     const statusProps = attributes({
-        tone: values.tone !== 'neutral' && values.tone
+        tone: changed(values.tone, 'neutral')
     });
     const summary = values.heading
         ? `
@@ -68,30 +110,18 @@ export function code(values: PlaygroundValues<typeof controls>): string {
         : '';
     const status = values.status
         ? `
-    <Form.Status${statusProps}>${STATUS[values.tone]}</Form.Status>`
+    <Form.Status${statusProps}>${content(STATUS[values.tone])}</Form.Status>`
         : '';
-    const issues = values.errorSummary
-        ? `
-
-    const issues = [
-        {
-            message: 'Enter a valid email address.',
-            path: ['email']
-        },
-        {
-            message: 'This profile cannot be saved right now.'
-        }
-    ];`
-        : '';
-    const imports = [
+    const script = values.errorSummary ? declaration() : '';
+    const imports = compact([
         values.reset && "    import { Button } from '@mielui/svelte/components/button';",
         "    import * as Field from '@mielui/svelte/components/field';",
         "    import * as Form from '@mielui/svelte/components/form';",
         "    import { Input } from '@mielui/svelte/components/input';"
-    ].filter((line) => line !== false);
+    ]);
 
     return `<script lang="ts">
-${imports.join('\n')}${issues}
+${imports.join('\n')}${script}
 
     function submit(event: SubmitEvent) {
         event.preventDefault();

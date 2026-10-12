@@ -1,4 +1,10 @@
-import { attributes, number, type PlaygroundValues, toggle } from '$lib/components/docs/playground';
+import {
+    attributes,
+    changed,
+    number,
+    type PlaygroundValues,
+    toggle
+} from '$lib/components/docs/playground';
 
 export const controls = {
     size: number('Size', 16, {
@@ -20,9 +26,9 @@ export const controls = {
 
 export function code(values: PlaygroundValues<typeof controls>): string {
     const props = attributes({
-        size: values.size !== 16 && values.size,
+        size: changed(values.size, 16),
         ready: values.ready,
-        speed: values.speed !== 1 && values.speed,
+        speed: changed(values.speed, 1),
         curved: values.curved,
         'aria-hidden': values.label && 'true',
         'aria-label': !values.label && 'Checking for updates'

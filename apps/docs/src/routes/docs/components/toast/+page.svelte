@@ -19,8 +19,6 @@
     import PromiseSrc from './examples/promise.svelte?raw';
     import { code as playgroundCode, controls as playgroundControls } from './playground';
 
-    const installCommand = 'pnpm dlx @mielui/svelte add toast';
-
     onDestroy(() => {
         toast.dismiss();
     });
@@ -58,12 +56,10 @@
 </svelte:head>
 
 <div data-docs-page class="flex flex-col gap-10">
-    <!-- ─── Header ────────────────────────────────────────────────── -->
     <PageIntro title="Toast">
         A notification that stacks, auto-dismisses, and can carry an action.
     </PageIntro>
 
-    <!-- ─── Hero Example ──────────────────────────────────────────── -->
     <section id="hero" class="scroll-mt-20 flex flex-col gap-4">
         <Playground controls={playgroundControls} code={playgroundCode}>
             {#snippet children(values)}
@@ -78,13 +74,11 @@
         </Playground>
     </section>
 
-    <!-- ─── Installation ──────────────────────────────────────────── -->
     <section id="installation" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Installation</Typography.H2>
-        <InstallCommand command={installCommand} />
+        <InstallCommand command="pnpm dlx @mielui/svelte add toast" />
     </section>
 
-    <!-- ─── Usage ─────────────────────────────────────────────────── -->
     <section id="usage" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Usage</Typography.H2>
         <Typography.Text variant="supporting">
@@ -143,7 +137,6 @@
         </Typography.Text>
     </section>
 
-    <!-- ─── Examples ──────────────────────────────────────────────── -->
     <section id="examples" class="scroll-mt-20 flex flex-col gap-10">
         <SectionHeading title="Examples">
             {#snippet description()}

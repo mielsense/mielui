@@ -1,5 +1,7 @@
 import {
     attributes,
+    changed,
+    literal,
     number,
     type PlaygroundValues,
     select,
@@ -33,23 +35,55 @@ export const controls = {
     empty: toggle('Empty', 'State')
 };
 
+export const sessions = [
+    {
+        key: 'direct',
+        value: 1240
+    },
+    {
+        key: 'search',
+        value: 860
+    },
+    {
+        key: 'referral',
+        value: 420
+    }
+];
+
+export const sessionsConfig = {
+    direct: {
+        label: 'Direct',
+        color: 'var(--chart-1)'
+    },
+    search: {
+        label: 'Search',
+        color: 'var(--chart-2)'
+    },
+    referral: {
+        label: 'Referral',
+        color: 'var(--chart-3)'
+    }
+};
+
 export function code(values: PlaygroundValues<typeof controls>): string {
     const root = attributes({
-        animation: values.animation !== 'reveal' && values.animation,
+        animation: changed(values.animation, 'reveal'),
         loading: values.loading
     });
     const arc = attributes({
-        innerRadius: values.innerRadius !== 0.68 && values.innerRadius,
-        cornerRadius: values.cornerRadius !== 4 && values.cornerRadius,
-        padAngle: values.padAngle !== 0.035 && values.padAngle
+        innerRadius: changed(values.innerRadius, 0.68),
+        cornerRadius: changed(values.cornerRadius, 4),
+        padAngle: changed(values.padAngle, 0.035)
     });
+    const rows = sessions.map((datum) => `        ${literal(datum)}`).join(',\n');
     const data = values.empty
         ? `    const data: PieChart.PieChartDatum[] = [];`
         : `    const data = [
-        { key: 'direct', value: 1240 },
-        { key: 'search', value: 860 },
-        { key: 'referral', value: 420 }
+${rows}
     ];`;
+    const config = Object.entries(sessionsConfig)
+        .map(([key, series]) => `        ${key}: ${literal(series)}`)
+        .join(',\n');
     const label = values.label
         ? `
         <PieChart.Label />`
@@ -68,9 +102,7 @@ export function code(values: PlaygroundValues<typeof controls>): string {
 
 ${data}
     const config = {
-        direct: { label: 'Direct', color: 'var(--chart-1)' },
-        search: { label: 'Search', color: 'var(--chart-2)' },
-        referral: { label: 'Referral', color: 'var(--chart-3)' }
+${config}
     };
 </script>
 

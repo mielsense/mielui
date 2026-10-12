@@ -7,37 +7,15 @@
     import PageIntro from '$lib/components/docs/page-intro.svelte';
     import EventsExample from './examples/events.svelte';
     import EventsExampleSrc from './examples/events.svelte?raw';
-    import Hero from './examples/hero.svelte';
-    import HeroSrc from './examples/hero.svelte?raw';
-
-    const installCommand = 'pnpm dlx @mielui/svelte add reorder-list';
-
     import Additional from './examples/handles.svelte';
     import AdditionalSrc from './examples/handles.svelte?raw';
-    import { code as playgroundCode, controls as playgroundControls } from './playground';
+    import Hero from './examples/hero.svelte';
+    import HeroSrc from './examples/hero.svelte?raw';
+    import { agenda, code as playgroundCode, controls as playgroundControls } from './playground';
 
-    let playgroundItems = $state([
-        {
-            id: 'opening',
-            name: 'Opening remarks',
-            duration: '5 min'
-        },
-        {
-            id: 'roadmap',
-            name: 'Roadmap review',
-            duration: '15 min'
-        },
-        {
-            id: 'critique',
-            name: 'Design critique',
-            duration: '20 min'
-        },
-        {
-            id: 'questions',
-            name: 'Open questions',
-            duration: '10 min'
-        }
-    ]);
+    type AgendaItem = (typeof agenda)[number];
+
+    let playgroundItems = $state([...agenda]);
 </script>
 
 <svelte:head>
@@ -53,7 +31,7 @@
     <section id="hero" class="scroll-mt-20 flex flex-col gap-4">
         <Playground controls={playgroundControls} code={playgroundCode}>
             {#snippet children(values)}
-                {#snippet content(item: (typeof playgroundItems)[number])}
+                {#snippet content(item: AgendaItem)}
                     {#if values.duration}
                         <span class="flex min-w-0 items-center justify-between gap-4">
                             <span class="truncate font-medium">{item.name}</span>
@@ -65,15 +43,15 @@
                         <span class="truncate font-medium">{item.name}</span>
                     {/if}
                 {/snippet}
+                {const root = {
+                    getId: (item: AgendaItem) => item.id,
+                    getLabel: (item: AgendaItem) => item.name,
+                    label: 'Meeting agenda',
+                    disabled: values.disabled,
+                    class: 'w-full max-w-sm'
+                }}
                 {#if values.handle === 'end'}
-                    <ReorderList.Root
-                        bind:items={playgroundItems}
-                        getId={(item) => item.id}
-                        getLabel={(item) => item.name}
-                        label="Meeting agenda"
-                        disabled={values.disabled}
-                        class="w-full max-w-sm"
-                    >
+                    <ReorderList.Root bind:items={playgroundItems} {...root}>
                         {#snippet row(item)}
                             <ReorderList.Item id={item.id} label={item.name}>
                                 <ReorderList.Content class="ps-1.5">
@@ -84,14 +62,7 @@
                         {/snippet}
                     </ReorderList.Root>
                 {:else}
-                    <ReorderList.Root
-                        bind:items={playgroundItems}
-                        getId={(item) => item.id}
-                        getLabel={(item) => item.name}
-                        label="Meeting agenda"
-                        disabled={values.disabled}
-                        class="w-full max-w-sm"
-                    >
+                    <ReorderList.Root bind:items={playgroundItems} {...root}>
                         {#snippet children(item)}
                             {@render content(item)}
                         {/snippet}
@@ -103,7 +74,7 @@
 
     <section id="installation" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Installation</Typography.H2>
-        <InstallCommand command={installCommand} />
+        <InstallCommand command="pnpm dlx @mielui/svelte add reorder-list" />
     </section>
 
     <section id="usage" class="scroll-mt-20 flex flex-col gap-4">

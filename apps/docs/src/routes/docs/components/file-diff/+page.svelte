@@ -2,7 +2,6 @@
     import { ArrowExpandIcon } from '@hugeicons/core-free-icons';
     import { Button } from '@mielui/svelte/components/button';
     import { CodeBlock } from '@mielui/svelte/components/code-block';
-    import type { FileDiffLine } from '@mielui/svelte/components/file-diff';
     import * as FileDiff from '@mielui/svelte/components/file-diff';
     import * as Typography from '@mielui/svelte/components/typography';
     import HugeiconsIcon from '@mielui/svelte/hugeicons-icon';
@@ -17,44 +16,11 @@
     import StackedSrc from './examples/stacked.svelte?raw';
     import WithoutLineNumbers from './examples/without-line-numbers.svelte';
     import WithoutLineNumbersSrc from './examples/without-line-numbers.svelte?raw';
-    import { code as playgroundCode, controls as playgroundControls } from './playground';
-
-    const installCommand = 'pnpm dlx @mielui/svelte add file-diff';
-
-    const playgroundDiff: FileDiffLine[] = [
-        {
-            type: 'context',
-            oldLineNumber: 12,
-            newLineNumber: 12,
-            content: 'export function getToken() {'
-        },
-        {
-            type: 'remove',
-            oldLineNumber: 13,
-            content: '  return localStorage.token;'
-        },
-        {
-            type: 'add',
-            newLineNumber: 13,
-            content: '  const token = cookies.get("session");'
-        },
-        {
-            type: 'add',
-            newLineNumber: 14,
-            content: '  if (!token) throw new Error("no session");'
-        },
-        {
-            type: 'add',
-            newLineNumber: 15,
-            content: '  return token;'
-        },
-        {
-            type: 'context',
-            oldLineNumber: 14,
-            newLineNumber: 16,
-            content: '}'
-        }
-    ];
+    import {
+        code as playgroundCode,
+        controls as playgroundControls,
+        diff as playgroundDiff
+    } from './playground';
 
     const usageSnippet = `import * as FileDiff from '@mielui/svelte/components/file-diff';
 
@@ -74,36 +40,24 @@
 </svelte:head>
 
 <div data-docs-page class="flex flex-col gap-10">
-    <!-- ─── Header ────────────────────────────────────────────────── -->
     <PageIntro title="File Diff">
         A unified diff viewer with a file top bar, change counts, and highlighted rows.
     </PageIntro>
 
-    <!-- ─── Hero Example ──────────────────────────────────────────── -->
     <section id="hero" class="scroll-mt-20 flex flex-col gap-4">
         <Playground controls={playgroundControls} code={playgroundCode}>
             {#snippet children(values)}
+                {const root = {
+                    file: values.file || undefined,
+                    additions: values.additions,
+                    deletions: values.deletions,
+                    showLineNumbers: values.showLineNumbers,
+                    theme: values.theme
+                }}
                 {#if values.topBar && values.counts && !values.action}
-                    <FileDiff.Root
-                        diff={playgroundDiff}
-                        file={values.file}
-                        lang="ts"
-                        additions={values.additions}
-                        deletions={values.deletions}
-                        showLineNumbers={values.showLineNumbers}
-                        theme={values.theme}
-                        class="max-w-2xl"
-                    />
+                    <FileDiff.Root diff={playgroundDiff} {...root} lang="ts" class="max-w-2xl" />
                 {:else}
-                    <FileDiff.Root
-                        file={values.file}
-                        lang="ts"
-                        additions={values.additions}
-                        deletions={values.deletions}
-                        showLineNumbers={values.showLineNumbers}
-                        theme={values.theme}
-                        class="max-w-2xl"
-                    >
+                    <FileDiff.Root {...root} lang="ts" class="max-w-2xl">
                         {#if values.topBar}
                             <FileDiff.TopBar>
                                 <FileDiff.Filename />
@@ -138,10 +92,9 @@
         </Playground>
     </section>
 
-    <!-- ─── Installation ──────────────────────────────────────────── -->
     <section id="installation" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Installation</Typography.H2>
-        <InstallCommand command={installCommand} />
+        <InstallCommand command="pnpm dlx @mielui/svelte add file-diff" />
         <Typography.Text variant="supporting">
             The component depends on{' '}
             <Typography.InlineCode>highlight.js</Typography.InlineCode>
@@ -150,7 +103,6 @@
         <InstallCommand command="pnpm add highlight.js" />
     </section>
 
-    <!-- ─── Usage ─────────────────────────────────────────────────── -->
     <section id="usage" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Usage</Typography.H2>
         <Typography.Text variant="supporting">
@@ -179,7 +131,6 @@
         <CodeBlock code={usageSnippet} lang="svelte" copy="overlay" />
     </section>
 
-    <!-- ─── Examples ──────────────────────────────────────────────── -->
     <section id="examples" class="scroll-mt-20 flex flex-col gap-10">
         <div>
             <Typography.H2 class="docs-section-heading">Examples</Typography.H2>

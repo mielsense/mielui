@@ -1,5 +1,7 @@
 import {
     attributes,
+    changed,
+    compact,
     expression,
     type PlaygroundValues,
     select,
@@ -15,25 +17,21 @@ export const controls = {
     announcement: select('Announcement', ['off', 'polite', 'assertive'], 'off', 'Behavior')
 };
 
-export function code(values: PlaygroundValues<typeof controls>): string {
+type Values = PlaygroundValues<typeof controls>;
+
+export function code(values: Values): string {
     const props = attributes({
-        variant: values.variant,
+        variant: changed(values.variant, 'info'),
         icon: values.icon === 'hidden' && expression('false'),
-        announcement: values.announcement !== 'off' && values.announcement
+        announcement: changed(values.announcement, 'off')
     });
     const custom = values.icon === 'custom';
-    const iconImport = custom
-        ? `
-    import { Megaphone01Icon } from '@hugeicons/core-free-icons';`
-        : '';
-    const buttonImport = values.action
-        ? `
-    import { Button } from '@mielui/svelte/components/button';`
-        : '';
-    const iconComponent = custom
-        ? `
-    import HugeiconsIcon from '@mielui/svelte/hugeicons-icon';`
-        : '';
+    const imports = compact([
+        custom && "import { Megaphone01Icon } from '@hugeicons/core-free-icons';",
+        "import * as Alert from '@mielui/svelte/components/alert';",
+        values.action && "import { Button } from '@mielui/svelte/components/button';",
+        custom && "import HugeiconsIcon from '@mielui/svelte/hugeicons-icon';"
+    ]).join('\n    ');
     const icon = custom
         ? `
     {#snippet icon()}
@@ -55,8 +53,8 @@ export function code(values: PlaygroundValues<typeof controls>): string {
     <Button variant="secondary" size="sm" href="/docs/installation">Read the guide</Button>`
         : '';
 
-    return `<script lang="ts">${iconImport}
-    import * as Alert from '@mielui/svelte/components/alert';${buttonImport}${iconComponent}
+    return `<script lang="ts">
+    ${imports}
 </script>
 
 <Alert.Root${props}>${icon}${title}${description}${action}

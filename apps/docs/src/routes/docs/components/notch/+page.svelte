@@ -13,7 +13,11 @@
     import GlassSrc from './examples/glass.svelte?raw';
     import HeroSrc from './examples/hero.svelte?raw';
     import PeekSrc from './examples/peek.svelte?raw';
-    import { code as playgroundCode, controls as playgroundControls } from './playground';
+    import {
+        ACCESSORY_CLASS,
+        code as playgroundCode,
+        controls as playgroundControls
+    } from './playground';
 
     let playgroundOpen = $state(false);
 
@@ -76,10 +80,7 @@
                         <Notch.Peek>Synced</Notch.Peek>
                     {/if}
                     {#if values.accessory}
-                        <Notch.Accessory
-                            class="rounded-[var(--radius-control)] border border-border bg-card px-2.5 py-1 text-xs tabular-nums text-foreground-muted"
-                            aria-label="3 of 3 files synced"
-                        >
+                        <Notch.Accessory class={ACCESSORY_CLASS} aria-label="3 of 3 files synced">
                             3 of 3
                         </Notch.Accessory>
                     {/if}

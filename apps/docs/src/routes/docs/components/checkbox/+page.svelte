@@ -22,9 +22,6 @@
     import { code as playgroundCode, controls as playgroundControls } from './playground';
 
     const TITLE = 'Checkbox';
-    const SLUG = 'checkbox';
-
-    const installCommand = `pnpm dlx @mielui/svelte add ${SLUG}`;
 </script>
 
 <svelte:head>
@@ -36,12 +33,10 @@
 </svelte:head>
 
 <div data-docs-page class="flex flex-col gap-10">
-    <!-- ─── Header ────────────────────────────────────────────────── -->
     <PageIntro title={TITLE}>
         A checkbox with a dash indicator, bindable checked state, optional label, and description.
     </PageIntro>
 
-    <!-- ─── Hero Example ──────────────────────────────────────────── -->
     <section id="hero" class="scroll-mt-20 flex flex-col gap-4">
         <Playground controls={playgroundControls} code={playgroundCode}>
             {#snippet children(values)}
@@ -61,13 +56,11 @@
         </Playground>
     </section>
 
-    <!-- ─── Installation ──────────────────────────────────────────── -->
     <section id="installation" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Installation</Typography.H2>
-        <InstallCommand command={installCommand} />
+        <InstallCommand command="pnpm dlx @mielui/svelte add checkbox" />
     </section>
 
-    <!-- ─── Usage ─────────────────────────────────────────────────── -->
     <section id="usage" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Usage</Typography.H2>
         <Typography.Text>
@@ -85,7 +78,6 @@
         />
     </section>
 
-    <!-- ─── Examples ──────────────────────────────────────────────── -->
     <section id="examples" class="scroll-mt-20 flex flex-col gap-10">
         <div>
             <Typography.H2 class="docs-section-heading">Examples</Typography.H2>
@@ -109,7 +101,6 @@
             </Typography.Text>
             <ComponentPreview code={SizesSrc}><Sizes /></ComponentPreview>
         </div>
-        <!-- Label only -->
         <div id="label-only" class="scroll-mt-20 flex flex-col gap-3">
             <Typography.H3 class="docs-subsection-heading">Label only</Typography.H3>
             <ComponentPreview code={LabelOnlySrc}>
@@ -117,7 +108,6 @@
             </ComponentPreview>
         </div>
 
-        <!-- With description -->
         <div id="with-description" class="scroll-mt-20 flex flex-col gap-3">
             <Typography.H3 class="docs-subsection-heading">With description</Typography.H3>
             <ComponentPreview code={WithDescriptionSrc}>
@@ -125,7 +115,6 @@
             </ComponentPreview>
         </div>
 
-        <!-- Disabled -->
         <div id="disabled" class="scroll-mt-20 flex flex-col gap-3">
             <Typography.H3 class="docs-subsection-heading">Disabled</Typography.H3>
             <ComponentPreview code={DisabledSrc}>
@@ -133,7 +122,6 @@
             </ComponentPreview>
         </div>
 
-        <!-- Checked -->
         <div id="checked" class="scroll-mt-20 flex flex-col gap-3">
             <Typography.H3 class="docs-subsection-heading">Checked</Typography.H3>
             <ComponentPreview code={CheckedSrc}>

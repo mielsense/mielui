@@ -1,7 +1,11 @@
+import type { FileDiffLine } from '@mielui/svelte/components/file-diff';
 import {
-    expression,
+    changed,
+    compact,
+    defaultOn,
     number,
     type PlaygroundValues,
+    quote,
     select,
     tag,
     text,
@@ -27,30 +31,74 @@ export const controls = {
     action: toggle('Action button', 'Content')
 };
 
-const DIFF = `    const diff: FileDiffLine[] = [
-        { type: 'context', oldLineNumber: 12, newLineNumber: 12, content: 'export function getToken() {' },
-        { type: 'remove', oldLineNumber: 13, content: '  return localStorage.token;' },
-        { type: 'add', newLineNumber: 13, content: '  const token = cookies.get("session");' },
-        { type: 'add', newLineNumber: 14, content: '  if (!token) throw new Error("no session");' },
-        { type: 'add', newLineNumber: 15, content: '  return token;' },
-        { type: 'context', oldLineNumber: 14, newLineNumber: 16, content: '}' }
-    ];`;
+type Values = PlaygroundValues<typeof controls>;
 
-export function code(values: PlaygroundValues<typeof controls>): string {
+export const diff: FileDiffLine[] = [
+    {
+        type: 'context',
+        oldLineNumber: 12,
+        newLineNumber: 12,
+        content: 'export function getToken() {'
+    },
+    {
+        type: 'remove',
+        oldLineNumber: 13,
+        content: '  return localStorage.token;'
+    },
+    {
+        type: 'add',
+        newLineNumber: 13,
+        content: '  const token = cookies.get("session");'
+    },
+    {
+        type: 'add',
+        newLineNumber: 14,
+        content: '  if (!token) throw new Error("no session");'
+    },
+    {
+        type: 'add',
+        newLineNumber: 15,
+        content: '  return token;'
+    },
+    {
+        type: 'context',
+        oldLineNumber: 14,
+        newLineNumber: 16,
+        content: '}'
+    }
+];
+
+function declaration(): string {
+    const rows = diff.map((line) => {
+        const fields = compact([
+            `type: ${quote(line.type)}`,
+            typeof line.oldLineNumber === 'number' && `oldLineNumber: ${line.oldLineNumber}`,
+            typeof line.newLineNumber === 'number' && `newLineNumber: ${line.newLineNumber}`,
+            `content: ${quote(line.content)}`
+        ]);
+
+        return `        { ${fields.join(', ')} }`;
+    });
+
+    return `    const diff: FileDiffLine[] = [
+${rows.join(',\n')}
+    ];`;
+}
+
+export function code(values: Values): string {
     const highLevel = values.topBar && values.counts && !values.action;
     const appearance = {
-        showLineNumbers: !values.showLineNumbers && expression('false'),
-        theme: values.theme !== 'mielui' && values.theme,
+        showLineNumbers: defaultOn(values.showLineNumbers),
+        theme: changed(values.theme, 'mielui'),
         class: 'max-w-2xl'
     };
 
     if (highLevel) {
         const props = {
-            diff: expression('diff'),
             file: values.file,
             lang: 'ts',
-            additions: values.additions !== 3 && values.additions,
-            deletions: values.deletions !== 1 && values.deletions,
+            additions: changed(values.additions, 3),
+            deletions: changed(values.deletions, 1),
             ...appearance
         };
 
@@ -58,29 +106,28 @@ export function code(values: PlaygroundValues<typeof controls>): string {
     import type { FileDiffLine } from '@mielui/svelte/components/file-diff';
     import * as FileDiff from '@mielui/svelte/components/file-diff';
 
-${DIFF}
+${declaration()}
 </script>
 
-${tag('FileDiff.Root', props, ' />').replace('diff={diff}', '{diff}')}`;
+${tag('FileDiff.Root', props, ' />', '', ['{diff}'])}`;
     }
 
     const showCounts = values.topBar && values.counts;
     const props = {
         file: values.topBar && values.file,
         lang: 'ts',
-        additions: showCounts && expression(String(values.additions)),
-        deletions: showCounts && expression(String(values.deletions)),
+        additions: showCounts && values.additions,
+        deletions: showCounts && values.deletions,
         ...appearance
     };
-    const parts = [
+    const parts = compact([
         '        <FileDiff.Filename />',
-        showCounts ? '        <FileDiff.PlusMinus />' : '',
-        values.action
-            ? `        <Button variant="ghost" size="icon" class="size-7" aria-label="Expand diff">
+        showCounts && '        <FileDiff.PlusMinus />',
+        values.action &&
+            `        <Button variant="ghost" size="icon" class="size-7" aria-label="Expand diff">
             <HugeiconsIcon icon={ArrowExpandIcon} size={14} />
         </Button>`
-            : ''
-    ].filter(Boolean);
+    ]);
     const topBar = values.topBar
         ? `
     <FileDiff.TopBar>
@@ -88,19 +135,18 @@ ${parts.join('\n')}
     </FileDiff.TopBar>`
         : '';
     const action = values.topBar && values.action;
-    const imports = action
-        ? `    import { ArrowExpandIcon } from '@hugeicons/core-free-icons';
-    import { Button } from '@mielui/svelte/components/button';
-    import type { FileDiffLine } from '@mielui/svelte/components/file-diff';
-    import * as FileDiff from '@mielui/svelte/components/file-diff';
-    import HugeiconsIcon from '@mielui/svelte/hugeicons-icon';`
-        : `    import type { FileDiffLine } from '@mielui/svelte/components/file-diff';
-    import * as FileDiff from '@mielui/svelte/components/file-diff';`;
+    const imports = compact([
+        action && "import { ArrowExpandIcon } from '@hugeicons/core-free-icons';",
+        action && "import { Button } from '@mielui/svelte/components/button';",
+        "import type { FileDiffLine } from '@mielui/svelte/components/file-diff';",
+        "import * as FileDiff from '@mielui/svelte/components/file-diff';",
+        action && "import HugeiconsIcon from '@mielui/svelte/hugeicons-icon';"
+    ]).join('\n    ');
 
     return `<script lang="ts">
-${imports}
+    ${imports}
 
-${DIFF}
+${declaration()}
 </script>
 
 ${tag('FileDiff.Root', props, '>')}${topBar}

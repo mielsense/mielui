@@ -18,7 +18,9 @@
         variant="secondary"
         size="sm"
         class="self-start"
-        onclick={() => { loading = !loading; }}
+        onclick={() => {
+            loading = !loading;
+        }}
     >
         {loading ? 'Show empty state' : 'Show loading state'}
     </Button>
@@ -30,7 +32,9 @@
                     <Button
                         size="sm"
                         variant="secondary"
-                        onclick={() => { table.resetColumnFilters(true); }}
+                        onclick={() => {
+                            table.resetColumnFilters(true);
+                        }}
                     >
                         Clear filter
                     </Button>

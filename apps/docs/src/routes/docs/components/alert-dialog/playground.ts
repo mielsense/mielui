@@ -1,6 +1,8 @@
 import {
     attributes,
-    expression,
+    BUTTON_VARIANTS,
+    changed,
+    defaultOn,
     type PlaygroundValues,
     select,
     toggle
@@ -9,12 +11,7 @@ import {
 export const controls = {
     size: select('Size', ['sm', 'md', 'lg', 'xl'], 'sm'),
     orientation: select('Orientation', ['vertical', 'horizontal'], 'vertical', 'Appearance'),
-    trigger: select(
-        'Trigger variant',
-        ['primary', 'secondary', 'outline', 'ghost', 'destructive', 'glow', 'panel', 'quiet'],
-        'destructive',
-        'Appearance'
-    ),
+    trigger: select('Trigger variant', BUTTON_VARIANTS, 'destructive', 'Appearance'),
     glass: toggle('Glass surface', 'Appearance'),
     description: toggle('Description', 'Content', true),
     error: toggle('Destructive', 'State', true),
@@ -22,21 +19,23 @@ export const controls = {
     closeOnClick: toggle('Close on confirm', 'Behavior', true)
 };
 
-export function code(values: PlaygroundValues<typeof controls>): string {
+type Values = PlaygroundValues<typeof controls>;
+
+export function code(values: Values): string {
     const root = attributes({
         error: values.error,
-        orientation: values.orientation !== 'vertical' && values.orientation
+        orientation: changed(values.orientation, 'vertical')
     });
     const trigger = attributes({
-        variant: values.trigger !== 'primary' && values.trigger
+        variant: changed(values.trigger, 'primary')
     });
     const content = attributes({
-        size: values.size !== 'sm' && values.size,
+        size: changed(values.size, 'sm'),
         surface: values.glass && 'glass',
-        allowEscape: values.allowEscape ? undefined : expression('false')
+        allowEscape: defaultOn(values.allowEscape)
     });
     const confirm = attributes({
-        closeOnClick: values.closeOnClick ? undefined : expression('false')
+        closeOnClick: defaultOn(values.closeOnClick)
     });
     const description = values.description
         ? `

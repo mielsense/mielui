@@ -13,9 +13,11 @@
     import HeroSrc from './examples/hero.svelte?raw';
     import Variants from './examples/variants.svelte';
     import VariantsSrc from './examples/variants.svelte?raw';
-    import { code as playgroundCode, controls as playgroundControls } from './playground';
-
-    const installCommand = 'pnpm dlx @mielui/svelte add copy-button';
+    import {
+        code as playgroundCode,
+        command as playgroundCommand,
+        controls as playgroundControls
+    } from './playground';
 </script>
 
 <svelte:head>
@@ -27,51 +29,38 @@
 </svelte:head>
 
 <div data-docs-page class="flex flex-col gap-10">
-    <!-- ─── Header ────────────────────────────────────────────────── -->
     <PageIntro title="Copy Button">
         A button that copies text to the clipboard, with copy and copied states.
     </PageIntro>
 
-    <!-- ─── Hero Example ──────────────────────────────────────────── -->
     <section id="hero" class="scroll-mt-20 flex flex-col gap-4">
         <Playground controls={playgroundControls} code={playgroundCode}>
             {#snippet children(values)}
+                {const button = {
+                    text: playgroundCommand,
+                    variant: values.variant,
+                    label: values.label || undefined,
+                    copiedLabel: values.copiedLabel || undefined,
+                    duration: values.duration,
+                    disabled: values.disabled
+                }}
                 <div class="flex items-center gap-3">
-                    <code class="text-sm">pnpm add @mielui/svelte</code>
+                    <code class="text-sm">{playgroundCommand}</code>
                     {#if values.size === 'icon'}
-                        <CopyButton
-                            text="pnpm add @mielui/svelte"
-                            variant={values.variant}
-                            label={values.label}
-                            copiedLabel={values.copiedLabel}
-                            duration={values.duration}
-                            disabled={values.disabled}
-                        />
+                        <CopyButton {...button} />
                     {:else}
-                        <CopyButton
-                            text="pnpm add @mielui/svelte"
-                            variant={values.variant}
-                            size={values.size}
-                            label={values.label}
-                            copiedLabel={values.copiedLabel}
-                            duration={values.duration}
-                            disabled={values.disabled}
-                        >
-                            Copy command
-                        </CopyButton>
+                        <CopyButton {...button} size={values.size}>Copy command</CopyButton>
                     {/if}
                 </div>
             {/snippet}
         </Playground>
     </section>
 
-    <!-- ─── Installation ──────────────────────────────────────────── -->
     <section id="installation" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Installation</Typography.H2>
-        <InstallCommand command={installCommand} />
+        <InstallCommand command="pnpm dlx @mielui/svelte add copy-button" />
     </section>
 
-    <!-- ─── Usage ─────────────────────────────────────────────────── -->
     <section id="usage" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Usage</Typography.H2>
         <Typography.Text variant="supporting">
@@ -89,7 +78,6 @@
         />
     </section>
 
-    <!-- ─── Examples ──────────────────────────────────────────────── -->
     <section id="examples" class="scroll-mt-20 flex flex-col gap-10">
         <div>
             <Typography.H2 class="docs-section-heading">Examples</Typography.H2>

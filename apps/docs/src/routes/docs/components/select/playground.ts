@@ -1,5 +1,8 @@
 import {
     attributes,
+    BUTTON_VARIANTS,
+    CONTROL_SIZES,
+    changed,
     type PlaygroundValues,
     select,
     text,
@@ -7,12 +10,8 @@ import {
 } from '$lib/components/docs/playground';
 
 export const controls = {
-    variant: select(
-        'Variant',
-        ['outline', 'primary', 'secondary', 'ghost', 'destructive', 'glow', 'panel', 'quiet'],
-        'outline'
-    ),
-    size: select('Size', ['sm', 'md', 'lg'], 'md', 'Appearance'),
+    variant: select('Variant', BUTTON_VARIANTS, 'outline'),
+    size: select('Size', CONTROL_SIZES, 'md', 'Appearance'),
     surface: select('Surface', ['inherit', 'solid', 'glass'], 'inherit', 'Appearance'),
     placeholder: text('Placeholder', 'Select priority', 'Content'),
     groupLabel: toggle('Group label', 'Content'),
@@ -29,15 +28,15 @@ export function code(values: PlaygroundValues<typeof controls>): string {
     });
     const trigger = attributes({
         'aria-label': 'Priority',
-        variant: values.variant !== 'outline' && values.variant,
-        size: values.size !== 'md' && values.size,
+        variant: changed(values.variant, 'outline'),
+        size: changed(values.size, 'md'),
         class: 'min-w-56'
     });
     const value = attributes({
-        placeholder: values.placeholder !== 'Select' && values.placeholder
+        placeholder: changed(values.placeholder, 'Select')
     });
     const content = attributes({
-        surface: values.surface !== 'inherit' && values.surface,
+        surface: changed(values.surface, 'inherit'),
         dynamic: values.dynamic
     });
     const low = attributes({

@@ -7,7 +7,7 @@ export const controls = {
     invalid: toggle('Invalid', 'State')
 };
 
-const options = [
+export const options = [
     {
         value: 'free',
         label: 'Free',

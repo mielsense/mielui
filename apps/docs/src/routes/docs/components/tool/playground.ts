@@ -1,5 +1,7 @@
 import {
     attributes,
+    changed,
+    defaultOn,
     expression,
     type PlaygroundValues,
     select,
@@ -20,17 +22,28 @@ export const controls = {
 
 export function code(values: PlaygroundValues<typeof controls>): string {
     const props = attributes({
-        state: values.state !== 'running' && values.state,
+        name: values.name || expression('""'),
+        state: changed(values.state, 'running'),
         duration: values.duration,
-        variant: values.variant !== 'default' && values.variant,
-        open: values.open ? undefined : expression('false'),
+        variant: changed(values.variant, 'default'),
+        open: defaultOn(values.open),
         composed: values.composed
     });
-    const items = [
-        `<Tool.Item name="Bash"${attributes({ detail: values.details && 'pnpm lint' })} />`,
-        `<Tool.Item name="Grep"${attributes({ detail: values.details && 'Composer' })} kind="search" />`,
-        `<Tool.Item name="Read"${attributes({ detail: values.details && 'src/components/composer.svelte' })} kind="read" />`
-    ];
+    const bash = attributes({
+        name: 'Bash',
+        detail: values.details && 'pnpm lint'
+    });
+    const grep = attributes({
+        name: 'Grep',
+        detail: values.details && 'Composer',
+        kind: 'search'
+    });
+    const read = attributes({
+        name: 'Read',
+        detail: values.details && 'src/components/composer.svelte',
+        kind: 'read'
+    });
+    const items = [`<Tool.Item${bash} />`, `<Tool.Item${grep} />`, `<Tool.Item${read} />`];
     const sections = values.sections
         ? [
               '<Tool.Input>pnpm lint</Tool.Input>',
@@ -50,7 +63,7 @@ ${body}
     import * as Tool from '@mielui/svelte/components/tool';
 </script>
 
-<Tool.Root name="${values.name}"${props}>
+<Tool.Root${props}>
 ${children}
 </Tool.Root>`;
 }

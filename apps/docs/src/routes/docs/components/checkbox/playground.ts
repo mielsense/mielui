@@ -1,8 +1,15 @@
-import { attributes, type PlaygroundValues, select, toggle } from '$lib/components/docs/playground';
+import {
+    attributes,
+    CONTROL_SIZES,
+    changed,
+    type PlaygroundValues,
+    select,
+    toggle
+} from '$lib/components/docs/playground';
 
 export const controls = {
     variant: select('Variant', ['default', 'primary'], 'default'),
-    size: select('Size', ['sm', 'md', 'lg'], 'md', 'Appearance'),
+    size: select('Size', CONTROL_SIZES, 'md', 'Appearance'),
     label: toggle('Label', 'Content', true),
     description: toggle('Description', 'Content'),
     checked: toggle('Checked', 'State', true),
@@ -10,10 +17,12 @@ export const controls = {
     invalid: toggle('Invalid', 'State')
 };
 
-export function code(values: PlaygroundValues<typeof controls>): string {
+type Values = PlaygroundValues<typeof controls>;
+
+export function code(values: Values): string {
     const props = attributes({
-        variant: values.variant !== 'default' && values.variant,
-        size: values.size !== 'md' && values.size,
+        variant: changed(values.variant, 'default'),
+        size: changed(values.size, 'md'),
         label: values.label && 'Product updates',
         'aria-label': !values.label && 'Product updates',
         description: values.description && 'Get an email when a new version ships.',

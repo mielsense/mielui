@@ -1,6 +1,8 @@
 import {
     attributes,
-    expression,
+    changed,
+    compact,
+    defaultOn,
     type PlaygroundValues,
     select,
     text,
@@ -25,34 +27,28 @@ export const controls = {
     submitOnEnter: toggle('Submit on Enter', 'Behavior', true)
 };
 
-function textAttribute(name: string, value: string, fallback: string): string {
-    return value === fallback
-        ? ''
-        : attributes({
-              [name]: value
-          });
-}
+type Values = PlaygroundValues<typeof controls>;
 
-export function code(values: PlaygroundValues<typeof controls>): string {
+export function code(values: Values): string {
     const root = attributes({
-        surface: values.surface !== 'theme' && values.surface,
-        status: values.status !== 'idle' && values.status,
+        surface: changed(values.surface, 'theme'),
+        status: changed(values.status, 'idle'),
         generating: values.generating,
         disabled: values.disabled,
-        allowEmpty: values.allowEmpty
+        allowEmpty: values.allowEmpty,
+        errorMessage: changed(values.errorMessage, DEFAULT_ERROR)
     });
-    const errorMessage = textAttribute('errorMessage', values.errorMessage, DEFAULT_ERROR);
-    const placeholder = textAttribute('placeholder', values.placeholder, DEFAULT_PLACEHOLDER);
     const input = attributes({
-        submitOnEnter: values.submitOnEnter ? undefined : expression('false')
+        placeholder: changed(values.placeholder, DEFAULT_PLACEHOLDER),
+        submitOnEnter: defaultOn(values.submitOnEnter)
     });
     const toolbar = attributes({
-        variant: values.toolbar !== 'default' && values.toolbar
+        variant: changed(values.toolbar, 'default')
     });
-    const badge = values.header
-        ? `    import { Badge } from '@mielui/svelte/components/badge';
-`
-        : '';
+    const imports = compact([
+        values.header && "import { Badge } from '@mielui/svelte/components/badge';",
+        "import * as Composer from '@mielui/svelte/components/composer';"
+    ]).join('\n    ');
     const header = values.header
         ? `
     <Composer.Header>
@@ -73,7 +69,7 @@ export function code(values: PlaygroundValues<typeof controls>): string {
         : '';
 
     return `<script lang="ts">
-${badge}    import * as Composer from '@mielui/svelte/components/composer';
+    ${imports}
 
     let value = $state('');
 
@@ -82,8 +78,8 @@ ${badge}    import * as Composer from '@mielui/svelte/components/composer';
     }
 </script>
 
-<Composer.Root bind:value onSubmit={send}${root}${errorMessage}>${header}
-    <Composer.Input${placeholder}${input} />
+<Composer.Root bind:value onSubmit={send}${root}>${header}
+    <Composer.Input${input} />
     <Composer.Toolbar${toolbar}>${actions}
         <Composer.Submit />
     </Composer.Toolbar>${footer}

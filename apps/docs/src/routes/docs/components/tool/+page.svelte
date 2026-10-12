@@ -12,8 +12,6 @@
     import { code as playgroundCode, controls as playgroundControls } from './playground';
 
     const TITLE = 'Tool';
-    const SLUG = 'tool';
-    const installCommand = `pnpm dlx @mielui/svelte add ${SLUG}`;
 
     import Retry from './examples/retry.svelte';
     import RetrySource from './examples/retry.svelte?raw';
@@ -55,29 +53,21 @@
                         <Tool.Output>Checked 214 files. No fixes applied.</Tool.Output>
                     {/if}
                 {/snippet}
+                {const root = {
+                    name: values.name,
+                    state: values.state,
+                    duration: values.duration || undefined,
+                    variant: values.variant,
+                    open: values.open
+                }}
                 <div class="w-full max-w-xl">
                     {#if values.composed}
-                        <Tool.Root
-                            name={values.name}
-                            state={values.state}
-                            duration={values.duration || undefined}
-                            variant={values.variant}
-                            open={values.open}
-                            composed
-                        >
+                        <Tool.Root {...root} composed>
                             <Tool.Trigger />
                             <Tool.Content> {@render steps()} </Tool.Content>
                         </Tool.Root>
                     {:else}
-                        <Tool.Root
-                            name={values.name}
-                            state={values.state}
-                            duration={values.duration || undefined}
-                            variant={values.variant}
-                            open={values.open}
-                        >
-                            {@render steps()}
-                        </Tool.Root>
+                        <Tool.Root {...root}> {@render steps()} </Tool.Root>
                     {/if}
                 </div>
             {/snippet}
@@ -86,7 +76,7 @@
 
     <section id="installation" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Installation</Typography.H2>
-        <InstallCommand command={installCommand} />
+        <InstallCommand command="pnpm dlx @mielui/svelte add tool" />
     </section>
 
     <section id="usage" class="scroll-mt-20 flex flex-col gap-4">

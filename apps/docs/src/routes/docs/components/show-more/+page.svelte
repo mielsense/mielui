@@ -14,7 +14,6 @@
     import { code as playgroundCode, controls as playgroundControls } from './playground';
 
     const TITLE = 'Show More';
-    const installCommand = 'pnpm dlx @mielui/svelte add show-more';
 </script>
 
 <svelte:head>
@@ -37,8 +36,8 @@
                     <ShowMore
                         lines={values.lines}
                         maxHeight={values.maxHeight}
-                        moreLabel={values.moreLabel}
-                        lessLabel={values.lessLabel}
+                        moreLabel={values.moreLabel || undefined}
+                        lessLabel={values.lessLabel || undefined}
                         defaultExpanded={values.defaultExpanded}
                         label="Migration details"
                         class="w-full max-w-md"
@@ -68,7 +67,7 @@
 
     <section id="installation" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Installation</Typography.H2>
-        <InstallCommand command={installCommand} />
+        <InstallCommand command="pnpm dlx @mielui/svelte add show-more" />
     </section>
 
     <section id="usage" class="scroll-mt-20 flex flex-col gap-4">

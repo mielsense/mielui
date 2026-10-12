@@ -22,9 +22,6 @@
     import { code as playgroundCode, controls as playgroundControls } from './playground';
 
     const TITLE = 'Toggle';
-    const SLUG = 'toggle';
-
-    const installCommand = `pnpm dlx @mielui/svelte add ${SLUG}`;
 </script>
 
 <svelte:head>
@@ -36,12 +33,10 @@
 </svelte:head>
 
 <div data-docs-page class="flex flex-col gap-10">
-    <!-- ─── Header ────────────────────────────────────────────────── -->
     <PageIntro title={TITLE}>
         A button with an on/off pressed state. Comes in several sizes.
     </PageIntro>
 
-    <!-- ─── Hero Example ──────────────────────────────────────────── -->
     <section id="hero" class="scroll-mt-20 flex flex-col gap-4">
         <Playground controls={playgroundControls} code={playgroundCode}>
             {#snippet children(values)}
@@ -63,13 +58,11 @@
         </Playground>
     </section>
 
-    <!-- ─── Installation ──────────────────────────────────────────── -->
     <section id="installation" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Installation</Typography.H2>
-        <InstallCommand command={installCommand} />
+        <InstallCommand command="pnpm dlx @mielui/svelte add toggle" />
     </section>
 
-    <!-- ─── Usage ─────────────────────────────────────────────────── -->
     <section id="usage" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Usage</Typography.H2>
         <Typography.Text>
@@ -86,7 +79,6 @@
         />
     </section>
 
-    <!-- ─── Examples ──────────────────────────────────────────────── -->
     <section id="examples" class="scroll-mt-20 flex flex-col gap-10">
         <div>
             <Typography.H2 class="docs-section-heading">Examples</Typography.H2>
@@ -102,7 +94,6 @@
             </ComponentPreview>
         </div>
 
-        <!-- Icon toggle -->
         <div id="icon" class="scroll-mt-20 flex flex-col gap-3">
             <Typography.H3 class="docs-subsection-heading">Icon toggle</Typography.H3>
             <ComponentPreview code={IconSrc}>
@@ -110,7 +101,6 @@
             </ComponentPreview>
         </div>
 
-        <!-- Text toggle -->
         <div id="text" class="scroll-mt-20 flex flex-col gap-3">
             <Typography.H3 class="docs-subsection-heading">Text toggle</Typography.H3>
             <ComponentPreview code={TextSrc}>
@@ -118,7 +108,6 @@
             </ComponentPreview>
         </div>
 
-        <!-- Sizes -->
         <div id="sizes" class="scroll-mt-20 flex flex-col gap-3">
             <Typography.H3 class="docs-subsection-heading">Sizes</Typography.H3>
             <ComponentPreview code={SizesSrc}>
@@ -126,7 +115,6 @@
             </ComponentPreview>
         </div>
 
-        <!-- Disabled -->
         <div id="disabled" class="scroll-mt-20 flex flex-col gap-3">
             <Typography.H3 class="docs-subsection-heading">Disabled</Typography.H3>
             <ComponentPreview code={DisabledSrc}>

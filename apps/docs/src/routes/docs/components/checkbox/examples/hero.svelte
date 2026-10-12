@@ -17,7 +17,6 @@
 </script>
 
 <div class="w-full max-w-80">
-    <!-- Header -->
     <div class="mb-4 flex items-center justify-between gap-4">
         <h3 class="text-foreground [font-weight:var(--font-weight-label,500)]">Launch checklist</h3>
         <span
@@ -28,7 +27,6 @@
         </span>
     </div>
 
-    <!-- Checklist items -->
     <div class="space-y-3">
         <Checkbox bind:checked={finalizePricing} label="Finalize pricing page" />
         <Checkbox bind:checked={writeChangelog} label="Write the changelog" />

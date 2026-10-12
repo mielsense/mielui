@@ -1,43 +1,25 @@
 import {
     attributes,
-    expression,
+    BUTTON_VARIANTS,
+    CONTROL_SIZES,
+    changed,
+    defaultOn,
     number,
+    PLACEMENTS,
     type PlaygroundValues,
     select,
     toggle
 } from '$lib/components/docs/playground';
 
 export const controls = {
-    placement: select(
-        'Placement',
-        [
-            'top',
-            'top-start',
-            'top-end',
-            'bottom',
-            'bottom-start',
-            'bottom-end',
-            'left',
-            'left-start',
-            'left-end',
-            'right',
-            'right-start',
-            'right-end'
-        ],
-        'bottom'
-    ),
-    variant: select(
-        'Trigger variant',
-        ['primary', 'secondary', 'outline', 'ghost', 'destructive', 'glow', 'panel', 'quiet'],
-        'outline',
-        'Appearance'
-    ),
-    size: select('Trigger size', ['sm', 'md', 'lg'], 'md', 'Appearance'),
+    placement: select('Placement', PLACEMENTS, 'bottom'),
+    variant: select('Trigger variant', BUTTON_VARIANTS, 'outline', 'Appearance'),
+    size: select('Trigger size', CONTROL_SIZES, 'md', 'Appearance'),
     glass: toggle('Glass surface', 'Appearance'),
     title: toggle('Title', 'Content', true),
     disabled: toggle('Disabled trigger', 'State'),
     hoverable: toggle('Open on hover', 'Behavior'),
-    delay: number('Hover delay', 0, {
+    delay: number('Open delay', 0, {
         min: 0,
         max: 1000,
         step: 50,
@@ -59,26 +41,26 @@ export const controls = {
 
 export function code(values: PlaygroundValues<typeof controls>): string {
     const root = attributes({
-        placement: values.placement !== 'bottom' && values.placement,
+        placement: changed(values.placement, 'bottom'),
         hoverable: values.hoverable,
-        delay: values.delay !== 0 && values.delay,
-        closeDelay: values.closeDelay !== 150 && values.closeDelay,
-        inert: values.inert ? undefined : expression('false')
+        delay: changed(values.delay, 0),
+        closeDelay: changed(values.closeDelay, 150),
+        inert: defaultOn(values.inert)
     });
     const trigger = attributes({
-        variant: values.variant !== 'primary' && values.variant,
-        size: values.size !== 'md' && values.size,
+        variant: changed(values.variant, 'primary'),
+        size: changed(values.size, 'md'),
         disabled: values.disabled
     });
     const content = attributes({
         class: 'w-64',
         'aria-label': !values.title && 'Notifications',
         surface: values.glass && 'glass',
-        allowClickOutside: values.allowClickOutside ? undefined : expression('false'),
-        dismissLayer: values.dismissLayer ? undefined : expression('false'),
-        focusTrap: values.focusTrap ? undefined : expression('false'),
-        lockScroll: values.lockScroll ? undefined : expression('false'),
-        portal: values.portal ? undefined : expression('false')
+        allowClickOutside: defaultOn(values.allowClickOutside),
+        dismissLayer: defaultOn(values.dismissLayer),
+        focusTrap: defaultOn(values.focusTrap),
+        lockScroll: defaultOn(values.lockScroll),
+        portal: defaultOn(values.portal)
     });
     const title = values.title
         ? `

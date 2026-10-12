@@ -12,51 +12,16 @@
     import HeroSrc from './examples/hero.svelte?raw';
     import Horizontal from './examples/horizontal.svelte';
     import HorizontalSrc from './examples/horizontal.svelte?raw';
-    import { code as playgroundCode, controls as playgroundControls } from './playground';
+    import {
+        chats as playgroundChats,
+        code as playgroundCode,
+        controls as playgroundControls,
+        lines as playgroundLines,
+        sections as playgroundSections,
+        SURFACE
+    } from './playground';
 
     const TITLE = 'Scroll Area';
-
-    const installCommand = 'pnpm dlx @mielui/svelte add scroll-area';
-
-    const playgroundSurface = 'rounded-[var(--radius-xl)] border border-border bg-card';
-    const playgroundChats = [
-        'Svelte 5 runes migration',
-        'Designing the studio preset',
-        'Tailwind v4 token setup',
-        'Pagination active state',
-        'Figma plugin ideas',
-        'Vercel deploy hook',
-        'Refactor command palette',
-        'Hover card focus order',
-        'Toast queue logic',
-        'Color picker math',
-        'Button loading states',
-        'Dialog scroll behavior'
-    ];
-    const playgroundSections = [
-        'Overview',
-        'Activity',
-        'Members',
-        'Billing',
-        'Integrations',
-        'Webhooks',
-        'Security',
-        'Audit log'
-    ];
-    const playgroundLines = [
-        '09:00:02 Cloning github.com/acme/storefront at commit 4d11ba0',
-        '09:00:04 Restored build cache from the previous deployment',
-        '09:00:09 Installing dependencies with pnpm install --frozen-lockfile',
-        '09:00:21 Running pnpm run build in apps/storefront',
-        '09:00:38 Compiled 214 modules for the client bundle',
-        '09:00:44 Compiled 96 modules for the server bundle',
-        '09:00:47 Prerendered 38 static routes',
-        '09:00:52 Uploading build output to the edge network',
-        '09:00:58 Assigned the production domain storefront.acme.com',
-        '09:01:01 Deployment completed in 59 seconds',
-        '09:01:03 Health check passed in 3 regions',
-        '09:01:04 Notified the #deploys channel'
-    ];
 </script>
 
 <svelte:head>
@@ -68,25 +33,26 @@
 </svelte:head>
 
 <div data-docs-page class="flex flex-col gap-10">
-    <!-- ─── Header ────────────────────────────────────────────────── -->
     <PageIntro title={TITLE}>
         A scroll container with a theme-styled scrollbar. Supports vertical and horizontal
         orientation.
     </PageIntro>
 
-    <!-- ─── Hero Example ──────────────────────────────────────────── -->
     <section id="hero" class="scroll-mt-20 flex flex-col gap-4">
         <Playground controls={playgroundControls} code={playgroundCode}>
             {#snippet children(values)}
+                {const shared = {
+                    showCues: values.showCues,
+                    blur: values.blur,
+                    tabindex: 0,
+                    role: 'region'
+                } as const}
                 {#if values.orientation === 'horizontal'}
                     <ScrollArea
+                        {...shared}
                         orientation="horizontal"
-                        showCues={values.showCues}
-                        blur={values.blur}
-                        tabindex={0}
-                        role="region"
                         aria-label="Project sections"
-                        class="w-72 p-1.5 {playgroundSurface}"
+                        class="w-72 p-1.5 {SURFACE}"
                     >
                         <div class="flex gap-2">
                             {#each playgroundSections as section (section)}
@@ -100,13 +66,10 @@
                     </ScrollArea>
                 {:else if values.orientation === 'both'}
                     <ScrollArea
+                        {...shared}
                         orientation="both"
-                        showCues={values.showCues}
-                        blur={values.blur}
-                        tabindex={0}
-                        role="region"
                         aria-label="Deploy log"
-                        class="h-56 w-72 {playgroundSurface}"
+                        class="h-56 w-72 {SURFACE}"
                     >
                         <div
                             class="flex w-max flex-col gap-1.5 p-3 font-mono text-xs whitespace-nowrap text-foreground-muted"
@@ -117,14 +80,7 @@
                         </div>
                     </ScrollArea>
                 {:else}
-                    <ScrollArea
-                        showCues={values.showCues}
-                        blur={values.blur}
-                        tabindex={0}
-                        role="region"
-                        aria-label="Recent chats"
-                        class="h-56 w-64 {playgroundSurface}"
-                    >
+                    <ScrollArea {...shared} aria-label="Recent chats" class="h-56 w-64 {SURFACE}">
                         <ul class="m-0 flex list-none flex-col p-2">
                             {#each playgroundChats as chat (chat)}
                                 <li class="truncate px-3 py-2 text-sm text-foreground-muted">
@@ -138,13 +94,11 @@
         </Playground>
     </section>
 
-    <!-- ─── Installation ──────────────────────────────────────────── -->
     <section id="installation" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Installation</Typography.H2>
-        <InstallCommand command={installCommand} />
+        <InstallCommand command="pnpm dlx @mielui/svelte add scroll-area" />
     </section>
 
-    <!-- ─── Usage ─────────────────────────────────────────────────── -->
     <section id="usage" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Usage</Typography.H2>
         <Typography.Text>
@@ -176,7 +130,6 @@
         </Typography.Text>
     </section>
 
-    <!-- ─── Examples ──────────────────────────────────────────────── -->
     <section id="examples" class="scroll-mt-20 flex flex-col gap-10">
         <SectionHeading title="Examples">
             {#snippet description()}

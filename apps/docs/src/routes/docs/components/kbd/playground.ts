@@ -1,5 +1,7 @@
 import {
     attributes,
+    compact,
+    content,
     expression,
     type PlaygroundValues,
     text,
@@ -13,33 +15,17 @@ export const controls = {
     listen: toggle('Run on shortcut', 'Behavior')
 };
 
-function attribute(value: string) {
-    if (value === '' || /["{&]/.test(value)) {
-        return expression(JSON.stringify(value));
-    }
-
-    return value;
-}
-
-function content(value: string): string {
-    if (/[{}<&]/.test(value) || value !== value.trim()) {
-        return `{${JSON.stringify(value)}}`;
-    }
-
-    return value;
-}
-
 export function code(values: PlaygroundValues<typeof controls>): string {
     const props = attributes({
-        shortcut: attribute(values.shortcut),
+        shortcut: values.shortcut || expression('""'),
         ontrigger: values.listen && expression('run')
     });
     const kbd = values.label ? `<Kbd${props}>${content(values.label)}</Kbd>` : `<Kbd${props} />`;
     const active = values.button || values.listen;
-    const buttonImport = values.button
-        ? `
-    import { Button } from '@mielui/svelte/components/button';`
-        : '';
+    const imports = compact([
+        values.button && "import { Button } from '@mielui/svelte/components/button';",
+        "import Kbd from '@mielui/svelte/components/kbd';"
+    ]).join('\n    ');
     const state = active
         ? `
 
@@ -58,14 +44,14 @@ export function code(values: PlaygroundValues<typeof controls>): string {
 
     if (!active) {
         return `<script lang="ts">
-    import Kbd from '@mielui/svelte/components/kbd';
+    ${imports}
 </script>
 
 ${kbd}`;
     }
 
-    return `<script lang="ts">${buttonImport}
-    import Kbd from '@mielui/svelte/components/kbd';${state}
+    return `<script lang="ts">
+    ${imports}${state}
 </script>
 
 <div class="flex flex-col items-center gap-3">

@@ -1,6 +1,6 @@
 import {
     attributes,
-    expression,
+    defaultOn,
     type PlaygroundValues,
     select,
     toggle
@@ -12,14 +12,16 @@ export const controls = {
     collapsible: toggle('Collapsible', 'Behavior', true)
 };
 
-export function code(values: PlaygroundValues<typeof controls>): string {
+type Values = PlaygroundValues<typeof controls>;
+
+export function code(values: Values): string {
     const multiple = values.type === 'multiple';
     const state = multiple
         ? "let open = $state(['access']);"
         : "let open = $state<string | undefined>('access');";
     const props = attributes({
         type: multiple && 'multiple',
-        collapsible: !multiple && !values.collapsible && expression('false')
+        collapsible: !multiple && defaultOn(values.collapsible)
     });
     const disabled = attributes({
         disabled: values.disabled

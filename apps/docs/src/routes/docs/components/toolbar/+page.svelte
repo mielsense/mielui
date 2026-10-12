@@ -37,6 +37,10 @@
                         Underline
                     </Toolbar.Item>
                 {/snippet}
+                {const group = {
+                    'aria-label': 'Text styles',
+                    class: values.orientation === 'vertical' ? 'flex-col' : undefined
+                }}
                 <Toolbar.Root
                     aria-label="Text formatting"
                     variant={values.variant}
@@ -44,21 +48,11 @@
                     loop={values.loop}
                 >
                     {#if values.type === 'multiple'}
-                        <Toolbar.Group
-                            type="multiple"
-                            bind:value={playgroundFormats}
-                            aria-label="Text styles"
-                            class={values.orientation === 'vertical' ? 'flex-col' : undefined}
-                        >
+                        <Toolbar.Group type="multiple" bind:value={playgroundFormats} {...group}>
                             {@render items()}
                         </Toolbar.Group>
                     {:else}
-                        <Toolbar.Group
-                            type="single"
-                            bind:value={playgroundFormat}
-                            aria-label="Text styles"
-                            class={values.orientation === 'vertical' ? 'flex-col' : undefined}
-                        >
+                        <Toolbar.Group type="single" bind:value={playgroundFormat} {...group}>
                             {@render items()}
                         </Toolbar.Group>
                     {/if}

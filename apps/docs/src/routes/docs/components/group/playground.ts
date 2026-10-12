@@ -1,5 +1,8 @@
 import {
     attributes,
+    CONTROL_SIZES,
+    changed,
+    compact,
     expression,
     type PlaygroundValues,
     select,
@@ -9,22 +12,24 @@ import {
 export const controls = {
     orientation: select('Orientation', ['horizontal', 'vertical'], 'horizontal'),
     variant: select('Button variant', ['outline', 'secondary', 'primary'], 'outline', 'Appearance'),
-    size: select('Button size', ['sm', 'md', 'lg'], 'md', 'Appearance'),
+    size: select('Button size', CONTROL_SIZES, 'md', 'Appearance'),
     content: select('Controls', ['buttons', 'input'], 'buttons', 'Content'),
     text: toggle('Text', 'Content'),
     separators: toggle('Separators', 'Content', true)
 };
 
-export function code(values: PlaygroundValues<typeof controls>): string {
+type Values = PlaygroundValues<typeof controls>;
+
+export function code(values: Values): string {
     const withInput = values.content === 'input';
     const rootProps = attributes({
-        orientation: values.orientation !== 'horizontal' && values.orientation,
+        orientation: changed(values.orientation, 'horizontal'),
         'aria-label': withInput ? 'Website' : 'Page navigation',
         class: withInput && 'w-full max-w-xs'
     });
     const buttonProps = attributes({
-        variant: values.variant !== 'primary' && values.variant,
-        size: values.size !== 'md' && values.size
+        variant: changed(values.variant, 'primary'),
+        size: changed(values.size, 'md')
     });
     const separatorProps = attributes({
         orientation: values.orientation === 'vertical' && 'horizontal'
@@ -52,11 +57,11 @@ export function code(values: PlaygroundValues<typeof controls>): string {
     }
 
     const separator = values.separators ? `\n    <Group.Separator${separatorProps} />\n` : '\n';
-    const imports = [
+    const imports = compact([
         "    import { Button } from '@mielui/svelte/components/button';",
         "    import * as Group from '@mielui/svelte/components/group';",
         withInput && "    import { Input } from '@mielui/svelte/components/input';"
-    ].filter((line) => line !== false);
+    ]);
     const script = values.text && withInput ? '\n\n    const id = $props.id();' : '';
 
     return `<script lang="ts">

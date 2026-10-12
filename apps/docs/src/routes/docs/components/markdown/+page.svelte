@@ -18,7 +18,6 @@
         source as playgroundSource
     } from './playground';
 
-    const installCommand = 'pnpm dlx @mielui/svelte add markdown';
     const usageSnippet = `import { Markdown } from '@mielui/svelte/components/markdown';
 
 const content = [
@@ -62,7 +61,7 @@ const content = [
 
     <section id="installation" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Installation</Typography.H2>
-        <InstallCommand command={installCommand} />
+        <InstallCommand command="pnpm dlx @mielui/svelte add markdown" />
     </section>
 
     <section id="usage" class="scroll-mt-20 flex flex-col gap-4">

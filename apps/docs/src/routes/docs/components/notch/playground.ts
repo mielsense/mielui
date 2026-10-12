@@ -1,8 +1,11 @@
 import {
     attributes,
+    changed,
+    compact,
     number,
     type PlaygroundValues,
     select,
+    tag,
     toggle
 } from '$lib/components/docs/playground';
 
@@ -24,14 +27,14 @@ export const controls = {
     })
 };
 
-const ACCESSORY_CLASS =
+export const ACCESSORY_CLASS =
     'rounded-[var(--radius-control)] border border-border bg-card px-2.5 py-1 text-xs tabular-nums text-foreground-muted';
 
 export function code(values: PlaygroundValues<typeof controls>): string {
     const root = attributes({
-        side: values.side !== 'top' && values.side,
-        mode: values.mode !== 'triggered' && values.mode,
-        duration: values.duration !== 5000 && values.duration,
+        side: changed(values.side, 'top'),
+        mode: changed(values.mode, 'triggered'),
+        duration: changed(values.duration, 5000),
         surface: values.glass && 'glass'
     });
     const lateral = values.side === 'left' || values.side === 'right';
@@ -40,14 +43,12 @@ export function code(values: PlaygroundValues<typeof controls>): string {
         class: lateral && 'w-44 justify-center px-5'
     });
     const hasSideAction = values.sideAction !== 'none';
-    const iconImport = hasSideAction
-        ? `
-    import { Settings01Icon as Settings } from '@hugeicons/core-free-icons';`
-        : '';
-    const iconComponent = hasSideAction
-        ? `
-    import HugeiconsIcon from '@mielui/svelte/hugeicons-icon';`
-        : '';
+    const imports = compact([
+        hasSideAction && "import { Settings01Icon as Settings } from '@hugeicons/core-free-icons';",
+        "import { Button } from '@mielui/svelte/components/button';",
+        "import * as Notch from '@mielui/svelte/components/notch';",
+        hasSideAction && "import HugeiconsIcon from '@mielui/svelte/hugeicons-icon';"
+    ]).join('\n    ');
     const sideActionProps = attributes({
         side: values.sideAction === 'start' && 'start',
         'aria-label': 'Sync settings'
@@ -76,19 +77,24 @@ export function code(values: PlaygroundValues<typeof controls>): string {
         ? `
     <Notch.Peek>Synced</Notch.Peek>`
         : '';
+    const accessoryTag = tag(
+        'Notch.Accessory',
+        {
+            class: ACCESSORY_CLASS,
+            'aria-label': '3 of 3 files synced'
+        },
+        '>',
+        '    '
+    );
     const accessory = values.accessory
         ? `
-    <Notch.Accessory
-        class="${ACCESSORY_CLASS}"
-        aria-label="3 of 3 files synced"
-    >
+    ${accessoryTag}
         3 of 3
     </Notch.Accessory>`
         : '';
 
-    return `<script lang="ts">${iconImport}
-    import { Button } from '@mielui/svelte/components/button';
-    import * as Notch from '@mielui/svelte/components/notch';${iconComponent}
+    return `<script lang="ts">
+    ${imports}
 
     let open = $state(false);
 

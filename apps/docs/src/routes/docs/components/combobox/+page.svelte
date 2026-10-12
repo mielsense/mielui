@@ -26,9 +26,6 @@
     import { code as playgroundCode, controls as playgroundControls } from './playground';
 
     const TITLE = 'Combobox';
-    const SLUG = 'combobox';
-
-    const installCommand = `pnpm dlx @mielui/svelte add ${SLUG}`;
 
     let playgroundFramework = $state('');
     let playgroundFrameworks = $state<string[]>([]);
@@ -47,102 +44,66 @@
 {/snippet}
 
 <div data-docs-page class="flex flex-col gap-10">
-    <!-- ─── Header ────────────────────────────────────────────────── -->
     <PageIntro title={TITLE}>A searchable dropdown that filters options as you type.</PageIntro>
 
-    <!-- ─── Hero Example ──────────────────────────────────────────── -->
     <section id="hero" class="scroll-mt-20 flex flex-col gap-4">
         <Playground controls={playgroundControls} code={playgroundCode}>
             {#snippet children(values)}
-                {#if values.multiple}
-                    <Combobox.Root
-                        type="multiple"
-                        bind:value={playgroundFrameworks}
-                        placement={values.placement}
-                        hoverable={values.hoverable}
-                        delay={values.delay}
-                        closeDelay={values.closeDelay}
+                {const root = {
+                    placement: values.placement,
+                    hoverable: values.hoverable,
+                    delay: values.delay,
+                    closeDelay: values.closeDelay
+                }}
+                {#snippet parts()}
+                    <Combobox.Trigger
+                        variant={values.variant}
+                        appearance={values.appearance}
+                        size={values.size}
+                        placeholder={values.placeholder || undefined}
+                        searchPlacement={values.searchPlacement}
+                        threshold={values.threshold}
+                        trailing={values.trailing ? playgroundTrailing : undefined}
+                        disabled={values.disabled}
+                        class="w-64"
+                    />
+                    <Combobox.Content
+                        surface={values.surface === 'inherit' ? undefined : values.surface}
                     >
-                        <Combobox.Trigger
-                            variant={values.variant}
-                            appearance={values.appearance}
-                            size={values.size}
-                            placeholder={values.placeholder || undefined}
-                            searchPlacement={values.searchPlacement}
-                            threshold={values.threshold}
-                            trailing={values.trailing ? playgroundTrailing : undefined}
-                            disabled={values.disabled}
-                            class="w-64"
-                        />
-                        <Combobox.Content
-                            surface={values.surface === 'inherit' ? undefined : values.surface}
-                        >
-                            <Combobox.Results>
-                                {#if values.groupLabel}
-                                    <Combobox.Label>Frameworks</Combobox.Label>
-                                {/if}
-                                <Combobox.Item value="nextjs" label="Next.js" />
-                                <Combobox.Item value="sveltekit" label="SvelteKit" />
-                                <Combobox.Item value="nuxtjs" label="Nuxt.js" />
-                                <Combobox.Item value="remix" label="Remix" />
-                                <Combobox.Item
-                                    value="astro"
-                                    label="Astro"
-                                    disabled={values.disabledItem}
-                                />
-                            </Combobox.Results>
-                        </Combobox.Content>
+                        <Combobox.Results>
+                            {#if values.groupLabel}
+                                <Combobox.Label>Frameworks</Combobox.Label>
+                            {/if}
+                            <Combobox.Item value="nextjs" label="Next.js" />
+                            <Combobox.Item value="sveltekit" label="SvelteKit" />
+                            <Combobox.Item value="nuxtjs" label="Nuxt.js" />
+                            <Combobox.Item value="remix" label="Remix" />
+                            <Combobox.Item
+                                value="astro"
+                                label="Astro"
+                                disabled={values.disabledItem}
+                            />
+                        </Combobox.Results>
+                    </Combobox.Content>
+                {/snippet}
+                {#if values.multiple}
+                    <Combobox.Root type="multiple" bind:value={playgroundFrameworks} {...root}>
+                        {@render parts()}
                     </Combobox.Root>
                 {:else}
-                    <Combobox.Root
-                        bind:value={playgroundFramework}
-                        placement={values.placement}
-                        hoverable={values.hoverable}
-                        delay={values.delay}
-                        closeDelay={values.closeDelay}
-                    >
-                        <Combobox.Trigger
-                            variant={values.variant}
-                            appearance={values.appearance}
-                            size={values.size}
-                            placeholder={values.placeholder || undefined}
-                            searchPlacement={values.searchPlacement}
-                            threshold={values.threshold}
-                            trailing={values.trailing ? playgroundTrailing : undefined}
-                            disabled={values.disabled}
-                            class="w-64"
-                        />
-                        <Combobox.Content
-                            surface={values.surface === 'inherit' ? undefined : values.surface}
-                        >
-                            <Combobox.Results>
-                                {#if values.groupLabel}
-                                    <Combobox.Label>Frameworks</Combobox.Label>
-                                {/if}
-                                <Combobox.Item value="nextjs" label="Next.js" />
-                                <Combobox.Item value="sveltekit" label="SvelteKit" />
-                                <Combobox.Item value="nuxtjs" label="Nuxt.js" />
-                                <Combobox.Item value="remix" label="Remix" />
-                                <Combobox.Item
-                                    value="astro"
-                                    label="Astro"
-                                    disabled={values.disabledItem}
-                                />
-                            </Combobox.Results>
-                        </Combobox.Content>
+                    <Combobox.Root bind:value={playgroundFramework} {...root}>
+                        {@render parts()}
                     </Combobox.Root>
                 {/if}
             {/snippet}
         </Playground>
     </section>
 
-    <!-- ─── Installation ──────────────────────────────────────────── -->
     <section id="installation" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Installation</Typography.H2>
-        <InstallCommand command={installCommand} />
+        <InstallCommand command="pnpm dlx @mielui/svelte add combobox" />
     </section>
 
-    <!-- ─── Usage ─────────────────────────────────────────────────── -->
     <section id="usage" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Usage</Typography.H2>
         <Typography.Text>
@@ -179,13 +140,11 @@
         />
     </section>
 
-    <!-- ─── Examples ──────────────────────────────────────────────── -->
     <section id="examples" class="scroll-mt-20 flex flex-col gap-10">
         <div>
             <Typography.H2 class="docs-section-heading">Examples</Typography.H2>
         </div>
 
-        <!-- Basic -->
         <div id="basic" class="scroll-mt-20 flex flex-col gap-3">
             <Typography.H3 class="docs-subsection-heading">Basic usage</Typography.H3>
             <ComponentPreview code={BasicSrc}>

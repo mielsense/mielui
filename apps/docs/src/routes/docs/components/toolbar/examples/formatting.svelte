@@ -20,10 +20,14 @@
         </Toolbar.Button>
     </Toolbar.Root>
     <p
-        class="text-sm"
-        class:font-bold={formats.includes('bold')}
-        class:italic={formats.includes('italic')}
-        class:underline={formats.includes('underline')}
+        class={[
+            'text-sm',
+            {
+                'font-bold': formats.includes('bold'),
+                italic: formats.includes('italic'),
+                underline: formats.includes('underline')
+            }
+        ]}
     >
         A note for the team.
     </p>

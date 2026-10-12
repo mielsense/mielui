@@ -25,7 +25,7 @@
     <PageIntro title={guide.title}>{guide.description}</PageIntro>
     <section id="usage" class="flex scroll-mt-20 flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Usage</Typography.H2>
-        {#each guide.usage as paragraph}
+        {#each guide.usage as paragraph (paragraph)}
             <Typography.Text variant="supporting">{paragraph}</Typography.Text>
         {/each}
     </section>

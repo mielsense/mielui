@@ -2,8 +2,14 @@ import { tick } from 'svelte';
 import { prefersReducedMotion } from 'svelte/motion';
 import { replaceState } from '$app/navigation';
 import { page } from '$app/state';
+import { ACTIVATE_PREVIEW, PREVIEW_SELECTOR } from './preview';
 
-type Heading = { id: string; label: string; level: number; node: HTMLElement };
+type Heading = {
+    id: string;
+    label: string;
+    level: number;
+    node: HTMLElement;
+};
 
 export function createPageOutline(getContent: () => HTMLElement | undefined) {
     let headings = $state<Heading[]>([]);
@@ -57,9 +63,9 @@ export function createPageOutline(getContent: () => HTMLElement | undefined) {
         destination = heading.id;
         active = heading.id;
         jumpStarted = false;
-        for (const preview of getContent()?.querySelectorAll('[data-component-preview]') ?? []) {
+        for (const preview of getContent()?.querySelectorAll(PREVIEW_SELECTOR) ?? []) {
             if (preview.compareDocumentPosition(heading.node) & Node.DOCUMENT_POSITION_FOLLOWING) {
-                preview.dispatchEvent(new Event('docs-activate-preview'));
+                preview.dispatchEvent(new Event(ACTIVATE_PREVIEW));
             }
         }
         await tick();
@@ -87,7 +93,7 @@ export function createPageOutline(getContent: () => HTMLElement | undefined) {
     }
 
     $effect(() => {
-        page.url.pathname;
+        void page.url.pathname;
         const root = getContent();
         if (!root) {
             return;
@@ -153,8 +159,7 @@ export function createPageOutline(getContent: () => HTMLElement | undefined) {
                 return;
             }
             const found = [...root.querySelectorAll<HTMLElement>('h2, h3')].filter(
-                (node) =>
-                    !node.closest('[data-component-preview]') && !node.classList.contains('sr-only')
+                (node) => !node.closest(PREVIEW_SELECTOR) && !node.classList.contains('sr-only')
             );
             const ids = new Set<string>();
             const next = found.map((node) => {
@@ -205,7 +210,7 @@ export function createPageOutline(getContent: () => HTMLElement | undefined) {
                             record.target instanceof Element
                                 ? record.target
                                 : record.target.parentElement
-                        )?.closest('[data-component-preview]')
+                        )?.closest(PREVIEW_SELECTOR)
                 )
             ) {
                 schedule();

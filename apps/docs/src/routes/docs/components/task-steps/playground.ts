@@ -1,6 +1,6 @@
 import {
     attributes,
-    expression,
+    literal,
     number,
     type PlaygroundValues,
     toggle
@@ -17,29 +17,52 @@ export const controls = {
     failed: toggle('Failed', 'State')
 };
 
+export const steps = [
+    {
+        id: 'queue',
+        label: 'Queued',
+        meta: '0.2s'
+    },
+    {
+        id: 'build',
+        label: 'Building',
+        meta: '8.1s'
+    },
+    {
+        id: 'checks',
+        label: 'Running checks',
+        meta: '3.4s'
+    },
+    {
+        id: 'deploy',
+        label: 'Deploying',
+        meta: '5.0s'
+    }
+];
+
+export const plainSteps = steps.map((step) => {
+    return {
+        id: step.id,
+        label: step.label
+    };
+});
+
 export function code(values: PlaygroundValues<typeof controls>): string {
     const props = attributes({
-        current: expression(String(values.current)),
+        current: values.current,
         failed: values.failed,
         label: 'Deploy progress',
         class: 'max-w-sm'
     });
-    const steps = values.durations
-        ? `        { id: 'queue', label: 'Queued', meta: '0.2s' },
-        { id: 'build', label: 'Building', meta: '8.1s' },
-        { id: 'checks', label: 'Running checks', meta: '3.4s' },
-        { id: 'deploy', label: 'Deploying', meta: '5.0s' }`
-        : `        { id: 'queue', label: 'Queued' },
-        { id: 'build', label: 'Building' },
-        { id: 'checks', label: 'Running checks' },
-        { id: 'deploy', label: 'Deploying' }`;
+    const shown: Record<string, string>[] = values.durations ? steps : plainSteps;
+    const rows = shown.map((step) => `        ${literal(step)}`).join(',\n');
 
     if (!values.summary) {
         return `<script lang="ts">
     import { type TaskStep, TaskSteps } from '@mielui/svelte/components/task-steps';
 
     const steps: TaskStep[] = [
-${steps}
+${rows}
     ];
 </script>
 
@@ -58,7 +81,7 @@ ${steps}
     import * as TaskSteps from '@mielui/svelte/components/task-steps';
 
     const steps: TaskStep[] = [
-${steps}
+${rows}
     ];
 </script>
 

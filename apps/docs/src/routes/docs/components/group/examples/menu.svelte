@@ -14,7 +14,9 @@
         <Group.Root aria-label="Save options">
             <Button
                 variant="outline"
-                onclick={() => { message = action === 'Save draft' ? 'Draft saved.' : 'Changes published.'; }}
+                onclick={() => {
+                    message = action === 'Save draft' ? 'Draft saved.' : 'Changes published.';
+                }}
             >
                 {action}
             </Button>
@@ -24,10 +26,20 @@
             </DropdownMenu.Trigger>
         </Group.Root>
         <DropdownMenu.Content>
-            <DropdownMenu.Item callback={() => { action = 'Save draft'; }}>
+            <DropdownMenu.Item
+                callback={() => {
+                    action = 'Save draft';
+                }}
+            >
                 Save draft
             </DropdownMenu.Item>
-            <DropdownMenu.Item callback={() => { action = 'Publish'; }}>Publish</DropdownMenu.Item>
+            <DropdownMenu.Item
+                callback={() => {
+                    action = 'Publish';
+                }}
+            >
+                Publish
+            </DropdownMenu.Item>
         </DropdownMenu.Content>
     </DropdownMenu.Root>
     <p role="status" class="min-h-5 text-sm text-foreground-muted">{message}</p>

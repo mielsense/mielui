@@ -38,8 +38,6 @@
     import UserMenuSrc from './examples/user-menu.svelte?raw';
     import { code as playgroundCode, controls as playgroundControls } from './playground';
 
-    const installCommand = 'pnpm dlx @mielui/svelte add dropdown-menu';
-
     let notifications = $state(true);
     let theme = $state('system');
 </script>
@@ -53,10 +51,8 @@
 </svelte:head>
 
 <div data-docs-page class="flex flex-col gap-10">
-    <!-- ─── Header ────────────────────────────────────────────────── -->
     <PageIntro title="Dropdown Menu">A menu of actions anchored to a button.</PageIntro>
 
-    <!-- ─── Hero Example ──────────────────────────────────────────── -->
     <section id="hero" class="scroll-mt-20 flex flex-col gap-4">
         <Playground controls={playgroundControls} code={playgroundCode}>
             {#snippet children(values)}
@@ -162,13 +158,11 @@
         </Playground>
     </section>
 
-    <!-- ─── Installation ──────────────────────────────────────────── -->
     <section id="installation" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Installation</Typography.H2>
-        <InstallCommand command={installCommand} />
+        <InstallCommand command="pnpm dlx @mielui/svelte add dropdown-menu" />
     </section>
 
-    <!-- ─── Usage ─────────────────────────────────────────────────── -->
     <section id="usage" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Usage</Typography.H2>
         <Typography.Text variant="supporting">
@@ -190,7 +184,6 @@
         />
     </section>
 
-    <!-- ─── Examples ──────────────────────────────────────────────── -->
     <section id="examples" class="scroll-mt-20 flex flex-col gap-10">
         <div>
             <Typography.H2 class="docs-section-heading">Examples</Typography.H2>
@@ -206,7 +199,6 @@
             </ComponentPreview>
         </div>
 
-        <!-- Basic menu -->
         <div id="basic-menu" class="scroll-mt-20 flex flex-col gap-3">
             <Typography.H3 class="docs-subsection-heading">Basic menu</Typography.H3>
             <ComponentPreview code={BasicMenuSrc}>
@@ -214,7 +206,6 @@
             </ComponentPreview>
         </div>
 
-        <!-- Grouped (user) menu -->
         <div id="user-menu" class="scroll-mt-20 flex flex-col gap-3">
             <Typography.H3 class="docs-subsection-heading">Grouped items</Typography.H3>
             <ComponentPreview code={UserMenuSrc}>
@@ -222,7 +213,6 @@
             </ComponentPreview>
         </div>
 
-        <!-- Row actions -->
         <div id="row-actions" class="scroll-mt-20 flex flex-col gap-3">
             <Typography.H3 class="docs-subsection-heading">Row actions</Typography.H3>
             <ComponentPreview code={RowActionsSrc}>
@@ -230,7 +220,6 @@
             </ComponentPreview>
         </div>
 
-        <!-- Share menu -->
         <div id="share-menu" class="scroll-mt-20 flex flex-col gap-3">
             <Typography.H3 class="docs-subsection-heading">Share menu</Typography.H3>
             <ComponentPreview code={ShareMenuSrc}>
@@ -238,7 +227,6 @@
             </ComponentPreview>
         </div>
 
-        <!-- Sort menu -->
         <div id="sort-menu" class="scroll-mt-20 flex flex-col gap-3">
             <Typography.H3 class="docs-subsection-heading">Sort menu</Typography.H3>
             <ComponentPreview code={SortMenuSrc}>

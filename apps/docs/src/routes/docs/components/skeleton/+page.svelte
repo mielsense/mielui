@@ -26,8 +26,6 @@
     } from './playground';
 
     const TITLE = 'Skeleton';
-
-    const installCommand = 'pnpm dlx @mielui/svelte add skeleton';
 </script>
 
 <svelte:head>
@@ -39,12 +37,10 @@
 </svelte:head>
 
 <div data-docs-page class="flex flex-col gap-10">
-    <!-- ─── Header ────────────────────────────────────────────────── -->
     <PageIntro title={TITLE}>
         Delay the placeholder, hold it long enough to read, then swap into reserved content.
     </PageIntro>
 
-    <!-- ─── Hero Example ──────────────────────────────────────────── -->
     <section id="hero" class="scroll-mt-20 flex flex-col gap-4">
         <Playground controls={playgroundControls} code={playgroundCode} refreshable>
             {#snippet children(values)}
@@ -54,18 +50,19 @@
                         next team check-in is on Friday.
                     </p>
                 {/snippet}
+                {const swap = {
+                    ready: values.ready,
+                    lines: values.lines,
+                    lineHeight: values.lineHeight,
+                    barHeight: values.barHeight,
+                    reserve: values.reserve ? values.reserveHeight : undefined,
+                    delay: values.delay,
+                    minVisible: values.minVisible,
+                    label: values.label || undefined
+                }}
                 <div class="w-full max-w-sm">
                     {#if values.custom}
-                        <SkeletonSwap
-                            ready={values.ready}
-                            lines={values.lines}
-                            lineHeight={values.lineHeight}
-                            barHeight={values.barHeight}
-                            reserve={values.reserve ? values.reserveHeight : undefined}
-                            delay={values.delay}
-                            minVisible={values.minVisible}
-                            label={values.label || undefined}
-                        >
+                        <SkeletonSwap {...swap}>
                             {#snippet skeleton()}
                                 <div class="flex flex-col gap-3 py-1.5">
                                     <Skeleton variant="shimmer" class="h-3 w-full" />
@@ -76,31 +73,18 @@
                             {@render content()}
                         </SkeletonSwap>
                     {:else}
-                        <SkeletonSwap
-                            ready={values.ready}
-                            lines={values.lines}
-                            lineHeight={values.lineHeight}
-                            barHeight={values.barHeight}
-                            reserve={values.reserve ? values.reserveHeight : undefined}
-                            delay={values.delay}
-                            minVisible={values.minVisible}
-                            label={values.label || undefined}
-                        >
-                            {@render content()}
-                        </SkeletonSwap>
+                        <SkeletonSwap {...swap}> {@render content()} </SkeletonSwap>
                     {/if}
                 </div>
             {/snippet}
         </Playground>
     </section>
 
-    <!-- ─── Installation ──────────────────────────────────────────── -->
     <section id="installation" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Installation</Typography.H2>
-        <InstallCommand command={installCommand} />
+        <InstallCommand command="pnpm dlx @mielui/svelte add skeleton" />
     </section>
 
-    <!-- ─── Usage ─────────────────────────────────────────────────── -->
     <section id="usage" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Usage</Typography.H2>
         <Typography.Text variant="supporting">
@@ -127,7 +111,6 @@
         />
     </section>
 
-    <!-- ─── Examples ──────────────────────────────────────────────── -->
     <section id="examples" class="scroll-mt-20 flex flex-col gap-10">
         <SectionHeading title="Examples">
             {#snippet description()}
@@ -177,7 +160,6 @@
             <ComponentPreview code={ShimmerSrc}><Shimmer /></ComponentPreview>
         </div>
 
-        <!-- Rectangle -->
         <div id="rectangle" class="scroll-mt-20 flex flex-col gap-3">
             <Typography.H3 class="docs-subsection-heading">Rectangle</Typography.H3>
             <ComponentPreview code={RectangleSrc}>
@@ -185,7 +167,6 @@
             </ComponentPreview>
         </div>
 
-        <!-- Circle -->
         <div id="circle" class="scroll-mt-20 flex flex-col gap-3">
             <Typography.H3 class="docs-subsection-heading">Circle</Typography.H3>
             <ComponentPreview code={CircleSrc}>
@@ -193,7 +174,6 @@
             </ComponentPreview>
         </div>
 
-        <!-- Card composition -->
         <div id="card" class="scroll-mt-20 flex flex-col gap-3">
             <Typography.H3 class="docs-subsection-heading">Card composition</Typography.H3>
             <ComponentPreview code={CardSrc}>

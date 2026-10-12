@@ -22,8 +22,6 @@
         options as playgroundOptions
     } from './playground';
 
-    const installCommand = 'pnpm dlx @mielui/svelte add question';
-
     let playgroundAnswer = $state('');
     let playgroundAnswers = $state<string[]>([]);
     const usageSnippet = `import * as Question from '@mielui/svelte/components/question';
@@ -67,13 +65,13 @@ async function submitAnswer(value: string) {
     <section id="hero" class="scroll-mt-20 flex flex-col gap-4">
         <Playground controls={playgroundControls} code={playgroundCode}>
             {#snippet children(values)}
-                {@const root = {
+                {const root = {
                     variant: values.variant,
                     status: values.status,
                     disabled: values.disabled,
                     required: values.required,
                     autofocus: values.autofocus,
-                    errorMessage: values.errorMessage
+                    errorMessage: values.errorMessage || undefined
                 }}
                 {#snippet parts()}
                     <Question.Content>
@@ -85,7 +83,7 @@ async function submitAnswer(value: string) {
                         {/if}
                         {#if values.type === 'text'}
                             <Question.Input
-                                placeholder={values.placeholder}
+                                placeholder={values.placeholder || undefined}
                                 rows={values.rows}
                                 submitOnEnter={values.submitOnEnter}
                                 autoresize={values.autoresize}
@@ -109,8 +107,8 @@ async function submitAnswer(value: string) {
                             <Question.Cancel>Skip</Question.Cancel>
                         {/if}
                         <Question.Submit
-                            label={values.submitLabel}
-                            loadingLabel={values.loadingLabel}
+                            label={values.submitLabel || undefined}
+                            loadingLabel={values.loadingLabel || undefined}
                         />
                     </Question.Actions>
                 {/snippet}
@@ -145,7 +143,7 @@ async function submitAnswer(value: string) {
 
     <section id="installation" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Installation</Typography.H2>
-        <InstallCommand command={installCommand} />
+        <InstallCommand command="pnpm dlx @mielui/svelte add question" />
     </section>
 
     <section id="usage" class="scroll-mt-20 flex flex-col gap-4">

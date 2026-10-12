@@ -37,7 +37,7 @@
     <section id="hero" class="flex scroll-mt-20 flex-col gap-4">
         <Playground controls={playgroundControls} code={playgroundCode}>
             {#snippet children(values)}
-                {@const separatorOrientation =
+                {const separatorOrientation =
                     values.orientation === 'vertical' ? 'horizontal' : 'vertical'}
                 <Group.Root
                     orientation={values.orientation}

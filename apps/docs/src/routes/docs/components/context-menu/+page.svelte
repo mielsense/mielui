@@ -18,9 +18,11 @@
     import ImageSrc from './examples/image.svelte?raw';
     import TaskCard from './examples/task-card.svelte';
     import TaskCardSrc from './examples/task-card.svelte?raw';
-    import { code as playgroundCode, controls as playgroundControls } from './playground';
-
-    const installCommand = 'pnpm dlx @mielui/svelte add context-menu';
+    import {
+        code as playgroundCode,
+        controls as playgroundControls,
+        TRIGGER_CLASS
+    } from './playground';
 
     let grid = $state(true);
 </script>
@@ -34,19 +36,15 @@
 </svelte:head>
 
 <div data-docs-page class="flex flex-col gap-10">
-    <!-- ─── Header ────────────────────────────────────────────────── -->
     <PageIntro title="Context Menu">
         A right-click menu of actions, sharing the dropdown menu's item set.
     </PageIntro>
 
-    <!-- ─── Hero Example ──────────────────────────────────────────── -->
     <section id="hero" class="scroll-mt-20 flex flex-col gap-4">
         <Playground controls={playgroundControls} code={playgroundCode}>
             {#snippet children(values)}
                 <ContextMenu.Root>
-                    <ContextMenu.Trigger
-                        class="grid h-32 w-72 place-items-center rounded-[var(--radius-xl)] border border-dashed border-border text-sm text-foreground-muted"
-                    >
+                    <ContextMenu.Trigger class={TRIGGER_CLASS}>
                         Right-click or press and hold
                     </ContextMenu.Trigger>
                     <ContextMenu.Content surface={values.glass ? 'glass' : undefined}>
@@ -86,13 +84,11 @@
         </Playground>
     </section>
 
-    <!-- ─── Installation ──────────────────────────────────────────── -->
     <section id="installation" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Installation</Typography.H2>
-        <InstallCommand command={installCommand} />
+        <InstallCommand command="pnpm dlx @mielui/svelte add context-menu" />
     </section>
 
-    <!-- ─── Usage ─────────────────────────────────────────────────── -->
     <section id="usage" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Usage</Typography.H2>
         <Typography.Text variant="supporting">
@@ -123,7 +119,6 @@
         />
     </section>
 
-    <!-- ─── Examples ──────────────────────────────────────────────── -->
     <section id="examples" class="scroll-mt-20 flex flex-col gap-10">
         <SectionHeading title="Examples">
             {#snippet description()}

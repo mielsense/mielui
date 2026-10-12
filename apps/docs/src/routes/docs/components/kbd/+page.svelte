@@ -18,8 +18,6 @@
 
     const TITLE = 'Kbd';
 
-    const installCommand = 'pnpm dlx @mielui/svelte add kbd';
-
     let runs = $state(0);
 
     function run() {
@@ -36,16 +34,14 @@
 </svelte:head>
 
 <div data-docs-page class="flex flex-col gap-10">
-    <!-- ─── Header ────────────────────────────────────────────────── -->
     <PageIntro title={TITLE}>
         A key chip for keyboard shortcuts, including inside buttons.
     </PageIntro>
 
-    <!-- ─── Hero Example ──────────────────────────────────────────── -->
     <section id="hero" class="scroll-mt-20 flex flex-col gap-4">
         <Playground controls={playgroundControls} code={playgroundCode}>
             {#snippet children(values)}
-                {@const ontrigger = values.listen ? run : undefined}
+                {const ontrigger = values.listen ? run : undefined}
                 {#snippet kbd()}
                     {#if values.label}
                         <Kbd shortcut={values.shortcut} {ontrigger}>{values.label}</Kbd>
@@ -72,13 +68,11 @@
         </Playground>
     </section>
 
-    <!-- ─── Installation ──────────────────────────────────────────── -->
     <section id="installation" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Installation</Typography.H2>
-        <InstallCommand command={installCommand} />
+        <InstallCommand command="pnpm dlx @mielui/svelte add kbd" />
     </section>
 
-    <!-- ─── Usage ─────────────────────────────────────────────────── -->
     <section id="usage" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Usage</Typography.H2>
         <Typography.Text>
@@ -111,7 +105,6 @@
         />
     </section>
 
-    <!-- ─── Examples ──────────────────────────────────────────────── -->
     <section id="examples" class="scroll-mt-20 flex flex-col gap-10">
         <SectionHeading title="Examples">
             {#snippet description()}
@@ -129,7 +122,6 @@
             </ComponentPreview>
         </div>
 
-        <!-- Basic -->
         <div id="basic" class="scroll-mt-20 flex flex-col gap-3">
             <Typography.H3 class="docs-subsection-heading">Basic</Typography.H3>
             <ComponentPreview code={BasicSrc}>
@@ -137,7 +129,6 @@
             </ComponentPreview>
         </div>
 
-        <!-- With modifiers -->
         <div id="modifiers" class="scroll-mt-20 flex flex-col gap-3">
             <Typography.H3 class="docs-subsection-heading">With modifiers</Typography.H3>
             <ComponentPreview code={ModifiersSrc}>
@@ -145,7 +136,6 @@
             </ComponentPreview>
         </div>
 
-        <!-- In context -->
         <div id="context" class="scroll-mt-20 flex flex-col gap-3">
             <Typography.H3 class="docs-subsection-heading">In context</Typography.H3>
             <ComponentPreview code={ContextSrc}>

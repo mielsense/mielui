@@ -1,5 +1,6 @@
 import {
     attributes,
+    changed,
     number,
     type PlaygroundValues,
     select,
@@ -23,7 +24,7 @@ export function code(values: PlaygroundValues<typeof controls>): string {
     const half = Math.ceil(values.length / 2);
     const props = attributes({
         'aria-label': 'Verification code',
-        length: values.length !== 6 && values.length,
+        length: changed(values.length, 6),
         pattern: alphanumeric && '^[a-zA-Z0-9]*$',
         inputmode: alphanumeric && 'text',
         disabled: values.disabled,

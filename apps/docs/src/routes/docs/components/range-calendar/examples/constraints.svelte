@@ -4,7 +4,10 @@
 
     const start = new CalendarDate(2026, 9, 1);
     const end = new CalendarDate(2026, 9, 30);
-    let value = $state<{ start: DateValue | undefined; end: DateValue | undefined }>({
+    let value = $state<{
+        start: DateValue | undefined;
+        end: DateValue | undefined;
+    }>({
         start: undefined,
         end: undefined
     });

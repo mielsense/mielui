@@ -28,11 +28,12 @@
     import VariantsSrc from './examples/variants.svelte?raw';
     import {
         customLabel,
+        DEFAULT_ERROR_LABEL,
+        DEFAULT_LOADING_LABEL,
+        DEFAULT_SUCCESS_LABEL,
         code as playgroundCode,
         controls as playgroundControls
     } from './playground';
-
-    const installCommand = 'pnpm dlx @mielui/svelte add button';
 </script>
 
 <svelte:head>
@@ -50,11 +51,19 @@
     <section id="hero" class="scroll-mt-20 flex flex-col gap-4">
         <Playground controls={playgroundControls} code={playgroundCode}>
             {#snippet children(values)}
-                {@const iconOnly = values.size === 'icon'}
-                {@const status = values.status === 'idle' ? undefined : values.status}
-                {@const loadingLabel = customLabel(values.loadingLabel, 'Loading…')}
-                {@const successLabel = customLabel(values.successLabel, 'Done')}
-                {@const errorLabel = customLabel(values.errorLabel, 'Try again')}
+                {const iconOnly = values.size === 'icon'}
+                {const button = {
+                    variant: values.variant,
+                    size: values.size,
+                    unstyled: values.unstyled,
+                    status: values.status === 'idle' ? undefined : values.status,
+                    loading: values.loading || undefined,
+                    loadingLabel: customLabel(values.loadingLabel, DEFAULT_LOADING_LABEL),
+                    successLabel: customLabel(values.successLabel, DEFAULT_SUCCESS_LABEL),
+                    errorLabel: customLabel(values.errorLabel, DEFAULT_ERROR_LABEL),
+                    disabled: values.disabled,
+                    'aria-label': iconOnly ? values.label || undefined : undefined
+                }}
                 {#snippet face()}
                     {#if iconOnly || values.leadingIcon}
                         <HugeiconsIcon icon={Plus} size={14} />
@@ -67,43 +76,16 @@
                     {/if}
                 {/snippet}
                 {#if values.link}
-                    <Button
-                        variant={values.variant}
-                        size={values.size}
-                        unstyled={values.unstyled}
-                        {status}
-                        loading={values.loading || undefined}
-                        {loadingLabel}
-                        {successLabel}
-                        {errorLabel}
-                        disabled={values.disabled}
-                        aria-label={iconOnly ? values.label : undefined}
-                        href="/docs/installation"
-                    >
-                        {@render face()}
-                    </Button>
+                    <Button {...button} href="/docs/installation"> {@render face()} </Button>
                 {:else}
-                    <Button
-                        variant={values.variant}
-                        size={values.size}
-                        unstyled={values.unstyled}
-                        {status}
-                        loading={values.loading || undefined}
-                        {loadingLabel}
-                        {successLabel}
-                        {errorLabel}
-                        disabled={values.disabled}
-                        aria-label={iconOnly ? values.label : undefined}
-                    >
-                        {@render face()}
-                    </Button>
+                    <Button {...button}> {@render face()} </Button>
                 {/if}
             {/snippet}
         </Playground>
     </section>
     <section id="installation" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Installation</Typography.H2>
-        <InstallCommand command={installCommand} />
+        <InstallCommand command="pnpm dlx @mielui/svelte add button" />
     </section>
     <section id="usage" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Usage</Typography.H2>

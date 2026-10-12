@@ -19,8 +19,6 @@
         usesItems as playgroundUsesItems
     } from './playground';
 
-    const installCommand = 'pnpm dlx @mielui/svelte add attachment';
-
     let playgroundFiles = $state<File[]>([]);
     let playgroundRejected = $state<Attachment.AttachmentRejection[]>([]);
 
@@ -49,7 +47,7 @@
     <section id="hero" class="scroll-mt-20 flex flex-col gap-4">
         <Playground controls={playgroundControls} code={playgroundCode}>
             {#snippet children(values)}
-                {@const chip = values.variant === 'chip'}
+                {const chip = values.variant === 'chip'}
                 <Attachment.Root
                     bind:files={playgroundFiles}
                     accept={values.accept || undefined}
@@ -122,7 +120,7 @@
 
     <section id="installation" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Installation</Typography.H2>
-        <InstallCommand command={installCommand} />
+        <InstallCommand command="pnpm dlx @mielui/svelte add attachment" />
     </section>
 
     <section id="usage" class="scroll-mt-20 flex flex-col gap-4">

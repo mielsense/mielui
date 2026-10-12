@@ -29,8 +29,6 @@
     import ToolbarInsetSrc from './examples/toolbar-inset.svelte?raw';
     import { code as playgroundCode, controls as playgroundControls } from './playground';
 
-    const installCommand = 'pnpm dlx @mielui/svelte add composer';
-
     let playgroundValue = $state('');
 </script>
 
@@ -61,7 +59,7 @@
                         generating={values.generating || undefined}
                         disabled={values.disabled}
                         allowEmpty={values.allowEmpty}
-                        errorMessage={values.errorMessage}
+                        errorMessage={values.errorMessage || undefined}
                     >
                         {#if values.header}
                             <Composer.Header>
@@ -69,7 +67,7 @@
                             </Composer.Header>
                         {/if}
                         <Composer.Input
-                            placeholder={values.placeholder}
+                            placeholder={values.placeholder || undefined}
                             submitOnEnter={values.submitOnEnter}
                         />
                         <Composer.Toolbar variant={values.toolbar}>
@@ -95,7 +93,7 @@
 
     <section id="installation" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Installation</Typography.H2>
-        <InstallCommand command={installCommand} />
+        <InstallCommand command="pnpm dlx @mielui/svelte add composer" />
     </section>
 
     <section id="usage" class="scroll-mt-20 flex flex-col gap-4">

@@ -2,7 +2,10 @@
     import { CalendarDate, type DateValue } from '@internationalized/date';
     import * as RangeCalendar from '@mielui/svelte/components/range-calendar';
 
-    let value = $state<{ start: DateValue | undefined; end: DateValue | undefined }>({
+    let value = $state<{
+        start: DateValue | undefined;
+        end: DateValue | undefined;
+    }>({
         start: new CalendarDate(2026, 9, 17),
         end: new CalendarDate(2026, 9, 23)
     });

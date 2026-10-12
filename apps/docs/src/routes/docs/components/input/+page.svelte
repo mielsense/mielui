@@ -19,8 +19,6 @@
     import VariantSecondary from './examples/variant-secondary.svelte';
     import VariantSecondarySrc from './examples/variant-secondary.svelte?raw';
     import { code as playgroundCode, controls as playgroundControls } from './playground';
-
-    const installCommand = 'pnpm dlx @mielui/svelte add input';
 </script>
 
 <svelte:head>
@@ -40,46 +38,39 @@
 {/snippet}
 
 <div data-docs-page class="flex flex-col gap-10">
-    <!-- ─── Header ────────────────────────────────────────────────── -->
     <PageIntro title="Input">
         A text field with optional labels, helper text, and decorative adornments. Comes in two
         variants.
     </PageIntro>
 
-    <!-- ─── Hero Example ──────────────────────────────────────────── -->
     <section id="hero" class="scroll-mt-20 flex flex-col gap-4">
         <Playground controls={playgroundControls} code={playgroundCode}>
             {#snippet children(values)}
+                {const input = {
+                    variant: values.variant,
+                    label: values.label ? 'Project name' : undefined,
+                    'aria-label': values.label ? undefined : 'Project name',
+                    description: values.description
+                        ? 'The name shown in your workspace.'
+                        : undefined,
+                    disabled: values.disabled,
+                    readonly: values.readonly,
+                    required: values.required
+                }}
                 <div class="w-full max-w-xs">
                     {#if values.type === 'file'}
                         <Input
                             type="file"
-                            variant={values.variant}
-                            label={values.label ? 'Project name' : undefined}
-                            aria-label={values.label ? undefined : 'Project name'}
-                            description={values.description
-                                ? 'The name shown in your workspace.'
-                                : undefined}
-                            disabled={values.disabled}
-                            readonly={values.readonly}
-                            required={values.required}
+                            {...input}
                             aria-invalid={values.invalid ? 'true' : undefined}
                         />
                     {:else}
                         <Input
                             type={values.type}
-                            variant={values.variant}
-                            label={values.label ? 'Project name' : undefined}
-                            aria-label={values.label ? undefined : 'Project name'}
-                            description={values.description
-                                ? 'The name shown in your workspace.'
-                                : undefined}
-                            placeholder={values.placeholder}
+                            {...input}
+                            placeholder={values.placeholder || undefined}
                             leading={values.leading ? playgroundLeading : undefined}
                             trailing={values.trailing ? playgroundTrailing : undefined}
-                            disabled={values.disabled}
-                            readonly={values.readonly}
-                            required={values.required}
                             aria-invalid={values.invalid ? 'true' : undefined}
                         />
                     {/if}
@@ -88,13 +79,11 @@
         </Playground>
     </section>
 
-    <!-- ─── Installation ──────────────────────────────────────────── -->
     <section id="installation" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Installation</Typography.H2>
-        <InstallCommand command={installCommand} />
+        <InstallCommand command="pnpm dlx @mielui/svelte add input" />
     </section>
 
-    <!-- ─── Usage ─────────────────────────────────────────────────── -->
     <section id="usage" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Usage</Typography.H2>
         <Typography.Text>
@@ -128,7 +117,6 @@
         />
     </section>
 
-    <!-- ─── Examples ──────────────────────────────────────────────── -->
     <section id="examples" class="scroll-mt-20 flex flex-col gap-10">
         <SectionHeading title="Examples">
             {#snippet description()}
@@ -157,7 +145,6 @@
             </ComponentPreview>
         </div>
 
-        <!-- Variants -->
         <div id="variant-outline" class="scroll-mt-20 flex flex-col gap-3">
             <Typography.H3 class="docs-subsection-heading">Outline</Typography.H3>
             <ComponentPreview code={VariantOutlineSrc}>

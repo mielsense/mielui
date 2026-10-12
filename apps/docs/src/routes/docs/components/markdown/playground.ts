@@ -1,4 +1,4 @@
-import { attributes, type PlaygroundValues, toggle } from '$lib/components/docs/playground';
+import { attributes, type PlaygroundValues, quote, toggle } from '$lib/components/docs/playground';
 
 export const controls = {
     quote: toggle('Quote', 'Content'),
@@ -8,10 +8,12 @@ export const controls = {
     streaming: toggle('Streaming', 'State')
 };
 
+type Values = PlaygroundValues<typeof controls>;
+
 const FENCE = '```';
 
-function lines(values: PlaygroundValues<typeof controls>): string[] {
-    const quote = values.quote
+function lines(values: Values): string[] {
+    const blockquote = values.quote
         ? ['', '> Keep image transforms outside the cache until the key audit is complete.']
         : [];
     const table = values.table
@@ -34,24 +36,24 @@ function lines(values: PlaygroundValues<typeof controls>): string[] {
         '## Edge cache rollout',
         '',
         'The canary cut origin traffic by **38%** and kept `cache_hit_age` in range. [Open the runbook](https://example.com/runbooks/edge-cache).',
-        ...quote,
+        ...blockquote,
         ...table,
         ...tasks,
         ...codeBlock
     ];
 }
 
-export function source(values: PlaygroundValues<typeof controls>): string {
+export function source(values: Values): string {
     return lines(values).join('\n');
 }
 
-export function code(values: PlaygroundValues<typeof controls>): string {
+export function code(values: Values): string {
     const props = attributes({
         streaming: values.streaming,
         class: 'w-full max-w-xl'
     });
     const report = lines(values)
-        .map((line) => `        '${line}'`)
+        .map((line) => `        ${quote(line)}`)
         .join(',\n');
 
     return `<script lang="ts">

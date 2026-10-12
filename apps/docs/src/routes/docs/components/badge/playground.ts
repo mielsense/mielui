@@ -1,5 +1,8 @@
 import {
     attributes,
+    changed,
+    compact,
+    content,
     expression,
     number,
     type PlaygroundValues,
@@ -36,29 +39,23 @@ export const controls = {
     link: toggle('Link', 'Behavior')
 };
 
-function content(value: string): string {
-    if (/[{}<&]/.test(value) || value !== value.trim()) {
-        return `{${JSON.stringify(value)}}`;
-    }
+type Values = PlaygroundValues<typeof controls>;
 
-    return value;
-}
-
-export function code(values: PlaygroundValues<typeof controls>): string {
+export function code(values: Values): string {
     const props = attributes({
-        variant: values.variant,
+        variant: changed(values.variant, 'secondary'),
         icon: values.icon && expression('PencilIcon'),
-        iconSize: values.icon && values.iconSize !== 13 && values.iconSize,
+        iconSize: values.icon && changed(values.iconSize, 13),
         dot: values.dot,
         href: values.link && '/docs/components/badge'
     });
-    const iconImport = values.icon
-        ? `
-    import PencilIcon from './pencil-icon.svelte';`
-        : '';
+    const imports = compact([
+        "import { Badge } from '@mielui/svelte/components/badge';",
+        values.icon && "import PencilIcon from './pencil-icon.svelte';"
+    ]).join('\n    ');
 
     return `<script lang="ts">
-    import { Badge } from '@mielui/svelte/components/badge';${iconImport}
+    ${imports}
 </script>
 
 <Badge${props}>${content(values.label)}</Badge>`;

@@ -31,24 +31,15 @@
         code as playgroundCode,
         command as playgroundCommand,
         controls as playgroundControls,
-        python as playgroundPython,
+        tabs as playgroundTabs,
         typescript as playgroundTypescript
     } from './playground';
 
-    const installCommand = 'pnpm dlx @mielui/svelte add code-block';
-
-    const playgroundTabs = [
-        {
-            label: 'TypeScript',
-            lang: 'typescript',
-            code: playgroundTypescript
-        },
-        {
-            label: 'Python',
-            lang: 'python',
-            code: playgroundPython
-        }
-    ];
+    const playgroundSnippets = {
+        tabs: undefined,
+        snippet: playgroundTypescript,
+        command: playgroundCommand
+    };
 
     const usageSnippet = `import { CodeBlock } from '@mielui/svelte/components/code-block';
 
@@ -81,23 +72,17 @@ import { CodeBlock } from '@mielui/svelte/components/code-block';
 {/snippet}
 
 <div data-docs-page class="flex flex-col gap-10">
-    <!-- ─── Header ────────────────────────────────────────────────── -->
     <PageIntro title="Code Block">
         A code viewer with syntax highlighting, a language switcher, and a copy button.
     </PageIntro>
 
-    <!-- ─── Hero Example ──────────────────────────────────────────── -->
     <section id="hero" class="scroll-mt-20 flex flex-col gap-4">
         <Playground controls={playgroundControls} code={playgroundCode}>
             {#snippet children(values)}
                 {#key values.content}
                     <CodeBlock
                         tabs={values.content === 'tabs' ? playgroundTabs : undefined}
-                        code={values.content === 'snippet'
-                            ? playgroundTypescript
-                            : values.content === 'command'
-                              ? playgroundCommand
-                              : undefined}
+                        code={playgroundSnippets[values.content]}
                         lang={values.content === 'command' ? 'bash' : 'typescript'}
                         copy={values.copy}
                         theme={values.theme}
@@ -110,10 +95,9 @@ import { CodeBlock } from '@mielui/svelte/components/code-block';
         </Playground>
     </section>
 
-    <!-- ─── Installation ──────────────────────────────────────────── -->
     <section id="installation" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Installation</Typography.H2>
-        <InstallCommand command={installCommand} />
+        <InstallCommand command="pnpm dlx @mielui/svelte add code-block" />
         <Typography.Text variant="supporting">
             The component depends on{' '}
             <Typography.InlineCode>highlight.js</Typography.InlineCode>
@@ -122,7 +106,6 @@ import { CodeBlock } from '@mielui/svelte/components/code-block';
         <InstallCommand command="pnpm add highlight.js" />
     </section>
 
-    <!-- ─── Usage ─────────────────────────────────────────────────── -->
     <section id="usage" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Usage</Typography.H2>
         <Typography.Text variant="supporting">
@@ -159,7 +142,6 @@ import { CodeBlock } from '@mielui/svelte/components/code-block';
         <CodeBlock code={customThemeSnippet} lang="svelte" copy="overlay" />
     </section>
 
-    <!-- ─── Examples ──────────────────────────────────────────────── -->
     <section id="examples" class="scroll-mt-20 flex flex-col gap-10">
         <div>
             <Typography.H2 class="docs-section-heading">Examples</Typography.H2>

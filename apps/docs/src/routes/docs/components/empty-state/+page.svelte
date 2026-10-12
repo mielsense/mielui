@@ -8,15 +8,12 @@
     import { ComponentPreview, InstallCommand, Playground } from '$lib/components/docs';
     import InlineText from '$lib/components/docs/inline-text.svelte';
     import PageIntro from '$lib/components/docs/page-intro.svelte';
+    import { headingLevel } from '$lib/components/docs/playground';
     import Inbox from './examples/inbox.svelte';
     import InboxSrc from './examples/inbox.svelte?raw';
     import Search from './examples/search.svelte';
     import SearchSrc from './examples/search.svelte?raw';
-    import {
-        headingLevel,
-        code as playgroundCode,
-        controls as playgroundControls
-    } from './playground';
+    import { code as playgroundCode, controls as playgroundControls } from './playground';
 </script>
 
 <svelte:head>

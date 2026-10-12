@@ -1,4 +1,13 @@
-import { attributes, type PlaygroundValues, select, toggle } from '$lib/components/docs/playground';
+import {
+    attributes,
+    changed,
+    compact,
+    expression,
+    type PlaygroundValues,
+    select,
+    tag,
+    toggle
+} from '$lib/components/docs/playground';
 
 export const controls = {
     variant: select('Variant', ['default', 'inset'], 'default'),
@@ -9,21 +18,26 @@ export const controls = {
     selectable: toggle('Selectable', 'Behavior', true)
 };
 
-export function code(values: PlaygroundValues<typeof controls>): string {
+type Values = PlaygroundValues<typeof controls>;
+
+export function code(values: Values): string {
     const root = attributes({
-        variant: values.variant !== 'default' && values.variant,
+        variant: changed(values.variant, 'default'),
         loading: values.loading,
         class: 'w-full'
     });
-    const view = [
-        '{table}',
-        values.loading ? 'loading' : '',
-        values.selectable ? 'selectable' : '',
-        'caption="Workspace members"',
-        'rowLabel={(row) => row.original.name}'
-    ]
-        .filter(Boolean)
-        .join('\n            ');
+    const view = tag(
+        'DataTable.View',
+        {
+            loading: values.loading,
+            selectable: values.selectable,
+            caption: 'Workspace members',
+            rowLabel: expression('(row) => row.original.name')
+        },
+        '>',
+        '        ',
+        ['{table}']
+    );
     const pagination = attributes({
         loading: values.loading,
         class: 'ms-auto'
@@ -46,10 +60,10 @@ export function code(values: PlaygroundValues<typeof controls>): string {
             <DataTable.Sort {table} class="ms-auto" />
         </DataTable.Toolbar>`
         : '';
-    const footerParts = [
-        values.summary ? '            <DataTable.Summary {table} />' : '',
-        values.pagination ? `            <DataTable.Pagination {table}${pagination} />` : ''
-    ].filter(Boolean);
+    const footerParts = compact([
+        values.summary && '            <DataTable.Summary {table} />',
+        values.pagination && `            <DataTable.Pagination {table}${pagination} />`
+    ]);
     const footer = footerParts.length
         ? `
         <div data-ui="data-table-footer" class="flex flex-wrap items-center justify-between gap-3">
@@ -77,9 +91,7 @@ ${footerParts.join('\n')}
 
 <DataTable.Root {table}${root}>
     {#snippet children()}${toolbar}
-        <DataTable.View
-            ${view}
-        >
+        ${view}
             {#snippet cell(cell)}
                 {#if cell.column.id === 'role'}
                     <Badge variant="secondary">{String(cell.getValue())}</Badge>

@@ -11,8 +11,6 @@
     import ReadyState from './examples/ready-state.svelte';
     import ReadyStateSrc from './examples/ready-state.svelte?raw';
     import { code as playgroundCode, controls as playgroundControls } from './playground';
-
-    const installCommand = 'pnpm dlx @mielui/svelte add spinner';
 </script>
 
 <svelte:head>
@@ -28,25 +26,19 @@
     <section id="hero" class="scroll-mt-20 flex flex-col gap-4">
         <Playground controls={playgroundControls} code={playgroundCode}>
             {#snippet children(values)}
+                {const spinner = {
+                    size: values.size,
+                    ready: values.ready,
+                    speed: values.speed,
+                    curved: values.curved
+                }}
                 {#if values.label}
                     <div class="flex items-center gap-3 text-sm text-foreground-muted">
-                        <Spinner
-                            size={values.size}
-                            ready={values.ready}
-                            speed={values.speed}
-                            curved={values.curved}
-                            aria-hidden="true"
-                        />
+                        <Spinner {...spinner} aria-hidden="true" />
                         <span>Checking for updates</span>
                     </div>
                 {:else}
-                    <Spinner
-                        size={values.size}
-                        ready={values.ready}
-                        speed={values.speed}
-                        curved={values.curved}
-                        aria-label="Checking for updates"
-                    />
+                    <Spinner {...spinner} aria-label="Checking for updates" />
                 {/if}
             {/snippet}
         </Playground>
@@ -54,7 +46,7 @@
 
     <section id="installation" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Installation</Typography.H2>
-        <InstallCommand command={installCommand} />
+        <InstallCommand command="pnpm dlx @mielui/svelte add spinner" />
     </section>
 
     <section id="usage" class="scroll-mt-20 flex flex-col gap-4">

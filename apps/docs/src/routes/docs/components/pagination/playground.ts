@@ -1,8 +1,10 @@
 import {
     attributes,
+    changed,
     expression,
     number,
     type PlaygroundValues,
+    quote,
     toggle
 } from '$lib/components/docs/playground';
 
@@ -28,19 +30,28 @@ export const controls = {
     })
 };
 
+export const labels = {
+    navigation: 'Search results pages',
+    previous: 'Previous results',
+    next: 'Next results',
+    page: (page: number) => {
+        return `Results page ${page}`;
+    }
+};
+
 export function code(values: PlaygroundValues<typeof controls>): string {
     const props = attributes({
         total: values.total,
-        siblings: values.siblings !== 1 && values.siblings,
+        siblings: changed(values.siblings, 1),
         labels: values.labels && expression('labels')
     });
-    const labels = values.labels
+    const customLabels = values.labels
         ? `
 
     const labels = {
-        navigation: 'Search results pages',
-        previous: 'Previous results',
-        next: 'Next results',
+        navigation: ${quote(labels.navigation)},
+        previous: ${quote(labels.previous)},
+        next: ${quote(labels.next)},
         page: (page: number) => {
             return \`Results page \${page}\`;
         }
@@ -50,7 +61,7 @@ export function code(values: PlaygroundValues<typeof controls>): string {
     return `<script lang="ts">
     import { Pagination } from '@mielui/svelte/components/pagination';
 
-    let page = $state(${values.page});${labels}
+    let page = $state(${values.page});${customLabels}
 </script>
 
 <Pagination bind:page${props} />`;

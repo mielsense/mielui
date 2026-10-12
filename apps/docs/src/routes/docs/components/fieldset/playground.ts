@@ -11,7 +11,9 @@ export const controls = {
     disabled: toggle('Disabled', 'State')
 };
 
-export function code(values: PlaygroundValues<typeof controls>): string {
+type Values = PlaygroundValues<typeof controls>;
+
+export function code(values: Values): string {
     const props = attributes({
         disabled: values.disabled,
         'aria-label': !values.legend && 'Contact details',

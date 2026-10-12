@@ -15,8 +15,6 @@
     import Variants from './examples/variants.svelte';
     import VariantsSrc from './examples/variants.svelte?raw';
     import { code as playgroundCode, controls as playgroundControls } from './playground';
-
-    const installCommand = 'pnpm dlx @mielui/svelte add badge';
 </script>
 
 <svelte:head>
@@ -29,24 +27,18 @@
     <section id="hero" class="scroll-mt-20 flex flex-col gap-4">
         <Playground controls={playgroundControls} code={playgroundCode}>
             {#snippet children(values)}
-                {@const icon = values.icon ? PencilIcon : undefined}
+                {const badge = {
+                    variant: values.variant,
+                    icon: values.icon ? PencilIcon : undefined,
+                    iconSize: values.iconSize,
+                    dot: values.dot
+                }}
                 {#if values.link}
-                    <Badge
-                        variant={values.variant}
-                        {icon}
-                        iconSize={values.iconSize}
-                        dot={values.dot}
-                        href="/docs/components/badge"
-                    >
+                    <Badge {...badge} href="/docs/components/badge">
                         {values.label}
                     </Badge>
                 {:else}
-                    <Badge
-                        variant={values.variant}
-                        {icon}
-                        iconSize={values.iconSize}
-                        dot={values.dot}
-                    >
+                    <Badge {...badge}>
                         {values.label}
                     </Badge>
                 {/if}
@@ -55,7 +47,7 @@
     </section>
     <section id="installation" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Installation</Typography.H2>
-        <InstallCommand command={installCommand} />
+        <InstallCommand command="pnpm dlx @mielui/svelte add badge" />
     </section>
     <section id="usage" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Usage</Typography.H2>

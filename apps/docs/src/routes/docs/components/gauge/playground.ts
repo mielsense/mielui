@@ -1,5 +1,6 @@
 import {
     attributes,
+    changed,
     expression,
     number,
     type PlaygroundValues,
@@ -41,15 +42,17 @@ export const controls = {
     empty: toggle('No data', 'State')
 };
 
-export function code(values: PlaygroundValues<typeof controls>): string {
+type Values = PlaygroundValues<typeof controls>;
+
+export function code(values: Values): string {
     const props = attributes({
-        value: expression(values.empty ? 'null' : String(values.value)),
-        max: values.max !== 100 && values.max,
+        value: values.empty ? expression('null') : values.value,
+        max: changed(values.max, 100),
         label: values.label,
-        size: values.size !== 120 && values.size,
+        size: changed(values.size, 120),
         strokeWidth: values.strokeWidth > 0 && values.strokeWidth,
-        tone: values.tone !== 'primary' && values.tone,
-        animation: values.animation !== 'reveal' && values.animation,
+        tone: changed(values.tone, 'primary'),
+        animation: changed(values.animation, 'reveal'),
         loading: values.loading
     });
     const gauge = values.unit

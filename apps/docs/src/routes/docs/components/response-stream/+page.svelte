@@ -20,8 +20,6 @@
     } from './playground';
 
     const TITLE = 'Response Stream';
-    const SLUG = 'response-stream';
-    const installCommand = `pnpm dlx @mielui/svelte add ${SLUG}`;
 
     import Additional from './examples/complete.svelte';
     import AdditionalSrc from './examples/complete.svelte?raw';
@@ -66,7 +64,7 @@
 
     <section id="installation" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Installation</Typography.H2>
-        <InstallCommand command={installCommand} />
+        <InstallCommand command="pnpm dlx @mielui/svelte add response-stream" />
     </section>
 
     <section id="usage" class="scroll-mt-20 flex flex-col gap-4">

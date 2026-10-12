@@ -46,7 +46,7 @@
         {#snippet children({ label, values })}
             <div class="flex flex-col gap-1">
                 <span class="text-foreground-muted">{label}</span>
-                {#each values as item}
+                {#each values as item (item.key)}
                     <strong class="text-sm font-medium tabular-nums">{item.formatted}</strong>
                 {/each}
             </div>

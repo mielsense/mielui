@@ -22,9 +22,6 @@
     import { code as playgroundCode, controls as playgroundControls } from './playground';
 
     const TITLE = 'Slider';
-    const SLUG = 'slider';
-
-    const installCommand = `pnpm dlx @mielui/svelte add ${SLUG}`;
 
     let playgroundValue = $state(64);
     let playgroundRange = $state<[number, number]>([20, 80]);
@@ -46,40 +43,31 @@
 </svelte:head>
 
 <div data-docs-page class="flex flex-col gap-10">
-    <!-- ─── Header ────────────────────────────────────────────────── -->
     <PageIntro title={TITLE}>
         Select a value or a range with pill-shaped handles, keyboard controls and RTL support.
     </PageIntro>
 
-    <!-- ─── Hero Example ──────────────────────────────────────────── -->
     <section id="hero" class="scroll-mt-20 flex flex-col gap-4">
         <Playground controls={playgroundControls} code={playgroundCode}>
             {#snippet children(values)}
+                {const shared = {
+                    label: values.label || undefined,
+                    min: values.min,
+                    max: values.max,
+                    step: values.step,
+                    format: values.format ? percent : undefined,
+                    disabled: values.disabled,
+                    dir: values.rtl ? 'rtl' : undefined
+                } as const}
                 <div class="w-full max-w-sm">
                     {#if values.range}
-                        <Slider
-                            range
-                            bind:value={playgroundRange}
-                            label={values.label || undefined}
-                            min={values.min}
-                            max={values.max}
-                            step={values.step}
-                            format={values.format ? percent : undefined}
-                            disabled={values.disabled}
-                            dir={values.rtl ? 'rtl' : undefined}
-                        />
+                        <Slider range bind:value={playgroundRange} {...shared} />
                     {:else}
                         <Slider
                             bind:value={playgroundValue}
                             variant={values.variant}
-                            label={values.label || undefined}
-                            min={values.min}
-                            max={values.max}
-                            step={values.step}
-                            format={values.format ? percent : undefined}
                             editable={values.editable}
-                            disabled={values.disabled}
-                            dir={values.rtl ? 'rtl' : undefined}
+                            {...shared}
                         />
                     {/if}
                 </div>
@@ -87,13 +75,11 @@
         </Playground>
     </section>
 
-    <!-- ─── Installation ──────────────────────────────────────────── -->
     <section id="installation" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Installation</Typography.H2>
-        <InstallCommand command={installCommand} />
+        <InstallCommand command="pnpm dlx @mielui/svelte add slider" />
     </section>
 
-    <!-- ─── Usage ─────────────────────────────────────────────────── -->
     <section id="usage" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Usage</Typography.H2>
         <Typography.Text>
@@ -152,7 +138,6 @@
         />
     </section>
 
-    <!-- ─── Examples ──────────────────────────────────────────────── -->
     <section id="examples" class="scroll-mt-20 flex flex-col gap-10">
         <div>
             <Typography.H2 class="docs-section-heading">Examples</Typography.H2>
@@ -168,7 +153,6 @@
             </ComponentPreview>
         </div>
 
-        <!-- Basic -->
         <div id="basic" class="scroll-mt-20 flex flex-col gap-3">
             <Typography.H3 class="docs-subsection-heading">Basic</Typography.H3>
             <ComponentPreview code={BasicSrc}>
@@ -176,7 +160,6 @@
             </ComponentPreview>
         </div>
 
-        <!-- With step -->
         <div id="stepped" class="scroll-mt-20 flex flex-col gap-3">
             <Typography.H3 class="docs-subsection-heading">With step</Typography.H3>
             <ComponentPreview code={SteppedSrc}>
@@ -234,7 +217,6 @@
             <ComponentPreview code={RtlSrc}><Rtl /></ComponentPreview>
         </div>
 
-        <!-- Disabled -->
         <div id="disabled" class="scroll-mt-20 flex flex-col gap-3">
             <Typography.H3 class="docs-subsection-heading">Disabled</Typography.H3>
             <ComponentPreview code={DisabledSrc}>

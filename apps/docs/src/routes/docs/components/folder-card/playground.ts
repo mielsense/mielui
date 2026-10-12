@@ -1,6 +1,8 @@
 import {
     attributes,
-    expression,
+    changed,
+    compact,
+    content,
     number,
     type PlaygroundValues,
     select,
@@ -25,15 +27,27 @@ export const controls = {
     disabled: toggle('Disabled', 'State')
 };
 
-export function code(values: PlaygroundValues<typeof controls>): string {
-    const button = values.action === 'button';
-    const tone = values.tone !== '1' ? `tone={${values.tone}}` : '';
-    const buttonProps = [
-        tone,
-        values.disabled ? 'disabled' : '',
-        `onclick={() => {
+type Values = PlaygroundValues<typeof controls>;
+
+const COVERS = {
+    tone: `
+        <FolderCard.Cover />`,
+    image: `
+        <FolderCard.Cover src="/og-default.png" />`,
+    none: ''
+};
+
+const OPEN_HANDLER = `onclick={() => {
             opened = true;
-        }}`
+        }}`;
+
+export function code(values: Values): string {
+    const button = values.action === 'button';
+    const tone = changed(Number(values.tone), 1);
+    const buttonProps = [
+        attributes({ tone }).trim(),
+        attributes({ disabled: values.disabled }).trim(),
+        OPEN_HANDLER
     ].filter(Boolean);
     const root = button
         ? `<FolderCard.Root
@@ -41,28 +55,21 @@ export function code(values: PlaygroundValues<typeof controls>): string {
     >`
         : `<FolderCard.Root${attributes({
               href: values.action === 'link' && '/docs/components',
-              tone: tone && expression(values.tone)
+              tone
           })}>`;
-    const cover =
-        values.cover === 'image'
-            ? `
-        <FolderCard.Cover src="/og-default.png" />`
-            : values.cover === 'tone'
-              ? `
-        <FolderCard.Cover />`
-              : '';
+    const cover = COVERS[values.cover];
     const description = values.description
         ? `
             <FolderCard.Description>Brand, web, and product</FolderCard.Description>`
         : '';
     const count = attributes({
-        value: expression(String(values.value)),
-        unit: values.unit !== 'files' && values.unit
+        value: values.value,
+        unit: changed(values.unit, 'files')
     });
-    const footerParts = [
-        values.index ? '            <FolderCard.Index>001</FolderCard.Index>' : '',
-        values.count ? `            <FolderCard.Count${count} />` : ''
-    ].filter(Boolean);
+    const footerParts = compact([
+        values.index && '            <FolderCard.Index>001</FolderCard.Index>',
+        values.count && `            <FolderCard.Count${count} />`
+    ]);
     const footer = footerParts.length
         ? `
         <FolderCard.Footer>
@@ -88,7 +95,7 @@ ${footerParts.join('\n')}
 <div class="flex w-full max-w-xs flex-col gap-3">
     ${root}${cover}
         <FolderCard.Tab>
-            <FolderCard.Title>${values.title}</FolderCard.Title>${description}
+            <FolderCard.Title>${content(values.title)}</FolderCard.Title>${description}
         </FolderCard.Tab>${footer}
     </FolderCard.Root>${status}
 </div>`;

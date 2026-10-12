@@ -1,8 +1,12 @@
 import {
     attributes,
+    compact,
+    content,
     expression,
     type PlaygroundValues,
+    quote,
     select,
+    tag,
     toggle
 } from '$lib/components/docs/playground';
 
@@ -35,7 +39,11 @@ export const ISSUE_COUNT = {
     two: 2
 };
 
-export function code(values: PlaygroundValues<typeof controls>): string {
+type Values = PlaygroundValues<typeof controls>;
+
+const CONTROL_INDENT = '            ';
+
+export function code(values: Values): string {
     const horizontal = values.orientation === 'horizontal';
     const copy = COPY[values.orientation];
     const issues = copy.issues.slice(0, ISSUE_COUNT[values.issues]);
@@ -47,32 +55,41 @@ export function code(values: PlaygroundValues<typeof controls>): string {
         issues: issues.length > 0 && expression('issues'),
         class: horizontal ? 'max-w-sm gap-3' : 'w-full max-w-sm'
     });
-    const checkboxProps = attributes({
-        name: 'updates',
-        'aria-label': !values.label && copy.label,
-        class: 'mt-0.5'
-    });
-    const input = values.label
-        ? '<Input {...control} type="email" name="email" placeholder="you@company.com" />'
-        : `<Input
-                {...control}
-                type="email"
-                name="email"
-                aria-label="${copy.label}"
-                placeholder="you@company.com"
-            />`;
+    const checkbox = tag(
+        'Checkbox',
+        {
+            name: 'updates',
+            'aria-label': !values.label && copy.label,
+            class: 'mt-0.5'
+        },
+        ' />',
+        CONTROL_INDENT,
+        ['{...control}']
+    );
+    const input = tag(
+        'Input',
+        {
+            type: 'email',
+            name: 'email',
+            'aria-label': !values.label && copy.label,
+            placeholder: 'you@company.com'
+        },
+        ' />',
+        CONTROL_INDENT,
+        ['{...control}']
+    );
     const control = `<Field.Control>
         {#snippet children(control)}
-            ${horizontal ? `<Checkbox {...control}${checkboxProps} />` : input}
+            ${horizontal ? checkbox : input}
         {/snippet}
     </Field.Control>`;
-    const label = values.label ? [`<Field.Label>${copy.label}</Field.Label>`] : [];
-    const feedback = [
-        values.description && `<Field.Description>${copy.description}</Field.Description>`,
+    const label = values.label ? [`<Field.Label>${content(copy.label)}</Field.Label>`] : [];
+    const feedback = compact([
+        values.description && `<Field.Description>${content(copy.description)}</Field.Description>`,
         issues.length > 0 && '<Field.Error />'
-    ].filter((part) => part !== false);
+    ]);
     const contentParts = [...label, ...feedback];
-    const content =
+    const fieldContent =
         contentParts.length > 0
             ? [
                   `<Field.Content>
@@ -80,9 +97,9 @@ export function code(values: PlaygroundValues<typeof controls>): string {
     </Field.Content>`
               ]
             : [];
-    const body = horizontal ? [control, ...content] : [...label, control, ...feedback];
+    const body = horizontal ? [control, ...fieldContent] : [...label, control, ...feedback];
     const issueList = issues
-        .map((message) => `        {\n            message: '${message}'\n        }`)
+        .map((message) => `        {\n            message: ${quote(message)}\n        }`)
         .join(',\n');
     const script =
         issues.length > 0
@@ -93,11 +110,11 @@ ${issueList}
     ];`
             : '';
 
-    const imports = [
+    const imports = compact([
         horizontal && "    import { Checkbox } from '@mielui/svelte/components/checkbox';",
         "    import * as Field from '@mielui/svelte/components/field';",
         !horizontal && "    import { Input } from '@mielui/svelte/components/input';"
-    ].filter((line) => line !== false);
+    ]);
 
     return `<script lang="ts">
 ${imports.join('\n')}${script}

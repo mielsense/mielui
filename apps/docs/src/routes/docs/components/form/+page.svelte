@@ -16,17 +16,12 @@
     import RemoteBasicSrc from './examples/remote-basic.svelte?raw';
     import StatusToneExample from './examples/status-tone.svelte';
     import StatusToneExampleSrc from './examples/status-tone.svelte?raw';
-    import { code as playgroundCode, controls as playgroundControls, STATUS } from './playground';
-
-    const playgroundIssues = [
-        {
-            message: 'Enter a valid email address.',
-            path: ['email']
-        },
-        {
-            message: 'This profile cannot be saved right now.'
-        }
-    ];
+    import {
+        code as playgroundCode,
+        controls as playgroundControls,
+        issues as playgroundIssues,
+        STATUS
+    } from './playground';
 
     function preventSubmit(event: SubmitEvent) {
         event.preventDefault();
@@ -73,20 +68,18 @@ export default config;`;
                     pending={values.pending}
                 >
                     {#if values.errorSummary}
+                        {const summary = {
+                            issues: playgroundIssues,
+                            focusOnError: values.focusOnError
+                        }}
                         {#if values.heading}
-                            <Form.ErrorSummary
-                                issues={playgroundIssues}
-                                focusOnError={values.focusOnError}
-                            >
+                            <Form.ErrorSummary {...summary}>
                                 {#snippet heading()}
                                     Two details need another look
                                 {/snippet}
                             </Form.ErrorSummary>
                         {:else}
-                            <Form.ErrorSummary
-                                issues={playgroundIssues}
-                                focusOnError={values.focusOnError}
-                            />
+                            <Form.ErrorSummary {...summary} />
                         {/if}
                     {/if}
                     <Field.Root>

@@ -18,7 +18,6 @@
     import { code as playgroundCode, controls as playgroundControls } from './playground';
 
     const TITLE = 'Folder Card';
-    const installCommand = 'pnpm dlx @mielui/svelte add folder-card';
 
     const playgroundTones: Record<'1' | '2' | '3' | '4' | '5', 1 | 2 | 3 | 4 | 5> = {
         '1': 1,
@@ -69,7 +68,10 @@
                                 <FolderCard.Index>001</FolderCard.Index>
                             {/if}
                             {#if values.count}
-                                <FolderCard.Count value={values.value} unit={values.unit} />
+                                <FolderCard.Count
+                                    value={values.value}
+                                    unit={values.unit || undefined}
+                                />
                             {/if}
                         </FolderCard.Footer>
                     {/if}
@@ -107,7 +109,7 @@
 
     <section id="installation" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Installation</Typography.H2>
-        <InstallCommand command={installCommand} />
+        <InstallCommand command="pnpm dlx @mielui/svelte add folder-card" />
     </section>
 
     <section id="usage" class="scroll-mt-20 flex flex-col gap-4">

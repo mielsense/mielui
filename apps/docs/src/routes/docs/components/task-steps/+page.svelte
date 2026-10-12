@@ -1,6 +1,5 @@
 <script lang="ts">
     import { CodeBlock } from '@mielui/svelte/components/code-block';
-    import type { TaskStep } from '@mielui/svelte/components/task-steps';
     import * as TaskSteps from '@mielui/svelte/components/task-steps';
     import * as Typography from '@mielui/svelte/components/typography';
     import { ComponentPreview, InstallCommand, Playground } from '$lib/components/docs';
@@ -12,38 +11,12 @@
     import HeroSrc from './examples/hero.svelte?raw';
     import Retry from './examples/retry.svelte';
     import RetrySrc from './examples/retry.svelte?raw';
-    import { code as playgroundCode, controls as playgroundControls } from './playground';
-
-    const installCommand = 'pnpm dlx @mielui/svelte add task-steps';
-
-    const playgroundSteps: TaskStep[] = [
-        {
-            id: 'queue',
-            label: 'Queued',
-            meta: '0.2s'
-        },
-        {
-            id: 'build',
-            label: 'Building',
-            meta: '8.1s'
-        },
-        {
-            id: 'checks',
-            label: 'Running checks',
-            meta: '3.4s'
-        },
-        {
-            id: 'deploy',
-            label: 'Deploying',
-            meta: '5.0s'
-        }
-    ];
-    const playgroundPlainSteps: TaskStep[] = playgroundSteps.map((step) => {
-        return {
-            id: step.id,
-            label: step.label
-        };
-    });
+    import {
+        code as playgroundCode,
+        controls as playgroundControls,
+        plainSteps as playgroundPlainSteps,
+        steps as playgroundSteps
+    } from './playground';
 </script>
 
 <svelte:head>
@@ -57,14 +30,15 @@
     <section id="hero" class="scroll-mt-20 flex flex-col gap-4">
         <Playground controls={playgroundControls} code={playgroundCode}>
             {#snippet children(values)}
+                {const root = {
+                    steps: values.durations ? playgroundSteps : playgroundPlainSteps,
+                    current: values.current,
+                    failed: values.failed,
+                    label: 'Deploy progress',
+                    class: 'max-w-sm'
+                }}
                 {#if values.summary}
-                    <TaskSteps.Root
-                        steps={values.durations ? playgroundSteps : playgroundPlainSteps}
-                        current={values.current}
-                        failed={values.failed}
-                        label="Deploy progress"
-                        class="max-w-sm"
-                    >
+                    <TaskSteps.Root {...root}>
                         {#snippet children(progress)}
                             <TaskSteps.List>
                                 {#each progress.rows as row (row.id)}
@@ -83,13 +57,7 @@
                         {/snippet}
                     </TaskSteps.Root>
                 {:else}
-                    <TaskSteps.Root
-                        steps={values.durations ? playgroundSteps : playgroundPlainSteps}
-                        current={values.current}
-                        failed={values.failed}
-                        label="Deploy progress"
-                        class="max-w-sm"
-                    />
+                    <TaskSteps.Root {...root} />
                 {/if}
             {/snippet}
         </Playground>
@@ -97,7 +65,7 @@
 
     <section id="installation" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Installation</Typography.H2>
-        <InstallCommand command={installCommand} />
+        <InstallCommand command="pnpm dlx @mielui/svelte add task-steps" />
     </section>
 
     <section id="usage" class="scroll-mt-20 flex flex-col gap-4">

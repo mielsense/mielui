@@ -1,6 +1,9 @@
 import {
     attributes,
-    expression,
+    CONTROL_SIZES,
+    changed,
+    compact,
+    defaultOn,
     type PlaygroundValues,
     select,
     toggle
@@ -8,7 +11,7 @@ import {
 
 export const controls = {
     variant: select('Variant', ['outline', 'secondary', 'ghost'], 'outline'),
-    size: select('Trigger size', ['sm', 'md', 'lg'], 'md', 'Appearance'),
+    size: select('Trigger size', CONTROL_SIZES, 'md', 'Appearance'),
     glass: toggle('Glass surface', 'Appearance'),
     dynamic: toggle('Dynamic width', 'Appearance'),
     label: toggle('Label', 'Content', true),
@@ -25,6 +28,8 @@ export const controls = {
     portal: toggle('Portal', 'Behavior', true)
 };
 
+type Values = PlaygroundValues<typeof controls>;
+
 function row(icon: string, label: string, icons: boolean, indent = '        '): string {
     if (!icons) {
         return label;
@@ -38,20 +43,20 @@ ${indent}    </span>
 ${indent}`;
 }
 
-export function code(values: PlaygroundValues<typeof controls>): string {
+export function code(values: Values): string {
     const trigger = attributes({
         variant: values.variant,
-        size: values.size !== 'md' && values.size,
+        size: changed(values.size, 'md'),
         disabled: values.disabled
     });
     const content = attributes({
         surface: values.glass && 'glass',
         dynamic: values.dynamic,
-        allowClickOutside: values.allowClickOutside ? undefined : expression('false'),
-        dismissLayer: values.dismissLayer ? undefined : expression('false'),
+        allowClickOutside: defaultOn(values.allowClickOutside),
+        dismissLayer: defaultOn(values.dismissLayer),
         focusTrap: values.focusTrap,
         lockScroll: values.lockScroll,
-        portal: values.portal ? undefined : expression('false')
+        portal: defaultOn(values.portal)
     });
     const subContent = attributes({
         surface: values.glass && 'glass'
@@ -62,24 +67,24 @@ export function code(values: PlaygroundValues<typeof controls>): string {
     const signOut = attributes({
         variant: values.destructive && 'destructive'
     });
-    const iconNames = [
+    const iconNames = compact([
         'ArrowDown01Icon as ChevronDown',
         values.icons && 'CreditCardIcon as CreditCard',
         values.icons && 'Logout01Icon as LogOut',
         values.icons && values.submenu && 'PaintBoardIcon as Palette',
         values.icons && 'Settings01Icon as Settings',
         values.icons && 'UserIcon as User'
-    ].filter((name) => typeof name === 'string');
+    ]);
     const iconImport =
         iconNames.length === 1
             ? `import { ${iconNames[0]} } from '@hugeicons/core-free-icons';`
             : `import {
         ${iconNames.join(',\n        ')}
     } from '@hugeicons/core-free-icons';`;
-    const state = [
+    const state = compact([
         values.checkbox && 'let notifications = $state(true);',
         values.submenu && "let theme = $state('system');"
-    ].filter((line) => typeof line === 'string');
+    ]);
     const script = state.length
         ? `
 

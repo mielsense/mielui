@@ -1,6 +1,6 @@
 import {
     attributes,
-    expression,
+    defaultOn,
     type PlaygroundValues,
     text,
     toggle
@@ -16,7 +16,7 @@ export const controls = {
 export function code(values: PlaygroundValues<typeof controls>): string {
     const root = attributes({
         streaming: values.streaming,
-        open: values.open ? undefined : expression('false')
+        open: defaultOn(values.open)
     });
     const trigger = attributes({
         title: values.title,

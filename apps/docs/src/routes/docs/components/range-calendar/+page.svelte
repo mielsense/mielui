@@ -1,11 +1,22 @@
 <script lang="ts">
-    import { CalendarDate, type DateValue, isWeekend } from '@internationalized/date';
+    import type { DateValue } from '@internationalized/date';
     import { CodeBlock } from '@mielui/svelte/components/code-block';
     import * as RangeCalendar from '@mielui/svelte/components/range-calendar';
     import * as Typography from '@mielui/svelte/components/typography';
     import { ComponentPreview, InstallCommand, Playground } from '$lib/components/docs';
     import InlineText from '$lib/components/docs/inline-text.svelte';
     import PageIntro from '$lib/components/docs/page-intro.svelte';
+    import {
+        endDate,
+        isBooked,
+        MAX_DAYS,
+        MIN_DAYS,
+        maxDate,
+        minDate,
+        startDate,
+        WEEK_START,
+        weekendMatcher
+    } from '$lib/components/docs/playground/calendar';
     import Constraints from './examples/constraints.svelte';
     import ConstraintsSrc from './examples/constraints.svelte?raw';
     import EventsExample from './examples/events.svelte';
@@ -16,32 +27,15 @@
     import HeroSrc from './examples/hero.svelte?raw';
     import Example0 from './examples/two-months.svelte';
     import Example0Src from './examples/two-months.svelte?raw';
-    import {
-        code as playgroundCode,
-        controls as playgroundControls,
-        WEEK_START
-    } from './playground';
+    import { code as playgroundCode, controls as playgroundControls } from './playground';
 
-    const booked = [8, 9, 22];
-    const minDate = new CalendarDate(2026, 9, 7);
-    const maxDate = new CalendarDate(2026, 10, 16);
     let range = $state<{
         start: DateValue | undefined;
         end: DateValue | undefined;
     }>({
-        start: new CalendarDate(2026, 9, 17),
-        end: new CalendarDate(2026, 9, 23)
+        start: startDate,
+        end: endDate
     });
-
-    function isBooked(day: DateValue) {
-        return day.month === 9 && booked.includes(day.day);
-    }
-
-    function weekendMatcher(locale: string) {
-        return (day: DateValue) => {
-            return isWeekend(day, locale);
-        };
-    }
 </script>
 
 <svelte:head>
@@ -59,31 +53,31 @@
     <section id="hero" class="scroll-mt-20 flex flex-col gap-4">
         <Playground controls={playgroundControls} code={playgroundCode}>
             {#snippet children(values)}
+                {const root = {
+                    calendarLabel: 'Travel dates',
+                    locale: values.locale,
+                    weekdayFormat: values.weekdayFormat,
+                    monthFormat: values.monthFormat,
+                    yearFormat: values.yearFormat,
+                    weekStartsOn: WEEK_START[values.weekStartsOn],
+                    numberOfMonths: values.numberOfMonths,
+                    fixedWeeks: values.fixedWeeks,
+                    disabled: values.disabled,
+                    readonly: values.readonly,
+                    minValue: values.bounds ? minDate : undefined,
+                    maxValue: values.bounds ? maxDate : undefined,
+                    isDateDisabled: values.weekends ? weekendMatcher(values.locale) : undefined,
+                    isDateUnavailable: values.unavailable ? isBooked : undefined,
+                    minDays: values.limit ? MIN_DAYS : undefined,
+                    maxDays: values.limit ? MAX_DAYS : undefined,
+                    excludeDisabled: values.excludeDisabled,
+                    preventDeselect: values.preventDeselect,
+                    pagedNavigation: values.pagedNavigation,
+                    disableDaysOutsideMonth: values.disableDaysOutsideMonth
+                }}
                 <div class="mielui-plate max-w-full">
                     {#if values.header === 'selects'}
-                        <RangeCalendar.Root
-                            bind:value={range}
-                            calendarLabel="Travel dates"
-                            locale={values.locale}
-                            weekdayFormat={values.weekdayFormat}
-                            monthFormat={values.monthFormat}
-                            yearFormat={values.yearFormat}
-                            weekStartsOn={WEEK_START[values.weekStartsOn]}
-                            numberOfMonths={values.numberOfMonths}
-                            fixedWeeks={values.fixedWeeks}
-                            disabled={values.disabled}
-                            readonly={values.readonly}
-                            minValue={values.bounds ? minDate : undefined}
-                            maxValue={values.bounds ? maxDate : undefined}
-                            isDateDisabled={values.weekends ? weekendMatcher(values.locale) : undefined}
-                            isDateUnavailable={values.unavailable ? isBooked : undefined}
-                            minDays={values.limit ? 2 : undefined}
-                            maxDays={values.limit ? 7 : undefined}
-                            excludeDisabled={values.excludeDisabled}
-                            preventDeselect={values.preventDeselect}
-                            pagedNavigation={values.pagedNavigation}
-                            disableDaysOutsideMonth={values.disableDaysOutsideMonth}
-                        >
+                        <RangeCalendar.Root bind:value={range} {...root}>
                             {#snippet children({ months, weekdays })}
                                 <RangeCalendar.Header>
                                     <RangeCalendar.MonthSelect />
@@ -102,29 +96,7 @@
                             {/snippet}
                         </RangeCalendar.Root>
                     {:else}
-                        <RangeCalendar.Root
-                            bind:value={range}
-                            calendarLabel="Travel dates"
-                            locale={values.locale}
-                            weekdayFormat={values.weekdayFormat}
-                            monthFormat={values.monthFormat}
-                            yearFormat={values.yearFormat}
-                            weekStartsOn={WEEK_START[values.weekStartsOn]}
-                            numberOfMonths={values.numberOfMonths}
-                            fixedWeeks={values.fixedWeeks}
-                            disabled={values.disabled}
-                            readonly={values.readonly}
-                            minValue={values.bounds ? minDate : undefined}
-                            maxValue={values.bounds ? maxDate : undefined}
-                            isDateDisabled={values.weekends ? weekendMatcher(values.locale) : undefined}
-                            isDateUnavailable={values.unavailable ? isBooked : undefined}
-                            minDays={values.limit ? 2 : undefined}
-                            maxDays={values.limit ? 7 : undefined}
-                            excludeDisabled={values.excludeDisabled}
-                            preventDeselect={values.preventDeselect}
-                            pagedNavigation={values.pagedNavigation}
-                            disableDaysOutsideMonth={values.disableDaysOutsideMonth}
-                        />
+                        <RangeCalendar.Root bind:value={range} {...root} />
                     {/if}
                 </div>
             {/snippet}

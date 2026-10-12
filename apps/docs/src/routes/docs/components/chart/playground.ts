@@ -1,10 +1,63 @@
 import {
     attributes,
+    changed,
+    compact,
     number,
     type PlaygroundValues,
+    quote,
     select,
     toggle
 } from '$lib/components/docs/playground';
+
+type Revenue = {
+    month: string;
+    revenue: number;
+    target: number;
+};
+
+export const revenue: Revenue[] = [
+    {
+        month: 'Jan',
+        revenue: 186,
+        target: 160
+    },
+    {
+        month: 'Feb',
+        revenue: 242,
+        target: 190
+    },
+    {
+        month: 'Mar',
+        revenue: 218,
+        target: 220
+    },
+    {
+        month: 'Apr',
+        revenue: 304,
+        target: 250
+    },
+    {
+        month: 'May',
+        revenue: 286,
+        target: 280
+    },
+    {
+        month: 'Jun',
+        revenue: 372,
+        target: 310
+    }
+];
+
+export const config = {
+    revenue: {
+        label: 'Revenue',
+        color: 'var(--chart-1)'
+    },
+    target: {
+        label: 'Target',
+        color: 'var(--chart-2)'
+    }
+};
 
 export const controls = {
     type: select('Chart type', ['mixed', 'bar', 'line', 'area'], 'mixed'),
@@ -42,10 +95,10 @@ type Values = PlaygroundValues<typeof controls>;
 
 function marks(values: Values): string[] {
     const path = attributes({
-        strokeWidth: values.strokeWidth !== 2.5 && values.strokeWidth
+        strokeWidth: changed(values.strokeWidth, 2.5)
     });
     const bar = attributes({
-        radius: values.radius !== 4 && values.radius
+        radius: changed(values.radius, 4)
     });
 
     if (values.type === 'bar') {
@@ -61,33 +114,45 @@ function marks(values: Values): string[] {
     return [`<Chart.Area key="revenue"${path} />`, `<Chart.Line key="target"${path} />`];
 }
 
+function rows(): string {
+    return revenue
+        .map((row) => {
+            const month = quote(row.month);
+
+            return `        { month: ${month}, revenue: ${row.revenue}, target: ${row.target} }`;
+        })
+        .join(',\n');
+}
+
+function series(): string {
+    return Object.entries(config)
+        .map(([key, item]) => {
+            return `        ${key}: { label: ${quote(item.label)}, color: ${quote(item.color)} }`;
+        })
+        .join(',\n');
+}
+
 export function code(values: Values): string {
     const root = attributes({
-        orientation: values.orientation !== 'vertical' && values.orientation,
+        orientation: changed(values.orientation, 'vertical'),
         stacked: values.type === 'bar' && values.stacked,
-        animation: values.animation !== 'reveal' && values.animation,
+        animation: changed(values.animation, 'reveal'),
         loading: values.loading
     });
     const ticks = attributes({
-        ticks: values.ticks !== 5 && values.ticks
+        ticks: changed(values.ticks, 5)
     });
     const data = values.empty
         ? `    const data: { month: string; revenue: number; target: number }[] = [];`
         : `    const data = [
-        { month: 'Jan', revenue: 186, target: 160 },
-        { month: 'Feb', revenue: 242, target: 190 },
-        { month: 'Mar', revenue: 218, target: 220 },
-        { month: 'Apr', revenue: 304, target: 250 },
-        { month: 'May', revenue: 286, target: 280 },
-        { month: 'Jun', revenue: 372, target: 310 }
+${rows()}
     ];`;
-    const plot = [
+    const plot = compact([
         values.grid && `<Chart.Grid${ticks} />`,
         values.xAxis && `<Chart.XAxis${ticks} />`,
         values.yAxis && `<Chart.YAxis${ticks} />`,
         ...marks(values)
-    ]
-        .filter((line) => line !== false)
+    ])
         .map((line) => `        ${line}`)
         .join('\n');
     const legend = values.legend
@@ -104,8 +169,7 @@ export function code(values: Values): string {
 
 ${data}
     const config = {
-        revenue: { label: 'Revenue', color: 'var(--chart-1)' },
-        target: { label: 'Target', color: 'var(--chart-2)' }
+${series()}
     };
 </script>
 

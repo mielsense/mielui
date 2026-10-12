@@ -1,6 +1,9 @@
 import {
     attributes,
-    expression,
+    BUTTON_VARIANTS,
+    changed,
+    compact,
+    defaultOn,
     type PlaygroundValues,
     select,
     toggle
@@ -8,12 +11,7 @@ import {
 
 export const controls = {
     side: select('Side', ['right', 'left'], 'right'),
-    trigger: select(
-        'Trigger variant',
-        ['primary', 'secondary', 'outline', 'ghost', 'destructive', 'glow', 'panel', 'quiet'],
-        'primary',
-        'Appearance'
-    ),
+    trigger: select('Trigger variant', BUTTON_VARIANTS, 'primary', 'Appearance'),
     glass: toggle('Glass surface', 'Appearance'),
     description: toggle('Description', 'Content', true),
     footer: toggle('Footer', 'Content', true),
@@ -23,24 +21,25 @@ export const controls = {
 
 export function code(values: PlaygroundValues<typeof controls>): string {
     const trigger = attributes({
-        variant: values.trigger !== 'primary' && values.trigger
+        variant: changed(values.trigger, 'primary')
     });
     const content = attributes({
-        side: values.side !== 'right' && values.side,
+        side: changed(values.side, 'right'),
         surface: values.glass && 'glass',
-        allowClickOutside: values.allowClickOutside ? undefined : expression('false')
+        allowClickOutside: defaultOn(values.allowClickOutside)
     });
     const header = attributes({
-        close: values.close ? undefined : expression('false')
+        close: defaultOn(values.close)
     });
     const description = values.description
         ? `
             <Sheet.Description>Changes apply to your account right away.</Sheet.Description>`
         : '';
-    const buttonImport = values.footer
-        ? `
-    import { Button } from '@mielui/svelte/components/button';`
-        : '';
+    const imports = compact([
+        values.footer && "import { Button } from '@mielui/svelte/components/button';",
+        "import { Input } from '@mielui/svelte/components/input';",
+        "import * as Sheet from '@mielui/svelte/components/sheet';"
+    ]).join('\n    ');
     const save = values.footer
         ? `
 
@@ -56,9 +55,8 @@ export function code(values: PlaygroundValues<typeof controls>): string {
         </Sheet.Footer>`
         : '';
 
-    return `<script lang="ts">${buttonImport}
-    import { Input } from '@mielui/svelte/components/input';
-    import * as Sheet from '@mielui/svelte/components/sheet';
+    return `<script lang="ts">
+    ${imports}
 
     let open = $state(false);${save}
 </script>

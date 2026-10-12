@@ -28,7 +28,9 @@ LIMIT 50;`);
                             variant="ghost"
                             size="icon"
                             aria-label="Run query"
-                            onclick={() => { ran = true; }}
+                            onclick={() => {
+                                ran = true;
+                            }}
                         >
                             <HugeiconsIcon icon={RefreshCw} size={15} />
                         </Button>
@@ -41,7 +43,9 @@ LIMIT 50;`);
                             variant="ghost"
                             size="icon"
                             aria-label="Edit query"
-                            onclick={() => { editing = !editing; }}
+                            onclick={() => {
+                                editing = !editing;
+                            }}
                         >
                             <HugeiconsIcon icon={ExternalLink} size={15} />
                         </Button>

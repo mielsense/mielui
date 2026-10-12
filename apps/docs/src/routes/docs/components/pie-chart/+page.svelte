@@ -7,38 +7,15 @@
     import PageIntro from '$lib/components/docs/page-intro.svelte';
     import States from './examples/states.svelte';
     import StatesSource from './examples/states.svelte?raw';
-    import { code as playgroundCode, controls as playgroundControls } from './playground';
+    import {
+        code as playgroundCode,
+        controls as playgroundControls,
+        sessions,
+        sessionsConfig
+    } from './playground';
 
     const guides = chartGuides.filter((guide) => guide.component === 'pie-chart');
-    const sessions: PieChart.PieChartDatum[] = [
-        {
-            key: 'direct',
-            value: 1240
-        },
-        {
-            key: 'search',
-            value: 860
-        },
-        {
-            key: 'referral',
-            value: 420
-        }
-    ];
     const noSessions: PieChart.PieChartDatum[] = [];
-    const sessionsConfig = {
-        direct: {
-            label: 'Direct',
-            color: 'var(--chart-1)'
-        },
-        search: {
-            label: 'Search',
-            color: 'var(--chart-2)'
-        },
-        referral: {
-            label: 'Referral',
-            color: 'var(--chart-3)'
-        }
-    };
 </script>
 <svelte:head>
     <title>Mielui · Pie Chart</title>
@@ -132,7 +109,7 @@ const config = {
     <section id="chart-types" class="flex scroll-mt-20 flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Chart types</Typography.H2>
         <div class="grid gap-3 @xl:grid-cols-2">
-            {#each guides as guide}
+            {#each guides as guide (guide.slug)}
                 <a
                     href={`/docs/components/${guide.component}/${guide.slug}`}
                     class="mielui-plate block p-4 transition-[background-color,box-shadow] [transition-duration:var(--motion-duration-hover)] hover:bg-[color-mix(in_srgb,var(--color-foreground)_3%,var(--color-card))] focus-visible:shadow-[var(--focus-ring),var(--elevation-1)] focus-visible:outline-none motion-reduce:transition-none"

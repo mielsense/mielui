@@ -1,4 +1,12 @@
-import { attributes, type PlaygroundValues, select, toggle } from '$lib/components/docs/playground';
+import {
+    attributes,
+    changed,
+    compact,
+    indent,
+    type PlaygroundValues,
+    select,
+    toggle
+} from '$lib/components/docs/playground';
 
 export const controls = {
     variant: select('Variant', ['default', 'ghost', 'segmented'], 'default'),
@@ -18,7 +26,10 @@ function trigger(
     label: string,
     icon: string,
     values: Values,
-    options: { count?: boolean; disabled?: boolean } = {}
+    options: {
+        count?: boolean;
+        disabled?: boolean;
+    } = {}
 ): string {
     const props = attributes({
         value,
@@ -46,11 +57,15 @@ function trigger(
         </Tabs.Trigger>`;
 }
 
+export function panelClass(orientation: Values['orientation']): string {
+    return `${orientation === 'vertical' ? 'py-1.5' : 'pt-3'} text-sm text-foreground-muted`;
+}
+
 function panel(value: string, body: string, values: Values): string {
     const props = attributes({
         value,
         forceMount: values.forceMount,
-        class: `${values.orientation === 'vertical' ? 'py-1.5' : 'pt-3'} text-sm text-foreground-muted`
+        class: panelClass(values.orientation)
     });
 
     return `
@@ -59,31 +74,22 @@ function panel(value: string, body: string, values: Values): string {
     </Tabs.Content>`;
 }
 
-function indent(block: string): string {
-    return block
-        .split('\n')
-        .map((line) => (line ? `    ${line}` : line))
-        .join('\n');
-}
-
 export function code(values: Values): string {
     const props = attributes({
-        variant: values.variant !== 'default' && values.variant,
-        orientation: values.orientation !== 'horizontal' && values.orientation,
-        activationMode: values.activationMode !== 'automatic' && values.activationMode
+        variant: changed(values.variant, 'default'),
+        orientation: changed(values.orientation, 'horizontal'),
+        activationMode: changed(values.activationMode, 'automatic')
     });
-    const iconImport = values.icons
-        ? `
-    import {
+    const imports = compact([
+        values.icons &&
+            `import {
         Activity01Icon as Activity,
         File01Icon as File,
         Home01Icon as Home
-    } from '@hugeicons/core-free-icons';`
-        : '';
-    const iconComponent = values.icons
-        ? `
-    import HugeiconsIcon from '@mielui/svelte/hugeicons-icon';`
-        : '';
+    } from '@hugeicons/core-free-icons';`,
+        "import * as Tabs from '@mielui/svelte/components/tabs';",
+        values.icons && "import HugeiconsIcon from '@mielui/svelte/hugeicons-icon';"
+    ]).join('\n    ');
     const triggers =
         trigger('overview', 'Overview', 'Home', values) +
         trigger('activity', 'Activity', 'Activity', values, { count: values.count }) +
@@ -103,8 +109,8 @@ ${indent(tabs)}
 </div>`
         : tabs;
 
-    return `<script lang="ts">${iconImport}
-    import * as Tabs from '@mielui/svelte/components/tabs';${iconComponent}
+    return `<script lang="ts">
+    ${imports}
 
     let tab = $state('overview');
 </script>

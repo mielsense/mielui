@@ -3,7 +3,10 @@
     import { Button } from '@mielui/svelte/components/button';
     import * as DateRangePicker from '@mielui/svelte/components/date-range-picker';
 
-    let value = $state<{ start: DateValue | undefined; end: DateValue | undefined }>({
+    let value = $state<{
+        start: DateValue | undefined;
+        end: DateValue | undefined;
+    }>({
         start: undefined,
         end: undefined
     });

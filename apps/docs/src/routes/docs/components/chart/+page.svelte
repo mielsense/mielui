@@ -8,58 +8,15 @@
     import PageIntro from '$lib/components/docs/page-intro.svelte';
     import States from './examples/states.svelte';
     import StatesSource from './examples/states.svelte?raw';
-    import { code as playgroundCode, controls as playgroundControls } from './playground';
-
-    type Revenue = {
-        month: string;
-        revenue: number;
-        target: number;
-    };
+    import {
+        code as playgroundCode,
+        config as playgroundConfig,
+        controls as playgroundControls,
+        revenue as playgroundRevenue
+    } from './playground';
 
     const guides = chartGuides.filter((guide) => guide.component === 'chart');
-    const revenue: Revenue[] = [
-        {
-            month: 'Jan',
-            revenue: 186,
-            target: 160
-        },
-        {
-            month: 'Feb',
-            revenue: 242,
-            target: 190
-        },
-        {
-            month: 'Mar',
-            revenue: 218,
-            target: 220
-        },
-        {
-            month: 'Apr',
-            revenue: 304,
-            target: 250
-        },
-        {
-            month: 'May',
-            revenue: 286,
-            target: 280
-        },
-        {
-            month: 'Jun',
-            revenue: 372,
-            target: 310
-        }
-    ];
-    const noRevenue: Revenue[] = [];
-    const revenueConfig = {
-        revenue: {
-            label: 'Revenue',
-            color: 'var(--chart-1)'
-        },
-        target: {
-            label: 'Target',
-            color: 'var(--chart-2)'
-        }
-    };
+    const noRevenue: typeof playgroundRevenue = [];
 </script>
 <svelte:head>
     <title>Mielui · Chart</title>
@@ -71,8 +28,8 @@
         <Playground controls={playgroundControls} code={playgroundCode} refreshable>
             {#snippet children(values)}
                 <Chart.Root
-                    data={values.empty ? noRevenue : revenue}
-                    config={revenueConfig}
+                    data={values.empty ? noRevenue : playgroundRevenue}
+                    config={playgroundConfig}
                     x="month"
                     aria-label="Monthly revenue and target"
                     class="w-full"
@@ -165,7 +122,7 @@ const config = {
     <section id="chart-types" class="flex scroll-mt-20 flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Chart types</Typography.H2>
         <div class="grid gap-3 @xl:grid-cols-2">
-            {#each guides as guide}
+            {#each guides as guide (guide.slug)}
                 <a
                     href={`/docs/components/${guide.component}/${guide.slug}`}
                     class="mielui-plate block p-4 transition-[background-color,box-shadow] [transition-duration:var(--motion-duration-hover)] hover:bg-[color-mix(in_srgb,var(--color-foreground)_3%,var(--color-card))] focus-visible:shadow-[var(--focus-ring),var(--elevation-1)] focus-visible:outline-none motion-reduce:transition-none"

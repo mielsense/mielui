@@ -11,28 +11,11 @@
     import InteractiveSource from './examples/interactive.svelte?raw';
 
     import usage from './examples/usage.svelte?raw';
-    import { code as playgroundCode, controls as playgroundControls } from './playground';
-
-    const playgroundInvoices = [
-        {
-            id: 'INV-001',
-            status: 'Paid',
-            method: 'Card',
-            amount: '$250.00'
-        },
-        {
-            id: 'INV-002',
-            status: 'Pending',
-            method: 'Bank transfer',
-            amount: '$150.00'
-        },
-        {
-            id: 'INV-003',
-            status: 'Paid',
-            method: 'Card',
-            amount: '$350.00'
-        }
-    ];
+    import {
+        code as playgroundCode,
+        controls as playgroundControls,
+        invoices as playgroundInvoices
+    } from './playground';
 </script>
 
 <svelte:head>

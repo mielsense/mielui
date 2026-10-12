@@ -1,4 +1,12 @@
-import { attributes, type PlaygroundValues, select, toggle } from '$lib/components/docs/playground';
+import {
+    attributes,
+    changed,
+    expression,
+    literal,
+    type PlaygroundValues,
+    select,
+    toggle
+} from '$lib/components/docs/playground';
 
 export const controls = {
     variant: select('Variant', ['default', 'inset'], 'default'),
@@ -7,14 +15,37 @@ export const controls = {
     selected: toggle('Selected row', 'State')
 };
 
+export const invoices = [
+    {
+        id: 'INV-001',
+        status: 'Paid',
+        method: 'Card',
+        amount: '$250.00'
+    },
+    {
+        id: 'INV-002',
+        status: 'Pending',
+        method: 'Bank transfer',
+        amount: '$150.00'
+    },
+    {
+        id: 'INV-003',
+        status: 'Paid',
+        method: 'Card',
+        amount: '$350.00'
+    }
+];
+
 export function code(values: PlaygroundValues<typeof controls>): string {
     const props = attributes({
-        variant: values.variant !== 'default' && values.variant,
+        variant: changed(values.variant, 'default'),
         class: 'min-w-[28rem]'
     });
-    const row = values.selected
-        ? " data-state={invoice.id === 'INV-002' ? 'selected' : undefined}"
-        : '';
+    const row = attributes({
+        'data-state':
+            values.selected && expression("invoice.id === 'INV-002' ? 'selected' : undefined")
+    });
+    const rows = invoices.map((invoice) => `        ${literal(invoice)}`).join(',\n');
     const caption = values.caption
         ? `
         <Table.Caption>Invoices for September.</Table.Caption>`
@@ -34,9 +65,7 @@ export function code(values: PlaygroundValues<typeof controls>): string {
     import * as Table from '@mielui/svelte/components/table';
 
     const invoices = [
-        { id: 'INV-001', status: 'Paid', method: 'Card', amount: '$250.00' },
-        { id: 'INV-002', status: 'Pending', method: 'Bank transfer', amount: '$150.00' },
-        { id: 'INV-003', status: 'Paid', method: 'Card', amount: '$350.00' }
+${rows}
     ];
 </script>
 

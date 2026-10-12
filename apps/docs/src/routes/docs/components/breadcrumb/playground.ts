@@ -1,5 +1,7 @@
 import {
     attributes,
+    changed,
+    compact,
     number,
     type PlaygroundValues,
     text,
@@ -19,6 +21,8 @@ export const controls = {
     current: toggle('Current page', 'State', true),
     currentLink: toggle('Link the current page', 'Behavior')
 };
+
+type Values = PlaygroundValues<typeof controls>;
 
 const trail = [
     {
@@ -46,10 +50,10 @@ export function pages(count: number) {
     return trail.slice(0, length);
 }
 
-export function code(values: PlaygroundValues<typeof controls>): string {
+export function code(values: Values): string {
     const shown = pages(values.items);
     const root = attributes({
-        'aria-label': values.label !== 'Breadcrumb' && values.label
+        'aria-label': changed(values.label, 'Breadcrumb')
     });
     const separator = values.slash
         ? '<Breadcrumb.Separator>/</Breadcrumb.Separator>'
@@ -71,17 +75,14 @@ export function code(values: PlaygroundValues<typeof controls>): string {
 
         return index === 0 ? [item] : [separator, item];
     });
-    const iconImport = values.homeIcon
-        ? `
-    import { Home01Icon as Home } from '@hugeicons/core-free-icons';`
-        : '';
-    const iconComponent = values.homeIcon
-        ? `
-    import HugeiconsIcon from '@mielui/svelte/hugeicons-icon';`
-        : '';
+    const imports = compact([
+        values.homeIcon && "import { Home01Icon as Home } from '@hugeicons/core-free-icons';",
+        "import * as Breadcrumb from '@mielui/svelte/components/breadcrumb';",
+        values.homeIcon && "import HugeiconsIcon from '@mielui/svelte/hugeicons-icon';"
+    ]).join('\n    ');
 
-    return `<script lang="ts">${iconImport}
-    import * as Breadcrumb from '@mielui/svelte/components/breadcrumb';${iconComponent}
+    return `<script lang="ts">
+    ${imports}
 </script>
 
 <Breadcrumb.Root${root}>

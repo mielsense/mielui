@@ -34,14 +34,14 @@
         data-docs-scroll
         {@attach settleHeading}
         {@attach scrollFade({ size: 44, target: 'parent' })}
-        class={`h-full min-h-0 w-full overflow-y-auto overscroll-contain [container-type:inline-size]`}
+        class="h-full min-h-0 w-full overflow-y-auto overscroll-contain [container-type:inline-size]"
     >
         <div class="w-full px-5 pt-8 pb-24 sm:px-10 lg:pt-14 xl:px-20">
             <div
                 class="mx-auto flex w-full max-w-[60rem] min-w-0 flex-col has-[[data-docs-toolbar]]:max-w-none"
             >
                 <div bind:this={content} class="docs-article w-full min-w-0">
-                    {@render children?.()}
+                    {@render children()}
                 </div>
                 {#if page.status < 400}
                     <DocsPager />

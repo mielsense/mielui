@@ -1,4 +1,11 @@
-import { type PlaygroundValues, select, toggle } from '$lib/components/docs/playground';
+import {
+    expression,
+    literal,
+    type PlaygroundValues,
+    select,
+    tag,
+    toggle
+} from '$lib/components/docs/playground';
 
 export const controls = {
     handle: select('Handle', ['start', 'end'], 'start'),
@@ -6,11 +13,44 @@ export const controls = {
     disabled: toggle('Disabled', 'State')
 };
 
+export const agenda = [
+    {
+        id: 'opening',
+        name: 'Opening remarks',
+        duration: '5 min'
+    },
+    {
+        id: 'roadmap',
+        name: 'Roadmap review',
+        duration: '15 min'
+    },
+    {
+        id: 'critique',
+        name: 'Design critique',
+        duration: '20 min'
+    },
+    {
+        id: 'questions',
+        name: 'Open questions',
+        duration: '10 min'
+    }
+];
+
 export function code(values: PlaygroundValues<typeof controls>): string {
-    const disabled = values.disabled
-        ? `
-    disabled`
-        : '';
+    const root = tag(
+        'ReorderList.Root',
+        {
+            getId: expression('(item) => item.id'),
+            getLabel: expression('(item) => item.name'),
+            label: 'Meeting agenda',
+            disabled: values.disabled,
+            class: 'w-full max-w-sm'
+        },
+        '>',
+        '',
+        ['bind:items']
+    );
+    const items = agenda.map((item) => `        ${literal(item)}`).join(',\n');
     const end = values.handle === 'end';
     const indent = end ? '                ' : '        ';
     const content = values.duration
@@ -38,20 +78,11 @@ ${content}
     import * as ReorderList from '@mielui/svelte/components/reorder-list';
 
     let items = $state([
-        { id: 'opening', name: 'Opening remarks', duration: '5 min' },
-        { id: 'roadmap', name: 'Roadmap review', duration: '15 min' },
-        { id: 'critique', name: 'Design critique', duration: '20 min' },
-        { id: 'questions', name: 'Open questions', duration: '10 min' }
+${items}
     ]);
 </script>
 
-<ReorderList.Root
-    bind:items
-    getId={(item) => item.id}
-    getLabel={(item) => item.name}
-    label="Meeting agenda"${disabled}
-    class="w-full max-w-sm"
->
+${root}
 ${body}
 </ReorderList.Root>`;
 }

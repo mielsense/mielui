@@ -1,5 +1,6 @@
 import {
     attributes,
+    changed,
     number,
     type PlaygroundValues,
     select,
@@ -7,7 +8,7 @@ import {
 } from '$lib/components/docs/playground';
 
 export const controls = {
-    side: select('Side', ['top', 'bottom', 'left', 'right'], 'bottom'),
+    side: select('Side', ['bottom', 'top', 'left', 'right'], 'bottom'),
     align: select('Align', ['start', 'center', 'end'], 'center', 'Appearance'),
     sideOffset: number('Side offset', 8, {
         min: 0,
@@ -33,18 +34,20 @@ export const controls = {
     })
 };
 
-export function code(values: PlaygroundValues<typeof controls>): string {
+type Values = PlaygroundValues<typeof controls>;
+
+export function code(values: Values): string {
     const root = attributes({
-        openDelay: values.openDelay !== 200 && values.openDelay,
-        closeDelay: values.closeDelay !== 150 && values.closeDelay
+        openDelay: changed(values.openDelay, 200),
+        closeDelay: changed(values.closeDelay, 150)
     });
     const trigger = attributes({
         href: values.link && 'https://ui.miel.my'
     });
     const content = attributes({
-        side: values.side !== 'bottom' && values.side,
-        align: values.align !== 'center' && values.align,
-        sideOffset: values.sideOffset !== 8 && values.sideOffset,
+        side: changed(values.side, 'bottom'),
+        align: changed(values.align, 'center'),
+        sideOffset: changed(values.sideOffset, 8),
         surface: values.glass && 'glass'
     });
     const title = values.title

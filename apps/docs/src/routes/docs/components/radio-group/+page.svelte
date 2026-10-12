@@ -11,9 +11,11 @@
     import DisabledSrc from './examples/disabled.svelte?raw';
     import EventsExample from './examples/events.svelte';
     import EventsExampleSrc from './examples/events.svelte?raw';
-    import { code as playgroundCode, controls as playgroundControls } from './playground';
-
-    const installCommand = 'pnpm dlx @mielui/svelte add radio-group';
+    import {
+        code as playgroundCode,
+        controls as playgroundControls,
+        options as playgroundOptions
+    } from './playground';
 </script>
 
 <svelte:head>
@@ -22,10 +24,8 @@
 </svelte:head>
 
 <div data-docs-page class="flex flex-col gap-10">
-    <!-- ─── Header ────────────────────────────────────────────────── -->
     <PageIntro title="Radio Group">A group of radio buttons for selecting one option.</PageIntro>
 
-    <!-- ─── Hero Example ──────────────────────────────────────────── -->
     <section id="hero" class="scroll-mt-20 flex flex-col gap-4">
         <Playground controls={playgroundControls} code={playgroundCode}>
             {#snippet children(values)}
@@ -35,41 +35,25 @@
                     aria-label="Plan"
                     disabled={values.disabled}
                 >
-                    <RadioGroup.Item
-                        value="free"
-                        label="Free"
-                        description={values.descriptions ? 'For solo hobby projects.' : undefined}
-                        aria-invalid={values.invalid ? 'true' : undefined}
-                    />
-                    <RadioGroup.Item
-                        value="pro"
-                        label="Pro"
-                        description={values.descriptions
-                            ? 'For small teams and side projects.'
-                            : undefined}
-                        aria-invalid={values.invalid ? 'true' : undefined}
-                    />
-                    <RadioGroup.Item
-                        value="team"
-                        label="Team"
-                        description={values.descriptions
-                            ? 'Audit log, SSO, and priority support.'
-                            : undefined}
-                        disabled={values.disabledItem}
-                        aria-invalid={values.invalid ? 'true' : undefined}
-                    />
+                    {#each playgroundOptions as option (option.value)}
+                        <RadioGroup.Item
+                            value={option.value}
+                            label={option.label}
+                            description={values.descriptions ? option.description : undefined}
+                            disabled={values.disabledItem && option.value === 'team'}
+                            aria-invalid={values.invalid ? 'true' : undefined}
+                        />
+                    {/each}
                 </RadioGroup.Root>
             {/snippet}
         </Playground>
     </section>
 
-    <!-- ─── Installation ──────────────────────────────────────────── -->
     <section id="installation" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Installation</Typography.H2>
-        <InstallCommand command={installCommand} />
+        <InstallCommand command="pnpm dlx @mielui/svelte add radio-group" />
     </section>
 
-    <!-- ─── Usage ─────────────────────────────────────────────────── -->
     <section id="usage" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Usage</Typography.H2>
         <Typography.Text>
@@ -87,13 +71,11 @@
         />
     </section>
 
-    <!-- ─── Examples ──────────────────────────────────────────────── -->
     <section id="examples" class="scroll-mt-20 flex flex-col gap-10">
         <div>
             <Typography.H2 class="docs-section-heading">Examples</Typography.H2>
         </div>
 
-        <!-- With descriptions -->
         <div id="descriptions" class="scroll-mt-20 flex flex-col gap-3">
             <Typography.H3 class="docs-subsection-heading">With descriptions</Typography.H3>
             <ComponentPreview code={DescriptionsSrc}>
@@ -101,7 +83,6 @@
             </ComponentPreview>
         </div>
 
-        <!-- Disabled -->
         <div id="disabled" class="scroll-mt-20 flex flex-col gap-3">
             <Typography.H3 class="docs-subsection-heading">Disabled</Typography.H3>
             <ComponentPreview code={DisabledSrc}>

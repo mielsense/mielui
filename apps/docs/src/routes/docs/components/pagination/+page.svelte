@@ -11,18 +11,11 @@
     import HeroSrc from './examples/hero.svelte?raw';
     import Siblings from './examples/siblings.svelte';
     import SiblingsSrc from './examples/siblings.svelte?raw';
-    import { code as playgroundCode, controls as playgroundControls } from './playground';
-
-    const installCommand = 'pnpm dlx @mielui/svelte add pagination';
-
-    const playgroundLabels = {
-        navigation: 'Search results pages',
-        previous: 'Previous results',
-        next: 'Next results',
-        page: (page: number) => {
-            return `Results page ${page}`;
-        }
-    };
+    import {
+        code as playgroundCode,
+        controls as playgroundControls,
+        labels as playgroundLabels
+    } from './playground';
 </script>
 
 <svelte:head>
@@ -34,12 +27,10 @@
 </svelte:head>
 
 <div data-docs-page class="flex flex-col gap-10">
-    <!-- ─── Header ────────────────────────────────────────────────── -->
     <PageIntro title="Pagination">
         A compact pager that truncates long ranges with an ellipsis.
     </PageIntro>
 
-    <!-- ─── Hero Example ──────────────────────────────────────────── -->
     <section id="hero" class="scroll-mt-20 flex flex-col gap-4">
         <Playground controls={playgroundControls} code={playgroundCode}>
             {#snippet children(values)}
@@ -53,13 +44,11 @@
         </Playground>
     </section>
 
-    <!-- ─── Installation ──────────────────────────────────────────── -->
     <section id="installation" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Installation</Typography.H2>
-        <InstallCommand command={installCommand} />
+        <InstallCommand command="pnpm dlx @mielui/svelte add pagination" />
     </section>
 
-    <!-- ─── Usage ─────────────────────────────────────────────────── -->
     <section id="usage" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Usage</Typography.H2>
         <Typography.Text>
@@ -90,7 +79,6 @@
         />
     </section>
 
-    <!-- ─── Examples ──────────────────────────────────────────────── -->
     <section id="examples" class="scroll-mt-20 flex flex-col gap-10">
         <SectionHeading title="Examples">
             {#snippet description()}

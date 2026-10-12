@@ -21,9 +21,6 @@
     } from './playground';
 
     const TITLE = 'Avatar';
-    const SLUG = 'avatar';
-
-    const installCommand = `pnpm dlx @mielui/svelte add ${SLUG}`;
 </script>
 
 <svelte:head>
@@ -35,16 +32,14 @@
 </svelte:head>
 
 <div data-docs-page class="flex flex-col gap-10">
-    <!-- ─── Header ────────────────────────────────────────────────── -->
     <PageIntro title={TITLE}>
         An image with initials as a fallback. Comes in two shapes and several sizes.
     </PageIntro>
 
-    <!-- ─── Hero Example ──────────────────────────────────────────── -->
     <section id="hero" class="scroll-mt-20 flex flex-col gap-4">
         <Playground controls={playgroundControls} code={playgroundCode}>
             {#snippet children(values)}
-                {@const src = playgroundSources[values.image]}
+                {const src = playgroundSources[values.image]}
                 <Avatar.Root shape={values.shape} size={values.size}>
                     {#if src !== undefined}
                         <Avatar.Image {src} alt={values.alt} />
@@ -57,13 +52,11 @@
         </Playground>
     </section>
 
-    <!-- ─── Installation ──────────────────────────────────────────── -->
     <section id="installation" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Installation</Typography.H2>
-        <InstallCommand command={installCommand} />
+        <InstallCommand command="pnpm dlx @mielui/svelte add avatar" />
     </section>
 
-    <!-- ─── Usage ─────────────────────────────────────────────────── -->
     <section id="usage" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Usage</Typography.H2>
         <Typography.Text variant="supporting">
@@ -79,7 +72,6 @@
         />
     </section>
 
-    <!-- ─── Examples ──────────────────────────────────────────────── -->
     <section id="examples" class="scroll-mt-20 flex flex-col gap-10">
         <div>
             <Typography.H2 class="docs-section-heading">Examples</Typography.H2>
@@ -95,7 +87,6 @@
             </ComponentPreview>
         </div>
 
-        <!-- Sizes -->
         <div id="sizes" class="scroll-mt-20 flex flex-col gap-3">
             <Typography.H3 class="docs-subsection-heading">Sizes</Typography.H3>
             <ComponentPreview code={SizesSrc}>
@@ -103,7 +94,6 @@
             </ComponentPreview>
         </div>
 
-        <!-- Shapes -->
         <div id="shapes" class="scroll-mt-20 flex flex-col gap-3">
             <Typography.H3 class="docs-subsection-heading">Shapes</Typography.H3>
             <ComponentPreview code={ShapesSrc}>
@@ -111,7 +101,6 @@
             </ComponentPreview>
         </div>
 
-        <!-- With image -->
         <div id="with-image" class="scroll-mt-20 flex flex-col gap-3">
             <Typography.H3 class="docs-subsection-heading">Image unavailable</Typography.H3>
             <ComponentPreview code={WithImageSrc}>

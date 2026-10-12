@@ -1,5 +1,11 @@
-import type { HeadingLevel } from '@mielui/svelte/components/typography';
-import { attributes, number, type PlaygroundValues, select } from '$lib/components/docs/playground';
+import {
+    attributes,
+    changed,
+    headingLevel,
+    number,
+    type PlaygroundValues,
+    select
+} from '$lib/components/docs/playground';
 
 export const controls = {
     role: select(
@@ -50,14 +56,9 @@ const names = {
     'inline-code': 'InlineCode'
 };
 
-const headingLevels: readonly HeadingLevel[] = [1, 2, 3, 4, 5, 6];
+type Values = PlaygroundValues<typeof controls>;
 
-/** The heading level a number stands for, or 2 when it is out of range. */
-export function headingLevel(value: number): HeadingLevel {
-    return headingLevels.find((level) => level === value) ?? 2;
-}
-
-function sample(role: PlaygroundValues<typeof controls>['role']): string {
+function sample(role: Values['role']): string {
     if (role === 'description' || role === 'text') {
         return samples.paragraph;
     }
@@ -71,11 +72,11 @@ function sample(role: PlaygroundValues<typeof controls>['role']): string {
     return samples.heading;
 }
 
-export function code(values: PlaygroundValues<typeof controls>): string {
+export function code(values: Values): string {
     const name = `Typography.${names[values.role]}`;
     const props = attributes({
         level: values.role === 'title' && headingLevel(values.level),
-        variant: values.role === 'text' && values.variant !== 'supporting' && values.variant
+        variant: values.role === 'text' && changed(values.variant, 'supporting')
     });
     const paragraph = values.role === 'description' || values.role === 'text';
     const markup = paragraph

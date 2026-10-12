@@ -26,9 +26,6 @@
     import { code as playgroundCode, controls as playgroundControls } from './playground';
 
     const TITLE = 'Command';
-    const SLUG = 'command';
-
-    const installCommand = `pnpm dlx @mielui/svelte add ${SLUG}`;
 </script>
 
 <svelte:head>
@@ -44,7 +41,6 @@
 {/snippet}
 
 <div data-docs-page class="flex flex-col gap-10">
-    <!-- ─── Header ────────────────────────────────────────────────── -->
     <PageIntro title={TITLE}>
         A command palette with fuzzy search and grouped results. Pair it with{' '}
         <Kbd shortcut="cmd+K" />
@@ -52,10 +48,37 @@
         or another shortcut.
     </PageIntro>
 
-    <!-- ─── Hero Example ──────────────────────────────────────────── -->
     <section id="hero" class="scroll-mt-20 flex flex-col gap-4">
         <Playground controls={playgroundControls} code={playgroundCode}>
             {#snippet children(values)}
+                {#snippet actions()}
+                    <Command.Item name="New project">
+                        {#if values.icons}
+                            <HugeiconsIcon icon={Plus} size={14} />
+                        {/if}
+                        New project
+                    </Command.Item>
+                    <Command.Item name="Invite teammate" disabled={values.disabledItem}>
+                        {#if values.icons}
+                            <HugeiconsIcon icon={UserPlus} size={14} />
+                        {/if}
+                        Invite teammate
+                    </Command.Item>
+                {/snippet}
+                {#snippet navigation()}
+                    <Command.Item name="Settings">
+                        {#if values.icons}
+                            <HugeiconsIcon icon={Settings} size={14} />
+                        {/if}
+                        Settings
+                    </Command.Item>
+                    <Command.Item name="Team">
+                        {#if values.icons}
+                            <HugeiconsIcon icon={Users} size={14} />
+                        {/if}
+                        Team
+                    </Command.Item>
+                {/snippet}
                 {#key values.header}
                     <Command.Root>
                         <Command.Trigger variant={values.variant}>
@@ -70,76 +93,26 @@
                                 <Command.Header>Workspace</Command.Header>
                             {/if}
                             <Command.Search
-                                placeholder={values.placeholder}
+                                placeholder={values.placeholder || undefined}
                                 threshold={values.threshold}
                             />
                             <Command.Results empty={values.empty ? emptyMessage : undefined}>
                                 {#if values.groups}
                                     <Command.Group heading="Actions">
-                                        <Command.Item name="New project">
-                                            {#if values.icons}
-                                                <HugeiconsIcon icon={Plus} size={14} />
-                                            {/if}
-                                            New project
-                                        </Command.Item>
-                                        <Command.Item
-                                            name="Invite teammate"
-                                            disabled={values.disabledItem}
-                                        >
-                                            {#if values.icons}
-                                                <HugeiconsIcon icon={UserPlus} size={14} />
-                                            {/if}
-                                            Invite teammate
-                                        </Command.Item>
+                                        {@render actions()}
                                     </Command.Group>
                                 {:else}
-                                    <Command.Item name="New project">
-                                        {#if values.icons}
-                                            <HugeiconsIcon icon={Plus} size={14} />
-                                        {/if}
-                                        New project
-                                    </Command.Item>
-                                    <Command.Item
-                                        name="Invite teammate"
-                                        disabled={values.disabledItem}
-                                    >
-                                        {#if values.icons}
-                                            <HugeiconsIcon icon={UserPlus} size={14} />
-                                        {/if}
-                                        Invite teammate
-                                    </Command.Item>
+                                    {@render actions()}
                                 {/if}
                                 {#if values.separator}
                                     <Command.Separator />
                                 {/if}
                                 {#if values.groups}
                                     <Command.Group heading="Go to">
-                                        <Command.Item name="Settings">
-                                            {#if values.icons}
-                                                <HugeiconsIcon icon={Settings} size={14} />
-                                            {/if}
-                                            Settings
-                                        </Command.Item>
-                                        <Command.Item name="Team">
-                                            {#if values.icons}
-                                                <HugeiconsIcon icon={Users} size={14} />
-                                            {/if}
-                                            Team
-                                        </Command.Item>
+                                        {@render navigation()}
                                     </Command.Group>
                                 {:else}
-                                    <Command.Item name="Settings">
-                                        {#if values.icons}
-                                            <HugeiconsIcon icon={Settings} size={14} />
-                                        {/if}
-                                        Settings
-                                    </Command.Item>
-                                    <Command.Item name="Team">
-                                        {#if values.icons}
-                                            <HugeiconsIcon icon={Users} size={14} />
-                                        {/if}
-                                        Team
-                                    </Command.Item>
+                                    {@render navigation()}
                                 {/if}
                             </Command.Results>
                         </Command.Content>
@@ -149,13 +122,11 @@
         </Playground>
     </section>
 
-    <!-- ─── Installation ──────────────────────────────────────────── -->
     <section id="installation" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Installation</Typography.H2>
-        <InstallCommand command={installCommand} />
+        <InstallCommand command="pnpm dlx @mielui/svelte add command" />
     </section>
 
-    <!-- ─── Usage ─────────────────────────────────────────────────── -->
     <section id="usage" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Usage</Typography.H2>
 
@@ -192,7 +163,6 @@
         />
     </section>
 
-    <!-- ─── Examples ──────────────────────────────────────────────── -->
     <section id="examples" class="scroll-mt-20 flex flex-col gap-10">
         <div>
             <Typography.H2 class="docs-section-heading">Examples</Typography.H2>
@@ -209,7 +179,6 @@
             </ComponentPreview>
         </div>
 
-        <!-- With groups -->
         <div id="with-groups" class="scroll-mt-20 flex flex-col gap-3">
             <Typography.H3 class="docs-subsection-heading">With groups</Typography.H3>
             <ComponentPreview code={WithGroupsSrc}>

@@ -17,8 +17,6 @@
     import SignOut from './examples/sign-out.svelte';
     import SignOutSrc from './examples/sign-out.svelte?raw';
     import { code as playgroundCode, controls as playgroundControls } from './playground';
-
-    const installCommand = 'pnpm dlx @mielui/svelte add alert-dialog';
 </script>
 
 <svelte:head>
@@ -30,12 +28,10 @@
 </svelte:head>
 
 <div data-docs-page class="flex flex-col gap-10">
-    <!-- ─── Header ────────────────────────────────────────────────── -->
     <PageIntro title="Alert Dialog">
         Confirm destructive or irreversible actions before proceeding.
     </PageIntro>
 
-    <!-- ─── Hero Example ──────────────────────────────────────────── -->
     <section id="hero" class="scroll-mt-20 flex flex-col gap-4">
         <Playground controls={playgroundControls} code={playgroundCode}>
             {#snippet children(values)}
@@ -69,13 +65,11 @@
         </Playground>
     </section>
 
-    <!-- ─── Installation ──────────────────────────────────────────── -->
     <section id="installation" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Installation</Typography.H2>
-        <InstallCommand command={installCommand} />
+        <InstallCommand command="pnpm dlx @mielui/svelte add alert-dialog" />
     </section>
 
-    <!-- ─── Usage ─────────────────────────────────────────────────── -->
     <section id="usage" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Usage</Typography.H2>
         <Typography.Text variant="supporting">
@@ -97,7 +91,6 @@
         />
     </section>
 
-    <!-- ─── Examples ──────────────────────────────────────────────── -->
     <section id="examples" class="scroll-mt-20 flex flex-col gap-10">
         <SectionHeading title="Examples">
             {#snippet description()}
@@ -115,7 +108,6 @@
             </ComponentPreview>
         </div>
 
-        <!-- Destructive confirmation -->
         <div id="destructive" class="scroll-mt-20 flex flex-col gap-3">
             <Typography.H3 class="docs-subsection-heading">Destructive confirmation</Typography.H3>
             <ComponentPreview code={DestructiveSrc}>
@@ -123,7 +115,6 @@
             </ComponentPreview>
         </div>
 
-        <!-- Sign out -->
         <div id="sign-out" class="scroll-mt-20 flex flex-col gap-3">
             <Typography.H3 class="docs-subsection-heading">Sign out confirmation</Typography.H3>
             <ComponentPreview code={SignOutSrc}>

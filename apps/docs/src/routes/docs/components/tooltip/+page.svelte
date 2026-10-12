@@ -22,8 +22,6 @@
 
     import Rich from './examples/rich.svelte';
     import RichSrc from './examples/rich.svelte?raw';
-
-    const installCommand = 'pnpm dlx @mielui/svelte add tooltip';
 </script>
 
 <svelte:head>
@@ -35,10 +33,8 @@
 </svelte:head>
 
 <div data-docs-page class="flex flex-col gap-10">
-    <!-- ─── Header ────────────────────────────────────────────────── -->
     <PageIntro title={TITLE}>A short hint shown on hover or keyboard focus.</PageIntro>
 
-    <!-- ─── Hero Example ──────────────────────────────────────────── -->
     <section id="hero" class="scroll-mt-20 flex flex-col gap-4">
         <Playground controls={playgroundControls} code={playgroundCode}>
             {#snippet children(values)}
@@ -70,13 +66,11 @@
         </Playground>
     </section>
 
-    <!-- ─── Installation ──────────────────────────────────────────── -->
     <section id="installation" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Installation</Typography.H2>
-        <InstallCommand command={installCommand} />
+        <InstallCommand command="pnpm dlx @mielui/svelte add tooltip" />
     </section>
 
-    <!-- ─── Usage ─────────────────────────────────────────────────── -->
     <section id="usage" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Usage</Typography.H2>
         <Typography.Text>
@@ -110,7 +104,6 @@
         <ComponentPreview code={RichSrc}><Rich /></ComponentPreview>
     </section>
 
-    <!-- ─── Examples ──────────────────────────────────────────────── -->
     <section id="examples" class="scroll-mt-20 flex flex-col gap-10">
         <div>
             <Typography.H2 class="docs-section-heading">Examples</Typography.H2>
@@ -126,7 +119,6 @@
             </ComponentPreview>
         </div>
 
-        <!-- Top placement -->
         <div id="top" class="scroll-mt-20 flex flex-col gap-3">
             <Typography.H3 class="docs-subsection-heading">Top placement</Typography.H3>
             <ComponentPreview code={TopSrc}>
@@ -134,7 +126,6 @@
             </ComponentPreview>
         </div>
 
-        <!-- Right placement -->
         <div id="right" class="scroll-mt-20 flex flex-col gap-3">
             <Typography.H3 class="docs-subsection-heading">Right placement</Typography.H3>
             <ComponentPreview code={RightSrc}>
@@ -142,7 +133,6 @@
             </ComponentPreview>
         </div>
 
-        <!-- Bottom placement -->
         <div id="bottom" class="scroll-mt-20 flex flex-col gap-3">
             <Typography.H3 class="docs-subsection-heading">Bottom placement</Typography.H3>
             <ComponentPreview code={BottomSrc}>

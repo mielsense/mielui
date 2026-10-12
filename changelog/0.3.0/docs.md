@@ -14,3 +14,6 @@
 - The Copy page control at the top of a docs page is smaller, with less space around its buttons.
 - The calendar and date picker pages say that days outside the month are disabled by default, and the API tables list that default.
 - The Data Table `variant` description says what each variant frames.
+- Playground code leaves out a variant that matches the component default on Alert, Badge, and Button.
+- Playground code for Folder Card, Tool, and Tooltip stays valid when the text you type contains quotes, braces, or angle brackets.
+- Clearing a text control in a playground gives the same result in the preview and in the code.

@@ -1,5 +1,7 @@
 import {
     attributes,
+    changed,
+    content,
     number,
     type PlaygroundValues,
     select,
@@ -10,7 +12,7 @@ import {
 export const controls = {
     placement: select('Placement', ['top', 'right', 'bottom', 'left'], 'top'),
     glass: toggle('Glass surface', 'Appearance'),
-    label: text('Text', 'Synced just now', 'Content'),
+    label: text('Label', 'Synced just now', 'Content'),
     rich: toggle('Rich content', 'Content'),
     showOnClick: toggle('Show on click', 'Behavior'),
     delay: number('Open delay', 125, {
@@ -29,14 +31,14 @@ export const controls = {
 
 export function code(values: PlaygroundValues<typeof controls>): string {
     const root = attributes({
-        placement: values.placement !== 'top' && values.placement,
-        delay: values.delay !== 125 && values.delay,
-        closeDelay: values.closeDelay !== 100 && values.closeDelay
+        placement: changed(values.placement, 'top'),
+        delay: changed(values.delay, 125),
+        closeDelay: changed(values.closeDelay, 100)
     });
     const trigger = attributes({
         showOnClick: values.showOnClick
     });
-    const content = attributes({
+    const panel = attributes({
         rich: values.rich,
         surface: values.glass && 'glass'
     });
@@ -44,10 +46,10 @@ export function code(values: PlaygroundValues<typeof controls>): string {
         ? `
         <span class="flex items-center gap-2">
             <span aria-hidden="true" class="size-1.5 rounded-full bg-success"></span>
-            ${values.label}
+            ${content(values.label)}
         </span>
     `
-        : values.label;
+        : content(values.label);
 
     return `<script lang="ts">
     import { Button } from '@mielui/svelte/components/button';
@@ -58,6 +60,6 @@ export function code(values: PlaygroundValues<typeof controls>): string {
     <Tooltip.Trigger${trigger}>
         <Button variant="outline">Sync status</Button>
     </Tooltip.Trigger>
-    <Tooltip.Content${content}>${body}</Tooltip.Content>
+    <Tooltip.Content${panel}>${body}</Tooltip.Content>
 </Tooltip.Root>`;
 }

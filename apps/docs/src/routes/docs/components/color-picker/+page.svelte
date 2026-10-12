@@ -19,32 +19,12 @@
         CHANNELS_SEAM,
         isDefaultContent,
         code as playgroundCode,
-        controls as playgroundControls
+        controls as playgroundControls,
+        options as playgroundOptions
     } from './playground';
 
     const TITLE = 'Color Picker';
-    const SLUG = 'color-picker';
 
-    const installCommand = `pnpm dlx @mielui/svelte add ${SLUG}`;
-
-    const playgroundOptions = [
-        {
-            label: 'Indigo',
-            value: '#5e6ad2'
-        },
-        {
-            label: 'Rose',
-            value: '#e65c86'
-        },
-        {
-            label: 'Green',
-            value: '#36a375'
-        },
-        {
-            label: 'Amber',
-            value: '#d9902f'
-        }
-    ];
     let color = $state('#5e6ad2');
 </script>
 
@@ -57,15 +37,20 @@
 </svelte:head>
 
 <div data-docs-page class="flex flex-col gap-10">
-    <!-- ─── Header ────────────────────────────────────────────────── -->
     <PageIntro title={TITLE}>
         A hex color picker with HSL, RGB, or HSV channel controls and optional preset swatches.
     </PageIntro>
 
-    <!-- ─── Hero Example ──────────────────────────────────────────── -->
     <section id="hero" class="scroll-mt-20 flex flex-col gap-4">
         <Playground controls={playgroundControls} code={playgroundCode}>
             {#snippet children(values)}
+                {const content = {
+                    surface: values.surface === 'theme' ? undefined : values.surface,
+                    allowClickOutside: values.allowClickOutside,
+                    dismissLayer: values.dismissLayer,
+                    focusTrap: values.focusTrap,
+                    lockScroll: values.lockScroll
+                }}
                 <ColorPicker.Root
                     bind:value={color}
                     label={values.label ? 'Accent color' : undefined}
@@ -74,21 +59,9 @@
                 >
                     <ColorPicker.Trigger variant={values.variant} />
                     {#if isDefaultContent(values)}
-                        <ColorPicker.Content
-                            surface={values.surface === 'theme' ? undefined : values.surface}
-                            allowClickOutside={values.allowClickOutside}
-                            dismissLayer={values.dismissLayer}
-                            focusTrap={values.focusTrap}
-                            lockScroll={values.lockScroll}
-                        />
+                        <ColorPicker.Content {...content} />
                     {:else}
-                        <ColorPicker.Content
-                            surface={values.surface === 'theme' ? undefined : values.surface}
-                            allowClickOutside={values.allowClickOutside}
-                            dismissLayer={values.dismissLayer}
-                            focusTrap={values.focusTrap}
-                            lockScroll={values.lockScroll}
-                        >
+                        <ColorPicker.Content {...content}>
                             {#if values.plane}
                                 <ColorPicker.Plane class="mx-1.5 mt-1.5 w-auto" />
                             {/if}
@@ -124,13 +97,11 @@
         </Playground>
     </section>
 
-    <!-- ─── Installation ──────────────────────────────────────────── -->
     <section id="installation" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Installation</Typography.H2>
-        <InstallCommand command={installCommand} />
+        <InstallCommand command="pnpm dlx @mielui/svelte add color-picker" />
     </section>
 
-    <!-- ─── Usage ─────────────────────────────────────────────────── -->
     <section id="usage" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Usage</Typography.H2>
         <Typography.Text variant="supporting">
@@ -153,7 +124,6 @@
         />
     </section>
 
-    <!-- ─── Examples ──────────────────────────────────────────────── -->
     <section id="examples" class="scroll-mt-20 flex flex-col gap-10">
         <div>
             <Typography.H2 class="docs-section-heading">Examples</Typography.H2>
@@ -170,7 +140,6 @@
             <ComponentPreview code={CompositionSrc}><Composition /></ComponentPreview>
         </div>
 
-        <!-- Default -->
         <div id="default" class="scroll-mt-20 flex flex-col gap-3">
             <Typography.H3 class="docs-subsection-heading">Default</Typography.H3>
             <ComponentPreview code={DefaultSrc}>
@@ -178,7 +147,6 @@
             </ComponentPreview>
         </div>
 
-        <!-- Channel formats -->
         <div id="formats" class="scroll-mt-20 flex flex-col gap-3">
             <Typography.H3 class="docs-subsection-heading">Channel formats</Typography.H3>
             <ComponentPreview code={FormatsSrc}>
@@ -186,7 +154,6 @@
             </ComponentPreview>
         </div>
 
-        <!-- With presets -->
         <div id="with-presets" class="scroll-mt-20 flex flex-col gap-3">
             <Typography.H3 class="docs-subsection-heading">With preset swatches</Typography.H3>
             <ComponentPreview code={WithPresetsSrc}>

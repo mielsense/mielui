@@ -1,6 +1,7 @@
 import {
     attributes,
-    expression,
+    changed,
+    defaultOn,
     number,
     type PlaygroundValues,
     select,
@@ -57,24 +58,16 @@ export const controls = {
 
 type Values = PlaygroundValues<typeof controls>;
 
-function textAttribute(name: string, value: string, fallback: string): string {
-    return value === fallback
-        ? ''
-        : attributes({
-              [name]: value
-          });
-}
-
 function answerControl(values: Values): string {
     if (values.type === 'text') {
-        const placeholder = textAttribute('placeholder', values.placeholder, DEFAULT_PLACEHOLDER);
         const input = attributes({
-            rows: values.rows !== 2 && values.rows,
-            submitOnEnter: values.submitOnEnter ? undefined : expression('false'),
-            autoresize: values.autoresize ? undefined : expression('false')
+            placeholder: changed(values.placeholder, DEFAULT_PLACEHOLDER),
+            rows: changed(values.rows, 2),
+            submitOnEnter: defaultOn(values.submitOnEnter),
+            autoresize: defaultOn(values.autoresize)
         });
 
-        return `        <Question.Input${placeholder}${input} />`;
+        return `        <Question.Input${input} />`;
     }
 
     const items = options
@@ -97,15 +90,18 @@ ${items}
 export function code(values: Values): string {
     const multiple = values.type === 'multiple';
     const root = attributes({
-        variant: values.variant !== 'default' && values.variant,
-        type: values.type !== 'single' && values.type,
-        status: values.status !== 'idle' && values.status,
+        variant: changed(values.variant, 'default'),
+        type: changed(values.type, 'single'),
+        status: changed(values.status, 'idle'),
         disabled: values.disabled,
-        required: values.required ? undefined : expression('false'),
-        autofocus: values.autofocus
+        required: defaultOn(values.required),
+        autofocus: values.autofocus,
+        errorMessage: changed(values.errorMessage, DEFAULT_ERROR)
     });
-    const errorMessage = textAttribute('errorMessage', values.errorMessage, DEFAULT_ERROR);
-    const submit = `${textAttribute('label', values.submitLabel, DEFAULT_SUBMIT)}${textAttribute('loadingLabel', values.loadingLabel, DEFAULT_LOADING)}`;
+    const submit = attributes({
+        label: changed(values.submitLabel, DEFAULT_SUBMIT),
+        loadingLabel: changed(values.loadingLabel, DEFAULT_LOADING)
+    });
     const description = values.description
         ? `
         <Question.Description>
@@ -127,7 +123,7 @@ export function code(values: Values): string {
     }
 </script>
 
-<Question.Root bind:value={answer} onSubmit={submit}${root}${errorMessage}>
+<Question.Root bind:value={answer} onSubmit={submit}${root}>
     <Question.Content>
         <Question.Title>Where should we start?</Question.Title>${description}
 ${answerControl(values)}

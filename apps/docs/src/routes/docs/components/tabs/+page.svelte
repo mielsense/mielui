@@ -23,9 +23,11 @@
     import VariantSegmentedSrc from './examples/variant-segmented.svelte?raw';
     import Vertical from './examples/vertical.svelte';
     import VerticalSrc from './examples/vertical.svelte?raw';
-    import { code as playgroundCode, controls as playgroundControls } from './playground';
-
-    const installCommand = 'pnpm dlx @mielui/svelte add tabs';
+    import {
+        code as playgroundCode,
+        controls as playgroundControls,
+        panelClass as playgroundPanelClass
+    } from './playground';
 
     let playgroundTab = $state('overview');
 </script>
@@ -39,20 +41,15 @@
 </svelte:head>
 
 <div data-docs-page class="flex flex-col gap-10">
-    <!-- ─── Header ────────────────────────────────────────────────── -->
     <PageIntro title="Tabs">
         A horizontal or vertical switcher for views that share a context. Comes in three variants.
     </PageIntro>
 
-    <!-- ─── Hero Example ──────────────────────────────────────────── -->
     <section id="hero" class="scroll-mt-20 flex flex-col gap-4">
         <Playground controls={playgroundControls} code={playgroundCode}>
             {#snippet children(values)}
-                {@const gap = values.icons ? 'gap-1.5' : undefined}
-                {@const panelClass = [
-                    values.orientation === 'vertical' ? 'py-1.5' : 'pt-3',
-                    'text-sm text-foreground-muted'
-                ].join(' ')}
+                {const gap = values.icons ? 'gap-1.5' : undefined}
+                {const panelClass = playgroundPanelClass(values.orientation)}
                 <div class={values.panels ? 'w-full max-w-sm' : 'contents'}>
                     <Tabs.Root
                         bind:value={playgroundTab}
@@ -117,13 +114,11 @@
         </Playground>
     </section>
 
-    <!-- ─── Installation ──────────────────────────────────────────── -->
     <section id="installation" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Installation</Typography.H2>
-        <InstallCommand command={installCommand} />
+        <InstallCommand command="pnpm dlx @mielui/svelte add tabs" />
     </section>
 
-    <!-- ─── Usage ─────────────────────────────────────────────────── -->
     <section id="usage" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Usage</Typography.H2>
         <Typography.Text>
@@ -158,7 +153,6 @@
         />
     </section>
 
-    <!-- ─── Examples ──────────────────────────────────────────────── -->
     <section id="examples" class="scroll-mt-20 flex flex-col gap-10">
         <div>
             <Typography.H2 class="docs-section-heading">Examples</Typography.H2>

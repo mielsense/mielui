@@ -18,7 +18,9 @@
                 size="sm"
                 class="w-8 px-0"
                 aria-current={page === number ? 'page' : undefined}
-                onclick={() => { page = number; }}
+                onclick={() => {
+                    page = number;
+                }}
             >
                 {number}
             </Button>
@@ -31,7 +33,9 @@
             class="w-8 px-0"
             aria-label="Previous page"
             disabled={page === 1}
-            onclick={() => { page -= 1; }}
+            onclick={() => {
+                page -= 1;
+            }}
         >
             <HugeiconsIcon icon={ArrowLeft01Icon} size={16} />
         </Button>
@@ -42,7 +46,9 @@
             class="w-8 px-0"
             aria-label="Next page"
             disabled={page === 5}
-            onclick={() => { page += 1; }}
+            onclick={() => {
+                page += 1;
+            }}
         >
             <HugeiconsIcon icon={ArrowRight01Icon} size={16} />
         </Button>

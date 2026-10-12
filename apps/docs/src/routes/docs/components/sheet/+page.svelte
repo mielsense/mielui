@@ -21,8 +21,6 @@
 
     const TITLE = 'Sheet';
 
-    const installCommand = 'pnpm dlx @mielui/svelte add sheet';
-
     let playgroundOpen = $state(false);
 
     function savePlayground() {
@@ -39,13 +37,11 @@
 </svelte:head>
 
 <div data-docs-page class="flex flex-col gap-10">
-    <!-- ─── Header ────────────────────────────────────────────────── -->
     <PageIntro title={TITLE}>
         A modal panel that slides in from the left or right edge of the screen. Use Drawer when the
         panel needs swipe gestures.
     </PageIntro>
 
-    <!-- ─── Hero Example ──────────────────────────────────────────── -->
     <section id="hero" class="scroll-mt-20 flex flex-col gap-4">
         <Playground controls={playgroundControls} code={playgroundCode}>
             {#snippet children(values)}
@@ -80,13 +76,11 @@
         </Playground>
     </section>
 
-    <!-- ─── Installation ──────────────────────────────────────────── -->
     <section id="installation" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Installation</Typography.H2>
-        <InstallCommand command={installCommand} />
+        <InstallCommand command="pnpm dlx @mielui/svelte add sheet" />
     </section>
 
-    <!-- ─── Usage ─────────────────────────────────────────────────── -->
     <section id="usage" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Usage</Typography.H2>
         <Typography.Text variant="supporting">
@@ -123,7 +117,6 @@
         />
     </section>
 
-    <!-- ─── Examples ──────────────────────────────────────────────── -->
     <section id="examples" class="scroll-mt-20 flex flex-col gap-10">
         <div>
             <Typography.H2 class="docs-section-heading">Examples</Typography.H2>
@@ -139,7 +132,6 @@
             </ComponentPreview>
         </div>
 
-        <!-- Left side -->
         <div id="left" class="scroll-mt-20 flex flex-col gap-3">
             <Typography.H3 class="docs-subsection-heading">Left side</Typography.H3>
             <ComponentPreview code={LeftSrc}>
@@ -147,7 +139,6 @@
             </ComponentPreview>
         </div>
 
-        <!-- Right side -->
         <div id="right" class="scroll-mt-20 flex flex-col gap-3">
             <Typography.H3 class="docs-subsection-heading">Right side</Typography.H3>
             <ComponentPreview code={RightSrc}>

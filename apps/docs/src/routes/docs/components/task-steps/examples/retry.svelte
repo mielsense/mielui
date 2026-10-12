@@ -27,6 +27,14 @@
         <Button onclick={advance} disabled={current === steps.length}>
             {failed ? 'Retry validation' : 'Complete step'}
         </Button>
-        <Button variant="secondary" onclick={() => { current = 1; failed = true; }}>Reset</Button>
+        <Button
+            variant="secondary"
+            onclick={() => {
+                current = 1;
+                failed = true;
+            }}
+        >
+            Reset
+        </Button>
     </div>
 </div>

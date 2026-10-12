@@ -16,8 +16,6 @@
     import UsageLimit from './examples/usage-limit.svelte';
     import UsageLimitSrc from './examples/usage-limit.svelte?raw';
     import { code as playgroundCode, controls as playgroundControls } from './playground';
-
-    const installCommand = 'pnpm dlx @mielui/svelte add gauge';
 </script>
 
 <svelte:head>
@@ -37,7 +35,7 @@
     <section id="hero" class="scroll-mt-20 flex flex-col gap-4">
         <Playground controls={playgroundControls} code={playgroundCode} refreshable>
             {#snippet children(values)}
-                {@const gauge = {
+                {const gauge = {
                     value: values.empty ? null : values.value,
                     max: values.max,
                     label: values.label || undefined,
@@ -62,7 +60,7 @@
 
     <section id="installation" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Installation</Typography.H2>
-        <InstallCommand command={installCommand} />
+        <InstallCommand command="pnpm dlx @mielui/svelte add gauge" />
     </section>
 
     <section id="usage" class="scroll-mt-20 flex flex-col gap-4">

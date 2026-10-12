@@ -1,10 +1,5 @@
 <script lang="ts">
-    import {
-        CalendarDate,
-        CalendarDateTime,
-        type DateValue,
-        isWeekend
-    } from '@internationalized/date';
+    import type { DateValue } from '@internationalized/date';
     import { CodeBlock } from '@mielui/svelte/components/code-block';
     import * as DatePicker from '@mielui/svelte/components/date-picker';
     import * as Group from '@mielui/svelte/components/group';
@@ -12,6 +7,17 @@
     import { ComponentPreview, InstallCommand, Playground } from '$lib/components/docs';
     import InlineText from '$lib/components/docs/inline-text.svelte';
     import PageIntro from '$lib/components/docs/page-intro.svelte';
+    import {
+        HOUR_CYCLE,
+        hasTime,
+        isBooked,
+        maxDate,
+        minDate,
+        startDate,
+        startTime,
+        WEEK_START,
+        weekendMatcher
+    } from '$lib/components/docs/playground/calendar';
     import CalendarOptionsExample from './examples/calendar-options.svelte';
     import CalendarOptionsExampleSrc from './examples/calendar-options.svelte?raw';
     import Example1 from './examples/disabled.svelte';
@@ -27,32 +33,13 @@
     import ValidateExample from './examples/validate.svelte';
     import ValidateExampleSrc from './examples/validate.svelte?raw';
     import {
-        HOUR_CYCLE,
         code as playgroundCode,
         controls as playgroundControls,
-        WEEK_START
+        labels as playgroundLabels
     } from './playground';
 
-    const booked = [8, 9, 22];
-    const minDate = new CalendarDate(2026, 9, 7);
-    const maxDate = new CalendarDate(2026, 10, 16);
-    const playgroundLabels = {
-        trigger: 'Open the publish calendar',
-        content: 'Publish date calendar',
-        invalid: 'Enter a valid publish date.'
-    };
-    let date = $state<DateValue | undefined>(new CalendarDate(2026, 9, 17));
-    let dateTime = $state<DateValue | undefined>(new CalendarDateTime(2026, 9, 17, 9, 30));
-
-    function isBooked(day: DateValue) {
-        return day.month === 9 && booked.includes(day.day);
-    }
-
-    function weekendMatcher(locale: string) {
-        return (day: DateValue) => {
-            return isWeekend(day, locale);
-        };
-    }
+    let date = $state<DateValue | undefined>(startDate);
+    let dateTime = $state<DateValue | undefined>(startTime);
 </script>
 
 <svelte:head>
@@ -65,7 +52,7 @@
     <section id="hero" class="scroll-mt-20 flex flex-col gap-4">
         <Playground controls={playgroundControls} code={playgroundCode}>
             {#snippet children(values)}
-                {@const withTime = values.granularity !== 'day'}
+                {const withTime = hasTime(values)}
                 <div class="w-full max-w-sm">
                     {#key withTime}
                         <DatePicker.Root

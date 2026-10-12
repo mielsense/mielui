@@ -1,6 +1,8 @@
 import {
-    expression,
+    changed,
+    defaultOn,
     type PlaygroundValues,
+    quote,
     select,
     tag,
     toggle
@@ -12,13 +14,58 @@ export const controls = {
     blur: toggle('Blur', 'Appearance', true)
 };
 
-const SURFACE = 'rounded-[var(--radius-xl)] border border-border bg-card';
+export const SURFACE = 'rounded-[var(--radius-xl)] border border-border bg-card';
+
+export const chats = [
+    'Svelte 5 runes migration',
+    'Designing the studio preset',
+    'Tailwind v4 token setup',
+    'Pagination active state',
+    'Figma plugin ideas',
+    'Vercel deploy hook',
+    'Refactor command palette',
+    'Hover card focus order',
+    'Toast queue logic',
+    'Color picker math',
+    'Button loading states',
+    'Dialog scroll behavior'
+];
+
+export const sections = [
+    'Overview',
+    'Activity',
+    'Members',
+    'Billing',
+    'Integrations',
+    'Webhooks',
+    'Security',
+    'Audit log'
+];
+
+export const lines = [
+    '09:00:02 Cloning github.com/acme/storefront at commit 4d11ba0',
+    '09:00:04 Restored build cache from the previous deployment',
+    '09:00:09 Installing dependencies with pnpm install --frozen-lockfile',
+    '09:00:21 Running pnpm run build in apps/storefront',
+    '09:00:38 Compiled 214 modules for the client bundle',
+    '09:00:44 Compiled 96 modules for the server bundle',
+    '09:00:47 Prerendered 38 static routes',
+    '09:00:52 Uploading build output to the edge network',
+    '09:00:58 Assigned the production domain storefront.acme.com',
+    '09:01:01 Deployment completed in 59 seconds',
+    '09:01:03 Health check passed in 3 regions',
+    '09:01:04 Notified the #deploys channel'
+];
+
+function list(items: readonly string[]): string {
+    return items.map((item) => `        ${quote(item)}`).join(',\n');
+}
 
 export function code(values: PlaygroundValues<typeof controls>): string {
     const shared = {
-        orientation: values.orientation !== 'vertical' && values.orientation,
-        showCues: !values.showCues && expression('false'),
-        blur: !values.blur && expression('false'),
+        orientation: changed(values.orientation, 'vertical'),
+        showCues: defaultOn(values.showCues),
+        blur: defaultOn(values.blur),
         tabindex: 0,
         role: 'region'
     };
@@ -34,14 +81,7 @@ export function code(values: PlaygroundValues<typeof controls>): string {
     import { ScrollArea } from '@mielui/svelte/components/scroll-area';
 
     const sections = [
-        'Overview',
-        'Activity',
-        'Members',
-        'Billing',
-        'Integrations',
-        'Webhooks',
-        'Security',
-        'Audit log'
+${list(sections)}
     ];
 </script>
 
@@ -69,18 +109,7 @@ ${tag('ScrollArea', props, '>')}
     import { ScrollArea } from '@mielui/svelte/components/scroll-area';
 
     const lines = [
-        '09:00:02 Cloning github.com/acme/storefront at commit 4d11ba0',
-        '09:00:04 Restored build cache from the previous deployment',
-        '09:00:09 Installing dependencies with pnpm install --frozen-lockfile',
-        '09:00:21 Running pnpm run build in apps/storefront',
-        '09:00:38 Compiled 214 modules for the client bundle',
-        '09:00:44 Compiled 96 modules for the server bundle',
-        '09:00:47 Prerendered 38 static routes',
-        '09:00:52 Uploading build output to the edge network',
-        '09:00:58 Assigned the production domain storefront.acme.com',
-        '09:01:01 Deployment completed in 59 seconds',
-        '09:01:03 Health check passed in 3 regions',
-        '09:01:04 Notified the #deploys channel'
+${list(lines)}
     ];
 </script>
 
@@ -105,18 +134,7 @@ ${tag('ScrollArea', props, '>')}
     import { ScrollArea } from '@mielui/svelte/components/scroll-area';
 
     const chats = [
-        'Svelte 5 runes migration',
-        'Designing the studio preset',
-        'Tailwind v4 token setup',
-        'Pagination active state',
-        'Figma plugin ideas',
-        'Vercel deploy hook',
-        'Refactor command palette',
-        'Hover card focus order',
-        'Toast queue logic',
-        'Color picker math',
-        'Button loading states',
-        'Dialog scroll behavior'
+${list(chats)}
     ];
 </script>
 

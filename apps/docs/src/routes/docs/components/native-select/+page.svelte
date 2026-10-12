@@ -53,26 +53,19 @@
     <section id="hero" class="scroll-mt-20 flex flex-col gap-4">
         <Playground controls={playgroundControls} code={playgroundCode}>
             {#snippet children(values)}
+                {const root = {
+                    'aria-label': 'Time zone',
+                    size: values.size > 1 ? values.size : undefined,
+                    disabled: values.disabled,
+                    'aria-invalid': values.invalid ? 'true' : undefined
+                } as const}
                 <div class="w-full max-w-xs">
                     {#if values.multiple}
-                        <NativeSelect.Root
-                            multiple
-                            bind:value={playgroundTimezones}
-                            aria-label="Time zone"
-                            size={values.size > 1 ? values.size : undefined}
-                            disabled={values.disabled}
-                            aria-invalid={values.invalid ? 'true' : undefined}
-                        >
+                        <NativeSelect.Root multiple bind:value={playgroundTimezones} {...root}>
                             {@render playgroundOptions(values.groups, values.disabledOption)}
                         </NativeSelect.Root>
                     {:else}
-                        <NativeSelect.Root
-                            bind:value={playgroundTimezone}
-                            aria-label="Time zone"
-                            size={values.size > 1 ? values.size : undefined}
-                            disabled={values.disabled}
-                            aria-invalid={values.invalid ? 'true' : undefined}
-                        >
+                        <NativeSelect.Root bind:value={playgroundTimezone} {...root}>
                             {@render playgroundOptions(values.groups, values.disabledOption)}
                         </NativeSelect.Root>
                     {/if}

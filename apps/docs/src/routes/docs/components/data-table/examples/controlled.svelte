@@ -29,7 +29,13 @@
                 <span use:numberShuffle={{ value: total }}>{total}</span>
                 team members
             </p>
-            <Button variant="secondary" size="sm" onclick={() => { data = members; }}>
+            <Button
+                variant="secondary"
+                size="sm"
+                onclick={() => {
+                    data = members;
+                }}
+            >
                 Show all members
             </Button>
         </DataTable.Toolbar>

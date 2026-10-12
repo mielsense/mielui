@@ -1,4 +1,11 @@
-import { attributes, type PlaygroundValues, select, text } from '$lib/components/docs/playground';
+import {
+    attributes,
+    changed,
+    content,
+    type PlaygroundValues,
+    select,
+    text
+} from '$lib/components/docs/playground';
 
 export const controls = {
     shape: select('Shape', ['circle', 'square'], 'circle'),
@@ -8,24 +15,18 @@ export const controls = {
     fallback: text('Fallback', 'MI', 'Content')
 };
 
-export const sources: Record<PlaygroundValues<typeof controls>['image'], string | undefined> = {
+type Values = PlaygroundValues<typeof controls>;
+
+export const sources: Record<Values['image'], string | undefined> = {
     photo: 'https://github.com/mielsense.png',
     unavailable: 'data:image/png;base64,',
     none: undefined
 };
 
-function content(value: string): string {
-    if (/[{}<&]/.test(value) || value !== value.trim()) {
-        return `{${JSON.stringify(value)}}`;
-    }
-
-    return value;
-}
-
-export function code(values: PlaygroundValues<typeof controls>): string {
+export function code(values: Values): string {
     const root = attributes({
-        size: values.size !== 'md' && values.size,
-        shape: values.shape !== 'circle' && values.shape
+        size: changed(values.size, 'md'),
+        shape: changed(values.shape, 'circle')
     });
     const src = sources[values.image];
     const image =

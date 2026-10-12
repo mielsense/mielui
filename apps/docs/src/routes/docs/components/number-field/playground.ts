@@ -1,4 +1,10 @@
-import { attributes, number, type PlaygroundValues, toggle } from '$lib/components/docs/playground';
+import {
+    attributes,
+    changed,
+    number,
+    type PlaygroundValues,
+    toggle
+} from '$lib/components/docs/playground';
 
 export const controls = {
     label: toggle('Label', 'Content', true),
@@ -28,7 +34,7 @@ export function code(values: PlaygroundValues<typeof controls>): string {
     const root = attributes({
         min: values.min,
         max: values.max,
-        step: values.step !== 1 && values.step,
+        step: changed(values.step, 1),
         disabled: values.disabled,
         readonly: values.readonly
     });

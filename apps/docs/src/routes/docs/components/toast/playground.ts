@@ -1,6 +1,8 @@
 import {
+    compact,
     number,
     type PlaygroundValues,
+    quote,
     select,
     text,
     toggle
@@ -27,17 +29,13 @@ export const controls = {
     })
 };
 
-function quote(value: string): string {
-    return `'${value.replaceAll('\\', '\\\\').replaceAll("'", "\\'")}'`;
-}
-
 export function code(values: PlaygroundValues<typeof controls>): string {
     const variant =
         values.action === 'none' || values.action === 'outline'
             ? ''
             : `
                     variant: '${values.action}',`;
-    const options = [
+    const options = compact([
         `title: ${quote(values.title)}`,
         values.type !== 'default' && `type: '${values.type}'`,
         values.description && "description: 'Preview build for the main branch.'",
@@ -52,7 +50,7 @@ export function code(values: PlaygroundValues<typeof controls>): string {
         !values.exitable && 'exitable: false',
         values.persistent && 'persistent: true',
         values.duration !== 5600 && `duration: ${values.duration}`
-    ].filter((option) => typeof option === 'string');
+    ]);
     const viewDetails =
         values.action === 'none'
             ? ''

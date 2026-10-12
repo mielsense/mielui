@@ -1,5 +1,7 @@
 import {
     attributes,
+    changed,
+    compact,
     number,
     type PlaygroundValues,
     select,
@@ -27,24 +29,22 @@ export const controls = {
 
 export function code(values: PlaygroundValues<typeof controls>): string {
     const props = attributes({
-        variant: values.variant !== 'outline' && values.variant,
+        variant: changed(values.variant, 'outline'),
         label: values.label && 'Message',
         'aria-label': !values.label && 'Message',
         description: values.description && 'Sent to everyone on the project.',
         placeholder: values.placeholder,
-        rows: values.rows !== 2 && values.rows,
+        rows: changed(values.rows, 2),
         autoresize: values.autoresize,
         disabled: values.disabled,
         readonly: values.readonly,
         required: values.required,
         'aria-invalid': values.invalid && 'true'
     });
-    const imports = [
+    const imports = compact([
         values.footer && "import { Button } from '@mielui/svelte/components/button';",
         "import { Textarea } from '@mielui/svelte/components/textarea';"
-    ]
-        .filter(Boolean)
-        .join('\n    ');
+    ]).join('\n    ');
     const element = values.footer
         ? `<Textarea bind:value={message}${props}>
     <div class="flex items-center justify-between gap-3 px-3 pb-3">

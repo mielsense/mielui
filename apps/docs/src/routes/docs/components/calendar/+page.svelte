@@ -1,11 +1,19 @@
 <script lang="ts">
-    import { CalendarDate, type DateValue, isWeekend } from '@internationalized/date';
+    import type { DateValue } from '@internationalized/date';
     import * as Calendar from '@mielui/svelte/components/calendar';
     import { CodeBlock } from '@mielui/svelte/components/code-block';
     import * as Typography from '@mielui/svelte/components/typography';
     import { ComponentPreview, InstallCommand, Playground } from '$lib/components/docs';
     import InlineText from '$lib/components/docs/inline-text.svelte';
     import PageIntro from '$lib/components/docs/page-intro.svelte';
+    import {
+        isBooked,
+        maxDate,
+        minDate,
+        startDate,
+        WEEK_START,
+        weekendMatcher
+    } from '$lib/components/docs/playground/calendar';
     import Example0 from './examples/constraints.svelte';
     import Example0Src from './examples/constraints.svelte?raw';
     import EventsExample from './examples/events.svelte';
@@ -18,26 +26,9 @@
     import UnavailableExampleSrc from './examples/unavailable.svelte?raw';
     import WeeksExample from './examples/weeks.svelte';
     import WeeksExampleSrc from './examples/weeks.svelte?raw';
-    import {
-        code as playgroundCode,
-        controls as playgroundControls,
-        WEEK_START
-    } from './playground';
+    import { code as playgroundCode, controls as playgroundControls } from './playground';
 
-    const booked = [8, 9, 22];
-    const minDate = new CalendarDate(2026, 9, 7);
-    const maxDate = new CalendarDate(2026, 10, 16);
-    let date = $state<DateValue | undefined>(new CalendarDate(2026, 9, 17));
-
-    function isBooked(day: DateValue) {
-        return day.month === 9 && booked.includes(day.day);
-    }
-
-    function weekendMatcher(locale: string) {
-        return (day: DateValue) => {
-            return isWeekend(day, locale);
-        };
-    }
+    let date = $state<DateValue | undefined>(startDate);
 </script>
 
 <svelte:head>
@@ -50,28 +41,28 @@
     <section id="hero" class="scroll-mt-20 flex flex-col gap-4">
         <Playground controls={playgroundControls} code={playgroundCode}>
             {#snippet children(values)}
+                {const root = {
+                    calendarLabel: 'Meeting date',
+                    locale: values.locale,
+                    weekdayFormat: values.weekdayFormat,
+                    monthFormat: values.monthFormat,
+                    yearFormat: values.yearFormat,
+                    weekStartsOn: WEEK_START[values.weekStartsOn],
+                    numberOfMonths: values.numberOfMonths,
+                    fixedWeeks: values.fixedWeeks,
+                    disabled: values.disabled,
+                    readonly: values.readonly,
+                    minValue: values.bounds ? minDate : undefined,
+                    maxValue: values.bounds ? maxDate : undefined,
+                    isDateDisabled: values.weekends ? weekendMatcher(values.locale) : undefined,
+                    isDateUnavailable: values.unavailable ? isBooked : undefined,
+                    preventDeselect: values.preventDeselect,
+                    pagedNavigation: values.pagedNavigation,
+                    disableDaysOutsideMonth: values.disableDaysOutsideMonth
+                }}
                 <div class="mielui-plate max-w-full">
                     {#if values.header === 'selects'}
-                        <Calendar.Root
-                            bind:value={date}
-                            calendarLabel="Meeting date"
-                            locale={values.locale}
-                            weekdayFormat={values.weekdayFormat}
-                            monthFormat={values.monthFormat}
-                            yearFormat={values.yearFormat}
-                            weekStartsOn={WEEK_START[values.weekStartsOn]}
-                            numberOfMonths={values.numberOfMonths}
-                            fixedWeeks={values.fixedWeeks}
-                            disabled={values.disabled}
-                            readonly={values.readonly}
-                            minValue={values.bounds ? minDate : undefined}
-                            maxValue={values.bounds ? maxDate : undefined}
-                            isDateDisabled={values.weekends ? weekendMatcher(values.locale) : undefined}
-                            isDateUnavailable={values.unavailable ? isBooked : undefined}
-                            preventDeselect={values.preventDeselect}
-                            pagedNavigation={values.pagedNavigation}
-                            disableDaysOutsideMonth={values.disableDaysOutsideMonth}
-                        >
+                        <Calendar.Root bind:value={date} {...root}>
                             {#snippet children({ months, weekdays })}
                                 <Calendar.Header>
                                     <Calendar.MonthSelect />
@@ -90,26 +81,7 @@
                             {/snippet}
                         </Calendar.Root>
                     {:else}
-                        <Calendar.Root
-                            bind:value={date}
-                            calendarLabel="Meeting date"
-                            locale={values.locale}
-                            weekdayFormat={values.weekdayFormat}
-                            monthFormat={values.monthFormat}
-                            yearFormat={values.yearFormat}
-                            weekStartsOn={WEEK_START[values.weekStartsOn]}
-                            numberOfMonths={values.numberOfMonths}
-                            fixedWeeks={values.fixedWeeks}
-                            disabled={values.disabled}
-                            readonly={values.readonly}
-                            minValue={values.bounds ? minDate : undefined}
-                            maxValue={values.bounds ? maxDate : undefined}
-                            isDateDisabled={values.weekends ? weekendMatcher(values.locale) : undefined}
-                            isDateUnavailable={values.unavailable ? isBooked : undefined}
-                            preventDeselect={values.preventDeselect}
-                            pagedNavigation={values.pagedNavigation}
-                            disableDaysOutsideMonth={values.disableDaysOutsideMonth}
-                        />
+                        <Calendar.Root bind:value={date} {...root} />
                     {/if}
                 </div>
             {/snippet}

@@ -39,7 +39,14 @@
                 </Tabs.List>
             </div>
         </Tabs.Root>
-        <Button variant="secondary" onclick={() => { replay += 1; }}>Replay</Button>
+        <Button
+            variant="secondary"
+            onclick={() => {
+                replay += 1;
+            }}
+        >
+            Replay
+        </Button>
     </div>
     {#key `${animation}-${replay}`}
         <Chart.Root

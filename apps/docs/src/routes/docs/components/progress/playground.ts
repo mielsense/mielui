@@ -1,4 +1,10 @@
-import { attributes, number, type PlaygroundValues, toggle } from '$lib/components/docs/playground';
+import {
+    attributes,
+    changed,
+    number,
+    type PlaygroundValues,
+    toggle
+} from '$lib/components/docs/playground';
 
 export const controls = {
     label: toggle('Label', 'Content', true),
@@ -27,8 +33,8 @@ export function percent(value: number, max: number): number {
 
 export function code(values: PlaygroundValues<typeof controls>): string {
     const props = attributes({
-        value: values.value !== 0 && values.value,
-        max: values.max !== 100 && values.max,
+        value: changed(values.value, 0),
+        max: changed(values.max, 100),
         indeterminate: values.indeterminate,
         'aria-label': 'Release archive upload'
     });

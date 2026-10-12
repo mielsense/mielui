@@ -1,5 +1,7 @@
 import {
     attributes,
+    changed,
+    defaultOn,
     expression,
     type PlaygroundValues,
     select,
@@ -24,20 +26,20 @@ export const controls = {
 
 export function code(values: PlaygroundValues<typeof controls>): string {
     const root = attributes({
-        variant: values.variant !== 'outline' && values.variant,
+        variant: changed(values.variant, 'outline'),
         label: values.label && 'Topics',
         description: values.description && 'Type a topic and press Enter.',
         error: values.error && 'Topics must be lowercase.',
         max: values.max && 3,
         allowDuplicates: values.allowDuplicates,
         delimiters: values.space && expression("[',', ' ']"),
-        addOnBlur: !values.addOnBlur && expression('false'),
-        addOnPaste: !values.addOnPaste && expression('false'),
+        addOnBlur: defaultOn(values.addOnBlur),
+        addOnPaste: defaultOn(values.addOnPaste),
         disabled: values.disabled
     });
     const input = attributes({
         'aria-label': !values.label && 'Topics',
-        placeholder: values.placeholder !== 'Add a tag…' && values.placeholder
+        placeholder: changed(values.placeholder, 'Add a tag…')
     });
     const list = values.removable
         ? '    <TagInput.List />'

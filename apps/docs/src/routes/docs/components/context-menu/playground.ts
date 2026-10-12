@@ -1,4 +1,4 @@
-import { attributes, type PlaygroundValues, toggle } from '$lib/components/docs/playground';
+import { attributes, type PlaygroundValues, tag, toggle } from '$lib/components/docs/playground';
 
 export const controls = {
     glass: toggle('Glass surface', 'Appearance'),
@@ -9,10 +9,12 @@ export const controls = {
     disabledItem: toggle('Disabled item', 'State')
 };
 
-const TRIGGER_CLASS =
+type Values = PlaygroundValues<typeof controls>;
+
+export const TRIGGER_CLASS =
     'grid h-32 w-72 place-items-center rounded-[var(--radius-xl)] border border-dashed border-border text-sm text-foreground-muted';
 
-export function code(values: PlaygroundValues<typeof controls>): string {
+export function code(values: Values): string {
     const surface = attributes({
         surface: values.glass && 'glass'
     });
@@ -55,9 +57,7 @@ export function code(values: PlaygroundValues<typeof controls>): string {
 </script>
 
 <ContextMenu.Root>
-    <ContextMenu.Trigger
-        class="${TRIGGER_CLASS}"
-    >
+    ${tag('ContextMenu.Trigger', { class: TRIGGER_CLASS }, '>', '    ')}
         Right-click or press and hold
     </ContextMenu.Trigger>
     <ContextMenu.Content${surface}>${checkbox}

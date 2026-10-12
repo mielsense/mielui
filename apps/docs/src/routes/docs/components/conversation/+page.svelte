@@ -22,7 +22,6 @@
         transcript as playgroundTranscript
     } from './playground';
 
-    const installCommand = 'pnpm dlx @mielui/svelte add conversation';
     const usageSnippet = `import * as Conversation from '@mielui/svelte/components/conversation';
 import * as Message from '@mielui/svelte/components/message';
 
@@ -74,8 +73,8 @@ let follow = $state(true);
                         {#if values.empty}
                             <Conversation.Empty
                                 icon={values.emptyIcon ? emptyIcon : undefined}
-                                title={values.emptyTitle}
-                                description={values.emptyDescription}
+                                title={values.emptyTitle || undefined}
+                                description={values.emptyDescription || undefined}
                                 action={values.emptyAction ? emptyAction : undefined}
                             />
                         {:else}
@@ -96,7 +95,7 @@ let follow = $state(true);
 
     <section id="installation" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Installation</Typography.H2>
-        <InstallCommand command={installCommand} />
+        <InstallCommand command="pnpm dlx @mielui/svelte add conversation" />
     </section>
 
     <section id="usage" class="scroll-mt-20 flex flex-col gap-4">

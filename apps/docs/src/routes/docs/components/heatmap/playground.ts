@@ -1,5 +1,7 @@
 import {
     attributes,
+    changed,
+    compact,
     number,
     type PlaygroundValues,
     select,
@@ -69,20 +71,18 @@ function parts(values: Values): string {
         ]
     ];
 
-    return lines
-        .flatMap((group) => group || [])
-        .filter((line) => line !== false)
+    return compact(compact(lines).flat())
         .map((line) => `    ${line}`)
         .join('\n');
 }
 
 export function code(values: Values): string {
     const props = attributes({
-        weeks: values.weeks !== 26 && values.weeks,
+        weeks: changed(values.weeks, 26),
         endDate: '2026-09-15',
-        weekStartsOn: values.weekStartsOn !== 'sunday' && weekStarts[values.weekStartsOn],
-        locale: values.locale !== 'english' && locales[values.locale],
-        animation: values.animation !== 'rows' && values.animation,
+        weekStartsOn: changed(weekStarts[values.weekStartsOn], weekStarts.sunday),
+        locale: changed(locales[values.locale], locales.english),
+        animation: changed(values.animation, 'rows'),
         loading: values.loading
     });
     const complete =

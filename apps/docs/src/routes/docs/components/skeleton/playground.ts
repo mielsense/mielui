@@ -1,5 +1,6 @@
 import {
     attributes,
+    changed,
     expression,
     number,
     type PlaygroundValues,
@@ -93,12 +94,12 @@ export const shapeControls = {
 export function code(values: PlaygroundValues<typeof controls>): string {
     const props = attributes({
         ready: values.ready || expression('false'),
-        lines: values.lines !== 3 && values.lines,
-        lineHeight: values.lineHeight !== 21 && values.lineHeight,
-        barHeight: values.barHeight !== 9 && values.barHeight,
+        lines: changed(values.lines, 3),
+        lineHeight: changed(values.lineHeight, 21),
+        barHeight: changed(values.barHeight, 9),
         reserve: values.reserve && values.reserveHeight,
-        delay: values.delay !== 120 && values.delay,
-        minVisible: values.minVisible !== 380 && values.minVisible,
+        delay: changed(values.delay, 120),
+        minVisible: changed(values.minVisible, 380),
         label: values.label
     });
     const imports = values.custom ? 'Skeleton, SkeletonSwap' : 'SkeletonSwap';
@@ -129,10 +130,10 @@ export function code(values: PlaygroundValues<typeof controls>): string {
 
 export function shapeCode(values: PlaygroundValues<typeof shapeControls>): string {
     const props = attributes({
-        variant: values.variant !== 'default' && values.variant,
+        variant: changed(values.variant, 'default'),
         w: values.w,
         h: values.h,
-        unit: values.unit !== 'px' && values.unit,
+        unit: changed(values.unit, 'px'),
         class: values.circle && 'rounded-full'
     });
 

@@ -1,8 +1,10 @@
 import {
     attributes,
+    changed,
     expression,
     number,
     type PlaygroundValues,
+    quote,
     select,
     toggle
 } from '$lib/components/docs/playground';
@@ -30,8 +32,8 @@ export const controls = {
 export function code(values: PlaygroundValues<typeof controls>): string {
     const props = attributes({
         textStream: expression('response'),
-        as: values.as !== 'span' && values.as,
-        speed: values.speed !== 20 && values.speed,
+        as: changed(values.as, 'span'),
+        speed: changed(values.speed, 20),
         characterChunkSize: values.characterChunkSize > 0 && values.characterChunkSize,
         streaming: values.streaming
     });
@@ -40,7 +42,7 @@ export function code(values: PlaygroundValues<typeof controls>): string {
     import { ResponseStream } from '@mielui/svelte/components/response-stream';
 
     const response =
-        '${response}';
+        ${quote(response)};
 </script>
 
 <ResponseStream${props} />`;

@@ -1,6 +1,9 @@
 import {
     attributes,
+    changed,
+    compact,
     type PlaygroundValues,
+    quote,
     select,
     text,
     toggle
@@ -24,19 +27,17 @@ export const controls = {
 
 export function code(values: PlaygroundValues<typeof controls>): string {
     const props = attributes({
-        from: values.from !== 'assistant' && values.from,
-        status: values.status !== 'idle' && values.status,
+        from: changed(values.from, 'assistant'),
+        status: changed(values.status, 'idle'),
         name: values.name,
         timestamp: values.timestamp
     });
     const avatarProp = values.avatar ? ' {avatar}' : '';
-    const imports = [
-        values.avatar && `    import * as Avatar from '@mielui/svelte/components/avatar';`,
-        values.actions && `    import { CopyButton } from '@mielui/svelte/components/copy-button';`,
-        `    import * as Message from '@mielui/svelte/components/message';`
-    ]
-        .filter((line) => line !== false)
-        .join('\n');
+    const imports = compact([
+        values.avatar && "import * as Avatar from '@mielui/svelte/components/avatar';",
+        values.actions && "import { CopyButton } from '@mielui/svelte/components/copy-button';",
+        "import * as Message from '@mielui/svelte/components/message';"
+    ]).join('\n    ');
     const avatar = values.avatar
         ? `{#snippet avatar()}
     <Avatar.Root size="sm">
@@ -61,10 +62,10 @@ export function code(values: PlaygroundValues<typeof controls>): string {
         : '';
 
     return `<script lang="ts">
-${imports}
+    ${imports}
 
     const text =
-        '${messages[values.from]}';
+        ${quote(messages[values.from])};
 </script>
 
 ${avatar}<Message.Root${props}${avatarProp}>

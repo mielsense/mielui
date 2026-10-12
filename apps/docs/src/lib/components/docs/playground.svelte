@@ -1,18 +1,11 @@
 <script lang="ts" generics="Controls extends PlaygroundControls">
     import { SlidersHorizontalIcon as Sliders } from '@hugeicons/core-free-icons';
-    import { Input } from '@mielui/svelte/components/input';
     import * as Popover from '@mielui/svelte/components/popover';
-    import * as Select from '@mielui/svelte/components/select';
-    import { Switch } from '@mielui/svelte/components/switch';
     import HugeiconsIcon from '@mielui/svelte/hugeicons-icon';
     import { type Snippet, untrack } from 'svelte';
     import ComponentPreview from './component-preview.svelte';
-    import {
-        optionLabel,
-        type PlaygroundControl,
-        type PlaygroundControls,
-        type PlaygroundValues
-    } from './playground';
+    import type { PlaygroundControls, PlaygroundValue, PlaygroundValues } from './playground';
+    import PlaygroundControl from './playground-control.svelte';
 
     let {
         controls,
@@ -41,38 +34,28 @@
         })
     );
 
-    const values = $state(
+    const values = $state<Record<string, PlaygroundValue>>(
         untrack(() => {
             return Object.fromEntries(
                 Object.entries(controls).map(([key, control]) => [key, control.value])
             );
         })
-    ) as Record<string, string | number | boolean>;
-    const typedValues = $derived(values as PlaygroundValues<Controls>);
+    );
+    const typedValues = values as PlaygroundValues<Controls>;
 </script>
-
-{#snippet choice(key: string, control: PlaygroundControl, variant: 'ghost' | 'outline')}
-    {#if control.kind === 'select'}
-        <Select.Root
-            value={values[key] as string}
-            onValueChange={(next: string) => {
-                values[key] = next;
-            }}
-        >
-            <Select.Trigger {variant} size="sm" aria-label={control.label} class="shrink-0" />
-            <Select.Content>
-                {#each control.options as option (option)}
-                    <Select.Item value={option}>{optionLabel(option)}</Select.Item>
-                {/each}
-            </Select.Content>
-        </Select.Root>
-    {/if}
-{/snippet}
 
 <ComponentPreview code={code(typedValues)} class={className} {refreshable}>
     {#snippet controls()}
         {#if primary}
-            {@render choice(primary[0], primary[1], 'ghost')}
+            {const [key, control] = primary}
+            <PlaygroundControl
+                {control}
+                value={values[key]}
+                variant="ghost"
+                onchange={(next) => {
+                    values[key] = next;
+                }}
+            />
         {/if}
         {#if rest.length}
             <Popover.Root placement="bottom-start" inert={false}>
@@ -97,48 +80,14 @@
                                     class="flex min-h-7 items-center justify-between gap-6 text-sm"
                                 >
                                     <span id={`${id}-${key}`}>{control.label}</span>
-                                    {#if control.kind === 'toggle'}
-                                        <Switch
-                                            aria-labelledby={`${id}-${key}`}
-                                            bind:checked={
-                                                () => values[key] as boolean,
-                                                (next) => {
-                                                    values[key] = next;
-                                                }
-                                            }
-                                        />
-                                    {:else if control.kind === 'text'}
-                                        <Input
-                                            aria-labelledby={`${id}-${key}`}
-                                            class="w-36"
-                                            bind:value={
-                                                () => values[key] as string,
-                                                (next) => {
-                                                    values[key] = next;
-                                                }
-                                            }
-                                        />
-                                    {:else if control.kind === 'number'}
-                                        <Input
-                                            type="number"
-                                            aria-labelledby={`${id}-${key}`}
-                                            class="w-24"
-                                            min={control.min}
-                                            max={control.max}
-                                            step={control.step}
-                                            bind:value={
-                                                () => values[key] as number,
-                                                (next) => {
-                                                    const parsed = Number(next);
-                                                    if (Number.isFinite(parsed)) {
-                                                        values[key] = parsed;
-                                                    }
-                                                }
-                                            }
-                                        />
-                                    {:else}
-                                        {@render choice(key, control, 'outline')}
-                                    {/if}
+                                    <PlaygroundControl
+                                        {control}
+                                        value={values[key]}
+                                        labelledby={`${id}-${key}`}
+                                        onchange={(next) => {
+                                            values[key] = next;
+                                        }}
+                                    />
                                 </div>
                             {/each}
                         </div>

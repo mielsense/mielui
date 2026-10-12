@@ -1,6 +1,7 @@
 import {
     attributes,
-    expression,
+    changed,
+    defaultOn,
     type PlaygroundValues,
     select,
     toggle
@@ -21,13 +22,15 @@ export function code(values: PlaygroundValues<typeof controls>): string {
     const vertical = values.orientation === 'vertical';
     const root = attributes({
         'aria-label': 'Text formatting',
-        variant: values.variant !== 'default' && values.variant,
+        variant: changed(values.variant, 'default'),
         orientation: vertical && 'vertical',
-        loop: !values.loop && expression('false')
+        loop: defaultOn(values.loop)
     });
+    const type = attributes({
+        type: values.type
+    });
+    const binding = multiple ? 'formats' : 'format';
     const group = attributes({
-        type: values.type,
-        'bind:value': expression(multiple ? 'formats' : 'format'),
         'aria-label': 'Text styles',
         class: vertical && 'flex-col'
     });
@@ -54,7 +57,7 @@ export function code(values: PlaygroundValues<typeof controls>): string {
 </script>
 
 <Toolbar.Root${root}>
-    <Toolbar.Group${group}>
+    <Toolbar.Group${type} bind:value={${binding}}${group}>
         <Toolbar.Item value="bold">Bold</Toolbar.Item>
         <Toolbar.Item value="italic">Italic</Toolbar.Item>
         <Toolbar.Item value="underline"${disabled}>Underline</Toolbar.Item>

@@ -1,14 +1,16 @@
-import { attributes, type PlaygroundValues, text, toggle } from '$lib/components/docs/playground';
+import {
+    attributes,
+    content,
+    type PlaygroundValues,
+    text,
+    toggle
+} from '$lib/components/docs/playground';
 
 export const controls = {
     text: text('Text', 'Email address', 'Content'),
     required: toggle('Required', 'State'),
     disabled: toggle('Disabled control', 'State')
 };
-
-function content(value: string) {
-    return /[{}<>&]/.test(value) ? `{${JSON.stringify(value)}}` : value;
-}
 
 export function code(values: PlaygroundValues<typeof controls>): string {
     const label = attributes({

@@ -1,5 +1,7 @@
 import {
     attributes,
+    changed,
+    compact,
     type PlaygroundValues,
     select,
     text,
@@ -25,13 +27,15 @@ export const controls = {
     )
 };
 
-export function code(values: PlaygroundValues<typeof controls>): string {
+type Values = PlaygroundValues<typeof controls>;
+
+export function code(values: Values): string {
     const file = values.type === 'file';
     const leading = values.leading && !file;
     const trailing = values.trailing && !file;
     const props = attributes({
-        type: values.type !== 'text' && values.type,
-        variant: values.variant !== 'outline' && values.variant,
+        type: changed(values.type, 'text'),
+        variant: changed(values.variant, 'outline'),
         label: values.label && 'Project name',
         'aria-label': !values.label && 'Project name',
         description: values.description && 'The name shown in your workspace.',
@@ -41,16 +45,14 @@ export function code(values: PlaygroundValues<typeof controls>): string {
         required: values.required,
         'aria-invalid': values.invalid && 'true'
     });
-    const imports = [
+    const imports = compact([
         leading && "import { GitBranchIcon as GitBranch } from '@hugeicons/core-free-icons';",
         "import { Input } from '@mielui/svelte/components/input';",
         leading && "import HugeiconsIcon from '@mielui/svelte/hugeicons-icon';"
-    ]
-        .filter(Boolean)
-        .join('\n    ');
+    ]).join('\n    ');
     const state = file ? 'let files = $state<FileList>();' : "let name = $state('');";
     const binding = file ? 'bind:files' : 'bind:value={name}';
-    const snippets = [
+    const snippets = compact([
         leading &&
             `    {#snippet leading()}
         <HugeiconsIcon icon={GitBranch} />
@@ -59,9 +61,7 @@ export function code(values: PlaygroundValues<typeof controls>): string {
             `    {#snippet trailing()}
         <span>.git</span>
     {/snippet}`
-    ]
-        .filter(Boolean)
-        .join('\n');
+    ]).join('\n');
     const element = snippets
         ? `<Input ${binding}${props}>
 ${snippets}

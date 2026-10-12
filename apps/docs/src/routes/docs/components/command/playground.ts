@@ -1,6 +1,8 @@
 import {
     attributes,
-    expression,
+    changed,
+    compact,
+    defaultOn,
     number,
     type PlaygroundValues,
     select,
@@ -31,16 +33,20 @@ export const controls = {
 
 type Values = PlaygroundValues<typeof controls>;
 
-function item(name: string, icon: string, values: Values, extra = ''): string {
+function item(name: string, icon: string, values: Values, disabled = false): string {
     const indent = values.groups ? '                ' : '            ';
+    const props = attributes({
+        name,
+        disabled
+    });
 
     if (!values.icons) {
         return `
-${indent}<Command.Item name="${name}"${extra}>${name}</Command.Item>`;
+${indent}<Command.Item${props}>${name}</Command.Item>`;
     }
 
     return `
-${indent}<Command.Item name="${name}"${extra}>
+${indent}<Command.Item${props}>
 ${indent}    <HugeiconsIcon icon={${icon}} size={14} />
 ${indent}    ${name}
 ${indent}</Command.Item>`;
@@ -52,32 +58,29 @@ function group(heading: string, items: string, values: Values): string {
     }
 
     return `
-            <Command.Group heading="${heading}">${items}
+            <Command.Group${attributes({ heading })}>${items}
             </Command.Group>`;
 }
 
 export function code(values: Values): string {
     const trigger = attributes({
-        variant: values.variant !== 'primary' && values.variant
+        variant: changed(values.variant, 'primary')
     });
     const content = attributes({
         surface: values.glass && 'glass',
-        allowClickOutside: values.allowClickOutside ? undefined : expression('false')
+        allowClickOutside: defaultOn(values.allowClickOutside)
     });
     const search = attributes({
-        placeholder: values.placeholder !== DEFAULT_PLACEHOLDER && values.placeholder,
-        threshold: values.threshold !== 0.2 && values.threshold
+        placeholder: changed(values.placeholder, DEFAULT_PLACEHOLDER),
+        threshold: changed(values.threshold, 0.2)
     });
-    const invite = attributes({
-        disabled: values.disabledItem
-    });
-    const iconNames = [
+    const iconNames = compact([
         values.icons && 'Add01Icon as Plus',
         'Search01Icon as Search',
         values.icons && 'Settings01Icon as Settings',
         values.icons && 'UserAdd01Icon as UserPlus',
         values.icons && 'UserGroupIcon as Users'
-    ].filter((name) => typeof name === 'string');
+    ]);
     const iconImport =
         iconNames.length === 1
             ? `import { ${iconNames[0]} } from '@hugeicons/core-free-icons';`
@@ -96,7 +99,8 @@ export function code(values: Values): string {
         : '';
     const actions = group(
         'Actions',
-        item('New project', 'Plus', values) + item('Invite teammate', 'UserPlus', values, invite),
+        item('New project', 'Plus', values) +
+            item('Invite teammate', 'UserPlus', values, values.disabledItem),
         values
     );
     const separator = values.separator

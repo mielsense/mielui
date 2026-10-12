@@ -19,9 +19,6 @@
     } from './playground';
 
     const TITLE = 'Breadcrumb';
-    const SLUG = 'breadcrumb';
-
-    const installCommand = `pnpm dlx @mielui/svelte add ${SLUG}`;
 </script>
 
 <svelte:head>
@@ -36,20 +33,18 @@
 </svelte:head>
 
 <div data-docs-page class="flex flex-col gap-10">
-    <!-- ─── Header ────────────────────────────────────────────────── -->
     <PageIntro title={TITLE}>
         A trail of links showing the current position in a hierarchy.
     </PageIntro>
 
-    <!-- ─── Hero Example ──────────────────────────────────────────── -->
     <section id="hero" class="scroll-mt-20 flex flex-col gap-4">
         <Playground controls={playgroundControls} code={playgroundCode}>
             {#snippet children(values)}
-                {@const pages = playgroundPages(values.items)}
+                {const pages = playgroundPages(values.items)}
                 <Breadcrumb.Root aria-label={values.label || undefined}>
                     {#each pages as page, index (page.href)}
-                        {@const current = index === pages.length - 1 && values.current}
-                        {@const href = current && !values.currentLink ? undefined : page.href}
+                        {const current = index === pages.length - 1 && values.current}
+                        {const href = current && !values.currentLink ? undefined : page.href}
                         {#if index > 0}
                             {#if values.slash}
                                 <Breadcrumb.Separator>/</Breadcrumb.Separator>
@@ -70,13 +65,11 @@
         </Playground>
     </section>
 
-    <!-- ─── Installation ──────────────────────────────────────────── -->
     <section id="installation" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Installation</Typography.H2>
-        <InstallCommand command={installCommand} />
+        <InstallCommand command="pnpm dlx @mielui/svelte add breadcrumb" />
     </section>
 
-    <!-- ─── Usage ─────────────────────────────────────────────────── -->
     <section id="usage" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Usage</Typography.H2>
         <Typography.Text variant="supporting">
@@ -96,13 +89,11 @@
         />
     </section>
 
-    <!-- ─── Examples ──────────────────────────────────────────────── -->
     <section id="examples" class="scroll-mt-20 flex flex-col gap-10">
         <div>
             <Typography.H2 class="docs-section-heading">Examples</Typography.H2>
         </div>
 
-        <!-- Separator styles -->
         <div id="separators" class="scroll-mt-20 flex flex-col gap-3">
             <Typography.H3 class="docs-subsection-heading">Separator styles</Typography.H3>
             <ComponentPreview code={SeparatorsSrc}>
@@ -110,7 +101,6 @@
             </ComponentPreview>
         </div>
 
-        <!-- With home icon -->
         <div id="with-icon" class="scroll-mt-20 flex flex-col gap-3">
             <Typography.H3 class="docs-subsection-heading">With home icon</Typography.H3>
             <ComponentPreview code={WithIconSrc}>

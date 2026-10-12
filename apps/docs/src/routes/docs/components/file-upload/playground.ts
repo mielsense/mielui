@@ -1,13 +1,13 @@
 import {
-    attributes,
+    compact,
     expression,
     number,
     type PlaygroundValues,
+    quote,
+    tag,
     text,
     toggle
 } from '$lib/components/docs/playground';
-
-type Attributes = Parameters<typeof attributes>[0];
 
 export const controls = {
     dropzoneTitle: text('Dropzone title', 'Drop your files here', 'Content'),
@@ -26,7 +26,7 @@ export const controls = {
         step: 1,
         group: 'Behavior'
     }),
-    maxSize: number('Max size in MB', 10, {
+    maxSize: number('Max size (MB)', 10, {
         min: 1,
         max: 100,
         step: 1,
@@ -36,48 +36,24 @@ export const controls = {
     fail: toggle('Fail uploads', 'Behavior')
 };
 
-export const DEFAULT_LABELS = {
+type Values = PlaygroundValues<typeof controls>;
+
+const DEFAULT_LABELS = {
     dropzoneTitle: controls.dropzoneTitle.value,
     dropzoneDescription: controls.dropzoneDescription.value,
     choose: controls.choose.value
 };
 
-function quote(value: string) {
-    return `'${value.replaceAll('\\', '\\\\').replaceAll("'", "\\'")}'`;
-}
-
-function tag(indent: string, name: string, leading: string[], props: Attributes, end: '>' | '/>') {
-    const parts = [
-        ...leading,
-        ...Object.entries(props).map(([key, value]) => {
-            return attributes({
-                [key]: value
-            }).trim();
-        })
-    ].filter((part) => part !== '');
-    const line = `${indent}<${[name, ...parts].join(' ')}${end === '>' ? '>' : ' />'}`;
-
-    if (line.length <= 100) {
-        return line;
-    }
-
-    return [`${indent}<${name}`, ...parts.map((part) => `${indent}    ${part}`), indent + end].join(
-        '\n'
-    );
-}
-
-export function code(values: PlaygroundValues<typeof controls>): string {
-    const labelLines = [
+export function code(values: Values): string {
+    const labelLines = compact([
         values.dropzoneTitle !== DEFAULT_LABELS.dropzoneTitle &&
             `        dropzoneTitle: ${quote(values.dropzoneTitle)}`,
         values.dropzoneDescription !== DEFAULT_LABELS.dropzoneDescription &&
             `        dropzoneDescription: ${quote(values.dropzoneDescription)}`,
         values.choose !== DEFAULT_LABELS.choose && `        choose: ${quote(values.choose)}`
-    ].filter((line) => line !== false);
+    ]);
     const root = tag(
-        '',
         'FileUpload.Root',
-        [],
         {
             accept: values.accept.replaceAll('"', ''),
             maxFiles: values.maxFiles,
@@ -87,7 +63,7 @@ export function code(values: PlaygroundValues<typeof controls>): string {
             onUpload: expression('upload'),
             class: 'w-full max-w-md'
         },
-        values.summary ? '>' : '/>'
+        values.summary ? '>' : ' />'
     );
     const children = values.summary
         ? `

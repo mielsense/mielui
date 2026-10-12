@@ -1,6 +1,9 @@
 import {
     attributes,
-    expression,
+    changed,
+    compact,
+    content,
+    defaultOn,
     number,
     type PlaygroundValues,
     text,
@@ -10,7 +13,12 @@ import {
 const DEFAULT_TITLE = 'Start a conversation';
 const DEFAULT_DESCRIPTION = 'Ask a question or share what you are working on.';
 
-export const transcript: { from: 'user' | 'assistant'; text: string }[] = [
+type Turn = {
+    from: 'user' | 'assistant';
+    text: string;
+};
+
+export const transcript: Turn[] = [
     {
         from: 'user',
         text: 'Investigate why checkout latency rose after 14:00 UTC and give me a safe mitigation.'
@@ -47,29 +55,23 @@ export const controls = {
 
 type Values = PlaygroundValues<typeof controls>;
 
-function textAttribute(name: string, value: string, fallback: string): string {
-    return value === fallback
-        ? ''
-        : attributes({
-              [name]: value
-          });
-}
-
 function emptyState(values: Values): string {
     const icon = values.emptyIcon ? ' {icon}' : '';
-    const title = textAttribute('title', values.emptyTitle, DEFAULT_TITLE);
-    const description = textAttribute('description', values.emptyDescription, DEFAULT_DESCRIPTION);
+    const props = attributes({
+        title: changed(values.emptyTitle, DEFAULT_TITLE),
+        description: changed(values.emptyDescription, DEFAULT_DESCRIPTION)
+    });
     const action = values.emptyAction ? ' {action}' : '';
 
-    return `        <Conversation.Empty${icon}${title}${description}${action} />`;
+    return `        <Conversation.Empty${icon}${props}${action} />`;
 }
 
 function messages(): string {
     return transcript
         .map((message) => {
-            return `        <Message.Root from="${message.from}">
+            return `        <Message.Root${attributes({ from: message.from })}>
             <Message.Content>
-                ${message.text}
+                ${content(message.text)}
             </Message.Content>
         </Message.Root>`;
         })
@@ -78,21 +80,19 @@ function messages(): string {
 
 export function code(values: Values): string {
     const root = attributes({
-        follow: values.follow ? undefined : expression('false'),
-        threshold: values.threshold !== 80 && values.threshold
+        follow: defaultOn(values.follow),
+        threshold: changed(values.threshold, 80)
     });
     const icon = values.empty && values.emptyIcon;
     const action = values.empty && values.emptyAction;
-    const imports = [
+    const imports = compact([
         icon && `    import { File01Icon as FileText } from '@hugeicons/core-free-icons';`,
         action && `    import { Button } from '@mielui/svelte/components/button';`,
         `    import * as Conversation from '@mielui/svelte/components/conversation';`,
         !values.empty && `    import * as Message from '@mielui/svelte/components/message';`,
         icon && `    import HugeiconsIcon from '@mielui/svelte/hugeicons-icon';`
-    ]
-        .filter((line) => line !== false)
-        .join('\n');
-    const snippets = [
+    ]).join('\n');
+    const snippets = compact([
         icon &&
             `{#snippet icon()}
     <HugeiconsIcon icon={FileText} size={18} strokeWidth={1.75} aria-hidden="true" />
@@ -105,9 +105,7 @@ export function code(values: Values): string {
 {/snippet}
 
 `
-    ]
-        .filter((snippet) => snippet !== false)
-        .join('');
+    ]).join('');
     const scrollButton = values.scrollButton
         ? `
     <Conversation.ScrollButton />`

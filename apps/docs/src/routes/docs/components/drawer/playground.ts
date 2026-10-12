@@ -1,6 +1,7 @@
 import {
     attributes,
-    expression,
+    changed,
+    defaultOn,
     number,
     type PlaygroundValues,
     select,
@@ -22,12 +23,14 @@ export const controls = {
     })
 };
 
-export function code(values: PlaygroundValues<typeof controls>): string {
+type Values = PlaygroundValues<typeof controls>;
+
+export function code(values: Values): string {
     const root = attributes({
-        direction: values.direction !== 'bottom' && values.direction,
-        dismissible: values.dismissible ? undefined : expression('false'),
+        direction: changed(values.direction, 'bottom'),
+        dismissible: defaultOn(values.dismissible),
         handleOnly: values.handleOnly,
-        closeThreshold: values.closeThreshold !== 0.25 && values.closeThreshold
+        closeThreshold: changed(values.closeThreshold, 0.25)
     });
     const content = attributes({
         surface: values.glass && 'glass'

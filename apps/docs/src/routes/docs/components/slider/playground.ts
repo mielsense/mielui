@@ -1,5 +1,6 @@
 import {
     attributes,
+    changed,
     expression,
     number,
     type PlaygroundValues,
@@ -38,9 +39,9 @@ export function code(values: PlaygroundValues<typeof controls>): string {
     const props = attributes({
         variant: field && 'field',
         label: values.label,
-        min: values.min !== 0 && values.min,
-        max: values.max !== 100 && values.max,
-        step: values.step !== 1 && values.step,
+        min: changed(values.min, 0),
+        max: changed(values.max, 100),
+        step: changed(values.step, 1),
         format: values.format && expression(`(value) => \`\${value}%\``),
         editable: field && values.editable,
         disabled: values.disabled,

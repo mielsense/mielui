@@ -4,6 +4,7 @@
     import { ComponentPreview, InstallCommand, Playground } from '$lib/components/docs';
     import InlineText from '$lib/components/docs/inline-text.svelte';
     import PageIntro from '$lib/components/docs/page-intro.svelte';
+    import { headingLevel } from '$lib/components/docs/playground';
     import SectionHeading from '$lib/components/docs/section-heading.svelte';
 
     import HeadingLevels from './examples/heading-levels.svelte';
@@ -15,13 +16,11 @@
     import TextRoles from './examples/text-roles.svelte';
     import TextRolesSrc from './examples/text-roles.svelte?raw';
     import {
-        headingLevel,
         code as playgroundCode,
         controls as playgroundControls,
         samples as playgroundSamples
     } from './playground';
 
-    const installCommand = 'pnpm dlx @mielui/svelte add typography';
     const usage = `import * as Typography from '@mielui/svelte/components/typography';
 
 <Typography.H2>Account settings</Typography.H2>
@@ -128,7 +127,7 @@
 
     <section id="installation" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Installation</Typography.H2>
-        <InstallCommand command={installCommand} />
+        <InstallCommand command="pnpm dlx @mielui/svelte add typography" />
     </section>
 
     <section id="usage" class="scroll-mt-20 flex flex-col gap-4">

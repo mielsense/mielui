@@ -44,8 +44,8 @@
     <section id="hero" class="scroll-mt-20 flex flex-col gap-4">
         <Playground controls={playgroundControls} code={playgroundCode}>
             {#snippet children(values)}
-                {@const copy = COPY[values.orientation]}
-                {@const issues = issuesFor(values.orientation, values.issues)}
+                {const copy = COPY[values.orientation]}
+                {const issues = issuesFor(values.orientation, values.issues)}
                 {#if values.orientation === 'horizontal'}
                     <Field.Root
                         orientation="horizontal"

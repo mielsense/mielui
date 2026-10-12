@@ -6,6 +6,7 @@
     import { ComponentPreview, InstallCommand, Playground } from '$lib/components/docs';
     import InlineText from '$lib/components/docs/inline-text.svelte';
     import PageIntro from '$lib/components/docs/page-intro.svelte';
+    import { headingLevel } from '$lib/components/docs/playground';
     import ContentOnly from './examples/content-only.svelte';
     import ContentOnlySrc from './examples/content-only.svelte?raw';
     import Full from './examples/full.svelte';
@@ -23,13 +24,10 @@
     import Panel from './examples/panel.svelte';
     import PanelSrc from './examples/panel.svelte?raw';
     import {
-        headingLevel,
         backdrop as playgroundBackdrop,
         code as playgroundCode,
         controls as playgroundControls
     } from './playground';
-
-    const installCommand = 'pnpm dlx @mielui/svelte add card';
 </script>
 
 <svelte:head>
@@ -38,16 +36,14 @@
 </svelte:head>
 
 <div data-docs-page class="flex flex-col gap-10">
-    <!-- ─── Header ────────────────────────────────────────────────── -->
     <PageIntro title="Card">
         A surface for grouping related content, composed of header, content, and footer.
     </PageIntro>
 
-    <!-- ─── Hero Example ──────────────────────────────────────────── -->
     <section id="hero" class="scroll-mt-20 flex flex-col gap-4">
         <Playground controls={playgroundControls} code={playgroundCode}>
             {#snippet children(values)}
-                {@const glass = values.surface === 'glass'}
+                {const glass = values.surface === 'glass'}
                 {#snippet card()}
                     <Card.Root
                         variant={values.variant}
@@ -101,13 +97,11 @@
         </Playground>
     </section>
 
-    <!-- ─── Installation ──────────────────────────────────────────── -->
     <section id="installation" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Installation</Typography.H2>
-        <InstallCommand command={installCommand} />
+        <InstallCommand command="pnpm dlx @mielui/svelte add card" />
     </section>
 
-    <!-- ─── Usage ─────────────────────────────────────────────────── -->
     <section id="usage" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Usage</Typography.H2>
         <Typography.Text variant="supporting">
@@ -140,7 +134,6 @@
         </Typography.Text>
     </section>
 
-    <!-- ─── Examples ──────────────────────────────────────────────── -->
     <section id="glass" class="flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Glass surface</Typography.H2>
         <Typography.Text variant="supporting">

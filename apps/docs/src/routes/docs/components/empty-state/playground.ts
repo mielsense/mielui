@@ -1,5 +1,12 @@
-import type { HeadingLevel } from '@mielui/svelte/components/typography';
-import { attributes, number, type PlaygroundValues, toggle } from '$lib/components/docs/playground';
+import {
+    attributes,
+    changed,
+    compact,
+    headingLevel,
+    number,
+    type PlaygroundValues,
+    toggle
+} from '$lib/components/docs/playground';
 
 export const controls = {
     media: toggle('Media', 'Content'),
@@ -15,31 +22,17 @@ export const controls = {
     })
 };
 
-const headingLevels: readonly HeadingLevel[] = [1, 2, 3, 4, 5, 6];
+type Values = PlaygroundValues<typeof controls>;
 
-/** The heading level a number stands for, or the default of 2 when it is out of range. */
-export function headingLevel(value: number): HeadingLevel {
-    return headingLevels.find((level) => level === value) ?? 2;
-}
-
-export function code(values: PlaygroundValues<typeof controls>): string {
+export function code(values: Values): string {
     const level = headingLevel(values.level);
-    const iconImport = values.media
-        ? `
-    import { PackageIcon } from '@hugeicons/core-free-icons';`
-        : '';
-    const buttonImport = values.actions
-        ? `
-    import { Button } from '@mielui/svelte/components/button';`
-        : '';
-    const typographyImport = values.content
-        ? `
-    import * as Typography from '@mielui/svelte/components/typography';`
-        : '';
-    const iconComponent = values.media
-        ? `
-    import HugeiconsIcon from '@mielui/svelte/hugeicons-icon';`
-        : '';
+    const imports = compact([
+        values.media && "import { PackageIcon } from '@hugeicons/core-free-icons';",
+        values.actions && "import { Button } from '@mielui/svelte/components/button';",
+        "import * as EmptyState from '@mielui/svelte/components/empty-state';",
+        values.content && "import * as Typography from '@mielui/svelte/components/typography';",
+        values.media && "import HugeiconsIcon from '@mielui/svelte/hugeicons-icon';"
+    ]).join('\n    ');
     const media = values.media
         ? `
     <EmptyState.Media aria-hidden="true">
@@ -48,7 +41,7 @@ export function code(values: PlaygroundValues<typeof controls>): string {
         : '';
     const title = values.title
         ? `
-        <EmptyState.Title${attributes({ level: level !== 2 && level })}>No components yet</EmptyState.Title>`
+        <EmptyState.Title${attributes({ level: changed(level, 2) })}>No components yet</EmptyState.Title>`
         : '';
     const description = values.description
         ? `
@@ -75,8 +68,8 @@ export function code(values: PlaygroundValues<typeof controls>): string {
     </EmptyState.Actions>`
         : '';
 
-    return `<script lang="ts">${iconImport}${buttonImport}
-    import * as EmptyState from '@mielui/svelte/components/empty-state';${typographyImport}${iconComponent}
+    return `<script lang="ts">
+    ${imports}
 </script>
 
 <EmptyState.Root class="max-w-sm">${media}${header}${content}${actions}

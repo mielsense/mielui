@@ -17,7 +17,21 @@
         {format(value)}
     </span>
     <div class="flex gap-2">
-        <Button variant="secondary" onclick={() => { value += 125.25; }}>Add $125.25</Button>
-        <Button variant="outline" onclick={() => { value = 0; }}>Reset</Button>
+        <Button
+            variant="secondary"
+            onclick={() => {
+                value += 125.25;
+            }}
+        >
+            Add $125.25
+        </Button>
+        <Button
+            variant="outline"
+            onclick={() => {
+                value = 0;
+            }}
+        >
+            Reset
+        </Button>
     </div>
 </div>

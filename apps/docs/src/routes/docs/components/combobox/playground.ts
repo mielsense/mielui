@@ -1,6 +1,11 @@
 import {
     attributes,
+    BUTTON_VARIANTS,
+    CONTROL_SIZES,
+    changed,
+    compact,
     number,
+    PLACEMENTS,
     type PlaygroundValues,
     select,
     text,
@@ -8,13 +13,9 @@ import {
 } from '$lib/components/docs/playground';
 
 export const controls = {
-    variant: select(
-        'Variant',
-        ['outline', 'primary', 'secondary', 'ghost', 'destructive', 'glow', 'panel', 'quiet'],
-        'outline'
-    ),
+    variant: select('Variant', BUTTON_VARIANTS, 'outline'),
     appearance: select('Appearance', ['button', 'input'], 'button', 'Appearance'),
-    size: select('Size', ['sm', 'md', 'lg'], 'md', 'Appearance'),
+    size: select('Size', CONTROL_SIZES, 'md', 'Appearance'),
     surface: select('Surface', ['inherit', 'solid', 'glass'], 'inherit', 'Appearance'),
     placeholder: text('Placeholder', 'Select a framework', 'Content'),
     groupLabel: toggle('Group label', 'Content'),
@@ -23,25 +24,7 @@ export const controls = {
     disabledItem: toggle('Disabled option', 'State'),
     multiple: toggle('Multiple', 'Behavior'),
     searchPlacement: select('Search placement', ['trigger', 'menu'], 'trigger', 'Behavior'),
-    placement: select(
-        'Placement',
-        [
-            'bottom',
-            'bottom-start',
-            'bottom-end',
-            'top',
-            'top-start',
-            'top-end',
-            'left',
-            'left-start',
-            'left-end',
-            'right',
-            'right-start',
-            'right-end'
-        ],
-        'bottom',
-        'Behavior'
-    ),
+    placement: select('Placement', PLACEMENTS, 'bottom', 'Behavior'),
     threshold: number('Match threshold', 0.28, {
         min: 0,
         max: 1,
@@ -63,26 +46,28 @@ export const controls = {
     })
 };
 
-export function code(values: PlaygroundValues<typeof controls>): string {
+type Values = PlaygroundValues<typeof controls>;
+
+export function code(values: Values): string {
     const root = attributes({
         type: values.multiple && 'multiple',
-        placement: values.placement !== 'bottom' && values.placement,
+        placement: changed(values.placement, 'bottom'),
         hoverable: values.hoverable,
-        delay: values.delay !== 0 && values.delay,
-        closeDelay: values.closeDelay !== 150 && values.closeDelay
+        delay: changed(values.delay, 0),
+        closeDelay: changed(values.closeDelay, 150)
     });
     const trigger = attributes({
-        variant: values.variant !== 'outline' && values.variant,
-        appearance: values.appearance !== 'button' && values.appearance,
-        size: values.size !== 'md' && values.size,
-        placeholder: values.placeholder !== 'Select…' && values.placeholder,
-        searchPlacement: values.searchPlacement !== 'trigger' && values.searchPlacement,
-        threshold: values.threshold !== 0.28 && values.threshold,
+        variant: changed(values.variant, 'outline'),
+        appearance: changed(values.appearance, 'button'),
+        size: changed(values.size, 'md'),
+        placeholder: changed(values.placeholder, 'Select…'),
+        searchPlacement: changed(values.searchPlacement, 'trigger'),
+        threshold: changed(values.threshold, 0.28),
         disabled: values.disabled,
         class: 'w-64'
     });
     const content = attributes({
-        surface: values.surface !== 'inherit' && values.surface
+        surface: changed(values.surface, 'inherit')
     });
     const astro = attributes({
         value: 'astro',
@@ -93,13 +78,11 @@ export function code(values: PlaygroundValues<typeof controls>): string {
         ? `
             <Combobox.Label>Frameworks</Combobox.Label>`
         : '';
-    const imports = [
+    const imports = compact([
         values.trailing && "import { Search01Icon as Search } from '@hugeicons/core-free-icons';",
         "import * as Combobox from '@mielui/svelte/components/combobox';",
         values.trailing && "import HugeiconsIcon from '@mielui/svelte/hugeicons-icon';"
-    ]
-        .filter(Boolean)
-        .join('\n    ');
+    ]).join('\n    ');
     const state = values.multiple
         ? 'let frameworks = $state<string[]>([]);'
         : "let framework = $state('');";

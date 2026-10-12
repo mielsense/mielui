@@ -20,8 +20,6 @@
     import ValidationSrc from './examples/validation.svelte?raw';
     import { code as playgroundCode, controls as playgroundControls } from './playground';
 
-    const installCommand = 'pnpm dlx @mielui/svelte add tag-input';
-
     const usageSnippet = `import * as TagInput from '@mielui/svelte/components/tag-input';
 
 let tags = $state(['svelte']);
@@ -43,13 +41,11 @@ let tags = $state(['svelte']);
 </svelte:head>
 
 <div data-docs-page class="flex flex-col gap-10">
-    <!-- ─── Header ────────────────────────────────────────────────── -->
     <PageIntro title="Tag Input">
         A field that turns typed text into removable tags shown as flat pills. Type a value, press
         Enter, and keep going.
     </PageIntro>
 
-    <!-- ─── Hero Example ──────────────────────────────────────────── -->
     <section id="hero" class="scroll-mt-20 flex flex-col gap-4">
         <Playground controls={playgroundControls} code={playgroundCode}>
             {#snippet children(values)}
@@ -90,13 +86,11 @@ let tags = $state(['svelte']);
         </Playground>
     </section>
 
-    <!-- ─── Installation ──────────────────────────────────────────── -->
     <section id="installation" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Installation</Typography.H2>
-        <InstallCommand command={installCommand} />
+        <InstallCommand command="pnpm dlx @mielui/svelte add tag-input" />
     </section>
 
-    <!-- ─── Usage ─────────────────────────────────────────────────── -->
     <section id="usage" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Usage</Typography.H2>
         <Typography.Text>
@@ -119,7 +113,6 @@ let tags = $state(['svelte']);
         <CodeBlock code={usageSnippet} lang="svelte" copy="overlay" />
     </section>
 
-    <!-- ─── Examples ──────────────────────────────────────────────── -->
     <section id="examples" class="scroll-mt-20 flex flex-col gap-10">
         <SectionHeading title="Examples">
             {#snippet description()}

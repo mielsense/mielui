@@ -21,7 +21,6 @@
         messages as playgroundMessages
     } from './playground';
 
-    const installCommand = 'pnpm dlx @mielui/svelte add message';
     const usageSnippet = `import * as Message from '@mielui/svelte/components/message';
 
 <Message.Root from="assistant" status="idle">
@@ -84,7 +83,7 @@
 
     <section id="installation" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Installation</Typography.H2>
-        <InstallCommand command={installCommand} />
+        <InstallCommand command="pnpm dlx @mielui/svelte add message" />
     </section>
 
     <section id="usage" class="scroll-mt-20 flex flex-col gap-4">

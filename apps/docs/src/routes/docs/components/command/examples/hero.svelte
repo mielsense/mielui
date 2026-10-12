@@ -39,20 +39,29 @@
             <Command.Search placeholder="Type a command or search…" />
             <Command.Results>
                 <Command.Group heading="Jump to">
-                    <Command.Item name="Inbox" callback={() => { selected = 'Inbox selected'; }}>
+                    <Command.Item
+                        name="Inbox"
+                        callback={() => {
+                            selected = 'Inbox selected';
+                        }}
+                    >
                         <HugeiconsIcon icon={Inbox} size={16} />
                         Inbox
                     </Command.Item>
                     <Command.Item
                         name="My Issues"
-                        callback={() => { selected = 'My Issues selected'; }}
+                        callback={() => {
+                            selected = 'My Issues selected';
+                        }}
                     >
                         <HugeiconsIcon icon={CircleDot} size={16} />
                         My Issues
                     </Command.Item>
                     <Command.Item
                         name="Roadmap"
-                        callback={() => { selected = 'Roadmap selected'; }}
+                        callback={() => {
+                            selected = 'Roadmap selected';
+                        }}
                     >
                         <HugeiconsIcon icon={MapIcon} size={16} />
                         Roadmap
@@ -62,7 +71,9 @@
                 <Command.Group heading="Create">
                     <Command.Item
                         name="New issue"
-                        callback={() => { selected = 'New issue selected'; }}
+                        callback={() => {
+                            selected = 'New issue selected';
+                        }}
                     >
                         <HugeiconsIcon icon={SquarePen} size={16} />
                         <span class="flex-1">New issue</span>
@@ -70,7 +81,9 @@
                     </Command.Item>
                     <Command.Item
                         name="New project"
-                        callback={() => { selected = 'New project selected'; }}
+                        callback={() => {
+                            selected = 'New project selected';
+                        }}
                     >
                         <HugeiconsIcon icon={FolderPlus} size={16} />
                         New project
@@ -80,12 +93,19 @@
                 <Command.Group heading="Settings">
                     <Command.Item
                         name="Switch team"
-                        callback={() => { selected = 'Switch team selected'; }}
+                        callback={() => {
+                            selected = 'Switch team selected';
+                        }}
                     >
                         <HugeiconsIcon icon={Users} size={16} />
                         Switch team
                     </Command.Item>
-                    <Command.Item name="Theme" callback={() => { selected = 'Theme selected'; }}>
+                    <Command.Item
+                        name="Theme"
+                        callback={() => {
+                            selected = 'Theme selected';
+                        }}
+                    >
                         <HugeiconsIcon icon={Moon} size={16} />
                         Theme
                     </Command.Item>

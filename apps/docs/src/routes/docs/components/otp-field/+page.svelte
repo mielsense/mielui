@@ -27,19 +27,19 @@
     <section id="hero">
         <Playground controls={playgroundControls} code={playgroundCode}>
             {#snippet children(values)}
-                {@const alphanumeric = values.characters === 'alphanumeric'}
+                {const alphanumeric = values.characters === 'alphanumeric'}
+                {const root = {
+                    'aria-label': 'Verification code',
+                    length: values.length,
+                    pattern: alphanumeric ? '^[a-zA-Z0-9]*$' : undefined,
+                    inputmode: alphanumeric ? 'text' : undefined,
+                    disabled: values.disabled,
+                    'aria-invalid': values.invalid ? 'true' : undefined
+                } as const}
                 {#if values.separator}
-                    <OTPField.Root
-                        bind:value={playgroundValue}
-                        aria-label="Verification code"
-                        length={values.length}
-                        pattern={alphanumeric ? '^[a-zA-Z0-9]*$' : undefined}
-                        inputmode={alphanumeric ? 'text' : undefined}
-                        disabled={values.disabled}
-                        aria-invalid={values.invalid ? 'true' : undefined}
-                    >
+                    <OTPField.Root bind:value={playgroundValue} {...root}>
                         {#snippet children({ cells })}
-                            {@const half = Math.ceil(values.length / 2)}
+                            {const half = Math.ceil(values.length / 2)}
                             <OTPField.Group>
                                 {#each cells.slice(0, half) as cell, index (index)}
                                     <OTPField.Cell {cell} />
@@ -54,15 +54,7 @@
                         {/snippet}
                     </OTPField.Root>
                 {:else}
-                    <OTPField.Root
-                        bind:value={playgroundValue}
-                        aria-label="Verification code"
-                        length={values.length}
-                        pattern={alphanumeric ? '^[a-zA-Z0-9]*$' : undefined}
-                        inputmode={alphanumeric ? 'text' : undefined}
-                        disabled={values.disabled}
-                        aria-invalid={values.invalid ? 'true' : undefined}
-                    />
+                    <OTPField.Root bind:value={playgroundValue} {...root} />
                 {/if}
             {/snippet}
         </Playground>
