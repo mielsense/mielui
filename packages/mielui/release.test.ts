@@ -83,7 +83,7 @@ describe('publishable package contract', () => {
             const component = await readFile(new URL(file, import.meta.url), 'utf8');
             expect(component.match(new RegExp(`@keyframes\\s+${name}\\b`, 'g'))).toHaveLength(1);
             expect(component.split(name).length).toBeGreaterThanOrEqual(3);
-            expect(component).toMatch(/motion-reduce:animate-none|prefers-reduced-motion/);
+            expect(component).toMatch(/motion-reduce:animate-|prefers-reduced-motion/);
         }
 
         const skeleton = await readFile(

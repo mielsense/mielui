@@ -52,6 +52,7 @@ beforeAll(() => {
 				--motion-duration-toast-in: 0ms;
 				--motion-duration-toast-out: 0ms;
 				--motion-duration-press: 0ms;
+				--motion-duration-spring: 0ms;
 			}
 		`;
         document.head.appendChild(style);
