@@ -1,4 +1,4 @@
-<script module lang="ts">
+<script lang="ts" module>
     import { Tick02Icon as Check } from '@hugeicons/core-free-icons';
     import HugeiconsIcon from '@mielui/svelte/hugeicons-icon';
 

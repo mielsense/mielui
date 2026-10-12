@@ -35,6 +35,12 @@
     const previousVisits = 295;
     const growth = Math.round(((visits - previousVisits) / previousVisits) * 100);
 
+    const DEMO_LABELS: Record<string, string> = {
+        controls: 'Controls',
+        composer: 'Composer',
+        charts: 'Charts'
+    };
+
     let demo = $state('controls');
     let prompt = $state(prompts[0].text);
     let sent = $state('');
@@ -133,7 +139,7 @@
     >
         <div class="flex items-center justify-between px-3 pt-2 pb-4 text-white">
             <span class="font-mono text-sm">
-                {demo === 'composer' ? 'Composer' : demo === 'controls' ? 'Controls' : 'Charts'}
+                {DEMO_LABELS[demo]}
             </span>
         </div>
         <div class="rounded-[var(--radius-xl)] bg-card text-foreground">

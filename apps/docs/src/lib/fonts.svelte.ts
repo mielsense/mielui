@@ -1,4 +1,4 @@
-import { getContext, onMount, setContext } from 'svelte';
+import { createContext, onMount } from 'svelte';
 
 export type FontCategory = 'Sans serif' | 'Serif' | 'Monospace';
 export type DocsFont = { name: string; category: FontCategory; family: string };
@@ -59,7 +59,7 @@ type DocsFontState = {
     current: string;
 };
 
-const fontContext = Symbol('docs-font');
+const [getDocsFontState, setDocsFontState] = createContext<DocsFontState>();
 const storageKey = 'mielui-docs-font';
 
 function knownFont(value: unknown): string {
@@ -94,7 +94,7 @@ export function createDocsFontState(): DocsFontState {
         }
     };
 
-    setContext(fontContext, state);
+    setDocsFontState(state);
 
     onMount(() => {
         try {
@@ -124,10 +124,4 @@ export function createDocsFontState(): DocsFontState {
     return state;
 }
 
-export function getDocsFontState(): DocsFontState {
-    const state = getContext<DocsFontState | undefined>(fontContext);
-    if (!state) {
-        throw new Error('Font selection requires the application font context.');
-    }
-    return state;
-}
+export { getDocsFontState };

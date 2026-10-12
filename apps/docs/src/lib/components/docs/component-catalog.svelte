@@ -9,13 +9,19 @@
     import CatalogPreview from '$lib/components/docs/catalog-preview.svelte';
     import PageIntro from '$lib/components/docs/page-intro.svelte';
 
+    type CatalogGroup = {
+        id: string;
+        heading: string;
+        items: string[];
+    };
+
     let {
         groups,
         descriptions,
         title = 'Components',
         description = 'Browse components, blocks, charts, and motion actions.'
     }: {
-        groups: { id: string; heading: string; items: string[] }[];
+        groups: CatalogGroup[];
         descriptions: Record<string, string>;
         title?: string;
         description?: string;
@@ -128,7 +134,7 @@
     {/each}
 </div>
 
-{#snippet catalogGroup(group: { id: string; heading: string; items: string[] }, nested: boolean)}
+{#snippet catalogGroup(group: CatalogGroup, nested: boolean)}
     {const titled = $derived(group.heading !== title || groups.length !== 1)}
     <section
         aria-labelledby={titled ? group.id : undefined}

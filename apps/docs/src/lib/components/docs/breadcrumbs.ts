@@ -1,5 +1,6 @@
 import { catalogPages, componentTypeHref, componentTypes, navigationGroups } from '$lib/components';
 import { componentGuidePages } from '$lib/docs-pages';
+import { titleCase } from '$lib/text';
 
 export function getBreadcrumbs(pathname: string) {
     const pathnameSegments = pathname.split('/').filter(Boolean);
@@ -65,8 +66,5 @@ function formatSegment(segment: string): string {
         return labels[segment];
     }
 
-    return segment
-        .split('-')
-        .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-        .join(' ');
+    return titleCase(segment);
 }

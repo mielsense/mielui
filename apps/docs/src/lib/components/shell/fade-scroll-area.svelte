@@ -5,7 +5,7 @@
     import ScrollEdge from './scroll-edge.svelte';
     import { fadeY, scrollFade } from './scroll-fade';
 
-    const {
+    let {
         class: className,
         start = false,
         end = true,

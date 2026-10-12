@@ -28,7 +28,7 @@ const SCRIPTED_USAGE: UsageRule[] = [
 ];
 const MAX_ALIAS_DEPTH = 8;
 
-export function extractVarNames(text: string): string[] {
+function extractVarNames(text: string): string[] {
     const names = new Set<string>();
 
     for (const match of text.matchAll(VAR_PATTERN)) {
@@ -265,7 +265,7 @@ function stripComplexSelector(selector: string): string | null {
  * focus, open, and dark count as used by the element. Returns `null` when no
  * anchoring selector remains.
  */
-export function stripStateSelector(selector: string): string | null {
+function stripStateSelector(selector: string): string | null {
     const stripped = splitTopLevel(selector)
         .map(stripComplexSelector)
         .filter((value): value is string => {
@@ -490,14 +490,6 @@ function safeMatches(element: Element, selector: string) {
     }
 }
 
-function safeQueryAll(root: Element, selector: string): Element[] {
-    try {
-        return Array.from(root.querySelectorAll(selector));
-    } catch {
-        return [];
-    }
-}
-
 function inlineTokens(index: TokenIndex, element: Element): Set<string> {
     const tokens = new Set<string>();
 
@@ -524,26 +516,4 @@ export function tokensForElement(index: TokenIndex, element: Element): Set<strin
     }
 
     return tokens;
-}
-
-export function elementsUsingToken(index: TokenIndex, token: string, root: Element): Element[] {
-    const elements = new Set<Element>();
-
-    for (const rule of index.rules) {
-        if (!rule.tokens.has(token)) {
-            continue;
-        }
-
-        for (const element of safeQueryAll(root, rule.selector)) {
-            elements.add(element);
-        }
-    }
-
-    for (const element of safeQueryAll(root, '[style*="var(--"]')) {
-        if (inlineTokens(index, element).has(token)) {
-            elements.add(element);
-        }
-    }
-
-    return [...elements];
 }

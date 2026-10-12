@@ -4,7 +4,7 @@
     import { scrollFade } from './scroll-fade';
     import { getShell, sidebarWidths } from './shell.svelte';
 
-    const {
+    let {
         label,
         wide = false,
         header,

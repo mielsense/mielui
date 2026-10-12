@@ -1,3 +1,4 @@
+import { titleCase } from '$lib/text';
 import pkg from '../../../../packages/mielui/package.json';
 
 type ChangelogEntry = {
@@ -39,13 +40,6 @@ function changelogPath(path: string): { version: string; type: string } | undefi
         version: match[1],
         type: match[2]
     };
-}
-
-function titleFromType(type: string): string {
-    return type
-        .split('-')
-        .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-        .join(' ');
 }
 
 function entriesFor(version: string): ChangelogEntry[] {
@@ -101,7 +95,7 @@ export const changelogReleases: ChangelogRelease[] = changelogVersions.flatMap((
             sections: entries.map((entry) => {
                 return {
                     type: entry.type,
-                    title: titleFromType(entry.type),
+                    title: titleCase(entry.type),
                     content: entry.content,
                     count: entry.content.match(/^- /gm)?.length ?? 0
                 };
@@ -157,7 +151,7 @@ export function changelogMarkdown(version: string): string | undefined {
                   `Large changes for this release have an LLM context page at [/changelog/${version}/llm.md](/changelog/${version}/llm.md).`
               ]
             : []),
-        ...entries.flatMap((entry) => ['', `## ${titleFromType(entry.type)}`, '', entry.content]),
+        ...entries.flatMap((entry) => ['', `## ${titleCase(entry.type)}`, '', entry.content]),
         ''
     ].join('\n');
 }
@@ -174,7 +168,7 @@ export function changelogDocsMarkdown(): string {
                 `## ${version}${isUnreleased(version) ? ' · Unreleased' : ''}`,
                 '',
                 ...entries.flatMap((entry) => {
-                    return [`### ${titleFromType(entry.type)}`, '', entry.content, ''];
+                    return [`### ${titleCase(entry.type)}`, '', entry.content, ''];
                 })
             ];
         })

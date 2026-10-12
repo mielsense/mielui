@@ -4,7 +4,7 @@
     import { cn } from '@mielui/svelte/utils';
     import type { Snippet } from 'svelte';
 
-    const {
+    let {
         title,
         lead,
         description,

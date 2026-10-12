@@ -4,6 +4,7 @@ import { componentGroups, components, sanitizeComponent } from '$lib/components'
 import { catalogSections, componentGuidePages } from '$lib/docs-pages';
 import { componentReference } from '$lib/server/api-reference';
 import { mieluiGuideMarkdown } from '$lib/skill';
+import { titleCase } from '$lib/text';
 import {
     classExample,
     dataUiExample,
@@ -110,12 +111,9 @@ function exampleModuleSections(component: string, sources: string[]): string[] {
 }
 
 function titleFromFile(path: string): string {
-    return path
-        .slice(path.lastIndexOf('/') + 1)
-        .replace(/\.svelte$/, '')
-        .split('-')
-        .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-        .join(' ');
+    const name = path.slice(path.lastIndexOf('/') + 1).replace(/\.svelte$/, '');
+
+    return titleCase(name);
 }
 
 export function componentMarkdown(component: string): string | undefined {

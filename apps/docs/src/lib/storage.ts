@@ -1,4 +1,5 @@
-export function readStudioStorage(key: string): string | null {
+/** `localStorage` access that never throws: private windows and blocked storage read as empty. */
+export function readStorage(key: string): string | null {
     try {
         return localStorage.getItem(key);
     } catch {
@@ -6,7 +7,7 @@ export function readStudioStorage(key: string): string | null {
     }
 }
 
-export function writeStudioStorage(key: string, value: string) {
+export function writeStorage(key: string, value: string) {
     try {
         localStorage.setItem(key, value);
     } catch {
@@ -14,7 +15,7 @@ export function writeStudioStorage(key: string, value: string) {
     }
 }
 
-export function removeStudioStorage(key: string) {
+export function removeStorage(key: string) {
     try {
         localStorage.removeItem(key);
     } catch {

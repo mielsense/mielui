@@ -9,17 +9,18 @@
     import HugeiconsIcon from '@mielui/svelte/hugeicons-icon';
     import { page } from '$app/state';
 
+    const STATUS_MESSAGES = {
+        idle: '',
+        loading: '',
+        success: 'Page copied to clipboard.',
+        error: 'Could not copy. Open the Markdown page to copy it manually.'
+    };
+
     let open = $state(false);
     let status = $state<'idle' | 'loading' | 'success' | 'error'>('idle');
     let timer: ReturnType<typeof setTimeout> | undefined;
     let request: AbortController | undefined;
-    const statusMessage = $derived(
-        status === 'error'
-            ? 'Could not copy. Open the Markdown page to copy it manually.'
-            : status === 'success'
-              ? 'Page copied to clipboard.'
-              : ''
-    );
+    const statusMessage = $derived(STATUS_MESSAGES[status]);
     const markdownPath = $derived(`${page.url.pathname.replace(/\/$/, '')}.md`);
     const prompt = $derived(
         `Read ${new URL(markdownPath, 'https://ui.miel.my').href} so I can ask questions about it. Use Svelte 5 when writing examples.`
@@ -63,7 +64,7 @@
     }
 
     $effect(() => {
-        page.url.pathname;
+        void page.url.pathname;
         status = 'idle';
         return () => {
             request?.abort();

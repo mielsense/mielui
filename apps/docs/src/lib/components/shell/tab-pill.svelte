@@ -3,19 +3,17 @@
     import HugeiconsIcon from '@mielui/svelte/hugeicons-icon';
     import type { ShellIcon } from './page-icon';
 
-    const {
+    let {
         label,
         icon,
         current = false,
         href,
-        onclick,
         onclose
     }: {
         label: string;
         icon: ShellIcon;
         current?: boolean;
-        href?: string;
-        onclick?: () => void;
+        href: string;
         onclose?: () => void;
     } = $props();
 
@@ -28,17 +26,10 @@
     data-current={current || undefined}
     class={`group/tab relative flex h-8 max-w-52 shrink-0 items-center rounded-[var(--radius-control)] transition-colors [transition-duration:var(--motion-duration-hover)] motion-reduce:transition-none ${current ? 'mielui-glow mielui-glow-neutral text-foreground shadow-[var(--mielui-glow-shadow)]' : 'text-foreground-muted hover:bg-[var(--color-wash)] hover:text-foreground'}`}
 >
-    {#if href}
-        <a {href} aria-current={current ? 'page' : undefined} class={bodyClass}>
-            <HugeiconsIcon {icon} size={15} class="shrink-0" aria-hidden="true" />
-            <span class="truncate">{label}</span>
-        </a>
-    {:else}
-        <button type="button" aria-pressed={current} class={bodyClass} {onclick}>
-            <HugeiconsIcon {icon} size={15} class="shrink-0" aria-hidden="true" />
-            <span class="truncate">{label}</span>
-        </button>
-    {/if}
+    <a {href} aria-current={current ? 'page' : undefined} class={bodyClass}>
+        <HugeiconsIcon {icon} size={15} class="shrink-0" aria-hidden="true" />
+        <span class="truncate">{label}</span>
+    </a>
     {#if onclose}
         <button
             type="button"

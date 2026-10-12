@@ -43,7 +43,7 @@
 
     $effect(() => {
         const component = name;
-        attempt;
+        void attempt;
 
         const controller = new AbortController();
 

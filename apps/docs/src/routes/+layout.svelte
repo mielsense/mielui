@@ -40,7 +40,7 @@
 
     injectAnalytics({ mode: dev ? 'development' : 'production' });
 
-    const { children, data }: { children: Snippet; data: LayoutData } = $props();
+    let { children, data }: { children: Snippet; data: LayoutData } = $props();
 
     const isPreview = $derived(page.url.pathname.startsWith('/preview/'));
     const isHome = $derived(page.url.pathname === '/');
@@ -116,14 +116,14 @@
         onclickcapture={stayOnPage}
         class="min-h-dvh bg-[color-mix(in_oklab,var(--color-background),var(--color-secondary)_10%)]"
     >
-        {@render children?.()}
+        {@render children()}
     </main>
 {:else if isHome}
     <main
         class="min-h-dvh w-screen bg-background [--docs-rule:var(--color-border)] [--docs-soft:var(--color-wash)]"
     >
         <div class="relative mx-auto flex min-h-dvh w-full max-w-none flex-col">
-            {@render children?.()}
+            {@render children()}
         </div>
     </main>
 {:else}
@@ -145,7 +145,7 @@
             >
                 <div class="mielui-plate flex min-h-0 min-w-0 flex-1 overflow-clip">
                     {#if isThemeStudio}
-                        {@render children?.()}
+                        {@render children()}
                     {:else}
                         {#if hasSidebar}
                             <Sidebar label="Documentation">
@@ -161,7 +161,7 @@
                         >
                             {#if isDocs}
                                 <div bind:this={docsScrollEl} class="min-h-0 min-w-0 flex-1">
-                                    {@render children?.()}
+                                    {@render children()}
                                 </div>
                             {:else}
                                 <div class="relative min-h-0 min-w-0 flex-1">
@@ -173,7 +173,7 @@
                                         <div
                                             class="flex w-full flex-col gap-5 px-5 pt-8 pb-24 sm:px-10 lg:flex-row lg:gap-0"
                                         >
-                                            {@render children?.()}
+                                            {@render children()}
                                         </div>
                                     </div>
                                     <ScrollEdge edge="top" />

@@ -1,8 +1,8 @@
-import { getContext, setContext, untrack } from 'svelte';
+import { createContext, untrack } from 'svelte';
 import type { PageOutline } from '$lib/components/docs/page-outline.svelte';
+import { readStorage, writeStorage } from '$lib/storage';
 import { createDocsTabs } from './tabs.svelte';
 
-const SHELL_KEY = Symbol('docs-shell');
 const STORAGE_KEY = 'mielui:sidebar-collapsed';
 const WIDTH_KEY = 'mielui:sidebar-width';
 
@@ -32,8 +32,8 @@ export function createShell() {
     $effect(() => {
         untrack(() => {
             try {
-                collapsed = localStorage.getItem(STORAGE_KEY) === 'true';
-                const stored = JSON.parse(localStorage.getItem(WIDTH_KEY) ?? '{}');
+                collapsed = readStorage(STORAGE_KEY) === 'true';
+                const stored = JSON.parse(readStorage(WIDTH_KEY) ?? '{}');
                 for (const kind of ['docs', 'studio'] as const) {
                     if (typeof stored?.[kind] === 'number') {
                         widths[kind] = clampWidth(stored[kind]);
@@ -47,20 +47,12 @@ export function createShell() {
 
     function toggle() {
         collapsed = !collapsed;
-        try {
-            localStorage.setItem(STORAGE_KEY, String(collapsed));
-        } catch {
-            return;
-        }
+        writeStorage(STORAGE_KEY, String(collapsed));
     }
 
     function resizeSidebar(kind: SidebarKind, width: number) {
         widths[kind] = clampWidth(width);
-        try {
-            localStorage.setItem(WIDTH_KEY, JSON.stringify(widths));
-        } catch {
-            return;
-        }
+        writeStorage(WIDTH_KEY, JSON.stringify(widths));
     }
 
     return {
@@ -85,10 +77,4 @@ export function createShell() {
 
 export type Shell = ReturnType<typeof createShell>;
 
-export function setShell(shell: Shell) {
-    setContext(SHELL_KEY, shell);
-}
-
-export function getShell() {
-    return getContext<Shell>(SHELL_KEY);
-}
+export const [getShell, setShell] = createContext<Shell>();

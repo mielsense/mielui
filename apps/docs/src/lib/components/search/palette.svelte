@@ -15,7 +15,12 @@
     import { mode, toggleMode } from 'mode-watcher';
     import { afterNavigate } from '$app/navigation';
     import { resolve } from '$app/paths';
-    import { componentTypes, navigationGroups, sanitizeComponent } from '$lib/components';
+    import {
+        componentTypes,
+        entryHref,
+        navigationGroups,
+        sanitizeComponent
+    } from '$lib/components';
     import { pageIcon, type ShellIcon } from '$lib/components/shell/page-icon';
     import { getShell } from '$lib/components/shell/shell.svelte';
     import { componentGuidePages } from '$lib/docs-pages';
@@ -54,7 +59,7 @@
 
     const components: Entry[] = navigationGroups.flatMap((group) =>
         group.items.flatMap((item) => {
-            const href = `/docs/${group.id === 'actions' ? 'actions' : 'components'}/${item}`;
+            const href = entryHref(group.id, item);
 
             return [
                 {

@@ -15,76 +15,43 @@
     import { resolve } from '$app/paths';
     import { page } from '$app/state';
     import { getSearch } from '$lib/components/search/context';
-    import { formatStarCount } from '$lib/github';
-    import { usesDocsSidebar } from './page-icon';
+    import { formatStarCount, GITHUB_URL } from '$lib/github';
+    import { hasShellSidebar, primaryPages } from './primary-pages';
     import { getShell } from './shell.svelte';
     import ThemeToggle from './theme-toggle.svelte';
+    import TravelingPill from './traveling-pill.svelte';
 
-    const { starCount = null }: { starCount?: number | null } = $props();
+    let { starCount = null }: { starCount?: number | null } = $props();
 
     const search = getSearch();
     const shell = getShell();
     const pathname = $derived(page.url.pathname);
-    const hasSidebar = $derived(usesDocsSidebar(pathname) || pathname.startsWith('/studio'));
-    const items = $derived([
-        {
-            href: resolve('/docs/introduction'),
-            label: 'Docs',
-            icon: Book,
-            current:
-                pathname.startsWith('/docs') &&
-                !pathname.startsWith('/docs/components') &&
-                !pathname.startsWith('/docs/actions') &&
-                !pathname.startsWith('/docs/changelog')
-        },
-        {
-            href: resolve('/docs/components'),
-            label: 'Components',
-            icon: Grid,
-            current: pathname.startsWith('/docs/components') || pathname.startsWith('/docs/actions')
-        },
-        {
-            href: resolve('/studio'),
-            label: 'Theme Studio',
-            icon: Palette,
-            current: pathname.startsWith('/studio')
-        },
-        {
-            href: resolve('/themes'),
-            label: 'Themes',
-            icon: Swatch,
-            current: pathname.startsWith('/themes')
-        },
-        {
-            href: resolve('/docs/changelog'),
-            label: 'Changelog',
-            icon: Clock,
-            current: pathname.startsWith('/docs/changelog')
-        }
-    ]);
+    const hasSidebar = $derived(hasShellSidebar(pathname));
+    const icons = {
+        docs: Book,
+        components: Grid,
+        studio: Palette,
+        themes: Swatch,
+        changelog: Clock
+    };
+    const items = $derived(primaryPages(pathname));
     const itemClass =
         'relative grid size-9 place-items-center rounded-[var(--radius-control)] text-foreground-muted transition-colors [transition-duration:var(--motion-duration-hover)] hover:text-foreground focus-visible:shadow-[var(--focus-ring)] focus-visible:outline-none motion-reduce:transition-none';
 
     let list = $state<HTMLElement>();
-    let pill = $state<{ top: number; height: number }>();
-    let ready = $state(false);
 
-    function measure() {
-        const current = list?.querySelector<HTMLElement>('[aria-current="page"]');
-        pill = current ? { top: current.offsetTop, height: current.offsetHeight } : undefined;
-    }
+    function measure(container: HTMLElement) {
+        const current = container.querySelector<HTMLElement>('[aria-current="page"]');
 
-    $effect(() => {
-        void pathname;
-        measure();
-        const frame = requestAnimationFrame(() => {
-            ready = true;
-        });
+        if (!current) {
+            return undefined;
+        }
 
-        return () => {
-            cancelAnimationFrame(frame);
+        return {
+            top: current.offsetTop,
+            height: current.offsetHeight
         };
-    });
+    }
 
     function openSearch() {
         search.open = true;
@@ -134,27 +101,26 @@
         </Tooltip.Root>
     </div>
     <div bind:this={list} class="relative isolate flex flex-col items-center gap-1">
-        <span
-            aria-hidden="true"
-            class="mielui-glow pointer-events-none absolute inset-x-0 top-0 -z-10 shadow-[var(--mielui-glow-shadow)] transition-[translate,height,opacity] [transition-duration:var(--motion-duration-item)] ease-[var(--ease-out)] [--mielui-glow-color:var(--color-foreground)] [--mielui-glow-light:0.16] [--mielui-glow-ring:transparent] motion-reduce:transition-none dark:[--mielui-glow-color:color-mix(in_srgb,var(--color-foreground)_16%,var(--color-card))] dark:[--mielui-glow-light:0.12] dark:[--mielui-glow-ring:var(--color-border)]"
-            style:translate={`0 ${pill?.top ?? 0}px`}
-            style:height={`${pill?.height ?? 0}px`}
-            style:opacity={pill ? 1 : 0}
-            style:transition={ready ? undefined : 'none'}
-        ></span>
+        <TravelingPill
+            container={list}
+            {measure}
+            track={pathname}
+            axis="y"
+            class="shadow-[var(--mielui-glow-shadow)]"
+        />
         {#each items as item (item.href)}
             <Tooltip.Root placement="right">
                 <Tooltip.Trigger>
                     <a
                         href={item.href}
-                        aria-label={item.label}
+                        aria-label={item.name}
                         aria-current={item.current ? 'page' : undefined}
                         class={`${itemClass} aria-[current=page]:text-card dark:aria-[current=page]:text-foreground`}
                     >
-                        <HugeiconsIcon icon={item.icon} size={18} strokeWidth={1.8} />
+                        <HugeiconsIcon icon={icons[item.id]} size={18} strokeWidth={1.8} />
                     </a>
                 </Tooltip.Trigger>
-                <Tooltip.Content>{item.label}</Tooltip.Content>
+                <Tooltip.Content>{item.name}</Tooltip.Content>
             </Tooltip.Root>
         {/each}
     </div>
@@ -176,7 +142,7 @@
         <Tooltip.Root placement="right">
             <Tooltip.Trigger>
                 <a
-                    href="https://github.com/mielsense/mielui"
+                    href={GITHUB_URL}
                     target="_blank"
                     rel="noreferrer"
                     aria-label="Star mielui on GitHub"

@@ -6,6 +6,7 @@
     import { Switch } from '@mielui/svelte/components/switch';
     import * as TagInput from '@mielui/svelte/components/tag-input';
 
+    const id = $props.id();
     const statuses = ['Triage', 'In progress', 'In review', 'Done'];
     const people = [
         { value: 'maya', label: 'Maya Reyes' },
@@ -39,14 +40,14 @@
         <Card.Content class="flex flex-col gap-4">
             <div class="grid grid-cols-2 gap-3">
                 <div class="flex min-w-0 flex-col gap-1.5">
-                    <span id="issue-status-label" class="text-sm font-medium">Status</span>
+                    <span id={`${id}-status`} class="text-sm font-medium">Status</span>
                     <Select.Root
                         bind:value={status}
                         onValueChange={() => {
                             saved = false;
                         }}
                     >
-                        <Select.Trigger class="w-full" aria-labelledby="issue-status-label">
+                        <Select.Trigger class="w-full" aria-labelledby={`${id}-status`}>
                             <span class="truncate">{status}</span>
                         </Select.Trigger>
                         <Select.Content>

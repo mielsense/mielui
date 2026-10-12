@@ -8,18 +8,18 @@
     import * as Tooltip from '@mielui/svelte/components/tooltip';
     import HugeiconsIcon from '@mielui/svelte/hugeicons-icon';
     import type { Snippet } from 'svelte';
-    import { resolve } from '$app/paths';
     import { page } from '$app/state';
     import GitHubBlack from '$lib/assets/GitHub_Invertocat_Black.svg';
     import GitHubWhite from '$lib/assets/GitHub_Invertocat_White.svg';
     import Logo from '$lib/components/logo.svelte';
     import { getSearch } from '$lib/components/search/context';
-    import { formatStarCount } from '$lib/github';
-    import { usesDocsSidebar } from './page-icon';
+    import { formatStarCount, GITHUB_URL } from '$lib/github';
+    import { hasShellSidebar, primaryPages } from './primary-pages';
     import { getShell } from './shell.svelte';
     import ThemeToggle from './theme-toggle.svelte';
+    import TravelingPill from './traveling-pill.svelte';
 
-    const {
+    let {
         starCount = null,
         leading
     }: {
@@ -30,65 +30,23 @@
     const search = getSearch();
     const shell = getShell();
     const pathname = $derived(page.url.pathname);
-    const hasSidebar = $derived(usesDocsSidebar(pathname) || pathname.startsWith('/studio'));
-    const links = $derived([
-        {
-            href: resolve('/docs/introduction'),
-            label: 'Docs',
-            current:
-                pathname.startsWith('/docs') &&
-                !pathname.startsWith('/docs/components') &&
-                !pathname.startsWith('/docs/actions') &&
-                !pathname.startsWith('/docs/changelog')
-        },
-        {
-            href: resolve('/docs/components'),
-            label: 'Components',
-            current: pathname.startsWith('/docs/components') || pathname.startsWith('/docs/actions')
-        },
-        {
-            href: resolve('/studio'),
-            label: 'Studio',
-            current: pathname.startsWith('/studio')
-        },
-        {
-            href: resolve('/themes'),
-            label: 'Themes',
-            current: pathname.startsWith('/themes')
-        },
-        {
-            href: resolve('/docs/changelog'),
-            label: 'Changelog',
-            current: pathname.startsWith('/docs/changelog')
-        }
-    ]);
+    const hasSidebar = $derived(hasShellSidebar(pathname));
+    const links = $derived(primaryPages(pathname));
 
     let nav = $state<HTMLElement>();
-    let pill = $state<{ left: number; width: number }>();
-    let ready = $state(false);
 
-    function measure() {
-        const current = nav?.querySelector<HTMLElement>('[aria-current="page"]');
-        pill = current ? { left: current.offsetLeft, width: current.offsetWidth } : undefined;
-    }
+    function measure(container: HTMLElement) {
+        const current = container.querySelector<HTMLElement>('[aria-current="page"]');
 
-    $effect(() => {
-        void pathname;
-        measure();
-        if (!nav) {
-            return;
+        if (!current) {
+            return undefined;
         }
-        const observer = new ResizeObserver(measure);
-        observer.observe(nav);
-        const frame = requestAnimationFrame(() => {
-            ready = true;
-        });
 
-        return () => {
-            observer.disconnect();
-            cancelAnimationFrame(frame);
+        return {
+            left: current.offsetLeft,
+            width: current.offsetWidth
         };
-    });
+    }
 
     function openSearch() {
         search.open = true;
@@ -130,14 +88,7 @@
             aria-label="Primary"
             class="relative isolate hidden shrink-0 items-center gap-0.5 md:flex"
         >
-            <span
-                aria-hidden="true"
-                class="mielui-glow pointer-events-none absolute [--mielui-glow-color:var(--color-foreground)] [--mielui-glow-light:0.16] [--mielui-glow-ring:transparent] dark:[--mielui-glow-color:color-mix(in_srgb,var(--color-foreground)_16%,var(--color-card))] dark:[--mielui-glow-light:0.12] dark:[--mielui-glow-ring:var(--color-border)] inset-y-0 left-0 -z-10 shadow-[var(--mielui-glow-shadow),var(--elevation-1)] transition-[translate,width,opacity] [transition-duration:var(--motion-duration-item)] ease-[var(--ease-out)] motion-reduce:transition-none"
-                style:translate={`${pill?.left ?? 0}px 0`}
-                style:width={`${pill?.width ?? 0}px`}
-                style:opacity={pill ? 1 : 0}
-                style:transition={ready ? undefined : 'none'}
-            ></span>
+            <TravelingPill container={nav} {measure} track={pathname} axis="x" />
             {#each links as link (link.href)}
                 <a
                     href={link.href}
@@ -170,7 +121,7 @@
             </Button>
             <Button
                 variant="ghost"
-                href="https://github.com/mielsense/mielui"
+                href={GITHUB_URL}
                 target="_blank"
                 rel="noreferrer"
                 aria-label="Star mielui on GitHub"

@@ -1,5 +1,5 @@
 import { builtInThemePresets } from '@mielui/svelte/themes/builtin-presets';
-import { readStudioStorage, removeStudioStorage, writeStudioStorage } from '../storage';
+import { readStorage, removeStorage, writeStorage } from '$lib/storage';
 import {
     DEFAULT_FOUNDATION_COLORS,
     DEFAULT_ROLE_WEIGHTS,
@@ -35,7 +35,7 @@ function withoutLegacyDefaults(
 
 export function createThemeEditorStorage(state: ThemeEditorState) {
     function loadStudioExtensions() {
-        const raw = readStudioStorage(STUDIO_EXTENSIONS_KEY);
+        const raw = readStorage(STUDIO_EXTENSIONS_KEY);
         if (!raw) {
             return;
         }
@@ -149,7 +149,7 @@ export function createThemeEditorStorage(state: ThemeEditorState) {
                 state.interactiveCursor = value.interactiveCursor;
             }
         } catch {
-            removeStudioStorage(STUDIO_EXTENSIONS_KEY);
+            removeStorage(STUDIO_EXTENSIONS_KEY);
         }
     }
 
@@ -183,7 +183,8 @@ export function createThemeEditorStorage(state: ThemeEditorState) {
             primaryStroke: state.primaryStroke,
             interactiveCursor: state.interactiveCursor
         };
-        writeStudioStorage(STUDIO_EXTENSIONS_KEY, JSON.stringify(extensions));
+        writeStorage(STUDIO_EXTENSIONS_KEY, JSON.stringify(extensions));
     }
+
     return { load: loadStudioExtensions, save: saveStudioExtensions };
 }

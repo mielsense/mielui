@@ -13,7 +13,6 @@
     import HugeiconsIcon from '@mielui/svelte/hugeicons-icon';
     import { mode, toggleMode } from 'mode-watcher';
     import { resolve } from '$app/paths';
-    import { page } from '$app/state';
     import GitHubBlack from '$lib/assets/GitHub_Invertocat_Black.svg';
     import GitHubWhite from '$lib/assets/GitHub_Invertocat_White.svg';
     import { components } from '$lib/components';
@@ -28,7 +27,7 @@
 
     import type { PageData } from './$types';
 
-    const { data }: { data: PageData } = $props();
+    let { data }: { data: PageData } = $props();
 
     const title = 'mielui · Premium Svelte components you own';
     const description = `${components.length} Svelte 5 components. Restyle all of them from a handful of design tokens.`;
@@ -82,11 +81,6 @@
             description: 'Every component reads the same tokens, so one theme restyles all of them.'
         }
     ];
-
-    $effect(() => {
-        page.url.pathname;
-        mobileMenuOpen = false;
-    });
 </script>
 
 <svelte:head>
