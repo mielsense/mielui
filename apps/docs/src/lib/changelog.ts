@@ -23,6 +23,12 @@ export type ChangelogRelease = {
 const LLM_TYPE = 'llm';
 const DOCS_TYPE = 'docs';
 const LEADING_TYPES = ['breaking', 'feature', 'fix'];
+const SECTION_TITLES: Record<string, string> = {
+    breaking: 'Breaking changes',
+    feature: 'Features',
+    fix: 'Fixes',
+    docs: 'Docs'
+};
 
 const sources = import.meta.glob<string>('../../../../changelog/*/*.md', {
     eager: true,
@@ -70,6 +76,10 @@ function typeRank(type: string): number {
     return index === -1 ? LEADING_TYPES.length : index;
 }
 
+function sectionTitle(type: string): string {
+    return SECTION_TITLES[type] ?? titleCase(type);
+}
+
 function isUnreleased(version: string): boolean {
     return version.localeCompare(pkg.version, undefined, { numeric: true }) > 0;
 }
@@ -95,7 +105,7 @@ export const changelogReleases: ChangelogRelease[] = changelogVersions.flatMap((
             sections: entries.map((entry) => {
                 return {
                     type: entry.type,
-                    title: titleCase(entry.type),
+                    title: sectionTitle(entry.type),
                     content: entry.content,
                     count: entry.content.match(/^- /gm)?.length ?? 0
                 };
@@ -151,7 +161,7 @@ export function changelogMarkdown(version: string): string | undefined {
                   `Large changes for this release have an LLM context page at [/changelog/${version}/llm.md](/changelog/${version}/llm.md).`
               ]
             : []),
-        ...entries.flatMap((entry) => ['', `## ${titleCase(entry.type)}`, '', entry.content]),
+        ...entries.flatMap((entry) => ['', `## ${sectionTitle(entry.type)}`, '', entry.content]),
         ''
     ].join('\n');
 }
@@ -168,7 +178,7 @@ export function changelogDocsMarkdown(): string {
                 `## ${version}${isUnreleased(version) ? ' · Unreleased' : ''}`,
                 '',
                 ...entries.flatMap((entry) => {
-                    return [`### ${titleCase(entry.type)}`, '', entry.content, ''];
+                    return [`### ${sectionTitle(entry.type)}`, '', entry.content, ''];
                 })
             ];
         })

@@ -87,7 +87,7 @@
                 <button
                     type="button"
                     aria-label={shell.collapsed ? 'Show sidebar' : 'Hide sidebar'}
-                    aria-pressed={hasSidebar ? !shell.collapsed : undefined}
+                    aria-keyshortcuts="Meta+B Control+B"
                     disabled={!hasSidebar}
                     class={`${itemClass} disabled:pointer-events-none disabled:opacity-60`}
                     onclick={shell.toggle}
@@ -138,7 +138,7 @@
             </Tooltip.Trigger>
             <Tooltip.Content>Search</Tooltip.Content>
         </Tooltip.Root>
-        <ThemeToggle />
+        <ThemeToggle placement="right" class="size-9" />
         <Tooltip.Root placement="right">
             <Tooltip.Trigger>
                 <a

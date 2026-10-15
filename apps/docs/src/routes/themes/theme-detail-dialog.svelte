@@ -87,8 +87,7 @@
                 <div class="flex flex-wrap gap-2">
                     <CopyButton
                         text={css}
-                        label="Copy CSS"
-                        copiedLabel="CSS copied"
+                        labels={{ copy: 'Copy CSS', copied: 'CSS copied' }}
                         variant="outline"
                         size="md"
                     >
@@ -96,8 +95,7 @@
                     </CopyButton>
                     <CopyButton
                         text={json}
-                        label="Copy JSON"
-                        copiedLabel="JSON copied"
+                        labels={{ copy: 'Copy JSON', copied: 'JSON copied' }}
                         variant="outline"
                         size="md"
                     >

@@ -93,7 +93,7 @@
             </Card.Header>
             <Card.Content class="flex flex-col gap-5">
                 <TaskSteps
-                    label="Collection run"
+                    labels={{ list: 'Collection run' }}
                     steps={model.collectionSteps}
                     current={model.collectionStep}
                 />

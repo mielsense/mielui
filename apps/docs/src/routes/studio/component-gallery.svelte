@@ -190,7 +190,7 @@
                     </div>
                     <div class="flex flex-wrap items-center gap-2">
                         <Button disabled>Unavailable</Button>
-                        <Button loading loadingLabel="Saving">Save</Button>
+                        <Button loading labels={{ loading: 'Saving' }}>Save</Button>
                     </div>
                     <div class="flex flex-wrap gap-2">
                         <Badge variant="success">Active</Badge>

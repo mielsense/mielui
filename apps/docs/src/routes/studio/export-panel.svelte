@@ -138,10 +138,10 @@
             </Tabs.Content>
         </Tabs.Root>
         <Sheet.Footer>
-            <CopyButton text={json} label="Copy JSON" variant="outline" size="md">
+            <CopyButton text={json} labels={{ copy: 'Copy JSON' }} variant="outline" size="md">
                 Copy JSON
             </CopyButton>
-            <CopyButton text={css} label="Copy CSS" variant="primary" size="md"
+            <CopyButton text={css} labels={{ copy: 'Copy CSS' }} variant="primary" size="md"
                 >Copy CSS</CopyButton
             >
         </Sheet.Footer>

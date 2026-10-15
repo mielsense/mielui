@@ -127,7 +127,7 @@
         </div>
     </main>
 {:else}
-    <main
+    <div
         class="fixed inset-0 isolate flex overflow-clip [--docs-row-height:calc(var(--spacing)*14)] [--docs-content:var(--color-card)] [--docs-pill:var(--color-wash)] [--docs-rule:var(--color-border)] [--docs-side:var(--color-card)] [--docs-soft:var(--color-wash)]"
     >
         <div aria-hidden="true" class="absolute inset-0 -z-10 bg-[#060606]"></div>
@@ -155,7 +155,7 @@
                                 {/snippet}
                             </Sidebar>
                         {/if}
-                        <div
+                        <main
                             data-shell-plate
                             class="relative flex min-h-0 min-w-0 flex-1 flex-col overflow-clip"
                         >
@@ -193,10 +193,10 @@
                             {#if hasSidebar}
                                 <PageDock />
                             {/if}
-                        </div>
+                        </main>
                     {/if}
                 </div>
             </div>
         </div>
-    </main>
+    </div>
 {/if}

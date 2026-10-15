@@ -114,8 +114,24 @@ export const tokenGroups = [
 ];
 
 export const themeJsonFields = [
-    "`foundation.light` and `foundation.dark` hold each mode's base, border, background, secondary, foreground, foregroundMuted, and onPrimary colors.",
-    '`typography` contains headerSize, headerWeight, and roleWeights for body, label, button, badge, and description text.',
-    '`tokens.shared`, `tokens.light`, and `tokens.dark` hold raw token overrides, including per-mode values for `--color-primary`.',
-    '`chrome` controls borders, edgeHighlight, surfaceShadows, controlShadows, dialogShadows, travelingHighlight, primaryStroke, and interactiveCursor. Turning off travelingHighlight keeps the selected fill and removes its movement.'
+    {
+        label: 'Base fields',
+        value: '`version`, `slug`, `name`, `description`, `brand`, `neutral`, `radius`, `density`, `motion`, `fontSans`, `fontMono`, and `fontHeader` are required. `publisher` is optional.'
+    },
+    {
+        label: 'foundation',
+        value: "`light` and `dark` hold each mode's base, border, background, secondary, foreground, foregroundMuted, onPrimary, and buttonForeground colors."
+    },
+    {
+        label: 'typography',
+        value: 'headerSize, headerWeight, and roleWeights for body, label, button, badge, and description text.'
+    },
+    {
+        label: 'tokens',
+        value: '`shared`, `light`, and `dark` hold raw token overrides keyed by custom property, including per-mode values for `--color-primary`.'
+    },
+    {
+        label: 'chrome',
+        value: 'borders, edgeHighlight, surfaceShadows, controlShadows, dialogShadows, travelingHighlight, primaryStroke, and interactiveCursor. Turning off travelingHighlight keeps the selected fill and removes its movement.'
+    }
 ];

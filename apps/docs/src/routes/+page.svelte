@@ -2,16 +2,12 @@
     import {
         ArrowRight02Icon as ArrowRight,
         Menu01Icon as Menu,
-        Moon02Icon as Moon,
-        Sun03Icon as Sun,
         Cancel01Icon as X
     } from '@hugeicons/core-free-icons';
-    import { morph } from '@mielui/svelte/actions/morph';
     import { Button } from '@mielui/svelte/components/button';
     import { CodeBlock } from '@mielui/svelte/components/code-block';
     import * as Sheet from '@mielui/svelte/components/sheet';
     import HugeiconsIcon from '@mielui/svelte/hugeicons-icon';
-    import { mode, toggleMode } from 'mode-watcher';
     import { resolve } from '$app/paths';
     import GitHubBlack from '$lib/assets/GitHub_Invertocat_Black.svg';
     import GitHubWhite from '$lib/assets/GitHub_Invertocat_White.svg';
@@ -23,13 +19,14 @@
     import HomeDemos from '$lib/components/demos/demos.svelte';
     import HomeShowcase from '$lib/components/home/showcase.svelte';
     import Logo from '$lib/components/logo.svelte';
-    import { formatStarCount } from '$lib/github';
+    import ThemeToggle from '$lib/components/shell/theme-toggle.svelte';
+    import { formatStarCount, GITHUB_URL } from '$lib/github';
 
     import type { PageData } from './$types';
 
     let { data }: { data: PageData } = $props();
 
-    const title = 'mielui · Premium Svelte components you own';
+    const title = 'Mielui · Svelte components you own';
     const description = `${components.length} Svelte 5 components. Restyle all of them from a handful of design tokens.`;
 
     let mobileMenuOpen = $state(false);
@@ -118,7 +115,7 @@
             <div class="flex items-center justify-end gap-2">
                 <Button
                     variant="outline"
-                    href="https://github.com/mielsense/mielui"
+                    href={GITHUB_URL}
                     target="_blank"
                     rel="noreferrer"
                     aria-label="Star mielui on GitHub"
@@ -128,20 +125,7 @@
                     <img src={GitHubBlack} alt="" class="size-4 dark:hidden" />
                     <span class="tabular-nums">{formatStarCount(data.starCount ?? null)}</span>
                 </Button>
-                <Button
-                    variant="ghost"
-                    size="icon"
-                    onclick={toggleMode}
-                    aria-label={mode.current === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
-                >
-                    <span
-                        class="inline-flex size-4"
-                        aria-hidden="true"
-                        use:morph={{key: mode.current}}
-                    >
-                        <HugeiconsIcon icon={mode.current === 'dark' ? Moon : Sun} size={16} />
-                    </span>
-                </Button>
+                <ThemeToggle class="size-[var(--size-icon-md)]" />
                 <Sheet.Trigger
                     class="@3xl:hidden"
                     aria-label="Open navigation menu"

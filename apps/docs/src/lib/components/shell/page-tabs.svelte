@@ -19,15 +19,21 @@
             id: 'current',
             href: page.url.pathname,
             label:
-                page.status >= 400
-                    ? 'Page not found'
-                    : (getBreadcrumbs(page.url.pathname).at(-1)?.label ?? 'Docs')
+                errorLabel(page.status) ?? getBreadcrumbs(page.url.pathname).at(-1)?.label ?? 'Docs'
         }
     ]);
     const tabs = $derived(shell.tabs.tabs.length ? shell.tabs.tabs : fallback);
     const active = $derived(shell.tabs.tabs.length ? shell.tabs.active : 'current');
 
     const settle = springEase(550, 40);
+
+    function errorLabel(status: number) {
+        if (status === 404) {
+            return 'Page not found';
+        }
+
+        return status >= 400 ? 'Error' : undefined;
+    }
 
     function settleDuration() {
         return getCssDuration(document.documentElement, '--motion-duration-spring', 280);

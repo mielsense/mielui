@@ -11,7 +11,7 @@
 </script>
 
 <svelte:head>
-    <title>{page.status} · mielui</title>
+    <title>Mielui · {notFound ? 'Page not found' : 'Error'}</title>
     <meta name="robots" content="noindex" />
 </svelte:head>
 

@@ -20,12 +20,6 @@ export type TokenIndex = {
 };
 
 const VAR_PATTERN = /var\(\s*(--[\w-]+)/g;
-const SCRIPTED_USAGE: UsageRule[] = [
-    {
-        selector: '[data-ui="switch"]',
-        tokens: new Set(['--motion-duration-switch', '--motion-switch-stretch'])
-    }
-];
 const MAX_ALIAS_DEPTH = 8;
 
 function extractVarNames(text: string): string[] {
@@ -358,21 +352,6 @@ export function buildTokenIndex(inputs: RuleInput[], editable: ReadonlySet<strin
             selector: input.selector,
             tokens
         });
-    }
-
-    for (const rule of SCRIPTED_USAGE) {
-        const tokens = new Set(
-            [...rule.tokens].filter((token) => {
-                return editable.has(token);
-            })
-        );
-
-        if (tokens.size > 0) {
-            rules.push({
-                selector: rule.selector,
-                tokens
-            });
-        }
     }
 
     return {

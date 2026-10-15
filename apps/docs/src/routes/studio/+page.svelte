@@ -70,7 +70,7 @@
     <Inspector />
 </Sidebar>
 
-<div data-docs-page class="flex min-h-0 min-w-0 flex-1 flex-col text-foreground">
+<main data-docs-page class="flex min-h-0 min-w-0 flex-1 flex-col text-foreground">
     <h1 class="sr-only">Theme Studio</h1>
     <section
         aria-label="Theme preview"
@@ -174,7 +174,7 @@
             {/if}
         </div>
     </section>
-</div>
+</main>
 
 <ExportPanel
     bind:open={editor.state.setupOpen}

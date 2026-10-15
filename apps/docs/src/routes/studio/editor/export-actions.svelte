@@ -9,8 +9,7 @@
 <div data-studio-export class="flex shrink-0 flex-col gap-2 px-3 pt-3 pb-4">
     <CopyButton
         text={editor.shareLink}
-        label="Copy a link that opens this theme in the Studio"
-        copiedLabel="Link copied"
+        labels={{ copy: 'Copy a link that opens this theme in the Studio', copied: 'Link copied' }}
         variant="ghost"
         size="md"
         class="w-full"
