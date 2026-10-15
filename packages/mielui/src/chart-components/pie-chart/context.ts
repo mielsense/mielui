@@ -20,6 +20,7 @@ type PieContext = {
     color(key: string): string;
     label(key: string): string;
     format(item: PieChartDatum): string;
+    percentage(item: PieChartDatum): number;
 };
 
 const { set: setPieContext, get: getPieContext } = createContext<PieContext>('pie-chart');

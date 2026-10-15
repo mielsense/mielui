@@ -14,10 +14,10 @@ export const manifest: Manifest = {
         'components/radio-group/manifest.ts'
     ],
     components: ['_internal/utils'],
-    shared: ['utils.cn', 'utils.createContext'],
+    shared: ['utils.cn', 'utils.createContext', 'utils.pressable'],
     peerDependencies: {
         '@floating-ui/dom': '1.7.6',
         cnfast: '^0.0.8',
-        svelte: '^5.0.0'
+        svelte: '^5.56.0'
     }
 };

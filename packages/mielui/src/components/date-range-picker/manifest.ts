@@ -14,7 +14,7 @@ export const manifest: Manifest = {
         'components/date-range-picker/index.ts',
         'components/date-range-picker/manifest.ts'
     ],
-    components: ['_internal/utils', 'date-picker', 'range-calendar'],
+    components: ['_internal/utils', 'date-picker', 'range-calendar', 'calendar', 'button', 'input'],
     shared: ['utils.cn', 'hugeicons-icon'],
     peerDependencies: {
         'bits-ui': '^2.19.2',

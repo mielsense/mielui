@@ -10,6 +10,7 @@
         ...rest
     }: OTPFieldCellProps = $props();
 </script>
+
 <PinInput.Cell
     {...rest}
     {cell}

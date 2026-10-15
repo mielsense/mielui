@@ -13,7 +13,7 @@ export type ResponseStreamProps = {
     characterChunkSize?: number;
     /** Called when the stream ends. */
     onComplete?: () => void;
-    /** Called with the error when the action fails. */
+    /** Called with the error when the async source throws. */
     onError?: (error: unknown) => void;
     /** HTML element to render. */
     as?: keyof SvelteHTMLElements;

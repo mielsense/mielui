@@ -36,8 +36,8 @@ function motionDuration(node: Element, variableName: string, fallback: number) {
 }
 
 /**
- * Unit-interval cubic-bezier easing with CSS-compatible control points.
- * Used for the iOS drawer curve, which Svelte's built-in easings cannot express.
+ * Unit-interval cubic-bezier easing with CSS-compatible control points, for
+ * curves Svelte's built-in easings cannot express, such as the drawer curve.
  */
 export function cubicBezier(x1: number, y1: number, x2: number, y2: number): EasingFunction {
     return (t: number) => {
@@ -77,8 +77,8 @@ const drawerEase = cubicBezier(0.32, 0.72, 0, 1);
 
 /**
  * Unit-step response of a damped spring, time-normalized so it settles at `t = 1`.
- * The transition helpers share one family with the `--ease-spring-*` curves in
- * ui.css: panel 550/38, layout 550/40, pop 400/26, pop exit 380/28.
+ * The transition helpers use the panel (550/38) and pop (400/26) members of the
+ * spring family that ui.css expresses as the `--ease-spring-*` curves.
  */
 export function springEase(stiffness: number, damping: number): EasingFunction {
     const frequency = Math.sqrt(stiffness);
@@ -272,7 +272,7 @@ export function dialogIn(node: Element) {
     });
 }
 
-/** Dialog exit: softer and faster than the entrance, retracing a quarter of its path. */
+/** Dialog exit: a short ease-out back to the entrance's start scale and offset. */
 export function dialogOut(node: Element) {
     return panelTransition(node, '--motion-duration-modal-out', 150, {
         ...MODAL_MOVEMENT,

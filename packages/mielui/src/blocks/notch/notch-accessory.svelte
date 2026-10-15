@@ -4,10 +4,17 @@
     import { cn } from '@mielui/svelte/utils';
     import { onMount } from 'svelte';
     import type { NotchAccessoryProps } from '.';
-    import { closePopover, notchContext, openPopover } from './context';
+    import {
+        closePopover,
+        notchContext,
+        notchSatelliteHandlers,
+        openPopover,
+        spacingInPixels
+    } from './context';
 
     let { children, class: className, ...rest }: NotchAccessoryProps = $props();
     const context = notchContext.get();
+    const handlers = notchSatelliteHandlers(context);
     const reduced = useReducedMotion();
     let host = $state<HTMLElement | null>(null);
     let ready = $state(false);
@@ -30,10 +37,7 @@
             return;
         }
         duration = getCssDuration(host, '--motion-duration-panel', 180) / 1000;
-        const token = getComputedStyle(host).getPropertyValue('--spacing').trim();
-        const spacing = Number.parseFloat(token);
-        const rootSize = Number.parseFloat(getComputedStyle(document.documentElement).fontSize);
-        gap = Number.isFinite(spacing) ? spacing * (token.endsWith('rem') ? rootSize : 1) * 2 : 8;
+        gap = spacingInPixels(host, 4) * 2;
     }
 
     onMount(() => {
@@ -76,22 +80,6 @@
             finishExit();
         }
     });
-
-    function focusIn(event: FocusEvent) {
-        if (event.relatedTarget instanceof HTMLElement && !context.contains(event.relatedTarget)) {
-            context.returnFocus = event.relatedTarget;
-        }
-        context.focused = true;
-    }
-
-    function focusOut() {
-        queueMicrotask(() => {
-            context.focused = context.contains(document.activeElement);
-            if (context.mode === 'peek' && !context.focused && !context.hovered) {
-                context.open = false;
-            }
-        });
-    }
 </script>
 
 <motion.div
@@ -102,27 +90,18 @@
     inert={!context.open}
     aria-hidden={!context.open}
     initial={false}
-    animate={{ opacity: context.open ? 1 : 0, x: horizontal ? 0 : offset, y: horizontal ? offset : 0 }}
+    animate={{
+        opacity: context.open ? 1 : 0,
+        x: horizontal ? 0 : offset,
+        y: horizontal ? offset : 0
+    }}
     transition={{ duration: reduced.current ? 0 : Math.min(duration, 0.18) }}
     onAnimationComplete={finishExit}
-    onfocusin={focusIn}
-    onfocusout={focusOut}
-    onpointerenter={() => {
-        context.cancelCollapse();
-        context.hovered = true;
-    }}
-    onpointerleave={() => {
-        context.hovered = false;
-        if (context.mode === 'peek' && !context.focused) {
-            context.scheduleCollapse();
-        }
-    }}
-    onkeydown={(event: KeyboardEvent) => {
-        if (event.key === 'Escape' && !event.defaultPrevented) {
-            event.preventDefault();
-            context.open = false;
-        }
-    }}
+    onfocusin={handlers.focusin}
+    onfocusout={handlers.focusout}
+    onpointerenter={handlers.pointerenter}
+    onpointerleave={handlers.pointerleave}
+    onkeydown={handlers.keydown}
     class="fixed m-0 max-w-[calc(100vw-var(--spacing)*4)] overflow-visible border-0 bg-transparent p-0 text-foreground [inset:auto]"
     style={position}
 >

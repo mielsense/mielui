@@ -21,7 +21,7 @@ export const manifest: Manifest = {
         '@floating-ui/dom': '1.7.6',
         cnfast: '^0.0.8',
         marked: '^18.0.7',
-        svelte: '^5.0.0',
+        svelte: '^5.56.0',
         'tailwind-merge': '^3.0.0'
     }
 };

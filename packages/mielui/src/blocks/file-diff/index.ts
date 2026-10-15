@@ -81,9 +81,8 @@ export type FileDiffTopBarProps = {
     /** Deletion count. Falls back to the Root count when omitted. */
     deletions?: number;
     /**
-     * Trailing actions, pinned to the right edge. Passing children takes
-     * over the row: the default filename and counts are omitted, so compose
-     * them back explicitly with `Filename` and `PlusMinus` as needed.
+     * Replaces the default row. The filename and counts are omitted, so compose them back with
+     * `Filename` and `PlusMinus` around any actions.
      */
     children?: Snippet;
 } & DefaultProps &
@@ -110,7 +109,7 @@ export type FileDiffContentProps = {
     Omit<HTMLAttributes<HTMLElement>, 'children'>;
 
 export type FileDiffRowProps = {
-    /** Row kind. Drives the tint, gutter bar, and sign. */
+    /** Row kind. Drives the tint, line-number tone, and sign. */
     type?: FileDiffChangeType;
     /** Old-file line number. Empty when nullish. */
     oldLine?: number | null;

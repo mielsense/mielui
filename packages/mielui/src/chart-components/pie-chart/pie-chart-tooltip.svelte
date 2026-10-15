@@ -105,11 +105,17 @@
             className,
             following &&
                 context.motion &&
+                context.active !== context.focused &&
                 'transition-[translate] [transition-duration:var(--motion-duration-spring)] ease-[var(--ease-spring-layout)] motion-reduce:transition-none'
         )}
     >
         {#if children}
-            {@render children({ item, label: context.label(item.key), value: context.format(item), percentage: context.total ? item.value / context.total * 100 : 0 })}
+            {@render children({
+                item,
+                label: context.label(item.key),
+                value: context.format(item),
+                percentage: context.percentage(item)
+            })}
         {:else}
             <div class="flex items-center gap-2">
                 <span
@@ -119,7 +125,10 @@
                 <span class="flex-1 text-foreground-muted">{context.label(item.key)}</span>
                 <span
                     class="ml-4 font-medium tabular-nums"
-                    use:numberShuffle={{ value: item.value, format: (value) => context.format({ ...item, value }) }}
+                    use:numberShuffle={{
+                        value: item.value,
+                        format: (value) => context.format({ ...item, value })
+                    }}
                 >
                     {context.format(item)}
                 </span>

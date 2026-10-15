@@ -4,6 +4,7 @@
 
     let { children, class: className, ...rest }: OTPFieldSeparatorProps = $props();
 </script>
+
 <span
     {...rest}
     data-ui="otp-field-separator"

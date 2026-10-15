@@ -6,11 +6,15 @@
     let { children, class: className, for: htmlFor, ...rest }: NumberFieldLabelProps = $props();
     const context = getNumberFieldContext();
 </script>
+
 <label
     {...rest}
     for={htmlFor ?? context.id}
     data-ui="number-field-label"
-    class={cn(className, 'w-fit text-foreground [font-size:var(--font-size-label)] [font-weight:var(--font-weight-label)] [letter-spacing:var(--tracking-label)] leading-label')}
+    class={cn(
+        className,
+        'w-fit text-foreground [font-size:var(--font-size-label)] [font-weight:var(--font-weight-label)] [letter-spacing:var(--tracking-label)] leading-label'
+    )}
 >
     {@render children?.()}
 </label>

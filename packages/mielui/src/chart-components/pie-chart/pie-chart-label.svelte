@@ -6,6 +6,7 @@
     let { children, class: className, ...rest }: PieChartLabelProps = $props();
     const context = getPieContext();
     const active = $derived(context.data.find((item) => item.key === context.active));
+    const totalFormatter = new Intl.NumberFormat();
 </script>
 
 <text
@@ -14,12 +15,15 @@
     y={0}
     text-anchor="middle"
     dominant-baseline="middle"
-    class={cn(className, 'fill-current text-3xl font-medium tabular-nums [letter-spacing:var(--tracking-header)]')}
+    class={cn(
+        className,
+        'fill-current text-3xl font-medium tabular-nums [letter-spacing:var(--tracking-header)]'
+    )}
     {...rest}
 >
     {#if children}
         {@render children({ total: context.total, active })}
     {:else}
-        {new Intl.NumberFormat().format(context.total)}
+        {totalFormatter.format(context.total)}
     {/if}
 </text>

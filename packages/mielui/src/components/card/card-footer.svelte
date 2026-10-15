@@ -2,18 +2,11 @@
     import { cn } from '@mielui/svelte/utils';
     import { untrack } from 'svelte';
     import type { CardFooterProps } from '.';
-    import { type CardFooterSlot, getCardContext } from './context.svelte';
+    import { type CardFooterSlot, findCardContext } from './context.svelte';
 
     let { children, class: className, ...rest }: CardFooterProps = $props();
 
-    function readCardContext() {
-        try {
-            return getCardContext();
-        } catch {
-            return undefined;
-        }
-    }
-    const card = readCardContext();
+    const card = findCardContext();
     const inInsetChrome = $derived(card?.variant === 'inset');
 
     const footerSlot = $state<CardFooterSlot>({

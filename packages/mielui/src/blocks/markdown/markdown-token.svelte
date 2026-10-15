@@ -17,6 +17,9 @@
     let { tokens }: { tokens: MarkdownToken[] } = $props();
     const labels = findMarkdownLabels();
 
+    const silentTokens = new Set(['space', 'def', 'checkbox']);
+    const visibleTokens = $derived(tokens.filter((token) => !silentTokens.has(token.type)));
+
     const taskCheckboxClass =
         // token-lint-disable-next-line no-literal-length: checkbox aligns to surrounding text
         'absolute top-[0.32em] -start-5 size-3.5 appearance-none rounded-[calc(var(--radius-sm)*0.5)] border-[length:var(--border-size)] border-[var(--mielui-control-border)] bg-card checked:border-primary checked:bg-primary';
@@ -64,10 +67,8 @@
     {/if}
 {/snippet}
 
-{#each tokens as token, index (tokenKey(token, index))}
-    {#if token.type === 'space' || token.type === 'def'}
-    <!-- Markdown spacing and reference definitions do not produce visible nodes. -->
-    {:else if token.type === 'heading'}
+{#each visibleTokens as token, index (tokenKey(token, index))}
+    {#if token.type === 'heading'}
         {#if token.depth === 1}
             <Typography.H1 class="mb-3 mt-7">
                 <Self tokens={token.tokens ?? []} />
@@ -183,8 +184,6 @@
                 {/each}
             </ul>
         {/if}
-    {:else if token.type === 'checkbox'}
-    <!-- Task-list checkboxes are rendered by the containing list item. -->
     {:else if token.type === 'blockquote'}
         <blockquote
             class="my-4 border-s-[length:var(--border-size)] border-border ps-4 text-foreground-muted"
@@ -194,7 +193,6 @@
     {:else if token.type === 'hr'}
         <hr class="my-6 border-0 border-t-[length:var(--border-size)] border-border" />
     {:else if token.type === 'table'}
-        <!-- Named overflow regions need keyboard scrolling. -->
         <!-- svelte-ignore a11y_no_noninteractive_tabindex -->
         <div
             role="region"

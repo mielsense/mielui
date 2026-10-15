@@ -16,7 +16,7 @@ export const manifest: Manifest = {
     components: [],
     shared: ['transition'],
     peerDependencies: {
-        svelte: '^5.0.0',
+        svelte: '^5.56.0',
         'tailwind-merge': '^3.0.0',
         'tailwind-variants': '^3.0.0'
     }

@@ -66,9 +66,8 @@
     aria-busy={state === 'running'}
     class={cn(
         className,
-        variant === 'quiet'
-            ? 'inline-block max-w-full text-sm text-foreground'
-            : 'w-full max-w-full text-sm text-foreground'
+        'max-w-full text-sm text-foreground',
+        variant === 'quiet' ? 'inline-block' : 'w-full'
     )}
     {...rest}
 >

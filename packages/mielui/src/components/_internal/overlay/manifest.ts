@@ -34,6 +34,6 @@ export const manifest: Manifest = {
     peerDependencies: {
         cnfast: '0.0.8',
         '@floating-ui/dom': '1.7.6',
-        svelte: '^5.0.0'
+        svelte: '^5.56.0'
     }
 };

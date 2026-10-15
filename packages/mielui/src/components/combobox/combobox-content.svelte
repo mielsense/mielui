@@ -77,7 +77,9 @@
         customAnchor={anchor}
         preventScroll={state.open && lockScroll && !context.hoverable}
         onInteractOutside={(event) => {
-            if (!allowClickOutside || (event.target instanceof Node && context.anchor?.contains(event.target))) {
+            const insideAnchor =
+                event.target instanceof Node && context.anchor?.contains(event.target);
+            if (!allowClickOutside || insideAnchor) {
                 event.preventDefault();
                 return;
             }
@@ -92,7 +94,10 @@
             >
                 <!-- svelte-ignore a11y_no_noninteractive_tabindex -->
                 <div
-                    {...mergeProps(props, { onmouseenter: context.cancelHover, onmouseleave: context.hoverLeave })}
+                    {...mergeProps(props, {
+                        onmouseenter: context.cancelHover,
+                        onmouseleave: context.hoverLeave
+                    })}
                     bind:this={context.panel}
                     dir={rest.dir}
                     {role}

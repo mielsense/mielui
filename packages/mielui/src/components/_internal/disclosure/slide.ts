@@ -7,7 +7,7 @@ const layoutSpring = springEase(550, 40);
 export function disclosureSlide(node: Element): TransitionConfig {
     const slide = themedSlide(node, {
         durationVar: '--motion-duration-spring',
-        fallback: 350
+        fallback: 280
     });
 
     return {

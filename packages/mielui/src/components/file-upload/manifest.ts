@@ -30,6 +30,7 @@ export const manifest: Manifest = {
     peerDependencies: {
         '@humanspeak/svelte-motion': '^1.2.1',
         '@hugeicons/core-free-icons': '^4.3.0',
+        cnfast: '^0.0.8',
         svelte: '^5.56.0'
     }
 };

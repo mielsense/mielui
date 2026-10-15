@@ -4,6 +4,7 @@
     import FormField from '../date-picker/date-picker-form-field.svelte';
     import Segment from '../date-picker/date-picker-segment.svelte';
     import { fieldSegments } from '../date-picker/segments';
+    import { dateFieldClasses } from '../date-picker/variants';
     import { input } from '../input/variants';
 
     let {
@@ -25,12 +26,12 @@
     data-ui="date-range-picker-input"
     class={cn(
         className,
-        'inline-flex w-auto min-w-max flex-1 items-center gap-0.5 py-1 has-[:focus]:border-primary has-[:focus]:shadow-[var(--focus-ring)] data-disabled:cursor-not-allowed data-disabled:border-[var(--color-input)] data-disabled:opacity-[var(--opacity-disabled)] data-invalid:border-error data-invalid:has-[:focus]:shadow-[0_0_0_calc(var(--border-size)*3)_color-mix(in_srgb,var(--color-error)_30%,transparent)]',
+        dateFieldClasses,
         input({ variant: 'outline' })
     )}
 >
     {#snippet children(data)}
-        {const segments = fieldSegments(data.segments)}
+        {const segments = $derived(fieldSegments(data.segments))}
         {#if content}
             {@render content({ ...data, segments })}
         {:else}

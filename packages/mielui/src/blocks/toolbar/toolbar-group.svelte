@@ -15,7 +15,7 @@
     const groupClass = $derived(
         cn(
             className,
-            orientation?.() === 'vertical' && 'flex-col items-stretch',
+            orientation() === 'vertical' && 'flex-col items-stretch',
             'flex items-center gap-1'
         )
     );

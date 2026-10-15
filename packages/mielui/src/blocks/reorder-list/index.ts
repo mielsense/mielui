@@ -26,11 +26,11 @@ export type ReorderListProps<T> = {
     getId: (item: T) => string;
     /** Returns the name announced for an item. */
     getLabel: (item: T) => string;
-    /** Content rendered inside. */
+    /** Renders an item's content beside the default handle. */
     children?: Snippet<[T]>;
-    /** Renders one item. */
+    /** Replaces the default row. Compose `Item`, `Handle`, and `Content` inside it. */
     row?: Snippet<[T]>;
-    /** Accessible name. */
+    /** Accessible name of the list. */
     label: string;
     /** Prevents interaction and dims the control. */
     disabled?: boolean;
@@ -43,9 +43,9 @@ export type ReorderListProps<T> = {
 } & Omit<HTMLAttributes<HTMLDivElement>, 'children'>;
 
 export type ReorderListItemProps = HTMLAttributes<HTMLDivElement> & {
-    /** Id of the element. */
+    /** The item's id from `getId`. It is not applied as the element's DOM id. */
     id: string;
-    /** Accessible name. */
+    /** Name of the item, used as the handle's accessible name. */
     label: string;
 };
 export type ReorderListHandleProps = Omit<HTMLButtonAttributes, 'type'>;

@@ -28,20 +28,35 @@ export type FileUploadSummary = {
     complete: number;
 };
 export type FileUploadLabels = {
+    /** Heading in the empty dropzone. */
     dropzoneTitle?: string;
+    /** Supporting line in the empty dropzone. */
     dropzoneDescription?: string;
+    /** Trigger text while no file is selected. */
     choose?: string;
+    /** Trigger text once files are selected. */
     addMore?: string;
+    /** Accessible name of the file list. */
     list?: string;
+    /** Status while a file uploads. */
     uploading?: string;
+    /** Status once a file has uploaded. */
     uploaded?: string;
+    /** Accessible name of a file's progress bar. */
     uploadingFile?: (name: string) => string;
+    /** Name of the button that removes a file. */
     remove?: string;
+    /** Name of the button that cancels an upload in progress. */
     cancel?: string;
+    /** Name of the button that retries a failed upload. */
     retry?: string;
+    /** Error for a file whose type `accept` rejects. */
     typeRejected?: string;
+    /** Error for a file larger than `maxSize`. */
     tooLarge?: (megabytes: number) => string;
+    /** Error for a file that is already selected. */
     duplicate?: string;
+    /** Error for a file beyond `maxFiles`. */
     tooMany?: (maxFiles: number) => string;
     /** Shown on a file whose upload failed without an error message. */
     uploadFailed?: string;

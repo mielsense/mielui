@@ -19,10 +19,9 @@
     let { children, class: className, onclick, ...rest }: ToolTriggerProps = $props();
     const labels = findToolLabels();
     const tool = getToolContext();
-    const id = tool.id;
     const durationMatch = $derived(tool.duration?.match(/^(\d+)(?:\.(\d+))?(ms|s)$/));
     const numericDuration = $derived(Number.parseFloat(tool.duration ?? ''));
-    const canAnimateDuration = $derived(durationMatch !== null && Number.isFinite(numericDuration));
+    const canAnimateDuration = $derived(Boolean(durationMatch) && Number.isFinite(numericDuration));
     const label = $derived.by(() => {
         if (tool.state === 'running') {
             return labels?.()?.running ?? 'Task running';
@@ -47,7 +46,7 @@
     data-ui="tool-trigger"
     use:pressable
     aria-expanded={tool.open}
-    aria-controls={`tool-${id}`}
+    aria-controls={`tool-${tool.id}`}
     onclick={(event) => {
         onclick?.(event);
         if (!event.defaultPrevented) {

@@ -109,6 +109,18 @@ type TravelingHighlightOptions = {
 };
 
 /**
+ * Scale an ancestor transform applies to an element. Layout sizes are whole
+ * pixels, so a difference within rounding is no transform.
+ */
+function renderedScale(rendered: number, layout: number) {
+    if (layout <= 0 || rendered <= 0 || Math.abs(rendered - layout) <= 0.5) {
+        return 1;
+    }
+
+    return rendered / layout;
+}
+
+/**
  * Draws one highlight that travels between the active items in a collection.
  * Geometry is written directly so pointer movement never causes a component render.
  *
@@ -210,12 +222,8 @@ export function travelingHighlight(node: HTMLElement, options: TravelingHighligh
 
         const container = node.getBoundingClientRect();
         const rect = target.getBoundingClientRect();
-        const renderedScaleX =
-            node.offsetWidth > 0 && container.width > 0 ? container.width / node.offsetWidth : 1;
-        const renderedScaleY =
-            node.offsetHeight > 0 && container.height > 0
-                ? container.height / node.offsetHeight
-                : 1;
+        const renderedScaleX = renderedScale(container.width, node.offsetWidth);
+        const renderedScaleY = renderedScale(container.height, node.offsetHeight);
         const x = (rect.left - container.left) / renderedScaleX - node.clientLeft + node.scrollLeft;
         const y = (rect.top - container.top) / renderedScaleY - node.clientTop + node.scrollTop;
         highlight.style.width = `${rect.width / renderedScaleX}px`;

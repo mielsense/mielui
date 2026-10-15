@@ -335,11 +335,14 @@
     onpointerup={handlePointerUp}
     onpointercancel={handlePointerCancel}
     onlostpointercapture={handleLostPointerCapture}
-    class={cn(overlaySurface(context.surface), 'fixed m-0 overflow-hidden border-0 [--mielui-modal-inset:calc(var(--spacing)*var(--mielui-border-inset-scale,1))] bg-card p-0 text-foreground [inset:auto] [clip-path:var(--notch-clip)]',
+    class={cn(
+        overlaySurface(context.surface),
+        'fixed m-0 overflow-hidden border-0 [--mielui-modal-inset:calc(var(--spacing)*var(--mielui-border-inset-scale,1))] bg-card p-0 text-foreground [inset:auto] [clip-path:var(--notch-clip)]',
         context.side === 'top' && 'top-0 left-1/2 -translate-x-1/2',
         context.side === 'bottom' && 'bottom-0 left-1/2 -translate-x-1/2',
         context.side === 'left' && 'left-0 top-1/2 -translate-y-1/2',
-        context.side === 'right' && 'right-0 top-1/2 -translate-y-1/2')}
+        context.side === 'right' && 'right-0 top-1/2 -translate-y-1/2'
+    )}
     style={`--notch-clip:url(#${uid});${style ?? ''}`}
 >
     <div
@@ -362,7 +365,11 @@
             aria-expanded={context.open}
             tabindex={context.open ? -1 : 0}
             inert={context.open}
-            class={cn('absolute inset-0 z-10 flex items-center justify-center text-xs text-foreground-muted outline-none focus-visible:shadow-[var(--focus-ring)]', vertical ? 'px-4' : 'px-0', context.open && 'pointer-events-none opacity-0')}
+            class={cn(
+                'absolute inset-0 z-10 flex items-center justify-center text-xs text-foreground-muted outline-none focus-visible:shadow-[var(--focus-ring)]',
+                vertical ? 'px-4' : 'px-0',
+                context.open && 'pointer-events-none opacity-0'
+            )}
             onclick={expand}
             onfocus={focusExpanded}
         >
@@ -371,7 +378,10 @@
             {:else}
                 <span
                     aria-hidden="true"
-                    class={vertical ? 'h-1 w-10 rounded-full bg-[var(--color-border-strong)]' : 'h-28 w-1 rounded-full bg-[var(--color-border-strong)]'}
+                    class={cn(
+                        'rounded-full bg-[var(--color-border-strong)]',
+                        vertical ? 'h-1 w-10' : 'h-28 w-1'
+                    )}
                 ></span>
             {/if}
         </button>
@@ -387,10 +397,17 @@
         <div
             bind:this={body}
             data-ui="notch-body"
-            style:max-width={vertical && context.actionCount > 0 ? 'calc(100vw - var(--spacing)*28)' : undefined}
-            style:max-height={!vertical && context.actionCount > 0 ? 'calc(100dvh - var(--spacing)*28)' : undefined}
-            class={cn(className, 'relative flex max-w-[calc(100vw-var(--spacing)*8)] max-h-[calc(100dvh-var(--spacing)*8)] flex-col gap-3 overflow-y-auto [&>*]:shrink-0',
-        vertical ? 'w-80 px-10 py-5' : 'w-28 min-h-56 px-5 py-10')}
+            style:max-width={vertical && context.actionCount > 0
+                ? 'calc(100vw - var(--spacing)*28)'
+                : undefined}
+            style:max-height={!vertical && context.actionCount > 0
+                ? 'calc(100dvh - var(--spacing)*28)'
+                : undefined}
+            class={cn(
+                className,
+                'relative flex max-w-[calc(100vw-var(--spacing)*8)] max-h-[calc(100dvh-var(--spacing)*8)] flex-col gap-3 overflow-y-auto [&>*]:shrink-0',
+                vertical ? 'w-80 px-10 py-5' : 'w-28 min-h-56 px-5 py-10'
+            )}
         >
             {@render children?.()}
         </div>

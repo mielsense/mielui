@@ -43,7 +43,6 @@
             value = { ...initialValue };
             open = false;
         },
-
         get disabled() {
             return disabled;
         },

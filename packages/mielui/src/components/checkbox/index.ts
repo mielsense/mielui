@@ -11,7 +11,7 @@ export type CheckboxProps = {
     description?: string;
     /** Prevents interaction and dims the control. */
     disabled?: boolean;
-    /** `primary` fills the checked box with the primary color. */
+    /** `primary` frames the box and its text as a bordered row. */
     variant?: 'default' | 'primary';
     /** Size of the box. */
     size?: 'sm' | 'md' | 'lg';

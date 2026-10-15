@@ -25,7 +25,6 @@
         id={id ?? `field-error-${uid}`}
         {role}
         aria-atomic="true"
-        aria-hidden={!children && messages.length === 0 ? true : undefined}
         transition:themedSlide={{ durationVar: '--motion-duration-press', fallback: 160 }}
         data-ui="field-error"
         data-field-error

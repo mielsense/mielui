@@ -28,11 +28,11 @@
     const mounted = useDeferredClose(() => sheetState.open);
 
     /**
-     * Portal to `<body>` so the sheet escapes ancestor stacking contexts, the same
-     * pattern Dialog uses, and the slide always paints over the page.
+     * Moves the host to `<body>` before the sheet opens, so it escapes ancestor
+     * stacking contexts and Safari never reparents a running transition.
      */
     $effect(() => {
-        if (!portalEl || typeof document === 'undefined') {
+        if (!portalEl) {
             return;
         }
         document.body.appendChild(portalEl);
@@ -53,7 +53,6 @@
     });
 </script>
 
-<!-- Keep the host in body before opening so Safari does not reparent active transitions. -->
 <div bind:this={portalEl} use:visualViewportBounds data-overlay-root>
     <DialogPrimitive.Content
         preventScroll={false}
@@ -92,10 +91,7 @@
                         in:overlayIn
                         out:overlayOut
                         data-ui="sheet-overlay"
-                        class={cn(
-                    // token-lint-disable-next-line no-literal-length
-                    'mielui-overlay-scrim absolute inset-0'
-                )}
+                        class="mielui-overlay-scrim absolute inset-0"
                         aria-hidden="true"
                     ></div>
                     <div
@@ -109,14 +105,13 @@
                         in:sheetIn={{ side }}
                         out:sheetOut={{ side }}
                         class={cn(
-                    className,
-                    overlaySurface(surface),
-                    // token-lint-disable-next-line no-literal-length
-                    `fixed top-[calc(var(--mielui-viewport-top)+0.5rem)] bottom-auto z-[120] flex h-[calc(var(--mielui-viewport-height)-1rem)] w-[calc(100%-1rem)] max-w-sm flex-col overflow-hidden text-foreground shadow-[var(--elevation-float)] will-change-transform [backface-visibility:hidden] ${
-                        side === 'left' ? 'left-2' : 'right-2'
-                    }`,
-                    'mielui-modal-frame'
-                )}
+                            className,
+                            overlaySurface(surface),
+                            // token-lint-disable-next-line no-literal-length
+                            'fixed top-[calc(var(--mielui-viewport-top)+0.5rem)] bottom-auto z-[120] flex h-[calc(var(--mielui-viewport-height)-1rem)] w-[calc(100%-1rem)] max-w-sm flex-col overflow-hidden text-foreground shadow-[var(--elevation-modal)] will-change-transform [backface-visibility:hidden]',
+                            side === 'left' ? 'left-2' : 'right-2',
+                            'mielui-modal-frame'
+                        )}
                         role="dialog"
                         aria-labelledby={sheet.titleId}
                         aria-describedby={sheet.descriptionId}
@@ -127,10 +122,7 @@
                     >
                         <div
                             data-ui="sheet-surface"
-                            class={cn(
-                        'mielui-inset-surface relative flex min-h-0 flex-1 flex-col gap-4 overflow-y-auto overscroll-contain p-5',
-                        '[&_[data-ui=sheet-header]]:pr-8'
-                    )}
+                            class="mielui-inset-surface relative flex min-h-0 flex-1 flex-col gap-4 overflow-y-auto overscroll-contain p-5 [&_[data-ui=sheet-header]]:pr-8"
                         >
                             {@render children?.()}
                         </div>

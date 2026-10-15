@@ -10,6 +10,7 @@
         ...rest
     }: DrawerHandleProps = $props();
 </script>
+
 <Primitive.Handle
     {...rest}
     bind:ref={element}

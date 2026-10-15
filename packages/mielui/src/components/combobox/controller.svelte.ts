@@ -110,8 +110,6 @@ export function createComboboxController(options: ControllerOptions) {
                 !options.getMultiple() && appearance === 'input' && searchPlacement === 'trigger'
                     ? (selected?.label ?? '')
                     : '';
-        }
-        if (next) {
             void tick().then(() => {
                 if (options.getOpen()) {
                     input?.focus({ preventScroll: true });
@@ -171,19 +169,6 @@ export function createComboboxController(options: ControllerOptions) {
         query = '';
         for (const entry of changed) {
             entry.item.callback?.();
-        }
-    }
-
-    function selectItem(item: ComboboxItem) {
-        if (options.getMultiple()) {
-            commitValues(
-                selectedValueSet.has(item.value)
-                    ? selectedValues.filter((value) => value !== item.value)
-                    : [...selectedValues, item.value]
-            );
-        } else {
-            commitValue(item.value);
-            setOpen(false);
         }
     }
 
@@ -361,7 +346,6 @@ export function createComboboxController(options: ControllerOptions) {
         setOpen,
         commitValue,
         commitValues,
-        selectItem,
         clearSelection,
         handleInput,
         handleKeydown,

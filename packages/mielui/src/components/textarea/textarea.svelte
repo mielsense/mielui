@@ -153,9 +153,7 @@
     {/if}
 {/snippet}
 
-{#if label}
-    <div class="flex flex-col gap-1.5">{@render meta()} </div>
-{:else if description}
+{#if label || description}
     <div class="flex flex-col gap-1.5">
         {@render meta()}
     </div>

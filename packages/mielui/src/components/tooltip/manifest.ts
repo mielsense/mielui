@@ -28,9 +28,9 @@ export const manifest: Manifest = {
     components: ['_internal/utils'],
     shared: ['transition', 'components/_internal/surface', 'utils.cn', 'utils.createContext'],
     peerDependencies: {
-        '@floating-ui/dom': '^1.0.0',
+        '@floating-ui/dom': '1.7.6',
         '@scritto/core': '^0.1.0',
         cnfast: '^0.0.8',
-        svelte: '^5.0.0'
+        svelte: '^5.56.0'
     }
 };

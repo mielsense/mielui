@@ -1,6 +1,7 @@
 <script lang="ts">
     import { numberShuffle } from '@mielui/svelte/actions/number-shuffle';
     import { Skeleton } from '@mielui/svelte/components/skeleton';
+    import { getCssDuration } from '@mielui/svelte/transition';
     import { cn } from '@mielui/svelte/utils';
     import { onMount, untrack } from 'svelte';
     import { fromAction } from 'svelte/attachments';
@@ -60,14 +61,9 @@
     onMount(() => {
         const preference = window.matchMedia?.('(prefers-reduced-motion: reduce)');
         function refreshMotion() {
-            const token = getComputedStyle(arc).getPropertyValue('--motion-duration-panel').trim();
-            const amount = Number.parseFloat(token);
-            const milliseconds = token.endsWith('ms') ? amount : amount * 1000;
             duration = preference?.matches
                 ? 0
-                : Number.isFinite(milliseconds)
-                  ? milliseconds * 2
-                  : 480;
+                : getCssDuration(arc, '--motion-duration-panel', 240) * 2;
         }
         refreshMotion();
         if (duration > 0 && animation !== 'none') {
@@ -114,9 +110,16 @@
 
         return label ?? labels?.value?.(clamped, safeMax) ?? `${clamped} of ${safeMax}`;
     });
-    const loadingMask = $derived(
-        `radial-gradient(circle at center, transparent ${radius - safeStrokeWidth / 2}px, var(--color-foreground) ${radius - safeStrokeWidth / 2 + 0.5}px, var(--color-foreground) ${radius + safeStrokeWidth / 2 - 0.5}px, transparent ${radius + safeStrokeWidth / 2}px)`
-    );
+    const loadingMask = $derived.by(() => {
+        const inner = radius - safeStrokeWidth / 2;
+        const outer = radius + safeStrokeWidth / 2;
+
+        return `radial-gradient(circle at center, transparent ${inner}px, var(--color-foreground) ${inner + 0.5}px, var(--color-foreground) ${outer - 0.5}px, transparent ${outer}px)`;
+    });
+    const shuffle = $derived({
+        value: clamped,
+        duration: animation === 'none' ? 0 : undefined
+    });
 </script>
 
 <div
@@ -173,9 +176,7 @@
         {:else if children}
             {@render children()}
         {:else}
-            <span
-                {@attach fromAction(numberShuffle, () => ({ value: clamped, duration: animation === 'none' ? 0 : undefined }))}
-            >
+            <span {@attach fromAction(numberShuffle, () => shuffle)}>
                 {clamped}
             </span>
         {/if}

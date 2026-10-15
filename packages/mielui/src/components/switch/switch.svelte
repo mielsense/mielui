@@ -1,7 +1,6 @@
 <script lang="ts">
     import { cn } from '@mielui/svelte/utils';
     import { Switch as BitsSwitch } from 'bits-ui';
-    import type { HTMLButtonAttributes } from 'svelte/elements';
     import { fieldMetadata } from '../_internal/field-metadata';
     import type { SwitchProps } from '.';
 
@@ -15,7 +14,7 @@
         onclick: userOnclick,
         id: suppliedId,
         ...rest
-    }: SwitchProps & { onclick?: (e: MouseEvent) => void } = $props();
+    }: SwitchProps = $props();
 
     const isOn = $derived(checked ?? false);
 
@@ -62,7 +61,7 @@
         {...rest}
         name={rest.name ?? undefined}
         value={rest.value ?? undefined}
-        type={(rest as HTMLButtonAttributes).type ?? 'button'}
+        type={rest.type ?? 'button'}
         role="switch"
         aria-label={rest['aria-label']}
         aria-checked={isOn}

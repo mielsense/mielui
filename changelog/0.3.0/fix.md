@@ -1,19 +1,13 @@
-- The Workspace address field in the Studio preview has a divider between the `mielui.dev/` prefix and the slug, so the two no longer read as one field with a gap in it.
 - Outline buttons inside a Group use the same border color as the inputs, text, and dividers beside them. They kept a lighter border, so the frame changed color partway around.
-- Documentation pages center the article in a narrower column with more space between sections, a larger page title, and prose held to a readable line length.
-- The docs page outline is a minimap of dashes at the right edge instead of an "On this page" list. Dashes grow toward the pointer and the nearest one shows its heading.
 - Composer gives the input and its joined toolbar more padding.
-- The docs shell drops the status line under the page. Sidebar navigation is a plain text list with more space between groups, and search stays in the header and on Cmd/Ctrl+K.
 - Outline buttons wrapped in a Tooltip or another trigger inside a Group take the group's border color too, so the frame no longer changes color at the wrapped button.
-- Theme Studio switches preview modes with a floating segmented control at the bottom center of the preview instead of tabs in the top bar.
 - The traveling highlight in menus and the command palette is measured correctly while its panel is still scaling in, so the first highlighted row is no longer too narrow after a keyboard open.
 - The traveling highlight snaps to the active row for arrow keys and selection changes, and only glides for a pointer.
 - Combobox results no longer animate their height on every keystroke.
 - An indeterminate Progress pulses under reduced motion instead of freezing as a one-third bar.
-- Popover scales from the side its trigger is on, and tooltips scale from their trigger instead of their center.
+- Tooltips scale from their trigger instead of their center.
 - Toasts fade in as they rise instead of appearing at full opacity.
-- A live theme saved by an earlier version is rebuilt from the Studio draft instead of being applied as stale CSS, which left the page and the content plate the same color in light mode.
-- Nested corners now share a centre. Dialog, Sheet, Drawer, inset Card, Table, and Composer frames take their radius from the control radius and a two-unit footer gap, menus and popovers from their rows, and CodeBlock, Toolbar, and the Reorder List handle follow the same rule.
+- Nested corners share a centre. Dialog, Sheet, Drawer, inset Card, Table, and Composer frames take their radius from the control radius plus their two-unit strip padding, menus and popovers from their rows, and CodeBlock, Toolbar, and the Reorder List handle follow the same rule.
 - A closed Select or Combobox no longer intercepts clicks on whatever sits below its trigger.
 - Dropdown menus, context menus, their submenus, and Select and Combobox lists keep an 8px margin from the window edge instead of sitting flush against it.
 - Collapsing an Accordion, Collapsible, Reasoning, or Tool no longer logs an "Invalid keyframe value for property height" warning.
@@ -46,3 +40,27 @@
 - A part of Accordion, Radio Group, Toggle Group, Hover Card, Tooltip, or File Upload used outside its root throws an error that names the missing root.
 - `Combobox.Label` no longer copies its own props onto the paragraph as HTML attributes.
 - `FileUpload.Trigger` shows `labels.choose` when it has no children. It ignored the label before.
+- Chart tooltips, the crosshair, and the line marker appear at the hovered point instead of sliding in from the chart's corner.
+- Chart, Pie Chart, and Heatmap tooltips move instantly when the keyboard drives them, and glide only for the pointer.
+- Chart axes keep as many decimals as their ticks need, so 0.25 no longer reads as 0.3.
+- The chart's screen-reader data table formats dates and numbers the same way as the visible chart.
+- Gauge and Pie Chart read a unitless motion duration token as milliseconds instead of seconds.
+- Reasoning no longer renders `data-streaming="false"` while idle, so `[data-streaming]` selectors match only a live trace.
+- The Composer error notice uses the accessible error text color.
+- Closed popovers no longer recompute their position on every scroll and resize.
+- `DropdownMenu.Trigger` draws its chevron when `icon` is set instead of writing an `icon` attribute onto the button.
+- File Upload adds files on pages served over plain HTTP. It threw because it relied on `crypto.randomUUID()`.
+- `Group.Text` renders at the label size.
+- `Button` stays a non-submit button when `type={undefined}` is passed.
+- Checkbox keeps the native input in sync when an `oninput` handler cancels the change, and after a form reset.
+- Checkbox items inside a `ContextMenu.Sub` keep their checked state after the menu closes and reopens.
+- Alert Dialog's Exit and Confirm buttons sit on the correct sides in right-to-left layouts.
+- Link badges show the shared focus ring and use the theme's interactive cursor.
+- The highlight in menus, Select, and Combobox no longer sits a fraction of a pixel off its row.
+- SkeletonSwap stops its loading sweep once the placeholder is hidden, offscreen, or in a background tab.
+- Tag Input tags use the theme's interactive cursor instead of always showing a pointer.
+- Folder Card titles keep the same id between server and client render.
+- The Toast position counter is announced to screen readers.
+- `mielui add` installs the peers and shared modules that Command, Data Table, Toast, Popover, Select, Radio Group, and the date pickers import, and no longer copies files they do not use.
+- Manifests declare the Svelte version Mielui actually requires, `^5.56.0`, so `mielui add` no longer accepts an older Svelte that cannot compile the copied files.
+- `Select.Trigger` binds its node with `bind:element`, as its docs said.

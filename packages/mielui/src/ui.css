@@ -63,7 +63,7 @@
     --overlay-brightness: 1;
     --opacity-disabled: 0.4;
 
-    /* One base scale. Plates take 2xl, floating panels xl, multi-line fields lg,
+    /* One base scale. Plates take 2xl, floating panels and multi-line fields xl,
        rows md. Everything pressable takes the control radius, which the rounded
        scale turns into a pill. */
     --radius-sm: 8px;
@@ -547,9 +547,9 @@
         --mielui-plate-radius: calc(var(--radius-xl) * var(--mielui-squircle, 1));
     }
 
-    /* Floating panels are one layer: menus, selects, popovers, and tooltips. Rows
-       sit one spacing unit inside, so the panel radius is the row radius plus
-       that gap and the border. */
+    /* Floating panels are one layer: menus, selects, popovers, and chart
+       tooltips. Rows sit one spacing unit inside, so the panel radius is the
+       row radius plus that gap and the border. */
     .mielui-float-frame {
         --mielui-border-inset-scale: 0;
         --mielui-plate-radius: min(
@@ -583,7 +583,7 @@
         background-color: transparent;
     }
 
-    /* The lit pill, after the Lime design system's "glow" on design.how. A gradient
+    /* The lit material, after the Lime design system's "glow" on design.how. A gradient
        of the control's own color under faint white light layers, with every edge
        drawn by box-shadow and no drop shadow. It is the one material for filled
        actions and moving thumbs. Set --mielui-glow-color for the fill and lower
@@ -634,7 +634,7 @@
             linear-gradient(180deg, var(--mielui-glow-top), var(--mielui-glow-bottom));
     }
 
-    /* The neutral lit pill: selected segments and moving thumbs. A white pill on a
+    /* The neutral lit material: selected segments and moving thumbs. A white fill on a
        grey track in light mode, a lifted grey one in dark mode. */
     .mielui-glow-neutral {
         --mielui-glow-color: var(--color-card);

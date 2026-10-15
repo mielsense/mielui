@@ -8,7 +8,10 @@
 <div
     {...rest}
     data-slot="empty-state-content"
-    class={cn(className, 'flex w-full min-w-0 max-w-sm flex-col gap-4 text-[length:var(--font-size-body)]')}
+    class={cn(
+        className,
+        'flex w-full min-w-0 max-w-sm flex-col gap-4 text-[length:var(--font-size-body)]'
+    )}
 >
     {@render children?.()}
 </div>

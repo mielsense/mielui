@@ -24,6 +24,7 @@ export const manifest: Manifest = {
     shared: [
         'components/_internal/surface',
         'components/_internal/chart-tooltip-surface',
+        'transition',
         'utils.cn',
         'utils.createContext'
     ],

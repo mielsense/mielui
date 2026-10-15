@@ -6,6 +6,7 @@
     let { children, class: className, ...rest }: MessageNameProps = $props();
     const message = getMessageContext();
 </script>
+
 <span
     {...rest}
     data-ui="message-name"
@@ -14,6 +15,6 @@
     {#if children}
         {@render children()}
     {:else}
-        {message.name ?? ""}
+        {message.name ?? ''}
     {/if}
 </span>

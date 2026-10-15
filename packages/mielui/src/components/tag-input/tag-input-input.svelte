@@ -35,7 +35,7 @@
         if (event.defaultPrevented || disabled) {
             return;
         }
-        context.setDraft((event.currentTarget as HTMLInputElement).value);
+        context.setDraft(event.currentTarget.value);
     }
 
     function handleKeydown(

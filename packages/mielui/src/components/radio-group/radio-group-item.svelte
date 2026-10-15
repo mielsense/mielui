@@ -19,6 +19,10 @@
     const isDisabled = $derived(disabled || ctx.disabled);
     const generatedId = $props.id();
     const inputId = $derived(id ?? generatedId);
+    const descriptionId = $derived(description ? `${inputId}-description` : undefined);
+    const describedBy = $derived(
+        [rest['aria-describedby'], descriptionId].filter(Boolean).join(' ') || undefined
+    );
 </script>
 
 <label
@@ -40,7 +44,7 @@
         {value}
         checked={selected}
         disabled={isDisabled}
-        aria-describedby={[rest['aria-describedby'], description ? `${inputId}-description` : undefined].filter(Boolean).join(' ') || undefined}
+        aria-describedby={describedBy}
         onchange={(event) => {
             onchange?.(event);
             if (!event.defaultPrevented) {
@@ -82,7 +86,7 @@
             {/if}
             {#if description}
                 <span
-                    id={`${inputId}-description`}
+                    id={descriptionId}
                     class="[font-size:var(--font-size-body)] [font-weight:var(--font-weight-body)] [letter-spacing:var(--tracking-body)] text-foreground-muted"
                 >
                     {description}

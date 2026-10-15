@@ -90,7 +90,7 @@
         onclick={handleRemove}
         class={cn(
             className,
-            'cursor-pointer focus-visible:outline-none focus-visible:shadow-[var(--focus-ring)]',
+            'cursor-[var(--ui-cursor-interactive)] focus-visible:outline-none focus-visible:shadow-[var(--focus-ring)]',
             'group h-auto max-w-full gap-0.5 rounded-[var(--radius-control)] ps-2.5 pe-0.5',
             tagSize,
             badge({ variant: 'secondary' })

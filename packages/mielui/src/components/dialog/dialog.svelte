@@ -82,6 +82,7 @@
         get labels() {
             return labels;
         },
+        motion: undefined as 'none' | undefined,
         titleId: undefined as string | undefined,
         descriptionId: undefined as string | undefined,
         contentId: `dialog-${id}`,

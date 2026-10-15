@@ -2,9 +2,13 @@ import type { DefaultProps } from '@mielui/svelte/utils';
 import Pagination from './pagination.svelte';
 
 export type PaginationLabels = {
+    /** Accessible name of the navigation landmark. */
     navigation?: string;
+    /** Accessible name of the previous-page button. */
     previous?: string;
+    /** Accessible name of the next-page button. */
     next?: string;
+    /** Accessible name of a page button. Without it, the page number names the button. */
     page?: (page: number) => string;
 };
 

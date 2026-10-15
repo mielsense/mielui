@@ -72,8 +72,8 @@
     });
 
     /**
-     * Portal the dialog to `<body>` so its z-index escapes ancestor stacking
-     * contexts such as flex items with a z-index or transformed parents.
+     * Portals the host to `<body>` before it opens, so its z-index escapes ancestor stacking
+     * contexts and Safari never reparents a running transition.
      */
     $effect(() => {
         if (!portalEl || typeof document === 'undefined') {
@@ -110,7 +110,6 @@
     {/if}
 {/snippet}
 
-<!-- Keep the host in body before opening so Safari does not reparent active transitions. -->
 <div bind:this={portalEl} use:visualViewportBounds data-overlay-root>
     <DialogPrimitive.Content
         preventScroll={false}
@@ -142,7 +141,9 @@
                 void tick().then(() => {
                     const target = dialog.returnFocusEl;
                     const active = document.activeElement;
-                    const canRestore = active === document.body || active === target ||
+                    const canRestore =
+                        active === document.body ||
+                        active === target ||
                         (active instanceof Node && element?.contains(active));
                     if ((destroyed || !dialog.state.open) && target?.isConnected && canRestore) {
                         target.focus({ preventScroll: true });
@@ -160,10 +161,7 @@
                         in:dialogMotion={overlayIn}
                         out:dialogMotion={overlayOut}
                         data-ui="dialog-overlay"
-                        class={cn(
-                    overlayClass,
-                    'mielui-overlay-scrim absolute inset-0'
-                )}
+                        class={cn(overlayClass, 'mielui-overlay-scrim absolute inset-0')}
                     ></div>
                     <div
                         in:dialogMotion={dialogIn}
@@ -172,14 +170,14 @@
                         bind:this={element}
                         data-motion={dialog.motion === 'none' ? 'none' : 'dialog'}
                         class={cn(
-                    contentClass,
-                    className,
-                    overlaySurface(surface),
-                    'mielui-modal-frame origin-center text-foreground shadow-[var(--elevation-modal)]',
-                    // token-lint-disable-next-line no-literal-length
-                    'fixed top-[var(--mielui-viewport-center)] left-1/2 z-[120] m-auto flex min-h-20 w-[calc(100%-var(--overlay-gutter))] -translate-x-1/2 -translate-y-1/2 flex-col overflow-hidden md:top-[calc(var(--mielui-viewport-center)-3rem)] md:w-full max-h-[calc(var(--mielui-viewport-height)-var(--overlay-gutter))]',
-                    sizeClass
-                )}
+                            contentClass,
+                            className,
+                            overlaySurface(surface),
+                            'mielui-modal-frame origin-center text-foreground shadow-[var(--elevation-modal)]',
+                            // token-lint-disable-next-line no-literal-length
+                            'fixed top-[var(--mielui-viewport-center)] left-1/2 z-[120] m-auto flex min-h-20 w-[calc(100%-var(--overlay-gutter))] -translate-x-1/2 -translate-y-1/2 flex-col overflow-hidden md:top-[calc(var(--mielui-viewport-center)-3rem)] md:w-full max-h-[calc(var(--mielui-viewport-height)-var(--overlay-gutter))]',
+                            sizeClass
+                        )}
                         {role}
                         use:insetLayout
                         data-ui="dialog-panel"
@@ -197,10 +195,10 @@
                         {@render frameSlot(dialog.headerSlot, 'dialog-frame-header', 'flex w-full flex-row items-center gap-2')}
                         <div
                             class={cn(
-                        surfaceClass,
-                        'relative flex min-h-0 flex-1 flex-col gap-4 overflow-y-auto overscroll-contain p-5',
-                        showClose && '[&_[data-ui=dialog-header]]:pr-8'
-                    )}
+                                surfaceClass,
+                                'relative flex min-h-0 flex-1 flex-col gap-4 overflow-y-auto overscroll-contain p-5',
+                                showClose && '[&_[data-ui=dialog-header]]:pr-8'
+                            )}
                             data-ui="dialog-surface"
                         >
                             {#if showClose}

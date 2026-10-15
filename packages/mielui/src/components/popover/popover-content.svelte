@@ -49,6 +49,20 @@
             return lockScroll;
         }
     });
+
+    const contentId = $derived(id ?? `popover-${key}-content`);
+    const modal = $derived(
+        (role === 'dialog' || role === 'alertdialog') &&
+            !popoverState.hoverable &&
+            popoverState.inert &&
+            focusTrap
+    );
+    const labelledBy = $derived(
+        rest['aria-labelledby'] ??
+            (!rest['aria-label'] && (role === 'dialog' || role === 'alertdialog')
+                ? context.titleId
+                : undefined)
+    );
 </script>
 
 {#if popoverState.open && !popoverState.hoverable && popoverState.inert && allowClickOutside && dismissLayer}
@@ -64,22 +78,23 @@
 <div
     role="presentation"
     data-floating-content
-    class={cn(
-        'fixed left-0 top-0 z-[130] flex [--popover-viewport-margin:calc(var(--spacing)*2)] max-w-[calc(100vw-2*var(--popover-viewport-margin))] max-h-[calc(100vh-2*var(--popover-viewport-margin))] items-center justify-center'
-    )}
-    bind:this={popover as HTMLElement}
+    class="fixed left-0 top-0 z-[130] flex [--popover-viewport-margin:calc(var(--spacing)*2)] max-w-[calc(100vw-2*var(--popover-viewport-margin))] max-h-[calc(100vh-2*var(--popover-viewport-margin))] items-center justify-center"
+    bind:this={popover}
     onmouseenter={position.cancelClose}
     onmouseleave={position.scheduleClose}
 >
     <PopoverPrimitive.ContentStatic
         {...rest}
-        dir={rest.dir === 'auto' ? undefined : rest.dir ?? undefined}
+        dir={rest.dir === 'auto' ? undefined : (rest.dir ?? undefined)}
         forceMount
-        id={id ?? `popover-${String(key)}-content`}
+        id={contentId}
         trapFocus={!popoverState.hoverable && focusTrap}
         preventScroll={false}
         onInteractOutside={(event) => {
-            if (!allowClickOutside || (event.target instanceof Node && popoverState.buttonRef?.contains(event.target))) {
+            const fromTrigger =
+                event.target instanceof Node && popoverState.buttonRef?.contains(event.target);
+
+            if (!allowClickOutside || fromTrigger) {
                 event.preventDefault();
             }
         }}
@@ -90,6 +105,7 @@
         }}
         onCloseAutoFocus={(event) => {
             event.preventDefault();
+
             if (!popoverState.hoverable && popoverState.buttonRef?.isConnected) {
                 popoverState.buttonRef.focus({ preventScroll: true });
             }
@@ -102,32 +118,28 @@
                     {...props}
                     in:panelIn
                     out:panelOut
-                    id={id ?? `popover-${String(key)}-content`}
+                    id={contentId}
                     dir={rest.dir}
                     {role}
-                    aria-modal={ariaModalProp ??
-                ((role === 'dialog' || role === 'alertdialog') && !popoverState.hoverable && popoverState.inert && focusTrap ? 'true' : undefined)}
-                    aria-labelledby={rest['aria-labelledby'] ?? (rest['aria-label']
-                ? undefined
-                : role === 'dialog' || role === 'alertdialog'
-                  ? context.titleId
-                  : undefined)}
+                    aria-modal={ariaModalProp ?? (modal ? 'true' : undefined)}
+                    aria-labelledby={labelledBy}
                     {tabindex}
                     data-ui="popover-content"
                     data-surface={surface}
+                    data-placement={position.placement}
                     class={cn(
-                className,
-                    overlaySurface(surface),
-                'm-auto flex origin-top-left flex-col overflow-hidden text-sm text-[var(--color-foreground)] [&[data-placement=bottom]]:origin-top [&[data-placement=bottom-end]]:origin-top-right [&[data-placement=top-start]]:origin-bottom-left [&[data-placement=top]]:origin-bottom [&[data-placement=top-end]]:origin-bottom-right [&[data-placement^=left]]:origin-right [&[data-placement^=right]]:origin-left',
-                'mielui-float-frame shadow-[var(--elevation-float)]',
-                'max-w-[min(var(--popover-available-width,calc(100vw-2*var(--popover-viewport-margin))),calc(100vw-2*var(--popover-viewport-margin)))] max-h-[min(var(--popover-available-height,calc(100vh-2*var(--popover-viewport-margin))),calc(100vh-2*var(--popover-viewport-margin)))]'
-            )}
+                        className,
+                        overlaySurface(surface),
+                        'm-auto flex origin-top-left flex-col overflow-hidden text-sm text-[var(--color-foreground)] [&[data-placement=bottom]]:origin-top [&[data-placement=bottom-end]]:origin-top-right [&[data-placement=top-start]]:origin-bottom-left [&[data-placement=top]]:origin-bottom [&[data-placement=top-end]]:origin-bottom-right [&[data-placement^=left]]:origin-right [&[data-placement^=right]]:origin-left',
+                        'mielui-float-frame shadow-[var(--elevation-float)]',
+                        'max-w-[min(var(--popover-available-width,calc(100vw-2*var(--popover-viewport-margin))),calc(100vw-2*var(--popover-viewport-margin)))] max-h-[min(var(--popover-available-height,calc(100vh-2*var(--popover-viewport-margin))),calc(100vh-2*var(--popover-viewport-margin)))]'
+                    )}
                 >
                     <div
                         class={cn(
-                    surfaceClass,
-                    'min-h-0 max-h-[inherit] flex-1 overflow-auto overscroll-contain mielui-inset-surface p-4'
-                )}
+                            surfaceClass,
+                            'min-h-0 max-h-[inherit] flex-1 overflow-auto overscroll-contain mielui-inset-surface p-4'
+                        )}
                     >
                         {@render children?.()}
                     </div>

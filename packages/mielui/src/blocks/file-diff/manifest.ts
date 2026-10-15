@@ -6,7 +6,6 @@ export const manifest: Manifest = {
     visibility: 'public',
     description:
         'Unified file diff with a path top bar, addition/deletion counts, dual line-number gutters, and per-row syntax highlighting via highlight.js with a built-in GitHub palette; theme="custom" skips the token colors for any highlight.js theme stylesheet.',
-    role: 'table',
     files: [
         'actions/number-shuffle/index.ts',
         'actions/number-shuffle/render.ts',
@@ -34,6 +33,6 @@ export const manifest: Manifest = {
         '@hugeicons/core-free-icons': '^4.3.0',
         'highlight.js': '^11.0.0',
         cnfast: '^0.0.8',
-        svelte: '^5.0.0'
+        svelte: '^5.56.0'
     }
 };

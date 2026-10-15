@@ -6,6 +6,7 @@
     import NextButton from '../calendar/calendar-next-button.svelte';
     import PrevButton from '../calendar/calendar-prev-button.svelte';
     import { getDatePickerContext } from '../date-picker/context.svelte';
+    import { dateCalendarClasses } from '../date-picker/variants';
     import Month from '../range-calendar/range-calendar-month.svelte';
 
     let {
@@ -21,7 +22,7 @@
     {...rest}
     bind:ref={element}
     data-ui="date-range-picker-calendar"
-    class={cn(className, 'w-fit max-w-full space-y-3 p-3 text-foreground [--calendar-cell-size:calc(var(--spacing)*10)]')}
+    class={cn(className, dateCalendarClasses)}
 >
     {#snippet children(data)}
         {#if content}

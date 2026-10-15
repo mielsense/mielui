@@ -1,4 +1,5 @@
 <script lang="ts">
+    import { getCssDuration } from '@mielui/svelte/transition';
     import { cn } from '@mielui/svelte/utils';
     import { onMount } from 'svelte';
     import { setPieChartLabels, setPieContext } from './context';
@@ -112,6 +113,9 @@
         },
         format(item) {
             return config[item.key]?.format?.(item.value) ?? numberFormatter.format(item.value);
+        },
+        percentage(item) {
+            return total > 0 ? (item.value / total) * 100 : 0;
         }
     });
     onMount(() => {
@@ -121,12 +125,7 @@
         const root = element;
         const preference = matchMedia('(prefers-reduced-motion: reduce)');
         function update() {
-            const duration = getComputedStyle(root)
-                .getPropertyValue('--motion-duration-panel')
-                .trim();
-            const parsed = Number.parseFloat(duration);
-            const milliseconds = duration.endsWith('ms') ? parsed : parsed * 1000;
-            durationScale = Number.isFinite(milliseconds) ? Math.max(0, milliseconds / 180) : 1;
+            durationScale = Math.max(0, getCssDuration(root, '--motion-duration-panel', 180) / 180);
             allowed = !preference.matches && durationScale > 0;
             foreground = !document.hidden;
         }

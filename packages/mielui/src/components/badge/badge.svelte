@@ -35,7 +35,7 @@
         data-ui="badge"
         data-variant={variant}
         {href}
-        class={cn(className, badge({ variant }))}
+        class={cn(className, 'hover:cursor-[var(--ui-cursor-interactive)]', badge({ variant }))}
         {...rest as HTMLAnchorAttributes}
     >
         {@render inner()}

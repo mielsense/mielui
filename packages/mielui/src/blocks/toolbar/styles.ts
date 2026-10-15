@@ -9,7 +9,7 @@ const flat =
 const selected =
     'mielui-glow mielui-glow-neutral text-foreground shadow-[var(--mielui-glow-shadow)] focus-visible:shadow-[var(--focus-ring),var(--mielui-glow-shadow)]';
 
-export function toolbarControlClass(variant: ToolbarRootProps['variant'], on = false) {
+function toolbarControlClass(variant: ToolbarRootProps['variant'], on = false) {
     if (variant === 'depth') {
         return depth;
     }

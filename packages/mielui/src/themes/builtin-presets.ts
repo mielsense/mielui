@@ -837,7 +837,6 @@ export const profitableTheme: Theme = {
             '--color-ring': 'color-mix(in srgb, #e8e8e8 30%, transparent)'
         },
         shared: {
-            '--sivir-space-unit': '3.4px',
             '--radius-lg': '12px',
             '--radius-md': '10px',
             '--radius-xl': '14px',
@@ -847,25 +846,19 @@ export const profitableTheme: Theme = {
             '--motion-duration-panel': '130ms',
             '--motion-duration-sheet': '130ms',
             '--motion-duration-overlay': '120ms',
-            '--motion-menu-x': '2px',
             '--motion-menu-y': '2px',
             '--motion-menu-scale-start': '0.98',
             '--motion-menu-blur': '0px',
-            '--motion-modal-x': '2px',
             '--motion-modal-y': '2px',
             '--motion-modal-scale-start': '0.98',
             '--motion-modal-blur': '0px',
             '--motion-panel-y': '2px',
             '--motion-panel-scale-start': '0.98',
-            '--motion-step-x': '0px',
-            '--motion-step-blur': '0px',
             '--motion-press-px': '0px',
             '--motion-duration-panel-in': '130ms',
             '--motion-duration-panel-out': '70ms',
             '--motion-duration-modal-in': '130ms',
             '--motion-duration-modal-out': '70ms',
-            '--motion-duration-step-in': '130ms',
-            '--motion-duration-step-out': '70ms',
             '--motion-duration-toast-in': '130ms',
             '--motion-duration-toast-out': '70ms',
             '--motion-duration-sheet-out': '70ms'
@@ -953,8 +946,6 @@ export const ravenTheme: Theme = {
             '--motion-modal-y': '0px',
             '--motion-modal-scale-start': '0.88',
             '--motion-modal-blur': '0px',
-            '--motion-step-x': '24px',
-            '--motion-step-blur': '0px',
             '--motion-press-px': '1px'
         }
     },
@@ -1049,29 +1040,21 @@ export const clawdTheme: Theme = {
             })
         },
         shared: {
-            '--motion-duration-step-in': '30ms',
-            '--motion-duration-step-out': '60ms',
             '--motion-duration-panel-in': '30ms',
             '--motion-duration-panel-out': '60ms',
             '--motion-duration-modal-in': '30ms',
             '--motion-duration-modal-out': '60ms',
             '--motion-duration-press': '40ms',
             '--motion-duration-item': '0ms',
-            '--motion-menu-x': '2px',
             '--motion-menu-y': '2px',
             '--motion-menu-scale-start': '1',
             '--motion-menu-blur': '0px',
-            '--motion-modal-x': '2px',
             '--motion-modal-y': '2px',
             '--motion-modal-scale-start': '1',
             '--motion-modal-blur': '0px',
             '--motion-panel-y': '2px',
             '--motion-panel-scale-start': '0.98',
-            '--motion-step-x': '0px',
-            '--motion-step-blur': '0px',
-            '--motion-press-px': '0px',
-            '--motion-duration-switch': '0ms',
-            '--motion-switch-stretch': '0'
+            '--motion-press-px': '0px'
         }
     },
     typography: {
@@ -1144,16 +1127,12 @@ export const inspirationTheme: Theme = {
             '--radius-lg': '6px',
             '--radius-xl': '8px',
             '--motion-press-px': '2px',
-            '--motion-menu-origin': 'top',
             '--motion-menu-scale-start': '1',
             '--motion-menu-blur': '0px',
             '--motion-duration-panel-out': '160ms',
             '--motion-duration-panel-in': '190ms',
             '--motion-menu-y': '3px',
-            '--motion-duration-hover': '70ms',
-            '--motion-duration-swap': '0ms',
-            '--motion-duration-switch': '160ms',
-            '--motion-switch-stretch': '0.8'
+            '--motion-duration-hover': '70ms'
         }
     },
     typography: {
@@ -1230,23 +1209,17 @@ export const governmentTheme: Theme = {
             '--motion-duration-panel-out': '0ms',
             '--motion-duration-modal-in': '0ms',
             '--motion-duration-modal-out': '0ms',
-            '--motion-duration-step-in': '0ms',
-            '--motion-duration-step-out': '0ms',
             '--motion-duration-toast-in': '60ms',
             '--motion-duration-toast-out': '0ms',
             '--motion-duration-sheet-out': '0ms',
-            '--motion-menu-x': '0px',
             '--motion-menu-y': '0px',
             '--motion-menu-scale-start': '1',
             '--motion-menu-blur': '0px',
-            '--motion-modal-x': '0px',
             '--motion-modal-y': '0px',
             '--motion-modal-scale-start': '1',
             '--motion-modal-blur': '0px',
             '--motion-panel-y': '0px',
             '--motion-panel-scale-start': '1',
-            '--motion-step-x': '0px',
-            '--motion-step-blur': '0px',
             '--motion-press-px': '0px'
         }
     },

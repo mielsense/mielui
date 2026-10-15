@@ -11,6 +11,7 @@
         ...rest
     }: DrawerTitleProps = $props();
 </script>
+
 <Primitive.Title
     {...rest}
     bind:ref={element}

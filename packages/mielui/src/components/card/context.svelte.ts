@@ -13,6 +13,6 @@ export type CardContext = {
     footerSlot: CardFooterSlot | undefined;
 };
 
-const { set: setCardContext, get: getCardContext } = createContext<CardContext>('card');
+const { set: setCardContext, find: findCardContext } = createContext<CardContext>('card');
 
-export { getCardContext, setCardContext };
+export { findCardContext, setCardContext };

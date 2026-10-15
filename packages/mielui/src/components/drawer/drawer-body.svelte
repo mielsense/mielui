@@ -9,6 +9,7 @@
         ...rest
     }: DrawerRegionProps = $props();
 </script>
+
 <div
     {...rest}
     bind:this={element}

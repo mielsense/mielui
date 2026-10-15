@@ -62,6 +62,7 @@ export type NumberFieldInputProps = Omit<
 export type NumberFieldLabelProps = HTMLLabelAttributes;
 export type NumberFieldGroupProps = HTMLAttributes<HTMLDivElement>;
 export type NumberFieldStepperProps = Omit<HTMLButtonAttributes, 'onclick'> & {
+    /** Called on click, before the value steps. Call `preventDefault()` to skip the step. */
     onclick?: (event: MouseEvent) => void;
     /** Bindable reference to the DOM element. */
     element?: HTMLButtonElement | undefined;

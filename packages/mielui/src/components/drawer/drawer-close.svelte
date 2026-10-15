@@ -20,6 +20,7 @@
         }
     }
 </script>
+
 <Primitive.Close {...rest} onclick={activate} bind:ref={element}>
     {#snippet child({ props })}
         <button

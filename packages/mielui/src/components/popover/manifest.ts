@@ -33,7 +33,12 @@ import type { Manifest } from '@mielui/svelte/_manifest/types';
  *          overlay, so menus opened inside a dialog or sheet peel before
  *          their host instead of closing it.
  * 3.2.1 -- Trigger renders the chevron its `icon` prop always described.
- * 3.2.2 -- Content positioning and hover-close timers moved to position.svelte.ts.
+ * 3.3.0 -- Content uses the float frame. Positioning and hover-close timers
+ *          moved to position.svelte.ts and track the viewport only while
+ *          open. The panel carries its resolved `data-placement`, so it
+ *          scales from its trigger's side. PopoverState dropped the unused
+ *          `trigger`, `focusedElement`, `onclick`, `hovering`, and
+ *          `focusedInside` fields.
  */
 export const manifest: Manifest = {
     name: 'popover',
@@ -53,21 +58,18 @@ export const manifest: Manifest = {
         'components/popover/index.ts',
         'components/popover/manifest.ts'
     ],
-    components: ['_internal/utils', 'button', '_internal/overlay', 'typography'],
+    components: ['_internal/utils', 'button'],
     shared: [
         'components/_internal/button-attributes',
         'components/_internal/surface',
         'hugeicons-icon',
-        'utils.clickOutside',
         'utils.cn',
         'utils.createContext',
         'utils.inertOutside',
-        'utils.lockBodyBackground',
+        'utils.isPointInSubmenuTriangle',
         'utils.lockBodyScroll',
         'utils.positionFloatingPanel',
         'utils.submenuPanelOffset',
-        'utils.pushEscapeLayer',
-        'utils.trapFocus',
         'transition'
     ],
     peerDependencies: {

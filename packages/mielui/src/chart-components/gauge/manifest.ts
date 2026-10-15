@@ -17,10 +17,10 @@ export const manifest: Manifest = {
         'actions/number-shuffle/render.ts'
     ],
     components: ['_internal/utils', 'skeleton'],
-    shared: ['utils.cn'],
+    shared: ['transition', 'utils.cn'],
     peerDependencies: {
         '@floating-ui/dom': '1.7.6',
         cnfast: '^0.0.8',
-        svelte: '^5.0.0'
+        svelte: '^5.56.0'
     }
 };

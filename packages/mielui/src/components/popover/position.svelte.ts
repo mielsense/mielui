@@ -4,7 +4,7 @@ import {
     positionFloatingPanel,
     submenuPanelOffset
 } from '@mielui/svelte/utils';
-import { onMount } from 'svelte';
+import { onMount, untrack } from 'svelte';
 import type { Placement, PopoverContentProps, PopoverState } from '.';
 import { inertOutsidePopover } from './inert';
 
@@ -21,32 +21,38 @@ export function createPopoverPosition(options: PositionOptions) {
     const popoverState = options.state;
 
     let positionFrame: number | undefined;
+    let placement = $state<Placement>(
+        untrack(() => (options.refElement ? 'right-start' : popoverState.placement))
+    );
 
     function updatePosition() {
-        if (!options.popover) {
-            return;
-        }
-
+        const popover = options.popover;
         const reference = options.refElement ?? popoverState.buttonRef;
 
-        if (!reference) {
+        if (!popover || !reference) {
             return;
         }
 
         const triggerWidth = popoverState.buttonRef?.getBoundingClientRect().width;
 
         if (triggerWidth) {
-            options.popover.style.setProperty('--popover-trigger-width', `${triggerWidth}px`);
+            popover.style.setProperty('--popover-trigger-width', `${triggerWidth}px`);
         }
 
-        const placement = options.refElement ? 'right-start' : popoverState.placement;
+        const requested = options.refElement ? 'right-start' : popoverState.placement;
 
-        positionFloatingPanel(
+        void positionFloatingPanel(
             reference,
-            options.popover,
-            placement,
-            submenuPanelOffset(placement, popoverState.hoverable)
-        );
+            popover,
+            requested,
+            submenuPanelOffset(requested, popoverState.hoverable)
+        ).then(() => {
+            const resolved = popover.dataset.placement as Placement | undefined;
+
+            if (resolved) {
+                placement = resolved;
+            }
+        });
     }
 
     function schedulePosition() {
@@ -61,34 +67,13 @@ export function createPopoverPosition(options: PositionOptions) {
     }
 
     onMount(() => {
-        window.addEventListener('resize', schedulePosition);
-        window.addEventListener('scroll', schedulePosition, true);
-        window.visualViewport?.addEventListener('resize', schedulePosition);
-        window.visualViewport?.addEventListener('scroll', schedulePosition);
-
         popoverState.popoverRef = options.popover;
 
         if (options.portal && options.popover) {
             document.body.appendChild(options.popover);
         }
 
-        const ro = new ResizeObserver(schedulePosition);
-
-        if (popoverState.buttonRef) {
-            ro.observe(popoverState.buttonRef);
-        }
-
-        if (options.popover) {
-            ro.observe(options.popover);
-        }
-
         return () => {
-            window.removeEventListener('resize', schedulePosition);
-            window.removeEventListener('scroll', schedulePosition, true);
-            window.visualViewport?.removeEventListener('resize', schedulePosition);
-            window.visualViewport?.removeEventListener('scroll', schedulePosition);
-            ro.disconnect();
-
             if (positionFrame !== undefined) {
                 cancelAnimationFrame(positionFrame);
             }
@@ -98,7 +83,37 @@ export function createPopoverPosition(options: PositionOptions) {
     });
 
     $effect(() => {
-        if (!options.dismissEl || typeof document === 'undefined') {
+        const popover = options.popover;
+        const trigger = popoverState.buttonRef;
+
+        if (!popoverState.open || !popover) {
+            return;
+        }
+
+        window.addEventListener('resize', schedulePosition);
+        window.addEventListener('scroll', schedulePosition, true);
+        window.visualViewport?.addEventListener('resize', schedulePosition);
+        window.visualViewport?.addEventListener('scroll', schedulePosition);
+
+        const observer = new ResizeObserver(schedulePosition);
+
+        observer.observe(popover);
+
+        if (trigger) {
+            observer.observe(trigger);
+        }
+
+        return () => {
+            window.removeEventListener('resize', schedulePosition);
+            window.removeEventListener('scroll', schedulePosition, true);
+            window.visualViewport?.removeEventListener('resize', schedulePosition);
+            window.visualViewport?.removeEventListener('scroll', schedulePosition);
+            observer.disconnect();
+        };
+    });
+
+    $effect(() => {
+        if (!options.dismissEl) {
             return;
         }
 
@@ -110,11 +125,9 @@ export function createPopoverPosition(options: PositionOptions) {
     });
 
     function cancelClose() {
-        if (popoverState.closeTimeout) {
-            if (popoverState.hoverable) {
-                clearTimeout(popoverState.closeTimeout);
-                popoverState.closeTimeout = undefined;
-            }
+        if (popoverState.hoverable && popoverState.closeTimeout) {
+            clearTimeout(popoverState.closeTimeout);
+            popoverState.closeTimeout = undefined;
         }
     }
 
@@ -123,40 +136,26 @@ export function createPopoverPosition(options: PositionOptions) {
             return;
         }
 
-        if (popoverState.closeTimeout) {
-            clearTimeout(popoverState.closeTimeout);
-        }
-
-        const resolvedPlacement = (options.popover?.dataset.placement ??
-            popoverState.placement) as Placement;
-
+        const panel = options.popover;
+        const trigger = popoverState.buttonRef;
         const inContactTriangle =
-            popoverState.buttonRef &&
-            options.popover &&
+            trigger &&
+            panel &&
             isPointInSubmenuTriangle(
-                { x: event.clientX, y: event.clientY },
-                popoverState.buttonRef.getBoundingClientRect(),
-                options.popover.getBoundingClientRect(),
-                resolvedPlacement
+                {
+                    x: event.clientX,
+                    y: event.clientY
+                },
+                trigger.getBoundingClientRect(),
+                panel.getBoundingClientRect(),
+                placement
             );
-        const delay = inContactTriangle ? (popoverState.closeDelay ?? 180) : 0;
 
-        if (delay <= 0) {
-            popoverState.open = false;
-            popoverState.closeTimeout = undefined;
-
-            return;
-        }
-
-        popoverState.closeTimeout = setTimeout(() => {
-            popoverState.open = false;
-            popoverState.closeTimeout = undefined;
-        }, delay);
+        closePopoverAfter(popoverState, inContactTriangle ? popoverState.closeDelay : 0);
     }
 
     $effect(() => {
         if (
-            typeof document === 'undefined' ||
             !popoverState.open ||
             popoverState.hoverable ||
             !popoverState.inert ||
@@ -168,7 +167,7 @@ export function createPopoverPosition(options: PositionOptions) {
         return inertOutsidePopover(options.popover, popoverState.buttonRef);
     });
 
-    /** Positions synchronously on open so the panel never paints at its origin or at auto width. */
+    /** Positions on open, before paint, so the panel never shows at its origin or at auto width. */
     $effect(() => {
         if (popoverState.open && options.popover) {
             updatePosition();
@@ -182,7 +181,29 @@ export function createPopoverPosition(options: PositionOptions) {
     });
 
     return {
+        get placement() {
+            return placement;
+        },
         cancelClose,
         scheduleClose
     };
+}
+
+/** Closes the popover after `delay` milliseconds, replacing any pending close. */
+export function closePopoverAfter(popoverState: PopoverState, delay = 0) {
+    if (popoverState.closeTimeout) {
+        clearTimeout(popoverState.closeTimeout);
+    }
+
+    if (delay <= 0) {
+        popoverState.open = false;
+        popoverState.closeTimeout = undefined;
+
+        return;
+    }
+
+    popoverState.closeTimeout = setTimeout(() => {
+        popoverState.open = false;
+        popoverState.closeTimeout = undefined;
+    }, delay);
 }

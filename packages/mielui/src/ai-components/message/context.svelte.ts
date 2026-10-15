@@ -6,8 +6,8 @@ export type MessageContext = {
     readonly name?: string;
     readonly timestamp?: string;
     readonly avatar?: Snippet;
-    get from(): MessageFrom;
-    get status(): MessageStatus;
+    readonly from: MessageFrom;
+    readonly status: MessageStatus;
 };
 
 const { set: setMessageContext, get: getMessageContext } = createContext<MessageContext>('message');

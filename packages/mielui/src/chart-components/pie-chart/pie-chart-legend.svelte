@@ -63,7 +63,12 @@
                 onclick={() => selectItem(item.key)}
             >
                 {#if children}
-                    {@render children({ item, label: context.label(item.key), value: context.format(item), percentage: context.total ? item.value / context.total * 100 : 0 })}
+                    {@render children({
+                        item,
+                        label: context.label(item.key),
+                        value: context.format(item),
+                        percentage: context.percentage(item)
+                    })}
                 {:else}
                     <span
                         class="size-2 shrink-0 rounded-full"
@@ -72,7 +77,10 @@
                     <span>{context.label(item.key)}</span>
                     <span
                         class="text-foreground tabular-nums"
-                        use:numberShuffle={{ value: item.value, format: (value) => context.format({ ...item, value }) }}
+                        use:numberShuffle={{
+                            value: item.value,
+                            format: (value) => context.format({ ...item, value })
+                        }}
                     >
                         {context.format(item)}
                     </span>

@@ -22,6 +22,7 @@ function matchesRule(file: File, rule: string) {
 
 export function createFileUploadController(options: Options) {
     let items = $state<FileUploadEntry[]>([]);
+    let nextId = 0;
 
     const requests = new Map<string, AbortController>();
     const summary = $derived({
@@ -132,7 +133,9 @@ export function createFileUploadController(options: Options) {
                 error = labels?.tooMany?.(maxFiles) ?? `Choose up to ${maxFiles} files.`;
             }
 
-            const id = crypto.randomUUID();
+            nextId += 1;
+
+            const id = `file-${nextId}`;
 
             items = [
                 ...items,
