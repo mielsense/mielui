@@ -58,10 +58,10 @@ Copy at the start, the product at the end.
 
 ## The demo is the product
 
-The hero's second column holds a small working piece of the product, built from real Mielui components, inside a frame. It is not a screenshot, an illustration, or a browser mockup.
+The hero's second column holds a small working piece of the product, built from real Mielui components, on a plate. It is not a screenshot, an illustration, or a browser mockup. The page sits on the stage, so use a plain `Card.Root`: an inset card here would be grey on grey.
 
 ```svelte
-<Card.Root variant="inset" class="min-w-0">
+<Card.Root class="min-w-0">
     <Card.Header>
         <Card.Title>Overdue</Card.Title>
         <Card.Description>Three invoices need a reminder</Card.Description>
@@ -114,16 +114,14 @@ Do not give every section the same silhouette. If three sections in a row are a 
 A list of features is rows, not a grid of cards with icons.
 
 ```svelte
-<div class="mielui-inset-frame">
-    <dl class="mielui-inset-surface divide-y divide-border overflow-hidden">
-        {#each features as feature (feature.name)}
-            <div class="grid gap-x-8 gap-y-1 px-5 py-4 text-sm sm:grid-cols-[12rem_minmax(0,1fr)]">
-                <dt class="font-medium">{feature.name}</dt>
-                <dd class="text-foreground-muted">{feature.summary}</dd>
-            </div>
-        {/each}
-    </dl>
-</div>
+<dl class="mielui-plate divide-y divide-border overflow-hidden">
+    {#each features as feature (feature.name)}
+        <div class="grid gap-x-8 gap-y-1 px-5 py-4 text-sm sm:grid-cols-[12rem_minmax(0,1fr)]">
+            <dt class="font-medium">{feature.name}</dt>
+            <dd class="text-foreground-muted">{feature.summary}</dd>
+        </div>
+    {/each}
+</dl>
 ```
 
 The name sits in a fixed column and the sentence beside it, so every row aligns. Six to eight rows read faster than six cards, and nobody misses the icons.

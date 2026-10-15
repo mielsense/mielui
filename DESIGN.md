@@ -91,16 +91,17 @@ hierarchy. Pair color-coded states with text, shape, or another non-color cue.
 The interface is plates on a stage. Add a plate, border, or shadow only when it
 communicates grouping, interaction, selection, or state more clearly than
 spacing can. Do not wrap text, lists, or navigation in a card to make them look
-designed, and never put a card inside a card. Default to stillness; add motion only to explain a state change,
-preserve continuity, or confirm an action.
+designed, and never put a card inside a card. Default to stillness; add motion
+only to explain a state change, preserve continuity, or confirm an action.
 
 ## Reject Generated-Design Reflexes
 
 Do not ship:
 
 - All-caps or widely tracked eyebrows, kickers, and overlines.
-- Decorative gradients, blobs, textures, or ornamental shadows. The lit pill is
-  a control material, not decoration: do not put it on a surface or a label.
+- Decorative gradients, blobs, textures, or ornamental shadows. The lit
+  material (`.mielui-glow`) belongs to controls, not decoration: do not put it
+  on a surface or a label.
 - A generic centered hero followed by a grid of cards.
 - A card, border, or rounded container around every section or metric.
 - Pills for ordinary metadata, labels, or status that does not need a badge.
@@ -171,8 +172,8 @@ navigation, or content visibility to finish an animation.
 ## The look in one sentence
 
 White plates with continuous-curvature corners rest on a quiet grey stage, drawn
-in a single ink. Everything pressable shares one control radius, filled actions are lit, and one
-spring family moves it all.
+in a single ink. Everything pressable shares one control radius, filled actions
+are lit, and one spring family moves it all.
 
 ## The ten rules
 
@@ -180,14 +181,15 @@ spring family moves it all.
    are the foreground mixed into transparency at 12% (14% in dark), inputs at
    14% (16%), and the hover wash at 5% (6%). When a new neutral is needed, mix
    the foreground. Do not add a grey hex.
-2. **Two layers, and the gap is the page.** A surface is a white frame holding a
-   recessed inset in the stage color. Sections are plates, and the space between
-   them is the only divider. Do not draw horizontal rules between sections.
+2. **Two layers, and the gap is the page.** A grouped surface is a white frame
+   holding a recessed inset in the stage color. Sections are plates, and the
+   space between them is the only divider. Do not draw horizontal rules between
+   sections.
 3. **Squircles for surfaces, one radius for controls.** Plates take continuous
    corners. Everything pressable that is not a plate takes `--radius-control`:
    a 12px rounded rectangle by default, 4px in the sharp scale, and a pill in
    the rounded scale. Never hand-pick a radius for a control.
-4. **Lit pills for filled actions.** Primary, secondary, destructive, and glow
+4. **Filled actions are lit.** Primary, secondary, destructive, and glow
    buttons, moving thumbs, and selected segments share one material,
    `.mielui-glow`. Fields, outline, ghost, and quiet controls stay flat.
 5. **One spring family.** Panel 550/38, layout 550/40, pop 400/26, flick 900/50.
@@ -199,7 +201,8 @@ spring family moves it all.
    dots, not panel fills.
 8. **Elevation is binary.** A thing is resting (`--elevation-1`) or floating
    (`--elevation-float`). There is no ramp and no glow halo. The default theme
-   turns both off for cards and menus and keeps a shadow only for dialogs.
+   turns both off, so cards and menus are held by their hairline alone.
+   Controls, dialogs, and sheets keep their own shadows.
 9. **Exits are faster than entrances.** Things arrive with presence and leave
    without ceremony.
 10. **Quality floor, always.** Focus rings, `role="status"`, `aria-hidden`
@@ -246,14 +249,16 @@ the same contracts; a visual exception must have a specific functional reason.
 
 - `--radius-control` is the shape of every control. It is 12px by default, 4px
   in the sharp scale, and a pill in the rounded scale, so the three scales look
-  different. Buttons, toggles, tab triggers, chips, single-line fields, select
-  triggers, pagination items, calendar days, and breadcrumb items use it. Never
-  write `rounded-full` or a fixed radius on a control. Badges are the
-  exception and stay pills.
-- Multi-line fields (Textarea, TagInput, Composer input) use `--radius-xl`.
-- Menu rows and their traveling highlight use the control radius. List rows and
-  calendar cells in a range use `--radius-md`. Small marks (checkbox, kbd,
-  inline code) use `--radius-sm`.
+  different. Buttons, toggles, tab triggers, badges, chips, single-line fields,
+  select triggers, pagination items, calendar days, and breadcrumb items use
+  it. A selected range in a calendar keeps the control radius at its two ends
+  and squares the days between. Never write `rounded-full` or a fixed radius on
+  a control.
+- Multi-line fields (Textarea, TagInput) use `--radius-xl`. The Composer input
+  is an inset surface and takes its radius from the frame.
+- Menu rows and their traveling highlight use the control radius, bounded by
+  the panel radius minus its border and row inset. List rows use
+  `--radius-md`. Small marks (checkbox, kbd, inline code) use `--radius-sm`.
 - Plates use `--radius-2xl`, scaled by `--mielui-squircle` where the browser
   supports `corner-shape: squircle`.
 - Nested corners share a centre: inner radius = outer radius - border - gap.
@@ -262,14 +267,17 @@ the same contracts; a visual exception must have a specific functional reason.
   - Two-layer frames (Dialog, Sheet, Drawer, inset Card, Table, Composer) use
     control radius + two spacing units + border, capped at `--radius-2xl`.
     Their header and footer strips pad by two spacing units (`p-2`), which puts
-    a control-radius button on the frame's centre.
+    a control-radius button on the frame's centre. The Command palette is the
+    exception: it keeps a larger radius of 1.5 × `--radius-2xl`.
   - Floating panels use control radius + one spacing unit + border, capped at
     `--radius-xl`. Their rows sit one spacing unit inside.
   - CodeBlock is a tight frame: it uses the floating-panel radius, and its
     header pads by one spacing unit.
   - A track that pads its items by one spacing unit (Toolbar, the docs dock)
-    uses control radius + one spacing unit. ToggleGroup keeps the control radius
-    on the track and subtracts the unit from its pill.
+    uses control radius + one spacing unit. ToggleGroup and segmented Tabs keep
+    the control radius on the track and subtract the unit from the selected
+    item.
+
   Do not put a control-radius element within about 10px of a larger corner
   without applying this rule; change the outer radius or the gap, never
   hand-pick an inner one.
@@ -281,32 +289,35 @@ the same contracts; a visual exception must have a specific functional reason.
 - `.mielui-plate` is the resting surface: card fill, one hairline, plate radius,
   and `--elevation-1`. The default Card is a plate.
 - `.mielui-inset-frame` or `.mielui-modal-frame` with `.mielui-inset-surface`
-  is the two-layer surface: a white frame with a one-unit gutter around a
-  recessed inset in the stage color. Header and footer strips sit on the frame.
-  Content sits in the inset. Fields inside an inset are white, so they read as
-  raised. Keep inner corners concentric: the contract computes them from
-  `--mielui-plate-radius`.
+  is the two-layer surface: a white frame around a recessed inset in the stage
+  color. Header and footer strips sit on the frame. Content sits in the inset.
+  The gutter between them follows the border setting (see Borders). Fields
+  inside an inset are white, so they read as raised. Keep inner corners
+  concentric: the contract computes them from `--mielui-plate-radius`.
+- `.mielui-card-frame` with `.mielui-card-surface` is the panel Card: the same
+  two layers with a half-unit gutter at `--radius-xl`.
 - `.mielui-float-frame` is the floating panel: one layer, panel fill, hairline,
-  the nested panel radius above, and `--elevation-float`. Menus, selects, comboboxes, popovers,
-  hover cards, date-picker panels, and chart tooltips use it. They never show a
-  double edge.
+  the nested panel radius above, and `--elevation-float`. Menus, selects,
+  comboboxes, popovers, hover cards, date-picker panels, and chart tooltips use
+  it. They never show a double edge.
 - Dialogs, sheets, drawers, and Command use `.mielui-modal-frame` with
   `--elevation-modal`.
 - A frame attached to a viewport edge stays flush on that edge. Sheet is not
   attached: it floats a small margin from the viewport with every corner
-  rounded. Drawer floats a
-  two-unit gap from its edge with all corners rounded.
+  rounded. Drawer floats a two-unit gap from its edge with all corners rounded.
 - Card takes `surface="glass"` and is solid by default. Glass frosts the frame
   and keeps content on a contrasting translucent inset. Explicit solid surfaces
   stay opaque, including chart tooltips.
 - Do not add a hardcoded white border, an inner ring, or a second shadow to a
   surface. The contracts already draw every edge.
 
-### The lit pill
+### The lit material
 
 `.mielui-glow` is a gradient of the control's own color under faint white light
-layers, with every edge drawn by box-shadow and no drop shadow. It brightens on
-hover and darkens on press.
+layers, with every edge drawn by box-shadow and no drop shadow. It takes the
+control radius, brightens on hover, and darkens on press.
+`.mielui-glow-neutral` is the white selected fill on a grey track, and a lifted
+grey in dark mode.
 
 - Set `--mielui-glow-color` for the fill. Set `--mielui-glow-light` from 0 to 1
   for how much light it catches. Lower it on dark fills. Set
@@ -316,10 +327,11 @@ hover and darkens on press.
   `focus-visible:shadow-[var(--focus-ring),var(--mielui-glow-shadow)]`, so the
   focus ring adds to the edge instead of replacing it.
 - The theme's edge highlight (`chrome.edgeHighlight`, 0 to 1, default 0.33)
-  scales the light on every lit pill at once.
+  scales the light on every lit control at once.
 - Lit: primary, secondary, destructive, and glow buttons; switch and slider
-  thumbs; the selected segment in Tabs, ToggleGroup, and segmented controls;
-  the checked checkbox and radio fill.
+  thumbs; the selected item in Tabs, ToggleGroup, Toggle, and Pagination; the
+  selected Calendar day; the checked checkbox, radio, and Question mark; the
+  Composer send button.
 - Flat: text fields, select and combobox triggers, outline, ghost, and quiet
   buttons, tracks, progress fills, badges, and metadata.
 
@@ -327,10 +339,11 @@ hover and darkens on press.
 
 Controls use three heights: `--size-control-sm`, `--size-control-md`, and
 `--size-control-lg`, each minus `--size-hairline` for buttons. Icon buttons use
-`--size-icon-md`, which equals a medium button and reads as a circle. Do not
-size controls with raw `h-7`, `h-8`, `size-9`, or `h-10`. Keyboard focus uses
-`--focus-ring`, a 3px ring at half the primary color, composed with any existing
-edge.
+`--size-icon-md`, which equals a medium button. Do not size controls with raw
+`h-7`, `h-8`, `size-9`, or `h-10`. Keyboard focus uses `--focus-ring`, a 3px
+ring at half the primary color, composed with any existing edge. Pressable
+controls take the shared `.mielui-press` class, which shrinks them by
+`--motion-press-px` on press whatever their size.
 
 - Checked checkboxes use the centered dash indicator. Preserve the native checked
   state and boolean API.
@@ -351,16 +364,17 @@ edge.
 | Spring | Token | Used for |
 | --- | --- | --- |
 | Panel 550/38 | `--ease-spring-panel`, `panelIn` | menus, selects, popovers, anything that opens in place |
-| Layout 550/40 | `--ease-spring-layout` | traveling highlights, sliding pills, measured width and height |
-| Pop 400/26 | `--ease-spring-pop`, `dialogIn` | dialog and toast entrance |
+| Layout 550/40 | `--ease-spring-layout` | switch thumbs, chart tooltips, measured width and height |
+| Pop 400/26 | `--ease-spring-pop`, `dialogIn` | dialog entrance |
 | Flick 900/50 | `--ease-spring-flick` | icon micro-moves: a chevron turning, a glyph swap |
 
 Springs run for `--motion-duration-spring` (280ms), `--motion-duration-pop`
 (400ms), or `--motion-duration-flick` (240ms). Panels open in
-`--motion-duration-panel-in` (220ms). Row and tab hover highlights glide in
-`--motion-duration-item` (110ms) on `--ease-out`: a quick follow, not a spring. Plain fades run for `--motion-duration-hover`
-(150ms). Interface motion stays under 300ms, dialogs and sheets aside. The
-theme's motion feel scales every one of these together.
+`--motion-duration-panel-in` (220ms). Row and tab highlights glide in
+`--motion-duration-item` (110ms) on `--ease-out`: a quick follow, not a spring.
+Plain fades run for `--motion-duration-hover` (150ms). Interface motion stays
+under 300ms, dialogs and sheets aside. The theme's motion feel scales every one
+of these together.
 
 Frequency decides whether something moves at all:
 
@@ -372,14 +386,14 @@ Frequency decides whether something moves at all:
 - The sidebar toggle snaps. Do not animate a width that re-lays-out the page.
 
 - Panels spring open from 0.98 scale and a 4px offset on their trigger's side,
-  so they emerge from what opened them, and leave on a 100ms fade. Dialogs pop from 0.96 scale and 8px, and leave in 150ms. They never
-  slide from an edge. Sheets and drawers are the exception and keep the drawer
-  curve.
-- Selection in a collection is one shared highlight. Hover washes, tab
-  indicators, the header highlight, and the sidebar highlight all use the short
-  item glide for a pointer and snap for the keyboard. A full spring on these is
-  too much and an instant jump is too little. Never flip a background per item. Move indicators with `translate`,
-  not `left` or `top`.
+  so they emerge from what opened them, and leave on a 100ms fade. Dialogs pop
+  from 0.96 scale and 8px, and leave in 150ms. They never slide from an edge.
+  Sheets and drawers are the exception and keep the drawer curve.
+- Selection in a collection is one shared highlight. Hover washes, tab and
+  toggle-group indicators, and the rail, header, and sidebar highlights all
+  use the short item glide for a pointer and snap for the keyboard. A full
+  spring on these is too much and an instant jump is too little. Never flip a
+  background per item. Move indicators with `translate`, not `left` or `top`.
 - Nothing enters from below 0.9 scale, and nothing loops for attention.
 - Hover changes color only. Cards do not lift, scale, or glow. The press effect
   on a control is the only geometry change a pointer causes.
@@ -421,8 +435,9 @@ the changelog; do not leave the next agent to infer them from one example.
 has no gutter: the inset meets the frame's border, and the frame shows only
 where a header, toolbar, or footer strip sits on it. Double gives every
 two-layer surface a gutter: dialogs, sheets, drawers, toasts, Notch, code
-blocks, diffs, inset tables, inset and panel cards, and composers. Alert is a
-single plate and has no gutter. Floating panels are always one layer.
+blocks, diffs, inset tables, data tables, inset and panel cards, composers, and
+docs previews. Alert is a single plate and has no gutter. Menus, selects,
+popovers, and tooltips are always one layer.
 
 Shared frames scale their gutter and inner ring with
 `--mielui-border-inset-scale`. Single uses zero; double uses one. Keep the outer
@@ -433,16 +448,18 @@ border and concentric inner radius in both styles. Never set
 ## Edge highlight strength
 
 The theme setting `chrome.edgeHighlight` accepts 0 to 1 and defaults to 0.33.
-Studio presents it as a percentage under Edges. It scales the light on lit pills
-and the light inset edge on thumbs and keycaps. Structural borders, focus rings,
+Studio presents it as a percentage under Edges. It scales the light on lit
+controls and the light inset edge on thumbs and keycaps. Structural borders, focus rings,
 and cast shadows stay intact. Do not add fixed white inset shadows to individual
 components. Shadow switches still disable their corresponding elevation tokens.
 
 ## Documentation composition
 
-Every prop a component accepts is explained in prose on its page, not only in the
-API reference. After the examples, a page adds one section per feature: what
-the props in that group do, their defaults, and when to reach for them, with a
+Every component page opens with a playground: variants in its toolbar, the
+other props in a Props menu, and code under the preview that follows the
+controls. Every prop a component accepts is explained in prose on its page, not
+only in the API reference. After the examples, a page adds one section per
+feature: what the props in that group do, their defaults, and when to reach for them, with a
 live example whenever the behavior can be seen or clicked. Group props by what
 they do together, such as dismissal or opening on hover. Test each example in
 the browser before describing it, and describe what it did. Props a part
@@ -464,7 +481,7 @@ rounded tile and the sidebar toggle at the top; the primary pages (Docs,
 Components, Theme Studio, Themes, Changelog) in the middle; search, the theme
 toggle, and GitHub at the bottom. The groups are spaced so the gap above the
 primary pages equals the gap below them. Every rail item is an icon with a
-tooltip on its right. One lifted-grey lit pill marks the current page and glides
+tooltip on its right. One lifted-grey lit highlight marks the current page and glides
 between icons. The sidebar toggle never leaves the rail: on pages without a
 sidebar it is disabled and dimmed, so the icons hold the same position on every
 page. The mark is always white, in both themes and whatever the theme's
@@ -492,8 +509,8 @@ keeps a search row and icons on its guide and site links. Every group label
 links to that group's own catalog page at `/docs/components/<id>`, including
 Blocks, AI components and Chart components. Do not link a group to an anchor on
 the Components index. Rows are 8 spacing units tall in muted regular text.
-The current page is medium text on a lit pill sized to its label, not the full
-row: dark with light text in light mode, a lifted grey in dark mode. The pill
+The current page is medium text on a lit highlight sized to its label, not the full
+row: dark with light text in light mode, a lifted grey in dark mode. The highlight
 glides to the next page. Group labels
 are small muted medium text and stay pinned to the top of the sidebar while
 their group scrolls. A pinned label has an opaque panel background and full
@@ -507,17 +524,17 @@ beside it. It has no top border, card, label, or icon.
 Open pages are tabs in a floating dock at the bottom center of the panel. The
 dock is the ToggleGroup track: a solid secondary fill with a hairline. The add
 button sits first, with a short hairline between it and the tabs, and opens the
-component catalog in a new tab; following a link changes the
-current tab, or switches to the tab that already shows that page. Tabs are pills
-as wide as their label, up to 52 spacing units, where the label truncates. Each
+component catalog in a new tab; following a link changes the current tab, or
+switches to the tab that already shows that page. Tabs are as wide as their
+label, up to 52 spacing units, where the label truncates. Each
 has an icon for its kind of page: one per component group, shared by that
 group's catalog page and its components, and one per guide. Do not give every
 component the same icon. A tab has a page icon, a label, and a close button on
-hover. The current tab is the neutral lit pill, as in ToggleGroup, and the
-others are plain until hovered. Cmd or Ctrl-click on a sidebar link opens it as a tab in the
-background. Drag a tab onto another to reorder, or press Alt with the left or
-right arrow on a focused tab. Error pages are never saved as tabs; they persist
-in local storage and scroll sideways when they overflow. The dock appears only
+hover. The current tab is the neutral lit fill, as in ToggleGroup, and the
+others are plain until hovered. Cmd or Ctrl-click on a sidebar link opens it as
+a tab in the background. Drag a tab onto another to reorder, or press Alt with
+the left or right arrow on a focused tab. Tabs persist in local storage and
+scroll sideways when they overflow. Error pages are never saved as tabs. The dock appears only
 on pages with the docs sidebar and is hidden below the small breakpoint.
 
 The shell has no status line. Do not add a bar under the plate for the version,
@@ -556,8 +573,8 @@ the large breakpoint. Do not use inverted or pill-shaped section titles. Put an
 optional section explanation behind a labelled info control beside the title.
 When a downward scroll stops with the next section just below the top, the page
 settles that section into place. The settle never runs during a drag, under
-reduced motion, or with zero-duration motion. Sections are separated by 4rem and
-their content by 1rem; the shared layout owns these distances. Previous and next
+reduced motion, or with zero-duration motion. Sections are separated by 16
+spacing units and their content by 4; the shared layout owns these distances. Previous and next
 links close the article as labelled ghost Buttons above a hairline rule.
 
 Floating shell chrome is limited to four things: the page dock, the Copy page
@@ -566,12 +583,13 @@ another.
 
 Use rows for short facts and link lists. A row group is an inset frame of rows
 separated by hairlines, with a muted label in a fixed column at the start and the
-value directly beside it. Do not push values to the far edge. Rows that link somewhere put a medium label first, a muted
-summary beside it, and a chevron at the end. Use the docs `Rows` component for
+value directly beside it. Do not push values to the far edge. Rows that link
+somewhere put a medium label first, a muted summary beside it, and a chevron at
+the end. Use the docs `Rows` component for
 requirements, notes, next steps, and category lists instead of bulleted lists or
 bordered tables. The API reference uses the same rows, with the prop name at the
-start, then its type, description, and default. Parts without props of their own share
-one group. Catalog tiles are an inset preview above the name and summary, with no
+start, then its type, description, and default. Parts without props of their
+own share one group. Catalog tiles are an inset preview above the name and summary, with no
 footer bar or hover card.
 
 Previews, code blocks, row groups, API lists, and catalog tiles use the shared
@@ -579,12 +597,13 @@ inset frame: a white frame around a recessed inset in the stage color. Frames
 follow the theme's border mode, exactly like cards. With double borders a gutter
 surrounds the inset. With single borders the inset is flush with the frame on
 every side except the one carrying a tab or toolbar strip, which stays on the
-frame. Do not force the gutter on docs previews or code blocks. The leading
-preview keeps its ghost Preview and Code tabs in the frame chrome with the source
-inside the same frame. While the source is shown, its copy button sits at the end
-of that chrome row, not over the code, and example state is preserved when switching to code.
-Keep both preview forms in the shared preview implementation and use
-`data-preview-canvas` for canvas-specific spacing. Use the soft fill
+frame. Do not force the gutter on docs previews or code blocks. An example
+frame has one toolbar strip on the frame: the playground or example controls at
+the start, then Replay when the example can restart, Full screen, and Code. Code
+opens the source under the preview inside the same inset, so the preview stays
+in view and keeps its state. Long sources start collapsed. Keep previews in the
+shared preview implementation and use `data-preview-canvas` for canvas-specific
+spacing. Use the soft fill
 (`--docs-soft`) only for hover states and Studio setting rows.
 
 Isolated Notch previews invert the panel against the canvas so it stays visible
@@ -603,8 +622,8 @@ inline code.
 
 Search opens as a compact palette about 34rem wide and at most 25rem tall. The
 search row is the tallest row at about 48px, the key hint bar is about 42px, and
-result rows are compact at 14px text, so the frame reads heavier than its list. It has page icons,
-a muted hint at the end of a row only when it adds information, and faded top
+result rows are compact at 14px text, so the frame reads heavier than its list.
+It has page icons, a muted hint at the end of a row only when it adds information, and faded top
 and bottom edges. It lists open tabs, guides, places, and quick actions before a
 query, and every component once one is typed.
 
@@ -626,10 +645,10 @@ the tab dock, and overflowing preview controls.
 In the shell, the top and bottom edges of the page and the bottom edge of the
 sidebar are a short 18px fill to the panel color with a light blur instead of a
 tall mask, so the fade never reaches far into the text and the sticky catalog
-search row is not dimmed. That row gets its own short blurred
-fade beneath it while it is pinned, so cards ease out under it. Skip the top fade only in the docs
-sidebar, where pinned group labels mark the edge. Wrap a ScrollArea in `FadeScrollArea` instead of enabling
-its chevron cues.
+search row is not dimmed. That row gets its own short blurred fade beneath it
+while it is pinned, so cards ease out under it. Skip the top fade only in the
+docs sidebar, where pinned group labels mark the edge. In docs and Studio, wrap
+a ScrollArea in `FadeScrollArea` so its edges fade the same way.
 
 Examples demonstrate a useful state change. Label icon controls, keep result
 messages in an explicit layout with a gap, and clean up timers and requests on
@@ -640,9 +659,13 @@ keep their HTML, Markdown, navigation, and search metadata aligned.
 
 ### Shared shell geometry
 
-The docs sidebar starts 15rem wide and the Studio sidebar 21rem. Drag the sidebar's edge to resize it between 200 and 520 pixels. Each of the two remembers its own width in the browser. The edge shows a primary line on hover, focus and while dragging. It is a focusable separator: arrow keys move it 16 pixels, Home and End jump to the limits, and a double click restores the starting width. The rail
-is 17 spacing units wide. Rail and strip controls use the small control height with the
-Button's own radius and type; outline is reserved for the Copy page group.
+The docs sidebar starts 15rem wide and the Studio sidebar 21rem. Drag the
+sidebar's edge to resize it between 200 and 520 pixels. Each of the two
+remembers its own width in the browser. The edge shows a primary line on hover,
+focus and while dragging. It is a focusable separator: arrow keys move it 16
+pixels, Home and End jump to the limits, and a double click restores the
+starting width. Rail and strip controls use the small control height with the
+Button's own radius and type.
 Separate control groups with a gap, not a divider.
 
 In Studio the preview sits directly on the panel, on the same color as the
@@ -655,28 +678,24 @@ preview pads its top by 16 spacing units so content clears the floating menu. Do
 not add a toolbar row or more always-visible controls.
 
 Studio preview modes are a floating segmented control at the bottom center of
-the preview: a pill track with a hairline border on the card color and the
+the preview: a track with a hairline border on the card color and the
 floating elevation, holding text-only ToggleGroup items with the selected one
 marked. One mode is always selected. Below the medium breakpoint the floating
 switch is hidden and the modes become a select in the strip that shrinks before
 anything overlaps, the sheet trigger reads Edit, and token picking and preview
 options are hidden.
 
-Section headings use medium weight with the configured header font. Keep body
-labels and tabs in regular or muted text so section titles remain distinct.
-
 Live chart motion must preserve values and proportions. Animate the area fill,
 use a staggered sweep within bar bounds, and brighten pie segments in sequence
-without moving their boundaries or center labels. Use low-contrast highlights with a quiet interval between passes, and suppress
-live effects during chart inspection.
-Observe the stationary chart viewport for visibility, never a moving highlight
+without moving their boundaries or center labels. Use low-contrast highlights
+with a quiet interval between passes, and suppress live effects during chart
+inspection. Observe the stationary chart viewport for visibility, never a moving highlight
 that can leave its clip and strand its own animation. Honor reduced motion,
 zero-duration themes, hidden documents, and offscreen charts.
 
 Cartesian and pie chart overlay messages use the shared inset Card surface.
 Compact Gauge loading and empty states retain the meter footprint without an
-additional card wrapper. Keep
-the placeholder visualization behind the message and preserve live status
+additional card wrapper. Keep the placeholder visualization behind the message and preserve live status
 announcements. Cartesian, pie, and heatmap tooltips render through one private
 chart tooltip surface: the single-border frame around an inset surface with
 `text-xs`, a medium header, and dot, label, and value rows. Do not build another
@@ -707,8 +726,8 @@ groups filters settings by name. A query that matches a row shows that row in it
 group. A query that matches only a group's title or keywords shows the whole
 group. A search reaches across all tabs and shows no tab as selected. Choosing a
 tab clears the search. Disclosures open while searching, and an empty result
-offers a Clear search button. A setting that differs from the selected preset shows a small reset button
-beside its label, which puts that one setting back. For a token, that removes
+offers a Clear search button. A setting that differs from the selected preset
+shows a small reset button beside its label, which puts that one setting back. For a token, that removes
 the override. Undo and Redo sit in the floating preview tools and answer
 Cmd or Ctrl+Z and Shift+Cmd or Ctrl+Z. They cover every edit, preset switch and
 reset. One drag is one step.
@@ -724,26 +743,28 @@ picking.
 
 Export theme opens a sheet from the right with the theme as CSS, as JSON, and
 the CLI steps, with Copy JSON and Copy CSS in its footer. A draft takes the name
-of the preset it started from. Each preset in the picker shows a swatch of its brand color. Copy share link
-puts the whole theme in the link's hash, so nothing is stored on a server.
-Opening such a link asks before it replaces the current draft. A theme applied on the
-Themes page is handed to the Studio, which opens on it instead of its old draft. The export actions stay pinned
-under the scrolling groups, with Copy share link above Export theme so the
-primary action sits at the bottom edge. The preview fills the inset under the action strip.
+of the preset it started from. Each preset in the picker shows a swatch of its
+brand color. Copy share link puts the whole theme in the link's hash, so nothing
+is stored on a server. Opening such a link asks before it replaces the current
+draft. A theme applied on the Themes page is handed to the Studio, which opens
+on it instead of its old draft. The export actions stay pinned under the
+scrolling groups, with Copy share link above Export theme so the primary action
+sits at the bottom edge.
 
 Studio demos are composed cards, not loose controls or section headings. The
 Components demo is a masonry of inset cards, each a small realistic task; chart
 demos sit in the same cards. The masonry is centered, at most three columns
 wide, with a 6-unit gap between cards. Footer actions keep their natural width
-at the end of the footer; do not stretch a button across a card. Center a fixed-size component, such as a calendar,
-inside its card. Demo cards pass the theme's glass setting to Card's `surface`
+at the end of the footer; do not stretch a button across a card. Center a
+fixed-size component, such as a calendar, inside its card. Demo cards pass the theme's glass setting to Card's `surface`
 prop, so they show what the component itself does.
 
 Setting toggles are one flat segmented track: a hairline input border on the
 card fill at the medium control height, with ToggleGroup's own selected fill and
 traveling highlight inside. Do not give each option its own border or control
-edge. Selects, color triggers, and icon buttons keep their default heights. The App preview has a single app header
-holding the workspace menu, its tabs, and its actions.
+edge. Selects, color triggers, and icon buttons keep their default heights. The
+App preview has a single app header holding the workspace menu, its tabs, and
+its actions.
 
 Drawer floats beside the edge it opens from. Top and bottom drawers are centered
 at 36rem and never wider than the viewport minus the gap; left and right drawers
@@ -767,21 +788,27 @@ Menu separators span the full inner panel width, including submenus. Cancel the
 shared item padding at the separator rather than removing padding from menu items.
 Keep separators square at the panel edges.
 
-Toolbar.Root is flat by default: a pill track in the secondary color with ghost
-keys, one traveling hover wash, and a neutral lit pill on selected keys. Opt
+Toolbar.Root is flat by default: a track in the secondary color with ghost
+keys, one traveling hover wash, and the neutral lit fill on selected keys. Opt
 into depth with `variant="depth"`; its Button, Link, and Item inherit the
-choice. Toolbar depth uses the shared floating elevation for its shell and theme-owned
-`--mielui-toolbar-raised` relief for its keys. Selected tools in the depth
-variant use `--mielui-toolbar-pressed` and the background fill;
-compose focus rings with that relief. Composer is the one two-layer surface
+choice. Depth uses the shared floating elevation for its shell and the
+theme-owned `--mielui-toolbar-raised` relief for its keys: a shallow key face, a
+directional top edge, a thin dark sidewall, and a short contact shadow. Selected
+keys use `--mielui-toolbar-pressed`, which trades the contact shadow for an
+inward top shade, and the background fill. Compose focus rings with that
+relief. The face gradient follows the edge highlight, and both relief tokens
+flatten when control shadows are disabled. Keep the compact key size and avoid
+thick bevels or stacked outlines.
+
+Composer is the one two-layer surface
 with its layers the other way round: a recessed frame in the stage color holding
 a white writing surface, because a field is always white. Its primary border and
 focus ring show only while the textarea has focus. The composer toolbar stays
-flat: it joins the input on one surface by default. The input starts compact and grows with
-its content. `variant="inset"` puts the input on its own inset surface and the
-toolbar on the recessed frame under it. Toolbar
-controls are ghost buttons and triggers. Outline ones in either placement render
-as flat pills with a hairline border, no control edge, and the small control
+flat: it joins the input on one surface by default. The input starts compact
+and grows with its content. `variant="inset"` puts the input on its own inset
+surface and the toolbar on the recessed frame under it. Toolbar controls are
+ghost buttons and triggers. Outline ones in either placement render
+as flat controls with a hairline border, no control edge, and the small control
 height. The toolbar scopes that size to everything inside it, including the send
 button, so the strip under the input stays about as tall as one small control.
 `Composer.Footer` is a strip on the frame under the writing surface, for hints
@@ -796,16 +823,13 @@ that fill slightly translucent with the shared blur; it never uses the overlay
 glass fill, which disappears against dark pages. Every tooltip keeps a hairline
 foreground edge under its floating elevation.
 
-File and context chips are flat pills at the small control height: a hairline
-border on the card fill, a 20px leading icon or image thumbnail, a truncated
-label, and a compact circular remove button. They carry no shadow. Put attachment
-chips in a compact scrolling row above Composer.Root, inside the same Attachment.Root.
-Leave a small gap above the frame; keep files outside the writing surface and action
-strip. Composer.Header remains available for optional context inside the form. Toolbar
-keys use the outline within their elevation token without adding a second border.
-Keep the original compact control size. Raised keys have a directional top edge
-and a short contact shadow; pressed keys trade that shadow for an inward top shade.
-Both toolbar relief tokens flatten when control shadows are disabled.
+File and context chips are flat chips at the control radius and the small
+control height: a hairline border on the card fill, a 20px leading icon or image
+thumbnail, a truncated label, and a compact circular remove button. They carry
+no shadow. Put attachment chips in a compact scrolling row above Composer.Root,
+inside the same Attachment.Root. Leave a small gap above the frame; keep files
+outside the writing surface and action strip. Composer.Header remains available
+for optional context inside the form.
 
 Changing numeric readouts use the shared `numberShuffle` action: counts, totals,
 percentages, zoom levels, and durations. Apply it to a text-only HTML span with
@@ -815,15 +839,11 @@ axis labels, dates, and static numeric identifiers remain native. Custom snippet
 follow this rule too. Do not attach the action to a container containing controls
 or to hidden content that an overlay clones.
 
-The opt-in toolbar depth uses a shallow key face, a thin dark sidewall, and a
-short contact shadow. Its theme-owned face gradient follows the edge highlight
-and disappears with control shadows. Preserve compact key sizes and avoid thick
-bevels or stacked outlines. The default toolbar remains flat.
-
 ## Chart palette and inset placement
 
 Chart series use `--chart-1` through `--chart-5` in order, cycling only after the
-fifth series. The default palette is pastel purple, blue, red, green, and yellow.
+fifth series. The default palette is pastel purple, pink, blue, green, and
+yellow.
 Use these tokens in examples, legends, and tooltips; retain explicit series colors
 and semantic status tones. Studio edits the active color mode and exports those
 values as theme tokens.
@@ -834,21 +854,14 @@ never substitute a smaller fixed radius.
 Preview frames clip their toolbar backgrounds to preserve the perimeter.
 
 `--mielui-inset-position: top | bottom` moves exposed inset chrome in DOM order.
-Omitting the token preserves authored composition. Use the shared internal inset
-layout action, and override the token on a particular frame when its content
+The default theme sets it to `bottom`, so footer and toolbar strips sit under
+the inset. Components that opt in use the shared internal inset layout action, and override the token on a particular frame when its content
 requires a fixed order. Install command tabs and File Diff headers stay on top.
 DataTable inset mode frames only the table and its footer. The toolbar floats
 above the frame as plain controls with a gap, never inside it. Root lifts the
 Toolbar out of the frame the way an inset Card lifts its Footer. The header row
 and the footer sit on the frame, and the body rows are the recessed inset.
 
-Every frame follows the border setting. Single borders remove the gutter from
-cards, dialogs, sheets, data tables, composers, toasts, code blocks and docs
-previews alike, so the inner surface meets the frame's border. Double borders
-give each of them the gutter. Never set `--mielui-modal-inset` to a fixed
-length on a frame. Multiply by `--mielui-border-inset-scale` when a component
-needs a narrower gutter. Menus, selects, popovers and tooltips are the one
-exception: they are always single.
 Isolated viewport previews are flush with their frame border so edge-attached
 panels meet the preview edge. Notch outlines trace only the exposed perimeter;
 the attached edge stays open without a closing border line.
@@ -857,7 +870,7 @@ Glass retains a contrasting translucent inner panel over the outer chrome. Avoid
 fully transparent inner surfaces on composers and other inset layouts: they erase
 the structural distinction. Keep the shared blur and reduced-transparency fallback.
 The composer's default toolbar shares the input's glass fill so the two read as one
-surface, and its outline pills stay transparent until hovered or open.
+surface, and its outline controls stay transparent until hovered or open.
 On solid surfaces the default toolbar overlaps the input by one pixel, so no frame
 color shows between them under a fractional transform. Glass keeps the two edges
 flush, because overlapping translucent fills would draw a line.
@@ -866,9 +879,9 @@ The Studio glass backdrop is preview-only and never exported with a theme.
 ## Landing page showcase
 
 The landing page pairs concise left-aligned copy with a compact interactive
-component showcase in a muted hero derived from the active primary color. Keep equal outer side gutters, use
-the active theme palette, and avoid recreating another site's gradient treatment. This
-marketing surface is an intentional exception to the neutral documentation
+component showcase in a muted hero derived from the active primary color. Keep
+equal outer side gutters, use the active theme palette, and avoid recreating
+another site's gradient treatment. This marketing surface is an intentional exception to the neutral documentation
 canvas. Keep the header simple, use actual Mielui components in the featured
 preview, and make faded background samples inert and hidden from assistive
 technology. Avoid invented endorsements or usage counts. On narrow screens,
@@ -896,11 +909,13 @@ an install command, code block, or row group beside it. Cap the hero height on
 tall screens so the first section is visible. Do not add card grids,
 testimonials, or decoration there.
 
-Preserve the original restrained hero gradient and lighter featured showcase. The featured preview uses the shared `mielui-inset-frame` with
-its ghost tabs in the frame chrome and the demo on `mielui-inset-surface`. The featured preview follows the page theme: a light palette on white frost in light mode, and a dark palette on black frost in dark mode. Composer
-actions join the input on one surface unless a demo explicitly opts into the
-inset toolbar. Each featured tab is one small real task with plain labels: a composer with
-example prompts, a few notification settings, and a weekly chart with its total.
+Preserve the original restrained hero gradient and lighter featured showcase.
+The featured preview uses the shared `mielui-inset-frame` with its ghost tabs in
+the frame chrome and the demo on `mielui-inset-surface`. It follows the page
+theme: a light palette on white frost in light mode, and a dark palette on black
+frost in dark mode. Composer actions join the input on one surface unless a demo
+explicitly opts into the inset toolbar. Each featured tab is one small real task
+with plain labels: a composer with example prompts, a few notification settings, and a weekly chart with its total.
 The panel keeps one height across tabs. Do not use slogans as control labels.
 
 Component catalog previews render real components in a decorative, inert and
@@ -918,11 +933,9 @@ Documentation error pages use a single centered recovery message in the reading
 column. Keep navigation available, show the status beside the message, and omit
 pagination until content loads successfully.
 
-Menu rows and their traveling highlight share the control radius, bounded by the panel radius minus its border and row inset, so a row and the panel corner it sits in share a centre.
-
 The default appearance uses single borders, bottom inset strips, solid surfaces,
 and a 33% edge highlight. Cards and menus have no shadow and are held by their
-hairline; control and dialog shadows remain enabled. Studio has no primary
-button border setting, because lit buttons draw their own edge. Explicit theme
-settings and per-component surface choices override these defaults. The default
-chart palette places pink in Chart 2 and blue in Chart 3.
+hairline; control and dialog shadows, which also cover sheets, remain enabled.
+Studio has no primary button border setting, because lit buttons draw their own
+edge. Explicit theme settings and per-component surface choices override these
+defaults.

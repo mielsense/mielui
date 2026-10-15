@@ -136,8 +136,8 @@ To rebrand, set `--color-primary` and `--color-on-primary` on `:root` and `.dark
 
 You almost never write a radius. Components bring their own. When you build something custom:
 
-- Pressable and row-like things: `rounded-[var(--radius-control)]`.
-- A row inside a list or nav: `rounded-[var(--radius-md)]`.
+- Pressable things and menu rows: `rounded-[var(--radius-control)]`. It is 12px by default, 4px in the sharp scale, and a pill only in the rounded scale.
+- A row inside a plain list or nav: `rounded-[var(--radius-md)]`.
 - A plate: use `mielui-plate`, which also gives the squircle corner.
 - A thing nested inside a rounded thing: inner radius = outer radius minus the gap between them. If a button sits 8px inside a panel corner, the panel's radius is the button's radius plus 8px. Change the outer radius or the gap, never hand-pick the inner one.
 - Round by nature: avatars, dots, switch thumbs. Those keep `rounded-full`.

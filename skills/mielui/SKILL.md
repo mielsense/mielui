@@ -150,13 +150,13 @@ Report the Mielui components added, integration mode, verification performed, an
 
 The catalog separates Components, Blocks, AI components, Chart components, and Actions. Public component imports remain under `@mielui/svelte/components/<slug>` even when source folders use another category. Chart, PieChart, Gauge, and Heatmap are charts. Actions use `@mielui/svelte/actions/<slug>`: morph, number-shuffle, and shimmer.
 
-Use Dialog instead of Modal, Kbd instead of Shortcut, and HugeiconsIcon with Hugeicons glyph data. Group connects real Button, Input, and trigger components; include Group.Separator between controls. Tag Input uses outline badges.
+Use Dialog instead of Modal, Kbd instead of Shortcut, and HugeiconsIcon with Hugeicons glyph data. Group connects real Button, Input, and trigger components; include Group.Separator between controls. Tag Input renders its tags as secondary badges.
 
 Toast is composable through Root, Content, Footer, Title, Icon, Actions, Action, and Close. The icon, title, and description sit together in Content; Footer appears only for actions. The toast helpers render these same parts. Overlay surfaces accept `surface="solid" | "glass"` on the documented owning part; do not apply glass independently to nested surfaces.
 
 Surfaces are solid by default. Glass is opt-in: set `--mielui-surface: glass` on `:root` for the whole app, or pass `surface="glass"` to one component. Do not add blur classes by hand.
 
-Card is solid unless you pass `surface="glass"` to Card.Root. It does not follow the theme's glass setting the way overlays do. On inset and panel cards only the frame frosts and the content stays solid.
+Card is solid unless you pass `surface="glass"` to Card.Root. It does not follow the theme's glass setting the way overlays do. On inset and panel cards the frame frosts and the content surface stays close to opaque.
 
 Frames are two layers: a white frame holding a recessed inset in the stage color (`--color-background`), with header, toolbar and footer strips on the frame. They follow the theme's border setting. With single borders, the default, the inset meets the frame's border, and with double borders a gutter separates them. This applies to inset cards, dialogs, sheets, data tables, composers, toasts and code blocks. Never give a frame a fixed `--mielui-modal-inset`. Multiply by `--mielui-border-inset-scale`, which is 0 for single and 1 for double.
 
@@ -176,7 +176,7 @@ Heatmap.Root accepts `animation="rows" | "columns" | "live" | "none"`, defaultin
 
 Bind a component's DOM node with `bind:element`. Every part uses that name, including the Calendar, RangeCalendar, DatePicker, DateRangePicker and OTPField parts, which used `bind:ref` before 0.3.0. HugeiconsIcon follows the same rule.
 
-Translate or reword built-in text with the `labels` prop on the root. It is an object of optional keys with English fallbacks, and keys that insert a value are functions: `<Toaster labels={{ dismiss: 'Fermer', position: (position, total) => `${position} sur ${total}` }} />`. Roots that take it: Attachment, Chart, CodeBlock, ColorPicker, Combobox, Command, DataTable, DatePicker, DateRangePicker, Dialog, FileDiff, FileUpload, Gauge, Heatmap, Markdown, Message, Notch, NumberField, Pagination, PieChart, Question, Reasoning, ReorderList, Sheet, Slider, TagInput, Toaster and Tool. Read the component's reference for its keys. Do not add one prop per string.
+Translate or reword built-in text with the `labels` prop on the root. It is an object of optional keys with English fallbacks, and keys that insert a value are functions: `<Toaster labels={{ dismiss: 'Fermer', position: (position, total) => `${position} sur ${total}` }} />`. Roots that take it: Attachment, Button, Chart, CodeBlock, ColorPicker, Combobox, Command, CopyButton, DataTable, DatePicker, DateRangePicker, Dialog, FileDiff, FileUpload, FolderCard, Form.ErrorSummary, Gauge, Heatmap, Kbd, Markdown, Message, Notch, NumberField, Pagination, PieChart, Question, Reasoning, ReorderList, Sheet, ShowMore, SkeletonSwap, Slider, TagInput, TaskSteps, Toaster and Tool. Read the component's reference for its keys. Do not add one prop per string.
 
 A part used outside its root throws `<Name> components must be used within <Name.Root>.` Tabs, CodeBlock and FileDiff parts also render on their own.
 

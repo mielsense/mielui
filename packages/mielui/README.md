@@ -57,7 +57,7 @@ The CLI installs source and required helpers from the package's bundled registry
 
 ## Fonts and themes
 
-The default theme uses Inter Tight and Geist Mono. The stylesheet imports their self-hosted font files from the package's runtime dependencies, at weights 300 to 500. Override `--font-sans`, `--font-mono`, or `--font-header` and supply the corresponding font files to use another family.
+The default theme uses Inter Tight and Geist Mono. The stylesheet imports their self-hosted font files from the package's runtime dependencies: Inter Tight at weights 300 to 500 and Geist Mono at 400 and 500. Override `--font-sans`, `--font-mono`, or `--font-header` and supply the corresponding font files to use another family.
 
 Use [Theme Studio](https://ui.miel.my/studio) to configure colors, typography, density, edges, and motion. Components honor reduced motion and the shared theme settings.
 
@@ -67,7 +67,7 @@ Use [Theme Studio](https://ui.miel.my/studio) to configure colors, typography, d
 npx skills add mielsense/mielui --skill mielui
 ```
 
-The skill points coding agents to Mielui's current component docs, examples, and upgrade notes. Sivir examples are not an API reference for this package.
+The skill points coding agents to Mielui's current component docs, examples, and upgrade notes. Sivir examples are not an API reference for this package. Add `--skill mielui-design` for page layout guidance: app shells, dashboards, settings, and marketing sites.
 
 ## License and attribution
 
