@@ -3,8 +3,8 @@
     import { Gauge } from '@mielui/svelte/components/gauge';
     import * as Typography from '@mielui/svelte/components/typography';
     import { ComponentPreview, InstallCommand, Playground } from '$lib/components/docs';
+    import InlineText from '$lib/components/docs/inline-text.svelte';
     import PageIntro from '$lib/components/docs/page-intro.svelte';
-    import SectionHeading from '$lib/components/docs/section-heading.svelte';
     import ContextWindow from './examples/context-window.svelte';
     import ContextWindowSrc from './examples/context-window.svelte?raw';
     import Hero from './examples/hero.svelte';
@@ -16,6 +16,13 @@
     import UsageLimit from './examples/usage-limit.svelte';
     import UsageLimitSrc from './examples/usage-limit.svelte?raw';
     import { code as playgroundCode, controls as playgroundControls } from './playground';
+
+    const usageCode = `<script lang="ts">
+    import { Gauge } from '@mielui/svelte/components/gauge';
+</${'script'}>
+
+<Gauge value={85} label="Context remaining" />
+<Gauge value={72} label="Monthly API usage" tone="warning">72%</Gauge>`;
 </script>
 
 <svelte:head>
@@ -35,16 +42,15 @@
     <section id="hero" class="scroll-mt-20 flex flex-col gap-4">
         <Playground controls={playgroundControls} code={playgroundCode} refreshable>
             {#snippet children(values)}
-                {const gauge = {
+                {const gauge = $derived({
                     value: values.empty ? null : values.value,
                     max: values.max,
-                    label: values.label || undefined,
+                    label: 'Monthly API usage',
                     size: values.size,
-                    strokeWidth: values.strokeWidth > 0 ? values.strokeWidth : undefined,
                     tone: values.tone,
                     animation: values.animation,
                     loading: values.loading
-                }}
+                })}
                 {#if values.unit}
                     <Gauge {...gauge}>
                         <span>
@@ -66,35 +72,16 @@
     <section id="usage" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Usage</Typography.H2>
         <Typography.Text variant="supporting">
-            The default diameter is 120px. Set size explicitly for compact toolbar meters; the arc
-            and center text scale with it. strokeWidth sets the track thickness, which defaults to
-            9.75% of the diameter. The track and colored arc share the same thickness. Values are
-            clamped between zero and max. A nonpositive or nonfinite max falls back to 100, and
-            nonfinite values display zero. Entry and value changes animate unless the theme disables
-            motion or the user requests reduced motion. Set animation="live" for a continuous
-            highlight, or animation="none" to disable entry and update motion.
+            <InlineText
+                text={"`value` and `max` set the filled portion; values are clamped between zero and `max`, which defaults to 100. Give every gauge a `label`: it is the accessible name, since the center only shows a number. Children replace that number. The default number rolls when the value changes; for custom center content, use the [numberShuffle action](/docs/actions/number-shuffle) on the numeric text."}
+            />
         </Typography.Text>
         <Typography.Text variant="supporting">
-            Use{' '}
-            <Typography.InlineCode>value</Typography.InlineCode>
-            and
-            <Typography.InlineCode>max</Typography.InlineCode>
-            for the filled portion. Provide
-            <Typography.InlineCode>label</Typography.InlineCode>
-            to name the meter for screen-reader users; children can replace the default numeric
-            center text. The default number rolls with value changes. For custom center content, use
-            the
-            <a href="/docs/actions/number-shuffle">numberShuffle action</a>
-            on the numeric text.
+            <InlineText
+                text={"The default diameter is 120px. Set `size` for compact toolbar meters; the arc and center text scale with it. `strokeWidth` sets the track thickness, which defaults to 9.75% of the diameter. `animation` reveals the arc on entry by default, `live` adds a continuous highlight, and `none` turns motion off. Reduced motion and themes without motion also turn it off."}
+            />
         </Typography.Text>
-        <CodeBlock
-            code={`import { Gauge } from '@mielui/svelte/components/gauge';
-
-<Gauge value={85} label="Context remaining" />
-<Gauge value={72} max={100} label="Monthly API usage" tone="warning">72%</Gauge>`}
-            lang="svelte"
-            copy="overlay"
-        />
+        <CodeBlock code={usageCode} lang="svelte" copy="overlay" />
     </section>
 
     <section id="changing-values" class="scroll-mt-20 flex flex-col gap-4">
@@ -104,35 +91,39 @@
             current value and changes tone near capacity. The label keeps the units explicit for
             screen readers.
         </Typography.Text>
-        <ComponentPreview code={InteractiveSource}><Interactive /></ComponentPreview>
+        <ComponentPreview code={InteractiveSource}>
+            <Interactive />
+        </ComponentPreview>
     </section>
 
-    <section id="loading" class="flex scroll-mt-20 flex-col gap-4">
-        <SectionHeading title="Loading and missing measurements" />
+    <section id="loading" class="scroll-mt-20 flex flex-col gap-4">
+        <Typography.H2 class="docs-section-heading">Loading and missing measurements</Typography.H2>
         <Typography.Text variant="supporting">
-            Set loading while a measurement is being fetched. Pass a null value when no measurement
-            is available; zero remains a valid value. Gauge keeps its size, renders the appropriate
-            ring and center label, and announces the state. No wrapper or placeholder is needed.
+            <InlineText
+                text={"Set `loading` while a measurement is being fetched. Pass `value={null}` when no measurement is available; zero is still a valid value. Gauge keeps its size, draws the matching ring and center text, and announces the state."}
+            />
         </Typography.Text>
         <CodeBlock
             lang="svelte"
+            copy="overlay"
             code={`<Gauge value={usage} loading={pending} label="Storage used in GB" />
 <Gauge value={null} label="Storage used in GB" />`}
         />
     </section>
+
     <section id="examples" class="scroll-mt-20 flex flex-col gap-10">
-        <SectionHeading title="Examples">
-            {#snippet description()}
-                Compare bounded quantities with explicit units and a label beside each meter.
-            {/snippet}
-        </SectionHeading>
+        <div>
+            <Typography.H2 class="docs-section-heading">Examples</Typography.H2>
+        </div>
 
         <div id="usage-update" class="scroll-mt-20 flex flex-col gap-3">
             <Typography.H3 class="docs-subsection-heading">Usage update</Typography.H3>
             <Typography.Text variant="supporting">
                 The arc, the number, and the tone follow the value when it changes.
             </Typography.Text>
-            <ComponentPreview refreshable code={HeroSrc}><Hero /></ComponentPreview>
+            <ComponentPreview refreshable code={HeroSrc}>
+                <Hero />
+            </ComponentPreview>
         </div>
 
         <div id="context-window" class="scroll-mt-20 flex flex-col gap-3">
@@ -144,30 +135,40 @@
 
         <div id="usage-limit" class="scroll-mt-20 flex flex-col gap-3">
             <Typography.H3 class="docs-subsection-heading">Usage limit</Typography.H3>
-            <ComponentPreview refreshable code={UsageLimitSrc}><UsageLimit /></ComponentPreview>
+            <ComponentPreview refreshable code={UsageLimitSrc}>
+                <UsageLimit />
+            </ComponentPreview>
         </div>
     </section>
-    <section id="data-states" class="flex scroll-mt-20 flex-col gap-4">
-        <SectionHeading title="Data and animation states">
-            {#snippet description()}
-                Compare ready, loading, unavailable, zero, and full measurements. Reveal uses the
-                built-in entry animation; Live continuously highlights the arc without changing its
-                value. None disables motion. The live highlight pauses offscreen, in hidden tabs,
-                and when reduced motion is enabled. Loading and unavailable states keep the same
-                meter footprint.
-            {/snippet}
-        </SectionHeading>
-        <ComponentPreview code={StatesSource}><States /></ComponentPreview>
+
+    <section id="data-states" class="scroll-mt-20 flex flex-col gap-4">
+        <Typography.H2 class="docs-section-heading">Data and animation states</Typography.H2>
+        <Typography.Text variant="supporting">
+            Compare ready, loading, unavailable, zero, and full measurements. Reveal plays the entry
+            animation; Live highlights the arc continuously without changing its value; None turns
+            motion off. The live highlight pauses offscreen, in hidden tabs, and with reduced
+            motion. Loading and unavailable states keep the same footprint.
+        </Typography.Text>
+        <ComponentPreview code={StatesSource}>
+            <States />
+        </ComponentPreview>
     </section>
-    <section id="labels" class="flex scroll-mt-20 flex-col gap-4">
+
+    <section id="labels" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Labels</Typography.H2>
-        <Typography.Text>
-            Built-in text is English by default. Pass labels to Gauge to translate the accessible
-            name it builds while loading, when it has no data, and when it has no label. Every key
-            is optional; omitted keys keep their default.
+        <Typography.Text variant="supporting">
+            <InlineText
+                text={"Built-in text is English. Pass a `labels` object to translate the accessible name Gauge builds while loading (`loading`), when there is no data (`empty`), and when there is no `label` (`value`). `GaugeLabels` types it; every key is optional and each one is a function."}
+            />
         </Typography.Text>
         <CodeBlock
-            code={`<Gauge value={72} labels={{ loading: (name) => \`Chargement de \${name ?? 'la mesure'}\`, value: (value, max) => \`\${value} sur \${max}\` }} />`}
+            code={`<Gauge
+    value={72}
+    labels={{
+        loading: (name) => \`Chargement de \${name ?? 'la mesure'}\`,
+        value: (value, max) => \`\${value} sur \${max}\`
+    }}
+/>`}
             lang="svelte"
             copy="overlay"
         />

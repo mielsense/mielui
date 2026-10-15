@@ -1,23 +1,5 @@
 [
     {
-        "name": "onloadeddatacapture",
-        "type": "EventHandler<Event, HTMLFormElement> | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
-        "name": "on:loadedmetadata",
-        "type": "EventHandler<Event, HTMLFormElement> | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
         "name": "onloadedmetadata",
         "type": "EventHandler<Event, HTMLFormElement> | null | undefined",
         "required": false,
@@ -2034,24 +2016,6 @@
         "inherited": true
     },
     {
-        "name": "aria-label",
-        "type": "string | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": "'Message actions'",
-        "description": "Defines a string value that labels the current element.",
-        "inherited": true
-    },
-    {
-        "name": "aria-label",
-        "type": "string | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": "'Conversation'",
-        "description": "Defines a string value that labels the current element.",
-        "inherited": true
-    },
-    {
         "name": "onclick",
         "type": "MouseEventHandler<HTMLButtonElement> | null | undefined",
         "required": false,
@@ -2242,6 +2206,42 @@
     },
     {
         "name": "onfocuscapture",
+        "type": "FocusEventHandler<HTMLElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "on:focusin",
+        "type": "FocusEventHandler<HTMLElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onfocusin",
+        "type": "FocusEventHandler<HTMLElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onfocusincapture",
+        "type": "FocusEventHandler<HTMLElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "on:focusout",
         "type": "FocusEventHandler<HTMLElement> | null | undefined",
         "required": false,
         "bindable": false,

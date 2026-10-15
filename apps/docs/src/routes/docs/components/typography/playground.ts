@@ -1,11 +1,5 @@
-import {
-    attributes,
-    changed,
-    headingLevel,
-    number,
-    type PlaygroundValues,
-    select
-} from '$lib/components/docs/playground';
+import type { TypographyTextVariant } from '@mielui/svelte/components/typography';
+import { attributes, type PlaygroundValues, select } from '$lib/components/docs/playground';
 
 export const controls = {
     role: select(
@@ -19,19 +13,14 @@ export const controls = {
             'h6',
             'title',
             'description',
-            'text',
+            'text-lead',
+            'text-body',
+            'text-supporting',
             'metadata',
             'inline-code'
         ],
-        'text'
-    ),
-    variant: select('Text variant', ['lead', 'body', 'supporting'], 'lead', 'Appearance'),
-    level: number('Title level', 2, {
-        min: 1,
-        max: 6,
-        step: 1,
-        group: 'Behavior'
-    })
+        'text-lead'
+    )
 };
 
 export const samples = {
@@ -42,7 +31,9 @@ export const samples = {
     code: 'pnpm run release-gate'
 };
 
-const names = {
+type Role = PlaygroundValues<typeof controls>['role'];
+
+const names: Record<Role, string> = {
     h1: 'H1',
     h2: 'H2',
     h3: 'H3',
@@ -51,20 +42,39 @@ const names = {
     h6: 'H6',
     title: 'Title',
     description: 'Description',
-    text: 'Text',
+    'text-lead': 'Text',
+    'text-body': 'Text',
+    'text-supporting': 'Text',
     metadata: 'Metadata',
     'inline-code': 'InlineCode'
 };
 
-type Values = PlaygroundValues<typeof controls>;
+/** The Text variant a role prints, leaving out `supporting` because it is the default. */
+export function textVariant(role: Role): TypographyTextVariant | undefined {
+    if (role === 'text-lead') {
+        return 'lead';
+    }
 
-function sample(role: Values['role']): string {
-    if (role === 'description' || role === 'text') {
+    if (role === 'text-body') {
+        return 'body';
+    }
+
+    return undefined;
+}
+
+function isParagraph(role: Role): boolean {
+    return role === 'description' || names[role] === 'Text';
+}
+
+function sample(role: Role): string {
+    if (isParagraph(role)) {
         return samples.paragraph;
     }
+
     if (role === 'metadata') {
         return samples.metadata;
     }
+
     if (role === 'inline-code') {
         return samples.code;
     }
@@ -72,14 +82,13 @@ function sample(role: Values['role']): string {
     return samples.heading;
 }
 
-export function code(values: Values): string {
+export function code(values: PlaygroundValues<typeof controls>): string {
     const name = `Typography.${names[values.role]}`;
     const props = attributes({
-        level: values.role === 'title' && headingLevel(values.level),
-        variant: values.role === 'text' && changed(values.variant, 'supporting')
+        level: values.role === 'title' && 2,
+        variant: textVariant(values.role)
     });
-    const paragraph = values.role === 'description' || values.role === 'text';
-    const markup = paragraph
+    const markup = isParagraph(values.role)
         ? `<${name}${props}>
     ${sample(values.role)}
 </${name}>`

@@ -1,5 +1,6 @@
 import {
     attributes,
+    expression,
     literal,
     number,
     type PlaygroundValues,
@@ -51,7 +52,7 @@ export function code(values: PlaygroundValues<typeof controls>): string {
     const props = attributes({
         current: values.current,
         failed: values.failed,
-        label: 'Deploy progress',
+        labels: expression("{ list: 'Deploy progress' }"),
         class: 'max-w-sm'
     });
     const shown: Record<string, string>[] = values.durations ? steps : plainSteps;

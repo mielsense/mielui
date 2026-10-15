@@ -20,9 +20,7 @@
                     lastChange = next ? 'opened' : 'closed';
                 }}
             >
-                <Select.Trigger aria-labelledby="region-label" class="w-48"
-                    >{region}</Select.Trigger
-                >
+                <Select.Trigger aria-labelledby="region-label" class="w-48" />
                 <Select.Content>
                     {#each regions as option (option)}
                         <Select.Item value={option}>{option}</Select.Item>

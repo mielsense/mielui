@@ -3,17 +3,30 @@
     import { Gauge } from '@mielui/svelte/components/gauge';
     import * as Tabs from '@mielui/svelte/components/tabs';
 
+    const ANIMATIONS = ['reveal', 'live', 'none'] as const;
+    const VALUES: Record<string, number | null> = {
+        ready: 64,
+        loading: 64,
+        empty: null,
+        zero: 0,
+        full: 100
+    };
+
     let dataState = $state('ready');
     let animation = $state('reveal');
-    const motion = $derived(
-        animation === 'live' ? 'live' : animation === 'none' ? 'none' : 'reveal'
-    );
     let replay = $state(0);
+
+    const motion = $derived(
+        ANIMATIONS.find((option) => {
+            return option === animation;
+        }) ?? 'reveal'
+    );
 
     function replayAnimation() {
         replay += 1;
     }
 </script>
+
 <div class="w-full space-y-6">
     <div class="flex flex-wrap items-center gap-3">
         <Tabs.Root bind:value={dataState} variant="ghost">
@@ -42,7 +55,7 @@
         {#key `${animation}-${replay}`}
             <div class="flex flex-col items-center gap-3">
                 <Gauge
-                    value={dataState === 'empty' ? null : dataState === 'zero' ? 0 : dataState === 'full' ? 100 : 64}
+                    value={VALUES[dataState]}
                     loading={dataState === 'loading'}
                     max={100}
                     animation={motion}

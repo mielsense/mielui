@@ -5,6 +5,7 @@
 
     let ready = $state(true);
     let timer: ReturnType<typeof setTimeout> | undefined;
+
     function reload() {
         clearTimeout(timer);
         ready = false;
@@ -12,6 +13,7 @@
             ready = true;
         }, 1200);
     }
+
     onDestroy(() => {
         clearTimeout(timer);
     });

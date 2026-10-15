@@ -8,23 +8,6 @@ import {
     toggle
 } from '$lib/components/docs/playground';
 
-export const weekStarts = {
-    sunday: 0,
-    monday: 1,
-    tuesday: 2,
-    wednesday: 3,
-    thursday: 4,
-    friday: 5,
-    saturday: 6
-} satisfies Record<string, 0 | 1 | 2 | 3 | 4 | 5 | 6>;
-
-export const locales = {
-    english: 'en-US',
-    french: 'fr-FR',
-    german: 'de-DE',
-    japanese: 'ja-JP'
-};
-
 export const controls = {
     animation: select('Animation', ['rows', 'columns', 'live', 'none'], 'rows'),
     weeks: number('Weeks', 26, {
@@ -33,21 +16,13 @@ export const controls = {
         step: 1,
         group: 'Appearance'
     }),
-    weekStartsOn: select(
-        'Week starts on',
-        ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'],
-        'sunday',
-        'Appearance'
-    ),
-    locale: select('Locale', ['english', 'french', 'german', 'japanese'], 'english', 'Appearance'),
     summary: toggle('Summary', 'Content', true),
     monthLabels: toggle('Month labels', 'Content', true),
     weekdayLabels: toggle('Weekday labels', 'Content', true),
     tooltip: toggle('Tooltip', 'Content', true),
     detail: toggle('Detail', 'Content', true),
     legend: toggle('Legend', 'Content', true),
-    loading: toggle('Loading', 'State'),
-    empty: toggle('Empty', 'State')
+    state: select('Data', ['ready', 'loading', 'empty'], 'ready', 'State')
 };
 
 type Values = PlaygroundValues<typeof controls>;
@@ -80,10 +55,8 @@ export function code(values: Values): string {
     const props = attributes({
         weeks: changed(values.weeks, 26),
         endDate: '2026-09-15',
-        weekStartsOn: changed(weekStarts[values.weekStartsOn], weekStarts.sunday),
-        locale: changed(locales[values.locale], locales.english),
         animation: changed(values.animation, 'rows'),
-        loading: values.loading
+        loading: values.state === 'loading'
     });
     const complete =
         values.summary &&
@@ -92,9 +65,10 @@ export function code(values: Values): string {
         values.tooltip &&
         values.detail &&
         values.legend;
-    const days = values.empty
-        ? `    const days: { date: string; count: number }[] = [];`
-        : `    const days = Array.from({ length: 182 }, (_, index) => {
+    const days =
+        values.state === 'empty'
+            ? `    const days: { date: string; count: number }[] = [];`
+            : `    const days = Array.from({ length: 182 }, (_, index) => {
         const date = new Date(Date.UTC(2026, 2, 18 + index));
 
         return {

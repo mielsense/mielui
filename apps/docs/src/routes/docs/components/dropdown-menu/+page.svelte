@@ -40,13 +40,32 @@
 
     let notifications = $state(true);
     let theme = $state('system');
+
+    const usageCode = `<script lang="ts">
+    import * as DropdownMenu from '@mielui/svelte/components/dropdown-menu';
+    import Kbd from '@mielui/svelte/components/kbd';
+
+    function newFile() {
+        console.log('New file');
+    }
+</${'script'}>
+
+<DropdownMenu.Root>
+    <DropdownMenu.Trigger>File</DropdownMenu.Trigger>
+    <DropdownMenu.Content>
+        <DropdownMenu.Item callback={newFile}>
+            New file
+            <Kbd shortcut="cmd+N" />
+        </DropdownMenu.Item>
+    </DropdownMenu.Content>
+</DropdownMenu.Root>`;
 </script>
 
 <svelte:head>
     <title>Mielui · Dropdown Menu</title>
     <meta
         name="description"
-        content="A list of actions anchored to a button. Use it for user menus, row-level actions, and anywhere a `…` button needs to do more than one thing."
+        content="A menu of actions anchored to a button, for user menus, row actions, and overflow buttons."
     />
 </svelte:head>
 
@@ -57,23 +76,11 @@
         <Playground controls={playgroundControls} code={playgroundCode}>
             {#snippet children(values)}
                 <DropdownMenu.Root>
-                    <DropdownMenu.Trigger
-                        variant={values.variant}
-                        size={values.size}
-                        disabled={values.disabled}
-                    >
+                    <DropdownMenu.Trigger variant={values.variant}>
                         My account
                         <HugeiconsIcon icon={ChevronDown} size={16} class="text-foreground-muted" />
                     </DropdownMenu.Trigger>
-                    <DropdownMenu.Content
-                        surface={values.glass ? 'glass' : undefined}
-                        dynamic={values.dynamic}
-                        allowClickOutside={values.allowClickOutside}
-                        dismissLayer={values.dismissLayer}
-                        focusTrap={values.focusTrap}
-                        lockScroll={values.lockScroll}
-                        portal={values.portal}
-                    >
+                    <DropdownMenu.Content surface={values.glass ? 'glass' : undefined}>
                         {#if values.label}
                             <DropdownMenu.Label>alex@example.com</DropdownMenu.Label>
                         {/if}
@@ -166,22 +173,17 @@
     <section id="usage" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Usage</Typography.H2>
         <Typography.Text variant="supporting">
-            The panel is one floating layer with a single hairline edge; the theme setting
-            chrome.borders does not change it. Separators span the inner panel width, including
-            submenus. Menu items keep their padding.
+            <InlineText
+                text={"Item runs `callback` when chosen, then closes the menu. Arrow keys, Home, End, and typing a label move between enabled items, and submenus open with the arrow key that points at them. An `onclick` handler on an item can call `event.preventDefault()` to keep the menu open."}
+            />
         </Typography.Text>
         <Typography.Text variant="supporting">
-            Use Arrow keys, Home, End, or type a label to move between enabled items. Submenus
-            support directional keyboard navigation. Items close the menu after selection; an
-            onclick handler can call event.preventDefault() to cancel selection and dismissal. Bind
-            checked or value to retain selections outside the mounted menu.
+            <InlineText
+                text={"The panel is one floating layer with a single hairline edge; the theme's `chrome.borders` setting does not change it."}
+            />
         </Typography.Text>
 
-        <CodeBlock
-            code={`import * as DropdownMenu from '@mielui/svelte/components/dropdown-menu';\nimport Kbd from '@mielui/svelte/components/kbd';\n\n<DropdownMenu.Root>\n  <DropdownMenu.Trigger>Menu</DropdownMenu.Trigger>\n  <DropdownMenu.Content>\n    <DropdownMenu.Item callback={handleClick}>\n      Action\n      <Kbd shortcut="cmd+K" />\n    </DropdownMenu.Item>\n  </DropdownMenu.Content>\n</DropdownMenu.Root>`}
-            lang="svelte"
-            copy="overlay"
-        />
+        <CodeBlock code={usageCode} lang="svelte" copy="overlay" />
     </section>
 
     <section id="examples" class="scroll-mt-20 flex flex-col gap-10">
@@ -206,7 +208,7 @@
             </ComponentPreview>
         </div>
 
-        <div id="user-menu" class="scroll-mt-20 flex flex-col gap-3">
+        <div id="grouped-items" class="scroll-mt-20 flex flex-col gap-3">
             <Typography.H3 class="docs-subsection-heading">Grouped items</Typography.H3>
             <ComponentPreview code={UserMenuSrc}>
                 <UserMenu />
@@ -234,7 +236,7 @@
             </ComponentPreview>
         </div>
 
-        <div id="configuration-menu" class="scroll-mt-20 flex flex-col gap-3">
+        <div id="configuration-submenu" class="scroll-mt-20 flex flex-col gap-3">
             <Typography.H3 class="docs-subsection-heading">Configuration submenu</Typography.H3>
             <Typography.Text variant="supporting">
                 Nested choices for configuring a model, effort level, and response speed.
@@ -255,7 +257,8 @@
             </ComponentPreview>
         </div>
     </section>
-    <section id="glass" class="flex flex-col gap-4">
+
+    <section id="glass" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Glass surface</Typography.H2>
         <Typography.Text variant="supporting">
             Set surface="glass" on DropdownMenu.Content for a translucent background with blur.
@@ -264,9 +267,12 @@
             opaque fallback when backdrop filtering is unavailable and respects reduced-transparency
             preferences.
         </Typography.Text>
-        <ComponentPreview code={GlassSrc}><Glass /></ComponentPreview>
+        <ComponentPreview code={GlassSrc}>
+            <Glass />
+        </ComponentPreview>
     </section>
-    <section id="checkbox-and-radio-items" class="flex flex-col gap-4">
+
+    <section id="checkbox-and-radio-items" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Checkbox and radio items</Typography.H2>
         <Typography.Text variant="supporting">
             <InlineText
@@ -282,7 +288,8 @@
             <CheckboxRadioExample />
         </ComponentPreview>
     </section>
-    <section id="controlling-the-menu" class="flex flex-col gap-4">
+
+    <section id="controlling-the-menu" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Controlling the menu</Typography.H2>
         <Typography.Text variant="supporting">
             <InlineText
@@ -293,7 +300,8 @@
             <ControlledExample />
         </ComponentPreview>
     </section>
-    <section id="panel-behavior" class="flex flex-col gap-4">
+
+    <section id="panel-behavior" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Panel behavior</Typography.H2>
         <Typography.Text variant="supporting">
             <InlineText
@@ -306,11 +314,12 @@
             />
         </Typography.Text>
     </section>
-    <section id="items" class="flex flex-col gap-4">
+
+    <section id="items" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Items and other parts</Typography.H2>
         <Typography.Text variant="supporting">
             <InlineText
-                text={"Item runs `callback` when chosen and then closes the menu. It is built on [Button](/docs/components/button), so `disabled` skips it, and `loading` with `loadingLabel`, `successLabel` and `errorLabel` shows progress on a row that starts slow work. `variant=\"destructive\"` colors the row for an action that removes something and tints the highlight while it is active. Item, CheckboxItem, RadioItem, Trigger and SubTrigger accept `element` to bind the DOM node. `unstyled` removes the Button classes on Item, Trigger and SubTrigger, and `onkeydown` on Item runs before the menu handles the key. A row is always a button and does not take `href`. Navigate from `callback`."}
+                text={"Item runs `callback` when chosen and then closes the menu. It is built on [Button](/docs/components/button), so `disabled` skips it, and `loading` with `labels` shows progress on a row that starts slow work. `variant=\"destructive\"` colors the row for an action that removes something and tints the highlight while it is active. Item, CheckboxItem, RadioItem, Trigger and SubTrigger accept `element` to bind the DOM node, and `onkeydown` on Item runs before the menu handles the key. Rows always use the menu row style, so Button's other variants, `size` and `unstyled` do not apply to them. A row is always a button and does not take `href`. Navigate from `callback`."}
             />
         </Typography.Text>
         <Typography.Text variant="supporting">

@@ -11,11 +11,12 @@ export const controls = {
     shape: select('Shape', ['circle', 'square'], 'circle'),
     size: select('Size', ['sm', 'md', 'lg', 'xl'], 'lg', 'Appearance'),
     image: select('Image', ['photo', 'unavailable', 'none'], 'photo', 'Content'),
-    alt: text('Alt text', 'Mielsense', 'Content'),
     fallback: text('Fallback', 'MI', 'Content')
 };
 
 type Values = PlaygroundValues<typeof controls>;
+
+export const ALT = 'Mielsense';
 
 export const sources: Record<Values['image'], string | undefined> = {
     photo: 'https://github.com/mielsense.png',
@@ -35,7 +36,7 @@ export function code(values: Values): string {
             : `
     <Avatar.Image${attributes({
         src,
-        alt: values.alt
+        alt: ALT
     })} />`;
     const fallback = values.fallback
         ? `

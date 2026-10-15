@@ -3,9 +3,11 @@
     import { Gauge } from '@mielui/svelte/components/gauge';
     import * as Notch from '@mielui/svelte/components/notch';
 
-    let open = $state(false);
-    let side = $state<'top' | 'bottom' | 'left' | 'right'>('top');
     const sides = ['top', 'bottom', 'left', 'right'] as const;
+
+    let open = $state(false);
+    let side = $state<(typeof sides)[number]>('top');
+
     const lateral = $derived(side === 'left' || side === 'right');
 
     function show(value: typeof side) {

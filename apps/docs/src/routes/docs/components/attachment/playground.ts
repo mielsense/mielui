@@ -1,35 +1,24 @@
 import {
     attributes,
-    BUTTON_VARIANTS,
-    CONTROL_SIZES,
-    changed,
     defaultOn,
     expression,
     number,
     type PlaygroundValues,
     select,
     tag,
-    text,
     toggle
 } from '$lib/components/docs/playground';
 
+export const ACCEPT = 'image/*,.pdf';
+export const PROGRESS = 64;
+export const UPLOAD_ERROR = 'Blocked by policy';
+
 export const controls = {
     variant: select('Variant', ['card', 'chip'], 'card'),
-    triggerVariant: select('Trigger variant', BUTTON_VARIANTS, 'outline', 'Appearance'),
-    triggerSize: select('Trigger size', CONTROL_SIZES, 'md', 'Appearance'),
     triggerLabel: toggle('Trigger label', 'Content', true),
-    error: text('Error message', 'Blocked by policy', 'Content'),
     status: select('Status', ['ready', 'uploading', 'complete', 'error'], 'ready', 'State'),
-    progress: number('Progress', 64, {
-        min: 0,
-        max: 100,
-        step: 1,
-        group: 'State'
-    }),
     disabled: toggle('Disabled', 'State'),
     removable: toggle('Removable', 'Behavior', true),
-    multiple: toggle('Multiple', 'Behavior', true),
-    accept: text('Accept', 'image/*,.pdf', 'Behavior'),
     maxFiles: number('Max files', 3, {
         min: 1,
         max: 10,
@@ -54,14 +43,9 @@ export function usesItems(values: Values): boolean {
 }
 
 function trigger(values: Values): string {
-    const props = attributes({
-        variant: changed(values.triggerVariant, 'ghost'),
-        size: values.triggerLabel && changed(values.triggerSize, 'md')
-    });
-
     return values.triggerLabel
-        ? `    <Attachment.Trigger${props}>Choose files</Attachment.Trigger>`
-        : `    <Attachment.Trigger${props} />`;
+        ? '    <Attachment.Trigger variant="outline">Choose files</Attachment.Trigger>'
+        : '    <Attachment.Trigger variant="outline" />';
 }
 
 function items(values: Values): string {
@@ -80,9 +64,9 @@ function items(values: Values): string {
         'Attachment.Item',
         {
             variant: chip && 'chip',
-            status: values.status,
-            progress: values.status === 'uploading' && values.progress,
-            error: values.status === 'error' && values.error,
+            status: values.status !== 'ready' && values.status,
+            progress: values.status === 'uploading' && PROGRESS,
+            error: values.status === 'error' && UPLOAD_ERROR,
             removable: defaultOn(values.removable),
             class: !chip && 'w-72 max-w-full',
             onRemove:
@@ -106,8 +90,7 @@ export function code(values: Values): string {
     const root = tag(
         'Attachment.Root',
         {
-            accept: values.accept,
-            multiple: defaultOn(values.multiple),
+            accept: ACCEPT,
             maxFiles: values.maxFiles,
             maxSize: expression(`${values.maxSize} * 1024 * 1024`),
             disabled: values.disabled,

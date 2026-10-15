@@ -1,41 +1,5 @@
 [
     {
-        "name": "oncanplaythrough",
-        "type": "EventHandler<Event, HTMLAnchorElement> | null | EventHandler<Event, HTMLDivElement> | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
-        "name": "oncanplaythroughcapture",
-        "type": "EventHandler<Event, HTMLAnchorElement> | null | EventHandler<Event, HTMLDivElement> | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
-        "name": "on:cuechange",
-        "type": "EventHandler<Event, HTMLAnchorElement> | null | EventHandler<Event, HTMLDivElement> | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
-        "name": "oncuechange",
-        "type": "EventHandler<Event, HTMLAnchorElement> | null | EventHandler<Event, HTMLDivElement> | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
         "name": "oncuechangecapture",
         "type": "EventHandler<Event, HTMLAnchorElement> | null | EventHandler<Event, HTMLDivElement> | null | undefined",
         "required": false,
@@ -2243,6 +2207,42 @@
     {
         "name": "onpaste",
         "type": "ClipboardEventHandler<HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onpastecapture",
+        "type": "ClipboardEventHandler<HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "on:compositionend",
+        "type": "CompositionEventHandler<HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "oncompositionend",
+        "type": "CompositionEventHandler<HTMLTableCellElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "oncompositionendcapture",
+        "type": "CompositionEventHandler<HTMLTableCellElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,

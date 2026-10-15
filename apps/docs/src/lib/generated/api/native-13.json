@@ -1,41 +1,5 @@
 [
     {
-        "name": "onscrollcapture",
-        "type": "UIEventHandler<HTMLParagraphElement> | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
-        "name": "on:scrollend",
-        "type": "UIEventHandler<HTMLParagraphElement> | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
-        "name": "onscrollend",
-        "type": "UIEventHandler<HTMLParagraphElement> | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
-        "name": "onscrollendcapture",
-        "type": "UIEventHandler<HTMLParagraphElement> | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
         "name": "on:resize",
         "type": "UIEventHandler<HTMLParagraphElement> | null | undefined",
         "required": false,
@@ -2242,6 +2206,42 @@
     },
     {
         "name": "onmousemove",
+        "type": "MouseEventHandler<HTMLInputElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onmousemovecapture",
+        "type": "MouseEventHandler<HTMLInputElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "on:mouseout",
+        "type": "MouseEventHandler<HTMLInputElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onmouseout",
+        "type": "MouseEventHandler<HTMLInputElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onmouseoutcapture",
         "type": "MouseEventHandler<HTMLInputElement> | null | undefined",
         "required": false,
         "bindable": false,

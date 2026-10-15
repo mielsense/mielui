@@ -2,8 +2,6 @@ import {
     attributes,
     changed,
     compact,
-    defaultOn,
-    expression,
     type PlaygroundValues,
     quote,
     select,
@@ -15,16 +13,9 @@ export const controls = {
     format: select('Format', ['hsl', 'rgb', 'hsv'], 'hsl', 'Appearance'),
     surface: select('Surface', ['theme', 'solid', 'glass'], 'theme', 'Appearance'),
     label: toggle('Label', 'Content', true),
-    presets: toggle('Presets', 'Content'),
     plane: toggle('Plane', 'Content', true),
-    preview: toggle('Preview', 'Content', true),
-    hue: toggle('Hue', 'Content', true),
-    hexInput: toggle('Hex input', 'Content', true),
     channels: toggle('Channels', 'Content', true),
-    allowClickOutside: toggle('Close on outside press', 'Behavior', true),
-    dismissLayer: toggle('Dismiss layer', 'Behavior', true),
-    focusTrap: toggle('Trap focus', 'Behavior', true),
-    lockScroll: toggle('Lock scroll', 'Behavior', true)
+    presets: toggle('Presets', 'Content')
 };
 
 type Values = PlaygroundValues<typeof controls>;
@@ -50,8 +41,9 @@ export const options = [
     }
 ];
 
+/** Content renders every part by itself, so the example only spells them out when one is off. */
 export function isDefaultContent(values: Values): boolean {
-    return values.plane && values.preview && values.hue && values.hexInput && values.channels;
+    return values.plane && values.channels;
 }
 
 function presets(): string {
@@ -68,38 +60,26 @@ function presets(): string {
 export function code(values: Values): string {
     const rootProps = attributes({
         label: values.label && 'Accent color',
-        options: values.presets && expression('options'),
         format: changed(values.format, 'hsl')
     });
+    const optionsProp = values.presets ? ' {options}' : '';
     const triggerProps = attributes({
         variant: changed(values.variant, 'outline')
     });
     const contentProps = attributes({
-        surface: changed(values.surface, 'theme'),
-        allowClickOutside: defaultOn(values.allowClickOutside),
-        dismissLayer: defaultOn(values.dismissLayer),
-        focusTrap: defaultOn(values.focusTrap),
-        lockScroll: defaultOn(values.lockScroll)
+        surface: changed(values.surface, 'theme')
     });
     const channelsProps = attributes({
         class: values.presets && CHANNELS_SEAM
     });
-    const sliders = compact([
-        values.hue && '                <ColorPicker.Hue />',
-        values.hexInput && '                <ColorPicker.HexInput />'
-    ]);
-    const row = compact([
-        values.preview && '            <ColorPicker.Preview />',
-        sliders.length > 0 &&
-            `            <div class="min-w-0 flex-1 space-y-2">
-${sliders.join('\n')}
-            </div>`
-    ]);
     const parts = compact([
         values.plane && '        <ColorPicker.Plane class="mx-1.5 mt-1.5 w-auto" />',
-        row.length > 0 &&
-            `        <div class="flex items-center gap-2.5 px-2.5 pt-2.5 pb-1">
-${row.join('\n')}
+        `        <div class="flex items-center gap-2.5 px-2.5 pt-2.5 pb-1">
+            <ColorPicker.Preview />
+            <div class="min-w-0 flex-1 space-y-2">
+                <ColorPicker.Hue />
+                <ColorPicker.HexInput />
+            </div>
         </div>`,
         values.channels && `        <ColorPicker.Channels${channelsProps} />`,
         values.presets && '        <ColorPicker.Presets />'
@@ -122,7 +102,7 @@ ${presets()}
     let value = $state('#5e6ad2');${declaration}
 </script>
 
-<ColorPicker.Root bind:value${rootProps}>
+<ColorPicker.Root bind:value${optionsProp}${rootProps}>
     <ColorPicker.Trigger${triggerProps} />
 ${content}
 </ColorPicker.Root>`;

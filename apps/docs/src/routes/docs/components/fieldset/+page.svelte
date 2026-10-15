@@ -26,6 +26,7 @@
     <PageIntro title="Fieldset">
         Give related fields one clear name and a shared boundary.
     </PageIntro>
+
     <section id="hero" class="scroll-mt-20 flex flex-col gap-4">
         <Playground controls={playgroundControls} code={playgroundCode}>
             {#snippet children(values)}
@@ -76,10 +77,12 @@
             {/snippet}
         </Playground>
     </section>
+
     <section id="installation" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Installation</Typography.H2>
         <InstallCommand command="pnpm dlx @mielui/svelte add fieldset field input" />
     </section>
+
     <section id="usage" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Usage</Typography.H2>
         <Typography.Text variant="supporting">
@@ -93,10 +96,11 @@
             <a href="/docs/components/field" class="underline underline-offset-4">Field</a>
             {' '}
             for individual labels and errors. Use Field.Group when you need spacing without another
-            named group. Native name, form, disabled, event handlers, attachments, and an element
-            binding are forwarded by Root.
+            named group. Root accepts every native fieldset attribute, such as name, form, and
+            disabled, and supports bind:element.
         </Typography.Text>
     </section>
+
     <section id="disabled" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Disable a group</Typography.H2>
         <Typography.Text variant="supporting">
@@ -104,15 +108,18 @@
             from submission. Controls inside its first legend are exempt under native HTML rules.
             Keep an external “Edit” action outside the fieldset if it must remain available.
         </Typography.Text>
-        <ComponentPreview code={DisabledSrc}><Disabled /></ComponentPreview>
+        <ComponentPreview code={DisabledSrc}>
+            <Disabled />
+        </ComponentPreview>
     </section>
+
     <section id="composition" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Compose the group</Typography.H2>
         <Typography.Text variant="supporting">
             Legend and Description are independent parts. Omit Description for a self-explanatory
-            group; keep Legend for a meaningful accessible name. Put grids and nested Field.Group
-            parts inside Root to change the layout without changing the form’s submission behavior.
-            The default uses spacing rather than a decorative card border.
+            group; keep Legend, or an aria-label on Root, so the group has a name. Put grids and
+            nested Field.Group parts inside Root to change the layout without changing what the form
+            submits. Root has no border; it separates groups with spacing.
         </Typography.Text>
     </section>
 </div>

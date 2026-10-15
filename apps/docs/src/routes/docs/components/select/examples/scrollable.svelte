@@ -2,49 +2,44 @@
     import * as Select from '@mielui/svelte/components/select';
 
     const timezones = [
-        { value: 'pacific-honolulu', label: 'Hawaii (HST)' },
-        { value: 'america-anchorage', label: 'Alaska (AKST)' },
-        { value: 'america-los-angeles', label: 'Pacific Time (PT)' },
-        { value: 'america-denver', label: 'Mountain Time (MT)' },
-        { value: 'america-chicago', label: 'Central Time (CT)' },
-        { value: 'america-new-york', label: 'Eastern Time (ET)' },
-        { value: 'america-halifax', label: 'Atlantic Time (AT)' },
-        { value: 'america-sao-paulo', label: 'São Paulo (BRT)' },
-        { value: 'atlantic-azores', label: 'Azores (AZOT)' },
-        { value: 'europe-london', label: 'London (GMT)' },
-        { value: 'europe-paris', label: 'Paris (CET)' },
-        { value: 'europe-berlin', label: 'Berlin (CET)' },
-        { value: 'europe-athens', label: 'Athens (EET)' },
-        { value: 'europe-istanbul', label: 'Istanbul (TRT)' },
-        { value: 'africa-cairo', label: 'Cairo (EET)' },
-        { value: 'africa-johannesburg', label: 'Johannesburg (SAST)' },
-        { value: 'europe-moscow', label: 'Moscow (MSK)' },
-        { value: 'asia-dubai', label: 'Dubai (GST)' },
-        { value: 'asia-karachi', label: 'Karachi (PKT)' },
-        { value: 'asia-kolkata', label: 'Kolkata (IST)' },
-        { value: 'asia-bangkok', label: 'Bangkok (ICT)' },
-        { value: 'asia-shanghai', label: 'Shanghai (CST)' },
-        { value: 'asia-tokyo', label: 'Tokyo (JST)' },
-        { value: 'asia-seoul', label: 'Seoul (KST)' },
-        { value: 'australia-sydney', label: 'Sydney (AEST)' },
-        { value: 'pacific-auckland', label: 'Auckland (NZST)' }
+        'Hawaii (HST)',
+        'Alaska (AKST)',
+        'Pacific Time (PT)',
+        'Mountain Time (MT)',
+        'Central Time (CT)',
+        'Eastern Time (ET)',
+        'Atlantic Time (AT)',
+        'São Paulo (BRT)',
+        'Azores (AZOT)',
+        'London (GMT)',
+        'Paris (CET)',
+        'Berlin (CET)',
+        'Athens (EET)',
+        'Istanbul (TRT)',
+        'Cairo (EET)',
+        'Johannesburg (SAST)',
+        'Moscow (MSK)',
+        'Dubai (GST)',
+        'Karachi (PKT)',
+        'Kolkata (IST)',
+        'Bangkok (ICT)',
+        'Shanghai (CST)',
+        'Tokyo (JST)',
+        'Seoul (KST)',
+        'Sydney (AEST)',
+        'Auckland (NZST)'
     ];
 
-    let selectedTimezone = $state('america-new-york');
-    const selected = $derived(timezones.find((zone) => zone.value === selectedTimezone));
+    let timezone = $state('Eastern Time (ET)');
 </script>
 
 <div class="flex flex-col gap-2">
-    <span class="text-sm [font-weight:var(--font-weight-label,500)] text-foreground">Timezone</span>
-    <Select.Root bind:value={selectedTimezone}>
-        <Select.Trigger aria-label="Time zone" class="min-w-[240px]" variant="outline" size="md">
-            {selected?.label ?? 'Select timezone'}
-        </Select.Trigger>
+    <span id="timezone-label" class="text-sm font-medium">Time zone</span>
+    <Select.Root bind:value={timezone}>
+        <Select.Trigger aria-labelledby="timezone-label" class="min-w-60" />
         <Select.Content class="max-h-56">
-            {#each timezones as timezone (timezone.value)}
-                <Select.Item value={timezone.value}>
-                    {timezone.label}
-                </Select.Item>
+            {#each timezones as option (option)}
+                <Select.Item value={option}>{option}</Select.Item>
             {/each}
         </Select.Content>
     </Select.Root>

@@ -1,41 +1,5 @@
 [
     {
-        "name": "ontransitionstartcapture",
-        "type": "TransitionEventHandler<HTMLElement> | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
-        "name": "on:transitionrun",
-        "type": "TransitionEventHandler<HTMLElement> | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
-        "name": "ontransitionrun",
-        "type": "TransitionEventHandler<HTMLElement> | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
-        "name": "ontransitionruncapture",
-        "type": "TransitionEventHandler<HTMLElement> | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
         "name": "on:transitionend",
         "type": "TransitionEventHandler<HTMLElement> | null | undefined",
         "required": false,
@@ -2242,6 +2206,42 @@
     },
     {
         "name": "ontouchcancel",
+        "type": "TouchEventHandler<HTMLSpanElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "ontouchcancelcapture",
+        "type": "TouchEventHandler<HTMLSpanElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "on:touchend",
+        "type": "TouchEventHandler<HTMLSpanElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "ontouchend",
+        "type": "TouchEventHandler<HTMLSpanElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "ontouchendcapture",
         "type": "TouchEventHandler<HTMLSpanElement> | null | undefined",
         "required": false,
         "bindable": false,

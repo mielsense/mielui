@@ -3,7 +3,7 @@
     import { ShowMore } from '@mielui/svelte/components/show-more';
 </script>
 
-<ShowMore label="Project details" class="w-full max-w-lg">
+<ShowMore labels={{ region: 'Project details' }} class="w-full max-w-lg">
     {#snippet preview()}
         <p>Project details include the setup guide and support contact.</p>
     {/snippet}

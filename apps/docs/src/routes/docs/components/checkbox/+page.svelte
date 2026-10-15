@@ -21,19 +21,22 @@
     import WithDescriptionSrc from './examples/with-description.svelte?raw';
     import { code as playgroundCode, controls as playgroundControls } from './playground';
 
-    const TITLE = 'Checkbox';
+    const usage = `<script lang="ts">
+    import { Checkbox } from '@mielui/svelte/components/checkbox';
+
+    let checked = $state(false);
+</${'script'}>
+
+<Checkbox bind:checked label="Email me about product updates" />`;
 </script>
 
 <svelte:head>
-    <title>
-        Mielui ·{' '}
-        {TITLE}
-    </title>
+    <title>Mielui · Checkbox</title>
     <meta name="description" content="A binary option presented as a labeled box." />
 </svelte:head>
 
 <div data-docs-page class="flex flex-col gap-10">
-    <PageIntro title={TITLE}>
+    <PageIntro title="Checkbox">
         A checkbox with a dash indicator, bindable checked state, optional label, and description.
     </PageIntro>
 
@@ -63,19 +66,12 @@
 
     <section id="usage" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Usage</Typography.H2>
-        <Typography.Text>
-            Native input attributes such as name, value, required, form, id, and aria-describedby
-            are forwarded to the checkbox input. The visible label names the checkbox; description
-            text is linked separately and does not become part of its name. Explicit aria-label or
-            aria-labelledby naming takes priority. Description IDs are deduplicated and conditional
-            descriptions are linked only while rendered.
+        <Typography.Text variant="supporting">
+            <InlineText
+                text={"Input attributes such as `name`, `value`, `required`, `form`, `id`, and `aria-describedby` reach the native checkbox. `label` names the checkbox and `description` is linked as its description. An explicit `aria-label` or `aria-labelledby` takes priority over `label`. Set `aria-invalid` to mark an unchecked box as invalid."}
+            />
         </Typography.Text>
-
-        <CodeBlock
-            code={`import { Checkbox } from '@mielui/svelte/components/checkbox';\n\nlet checked = $state(false);\n\n<Checkbox bind:checked label="Accept" />`}
-            lang="svelte"
-            copy="overlay"
-        />
+        <CodeBlock code={usage} lang="svelte" copy="overlay" />
     </section>
 
     <section id="examples" class="scroll-mt-20 flex flex-col gap-10">
@@ -95,12 +91,14 @@
 
         <div id="sizes" class="scroll-mt-20 flex flex-col gap-3">
             <Typography.H3 class="docs-subsection-heading">Sizes</Typography.H3>
-            <Typography.Text>
-                Use size="sm", "md", or "lg" for a 14, 18, or 22px box. Medium is the default. The
-                label remains clickable at every size.
+            <Typography.Text variant="supporting">
+                <InlineText
+                    text={"`size` takes `sm`, `md`, or `lg` for a 14, 18, or 22px box. `md` is the default. The label stays clickable at every size."}
+                />
             </Typography.Text>
             <ComponentPreview code={SizesSrc}><Sizes /></ComponentPreview>
         </div>
+
         <div id="label-only" class="scroll-mt-20 flex flex-col gap-3">
             <Typography.H3 class="docs-subsection-heading">Label only</Typography.H3>
             <ComponentPreview code={LabelOnlySrc}>
@@ -129,11 +127,11 @@
             </ComponentPreview>
         </div>
     </section>
-    <section id="events-and-variant" class="flex flex-col gap-4">
+    <section id="events-and-variant" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Events and the primary variant</Typography.H2>
         <Typography.Text variant="supporting">
             <InlineText
-                text={"`onCheckedChange` runs with the new state each time the box is ticked or cleared, for when you want to react without binding `checked`. `variant=\"primary\"` sets the checkbox in a card row whose edge strengthens when ticked, which helps a single important checkbox stand out. Put content in `children` when the label needs a link or other markup."}
+                text={"`onCheckedChange` runs with the new state each time the box is ticked or cleared, for when you want to react without binding `checked`. `variant=\"primary\"` sets the checkbox in a card row whose edge strengthens when ticked, which helps a single important checkbox stand out."}
             />
         </Typography.Text>
         <ComponentPreview code={EventsExampleSrc}>

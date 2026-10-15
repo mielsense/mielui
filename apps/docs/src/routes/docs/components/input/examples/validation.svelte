@@ -134,7 +134,7 @@
     </div>
 
     <div class="flex items-center gap-3">
-        <Button type="submit" size="md">Validate fields</Button>
+        <Button type="submit">Validate fields</Button>
         {#if isValid}
             <p class="text-label text-[var(--mielui-success-text)]" role="status">
                 Both fields are valid.

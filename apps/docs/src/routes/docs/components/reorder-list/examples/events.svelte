@@ -3,9 +3,18 @@
     import { Switch } from '@mielui/svelte/components/switch';
 
     let items = $state([
-        { id: 'triage', name: 'Triage' },
-        { id: 'build', name: 'Build' },
-        { id: 'review', name: 'Review' }
+        {
+            id: 'triage',
+            name: 'Triage'
+        },
+        {
+            id: 'build',
+            name: 'Build'
+        },
+        {
+            id: 'review',
+            name: 'Review'
+        }
     ]);
     let locked = $state(false);
     let saved = $state('Order not saved yet');

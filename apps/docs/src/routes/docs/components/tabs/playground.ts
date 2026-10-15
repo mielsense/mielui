@@ -15,8 +15,7 @@ export const controls = {
     icons: toggle('Icons', 'Content'),
     count: toggle('Count', 'Content'),
     disabled: toggle('Disabled tab', 'State'),
-    activationMode: select('Activation', ['automatic', 'manual'], 'automatic', 'Behavior'),
-    forceMount: toggle('Keep panels mounted', 'Behavior')
+    activationMode: select('Activation', ['automatic', 'manual'], 'automatic', 'Behavior')
 };
 
 type Values = PlaygroundValues<typeof controls>;
@@ -64,7 +63,6 @@ export function panelClass(orientation: Values['orientation']): string {
 function panel(value: string, body: string, values: Values): string {
     const props = attributes({
         value,
-        forceMount: values.forceMount,
         class: panelClass(values.orientation)
     });
 

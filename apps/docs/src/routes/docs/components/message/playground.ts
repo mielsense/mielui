@@ -50,14 +50,7 @@ export function code(values: PlaygroundValues<typeof controls>): string {
     const actions = values.actions
         ? `
     <Message.Actions>
-        <CopyButton
-            {text}
-            label="Copy message"
-            copiedLabel="Message copied"
-            variant="ghost"
-            size="md"
-            class="size-8 rounded-[var(--radius-md)] p-0"
-        />
+        <CopyButton {text} labels={{ copy: 'Copy message' }} />
     </Message.Actions>`
         : '';
 

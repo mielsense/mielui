@@ -2,12 +2,12 @@
     import * as Chart from '@mielui/svelte/components/chart';
 
     const data = [
-        { month: 'Mon', latency: 42 },
-        { month: 'Tue', latency: 58 },
-        { month: 'Wed', latency: null },
-        { month: 'Thu', latency: 47 },
-        { month: 'Fri', latency: 39 },
-        { month: 'Sat', latency: 45 }
+        { day: 'Mon', latency: 42 },
+        { day: 'Tue', latency: 58 },
+        { day: 'Wed', latency: null },
+        { day: 'Thu', latency: 47 },
+        { day: 'Fri', latency: 39 },
+        { day: 'Sat', latency: 45 }
     ];
     const config = {
         latency: {
@@ -21,7 +21,7 @@
 <Chart.Root
     {data}
     {config}
-    x="month"
+    x="day"
     aria-label="Response latency with a missing Wednesday measurement"
     class="w-full"
 >

@@ -3,9 +3,5 @@
 </script>
 
 <div class="flex items-center justify-center">
-    <Checkbox
-        label="Receive product updates"
-        description="Roughly one email per month"
-        checked={false}
-    />
+    <Checkbox label="Receive product updates" description="Roughly one email per month" />
 </div>

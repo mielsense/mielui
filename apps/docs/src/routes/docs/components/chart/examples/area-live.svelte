@@ -2,12 +2,12 @@
     import * as Chart from '@mielui/svelte/components/chart';
 
     const data = [
-        { month: 'Jan', revenue: 186, target: 160 },
-        { month: 'Feb', revenue: 242, target: 190 },
-        { month: 'Mar', revenue: 218, target: 220 },
-        { month: 'Apr', revenue: 304, target: 250 },
-        { month: 'May', revenue: 286, target: 280 },
-        { month: 'Jun', revenue: 372, target: 310 }
+        { month: 'Jan', revenue: 186 },
+        { month: 'Feb', revenue: 242 },
+        { month: 'Mar', revenue: 218 },
+        { month: 'Apr', revenue: 304 },
+        { month: 'May', revenue: 286 },
+        { month: 'Jun', revenue: 372 }
     ];
     const config = {
         revenue: { label: 'Revenue', color: 'var(--chart-1)' }

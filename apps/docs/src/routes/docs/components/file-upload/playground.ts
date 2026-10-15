@@ -1,22 +1,13 @@
 import {
-    compact,
     expression,
     number,
     type PlaygroundValues,
-    quote,
     tag,
     text,
     toggle
 } from '$lib/components/docs/playground';
 
 export const controls = {
-    dropzoneTitle: text('Dropzone title', 'Drop your files here', 'Content'),
-    dropzoneDescription: text(
-        'Dropzone description',
-        'Or choose them from your device.',
-        'Content'
-    ),
-    choose: text('Button label', 'Choose files', 'Content'),
     summary: toggle('Upload count', 'Content'),
     disabled: toggle('Disabled', 'State'),
     accept: text('Accept', 'image/*,.pdf', 'Behavior'),
@@ -38,20 +29,7 @@ export const controls = {
 
 type Values = PlaygroundValues<typeof controls>;
 
-const DEFAULT_LABELS = {
-    dropzoneTitle: controls.dropzoneTitle.value,
-    dropzoneDescription: controls.dropzoneDescription.value,
-    choose: controls.choose.value
-};
-
 export function code(values: Values): string {
-    const labelLines = compact([
-        values.dropzoneTitle !== DEFAULT_LABELS.dropzoneTitle &&
-            `        dropzoneTitle: ${quote(values.dropzoneTitle)}`,
-        values.dropzoneDescription !== DEFAULT_LABELS.dropzoneDescription &&
-            `        dropzoneDescription: ${quote(values.dropzoneDescription)}`,
-        values.choose !== DEFAULT_LABELS.choose && `        choose: ${quote(values.choose)}`
-    ]);
     const root = tag(
         'FileUpload.Root',
         {
@@ -59,7 +37,6 @@ export function code(values: Values): string {
             maxFiles: values.maxFiles,
             maxSize: expression(`${values.maxSize} * 1024 * 1024`),
             disabled: values.disabled,
-            labels: labelLines.length > 0 && expression('labels'),
             onUpload: expression('upload'),
             class: 'w-full max-w-md'
         },
@@ -74,14 +51,6 @@ export function code(values: Values): string {
     {/snippet}
 </FileUpload.Root>`
         : '';
-    const labels =
-        labelLines.length > 0
-            ? `
-    const labels = {
-${labelLines.join(',\n')}
-    };
-`
-            : '';
     const steps = values.progress
         ? `        for (let percent = 10; percent <= 100; percent += 10) {
             await wait(180);
@@ -100,7 +69,7 @@ ${labelLines.join(',\n')}
     import * as FileUpload from '@mielui/svelte/components/file-upload';
 
     type UploadOptions = Parameters<FileUpload.FileUploadProps['onUpload']>[1];
-${labels}
+
     function wait(milliseconds: number) {
         return new Promise((resolve) => {
             setTimeout(resolve, milliseconds);

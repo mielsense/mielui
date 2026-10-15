@@ -6,6 +6,8 @@
     import type { Snippet } from 'svelte';
     import { stayOnPage } from './stay-on-page';
 
+    const TABBABLE =
+        'a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])';
     const OPEN_LAYER =
         '[data-bits-floating-content-wrapper] [data-state="open"], [data-dialog-panel], [data-ui="sheet-content"], [data-ui="popover-content"]';
 
@@ -22,6 +24,7 @@
     } = $props();
 
     let closeButton = $state<HTMLButtonElement | HTMLAnchorElement>();
+    let dialog = $state<HTMLElement>();
 
     function toBody(node: HTMLElement) {
         document.body.appendChild(node);
@@ -35,6 +38,33 @@
         return Boolean(document.querySelector(OPEN_LAYER));
     }
 
+    function containFocus(event: KeyboardEvent) {
+        const focused = document.activeElement;
+        const onBody = focused === null || focused === document.body;
+        const inDialog = Boolean(focused && dialog?.contains(focused));
+
+        if (!dialog || (!inDialog && !onBody)) {
+            return;
+        }
+
+        const items = [...dialog.querySelectorAll<HTMLElement>(TABBABLE)].filter((item) => {
+            return item.getClientRects().length > 0;
+        });
+        const first = items.at(0);
+        const last = items.at(-1);
+
+        if (!first || !last) {
+            return;
+        }
+        if (event.shiftKey && (!inDialog || focused === first)) {
+            event.preventDefault();
+            last.focus();
+        } else if (!event.shiftKey && (!inDialog || focused === last)) {
+            event.preventDefault();
+            first.focus();
+        }
+    }
+
     $effect(() => {
         if (!open) {
             return;
@@ -46,6 +76,8 @@
         function onKeydown(event: KeyboardEvent) {
             if (event.key === 'Escape' && !layerIsOpen()) {
                 open = false;
+            } else if (event.key === 'Tab') {
+                containFocus(event);
             }
         }
 
@@ -63,6 +95,7 @@
 {#if open}
     <div
         {@attach toBody}
+        bind:this={dialog}
         role="dialog"
         aria-modal="true"
         aria-label="Preview"

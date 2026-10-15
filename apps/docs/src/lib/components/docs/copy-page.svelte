@@ -79,9 +79,11 @@
             variant="ghost"
             size="sm"
             {status}
-            loadingLabel="Copying…"
-            successLabel="Copied"
-            errorLabel="Copy failed"
+            labels={{
+                loading: 'Copying…',
+                success: 'Copied',
+                error: 'Copy failed'
+            }}
             onclick={copy}
         >
             <HugeiconsIcon icon={CopyIcon} size={14} />

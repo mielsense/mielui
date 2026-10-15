@@ -1,7 +1,6 @@
 import {
     attributes,
     changed,
-    defaultOn,
     type PlaygroundValues,
     select,
     toggle
@@ -13,8 +12,7 @@ export const controls = {
     separator: toggle('Separator', 'Content', true),
     link: toggle('Link', 'Content', true),
     disabled: toggle('Disabled item', 'State'),
-    type: select('Selection', ['multiple', 'single'], 'multiple', 'Behavior'),
-    loop: toggle('Loop', 'Behavior', true)
+    type: select('Selection', ['multiple', 'single'], 'multiple', 'Behavior')
 };
 
 export function code(values: PlaygroundValues<typeof controls>): string {
@@ -23,8 +21,7 @@ export function code(values: PlaygroundValues<typeof controls>): string {
     const root = attributes({
         'aria-label': 'Text formatting',
         variant: changed(values.variant, 'default'),
-        orientation: vertical && 'vertical',
-        loop: defaultOn(values.loop)
+        orientation: vertical && 'vertical'
     });
     const type = attributes({
         type: values.type

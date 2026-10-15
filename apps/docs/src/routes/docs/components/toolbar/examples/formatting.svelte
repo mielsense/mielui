@@ -2,7 +2,12 @@
     import * as Toolbar from '@mielui/svelte/components/toolbar';
 
     let formats = $state<string[]>(['bold']);
+
+    function clear() {
+        formats = [];
+    }
 </script>
+
 <div class="flex flex-col items-center gap-4">
     <Toolbar.Root aria-label="Text formatting">
         <Toolbar.Group type="multiple" bind:value={formats} aria-label="Text styles">
@@ -11,13 +16,7 @@
             <Toolbar.Item value="underline">Underline</Toolbar.Item>
         </Toolbar.Group>
         <Toolbar.Separator />
-        <Toolbar.Button
-            onclick={() => {
-                formats = [];
-            }}
-        >
-            Clear
-        </Toolbar.Button>
+        <Toolbar.Button onclick={clear}>Clear</Toolbar.Button>
     </Toolbar.Root>
     <p
         class={[

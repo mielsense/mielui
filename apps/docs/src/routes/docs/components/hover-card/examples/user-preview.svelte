@@ -10,6 +10,7 @@
     import HugeiconsIcon from '@mielui/svelte/hugeicons-icon';
 
     let following = $state(false);
+
     function toggleFollow() {
         following = !following;
     }
@@ -47,7 +48,7 @@
                         </div>
                     </div>
 
-                    <div class="flex items-center gap-1 text-xs text-foreground-muted py-1">
+                    <div class="flex items-center gap-1 py-1 text-xs text-foreground-muted">
                         <HugeiconsIcon icon={Users} size={14} />
                         <span>1.2k followers · 89 following</span>
                     </div>

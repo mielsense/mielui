@@ -1,21 +1,14 @@
 import {
     attributes,
     changed,
-    expression,
     number,
     type PlaygroundValues,
     select,
-    text,
     toggle
 } from '$lib/components/docs/playground';
 
 export const controls = {
-    variant: select('Variant', ['default', 'field'], 'default'),
-    label: text('Label', 'Volume', 'Content'),
-    format: toggle('Percent format', 'Content'),
-    disabled: toggle('Disabled', 'State'),
-    range: toggle('Range (default only)', 'Behavior'),
-    editable: toggle('Editable (field only)', 'Behavior'),
+    mode: select('Mode', ['default', 'range', 'field'], 'default'),
     min: number('Min', 0, {
         min: -100,
         max: 100,
@@ -31,26 +24,25 @@ export const controls = {
         max: 50,
         group: 'Behavior'
     }),
+    disabled: toggle('Disabled', 'State'),
     rtl: toggle('Right to left', 'Behavior')
 };
 
 export function code(values: PlaygroundValues<typeof controls>): string {
-    const field = values.variant === 'field' && !values.range;
+    const range = values.mode === 'range';
     const props = attributes({
-        variant: field && 'field',
-        label: values.label,
+        variant: values.mode === 'field' && 'field',
+        label: 'Volume',
         min: changed(values.min, 0),
         max: changed(values.max, 100),
         step: changed(values.step, 1),
-        format: values.format && expression(`(value) => \`\${value}%\``),
-        editable: field && values.editable,
         disabled: values.disabled,
         dir: values.rtl && 'rtl'
     });
-    const state = values.range
+    const state = range
         ? 'let volume = $state<[number, number]>([20, 80]);'
         : 'let volume = $state(64);';
-    const binding = values.range ? 'range bind:value={volume}' : 'bind:value={volume}';
+    const binding = range ? 'range bind:value={volume}' : 'bind:value={volume}';
 
     return `<script lang="ts">
     import { Slider } from '@mielui/svelte/components/slider';
@@ -58,5 +50,7 @@ export function code(values: PlaygroundValues<typeof controls>): string {
     ${state}
 </script>
 
-<Slider ${binding}${props} />`;
+<div class="w-full max-w-sm">
+    <Slider ${binding}${props} />
+</div>`;
 }

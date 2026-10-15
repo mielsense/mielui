@@ -2,7 +2,6 @@ import {
     attributes,
     changed,
     content,
-    number,
     type PlaygroundValues,
     select,
     text,
@@ -14,26 +13,12 @@ export const controls = {
     glass: toggle('Glass surface', 'Appearance'),
     label: text('Label', 'Synced just now', 'Content'),
     rich: toggle('Rich content', 'Content'),
-    showOnClick: toggle('Show on click', 'Behavior'),
-    delay: number('Open delay', 125, {
-        min: 0,
-        max: 1000,
-        step: 25,
-        group: 'Behavior'
-    }),
-    closeDelay: number('Close delay', 100, {
-        min: 0,
-        max: 1000,
-        step: 25,
-        group: 'Behavior'
-    })
+    showOnClick: toggle('Show on click', 'Behavior')
 };
 
 export function code(values: PlaygroundValues<typeof controls>): string {
     const root = attributes({
-        placement: changed(values.placement, 'top'),
-        delay: changed(values.delay, 125),
-        closeDelay: changed(values.closeDelay, 100)
+        placement: changed(values.placement, 'top')
     });
     const trigger = attributes({
         showOnClick: values.showOnClick

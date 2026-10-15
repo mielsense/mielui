@@ -1,41 +1,5 @@
 [
     {
-        "name": "onchangecapture",
-        "type": "FormEventHandler<HTMLAnchorElement> | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
-        "name": "on:beforeinput",
-        "type": "EventHandler<InputEvent, HTMLAnchorElement> | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
-        "name": "onbeforeinput",
-        "type": "EventHandler<InputEvent, HTMLAnchorElement> | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
-        "name": "onbeforeinputcapture",
-        "type": "EventHandler<InputEvent, HTMLAnchorElement> | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
         "name": "on:input",
         "type": "FormEventHandler<HTMLAnchorElement> | null | undefined",
         "required": false,
@@ -2242,6 +2206,42 @@
     },
     {
         "name": "on:outrostart",
+        "type": "EventHandler<CustomEvent<null>, HTMLAnchorElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onoutrostart",
+        "type": "EventHandler<CustomEvent<null>, HTMLAnchorElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onoutrostartcapture",
+        "type": "EventHandler<CustomEvent<null>, HTMLAnchorElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "on:outroend",
+        "type": "EventHandler<CustomEvent<null>, HTMLAnchorElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onoutroend",
         "type": "EventHandler<CustomEvent<null>, HTMLAnchorElement> | null | undefined",
         "required": false,
         "bindable": false,

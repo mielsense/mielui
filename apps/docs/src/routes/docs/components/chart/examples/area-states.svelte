@@ -7,12 +7,13 @@
     let animation = $state<'reveal' | 'live' | 'none'>('reveal');
     let replay = $state(0);
     const records = [
-        { month: 'April', orders: 48, target: 60 },
-        { month: 'May', orders: 72, target: 65 },
-        { month: 'June', orders: 61, target: 70 }
+        { month: 'April', orders: 48 },
+        { month: 'May', orders: 72 },
+        { month: 'June', orders: 61 }
     ];
     const config = { orders: { label: 'Orders', color: 'var(--chart-1)' } };
     const data = $derived(dataState === 'empty' ? [] : records);
+
     function changeAnimation(value: string) {
         if (value === 'reveal' || value === 'live' || value === 'none') {
             animation = value;

@@ -3,12 +3,13 @@
     import * as NativeSelect from '@mielui/svelte/components/native-select';
     import * as Typography from '@mielui/svelte/components/typography';
     import { ComponentPreview, InstallCommand, Playground } from '$lib/components/docs';
+    import InlineText from '$lib/components/docs/inline-text.svelte';
     import PageIntro from '$lib/components/docs/page-intro.svelte';
+    import SectionHeading from '$lib/components/docs/section-heading.svelte';
     import Form from './examples/form.svelte';
     import FormSource from './examples/form.svelte?raw';
     import Multiple from './examples/multiple.svelte';
     import MultipleSource from './examples/multiple.svelte?raw';
-
     import usage from './examples/usage.svelte?raw';
     import { code as playgroundCode, controls as playgroundControls } from './playground';
 
@@ -23,6 +24,7 @@
         content="A select field that uses your browser and operating system's option picker."
     />
 </svelte:head>
+
 {#snippet playgroundOptions(groups: boolean, disabledOption: boolean)}
     {#if groups}
         <NativeSelect.OptGroup label="Europe">
@@ -53,12 +55,12 @@
     <section id="hero" class="scroll-mt-20 flex flex-col gap-4">
         <Playground controls={playgroundControls} code={playgroundCode}>
             {#snippet children(values)}
-                {const root = {
+                {const root = $derived({
                     'aria-label': 'Time zone',
                     size: values.size > 1 ? values.size : undefined,
                     disabled: values.disabled,
                     'aria-invalid': values.invalid ? 'true' : undefined
-                } as const}
+                } as const)}
                 <div class="w-full max-w-xs">
                     {#if values.multiple}
                         <NativeSelect.Root multiple bind:value={playgroundTimezones} {...root}>
@@ -73,56 +75,42 @@
             {/snippet}
         </Playground>
     </section>
+
     <section id="installation" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Installation</Typography.H2>
         <InstallCommand command="pnpm dlx @mielui/svelte add native-select" />
     </section>
+
     <section id="usage" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Usage</Typography.H2>
+        <Typography.Text variant="supporting">
+            <InlineText
+                text={"Root renders a native `<select>`. Bind a string for single selection, or a string array when `multiple` is set. Option values are strings; group options with OptGroup and its `label`."}
+            />
+        </Typography.Text>
+        <Typography.Text variant="supporting">
+            <InlineText
+                text={"Name the select with a Label whose `for` matches its `id`, or with `aria-label`. Native form attributes and change events pass through, and `size` sets the number of visible rows. The browser handles validation, keyboard selection, and the mobile picker; use Select when you need a custom popup."}
+            />
+        </Typography.Text>
         <CodeBlock copy="overlay" code={usage} lang="svelte" />
-        <Typography.Text>
-            <Typography.InlineCode>Root</Typography.InlineCode>
-            {' '}
-            renders a native select. Bind a string for single selection, or a string array with{' '}
-            <Typography.InlineCode>multiple</Typography.InlineCode>
-            {' '}
-            set. Option values are strings. Use{' '}
-            <Typography.InlineCode>OptGroup</Typography.InlineCode>
-            {' '}
-            with a{' '}
-            <Typography.InlineCode>label</Typography.InlineCode>
-            {' '}
-            to group options.
-        </Typography.Text>
-        <Typography.Text>
-            Associate{' '}
-            <Typography.InlineCode>Label</Typography.InlineCode>
-            {' '}
-            with the select using matching{' '}
-            <Typography.InlineCode>for</Typography.InlineCode>
-            {' '}
-            and{' '}
-            <Typography.InlineCode>id</Typography.InlineCode>
-            {' '}
-            values, or provide{' '}
-            <Typography.InlineCode>aria-label</Typography.InlineCode>
-            {' '}
-            instead. Native form attributes and change events pass through. The{' '}
-            <Typography.InlineCode>size</Typography.InlineCode>
-            {' '}
-            attribute controls the number of visible rows.
-        </Typography.Text>
-        <Typography.Text>
-            The browser handles validation, keyboard selection, and the mobile picker. Use Select
-            when you need a custom popup.
-        </Typography.Text>
     </section>
-    <section id="multiple" class="scroll-mt-20 flex flex-col gap-4">
-        <Typography.H2 class="docs-section-heading">Multiple selection</Typography.H2>
-        <ComponentPreview code={MultipleSource}><Multiple /></ComponentPreview>
-    </section>
-    <section id="required" class="scroll-mt-20 flex flex-col gap-4">
-        <Typography.H2 class="docs-section-heading">Required field</Typography.H2>
-        <ComponentPreview code={FormSource}><Form /></ComponentPreview>
+
+    <section id="examples" class="scroll-mt-20 flex flex-col gap-10">
+        <SectionHeading title="Examples">
+            {#snippet description()}
+                Several values at once, and a required field in a form.
+            {/snippet}
+        </SectionHeading>
+
+        <div id="multiple" class="scroll-mt-20 flex flex-col gap-3">
+            <Typography.H3 class="docs-subsection-heading">Multiple selection</Typography.H3>
+            <ComponentPreview code={MultipleSource}><Multiple /></ComponentPreview>
+        </div>
+
+        <div id="required" class="scroll-mt-20 flex flex-col gap-3">
+            <Typography.H3 class="docs-subsection-heading">Required field</Typography.H3>
+            <ComponentPreview code={FormSource}><Form /></ComponentPreview>
+        </div>
     </section>
 </div>

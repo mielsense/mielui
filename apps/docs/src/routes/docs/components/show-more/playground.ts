@@ -1,14 +1,11 @@
 import {
     changed,
+    expression,
     number,
     type PlaygroundValues,
     tag,
-    text,
     toggle
 } from '$lib/components/docs/playground';
-
-const DEFAULT_MORE = 'Show more';
-const DEFAULT_LESS = 'Show less';
 
 export const controls = {
     lines: number('Lines', 3, {
@@ -22,8 +19,6 @@ export const controls = {
         step: 8,
         group: 'Appearance'
     }),
-    moreLabel: text('More label', DEFAULT_MORE, 'Content'),
-    lessLabel: text('Less label', DEFAULT_LESS, 'Content'),
     defaultExpanded: toggle('Expanded by default', 'State')
 };
 
@@ -31,10 +26,8 @@ export function code(values: PlaygroundValues<typeof controls>): string {
     const props = {
         lines: changed(values.lines, 3),
         maxHeight: changed(values.maxHeight, 320),
-        moreLabel: changed(values.moreLabel, DEFAULT_MORE),
-        lessLabel: changed(values.lessLabel, DEFAULT_LESS),
         defaultExpanded: values.defaultExpanded,
-        label: 'Migration details',
+        labels: expression("{ region: 'Migration details' }"),
         class: 'w-full max-w-md'
     };
 

@@ -7,7 +7,6 @@
     import { ComponentPreview, InstallCommand, Playground } from '$lib/components/docs';
     import InlineText from '$lib/components/docs/inline-text.svelte';
     import PageIntro from '$lib/components/docs/page-intro.svelte';
-
     import Separators from './examples/separators.svelte';
     import SeparatorsSrc from './examples/separators.svelte?raw';
     import WithIcon from './examples/with-icon.svelte';
@@ -18,14 +17,19 @@
         pages as playgroundPages
     } from './playground';
 
-    const TITLE = 'Breadcrumb';
+    const usage = `<script lang="ts">
+    import * as Breadcrumb from '@mielui/svelte/components/breadcrumb';
+</${'script'}>
+
+<Breadcrumb.Root>
+    <Breadcrumb.Item href="/">Home</Breadcrumb.Item>
+    <Breadcrumb.Separator />
+    <Breadcrumb.Item current>Settings</Breadcrumb.Item>
+</Breadcrumb.Root>`;
 </script>
 
 <svelte:head>
-    <title>
-        Mielui ·{' '}
-        {TITLE}
-    </title>
+    <title>Mielui · Breadcrumb</title>
     <meta
         name="description"
         content="A trail of links showing the user's position in a hierarchy."
@@ -33,20 +37,20 @@
 </svelte:head>
 
 <div data-docs-page class="flex flex-col gap-10">
-    <PageIntro title={TITLE}>
+    <PageIntro title="Breadcrumb">
         A trail of links showing the current position in a hierarchy.
     </PageIntro>
 
     <section id="hero" class="scroll-mt-20 flex flex-col gap-4">
         <Playground controls={playgroundControls} code={playgroundCode}>
             {#snippet children(values)}
-                {const pages = playgroundPages(values.items)}
-                <Breadcrumb.Root aria-label={values.label || undefined}>
+                {const pages = $derived(playgroundPages(values.items))}
+                <Breadcrumb.Root>
                     {#each pages as page, index (page.href)}
-                        {const current = index === pages.length - 1 && values.current}
-                        {const href = current && !values.currentLink ? undefined : page.href}
+                        {const current = $derived(index === pages.length - 1 && values.current)}
+                        {const href = $derived(current ? undefined : page.href)}
                         {#if index > 0}
-                            {#if values.slash}
+                            {#if values.separator === 'slash'}
                                 <Breadcrumb.Separator>/</Breadcrumb.Separator>
                             {:else}
                                 <Breadcrumb.Separator />
@@ -73,20 +77,16 @@
     <section id="usage" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Usage</Typography.H2>
         <Typography.Text variant="supporting">
-            Breadcrumb is router independent. Set current on the item representing the active page;
-            it controls both styling and aria-current="page". The final item may omit href. Root
-            accepts native navigation attributes, including aria-label for a translated or distinct
-            navigation name.
+            <InlineText
+                text={"Breadcrumb is router independent. Set `current` on the item for the active page; it sets both the styling and `aria-current=\"page\"`. The current item can omit `href`."}
+            />
         </Typography.Text>
         <Typography.Text variant="supporting">
-            The root is a labeled navigation landmark, and separators are decorative.
+            <InlineText
+                text={"Root is a navigation landmark named \"Breadcrumb\". Pass `aria-label` to translate or change that name. Separators are hidden from assistive technology."}
+            />
         </Typography.Text>
-
-        <CodeBlock
-            code={`import * as Breadcrumb from '@mielui/svelte/components/breadcrumb';\n\n<Breadcrumb.Root>\n  <Breadcrumb.Item href="/">Home</Breadcrumb.Item>\n  <Breadcrumb.Separator>/</Breadcrumb.Separator>\n  <Breadcrumb.Item current>Current</Breadcrumb.Item>\n</Breadcrumb.Root>`}
-            lang="svelte"
-            copy="overlay"
-        />
+        <CodeBlock code={usage} lang="svelte" copy="overlay" />
     </section>
 
     <section id="examples" class="scroll-mt-20 flex flex-col gap-10">
@@ -108,7 +108,7 @@
             </ComponentPreview>
         </div>
     </section>
-    <section id="parts" class="flex flex-col gap-4">
+    <section id="parts" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Parts</Typography.H2>
         <Typography.Text variant="supporting">
             <InlineText
@@ -117,7 +117,7 @@
         </Typography.Text>
         <Typography.Text variant="supporting">
             <InlineText
-                text={"Root, Item and Separator render their `children` and accept `class` and `style` like any element."}
+                text={"Every part renders its `children` and takes `class`. Root passes nav attributes such as `aria-label`, and Item passes anchor attributes such as `target`."}
             />
         </Typography.Text>
     </section>

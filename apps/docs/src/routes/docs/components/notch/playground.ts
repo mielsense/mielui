@@ -2,7 +2,6 @@ import {
     attributes,
     changed,
     compact,
-    number,
     type PlaygroundValues,
     select,
     tag,
@@ -17,14 +16,7 @@ export const controls = {
     close: toggle('Close button', 'Content'),
     sideAction: select('Side action', ['none', 'start', 'end'], 'none', 'Content'),
     accessory: toggle('Accessory', 'Content'),
-    peekLabel: toggle('Peek label', 'Content'),
-    mode: select('Mode', ['triggered', 'peek'], 'triggered', 'Behavior'),
-    duration: number('Duration', 5000, {
-        min: 0,
-        max: 20000,
-        step: 500,
-        group: 'Behavior'
-    })
+    mode: select('Mode', ['triggered', 'peek'], 'triggered', 'Behavior')
 };
 
 export const ACCESSORY_CLASS =
@@ -34,7 +26,6 @@ export function code(values: PlaygroundValues<typeof controls>): string {
     const root = attributes({
         side: changed(values.side, 'top'),
         mode: changed(values.mode, 'triggered'),
-        duration: changed(values.duration, 5000),
         surface: values.glass && 'glass'
     });
     const lateral = values.side === 'left' || values.side === 'right';
@@ -73,10 +64,6 @@ export function code(values: PlaygroundValues<typeof controls>): string {
         ? `
         <Notch.Close />`
         : '';
-    const peek = values.peekLabel
-        ? `
-    <Notch.Peek>Synced</Notch.Peek>`
-        : '';
     const accessoryTag = tag(
         'Notch.Accessory',
         {
@@ -109,6 +96,6 @@ export function code(values: PlaygroundValues<typeof controls>): string {
         <Notch.Header>
             <Notch.Title class="text-sm">All synced</Notch.Title>${description}
         </Notch.Header>${actions}${close}
-    </Notch.Content>${peek}${accessory}
+    </Notch.Content>${accessory}
 </Notch.Root>`;
 }

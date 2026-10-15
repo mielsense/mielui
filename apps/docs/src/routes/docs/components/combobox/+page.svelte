@@ -25,18 +25,52 @@
     import ThresholdExampleSrc from './examples/threshold.svelte?raw';
     import { code as playgroundCode, controls as playgroundControls } from './playground';
 
-    const TITLE = 'Combobox';
-
     let playgroundFramework = $state('');
     let playgroundFrameworks = $state<string[]>([]);
+
+    const usageCode = `<script lang="ts">
+    import * as Combobox from '@mielui/svelte/components/combobox';
+
+    let framework = $state('sveltekit');
+</${'script'}>
+
+<Combobox.Root bind:value={framework}>
+    <Combobox.Trigger placeholder="Select a framework" />
+    <Combobox.Content>
+        <Combobox.Results>
+            <Combobox.Item value="nextjs" label="Next.js" />
+            <Combobox.Item value="sveltekit" label="SvelteKit" />
+        </Combobox.Results>
+    </Combobox.Content>
+</Combobox.Root>`;
+
+    const labelsCode = `<script lang="ts">
+    import * as Combobox from '@mielui/svelte/components/combobox';
+    import type { ComboboxLabels } from '@mielui/svelte/components/combobox';
+
+    const labels: ComboboxLabels = {
+        searchPlaceholder: 'Rechercher…',
+        search: 'Rechercher un pays',
+        clear: 'Effacer',
+        options: 'Pays',
+        empty: 'Aucun résultat'
+    };
+</${'script'}>
+
+<Combobox.Root {labels}>
+    <Combobox.Trigger placeholder="Choisir un pays" searchPlacement="menu" />
+    <Combobox.Content>
+        <Combobox.Results>
+            <Combobox.Item value="fr" label="France" />
+            <Combobox.Item value="be" label="Belgique" />
+        </Combobox.Results>
+    </Combobox.Content>
+</Combobox.Root>`;
 </script>
 
 <svelte:head>
-    <title>
-        Mielui ·{' '}
-        {TITLE}
-    </title>
-    <meta name="description" content="Searchable select dropdown with fuzzy matching." />
+    <title>Mielui · Combobox</title>
+    <meta name="description" content="A searchable dropdown that filters options as you type." />
 </svelte:head>
 
 {#snippet playgroundTrailing()}
@@ -44,31 +78,24 @@
 {/snippet}
 
 <div data-docs-page class="flex flex-col gap-10">
-    <PageIntro title={TITLE}>A searchable dropdown that filters options as you type.</PageIntro>
+    <PageIntro title="Combobox">A searchable dropdown that filters options as you type.</PageIntro>
 
     <section id="hero" class="scroll-mt-20 flex flex-col gap-4">
         <Playground controls={playgroundControls} code={playgroundCode}>
             {#snippet children(values)}
-                {const root = {
-                    placement: values.placement,
-                    hoverable: values.hoverable,
-                    delay: values.delay,
-                    closeDelay: values.closeDelay
-                }}
                 {#snippet parts()}
                     <Combobox.Trigger
                         variant={values.variant}
                         appearance={values.appearance}
                         size={values.size}
-                        placeholder={values.placeholder || undefined}
+                        placeholder="Select a framework"
                         searchPlacement={values.searchPlacement}
-                        threshold={values.threshold}
                         trailing={values.trailing ? playgroundTrailing : undefined}
                         disabled={values.disabled}
                         class="w-64"
                     />
                     <Combobox.Content
-                        surface={values.surface === 'inherit' ? undefined : values.surface}
+                        surface={values.surface === 'theme' ? undefined : values.surface}
                     >
                         <Combobox.Results>
                             {#if values.groupLabel}
@@ -78,20 +105,16 @@
                             <Combobox.Item value="sveltekit" label="SvelteKit" />
                             <Combobox.Item value="nuxtjs" label="Nuxt.js" />
                             <Combobox.Item value="remix" label="Remix" />
-                            <Combobox.Item
-                                value="astro"
-                                label="Astro"
-                                disabled={values.disabledItem}
-                            />
+                            <Combobox.Item value="astro" label="Astro" />
                         </Combobox.Results>
                     </Combobox.Content>
                 {/snippet}
                 {#if values.multiple}
-                    <Combobox.Root type="multiple" bind:value={playgroundFrameworks} {...root}>
+                    <Combobox.Root type="multiple" bind:value={playgroundFrameworks}>
                         {@render parts()}
                     </Combobox.Root>
                 {:else}
-                    <Combobox.Root bind:value={playgroundFramework} {...root}>
+                    <Combobox.Root bind:value={playgroundFramework}>
                         {@render parts()}
                     </Combobox.Root>
                 {/if}
@@ -124,7 +147,6 @@
             still open on focus or typing. Trigger's disabled prop disables both editing and its
             clear action.
         </Typography.Text>
-
         <Typography.Text>
             Set <Typography.InlineCode>type="multiple"</Typography.InlineCode>
             on Root and bind a string array to value to choose several options. Selecting an item
@@ -132,12 +154,7 @@
             labels; Escape or an outside click closes the menu. With name on Trigger, each selected
             value submits under that name.
         </Typography.Text>
-
-        <CodeBlock
-            code={`import * as Combobox from '@mielui/svelte/components/combobox';\n\nlet selected = $state('next');\n\n<Combobox.Root bind:value={selected}>\n  <Combobox.Trigger placeholder="Framework" />\n  <Combobox.Content>\n    <Combobox.Results>\n      <Combobox.Item value="next" label="Next.js" />\n    </Combobox.Results>\n  </Combobox.Content>\n</Combobox.Root>`}
-            lang="svelte"
-            copy="overlay"
-        />
+        <CodeBlock code={usageCode} lang="svelte" copy="overlay" />
     </section>
 
     <section id="examples" class="scroll-mt-20 flex flex-col gap-10">
@@ -197,18 +214,18 @@
             </ComponentPreview>
         </div>
     </section>
-    <section id="glass" class="flex flex-col gap-4">
+    <section id="glass" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Glass surface</Typography.H2>
         <Typography.Text variant="supporting">
-            Set surface="glass" on Combobox.Content for a translucent background with blur. Omit
-            surface to inherit --mielui-surface from your theme, or set surface="solid" to override
-            it. The glass surface keeps an opaque fallback when backdrop filtering is unavailable
-            and respects reduced-transparency preferences.
+            Set surface="glass" on Content for a translucent panel with blur, or surface="solid" for
+            an opaque one. Without surface, the panel follows the theme. Glass falls back to an
+            opaque panel when backdrop filtering is unavailable or reduced transparency is on.
         </Typography.Text>
-        <ComponentPreview code={GlassSrc}><Glass /></ComponentPreview>
+        <ComponentPreview code={GlassSrc}>
+            <Glass />
+        </ComponentPreview>
     </section>
-
-    <section id="item-content" class="flex scroll-mt-20 flex-col gap-4">
+    <section id="item-content" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Custom item content</Typography.H2>
         <Typography.Text>
             Item renders its label by default. Pass children to show an icon or a second line
@@ -225,20 +242,17 @@
         />
     </section>
 
-    <section id="labels" class="flex scroll-mt-20 flex-col gap-4">
+    <section id="labels" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Labels</Typography.H2>
         <Typography.Text>
-            Built-in text is English by default. Pass labels to Combobox.Root to translate or reword
-            the search field, the clear button, the option list, and the empty message. Every key is
-            optional; omitted keys keep their default.
+            Built-in text is English. Pass a ComboboxLabels object to labels on Root to translate or
+            reword the menu search placeholder and name, the clear button, the option list name and
+            the empty message. Every key is optional, and an omitted key keeps its English default.
+            The trigger placeholder is a prop on Trigger.
         </Typography.Text>
-        <CodeBlock
-            code={`<Combobox.Root labels={{ empty: 'Aucun résultat', searchPlaceholder: 'Rechercher…', clear: 'Effacer' }} />`}
-            lang="svelte"
-            copy="overlay"
-        />
+        <CodeBlock code={labelsCode} lang="svelte" copy="overlay" />
     </section>
-    <section id="matching" class="flex flex-col gap-4">
+    <section id="matching" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Matching typed text</Typography.H2>
         <Typography.Text variant="supporting">
             <InlineText
@@ -249,7 +263,7 @@
             <ThresholdExample />
         </ComponentPreview>
     </section>
-    <section id="opening" class="flex flex-col gap-4">
+    <section id="opening" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Opening and placement</Typography.H2>
         <Typography.Text variant="supporting">
             <InlineText
@@ -265,7 +279,7 @@
             <PlacementExample />
         </ComponentPreview>
     </section>
-    <section id="panel-and-items" class="flex flex-col gap-4">
+    <section id="panel-and-items" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Panel and items</Typography.H2>
         <Typography.Text variant="supporting">
             <InlineText
@@ -274,7 +288,7 @@
         </Typography.Text>
         <Typography.Text variant="supporting">
             <InlineText
-                text={"Item is built on [Button](/docs/components/button). `size` changes the row height. A row is always a button and does not take `href`. `status` or `loading` show progress on a row, with `loadingLabel`, `successLabel` and `errorLabel` as the text for each state. `unstyled` removes the Button classes and `onkeydown` runs before the list handles the key. Trigger takes `size`, `style` and `unstyled` the same way."}
+                text={"Item is built on [Button](/docs/components/button). `size` changes the row height. A row is always a button and does not take `href`. `status` or `loading` show progress on a row, with `labels` setting the text for each state. `unstyled` removes the Button classes and `onkeydown` runs before the list handles the key. Trigger takes `size`, `style` and `unstyled` the same way."}
             />
         </Typography.Text>
     </section>

@@ -2,9 +2,7 @@ import {
     attributes,
     changed,
     compact,
-    headingLevel,
     indent,
-    number,
     type PlaygroundValues,
     select,
     tag,
@@ -17,13 +15,7 @@ export const controls = {
     title: toggle('Title', 'Content', true),
     description: toggle('Description', 'Content', true),
     content: toggle('Content', 'Content', true),
-    footer: toggle('Footer', 'Content', true),
-    level: number('Title level', 2, {
-        min: 1,
-        max: 6,
-        step: 1,
-        group: 'Behavior'
-    })
+    footer: toggle('Footer', 'Content', true)
 };
 
 export const backdrop =
@@ -33,7 +25,6 @@ type Values = PlaygroundValues<typeof controls>;
 
 export function code(values: Values): string {
     const glass = values.surface === 'glass';
-    const level = headingLevel(values.level);
     const root = attributes({
         variant: changed(values.variant, 'default'),
         surface: glass && 'glass',
@@ -41,7 +32,7 @@ export function code(values: Values): string {
     });
     const title = values.title
         ? `
-        <Card.Title${attributes({ level: changed(level, 2) })}>Checkout redesign</Card.Title>`
+        <Card.Title>Checkout redesign</Card.Title>`
         : '';
     const description = values.description
         ? `

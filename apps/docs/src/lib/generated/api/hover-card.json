@@ -62,21 +62,21 @@
         "name": "Description",
         "properties": [
             {
-                "name": "children",
-                "type": "Snippet<[]>",
-                "required": true,
-                "bindable": false,
-                "default": null,
-                "description": "Content rendered inside.",
-                "inherited": false
-            },
-            {
                 "name": "class",
                 "type": "string | undefined",
                 "required": false,
                 "bindable": false,
                 "default": null,
                 "description": "Classes added to the element.",
+                "inherited": false
+            },
+            {
+                "name": "children",
+                "type": "Snippet<[]> | undefined",
+                "required": false,
+                "bindable": false,
+                "default": null,
+                "description": "Content rendered inside.",
                 "inherited": false
             }
         ]
@@ -126,21 +126,21 @@
         "name": "Title",
         "properties": [
             {
-                "name": "children",
-                "type": "Snippet<[]>",
-                "required": true,
-                "bindable": false,
-                "default": null,
-                "description": "Content rendered inside.",
-                "inherited": false
-            },
-            {
                 "name": "class",
                 "type": "string | undefined",
                 "required": false,
                 "bindable": false,
                 "default": null,
                 "description": "Classes added to the element.",
+                "inherited": false
+            },
+            {
+                "name": "children",
+                "type": "Snippet<[]> | undefined",
+                "required": false,
+                "bindable": false,
+                "default": null,
+                "description": "Content rendered inside.",
                 "inherited": false
             }
         ]

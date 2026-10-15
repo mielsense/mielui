@@ -1,31 +1,20 @@
 import {
     attributes,
-    CONTROL_SIZES,
-    changed,
     compact,
-    defaultOn,
     type PlaygroundValues,
     select,
     toggle
 } from '$lib/components/docs/playground';
 
 export const controls = {
-    variant: select('Variant', ['outline', 'secondary', 'ghost'], 'outline'),
-    size: select('Trigger size', CONTROL_SIZES, 'md', 'Appearance'),
+    variant: select('Trigger variant', ['outline', 'secondary', 'ghost'], 'outline'),
     glass: toggle('Glass surface', 'Appearance'),
-    dynamic: toggle('Dynamic width', 'Appearance'),
     label: toggle('Label', 'Content', true),
     icons: toggle('Icons', 'Content', true),
     checkbox: toggle('Checkbox item', 'Content'),
     submenu: toggle('Submenu', 'Content'),
     destructive: toggle('Destructive item', 'Content', true),
-    disabled: toggle('Disabled trigger', 'State'),
-    disabledItem: toggle('Disabled item', 'State'),
-    allowClickOutside: toggle('Close on outside press', 'Behavior', true),
-    dismissLayer: toggle('Dismiss layer', 'Behavior', true),
-    focusTrap: toggle('Trap focus', 'Behavior'),
-    lockScroll: toggle('Lock scroll', 'Behavior'),
-    portal: toggle('Portal', 'Behavior', true)
+    disabledItem: toggle('Disabled item', 'State')
 };
 
 type Values = PlaygroundValues<typeof controls>;
@@ -45,18 +34,10 @@ ${indent}`;
 
 export function code(values: Values): string {
     const trigger = attributes({
-        variant: values.variant,
-        size: changed(values.size, 'md'),
-        disabled: values.disabled
+        variant: values.variant
     });
     const content = attributes({
-        surface: values.glass && 'glass',
-        dynamic: values.dynamic,
-        allowClickOutside: defaultOn(values.allowClickOutside),
-        dismissLayer: defaultOn(values.dismissLayer),
-        focusTrap: values.focusTrap,
-        lockScroll: values.lockScroll,
-        portal: defaultOn(values.portal)
+        surface: values.glass && 'glass'
     });
     const subContent = attributes({
         surface: values.glass && 'glass'

@@ -3,7 +3,6 @@ import {
     changed,
     compact,
     content,
-    number,
     type PlaygroundValues,
     select,
     text,
@@ -11,20 +10,13 @@ import {
 } from '$lib/components/docs/playground';
 
 export const controls = {
-    action: select('Action', ['link', 'button', 'none'], 'link'),
-    tone: select('Tone', ['1', '2', '3', '4', '5'], '1', 'Appearance'),
+    tone: select('Tone', ['1', '2', '3', '4', '5'], '1'),
     cover: select('Cover', ['tone', 'image', 'none'], 'tone', 'Content'),
     title: text('Title', 'Client projects', 'Content'),
     description: toggle('Description', 'Content', true),
     index: toggle('Index', 'Content', true),
     count: toggle('Count', 'Content', true),
-    value: number('Count value', 3957, {
-        min: 0,
-        max: 99999,
-        group: 'Content'
-    }),
-    unit: text('Count unit', 'files', 'Content'),
-    disabled: toggle('Disabled', 'State')
+    action: select('Action', ['link', 'button', 'none'], 'link', 'Behavior')
 };
 
 type Values = PlaygroundValues<typeof controls>;
@@ -44,11 +36,10 @@ const OPEN_HANDLER = `onclick={() => {
 export function code(values: Values): string {
     const button = values.action === 'button';
     const tone = changed(Number(values.tone), 1);
-    const buttonProps = [
-        attributes({ tone }).trim(),
-        attributes({ disabled: values.disabled }).trim(),
-        OPEN_HANDLER
-    ].filter(Boolean);
+    const toneAttribute = attributes({
+        tone
+    }).trim();
+    const buttonProps = compact([toneAttribute || undefined, OPEN_HANDLER]);
     const root = button
         ? `<FolderCard.Root
         ${buttonProps.join('\n        ')}
@@ -62,13 +53,9 @@ export function code(values: Values): string {
         ? `
             <FolderCard.Description>Brand, web, and product</FolderCard.Description>`
         : '';
-    const count = attributes({
-        value: values.value,
-        unit: changed(values.unit, 'files')
-    });
     const footerParts = compact([
         values.index && '            <FolderCard.Index>001</FolderCard.Index>',
-        values.count && `            <FolderCard.Count${count} />`
+        values.count && '            <FolderCard.Count value={3957} />'
     ]);
     const footer = footerParts.length
         ? `

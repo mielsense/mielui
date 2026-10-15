@@ -19,6 +19,22 @@
 
     let playgroundPriority = $state('');
     let playgroundPriorities = $state<string[]>([]);
+
+    const usageCode = `<script lang="ts">
+    import * as Select from '@mielui/svelte/components/select';
+
+    let role = $state('');
+</${'script'}>
+
+<Select.Root bind:value={role}>
+    <Select.Trigger aria-label="Role">
+        <Select.Value placeholder="Select a role" />
+    </Select.Trigger>
+    <Select.Content>
+        <Select.Item value="designer">Designer</Select.Item>
+        <Select.Item value="engineer">Engineer</Select.Item>
+    </Select.Content>
+</Select.Root>`;
 </script>
 
 <svelte:head>
@@ -58,7 +74,6 @@
                     </Select.Trigger>
                     <Select.Content
                         surface={values.surface === 'inherit' ? undefined : values.surface}
-                        dynamic={values.dynamic}
                     >
                         {@render playgroundItems(values.groupLabel, values.disabledItem)}
                     </Select.Content>
@@ -88,27 +103,20 @@
     <section id="usage" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Usage</Typography.H2>
         <Typography.Text>
-            Use Select.Value for a trigger label that follows the selection. Use bind:value or
-            onValueChange on Select.Root to react to both pointer and keyboard selection; an item
-            onclick handler only observes native clicks. Trigger onclick receives the mouse event
-            before click activation; preventDefault cancels that activation. Arrow keys, Home, End,
-            and typing navigate options; disabled items are skipped. Before an option label is
-            mounted, a preselected value is displayed as its value string.
+            <InlineText
+                text={"Single selection is the default and binds a string. `Select.Value` shows the selected label, or its `placeholder` while nothing is chosen; Trigger renders it when you pass no children. Bind `value` or use `onValueChange` on Root to react to both pointer and keyboard selection; an item `onclick` handler only sees native clicks."}
+            />
         </Typography.Text>
-
+        <CodeBlock code={usageCode} lang="svelte" copy="overlay" />
         <Typography.Text>
-            Single selection is the default and binds a string. Set type="multiple" to bind a string
-            array; selecting an item toggles it without closing the menu. Select.Value joins the
-            selected labels. Use name to include the selection in form submission; multiple values
-            use the same field name and can be read with FormData.getAll(). Root also accepts
-            disabled and required.
+            <InlineText
+                text={"Set `type=\"multiple\"` to bind a string array; selecting an item toggles it without closing the menu, and `Select.Value` joins the selected labels. Use `name` to include the selection in a form; multiple values share the field name and can be read with `FormData.getAll()`. Root also accepts `disabled` and `required`."}
+            />
         </Typography.Text>
-
-        <CodeBlock
-            code={`import * as Select from '@mielui/svelte/components/select';\n\n<Select.Root bind:value={role}>\n  <Select.Trigger aria-label="Role"><Select.Value placeholder="Select a role" /></Select.Trigger>\n  <Select.Content>\n    <Select.Item value="designer">Designer</Select.Item>\n  </Select.Content>\n</Select.Root>`}
-            lang="svelte"
-            copy="overlay"
-        />
+        <Typography.Text>
+            Arrow keys, Home, End, and typing move between options; disabled items are skipped.
+            Before an option has mounted, a preselected value shows as its value string.
+        </Typography.Text>
     </section>
 
     <section id="examples" class="scroll-mt-20 flex flex-col gap-10">
@@ -120,15 +128,19 @@
             <Typography.H3 class="docs-subsection-heading">Multiple selection</Typography.H3>
             <Typography.Text variant="supporting">
                 Select several teams, clear the selection, or submit the named values. Disabled
-                options remain unavailable. Escape closes the menu and returns focus to the trigger.
+                options stay unavailable.
             </Typography.Text>
-            <ComponentPreview code={MultipleSrc}><Multiple /></ComponentPreview>
+            <ComponentPreview code={MultipleSrc}>
+                <Multiple />
+            </ComponentPreview>
         </div>
 
         <div id="scrollable" class="scroll-mt-20 flex flex-col gap-3">
             <Typography.H3 class="docs-subsection-heading">Scrollable</Typography.H3>
             <Typography.Text variant="supporting">
-                Long option lists stay in a height-capped menu and scroll inside it.
+                <InlineText
+                    text={"A `max-h-*` class on Content caps the menu height; long lists scroll inside it."}
+                />
             </Typography.Text>
             <ComponentPreview code={ScrollableSrc}>
                 <Scrollable />
@@ -138,55 +150,55 @@
         <div id="dynamic-width" class="scroll-mt-20 flex flex-col gap-3">
             <Typography.H3 class="docs-subsection-heading">Dynamic width</Typography.H3>
             <Typography.Text variant="supporting">
-                The menu sizes to its longest option plus a buffer, even when the trigger is
-                narrower.
+                <InlineText
+                    text={"With `dynamic` on Content, the menu sizes to its longest option, even when the trigger is narrower."}
+                />
             </Typography.Text>
             <ComponentPreview code={DynamicWidthSrc}>
                 <DynamicWidth />
             </ComponentPreview>
         </div>
+
+        <div id="glass" class="scroll-mt-20 flex flex-col gap-3">
+            <Typography.H3 class="docs-subsection-heading">Glass surface</Typography.H3>
+            <Typography.Text variant="supporting">
+                <InlineText
+                    text={"`surface=\"glass\"` on Content gives the menu a translucent, blurred background. Omit `surface` to inherit `--mielui-surface` from your theme, or set `surface=\"solid\"` to override it. Glass keeps an opaque fallback when backdrop filtering is unavailable and respects reduced-transparency preferences."}
+                />
+            </Typography.Text>
+            <ComponentPreview code={GlassSrc}>
+                <Glass />
+            </ComponentPreview>
+        </div>
+
+        <div id="controlled" class="scroll-mt-20 flex flex-col gap-3">
+            <Typography.H3 class="docs-subsection-heading">Controlled open state</Typography.H3>
+            <Typography.Text variant="supporting">
+                <InlineText
+                    text={"Bind `open` on Root to open or close the list from your own code. `onOpenChange` reports when the person opens or closes it."}
+                />
+            </Typography.Text>
+            <ComponentPreview code={ControlledExampleSrc}>
+                <ControlledExample />
+            </ComponentPreview>
+        </div>
     </section>
-    <section id="glass" class="flex flex-col gap-4">
-        <Typography.H2 class="docs-section-heading">Glass surface</Typography.H2>
-        <Typography.Text variant="supporting">
-            Set surface="glass" on Select.Content for a translucent background with blur. Omit
-            surface to inherit --mielui-surface from your theme, or set surface="solid" to override
-            it. The glass surface keeps an opaque fallback when backdrop filtering is unavailable
-            and respects reduced-transparency preferences.
-        </Typography.Text>
-        <ComponentPreview code={GlassSrc}><Glass /></ComponentPreview>
-    </section>
-    <section id="controlling-the-list" class="flex flex-col gap-4">
-        <Typography.H2 class="docs-section-heading">Controlling the list</Typography.H2>
-        <Typography.Text variant="supporting">
-            <InlineText
-                text={"Bind `open` on Root to open or close the list from your own code, and use `onOpenChange` to hear when the person does. `onopen` on Trigger runs just before the list opens."}
-            />
-        </Typography.Text>
-        <Typography.Text variant="supporting">
-            <InlineText
-                text={"Trigger needs a name. Pass `aria-label`, or point `aria-labelledby` at the id of a visible label so the label and the chosen value are read together."}
-            />
-        </Typography.Text>
-        <ComponentPreview code={ControlledExampleSrc}>
-            <ControlledExample />
-        </ComponentPreview>
-    </section>
-    <section id="trigger-and-items" class="flex flex-col gap-4">
+
+    <section id="trigger-and-items" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Trigger and items</Typography.H2>
         <Typography.Text variant="supporting">
             <InlineText
-                text={"Trigger is a Button with a chevron. `icon={false}` hides the chevron, `style` sets inline styles, `element` binds the DOM node, and `unstyled` removes the Button classes so `class` alone styles it."}
+                text={"Trigger needs a name. Pass `aria-label`, or point `aria-labelledby` at the id of a visible label so the label and the chosen value are read together. Trigger is a [Button](/docs/components/button) with a chevron: it takes `variant`, `size`, and `bind:element`, and `unstyled` removes the Button classes so `class` alone styles it. `onopen` runs just before the list opens. Its `onclick` runs first; call `preventDefault()` there to keep the list closed."}
             />
         </Typography.Text>
         <Typography.Text variant="supporting">
             <InlineText
-                text={"Item is built on [Button](/docs/components/button) too. `loading` with `loadingLabel`, `successLabel` and `errorLabel` shows progress on an option that starts slow work. `element`, `unstyled` and `onkeydown` behave as they do on Trigger. An option is always a button and does not take `href`."}
+                text={"Item is a Button too. Pass `label` when the trigger should show different text than the option content. `loading` with `labels` shows progress on an option that starts slow work. An option is always a button and does not take `href`."}
             />
         </Typography.Text>
         <Typography.Text variant="supporting">
             <InlineText
-                text={"Root, Content, Label, Item and Trigger render their `children` and accept `class` and `style` like any element."}
+                text={"Content, Label, Item and Trigger accept `class`. Use `Select.Label` to head a group of options inside Content."}
             />
         </Typography.Text>
     </section>

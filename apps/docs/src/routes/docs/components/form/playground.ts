@@ -1,10 +1,8 @@
 import {
     attributes,
-    CONTROL_SIZES,
     changed,
     compact,
     content,
-    defaultOn,
     expression,
     type PlaygroundValues,
     quote,
@@ -13,21 +11,10 @@ import {
 } from '$lib/components/docs/playground';
 
 export const controls = {
-    tone: select('Status tone', ['neutral', 'success', 'error'], 'neutral'),
-    submitVariant: select(
-        'Submit variant',
-        ['primary', 'secondary', 'outline'],
-        'primary',
-        'Appearance'
-    ),
-    submitSize: select('Submit size', CONTROL_SIZES, 'md', 'Appearance'),
-    status: toggle('Status', 'Content', true),
-    reset: toggle('Reset button', 'Content', true),
+    status: select('Status', ['neutral', 'success', 'error', 'hidden'], 'neutral'),
     errorSummary: toggle('Error summary', 'Content'),
-    heading: toggle('Custom summary heading', 'Content'),
-    pending: toggle('Pending', 'State'),
-    submitDisabled: toggle('Disabled submit', 'State'),
-    focusOnError: toggle('Focus summary on error', 'Behavior', true)
+    reset: toggle('Reset button', 'Content', true),
+    pending: toggle('Pending', 'State')
 };
 
 export const STATUS = {
@@ -78,40 +65,21 @@ export function code(values: Values): string {
         onsubmit: expression('submit'),
         pending: values.pending
     });
-    const submitProps = attributes({
-        variant: changed(values.submitVariant, 'primary'),
-        size: changed(values.submitSize, 'md'),
-        disabled: values.submitDisabled
-    });
-    const resetProps = attributes({
-        type: 'reset',
-        variant: 'ghost',
-        size: changed(values.submitSize, 'md')
-    });
-    const summaryProps = attributes({
-        issues: expression('issues'),
-        focusOnError: defaultOn(values.focusOnError)
-    });
-    const statusProps = attributes({
-        tone: changed(values.tone, 'neutral')
-    });
-    const summary = values.heading
+    const summary = values.errorSummary
         ? `
-    <Form.ErrorSummary${summaryProps}>
-        {#snippet heading()}
-            Two details need another look
-        {/snippet}
-    </Form.ErrorSummary>`
-        : `
-    <Form.ErrorSummary${summaryProps} />`;
+    <Form.ErrorSummary {issues} />`
+        : '';
     const reset = values.reset
         ? `
-        <Button${resetProps}>Reset</Button>`
+        <Button type="reset" variant="ghost">Reset</Button>`
         : '';
-    const status = values.status
-        ? `
-    <Form.Status${statusProps}>${content(STATUS[values.tone])}</Form.Status>`
-        : '';
+    const status =
+        values.status === 'hidden'
+            ? ''
+            : `
+    <Form.Status${attributes({
+        tone: changed(values.status, 'neutral')
+    })}>${content(STATUS[values.status])}</Form.Status>`;
     const script = values.errorSummary ? declaration() : '';
     const imports = compact([
         values.reset && "    import { Button } from '@mielui/svelte/components/button';",
@@ -128,7 +96,7 @@ ${imports.join('\n')}${script}
     }
 </script>
 
-<Form.Root${rootProps}>${values.errorSummary ? summary : ''}
+<Form.Root${rootProps}>${summary}
     <Field.Root>
         <Field.Label>Work email</Field.Label>
         <Field.Control>
@@ -138,7 +106,7 @@ ${imports.join('\n')}${script}
         </Field.Control>
     </Field.Root>
     <Form.Actions>
-        <Form.Submit${submitProps}>Save profile</Form.Submit>${reset}
+        <Form.Submit>Save profile</Form.Submit>${reset}
     </Form.Actions>${status}
 </Form.Root>`;
 }

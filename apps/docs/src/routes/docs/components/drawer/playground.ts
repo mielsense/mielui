@@ -2,7 +2,6 @@ import {
     attributes,
     changed,
     defaultOn,
-    number,
     type PlaygroundValues,
     select,
     toggle
@@ -13,14 +12,7 @@ export const controls = {
     glass: toggle('Glass surface', 'Appearance'),
     handle: toggle('Handle', 'Content', true),
     description: toggle('Description', 'Content', true),
-    dismissible: toggle('Dismissible', 'Behavior', true),
-    handleOnly: toggle('Drag from handle only', 'Behavior'),
-    closeThreshold: number('Close threshold', 0.25, {
-        min: 0.05,
-        max: 1,
-        step: 0.05,
-        group: 'Behavior'
-    })
+    dismissible: toggle('Dismissible', 'Behavior', true)
 };
 
 type Values = PlaygroundValues<typeof controls>;
@@ -28,9 +20,7 @@ type Values = PlaygroundValues<typeof controls>;
 export function code(values: Values): string {
     const root = attributes({
         direction: changed(values.direction, 'bottom'),
-        dismissible: defaultOn(values.dismissible),
-        handleOnly: values.handleOnly,
-        closeThreshold: changed(values.closeThreshold, 0.25)
+        dismissible: defaultOn(values.dismissible)
     });
     const content = attributes({
         surface: values.glass && 'glass'

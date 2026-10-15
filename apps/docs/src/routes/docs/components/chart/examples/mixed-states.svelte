@@ -16,6 +16,7 @@
         target: { label: 'Target', color: 'var(--chart-2)' }
     };
     const data = $derived(dataState === 'empty' ? [] : records);
+
     function changeAnimation(value: string) {
         if (value === 'reveal' || value === 'live' || value === 'none') {
             animation = value;

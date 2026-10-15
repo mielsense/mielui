@@ -4,6 +4,7 @@
 
     let selected = $state('Choose a day');
 </script>
+
 <Heatmap.Root
     {days}
     weeks={12}

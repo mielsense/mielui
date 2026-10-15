@@ -83,8 +83,13 @@ ${footerParts.join('\n')}
         data: members,
         getRowId: (member) => member.id,
         initialState: {
-            columnVisibility: { joined: false },
-            pagination: { pageIndex: 0, pageSize: 5 }
+            columnVisibility: {
+                joined: false
+            },
+            pagination: {
+                pageIndex: 0,
+                pageSize: 5
+            }
         }
     });
 </script>

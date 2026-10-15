@@ -11,7 +11,7 @@
 </script>
 
 <div class="flex w-full max-w-sm flex-col items-center gap-5">
-    <ToggleGroup.Root type="single" bind:value={alignment}>
+    <ToggleGroup.Root bind:value={alignment} aria-label="Text alignment">
         <ToggleGroup.Item value="left" aria-label="Align left">
             <HugeiconsIcon icon={AlignLeft} size={14} />
         </ToggleGroup.Item>

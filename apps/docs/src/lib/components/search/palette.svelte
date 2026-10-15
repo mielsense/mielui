@@ -162,9 +162,8 @@
 
 <svelte:window onkeydown={handleKeydown} />
 
-<Command.Root bind:open={search.open}>
+<Command.Root bind:open={search.open} labels={{ palette: 'Search documentation' }}>
     <Command.Content
-        label="Search documentation"
         class="max-h-[min(25rem,calc(var(--mielui-viewport-height)-var(--overlay-gutter)))] max-w-[34rem] [&_[data-collection-item]]:h-8 [&_[data-collection-item]]:text-sm [&_div:has(>input[role=combobox])]:h-13 [&_div:has(>input[role=combobox])]:px-4 [&_input]:text-[15px]"
     >
         <Command.Header class="flex items-center gap-4 px-4 pt-3 pb-3 text-[13px]">

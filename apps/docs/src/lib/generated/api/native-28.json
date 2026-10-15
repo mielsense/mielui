@@ -1,41 +1,5 @@
 [
     {
-        "name": "r",
-        "type": "string | number | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
-        "name": "radius",
-        "type": "string | number | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
-        "name": "refX",
-        "type": "string | number | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
-        "name": "refY",
-        "type": "string | number | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
         "name": "rendering-intent",
         "type": "string | number | null | undefined",
         "required": false,
@@ -2242,6 +2206,42 @@
     },
     {
         "name": "onclick",
+        "type": "MouseEventHandler<HTMLImageElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onclickcapture",
+        "type": "MouseEventHandler<HTMLImageElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "on:contextmenu",
+        "type": "MouseEventHandler<HTMLImageElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "oncontextmenu",
+        "type": "MouseEventHandler<HTMLImageElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "oncontextmenucapture",
         "type": "MouseEventHandler<HTMLImageElement> | null | undefined",
         "required": false,
         "bindable": false,

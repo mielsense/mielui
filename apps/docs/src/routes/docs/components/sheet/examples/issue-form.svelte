@@ -104,7 +104,7 @@
                         <div class="flex flex-col gap-1.5">
                             <Label>Status</Label>
                             <Select.Root bind:value={status}>
-                                <Select.Trigger class="w-full" variant="outline" size="md">
+                                <Select.Trigger aria-label="Status" class="w-full">
                                     <span class="flex min-w-0 items-center gap-2">
                                         {#if statusMeta}
                                             <HugeiconsIcon
@@ -136,7 +136,7 @@
                         <div class="flex flex-col gap-1.5">
                             <Label>Priority</Label>
                             <Select.Root bind:value={priority}>
-                                <Select.Trigger class="w-full" variant="outline" size="md">
+                                <Select.Trigger aria-label="Priority" class="w-full">
                                     <span class="flex min-w-0 items-center gap-2">
                                         {#if priorityMeta}
                                             <HugeiconsIcon
@@ -168,7 +168,7 @@
                         <div class="flex flex-col gap-1.5">
                             <Label>Assignee</Label>
                             <Select.Root bind:value={assignee}>
-                                <Select.Trigger class="w-full" variant="outline" size="md">
+                                <Select.Trigger aria-label="Assignee" class="w-full">
                                     <span class="flex min-w-0 items-center gap-2">
                                         {#if assigneeMeta}
                                             <Avatar.Root

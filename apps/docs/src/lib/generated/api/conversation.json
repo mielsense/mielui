@@ -101,7 +101,7 @@
             70,
             71,
             72,
-            1727,
+            73,
             74,
             75,
             77,
@@ -474,7 +474,7 @@
                 "type": "string | undefined",
                 "required": false,
                 "bindable": false,
-                "default": "'Start a conversation'",
+                "default": null,
                 "description": "Heading of the empty state.",
                 "inherited": false
             },
@@ -483,7 +483,7 @@
                 "type": "string | undefined",
                 "required": false,
                 "bindable": false,
-                "default": "'Ask a question or share what you are working on.'",
+                "default": null,
                 "description": "Text under the heading.",
                 "inherited": false
             },
@@ -947,6 +947,15 @@
     {
         "name": "Root",
         "properties": [
+            {
+                "name": "labels",
+                "type": "ConversationLabels | undefined",
+                "required": false,
+                "bindable": false,
+                "default": null,
+                "description": "Overrides the built-in text and accessible names. Every key is optional and English is the fallback.",
+                "inherited": false
+            },
             {
                 "name": "follow",
                 "type": "boolean | undefined",
@@ -1418,15 +1427,6 @@
         "name": "ScrollButton",
         "properties": [
             {
-                "name": "label",
-                "type": "string | undefined",
-                "required": false,
-                "bindable": false,
-                "default": "'Scroll to latest message'",
-                "description": "Accessible name of the button.",
-                "inherited": false
-            },
-            {
                 "name": "class",
                 "type": "string | undefined",
                 "required": false,
@@ -1680,7 +1680,7 @@
             885,
             886,
             887,
-            1728,
+            1724,
             888,
             889,
             890,

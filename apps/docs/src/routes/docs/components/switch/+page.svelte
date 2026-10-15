@@ -13,19 +13,22 @@
     import DisabledSrc from './examples/disabled.svelte?raw';
     import { code as playgroundCode, controls as playgroundControls } from './playground';
 
-    const TITLE = 'Switch';
+    const usageCode = `<script lang="ts">
+    import { Switch } from '@mielui/svelte/components/switch';
+
+    let enabled = $state(false);
+</${'script'}>
+
+<Switch bind:checked={enabled} label="Notifications" />`;
 </script>
 
 <svelte:head>
-    <title>
-        Mielui ·{' '}
-        {TITLE}
-    </title>
+    <title>Mielui · Switch</title>
     <meta name="description" content="On/off toggle for system-level settings." />
 </svelte:head>
 
 <div data-docs-page class="flex flex-col gap-10">
-    <PageIntro title={TITLE}>A toggle for settings that apply immediately.</PageIntro>
+    <PageIntro title="Switch">A toggle for settings that apply immediately.</PageIntro>
 
     <section id="hero" class="scroll-mt-20 flex flex-col gap-4">
         <Playground controls={playgroundControls} code={playgroundCode}>
@@ -48,22 +51,17 @@
 
     <section id="usage" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Usage</Typography.H2>
-        <Typography.Text>
-            The visible label names the switch; descriptions are linked separately. Explicit
-            aria-label or aria-labelledby naming takes priority. External description IDs are
-            preserved and deduplicated, and conditional descriptions are linked only while rendered.
+        <Typography.Text variant="supporting">
+            <InlineText
+                text={"Bind `checked` to read or set the state. `label` names the switch and toggles it when clicked, and `description` is announced with it. Without a visible label, pass `aria-label`. Set `name` and `value` to include the switch in a form submission while it is on."}
+            />
         </Typography.Text>
-        <Typography.Text>
-            Use name and value to include a checked switch in form submission. Bind checked to read
-            or set the state. A label activates the switch, and supplied ARIA relationships are
-            preserved.
+        <CodeBlock code={usageCode} lang="svelte" copy="overlay" />
+        <Typography.Text variant="supporting">
+            <InlineText
+                text={"Bind `element` to reach the underlying button, for example to focus it."}
+            />
         </Typography.Text>
-        <Typography.Text variant="supporting">Import Switch and bind its state:</Typography.Text>
-        <CodeBlock
-            code={`import { Switch } from '@mielui/svelte/components/switch';\n\n<Switch bind:checked={enabled} label="Notifications" />`}
-            lang="svelte"
-            copy="overlay"
-        />
     </section>
 
     <section id="examples" class="scroll-mt-20 flex flex-col gap-10">
@@ -91,13 +89,5 @@
                 <Disabled />
             </ComponentPreview>
         </div>
-    </section>
-    <section id="element-and-click" class="flex flex-col gap-4">
-        <Typography.H2 class="docs-section-heading">Element and click handler</Typography.H2>
-        <Typography.Text variant="supporting">
-            <InlineText
-                text={"Bind `element` to reach the switch's button, for example to focus it. `onclick` runs when the switch is pressed."}
-            />
-        </Typography.Text>
     </section>
 </div>

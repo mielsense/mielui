@@ -2,25 +2,28 @@
     import * as Typography from '@mielui/svelte/components/typography';
     import { getChartGuide } from '$lib/chart-guides';
     import { ComponentPreview } from '$lib/components/docs';
+    import InlineText from '$lib/components/docs/inline-text.svelte';
     import PageIntro from '$lib/components/docs/page-intro.svelte';
     import SectionHeading from '$lib/components/docs/section-heading.svelte';
-    import Example0 from '../examples/line.svelte';
-    import Source0 from '../examples/line.svelte?raw';
-    import Example2 from '../examples/line-dates.svelte';
-    import Source2 from '../examples/line-dates.svelte?raw';
-    import Example1 from '../examples/line-gaps.svelte';
-    import Source1 from '../examples/line-gaps.svelte?raw';
+    import Line from '../examples/line.svelte';
+    import LineSrc from '../examples/line.svelte?raw';
+    import LineDates from '../examples/line-dates.svelte';
+    import LineDatesSrc from '../examples/line-dates.svelte?raw';
+    import LineGaps from '../examples/line-gaps.svelte';
+    import LineGapsSrc from '../examples/line-gaps.svelte?raw';
     import States from '../examples/line-states.svelte';
-    import StatesSource from '../examples/line-states.svelte?raw';
-    import Example3 from '../examples/live.svelte';
-    import Source3 from '../examples/live.svelte?raw';
+    import StatesSrc from '../examples/line-states.svelte?raw';
+    import Live from '../examples/live.svelte';
+    import LiveSrc from '../examples/live.svelte?raw';
 
     const guide = getChartGuide('chart', 'line');
 </script>
+
 <svelte:head>
     <title>{`Mielui · ${guide.title}`}</title>
     <meta name="description" content={guide.description} />
 </svelte:head>
+
 <div data-docs-page class="flex flex-col gap-10">
     <PageIntro title={guide.title}>{guide.description}</PageIntro>
     <section id="usage" class="flex scroll-mt-20 flex-col gap-4">
@@ -35,7 +38,7 @@
                 {guide.examples[0].description}
             {/snippet}
         </SectionHeading>
-        <ComponentPreview refreshable code={Source0}><Example0 /></ComponentPreview>
+        <ComponentPreview refreshable code={LineSrc}><Line /></ComponentPreview>
     </section>
     <section id="line-gaps" class="flex scroll-mt-20 flex-col gap-4">
         <SectionHeading title={guide.examples[1].title}>
@@ -43,7 +46,7 @@
                 {guide.examples[1].description}
             {/snippet}
         </SectionHeading>
-        <ComponentPreview refreshable code={Source1}><Example1 /></ComponentPreview>
+        <ComponentPreview refreshable code={LineGapsSrc}><LineGaps /></ComponentPreview>
     </section>
     <section id="line-dates" class="flex scroll-mt-20 flex-col gap-4">
         <SectionHeading title={guide.examples[2].title}>
@@ -51,7 +54,7 @@
                 {guide.examples[2].description}
             {/snippet}
         </SectionHeading>
-        <ComponentPreview refreshable code={Source2}><Example2 /></ComponentPreview>
+        <ComponentPreview refreshable code={LineDatesSrc}><LineDates /></ComponentPreview>
     </section>
     <section id="live" class="flex scroll-mt-20 flex-col gap-4">
         <SectionHeading title={guide.examples[3].title}>
@@ -59,7 +62,7 @@
                 {guide.examples[3].description}
             {/snippet}
         </SectionHeading>
-        <ComponentPreview refreshable code={Source3}><Example3 /></ComponentPreview>
+        <ComponentPreview refreshable code={LiveSrc}><Live /></ComponentPreview>
     </section>
     <section id="states" class="flex scroll-mt-20 flex-col gap-4">
         <SectionHeading title="Data and animation states">
@@ -68,19 +71,14 @@
                 animation, or replay the entrance. Reduced motion overrides animation settings.
             {/snippet}
         </SectionHeading>
-        <ComponentPreview code={StatesSource}><States /></ComponentPreview>
+        <ComponentPreview code={StatesSrc}><States /></ComponentPreview>
     </section>
-    <section id="api-reference" class="flex flex-col gap-4">
+    <section id="api-reference" class="flex scroll-mt-20 flex-col gap-4">
         <Typography.H2 class="docs-section-heading">API reference</Typography.H2>
-        <p class="text-sm text-foreground-muted">
-            See the{' '}
-            <a
-                class="text-foreground underline underline-offset-4"
-                href="/docs/components/chart#api-reference"
-            >
-                shared API reference
-            </a>
-            for every part and prop.
-        </p>
+        <Typography.Text variant="supporting">
+            <InlineText
+                text={"See the [shared API reference](/docs/components/chart#api-reference) for every part and prop."}
+            />
+        </Typography.Text>
     </section>
 </div>

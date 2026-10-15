@@ -1,27 +1,15 @@
-import { changed, type PlaygroundValues, tag } from '$lib/components/docs/playground';
+import { type PlaygroundValues, tag } from '$lib/components/docs/playground';
 import {
+    calendarAttributes,
+    calendarControls,
     constraintAttributes,
-    constraintControls,
-    DEFAULT_LOCALE,
     dateImport,
-    formatAttributes,
-    formatControls,
-    headerControls,
     headerSnippet,
-    navigationAttributes,
-    navigationControls,
     script,
-    stateControls,
     valueDeclaration
 } from '$lib/components/docs/playground/calendar';
 
-export const controls = {
-    ...formatControls(),
-    ...headerControls,
-    ...stateControls,
-    ...constraintControls,
-    ...navigationControls
-};
+export const controls = calendarControls;
 
 type Values = PlaygroundValues<typeof controls>;
 
@@ -31,12 +19,8 @@ export function code(values: Values): string {
         'Calendar.Root',
         {
             calendarLabel: 'Meeting date',
-            locale: changed(values.locale, DEFAULT_LOCALE),
-            ...formatAttributes(values),
-            disabled: values.disabled,
-            readonly: values.readonly,
-            ...constraintAttributes(values),
-            ...navigationAttributes(values)
+            ...calendarAttributes(values),
+            ...constraintAttributes(values)
         },
         custom ? '>' : ' />',
         '    ',

@@ -13,8 +13,7 @@ export const controls = {
     icon: select('Icon', ['default', 'custom', 'hidden'], 'default', 'Content'),
     title: toggle('Title', 'Content', true),
     description: toggle('Description', 'Content', true),
-    action: toggle('Action', 'Content'),
-    announcement: select('Announcement', ['off', 'polite', 'assertive'], 'off', 'Behavior')
+    action: toggle('Action', 'Content')
 };
 
 type Values = PlaygroundValues<typeof controls>;
@@ -23,7 +22,7 @@ export function code(values: Values): string {
     const props = attributes({
         variant: changed(values.variant, 'info'),
         icon: values.icon === 'hidden' && expression('false'),
-        announcement: changed(values.announcement, 'off')
+        class: 'w-full max-w-lg'
     });
     const custom = values.icon === 'custom';
     const imports = compact([

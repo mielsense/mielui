@@ -10,7 +10,7 @@ import {
 
 export const controls = {
     shortcut: text('Shortcut', 'alt+K', 'Content'),
-    label: text('Custom label', '', 'Content'),
+    label: text('Label', '', 'Content'),
     button: toggle('Inside a button', 'Content'),
     listen: toggle('Run on shortcut', 'Behavior')
 };

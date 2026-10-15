@@ -15,7 +15,14 @@
     };
 </script>
 
-<Chart.Root {data} {config} x="month" aria-label="Monthly revenue and target" class="w-full">
+<Chart.Root
+    {data}
+    {config}
+    x="month"
+    aria-label="Monthly revenue and target"
+    class="w-full"
+    animation="live"
+>
     <Chart.Legend />
     <Chart.Plot>
         <Chart.Grid />

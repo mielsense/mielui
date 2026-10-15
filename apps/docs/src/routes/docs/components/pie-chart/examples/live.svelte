@@ -2,15 +2,17 @@
     import { Button } from '@mielui/svelte/components/button';
     import * as PieChart from '@mielui/svelte/components/pie-chart';
 
-    let annual = $state(false);
-    const data = $derived([
-        { key: 'team', value: annual ? 680 : 420 },
-        { key: 'solo', value: annual ? 320 : 580 }
-    ]);
     const config = {
         team: { label: 'Team', color: 'var(--chart-1)' },
         solo: { label: 'Solo', color: 'var(--chart-2)' }
     };
+
+    let annual = $state(false);
+
+    const data = $derived([
+        { key: 'team', value: annual ? 680 : 420 },
+        { key: 'solo', value: annual ? 320 : 580 }
+    ]);
 
     function switchPeriod() {
         annual = !annual;

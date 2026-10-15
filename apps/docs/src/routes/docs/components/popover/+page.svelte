@@ -10,18 +10,23 @@
     import Basic from './examples/basic.svelte';
     import BasicSrc from './examples/basic.svelte?raw';
     import Glass from './examples/glass.svelte';
+    import GlassSrc from './examples/glass.svelte?raw';
     import Hero from './examples/hero.svelte';
     import HeroSrc from './examples/hero.svelte?raw';
-    import HoverExample from './examples/hover.svelte';
-    import HoverExampleSrc from './examples/hover.svelte?raw';
+    import Hover from './examples/hover.svelte';
+    import HoverSrc from './examples/hover.svelte?raw';
     import Placements from './examples/placements.svelte';
     import PlacementsSrc from './examples/placements.svelte?raw';
     import { code as playgroundCode, controls as playgroundControls } from './playground';
 
-    const GlassSrc = HeroSrc.replace(
-        "let { surface }: { surface?: 'solid' | 'glass' } = $props();",
-        "const surface = 'glass';"
-    );
+    const usageSnippet = `<script lang="ts">
+    import * as Popover from '@mielui/svelte/components/popover';
+<${'/'}script>
+
+<Popover.Root>
+    <Popover.Trigger>Open</Popover.Trigger>
+    <Popover.Content class="w-64" aria-label="Details">Content here</Popover.Content>
+</Popover.Root>`;
 </script>
 
 <svelte:head>
@@ -38,16 +43,11 @@
     <section id="hero" class="scroll-mt-20 flex flex-col gap-4">
         <Playground controls={playgroundControls} code={playgroundCode}>
             {#snippet children(values)}
-                <Popover.Root
-                    placement={values.placement}
-                    hoverable={values.hoverable}
-                    delay={values.delay}
-                    closeDelay={values.closeDelay}
-                    inert={values.inert}
-                >
+                <Popover.Root placement={values.placement} hoverable={values.hoverable}>
                     <Popover.Trigger
                         variant={values.variant}
                         size={values.size}
+                        icon={values.icon}
                         disabled={values.disabled}
                     >
                         Notifications
@@ -56,11 +56,6 @@
                         class="w-64"
                         aria-label={values.title ? undefined : 'Notifications'}
                         surface={values.glass ? 'glass' : undefined}
-                        allowClickOutside={values.allowClickOutside}
-                        dismissLayer={values.dismissLayer}
-                        focusTrap={values.focusTrap}
-                        lockScroll={values.lockScroll}
-                        portal={values.portal}
                     >
                         <div class="flex flex-col gap-3">
                             <div class="flex flex-col gap-1">
@@ -87,38 +82,21 @@
     <section id="usage" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Usage</Typography.H2>
         <Typography.Text variant="supporting">
-            The panel is one floating layer with a single hairline edge. The theme setting
-            chrome.borders does not change it.
+            <InlineText
+                text={"Bind `open` on Root when another control needs to open or close the panel. `onOpenChange` reports changes made inside the component; setting the bound value yourself does not call it. Each Root keeps its own state."}
+            />
         </Typography.Text>
         <Typography.Text variant="supporting">
-            Trigger onclick receives the native mouse event before changing open state. Call
-            preventDefault to cancel opening or closing.
+            <InlineText
+                text={"Content has a dialog role, so give it a Title or an `aria-label`. While a click popover is open, Tab stays inside the panel, the page does not scroll, and content outside it is inert. Set `focusTrap` and `lockScroll` to false on Content, and `inert={false}` on Root, when the rest of the page must stay usable."}
+            />
         </Typography.Text>
         <Typography.Text variant="supporting">
-            Bind open on Root when another control needs to open or close the panel. Use
-            onOpenChange to respond to changes initiated inside the component. Updating your bound
-            value directly does not call that callback again. Each Root keeps its own state, so
-            opening one instance does not change another.
+            <InlineText
+                text={"Trigger `onclick` receives the native event before the open state changes. Call `preventDefault()` to cancel opening or closing."}
+            />
         </Typography.Text>
-        <Typography.Text variant="supporting">
-            Popover coordinates focus and Escape with dialogs and nested floating controls. Include
-            Title or give Content an aria-label when it has a dialog role. Set focusTrap and
-            lockScroll to false for a non-modal composition; set inert to false on Root when outside
-            content should remain interactive.
-        </Typography.Text>
-
-        <Typography.Text variant="supporting">
-            Open non-hover popovers make outside document content inert by default. Set
-            <Typography.InlineCode>{'inert={false}'}</Typography.InlineCode>
-            on{' '}
-            <Typography.InlineCode>Popover.Root</Typography.InlineCode>
-            only when the surrounding page must remain interactive.
-        </Typography.Text>
-        <CodeBlock
-            code={`import * as Popover from '@mielui/svelte/components/popover';\n\n<Popover.Root>\n  <Popover.Trigger>Open</Popover.Trigger>\n  <Popover.Content class="w-64" aria-label="Details">\n    Content here\n  </Popover.Content>\n</Popover.Root>`}
-            lang="svelte"
-            copy="overlay"
-        />
+        <CodeBlock code={usageSnippet} lang="svelte" copy="overlay" />
     </section>
 
     <section id="examples" class="scroll-mt-20 flex flex-col gap-10">
@@ -139,50 +117,54 @@
         </div>
 
         <div id="basic" class="scroll-mt-20 flex flex-col gap-3">
-            <Typography.H3 class="docs-subsection-heading">Basic popover</Typography.H3>
+            <Typography.H3 class="docs-subsection-heading">Basic</Typography.H3>
             <ComponentPreview code={BasicSrc}>
                 <Basic />
             </ComponentPreview>
         </div>
 
         <div id="placements" class="scroll-mt-20 flex flex-col gap-3">
-            <Typography.H3 class="docs-subsection-heading">Placement variants</Typography.H3>
+            <Typography.H3 class="docs-subsection-heading">Placements</Typography.H3>
+            <Typography.Text variant="supporting">
+                <InlineText
+                    text={"`placement` on Root picks a side and an optional `-start` or `-end` alignment. The panel flips when there is no room."}
+                />
+            </Typography.Text>
             <ComponentPreview code={PlacementsSrc}>
                 <Placements />
             </ComponentPreview>
         </div>
+
+        <div id="glass" class="scroll-mt-20 flex flex-col gap-3">
+            <Typography.H3 class="docs-subsection-heading">Glass surface</Typography.H3>
+            <Typography.Text variant="supporting">
+                <InlineText
+                    text={"`surface=\"glass\"` on Content gives the panel a translucent, blurred background. Omit `surface` to inherit `--mielui-surface` from the theme, or set `surface=\"solid\"` to override it. Glass falls back to an opaque fill when backdrop filtering is unavailable or reduced transparency is requested."}
+                />
+            </Typography.Text>
+            <ComponentPreview code={GlassSrc}>
+                <Glass />
+            </ComponentPreview>
+        </div>
+
+        <div id="hover" class="scroll-mt-20 flex flex-col gap-3">
+            <Typography.H3 class="docs-subsection-heading">Open on hover</Typography.H3>
+            <Typography.Text variant="supporting">
+                <InlineText
+                    text={"`hoverable` on Root opens the popover when the pointer rests on the trigger, as well as on click. `delay` is how long the pointer has to rest, in milliseconds, and defaults to 0. `closeDelay` keeps the panel open after the pointer leaves, 150 ms by default, so people can move onto it. A hover popover does not trap focus, lock scrolling, or make the page inert."}
+                />
+            </Typography.Text>
+            <ComponentPreview code={HoverSrc}>
+                <Hover />
+            </ComponentPreview>
+        </div>
     </section>
-    <section id="glass" class="flex flex-col gap-4">
-        <Typography.H2 class="docs-section-heading">Glass surface</Typography.H2>
-        <Typography.Text variant="supporting">
-            Set surface="glass" on Popover.Content for a translucent background with blur. Omit
-            surface to inherit --mielui-surface from your theme, or set surface="solid" to override
-            it. The glass surface keeps an opaque fallback when backdrop filtering is unavailable
-            and respects reduced-transparency preferences.
-        </Typography.Text>
-        <ComponentPreview code={GlassSrc}><Glass /></ComponentPreview>
-    </section>
-    <section id="hover" class="flex flex-col gap-4">
-        <Typography.H2 class="docs-section-heading">Opening on hover</Typography.H2>
-        <Typography.Text variant="supporting">
-            <InlineText
-                text={"Set `hoverable` on Root to open the popover when the pointer rests on the trigger as well as on click. `delay` is how long the pointer has to rest, in milliseconds, and defaults to 0. `closeDelay` is how long the panel stays after the pointer leaves, 150 by default, which gives people time to move onto it."}
-            />
-        </Typography.Text>
-        <Typography.Text variant="supporting">
-            <InlineText
-                text={"A hover popover does not lock scrolling or block the rest of the page."}
-            />
-        </Typography.Text>
-        <ComponentPreview code={HoverExampleSrc}>
-            <HoverExample />
-        </ComponentPreview>
-    </section>
-    <section id="dismissal-and-layering" class="flex flex-col gap-4">
+
+    <section id="dismissal-and-layering" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Dismissal and layering</Typography.H2>
         <Typography.Text variant="supporting">
             <InlineText
-                text={"A click popover closes on a press outside. `allowClickOutside={false}` on Content keeps it open until you set `open` to false or the person presses Escape."}
+                text={"A click popover closes on Escape and on a press outside. `allowClickOutside={false}` on Content keeps it open until Escape or until you set `open` to false."}
             />
         </Typography.Text>
         <Typography.Text variant="supporting">
@@ -201,21 +183,17 @@
             />
         </Typography.Text>
     </section>
-    <section id="trigger-and-state" class="flex flex-col gap-4">
+
+    <section id="trigger-and-state" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Trigger and state</Typography.H2>
         <Typography.Text variant="supporting">
             <InlineText
-                text={"Trigger is a Button. `icon` adds a chevron after the label that turns while the popover is open, `unstyled` removes the Button classes, and `style` sets inline styles. `onopen` runs just before this trigger opens the popover, which is the place to load the panel's data."}
+                text={"Trigger is a Button and defaults to the `primary` variant. `icon` adds a chevron after the label that turns while the popover is open, and `unstyled` removes the Button classes. `onopen` runs just before this trigger opens the popover, which is the place to load the panel's data. Bind `element` to reach the button."}
             />
         </Typography.Text>
         <Typography.Text variant="supporting">
             <InlineText
-                text={"Each Root keeps its state under a key. Pass `stateKey` to choose that key yourself. `state_key` is the older spelling and still works. Content takes `surfaceClass` for the inner surface where your children sit, while `class` styles the outer frame, and `tabindex` sets the panel's tab index."}
-            />
-        </Typography.Text>
-        <Typography.Text variant="supporting">
-            <InlineText
-                text={"Root, Content and Title render their `children` and accept `class` and `style` like any element."}
+                text={"Each Root keeps its state under a key. Pass `stateKey` to choose that key yourself; `state_key` is the older spelling and still works. On Content, `class` styles the outer frame and `surfaceClass` styles the inner surface where your children sit."}
             />
         </Typography.Text>
     </section>

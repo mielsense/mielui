@@ -227,10 +227,10 @@
         </ReorderList>
     </div>
 {:else if slug === 'task-steps'}
-    <TaskSteps {steps} current={1} label="Deploy progress" class="w-56" />
+    <TaskSteps {steps} current={1} labels={{ list: 'Deploy progress' }} class="w-56" />
 {:else if slug === 'show-more'}
     <div class="w-64 text-sm">
-        <ShowMore lines={2} label="Migration details">
+        <ShowMore lines={2} labels={{ region: 'Migration details' }}>
             <p>
                 The workspace migration starts Tuesday at 09:00 UTC. Projects, comments, and files
                 move together while read-only access stays available.
@@ -284,7 +284,7 @@
         <Message.Root from="assistant" name="Assistant" timestamp="09:41">
             <Message.Content>Three changes need review before Friday’s release.</Message.Content>
             <Message.Actions aria-label="Response actions">
-                <CopyButton text="Three changes need review." label="Copy response" />
+                <CopyButton text="Three changes need review." labels={{ copy: 'Copy response' }} />
                 <Button variant="ghost" size="icon" aria-label="Mark as helpful">
                     <HugeiconsIcon icon={ThumbsUp} size={15} aria-hidden="true" />
                 </Button>

@@ -8,6 +8,7 @@
         'Jordan: Approved once the log line is in.',
         'Maya: Log line added in the last commit.'
     ];
+
     let toggles = $state(0);
 </script>
 
@@ -15,8 +16,10 @@
     <ShowMore
         lines={2}
         defaultExpanded
-        moreLabel="Show all 5 comments"
-        lessLabel="Hide older comments"
+        labels={{
+            more: 'Show all 5 comments',
+            less: 'Hide older comments'
+        }}
         onExpandedChange={() => {
             toggles += 1;
         }}

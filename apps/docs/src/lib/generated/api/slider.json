@@ -147,15 +147,6 @@
                 "inherited": false
             },
             {
-                "name": "children",
-                "type": "Snippet<[]> | undefined",
-                "required": false,
-                "bindable": false,
-                "default": null,
-                "description": "Content rendered inside.",
-                "inherited": false
-            },
-            {
                 "name": "range",
                 "type": "false | true | undefined",
                 "required": false,

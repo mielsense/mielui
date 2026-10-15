@@ -16,6 +16,18 @@
     import UserPreview from './examples/user-preview.svelte';
     import UserPreviewSrc from './examples/user-preview.svelte?raw';
     import { code as playgroundCode, controls as playgroundControls } from './playground';
+
+    const usageSnippet = `<script lang="ts">
+    import * as HoverCard from '@mielui/svelte/components/hover-card';
+<${'/'}script>
+
+<HoverCard.Root>
+    <HoverCard.Trigger href="https://github.com/mielsense">@mielsense</HoverCard.Trigger>
+    <HoverCard.Content>
+        <HoverCard.Title>mielsense</HoverCard.Title>
+        <HoverCard.Description>Maintains the shared components.</HoverCard.Description>
+    </HoverCard.Content>
+</HoverCard.Root>`;
 </script>
 
 <svelte:head>
@@ -39,7 +51,6 @@
                     <HoverCard.Content
                         side={values.side}
                         align={values.align}
-                        sideOffset={values.sideOffset}
                         surface={values.glass ? 'glass' : undefined}
                     >
                         {#if values.title}
@@ -65,26 +76,16 @@
     <section id="usage" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Usage</Typography.H2>
         <Typography.Text variant="supporting">
-            The panel is one floating layer with a single hairline edge. The theme setting
-            chrome.borders does not change it.
+            <InlineText
+                text={"Put the link or label in Trigger and the preview in Content. The card opens on hover or keyboard focus and stays open while the pointer moves into it. Give Trigger an `href` to render a link; without one it renders a button that toggles the card. Bind `open` on Root to control it from outside."}
+            />
         </Typography.Text>
-        <Typography.Text>
-            Put the preview in Content and its link or label in Trigger. The card opens on hover or
-            keyboard focus and stays open as the pointer moves into it. Give Trigger an href for
-            normal link navigation; otherwise it renders a button.
+        <Typography.Text variant="supporting">
+            <InlineText
+                text={"Title and Description give the card a heading and supporting text. Trigger, Content, Title, and Description accept `class`; Root renders no element of its own."}
+            />
         </Typography.Text>
-        <Typography.Text>
-            Root accepts openDelay and closeDelay in milliseconds, 200 and 150 by default, and a
-            bindable open. Content takes side and align to place the card; it flips and shifts to
-            stay inside the viewport. Add Title and Description to name and describe the card for
-            assistive technology.
-        </Typography.Text>
-
-        <CodeBlock
-            code={`import * as HoverCard from '@mielui/svelte/components/hover-card';\n\n<HoverCard.Root>\n  <HoverCard.Trigger>@username</HoverCard.Trigger>\n  <HoverCard.Content>\n    <HoverCard.Title>Full name</HoverCard.Title>\n    <HoverCard.Description>Bio or description</HoverCard.Description>\n  </HoverCard.Content>\n</HoverCard.Root>`}
-            lang="svelte"
-            copy="overlay"
-        />
+        <CodeBlock code={usageSnippet} lang="svelte" copy="overlay" />
     </section>
 
     <section id="examples" class="scroll-mt-20 flex flex-col gap-10">
@@ -110,66 +111,39 @@
         </div>
 
         <div id="definition" class="scroll-mt-20 flex flex-col gap-3">
-            <Typography.H3 class="docs-subsection-heading">Definition or term</Typography.H3>
+            <Typography.H3 class="docs-subsection-heading">Definition</Typography.H3>
             <ComponentPreview code={DefinitionSrc}>
                 <Definition />
             </ComponentPreview>
         </div>
-    </section>
-    <section id="placement" class="scroll-mt-20 flex flex-col gap-4">
-        <Typography.H2 class="docs-section-heading">Placement and timing</Typography.H2>
-        <Typography.Text variant="supporting">
-            Set{' '}
-            <Typography.InlineCode>side</Typography.InlineCode>
-            on Content to choose where the card opens:{' '}
-            <Typography.InlineCode>top</Typography.InlineCode>
-            ,{' '}
-            <Typography.InlineCode>right</Typography.InlineCode>
-            ,{' '}
-            <Typography.InlineCode>bottom</Typography.InlineCode>
-            , or{' '}
-            <Typography.InlineCode>left</Typography.InlineCode>
-            . The default is bottom. The side is a preference. When there is no room, the card flips
-            to the opposite side.
-        </Typography.Text>
-        <Typography.Text variant="supporting">
-            <Typography.InlineCode>align</Typography.InlineCode>
-            positions the card along that side as{' '}
-            <Typography.InlineCode>start</Typography.InlineCode>
-            ,{' '}
-            <Typography.InlineCode>center</Typography.InlineCode>
-            , or{' '}
-            <Typography.InlineCode>end</Typography.InlineCode>
-            . The card shifts to stay inside the viewport.{' '}
-            <Typography.InlineCode>sideOffset</Typography.InlineCode>
-            sets the gap between the trigger and the card in pixels, 8 by default.
-        </Typography.Text>
-        <Typography.Text variant="supporting">
-            On Root,{' '}
-            <Typography.InlineCode>openDelay</Typography.InlineCode>
-            and{' '}
-            <Typography.InlineCode>closeDelay</Typography.InlineCode>
-            set how long the pointer rests before the card opens and how long it stays after the
-            pointer leaves. They default to 200 and 150 milliseconds.
-        </Typography.Text>
-        <ComponentPreview code={PlacementSrc}><Placement /></ComponentPreview>
-    </section>
-    <section id="glass" class="flex flex-col gap-4">
-        <Typography.H2 class="docs-section-heading">Glass surface</Typography.H2>
-        <Typography.Text variant="supporting">
-            Set surface="glass" on HoverCard.Content for a translucent background with blur. Omit
-            surface to inherit --mielui-surface from your theme, or set surface="solid" to override
-            it. The glass surface keeps an opaque fallback when backdrop filtering is unavailable
-            and respects reduced-transparency preferences.
-        </Typography.Text>
-        <ComponentPreview code={GlassSrc}><Glass /></ComponentPreview>
-    </section>
-    <section id="parts" class="flex flex-col gap-4">
-        <Typography.H2 class="docs-section-heading">Parts</Typography.H2>
-        <Typography.Text variant="supporting">
-            <InlineText
-                text={"Trigger wraps the element people hover or focus, usually a link. Content is the card, and Title and Description give it a heading and supporting text. Each part renders its `children`, and Root takes them without adding an element of its own."}
-            />
-        </Typography.Text>
+
+        <div id="placement" class="scroll-mt-20 flex flex-col gap-3">
+            <Typography.H3 class="docs-subsection-heading">Placement and timing</Typography.H3>
+            <Typography.Text variant="supporting">
+                <InlineText
+                    text={"`side` on Content picks where the card opens: `top`, `right`, `bottom` (the default), or `left`. It flips to the opposite side when there is no room. `align` sets `start`, `center`, or `end` along that side, and `sideOffset` sets the gap to the trigger in pixels, 8 by default."}
+                />
+            </Typography.Text>
+            <Typography.Text variant="supporting">
+                <InlineText
+                    text={"`openDelay` and `closeDelay` on Root set how long the pointer rests before the card opens and how long it stays after the pointer leaves. They default to 200 and 150 milliseconds."}
+                />
+            </Typography.Text>
+            <ComponentPreview code={PlacementSrc}>
+                <Placement />
+            </ComponentPreview>
+        </div>
+
+        <div id="glass" class="scroll-mt-20 flex flex-col gap-3">
+            <Typography.H3 class="docs-subsection-heading">Glass surface</Typography.H3>
+            <Typography.Text variant="supporting">
+                <InlineText
+                    text={"`surface=\"glass\"` on Content gives the card a translucent, blurred background. Omit `surface` to inherit `--mielui-surface` from the theme, or set `surface=\"solid\"` to override it. Glass falls back to an opaque fill when backdrop filtering is unavailable or reduced transparency is requested."}
+                />
+            </Typography.Text>
+            <ComponentPreview code={GlassSrc}>
+                <Glass />
+            </ComponentPreview>
+        </div>
     </section>
 </div>

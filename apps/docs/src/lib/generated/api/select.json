@@ -12,12 +12,12 @@
                 "inherited": false
             },
             {
-                "name": "children",
-                "type": "Snippet<[]>",
-                "required": true,
+                "name": "dynamic",
+                "type": "boolean | undefined",
+                "required": false,
                 "bindable": false,
-                "default": null,
-                "description": "Content rendered inside.",
+                "default": "false",
+                "description": "Sizes the list to its longest option, even when the trigger is narrower.",
                 "inherited": false
             },
             {
@@ -30,12 +30,12 @@
                 "inherited": false
             },
             {
-                "name": "dynamic",
-                "type": "boolean | undefined",
-                "required": false,
+                "name": "children",
+                "type": "Snippet<[]>",
+                "required": true,
                 "bindable": false,
-                "default": "false",
-                "description": "Lets the panel grow to fit its content instead of matching the trigger width.",
+                "default": null,
+                "description": "Content rendered inside.",
                 "inherited": false
             }
         ]
@@ -70,7 +70,7 @@
                 "description": "Content rendered inside.",
                 "inherited": false
             },
-            2681,
+            2677,
             0,
             1,
             2,
@@ -526,7 +526,7 @@
                 "description": "Controlled visual state. Loading remains focusable and refuses activation.",
                 "inherited": false
             },
-            3978,
+            3974,
             {
                 "name": "disabled",
                 "type": "boolean | undefined",
@@ -574,15 +574,6 @@
                 "inherited": false
             },
             {
-                "name": "unstyled",
-                "type": "boolean | undefined",
-                "required": false,
-                "bindable": false,
-                "default": null,
-                "description": "Skip the variant/size base classes and render with `class` alone.",
-                "inherited": false
-            },
-            {
                 "name": "loading",
                 "type": "boolean | undefined",
                 "required": false,
@@ -592,30 +583,12 @@
                 "inherited": false
             },
             {
-                "name": "loadingLabel",
-                "type": "string | undefined",
+                "name": "labels",
+                "type": "ButtonLabels | undefined",
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "Text shown while `status` is `loading`. The button keeps its width.",
-                "inherited": false
-            },
-            {
-                "name": "successLabel",
-                "type": "string | undefined",
-                "required": false,
-                "bindable": false,
-                "default": null,
-                "description": "Text shown while `status` is `success`.",
-                "inherited": false
-            },
-            {
-                "name": "errorLabel",
-                "type": "string | undefined",
-                "required": false,
-                "bindable": false,
-                "default": null,
-                "description": "Text shown while `status` is `error`.",
+                "description": "Overrides the built-in text and accessible names. Every key is optional and English is the fallback.",
                 "inherited": false
             }
         ]
@@ -624,21 +597,21 @@
         "name": "Label",
         "properties": [
             {
-                "name": "children",
-                "type": "Snippet<[]>",
-                "required": true,
-                "bindable": false,
-                "default": null,
-                "description": "Content rendered inside.",
-                "inherited": false
-            },
-            {
                 "name": "class",
                 "type": "string | undefined",
                 "required": false,
                 "bindable": false,
                 "default": null,
                 "description": "Classes added to the element.",
+                "inherited": false
+            },
+            {
+                "name": "children",
+                "type": "Snippet<[]>",
+                "required": true,
+                "bindable": false,
+                "default": null,
+                "description": "Content rendered inside.",
                 "inherited": false
             }
         ]
@@ -738,7 +711,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "Content rendered inside.",
+                "description": "Content rendered inside. Defaults to `Select.Value`.",
                 "inherited": false
             },
             {
@@ -765,7 +738,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "Id of the element that labels it.",
+                "description": "Id of the element that labels the trigger.",
                 "inherited": false
             },
             {
@@ -774,7 +747,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "",
+                "description": "Marks the trigger as invalid for assistive technology and error styling.",
                 "inherited": false
             },
             10,
@@ -802,8 +775,8 @@
                 "description": "Called when it is clicked or activated.",
                 "inherited": false
             },
-            3978,
-            2999,
+            3974,
+            2995,
             1069,
             1070,
             {
@@ -819,7 +792,7 @@
                 "name": "element",
                 "type": "HTMLButtonElement | HTMLAnchorElement | undefined",
                 "required": false,
-                "bindable": false,
+                "bindable": true,
                 "default": null,
                 "description": "Bindable reference to the DOM element.",
                 "inherited": false
@@ -831,15 +804,6 @@
                 "bindable": false,
                 "default": null,
                 "description": "Forwarded to Button: render with `class` alone, skipping variant/size.",
-                "inherited": false
-            },
-            {
-                "name": "icon",
-                "type": "boolean | undefined",
-                "required": false,
-                "bindable": false,
-                "default": null,
-                "description": "Shows the chevron after the label.",
                 "inherited": false
             },
             {

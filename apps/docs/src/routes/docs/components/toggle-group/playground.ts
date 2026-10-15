@@ -70,7 +70,7 @@ export function code(values: PlaygroundValues<typeof controls>): string {
     const withIcons = values.content === 'icon';
     const items = ITEMS[values.type];
     const type = attributes({
-        type: values.type
+        type: changed(values.type, 'single')
     });
     const props = attributes({
         size: changed(values.size, 'sm'),

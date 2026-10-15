@@ -1,31 +1,16 @@
-import {
-    attributes,
-    changed,
-    compact,
-    headingLevel,
-    number,
-    type PlaygroundValues,
-    toggle
-} from '$lib/components/docs/playground';
+import { compact, type PlaygroundValues, toggle } from '$lib/components/docs/playground';
 
 export const controls = {
     media: toggle('Media', 'Content'),
     title: toggle('Title', 'Content', true),
     description: toggle('Description', 'Content', true),
     content: toggle('Content', 'Content'),
-    actions: toggle('Actions', 'Content', true),
-    level: number('Title level', 2, {
-        min: 1,
-        max: 6,
-        step: 1,
-        group: 'Behavior'
-    })
+    actions: toggle('Actions', 'Content', true)
 };
 
 type Values = PlaygroundValues<typeof controls>;
 
 export function code(values: Values): string {
-    const level = headingLevel(values.level);
     const imports = compact([
         values.media && "import { PackageIcon } from '@hugeicons/core-free-icons';",
         values.actions && "import { Button } from '@mielui/svelte/components/button';",
@@ -41,7 +26,7 @@ export function code(values: Values): string {
         : '';
     const title = values.title
         ? `
-        <EmptyState.Title${attributes({ level: changed(level, 2) })}>No components yet</EmptyState.Title>`
+        <EmptyState.Title>No components yet</EmptyState.Title>`
         : '';
     const description = values.description
         ? `

@@ -24,7 +24,6 @@
         { value: 'closed', label: 'Closed' }
     ];
 
-    const statusLabel = $derived(statuses.find((s) => s.value === status)?.label ?? 'Status');
     const activeCount = $derived(
         (status !== 'all' ? 1 : 0) +
             (onlyMine ? 1 : 0) +
@@ -66,9 +65,7 @@
             <div class="flex flex-col gap-1.5">
                 <Label>Status</Label>
                 <Select.Root bind:value={status}>
-                    <Select.Trigger class="w-full" variant="outline" size="md">
-                        {statusLabel}
-                    </Select.Trigger>
+                    <Select.Trigger aria-label="Status" class="w-full" />
                     <Select.Content>
                         {#each statuses as item (item.value)}
                             <Select.Item value={item.value}>{item.label}</Select.Item>

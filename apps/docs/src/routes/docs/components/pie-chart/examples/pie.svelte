@@ -6,22 +6,11 @@
         { key: 'trial', value: 24 },
         { key: 'free', value: 12 }
     ];
+    const percent = (value: number) => `${value}%`;
     const config = {
-        paid: {
-            label: 'Paid',
-            color: 'var(--chart-1)',
-            format: (value: number) => `${value}%`
-        },
-        trial: {
-            label: 'Trial',
-            color: 'var(--chart-2)',
-            format: (value: number) => `${value}%`
-        },
-        free: {
-            label: 'Free',
-            color: 'var(--chart-3)',
-            format: (value: number) => `${value}%`
-        }
+        paid: { label: 'Paid', color: 'var(--chart-1)', format: percent },
+        trial: { label: 'Trial', color: 'var(--chart-2)', format: percent },
+        free: { label: 'Free', color: 'var(--chart-3)', format: percent }
     };
 </script>
 

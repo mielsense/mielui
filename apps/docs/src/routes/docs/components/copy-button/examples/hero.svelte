@@ -9,7 +9,7 @@
         <code class="text-sm">pnpm add @mielui/svelte</code>
         <CopyButton
             text="pnpm add @mielui/svelte"
-            label="Copy install command"
+            labels={{ copy: 'Copy install command' }}
             oncopy={() => {
                 copied = true;
             }}

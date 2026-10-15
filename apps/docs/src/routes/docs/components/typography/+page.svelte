@@ -4,9 +4,6 @@
     import { ComponentPreview, InstallCommand, Playground } from '$lib/components/docs';
     import InlineText from '$lib/components/docs/inline-text.svelte';
     import PageIntro from '$lib/components/docs/page-intro.svelte';
-    import { headingLevel } from '$lib/components/docs/playground';
-    import SectionHeading from '$lib/components/docs/section-heading.svelte';
-
     import HeadingLevels from './examples/heading-levels.svelte';
     import HeadingLevelsSrc from './examples/heading-levels.svelte?raw';
     import Hero from './examples/hero.svelte';
@@ -18,17 +15,9 @@
     import {
         code as playgroundCode,
         controls as playgroundControls,
-        samples as playgroundSamples
+        samples as playgroundSamples,
+        textVariant as playgroundTextVariant
     } from './playground';
-
-    const usage = `import * as Typography from '@mielui/svelte/components/typography';
-
-<Typography.H2>Account settings</Typography.H2>
-<Typography.Text variant="supporting">Manage your profile and preferences.</Typography.Text>
-<Typography.Text variant="body">
-  Changes are saved to <Typography.InlineCode>profile.json</Typography.InlineCode>.
-</Typography.Text>
-<Typography.Metadata>Updated 4 minutes ago</Typography.Metadata>`;
 
     const roles = [
         {
@@ -72,6 +61,17 @@
             tokens: '--text-xs / --font-weight-body / --tracking-body'
         }
     ];
+
+    const usageCode = `<script lang="ts">
+    import * as Typography from '@mielui/svelte/components/typography';
+</${'script'}>
+
+<Typography.H2>Account settings</Typography.H2>
+<Typography.Text>Manage your profile and preferences.</Typography.Text>
+<Typography.Text variant="body">
+    Changes are saved to <Typography.InlineCode>profile.json</Typography.InlineCode>.
+</Typography.Text>
+<Typography.Metadata>Updated 4 minutes ago</Typography.Metadata>`;
 </script>
 
 <svelte:head>
@@ -104,15 +104,13 @@
                     {:else if values.role === 'h6'}
                         <Typography.H6>{playgroundSamples.heading}</Typography.H6>
                     {:else if values.role === 'title'}
-                        <Typography.Title level={headingLevel(values.level)}>
-                            {playgroundSamples.heading}
-                        </Typography.Title>
+                        <Typography.Title level={2}>{playgroundSamples.heading}</Typography.Title>
                     {:else if values.role === 'description'}
                         <Typography.Description>
                             {playgroundSamples.paragraph}
                         </Typography.Description>
-                    {:else if values.role === 'text'}
-                        <Typography.Text variant={values.variant}>
+                    {:else if values.role.startsWith('text-')}
+                        <Typography.Text variant={playgroundTextVariant(values.role)}>
                             {playgroundSamples.paragraph}
                         </Typography.Text>
                     {:else if values.role === 'metadata'}
@@ -132,21 +130,19 @@
 
     <section id="usage" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Usage</Typography.H2>
-        <Typography.Text variant="supporting" class="m-0 max-w-2xl">
-            Choose a role for meaning, then use
-            <Typography.InlineCode>class</Typography.InlineCode>
-            for a local exception.
+        <Typography.Text variant="supporting">
+            <InlineText
+                text={'Pick each component for what the text is, not how it looks, and use `class` for a local exception. The text goes in `children`, so links, emphasis, and inline code can sit inside any of them. Text defaults to the `supporting` variant.'}
+            />
         </Typography.Text>
-        <CodeBlock code={usage} lang="svelte" copy="overlay" />
+        <CodeBlock code={usageCode} lang="svelte" copy="overlay" />
     </section>
 
-    <section id="roles" class="scroll-mt-20 flex flex-col gap-5">
-        <SectionHeading title="Role reference">
-            {#snippet description()}
-                Each component sets typography and color. Set margins and layout on its parent.
-            {/snippet}
-        </SectionHeading>
-
+    <section id="roles" class="scroll-mt-20 flex flex-col gap-4">
+        <Typography.H2 class="docs-section-heading">Roles</Typography.H2>
+        <Typography.Text variant="supporting">
+            Each component sets typography and color only. Set margins and layout on its parent.
+        </Typography.Text>
         <div class="divide-y divide-border border-y border-border">
             {#each roles as role (role.name)}
                 <div
@@ -167,17 +163,14 @@
     </section>
 
     <section id="examples" class="scroll-mt-20 flex flex-col gap-10">
-        <SectionHeading title="Examples">
-            {#snippet description()}
-                Keep semantic levels explicit and add numeric treatment only where values are
-                compared.
-            {/snippet}
-        </SectionHeading>
+        <div>
+            <Typography.H2 class="docs-section-heading">Examples</Typography.H2>
+        </div>
 
         <div id="article-header" class="scroll-mt-20 flex flex-col gap-3">
             <Typography.H3 class="docs-subsection-heading">Article header</Typography.H3>
-            <Typography.Text variant="supporting" class="m-0 max-w-2xl">
-                Metadata, Title and Description stack into the top of an article or a card.
+            <Typography.Text variant="supporting">
+                Metadata, Title, and Description stack into the top of an article.
             </Typography.Text>
             <ComponentPreview code={HeroSrc}>
                 <Hero />
@@ -186,10 +179,10 @@
 
         <div id="heading-levels" class="scroll-mt-20 flex flex-col gap-3">
             <Typography.H3 class="docs-subsection-heading">Heading levels</Typography.H3>
-            <Typography.Text variant="supporting" class="m-0 max-w-2xl">
-                Use the heading that matches the document outline.{' '}
-                <Typography.InlineCode>Typography.Title</Typography.InlineCode>
-                remains available for compact component titles.
+            <Typography.Text variant="supporting">
+                <InlineText
+                    text={'Use the heading that matches the document outline. `Title` has one size for compact component titles and takes the heading `level` it renders.'}
+                />
             </Typography.Text>
             <ComponentPreview code={HeadingLevelsSrc}>
                 <HeadingLevels />
@@ -198,9 +191,8 @@
 
         <div id="text-roles" class="scroll-mt-20 flex flex-col gap-3">
             <Typography.H3 class="docs-subsection-heading">Text roles</Typography.H3>
-            <Typography.Text variant="supporting" class="m-0 max-w-2xl">
-                Choose a paragraph role from its relationship to the surrounding content, not from a
-                standalone size or color.
+            <Typography.Text variant="supporting">
+                Choose a paragraph role from how it relates to the content around it.
             </Typography.Text>
             <ComponentPreview code={TextRolesSrc}>
                 <TextRoles />
@@ -209,27 +201,12 @@
 
         <div id="numeric-metadata" class="scroll-mt-20 flex flex-col gap-3">
             <Typography.H3 class="docs-subsection-heading">Numeric metadata</Typography.H3>
-            <Typography.Text variant="supporting" class="m-0 max-w-2xl">
-                Add{' '}
-                <Typography.InlineCode>tabular-nums</Typography.InlineCode>
-                when readers compare values in a column.
+            <Typography.Text variant="supporting">
+                <InlineText text={'Add `tabular-nums` when readers compare values in a column.'} />
             </Typography.Text>
             <ComponentPreview code={MetadataSrc}>
                 <Metadata />
             </ComponentPreview>
         </div>
-    </section>
-    <section id="parts" class="flex flex-col gap-4">
-        <Typography.H2 class="docs-section-heading">Parts</Typography.H2>
-        <Typography.Text variant="supporting">
-            <InlineText
-                text={"Each role is its own component, and the text goes in `children`. Nothing is passed as a prop, so links, emphasis and inline code can sit inside any of them."}
-            />
-        </Typography.Text>
-        <Typography.Text variant="supporting">
-            <InlineText
-                text={"H1, H2, H3, H4, H5, H6, Title, Description, Text, Metadata and InlineCode render their `children` and accept `class` and `style` like any element."}
-            />
-        </Typography.Text>
     </section>
 </div>

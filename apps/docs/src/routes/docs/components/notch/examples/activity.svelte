@@ -5,6 +5,7 @@
 
     let open = $state(false);
     let expanded = $state(false);
+
     const files = [
         { name: 'Revenue.csv', size: '42 KB' },
         { name: 'Subscribers.csv', size: '18 KB' },
@@ -19,6 +20,7 @@
         expanded = !expanded;
     }
 </script>
+
 <Button class="mt-24" onclick={openActivity}>Show export activity</Button>
 <Notch.Root bind:open side="top" duration={0}>
     <Notch.SideAction

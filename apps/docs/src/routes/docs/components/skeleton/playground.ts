@@ -4,8 +4,6 @@ import {
     expression,
     number,
     type PlaygroundValues,
-    select,
-    text,
     toggle
 } from '$lib/components/docs/playground';
 
@@ -16,91 +14,16 @@ export const controls = {
         step: 1,
         group: 'Appearance'
     }),
-    lineHeight: number('Line height', 24, {
-        min: 12,
-        max: 40,
-        step: 1,
-        group: 'Appearance'
-    }),
-    barHeight: number('Bar height', 9, {
-        min: 2,
-        max: 24,
-        step: 1,
-        group: 'Appearance'
-    }),
-    reserve: toggle('Reserve a height', 'Appearance'),
-    reserveHeight: number('Reserved height', 96, {
-        min: 0,
-        max: 240,
-        step: 4,
-        group: 'Appearance'
-    }),
     custom: toggle('Custom placeholder', 'Content'),
-    label: text('Label', 'Workspace summary', 'Content'),
-    ready: toggle('Ready', 'State'),
-    delay: number('Delay', 120, {
-        min: 0,
-        max: 2000,
-        step: 20,
-        group: 'Behavior'
-    }),
-    minVisible: number('Minimum visible', 380, {
-        min: 0,
-        max: 3000,
-        step: 20,
-        group: 'Behavior'
-    })
-};
-
-export const shapeControls = {
-    variant: select('Variant', ['default', 'shimmer'], 'default'),
-    w: number('Width', 240, {
-        min: 0,
-        max: 400,
-        step: 4,
-        group: 'Appearance'
-    }),
-    h: number('Height', 120, {
-        min: 0,
-        max: 400,
-        step: 4,
-        group: 'Appearance'
-    }),
-    unit: select(
-        'Unit',
-        [
-            'px',
-            'rem',
-            'em',
-            '%',
-            'vh',
-            'vw',
-            'vmin',
-            'vmax',
-            'ch',
-            'ex',
-            'cm',
-            'mm',
-            'in',
-            'pt',
-            'pc'
-        ],
-        'px',
-        'Appearance'
-    ),
-    circle: toggle('Circle', 'Appearance')
+    ready: toggle('Ready', 'State')
 };
 
 export function code(values: PlaygroundValues<typeof controls>): string {
     const props = attributes({
         ready: values.ready || expression('false'),
         lines: changed(values.lines, 3),
-        lineHeight: changed(values.lineHeight, 21),
-        barHeight: changed(values.barHeight, 9),
-        reserve: values.reserve && values.reserveHeight,
-        delay: changed(values.delay, 120),
-        minVisible: changed(values.minVisible, 380),
-        label: values.label
+        lineHeight: 24,
+        label: 'Workspace summary'
     });
     const imports = values.custom ? 'Skeleton, SkeletonSwap' : 'SkeletonSwap';
     const skeleton = values.custom
@@ -125,23 +48,5 @@ export function code(values: PlaygroundValues<typeof controls>): string {
             check-in is on Friday.
         </p>
     </SkeletonSwap>
-</div>`;
-}
-
-export function shapeCode(values: PlaygroundValues<typeof shapeControls>): string {
-    const props = attributes({
-        variant: changed(values.variant, 'default'),
-        w: values.w,
-        h: values.h,
-        unit: changed(values.unit, 'px'),
-        class: values.circle && 'rounded-full'
-    });
-
-    return `<script lang="ts">
-    import { Skeleton } from '@mielui/svelte/components/skeleton';
-</script>
-
-<div class="flex h-48 w-full max-w-sm items-center justify-center overflow-hidden">
-    <Skeleton${props} />
 </div>`;
 }

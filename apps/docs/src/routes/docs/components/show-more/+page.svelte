@@ -13,19 +13,26 @@
     import LabelsExampleSrc from './examples/labels.svelte?raw';
     import { code as playgroundCode, controls as playgroundControls } from './playground';
 
-    const TITLE = 'Show More';
+    const usageCode = `<script lang="ts">
+    import { ShowMore } from '@mielui/svelte/components/show-more';
+
+    let { notes }: { notes: string } = $props();
+
+    let expanded = $state(false);
+</${'script'}>
+
+<ShowMore bind:expanded lines={3} labels={{ region: 'Release notes' }}>
+    <p>{notes}</p>
+</ShowMore>`;
 </script>
 
 <svelte:head>
-    <title>
-        Mielui ·{' '}
-        {TITLE}
-    </title>
+    <title>Mielui · Show More</title>
     <meta name="description" content="Clamp long content and reveal the rest on demand." />
 </svelte:head>
 
 <div data-docs-page class="flex flex-col gap-10">
-    <PageIntro title={TITLE}>
+    <PageIntro title="Show More">
         Keeps long content scannable, then reveals the complete detail in place.
     </PageIntro>
 
@@ -36,10 +43,8 @@
                     <ShowMore
                         lines={values.lines}
                         maxHeight={values.maxHeight}
-                        moreLabel={values.moreLabel || undefined}
-                        lessLabel={values.lessLabel || undefined}
                         defaultExpanded={values.defaultExpanded}
-                        label="Migration details"
+                        labels={{ region: 'Migration details' }}
                         class="w-full max-w-md"
                     >
                         <div class="flex flex-col gap-2">
@@ -73,29 +78,16 @@
     <section id="usage" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Usage</Typography.H2>
         <Typography.Text variant="supporting">
-            Use the default clipped view for text. For links, forms, or other interactive content,
-            supply a separate preview snippet: the full children remain mounted but hidden and inert
-            while collapsed. The trigger snippet can replace the default button; forward its props
-            to a native button or Button. Omitting trigger keeps the built-in control.
+            <InlineText
+                text={"By default the content is clipped to `lines` lines, 3 by default, and the button appears only when the content is longer. Expanded content taller than `maxHeight`, 320 by default, scrolls inside a region named by `label`. Bind `expanded` when another control needs to coordinate the state."}
+            />
         </Typography.Text>
+        <CodeBlock code={usageCode} lang="svelte" copy="overlay" />
         <Typography.Text variant="supporting">
-            Without a preview snippet, the disclosure is shown only when content exceeds the{' '}
-            <Typography.InlineCode>lines</Typography.InlineCode>
-            limit. Bind{' '}
-            <Typography.InlineCode>expanded</Typography.InlineCode>
-            when another control needs to coordinate the state.
+            <InlineText
+                text={"Use the clipped view for prose. When hidden content includes links, forms, or buttons, pass a separate `preview` snippet: the full children stay mounted but hidden and inert while collapsed, so a clipped control never becomes an invisible keyboard stop. A `trigger` snippet replaces the default button; forward its `props` to a native button or Button."}
+            />
         </Typography.Text>
-        <CodeBlock
-            code={`import { ShowMore } from '@mielui/svelte/components/show-more';
-
-let expanded = $state(false);
-
-<ShowMore bind:expanded lines={3} maxHeight={320} label="Release notes">
-  <p>{releaseNotes}</p>
-</ShowMore>`}
-            lang="svelte"
-            copy="overlay"
-        />
     </section>
 
     <section id="examples" class="scroll-mt-20 flex flex-col gap-10">
@@ -106,9 +98,9 @@ let expanded = $state(false);
         <div id="interactive" class="scroll-mt-20 flex flex-col gap-3">
             <Typography.H3 class="docs-subsection-heading">Interactive details</Typography.H3>
             <Typography.Text variant="supporting">
-                Preview, full content, and trigger are separate snippet slots. This example replaces
-                the control without rendering the default chevron. If controlled state collapses the
-                details while focus is inside, focus returns to the trigger.
+                <InlineText
+                    text={"`preview`, the full content, and `trigger` are separate snippets. This example replaces the default control. If controlled state collapses the details while focus is inside, focus returns to the trigger."}
+                />
             </Typography.Text>
             <ComponentPreview code={InteractiveSrc}>
                 <Interactive />
@@ -118,39 +110,39 @@ let expanded = $state(false);
         <div id="capped" class="scroll-mt-20 flex flex-col gap-3">
             <Typography.H3 class="docs-subsection-heading">Capped content</Typography.H3>
             <Typography.Text variant="supporting">
-                Expanded content taller than{' '}
-                <Typography.InlineCode>maxHeight</Typography.InlineCode>
-                becomes a keyboard-focusable scroll region.
+                <InlineText
+                    text={"Expanded content taller than `maxHeight` becomes a keyboard-focusable scroll region."}
+                />
             </Typography.Text>
             <ComponentPreview code={CappedSrc}>
                 <Capped />
             </ComponentPreview>
         </div>
+
+        <div id="button-text" class="scroll-mt-20 flex flex-col gap-3">
+            <Typography.H3 class="docs-subsection-heading">Button text</Typography.H3>
+            <Typography.Text variant="supporting">
+                <InlineText
+                    text={"`labels.more` and `labels.less` name what is hidden. `onExpandedChange` runs with the new state each time the content expands or collapses."}
+                />
+            </Typography.Text>
+            <ComponentPreview code={LabelsExampleSrc}>
+                <LabelsExample />
+            </ComponentPreview>
+        </div>
     </section>
-    <section id="working-example" class="flex scroll-mt-20 flex-col gap-4">
-        <Typography.H2 class="docs-section-heading">
-            Choose a text or interactive preview
-        </Typography.H2>
-        <Typography.Text>
-            Use a line-limited preview for prose. When hidden content includes links or buttons,
-            supply a separate preview snippet and keep those controls in the expanded content. The
-            interactive example prevents a clipped control from becoming an invisible keyboard stop.
-        </Typography.Text>
-    </section>
-    <section id="state-and-labels" class="flex flex-col gap-4">
+
+    <section id="state-and-labels" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">State and labels</Typography.H2>
         <Typography.Text variant="supporting">
             <InlineText
-                text={"The content starts collapsed. `defaultExpanded` starts it open when you are not binding `expanded` yourself. `onExpandedChange` runs with the new state each time it expands or collapses."}
+                text={"The content starts collapsed. `defaultExpanded` starts it open when you are not binding `expanded`. `onExpandedChange` runs with the new state each time it expands or collapses."}
             />
         </Typography.Text>
         <Typography.Text variant="supporting">
             <InlineText
-                text={"`moreLabel` and `lessLabel` are the button's text in each state, Show more and Show less by default. Name what is hidden when you can, such as Show all 12 comments."}
+                text={"Pass `labels` to set the built-in text. `labels.more` and `labels.less` are the button text in each state, Show more and Show less by default. Name what is hidden when you can, such as Show all 12 comments. `labels.region` names the expanded scroll region, Details by default. Every key is optional and English is the fallback."}
             />
         </Typography.Text>
-        <ComponentPreview code={LabelsExampleSrc}>
-            <LabelsExample />
-        </ComponentPreview>
     </section>
 </div>

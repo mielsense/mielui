@@ -4,10 +4,12 @@
     import * as Notch from '@mielui/svelte/components/notch';
 
     let open = $state(false);
+
     function showGlass() {
         open = true;
     }
 </script>
+
 <Button variant="secondary" onclick={showGlass}>Show glass notch</Button>
 <Notch.Root bind:open surface="glass" side="top">
     <Notch.Content

@@ -16,18 +16,6 @@ export const controls = {
         step: 0.02,
         group: 'Appearance'
     }),
-    cornerRadius: number('Corner radius', 4, {
-        min: 0,
-        max: 16,
-        step: 1,
-        group: 'Appearance'
-    }),
-    padAngle: number('Pad angle', 0.035, {
-        min: 0,
-        max: 0.2,
-        step: 0.005,
-        group: 'Appearance'
-    }),
     label: toggle('Center label', 'Content', true),
     legend: toggle('Legend', 'Content', true),
     tooltip: toggle('Tooltip', 'Content', true),
@@ -71,9 +59,7 @@ export function code(values: PlaygroundValues<typeof controls>): string {
         loading: values.loading
     });
     const arc = attributes({
-        innerRadius: changed(values.innerRadius, 0.68),
-        cornerRadius: changed(values.cornerRadius, 4),
-        padAngle: changed(values.padAngle, 0.035)
+        innerRadius: changed(values.innerRadius, 0.68)
     });
     const rows = sessions.map((datum) => `        ${literal(datum)}`).join(',\n');
     const data = values.empty

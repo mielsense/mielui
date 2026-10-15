@@ -1,48 +1,16 @@
-import {
-    changed,
-    defaultOn,
-    expression,
-    type PlaygroundValues,
-    tag,
-    toggle
-} from '$lib/components/docs/playground';
+import { type PlaygroundValues, tag } from '$lib/components/docs/playground';
 import {
     constraintAttributes,
-    constraintControls,
     contentAttributes,
-    DEFAULT_LOCALE,
     dateImport,
-    formatAttributes,
-    formatControls,
     hasTime,
-    labelControls,
-    labelsDeclaration,
-    navigationAttributes,
-    navigationControls,
+    pickerAttributes,
     pickerControls,
     script,
-    stateControls,
-    timeAttributes,
     valueDeclaration
 } from '$lib/components/docs/playground/calendar';
 
-export const labels = {
-    trigger: 'Open the publish calendar',
-    content: 'Publish date calendar',
-    invalid: 'Enter a valid publish date.'
-};
-
-export const controls = {
-    ...pickerControls,
-    ...formatControls('Appearance'),
-    ...labelControls,
-    ...stateControls,
-    required: toggle('Required', 'State'),
-    ...constraintControls,
-    closeOnDateSelect: toggle('Close on date select', 'Behavior', true),
-    ...navigationControls,
-    openOnHover: toggle('Open on hover', 'Behavior')
-};
+export const controls = pickerControls;
 
 type Values = PlaygroundValues<typeof controls>;
 
@@ -52,16 +20,8 @@ export function code(values: Values): string {
         'DatePicker.Root',
         {
             calendarLabel: 'Publish date',
-            locale: changed(values.locale, DEFAULT_LOCALE),
-            ...timeAttributes(values),
-            ...formatAttributes(values),
-            disabled: values.disabled,
-            readonly: values.readonly,
-            required: values.required,
-            ...constraintAttributes(values),
-            closeOnDateSelect: defaultOn(values.closeOnDateSelect),
-            ...navigationAttributes(values),
-            labels: values.labels && expression('labels')
+            ...pickerAttributes(values),
+            ...constraintAttributes(values)
         },
         '>',
         '    ',
@@ -76,27 +36,18 @@ export function code(values: Values): string {
         ' />',
         '                '
     );
-    const trigger = tag(
-        'DatePicker.Trigger',
-        {
-            openOnHover: values.openOnHover
-        },
-        ' />',
-        '                '
-    );
     const content = tag('DatePicker.Content', contentAttributes(values), '>', '        ');
     const label = values.label
         ? `
             <DatePicker.Label>Publish date</DatePicker.Label>`
         : '';
-    const declarations = [values.labels && labelsDeclaration(labels), valueDeclaration(withTime)];
 
     return `<script lang="ts">
 ${dateImport(values, withTime)}
     import * as DatePicker from '@mielui/svelte/components/date-picker';
     import * as Group from '@mielui/svelte/components/group';
 
-${script(values, declarations)}
+${script(values, [valueDeclaration(withTime)])}
 </script>
 
 <div class="w-full max-w-sm">
@@ -105,7 +56,7 @@ ${script(values, declarations)}
             <Group.Root aria-label="Publish date controls" class="w-full">
                 ${input}
                 <Group.Separator />
-                ${trigger}
+                <DatePicker.Trigger />
             </Group.Root>
         </div>
         ${content}

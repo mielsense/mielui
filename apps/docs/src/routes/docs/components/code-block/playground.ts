@@ -12,7 +12,6 @@ import {
 
 export const controls = {
     copy: select('Copy', ['actionbar', 'overlay', 'inline'], 'actionbar'),
-    theme: select('Theme', ['mielui', 'custom'], 'mielui', 'Appearance'),
     showLineNumbers: toggle('Line numbers', 'Appearance'),
     content: select('Source', ['tabs', 'snippet', 'command'], 'tabs', 'Content'),
     actions: toggle('Extra action', 'Content')
@@ -96,7 +95,6 @@ export function code(values: Values): string {
         {
             ...source(values.content),
             copy: changed(values.copy, 'actionbar'),
-            theme: changed(values.theme, 'mielui'),
             showLineNumbers: values.showLineNumbers,
             class: 'max-w-xl'
         },

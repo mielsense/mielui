@@ -18,6 +18,7 @@
         'Help & feedback': 'Contact your workspace owner for help.',
         'Sign out': 'Signed out of this preview.'
     };
+
     function selectSection(value: string) {
         section = value;
     }
@@ -25,7 +26,7 @@
 
 <div class="flex flex-col items-center gap-3">
     <DropdownMenu.Root>
-        <DropdownMenu.Trigger variant="outline" size="md">
+        <DropdownMenu.Trigger variant="outline">
             My account
             <HugeiconsIcon icon={ChevronDown} size={16} class="text-foreground-muted" />
         </DropdownMenu.Trigger>

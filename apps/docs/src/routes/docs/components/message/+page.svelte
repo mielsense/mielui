@@ -8,7 +8,6 @@
     import InlineText from '$lib/components/docs/inline-text.svelte';
     import PageIntro from '$lib/components/docs/page-intro.svelte';
     import SectionHeading from '$lib/components/docs/section-heading.svelte';
-
     import Hero from './examples/hero.svelte';
     import HeroSrc from './examples/hero.svelte?raw';
     import RoleVariants from './examples/role-variants.svelte';
@@ -21,15 +20,46 @@
         messages as playgroundMessages
     } from './playground';
 
-    const usageSnippet = `import * as Message from '@mielui/svelte/components/message';
+    const usageSnippet = `<script lang="ts">
+    import { CopyButton } from '@mielui/svelte/components/copy-button';
+    import * as Message from '@mielui/svelte/components/message';
 
-<Message.Root from="assistant" status="idle">
-  <Message.Content>
-    I found three sources that agree on the release date.
-  </Message.Content>
-  <Message.Actions aria-label="Assistant response actions">
-    <!-- Add labeled actions such as copy or rate -->
-  </Message.Actions>
+    const text = 'I found three sources that agree on the release date.';
+<${'/'}script>
+
+<Message.Root from="assistant" name="Assistant" timestamp="12:30">
+    <Message.Content>{text}</Message.Content>
+    <Message.Actions>
+        <CopyButton {text} labels={{ copy: 'Copy message' }} />
+    </Message.Actions>
+</Message.Root>`;
+
+    const layoutSnippet = `<Message.Root name="Assistant" timestamp="12:30">
+    {#snippet layout()}
+        <Message.Body>
+            <Message.Metadata>
+                <Message.Time datetime="2026-09-17T12:30:00+02:00" />
+                <Message.Name />
+            </Message.Metadata>
+            <Message.Content>Ready to review.</Message.Content>
+        </Message.Body>
+    {/snippet}
+</Message.Root>`;
+
+    const labelsSnippet = `<script lang="ts">
+    import * as Message from '@mielui/svelte/components/message';
+    import type { MessageLabels } from '@mielui/svelte/components/message';
+
+    const labels: MessageLabels = {
+        failed: 'Échec',
+        streaming: 'En cours',
+        complete: 'Terminé',
+        actions: 'Actions du message'
+    };
+<${'/'}script>
+
+<Message.Root from="assistant" status="error" {labels}>
+    <Message.Content>La connexion a été interrompue.</Message.Content>
 </Message.Root>`;
 </script>
 
@@ -67,11 +97,7 @@
                             <Message.Actions>
                                 <CopyButton
                                     text={playgroundMessages[values.from]}
-                                    label="Copy message"
-                                    copiedLabel="Message copied"
-                                    variant="ghost"
-                                    size="md"
-                                    class="size-8 rounded-[var(--radius-md)] p-0"
+                                    labels={{ copy: 'Copy message' }}
                                 />
                             </Message.Actions>
                         {/if}
@@ -89,106 +115,66 @@
     <section id="usage" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Usage</Typography.H2>
         <Typography.Text variant="supporting">
-            Actions form a labeled group of ordinary controls. Tab moves between actions in document
-            order; the group does not impose toolbar arrow-key navigation.
+            <InlineText
+                text={"`from` sets who sent the message, `assistant` by default, and with it the alignment: user messages sit on the right and system messages are centered. `name`, `timestamp`, and an `avatar` snippet add a header and an avatar beside the message."}
+            />
         </Typography.Text>
         <Typography.Text variant="supporting">
-            <Typography.InlineCode>Content</Typography.InlineCode>
-            adapts its layout to the{' '}
-            <Typography.InlineCode>from</Typography.InlineCode>
-            role. Use
-            <Typography.InlineCode>status</Typography.InlineCode>
-            for streaming or failed output, and give every icon-only action an accessible label.
+            <InlineText
+                text={"`status` marks a message as `streaming` or `error`. It does not fetch or stream anything: compose Markdown for formatted text or ResponseStream for arriving plain text, and update `status` when delivery ends or fails. An error shows a Failed status in the header."}
+            />
+        </Typography.Text>
+        <Typography.Text variant="supporting">
+            <InlineText
+                text={"Actions is a labelled group of ordinary controls. Tab moves through them in order; there is no toolbar arrow-key navigation. On devices with a fine pointer it fades in on hover or focus. Give every icon-only action an accessible label."}
+            />
         </Typography.Text>
         <CodeBlock code={usageSnippet} lang="svelte" copy="overlay" />
     </section>
 
-    <section id="composable-parts" class="scroll-mt-20 flex flex-col gap-4">
-        <Typography.H2 class="docs-section-heading">Composable parts</Typography.H2>
-        <Typography.Text variant="supporting">
-            The default layout renders the exported Avatar, Body, Metadata, Name, Time, and Status
-            parts. Supply the layout snippet to omit or reorder these regions. Names, timestamps,
-            avatars, and status fall back to Root context; native attributes such as Time's datetime
-            remain available.
-        </Typography.Text>
-        <CodeBlock
-            code={`<Message.Root name="Assistant" timestamp="12:30">
-  {#snippet layout()}
-    <Message.Body>
-      <Message.Metadata>
-        <Message.Time datetime="2026-09-17T12:30:00+02:00" />
-        <Message.Name />
-      </Message.Metadata>
-      <Message.Content>Ready to review.</Message.Content>
-    </Message.Body>
-  {/snippet}
-</Message.Root>`}
-            lang="svelte"
-            copy="overlay"
-        />
-    </section>
-
-    <section id="integration" class="scroll-mt-20 flex flex-col gap-4">
-        <Typography.H2 class="docs-section-heading">Content and delivery</Typography.H2>
-        <Typography.Text variant="supporting">
-            Message describes a transcript entry. Its status does not fetch or stream content.
-            Compose Markdown for formatted content or ResponseStream for arriving plain text, and
-            update status when delivery completes or fails. Keep response actions labelled and
-            attach retries to application state.
-        </Typography.Text>
-    </section>
     <section id="examples" class="scroll-mt-20 flex flex-col gap-10">
         <SectionHeading title="Examples">
             {#snippet description()}
-                Use role and status to communicate structure before adding custom presentation.
+                Roles, delivery states, and a full assistant turn.
             {/snippet}
         </SectionHeading>
 
         <div id="assistant-reply" class="scroll-mt-20 flex flex-col gap-3">
             <Typography.H3 class="docs-subsection-heading">Assistant reply</Typography.H3>
             <Typography.Text variant="supporting">
-                A user prompt followed by an assistant reply with reasoning, markdown, and actions.
+                A user prompt followed by an assistant reply with reasoning, Markdown, and actions.
             </Typography.Text>
             <ComponentPreview code={HeroSrc}><Hero /></ComponentPreview>
         </div>
 
-        <div id="role-variants" class="scroll-mt-20 flex flex-col gap-3">
-            <Typography.H3 class="docs-subsection-heading">Role variants</Typography.H3>
+        <div id="roles" class="scroll-mt-20 flex flex-col gap-3">
+            <Typography.H3 class="docs-subsection-heading">Roles</Typography.H3>
             <ComponentPreview code={RoleVariantsSrc}><RoleVariants /></ComponentPreview>
         </div>
 
-        <div id="message-states" class="scroll-mt-20 flex flex-col gap-3">
-            <Typography.H3 class="docs-subsection-heading">
-                Streaming and error states
-            </Typography.H3>
+        <div id="states" class="scroll-mt-20 flex flex-col gap-3">
+            <Typography.H3 class="docs-subsection-heading">Streaming and error</Typography.H3>
             <ComponentPreview code={StatesSrc}><States /></ComponentPreview>
         </div>
     </section>
 
-    <section id="labels" class="flex scroll-mt-20 flex-col gap-4">
-        <Typography.H2 class="docs-section-heading">Labels</Typography.H2>
-        <Typography.Text>
-            Built-in text is English by default. Pass labels to Message.Root to translate or reword
-            Message.Status and the Message.Actions toolbar name. Every key is optional; omitted keys
-            keep their default.
+    <section id="parts" class="scroll-mt-20 flex flex-col gap-4">
+        <Typography.H2 class="docs-section-heading">Parts</Typography.H2>
+        <Typography.Text variant="supporting">
+            <InlineText
+                text={"Root renders Avatar, Body, Metadata, Name, Time, and Status for you. Pass a `layout` snippet to omit or reorder them; the parts read the name, timestamp, avatar, and status from Root. Every part accepts `class` and native attributes, such as `datetime` on Time."}
+            />
         </Typography.Text>
-        <CodeBlock
-            code={`<Message.Root from="assistant" status="error" labels={{ failed: 'Échec', streaming: 'En cours', complete: 'Terminé', actions: 'Actions du message' }} />`}
-            lang="svelte"
-            copy="overlay"
-        />
+        <CodeBlock code={layoutSnippet} lang="svelte" copy="overlay" />
     </section>
-    <section id="avatar-and-parts" class="flex flex-col gap-4">
-        <Typography.H2 class="docs-section-heading">Avatar and parts</Typography.H2>
+
+    <section id="labels" class="scroll-mt-20 flex flex-col gap-4">
+        <Typography.H2 class="docs-section-heading">Labels</Typography.H2>
         <Typography.Text variant="supporting">
             <InlineText
-                text={"`avatar` on Root is a snippet shown beside the message, as an alternative to placing the Avatar part yourself."}
+                text={"Pass `labels` to Root to translate the Status text and the accessible name of Actions. Every key of `MessageLabels` is optional; omitted keys keep the English text."}
             />
         </Typography.Text>
-        <Typography.Text variant="supporting">
-            <InlineText
-                text={"Root, Avatar, Content, Body, Name, Time, Status, Metadata and Actions render their `children` and accept `class` and `style` like any element."}
-            />
-        </Typography.Text>
+        <CodeBlock code={labelsSnippet} lang="svelte" copy="overlay" />
     </section>
 </div>

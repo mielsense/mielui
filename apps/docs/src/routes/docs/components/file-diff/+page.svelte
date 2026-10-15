@@ -22,20 +22,32 @@
         diff as playgroundDiff
     } from './playground';
 
-    const usageSnippet = `import * as FileDiff from '@mielui/svelte/components/file-diff';
+    const usageSnippet = `<script lang="ts">
+    import type { FileDiffLine } from '@mielui/svelte/components/file-diff';
+    import * as FileDiff from '@mielui/svelte/components/file-diff';
 
-<FileDiff.Root file="src/auth.ts" lang="ts" diff={[
-  { type: 'context', oldLineNumber: 12, newLineNumber: 12, content: 'export function getToken() {' },
-  { type: 'remove', oldLineNumber: 13, content: '  return localStorage.token;' },
-  { type: 'add', newLineNumber: 13, content: '  const t = cookies.get("session");' },
-]} />`;
+    const diff: FileDiffLine[] = [
+        {
+            type: 'remove',
+            oldLineNumber: 13,
+            content: '  return localStorage.token;'
+        },
+        {
+            type: 'add',
+            newLineNumber: 13,
+            content: '  return cookies.get("session");'
+        }
+    ];
+</${'script'}>
+
+<FileDiff.Root file="src/auth.ts" lang="ts" {diff} />`;
 </script>
 
 <svelte:head>
     <title>Mielui · File Diff</title>
     <meta
         name="description"
-        content="Unified file diff with a path top bar, addition and deletion counts, dual line-number gutters, and per-row syntax highlighting."
+        content="A unified diff viewer with a file top bar, change counts, and highlighted rows."
     />
 </svelte:head>
 
@@ -47,24 +59,26 @@
     <section id="hero" class="scroll-mt-20 flex flex-col gap-4">
         <Playground controls={playgroundControls} code={playgroundCode}>
             {#snippet children(values)}
-                {const root = {
-                    file: values.file || undefined,
-                    additions: values.additions,
-                    deletions: values.deletions,
-                    showLineNumbers: values.showLineNumbers,
-                    theme: values.theme
-                }}
-                {#if values.topBar && values.counts && !values.action}
-                    <FileDiff.Root diff={playgroundDiff} {...root} lang="ts" class="max-w-2xl" />
+                {#if values.topBar === 'default'}
+                    <FileDiff.Root
+                        diff={playgroundDiff}
+                        file={values.file}
+                        lang="ts"
+                        showLineNumbers={values.showLineNumbers}
+                        class="max-w-2xl"
+                    />
                 {:else}
-                    <FileDiff.Root {...root} lang="ts" class="max-w-2xl">
-                        {#if values.topBar}
+                    <FileDiff.Root
+                        file={values.topBar === 'none' ? undefined : values.file}
+                        lang="ts"
+                        showLineNumbers={values.showLineNumbers}
+                        class="max-w-2xl"
+                    >
+                        {#if values.topBar !== 'none'}
                             <FileDiff.TopBar>
                                 <FileDiff.Filename />
-                                {#if values.counts}
-                                    <FileDiff.PlusMinus />
-                                {/if}
-                                {#if values.action}
+                                {#if values.topBar === 'with action'}
+                                    <FileDiff.PlusMinus additions={3} deletions={1} />
                                     <Button
                                         variant="ghost"
                                         size="icon"
@@ -106,19 +120,17 @@
     <section id="usage" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Usage</Typography.H2>
         <Typography.Text variant="supporting">
-            The theme setting chrome.borders chooses "single" or "double" framing. Single is the
-            default. Single removes the extra frame while preserving content padding, composition,
-            and inset variants. The filename and change counts stay above the diff, independently of
-            the theme's inset strip position.
+            The theme setting chrome.borders chooses single framing, the default, or double framing.
+            The filename and change counts always stay above the diff.
         </Typography.Text>
         <Typography.Text variant="supporting">
             Pass a{' '}
             <Typography.InlineCode>diff</Typography.InlineCode>
             array for the high-level form, or compose TopBar, Content, and Row by hand. A bare{' '}
             <Typography.InlineCode>TopBar</Typography.InlineCode>
-            renders filename and counts; pass children to take over the row with Filename,
-            PlusMinus, and your own actions. Addition and deletion counts are derived from the diff
-            unless you pass them explicitly.
+            renders the filename and counts; pass children to take over the row with Filename,
+            PlusMinus, and your own actions. Counts are derived from the diff unless you pass
+            additions and deletions.
         </Typography.Text>
         <Typography.Text variant="supporting">
             Code Block and File Diff share the same language aliases, syntax rules, package-manager
@@ -143,7 +155,9 @@
                 derived counts update from Root. Explicit additions and deletions continue to
                 override the calculated counts until you remove those props.
             </Typography.Text>
-            <ComponentPreview code={LiveSrc}><Live /></ComponentPreview>
+            <ComponentPreview code={LiveSrc}>
+                <Live />
+            </ComponentPreview>
         </div>
 
         <div id="compound" class="scroll-mt-20 flex flex-col gap-3">
@@ -183,30 +197,30 @@
             </ComponentPreview>
         </div>
     </section>
-    <section id="working-example" class="flex scroll-mt-20 flex-col gap-4">
-        <Typography.H2 class="docs-section-heading">Keep patch context visible</Typography.H2>
-        <Typography.Text>
-            Use one Root per file and keep its filename and language alongside the patch. For short
-            embedded previews you can omit line numbers; retain the addition and deletion signs so
-            color is not the only distinction. Use the changing-diff example to inspect count
-            updates.
-        </Typography.Text>
-    </section>
 
-    <section id="labels" class="flex scroll-mt-20 flex-col gap-4">
+    <section id="labels" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Labels</Typography.H2>
-        <Typography.Text>
-            Built-in text is English by default. Pass labels to FileDiff.Root to translate or reword
-            the change type and line number read to screen readers on each row. Every key is
-            optional; omitted keys keep their default.
+        <Typography.Text variant="supporting">
+            <InlineText
+                text={"Built-in text is English. Pass a `labels` object to Root to translate the change type and line number that screen readers announce on each row. `FileDiffLabels` types it; every key is optional, and `line` is a function that receives the line number."}
+            />
         </Typography.Text>
         <CodeBlock
-            code={`<FileDiff.Root {diff} labels={{ added: 'Ajoutée', removed: 'Supprimée', unchanged: 'Inchangée', line: (line) => \`ligne \${line}\` }} />`}
+            code={`<FileDiff.Root
+    {diff}
+    labels={{
+        added: 'Ajoutée',
+        removed: 'Supprimée',
+        unchanged: 'Inchangée',
+        line: (line) => \`ligne \${line}\`
+    }}
+/>`}
             lang="svelte"
             copy="overlay"
         />
     </section>
-    <section id="line-numbers" class="flex flex-col gap-4">
+
+    <section id="line-numbers" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Custom line numbers</Typography.H2>
         <Typography.Text variant="supporting">
             <InlineText

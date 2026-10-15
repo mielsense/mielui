@@ -269,7 +269,7 @@
             </ul>
             <div class="flex flex-col gap-3">
                 <h5 class="m-0 text-sm font-medium">Checks</h5>
-                <TaskSteps steps={thread.checks} current={checksDone} label="Checks" />
+                <TaskSteps steps={thread.checks} current={checksDone} labels={{ list: 'Checks' }} />
             </div>
             <div class="flex flex-col gap-2">
                 <span id={`${id}-target`} class="text-sm font-medium">Merge into</span>

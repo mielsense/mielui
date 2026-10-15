@@ -13,5 +13,7 @@
         </div>
         <p class="text-sm text-foreground-muted">Stays run from 3 to 14 days.</p>
     </div>
-    <DateRangePicker.Content align="end"><DateRangePicker.Calendar /></DateRangePicker.Content>
+    <DateRangePicker.Content align="end">
+        <DateRangePicker.Calendar />
+    </DateRangePicker.Content>
 </DateRangePicker.Root>

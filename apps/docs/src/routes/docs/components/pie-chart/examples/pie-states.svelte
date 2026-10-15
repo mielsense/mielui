@@ -1,11 +1,8 @@
 <script lang="ts">
     import { Button } from '@mielui/svelte/components/button';
-    import * as Chart from '@mielui/svelte/components/pie-chart';
+    import * as PieChart from '@mielui/svelte/components/pie-chart';
     import * as Tabs from '@mielui/svelte/components/tabs';
 
-    let dataState = $state('ready');
-    let animation = $state<'reveal' | 'live' | 'none'>('reveal');
-    let replay = $state(0);
     const records = [
         { key: 'completed', value: 72 },
         { key: 'remaining', value: 28 }
@@ -14,19 +11,30 @@
         completed: { label: 'Completed', color: 'var(--chart-1)' },
         remaining: { label: 'Remaining', color: 'var(--chart-2)' }
     };
-    const data = $derived(
-        dataState === 'empty'
-            ? []
-            : dataState === 'zero'
-              ? records.map((item) => ({ ...item, value: 0 }))
-              : records
-    );
+
+    let dataState = $state('ready');
+    let animation = $state<'reveal' | 'live' | 'none'>('reveal');
+    let replay = $state(0);
+
+    const data = $derived.by(() => {
+        if (dataState === 'empty') {
+            return [];
+        }
+
+        if (dataState === 'zero') {
+            return records.map((item) => ({ ...item, value: 0 }));
+        }
+
+        return records;
+    });
+
     function changeAnimation(value: string) {
         if (value === 'reveal' || value === 'live' || value === 'none') {
             animation = value;
         }
     }
 </script>
+
 <div class="w-full space-y-4">
     <div class="flex flex-wrap items-center gap-3">
         <Tabs.Root bind:value={dataState} variant="ghost">
@@ -58,18 +66,18 @@
         </Button>
     </div>
     {#key `${animation}-${replay}`}
-        <Chart.Root
+        <PieChart.Root
             {data}
             {config}
             {animation}
             loading={dataState === 'loading'}
             aria-label="Quarterly orders"
         >
-            <Chart.Plot>
-                <Chart.Arc innerRadius={0} />
-            </Chart.Plot>
-            <Chart.Legend />
-            <Chart.Tooltip />
-        </Chart.Root>
+            <PieChart.Plot>
+                <PieChart.Arc innerRadius={0} />
+            </PieChart.Plot>
+            <PieChart.Legend />
+            <PieChart.Tooltip />
+        </PieChart.Root>
     {/key}
 </div>

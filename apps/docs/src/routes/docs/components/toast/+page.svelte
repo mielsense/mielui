@@ -5,9 +5,9 @@
     import * as Typography from '@mielui/svelte/components/typography';
     import { onDestroy } from 'svelte';
     import { ComponentPreview, InstallCommand, Playground } from '$lib/components/docs';
+    import InlineText from '$lib/components/docs/inline-text.svelte';
     import PageIntro from '$lib/components/docs/page-intro.svelte';
     import type { PlaygroundValues } from '$lib/components/docs/playground';
-    import SectionHeading from '$lib/components/docs/section-heading.svelte';
     import ViewportPreview from '$lib/components/docs/viewport-preview.svelte';
     import ActionsSrc from './examples/actions.svelte?raw';
     import AllTypesSrc from './examples/all-types.svelte?raw';
@@ -15,7 +15,6 @@
     import GlassSrc from './examples/glass.svelte?raw';
     import HeroSrc from './examples/hero.svelte?raw';
     import NotchSrc from './examples/notch.svelte?raw';
-
     import PromiseSrc from './examples/promise.svelte?raw';
     import { code as playgroundCode, controls as playgroundControls } from './playground';
 
@@ -44,10 +43,31 @@
                           }
                       ],
             exitable: values.exitable,
-            persistent: values.persistent,
-            duration: values.duration
+            persistent: values.persistent
         });
     }
+
+    const toasterCode = `<script lang="ts">
+    import { Toaster } from '@mielui/svelte/components/toast';
+
+    let { children } = $props();
+</${'script'}>
+
+{@render children()}
+<Toaster />`;
+
+    const callCode = `<script lang="ts">
+    import { Button } from '@mielui/svelte/components/button';
+    import { toast } from '@mielui/svelte/components/toast';
+
+    function save() {
+        toast.success('Profile updated', {
+            description: 'Your changes have been saved.'
+        });
+    }
+</${'script'}>
+
+<Button onclick={save}>Save</Button>`;
 </script>
 
 <svelte:head>
@@ -82,67 +102,40 @@
     <section id="usage" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Usage</Typography.H2>
         <Typography.Text variant="supporting">
-            The theme setting chrome.borders chooses "single" or "double" framing. Single is the
-            default. Single removes the extra frame while preserving content padding, composition,
-            and inset variants.
+            <InlineText
+                text={'Mount one `Toaster` in your root layout. The first mounted Toaster shows every notification, so do not add a second one.'}
+            />
         </Typography.Text>
+        <CodeBlock code={toasterCode} lang="svelte" copy="overlay" />
         <Typography.Text variant="supporting">
-            Mount Toaster once in your app layout, then fire notifications with toast. The icon,
-            title, and description share the inset; action buttons sit in the footer on the frame.
-            The inset surface keeps its narrow gutter in both single and double border modes.
+            <InlineText
+                text={'Then call `toast` from anywhere. `toast.success`, `toast.error`, `toast.warning`, `toast.info`, and `toast.loading` set the type for you. Each call returns a handle, and `toast.dismiss(id)` closes one notification, or all of them without an id.'}
+            />
         </Typography.Text>
+        <CodeBlock code={callCode} lang="svelte" copy="overlay" />
         <Typography.Text variant="supporting">
-            Changing duration restarts the dismissal countdown, while paused toasts remain paused.
-            Persistent toasts have no dismissal timer. Promise results do not reopen a toast that
-            was dismissed. Dismissal removes a toast from the active stack immediately; its local
-            exit transition controls visual removal. Reduced motion skips that transition, and
-            changing Toaster hosts does not replay exiting notifications.
+            <InlineText
+                text={'Notifications close after `duration` milliseconds, 5600 by default, and pause while hovered or focused. Set `persistent: true` for a notification that should wait for the user, and `exitable: false` to hide its close button.'}
+            />
         </Typography.Text>
-        <CodeBlock
-            code={`import { Toaster } from '@mielui/svelte/components/toast';\n\nlet { children } = $props();\n\n<!-- Root layout: mount one Toaster for the whole app -->\n{@render children()}\n<Toaster />`}
-            lang="svelte"
-            copy="overlay"
-        />
-        <CodeBlock
-            code={`import { toast } from '@mielui/svelte/components/toast';\n\ntoast.success('Profile updated', {\n  description: 'Your changes have been saved.'\n});\ntoast.error('Request failed', {\n  description: 'Could not connect.'\n});`}
-            lang="svelte"
-            copy="overlay"
-        />
     </section>
 
     <section id="composition" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Composition</Typography.H2>
         <Typography.Text variant="supporting">
-            Toast.Root accepts a toast object and optional children. Without children, it renders
-            Content, Footer, Icon, Title, Actions, and Close. Compose these same parts to omit,
-            reorder, or restyle a region. This example omits actions and the close button.
+            <InlineText
+                text={'`Toast.Root` renders one toast object. Without children it renders `Content`, `Footer`, `Icon`, `Title`, `Actions`, and `Close`. Compose those parts to leave out, reorder, or restyle a region. `Title` and `Content` show the toast title and description unless you pass children, and `Actions` renders the configured actions or your own `Toast.Action` parts. `Toast.Root` on its own starts no timer; Toaster does that for notifications created with `toast`.'}
+            />
         </Typography.Text>
         <ComponentPreview code={CompositionSrc} class="[&_[data-preview-canvas]]:p-0">
             <ViewportPreview example="toast/composition" title="Toast composition preview" />
         </ComponentPreview>
-        <Typography.Text variant="supporting">
-            Content and Title display the toast description and title unless you supply children.
-            Actions renders the configured actions or your own Toast.Action parts. Each Action takes
-            an object with label, callback, and optional variant. Clicking it runs the callback and
-            dismisses the toast.
-        </Typography.Text>
-        <Typography.Text variant="supporting">
-            Close sits at the top-right, with space reserved beside the content. Action and Close
-            render buttons; all parts accept native attributes and class.
-        </Typography.Text>
-        <Typography.Text variant="supporting">
-            Use persistent: true for decisions that should wait for the user. Timed notifications
-            pause while hovered or focused. Toast.Root alone does not register a timer or portal;
-            Toaster handles those for notifications created with toast().
-        </Typography.Text>
     </section>
 
     <section id="examples" class="scroll-mt-20 flex flex-col gap-10">
-        <SectionHeading title="Examples">
-            {#snippet description()}
-                Toast variants for different notification types.
-            {/snippet}
-        </SectionHeading>
+        <div>
+            <Typography.H2 class="docs-section-heading">Examples</Typography.H2>
+        </div>
 
         <div id="follow-up" class="scroll-mt-20 flex flex-col gap-3">
             <Typography.H3 class="docs-subsection-heading">Follow-up toast</Typography.H3>
@@ -150,12 +143,17 @@
                 The action on the first toast opens a second one with the details.
             </Typography.Text>
             <ComponentPreview code={HeroSrc} class="[&_[data-preview-canvas]]:p-0">
-                <ViewportPreview example="toast/hero" title="Toast hero preview" />
+                <ViewportPreview example="toast/hero" title="Follow-up toast preview" />
             </ComponentPreview>
         </div>
 
         <div id="actions" class="scroll-mt-20 flex flex-col gap-3">
-            <Typography.H3 class="docs-subsection-heading">Action buttons</Typography.H3>
+            <Typography.H3 class="docs-subsection-heading">Actions</Typography.H3>
+            <Typography.Text variant="supporting">
+                <InlineText
+                    text={"Each action takes a `label`, a `callback`, and an optional button `variant`, `outline` by default. Clicking one runs the callback and closes the toast."}
+                />
+            </Typography.Text>
             <ComponentPreview code={ActionsSrc} class="[&_[data-preview-canvas]]:p-0">
                 <ViewportPreview example="toast/actions" title="Toast actions preview" />
             </ComponentPreview>
@@ -164,81 +162,65 @@
         <div id="promise" class="scroll-mt-20 flex flex-col gap-3">
             <Typography.H3 class="docs-subsection-heading">Promise</Typography.H3>
             <Typography.Text variant="supporting">
-                Pass a promise and loading, success, and error messages to toast.promise. One
-                notification updates as the request settles. Success and error messages can be
-                functions of the result or error. The helper returns the toast handle; await the
-                original promise when subsequent work depends on it.
+                <InlineText
+                    text={'`toast.promise` shows one notification that updates as the promise settles. The `success` and `error` messages can be functions of the result or the error. It returns the toast handle, so await the original promise when later work depends on it.'}
+                />
             </Typography.Text>
             <ComponentPreview code={PromiseSrc} class="[&_[data-preview-canvas]]:p-0">
                 <ViewportPreview example="toast/promise" title="Toast promise preview" />
             </ComponentPreview>
         </div>
+
         <div id="types" class="scroll-mt-20 flex flex-col gap-3">
-            <Typography.H3 class="docs-subsection-heading">All types</Typography.H3>
+            <Typography.H3 class="docs-subsection-heading">Types</Typography.H3>
             <ComponentPreview code={AllTypesSrc} class="[&_[data-preview-canvas]]:p-0">
-                <ViewportPreview example="toast/all-types" title="Toast all-types preview" />
+                <ViewportPreview example="toast/all-types" title="Toast types preview" />
+            </ComponentPreview>
+        </div>
+
+        <div id="glass" class="scroll-mt-20 flex flex-col gap-3">
+            <Typography.H3 class="docs-subsection-heading">Glass surface</Typography.H3>
+            <Typography.Text variant="supporting">
+                <InlineText
+                    text={"Pass `surface: 'glass'` to `toast`, or set `surface` on `Toast.Root`. The glass surface falls back to an opaque one when backdrop filters are unavailable or reduced transparency is on."}
+                />
+            </Typography.Text>
+            <ComponentPreview code={GlassSrc} class="[&_[data-preview-canvas]]:p-0">
+                <ViewportPreview example="toast/glass" title="Toast glass preview" />
+            </ComponentPreview>
+        </div>
+
+        <div id="notch" class="scroll-mt-20 flex flex-col gap-3">
+            <Typography.H3 class="docs-subsection-heading">Notch</Typography.H3>
+            <Typography.Text variant="supporting">
+                <InlineText
+                    text={'`variant="notch"` on Toaster delivers notifications from the middle of a screen edge, chosen with `side`. `toast` and `toast.promise` work the same way. The newest notification shows first. With several active, previous and next buttons unfold beside the notch on hover or focus. Escape or a swipe toward the edge dismisses the selected one. Use this Toaster in place of your existing one. For custom live activity, compose the [Notch component](/docs/components/notch) directly.'}
+                />
+            </Typography.Text>
+            <ComponentPreview code={NotchSrc} class="[&_[data-preview-canvas]]:p-0">
+                <ViewportPreview example="toast/notch" title="Notch notification preview" />
             </ComponentPreview>
         </div>
     </section>
-    <section id="glass" class="flex flex-col gap-4">
-        <Typography.H2 class="docs-section-heading">Glass surface</Typography.H2>
-        <Typography.Text variant="supporting">
-            Set surface="glass" on Toast.Root or pass surface: "glass" to toast(). Solid remains the
-            default. The glass surface keeps an opaque fallback when backdrop filtering is
-            unavailable and respects reduced-transparency preferences.
-        </Typography.Text>
-        <ComponentPreview code={GlassSrc} class="[&_[data-preview-canvas]]:p-0">
-            <ViewportPreview example="toast/glass" title="Toast glass preview" />
-        </ComponentPreview>
-    </section>
-    <section id="notch" class="flex flex-col gap-4">
-        <Typography.H2 class="docs-section-heading">Notch notifications</Typography.H2>
-        <Typography.Text variant="supporting">
-            Mount one Toaster with variant="notch" to deliver notifications from the center of a
-            screen edge. Choose top, bottom, left, or right with side. Calls to toast and
-            toast.promise keep the same timers, actions, and dismissal behavior. Multiple
-            notifications share the expanding surface. Pass surface: "glass" to toast to use a glass
-            surface; otherwise the notch follows your global surface setting.
-        </Typography.Text>
-        <Typography.Text variant="supporting">
-            The newest notification appears first. When several are active, previous and next
-            actions unfold from arcs beside the notch on hover or focus. Switching items does not
-            restart their timers.
-        </Typography.Text>
-        <Typography.Text variant="supporting">
-            Hover or focus pauses the selected item. Hidden items keep their original lifetimes.
-            Escape or a swipe toward the attached edge dismisses only the selected notification.
-        </Typography.Text>
-        <ComponentPreview code={NotchSrc} class="[&_[data-preview-canvas]]:p-0">
-            <ViewportPreview example="toast/notch" title="Notch notification preview" />
-        </ComponentPreview>
-        <Typography.Text variant="supporting">
-            Replace your existing Toaster rather than adding a second host. The first mounted host
-            owns notifications. For custom live activity content, compose the{' '}
-            <a class="underline underline-offset-4" href="/docs/components/notch">
-                Notch component
-            </a>
-            {' '}
-            directly.
-        </Typography.Text>
-    </section>
-    <section id="preview-behavior" class="flex scroll-mt-20 flex-col gap-4">
-        <Typography.H2 class="docs-section-heading">Try each notification in place</Typography.H2>
-        <Typography.Text>
-            Each example has its own viewport and Toaster. Notifications stay inside that preview,
-            including promise updates and edge notches. In your app, mount one Toaster in the root
-            layout and call toast from the components that own each action.
-        </Typography.Text>
-    </section>
-    <section id="labels" class="flex scroll-mt-20 flex-col gap-4">
+
+    <section id="labels" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Labels</Typography.H2>
-        <Typography.Text>
-            Built-in text is English by default. Pass labels to Toaster to translate the name of the
-            notifications region, the dismiss button, and the previous, next, and position controls
-            of the notch variant. Every key is optional; omitted keys keep their default.
+        <Typography.Text variant="supporting">
+            <InlineText
+                text={'Built-in text is English. Pass a `labels` object to Toaster to translate the name of the notifications region, the dismiss button, and the notch previous, next, and position controls. `count` is the visible notch counter, such as 2 of 5; it is a function so a translation can place both numbers. `ToastLabels` types it. Every key is optional, and omitted keys keep their English default.'}
+            />
         </Typography.Text>
         <CodeBlock
-            code={`<Toaster labels={{ region: 'Notifications', dismiss: 'Fermer', position: (position, total) => \`\${position} sur \${total}\` }} />`}
+            code={`<Toaster
+    labels={{
+        region: 'Notifications',
+        dismiss: 'Fermer',
+        previous: 'Précédente',
+        next: 'Suivante',
+        position: (position, total) => \`Notification \${position} sur \${total}\`,
+        count: (index, total) => \`\${index} sur \${total}\`
+    }}
+/>`}
             lang="svelte"
             copy="overlay"
         />

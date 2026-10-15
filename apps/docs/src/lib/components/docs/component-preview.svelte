@@ -122,8 +122,7 @@
                     <HugeiconsIcon icon={Expand} size={15} />
                 </PreviewAction>
                 <PreviewAction
-                    label="Show code"
-                    tooltip="Code"
+                    label="Code"
                     class="aria-pressed:bg-secondary aria-pressed:text-foreground"
                     aria-pressed={codeOpen}
                     aria-controls={`${id}-code`}

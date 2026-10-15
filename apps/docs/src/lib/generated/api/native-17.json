@@ -1,41 +1,5 @@
 [
     {
-        "name": "ontransitionstart",
-        "type": "TransitionEventHandler<HTMLAnchorElement> | null | TransitionEventHandler<HTMLButtonElement> | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
-        "name": "ontransitionstartcapture",
-        "type": "TransitionEventHandler<HTMLAnchorElement> | null | TransitionEventHandler<HTMLButtonElement> | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
-        "name": "on:transitionrun",
-        "type": "TransitionEventHandler<HTMLAnchorElement> | null | TransitionEventHandler<HTMLButtonElement> | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
-        "name": "ontransitionrun",
-        "type": "TransitionEventHandler<HTMLAnchorElement> | null | TransitionEventHandler<HTMLButtonElement> | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
         "name": "ontransitionruncapture",
         "type": "TransitionEventHandler<HTMLAnchorElement> | null | TransitionEventHandler<HTMLButtonElement> | null | undefined",
         "required": false,
@@ -2242,6 +2206,42 @@
     },
     {
         "name": "onselectcapture",
+        "type": "EventHandler<Event, HTMLTableSectionElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "on:selectionchange",
+        "type": "EventHandler<Event, HTMLTableSectionElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onselectionchange",
+        "type": "EventHandler<Event, HTMLTableSectionElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onselectionchangecapture",
+        "type": "EventHandler<Event, HTMLTableSectionElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "on:selectstart",
         "type": "EventHandler<Event, HTMLTableSectionElement> | null | undefined",
         "required": false,
         "bindable": false,

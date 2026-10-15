@@ -10,14 +10,34 @@
     };
 
     const waiting: Member[] = [
-        { name: 'Amira Diallo', initials: 'AD', role: 'Viewer' },
-        { name: 'Jonas Weber', initials: 'JW', role: 'Editor' }
+        {
+            name: 'Amira Diallo',
+            initials: 'AD',
+            role: 'Viewer'
+        },
+        {
+            name: 'Jonas Weber',
+            initials: 'JW',
+            role: 'Editor'
+        }
     ];
 
     let members = $state<Member[]>([
-        { name: 'Ines Moreau', initials: 'IM', role: 'Owner' },
-        { name: 'Theo Martin', initials: 'TM', role: 'Editor' },
-        { name: 'Maya Chen', initials: 'MC', role: 'Editor' }
+        {
+            name: 'Ines Moreau',
+            initials: 'IM',
+            role: 'Owner'
+        },
+        {
+            name: 'Theo Martin',
+            initials: 'TM',
+            role: 'Editor'
+        },
+        {
+            name: 'Maya Chen',
+            initials: 'MC',
+            role: 'Editor'
+        }
     ]);
 
     const next = $derived(

@@ -1,14 +1,14 @@
 import {
     attributes,
-    changed,
     compact,
     number,
     type PlaygroundValues,
-    text,
+    select,
     toggle
 } from '$lib/components/docs/playground';
 
 export const controls = {
+    separator: select('Separator', ['chevron', 'slash'], 'chevron'),
     items: number('Items', 3, {
         min: 1,
         max: 4,
@@ -16,10 +16,7 @@ export const controls = {
         group: 'Content'
     }),
     homeIcon: toggle('Home icon', 'Content'),
-    slash: toggle('Slash separator', 'Content'),
-    label: text('Label', 'Breadcrumb', 'Content'),
-    current: toggle('Current page', 'State', true),
-    currentLink: toggle('Link the current page', 'Behavior')
+    current: toggle('Current page', 'State', true)
 };
 
 type Values = PlaygroundValues<typeof controls>;
@@ -52,18 +49,15 @@ export function pages(count: number) {
 
 export function code(values: Values): string {
     const shown = pages(values.items);
-    const root = attributes({
-        'aria-label': changed(values.label, 'Breadcrumb')
-    });
-    const separator = values.slash
-        ? '<Breadcrumb.Separator>/</Breadcrumb.Separator>'
-        : '<Breadcrumb.Separator />';
+    const separator =
+        values.separator === 'slash'
+            ? '<Breadcrumb.Separator>/</Breadcrumb.Separator>'
+            : '<Breadcrumb.Separator />';
     const lines = shown.flatMap((page, index) => {
-        const last = index === shown.length - 1;
-        const current = last && values.current;
+        const current = index === shown.length - 1 && values.current;
         const icon = index === 0 && values.homeIcon;
         const props = attributes({
-            href: !(current && !values.currentLink) && page.href,
+            href: !current && page.href,
             current,
             'aria-label': icon && page.label
         });
@@ -85,7 +79,7 @@ export function code(values: Values): string {
     ${imports}
 </script>
 
-<Breadcrumb.Root${root}>
+<Breadcrumb.Root>
 ${lines.map((line) => `    ${line}`).join('\n')}
 </Breadcrumb.Root>`;
 }

@@ -21,10 +21,14 @@
     <Composer.Root
         bind:value
         onSubmit={submit}
-        errorMessage="Could not send. Turn off simulated failure, then retry."
+        labels={{
+            error: 'Could not send. Turn off simulated failure, then retry.'
+        }}
     >
         <Composer.Input aria-label="Incident prompt" />
-        <Composer.Toolbar><Composer.Submit /></Composer.Toolbar>
+        <Composer.Toolbar>
+            <Composer.Submit />
+        </Composer.Toolbar>
     </Composer.Root>
     <p class="min-h-5 text-sm text-foreground-muted" role="status">{result}</p>
 </div>

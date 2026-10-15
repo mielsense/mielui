@@ -6,7 +6,6 @@
     import { ComponentPreview, InstallCommand, Playground } from '$lib/components/docs';
     import InlineText from '$lib/components/docs/inline-text.svelte';
     import PageIntro from '$lib/components/docs/page-intro.svelte';
-    import { headingLevel } from '$lib/components/docs/playground';
     import ContentOnly from './examples/content-only.svelte';
     import ContentOnlySrc from './examples/content-only.svelte?raw';
     import Full from './examples/full.svelte';
@@ -28,6 +27,22 @@
         code as playgroundCode,
         controls as playgroundControls
     } from './playground';
+
+    const usage = `<script lang="ts">
+    import { Button } from '@mielui/svelte/components/button';
+    import * as Card from '@mielui/svelte/components/card';
+</${'script'}>
+
+<Card.Root>
+    <Card.Header>
+        <Card.Title level={3}>Team plan</Card.Title>
+        <Card.Description>Billed monthly.</Card.Description>
+    </Card.Header>
+    <Card.Content>Five seats, unlimited projects.</Card.Content>
+    <Card.Footer>
+        <Button>Upgrade</Button>
+    </Card.Footer>
+</Card.Root>`;
 </script>
 
 <svelte:head>
@@ -43,7 +58,7 @@
     <section id="hero" class="scroll-mt-20 flex flex-col gap-4">
         <Playground controls={playgroundControls} code={playgroundCode}>
             {#snippet children(values)}
-                {const glass = values.surface === 'glass'}
+                {const glass = $derived(values.surface === 'glass')}
                 {#snippet card()}
                     <Card.Root
                         variant={values.variant}
@@ -53,9 +68,7 @@
                         {#if values.title || values.description}
                             <Card.Header>
                                 {#if values.title}
-                                    <Card.Title level={headingLevel(values.level)}>
-                                        Checkout redesign
-                                    </Card.Title>
+                                    <Card.Title>Checkout redesign</Card.Title>
                                 {/if}
                                 {#if values.description}
                                     <Card.Description>
@@ -105,36 +118,27 @@
     <section id="usage" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Usage</Typography.H2>
         <Typography.Text variant="supporting">
-            Card.Title defaults to an h2. Set level to match the surrounding heading outline;
-            styling stays the same. Native heading attributes, including id and aria-describedby,
-            reach the heading. Set level to 1 only when the card supplies the page title.
+            <InlineText
+                text={"Title renders an `h2` by default. Set `level` to fit the surrounding heading outline; the styling stays the same. Heading attributes such as `id` reach the element."}
+            />
         </Typography.Text>
         <Typography.Text variant="supporting">
-            An inset Card accepts one Footer and places it beneath the inset surface. Put multiple
-            actions or footer sections inside that single Footer. Other variants render Footer where
-            it appears in the composition.
+            An inset card takes one Footer and places it beneath the inset surface. Put several
+            actions inside that one Footer. Other variants render Footer where you write it.
         </Typography.Text>
-
-        <CodeBlock
-            code={`import * as Card from '@mielui/svelte/components/card';\nimport { Button } from '@mielui/svelte/components/button';\n\n<Card.Root>\n  <Card.Header>\n    <Card.Title level={2}>Title</Card.Title>\n  </Card.Header>\n  <Card.Content>Content here</Card.Content>\n  <Card.Footer>\n    <Button>Action</Button>\n  </Card.Footer>\n</Card.Root>`}
-            lang="svelte"
-            copy="overlay"
-        />
+        <CodeBlock code={usage} lang="svelte" copy="overlay" />
     </section>
 
-    <section id="borders" class="flex flex-col gap-4">
+    <section id="borders" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Borders</Typography.H2>
         <Typography.Text variant="supporting">
-            The theme setting chrome.borders is "double" by default, which gives inset and panel
-            cards a white frame with a gutter around the recessed content surface. Set it to
-            "single" to remove the gutter, so the surface meets the frame's border. Content padding
-            and footer composition stay intact. Default cards are one plate and always have one
-            border. This setting also applies to dialogs, sheets, Notch, Toast, and other inset
-            surfaces; shadows and edge highlights remain independent.
+            <InlineText
+                text={"The theme's `chrome.borders` setting is `single` by default: the inset and panel surfaces meet the frame's border. Set it to `double` to add a gutter between the frame and the recessed content surface. Content padding and the footer stay the same. A default card is one surface with one border either way. The setting also applies to dialogs, sheets, Notch, Toast, and other inset surfaces; shadows and edge highlights are separate settings."}
+            />
         </Typography.Text>
     </section>
 
-    <section id="glass" class="flex flex-col gap-4">
+    <section id="glass" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Glass surface</Typography.H2>
         <Typography.Text variant="supporting">
             Set{' '}
@@ -242,7 +246,7 @@
             />
         </div>
     </section>
-    <section id="parts" class="flex flex-col gap-4">
+    <section id="parts" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Parts</Typography.H2>
         <Typography.Text variant="supporting">
             <InlineText
@@ -251,7 +255,7 @@
         </Typography.Text>
         <Typography.Text variant="supporting">
             <InlineText
-                text={"Root, Header, Title, Description, Content and Footer render their `children` and accept `class` and `style` like any element."}
+                text={"Every part renders its `children` and takes `class`. Title also passes heading attributes such as `id`."}
             />
         </Typography.Text>
     </section>

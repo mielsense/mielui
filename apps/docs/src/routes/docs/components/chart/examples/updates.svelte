@@ -6,17 +6,17 @@
     const data = $derived(
         revised
             ? [
-                  { month: 'April', sales: 240 },
-                  { month: 'May', sales: 190 },
-                  { month: 'June', sales: 320 }
+                  { month: 'April', orders: 240 },
+                  { month: 'May', orders: 190 },
+                  { month: 'June', orders: 320 }
               ]
             : [
-                  { month: 'April', sales: 170 },
-                  { month: 'May', sales: 280 },
-                  { month: 'June', sales: 210 }
+                  { month: 'April', orders: 170 },
+                  { month: 'May', orders: 280 },
+                  { month: 'June', orders: 210 }
               ]
     );
-    const config = { sales: { label: 'Orders', color: 'var(--chart-1)' } };
+    const config = { orders: { label: 'Orders', color: 'var(--chart-1)' } };
 
     function switchRevision() {
         revised = !revised;
@@ -37,7 +37,7 @@
             <Chart.Grid />
             <Chart.XAxis />
             <Chart.YAxis />
-            <Chart.Bar key="sales" />
+            <Chart.Bar key="orders" />
         </Chart.Plot>
         <Chart.Tooltip />
         <Chart.Legend />

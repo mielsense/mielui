@@ -5,17 +5,18 @@
     import { ComponentPreview, InstallCommand, Playground } from '$lib/components/docs';
     import InlineText from '$lib/components/docs/inline-text.svelte';
     import PageIntro from '$lib/components/docs/page-intro.svelte';
-    import SectionHeading from '$lib/components/docs/section-heading.svelte';
     import CancelExample from './examples/cancel.svelte';
     import CancelExampleSrc from './examples/cancel.svelte?raw';
     import ComposerTakeover from './examples/composer-takeover.svelte';
     import ComposerTakeoverSrc from './examples/composer-takeover.svelte?raw';
     import FreeText from './examples/free-text.svelte';
     import FreeTextSrc from './examples/free-text.svelte?raw';
-    import Hero from './examples/hero.svelte';
-    import HeroSrc from './examples/hero.svelte?raw';
+    import Labels from './examples/labels.svelte';
+    import LabelsSrc from './examples/labels.svelte?raw';
     import MultipleChoice from './examples/multiple-choice.svelte';
     import MultipleChoiceSrc from './examples/multiple-choice.svelte?raw';
+    import Series from './examples/series.svelte';
+    import SeriesSrc from './examples/series.svelte?raw';
     import {
         code as playgroundCode,
         controls as playgroundControls,
@@ -24,28 +25,50 @@
 
     let playgroundAnswer = $state('');
     let playgroundAnswers = $state<string[]>([]);
-    const usageSnippet = `import * as Question from '@mielui/svelte/components/question';
+    const usageSnippet = `<script lang="ts">
+    import * as Question from '@mielui/svelte/components/question';
 
-let answer = $state('');
+    let {
+        onAnswer,
+        onSkip
+    }: {
+        onAnswer: (answer: string) => Promise<void>;
+        onSkip: () => void;
+    } = $props();
 
-async function submitAnswer(value: string) {
-  await continueAgent(value);
-}
+    let answer = $state('');
+</${'script'}>
 
-<Question.Root variant="inset" bind:value={answer} onSubmit={submitAnswer} onError={reportError}>
-  <Question.Content>
-    <Question.Title>Which environment should I use?</Question.Title>
-    <Question.Description>Your prompt draft remains untouched.</Question.Description>
-    <Question.Options>
-      <Question.Option value="preview" label="Preview" />
-      <Question.Option value="production" label="Production" />
-    </Question.Options>
-  </Question.Content>
-  <Question.Actions>
-    <Question.Cancel onclick={() => skipQuestion()}>Skip question</Question.Cancel>
-    <Question.Submit />
-  </Question.Actions>
+<Question.Root variant="inset" bind:value={answer} onSubmit={onAnswer} onCancel={onSkip}>
+    <Question.Content>
+        <Question.Title>Which environment should I use?</Question.Title>
+        <Question.Description>Your prompt draft stays as it is.</Question.Description>
+        <Question.Options>
+            <Question.Option value="preview" label="Preview" />
+            <Question.Option value="production" label="Production" />
+        </Question.Options>
+    </Question.Content>
+    <Question.Actions>
+        <Question.Cancel>Skip</Question.Cancel>
+        <Question.Submit />
+    </Question.Actions>
 </Question.Root>`;
+
+    const labelsCode = `<script lang="ts">
+    import * as Question from '@mielui/svelte/components/question';
+    import type { QuestionLabels } from '@mielui/svelte/components/question';
+
+    const labels: QuestionLabels = {
+        selectAnswer: 'Choisissez une réponse.',
+        selectAnswers: 'Choisissez au moins une réponse.',
+        enterAnswer: 'Saisissez une réponse.',
+        submitError: "La réponse n'a pas pu être envoyée.",
+        submit: 'Envoyer',
+        submitting: 'Envoi…',
+        answer: 'Réponse',
+        placeholder: 'Saisissez votre réponse…'
+    };
+</${'script'}>`;
 </script>
 
 <svelte:head>
@@ -65,14 +88,12 @@ async function submitAnswer(value: string) {
     <section id="hero" class="scroll-mt-20 flex flex-col gap-4">
         <Playground controls={playgroundControls} code={playgroundCode}>
             {#snippet children(values)}
-                {const root = {
+                {const root = $derived({
                     variant: values.variant,
                     status: values.status,
                     disabled: values.disabled,
-                    required: values.required,
-                    autofocus: values.autofocus,
-                    errorMessage: values.errorMessage || undefined
-                }}
+                    required: values.required
+                })}
                 {#snippet parts()}
                     <Question.Content>
                         <Question.Title>Where should we start?</Question.Title>
@@ -82,12 +103,7 @@ async function submitAnswer(value: string) {
                             </Question.Description>
                         {/if}
                         {#if values.type === 'text'}
-                            <Question.Input
-                                placeholder={values.placeholder || undefined}
-                                rows={values.rows}
-                                submitOnEnter={values.submitOnEnter}
-                                autoresize={values.autoresize}
-                            />
+                            <Question.Input />
                         {:else}
                             <Question.Options>
                                 {#each playgroundOptions as option (option.value)}
@@ -106,10 +122,7 @@ async function submitAnswer(value: string) {
                         {#if values.cancel}
                             <Question.Cancel>Skip</Question.Cancel>
                         {/if}
-                        <Question.Submit
-                            label={values.submitLabel || undefined}
-                            loadingLabel={values.loadingLabel || undefined}
-                        />
+                        <Question.Submit />
                     </Question.Actions>
                 {/snippet}
                 <div class="w-full max-w-xl">
@@ -151,121 +164,124 @@ async function submitAnswer(value: string) {
         <Typography.Text variant="supporting">
             Render{' '}
             <Typography.InlineCode>Question.Root</Typography.InlineCode>
-            in the same layout slot as{' '}
+            in the slot{' '}
             <Typography.InlineCode>Composer.Root</Typography.InlineCode>
-            would occupy. Keep the prompt value in their shared parent so swapping the forms never
+            would occupy. Keep the prompt value in their shared parent so swapping the two never
             clears an unsent draft.
         </Typography.Text>
         <CodeBlock code={usageSnippet} lang="svelte" copy="overlay" />
         <Typography.Text variant="supporting">
-            Use type="single" for one option, type="multiple" for several, or type="text" with
-            Question.Input. Single and text modes use a string answer; multiple mode uses a string
-            array. Changing type clears the answer to the new mode's empty value.
+            <InlineText
+                text={"Use `type=\"single\"` for one option, `type=\"multiple\"` for several, or `type=\"text\"` with `Question.Input`. Single and text modes use a string answer; multiple mode uses a string array. Changing `type` clears the answer to the new mode's empty value."}
+            />
         </Typography.Text>
         <Typography.Text variant="supporting">
-            Question waits for async submit handlers and prevents duplicate submissions while
-            pending. A rejected submission keeps the answer and shows errorMessage until the next
-            attempt. Use onError to report failures. Changing mode or unmounting ignores an
-            unfinished submission's result.
+            <InlineText
+                text={"Question waits for an async `onSubmit` and ignores repeat submissions while it is pending. A rejected submission keeps the answer and shows the error message until the next attempt. Use `onError` to report failures. Changing mode or unmounting ignores an unfinished submission's result."}
+            />
         </Typography.Text>
         <Typography.Text variant="supporting">
             Options use the same indicators as Checkbox and RadioGroup: square checkboxes in
-            multiple mode and round radios otherwise. Hover washes the row, and selection lights the
-            indicator instead of filling the row. An error shows one message above the frame and one
-            red frame edge; the answer field keeps its neutral border while it stays marked invalid
-            for assistive technology.
+            multiple mode and round radios otherwise. An error shows one message above the frame and
+            tints the frame edge.
         </Typography.Text>
     </section>
 
     <section id="composition" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Composition</Typography.H2>
         <Typography.Text variant="supporting">
-            Set{' '}
-            <Typography.InlineCode>variant="inset"</Typography.InlineCode>
-            on
-            <Typography.InlineCode>Question.Root</Typography.InlineCode>
-            for the shared Card frame and recessed content surface. The default variant uses a plain
-            Card. Place
-            <Typography.InlineCode>Question.Actions</Typography.InlineCode>
-            after
-            <Typography.InlineCode>Question.Content</Typography.InlineCode>
-            to keep controls in the footer. Both parts are optional; omit the description or restyle
-            the actions to suit the space.
+            <InlineText
+                text={"`variant=\"inset\"` frames the question with a recessed content surface; the default variant uses a plain Card. Place `Question.Actions` after `Question.Content` to keep the controls in the footer. Both the description and the actions are optional."}
+            />
+        </Typography.Text>
+        <Typography.Text variant="supporting">
+            <InlineText
+                text={"`Question.Content` groups the title, description, and answer controls in a fieldset. It does not manage step navigation. Store the step index and answers in the parent. When a flow mixes answer types, key Root by question so each step gets its own state."}
+            />
+        </Typography.Text>
+        <Typography.Text variant="supporting">
+            <InlineText
+                text={"To use Cancel as a Back button, call `event.preventDefault()` in its `onclick` before navigating. This keeps Root's `onCancel` from running."}
+            />
         </Typography.Text>
         <CodeBlock
             lang="svelte"
             copy="overlay"
-            code={`<Question.Root variant="inset" bind:value={answer} onSubmit={next}>
-  <Question.Content>
-    <Question.Title>{question.title}</Question.Title>
-    <Question.Options>
-      {#each question.options as option (option.value)}
-        <Question.Option {...option} />
-      {/each}
-    </Question.Options>
-  </Question.Content>
-  <Question.Actions class="justify-between">
-    <Question.Cancel disabled={index === 0} onclick={(event) => {
-      event.preventDefault();
-      back();
-    }}>Back</Question.Cancel>
-    <Question.Submit label="Next" />
-  </Question.Actions>
+            code={`<Question.Root
+    variant="inset"
+    bind:value={answers[step]}
+    labels={{ submit: 'Next' }}
+    onSubmit={next}
+>
+    <Question.Content>
+        <Question.Title>{question.title}</Question.Title>
+        <Question.Options>
+            {#each question.options as option (option.value)}
+                <Question.Option {...option} />
+            {/each}
+        </Question.Options>
+    </Question.Content>
+    <Question.Actions>
+        <Question.Cancel
+            disabled={step === 0}
+            onclick={(event) => {
+                event.preventDefault();
+                step -= 1;
+            }}
+        >
+            Back
+        </Question.Cancel>
+        <Question.Submit />
+    </Question.Actions>
 </Question.Root>`}
         />
-        <Typography.Text variant="supporting">
-            <Typography.InlineCode>Question.Content</Typography.InlineCode>
-            groups the title, description, and answer controls in a fieldset. It does not manage
-            step navigation or transitions.
-        </Typography.Text>
-        <Typography.Text variant="supporting">
-            Store the step index and answers in the parent. When a flow mixes answer types, key Root
-            by question so each step gets its own state. Changing type on the same Root clears its
-            answer.
-        </Typography.Text>
-        <Typography.Text variant="supporting">
-            To use Cancel as a Back button, call event.preventDefault() before navigating. This
-            prevents Root's cancellation handler from running.
-        </Typography.Text>
     </section>
 
-    <section id="integration" class="scroll-mt-20 flex flex-col gap-4">
-        <Typography.H2 class="docs-section-heading">Answer ownership</Typography.H2>
-        <Typography.Text variant="supporting">
-            Bind value when the answer must survive navigation. Keep submission results in
-            application state and show what was accepted. A text answer is a string; a
-            multiple-choice answer is a string array. Cancel should return the surrounding interface
-            to a usable state, as in the composer takeover example.
-        </Typography.Text>
-    </section>
     <section id="examples" class="scroll-mt-20 flex flex-col gap-10">
-        <SectionHeading title="Examples">
-            {#snippet description()}
-                Use the same inset composition for multiple selections, a written answer, or a
-                question beneath a live transcript.
-            {/snippet}
-        </SectionHeading>
+        <div>
+            <Typography.H2 class="docs-section-heading">Examples</Typography.H2>
+        </div>
 
         <div id="question-series" class="scroll-mt-20 flex flex-col gap-3">
             <Typography.H3 class="docs-subsection-heading">Question series</Typography.H3>
             <Typography.Text variant="supporting">
                 Three questions in a row with a back button, a step count, and a summary at the end.
             </Typography.Text>
-            <ComponentPreview code={HeroSrc}><Hero /></ComponentPreview>
+            <ComponentPreview code={SeriesSrc}>
+                <Series />
+            </ComponentPreview>
         </div>
 
         <div id="multiple-choice" class="scroll-mt-20 flex flex-col gap-3">
             <Typography.H3 class="docs-subsection-heading">Multiple choice</Typography.H3>
-            <ComponentPreview code={MultipleChoiceSrc}><MultipleChoice /></ComponentPreview>
+            <ComponentPreview code={MultipleChoiceSrc}>
+                <MultipleChoice />
+            </ComponentPreview>
         </div>
 
         <div id="free-text" class="scroll-mt-20 flex flex-col gap-3">
             <Typography.H3 class="docs-subsection-heading">Free text</Typography.H3>
-            <ComponentPreview code={FreeTextSrc}><FreeText /></ComponentPreview>
+            <ComponentPreview code={FreeTextSrc}>
+                <FreeText />
+            </ComponentPreview>
+        </div>
+
+        <div id="skip" class="scroll-mt-20 flex flex-col gap-3">
+            <Typography.H3 class="docs-subsection-heading"
+                >Skip and multi-line answers</Typography.H3
+            >
+            <Typography.Text variant="supporting">
+                <InlineText
+                    text={"`submitOnEnter={false}` makes Enter add a line, so only the button sends. `onCancel` on Root runs when Skip is pressed."}
+                />
+            </Typography.Text>
+            <ComponentPreview code={CancelExampleSrc}>
+                <CancelExample />
+            </ComponentPreview>
         </div>
 
         <div id="composer-takeover" class="scroll-mt-20 flex flex-col gap-3">
-            <Typography.H3 class="docs-subsection-heading">Conversation takeover</Typography.H3>
+            <Typography.H3 class="docs-subsection-heading">Composer takeover</Typography.H3>
             <Typography.Text variant="supporting">
                 Answer or skip the question to restore the composer with its draft intact.
             </Typography.Text>
@@ -273,47 +289,52 @@ async function submitAnswer(value: string) {
                 <ComposerTakeover />
             </ComponentPreview>
         </div>
+
+        <div id="translated-labels" class="scroll-mt-20 flex flex-col gap-3">
+            <Typography.H3 class="docs-subsection-heading">Translated labels</Typography.H3>
+            <Typography.Text variant="supporting">
+                Submit without choosing to see the translated validation message.
+            </Typography.Text>
+            <ComponentPreview code={LabelsSrc}>
+                <Labels />
+            </ComponentPreview>
+        </div>
     </section>
-    <section id="text-answers" class="flex flex-col gap-4">
-        <Typography.H2 class="docs-section-heading">Text answers and cancelling</Typography.H2>
+
+    <section id="text-answers" class="scroll-mt-20 flex flex-col gap-4">
+        <Typography.H2 class="docs-section-heading">Text answers</Typography.H2>
         <Typography.Text variant="supporting">
             <InlineText
-                text={"Input is a textarea that grows as the person types. `rows` sets its starting height, 2 by default, and `autoresize={false}` keeps that height and scrolls instead. Enter submits and Shift+Enter adds a line. Set `submitOnEnter={false}` when answers run to several paragraphs, so Enter adds a line and only the Submit button sends. `readonly` shows the answer without allowing edits, which suits a question that has already been answered."}
+                text={"`Question.Input` is a textarea that grows as the person types. `rows` sets its starting height, 2 by default, and `autoresize={false}` keeps that height and scrolls instead. Enter submits and Shift+Enter adds a line; `submitOnEnter={false}` makes Enter add a line. `readonly` shows the answer without allowing edits."}
             />
         </Typography.Text>
         <Typography.Text variant="supporting">
-            <InlineText
-                text={"In a question with options, pressing 1 to 9 picks the option with that number, and each option shows its key. Digits typed into a text answer are left alone. Add a Cancel part to let the person skip the question. `onCancel` on Root runs when it is pressed."}
-            />
+            In a question with options, pressing 1 to 9 picks the option with that number, and each
+            option shows its key. Digits typed into a text answer are left alone.
         </Typography.Text>
-        <ComponentPreview code={CancelExampleSrc}>
-            <CancelExample />
-        </ComponentPreview>
     </section>
-    <section id="parts" class="flex flex-col gap-4">
+
+    <section id="parts" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Parts</Typography.H2>
         <Typography.Text variant="supporting">
             <InlineText
-                text={"Submit takes `loadingLabel` for the text it shows while `onSubmit` is pending. Submit, Input and Option accept `element` to bind their DOM node."}
+                text={"`Question.Submit` reads `labels.submit` for its text and `labels.submitting` for the text it shows while `onSubmit` is pending; pass `children` to replace its content. `Question.Input` takes `placeholder` and `aria-label`, which win over `labels.placeholder` and `labels.answer`. Submit, Input and Option accept `bind:element` for their DOM node."}
             />
         </Typography.Text>
         <Typography.Text variant="supporting">
             <InlineText
-                text={"Root, Content, Title, Description, Options, Actions, Cancel and Submit render their `children` and accept `class` and `style` like any element."}
+                text={"Root, Content, Title, Description, Options, Actions, Cancel and Submit render their `children` and accept `class` and other element attributes."}
             />
         </Typography.Text>
     </section>
-    <section id="labels" class="flex scroll-mt-20 flex-col gap-4">
+
+    <section id="labels" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Labels</Typography.H2>
-        <Typography.Text>
-            Built-in text is English by default. Pass labels to Question.Root to translate the three
-            validation messages and the message shown when submitting fails. Every key is optional;
-            omitted keys keep their default.
+        <Typography.Text variant="supporting">
+            <InlineText
+                text={"Built-in text is English by default. Pass a `labels` object of type `QuestionLabels` to `Question.Root` to translate the three validation messages, the message shown when submitting fails, the submit button text, and the answer field's placeholder and accessible name. Every key is optional; omitted keys keep their default."}
+            />
         </Typography.Text>
-        <CodeBlock
-            code={`<Question.Root labels={{ selectAnswer: 'Choisissez une réponse.', submitError: 'Envoi impossible.' }} />`}
-            lang="svelte"
-            copy="overlay"
-        />
+        <CodeBlock code={labelsCode} lang="svelte" copy="overlay" />
     </section>
 </div>

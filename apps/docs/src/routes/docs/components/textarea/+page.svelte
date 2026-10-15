@@ -16,14 +16,17 @@
     import LabeledSrc from './examples/labeled.svelte?raw';
     import { code as playgroundCode, controls as playgroundControls } from './playground';
 
-    const TITLE = 'Textarea';
+    const usageCode = `<script lang="ts">
+    import { Textarea } from '@mielui/svelte/components/textarea';
+
+    let message = $state('');
+</${'script'}>
+
+<Textarea bind:value={message} label="Message" autoresize />`;
 </script>
 
 <svelte:head>
-    <title>
-        Mielui ·{' '}
-        {TITLE}
-    </title>
+    <title>Mielui · Textarea</title>
     <meta
         name="description"
         content="Multi-line text input with labels, descriptions, and automatic resizing."
@@ -38,7 +41,7 @@
 {/snippet}
 
 <div data-docs-page class="flex flex-col gap-10">
-    <PageIntro title={TITLE}>A multi-line text input that shares the Input styling.</PageIntro>
+    <PageIntro title="Textarea">A multi-line text input that shares the Input styling.</PageIntro>
 
     <section id="hero" class="scroll-mt-20 flex flex-col gap-4">
         <Playground controls={playgroundControls} code={playgroundCode}>
@@ -52,11 +55,8 @@
                             ? 'Sent to everyone on the project.'
                             : undefined}
                         placeholder={values.placeholder || undefined}
-                        rows={values.rows}
                         autoresize={values.autoresize}
                         disabled={values.disabled}
-                        readonly={values.readonly}
-                        required={values.required}
                         aria-invalid={values.invalid ? 'true' : undefined}
                         children={values.footer ? playgroundFooter : undefined}
                     />
@@ -72,22 +72,12 @@
 
     <section id="usage" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Usage</Typography.H2>
-        <Typography.Text>
-            Labels and descriptions are connected to the native textarea, preserving external
-            aria-describedby references without duplicate IDs. Conditional descriptions are linked
-            only while rendered. Autoresize responds to value and width changes, includes border-box
-            sizing, and restores the previous inline height when removed.
-        </Typography.Text>
         <Typography.Text variant="supporting">
-            Import Textarea and bind its value. Add
-            <Typography.InlineCode>autoresize</Typography.InlineCode>
-            for message composers that grow with their content.
+            <InlineText
+                text={"Bind `value` to read or set the text. `label` and `description` are linked to the native textarea, and every other textarea attribute passes through. Set `autoresize` to grow the field with its content instead of scrolling. Bind `element` to reach the textarea, for example to focus it."}
+            />
         </Typography.Text>
-        <CodeBlock
-            code={`import { Textarea } from '@mielui/svelte/components/textarea';\n\n<Textarea bind:value autoresize label="Message" />`}
-            lang="svelte"
-            copy="overlay"
-        />
+        <CodeBlock code={usageCode} lang="svelte" copy="overlay" />
     </section>
 
     <section id="examples" class="scroll-mt-20 flex flex-col gap-10">
@@ -102,7 +92,7 @@
             </ComponentPreview>
         </div>
 
-        <div id="labeled" class="scroll-mt-20 flex flex-col gap-3">
+        <div id="label-and-description" class="scroll-mt-20 flex flex-col gap-3">
             <Typography.H3 class="docs-subsection-heading">
                 With label and description
             </Typography.H3>
@@ -117,21 +107,17 @@
                 <Disabled />
             </ComponentPreview>
         </div>
-    </section>
-    <section id="composer" class="scroll-mt-20 flex flex-col gap-4">
-        <Typography.H2 class="docs-section-heading">Autoresizing composer</Typography.H2>
-        <Typography.Text variant="supporting">
-            The textarea grows as you type. Its children snippet holds a character count and submit
-            button inside the shared field border.
-        </Typography.Text>
-        <ComponentPreview code={ComposerSrc}><Composer /></ComponentPreview>
-    </section>
-    <section id="element" class="flex flex-col gap-4">
-        <Typography.H2 class="docs-section-heading">Reaching the element</Typography.H2>
-        <Typography.Text variant="supporting">
-            <InlineText
-                text={"Bind `element` to get the textarea's DOM node, for example to focus it when a dialog opens or to read its selection."}
-            />
-        </Typography.Text>
+
+        <div id="composer" class="scroll-mt-20 flex flex-col gap-3">
+            <Typography.H3 class="docs-subsection-heading">Composer</Typography.H3>
+            <Typography.Text variant="supporting">
+                <InlineText
+                    text={'Content passed as children renders below the text inside the same field border, here a character count and a send button. `autoresize` grows the field as you type.'}
+                />
+            </Typography.Text>
+            <ComponentPreview code={ComposerSrc}>
+                <Composer />
+            </ComponentPreview>
+        </div>
     </section>
 </div>

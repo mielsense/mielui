@@ -1,41 +1,5 @@
 [
     {
-        "name": "on:focus",
-        "type": "FocusEventHandler<HTMLAnchorElement> | null | FocusEventHandler<HTMLButtonElement> | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
-        "name": "onfocus",
-        "type": "FocusEventHandler<HTMLAnchorElement> | null | FocusEventHandler<HTMLButtonElement> | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
-        "name": "onfocuscapture",
-        "type": "FocusEventHandler<HTMLAnchorElement> | null | FocusEventHandler<HTMLButtonElement> | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
-        "name": "on:focusin",
-        "type": "FocusEventHandler<HTMLAnchorElement> | null | FocusEventHandler<HTMLButtonElement> | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
         "name": "onfocusin",
         "type": "FocusEventHandler<HTMLAnchorElement> | null | FocusEventHandler<HTMLButtonElement> | null | undefined",
         "required": false,
@@ -2242,6 +2206,42 @@
     },
     {
         "name": "on:transitionstart",
+        "type": "TransitionEventHandler<HTMLAnchorElement> | null | TransitionEventHandler<HTMLButtonElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "ontransitionstart",
+        "type": "TransitionEventHandler<HTMLAnchorElement> | null | TransitionEventHandler<HTMLButtonElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "ontransitionstartcapture",
+        "type": "TransitionEventHandler<HTMLAnchorElement> | null | TransitionEventHandler<HTMLButtonElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "on:transitionrun",
+        "type": "TransitionEventHandler<HTMLAnchorElement> | null | TransitionEventHandler<HTMLButtonElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "ontransitionrun",
         "type": "TransitionEventHandler<HTMLAnchorElement> | null | TransitionEventHandler<HTMLButtonElement> | null | undefined",
         "required": false,
         "bindable": false,

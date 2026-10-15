@@ -1,34 +1,21 @@
 import {
     attributes,
+    BUTTON_VARIANTS,
     changed,
     compact,
-    defaultOn,
-    number,
     type PlaygroundValues,
     select,
-    text,
     toggle
 } from '$lib/components/docs/playground';
 
-const DEFAULT_PLACEHOLDER = 'Type a command or search...';
-
 export const controls = {
-    variant: select('Variant', ['primary', 'secondary', 'outline', 'ghost'], 'outline'),
-    glass: toggle('Glass surface', 'Appearance'),
+    variant: select('Variant', BUTTON_VARIANTS, 'primary'),
+    surface: select('Surface', ['theme', 'solid', 'glass'], 'theme', 'Appearance'),
     header: toggle('Header', 'Content', true),
     groups: toggle('Groups', 'Content', true),
     separator: toggle('Separator', 'Content', true),
     icons: toggle('Icons', 'Content', true),
-    empty: toggle('Custom empty message', 'Content'),
-    placeholder: text('Placeholder', DEFAULT_PLACEHOLDER, 'Content'),
-    disabledItem: toggle('Disabled item', 'State'),
-    allowClickOutside: toggle('Close on outside press', 'Behavior', true),
-    threshold: number('Search threshold', 0.2, {
-        min: 0,
-        max: 1,
-        step: 0.05,
-        group: 'Behavior'
-    })
+    disabledItem: toggle('Disabled item', 'State')
 };
 
 type Values = PlaygroundValues<typeof controls>;
@@ -67,12 +54,7 @@ export function code(values: Values): string {
         variant: changed(values.variant, 'primary')
     });
     const content = attributes({
-        surface: values.glass && 'glass',
-        allowClickOutside: defaultOn(values.allowClickOutside)
-    });
-    const search = attributes({
-        placeholder: changed(values.placeholder, DEFAULT_PLACEHOLDER),
-        threshold: changed(values.threshold, 0.2)
+        surface: changed(values.surface, 'theme')
     });
     const iconNames = compact([
         values.icons && 'Add01Icon as Plus',
@@ -90,12 +72,6 @@ export function code(values: Values): string {
     const header = values.header
         ? `
         <Command.Header>Workspace</Command.Header>`
-        : '';
-    const empty = values.empty
-        ? `
-            {#snippet empty()}
-                <p class="text-sm text-foreground-muted">Nothing matches. Try another word.</p>
-            {/snippet}`
         : '';
     const actions = group(
         'Actions',
@@ -125,8 +101,8 @@ export function code(values: Values): string {
         Open palette
     </Command.Trigger>
     <Command.Content${content}>${header}
-        <Command.Search${search} />
-        <Command.Results>${empty}${actions}${separator}${navigation}
+        <Command.Search />
+        <Command.Results>${actions}${separator}${navigation}
         </Command.Results>
     </Command.Content>
 </Command.Root>`;

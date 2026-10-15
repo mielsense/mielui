@@ -8,6 +8,14 @@
 
     const uid = $props.id();
     const draft = validateProfile.for(uid);
+
+    function errorDescription() {
+        if (draft.fields.allIssues()?.length) {
+            return 'Review the highlighted fields.';
+        }
+
+        return 'Your draft is still here. Try again.';
+    }
 </script>
 
 <Form.Root
@@ -19,15 +27,17 @@
             if (!valid) {
                 throw new Error('Review the highlighted fields.');
             }
-            const result = instance.result;
-            return result;
+
+            return instance.result;
         });
+
         toast.promise(request, {
             loading: 'Checking your draft…',
             success: (result) => `${result?.username ?? 'Your username'} is available.`,
             error: 'Could not validate your draft',
-            errorDescription: () => draft.fields.allIssues()?.length ? 'Review the highlighted fields.' : 'Your draft is still here. Try again.'
+            errorDescription
         });
+
         await request.catch(() => undefined);
     })}
 >
@@ -71,7 +81,10 @@
         </Field.Group>
     </Fieldset.Root>
     <Form.Actions>
-        <Form.Submit {...draft.fields.intent.as('submit', 'validate')} loadingLabel="Checking">
+        <Form.Submit
+            {...draft.fields.intent.as('submit', 'validate')}
+            labels={{ loading: 'Checking' }}
+        >
             Validate draft
         </Form.Submit>
     </Form.Actions>

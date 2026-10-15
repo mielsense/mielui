@@ -5,6 +5,7 @@
     import HugeiconsIcon from '@mielui/svelte/hugeicons-icon';
 
     let deleted = $state(false);
+
     function confirmDeletion() {
         deleted = true;
     }

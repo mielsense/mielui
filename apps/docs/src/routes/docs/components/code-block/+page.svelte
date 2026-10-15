@@ -41,20 +41,28 @@
         command: playgroundCommand
     };
 
-    const usageSnippet = `import { CodeBlock } from '@mielui/svelte/components/code-block';
+    const usage = `<script lang="ts">
+    import { CodeBlock } from '@mielui/svelte/components/code-block';
+
+    const python = 'print("Hello")';
+    const javascript = "console.log('Hello');";
+</${'script'}>
 
 <CodeBlock
-  value="javascript"
-  tabs={[
-    { label: 'Python',     lang: 'python',     code: pyCode },
-    { label: 'JavaScript', lang: 'javascript', code: jsCode },
-  ]}
+    tabs={[
+        { label: 'Python', lang: 'python', code: python },
+        { label: 'JavaScript', lang: 'javascript', code: javascript }
+    ]}
 />`;
 
-    const customThemeSnippet = `import 'highlight.js/styles/github-dark.css';
-import { CodeBlock } from '@mielui/svelte/components/code-block';
+    const customThemeUsage = `<script lang="ts">
+    import 'highlight.js/styles/github-dark.css';
+    import { CodeBlock } from '@mielui/svelte/components/code-block';
 
-<CodeBlock code={code} lang="typescript" theme="custom" />`;
+    const code = 'const answer = 42;';
+</${'script'}>
+
+<CodeBlock {code} lang="typescript" theme="custom" />`;
 </script>
 
 <svelte:head>
@@ -85,7 +93,6 @@ import { CodeBlock } from '@mielui/svelte/components/code-block';
                         code={playgroundSnippets[values.content]}
                         lang={values.content === 'command' ? 'bash' : 'typescript'}
                         copy={values.copy}
-                        theme={values.theme}
                         showLineNumbers={values.showLineNumbers}
                         actions={values.actions ? playgroundActions : undefined}
                         class="max-w-xl"
@@ -109,37 +116,27 @@ import { CodeBlock } from '@mielui/svelte/components/code-block';
     <section id="usage" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Usage</Typography.H2>
         <Typography.Text variant="supporting">
-            The theme setting chrome.borders chooses "single" or "double" framing. Single is the
-            default. Single removes the extra frame while preserving content padding, composition,
-            and inset variants.
+            <InlineText
+                text={"Pass `code` and `lang` for a single snippet, or a `tabs` array for several languages. Bind `value` to read or set the active tab; it defaults to the first one."}
+            />
+        </Typography.Text>
+        <CodeBlock code={usage} lang="svelte" copy="overlay" />
+        <Typography.Text variant="supporting">
+            A single snippet is a named code region. Several snippets use tabs and tab panels. When
+            the active tab is removed or disabled, the first enabled tab takes over, and the copy
+            button follows it.
         </Typography.Text>
         <Typography.Text variant="supporting">
-            Pass a{' '}
-            <Typography.InlineCode>tabs</Typography.InlineCode>
-            array for the multi-language form, or{' '}
-            <Typography.InlineCode>code</Typography.InlineCode>
-            +
-            <Typography.InlineCode>lang</Typography.InlineCode>
-            for a single snippet:
+            <InlineText
+                text={"The built-in palette is GitHub light in light mode and GitHub dark in dark mode. For any other `highlight.js` theme, set `theme=\"custom\"` and load its stylesheet; the component then skips its own token colors."}
+            />
         </Typography.Text>
+        <CodeBlock code={customThemeUsage} lang="svelte" copy="overlay" />
         <Typography.Text variant="supporting">
-            Dynamic tab collections follow the current trigger order, including custom compositions.
-            Removing or disabling the active trigger selects the first enabled trigger; copy actions
-            and panel direction follow that selection.
+            <InlineText
+                text={"The theme's `chrome.borders` setting chooses `single` or `double` framing. `single` is the default."}
+            />
         </Typography.Text>
-        <Typography.Text variant="supporting">
-            A single snippet is a named code region. Multiple snippets use tabs and tab panels.
-        </Typography.Text>
-        <CodeBlock code={usageSnippet} lang="svelte" copy="overlay" />
-        <Typography.Text variant="supporting">
-            The built-in palette is GitHub light in light mode and GitHub dark in dark mode. For any
-            other
-            <Typography.InlineCode>highlight.js</Typography.InlineCode>
-            theme, set
-            <Typography.InlineCode>theme="custom"</Typography.InlineCode>
-            and load its stylesheet. The component skips its own token colors:
-        </Typography.Text>
-        <CodeBlock code={customThemeSnippet} lang="svelte" copy="overlay" />
     </section>
 
     <section id="examples" class="scroll-mt-20 flex flex-col gap-10">
@@ -180,6 +177,11 @@ import { CodeBlock } from '@mielui/svelte/components/code-block';
 
         <div id="custom-actions" class="scroll-mt-20 flex flex-col gap-3">
             <Typography.H3 class="docs-subsection-heading">Custom actions</Typography.H3>
+            <Typography.Text variant="supporting">
+                Put editor or run buttons in Actions and handle their result in your application.
+                This example edits a local query and reports a simulated result; it sends no
+                request.
+            </Typography.Text>
             <ComponentPreview code={CustomActionsSrc}>
                 <CustomActions />
             </ComponentPreview>
@@ -233,37 +235,37 @@ import { CodeBlock } from '@mielui/svelte/components/code-block';
             </ComponentPreview>
         </div>
     </section>
-    <section id="working-example" class="flex scroll-mt-20 flex-col gap-4">
-        <Typography.H2 class="docs-section-heading">Copy and custom actions</Typography.H2>
-        <Typography.Text>
-            CodeBlock.Copy copies the active snippet. Keep editor or run actions inside Actions and
-            handle their result in your application. This example edits a local query and reports a
-            simulated result; it does not connect to a database.
-        </Typography.Text>
-    </section>
-
-    <section id="labels" class="flex scroll-mt-20 flex-col gap-4">
+    <section id="labels" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Labels</Typography.H2>
-        <Typography.Text>
-            Built-in text is English by default. Pass labels to CodeBlock to translate or reword the
-            code region and the copy button. Every key is optional; omitted keys keep their default.
+        <Typography.Text variant="supporting">
+            <InlineText
+                text={"Built-in text is English by default. Pass `labels` to CodeBlock or Root to translate or reword the code region's name and the copy button. Every key of `CodeBlockLabels` is optional; omitted keys keep their default."}
+            />
         </Typography.Text>
         <CodeBlock
-            code={`<CodeBlock {code} lang="ts" labels={{ code: 'Code', copy: 'Copier le code', copied: 'Copié' }} />`}
+            code={`<CodeBlock
+    {code}
+    lang="ts"
+    labels={{
+        code: 'Code',
+        copy: 'Copier le code',
+        copied: 'Copié'
+    }}
+/>`}
             lang="svelte"
             copy="overlay"
         />
     </section>
-    <section id="copy-and-parts" class="flex flex-col gap-4">
+    <section id="copy-and-parts" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Copy button and parts</Typography.H2>
         <Typography.Text variant="supporting">
             <InlineText
-                text={"Copy shows a short confirmation after it copies. `copiedLabel` is that text. Trigger is the tab for one language in a multi-language block, and `disabled` greys out a tab whose snippet is not ready."}
+                text={"Copy copies the active snippet and shows a short confirmation. Its tooltip and accessible name come from `labels.copy` and `labels.copied` on Root, Copy code and Copied by default. Trigger is the tab for one language in a multi-language block, and `disabled` greys out a tab whose snippet is not ready."}
             />
         </Typography.Text>
         <Typography.Text variant="supporting">
             <InlineText
-                text={"CodeBlock, Header, List, Trigger, Actions, Copy and Content render their `children` and accept `class` and `style` like any element."}
+                text={"Every part takes `class`, and the parts that wrap content render their `children`."}
             />
         </Typography.Text>
     </section>

@@ -1,6 +1,5 @@
 import {
     attributes,
-    BUTTON_VARIANTS,
     changed,
     compact,
     defaultOn,
@@ -12,7 +11,6 @@ import {
 export const controls = {
     size: select('Size', ['sm', 'md', 'lg', 'xl'], 'lg'),
     orientation: select('Orientation', ['horizontal', 'vertical'], 'horizontal', 'Appearance'),
-    trigger: select('Trigger variant', BUTTON_VARIANTS, 'primary', 'Appearance'),
     glass: toggle('Glass surface', 'Appearance'),
     description: toggle('Description', 'Content', true),
     body: toggle('Body', 'Content', true),
@@ -20,8 +18,7 @@ export const controls = {
     showClose: toggle('Close button', 'Content', true),
     error: toggle('Destructive', 'State'),
     allowClickOutside: toggle('Close on outside press', 'Behavior', true),
-    allowEscape: toggle('Close on Escape', 'Behavior', true),
-    role: select('Role', ['dialog', 'alertdialog'], 'dialog', 'Behavior')
+    allowEscape: toggle('Close on Escape', 'Behavior', true)
 };
 
 type Values = PlaygroundValues<typeof controls>;
@@ -32,13 +29,9 @@ export function code(values: Values): string {
         orientation: changed(values.orientation, 'horizontal'),
         error: values.error
     });
-    const trigger = attributes({
-        variant: changed(values.trigger, 'primary')
-    });
     const content = attributes({
         size: changed(values.size, defaultSize),
         surface: values.glass && 'glass',
-        role: changed(values.role, 'dialog'),
         showClose: defaultOn(values.showClose),
         allowClickOutside: defaultOn(values.allowClickOutside),
         allowEscape: defaultOn(values.allowEscape)
@@ -77,7 +70,7 @@ export function code(values: Values): string {
 </script>
 
 <Dialog.Root${root}>
-    <Dialog.Trigger${trigger}>Rename project</Dialog.Trigger>
+    <Dialog.Trigger>Rename project</Dialog.Trigger>
     <Dialog.Content${content}>
         <Dialog.Header>
             <Dialog.Title>Rename project</Dialog.Title>${description}

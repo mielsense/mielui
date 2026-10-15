@@ -10,12 +10,6 @@ import {
 export const controls = {
     side: select('Side', ['bottom', 'top', 'left', 'right'], 'bottom'),
     align: select('Align', ['start', 'center', 'end'], 'center', 'Appearance'),
-    sideOffset: number('Side offset', 8, {
-        min: 0,
-        max: 32,
-        step: 1,
-        group: 'Appearance'
-    }),
     glass: toggle('Glass surface', 'Appearance'),
     title: toggle('Title', 'Content', true),
     description: toggle('Description', 'Content', true),
@@ -47,7 +41,6 @@ export function code(values: Values): string {
     const content = attributes({
         side: changed(values.side, 'bottom'),
         align: changed(values.align, 'center'),
-        sideOffset: changed(values.sideOffset, 8),
         surface: values.glass && 'glass'
     });
     const title = values.title

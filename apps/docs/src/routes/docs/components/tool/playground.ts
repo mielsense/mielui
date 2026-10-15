@@ -16,8 +16,7 @@ export const controls = {
     details: toggle('Item details', 'Content', true),
     sections: toggle('Input and output', 'Content'),
     state: select('State', ['running', 'complete', 'error'], 'complete', 'State'),
-    open: toggle('Open', 'State', true),
-    composed: toggle('Composed', 'Behavior')
+    open: toggle('Open', 'State', true)
 };
 
 export function code(values: PlaygroundValues<typeof controls>): string {
@@ -26,8 +25,7 @@ export function code(values: PlaygroundValues<typeof controls>): string {
         state: changed(values.state, 'running'),
         duration: values.duration,
         variant: changed(values.variant, 'default'),
-        open: defaultOn(values.open),
-        composed: values.composed
+        open: defaultOn(values.open)
     });
     const bash = attributes({
         name: 'Bash',
@@ -50,20 +48,13 @@ export function code(values: PlaygroundValues<typeof controls>): string {
               '<Tool.Output>Checked 214 files. No fixes applied.</Tool.Output>'
           ]
         : [];
-    const indent = values.composed ? '        ' : '    ';
-    const body = [...items, ...sections].map((line) => `${indent}${line}`).join('\n');
-    const children = values.composed
-        ? `    <Tool.Trigger />
-    <Tool.Content>
-${body}
-    </Tool.Content>`
-        : body;
+    const body = [...items, ...sections].map((line) => `    ${line}`).join('\n');
 
     return `<script lang="ts">
     import * as Tool from '@mielui/svelte/components/tool';
 </script>
 
 <Tool.Root${props}>
-${children}
+${body}
 </Tool.Root>`;
 }

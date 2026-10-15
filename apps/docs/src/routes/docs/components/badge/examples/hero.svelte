@@ -2,10 +2,30 @@
     import { Badge } from '@mielui/svelte/components/badge';
 
     const deployments = [
-        { name: 'Production', detail: 'main · 2 minutes ago', label: 'Live', variant: 'success' },
-        { name: 'Preview', detail: 'feat/billing · building', label: 'Building', variant: 'info' },
-        { name: 'Staging', detail: 'release/0.3 · 1 hour ago', label: 'Failed', variant: 'error' },
-        { name: 'Archive', detail: 'v0.1 · last month', label: 'Paused', variant: 'outline' }
+        {
+            name: 'Production',
+            detail: 'main · 2 minutes ago',
+            label: 'Live',
+            variant: 'success'
+        },
+        {
+            name: 'Preview',
+            detail: 'feat/billing · building',
+            label: 'Building',
+            variant: 'info'
+        },
+        {
+            name: 'Staging',
+            detail: 'release/0.3 · 1 hour ago',
+            label: 'Failed',
+            variant: 'error'
+        },
+        {
+            name: 'Archive',
+            detail: 'v0.1 · last month',
+            label: 'Paused',
+            variant: 'outline'
+        }
     ] as const;
 </script>
 

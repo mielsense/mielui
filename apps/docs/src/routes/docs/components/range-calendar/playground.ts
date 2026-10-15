@@ -1,29 +1,19 @@
-import { changed, type PlaygroundValues, tag } from '$lib/components/docs/playground';
+import { type PlaygroundValues, tag } from '$lib/components/docs/playground';
 import {
+    calendarAttributes,
+    calendarControls,
     constraintAttributes,
-    constraintControls,
-    DEFAULT_LOCALE,
     dateImport,
-    formatAttributes,
-    formatControls,
-    headerControls,
     headerSnippet,
-    navigationAttributes,
-    navigationControls,
     rangeAttributes,
     rangeControls,
     rangeDeclaration,
-    script,
-    stateControls
+    script
 } from '$lib/components/docs/playground/calendar';
 
 export const controls = {
-    ...formatControls(),
-    ...headerControls,
-    ...stateControls,
-    ...constraintControls,
-    ...rangeControls,
-    ...navigationControls
+    ...calendarControls,
+    ...rangeControls
 };
 
 type Values = PlaygroundValues<typeof controls>;
@@ -34,13 +24,9 @@ export function code(values: Values): string {
         'RangeCalendar.Root',
         {
             calendarLabel: 'Travel dates',
-            locale: changed(values.locale, DEFAULT_LOCALE),
-            ...formatAttributes(values),
-            disabled: values.disabled,
-            readonly: values.readonly,
+            ...calendarAttributes(values),
             ...constraintAttributes(values),
-            ...rangeAttributes(values),
-            ...navigationAttributes(values)
+            ...rangeAttributes(values)
         },
         custom ? '>' : ' />',
         '    ',

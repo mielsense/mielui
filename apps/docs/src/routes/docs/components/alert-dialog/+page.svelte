@@ -17,6 +17,25 @@
     import SignOut from './examples/sign-out.svelte';
     import SignOutSrc from './examples/sign-out.svelte?raw';
     import { code as playgroundCode, controls as playgroundControls } from './playground';
+
+    const usage = `<script lang="ts">
+    import * as AlertDialog from '@mielui/svelte/components/alert-dialog';
+    import Kbd from '@mielui/svelte/components/kbd';
+</${'script'}>
+
+<AlertDialog.Root error>
+    <AlertDialog.Trigger variant="destructive">Delete</AlertDialog.Trigger>
+    <AlertDialog.Content size="lg">
+        <AlertDialog.Header>
+            <AlertDialog.Title>Delete this project?</AlertDialog.Title>
+            <AlertDialog.Description>This cannot be undone.</AlertDialog.Description>
+        </AlertDialog.Header>
+        <AlertDialog.Footer>
+            <AlertDialog.Exit>Cancel <Kbd shortcut="esc" /></AlertDialog.Exit>
+            <AlertDialog.Confirm>Delete <Kbd shortcut="enter" /></AlertDialog.Confirm>
+        </AlertDialog.Footer>
+    </AlertDialog.Content>
+</AlertDialog.Root>`;
 </script>
 
 <svelte:head>
@@ -36,9 +55,7 @@
         <Playground controls={playgroundControls} code={playgroundCode}>
             {#snippet children(values)}
                 <AlertDialog.Root error={values.error} orientation={values.orientation}>
-                    <AlertDialog.Trigger variant={values.trigger}
-                        >Delete project</AlertDialog.Trigger
-                    >
+                    <AlertDialog.Trigger variant="outline">Delete project</AlertDialog.Trigger>
                     <AlertDialog.Content
                         size={values.size}
                         surface={values.glass ? 'glass' : undefined}
@@ -55,9 +72,7 @@
                         </AlertDialog.Header>
                         <AlertDialog.Footer>
                             <AlertDialog.Exit>Cancel</AlertDialog.Exit>
-                            <AlertDialog.Confirm closeOnClick={values.closeOnClick}>
-                                Delete project
-                            </AlertDialog.Confirm>
+                            <AlertDialog.Confirm>Delete project</AlertDialog.Confirm>
                         </AlertDialog.Footer>
                     </AlertDialog.Content>
                 </AlertDialog.Root>
@@ -73,22 +88,16 @@
     <section id="usage" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Usage</Typography.H2>
         <Typography.Text variant="supporting">
-            The theme setting chrome.borders chooses "single" or "double" framing. Single is the
-            default. Single removes the extra frame while preserving content padding, composition,
-            and inset variants.
+            <InlineText
+                text={"Confirm and Exit call `onclick` before closing. Call `event.preventDefault()` to keep the alert dialog open, or set `closeOnClick={false}` for asynchronous work. Both support `bind:element`. Focus starts on Exit when the dialog opens. Set `ariaBusy` on Content while a confirmation is pending."}
+            />
         </Typography.Text>
-        <Typography.Text>
-            Confirm and Exit call onclick before closing. Prevent default to keep the alert dialog
-            open, or set closeOnClick to false for asynchronous work. Both forward bind:element.
-            Exit supplies the initial cancel-focus target; mounting another Exit later does not
-            steal focus. Content accepts ariaBusy while confirmation is pending.
+        <Typography.Text variant="supporting">
+            <InlineText
+                text={"The theme's `chrome.borders` setting chooses `single` or `double` framing. `single` is the default."}
+            />
         </Typography.Text>
-
-        <CodeBlock
-            code={`import * as AlertDialog from '@mielui/svelte/components/alert-dialog';\nimport Kbd from '@mielui/svelte/components/kbd';\n\n<AlertDialog.Root orientation="vertical">\n  <AlertDialog.Trigger>Delete</AlertDialog.Trigger>\n  <AlertDialog.Content size="lg">\n    <AlertDialog.Header>\n      <AlertDialog.Title>Delete?</AlertDialog.Title>\n      <AlertDialog.Description>This cannot be undone.</AlertDialog.Description>\n    </AlertDialog.Header>\n    <AlertDialog.Footer>\n      <AlertDialog.Exit>Cancel <Kbd shortcut="esc" /></AlertDialog.Exit>\n      <AlertDialog.Confirm>Delete <Kbd shortcut="enter" /></AlertDialog.Confirm>\n    </AlertDialog.Footer>\n  </AlertDialog.Content>\n</AlertDialog.Root>`}
-            lang="svelte"
-            copy="overlay"
-        />
+        <CodeBlock code={usage} lang="svelte" copy="overlay" />
     </section>
 
     <section id="examples" class="scroll-mt-20 flex flex-col gap-10">
@@ -122,17 +131,16 @@
             </ComponentPreview>
         </div>
     </section>
-    <section id="glass" class="flex flex-col gap-4">
+    <section id="glass" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Glass surface</Typography.H2>
         <Typography.Text variant="supporting">
-            Set surface="glass" on AlertDialog.Content for a translucent background with blur. Omit
-            surface to inherit --mielui-surface from your theme, or set surface="solid" to override
-            it. The glass surface keeps an opaque fallback when backdrop filtering is unavailable
-            and respects reduced-transparency preferences.
+            <InlineText
+                text={"Set `surface=\"glass\"` on Content for a translucent, blurred background. Omit `surface` to inherit `--mielui-surface` from the theme, or set `surface=\"solid\"` to override it. Glass falls back to an opaque surface when backdrop filtering is unavailable or reduced transparency is requested."}
+            />
         </Typography.Text>
         <ComponentPreview code={GlassSrc}><Glass /></ComponentPreview>
     </section>
-    <section id="keeping-it-open" class="flex flex-col gap-4">
+    <section id="keeping-it-open" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Keeping it open</Typography.H2>
         <Typography.Text variant="supporting">
             <InlineText
@@ -141,23 +149,23 @@
         </Typography.Text>
         <Typography.Text variant="supporting">
             <InlineText
-                text={"Confirm and Exit close the dialog after `onclick`. Call `event.preventDefault()` there to keep it open while you work, and show progress with `loading` and `loadingLabel`. `onOpenChange` on Root tells you each time it opens or closes, whichever way that happened."}
+                text={"Confirm and Exit close the dialog after `onclick`. Call `event.preventDefault()` there to keep it open while you work, and show progress with `loading` and `labels`. `onOpenChange` on Root tells you each time it opens or closes, whichever way that happened."}
             />
         </Typography.Text>
         <ComponentPreview code={AsyncDeleteExampleSrc}>
             <AsyncDeleteExample />
         </ComponentPreview>
     </section>
-    <section id="parts" class="flex flex-col gap-4">
+    <section id="parts" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Buttons and text parts</Typography.H2>
         <Typography.Text variant="supporting">
             <InlineText
-                text={"Trigger, Exit and Confirm are built on [Button](/docs/components/button), so they accept its props. `variant` and `size` change the look, `disabled` blocks activation, and `href` renders a link. `loading` shows a spinner and ignores clicks, and `loadingLabel`, `successLabel` and `errorLabel` set the text for each state. `unstyled` removes the Button classes so `class` alone styles the part. `onclick` and `onkeydown` run before the part does its own work. Confirm is destructive when Root has `error`."}
+                text={"Trigger, Exit and Confirm are built on [Button](/docs/components/button), so they accept its props. `variant` and `size` change the look, `disabled` blocks activation, and `href` renders a link. `loading` shows a spinner and ignores clicks, and `labels` sets the text for each state. `unstyled` removes the Button classes so `class` alone styles the part. `onclick` and `onkeydown` run before the part does its own work. Confirm is destructive when Root has `error`."}
             />
         </Typography.Text>
         <Typography.Text variant="supporting">
             <InlineText
-                text={"Header, Title, Description and Footer render their `children` and accept `class` and `style` like any element."}
+                text={"Header, Title, Description and Footer render their `children` and take `class`."}
             />
         </Typography.Text>
     </section>

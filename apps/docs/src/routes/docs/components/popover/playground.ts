@@ -3,8 +3,6 @@ import {
     BUTTON_VARIANTS,
     CONTROL_SIZES,
     changed,
-    defaultOn,
-    number,
     PLACEMENTS,
     type PlaygroundValues,
     select,
@@ -13,54 +11,30 @@ import {
 
 export const controls = {
     placement: select('Placement', PLACEMENTS, 'bottom'),
-    variant: select('Trigger variant', BUTTON_VARIANTS, 'outline', 'Appearance'),
+    variant: select('Trigger variant', BUTTON_VARIANTS, 'primary', 'Appearance'),
     size: select('Trigger size', CONTROL_SIZES, 'md', 'Appearance'),
+    icon: toggle('Chevron', 'Appearance'),
     glass: toggle('Glass surface', 'Appearance'),
     title: toggle('Title', 'Content', true),
     disabled: toggle('Disabled trigger', 'State'),
-    hoverable: toggle('Open on hover', 'Behavior'),
-    delay: number('Open delay', 0, {
-        min: 0,
-        max: 1000,
-        step: 50,
-        group: 'Behavior'
-    }),
-    closeDelay: number('Close delay', 150, {
-        min: 0,
-        max: 1000,
-        step: 50,
-        group: 'Behavior'
-    }),
-    inert: toggle('Inert page', 'Behavior', true),
-    allowClickOutside: toggle('Close on outside press', 'Behavior', true),
-    dismissLayer: toggle('Dismiss layer', 'Behavior', true),
-    focusTrap: toggle('Trap focus', 'Behavior', true),
-    lockScroll: toggle('Lock scroll', 'Behavior', true),
-    portal: toggle('Portal', 'Behavior', true)
+    hoverable: toggle('Open on hover', 'Behavior')
 };
 
 export function code(values: PlaygroundValues<typeof controls>): string {
     const root = attributes({
         placement: changed(values.placement, 'bottom'),
-        hoverable: values.hoverable,
-        delay: changed(values.delay, 0),
-        closeDelay: changed(values.closeDelay, 150),
-        inert: defaultOn(values.inert)
+        hoverable: values.hoverable
     });
     const trigger = attributes({
         variant: changed(values.variant, 'primary'),
         size: changed(values.size, 'md'),
+        icon: values.icon,
         disabled: values.disabled
     });
     const content = attributes({
         class: 'w-64',
         'aria-label': !values.title && 'Notifications',
-        surface: values.glass && 'glass',
-        allowClickOutside: defaultOn(values.allowClickOutside),
-        dismissLayer: defaultOn(values.dismissLayer),
-        focusTrap: defaultOn(values.focusTrap),
-        lockScroll: defaultOn(values.lockScroll),
-        portal: defaultOn(values.portal)
+        surface: values.glass && 'glass'
     });
     const title = values.title
         ? `

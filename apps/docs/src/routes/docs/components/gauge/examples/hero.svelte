@@ -5,6 +5,7 @@
     import { fromAction } from 'svelte/attachments';
 
     let usage = $state(72);
+
     function updateUsage() {
         usage = usage === 72 ? 91 : 72;
     }

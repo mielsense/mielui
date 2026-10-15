@@ -1,6 +1,5 @@
 import {
     attributes,
-    BUTTON_VARIANTS,
     changed,
     compact,
     defaultOn,
@@ -11,21 +10,17 @@ import {
 
 export const controls = {
     side: select('Side', ['right', 'left'], 'right'),
-    trigger: select('Trigger variant', BUTTON_VARIANTS, 'primary', 'Appearance'),
-    glass: toggle('Glass surface', 'Appearance'),
+    surface: select('Surface', ['inherit', 'solid', 'glass'], 'inherit', 'Appearance'),
     description: toggle('Description', 'Content', true),
-    footer: toggle('Footer', 'Content', true),
     close: toggle('Close button', 'Content', true),
+    footer: toggle('Footer', 'Content', true),
     allowClickOutside: toggle('Close on outside press', 'Behavior', true)
 };
 
 export function code(values: PlaygroundValues<typeof controls>): string {
-    const trigger = attributes({
-        variant: changed(values.trigger, 'primary')
-    });
     const content = attributes({
         side: changed(values.side, 'right'),
-        surface: values.glass && 'glass',
+        surface: changed(values.surface, 'inherit'),
         allowClickOutside: defaultOn(values.allowClickOutside)
     });
     const header = attributes({
@@ -62,7 +57,7 @@ export function code(values: PlaygroundValues<typeof controls>): string {
 </script>
 
 <Sheet.Root bind:open>
-    <Sheet.Trigger${trigger}>Edit profile</Sheet.Trigger>
+    <Sheet.Trigger>Edit profile</Sheet.Trigger>
     <Sheet.Content${content}>
         <Sheet.Header${header}>
             <Sheet.Title>Edit profile</Sheet.Title>${description}

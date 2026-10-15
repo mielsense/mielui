@@ -5,21 +5,28 @@
     import { ComponentPreview, InstallCommand, Playground } from '$lib/components/docs';
     import InlineText from '$lib/components/docs/inline-text.svelte';
     import PageIntro from '$lib/components/docs/page-intro.svelte';
-
     import MultipleMode from './examples/multiple-mode.svelte';
     import MultipleModeSrc from './examples/multiple-mode.svelte?raw';
     import SingleMode from './examples/single-mode.svelte';
     import SingleModeSrc from './examples/single-mode.svelte?raw';
     import { code as playgroundCode, controls as playgroundControls } from './playground';
 
-    const TITLE = 'Accordion';
+    const usage = `<script lang="ts">
+    import * as Accordion from '@mielui/svelte/components/accordion';
+
+    let open = $state<string | undefined>('billing');
+</${'script'}>
+
+<Accordion.Root bind:value={open}>
+    <Accordion.Item value="billing">
+        <Accordion.Trigger>Billing</Accordion.Trigger>
+        <Accordion.Content>Change your plan from Billing.</Accordion.Content>
+    </Accordion.Item>
+</Accordion.Root>`;
 </script>
 
 <svelte:head>
-    <title>
-        Mielui ·{' '}
-        {TITLE}
-    </title>
+    <title>Mielui · Accordion</title>
     <meta
         name="description"
         content="Stacked collapsible sections with single- and multi-open modes."
@@ -27,7 +34,7 @@
 </svelte:head>
 
 <div data-docs-page class="flex flex-col gap-10">
-    <PageIntro title={TITLE}>
+    <PageIntro title="Accordion">
         A vertical stack of collapsible sections. Single mode opens one at a time; multiple allows
         any combination.
     </PageIntro>
@@ -62,11 +69,7 @@
                         {@render items()}
                     </Accordion.Root>
                 {:else}
-                    <Accordion.Root
-                        value="access"
-                        collapsible={values.collapsible}
-                        class="w-full max-w-md"
-                    >
+                    <Accordion.Root value="access" class="w-full max-w-md">
                         {@render items()}
                     </Accordion.Root>
                 {/if}
@@ -81,27 +84,20 @@
 
     <section id="usage" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Usage</Typography.H2>
-        <Typography.Text>
-            Arrow keys move between enabled headers; Home and End jump to the first and last header.
-            Each item generates its own trigger and content IDs. Setting collapsible to false keeps
-            the active single item open.
-        </Typography.Text>
-
         <Typography.Text variant="supporting">
-            Single mode uses a string value and reports undefined when cleared. With
-            type="multiple", bind a string array; clearing all selections reports an empty array.
-            The value and onValueChange types follow the selected mode.
+            Arrow keys move between enabled headers; Home and End jump to the first and last header.
+        </Typography.Text>
+        <Typography.Text variant="supporting">
+            <InlineText
+                text={"Single mode binds a string `value` and reports `undefined` when the open item closes. Set `collapsible={false}` to keep one item open at all times. With `type=\"multiple\"`, bind a string array; closing every item reports an empty array. The `value` and `onValueChange` types follow the mode."}
+            />
         </Typography.Text>
         <Typography.Text variant="supporting">
             Each trigger is the shared disclosure row used by Collapsible, Reasoning, and Tool: the
             small control height, a ghost hover fill, a rounded focus ring, and a trailing 14px
             chevron that turns upward while open.
         </Typography.Text>
-        <CodeBlock
-            code={`import * as Accordion from '@mielui/svelte/components/accordion';\n\n<Accordion.Root type="single">\n  <Accordion.Item value="a">\n    <Accordion.Trigger>Trigger</Accordion.Trigger>\n    <Accordion.Content>Content</Accordion.Content>\n  </Accordion.Item>\n</Accordion.Root>`}
-            lang="svelte"
-            copy="overlay"
-        />
+        <CodeBlock code={usage} lang="svelte" copy="overlay" />
     </section>
 
     <section id="examples" class="scroll-mt-20 flex flex-col gap-10">
@@ -123,7 +119,7 @@
             </ComponentPreview>
         </div>
     </section>
-    <section id="parts" class="flex flex-col gap-4">
+    <section id="parts" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Parts</Typography.H2>
         <Typography.Text variant="supporting">
             <InlineText
@@ -131,9 +127,7 @@
             />
         </Typography.Text>
         <Typography.Text variant="supporting">
-            <InlineText
-                text={"Root, Item, Trigger and Content render their `children` and accept `class` and `style` like any element."}
-            />
+            <InlineText text={"Every part renders its `children` and takes `class`."} />
         </Typography.Text>
     </section>
 </div>

@@ -2,11 +2,21 @@
     import * as ReorderList from '@mielui/svelte/components/reorder-list';
 
     let items = $state([
-        { id: 'brief', name: 'Project brief' },
-        { id: 'design', name: 'Design review' },
-        { id: 'release', name: 'Release notes' }
+        {
+            id: 'brief',
+            name: 'Project brief'
+        },
+        {
+            id: 'design',
+            name: 'Design review'
+        },
+        {
+            id: 'release',
+            name: 'Release notes'
+        }
     ]);
 </script>
+
 <ReorderList.Root
     bind:items
     getId={(item) => item.id}

@@ -13,21 +13,27 @@
     import HeroSrc from './examples/hero.svelte?raw';
     import { code as playgroundCode, controls as playgroundControls } from './playground';
 
-    const TITLE = 'Collapsible';
-
     let playgroundOpen = $state(true);
+
+    const usage = `<script lang="ts">
+    import * as Collapsible from '@mielui/svelte/components/collapsible';
+
+    let open = $state(false);
+</${'script'}>
+
+<Collapsible.Root bind:open>
+    <Collapsible.Trigger>Delivery details</Collapsible.Trigger>
+    <Collapsible.Content>Delivery takes 3 to 5 business days.</Collapsible.Content>
+</Collapsible.Root>`;
 </script>
 
 <svelte:head>
-    <title>
-        Mielui ·{' '}
-        {TITLE}
-    </title>
-    <meta name="description" content="A single collapsible panel with open/close toggle." />
+    <title>Mielui · Collapsible</title>
+    <meta name="description" content="A single panel that expands and collapses." />
 </svelte:head>
 
 <div data-docs-page class="flex flex-col gap-10">
-    <PageIntro title={TITLE}>A single panel that expands and collapses on demand.</PageIntro>
+    <PageIntro title="Collapsible">A single panel that expands and collapses on demand.</PageIntro>
 
     <section id="hero" class="scroll-mt-20 flex flex-col gap-4">
         <Playground controls={playgroundControls} code={playgroundCode}>
@@ -67,32 +73,17 @@
 
     <section id="usage" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Usage</Typography.H2>
-        <Typography.Text>
-            Compose Trigger and Content inside Root. Bind{' '}
-            <Typography.InlineCode>open</Typography.InlineCode>
-            {' '}
-            to control the panel from another part of your page. Set{' '}
-            <Typography.InlineCode>disabled</Typography.InlineCode>
-            {' '}
-            on Root to prevent toggling. The content transition respects reduced motion.
+        <Typography.Text variant="supporting">
+            <InlineText
+                text={"Compose Trigger and Content inside Root. Bind `open` to control the panel from elsewhere on the page, and set `disabled` on Root to prevent toggling. The content transition respects reduced motion."}
+            />
         </Typography.Text>
         <Typography.Text variant="supporting">
-            Trigger renders the shared disclosure row used by Accordion, Reasoning, and Tool: the
-            small control height, a ghost hover fill, and a rounded focus ring. It sizes to its
-            content; add{' '}
-            <Typography.InlineCode>w-full justify-between</Typography.InlineCode>
-            {' '}
-            for a full-width row. Put a 14px{' '}
-            <Typography.InlineCode>ArrowDown01Icon</Typography.InlineCode>
-            {' '}
-            after the label and rotate it 180 degrees while open, as the first example does.
+            <InlineText
+                text={"Trigger is the shared disclosure row used by Accordion, Reasoning, and Tool. It sizes to its content; add `w-full justify-between` for a full-width row. For a chevron, put a 14px `ArrowDown01Icon` after the label and rotate it 180 degrees while open, as the first example does."}
+            />
         </Typography.Text>
-
-        <CodeBlock
-            code={`import * as Collapsible from '@mielui/svelte/components/collapsible';\n\nlet open = $state();\n\n<Collapsible.Root bind:open>\n  <Collapsible.Trigger>Trigger</Collapsible.Trigger>\n  <Collapsible.Content>Content</Collapsible.Content>\n</Collapsible.Root>`}
-            lang="svelte"
-            copy="overlay"
-        />
+        <CodeBlock code={usage} lang="svelte" copy="overlay" />
     </section>
 
     <section id="examples" class="scroll-mt-20 flex flex-col gap-10">
@@ -117,7 +108,7 @@
             </ComponentPreview>
         </div>
     </section>
-    <section id="parts" class="flex flex-col gap-4">
+    <section id="parts" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Parts</Typography.H2>
         <Typography.Text variant="supporting">
             <InlineText
@@ -126,7 +117,7 @@
         </Typography.Text>
         <Typography.Text variant="supporting">
             <InlineText
-                text={"Root, Trigger and Content render their `children` and accept `class` and `style` like any element."}
+                text={"Root renders no element of its own; it holds the open state. Trigger and Content render their `children` and take `class`, and Trigger passes button attributes such as `id`."}
             />
         </Typography.Text>
     </section>

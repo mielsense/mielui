@@ -1,12 +1,23 @@
 <script lang="ts">
     import * as FileUpload from '@mielui/svelte/components/file-upload';
 
-    async function prepare(
-        _file: File,
-        { signal }: Parameters<FileUpload.FileUploadProps['onUpload']>[1]
-    ) {
+    type UploadOptions = Parameters<FileUpload.FileUploadProps['onUpload']>[1];
+
+    async function prepare(_file: File, { signal }: UploadOptions) {
         signal.throwIfAborted();
         await Promise.resolve();
+    }
+
+    function statusText(item: FileUpload.FileUploadEntry) {
+        if (item.status === 'error') {
+            return item.error;
+        }
+
+        if (item.status === 'complete') {
+            return 'Ready on this device';
+        }
+
+        return 'Preparing photo…';
     }
 </script>
 
@@ -31,9 +42,7 @@
                         <FileUpload.Preview />
                         <div class="min-w-0 flex-1 space-y-2">
                             <FileUpload.Details />
-                            <FileUpload.Status>
-                                {item.status === 'error' ? item.error : item.status === 'complete' ? 'Ready on this device' : 'Preparing photo…'}
-                            </FileUpload.Status>
+                            <FileUpload.Status>{statusText(item)}</FileUpload.Status>
                         </div>
                         <FileUpload.Remove size="sm" variant="ghost">Remove</FileUpload.Remove>
                     </FileUpload.Item>

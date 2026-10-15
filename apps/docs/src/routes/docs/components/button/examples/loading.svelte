@@ -36,9 +36,11 @@
     <Switch bind:checked={failNext} disabled={status === 'loading'} label="Fail the next attempt" />
     <Button
         {status}
-        loadingLabel="Publishing…"
-        successLabel="Published"
-        errorLabel="Retry"
+        labels={{
+            loading: 'Publishing…',
+            success: 'Published',
+            error: 'Retry'
+        }}
         onclick={publish}
     >
         Publish

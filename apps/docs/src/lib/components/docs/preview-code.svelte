@@ -74,8 +74,7 @@
         </div>
         <CopyButton
             text={code}
-            label="Copy code"
-            copiedLabel="Copied"
+            labels={{ copy: 'Copy code', copied: 'Copied' }}
             class="absolute end-2 top-2 text-foreground-muted hover:text-foreground"
         />
         {#if collapsible}

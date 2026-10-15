@@ -9,8 +9,8 @@
     import PageIntro from '$lib/components/docs/page-intro.svelte';
     import Disabled from './examples/disabled.svelte';
     import DisabledSrc from './examples/disabled.svelte?raw';
-    import EventsExample from './examples/events.svelte';
-    import EventsExampleSrc from './examples/events.svelte?raw';
+    import Events from './examples/events.svelte';
+    import EventsSrc from './examples/events.svelte?raw';
     import Hero from './examples/hero.svelte';
     import HeroSrc from './examples/hero.svelte?raw';
     import Icon from './examples/icon.svelte';
@@ -21,21 +21,26 @@
     import TextSrc from './examples/text.svelte?raw';
     import { code as playgroundCode, controls as playgroundControls } from './playground';
 
-    const TITLE = 'Toggle';
+    const usageCode = `<script lang="ts">
+    import { TextBoldIcon as Bold } from '@hugeicons/core-free-icons';
+    import { Toggle } from '@mielui/svelte/components/toggle';
+    import HugeiconsIcon from '@mielui/svelte/hugeicons-icon';
+
+    let bold = $state(false);
+</${'script'}>
+
+<Toggle bind:pressed={bold} aria-label="Bold">
+    <HugeiconsIcon icon={Bold} size={14} />
+</Toggle>`;
 </script>
 
 <svelte:head>
-    <title>
-        Mielui ·{' '}
-        {TITLE}
-    </title>
+    <title>Mielui · Toggle</title>
     <meta name="description" content="A two-state button that is pressed or unpressed." />
 </svelte:head>
 
 <div data-docs-page class="flex flex-col gap-10">
-    <PageIntro title={TITLE}>
-        A button with an on/off pressed state. Comes in several sizes.
-    </PageIntro>
+    <PageIntro title="Toggle">A button that stays pressed until it is pressed again.</PageIntro>
 
     <section id="hero" class="scroll-mt-20 flex flex-col gap-4">
         <Playground controls={playgroundControls} code={playgroundCode}>
@@ -65,18 +70,12 @@
 
     <section id="usage" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Usage</Typography.H2>
-        <Typography.Text>
-            Keyboard activation and pointer activation update pressed through the same control. A
-            consumer event handler can prevent the default action before the pressed state changes.
-        </Typography.Text>
         <Typography.Text variant="supporting">
-            Import Toggle and bind its pressed state:
+            <InlineText
+                text={'Bind `pressed` to read or set the state. Put a label or an icon in `children`, and give an icon-only toggle an `aria-label`.'}
+            />
         </Typography.Text>
-        <CodeBlock
-            code={`import { Toggle } from '@mielui/svelte/components/toggle';\n\n<Toggle bind:pressed={bold}>\n  <Bold size={14} />\n</Toggle>`}
-            lang="svelte"
-            copy="overlay"
-        />
+        <CodeBlock code={usageCode} lang="svelte" copy="overlay" />
     </section>
 
     <section id="examples" class="scroll-mt-20 flex flex-col gap-10">
@@ -121,16 +120,17 @@
                 <Disabled />
             </ComponentPreview>
         </div>
-    </section>
-    <section id="events" class="flex flex-col gap-4">
-        <Typography.H2 class="docs-section-heading">Events</Typography.H2>
-        <Typography.Text variant="supporting">
-            <InlineText
-                text={"`onPressedChange` runs with the new state each time the toggle is pressed, for when you want to react without binding `pressed`. The label or icon goes in `children`."}
-            />
-        </Typography.Text>
-        <ComponentPreview code={EventsExampleSrc}>
-            <EventsExample />
-        </ComponentPreview>
+
+        <div id="events" class="scroll-mt-20 flex flex-col gap-3">
+            <Typography.H3 class="docs-subsection-heading">Events</Typography.H3>
+            <Typography.Text variant="supporting">
+                <InlineText
+                    text={'`onPressedChange` runs with the new state on every press, for when you want to react without binding `pressed`.'}
+                />
+            </Typography.Text>
+            <ComponentPreview code={EventsSrc}>
+                <Events />
+            </ComponentPreview>
+        </div>
     </section>
 </div>

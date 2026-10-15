@@ -13,6 +13,7 @@
         draft = name;
         editing = true;
     }
+
     function save(event: SubmitEvent) {
         event.preventDefault();
         name = draft.trim();

@@ -5,14 +5,23 @@
     import { columns, features, members } from './data';
 
     let loading = $state(false);
+
     const table = createTable({
         features,
         columns,
         data: members,
         getRowId: (member) => member.id,
-        initialState: { columnFilters: [{ id: 'name', value: 'No matching member' }] }
+        initialState: {
+            columnFilters: [
+                {
+                    id: 'name',
+                    value: 'No matching member'
+                }
+            ]
+        }
     });
 </script>
+
 <div class="flex w-full flex-col gap-4">
     <Button
         variant="secondary"

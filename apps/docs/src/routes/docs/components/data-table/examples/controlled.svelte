@@ -5,8 +5,15 @@
     import { createTable, createTableState, type SortingState } from '@tanstack/svelte-table';
     import { columns, features, members } from './data';
 
-    const [sorting, setSorting] = createTableState<SortingState>([{ id: 'name', desc: false }]);
+    const [sorting, setSorting] = createTableState<SortingState>([
+        {
+            id: 'name',
+            desc: false
+        }
+    ]);
+
     let data = $state(members.slice(0, 3));
+
     const table = createTable({
         features,
         columns,
@@ -22,6 +29,7 @@
         onSortingChange: setSorting
     });
 </script>
+
 <DataTable.Root {table} class="w-full">
     {#snippet children({ total })}
         <DataTable.Toolbar>
@@ -39,11 +47,16 @@
                 Show all members
             </Button>
         </DataTable.Toolbar>
-        <DataTable.View {table} caption="Team members" />
+        <DataTable.View
+            {table}
+            selectable
+            caption="Team members"
+            rowLabel={(row) => row.original.name}
+        />
         <DataTable.Summary {table}>
             {#snippet children({ selected })}
                 {selected}
-                selected · Pagination omitted in this composition
+                selected
             {/snippet}
         </DataTable.Summary>
     {/snippet}

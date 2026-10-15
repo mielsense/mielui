@@ -11,7 +11,7 @@
     ];
 </script>
 
-<ShowMore lines={2} maxHeight={112} label="Migration activity">
+<ShowMore lines={2} maxHeight={112} labels={{ region: 'Migration activity' }}>
     <div class="flex flex-col gap-2">
         {#each entries as entry (entry)}
             <p>{entry}</p>

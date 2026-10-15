@@ -1,8 +1,5 @@
-import type { HeadingLevel } from '@mielui/svelte/components/typography';
-
 const UNSAFE_IN_QUOTES = /["{}&]/;
 const UNSAFE_IN_TEXT = /[{}<&]/;
-const HEADING_LEVELS: readonly HeadingLevel[] = [1, 2, 3, 4, 5, 6];
 
 export type AttributeValue =
     | string
@@ -133,9 +130,4 @@ export function indent(source: string, depth = 4): string {
         .split('\n')
         .map((line) => (line ? `${prefix}${line}` : line))
         .join('\n');
-}
-
-/** The heading level a number stands for, or the default of 2 when it is out of range. */
-export function headingLevel(value: number): HeadingLevel {
-    return HEADING_LEVELS.find((level) => level === value) ?? 2;
 }

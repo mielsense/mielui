@@ -31,6 +31,26 @@
     import { code as playgroundCode, controls as playgroundControls } from './playground';
 
     let playgroundName = $state('Mielui docs');
+
+    const usageCode = `<script lang="ts">
+    import * as Dialog from '@mielui/svelte/components/dialog';
+    import Kbd from '@mielui/svelte/components/kbd';
+
+    let open = $state(false);
+</${'script'}>
+
+<Dialog.Root bind:open>
+    <Dialog.Trigger>Open</Dialog.Trigger>
+    <Dialog.Content>
+        <Dialog.Header>
+            <Dialog.Title>Title</Dialog.Title>
+        </Dialog.Header>
+        <Dialog.Footer>
+            <Dialog.Close>Cancel <Kbd shortcut="esc" /></Dialog.Close>
+            <Dialog.Confirm>Save <Kbd shortcut="enter" /></Dialog.Confirm>
+        </Dialog.Footer>
+    </Dialog.Content>
+</Dialog.Root>`;
 </script>
 
 <svelte:head>
@@ -47,11 +67,10 @@
         <Playground controls={playgroundControls} code={playgroundCode}>
             {#snippet children(values)}
                 <Dialog.Root orientation={values.orientation} error={values.error}>
-                    <Dialog.Trigger variant={values.trigger}>Rename project</Dialog.Trigger>
+                    <Dialog.Trigger>Rename project</Dialog.Trigger>
                     <Dialog.Content
                         size={values.size}
                         surface={values.glass ? 'glass' : undefined}
-                        role={values.role}
                         showClose={values.showClose}
                         allowClickOutside={values.allowClickOutside}
                         allowEscape={values.allowEscape}
@@ -89,32 +108,22 @@
     <section id="usage" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Usage</Typography.H2>
         <Typography.Text variant="supporting">
-            The theme setting chrome.borders chooses "single" or "double" framing. Single is the
-            default. Single removes the extra frame while preserving content padding, composition,
-            and inset variants.
+            <InlineText
+                text={"Bind `open` on Root to open or close the dialog from another control. `onOpenChange` runs when the dialog opens or closes itself; setting the bound value does not call it. Each Root keeps its own state."}
+            />
         </Typography.Text>
         <Typography.Text variant="supporting">
-            Close and Confirm forward bind:element to their rendered control. Their click callback
-            runs before dismissal and can cancel it with preventDefault.
+            <InlineText
+                text={"Include a Title, or give Content an `aria-label`. Description is optional. Focus, Escape, and outside presses are coordinated with nested overlays, so the topmost layer closes first."}
+            />
         </Typography.Text>
         <Typography.Text variant="supporting">
-            Bind open on Root when another control needs to open or close the panel. Use
-            onOpenChange to respond to changes initiated inside the component. Updating your bound
-            value directly does not call that callback again. Each Root keeps its own state, so
-            opening one instance does not change another.
-        </Typography.Text>
-        <Typography.Text variant="supporting">
-            Focus, Escape, and outside interactions are coordinated with nested overlays. Include a
-            Title or give Content an aria-label. Description is optional; removing it also removes
-            its accessible relationship. Trigger, Close, and Confirm click handlers can prevent the
-            default state change with event.preventDefault().
+            <InlineText
+                text={"The theme's `chrome.borders` setting chooses single framing, the default, or double framing around the panel."}
+            />
         </Typography.Text>
 
-        <CodeBlock
-            code={`import * as Dialog from '@mielui/svelte/components/dialog';\nimport Kbd from '@mielui/svelte/components/kbd';\n\nlet open = $state(false);\n\n<Dialog.Root bind:open orientation="horizontal">\n  <Dialog.Trigger>Open</Dialog.Trigger>\n  <Dialog.Content>\n    <Dialog.Header>\n      <Dialog.Title>Title</Dialog.Title>\n    </Dialog.Header>\n    <Dialog.Footer>\n      <Dialog.Close>Cancel <Kbd shortcut="esc" /></Dialog.Close>\n      <Dialog.Confirm>Save <Kbd shortcut="enter" /></Dialog.Confirm>\n    </Dialog.Footer>\n  </Dialog.Content>\n</Dialog.Root>`}
-            lang="svelte"
-            copy="overlay"
-        />
+        <CodeBlock code={usageCode} lang="svelte" copy="overlay" />
     </section>
 
     <section id="examples" class="scroll-mt-20 flex flex-col gap-10">
@@ -179,7 +188,8 @@
             </ComponentPreview>
         </div>
     </section>
-    <section id="glass" class="flex flex-col gap-4">
+
+    <section id="glass" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Glass surface</Typography.H2>
         <Typography.Text variant="supporting">
             Set surface="glass" on Dialog.Content for a translucent background with blur. Omit
@@ -187,9 +197,12 @@
             it. The glass surface keeps an opaque fallback when backdrop filtering is unavailable
             and respects reduced-transparency preferences.
         </Typography.Text>
-        <ComponentPreview code={GlassSrc}><Glass /></ComponentPreview>
+        <ComponentPreview code={GlassSrc}>
+            <Glass />
+        </ComponentPreview>
     </section>
-    <section id="dismissal" class="flex flex-col gap-4">
+
+    <section id="dismissal" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Dismissal</Typography.H2>
         <Typography.Text variant="supporting">
             <InlineText
@@ -205,23 +218,25 @@
             <RequiredChoiceExample />
         </ComponentPreview>
     </section>
-    <section id="action-buttons" class="flex flex-col gap-4">
+
+    <section id="action-buttons" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Action buttons</Typography.H2>
         <Typography.Text variant="supporting">
             <InlineText
-                text={"Close and Confirm close the dialog after their `onclick` runs. Call `event.preventDefault()` inside `onclick` to keep it open, then set `open` to false yourself when the work is done. Pair that with `loading` and `loadingLabel` so the button shows progress and ignores a second click."}
+                text={"Close and Confirm close the dialog after their `onclick` runs. Call `event.preventDefault()` inside `onclick` to keep it open, then set `open` to false yourself when the work is done. Pair that with `loading` and `labels` so the button shows progress and ignores a second click."}
             />
         </Typography.Text>
         <Typography.Text variant="supporting">
             <InlineText
-                text={"Trigger, Close and Confirm are built on [Button](/docs/components/button), so they accept its props. `variant` and `size` change the look, `disabled` blocks activation, and `href` renders a link. `loading` shows a spinner and ignores clicks, and `loadingLabel`, `successLabel` and `errorLabel` set the text for each state. `unstyled` removes the Button classes so `class` alone styles the part. `onclick` and `onkeydown` run before the part does its own work. Confirm defaults to the primary variant and Close to ghost."}
+                text={"Trigger, Close and Confirm are built on [Button](/docs/components/button), so they accept its props. `variant` and `size` change the look, `disabled` blocks activation, and `href` renders a link. `loading` shows a spinner and ignores clicks, and `labels` sets the text for each state. `unstyled` removes the Button classes so `class` alone styles the part. `onclick` and `onkeydown` run before the part does its own work. Confirm defaults to the primary variant and Close to ghost."}
             />
         </Typography.Text>
         <ComponentPreview code={AsyncConfirmExampleSrc}>
             <AsyncConfirmExample />
         </ComponentPreview>
     </section>
-    <section id="destructive" class="flex flex-col gap-4">
+
+    <section id="destructive" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Destructive dialogs</Typography.H2>
         <Typography.Text variant="supporting">
             <InlineText
@@ -232,7 +247,8 @@
             <DestructiveExample />
         </ComponentPreview>
     </section>
-    <section id="styling-layers" class="flex flex-col gap-4">
+
+    <section id="styling-layers" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Styling the layers</Typography.H2>
         <Typography.Text variant="supporting">
             <InlineText
@@ -250,15 +266,23 @@
             />
         </Typography.Text>
     </section>
-    <section id="labels" class="flex scroll-mt-20 flex-col gap-4">
+
+    <section id="labels" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Labels</Typography.H2>
-        <Typography.Text>
-            Built-in text is English by default. Pass labels to Dialog.Root to translate the
-            accessible name of the close button. Every key is optional; omitted keys keep their
-            default.
+        <Typography.Text variant="supporting">
+            <InlineText
+                text={"Built-in text is English. Pass a `labels` object to Root to translate the accessible name of the corner close button. `DialogLabels` types it; every key is optional and omitted keys keep their English default."}
+            />
         </Typography.Text>
         <CodeBlock
-            code={`<Dialog.Root labels={{ close: 'Fermer' }} />`}
+            code={`<Dialog.Root labels={{ close: 'Fermer' }}>
+    <Dialog.Trigger>Ouvrir</Dialog.Trigger>
+    <Dialog.Content>
+        <Dialog.Header>
+            <Dialog.Title>Renommer le projet</Dialog.Title>
+        </Dialog.Header>
+    </Dialog.Content>
+</Dialog.Root>`}
             lang="svelte"
             copy="overlay"
         />

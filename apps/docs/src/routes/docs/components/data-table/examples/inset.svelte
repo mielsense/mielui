@@ -1,5 +1,5 @@
 <script lang="ts">
-    import Badge from '@mielui/svelte/components/badge';
+    import { Badge } from '@mielui/svelte/components/badge';
     import * as DataTable from '@mielui/svelte/components/data-table';
     import { createTable, FlexRender } from '@tanstack/svelte-table';
     import { columns, features, filters, members } from './data';
@@ -10,11 +10,17 @@
         data: members,
         getRowId: (member) => member.id,
         initialState: {
-            columnVisibility: { joined: false },
-            pagination: { pageIndex: 0, pageSize: 5 }
+            columnVisibility: {
+                joined: false
+            },
+            pagination: {
+                pageIndex: 0,
+                pageSize: 5
+            }
         }
     });
 </script>
+
 <DataTable.Root {table} variant="inset" class="w-full">
     {#snippet children()}
         <DataTable.Toolbar>

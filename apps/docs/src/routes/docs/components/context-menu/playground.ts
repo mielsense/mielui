@@ -1,7 +1,14 @@
-import { attributes, type PlaygroundValues, tag, toggle } from '$lib/components/docs/playground';
+import {
+    attributes,
+    changed,
+    type PlaygroundValues,
+    select,
+    tag,
+    toggle
+} from '$lib/components/docs/playground';
 
 export const controls = {
-    glass: toggle('Glass surface', 'Appearance'),
+    surface: select('Surface', ['theme', 'solid', 'glass'], 'theme'),
     checkbox: toggle('Checkbox item', 'Content', true),
     inset: toggle('Inset items', 'Content', true),
     submenu: toggle('Submenu', 'Content', true),
@@ -16,7 +23,7 @@ export const TRIGGER_CLASS =
 
 export function code(values: Values): string {
     const surface = attributes({
-        surface: values.glass && 'glass'
+        surface: changed(values.surface, 'theme')
     });
     const inset = attributes({
         inset: values.inset

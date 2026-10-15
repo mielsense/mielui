@@ -9,7 +9,6 @@ import {
 
 export const controls = {
     handle: select('Handle', ['start', 'end'], 'start'),
-    duration: toggle('Duration', 'Content', true),
     disabled: toggle('Disabled', 'State')
 };
 
@@ -53,14 +52,12 @@ export function code(values: PlaygroundValues<typeof controls>): string {
     const items = agenda.map((item) => `        ${literal(item)}`).join(',\n');
     const end = values.handle === 'end';
     const indent = end ? '                ' : '        ';
-    const content = values.duration
-        ? `${indent}<span class="flex min-w-0 items-center justify-between gap-4">
+    const content = `${indent}<span class="flex min-w-0 items-center justify-between gap-4">
 ${indent}    <span class="truncate font-medium">{item.name}</span>
 ${indent}    <span class="shrink-0 text-xs text-foreground-muted tabular-nums">
 ${indent}        {item.duration}
 ${indent}    </span>
-${indent}</span>`
-        : `${indent}<span class="truncate font-medium">{item.name}</span>`;
+${indent}</span>`;
     const body = end
         ? `    {#snippet row(item)}
         <ReorderList.Item id={item.id} label={item.name}>

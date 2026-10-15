@@ -1,17 +1,11 @@
 import {
     attributes,
-    changed,
     compact,
     content,
-    defaultOn,
-    number,
     type PlaygroundValues,
-    text,
+    select,
     toggle
 } from '$lib/components/docs/playground';
-
-const DEFAULT_TITLE = 'Start a conversation';
-const DEFAULT_DESCRIPTION = 'Ask a question or share what you are working on.';
 
 type Turn = {
     from: 'user' | 'assistant';
@@ -38,33 +32,11 @@ export const transcript: Turn[] = [
 ];
 
 export const controls = {
-    scrollButton: toggle('Scroll button', 'Content', true),
-    empty: toggle('Empty state', 'Content'),
-    emptyTitle: text('Empty title', DEFAULT_TITLE, 'Content'),
-    emptyDescription: text('Empty description', DEFAULT_DESCRIPTION, 'Content'),
-    emptyIcon: toggle('Custom empty icon', 'Content'),
-    emptyAction: toggle('Empty action', 'Content'),
-    follow: toggle('Follow', 'Behavior', true),
-    threshold: number('Threshold', 80, {
-        min: 0,
-        max: 400,
-        step: 10,
-        group: 'Behavior'
-    })
+    view: select('View', ['transcript', 'empty'], 'transcript'),
+    scrollButton: toggle('Scroll button', 'Content', true)
 };
 
 type Values = PlaygroundValues<typeof controls>;
-
-function emptyState(values: Values): string {
-    const icon = values.emptyIcon ? ' {icon}' : '';
-    const props = attributes({
-        title: changed(values.emptyTitle, DEFAULT_TITLE),
-        description: changed(values.emptyDescription, DEFAULT_DESCRIPTION)
-    });
-    const action = values.emptyAction ? ' {action}' : '';
-
-    return `        <Conversation.Empty${icon}${props}${action} />`;
-}
 
 function messages(): string {
     return transcript
@@ -79,33 +51,11 @@ function messages(): string {
 }
 
 export function code(values: Values): string {
-    const root = attributes({
-        follow: defaultOn(values.follow),
-        threshold: changed(values.threshold, 80)
-    });
-    const icon = values.empty && values.emptyIcon;
-    const action = values.empty && values.emptyAction;
+    const empty = values.view === 'empty';
     const imports = compact([
-        icon && `    import { File01Icon as FileText } from '@hugeicons/core-free-icons';`,
-        action && `    import { Button } from '@mielui/svelte/components/button';`,
         `    import * as Conversation from '@mielui/svelte/components/conversation';`,
-        !values.empty && `    import * as Message from '@mielui/svelte/components/message';`,
-        icon && `    import HugeiconsIcon from '@mielui/svelte/hugeicons-icon';`
+        !empty && `    import * as Message from '@mielui/svelte/components/message';`
     ]).join('\n');
-    const snippets = compact([
-        icon &&
-            `{#snippet icon()}
-    <HugeiconsIcon icon={FileText} size={18} strokeWidth={1.75} aria-hidden="true" />
-{/snippet}
-
-`,
-        action &&
-            `{#snippet action()}
-    <Button size="md">Draft a release plan</Button>
-{/snippet}
-
-`
-    ]).join('');
     const scrollButton = values.scrollButton
         ? `
     <Conversation.ScrollButton />`
@@ -115,9 +65,9 @@ export function code(values: Values): string {
 ${imports}
 </script>
 
-${snippets}<Conversation.Root${root} class="mielui-plate h-72 w-full max-w-xl">
+<Conversation.Root class="mielui-plate h-72 w-full max-w-xl">
     <Conversation.Content aria-label="Checkout incident conversation">
-${values.empty ? emptyState(values) : messages()}
+${empty ? '        <Conversation.Empty />' : messages()}
     </Conversation.Content>${scrollButton}
 </Conversation.Root>`;
 }

@@ -23,7 +23,7 @@
         </Dialog.Header>
         <Dialog.Footer>
             <Dialog.Close disabled={saving}>Cancel</Dialog.Close>
-            <Dialog.Confirm loading={saving} loadingLabel="Saving" onclick={save}>
+            <Dialog.Confirm loading={saving} labels={{ loading: 'Saving' }} onclick={save}>
                 Rename
             </Dialog.Confirm>
         </Dialog.Footer>

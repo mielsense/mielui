@@ -3,6 +3,9 @@
     import * as Typography from '@mielui/svelte/components/typography';
     import PageIntro from '$lib/components/docs/page-intro.svelte';
     import Rows from '$lib/components/docs/rows.svelte';
+    import pkg from '../../../../../../packages/mielui/package.json';
+
+    const minimumSvelte = pkg.peerDependencies.svelte.replace(/^\^/, '');
 
     const references = [
         {
@@ -120,8 +123,8 @@ It needs an overview, an orders table, and a settings page.`}
         <Typography.Text variant="body" class="m-0">
             Local source and the locked package version take precedence over live documentation.
             Before upgrading, read the changelog and its agent notes. Unreleased notes describe
-            upcoming changes, not the currently published npm package. Mielui 0.2.1 requires Svelte
-            5.56 or newer within Svelte 5.
+            upcoming changes, not the currently published npm package. Mielui {pkg.version} requires
+            Svelte {minimumSvelte} or newer within Svelte 5.
         </Typography.Text>
     </section>
 </div>

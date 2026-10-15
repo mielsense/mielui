@@ -6,6 +6,7 @@
     import HugeiconsIcon from '@mielui/svelte/hugeicons-icon';
 
     let started = $state(false);
+
     function start() {
         started = true;
     }

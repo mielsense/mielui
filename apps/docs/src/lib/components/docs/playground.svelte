@@ -47,7 +47,7 @@
 <ComponentPreview code={code(typedValues)} class={className} {refreshable}>
     {#snippet controls()}
         {#if primary}
-            {const [key, control] = primary}
+            {const [key, control] = $derived(primary)}
             <PlaygroundControl
                 {control}
                 value={values[key]}

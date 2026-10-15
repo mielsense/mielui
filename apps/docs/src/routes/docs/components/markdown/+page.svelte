@@ -3,9 +3,9 @@
     import { Markdown } from '@mielui/svelte/components/markdown';
     import * as Typography from '@mielui/svelte/components/typography';
     import { ComponentPreview, InstallCommand, Playground } from '$lib/components/docs';
+    import InlineText from '$lib/components/docs/inline-text.svelte';
     import PageIntro from '$lib/components/docs/page-intro.svelte';
     import SectionHeading from '$lib/components/docs/section-heading.svelte';
-
     import Hero from './examples/hero.svelte';
     import HeroSrc from './examples/hero.svelte?raw';
     import SafeHtml from './examples/safe-html.svelte';
@@ -18,19 +18,35 @@
         source as playgroundSource
     } from './playground';
 
-    const usageSnippet = `import { Markdown } from '@mielui/svelte/components/markdown';
+    const usageSnippet = `<script lang="ts">
+    import { Markdown } from '@mielui/svelte/components/markdown';
 
-const content = [
-  '## Result',
-  '',
-  '| File | Status |',
-  '| --- | --- |',
-  '| app.ts | Updated |',
-  '',
-  '- [x] Run checks'
-].join('\\n');
+    const content = [
+        '## Result',
+        '',
+        '| File | Status |',
+        '| --- | --- |',
+        '| app.ts | Updated |',
+        '',
+        '- [x] Run checks'
+    ].join('\\n');
+<${'/'}script>
 
 <Markdown {content} />`;
+
+    const labelsSnippet = `<script lang="ts">
+    import { Markdown, type MarkdownLabels } from '@mielui/svelte/components/markdown';
+
+    let { content }: { content: string } = $props();
+
+    const labels: MarkdownLabels = {
+        completedTask: 'Tâche terminée',
+        incompleteTask: 'Tâche à faire',
+        table: 'Tableau'
+    };
+<${'/'}script>
+
+<Markdown {content} {labels} />`;
 </script>
 
 <svelte:head>
@@ -67,15 +83,14 @@ const content = [
     <section id="usage" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Usage</Typography.H2>
         <Typography.Text variant="supporting">
-            Pass Markdown text through content. Set streaming while more text is arriving. Existing
-            controls keep their state while the surrounding block keeps the same type and position.
+            <InlineText
+                text={"Pass Markdown text as `content`. It is parsed as GitHub Flavored Markdown, so tables, task lists, and strikethrough work. Fenced code renders with CodeBlock."}
+            />
         </Typography.Text>
         <Typography.Text variant="supporting">
-            The GFM lexer supports tables, task lists, and strikethrough. Fenced code is rendered
-            with Mielui{' '}
-            <Typography.InlineCode>CodeBlock</Typography.InlineCode>
-            and raw HTML is displayed as text. Links allow HTTP, HTTPS, mailto, and relative URLs.
-            Images use relative paths; external image URLs render their alt text.
+            <InlineText
+                text={"Raw HTML is shown as text. Links allow HTTP, HTTPS, mailto, and relative URLs. Images must use relative paths; an external image URL renders its alt text."}
+            />
         </Typography.Text>
         <CodeBlock code={usageSnippet} lang="svelte" copy="overlay" />
     </section>
@@ -96,35 +111,30 @@ const content = [
         </div>
 
         <div id="streaming" class="scroll-mt-20 flex flex-col gap-3">
-            <Typography.H3 class="docs-subsection-heading">Streaming response</Typography.H3>
+            <Typography.H3 class="docs-subsection-heading">Streaming</Typography.H3>
+            <Typography.Text variant="supporting">
+                <InlineText
+                    text={"Append text to `content` while `streaming` is true, then set it to false when the response ends or is stopped. Streaming marks the output busy and shows a caret. Blocks that keep their type and position keep their state as text arrives."}
+                />
+            </Typography.Text>
             <ComponentPreview code={StreamingSrc}><Streaming /></ComponentPreview>
         </div>
 
         <div id="safe-html" class="scroll-mt-20 flex flex-col gap-3">
-            <Typography.H3 class="docs-subsection-heading">Raw HTML safety</Typography.H3>
+            <Typography.H3 class="docs-subsection-heading">Untrusted HTML</Typography.H3>
+            <Typography.Text variant="supporting">
+                Script tags, inline handlers, and unsafe link schemes stay inert text.
+            </Typography.Text>
             <ComponentPreview code={SafeHtmlSrc}><SafeHtml /></ComponentPreview>
         </div>
     </section>
-    <section id="working-example" class="flex scroll-mt-20 flex-col gap-4">
-        <Typography.H2 class="docs-section-heading">Stream partial content</Typography.H2>
-        <Typography.Text>
-            Append text to content while streaming is true, then set streaming to false when the
-            response ends or is stopped. The example sends small chunks through headings, lists, a
-            table, and a code block. It clears its timer when the example unmounts.
-        </Typography.Text>
-    </section>
-
-    <section id="labels" class="flex scroll-mt-20 flex-col gap-4">
+    <section id="labels" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Labels</Typography.H2>
-        <Typography.Text>
-            Built-in text is English by default. Pass labels to Markdown to translate or reword
-            task-list checkboxes and scrollable tables. Every key is optional; omitted keys keep
-            their default.
+        <Typography.Text variant="supporting">
+            <InlineText
+                text={"Pass `labels` to translate the accessible names of task-list checkboxes and scrollable tables. Every key of `MarkdownLabels` is optional; omitted keys keep the English text."}
+            />
         </Typography.Text>
-        <CodeBlock
-            code={`<Markdown {content} labels={{ completedTask: 'Tâche terminée', incompleteTask: 'Tâche à faire', table: 'Tableau' }} />`}
-            lang="svelte"
-            copy="overlay"
-        />
+        <CodeBlock code={labelsSnippet} lang="svelte" copy="overlay" />
     </section>
 </div>

@@ -2,6 +2,7 @@
     import { Label } from '@mielui/svelte/components/label';
     import * as OTPField from '@mielui/svelte/components/otp-field';
 </script>
+
 <div class="flex flex-col gap-3">
     <Label for="recovery-code">Recovery code</Label>
     <OTPField.Root

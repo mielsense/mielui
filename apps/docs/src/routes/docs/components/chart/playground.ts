@@ -2,7 +2,6 @@ import {
     attributes,
     changed,
     compact,
-    number,
     type PlaygroundValues,
     quote,
     select,
@@ -63,55 +62,27 @@ export const controls = {
     type: select('Chart type', ['mixed', 'bar', 'line', 'area'], 'mixed'),
     orientation: select('Orientation', ['vertical', 'horizontal'], 'vertical', 'Appearance'),
     animation: select('Animation', ['reveal', 'live', 'none'], 'reveal', 'Appearance'),
-    strokeWidth: number('Line width', 2.5, {
-        min: 0.5,
-        max: 8,
-        step: 0.5,
-        group: 'Appearance'
-    }),
-    radius: number('Bar radius', 4, {
-        min: 0,
-        max: 16,
-        step: 1,
-        group: 'Appearance'
-    }),
-    ticks: number('Ticks', 5, {
-        min: 2,
-        max: 10,
-        step: 1,
-        group: 'Appearance'
-    }),
     legend: toggle('Legend', 'Content', true),
     grid: toggle('Grid', 'Content', true),
-    xAxis: toggle('X axis', 'Content', true),
-    yAxis: toggle('Y axis', 'Content', true),
+    axes: toggle('Axes', 'Content', true),
     tooltip: toggle('Tooltip', 'Content', true),
-    loading: toggle('Loading', 'State'),
-    empty: toggle('Empty', 'State'),
-    stacked: toggle('Stacked bars', 'Behavior')
+    state: select('Data', ['ready', 'loading', 'empty'], 'ready', 'State')
 };
 
 type Values = PlaygroundValues<typeof controls>;
 
-function marks(values: Values): string[] {
-    const path = attributes({
-        strokeWidth: changed(values.strokeWidth, 2.5)
-    });
-    const bar = attributes({
-        radius: changed(values.radius, 4)
-    });
-
-    if (values.type === 'bar') {
-        return [`<Chart.Bar key="revenue"${bar} />`, `<Chart.Bar key="target"${bar} />`];
+function marks(type: Values['type']): string[] {
+    if (type === 'bar') {
+        return ['<Chart.Bar key="revenue" />', '<Chart.Bar key="target" />'];
     }
-    if (values.type === 'line') {
-        return [`<Chart.Line key="revenue"${path} />`, `<Chart.Line key="target"${path} />`];
+    if (type === 'line') {
+        return ['<Chart.Line key="revenue" />', '<Chart.Line key="target" />'];
     }
-    if (values.type === 'area') {
-        return [`<Chart.Area key="revenue"${path} />`, `<Chart.Area key="target"${path} />`];
+    if (type === 'area') {
+        return ['<Chart.Area key="revenue" />', '<Chart.Area key="target" />'];
     }
 
-    return [`<Chart.Area key="revenue"${path} />`, `<Chart.Line key="target"${path} />`];
+    return ['<Chart.Area key="revenue" />', '<Chart.Line key="target" />'];
 }
 
 function rows(): string {
@@ -135,23 +106,20 @@ function series(): string {
 export function code(values: Values): string {
     const root = attributes({
         orientation: changed(values.orientation, 'vertical'),
-        stacked: values.type === 'bar' && values.stacked,
         animation: changed(values.animation, 'reveal'),
-        loading: values.loading
+        loading: values.state === 'loading'
     });
-    const ticks = attributes({
-        ticks: changed(values.ticks, 5)
-    });
-    const data = values.empty
-        ? `    const data: { month: string; revenue: number; target: number }[] = [];`
-        : `    const data = [
+    const data =
+        values.state === 'empty'
+            ? `    const data: { month: string; revenue: number; target: number }[] = [];`
+            : `    const data = [
 ${rows()}
     ];`;
     const plot = compact([
-        values.grid && `<Chart.Grid${ticks} />`,
-        values.xAxis && `<Chart.XAxis${ticks} />`,
-        values.yAxis && `<Chart.YAxis${ticks} />`,
-        ...marks(values)
+        values.grid && '<Chart.Grid />',
+        values.axes && '<Chart.XAxis />',
+        values.axes && '<Chart.YAxis />',
+        ...marks(values.type)
     ])
         .map((line) => `        ${line}`)
         .join('\n');

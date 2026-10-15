@@ -11,17 +11,16 @@
         maxDate,
         minDate,
         startDate,
-        WEEK_START,
         weekendMatcher
     } from '$lib/components/docs/playground/calendar';
-    import Example0 from './examples/constraints.svelte';
-    import Example0Src from './examples/constraints.svelte?raw';
+    import ConstraintsExample from './examples/constraints.svelte';
+    import ConstraintsExampleSrc from './examples/constraints.svelte?raw';
     import EventsExample from './examples/events.svelte';
     import EventsExampleSrc from './examples/events.svelte?raw';
     import Hero from './examples/hero.svelte';
     import HeroSrc from './examples/hero.svelte?raw';
-    import Example1 from './examples/navigation.svelte';
-    import Example1Src from './examples/navigation.svelte?raw';
+    import NavigationExample from './examples/navigation.svelte';
+    import NavigationExampleSrc from './examples/navigation.svelte?raw';
     import UnavailableExample from './examples/unavailable.svelte';
     import UnavailableExampleSrc from './examples/unavailable.svelte?raw';
     import WeeksExample from './examples/weeks.svelte';
@@ -29,6 +28,15 @@
     import { code as playgroundCode, controls as playgroundControls } from './playground';
 
     let date = $state<DateValue | undefined>(startDate);
+
+    const usageCode = `<script lang="ts">
+    import type { DateValue } from '@internationalized/date';
+    import * as Calendar from '@mielui/svelte/components/calendar';
+
+    let value = $state<DateValue | undefined>();
+</${'script'}>
+
+<Calendar.Root bind:value calendarLabel="Meeting date" />`;
 </script>
 
 <svelte:head>
@@ -41,25 +49,17 @@
     <section id="hero" class="scroll-mt-20 flex flex-col gap-4">
         <Playground controls={playgroundControls} code={playgroundCode}>
             {#snippet children(values)}
-                {const root = {
+                {const root = $derived({
                     calendarLabel: 'Meeting date',
                     locale: values.locale,
                     weekdayFormat: values.weekdayFormat,
-                    monthFormat: values.monthFormat,
-                    yearFormat: values.yearFormat,
-                    weekStartsOn: WEEK_START[values.weekStartsOn],
                     numberOfMonths: values.numberOfMonths,
-                    fixedWeeks: values.fixedWeeks,
                     disabled: values.disabled,
-                    readonly: values.readonly,
                     minValue: values.bounds ? minDate : undefined,
                     maxValue: values.bounds ? maxDate : undefined,
                     isDateDisabled: values.weekends ? weekendMatcher(values.locale) : undefined,
-                    isDateUnavailable: values.unavailable ? isBooked : undefined,
-                    preventDeselect: values.preventDeselect,
-                    pagedNavigation: values.pagedNavigation,
-                    disableDaysOutsideMonth: values.disableDaysOutsideMonth
-                }}
+                    isDateUnavailable: values.unavailable ? isBooked : undefined
+                })}
                 <div class="mielui-plate max-w-full">
                     {#if values.header === 'selects'}
                         <Calendar.Root bind:value={date} {...root}>
@@ -94,17 +94,11 @@
     <section id="usage" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Usage</Typography.H2>
         <Typography.Text>
-            Bind a DateValue or undefined. The default view renders Header, navigation and Month
-            through the same parts available for custom composition. Use RangeCalendar for a
-            continuous range.
+            Bind a DateValue, or undefined for no selection. The default view renders Header,
+            PrevButton, Heading, NextButton and Month, the same parts you can compose yourself. Use
+            Range Calendar for a start and end date.
         </Typography.Text>
-        <CodeBlock
-            code={`import * as Calendar from '@mielui/svelte/components/calendar';
-
-<Calendar.Root bind:value calendarLabel="Meeting date" />`}
-            lang="svelte"
-            copy="overlay"
-        />
+        <CodeBlock code={usageCode} lang="svelte" copy="overlay" />
         <Typography.Text variant="supporting">
             Use CalendarDate from @internationalized/date for date-only values, or parseDate for ISO
             date strings. Bind placeholder to control the visible month. An explicit locale and
@@ -129,7 +123,9 @@
                 Unavailable dates remain focusable and indicate invalid selections; disabled dates
                 cannot be selected.
             </Typography.Text>
-            <ComponentPreview code={Example0Src}><Example0 /></ComponentPreview>
+            <ComponentPreview code={ConstraintsExampleSrc}>
+                <ConstraintsExample />
+            </ComponentPreview>
         </div>
         <div id="navigation" class="scroll-mt-20 flex flex-col gap-3">
             <Typography.H3 class="docs-subsection-heading">Month and year navigation</Typography.H3>
@@ -137,7 +133,9 @@
                 Replace the default header with MonthSelect and YearSelect. Supply an explicit years
                 array to make the navigation range clear.
             </Typography.Text>
-            <ComponentPreview code={Example1Src}><Example1 /></ComponentPreview>
+            <ComponentPreview code={NavigationExampleSrc}>
+                <NavigationExample />
+            </ComponentPreview>
         </div>
     </section>
     <section id="composition" class="scroll-mt-20 flex flex-col gap-4">
@@ -163,7 +161,7 @@
             changes.
         </Typography.Text>
     </section>
-    <section id="selection-events" class="flex flex-col gap-4">
+    <section id="selection-events" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Selection events</Typography.H2>
         <Typography.Text variant="supporting">
             <InlineText
@@ -172,14 +170,14 @@
         </Typography.Text>
         <Typography.Text variant="supporting">
             <InlineText
-                text={"The calendar also tracks a placeholder, the date that decides which month is on screen. `onPlaceholderChange` runs when that moves, for example when someone pages to the next month. `initialFocus` moves keyboard focus to the selected day, or today, as soon as the calendar mounts. `maxDays` belongs to multi-date selection and does nothing on this single-date calendar."}
+                text={"The calendar also tracks a placeholder, the date that decides which month is on screen. `onPlaceholderChange` runs when that moves, for example when someone pages to the next month. `initialFocus` moves keyboard focus to the selected day, or today, as soon as the calendar mounts."}
             />
         </Typography.Text>
         <ComponentPreview code={EventsExampleSrc}>
             <EventsExample />
         </ComponentPreview>
     </section>
-    <section id="weeks-and-months" class="flex flex-col gap-4">
+    <section id="weeks-and-months" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Weeks and months</Typography.H2>
         <Typography.Text variant="supporting">
             <InlineText
@@ -195,7 +193,7 @@
             <WeeksExample />
         </ComponentPreview>
     </section>
-    <section id="unavailable-dates-and-formats" class="flex flex-col gap-4">
+    <section id="unavailable-dates-and-formats" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Unavailable dates and formats</Typography.H2>
         <Typography.Text variant="supporting">
             <InlineText
@@ -211,9 +209,6 @@
             <InlineText
                 text={"When you compose the calendar yourself, every part except Root and Month accepts `child`, a snippet that receives the part's props so you can render your own element with them, and `style` for inline styles. Month takes `showHeading` to print the month name above its grid, which Root turns on by itself when it shows more than one month."}
             />
-        </Typography.Text>
-        <Typography.Text variant="supporting">
-            <InlineText text={"Root also accepts `style`."} />
         </Typography.Text>
         <ComponentPreview code={UnavailableExampleSrc}>
             <UnavailableExample />

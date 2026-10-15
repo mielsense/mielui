@@ -1,39 +1,24 @@
-import {
-    attributes,
-    defaultOn,
-    type PlaygroundValues,
-    select,
-    toggle
-} from '$lib/components/docs/playground';
+import { attributes, type PlaygroundValues, select, toggle } from '$lib/components/docs/playground';
 
 export const controls = {
     type: select('Type', ['single', 'multiple'], 'single'),
-    disabled: toggle('Disabled item', 'State'),
-    collapsible: toggle('Collapsible', 'Behavior', true)
+    disabled: toggle('Disabled item', 'State')
 };
 
 type Values = PlaygroundValues<typeof controls>;
 
 export function code(values: Values): string {
     const multiple = values.type === 'multiple';
-    const state = multiple
-        ? "let open = $state(['access']);"
-        : "let open = $state<string | undefined>('access');";
-    const props = attributes({
-        type: multiple && 'multiple',
-        collapsible: !multiple && defaultOn(values.collapsible)
-    });
+    const root = multiple ? `type="multiple" value={['access']}` : 'value="access"';
     const disabled = attributes({
         disabled: values.disabled
     });
 
     return `<script lang="ts">
     import * as Accordion from '@mielui/svelte/components/accordion';
-
-    ${state}
 </script>
 
-<Accordion.Root${props} bind:value={open} class="w-full max-w-md">
+<Accordion.Root ${root} class="w-full max-w-md">
     <Accordion.Item value="access">
         <Accordion.Trigger>Who can access this workspace?</Accordion.Trigger>
         <Accordion.Content>

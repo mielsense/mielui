@@ -7,12 +7,6 @@
     import { changelogReleases } from '$lib/changelog';
     import PageIntro from '$lib/components/docs/page-intro.svelte';
 
-    const sectionLabels: Record<string, string> = {
-        breaking: 'Breaking changes',
-        feature: 'Features',
-        fix: 'Fixes',
-        docs: 'Docs'
-    };
     const releases = changelogReleases.map((release) => {
         return {
             ...release,
@@ -21,7 +15,6 @@
                 return {
                     ...section,
                     key: `${release.version}-${section.type}`,
-                    label: sectionLabels[section.type] ?? section.title,
                     content: section.content.replace(/^(- .*)\n\n(?=- )/gm, '$1\n')
                 };
             })
@@ -67,7 +60,7 @@
                                     <span
                                         class="[font-weight:var(--font-weight-label)] text-foreground"
                                     >
-                                        {section.label}
+                                        {section.title}
                                     </span>
                                     <span class="text-sm tabular-nums text-foreground-muted">
                                         {section.count}

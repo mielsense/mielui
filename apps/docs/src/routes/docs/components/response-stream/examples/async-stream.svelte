@@ -1,20 +1,13 @@
 <script lang="ts">
     import { ResponseStream } from '@mielui/svelte/components/response-stream';
-
     import { onDestroy } from 'svelte';
+
+    const text =
+        'The release contains twelve changes. Two affect keyboard navigation, four update the documentation, and six fix existing behavior. Keep the current API unchanged, run the component checks, then review the preview before deploying. The rollback is the previous release tag.';
 
     let stopped = false;
     let timer: ReturnType<typeof setTimeout> | undefined;
     let settle: (() => void) | undefined;
-
-    onDestroy(() => {
-        stopped = true;
-        clearTimeout(timer);
-        settle?.();
-    });
-
-    const text =
-        'The release contains twelve changes. Two affect keyboard navigation, four update the documentation, and six fix existing behavior. Keep the current API unchanged, run the component checks, then review the preview before deploying. The rollback is the previous release tag.';
 
     function wait(ms: number) {
         return new Promise<void>((resolve) => {
@@ -30,6 +23,7 @@
         await wait(1200);
 
         const parts = text.split(/(\s+)/);
+
         for (const part of parts) {
             if (stopped) {
                 return;
@@ -38,6 +32,12 @@
             await wait(40);
         }
     }
+
+    onDestroy(() => {
+        stopped = true;
+        clearTimeout(timer);
+        settle?.();
+    });
 </script>
 
 <div class="w-full max-w-xl">

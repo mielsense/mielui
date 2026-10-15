@@ -1,6 +1,5 @@
 import {
     compact,
-    number,
     type PlaygroundValues,
     quote,
     select,
@@ -20,13 +19,7 @@ export const controls = {
         'Content'
     ),
     exitable: toggle('Close button', 'Content', true),
-    persistent: toggle('Persistent', 'Behavior'),
-    duration: number('Duration', 5600, {
-        min: 1000,
-        max: 20000,
-        step: 100,
-        group: 'Behavior'
-    })
+    persistent: toggle('Persistent', 'Behavior')
 };
 
 export function code(values: PlaygroundValues<typeof controls>): string {
@@ -48,8 +41,7 @@ export function code(values: PlaygroundValues<typeof controls>): string {
                 }
             ]`,
         !values.exitable && 'exitable: false',
-        values.persistent && 'persistent: true',
-        values.duration !== 5600 && `duration: ${values.duration}`
+        values.persistent && 'persistent: true'
     ]);
     const viewDetails =
         values.action === 'none'

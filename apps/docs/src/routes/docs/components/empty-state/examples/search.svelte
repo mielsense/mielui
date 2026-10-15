@@ -6,6 +6,13 @@
 
     let query = $state('invoice');
 
+    const title = $derived(query ? 'No matching files' : 'Search cleared');
+    const description = $derived(
+        query
+            ? `Nothing matches "${query}". Try another file name or clear your search.`
+            : 'No search filter is active. Your files will appear here when available.'
+    );
+
     function clearSearch() {
         query = '';
     }
@@ -16,10 +23,8 @@
         <HugeiconsIcon icon={Search01Icon} class="size-6" />
     </EmptyState.Media>
     <EmptyState.Header>
-        <EmptyState.Title>{query ? 'No matching files' : 'Search cleared'}</EmptyState.Title>
-        <EmptyState.Description>
-            {query ? `Nothing matches "${query}". Try another file name or clear your search.` : 'No search filter is active. Your files will appear here when available.'}
-        </EmptyState.Description>
+        <EmptyState.Title>{title}</EmptyState.Title>
+        <EmptyState.Description>{description}</EmptyState.Description>
     </EmptyState.Header>
     {#if query}
         <EmptyState.Actions>

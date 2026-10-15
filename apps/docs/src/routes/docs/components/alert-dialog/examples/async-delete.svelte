@@ -36,7 +36,11 @@
             </AlertDialog.Header>
             <AlertDialog.Footer>
                 <AlertDialog.Exit disabled={deleting}>Keep it</AlertDialog.Exit>
-                <AlertDialog.Confirm loading={deleting} loadingLabel="Deleting" onclick={remove}>
+                <AlertDialog.Confirm
+                    loading={deleting}
+                    labels={{ loading: 'Deleting' }}
+                    onclick={remove}
+                >
                     Delete branch
                 </AlertDialog.Confirm>
             </AlertDialog.Footer>

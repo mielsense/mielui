@@ -4,11 +4,10 @@
     import * as TagInput from '@mielui/svelte/components/tag-input';
 
     let tags = $state(['svelte', 'design-system']);
-    let saved = $state<string[]>([]);
     let message = $state('');
+
     function save() {
-        saved = [...tags];
-        message = saved.length ? `Saved topics: ${saved.join(', ')}.` : 'Saved without topics.';
+        message = tags.length ? `Saved topics: ${tags.join(', ')}.` : 'Saved without topics.';
     }
 </script>
 
@@ -26,14 +25,13 @@
         <div class="flex gap-2">
             <Button
                 variant="ghost"
-                size="md"
                 onclick={() => {
                     tags = [];
                 }}
             >
                 Clear
             </Button>
-            <Button size="md" onclick={save}>Save</Button>
+            <Button onclick={save}>Save</Button>
         </div>
     </div>
     <p role="status" class="text-sm text-foreground-muted">{message}</p>

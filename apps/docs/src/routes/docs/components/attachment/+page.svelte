@@ -14,9 +14,12 @@
     import StatusVariants from './examples/status-variants.svelte';
     import StatusVariantsSrc from './examples/status-variants.svelte?raw';
     import {
+        ACCEPT,
+        PROGRESS,
         code as playgroundCode,
         controls as playgroundControls,
-        usesItems as playgroundUsesItems
+        usesItems as playgroundUsesItems,
+        UPLOAD_ERROR
     } from './playground';
 
     let playgroundFiles = $state<File[]>([]);
@@ -29,6 +32,26 @@
             })
         ];
     });
+
+    const usage = `<script lang="ts">
+    import * as Attachment from '@mielui/svelte/components/attachment';
+
+    let files = $state<File[]>([]);
+    let rejected = $state<Attachment.AttachmentRejection[]>([]);
+</${'script'}>
+
+<Attachment.Root
+    bind:files
+    accept="image/*,.pdf"
+    maxFiles={3}
+    maxSize={5 * 1024 * 1024}
+    onReject={(rejections) => {
+        rejected = rejections;
+    }}
+>
+    <Attachment.Trigger>Choose files</Attachment.Trigger>
+    <Attachment.List />
+</Attachment.Root>`;
 </script>
 
 <svelte:head>
@@ -47,11 +70,10 @@
     <section id="hero" class="scroll-mt-20 flex flex-col gap-4">
         <Playground controls={playgroundControls} code={playgroundCode}>
             {#snippet children(values)}
-                {const chip = values.variant === 'chip'}
+                {const chip = $derived(values.variant === 'chip')}
                 <Attachment.Root
                     bind:files={playgroundFiles}
-                    accept={values.accept || undefined}
-                    multiple={values.multiple}
+                    accept={ACCEPT}
                     maxFiles={values.maxFiles}
                     maxSize={values.maxSize * 1024 * 1024}
                     disabled={values.disabled}
@@ -61,14 +83,9 @@
                     class="flex w-full max-w-sm flex-col items-center gap-3"
                 >
                     {#if values.triggerLabel}
-                        <Attachment.Trigger
-                            variant={values.triggerVariant}
-                            size={values.triggerSize}
-                        >
-                            Choose files
-                        </Attachment.Trigger>
+                        <Attachment.Trigger variant="outline">Choose files</Attachment.Trigger>
                     {:else}
-                        <Attachment.Trigger variant={values.triggerVariant} />
+                        <Attachment.Trigger variant="outline" />
                     {/if}
                     {#if playgroundUsesItems(values)}
                         {#each playgroundFiles as file (file)}
@@ -76,12 +93,8 @@
                                 {file}
                                 variant={values.variant}
                                 status={values.status}
-                                progress={values.status === 'uploading'
-                                    ? values.progress
-                                    : undefined}
-                                error={values.status === 'error'
-                                    ? values.error || undefined
-                                    : undefined}
+                                progress={values.status === 'uploading' ? PROGRESS : undefined}
+                                error={values.status === 'error' ? UPLOAD_ERROR : undefined}
                                 removable={values.removable}
                                 class={chip ? undefined : 'w-72 max-w-full'}
                                 onRemove={values.removable
@@ -131,42 +144,19 @@
             callback. Selection is local only; your application owns uploading and upload state.
         </Typography.Text>
         <Typography.Text variant="supporting">
-            Set accept, maxFiles, and maxSize to limit selection. Set disabled to prevent adding or
-            removing files and clear the drag highlight.
+            <InlineText
+                text={"Set `accept`, `maxFiles`, and `maxSize` to limit selection. `disabled` prevents adding or removing files and clears the drag highlight."}
+            />
         </Typography.Text>
-        <CodeBlock
-            code={`import * as Attachment from '@mielui/svelte/components/attachment';
-import type { AttachmentRejection } from '@mielui/svelte/components/attachment';
-
-let files = $state<File[]>([]);
-
-function handleReject(rejections: AttachmentRejection[]) {
-  console.log(rejections);
-}
-
-<Attachment.Root
-  bind:files
-  accept="image/*,.pdf"
-  maxFiles={3}
-  maxSize={5 * 1024 * 1024}
-  onReject={handleReject}
->
-  <Attachment.Trigger>Choose files</Attachment.Trigger>
-  <Attachment.List />
-</Attachment.Root>`}
-            lang="svelte"
-            copy="overlay"
-        />
+        <CodeBlock code={usage} lang="svelte" copy="overlay" />
     </section>
 
     <section id="integration" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Selection and upload ownership</Typography.H2>
         <Typography.Text variant="supporting">
-            Attachment validates local selection and displays files. It does not upload them. Keep
-            upload progress and errors in your application, or use File Upload when you need an
-            upload callback with cancellation and retry. Use the hero to test rejection messages and
-            remove selected files. Progress is clamped from 0 to 100; omitted or nonfinite values
-            display an indeterminate progress indicator.
+            <InlineText
+                text={"Attachment validates local selection and displays files. It does not upload them. Keep upload progress and errors in your application, or use [File Upload](/docs/components/file-upload) when you need an upload callback with cancellation and retry. Item clamps `progress` from 0 to 100; an omitted or non-finite value shows an indeterminate indicator."}
+            />
         </Typography.Text>
     </section>
     <section id="examples" class="scroll-mt-20 flex flex-col gap-10">
@@ -184,31 +174,38 @@ function handleReject(rejections: AttachmentRejection[]) {
         <div id="chips" class="scroll-mt-20 flex flex-col gap-3">
             <Typography.H3 class="docs-subsection-heading">Chips</Typography.H3>
             <Typography.Text variant="supporting">
-                Set
-                <Typography.InlineCode>variant="chip"</Typography.InlineCode>
-                on List or Item for a compact pill with a file-type icon or image thumbnail, the
-                name, and a remove button. A spinner replaces the icon while uploading, and errors
-                add a red edge. Progress and status text stay available to assistive technology. Use
-                chips above Composer.Root inside the shared Attachment.Root.
+                <InlineText
+                    text={"Set `variant=\"chip\"` on List or Item for a compact pill with a file-type icon or image thumbnail, the name, and a remove button. A spinner replaces the icon while uploading, and errors add a red edge. Progress and status text stay available to assistive technology. In a chat input, place chips above Composer.Root inside the shared Attachment.Root."}
+                />
             </Typography.Text>
             <ComponentPreview code={ChipStatusSrc}><ChipStatus /></ComponentPreview>
         </div>
     </section>
 
-    <section id="labels" class="flex scroll-mt-20 flex-col gap-4">
+    <section id="labels" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Labels</Typography.H2>
-        <Typography.Text>
-            Built-in text is English by default. Pass labels to Attachment.Root to translate or
-            reword the drop overlay, the trigger, the list, file status, and the remove button.
-            Every key is optional; omitted keys keep their default.
+        <Typography.Text variant="supporting">
+            <InlineText
+                text={"Built-in text is English by default. Pass `labels` to Root to translate or reword the drop overlay, the trigger, the list, file status, and the remove button. Every key of `AttachmentLabels` is optional; omitted keys keep their default."}
+            />
         </Typography.Text>
         <CodeBlock
-            code={`<Attachment.Root bind:files labels={{ dropzone: 'Déposez des fichiers', add: 'Joindre des fichiers', remove: (name) => \`Retirer \${name}\` }} />`}
+            code={`<Attachment.Root
+    bind:files
+    labels={{
+        dropzone: 'Déposez des fichiers',
+        add: 'Joindre des fichiers',
+        remove: (name) => \`Retirer \${name}\`
+    }}
+>
+    <Attachment.Trigger />
+    <Attachment.List />
+</Attachment.Root>`}
             lang="svelte"
             copy="overlay"
         />
     </section>
-    <section id="single-file" class="flex flex-col gap-4">
+    <section id="single-file" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">One file at a time</Typography.H2>
         <Typography.Text variant="supporting">
             <InlineText

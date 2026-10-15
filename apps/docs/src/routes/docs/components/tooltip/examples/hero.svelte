@@ -12,15 +12,45 @@
     import * as Tooltip from '@mielui/svelte/components/tooltip';
     import HugeiconsIcon from '@mielui/svelte/hugeicons-icon';
 
-    let activeTool = $state<string>('move');
+    let activeTool = $state('move');
 
     const tools = [
-        { id: 'move', label: 'Move', shortcut: 'V', icon: MousePointer2 },
-        { id: 'frame', label: 'Frame', shortcut: 'F', icon: Frame },
-        { id: 'rectangle', label: 'Rectangle', shortcut: 'R', icon: Square },
-        { id: 'pen', label: 'Pen', shortcut: 'P', icon: PenTool },
-        { id: 'text', label: 'Text', shortcut: 'T', icon: Type },
-        { id: 'comment', label: 'Comment', shortcut: 'C', icon: MessageCircle }
+        {
+            id: 'move',
+            label: 'Move',
+            shortcut: 'V',
+            icon: MousePointer2
+        },
+        {
+            id: 'frame',
+            label: 'Frame',
+            shortcut: 'F',
+            icon: Frame
+        },
+        {
+            id: 'rectangle',
+            label: 'Rectangle',
+            shortcut: 'R',
+            icon: Square
+        },
+        {
+            id: 'pen',
+            label: 'Pen',
+            shortcut: 'P',
+            icon: PenTool
+        },
+        {
+            id: 'text',
+            label: 'Text',
+            shortcut: 'T',
+            icon: Type
+        },
+        {
+            id: 'comment',
+            label: 'Comment',
+            shortcut: 'C',
+            icon: MessageCircle
+        }
     ];
 </script>
 
@@ -34,11 +64,12 @@
                     <Button
                         variant="ghost"
                         size="icon"
-                        type="button"
                         class={activeTool === tool.id
                             ? 'bg-[var(--color-wash)] text-foreground'
                             : 'text-foreground-muted hover:text-foreground'}
-                        onclick={() => (activeTool = tool.id)}
+                        onclick={() => {
+                            activeTool = tool.id;
+                        }}
                         aria-label={tool.label}
                         aria-pressed={activeTool === tool.id}
                     >

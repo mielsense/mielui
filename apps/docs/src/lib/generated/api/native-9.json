@@ -1,41 +1,5 @@
 [
     {
-        "name": "ontouchcancelcapture",
-        "type": "TouchEventHandler<HTMLSpanElement> | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
-        "name": "on:touchend",
-        "type": "TouchEventHandler<HTMLSpanElement> | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
-        "name": "ontouchend",
-        "type": "TouchEventHandler<HTMLSpanElement> | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
-        "name": "ontouchendcapture",
-        "type": "TouchEventHandler<HTMLSpanElement> | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
         "name": "on:touchmove",
         "type": "TouchEventHandler<HTMLSpanElement> | null | undefined",
         "required": false,
@@ -2243,6 +2207,42 @@
     {
         "name": "on:waiting",
         "type": "EventHandler<Event, HTMLTimeElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onwaiting",
+        "type": "EventHandler<Event, HTMLTimeElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onwaitingcapture",
+        "type": "EventHandler<Event, HTMLTimeElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "on:auxclick",
+        "type": "MouseEventHandler<HTMLTimeElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onauxclick",
+        "type": "MouseEventHandler<HTMLTimeElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,

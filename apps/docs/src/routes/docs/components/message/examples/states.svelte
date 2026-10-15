@@ -2,20 +2,22 @@
     import { RotateLeft01Icon as RotateCcw } from '@hugeicons/core-free-icons';
     import { Button } from '@mielui/svelte/components/button';
     import { Markdown } from '@mielui/svelte/components/markdown';
+    import type { MessageStatus } from '@mielui/svelte/components/message';
     import * as Message from '@mielui/svelte/components/message';
     import { ResponseStream } from '@mielui/svelte/components/response-stream';
     import HugeiconsIcon from '@mielui/svelte/hugeicons-icon';
-
     import { onDestroy } from 'svelte';
 
+    const partialResponse =
+        'All four regions are healthy. Error rates and response times remain within the release baseline.';
+
     let streaming = $state(true);
+    let status = $state<MessageStatus>('error');
+    let timer: ReturnType<typeof setTimeout> | undefined;
 
     function finishResponse() {
         streaming = false;
     }
-
-    let status = $state<'error' | 'streaming' | 'idle'>('error');
-    let timer: ReturnType<typeof setTimeout> | undefined;
 
     function retry() {
         status = 'streaming';
@@ -27,9 +29,6 @@
     onDestroy(() => {
         clearTimeout(timer);
     });
-
-    const partialResponse =
-        'All four regions are healthy. Error rates and response times remain within the release baseline.';
 </script>
 
 <div class="w-full max-w-2xl space-y-8">
@@ -57,7 +56,7 @@
         </Message.Content>
         {#if status === 'error'}
             <Message.Actions aria-label="Failed response actions">
-                <Button variant="ghost" size="md" onclick={retry}>
+                <Button variant="ghost" onclick={retry}>
                     <HugeiconsIcon icon={RotateCcw} size={14} aria-hidden="true" />
                     Retry response
                 </Button>

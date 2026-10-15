@@ -47,7 +47,7 @@
                 "description": "Content rendered inside.",
                 "inherited": false
             },
-            2681,
+            2677,
             0,
             1,
             2,
@@ -503,7 +503,7 @@
                 "description": "Controlled visual state. Loading remains focusable and refuses activation.",
                 "inherited": false
             },
-            3978,
+            3974,
             {
                 "name": "disabled",
                 "type": "boolean | undefined",
@@ -524,39 +524,12 @@
             1073,
             1074,
             {
-                "name": "variant",
-                "type": "ButtonVariant | undefined",
-                "required": false,
-                "bindable": false,
-                "default": null,
-                "description": "Visual style. Choose it for what the action means, not for decoration.",
-                "inherited": false
-            },
-            {
-                "name": "size",
-                "type": "\"sm\" | \"md\" | \"lg\" | \"icon\" | undefined",
-                "required": false,
-                "bindable": false,
-                "default": null,
-                "description": "Control height. `icon` is a square button for a single icon.",
-                "inherited": false
-            },
-            {
                 "name": "element",
                 "type": "HTMLButtonElement | HTMLAnchorElement | undefined",
                 "required": false,
                 "bindable": true,
                 "default": null,
                 "description": "Bindable reference to the rendered DOM element. Type is the union of the two possible element types -- narrow at the use site:",
-                "inherited": false
-            },
-            {
-                "name": "unstyled",
-                "type": "boolean | undefined",
-                "required": false,
-                "bindable": false,
-                "default": null,
-                "description": "Skip the variant/size base classes and render with `class` alone.",
                 "inherited": false
             },
             {
@@ -569,30 +542,12 @@
                 "inherited": false
             },
             {
-                "name": "loadingLabel",
-                "type": "string | undefined",
+                "name": "labels",
+                "type": "ButtonLabels | undefined",
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "Text shown while `status` is `loading`. The button keeps its width.",
-                "inherited": false
-            },
-            {
-                "name": "successLabel",
-                "type": "string | undefined",
-                "required": false,
-                "bindable": false,
-                "default": null,
-                "description": "Text shown while `status` is `success`.",
-                "inherited": false
-            },
-            {
-                "name": "errorLabel",
-                "type": "string | undefined",
-                "required": false,
-                "bindable": false,
-                "default": null,
-                "description": "Text shown while `status` is `error`.",
+                "description": "Overrides the built-in text and accessible names. Every key is optional and English is the fallback.",
                 "inherited": false
             }
         ]
@@ -651,6 +606,15 @@
                 "inherited": false
             },
             {
+                "name": "variant",
+                "type": "\"destructive\" | undefined",
+                "required": false,
+                "bindable": false,
+                "default": null,
+                "description": "Marks an action that deletes or cannot be undone. Omit it for a regular item.",
+                "inherited": false
+            },
+            {
                 "name": "children",
                 "type": "Snippet<[]> | undefined",
                 "required": false,
@@ -659,7 +623,7 @@
                 "description": "Content rendered inside.",
                 "inherited": false
             },
-            2681,
+            2677,
             0,
             1,
             2,
@@ -1115,7 +1079,7 @@
                 "description": "Controlled visual state. Loading remains focusable and refuses activation.",
                 "inherited": false
             },
-            3978,
+            3974,
             {
                 "name": "disabled",
                 "type": "boolean | undefined",
@@ -1137,39 +1101,12 @@
             1073,
             1074,
             {
-                "name": "variant",
-                "type": "ButtonVariant | undefined",
-                "required": false,
-                "bindable": false,
-                "default": null,
-                "description": "Visual style. Choose it for what the action means, not for decoration.",
-                "inherited": false
-            },
-            {
-                "name": "size",
-                "type": "\"sm\" | \"md\" | \"lg\" | \"icon\" | undefined",
-                "required": false,
-                "bindable": false,
-                "default": null,
-                "description": "Control height. `icon` is a square button for a single icon.",
-                "inherited": false
-            },
-            {
                 "name": "element",
                 "type": "HTMLButtonElement | HTMLAnchorElement | undefined",
                 "required": false,
                 "bindable": true,
                 "default": null,
                 "description": "Bindable reference to the rendered DOM element. Type is the union of the two possible element types -- narrow at the use site:",
-                "inherited": false
-            },
-            {
-                "name": "unstyled",
-                "type": "boolean | undefined",
-                "required": false,
-                "bindable": false,
-                "default": null,
-                "description": "Skip the variant/size base classes and render with `class` alone.",
                 "inherited": false
             },
             {
@@ -1182,30 +1119,12 @@
                 "inherited": false
             },
             {
-                "name": "loadingLabel",
-                "type": "string | undefined",
+                "name": "labels",
+                "type": "ButtonLabels | undefined",
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "Text shown while `status` is `loading`. The button keeps its width.",
-                "inherited": false
-            },
-            {
-                "name": "successLabel",
-                "type": "string | undefined",
-                "required": false,
-                "bindable": false,
-                "default": null,
-                "description": "Text shown while `status` is `success`.",
-                "inherited": false
-            },
-            {
-                "name": "errorLabel",
-                "type": "string | undefined",
-                "required": false,
-                "bindable": false,
-                "default": null,
-                "description": "Text shown while `status` is `error`.",
+                "description": "Overrides the built-in text and accessible names. Every key is optional and English is the fallback.",
                 "inherited": false
             }
         ]

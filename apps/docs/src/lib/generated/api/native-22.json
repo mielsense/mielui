@@ -1,41 +1,5 @@
 [
     {
-        "name": "on:pointerover",
-        "type": "PointerEventHandler<HTMLHeadingElement> | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
-        "name": "onpointerover",
-        "type": "PointerEventHandler<HTMLHeadingElement> | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
-        "name": "onpointerovercapture",
-        "type": "PointerEventHandler<HTMLHeadingElement> | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
-        "name": "on:pointerup",
-        "type": "PointerEventHandler<HTMLHeadingElement> | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
         "name": "onpointerup",
         "type": "PointerEventHandler<HTMLHeadingElement> | null | undefined",
         "required": false,
@@ -2242,6 +2206,42 @@
     },
     {
         "name": "on:dragover",
+        "type": "DragEventHandler<HTMLLIElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "ondragover",
+        "type": "DragEventHandler<HTMLLIElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "ondragovercapture",
+        "type": "DragEventHandler<HTMLLIElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "on:dragstart",
+        "type": "DragEventHandler<HTMLLIElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "ondragstart",
         "type": "DragEventHandler<HTMLLIElement> | null | undefined",
         "required": false,
         "bindable": false,

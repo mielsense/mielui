@@ -23,34 +23,64 @@
         options as playgroundOptions
     } from './playground';
 
-    const TITLE = 'Color Picker';
-
     let color = $state('#5e6ad2');
+
+    const usageCode = `<script lang="ts">
+    import * as ColorPicker from '@mielui/svelte/components/color-picker';
+
+    let value = $state('#5e6ad2');
+</${'script'}>
+
+<ColorPicker.Root bind:value label="Accent color">
+    <ColorPicker.Trigger />
+    <ColorPicker.Content />
+</ColorPicker.Root>`;
+
+    const labelsCode = `<script lang="ts">
+    import * as ColorPicker from '@mielui/svelte/components/color-picker';
+    import type { ColorPickerLabels } from '@mielui/svelte/components/color-picker';
+
+    const labels: ColorPickerLabels = {
+        choose: 'Choisir une couleur',
+        picker: 'Sélecteur de couleur',
+        hex: 'Couleur hexadécimale',
+        eyedropper: 'Prélever une couleur',
+        trigger: (label, color) => \`\${label} : \${color}\`,
+        hue: 'Teinte',
+        saturation: 'Saturation',
+        lightness: 'Luminosité',
+        brightness: 'Valeur',
+        red: 'Rouge',
+        green: 'Vert',
+        blue: 'Bleu'
+    };
+
+    let value = $state('');
+</${'script'}>
+
+<ColorPicker.Root bind:value {labels}>
+    <ColorPicker.Trigger />
+    <ColorPicker.Content />
+</ColorPicker.Root>`;
 </script>
 
 <svelte:head>
-    <title>
-        Mielui ·{' '}
-        {TITLE}
-    </title>
-    <meta name="description" content="Inline hex color picker with optional presets." />
+    <title>Mielui · Color Picker</title>
+    <meta
+        name="description"
+        content="A hex color picker with HSL, RGB or HSV channel controls and optional preset swatches."
+    />
 </svelte:head>
 
 <div data-docs-page class="flex flex-col gap-10">
-    <PageIntro title={TITLE}>
-        A hex color picker with HSL, RGB, or HSV channel controls and optional preset swatches.
+    <PageIntro title="Color Picker">
+        A hex color picker with HSL, RGB or HSV channel controls and optional preset swatches.
     </PageIntro>
 
     <section id="hero" class="scroll-mt-20 flex flex-col gap-4">
         <Playground controls={playgroundControls} code={playgroundCode}>
             {#snippet children(values)}
-                {const content = {
-                    surface: values.surface === 'theme' ? undefined : values.surface,
-                    allowClickOutside: values.allowClickOutside,
-                    dismissLayer: values.dismissLayer,
-                    focusTrap: values.focusTrap,
-                    lockScroll: values.lockScroll
-                }}
+                {const surface = $derived(values.surface === 'theme' ? undefined : values.surface)}
                 <ColorPicker.Root
                     bind:value={color}
                     label={values.label ? 'Accent color' : undefined}
@@ -59,29 +89,19 @@
                 >
                     <ColorPicker.Trigger variant={values.variant} />
                     {#if isDefaultContent(values)}
-                        <ColorPicker.Content {...content} />
+                        <ColorPicker.Content {surface} />
                     {:else}
-                        <ColorPicker.Content {...content}>
+                        <ColorPicker.Content {surface}>
                             {#if values.plane}
                                 <ColorPicker.Plane class="mx-1.5 mt-1.5 w-auto" />
                             {/if}
-                            {#if values.preview || values.hue || values.hexInput}
-                                <div class="flex items-center gap-2.5 px-2.5 pt-2.5 pb-1">
-                                    {#if values.preview}
-                                        <ColorPicker.Preview />
-                                    {/if}
-                                    {#if values.hue || values.hexInput}
-                                        <div class="min-w-0 flex-1 space-y-2">
-                                            {#if values.hue}
-                                                <ColorPicker.Hue />
-                                            {/if}
-                                            {#if values.hexInput}
-                                                <ColorPicker.HexInput />
-                                            {/if}
-                                        </div>
-                                    {/if}
+                            <div class="flex items-center gap-2.5 px-2.5 pt-2.5 pb-1">
+                                <ColorPicker.Preview />
+                                <div class="min-w-0 flex-1 space-y-2">
+                                    <ColorPicker.Hue />
+                                    <ColorPicker.HexInput />
                                 </div>
-                            {/if}
+                            </div>
                             {#if values.channels}
                                 <ColorPicker.Channels
                                     class={values.presets ? CHANNELS_SEAM : undefined}
@@ -104,24 +124,18 @@
 
     <section id="usage" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Usage</Typography.H2>
+        <Typography.Text>
+            Compose Root, Trigger and Content. Bind value to a six-digit hex string with its leading
+            hash, such as #5e6ad2. Shorthand hex, named colors and other color formats are not
+            parsed.
+        </Typography.Text>
+        <CodeBlock code={usageCode} lang="svelte" copy="overlay" />
         <Typography.Text variant="supporting">
-            Compose the Color Picker from its Root, Trigger, and Content parts. Pass value as a
-            six-digit hex string with its leading hash, such as #5e6ad2. Shorthand hex, named
-            colors, and other color formats are not parsed.
+            label prints a visible label above the trigger and names the trigger and panel. Give
+            each picker a distinct label when several appear together. The hex field and every
+            channel have accessible names, and the channel sliders are a keyboard alternative to the
+            plane. Hue changes keep zero saturation, so raise saturation to see the hue.
         </Typography.Text>
-        <Typography.Text>
-            The hex field and every color channel have accessible names. Channel sliders provide a
-            keyboard alternative to the pointer plane. Set the root label to name the trigger.
-        </Typography.Text>
-        <Typography.Text>
-            Hue adjustments preserve zero saturation. Increase saturation to reveal the selected
-            hue.
-        </Typography.Text>
-        <CodeBlock
-            code={`import * as ColorPicker from '@mielui/svelte/components/color-picker';\n\nlet value = $state('#5e6ad2');\n\n<ColorPicker.Root value={value} onValueChange={(v) => (value = v)} format="hsl">\n\t<ColorPicker.Trigger />\n\t<ColorPicker.Content />\n</ColorPicker.Root>`}
-            lang="svelte"
-            copy="overlay"
-        />
     </section>
 
     <section id="examples" class="scroll-mt-20 flex flex-col gap-10">
@@ -137,7 +151,9 @@
                 color state from Root. Here, presets come first and the plane and hue strip are
                 omitted. Channels uses the Root format; Presets uses its options.
             </Typography.Text>
-            <ComponentPreview code={CompositionSrc}><Composition /></ComponentPreview>
+            <ComponentPreview code={CompositionSrc}>
+                <Composition />
+            </ComponentPreview>
         </div>
 
         <div id="default" class="scroll-mt-20 flex flex-col gap-3">
@@ -149,6 +165,9 @@
 
         <div id="formats" class="scroll-mt-20 flex flex-col gap-3">
             <Typography.H3 class="docs-subsection-heading">Channel formats</Typography.H3>
+            <Typography.Text variant="supporting">
+                format picks the channel sliders: HSL, RGB or HSV. The value stays a hex string.
+            </Typography.Text>
             <ComponentPreview code={FormatsSrc}>
                 <Formats />
             </ComponentPreview>
@@ -161,25 +180,18 @@
             </ComponentPreview>
         </div>
     </section>
-    <section id="glass" class="flex flex-col gap-4">
+    <section id="glass" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Glass surface</Typography.H2>
         <Typography.Text variant="supporting">
-            Set surface="glass" on ColorPicker.Content for a translucent background with blur. Solid
-            remains the default. The glass surface keeps an opaque fallback when backdrop filtering
-            is unavailable and respects reduced-transparency preferences.
+            Set surface="glass" on Content for a translucent panel with blur, or surface="solid" for
+            an opaque one. Without surface, the panel follows the theme. Glass falls back to an
+            opaque panel when backdrop filtering is unavailable or reduced transparency is on.
         </Typography.Text>
-        <ComponentPreview code={GlassSrc}><Glass /></ComponentPreview>
+        <ComponentPreview code={GlassSrc}>
+            <Glass />
+        </ComponentPreview>
     </section>
-    <section id="working-example" class="flex scroll-mt-20 flex-col gap-4">
-        <Typography.H2 class="docs-section-heading">Keep edits connected</Typography.H2>
-        <Typography.Text>
-            Bind value when another part of the form needs the selected color. The custom
-            composition places presets before the channel controls; the trigger, preview, and inputs
-            still share the same value. Give each picker a distinct label when several appear
-            together.
-        </Typography.Text>
-    </section>
-    <section id="panel-behavior" class="flex flex-col gap-4">
+    <section id="panel-behavior" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Panel behavior</Typography.H2>
         <Typography.Text variant="supporting">
             <InlineText
@@ -192,17 +204,15 @@
             />
         </Typography.Text>
     </section>
-    <section id="labels" class="flex scroll-mt-20 flex-col gap-4">
+    <section id="labels" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Labels</Typography.H2>
         <Typography.Text>
-            Built-in text is English by default. Pass labels to ColorPicker.Root to translate the
-            empty trigger text and the names of the panel, the hex input, and the screen color
-            button. Every key is optional; omitted keys keep their default.
+            Built-in text is English. Pass a ColorPickerLabels object to labels on Root to translate
+            the trigger text shown before a color is chosen, and the names of the panel, the hex
+            input, the screen color button, and each slider and channel. trigger is a function of
+            Root's label and the color, so a translation can reorder them. Every key is optional,
+            and an omitted key keeps its English default.
         </Typography.Text>
-        <CodeBlock
-            code={`<ColorPicker.Root labels={{ choose: 'Choisir une couleur', hex: 'Couleur hexadécimale' }} />`}
-            lang="svelte"
-            copy="overlay"
-        />
+        <CodeBlock code={labelsCode} lang="svelte" copy="overlay" />
     </section>
 </div>

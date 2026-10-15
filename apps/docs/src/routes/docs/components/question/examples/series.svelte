@@ -87,7 +87,15 @@
 </script>
 
 <div class="w-full max-w-xl">
-    <Question.Root variant="inset" bind:value={answers[step]} required={!complete} onSubmit={next}>
+    <Question.Root
+        variant="inset"
+        bind:value={answers[step]}
+        required={!complete}
+        labels={{
+            submit: step === questions.length - 1 ? 'Finish' : 'Next'
+        }}
+        onSubmit={next}
+    >
         <Question.Content>
             {#if complete}
                 <Question.Title>Ready to get started</Question.Title>
@@ -133,7 +141,7 @@
                     Start again
                 </Button>
             {:else}
-                <Question.Submit label={step === questions.length - 1 ? 'Finish' : 'Next'} />
+                <Question.Submit />
             {/if}
         </Question.Actions>
     </Question.Root>

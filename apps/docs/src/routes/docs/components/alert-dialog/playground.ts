@@ -1,6 +1,5 @@
 import {
     attributes,
-    BUTTON_VARIANTS,
     changed,
     defaultOn,
     type PlaygroundValues,
@@ -11,12 +10,10 @@ import {
 export const controls = {
     size: select('Size', ['sm', 'md', 'lg', 'xl'], 'sm'),
     orientation: select('Orientation', ['vertical', 'horizontal'], 'vertical', 'Appearance'),
-    trigger: select('Trigger variant', BUTTON_VARIANTS, 'destructive', 'Appearance'),
     glass: toggle('Glass surface', 'Appearance'),
     description: toggle('Description', 'Content', true),
     error: toggle('Destructive', 'State', true),
-    allowEscape: toggle('Close on Escape', 'Behavior', true),
-    closeOnClick: toggle('Close on confirm', 'Behavior', true)
+    allowEscape: toggle('Close on Escape', 'Behavior', true)
 };
 
 type Values = PlaygroundValues<typeof controls>;
@@ -26,16 +23,10 @@ export function code(values: Values): string {
         error: values.error,
         orientation: changed(values.orientation, 'vertical')
     });
-    const trigger = attributes({
-        variant: changed(values.trigger, 'primary')
-    });
     const content = attributes({
         size: changed(values.size, 'sm'),
         surface: values.glass && 'glass',
         allowEscape: defaultOn(values.allowEscape)
-    });
-    const confirm = attributes({
-        closeOnClick: defaultOn(values.closeOnClick)
     });
     const description = values.description
         ? `
@@ -49,14 +40,14 @@ export function code(values: Values): string {
 </script>
 
 <AlertDialog.Root${root}>
-    <AlertDialog.Trigger${trigger}>Delete project</AlertDialog.Trigger>
+    <AlertDialog.Trigger variant="outline">Delete project</AlertDialog.Trigger>
     <AlertDialog.Content${content}>
         <AlertDialog.Header>
             <AlertDialog.Title>Delete this project?</AlertDialog.Title>${description}
         </AlertDialog.Header>
         <AlertDialog.Footer>
             <AlertDialog.Exit>Cancel</AlertDialog.Exit>
-            <AlertDialog.Confirm${confirm}>Delete project</AlertDialog.Confirm>
+            <AlertDialog.Confirm>Delete project</AlertDialog.Confirm>
         </AlertDialog.Footer>
     </AlertDialog.Content>
 </AlertDialog.Root>`;

@@ -12,9 +12,9 @@
         Right-click the canvas. Grid {grid ? 'on' : 'off'}, rulers {rulers ? 'on' : 'off'}.
     </ContextMenu.Trigger>
     <ContextMenu.Content class="min-w-[12rem]">
-        <ContextMenu.CheckboxItem value="grid" bind:checked={grid}
-            >Show grid</ContextMenu.CheckboxItem
-        >
+        <ContextMenu.CheckboxItem value="grid" bind:checked={grid}>
+            Show grid
+        </ContextMenu.CheckboxItem>
         <ContextMenu.CheckboxItem value="rulers" bind:checked={rulers}>
             Show rulers
         </ContextMenu.CheckboxItem>

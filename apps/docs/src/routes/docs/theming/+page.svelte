@@ -1,12 +1,12 @@
 <script lang="ts">
     import { CodeBlock } from '@mielui/svelte/components/code-block';
-    import * as Table from '@mielui/svelte/components/table';
     import * as Typography from '@mielui/svelte/components/typography';
     import { builtInThemePresets } from '@mielui/svelte/themes/builtin-presets';
     import { resolve } from '$app/paths';
     import InlineText from '$lib/components/docs/inline-text.svelte';
     import PackageCommand from '$lib/components/docs/package-command.svelte';
     import PageIntro from '$lib/components/docs/page-intro.svelte';
+    import Rows from '$lib/components/docs/rows.svelte';
     import {
         classExample,
         dataUiExample,
@@ -20,6 +20,13 @@
     const presetSlugs = builtInThemePresets.map((preset) => `\`${preset.slug}\``);
 
     const presetList = `${presetSlugs.slice(0, -1).join(', ')}, and ${presetSlugs.at(-1)}`;
+
+    const tokenRows = tokenGroups.map((group) => {
+        return {
+            label: group.group,
+            value: group.tokens.map((token) => `\`${token}\``).join(' ')
+        };
+    });
 </script>
 
 <svelte:head>
@@ -32,7 +39,7 @@
 
 <div data-docs-page class="flex flex-col gap-16">
     <PageIntro title="Theming">
-        Components read CSS variables. Change tokens for system-wide look, or override a single
+        Components read CSS variables. Change tokens for a system-wide look, or override a single
         component with classes and selectors.
     </PageIntro>
 
@@ -49,7 +56,7 @@
         <Typography.H2 class="docs-section-heading">Theme Studio</Typography.H2>
         <Typography.Text variant="body" class="m-0">
             <InlineText
-                text={`[Theme Studio](${resolve('/studio')}) lets you start from a preset and adjust colors, fonts, spacing, motion, and surface effects. Open Advanced colors for individual color tokens.`}
+                text={`[Theme Studio](${resolve('/studio')}) lets you start from a preset and adjust colors, fonts, spacing, motion, and surface effects. Open All color tokens at the end of the Color tab to edit individual color tokens.`}
             />
         </Typography.Text>
         <Typography.Text variant="body" class="m-0">
@@ -90,8 +97,8 @@
             />
         </Typography.Text>
         <Typography.Text variant="body" class="m-0">
-            The glass backdrop in the Studio toolbar adds color behind the preview. It is a viewing
-            aid and is not included in your exported theme.
+            The glass backdrop in the Studio preview options adds color behind the preview. It is a
+            viewing aid and is not included in your exported theme.
         </Typography.Text>
     </section>
 
@@ -112,38 +119,7 @@
 
     <section id="useful-tokens" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Useful public tokens</Typography.H2>
-        <Table.ScrollArea>
-            <Table.Root variant="inset" class="table-fixed">
-                <Table.Caption class="sr-only">Public theme tokens by group</Table.Caption>
-                <Table.Header>
-                    <Table.Row class="hover:bg-transparent">
-                        <Table.Head class="w-[36%] sm:w-1/4">Group</Table.Head>
-                        <Table.Head>Tokens</Table.Head>
-                    </Table.Row>
-                </Table.Header>
-                <Table.Body>
-                    {#each tokenGroups as group (group.group)}
-                        <Table.Row class="align-top hover:bg-transparent">
-                            <Table.Head
-                                {...{ scope: 'row' as const }}
-                                class="border-b-0 align-top font-medium text-foreground"
-                            >
-                                {group.group}
-                            </Table.Head>
-                            <Table.Cell class="align-top">
-                                <ul class="m-0 flex list-none flex-wrap gap-1.5 p-0">
-                                    {#each group.tokens as token (token)}
-                                        <li>
-                                            <Typography.InlineCode>{token}</Typography.InlineCode>
-                                        </li>
-                                    {/each}
-                                </ul>
-                            </Table.Cell>
-                        </Table.Row>
-                    {/each}
-                </Table.Body>
-            </Table.Root>
-        </Table.ScrollArea>
+        <Rows items={tokenRows} label="Public theme tokens" />
         <Typography.Text variant="body" class="m-0">
             <InlineText
                 text="Controls use three heights. Icon buttons match the medium height. `--focus-ring` is a 3px ring at half the primary color, and it composes with each control's existing edge. The default radius scale is 8, 10, 14, and 18 pixels from small to extra large. Plates use `--radius-2xl`, 26 pixels, and everything pressable uses `--radius-control`: 4 pixels in the sharp scale, 12 in the default scale, and a pill in the rounded scale."
@@ -191,15 +167,7 @@
             Theme JSON version 4 is the format shared by Studio and the CLI. Export it from Studio
             to preserve both color modes and your overrides.
         </Typography.Text>
-        <ul
-            class="m-0 flex list-disc flex-col gap-2 ps-5 text-base leading-relaxed text-foreground marker:text-foreground-muted"
-        >
-            {#each themeJsonFields as field (field)}
-                <li>
-                    <InlineText text={field} />
-                </li>
-            {/each}
-        </ul>
+        <Rows items={themeJsonFields} label="Theme JSON fields" />
         <Typography.Text variant="body" class="m-0">
             <InlineText
                 text='Set `motion: "none"` to disable animations, including dialogs, menus, and the traveling highlight. Edge highlight strength ranges from 0 to 1.'
@@ -241,7 +209,7 @@
         <Typography.H2 class="docs-section-heading">Borders</Typography.H2>
         <Typography.Text variant="body" class="m-0">
             <InlineText
-                text='Framed surfaces are a white frame holding a recessed inset in the page background. Set `chrome.borders` to `"single"` so the inset meets the border of the frame, or `"double"` for a gutter between the two. The default is `"single"`. Explicit saved settings remain respected. Studio exposes this choice under Appearance.'
+                text='Framed surfaces are a white frame holding a recessed inset in the page background. Set `chrome.borders` to `"single"` so the inset meets the border of the frame, or `"double"` for a gutter between the two. The default is `"single"`. Studio exposes this choice as Borders on the Surface tab.'
             />
         </Typography.Text>
         <CodeBlock
@@ -318,9 +286,10 @@ const css = themeToCss(theme);`}
 const css = themeToCss(theme);`}
         />
         <Typography.Text variant="body" class="m-0">
-            Studio exposes Edge highlight under Edges. Turn it off to remove the highlight, or
-            adjust its strength while enabled. Turning it back on restores the last strength used in
-            that session. Preset JSON, copied CSS, saved drafts, and CLI theme imports preserve it.
+            Studio exposes Edge highlight on the Surface tab. Turn it off to remove the highlight,
+            or adjust its strength while enabled. Turning it back on restores the last strength used
+            in that session. Preset JSON, copied CSS, saved drafts, and CLI theme imports preserve
+            it.
         </Typography.Text>
     </section>
 

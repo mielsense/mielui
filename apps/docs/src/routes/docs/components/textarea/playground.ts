@@ -2,7 +2,6 @@ import {
     attributes,
     changed,
     compact,
-    number,
     type PlaygroundValues,
     select,
     text,
@@ -15,15 +14,8 @@ export const controls = {
     description: toggle('Description', 'Content'),
     placeholder: text('Placeholder', 'Write a message…', 'Content'),
     footer: toggle('Footer', 'Content'),
-    disabled: toggle('Disabled', 'State'),
-    readonly: toggle('Read only', 'State'),
-    required: toggle('Required', 'State'),
     invalid: toggle('Invalid', 'State'),
-    rows: number('Rows', 3, {
-        min: 1,
-        max: 12,
-        group: 'Behavior'
-    }),
+    disabled: toggle('Disabled', 'State'),
     autoresize: toggle('Autoresize', 'Behavior')
 };
 
@@ -34,11 +26,8 @@ export function code(values: PlaygroundValues<typeof controls>): string {
         'aria-label': !values.label && 'Message',
         description: values.description && 'Sent to everyone on the project.',
         placeholder: values.placeholder,
-        rows: changed(values.rows, 2),
         autoresize: values.autoresize,
         disabled: values.disabled,
-        readonly: values.readonly,
-        required: values.required,
         'aria-invalid': values.invalid && 'true'
     });
     const imports = compact([

@@ -1,9 +1,10 @@
 import { CalendarDate, CalendarDateTime, type DateValue, isWeekend } from '@internationalized/date';
-import { type AttributeValues, changed, compact, defaultOn, expression, quote, tag } from './code';
+import { type AttributeValues, changed, compact, expression, quote, tag } from './code';
 import { number, type PlaygroundValues, select, toggle } from './controls';
 
 const BOOKED_MONTH = 9;
 const BOOKED_DAYS = [8, 9, 22];
+const LOCALES = ['en-US', 'en-GB', 'fr-FR', 'de-DE', 'ja-JP'] as const;
 
 export const DEFAULT_LOCALE = 'en-US';
 export const MIN_DAYS = 2;
@@ -16,107 +17,45 @@ export const endDate = new CalendarDate(2026, 9, 23);
 export const startTime = new CalendarDateTime(2026, 9, 17, 9, 30);
 export const endTime = new CalendarDateTime(2026, 9, 23, 18, 0);
 
-/** The format controls of every calendar. Left ungrouped, the weekday select is in the toolbar. */
-export function formatControls(weekdayFormatGroup?: string) {
-    return {
-        weekdayFormat: select(
-            'Weekday format',
-            ['narrow', 'short', 'long'],
-            'short',
-            weekdayFormatGroup
-        ),
-        monthFormat: select(
-            'Month format',
-            ['long', 'short', 'narrow', 'numeric', '2-digit'],
-            'long',
-            'Appearance'
-        ),
-        yearFormat: select('Year format', ['numeric', '2-digit'], 'numeric', 'Appearance'),
-        locale: select(
-            'Locale',
-            ['en-US', 'en-GB', 'fr-FR', 'de-DE', 'ja-JP'],
-            DEFAULT_LOCALE,
-            'Appearance'
-        ),
-        weekStartsOn: select(
-            'Week starts on',
-            ['locale', 'sunday', 'monday', 'saturday'],
-            'locale',
-            'Appearance'
-        ),
-        numberOfMonths: number('Months', 1, {
-            min: 1,
-            max: 3,
-            step: 1,
-            group: 'Appearance'
-        }),
-        fixedWeeks: toggle('Fixed weeks', 'Appearance', true)
-    };
-}
-
-export const headerControls = {
-    header: select('Header', ['arrows', 'selects'], 'arrows', 'Content')
-};
-
-export const stateControls = {
-    disabled: toggle('Disabled', 'State'),
-    readonly: toggle('Read only', 'State')
-};
-
-export const constraintControls = {
+const constraintControls = {
     bounds: toggle('Min and max dates', 'Behavior'),
     weekends: toggle('Disable weekends', 'Behavior'),
     unavailable: toggle('Unavailable dates', 'Behavior')
 };
 
-export const rangeControls = {
-    limit: toggle('Two to seven days', 'Behavior'),
-    excludeDisabled: toggle('Exclude disabled dates', 'Behavior')
-};
-
-export const navigationControls = {
-    preventDeselect: toggle('Prevent deselect', 'Behavior'),
-    pagedNavigation: toggle('Paged navigation', 'Behavior'),
-    disableDaysOutsideMonth: toggle('Disable days outside month', 'Behavior', true)
-};
-
-export const pickerControls = {
-    side: select('Side', ['bottom', 'top', 'left', 'right'], 'bottom'),
-    align: select('Align', ['start', 'center', 'end'], 'end', 'Appearance'),
-    sideOffset: number('Side offset', 6, {
-        min: 0,
-        max: 32,
+/** The controls of a standalone calendar. The header select sits in the toolbar. */
+export const calendarControls = {
+    header: select('Header', ['arrows', 'selects'], 'arrows'),
+    locale: select('Locale', LOCALES, DEFAULT_LOCALE, 'Appearance'),
+    weekdayFormat: select('Weekday format', ['narrow', 'short', 'long'], 'short', 'Appearance'),
+    numberOfMonths: number('Months', 1, {
+        min: 1,
+        max: 2,
         step: 1,
         group: 'Appearance'
     }),
+    disabled: toggle('Disabled', 'State'),
+    ...constraintControls
+};
+
+/** The controls of a date picker. The granularity select sits in the toolbar. */
+export const pickerControls = {
+    granularity: select('Granularity', ['day', 'hour', 'minute', 'second'], 'day'),
     surface: select('Surface', ['theme', 'solid', 'glass'], 'theme', 'Appearance'),
-    granularity: select('Granularity', ['day', 'hour', 'minute', 'second'], 'day', 'Appearance'),
-    hourCycle: select('Hour cycle', ['locale', '12', '24'], 'locale', 'Appearance')
-};
-
-export const labelControls = {
+    locale: select('Locale', LOCALES, DEFAULT_LOCALE, 'Appearance'),
     label: toggle('Label', 'Content', true),
-    labels: toggle('Custom labels', 'Content')
+    disabled: toggle('Disabled', 'State'),
+    ...constraintControls
 };
 
-type FormatValues = PlaygroundValues<ReturnType<typeof formatControls>>;
+export const rangeControls = {
+    limit: toggle('Two to seven days', 'Behavior')
+};
+
+type CalendarValues = PlaygroundValues<typeof calendarControls>;
 type ConstraintValues = PlaygroundValues<typeof constraintControls>;
 type RangeValues = PlaygroundValues<typeof rangeControls>;
-type NavigationValues = PlaygroundValues<typeof navigationControls>;
 type PickerValues = PlaygroundValues<typeof pickerControls>;
-
-export const WEEK_START: Record<FormatValues['weekStartsOn'], 0 | 1 | 6 | undefined> = {
-    locale: undefined,
-    sunday: 0,
-    monday: 1,
-    saturday: 6
-};
-
-export const HOUR_CYCLE: Record<PickerValues['hourCycle'], 12 | 24 | undefined> = {
-    locale: undefined,
-    '12': 12,
-    '24': 24
-};
 
 export function isBooked(date: DateValue) {
     return date.month === BOOKED_MONTH && BOOKED_DAYS.includes(date.day);
@@ -142,14 +81,12 @@ function dateSource(date: CalendarDate | CalendarDateTime): string {
     return `new CalendarDate(${date.year}, ${date.month}, ${date.day})`;
 }
 
-export function formatAttributes(values: FormatValues): AttributeValues {
+export function calendarAttributes(values: CalendarValues): AttributeValues {
     return {
+        locale: changed(values.locale, DEFAULT_LOCALE),
         weekdayFormat: changed(values.weekdayFormat, 'short'),
-        monthFormat: changed(values.monthFormat, 'long'),
-        yearFormat: changed(values.yearFormat, 'numeric'),
-        weekStartsOn: WEEK_START[values.weekStartsOn],
         numberOfMonths: changed(values.numberOfMonths, 1),
-        fixedWeeks: defaultOn(values.fixedWeeks)
+        disabled: values.disabled
     };
 }
 
@@ -165,33 +102,23 @@ export function constraintAttributes(values: ConstraintValues): AttributeValues 
 export function rangeAttributes(values: RangeValues): AttributeValues {
     return {
         minDays: values.limit && MIN_DAYS,
-        maxDays: values.limit && MAX_DAYS,
-        excludeDisabled: values.excludeDisabled
+        maxDays: values.limit && MAX_DAYS
     };
 }
 
-export function navigationAttributes(values: NavigationValues): AttributeValues {
+/** A date-time value already defaults to minute granularity, so only other units print. */
+export function pickerAttributes(values: PickerValues): AttributeValues {
     return {
-        preventDeselect: values.preventDeselect,
-        pagedNavigation: values.pagedNavigation,
-        disableDaysOutsideMonth: defaultOn(values.disableDaysOutsideMonth)
+        locale: changed(values.locale, DEFAULT_LOCALE),
+        granularity: hasTime(values) && changed(values.granularity, 'minute'),
+        disabled: values.disabled
     };
 }
 
-export function timeAttributes(values: PickerValues): AttributeValues {
-    const withTime = hasTime(values);
-
+/** The panel lines up with the trigger at the end of the field. */
+export function contentAttributes(values: Pick<PickerValues, 'surface'>): AttributeValues {
     return {
-        granularity: withTime && changed(values.granularity, 'minute'),
-        hourCycle: withTime ? HOUR_CYCLE[values.hourCycle] : undefined
-    };
-}
-
-export function contentAttributes(values: PickerValues): AttributeValues {
-    return {
-        side: changed(values.side, 'bottom'),
-        align: changed(values.align, 'start'),
-        sideOffset: changed(values.sideOffset, 6),
+        align: 'end',
         surface: changed(values.surface, 'theme')
     };
 }
@@ -234,22 +161,14 @@ export function rangeDeclaration(withTime = false): string {
     });`;
 }
 
-export function labelsDeclaration(labels: Record<string, string>): string {
-    const entries = Object.entries(labels).map(([key, value]) => {
-        return `        ${key}: ${quote(value)}`;
-    });
-
-    return `    const labels = {
-${entries.join(',\n')}
-    };`;
-}
-
 /**
  * Prints the body of the example script: the booked days, then `declarations`, then the date
  * matchers the constraint controls switched on.
  */
 export function script(
-    values: ConstraintValues & Pick<FormatValues, 'locale'>,
+    values: ConstraintValues & {
+        locale: string;
+    },
     declarations: readonly (string | false)[]
 ): string {
     const lines = compact([
@@ -273,7 +192,7 @@ export function script(
 /** Prints the children snippet with month and year selects, through the closing Root tag. */
 export function headerSnippet(
     name: string,
-    values: Pick<FormatValues, 'locale' | 'numberOfMonths'>
+    values: Pick<CalendarValues, 'locale' | 'numberOfMonths'>
 ): string {
     const indent = '                    ';
     const month = tag(

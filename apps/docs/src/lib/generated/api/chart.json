@@ -8,7 +8,7 @@
                 "required": true,
                 "bindable": false,
                 "default": null,
-                "description": "Key of the series in `config` and in each data row.",
+                "description": "Series to draw. Matches a data field and a `config` entry.",
                 "inherited": false
             },
             {
@@ -26,7 +26,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "Line thickness in pixels.",
+                "description": "Thickness of the line in pixels.",
                 "inherited": false
             }
         ]
@@ -40,7 +40,7 @@
                 "required": true,
                 "bindable": false,
                 "default": null,
-                "description": "Key of the series in `config` and in each data row.",
+                "description": "Series to draw. Matches a data field and a `config` entry.",
                 "inherited": false
             },
             {
@@ -81,7 +81,7 @@
                 "required": false,
                 "bindable": false,
                 "default": "5",
-                "description": "Number of grid lines.",
+                "description": "Number of grid lines to aim for.",
                 "inherited": false
             }
         ]
@@ -104,7 +104,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "Content rendered inside.",
+                "description": "Renders one legend entry. Omit it for a dot and the series label.",
                 "inherited": false
             }
         ]
@@ -118,7 +118,7 @@
                 "required": true,
                 "bindable": false,
                 "default": null,
-                "description": "Key of the series in `config` and in each data row.",
+                "description": "Series to draw. Matches a data field and a `config` entry.",
                 "inherited": false
             },
             {
@@ -136,7 +136,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "Line thickness in pixels.",
+                "description": "Thickness of the line in pixels.",
                 "inherited": false
             }
         ]
@@ -144,7 +144,7 @@
     {
         "name": "Plot",
         "properties": [
-            2681,
+            2677,
             0,
             1,
             2,
@@ -580,7 +580,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "Content rendered inside.",
+                "description": "Marks, axes, and grid drawn inside the plot.",
                 "inherited": false
             },
             {
@@ -589,7 +589,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "Content shown when there is no data.",
+                "description": "Replaces the built-in empty state.",
                 "inherited": false
             },
             {
@@ -598,7 +598,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "Content shown while `loading` is true.",
+                "description": "Replaces the built-in loading skeleton.",
                 "inherited": false
             }
         ]
@@ -606,7 +606,7 @@
     {
         "name": "Root",
         "properties": [
-            2681,
+            2677,
             0,
             1,
             2,
@@ -1059,7 +1059,7 @@
                 "required": true,
                 "bindable": false,
                 "default": null,
-                "description": "Rows to plot. Each row holds the `x` value and one value per series.",
+                "description": "Rows to plot. Each row holds a category and one numeric field per series.",
                 "inherited": false
             },
             {
@@ -1077,7 +1077,7 @@
                 "required": true,
                 "bindable": false,
                 "default": null,
-                "description": "Key of the category or time value in each row.",
+                "description": "Field of each row that holds its category.",
                 "inherited": false
             },
             {
@@ -1086,7 +1086,7 @@
                 "required": false,
                 "bindable": false,
                 "default": "'vertical'",
-                "description": "`vertical` draws categories along the bottom. `horizontal` draws them along the side.",
+                "description": "`horizontal` lays categories down the side and values across.",
                 "inherited": false
             },
             {
@@ -1095,7 +1095,7 @@
                 "required": false,
                 "bindable": false,
                 "default": "false",
-                "description": "Stacks the series on top of each other instead of side by side.",
+                "description": "Stacks bars of the same category instead of placing them side by side.",
                 "inherited": false
             },
             {
@@ -1145,7 +1145,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "Content rendered inside.",
+                "description": "Renders the tooltip body for the inspected category.",
                 "inherited": false
             }
         ]
@@ -1168,7 +1168,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "Number of ticks to aim for.",
+                "description": "Number of ticks to aim for on a value axis.",
                 "inherited": false
             },
             {
@@ -1200,7 +1200,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "Number of ticks to aim for.",
+                "description": "Number of ticks to aim for on a value axis.",
                 "inherited": false
             },
             {

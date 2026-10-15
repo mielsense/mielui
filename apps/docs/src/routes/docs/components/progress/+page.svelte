@@ -6,13 +6,20 @@
     import PageIntro from '$lib/components/docs/page-intro.svelte';
     import Determinate from './examples/determinate.svelte';
     import DeterminateSrc from './examples/determinate.svelte?raw';
-    import Hero from './examples/hero.svelte';
-    import HeroSrc from './examples/hero.svelte?raw';
     import Indeterminate from './examples/indeterminate.svelte';
     import IndeterminateSrc from './examples/indeterminate.svelte?raw';
+    import Upload from './examples/upload.svelte';
+    import UploadSrc from './examples/upload.svelte?raw';
     import WithLabel from './examples/with-label.svelte';
     import WithLabelSrc from './examples/with-label.svelte?raw';
-    import { percent, code as playgroundCode, controls as playgroundControls } from './playground';
+    import { code as playgroundCode, controls as playgroundControls } from './playground';
+
+    const usageCode = `<script lang="ts">
+    import { Progress } from '@mielui/svelte/components/progress';
+</${'script'}>
+
+<Progress value={28} aria-label="Upload progress" />
+<Progress indeterminate aria-label="Waiting for a response" />`;
 </script>
 
 <svelte:head>
@@ -31,23 +38,7 @@
     <section id="hero" class="scroll-mt-20 flex flex-col gap-4">
         <Playground controls={playgroundControls} code={playgroundCode}>
             {#snippet children(values)}
-                <div class="flex w-full max-w-md flex-col gap-2">
-                    {#if values.label}
-                        <div
-                            class="flex items-center justify-between gap-3 text-sm text-foreground-muted"
-                        >
-                            <span>
-                                {values.indeterminate
-                                    ? 'Preparing release.zip'
-                                    : 'Uploading release.zip'}
-                            </span>
-                            {#if !values.indeterminate}
-                                <span class="tabular-nums">
-                                    {percent(values.value, values.max)}%
-                                </span>
-                            {/if}
-                        </div>
-                    {/if}
+                <div class="w-full max-w-md">
                     <Progress
                         value={values.value}
                         max={values.max}
@@ -86,11 +77,7 @@
             hidden.
         </Typography.Text>
 
-        <CodeBlock
-            code={`import { Progress } from '@mielui/svelte/components/progress';\n\n<Progress value={28} aria-label="Upload progress" />\n<Progress indeterminate aria-label="Waiting for a response" />`}
-            lang="svelte"
-            copy="overlay"
-        />
+        <CodeBlock code={usageCode} lang="svelte" copy="overlay" />
     </section>
 
     <section id="examples" class="scroll-mt-20 flex flex-col gap-10">
@@ -103,8 +90,8 @@
             <Typography.Text variant="supporting">
                 The bar, the percentage and the status line follow one value as a transfer runs.
             </Typography.Text>
-            <ComponentPreview code={HeroSrc}>
-                <Hero />
+            <ComponentPreview code={UploadSrc}>
+                <Upload />
             </ComponentPreview>
         </div>
 

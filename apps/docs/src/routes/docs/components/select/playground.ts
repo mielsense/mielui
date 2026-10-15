@@ -17,8 +17,7 @@ export const controls = {
     groupLabel: toggle('Group label', 'Content'),
     disabled: toggle('Disabled', 'State'),
     disabledItem: toggle('Disabled option', 'State'),
-    multiple: toggle('Multiple', 'Behavior'),
-    dynamic: toggle('Dynamic width', 'Behavior')
+    multiple: toggle('Multiple', 'Behavior')
 };
 
 export function code(values: PlaygroundValues<typeof controls>): string {
@@ -36,8 +35,7 @@ export function code(values: PlaygroundValues<typeof controls>): string {
         placeholder: changed(values.placeholder, 'Select')
     });
     const content = attributes({
-        surface: changed(values.surface, 'inherit'),
-        dynamic: values.dynamic
+        surface: changed(values.surface, 'inherit')
     });
     const low = attributes({
         value: 'low',

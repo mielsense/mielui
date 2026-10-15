@@ -2,8 +2,8 @@
     {
         "name": "Root",
         "properties": [
-            4621,
-            2681,
+            4617,
+            2677,
             0,
             1,
             2,
@@ -438,7 +438,7 @@
                 "required": false,
                 "bindable": false,
                 "default": "'horizontal'",
-                "description": "Layout direction.",
+                "description": "Direction the controls are joined in.",
                 "inherited": false
             }
         ]
@@ -446,7 +446,7 @@
     {
         "name": "Separator",
         "properties": [
-            2681,
+            2677,
             0,
             1,
             2,
@@ -880,7 +880,7 @@
                 "required": false,
                 "bindable": false,
                 "default": "'vertical'",
-                "description": "Layout direction.",
+                "description": "Direction of the line. Use `vertical` between controls in a horizontal group.",
                 "inherited": false
             }
         ]
@@ -891,7 +891,7 @@
             0,
             1,
             2,
-            2681,
+            2677,
             3,
             4,
             5,
@@ -988,7 +988,11 @@
             96,
             97,
             98,
-            4621,
+            4617,
+            1725,
+            1726,
+            1727,
+            1728,
             1729,
             1730,
             1731,
@@ -1036,16 +1040,16 @@
             1773,
             1774,
             1775,
-            1776,
-            1777,
-            1778,
-            1779,
             150,
             151,
             152,
             153,
             154,
             155,
+            1776,
+            1777,
+            1778,
+            1779,
             1780,
             1781,
             1782,
@@ -1308,10 +1312,6 @@
             2039,
             2040,
             2041,
-            2042,
-            2043,
-            2044,
-            2045,
             422,
             423,
             424,
@@ -1325,7 +1325,7 @@
                 "required": false,
                 "bindable": false,
                 "default": "'div'",
-                "description": "HTML element to render.",
+                "description": "Element to render, such as `label` or `span`. Defaults to `div`.",
                 "inherited": false
             },
             {
@@ -1334,7 +1334,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "Id of the control this text labels, when it renders as a label.",
+                "description": "Id of the control a `label` element describes.",
                 "inherited": false
             }
         ]

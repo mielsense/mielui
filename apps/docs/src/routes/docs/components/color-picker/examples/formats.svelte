@@ -1,36 +1,21 @@
 <script lang="ts">
     import * as ColorPicker from '@mielui/svelte/components/color-picker';
 
-    let hslValue = $state('#5e6ad2');
-    let rgbValue = $state('#5e6ad2');
-    let hsvValue = $state('#5e6ad2');
+    let hsl = $state('#5e6ad2');
+    let rgb = $state('#5e6ad2');
+    let hsv = $state('#5e6ad2');
 </script>
 
-<div class="flex flex-wrap items-center justify-center gap-4">
-    <ColorPicker.Root
-        value={hslValue}
-        onValueChange={(v) => (hslValue = v)}
-        format="hsl"
-        label="HSL"
-    >
+<div class="flex flex-wrap items-start justify-center gap-4">
+    <ColorPicker.Root bind:value={hsl} format="hsl" label="HSL">
         <ColorPicker.Trigger />
         <ColorPicker.Content />
     </ColorPicker.Root>
-    <ColorPicker.Root
-        value={rgbValue}
-        onValueChange={(v) => (rgbValue = v)}
-        format="rgb"
-        label="RGB"
-    >
+    <ColorPicker.Root bind:value={rgb} format="rgb" label="RGB">
         <ColorPicker.Trigger />
         <ColorPicker.Content />
     </ColorPicker.Root>
-    <ColorPicker.Root
-        value={hsvValue}
-        onValueChange={(v) => (hsvValue = v)}
-        format="hsv"
-        label="HSV"
-    >
+    <ColorPicker.Root bind:value={hsv} format="hsv" label="HSV">
         <ColorPicker.Trigger />
         <ColorPicker.Content />
     </ColorPicker.Root>

@@ -12,7 +12,7 @@
 </script>
 
 <DropdownMenu.Root>
-    <DropdownMenu.Trigger variant="ghost" size="md">
+    <DropdownMenu.Trigger variant="ghost">
         <HugeiconsIcon icon={Star} size={13} />
         {selected}
         <HugeiconsIcon icon={ChevronDown} size={11} class="text-foreground-muted" />

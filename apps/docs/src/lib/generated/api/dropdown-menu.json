@@ -292,7 +292,7 @@
             885,
             886,
             887,
-            1728,
+            1724,
             888,
             889,
             890,
@@ -475,7 +475,7 @@
             427,
             428,
             1062,
-            3978,
+            3974,
             1063,
             1064,
             1065,
@@ -635,6 +635,10 @@
             96,
             97,
             98,
+            1725,
+            1726,
+            1727,
+            1728,
             1729,
             1730,
             1731,
@@ -682,16 +686,16 @@
             1773,
             1774,
             1775,
-            1776,
-            1777,
-            1778,
-            1779,
             150,
             151,
             152,
             153,
             154,
             155,
+            1776,
+            1777,
+            1778,
+            1779,
             1780,
             1781,
             1782,
@@ -954,10 +958,6 @@
             2039,
             2040,
             2041,
-            2042,
-            2043,
-            2044,
-            2045,
             422,
             423,
             424,
@@ -1043,6 +1043,15 @@
                 "inherited": false
             },
             {
+                "name": "variant",
+                "type": "\"destructive\" | undefined",
+                "required": false,
+                "bindable": false,
+                "default": null,
+                "description": "Marks an action that deletes or cannot be undone. Omit it for a regular item.",
+                "inherited": false
+            },
+            {
                 "name": "children",
                 "type": "Snippet<[]> | undefined",
                 "required": false,
@@ -1051,7 +1060,7 @@
                 "description": "Content rendered inside.",
                 "inherited": false
             },
-            2681,
+            2677,
             0,
             1,
             2,
@@ -1507,7 +1516,7 @@
                 "description": "Controlled visual state. Loading remains focusable and refuses activation.",
                 "inherited": false
             },
-            3978,
+            3974,
             {
                 "name": "disabled",
                 "type": "boolean | undefined",
@@ -1529,39 +1538,12 @@
             1073,
             1074,
             {
-                "name": "variant",
-                "type": "ButtonVariant | undefined",
-                "required": false,
-                "bindable": false,
-                "default": null,
-                "description": "Visual style. Choose it for what the action means, not for decoration.",
-                "inherited": false
-            },
-            {
-                "name": "size",
-                "type": "\"sm\" | \"md\" | \"lg\" | \"icon\" | undefined",
-                "required": false,
-                "bindable": false,
-                "default": null,
-                "description": "Control height. `icon` is a square button for a single icon.",
-                "inherited": false
-            },
-            {
                 "name": "element",
                 "type": "HTMLButtonElement | HTMLAnchorElement | undefined",
                 "required": false,
                 "bindable": true,
                 "default": null,
                 "description": "Bindable reference to the rendered DOM element. Type is the union of the two possible element types -- narrow at the use site:",
-                "inherited": false
-            },
-            {
-                "name": "unstyled",
-                "type": "boolean | undefined",
-                "required": false,
-                "bindable": false,
-                "default": null,
-                "description": "Skip the variant/size base classes and render with `class` alone.",
                 "inherited": false
             },
             {
@@ -1574,30 +1556,12 @@
                 "inherited": false
             },
             {
-                "name": "loadingLabel",
-                "type": "string | undefined",
+                "name": "labels",
+                "type": "ButtonLabels | undefined",
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "Text shown while `status` is `loading`. The button keeps its width.",
-                "inherited": false
-            },
-            {
-                "name": "successLabel",
-                "type": "string | undefined",
-                "required": false,
-                "bindable": false,
-                "default": null,
-                "description": "Text shown while `status` is `success`.",
-                "inherited": false
-            },
-            {
-                "name": "errorLabel",
-                "type": "string | undefined",
-                "required": false,
-                "bindable": false,
-                "default": null,
-                "description": "Text shown while `status` is `error`.",
+                "description": "Overrides the built-in text and accessible names. Every key is optional and English is the fallback.",
                 "inherited": false
             }
         ]
@@ -1941,7 +1905,7 @@
             885,
             886,
             887,
-            1728,
+            1724,
             888,
             889,
             890,
@@ -2124,7 +2088,7 @@
             427,
             428,
             1062,
-            3978,
+            3974,
             1063,
             1064,
             1065,
@@ -2257,7 +2221,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "Classes added to the element.",
+                "description": "Additional classes for the element.",
                 "inherited": false
             },
             {
@@ -2269,22 +2233,15 @@
                 "description": "Content rendered inside.",
                 "inherited": false
             },
-            10,
             {
-                "name": "style",
-                "type": "string | undefined",
+                "name": "element",
+                "type": "HTMLButtonElement | HTMLAnchorElement | undefined",
                 "required": false,
-                "bindable": false,
+                "bindable": true,
                 "default": null,
-                "description": "Inline styles for the element.",
+                "description": "Bindable reference to the DOM element.",
                 "inherited": false
             },
-            17,
-            24,
-            59,
-            66,
-            69,
-            73,
             {
                 "name": "onclick",
                 "type": "((event: MouseEvent) => void) | undefined",
@@ -2294,64 +2251,27 @@
                 "description": "Called when it is clicked or activated.",
                 "inherited": false
             },
-            3978,
-            2999,
-            1069,
-            1070,
-            {
-                "name": "variant",
-                "type": "ButtonVariant | undefined",
-                "required": false,
-                "bindable": false,
-                "default": null,
-                "description": "Button style of the trigger.",
-                "inherited": false
-            },
-            {
-                "name": "size",
-                "type": "\"sm\" | \"md\" | \"lg\" | \"icon\" | undefined",
-                "required": false,
-                "bindable": false,
-                "default": null,
-                "description": "Control height of the trigger.",
-                "inherited": false
-            },
-            {
-                "name": "element",
-                "type": "HTMLButtonElement | HTMLAnchorElement | undefined",
-                "required": false,
-                "bindable": false,
-                "default": null,
-                "description": "Bindable reference to the DOM element.",
-                "inherited": false
-            },
-            {
-                "name": "unstyled",
-                "type": "boolean | undefined",
-                "required": false,
-                "bindable": false,
-                "default": null,
-                "description": "Forwarded to Button: render with `class` alone, skipping variant/size.",
-                "inherited": false
-            },
-            {
-                "name": "icon",
-                "type": "boolean | undefined",
-                "required": false,
-                "bindable": false,
-                "default": null,
-                "description": "Shows the chevron after the label.",
-                "inherited": false
-            },
             {
                 "name": "onopen",
                 "type": "(() => void) | undefined",
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "Called immediately before this trigger opens its popover.",
+                "description": "Called immediately before this trigger opens its submenu.",
                 "inherited": false
-            }
+            },
+            {
+                "name": "style",
+                "type": "string | undefined",
+                "required": false,
+                "bindable": false,
+                "default": null,
+                "description": "Inline styles for the element.",
+                "inherited": false
+            },
+            10,
+            73,
+            2995
         ]
     },
     {
@@ -2409,8 +2329,8 @@
                 "description": "Called when it is clicked or activated.",
                 "inherited": false
             },
-            3978,
-            2999,
+            3974,
+            2995,
             1069,
             1070,
             {
@@ -2426,7 +2346,7 @@
                 "name": "element",
                 "type": "HTMLButtonElement | HTMLAnchorElement | undefined",
                 "required": false,
-                "bindable": false,
+                "bindable": true,
                 "default": null,
                 "description": "Bindable reference to the DOM element.",
                 "inherited": false
@@ -2445,7 +2365,7 @@
                 "type": "boolean | undefined",
                 "required": false,
                 "bindable": false,
-                "default": null,
+                "default": "false",
                 "description": "Shows the chevron after the label.",
                 "inherited": false
             },
