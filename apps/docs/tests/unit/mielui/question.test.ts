@@ -241,4 +241,19 @@ describe('Question', () => {
             'Question components must be used within <Question.Root>.'
         );
     });
+
+    it('reads the submit text and error message from labels', () => {
+        render(QuestionFixture, {
+            props: {
+                status: 'error',
+                labels: {
+                    submit: 'Envoyer',
+                    submitError: "La réponse n'a pas pu être envoyée."
+                }
+            }
+        });
+
+        expect(screen.getByRole('button', { name: 'Envoyer' })).toBeInTheDocument();
+        expect(screen.getByRole('alert')).toHaveTextContent("La réponse n'a pas pu être envoyée.");
+    });
 });

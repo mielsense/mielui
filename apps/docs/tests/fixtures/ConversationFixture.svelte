@@ -1,14 +1,21 @@
 <script lang="ts">
+    import type { ConversationLabels } from '@mielui/svelte/components/conversation';
     import * as Conversation from '@mielui/svelte/components/conversation';
 
     let {
         follow = $bindable(true),
         empty = false,
-        label = 'Agent conversation'
-    }: { follow?: boolean; empty?: boolean; label?: string } = $props();
+        label = 'Agent conversation',
+        labels
+    }: {
+        follow?: boolean;
+        empty?: boolean;
+        label?: string;
+        labels?: ConversationLabels;
+    } = $props();
 </script>
 
-<Conversation.Root bind:follow>
+<Conversation.Root bind:follow {labels}>
     <Conversation.Content aria-label={label}>
         {#if empty}
             <Conversation.Empty />

@@ -193,18 +193,18 @@ describe('Dialog -- ARIA contract in browser', () => {
         expect(className).toContain('origin-center');
     });
 
-    it('enters upward and exits upward without retracing the enter path', async () => {
+    it('pops in from 0.96 scale and 8px, and leaves in 150ms back to that start', async () => {
         render(DialogFixture, { open: true });
         await flush();
         const dialog = queryRequired(document, '[role="dialog"]');
         const enter = dialogIn(dialog);
         const exit = dialogOut(dialog);
 
-        expect(enter.duration).toBe(180);
-        expect(enter.css?.(0, 1)).toContain('translateY(4px) scale(0.93)');
-        expect(exit.duration).toBe(110);
-        expect(exit.css?.(0, 1)).toContain('translateY(-4px) scale(0.9825)');
-        expect(enter.easing?.(0)).toBe(0);
+        expect(enter.duration).toBe(400);
+        expect(enter.css?.(0, 1)).toContain('translateY(8px) scale(0.96)');
+        expect(enter.css?.(1, 0)).toContain('translateY(0px) scale(1)');
+        expect(exit.duration).toBe(150);
+        expect(exit.css?.(0, 1)).toContain('translateY(8px) scale(0.96)');
         expect(exit.easing?.(1)).toBe(1);
     });
 

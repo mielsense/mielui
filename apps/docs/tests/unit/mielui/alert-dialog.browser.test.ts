@@ -170,7 +170,7 @@ describe('AlertDialog -- urgency and layout', () => {
         expect(dialog.className).toContain('max-w-sm');
         expect(header.className).toContain('flex-col');
         expect(page.getByRole('button', { name: 'Delete' }).element().className).toContain(
-            'ml-auto'
+            'ms-auto'
         );
     });
 });

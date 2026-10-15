@@ -3,6 +3,10 @@ import {
     categoryExtent,
     valueExtent
 } from '../../../../../packages/mielui/src/chart-components/chart/domains';
+import {
+    numericTicks,
+    tickFractionDigits
+} from '../../../../../packages/mielui/src/chart-components/chart/ticks';
 
 describe('chart domains', () => {
     it('pads categorical positions by their smallest positive interval', () => {
@@ -28,5 +32,13 @@ describe('chart domains', () => {
                 false
             )
         ).toEqual([0, 200000]);
+    });
+
+    it('keeps enough decimals to tell fractional ticks apart', () => {
+        const ticks = numericTicks([0, 1], 5);
+
+        expect(ticks).toEqual([0, 0.25, 0.5, 0.75, 1]);
+        expect(tickFractionDigits(ticks)).toBe(2);
+        expect(tickFractionDigits([0, 2500, 5000])).toBe(1);
     });
 });

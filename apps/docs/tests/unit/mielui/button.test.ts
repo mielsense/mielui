@@ -188,7 +188,9 @@ describe('Button -- async status', () => {
         render(Button, {
             props: {
                 status: 'loading',
-                loadingLabel: 'Publishing…',
+                labels: {
+                    loading: 'Publishing…'
+                },
                 onclick,
                 children: textSnippet('Publish')
             }
@@ -205,9 +207,11 @@ describe('Button -- async status', () => {
         const { container } = render(Button, {
             props: {
                 status: 'success',
-                loadingLabel: 'Publishing…',
-                successLabel: 'Published',
-                errorLabel: 'Try again',
+                labels: {
+                    loading: 'Publishing…',
+                    success: 'Published',
+                    error: 'Try again'
+                },
                 children: textSnippet('Publish')
             }
         });
@@ -225,7 +229,9 @@ describe('Button -- async status', () => {
             props: {
                 href: '/publish',
                 status: 'loading',
-                loadingLabel: 'Publishing…',
+                labels: {
+                    loading: 'Publishing…'
+                },
                 children: textSnippet('Publish')
             }
         });

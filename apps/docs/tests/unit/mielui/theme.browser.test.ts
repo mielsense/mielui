@@ -123,7 +123,7 @@ it('scales light-catching edges in both modes without changing cast shadows or f
                     border: root.getPropertyValue('--color-border')
                 };
             });
-            const expectedAlpha = mode === 'light' ? 0.19 : 0.035;
+            const expectedAlpha = mode === 'light' ? 0.35 : 0.07;
             expect(results[1].shadow).toContain(`rgba(255, 255, 255, ${expectedAlpha})`);
             expect(results[0].shadow).toContain('rgba(255, 255, 255, 0)');
             expect(results[1].focus).toBe(results[2].focus);

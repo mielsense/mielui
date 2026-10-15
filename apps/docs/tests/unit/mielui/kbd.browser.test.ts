@@ -141,6 +141,32 @@ describe('Kbd -- parsing and display', () => {
         });
     }
 
+    it('spells keys out in its accessible name and translates them through labels', async () => {
+        const english = render(KbdFixture, {
+            mode: 'standalone',
+            shortcut: 'cmd+shift+up'
+        });
+        expect(queryRequired<HTMLElement>(document, '[data-testid="shortcut"]')).toHaveAttribute(
+            'aria-label',
+            'Command Shift Up arrow'
+        );
+        english.unmount();
+
+        const french = render(KbdFixture, {
+            mode: 'standalone',
+            shortcut: 'cmd+shift+k',
+            labels: {
+                command: 'Commande',
+                shift: 'Majuscule'
+            }
+        });
+        expect(queryRequired<HTMLElement>(document, '[data-testid="shortcut"]')).toHaveAttribute(
+            'aria-label',
+            'Commande Majuscule K'
+        );
+        french.unmount();
+    });
+
     it('fails safely for empty, unknown, and multiple base keys', async () => {
         for (const invalid of ['', 'hyper', 'k+x']) {
             const onactivate = vi.fn();

@@ -20,4 +20,23 @@ describe('TaskSteps', () => {
         expect(rows[1]).toHaveAttribute('data-status', 'error');
         expect(rows[2]).toHaveAttribute('data-status', 'pending');
     });
+
+    it('reads the list name and summary sentence from labels', async () => {
+        render(TaskStepsFixture, {
+            props: {
+                current: 1,
+                labels: {
+                    list: 'Déploiement',
+                    progress: (step: string, position: number, total: number) => {
+                        return `Étape ${position} sur ${total} : ${step}`;
+                    }
+                }
+            }
+        });
+
+        expect(screen.getByRole('list', { name: 'Déploiement' })).toBeInTheDocument();
+        expect(
+            await screen.findByText('Étape 2 sur 3 : Building', {}, { timeout: 1500 })
+        ).toBeInTheDocument();
+    });
 });

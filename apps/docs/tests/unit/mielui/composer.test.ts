@@ -86,4 +86,40 @@ describe('Composer', () => {
         await userEvent.setup().click(screen.getByRole('button', { name: 'Resolve submission' }));
         await waitFor(() => expect(input).not.toHaveAttribute('readonly'));
     });
+
+    it('reads built-in text and accessible names from labels', () => {
+        render(ComposerFixture, {
+            props: {
+                status: 'error',
+                labels: {
+                    error: "Le message n'a pas pu être envoyé.",
+                    send: 'Envoyer',
+                    toolbar: 'Actions du message',
+                    placeholder: 'Écrivez ici'
+                }
+            }
+        });
+
+        expect(screen.getByRole('alert')).toHaveTextContent("Le message n'a pas pu être envoyé.");
+        expect(screen.getByRole('button', { name: 'Envoyer' })).toBeInTheDocument();
+        expect(screen.getByRole('toolbar', { name: 'Actions du message' })).toBeInTheDocument();
+        expect(screen.getByRole('textbox', { name: 'Prompt' })).toHaveAttribute(
+            'placeholder',
+            'Écrivez ici'
+        );
+    });
+
+    it('names the stop control from labels', () => {
+        render(ComposerFixture, {
+            props: {
+                value: 'Working',
+                status: 'submitting',
+                labels: {
+                    stop: 'Arrêter'
+                }
+            }
+        });
+
+        expect(screen.getByRole('button', { name: 'Arrêter' })).toBeInTheDocument();
+    });
 });
