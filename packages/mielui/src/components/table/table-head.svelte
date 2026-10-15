@@ -1,8 +1,8 @@
 <script lang="ts">
     import { cn } from '@mielui/svelte/utils';
-    import type { HTMLThAttributes } from 'svelte/elements';
+    import type { TableHeadProps } from '.';
 
-    let { children, class: className, scope = 'col', ...rest }: HTMLThAttributes = $props();
+    let { children, class: className, scope = 'col', ...rest }: TableHeadProps = $props();
 </script>
 
 <th

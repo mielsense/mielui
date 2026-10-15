@@ -33,6 +33,11 @@ export type SkeletonProps = {
         | 'pc';
 };
 
+export type SkeletonSwapLabels = {
+    /** Announcement once the content arrives. Receives `label`. */
+    loaded?: (label: string) => string;
+};
+
 export type SkeletonSwapProps = {
     /** Shows the content when true and the skeleton when false. */
     ready: boolean;
@@ -52,8 +57,13 @@ export type SkeletonSwapProps = {
     delay?: number;
     /** Shortest time in milliseconds the skeleton stays once shown. */
     minVisible?: number;
-    /** Accessible name while loading. */
+    /** Accessible name of the content. With it, the swap announces when the content arrives. */
     label?: string;
+    /**
+     * Overrides the built-in text and accessible names. Every key is optional and English is the
+     * fallback.
+     */
+    labels?: SkeletonSwapLabels;
     /** Classes added to the element. */
     class?: string;
 } & Omit<HTMLAttributes<HTMLDivElement>, 'children'>;

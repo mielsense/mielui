@@ -1,3 +1,5 @@
+import type { KbdLabels } from '.';
+
 /** Maps keybinding tokens to the glyphs people recognise from native menus. */
 const GLYPHS: Record<string, string> = {
     cmd: '⌘',
@@ -52,6 +54,58 @@ const NAMED_KEYS: Record<string, string> = {
     plus: '+'
 };
 
+const SPOKEN_KEYS: Record<string, keyof KbdLabels> = {
+    cmd: 'command',
+    command: 'command',
+    meta: 'command',
+    ctrl: 'control',
+    control: 'control',
+    shift: 'shift',
+    alt: 'alt',
+    opt: 'option',
+    option: 'option',
+    enter: 'enter',
+    return: 'enter',
+    esc: 'escape',
+    escape: 'escape',
+    tab: 'tab',
+    space: 'space',
+    backspace: 'backspace',
+    delete: 'delete',
+    plus: 'plus',
+    up: 'up',
+    down: 'down',
+    left: 'left',
+    right: 'right'
+};
+
+const SPOKEN_NAMES: Required<KbdLabels> = {
+    command: 'Command',
+    control: 'Control',
+    shift: 'Shift',
+    alt: 'Alt',
+    option: 'Option',
+    enter: 'Enter',
+    escape: 'Escape',
+    tab: 'Tab',
+    space: 'Space',
+    backspace: 'Backspace',
+    delete: 'Delete',
+    plus: 'Plus',
+    up: 'Up arrow',
+    down: 'Down arrow',
+    left: 'Left arrow',
+    right: 'Right arrow'
+};
+
+function spokenName(token: string, labels: KbdLabels | undefined) {
+    const name = SPOKEN_KEYS[token];
+    if (name) {
+        return labels?.[name] ?? SPOKEN_NAMES[name];
+    }
+    return token.toUpperCase();
+}
+
 export type ParsedShortcut = {
     meta: boolean;
     ctrl: boolean;
@@ -62,7 +116,7 @@ export type ParsedShortcut = {
     label: string;
 };
 
-export function parseShortcut(value: string): ParsedShortcut | undefined {
+export function parseShortcut(value: string, labels?: KbdLabels): ParsedShortcut | undefined {
     const tokens = value
         .split('+')
         .map((token) => token.trim().toLowerCase())
@@ -99,26 +153,6 @@ export function parseShortcut(value: string): ParsedShortcut | undefined {
         parsed.caps.push(GLYPHS[token] ?? token.toUpperCase());
     }
 
-    parsed.label = tokens
-        .map((token) => {
-            const names: Record<string, string> = {
-                cmd: 'Command',
-                command: 'Command',
-                meta: 'Command',
-                ctrl: 'Control',
-                control: 'Control',
-                alt: 'Alt',
-                opt: 'Option',
-                option: 'Option',
-                esc: 'Escape',
-                return: 'Enter',
-                up: 'Up arrow',
-                down: 'Down arrow',
-                left: 'Left arrow',
-                right: 'Right arrow'
-            };
-            return names[token] ?? `${token[0].toUpperCase()}${token.slice(1)}`;
-        })
-        .join(' ');
+    parsed.label = tokens.map((token) => spokenName(token, labels)).join(' ');
     return parsed.key ? parsed : undefined;
 }

@@ -6,6 +6,15 @@ import Button from './button.svelte';
 export type ButtonVariant = Intent | 'glow' | 'panel' | 'quiet';
 export type ButtonStatus = 'idle' | 'loading' | 'success' | 'error';
 
+export type ButtonLabels = {
+    /** Text shown while `status` is `loading`. The button keeps its width. */
+    loading?: string;
+    /** Text shown and announced while `status` is `success`. */
+    success?: string;
+    /** Text shown and announced while `status` is `error`. */
+    error?: string;
+};
+
 type ButtonSharedProps = {
     /** Prevents activation. A disabled link loses its destination and is skipped by Tab. */
     disabled?: boolean;
@@ -48,12 +57,11 @@ type ButtonSharedProps = {
     status?: ButtonStatus;
     /** Convenience alias for `status="loading"`. */
     loading?: boolean;
-    /** Text shown while `status` is `loading`. The button keeps its width. */
-    loadingLabel?: string;
-    /** Text shown while `status` is `success`. */
-    successLabel?: string;
-    /** Text shown while `status` is `error`. */
-    errorLabel?: string;
+    /**
+     * Overrides the built-in text and accessible names. Every key is optional and English is the
+     * fallback.
+     */
+    labels?: ButtonLabels;
     /** Called when the button is activated. Loading and disabled buttons do not call it. */
     onclick?: (event: MouseEvent) => void;
     /** Called on key down, before the button handles the key itself. */

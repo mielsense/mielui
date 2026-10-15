@@ -1,12 +1,11 @@
 <script lang="ts" generics="T extends Record<string, string | number | Date | null | undefined>">
     import { getCssDuration } from '@mielui/svelte/transition';
     import { cn } from '@mielui/svelte/utils';
-    import { onMount, type Snippet } from 'svelte';
-    import type { HTMLAttributes } from 'svelte/elements';
+    import { onMount } from 'svelte';
     import { Tween } from 'svelte/motion';
     import { SvelteMap } from 'svelte/reactivity';
-    import type { ChartLabels } from '.';
-    import { type Config, setChart, setChartLabels } from './context.svelte';
+    import type { ChartProps } from '.';
+    import { setChart, setChartLabels } from './context.svelte';
     import { categoryExtent, valueExtent } from './domains';
 
     let {
@@ -22,18 +21,7 @@
         labels,
         class: className,
         ...rest
-    }: Omit<HTMLAttributes<HTMLDivElement>, 'children'> & {
-        labels?: ChartLabels;
-        data: readonly T[];
-        config: Config;
-        x: keyof T & string;
-        orientation?: 'vertical' | 'horizontal';
-        stacked?: boolean;
-        loading?: boolean;
-        animation?: 'reveal' | 'live' | 'none';
-        'aria-label': string;
-        children?: Snippet;
-    } = $props();
+    }: ChartProps<T> = $props();
     setChartLabels(() => labels);
     const numberFormatter = new Intl.NumberFormat(undefined, { maximumFractionDigits: 2 });
     const dateFormatter = new Intl.DateTimeFormat(undefined, { month: 'short', day: 'numeric' });
@@ -203,17 +191,30 @@
             const index = Math.max(0, keys.indexOf(key));
             return config[key]?.color ?? `var(--chart-${(index % 5) + 1})`;
         },
-        label(row) {
-            const value = data[row]?.[x];
-            if (value instanceof Date && Number.isFinite(value.getTime())) {
-                return dateFormatter.format(value);
-            }
-            return String(value ?? '');
-        },
-        format(key, value) {
-            return config[key]?.format?.(value) ?? numberFormatter.format(value);
-        }
+        label: categoryLabel,
+        format: formatValue
     });
+
+    function categoryLabel(row: number) {
+        const value = data[row]?.[x];
+        if (value instanceof Date && Number.isFinite(value.getTime())) {
+            return dateFormatter.format(value);
+        }
+        return String(value ?? '');
+    }
+
+    function formatValue(key: string, value: number) {
+        return config[key]?.format?.(value) ?? numberFormatter.format(value);
+    }
+
+    function tableValue(row: T, key: string) {
+        const value = row[key];
+        if (typeof value !== 'number' || !Number.isFinite(value)) {
+            return labels?.noData ?? 'No data';
+        }
+        return formatValue(key, value);
+    }
+
     onMount(() => {
         if (!element) {
             return;
@@ -267,13 +268,11 @@
                 </tr>
             </thead>
             <tbody>
-                {#each data as row}
+                {#each data as row, index}
                     <tr>
-                        <th scope="row">{String(row[x] ?? '')}</th>
+                        <th scope="row">{categoryLabel(index)}</th>
                         {#each keys as key (key)}
-                            <td>
-                                {typeof row[key] === 'number' && Number.isFinite(row[key]) ? config[key].format?.(row[key] as number) ?? row[key] : (labels?.noData ?? 'No data')}
-                            </td>
+                            <td>{tableValue(row, key)}</td>
                         {/each}
                     </tr>
                 {/each}

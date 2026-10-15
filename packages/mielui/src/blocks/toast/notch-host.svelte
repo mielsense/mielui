@@ -148,7 +148,9 @@
         </Notch.SideAction>
     {/if}
     <Notch.Content
-        class={lateral ? 'w-48 min-h-56 justify-center px-6 py-7 text-center' : 'w-80 px-7 py-5 text-center'}
+        class={lateral
+            ? 'w-48 min-h-56 justify-center px-6 py-7 text-center'
+            : 'w-80 px-7 py-5 text-center'}
         role="region"
         tabindex={0}
         aria-label={labels?.region ?? 'Notifications'}
@@ -189,16 +191,24 @@
     {#if toasts.length > 1}
         <Notch.Accessory
             class="rounded-full bg-card px-2 py-1 text-xs tabular-nums text-foreground-muted"
-            aria-label={labels?.position?.(index + 1, toasts.length) ??
-                `Notification ${index + 1} of ${toasts.length}`}
             onpointerenter={pointerEnter}
             onpointerleave={pointerLeave}
             onfocusin={focusIn}
             onfocusout={focusOut}
         >
-            <span use:numberShuffle={{ value: index + 1 }}>{index + 1}</span>
-            of<span use:numberShuffle={{ value: toasts.length }}>
-                {toasts.length}
+            <span class="sr-only">
+                {labels?.position?.(index + 1, toasts.length) ??
+                    `Notification ${index + 1} of ${toasts.length}`}
+            </span>
+            <span aria-hidden="true">
+                {#if labels?.count}
+                    {labels.count(index + 1, toasts.length)}
+                {:else}
+                    <span use:numberShuffle={{ value: index + 1 }}>{index + 1}</span>
+                    of<span use:numberShuffle={{ value: toasts.length }}>
+                        {toasts.length}
+                    </span>
+                {/if}
             </span>
         </Notch.Accessory>
     {/if}

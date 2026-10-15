@@ -1,8 +1,8 @@
 <script lang="ts">
     import { cn } from '@mielui/svelte/utils';
-    import type { SvelteHTMLElements } from 'svelte/elements';
+    import type { TableCaptionProps } from '.';
 
-    let { children, class: className, ...rest }: SvelteHTMLElements['caption'] = $props();
+    let { children, class: className, ...rest }: TableCaptionProps = $props();
 </script>
 
 <caption

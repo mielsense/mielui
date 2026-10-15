@@ -2,7 +2,7 @@ import type { Manifest } from '@mielui/svelte/_manifest/types';
 
 export const manifest: Manifest = {
     name: 'form',
-    version: '1.0.0',
+    version: '1.1.0',
     visibility: 'public',
     description:
         'Native forms with transparent attachment forwarding and composable pending feedback.',

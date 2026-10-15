@@ -1,19 +1,16 @@
 <script lang="ts">
     import { numberShuffle } from '@mielui/svelte/actions/number-shuffle';
     import { cn } from '@mielui/svelte/utils';
-    import type { Snippet } from 'svelte';
-    import type { HTMLAttributes } from 'svelte/elements';
+    import type { HeatmapSummaryProps } from '.';
+    import { countUnit } from './calendar';
     import { getHeatmapContext } from './context.svelte';
 
-    let {
-        children,
-        class: className,
-        ...props
-    }: Omit<HTMLAttributes<HTMLParagraphElement>, 'children'> & {
-        children?: Snippet<[number]>;
-    } = $props();
+    let { children, class: className, ...props }: HeatmapSummaryProps = $props();
     const context = getHeatmapContext();
+    const formatter = $derived(new Intl.NumberFormat(context.locale));
+    const unit = $derived(countUnit(context.model.total, context.labels?.unit));
 </script>
+
 <p {...props} data-ui="heatmap-summary" class={cn(className, 'text-sm font-medium tabular-nums')}>
     {#if children}
         {@render children(context.model.total)}
@@ -21,11 +18,13 @@
         {context.labels?.summaryPending ?? 'Activity'}
     {:else}
         <span
-            use:numberShuffle={{ value: context.model.total, format: (value) => new Intl.NumberFormat(context.locale).format(value) }}
+            use:numberShuffle={{
+                value: context.model.total,
+                format: (value) => formatter.format(value)
+            }}
         >
-            {new Intl.NumberFormat(context.locale).format(context.model.total)}
+            {formatter.format(context.model.total)}
         </span>
-        {context.labels?.unit?.(context.model.total) ??
-            (context.model.total === 1 ? 'contribution' : 'contributions')}
+        {unit}
     {/if}
 </p>

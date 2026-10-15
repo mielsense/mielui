@@ -43,6 +43,8 @@ export const manifest: Manifest = {
     ],
     shared: ['utils.cn', 'utils.createContext', 'utils.pressable', 'hugeicons-icon'],
     peerDependencies: {
+        '@hugeicons/core-free-icons': '^4.3.0',
+        '@internationalized/date': '^3.12.0',
         '@tanstack/svelte-table': '9.2.4',
         'bits-ui': '^2.19.2',
         cnfast: '^0.0.8',

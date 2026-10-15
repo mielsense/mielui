@@ -3,8 +3,8 @@
     import { getCssDuration } from '@mielui/svelte/transition';
     import { cn } from '@mielui/svelte/utils';
     import { untrack } from 'svelte';
-    import type { HTMLButtonAttributes } from 'svelte/elements';
-    import { type Cell, levelClasses } from './calendar';
+    import type { HeatmapCellProps } from '.';
+    import { levelClasses } from './calendar';
     import { getHeatmapContext } from './context.svelte';
 
     let {
@@ -18,7 +18,7 @@
         onpointerleave,
         onblur,
         ...props
-    }: HTMLButtonAttributes & { day: Cell } = $props();
+    }: HeatmapCellProps = $props();
 
     const context = getHeatmapContext();
     let element = $state<HTMLButtonElement>();
@@ -132,6 +132,7 @@
         }
     }
 </script>
+
 {#if !context.ready}
     <div
         aria-hidden="true"
@@ -156,7 +157,11 @@
         aria-label={day.label}
         title={context.tooltipCount ? undefined : day.label}
         tabindex={context.focused === day.date ? 0 : -1}
-        class={cn(className, levelClasses[day.level], 'aspect-square min-h-2.5 min-w-2.5 rounded-[calc(var(--radius-sm)*0.375)] outline-none ring-inset hover:ring-1 hover:ring-[var(--color-border-strong)] focus-visible:z-10 focus-visible:shadow-[var(--focus-ring)]')}
+        class={cn(
+            className,
+            levelClasses[day.level],
+            'aspect-square min-h-2.5 min-w-2.5 rounded-[calc(var(--radius-sm)*0.375)] outline-none ring-inset hover:ring-1 hover:ring-[var(--color-border-strong)] focus-visible:z-10 focus-visible:shadow-[var(--focus-ring)]'
+        )}
         style:grid-column={day.column}
         style:grid-row={day.row}
         onkeydown={navigate}

@@ -6,8 +6,6 @@ export const manifest: Manifest = {
     visibility: 'public',
     description: 'Dialog command palette with search, grouped items, and separators.',
     files: [
-        'actions/number-shuffle/index.ts',
-        'actions/number-shuffle/render.ts',
         'components/command/command.svelte',
         'components/command/command-trigger.svelte',
         'components/command/command-content.svelte',
@@ -30,6 +28,6 @@ export const manifest: Manifest = {
         '@hugeicons/core-free-icons': '^4.3.0',
         cnfast: '^0.0.8',
         'fuse.js': '^7.1.0',
-        svelte: '^5.0.0'
+        svelte: '^5.56.0'
     }
 };

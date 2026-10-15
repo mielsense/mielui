@@ -21,6 +21,8 @@ export type ToastLabels = {
     next?: string;
     /** Accessible name of the notch position counter. `position` starts at 1. */
     position?: (position: number, total: number) => string;
+    /** Visible notch position counter, such as 2 of 5. `index` starts at 1. */
+    count?: (index: number, total: number) => string;
 };
 
 export { getToastUIState, Toast, Toaster, toast };

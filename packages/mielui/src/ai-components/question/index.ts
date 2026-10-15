@@ -29,8 +29,16 @@ export type QuestionLabels = {
     selectAnswers?: string;
     /** Validation message for a required text question with no answer. */
     enterAnswer?: string;
-    /** Shown when `onSubmit` rejects. `errorMessage` wins. */
+    /** Message shown when `onSubmit` rejects. */
     submitError?: string;
+    /** Text of the submit button. */
+    submit?: string;
+    /** Text of the submit button while the answer is submitting. */
+    submitting?: string;
+    /** Accessible name of the answer field when it has no `aria-label`. */
+    answer?: string;
+    /** Placeholder of the answer field when it has no `placeholder`. */
+    placeholder?: string;
 };
 
 export type QuestionProps = {
@@ -51,9 +59,7 @@ export type QuestionProps = {
     autofocus?: boolean;
     /** Field name of the answer. */
     name?: string;
-    /** Message shown when `onSubmit` rejects. Overrides `labels.submitError`. */
-    errorMessage?: string;
-    /** Called with the error when the action fails. */
+    /** Called with the error when `onSubmit` rejects. */
     onError?: (error: unknown) => void;
     /** Called when Cancel is pressed. */
     onCancel?: (event: MouseEvent) => void;
@@ -177,10 +183,6 @@ export type QuestionActionProps = {
 } & Omit<HTMLButtonAttributes, 'children' | 'onclick' | 'type'>;
 
 export type QuestionSubmitProps = {
-    /** Text of the submit button. */
-    label?: string;
-    /** Text shown while it is loading. */
-    loadingLabel?: string;
     /** Content rendered inside. */
     children?: Snippet;
     /** Bindable reference to the DOM element. */

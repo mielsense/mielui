@@ -56,12 +56,11 @@ export function createSliderController(options: ControllerOptions) {
         ];
     });
 
-    options.setValue(
-        options.getValue() ??
-            untrack((): SliderValue => {
-                return options.getMode().range ? [values[0], values[1]] : values[0];
-            })
-    );
+    untrack(() => {
+        if (options.getValue() === undefined) {
+            options.setValue(options.getMode().range ? [values[0], values[1]] : values[0]);
+        }
+    });
 
     const initialValue = untrack(() => {
         const value = options.getValue();
@@ -472,7 +471,7 @@ export function createSliderController(options: ControllerOptions) {
 
     $effect(() => {
         if (unavailable) {
-            cancelPointer();
+            untrack(cancelPointer);
         }
     });
 

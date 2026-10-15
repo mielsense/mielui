@@ -1,8 +1,8 @@
 <script lang="ts">
     import { cn } from '@mielui/svelte/utils';
-    import type { HTMLTdAttributes } from 'svelte/elements';
+    import type { TableCellProps } from '.';
 
-    let { children, class: className, ...rest }: HTMLTdAttributes = $props();
+    let { children, class: className, ...rest }: TableCellProps = $props();
 </script>
 
 <td

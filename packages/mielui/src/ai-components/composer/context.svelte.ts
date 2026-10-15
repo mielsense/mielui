@@ -1,5 +1,5 @@
 import { createContext } from '@mielui/svelte/utils';
-import type { ComposerStatus } from '.';
+import type { ComposerLabels, ComposerStatus } from '.';
 
 export type ComposerContext = {
     value: string;
@@ -17,4 +17,7 @@ export type ComposerContext = {
 const { set: setComposerContext, get: getComposerContext } =
     createContext<ComposerContext>('composer');
 
-export { getComposerContext, setComposerContext };
+const { set: setComposerLabels, find: findComposerLabels } =
+    createContext<() => ComposerLabels | undefined>('composer-labels');
+
+export { findComposerLabels, getComposerContext, setComposerContext, setComposerLabels };

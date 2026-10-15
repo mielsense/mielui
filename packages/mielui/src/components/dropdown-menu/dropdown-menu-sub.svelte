@@ -10,10 +10,10 @@
 
 <MenuPrimitive.Sub
     onOpenChange={(next) => {
-    if (next) {
-        menu.beforeOpen?.();
-    }
-}}
+        if (next) {
+            menu.beforeOpen?.();
+        }
+    }}
 >
     {@render children?.()}
 </MenuPrimitive.Sub>

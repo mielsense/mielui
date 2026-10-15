@@ -1,5 +1,6 @@
 <script lang="ts">
     import { cn } from '@mielui/svelte/utils';
+    import { motionLoop } from '../_internal/motion-loop';
     import type { SkeletonSwapProps } from '.';
     import { delayedPresence } from './delayed-presence.svelte';
 
@@ -14,6 +15,7 @@
         delay = 120,
         minVisible = 380,
         label,
+        labels,
         class: className,
         ...rest
     }: SkeletonSwapProps = $props();
@@ -50,7 +52,11 @@
     let waited = $state(false);
     const sweepStagger = 370;
     const barClasses =
-        'rounded-[var(--radius-sm)] bg-[linear-gradient(90deg,var(--mielui-skeleton-ink),var(--mielui-skeleton-light),var(--mielui-skeleton-ink))] bg-[length:200%_100%] [--mielui-skeleton-ink:color-mix(in_srgb,var(--color-foreground-muted)_15%,transparent)] [--mielui-skeleton-light:color-mix(in_srgb,var(--color-foreground-muted)_7%,transparent)] animate-[mielui-skeleton-sweep_linear_infinite] [animation-duration:calc(var(--motion-duration-spring)*6)] motion-reduce:animate-none';
+        'rounded-[var(--radius-sm)] bg-[linear-gradient(90deg,var(--mielui-skeleton-ink),var(--mielui-skeleton-light),var(--mielui-skeleton-ink))] bg-[length:200%_100%] [--mielui-skeleton-ink:color-mix(in_srgb,var(--color-foreground-muted)_15%,transparent)] [--mielui-skeleton-light:color-mix(in_srgb,var(--color-foreground-muted)_7%,transparent)] animate-[mielui-skeleton-sweep_linear_infinite] [animation-duration:calc(var(--motion-duration-spring)*6)] [animation-play-state:var(--mielui-loop-play-state)] motion-reduce:animate-none';
+
+    function loadedText(name: string) {
+        return labels?.loaded?.(name) ?? `${name} loaded`;
+    }
 
     function widthFor(index: number) {
         if (lineCount > 1 && index === lineCount - 1) {
@@ -87,6 +93,7 @@
 
 <!-- svelte-ignore a11y_no_noninteractive_tabindex -->
 <div
+    {@attach motionLoop}
     bind:this={shell}
     {...rest}
     data-ui="skeleton-swap"
@@ -135,7 +142,7 @@
     </div>
 
     {#if label}
-        <span role="status" class="sr-only">{contentVisible ? `${label} loaded` : ''}</span>
+        <span role="status" class="sr-only">{contentVisible ? loadedText(label) : ''}</span>
     {/if}
 </div>
 
@@ -160,6 +167,7 @@
     }
 
     .mielui-skeleton-placeholder[data-visible='false'] {
+        --mielui-loop-play-state: paused;
         opacity: 0;
         transition-duration: var(--motion-duration-panel-out);
     }

@@ -21,8 +21,8 @@
             <button
                 type="button"
                 onclick={() => {
-            controller.applyHex(option.value);
-        }}
+                    controller.applyHex(option.value);
+                }}
                 title={option.label}
                 aria-label={option.label}
                 aria-pressed={option.value.toLowerCase() === context.value.toLowerCase()}

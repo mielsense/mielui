@@ -15,7 +15,7 @@ export const manifest: Manifest = {
         'components/accordion/manifest.ts'
     ],
     components: ['_internal/utils', '_internal/disclosure'],
-    shared: ['hugeicons-icon', 'utils.cn', 'utils.createContext', 'transition'],
+    shared: ['hugeicons-icon', 'utils.cn', 'utils.createContext'],
     peerDependencies: {
         '@floating-ui/dom': '1.7.6',
         'bits-ui': '^2.19.2',

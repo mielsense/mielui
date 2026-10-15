@@ -14,7 +14,10 @@
             <a
                 {...props}
                 role="link"
-                class={cn(className, 'underline decoration-foreground-muted underline-offset-2 hover:decoration-foreground')}
+                class={cn(
+                    className,
+                    'underline decoration-foreground-muted underline-offset-2 hover:decoration-foreground'
+                )}
             >
                 {@render children?.()}
             </a>

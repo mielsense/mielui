@@ -1,7 +1,7 @@
 <script lang="ts">
     import { cn } from '@mielui/svelte/utils';
     import type { TaskStepsProps } from '.';
-    import { setTaskSteps } from './context.svelte';
+    import { setTaskSteps, setTaskStepsLabels } from './context.svelte';
     import { deriveTaskSteps } from './state';
     import Indicator from './task-steps-indicator.svelte';
     import Item from './task-steps-item.svelte';
@@ -14,20 +14,18 @@
         steps,
         current,
         failed = false,
-        label = 'Task progress',
+        labels,
         children,
         class: className,
         ...rest
     }: TaskStepsProps = $props();
-    const state = $derived(deriveTaskSteps(steps, current, failed));
+    const state = $derived(deriveTaskSteps(steps, current, failed, labels));
     setTaskSteps({
         get state() {
             return state;
-        },
-        get label() {
-            return label;
         }
     });
+    setTaskStepsLabels(() => labels);
 </script>
 <div {...rest} data-ui="task-steps" class={cn(className, 'w-full')}>
     {#if children}

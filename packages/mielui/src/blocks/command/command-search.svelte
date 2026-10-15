@@ -22,7 +22,6 @@
         icon,
         count,
         announcement,
-        oninput,
         onkeydown,
         oncompositionstart,
         oncompositionend,
@@ -92,15 +91,23 @@
         }
     }
 
+    function defaultAvailable(count: number) {
+        if (count === 0) {
+            return 'No command matches.';
+        }
+
+        return `${count} ${count === 1 ? 'command' : 'commands'} available.`;
+    }
+
     $effect(() => {
         const count = getCommandResults(command).length;
+        const available = labels?.()?.available;
         const timer = setTimeout(() => {
-            spoken =
-                count === 0
-                    ? 'No command matches.'
-                    : `${count} ${count === 1 ? 'command' : 'commands'} available.`;
+            spoken = available ? available(count) : defaultAvailable(count);
         }, 400);
-        return () => clearTimeout(timer);
+        return () => {
+            clearTimeout(timer);
+        };
     });
 </script>
 
@@ -140,12 +147,6 @@
         aria-controls={`${command.id}-listbox`}
         aria-activedescendant={command.activeId}
         {...rest}
-        oninput={(event) => {
-            oninput?.(event);
-            if (!event.defaultPrevented) {
-                command.searchContent = event.currentTarget.value;
-            }
-        }}
         onkeydown={handleKeydown}
         oncompositionstart={(event) => {
             composing = true;
@@ -157,7 +158,7 @@
         }}
     />
     <span
-        class="min-w-[3ch] text-right font-mono text-[length:var(--font-size-meta)] tabular-nums text-foreground-muted"
+        class="min-w-[3ch] text-end font-mono text-[length:var(--font-size-meta)] tabular-nums text-foreground-muted"
         aria-hidden="true"
     >
         {@render (count ?? defaultCount)(getCommandResults(command).length)}

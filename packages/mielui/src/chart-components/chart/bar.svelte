@@ -1,14 +1,10 @@
 <script lang="ts">
-    import { cn } from '@mielui/svelte/utils';
     import { getChartContext } from 'layerchart';
+    import type { ChartBarProps } from '.';
     import { getChart } from './context.svelte';
     import { reveal, sweep } from './motion';
 
-    let {
-        key,
-        class: className,
-        radius = 4
-    }: { key: string; class?: string; radius?: number } = $props();
+    let { key, class: className, radius = 4 }: ChartBarProps = $props();
     const chart = getChart();
     const layer = getChartContext();
     const token = Symbol('bar');
@@ -50,26 +46,36 @@
             height: horizontal ? Math.max(1, width - 2) : Math.abs(b - a)
         };
     }
+
+    function cornerRadius(box: ReturnType<typeof geometry>) {
+        return chart.stacked ? 0 : Math.min(radius, box.width / 2, box.height / 2);
+    }
+
+    function origin(box: ReturnType<typeof geometry>) {
+        return horizontal ? `${layer.xScale(0)}px ${box.y}px` : `${box.x}px ${layer.yScale(0)}px`;
+    }
+
+    function sweepPhase(row: number) {
+        return row / Math.max(1, chart.data.length - 1);
+    }
 </script>
-<g data-ui="chart-bar" class={cn(className)} fill={chart.color(key)}>
+
+<g data-ui="chart-bar" class={className} fill={chart.color(key)}>
     {#each chart.data as row, i (String(row[chart.x]) + i)}
         {const value = $derived(chart.value(i, key))}
         {#if value !== null}
             {const box = $derived(geometry(i, value))}
             <rect
                 {...box}
-                rx={chart.stacked ? 0 : Math.min(radius, box.width / 2, box.height / 2)}
+                rx={cornerRadius(box)}
                 opacity={chart.active === null || chart.active === i ? 1 : 0.45}
-                style:transform-origin={horizontal ? `${layer.xScale(0)}px ${box.y}px` : `${box.x}px ${layer.yScale(0)}px`}
+                style:transform-origin={origin(box)}
                 {@attach (element: SVGElement) => reveal(element, chart, 'bar')}
             />
             {#if chart.animation === 'live' && chart.motion}
                 <defs>
                     <clipPath id={`${id}-${i}`}>
-                        <rect
-                            {...box}
-                            rx={chart.stacked ? 0 : Math.min(radius, box.width / 2, box.height / 2)}
-                        />
+                        <rect {...box} rx={cornerRadius(box)} />
                     </clipPath>
                     <linearGradient
                         id={`${id}-light-${i}`}
@@ -89,7 +95,7 @@
                         fill={`url(#${id}-light-${i})`}
                         opacity="0"
                         class="[transform-box:fill-box]"
-                        {@attach (element: SVGElement) => sweep(element, chart, i / Math.max(1, chart.data.length - 1))}
+                        {@attach (element: SVGElement) => sweep(element, chart, sweepPhase(i))}
                     />
                 </g>
             {/if}

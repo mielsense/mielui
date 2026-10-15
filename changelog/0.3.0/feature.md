@@ -1,25 +1,33 @@
 - Composer has a `Footer` part: a strip on the frame under the writing surface for hints, connected apps, or message-wide settings.
 - Button has a `glow` variant: a lit fill for a page's headline action, with `--mielui-glow-color` and `--mielui-glow-light` to change its color and brightness.
-- Three surface contracts ship in `ui.css`: `mielui-plate` for a resting surface, `mielui-float-frame` for a floating panel, and `mielui-glow-neutral` for the white selected pill on a track.
-- `--color-wash` is the one hover and selected-row fill, and `--mielui-glow-ring` sets a lit pill's outer edge.
+- `ui.css` ships four class contracts: `mielui-plate` for a resting surface, `mielui-float-frame` for a floating panel, `mielui-glow` for the lit fill of filled actions, and `mielui-glow-neutral` for the white selected fill on a track.
+- `--color-wash` is the one hover and selected-row fill.
+- `--mielui-glow-ring` sets the outer edge of a lit control.
 - Four spring curves are theme tokens: `--ease-spring-panel`, `--ease-spring-layout`, `--ease-spring-pop`, and `--ease-spring-flick`, with `--motion-duration-spring`, `--motion-duration-pop`, and `--motion-duration-flick`. `springEase` in `@mielui/svelte/transition` builds the same curves for Svelte transitions.
 - Plates and frames use continuous-curvature corners where the browser supports `corner-shape: squircle`.
-- The theme's edge highlight now scales the light on every lit pill.
-- Tabs, ToggleGroup, Toggle, and Pagination mark selection with a lit fill. Tabs and ToggleGroup indicators travel on the layout spring.
+- The theme's edge highlight now scales the light on every lit control.
+- Tabs, ToggleGroup, Toggle, and Pagination mark selection with a lit fill. Tabs and ToggleGroup indicators glide between items.
 - Switch and Slider thumbs, the checked Checkbox and Radio, and the selected Calendar day are lit.
 - `DropdownMenu.Item` and `ContextMenu.Item` render `variant="destructive"` as an error-colored row with a tinted highlight. Radio items show a dot.
 - A direct button or link inside Alert becomes its one action, at the end on wide layouts and last when stacked.
 - SkeletonSwap lines sweep out of phase, and arriving content sharpens from a slight blur.
-- Composer's send button becomes a lit stop control while streaming, and Reasoning's label shimmers while thinking.
+- Composer's send button becomes a lit stop control while streaming.
+- Reasoning's label shimmers while thinking.
 - Chart, pie, and heatmap tooltips and the crosshair follow the pointer on the layout spring.
-- Calendar days are circles with a dot under today, a selected range is a continuous wash, and date and color pickers open as floating panels.
-- Kbd is a mono keycap and takes an inverse look inside tooltips. Spinner is a thin ring.
-- Question options are bordered rows on the field color. The selected row takes the primary border and a light primary tint.
+- Calendar days take the control radius with a dot under today, and a selected range is a continuous wash.
+- Date and color pickers open as floating panels.
+- Kbd is a mono keycap and takes an inverse look inside tooltips.
+- Spinner is a thin ring.
+- A selected Question option takes the neutral wash instead of a primary tint, and its radio or check mark is lit.
 - FolderCard is a single plate with the cover flush to its edge and a card-colored body.
 - The theme's motion feel scales the spring, pop, flick, item, panel, and dialog durations together, and `--ease-drawer` is a theme token.
-- Panels open from their trigger's side: a menu below its trigger starts slightly higher and one above starts slightly lower.
 - A second agent skill, `mielui-design`, teaches coding agents to lay out whole pages with Mielui: app shells, dashboards, data tables, settings, chat workspaces, and marketing sites. Install it with `npx skills add mielsense/mielui --skill mielui-design`.
-- Slider, NumberField, Dialog, Sheet, Notch, Toaster, Command, ColorPicker, Question, and Gauge take a `labels` prop that translates their built-in text and accessible names. Each exports its `<Name>Labels` type.
+- Slider, NumberField, Dialog, Sheet, Notch, Toaster, Command, ColorPicker, Question, and Gauge take a `labels` prop that translates their built-in text and accessible names. Each exports its `<Name>Labels` type; Toaster's is `ToastLabels`.
 - `TagInputLabels` adds `added`, `removed`, and `required`. `FileUploadLabels` adds `uploadFailed`. `DataTableLabels` adds `removeFilter`, `done`, `previous`, and `next`. `ChartLabels` adds `noData`, and `HeatmapLabels` adds `summaryPending`.
 - `createContext` from `@mielui/svelte/utils` returns `find()` next to `get()` and `set()`. `find()` returns `undefined` outside the root instead of throwing.
 - `@mielui/svelte/utils` exports the `WithElement` type, which swaps a primitive's `ref` prop for a bindable `element`.
+- Button, Kbd, `Form.ErrorSummary`, SkeletonSwap, CopyButton, ShowMore, TaskSteps, FolderCard, Composer, and Conversation take a `labels` prop. Each exports its `<Name>Labels` type.
+- `CommandLabels` adds `palette` and `available`. `ToastLabels` adds `count`. `ColorPickerLabels` adds the trigger name and a name for each channel slider. `DataTableLabels` adds `row`, `selectPage`, and the filter summary keys. `QuestionLabels` adds `submit`, `submitting`, `answer`, and `placeholder`. `ReasoningLabels` adds `title`.
+- Chart, Heatmap, Table, Group, and NativeSelect export a prop type for every part. Select adds `SelectTriggerProps`, `SelectContentProps`, and `SelectLabelProps`, and HoverCard adds `HoverCardTitleProps` and `HoverCardDescriptionProps`.
+- The root entry exports every public prop, labels, and variant type, including the PieChart, EmptyState, and Notch types.
+- `DatePicker.Root` supports `bind:element`, like `DateRangePicker.Root`.

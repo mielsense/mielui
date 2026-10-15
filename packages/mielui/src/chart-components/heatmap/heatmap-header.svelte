@@ -1,9 +1,10 @@
 <script lang="ts">
     import { cn } from '@mielui/svelte/utils';
-    import type { HTMLAttributes } from 'svelte/elements';
+    import type { HeatmapHeaderProps } from '.';
 
-    let { children, class: className, ...props }: HTMLAttributes<HTMLDivElement> = $props();
+    let { children, class: className, ...props }: HeatmapHeaderProps = $props();
 </script>
+
 <div
     {...props}
     data-ui="heatmap-header"

@@ -5,6 +5,7 @@
     import HugeiconsIcon from '../../hugeicons-icon.svelte';
     import { button } from '../button/variants';
     import { getDatePickerContext } from './context.svelte';
+    import { dateTriggerClasses } from './variants';
 
     let {
         class: className,
@@ -25,7 +26,7 @@
     aria-label={ariaLabel ?? (children ? undefined : context.labels.trigger)}
     class={cn(
         className,
-        'shrink-0 text-foreground-muted hover:text-foreground data-[state=open]:text-foreground',
+        dateTriggerClasses,
         button({ variant: 'outline', size: children ? 'md' : 'icon' })
     )}
 >

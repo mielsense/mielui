@@ -5,7 +5,7 @@ export const button = tv({
     variants: {
         variant: {
             /**
-             * Filled variants are lit pills: the fill, light layers, and every edge
+             * Filled variants use the lit material: the fill, light layers, and every edge
              * come from `.mielui-glow` in ui.css, and each variant only names its
              * color and how much light it catches. The shadow utilities keep the
              * focus ring from replacing the edge shadows. Outline, ghost, and
@@ -26,6 +26,7 @@ export const button = tv({
              * The headline action: a lighter tint of the primary color under
              * dark text, at full light.
              */
+            // token-lint-disable-next-line no-literal-color: glow ink stays dark on the light fill in both themes
             glow: 'mielui-glow text-[color-mix(in_oklab,var(--color-primary)_12%,#18181b)] shadow-[var(--mielui-glow-shadow)] focus-visible:shadow-[var(--focus-ring),var(--mielui-glow-shadow)]',
             /**
              * A clickable plate: the same interaction as `outline` wearing the

@@ -5,6 +5,7 @@
     import { cn } from '@mielui/svelte/utils';
     import * as Table from '../../components/table';
     import type { DataTableHeaderProps } from '.';
+    import { findDataTableLabels } from './context.svelte';
     import ColumnHeader from './data-table-column-header.svelte';
     import Selection from './data-table-selection.svelte';
     import { selectedRow, selection, sortableColumn } from './features';
@@ -16,6 +17,7 @@
         header: content,
         ...rest
     }: DataTableHeaderProps<TFeatures, TData> = $props();
+    const labels = findDataTableLabels();
     const selectionApi = $derived(selection(table));
     const canSelect = $derived(selectable && !!selectionApi.toggleAllPageRowsSelected);
 </script>
@@ -25,13 +27,13 @@
             {#if canSelect && groupIndex === 0}
                 <Table.Head rowspan={table.getHeaderGroups().length} class="w-12">
                     <Selection
-                        label="Select rows on this page"
+                        label={labels?.()?.selectPage ?? 'Select rows on this page'}
                         checked={selectionApi.getIsAllPageRowsSelected?.() ?? false}
                         indeterminate={selectionApi.getIsSomePageRowsSelected?.() ?? false}
                         disabled={!table.getRowModel().rows.some((row) => selectedRow(row).getCanSelect?.())}
                         onCheckedChange={(checked) => {
-                selectionApi.toggleAllPageRowsSelected?.(checked);
-            }}
+                            selectionApi.toggleAllPageRowsSelected?.(checked);
+                        }}
                     />
                 </Table.Head>
             {/if}

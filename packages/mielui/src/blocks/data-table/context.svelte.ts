@@ -14,10 +14,10 @@ export type DataTableContext = {
     toolbarSlot: DataTableToolbarSlot | undefined;
 };
 
-const { set: setDataTableContext, get: getDataTableContext } =
+const { set: setDataTableContext, find: findDataTableContext } =
     createContext<DataTableContext>('data-table');
 
 const { set: setDataTableLabels, find: findDataTableLabels } =
     createContext<() => DataTableLabels | undefined>('data-table-labels');
 
-export { findDataTableLabels, getDataTableContext, setDataTableContext, setDataTableLabels };
+export { findDataTableContext, findDataTableLabels, setDataTableContext, setDataTableLabels };

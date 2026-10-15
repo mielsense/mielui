@@ -1,10 +1,9 @@
 <script lang="ts">
     import { cn } from '@mielui/svelte/utils';
-    import type { HTMLTableAttributes } from 'svelte/elements';
     import { insetLayout } from '../_internal/inset-layout';
+    import type { TableProps } from '.';
 
-    type Props = HTMLTableAttributes & { variant?: 'default' | 'inset' };
-    let { children, class: className, variant = 'default', ...rest }: Props = $props();
+    let { children, class: className, variant = 'default', ...rest }: TableProps = $props();
 
     const inset = [
         'mielui-inset-frame shadow-[var(--elevation-1)] [--table-row-wash:transparent]',

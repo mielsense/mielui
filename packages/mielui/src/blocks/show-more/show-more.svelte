@@ -10,9 +10,7 @@
         maxHeight = 320,
         defaultExpanded = false,
         expanded = $bindable(defaultExpanded),
-        moreLabel = 'Show more',
-        lessLabel = 'Show less',
-        label = 'Details',
+        labels,
         onExpandedChange,
         class: className,
         ...rest
@@ -96,7 +94,9 @@
         }
         const observer = new ResizeObserver(measure);
         observer.observe(content);
-        return () => observer.disconnect();
+        return () => {
+            observer.disconnect();
+        };
     });
 </script>
 
@@ -110,7 +110,7 @@
             bind:this={region}
             id={regionId}
             role={preview || scrollable ? 'region' : undefined}
-            aria-label={preview || scrollable ? label : undefined}
+            aria-label={preview || scrollable ? (labels?.region ?? 'Details') : undefined}
             tabindex={scrollable ? 0 : undefined}
             data-scrollable={scrollable}
             data-veiled={veiled}
@@ -119,7 +119,11 @@
                 preview || scrollable ? 'overflow-y-auto' : 'overflow-y-hidden'
             )}
             style:height={preview || height === undefined ? undefined : `${height}px`}
-            style:max-height={preview ? `${heightLimit}px` : height === undefined && !open ? `${visibleLines}lh` : undefined}
+            style:max-height={preview
+                ? `${heightLimit}px`
+                : height === undefined && !open
+                  ? `${visibleLines}lh`
+                  : undefined}
             style:scrollbar-gutter={capped ? 'stable' : undefined}
         >
             <div
@@ -151,14 +155,14 @@
                         data-active={!open}
                         aria-hidden={open}
                     >
-                        {moreLabel}
+                        {labels?.more ?? 'Show more'}
                     </span>
                     <span
                         class="col-start-1 row-start-1 transition-[opacity,translate] [transition-duration:var(--motion-duration-flick)] ease-[var(--ease-spring-flick)] data-[active=false]:translate-y-0.5 data-[active=false]:opacity-0 motion-reduce:transition-none"
                         data-active={open}
                         aria-hidden={!open}
                     >
-                        {lessLabel}
+                        {labels?.less ?? 'Show less'}
                     </span>
                 </span>
                 <svg

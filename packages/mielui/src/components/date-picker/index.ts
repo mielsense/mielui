@@ -5,7 +5,7 @@ import type { DatePickerLabels } from './context.svelte';
 
 export type { DatePickerLabels };
 
-export type DatePickerProps = Omit<DatePickerPrimitive.RootProps, 'child'> & {
+export type DatePickerProps = WithElement<Omit<DatePickerPrimitive.RootProps, 'child'>> & {
     /**
      * Overrides the built-in text and accessible names. Every key is optional and English is the
      * fallback.

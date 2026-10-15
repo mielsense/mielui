@@ -8,13 +8,9 @@
     import { buttonAttributes } from '../../components/_internal/button-attributes';
     import HugeiconsIcon from '../../hugeicons-icon.svelte';
     import type { ComposerSubmitProps } from '.';
-    import { getComposerContext } from './context.svelte';
+    import { findComposerLabels, getComposerContext } from './context.svelte';
 
     let {
-        label = 'Send',
-        queueLabel = 'Queue message',
-        stopLabel = 'Stop response',
-        loadingLabel = 'Sending',
         children,
         element = $bindable(),
         disabled = false,
@@ -27,6 +23,7 @@
     const stopClasses =
         '[--mielui-glow-color:var(--color-secondary)] [--mielui-glow-light:0.55] [--mielui-glow-ring:var(--color-border)] dark:[--mielui-glow-light:0.1] text-[var(--color-button-foreground)]';
 
+    const labels = findComposerLabels();
     const context = getComposerContext();
     const empty = $derived(context.value.trim() === '');
     const action = $derived.by(() => {
@@ -46,15 +43,25 @@
     const isDisabled = $derived(
         context.disabled || disabled || (action === 'send' && !context.allowEmpty && empty)
     );
-    const actionLabel = $derived(
-        action === 'stop'
-            ? stopLabel
-            : action === 'queue'
-              ? queueLabel
-              : isPending
-                ? loadingLabel
-                : label
-    );
+    const actionLabel = $derived.by(resolveActionLabel);
+
+    function resolveActionLabel() {
+        const current = labels?.();
+
+        if (action === 'stop') {
+            return current?.stop ?? 'Stop response';
+        }
+
+        if (action === 'queue') {
+            return current?.queue ?? 'Queue message';
+        }
+
+        if (isPending) {
+            return current?.sending ?? 'Sending';
+        }
+
+        return current?.send ?? 'Send';
+    }
 
     function glyphIn(node: Element): TransitionConfig {
         return {

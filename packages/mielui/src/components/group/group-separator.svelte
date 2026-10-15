@@ -1,12 +1,8 @@
 <script lang="ts">
     import { cn } from '@mielui/svelte/utils';
-    import type { HTMLAttributes } from 'svelte/elements';
+    import type { GroupSeparatorProps } from '.';
 
-    type Props = Omit<HTMLAttributes<HTMLDivElement>, 'children' | 'role' | 'aria-hidden'> & {
-        orientation?: 'horizontal' | 'vertical';
-    };
-
-    let { class: className, orientation = 'vertical', ...rest }: Props = $props();
+    let { class: className, orientation = 'vertical', ...rest }: GroupSeparatorProps = $props();
 </script>
 
 <div

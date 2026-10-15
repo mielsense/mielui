@@ -10,7 +10,5 @@
     data-ui="toast-footer"
     class={cn(className, 'flex flex-wrap items-center gap-2 px-2 py-1')}
 >
-    {#if children}
-        {@render children()}
-    {/if}
+    {@render children?.()}
 </div>

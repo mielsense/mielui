@@ -14,6 +14,8 @@ import type { Manifest } from '@mielui/svelte/_manifest/types';
  *         `side` and `align` on Content set the placement.
  *
  *         Removed: the `HoverCardState` type export.
+ *   2.0.1 -- Title and Description register through context.svelte.ts. The
+ *         manifest no longer pulls Popover, which it never imported.
  */
 export const manifest: Manifest = {
     name: 'hover-card',
@@ -32,10 +34,9 @@ export const manifest: Manifest = {
         'components/hover-card/index.ts',
         'components/hover-card/manifest.ts'
     ],
-    components: ['_internal/utils', 'popover'],
+    components: ['_internal/utils'],
     shared: ['transition', 'components/_internal/surface', 'utils.cn', 'utils.createContext'],
     peerDependencies: {
-        '@floating-ui/dom': '1.7.6',
         'bits-ui': '^2.19.2',
         cnfast: '^0.0.8',
         svelte: '^5.56.0'

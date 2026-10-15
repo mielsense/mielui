@@ -21,7 +21,11 @@
     const valueLabel = $derived(
         selectedLabel ?? (ctx.value || (ctx.labels?.choose ?? 'Choose color'))
     );
-    const triggerLabel = $derived(ctx.label ? `${ctx.label}: ${valueLabel}` : valueLabel);
+    const triggerLabel = $derived(
+        ctx.label
+            ? (ctx.labels?.trigger?.(ctx.label, valueLabel) ?? `${ctx.label}: ${valueLabel}`)
+            : valueLabel
+    );
 </script>
 
 <Popover.Trigger

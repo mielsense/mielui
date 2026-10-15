@@ -1,5 +1,6 @@
 import type { ParsedShortcut } from './shortcut';
 
+const owners = 'button, a[href], [role="button"]';
 const nativelyActivated =
     'button, a[href], summary, [role="button"], [role="link"], [role="menuitem"], [role="option"], [role="tab"], [role="checkbox"], [role="switch"], [role="radio"]';
 
@@ -19,21 +20,6 @@ export function registerShortcut(
             target.isContentEditable ||
             Boolean(target.closest('[contenteditable]:not([contenteditable="false"])'))
         );
-    }
-
-    function getOwner() {
-        const owner = element.closest<HTMLElement>('button, a[href], [role="button"]');
-        if (!owner) {
-            return undefined;
-        }
-        if (
-            (owner instanceof HTMLButtonElement && owner.disabled) ||
-            owner.hasAttribute('disabled') ||
-            owner.getAttribute('aria-disabled') === 'true'
-        ) {
-            return undefined;
-        }
-        return owner;
     }
 
     /** Alt rewrites `event.key` on macOS, so Alt shortcuts also match the physical key. */
@@ -91,12 +77,12 @@ export function registerShortcut(
             return;
         }
 
-        const anchor =
-            element.closest<HTMLElement>('button, a[href], [role="button"]') ??
-            element.parentElement;
+        const owner = element.closest<HTMLElement>(owners);
+        const anchor = owner ?? element.parentElement;
         if (
             !anchor ||
             anchor.matches(':disabled') ||
+            anchor.hasAttribute('disabled') ||
             anchor.getAttribute('aria-disabled') === 'true' ||
             anchor.closest('[inert], [hidden], [aria-hidden="true"]')
         ) {
@@ -120,19 +106,18 @@ export function registerShortcut(
         if (activeLayer && !activeLayer.contains(anchor)) {
             return;
         }
-        const owner = ontrigger ? undefined : getOwner();
-        if (!ontrigger && !owner) {
-            return;
-        }
-
-        event.preventDefault();
         if (ontrigger) {
+            event.preventDefault();
             ontrigger(event);
-        } else {
-            owner?.click();
+        } else if (owner) {
+            event.preventDefault();
+            owner.click();
         }
     }
 
     window.addEventListener('keydown', handleKey);
-    return () => window.removeEventListener('keydown', handleKey);
+
+    return () => {
+        window.removeEventListener('keydown', handleKey);
+    };
 }

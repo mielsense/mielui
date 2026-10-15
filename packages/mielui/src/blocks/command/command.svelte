@@ -20,4 +20,4 @@
     });
 </script>
 
-<Dialog.Root bind:open {onOpenChange}>{@render children?.()} </Dialog.Root>
+<Dialog.Root bind:open {onOpenChange}> {@render children?.()} </Dialog.Root>

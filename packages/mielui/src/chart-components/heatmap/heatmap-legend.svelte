@@ -1,12 +1,13 @@
 <script lang="ts">
     import { cn } from '@mielui/svelte/utils';
-    import type { HTMLAttributes } from 'svelte/elements';
+    import type { HeatmapLegendProps } from '.';
     import { levelClasses } from './calendar';
     import { getHeatmapContext } from './context.svelte';
 
-    let { children, class: className, ...props }: HTMLAttributes<HTMLDivElement> = $props();
+    let { children, class: className, ...props }: HeatmapLegendProps = $props();
     const context = getHeatmapContext();
 </script>
+
 <div
     {...props}
     data-ui="heatmap-legend"

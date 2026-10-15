@@ -10,23 +10,32 @@
     const context = getColorPickerContext();
     const controller = getColorPickerController();
     const state = controller.state;
+    const names = $derived({
+        hue: context.labels?.hue ?? 'Hue',
+        saturation: context.labels?.saturation ?? 'Saturation',
+        lightness: context.labels?.lightness ?? 'Lightness',
+        brightness: context.labels?.brightness ?? 'Brightness',
+        red: context.labels?.red ?? 'Red',
+        green: context.labels?.green ?? 'Green',
+        blue: context.labels?.blue ?? 'Blue'
+    });
     const channels = $derived(
         context.format === 'hsl'
             ? [
-                  { key: 'h', name: 'Hue', max: 360, value: state.hslH, unit: '°' },
-                  { key: 's', name: 'Saturation', max: 100, value: state.hslS, unit: '%' },
-                  { key: 'l', name: 'Lightness', max: 100, value: state.hslL, unit: '%' }
+                  { key: 'h', name: names.hue, max: 360, value: state.hslH, unit: '°' },
+                  { key: 's', name: names.saturation, max: 100, value: state.hslS, unit: '%' },
+                  { key: 'l', name: names.lightness, max: 100, value: state.hslL, unit: '%' }
               ]
             : context.format === 'rgb'
               ? [
-                    { key: 'r', name: 'Red', max: 255, value: state.rgbR, unit: '' },
-                    { key: 'g', name: 'Green', max: 255, value: state.rgbG, unit: '' },
-                    { key: 'b', name: 'Blue', max: 255, value: state.rgbB, unit: '' }
+                    { key: 'r', name: names.red, max: 255, value: state.rgbR, unit: '' },
+                    { key: 'g', name: names.green, max: 255, value: state.rgbG, unit: '' },
+                    { key: 'b', name: names.blue, max: 255, value: state.rgbB, unit: '' }
                 ]
               : [
-                    { key: 'h', name: 'Hue', max: 360, value: state.hue, unit: '°' },
-                    { key: 's', name: 'Saturation', max: 100, value: state.sat, unit: '%' },
-                    { key: 'v', name: 'Brightness', max: 100, value: state.val, unit: '%' }
+                    { key: 'h', name: names.hue, max: 360, value: state.hue, unit: '°' },
+                    { key: 's', name: names.saturation, max: 100, value: state.sat, unit: '%' },
+                    { key: 'v', name: names.brightness, max: 100, value: state.val, unit: '%' }
                 ]
     );
 
@@ -60,8 +69,8 @@
                 max={channel.max}
                 value={channel.value}
                 onValueChange={(next: number) => {
-            update(channel.key, next);
-        }}
+                    update(channel.key, next);
+                }}
             />
             <span
                 aria-hidden="true"

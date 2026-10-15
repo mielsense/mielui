@@ -13,7 +13,7 @@ export const manifest: Manifest = {
         'components/collapsible/manifest.ts'
     ],
     components: ['_internal/utils', '_internal/disclosure'],
-    shared: ['utils.cn', 'transition'],
+    shared: ['utils.cn'],
     peerDependencies: {
         '@floating-ui/dom': '1.7.6',
         'bits-ui': '^2.19.2',

@@ -1,5 +1,6 @@
 <script lang="ts">
     import { cn } from '@mielui/svelte/utils';
+    import { untrack } from 'svelte';
     import type { FolderCardTitleProps } from '.';
     import { getFolderCard } from './context';
 
@@ -8,11 +9,14 @@
     const tag = $derived(`h${level}` as const);
     const folderCard = getFolderCard();
 
-    $effect.pre(() => {
+    function adoptId() {
         if (typeof rest.id === 'string') {
             folderCard.titleId = rest.id;
         }
-    });
+    }
+
+    untrack(adoptId);
+    $effect.pre(adoptId);
 </script>
 
 <svelte:element

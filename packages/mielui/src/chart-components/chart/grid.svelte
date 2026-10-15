@@ -1,15 +1,17 @@
 <script lang="ts">
     import { cn } from '@mielui/svelte/utils';
     import { getChartContext } from 'layerchart';
+    import type { ChartGridProps } from '.';
     import { getChart } from './context.svelte';
     import { numericTicks, tickCount } from './ticks';
 
-    let { class: className, ticks = 5 }: { class?: string; ticks?: number } = $props();
+    let { class: className, ticks = 5 }: ChartGridProps = $props();
     const layer = getChartContext();
     const chart = getChart();
     const count = $derived(tickCount(ticks));
     const values = $derived(numericTicks(chart.domain, count));
 </script>
+
 <g data-ui="chart-grid" class={cn(className, 'stroke-border/65')}>
     {#each values as value}
         <line

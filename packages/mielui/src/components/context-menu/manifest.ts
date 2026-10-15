@@ -21,7 +21,7 @@ export const manifest: Manifest = {
         'components/context-menu/index.ts',
         'components/context-menu/manifest.ts'
     ],
-    components: ['_internal/utils', 'popover', 'button'],
+    components: ['_internal/utils', 'button'],
     shared: [
         'components/_internal/button-attributes',
         'transition',

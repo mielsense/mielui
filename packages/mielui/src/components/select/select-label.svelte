@@ -1,8 +1,8 @@
 <script lang="ts">
     import { cn } from '@mielui/svelte/utils';
-    import type { Snippet } from 'svelte';
+    import type { SelectLabelProps } from '.';
 
-    let { children, class: className }: { children: Snippet; class?: string } = $props();
+    let { children, class: className }: SelectLabelProps = $props();
 </script>
 
 <div data-ui="select-label" class={cn(className, 'mielui-menu-label')}>

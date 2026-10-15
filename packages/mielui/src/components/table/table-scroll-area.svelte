@@ -1,8 +1,8 @@
 <script lang="ts">
     import { cn } from '@mielui/svelte/utils';
-    import type { HTMLAttributes } from 'svelte/elements';
+    import type { TableScrollAreaProps } from '.';
 
-    let { children, class: className, ...rest }: HTMLAttributes<HTMLDivElement> = $props();
+    let { children, class: className, ...rest }: TableScrollAreaProps = $props();
 </script>
 
 <div

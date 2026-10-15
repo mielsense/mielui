@@ -21,3 +21,12 @@ export function numericTicks(domain: [number, number], count: number) {
     const length = Math.max(0, Math.floor((domain[1] - start) / step + 0.000001) + 1);
     return Array.from({ length }, (_, index) => Number((start + index * step).toPrecision(12)));
 }
+
+export function tickFractionDigits(values: readonly number[]) {
+    let digits = 1;
+    for (const value of values) {
+        const fraction = String(value).split('.')[1] ?? '';
+        digits = Math.max(digits, fraction.length);
+    }
+    return Math.min(digits, 6);
+}

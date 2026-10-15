@@ -3,16 +3,25 @@
     import { cn } from '@mielui/svelte/utils';
     import HugeiconsIcon from '../../hugeicons-icon.svelte';
     import type { ConversationEmptyProps } from '.';
+    import { findConversationLabels } from './context.svelte';
 
     let {
         icon,
-        title = 'Start a conversation',
-        description = 'Ask a question or share what you are working on.',
+        title,
+        description,
         action,
         children,
         class: className,
         ...rest
     }: ConversationEmptyProps = $props();
+
+    const labels = findConversationLabels();
+    const heading = $derived(title ?? labels?.()?.emptyTitle ?? 'Start a conversation');
+    const text = $derived(
+        description ??
+            labels?.()?.emptyDescription ??
+            'Ask a question or share what you are working on.'
+    );
 </script>
 
 <div
@@ -37,16 +46,16 @@
                     />
                 {/if}
             </div>
-            {#if title}
+            {#if heading}
                 <p
                     class="[font-size:var(--font-size-body)] [font-weight:var(--font-weight-label)] text-foreground"
                 >
-                    {title}
+                    {heading}
                 </p>
             {/if}
-            {#if description}
+            {#if text}
                 <p class="mt-1 max-w-xs text-sm leading-body text-foreground-muted">
-                    {description}
+                    {text}
                 </p>
             {/if}
             {#if action}

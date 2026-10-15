@@ -136,26 +136,46 @@ export function dataTableFilter<TFeatures extends TableFeatures, TData extends R
     return candidate >= clause.value;
 }
 
-export function filterSummary(clause: DataTableFilterClause | undefined) {
+export function filterSummary(
+    clause: DataTableFilterClause | undefined,
+    labels: DataTableLabels | undefined
+) {
     if (!clause) {
         return '';
     }
     if (clause.type === 'select') {
-        return `${clause.operator === 'notIn' ? 'not ' : ''}${clause.value.length} selected`;
+        const count = clause.value.length;
+        const selected = labels?.summarySelected?.(count) ?? `${count} selected`;
+
+        return clause.operator === 'notIn' ? excludedSummary(selected, labels) : selected;
     }
     if (clause.operator === 'between') {
-        return `${clause.value[0] ?? 'Any'} – ${clause.value[1] ?? 'Any'}`;
+        const any = labels?.summaryAny ?? 'Any';
+
+        return `${clause.value[0] ?? any} – ${clause.value[1] ?? any}`;
     }
-    const operators = {
-        contains: 'contains',
-        equals: 'is',
-        not: 'is not',
+    const value = String(clause.value);
+    if (clause.operator === 'contains') {
+        return labels?.summaryContains?.(value) ?? `contains ${value}`;
+    }
+    if (clause.operator === 'equals') {
+        return labels?.summaryEquals?.(value) ?? `is ${value}`;
+    }
+    if (clause.operator === 'not') {
+        return labels?.summaryNot?.(value) ?? `is not ${value}`;
+    }
+    const symbols = {
         lt: '<',
         lte: '≤',
         gt: '>',
         gte: '≥'
     };
-    return `${operators[clause.operator]} ${clause.value}`;
+
+    return `${symbols[clause.operator]} ${value}`;
+}
+
+export function excludedSummary(summary: string, labels: DataTableLabels | undefined) {
+    return labels?.summaryExcluded?.(summary) ?? `not ${summary}`;
 }
 
 export function defaultFilterOperator(type: FilterType) {

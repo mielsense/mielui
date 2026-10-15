@@ -2,7 +2,7 @@
     lang="ts"
     generics="TFeatures extends import('@tanstack/svelte-table').TableFeatures, TData extends import('@tanstack/svelte-table').RowData"
 >
-    import { FlexRender } from '@tanstack/svelte-table';
+    import { FlexRender, type Row } from '@tanstack/svelte-table';
     import * as Table from '../../components/table';
     import type { DataTableBodyProps } from '.';
     import { findDataTableLabels } from './context.svelte';
@@ -24,23 +24,15 @@
     const canSelect = $derived(selectable && !!selection(table).toggleAllPageRowsSelected);
     const columns = $derived(visibleColumnCount(table) + (canSelect ? 1 : 0));
 
-    function selectLabel(row: string) {
-        return labels?.()?.selectRow?.(row) ?? `Select ${row}`;
+    function selectLabel(row: Row<TFeatures, TData>) {
+        const name = rowLabel?.(row) ?? labels?.()?.row?.(row.id) ?? `row ${row.id}`;
+
+        return labels?.()?.selectRow?.(name) ?? `Select ${name}`;
     }
 </script>
 <Table.Body {...rest}>
     {#if rows.length === 0}
-        <Empty columns={Math.max(1, columns)} {loading}>
-            {#snippet children(state)}
-                {#if empty}
-                    {@render empty(state)}
-                {:else}
-                    {loading
-                        ? (labels?.()?.loading ?? 'Loading rows…')
-                        : (labels?.()?.empty ?? 'No results.')}
-                {/if}
-            {/snippet}
-        </Empty>
+        <Empty columns={Math.max(1, columns)} {loading} children={empty} />
     {:else}
         {#each rows as row (row.id)}
             {const selectionApi = $derived(selectedRow(row))}
@@ -48,12 +40,12 @@
                 {#if canSelect}
                     <Table.Cell class="w-12">
                         <Selection
-                            label={selectLabel(rowLabel?.(row) ?? `row ${row.id}`)}
+                            label={selectLabel(row)}
                             checked={selectionApi.getIsSelected?.() ?? false}
                             disabled={!selectionApi.getCanSelect?.()}
                             onCheckedChange={(checked) => {
-                selectionApi.toggleSelected?.(checked);
-            }}
+                                selectionApi.toggleSelected?.(checked);
+                            }}
                         />
                     </Table.Cell>
                 {/if}

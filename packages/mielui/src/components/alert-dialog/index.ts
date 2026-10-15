@@ -12,11 +12,6 @@ import Header from './alert-dialog-header.svelte';
 import Title from './alert-dialog-title.svelte';
 import Trigger from './alert-dialog-trigger.svelte';
 
-export type AlertDialogState = {
-    open: boolean;
-    triggerRef?: HTMLElement | null;
-};
-
 export type AlertDialogProps = {
     /** Whether it is open. Bind it to control the state from outside. */
     open?: boolean;

@@ -122,7 +122,6 @@
     {...rest}
 >
     <div class="relative w-full overflow-x-auto">
-        <!-- Keep the highlighted markup on this element so the descendant Tailwind selectors apply. -->
         {#if copyPlacement === 'inline'}
             <div class={cn(themed && CODE_TOKENS, 'flex w-full min-w-full items-center')}>
                 <pre

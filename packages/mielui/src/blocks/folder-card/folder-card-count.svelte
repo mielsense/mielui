@@ -2,19 +2,27 @@
     import { numberShuffle } from '@mielui/svelte/actions/number-shuffle';
     import { cn } from '@mielui/svelte/utils';
     import type { FolderCardCountProps } from '.';
+    import { findFolderCardLabels } from './context';
 
-    let { value, unit = 'files', class: className, ...rest }: FolderCardCountProps = $props();
+    let { value, class: className, ...rest }: FolderCardCountProps = $props();
 
+    const labels = findFolderCardLabels();
     const formatter = new Intl.NumberFormat();
 
-    const format = $derived((next: number) => {
-        const amount = formatter.format(Number.isInteger(value) ? Math.round(next) : next);
+    const format = $derived.by(() => {
+        const label = labels?.()?.count;
+        const integer = Number.isInteger(value);
 
-        if (!unit) {
-            return amount;
-        }
+        return (next: number) => {
+            const count = integer ? Math.round(next) : next;
+            const formatted = formatter.format(count);
 
-        return `${amount} ${unit}`;
+            if (label) {
+                return label(count, formatted);
+            }
+
+            return `${formatted} ${count === 1 ? 'file' : 'files'}`;
+        };
     });
 </script>
 

@@ -4,15 +4,11 @@
     import { cn, pressable } from '@mielui/svelte/utils';
     import HugeiconsIcon from '../../hugeicons-icon.svelte';
     import type { ConversationScrollButtonProps } from '.';
-    import { getConversationContext } from './context.svelte';
+    import { findConversationLabels, getConversationContext } from './context.svelte';
 
-    let {
-        label = 'Scroll to latest message',
-        class: className,
-        onclick,
-        ...rest
-    }: ConversationScrollButtonProps = $props();
+    let { class: className, onclick, ...rest }: ConversationScrollButtonProps = $props();
 
+    const labels = findConversationLabels();
     const conversation = getConversationContext();
     const visible = $derived(!conversation.follow && !conversation.atBottom);
 
@@ -31,7 +27,7 @@
         use:pressable
         data-ui="conversation-scroll-button"
         data-state={visible ? 'visible' : 'hidden'}
-        aria-label={label}
+        aria-label={labels?.()?.scrollToBottom ?? 'Scroll to latest message'}
         aria-hidden={!visible}
         disabled={!visible}
         tabindex={visible ? undefined : -1}

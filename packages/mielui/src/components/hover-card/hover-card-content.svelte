@@ -30,12 +30,20 @@
                         data-ui="hover-card-content"
                         data-surface={surface}
                         aria-labelledby={context.state.title ? `${context.id}-title` : undefined}
-                        aria-describedby={context.state.description ? `${context.id}-description` : undefined}
+                        aria-describedby={context.state.description
+                            ? `${context.id}-description`
+                            : undefined}
                         in:panelIn
                         out:panelOut
-                        class={cn(className, overlaySurface(surface), 'mielui-float-frame z-[130] w-64 max-w-[calc(100vw-var(--spacing)*4)] origin-[var(--bits-link-preview-content-transform-origin)] overflow-hidden text-[var(--font-size-body)] text-foreground shadow-[var(--elevation-float)]')}
+                        class={cn(
+                            className,
+                            overlaySurface(surface),
+                            'mielui-float-frame z-[130] w-64 max-w-[calc(100vw-var(--spacing)*4)] origin-[var(--bits-link-preview-content-transform-origin)] overflow-hidden text-[length:var(--font-size-body)] text-foreground shadow-[var(--elevation-float)]'
+                        )}
                     >
-                        <div class="mielui-inset-surface p-4">{@render children?.()}</div>
+                        <div class="mielui-inset-surface p-4">
+                            {@render children?.()}
+                        </div>
                     </div>
                 </div>
             {/if}

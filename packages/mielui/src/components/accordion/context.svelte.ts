@@ -1,5 +1,9 @@
 import { createContext } from '@mielui/svelte/utils';
-import type { AccordionContext } from '.';
+
+type AccordionContext = {
+    isOpen: (value: string) => boolean;
+    toggle: (value: string) => void;
+};
 
 export type AccordionItemContext = {
     readonly id: string;

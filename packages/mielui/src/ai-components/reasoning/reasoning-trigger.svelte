@@ -13,15 +13,11 @@
     import type { ReasoningTriggerProps } from '.';
     import { findReasoningLabels, getReasoningContext } from './context.svelte';
 
-    let {
-        title = 'Draft',
-        duration,
-        children,
-        class: className,
-        ...rest
-    }: ReasoningTriggerProps = $props();
+    let { title, duration, children, class: className, ...rest }: ReasoningTriggerProps = $props();
     const labels = findReasoningLabels();
     const reasoning = getReasoningContext();
+    const summary = $derived(title ?? labels?.()?.title ?? 'Draft');
+    const thoughtFor = $derived(labels?.()?.thoughtFor);
 </script>
 
 <Button
@@ -52,15 +48,15 @@
                     <span use:shimmer class="inline-block">
                         {labels?.()?.thinking ?? 'Thinking'}
                     </span>
-                {:else if duration && labels?.()?.thoughtFor}
-                    {labels?.()?.thoughtFor?.(duration)}
+                {:else if duration && thoughtFor}
+                    {thoughtFor(duration)}
+                {:else if duration}
+                    Thought
+                    <span class="[font-weight:var(--font-weight-body)] tabular-nums">
+                        {`for ${duration}`}
+                    </span>
                 {:else}
                     {labels?.()?.thought ?? 'Thought'}
-                    {#if duration}
-                        <span class="[font-weight:var(--font-weight-body)] tabular-nums">
-                            {`for ${duration}`}
-                        </span>
-                    {/if}
                 {/if}
             </span>
             <HugeiconsIcon
@@ -71,7 +67,7 @@
             />
         </span>
         {#if !reasoning.open}
-            <span class="max-w-full text-pretty">{title}</span>
+            <span class="max-w-full text-pretty">{summary}</span>
         {/if}
     {/if}
 </Button>

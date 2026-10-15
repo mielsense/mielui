@@ -9,6 +9,9 @@ export function createConversationFollow(options: FollowOptions) {
     let atBottom = $state(true);
     let scrollingToBottom = $state(false);
     let viewport = $state<HTMLDivElement>();
+    let scrollable = $state(false);
+    let previousScrollTop = 0;
+    let userScrollIntent = false;
 
     const conversation = {
         get scrollable() {
@@ -60,10 +63,6 @@ export function createConversationFollow(options: FollowOptions) {
             userScrollIntent = true;
         }
     };
-
-    let scrollable = $state(false);
-    let previousScrollTop = 0;
-    let userScrollIntent = false;
 
     function isNearBottom(viewport: HTMLDivElement) {
         const remaining = viewport.scrollHeight - viewport.clientHeight - viewport.scrollTop;

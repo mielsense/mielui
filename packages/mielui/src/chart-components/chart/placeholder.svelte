@@ -9,6 +9,7 @@
     const chart = getChart();
     const heights = [32, 56, 44, 70, 58, 82, 66, 90];
 </script>
+
 <div class="absolute inset-0 isolate grid place-items-center" role="status">
     <div
         aria-hidden="true"
@@ -28,17 +29,15 @@
             {#if children}
                 {@render children()}
             {:else if loading}
-                <p class="font-medium text-foreground">
-                    {labels?.()?.loading ?? 'Loading chart…'}
-                </p>
+                {labels?.()?.loading ?? 'Loading chart…'}
             {:else}
-                <p class="font-medium text-foreground">
+                <div class="font-medium text-foreground">
                     {labels?.()?.empty ?? 'No data to display'}
-                </p>
-                <Card.Description>
+                </div>
+                <div class="mt-1 text-xs">
                     {labels?.()?.emptyDescription ??
                         'Try another period or add your first record.'}
-                </Card.Description>
+                </div>
             {/if}
         </Card.Content>
     </Card.Root>

@@ -60,8 +60,8 @@
                 size="sm"
                 disabled={loading || !api.getCanPreviousPage?.()}
                 onclick={() => {
-                api.previousPage?.();
-            }}
+                    api.previousPage?.();
+                }}
             >
                 {labels?.()?.previous ?? 'Previous'}
             </Button>
@@ -70,8 +70,8 @@
                 size="sm"
                 disabled={loading || !api.getCanNextPage?.()}
                 onclick={() => {
-                api.nextPage?.();
-            }}
+                    api.nextPage?.();
+                }}
             >
                 {labels?.()?.next ?? 'Next'}
             </Button>

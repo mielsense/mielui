@@ -46,9 +46,4 @@ export type AccordionContentProps = {
     children?: Snippet;
 } & DefaultProps;
 
-export type AccordionContext = {
-    isOpen: (value: string) => boolean;
-    toggle: (value: string) => void;
-};
-
 export { Content, Item, Root, Trigger };

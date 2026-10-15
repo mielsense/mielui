@@ -4,7 +4,7 @@ Composer has a sixth part, `Composer.Footer`. Put it last inside `Composer.Root`
 
 Do not build this strip yourself. A sibling `div` under `Composer.Root`, or a tinted wrapper around the whole composer, sits outside the form frame and breaks the theme's single and double border modes and the glass surface. `Composer.Footer` is hidden while it has no child elements, so it is safe to render with conditional content.
 
-Text inside is muted at the label size, and buttons inside take the small control height on their own. Use ghost buttons there and in `Composer.Toolbar`; outline controls in the toolbar still work and render as flat pills.
+Text inside is muted at the label size, and buttons inside take the small control height on their own. Use ghost buttons there and in `Composer.Toolbar`; outline controls in the toolbar still work and render flat, with a hairline and the control radius.
 
 ```svelte
 <Composer.Root bind:value onSubmit={send}>
@@ -25,7 +25,7 @@ The input and joined toolbar also have slightly more padding than before. Do not
 
 `<Button variant="glow">` is a lit version of the primary action. Use it for the single headline call to action on a landing or marketing surface. Do not use it for routine controls, toolbars, or several buttons in one view; those stay `primary`.
 
-The look lives in the shared `.mielui-glow` class in `ui.css`, so it needs the package stylesheet. Do not rebuild it with local gradients, borders, or a drop shadow. It is a pill, filled by default with a light tint of the primary color under dark text. Recolor it with two custom properties and a matching text color class:
+The look lives in the shared `.mielui-glow` class in `ui.css`, so it needs the package stylesheet. Do not rebuild it with local gradients, borders, or a drop shadow. It takes the control radius like every button and is filled by default with a light tint of the primary color under dark text. Recolor it with two custom properties and a matching text color class:
 
 ```svelte
 <Button
@@ -46,25 +46,27 @@ Neutrals are derived, not picked. `--color-border` is the foreground at 12% (14%
 
 Surfaces have three roles. `--color-background` is the grey stage, `--color-card` is the white plate, and `--color-panel` is the floating panel. Use the class contracts rather than rebuilding them: `mielui-plate` is a resting plate with its hairline, radius, and shadow; `mielui-float-frame` is a floating panel; `mielui-inset-frame` with a `mielui-inset-surface` child is the two-layer surface.
 
-The two layers swapped. `mielui-inset-frame` and `mielui-modal-frame` are now the card color, and `mielui-inset-surface` is the stage color with a hairline ring. Put header, toolbar, and footer strips on the frame and content in the inset. Do not force `bg-card` onto an inset to get the old white surface back, and do not add a ring or border to it. Fields inside an inset are white through `--color-field`. `chrome.borders` still defaults to `single`, so the inset meets the frame's border unless a theme asks for `double`.
+The two layers swapped. `mielui-inset-frame` and `mielui-modal-frame` are now the card color, and `mielui-inset-surface` is the stage color, with a hairline ring when the theme uses double borders. Put header, toolbar, and footer strips on the frame and content in the inset. Do not force `bg-card` onto an inset to get the old white surface back, and do not add a ring or border to it. Fields inside an inset are white through `--color-field`. `chrome.borders` still defaults to `single`, so the inset meets the frame's border unless a theme asks for `double`.
 
-Controls share one radius through a token. Use `rounded-[var(--radius-control)]` on anything pressable and on single-line fields. It is 12px by default, 4px in the sharp scale, and a pill in the rounded scale. Do not write `rounded-full` or `rounded-[var(--radius-lg)]` on a control, because either one breaks in two of the three scales. Multi-line fields use `--radius-xl`, rows inside panels `--radius-md`, floating panels `--radius-xl`, and plates `--radius-2xl`.
+Controls share one radius through a token. Use `rounded-[var(--radius-control)]` on anything pressable and on single-line fields. It is 12px by default, 4px in the sharp scale, and a pill in the rounded scale. Do not write `rounded-full` or `rounded-[var(--radius-lg)]` on a control, because either one breaks in two of the three scales. Badges and menu rows take the control radius too. Multi-line fields use `--radius-xl`, list rows `--radius-md`, and plates `--radius-2xl`. Floating panels and two-layer frames compute their radius from the control radius; see the nested corner section below.
 
-Filled actions are lit. `Button` variants `primary`, `secondary`, `destructive`, and `glow` all use the `mielui-glow` material, and each only sets its color and light. To make your own lit pill, add `mielui-glow`, set `--mielui-glow-color`, set `--mielui-glow-light` between 0 and 1 (lower on dark fills), and pair it with `shadow-[var(--mielui-glow-shadow)]` and `focus-visible:shadow-[var(--focus-ring),var(--mielui-glow-shadow)]`. Set `--mielui-glow-ring` when the outer edge should be a hairline. Add `mielui-glow-neutral` for the white selected fill on a grey track; it handles dark mode itself. `outline`, `ghost`, and `quiet` are flat, and so are fields, triggers, tracks, and badges. Do not put the lit material on a card or a label.
+Filled actions are lit. `Button` variants `primary`, `secondary`, `destructive`, and `glow` all use the `mielui-glow` material, and each only sets its color and light. To make your own lit control, add `mielui-glow`, set `--mielui-glow-color`, set `--mielui-glow-light` between 0 and 1 (lower on dark fills), and pair it with `shadow-[var(--mielui-glow-shadow)]` and `focus-visible:shadow-[var(--focus-ring),var(--mielui-glow-shadow)]`. Set `--mielui-glow-ring` when the outer edge should be a hairline. Add `mielui-glow-neutral` for the white selected fill on a grey track; it handles dark mode itself. `outline`, `ghost`, and `quiet` are flat, and so are fields, triggers, tracks, and badges. Do not put the lit material on a card or a label.
 
 The primary button's text is `--color-on-primary`, which is dark on the default brand in both themes. Do not hard-code white text on a primary fill.
 
 Weight stops at 500. `font-semibold` and `font-bold` still compile but render at 500, so a heading that relied on them no longer stands out by weight. Use size and `text-foreground` against `text-foreground-muted`.
 
-Motion uses four springs exposed as easing tokens, and interface motion stays under 300ms. Keyboard-driven changes do not animate: the traveling highlight snaps for arrow keys and only glides for a pointer, so do not add a transition to a row's active state. Use `ease-[var(--ease-spring-layout)]` with `[transition-duration:var(--motion-duration-spring)]` for anything that slides or resizes, `ease-[var(--ease-spring-flick)]` with `[transition-duration:var(--motion-duration-flick)]` for a chevron or glyph swap, and the `panelIn`, `panelOut`, `dialogIn`, and `dialogOut` helpers from `@mielui/svelte/transition` for things that open. Do not write a local `cubic-bezier` or a literal duration, because the duration tokens are what collapse to zero under reduced motion and the none motion theme. Hover changes color only.
+The default fonts are Inter Tight and Geist Mono, and the package no longer installs Manrope or JetBrains Mono. A project that wants to keep Manrope installs `@fontsource/manrope`, imports its CSS after `ui.css`, and sets `--font-sans: 'Manrope', sans-serif`. Do not import the old font packages from `@mielui/svelte`; they are gone.
 
-Elevation is binary. Use `shadow-[var(--elevation-1)]` for a resting plate and `shadow-[var(--elevation-float)]` for anything floating. Dialogs use `--elevation-modal`. Do not compose another shadow.
+Motion uses four springs exposed as easing tokens, and interface motion stays under 300ms. Keyboard-driven changes do not animate: the traveling highlight snaps for arrow keys and only glides for a pointer, on `--ease-out` for `--motion-duration-item`, so do not add a transition to a row's active state. Use `ease-[var(--ease-spring-layout)]` with `[transition-duration:var(--motion-duration-spring)]` for anything that slides or resizes, `ease-[var(--ease-spring-flick)]` with `[transition-duration:var(--motion-duration-flick)]` for a chevron or glyph swap, and the `panelIn`, `panelOut`, `dialogIn`, and `dialogOut` helpers from `@mielui/svelte/transition` for things that open. Do not write a local `cubic-bezier` or a literal duration, because the duration tokens are what collapse to zero under reduced motion and the none motion theme. Hover changes color only.
 
-Exported component names, props, and variants are unchanged. `springEase(stiffness, damping)` is new in `@mielui/svelte/transition`.
+Elevation is binary. Use `shadow-[var(--elevation-1)]` for a resting plate and `shadow-[var(--elevation-float)]` for anything floating. Both are off in the default theme, so cards and menus are held by their hairline; reference the tokens anyway so a theme can turn them on. Dialogs and sheets use `--elevation-modal`. Do not compose another shadow.
+
+The restyle itself renames no component, prop, or variant. The API additions in this release are `Composer.Footer`, Button's `glow` variant, the `labels` props, and `springEase(stiffness, damping)` in `@mielui/svelte/transition`; the `bind:element` and context changes are below.
 
 ## Nested corner radii
 
-Frames that hold controls near their corners no longer use the plate radius. `.mielui-modal-frame` and `.mielui-inset-frame` now resolve `--mielui-plate-radius` to the control radius plus two spacing units plus the border, capped at `--radius-2xl` (about 20px by default instead of 26px). `.mielui-float-frame` resolves it to the control radius plus one spacing unit plus the border, capped at `--radius-xl` (16.6px instead of 18px). `.mielui-plate` is unchanged.
+Frames that hold controls near their corners no longer use the plate radius. `.mielui-modal-frame` and `.mielui-inset-frame` now resolve `--mielui-plate-radius` to the control radius plus two spacing units plus the border, capped at `--radius-2xl` (about 20px by default instead of 26px, before the squircle factor). `.mielui-float-frame` resolves it to the control radius plus one spacing unit plus the border, capped at `--radius-xl` (16.6px instead of 18px). `.mielui-plate` is unchanged.
 
 The rule is inner radius = outer radius - border - gap. Compose with it instead of picking radii:
 
@@ -75,11 +77,30 @@ The rule is inner radius = outer radius - border - gap. Compose with it instead 
 
 If you set `--mielui-plate-radius` on a frame yourself, keep the squircle factor: multiply by `var(--mielui-squircle, 1)` on frames that draw squircle corners.
 
-
 ## One name for the DOM node, one prop for built-in text
 
 Every component part exposes its DOM node as a bindable `element`. Before 0.3.0 the Calendar, RangeCalendar, DatePicker, DateRangePicker, and OTPField parts used `ref`, and so did HugeiconsIcon. Replace `bind:ref` with `bind:element` on those. The old spelling still compiles in some setups because Svelte passes unknown props through, but nothing is bound and the variable stays empty. When you wrap a Bits UI primitive yourself, type the wrapper with `WithElement<PrimitiveProps>` from `@mielui/svelte/utils` and pass `bind:ref={element}` to the primitive.
 
-Built-in text and accessible names are overridden with one `labels` object on the root, never with one prop per string. Every key is optional and English is the fallback. A key that inserts a value is a function, for example `position: (position, total) => string` on Toaster or `added: (tag, count) => string` on TagInput. In 0.3.0 Slider, NumberField, Dialog, Sheet, Notch, Toaster, Command, ColorPicker, Question, and Gauge gain the prop, and TagInput, FileUpload, DataTable, Chart, and Heatmap gain keys. Where a component already had a prop for one string, such as `requiredMessage` on TagInput or `errorMessage` on Question, the prop still wins over `labels`.
+Built-in text and accessible names are overridden with one `labels` object on the root, never with one prop per string. Every key is optional and English is the fallback. A key that inserts a value is a function, for example `position: (position, total) => string` on Toaster or `added: (tag, count) => string` on TagInput. In 0.3.0 Slider, NumberField, Dialog, Sheet, Notch, Toaster, Command, ColorPicker, Question, Gauge, Button, Kbd, `Form.ErrorSummary`, SkeletonSwap, CopyButton, ShowMore, TaskSteps, FolderCard, Composer, and Conversation gain the prop, and TagInput, FileUpload, DataTable, Chart, Heatmap, Reasoning, and Toaster gain keys. TagInput's `requiredMessage` is the one remaining single-string prop, and it still wins over `labels.required`.
 
 `createContext(name)` from `@mielui/svelte/utils` now returns three helpers. `set` and `get` are unchanged, and `get` still throws `<Name> components must be used within <Name.Root>.` outside the root. `find` returns `undefined` there. Use `find` for a part that also renders on its own, the way Tabs, CodeBlock, and FileDiff parts do. Do not read library contexts with `getContext('tabs')` or another string key. Those keys are private symbols now and the call returns `undefined`.
+
+## Single-string props removed
+
+The one-prop-per-string props are gone. Old call sites still type-check in some setups because Svelte passes unknown props through to the element, but the text silently falls back to English. Move each one into `labels`:
+
+- Button and every part built on it: `loadingLabel`, `successLabel`, `errorLabel` become `labels={{ loading, success, error }}`. This includes menu items, Select and Combobox items, Dialog, AlertDialog and Sheet buttons, `Form.Submit`, and `Command.Trigger`.
+- CopyButton: `label` and `copiedLabel` become `labels={{ copy, copied }}`. On CodeBlock, set them on `CodeBlock.Root`, not on `CodeBlock.Copy`.
+- ShowMore: `moreLabel`, `lessLabel`, `label` become `labels={{ more, less, region }}`.
+- `Command.Content` `label` becomes `labels.palette` on `Command.Root`.
+- TaskSteps `label` becomes `labels.list`.
+- `FolderCard.Count` `unit` becomes `labels.count: (count, formatted) => string` on `FolderCard.Root`. Return the whole phrase, not just the unit.
+- Composer: `errorMessage` on Root and `label`, `queueLabel`, `stopLabel`, `loadingLabel` on Submit become `labels` on `Composer.Root` (`error`, `send`, `queue`, `stop`, `sending`).
+- Question: `errorMessage` on Root and `label`, `loadingLabel` on Submit become `labels.submitError`, `labels.submit`, `labels.submitting` on `Question.Root`.
+- `Conversation.ScrollButton` `label` becomes `labels.scrollToBottom` on `Conversation.Root`.
+
+Props that carry your own content stay props and win over `labels`: `placeholder` and `aria-label` on `Composer.Input` and `Question.Input`, `title` and `description` on `Conversation.Empty`, and SkeletonSwap's `label`.
+
+DataTable's `labels.rows` and `labels.selected` changed shape. They used to return the noun next to an animated number; they now return the whole phrase: `rows: (count) => string` and `selected: (selected, total) => string`. A custom phrase renders as plain text, and only the English default keeps the rolling number. Reasoning's `labels.thoughtFor(duration)` now returns the whole status line, and `labels.thought` only applies when no `duration` is passed, so set both when translating.
+
+Menu rows accept only `variant="destructive"`. `size`, `unstyled`, and other Button variants never applied to a row, and the types no longer offer them. Do not try to restyle a row through Button props; use `class`.

@@ -4,7 +4,7 @@
     import { cn } from '@mielui/svelte/utils';
     import HugeiconsIcon from '../../hugeicons-icon.svelte';
     import type { QuestionProps } from '.';
-    import { setQuestionContext } from './context.svelte';
+    import { setQuestionContext, setQuestionLabels } from './context.svelte';
     import { createQuestionState } from './state.svelte';
 
     let {
@@ -16,7 +16,6 @@
         required = true,
         autofocus = false,
         name = 'answer',
-        errorMessage,
         labels,
         onSubmit,
         onError,
@@ -25,9 +24,9 @@
         children,
         ...rest
     }: QuestionProps = $props();
+    setQuestionLabels(() => labels);
 
     let form: HTMLFormElement | undefined;
-    const errorNoticeClass = 'mielui-error-notice';
 
     const question = createQuestionState({
         get type() {
@@ -55,7 +54,7 @@
             return name;
         },
         get errorMessage() {
-            return errorMessage ?? labels?.submitError ?? 'Answer could not be submitted.';
+            return labels?.submitError ?? 'Answer could not be submitted.';
         },
         get labels() {
             return labels;
@@ -96,7 +95,7 @@
                 ? 'alert'
                 : undefined}
             aria-hidden={question.displayStatus !== 'error'}
-            class={cn(errorNoticeClass, 'text-[var(--mielui-error-text)]')}
+            class="mielui-error-notice text-[var(--mielui-error-text)]"
             data-state={question.displayStatus}
         >
             <HugeiconsIcon icon={CircleAlert} size={14} strokeWidth={2} aria-hidden="true" />

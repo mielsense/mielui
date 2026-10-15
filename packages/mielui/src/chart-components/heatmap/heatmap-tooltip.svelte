@@ -1,12 +1,12 @@
 <script lang="ts">
     import { getCssDuration, springEase } from '@mielui/svelte/transition';
     import { onMount, untrack } from 'svelte';
-    import type { HTMLAttributes } from 'svelte/elements';
     import { prefersReducedMotion, Tween } from 'svelte/motion';
     import ChartTooltipSurface from '../../components/_internal/chart-tooltip-surface.svelte';
+    import type { HeatmapTooltipProps } from '.';
     import { getHeatmapContext } from './context.svelte';
 
-    let { children, class: className, ...props }: HTMLAttributes<HTMLDivElement> = $props();
+    let { children, class: className, ...props }: HeatmapTooltipProps = $props();
     const context = getHeatmapContext();
     const gap = 8;
     let element = $state<HTMLDivElement>();
@@ -16,6 +16,13 @@
     let placed = $state(false);
     const anchor = $derived(context.hoveredElement ?? context.focusedElement);
     const day = $derived(context.model.cells.find((cell) => cell.date === target?.dataset.date));
+    const dateFormatter = $derived(
+        new Intl.DateTimeFormat(context.locale, {
+            dateStyle: 'medium',
+            timeZone: 'UTC'
+        })
+    );
+    const countFormatter = $derived(new Intl.NumberFormat(context.locale));
     const position = new Tween(
         {
             x: 0,
@@ -69,7 +76,7 @@
             ),
             y: above >= 0 ? above : below
         };
-        const moving = untrack(() => placed);
+        const moving = untrack(() => placed && context.hoveredElement !== undefined);
         void position.set(destination, {
             duration:
                 moving && !prefersReducedMotion.current
@@ -122,7 +129,7 @@
             {@render children()}
         {:else}
             <div class="mb-2 font-medium text-foreground">
-                {new Intl.DateTimeFormat(context.locale, { dateStyle: 'medium', timeZone: 'UTC' }).format(new Date(`${day.date}T00:00:00Z`))}
+                {dateFormatter.format(new Date(`${day.date}T00:00:00Z`))}
             </div>
             <div class="flex items-center gap-2">
                 <span class="size-2 shrink-0 rounded-full bg-[var(--chart-1)]"></span>
@@ -130,7 +137,7 @@
                     {context.labels?.tooltipValue ?? 'Contributions'}
                 </span>
                 <span class="ml-4 font-medium tabular-nums">
-                    {new Intl.NumberFormat(context.locale).format(day.count)}
+                    {countFormatter.format(day.count)}
                 </span>
             </div>
         {/if}

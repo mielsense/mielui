@@ -97,10 +97,7 @@
         if (!isHighLevel) {
             return;
         }
-        const available = resolvedTabs.map((tab) => tab.value as string);
-        if (available.length === 0 && code != null) {
-            available.push(SINGLE);
-        }
+        const available = highLevelOrder();
         if (available.length > 0 && !available.includes(value ?? '')) {
             value = available[0];
         }
@@ -130,7 +127,7 @@
                                 {/each}
                             </List>
                         {/if}
-                        <Actions copy={copy === 'actionbar'}>{@render actions?.()} </Actions>
+                        <Actions copy={copy === 'actionbar'}> {@render actions?.()} </Actions>
                     </Header>
                 {/if}
                 {#if hasTabRow || code != null}

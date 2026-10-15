@@ -15,15 +15,14 @@
         unstyled = false,
         status,
         loading,
-        loadingLabel,
-        successLabel,
-        errorLabel,
+        labels,
         'aria-label': ariaLabel,
         'aria-disabled': ariaDisabled,
         disabled = false,
         onclick,
         onkeydown,
         tabindex,
+        type,
         ...rest
     }: ButtonProps = $props();
 
@@ -41,20 +40,16 @@
         cn(className, statusClasses, unstyled ? undefined : button({ variant, size }))
     );
     const stateful = $derived(
-        status !== undefined ||
-            loading !== undefined ||
-            loadingLabel !== undefined ||
-            successLabel !== undefined ||
-            errorLabel !== undefined
+        status !== undefined || loading !== undefined || labels !== undefined
     );
     const pending = $derived(visualStatus === 'loading');
     const unavailable = $derived(disabled || ariaDisabled === true || ariaDisabled === 'true');
-    const statusLabels = $derived<Partial<Record<ButtonStatus, string>>>({
-        loading: loadingLabel ?? 'Loading…',
-        success: successLabel ?? 'Done',
-        error: errorLabel ?? 'Try again'
+    const statusLabels = $derived({
+        loading: labels?.loading ?? 'Loading…',
+        success: labels?.success ?? 'Done',
+        error: labels?.error ?? 'Try again'
     });
-    const currentLabel = $derived(statusLabels[visualStatus] ?? ariaLabel);
+    const currentLabel = $derived(visualStatus === 'idle' ? ariaLabel : statusLabels[visualStatus]);
     const announcement = $derived(
         visualStatus === 'success' || visualStatus === 'error' ? statusLabels[visualStatus] : ''
     );
@@ -92,7 +87,7 @@
             stroke-linecap="round"
         />
     </svg>
-    {loadingLabel ?? 'Loading…'}
+    {statusLabels.loading}
 {/snippet}
 
 {#snippet successFace()}
@@ -105,7 +100,7 @@
             stroke-linejoin="round"
         />
     </svg>
-    {successLabel ?? 'Done'}
+    {statusLabels.success}
 {/snippet}
 
 {#snippet errorFace()}
@@ -117,7 +112,7 @@
             stroke-linecap="round"
         />
     </svg>
-    {errorLabel ?? 'Try again'}
+    {statusLabels.error}
 {/snippet}
 
 {#snippet face(shown: ButtonStatus, body: Snippet | undefined, classes: string)}
@@ -146,6 +141,7 @@
         href={pending || unavailable ? undefined : href}
         role={pending || unavailable ? 'link' : undefined}
         tabindex={anchorTabindex}
+        type={type as HTMLAnchorAttributes['type']}
         data-ui="button"
         data-variant={unstyled ? undefined : variant}
         data-size={size}
@@ -179,7 +175,7 @@
     <button
         bind:this={element as HTMLButtonElement}
         use:pressable
-        type={(rest as HTMLButtonAttributes).type ?? 'button'}
+        type={(type as HTMLButtonAttributes['type']) ?? 'button'}
         data-ui="button"
         data-variant={unstyled ? undefined : variant}
         data-size={size}

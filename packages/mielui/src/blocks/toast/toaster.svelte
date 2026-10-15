@@ -32,7 +32,7 @@
     let hovered = $state(false);
     let focused = $state(false);
     const expanded = $derived(hovered || focused);
-    let heights = $state<Record<number, number>>({} as Record<number, number>);
+    let heights = $state<Record<number, number>>({});
     let portalEl = $state<HTMLDivElement>();
 
     $effect(() => {
@@ -166,7 +166,9 @@
                 focused = true;
             }}
             onfocusout={(event) => {
-                focused = event.relatedTarget instanceof Node && event.currentTarget.contains(event.relatedTarget);
+                focused =
+                    event.relatedTarget instanceof Node &&
+                    event.currentTarget.contains(event.relatedTarget);
             }}
         >
             {#each reversedToasts as toast, i (toast.id)}

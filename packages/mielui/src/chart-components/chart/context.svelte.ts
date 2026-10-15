@@ -1,13 +1,13 @@
 import { createContext } from '@mielui/svelte/utils';
 import type { ChartLabels } from '.';
 
-type Row = Record<string, string | number | Date | null | undefined>;
+export type ChartRow = Record<string, string | number | Date | null | undefined>;
 export type Config = Record<
     string,
     { label: string; color?: string; format?: (value: number) => string }
 >;
 export interface ChartContext {
-    readonly data: readonly Row[];
+    readonly data: readonly ChartRow[];
     readonly config: Config;
     readonly keys: string[];
     readonly barKeys: string[];

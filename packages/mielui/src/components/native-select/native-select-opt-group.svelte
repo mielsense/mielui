@@ -1,7 +1,7 @@
 <script lang="ts">
-    import type { HTMLOptgroupAttributes } from 'svelte/elements';
+    import type { NativeSelectOptGroupProps } from '.';
 
-    let { children, ...rest }: HTMLOptgroupAttributes = $props();
+    let { children, ...rest }: NativeSelectOptGroupProps = $props();
 </script>
 
 <optgroup {...rest} data-ui="native-select-opt-group">

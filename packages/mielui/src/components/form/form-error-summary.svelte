@@ -9,6 +9,7 @@
         issues = [],
         focusOnError = true,
         heading,
+        labels,
         children,
         element = $bindable(),
         class: className,
@@ -16,6 +17,10 @@
     }: FormErrorSummaryProps = $props();
     const uid = $props.id();
     const form = findFormContext();
+    const messages = $derived(issues.filter((issue) => issue.message.trim().length > 0));
+    const linkClasses =
+        'rounded-[var(--radius-sm)] text-foreground underline decoration-[var(--color-border-strong)] underline-offset-4 outline-none transition-[text-decoration-color] [transition-duration:var(--motion-duration-hover)] ease-[var(--ease-out)] hover:decoration-current focus-visible:shadow-[var(--focus-ring)] motion-reduce:transition-none';
+
     let focusedSubmission = 0;
 
     function focusField(issue: FormIssue) {
@@ -64,13 +69,11 @@
             cancelled = true;
         };
     });
-    const messages = $derived(issues.filter((issue) => issue.message.trim().length > 0));
 </script>
 
 {#if messages.length > 0}
     <div
         transition:themedSlide={{ durationVar: '--motion-duration-press', fallback: 160 }}
-        aria-hidden={messages.length === 0 ? true : undefined}
         tabindex="-1"
         aria-labelledby={`${uid}-heading`}
         {...rest}
@@ -78,14 +81,14 @@
         data-ui="form-error-summary"
         class={cn(
             className,
-            'rounded-[calc(var(--radius-xl)*var(--mielui-squircle,1))] [corner-shape:squircle] border-[length:var(--border-size)] border-border bg-card px-4 py-3 text-sm text-foreground-muted shadow-[var(--elevation-1)] outline-none focus-visible:shadow-[var(--focus-ring),var(--elevation-1)]'
+            'mielui-plate rounded-[calc(var(--radius-xl)*var(--mielui-squircle,1))] px-4 py-3 text-sm text-foreground-muted outline-none focus-visible:shadow-[var(--focus-ring),var(--elevation-1)]'
         )}
     >
         <div id={`${uid}-heading`} class="font-medium text-[var(--mielui-error-text)]">
             {#if heading}
                 {@render heading()}
             {:else}
-                Review your details
+                {labels?.heading ?? 'Review your details'}
             {/if}
         </div>
         <div class="mt-1.5 leading-body">
@@ -99,14 +102,14 @@
                                 <a
                                     href={`#${encodeURIComponent(issue.controlId)}`}
                                     onclick={() => focusField(issue)}
-                                    class="rounded-[var(--radius-sm)] text-foreground underline decoration-[var(--color-border-strong)] underline-offset-4 outline-none transition-[text-decoration-color] [transition-duration:var(--motion-duration-hover)] ease-[var(--ease-out)] hover:decoration-current focus-visible:shadow-[var(--focus-ring)] motion-reduce:transition-none"
+                                    class={linkClasses}
                                 >
                                     {issue.message}
                                 </a>
                             {:else if issue.path?.length}
                                 <button
                                     type="button"
-                                    class="text-start rounded-[var(--radius-sm)] text-foreground underline decoration-[var(--color-border-strong)] underline-offset-4 outline-none transition-[text-decoration-color] [transition-duration:var(--motion-duration-hover)] ease-[var(--ease-out)] hover:decoration-current focus-visible:shadow-[var(--focus-ring)] motion-reduce:transition-none"
+                                    class={cn(linkClasses, 'text-start')}
                                     onclick={() => focusField(issue)}
                                 >
                                     {issue.message}

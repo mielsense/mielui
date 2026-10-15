@@ -2,12 +2,12 @@
     import { Textarea } from '@mielui/svelte/components/textarea';
     import { cn } from '@mielui/svelte/utils';
     import type { QuestionInputProps } from '.';
-    import { getQuestionContext } from './context.svelte';
+    import { findQuestionLabels, getQuestionContext } from './context.svelte';
 
     let {
         submitOnEnter = true,
-        placeholder = 'Type your answer...',
-        'aria-label': ariaLabel = 'Answer',
+        placeholder,
+        'aria-label': ariaLabel,
         rows = 2,
         disabled = false,
         readonly = false,
@@ -21,6 +21,7 @@
         ...rest
     }: QuestionInputProps = $props();
 
+    const labels = findQuestionLabels();
     const context = getQuestionContext();
     let composing = false;
 </script>
@@ -34,8 +35,8 @@
             data-ui="question-input"
             value={Array.isArray(context.answer) ? '' : context.answer}
             name={context.name}
-            {placeholder}
-            aria-label={ariaLabel}
+            placeholder={placeholder ?? labels?.()?.placeholder ?? 'Type your answer...'}
+            aria-label={ariaLabel ?? labels?.()?.answer ?? 'Answer'}
             aria-busy={context.status === 'submitting'}
             {rows}
             {autoresize}

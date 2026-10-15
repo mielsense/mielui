@@ -14,6 +14,7 @@
     import { filterableColumn } from './features';
     import {
         defaultFilterOperator,
+        excludedSummary,
         filterClause,
         filterDate,
         filterOperators,
@@ -59,10 +60,10 @@
         if (filter.type === 'select' && clause?.type === 'select' && clause.value.length === 1) {
             const label = filter.options.find((option) => option.value === clause.value[0])?.label;
             if (label) {
-                return clause.operator === 'notIn' ? `not ${label}` : label;
+                return clause.operator === 'notIn' ? excludedSummary(label, labels?.()) : label;
             }
         }
-        return filterSummary(clause);
+        return filterSummary(clause, labels?.());
     });
 
     function setValue(next: unknown) {
@@ -164,11 +165,12 @@
                             checked={selected}
                             onCheckedChange={(checked) => {
                                 const current = Array.isArray(value)
-                                ? value.filter((item): item is string => typeof item === 'string')
-                                : [];
-                                commit(checked
-                                ? [...current, option.value]
-                                : current.filter((item) => item !== option.value));
+                                    ? value.filter((item): item is string => typeof item === 'string')
+                                    : [];
+                                const next = checked
+                                    ? [...current, option.value]
+                                    : current.filter((item) => item !== option.value);
+                                commit(next);
                             }}
                         />
                     {/each}

@@ -2,10 +2,12 @@
     import { Slider } from '@mielui/svelte/components/slider';
     import { cn } from '@mielui/svelte/utils';
     import type { ColorPickerPlaneProps } from '.';
+    import { getColorPickerContext } from './context';
     import { getColorPickerController } from './controller.svelte';
     import { colorPlanePointer } from './pointer';
 
     let { class: className, ...rest }: ColorPickerPlaneProps = $props();
+    const context = getColorPickerContext();
     const controller = getColorPickerController();
     const hsvBlack = '#000';
     const hsvWhite = '#fff';
@@ -32,7 +34,7 @@
     ></div>
     <Slider
         class="sr-only"
-        label="Saturation"
+        label={context.labels?.saturation ?? 'Saturation'}
         max={100}
         value={controller.state.sat}
         onValueChange={(next: number) => {
@@ -41,7 +43,7 @@
     />
     <Slider
         class="sr-only"
-        label="Brightness"
+        label={context.labels?.brightness ?? 'Brightness'}
         max={100}
         value={controller.state.val}
         onValueChange={(next: number) => {

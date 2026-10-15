@@ -3,25 +3,20 @@
     import { cn } from '@mielui/svelte/utils';
     import type { Snippet } from 'svelte';
     import { getDialogContext } from '../../components/dialog/context.svelte';
+    import { findCommandLabels } from './context.svelte';
 
     const dialog = getDialogContext();
     dialog.motion = 'none';
+    const labels = findCommandLabels();
 
     type Props = {
         surface?: 'solid' | 'glass';
         children?: Snippet;
         class?: string;
         allowClickOutside?: boolean;
-        label?: string;
     };
 
-    let {
-        children,
-        class: className,
-        allowClickOutside = true,
-        label = 'Command palette',
-        ...rest
-    }: Props = $props();
+    let { children, class: className, allowClickOutside = true, ...rest }: Props = $props();
 </script>
 
 <Dialog.Content
@@ -30,7 +25,7 @@
     showClose={false}
     panelIdPrefix="command"
     data-ui="command-content"
-    aria-label={label}
+    aria-label={labels?.()?.palette ?? 'Command palette'}
     aria-labelledby={undefined}
     aria-describedby={undefined}
     class={cn(

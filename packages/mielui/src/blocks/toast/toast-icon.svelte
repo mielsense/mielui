@@ -30,7 +30,11 @@
         {...rest}
         data-ui="toast-icon"
         aria-hidden="true"
-        class={cn(className, 'inline-flex size-4 shrink-0 items-center justify-center', toastIcon({ type: context.toast.type }))}
+        class={cn(
+            className,
+            'inline-flex size-4 shrink-0 items-center justify-center',
+            toastIcon({ type: context.toast.type })
+        )}
     >
         {#if children}
             {@render children()}
@@ -38,7 +42,9 @@
             <HugeiconsIcon
                 icon={Icon}
                 size={16}
-                class={context.toast.type === 'loading' ? 'animate-spin motion-reduce:animate-none' : ''}
+                class={context.toast.type === 'loading'
+                    ? 'animate-spin motion-reduce:animate-none'
+                    : undefined}
             />
         {/if}
     </span>

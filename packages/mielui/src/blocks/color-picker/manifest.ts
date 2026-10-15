@@ -16,7 +16,7 @@ export const manifest: Manifest = {
     version: '3.1.0',
     visibility: 'public',
     description:
-        'Popover-based color picker with SB drag, hue strip, hex input, and HSL sliders. Optional preset swatches. Composable Root, Trigger, Content, Plane, Hue, Preview, HexInput, Channels, and Presets.',
+        'Popover-based color picker with a saturation and brightness plane, hue strip, hex input with eyedropper, and HSL, RGB, or HSV channel sliders. Optional preset swatches. Composable Root, Trigger, Content, Plane, Hue, Preview, HexInput, Channels, and Presets.',
     files: [
         'actions/number-shuffle/index.ts',
         'actions/number-shuffle/render.ts',
@@ -42,6 +42,6 @@ export const manifest: Manifest = {
         '@floating-ui/dom': '1.7.6',
         '@hugeicons/core-free-icons': '^4.3.0',
         cnfast: '^0.0.8',
-        svelte: '^5.0.0'
+        svelte: '^5.56.0'
     }
 };

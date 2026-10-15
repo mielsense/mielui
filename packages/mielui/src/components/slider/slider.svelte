@@ -39,7 +39,6 @@
             onValueCommit,
             editable,
             parse,
-            children,
             ...attributes
         } = mode;
 
@@ -83,6 +82,33 @@
             ? 'absolute inset-x-1.5 inset-y-0 flex select-none items-center'
             : 'relative flex min-h-[var(--size-touch)] w-full select-none items-center md:min-h-6'
     );
+
+    function thumbLabel(index: number) {
+        if (!mode.range) {
+            return named;
+        }
+
+        return (
+            mode.thumbLabels?.[index] ?? `${named ?? labels?.range ?? 'Range'} ${thumbNames[index]}`
+        );
+    }
+
+    function thumbLabelledBy(index: number) {
+        if (!labelledBy) {
+            return undefined;
+        }
+
+        return mode.range ? `${labelledBy} ${id}-label-${index}` : labelledBy;
+    }
+
+    function thumbActive(index: number, active: boolean) {
+        if (slider.dragPointer !== undefined) {
+            return slider.pointerThumb === index;
+        }
+
+        return active;
+    }
+
     const fieldThumbClasses =
         'h-3.5 w-0.5 shrink-0 rounded-full bg-[var(--color-border-strong)] outline-none transition-colors [transition-duration:var(--motion-duration-hover)] ease-[var(--ease-out)] group-hover:bg-foreground-muted data-active:bg-foreground motion-reduce:transition-none';
     const thumbClasses =
@@ -107,8 +133,8 @@
             {#snippet child({ props, active })}
                 <span
                     {...props}
-                    aria-label={mode.range ? (mode.thumbLabels?.[index] ?? `${named ?? labels?.range ?? 'Range'} ${thumbNames[index]}`) : named}
-                    aria-labelledby={labelledBy ? (mode.range ? `${labelledBy} ${id}-label-${index}` : labelledBy) : undefined}
+                    aria-label={thumbLabel(index)}
+                    aria-labelledby={thumbLabelledBy(index)}
                     aria-describedby={describedBy}
                     aria-valuemin={mode.range && index === 1 ? slider.values[0] : slider.minimum}
                     aria-valuemax={mode.range && index === 0 ? slider.values[1] : slider.maximum}
@@ -116,7 +142,7 @@
                     aria-valuetext={format?.(current)}
                     data-ui="slider-thumb"
                     data-thumb={index}
-                    data-active={(slider.dragPointer !== undefined ? slider.pointerThumb === index : active) || undefined}
+                    data-active={thumbActive(index, active) || undefined}
                     data-dragging={(slider.dragPointer !== undefined && slider.pointerThumb === index) || undefined}
                     style:z-index={slider.activeThumb === index ? 2 : 1}
                     onfocus={() => {

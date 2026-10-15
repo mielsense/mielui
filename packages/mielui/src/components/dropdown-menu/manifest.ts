@@ -7,6 +7,8 @@ import type { Manifest } from '@mielui/svelte/_manifest/types';
  * 2.0.0 a11y fix: aria-allowed-attr resolved by conditional aria-modal
  *        in Popover.Content (now only applied for role="dialog"/
  *        "alertdialog", not for role="menu").
+ * 2.2.1 Trigger and SubTrigger bind `element`, and Trigger renders the
+ *        chevron its `icon` prop describes.
  */
 export const manifest: Manifest = {
     name: 'dropdown-menu',
@@ -32,7 +34,7 @@ export const manifest: Manifest = {
         'components/dropdown-menu/index.ts',
         'components/dropdown-menu/manifest.ts'
     ],
-    components: ['_internal/utils', 'popover', 'button', 'scroll-area'],
+    components: ['_internal/utils', 'popover', 'button'],
     shared: [
         'components/_internal/button-attributes',
         'transition',

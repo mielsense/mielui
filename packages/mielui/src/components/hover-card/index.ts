@@ -37,4 +37,7 @@ export type HoverCardContentProps = {
     children?: Snippet;
 } & DefaultProps;
 
+export type HoverCardTitleProps = DefaultProps;
+export type HoverCardDescriptionProps = DefaultProps;
+
 export { Content, Description, Root, Title, Trigger };

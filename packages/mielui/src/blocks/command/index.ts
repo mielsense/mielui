@@ -20,6 +20,8 @@ export type CommandItem = {
 };
 
 export type CommandLabels = {
+    /** Accessible name of the palette dialog. */
+    palette?: string;
     /** Placeholder of the search input. The `placeholder` prop on Search wins. */
     searchPlaceholder?: string;
     /** Accessible name of the search input. */
@@ -28,6 +30,8 @@ export type CommandLabels = {
     results?: string;
     /** Text shown when nothing matches and Results has no `empty` snippet. */
     empty?: string;
+    /** Screen reader announcement of how many commands match the search. */
+    available?: (count: number) => string;
 };
 
 export type CommandProps = {

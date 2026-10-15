@@ -8,6 +8,7 @@
         value = $bindable(),
         placeholder = $bindable(),
         open = $bindable(false),
+        element = $bindable(null),
         locale = 'en-US',
         disabled = false,
         readonly = false,
@@ -42,7 +43,6 @@
             value = initialValue;
             open = false;
         },
-
         get disabled() {
             return disabled;
         },
@@ -71,5 +71,7 @@
     {disableDaysOutsideMonth}
     {weekdayFormat}
 >
-    {@render children?.()}
+    <div bind:this={element}>
+        {@render children?.()}
+    </div>
 </DatePickerPrimitive.Root>

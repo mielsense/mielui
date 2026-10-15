@@ -30,7 +30,7 @@
     bind:element
     variant={confirmVariant}
     onclick={handleClick}
-    class={cn(className, 'ml-auto flex flex-row items-center justify-center gap-2')}
+    class={cn(className, 'ms-auto flex flex-row items-center justify-center gap-2')}
 >
     {@render children?.()}
 </Button>

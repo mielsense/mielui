@@ -31,16 +31,8 @@
         get value() {
             return type === 'multiple' ? multipleValue : singleValue;
         },
-        set value(next: string | string[]) {
-            value = next;
-        },
         get selectedLabel() {
             return selectedValues.map((item) => labels.get(item) ?? item).join(', ');
-        },
-        set selectedLabel(next: string) {
-            if (type === 'single' && singleValue) {
-                labels.set(singleValue, next);
-            }
         }
     };
     const context: SelectContext = {

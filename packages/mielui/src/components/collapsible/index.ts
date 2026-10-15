@@ -25,9 +25,4 @@ export type CollapsibleContentProps = {
     children?: Snippet;
 } & DefaultProps;
 
-export type CollapsibleState = {
-    open: boolean;
-    disabled: boolean;
-};
-
 export { Content, Root, Trigger };

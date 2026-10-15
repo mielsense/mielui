@@ -2,7 +2,7 @@
     import type { ButtonProps } from '@mielui/svelte/components/button';
     import * as Dialog from '@mielui/svelte/components/dialog';
 
-    let { class: className, children, onclick, ...rest }: ButtonProps = $props();
+    let { element = $bindable(), children, ...rest }: ButtonProps = $props();
 </script>
 
-<Dialog.Trigger {onclick} class={className} {...rest}>{@render children?.()} </Dialog.Trigger>
+<Dialog.Trigger {...rest} bind:element> {@render children?.()} </Dialog.Trigger>

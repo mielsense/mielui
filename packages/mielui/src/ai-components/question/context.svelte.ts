@@ -1,5 +1,5 @@
 import { createContext } from '@mielui/svelte/utils';
-import type { QuestionAnswer, QuestionStatus, QuestionType } from '.';
+import type { QuestionAnswer, QuestionLabels, QuestionStatus, QuestionType } from '.';
 
 export type QuestionContext = {
     readonly type: QuestionType;
@@ -21,4 +21,7 @@ export type QuestionContext = {
 const { set: setQuestionContext, get: getQuestionContext } =
     createContext<QuestionContext>('question');
 
-export { getQuestionContext, setQuestionContext };
+const { set: setQuestionLabels, find: findQuestionLabels } =
+    createContext<() => QuestionLabels | undefined>('question-labels');
+
+export { findQuestionLabels, getQuestionContext, setQuestionContext, setQuestionLabels };

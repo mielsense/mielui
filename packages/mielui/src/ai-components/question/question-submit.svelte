@@ -5,11 +5,9 @@
     import { buttonAttributes } from '../../components/_internal/button-attributes';
     import HugeiconsIcon from '../../hugeicons-icon.svelte';
     import type { QuestionSubmitProps } from '.';
-    import { getQuestionContext } from './context.svelte';
+    import { findQuestionLabels, getQuestionContext } from './context.svelte';
 
     let {
-        label = 'Submit answer',
-        loadingLabel = 'Submitting...',
         children,
         disabled = false,
         class: className,
@@ -19,6 +17,7 @@
         ...rest
     }: QuestionSubmitProps = $props();
 
+    const labels = findQuestionLabels();
     const context = getQuestionContext();
     const submitting = $derived(context.status === 'submitting');
 </script>
@@ -45,11 +44,11 @@
 >
     {#if submitting}
         <Spinner size={14} aria-hidden="true" />
-        {loadingLabel}
+        {labels?.()?.submitting ?? 'Submitting...'}
     {:else if children}
         {@render children()}
     {:else}
-        {label}
+        {labels?.()?.submit ?? 'Submit answer'}
         <HugeiconsIcon icon={ArrowRight} size={14} strokeWidth={2} aria-hidden="true" />
     {/if}
 </Button>

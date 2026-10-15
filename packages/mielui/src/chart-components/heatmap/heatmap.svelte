@@ -1,9 +1,7 @@
 <script lang="ts">
     import { cn } from '@mielui/svelte/utils';
-    import type { Snippet } from 'svelte';
-    import type { HTMLAttributes } from 'svelte/elements';
-    import type { HeatmapLabels } from '.';
-    import { type Cell, calendar, type Day } from './calendar';
+    import type { HeatmapProps } from '.';
+    import { calendar } from './calendar';
     import { setHeatmapContext } from './context.svelte';
     import Calendar from './heatmap-calendar.svelte';
     import Detail from './heatmap-detail.svelte';
@@ -16,18 +14,6 @@
     import Tooltip from './heatmap-tooltip.svelte';
     import WeekdayLabels from './heatmap-weekday-labels.svelte';
 
-    type Props = Omit<HTMLAttributes<HTMLDivElement>, 'children'> & {
-        labels?: HeatmapLabels;
-        days: readonly Day[];
-        weeks?: number;
-        loading?: boolean;
-        animation?: 'rows' | 'columns' | 'live' | 'none';
-        endDate?: string;
-        weekStartsOn?: 0 | 1 | 2 | 3 | 4 | 5 | 6;
-        locale?: string;
-        onDaySelect?: (day: Cell) => void;
-        children?: Snippet<[{ days: readonly Cell[]; total: number }]>;
-    };
     let {
         days,
         weeks = 26,
@@ -41,7 +27,7 @@
         children,
         class: className,
         ...props
-    }: Props = $props();
+    }: HeatmapProps = $props();
     const model = $derived(calendar(days, weeks, endDate, weekStartsOn, locale, labels?.unit));
     const empty = $derived(days.length === 0);
     const ready = $derived(!loading && !empty);

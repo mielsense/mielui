@@ -6,7 +6,7 @@
     import { overlaySurface } from '../../components/_internal/surface';
     import HugeiconsIcon from '../../hugeicons-icon.svelte';
     import type { ComposerProps, ComposerStatus } from '.';
-    import { setComposerContext } from './context.svelte';
+    import { setComposerContext, setComposerLabels } from './context.svelte';
 
     let {
         value = $bindable(''),
@@ -15,21 +15,21 @@
         generating,
         disabled = false,
         allowEmpty = false,
-        errorMessage = 'Message could not be sent.',
         onSubmit,
         onError,
         onStop,
         class: className,
         children,
+        labels,
         ...rest
     }: ComposerProps = $props();
+    setComposerLabels(() => labels);
 
     let form: HTMLFormElement | undefined;
     const submission = createSubmission();
     const pending = $derived(submission.pending);
     let joinedToolbar = $state(false);
     const effectiveStatus = $derived.by(resolveStatus);
-    const errorNoticeClass = 'mielui-error-notice';
 
     const context = setComposerContext({
         get value() {
@@ -116,11 +116,11 @@
             data-ui="composer-error"
             role={effectiveStatus === 'error' ? 'alert' : undefined}
             aria-hidden={effectiveStatus !== 'error'}
-            class={errorNoticeClass}
+            class="mielui-error-notice text-[var(--mielui-error-text)]"
             data-state={effectiveStatus}
         >
             <HugeiconsIcon icon={CircleAlert} size={14} strokeWidth={2} aria-hidden="true" />
-            <span>{errorMessage}</span>
+            <span>{labels?.error ?? 'Message could not be sent.'}</span>
         </div>
     </div>
 

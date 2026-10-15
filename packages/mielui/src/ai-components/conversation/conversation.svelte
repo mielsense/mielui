@@ -1,7 +1,7 @@
 <script lang="ts">
     import { cn } from '@mielui/svelte/utils';
     import type { ConversationRootProps } from '.';
-    import { setConversationContext } from './context.svelte';
+    import { setConversationContext, setConversationLabels } from './context.svelte';
     import { createConversationFollow } from './follow.svelte';
 
     let {
@@ -9,8 +9,10 @@
         threshold = 80,
         children,
         class: className,
+        labels,
         ...rest
     }: ConversationRootProps = $props();
+    setConversationLabels(() => labels);
 
     const conversation = createConversationFollow({
         get follow() {

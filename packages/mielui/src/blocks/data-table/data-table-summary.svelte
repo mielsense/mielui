@@ -16,6 +16,7 @@
     }: DataTableSummaryProps<TFeatures, TData> = $props();
     const labels = findDataTableLabels();
     const state = $derived(summary(table));
+    const text = $derived(labels?.());
 </script>
 <p
     {...rest}
@@ -25,12 +26,20 @@
     {#if children}
         {@render children(state)}
     {:else}
-        <span use:numberShuffle={{ value: state.total }}>{state.total}</span>
-        {labels?.()?.rows?.(state.total) ?? (state.total === 1 ? 'row' : 'rows')}
+        {#if text?.rows}
+            {text.rows(state.total)}
+        {:else}
+            <span use:numberShuffle={{ value: state.total }}>{state.total}</span>
+            {state.total === 1 ? 'row' : 'rows'}
+        {/if}
         {#if state.selected > 0}
             {' · '}
-            <span use:numberShuffle={{ value: state.selected }}>{state.selected}</span>
-            {labels?.()?.selected?.(state.selected) ?? 'selected'}
+            {#if text?.selected}
+                {text.selected(state.selected, state.total)}
+            {:else}
+                <span use:numberShuffle={{ value: state.selected }}>{state.selected}</span>
+                selected
+            {/if}
         {/if}
     {/if}
 </p>

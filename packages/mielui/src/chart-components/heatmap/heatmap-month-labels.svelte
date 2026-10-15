@@ -1,12 +1,13 @@
 <script lang="ts">
     import { cn } from '@mielui/svelte/utils';
-    import type { HTMLAttributes } from 'svelte/elements';
+    import type { HeatmapMonthLabelsProps } from '.';
     import { weekColumns } from './calendar';
     import { getHeatmapContext } from './context.svelte';
 
-    let { children, class: className, ...props }: HTMLAttributes<HTMLDivElement> = $props();
+    let { children, class: className, ...props }: HeatmapMonthLabelsProps = $props();
     const context = getHeatmapContext();
 </script>
+
 <div
     {...props}
     aria-hidden="true"

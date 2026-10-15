@@ -4,10 +4,17 @@
     import { registerShortcut } from './keyboard';
     import { parseShortcut } from './shortcut';
 
-    let { children, class: className, shortcut = '', ontrigger, ...rest }: KbdProps = $props();
+    let {
+        children,
+        class: className,
+        shortcut = '',
+        ontrigger,
+        labels,
+        ...rest
+    }: KbdProps = $props();
     let element: HTMLElement;
 
-    const parsed = $derived(parseShortcut(shortcut));
+    const parsed = $derived(parseShortcut(shortcut, labels));
     const caps = $derived(parsed?.caps ?? []);
 
     $effect(() => {

@@ -20,6 +20,7 @@ export const manifest: Manifest = {
         'components/chart/motion.ts',
         'components/chart/ticks.ts',
         'components/chart/domains.ts',
+        'components/chart/follow.svelte.ts',
         'components/chart/path.svelte',
         'components/chart/plot.svelte',
         'components/chart/placeholder.svelte',

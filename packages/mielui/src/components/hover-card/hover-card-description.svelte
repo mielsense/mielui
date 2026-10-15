@@ -1,16 +1,9 @@
 <script lang="ts">
     import { cn } from '@mielui/svelte/utils';
-    import type { Snippet } from 'svelte';
+    import type { HoverCardDescriptionProps } from '.';
     import { getHoverCardContext } from './context.svelte';
 
-    let {
-        children,
-        class: className,
-        ...rest
-    }: {
-        children: Snippet;
-        class?: string;
-    } = $props();
+    let { children, class: className, ...rest }: HoverCardDescriptionProps = $props();
     const context = getHoverCardContext();
 
     $effect(() => {

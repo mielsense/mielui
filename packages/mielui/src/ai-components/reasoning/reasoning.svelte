@@ -48,7 +48,7 @@
 
 <section
     data-ui="reasoning"
-    data-streaming={streaming}
+    data-streaming={streaming || undefined}
     aria-busy={streaming}
     class={cn(className, 'w-full max-w-full text-sm text-foreground')}
     {...rest}

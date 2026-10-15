@@ -2,16 +2,17 @@
     import { cn } from '@mielui/svelte/utils';
     import { toolbarNavigation } from '../../blocks/toolbar/navigation';
     import type { ComposerToolbarProps } from '.';
-    import { getComposerContext } from './context.svelte';
+    import { findComposerLabels, getComposerContext } from './context.svelte';
 
     let {
         children,
         class: className,
         variant = 'default',
-        'aria-label': ariaLabel = 'Message actions',
+        'aria-label': ariaLabel,
         ...rest
     }: ComposerToolbarProps = $props();
 
+    const labels = findComposerLabels();
     const context = getComposerContext();
     const joined = $derived(variant !== 'inset');
 
@@ -32,7 +33,7 @@
     data-variant={variant}
     data-state={context.status}
     role="toolbar"
-    aria-label={ariaLabel}
+    aria-label={ariaLabel ?? labels?.()?.toolbar ?? 'Message actions'}
     class={cn(
         className,
         'flex min-w-0 flex-wrap items-center justify-between gap-2 [--size-control-md:var(--size-control-sm)] [--size-icon-md:calc(var(--size-control-sm)-var(--size-hairline))] [&_[data-variant=outline]]:rounded-[var(--radius-control)] [&_[data-variant=outline]]:border-border [&_[data-variant=outline]]:shadow-none [&_[data-variant=outline]:not(:hover,[data-state=open])]:bg-transparent [&_[data-variant=outline]]:focus-visible:shadow-[var(--focus-ring)]',

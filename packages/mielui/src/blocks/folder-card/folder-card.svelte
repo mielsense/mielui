@@ -2,13 +2,14 @@
     import { cn } from '@mielui/svelte/utils';
     import type { HTMLAnchorAttributes, HTMLAttributes } from 'svelte/elements';
     import type { FolderCardProps } from '.';
-    import { setFolderCard } from './context';
+    import { setFolderCard, setFolderCardLabels } from './context';
 
     let {
         href,
         onclick,
         disabled = false,
         tone = 1,
+        labels,
         class: className,
         children,
         ...rest
@@ -28,6 +29,7 @@
             titleId = value;
         }
     });
+    setFolderCardLabels(() => labels);
 
     const frameClasses = [
         'mielui-inset-frame flex aspect-5/4 min-w-0 flex-col overflow-clip shadow-[var(--elevation-1)]',

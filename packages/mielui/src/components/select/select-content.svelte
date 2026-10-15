@@ -1,23 +1,13 @@
 <script lang="ts">
     import { cn, dynamicWidth, travelingHighlight } from '@mielui/svelte/utils';
     import { Select as BitsSelect } from 'bits-ui';
-    import type { Snippet } from 'svelte';
     import { overlaySurface } from '../_internal/surface';
+    import type { SelectContentProps } from '.';
     import { getSelectContext } from './context.svelte';
 
     const context = getSelectContext();
 
-    let {
-        surface,
-        children,
-        class: className,
-        dynamic = false
-    }: {
-        surface?: 'solid' | 'glass';
-        children: Snippet;
-        class?: string;
-        dynamic?: boolean;
-    } = $props();
+    let { surface, children, class: className, dynamic = false }: SelectContentProps = $props();
 </script>
 
 <BitsSelect.Portal>

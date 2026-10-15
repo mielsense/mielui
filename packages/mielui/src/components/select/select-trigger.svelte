@@ -1,39 +1,32 @@
 <script lang="ts">
     import { ArrowDown01Icon as ChevronDown } from '@hugeicons/core-free-icons';
-    import type { ButtonVariant } from '@mielui/svelte/components/button';
     import { Button } from '@mielui/svelte/components/button';
-    import type * as Popover from '@mielui/svelte/components/popover';
     import { cn } from '@mielui/svelte/utils';
     import { Select as BitsSelect, mergeProps } from 'bits-ui';
-    import type { Snippet } from 'svelte';
     import type { HTMLButtonAttributes } from 'svelte/elements';
     import HugeiconsIcon from '../../hugeicons-icon.svelte';
     import { buttonAttributes } from '../_internal/button-attributes';
+    import type { SelectTriggerProps } from '.';
     import { getSelectContext } from './context.svelte';
     import SelectValue from './select-value.svelte';
 
     const context = getSelectContext();
     const { state } = context;
 
-    type Props = {
-        children?: Snippet;
-        class?: string;
-        variant?: ButtonVariant;
-        'aria-labelledby'?: string;
-        /** Marks the trigger as invalid for assistive technology and error styling. */
-        'aria-invalid'?: HTMLButtonAttributes['aria-invalid'];
-    } & Omit<Popover.PopoverTriggerProps, 'children' | 'class' | 'variant'>;
-
     let {
         children,
         class: className,
         variant = 'outline',
+        element = $bindable(),
         onopen,
         onclick,
         ...rest
-    }: Props = $props();
+    }: SelectTriggerProps = $props();
     const inheritsText = $derived(
         variant === 'primary' || variant === 'destructive' || variant === 'glow'
+    );
+    const labelledBy = $derived(
+        rest['aria-labelledby'] ?? (rest['aria-label'] ? undefined : `${context.id}-value`)
     );
 
     $effect.pre(() => {
@@ -51,8 +44,9 @@
     {#snippet child({ props })}
         <Button
             {...buttonAttributes(mergeProps(rest, { ...props as HTMLButtonAttributes }))}
+            bind:element
             role="combobox"
-            aria-labelledby={rest['aria-labelledby'] ?? (rest['aria-label'] ? undefined : `${context.id}-value`)}
+            aria-labelledby={labelledBy}
             aria-controls={`${context.id}-content`}
             onpointerdown={undefined}
             onpointerup={undefined}

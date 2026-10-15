@@ -26,7 +26,7 @@
             class={cn(className, 'mielui-menu-item', inset && 'ps-8')}
             unstyled
         >
-            <span class="min-w-0 flex-1 text-start">{@render children?.()} </span>
+            <span class="min-w-0 flex-1 text-start">{@render children?.()}</span>
             <HugeiconsIcon
                 icon={ChevronRight}
                 class="ms-2 shrink-0 text-foreground-muted rtl:rotate-180"

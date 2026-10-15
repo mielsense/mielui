@@ -16,20 +16,8 @@ export function createCommandController(id: string) {
     let threshold = $state(DEFAULT_COMMAND_SEARCH_THRESHOLD);
     let previousQuery = '';
 
-    const registry = $derived(
-        state.items.map((item) => ({
-            item,
-            name: item.name,
-            disabled: item.disabled
-        }))
-    );
-
     const results: CommandItem[] = $derived(
-        searchCommandItems(
-            registry.map((entry) => entry.item),
-            state.searchContent.trim(),
-            threshold
-        )
+        searchCommandItems(state.items, state.searchContent.trim(), threshold)
     );
 
     function reconcile(matches = results) {

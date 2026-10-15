@@ -16,7 +16,25 @@ export type TaskStep = {
 
 export type TaskStepStatus = 'pending' | 'active' | 'done' | 'error';
 
+export type TaskStepsLabels = {
+    /** Accessible name of the step list. */
+    list?: string;
+    /** Summary when there are no steps. */
+    empty?: string;
+    /** Summary while a step runs. `position` starts at 1. */
+    progress?: (step: string, position: number, total: number) => string;
+    /** Summary once every step is done. */
+    complete?: (total: number) => string;
+    /** Summary when a step fails. */
+    failed?: (step: string) => string;
+};
+
 export type TaskStepsProps = {
+    /**
+     * Overrides the built-in text and accessible names. Every key is optional and English is the
+     * fallback.
+     */
+    labels?: TaskStepsLabels;
     /** Content rendered inside. */
     children?: Snippet<[TaskStepsState]>;
     /** Steps to show, in order. */
@@ -25,8 +43,6 @@ export type TaskStepsProps = {
     current: number;
     /** Marks the current step as failed. */
     failed?: boolean;
-    /** Accessible name of the list. */
-    label?: string;
     /** Classes added to the element. */
     class?: string;
 } & Omit<HTMLAttributes<HTMLDivElement>, 'children'>;
@@ -41,7 +57,10 @@ export type TaskStepsState = {
     sentence: string;
 };
 export type TaskStepsListProps = HTMLAttributes<HTMLOListElement>;
-export type TaskStepsItemProps = HTMLAttributes<HTMLLIElement> & { status?: TaskStepStatus };
+export type TaskStepsItemProps = HTMLAttributes<HTMLLIElement> & {
+    /** State of the step. Indicator, Label, and Meta read it. */
+    status?: TaskStepStatus;
+};
 export type TaskStepsIndicatorProps = Omit<HTMLAttributes<HTMLSpanElement>, 'children'> & {
     /** State of the step. */
     status?: TaskStepStatus;

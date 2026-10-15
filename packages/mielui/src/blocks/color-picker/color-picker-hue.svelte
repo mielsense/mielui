@@ -2,9 +2,11 @@
     import { Slider } from '@mielui/svelte/components/slider';
     import { cn } from '@mielui/svelte/utils';
     import type { ColorPickerHueProps } from '.';
+    import { getColorPickerContext } from './context';
     import { getColorPickerController } from './controller.svelte';
 
     let { class: className, ...rest }: ColorPickerHueProps = $props();
+    const context = getColorPickerContext();
     const controller = getColorPickerController();
     const hueSpectrum = ['#f00', '#ff0', '#0f0', '#0ff', '#00f', '#f0f', '#f00'];
 </script>
@@ -16,7 +18,7 @@
     class={cn(className, 'min-w-0 [&_[data-ui=slider-track]]:bg-[image:var(--picker-spectrum)] [&_[data-ui=slider-range]]:bg-transparent')}
 >
     <Slider
-        label="Hue"
+        label={context.labels?.hue ?? 'Hue'}
         max={360}
         value={controller.state.hue}
         onValueChange={(next: number) => {

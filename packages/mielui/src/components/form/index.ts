@@ -25,7 +25,16 @@ export type FormIssue = Readonly<{
     controlId?: string;
     path?: readonly (string | number)[];
 }>;
+export type FormErrorSummaryLabels = {
+    /** Heading above the issues. A `heading` snippet replaces it. */
+    heading?: string;
+};
 export type FormErrorSummaryProps = Omit<HTMLAttributes<HTMLDivElement>, 'children'> & {
+    /**
+     * Overrides the built-in text and accessible names. Every key is optional and English is the
+     * fallback.
+     */
+    labels?: FormErrorSummaryLabels;
     /** Validation issues to summarize. */
     issues?: readonly FormIssue[];
     /** Moves focus to the summary when issues appear. */

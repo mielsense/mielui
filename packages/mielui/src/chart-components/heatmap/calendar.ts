@@ -27,6 +27,10 @@ export function weekColumns(weeks: number) {
     return `repeat(${weeks}, minmax(10px, 1fr))`;
 }
 
+export function countUnit(count: number, unitLabel?: (count: number) => string) {
+    return unitLabel?.(count) ?? (count === 1 ? 'contribution' : 'contributions');
+}
+
 function timestamp(value: string) {
     if (!/^\d{4}-\d{2}-\d{2}$/.test(value)) {
         throw new RangeError('Heatmap dates must use YYYY-MM-DD.');
@@ -95,7 +99,7 @@ export function calendar(
                 lastMonth = date.getUTCMonth();
             }
         }
-        const unit = unitLabel?.(count) ?? (count === 1 ? 'contribution' : 'contributions');
+        const unit = countUnit(count, unitLabel);
         cells.push({
             date: key,
             count,

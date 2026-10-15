@@ -1,8 +1,8 @@
 <script lang="ts">
     import { cn } from '@mielui/svelte/utils';
-    import type { HTMLAttributes } from 'svelte/elements';
+    import type { TableBodyProps } from '.';
 
-    let { children, class: className, ...rest }: HTMLAttributes<HTMLTableSectionElement> = $props();
+    let { children, class: className, ...rest }: TableBodyProps = $props();
 </script>
 
 <tbody

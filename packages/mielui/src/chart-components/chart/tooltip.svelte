@@ -1,31 +1,11 @@
 <script lang="ts">
     import { numberShuffle } from '@mielui/svelte/actions/number-shuffle';
-    import type { Snippet } from 'svelte';
-    import { Tween } from 'svelte/motion';
     import ChartTooltipSurface from '../../components/_internal/chart-tooltip-surface.svelte';
+    import type { ChartTooltipProps } from '.';
     import { findChartLabels, getChart } from './context.svelte';
-    import { followSpring } from './motion';
+    import { createChartFollow } from './follow.svelte';
 
-    let {
-        class: className,
-        children
-    }: {
-        class?: string;
-        children?: Snippet<
-            [
-                {
-                    label: string;
-                    values: {
-                        key: string;
-                        label: string;
-                        value: number;
-                        formatted: string;
-                        color: string;
-                    }[];
-                }
-            ]
-        >;
-    } = $props();
+    let { class: className, children }: ChartTooltipProps = $props();
     const labels = findChartLabels();
     const chart = getChart();
     const selected = $derived(
@@ -78,9 +58,9 @@
             y: Math.max(8, Math.min(top, bounds.height - height - 8))
         };
     });
-    const position = Tween.of(() => destination, {
-        duration: () => (chart.motion && chart.animation !== 'none' ? 320 * chart.motionScale : 0),
-        easing: followSpring
+    const position = createChartFollow(chart, () => (selected === null ? null : destination), {
+        x: 0,
+        y: 0
     });
     let tabStop = $state(0);
     const currentTabStop = $derived(Math.min(tabStop, chart.data.length - 1));
@@ -137,6 +117,7 @@
         }
     }
 </script>
+
 {#if !chart.loading && chart.data.length}
     <div
         role="group"
@@ -183,7 +164,10 @@
                         <span class="flex-1 text-foreground-muted">{item.label}</span>
                         <span
                             class="ml-4 font-medium tabular-nums"
-                            use:numberShuffle={{ value: item.value, format: (value) => chart.format(item.key, value) }}
+                            use:numberShuffle={{
+                                value: item.value,
+                                format: (value) => chart.format(item.key, value)
+                            }}
                         >
                             {item.formatted}
                         </span>

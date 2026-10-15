@@ -113,7 +113,9 @@
         onfocusin?.(event);
     }}
     onfocusout={(event: FocusEvent & { currentTarget: EventTarget & HTMLDivElement }) => {
-        focused = event.relatedTarget instanceof Node && event.currentTarget.contains(event.relatedTarget);
+        focused =
+            event.relatedTarget instanceof Node &&
+            event.currentTarget.contains(event.relatedTarget);
         syncTimer();
         onfocusout?.(event);
     }}

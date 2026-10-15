@@ -37,7 +37,7 @@ type SliderBaseProps = {
     'aria-labelledby'?: string;
     /** Id of the element that describes it. */
     'aria-describedby'?: string;
-} & DefaultProps;
+} & Omit<DefaultProps, 'children'>;
 
 export type SliderLabels = {
     /** Name of a range that has no label of its own. */

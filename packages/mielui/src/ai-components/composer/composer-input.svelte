@@ -1,12 +1,12 @@
 <script lang="ts">
     import { cn } from '@mielui/svelte/utils';
     import type { ComposerInputProps } from '.';
-    import { getComposerContext } from './context.svelte';
+    import { findComposerLabels, getComposerContext } from './context.svelte';
 
     let {
         submitOnEnter = true,
-        placeholder = 'Message the agent...',
-        'aria-label': ariaLabel = 'Message',
+        placeholder,
+        'aria-label': ariaLabel,
         rows = 1,
         disabled = false,
         readonly = false,
@@ -19,6 +19,7 @@
         ...rest
     }: ComposerInputProps = $props();
 
+    const labels = findComposerLabels();
     const context = getComposerContext();
     let composing = false;
 
@@ -62,8 +63,8 @@
     data-ui="composer-input"
     data-state={context.status}
     value={context.value}
-    {placeholder}
-    aria-label={ariaLabel}
+    placeholder={placeholder ?? labels?.()?.placeholder ?? 'Message the agent...'}
+    aria-label={ariaLabel ?? labels?.()?.input ?? 'Message'}
     aria-busy={context.status === 'submitting'}
     {rows}
     disabled={context.disabled || disabled}
