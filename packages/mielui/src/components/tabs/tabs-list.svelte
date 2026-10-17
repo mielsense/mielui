@@ -49,6 +49,7 @@
     aria-orientation={tabsState.orientation}
     data-ui="tabs-list"
     data-variant={variant}
+    data-indicator-ready={indicators.indicator ? '' : undefined}
     class={cn(
         className,
         'relative inline-flex',

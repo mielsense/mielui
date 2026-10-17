@@ -294,6 +294,10 @@ the same contracts; a visual exception must have a specific functional reason.
   The gutter between them follows the border setting (see Borders). Fields
   inside an inset are white, so they read as raised. Keep inner corners
   concentric: the contract computes them from `--mielui-plate-radius`.
+- Header and footer strips move to the theme's `--mielui-inset-position` edge.
+  `insetLayout()` reorders the DOM once scripts run, and a `ui.css` style query
+  orders the strips the same way before that, so server-rendered frames never
+  jump. A new strip goes in both lists.
 - `.mielui-card-frame` with `.mielui-card-surface` is the panel Card: the same
   two layers with a half-unit gutter at `--radius-xl`.
 - `.mielui-float-frame` is the floating panel: one layer, panel fill, hairline,
@@ -394,6 +398,11 @@ Frequency decides whether something moves at all:
   use the short item glide for a pointer and snap for the keyboard. A full
   spring on these is too much and an instant jump is too little. Never flip a
   background per item. Move indicators with `translate`, not `left` or `top`.
+- A measured indicator needs a CSS fallback for server-rendered HTML. Tabs
+  styles the selected trigger itself until its list carries
+  `data-indicator-ready`. Text drawn on top of an indicator keeps its resting
+  color until the indicator exists, so it is never invisible before
+  hydration.
 - Nothing enters from below 0.9 scale, and nothing loops for attention.
 - Hover changes color only. Cards do not lift, scale, or glow. The press effect
   on a control is the only geometry change a pointer causes.
