@@ -176,6 +176,15 @@ Heatmap.Root accepts `animation="rows" | "columns" | "live" | "none"`, defaultin
 
 Bind a component's DOM node with `bind:element`. Every part uses that name, including the Calendar, RangeCalendar, DatePicker, DateRangePicker and OTPField parts, which used `bind:ref` before 0.3.0. HugeiconsIcon follows the same rule.
 
+Names that changed in 0.3.0, and still type-check when misspelled because Svelte passes unknown props through:
+- **Alert Dialog** cancels with `AlertDialog.Close`. `Exit` is gone.
+- **Sheet** hides its corner close button with `<Sheet.Header showClose={false}>`, the same prop name `Dialog.Content` uses.
+- **Tag Input** takes `invalid` and `issues={[{ message }]}`, like `Field.Root`, instead of `error="..."`.
+- **Hover Card** sets `placement` (for example `bottom-start`) and `delay` on `HoverCard.Root`. Content no longer takes `side` or `align`.
+- **Dialog and Alert Dialog** set their width with `size` (`xs` to `xl`) alone. There is no `orientation`.
+- **Checkbox** uses `variant="card"` for the bordered row.
+- **Spinner** uses `eased` for its eased rotation.
+
 Translate or reword built-in text with the `labels` prop on the root. It is an object of optional keys with English fallbacks, and keys that insert a value are functions: `<Toaster labels={{ dismiss: 'Fermer', position: (position, total) => `${position} sur ${total}` }} />`. Roots that take it: Attachment, Button, Chart, CodeBlock, ColorPicker, Combobox, Command, CopyButton, DataTable, DatePicker, DateRangePicker, Dialog, FileDiff, FileUpload, FolderCard, Form.ErrorSummary, Gauge, Heatmap, Kbd, Markdown, Message, Notch, NumberField, Pagination, PieChart, Question, Reasoning, ReorderList, Sheet, ShowMore, SkeletonSwap, Slider, TagInput, TaskSteps, Toaster and Tool. Read the component's reference for its keys. Do not add one prop per string.
 
 A part used outside its root throws `<Name> components must be used within <Name.Root>.` Tabs, CodeBlock and FileDiff parts also render on their own.
