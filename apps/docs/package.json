@@ -54,6 +54,7 @@
         "@tanstack/svelte-table": "9.2.4",
         "@vercel/analytics": "2.0.1",
         "clsx": "2.1.1",
+        "highlight.js": "11.11.1",
         "mode-watcher": "1.1.0",
         "svelte-persisted-state": "1.4.1",
         "tailwind-variants": "3.2.2",
