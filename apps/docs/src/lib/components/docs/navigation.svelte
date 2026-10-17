@@ -40,7 +40,7 @@
     const search = getSearch();
 
     const rowClass =
-        'group/row flex h-8 w-full min-w-0 items-center gap-3 rounded-[var(--radius-control)] px-3 text-start text-sm text-foreground-muted transition-colors [transition-duration:var(--motion-duration-hover)] hover:text-foreground focus-visible:outline-none focus-visible:shadow-[var(--focus-ring)] aria-[current=page]:font-medium aria-[current=page]:text-card dark:aria-[current=page]:text-foreground motion-reduce:transition-none';
+        'group/row flex h-8 w-full min-w-0 items-center gap-3 rounded-[var(--radius-control)] px-3 text-start text-sm text-foreground-muted transition-colors [transition-duration:var(--motion-duration-hover)] hover:text-foreground focus-visible:outline-none focus-visible:shadow-[var(--focus-ring)] aria-[current=page]:font-medium aria-[current=page]:text-foreground [[data-pill-ready]_&]:aria-[current=page]:text-card dark:[[data-pill-ready]_&]:aria-[current=page]:text-foreground motion-reduce:transition-none';
     const labelClass =
         'flex h-8 items-center rounded-[var(--radius-control)] px-3 text-xs font-medium text-foreground-muted transition-colors [transition-duration:var(--motion-duration-hover)] hover:text-foreground aria-[current=page]:text-foreground motion-reduce:transition-none';
 

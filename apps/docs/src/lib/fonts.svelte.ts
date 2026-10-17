@@ -6,8 +6,9 @@ export type DocsFont = { name: string; category: FontCategory; family: string };
 export const DEFAULT_FONT = 'Inter Tight';
 
 /**
- * Every family the docs can preview. Inter Tight ships with ui.css; app.html
- * loads the rest from Google Fonts. Anything else would fall back to a system font.
+ * Every family the docs can preview. Inter Tight and Geist Mono ship with ui.css;
+ * app.html loads the rest from Google Fonts without blocking the first paint.
+ * Anything else would fall back to a system font.
  */
 export const fonts: DocsFont[] = [
     ...[

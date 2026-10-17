@@ -57,13 +57,21 @@
             cancelAnimationFrame(frame);
         };
     });
+
+    $effect(() => {
+        if (!container) {
+            return;
+        }
+        container.toggleAttribute('data-pill-ready', box !== undefined);
+    });
 </script>
 
 <!--
     @component
     The lit pill that slides to the current item of a list. The parent positions the list
     `relative isolate`; `measure` returns the current item's box inside `container`, or nothing
-    when no item is current.
+    when no item is current. The container gets `data-pill-ready` once the pill is placed, so
+    items can keep their resting colors until the pill sits behind them.
 -->
 
 <span
@@ -77,5 +85,5 @@
     style:width={sizesWidth ? `${box?.width ?? 0}px` : undefined}
     style:height={sizesHeight ? `${box?.height ?? 0}px` : undefined}
     style:opacity={box ? 1 : 0}
-    style:transition={ready ? undefined : 'none'}
+    style:transition={ready ? undefined : 'opacity var(--motion-duration-hover) var(--ease-out)'}
 ></span>

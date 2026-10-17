@@ -43,10 +43,12 @@
     />
 {:else}
     <Select.Root value={String(value)} onValueChange={onchange}>
-        <Select.Trigger {variant} size="sm" aria-label={control.label} class="shrink-0" />
+        <Select.Trigger {variant} size="sm" aria-label={control.label} class="shrink-0">
+            <span class="truncate">{optionLabel(String(value), control.label)}</span>
+        </Select.Trigger>
         <Select.Content>
             {#each control.options as option (option)}
-                <Select.Item value={option}>{optionLabel(option)}</Select.Item>
+                <Select.Item value={option}>{optionLabel(option, control.label)}</Select.Item>
             {/each}
         </Select.Content>
     </Select.Root>

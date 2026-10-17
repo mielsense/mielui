@@ -8,7 +8,6 @@
     import { cn } from '@mielui/svelte/utils';
     import type { Snippet } from 'svelte';
     import { fadeX, scrollFade } from '$lib/components/shell/scroll-fade';
-    import { ACTIVATE_PREVIEW } from './preview';
     import PreviewAction from './preview-action.svelte';
     import PreviewCode from './preview-code.svelte';
     import PreviewFullscreen from './preview-fullscreen.svelte';
@@ -32,51 +31,16 @@
     let codeOpen = $state(false);
     let fullscreen = $state(false);
     let previewVersion = $state(0);
-    let activated = $state(false);
     let expandButton = $state<HTMLButtonElement | HTMLAnchorElement>();
-
-    function activatePreview(node: HTMLElement) {
-        if (typeof IntersectionObserver === 'undefined') {
-            activated = true;
-            return;
-        }
-
-        const observer = new IntersectionObserver(
-            (entries) => {
-                if (entries.some((entry) => entry.isIntersecting)) {
-                    activate();
-                }
-            },
-            {
-                rootMargin: '300px'
-            }
-        );
-
-        function activate() {
-            activated = true;
-            observer.disconnect();
-        }
-
-        node.addEventListener(ACTIVATE_PREVIEW, activate);
-        observer.observe(node);
-
-        return () => {
-            observer.disconnect();
-            node.removeEventListener(ACTIVATE_PREVIEW, activate);
-        };
-    }
 </script>
 
 {#snippet preview()}
     {#key previewVersion}
-        {#if activated}
-            {@render children?.()}
-        {/if}
+        {@render children?.()}
     {/key}
 {/snippet}
 
 <div
-    {@attach activatePreview}
     data-component-preview
     class="mielui-inset-frame relative isolate overflow-hidden bg-[var(--docs-chrome)]! has-[iframe]:p-0!"
 >
@@ -115,7 +79,6 @@
                     label="Open preview in full screen"
                     tooltip="Full screen"
                     onclick={() => {
-                        activated = true;
                         fullscreen = true;
                     }}
                 >

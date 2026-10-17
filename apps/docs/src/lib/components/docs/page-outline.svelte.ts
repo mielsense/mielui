@@ -2,7 +2,7 @@ import { tick } from 'svelte';
 import { prefersReducedMotion } from 'svelte/motion';
 import { replaceState } from '$app/navigation';
 import { page } from '$app/state';
-import { ACTIVATE_PREVIEW, PREVIEW_SELECTOR } from './preview';
+import { PREVIEW_SELECTOR } from './preview';
 
 type Heading = {
     id: string;
@@ -63,11 +63,6 @@ export function createPageOutline(getContent: () => HTMLElement | undefined) {
         destination = heading.id;
         active = heading.id;
         jumpStarted = false;
-        for (const preview of getContent()?.querySelectorAll(PREVIEW_SELECTOR) ?? []) {
-            if (preview.compareDocumentPosition(heading.node) & Node.DOCUMENT_POSITION_FOLLOWING) {
-                preview.dispatchEvent(new Event(ACTIVATE_PREVIEW));
-            }
-        }
         await tick();
         await new Promise<void>((resolve) =>
             requestAnimationFrame(() => requestAnimationFrame(() => resolve()))
