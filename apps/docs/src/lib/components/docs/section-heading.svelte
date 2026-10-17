@@ -16,7 +16,7 @@
 <div class="flex items-center gap-2">
     <h2 class="docs-section-heading">{title}</h2>
     {#if description}
-        <HoverCard.Root>
+        <HoverCard.Root placement="bottom-start">
             <HoverCard.Trigger
                 class="inline-flex size-5 shrink-0 items-center justify-center rounded-full text-foreground-muted transition-[background-color,color] [transition-duration:var(--motion-duration-hover)] ease-[var(--ease-out)] hover:bg-[var(--docs-pill)] hover:text-foreground focus-visible:outline-none focus-visible:shadow-[var(--focus-ring)] motion-reduce:transition-none"
             >
@@ -24,8 +24,6 @@
                 <HugeiconsIcon icon={InformationCircleIcon} size={14} aria-hidden="true" />
             </HoverCard.Trigger>
             <HoverCard.Content
-                side="bottom"
-                align="start"
                 class="w-80 max-w-[calc(100vw-2rem)] text-sm leading-6 text-foreground-muted"
             >
                 {@render description()}

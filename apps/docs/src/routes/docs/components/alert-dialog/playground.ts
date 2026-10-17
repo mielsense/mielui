@@ -8,8 +8,7 @@ import {
 } from '$lib/components/docs/playground';
 
 export const controls = {
-    size: select('Size', ['sm', 'md', 'lg', 'xl'], 'sm'),
-    orientation: select('Orientation', ['vertical', 'horizontal'], 'vertical', 'Appearance'),
+    size: select('Size', ['xs', 'sm', 'md', 'lg', 'xl'], 'xs'),
     glass: toggle('Glass surface', 'Appearance'),
     description: toggle('Description', 'Content', true),
     error: toggle('Destructive', 'State', true),
@@ -20,11 +19,10 @@ type Values = PlaygroundValues<typeof controls>;
 
 export function code(values: Values): string {
     const root = attributes({
-        error: values.error,
-        orientation: changed(values.orientation, 'vertical')
+        error: values.error
     });
     const content = attributes({
-        size: changed(values.size, 'sm'),
+        size: changed(values.size, 'xs'),
         surface: values.glass && 'glass',
         allowEscape: defaultOn(values.allowEscape)
     });
@@ -46,7 +44,7 @@ export function code(values: Values): string {
             <AlertDialog.Title>Delete this project?</AlertDialog.Title>${description}
         </AlertDialog.Header>
         <AlertDialog.Footer>
-            <AlertDialog.Exit>Cancel</AlertDialog.Exit>
+            <AlertDialog.Close>Cancel</AlertDialog.Close>
             <AlertDialog.Confirm>Delete project</AlertDialog.Confirm>
         </AlertDialog.Footer>
     </AlertDialog.Content>

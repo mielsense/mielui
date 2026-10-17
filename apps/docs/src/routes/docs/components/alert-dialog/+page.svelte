@@ -25,13 +25,13 @@
 
 <AlertDialog.Root error>
     <AlertDialog.Trigger variant="destructive">Delete</AlertDialog.Trigger>
-    <AlertDialog.Content size="lg">
+    <AlertDialog.Content size="md">
         <AlertDialog.Header>
             <AlertDialog.Title>Delete this project?</AlertDialog.Title>
             <AlertDialog.Description>This cannot be undone.</AlertDialog.Description>
         </AlertDialog.Header>
         <AlertDialog.Footer>
-            <AlertDialog.Exit>Cancel <Kbd shortcut="esc" /></AlertDialog.Exit>
+            <AlertDialog.Close>Cancel <Kbd shortcut="esc" /></AlertDialog.Close>
             <AlertDialog.Confirm>Delete <Kbd shortcut="enter" /></AlertDialog.Confirm>
         </AlertDialog.Footer>
     </AlertDialog.Content>
@@ -54,7 +54,7 @@
     <section id="hero" class="scroll-mt-20 flex flex-col gap-4">
         <Playground controls={playgroundControls} code={playgroundCode}>
             {#snippet children(values)}
-                <AlertDialog.Root error={values.error} orientation={values.orientation}>
+                <AlertDialog.Root error={values.error}>
                     <AlertDialog.Trigger variant="outline">Delete project</AlertDialog.Trigger>
                     <AlertDialog.Content
                         size={values.size}
@@ -71,7 +71,7 @@
                             {/if}
                         </AlertDialog.Header>
                         <AlertDialog.Footer>
-                            <AlertDialog.Exit>Cancel</AlertDialog.Exit>
+                            <AlertDialog.Close>Cancel</AlertDialog.Close>
                             <AlertDialog.Confirm>Delete project</AlertDialog.Confirm>
                         </AlertDialog.Footer>
                     </AlertDialog.Content>
@@ -89,7 +89,7 @@
         <Typography.H2 class="docs-section-heading">Usage</Typography.H2>
         <Typography.Text variant="supporting">
             <InlineText
-                text={"Confirm and Exit call `onclick` before closing. Call `event.preventDefault()` to keep the alert dialog open, or set `closeOnClick={false}` for asynchronous work. Both support `bind:element`. Focus starts on Exit when the dialog opens. Set `ariaBusy` on Content while a confirmation is pending."}
+                text={"Confirm and Close call `onclick` before closing. Call `event.preventDefault()` to keep the alert dialog open, or set `closeOnClick={false}` for asynchronous work. Both support `bind:element`. Focus starts on Exit when the dialog opens. Set `ariaBusy` on Content while a confirmation is pending."}
             />
         </Typography.Text>
         <Typography.Text variant="supporting">
@@ -149,7 +149,7 @@
         </Typography.Text>
         <Typography.Text variant="supporting">
             <InlineText
-                text={"Confirm and Exit close the dialog after `onclick`. Call `event.preventDefault()` there to keep it open while you work, and show progress with `loading` and `labels`. `onOpenChange` on Root tells you each time it opens or closes, whichever way that happened."}
+                text={"Confirm and Close close the dialog after `onclick`. Call `event.preventDefault()` there to keep it open while you work, and show progress with `loading` and `labels`. `onOpenChange` on Root tells you each time it opens or closes, whichever way that happened."}
             />
         </Typography.Text>
         <ComponentPreview code={AsyncDeleteExampleSrc}>
@@ -160,7 +160,7 @@
         <Typography.H2 class="docs-section-heading">Buttons and text parts</Typography.H2>
         <Typography.Text variant="supporting">
             <InlineText
-                text={"Trigger, Exit and Confirm are built on [Button](/docs/components/button), so they accept its props. `variant` and `size` change the look, `disabled` blocks activation, and `href` renders a link. `loading` shows a spinner and ignores clicks, and `labels` sets the text for each state. `unstyled` removes the Button classes so `class` alone styles the part. `onclick` and `onkeydown` run before the part does its own work. Confirm is destructive when Root has `error`."}
+                text={"Trigger, Close and Confirm are built on [Button](/docs/components/button), so they accept its props. `variant` and `size` change the look, `disabled` blocks activation, and `href` renders a link. `loading` shows a spinner and ignores clicks, and `labels` sets the text for each state. `unstyled` removes the Button classes so `class` alone styles the part. `onclick` and `onkeydown` run before the part does its own work. Confirm is destructive when Root has `error`."}
             />
         </Typography.Text>
         <Typography.Text variant="supporting">

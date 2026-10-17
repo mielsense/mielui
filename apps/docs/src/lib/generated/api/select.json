@@ -547,24 +547,6 @@
             1073,
             1074,
             {
-                "name": "variant",
-                "type": "ButtonVariant | undefined",
-                "required": false,
-                "bindable": false,
-                "default": null,
-                "description": "Visual style. Choose it for what the action means, not for decoration.",
-                "inherited": false
-            },
-            {
-                "name": "size",
-                "type": "\"sm\" | \"md\" | \"lg\" | \"icon\" | undefined",
-                "required": false,
-                "bindable": false,
-                "default": null,
-                "description": "Control height. `icon` is a square button for a single icon.",
-                "inherited": false
-            },
-            {
                 "name": "element",
                 "type": "HTMLButtonElement | HTMLAnchorElement | undefined",
                 "required": false,

@@ -2,19 +2,19 @@ import {
     attributes,
     changed,
     number,
+    PLACEMENTS,
     type PlaygroundValues,
     select,
     toggle
 } from '$lib/components/docs/playground';
 
 export const controls = {
-    side: select('Side', ['bottom', 'top', 'left', 'right'], 'bottom'),
-    align: select('Align', ['start', 'center', 'end'], 'center', 'Appearance'),
+    placement: select('Placement', PLACEMENTS, 'bottom'),
     glass: toggle('Glass surface', 'Appearance'),
     title: toggle('Title', 'Content', true),
     description: toggle('Description', 'Content', true),
     link: toggle('Link trigger', 'Behavior', true),
-    openDelay: number('Open delay', 200, {
+    delay: number('Open delay', 200, {
         min: 0,
         max: 1000,
         step: 50,
@@ -32,15 +32,14 @@ type Values = PlaygroundValues<typeof controls>;
 
 export function code(values: Values): string {
     const root = attributes({
-        openDelay: changed(values.openDelay, 200),
+        placement: changed(values.placement, 'bottom'),
+        delay: changed(values.delay, 200),
         closeDelay: changed(values.closeDelay, 150)
     });
     const trigger = attributes({
         href: values.link && 'https://ui.miel.my'
     });
     const content = attributes({
-        side: changed(values.side, 'bottom'),
-        align: changed(values.align, 'center'),
         surface: values.glass && 'glass'
     });
     const title = values.title

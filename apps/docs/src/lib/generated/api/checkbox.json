@@ -40,11 +40,11 @@
             },
             {
                 "name": "variant",
-                "type": "\"default\" | \"primary\" | undefined",
+                "type": "\"default\" | \"card\" | undefined",
                 "required": false,
                 "bindable": false,
                 "default": "'default'",
-                "description": "`primary` frames the box and its text as a bordered row.",
+                "description": "`card` frames the box and its text as a bordered row.",
                 "inherited": false
             },
             {

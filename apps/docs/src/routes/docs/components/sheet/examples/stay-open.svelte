@@ -6,7 +6,7 @@
 <Sheet.Root>
     <Sheet.Trigger variant="outline">Edit profile</Sheet.Trigger>
     <Sheet.Content allowClickOutside={false}>
-        <Sheet.Header close={false}>
+        <Sheet.Header showClose={false}>
             <Sheet.Title>Edit profile</Sheet.Title>
             <Sheet.Description>A press on the page will not close this sheet.</Sheet.Description>
         </Sheet.Header>

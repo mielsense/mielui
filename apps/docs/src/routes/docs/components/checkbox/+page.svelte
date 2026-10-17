@@ -128,10 +128,10 @@
         </div>
     </section>
     <section id="events-and-variant" class="scroll-mt-20 flex flex-col gap-4">
-        <Typography.H2 class="docs-section-heading">Events and the primary variant</Typography.H2>
+        <Typography.H2 class="docs-section-heading">Events and the card variant</Typography.H2>
         <Typography.Text variant="supporting">
             <InlineText
-                text={"`onCheckedChange` runs with the new state each time the box is ticked or cleared, for when you want to react without binding `checked`. `variant=\"primary\"` sets the checkbox in a card row whose edge strengthens when ticked, which helps a single important checkbox stand out."}
+                text={"`onCheckedChange` runs with the new state each time the box is ticked or cleared, for when you want to react without binding `checked`. `variant=\"card\"` sets the checkbox in a card row whose edge strengthens when ticked, which helps a single important checkbox stand out."}
             />
         </Typography.Text>
         <ComponentPreview code={EventsExampleSrc}>

@@ -272,7 +272,7 @@
         </Typography.Text>
         <Typography.Text variant="supporting">
             <InlineText
-                text={"`hoverable` opens the list when the pointer rests on the trigger, with `delay` and `closeDelay` in milliseconds. `inert` is on by default and makes the rest of the page inert while a click-opened list is showing. `stateKey` names the instance's state, and `state_key` is its older spelling."}
+                text={"`hoverable` opens the list when the pointer rests on the trigger, with `delay` and `closeDelay` in milliseconds. `inert` is on by default and makes the rest of the page inert while a click-opened list is showing."}
             />
         </Typography.Text>
         <ComponentPreview code={PlacementExampleSrc}>
@@ -283,12 +283,12 @@
         <Typography.H2 class="docs-section-heading">Panel and items</Typography.H2>
         <Typography.Text variant="supporting">
             <InlineText
-                text={"Content shares its panel with Popover. `allowClickOutside={false}` keeps the list open on an outside press, and `dismissLayer={false}` removes the invisible layer that catches the first outside press, which the input-style trigger relies on to stay typeable. `focusTrap` and `lockScroll` decide whether Tab and page scrolling are held while it is open. `portal={false}` renders the list in place, `refElement` anchors it to another element, and `role` and `tabindex` set the panel's ARIA role and tab index. `surfaceClass` styles the inner surface while `class` styles the frame."}
+                text={"Content shares its panel with Popover. `allowClickOutside={false}` keeps the list open on an outside press, and `dismissLayer={false}` removes the invisible layer that catches the first outside press, which the input-style trigger relies on to stay typeable. `lockScroll` decides whether page scrolling is held while it is open; Tab is never trapped, so it moves on from the list. `portal={false}` renders the list in place, `refElement` anchors it to another element, and `role` and `tabindex` set the panel's ARIA role and tab index. `surfaceClass` styles the inner surface while `class` styles the frame."}
             />
         </Typography.Text>
         <Typography.Text variant="supporting">
             <InlineText
-                text={"Item is built on [Button](/docs/components/button). `size` changes the row height. A row is always a button and does not take `href`. `status` or `loading` show progress on a row, with `labels` setting the text for each state. `unstyled` removes the Button classes and `onkeydown` runs before the list handles the key. Trigger takes `size`, `style` and `unstyled` the same way."}
+                text={"Item is built on [Button](/docs/components/button) and always uses the menu row style, so Button's `variant`, `size`, and `unstyled` do not apply. A row is always a button and does not take `href`. `status` or `loading` show progress on a row, with `labels` setting the text for each state, and `onkeydown` runs before the list handles the key. Trigger takes Button's `size`, `style`, and `unstyled`."}
             />
         </Typography.Text>
     </section>

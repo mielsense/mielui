@@ -21,7 +21,7 @@ export const controls = {
         step: 0.25,
         group: 'Behavior'
     }),
-    curved: toggle('Curved rotation', 'Behavior')
+    eased: toggle('Eased rotation', 'Behavior')
 };
 
 export function code(values: PlaygroundValues<typeof controls>): string {
@@ -29,7 +29,7 @@ export function code(values: PlaygroundValues<typeof controls>): string {
         size: changed(values.size, 16),
         ready: values.ready,
         speed: changed(values.speed, 1),
-        curved: values.curved,
+        eased: values.eased,
         'aria-hidden': values.label && 'true',
         'aria-label': !values.label && 'Checking for updates'
     });

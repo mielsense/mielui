@@ -18,7 +18,7 @@
         name="reviewers"
         label="Reviewers"
         required
-        requiredMessage="Add at least one reviewer."
+        labels={{ required: 'Add at least one reviewer.' }}
     >
         <TagInput.List />
         <TagInput.Input placeholder="Add a reviewer" />

@@ -2,7 +2,7 @@
     import * as TagInput from '@mielui/svelte/components/tag-input';
 
     let tags = $state<string[]>([]);
-    let error = $state('');
+    let reason = $state('');
 
     function validate(tag: string) {
         if (tag !== tag.toLowerCase()) {
@@ -21,14 +21,14 @@
     <TagInput.Root
         bind:tags
         {validate}
-        {error}
+        issues={reason ? [{ message: reason }] : undefined}
         label="Slugs"
         description={'Use lowercase slugs without spaces. Try "Release Notes".'}
         onAdd={() => {
-            error = '';
+            reason = '';
         }}
         onReject={(rejection) => {
-            error = rejection.reason;
+            reason = rejection.reason;
         }}
     >
         <TagInput.List />

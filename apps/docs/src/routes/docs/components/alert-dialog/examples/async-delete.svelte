@@ -35,7 +35,7 @@
                 </AlertDialog.Description>
             </AlertDialog.Header>
             <AlertDialog.Footer>
-                <AlertDialog.Exit disabled={deleting}>Keep it</AlertDialog.Exit>
+                <AlertDialog.Close disabled={deleting}>Keep it</AlertDialog.Close>
                 <AlertDialog.Confirm
                     loading={deleting}
                     labels={{ loading: 'Deleting' }}

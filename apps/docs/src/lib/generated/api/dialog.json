@@ -1175,24 +1175,6 @@
                 "inherited": false
             },
             {
-                "name": "role",
-                "type": "\"dialog\" | \"alertdialog\" | undefined",
-                "required": false,
-                "bindable": false,
-                "default": "'dialog'",
-                "description": "ARIA role of the panel.",
-                "inherited": false
-            },
-            {
-                "name": "contentClass",
-                "type": "string | undefined",
-                "required": false,
-                "bindable": false,
-                "default": "''",
-                "description": "Classes for the positioned dialog element.",
-                "inherited": false
-            },
-            {
                 "name": "overlayClass",
                 "type": "string | undefined",
                 "required": false,
@@ -1211,15 +1193,6 @@
                 "inherited": false
             },
             {
-                "name": "panelIdPrefix",
-                "type": "string | undefined",
-                "required": false,
-                "bindable": false,
-                "default": "'dialog'",
-                "description": "Prefix of the generated panel id.",
-                "inherited": false
-            },
-            {
                 "name": "showClose",
                 "type": "boolean | undefined",
                 "required": false,
@@ -1233,8 +1206,8 @@
                 "type": "DialogSize | undefined",
                 "required": false,
                 "bindable": false,
-                "default": null,
-                "description": "Width preset. Vertical layouts remain compact; horizontal layouts are one step wider.",
+                "default": "'lg'",
+                "description": "Maximum width of the panel. Defaults to `lg`.",
                 "inherited": false
             },
             {
@@ -1363,15 +1336,6 @@
                 "bindable": false,
                 "default": "false",
                 "description": "Marks the dialog as destructive. Confirm defaults to the destructive variant, and browsers that tint their chrome from the theme color turn it red while the dialog is open.",
-                "inherited": false
-            },
-            {
-                "name": "orientation",
-                "type": "DialogOrientation | undefined",
-                "required": false,
-                "bindable": false,
-                "default": "'horizontal'",
-                "description": "Controls the default width and action layout. Defaults to `horizontal`.",
                 "inherited": false
             },
             {

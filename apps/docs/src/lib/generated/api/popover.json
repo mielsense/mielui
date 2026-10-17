@@ -579,24 +579,6 @@
                 "inherited": false
             },
             {
-                "name": "state_key",
-                "type": "string | undefined",
-                "required": false,
-                "bindable": false,
-                "default": null,
-                "description": "Older spelling of `stateKey`. `stateKey` wins when both are set.",
-                "inherited": false
-            },
-            {
-                "name": "stateKey",
-                "type": "string | undefined",
-                "required": false,
-                "bindable": false,
-                "default": null,
-                "description": "Key that identifies this instance's state. A key is generated when you omit it.",
-                "inherited": false
-            },
-            {
                 "name": "hoverable",
                 "type": "boolean | undefined",
                 "required": false,

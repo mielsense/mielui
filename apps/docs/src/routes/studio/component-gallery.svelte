@@ -292,7 +292,7 @@
                     <Card.Description>Design system · 12 members</Card.Description>
                 </Card.Header>
                 <Card.Content>
-                    <HoverCard.Root>
+                    <HoverCard.Root placement="bottom-start">
                         <HoverCard.Trigger
                             class="flex items-center gap-3 self-start rounded-[var(--radius-md)] text-left text-sm focus-visible:outline-none focus-visible:shadow-[var(--focus-ring)]"
                         >
@@ -306,7 +306,7 @@
                                 </span>
                             </span>
                         </HoverCard.Trigger>
-                        <HoverCard.Content side="bottom" align="start" class="w-64">
+                        <HoverCard.Content class="w-64">
                             <HoverCard.Title>Alex Morgan</HoverCard.Title>
                             <HoverCard.Description>
                                 Product designer · Workspace owner

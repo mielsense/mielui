@@ -5,7 +5,7 @@
     let open = $state(false);
 </script>
 
-<Dialog.Root bind:open orientation="horizontal">
+<Dialog.Root bind:open>
     <Dialog.Trigger variant="outline">Open wide dialog</Dialog.Trigger>
     <Dialog.Content size="xl">
         <Dialog.Header>

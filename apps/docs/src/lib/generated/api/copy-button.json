@@ -67,7 +67,7 @@
             },
             {
                 "name": "oncopy",
-                "type": "(((text: string) => void) & ClipboardEventHandler<HTMLButtonElement>) | undefined",
+                "type": "((text: string) => void) | undefined",
                 "required": false,
                 "bindable": false,
                 "default": null,

@@ -8,7 +8,7 @@ import {
 } from '$lib/components/docs/playground';
 
 export const controls = {
-    variant: select('Variant', ['default', 'primary'], 'default'),
+    variant: select('Variant', ['default', 'card'], 'default'),
     size: select('Size', CONTROL_SIZES, 'md', 'Appearance'),
     label: toggle('Label', 'Content', true),
     description: toggle('Description', 'Content'),

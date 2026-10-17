@@ -16,7 +16,6 @@
             }
         }
     }
-    orientation="vertical"
 >
     <AlertDialog.Content>
         <AlertDialog.Header>
@@ -27,10 +26,10 @@
             </AlertDialog.Description>
         </AlertDialog.Header>
         <AlertDialog.Footer>
-            <AlertDialog.Exit onclick={editor.dismissSharedTheme}>
+            <AlertDialog.Close onclick={editor.dismissSharedTheme}>
                 Keep draft
                 <Kbd shortcut="esc" />
-            </AlertDialog.Exit>
+            </AlertDialog.Close>
             <AlertDialog.Confirm onclick={editor.acceptSharedTheme}>
                 Load theme
                 <Kbd shortcut="enter" />

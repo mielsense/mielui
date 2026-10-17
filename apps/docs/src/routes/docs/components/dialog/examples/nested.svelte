@@ -6,9 +6,9 @@
     let nestedOpen = $state(false);
 </script>
 
-<Dialog.Root bind:open orientation="vertical">
+<Dialog.Root bind:open>
     <Dialog.Trigger>Edit project</Dialog.Trigger>
-    <Dialog.Content>
+    <Dialog.Content size="sm">
         <Dialog.Header>
             <Dialog.Title>Edit project</Dialog.Title>
             <Dialog.Description>
@@ -16,9 +16,9 @@
             </Dialog.Description>
         </Dialog.Header>
         <Dialog.Body>
-            <Dialog.Root bind:open={nestedOpen} orientation="vertical">
+            <Dialog.Root bind:open={nestedOpen}>
                 <Dialog.Trigger variant="outline">Transfer ownership</Dialog.Trigger>
-                <Dialog.Content>
+                <Dialog.Content size="sm">
                     <Dialog.Header>
                         <Dialog.Title>Transfer ownership</Dialog.Title>
                         <Dialog.Description>

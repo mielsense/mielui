@@ -35,7 +35,7 @@
                     size: values.size,
                     ready: values.ready,
                     speed: values.speed,
-                    curved: values.curved
+                    eased: values.eased
                 })}
                 {#if values.label}
                     <div class="flex items-center gap-3 text-sm text-foreground-muted">
@@ -74,10 +74,10 @@
         </div>
 
         <div id="speed" class="scroll-mt-20 flex flex-col gap-3">
-            <Typography.H3 class="docs-subsection-heading">Speed and curved rotation</Typography.H3>
+            <Typography.H3 class="docs-subsection-heading">Speed and eased rotation</Typography.H3>
             <Typography.Text variant="supporting">
                 <InlineText
-                    text={'`speed` multiplies the rotation pace. `curved` varies the speed through each turn without stopping. The default is a steady spin.'}
+                    text={'`speed` multiplies the rotation pace. `eased` varies the speed through each turn without stopping. The default is a steady spin.'}
                 />
             </Typography.Text>
             <ComponentPreview code={PaceSrc}>

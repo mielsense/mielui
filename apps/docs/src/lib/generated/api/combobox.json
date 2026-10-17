@@ -3,15 +3,6 @@
         "name": "Content",
         "properties": [
             {
-                "name": "surface",
-                "type": "\"solid\" | \"glass\" | undefined",
-                "required": false,
-                "bindable": false,
-                "default": null,
-                "description": "Surface treatment. Omit it to inherit `--mielui-surface` from the theme.",
-                "inherited": false
-            },
-            {
                 "name": "children",
                 "type": "Snippet<[]>",
                 "required": true,
@@ -27,87 +18,6 @@
                 "bindable": false,
                 "default": null,
                 "description": "Classes added to the element.",
-                "inherited": false
-            },
-            {
-                "name": "surfaceClass",
-                "type": "string | undefined",
-                "required": false,
-                "bindable": false,
-                "default": null,
-                "description": "Classes for the inset surface (where children live) — padding, layout, background overrides. The `class` prop styles the outer Panel frame.",
-                "inherited": false
-            },
-            {
-                "name": "allowClickOutside",
-                "type": "boolean | undefined",
-                "required": false,
-                "bindable": false,
-                "default": "true",
-                "description": "Closes when the pointer is pressed outside it. Set false to keep it open until it is dismissed another way.",
-                "inherited": false
-            },
-            {
-                "name": "dismissLayer",
-                "type": "boolean | undefined",
-                "required": false,
-                "bindable": false,
-                "default": "true",
-                "description": "Render the full-viewport dismiss layer under the panel while open. Defaults to `true`. Set to `false` for triggers that must stay clickable while open (e.g. an input-style combobox trigger); outside pointer dismissal still applies via `allowClickOutside`.",
-                "inherited": false
-            },
-            {
-                "name": "portal",
-                "type": "boolean | undefined",
-                "required": false,
-                "bindable": false,
-                "default": "true",
-                "description": "Moves the panel to the end of the document so ancestors cannot clip it. Set false to render it in place.",
-                "inherited": false
-            },
-            {
-                "name": "refElement",
-                "type": "VirtualElement | undefined",
-                "required": false,
-                "bindable": false,
-                "default": null,
-                "description": "Positions the panel against this element or virtual element instead of the trigger. The panel then opens to the right of it, as a submenu does.",
-                "inherited": false
-            },
-            {
-                "name": "role",
-                "type": "\"dialog\" | \"alertdialog\" | \"menu\" | \"listbox\" | \"none\" | undefined",
-                "required": false,
-                "bindable": false,
-                "default": "'none'",
-                "description": "ARIA role of the panel.",
-                "inherited": false
-            },
-            {
-                "name": "tabindex",
-                "type": "number | undefined",
-                "required": false,
-                "bindable": false,
-                "default": "-1",
-                "description": "Tab index of the panel.",
-                "inherited": false
-            },
-            {
-                "name": "focusTrap",
-                "type": "boolean | undefined",
-                "required": false,
-                "bindable": false,
-                "default": null,
-                "description": "Trap Tab focus inside the panel while open. Defaults to `true`.",
-                "inherited": false
-            },
-            {
-                "name": "lockScroll",
-                "type": "boolean | undefined",
-                "required": false,
-                "bindable": false,
-                "default": "true",
-                "description": "Lock document scrolling while the panel is open. Defaults to `true`.",
                 "inherited": false
             },
             0,
@@ -127,12 +37,30 @@
             14,
             15,
             16,
+            {
+                "name": "tabindex",
+                "type": "number | undefined",
+                "required": false,
+                "bindable": false,
+                "default": "-1",
+                "description": "Tab index of the panel.",
+                "inherited": false
+            },
             18,
             19,
             20,
             21,
             22,
             23,
+            {
+                "name": "role",
+                "type": "\"dialog\" | \"alertdialog\" | \"menu\" | \"listbox\" | \"none\" | undefined",
+                "required": false,
+                "bindable": false,
+                "default": "'none'",
+                "description": "ARIA role of the panel.",
+                "inherited": false
+            },
             25,
             26,
             27,
@@ -536,7 +464,70 @@
             425,
             426,
             427,
-            428
+            428,
+            {
+                "name": "surface",
+                "type": "\"solid\" | \"glass\" | undefined",
+                "required": false,
+                "bindable": false,
+                "default": null,
+                "description": "Surface treatment. Omit it to inherit `--mielui-surface` from the theme.",
+                "inherited": false
+            },
+            {
+                "name": "surfaceClass",
+                "type": "string | undefined",
+                "required": false,
+                "bindable": false,
+                "default": null,
+                "description": "Classes for the inset surface (where children live) — padding, layout, background overrides. The `class` prop styles the outer Panel frame.",
+                "inherited": false
+            },
+            {
+                "name": "allowClickOutside",
+                "type": "boolean | undefined",
+                "required": false,
+                "bindable": false,
+                "default": "true",
+                "description": "Closes when the pointer is pressed outside it. Set false to keep it open until it is dismissed another way.",
+                "inherited": false
+            },
+            {
+                "name": "dismissLayer",
+                "type": "boolean | undefined",
+                "required": false,
+                "bindable": false,
+                "default": "true",
+                "description": "Render the full-viewport dismiss layer under the panel while open. Defaults to `true`. Set to `false` for triggers that must stay clickable while open (e.g. an input-style combobox trigger); outside pointer dismissal still applies via `allowClickOutside`.",
+                "inherited": false
+            },
+            {
+                "name": "portal",
+                "type": "boolean | undefined",
+                "required": false,
+                "bindable": false,
+                "default": "true",
+                "description": "Moves the panel to the end of the document so ancestors cannot clip it. Set false to render it in place.",
+                "inherited": false
+            },
+            {
+                "name": "refElement",
+                "type": "VirtualElement | undefined",
+                "required": false,
+                "bindable": false,
+                "default": null,
+                "description": "Positions the panel against this element or virtual element instead of the trigger. The panel then opens to the right of it, as a submenu does.",
+                "inherited": false
+            },
+            {
+                "name": "lockScroll",
+                "type": "boolean | undefined",
+                "required": false,
+                "bindable": false,
+                "default": "true",
+                "description": "Lock document scrolling while the panel is open. Defaults to `true`.",
+                "inherited": false
+            }
         ]
     },
     {
@@ -566,7 +557,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "Called when the item is chosen.",
+                "description": "Called when the item is chosen with the pointer or the keyboard.",
                 "inherited": false
             },
             {
@@ -1055,39 +1046,12 @@
             1073,
             1074,
             {
-                "name": "variant",
-                "type": "ButtonVariant | undefined",
-                "required": false,
-                "bindable": false,
-                "default": null,
-                "description": "Visual style. Choose it for what the action means, not for decoration.",
-                "inherited": false
-            },
-            {
-                "name": "size",
-                "type": "\"sm\" | \"md\" | \"lg\" | \"icon\" | undefined",
-                "required": false,
-                "bindable": false,
-                "default": null,
-                "description": "Control height. `icon` is a square button for a single icon.",
-                "inherited": false
-            },
-            {
                 "name": "element",
                 "type": "HTMLButtonElement | HTMLAnchorElement | undefined",
                 "required": false,
                 "bindable": true,
                 "default": null,
                 "description": "Bindable reference to the rendered DOM element. Type is the union of the two possible element types -- narrow at the use site:",
-                "inherited": false
-            },
-            {
-                "name": "unstyled",
-                "type": "boolean | undefined",
-                "required": false,
-                "bindable": false,
-                "default": null,
-                "description": "Skip the variant/size base classes and render with `class` alone.",
                 "inherited": false
             },
             {
@@ -1184,24 +1148,6 @@
                 "bindable": false,
                 "default": "'bottom'",
                 "description": "Preferred side and alignment relative to the trigger, such as `bottom-start`. It flips when there is no room.",
-                "inherited": false
-            },
-            {
-                "name": "state_key",
-                "type": "string | undefined",
-                "required": false,
-                "bindable": false,
-                "default": null,
-                "description": "Older spelling of `stateKey`. `stateKey` wins when both are set.",
-                "inherited": false
-            },
-            {
-                "name": "stateKey",
-                "type": "string | undefined",
-                "required": false,
-                "bindable": false,
-                "default": null,
-                "description": "Key that identifies this instance's state. A key is generated when you omit it.",
                 "inherited": false
             },
             {

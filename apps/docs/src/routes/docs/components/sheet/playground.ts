@@ -10,9 +10,9 @@ import {
 
 export const controls = {
     side: select('Side', ['right', 'left'], 'right'),
-    surface: select('Surface', ['inherit', 'solid', 'glass'], 'inherit', 'Appearance'),
+    surface: select('Surface', ['theme', 'solid', 'glass'], 'theme', 'Appearance'),
     description: toggle('Description', 'Content', true),
-    close: toggle('Close button', 'Content', true),
+    showClose: toggle('Close button', 'Content', true),
     footer: toggle('Footer', 'Content', true),
     allowClickOutside: toggle('Close on outside press', 'Behavior', true)
 };
@@ -20,11 +20,11 @@ export const controls = {
 export function code(values: PlaygroundValues<typeof controls>): string {
     const content = attributes({
         side: changed(values.side, 'right'),
-        surface: changed(values.surface, 'inherit'),
+        surface: changed(values.surface, 'theme'),
         allowClickOutside: defaultOn(values.allowClickOutside)
     });
     const header = attributes({
-        close: defaultOn(values.close)
+        showClose: defaultOn(values.showClose)
     });
     const description = values.description
         ? `

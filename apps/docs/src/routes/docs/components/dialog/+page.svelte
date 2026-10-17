@@ -66,7 +66,7 @@
     <section id="hero" class="scroll-mt-20 flex flex-col gap-4">
         <Playground controls={playgroundControls} code={playgroundCode}>
             {#snippet children(values)}
-                <Dialog.Root orientation={values.orientation} error={values.error}>
+                <Dialog.Root error={values.error}>
                     <Dialog.Trigger>Rename project</Dialog.Trigger>
                     <Dialog.Content
                         size={values.size}
@@ -134,8 +134,8 @@
         <div id="form" class="scroll-mt-20 flex flex-col gap-3">
             <Typography.H3 class="docs-subsection-heading">Form in a dialog</Typography.H3>
             <Typography.Text variant="supporting">
-                A vertical dialog with an icon beside the title, one field, and shortcut hints on
-                the actions.
+                A compact dialog with an icon beside the title, one field, and shortcut hints on the
+                actions.
             </Typography.Text>
             <ComponentPreview code={HeroSrc}>
                 <Hero />
@@ -252,12 +252,7 @@
         <Typography.H2 class="docs-section-heading">Styling the layers</Typography.H2>
         <Typography.Text variant="supporting">
             <InlineText
-                text={"Content renders three nested layers and takes a class for each. `overlayClass` styles the backdrop, `contentClass` the positioned dialog element, and `surfaceClass` the inner surface that holds your parts. `class` goes on the frame between them. The `style` attribute lands on the same frame."}
-            />
-        </Typography.Text>
-        <Typography.Text variant="supporting">
-            <InlineText
-                text={"The panel gets an id built from `panelIdPrefix` and a generated suffix. Change the prefix when a test or an `aria-controls` elsewhere needs a predictable start."}
+                text={"Content renders three nested layers and takes a class for each. `overlayClass` styles the backdrop, `class` the dialog panel, and `surfaceClass` the inner surface that holds your parts. The `style` attribute lands on the panel too."}
             />
         </Typography.Text>
         <Typography.Text variant="supporting">

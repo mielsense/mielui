@@ -12,7 +12,7 @@ import {
 export const controls = {
     variant: select('Variant', BUTTON_VARIANTS, 'outline'),
     size: select('Size', CONTROL_SIZES, 'md', 'Appearance'),
-    surface: select('Surface', ['inherit', 'solid', 'glass'], 'inherit', 'Appearance'),
+    surface: select('Surface', ['theme', 'solid', 'glass'], 'theme', 'Appearance'),
     placeholder: text('Placeholder', 'Select priority', 'Content'),
     groupLabel: toggle('Group label', 'Content'),
     disabled: toggle('Disabled', 'State'),
@@ -35,7 +35,7 @@ export function code(values: PlaygroundValues<typeof controls>): string {
         placeholder: changed(values.placeholder, 'Select')
     });
     const content = attributes({
-        surface: changed(values.surface, 'inherit')
+        surface: changed(values.surface, 'theme')
     });
     const low = attributes({
         value: 'low',

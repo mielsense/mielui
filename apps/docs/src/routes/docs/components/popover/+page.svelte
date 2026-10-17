@@ -193,7 +193,7 @@
         </Typography.Text>
         <Typography.Text variant="supporting">
             <InlineText
-                text={"Each Root keeps its state under a key. Pass `stateKey` to choose that key yourself; `state_key` is the older spelling and still works. On Content, `class` styles the outer frame and `surfaceClass` styles the inner surface where your children sit."}
+                text={"On Content, `class` styles the outer frame and `surfaceClass` styles the inner surface where your children sit."}
             />
         </Typography.Text>
     </section>

@@ -16,9 +16,9 @@
 </script>
 
 <div class="flex flex-col items-center gap-3">
-    <Dialog.Root bind:open orientation="vertical">
+    <Dialog.Root bind:open>
         <Dialog.Trigger>Add Domain</Dialog.Trigger>
-        <Dialog.Content>
+        <Dialog.Content size="sm">
             <Dialog.Header>
                 <div class="flex items-center gap-2.5">
                     <HugeiconsIcon icon={Globe} size={18} class="text-foreground-muted" />

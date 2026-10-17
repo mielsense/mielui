@@ -678,12 +678,12 @@
                 "inherited": false
             },
             {
-                "name": "close",
+                "name": "showClose",
                 "type": "boolean | undefined",
                 "required": false,
                 "bindable": false,
                 "default": "true",
-                "description": "Shows the close button. Defaults to true.",
+                "description": "Shows the close button in the corner. Defaults to true.",
                 "inherited": false
             }
         ]

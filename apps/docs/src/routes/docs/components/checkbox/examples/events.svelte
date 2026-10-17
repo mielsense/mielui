@@ -7,7 +7,7 @@
 <div class="flex flex-col gap-3">
     <Checkbox
         label="I accept the terms"
-        variant="primary"
+        variant="card"
         onCheckedChange={(checked) => {
             log = checked ? 'Accepted' : 'Not accepted yet';
         }}

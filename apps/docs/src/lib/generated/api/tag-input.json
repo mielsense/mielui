@@ -1039,12 +1039,21 @@
                 "inherited": false
             },
             {
-                "name": "error",
-                "type": "string | undefined",
+                "name": "invalid",
+                "type": "boolean | undefined",
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "Error message shown with the control.",
+                "description": "Marks the field invalid. It defaults to true when there are issues.",
+                "inherited": false
+            },
+            {
+                "name": "issues",
+                "type": "readonly Readonly<{ message: string; }>[] | undefined",
+                "required": false,
+                "bindable": false,
+                "default": "[]",
+                "description": "Validation issues shown under the control in place of the description.",
                 "inherited": false
             },
             {
@@ -1063,15 +1072,6 @@
                 "bindable": false,
                 "default": "false",
                 "description": "Requires at least one tag for native form submission. Carried by a dedicated validation anchor, since hidden inputs are barred from constraint validation.",
-                "inherited": false
-            },
-            {
-                "name": "requiredMessage",
-                "type": "string | undefined",
-                "required": false,
-                "bindable": false,
-                "default": null,
-                "description": "Validation message shown when `required` is set and no tags are added. Overrides `labels.required`.",
                 "inherited": false
             },
             {

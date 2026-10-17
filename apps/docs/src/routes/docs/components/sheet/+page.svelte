@@ -88,10 +88,10 @@
                     <Sheet.Trigger>Edit profile</Sheet.Trigger>
                     <Sheet.Content
                         side={values.side}
-                        surface={values.surface === 'inherit' ? undefined : values.surface}
+                        surface={values.surface === 'theme' ? undefined : values.surface}
                         allowClickOutside={values.allowClickOutside}
                     >
-                        <Sheet.Header close={values.close}>
+                        <Sheet.Header showClose={values.showClose}>
                             <Sheet.Title>Edit profile</Sheet.Title>
                             {#if values.description}
                                 <Sheet.Description>
@@ -187,7 +187,7 @@
             >
             <Typography.Text variant="supporting">
                 <InlineText
-                    text={"`allowClickOutside={false}` on Content keeps the sheet open when the page behind it is pressed, and `close={false}` on Header leaves the footer buttons as the only way out besides Escape."}
+                    text={"`allowClickOutside={false}` on Content keeps the sheet open when the page behind it is pressed, and `showClose={false}` on Header leaves the footer buttons as the only way out besides Escape."}
                 />
             </Typography.Text>
             <ComponentPreview code={StayOpenExampleSrc}>
@@ -200,7 +200,7 @@
         <Typography.H2 class="docs-section-heading">Dismissal</Typography.H2>
         <Typography.Text variant="supporting">
             <InlineText
-                text={"A sheet closes from its corner button, Escape, a Close button, or a press on the page behind it. Set `allowClickOutside={false}` on Content to ignore that last one, which suits a form the person could lose by a stray click. Header shows the corner button by default; pass `close={false}` when your own Close button is enough."}
+                text={"A sheet closes from its corner button, Escape, a Close button, or a press on the page behind it. Set `allowClickOutside={false}` on Content to ignore that last one, which suits a form the person could lose by a stray click. Header shows the corner button by default; pass `showClose={false}` when your own Close button is enough."}
             />
         </Typography.Text>
     </section>

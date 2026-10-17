@@ -6,12 +6,12 @@
 </script>
 
 <div class="grid place-items-center">
-    <AlertDialog.Root error orientation="vertical">
+    <AlertDialog.Root error>
         <AlertDialog.Trigger variant="destructive">
             <HugeiconsIcon icon={Trash} size={14} />
             Delete workspace
         </AlertDialog.Trigger>
-        <AlertDialog.Content surface="glass" size="lg">
+        <AlertDialog.Content surface="glass" size="md">
             <AlertDialog.Header>
                 <div class="flex items-center gap-2.5">
                     <HugeiconsIcon icon={Trash} size={18} class="text-[var(--color-error)]" />
@@ -23,10 +23,10 @@
                 </AlertDialog.Description>
             </AlertDialog.Header>
             <AlertDialog.Footer>
-                <AlertDialog.Exit>
+                <AlertDialog.Close>
                     Cancel
                     <Kbd shortcut="esc" />
-                </AlertDialog.Exit>
+                </AlertDialog.Close>
                 <AlertDialog.Confirm>
                     Delete
                     <Kbd shortcut="enter" />

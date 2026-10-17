@@ -9,8 +9,7 @@ import {
 } from '$lib/components/docs/playground';
 
 export const controls = {
-    size: select('Size', ['sm', 'md', 'lg', 'xl'], 'lg'),
-    orientation: select('Orientation', ['horizontal', 'vertical'], 'horizontal', 'Appearance'),
+    size: select('Size', ['xs', 'sm', 'md', 'lg', 'xl'], 'lg'),
     glass: toggle('Glass surface', 'Appearance'),
     description: toggle('Description', 'Content', true),
     body: toggle('Body', 'Content', true),
@@ -24,13 +23,11 @@ export const controls = {
 type Values = PlaygroundValues<typeof controls>;
 
 export function code(values: Values): string {
-    const defaultSize = values.orientation === 'horizontal' ? 'lg' : 'md';
     const root = attributes({
-        orientation: changed(values.orientation, 'horizontal'),
         error: values.error
     });
     const content = attributes({
-        size: changed(values.size, defaultSize),
+        size: changed(values.size, 'lg'),
         surface: values.glass && 'glass',
         showClose: defaultOn(values.showClose),
         allowClickOutside: defaultOn(values.allowClickOutside),

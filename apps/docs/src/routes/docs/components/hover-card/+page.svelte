@@ -44,15 +44,15 @@
     <section id="hero" class="scroll-mt-20 flex flex-col gap-4">
         <Playground controls={playgroundControls} code={playgroundCode}>
             {#snippet children(values)}
-                <HoverCard.Root openDelay={values.openDelay} closeDelay={values.closeDelay}>
+                <HoverCard.Root
+                    placement={values.placement}
+                    delay={values.delay}
+                    closeDelay={values.closeDelay}
+                >
                     <HoverCard.Trigger href={values.link ? 'https://ui.miel.my' : undefined}>
                         Mielui
                     </HoverCard.Trigger>
-                    <HoverCard.Content
-                        side={values.side}
-                        align={values.align}
-                        surface={values.glass ? 'glass' : undefined}
-                    >
+                    <HoverCard.Content surface={values.glass ? 'glass' : undefined}>
                         {#if values.title}
                             <HoverCard.Title>Mielui</HoverCard.Title>
                         {/if}
@@ -121,12 +121,12 @@
             <Typography.H3 class="docs-subsection-heading">Placement and timing</Typography.H3>
             <Typography.Text variant="supporting">
                 <InlineText
-                    text={"`side` on Content picks where the card opens: `top`, `right`, `bottom` (the default), or `left`. It flips to the opposite side when there is no room. `align` sets `start`, `center`, or `end` along that side, and `sideOffset` sets the gap to the trigger in pixels, 8 by default."}
+                    text={"`placement` on Root picks the side of the trigger the card opens on, `bottom` by default, and an optional `-start` or `-end` aligns it to that edge, as in `bottom-start`. It flips to the opposite side when there is no room. `sideOffset` on Content sets the gap to the trigger in pixels, 8 by default."}
                 />
             </Typography.Text>
             <Typography.Text variant="supporting">
                 <InlineText
-                    text={"`openDelay` and `closeDelay` on Root set how long the pointer rests before the card opens and how long it stays after the pointer leaves. They default to 200 and 150 milliseconds."}
+                    text={"`delay` and `closeDelay` on Root set how long the pointer rests before the card opens and how long it stays after the pointer leaves. They default to 200 and 150 milliseconds."}
                 />
             </Typography.Text>
             <ComponentPreview code={PlacementSrc}>

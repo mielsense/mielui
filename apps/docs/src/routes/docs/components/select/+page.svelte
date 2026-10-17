@@ -73,7 +73,7 @@
                         <Select.Value placeholder={values.placeholder || undefined} />
                     </Select.Trigger>
                     <Select.Content
-                        surface={values.surface === 'inherit' ? undefined : values.surface}
+                        surface={values.surface === 'theme' ? undefined : values.surface}
                     >
                         {@render playgroundItems(values.groupLabel, values.disabledItem)}
                     </Select.Content>
@@ -193,7 +193,7 @@
         </Typography.Text>
         <Typography.Text variant="supporting">
             <InlineText
-                text={"Item is a Button too. Pass `label` when the trigger should show different text than the option content. `loading` with `labels` shows progress on an option that starts slow work. An option is always a button and does not take `href`."}
+                text={"Item is a Button too, but it always uses the menu row style, so Button's `variant`, `size`, and `unstyled` do not apply. Pass `label` when the trigger should show different text than the option content. `loading` with `labels` shows progress on an option that starts slow work. An option is always a button and does not take `href`."}
             />
         </Typography.Text>
         <Typography.Text variant="supporting">

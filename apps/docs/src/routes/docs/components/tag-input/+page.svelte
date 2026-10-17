@@ -57,7 +57,7 @@
                         description={values.description
                             ? 'Type a topic and press Enter.'
                             : undefined}
-                        error={values.error ? 'Topics must be lowercase.' : undefined}
+                        issues={values.invalid ? [{ message: 'Topics must be lowercase.' }] : undefined}
                         max={values.max ? 3 : undefined}
                         disabled={values.disabled}
                     >
@@ -160,7 +160,7 @@
             <Typography.H3 class="docs-subsection-heading">Required</Typography.H3>
             <Typography.Text variant="supporting">
                 <InlineText
-                    text={'`required` blocks native form submission until there is at least one tag. `requiredMessage` sets the message the browser shows.'}
+                    text={'`required` blocks native form submission until there is at least one tag. `labels.required` sets the message the browser shows.'}
                 />
             </Typography.Text>
             <ComponentPreview code={RequiredSrc}>
@@ -173,7 +173,7 @@
         <Typography.H2 class="docs-section-heading">Labels</Typography.H2>
         <Typography.Text variant="supporting">
             <InlineText
-                text={"Built-in text is English. Pass a `labels` object to Root to translate the remove button's name, the refusal reasons, the announcements after a tag is added or removed, and the required message. `TagInputLabels` types it. Every key is optional, and omitted keys keep their English default. `requiredMessage` wins over `labels.required`."}
+                text={"Built-in text is English. Pass a `labels` object to Root to translate the remove button's name, the refusal reasons, the announcements after a tag is added or removed, and the required message. `TagInputLabels` types it. Every key is optional, and omitted keys keep their English default."}
             />
         </Typography.Text>
         <CodeBlock

@@ -13,7 +13,7 @@
     <div class="grid place-items-center">
         <AlertDialog.Root>
             <AlertDialog.Trigger variant="outline">Sign out</AlertDialog.Trigger>
-            <AlertDialog.Content size="lg">
+            <AlertDialog.Content size="md">
                 <AlertDialog.Header>
                     <AlertDialog.Title>Sign out?</AlertDialog.Title>
                     <AlertDialog.Description>
@@ -21,10 +21,10 @@
                     </AlertDialog.Description>
                 </AlertDialog.Header>
                 <AlertDialog.Footer>
-                    <AlertDialog.Exit>
+                    <AlertDialog.Close>
                         Stay
                         <Kbd shortcut="esc" />
-                    </AlertDialog.Exit>
+                    </AlertDialog.Close>
                     <AlertDialog.Confirm onclick={signOut}>
                         Sign out
                         <Kbd shortcut="enter" />
