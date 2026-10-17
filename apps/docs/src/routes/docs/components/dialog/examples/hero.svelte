@@ -17,7 +17,7 @@
 
 <div class="flex flex-col items-center gap-3">
     <Dialog.Root bind:open>
-        <Dialog.Trigger>Add Domain</Dialog.Trigger>
+        <Dialog.Trigger>Add domain</Dialog.Trigger>
         <Dialog.Content size="sm">
             <Dialog.Header>
                 <div class="flex items-center gap-2.5">

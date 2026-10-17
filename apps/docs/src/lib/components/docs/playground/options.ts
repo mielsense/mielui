@@ -37,11 +37,19 @@ const SIZE_LABELS: Record<string, string> = {
 };
 
 const LOCALE = /^[a-z]{2}-[A-Z]{2}$/;
+const NUMBER = /^\d+$/;
 
-/** Turns an option value into its menu label: `sm` reads "Small", `top-start` reads "Top start". */
-export function optionLabel(value: string): string {
+/**
+ * Turns an option value into its menu label: `sm` reads "Small", `top-start` reads "Top start",
+ * and a bare number takes the control's name, so tone `1` reads "Tone 1".
+ */
+export function optionLabel(value: string, control?: string): string {
     if (LOCALE.test(value)) {
         return value;
+    }
+
+    if (control && NUMBER.test(value)) {
+        return `${control} ${value}`;
     }
 
     const words = SIZE_LABELS[value] ?? value.replaceAll('-', ' ');

@@ -65,3 +65,11 @@
 - Manifests declare the Svelte version Mielui actually requires, `^5.56.0`, so `mielui add` no longer accepts an older Svelte that cannot compile the copied files.
 - `Select.Trigger` binds its node with `bind:element`, as its docs said.
 - CopyButton's `oncopy` accepts a `(text) => void` handler without a type error.
+- Server-rendered inset cards, code blocks, and other two-layer surfaces put their header or footer strip on the theme's inset edge from the first paint, instead of moving it once scripts load.
+- Tabs show the selected tab's indicator in server-rendered HTML, before scripts measure it.
+- The Toast close button uses the small control size, the control radius, the shared hover wash, and press feedback.
+- Data Table filter options hover with the shared wash instead of the secondary fill.
+- OTP Field cells take the control radius, so the sharp and rounded radius scales apply to them.
+- The Hover Card trigger shows the shared focus ring.
+- An empty Data Table shows "No pages" without a page button beside it.
+- The File Upload dropzone's default description starts in lowercase, so it reads as one sentence with its title.

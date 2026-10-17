@@ -34,3 +34,9 @@
 - Field and Form examples no longer print a second "(required)" beside the label's built-in required mark.
 - The Theming guide names the current Theme Studio controls and lists every Theme JSON field.
 - The Markdown changelog uses the same section names as the changelog page.
+- Docs examples render with the page instead of mounting once they scroll into view, so they no longer pop in.
+- The docs load Theme Studio's optional Google Fonts without blocking the first paint.
+- Playground selects, the current sidebar page, and installation tabs look the same before and after scripts load.
+- The Accordion, Breadcrumb, Pagination, and Radio Group examples use realistic content instead of placeholder labels.
+- Numeric playground options name their control, so Folder Card's tone reads "Tone 1" instead of "1".
+- Dialog examples use sentence case for their trigger labels.

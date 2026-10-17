@@ -87,7 +87,7 @@
         <div id="result-list" class="scroll-mt-20 flex flex-col gap-3">
             <Typography.H3 class="docs-subsection-heading">Result list</Typography.H3>
             <Typography.Text variant="supporting">
-                The pager sits under a list and decides which five results are shown.
+                The pager sits under a list of invoices and decides which five are shown.
             </Typography.Text>
             <ComponentPreview code={HeroSrc}>
                 <Hero />
