@@ -6,9 +6,8 @@
         open = $bindable(false),
         onOpenChange,
         error = false,
-        orientation = 'vertical',
         children
     }: AlertDialogProps = $props();
 </script>
 
-<Dialog.Root bind:open {onOpenChange} {error} {orientation}> {@render children?.()} </Dialog.Root>
+<Dialog.Root bind:open {onOpenChange} {error}> {@render children?.()} </Dialog.Root>

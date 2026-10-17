@@ -1,8 +1,8 @@
 <script lang="ts">
-    import type { PopoverContentProps } from '@mielui/svelte/components/popover';
     import { cn, inertOutside } from '@mielui/svelte/utils';
     import { Combobox as ComboboxPrimitive, mergeProps } from 'bits-ui';
     import { overlaySurface } from '../_internal/surface';
+    import type { ComboboxContentProps } from '.';
     import ComboboxSearch from './combobox-search.svelte';
     import { getComboboxContext } from './context.svelte';
 
@@ -18,10 +18,9 @@
         refElement,
         role = 'none',
         tabindex = -1,
-        focusTrap: _focusTrap,
         lockScroll = true,
         ...rest
-    }: PopoverContentProps = $props();
+    }: ComboboxContentProps = $props();
     const context = getComboboxContext();
     const { state } = context;
     const side = $derived.by(() => {

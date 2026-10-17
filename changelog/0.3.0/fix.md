@@ -64,3 +64,4 @@
 - `mielui add` installs the peers and shared modules that Command, Data Table, Toast, Popover, Select, Radio Group, and the date pickers import, and no longer copies files they do not use.
 - Manifests declare the Svelte version Mielui actually requires, `^5.56.0`, so `mielui add` no longer accepts an older Svelte that cannot compile the copied files.
 - `Select.Trigger` binds its node with `bind:element`, as its docs said.
+- CopyButton's `oncopy` accepts a `(text) => void` handler without a type error.

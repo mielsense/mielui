@@ -53,7 +53,6 @@
         open = $bindable(false),
         onOpenChange,
         error = false,
-        orientation = 'horizontal',
         labels,
         children
     }: DialogProps = $props();
@@ -72,13 +71,11 @@
         },
         get error() {
             return error;
-        },
-        get orientation() {
-            return orientation;
         }
     };
     const modalContext = $state({
         id,
+        role: 'dialog' as 'dialog' | 'alertdialog',
         get labels() {
             return labels;
         },

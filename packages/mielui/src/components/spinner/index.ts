@@ -7,8 +7,8 @@ export type SpinnerProps = {
     ready?: boolean;
     /** Rotation speed multiplier. */
     speed?: number;
-    /** Spins smoothly instead of in steps. */
-    curved?: boolean;
+    /** Speeds up and slows down through each turn instead of spinning at a steady pace. */
+    eased?: boolean;
     /** Classes added to the element. */
     class?: string;
     /** Accessible name when there is no visible label. */

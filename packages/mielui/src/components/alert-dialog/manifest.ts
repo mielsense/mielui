@@ -5,7 +5,7 @@ export const manifest: Manifest = {
     version: '1.2.0',
     visibility: 'public',
     description:
-        'Confirmation dialog with role="alertdialog". Outside clicks never dismiss it, focus starts on Exit, and Exit and Confirm replace the close button.',
+        'Confirmation dialog with role="alertdialog". Outside clicks never dismiss it, focus starts on Close, and Close and Confirm replace the corner close button.',
     role: 'alertdialog',
     files: [
         'components/alert-dialog/alert-dialog.svelte',
@@ -15,7 +15,7 @@ export const manifest: Manifest = {
         'components/alert-dialog/alert-dialog-title.svelte',
         'components/alert-dialog/alert-dialog-description.svelte',
         'components/alert-dialog/alert-dialog-footer.svelte',
-        'components/alert-dialog/alert-dialog-exit.svelte',
+        'components/alert-dialog/alert-dialog-close.svelte',
         'components/alert-dialog/alert-dialog-confirm.svelte',
         'components/alert-dialog/index.ts',
         'components/alert-dialog/manifest.ts'

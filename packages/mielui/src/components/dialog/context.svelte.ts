@@ -10,6 +10,7 @@ export type DialogFooterSlot = {
 
 export type DialogContext = {
     id: string;
+    role: 'dialog' | 'alertdialog';
     readonly labels?: DialogLabels;
     motion?: 'none';
     titleId?: string;

@@ -2,7 +2,7 @@ import type { ButtonVariant } from '@mielui/svelte/components/button';
 import type { PopoverTriggerProps } from '@mielui/svelte/components/popover';
 import type { Snippet } from 'svelte';
 import type { HTMLButtonAttributes } from 'svelte/elements';
-import type { ButtonOnlyProps } from '../_internal/button-attributes';
+import type { MenuRowButtonProps } from '../_internal/button-attributes';
 import Root from './select.svelte';
 import Content from './select-content.svelte';
 import Item from './select-item.svelte';
@@ -88,7 +88,7 @@ export type SelectItemProps = {
     label?: string;
     /** Content rendered inside. */
     children?: Snippet;
-} & Omit<ButtonOnlyProps, 'unstyled'>;
+} & MenuRowButtonProps;
 
 export type SelectValueProps = {
     /** Text shown while nothing is selected. */

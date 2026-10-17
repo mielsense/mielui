@@ -60,10 +60,10 @@ const NAMESPACED = {
     accordion: ['Content', 'Item', 'Root', 'Trigger'],
     alert: ['Description', 'Root', 'Title'],
     'alert-dialog': [
+        'Close',
         'Confirm',
         'Content',
         'Description',
-        'Exit',
         'Footer',
         'Header',
         'Root',

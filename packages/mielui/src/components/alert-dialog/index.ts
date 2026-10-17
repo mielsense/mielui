@@ -1,12 +1,12 @@
 import type { ButtonProps } from '@mielui/svelte/components/button';
-import type { DialogOrientation, DialogSize } from '@mielui/svelte/components/dialog';
+import type { DialogSize } from '@mielui/svelte/components/dialog';
 import type { DefaultProps } from '@mielui/svelte/utils';
 import type { Snippet } from 'svelte';
 import Root from './alert-dialog.svelte';
+import Close from './alert-dialog-close.svelte';
 import Confirm from './alert-dialog-confirm.svelte';
 import Content from './alert-dialog-content.svelte';
 import Description from './alert-dialog-description.svelte';
-import Exit from './alert-dialog-exit.svelte';
 import Footer from './alert-dialog-footer.svelte';
 import Header from './alert-dialog-header.svelte';
 import Title from './alert-dialog-title.svelte';
@@ -19,8 +19,6 @@ export type AlertDialogProps = {
     onOpenChange?: (open: boolean) => void;
     /** Sets supported browser chrome to red while the alert dialog is open. */
     error?: boolean;
-    /** Controls the default width and action layout. Defaults to `vertical`. */
-    orientation?: DialogOrientation;
     /** Content rendered inside. */
     children?: Snippet;
 };
@@ -32,7 +30,7 @@ export type AlertDialogContentProps = {
     ariaBusy?: boolean;
     /** Lets Escape dismiss the dialog. */
     allowEscape?: boolean;
-    /** Width preset. Vertical layouts remain compact; horizontal layouts are one step wider. */
+    /** Maximum width of the panel. Defaults to `xs`. */
     size?: DialogSize;
 } & DefaultProps;
 
@@ -43,4 +41,4 @@ export type AlertDialogActionProps = {
     closeOnClick?: boolean;
 } & ButtonProps;
 
-export { Confirm, Content, Description, Exit, Footer, Header, Root, Title, Trigger };
+export { Close, Confirm, Content, Description, Footer, Header, Root, Title, Trigger };

@@ -9,13 +9,15 @@
     let {
         class: className,
         children,
-        side = 'bottom',
-        align = 'center',
         sideOffset = 8,
         surface,
         ...rest
     }: HoverCardContentProps = $props();
     const context = getHoverCardContext();
+    const side = $derived(context.placement.split('-')[0] as 'top' | 'bottom' | 'left' | 'right');
+    const align = $derived(
+        (context.placement.split('-')[1] ?? 'center') as 'start' | 'center' | 'end'
+    );
 </script>
 
 <LinkPreview.Portal>

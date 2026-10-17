@@ -30,7 +30,7 @@ export type CopyButtonProps = {
     children?: Snippet;
     /** Fired after the text is successfully written to the clipboard. */
     oncopy?: (text: string) => void;
-} & Omit<HTMLButtonAttributes, 'class' | 'type'>;
+} & Omit<HTMLButtonAttributes, 'class' | 'type' | 'oncopy'>;
 
 export { CopyButton };
 export default CopyButton;

@@ -363,7 +363,9 @@ export type {
 } from './components/collapsible';
 export * as Collapsible from './components/collapsible';
 export type {
+    ComboboxContentProps,
     ComboboxItem,
+    ComboboxItemProps,
     ComboboxLabels,
     ComboboxRootProps,
     ComboboxTriggerProps
@@ -398,7 +400,6 @@ export type {
     DialogFooterProps,
     DialogHeaderProps,
     DialogLabels,
-    DialogOrientation,
     DialogProps,
     DialogSize,
     DialogTitleProps,
@@ -484,6 +485,7 @@ export * as Group from './components/group';
 export type {
     HoverCardContentProps,
     HoverCardDescriptionProps,
+    HoverCardPlacement,
     HoverCardProps,
     HoverCardTitleProps,
     HoverCardTriggerProps

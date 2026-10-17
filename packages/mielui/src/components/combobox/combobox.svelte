@@ -1,14 +1,11 @@
 <script lang="ts">
     import { Combobox as ComboboxPrimitive } from 'bits-ui';
-    import { untrack } from 'svelte';
     import type { ComboboxRootProps } from '.';
     import { setComboboxContext, setComboboxLabels } from './context.svelte';
     import { createComboboxController } from './controller.svelte';
 
     let {
         children,
-        state_key,
-        stateKey,
         open = $bindable(false),
         value = $bindable<string | string[] | undefined>(undefined),
         onOpenChange,
@@ -23,8 +20,7 @@
 
     setComboboxLabels(() => labels);
 
-    const generatedKey = $props.id();
-    const id = untrack(() => stateKey ?? state_key ?? generatedKey);
+    const id = $props.id();
     const controller = createComboboxController({
         getValue() {
             return value;

@@ -17,13 +17,10 @@
         surface,
         allowClickOutside = true,
         allowEscape = true,
-        role = 'dialog',
-        contentClass = '',
         overlayClass = '',
         surfaceClass = '',
-        panelIdPrefix = 'dialog',
         showClose = true,
-        size,
+        size = 'lg',
         children,
         ...rest
     }: DialogContentProps = $props();
@@ -39,26 +36,17 @@
         return dialog.motion === 'none' ? { duration: 0 } : transition(node);
     }
 
-    const resolvedSize = $derived(
-        size ?? (dialog.state.orientation === 'horizontal' ? 'lg' : 'md')
-    );
-    const sizeClass = $derived(
-        (dialog.state.orientation === 'horizontal'
-            ? {
-                  sm: 'max-w-sm',
-                  md: 'max-w-md',
-                  lg: 'max-w-xl',
-                  xl: 'max-w-2xl'
-              }
-            : {
-                  sm: 'max-w-xs',
-                  md: 'max-w-sm',
-                  lg: 'max-w-md',
-                  xl: 'max-w-xl'
-              })[resolvedSize]
-    );
+    const sizeClasses = {
+        xs: 'max-w-xs',
+        sm: 'max-w-sm',
+        md: 'max-w-md',
+        lg: 'max-w-xl',
+        xl: 'max-w-2xl'
+    };
+    const sizeClass = $derived(sizeClasses[size]);
+    const role = $derived(dialog.role);
     const isDestructiveAlert = $derived(role === 'alertdialog' && dialog.state.error);
-    const contentId = $derived(`${panelIdPrefix}-${dialog.id}`);
+    const contentId = $derived(dialog.contentId);
     let element = $state<HTMLDivElement>();
     let portalEl = $state<HTMLDivElement>();
     const layer = useOverlayPresentation({
@@ -66,10 +54,6 @@
         panelEl: () => element
     });
     const mounted = useDeferredClose(() => dialog.state.open);
-
-    $effect(() => {
-        dialog.contentId = contentId;
-    });
 
     /**
      * Portals the host to `<body>` before it opens, so its z-index escapes ancestor stacking
@@ -99,12 +83,7 @@
 
 {#snippet frameSlot(slot: DialogFooterSlot | undefined, part: string, classes: string)}
     {#if slot}
-        <div
-            {...slot.rest}
-            data-ui={part}
-            data-orientation={dialog.state.orientation}
-            class={cn(slot.className, classes)}
-        >
+        <div {...slot.rest} data-ui={part} class={cn(slot.className, classes)}>
             {@render slot.children?.()}
         </div>
     {/if}
@@ -170,7 +149,6 @@
                         bind:this={element}
                         data-motion={dialog.motion === 'none' ? 'none' : 'dialog'}
                         class={cn(
-                            contentClass,
                             className,
                             overlaySurface(surface),
                             'mielui-modal-frame origin-center text-foreground shadow-[var(--elevation-modal)]',
@@ -182,7 +160,6 @@
                         use:insetLayout
                         data-ui="dialog-panel"
                         data-surface={surface}
-                        data-orientation={dialog.state.orientation}
                         data-destructive={isDestructiveAlert || undefined}
                         aria-labelledby={dialog.titleId}
                         aria-describedby={dialog.descriptionId}

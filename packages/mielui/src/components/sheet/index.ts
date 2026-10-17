@@ -32,8 +32,8 @@ export type SheetProps = {
 export type SheetTriggerProps = ButtonProps;
 export type SheetTitleProps = DefaultProps;
 export type SheetHeaderProps = DefaultProps & {
-    /** Shows the close button. Defaults to true. */
-    close?: boolean;
+    /** Shows the close button in the corner. Defaults to true. */
+    showClose?: boolean;
 };
 export type SheetFooterProps = DefaultProps;
 export type SheetDescriptionProps = DefaultProps;

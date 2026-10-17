@@ -1,3 +1,4 @@
+import type { FieldIssue } from '@mielui/svelte/components/field';
 import type { Snippet } from 'svelte';
 import type { HTMLAttributes, HTMLButtonAttributes, HTMLInputAttributes } from 'svelte/elements';
 import Root from './tag-input.svelte';
@@ -28,7 +29,7 @@ export type TagInputLabels = {
     added?: (tag: string, count: number) => string;
     /** Announced after a tag is removed. `count` is the new number of tags. */
     removed?: (tag: string, count: number) => string;
-    /** Validation message when `required` is set and the list is empty. `requiredMessage` wins. */
+    /** Validation message when `required` is set and the list is empty. */
     required?: string;
 };
 
@@ -52,8 +53,10 @@ export type TagInputProps = {
     label?: string;
     /** Supporting text under the label, announced with the control. */
     description?: string;
-    /** Error message shown with the control. */
-    error?: string;
+    /** Marks the field invalid. It defaults to true when there are issues. */
+    invalid?: boolean;
+    /** Validation issues shown under the control in place of the description. */
+    issues?: readonly FieldIssue[];
     /** Field name submitted with the form. */
     name?: string;
     /**
@@ -62,8 +65,6 @@ export type TagInputProps = {
      * constraint validation.
      */
     required?: boolean;
-    /** Validation message shown when `required` is set and no tags are added. Overrides `labels.required`. */
-    requiredMessage?: string;
     /** `outline` has a border. `secondary` has a filled background. */
     variant?: TagInputVariant;
     /** Returns true to accept a tag, or a message that explains why it is refused. */

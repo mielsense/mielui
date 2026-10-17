@@ -44,3 +44,13 @@
 - `DropdownMenu.SubTrigger` no longer accepts Button props it ignored, such as `icon`, `variant`, `size`, and `unstyled`.
 - `Select.Trigger` no longer accepts `icon`, `Select.Item` no longer accepts `unstyled`, `Select.Value` accepts only `placeholder` and `class`, and Slider no longer accepts `children`. None of them were used.
 - `DatePicker.Root` renders a wrapping `div` so it can expose `bind:element`.
+- Dialog and Alert Dialog no longer accept `orientation`, and `DialogOrientation` is no longer exported. `size` on Content is now the only width control, and it accepts a new `xs` step.
+- Popover and Combobox no longer accept `stateKey` or `state_key`, and `Dialog.Content` no longer accepts `role`, `contentClass`, or `panelIdPrefix`. Combobox Content no longer accepts `focusTrap`, which it ignored.
+- `Select.Item` and `Combobox.Item` no longer accept `variant`, `size`, or `unstyled`, which they ignored.
+- TagInput's `requiredMessage` is replaced by `labels.required`.
+- `AlertDialog.Exit` is renamed `AlertDialog.Close`, matching Dialog.
+- `Sheet.Header` takes `showClose` in place of `close`, matching `Dialog.Content`.
+- TagInput takes `invalid` and `issues` in place of `error`, matching `Field.Root`.
+- Hover Card takes `placement` on Root in place of `side` and `align` on Content, and `delay` in place of `openDelay`, matching Popover and Tooltip.
+- Checkbox's `variant="primary"` is renamed `variant="card"`.
+- Spinner's `curved` is renamed `eased`.

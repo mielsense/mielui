@@ -15,7 +15,7 @@
         size = 16,
         ready = false,
         speed = 1,
-        curved = false,
+        eased = false,
         class: className,
         'aria-label': ariaLabel,
         'aria-hidden': ariaHidden
@@ -102,7 +102,7 @@
             viewBox={`0 0 ${size} ${size}`}
             fill="none"
             aria-hidden="true"
-            class={`[animation-play-state:var(--mielui-loop-play-state)] absolute inset-0 m-auto ${curved ? 'animate-[mielui-spinner-spin_linear_infinite]' : 'animate-spin'} transition-[filter,opacity,transform,rotate,scale] duration-[var(--motion-duration-panel)] ease-[var(--ease-out)] motion-reduce:animate-none motion-reduce:transition-none ${
+            class={`[animation-play-state:var(--mielui-loop-play-state)] absolute inset-0 m-auto ${eased ? 'animate-[mielui-spinner-spin_linear_infinite]' : 'animate-spin'} transition-[filter,opacity,transform,rotate,scale] duration-[var(--motion-duration-panel)] ease-[var(--ease-out)] motion-reduce:animate-none motion-reduce:transition-none ${
                 showCheckmark || !entered
                     ? '-rotate-90 scale-75 opacity-0'
                     : 'rotate-0 scale-100 opacity-100'

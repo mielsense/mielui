@@ -1,16 +1,18 @@
 <script lang="ts">
     import * as Dialog from '@mielui/svelte/components/dialog';
-
+    import { getDialogContext } from '../dialog/context.svelte';
     import type { AlertDialogContentProps } from '.';
 
     let {
         class: className,
         allowEscape = true,
         ariaBusy,
-        size = 'sm',
+        size = 'xs',
         children,
         ...rest
     }: AlertDialogContentProps = $props();
+
+    getDialogContext().role = 'alertdialog';
 </script>
 
 <Dialog.Content
@@ -18,8 +20,6 @@
     {size}
     allowClickOutside={false}
     showClose={false}
-    role="alertdialog"
-    panelIdPrefix="alert-dialog"
     data-ui="alert-dialog-content"
     aria-busy={ariaBusy}
     class={className}

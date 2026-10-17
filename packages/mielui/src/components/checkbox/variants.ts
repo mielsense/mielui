@@ -5,8 +5,7 @@ export const checkbox = tv({
     variants: {
         variant: {
             default: '',
-            primary:
-                'rounded-[var(--radius-xl)] border-[length:var(--border-size)] border-border bg-card p-4 transition-[background-color,border-color] [transition-duration:var(--motion-duration-hover)] motion-reduce:transition-none hover:bg-[color-mix(in_srgb,var(--color-foreground)_3%,var(--color-card))]'
+            card: 'rounded-[var(--radius-xl)] border-[length:var(--border-size)] border-border bg-card p-4 transition-[background-color,border-color] [transition-duration:var(--motion-duration-hover)] motion-reduce:transition-none hover:bg-[color-mix(in_srgb,var(--color-foreground)_3%,var(--color-card))]'
         },
         disabled: {
             true: 'opacity-[var(--opacity-disabled)]',
@@ -18,12 +17,12 @@ export const checkbox = tv({
         }
     },
     /**
-     * The checked edge belongs to the card-style `primary` variant only. A plain
+     * The checked edge belongs to the `card` variant only. A plain
      * `default` checkbox must not get a row background or border when checked.
      */
     compoundVariants: [
         {
-            variant: 'primary',
+            variant: 'card',
             checked: true,
             class: 'border-[var(--color-border-strong)]'
         }

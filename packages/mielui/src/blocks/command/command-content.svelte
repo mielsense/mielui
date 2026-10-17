@@ -23,7 +23,6 @@
     {allowClickOutside}
     size="xl"
     showClose={false}
-    panelIdPrefix="command"
     data-ui="command-content"
     aria-label={labels?.()?.palette ?? 'Command palette'}
     aria-labelledby={undefined}

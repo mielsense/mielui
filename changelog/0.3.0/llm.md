@@ -81,7 +81,7 @@ If you set `--mielui-plate-radius` on a frame yourself, keep the squircle factor
 
 Every component part exposes its DOM node as a bindable `element`. Before 0.3.0 the Calendar, RangeCalendar, DatePicker, DateRangePicker, and OTPField parts used `ref`, and so did HugeiconsIcon. Replace `bind:ref` with `bind:element` on those. The old spelling still compiles in some setups because Svelte passes unknown props through, but nothing is bound and the variable stays empty. When you wrap a Bits UI primitive yourself, type the wrapper with `WithElement<PrimitiveProps>` from `@mielui/svelte/utils` and pass `bind:ref={element}` to the primitive.
 
-Built-in text and accessible names are overridden with one `labels` object on the root, never with one prop per string. Every key is optional and English is the fallback. A key that inserts a value is a function, for example `position: (position, total) => string` on Toaster or `added: (tag, count) => string` on TagInput. In 0.3.0 Slider, NumberField, Dialog, Sheet, Notch, Toaster, Command, ColorPicker, Question, Gauge, Button, Kbd, `Form.ErrorSummary`, SkeletonSwap, CopyButton, ShowMore, TaskSteps, FolderCard, Composer, and Conversation gain the prop, and TagInput, FileUpload, DataTable, Chart, Heatmap, Reasoning, and Toaster gain keys. TagInput's `requiredMessage` is the one remaining single-string prop, and it still wins over `labels.required`.
+Built-in text and accessible names are overridden with one `labels` object on the root, never with one prop per string. Every key is optional and English is the fallback. A key that inserts a value is a function, for example `position: (position, total) => string` on Toaster or `added: (tag, count) => string` on TagInput. In 0.3.0 Slider, NumberField, Dialog, Sheet, Notch, Toaster, Command, ColorPicker, Question, Gauge, Button, Kbd, `Form.ErrorSummary`, SkeletonSwap, CopyButton, ShowMore, TaskSteps, FolderCard, Composer, and Conversation gain the prop, and TagInput, FileUpload, DataTable, Chart, Heatmap, Reasoning, and Toaster gain keys.
 
 `createContext(name)` from `@mielui/svelte/utils` now returns three helpers. `set` and `get` are unchanged, and `get` still throws `<Name> components must be used within <Name.Root>.` outside the root. `find` returns `undefined` there. Use `find` for a part that also renders on its own, the way Tabs, CodeBlock, and FileDiff parts do. Do not read library contexts with `getContext('tabs')` or another string key. Those keys are private symbols now and the call returns `undefined`.
 
@@ -98,9 +98,29 @@ The one-prop-per-string props are gone. Old call sites still type-check in some 
 - Composer: `errorMessage` on Root and `label`, `queueLabel`, `stopLabel`, `loadingLabel` on Submit become `labels` on `Composer.Root` (`error`, `send`, `queue`, `stop`, `sending`).
 - Question: `errorMessage` on Root and `label`, `loadingLabel` on Submit become `labels.submitError`, `labels.submit`, `labels.submitting` on `Question.Root`.
 - `Conversation.ScrollButton` `label` becomes `labels.scrollToBottom` on `Conversation.Root`.
+- TagInput `requiredMessage` becomes `labels.required`.
 
 Props that carry your own content stay props and win over `labels`: `placeholder` and `aria-label` on `Composer.Input` and `Question.Input`, `title` and `description` on `Conversation.Empty`, and SkeletonSwap's `label`.
 
 DataTable's `labels.rows` and `labels.selected` changed shape. They used to return the noun next to an animated number; they now return the whole phrase: `rows: (count) => string` and `selected: (selected, total) => string`. A custom phrase renders as plain text, and only the English default keeps the rolling number. Reasoning's `labels.thoughtFor(duration)` now returns the whole status line, and `labels.thought` only applies when no `duration` is passed, so set both when translating.
 
 Menu rows accept only `variant="destructive"`. `size`, `unstyled`, and other Button variants never applied to a row, and the types no longer offer them. Do not try to restyle a row through Button props; use `class`.
+
+## Dialog width comes from `size` alone
+
+`orientation` on `Dialog.Root` and `AlertDialog.Root` is gone. It never changed the layout; it only switched which width each `size` meant, so the same `size` gave different widths in Dialog and Alert Dialog. `size` on Content now maps to one scale everywhere: `xs` is `max-w-xs`, `sm` is `max-w-sm`, `md` is `max-w-md`, `lg` is `max-w-xl`, and `xl` is `max-w-2xl`. Dialog defaults to `lg` and Alert Dialog to `xs`, so neither default changed width.
+
+Remove `orientation` from call sites. The new scale is the old horizontal one plus `xs`, so a horizontal dialog keeps its `size`. A vertical dialog keeps its width by stepping `size` down one: `sm` becomes `xs`, `md` becomes `sm`, `lg` becomes `md`, and `xl` becomes `lg`. A vertical Dialog without `size` was `max-w-sm`, so give it `size="sm"`. An Alert Dialog that passed `orientation="horizontal"` without `size` was `max-w-sm`, so give it `size="sm"`.
+
+## Renamed props and parts
+
+These names now match the components they sit beside. The old names are gone, and Svelte passes an unknown prop through to the element without an error, so a missed rename fails quietly.
+
+- `AlertDialog.Exit` is `AlertDialog.Close`, the same name Dialog and Sheet use.
+- `Sheet.Header` `close` is `showClose`, the same name `Dialog.Content` uses.
+- TagInput `error="message"` is `issues={[{ message }]}`, the shape `Field.Root` takes. `invalid` marks the field without a message, and it defaults to true when there are issues. More than one issue renders as a list.
+- Hover Card `side` and `align` on Content are one `placement` on Root, such as `bottom-start`, the same values Popover takes. `openDelay` is `delay`, as on Popover and Tooltip. `sideOffset` stays on Content.
+- Checkbox `variant="primary"` is `variant="card"`. It frames the box and its text as a bordered row; it never meant the primary color.
+- Spinner `curved` is `eased`. It varies the speed through each turn.
+
+These props are removed because they did nothing useful from outside: `stateKey` and `state_key` on Popover and Combobox only prefixed DOM ids, `panelIdPrefix` on `Dialog.Content` did the same, `contentClass` landed on the same element as `class`, and `role` on `Dialog.Content` is what AlertDialog is for. Combobox Content ignored `focusTrap`, and `Select.Item` and `Combobox.Item` ignored `variant`, `size`, and `unstyled`, so they are no longer typed.

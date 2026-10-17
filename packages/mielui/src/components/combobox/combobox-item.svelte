@@ -5,18 +5,14 @@
     import { Combobox as ComboboxPrimitive, mergeProps } from 'bits-ui';
     import type { HTMLButtonAttributes } from 'svelte/elements';
     import HugeiconsIcon from '../../hugeicons-icon.svelte';
-    import { type ButtonOnlyProps, buttonAttributes } from '../_internal/button-attributes';
+    import { buttonAttributes } from '../_internal/button-attributes';
+    import type { ComboboxItemProps } from '.';
     import { getComboboxContext } from './context.svelte';
     import type { RegisteredComboboxItem } from './controller.svelte';
 
     const context = getComboboxContext();
     const localId = $props.id();
     const optionId = `combobox-${context.id}-option-${localId}`;
-    type Props = {
-        value: string;
-        label: string;
-        callback?: () => void;
-    } & ButtonOnlyProps;
 
     let {
         label,
@@ -27,7 +23,7 @@
         disabled = false,
         element = $bindable(),
         ...rest
-    }: Props = $props();
+    }: ComboboxItemProps = $props();
     const item: RegisteredComboboxItem = {
         id: optionId,
         get value() {
