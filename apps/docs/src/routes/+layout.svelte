@@ -27,6 +27,7 @@
     import { afterNavigate } from '$app/navigation';
     import { page } from '$app/state';
     import { createDocsFontState, DEFAULT_FONT, fonts } from '$lib/fonts.svelte';
+    import { themeBootScript } from '$lib/theme-boot';
 
     import type { LayoutData } from './$types';
 
@@ -80,6 +81,8 @@
 </script>
 
 <svelte:head>
+    <!-- Trusted, built from constants: applies the saved theme before the first paint. -->
+    {@html themeBootScript}
     {#if isPreview}
         <title>Mielui · Preview</title>
     {/if}

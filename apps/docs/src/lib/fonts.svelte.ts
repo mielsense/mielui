@@ -61,7 +61,7 @@ type DocsFontState = {
 };
 
 const [getDocsFontState, setDocsFontState] = createContext<DocsFontState>();
-const storageKey = 'mielui-docs-font';
+export const FONT_STORAGE_KEY = 'mielui-docs-font';
 
 function knownFont(value: unknown): string {
     return typeof value === 'string' && fonts.some((font) => font.name === value)
@@ -88,7 +88,7 @@ export function createDocsFontState(): DocsFontState {
         set current(value: string) {
             current = knownFont(value);
             try {
-                storage?.setItem(storageKey, JSON.stringify(current));
+                storage?.setItem(FONT_STORAGE_KEY, JSON.stringify(current));
             } catch {
                 return;
             }
@@ -100,7 +100,7 @@ export function createDocsFontState(): DocsFontState {
     onMount(() => {
         try {
             storage = window.localStorage;
-            current = readFont(storage.getItem(storageKey));
+            current = readFont(storage.getItem(FONT_STORAGE_KEY));
         } catch {
             storage = undefined;
         }
@@ -109,7 +109,7 @@ export function createDocsFontState(): DocsFontState {
             if (
                 storage &&
                 event.storageArea === storage &&
-                (event.key === storageKey || event.key === null)
+                (event.key === FONT_STORAGE_KEY || event.key === null)
             ) {
                 current = readFont(event.newValue);
             }

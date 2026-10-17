@@ -40,3 +40,4 @@
 - The Accordion, Breadcrumb, Pagination, and Radio Group examples use realistic content instead of placeholder labels.
 - Numeric playground options name their control, so Folder Card's tone reads "Tone 1" instead of "1".
 - Dialog examples use sentence case for their trigger labels.
+- The docs apply your saved Theme Studio theme and docs font before the first paint, instead of showing the default theme until scripts load.
