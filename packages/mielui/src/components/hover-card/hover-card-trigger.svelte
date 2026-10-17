@@ -16,7 +16,7 @@
                 role="link"
                 class={cn(
                     className,
-                    'underline decoration-foreground-muted underline-offset-2 hover:decoration-foreground'
+                    'rounded-[var(--radius-sm)] underline decoration-foreground-muted underline-offset-2 hover:decoration-foreground focus-visible:shadow-[var(--focus-ring)] focus-visible:outline-none'
                 )}
             >
                 {@render children?.()}
@@ -28,7 +28,10 @@
                 onclick={() => {
                     hoverCard.open = !hoverCard.open;
                 }}
-                class={cn(className, 'inline-flex')}
+                class={cn(
+                    className,
+                    'inline-flex rounded-[var(--radius-control)] focus-visible:shadow-[var(--focus-ring)] focus-visible:outline-none'
+                )}
             >
                 {@render children?.()}
             </button>

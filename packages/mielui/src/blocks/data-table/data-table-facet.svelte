@@ -160,7 +160,7 @@
                             Array.isArray(value) && value.some((item) => item === option.value)
                         )}
                         <Checkbox
-                            class="mielui-menu-item h-auto min-h-[var(--size-control-sm)] shrink-0 py-1 hover:bg-secondary focus-within:bg-secondary [@media(pointer:coarse)]:min-h-[var(--size-touch)]"
+                            class="mielui-menu-item h-auto min-h-[var(--size-control-sm)] shrink-0 py-1 hover:bg-[var(--color-wash)] focus-within:bg-[var(--color-wash)] [@media(pointer:coarse)]:min-h-[var(--size-touch)]"
                             label={option.label}
                             checked={selected}
                             onCheckedChange={(checked) => {

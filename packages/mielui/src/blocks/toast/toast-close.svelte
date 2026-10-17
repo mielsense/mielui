@@ -1,6 +1,6 @@
 <script lang="ts">
     import { Cancel01Icon as X } from '@hugeicons/core-free-icons';
-    import { cn } from '@mielui/svelte/utils';
+    import { cn, pressable } from '@mielui/svelte/utils';
     import type { HTMLButtonAttributes } from 'svelte/elements';
     import HugeiconsIcon from '../../hugeicons-icon.svelte';
     import { findToastLabels, getToastContext } from './context.svelte';
@@ -14,10 +14,11 @@
     aria-label={labels?.()?.dismiss ?? 'Dismiss notification'}
     {...rest}
     type="button"
+    use:pressable
     data-ui="toast-close"
     class={cn(
         className,
-        'absolute top-1.5 right-1.5 z-10 inline-flex size-7 shrink-0 items-center justify-center rounded-[var(--radius-md)] text-foreground-muted transition-colors [transition-duration:var(--motion-duration-hover)] ease-[var(--ease-out)] hover:bg-secondary hover:text-foreground focus-visible:outline-none focus-visible:shadow-[var(--focus-ring)] motion-reduce:transition-none'
+        'mielui-press absolute top-1.5 right-1.5 z-10 inline-flex size-[var(--size-control-sm)] shrink-0 items-center justify-center rounded-[var(--radius-control)] text-foreground-muted transition-[color,background-color,scale] [transition-duration:var(--motion-duration-hover),var(--motion-duration-hover),var(--motion-duration-press)] ease-[var(--ease-out)] hover:bg-[var(--color-wash)] hover:text-foreground focus-visible:outline-none focus-visible:shadow-[var(--focus-ring)] motion-reduce:transition-none'
     )}
     onclick={(event) => {
         onclick?.(event);

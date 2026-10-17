@@ -44,17 +44,17 @@
                 {/if}
             {/if}
         </span>
-        {#if pageCount >= 0}
-            <fieldset disabled={loading || pageCount === 0} class="m-0 min-w-0 border-0 p-0">
+        {#if pageCount > 0}
+            <fieldset disabled={loading} class="m-0 min-w-0 border-0 p-0">
                 <Pagination
                     {page}
-                    total={Math.max(1, pageCount)}
+                    total={pageCount}
                     onPageChange={(next) => {
                         api.setPageIndex?.(next - 1);
                     }}
                 />
             </fieldset>
-        {:else}
+        {:else if pageCount < 0}
             <Button
                 variant="outline"
                 size="sm"

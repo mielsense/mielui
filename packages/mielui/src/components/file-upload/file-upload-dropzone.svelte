@@ -37,7 +37,7 @@
                     {root.labels?.dropzoneTitle ?? 'Drop your files here'}
                 </p>
                 <p class="text-sm text-foreground-muted">
-                    {root.labels?.dropzoneDescription ?? 'Or choose them from your device.'}
+                    {root.labels?.dropzoneDescription ?? 'or choose them from your device.'}
                 </p>
             </div>
         {/if}

@@ -19,7 +19,7 @@
     data-ui="otp-field-cell"
     class={cn(
         className,
-        'relative flex size-[var(--size-control-lg)] shrink-0 items-center justify-center rounded-[var(--radius-lg)] border-[length:var(--border-size)] border-[var(--color-input)] bg-[var(--color-field)] text-[var(--color-field-foreground)] tabular-nums [font-size:var(--font-size-header)] [font-weight:var(--font-weight-label)] transition-[border-color,box-shadow] [transition-duration:var(--motion-duration-hover)] ease-[var(--ease-out)] data-active:z-10 data-active:border-primary data-active:shadow-[var(--focus-ring)] motion-reduce:transition-none'
+        'relative flex size-[var(--size-control-lg)] shrink-0 items-center justify-center rounded-[var(--radius-control)] border-[length:var(--border-size)] border-[var(--color-input)] bg-[var(--color-field)] text-[var(--color-field-foreground)] tabular-nums [font-size:var(--font-size-header)] [font-weight:var(--font-weight-label)] transition-[border-color,box-shadow] [transition-duration:var(--motion-duration-hover)] ease-[var(--ease-out)] data-active:z-10 data-active:border-primary data-active:shadow-[var(--focus-ring)] motion-reduce:transition-none'
     )}
 >
     {cell.char ?? ''}
