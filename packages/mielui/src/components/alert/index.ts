@@ -8,7 +8,7 @@ import Title from './alert-title.svelte';
 export type AlertVariant = 'info' | 'error' | 'success' | 'warning';
 
 export type AlertProps = {
-    /** Status the alert reports. It sets the icon and the text color. */
+    /** Status the alert reports. It sets the icon and its tint. */
     variant?: AlertVariant;
     /** Custom icon, or false to hide it. */
     icon?: Snippet | false;

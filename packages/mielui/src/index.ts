@@ -13,7 +13,6 @@
  * `@mielui/svelte/components/<name>` for finer-grained imports.
  */
 
-// ─── Single-element components ───────────────────────────────────────
 export { default as BrandMark } from './brand-mark.svelte';
 
 export type BrandMarkProps = {
@@ -40,6 +39,7 @@ export type {
     ComposerFooterProps,
     ComposerHeaderProps,
     ComposerInputProps,
+    ComposerLabels,
     ComposerProps,
     ComposerStatus,
     ComposerSubmitAction,
@@ -51,6 +51,7 @@ export * as Composer from './ai-components/composer';
 export type {
     ConversationContentProps,
     ConversationEmptyProps,
+    ConversationLabels,
     ConversationRootProps,
     ConversationScrollButtonProps
 } from './ai-components/conversation';
@@ -74,8 +75,10 @@ export type {
     QuestionActionProps,
     QuestionActionsProps,
     QuestionAnswer,
+    QuestionContentProps,
     QuestionDescriptionProps,
     QuestionInputProps,
+    QuestionLabels,
     QuestionOptionProps,
     QuestionOptionsProps,
     QuestionProps,
@@ -129,6 +132,7 @@ export type {
     ColorPickerContentProps,
     ColorPickerHexInputProps,
     ColorPickerHueProps,
+    ColorPickerLabels,
     ColorPickerPlaneProps,
     ColorPickerPresetsProps,
     ColorPickerPreviewProps,
@@ -136,14 +140,19 @@ export type {
 } from './blocks/color-picker';
 export * as ColorPicker from './blocks/color-picker';
 export type {
+    CommandHeaderProps,
     CommandItem,
     CommandItemProps,
+    CommandLabels,
     CommandProps,
     CommandResultsProps,
     CommandSearchProps
 } from './blocks/command';
 export * as Command from './blocks/command';
-export type { CopyButtonProps } from './blocks/copy-button';
+export type {
+    CopyButtonLabels,
+    CopyButtonProps
+} from './blocks/copy-button';
 export { CopyButton } from './blocks/copy-button';
 export type {
     DataTableBodyProps,
@@ -171,9 +180,11 @@ export type {
     FileDiffChangeType,
     FileDiffContentProps,
     FileDiffContext,
+    FileDiffFilenameProps,
     FileDiffLabels,
     FileDiffLine,
     FileDiffLineNumberProps,
+    FileDiffPlusMinusProps,
     FileDiffRootProps,
     FileDiffRowProps,
     FileDiffTheme,
@@ -186,6 +197,7 @@ export type {
     FolderCardDescriptionProps,
     FolderCardFooterProps,
     FolderCardIndexProps,
+    FolderCardLabels,
     FolderCardProps,
     FolderCardTabProps,
     FolderCardTitleProps
@@ -193,6 +205,19 @@ export type {
 export * as FolderCard from './blocks/folder-card';
 export type { MarkdownLabels, MarkdownProps } from './blocks/markdown';
 export { Markdown } from './blocks/markdown';
+export type {
+    NotchAccessoryProps,
+    NotchActionsProps,
+    NotchCloseProps,
+    NotchContentProps,
+    NotchDescriptionProps,
+    NotchHeaderProps,
+    NotchLabels,
+    NotchPeekProps,
+    NotchProps,
+    NotchSideActionProps,
+    NotchTitleProps
+} from './blocks/notch';
 export * as Notch from './blocks/notch';
 export type {
     ReorderListContentProps,
@@ -202,7 +227,7 @@ export type {
     ReorderListProps
 } from './blocks/reorder-list';
 export { ReorderList } from './blocks/reorder-list';
-export type { ShowMoreProps } from './blocks/show-more';
+export type { ShowMoreLabels, ShowMoreProps } from './blocks/show-more';
 export { ShowMore } from './blocks/show-more';
 export type {
     TaskStep,
@@ -210,6 +235,7 @@ export type {
     TaskStepsIndicatorProps,
     TaskStepsItemProps,
     TaskStepsLabelProps,
+    TaskStepsLabels,
     TaskStepsListProps,
     TaskStepsMetaProps,
     TaskStepsProps,
@@ -220,6 +246,7 @@ export { TaskSteps } from './blocks/task-steps';
 export type {
     ToastAction,
     ToastFn,
+    ToastLabels,
     ToastState,
     ToastType,
     ToastUIState
@@ -235,13 +262,49 @@ export type {
     ToolbarRootProps
 } from './blocks/toolbar';
 export { Toolbar } from './blocks/toolbar';
-export type { ChartLabels } from './chart-components/chart';
+export type {
+    ChartAreaProps,
+    ChartBarProps,
+    ChartGridProps,
+    ChartLabels,
+    ChartLegendProps,
+    ChartLineProps,
+    ChartPlotProps,
+    ChartProps,
+    ChartTooltipProps,
+    ChartXAxisProps,
+    ChartYAxisProps
+} from './chart-components/chart';
 export * as Chart from './chart-components/chart';
-export type { GaugeProps, GaugeTone } from './chart-components/gauge';
+export type { GaugeLabels, GaugeProps, GaugeTone } from './chart-components/gauge';
 export { Gauge } from './chart-components/gauge';
-export type { HeatmapLabels } from './chart-components/heatmap';
+export type {
+    HeatmapCalendarProps,
+    HeatmapCellProps,
+    HeatmapDetailProps,
+    HeatmapFooterProps,
+    HeatmapGridProps,
+    HeatmapHeaderProps,
+    HeatmapLabels,
+    HeatmapLegendProps,
+    HeatmapMonthLabelsProps,
+    HeatmapProps,
+    HeatmapSummaryProps,
+    HeatmapTooltipProps,
+    HeatmapWeekdayLabelsProps
+} from './chart-components/heatmap';
 export * as Heatmap from './chart-components/heatmap';
-export type { PieChartLabels } from './chart-components/pie-chart';
+export type {
+    PieChartArcProps,
+    PieChartConfig,
+    PieChartDatum,
+    PieChartLabelProps,
+    PieChartLabels,
+    PieChartLegendProps,
+    PieChartPlotProps,
+    PieChartProps,
+    PieChartTooltipProps
+} from './chart-components/pie-chart';
 export * as PieChart from './chart-components/pie-chart';
 export type {
     AccordionContentProps,
@@ -249,7 +312,6 @@ export type {
     AccordionProps,
     AccordionTriggerProps
 } from './components/accordion';
-// ─── Compound components (namespaced) ────────────────────────────────
 export * as Accordion from './components/accordion';
 export type {
     AlertDescriptionProps,
@@ -274,7 +336,12 @@ export type {
     BreadcrumbSeparatorProps
 } from './components/breadcrumb';
 export * as Breadcrumb from './components/breadcrumb';
-export type { ButtonProps, ButtonStatus, ButtonVariant } from './components/button';
+export type {
+    ButtonLabels,
+    ButtonProps,
+    ButtonStatus,
+    ButtonVariant
+} from './components/button';
 export { Button } from './components/button';
 export type { CalendarMonthProps, CalendarProps } from './components/calendar';
 export * as Calendar from './components/calendar';
@@ -296,7 +363,9 @@ export type {
 } from './components/collapsible';
 export * as Collapsible from './components/collapsible';
 export type {
+    ComboboxContentProps,
     ComboboxItem,
+    ComboboxItemProps,
     ComboboxLabels,
     ComboboxRootProps,
     ComboboxTriggerProps
@@ -330,7 +399,7 @@ export type {
     DialogDescriptionProps,
     DialogFooterProps,
     DialogHeaderProps,
-    DialogOrientation,
+    DialogLabels,
     DialogProps,
     DialogSize,
     DialogTitleProps,
@@ -358,6 +427,15 @@ export type {
     DropdownMenuRadioItemProps
 } from './components/dropdown-menu';
 export * as DropdownMenu from './components/dropdown-menu';
+export type {
+    EmptyStateActionsProps,
+    EmptyStateContentProps,
+    EmptyStateDescriptionProps,
+    EmptyStateHeaderProps,
+    EmptyStateMediaProps,
+    EmptyStateProps,
+    EmptyStateTitleProps
+} from './components/empty-state';
 export * as EmptyState from './components/empty-state';
 export type {
     FieldContentProps,
@@ -390,6 +468,7 @@ export type {
 export * as FileUpload from './components/file-upload';
 export type {
     FormActionsProps,
+    FormErrorSummaryLabels,
     FormErrorSummaryProps,
     FormIssue,
     FormProps,
@@ -397,24 +476,41 @@ export type {
     FormSubmitProps
 } from './components/form';
 export * as Form from './components/form';
+export type {
+    GroupProps,
+    GroupSeparatorProps,
+    GroupTextProps
+} from './components/group';
 export * as Group from './components/group';
 export type {
     HoverCardContentProps,
+    HoverCardDescriptionProps,
+    HoverCardPlacement,
     HoverCardProps,
+    HoverCardTitleProps,
     HoverCardTriggerProps
 } from './components/hover-card';
 export * as HoverCard from './components/hover-card';
 export type { InputProps } from './components/input';
 export { Input } from './components/input';
-export type { KbdProps } from './components/kbd';
+export type {
+    KbdLabels,
+    KbdProps
+} from './components/kbd';
 export { Kbd } from './components/kbd';
 export type { LabelProps } from './components/label';
 export { Label } from './components/label';
+export type {
+    NativeSelectOptGroupProps,
+    NativeSelectOptionProps,
+    NativeSelectProps
+} from './components/native-select';
 export * as NativeSelect from './components/native-select';
 export type {
     NumberFieldGroupProps,
     NumberFieldInputProps,
     NumberFieldLabelProps,
+    NumberFieldLabels,
     NumberFieldProps,
     NumberFieldStepperProps
 } from './components/number-field';
@@ -445,7 +541,14 @@ export type { RangeCalendarMonthProps, RangeCalendarProps } from './components/r
 export * as RangeCalendar from './components/range-calendar';
 export type { ScrollAreaProps } from './components/scroll-area';
 export { ScrollArea } from './components/scroll-area';
-export type { SelectItemProps, SelectProps, SelectValueProps } from './components/select';
+export type {
+    SelectContentProps,
+    SelectItemProps,
+    SelectLabelProps,
+    SelectProps,
+    SelectTriggerProps,
+    SelectValueProps
+} from './components/select';
 export * as Select from './components/select';
 export type { SeparatorProps } from './components/separator';
 export { Separator } from './components/separator';
@@ -455,19 +558,39 @@ export type {
     SheetDescriptionProps,
     SheetFooterProps,
     SheetHeaderProps,
+    SheetLabels,
     SheetProps,
     SheetTitleProps,
     SheetTriggerProps
 } from './components/sheet';
 export * as Sheet from './components/sheet';
-export type { SkeletonProps, SkeletonSwapProps } from './components/skeleton';
+export type {
+    SkeletonProps,
+    SkeletonSwapLabels,
+    SkeletonSwapProps
+} from './components/skeleton';
 export { Skeleton, SkeletonSwap } from './components/skeleton';
-export type { SliderProps } from './components/slider';
+export type {
+    SliderLabels,
+    SliderProps,
+    SliderVariant
+} from './components/slider';
 export { Slider } from './components/slider';
 export type { SpinnerProps } from './components/spinner';
 export { Spinner } from './components/spinner';
 export type { SwitchProps } from './components/switch';
 export { Switch } from './components/switch';
+export type {
+    TableBodyProps,
+    TableCaptionProps,
+    TableCellProps,
+    TableFooterProps,
+    TableHeaderProps,
+    TableHeadProps,
+    TableProps,
+    TableRowProps,
+    TableScrollAreaProps
+} from './components/table';
 export * as Table from './components/table';
 export type {
     TabsContentProps,

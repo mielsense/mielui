@@ -21,9 +21,11 @@
 
     let helpful = $state(false);
     let status = $state('');
+
     function reportCopy() {
         status = 'Response copied to clipboard.';
     }
+
     function toggleHelpful() {
         helpful = !helpful;
     }
@@ -52,17 +54,12 @@
         <Message.Actions aria-label="Assistant response actions">
             <CopyButton
                 text={response}
-                label="Copy response"
-                copiedLabel="Response copied"
-                variant="ghost"
-                size="md"
-                class="size-8 rounded-[var(--radius-md)] p-0"
+                labels={{ copy: 'Copy response', copied: 'Response copied' }}
                 oncopy={reportCopy}
             />
             <Button
                 variant="ghost"
-                size="md"
-                class="size-8 rounded-[var(--radius-md)] p-0"
+                size="icon"
                 aria-label={helpful ? 'Remove helpful rating' : 'Mark response as helpful'}
                 aria-pressed={helpful}
                 onclick={toggleHelpful}

@@ -1,50 +1,5 @@
 [
     {
-        "name": "onclick",
-        "type": "MouseEventHandler<HTMLImageElement> | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
-        "name": "onclickcapture",
-        "type": "MouseEventHandler<HTMLImageElement> | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
-        "name": "on:contextmenu",
-        "type": "MouseEventHandler<HTMLImageElement> | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
-        "name": "oncontextmenu",
-        "type": "MouseEventHandler<HTMLImageElement> | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
-        "name": "oncontextmenucapture",
-        "type": "MouseEventHandler<HTMLImageElement> | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
         "name": "on:dblclick",
         "type": "MouseEventHandler<HTMLImageElement> | null | undefined",
         "required": false,
@@ -2242,6 +2197,51 @@
     },
     {
         "name": "oncanplaycapture",
+        "type": "EventHandler<Event, HTMLAnchorElement> | null | EventHandler<Event, HTMLDivElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "on:canplaythrough",
+        "type": "EventHandler<Event, HTMLAnchorElement> | null | EventHandler<Event, HTMLDivElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "oncanplaythrough",
+        "type": "EventHandler<Event, HTMLAnchorElement> | null | EventHandler<Event, HTMLDivElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "oncanplaythroughcapture",
+        "type": "EventHandler<Event, HTMLAnchorElement> | null | EventHandler<Event, HTMLDivElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "on:cuechange",
+        "type": "EventHandler<Event, HTMLAnchorElement> | null | EventHandler<Event, HTMLDivElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "oncuechange",
         "type": "EventHandler<Event, HTMLAnchorElement> | null | EventHandler<Event, HTMLDivElement> | null | undefined",
         "required": false,
         "bindable": false,

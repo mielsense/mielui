@@ -5,13 +5,13 @@
     import { ArrowDown02Icon, ArrowUp02Icon, ArrowUpDownIcon } from '@hugeicons/core-free-icons';
     import { cn } from '@mielui/svelte/utils';
     import { FlexRender } from '@tanstack/svelte-table';
-    import { getContext } from 'svelte';
     import HugeiconsIcon from '../../hugeicons-icon.svelte';
-    import type { DataTableColumnHeaderProps, DataTableLabels } from '.';
+    import type { DataTableColumnHeaderProps } from '.';
+    import { findDataTableLabels } from './context';
     import { sortableColumn } from './features';
 
     let { header, class: className }: DataTableColumnHeaderProps<TFeatures, TData> = $props();
-    const labels = getContext<(() => DataTableLabels | undefined) | undefined>('data-table-labels');
+    const labels = findDataTableLabels();
     const column = $derived(sortableColumn(header.column));
     const sorted = $derived(column.getIsSorted?.());
     const next = $derived(column.getNextSortingOrder?.());
@@ -32,7 +32,7 @@
         title={hint}
         class={cn(
             className,
-            'group/sort -mx-1.5 inline-flex min-h-8 cursor-pointer items-center gap-1.5 rounded-[var(--radius-sm)] px-1.5 text-start font-medium text-foreground-muted outline-none transition-colors [transition-duration:var(--motion-duration-hover)] hover:bg-foreground/[0.06] hover:text-foreground focus-visible:shadow-[var(--focus-ring)] data-sorted:text-foreground motion-reduce:transition-none'
+            'group/sort -mx-2 inline-flex min-h-[calc(var(--spacing)*7)] items-center gap-1.5 rounded-[var(--radius-control)] px-2 text-start font-medium text-foreground-muted outline-none transition-[background-color,color,box-shadow] [transition-duration:var(--motion-duration-hover)] hover:cursor-[var(--ui-cursor-interactive)] hover:bg-[var(--color-wash)] hover:text-foreground focus-visible:shadow-[var(--focus-ring)] data-sorted:text-foreground motion-reduce:transition-none'
         )}
         onclick={(event) => {
             column.toggleSorting?.(undefined, event.shiftKey);

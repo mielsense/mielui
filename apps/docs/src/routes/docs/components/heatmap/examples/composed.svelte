@@ -4,13 +4,16 @@
 
     let selected = $state('Choose a day');
 </script>
+
 <Heatmap.Root
     {days}
     weeks={12}
     endDate="2026-09-15"
     weekStartsOn={1}
     class="max-w-sm"
-    onDaySelect={(day) => { selected = `${day.date}: ${day.count} contributions`; }}
+    onDaySelect={(day) => {
+        selected = `${day.date}: ${day.count} contributions`;
+    }}
 >
     {#snippet children({ total })}
         <Heatmap.Header>

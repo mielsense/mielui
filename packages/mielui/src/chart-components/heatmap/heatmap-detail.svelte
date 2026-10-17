@@ -1,21 +1,14 @@
 <script lang="ts">
-    import type { Snippet } from 'svelte';
-    import type { HTMLAttributes } from 'svelte/elements';
-    import { cn } from '../../utils';
-    import type { Cell } from './calendar';
-    import { useHeatmap } from './context.svelte';
+    import { cn } from '@mielui/svelte/utils';
+    import type { HeatmapDetailProps } from '.';
+    import { getHeatmapContext } from './context';
 
-    let {
-        children,
-        class: className,
-        ...props
-    }: Omit<HTMLAttributes<HTMLParagraphElement>, 'children'> & {
-        children?: Snippet<[Cell | undefined]>;
-    } = $props();
-    const context = useHeatmap();
+    let { children, class: className, ...rest }: HeatmapDetailProps = $props();
+    const context = getHeatmapContext();
 </script>
+
 <p
-    {...props}
+    {...rest}
     data-ui="heatmap-detail"
     role={context.ready ? undefined : 'status'}
     class={cn(className, 'min-h-4 text-xs text-foreground-muted tabular-nums')}

@@ -1,7 +1,8 @@
 <script lang="ts">
     import { CodeBlock } from '@mielui/svelte/components/code-block';
+    import { CopyButton } from '@mielui/svelte/components/copy-button';
     import * as Typography from '@mielui/svelte/components/typography';
-    import { ComponentPreview, InstallCommand } from '$lib/components/docs';
+    import { ComponentPreview, InstallCommand, Playground } from '$lib/components/docs';
     import InlineText from '$lib/components/docs/inline-text.svelte';
     import PageIntro from '$lib/components/docs/page-intro.svelte';
     import Basic from './examples/basic.svelte';
@@ -12,59 +13,88 @@
     import HeroSrc from './examples/hero.svelte?raw';
     import Variants from './examples/variants.svelte';
     import VariantsSrc from './examples/variants.svelte?raw';
+    import {
+        code as playgroundCode,
+        command as playgroundCommand,
+        controls as playgroundControls
+    } from './playground';
 
-    const installCommand = 'pnpm dlx @mielui/svelte add copy-button';
+    const usageCode = `<script lang="ts">
+    import { CopyButton } from '@mielui/svelte/components/copy-button';
+</${'script'}>
+
+<CopyButton text="pnpm add @mielui/svelte" />
+<CopyButton text="sk_live_example" labels={{ copy: 'Copy API key' }} variant="outline" size="md">
+    Copy key
+</CopyButton>`;
 </script>
 
 <svelte:head>
     <title>Mielui · Copy Button</title>
     <meta
         name="description"
-        content="A one-tap clipboard button with a Copy↔Check icon morph and an animated tooltip label."
+        content="A button that copies text to the clipboard, with copy and copied states."
     />
 </svelte:head>
 
 <div data-docs-page class="flex flex-col gap-10">
-    <!-- ─── Header ────────────────────────────────────────────────── -->
     <PageIntro title="Copy Button">
         A button that copies text to the clipboard, with copy and copied states.
     </PageIntro>
 
-    <!-- ─── Hero Example ──────────────────────────────────────────── -->
     <section id="hero" class="scroll-mt-20 flex flex-col gap-4">
-        <ComponentPreview code={HeroSrc}>
-            <Hero />
-        </ComponentPreview>
+        <Playground controls={playgroundControls} code={playgroundCode}>
+            {#snippet children(values)}
+                {const button = $derived({
+                    text: playgroundCommand,
+                    variant: values.variant,
+                    disabled: values.disabled
+                })}
+                <div class="flex items-center gap-3">
+                    <code class="text-sm">{playgroundCommand}</code>
+                    {#if values.size === 'icon'}
+                        <CopyButton {...button} />
+                    {:else}
+                        <CopyButton {...button} size={values.size}>Copy command</CopyButton>
+                    {/if}
+                </div>
+            {/snippet}
+        </Playground>
     </section>
 
-    <!-- ─── Installation ──────────────────────────────────────────── -->
     <section id="installation" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Installation</Typography.H2>
-        <InstallCommand command={installCommand} />
+        <InstallCommand command="pnpm dlx @mielui/svelte add copy-button" />
     </section>
 
-    <!-- ─── Usage ─────────────────────────────────────────────────── -->
     <section id="usage" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Usage</Typography.H2>
-        <Typography.Text variant="supporting">
-            The click handler runs before copying; call preventDefault() to cancel. The oncopy
-            callback receives the exact text requested by the latest successful copy. Pending copies
-            are ignored after the button is removed.
+        <Typography.Text>
+            Pass the text to copy. The button shows a copy icon with a tooltip, or a visible label
+            when you give it children and a text size.
         </Typography.Text>
+        <CodeBlock code={usageCode} lang="svelte" copy="overlay" />
         <Typography.Text variant="supporting">
-            Import Copy Button and pass the text to copy:
+            onclick runs before copying; call preventDefault() to cancel. oncopy runs after a
+            successful clipboard write and receives the copied text. Clipboard access needs a secure
+            context, so keep the source text visible for people to select by hand when it is
+            blocked.
         </Typography.Text>
-        <CodeBlock
-            code={`import { CopyButton } from '@mielui/svelte/components/copy-button';\n\n<CopyButton text="pnpm add @mielui/svelte" />\n<CopyButton text={apiKey} label="Copy key" variant="outline" />`}
-            lang="svelte"
-            copy="overlay"
-        />
     </section>
 
-    <!-- ─── Examples ──────────────────────────────────────────────── -->
     <section id="examples" class="scroll-mt-20 flex flex-col gap-10">
         <div>
             <Typography.H2 class="docs-section-heading">Examples</Typography.H2>
+        </div>
+
+        <div id="copy-confirmation" class="scroll-mt-20 flex flex-col gap-3">
+            <Typography.H3 class="docs-subsection-heading">Copy confirmation</Typography.H3>
+            <Typography.Text variant="supporting">
+                A status line under the command updates after a successful copy.
+            </Typography.Text>
+            <ComponentPreview code={HeroSrc}>
+                <Hero />
+            </ComponentPreview>
         </div>
 
         <div id="in-a-field" class="scroll-mt-20 flex flex-col gap-3">
@@ -81,19 +111,11 @@
             </ComponentPreview>
         </div>
     </section>
-    <section id="working-example" class="flex scroll-mt-20 flex-col gap-4">
-        <Typography.H2 class="docs-section-heading">Confirm the clipboard result</Typography.H2>
-        <Typography.Text>
-            Use oncopy for feedback after a successful clipboard write. A secure browser context and
-            clipboard permission are required. Keep the source text available so people can select
-            it manually when clipboard access is blocked.
-        </Typography.Text>
-    </section>
-    <section id="feedback" class="flex flex-col gap-4">
+    <section id="feedback" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Copied feedback</Typography.H2>
         <Typography.Text variant="supporting">
             <InlineText
-                text={"After a copy, the button holds its copied state and shows `copiedLabel` in the tooltip. `duration` is how long that lasts in milliseconds, 2000 by default. `size` picks the button height. Put text in `children` to show a label beside the icon."}
+                text={"`labels.copy` is the tooltip and accessible name at rest, Copy by default. After a copy, the button holds its copied state and shows `labels.copied`, Copied by default. Every key in `labels` is optional and English is the fallback. `duration` is how long the copied state lasts in milliseconds, 2000 by default."}
             />
         </Typography.Text>
         <ComponentPreview code={FeedbackExampleSrc}>

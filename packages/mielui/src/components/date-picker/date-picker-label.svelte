@@ -1,17 +1,18 @@
 <script lang="ts">
-    import { cn } from '@mielui/svelte/utils';
+    import { cn, type WithElement } from '@mielui/svelte/utils';
     import { DatePicker as DatePickerPrimitive } from 'bits-ui';
+    import { dateLabelClasses } from './variants';
 
     let {
         class: className,
-        ref = $bindable(null),
+        element = $bindable(null),
         ...rest
-    }: DatePickerPrimitive.LabelProps = $props();
+    }: WithElement<DatePickerPrimitive.LabelProps> = $props();
 </script>
 
 <DatePickerPrimitive.Label
     {...rest}
-    bind:ref
+    bind:ref={element}
     data-ui="date-picker-label"
-    class={cn(className, 'text-sm font-medium text-foreground data-disabled:opacity-[var(--opacity-disabled)]')}
+    class={cn(className, dateLabelClasses)}
 />

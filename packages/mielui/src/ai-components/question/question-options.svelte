@@ -1,7 +1,7 @@
 <script lang="ts">
     import { cn } from '@mielui/svelte/utils';
     import type { QuestionOptionsProps } from '.';
-    import { getQuestionContext } from './context.svelte';
+    import { getQuestionContext } from './context';
 
     let { class: className, children, ...rest }: QuestionOptionsProps = $props();
     const context = getQuestionContext();
@@ -11,7 +11,7 @@
     {...rest}
     data-ui="question-options"
     data-type={context.type}
-    class={cn(className, 'grid gap-1 px-1.5 pt-4 pb-3 [counter-reset:question-option]')}
+    class={cn(className, 'grid gap-0.5 px-1.5 pt-2.5 pb-2.5 [counter-reset:question-option]')}
 >
     {@render children?.()}
 </div>

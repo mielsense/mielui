@@ -19,7 +19,27 @@ export type CommandItem = {
     disabled: boolean;
 };
 
+export type CommandLabels = {
+    /** Accessible name of the palette dialog. */
+    palette?: string;
+    /** Placeholder of the search input. The `placeholder` prop on Search wins. */
+    searchPlaceholder?: string;
+    /** Accessible name of the search input. */
+    search?: string;
+    /** Accessible name of the results list. */
+    results?: string;
+    /** Text shown when nothing matches and Results has no `empty` snippet. */
+    empty?: string;
+    /** Screen reader announcement of how many commands match the search. */
+    available?: (count: number) => string;
+};
+
 export type CommandProps = {
+    /**
+     * Overrides the built-in text and accessible names. Every key is optional and English is the
+     * fallback.
+     */
+    labels?: CommandLabels;
     /** Whether it is open. Bind it to control the state from outside. */
     open?: boolean;
     /** Called with the new state whenever it opens or closes. */

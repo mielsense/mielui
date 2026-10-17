@@ -10,7 +10,7 @@ import type { Manifest } from '@mielui/svelte/_manifest/types';
  */
 export const manifest: Manifest = {
     name: 'tag-input',
-    version: '1.0.0',
+    version: '1.1.0',
     visibility: 'public',
     description:
         'Tokenized tag entry field with keyboard, paste, and validation support. Compound: Root / List / Tag / Input.',
@@ -19,7 +19,8 @@ export const manifest: Manifest = {
         'components/tag-input/tag-input-list.svelte',
         'components/tag-input/tag-input-tag.svelte',
         'components/tag-input/tag-input-input.svelte',
-        'components/tag-input/context.svelte.ts',
+        'components/tag-input/context.ts',
+        'components/tag-input/controller.svelte.ts',
         'components/tag-input/index.ts',
         'components/tag-input/manifest.ts'
     ],
@@ -35,6 +36,6 @@ export const manifest: Manifest = {
         '@floating-ui/dom': '1.7.6',
         '@hugeicons/core-free-icons': '^4.3.0',
         cnfast: '^0.0.8',
-        svelte: '^5.0.0'
+        svelte: '^5.56.0'
     }
 };

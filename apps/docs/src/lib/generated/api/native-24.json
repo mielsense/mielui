@@ -1,50 +1,5 @@
 [
     {
-        "name": "onloadedmetadatacapture",
-        "type": "EventHandler<Event, HTMLOListElement> | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
-        "name": "on:loadstart",
-        "type": "EventHandler<Event, HTMLOListElement> | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
-        "name": "onloadstart",
-        "type": "EventHandler<Event, HTMLOListElement> | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
-        "name": "onloadstartcapture",
-        "type": "EventHandler<Event, HTMLOListElement> | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
-        "name": "on:pause",
-        "type": "EventHandler<Event, HTMLOListElement> | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
         "name": "onpause",
         "type": "EventHandler<Event, HTMLOListElement> | null | undefined",
         "required": false,
@@ -2243,6 +2198,51 @@
     {
         "name": "on:change",
         "type": "FormEventHandler<HTMLAnchorElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onchange",
+        "type": "FormEventHandler<HTMLAnchorElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onchangecapture",
+        "type": "FormEventHandler<HTMLAnchorElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "on:beforeinput",
+        "type": "EventHandler<InputEvent, HTMLAnchorElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onbeforeinput",
+        "type": "EventHandler<InputEvent, HTMLAnchorElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onbeforeinputcapture",
+        "type": "EventHandler<InputEvent, HTMLAnchorElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,

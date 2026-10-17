@@ -1,8 +1,7 @@
 <script lang="ts">
     import { cn } from '@mielui/svelte/utils';
-    import { setContext } from 'svelte';
-    import type { MessageLabels, MessageRootProps } from '.';
-    import { type MessageContext, setMessageContext } from './context.svelte';
+    import type { MessageRootProps } from '.';
+    import { type MessageContext, setMessageContext, setMessageLabels } from './context';
     import Avatar from './message-avatar.svelte';
     import Body from './message-body.svelte';
     import Metadata from './message-metadata.svelte';
@@ -22,7 +21,7 @@
         labels,
         ...rest
     }: MessageRootProps = $props();
-    setContext<() => MessageLabels | undefined>('message-labels', () => labels);
+    setMessageLabels(() => labels);
 
     const message: MessageContext = {
         get name() {

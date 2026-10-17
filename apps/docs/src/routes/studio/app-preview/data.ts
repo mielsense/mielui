@@ -1,4 +1,5 @@
 export type InvoiceStatus = 'Paid' | 'Due soon' | 'Overdue' | 'Sent' | 'Draft';
+
 export type Invoice = {
     client: string;
     initials: string;
@@ -8,6 +9,12 @@ export type Invoice = {
     status: InvoiceStatus;
     notes?: string;
 };
+
+/** Reads an invoice's formatted amount, such as `$12,400`, as a number. */
+export function invoiceAmount(invoice: Invoice) {
+    return Number.parseFloat(invoice.amount.replace(/[$,]/g, ''));
+}
+
 export const initialInvoices: Invoice[] = [
     {
         client: 'Northwind Trading',

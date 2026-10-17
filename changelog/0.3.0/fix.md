@@ -1,0 +1,78 @@
+- Outline buttons inside a Group use the same border color as the inputs, text, and dividers beside them. They kept a lighter border, so the frame changed color partway around.
+- Composer gives the input and its joined toolbar more padding.
+- Outline buttons wrapped in a Tooltip or another trigger inside a Group take the group's border color too, so the frame no longer changes color at the wrapped button.
+- The traveling highlight in menus and the command palette is measured correctly while its panel is still scaling in, so the first highlighted row is no longer too narrow after a keyboard open.
+- The traveling highlight snaps to the active row for arrow keys and selection changes, and only glides for a pointer.
+- Combobox results no longer animate their height on every keystroke.
+- An indeterminate Progress pulses under reduced motion instead of freezing as a one-third bar.
+- Tooltips scale from their trigger instead of their center.
+- Toasts fade in as they rise instead of appearing at full opacity.
+- Nested corners share a centre. Dialog, Sheet, Drawer, inset Card, Table, and Composer frames take their radius from the control radius plus their two-unit strip padding, menus and popovers from their rows, and CodeBlock, Toolbar, and the Reorder List handle follow the same rule.
+- A closed Select or Combobox no longer intercepts clicks on whatever sits below its trigger.
+- Dropdown menus, context menus, their submenus, and Select and Combobox lists keep an 8px margin from the window edge instead of sitting flush against it.
+- Collapsing an Accordion, Collapsible, Reasoning, or Tool no longer logs an "Invalid keyframe value for property height" warning.
+- `Message.Content` caps assistant and system text at 65 characters per line, as intended. The cap was losing to a full-width class.
+- Closing a Dialog or Sheet from a menu item or confirmation inside it, in the same tick, no longer logs Svelte's `derived_inert` warning.
+- The info status color and the accent tint follow `--color-primary`, so setting that one token rebrands them too.
+- `Command.Header` leaves the palette when it is removed instead of staying until the page reloads.
+- `Popover.Trigger` renders the chevron its `icon` prop describes. It is off by default and turns while the popover is open.
+- CodeBlock keeps its gutter beside the code when `theme="custom"` is combined with line numbers or an inline copy button.
+- `Toolbar.Group` stacks its items in a vertical toolbar, and vertical items share one width.
+- Calendar, Range Calendar, Date Picker, and Date Range Picker keep the visible month when their props change, which also stops a crash in the month and year selects when props are spread onto the root.
+- Long weekday names are cut with an ellipsis instead of overlapping in the calendar header.
+- A date field with `granularity="hour"` no longer shows a stray "(second: 00)" after the hour.
+- `Select.Trigger` accepts `aria-invalid` in its type.
+- The placeholder and chevron on primary, destructive, and glow Select and Combobox triggers take the button's text color, so they are readable on the fill.
+- A Combobox search field keeps the typed query after a pick instead of showing the picked label.
+- A Textarea with a footer no longer shows the browser's resize grip inside its frame.
+- `Group.Text` matches the height of the controls beside it in a vertical group.
+- Checked task items in Markdown show a tick instead of a dash.
+- The Conversation scroll button no longer catches clicks while it is hidden.
+- User messages are capped at 90% of the transcript width and system messages at their own measure. Both caps were losing to a full-width class.
+- A selected radio and a selected Toggle Group item keep their lit edge while focused, instead of showing only the focus ring.
+- A disabled radio's label shows the not-allowed cursor.
+- The Reorder List handle darkens while its row is lifted.
+- A tabbed CodeBlock scrolls in one place. Its panels no longer carry a second, competing height limit.
+- `Tabs.List` accepts `id`, `aria-label`, and `aria-labelledby` in its type, and `Combobox.Trigger` accepts `aria-labelledby`.
+- A standalone Label uses the same line height as the labels built into fields.
+- `mielui add kbd` installs the two modules Kbd imports. Its manifest left them out, so a CLI install could not compile.
+- `mielui add data-table` lists the shared context helper its parts use.
+- A part of Accordion, Radio Group, Toggle Group, Hover Card, Tooltip, or File Upload used outside its root throws an error that names the missing root.
+- `Combobox.Label` no longer copies its own props onto the paragraph as HTML attributes.
+- `FileUpload.Trigger` shows `labels.choose` when it has no children. It ignored the label before.
+- Chart tooltips, the crosshair, and the line marker appear at the hovered point instead of sliding in from the chart's corner.
+- Chart, Pie Chart, and Heatmap tooltips move instantly when the keyboard drives them, and glide only for the pointer.
+- Chart axes keep as many decimals as their ticks need, so 0.25 no longer reads as 0.3.
+- The chart's screen-reader data table formats dates and numbers the same way as the visible chart.
+- Gauge and Pie Chart read a unitless motion duration token as milliseconds instead of seconds.
+- Reasoning no longer renders `data-streaming="false"` while idle, so `[data-streaming]` selectors match only a live trace.
+- The Composer error notice uses the accessible error text color.
+- Closed popovers no longer recompute their position on every scroll and resize.
+- `DropdownMenu.Trigger` draws its chevron when `icon` is set instead of writing an `icon` attribute onto the button.
+- File Upload adds files on pages served over plain HTTP. It threw because it relied on `crypto.randomUUID()`.
+- `Group.Text` renders at the label size.
+- `Button` stays a non-submit button when `type={undefined}` is passed.
+- Checkbox keeps the native input in sync when an `oninput` handler cancels the change, and after a form reset.
+- Checkbox items inside a `ContextMenu.Sub` keep their checked state after the menu closes and reopens.
+- Alert Dialog's Exit and Confirm buttons sit on the correct sides in right-to-left layouts.
+- Link badges show the shared focus ring and use the theme's interactive cursor.
+- The highlight in menus, Select, and Combobox no longer sits a fraction of a pixel off its row.
+- SkeletonSwap stops its loading sweep once the placeholder is hidden, offscreen, or in a background tab.
+- Tag Input tags use the theme's interactive cursor instead of always showing a pointer.
+- Folder Card titles keep the same id between server and client render.
+- The Toast position counter is announced to screen readers.
+- `mielui add` installs the peers and shared modules that Command, Data Table, Toast, Popover, Select, Radio Group, and the date pickers import, and no longer copies files they do not use.
+- Manifests declare the Svelte version Mielui actually requires, `^5.56.0`, so `mielui add` no longer accepts an older Svelte that cannot compile the copied files.
+- `Select.Trigger` binds its node with `bind:element`, as its docs said.
+- CopyButton's `oncopy` accepts a `(text) => void` handler without a type error.
+- Server-rendered inset cards, code blocks, and other two-layer surfaces put their header or footer strip on the theme's inset edge from the first paint, instead of moving it once scripts load.
+- Tabs show the selected tab's indicator in server-rendered HTML, before scripts measure it.
+- The Toast close button uses the small control size, the control radius, the shared hover wash, and press feedback.
+- Data Table filter options hover with the shared wash instead of the secondary fill.
+- OTP Field cells take the control radius, so the sharp and rounded radius scales apply to them.
+- The Hover Card trigger shows the shared focus ring.
+- An empty Data Table shows "No pages" without a page button beside it.
+- The File Upload dropzone's default description starts in lowercase, so it reads as one sentence with its title.
+- Heatmap reads the theme's motion once per chart instead of once per cell, so year-long heatmaps mount faster.
+- The Toast stack computes each toast's offset once per change instead of re-summing every height for each toast.
+- Copied component folders name their context module `context.ts` instead of `context.svelte.ts`. Re-adding a component leaves the old file behind; delete it.

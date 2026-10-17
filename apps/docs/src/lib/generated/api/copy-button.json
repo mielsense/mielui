@@ -3,30 +3,21 @@
         "name": "CopyButton",
         "properties": [
             {
+                "name": "labels",
+                "type": "CopyButtonLabels | undefined",
+                "required": false,
+                "bindable": false,
+                "default": null,
+                "description": "Overrides the built-in text and accessible names. Every key is optional and English is the fallback.",
+                "inherited": false
+            },
+            {
                 "name": "text",
                 "type": "string",
                 "required": true,
                 "bindable": false,
                 "default": null,
                 "description": "The string written to the clipboard on click.",
-                "inherited": false
-            },
-            {
-                "name": "label",
-                "type": "string | undefined",
-                "required": false,
-                "bindable": false,
-                "default": "'Copy'",
-                "description": "Tooltip label at rest.",
-                "inherited": false
-            },
-            {
-                "name": "copiedLabel",
-                "type": "string | undefined",
-                "required": false,
-                "bindable": false,
-                "default": "'Copied'",
-                "description": "Tooltip label shown right after copying.",
                 "inherited": false
             },
             {
@@ -76,7 +67,7 @@
             },
             {
                 "name": "oncopy",
-                "type": "(((text: string) => void) & ClipboardEventHandler<HTMLButtonElement>) | undefined",
+                "type": "((text: string) => void) | undefined",
                 "required": false,
                 "bindable": false,
                 "default": null,
@@ -329,7 +320,7 @@
             885,
             886,
             887,
-            1728,
+            1724,
             888,
             889,
             890,
@@ -512,7 +503,7 @@
             427,
             428,
             1062,
-            2999,
+            2995,
             1064,
             1065,
             1066,

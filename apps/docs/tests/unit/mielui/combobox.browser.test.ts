@@ -210,23 +210,16 @@ describe('Combobox -- search input', () => {
         await expect.element(page.getByText('No results found')).toBeVisible();
     });
 
-    it('smoothly collapses options removed by filtering', async () => {
+    it('collapses options removed by filtering without motion', async () => {
         render(ComboboxFixture, {});
         await flush();
         await openCombobox();
 
-        const appleMotion = page
+        const appleRow = page
             .getByText('Apple')
             .element()
             .closest<HTMLElement>('[data-combobox-result]');
-        expect(appleMotion).not.toBeNull();
-        const unrelatedAnimation = appleMotion?.animate(
-            [{ color: 'currentColor' }, { color: 'currentColor' }],
-            {
-                duration: 1_000,
-                iterations: Infinity
-            }
-        );
+        expect(appleRow).not.toBeNull();
 
         const search = page.getByPlaceholder('Search fruits').element() as HTMLInputElement;
         search.value = 'cherry';
@@ -234,23 +227,15 @@ describe('Combobox -- search input', () => {
         await tick();
         await new Promise<void>((resolve) => requestAnimationFrame(() => resolve()));
 
-        expect(appleMotion?.isConnected).toBe(true);
-        expect(appleMotion).toHaveAttribute('data-visible', 'false');
-        expect(appleMotion).toHaveAttribute('inert');
-        const animations = (appleMotion?.getAnimations() ?? []).filter(
+        expect(appleRow?.isConnected).toBe(true);
+        expect(appleRow).toHaveAttribute('data-visible', 'false');
+        expect(appleRow).toHaveAttribute('inert');
+        const transitions = (appleRow?.getAnimations() ?? []).filter(
             (animation) => animation instanceof CSSTransition
         );
-        expect(animations).not.toHaveLength(0);
-        expect(document.querySelector('.mielui-item-highlight')).toHaveAttribute(
-            'data-ready',
-            'true'
-        );
-
-        await Promise.allSettled(animations.map((animation) => animation.finished));
-        await flush();
-        expect(appleMotion?.getBoundingClientRect().height).toBe(0);
+        expect(transitions).toHaveLength(0);
+        expect(appleRow?.getBoundingClientRect().height).toBe(0);
         await expect.element(page.getByText('Cherry')).toBeVisible();
-        unrelatedAnimation?.cancel();
     });
 
     it('moves the active option with Arrow keys before Enter selects it', async () => {
@@ -306,8 +291,8 @@ describe('Combobox -- menu search', () => {
         expect(searchField).toHaveAttribute('data-variant', 'secondary');
         expect(searchField).toHaveClass(
             'h-[calc(var(--size-control-sm)+var(--spacing))]',
-            'rounded-[var(--radius-lg)]',
-            'bg-secondary'
+            'border-b-[length:var(--border-size)]',
+            'border-border'
         );
         expect(searchField?.parentElement?.firstElementChild).toBe(searchField);
         const searchFieldStyles = getComputedStyle(searchField as HTMLElement);
@@ -316,13 +301,14 @@ describe('Combobox -- menu search', () => {
             searchFieldStyles.borderRightWidth,
             searchFieldStyles.borderBottomWidth,
             searchFieldStyles.borderLeftWidth
-        ]).toEqual(['1px', '1px', '1px', '1px']);
+        ]).toEqual(['0px', '0px', '1px', '0px']);
         expect([
             searchFieldStyles.borderTopLeftRadius,
             searchFieldStyles.borderTopRightRadius,
             searchFieldStyles.borderBottomRightRadius,
             searchFieldStyles.borderBottomLeftRadius
-        ]).not.toContain('0px');
+        ]).toEqual(['0px', '0px', '0px', '0px']);
+        expect(searchFieldStyles.backgroundColor).toBe('rgba(0, 0, 0, 0)');
         const triggerFrame = trigger.element().closest('[data-ui="combobox-trigger"]');
         if (!triggerFrame) {
             throw new Error('Missing combobox trigger frame');

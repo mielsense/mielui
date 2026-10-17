@@ -1,4 +1,5 @@
-import { getContext, setContext } from 'svelte';
+import { createContext } from '@mielui/svelte/utils';
+import type { ColorPickerLabels } from '.';
 
 export type ColorOption = {
     label: string;
@@ -7,29 +8,19 @@ export type ColorOption = {
 
 export type ColorFormat = 'hsl' | 'rgb' | 'hsv';
 
-const CONTEXT_KEY = Symbol('mielui-color-picker');
-
 /** Shared between ColorPicker.Root, .Trigger, and .Content. Root owns the
  * value/options and exposes `apply` so Trigger/Content can commit a new hex. */
 export type ColorPickerContext = {
     readonly labelId: string;
     readonly label: string | undefined;
+    readonly labels: ColorPickerLabels | undefined;
     readonly value: string;
     readonly options: ColorOption[];
     readonly format: ColorFormat;
     apply: (hex: string) => void;
 };
 
-export function setColorPickerContext(ctx: ColorPickerContext): ColorPickerContext {
-    return setContext(CONTEXT_KEY, ctx);
-}
+const { set: setColorPickerContext, get: getColorPickerContext } =
+    createContext<ColorPickerContext>('color-picker');
 
-export function getColorPickerContext(): ColorPickerContext {
-    const ctx = getContext<ColorPickerContext | undefined>(CONTEXT_KEY);
-    if (!ctx) {
-        throw new Error(
-            'ColorPicker.Trigger and ColorPicker.Content must be used inside ColorPicker.Root'
-        );
-    }
-    return ctx;
-}
+export { getColorPickerContext, setColorPickerContext };

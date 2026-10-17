@@ -1,3 +1,4 @@
+import type { WithElement } from '@mielui/svelte/utils';
 import type { PinInput } from 'bits-ui';
 import type { Snippet } from 'svelte';
 import type { HTMLAttributes } from 'svelte/elements';
@@ -20,7 +21,7 @@ export type OTPFieldProps = Omit<
     /** Content rendered inside. */
     children?: Snippet<[{ cells: OTPFieldCellState[]; isFocused: boolean }]>;
 };
-export type OTPFieldCellProps = Omit<PinInput.CellProps, 'child' | 'children'>;
+export type OTPFieldCellProps = WithElement<Omit<PinInput.CellProps, 'child' | 'children'>>;
 export type OTPFieldGroupProps = HTMLAttributes<HTMLDivElement>;
 export type OTPFieldSeparatorProps = HTMLAttributes<HTMLSpanElement>;
 

@@ -4,13 +4,15 @@
     import * as Tooltip from '@mielui/svelte/components/tooltip';
     import HugeiconsIcon from '../../hugeicons-icon.svelte';
     import type { FileUploadButtonProps } from '.';
-    import { getItem, getRoot } from './context.svelte';
+    import { getFileUploadContext, getFileUploadItem } from './context';
 
     let { children, disabled, onclick, ...rest }: FileUploadButtonProps = $props();
-    const item = getItem();
-    const root = getRoot();
+
+    const item = getFileUploadItem();
+    const root = getFileUploadContext();
     const label = $derived(root.labels?.retry ?? 'Retry upload');
 </script>
+
 {#if item().status === 'error' && item().retryable}
     <Tooltip.Root>
         <Tooltip.Trigger>
@@ -23,6 +25,7 @@
                 disabled={disabled || root.disabled}
                 onclick={(event) => {
                     onclick?.(event);
+
                     if (!event.defaultPrevented) {
                         root.retry(item().id);
                     }

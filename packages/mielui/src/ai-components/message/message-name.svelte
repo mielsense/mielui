@@ -1,19 +1,20 @@
 <script lang="ts">
     import { cn } from '@mielui/svelte/utils';
     import type { MessageNameProps } from '.';
-    import { getMessageContext } from './context.svelte';
+    import { getMessageContext } from './context';
 
     let { children, class: className, ...rest }: MessageNameProps = $props();
     const message = getMessageContext();
 </script>
+
 <span
     {...rest}
     data-ui="message-name"
-    class={cn(className, 'truncate font-[var(--font-weight-label)]')}
+    class={cn(className, 'truncate [font-weight:var(--font-weight-label)]')}
 >
     {#if children}
         {@render children()}
     {:else}
-        {message.name ?? ""}
+        {message.name ?? ''}
     {/if}
 </span>

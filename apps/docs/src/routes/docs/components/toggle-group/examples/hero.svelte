@@ -11,7 +11,7 @@
 </script>
 
 <div class="flex w-full max-w-sm flex-col items-center gap-5">
-    <ToggleGroup.Root type="single" bind:value={alignment}>
+    <ToggleGroup.Root bind:value={alignment} aria-label="Text alignment">
         <ToggleGroup.Item value="left" aria-label="Align left">
             <HugeiconsIcon icon={AlignLeft} size={14} />
         </ToggleGroup.Item>
@@ -24,10 +24,14 @@
     </ToggleGroup.Root>
 
     <p
-        class="w-full text-sm"
-        class:text-left={alignment === 'left'}
-        class:text-center={alignment === 'center'}
-        class:text-right={alignment === 'right'}
+        class={[
+            'w-full text-sm',
+            {
+                'text-left': alignment === 'left',
+                'text-center': alignment === 'center',
+                'text-right': alignment === 'right'
+            }
+        ]}
     >
         Choose an alignment to change how this paragraph sits in its column.
     </p>

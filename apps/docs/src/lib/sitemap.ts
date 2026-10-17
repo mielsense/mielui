@@ -37,6 +37,7 @@ export const llmDocPaths = [
     ...catalogPages.map((group) => `${componentTypeHref(group.id)}.md`),
     '/docs/brand-mark.md',
     '/docs/skill.md',
+    '/docs/design-skill.md',
     '/docs/component-selection.md',
     '/docs/design-language.md',
     ...changelogVersions.map((version) => `/changelog/${version}.md`),

@@ -1,12 +1,12 @@
 <script lang="ts">
     import { cn } from '@mielui/svelte/utils';
     import type { ComposerInputProps } from '.';
-    import { getComposerContext } from './context.svelte';
+    import { findComposerLabels, getComposerContext } from './context';
 
     let {
         submitOnEnter = true,
-        placeholder = 'Message the agent...',
-        'aria-label': ariaLabel = 'Message',
+        placeholder,
+        'aria-label': ariaLabel,
         rows = 1,
         disabled = false,
         readonly = false,
@@ -19,6 +19,7 @@
         ...rest
     }: ComposerInputProps = $props();
 
+    const labels = findComposerLabels();
     const context = getComposerContext();
     let composing = false;
 
@@ -62,8 +63,8 @@
     data-ui="composer-input"
     data-state={context.status}
     value={context.value}
-    {placeholder}
-    aria-label={ariaLabel}
+    placeholder={placeholder ?? labels?.()?.placeholder ?? 'Message the agent...'}
+    aria-label={ariaLabel ?? labels?.()?.input ?? 'Message'}
     aria-busy={context.status === 'submitting'}
     {rows}
     disabled={context.disabled || disabled}
@@ -99,7 +100,7 @@
     }}
     class={cn(
         className,
-        'mielui-inset-surface min-h-24 max-h-52 w-full resize-none overflow-y-hidden px-4.5 pt-4 pb-3 [font-size:var(--font-size-body)] leading-body text-foreground outline-none placeholder:text-foreground-muted disabled:cursor-not-allowed disabled:opacity-[var(--opacity-disabled)] read-only:cursor-default',
+        'mielui-inset-surface min-h-24 max-h-52 w-full resize-none overflow-y-hidden bg-[var(--color-field)] px-4.5 pt-4 pb-3 [font-size:var(--font-size-body)] leading-body text-[var(--color-field-foreground)] outline-none placeholder:text-foreground-muted disabled:cursor-not-allowed disabled:text-[color-mix(in_srgb,var(--color-field-foreground)_calc(var(--opacity-disabled)*100%),transparent)] disabled:placeholder:text-[color-mix(in_srgb,var(--color-foreground-muted)_calc(var(--opacity-disabled)*100%),transparent)] read-only:cursor-default',
         context.joinedToolbar && 'rounded-b-none'
     )}
 ></textarea>

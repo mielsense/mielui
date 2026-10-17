@@ -4,6 +4,7 @@
 
     let { children, ...rest }: DrawerPortalProps = $props();
 </script>
+
 <Primitive.Portal {...rest}>
     <div
         data-overlay-root

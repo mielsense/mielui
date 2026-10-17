@@ -2,6 +2,7 @@
     import * as Composer from '@mielui/svelte/components/composer';
 
     let value = $state('What should we work on next?');
+
     function send() {
         value = '';
     }

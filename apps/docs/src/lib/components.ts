@@ -1,3 +1,4 @@
+import { titleCase } from '$lib/text';
 import categories from '../../../../packages/mielui/component-categories.json';
 
 export const componentGroups = [
@@ -25,7 +26,7 @@ export const componentGroups = [
 
 export const components = componentGroups.flatMap((group) => group.items);
 
-export const sanitizeComponent = (name: string) => {
+export function sanitizeComponent(name: string) {
     if (name === 'otp-field') {
         return 'OTP Field';
     }
@@ -34,11 +35,8 @@ export const sanitizeComponent = (name: string) => {
         return 'Composer';
     }
 
-    return name
-        .split('-')
-        .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-        .join(' ');
-};
+    return titleCase(name);
+}
 
 export const navigationGroups = [
     ...componentGroups,
@@ -151,4 +149,9 @@ export const catalogPages = [...componentTypes, ...categoryTypes];
 
 export function componentTypeHref(id: string) {
     return `/docs/components/${id}`;
+}
+
+/** The docs page of one entry in a navigation group. Actions live outside `/docs/components`. */
+export function entryHref(groupId: string, slug: string) {
+    return `/docs/${groupId === 'actions' ? 'actions' : 'components'}/${slug}`;
 }

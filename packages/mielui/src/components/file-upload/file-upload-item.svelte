@@ -2,7 +2,7 @@
     import { motion } from '@humanspeak/svelte-motion';
     import { cn } from '@mielui/svelte/utils';
     import type { FileUploadItemProps } from '.';
-    import { getRoot, setItem } from './context.svelte';
+    import { getFileUploadContext, setFileUploadItem } from './context';
     import Details from './file-upload-details.svelte';
     import Preview from './file-upload-preview.svelte';
     import Progress from './file-upload-progress.svelte';
@@ -11,9 +11,12 @@
     import Status from './file-upload-status.svelte';
 
     let { item, children, class: className, ...rest }: FileUploadItemProps = $props();
-    const root = getRoot();
-    setItem(() => item);
+
+    const root = getFileUploadContext();
+
+    setFileUploadItem(() => item);
 </script>
+
 <motion.div
     {...rest}
     style={rest.style ?? undefined}
@@ -22,13 +25,16 @@
     transition={{ duration: root.duration }}
     data-ui="file-upload-item"
     data-state={item.status}
-    class={cn(className, 'flex min-w-0 items-center gap-3 rounded-[var(--radius-xl)] border-[length:var(--border-size)] border-border bg-card p-3 data-[state=error]:border-error/50 data-[state=complete]:border-success/40')}
+    class={cn(
+        className,
+        'flex min-w-0 items-center gap-3 rounded-[var(--radius-xl)] border-[length:var(--border-size)] border-border bg-card p-2 shadow-[var(--elevation-1)]'
+    )}
 >
     {#if children}
         {@render children()}
     {:else}
         <Preview />
-        <div class="flex min-w-0 flex-1 flex-col gap-2">
+        <div class="flex min-w-0 flex-1 flex-col gap-1.5">
             <Details />
             <Progress />
             <Status />

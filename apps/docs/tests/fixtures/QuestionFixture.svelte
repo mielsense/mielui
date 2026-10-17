@@ -1,6 +1,7 @@
 <script lang="ts">
     import type {
         QuestionAnswer,
+        QuestionLabels,
         QuestionProps,
         QuestionStatus,
         QuestionType
@@ -26,7 +27,8 @@
         disabled = false,
         delayed = false,
         showActions = true,
-        asyncSubmit = false
+        asyncSubmit = false,
+        labels
     }: {
         variant?: QuestionProps['variant'];
         type?: QuestionType;
@@ -38,6 +40,7 @@
         delayed?: boolean;
         showActions?: boolean;
         asyncSubmit?: boolean;
+        labels?: QuestionLabels;
     } = $props();
 
     let submittedAnswer = $state<QuestionAnswer>();
@@ -75,6 +78,7 @@
     {required}
     {autofocus}
     {disabled}
+    {labels}
     onSubmit={submit}
     onCancel={() => (cancelCount += 1)}
 >

@@ -1,7 +1,7 @@
 <script lang="ts">
-    import type { HTMLOptionAttributes } from 'svelte/elements';
+    import type { NativeSelectOptionProps } from '.';
 
-    let { children, ...rest }: Omit<HTMLOptionAttributes, 'value'> & { value?: string } = $props();
+    let { children, ...rest }: NativeSelectOptionProps = $props();
 </script>
 
 <option {...rest} data-ui="native-select-option">

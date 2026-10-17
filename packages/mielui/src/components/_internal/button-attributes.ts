@@ -7,6 +7,12 @@ import type { ButtonProps } from '../button';
  */
 export type ButtonOnlyProps = Omit<Extract<ButtonProps, { href?: undefined }>, 'href'>;
 
+/**
+ * Button props for menu rows. Rows always render with the menu row styles, so the Button
+ * appearance props do not apply.
+ */
+export type MenuRowButtonProps = Omit<ButtonOnlyProps, 'variant' | 'size' | 'unstyled'>;
+
 export function buttonAttributes(attributes: HTMLButtonAttributes) {
     const { disabled, onclick, onkeydown, ...rest } = attributes;
     return {

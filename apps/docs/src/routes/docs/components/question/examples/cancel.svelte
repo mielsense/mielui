@@ -10,8 +10,11 @@
         variant="inset"
         type="text"
         bind:value={answer}
+        labels={{
+            submitting: 'Sending'
+        }}
         onSubmit={(value) => {
-            outcome = `Answer: ${Array.isArray(value) ? value.join(', ') : value}`;
+            outcome = `Answer: ${value}`;
         }}
         onCancel={() => {
             outcome = 'Skipped';
@@ -19,9 +22,9 @@
     >
         <Question.Content>
             <Question.Title>What should the migration notes cover?</Question.Title>
-            <Question.Description
-                >Enter adds a line here. Use the button to send.</Question.Description
-            >
+            <Question.Description>
+                Enter adds a line here. Use the button to send.
+            </Question.Description>
             <Question.Input
                 rows={3}
                 submitOnEnter={false}
@@ -30,7 +33,7 @@
         </Question.Content>
         <Question.Actions>
             <Question.Cancel>Skip</Question.Cancel>
-            <Question.Submit loadingLabel="Sending" />
+            <Question.Submit />
         </Question.Actions>
     </Question.Root>
     <p class="text-sm text-foreground-muted" role="status">{outcome}</p>

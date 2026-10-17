@@ -7,12 +7,6 @@
     import { changelogReleases } from '$lib/changelog';
     import PageIntro from '$lib/components/docs/page-intro.svelte';
 
-    const sectionLabels: Record<string, string> = {
-        breaking: 'Breaking changes',
-        feature: 'Features',
-        fix: 'Fixes',
-        docs: 'Docs'
-    };
     const releases = changelogReleases.map((release) => {
         return {
             ...release,
@@ -21,7 +15,6 @@
                 return {
                     ...section,
                     key: `${release.version}-${section.type}`,
-                    label: sectionLabels[section.type] ?? section.title,
                     content: section.content.replace(/^(- .*)\n\n(?=- )/gm, '$1\n')
                 };
             })
@@ -67,7 +60,7 @@
                                     <span
                                         class="[font-weight:var(--font-weight-label)] text-foreground"
                                     >
-                                        {section.label}
+                                        {section.title}
                                     </span>
                                     <span class="text-sm tabular-nums text-foreground-muted">
                                         {section.count}
@@ -77,7 +70,7 @@
                                     icon={ChevronDown}
                                     size={14}
                                     aria-hidden="true"
-                                    class={`shrink-0 text-foreground-muted transition-transform [transition-duration:var(--motion-duration-panel)] ease-[var(--ease-out)] motion-reduce:transition-none ${open[section.key] ? 'rotate-180' : ''}`}
+                                    class={`shrink-0 text-foreground-muted transition-transform [transition-duration:var(--motion-duration-flick)] ease-[var(--ease-spring-flick)] motion-reduce:transition-none ${open[section.key] ? 'rotate-180' : ''}`}
                                 />
                             </Collapsible.Trigger>
                             <Collapsible.Content class="pt-2 pb-4">

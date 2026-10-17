@@ -1,22 +1,23 @@
 <script lang="ts">
     import { cn, travelingHighlight } from '@mielui/svelte/utils';
     import type { CommandResultsProps } from '.';
-    import { getCommandContext } from './context.svelte';
+    import { findCommandLabels, getCommandContext } from './context';
 
     const { state: command } = getCommandContext();
+    const labels = findCommandLabels();
 
-    const { children, empty, class: className, ...rest }: CommandResultsProps = $props();
+    let { children, empty, class: className, ...rest }: CommandResultsProps = $props();
 </script>
 
 {#snippet defaultEmpty()}
-    <p class="text-sm text-foreground-muted">No results found</p>
+    <p class="text-sm text-foreground-muted">{labels?.()?.empty ?? 'No results found'}</p>
 {/snippet}
 
 <div
     {...rest}
     id={`${command.id}-listbox`}
     role="listbox"
-    aria-label="Command results"
+    aria-label={labels?.()?.results ?? 'Command results'}
     use:travelingHighlight
     class={cn(className, 'max-h-full overflow-y-auto overscroll-contain p-1 [scrollbar-gutter:stable]')}
 >

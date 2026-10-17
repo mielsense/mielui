@@ -3,9 +3,9 @@
     import { descriptionClasses } from '../typography/variants';
     import type { EmptyStateDescriptionProps } from '.';
 
-    let { children, class: classProp, ...rest }: EmptyStateDescriptionProps = $props();
+    let { children, class: className, ...rest }: EmptyStateDescriptionProps = $props();
 </script>
 
-<p {...rest} data-slot="empty-state-description" class={cn(classProp, descriptionClasses)}>
+<p {...rest} data-slot="empty-state-description" class={cn(className, descriptionClasses)}>
     {@render children?.()}
 </p>

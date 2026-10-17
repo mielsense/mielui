@@ -45,6 +45,7 @@
         id={rest.id ?? undefined}
         forceMount
         sideOffset={4}
+        collisionPadding={8}
         side={refElement ? 'right' : 'bottom'}
         {customAnchor}
         align="start"
@@ -62,6 +63,7 @@
                     <div data-overlay-root aria-hidden="true" class="fixed inset-0 z-[129]"></div>
                 {/if}
                 <div {...wrapperProps} data-overlay-root class="z-[130]">
+                    <!-- svelte-ignore a11y_no_noninteractive_tabindex -->
                     <div
                         {...props}
                         dir={rest.dir}
@@ -74,14 +76,14 @@
                         class={cn(
                             className,
                             overlaySurface(surface),
-                            'mielui-modal-frame [--mielui-border-inset-scale:0] z-[130] flex max-h-[var(--bits-floating-available-height)] max-w-[var(--bits-floating-available-width)] origin-[var(--bits-floating-transform-origin)] flex-col overflow-hidden text-sm text-foreground outline-none shadow-[var(--elevation-float)] [--mielui-modal-inset:calc(var(--spacing)*0.5*var(--mielui-border-inset-scale,1))]',
-                            'min-w-[max(calc(var(--spacing)*44),var(--bits-floating-anchor-width,0px))]'
+                            'mielui-float-frame z-[130] flex max-h-[var(--bits-floating-available-height)] max-w-[var(--bits-floating-available-width)] origin-[var(--bits-floating-transform-origin)] flex-col overflow-hidden text-sm text-foreground outline-none shadow-[var(--elevation-float)]',
+                            'min-w-[max(calc(var(--spacing)*48),var(--bits-floating-anchor-width,0px))]'
                         )}
                     >
                         <div
                             use:travelingHighlight
                             use:dynamicWidth={{ enabled: dynamic }}
-                            class="mielui-inset-surface flex min-h-0 flex-col overflow-auto overscroll-contain p-1 [&>*]:shrink-0"
+                            class="mielui-inset-surface flex min-h-0 flex-col overflow-auto overscroll-contain p-1 [&>*]:shrink-0 [&:has([data-destructive]:is(:hover,:focus-visible,[data-highlighted]))>.mielui-item-highlight]:bg-[var(--color-error-soft)]"
                         >
                             {@render children?.()}
                         </div>

@@ -3,7 +3,7 @@
 </script>
 
 <div class="flex items-center gap-3">
-    <CopyButton text="ghost variant" label="Ghost" />
-    <CopyButton text="outline variant" label="Outline" variant="outline" />
-    <CopyButton text="secondary variant" label="Secondary" variant="secondary" />
+    <CopyButton text="ghost variant" labels={{ copy: 'Ghost' }} />
+    <CopyButton text="outline variant" labels={{ copy: 'Outline' }} variant="outline" />
+    <CopyButton text="secondary variant" labels={{ copy: 'Secondary' }} variant="secondary" />
 </div>

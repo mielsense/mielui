@@ -5,6 +5,7 @@
     import { type Component, onMount } from 'svelte';
     import type { HTMLAttributes } from 'svelte/elements';
     import { prefersReducedMotion } from 'svelte/motion';
+    import { observeThemeChanges } from '../../components/_internal/theme-changes';
     import type { ResponseStreamProps } from '.';
     import { createResponseStream } from './stream.svelte';
     import { getRollDuration } from './stream-utils';
@@ -22,6 +23,7 @@
     }: ResponseStreamProps = $props();
 
     let motionDuration = $state(180);
+    let motionEasing = $state('ease-out');
     const instant = $derived(prefersReducedMotion.current || motionDuration === 0);
 
     const stream = createResponseStream({
@@ -56,19 +58,11 @@
         const element = box;
         function updateMotion() {
             motionDuration = getCssDuration(element, '--motion-duration-panel', 180);
+            motionEasing =
+                getComputedStyle(element).getPropertyValue('--ease-out').trim() || 'ease-out';
         }
         updateMotion();
-        const observer = new MutationObserver(updateMotion);
-        for (
-            let ancestor: HTMLElement | null = element;
-            ancestor;
-            ancestor = ancestor.parentElement
-        ) {
-            observer.observe(ancestor, { attributes: true, attributeFilter: ['class', 'style'] });
-        }
-        return () => {
-            observer.disconnect();
-        };
+        return observeThemeChanges(element, updateMotion);
     });
 
     type ScrittoComponent = Component<ScrittoProps & HTMLAttributes<HTMLElement>>;
@@ -82,7 +76,7 @@
 
     const rollTransition = $derived({
         duration: instant ? 0 : Math.min(getRollDuration(speed), motionDuration),
-        easing: 'cubic-bezier(0.23, 1, 0.32, 1)'
+        easing: motionEasing
     });
 
     const lines = $derived(stream.text.split('\n'));
@@ -112,11 +106,7 @@
                     Scritto = module.default as ScrittoComponent;
                 }
             })
-            .catch(() => {
-                if (!cancelled) {
-                    Scritto = null;
-                }
-            });
+            .catch(() => {});
 
         return () => {
             cancelled = true;
@@ -133,7 +123,7 @@
     aria-busy={streaming || !stream.complete}
     class={cn(
         className,
-        'block [font-weight:var(--font-weight-body)] whitespace-pre-wrap text-[length:var(--font-size-body)] leading-body text-foreground'
+        'block [font-weight:var(--font-weight-body)] whitespace-pre-wrap text-[length:var(--font-size-body)] leading-relaxed text-foreground'
     )}
     {...rest}
 >

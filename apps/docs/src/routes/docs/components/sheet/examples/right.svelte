@@ -24,7 +24,6 @@
         { value: 'closed', label: 'Closed' }
     ];
 
-    const statusLabel = $derived(statuses.find((s) => s.value === status)?.label ?? 'Status');
     const activeCount = $derived(
         (status !== 'all' ? 1 : 0) +
             (onlyMine ? 1 : 0) +
@@ -62,13 +61,11 @@
             <Sheet.Description>Narrow the issue list.</Sheet.Description>
         </Sheet.Header>
 
-        <div class="flex flex-col gap-4">
+        <div class="flex flex-col gap-5">
             <div class="flex flex-col gap-1.5">
                 <Label>Status</Label>
                 <Select.Root bind:value={status}>
-                    <Select.Trigger class="w-full" variant="outline" size="md">
-                        {statusLabel}
-                    </Select.Trigger>
+                    <Select.Trigger aria-label="Status" class="w-full" />
                     <Select.Content>
                         {#each statuses as item (item.value)}
                             <Select.Item value={item.value}>{item.label}</Select.Item>
@@ -77,14 +74,10 @@
                 </Select.Root>
             </div>
 
-            <div class="h-px w-full bg-border" role="separator"></div>
-
             <div class="flex flex-col gap-3">
                 <Switch bind:checked={onlyMine} label="Only my issues" />
                 <Switch bind:checked={includeArchived} label="Include archived" />
             </div>
-
-            <div class="h-px w-full bg-border" role="separator"></div>
 
             <fieldset class="flex flex-col gap-3">
                 <legend

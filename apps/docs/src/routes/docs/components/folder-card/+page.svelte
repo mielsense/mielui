@@ -1,7 +1,8 @@
 <script lang="ts">
     import { CodeBlock } from '@mielui/svelte/components/code-block';
+    import * as FolderCard from '@mielui/svelte/components/folder-card';
     import * as Typography from '@mielui/svelte/components/typography';
-    import { ComponentPreview, InstallCommand } from '$lib/components/docs';
+    import { ComponentPreview, InstallCommand, Playground } from '$lib/components/docs';
     import InlineText from '$lib/components/docs/inline-text.svelte';
     import PageIntro from '$lib/components/docs/page-intro.svelte';
     import ClickActionExample from './examples/click-action.svelte';
@@ -14,16 +15,37 @@
     import ImageCoverSrc from './examples/image-cover.svelte?raw';
     import LiveCount from './examples/live-count.svelte';
     import LiveCountSrc from './examples/live-count.svelte?raw';
+    import { code as playgroundCode, controls as playgroundControls } from './playground';
 
-    const TITLE = 'Folder Card';
-    const installCommand = 'pnpm dlx @mielui/svelte add folder-card';
+    const playgroundTones: Record<'1' | '2' | '3' | '4' | '5', 1 | 2 | 3 | 4 | 5> = {
+        '1': 1,
+        '2': 2,
+        '3': 3,
+        '4': 4,
+        '5': 5
+    };
+
+    let playgroundOpened = $state(false);
+
+    const usageCode = `<script lang="ts">
+    import * as FolderCard from '@mielui/svelte/components/folder-card';
+</${'script'}>
+
+<FolderCard.Root href="/projects" tone={2}>
+    <FolderCard.Cover />
+    <FolderCard.Tab>
+        <FolderCard.Title>Client projects</FolderCard.Title>
+        <FolderCard.Description>Brand, web, and product</FolderCard.Description>
+    </FolderCard.Tab>
+    <FolderCard.Footer>
+        <FolderCard.Index>001</FolderCard.Index>
+        <FolderCard.Count value={3957} />
+    </FolderCard.Footer>
+</FolderCard.Root>`;
 </script>
 
 <svelte:head>
-    <title>
-        Mielui ·{' '}
-        {TITLE}
-    </title>
+    <title>Mielui · Folder Card</title>
     <meta
         name="description"
         content="Present a collection as a folder with a cover, title tab, index, and count."
@@ -31,71 +53,90 @@
 </svelte:head>
 
 <div data-docs-page class="flex flex-col gap-10">
-    <PageIntro title={TITLE}>
+    <PageIntro title="Folder Card">
         Presents a collection as a folder: a cover, a tab with its name, and a footer with an index
         and item count.
     </PageIntro>
 
     <section id="hero" class="scroll-mt-20 flex flex-col gap-4">
-        <ComponentPreview code={HeroSrc}>
-            <Hero />
-        </ComponentPreview>
+        <Playground controls={playgroundControls} code={playgroundCode}>
+            {#snippet children(values)}
+                {#snippet folder()}
+                    {#if values.cover === 'image'}
+                        <FolderCard.Cover src="/og-default.png" />
+                    {:else if values.cover === 'tone'}
+                        <FolderCard.Cover />
+                    {/if}
+                    <FolderCard.Tab>
+                        <FolderCard.Title>{values.title}</FolderCard.Title>
+                        {#if values.description}
+                            <FolderCard.Description>Brand, web, and product</FolderCard.Description>
+                        {/if}
+                    </FolderCard.Tab>
+                    {#if values.index || values.count}
+                        <FolderCard.Footer>
+                            {#if values.index}
+                                <FolderCard.Index>001</FolderCard.Index>
+                            {/if}
+                            {#if values.count}
+                                <FolderCard.Count value={3957} />
+                            {/if}
+                        </FolderCard.Footer>
+                    {/if}
+                {/snippet}
+                <div class="flex w-full max-w-xs flex-col gap-3">
+                    {#if values.action === 'link'}
+                        <FolderCard.Root
+                            href="/docs/components"
+                            tone={playgroundTones[values.tone]}
+                        >
+                            {@render folder()}
+                        </FolderCard.Root>
+                    {:else if values.action === 'button'}
+                        <FolderCard.Root
+                            tone={playgroundTones[values.tone]}
+                            onclick={() => {
+                                playgroundOpened = true;
+                            }}
+                        >
+                            {@render folder()}
+                        </FolderCard.Root>
+                        <p role="status" class="text-sm text-foreground-muted">
+                            {playgroundOpened ? 'Opened the folder' : 'Nothing opened yet'}
+                        </p>
+                    {:else}
+                        <FolderCard.Root tone={playgroundTones[values.tone]}>
+                            {@render folder()}
+                        </FolderCard.Root>
+                    {/if}
+                </div>
+            {/snippet}
+        </Playground>
     </section>
 
     <section id="installation" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Installation</Typography.H2>
-        <InstallCommand command={installCommand} />
+        <InstallCommand command="pnpm dlx @mielui/svelte add folder-card" />
     </section>
 
     <section id="usage" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Usage</Typography.H2>
         <Typography.Text variant="supporting">
-            Root renders a link when you pass{' '}
-            <Typography.InlineCode>href</Typography.InlineCode>
-            , a button when you pass{' '}
-            <Typography.InlineCode>onclick</Typography.InlineCode>
-            {' '}
-            on its own, and an article otherwise. Cover, Tab, and Footer place themselves in the
-            folder layout, so you can omit or restyle any of them. The tab grows with its title and
-            wraps before it reaches the folder edge.
+            <InlineText
+                text={"Root renders a link when you pass `href`, a button when you pass `onclick` on its own, and an article otherwise. Cover, Tab, and Footer place themselves in the folder layout, so you can omit or restyle any of them. The tab grows with its title and wraps before it reaches the folder edge."}
+            />
         </Typography.Text>
         <Typography.Text variant="supporting">
-            Cover shows a soft wash of the chart color picked by{' '}
-            <Typography.InlineCode>tone</Typography.InlineCode>
-            from 1 to 5. Pass{' '}
-            <Typography.InlineCode>src</Typography.InlineCode>
-            for an image, or children for custom content. Count formats{' '}
-            <Typography.InlineCode>value</Typography.InlineCode>
-            for the reader's locale and animates when it changes.
+            <InlineText
+                text={"Cover shows a soft wash of the chart color picked by `tone`, from 1 to 5. Pass `src` for an image, or children for custom content. Count formats `value` for the reader's locale, follows it with files (file for one), and animates when the value changes. Pass `labels.count` on Root to write that text yourself; it receives the number and its formatted form, so a translation can place the number and choose the plural. Every key in `labels` is optional and English is the fallback."}
+            />
         </Typography.Text>
         <Typography.Text variant="supporting">
-            Cover clips its children to the folder shape, so content anchored to its bottom edge
-            appears to come out of the folder. The first example tucks three paper sheets there and
-            lifts them with{' '}
-            <Typography.InlineCode>group-hover/folder-card</Typography.InlineCode>
-            and{' '}
-            <Typography.InlineCode>group-focus-visible/folder-card</Typography.InlineCode>
-            , which a linked card provides. Mark decorative cover content{' '}
-            <Typography.InlineCode>aria-hidden</Typography.InlineCode>
-            and disable its transition for reduced motion.
+            <InlineText
+                text={"Cover clips its children to the folder shape, so content anchored to its bottom edge appears to come out of the folder. Mark decorative cover content `aria-hidden`. A linked or clickable card darkens its border on hover; nothing inside it moves."}
+            />
         </Typography.Text>
-        <CodeBlock
-            code={`import * as FolderCard from '@mielui/svelte/components/folder-card';
-
-<FolderCard.Root href="/projects" tone={2}>
-  <FolderCard.Cover />
-  <FolderCard.Tab>
-    <FolderCard.Title>Client projects</FolderCard.Title>
-    <FolderCard.Description>Brand, web, and product</FolderCard.Description>
-  </FolderCard.Tab>
-  <FolderCard.Footer>
-    <FolderCard.Index>001</FolderCard.Index>
-    <FolderCard.Count value={3957} />
-  </FolderCard.Footer>
-</FolderCard.Root>`}
-            lang="svelte"
-            copy="overlay"
-        />
+        <CodeBlock code={usageCode} lang="svelte" copy="overlay" />
     </section>
 
     <section id="examples" class="scroll-mt-20 flex flex-col gap-10">
@@ -103,15 +144,22 @@
             <Typography.H2 class="docs-section-heading">Examples</Typography.H2>
         </div>
 
+        <div id="custom-cover" class="scroll-mt-20 flex flex-col gap-3">
+            <Typography.H3 class="docs-subsection-heading">Custom cover</Typography.H3>
+            <Typography.Text variant="supporting">
+                Paper sheets drawn inside Cover sit above the tone wash.
+            </Typography.Text>
+            <ComponentPreview code={HeroSrc}>
+                <Hero />
+            </ComponentPreview>
+        </div>
+
         <div id="image-cover" class="scroll-mt-20 flex flex-col gap-3">
             <Typography.H3 class="docs-subsection-heading">Image cover</Typography.H3>
             <Typography.Text variant="supporting">
-                Pass
-                <Typography.InlineCode>src</Typography.InlineCode>
-                to replace the wash. The image is decorative by default because the title names the
-                folder; set
-                <Typography.InlineCode>alt</Typography.InlineCode>
-                when it adds information. This card omits Index, so Count stays on the right.
+                <InlineText
+                    text={"Pass `src` to replace the wash. The image is decorative by default because the title names the folder; set `alt` when it adds information. This card omits Index, so Count stays on the right, and its `labels.count` counts images instead of files."}
+                />
             </Typography.Text>
             <ComponentPreview code={ImageCoverSrc}>
                 <ImageCover />
@@ -133,16 +181,16 @@
             <Typography.H3 class="docs-subsection-heading">Changing count</Typography.H3>
             <Typography.Text variant="supporting">
                 Count rolls to a new value with the theme's motion settings and settles immediately
-                when reduced motion is on. A card without{' '}
-                <Typography.InlineCode>href</Typography.InlineCode>
-                is a static article.
+                when reduced motion is on. This card has no href or onclick, so it is a static
+                article.
             </Typography.Text>
             <ComponentPreview code={LiveCountSrc}>
                 <LiveCount />
             </ComponentPreview>
         </div>
     </section>
-    <section id="heading-level" class="flex flex-col gap-4">
+
+    <section id="heading-level" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Heading level</Typography.H2>
         <Typography.Text variant="supporting">
             <InlineText
@@ -150,7 +198,8 @@
             />
         </Typography.Text>
     </section>
-    <section id="click-action" class="flex flex-col gap-4">
+
+    <section id="click-action" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Click action</Typography.H2>
         <Typography.Text variant="supporting">
             <InlineText

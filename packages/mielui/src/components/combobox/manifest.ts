@@ -29,7 +29,7 @@ export const manifest: Manifest = {
         'components/combobox/combobox-results.svelte',
         'components/combobox/combobox-item.svelte',
         'components/combobox/combobox-label.svelte',
-        'components/combobox/context.svelte.ts',
+        'components/combobox/context.ts',
         'components/combobox/controller.svelte.ts',
         'components/combobox/index.ts',
         'components/combobox/manifest.ts'

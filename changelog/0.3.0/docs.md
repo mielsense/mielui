@@ -1,0 +1,44 @@
+- The docs, Theme Studio, Themes, and Changelog share a new shell: a near-black frame with an icon rail, around one panel that holds the sidebar and the page. The frame is the same in light and dark mode.
+- The rail holds the brand and the sidebar toggle at the top, Docs, Components, Theme Studio, Themes, and Changelog in the middle, and search, the theme toggle, and GitHub at the bottom. One highlight marks the current page and slides to the next.
+- The docs shell drops the status line under the page.
+- Sidebar navigation is a plain text list with more space between groups. Search moves to the rail, or the header on small screens, and stays on Cmd/Ctrl+K.
+- The sidebar's current page is marked by a highlight sized to its label that slides between pages.
+- Pinned section titles in the sidebar stay fully legible while their section scrolls.
+- Open pages are tabs in a floating dock at the bottom of the page, styled like a toggle group.
+- Documentation pages center the article in a column at most 60rem wide, with more space between sections and a larger page title.
+- Docs text runs the full width of the article, level with previews and code.
+- The docs page outline is a minimap of dashes at the right edge instead of an "On this page" list. Dashes grow toward the pointer and the nearest one shows its heading.
+- Copy page sits at the top end of the page and is smaller, with less space around its buttons.
+- The fade at the bottom edge of the page and the sidebar is shorter and no longer blurs far into the text.
+- Every component page opens with a playground. Pick a variant in the toolbar, change the other props in the Props menu, and the code under the preview follows.
+- Every example frame keeps its preview in view: the Code button slides the source open under it, long sources start collapsed and expand with the same motion, and Full screen opens the preview on its own.
+- Slider, Number Field, Dialog, Sheet, Notch, Toast, Command, Color Picker, Question, and Gauge pages have a Labels section.
+- The calendar and date picker pages say that days outside the month are disabled by default, and the API tables list that default.
+- The Data Table `variant` description says what each variant frames.
+- Theme Studio shows its preview on the panel, with its tools in a floating menu at the top end.
+- Theme Studio switches preview modes with a floating segmented control at the bottom center of the preview instead of tabs in the top bar.
+- Theme Studio no longer has a Primary button border setting. Lit buttons draw their own edge, so it had no effect.
+- Theme Studio undo keeps recording after the page settles, and separate edits stay separate steps.
+- Theme Studio counts a brand color edit as one changed setting.
+- A share link request that fails late no longer clears a link built from a newer draft.
+- A live theme saved by an earlier version of the docs is rebuilt from the Studio draft instead of being applied as stale CSS, which left the page and the content plate the same color in light mode.
+- The Workspace address field in the Studio preview has a divider between the `mielui.dev/` prefix and the slug, so the two no longer read as one field with a gap in it.
+- The Markdown theming guide at `/docs/theming.md` now carries the full guide: token overrides, the public token table, presets, theme JSON, and selectors.
+- Component Markdown references include the modules their examples import, such as the Data Table and Heatmap `data.ts` files.
+- The Markdown references for Alert, Badge, Button, and Toolbar no longer list sixteen example files that no docs page showed.
+- The agent skill explains `bind:element` and the `labels` prop.
+- Usage snippets on component pages are complete Svelte files with a `<script lang="ts">` block and every import they use.
+- Component pages no longer document props that parts do not accept, such as `style` on parts, `children` on Checkbox and Radio Group items, and `icon={false}` on Select.
+- The Card page gives the correct `chrome.borders` default, `single`.
+- The Tabs page says that an unset or unmatched `value` selects the first enabled tab.
+- Field and Form examples no longer print a second "(required)" beside the label's built-in required mark.
+- The Theming guide names the current Theme Studio controls and lists every Theme JSON field.
+- The Markdown changelog uses the same section names as the changelog page.
+- Docs examples render with the page instead of mounting once they scroll into view, so they no longer pop in.
+- The docs load Theme Studio's optional Google Fonts without blocking the first paint.
+- Playground selects, the current sidebar page, and installation tabs look the same before and after scripts load.
+- The Accordion, Breadcrumb, Pagination, and Radio Group examples use realistic content instead of placeholder labels.
+- Numeric playground options name their control, so Folder Card's tone reads "Tone 1" instead of "1".
+- Dialog examples use sentence case for their trigger labels.
+- The docs apply your saved Theme Studio theme and docs font before the first paint, instead of showing the default theme until scripts load.
+- Unit tests pass on Node 25 and newer, whose built-in `localStorage` used to shadow jsdom's.

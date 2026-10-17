@@ -10,8 +10,7 @@
 
     let {
         text,
-        label = 'Copy',
-        copiedLabel = 'Copied',
+        labels,
         duration = 2000,
         variant = 'ghost',
         size = 'icon',
@@ -23,6 +22,7 @@
     }: CopyButtonProps = $props();
 
     let copied = $state(false);
+    const label = $derived(copied ? (labels?.copied ?? 'Copied') : (labels?.copy ?? 'Copy'));
     let timer: ReturnType<typeof setTimeout> | undefined;
 
     let disposed = false;
@@ -99,22 +99,24 @@
             type="button"
             {variant}
             {size}
-            aria-label={copied ? copiedLabel : label}
+            aria-label={label}
             onclick={copy}
         >
             <span class="relative grid size-4 place-items-center">
                 <HugeiconsIcon
                     icon={Copy}
                     size={15}
-                    class={`col-start-1 row-start-1 transition-[transform,translate,scale,rotate,opacity] [transition-duration:var(--motion-duration-panel)] ease-[var(--ease-out)] motion-reduce:transition-none ${
-                        copied ? 'scale-90 opacity-0' : 'scale-100 opacity-100'
+                    class={`col-start-1 row-start-1 transition-[scale,opacity,filter] [transition-duration:var(--motion-duration-flick)] ease-[var(--ease-spring-flick)] motion-reduce:transition-none ${
+                        // token-lint-disable-next-line no-literal-length: icon swap blur is a fixed optical amount
+                        copied ? 'scale-90 opacity-0 blur-[2px]' : 'blur-none scale-100 opacity-100'
                     }`}
                 />
                 <HugeiconsIcon
                     icon={Check}
                     size={15}
-                    class={`col-start-1 row-start-1 text-[var(--mielui-success-text)] transition-[transform,translate,scale,rotate,opacity] [transition-duration:var(--motion-duration-panel)] ease-[var(--ease-out)] motion-reduce:transition-none ${
-                        copied ? 'scale-100 opacity-100' : 'scale-90 opacity-0'
+                    class={`col-start-1 row-start-1 text-[var(--mielui-success-text)] transition-[scale,opacity,filter] [transition-duration:var(--motion-duration-flick)] ease-[var(--ease-spring-flick)] motion-reduce:transition-none ${
+                        // token-lint-disable-next-line no-literal-length: icon swap blur is a fixed optical amount
+                        copied ? 'blur-none scale-100 opacity-100' : 'scale-90 opacity-0 blur-[2px]'
                     }`}
                 />
             </span>
@@ -123,5 +125,5 @@
             {/if}
         </Button>
     </Tooltip.Trigger>
-    <Tooltip.Content>{copied ? copiedLabel : label}</Tooltip.Content>
+    <Tooltip.Content>{label}</Tooltip.Content>
 </Tooltip.Root>

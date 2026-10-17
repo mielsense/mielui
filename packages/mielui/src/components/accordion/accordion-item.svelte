@@ -1,9 +1,8 @@
 <script lang="ts">
     import { cn } from '@mielui/svelte/utils';
     import { Accordion as BitsAccordion } from 'bits-ui';
-    import { setContext } from 'svelte';
     import type { AccordionItemProps } from '.';
-    import type { AccordionItemContext } from './item-context';
+    import { setAccordionItemContext } from './context';
 
     let {
         class: className,
@@ -15,7 +14,7 @@
     const uid = $props.id();
     let trigger = $state<(() => string) | undefined>();
     let content = $state<(() => string) | undefined>();
-    setContext<AccordionItemContext>('accordion-item', {
+    setAccordionItemContext({
         id: uid,
         get trigger() {
             return trigger;
@@ -44,7 +43,7 @@
     data-ui="accordion-item"
     data-value={value}
     data-disabled={disabled ? '' : undefined}
-    class={cn(className, 'group py-1.5')}
+    class={cn(className, 'group py-1')}
     {...rest}
 >
     {@render children?.()}

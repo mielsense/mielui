@@ -1,7 +1,7 @@
 <script lang="ts">
     import { cn } from '@mielui/svelte/utils';
     import type { Snippet } from 'svelte';
-    import { getCommandContext } from './context.svelte';
+    import { getCommandContext } from './context';
 
     const { state: command } = getCommandContext();
 

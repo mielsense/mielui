@@ -2,19 +2,18 @@ import type { Manifest } from '@mielui/svelte/_manifest/types';
 
 export const manifest: Manifest = {
     name: 'collapsible',
-    version: '1.0.0',
+    version: '1.0.1',
     visibility: 'public',
     description: 'Single-item disclosure panel with bindable open state.',
     files: [
         'components/collapsible/collapsible.svelte',
         'components/collapsible/collapsible-trigger.svelte',
         'components/collapsible/collapsible-content.svelte',
-        'components/collapsible/context.svelte.ts',
         'components/collapsible/index.ts',
         'components/collapsible/manifest.ts'
     ],
     components: ['_internal/utils', '_internal/disclosure'],
-    shared: ['utils.cn', 'utils.createContext', 'transition'],
+    shared: ['utils.cn'],
     peerDependencies: {
         '@floating-ui/dom': '1.7.6',
         'bits-ui': '^2.19.2',

@@ -10,6 +10,7 @@
     import HugeiconsIcon from '@mielui/svelte/hugeicons-icon';
 
     let following = $state(false);
+
     function toggleFollow() {
         following = !following;
     }
@@ -22,7 +23,6 @@
             <HoverCard.Trigger href="https://github.com/mielsense">@mielsense</HoverCard.Trigger>
             <HoverCard.Content class="w-60">
                 <div class="flex flex-col gap-3">
-                    <!-- Header: Avatar + Name -->
                     <div class="flex items-center gap-3">
                         <Avatar.Root size="md">
                             <Avatar.Fallback>MS</Avatar.Fallback>
@@ -33,12 +33,10 @@
                         </div>
                     </div>
 
-                    <!-- Bio -->
                     <HoverCard.Description class="text-sm leading-relaxed text-pretty">
                         Maintains the shared components and reviews accessibility fixes.
                     </HoverCard.Description>
 
-                    <!-- Meta: Location & Company -->
                     <div class="flex flex-col gap-1 text-xs text-foreground-muted">
                         <div class="flex items-center gap-1.5">
                             <HugeiconsIcon icon={MapPin} size={14} />
@@ -50,13 +48,11 @@
                         </div>
                     </div>
 
-                    <!-- Stats -->
-                    <div class="flex items-center gap-1 text-xs text-foreground-muted py-1">
+                    <div class="flex items-center gap-1 py-1 text-xs text-foreground-muted">
                         <HugeiconsIcon icon={Users} size={14} />
                         <span>1.2k followers · 89 following</span>
                     </div>
 
-                    <!-- Follow Button -->
                     <Button
                         variant="secondary"
                         size="md"

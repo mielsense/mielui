@@ -16,10 +16,11 @@ import type { Manifest } from '@mielui/svelte/_manifest/types';
  *           scrim, and one-layer dismiss. Closing a parent clears nested open.
  *   1.3.1 -- Title reuses the shared typography title classes instead of a
  *           hardcoded size, so dialog headings match Card titles.
+ *   1.4.0 -- Root takes `labels` to rename the corner close button.
  */
 export const manifest: Manifest = {
     name: 'dialog',
-    version: '1.3.1',
+    version: '1.4.0',
     visibility: 'public',
     description:
         'Centered dialog overlay with portal, inert background, focus trap, click-outside, nested stacking, and Svelte transitions. Composes _internal/overlay for shared mechanics.',
@@ -35,7 +36,7 @@ export const manifest: Manifest = {
         'components/dialog/dialog-body.svelte',
         'components/dialog/dialog-close.svelte',
         'components/dialog/dialog-confirm.svelte',
-        'components/dialog/context.svelte.ts',
+        'components/dialog/context.ts',
         'components/dialog/index.ts',
         'components/dialog/manifest.ts'
     ],
@@ -48,10 +49,12 @@ export const manifest: Manifest = {
         'hugeicons-icon',
         'utils.cn',
         'utils.createContext',
+        'utils.inertOutside',
+        'utils.lockBodyScroll',
+        'utils.visualViewportBounds',
         'transition'
     ],
     peerDependencies: {
-        '@floating-ui/dom': '1.7.6',
         'bits-ui': '^2.19.2',
         '@hugeicons/core-free-icons': '^4.3.0',
         cnfast: '^0.0.8',

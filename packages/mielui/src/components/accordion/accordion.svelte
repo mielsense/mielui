@@ -1,8 +1,8 @@
 <script lang="ts">
     import { cn } from '@mielui/svelte/utils';
     import { Accordion as BitsAccordion } from 'bits-ui';
-    import { setContext } from 'svelte';
-    import type { AccordionContext, AccordionProps } from '.';
+    import type { AccordionProps } from '.';
+    import { setAccordionContext } from './context';
 
     let {
         class: className,
@@ -49,8 +49,10 @@
         }
     }
 
-    const ctx: AccordionContext = { isOpen, toggle: updateValue };
-    setContext('accordion', ctx);
+    setAccordionContext({
+        isOpen,
+        toggle: updateValue
+    });
 </script>
 
 {#if type === 'multiple'}
@@ -60,10 +62,7 @@
         onValueChange={updateValue}
         data-ui="accordion"
         data-type={type}
-        class={cn(
-        className,
-        'divide-y-[length:var(--border-size)] divide-border'
-    )}
+        class={cn(className, 'divide-y-[length:var(--border-size)] divide-border')}
         {...attributes}
     >
         {@render children?.()}
@@ -74,10 +73,7 @@
         bind:value={singleValue, updateValue}
         data-ui="accordion"
         data-type={type}
-        class={cn(
-        className,
-        'divide-y-[length:var(--border-size)] divide-border'
-    )}
+        class={cn(className, 'divide-y-[length:var(--border-size)] divide-border')}
         {...attributes}
     >
         {@render children?.()}

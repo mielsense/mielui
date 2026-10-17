@@ -1,14 +1,10 @@
 <script lang="ts">
     import * as HoverCard from '@mielui/svelte/components/hover-card';
 
-    let {
-        openDelay = 200,
-        closeDelay = 150,
-        triggerHref = undefined as string | undefined
-    } = $props();
+    let { delay = 200, closeDelay = 150, triggerHref = undefined as string | undefined } = $props();
 </script>
 
-<HoverCard.Root {openDelay} {closeDelay}>
+<HoverCard.Root {delay} {closeDelay}>
     <HoverCard.Trigger href={triggerHref}>
         <span data-testid="hovercard-trigger">@username</span>
     </HoverCard.Trigger>

@@ -22,7 +22,31 @@ export type QuestionType = 'single' | 'multiple' | 'text';
 export type QuestionAnswer = string | string[];
 export type QuestionStatus = 'idle' | 'submitting' | 'error';
 
+export type QuestionLabels = {
+    /** Validation message for a required single-choice question with no answer. */
+    selectAnswer?: string;
+    /** Validation message for a required multiple-choice question with no answer. */
+    selectAnswers?: string;
+    /** Validation message for a required text question with no answer. */
+    enterAnswer?: string;
+    /** Message shown when `onSubmit` rejects. */
+    submitError?: string;
+    /** Text of the submit button. */
+    submit?: string;
+    /** Text of the submit button while the answer is submitting. */
+    submitting?: string;
+    /** Accessible name of the answer field when it has no `aria-label`. */
+    answer?: string;
+    /** Placeholder of the answer field when it has no `placeholder`. */
+    placeholder?: string;
+};
+
 export type QuestionProps = {
+    /**
+     * Overrides the built-in text and accessible names. Every key is optional and English is the
+     * fallback.
+     */
+    labels?: QuestionLabels;
     /** `inset` frames the question with its actions on the frame. */
     variant?: 'default' | 'inset';
     /** Current state, which drives the submit control. */
@@ -35,9 +59,7 @@ export type QuestionProps = {
     autofocus?: boolean;
     /** Field name of the answer. */
     name?: string;
-    /** Message shown when `onSubmit` rejects. */
-    errorMessage?: string;
-    /** Called with the error when the action fails. */
+    /** Called with the error when `onSubmit` rejects. */
     onError?: (error: unknown) => void;
     /** Called when Cancel is pressed. */
     onCancel?: (event: MouseEvent) => void;
@@ -161,10 +183,6 @@ export type QuestionActionProps = {
 } & Omit<HTMLButtonAttributes, 'children' | 'onclick' | 'type'>;
 
 export type QuestionSubmitProps = {
-    /** Text of the submit button. */
-    label?: string;
-    /** Text shown while it is loading. */
-    loadingLabel?: string;
     /** Content rendered inside. */
     children?: Snippet;
     /** Bindable reference to the DOM element. */

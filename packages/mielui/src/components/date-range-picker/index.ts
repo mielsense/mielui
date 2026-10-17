@@ -1,9 +1,10 @@
+import type { WithElement } from '@mielui/svelte/utils';
 import type { DateRangePicker as DatePickerPrimitive } from 'bits-ui';
-import type { DatePickerLabels } from '../date-picker/context.svelte';
+import type { DatePickerLabels } from '../date-picker/context';
 
 export type DateRangePickerLabels = DatePickerLabels;
 
-export type DateRangePickerProps = Omit<DatePickerPrimitive.RootProps, 'child'> & {
+export type DateRangePickerProps = WithElement<Omit<DatePickerPrimitive.RootProps, 'child'>> & {
     /**
      * Overrides the built-in text and accessible names. Every key is optional and English is the
      * fallback.

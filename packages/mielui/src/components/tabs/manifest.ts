@@ -2,7 +2,7 @@ import type { Manifest } from '@mielui/svelte/_manifest/types';
 
 export const manifest: Manifest = {
     name: 'tabs',
-    version: '1.1.0',
+    version: '1.1.1',
     visibility: 'public',
     description:
         'Horizontal or vertical tabbed interface with List, Trigger, and Content subparts. Supports three visual variants and a bindable active value.',
@@ -13,12 +13,13 @@ export const manifest: Manifest = {
         'components/tabs/tabs-trigger.svelte',
         'components/tabs/tabs-content.svelte',
         'components/tabs/id.ts',
+        'components/tabs/context.ts',
         'components/tabs/indicators.svelte.ts',
         'components/tabs/index.ts',
         'components/tabs/manifest.ts'
     ],
     components: ['_internal/utils'],
-    shared: ['utils.cn', 'utils.pressable'],
+    shared: ['utils.cn', 'utils.createContext', 'utils.pressable'],
     peerDependencies: {
         '@floating-ui/dom': '1.7.6',
         'bits-ui': '^2.19.2',

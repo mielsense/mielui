@@ -1,31 +1,30 @@
 <script lang="ts">
     import { numberShuffle } from '@mielui/svelte/actions/number-shuffle';
-    import type { Snippet } from 'svelte';
-    import type { HTMLAttributes } from 'svelte/elements';
-    import { cn } from '../../utils';
-    import { useHeatmap } from './context.svelte';
+    import { cn } from '@mielui/svelte/utils';
+    import type { HeatmapSummaryProps } from '.';
+    import { countUnit } from './calendar';
+    import { getHeatmapContext } from './context';
 
-    let {
-        children,
-        class: className,
-        ...props
-    }: Omit<HTMLAttributes<HTMLParagraphElement>, 'children'> & {
-        children?: Snippet<[number]>;
-    } = $props();
-    const context = useHeatmap();
+    let { children, class: className, ...rest }: HeatmapSummaryProps = $props();
+    const context = getHeatmapContext();
+    const formatter = $derived(new Intl.NumberFormat(context.locale));
+    const unit = $derived(countUnit(context.model.total, context.labels?.unit));
 </script>
-<p {...props} data-ui="heatmap-summary" class={cn(className, 'text-sm font-medium tabular-nums')}>
+
+<p {...rest} data-ui="heatmap-summary" class={cn(className, 'text-sm font-medium tabular-nums')}>
     {#if children}
         {@render children(context.model.total)}
     {:else if !context.ready}
-        Activity
+        {context.labels?.summaryPending ?? 'Activity'}
     {:else}
         <span
-            use:numberShuffle={{ value: context.model.total, format: (value) => new Intl.NumberFormat(context.locale).format(value) }}
+            use:numberShuffle={{
+                value: context.model.total,
+                format: (value) => formatter.format(value)
+            }}
         >
-            {new Intl.NumberFormat(context.locale).format(context.model.total)}
+            {formatter.format(context.model.total)}
         </span>
-        {context.labels?.unit?.(context.model.total) ??
-            (context.model.total === 1 ? 'contribution' : 'contributions')}
+        {unit}
     {/if}
 </p>

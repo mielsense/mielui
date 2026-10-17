@@ -13,11 +13,11 @@
     );
 </script>
 
-<div class="flex h-9 shrink-0 items-center gap-3 px-[calc(17px+var(--spacing)*2)]">
+<div class="flex h-10 shrink-0 items-center gap-3 px-6">
     <div aria-hidden="true" class="flex h-3 min-w-0 flex-1 items-stretch gap-[3px]">
         {#each { length: SEGMENTS } as _, index (index)}
             <span
-                class={`min-w-0 flex-1 rounded-[1.5px] transition-colors [transition-duration:var(--motion-duration-panel)] motion-reduce:transition-none ${index < filled ? 'bg-primary' : 'bg-primary/15'}`}
+                class={`min-w-0 flex-1 rounded-full transition-colors [transition-duration:var(--motion-duration-panel)] motion-reduce:transition-none ${index < filled ? 'bg-primary' : 'bg-primary/15'}`}
             ></span>
         {/each}
     </div>

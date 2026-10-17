@@ -1,7 +1,7 @@
 <script lang="ts">
     import { cn } from '@mielui/svelte/utils';
     import type { ConversationRootProps } from '.';
-    import { setConversationContext } from './context.svelte';
+    import { setConversationContext, setConversationLabels } from './context';
     import { createConversationFollow } from './follow.svelte';
 
     let {
@@ -9,8 +9,10 @@
         threshold = 80,
         children,
         class: className,
+        labels,
         ...rest
     }: ConversationRootProps = $props();
+    setConversationLabels(() => labels);
 
     const conversation = createConversationFollow({
         get follow() {
@@ -30,7 +32,10 @@
     {...rest}
     data-ui="conversation"
     data-state={follow ? 'following' : 'paused'}
-    class={cn(className, 'relative min-h-0 overflow-hidden')}
+    class={cn(
+        className,
+        'relative min-h-0 overflow-hidden has-[[data-ui=conversation-content]:focus-visible]:outline-2 has-[[data-ui=conversation-content]:focus-visible]:-outline-offset-2 has-[[data-ui=conversation-content]:focus-visible]:outline-[var(--color-ring)]'
+    )}
 >
     {@render children?.()}
 </div>

@@ -1,2 +1,0 @@
-- Composer has a `Footer` part: a strip on the frame under the writing surface for hints, connected apps, or message-wide settings.
-- Button has a `glow` variant: a lit fill for a page's headline action, with `--mielui-glow-color` and `--mielui-glow-light` to change its color and brightness.

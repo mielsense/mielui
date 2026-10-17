@@ -1,14 +1,16 @@
 <script lang="ts">
     import * as Tabs from '@mielui/svelte/components/tabs';
     import { cn } from '@mielui/svelte/utils';
-    import { setContext, untrack } from 'svelte';
+    import { untrack } from 'svelte';
     import { insetLayout } from '../../components/_internal/inset-layout';
-    import type { CodeBlockLabels, CodeBlockProps, CodeBlockRegistry, CodeBlockTab } from '.';
+    import type { CodeBlockProps, CodeBlockTab } from '.';
     import Actions from './code-block-actions.svelte';
     import Content from './code-block-content.svelte';
     import Header from './code-block-header.svelte';
     import List from './code-block-list.svelte';
     import Trigger from './code-block-trigger.svelte';
+    import { setCodeBlockLabels, setCodeBlockPanel, setCodeBlockRegistry } from './context';
+    import { createCodeBlockRegistry } from './registry.svelte';
 
     let {
         children,
@@ -24,7 +26,7 @@
         labels,
         ...rest
     }: CodeBlockProps = $props();
-    setContext<() => CodeBlockLabels | undefined>('code-block-labels', () => labels);
+    setCodeBlockLabels(() => labels);
 
     let element = $state<HTMLDivElement>();
 
@@ -54,27 +56,50 @@
      */
     const initialValue = untrack(() => {
         const firstTab = tabs?.[0];
-        return firstTab ? (firstTab.value ?? firstTab.lang) : code != null ? SINGLE : '';
+        if (firstTab) {
+            return firstTab.value ?? firstTab.lang;
+        }
+        if (code != null) {
+            return SINGLE;
+        }
+        return '';
     });
     value ??= initialValue;
 
-    /**
-     * Raw code per tab -- Copy reads the active one -- plus the active/order
-     * tracking that drives the directional slide between tabs.
-     */
-    const registry = $state({
-        codes: {},
-        langs: {},
-        active: untrack(() => value ?? ''),
-        order: [],
-        contained: untrack(() => isHighLevel),
-        theme: untrack(() => theme)
-    } as CodeBlockRegistry);
-    let composedTriggerCount = $state(0);
-    setContext('code-block', registry);
-    setContext('code-block-panel', {
+    function highLevelOrder() {
+        if (resolvedTabs.length > 0) {
+            return resolvedTabs.map((tab) => tab.value as string);
+        }
+        if (code != null) {
+            return [SINGLE];
+        }
+        return [];
+    }
+
+    const codeBlock = createCodeBlockRegistry({
+        get value() {
+            return value;
+        },
+        set value(next) {
+            value = next;
+        },
+        get element() {
+            return element;
+        },
+        get highLevel() {
+            return isHighLevel;
+        },
+        get highLevelOrder() {
+            return highLevelOrder();
+        },
+        get theme() {
+            return theme;
+        }
+    });
+    setCodeBlockRegistry(codeBlock.registry);
+    setCodeBlockPanel({
         get tabbed() {
-            return isHighLevel ? hasTabRow : composedTriggerCount > 0;
+            return isHighLevel ? hasTabRow : codeBlock.composedTriggerCount > 0;
         }
     });
 
@@ -82,65 +107,10 @@
         if (!isHighLevel) {
             return;
         }
-        const available = resolvedTabs.map((tab) => tab.value as string);
-        if (available.length === 0 && code != null) {
-            available.push(SINGLE);
-        }
+        const available = highLevelOrder();
         if (available.length > 0 && !available.includes(value ?? '')) {
             value = available[0];
         }
-    });
-
-    $effect(() => {
-        registry.active = value ?? '';
-        registry.contained = isHighLevel;
-        registry.theme = theme;
-        if (isHighLevel) {
-            registry.order =
-                resolvedTabs.length > 0
-                    ? resolvedTabs.map((tab) => tab.value as string)
-                    : code != null
-                      ? [SINGLE]
-                      : [];
-        }
-    });
-    $effect(() => {
-        if (isHighLevel || !element) {
-            return;
-        }
-        const root = element;
-        function reconcileOrder() {
-            const triggers = Array.from(
-                root.querySelectorAll<HTMLButtonElement>('[data-code-block-value]')
-            ).filter((trigger) => trigger.closest('[data-ui="code-block"]') === root);
-            composedTriggerCount = triggers.length;
-            if (triggers.length === 0) {
-                if (!registry.order.includes(value ?? '') && registry.order.length > 0) {
-                    value = registry.order[0];
-                }
-                return;
-            }
-            const order = triggers.map((trigger) => trigger.dataset.codeBlockValue ?? '');
-            if (
-                order.length !== registry.order.length ||
-                order.some((entry, index) => entry !== registry.order[index])
-            ) {
-                registry.order = order;
-            }
-            const enabled = triggers.filter((trigger) => !trigger.disabled);
-            if (!enabled.some((trigger) => trigger.dataset.codeBlockValue === value)) {
-                value = enabled[0]?.dataset.codeBlockValue ?? '';
-            }
-        }
-        const observer = new MutationObserver(reconcileOrder);
-        observer.observe(root, {
-            childList: true,
-            subtree: true,
-            attributes: true,
-            attributeFilter: ['data-code-block-value', 'disabled']
-        });
-        untrack(reconcileOrder);
-        return () => observer.disconnect();
     });
 </script>
 
@@ -149,13 +119,13 @@
     data-ui="code-block"
     class={cn(
         className,
-        '[--mielui-modal-inset:calc(var(--spacing)*var(--mielui-border-inset-scale,1))] mielui-inset-frame flex max-h-[var(--code-block-max-height)] w-full flex-col overflow-hidden text-foreground',
+        'mielui-inset-frame flex max-h-[var(--code-block-max-height)] w-full flex-col overflow-hidden text-foreground shadow-[var(--elevation-1)]',
         // token-lint-disable-next-line no-literal-length: code-block geometry contract
-        '[--code-block-gutter:var(--color-foreground-muted)] [--code-block-padding-x:1.1rem] [--code-block-padding-y:0.9rem] [--code-block-line-height:1.7] [--code-block-max-height:min(32rem,70vh)] [--code-block-slide:1.25rem]'
+        '[--mielui-plate-radius:calc(min(var(--radius-xl),var(--radius-control)+var(--spacing)+var(--border-size))*var(--mielui-squircle,1))] [--code-block-gutter:var(--color-foreground-muted)] [--code-block-padding-x:1.1rem] [--code-block-padding-y:0.9rem] [--code-block-line-height:1.7] [--code-block-max-height:min(32rem,70vh)] [--code-block-slide:1.25rem]'
     )}
     {...rest}
 >
-    <Tabs.Root bind:value variant="segmented" class="contents">
+    <Tabs.Root bind:value variant="ghost" class="contents">
         <div class="contents" use:insetLayout>
             {#if isHighLevel}
                 {#if hasTabRow || actions || copy === 'actionbar'}
@@ -167,17 +137,13 @@
                                 {/each}
                             </List>
                         {/if}
-                        <Actions copy={copy === 'actionbar'}>{@render actions?.()} </Actions>
+                        <Actions copy={copy === 'actionbar'}> {@render actions?.()} </Actions>
                     </Header>
                 {/if}
                 {#if hasTabRow || code != null}
-                    <!-- The static card: holds the background/ring while only the text
-				     panels slide inside it (and clips the slide). -->
                     <div
                         data-ui="code-block-surface"
-                        class={cn(
-                        'mielui-inset-surface relative flex min-h-0 w-full self-stretch flex-1 overflow-auto'
-                    )}
+                        class="mielui-inset-surface relative flex min-h-0 w-full flex-1 self-stretch overflow-auto"
                     >
                         {#if hasTabRow}
                             {#each resolvedTabs as t (t.value)}

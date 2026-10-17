@@ -1,11 +1,11 @@
 <script lang="ts">
     import { numberShuffle } from '@mielui/svelte/actions/number-shuffle';
     import { cn } from '@mielui/svelte/utils';
-    import { getPieContext } from './context';
+    import { getPieChartContext } from './context';
     import type { PieChartLegendProps } from './index';
 
     let { children, class: className, ...rest }: PieChartLegendProps = $props();
-    const context = getPieContext();
+    const context = getPieChartContext();
 
     function activate(key: string, anchor?: EventTarget | null) {
         if (anchor instanceof Element) {
@@ -46,7 +46,7 @@
 
 <ul
     data-ui="pie-chart-legend"
-    class={cn(className, 'flex flex-wrap justify-center gap-x-5 gap-y-2 text-sm')}
+    class={cn(className, 'flex flex-wrap justify-center gap-x-2 gap-y-1 text-xs')}
     {...rest}
 >
     {#each context.data as item (item.key)}
@@ -54,7 +54,7 @@
             <button
                 type="button"
                 aria-label={`${context.label(item.key)}: ${context.format(item)}`}
-                class="flex items-center gap-2 rounded-[var(--radius-sm)] px-1 py-1 text-foreground-muted outline-none focus-visible:shadow-[var(--focus-ring)]"
+                class="flex items-center gap-2 rounded-[var(--radius-control)] px-2.5 py-1 text-foreground-muted outline-none transition-[background-color,box-shadow] [transition-duration:var(--motion-duration-hover)] ease-[var(--ease-out)] hover:bg-[var(--color-wash)] focus-visible:shadow-[var(--focus-ring)] motion-reduce:transition-none"
                 onfocus={(event) => focusItem(item.key, event)}
                 onblur={clearFocus}
                 onpointerenter={(event) => activate(item.key, event.currentTarget)}
@@ -63,7 +63,12 @@
                 onclick={() => selectItem(item.key)}
             >
                 {#if children}
-                    {@render children({ item, label: context.label(item.key), value: context.format(item), percentage: context.total ? item.value / context.total * 100 : 0 })}
+                    {@render children({
+                        item,
+                        label: context.label(item.key),
+                        value: context.format(item),
+                        percentage: context.percentage(item)
+                    })}
                 {:else}
                     <span
                         class="size-2 shrink-0 rounded-full"
@@ -72,7 +77,10 @@
                     <span>{context.label(item.key)}</span>
                     <span
                         class="text-foreground tabular-nums"
-                        use:numberShuffle={{ value: item.value, format: (value) => context.format({ ...item, value }) }}
+                        use:numberShuffle={{
+                            value: item.value,
+                            format: (value) => context.format({ ...item, value })
+                        }}
                     >
                         {context.format(item)}
                     </span>

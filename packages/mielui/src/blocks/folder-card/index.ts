@@ -11,7 +11,17 @@ import Title from './folder-card-title.svelte';
 
 type FolderCardTone = 1 | 2 | 3 | 4 | 5;
 
+export type FolderCardLabels = {
+    /** Text of Count, given the number and its locale-formatted form. */
+    count?: (count: number, formatted: string) => string;
+};
+
 type FolderCardSharedProps = {
+    /**
+     * Overrides the built-in text and accessible names. Every key is optional and English is the
+     * fallback.
+     */
+    labels?: FolderCardLabels;
     /** Chart palette color, `--chart-1` to `--chart-5`, used by the default cover wash. */
     tone?: FolderCardTone;
     /** Classes added to the element. */
@@ -117,8 +127,6 @@ export type FolderCardIndexProps = {
 export type FolderCardCountProps = {
     /** Number to format and show. */
     value: number;
-    /** Text after the formatted value. Pass the singular form when the value is one. */
-    unit?: string;
     /** Classes added to the element. */
     class?: string;
 } & Omit<HTMLAttributes<HTMLSpanElement>, 'children' | 'class'>;

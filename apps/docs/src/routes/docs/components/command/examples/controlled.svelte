@@ -15,8 +15,8 @@
     >
         Open the palette from a button
     </Button>
-    <Command.Root bind:open>
-        <Command.Content label="Workspace commands" allowClickOutside={false}>
+    <Command.Root bind:open labels={{ palette: 'Workspace commands' }}>
+        <Command.Content allowClickOutside={false}>
             <Command.Search placeholder="Try typing invce" threshold={0.5} />
             <Command.Results>
                 <Command.Group heading="Create">

@@ -1,7 +1,7 @@
 import type { DefaultProps } from '@mielui/svelte/utils';
 import type { Snippet } from 'svelte';
 import type { HTMLButtonAttributes } from 'svelte/elements';
-import type { ButtonOnlyProps } from '../_internal/button-attributes';
+import type { MenuRowButtonProps } from '../_internal/button-attributes';
 import Root from './dropdown-menu.svelte';
 import CheckboxItem from './dropdown-menu-checkbox-item.svelte';
 import Content from './dropdown-menu-content.svelte';
@@ -27,7 +27,9 @@ export type DropdownMenuProps = {
 export type DropdownMenuItemProps = {
     /** Called when the item is chosen. */
     callback?: () => void;
-} & ButtonOnlyProps;
+    /** Marks an action that deletes or cannot be undone. Omit it for a regular item. */
+    variant?: 'destructive';
+} & MenuRowButtonProps;
 
 export type DropdownMenuRadioGroupProps = {
     /** Value of the selected item. Bindable. */

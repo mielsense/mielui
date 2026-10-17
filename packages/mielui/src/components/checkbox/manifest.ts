@@ -12,13 +12,13 @@ export const manifest: Manifest = {
         'components/checkbox/manifest.ts'
     ],
     components: ['_internal/utils'],
-    shared: ['components/_internal/field-metadata', 'hugeicons-icon', 'utils.cn', 'transition'],
+    shared: ['components/_internal/field-metadata', 'hugeicons-icon', 'utils.cn'],
     peerDependencies: {
         '@floating-ui/dom': '1.7.6',
         '@hugeicons/core-free-icons': '^4.3.0',
         cnfast: '^0.0.8',
         'tailwind-merge': '^3.0.0',
         'tailwind-variants': '^3.0.0',
-        svelte: '^5.0.0'
+        svelte: '^5.56.0'
     }
 };

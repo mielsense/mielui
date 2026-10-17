@@ -4,12 +4,13 @@
 >
     import { Cancel01Icon, FilterIcon } from '@hugeicons/core-free-icons';
     import { cn } from '@mielui/svelte/utils';
-    import { getContext, tick } from 'svelte';
+    import { tick } from 'svelte';
     import { Button } from '../../components/button';
     import * as Menu from '../../components/dropdown-menu';
     import * as Group from '../../components/group';
     import HugeiconsIcon from '../../hugeicons-icon.svelte';
-    import type { DataTableFiltersProps, DataTableLabels } from '.';
+    import type { DataTableFiltersProps } from '.';
+    import { findDataTableLabels } from './context';
     import Facet from './data-table-facet.svelte';
     import { filterableColumn } from './features';
 
@@ -19,7 +20,7 @@
         children,
         class: className
     }: DataTableFiltersProps<TFeatures, TData> = $props();
-    const labels = getContext<(() => DataTableLabels | undefined) | undefined>('data-table-labels');
+    const labels = findDataTableLabels();
     let shown = $state<string[]>([]);
     let opened = $state<string>();
     let pickerOpen = $state(false);

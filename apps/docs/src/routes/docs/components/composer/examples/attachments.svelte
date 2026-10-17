@@ -30,7 +30,7 @@
 
 <div class="flex w-full max-w-2xl flex-col gap-3">
     <Attachment.Root bind:files class="flex flex-col gap-2">
-        <Attachment.List variant="chip" class="overflow-x-auto" />
+        <Attachment.List variant="chip" />
         <Composer.Root bind:value onSubmit={send}>
             <Composer.Input
                 aria-label="Prompt"

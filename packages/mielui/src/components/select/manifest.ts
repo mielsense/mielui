@@ -23,11 +23,11 @@ export const manifest: Manifest = {
         'components/select/select-content.svelte',
         'components/select/select-item.svelte',
         'components/select/select-label.svelte',
-        'components/select/context.svelte.ts',
+        'components/select/context.ts',
         'components/select/index.ts',
         'components/select/manifest.ts'
     ],
-    components: ['_internal/utils', 'popover', 'button', 'scroll-area'],
+    components: ['_internal/utils', 'popover', 'button'],
     shared: [
         'components/_internal/button-attributes',
         'components/_internal/surface',

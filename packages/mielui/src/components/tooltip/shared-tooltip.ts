@@ -1,9 +1,9 @@
 /**
  * A single shared tooltip surface.
  *
- * Every Tooltip.Trigger drives this one element, so moving from one trigger to
- * another *morphs* the same bubble -- the background stays put while it slides
- * and reshapes around the new label.
+ * Every Tooltip.Trigger drives this one element. The bubble fades in from its
+ * trigger's side once; moving to another trigger repositions it instantly and
+ * swaps the label in place.
  *
  * Centering trick: the bubble is anchored by its *center* (left = trigger
  * centre + `translateX(-50%)`), so its width can change freely without ever
@@ -15,6 +15,7 @@ import { autoUpdate, computePosition, flip, offset, type Placement, shift } from
 import '@scritto/core';
 import { getCssDuration } from '@mielui/svelte/transition';
 import type { Scritto as ScrittoElement } from '@scritto/core';
+import { observeThemeChanges } from '../_internal/theme-changes';
 import { cloneVisual } from './clone-visual';
 
 export function createTooltipManager() {
@@ -85,9 +86,8 @@ export function createTooltipManager() {
     /**
      * Lazily builds the bubble, its label span, and the off-screen measuring twin.
      *
-     * The twin exists so `applyWidth` can read a target width before the label
-     * swaps, letting the bubble transition its shape instead of snapping when the
-     * new label is a different length.
+     * The twin exists so `applyWidth` can size the bubble for the new label
+     * before the label swaps.
      *
      * The label span hosts a `<scritto-text>` roller when the platform supports
      * it; `setLabel` routes single-word labels through it.
@@ -140,7 +140,7 @@ export function createTooltipManager() {
         }
     }
 
-    /** Sizes the bubble to the measured width of `text` so the change can transition. */
+    /** Sizes the bubble to the measured width of `text` before the label swaps. */
     function applyWidth(text: string) {
         if (!bubble || !measurer) {
             return;
@@ -172,11 +172,19 @@ export function createTooltipManager() {
             placement,
             middleware: [offset(8), flip({ padding: 8 }), shift({ padding: 8 })]
         })
-            .then(({ x, y }) => {
+            .then(({ x, y, placement: resolved }) => {
                 if (!bubble || activeRef !== ref) {
                     return;
                 }
                 const horizontal = placement === 'top' || placement === 'bottom';
+                const side = resolved.split('-')[0];
+                const origins: Record<string, string> = {
+                    top: 'center bottom',
+                    bottom: 'center top',
+                    left: 'right center',
+                    right: 'left center'
+                };
+                bubble.style.transformOrigin = origins[side] ?? 'center';
                 const center = horizontal ? 'translateX(-50%)' : 'translateY(-50%)';
                 lastCenter = center;
                 const left = horizontal ? x + bubble.offsetWidth / 2 : x;
@@ -207,8 +215,8 @@ export function createTooltipManager() {
 
     /**
      * Keeps the open bubble glued to `ref` across scroll, resize, and layout
-     * shifts. The update only moves `left`/`top`, so the bubble glides on its
-     * existing transition instead of replaying the show animation.
+     * shifts. The update only moves `left`/`top`, so it never replays the show
+     * animation.
      */
     function trackPosition(ref: HTMLElement, placement: Placement) {
         stopTracking?.();
@@ -236,13 +244,10 @@ export function createTooltipManager() {
             setLabel(currentText, false);
         }
         refreshMotion();
-        const observer = new MutationObserver(refreshMotion);
-        for (let ancestor: HTMLElement | null = ref; ancestor; ancestor = ancestor.parentElement) {
-            observer.observe(ancestor, { attributes: true, attributeFilter: ['style', 'class'] });
-        }
+        const stopThemeChanges = observeThemeChanges(ref, refreshMotion);
         preference?.addEventListener('change', refreshMotion);
         stopMotionTracking = () => {
-            observer.disconnect();
+            stopThemeChanges();
             preference?.removeEventListener('change', refreshMotion);
         };
     }

@@ -1,32 +1,35 @@
 <script lang="ts">
     import { CodeBlock } from '@mielui/svelte/components/code-block';
+    import * as TagInput from '@mielui/svelte/components/tag-input';
     import * as Typography from '@mielui/svelte/components/typography';
-    import { ComponentPreview, InstallCommand } from '$lib/components/docs';
+    import { ComponentPreview, InstallCommand, Playground } from '$lib/components/docs';
     import InlineText from '$lib/components/docs/inline-text.svelte';
     import PageIntro from '$lib/components/docs/page-intro.svelte';
-    import SectionHeading from '$lib/components/docs/section-heading.svelte';
-    import AddingExample from './examples/adding.svelte';
-    import AddingExampleSrc from './examples/adding.svelte?raw';
+    import Adding from './examples/adding.svelte';
+    import AddingSrc from './examples/adding.svelte?raw';
     import Controlled from './examples/controlled.svelte';
     import ControlledSrc from './examples/controlled.svelte?raw';
     import Hero from './examples/hero.svelte';
     import HeroSrc from './examples/hero.svelte?raw';
     import MaxTags from './examples/max-tags.svelte';
     import MaxTagsSrc from './examples/max-tags.svelte?raw';
-    import RequiredExample from './examples/required.svelte';
-    import RequiredExampleSrc from './examples/required.svelte?raw';
+    import Required from './examples/required.svelte';
+    import RequiredSrc from './examples/required.svelte?raw';
     import Validation from './examples/validation.svelte';
     import ValidationSrc from './examples/validation.svelte?raw';
+    import { code as playgroundCode, controls as playgroundControls } from './playground';
 
-    const installCommand = 'pnpm dlx @mielui/svelte add tag-input';
+    let playgroundTags = $state(['svelte', 'design-system']);
 
-    const usageSnippet = `import * as TagInput from '@mielui/svelte/components/tag-input';
+    const usageCode = `<script lang="ts">
+    import * as TagInput from '@mielui/svelte/components/tag-input';
 
-let tags = $state(['svelte']);
+    let tags = $state(['svelte']);
+</${'script'}>
 
 <TagInput.Root bind:tags label="Topics">
-  <TagInput.List />
-  <TagInput.Input placeholder="Add a topic…" />
+    <TagInput.List />
+    <TagInput.Input placeholder="Add a topic…" />
 </TagInput.Root>`;
 </script>
 
@@ -39,66 +42,90 @@ let tags = $state(['svelte']);
 </svelte:head>
 
 <div data-docs-page class="flex flex-col gap-10">
-    <!-- ─── Header ────────────────────────────────────────────────── -->
     <PageIntro title="Tag Input">
-        A field that turns typed text into removable tags with badge outlines. Type a value, press
-        Enter, and keep going.
+        A field that turns typed text into removable tags. Type a value and press Enter.
     </PageIntro>
 
-    <!-- ─── Hero Example ──────────────────────────────────────────── -->
     <section id="hero" class="scroll-mt-20 flex flex-col gap-4">
-        <ComponentPreview code={HeroSrc}>
-            <Hero />
-        </ComponentPreview>
+        <Playground controls={playgroundControls} code={playgroundCode}>
+            {#snippet children(values)}
+                <div class="w-full max-w-md">
+                    <TagInput.Root
+                        bind:tags={playgroundTags}
+                        variant={values.variant}
+                        label={values.label ? 'Topics' : undefined}
+                        description={values.description
+                            ? 'Type a topic and press Enter.'
+                            : undefined}
+                        issues={values.invalid ? [{ message: 'Topics must be lowercase.' }] : undefined}
+                        max={values.max ? 3 : undefined}
+                        disabled={values.disabled}
+                    >
+                        <TagInput.List />
+                        <TagInput.Input
+                            aria-label={values.label ? undefined : 'Topics'}
+                            placeholder={values.placeholder || undefined}
+                        />
+                    </TagInput.Root>
+                </div>
+            {/snippet}
+        </Playground>
     </section>
 
-    <!-- ─── Installation ──────────────────────────────────────────── -->
     <section id="installation" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Installation</Typography.H2>
-        <InstallCommand command={installCommand} />
+        <InstallCommand command="pnpm dlx @mielui/svelte add tag-input" />
     </section>
 
-    <!-- ─── Usage ─────────────────────────────────────────────────── -->
     <section id="usage" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Usage</Typography.H2>
-        <Typography.Text>
-            Disabled Tag Input fields omit their hidden values from native form submission. Keyboard
-            composition does not commit tags. Native input callbacks run before internal handling
-            and can cancel it with preventDefault. External description IDs from Root and Input are
-            merged without duplicates. Only the rendered description or error is linked; an error
-            replaces the built-in description until it clears.
-        </Typography.Text>
         <Typography.Text variant="supporting">
-            Bind{' '}
-            <Typography.InlineCode>tags</Typography.InlineCode>
-            for the tag list. Compose
-            <Typography.InlineCode>List</Typography.InlineCode>
-            for the tokens and
-            <Typography.InlineCode>Input</Typography.InlineCode>
-            for entry inside
-            <Typography.InlineCode>Root</Typography.InlineCode>.
+            <InlineText
+                text={'Bind `tags` on Root to the list. Inside Root, `List` renders the tags and `Input` takes new ones. Enter or a comma adds the typed text, and Backspace in an empty input removes the last tag.'}
+            />
         </Typography.Text>
-        <CodeBlock code={usageSnippet} lang="svelte" copy="overlay" />
+        <CodeBlock code={usageCode} lang="svelte" copy="overlay" />
+        <Typography.Text variant="supporting">
+            <InlineText
+                text={'Set `name` to submit each tag as a hidden form value. A disabled field submits nothing. Bind `element` on Input to reach the text input.'}
+            />
+        </Typography.Text>
     </section>
 
-    <!-- ─── Examples ──────────────────────────────────────────────── -->
     <section id="examples" class="scroll-mt-20 flex flex-col gap-10">
-        <SectionHeading title="Examples">
-            {#snippet description()}
-                Read changes through callbacks, guard the list with validation, and cap it with a
-                maximum.
-            {/snippet}
-        </SectionHeading>
+        <div>
+            <Typography.H2 class="docs-section-heading">Examples</Typography.H2>
+        </div>
 
-        <div id="controlled" class="scroll-mt-20 flex flex-col gap-3">
+        <div id="saving-topics" class="scroll-mt-20 flex flex-col gap-3">
+            <Typography.H3 class="docs-subsection-heading">Saving topics</Typography.H3>
+            <Typography.Text variant="supporting">
+                A tag field with a count, a clear button, and a save button that reads the current
+                tags.
+            </Typography.Text>
+            <ComponentPreview code={HeroSrc}>
+                <Hero />
+            </ComponentPreview>
+        </div>
+
+        <div id="adding-tags" class="scroll-mt-20 flex flex-col gap-3">
+            <Typography.H3 class="docs-subsection-heading">Adding tags</Typography.H3>
+            <Typography.Text variant="supporting">
+                <InlineText
+                    text={'Enter adds the typed text, and so does any character in `delimiters`, a comma by default. `addOnBlur` adds what is left in the field when it loses focus, and `addOnPaste` splits pasted text on the same delimiters. Both are on by default. `normalize` cleans each tag before it is added. A tag that already exists is refused unless `allowDuplicates` is set. Bind `query` to read or set the text still being typed.'}
+                />
+            </Typography.Text>
+            <ComponentPreview code={AddingSrc}>
+                <Adding />
+            </ComponentPreview>
+        </div>
+
+        <div id="responding-to-changes" class="scroll-mt-20 flex flex-col gap-3">
             <Typography.H3 class="docs-subsection-heading">Responding to changes</Typography.H3>
             <Typography.Text variant="supporting">
-                <Typography.InlineCode>onAdd</Typography.InlineCode>
-                and
-                <Typography.InlineCode>onRemove</Typography.InlineCode>
-                report single-tag edits;
-                <Typography.InlineCode>onTagsChange</Typography.InlineCode>
-                reports the whole list.
+                <InlineText
+                    text={'`onAdd` and `onRemove` report single tags. `onTagsChange` reports the whole list.'}
+                />
             </Typography.Text>
             <ComponentPreview code={ControlledSrc}>
                 <Controlled />
@@ -108,79 +135,65 @@ let tags = $state(['svelte']);
         <div id="validation" class="scroll-mt-20 flex flex-col gap-3">
             <Typography.H3 class="docs-subsection-heading">Validation</Typography.H3>
             <Typography.Text variant="supporting">
-                Return{' '}
-                <Typography.InlineCode>false</Typography.InlineCode>
-                or an error message from
-                <Typography.InlineCode>validate</Typography.InlineCode>
-                to reject a tag. Rejections arrive through
-                <Typography.InlineCode>onReject</Typography.InlineCode>
-                with a human-readable reason.
+                <InlineText
+                    text={'Return `false` or a message from `validate` to refuse a tag. `onReject` receives the refused value, a `code`, and a readable `reason`.'}
+                />
             </Typography.Text>
             <ComponentPreview code={ValidationSrc}>
                 <Validation />
             </ComponentPreview>
         </div>
 
-        <div id="max-tags" class="scroll-mt-20 flex flex-col gap-3">
-            <Typography.H3 class="docs-subsection-heading">Limiting tags</Typography.H3>
+        <div id="maximum" class="scroll-mt-20 flex flex-col gap-3">
+            <Typography.H3 class="docs-subsection-heading">Maximum</Typography.H3>
             <Typography.Text variant="supporting">
-                <Typography.InlineCode>max</Typography.InlineCode>
-                caps the list. Extra tags are rejected with a
-                <Typography.InlineCode>max-tags</Typography.InlineCode>
-                reason.
+                <InlineText
+                    text={'`max` caps the list. Extra tags are refused with the `max-tags` code.'}
+                />
             </Typography.Text>
             <ComponentPreview code={MaxTagsSrc}>
                 <MaxTags />
             </ComponentPreview>
         </div>
+
+        <div id="required" class="scroll-mt-20 flex flex-col gap-3">
+            <Typography.H3 class="docs-subsection-heading">Required</Typography.H3>
+            <Typography.Text variant="supporting">
+                <InlineText
+                    text={'`required` blocks native form submission until there is at least one tag. `labels.required` sets the message the browser shows.'}
+                />
+            </Typography.Text>
+            <ComponentPreview code={RequiredSrc}>
+                <Required />
+            </ComponentPreview>
+        </div>
     </section>
 
-    <section id="labels" class="flex scroll-mt-20 flex-col gap-4">
+    <section id="labels" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Labels</Typography.H2>
-        <Typography.Text>
-            Built-in text is English by default. Pass labels to TagInput.Root to translate or reword
-            the remove button and the built-in rejection reasons. Every key is optional; omitted
-            keys keep their default.
+        <Typography.Text variant="supporting">
+            <InlineText
+                text={"Built-in text is English. Pass a `labels` object to Root to translate the remove button's name, the refusal reasons, the announcements after a tag is added or removed, and the required message. `TagInputLabels` types it. Every key is optional, and omitted keys keep their English default."}
+            />
         </Typography.Text>
         <CodeBlock
-            code={`<TagInput.Root labels={{ remove: (tag) => \`Supprimer \${tag}\`, maxReached: (max) => \`\${max} étiquettes au maximum.\` }} />`}
+            code={`<TagInput.Root
+    bind:tags
+    label="Sujets"
+    labels={{
+        remove: (tag) => \`Supprimer \${tag}\`,
+        duplicate: (tag) => \`\${tag} est déjà dans la liste.\`,
+        maxReached: (max) => \`\${max} sujets au maximum.\`,
+        added: (tag, count) => \`\${tag} ajouté, \${count} au total.\`,
+        removed: (tag, count) => \`\${tag} retiré, \${count} au total.\`,
+        required: 'Ajoutez au moins un sujet.'
+    }}
+>
+    <TagInput.List />
+    <TagInput.Input placeholder="Ajouter un sujet…" />
+</TagInput.Root>`}
             lang="svelte"
             copy="overlay"
         />
-    </section>
-    <section id="adding-tags" class="flex flex-col gap-4">
-        <Typography.H2 class="docs-section-heading">How tags are added</Typography.H2>
-        <Typography.Text variant="supporting">
-            <InlineText
-                text={"Enter adds the typed text as a tag. So does any character in `delimiters`, a comma by default. Add a space or a semicolon there to match how your users separate values. `addOnBlur` adds whatever is left in the field when it loses focus, and `addOnPaste` splits pasted text into tags on the same delimiters. Both are on by default."}
-            />
-        </Typography.Text>
-        <Typography.Text variant="supporting">
-            <InlineText
-                text={"`normalize` cleans each tag before it is added, for example trimming it and lowering its case. A tag that already exists is ignored unless you set `allowDuplicates`. Bind `query` to read or set the text still being typed."}
-            />
-        </Typography.Text>
-        <ComponentPreview code={AddingExampleSrc}>
-            <AddingExample />
-        </ComponentPreview>
-    </section>
-    <section id="forms" class="flex flex-col gap-4">
-        <Typography.H2 class="docs-section-heading">Forms and parts</Typography.H2>
-        <Typography.Text variant="supporting">
-            <InlineText
-                text={"`required` blocks native form submission until there is at least one tag, and `requiredMessage` is the text the browser shows. `disabled` on Root turns the whole field off."}
-            />
-        </Typography.Text>
-        <Typography.Text variant="supporting">
-            <InlineText text={"Input accepts `element` to bind the text input."} />
-        </Typography.Text>
-        <Typography.Text variant="supporting">
-            <InlineText
-                text={"Root, List and Tag render their `children` and accept `class` and `style` like any element."}
-            />
-        </Typography.Text>
-        <ComponentPreview code={RequiredExampleSrc}>
-            <RequiredExample />
-        </ComponentPreview>
     </section>
 </div>

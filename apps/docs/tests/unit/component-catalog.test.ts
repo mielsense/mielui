@@ -13,7 +13,7 @@ it('lists each component once, in its source category, with docs and API coverag
             expect(existsSync(page), `${slug}: docs page`).toBe(true);
             const text = readFileSync(page, 'utf8');
             expect(
-                text.match(/<ComponentPreview[\s>]/g)?.length ?? 0,
+                text.match(/<(?:ComponentPreview|Playground)[\s>]/g)?.length ?? 0,
                 `${slug}: examples`
             ).toBeGreaterThanOrEqual(2);
             const reference = path.resolve('src/lib/generated/api', `${slug}.json`);

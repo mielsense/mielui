@@ -1,3 +1,5 @@
+export const GITHUB_URL = 'https://github.com/mielsense/mielui';
+
 export function formatStarCount(count: number | null): string {
     if (count === null || !Number.isFinite(count) || count < 0) {
         return 'Star';

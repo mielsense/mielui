@@ -1,6 +1,7 @@
 <script lang="ts">
     import * as Drawer from '@mielui/svelte/components/drawer';
 </script>
+
 <Drawer.Root>
     <Drawer.Trigger>Review changes</Drawer.Trigger>
     <Drawer.Portal>
@@ -14,16 +15,16 @@
                 </Drawer.Description>
             </Drawer.Header>
             <Drawer.Body>
-                <dl class="mb-5 divide-y divide-border text-sm">
-                    <div class="flex justify-between gap-4 py-3">
+                <dl class="mb-5 flex flex-col gap-3 text-sm">
+                    <div class="flex justify-between gap-4">
                         <dt class="text-foreground-muted">Collection</dt>
                         <dd>Weekend reading</dd>
                     </div>
-                    <div class="flex justify-between gap-4 py-3">
+                    <div class="flex justify-between gap-4">
                         <dt class="text-foreground-muted">Articles added</dt>
                         <dd class="tabular-nums">2</dd>
                     </div>
-                    <div class="flex justify-between gap-4 py-3">
+                    <div class="flex justify-between gap-4">
                         <dt class="text-foreground-muted">Articles archived</dt>
                         <dd class="tabular-nums">1</dd>
                     </div>
@@ -41,16 +42,16 @@
                                 </Drawer.Description>
                             </Drawer.Header>
                             <Drawer.Body>
-                                <ul class="divide-y divide-border text-sm">
-                                    <li class="flex justify-between gap-4 py-4">
+                                <ul class="flex flex-col gap-3 text-sm">
+                                    <li class="flex justify-between gap-4">
                                         <span>The art of paying attention</span>
                                         <span class="text-foreground-muted">Added</span>
                                     </li>
-                                    <li class="flex justify-between gap-4 py-4">
+                                    <li class="flex justify-between gap-4">
                                         <span>A slower kind of weekend</span>
                                         <span class="text-foreground-muted">Added</span>
                                     </li>
-                                    <li class="flex justify-between gap-4 py-4">
+                                    <li class="flex justify-between gap-4">
                                         <span>Notes from the city</span>
                                         <span class="text-foreground-muted">Archived</span>
                                     </li>

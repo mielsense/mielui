@@ -16,7 +16,31 @@ import Toolbar from './composer-toolbar.svelte';
 
 export type ComposerStatus = 'idle' | 'submitting' | 'error';
 
+export type ComposerLabels = {
+    /** Message shown when `onSubmit` rejects. */
+    error?: string;
+    /** Accessible name of the message field when it has no `aria-label`. */
+    input?: string;
+    /** Placeholder of the message field when it has no `placeholder`. */
+    placeholder?: string;
+    /** Accessible name of the toolbar when it has no `aria-label`. */
+    toolbar?: string;
+    /** Accessible name of the submit button when it sends. */
+    send?: string;
+    /** Accessible name of the submit button when it queues a message behind a running response. */
+    queue?: string;
+    /** Accessible name of the submit button when it stops a response. */
+    stop?: string;
+    /** Accessible name of the submit button while the submission is pending. */
+    sending?: string;
+};
+
 export type ComposerProps = {
+    /**
+     * Overrides the built-in text and accessible names. Every key is optional and English is the
+     * fallback.
+     */
+    labels?: ComposerLabels;
     /** Surface treatment. Omit it to inherit `--mielui-surface` from the theme. */
     surface?: 'solid' | 'glass';
     /** Message text. Bindable. */
@@ -31,8 +55,6 @@ export type ComposerProps = {
     allowEmpty?: boolean;
     /** Called with the text on submit. Return a promise to show progress until it settles. */
     onSubmit: (value: string, event: SubmitEvent) => void | Promise<void>;
-    /** Message shown when `onSubmit` rejects. */
-    errorMessage?: string;
     /** Called with the error when `onSubmit` rejects. */
     onError?: (error: unknown) => void;
     /** Called when the stop control is pressed during a response. */
@@ -89,14 +111,6 @@ export type ComposerFooterProps = {
 } & Omit<HTMLAttributes<HTMLDivElement>, 'children' | 'class'>;
 
 export type ComposerSubmitProps = {
-    /** Accessible name of the send button. */
-    label?: string;
-    /** Accessible name while a message can be queued behind a running response. */
-    queueLabel?: string;
-    /** Accessible name while the button stops a response. */
-    stopLabel?: string;
-    /** Text shown while it is loading. */
-    loadingLabel?: string;
     /** Content rendered inside. */
     children?: Snippet<[ComposerSubmitState]>;
     /** Bindable reference to the DOM element. */

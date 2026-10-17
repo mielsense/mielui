@@ -1,15 +1,17 @@
 <script lang="ts">
     import { numberShuffle } from '@mielui/svelte/actions/number-shuffle';
+    import { cn } from '@mielui/svelte/utils';
     import ChartTooltipSurface from '../../components/_internal/chart-tooltip-surface.svelte';
-    import { getPieContext } from './context';
+    import { getPieChartContext } from './context';
     import type { PieChartTooltipProps } from './index';
 
     let { children, class: className, ...rest }: PieChartTooltipProps = $props();
-    const context = getPieContext();
+    const context = getPieChartContext();
     let element = $state<HTMLDivElement>();
     let left = $state(0);
     let top = $state(0);
     let positioned = $state(false);
+    let following = $state(false);
     function clamp(value: number, minimum: number, maximum: number) {
         return Math.max(minimum, Math.min(value, Math.max(minimum, maximum)));
     }
@@ -56,6 +58,20 @@
     }
 
     $effect(() => {
+        if (!element) {
+            following = false;
+            return;
+        }
+        const frame = requestAnimationFrame(() => {
+            following = true;
+        });
+
+        return () => {
+            cancelAnimationFrame(frame);
+        };
+    });
+
+    $effect(() => {
         position();
     });
 
@@ -81,14 +97,25 @@
 {#if item && !context.loading && context.total > 0}
     <ChartTooltipSurface
         {...rest}
-        bind:ref={element}
-        style={`${rest.style ?? ''}; left: ${left}px; top: ${top}px; visibility: ${positioned ? 'visible' : 'hidden'}`}
+        bind:element
+        style={`${rest.style ?? ''}; left: 0; top: 0; translate: ${left}px ${top}px; visibility: ${positioned ? 'visible' : 'hidden'}`}
         data-ui="pie-chart-tooltip"
         role="status"
-        class={className}
+        class={cn(
+            className,
+            following &&
+                context.motion &&
+                context.active !== context.focused &&
+                'transition-[translate] [transition-duration:var(--motion-duration-spring)] ease-[var(--ease-spring-layout)] motion-reduce:transition-none'
+        )}
     >
         {#if children}
-            {@render children({ item, label: context.label(item.key), value: context.format(item), percentage: context.total ? item.value / context.total * 100 : 0 })}
+            {@render children({
+                item,
+                label: context.label(item.key),
+                value: context.format(item),
+                percentage: context.percentage(item)
+            })}
         {:else}
             <div class="flex items-center gap-2">
                 <span
@@ -98,7 +125,10 @@
                 <span class="flex-1 text-foreground-muted">{context.label(item.key)}</span>
                 <span
                     class="ml-4 font-medium tabular-nums"
-                    use:numberShuffle={{ value: item.value, format: (value) => context.format({ ...item, value }) }}
+                    use:numberShuffle={{
+                        value: item.value,
+                        format: (value) => context.format({ ...item, value })
+                    }}
                 >
                     {context.format(item)}
                 </span>

@@ -3,11 +3,25 @@
     import * as Select from '@mielui/svelte/components/select';
 
     const options = [
-        { value: 'design', label: 'Design' },
-        { value: 'engineering', label: 'Engineering' },
-        { value: 'support', label: 'Support' },
-        { value: 'finance', label: 'Finance', disabled: true }
+        {
+            value: 'design',
+            label: 'Design'
+        },
+        {
+            value: 'engineering',
+            label: 'Engineering'
+        },
+        {
+            value: 'support',
+            label: 'Support'
+        },
+        {
+            value: 'finance',
+            label: 'Finance',
+            disabled: true
+        }
     ];
+
     let teams = $state<string[]>(['design']);
     let submitted = $state('');
 
@@ -32,7 +46,7 @@
         </Select.Trigger>
         <Select.Content>
             {#each options as option (option.value)}
-                <Select.Item value={option.value} label={option.label} disabled={option.disabled}>
+                <Select.Item value={option.value} disabled={option.disabled}>
                     {option.label}
                 </Select.Item>
             {/each}

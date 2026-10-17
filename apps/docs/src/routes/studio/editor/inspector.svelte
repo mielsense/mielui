@@ -19,27 +19,27 @@
         {
             value: 'color',
             label: 'Color',
-            parts: [Colors]
+            component: Colors
         },
         {
             value: 'type',
             label: 'Type',
-            parts: [Typography]
+            component: Typography
         },
         {
             value: 'shape',
             label: 'Shape',
-            parts: [Shape]
+            component: Shape
         },
         {
             value: 'surface',
             label: 'Surface',
-            parts: [Appearance]
+            component: Appearance
         },
         {
             value: 'motion',
             label: 'Motion',
-            parts: [Interaction]
+            component: Interaction
         }
     ];
 
@@ -49,6 +49,7 @@
     let group = $state('color');
     let list = $state<HTMLDivElement>();
     let empty = $state(false);
+
     const view = $derived(filter.active ? 'search' : group);
 
     function openGroup(value: string) {
@@ -69,7 +70,7 @@
     onValueChange={openGroup}
     class="flex min-h-0 flex-1 flex-col"
 >
-    <div class="flex shrink-0 flex-col gap-2 px-3 pt-1">
+    <div class="flex shrink-0 flex-col gap-2 px-3 pt-1 lg:pt-0">
         <Input
             bind:value={filter.query}
             type="search"
@@ -97,9 +98,7 @@
             <div bind:this={list} class="flex min-h-full flex-col gap-5 px-3 pt-4 pb-6">
                 {#if filter.active}
                     {#each groups as item (item.value)}
-                        {#each item.parts as Part (Part)}
-                            <Part />
-                        {/each}
+                        <item.component />
                     {/each}
                     {#if empty}
                         <div class="flex flex-col items-start gap-3 px-3 pt-2">
@@ -120,9 +119,7 @@
                 {:else}
                     {#each groups as item (item.value)}
                         <Tabs.Content value={item.value} class="flex flex-col gap-5">
-                            {#each item.parts as Part (Part)}
-                                <Part />
-                            {/each}
+                            <item.component />
                         </Tabs.Content>
                     {/each}
                 {/if}

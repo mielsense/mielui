@@ -12,24 +12,6 @@
                 "inherited": false
             },
             {
-                "name": "side",
-                "type": "\"top\" | \"bottom\" | \"left\" | \"right\" | undefined",
-                "required": false,
-                "bindable": false,
-                "default": "'bottom'",
-                "description": "Preferred side of the trigger. The card flips to the opposite side when there is no room.",
-                "inherited": false
-            },
-            {
-                "name": "align",
-                "type": "\"start\" | \"center\" | \"end\" | undefined",
-                "required": false,
-                "bindable": false,
-                "default": "'center'",
-                "description": "Alignment along that side. The card shifts to stay inside the viewport.",
-                "inherited": false
-            },
-            {
                 "name": "sideOffset",
                 "type": "number | undefined",
                 "required": false,
@@ -62,21 +44,21 @@
         "name": "Description",
         "properties": [
             {
-                "name": "children",
-                "type": "Snippet<[]>",
-                "required": true,
-                "bindable": false,
-                "default": null,
-                "description": "Content rendered inside.",
-                "inherited": false
-            },
-            {
                 "name": "class",
                 "type": "string | undefined",
                 "required": false,
                 "bindable": false,
                 "default": null,
                 "description": "Classes added to the element.",
+                "inherited": false
+            },
+            {
+                "name": "children",
+                "type": "Snippet<[]> | undefined",
+                "required": false,
+                "bindable": false,
+                "default": null,
+                "description": "Content rendered inside.",
                 "inherited": false
             }
         ]
@@ -94,7 +76,7 @@
                 "inherited": false
             },
             {
-                "name": "openDelay",
+                "name": "delay",
                 "type": "number | undefined",
                 "required": false,
                 "bindable": false,
@@ -112,6 +94,15 @@
                 "inherited": false
             },
             {
+                "name": "placement",
+                "type": "HoverCardPlacement | undefined",
+                "required": false,
+                "bindable": false,
+                "default": "'bottom'",
+                "description": "Preferred side and alignment relative to the trigger, such as `bottom-start`. It flips when there is no room.",
+                "inherited": false
+            },
+            {
                 "name": "children",
                 "type": "Snippet<[]> | undefined",
                 "required": false,
@@ -126,21 +117,21 @@
         "name": "Title",
         "properties": [
             {
-                "name": "children",
-                "type": "Snippet<[]>",
-                "required": true,
-                "bindable": false,
-                "default": null,
-                "description": "Content rendered inside.",
-                "inherited": false
-            },
-            {
                 "name": "class",
                 "type": "string | undefined",
                 "required": false,
                 "bindable": false,
                 "default": null,
                 "description": "Classes added to the element.",
+                "inherited": false
+            },
+            {
+                "name": "children",
+                "type": "Snippet<[]> | undefined",
+                "required": false,
+                "bindable": false,
+                "default": null,
+                "description": "Content rendered inside.",
                 "inherited": false
             }
         ]

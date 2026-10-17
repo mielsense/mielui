@@ -1,26 +1,22 @@
 <script lang="ts">
-    import { getChartContext } from 'layerchart';
-    import { cubicOut } from 'svelte/easing';
-    import { Tween } from 'svelte/motion';
-    import { getChart } from './context.svelte';
+    import { getChartContext as getLayerChartContext } from 'layerchart';
+    import { getChartContext } from './context';
+    import { createChartFollow } from './follow.svelte';
 
-    const layer = getChartContext();
-    const chart = getChart();
+    const layer = getLayerChartContext();
+    const chart = getChartContext();
     let group: SVGGElement;
-    const selected = Tween.of(
-        () =>
-            chart.active === null
-                ? 0
-                : Number(
-                      (chart.orientation === 'horizontal' ? layer.yScale : layer.xScale)(
-                          chart.position(chart.active)
-                      )
-                  ),
-        {
-            duration: () =>
-                chart.motion && chart.animation !== 'none' ? 120 * chart.motionScale : 0,
-            easing: cubicOut
-        }
+    const selected = createChartFollow(
+        chart,
+        () => {
+            if (chart.active === null) {
+                return null;
+            }
+            const scale = chart.orientation === 'horizontal' ? layer.yScale : layer.xScale;
+
+            return Number(scale(chart.position(chart.active)));
+        },
+        0
     );
     $effect(() => {
         const index = chart.active;
@@ -60,6 +56,7 @@
         return { start, size: Math.max(0, end - start) };
     }
 </script>
+
 <g bind:this={group}>
     {#if chart.active !== null}
         <line
@@ -67,7 +64,7 @@
             x2={horizontal ? layer.width : selected.current}
             y1={horizontal ? selected.current : 0}
             y2={horizontal ? selected.current : layer.height}
-            class="stroke-foreground/15"
+            class="stroke-[var(--color-border-strong)]"
             stroke-dasharray="3 4"
         />
     {/if}

@@ -4,10 +4,20 @@
     import { Input } from '@mielui/svelte/components/input';
 
     let showIssue = $state(true);
+
+    const issues = $derived(
+        showIssue
+            ? [
+                  {
+                      message: 'This username is already in use.'
+                  }
+              ]
+            : []
+    );
 </script>
 
 <div class="flex w-full max-w-sm flex-col gap-5">
-    <Field.Root issues={showIssue ? [{ message: 'This username is already in use.' }] : []}>
+    <Field.Root {issues}>
         <Field.Label>Username</Field.Label>
         <Field.Description>
             Letters, numbers, and hyphens. You can change this later.

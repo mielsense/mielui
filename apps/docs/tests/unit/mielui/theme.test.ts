@@ -12,12 +12,12 @@ describe('DEFAULT_THEME', () => {
         expect(DEFAULT_THEME).toMatchObject({
             version: THEME_VERSION,
             brand: '#ba7ca5',
-            neutral: 'warm',
+            neutral: 'true',
             radius: 'default',
             density: 'default',
             motion: 'default',
-            fontSans: "'Manrope', sans-serif",
-            fontMono: "'JetBrains Mono', monospace"
+            fontSans: "'Inter Tight', sans-serif",
+            fontMono: "'Geist Mono', monospace"
         });
     });
 });
@@ -26,11 +26,13 @@ describe('themeToCss', () => {
     const css = themeToCss(DEFAULT_THEME);
 
     it('emits fonts, radii, density, brand, motion, and mode-specific neutrals', () => {
-        expect(css).toContain("--font-sans: 'Manrope', sans-serif");
+        expect(css).toContain("--font-sans: 'Inter Tight', sans-serif");
         expect(css).toContain('--radius-lg: 14px');
+        expect(css).toContain('--radius-2xl: 26px');
+        expect(css).toContain('--radius-control: 12px');
         expect(css).toContain('--color-primary: #ba7ca5');
         expect(css).toContain('--mielui-space-unit: 3.6px');
-        expect(css).toContain('--motion-duration-menu: 40ms');
+        expect(css).toContain('--motion-duration-menu: 60ms');
         expect(css).toContain(':root {');
         expect(css).toContain('.dark {');
     });
@@ -94,7 +96,7 @@ describe('themeToCss', () => {
     it('derives custom brand tokens without changing the schema', () => {
         const custom = themeToCss({ ...DEFAULT_THEME, brand: '#22cc88' });
         expect(custom).toContain('--color-primary: #22cc88');
-        expect(custom).toContain('--color-ring: color-mix(in srgb, #22cc88 80%, transparent)');
+        expect(custom).toContain('--color-ring: color-mix(in srgb, #22cc88 50%, transparent)');
         expect(custom).toContain('--mielui-blue-500: #22cc88');
     });
 
@@ -144,8 +146,8 @@ describe('parseTheme', () => {
 });
 
 describe('edge highlight strength', () => {
-    it('uses half strength when older themes omit the setting', () => {
-        expect(themeToCss(DEFAULT_THEME)).toContain('--mielui-edge-highlight: 0.5;');
+    it('uses the default strength when older themes omit the setting', () => {
+        expect(themeToCss(DEFAULT_THEME)).toContain('--mielui-edge-highlight: 0.33;');
     });
 
     it.each([0, 0.5, 1])(
@@ -183,7 +185,7 @@ describe('edge highlight strength', () => {
         expect(css).toContain(custom);
         expect(
             css.lastIndexOf(
-                '--elevation-control: inset 0 0 0 var(--border-size) var(--color-border);'
+                '--elevation-control: inset 0 0 0 var(--border-size) var(--color-input);'
             )
         ).toBeGreaterThan(css.indexOf(custom));
     });

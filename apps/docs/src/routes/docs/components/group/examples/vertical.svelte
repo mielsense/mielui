@@ -12,8 +12,8 @@
             variant="outline"
             disabled={zoom === 200}
             onclick={() => {
-            zoom += 25;
-        }}
+                zoom += 25;
+            }}
         >
             Zoom in
         </Button>
@@ -22,14 +22,13 @@
             variant="outline"
             disabled={zoom === 50}
             onclick={() => {
-            zoom -= 25;
-        }}
+                zoom -= 25;
+            }}
         >
             Zoom out
         </Button>
     </Group.Root>
     <output class="min-w-14 text-sm text-foreground-muted tabular-nums" aria-label="Zoom level">
-        <span use:numberShuffle={{ value: zoom }}>{zoom}</span>
-        %
+        <span use:numberShuffle={{ value: zoom }}>{zoom}</span>%
     </output>
 </div>

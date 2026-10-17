@@ -3,7 +3,21 @@ import type { Snippet } from 'svelte';
 import type { HTMLAttributes, HTMLButtonAttributes } from 'svelte/elements';
 import ShowMore from './show-more.svelte';
 
+export type ShowMoreLabels = {
+    /** Text of the button while collapsed. */
+    more?: string;
+    /** Text of the button while expanded. */
+    less?: string;
+    /** Accessible name of the content region when it scrolls or has a preview. */
+    region?: string;
+};
+
 export type ShowMoreProps = {
+    /**
+     * Overrides the built-in text and accessible names. Every key is optional and English is the
+     * fallback.
+     */
+    labels?: ShowMoreLabels;
     /** Number of visible text lines while collapsed. */
     lines?: number;
     /** Maximum expanded height before the content becomes scrollable. */
@@ -12,12 +26,6 @@ export type ShowMoreProps = {
     defaultExpanded?: boolean;
     /** Bindable disclosure state. */
     expanded?: boolean;
-    /** Text of the button while collapsed. */
-    moreLabel?: string;
-    /** Text of the button while expanded. */
-    lessLabel?: string;
-    /** Accessible name for the expanded scroll region when the content is capped. */
-    label?: string;
     /** Called with the new state when it expands or collapses. */
     onExpandedChange?: (expanded: boolean) => void;
     /** Full content. With preview, this subtree is hidden and inert while collapsed. */

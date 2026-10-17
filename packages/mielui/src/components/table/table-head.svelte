@@ -1,15 +1,18 @@
 <script lang="ts">
     import { cn } from '@mielui/svelte/utils';
-    import type { HTMLThAttributes } from 'svelte/elements';
+    import type { TableHeadProps } from '.';
 
-    let { children, class: className, scope = 'col', ...rest }: HTMLThAttributes = $props();
+    let { children, class: className, scope = 'col', ...rest }: TableHeadProps = $props();
 </script>
 
 <th
     {...rest}
     {scope}
     data-ui="table-head"
-    class={cn(className, 'px-4 py-3 text-start align-middle font-medium text-foreground-muted border-b border-border [tbody_tr:last-child_&]:border-b-0')}
+    class={cn(
+        className,
+        'h-10 px-3 py-1.5 text-start align-middle font-medium text-foreground-muted [thead_&]:h-9 [thead_&]:border-b-[length:var(--border-size)] [thead_&]:border-border [thead_&]:text-[length:var(--font-size-label)]'
+    )}
 >
     {@render children?.()}
 </th>

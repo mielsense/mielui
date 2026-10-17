@@ -8,7 +8,7 @@ import {
     sanitizeComponent
 } from './components';
 
-export function guidePath(component: string, slug: string): string {
+function guidePath(component: string, slug: string): string {
     return `/docs/components/${component}/${slug}`;
 }
 

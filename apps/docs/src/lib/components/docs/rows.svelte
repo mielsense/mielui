@@ -4,6 +4,10 @@
         value?: string;
         href?: string;
     };
+
+    /** The inset list every docs table and row group sits in. */
+    export const insetListClass =
+        'mielui-inset-surface m-0 flex list-none flex-col divide-y-[length:var(--border-size)] divide-[var(--docs-rule,var(--color-border))] overflow-hidden p-0';
 </script>
 
 <script lang="ts">
@@ -20,10 +24,7 @@
 -->
 
 <div class="mielui-inset-frame @container">
-    <ul
-        aria-label={label}
-        class="mielui-inset-surface m-0 flex list-none flex-col divide-y-[length:var(--border-size)] divide-[var(--docs-rule,var(--color-border))] overflow-hidden p-0"
-    >
+    <ul aria-label={label} class={insetListClass}>
         {#each items as item (item.label)}
             <li>
                 {#if item.href}
@@ -47,7 +48,7 @@
                             icon={ChevronRight}
                             size={14}
                             aria-hidden="true"
-                            class="shrink-0 text-foreground-muted transition-transform [transition-duration:var(--motion-duration-hover)] group-hover:translate-x-0.5 motion-reduce:transition-none"
+                            class="shrink-0 text-foreground-muted transition-colors [transition-duration:var(--motion-duration-hover)] group-hover:text-foreground motion-reduce:transition-none"
                         />
                     </a>
                 {:else}

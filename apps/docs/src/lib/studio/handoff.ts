@@ -1,4 +1,5 @@
 import { parseTheme, type Theme } from '@mielui/svelte/themes/theme';
+import { readStorage, removeStorage, writeStorage } from '$lib/storage';
 
 const HANDOFF_KEY = 'mielui-studio-handoff-v1';
 
@@ -7,21 +8,17 @@ const HANDOFF_KEY = 'mielui-studio-handoff-v1';
  * applies it on open, so without this it would put its old draft back over the new theme.
  */
 export function handOffTheme(theme: Theme) {
-    try {
-        localStorage.setItem(HANDOFF_KEY, JSON.stringify(theme));
-    } catch {
-        return;
-    }
+    writeStorage(HANDOFF_KEY, JSON.stringify(theme));
 }
 
 /** Returns the handed-off theme once, then forgets it. */
 export function takeHandedOffTheme(): Theme | null {
     try {
-        const stored = localStorage.getItem(HANDOFF_KEY);
+        const stored = readStorage(HANDOFF_KEY);
         if (!stored) {
             return null;
         }
-        localStorage.removeItem(HANDOFF_KEY);
+        removeStorage(HANDOFF_KEY);
 
         return parseTheme(JSON.parse(stored));
     } catch {

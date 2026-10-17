@@ -1,9 +1,15 @@
 <script lang="ts">
-    import { SkeletonSwap } from '@mielui/svelte/components/skeleton';
+    import { SkeletonSwap, type SkeletonSwapLabels } from '@mielui/svelte/components/skeleton';
 
-    let { ready = false }: { ready?: boolean } = $props();
+    let {
+        ready = false,
+        labels
+    }: {
+        ready?: boolean;
+        labels?: SkeletonSwapLabels;
+    } = $props();
 </script>
 
-<SkeletonSwap {ready} delay={20} minVisible={40} lines={2} label="Profile">
+<SkeletonSwap {ready} delay={20} minVisible={40} lines={2} label="Profile" {labels}>
     <p>Loaded profile</p>
 </SkeletonSwap>

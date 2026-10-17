@@ -5,7 +5,7 @@ export const manifest: Manifest = {
     version: '1.0.0',
     visibility: 'public',
     description:
-        'Inset callout with separate visual variant and optional polite or assertive announcements.',
+        'Notice strip with separate visual variant and optional polite or assertive announcements.',
     role: 'alert',
     files: [
         'components/alert/alert.svelte',
@@ -23,6 +23,6 @@ export const manifest: Manifest = {
         cnfast: '^0.0.8',
         'tailwind-merge': '^3.0.0',
         'tailwind-variants': '^3.0.0',
-        svelte: '^5.0.0'
+        svelte: '^5.56.0'
     }
 };

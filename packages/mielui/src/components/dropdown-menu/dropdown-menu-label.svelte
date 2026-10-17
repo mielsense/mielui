@@ -10,13 +10,6 @@
     let { children, class: className, ...rest }: Props = $props();
 </script>
 
-<p
-    {...rest}
-    data-ui="menu-label"
-    class={cn(
-        className,
-        'mielui-menu-label'
-    )}
->
+<p {...rest} data-ui="menu-label" class={cn(className, 'mielui-menu-label')}>
     {@render children?.()}
 </p>

@@ -2,7 +2,7 @@ import type { Manifest } from '@mielui/svelte/_manifest/types';
 
 export const manifest: Manifest = {
     name: 'question',
-    version: '1.0.0',
+    version: '1.1.0',
     visibility: 'public',
     description:
         'Inline agent question form with single-choice, multiple-choice, and free-text answers.',
@@ -17,7 +17,8 @@ export const manifest: Manifest = {
         'components/question/question-actions.svelte',
         'components/question/question-cancel.svelte',
         'components/question/question-submit.svelte',
-        'components/question/context.svelte.ts',
+        'components/question/context.ts',
+        'components/question/controller.svelte.ts',
         'components/question/index.ts',
         'components/question/manifest.ts'
     ],
@@ -27,14 +28,13 @@ export const manifest: Manifest = {
         'components/_internal/submission.svelte',
         'hugeicons-icon',
         'utils.cn',
-        'utils.createContext',
-        'transition'
+        'utils.createContext'
     ],
     peerDependencies: {
         '@floating-ui/dom': '1.7.6',
         '@hugeicons/core-free-icons': '^4.3.0',
         cnfast: '^0.0.8',
-        svelte: '^5.0.0',
+        svelte: '^5.56.0',
         'tailwind-merge': '^3.0.0'
     },
     role: ['form', 'group'],

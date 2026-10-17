@@ -1,5 +1,10 @@
-import type { PopoverProps, PopoverTriggerProps } from '@mielui/svelte/components/popover';
+import type {
+    PopoverContentProps,
+    PopoverProps,
+    PopoverTriggerProps
+} from '@mielui/svelte/components/popover';
 import type { Snippet } from 'svelte';
+import type { MenuRowButtonProps } from '../_internal/button-attributes';
 import Root from './combobox.svelte';
 import Content from './combobox-content.svelte';
 import Item from './combobox-item.svelte';
@@ -64,6 +69,8 @@ export type ComboboxTriggerProps = Omit<
     PopoverTriggerProps,
     'children' | 'element' | 'value' | 'type'
 > & {
+    /** Id of the element that names the control, such as a visible label. */
+    'aria-labelledby'?: string;
     /** Content at the end of the trigger. */
     trailing?: Snippet;
     /** Text shown while there is no value. */
@@ -77,5 +84,16 @@ export type ComboboxTriggerProps = Omit<
     /** Bindable reference to the DOM element. */
     element?: HTMLInputElement | HTMLButtonElement;
 };
+
+export type ComboboxContentProps = Omit<PopoverContentProps, 'focusTrap'>;
+
+export type ComboboxItemProps = {
+    /** Value this option selects. */
+    value: string;
+    /** Text used for search and for the trigger, when it differs from the option's content. */
+    label: string;
+    /** Called when the item is chosen with the pointer or the keyboard. */
+    callback?: () => void;
+} & MenuRowButtonProps;
 
 export { Content, Item, Label, Results, Root, Trigger };

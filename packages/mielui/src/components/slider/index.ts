@@ -26,13 +26,31 @@ type SliderBaseProps = {
     form?: string;
     /** Bindable reference to the DOM element. */
     element?: HTMLDivElement;
+    /**
+     * Overrides the built-in text and accessible names. Every key is optional and English is the
+     * fallback.
+     */
+    labels?: SliderLabels;
     /** Accessible name when there is no visible label. */
     'aria-label'?: string;
     /** Id of the element that labels it. */
     'aria-labelledby'?: string;
     /** Id of the element that describes it. */
     'aria-describedby'?: string;
-} & DefaultProps;
+} & Omit<DefaultProps, 'children'>;
+
+export type SliderLabels = {
+    /** Name of a range that has no label of its own. */
+    range?: string;
+    /** Name of a range's first thumb. `thumbLabels` wins. */
+    minimum?: string;
+    /** Name of a range's second thumb. `thumbLabels` wins. */
+    maximum?: string;
+    /** Accessible name of the value input. `name` is the slider's label, when it has one. */
+    value?: (name: string | undefined) => string;
+    /** Accessible name of the value button that starts editing. */
+    edit?: (name: string | undefined) => string;
+};
 
 export type SliderProps = SliderBaseProps &
     (

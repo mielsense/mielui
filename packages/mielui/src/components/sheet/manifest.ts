@@ -10,10 +10,11 @@ import type { Manifest } from '@mielui/svelte/_manifest/types';
  *           (resolves F-30). The public component API (Root, Content,
  *           Trigger, Title, Description, Header, Footer, Close) and the
  *           `side`/`allowClickOutside` props are stable.
+ *   1.1.1 -- the panel takes the modal elevation, like Dialog and Drawer.
  */
 export const manifest: Manifest = {
     name: 'sheet',
-    version: '1.0.0',
+    version: '1.1.1',
     visibility: 'public',
     description:
         'Modal panel that slides in from the left or right edge, with focus trap, inert background, nested-overlay coordination, and a footer on the outer frame.',
@@ -27,7 +28,7 @@ export const manifest: Manifest = {
         'components/sheet/sheet-header.svelte',
         'components/sheet/sheet-footer.svelte',
         'components/sheet/sheet-close.svelte',
-        'components/sheet/context.svelte.ts',
+        'components/sheet/context.ts',
         'components/sheet/index.ts',
         'components/sheet/manifest.ts'
     ],

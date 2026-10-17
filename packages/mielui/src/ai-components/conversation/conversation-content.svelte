@@ -2,13 +2,13 @@
     import { ScrollArea } from '@mielui/svelte/components/scroll-area';
     import { cn } from '@mielui/svelte/utils';
     import type { ConversationContentProps } from '.';
-    import { getConversationContext } from './context.svelte';
+    import { findConversationLabels, getConversationContext } from './context';
 
     let {
         children,
         class: className,
         transcriptClass,
-        'aria-label': ariaLabel = 'Conversation',
+        'aria-label': ariaLabel,
         tabindex,
         onscroll,
         onscrollend,
@@ -18,6 +18,7 @@
         ...rest
     }: ConversationContentProps = $props();
 
+    const labels = findConversationLabels();
     const conversation = getConversationContext();
     let viewport = $state<HTMLDivElement>();
 
@@ -28,7 +29,6 @@
     });
 </script>
 
-<!-- Named overflow regions need a focus target for reliable keyboard scrolling. -->
 <ScrollArea
     bind:element={viewport}
     showCues={false}
@@ -36,13 +36,13 @@
     data-ui="conversation-content"
     data-state={conversation.follow ? 'following' : 'paused'}
     role="log"
-    aria-label={ariaLabel}
+    aria-label={ariaLabel ?? labels?.()?.transcript ?? 'Conversation'}
     aria-live="polite"
     aria-relevant="additions text"
     tabindex={tabindex ?? (conversation.scrollable ? 0 : undefined)}
     class={cn(
         className,
-        'h-full min-h-0 [scrollbar-gutter:stable] focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-primary/50'
+        'h-full min-h-0 [mask-image:linear-gradient(to_bottom,transparent,black_calc(var(--spacing)*6),black_calc(100%-var(--spacing)*6),transparent)] [scrollbar-gutter:stable] [&>[data-ui=conversation-content]]:outline-none'
     )}
     onscroll={(event) => {
         conversation.handleScroll(event.currentTarget);

@@ -1,17 +1,80 @@
 <script lang="ts">
     import { CodeBlock } from '@mielui/svelte/components/code-block';
+    import * as TaskSteps from '@mielui/svelte/components/task-steps';
     import * as Typography from '@mielui/svelte/components/typography';
-    import { ComponentPreview, InstallCommand } from '$lib/components/docs';
+    import { ComponentPreview, InstallCommand, Playground } from '$lib/components/docs';
+    import InlineText from '$lib/components/docs/inline-text.svelte';
     import PageIntro from '$lib/components/docs/page-intro.svelte';
-    import SectionHeading from '$lib/components/docs/section-heading.svelte';
-    import Bare from './examples/bare.svelte';
-    import BareSrc from './examples/bare.svelte?raw';
-    import Hero from './examples/hero.svelte';
-    import HeroSrc from './examples/hero.svelte?raw';
+    import Live from './examples/live.svelte';
+    import LiveSrc from './examples/live.svelte?raw';
     import Retry from './examples/retry.svelte';
     import RetrySrc from './examples/retry.svelte?raw';
+    import {
+        code as playgroundCode,
+        controls as playgroundControls,
+        plainSteps as playgroundPlainSteps,
+        steps as playgroundSteps
+    } from './playground';
 
-    const installCommand = 'pnpm dlx @mielui/svelte add task-steps';
+    const usageCode = `<script lang="ts">
+    import { type TaskStep, TaskSteps } from '@mielui/svelte/components/task-steps';
+
+    const steps: TaskStep[] = [
+        { id: 'build', label: 'Building' },
+        { id: 'test', label: 'Testing' }
+    ];
+</${'script'}>
+
+<TaskSteps {steps} current={1} labels={{ list: 'Deploy progress' }} />`;
+
+    const labelsCode = `<script lang="ts">
+    import {
+        type TaskStep,
+        TaskSteps,
+        type TaskStepsLabels
+    } from '@mielui/svelte/components/task-steps';
+
+    const steps: TaskStep[] = [
+        { id: 'build', label: 'Compilation' },
+        { id: 'test', label: 'Tests' }
+    ];
+
+    const labels: TaskStepsLabels = {
+        list: 'Progression du déploiement',
+        empty: 'Aucune étape.',
+        progress: (step, position, total) => \`\${step}, étape \${position} sur \${total}.\`,
+        complete: (total) => \`Les \${total} étapes sont terminées.\`,
+        failed: (step) => \`Échec à l’étape \${step}.\`
+    };
+</${'script'}>
+
+<TaskSteps {steps} current={1} {labels} />`;
+
+    const compositionCode = `<script lang="ts">
+    import * as TaskSteps from '@mielui/svelte/components/task-steps';
+
+    const steps: TaskSteps.TaskStep[] = [
+        { id: 'build', label: 'Building', meta: '8.1s' },
+        { id: 'test', label: 'Testing' }
+    ];
+</${'script'}>
+
+<TaskSteps.Root {steps} current={1}>
+    {#snippet children(progress)}
+        <TaskSteps.Summary class="text-sm" />
+        <TaskSteps.List>
+            {#each progress.rows as row (row.id)}
+                <TaskSteps.Item status={row.status}>
+                    <TaskSteps.Indicator />
+                    <TaskSteps.Label>{row.label}</TaskSteps.Label>
+                    {#if row.meta}
+                        <TaskSteps.Meta>{row.meta}</TaskSteps.Meta>
+                    {/if}
+                </TaskSteps.Item>
+            {/each}
+        </TaskSteps.List>
+    {/snippet}
+</TaskSteps.Root>`;
 </script>
 
 <svelte:head>
@@ -23,88 +86,103 @@
     <PageIntro title="Task Steps">Show the current step and completed steps in a task.</PageIntro>
 
     <section id="hero" class="scroll-mt-20 flex flex-col gap-4">
-        <ComponentPreview code={HeroSrc} refreshable><Hero /></ComponentPreview>
+        <Playground controls={playgroundControls} code={playgroundCode}>
+            {#snippet children(values)}
+                {const root = $derived({
+                    steps: values.durations ? playgroundSteps : playgroundPlainSteps,
+                    current: values.current,
+                    failed: values.failed,
+                    labels: {
+                        list: 'Deploy progress'
+                    },
+                    class: 'max-w-sm'
+                })}
+                {#if values.summary}
+                    <TaskSteps.Root {...root}>
+                        {#snippet children(progress)}
+                            <TaskSteps.List>
+                                {#each progress.rows as row (row.id)}
+                                    <TaskSteps.Item status={row.status}>
+                                        <TaskSteps.Indicator />
+                                        <TaskSteps.Label>{row.label}</TaskSteps.Label>
+                                        {#if row.meta}
+                                            <TaskSteps.Meta>{row.meta}</TaskSteps.Meta>
+                                        {/if}
+                                    </TaskSteps.Item>
+                                {/each}
+                            </TaskSteps.List>
+                            <TaskSteps.Summary
+                                class="mt-3 block px-1 text-sm text-foreground-muted"
+                            />
+                        {/snippet}
+                    </TaskSteps.Root>
+                {:else}
+                    <TaskSteps.Root {...root} />
+                {/if}
+            {/snippet}
+        </Playground>
     </section>
 
     <section id="installation" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Installation</Typography.H2>
-        <InstallCommand command={installCommand} />
+        <InstallCommand command="pnpm dlx @mielui/svelte add task-steps" />
     </section>
 
     <section id="usage" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Usage</Typography.H2>
         <Typography.Text variant="supporting">
-            Set{' '}
-            <Typography.InlineCode>current</Typography.InlineCode>
-            to the running step. Values before it are complete; the array length means the whole run
-            is complete.
+            <InlineText
+                text={'Pass the steps in order and set `current` to the index of the running step. Steps before it are done. Set `current` to `steps.length` when the whole run is complete. `labels.list` names the list for screen readers, and a status line announces progress after it settles.'}
+            />
         </Typography.Text>
+        <CodeBlock code={usageCode} lang="svelte" copy="overlay" />
+    </section>
+
+    <section id="composition" class="scroll-mt-20 flex flex-col gap-4">
+        <Typography.H2 class="docs-section-heading">Composition</Typography.H2>
         <Typography.Text variant="supporting">
-            Completion markers use a subtle scale and opacity change; task progress remains readable
-            during rapid updates.
+            <InlineText
+                text={'Pass a `children` snippet to Root when rows need a different layout. It receives the same state the default layout uses: `rows` with a `status` each, `completed`, `total`, `complete`, `failed`, and the summary `sentence`. `Summary` renders that sentence as a live status line.'}
+            />
         </Typography.Text>
-        <CodeBlock
-            lang="svelte"
-            copy="overlay"
-            code={`import { TaskSteps } from '@mielui/svelte/components/task-steps';
-
-<TaskSteps
-  steps={[{ id: 'build', label: 'Building' }, { id: 'test', label: 'Testing' }]}
-  current={1}
-  label="Deploy progress"
-/>`}
-        />
+        <CodeBlock code={compositionCode} lang="svelte" copy="overlay" />
     </section>
 
-    <section id="composable-parts" class="flex flex-col gap-4">
-        <Typography.H2>Composable parts</Typography.H2>
-        <Typography.Text>
-            Use the named parts when rows need a different layout. Root passes the same normalized
-            rows, completed count, total, and summary used by the data-driven form. Indices are
-            truncated and clamped; a failure at completion marks the last row as failed. Empty lists
-            announce “No steps.”
+    <section id="labels" class="scroll-mt-20 flex flex-col gap-4">
+        <Typography.H2 class="docs-section-heading">Labels</Typography.H2>
+        <Typography.Text variant="supporting">
+            <InlineText
+                text={'Built-in text is English. Pass `labels` to Root to name the list and translate the summary `sentence`. `progress`, `complete`, and `failed` are functions so the step name and numbers can sit anywhere in the sentence. Every key is optional and English is the fallback.'}
+            />
         </Typography.Text>
-        <CodeBlock
-            code={`import * as TaskSteps from '@mielui/svelte/components/task-steps';
-
-<TaskSteps.Root {steps} {current}>
-  {#snippet children(progress)}
-    <TaskSteps.Summary class="text-sm" />
-    <TaskSteps.List>
-      {#each progress.rows as row (row.id)}
-        <TaskSteps.Item status={row.status}>
-          <TaskSteps.Meta>{row.meta}</TaskSteps.Meta>
-          <TaskSteps.Label>{row.label}</TaskSteps.Label>
-        </TaskSteps.Item>
-      {/each}
-    </TaskSteps.List>
-  {/snippet}
-</TaskSteps.Root>`}
-            lang="svelte"
-            copy="overlay"
-        />
+        <CodeBlock code={labelsCode} lang="svelte" copy="overlay" />
     </section>
+
     <section id="examples" class="scroll-mt-20 flex flex-col gap-10">
-        <SectionHeading title="Examples">
-            {#snippet description()}
-                Render the steps without a surrounding card.
-            {/snippet}
-        </SectionHeading>
+        <div>
+            <Typography.H2 class="docs-section-heading">Examples</Typography.H2>
+        </div>
 
-        <div id="bare" class="scroll-mt-20 flex flex-col gap-3">
-            <Typography.H3 class="docs-subsection-heading">Bare</Typography.H3>
-            <ComponentPreview code={BareSrc}>
-                <Bare />
+        <div id="live-progress" class="scroll-mt-20 flex flex-col gap-3">
+            <Typography.H3 class="docs-subsection-heading">Live progress</Typography.H3>
+            <Typography.Text variant="supporting">
+                Steps advance on a timer. Replay the preview to watch the run again.
+            </Typography.Text>
+            <ComponentPreview code={LiveSrc} refreshable>
+                <Live />
             </ComponentPreview>
         </div>
-    </section>
-    <section id="retry" class="flex scroll-mt-20 flex-col gap-4">
-        <Typography.H2>Recover a failed step</Typography.H2>
-        <Typography.Text>
-            Keep current at the failed step and set failed. Clear failed when retry begins, then
-            advance current only after the operation succeeds. Reaching steps.length marks the
-            sequence complete; the component never runs the operation itself.
-        </Typography.Text>
-        <ComponentPreview code={RetrySrc}><Retry /></ComponentPreview>
+
+        <div id="retry" class="scroll-mt-20 flex flex-col gap-3">
+            <Typography.H3 class="docs-subsection-heading">Retry a failed step</Typography.H3>
+            <Typography.Text variant="supporting">
+                <InlineText
+                    text={'Keep `current` on the failed step and set `failed`. Clear `failed` when the retry starts, and advance `current` once it succeeds. TaskSteps only shows the state; your code runs the work.'}
+                />
+            </Typography.Text>
+            <ComponentPreview code={RetrySrc}>
+                <Retry />
+            </ComponentPreview>
+        </div>
     </section>
 </div>

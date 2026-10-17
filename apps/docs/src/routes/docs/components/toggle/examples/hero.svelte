@@ -25,7 +25,7 @@
         </Toggle>
     </div>
     <p
-        class={`m-0 text-sm text-foreground ${bold ? 'font-semibold' : ''} ${italic ? 'italic' : ''} ${underline ? 'underline underline-offset-4' : ''}`}
+        class={`m-0 text-sm text-foreground ${bold ? 'font-medium' : ''} ${italic ? 'italic' : ''} ${underline ? 'underline underline-offset-4' : ''}`}
     >
         The quick brown fox jumps over the lazy dog.
     </p>

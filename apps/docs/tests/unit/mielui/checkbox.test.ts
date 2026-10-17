@@ -126,9 +126,9 @@ describe('Checkbox -- variants', () => {
         expect(container.querySelector('input[type="checkbox"]')).toBeInTheDocument();
     });
 
-    it('accepts variant="primary" without throwing', () => {
+    it('accepts variant="card" without throwing', () => {
         const { container } = render(Checkbox, {
-            props: { checked: false, variant: 'primary' }
+            props: { checked: false, variant: 'card' }
         });
         expect(container.querySelector('input[type="checkbox"]')).toBeInTheDocument();
     });

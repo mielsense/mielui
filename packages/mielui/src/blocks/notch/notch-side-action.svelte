@@ -4,9 +4,17 @@
     import { cn } from '@mielui/svelte/utils';
     import { onMount } from 'svelte';
     import { overlaySurface } from '../../components/_internal/surface';
+    import { observeThemeChanges } from '../../components/_internal/theme-changes';
     import { Button } from '../../components/button';
     import type { NotchSideActionProps } from '.';
-    import { notchContext } from './context';
+    import {
+        closePopover,
+        getNotchContext,
+        notchSatelliteHandlers,
+        openPopover,
+        spacingInPixels
+    } from './context';
+    import { sideActionArc, sideActionOrigin } from './shape';
 
     let {
         side = 'end',
@@ -17,7 +25,8 @@
         element = $bindable(),
         ...rest
     }: NotchSideActionProps = $props();
-    const context = notchContext.get();
+    const context = getNotchContext();
+    const handlers = notchSatelliteHandlers(context);
     const reduced = useReducedMotion();
     let host = $state<HTMLElement | null>(null);
     let ready = $state(false);
@@ -38,6 +47,7 @@
             ? `${context.side}:0;left:50%;translate:-50% 0;`
             : `${context.side}:0;top:50%;translate:0 -50%;`
     );
+    const origin = $derived(sideActionOrigin[context.side]);
     const direction = $derived(side === 'start' ? -1 : 1);
     const edgeDirection = $derived(context.side === 'top' || context.side === 'left' ? 1 : -1);
     const placement = $derived.by(() => {
@@ -47,23 +57,7 @@
         const outward = edgeDirection * gap * 2;
         return horizontal ? { x: along, y: outward } : { x: outward, y: along };
     });
-    const arcRotation = $derived(
-        context.side === 'top'
-            ? side === 'start'
-                ? 270
-                : 180
-            : context.side === 'bottom'
-              ? side === 'start'
-                  ? 0
-                  : 90
-              : context.side === 'left'
-                ? side === 'start'
-                    ? 90
-                    : 180
-                : side === 'start'
-                  ? 0
-                  : 270
-    );
+    const arcRotation = $derived(sideActionArc[context.side][side]);
 
     function updateMotion() {
         const node = host;
@@ -77,12 +71,7 @@
         if (points?.length === 4 && points.every(Number.isFinite)) {
             easing = [points[0], points[1], points[2], points[3]];
         }
-        const spacingToken = style.getPropertyValue('--spacing').trim();
-        const spacing = Number.parseFloat(spacingToken);
-        const rootSize = Number.parseFloat(getComputedStyle(document.documentElement).fontSize);
-        gap = Number.isFinite(spacing)
-            ? spacing * (spacingToken.endsWith('rem') ? rootSize : 1)
-            : 4;
+        gap = spacingInPixels(node, 4);
         actionWidth = node.offsetWidth;
         actionHeight = node.offsetHeight;
     }
@@ -102,10 +91,7 @@
         updateMotion();
         const resize = new ResizeObserver(updateMotion);
         resize.observe(node);
-        const observer = new MutationObserver(updateMotion);
-        for (let ancestor = node.parentElement; ancestor; ancestor = ancestor.parentElement) {
-            observer.observe(ancestor, { attributes: true, attributeFilter: ['class', 'style'] });
-        }
+        const stopThemeChanges = observeThemeChanges(node.parentElement, updateMotion);
         ready = true;
         return () => {
             if (node.contains(document.activeElement)) {
@@ -113,7 +99,7 @@
             }
             unregister();
             resize.disconnect();
-            observer.disconnect();
+            stopThemeChanges();
         };
     });
 
@@ -136,9 +122,7 @@
 
     function finishExit() {
         if (!context.open && host) {
-            if (typeof host.hidePopover === 'function' && host.matches(':popover-open')) {
-                host.hidePopover();
-            }
+            closePopover(host);
             shown = false;
         }
     }
@@ -148,45 +132,12 @@
         }
         if (context.open) {
             host.hidden = false;
-            if (typeof host.showPopover === 'function' && !host.matches(':popover-open')) {
-                host.showPopover();
-            }
+            openPopover(host);
             shown = true;
         } else if (reduced.current || duration === 0) {
             finishExit();
         }
     });
-
-    function focusIn(event: FocusEvent) {
-        if (event.relatedTarget instanceof HTMLElement && !context.contains(event.relatedTarget)) {
-            context.returnFocus = event.relatedTarget;
-        }
-        context.focused = true;
-    }
-    function focusOut() {
-        queueMicrotask(() => {
-            context.focused = context.contains(document.activeElement);
-            if (context.mode === 'peek' && !context.focused && !context.hovered) {
-                context.open = false;
-            }
-        });
-    }
-    function pointerEnter() {
-        context.cancelCollapse();
-        context.hovered = true;
-    }
-    function pointerLeave() {
-        context.hovered = false;
-        if (context.mode === 'peek' && !context.focused) {
-            context.scheduleCollapse();
-        }
-    }
-    function keydown(event: KeyboardEvent) {
-        if (event.key === 'Escape' && !event.defaultPrevented) {
-            event.preventDefault();
-            context.open = false;
-        }
-    }
 </script>
 
 <motion.div
@@ -207,13 +158,13 @@
     }}
     transition={{ duration: reduced.current ? 0 : Math.min(duration, 0.16) }}
     onAnimationComplete={finishExit}
-    onfocusin={focusIn}
-    onfocusout={focusOut}
-    onpointerenter={pointerEnter}
-    onpointerleave={pointerLeave}
-    onkeydown={keydown}
+    onfocusin={handlers.focusin}
+    onfocusout={handlers.focusout}
+    onpointerenter={handlers.pointerenter}
+    onpointerleave={handlers.pointerleave}
+    onkeydown={handlers.keydown}
     class="fixed m-0 overflow-visible border-0 bg-transparent p-0 text-foreground [inset:auto]"
-    style={`${position}transform-origin:${context.side === 'top' ? 'center top' : context.side === 'bottom' ? 'center bottom' : context.side === 'left' ? 'left center' : 'right center'};`}
+    style={`${position}transform-origin:${origin};`}
 >
     <motion.svg
         aria-hidden="true"
@@ -259,7 +210,11 @@
             bind:element
             {size}
             {variant}
-            class={cn(className, variant === 'panel' ? overlaySurface(context.surface) : undefined, 'rounded-full')}
+            class={cn(
+                className,
+                variant === 'panel' ? overlaySurface(context.surface) : undefined,
+                'rounded-[var(--radius-control)]'
+            )}
         >
             <span class="inline-flex items-center justify-center"> {@render children?.()} </span>
         </Button>

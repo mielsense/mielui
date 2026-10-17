@@ -1,50 +1,5 @@
 [
     {
-        "name": "ondragentercapture",
-        "type": "DragEventHandler<HTMLOptionElement> | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
-        "name": "on:dragexit",
-        "type": "DragEventHandler<HTMLOptionElement> | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
-        "name": "ondragexit",
-        "type": "DragEventHandler<HTMLOptionElement> | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
-        "name": "ondragexitcapture",
-        "type": "DragEventHandler<HTMLOptionElement> | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
-        "name": "on:dragleave",
-        "type": "DragEventHandler<HTMLOptionElement> | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
         "name": "ondragleave",
         "type": "DragEventHandler<HTMLOptionElement> | null | undefined",
         "required": false,

@@ -1,18 +1,26 @@
 <script lang="ts">
     import * as Dialog from '@mielui/svelte/components/dialog';
     import Kbd from '@mielui/svelte/components/kbd';
+    import Label from '@mielui/svelte/components/label';
     import * as Select from '@mielui/svelte/components/select';
 
     let open = $state(false);
     let role = $state('editor');
 
     const roles = [
-        { value: 'viewer', label: 'Viewer' },
-        { value: 'editor', label: 'Editor' },
-        { value: 'admin', label: 'Admin' }
+        {
+            value: 'viewer',
+            label: 'Viewer'
+        },
+        {
+            value: 'editor',
+            label: 'Editor'
+        },
+        {
+            value: 'admin',
+            label: 'Admin'
+        }
     ];
-
-    const selected = $derived(roles.find((option) => option.value === role));
 </script>
 
 <Dialog.Root bind:open>
@@ -24,12 +32,10 @@
         </Dialog.Header>
         <Dialog.Body>
             <div class="flex flex-col gap-2">
-                <span class="text-sm [font-weight:var(--font-weight-label,500)] text-foreground">
-                    Role
-                </span>
+                <Label for="invite-member-role">Role</Label>
                 <Select.Root bind:value={role}>
-                    <Select.Trigger class="w-full" variant="outline" size="md">
-                        {selected?.label ?? 'Select role'}
+                    <Select.Trigger id="invite-member-role" class="w-full">
+                        <Select.Value placeholder="Select a role" />
                     </Select.Trigger>
                     <Select.Content>
                         {#each roles as option (option.value)}

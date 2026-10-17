@@ -1,6 +1,8 @@
-import type { DefaultProps } from '@mielui/svelte/utils';
+import type { ButtonVariant } from '@mielui/svelte/components/button';
+import type { PopoverTriggerProps } from '@mielui/svelte/components/popover';
 import type { Snippet } from 'svelte';
-import type { ButtonOnlyProps } from '../_internal/button-attributes';
+import type { HTMLButtonAttributes } from 'svelte/elements';
+import type { MenuRowButtonProps } from '../_internal/button-attributes';
 import Root from './select.svelte';
 import Content from './select-content.svelte';
 import Item from './select-item.svelte';
@@ -48,6 +50,37 @@ export type SelectProps = SelectRootProps &
           }
     );
 
+export type SelectTriggerProps = {
+    /** Content rendered inside. Defaults to `Select.Value`. */
+    children?: Snippet;
+    /** Classes added to the element. */
+    class?: string;
+    /** Button style of the trigger. */
+    variant?: ButtonVariant;
+    /** Id of the element that labels the trigger. */
+    'aria-labelledby'?: string;
+    /** Marks the trigger as invalid for assistive technology and error styling. */
+    'aria-invalid'?: HTMLButtonAttributes['aria-invalid'];
+} & Omit<PopoverTriggerProps, 'children' | 'class' | 'variant' | 'icon'>;
+
+export type SelectContentProps = {
+    /** Surface treatment. Omit it to inherit `--mielui-surface` from the theme. */
+    surface?: 'solid' | 'glass';
+    /** Sizes the list to its longest option, even when the trigger is narrower. */
+    dynamic?: boolean;
+    /** Classes added to the element. */
+    class?: string;
+    /** Content rendered inside. */
+    children: Snippet;
+};
+
+export type SelectLabelProps = {
+    /** Classes added to the element. */
+    class?: string;
+    /** Content rendered inside. */
+    children: Snippet;
+};
+
 export type SelectItemProps = {
     /** Value this option selects. */
     value: string;
@@ -55,10 +88,13 @@ export type SelectItemProps = {
     label?: string;
     /** Content rendered inside. */
     children?: Snippet;
-} & ButtonOnlyProps;
+} & MenuRowButtonProps;
 
 export type SelectValueProps = {
+    /** Text shown while nothing is selected. */
     placeholder?: string;
-} & DefaultProps;
+    /** Classes added to the element. */
+    class?: string;
+};
 
 export { Content, Item, Label, Root, Trigger, Value };

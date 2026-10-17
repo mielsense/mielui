@@ -1,50 +1,5 @@
 [
     {
-        "name": "on:dragover",
-        "type": "DragEventHandler<HTMLLIElement> | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
-        "name": "ondragover",
-        "type": "DragEventHandler<HTMLLIElement> | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
-        "name": "ondragovercapture",
-        "type": "DragEventHandler<HTMLLIElement> | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
-        "name": "on:dragstart",
-        "type": "DragEventHandler<HTMLLIElement> | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
-        "name": "ondragstart",
-        "type": "DragEventHandler<HTMLLIElement> | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
         "name": "ondragstartcapture",
         "type": "DragEventHandler<HTMLLIElement> | null | undefined",
         "required": false,
@@ -2242,6 +2197,51 @@
     },
     {
         "name": "onloadedmetadata",
+        "type": "EventHandler<Event, HTMLOListElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onloadedmetadatacapture",
+        "type": "EventHandler<Event, HTMLOListElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "on:loadstart",
+        "type": "EventHandler<Event, HTMLOListElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onloadstart",
+        "type": "EventHandler<Event, HTMLOListElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onloadstartcapture",
+        "type": "EventHandler<Event, HTMLOListElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "on:pause",
         "type": "EventHandler<Event, HTMLOListElement> | null | undefined",
         "required": false,
         "bindable": false,

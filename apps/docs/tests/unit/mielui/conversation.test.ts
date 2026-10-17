@@ -48,4 +48,24 @@ describe('Conversation', () => {
             'paused'
         );
     });
+
+    it('reads the empty state and scroll button text from labels', () => {
+        const { container } = render(ConversationFixture, {
+            props: {
+                empty: true,
+                labels: {
+                    emptyTitle: 'Démarrer une conversation',
+                    emptyDescription: 'Posez une question.',
+                    scrollToBottom: 'Aller au dernier message'
+                }
+            }
+        });
+
+        expect(screen.getByText('Démarrer une conversation')).toBeInTheDocument();
+        expect(screen.getByText('Posez une question.')).toBeInTheDocument();
+        expect(container.querySelector('[data-ui="conversation-scroll-button"]')).toHaveAttribute(
+            'aria-label',
+            'Aller au dernier message'
+        );
+    });
 });

@@ -56,7 +56,7 @@
 </script>
 
 <Attachment.Root bind:files class="flex w-full max-w-2xl flex-col gap-2">
-    <Attachment.List variant="chip" class="overflow-x-auto" />
+    <Attachment.List variant="chip" />
     <Composer.Root bind:value onSubmit={submitPrompt} onStop={stopSubmission}>
         <Composer.Input aria-label="Prompt" placeholder="Start by typing..." />
 

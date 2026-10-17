@@ -11,7 +11,7 @@ export const manifest: Manifest = {
         'components/conversation/conversation-content.svelte',
         'components/conversation/conversation-empty.svelte',
         'components/conversation/conversation-scroll-button.svelte',
-        'components/conversation/context.svelte.ts',
+        'components/conversation/context.ts',
         'components/conversation/index.ts',
         'components/conversation/manifest.ts'
     ],
@@ -21,7 +21,7 @@ export const manifest: Manifest = {
         '@floating-ui/dom': '1.7.6',
         '@hugeicons/core-free-icons': '^4.3.0',
         cnfast: '^0.0.8',
-        svelte: '^5.0.0',
+        svelte: '^5.56.0',
         'tailwind-merge': '^3.0.0'
     }
 };

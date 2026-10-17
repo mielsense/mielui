@@ -1,4 +1,5 @@
 import { DEFAULT_THEME, type Theme } from '@mielui/svelte/themes/theme';
+import { DEFAULT_EDGE_HIGHLIGHT } from './defaults';
 
 export function readThemeAppearance(theme: Theme) {
     const chrome = { ...DEFAULT_THEME.chrome, ...theme.chrome };
@@ -10,7 +11,7 @@ export function readThemeAppearance(theme: Theme) {
     return {
         borders: chrome.borders ?? 'single',
         insetPosition,
-        edgeHighlight: chrome.edgeHighlight ?? 0.5,
+        edgeHighlight: chrome.edgeHighlight ?? DEFAULT_EDGE_HIGHLIGHT,
         surfaceShadows: shadows && (chrome.surfaceShadows ?? false),
         controlShadows: shadows && (chrome.controlShadows ?? true),
         dialogShadows: shadows && (chrome.dialogShadows ?? true),

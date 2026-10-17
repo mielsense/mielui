@@ -9,16 +9,14 @@ export type RegisteredComboboxItem = ComboboxItem & {
 };
 
 type ControllerOptions = {
-    getValue: () => string | string[] | undefined;
-    getMultiple: () => boolean;
-    setValue: (value: string | string[]) => void;
-    getOpen: () => boolean;
-    setOpen: (open: boolean) => void;
-    getPlacement: () => Placement;
-    getInert: () => boolean;
-    getHoverable: () => boolean;
-    getDelay: () => number;
-    getCloseDelay: () => number;
+    value: string | string[] | undefined;
+    readonly multiple: boolean;
+    open: boolean;
+    readonly placement: Placement;
+    readonly inert: boolean;
+    readonly hoverable: boolean;
+    readonly delay: number;
+    readonly closeDelay: number;
 };
 
 export function createComboboxController(options: ControllerOptions) {
@@ -49,7 +47,7 @@ export function createComboboxController(options: ControllerOptions) {
     );
     const entriesByValue = $derived(new Map(entries.map((entry) => [entry.value, entry])));
     const selectedValues = $derived.by(() => {
-        const value = options.getValue();
+        const value = options.value;
         return Array.isArray(value) ? value : value ? [value] : [];
     });
     const selectedValueSet = $derived(new Set(selectedValues));
@@ -92,13 +90,13 @@ export function createComboboxController(options: ControllerOptions) {
     }
 
     function setOpen(next: boolean) {
-        if (options.getOpen() === next || (next && disabled)) {
+        if (options.open === next || (next && disabled)) {
             return;
         }
         if (next) {
             beforeOpen?.();
         }
-        options.setOpen(next);
+        options.open = next;
         synchronizeOpen(next);
     }
 
@@ -107,13 +105,11 @@ export function createComboboxController(options: ControllerOptions) {
         cancelHover();
         if (next) {
             query =
-                !options.getMultiple() && appearance === 'input' && searchPlacement === 'trigger'
+                !options.multiple && appearance === 'input' && searchPlacement === 'trigger'
                     ? (selected?.label ?? '')
                     : '';
-        }
-        if (next) {
             void tick().then(() => {
-                if (options.getOpen()) {
+                if (options.open) {
                     input?.focus({ preventScroll: true });
                     if (searchPlacement === 'trigger') {
                         input?.select();
@@ -132,7 +128,7 @@ export function createComboboxController(options: ControllerOptions) {
     }
 
     $effect(() => {
-        const open = options.getOpen();
+        const open = options.open;
         if (open !== previousOpen) {
             untrack(() => {
                 synchronizeOpen(open);
@@ -145,7 +141,7 @@ export function createComboboxController(options: ControllerOptions) {
         if (disabled || entry?.disabled) {
             return;
         }
-        options.setValue(value);
+        options.value = value;
         entry?.item.callback?.();
     }
 
@@ -167,23 +163,10 @@ export function createComboboxController(options: ControllerOptions) {
         ) {
             return;
         }
-        options.setValue(values);
+        options.value = values;
         query = '';
         for (const entry of changed) {
             entry.item.callback?.();
-        }
-    }
-
-    function selectItem(item: ComboboxItem) {
-        if (options.getMultiple()) {
-            commitValues(
-                selectedValueSet.has(item.value)
-                    ? selectedValues.filter((value) => value !== item.value)
-                    : [...selectedValues, item.value]
-            );
-        } else {
-            commitValue(item.value);
-            setOpen(false);
         }
     }
 
@@ -193,7 +176,7 @@ export function createComboboxController(options: ControllerOptions) {
         }
         query = '';
         activeValue = undefined;
-        options.setValue(options.getMultiple() ? [] : '');
+        options.value = options.multiple ? [] : '';
     }
 
     function handleInput(event: Event) {
@@ -216,27 +199,27 @@ export function createComboboxController(options: ControllerOptions) {
 
     function hoverEnter() {
         cancelHover();
-        if (!options.getHoverable() || disabled) {
+        if (!options.hoverable || disabled) {
             return;
         }
         hoverTimer = setTimeout(() => {
             setOpen(true);
-        }, options.getDelay());
+        }, options.delay);
     }
 
     function hoverLeave() {
         cancelHover();
-        if (!options.getHoverable()) {
+        if (!options.hoverable) {
             return;
         }
         hoverTimer = setTimeout(() => {
             setOpen(false);
-        }, options.getCloseDelay());
+        }, options.closeDelay);
     }
 
     const state: ComboboxState = {
         get open() {
-            return options.getOpen();
+            return options.open;
         },
         set open(value) {
             setOpen(value);
@@ -287,7 +270,7 @@ export function createComboboxController(options: ControllerOptions) {
     return {
         state,
         get multiple() {
-            return options.getMultiple();
+            return options.multiple;
         },
         get selectionLabel() {
             return selectionLabel;
@@ -296,7 +279,7 @@ export function createComboboxController(options: ControllerOptions) {
             return entries;
         },
         get inputValue() {
-            return options.getOpen() ? query : selectionLabel;
+            return options.open ? query : selectionLabel;
         },
         get disabled() {
             return disabled;
@@ -335,13 +318,13 @@ export function createComboboxController(options: ControllerOptions) {
             panel = value;
         },
         get placement() {
-            return options.getPlacement();
+            return options.placement;
         },
         get inert() {
-            return options.getInert();
+            return options.inert;
         },
         get hoverable() {
-            return options.getHoverable();
+            return options.hoverable;
         },
         set beforeOpen(value: (() => void) | undefined) {
             beforeOpen = value;
@@ -361,7 +344,6 @@ export function createComboboxController(options: ControllerOptions) {
         setOpen,
         commitValue,
         commitValues,
-        selectItem,
         clearSelection,
         handleInput,
         handleKeydown,

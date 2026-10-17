@@ -2,26 +2,22 @@
     import { panelIn, panelOut } from '@mielui/svelte/transition';
     import { cn } from '@mielui/svelte/utils';
     import { LinkPreview } from 'bits-ui';
-    import { getContext } from 'svelte';
     import { overlaySurface } from '../_internal/surface';
     import type { HoverCardContentProps } from '.';
+    import { getHoverCardContext } from './context';
 
     let {
         class: className,
         children,
-        side = 'bottom',
-        align = 'center',
         sideOffset = 8,
         surface,
         ...rest
     }: HoverCardContentProps = $props();
-    const context = getContext<{
-        id: string;
-        state: {
-            title: boolean;
-            description: boolean;
-        };
-    }>('mielui-hover-card');
+    const context = getHoverCardContext();
+    const side = $derived(context.placement.split('-')[0] as 'top' | 'bottom' | 'left' | 'right');
+    const align = $derived(
+        (context.placement.split('-')[1] ?? 'center') as 'start' | 'center' | 'end'
+    );
 </script>
 
 <LinkPreview.Portal>
@@ -36,12 +32,20 @@
                         data-ui="hover-card-content"
                         data-surface={surface}
                         aria-labelledby={context.state.title ? `${context.id}-title` : undefined}
-                        aria-describedby={context.state.description ? `${context.id}-description` : undefined}
+                        aria-describedby={context.state.description
+                            ? `${context.id}-description`
+                            : undefined}
                         in:panelIn
                         out:panelOut
-                        class={cn(className, overlaySurface(surface), 'mielui-modal-frame [--mielui-border-inset-scale:0] z-[130] w-64 max-w-[calc(100vw-var(--spacing)*4)] origin-[var(--bits-link-preview-content-transform-origin)] overflow-hidden text-[var(--font-size-body)] text-foreground shadow-[var(--elevation-float)] [--mielui-modal-inset:calc(var(--spacing)*0.5*var(--mielui-border-inset-scale,1))]')}
+                        class={cn(
+                            className,
+                            overlaySurface(surface),
+                            'mielui-float-frame z-[130] w-64 max-w-[calc(100vw-var(--spacing)*4)] origin-[var(--bits-link-preview-content-transform-origin)] overflow-hidden text-[length:var(--font-size-body)] text-foreground shadow-[var(--elevation-float)]'
+                        )}
                     >
-                        <div class="mielui-inset-surface p-3">{@render children?.()}</div>
+                        <div class="mielui-inset-surface p-4">
+                            {@render children?.()}
+                        </div>
                     </div>
                 </div>
             {/if}

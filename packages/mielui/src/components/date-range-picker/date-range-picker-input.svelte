@@ -1,8 +1,10 @@
 <script lang="ts">
-    import { cn } from '@mielui/svelte/utils';
+    import { cn, type WithElement } from '@mielui/svelte/utils';
     import { DateRangePicker as DatePickerPrimitive } from 'bits-ui';
     import FormField from '../date-picker/date-picker-form-field.svelte';
     import Segment from '../date-picker/date-picker-segment.svelte';
+    import { fieldSegments } from '../date-picker/segments';
+    import { dateFieldClasses } from '../date-picker/variants';
     import { input } from '../input/variants';
 
     let {
@@ -11,28 +13,33 @@
         form,
         type,
         children: content,
-        ref = $bindable(null),
+        element = $bindable(null),
         ...rest
-    }: Omit<DatePickerPrimitive.InputProps, 'child'> & { form?: string } = $props();
+    }: WithElement<Omit<DatePickerPrimitive.InputProps, 'child'> & { form?: string }> = $props();
 </script>
 
 <DatePickerPrimitive.Input
     {...rest}
     {type}
     name=""
-    bind:ref
+    bind:ref={element}
     data-ui="date-range-picker-input"
-    class={cn(className, input({ variant: 'outline' }), 'inline-flex w-auto min-w-max flex-1 items-center gap-0.5 py-1 focus-within:shadow-[var(--focus-ring)] data-disabled:opacity-[var(--opacity-disabled)] data-invalid:border-error')}
+    class={cn(
+        className,
+        dateFieldClasses,
+        input({ variant: 'outline' })
+    )}
 >
     {#snippet children(data)}
+        {const segments = $derived(fieldSegments(data.segments))}
         {#if content}
-            {@render content(data)}
+            {@render content({ ...data, segments })}
         {:else}
-            {#each data.segments as segment, index (index)}
+            {#each segments as segment, index (index)}
                 <Segment part={segment.part}>{segment.value}</Segment>
             {/each}
         {/if}
     {/snippet}
 </DatePickerPrimitive.Input>
 
-<FormField {name} {form} field={ref} {type} />
+<FormField {name} {form} field={element} {type} />

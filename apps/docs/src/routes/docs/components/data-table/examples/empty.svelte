@@ -5,20 +5,31 @@
     import { columns, features, members } from './data';
 
     let loading = $state(false);
+
     const table = createTable({
         features,
         columns,
         data: members,
         getRowId: (member) => member.id,
-        initialState: { columnFilters: [{ id: 'name', value: 'No matching member' }] }
+        initialState: {
+            columnFilters: [
+                {
+                    id: 'name',
+                    value: 'No matching member'
+                }
+            ]
+        }
     });
 </script>
+
 <div class="flex w-full flex-col gap-4">
     <Button
         variant="secondary"
         size="sm"
         class="self-start"
-        onclick={() => { loading = !loading; }}
+        onclick={() => {
+            loading = !loading;
+        }}
     >
         {loading ? 'Show empty state' : 'Show loading state'}
     </Button>
@@ -30,7 +41,9 @@
                     <Button
                         size="sm"
                         variant="secondary"
-                        onclick={() => { table.resetColumnFilters(true); }}
+                        onclick={() => {
+                            table.resetColumnFilters(true);
+                        }}
                     >
                         Clear filter
                     </Button>

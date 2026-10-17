@@ -38,8 +38,8 @@
                 shortcut="cmd+k"
                 class="hidden shrink-0 @xl:inline-flex"
                 ontrigger={() => {
-                        model.commandOpen = true;
-                    }}
+                    model.commandOpen = true;
+                }}
             />
         </Command.Trigger>
         <Command.Content>
@@ -49,8 +49,8 @@
                     <Command.Item
                         name="Overview"
                         callback={() => {
-                                model.studioView = 'overview';
-                            }}
+                            model.studioView = 'overview';
+                        }}
                     >
                         <HugeiconsIcon icon={LayoutDashboard} size={14} />
                         Overview
@@ -58,8 +58,8 @@
                     <Command.Item
                         name="Invoices"
                         callback={() => {
-                                model.studioView = 'invoices';
-                            }}
+                            model.studioView = 'invoices';
+                        }}
                     >
                         <HugeiconsIcon icon={FileText} size={14} />
                         Invoices
@@ -67,8 +67,8 @@
                     <Command.Item
                         name="Settings"
                         callback={() => {
-                                model.studioView = 'settings';
-                            }}
+                            model.studioView = 'settings';
+                        }}
                     >
                         <HugeiconsIcon icon={Settings} size={14} />
                         Settings
@@ -79,9 +79,9 @@
                     <Command.Item
                         name="New invoice"
                         callback={() => {
-                                model.studioView = 'invoices';
-                                model.invoiceModalOpen = true;
-                            }}
+                            model.studioView = 'invoices';
+                            model.invoiceModalOpen = true;
+                        }}
                     >
                         <HugeiconsIcon icon={Plus} size={14} />
                         New invoice
@@ -92,8 +92,8 @@
                         <Command.Item
                             name={`${invoice.client} ${invoice.reference}`}
                             callback={() => {
-                                    model.showInvoice(invoice.reference);
-                                }}
+                                model.showInvoice(invoice.reference);
+                            }}
                         >
                             {invoice.client}
                             <Typography.Metadata>

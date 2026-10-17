@@ -1,15 +1,16 @@
 <script lang="ts">
+    import { ArrowRight02Icon as ArrowRight, Add01Icon as Plus } from '@hugeicons/core-free-icons';
+    import { Button } from '@mielui/svelte/components/button';
     import { CodeBlock } from '@mielui/svelte/components/code-block';
     import * as Typography from '@mielui/svelte/components/typography';
-    import { ComponentPreview, InstallCommand } from '$lib/components/docs';
+    import HugeiconsIcon from '@mielui/svelte/hugeicons-icon';
+    import { ComponentPreview, InstallCommand, Playground } from '$lib/components/docs';
     import InlineText from '$lib/components/docs/inline-text.svelte';
     import PageIntro from '$lib/components/docs/page-intro.svelte';
     import AsLink from './examples/as-link.svelte';
     import AsLinkSrc from './examples/as-link.svelte?raw';
     import Disabled from './examples/disabled.svelte';
     import DisabledSrc from './examples/disabled.svelte?raw';
-    import Hero from './examples/hero.svelte';
-    import HeroSrc from './examples/hero.svelte?raw';
     import IconGroup from './examples/icon-group.svelte';
     import IconGroupSrc from './examples/icon-group.svelte?raw';
     import LeadingIcon from './examples/leading-icon.svelte';
@@ -20,13 +21,21 @@
     import SizesSrc from './examples/sizes.svelte?raw';
     import TrailingIcon from './examples/trailing-icon.svelte';
     import TrailingIconSrc from './examples/trailing-icon.svelte?raw';
-
     import VariantGlow from './examples/variant-glow.svelte';
     import VariantGlowSrc from './examples/variant-glow.svelte?raw';
     import Variants from './examples/variants.svelte';
     import VariantsSrc from './examples/variants.svelte?raw';
+    import { code as playgroundCode, controls as playgroundControls } from './playground';
 
-    const installCommand = 'pnpm dlx @mielui/svelte add button';
+    const usage = `<script lang="ts">
+    import { Button, type ButtonStatus } from '@mielui/svelte/components/button';
+
+    let status = $state<ButtonStatus>('idle');
+</${'script'}>
+
+<Button {status} labels={{ loading: 'Publishing…', success: 'Published' }}>
+  Publish
+</Button>`;
 </script>
 
 <svelte:head>
@@ -42,13 +51,38 @@
         A clickable action in several variants and sizes. Pick a variant for what the action means.
     </PageIntro>
     <section id="hero" class="scroll-mt-20 flex flex-col gap-4">
-        <ComponentPreview code={HeroSrc}>
-            <Hero />
-        </ComponentPreview>
+        <Playground controls={playgroundControls} code={playgroundCode}>
+            {#snippet children(values)}
+                {const iconOnly = $derived(values.size === 'icon')}
+                {const button = $derived({
+                    variant: values.variant,
+                    size: values.size,
+                    status: values.status === 'idle' ? undefined : values.status,
+                    disabled: values.disabled,
+                    'aria-label': iconOnly ? values.label || undefined : undefined
+                })}
+                {#snippet face()}
+                    {#if iconOnly || values.leadingIcon}
+                        <HugeiconsIcon icon={Plus} size={14} />
+                    {/if}
+                    {#if !iconOnly}
+                        {values.label}
+                    {/if}
+                    {#if !iconOnly && values.trailingIcon}
+                        <HugeiconsIcon icon={ArrowRight} size={14} />
+                    {/if}
+                {/snippet}
+                {#if values.link}
+                    <Button {...button} href="/docs/installation"> {@render face()} </Button>
+                {:else}
+                    <Button {...button}> {@render face()} </Button>
+                {/if}
+            {/snippet}
+        </Playground>
     </section>
     <section id="installation" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Installation</Typography.H2>
-        <InstallCommand command={installCommand} />
+        <InstallCommand command="pnpm dlx @mielui/svelte add button" />
     </section>
     <section id="usage" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Usage</Typography.H2>
@@ -63,21 +97,11 @@
             also blocks activation. Loading controls remain focusable but cannot activate.
         </Typography.Text>
         <Typography.Text variant="supporting">
-            Use{' '}
-            <Typography.InlineCode>status</Typography.InlineCode>
-            for loading, success, and error feedback. Changing status keeps the button width stable.
+            <InlineText
+                text={"Use `status` for loading, success, and error feedback. Changing status keeps the button width stable. `labels` sets the text for each state. Every key of `ButtonLabels` is optional; omitted keys keep `Loading…`, `Done`, and `Try again`."}
+            />
         </Typography.Text>
-        <CodeBlock
-            code={`import { Button } from '@mielui/svelte/components/button';
-
-let status = $state<'idle' | 'loading' | 'success' | 'error'>('idle');
-
-<Button {status} loadingLabel="Publishing…" successLabel="Published">
-  Publish
-</Button>`}
-            lang="svelte"
-            copy="overlay"
-        />
+        <CodeBlock code={usage} lang="svelte" copy="overlay" />
     </section>
     <section id="examples" class="scroll-mt-20 flex flex-col gap-10">
         <div>
@@ -85,13 +109,18 @@ let status = $state<'idle' | 'loading' | 'success' | 'error'>('idle');
         </div>
         <div id="variants" class="scroll-mt-20 flex flex-col gap-3">
             <Typography.H3 class="docs-subsection-heading">Variants</Typography.H3>
+            <Typography.Text variant="supporting">
+                <InlineText
+                    text={"Every button takes the theme's control radius. `primary`, `secondary`, and `destructive` are lit: a gradient of the button's own color under faint white light, with every edge drawn by an inner rim instead of a drop shadow. They brighten on hover and darken on press. `outline` is a flat hairline on the field color, `ghost` shows a wash on hover, and `quiet` is text alone. `panel` wears the resting plate, so a whole card can be the control. Use one primary action per view."}
+                />
+            </Typography.Text>
             <ComponentPreview code={VariantsSrc}><Variants /></ComponentPreview>
         </div>
         <div id="glow" class="scroll-mt-20 flex flex-col gap-3">
             <Typography.H3 class="docs-subsection-heading">Glow</Typography.H3>
             <Typography.Text variant="supporting">
                 <InlineText
-                    text={"`variant=\"glow\"` is a lit version of the primary action for a page's one headline button. It is a pill filled with a light tint of the primary color under dark text, with a white inner rim. It brightens on hover, darkens on press, and never casts a drop shadow. Set `--mielui-glow-color` to change the fill and a text color class to match it. `--mielui-glow-light` scales the white light from 0 to 1 and starts at 1: lower it on dark fills so the light stays soft."}
+                    text={"`variant=\"glow\"` is the same lit material at full light, for a page's one headline button. It is filled with a light tint of the primary color under dark text. Set `--mielui-glow-color` to change the fill and a text color class to match it. `--mielui-glow-light` scales the white light from 0 to 1 and starts at 1: lower it on dark fills so the light stays soft. `--mielui-glow-ring` replaces the outer edge, which is a darker tint of the fill by default. The same three properties work on any lit variant."}
                 />
             </Typography.Text>
             <ComponentPreview code={VariantGlowSrc}><VariantGlow /></ComponentPreview>
@@ -108,19 +137,19 @@ let status = $state<'idle' | 'loading' | 'success' | 'error'>('idle');
                 <Disabled />
             </ComponentPreview>
         </div>
-        <div id="comp-leading" class="scroll-mt-20 flex flex-col gap-3">
+        <div id="leading-icon" class="scroll-mt-20 flex flex-col gap-3">
             <Typography.H3 class="docs-subsection-heading">Leading icon</Typography.H3>
             <ComponentPreview code={LeadingIconSrc}>
                 <LeadingIcon />
             </ComponentPreview>
         </div>
-        <div id="comp-trailing" class="scroll-mt-20 flex flex-col gap-3">
+        <div id="trailing-icon" class="scroll-mt-20 flex flex-col gap-3">
             <Typography.H3 class="docs-subsection-heading">Trailing icon</Typography.H3>
             <ComponentPreview code={TrailingIconSrc}>
                 <TrailingIcon />
             </ComponentPreview>
         </div>
-        <div id="comp-loading" class="scroll-mt-20 flex flex-col gap-3">
+        <div id="loading" class="scroll-mt-20 flex flex-col gap-3">
             <Typography.H3 class="docs-subsection-heading">
                 Loading, success, and retry
             </Typography.H3>
@@ -128,20 +157,20 @@ let status = $state<'idle' | 'loading' | 'success' | 'error'>('idle');
                 <Loading />
             </ComponentPreview>
         </div>
-        <div id="comp-link" class="scroll-mt-20 flex flex-col gap-3">
+        <div id="as-link" class="scroll-mt-20 flex flex-col gap-3">
             <Typography.H3 class="docs-subsection-heading">As link</Typography.H3>
             <ComponentPreview code={AsLinkSrc}>
                 <AsLink />
             </ComponentPreview>
         </div>
-        <div id="comp-group" class="scroll-mt-20 flex flex-col gap-3">
+        <div id="icon-group" class="scroll-mt-20 flex flex-col gap-3">
             <Typography.H3 class="docs-subsection-heading">Icon group</Typography.H3>
             <ComponentPreview code={IconGroupSrc}>
                 <IconGroup />
             </ComponentPreview>
         </div>
     </section>
-    <section id="element-and-handlers" class="flex flex-col gap-4">
+    <section id="element-and-handlers" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Element, handlers and unstyled</Typography.H2>
         <Typography.Text variant="supporting">
             <InlineText

@@ -32,10 +32,17 @@ import type { Manifest } from '@mielui/svelte/_manifest/types';
  * 3.2.0 -- Content registers its Escape layer one rank above the enclosing
  *          overlay, so menus opened inside a dialog or sheet peel before
  *          their host instead of closing it.
+ * 3.2.1 -- Trigger renders the chevron its `icon` prop always described.
+ * 3.3.0 -- Content uses the float frame. Positioning and hover-close timers
+ *          moved to position.svelte.ts and track the viewport only while
+ *          open. The panel carries its resolved `data-placement`, so it
+ *          scales from its trigger's side. PopoverState dropped the unused
+ *          `trigger`, `focusedElement`, `onclick`, `hovering`, and
+ *          `focusedInside` fields.
  */
 export const manifest: Manifest = {
     name: 'popover',
-    version: '3.2.0',
+    version: '3.3.0',
     visibility: 'public',
     description:
         'Floating content positioned by @floating-ui. Click or hover triggers, Title/Content subparts, inert outside content, click-outside + Escape dismiss, optional portal.',
@@ -45,30 +52,30 @@ export const manifest: Manifest = {
         'components/popover/popover-trigger.svelte',
         'components/popover/popover-content.svelte',
         'components/popover/popover-title.svelte',
-        'components/popover/context.svelte.ts',
+        'components/popover/context.ts',
+        'components/popover/position.svelte.ts',
         'components/popover/inert.ts',
         'components/popover/index.ts',
         'components/popover/manifest.ts'
     ],
-    components: ['_internal/utils', 'button', '_internal/overlay', 'typography'],
+    components: ['_internal/utils', 'button'],
     shared: [
         'components/_internal/button-attributes',
         'components/_internal/surface',
-        'utils.clickOutside',
+        'hugeicons-icon',
         'utils.cn',
         'utils.createContext',
         'utils.inertOutside',
-        'utils.lockBodyBackground',
+        'utils.isPointInSubmenuTriangle',
         'utils.lockBodyScroll',
         'utils.positionFloatingPanel',
         'utils.submenuPanelOffset',
-        'utils.pushEscapeLayer',
-        'utils.trapFocus',
         'transition'
     ],
     peerDependencies: {
         'bits-ui': '^2.19.2',
         '@floating-ui/dom': '^1.0.0',
+        '@hugeicons/core-free-icons': '^4.3.0',
         cnfast: '^0.0.8',
         svelte: '^5.56.0'
     }

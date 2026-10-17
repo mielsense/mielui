@@ -3,27 +3,37 @@
     import { cn } from '@mielui/svelte/utils';
     import HugeiconsIcon from '../../hugeicons-icon.svelte';
     import type { FileUploadPartProps } from '.';
-    import { getItem } from './context.svelte';
+    import { getFileUploadItem } from './context';
 
     let { children, class: className, ...rest }: FileUploadPartProps = $props();
-    const item = getItem();
+
+    const item = getFileUploadItem();
     const file = $derived(item().file);
+
     function preview(node: HTMLImageElement) {
         const url = URL.createObjectURL(file);
+
         node.src = url;
-        return () => URL.revokeObjectURL(url);
+
+        return () => {
+            URL.revokeObjectURL(url);
+        };
     }
 </script>
+
 <div
     {...rest}
     data-ui="file-upload-preview"
-    class={cn(className, 'grid size-12 shrink-0 place-items-center overflow-hidden rounded-[var(--radius-md)] bg-secondary text-foreground-muted')}
+    class={cn(
+        className,
+        'grid size-10 shrink-0 place-items-center overflow-hidden rounded-[var(--radius-md)] bg-secondary text-foreground-muted'
+    )}
 >
     {#if children}
         {@render children()}
     {:else if item().retryable && item().file.type.startsWith('image/')}
         <img {@attach preview} alt="" class="size-full object-cover" />
     {:else}
-        <HugeiconsIcon icon={File01Icon} size={22} />
+        <HugeiconsIcon icon={File01Icon} size={18} />
     {/if}
 </div>

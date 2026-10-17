@@ -2,7 +2,7 @@
     import { themedSlide } from '@mielui/svelte/transition';
     import { cn } from '@mielui/svelte/utils';
     import type { FieldErrorProps } from '.';
-    import { getFieldContext } from './context.svelte';
+    import { getFieldContext } from './context';
 
     let {
         issues,
@@ -25,11 +25,13 @@
         id={id ?? `field-error-${uid}`}
         {role}
         aria-atomic="true"
-        aria-hidden={!children && messages.length === 0 ? true : undefined}
         transition:themedSlide={{ durationVar: '--motion-duration-press', fallback: 160 }}
         data-ui="field-error"
         data-field-error
-        class={cn(className, 'text-sm leading-body text-[var(--mielui-error-text)]')}
+        class={cn(
+            className,
+            '[font-size:var(--font-size-label)] [font-weight:var(--font-weight-description)] leading-snug text-[var(--mielui-error-text)]'
+        )}
     >
         {#if children}
             {@render children()}

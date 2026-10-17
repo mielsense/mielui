@@ -1,13 +1,13 @@
 <script lang="ts">
     import { cn } from '@mielui/svelte/utils';
     import { marked } from 'marked';
-    import { setContext } from 'svelte';
-    import type { MarkdownLabels, MarkdownProps } from '.';
+    import type { MarkdownProps } from '.';
     import type { MarkdownToken } from './_types';
+    import { setMarkdownLabels } from './context';
     import TokenRenderer from './markdown-token.svelte';
 
     let { content, streaming = false, labels, class: className, ...rest }: MarkdownProps = $props();
-    setContext<() => MarkdownLabels | undefined>('markdown-labels', () => labels);
+    setMarkdownLabels(() => labels);
 
     const tokens = $derived(
         marked.lexer(content, { gfm: true, breaks: false }) as unknown as MarkdownToken[]
@@ -21,7 +21,7 @@
     aria-busy={streaming}
     class={cn(
         className,
-        'min-w-0 w-full select-text [font-size:var(--font-size-body)] leading-body [font-weight:var(--font-weight-body)] [letter-spacing:var(--tracking-body)] text-foreground [overflow-wrap:break-word] [&>*:first-child]:mt-0 [&>*:last-child]:mb-0'
+        'min-w-0 w-full select-text [font-size:var(--font-size-body)] leading-relaxed [font-weight:var(--font-weight-body)] [letter-spacing:var(--tracking-body)] text-foreground [overflow-wrap:break-word] [&>*:first-child]:mt-0 [&>*:last-child]:mb-0'
     )}
 >
     <TokenRenderer {tokens} />

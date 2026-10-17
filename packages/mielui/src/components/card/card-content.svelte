@@ -2,9 +2,9 @@
     import { cn } from '@mielui/svelte/utils';
     import type { CardContentProps } from '.';
 
-    let { children, class: classProp, ...rest }: CardContentProps = $props();
+    let { children, class: className, ...rest }: CardContentProps = $props();
 </script>
 
-<div {...rest} class={cn(classProp, `flex flex-col`)}>
+<div {...rest} class={cn(className, 'flex flex-col')}>
     {@render children?.()}
 </div>

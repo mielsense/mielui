@@ -4,14 +4,27 @@ const skillFiles = import.meta.glob<string>('../../../../skills/mielui/**/*.md',
     import: 'default'
 });
 
+const designSkillFiles = import.meta.glob<string>('../../../../skills/mielui-design/**/*.md', {
+    eager: true,
+    query: '?raw',
+    import: 'default'
+});
+
+const DESIGN_REFERENCES = [
+    '/references/foundations.md',
+    '/references/app-layouts.md',
+    '/references/dashboards.md',
+    '/references/marketing-sites.md'
+];
+
 const FETCH_INDEX =
     'Fetch `https://ui.miel.my/llms.txt` at the start of each Mielui task. Treat it as the index for the current catalog, installation guide, theming guide, changelog, and generated component references.';
 
 const EMBEDDED_INDEX =
     'This file is the live Mielui index. Use the Documentation links below for the current catalog, installation guide, theming guide, changelog, and generated component references.';
 
-function skillFile(suffix: string): string {
-    const entry = Object.entries(skillFiles).find(([path]) => {
+function findFile(files: Record<string, string>, suffix: string): string {
+    const entry = Object.entries(files).find(([path]) => {
         return path.endsWith(suffix);
     });
     if (!entry) {
@@ -19,6 +32,10 @@ function skillFile(suffix: string): string {
     }
 
     return entry[1];
+}
+
+function skillFile(suffix: string): string {
+    return findFile(skillFiles, suffix);
 }
 
 function stripFrontmatter(markdown: string): string {
@@ -73,4 +90,15 @@ export function componentSelectionMarkdown(origin: string): string {
 
 export function designLanguageMarkdown(origin: string): string {
     return `${withOrigin(skillFile('/references/design-language.md').trim(), origin)}\n`;
+}
+
+export function designSkillMarkdown(origin: string): string {
+    const body = stripFrontmatter(findFile(designSkillFiles, '/SKILL.md')).trim();
+    const references = DESIGN_REFERENCES.map((suffix) => {
+        return demoteHeadings(findFile(designSkillFiles, suffix).trim());
+    });
+    const note =
+        'The reference files this skill names follow below, in the order of the archetype table.';
+
+    return `${withOrigin([body, note, ...references].join('\n\n'), origin)}\n`;
 }

@@ -1,50 +1,39 @@
 import type { Manifest } from '@mielui/svelte/_manifest/types';
 
 /**
- * Overlay -- internal primitive. Shared by dialog-content and sheet-content
- * (and any future overlay-based component). Owns focus trap, click-outside,
- * Escape, and body-scroll lock. Consumer of overlay owns its own animation
- * surface and portal/positioning.
+ * Overlay -- internal primitive shared by dialog-content and sheet-content.
+ * Coordinates modal presentation: nested stacking depth, the receding earlier
+ * panel, the lighter nested scrim, and the deferred close that lets outros
+ * finish. Bits UI owns focus and dismissal.
  *
  * Internal visibility -- the CLI installs this as a transitive dependency
  * only. `npx mielui add overlay` is not a valid command; consumers reach
  * overlay only through dialog or sheet.
  *
  * Version history:
- *   1.0.0 -- initial release. Extracted from the duplicated focus-trap /
- *           click-outside / Escape / body-overflow logic that lived in
- *           dialog-content.svelte and sheet-content.svelte (resolves F-30).
- *   1.2.0 -- inert the background while open; scroll lock also covers nested
- *           overflow containers so page regions other than `document.body`
- *           cannot scroll behind the overlay.
- *   1.3.0 -- nested dialog stacking: recede the earlier panel, lighten the
- *           nested scrim, and dismiss only the top layer. Click-outside
- *           peels one layer per pointer gesture so Select inside Dialog
- *           does not close the dialog.
+ *   1.0.0 -- initial release.
+ *   1.2.0 -- inert the background while open.
+ *   1.3.0 -- nested dialog stacking.
+ *   2.0.0 -- removed the unused `useOverlay` primitive, its `OverlayOptions`
+ *           type, and `parentOverlayDepth`. Dialog and Sheet use
+ *           `useOverlayPresentation` and `useDeferredClose`.
  */
 export const manifest: Manifest = {
     name: '_internal/overlay',
-    version: '1.3.0',
+    version: '2.0.0',
     visibility: 'internal',
     description:
-        'Shared overlay primitive owning focus trap, inert background, click-outside, Escape handling, body-scroll lock, and nested dialog stacking. Consumed by dialog and sheet; not directly installable.',
+        'Shared modal presentation for dialog and sheet: nested stacking, the receding earlier panel, and deferred close. Not directly installable.',
     files: [
         'components/_internal/overlay/overlay.svelte.ts',
         'components/_internal/overlay/index.ts',
         'components/_internal/overlay/manifest.ts'
     ],
     components: ['_internal/utils'],
-    shared: [
-        'utils.clickOutside',
-        'utils.getFocusableElements',
-        'utils.inertOutside',
-        'utils.trapFocus',
-        'utils.lockBodyScroll',
-        'utils.pushEscapeLayer'
-    ],
+    shared: ['utils.createContext'],
     peerDependencies: {
         cnfast: '0.0.8',
         '@floating-ui/dom': '1.7.6',
-        svelte: '^5.0.0'
+        svelte: '^5.56.0'
     }
 };

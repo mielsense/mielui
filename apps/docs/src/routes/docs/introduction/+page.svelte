@@ -21,26 +21,30 @@
     const cliQuick = `pnpm dlx @mielui/svelte init -y
 pnpm dlx @mielui/svelte add button`;
 
-    const comparison = [
+    const paths = [
         {
-            decision: 'Best fit',
-            package: 'Use the library through its public API.',
-            source: 'Adapt component internals for your product.'
+            title: 'Package import',
+            rows: [
+                { label: 'Best fit', value: 'Use the library through its public API.' },
+                { label: 'Source', value: 'Imported from `@mielui/svelte`.' },
+                {
+                    label: 'Customization',
+                    value: 'Compose parts, set props, and apply classes or tokens.'
+                },
+                { label: 'Updates', value: 'Upgrade the package dependency.' }
+            ]
         },
         {
-            decision: 'Source',
-            package: 'Imported from @mielui/svelte.',
-            source: 'Copied into your repository.'
-        },
-        {
-            decision: 'Customization',
-            package: 'Compose parts, set props, and apply classes or tokens.',
-            source: 'Use the same options, plus edit the source directly.'
-        },
-        {
-            decision: 'Updates',
-            package: 'Upgrade the package dependency.',
-            source: 'Review upstream changes alongside your local edits.'
+            title: 'CLI source copy',
+            rows: [
+                { label: 'Best fit', value: 'Adapt component internals for your product.' },
+                { label: 'Source', value: 'Copied into your repository.' },
+                {
+                    label: 'Customization',
+                    value: 'Use the same options, plus edit the source directly.'
+                },
+                { label: 'Updates', value: 'Review upstream changes alongside your local edits.' }
+            ]
         }
     ];
 
@@ -48,17 +52,6 @@ pnpm dlx @mielui/svelte add button`;
         { label: 'Svelte', value: '5.56 or newer, with or without SvelteKit' },
         { label: 'Tailwind CSS', value: 'v4' },
         { label: 'Package manager', value: 'pnpm, npm, Yarn, or Bun' }
-    ];
-
-    const paths = [
-        {
-            title: 'Package import',
-            rows: comparison.map((row) => ({ decision: row.decision, text: row.package }))
-        },
-        {
-            title: 'CLI source copy',
-            rows: comparison.map((row) => ({ decision: row.decision, text: row.source }))
-        }
     ];
 
     const nextSteps = [
@@ -112,25 +105,10 @@ pnpm dlx @mielui/svelte add button`;
             Both paths use the same components and theme system. Choose based on whether you want
             dependency updates or direct ownership of the implementation.
         </Typography.Text>
-        <div class="grid gap-3 sm:grid-cols-2">
-            {#each paths as path (path.title)}
-                <div class="mielui-inset-frame">
-                    <div class="mielui-inset-surface flex h-full flex-col gap-3 p-4">
-                        <h3 class="m-0 text-sm font-medium text-foreground">{path.title}</h3>
-                        <dl class="m-0 flex flex-col gap-3">
-                            {#each path.rows as row (row.decision)}
-                                <div class="flex flex-col gap-0.5">
-                                    <dt class="text-xs text-foreground-muted">{row.decision}</dt>
-                                    <dd class="m-0 text-sm leading-6 text-foreground">
-                                        {row.text}
-                                    </dd>
-                                </div>
-                            {/each}
-                        </dl>
-                    </div>
-                </div>
-            {/each}
-        </div>
+        {#each paths as path (path.title)}
+            <Typography.H3 class="docs-subsection-heading m-0 mt-2">{path.title}</Typography.H3>
+            <Rows items={path.rows} label={path.title} />
+        {/each}
         <Typography.Text variant="body" class="m-0">
             Trying Mielui for the first time? Start with package imports. Choose source copy when
             you already know you need to change component behavior.

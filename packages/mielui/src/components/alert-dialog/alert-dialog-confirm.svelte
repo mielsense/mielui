@@ -1,7 +1,7 @@
 <script lang="ts">
     import { Button } from '@mielui/svelte/components/button';
     import { cn } from '@mielui/svelte/utils';
-    import { getDialogContext } from '../dialog/context.svelte';
+    import { getDialogContext } from '../dialog/context';
 
     import type { AlertDialogActionProps } from '.';
 
@@ -30,7 +30,7 @@
     bind:element
     variant={confirmVariant}
     onclick={handleClick}
-    class={cn(className, 'ml-auto flex flex-row items-center justify-center gap-2')}
+    class={cn(className, 'ms-auto flex flex-row items-center justify-center gap-2')}
 >
     {@render children?.()}
 </Button>

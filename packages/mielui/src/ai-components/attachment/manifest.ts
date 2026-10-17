@@ -13,7 +13,7 @@ export const manifest: Manifest = {
         'components/attachment/attachment-list.svelte',
         'components/attachment/attachment-item.svelte',
         'components/attachment/file-icon.ts',
-        'components/attachment/context.svelte.ts',
+        'components/attachment/context.ts',
         'components/attachment/index.ts',
         'components/attachment/manifest.ts'
     ],
@@ -29,7 +29,7 @@ export const manifest: Manifest = {
         '@floating-ui/dom': '1.7.6',
         '@hugeicons/core-free-icons': '^4.3.0',
         cnfast: '^0.0.8',
-        svelte: '^5.0.0',
+        svelte: '^5.56.0',
         'tailwind-merge': '^3.0.0'
     }
 };

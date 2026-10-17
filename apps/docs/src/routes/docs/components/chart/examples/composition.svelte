@@ -30,9 +30,6 @@
             <div class="flex items-center gap-2 text-sm">
                 <span class="h-0.5 w-5 rounded-full" style:background={color}></span>
                 {label}
-                <span class="rounded-full bg-success/10 px-2 py-0.5 text-xs text-success">
-                    Live example
-                </span>
             </div>
         {/snippet}
     </Chart.Legend>
@@ -45,7 +42,7 @@
         {#snippet children({ label, values })}
             <div class="flex flex-col gap-1">
                 <span class="text-foreground-muted">{label}</span>
-                {#each values as item}
+                {#each values as item (item.key)}
                     <strong class="text-sm font-medium tabular-nums">{item.formatted}</strong>
                 {/each}
             </div>

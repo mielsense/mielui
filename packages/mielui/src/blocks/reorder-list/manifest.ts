@@ -12,7 +12,7 @@ export const manifest: Manifest = {
         'components/reorder-list/reorder-list-item.svelte',
         'components/reorder-list/reorder-list-handle.svelte',
         'components/reorder-list/reorder-list-content.svelte',
-        'components/reorder-list/context.svelte.ts',
+        'components/reorder-list/context.ts',
         'components/reorder-list/index.ts',
         'components/reorder-list/manifest.ts'
     ],
@@ -21,6 +21,6 @@ export const manifest: Manifest = {
     peerDependencies: {
         '@floating-ui/dom': '1.7.6',
         cnfast: '^0.0.8',
-        svelte: '^5.0.0'
+        svelte: '^5.56.0'
     }
 };

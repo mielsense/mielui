@@ -7,7 +7,7 @@
     import { buttonAttributes } from '../_internal/button-attributes';
     import { badge } from '../badge/variants';
     import type { TagInputTagProps } from '.';
-    import { getTagInputContext } from './context.svelte';
+    import { getTagInputContext } from './context';
 
     let {
         value,
@@ -22,6 +22,8 @@
     const context = getTagInputContext();
     const removeLabel = $derived(context.labels?.remove?.(value) ?? `Remove ${value}`);
     const canRemove = $derived(removable && !context.disabled);
+    const tagSize =
+        'min-h-[calc(var(--size-control-md)-var(--size-hairline)-var(--border-size)*2-var(--spacing)*2)] py-0';
 
     function remove() {
         if (onRemove) {
@@ -63,7 +65,7 @@
         <span
             data-ui="tag-input-tag-remove"
             aria-hidden="true"
-            class="grid size-5 shrink-0 place-items-center rounded-full text-foreground-muted transition-colors group-hover:text-foreground"
+            class="grid size-5 shrink-0 place-items-center rounded-[var(--radius-control)] text-foreground-muted transition-[background-color,color] [transition-duration:var(--motion-duration-hover)] ease-[var(--ease-out)] group-hover:bg-[var(--color-wash)] group-hover:text-foreground motion-reduce:transition-none"
         >
             <HugeiconsIcon
                 icon={X}
@@ -88,9 +90,10 @@
         onclick={handleRemove}
         class={cn(
             className,
-            'cursor-pointer focus-visible:outline-none focus-visible:shadow-[var(--focus-ring)]',
-            'group h-auto max-w-full',
-            badge({ variant: 'outline' })
+            'cursor-[var(--ui-cursor-interactive)] focus-visible:outline-none focus-visible:shadow-[var(--focus-ring)]',
+            'group h-auto max-w-full gap-0.5 rounded-[var(--radius-control)] ps-2.5 pe-0.5',
+            tagSize,
+            badge({ variant: 'secondary' })
         )}
     >
         {@render label()}
@@ -102,8 +105,9 @@
         data-disabled={context.disabled || undefined}
         class={cn(
             className,
-            'max-w-full',
-            badge({ variant: 'outline' })
+            'max-w-full rounded-[var(--radius-control)] px-2.5',
+            tagSize,
+            badge({ variant: 'secondary' })
         )}
     >
         {@render label()}

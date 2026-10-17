@@ -1,11 +1,26 @@
 <script lang="ts">
+    import type { DateValue } from '@internationalized/date';
     import { CodeBlock } from '@mielui/svelte/components/code-block';
+    import * as DateRangePicker from '@mielui/svelte/components/date-range-picker';
     import * as Typography from '@mielui/svelte/components/typography';
-    import { ComponentPreview, InstallCommand } from '$lib/components/docs';
+    import { ComponentPreview, InstallCommand, Playground } from '$lib/components/docs';
     import InlineText from '$lib/components/docs/inline-text.svelte';
     import PageIntro from '$lib/components/docs/page-intro.svelte';
-    import Example1 from './examples/disabled.svelte';
-    import Example1Src from './examples/disabled.svelte?raw';
+    import {
+        endDate,
+        endTime,
+        hasTime,
+        isBooked,
+        MAX_DAYS,
+        MIN_DAYS,
+        maxDate,
+        minDate,
+        startDate,
+        startTime,
+        weekendMatcher
+    } from '$lib/components/docs/playground/calendar';
+    import DisabledExample from './examples/disabled.svelte';
+    import DisabledExampleSrc from './examples/disabled.svelte?raw';
     import EventsExample from './examples/events.svelte';
     import EventsExampleSrc from './examples/events.svelte?raw';
     import ExcludeDisabledExample from './examples/exclude-disabled.svelte';
@@ -16,8 +31,68 @@
     import HeroSrc from './examples/hero.svelte?raw';
     import RangeLengthExample from './examples/range-length.svelte';
     import RangeLengthExampleSrc from './examples/range-length.svelte?raw';
-    import Example0 from './examples/two-months.svelte';
-    import Example0Src from './examples/two-months.svelte?raw';
+    import TwoMonthsExample from './examples/two-months.svelte';
+    import TwoMonthsExampleSrc from './examples/two-months.svelte?raw';
+    import { code as playgroundCode, controls as playgroundControls } from './playground';
+
+    let range = $state<{
+        start: DateValue | undefined;
+        end: DateValue | undefined;
+    }>({
+        start: startDate,
+        end: endDate
+    });
+    let timeRange = $state<{
+        start: DateValue | undefined;
+        end: DateValue | undefined;
+    }>({
+        start: startTime,
+        end: endTime
+    });
+
+    const usageCode = `<script lang="ts">
+    import type { DateValue } from '@internationalized/date';
+    import * as DateRangePicker from '@mielui/svelte/components/date-range-picker';
+
+    let value = $state<{
+        start: DateValue | undefined;
+        end: DateValue | undefined;
+    }>({
+        start: undefined,
+        end: undefined
+    });
+</${'script'}>
+
+<DateRangePicker.Root bind:value>
+    <DateRangePicker.Label>Travel dates</DateRangePicker.Label>
+    <DateRangePicker.Input type="start" name="arrival" aria-label="Arrival" />
+    <DateRangePicker.Input type="end" name="departure" aria-label="Departure" />
+    <DateRangePicker.Trigger />
+    <DateRangePicker.Content align="end">
+        <DateRangePicker.Calendar />
+    </DateRangePicker.Content>
+</DateRangePicker.Root>`;
+
+    const labelsCode = `<script lang="ts">
+    import * as DateRangePicker from '@mielui/svelte/components/date-range-picker';
+    import type { DateRangePickerLabels } from '@mielui/svelte/components/date-range-picker';
+
+    const labels: DateRangePickerLabels = {
+        trigger: 'Choisir des dates',
+        content: 'Calendrier',
+        invalid: 'Saisissez une date valide.'
+    };
+</${'script'}>
+
+<DateRangePicker.Root locale="fr-FR" {labels}>
+    <DateRangePicker.Label>Dates du séjour</DateRangePicker.Label>
+    <DateRangePicker.Input type="start" name="arrival" aria-label="Arrivée" />
+    <DateRangePicker.Input type="end" name="departure" aria-label="Départ" />
+    <DateRangePicker.Trigger />
+    <DateRangePicker.Content align="end">
+        <DateRangePicker.Calendar />
+    </DateRangePicker.Content>
+</DateRangePicker.Root>`;
 </script>
 
 <svelte:head>
@@ -30,7 +105,64 @@
         Editable start and end dates with a shared calendar popup.
     </PageIntro>
     <section id="hero" class="scroll-mt-20 flex flex-col gap-4">
-        <ComponentPreview code={HeroSrc}><Hero /></ComponentPreview>
+        <Playground controls={playgroundControls} code={playgroundCode}>
+            {#snippet children(values)}
+                {const withTime = $derived(hasTime(values))}
+                <div class="w-full max-w-lg">
+                    {#key withTime}
+                        <DateRangePicker.Root
+                            bind:value={
+                                () => (withTime ? timeRange : range),
+                                (next) => {
+                                    if (withTime) {
+                                        timeRange = next;
+                                    } else {
+                                        range = next;
+                                    }
+                                }
+                            }
+                            calendarLabel="Travel dates"
+                            locale={values.locale}
+                            granularity={values.granularity}
+                            disabled={values.disabled}
+                            minValue={values.bounds ? minDate : undefined}
+                            maxValue={values.bounds ? maxDate : undefined}
+                            isDateDisabled={values.weekends
+                                ? weekendMatcher(values.locale)
+                                : undefined}
+                            isDateUnavailable={values.unavailable ? isBooked : undefined}
+                            minDays={values.limit ? MIN_DAYS : undefined}
+                            maxDays={values.limit ? MAX_DAYS : undefined}
+                        >
+                            <div class="grid gap-2">
+                                {#if values.label}
+                                    <DateRangePicker.Label>Travel dates</DateRangePicker.Label>
+                                {/if}
+                                <div class="flex flex-wrap items-center gap-2">
+                                    <DateRangePicker.Input
+                                        type="start"
+                                        name="startDate"
+                                        aria-label="Start date"
+                                    />
+                                    <DateRangePicker.Input
+                                        type="end"
+                                        name="endDate"
+                                        aria-label="End date"
+                                    />
+                                    <DateRangePicker.Trigger />
+                                </div>
+                            </div>
+                            <DateRangePicker.Content
+                                align="end"
+                                surface={values.surface === 'theme' ? undefined : values.surface}
+                            >
+                                <DateRangePicker.Calendar />
+                            </DateRangePicker.Content>
+                        </DateRangePicker.Root>
+                    {/key}
+                </div>
+            {/snippet}
+        </Playground>
     </section>
     <section id="installation" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Installation</Typography.H2>
@@ -43,38 +175,34 @@
             name. Bind an object with start and end DateValue properties; either endpoint can be
             undefined while editing.
         </Typography.Text>
-        <CodeBlock
-            code={`import * as DateRangePicker from '@mielui/svelte/components/date-range-picker';
-
-<DateRangePicker.Root bind:value>
-  <DateRangePicker.Label>Travel dates</DateRangePicker.Label>
-  <DateRangePicker.Input type="start" name="arrival" aria-label="Arrival" />
-  <DateRangePicker.Input type="end" name="departure" aria-label="Departure" />
-  <DateRangePicker.Trigger />
-  <DateRangePicker.Content align="end">
-    <DateRangePicker.Calendar />
-  </DateRangePicker.Content>
-</DateRangePicker.Root>`}
-            lang="svelte"
-            copy="overlay"
-        />
+        <CodeBlock code={usageCode} lang="svelte" copy="overlay" />
         <Typography.Text variant="supporting">
             Use CalendarDate from @internationalized/date for date-only values, or parseDate for ISO
             date strings. Bind placeholder to control the visible month. An explicit locale and
             placeholder keep server and client formatting predictable. Avoid converting a date-only
-            selection through a UTC JavaScript Date to store it; value.toString() preserves its
-            calendar date.
+            selection through a UTC JavaScript Date to store it. Save each end with
+            value.start?.toString() and value.end?.toString().
         </Typography.Text>
     </section>
     <section id="examples" class="scroll-mt-20 flex flex-col gap-8">
         <Typography.H2 class="docs-section-heading">Examples</Typography.H2>
-        <div id="two-months" class="scroll-mt-20 flex flex-col gap-3">
-            <Typography.H3 class="docs-subsection-heading">Across months</Typography.H3>
+        <div id="helper-text" class="scroll-mt-20 flex flex-col gap-3">
+            <Typography.H3 class="docs-subsection-heading">Helper text</Typography.H3>
             <Typography.Text variant="supporting">
-                Show two months with numberOfMonths. A range can start in one month and end in the
-                other. Months wrap in narrow containers.
+                A line under the fields tells people they can type each date or pick the range.
             </Typography.Text>
-            <ComponentPreview code={Example0Src}><Example0 /></ComponentPreview>
+            <ComponentPreview code={HeroSrc}><Hero /></ComponentPreview>
+        </div>
+        <div id="two-months" class="scroll-mt-20 flex flex-col gap-3">
+            <Typography.H3 class="docs-subsection-heading">Two months</Typography.H3>
+            <Typography.Text variant="supporting">
+                numberOfMonths shows several months side by side, and pagedNavigation moves the
+                arrows by that many. A range can start in one month and end in the next. Months wrap
+                in narrow containers.
+            </Typography.Text>
+            <ComponentPreview code={TwoMonthsExampleSrc}>
+                <TwoMonthsExample />
+            </ComponentPreview>
         </div>
         <div id="range-length" class="scroll-mt-20 flex flex-col gap-3">
             <Typography.H3 class="docs-subsection-heading">Range length</Typography.H3>
@@ -90,10 +218,12 @@
         <div id="disabled" class="scroll-mt-20 flex flex-col gap-3">
             <Typography.H3 class="docs-subsection-heading">Disabled</Typography.H3>
             <Typography.Text variant="supporting">
-                disabled prevents editing and calendar activation. readonly preserves navigation
-                while preventing value changes.
+                disabled turns off both fields and the trigger. readonly keeps the calendar
+                navigable but blocks changes to the value.
             </Typography.Text>
-            <ComponentPreview code={Example1Src}><Example1 /></ComponentPreview>
+            <ComponentPreview code={DisabledExampleSrc}>
+                <DisabledExample />
+            </ComponentPreview>
         </div>
     </section>
     <section id="form" class="scroll-mt-20 flex flex-col gap-4">
@@ -115,11 +245,11 @@
             another documented composition.
         </Typography.Text>
         <Typography.Text>
-            Styled parts forward native attributes and expose bind:ref for their underlying element.
-            Arrow keys move between days, Page Up and Page Down change the visible month, and Enter
-            or Space selects. Focus and selection are distinct. Disabled dates cannot be selected;
-            readonly calendars remain navigable. The today indicator and unavailable strike-through
-            provide cues beyond color.
+            Styled parts forward native attributes and expose bind:element for their underlying
+            element. Arrow keys move between days, Page Up and Page Down change the visible month,
+            and Enter or Space selects. Focus and selection are distinct. Disabled dates cannot be
+            selected; readonly calendars remain navigable. The today indicator and unavailable
+            strike-through provide cues beyond color.
         </Typography.Text>
         <Typography.Text>
             Input exposes a children snippet with segments for custom field composition. Render each
@@ -129,21 +259,16 @@
             reduced-motion preferences.
         </Typography.Text>
     </section>
-
-    <section id="labels" class="flex scroll-mt-20 flex-col gap-4">
+    <section id="labels" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Labels</Typography.H2>
         <Typography.Text>
-            Built-in text is English by default. Pass labels to DateRangePicker.Root to translate or
-            reword the calendar trigger, the calendar panel, and the validation message. Every key
-            is optional; omitted keys keep their default.
+            Built-in text is English. Pass a DateRangePickerLabels object to labels on Root to
+            translate or reword the trigger name, the panel name and the validation message. Every
+            key is optional, and an omitted key keeps its English default.
         </Typography.Text>
-        <CodeBlock
-            code={`<DateRangePicker.Root labels={{ trigger: 'Choisir des dates', content: 'Choisir des dates', invalid: 'Saisissez une date valide.' }} />`}
-            lang="svelte"
-            copy="overlay"
-        />
+        <CodeBlock code={labelsCode} lang="svelte" copy="overlay" />
     </section>
-    <section id="range-events" class="flex flex-col gap-4">
+    <section id="range-events" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Range events</Typography.H2>
         <Typography.Text variant="supporting">
             <InlineText
@@ -159,7 +284,7 @@
             <EventsExample />
         </ComponentPreview>
     </section>
-    <section id="unavailable-dates" class="flex flex-col gap-4">
+    <section id="unavailable-dates" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Unavailable and disabled dates</Typography.H2>
         <Typography.Text variant="supporting">
             <InlineText
@@ -175,13 +300,13 @@
             <ExcludeDisabledExample />
         </ComponentPreview>
     </section>
-    <section id="grid-and-field" class="flex flex-col gap-4">
+    <section id="grid-and-field" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading"
             >Grid, formats and the typed fields</Typography.H2
         >
         <Typography.Text variant="supporting">
             <InlineText
-                text={"`weekStartsOn` sets the first column, from 0 for Sunday to 6 for Saturday, and falls back to the locale. `weekdayFormat` picks `narrow`, `short` or `long` weekday names. `fixedWeeks` is on by default and always draws six rows so the height never jumps between months. Turn it off to draw only the weeks a month needs. Days from the neighbouring months fill the grid, and `disableDaysOutsideMonth` makes them unselectable."}
+                text={"`weekStartsOn` sets the first column, from 0 for Sunday to 6 for Saturday, and falls back to the locale. `weekdayFormat` picks `narrow`, `short` or `long` weekday names. `fixedWeeks` is on by default and always draws six rows so the height never jumps between months. Turn it off to draw only the weeks a month needs. Days from the neighbouring months fill the grid and cannot be selected. Set `disableDaysOutsideMonth={false}` to make them selectable."}
             />
         </Typography.Text>
         <Typography.Text variant="supporting">
@@ -195,7 +320,7 @@
             />
         </Typography.Text>
     </section>
-    <section id="panel-position" class="flex flex-col gap-4">
+    <section id="panel-position" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Panel position and dismissal</Typography.H2>
         <Typography.Text variant="supporting">
             <InlineText

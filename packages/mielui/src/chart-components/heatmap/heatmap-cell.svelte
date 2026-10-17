@@ -1,10 +1,11 @@
 <script lang="ts">
+    import { Skeleton } from '@mielui/svelte/components/skeleton';
+    import { cn } from '@mielui/svelte/utils';
     import { untrack } from 'svelte';
-    import type { HTMLButtonAttributes } from 'svelte/elements';
-    import { Skeleton } from '../../components/skeleton';
-    import { cn } from '../../utils';
-    import type { Cell } from './calendar';
-    import { useHeatmap } from './context.svelte';
+    import type { HeatmapCellProps } from '.';
+    import { levelClasses } from './calendar';
+    import { getHeatmapContext } from './context';
+    import { revealCell, revealDelay } from './reveal';
 
     let {
         day,
@@ -16,71 +17,23 @@
         onpointerenter,
         onpointerleave,
         onblur,
-        ...props
-    }: HTMLButtonAttributes & { day: Cell } = $props();
+        ...rest
+    }: HeatmapCellProps = $props();
 
-    const context = useHeatmap();
+    const context = getHeatmapContext();
     let element = $state<HTMLButtonElement>();
 
     $effect(() => {
-        if (!element || !context.ready) {
+        const motion = context.motion;
+        const order = context.animation;
+        if (!element || !context.ready || !motion || order === 'none' || order === 'live') {
             return;
         }
-        const preference = window.matchMedia('(prefers-reduced-motion: reduce)');
-        const themeDuration = getComputedStyle(element)
-            .getPropertyValue('--motion-duration-panel')
-            .trim();
-        const parsedDuration = Number.parseFloat(themeDuration);
-        const milliseconds = themeDuration.endsWith('ms')
-            ? parsedDuration
-            : themeDuration.endsWith('s')
-              ? parsedDuration * 1000
-              : parsedDuration;
-        const motionScale = Number.isFinite(milliseconds) ? Math.max(0, milliseconds / 180) : 1;
-        if (
-            preference.matches ||
-            context.animation === 'none' ||
-            context.animation === 'live' ||
-            motionScale === 0
-        ) {
-            return;
-        }
-        const rows = context.animation === 'rows';
-        const delay = untrack(() => {
-            if (rows) {
-                return (day.row - 1) * 50;
-            }
-            return (day.column - 1) * Math.min(35, 360 / context.model.weeks);
-        });
-        const animation = element.animate(
-            [
-                { opacity: 0, transform: 'translateY(5px) scale(0.82)' },
-                { opacity: 1, transform: 'translateY(0) scale(1)' }
-            ],
-            {
-                duration: 360 * motionScale,
-                delay: delay * motionScale,
-                easing: 'cubic-bezier(0.2,0,0,1)',
-                fill: 'backwards'
-            }
-        );
-        function cancel() {
-            animation.cancel();
-        }
-        preference.addEventListener('change', cancel);
-        return () => {
-            cancel();
-            preference.removeEventListener('change', cancel);
-        };
+        const delay = untrack(() => revealDelay(day, order, context.model.weeks));
+
+        return revealCell(element, motion, delay);
     });
 
-    const levels = [
-        'bg-secondary',
-        'bg-[color-mix(in_oklab,var(--chart-1)_25%,transparent)]',
-        'bg-[color-mix(in_oklab,var(--chart-1)_45%,transparent)]',
-        'bg-[color-mix(in_oklab,var(--chart-1)_70%,transparent)]',
-        'bg-[var(--chart-1)]'
-    ];
     function navigate(event: KeyboardEvent & { currentTarget: EventTarget & HTMLButtonElement }) {
         onkeydown?.(event);
         if (event.defaultPrevented) {
@@ -145,6 +98,7 @@
         }
     }
 </script>
+
 {#if !context.ready}
     <div
         aria-hidden="true"
@@ -155,12 +109,12 @@
     >
         <Skeleton
             variant={context.loading && context.animation !== 'none' ? 'shimmer' : 'default'}
-            class="size-full rounded-[calc(var(--radius-xs)*1.5)]"
+            class="size-full rounded-[calc(var(--radius-sm)*0.375)]"
         />
     </div>
 {:else}
     <button
-        {...props}
+        {...rest}
         type="button"
         data-ui="heatmap-cell"
         bind:this={element}
@@ -169,7 +123,11 @@
         aria-label={day.label}
         title={context.tooltipCount ? undefined : day.label}
         tabindex={context.focused === day.date ? 0 : -1}
-        class={cn(className, levels[day.level], 'aspect-square min-h-2.5 min-w-2.5 rounded-[calc(var(--radius-xs)*1.5)] outline-none ring-inset hover:ring-1 hover:ring-foreground/40 focus-visible:z-10 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary')}
+        class={cn(
+            className,
+            levelClasses[day.level],
+            'aspect-square min-h-2.5 min-w-2.5 rounded-[calc(var(--radius-sm)*0.375)] outline-none ring-inset hover:ring-1 hover:ring-[var(--color-border-strong)] focus-visible:z-10 focus-visible:shadow-[var(--focus-ring)]'
+        )}
         style:grid-column={day.column}
         style:grid-row={day.row}
         onkeydown={navigate}

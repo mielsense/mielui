@@ -221,6 +221,7 @@ export function createThemeTokenEditor(state: ThemeEditorState, getMode: () => '
     function animationEaseValue(definition: AnimationTokenDefinition) {
         return matchingEase(resolveAnimationRaw(definition));
     }
+
     return {
         updateAdvancedColorToken,
         updateAdvancedSpacingToken,
@@ -236,3 +237,5 @@ export function createThemeTokenEditor(state: ThemeEditorState, getMode: () => '
         animationEaseValue
     };
 }
+
+export type ThemeTokenEditor = ReturnType<typeof createThemeTokenEditor>;

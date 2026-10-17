@@ -11,9 +11,11 @@
 
     let privateProject = $state(false);
     let message = $state('');
+
     function invite() {
         message = 'Share the copied link with a collaborator.';
     }
+
     async function copyLink() {
         try {
             await navigator.clipboard.writeText(window.location.href);
@@ -22,6 +24,7 @@
             message = 'Clipboard access is unavailable.';
         }
     }
+
     function toggleVisibility() {
         privateProject = !privateProject;
         message = privateProject ? 'Preview project is private.' : 'Preview project is public.';
@@ -30,7 +33,7 @@
 
 <div class="flex flex-col items-center gap-3">
     <DropdownMenu.Root>
-        <DropdownMenu.Trigger variant="outline" size="md">
+        <DropdownMenu.Trigger variant="outline">
             <HugeiconsIcon icon={Send} size={13} />
             Share
             <HugeiconsIcon icon={ChevronDown} size={11} class="text-foreground-muted" />

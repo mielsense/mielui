@@ -4,14 +4,14 @@
 >
     import { ArrowUpDownIcon } from '@hugeicons/core-free-icons';
     import type { SortingState, Table_RowSorting } from '@tanstack/svelte-table';
-    import { getContext } from 'svelte';
     import * as Menu from '../../components/dropdown-menu';
     import HugeiconsIcon from '../../hugeicons-icon.svelte';
-    import type { DataTableLabels, DataTableSortProps } from '.';
+    import type { DataTableSortProps } from '.';
+    import { findDataTableLabels } from './context';
     import { sortableColumn } from './features';
 
     let { table, columns, class: className }: DataTableSortProps<TFeatures, TData> = $props();
-    const labels = getContext<(() => DataTableLabels | undefined) | undefined>('data-table-labels');
+    const labels = findDataTableLabels();
     const api = $derived(table as typeof table & Partial<Table_RowSorting<TFeatures, TData>>);
     const options = $derived(
         columns ??

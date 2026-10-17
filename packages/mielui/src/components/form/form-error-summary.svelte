@@ -3,19 +3,24 @@
     import { cn } from '@mielui/svelte/utils';
     import { tick } from 'svelte';
     import type { FormErrorSummaryProps, FormIssue } from '.';
-    import { getOptionalFormContext } from './context.svelte';
+    import { findFormContext } from './context';
 
     let {
         issues = [],
         focusOnError = true,
         heading,
+        labels,
         children,
         element = $bindable(),
         class: className,
         ...rest
     }: FormErrorSummaryProps = $props();
     const uid = $props.id();
-    const form = getOptionalFormContext();
+    const form = findFormContext();
+    const messages = $derived(issues.filter((issue) => issue.message.trim().length > 0));
+    const linkClasses =
+        'rounded-[var(--radius-sm)] text-foreground underline decoration-[var(--color-border-strong)] underline-offset-4 outline-none transition-[text-decoration-color] [transition-duration:var(--motion-duration-hover)] ease-[var(--ease-out)] hover:decoration-current focus-visible:shadow-[var(--focus-ring)] motion-reduce:transition-none';
+
     let focusedSubmission = 0;
 
     function focusField(issue: FormIssue) {
@@ -64,28 +69,29 @@
             cancelled = true;
         };
     });
-    const messages = $derived(issues.filter((issue) => issue.message.trim().length > 0));
 </script>
 
 {#if messages.length > 0}
     <div
         transition:themedSlide={{ durationVar: '--motion-duration-press', fallback: 160 }}
-        aria-hidden={messages.length === 0 ? true : undefined}
         tabindex="-1"
         aria-labelledby={`${uid}-heading`}
         {...rest}
         bind:this={element}
         data-ui="form-error-summary"
-        class={cn(className, 'rounded-lg border border-error/30 bg-error/5 p-4 text-sm text-[var(--mielui-error-text)] outline-none focus-visible:shadow-[var(--focus-ring)]')}
+        class={cn(
+            className,
+            'mielui-plate rounded-[calc(var(--radius-xl)*var(--mielui-squircle,1))] px-4 py-3 text-sm text-foreground-muted outline-none focus-visible:shadow-[var(--focus-ring),var(--elevation-1)]'
+        )}
     >
-        <div id={`${uid}-heading`} class="font-medium">
+        <div id={`${uid}-heading`} class="font-medium text-[var(--mielui-error-text)]">
             {#if heading}
                 {@render heading()}
             {:else}
-                Review your details
+                {labels?.heading ?? 'Review your details'}
             {/if}
         </div>
-        <div class="mt-2">
+        <div class="mt-1.5 leading-body">
             {#if children}
                 {@render children(messages)}
             {:else}
@@ -96,14 +102,14 @@
                                 <a
                                     href={`#${encodeURIComponent(issue.controlId)}`}
                                     onclick={() => focusField(issue)}
-                                    class="underline underline-offset-4"
+                                    class={linkClasses}
                                 >
                                     {issue.message}
                                 </a>
                             {:else if issue.path?.length}
                                 <button
                                     type="button"
-                                    class="text-start underline underline-offset-4"
+                                    class={cn(linkClasses, 'text-start')}
                                     onclick={() => focusField(issue)}
                                 >
                                     {issue.message}

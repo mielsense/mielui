@@ -10,7 +10,8 @@
     {...rest}
     class={cn(
         className,
-        'font-mono text-[length:var(--font-size-display)] leading-none font-medium tabular-nums text-[var(--folder-card-ink)]'
+        // token-lint-disable-next-line no-literal-length: display numerals tighten relative to their own size
+        'font-mono text-[length:var(--font-size-display)] leading-none font-normal tracking-[-0.04em] tabular-nums text-[var(--folder-card-ink)]'
     )}
 >
     {@render children()}

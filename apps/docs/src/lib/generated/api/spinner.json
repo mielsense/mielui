@@ -30,12 +30,12 @@
                 "inherited": false
             },
             {
-                "name": "curved",
+                "name": "eased",
                 "type": "boolean | undefined",
                 "required": false,
                 "bindable": false,
                 "default": "false",
-                "description": "Spins smoothly instead of in steps.",
+                "description": "Speeds up and slows down through each turn instead of spinning at a steady pace.",
                 "inherited": false
             },
             {

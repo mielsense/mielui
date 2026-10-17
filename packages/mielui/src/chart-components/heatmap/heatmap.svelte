@@ -1,10 +1,8 @@
 <script lang="ts">
-    import type { Snippet } from 'svelte';
-    import type { HTMLAttributes } from 'svelte/elements';
-    import { cn } from '../../utils';
-    import type { HeatmapLabels } from '.';
-    import { type Cell, calendar, type Day } from './calendar';
-    import { provide } from './context.svelte';
+    import { cn } from '@mielui/svelte/utils';
+    import type { HeatmapProps } from '.';
+    import { calendar } from './calendar';
+    import { setHeatmapContext } from './context';
     import Calendar from './heatmap-calendar.svelte';
     import Detail from './heatmap-detail.svelte';
     import Footer from './heatmap-footer.svelte';
@@ -15,19 +13,8 @@
     import Summary from './heatmap-summary.svelte';
     import Tooltip from './heatmap-tooltip.svelte';
     import WeekdayLabels from './heatmap-weekday-labels.svelte';
+    import { type HeatmapMotion, watchHeatmapMotion } from './reveal';
 
-    type Props = Omit<HTMLAttributes<HTMLDivElement>, 'children'> & {
-        labels?: HeatmapLabels;
-        days: readonly Day[];
-        weeks?: number;
-        loading?: boolean;
-        animation?: 'rows' | 'columns' | 'live' | 'none';
-        endDate?: string;
-        weekStartsOn?: 0 | 1 | 2 | 3 | 4 | 5 | 6;
-        locale?: string;
-        onDaySelect?: (day: Cell) => void;
-        children?: Snippet<[{ days: readonly Cell[]; total: number }]>;
-    };
     let {
         days,
         weeks = 26,
@@ -40,8 +27,8 @@
         labels,
         children,
         class: className,
-        ...props
-    }: Props = $props();
+        ...rest
+    }: HeatmapProps = $props();
     const model = $derived(calendar(days, weeks, endDate, weekStartsOn, locale, labels?.unit));
     const empty = $derived(days.length === 0);
     const ready = $derived(!loading && !empty);
@@ -50,10 +37,11 @@
     let focusedElement = $state<HTMLButtonElement>();
     let activeDate = $state('');
     let focusedDate = $state('');
+    let motion = $state<HeatmapMotion>();
     const active = $derived(
         model.cells.find((day) => day.date === activeDate) ?? model.cells.at(-1)
     );
-    provide({
+    setHeatmapContext({
         get labels() {
             return labels;
         },
@@ -86,6 +74,9 @@
         },
         get animation() {
             return animation;
+        },
+        get motion() {
+            return motion;
         },
         get model() {
             return model;
@@ -125,7 +116,12 @@
 </script>
 
 <div
-    {...props}
+    {...rest}
+    {@attach (node) => {
+        return watchHeatmapMotion(node, (next) => {
+            motion = next;
+        });
+    }}
     aria-busy={loading}
     data-state={loading ? 'loading' : empty ? 'empty' : 'ready'}
     data-ui="heatmap"

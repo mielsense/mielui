@@ -2,7 +2,7 @@ import type { Manifest } from '@mielui/svelte/_manifest/types';
 
 export const manifest: Manifest = {
     name: 'otp-field',
-    version: '1.0.0',
+    version: '2.0.0',
     visibility: 'public',
     description: 'Accessible one-time code input with customizable visual cells.',
     files: [

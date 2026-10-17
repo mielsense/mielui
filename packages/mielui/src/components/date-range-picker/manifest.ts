@@ -2,7 +2,7 @@ import type { Manifest } from '@mielui/svelte/_manifest/types';
 
 export const manifest: Manifest = {
     name: 'date-range-picker',
-    version: '1.0.0',
+    version: '2.0.0',
     visibility: 'public',
     description: 'Segmented start/end date fields and a range calendar popup.',
     files: [
@@ -14,7 +14,7 @@ export const manifest: Manifest = {
         'components/date-range-picker/index.ts',
         'components/date-range-picker/manifest.ts'
     ],
-    components: ['_internal/utils', 'date-picker', 'range-calendar'],
+    components: ['_internal/utils', 'date-picker', 'range-calendar', 'calendar', 'button', 'input'],
     shared: ['utils.cn', 'hugeicons-icon'],
     peerDependencies: {
         'bits-ui': '^2.19.2',

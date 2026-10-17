@@ -35,7 +35,7 @@
                 "required": false,
                 "bindable": false,
                 "default": "false",
-                "description": "Allows wrapped or structured content instead of a single line of text.",
+                "description": "Shows the content's markup in the bubble instead of its plain text.",
                 "inherited": false
             }
         ]

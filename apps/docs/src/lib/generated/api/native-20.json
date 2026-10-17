@@ -1,41 +1,5 @@
 [
     {
-        "name": "onbeforetogglecapture",
-        "type": "ToggleEventHandler<HTMLAnchorElement> | null | ToggleEventHandler<HTMLElement> | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
-        "name": "on:toggle",
-        "type": "ToggleEventHandler<HTMLAnchorElement> | null | ToggleEventHandler<HTMLElement> | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
-        "name": "ontoggle",
-        "type": "ToggleEventHandler<HTMLAnchorElement> | null | ToggleEventHandler<HTMLElement> | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
-        "name": "ontogglecapture",
-        "type": "ToggleEventHandler<HTMLAnchorElement> | null | ToggleEventHandler<HTMLElement> | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
         "name": "on:contentvisibilityautostatechange",
         "type": "ContentVisibilityAutoStateChangeEventHandler<HTMLAnchorElement> | null | ContentVisibilityAutoStateChangeEventHandler<HTMLElement> | null | undefined",
         "required": false,
@@ -2242,6 +2206,42 @@
     },
     {
         "name": "onbeforematch",
+        "type": "EventHandler<Event, HTMLAnchorElement> | null | EventHandler<Event, HTMLElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onbeforematchcapture",
+        "type": "EventHandler<Event, HTMLAnchorElement> | null | EventHandler<Event, HTMLElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "on:cancel",
+        "type": "EventHandler<Event, HTMLAnchorElement> | null | EventHandler<Event, HTMLElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "oncancel",
+        "type": "EventHandler<Event, HTMLAnchorElement> | null | EventHandler<Event, HTMLElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "oncancelcapture",
         "type": "EventHandler<Event, HTMLAnchorElement> | null | EventHandler<Event, HTMLElement> | null | undefined",
         "required": false,
         "bindable": false,

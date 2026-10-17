@@ -11,5 +11,4 @@
     weekStartsOn={1}
     weekdayFormat="narrow"
     fixedWeeks={false}
-    disableDaysOutsideMonth
 />

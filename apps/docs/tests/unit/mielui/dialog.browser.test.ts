@@ -156,31 +156,23 @@ describe('Dialog -- close paths actually unmount (P3-F6 disambiguation)', () => 
 });
 
 describe('Dialog -- ARIA contract in browser', () => {
-    it('uses the vertical layout and compact width when requested', async () => {
-        render(DialogFixture, { open: true, orientation: 'vertical' });
+    it('uses the compact width when size is sm', async () => {
+        render(DialogFixture, { open: true, size: 'sm' });
         await flush();
 
         const dialog = document.querySelector('[role="dialog"]') as HTMLElement;
-        const header = dialog.querySelector('[data-orientation]') as HTMLElement;
 
-        expect(dialog.getAttribute('data-orientation')).toBe('vertical');
         expect(dialog.className).toContain('max-w-sm');
-        expect(header.getAttribute('data-orientation')).toBe('vertical');
-        expect(header.className).toContain('flex-col');
         expect(page.getByText('Confirm').element().className).toContain('ml-auto');
     });
 
-    it('uses the horizontal layout and wide width by default', async () => {
+    it('uses the large width by default', async () => {
         render(DialogFixture, { open: true });
         await flush();
 
         const dialog = document.querySelector('[role="dialog"]') as HTMLElement;
-        const header = dialog.querySelector('[data-orientation]') as HTMLElement;
 
-        expect(dialog.getAttribute('data-orientation')).toBe('horizontal');
         expect(dialog.className).toContain('max-w-xl');
-        expect(header.getAttribute('data-orientation')).toBe('horizontal');
-        expect(header.className).toContain('flex-col');
         expect(page.getByText('Confirm').element().className).toContain('ml-auto');
     });
 
@@ -193,18 +185,18 @@ describe('Dialog -- ARIA contract in browser', () => {
         expect(className).toContain('origin-center');
     });
 
-    it('enters upward and exits upward without retracing the enter path', async () => {
+    it('pops in from 0.96 scale and 8px, and leaves in 150ms back to that start', async () => {
         render(DialogFixture, { open: true });
         await flush();
         const dialog = queryRequired(document, '[role="dialog"]');
         const enter = dialogIn(dialog);
         const exit = dialogOut(dialog);
 
-        expect(enter.duration).toBe(180);
-        expect(enter.css?.(0, 1)).toContain('translateY(4px) scale(0.93)');
-        expect(exit.duration).toBe(110);
-        expect(exit.css?.(0, 1)).toContain('translateY(-4px) scale(0.9825)');
-        expect(enter.easing?.(0)).toBe(0);
+        expect(enter.duration).toBe(400);
+        expect(enter.css?.(0, 1)).toContain('translateY(8px) scale(0.96)');
+        expect(enter.css?.(1, 0)).toContain('translateY(0px) scale(1)');
+        expect(exit.duration).toBe(150);
+        expect(exit.css?.(0, 1)).toContain('translateY(8px) scale(0.96)');
         expect(exit.easing?.(1)).toBe(1);
     });
 
@@ -212,13 +204,6 @@ describe('Dialog -- ARIA contract in browser', () => {
         render(DialogFixture, { open: true });
         await flush();
         const dialog = document.querySelector('[role="dialog"]');
-        expect(dialog).toBeInTheDocument();
-    });
-
-    it('honors role="alertdialog" prop', async () => {
-        render(DialogFixture, { open: true, role: 'alertdialog' });
-        await flush();
-        const dialog = document.querySelector('[role="alertdialog"]');
         expect(dialog).toBeInTheDocument();
     });
 

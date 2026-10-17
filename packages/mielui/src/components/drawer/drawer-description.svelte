@@ -11,6 +11,7 @@
         ...rest
     }: DrawerDescriptionProps = $props();
 </script>
+
 <Primitive.Description
     {...rest}
     bind:ref={element}

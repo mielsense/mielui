@@ -8,6 +8,12 @@ export type DefaultProps = {
     children?: Snippet;
 } & Partial<Record<`data-${string}`, string | boolean | null>>;
 
+/** Swaps a primitive's `ref` prop for the library's bindable `element`. */
+export type WithElement<Props, Node extends Element = HTMLElement> = Omit<Props, 'ref'> & {
+    /** Bindable reference to the DOM element. */
+    element?: Node | null;
+};
+
 /** The visual intents every interactive surface shares. */
 export type Intent = 'primary' | 'secondary' | 'ghost' | 'outline' | 'destructive';
 
@@ -24,11 +30,14 @@ export function cn(...inputs: ClassValue[]) {
 }
 
 /**
- * Builds a typed Svelte context pair for one component family.
+ * Builds typed Svelte context helpers for one component family.
  *
  * `name` is the kebab-case component name; it becomes both the context key
  * and the PascalCase name in the "used outside its root" error, so
  * `createContext('context-menu')` reports `<ContextMenu.Root>`.
+ *
+ * `get` throws outside the root. `find` returns `undefined` there, for parts
+ * that also work on their own.
  */
 export function createContext<T>(name: string) {
     const key = Symbol(`mielui.${name}`);
@@ -44,6 +53,9 @@ export function createContext<T>(name: string) {
                 throw new Error(`${label} components must be used within <${label}.Root>.`);
             }
             return getContext<T>(key);
+        },
+        find(): T | undefined {
+            return hasContext(key) ? getContext<T>(key) : undefined;
         }
     };
 }
@@ -56,7 +68,6 @@ export {
 } from './components/_internal/utils/actions';
 export {
     clickOutside,
-    closeMenuLayers,
     getFocusableElements,
     inertOutside,
     lockBodyBackground,

@@ -1,0 +1,56 @@
+- The default theme is redesigned. Surfaces are white plates on a grey stage, every neutral is derived from the foreground color, every control shares one radius, and filled buttons are lit. Explicit themes keep their colors, and every theme picks up the new shapes and motion.
+- The default fonts are Inter Tight and Geist Mono instead of Manrope and JetBrains Mono. `ui.css` imports them from `@fontsource/inter-tight` and `@fontsource/geist-mono`, and the package no longer depends on the old two.
+- Text weight stops at 500. `font-semibold` and `font-bold` resolve to 500, and `--font-weight-header` is 500. Build hierarchy from size and color, or set `--font-weight-semibold` and `--font-weight-bold` back to 600 and 700.
+- `--color-border`, `--color-border-strong`, and `--color-input` are translucent mixes of the foreground instead of opaque greys. A theme that sets `foundation.border` keeps its own color.
+- Two-layer surfaces swap their layers. The frame is now the card color and the inner surface is the page background, so content in an inset Card, a Dialog, a CodeBlock, or a Composer sits on the recessed stage color with white fields on top.
+- The default edge highlight is 33% instead of 50%. Borders stay single and cards and menus stay without shadows, as before.
+- The radius scale changes. `--radius-xl` is 18px instead of 20px, plates use the new `--radius-2xl` (26px), and controls use the new `--radius-control`: 4px in the sharp scale, 12px in the default scale, and a pill in the rounded scale. Buttons were 14px before.
+- Primary, secondary, and destructive buttons are lit like `glow`. Outline is flat: a hairline on the field color with no inset shading.
+- The primary button's text is dark on the default brand in light mode as well as dark, so it passes contrast. `--color-on-primary` is `#21151e` in both.
+- Text fields, native selects, select and combobox triggers, and number fields take `--radius-control` like buttons. Textarea and TagInput use `--radius-xl`.
+- The focus ring is 3px at half the primary color instead of 2px at 80%.
+- Menus, selects, and popovers spring open in 220ms from their trigger's side and close on a 100ms fade. Dialogs pop from 96% scale in 400ms and leave in 150ms. The blur on both is gone. `--motion-duration-panel-in`, `--motion-duration-modal-in`, and the menu and modal offset tokens have new defaults.
+- ToggleGroup sits in a segmented track, so it is two spacing units taller and wider. Its selected item is a lit fill that glides between items.
+- Table's default variant has no outer frame or header fill. `variant="inset"` and DataTable put the header and footer on the frame and the rows on a recessed surface.
+- Alert is one notice strip. Status variants tint the icon only, with no colored fill or border.
+- ScrollArea no longer shows chevrons at an edge with more content. `showCues` fades the edge instead, and the thumb stays hidden until hover, focus, or scroll.
+- Composer is a recessed frame holding a white writing surface. Its focus ring shows only while the textarea is focused.
+- The default Toolbar paints a grey track behind its keys.
+- Badges take `--radius-control` instead of a pill, and status variants have no colored border.
+- Tag Input renders its tags as secondary badges instead of outline badges.
+- The Checkbox card row (`variant="card"`, formerly `primary`) no longer tints with the primary color.
+- Collapsible content is muted and inset to line up with its trigger text.
+- Breadcrumb items are padded, so the trail's text starts one item padding further in.
+- Tooltips reposition instantly when the pointer moves to the next trigger instead of gliding there.
+- Switch thumbs no longer stretch while pressed.
+- Calendar, RangeCalendar, DatePicker, DateRangePicker, and OTPField parts expose their DOM node as `bind:element`, like every other component. `bind:ref` on those parts no longer works. HugeiconsIcon's `ref` prop is `element` too.
+- The exported `PopoverState` type loses `focusedInside`, `trigger`, `focusedElement`, `onclick`, and `hovering`. Nothing read them.
+- `closeMenuLayers` is no longer exported from `@mielui/svelte/utils`. No component used it.
+- The internal overlay module no longer exports `useOverlay`, `OverlayOptions`, or `parentOverlayDepth`. Dialog and Sheet stopped using them when Bits UI took over focus and dismissal.
+- Tabs, CodeBlock, FileDiff, and the `labels` of every family share state under private keys. Code that read them with `getContext('tabs')` or a similar string key gets `undefined`.
+- Button takes a `labels` object (`ButtonLabels`) instead of `loadingLabel`, `successLabel`, and `errorLabel`. Menu items, select and combobox options, dialog buttons, `Form.Submit`, and other parts built on Button follow.
+- CopyButton takes `labels` instead of `label` and `copiedLabel`. `CodeBlock.Copy` drops both props and reads `copy` and `copied` from the `labels` on CodeBlock.
+- ShowMore takes `labels` (`more`, `less`, `region`) instead of `moreLabel`, `lessLabel`, and `label`.
+- `Command.Content` drops `label`. Name the palette with `labels.palette` on `Command.Root`.
+- TaskSteps takes `labels` instead of `label`. The same object translates the summary sentence.
+- `FolderCard.Count` drops `unit`. Set the count text with `labels.count` on `FolderCard.Root`, which now says "1 file" for one.
+- DataTable's `labels.rows` and `labels.selected` return the whole phrase and receive the counts, so a translation can place the number. `selected` also receives the total.
+- `Composer.Root` drops `errorMessage`, and `Composer.Submit` drops `label`, `queueLabel`, `stopLabel`, and `loadingLabel`. Pass `labels` to `Composer.Root` instead.
+- `Question.Root` drops `errorMessage`, and `Question.Submit` drops `label` and `loadingLabel`. Use `labels.submitError`, `labels.submit`, and `labels.submitting` on `Question.Root`.
+- `Conversation.ScrollButton` drops `label`. Pass `labels` to `Conversation.Root` instead.
+- Reasoning's `labels.thought` applies only without a `duration`. With a duration, `labels.thoughtFor` sets the whole status line.
+- `AccordionContext`, `AlertDialogState`, `CollapsibleState`, `ContextMenuCheckboxItemState`, `TabsState`, and `ToggleGroupContext` are no longer exported.
+- `ContextMenu.Item` and `DropdownMenu.Item` accept only `variant="destructive"`. Menu rows no longer accept `size` or `unstyled`, which they ignored.
+- `DropdownMenu.SubTrigger` no longer accepts Button props it ignored, such as `icon`, `variant`, `size`, and `unstyled`.
+- `Select.Trigger` no longer accepts `icon`, `Select.Item` no longer accepts `unstyled`, `Select.Value` accepts only `placeholder` and `class`, and Slider no longer accepts `children`. None of them were used.
+- `DatePicker.Root` renders a wrapping `div` so it can expose `bind:element`.
+- Dialog and Alert Dialog no longer accept `orientation`, and `DialogOrientation` is no longer exported. `size` on Content is now the only width control, and it accepts a new `xs` step.
+- Popover and Combobox no longer accept `stateKey` or `state_key`, and `Dialog.Content` no longer accepts `role`, `contentClass`, or `panelIdPrefix`. Combobox Content no longer accepts `focusTrap`, which it ignored.
+- `Select.Item` and `Combobox.Item` no longer accept `variant`, `size`, or `unstyled`, which they ignored.
+- TagInput's `requiredMessage` is replaced by `labels.required`.
+- `AlertDialog.Exit` is renamed `AlertDialog.Close`, matching Dialog.
+- `Sheet.Header` takes `showClose` in place of `close`, matching `Dialog.Content`.
+- TagInput takes `invalid` and `issues` in place of `error`, matching `Field.Root`.
+- Hover Card takes `placement` on Root in place of `side` and `align` on Content, and `delay` in place of `openDelay`, matching Popover and Tooltip.
+- Checkbox's `variant="primary"` is renamed `variant="card"`.
+- Spinner's `curved` is renamed `eased`.

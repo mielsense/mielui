@@ -9,7 +9,7 @@
     } = $props();
 </script>
 
-<Dialog.Root bind:open orientation="vertical">
+<Dialog.Root bind:open>
     <Dialog.Trigger data-testid="open-dialog">Edit project</Dialog.Trigger>
     <Dialog.Content>
         <Dialog.Header>

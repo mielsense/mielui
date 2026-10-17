@@ -10,8 +10,11 @@
         variant="inset"
         type="multiple"
         bind:value={answer}
+        labels={{
+            submit: 'Run selected checks'
+        }}
         onSubmit={(value) => {
-            summary = Array.isArray(value) ? value.join(', ') : value;
+            summary = value.join(', ');
         }}
     >
         <Question.Content>
@@ -27,7 +30,7 @@
             </Question.Options>
         </Question.Content>
         <Question.Actions>
-            <Question.Submit label="Run selected checks" />
+            <Question.Submit />
         </Question.Actions>
     </Question.Root>
 

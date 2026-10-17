@@ -47,13 +47,13 @@
 <script lang="ts">
     import { Dialog as DialogPrimitive } from 'bits-ui';
     import type { DialogProps, DialogState } from '.';
-    import { type DialogFooterSlot, setDialogContext } from './context.svelte';
+    import { type DialogFooterSlot, setDialogContext } from './context';
 
     let {
         open = $bindable(false),
         onOpenChange,
         error = false,
-        orientation = 'horizontal',
+        labels,
         children
     }: DialogProps = $props();
     const id = $props.id();
@@ -71,13 +71,15 @@
         },
         get error() {
             return error;
-        },
-        get orientation() {
-            return orientation;
         }
     };
     const modalContext = $state({
         id,
+        role: 'dialog' as 'dialog' | 'alertdialog',
+        get labels() {
+            return labels;
+        },
+        motion: undefined as 'none' | undefined,
         titleId: undefined as string | undefined,
         descriptionId: undefined as string | undefined,
         contentId: `dialog-${id}`,
@@ -86,7 +88,7 @@
         footerSlot: undefined as DialogFooterSlot | undefined,
         headerSlot: undefined as DialogFooterSlot | undefined
     });
-    let wasOpen = $state(false);
+    let wasOpen = false;
     setDialogContext(modalContext);
 
     $effect.pre(() => {

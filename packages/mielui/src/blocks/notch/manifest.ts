@@ -1,7 +1,7 @@
 import type { Manifest } from '@mielui/svelte/_manifest/types';
 export const manifest: Manifest = {
     name: 'notch',
-    version: '1.0.0',
+    version: '1.1.0',
     visibility: 'public',
     description:
         'A nonmodal panel attached to a viewport edge, with spring motion and composable content.',
@@ -18,12 +18,15 @@ export const manifest: Manifest = {
         'components/notch/notch.svelte',
         'components/notch/notch-peek.svelte',
         'components/notch/notch-side-action.svelte',
+        'components/notch/frame.svelte.ts',
         'components/notch/shape.ts',
+        'components/notch/controller.svelte.ts',
         'components/notch/swipe.svelte.ts',
         'components/notch/manifest.ts'
     ],
     components: ['_internal/utils', 'button', 'typography'],
     shared: [
+        'components/_internal/theme-changes',
         'utils.cn',
         'utils.createContext',
         'transition',

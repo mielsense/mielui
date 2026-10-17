@@ -1,41 +1,5 @@
 [
     {
-        "name": "onencryptedcapture",
-        "type": "EventHandler<Event, HTMLLegendElement> | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
-        "name": "on:ended",
-        "type": "EventHandler<Event, HTMLLegendElement> | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
-        "name": "onended",
-        "type": "EventHandler<Event, HTMLLegendElement> | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
-        "name": "onendedcapture",
-        "type": "EventHandler<Event, HTMLLegendElement> | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
         "name": "on:loadeddata",
         "type": "EventHandler<Event, HTMLLegendElement> | null | undefined",
         "required": false,
@@ -2243,6 +2207,42 @@
     {
         "name": "oncompositionupdatecapture",
         "type": "CompositionEventHandler<HTMLAnchorElement> | null | CompositionEventHandler<HTMLButtonElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "on:focus",
+        "type": "FocusEventHandler<HTMLAnchorElement> | null | FocusEventHandler<HTMLButtonElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onfocus",
+        "type": "FocusEventHandler<HTMLAnchorElement> | null | FocusEventHandler<HTMLButtonElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onfocuscapture",
+        "type": "FocusEventHandler<HTMLAnchorElement> | null | FocusEventHandler<HTMLButtonElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "on:focusin",
+        "type": "FocusEventHandler<HTMLAnchorElement> | null | FocusEventHandler<HTMLButtonElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,

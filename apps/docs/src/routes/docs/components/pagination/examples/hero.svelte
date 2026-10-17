@@ -3,19 +3,25 @@
     import { Pagination } from '@mielui/svelte/components/pagination';
 
     const pageSize = 5;
-    const items = Array.from({ length: 48 }, (_, i) => `Result ${i + 1}`);
-    let page = $state(1);
+    const items = Array.from({ length: 48 }, (_, index) => {
+        return {
+            number: `INV-${1001 + index}`,
+            amount: `$${((index * 37) % 90) * 10 + 120}.00`
+        };
+    });
     const totalPages = Math.ceil(items.length / pageSize);
+
+    let page = $state(1);
+
     const pageItems = $derived(items.slice((page - 1) * pageSize, page * pageSize));
 </script>
 
 <div class="flex w-full max-w-sm flex-col gap-4">
-    <ul class="m-0 flex list-none flex-col gap-2 p-0">
-        {#each pageItems as item (item)}
-            <li
-                class="rounded-[var(--radius-md)] border border-border bg-card px-3 py-2 text-sm text-foreground"
-            >
-                {item}
+    <ul class="m-0 flex list-none flex-col divide-y divide-border p-0">
+        {#each pageItems as item (item.number)}
+            <li class="flex items-center justify-between py-2 text-sm text-foreground">
+                <span>{item.number}</span>
+                <span class="text-foreground-muted tabular-nums">{item.amount}</span>
             </li>
         {/each}
     </ul>

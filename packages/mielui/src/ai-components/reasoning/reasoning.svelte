@@ -1,9 +1,8 @@
 <script lang="ts">
     import { createDisclosureLifecycle } from '@mielui/svelte/components/_internal/disclosure';
     import { cn } from '@mielui/svelte/utils';
-    import { setContext } from 'svelte';
-    import type { ReasoningLabels, ReasoningRootProps } from '.';
-    import { setReasoningContext } from './context.svelte';
+    import type { ReasoningRootProps } from '.';
+    import { setReasoningContext, setReasoningLabels } from './context';
 
     let {
         streaming = false,
@@ -15,7 +14,7 @@
         labels,
         ...rest
     }: ReasoningRootProps = $props();
-    setContext<() => ReasoningLabels | undefined>('reasoning-labels', () => labels);
+    setReasoningLabels(() => labels);
 
     const id = $props.id();
     const lifecycle = createDisclosureLifecycle({
@@ -49,7 +48,7 @@
 
 <section
     data-ui="reasoning"
-    data-streaming={streaming}
+    data-streaming={streaming || undefined}
     aria-busy={streaming}
     class={cn(className, 'w-full max-w-full text-sm text-foreground')}
     {...rest}

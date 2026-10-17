@@ -1,11 +1,11 @@
 <script lang="ts">
     import { cn } from '@mielui/svelte/utils';
     import { LinkPreview } from 'bits-ui';
-    import { getContext } from 'svelte';
     import type { HoverCardTriggerProps } from '.';
+    import { getHoverCardContext } from './context';
 
     let { class: className, children, href, ...rest }: HoverCardTriggerProps = $props();
-    const hoverCard = getContext<{ open: boolean }>('mielui-hover-card');
+    const hoverCard = getHoverCardContext();
 </script>
 
 <LinkPreview.Trigger {href} {...rest}>
@@ -14,7 +14,10 @@
             <a
                 {...props}
                 role="link"
-                class={cn(className, 'underline decoration-foreground-muted underline-offset-2 hover:decoration-foreground')}
+                class={cn(
+                    className,
+                    'rounded-[var(--radius-sm)] underline decoration-foreground-muted underline-offset-2 hover:decoration-foreground focus-visible:shadow-[var(--focus-ring)] focus-visible:outline-none'
+                )}
             >
                 {@render children?.()}
             </a>
@@ -25,7 +28,10 @@
                 onclick={() => {
                     hoverCard.open = !hoverCard.open;
                 }}
-                class={cn(className, 'inline-flex')}
+                class={cn(
+                    className,
+                    'inline-flex rounded-[var(--radius-control)] focus-visible:shadow-[var(--focus-ring)] focus-visible:outline-none'
+                )}
             >
                 {@render children?.()}
             </button>

@@ -1,17 +1,19 @@
 <script lang="ts">
     import Button from '@mielui/svelte/components/button';
     import * as Command from '@mielui/svelte/components/command';
-    import Kbd from '@mielui/svelte/components/kbd';
+    import Kbd, { type KbdLabels } from '@mielui/svelte/components/kbd';
 
     let {
         mode = 'button',
         shortcut = 'cmd+k',
         disabled = false,
+        labels,
         onactivate = () => {}
     }: {
         mode?: 'button' | 'standalone' | 'command';
         shortcut?: string;
         disabled?: boolean;
+        labels?: KbdLabels;
         onactivate?: () => void;
     } = $props();
 </script>
@@ -28,7 +30,7 @@
         </Command.Content>
     </Command.Root>
 {:else if mode === 'standalone'}
-    <Kbd {shortcut} ontrigger={onactivate} data-testid="shortcut" />
+    <Kbd {shortcut} {labels} ontrigger={onactivate} data-testid="shortcut" />
 {:else}
     <Button onclick={onactivate} {disabled} data-testid="owner">
         Run action

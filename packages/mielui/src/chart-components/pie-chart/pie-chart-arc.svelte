@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { getPieContext } from './context';
+    import { getPieChartContext } from './context';
     import type { PieChartArcProps } from './index';
     import Slice from './slice.svelte';
 
@@ -9,7 +9,7 @@
         padAngle = 0.035,
         class: className
     }: PieChartArcProps = $props();
-    const context = getPieContext();
+    const context = getPieChartContext();
     const slices = $derived.by(() => {
         let angle = 0;
         return context.data.map((item) => {

@@ -2,9 +2,21 @@
     import * as Avatar from '@mielui/svelte/components/avatar';
 
     const team = [
-        { name: 'Maya Chen', initials: 'MC', role: 'Design lead' },
-        { name: 'Theo Martin', initials: 'TM', role: 'Engineer' },
-        { name: 'Amira Diallo', initials: 'AD', role: 'Product manager' }
+        {
+            name: 'Maya Chen',
+            initials: 'MC',
+            role: 'Design lead'
+        },
+        {
+            name: 'Theo Martin',
+            initials: 'TM',
+            role: 'Engineer'
+        },
+        {
+            name: 'Amira Diallo',
+            initials: 'AD',
+            role: 'Product manager'
+        }
     ];
 </script>
 

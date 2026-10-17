@@ -1,12 +1,17 @@
 <script lang="ts">
     import { CodeBlock } from '@mielui/svelte/components/code-block';
+    import * as Field from '@mielui/svelte/components/field';
+    import * as Fieldset from '@mielui/svelte/components/fieldset';
+    import { Input } from '@mielui/svelte/components/input';
     import * as Typography from '@mielui/svelte/components/typography';
-    import { ComponentPreview, InstallCommand } from '$lib/components/docs';
+    import { ComponentPreview, InstallCommand, Playground } from '$lib/components/docs';
     import PageIntro from '$lib/components/docs/page-intro.svelte';
     import Disabled from './examples/disabled.svelte';
     import DisabledSrc from './examples/disabled.svelte?raw';
-    import Hero from './examples/hero.svelte';
     import HeroSrc from './examples/hero.svelte?raw';
+    import { code as playgroundCode, controls as playgroundControls } from './playground';
+
+    const detailsId = $props.id();
 </script>
 
 <svelte:head>
@@ -21,13 +26,63 @@
     <PageIntro title="Fieldset">
         Give related fields one clear name and a shared boundary.
     </PageIntro>
+
     <section id="hero" class="scroll-mt-20 flex flex-col gap-4">
-        <ComponentPreview code={HeroSrc}><Hero /></ComponentPreview>
+        <Playground controls={playgroundControls} code={playgroundCode}>
+            {#snippet children(values)}
+                <Fieldset.Root
+                    disabled={values.disabled}
+                    aria-label={values.legend ? undefined : 'Contact details'}
+                    aria-describedby={values.description ? detailsId : undefined}
+                    class="w-full max-w-sm"
+                >
+                    {#if values.legend}
+                        <Fieldset.Legend>Contact details</Fieldset.Legend>
+                    {/if}
+                    {#if values.description}
+                        <Fieldset.Description id={detailsId}>
+                            How we can reach you about your workspace.
+                        </Fieldset.Description>
+                    {/if}
+                    <Field.Group>
+                        <Field.Root>
+                            <Field.Label>Full name</Field.Label>
+                            <Field.Control>
+                                {#snippet children(control)}
+                                    <Input
+                                        {...control}
+                                        name="name"
+                                        autocomplete="name"
+                                        placeholder="Sam Rivera"
+                                    />
+                                {/snippet}
+                            </Field.Control>
+                        </Field.Root>
+                        <Field.Root>
+                            <Field.Label>Email address</Field.Label>
+                            <Field.Control>
+                                {#snippet children(control)}
+                                    <Input
+                                        {...control}
+                                        type="email"
+                                        name="email"
+                                        autocomplete="email"
+                                        placeholder="sam@company.com"
+                                    />
+                                {/snippet}
+                            </Field.Control>
+                        </Field.Root>
+                    </Field.Group>
+                </Fieldset.Root>
+            {/snippet}
+        </Playground>
     </section>
+
     <section id="installation" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Installation</Typography.H2>
         <InstallCommand command="pnpm dlx @mielui/svelte add fieldset field input" />
     </section>
+
     <section id="usage" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Usage</Typography.H2>
         <Typography.Text variant="supporting">
@@ -41,10 +96,11 @@
             <a href="/docs/components/field" class="underline underline-offset-4">Field</a>
             {' '}
             for individual labels and errors. Use Field.Group when you need spacing without another
-            named group. Native name, form, disabled, event handlers, attachments, and an element
-            binding are forwarded by Root.
+            named group. Root accepts every native fieldset attribute, such as name, form, and
+            disabled, and supports bind:element.
         </Typography.Text>
     </section>
+
     <section id="disabled" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Disable a group</Typography.H2>
         <Typography.Text variant="supporting">
@@ -52,15 +108,18 @@
             from submission. Controls inside its first legend are exempt under native HTML rules.
             Keep an external “Edit” action outside the fieldset if it must remain available.
         </Typography.Text>
-        <ComponentPreview code={DisabledSrc}><Disabled /></ComponentPreview>
+        <ComponentPreview code={DisabledSrc}>
+            <Disabled />
+        </ComponentPreview>
     </section>
+
     <section id="composition" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Compose the group</Typography.H2>
         <Typography.Text variant="supporting">
             Legend and Description are independent parts. Omit Description for a self-explanatory
-            group; keep Legend for a meaningful accessible name. Put grids and nested Field.Group
-            parts inside Root to change the layout without changing the form’s submission behavior.
-            The default uses spacing rather than a decorative card border.
+            group; keep Legend, or an aria-label on Root, so the group has a name. Put grids and
+            nested Field.Group parts inside Root to change the layout without changing what the form
+            submits. Root has no border; it separates groups with spacing.
         </Typography.Text>
     </section>
 </div>

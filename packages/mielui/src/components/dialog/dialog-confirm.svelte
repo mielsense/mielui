@@ -2,7 +2,7 @@
     import { Button } from '@mielui/svelte/components/button';
     import { cn } from '@mielui/svelte/utils';
     import type { DialogConfirmProps } from '.';
-    import { getDialogContext } from './context.svelte';
+    import { getDialogContext } from './context';
 
     const dialog = getDialogContext();
     let {

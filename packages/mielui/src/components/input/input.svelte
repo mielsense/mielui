@@ -26,7 +26,7 @@
         description,
         type = 'text',
         variant = 'outline',
-        class: classProp,
+        class: className,
         leading,
         trailing,
         element = $bindable<HTMLInputElement>(),
@@ -55,10 +55,29 @@
     );
     const controlClass = $derived(
         variant === 'secondary'
-            ? 'border-transparent bg-secondary has-[:focus-visible]:border-[color-mix(in_srgb,var(--color-secondary)_45%,var(--color-primary))]'
-            : 'border-[var(--color-input)] bg-[var(--color-field)] has-[:focus-visible]:border-primary'
+            ? 'border-transparent bg-secondary hover:border-[var(--color-input)] has-[input:disabled]:border-transparent'
+            : 'border-[var(--color-input)] bg-[var(--color-field)] hover:border-[var(--color-border-strong)] has-[input:disabled]:border-[var(--color-input)]'
     );
+    const controlAttributes = $derived({
+        id: metadata.controlId,
+        'aria-describedby': metadata.describedBy,
+        oninput,
+        'data-ui': 'input',
+        'data-variant': variant
+    });
 </script>
+
+{#snippet textControl(classes: string)}
+    <input
+        bind:this={element}
+        {...controlAttributes}
+        bind:value
+        {type}
+        class={cn(className, classes)}
+        {...rest}
+        {placeholder}
+    />
+{/snippet}
 
 {#snippet field()}
     {#if hasAdornment}
@@ -66,7 +85,7 @@
             data-ui="input-control"
             data-variant={variant}
             class={cn(
-                'flex min-h-[calc(var(--size-control-md)-var(--size-hairline))] w-full items-center gap-2 rounded-[var(--radius-lg)] border-[length:var(--border-size)] px-3 text-[var(--color-field-foreground)] transition-[background-color,border-color,box-shadow] [transition-duration:var(--motion-duration-press)] ease-[var(--ease-out)] motion-reduce:transition-none has-[:focus-visible]:shadow-[var(--focus-ring)] has-[[aria-invalid=true]]:border-error has-[[aria-invalid=true]]:has-[:focus-visible]:border-error has-[input:disabled]:cursor-not-allowed has-[input:disabled]:opacity-[var(--opacity-disabled)]',
+                'flex min-h-[calc(var(--size-control-md)-var(--size-hairline))] w-full items-center gap-2 rounded-[var(--radius-control)] border-[length:var(--border-size)] px-[calc(var(--spacing)*3.5)] text-[var(--color-field-foreground)] transition-[background-color,border-color,box-shadow] [transition-duration:var(--motion-duration-hover)] ease-[var(--ease-out)] motion-reduce:transition-none has-[:focus-visible]:border-primary has-[:focus-visible]:shadow-[var(--focus-ring)] has-[[aria-invalid=true]]:border-error has-[[aria-invalid=true]]:has-[:focus-visible]:border-error has-[[aria-invalid=true]]:has-[:focus-visible]:shadow-[0_0_0_calc(var(--border-size)*3)_color-mix(in_srgb,var(--color-error)_30%,transparent)] has-[input:disabled]:cursor-not-allowed has-[input:disabled]:opacity-[var(--opacity-disabled)]',
                 controlClass
             )}
         >
@@ -79,19 +98,7 @@
                 </span>
             {/if}
 
-            <input
-                bind:this={element}
-                id={metadata.controlId}
-                aria-describedby={metadata.describedBy}
-                bind:value
-                {oninput}
-                {type}
-                data-ui="input"
-                data-variant={variant}
-                class={cn(classProp, adornedInputClass)}
-                {...rest}
-                {placeholder}
-            />
+            {@render textControl(adornedInputClass)}
 
             {#if trailing}
                 <span
@@ -105,37 +112,28 @@
     {:else if normalizedType === 'file'}
         <input
             bind:this={element}
-            id={metadata.controlId}
-            aria-describedby={metadata.describedBy}
+            {...controlAttributes}
             bind:files
-            {oninput}
             type="file"
-            data-ui="input"
-            data-variant={variant}
-            class={cn(classProp, input({ variant }))}
+            class={cn(className, input({ variant }))}
             {...rest}
             {placeholder}
         />
     {:else if normalizedType === 'checkbox'}
         <input
             bind:this={element}
-            id={metadata.controlId}
-            aria-describedby={metadata.describedBy}
+            {...controlAttributes}
             bind:checked
             {value}
-            {oninput}
             type="checkbox"
-            data-ui="input"
-            data-variant={variant}
-            class={cn(classProp, input({ variant }))}
+            class={cn(className, input({ variant }))}
             {...rest}
             {placeholder}
         />
     {:else if normalizedType === 'radio'}
         <input
             bind:this={element}
-            id={metadata.controlId}
-            aria-describedby={metadata.describedBy}
+            {...controlAttributes}
             type="radio"
             use:radioChecked={{
                 checked,
@@ -145,26 +143,11 @@
             }}
             {value}
             {checked}
-            {oninput}
-            data-ui="input"
-            data-variant={variant}
-            class={cn(classProp, input({ variant }))}
+            class={cn(className, input({ variant }))}
             {...rest}
         />
     {:else}
-        <input
-            bind:this={element}
-            id={metadata.controlId}
-            aria-describedby={metadata.describedBy}
-            bind:value
-            {oninput}
-            {type}
-            data-ui="input"
-            data-variant={variant}
-            class={cn(classProp, input({ variant }))}
-            {...rest}
-            {placeholder}
-        />
+        {@render textControl(input({ variant }))}
     {/if}
 {/snippet}
 
@@ -172,7 +155,7 @@
     {#if label}
         <label
             for={metadata.controlId}
-            class="mb-0.5 select-none [font-size:var(--font-size-label)] [font-weight:var(--font-weight-label)] [letter-spacing:var(--tracking-label)] leading-none text-foreground [font-family:var(--font-sans),sans-serif]"
+            class="w-fit select-none [font-size:var(--font-size-label)] [font-weight:var(--font-weight-label)] [letter-spacing:var(--tracking-label)] leading-label text-foreground [font-family:var(--font-sans),sans-serif]"
         >
             {label}
             {#if rest.required}
@@ -189,17 +172,15 @@
     {#if description}
         <span
             id={metadata.descriptionId}
-            class="[font-size:var(--font-size-body)] [font-weight:var(--font-weight-body)] [letter-spacing:var(--tracking-body)] text-foreground-muted"
+            class="[font-size:var(--font-size-label)] [font-weight:var(--font-weight-description)] [letter-spacing:var(--tracking-body)] leading-snug text-foreground-muted"
         >
             {description}
         </span>
     {/if}
 {/snippet}
 
-{#if label}
-    <div class="flex w-full flex-col gap-1">{@render meta()} </div>
-{:else if description}
-    <div class="flex w-full flex-col gap-1">
+{#if label || description}
+    <div class="flex w-full flex-col gap-1.5">
         {@render meta()}
     </div>
 {:else}

@@ -13,7 +13,23 @@ export type Cell = {
     label: string;
 };
 
+export const levelClasses = [
+    'bg-secondary',
+    'bg-[color-mix(in_oklab,var(--chart-1)_25%,transparent)]',
+    'bg-[color-mix(in_oklab,var(--chart-1)_45%,transparent)]',
+    'bg-[color-mix(in_oklab,var(--chart-1)_70%,transparent)]',
+    'bg-[var(--chart-1)]'
+];
+
 const DAY = 86_400_000;
+
+export function weekColumns(weeks: number) {
+    return `repeat(${weeks}, minmax(10px, 1fr))`;
+}
+
+export function countUnit(count: number, unitLabel?: (count: number) => string) {
+    return unitLabel?.(count) ?? (count === 1 ? 'contribution' : 'contributions');
+}
 
 function timestamp(value: string) {
     if (!/^\d{4}-\d{2}-\d{2}$/.test(value)) {
@@ -83,7 +99,7 @@ export function calendar(
                 lastMonth = date.getUTCMonth();
             }
         }
-        const unit = unitLabel?.(count) ?? (count === 1 ? 'contribution' : 'contributions');
+        const unit = countUnit(count, unitLabel);
         cells.push({
             date: key,
             count,

@@ -6,10 +6,10 @@ import {
     DEFAULT_FOUNDATION_COLORS,
     DEFAULT_ROLE_WEIGHTS,
     emptyAdvancedTokens,
-    type FontWeight,
     type FoundationColors,
     type RoleWeights
 } from './config';
+import { DEFAULT_EDGE_HIGHLIGHT, DEFAULT_HEADER_SIZE, DEFAULT_HEADER_WEIGHT } from './defaults';
 
 export function createThemeEditorState() {
     const state = $state({
@@ -30,8 +30,8 @@ export function createThemeEditorState() {
         previousHeader: 'same-as-sans',
         selectedMono: 'jetbrains-mono',
         previousMono: 'jetbrains-mono',
-        headerSize: 16,
-        headerWeight: '600' as FontWeight,
+        headerSize: DEFAULT_HEADER_SIZE,
+        headerWeight: DEFAULT_HEADER_WEIGHT,
         roleWeights: { ...DEFAULT_ROLE_WEIGHTS } as RoleWeights,
         foundationColors: {
             light: { ...DEFAULT_FOUNDATION_COLORS.light },
@@ -43,7 +43,7 @@ export function createThemeEditorState() {
             dark: DEFAULT_THEME.brand
         } as BrandColors,
         ...readThemeAppearance(DEFAULT_THEME),
-        rememberedEdgeHighlight: DEFAULT_THEME.chrome?.edgeHighlight ?? 0.5,
+        rememberedEdgeHighlight: DEFAULT_THEME.chrome?.edgeHighlight ?? DEFAULT_EDGE_HIGHLIGHT,
         appliedRevision: 0,
         pendingPreset: null as string | null,
         presetDialogOpen: false,
@@ -51,6 +51,7 @@ export function createThemeEditorState() {
         appliedDark: false,
         setupOpen: false
     });
+
     return state;
 }
 

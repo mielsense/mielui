@@ -1,19 +1,15 @@
-import { getContext, setContext } from 'svelte';
+import { createContext } from '@mielui/svelte/utils';
 
-const key = Symbol('toolbar');
-export function setToolbarOrientation(value: () => 'horizontal' | 'vertical') {
-    setContext(key, value);
-}
-export function getToolbarOrientation() {
-    return getContext<() => 'horizontal' | 'vertical'>(key);
-}
+type ToolbarOrientation = () => 'horizontal' | 'vertical';
+type ToolbarVariant = () => 'default' | 'depth';
 
-const variantKey = Symbol('toolbar-variant');
+const { set: setToolbarOrientation, get: getToolbarOrientation } =
+    createContext<ToolbarOrientation>('toolbar');
+const { set: setToolbarVariant, find: findToolbarVariant } =
+    createContext<ToolbarVariant>('toolbar-variant');
 
-export function setToolbarVariant(value: () => 'default' | 'depth') {
-    setContext(variantKey, value);
+function getToolbarVariant(): ToolbarVariant {
+    return findToolbarVariant() ?? (() => 'default');
 }
 
-export function getToolbarVariant() {
-    return getContext<(() => 'default' | 'depth') | undefined>(variantKey) ?? (() => 'default');
-}
+export { getToolbarOrientation, getToolbarVariant, setToolbarOrientation, setToolbarVariant };

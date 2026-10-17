@@ -9,7 +9,7 @@
     data-ui="file-diff-content"
     class={cn(
         className,
-        'mielui-inset-surface max-h-[var(--file-diff-max-height)] w-full overflow-auto font-mono text-[length:var(--font-size-label)] leading-[var(--file-diff-line-height)]'
+        'mielui-inset-surface max-h-[var(--file-diff-max-height)] w-full overflow-auto py-1.5 font-mono text-[length:var(--font-size-label)] leading-[var(--file-diff-line-height)]'
     )}
     {...rest}
 >

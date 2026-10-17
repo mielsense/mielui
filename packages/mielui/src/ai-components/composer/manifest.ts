@@ -14,7 +14,7 @@ export const manifest: Manifest = {
         'components/composer/composer-actions.svelte',
         'components/composer/composer-footer.svelte',
         'components/composer/composer-submit.svelte',
-        'components/composer/context.svelte.ts',
+        'components/composer/context.ts',
         'components/composer/index.ts',
         'components/composer/manifest.ts'
     ],
@@ -25,6 +25,7 @@ export const manifest: Manifest = {
         'components/_internal/submission.svelte',
         'components/_internal/surface',
         'hugeicons-icon',
+        'transition',
         'utils.cn',
         'utils.createContext'
     ],
@@ -32,7 +33,7 @@ export const manifest: Manifest = {
         '@floating-ui/dom': '1.7.6',
         '@hugeicons/core-free-icons': '^4.3.0',
         cnfast: '^0.0.8',
-        svelte: '^5.0.0',
+        svelte: '^5.56.0',
         'tailwind-merge': '^3.0.0'
     }
 };

@@ -8,7 +8,7 @@
     const editor = getThemeEditor();
 </script>
 
-<AlertDialog.Root bind:open={editor.state.presetDialogOpen} orientation="vertical">
+<AlertDialog.Root bind:open={editor.state.presetDialogOpen}>
     <AlertDialog.Content>
         <AlertDialog.Header>
             <AlertDialog.Title>Replace your current draft?</AlertDialog.Title>
@@ -20,10 +20,14 @@
             </AlertDialog.Description>
         </AlertDialog.Header>
         <AlertDialog.Footer>
-            <AlertDialog.Exit onclick={() => (editor.state.pendingPreset = null)}>
+            <AlertDialog.Close
+                onclick={() => {
+                    editor.state.pendingPreset = null;
+                }}
+            >
                 Keep draft
                 <Kbd shortcut="esc" />
-            </AlertDialog.Exit>
+            </AlertDialog.Close>
             <AlertDialog.Confirm onclick={editor.confirmPresetChange}>
                 Replace draft
                 <Kbd shortcut="enter" />

@@ -12,16 +12,20 @@
     let fileName = $state('Release notes.md');
     let copies = $state(1);
     let message = $state('');
+
     function rename() {
         fileName = 'Release notes, final.md';
     }
+
     function duplicate() {
         copies += 1;
         message = `Created copy ${copies}.`;
     }
+
     function archive() {
         message = 'File moved to the local archive.';
     }
+
     function remove() {
         message = 'File removed from this preview.';
     }
@@ -53,8 +57,8 @@
                 </span>
             </DropdownMenu.Item>
             <DropdownMenu.Separator />
-            <DropdownMenu.Item callback={remove}>
-                <span class="flex items-center gap-2 text-[var(--mielui-error-text)]">
+            <DropdownMenu.Item variant="destructive" callback={remove}>
+                <span class="flex items-center gap-2">
                     <HugeiconsIcon icon={Trash} size={13} />
                     Delete
                 </span>

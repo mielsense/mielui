@@ -2,12 +2,12 @@ import type { Manifest } from '@mielui/svelte/_manifest/types';
 
 export const manifest: Manifest = {
     name: 'date-picker',
-    version: '1.0.0',
+    version: '2.0.0',
     visibility: 'public',
     description:
         'Segmented date field and calendar popup with locale, validation, and form support.',
     files: [
-        'components/date-picker/context.svelte.ts',
+        'components/date-picker/context.ts',
         'components/date-picker/date-picker-calendar.svelte',
         'components/date-picker/date-picker-content.svelte',
         'components/date-picker/date-picker-input.svelte',
@@ -16,6 +16,8 @@ export const manifest: Manifest = {
         'components/date-picker/date-picker-segment.svelte',
         'components/date-picker/date-picker-trigger.svelte',
         'components/date-picker/date-picker.svelte',
+        'components/date-picker/segments.ts',
+        'components/date-picker/variants.ts',
         'components/date-picker/index.ts',
         'components/date-picker/manifest.ts'
     ],

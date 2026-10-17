@@ -7,10 +7,11 @@ export const manifest: Manifest = {
     description:
         'Expandable model reasoning status and trace for AI responses. Its trigger shares the disclosure row: ghost hover fill, rounded focus ring, and a trailing chevron.',
     files: [
+        'actions/shimmer/index.ts',
         'components/reasoning/reasoning.svelte',
         'components/reasoning/reasoning-trigger.svelte',
         'components/reasoning/reasoning-content.svelte',
-        'components/reasoning/context.svelte.ts',
+        'components/reasoning/context.ts',
         'components/reasoning/index.ts',
         'components/reasoning/manifest.ts'
     ],
@@ -26,7 +27,7 @@ export const manifest: Manifest = {
         '@floating-ui/dom': '1.7.6',
         '@hugeicons/core-free-icons': '^4.3.0',
         cnfast: '^0.0.8',
-        svelte: '^5.0.0',
+        svelte: '^5.56.0',
         'tailwind-merge': '^3.0.0'
     }
 };

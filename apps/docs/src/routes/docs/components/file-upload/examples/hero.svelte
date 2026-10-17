@@ -2,36 +2,47 @@
     import * as FileUpload from '@mielui/svelte/components/file-upload';
     import { Switch } from '@mielui/svelte/components/switch';
 
+    type UploadOptions = Parameters<FileUpload.FileUploadProps['onUpload']>[1];
+
     let failNext = $state(false);
-    async function upload(
-        _file: File,
-        { signal, onProgress }: Parameters<NonNullable<FileUpload.FileUploadProps['onUpload']>>[1]
-    ) {
+
+    async function upload(_file: File, { signal, onProgress }: UploadOptions) {
         const shouldFail = failNext;
         failNext = false;
+
         await new Promise<void>((resolve, reject) => {
             let progress = 0;
-            const timer = setInterval(() => {
-                progress += 10;
-                onProgress(progress);
-                if (progress === 100) {
-                    clearInterval(timer);
-                    signal.removeEventListener('abort', cancel);
-                    if (shouldFail) {
-                        reject(new Error('Connection interrupted. Try uploading again.'));
-                    } else {
-                        resolve();
-                    }
-                }
-            }, 180);
+
             function cancel() {
                 clearInterval(timer);
                 reject(new DOMException('Upload cancelled', 'AbortError'));
             }
-            signal.addEventListener('abort', cancel, { once: true });
+
+            const timer = setInterval(() => {
+                progress += 10;
+                onProgress(progress);
+
+                if (progress < 100) {
+                    return;
+                }
+
+                clearInterval(timer);
+                signal.removeEventListener('abort', cancel);
+
+                if (shouldFail) {
+                    reject(new Error('Connection interrupted. Try uploading again.'));
+                } else {
+                    resolve();
+                }
+            }, 180);
+
+            signal.addEventListener('abort', cancel, {
+                once: true
+            });
         });
     }
 </script>
+
 <div class="flex w-full max-w-md flex-col gap-4">
     <div class="flex flex-col gap-1">
         <p class="text-sm font-medium">Project files</p>

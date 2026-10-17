@@ -207,24 +207,6 @@
         "name": "Copy",
         "properties": [
             {
-                "name": "label",
-                "type": "string | undefined",
-                "required": false,
-                "bindable": false,
-                "default": null,
-                "description": "Tooltip and accessible name of the copy button.",
-                "inherited": false
-            },
-            {
-                "name": "copiedLabel",
-                "type": "string | undefined",
-                "required": false,
-                "bindable": false,
-                "default": null,
-                "description": "Label shown right after copying.",
-                "inherited": false
-            },
-            {
                 "name": "class",
                 "type": "string | undefined",
                 "required": false,

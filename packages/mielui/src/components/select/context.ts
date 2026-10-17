@@ -1,0 +1,16 @@
+import { createContext } from '@mielui/svelte/utils';
+import type { SelectState } from '.';
+
+export type SelectContext = {
+    id: string;
+    triggerId: string;
+    onTriggerOpen?: () => void;
+    readonly open: boolean;
+    setOpen: (open: boolean) => void;
+    state: SelectState<string | string[]>;
+    labels: Map<string, string>;
+};
+
+const { set: setSelectContext, get: getSelectContext } = createContext<SelectContext>('select');
+
+export { getSelectContext, setSelectContext };

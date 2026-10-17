@@ -8,7 +8,7 @@ afterEach(() => {
 });
 
 describe('Spinner', () => {
-    it('renders a LoaderCircle icon with a continuous spin at the default speed', () => {
+    it('renders a ring with a continuous spin at the default speed', () => {
         const { container } = render(Spinner, { props: { size: 20 } });
         const spinner = container.querySelector('[data-ui="spinner"]');
         const loader = spinner?.querySelector('svg');
@@ -17,8 +17,8 @@ describe('Spinner', () => {
         expect(loader).toHaveStyle({ animationDuration: '850ms' });
     });
 
-    it('renders the curved spin animation when curved is set', () => {
-        const { container } = render(Spinner, { props: { curved: true } });
+    it('renders the eased spin animation when eased is set', () => {
+        const { container } = render(Spinner, { props: { eased: true } });
         const loader = container.querySelector('[data-ui="spinner"] svg');
         expect(loader?.getAttribute('class')).toContain('animate-[mielui-spinner-spin');
     });

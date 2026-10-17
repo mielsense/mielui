@@ -1,10 +1,10 @@
 <script lang="ts">
     import { Button } from '@mielui/svelte/components/button';
     import { cn } from '@mielui/svelte/utils';
-    import { onMount } from 'svelte';
-    import { getDialogContext } from '../../components/dialog/context.svelte';
+    import { untrack } from 'svelte';
+    import { getDialogContext } from '../../components/dialog/context';
     import type { CommandItem, CommandItemProps } from '.';
-    import { getCommandContext } from './context.svelte';
+    import { getCommandContext } from './context';
 
     const controller = getCommandContext();
     const { state: command } = controller;
@@ -42,8 +42,10 @@
         }
     } satisfies CommandItem;
 
-    onMount(() => {
-        return controller.register(item);
+    $effect(() => {
+        return untrack(() => {
+            return controller.register(item);
+        });
     });
 
     function activate() {
@@ -70,7 +72,7 @@
     tabindex={-1}
     bind:element={el}
     {disabled}
-    {...(href === undefined ? { href: undefined } : { href })}
+    {href}
     hidden={filteredOut}
     onmouseenter={() => {
         if (!disabled && !filteredOut) {

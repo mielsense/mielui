@@ -7,7 +7,7 @@
     let { class: className, children, ...rest }: BreadcrumbSeparatorProps = $props();
 </script>
 
-<li role="presentation" aria-hidden="true" class="flex shrink-0 items-center">
+<li role="presentation" aria-hidden="true" class="flex shrink-0 items-center text-foreground-muted">
     {#if children}
         <span class={className} {...rest}>{@render children?.()}</span>
     {:else}

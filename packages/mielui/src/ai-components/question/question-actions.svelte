@@ -2,7 +2,7 @@
     import * as Card from '@mielui/svelte/components/card';
     import { cn } from '@mielui/svelte/utils';
     import type { QuestionActionsProps } from '.';
-    import { getQuestionContext } from './context.svelte';
+    import { getQuestionContext } from './context';
 
     let { class: className, children, ...rest }: QuestionActionsProps = $props();
     const context = getQuestionContext();

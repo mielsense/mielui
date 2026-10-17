@@ -1,10 +1,9 @@
 <script lang="ts">
-    import { cn, pressable } from '@mielui/svelte/utils';
+    import { pressable } from '@mielui/svelte/utils';
     import { Toolbar as Primitive } from 'bits-ui';
-    import { button } from '../../components/button/variants';
     import type { ToolbarLinkProps } from '.';
     import { getToolbarVariant } from './context';
-    import { toolbarControlClass } from './styles';
+    import { toolbarActionClass } from './styles';
 
     let {
         element = $bindable(null),
@@ -13,9 +12,8 @@
         ...rest
     }: ToolbarLinkProps = $props();
     const variant = getToolbarVariant();
-    const controlClass = $derived(
-        cn(className, toolbarControlClass(variant()), button({ variant: 'quiet', size: 'sm' }))
-    );
+    const on = $derived((rest as { 'data-state'?: unknown })['data-state'] === 'on');
+    const controlClass = $derived(toolbarActionClass(className, variant(), on));
 </script>
 <Primitive.Link {...rest} bind:ref={element}>
     {#snippet child({ props })}

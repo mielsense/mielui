@@ -1,16 +1,18 @@
-import { getContext, onMount, setContext } from 'svelte';
+import { createContext, onMount } from 'svelte';
 
 export type FontCategory = 'Sans serif' | 'Serif' | 'Monospace';
 export type DocsFont = { name: string; category: FontCategory; family: string };
 
-export const DEFAULT_FONT = 'Manrope';
+export const DEFAULT_FONT = 'Inter Tight';
 
 /**
- * Every family loaded by app.html from Google Fonts. Only these can be
- * previewed — anything else would fall back to a system font.
+ * Every family the docs can preview. Inter Tight and Geist Mono ship with ui.css;
+ * app.html loads the rest from Google Fonts without blocking the first paint.
+ * Anything else would fall back to a system font.
  */
 export const fonts: DocsFont[] = [
     ...[
+        'Inter Tight',
         'DM Sans',
         'Geist',
         'Inter',
@@ -58,8 +60,8 @@ type DocsFontState = {
     current: string;
 };
 
-const fontContext = Symbol('docs-font');
-const storageKey = 'mielui-docs-font';
+const [getDocsFontState, setDocsFontState] = createContext<DocsFontState>();
+export const FONT_STORAGE_KEY = 'mielui-docs-font';
 
 function knownFont(value: unknown): string {
     return typeof value === 'string' && fonts.some((font) => font.name === value)
@@ -86,19 +88,19 @@ export function createDocsFontState(): DocsFontState {
         set current(value: string) {
             current = knownFont(value);
             try {
-                storage?.setItem(storageKey, JSON.stringify(current));
+                storage?.setItem(FONT_STORAGE_KEY, JSON.stringify(current));
             } catch {
                 return;
             }
         }
     };
 
-    setContext(fontContext, state);
+    setDocsFontState(state);
 
     onMount(() => {
         try {
             storage = window.localStorage;
-            current = readFont(storage.getItem(storageKey));
+            current = readFont(storage.getItem(FONT_STORAGE_KEY));
         } catch {
             storage = undefined;
         }
@@ -107,7 +109,7 @@ export function createDocsFontState(): DocsFontState {
             if (
                 storage &&
                 event.storageArea === storage &&
-                (event.key === storageKey || event.key === null)
+                (event.key === FONT_STORAGE_KEY || event.key === null)
             ) {
                 current = readFont(event.newValue);
             }
@@ -123,10 +125,4 @@ export function createDocsFontState(): DocsFontState {
     return state;
 }
 
-export function getDocsFontState(): DocsFontState {
-    const state = getContext<DocsFontState | undefined>(fontContext);
-    if (!state) {
-        throw new Error('Font selection requires the application font context.');
-    }
-    return state;
-}
+export { getDocsFontState };

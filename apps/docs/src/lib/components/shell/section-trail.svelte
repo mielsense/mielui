@@ -14,7 +14,7 @@
 -->
 
 {#if trail.length}
-    <nav aria-label="Current section" class="flex min-w-0 items-center gap-1 text-[13px]">
+    <nav aria-label="Current section" class="flex min-w-0 items-center gap-1 ps-2.5 text-[13px]">
         {#each trail as heading, index (heading.id)}
             {#if index > 0}
                 <HugeiconsIcon
@@ -27,11 +27,11 @@
             <a
                 href={`#${heading.id}`}
                 onclick={(event) => shell.outline?.navigate(event, heading)}
-                class={`max-w-44 truncate rounded-[var(--radius-sm)] px-1 py-0.5 transition-colors [transition-duration:var(--motion-duration-hover)] hover:text-foreground focus-visible:outline-none focus-visible:shadow-[var(--focus-ring)] motion-reduce:transition-none ${index === trail.length - 1 ? 'text-foreground' : 'text-foreground-muted'}`}
+                class={`max-w-44 truncate rounded-[var(--radius-control)] px-1 py-0.5 transition-colors [transition-duration:var(--motion-duration-hover)] hover:text-foreground focus-visible:outline-none focus-visible:shadow-[var(--focus-ring)] motion-reduce:transition-none ${index === trail.length - 1 ? 'text-foreground' : 'text-foreground-muted'}`}
             >
                 {heading.label}
             </a>
         {/each}
-        <span aria-hidden="true" class="ms-2 me-1 h-4 w-px shrink-0 bg-foreground/20"></span>
+        <span aria-hidden="true" class="ms-1.5 h-4 w-px shrink-0 bg-border"></span>
     </nav>
 {/if}

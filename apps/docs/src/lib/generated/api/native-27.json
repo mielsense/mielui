@@ -1,50 +1,5 @@
 [
     {
-        "name": "ontouchstart",
-        "type": "TouchEventHandler<SVGTextElement> | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
-        "name": "ontouchstartcapture",
-        "type": "TouchEventHandler<SVGTextElement> | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
-        "name": "on:gotpointercapture",
-        "type": "PointerEventHandler<SVGTextElement> | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
-        "name": "ongotpointercapture",
-        "type": "PointerEventHandler<SVGTextElement> | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
-        "name": "ongotpointercapturecapture",
-        "type": "PointerEventHandler<SVGTextElement> | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
         "name": "on:pointercancel",
         "type": "PointerEventHandler<SVGTextElement> | null | undefined",
         "required": false,
@@ -2243,6 +2198,51 @@
     {
         "name": "preserveAspectRatio",
         "type": "string | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "primitiveUnits",
+        "type": "string | number | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "r",
+        "type": "string | number | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "radius",
+        "type": "string | number | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "refX",
+        "type": "string | number | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "refY",
+        "type": "string | number | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,

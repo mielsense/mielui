@@ -2,15 +2,16 @@
     import * as Dialog from '@mielui/svelte/components/dialog';
     import { untrack } from 'svelte';
     import type { CommandProps } from '.';
-    import { resetCommand, setCommandContext } from './context.svelte';
+    import { resetCommand, setCommandContext, setCommandLabels } from './context';
     import { createCommandController } from './controller.svelte';
 
-    let { open = $bindable(false), onOpenChange, children }: CommandProps = $props();
+    let { open = $bindable(false), onOpenChange, labels, children }: CommandProps = $props();
     const id = $props.id();
 
     const controller = createCommandController(id);
     const command = controller.state;
     setCommandContext(controller);
+    setCommandLabels(() => labels);
 
     $effect(() => {
         if (open) {
@@ -19,4 +20,4 @@
     });
 </script>
 
-<Dialog.Root bind:open {onOpenChange}>{@render children?.()} </Dialog.Root>
+<Dialog.Root bind:open {onOpenChange}> {@render children?.()} </Dialog.Root>

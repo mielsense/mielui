@@ -23,7 +23,12 @@ export type TooltipTriggerProps = {
     showOnClick?: boolean;
 } & DefaultProps;
 
-export type TooltipContentProps = DefaultProps & { surface?: 'solid' | 'glass'; rich?: boolean };
+export type TooltipContentProps = DefaultProps & {
+    /** Surface treatment. Omit it to inherit `--mielui-surface` from the theme. */
+    surface?: 'solid' | 'glass';
+    /** Shows the content's markup in the bubble instead of its plain text. */
+    rich?: boolean;
+};
 
 export type TooltipProviderProps = { children?: Snippet };
 

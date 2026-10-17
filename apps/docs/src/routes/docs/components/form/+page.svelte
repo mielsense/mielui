@@ -1,7 +1,11 @@
 <script lang="ts">
+    import { Button } from '@mielui/svelte/components/button';
     import { CodeBlock } from '@mielui/svelte/components/code-block';
+    import * as Field from '@mielui/svelte/components/field';
+    import * as Form from '@mielui/svelte/components/form';
+    import { Input } from '@mielui/svelte/components/input';
     import * as Typography from '@mielui/svelte/components/typography';
-    import { ComponentPreview, InstallCommand } from '$lib/components/docs';
+    import { ComponentPreview, InstallCommand, Playground } from '$lib/components/docs';
     import InlineText from '$lib/components/docs/inline-text.svelte';
     import PageIntro from '$lib/components/docs/page-intro.svelte';
     import Hero from './examples/hero.svelte';
@@ -12,24 +16,91 @@
     import RemoteBasicSrc from './examples/remote-basic.svelte?raw';
     import StatusToneExample from './examples/status-tone.svelte';
     import StatusToneExampleSrc from './examples/status-tone.svelte?raw';
+    import {
+        code as playgroundCode,
+        controls as playgroundControls,
+        issues as playgroundIssues,
+        STATUS
+    } from './playground';
 
-    const RemoteServerSrc =
-        "import { invalid } from '@sveltejs/kit';\nimport { form } from '$app/server';\nimport * as v from 'valibot';\n\nexport const validateProfile = form(\n    v.object({\n        username: v.pipe(\n            v.string(),\n            v.trim(),\n            v.minLength(3, 'Use at least 3 characters.'),\n            v.maxLength(40, 'Use at most 40 characters.')\n        ),\n        email: v.pipe(v.string(), v.email('Enter a valid email address.')),\n        intent: v.picklist(['validate', 'validate-reset'])\n    }),\n    async ({ username, intent }, issue) => {\n        await new Promise((resolve) => setTimeout(resolve, 350));\n        if (username.toLowerCase() === 'admin') {\n            invalid(issue.username('This username is reserved. Choose another one.'));\n        }\n        if (username.toLowerCase() === 'system') {\n            invalid('This profile cannot be validated right now. Choose another demo username.');\n        }\n        return { username, intent };\n    }\n);\n";
+    function preventSubmit(event: SubmitEvent) {
+        event.preventDefault();
+    }
+
+    const RemoteServerSrc = `import { invalid } from '@sveltejs/kit';
+import * as v from 'valibot';
+import { form } from '$app/server';
+
+export const validateProfile = form(
+    v.object({
+        username: v.pipe(
+            v.string(),
+            v.trim(),
+            v.minLength(3, 'Use at least 3 characters.'),
+            v.maxLength(40, 'Use at most 40 characters.')
+        ),
+        email: v.pipe(v.string(), v.email('Enter a valid email address.')),
+        intent: v.picklist(['validate', 'validate-reset'])
+    }),
+    async ({ username, intent }, issue) => {
+        await new Promise((resolve) => setTimeout(resolve, 350));
+        if (username.toLowerCase() === 'admin') {
+            invalid(issue.username('This username is reserved. Choose another one.'));
+        }
+        if (username.toLowerCase() === 'system') {
+            invalid('This profile cannot be validated right now. Choose another demo username.');
+        }
+        return { username, intent };
+    }
+);
+    `;
+    const usageExample = `<script lang="ts">
+    import * as Field from '@mielui/svelte/components/field';
+    import * as Form from '@mielui/svelte/components/form';
+    import { Input } from '@mielui/svelte/components/input';
+
+    let message = $state('');
+</${'script'}>
+
+<Form.Root method="POST" action="?/save">
+    <Field.Root required>
+        <Field.Label>Work email</Field.Label>
+        <Field.Control>
+            {#snippet children(control)}
+                <Input {...control} type="email" name="email" />
+            {/snippet}
+        </Field.Control>
+    </Field.Root>
+    <Form.Actions>
+        <Form.Submit>Save</Form.Submit>
+    </Form.Actions>
+    <Form.Status>{message}</Form.Status>
+</Form.Root>`;
     const remoteConfig = `const config = {
-  compilerOptions: { experimental: { async: true } },
-  kit: { experimental: { remoteFunctions: true } }
+    compilerOptions: {
+        experimental: {
+            async: true
+        }
+    },
+    kit: {
+        experimental: {
+            remoteFunctions: true
+        }
+    }
 };
 
 export default config;`;
     const actionExample = `<script lang="ts">
-  import * as Form from '@mielui/svelte/components/form';
-  import { enhance } from '$app/forms';
-  import { fromAction } from 'svelte/attachments';
+    import { enhance } from '$app/forms';
+    import * as Form from '@mielui/svelte/components/form';
+    import { fromAction } from 'svelte/attachments';
 </${'script'}>
 
 <Form.Root method="POST" action="?/save" {@attach fromAction(enhance)}>
-  <!-- Compose fields here. -->
-  <Form.Actions><Form.Submit>Save</Form.Submit></Form.Actions>
+    <!-- Compose fields here. -->
+    <Form.Actions>
+        <Form.Submit>Save</Form.Submit>
+    </Form.Actions>
 </Form.Root>`;
 </script>
 
@@ -37,7 +108,7 @@ export default config;`;
     <title>Mielui · Form</title>
     <meta
         name="description"
-        content="Composable native forms that preserve SvelteKit actions, remote-form attachments, validation, and submitter behavior."
+        content="A native form with submit, status, and error-summary parts that keep SvelteKit actions and remote forms intact."
     />
 </svelte:head>
 
@@ -45,22 +116,59 @@ export default config;`;
     <PageIntro title="Form">
         Keep native submission intact, with clear feedback from the first field to the final action.
     </PageIntro>
+
     <section id="hero" class="scroll-mt-20 flex flex-col gap-4">
-        <ComponentPreview code={HeroSrc}><Hero /></ComponentPreview>
+        <Playground controls={playgroundControls} code={playgroundCode}>
+            {#snippet children(values)}
+                <Form.Root
+                    class="w-full max-w-sm"
+                    onsubmit={preventSubmit}
+                    pending={values.pending}
+                >
+                    {#if values.errorSummary}
+                        <Form.ErrorSummary issues={playgroundIssues} />
+                    {/if}
+                    <Field.Root>
+                        <Field.Label>Work email</Field.Label>
+                        <Field.Control>
+                            {#snippet children(control)}
+                                <Input
+                                    {...control}
+                                    type="email"
+                                    name="email"
+                                    placeholder="sam@company.com"
+                                />
+                            {/snippet}
+                        </Field.Control>
+                    </Field.Root>
+                    <Form.Actions>
+                        <Form.Submit>Save profile</Form.Submit>
+                        {#if values.reset}
+                            <Button type="reset" variant="ghost">Reset</Button>
+                        {/if}
+                    </Form.Actions>
+                    {#if values.status !== 'hidden'}
+                        <Form.Status tone={values.status}>{STATUS[values.status]}</Form.Status>
+                    {/if}
+                </Form.Root>
+            {/snippet}
+        </Playground>
     </section>
+
     <section id="installation" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Installation</Typography.H2>
         <InstallCommand command="pnpm dlx @mielui/svelte add form field fieldset input" />
     </section>
+
     <section id="usage" class="scroll-mt-20 flex flex-col gap-4">
-        <Typography.H2 class="docs-section-heading">Native first</Typography.H2>
+        <Typography.H2 class="docs-section-heading">Usage</Typography.H2>
         <Typography.Text variant="supporting">
             Root renders a form and forwards native attributes, callbacks, and symbol-keyed
             attachments. It does not prevent submission, serialize values, swallow errors, or reset
             inputs. Use a native action, SvelteKit form action, remote form, or your own onsubmit
             handler. Native validation remains enabled unless you explicitly set novalidate.
         </Typography.Text>
-        <CodeBlock code={HeroSrc} lang="svelte" copy="overlay" />
+        <CodeBlock code={usageExample} lang="svelte" copy="overlay" />
         <Typography.Text variant="supporting">
             Actions is an independent flex container; move it before the fields or omit it entirely.
             Submit is a native submit button styled with Button and inherits Root’s pending state.
@@ -75,18 +183,27 @@ export default config;`;
             preserve validation and submitter behavior; element.submit() bypasses them.
         </Typography.Text>
     </section>
+
+    <section id="profile-form" class="scroll-mt-20 flex flex-col gap-4">
+        <Typography.H2 class="docs-section-heading">Profile form</Typography.H2>
+        <Typography.Text variant="supporting">
+            A fieldset with two required fields. Submitting shows the pending state, then a status
+            message.
+        </Typography.Text>
+        <ComponentPreview code={HeroSrc}>
+            <Hero />
+        </ComponentPreview>
+    </section>
+
     <section id="error-summary" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">A complete error summary</Typography.H2>
         <Typography.Text variant="supporting">
-            Pass validation issues directly to ErrorSummary. Each issue needs a message and may
-            include a path or controlId. Paths resolve against native field names within the form;
-            form-level issues remain text. Nested paths use names such as profile.email or
-            members[0].email. After a submission finishes with issues, the summary receives focus.
-            Set focusOnError={false}
-            when your application manages focus. Initial server-rendered errors do not steal focus.
-            Override heading or children(issues) to customize the content.
+            <InlineText
+                text={"Pass validation issues directly to ErrorSummary. Each issue needs a `message` and may include a `path` or `controlId`. Paths resolve against native field names within the form, such as `profile.email` or `members[0].email`; issues without one stay plain text. After a submission finishes with issues, the summary receives focus. Set `focusOnError={false}` when your application manages focus; errors rendered on the server do not take focus. Pass a `heading` snippet, or `children` that receives the issues, to customize the content. To translate the heading text, pass `labels={{ heading: 'Vérifiez vos informations' }}`; every key of `FormErrorSummaryLabels` is optional and English is the fallback."}
+            />
         </Typography.Text>
     </section>
+
     <section id="remote-forms" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">SvelteKit remote forms</Typography.H2>
         <Typography.Text variant="supporting">
@@ -159,6 +276,7 @@ export default config;`;
             fields.intent.as('submit', value) on each Submit to preserve which action was chosen.
         </Typography.Text>
     </section>
+
     <section id="multiple-actions" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Multiple actions and reset</Typography.H2>
         <Typography.Text variant="supporting">
@@ -171,8 +289,11 @@ export default config;`;
             Use submitter values when the server needs to distinguish actions. This example resets
             only after successful validation; errors preserve the draft.
         </Typography.Text>
-        <ComponentPreview code={RemoteSrc} class="max-h-none"><Remote /></ComponentPreview>
+        <ComponentPreview code={RemoteSrc} class="max-h-none">
+            <Remote />
+        </ComponentPreview>
     </section>
+
     <section id="form-actions" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Stable SvelteKit form actions</Typography.H2>
         <Typography.Text variant="supporting">
@@ -183,6 +304,7 @@ export default config;`;
         </Typography.Text>
         <CodeBlock code={actionExample} lang="svelte" copy="overlay" />
     </section>
+
     <section id="composition" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Layout and feedback ownership</Typography.H2>
         <Typography.Text variant="supporting">
@@ -193,7 +315,8 @@ export default config;`;
             timer, or global form state.
         </Typography.Text>
     </section>
-    <section id="status-and-submit" class="flex flex-col gap-4">
+
+    <section id="status-and-submit" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Status and submit states</Typography.H2>
         <Typography.Text variant="supporting">
             <InlineText
@@ -202,7 +325,7 @@ export default config;`;
         </Typography.Text>
         <Typography.Text variant="supporting">
             <InlineText
-                text={"Submit is built on [Button](/docs/components/button) and shows the form's progress by itself. Pass `status` to drive it by hand as `idle`, `loading`, `success` or `error`, with `successLabel` and `errorLabel` as the text for the last two. `size` changes its height, `unstyled` removes the Button classes, and `onclick` and `onkeydown` run before the form submits."}
+                text={"Submit is built on [Button](/docs/components/button) and shows the form's progress by itself. Pass `status` to drive it by hand as `idle`, `loading`, `success` or `error`, with `labels` setting the text for each state. `size` changes its height, `unstyled` removes the Button classes, and `onclick` and `onkeydown` run before the form submits."}
             />
         </Typography.Text>
         <ComponentPreview code={StatusToneExampleSrc}>

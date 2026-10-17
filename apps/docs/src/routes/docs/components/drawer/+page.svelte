@@ -1,7 +1,10 @@
 <script lang="ts">
+    import { Button } from '@mielui/svelte/components/button';
     import { CodeBlock } from '@mielui/svelte/components/code-block';
+    import * as Drawer from '@mielui/svelte/components/drawer';
+    import { Switch } from '@mielui/svelte/components/switch';
     import * as Typography from '@mielui/svelte/components/typography';
-    import { ComponentPreview, InstallCommand } from '$lib/components/docs';
+    import { ComponentPreview, InstallCommand, Playground } from '$lib/components/docs';
     import InlineText from '$lib/components/docs/inline-text.svelte';
     import PageIntro from '$lib/components/docs/page-intro.svelte';
     import DismissalExample from './examples/dismissal.svelte';
@@ -14,106 +17,184 @@
     import NestedSrc from './examples/nested.svelte?raw';
     import Sides from './examples/sides.svelte';
     import SidesSrc from './examples/sides.svelte?raw';
+    import { code as playgroundCode, controls as playgroundControls } from './playground';
+
+    let playgroundOpen = $state(false);
+    let unreadOnly = $state(true);
+    let showArchived = $state(false);
+
+    function applyPlayground() {
+        playgroundOpen = false;
+    }
+
+    const usageCode = `<script lang="ts">
+    import { Button } from '@mielui/svelte/components/button';
+    import * as Drawer from '@mielui/svelte/components/drawer';
+
+    let open = $state(false);
+</${'script'}>
+
+<Drawer.Root bind:open>
+    <Drawer.Trigger>Open</Drawer.Trigger>
+    <Drawer.Portal>
+        <Drawer.Overlay />
+        <Drawer.Content>
+            <Drawer.Handle />
+            <Drawer.Header>
+                <Drawer.Title>Title</Drawer.Title>
+                <Drawer.Description>Describe what lives here.</Drawer.Description>
+            </Drawer.Header>
+            <Drawer.Body>Panel content</Drawer.Body>
+            <Drawer.Footer>
+                <Drawer.Close>Cancel</Drawer.Close>
+                <Button>Save</Button>
+            </Drawer.Footer>
+        </Drawer.Content>
+    </Drawer.Portal>
+</Drawer.Root>`;
 </script>
+
 <svelte:head>
     <title>Mielui · Drawer</title>
     <meta
         name="description"
-        content="Swipeable edge panel with accessible focus management and direct manipulation."
+        content="A modal panel that slides in from an edge of the screen and can be swiped away."
     />
 </svelte:head>
+
 <div data-docs-page class="flex flex-col gap-10">
     <PageIntro title="Drawer">
-        Swipeable edge panel with accessible focus management and direct manipulation.
+        A modal panel that slides in from an edge of the screen and can be swiped away.
     </PageIntro>
-    <section id="hero" class="flex flex-col gap-4">
-        <ComponentPreview code={HeroSrc}><Hero /></ComponentPreview>
+
+    <section id="hero" class="scroll-mt-20 flex flex-col gap-4">
+        <Playground controls={playgroundControls} code={playgroundCode}>
+            {#snippet children(values)}
+                <Drawer.Root
+                    bind:open={playgroundOpen}
+                    direction={values.direction}
+                    dismissible={values.dismissible}
+                >
+                    <Drawer.Trigger>Filters</Drawer.Trigger>
+                    <Drawer.Portal>
+                        <Drawer.Overlay />
+                        <Drawer.Content surface={values.glass ? 'glass' : undefined}>
+                            {#if values.handle}
+                                <Drawer.Handle />
+                            {/if}
+                            <Drawer.Header>
+                                <Drawer.Title>Filters</Drawer.Title>
+                                {#if values.description}
+                                    <Drawer.Description>
+                                        Choose what appears in your reading list.
+                                    </Drawer.Description>
+                                {/if}
+                            </Drawer.Header>
+                            <Drawer.Body class="flex flex-col gap-4">
+                                <Switch bind:checked={unreadOnly} label="Unread only" />
+                                <Switch bind:checked={showArchived} label="Show archived" />
+                            </Drawer.Body>
+                            <Drawer.Footer>
+                                <Drawer.Close>Close</Drawer.Close>
+                                <Button onclick={applyPlayground}>Apply</Button>
+                            </Drawer.Footer>
+                        </Drawer.Content>
+                    </Drawer.Portal>
+                </Drawer.Root>
+            {/snippet}
+        </Playground>
     </section>
 
-    <section id="installation" class="flex flex-col gap-4">
-        <Typography.H2>Installation</Typography.H2>
+    <section id="installation" class="scroll-mt-20 flex flex-col gap-4">
+        <Typography.H2 class="docs-section-heading">Installation</Typography.H2>
         <InstallCommand command="pnpm dlx @mielui/svelte add drawer" />
     </section>
-    <section id="usage" class="flex flex-col gap-4">
-        <Typography.H2>Usage</Typography.H2>
-        <Typography.Text>
-            Compose Root, Trigger, Portal, Overlay, and Content. Inside Content, add any combination
-            of Handle, Header, Title, Description, Body, Footer, and Close. Regions are independent:
-            omit Handle for a plain swipeable panel, or move Close into Header. Always provide Title
-            or an aria-label on Content.
+
+    <section id="usage" class="scroll-mt-20 flex flex-col gap-4">
+        <Typography.H2 class="docs-section-heading">Usage</Typography.H2>
+        <Typography.Text variant="supporting">
+            Compose Root, Trigger, Portal, Overlay, and Content. Inside Content, use any of Handle,
+            Header, Title, Description, Body, Footer, and Close. Each part is optional: omit Handle
+            for a plain panel, or move Close into Header. Always give the drawer a Title, or an
+            aria-label on Content.
         </Typography.Text>
-        <CodeBlock
-            code={`import * as Drawer from '@mielui/svelte/components/drawer';\nimport { Button } from '@mielui/svelte/components/button';\n\nlet open = $state(false);\n\n<Drawer.Root bind:open direction="bottom">\n  <Drawer.Trigger>Open</Drawer.Trigger>\n  <Drawer.Portal>\n    <Drawer.Overlay />\n    <Drawer.Content>\n      <Drawer.Handle />\n      <Drawer.Header>\n        <Drawer.Title>Title</Drawer.Title>\n        <Drawer.Description>Describe what lives here.</Drawer.Description>\n      </Drawer.Header>\n      <Drawer.Body>Panel content</Drawer.Body>\n      <Drawer.Footer>\n        <Drawer.Close>Cancel</Drawer.Close>\n        <Button>Save</Button>\n      </Drawer.Footer>\n    </Drawer.Content>\n  </Drawer.Portal>\n</Drawer.Root>`}
-            lang="svelte"
-            copy="overlay"
-        />
-        <Typography.Text>
-            The panel floats a small gap away from the edge it opens from, with all four corners
-            rounded. Top and bottom drawers are centered and capped at a readable width; left and
-            right drawers fill the height. Set a width class on Content to change the size, for
-            example w-3xl, or w-screen for a panel as wide as the viewport allows.
+        <CodeBlock code={usageCode} lang="svelte" copy="overlay" />
+        <Typography.Text variant="supporting">
+            <InlineText
+                text={"Set `direction` on Root to `bottom` (the default), `top`, `left`, or `right`. Top and bottom drawers are centered and capped at a readable width; side drawers fill the height. Put a width class on Content to change the size, such as `w-3xl`."}
+            />
         </Typography.Text>
-        <Typography.Text>
-            Content uses the same frame as Dialog and Sheet. Handle, Header, and Body sit on the
-            inner surface. Footer renders on the outer frame below it, wherever you place it inside
-            Content. Close is a ghost button that moves to the start of the footer, so the other
-            actions line up at the end. The theme setting chrome.borders chooses single or double
-            framing.
+        <Typography.Text variant="supporting">
+            <InlineText
+                text={"Content uses the same frame as Dialog and Sheet. Footer renders below the inner surface wherever you place it, and Close moves to the start of the footer so the other actions line up at the end. The theme's `chrome.borders` setting chooses single or double framing."}
+            />
         </Typography.Text>
-        <Typography.Text>
-            Use bind:open or onOpenChange to control visibility. Set direction to bottom, top, left,
-            or right. handleOnly restricts dragging to the handle; closeThreshold controls the
-            dismissal distance.
+        <Typography.Text variant="supporting">
+            <InlineText
+                text={"Bind `open` or use `onOpenChange` to control visibility. `handleOnly` limits dragging to the Handle and `closeThreshold` sets how far the panel must be dragged before it closes. Scrollable content belongs in Body; add `data-vaul-no-drag` to controls with their own pointer gestures, such as a slider."}
+            />
         </Typography.Text>
-        <Typography.Text>
-            Drawers are modal. Focus moves to the panel itself when it opens, so no control looks
-            selected and no keyboard appears on touch devices; Tab reaches the first control. Focus
-            returns to the trigger on close. Escape and outside interaction dismiss the drawer
-            unless dismissible is false. Include a Close button for keyboard users. Use
-            onOpenAutoFocus on Content to focus something else.
-        </Typography.Text>
-        <Typography.Text>
-            Set nested on a drawer inside another drawer. Its backdrop appears above the parent.
-            Closing it returns focus to its trigger in the parent panel. Native regions support
-            bind:element.
-        </Typography.Text>
-        <Typography.Text>
-            Handle follows the direction: a bar at the top of a bottom drawer, at the bottom of a
-            top drawer, and on the inner edge of a side drawer. Scrollable content belongs in Body.
-            Add data-vaul-no-drag to custom controls that need their own pointer gestures.
-            Snap-point expansion is not part of the supported API.
-        </Typography.Text>
-        <Typography.Text>
-            Reduced motion removes opening and settling animations while preserving dragging. Use
-            Sheet when the panel does not need swipe gestures.
+        <Typography.Text variant="supporting">
+            <InlineText
+                text={"Focus moves to the panel when it opens and returns to the trigger when it closes. Escape and outside presses close the drawer unless `dismissible` is false; keep a Close button for keyboard users. Reduced motion removes the open and settle animations but keeps dragging. Use [Sheet](/docs/components/sheet) when the panel does not need swipe gestures."}
+            />
         </Typography.Text>
     </section>
-    <section id="directions" class="flex flex-col gap-4">
-        <Typography.H2>Directions</Typography.H2>
-        <Typography.Text>
-            One drawer opened from each edge. The handle and the swipe direction follow the edge.
-        </Typography.Text>
-        <ComponentPreview code={SidesSrc}><Sides /></ComponentPreview>
+
+    <section id="examples" class="scroll-mt-20 flex flex-col gap-10">
+        <div>
+            <Typography.H2 class="docs-section-heading">Examples</Typography.H2>
+        </div>
+
+        <div id="reading-preferences" class="scroll-mt-20 flex flex-col gap-3">
+            <Typography.H3 class="docs-subsection-heading">Reading preferences</Typography.H3>
+            <Typography.Text variant="supporting">
+                <InlineText
+                    text={"A settings drawer with `handleOnly` that restores the saved values when it is dismissed."}
+                />
+            </Typography.Text>
+            <ComponentPreview code={HeroSrc}>
+                <Hero />
+            </ComponentPreview>
+        </div>
+
+        <div id="directions" class="scroll-mt-20 flex flex-col gap-3">
+            <Typography.H3 class="docs-subsection-heading">Directions</Typography.H3>
+            <Typography.Text variant="supporting">
+                One drawer opened from each edge. The handle and the swipe direction follow the
+                edge.
+            </Typography.Text>
+            <ComponentPreview code={SidesSrc}>
+                <Sides />
+            </ComponentPreview>
+        </div>
+
+        <div id="nested" class="scroll-mt-20 flex flex-col gap-3">
+            <Typography.H3 class="docs-subsection-heading">Nested</Typography.H3>
+            <Typography.Text variant="supporting">
+                <InlineText
+                    text={"Set `nested` on a drawer inside another drawer. Its backdrop sits above the parent, and closing it returns focus to its trigger in the parent panel."}
+                />
+            </Typography.Text>
+            <ComponentPreview code={NestedSrc}>
+                <Nested />
+            </ComponentPreview>
+        </div>
+
+        <div id="glass" class="scroll-mt-20 flex flex-col gap-3">
+            <Typography.H3 class="docs-subsection-heading">Glass surface</Typography.H3>
+            <Typography.Text variant="supporting">
+                <InlineText
+                    text={"Set `surface=\"glass\"` on Content for a translucent frame with blur. Omit `surface` to inherit `--mielui-surface` from the theme, or set `surface=\"solid\"` to override it. Glass keeps an opaque fallback when backdrop filtering is unavailable and respects reduced-transparency preferences."}
+                />
+            </Typography.Text>
+            <ComponentPreview code={GlassSrc}>
+                <Glass />
+            </ComponentPreview>
+        </div>
     </section>
-    <section id="nested" class="flex flex-col gap-4">
-        <Typography.H2>Nested review</Typography.H2>
-        <Typography.Text>
-            Open the details from the review panel. Close the details to return to the review; each
-            drawer has its own handle and close action.
-        </Typography.Text>
-        <ComponentPreview code={NestedSrc}><Nested /></ComponentPreview>
-    </section>
-    <section id="glass" class="flex flex-col gap-4">
-        <Typography.H2>Glass surface</Typography.H2>
-        <Typography.Text>
-            Set surface="glass" on Content for a translucent frame with blur. Omit surface to
-            inherit --mielui-surface from your theme, or set surface="solid" to override it. The
-            glass surface keeps an opaque fallback when backdrop filtering is unavailable and
-            respects reduced-transparency preferences.
-        </Typography.Text>
-        <ComponentPreview code={GlassSrc}><Glass /></ComponentPreview>
-    </section>
-    <section id="dismissal-and-focus" class="flex flex-col gap-4">
+
+    <section id="dismissal-and-focus" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Dismissal and focus</Typography.H2>
         <Typography.Text variant="supporting">
             <InlineText
@@ -129,7 +210,8 @@
             <DismissalExample />
         </ComponentPreview>
     </section>
-    <section id="mounting-and-parts" class="flex flex-col gap-4">
+
+    <section id="mounting-and-parts" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Mounting and parts</Typography.H2>
         <Typography.Text variant="supporting">
             <InlineText
@@ -143,7 +225,7 @@
         </Typography.Text>
         <Typography.Text variant="supporting">
             <InlineText
-                text={"Root, Trigger, Close, Content, Overlay, Portal, Handle, Header, Title, Description, Body and Footer render their `children` and accept `class` and `style` like any element."}
+                text={"Trigger, Close, Content, Overlay, Handle, Title, Description, Header, Body and Footer accept `class` and `style`, and support `bind:element` for the rendered DOM node."}
             />
         </Typography.Text>
     </section>

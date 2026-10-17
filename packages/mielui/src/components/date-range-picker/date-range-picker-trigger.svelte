@@ -1,29 +1,34 @@
 <script lang="ts">
     import { Calendar03Icon } from '@hugeicons/core-free-icons';
-    import { cn } from '@mielui/svelte/utils';
+    import { cn, type WithElement } from '@mielui/svelte/utils';
     import { DateRangePicker as DatePickerPrimitive } from 'bits-ui';
     import HugeiconsIcon from '../../hugeicons-icon.svelte';
     import { button } from '../button/variants';
-    import { getDatePickerContext } from '../date-picker/context.svelte';
+    import { getDatePickerContext } from '../date-picker/context';
+    import { dateTriggerClasses } from '../date-picker/variants';
 
     let {
         class: className,
         children,
         disabled = false,
-        ref = $bindable(null),
+        element = $bindable(null),
         'aria-label': ariaLabel,
         ...rest
-    }: Omit<DatePickerPrimitive.TriggerProps, 'child'> = $props();
+    }: WithElement<Omit<DatePickerPrimitive.TriggerProps, 'child'>> = $props();
     const context = getDatePickerContext();
 </script>
 
 <DatePickerPrimitive.Trigger
     {...rest}
-    bind:ref
+    bind:ref={element}
     disabled={disabled || context.disabled}
     data-ui="date-range-picker-trigger"
     aria-label={ariaLabel ?? (children ? undefined : context.labels.trigger)}
-    class={cn(className, 'shrink-0 hover:bg-[color-mix(in_srgb,var(--color-secondary)_88%,var(--color-foreground))] data-[state=open]:bg-[color-mix(in_srgb,var(--color-secondary)_88%,var(--color-foreground))]', button({ variant: 'outline', size: children ? 'md' : 'icon' }))}
+    class={cn(
+        className,
+        dateTriggerClasses,
+        button({ variant: 'outline', size: children ? 'md' : 'icon' })
+    )}
 >
     {#if children}
         {@render children()}

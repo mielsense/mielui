@@ -23,21 +23,30 @@
                 <Command.Group heading="Actions">
                     <Command.Item
                         name="New project"
-                        callback={() => { selected = 'New project selected'; }}
+                        callback={() => {
+                            selected = 'New project selected';
+                        }}
                     >
                         <HugeiconsIcon icon={Plus} size={14} />
                         New project
                     </Command.Item>
                     <Command.Item
                         name="Settings"
-                        callback={() => { selected = 'Settings selected'; }}
+                        callback={() => {
+                            selected = 'Settings selected';
+                        }}
                     >
                         <HugeiconsIcon icon={Settings} size={14} />
                         Settings
                     </Command.Item>
                 </Command.Group>
                 <Command.Group heading="Users">
-                    <Command.Item name="Team" callback={() => { selected = 'Team selected'; }}>
+                    <Command.Item
+                        name="Team"
+                        callback={() => {
+                            selected = 'Team selected';
+                        }}
+                    >
                         <HugeiconsIcon icon={Users} size={14} />
                         Team
                     </Command.Item>

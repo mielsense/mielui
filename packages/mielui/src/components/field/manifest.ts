@@ -15,7 +15,7 @@ export const manifest: Manifest = {
         'components/field/field-control.svelte',
         'components/field/index.ts',
         'components/field/metadata.ts',
-        'components/field/context.svelte.ts',
+        'components/field/context.ts',
         'components/field/manifest.ts'
     ],
     components: ['_internal/utils'],

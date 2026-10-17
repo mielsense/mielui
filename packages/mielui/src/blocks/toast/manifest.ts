@@ -15,7 +15,7 @@ import type { Manifest } from '@mielui/svelte/_manifest/types';
  */
 export const manifest: Manifest = {
     name: 'toast',
-    version: '3.0.0',
+    version: '3.1.0',
     visibility: 'public',
     description:
         'Toast notification system with body-portaled Toaster, free-function toast() API, and a shared client stack (SSR-safe).',
@@ -24,10 +24,12 @@ export const manifest: Manifest = {
         'actions/number-shuffle/render.ts',
         'components/toast/lib.svelte.ts',
         'components/toast/toaster.svelte',
+        'components/toast/stack.svelte.ts',
+        'components/toast/transitions.ts',
         'components/toast/notch-host.svelte',
         'components/toast/toast.svelte',
         'components/toast/variants.ts',
-        'components/toast/context.svelte.ts',
+        'components/toast/context.ts',
         'components/toast/parts.ts',
         'components/toast/toast-content.svelte',
         'components/toast/toast-footer.svelte',
@@ -46,7 +48,8 @@ export const manifest: Manifest = {
         'components/_internal/surface',
         'hugeicons-icon',
         'utils.cn',
-        'transition'
+        'transition',
+        'utils.createContext'
     ],
     peerDependencies: {
         '@humanspeak/svelte-motion': '^1.2.1',
@@ -55,6 +58,6 @@ export const manifest: Manifest = {
         cnfast: '^0.0.8',
         'tailwind-merge': '^3.0.0',
         'tailwind-variants': '^3.0.0',
-        svelte: '^5.0.0'
+        svelte: '^5.56.0'
     }
 };

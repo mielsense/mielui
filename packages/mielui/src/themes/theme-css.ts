@@ -11,10 +11,41 @@ import {
 } from './theme-contract';
 import { parseTheme } from './theme-parse';
 
-const RADII: Record<RadiusScale, readonly [string, string, string, string]> = {
-    sharp: ['2px', '4px', '6px', '8px'],
-    default: ['8px', '10px', '14px', '20px'],
-    rounded: ['10px', '14px', '18px', '24px']
+type RadiusSet = {
+    sm: string;
+    md: string;
+    lg: string;
+    xl: string;
+    plate: string;
+    control: string;
+};
+
+/** Plates take `plate`, floating panels `xl`, and everything pressable takes `control`. */
+const RADII: Record<RadiusScale, RadiusSet> = {
+    sharp: {
+        sm: '2px',
+        md: '4px',
+        lg: '6px',
+        xl: '8px',
+        plate: '10px',
+        control: '4px'
+    },
+    default: {
+        sm: '8px',
+        md: '10px',
+        lg: '14px',
+        xl: '18px',
+        plate: '26px',
+        control: '12px'
+    },
+    rounded: {
+        sm: '10px',
+        md: '14px',
+        lg: '18px',
+        xl: '22px',
+        plate: '30px',
+        control: '9999px'
+    }
 };
 
 const DENSITY_UNIT: Record<Density, string> = {
@@ -44,106 +75,137 @@ const MOTION: Record<MotionFeel, MotionSet> = {
         toastOut: '0ms'
     },
     subtle: {
-        hover: '90ms',
-        menu: '30ms',
-        panel: '130ms',
-        sheet: '220ms',
-        overlay: '90ms',
-        toastIn: '240ms',
-        toastOut: '180ms'
+        hover: '110ms',
+        menu: '40ms',
+        panel: '150ms',
+        sheet: '300ms',
+        overlay: '110ms',
+        toastIn: '280ms',
+        toastOut: '140ms'
     },
     default: {
-        hover: '120ms',
-        menu: '40ms',
-        panel: '180ms',
-        sheet: '320ms',
-        overlay: '120ms',
-        toastIn: '320ms',
-        toastOut: '240ms'
+        hover: '150ms',
+        menu: '60ms',
+        panel: '200ms',
+        sheet: '420ms',
+        overlay: '150ms',
+        toastIn: '300ms',
+        toastOut: '180ms'
     },
     expressive: {
-        hover: '180ms',
+        hover: '200ms',
         menu: '120ms',
-        panel: '260ms',
-        sheet: '400ms',
-        overlay: '160ms',
-        toastIn: '400ms',
-        toastOut: '300ms'
+        panel: '280ms',
+        sheet: '520ms',
+        overlay: '200ms',
+        toastIn: '480ms',
+        toastOut: '240ms'
     }
 };
 
 const NEUTRAL_STEPS = [0, 10, 50, 100, 150, 300, 500, 900] as const;
 type NeutralRamp = Record<(typeof NEUTRAL_STEPS)[number], string>;
 
-// Immutable source values keep generated declarations acyclic in every mode.
+/**
+ * Immutable source values keep generated declarations acyclic in every mode.
+ * Step 0 is the plate and step 10 is the stage in every ramp. The plate is white
+ * on a tinted stage in light mode and the darkest surface in dark mode.
+ * Tints stay faint: a strong hue at low lightness reads as brown or navy.
+ */
 const NEUTRALS: Record<NeutralTemp, { light: NeutralRamp; dark: NeutralRamp }> = {
     warm: {
         light: {
             0: 'hsl(0 0% 100%)',
-            10: 'hsl(60 11.1% 99.2%)',
-            50: 'hsl(60 11.1% 96.5%)',
-            100: 'hsl(60 6.2% 93.7%)',
-            150: 'hsl(60 4.2% 90.6%)',
-            300: 'hsl(60 4.4% 82.4%)',
-            500: 'hsl(60 3% 41.5%)',
-            900: 'hsl(60 5.7% 10.4%)'
+            10: 'hsl(48 12% 96.5%)',
+            50: 'hsl(48 9% 94.5%)',
+            100: 'hsl(48 8% 91.5%)',
+            150: 'hsl(48 6% 89%)',
+            300: 'hsl(48 5% 81%)',
+            500: 'hsl(48 3% 42%)',
+            900: 'hsl(48 6% 15%)'
         },
         dark: {
-            0: 'hsl(0 0% 5%)',
-            10: 'hsl(60 11.1% 7%)',
-            50: 'hsl(0 0% 10%)',
-            100: 'hsl(0 0% 13%)',
-            150: 'hsl(0 0% 15.7%)',
-            300: 'hsl(0 0% 22.7%)',
-            500: 'hsl(0 0% 65%)',
-            900: 'hsl(0 0% 93%)'
+            0: 'hsl(40 3% 5.5%)',
+            10: 'hsl(40 4% 8.5%)',
+            50: 'hsl(40 3% 10.5%)',
+            100: 'hsl(40 3% 14%)',
+            150: 'hsl(40 3% 16.5%)',
+            300: 'hsl(40 3% 23.5%)',
+            500: 'hsl(40 3% 60%)',
+            900: 'hsl(40 6% 93%)'
         }
     },
+    /** The default ramp: one ink on a grey stage, with a white plate above it. */
     true: {
         light: {
-            0: 'hsl(0 0% 100%)',
-            10: 'hsl(0 0% 99%)',
-            50: 'hsl(0 0% 96%)',
-            100: 'hsl(0 0% 93%)',
-            150: 'hsl(0 0% 90%)',
-            300: 'hsl(0 0% 82%)',
-            500: 'hsl(0 0% 42%)',
-            900: 'hsl(0 0% 10%)'
+            0: '#ffffff',
+            10: '#f6f6f6',
+            50: '#f1f1f1',
+            100: '#e9e9e9',
+            150: '#e3e3e3',
+            300: '#cfcfcf',
+            500: '#6d6d6d',
+            900: '#292929'
         },
         dark: {
-            0: 'hsl(0 0% 5%)',
-            10: 'hsl(0 0% 7%)',
-            50: 'hsl(0 0% 10%)',
-            100: 'hsl(0 0% 13%)',
-            150: 'hsl(0 0% 16%)',
-            300: 'hsl(0 0% 23%)',
-            500: 'hsl(0 0% 65%)',
-            900: 'hsl(0 0% 93%)'
+            0: '#131313',
+            10: '#1a1a1a',
+            50: '#1e1e1e',
+            100: '#262626',
+            150: '#2c2c2c',
+            300: '#3d3d3d',
+            500: '#969696',
+            900: '#ededed'
         }
     },
     cool: {
         light: {
             0: 'hsl(220 20% 100%)',
-            10: 'hsl(220 20% 99%)',
-            50: 'hsl(220 16% 96%)',
-            100: 'hsl(220 14% 93%)',
-            150: 'hsl(220 12% 90%)',
+            10: 'hsl(220 16% 96.5%)',
+            50: 'hsl(220 14% 94.5%)',
+            100: 'hsl(220 13% 91.5%)',
+            150: 'hsl(220 12% 89%)',
             300: 'hsl(220 10% 81%)',
             500: 'hsl(220 8% 42%)',
-            900: 'hsl(220 12% 10%)'
+            900: 'hsl(220 12% 14%)'
         },
         dark: {
-            0: 'hsl(220 12% 5%)',
-            10: 'hsl(220 12% 7%)',
-            50: 'hsl(220 11% 10%)',
-            100: 'hsl(220 10% 13%)',
-            150: 'hsl(220 9% 16%)',
-            300: 'hsl(220 8% 23%)',
-            500: 'hsl(220 7% 65%)',
+            0: 'hsl(220 7% 5.5%)',
+            10: 'hsl(220 9% 8.5%)',
+            50: 'hsl(220 7% 10.5%)',
+            100: 'hsl(220 7% 14%)',
+            150: 'hsl(220 7% 16.5%)',
+            300: 'hsl(220 7% 23.5%)',
+            500: 'hsl(220 6% 62%)',
             900: 'hsl(220 10% 93%)'
         }
     }
 };
+
+/** How far each motion feel stretches the spring, pop, flick, and item durations. */
+const MOTION_SCALE: Record<MotionFeel, number> = {
+    none: 0,
+    subtle: 0.75,
+    default: 1,
+    expressive: 1.25
+};
+
+const SPRING_DURATIONS = {
+    '--motion-duration-spring': 280,
+    '--motion-duration-pop': 400,
+    '--motion-duration-flick': 240,
+    '--motion-duration-item': 110,
+    '--motion-duration-panel-in': 220,
+    '--motion-duration-modal-in': 400
+} as const;
+
+function springDeclarations(feel: MotionFeel): string[] {
+    const scale = MOTION_SCALE[feel];
+
+    return Object.entries(SPRING_DURATIONS).map(([token, milliseconds]) => {
+        return `${token}: ${Math.round(milliseconds * scale)}ms;`;
+    });
+}
 
 function block(selector: string, declarations: string[]): string {
     return `${selector} {\n${declarations.map((declaration) => `\t${declaration}`).join('\n')}\n}\n`;
@@ -158,8 +220,8 @@ function brandDeclarations(brand: string, mode: 'light' | 'dark') {
     return [
         `--color-primary: ${brand};`,
         `--color-primary-hover: color-mix(in srgb, ${brand} ${isDefault ? '88%, white' : '78%, black'});`,
-        `--color-on-primary: ${isDefault && mode === 'dark' ? '#21151e' : '#ffffff'};`,
-        `--color-ring: color-mix(in srgb, ${brand} 80%, transparent);`,
+        `--color-on-primary: ${isDefault ? '#21151e' : '#ffffff'};`,
+        `--color-ring: color-mix(in srgb, ${brand} 50%, transparent);`,
         `--mielui-blue-500: ${brand};`,
         `--mielui-blue-50: color-mix(in srgb, ${brand} 12%, ${mode === 'light' ? 'white' : 'black'});`
     ];
@@ -238,28 +300,28 @@ function typographyDeclarations(typography: ThemeTypography | undefined): string
 function elevationDeclarations(mode: 'light' | 'dark'): string[] {
     return mode === 'light'
         ? [
-              '--elevation-control-edge: inset 0 1px 0 0 rgb(255 255 255 / calc(0.38 * var(--mielui-edge-highlight))), inset 0 -1px 0 0 rgb(15 15 16 / 0.06);',
+              '--elevation-control-edge: inset 0 1px 0 0 rgb(255 255 255 / calc(0.7 * var(--mielui-edge-highlight))), inset 0 -1px 0 0 rgb(0 0 0 / 0.05);',
               '--mielui-toolbar-face: linear-gradient(to bottom, rgb(255 255 255 / calc(0.045 * var(--mielui-edge-highlight))), rgb(0 0 0 / 0.04));',
-              '--mielui-toolbar-raised: var(--elevation-control-edge), inset 0 0 0 var(--border-size) var(--color-border), 0 1px 0 var(--color-border), 0 2px 2px rgb(0 0 0 / 0.12);',
+              '--mielui-toolbar-raised: var(--elevation-control-edge), inset 0 0 0 var(--border-size) var(--color-border), 0 1px 0 var(--color-border), 0 2px 2px rgb(0 0 0 / 0.08);',
               '--mielui-toolbar-pressed: inset 0 0 0 var(--border-size) var(--color-border), inset 0 1px 2px rgb(0 0 0 / 0.1);',
-              '--elevation-surface-edge: inset 0 1px 0 0 rgb(255 255 255 / calc(0.55 * var(--mielui-edge-highlight)));',
-              '--elevation-1: var(--elevation-surface-edge), 0 4px 2px rgb(0 0 0 / 0.04);',
-              '--elevation-float: var(--elevation-surface-edge), 0 8px 24px -8px rgb(0 0 0 / 0.12), 0 2px 6px rgb(0 0 0 / 0.06);',
-              '--elevation-modal: var(--elevation-surface-edge), 0 16px 40px -16px rgb(0 0 0 / 0.28), 0 4px 12px -6px rgb(0 0 0 / 0.14);',
-              '--elevation-control: inset 0 0 0 var(--border-size) var(--color-border), inset 0 -2px 3px -2px rgb(15 15 16 / 0.08), inset 0 1px 0 0 rgb(255 255 255 / calc(0.4 * var(--mielui-edge-highlight)));',
-              '--elevation-button-outline: inset 0 0 0 var(--border-size) var(--color-border), inset 0 -2px 3px -2px rgb(15 15 16 / 0.08), inset 0 1px 0 0 rgb(255 255 255 / calc(0.45 * var(--mielui-edge-highlight))), 0 1px 1px rgb(28 25 23 / 0.06), 0 2px 4px -4px rgb(28 25 23 / 0.22);'
+              '--elevation-surface-edge: inset 0 1px 0 0 rgb(255 255 255 / 0);',
+              '--elevation-1: 0 1px 2px rgb(0 0 0 / 0.06);',
+              '--elevation-float: 0 1px 2px rgb(0 0 0 / 0.08), 0 8px 24px rgb(0 0 0 / 0.08);',
+              '--elevation-modal: 0 1px 2px rgb(0 0 0 / 0.08), 0 16px 48px -8px rgb(0 0 0 / 0.16);',
+              '--elevation-control: inset 0 0 0 var(--border-size) var(--color-input);',
+              '--elevation-button-outline: inset 0 0 0 var(--border-size) var(--color-input), inset 0 1px 0 0 rgb(255 255 255 / calc(0.9 * var(--mielui-edge-highlight))), 0 1px 2px rgb(0 0 0 / 0.05);'
           ]
         : [
-              '--elevation-control-edge: inset 0 1px 0 0 rgb(255 255 255 / calc(0.07 * var(--mielui-edge-highlight))), inset 0 -1px 0 0 rgb(0 0 0 / 0.22);',
+              '--elevation-control-edge: inset 0 1px 0 0 rgb(255 255 255 / calc(0.14 * var(--mielui-edge-highlight))), inset 0 -1px 0 0 rgb(0 0 0 / 0.2);',
               '--mielui-toolbar-face: linear-gradient(to bottom, rgb(255 255 255 / calc(0.045 * var(--mielui-edge-highlight))), rgb(0 0 0 / 0.04));',
               '--mielui-toolbar-raised: inset 0 1px 0 rgb(255 255 255 / calc(0.18 * var(--mielui-edge-highlight))), inset 0 -1px 0 rgb(0 0 0 / 0.2), 0 0 0 var(--border-size) rgb(0 0 0 / 0.6), 0 1px 0 1px rgb(0 0 0 / 0.45), 0 2px 3px rgb(0 0 0 / 0.2);',
               '--mielui-toolbar-pressed: inset 0 0 0 var(--border-size) rgb(0 0 0 / 0.35), inset 0 1px 2px rgb(0 0 0 / 0.3);',
-              '--elevation-surface-edge: inset 0 1px 0 0 rgb(255 255 255 / calc(0.07 * var(--mielui-edge-highlight)));',
-              '--elevation-1: var(--elevation-surface-edge), 0 1px 2px rgb(0 0 0 / 0.4);',
-              '--elevation-float: var(--elevation-surface-edge), 0 12px 32px -8px rgb(0 0 0 / 0.6), 0 2px 8px rgb(0 0 0 / 0.4);',
-              '--elevation-modal: var(--elevation-surface-edge), 0 24px 56px -16px rgb(0 0 0 / 0.7), 0 6px 16px -6px rgb(0 0 0 / 0.5);',
-              '--elevation-control: inset 0 0 0 var(--border-size) var(--color-border), inset 0 -2px 3px -2px rgb(0 0 0 / 0.32), inset 0 1px 0 0 rgb(255 255 255 / calc(0.05 * var(--mielui-edge-highlight)));',
-              '--elevation-button-outline: inset 0 0 0 var(--border-size) var(--color-border), inset 0 -2px 3px -2px rgb(0 0 0 / 0.32), inset 0 1px 0 0 rgb(255 255 255 / calc(0.05 * var(--mielui-edge-highlight))), 0 1px 2px rgb(0 0 0 / 0.3);'
+              '--elevation-surface-edge: inset 0 1px 0 0 rgb(255 255 255 / calc(0.08 * var(--mielui-edge-highlight)));',
+              '--elevation-1: var(--elevation-surface-edge), 0 1px 2px rgb(0 0 0 / 0.3);',
+              '--elevation-float: var(--elevation-surface-edge), 0 1px 2px rgb(0 0 0 / 0.4), 0 12px 32px rgb(0 0 0 / 0.45);',
+              '--elevation-modal: var(--elevation-surface-edge), 0 1px 2px rgb(0 0 0 / 0.4), 0 24px 56px -8px rgb(0 0 0 / 0.6);',
+              '--elevation-control: inset 0 0 0 var(--border-size) var(--color-input);',
+              '--elevation-button-outline: inset 0 0 0 var(--border-size) var(--color-input), inset 0 1px 0 0 rgb(255 255 255 / calc(0.1 * var(--mielui-edge-highlight))), 0 1px 2px rgb(0 0 0 / 0.3);'
           ];
 }
 
@@ -284,8 +346,8 @@ function chromeBlocks(chrome: ThemeChrome): string {
             '--mielui-toolbar-raised: inset 0 0 0 var(--border-size) var(--color-border);',
             '--mielui-toolbar-pressed: inset 0 0 0 var(--border-size) var(--color-border);',
             '--elevation-control-edge: 0 0 0 0 transparent;',
-            '--elevation-control: inset 0 0 0 var(--border-size) var(--color-border);',
-            '--elevation-button-outline: inset 0 0 0 var(--border-size) var(--color-border);'
+            '--elevation-control: inset 0 0 0 var(--border-size) var(--color-input);',
+            '--elevation-button-outline: inset 0 0 0 var(--border-size) var(--color-input);'
         );
     }
     const shared = [`--ui-cursor-interactive: ${chrome.interactiveCursor ?? 'default'};`];
@@ -312,7 +374,7 @@ function chromeBlocks(chrome: ThemeChrome): string {
 /** Generates complete, acyclic overrides for every public theme axis. */
 export function themeToCss(themeInput: Theme): string {
     const theme = parseTheme(themeInput);
-    const [radiusSm, radiusMd, radiusLg, radiusXl] = RADII[theme.radius];
+    const radius = RADII[theme.radius];
     const motion = MOTION[theme.motion];
     const chrome = { ...DEFAULT_THEME.chrome, ...theme.chrome };
     const borderInsetScale = chrome.borders === 'double' ? 1 : 0;
@@ -323,15 +385,17 @@ export function themeToCss(themeInput: Theme): string {
         '--chart-4: #8ed8b0;',
         '--chart-5: #f2d77d;',
         `--mielui-border-inset-scale: ${borderInsetScale};`,
-        `--mielui-edge-highlight: ${chrome.edgeHighlight ?? 0.5};`,
+        `--mielui-edge-highlight: ${chrome.edgeHighlight ?? 0.33};`,
         ...tokenMapDeclarations(DEFAULT_THEME.tokens?.shared),
         `--font-sans: ${theme.fontSans};`,
         `--font-mono: ${theme.fontMono};`,
         `--font-header: ${theme.fontHeader};`,
-        `--radius-sm: ${radiusSm};`,
-        `--radius-md: ${radiusMd};`,
-        `--radius-lg: ${radiusLg};`,
-        `--radius-xl: ${radiusXl};`,
+        `--radius-sm: ${radius.sm};`,
+        `--radius-md: ${radius.md};`,
+        `--radius-lg: ${radius.lg};`,
+        `--radius-xl: ${radius.xl};`,
+        `--radius-2xl: ${radius.plate};`,
+        `--radius-control: ${radius.control};`,
         `--mielui-space-unit: ${DENSITY_UNIT[theme.density]};`,
         `--motion-duration-hover: ${motion.hover};`,
         `--motion-duration-menu: ${motion.menu};`,
@@ -340,16 +404,14 @@ export function themeToCss(themeInput: Theme): string {
         `--motion-duration-sheet-out: ${scaleMotionMs(motion.sheet, 0.7)};`,
         `--motion-duration-overlay: ${motion.overlay};`,
         `--motion-duration-toast-in: ${motion.toastIn};`,
-        `--motion-duration-toast-out: ${motion.toastOut};`
+        `--motion-duration-toast-out: ${motion.toastOut};`,
+        ...springDeclarations(theme.motion)
     ];
     if (theme.motion === 'none') {
         shared.push(
-            '--motion-duration-panel-in: 0ms;',
             '--motion-duration-panel-out: 0ms;',
-            '--motion-duration-modal-in: 0ms;',
             '--motion-duration-modal-out: 0ms;',
-            '--motion-duration-press: 0ms;',
-            '--motion-duration-item: 0ms;'
+            '--motion-duration-press: 0ms;'
         );
     }
 

@@ -3,8 +3,6 @@
     import { Input } from '@mielui/svelte/components/input';
     import * as Popover from '@mielui/svelte/components/popover';
 
-    let { surface }: { surface?: 'solid' | 'glass' } = $props();
-
     let email = $state('');
     let members = $state(['alex@example.com']);
     let message = $state('');
@@ -35,7 +33,7 @@
 
 <Popover.Root placement="bottom">
     <Popover.Trigger variant="outline">Share project</Popover.Trigger>
-    <Popover.Content {surface} class="w-80 max-w-[calc(100vw-var(--spacing)*8)]">
+    <Popover.Content class="w-80 max-w-[calc(100vw-var(--spacing)*8)]">
         <div class="flex flex-col gap-3">
             <div class="space-y-1">
                 <Popover.Title class="text-sm font-medium">Share project</Popover.Title>
@@ -71,7 +69,7 @@
                     </li>
                 {/each}
             </ul>
-            <div class="flex items-center justify-between gap-2 border-t border-border pt-2">
+            <div class="flex items-center justify-between gap-2">
                 <span class="text-xs text-foreground-muted">Documentation</span>
                 <Button variant="ghost" size="sm" onclick={copyLink}>Copy link</Button>
             </div>

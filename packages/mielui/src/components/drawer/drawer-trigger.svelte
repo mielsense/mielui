@@ -11,6 +11,7 @@
         ...rest
     }: DrawerTriggerProps = $props();
 </script>
+
 <Primitive.Trigger {...rest} bind:ref={element}>
     {#snippet child({ props })}
         <button

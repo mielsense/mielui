@@ -1,10 +1,10 @@
 <script lang="ts">
-    import type { PopoverContentProps } from '@mielui/svelte/components/popover';
     import { cn, inertOutside } from '@mielui/svelte/utils';
     import { Combobox as ComboboxPrimitive, mergeProps } from 'bits-ui';
     import { overlaySurface } from '../_internal/surface';
+    import type { ComboboxContentProps } from '.';
     import ComboboxSearch from './combobox-search.svelte';
-    import { getComboboxContext } from './context.svelte';
+    import { getComboboxContext } from './context';
 
     let {
         children,
@@ -18,10 +18,9 @@
         refElement,
         role = 'none',
         tabindex = -1,
-        focusTrap: _focusTrap,
         lockScroll = true,
         ...rest
-    }: PopoverContentProps = $props();
+    }: ComboboxContentProps = $props();
     const context = getComboboxContext();
     const { state } = context;
     const side = $derived.by(() => {
@@ -37,13 +36,13 @@
         }
         return 'bottom';
     });
-    const align = $derived(
-        refElement || context.placement.endsWith('start')
-            ? 'start'
-            : context.placement.endsWith('end')
-              ? 'end'
-              : 'center'
-    );
+    const align = $derived.by(() => {
+        if (refElement || context.placement.endsWith('start')) {
+            return 'start';
+        }
+
+        return context.placement.endsWith('end') ? 'end' : 'center';
+    });
     const anchor = $derived(
         refElement
             ? {
@@ -73,10 +72,13 @@
         {side}
         {align}
         sideOffset={6}
+        collisionPadding={8}
         customAnchor={anchor}
         preventScroll={state.open && lockScroll && !context.hoverable}
         onInteractOutside={(event) => {
-            if (!allowClickOutside || (event.target instanceof Node && context.anchor?.contains(event.target))) {
+            const insideAnchor =
+                event.target instanceof Node && context.anchor?.contains(event.target);
+            if (!allowClickOutside || insideAnchor) {
                 event.preventDefault();
                 return;
             }
@@ -84,9 +86,17 @@
         }}
     >
         {#snippet child({ props, wrapperProps, open })}
-            <div {...wrapperProps} data-overlay-root class="z-[130]">
+            <div
+                {...wrapperProps}
+                data-overlay-root
+                class={cn('z-[130]', !open && 'pointer-events-none!')}
+            >
+                <!-- svelte-ignore a11y_no_noninteractive_tabindex -->
                 <div
-                    {...mergeProps(props, { onmouseenter: context.cancelHover, onmouseleave: context.hoverLeave })}
+                    {...mergeProps(props, {
+                        onmouseenter: context.cancelHover,
+                        onmouseleave: context.hoverLeave
+                    })}
                     bind:this={context.panel}
                     dir={rest.dir}
                     {role}
@@ -98,8 +108,10 @@
                     class={cn(
                         className,
                         overlaySurface(surface),
-                        'mielui-modal-frame [--mielui-border-inset-scale:0] z-[130] flex max-h-[var(--bits-combobox-content-available-height)] max-w-[var(--bits-combobox-content-available-width)] w-[var(--bits-combobox-anchor-width)] min-w-[var(--bits-combobox-anchor-width)] flex-col overflow-hidden text-sm text-foreground shadow-[var(--elevation-float)] [--mielui-modal-inset:calc(var(--spacing)*0.5*var(--mielui-border-inset-scale,1))] outline-none origin-[var(--bits-combobox-content-transform-origin)] [transition-duration:var(--motion-duration-panel)] ease-[var(--ease-out)] motion-reduce:transition-none',
-                        open ? 'visible scale-100 opacity-100 blur-none transition-[opacity,scale,filter]' : 'invisible scale-[0.98] opacity-0 blur-[var(--motion-menu-blur)] transition-[opacity,scale,filter,visibility]'
+                        'mielui-float-frame z-[130] flex max-h-[var(--bits-combobox-content-available-height)] max-w-[var(--bits-combobox-content-available-width)] w-[var(--bits-combobox-anchor-width)] min-w-[var(--bits-combobox-anchor-width)] flex-col overflow-hidden text-sm text-foreground shadow-[var(--elevation-float)] outline-none origin-[var(--bits-combobox-content-transform-origin)] motion-reduce:transition-none',
+                        open
+                            ? 'visible translate-y-0 scale-100 opacity-100 blur-none transition-[opacity,filter,scale,translate] [transition-duration:var(--motion-duration-hover),var(--motion-duration-hover),var(--motion-duration-panel-in),var(--motion-duration-panel-in)] [transition-timing-function:var(--ease-out),var(--ease-out),var(--ease-spring-panel),var(--ease-spring-panel)]'
+                            : 'invisible -translate-y-[var(--motion-menu-y)] data-[side=top]:translate-y-[var(--motion-menu-y)] scale-[var(--motion-menu-scale-start)] opacity-0 blur-[var(--motion-menu-blur)] transition-[opacity,filter,scale,translate,visibility] [transition-duration:var(--motion-duration-panel-out)] ease-[var(--ease-out)]'
                     )}
                 >
                     <div

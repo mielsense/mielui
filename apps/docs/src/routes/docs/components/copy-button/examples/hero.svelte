@@ -9,8 +9,10 @@
         <code class="text-sm">pnpm add @mielui/svelte</code>
         <CopyButton
             text="pnpm add @mielui/svelte"
-            label="Copy install command"
-            oncopy={() => { copied = true; }}
+            labels={{ copy: 'Copy install command' }}
+            oncopy={() => {
+                copied = true;
+            }}
         />
     </div>
     <p role="status" class="text-sm text-foreground-muted">

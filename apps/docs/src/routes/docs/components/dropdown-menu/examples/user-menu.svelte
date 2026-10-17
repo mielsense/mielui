@@ -13,7 +13,7 @@
 </script>
 
 <DropdownMenu.Root>
-    <DropdownMenu.Trigger variant="outline" size="md">
+    <DropdownMenu.Trigger variant="outline">
         <HugeiconsIcon icon={User} size={13} />
         mielsense
         <HugeiconsIcon icon={ChevronDown} size={11} class="text-foreground-muted" />

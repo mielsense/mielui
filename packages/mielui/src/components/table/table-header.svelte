@@ -1,14 +1,10 @@
 <script lang="ts">
     import { cn } from '@mielui/svelte/utils';
-    import type { HTMLAttributes } from 'svelte/elements';
+    import type { TableHeaderProps } from '.';
 
-    let { children, class: className, ...rest }: HTMLAttributes<HTMLTableSectionElement> = $props();
+    let { children, class: className, ...rest }: TableHeaderProps = $props();
 </script>
 
-<thead
-    {...rest}
-    data-ui="table-header"
-    class={cn(className, 'text-foreground-muted [&_th]:bg-secondary/40')}
->
+<thead {...rest} data-ui="table-header" class={cn(className, 'text-foreground-muted')}>
     {@render children?.()}
 </thead>

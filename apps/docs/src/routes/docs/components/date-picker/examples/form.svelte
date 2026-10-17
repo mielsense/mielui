@@ -12,7 +12,13 @@
     class="grid w-full max-w-lg gap-3"
     onsubmit={(event) => {
         event.preventDefault();
-        submitted = Array.from(new FormData(event.currentTarget).entries()).map(([name, entry]) => `${name}=${entry}`).join(', ');
+        const entries = Array.from(new FormData(event.currentTarget).entries());
+
+        submitted = entries
+            .map(([name, entry]) => {
+                return `${name}=${entry}`;
+            })
+            .join(', ');
         readonly = true;
     }}
     onreset={() => {
@@ -35,7 +41,9 @@
                 <DatePicker.Trigger />
             </div>
         </div>
-        <DatePicker.Content align="end"><DatePicker.Calendar /></DatePicker.Content>
+        <DatePicker.Content align="end">
+            <DatePicker.Calendar />
+        </DatePicker.Content>
     </DatePicker.Root>
     <p class="text-sm text-foreground-muted">
         Choose a date between September and December 2026. Saving makes the field read-only.

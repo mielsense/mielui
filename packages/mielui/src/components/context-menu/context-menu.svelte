@@ -1,7 +1,7 @@
 <script lang="ts">
     import { ContextMenu as MenuPrimitive } from 'bits-ui';
     import type { ContextMenuProps } from '.';
-    import { setContextMenuContext } from './context.svelte';
+    import { setContextMenuContext } from './context';
 
     let { children, open = $bindable(false), onOpenChange }: ContextMenuProps = $props();
     setContextMenuContext({
@@ -13,8 +13,7 @@
                 open = next;
             },
             checkboxItems: new Map()
-        },
-        ancestors: []
+        }
     });
 </script>
 

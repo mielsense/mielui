@@ -12,6 +12,8 @@ chore(repo): initialize mielui from sivir ui
 
 Allowed types: `feat`, `fix`, `docs`, `style`, `refactor`, `perf`, `test`, `build`, `ci`, `chore`, `revert`. Use `!` before the colon for a breaking change.
 
+Components follow the visual contracts in [DESIGN.md](DESIGN.md) and the state, context, and file conventions under Component Architecture in [AGENTS.md](AGENTS.md). Read both before adding or changing a component.
+
 Run `pnpm run format:check` and `pnpm run lint` before committing. CI also checks types, tests, builds, and package installation. Add a changelog entry for user-visible changes.
 
 Release tags use `v<package version>`. Mielui versions releases independently of Sivir UI. Creating a tag does not publish to npm. For each release, update the package version, finish its changelog, and follow SETUP.md.

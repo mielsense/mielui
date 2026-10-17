@@ -2,25 +2,22 @@
     import { Toaster } from '@mielui/svelte/components/toast';
     import { getStoredLiveThemeCss, hydrateLiveThemeCss } from '@mielui/svelte/themes/live';
     import { ModeWatcher } from 'mode-watcher';
-    import { getBreadcrumbs } from '$lib/components/docs/breadcrumbs';
     import CopyPage from '$lib/components/docs/copy-page.svelte';
     import Navigation from '$lib/components/docs/navigation.svelte';
     import NavigationSheet from '$lib/components/docs/navigation-sheet.svelte';
     import { stayOnPage } from '$lib/components/docs/stay-on-page';
     import { setSearch } from '$lib/components/search/context';
     import SiteSearch from '$lib/components/search/palette.svelte';
-    import MobileActions from '$lib/components/shell/mobile-actions.svelte';
-    import { pageIcon, usesDocsSidebar } from '$lib/components/shell/page-icon';
-    import PageTabs from '$lib/components/shell/page-tabs.svelte';
+    import Header from '$lib/components/shell/header.svelte';
+    import PageDock from '$lib/components/shell/page-dock.svelte';
+    import { usesDocsSidebar } from '$lib/components/shell/page-icon';
     import Rail from '$lib/components/shell/rail.svelte';
     import ScrollEdge from '$lib/components/shell/scroll-edge.svelte';
-    import { fadeY, scrollFade } from '$lib/components/shell/scroll-fade';
+    import { fadeYStart, scrollFade } from '$lib/components/shell/scroll-fade';
     import SectionTrail from '$lib/components/shell/section-trail.svelte';
     import { createShell, setShell } from '$lib/components/shell/shell.svelte';
     import Sidebar from '$lib/components/shell/sidebar.svelte';
     import SidebarCard from '$lib/components/shell/sidebar-card.svelte';
-    import TabPill from '$lib/components/shell/tab-pill.svelte';
-    import Topbar from '$lib/components/shell/topbar.svelte';
     import { setStudioContext } from '$lib/studio-context';
     import '@mielui/svelte/ui.css';
     import '../app.css';
@@ -30,6 +27,7 @@
     import { afterNavigate } from '$app/navigation';
     import { page } from '$app/state';
     import { createDocsFontState, DEFAULT_FONT, fonts } from '$lib/fonts.svelte';
+    import { themeBootScript } from '$lib/theme-boot';
 
     import type { LayoutData } from './$types';
 
@@ -43,14 +41,13 @@
 
     injectAnalytics({ mode: dev ? 'development' : 'production' });
 
-    const { children, data }: { children: Snippet; data: LayoutData } = $props();
+    let { children, data }: { children: Snippet; data: LayoutData } = $props();
 
     const isPreview = $derived(page.url.pathname.startsWith('/preview/'));
     const isHome = $derived(page.url.pathname === '/');
     const isDocs = $derived(page.url.pathname.startsWith('/docs'));
     const isThemeStudio = $derived(page.url.pathname.startsWith('/studio'));
     const hasSidebar = $derived(usesDocsSidebar(page.url.pathname));
-    const pageLabel = $derived(getBreadcrumbs(page.url.pathname).at(-1)?.label ?? 'mielui');
 
     // `--font-header` defaults to `var(--font-sans)`, so one custom property re-skins every page.
     $effect(() => {
@@ -84,6 +81,8 @@
 </script>
 
 <svelte:head>
+    <!-- Trusted, built from constants: applies the saved theme before the first paint. -->
+    {@html themeBootScript}
     {#if isPreview}
         <title>Mielui · Preview</title>
     {/if}
@@ -120,90 +119,87 @@
         onclickcapture={stayOnPage}
         class="min-h-dvh bg-[color-mix(in_oklab,var(--color-background),var(--color-secondary)_10%)]"
     >
-        {@render children?.()}
+        {@render children()}
     </main>
 {:else if isHome}
     <main
-        class="min-h-dvh w-screen bg-background [--docs-rule:color-mix(in_oklab,var(--color-border)_62%,transparent)] [--docs-soft:color-mix(in_oklab,var(--color-secondary)_55%,var(--color-background))]"
+        class="min-h-dvh w-screen bg-background [--docs-rule:var(--color-border)] [--docs-soft:var(--color-wash)]"
     >
         <div class="relative mx-auto flex min-h-dvh w-full max-w-none flex-col">
-            {@render children?.()}
+            {@render children()}
         </div>
     </main>
 {:else}
-    <main
-        class="fixed inset-0 flex overflow-clip bg-[var(--docs-content)] [--docs-row-height:calc(var(--spacing)*14)] [--docs-rule:color-mix(in_oklab,var(--color-border)_62%,transparent)] [--docs-content:var(--color-card)] [--docs-chrome:color-mix(in_oklab,var(--color-secondary)_97%,white)] [--docs-side:var(--color-background)] [--docs-soft:color-mix(in_oklab,var(--color-secondary)_55%,var(--color-background))] [--docs-pill:color-mix(in_oklab,var(--color-secondary)_62%,var(--color-background))] dark:[--docs-content:color-mix(in_oklab,var(--color-card)_35%,var(--color-background))] dark:[--docs-side:var(--docs-content)] dark:[--docs-chrome:color-mix(in_oklab,var(--color-background),var(--color-secondary)_20%)] dark:[--docs-soft:color-mix(in_oklab,var(--color-secondary)_55%,var(--color-card))] dark:[--docs-pill:color-mix(in_oklab,var(--color-secondary)_80%,var(--color-card))]"
+    <div
+        class="fixed inset-0 isolate flex overflow-clip [--docs-row-height:calc(var(--spacing)*14)] [--docs-content:var(--color-card)] [--docs-pill:var(--color-wash)] [--docs-rule:var(--color-border)] [--docs-side:var(--color-card)] [--docs-soft:var(--color-wash)]"
     >
-        <Rail />
-        <div class="flex min-h-0 min-w-0 flex-1 overflow-clip">
-            {#if isThemeStudio}
-                {@render children?.()}
-            {:else}
-                {#if hasSidebar}
-                    <Sidebar label="Documentation" title="Documentation">
-                        <Navigation />
-                        {#snippet footer()}
-                            <SidebarCard />
-                        {/snippet}
-                    </Sidebar>
-                {/if}
-                <div class="flex min-h-0 min-w-0 flex-1 flex-col">
-                    {#if isDocs}
-                        <div bind:this={docsScrollEl} class="min-h-0 min-w-0 flex-1">
-                            {@render children?.()}
-                        </div>
+        <div aria-hidden="true" class="absolute inset-0 -z-10 bg-[#060606]"></div>
+        <Rail starCount={data.starCount ?? null} />
+        <div class="flex min-h-0 min-w-0 flex-1 flex-col">
+            <div class="dark text-foreground lg:hidden">
+                <Header starCount={data.starCount ?? null}>
+                    {#snippet leading()}
+                        <NavigationSheet />
+                    {/snippet}
+                </Header>
+            </div>
+            <div
+                class="flex min-h-0 min-w-0 flex-1 overflow-clip px-1.5 pb-1.5 sm:px-2 sm:pb-2 lg:ps-0 lg:pt-2"
+            >
+                <div class="mielui-plate flex min-h-0 min-w-0 flex-1 overflow-clip">
+                    {#if isThemeStudio}
+                        {@render children()}
                     {:else}
-                        <div class="relative min-h-0 min-w-0 flex-1">
-                            <div
-                                bind:this={docsScrollEl}
-                                {@attach scrollFade({ size: 44, target: 'parent' })}
-                                class={`h-full overflow-y-auto overscroll-contain ${fadeY}`}
-                            >
-                                <div
-                                    class="flex w-full flex-col gap-5 px-5 pt-8 pb-16 sm:px-10 lg:flex-row lg:gap-0"
-                                >
-                                    {@render children?.()}
-                                </div>
-                            </div>
-                            <ScrollEdge edge="top" />
-                            <ScrollEdge edge="bottom" />
-                        </div>
-                    {/if}
-                    <Topbar>
-                        {#snippet leading()}
-                            <NavigationSheet />
-                        {/snippet}
                         {#if hasSidebar}
-                            <PageTabs />
-                        {:else}
-                            <span
-                                class="min-w-0 truncate text-sm font-medium text-foreground sm:hidden"
-                            >
-                                {pageLabel}
-                            </span>
-                            <div class="hidden sm:block">
-                                <TabPill
-                                    current
-                                    label={pageLabel}
-                                    icon={pageIcon(page.url.pathname)}
-                                    href={page.url.pathname}
-                                />
-                            </div>
+                            <Sidebar label="Documentation">
+                                <Navigation />
+                                {#snippet footer()}
+                                    <SidebarCard />
+                                {/snippet}
+                            </Sidebar>
                         {/if}
-                        {#snippet actions()}
-                            {#if isDocs && page.status < 400}
-                                <div class="hidden min-w-0 md:block">
-                                    <SectionTrail />
+                        <main
+                            data-shell-plate
+                            class="relative flex min-h-0 min-w-0 flex-1 flex-col overflow-clip"
+                        >
+                            {#if isDocs}
+                                <div bind:this={docsScrollEl} class="min-h-0 min-w-0 flex-1">
+                                    {@render children()}
                                 </div>
-                                <div class="hidden sm:block">
+                            {:else}
+                                <div class="relative min-h-0 min-w-0 flex-1">
+                                    <div
+                                        bind:this={docsScrollEl}
+                                        {@attach scrollFade({ size: 44, target: 'parent' })}
+                                        class={`h-full overflow-y-auto overscroll-contain ${fadeYStart}`}
+                                    >
+                                        <div
+                                            class="flex w-full flex-col gap-5 px-5 pt-8 pb-24 sm:px-10 lg:flex-row lg:gap-0"
+                                        >
+                                            {@render children()}
+                                        </div>
+                                    </div>
+                                    <ScrollEdge edge="top" />
+                                    <ScrollEdge edge="bottom" fill />
+                                </div>
+                            {/if}
+                            {#if isDocs && page.status < 400}
+                                <div
+                                    class="absolute end-3 top-3 z-30 hidden items-center rounded-[calc(var(--radius-control)+var(--spacing)*0.5)] p-0.5 border-[length:var(--border-size)] border-border bg-card/75 shadow-[var(--elevation-float)] backdrop-blur-xl backdrop-saturate-150 sm:flex [@media(prefers-reduced-transparency:reduce)]:bg-card"
+                                >
+                                    <div class="hidden min-w-0 lg:block">
+                                        <SectionTrail />
+                                    </div>
                                     <CopyPage />
                                 </div>
                             {/if}
-                            <MobileActions />
-                        {/snippet}
-                    </Topbar>
+                            {#if hasSidebar}
+                                <PageDock />
+                            {/if}
+                        </main>
+                    {/if}
                 </div>
-            {/if}
+            </div>
         </div>
-    </main>
+    </div>
 {/if}

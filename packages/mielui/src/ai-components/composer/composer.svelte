@@ -6,7 +6,7 @@
     import { overlaySurface } from '../../components/_internal/surface';
     import HugeiconsIcon from '../../hugeicons-icon.svelte';
     import type { ComposerProps, ComposerStatus } from '.';
-    import { setComposerContext } from './context.svelte';
+    import { setComposerContext, setComposerLabels } from './context';
 
     let {
         value = $bindable(''),
@@ -15,23 +15,21 @@
         generating,
         disabled = false,
         allowEmpty = false,
-        errorMessage = 'Message could not be sent.',
         onSubmit,
         onError,
         onStop,
         class: className,
         children,
+        labels,
         ...rest
     }: ComposerProps = $props();
+    setComposerLabels(() => labels);
 
     let form: HTMLFormElement | undefined;
     const submission = createSubmission();
     const pending = $derived(submission.pending);
     let joinedToolbar = $state(false);
-    const effectiveStatus = $derived<ComposerStatus>(
-        status === 'submitting' || pending ? 'submitting' : submission.failed ? 'error' : status
-    );
-    const errorNoticeClass = 'mielui-error-notice';
+    const effectiveStatus = $derived.by(resolveStatus);
 
     const context = setComposerContext({
         get value() {
@@ -76,11 +74,22 @@
         }
     });
 
+    function resolveStatus(): ComposerStatus {
+        if (status === 'submitting' || pending) {
+            return 'submitting';
+        }
+
+        if (submission.failed) {
+            return 'error';
+        }
+
+        return status;
+    }
+
     async function handleSubmit(event: SubmitEvent) {
         event.preventDefault();
         if (
             context.disabled ||
-            context.pending ||
             effectiveStatus === 'submitting' ||
             (!context.allowEmpty && context.value.trim() === '')
         ) {
@@ -107,11 +116,11 @@
             data-ui="composer-error"
             role={effectiveStatus === 'error' ? 'alert' : undefined}
             aria-hidden={effectiveStatus !== 'error'}
-            class={errorNoticeClass}
+            class="mielui-error-notice text-[var(--mielui-error-text)]"
             data-state={effectiveStatus}
         >
             <HugeiconsIcon icon={CircleAlert} size={14} strokeWidth={2} aria-hidden="true" />
-            <span>{errorMessage}</span>
+            <span>{labels?.error ?? 'Message could not be sent.'}</span>
         </div>
     </div>
 
@@ -129,7 +138,7 @@
         class={cn(
             className,
             overlaySurface(surface),
-            'mielui-modal-frame flex w-full flex-col overflow-hidden text-foreground shadow-[var(--elevation-1)] [--mielui-modal-inset:calc(var(--spacing)*0.75*var(--mielui-border-inset-scale,1))] transition-[background-color,border-color,box-shadow] [transition-duration:var(--motion-duration-press)] ease-[var(--ease-out)] motion-reduce:transition-none focus-within:border-primary focus-within:shadow-[var(--focus-ring),var(--elevation-1)] data-[state=error]:border-[color-mix(in_srgb,var(--color-error)_70%,transparent)] data-[state=error]:shadow-[0_0_0_calc(var(--border-size)*2)_color-mix(in_srgb,var(--color-error)_25%,transparent),var(--elevation-1)]'
+            'mielui-modal-frame flex w-full flex-col overflow-hidden bg-background text-foreground shadow-[var(--elevation-1)] [--mielui-modal-inset:calc(var(--spacing)*0.75*var(--mielui-border-inset-scale,1))] transition-[background-color,border-color,box-shadow] [transition-duration:var(--motion-duration-hover)] ease-[var(--ease-out)] motion-reduce:transition-none has-[[data-ui=composer-input]:focus-visible]:border-primary has-[[data-ui=composer-input]:focus-visible]:shadow-[var(--focus-ring),var(--elevation-1)] data-[state=error]:border-[color-mix(in_srgb,var(--color-error)_70%,transparent)] data-[state=error]:shadow-[0_0_0_calc(var(--border-size)*2)_color-mix(in_srgb,var(--color-error)_25%,transparent),var(--elevation-1)]'
         )}
     >
         {@render children?.()}

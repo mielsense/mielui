@@ -8,7 +8,7 @@
 </script>
 
 <DropdownMenu.Root>
-    <DropdownMenu.Trigger size="md">Open menu</DropdownMenu.Trigger>
+    <DropdownMenu.Trigger>Open menu</DropdownMenu.Trigger>
     <DropdownMenu.Content dynamic>
         <DropdownMenu.Label>Appearance</DropdownMenu.Label>
         <DropdownMenu.Item>Edit dashboard settings</DropdownMenu.Item>

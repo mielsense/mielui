@@ -1,7 +1,8 @@
 <script lang="ts">
+    import type { ChartYAxisProps } from '.';
     import Axis from './axis.svelte';
 
-    let props: { class?: string; ticks?: number; format?: (value: string | number) => string } =
-        $props();
+    let props: ChartYAxisProps = $props();
 </script>
+
 <Axis axis="y" {...props} />

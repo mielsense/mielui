@@ -1,31 +1,14 @@
 <script lang="ts">
-    import {
-        Mortarboard01Icon as Agent,
-        BookOpen01Icon as Book,
-        PaintBrush01Icon as Brush,
-        Clock01Icon as Clock,
-        Download04Icon as Download,
-        GithubIcon as Github,
-        GridViewIcon as Grid,
-        PaintBoardIcon as Palette,
-        Search01Icon as Search,
-        SwatchIcon as Swatch
-    } from '@hugeicons/core-free-icons';
+    import { Search01Icon as Search } from '@hugeicons/core-free-icons';
     import Kbd from '@mielui/svelte/components/kbd';
     import HugeiconsIcon from '@mielui/svelte/hugeicons-icon';
-    import { resolve } from '$app/paths';
     import { page } from '$app/state';
-    import {
-        componentTypeHref,
-        componentTypes,
-        navigationGroups,
-        sanitizeComponent
-    } from '$lib/components';
     import { getSearch } from '$lib/components/search/context';
     import { getShell } from '$lib/components/shell/shell.svelte';
-    import { componentGuidePages } from '$lib/docs-pages';
+    import TravelingPill from '$lib/components/shell/traveling-pill.svelte';
+    import { guides, measurePill, scrollParent, sections, site } from './navigation-items';
 
-    const {
+    let {
         close,
         siteLinks = false
     }: {
@@ -37,56 +20,9 @@
     const search = getSearch();
 
     const rowClass =
-        'group/row flex h-8 w-full min-w-0 items-center gap-3 rounded-[var(--radius-sm)] px-2.5 text-start text-sm text-foreground-muted transition-colors [transition-duration:var(--motion-duration-hover)] hover:bg-[var(--docs-pill)] hover:text-foreground focus-visible:outline-none focus-visible:shadow-[var(--focus-ring)] aria-[current=page]:bg-[var(--docs-pill)] aria-[current=page]:font-medium aria-[current=page]:text-foreground motion-reduce:transition-none';
+        'group/row flex h-8 w-full min-w-0 items-center gap-3 rounded-[var(--radius-control)] px-3 text-start text-sm text-foreground-muted transition-colors [transition-duration:var(--motion-duration-hover)] hover:text-foreground focus-visible:outline-none focus-visible:shadow-[var(--focus-ring)] aria-[current=page]:font-medium aria-[current=page]:text-foreground [[data-pill-ready]_&]:aria-[current=page]:text-card dark:[[data-pill-ready]_&]:aria-[current=page]:text-foreground motion-reduce:transition-none';
     const labelClass =
-        'flex h-8 items-center rounded-[var(--radius-sm)] px-2.5 text-[13px] font-medium text-foreground [@container_scroll-state(stuck:top)]:font-semibold';
-
-    const guides = [
-        { label: 'Introduction', href: resolve('/docs/introduction'), icon: Book },
-        { label: 'Installation', href: resolve('/docs/installation'), icon: Download },
-        { label: 'Theming', href: resolve('/docs/theming'), icon: Brush },
-        { label: 'Agent skill', href: resolve('/docs/agent-skill'), icon: Agent },
-        { label: 'Components', href: resolve('/docs/components'), icon: Grid }
-    ];
-    const site = [
-        { label: 'Theme Studio', href: resolve('/studio'), icon: Palette },
-        { label: 'Themes', href: resolve('/themes'), icon: Swatch },
-        { label: 'Changelog', href: resolve('/docs/changelog'), icon: Clock },
-        { label: 'GitHub', href: 'https://github.com/mielsense/mielui', icon: Github }
-    ];
-    const sections = [
-        ...componentTypes.map((type) => ({
-            id: type.id,
-            label: type.heading,
-            href: componentTypeHref(type.id),
-            items: type.items.map((component) => ({
-                href: `/docs/components/${component}`,
-                label: sanitizeComponent(component),
-                nested: false
-            }))
-        })),
-        ...navigationGroups
-            .filter((group) => group.id !== 'components' && group.items.length > 0)
-            .map((group) => ({
-                id: group.id,
-                label: group.heading,
-                href: group.id === 'actions' ? '/docs/actions' : componentTypeHref(group.id),
-                items: group.items.flatMap((component) => [
-                    {
-                        href: `/docs/${group.id === 'actions' ? 'actions' : 'components'}/${component}`,
-                        label: sanitizeComponent(component),
-                        nested: false
-                    },
-                    ...componentGuidePages
-                        .filter((guide) => guide.component === component)
-                        .map((guide) => ({
-                            href: guide.href,
-                            label: guide.title,
-                            nested: true
-                        }))
-                ])
-            }))
-    ];
+        'flex h-8 items-center rounded-[var(--radius-control)] px-3 text-xs font-medium text-foreground-muted transition-colors [transition-duration:var(--motion-duration-hover)] hover:text-foreground aria-[current=page]:text-foreground motion-reduce:transition-none';
 
     let nav = $state<HTMLElement>();
 
@@ -109,18 +45,6 @@
         search.open = true;
     }
 
-    function scrollParent(element: HTMLElement) {
-        for (let parent = element.parentElement; parent; parent = parent.parentElement) {
-            if (parent.scrollHeight > parent.clientHeight + 1) {
-                const overflow = getComputedStyle(parent).overflowY;
-                if (overflow === 'auto' || overflow === 'scroll') {
-                    return parent;
-                }
-            }
-        }
-        return undefined;
-    }
-
     $effect(() => {
         void page.url.pathname;
         const current = nav?.querySelector<HTMLElement>('[aria-current="page"]');
@@ -137,7 +61,12 @@
     });
 </script>
 
-<nav bind:this={nav} aria-label="Documentation" class="flex flex-col gap-8 px-[15px] pt-3 pb-10">
+<nav
+    bind:this={nav}
+    aria-label="Documentation"
+    class="relative isolate flex flex-col gap-7 px-3 pt-1 pb-10 lg:pt-0"
+>
+    <TravelingPill container={nav} measure={measurePill} track={page.url.pathname} axis="both" />
     <div class="flex flex-col gap-0.5">
         {#if siteLinks}
             <button type="button" class={rowClass} onclick={openSearch}>
@@ -149,6 +78,7 @@
         {#each guides as item (item.href)}
             <a
                 href={item.href}
+                data-nav-row
                 class={rowClass}
                 aria-current={page.url.pathname === item.href ? 'page' : undefined}
                 onclick={(event) => follow(event, item.href)}
@@ -156,7 +86,8 @@
                 {#if siteLinks}
                     <HugeiconsIcon icon={item.icon} size={16} class="shrink-0" aria-hidden="true" />
                 {/if}
-                <span class="flex-1 truncate">{item.label}</span>
+                <span data-nav-label class="min-w-0 truncate">{item.label}</span>
+                <span class="flex-1"></span>
                 {@render openDot(item.href)}
             </a>
         {/each}
@@ -164,7 +95,8 @@
             {#each site as item (item.href)}
                 <a href={item.href} class={rowClass} onclick={close}>
                     <HugeiconsIcon icon={item.icon} size={16} class="shrink-0" aria-hidden="true" />
-                    <span class="flex-1 truncate">{item.label}</span>
+                    <span data-nav-label class="min-w-0 truncate">{item.label}</span>
+                    <span class="flex-1"></span>
                 </a>
             {/each}
         {/if}
@@ -173,7 +105,7 @@
     {#each sections as section (section.id)}
         <section class="flex flex-col gap-0.5">
             <h2
-                class="sticky top-0 z-10 -mx-[15px] m-0 bg-[var(--docs-side)] px-[15px] [container-type:scroll-state]"
+                class="sticky top-0 z-10 -mx-3 m-0 bg-[var(--docs-side)] px-3 [container-type:scroll-state]"
             >
                 <span
                     aria-hidden="true"
@@ -181,7 +113,7 @@
                 ></span>
                 <a
                     href={section.href}
-                    class={`${labelClass} focus-visible:outline-none focus-visible:shadow-[var(--focus-ring)]`}
+                    class={`${labelClass} focus-visible:outline-none focus-visible:shadow-[var(--focus-ring)] [@container_scroll-state(stuck:top)]:text-foreground`}
                     aria-current={page.url.pathname === section.href ? 'page' : undefined}
                     onclick={(event) => follow(event, section.href)}
                 >
@@ -191,11 +123,13 @@
             {#each section.items as item (item.href)}
                 <a
                     href={item.href}
+                    data-nav-row
                     class={`${rowClass} ${item.nested ? 'ps-6' : ''}`}
                     aria-current={page.url.pathname === item.href ? 'page' : undefined}
                     onclick={(event) => follow(event, item.href)}
                 >
-                    <span class="flex-1 truncate">{item.label}</span>
+                    <span data-nav-label class="min-w-0 truncate">{item.label}</span>
+                    <span class="flex-1"></span>
                     {@render openDot(item.href)}
                 </a>
             {/each}

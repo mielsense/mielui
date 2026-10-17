@@ -1,15 +1,15 @@
 <script lang="ts">
     import * as Card from '@mielui/svelte/components/card';
     import { Skeleton } from '@mielui/svelte/components/skeleton';
-    import { getContext, type Snippet } from 'svelte';
-    import type { ChartLabels } from '.';
-    import { getChart } from './context.svelte';
+    import type { Snippet } from 'svelte';
+    import { findChartLabels, getChartContext } from './context';
 
     let { loading, children }: { loading: boolean; children?: Snippet } = $props();
-    const labels = getContext<(() => ChartLabels | undefined) | undefined>('chart-labels');
-    const chart = getChart();
+    const labels = findChartLabels();
+    const chart = getChartContext();
     const heights = [32, 56, 44, 70, 58, 82, 66, 90];
 </script>
+
 <div class="absolute inset-0 isolate grid place-items-center" role="status">
     <div
         aria-hidden="true"
@@ -19,7 +19,7 @@
             <div class="flex-1" style:height={`${height}%`}>
                 <Skeleton
                     variant={loading && chart.motion && chart.animation !== 'none' ? 'shimmer' : 'default'}
-                    class="h-full w-full rounded-t-[var(--radius-md)] rounded-b-none"
+                    class="h-full w-full rounded-t-[calc(var(--radius-sm)*0.5)] rounded-b-none"
                 />
             </div>
         {/each}
@@ -29,17 +29,15 @@
             {#if children}
                 {@render children()}
             {:else if loading}
-                <p class="font-medium text-foreground">
-                    {labels?.()?.loading ?? 'Loading chart…'}
-                </p>
+                {labels?.()?.loading ?? 'Loading chart…'}
             {:else}
-                <p class="font-medium text-foreground">
+                <div class="font-medium text-foreground">
                     {labels?.()?.empty ?? 'No data to display'}
-                </p>
-                <Card.Description>
+                </div>
+                <div class="mt-1 text-xs">
                     {labels?.()?.emptyDescription ??
                         'Try another period or add your first record.'}
-                </Card.Description>
+                </div>
             {/if}
         </Card.Content>
     </Card.Root>

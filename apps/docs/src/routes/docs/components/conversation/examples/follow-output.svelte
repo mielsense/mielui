@@ -45,10 +45,7 @@
         </Button>
     </div>
 
-    <Conversation.Root
-        bind:follow
-        class="h-[22rem] rounded-[var(--radius-xl)] border-[length:var(--border-size)] border-border bg-panel"
-    >
+    <Conversation.Root bind:follow class="h-[22rem] mielui-plate">
         <Conversation.Content aria-label="Live deployment output">
             {#each output as entry (entry.id)}
                 <Message.Root from="assistant">

@@ -10,7 +10,17 @@ import Header from './sheet-header.svelte';
 import Title from './sheet-title.svelte';
 import Trigger from './sheet-trigger.svelte';
 
+export type SheetLabels = {
+    /** Accessible name of the close button in the header. */
+    close?: string;
+};
+
 export type SheetProps = {
+    /**
+     * Overrides the built-in text and accessible names. Every key is optional and English is the
+     * fallback.
+     */
+    labels?: SheetLabels;
     /** Whether it is open. Bind it to control the state from outside. */
     open?: boolean;
     /** Called with the new state whenever it opens or closes. */
@@ -21,7 +31,10 @@ export type SheetProps = {
 
 export type SheetTriggerProps = ButtonProps;
 export type SheetTitleProps = DefaultProps;
-export type SheetHeaderProps = DefaultProps & { close?: boolean };
+export type SheetHeaderProps = DefaultProps & {
+    /** Shows the close button in the corner. Defaults to true. */
+    showClose?: boolean;
+};
 export type SheetFooterProps = DefaultProps;
 export type SheetDescriptionProps = DefaultProps;
 export type SheetContentProps = {

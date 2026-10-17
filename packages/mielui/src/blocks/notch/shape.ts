@@ -18,3 +18,21 @@ export function notchShape(width: number, height: number, side: NonNullable<Notc
     }
     return { path, transform };
 }
+
+type NotchSide = NonNullable<NotchProps['side']>;
+
+/** Where a side action grows from: the middle of the edge the notch is attached to. */
+export const sideActionOrigin: Record<NotchSide, string> = {
+    top: 'center top',
+    bottom: 'center bottom',
+    left: 'left center',
+    right: 'right center'
+};
+
+/** Rotation of the corner arc that joins a side action to the notch. */
+export const sideActionArc: Record<NotchSide, Record<'start' | 'end', number>> = {
+    top: { start: 270, end: 180 },
+    bottom: { start: 0, end: 90 },
+    left: { start: 90, end: 180 },
+    right: { start: 0, end: 270 }
+};

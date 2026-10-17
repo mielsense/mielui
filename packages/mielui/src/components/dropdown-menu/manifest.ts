@@ -7,10 +7,12 @@ import type { Manifest } from '@mielui/svelte/_manifest/types';
  * 2.0.0 a11y fix: aria-allowed-attr resolved by conditional aria-modal
  *        in Popover.Content (now only applied for role="dialog"/
  *        "alertdialog", not for role="menu").
+ * 2.2.1 Trigger and SubTrigger bind `element`, and Trigger renders the
+ *        chevron its `icon` prop describes.
  */
 export const manifest: Manifest = {
     name: 'dropdown-menu',
-    version: '2.2.0',
+    version: '2.2.1',
     visibility: 'public',
     description:
         'Click-triggered menu popover with items, labels, separators, and nested submenus.',
@@ -28,17 +30,16 @@ export const manifest: Manifest = {
         'components/dropdown-menu/dropdown-menu-sub.svelte',
         'components/dropdown-menu/dropdown-menu-sub-trigger.svelte',
         'components/dropdown-menu/dropdown-menu-sub-content.svelte',
-        'components/dropdown-menu/context.svelte.ts',
+        'components/dropdown-menu/context.ts',
         'components/dropdown-menu/index.ts',
         'components/dropdown-menu/manifest.ts'
     ],
-    components: ['_internal/utils', 'popover', 'button', 'scroll-area'],
+    components: ['_internal/utils', 'popover', 'button'],
     shared: [
         'components/_internal/button-attributes',
         'transition',
         'components/_internal/surface',
         'hugeicons-icon',
-        'utils.closeMenuLayers',
         'utils.cn',
         'utils.createContext',
         'utils.dynamicWidth',

@@ -10,7 +10,7 @@
     data-required={required || undefined}
     class={cn(
         className,
-        'select-none [font-size:var(--font-size-label)] [font-weight:var(--font-weight-label)] [letter-spacing:var(--tracking-label)] leading-none text-foreground peer-disabled:cursor-not-allowed peer-disabled:opacity-[var(--opacity-disabled)]'
+        'select-none [font-size:var(--font-size-label)] [font-weight:var(--font-weight-label)] [letter-spacing:var(--tracking-label)] leading-label text-foreground peer-disabled:cursor-not-allowed peer-disabled:opacity-[var(--opacity-disabled)]'
     )}
     {...rest}
 >

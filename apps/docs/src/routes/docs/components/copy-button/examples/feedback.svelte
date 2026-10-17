@@ -5,8 +5,7 @@
 <div class="flex items-center gap-3">
     <CopyButton
         text="sk_live_example"
-        label="Copy API key"
-        copiedLabel="Key copied"
+        labels={{ copy: 'Copy API key', copied: 'Key copied' }}
         duration={4000}
         size="md"
         variant="outline"

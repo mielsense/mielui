@@ -3,6 +3,7 @@
 
     let amount = $state<number | undefined>(1.5);
 </script>
+
 <NumberField.Root bind:value={amount} min={0} max={10} step={0.25} class="w-full max-w-56">
     <NumberField.Label>Hours</NumberField.Label>
     <NumberField.Group>

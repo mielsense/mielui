@@ -9,17 +9,18 @@
     import HugeiconsIcon from '@mielui/svelte/hugeicons-icon';
     import { page } from '$app/state';
 
+    const STATUS_MESSAGES = {
+        idle: '',
+        loading: '',
+        success: 'Page copied to clipboard.',
+        error: 'Could not copy. Open the Markdown page to copy it manually.'
+    };
+
     let open = $state(false);
     let status = $state<'idle' | 'loading' | 'success' | 'error'>('idle');
     let timer: ReturnType<typeof setTimeout> | undefined;
     let request: AbortController | undefined;
-    const statusMessage = $derived(
-        status === 'error'
-            ? 'Could not copy. Open the Markdown page to copy it manually.'
-            : status === 'success'
-              ? 'Page copied to clipboard.'
-              : ''
-    );
+    const statusMessage = $derived(STATUS_MESSAGES[status]);
     const markdownPath = $derived(`${page.url.pathname.replace(/\/$/, '')}.md`);
     const prompt = $derived(
         `Read ${new URL(markdownPath, 'https://ui.miel.my').href} so I can ask questions about it. Use Svelte 5 when writing examples.`
@@ -63,7 +64,7 @@
     }
 
     $effect(() => {
-        page.url.pathname;
+        void page.url.pathname;
         status = 'idle';
         return () => {
             request?.abort();
@@ -73,14 +74,16 @@
 </script>
 
 <Popover.Root bind:open placement="bottom-end">
-    <Group.Root aria-label="Page actions" class="[--radius-lg:var(--radius-sm)]">
+    <Group.Root aria-label="Page actions">
         <Button
-            variant="outline"
+            variant="ghost"
             size="sm"
             {status}
-            loadingLabel="Copying…"
-            successLabel="Copied"
-            errorLabel="Copy failed"
+            labels={{
+                loading: 'Copying…',
+                success: 'Copied',
+                error: 'Copy failed'
+            }}
             onclick={copy}
         >
             <HugeiconsIcon icon={CopyIcon} size={14} />
@@ -88,7 +91,7 @@
         </Button>
         <Group.Separator />
         <Popover.Trigger
-            variant="outline"
+            variant="ghost"
             size="icon"
             class="size-[var(--size-control-sm)]"
             aria-label="More page actions"

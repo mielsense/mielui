@@ -2,7 +2,7 @@
     import { Select as BitsSelect } from 'bits-ui';
     import { SvelteMap } from 'svelte/reactivity';
     import type { SelectProps } from '.';
-    import { type SelectContext, setSelectContext } from './context.svelte';
+    import { type SelectContext, setSelectContext } from './context';
 
     let {
         children,
@@ -17,27 +17,22 @@
     }: SelectProps = $props();
     const singleValue = $derived(typeof value === 'string' ? value : '');
     const multipleValue = $derived(Array.isArray(value) ? value : []);
-    const selectedValues = $derived(
-        type === 'multiple' ? multipleValue : singleValue ? [singleValue] : []
-    );
+    const selectedValues = $derived.by(() => {
+        if (type === 'multiple') {
+            return multipleValue;
+        }
+
+        return singleValue ? [singleValue] : [];
+    });
     const id = $props.id();
     let triggerId = $state(`${id}-trigger`);
     const labels = new SvelteMap<string, string>();
-    const values = new Set<string>();
     const selectionState = {
         get value() {
             return type === 'multiple' ? multipleValue : singleValue;
         },
-        set value(next: string | string[]) {
-            value = next;
-        },
         get selectedLabel() {
             return selectedValues.map((item) => labels.get(item) ?? item).join(', ');
-        },
-        set selectedLabel(next: string) {
-            if (type === 'single' && singleValue) {
-                labels.set(singleValue, next);
-            }
         }
     };
     const context: SelectContext = {
@@ -50,7 +45,6 @@
         },
         state: selectionState,
         labels,
-        values,
         get open() {
             return open;
         },

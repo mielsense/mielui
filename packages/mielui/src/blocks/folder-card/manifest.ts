@@ -5,7 +5,7 @@ export const manifest: Manifest = {
     version: '1.0.0',
     visibility: 'public',
     description:
-        'Folder-shaped card with a tone wash or image cover, a raised tab for the title and description, and a footer for an index and an animated count. Renders a link when given href.',
+        'Folder-shaped card with a tone wash or image cover, a raised tab for the title and description, and a footer for an index and an animated count. Renders a link with href, or a whole-card button with onclick.',
     files: [
         'actions/number-shuffle/index.ts',
         'actions/number-shuffle/render.ts',
@@ -26,6 +26,6 @@ export const manifest: Manifest = {
     peerDependencies: {
         '@floating-ui/dom': '1.7.6',
         cnfast: '^0.0.8',
-        svelte: '^5.0.0'
+        svelte: '^5.56.0'
     }
 };

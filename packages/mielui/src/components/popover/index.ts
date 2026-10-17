@@ -63,10 +63,6 @@ export type PopoverProps = {
      * there is no room.
      */
     placement?: Placement;
-    /** Older spelling of `stateKey`. `stateKey` wins when both are set. */
-    state_key?: string;
-    /** Key that identifies this instance's state. A key is generated when you omit it. */
-    stateKey?: string;
     /** Opens on hover as well as on click. */
     hoverable?: boolean;
     /** Milliseconds the pointer rests on the trigger before it opens. */
@@ -132,17 +128,12 @@ export type Placement =
 
 export type PopoverState = {
     open: boolean;
-    focusedInside?: boolean;
-    trigger: HTMLElement | null;
-    focusedElement: HTMLElement | null;
     buttonRef: HTMLElement | null;
     popoverRef: HTMLElement | undefined;
     placement: Placement;
-    onclick: (() => void) | undefined;
     closeTimeout: ReturnType<typeof setTimeout> | undefined;
     hoverTimeout?: ReturnType<typeof setTimeout> | undefined;
     hoverable: boolean;
-    hovering?: boolean;
     delay: number | undefined;
     closeDelay: number | undefined;
     inert: boolean;

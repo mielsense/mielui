@@ -10,7 +10,7 @@
     } = $props();
 </script>
 
-<Dialog.Root bind:open={outerOpen} orientation="vertical">
+<Dialog.Root bind:open={outerOpen}>
     <Dialog.Trigger data-testid="open-outer">Edit project</Dialog.Trigger>
     <Dialog.Content>
         <Dialog.Header>
@@ -18,7 +18,7 @@
             <Dialog.Description>Change the name, or transfer this project.</Dialog.Description>
         </Dialog.Header>
         <Dialog.Body>
-            <Dialog.Root bind:open={innerOpen} orientation="vertical">
+            <Dialog.Root bind:open={innerOpen}>
                 <Dialog.Trigger data-testid="open-inner" variant="outline">
                     Transfer ownership
                 </Dialog.Trigger>

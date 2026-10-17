@@ -2,12 +2,10 @@ import type { Manifest } from '@mielui/svelte/_manifest/types';
 
 export const manifest: Manifest = {
     name: 'command',
-    version: '1.2.0',
+    version: '1.3.0',
     visibility: 'public',
     description: 'Dialog command palette with search, grouped items, and separators.',
     files: [
-        'actions/number-shuffle/index.ts',
-        'actions/number-shuffle/render.ts',
         'components/command/command.svelte',
         'components/command/command-trigger.svelte',
         'components/command/command-content.svelte',
@@ -18,7 +16,7 @@ export const manifest: Manifest = {
         'components/command/command-group.svelte',
         'components/command/command-header.svelte',
         'components/command/command-separator.svelte',
-        'components/command/context.svelte.ts',
+        'components/command/context.ts',
         'components/command/controller.svelte.ts',
         'components/command/index.ts',
         'components/command/manifest.ts'
@@ -30,6 +28,6 @@ export const manifest: Manifest = {
         '@hugeicons/core-free-icons': '^4.3.0',
         cnfast: '^0.0.8',
         'fuse.js': '^7.1.0',
-        svelte: '^5.0.0'
+        svelte: '^5.56.0'
     }
 };

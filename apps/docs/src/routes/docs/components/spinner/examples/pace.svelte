@@ -9,10 +9,10 @@
     </span>
     <span class="flex items-center gap-2">
         <Spinner speed={2} aria-hidden="true" />
-        <span>Speed 2</span>
+        <span>Twice as fast</span>
     </span>
     <span class="flex items-center gap-2">
-        <Spinner curved aria-hidden="true" />
-        <span>Curved</span>
+        <Spinner eased aria-hidden="true" />
+        <span>Eased</span>
     </span>
 </div>

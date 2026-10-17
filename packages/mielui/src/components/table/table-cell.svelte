@@ -1,14 +1,14 @@
 <script lang="ts">
     import { cn } from '@mielui/svelte/utils';
-    import type { HTMLTdAttributes } from 'svelte/elements';
+    import type { TableCellProps } from '.';
 
-    let { children, class: className, ...rest }: HTMLTdAttributes = $props();
+    let { children, class: className, ...rest }: TableCellProps = $props();
 </script>
 
 <td
     {...rest}
     data-ui="table-cell"
-    class={cn(className, 'px-4 py-3 text-start align-middle text-foreground')}
+    class={cn(className, 'h-10 px-3 py-1.5 text-start align-middle text-foreground')}
 >
     {@render children?.()}
 </td>

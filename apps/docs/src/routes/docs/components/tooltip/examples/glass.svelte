@@ -12,31 +12,64 @@
     import * as Tooltip from '@mielui/svelte/components/tooltip';
     import HugeiconsIcon from '@mielui/svelte/hugeicons-icon';
 
-    let activeTool = $state<string>('move');
+    let activeTool = $state('move');
 
     const tools = [
-        { id: 'move', label: 'Move', shortcut: 'V', icon: MousePointer2 },
-        { id: 'frame', label: 'Frame', shortcut: 'F', icon: Frame },
-        { id: 'rectangle', label: 'Rectangle', shortcut: 'R', icon: Square },
-        { id: 'pen', label: 'Pen', shortcut: 'P', icon: PenTool },
-        { id: 'text', label: 'Text', shortcut: 'T', icon: Type },
-        { id: 'comment', label: 'Comment', shortcut: 'C', icon: MessageCircle }
+        {
+            id: 'move',
+            label: 'Move',
+            shortcut: 'V',
+            icon: MousePointer2
+        },
+        {
+            id: 'frame',
+            label: 'Frame',
+            shortcut: 'F',
+            icon: Frame
+        },
+        {
+            id: 'rectangle',
+            label: 'Rectangle',
+            shortcut: 'R',
+            icon: Square
+        },
+        {
+            id: 'pen',
+            label: 'Pen',
+            shortcut: 'P',
+            icon: PenTool
+        },
+        {
+            id: 'text',
+            label: 'Text',
+            shortcut: 'T',
+            icon: Type
+        },
+        {
+            id: 'comment',
+            label: 'Comment',
+            shortcut: 'C',
+            icon: MessageCircle
+        }
     ];
 </script>
 
 <div class="flex max-w-full items-center justify-center p-2 sm:p-6">
-    <div class="flex flex-wrap gap-1 rounded-[var(--radius-lg)] border border-border bg-card p-1">
+    <div
+        class="flex flex-wrap gap-1 rounded-[calc(var(--radius-control)+var(--spacing)+var(--border-size))] border border-border bg-card p-1 shadow-[var(--elevation-1)]"
+    >
         {#each tools as tool (tool.id)}
             <Tooltip.Root placement="top" delay={300}>
                 <Tooltip.Trigger>
                     <Button
                         variant="ghost"
                         size="icon"
-                        type="button"
-                        class={`size-8 ${activeTool === tool.id
-                            ? 'bg-secondary text-foreground'
-                            : 'text-foreground-muted hover:bg-secondary hover:text-foreground'}`}
-                        onclick={() => (activeTool = tool.id)}
+                        class={activeTool === tool.id
+                            ? 'bg-[var(--color-wash)] text-foreground'
+                            : 'text-foreground-muted hover:text-foreground'}
+                        onclick={() => {
+                            activeTool = tool.id;
+                        }}
                         aria-label={tool.label}
                         aria-pressed={activeTool === tool.id}
                     >
@@ -46,7 +79,10 @@
                 <Tooltip.Content surface="glass" rich>
                     <div class="flex items-center gap-2">
                         <span>{tool.label}</span>
-                        <Kbd shortcut={tool.shortcut} />
+                        <Kbd
+                            shortcut={tool.shortcut}
+                            class="border-transparent bg-[color-mix(in_oklab,var(--color-tooltip-foreground)_16%,transparent)] text-[var(--color-tooltip-foreground)] shadow-none"
+                        />
                     </div>
                 </Tooltip.Content>
             </Tooltip.Root>

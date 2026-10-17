@@ -6,7 +6,7 @@
 <div class="grid place-items-center">
     <AlertDialog.Root error>
         <AlertDialog.Trigger variant="destructive">Delete project</AlertDialog.Trigger>
-        <AlertDialog.Content size="lg">
+        <AlertDialog.Content size="md">
             <AlertDialog.Header>
                 <AlertDialog.Title>Delete this project?</AlertDialog.Title>
                 <AlertDialog.Description>
@@ -14,10 +14,10 @@
                 </AlertDialog.Description>
             </AlertDialog.Header>
             <AlertDialog.Footer>
-                <AlertDialog.Exit>
+                <AlertDialog.Close>
                     Cancel
                     <Kbd shortcut="esc" />
-                </AlertDialog.Exit>
+                </AlertDialog.Close>
                 <AlertDialog.Confirm>
                     Delete project
                     <Kbd shortcut="enter" />

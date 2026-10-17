@@ -5,12 +5,14 @@
     let projectName = $state('mielui');
     let rootDirectory = $state('./');
     let message = $state('');
+
     function save() {
         message =
             projectName.trim() && rootDirectory.trim()
                 ? `Saved ${projectName.trim()} in ${rootDirectory.trim()}.`
                 : 'Enter a project name and root directory.';
     }
+
     function reset() {
         projectName = 'mielui';
         rootDirectory = './';
@@ -39,8 +41,8 @@
     </div>
 
     <div class="flex items-center justify-end gap-3">
-        <Button variant="ghost" size="md" onclick={reset}>Reset</Button>
-        <Button size="md" onclick={save}>Save settings</Button>
+        <Button variant="ghost" onclick={reset}>Reset</Button>
+        <Button onclick={save}>Save settings</Button>
     </div>
     <p role="status" class="text-sm text-foreground-muted">{message}</p>
 </div>

@@ -24,7 +24,7 @@ export const componentAnatomy = {
         { name: 'AlertDialog.Header', description: 'Groups dialog heading content.' },
         { name: 'AlertDialog.Title', description: 'Renders the dialog title.' },
         { name: 'AlertDialog.Description', description: 'Renders the dialog description.' },
-        { name: 'AlertDialog.Exit', description: 'Closes the dialog without confirming.' },
+        { name: 'AlertDialog.Close', description: 'Closes the dialog without confirming.' },
         { name: 'AlertDialog.Footer', description: 'Groups dialog actions.' },
         { name: 'AlertDialog.Confirm', description: 'Confirms and closes the dialog.' }
     ],

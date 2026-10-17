@@ -1,7 +1,7 @@
 <script lang="ts">
     import { cn } from '@mielui/svelte/utils';
     import type { ComposerActionsProps } from '.';
-    import { getComposerContext } from './context.svelte';
+    import { getComposerContext } from './context';
 
     let { children, class: className, ...rest }: ComposerActionsProps = $props();
     const context = getComposerContext();

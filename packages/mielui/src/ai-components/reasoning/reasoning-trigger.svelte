@@ -1,8 +1,8 @@
 <script lang="ts">
     import { ArrowDown01Icon as ChevronDown } from '@hugeicons/core-free-icons';
+    import { shimmer } from '@mielui/svelte/actions/shimmer';
     import { Button } from '@mielui/svelte/components/button';
     import { cn } from '@mielui/svelte/utils';
-    import { getContext } from 'svelte';
     import { buttonAttributes } from '../../components/_internal/button-attributes';
     import {
         DISCLOSURE_ICON_SIZE,
@@ -10,18 +10,14 @@
         disclosureTrigger
     } from '../../components/_internal/disclosure/variants';
     import HugeiconsIcon from '../../hugeicons-icon.svelte';
-    import type { ReasoningLabels, ReasoningTriggerProps } from '.';
-    import { getReasoningContext } from './context.svelte';
+    import type { ReasoningTriggerProps } from '.';
+    import { findReasoningLabels, getReasoningContext } from './context';
 
-    let {
-        title = 'Draft',
-        duration,
-        children,
-        class: className,
-        ...rest
-    }: ReasoningTriggerProps = $props();
-    const labels = getContext<(() => ReasoningLabels | undefined) | undefined>('reasoning-labels');
+    let { title, duration, children, class: className, ...rest }: ReasoningTriggerProps = $props();
+    const labels = findReasoningLabels();
     const reasoning = getReasoningContext();
+    const summary = $derived(title ?? labels?.()?.title ?? 'Draft');
+    const thoughtFor = $derived(labels?.()?.thoughtFor);
 </script>
 
 <Button
@@ -36,7 +32,7 @@
     }}
     class={cn(
         className,
-        'h-auto flex-col items-start justify-center gap-0.5 py-1 whitespace-normal [font-size:var(--font-size-body)] [font-weight:var(--font-weight-body)] [letter-spacing:var(--tracking-body)] leading-[var(--leading-body)] text-foreground-muted enabled:hover:text-foreground',
+        'h-auto flex-col items-start justify-center gap-0.5 py-1 whitespace-normal [font-size:var(--font-size-label)] [font-weight:var(--font-weight-body)] [letter-spacing:var(--tracking-label)] leading-[var(--leading-body)] text-foreground-muted enabled:hover:text-foreground',
         disclosureTrigger({
             layout: 'inline',
             bleed: true
@@ -49,16 +45,18 @@
         <span class="flex items-center gap-1.5">
             <span class="[font-weight:var(--font-weight-label)]">
                 {#if reasoning.streaming}
-                    {labels?.()?.thinking ?? 'Thinking'}
-                {:else if duration && labels?.()?.thoughtFor}
-                    {labels?.()?.thoughtFor?.(duration)}
+                    <span use:shimmer class="inline-block">
+                        {labels?.()?.thinking ?? 'Thinking'}
+                    </span>
+                {:else if duration && thoughtFor}
+                    {thoughtFor(duration)}
+                {:else if duration}
+                    Thought
+                    <span class="[font-weight:var(--font-weight-body)] tabular-nums">
+                        {`for ${duration}`}
+                    </span>
                 {:else}
                     {labels?.()?.thought ?? 'Thought'}
-                    {#if duration}
-                        <span class="[font-weight:var(--font-weight-body)]">
-                            {`for ${duration}`}
-                        </span>
-                    {/if}
                 {/if}
             </span>
             <HugeiconsIcon
@@ -69,7 +67,7 @@
             />
         </span>
         {#if !reasoning.open}
-            <span class="max-w-full text-pretty">{title}</span>
+            <span class="max-w-full text-pretty">{summary}</span>
         {/if}
     {/if}
 </Button>

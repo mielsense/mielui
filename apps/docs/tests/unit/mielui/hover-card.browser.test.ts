@@ -12,15 +12,15 @@ async function flush() {
 
 describe('HoverCard -- closed initially', () => {
     it('content is not in the DOM before hover', async () => {
-        render(HoverCardFixture, { openDelay: 10, closeDelay: 10 });
+        render(HoverCardFixture, { delay: 10, closeDelay: 10 });
         await flush();
         await expect.element(page.getByTestId('hovercard-title')).not.toBeInTheDocument();
     });
 });
 
-describe('HoverCard -- hover opens after openDelay', () => {
+describe('HoverCard -- hover opens after delay', () => {
     it('content appears after pointer enters the trigger', async () => {
-        render(HoverCardFixture, { openDelay: 10, closeDelay: 10 });
+        render(HoverCardFixture, { delay: 10, closeDelay: 10 });
         await flush();
 
         await page.getByTestId('hovercard-trigger').hover();
@@ -32,7 +32,7 @@ describe('HoverCard -- hover opens after openDelay', () => {
     });
 
     it('role="dialog" with aria-modal="false" is set on the rendered content', async () => {
-        render(HoverCardFixture, { openDelay: 10, closeDelay: 10 });
+        render(HoverCardFixture, { delay: 10, closeDelay: 10 });
         await flush();
         await page.getByTestId('hovercard-trigger').hover();
         await new Promise((r) => setTimeout(r, 80));
@@ -44,7 +44,7 @@ describe('HoverCard -- hover opens after openDelay', () => {
         expect(dialog?.getAttribute('aria-modal')).toBe('false');
     });
 
-    it('uses default openDelay of 200ms when not overridden (does NOT open at <100ms)', async () => {
+    it('uses default delay of 200ms when not overridden (does NOT open at <100ms)', async () => {
         render(HoverCardFixture, {});
         await flush();
         const trigger = document.querySelector('[data-testid="hovercard-trigger"]')?.parentElement;
@@ -58,7 +58,7 @@ describe('HoverCard -- hover opens after openDelay', () => {
 
 describe('HoverCard -- leave closes after closeDelay', () => {
     it('content goes away after pointer leaves the trigger', async () => {
-        render(HoverCardFixture, { openDelay: 10, closeDelay: 10 });
+        render(HoverCardFixture, { delay: 10, closeDelay: 10 });
         await flush();
 
         await page.getByTestId('hovercard-trigger').hover();
@@ -78,7 +78,7 @@ describe('HoverCard -- leave closes after closeDelay', () => {
 
 describe('HoverCard -- trigger element shape', () => {
     it('renders a keyboard-focusable button when no href', async () => {
-        render(HoverCardFixture, { openDelay: 10, closeDelay: 10 });
+        render(HoverCardFixture, { delay: 10, closeDelay: 10 });
         await flush();
         const wrapper = document.querySelector('[data-testid="hovercard-trigger"]')?.parentElement;
         expect(wrapper?.tagName.toLowerCase()).toBe('button');
@@ -87,7 +87,7 @@ describe('HoverCard -- trigger element shape', () => {
 
     it('renders trigger as <a> when href is provided', async () => {
         render(HoverCardFixture, {
-            openDelay: 10,
+            delay: 10,
             closeDelay: 10,
             triggerHref: '/user/123'
         });

@@ -1,19 +1,16 @@
 <script lang="ts">
     import { cn } from '@mielui/svelte/utils';
-    import { getContext, onDestroy, onMount } from 'svelte';
-    import type { TooltipState, TooltipTriggerProps } from '.';
-    import { getTooltipManager, type TooltipContentState } from './manager-context';
+    import { onDestroy, onMount } from 'svelte';
+    import type { TooltipTriggerProps } from '.';
+    import { getTooltipContext, getTooltipManager } from './manager-context';
 
     const manager = getTooltipManager();
 
     let { children, class: className, showOnClick = false }: TooltipTriggerProps = $props();
 
-    const content = getContext<TooltipContentState>('mielui-tooltip-content');
-    const tip = getContext('mielui-tooltip') as TooltipState;
+    const { tip, content, descriptionId } = getTooltipContext();
 
     let el = $state<HTMLElement>();
-
-    const descriptionId = getContext<string>('mielui-tooltip-id');
     onMount(() => {
         if (!el) {
             return;

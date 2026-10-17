@@ -3,6 +3,7 @@
     import { Toaster, toast } from '@mielui/svelte/components/toast';
 
     let count = 0;
+
     function notify() {
         count += 1;
         toast.success(`Export ${count} ready`, {
@@ -10,6 +11,7 @@
             duration: 12000
         });
     }
+
     function activity() {
         toast.loading('Syncing workspace', {
             description: 'This activity stays until you dismiss it.'

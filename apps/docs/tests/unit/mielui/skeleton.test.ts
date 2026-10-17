@@ -42,4 +42,16 @@ describe('SkeletonSwap', () => {
         expect(view.container.querySelector('[role="status"]')).toHaveTextContent('Profile loaded');
         vi.useRealTimers();
     });
+
+    it('announces arrival with the loaded label', () => {
+        const view = render(SkeletonSwapFixture, {
+            props: {
+                ready: true,
+                labels: {
+                    loaded: (label: string) => `${label} chargé`
+                }
+            }
+        });
+        expect(view.container.querySelector('[role="status"]')).toHaveTextContent('Profile chargé');
+    });
 });

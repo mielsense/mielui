@@ -2,14 +2,22 @@
     import { numberShuffle } from '@mielui/svelte/actions/number-shuffle';
     import { tick, untrack } from 'svelte';
     import * as Notch from '../notch/index';
+    import type { ToastLabels } from '.';
     import { pauseToast, resumeToast, type Toast as ToastType, toast } from './lib.svelte';
     import Toast from './toast.svelte';
     import Actions from './toast-actions.svelte';
     import Icon from './toast-icon.svelte';
     import Title from './toast-title.svelte';
 
-    let { toasts, side }: { toasts: ToastType[]; side: 'top' | 'bottom' | 'left' | 'right' } =
-        $props();
+    let {
+        toasts,
+        side,
+        labels
+    }: {
+        toasts: ToastType[];
+        side: 'top' | 'bottom' | 'left' | 'right';
+        labels?: ToastLabels;
+    } = $props();
     let selectedId = $state<number>();
     let displayed = $state<ToastType>();
     let previousIds: (number | undefined)[] = [];
@@ -96,7 +104,7 @@
     {#if toasts.length > 1}
         <Notch.SideAction
             side="start"
-            aria-label="Previous notification"
+            aria-label={labels?.previous ?? 'Previous notification'}
             onclick={previous}
             onpointerenter={pointerEnter}
             onpointerleave={pointerLeave}
@@ -118,7 +126,7 @@
         </Notch.SideAction>
         <Notch.SideAction
             side="end"
-            aria-label="Next notification"
+            aria-label={labels?.next ?? 'Next notification'}
             onclick={next}
             onpointerenter={pointerEnter}
             onpointerleave={pointerLeave}
@@ -140,10 +148,12 @@
         </Notch.SideAction>
     {/if}
     <Notch.Content
-        class={lateral ? 'w-48 min-h-56 justify-center px-6 py-7 text-center' : 'w-80 px-7 py-5 text-center'}
+        class={lateral
+            ? 'w-48 min-h-56 justify-center px-6 py-7 text-center'
+            : 'w-80 px-7 py-5 text-center'}
         role="region"
         tabindex={0}
-        aria-label="Notifications"
+        aria-label={labels?.region ?? 'Notifications'}
         onpointerenter={pointerEnter}
         onpointerleave={pointerLeave}
         onfocusin={focusIn}
@@ -181,15 +191,24 @@
     {#if toasts.length > 1}
         <Notch.Accessory
             class="rounded-full bg-card px-2 py-1 text-xs tabular-nums text-foreground-muted"
-            aria-label={`Notification ${index + 1} of ${toasts.length}`}
             onpointerenter={pointerEnter}
             onpointerleave={pointerLeave}
             onfocusin={focusIn}
             onfocusout={focusOut}
         >
-            <span use:numberShuffle={{ value: index + 1 }}>{index + 1}</span>
-            of<span use:numberShuffle={{ value: toasts.length }}>
-                {toasts.length}
+            <span class="sr-only">
+                {labels?.position?.(index + 1, toasts.length) ??
+                    `Notification ${index + 1} of ${toasts.length}`}
+            </span>
+            <span aria-hidden="true">
+                {#if labels?.count}
+                    {labels.count(index + 1, toasts.length)}
+                {:else}
+                    <span use:numberShuffle={{ value: index + 1 }}>{index + 1}</span>
+                    of<span use:numberShuffle={{ value: toasts.length }}>
+                        {toasts.length}
+                    </span>
+                {/if}
             </span>
         </Notch.Accessory>
     {/if}

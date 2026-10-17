@@ -2,7 +2,7 @@ import type { Manifest } from '@mielui/svelte/_manifest/types';
 
 export const manifest: Manifest = {
     name: 'form',
-    version: '1.0.0',
+    version: '1.1.0',
     visibility: 'public',
     description:
         'Native forms with transparent attachment forwarding and composable pending feedback.',
@@ -13,7 +13,7 @@ export const manifest: Manifest = {
         'components/form/form-submit.svelte',
         'components/form/index.ts',
         'components/form/form-actions.svelte',
-        'components/form/context.svelte.ts',
+        'components/form/context.ts',
         'components/form/manifest.ts'
     ],
     components: ['_internal/utils', 'button'],

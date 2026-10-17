@@ -4,31 +4,28 @@
     let tab = $state('account');
 </script>
 
-<div class="w-full max-w-lg p-2 sm:p-4">
+<div class="w-full max-w-lg">
     <Tabs.Root bind:value={tab} orientation="vertical" variant="ghost">
         <Tabs.List class="min-w-28">
             <Tabs.Trigger value="account">Account</Tabs.Trigger>
             <Tabs.Trigger value="notifications">Notifications</Tabs.Trigger>
             <Tabs.Trigger value="appearance">Appearance</Tabs.Trigger>
         </Tabs.List>
-
-        <Tabs.Content value="account" class="rounded-lg bg-secondary/35 p-4">
+        <Tabs.Content value="account" class="py-1.5">
             <p class="text-sm font-medium text-foreground">Account</p>
-            <p class="mt-1 text-sm leading-relaxed text-foreground-muted">
+            <p class="mt-1 text-sm text-foreground-muted">
                 Manage your profile and contact details.
             </p>
         </Tabs.Content>
-
-        <Tabs.Content value="notifications" class="rounded-lg bg-secondary/35 p-4">
+        <Tabs.Content value="notifications" class="py-1.5">
             <p class="text-sm font-medium text-foreground">Notifications</p>
-            <p class="mt-1 text-sm leading-relaxed text-foreground-muted">
+            <p class="mt-1 text-sm text-foreground-muted">
                 Choose which updates you want to receive.
             </p>
         </Tabs.Content>
-
-        <Tabs.Content value="appearance" class="rounded-lg bg-secondary/35 p-4">
+        <Tabs.Content value="appearance" class="py-1.5">
             <p class="text-sm font-medium text-foreground">Appearance</p>
-            <p class="mt-1 text-sm leading-relaxed text-foreground-muted">
+            <p class="mt-1 text-sm text-foreground-muted">
                 Adjust the theme and interface density.
             </p>
         </Tabs.Content>

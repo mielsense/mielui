@@ -21,12 +21,12 @@
         tabindex={0}
         role="region"
         aria-label="Project sections"
-        class="w-72 rounded-[var(--radius-lg)] border border-border bg-card p-2"
+        class="w-72 rounded-[var(--radius-control)] border border-border bg-card p-1.5 shadow-[var(--elevation-1)]"
     >
         <div class="flex gap-2">
             {#each tabs as tab (tab)}
                 <span
-                    class="whitespace-nowrap rounded-md bg-secondary px-3 py-1.5 text-sm text-foreground"
+                    class="whitespace-nowrap rounded-[var(--radius-control)] bg-secondary px-3 py-1 text-sm text-foreground"
                 >
                     {tab}
                 </span>

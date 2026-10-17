@@ -1,9 +1,9 @@
 <script lang="ts">
     import type { NotchPeekProps } from '.';
-    import { notchContext } from './context';
+    import { getNotchContext } from './context';
 
     let { children }: NotchPeekProps = $props();
-    const context = notchContext.get();
+    const context = getNotchContext();
     $effect(() => {
         context.peek = children;
         return () => {

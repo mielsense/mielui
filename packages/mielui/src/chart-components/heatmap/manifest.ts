@@ -1,7 +1,7 @@
 import type { Manifest } from '@mielui/svelte/_manifest/types';
 export const manifest: Manifest = {
     name: 'heatmap',
-    version: '1.0.0',
+    version: '1.1.0',
     visibility: 'public',
     description: 'Daily activity in a keyboard-navigable contribution calendar.',
     files: [
@@ -15,26 +15,29 @@ export const manifest: Manifest = {
         'components/heatmap/heatmap-summary.svelte',
         'components/heatmap/calendar.ts',
         'components/heatmap/live.ts',
+        'components/heatmap/reveal.ts',
         'components/heatmap/heatmap-grid.svelte',
         'components/heatmap/heatmap-header.svelte',
         'components/heatmap/heatmap-month-labels.svelte',
         'components/heatmap/index.ts',
         'components/heatmap/heatmap-calendar.svelte',
-        'components/heatmap/context.svelte.ts',
+        'components/heatmap/context.ts',
         'components/heatmap/heatmap-detail.svelte',
         'components/heatmap/heatmap-weekday-labels.svelte',
         'components/heatmap/manifest.ts'
     ],
     components: ['_internal/utils', 'skeleton'],
     shared: [
+        'components/_internal/theme-changes',
         'components/_internal/surface',
         'components/_internal/chart-tooltip-surface',
         'utils.cn',
-        'transition'
+        'transition',
+        'utils.createContext'
     ],
     peerDependencies: {
         '@floating-ui/dom': '1.7.6',
         cnfast: '^0.0.8',
-        svelte: '^5.0.0'
+        svelte: '^5.56.0'
     }
 };

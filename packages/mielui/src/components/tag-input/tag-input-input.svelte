@@ -2,7 +2,8 @@
     import { cn } from '@mielui/svelte/utils';
     import { mergeDescriptionIds } from '../_internal/field-metadata';
     import type { TagInputInputProps } from '.';
-    import { getTagInputContext } from './context.svelte';
+    import { getTagInputContext } from './context';
+    import { splitTags } from './controller.svelte';
 
     let {
         placeholder = 'Add a tag…',
@@ -35,7 +36,7 @@
         if (event.defaultPrevented || disabled) {
             return;
         }
-        context.setDraft((event.currentTarget as HTMLInputElement).value);
+        context.setDraft(event.currentTarget.value);
     }
 
     function handleKeydown(
@@ -78,34 +79,6 @@
         }
     }
 
-    function splitPasted(value: string) {
-        const separators = new Set([',', ';', '\n', ...context.delimiters]);
-        const candidates: string[] = [];
-        let current = '';
-
-        for (const char of value) {
-            if (separators.has(char)) {
-                const trimmed = current.trim();
-
-                if (trimmed !== '') {
-                    candidates.push(trimmed);
-                }
-
-                current = '';
-            } else {
-                current += char;
-            }
-        }
-
-        const tail = current.trim();
-
-        if (tail !== '') {
-            candidates.push(tail);
-        }
-
-        return candidates;
-    }
-
     function handlePaste(
         event: ClipboardEvent & { currentTarget: EventTarget & HTMLInputElement }
     ) {
@@ -121,7 +94,7 @@
             return;
         }
 
-        const candidates = splitPasted(text);
+        const candidates = splitTags(text, context.delimiters);
 
         if (candidates.length < 2) {
             return;
@@ -171,7 +144,7 @@
     data-ui="tag-input-input"
     class={cn(
         className,
-        'min-w-24 flex-1 self-stretch bg-transparent py-0.5 text-[var(--color-field-foreground)] [font-size:var(--font-size-body)] outline-none placeholder:text-foreground-muted disabled:cursor-not-allowed',
-        context.tags.length > 0 ? 'ps-0' : 'ps-2'
+        'min-w-24 flex-1 self-stretch bg-transparent py-0.5 pe-[calc(var(--spacing)*2.5)] text-[var(--color-field-foreground)] [font-size:var(--font-size-body)] outline-none placeholder:text-foreground-muted disabled:cursor-not-allowed',
+        context.tags.length > 0 ? 'ps-1' : 'ps-[calc(var(--spacing)*2.5)]'
     )}
 />

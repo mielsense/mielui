@@ -1,62 +1,65 @@
 <script lang="ts">
     import { cn, pressable } from '@mielui/svelte/utils';
+    import type { Snippet } from 'svelte';
     import type { HTMLAnchorAttributes, HTMLButtonAttributes } from 'svelte/elements';
-    import type { ButtonProps } from '.';
+    import type { ButtonProps, ButtonStatus } from '.';
     import { button } from './variants';
 
     let {
         href,
         variant = 'primary',
         children,
-        class: classProp,
+        class: className,
         size = 'md',
         element = $bindable(),
         unstyled = false,
         status,
         loading,
-        loadingLabel,
-        successLabel,
-        errorLabel,
+        labels,
         'aria-label': ariaLabel,
         'aria-disabled': ariaDisabled,
         disabled = false,
         onclick,
         onkeydown,
         tabindex,
+        type,
         ...rest
     }: ButtonProps = $props();
 
+    const statusTones: Partial<Record<ButtonStatus, string>> = {
+        success:
+            'bg-[color-mix(in_srgb,var(--color-success)_16%,var(--color-card))] [--mielui-glow-color:color-mix(in_srgb,var(--color-success)_16%,var(--color-card))] text-[var(--mielui-success-text)]',
+        error: 'bg-[color-mix(in_srgb,var(--color-error)_16%,var(--color-card))] [--mielui-glow-color:color-mix(in_srgb,var(--color-error)_16%,var(--color-card))] text-[var(--mielui-error-text)]'
+    };
+    const faceClasses =
+        'mielui-button-face col-start-1 row-start-1 flex items-center justify-center gap-1.5';
+
     const visualStatus = $derived(status ?? (loading ? 'loading' : 'idle'));
-    const statusClasses = $derived(
-        unstyled
-            ? undefined
-            : visualStatus === 'success'
-              ? 'bg-[color-mix(in_srgb,var(--color-success)_12%,var(--color-card))] text-[var(--mielui-success-text)] hover:bg-[color-mix(in_srgb,var(--color-success)_18%,var(--color-card))] data-[state=open]:bg-[color-mix(in_srgb,var(--color-success)_18%,var(--color-card))]'
-              : visualStatus === 'error'
-                ? 'bg-[color-mix(in_srgb,var(--color-error)_12%,var(--color-card))] text-[var(--mielui-error-text)] hover:bg-[color-mix(in_srgb,var(--color-error)_18%,var(--color-card))] data-[state=open]:bg-[color-mix(in_srgb,var(--color-error)_18%,var(--color-card))]'
-                : undefined
-    );
+    const statusClasses = $derived(unstyled ? undefined : statusTones[visualStatus]);
     const styledClasses = $derived(
-        cn(classProp, statusClasses, unstyled ? undefined : button({ variant, size }))
+        cn(className, statusClasses, unstyled ? undefined : button({ variant, size }))
     );
     const stateful = $derived(
-        status !== undefined ||
-            loading !== undefined ||
-            loadingLabel !== undefined ||
-            successLabel !== undefined ||
-            errorLabel !== undefined
+        status !== undefined || loading !== undefined || labels !== undefined
     );
     const pending = $derived(visualStatus === 'loading');
     const unavailable = $derived(disabled || ariaDisabled === true || ariaDisabled === 'true');
-    const currentLabel = $derived(
-        visualStatus === 'loading'
-            ? (loadingLabel ?? 'Loading…')
-            : visualStatus === 'success'
-              ? (successLabel ?? 'Done')
-              : visualStatus === 'error'
-                ? (errorLabel ?? 'Try again')
-                : ariaLabel
+    const statusLabels = $derived({
+        loading: labels?.loading ?? 'Loading…',
+        success: labels?.success ?? 'Done',
+        error: labels?.error ?? 'Try again'
+    });
+    const currentLabel = $derived(visualStatus === 'idle' ? ariaLabel : statusLabels[visualStatus]);
+    const announcement = $derived(
+        visualStatus === 'success' || visualStatus === 'error' ? statusLabels[visualStatus] : ''
     );
+    const anchorTabindex = $derived.by(() => {
+        if (unavailable) {
+            return -1;
+        }
+
+        return pending ? (tabindex ?? 0) : tabindex;
+    });
 
     function activate(event: MouseEvent) {
         if (pending || unavailable) {
@@ -68,76 +71,63 @@
     }
 </script>
 
+{#snippet loadingFace()}
+    <svg
+        class="mielui-button-spinner size-3"
+        data-spinning={visualStatus === 'loading'}
+        viewBox="0 0 12 12"
+        fill="none"
+        aria-hidden="true"
+    >
+        <circle cx="6" cy="6" r="4.5" stroke="currentColor" stroke-width="1.5" opacity="0.22" />
+        <path
+            d="M10.5 6A4.5 4.5 0 0 0 6 1.5"
+            stroke="currentColor"
+            stroke-width="1.5"
+            stroke-linecap="round"
+        />
+    </svg>
+    {statusLabels.loading}
+{/snippet}
+
+{#snippet successFace()}
+    <svg class="size-3" viewBox="0 0 12 12" fill="none" aria-hidden="true">
+        <path
+            d="M2.6 6.3 4.9 8.6 9.4 3.6"
+            stroke="currentColor"
+            stroke-width="1.7"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+        />
+    </svg>
+    {statusLabels.success}
+{/snippet}
+
+{#snippet errorFace()}
+    <svg class="size-3" viewBox="0 0 12 12" fill="none" aria-hidden="true">
+        <path
+            d="M6 2.9v3.5M6 9.05h.01"
+            stroke="currentColor"
+            stroke-width="1.7"
+            stroke-linecap="round"
+        />
+    </svg>
+    {statusLabels.error}
+{/snippet}
+
+{#snippet face(shown: ButtonStatus, body: Snippet | undefined, classes: string)}
+    <span class={classes} data-active={visualStatus === shown} aria-hidden={visualStatus !== shown}>
+        {@render body?.()}
+    </span>
+{/snippet}
+
 {#snippet content()}
     {#if stateful}
         <span class="relative grid place-items-center">
-            <span
-                class="mielui-button-face col-start-1 row-start-1 flex items-center justify-center gap-1.5"
-                data-active={visualStatus === 'idle'}
-                aria-hidden={visualStatus !== 'idle'}
-            >
-                {@render children?.()}
-            </span>
-            <span
-                class="mielui-button-face col-start-1 row-start-1 flex items-center justify-center gap-1.5 text-current/75"
-                data-active={visualStatus === 'loading'}
-                aria-hidden={visualStatus !== 'loading'}
-            >
-                <svg
-                    class="mielui-button-spinner size-3"
-                    data-spinning={visualStatus === 'loading'}
-                    viewBox="0 0 12 12"
-                    fill="none"
-                    aria-hidden="true"
-                >
-                    <circle
-                        cx="6"
-                        cy="6"
-                        r="4.5"
-                        stroke="currentColor"
-                        stroke-width="1.5"
-                        opacity="0.22"
-                    />
-                    <path
-                        d="M10.5 6A4.5 4.5 0 0 0 6 1.5"
-                        stroke="currentColor"
-                        stroke-width="1.5"
-                        stroke-linecap="round"
-                    />
-                </svg>
-                {loadingLabel ?? 'Loading…'}
-            </span>
-            <span
-                class="mielui-button-face col-start-1 row-start-1 flex items-center justify-center gap-1.5"
-                data-active={visualStatus === 'success'}
-                aria-hidden={visualStatus !== 'success'}
-            >
-                <svg class="size-3" viewBox="0 0 12 12" fill="none" aria-hidden="true">
-                    <path
-                        d="M2.6 6.3 4.9 8.6 9.4 3.6"
-                        stroke="currentColor"
-                        stroke-width="1.7"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                    />
-                </svg>
-                {successLabel ?? 'Done'}
-            </span>
-            <span
-                class="mielui-button-face col-start-1 row-start-1 flex items-center justify-center gap-1.5"
-                data-active={visualStatus === 'error'}
-                aria-hidden={visualStatus !== 'error'}
-            >
-                <svg class="size-3" viewBox="0 0 12 12" fill="none" aria-hidden="true">
-                    <path
-                        d="M6 2.9v3.5M6 9.05h.01"
-                        stroke="currentColor"
-                        stroke-width="1.7"
-                        stroke-linecap="round"
-                    />
-                </svg>
-                {errorLabel ?? 'Try again'}
-            </span>
+            {@render face('idle', children, faceClasses)}
+            {@render face('loading', loadingFace, `${faceClasses} text-current/75`)}
+            {@render face('success', successFace, faceClasses)}
+            {@render face('error', errorFace, faceClasses)}
         </span>
     {:else}
         {@render children?.()}
@@ -150,7 +140,8 @@
         use:pressable
         href={pending || unavailable ? undefined : href}
         role={pending || unavailable ? 'link' : undefined}
-        tabindex={unavailable ? -1 : pending ? (tabindex ?? 0) : tabindex}
+        tabindex={anchorTabindex}
+        type={type as HTMLAnchorAttributes['type']}
         data-ui="button"
         data-variant={unstyled ? undefined : variant}
         data-size={size}
@@ -161,7 +152,9 @@
         onclick={activate}
         onkeydown={(e) => {
             onkeydown?.(e);
-            if (e.defaultPrevented) { return; }
+            if (e.defaultPrevented) {
+                return;
+            }
             if ((pending || unavailable) && (e.key === 'Enter' || e.key === ' ')) {
                 e.preventDefault();
                 return;
@@ -182,7 +175,7 @@
     <button
         bind:this={element as HTMLButtonElement}
         use:pressable
-        type={(rest as HTMLButtonAttributes).type ?? 'button'}
+        type={(type as HTMLButtonAttributes['type']) ?? 'button'}
         data-ui="button"
         data-variant={unstyled ? undefined : variant}
         data-size={size}
@@ -202,11 +195,7 @@
 
 {#if stateful}
     <span role="status" aria-live="polite" class="sr-only">
-        {visualStatus === 'success'
-            ? (successLabel ?? 'Done')
-            : visualStatus === 'error'
-              ? (errorLabel ?? 'Try again')
-              : ''}
+        {announcement}
     </span>
 {/if}
 

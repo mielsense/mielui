@@ -1,9 +1,8 @@
 <script lang="ts">
     import { createDisclosureLifecycle } from '@mielui/svelte/components/_internal/disclosure';
     import { cn } from '@mielui/svelte/utils';
-    import { setContext } from 'svelte';
-    import type { ToolLabels, ToolProps } from '.';
-    import { setToolContext } from './context.svelte';
+    import type { ToolProps } from '.';
+    import { setToolContext, setToolLabels } from './context';
     import Content from './tool-content.svelte';
     import Trigger from './tool-trigger.svelte';
 
@@ -22,7 +21,7 @@
         labels,
         ...rest
     }: ToolProps = $props();
-    setContext<() => ToolLabels | undefined>('tool-labels', () => labels);
+    setToolLabels(() => labels);
 
     const id = $props.id();
     const lifecycle = createDisclosureLifecycle({
@@ -67,9 +66,8 @@
     aria-busy={state === 'running'}
     class={cn(
         className,
-        variant === 'quiet'
-            ? 'inline-block max-w-full text-sm text-foreground'
-            : 'w-full max-w-full text-sm text-foreground'
+        'max-w-full text-sm text-foreground',
+        variant === 'quiet' ? 'inline-block' : 'w-full'
     )}
     {...rest}
 >

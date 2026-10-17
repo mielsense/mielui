@@ -3,7 +3,7 @@
     import { Arc } from 'layerchart';
     import { cubicOut } from 'svelte/easing';
     import { Tween } from 'svelte/motion';
-    import { getPieContext } from './context';
+    import { getPieChartContext } from './context';
     import type { PieChartDatum } from './index';
 
     let {
@@ -23,8 +23,10 @@
         padAngle: number;
         class?: string;
     } = $props();
-    const context = getPieContext();
+    const context = getPieChartContext();
     const angles = new Tween([0, 0], { duration: 480, easing: cubicOut });
+    const hole = $derived(Math.max(0, Math.min(innerRadius, 0.95)));
+    const gap = $derived(Math.max(0, Math.min(padAngle, 0.2)));
     let highlight = $state<SVGGElement>();
     let illumination = $state.raw<Animation>();
     $effect(() => {
@@ -56,6 +58,13 @@
             illumination?.pause();
         }
     });
+
+    function trackPointer(event: PointerEvent & { currentTarget: EventTarget & SVGPathElement }) {
+        context.anchor = event.currentTarget;
+        context.pointer = { x: event.clientX, y: event.clientY };
+        context.active = item.key;
+    }
+
     let entered = false;
     $effect(() => {
         if (!context.ready) {
@@ -72,24 +81,19 @@
     <Arc
         startAngle={angles.current[0]}
         endAngle={angles.current[1]}
-        innerRadius={Math.max(0, Math.min(innerRadius, 0.95))}
+        innerRadius={hole}
         {cornerRadius}
-        padAngle={Math.max(0, Math.min(padAngle, 0.2))}
+        padAngle={gap}
         fill={context.color(item.key)}
         motion="none"
-        class={cn(className, 'outline-none transition-opacity [transition-duration:var(--motion-duration-hover)] motion-reduce:transition-none')}
+        class={cn(
+            className,
+            'outline-none transition-opacity [transition-duration:var(--motion-duration-hover)] motion-reduce:transition-none'
+        )}
         style={context.motion ? undefined : 'transition-duration: 0ms'}
         opacity={context.active && context.active !== item.key ? 0.45 : 1}
-        onpointermove={(event) => {
-            context.anchor = event.currentTarget;
-            context.pointer = { x: event.clientX, y: event.clientY };
-            context.active = item.key;
-        }}
-        onpointerenter={(event) => {
-            context.anchor = event.currentTarget;
-            context.pointer = { x: event.clientX, y: event.clientY };
-            context.active = item.key;
-        }}
+        onpointermove={trackPointer}
+        onpointerenter={trackPointer}
         onpointerleave={() => {
             context.active = context.focused;
             context.pointer = undefined;
@@ -102,14 +106,14 @@
         <g
             bind:this={highlight}
             opacity="0"
-            class={cn("pointer-events-none", context.active && "invisible")}
+            class={cn('pointer-events-none', context.active && 'invisible')}
         >
             <Arc
                 startAngle={angles.current[0]}
                 endAngle={angles.current[1]}
-                innerRadius={Math.max(0, Math.min(innerRadius, 0.95))}
+                innerRadius={hole}
                 {cornerRadius}
-                padAngle={Math.max(0, Math.min(padAngle, 0.2))}
+                padAngle={gap}
                 fill="white"
                 motion="none"
             />

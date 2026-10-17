@@ -37,11 +37,28 @@ const worker = {
 2. Confirm that worker restarts have stopped.
 3. Restore concurrency gradually after memory use stabilizes.
 
-**Owner:** Platform team. The incident stays open until the error rate is back below 0.1%.
-    `;
+**Owner:** Platform team. The incident stays open until the error rate is back below 0.1%.`;
+
     let content = $state('');
     let streaming = $state(false);
     let timer: ReturnType<typeof setInterval> | undefined;
+
+    const complete = $derived(content.length === response.length);
+    const status = $derived.by(() => {
+        if (streaming) {
+            return 'Receiving response';
+        }
+
+        if (complete) {
+            return 'Response complete';
+        }
+
+        if (content) {
+            return 'Stream stopped';
+        }
+
+        return 'Start a response to watch Markdown arrive';
+    });
 
     function stop() {
         clearInterval(timer);
@@ -54,7 +71,7 @@ const worker = {
         streaming = true;
         timer = setInterval(() => {
             content = response.slice(0, content.length + 28);
-            if (content.length === response.length) {
+            if (complete) {
                 stop();
             }
         }, 45);
@@ -65,16 +82,12 @@ const worker = {
 
 <div class="w-full max-w-2xl space-y-4">
     <div class="flex flex-wrap items-center justify-between gap-3">
-        <p role="status" class="text-sm text-foreground-muted">
-            {streaming ? 'Receiving response' : content.length === response.length ? 'Response complete' : content ? 'Stream stopped' : 'Start a response to watch Markdown arrive'}
-        </p>
+        <p role="status" class="text-sm text-foreground-muted">{status}</p>
         <Button variant="secondary" onclick={streaming ? stop : start}>
             {streaming ? 'Stop stream' : content ? 'Replay response' : 'Start response'}
         </Button>
     </div>
-    <div
-        class="max-h-112 min-h-52 overflow-y-auto rounded-[var(--radius-xl)] border-[length:var(--border-size)] border-border bg-card p-5"
-    >
+    <div class="mielui-plate max-h-112 min-h-52 overflow-y-auto p-5">
         <Markdown {content} {streaming} />
     </div>
 </div>

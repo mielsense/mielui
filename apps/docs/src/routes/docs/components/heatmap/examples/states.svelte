@@ -18,6 +18,7 @@
         replay += 1;
     }
 </script>
+
 <div class="w-full space-y-6">
     <div class="flex flex-wrap items-center gap-3">
         <Tabs.Root bind:value={dataState} variant="ghost">

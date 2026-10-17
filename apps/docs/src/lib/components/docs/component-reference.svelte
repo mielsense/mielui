@@ -5,6 +5,7 @@
     import type { ComponentPart } from '$lib/component-anatomy';
     import type { ReferencePart } from '$lib/server/api-reference';
     import PropTable from './prop-table.svelte';
+    import { insetListClass } from './rows.svelte';
     import SectionHeading from './section-heading.svelte';
 
     let {
@@ -82,7 +83,7 @@
                             icon={ChevronDown}
                             size={14}
                             aria-hidden="true"
-                            class="shrink-0 transition-transform [transition-duration:var(--motion-duration-panel)] ease-[var(--ease-out)] group-data-[state=open]:rotate-180 motion-reduce:transition-none"
+                            class="shrink-0 transition-transform [transition-duration:var(--motion-duration-flick)] ease-[var(--ease-spring-flick)] group-data-[state=open]:rotate-180 motion-reduce:transition-none"
                         />
                     </Collapsible.Trigger>
                     <Collapsible.Content>
@@ -104,9 +105,7 @@
                 </p>
             </div>
             <div class="mielui-inset-frame">
-                <ul
-                    class="mielui-inset-surface m-0 flex list-none flex-col divide-y-[length:var(--border-size)] divide-[var(--docs-rule,var(--color-border))] overflow-hidden p-0"
-                >
+                <ul class={insetListClass}>
                     {#each withoutProps as part (part.name)}
                         <li
                             class="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-1 px-4 py-3"

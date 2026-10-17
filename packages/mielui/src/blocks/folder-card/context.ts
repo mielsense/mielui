@@ -1,13 +1,16 @@
 import { createContext } from '@mielui/svelte/utils';
-import type { FolderCardProps } from '.';
+import type { FolderCardLabels, FolderCardProps } from '.';
 
-type FolderCardContext = {
+export type FolderCardContext = {
     readonly tone: NonNullable<FolderCardProps['tone']>;
     /** Id of the title element, which names the card when it acts as a button. */
     titleId: string;
 };
 
-const folderCard = createContext<FolderCardContext>('folder-card');
+const { set: setFolderCardContext, get: getFolderCardContext } =
+    createContext<FolderCardContext>('folder-card');
 
-export const getFolderCard = folderCard.get;
-export const setFolderCard = folderCard.set;
+const { set: setFolderCardLabels, find: findFolderCardLabels } =
+    createContext<() => FolderCardLabels | undefined>('folder-card-labels');
+
+export { findFolderCardLabels, getFolderCardContext, setFolderCardContext, setFolderCardLabels };

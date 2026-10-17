@@ -1,4 +1,5 @@
 import { getCssDuration } from '@mielui/svelte/transition';
+import { observeThemeChanges } from './theme-changes';
 
 export function motionLoop(node: HTMLElement) {
     const property = '--mielui-loop-play-state';
@@ -18,10 +19,7 @@ export function motionLoop(node: HTMLElement) {
         }
     }
 
-    const theme = new MutationObserver(refresh);
-    for (let ancestor: HTMLElement | null = node; ancestor; ancestor = ancestor.parentElement) {
-        theme.observe(ancestor, { attributes: true, attributeFilter: ['style', 'class'] });
-    }
+    const stopThemeChanges = observeThemeChanges(node, refresh);
     const visibility =
         typeof IntersectionObserver === 'undefined'
             ? undefined
@@ -35,7 +33,7 @@ export function motionLoop(node: HTMLElement) {
     refresh();
 
     return () => {
-        theme.disconnect();
+        stopThemeChanges();
         visibility?.disconnect();
         preference.removeEventListener('change', refresh);
         document.removeEventListener('visibilitychange', refresh);

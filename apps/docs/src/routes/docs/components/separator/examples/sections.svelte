@@ -1,6 +1,7 @@
 <script lang="ts">
-    import Separator from '@mielui/svelte/components/separator';
+    import { Separator } from '@mielui/svelte/components/separator';
 </script>
+
 <div class="flex w-full max-w-xs flex-col gap-4 text-sm">
     <div>
         <p class="font-medium">Notifications</p>

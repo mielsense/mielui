@@ -7,7 +7,8 @@
     const shapeClasses = [
         'relative z-1 col-start-1 row-start-2 w-fit min-w-0 justify-self-start',
         'max-w-[calc(100%-var(--folder-card-radius)*2)] min-h-[calc(var(--folder-card-radius)*2)]',
-        'rounded-t-[var(--folder-card-radius)] bg-[var(--folder-card-body)]',
+        // token-lint-disable-next-line no-literal-length: one-pixel seam joins the tab to the folder body
+        'rounded-t-[var(--folder-card-radius)] bg-[var(--folder-card-body)] shadow-[0_1px_0_var(--folder-card-body)]',
         'after:absolute after:bottom-0 after:left-full after:size-[var(--folder-card-radius)]',
         'after:bg-[radial-gradient(circle_farthest-side_at_100%_0,transparent_96%,var(--folder-card-body))]'
     ];

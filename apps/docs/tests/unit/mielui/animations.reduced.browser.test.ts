@@ -11,7 +11,7 @@ async function settle() {
     await new Promise((resolve) => setTimeout(resolve, 30));
 }
 
-it('computes every retained keyframe animation to none under reduced motion', async () => {
+it('stops looping keyframes under reduced motion and keeps the progress pulse', async () => {
     render(MotionFixture);
     await settle();
     toast({ title: 'Reduced motion', duration: 10_000 });
@@ -24,8 +24,6 @@ it('computes every retained keyframe animation to none under reduced motion', as
     expect(document.querySelector('[data-ui="toast"]')).toBeInTheDocument();
     expect(document.querySelector('[data-ui="toast"] [style*="animation-duration"]')).toBeNull();
 
-    for (const element of [skeleton, progress]) {
-        expect(element).toBeInTheDocument();
-        expect(getComputedStyle(required(element)).animationName).toBe('none');
-    }
+    expect(getComputedStyle(required(skeleton)).animationName).toBe('none');
+    expect(getComputedStyle(required(progress)).animationName).toBe('pulse');
 });

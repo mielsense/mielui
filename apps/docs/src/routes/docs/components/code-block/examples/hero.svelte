@@ -11,7 +11,6 @@
     import go from './snippets/quickstart.go.txt?raw';
     import java from './snippets/quickstart.java.txt?raw';
     import javascript from './snippets/quickstart.js.txt?raw';
-    // Loaded as raw text so the sample `import` lines aren't seen by the bundler.
     import python from './snippets/quickstart.py.txt?raw';
 </script>
 

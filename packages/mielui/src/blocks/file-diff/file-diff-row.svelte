@@ -1,7 +1,7 @@
 <script lang="ts">
     import { cn } from '@mielui/svelte/utils';
-    import { getContext } from 'svelte';
-    import type { FileDiffContext, FileDiffRowProps } from '.';
+    import type { FileDiffRowProps } from '.';
+    import { findFileDiffContext } from './context';
     import LineNumber from './file-diff-line-number.svelte';
     import { highlight } from './highlight';
 
@@ -19,7 +19,7 @@
         ...rest
     }: FileDiffRowProps = $props();
 
-    const context = getContext<FileDiffContext>('file-diff');
+    const context = findFileDiffContext();
     const themed = $derived(context?.theme !== 'custom');
     const resolvedLang = $derived(lang ?? context?.lang ?? '');
     const showLineNumbers = $derived(context?.showLineNumbers ?? true);
@@ -58,7 +58,7 @@
     {...rest}
 >
     {#if showLineNumbers}
-        <span class="flex min-w-0 items-stretch py-0.5 pl-3">
+        <span class="flex min-w-0 items-stretch py-0.5 ps-3">
             <LineNumber value={oldLine} tone={type === 'remove' ? 'remove' : 'context'} />
         </span>
         <span class="flex min-w-0 items-stretch py-0.5">
@@ -76,7 +76,7 @@
     >
         {sign}
     </span>
-    <span class="min-w-0 overflow-x-auto py-0.5 pr-4 whitespace-pre">
+    <span class="min-w-0 overflow-x-auto py-0.5 pe-4 whitespace-pre">
         <span class="sr-only"> {spokenChange}{spokenNumber}: </span>
         {#if children}
             {@render children?.()}

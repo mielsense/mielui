@@ -1,14 +1,13 @@
 <script lang="ts">
-    import { getCssDuration } from '@mielui/svelte/transition';
+    import { getCssDuration, springEase } from '@mielui/svelte/transition';
     import { onMount, untrack } from 'svelte';
-    import { cubicOut } from 'svelte/easing';
-    import type { HTMLAttributes } from 'svelte/elements';
     import { prefersReducedMotion, Tween } from 'svelte/motion';
     import ChartTooltipSurface from '../../components/_internal/chart-tooltip-surface.svelte';
-    import { useHeatmap } from './context.svelte';
+    import type { HeatmapTooltipProps } from '.';
+    import { getHeatmapContext } from './context';
 
-    let { children, class: className, ...props }: HTMLAttributes<HTMLDivElement> = $props();
-    const context = useHeatmap();
+    let { children, class: className, ...rest }: HeatmapTooltipProps = $props();
+    const context = getHeatmapContext();
     const gap = 8;
     let element = $state<HTMLDivElement>();
     let width = $state(0);
@@ -17,13 +16,20 @@
     let placed = $state(false);
     const anchor = $derived(context.hoveredElement ?? context.focusedElement);
     const day = $derived(context.model.cells.find((cell) => cell.date === target?.dataset.date));
+    const dateFormatter = $derived(
+        new Intl.DateTimeFormat(context.locale, {
+            dateStyle: 'medium',
+            timeZone: 'UTC'
+        })
+    );
+    const countFormatter = $derived(new Intl.NumberFormat(context.locale));
     const position = new Tween(
         {
             x: 0,
             y: 0
         },
         {
-            easing: cubicOut
+            easing: springEase(550, 40)
         }
     );
 
@@ -70,11 +76,11 @@
             ),
             y: above >= 0 ? above : below
         };
-        const moving = untrack(() => placed);
+        const moving = untrack(() => placed && context.hoveredElement !== undefined);
         void position.set(destination, {
             duration:
                 moving && !prefersReducedMotion.current
-                    ? getCssDuration(node, '--motion-duration-panel', 0)
+                    ? getCssDuration(node, '--motion-duration-spring', 0)
                     : 0
         });
         placed = true;
@@ -110,28 +116,28 @@
 
 {#if target && day}
     <ChartTooltipSurface
-        {...props}
-        bind:ref={element}
+        {...rest}
+        bind:element
         bind:width
         bind:height
         aria-hidden="true"
-        style={`${props.style ?? ''}; left: ${position.current.x}px; top: ${position.current.y}px; visibility: ${placed ? 'visible' : 'hidden'}`}
+        style={`${rest.style ?? ''}; left: 0; top: 0; translate: ${position.current.x}px ${position.current.y}px; visibility: ${placed ? 'visible' : 'hidden'}`}
         data-ui="heatmap-tooltip"
         class={className}
     >
         {#if children}
             {@render children()}
         {:else}
-            <div class="mb-2 font-medium">
-                {new Intl.DateTimeFormat(context.locale, { dateStyle: 'medium', timeZone: 'UTC' }).format(new Date(`${day.date}T00:00:00Z`))}
+            <div class="mb-2 font-medium text-foreground">
+                {dateFormatter.format(new Date(`${day.date}T00:00:00Z`))}
             </div>
             <div class="flex items-center gap-2">
-                <span class="size-2 rounded-full bg-[var(--chart-1)]"></span>
+                <span class="size-2 shrink-0 rounded-full bg-[var(--chart-1)]"></span>
                 <span class="flex-1 text-foreground-muted">
                     {context.labels?.tooltipValue ?? 'Contributions'}
                 </span>
                 <span class="ml-4 font-medium tabular-nums">
-                    {new Intl.NumberFormat(context.locale).format(day.count)}
+                    {countFormatter.format(day.count)}
                 </span>
             </div>
         {/if}

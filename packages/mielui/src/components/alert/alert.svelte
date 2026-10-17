@@ -7,7 +7,7 @@
     } from '@hugeicons/core-free-icons';
     import { cn } from '@mielui/svelte/utils';
     import HugeiconsIcon from '../../hugeicons-icon.svelte';
-    import type { AlertProps } from '.';
+    import type { AlertProps, AlertVariant } from '.';
     import { alert, alertIcon, alertIconSlot, alertSurface } from './variants';
 
     let {
@@ -15,28 +15,32 @@
         icon,
         announcement = 'off',
         children,
-        class: classProp,
+        class: className,
         ...rest
     }: AlertProps = $props();
 
-    const Icon = $derived(
-        variant === 'success'
-            ? Check
-            : variant === 'error'
-              ? X
-              : variant === 'warning'
-                ? Warning
-                : Info
-    );
+    const icons = {
+        info: Info,
+        error: X,
+        success: Check,
+        warning: Warning
+    } satisfies Record<AlertVariant, typeof Info>;
+    const roles = {
+        off: undefined,
+        polite: 'status',
+        assertive: 'alert'
+    } as const;
+
+    const live = $derived(announcement !== 'off');
 </script>
 
 <div
     {...rest}
-    role={announcement === 'assertive' ? 'alert' : announcement === 'polite' ? 'status' : undefined}
-    aria-live={announcement === 'off' ? undefined : announcement}
-    aria-atomic={announcement === 'off' ? undefined : true}
+    role={roles[announcement]}
+    aria-live={live ? announcement : undefined}
+    aria-atomic={live || undefined}
     data-ui="alert"
-    class={cn(classProp, alert())}
+    class={cn(className, alert())}
 >
     <div data-ui="alert-surface" class={alertSurface()}>
         {#if icon}
@@ -44,7 +48,7 @@
         {:else if icon !== false}
             <span data-alert-icon class={alertIconSlot()}>
                 <HugeiconsIcon
-                    icon={Icon}
+                    icon={icons[variant]}
                     class={alertIcon({ variant })}
                     size={16}
                     strokeWidth={2.25}

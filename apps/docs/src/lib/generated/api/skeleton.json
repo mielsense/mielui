@@ -148,7 +148,16 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "Accessible name while loading.",
+                "description": "Accessible name of the content. With it, the swap announces when the content arrives.",
+                "inherited": false
+            },
+            {
+                "name": "labels",
+                "type": "SkeletonSwapLabels | undefined",
+                "required": false,
+                "bindable": false,
+                "default": null,
+                "description": "Overrides the built-in text and accessible names. Every key is optional and English is the fallback.",
                 "inherited": false
             },
             {

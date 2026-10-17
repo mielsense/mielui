@@ -6,7 +6,7 @@
 
 <div class="flex flex-col items-center gap-4">
     {#each sizes as size (size)}
-        <ToggleGroup.Root type="single" value="week" {size} aria-label={`Range, ${size}`}>
+        <ToggleGroup.Root value="week" {size} aria-label={`Range, ${size}`}>
             <ToggleGroup.Item value="day">Day</ToggleGroup.Item>
             <ToggleGroup.Item value="week">Week</ToggleGroup.Item>
             <ToggleGroup.Item value="month">Month</ToggleGroup.Item>

@@ -1,10 +1,11 @@
+import type { WithElement } from '@mielui/svelte/utils';
 import type { DatePicker as DatePickerPrimitive } from 'bits-ui';
 
-import type { DatePickerLabels } from './context.svelte';
+import type { DatePickerLabels } from './context';
 
 export type { DatePickerLabels };
 
-export type DatePickerProps = Omit<DatePickerPrimitive.RootProps, 'child'> & {
+export type DatePickerProps = WithElement<Omit<DatePickerPrimitive.RootProps, 'child'>> & {
     /**
      * Overrides the built-in text and accessible names. Every key is optional and English is the
      * fallback.
@@ -12,9 +13,8 @@ export type DatePickerProps = Omit<DatePickerPrimitive.RootProps, 'child'> & {
     labels?: DatePickerLabels;
 };
 
-export type DatePickerContentProps = Omit<
-    DatePickerPrimitive.ContentProps,
-    'child' | 'forceMount'
+export type DatePickerContentProps = WithElement<
+    Omit<DatePickerPrimitive.ContentProps, 'child' | 'forceMount'>
 > & {
     /** Surface treatment. Omit it to inherit `--mielui-surface` from the theme. */
     surface?: 'solid' | 'glass';
@@ -41,10 +41,10 @@ export {
     PrevButton,
     YearSelect
 } from '../calendar';
-export { default as Content } from '../date-picker/date-picker-content.svelte';
-export { default as Label } from '../date-picker/date-picker-label.svelte';
-export { default as Segment } from '../date-picker/date-picker-segment.svelte';
 export { default as Root } from './date-picker.svelte';
 export { default as Calendar } from './date-picker-calendar.svelte';
+export { default as Content } from './date-picker-content.svelte';
 export { default as Input } from './date-picker-input.svelte';
+export { default as Label } from './date-picker-label.svelte';
+export { default as Segment } from './date-picker-segment.svelte';
 export { default as Trigger } from './date-picker-trigger.svelte';

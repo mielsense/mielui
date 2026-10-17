@@ -1,5 +1,5 @@
 import { toast } from '@mielui/svelte/components/toast';
-import { type Invoice, type InvoiceStatus, initialInvoices } from './data';
+import { type Invoice, type InvoiceStatus, initialInvoices, invoiceAmount } from './data';
 
 type Notification = {
     id: string;
@@ -66,14 +66,19 @@ export class AppPreviewModel {
     overdueCount = $derived(this.overdueInvoices.length);
     outstandingTotal = $derived(
         this.invoices.reduce((sum, invoice) => {
-            return invoice.status === 'Paid'
-                ? sum
-                : sum + Number.parseFloat(invoice.amount.replace(/[$,]/g, ''));
+            return invoice.status === 'Paid' ? sum : sum + invoiceAmount(invoice);
         }, 0)
     );
-    coverageValue = $derived(
-        this.dashboardRange === '7d' ? 54 : this.dashboardRange === 'Quarter' ? 81 : 72
-    );
+    coverageValue = $derived.by(() => {
+        if (this.dashboardRange === '7d') {
+            return 54;
+        }
+        if (this.dashboardRange === 'Quarter') {
+            return 81;
+        }
+
+        return 72;
+    });
     readonly collectionSteps = [
         { id: 'scan', label: 'Scan overdue', meta: 'Open invoices' },
         { id: 'remind', label: 'Send reminders', meta: 'Today' },

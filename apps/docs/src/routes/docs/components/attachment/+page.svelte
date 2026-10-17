@@ -1,20 +1,57 @@
 <script lang="ts">
+    import * as Attachment from '@mielui/svelte/components/attachment';
     import { CodeBlock } from '@mielui/svelte/components/code-block';
     import * as Typography from '@mielui/svelte/components/typography';
-    import { ComponentPreview, InstallCommand } from '$lib/components/docs';
+    import { onMount } from 'svelte';
+    import { ComponentPreview, InstallCommand, Playground } from '$lib/components/docs';
     import InlineText from '$lib/components/docs/inline-text.svelte';
     import PageIntro from '$lib/components/docs/page-intro.svelte';
     import SectionHeading from '$lib/components/docs/section-heading.svelte';
     import ChipStatus from './examples/chip-status.svelte';
     import ChipStatusSrc from './examples/chip-status.svelte?raw';
-    import Hero from './examples/hero.svelte';
-    import HeroSrc from './examples/hero.svelte?raw';
     import SingleExample from './examples/single.svelte';
     import SingleExampleSrc from './examples/single.svelte?raw';
     import StatusVariants from './examples/status-variants.svelte';
     import StatusVariantsSrc from './examples/status-variants.svelte?raw';
+    import {
+        ACCEPT,
+        PROGRESS,
+        code as playgroundCode,
+        controls as playgroundControls,
+        usesItems as playgroundUsesItems,
+        UPLOAD_ERROR
+    } from './playground';
 
-    const installCommand = 'pnpm dlx @mielui/svelte add attachment';
+    let playgroundFiles = $state<File[]>([]);
+    let playgroundRejected = $state<Attachment.AttachmentRejection[]>([]);
+
+    onMount(() => {
+        playgroundFiles = [
+            new File([new Uint8Array(620_000)], 'architecture.pdf', {
+                type: 'application/pdf'
+            })
+        ];
+    });
+
+    const usage = `<script lang="ts">
+    import * as Attachment from '@mielui/svelte/components/attachment';
+
+    let files = $state<File[]>([]);
+    let rejected = $state<Attachment.AttachmentRejection[]>([]);
+</${'script'}>
+
+<Attachment.Root
+    bind:files
+    accept="image/*,.pdf"
+    maxFiles={3}
+    maxSize={5 * 1024 * 1024}
+    onReject={(rejections) => {
+        rejected = rejections;
+    }}
+>
+    <Attachment.Trigger>Choose files</Attachment.Trigger>
+    <Attachment.List />
+</Attachment.Root>`;
 </script>
 
 <svelte:head>
@@ -31,12 +68,72 @@
     </PageIntro>
 
     <section id="hero" class="scroll-mt-20 flex flex-col gap-4">
-        <ComponentPreview code={HeroSrc}><Hero /></ComponentPreview>
+        <Playground controls={playgroundControls} code={playgroundCode}>
+            {#snippet children(values)}
+                {const chip = $derived(values.variant === 'chip')}
+                <Attachment.Root
+                    bind:files={playgroundFiles}
+                    accept={ACCEPT}
+                    maxFiles={values.maxFiles}
+                    maxSize={values.maxSize * 1024 * 1024}
+                    disabled={values.disabled}
+                    onReject={(rejections) => {
+                        playgroundRejected = rejections;
+                    }}
+                    class="flex w-full max-w-sm flex-col items-center gap-3"
+                >
+                    {#if values.triggerLabel}
+                        <Attachment.Trigger variant="outline">Choose files</Attachment.Trigger>
+                    {:else}
+                        <Attachment.Trigger variant="outline" />
+                    {/if}
+                    {#if playgroundUsesItems(values)}
+                        {#each playgroundFiles as file (file)}
+                            <Attachment.Item
+                                {file}
+                                variant={values.variant}
+                                status={values.status}
+                                progress={values.status === 'uploading' ? PROGRESS : undefined}
+                                error={values.status === 'error' ? UPLOAD_ERROR : undefined}
+                                removable={values.removable}
+                                class={chip ? undefined : 'w-72 max-w-full'}
+                                onRemove={values.removable
+                                    ? () => {
+                                          playgroundFiles = playgroundFiles.filter(
+                                              (item) => item !== file
+                                          );
+                                      }
+                                    : undefined}
+                            />
+                        {/each}
+                    {:else}
+                        <Attachment.List
+                            variant={values.variant}
+                            class="items-center self-stretch sm:justify-center"
+                        />
+                    {/if}
+                    {#each playgroundRejected as rejection (rejection.file)}
+                        <Attachment.Item
+                            file={rejection.file}
+                            variant={values.variant}
+                            status="error"
+                            error={rejection.reason}
+                            class={chip ? undefined : 'w-72 max-w-full'}
+                            onRemove={() => {
+                                playgroundRejected = playgroundRejected.filter(
+                                    (item) => item !== rejection
+                                );
+                            }}
+                        />
+                    {/each}
+                </Attachment.Root>
+            {/snippet}
+        </Playground>
     </section>
 
     <section id="installation" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Installation</Typography.H2>
-        <InstallCommand command={installCommand} />
+        <InstallCommand command="pnpm dlx @mielui/svelte add attachment" />
     </section>
 
     <section id="usage" class="scroll-mt-20 flex flex-col gap-4">
@@ -47,42 +144,19 @@
             callback. Selection is local only; your application owns uploading and upload state.
         </Typography.Text>
         <Typography.Text variant="supporting">
-            Set accept, maxFiles, and maxSize to limit selection. Set disabled to prevent adding or
-            removing files and clear the drag highlight.
+            <InlineText
+                text={"Set `accept`, `maxFiles`, and `maxSize` to limit selection. `disabled` prevents adding or removing files and clears the drag highlight."}
+            />
         </Typography.Text>
-        <CodeBlock
-            code={`import * as Attachment from '@mielui/svelte/components/attachment';
-import type { AttachmentRejection } from '@mielui/svelte/components/attachment';
-
-let files = $state<File[]>([]);
-
-function handleReject(rejections: AttachmentRejection[]) {
-  console.log(rejections);
-}
-
-<Attachment.Root
-  bind:files
-  accept="image/*,.pdf"
-  maxFiles={3}
-  maxSize={5 * 1024 * 1024}
-  onReject={handleReject}
->
-  <Attachment.Trigger>Choose files</Attachment.Trigger>
-  <Attachment.List />
-</Attachment.Root>`}
-            lang="svelte"
-            copy="overlay"
-        />
+        <CodeBlock code={usage} lang="svelte" copy="overlay" />
     </section>
 
     <section id="integration" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Selection and upload ownership</Typography.H2>
         <Typography.Text variant="supporting">
-            Attachment validates local selection and displays files. It does not upload them. Keep
-            upload progress and errors in your application, or use File Upload when you need an
-            upload callback with cancellation and retry. Use the hero to test rejection messages and
-            remove selected files. Progress is clamped from 0 to 100; omitted or nonfinite values
-            display an indeterminate progress indicator.
+            <InlineText
+                text={"Attachment validates local selection and displays files. It does not upload them. Keep upload progress and errors in your application, or use [File Upload](/docs/components/file-upload) when you need an upload callback with cancellation and retry. Item clamps `progress` from 0 to 100; an omitted or non-finite value shows an indeterminate indicator."}
+            />
         </Typography.Text>
     </section>
     <section id="examples" class="scroll-mt-20 flex flex-col gap-10">
@@ -100,31 +174,38 @@ function handleReject(rejections: AttachmentRejection[]) {
         <div id="chips" class="scroll-mt-20 flex flex-col gap-3">
             <Typography.H3 class="docs-subsection-heading">Chips</Typography.H3>
             <Typography.Text variant="supporting">
-                Set
-                <Typography.InlineCode>variant="chip"</Typography.InlineCode>
-                on List or Item for a compact pill with a file-type icon or image thumbnail, the
-                name, and a remove button. A spinner replaces the icon while uploading, and errors
-                add a red edge. Progress and status text stay available to assistive technology. Use
-                chips above Composer.Root inside the shared Attachment.Root.
+                <InlineText
+                    text={"Set `variant=\"chip\"` on List or Item for a compact pill with a file-type icon or image thumbnail, the name, and a remove button. A spinner replaces the icon while uploading, and errors add a red edge. Progress and status text stay available to assistive technology. In a chat input, place chips above Composer.Root inside the shared Attachment.Root."}
+                />
             </Typography.Text>
             <ComponentPreview code={ChipStatusSrc}><ChipStatus /></ComponentPreview>
         </div>
     </section>
 
-    <section id="labels" class="flex scroll-mt-20 flex-col gap-4">
+    <section id="labels" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Labels</Typography.H2>
-        <Typography.Text>
-            Built-in text is English by default. Pass labels to Attachment.Root to translate or
-            reword the drop overlay, the trigger, the list, file status, and the remove button.
-            Every key is optional; omitted keys keep their default.
+        <Typography.Text variant="supporting">
+            <InlineText
+                text={"Built-in text is English by default. Pass `labels` to Root to translate or reword the drop overlay, the trigger, the list, file status, and the remove button. Every key of `AttachmentLabels` is optional; omitted keys keep their default."}
+            />
         </Typography.Text>
         <CodeBlock
-            code={`<Attachment.Root bind:files labels={{ dropzone: 'Déposez des fichiers', add: 'Joindre des fichiers', remove: (name) => \`Retirer \${name}\` }} />`}
+            code={`<Attachment.Root
+    bind:files
+    labels={{
+        dropzone: 'Déposez des fichiers',
+        add: 'Joindre des fichiers',
+        remove: (name) => \`Retirer \${name}\`
+    }}
+>
+    <Attachment.Trigger />
+    <Attachment.List />
+</Attachment.Root>`}
             lang="svelte"
             copy="overlay"
         />
     </section>
-    <section id="single-file" class="flex flex-col gap-4">
+    <section id="single-file" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">One file at a time</Typography.H2>
         <Typography.Text variant="supporting">
             <InlineText

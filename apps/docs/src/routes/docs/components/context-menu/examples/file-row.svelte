@@ -13,6 +13,7 @@
         draft = name;
         editing = true;
     }
+
     function save(event: SubmitEvent) {
         event.preventDefault();
         name = draft.trim();
@@ -24,7 +25,7 @@
 <div class="flex w-full max-w-sm flex-col gap-3">
     <ContextMenu.Root>
         <ContextMenu.Trigger>
-            <div class="rounded-[var(--radius-md)] border border-border bg-card p-4 text-sm">
+            <div class="rounded-[var(--radius-xl)] border border-border bg-card p-4 text-sm">
                 {name}
             </div>
         </ContextMenu.Trigger>

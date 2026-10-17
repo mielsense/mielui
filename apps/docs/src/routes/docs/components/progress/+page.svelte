@@ -1,18 +1,25 @@
 <script lang="ts">
     import { CodeBlock } from '@mielui/svelte/components/code-block';
+    import { Progress } from '@mielui/svelte/components/progress';
     import * as Typography from '@mielui/svelte/components/typography';
-    import { ComponentPreview, InstallCommand } from '$lib/components/docs';
+    import { ComponentPreview, InstallCommand, Playground } from '$lib/components/docs';
     import PageIntro from '$lib/components/docs/page-intro.svelte';
     import Determinate from './examples/determinate.svelte';
     import DeterminateSrc from './examples/determinate.svelte?raw';
-    import Hero from './examples/hero.svelte';
-    import HeroSrc from './examples/hero.svelte?raw';
     import Indeterminate from './examples/indeterminate.svelte';
     import IndeterminateSrc from './examples/indeterminate.svelte?raw';
+    import Upload from './examples/upload.svelte';
+    import UploadSrc from './examples/upload.svelte?raw';
     import WithLabel from './examples/with-label.svelte';
     import WithLabelSrc from './examples/with-label.svelte?raw';
+    import { code as playgroundCode, controls as playgroundControls } from './playground';
 
-    const installCommand = 'pnpm dlx @mielui/svelte add progress';
+    const usageCode = `<script lang="ts">
+    import { Progress } from '@mielui/svelte/components/progress';
+</${'script'}>
+
+<Progress value={28} aria-label="Upload progress" />
+<Progress indeterminate aria-label="Waiting for a response" />`;
 </script>
 
 <svelte:head>
@@ -24,25 +31,30 @@
 </svelte:head>
 
 <div data-docs-page class="flex flex-col gap-10">
-    <!-- ─── Header ────────────────────────────────────────────────── -->
     <PageIntro title="Progress">
         A progress bar. Set indeterminate for tasks with an unknown duration.
     </PageIntro>
 
-    <!-- ─── Hero Example ──────────────────────────────────────────── -->
     <section id="hero" class="scroll-mt-20 flex flex-col gap-4">
-        <ComponentPreview code={HeroSrc}>
-            <Hero />
-        </ComponentPreview>
+        <Playground controls={playgroundControls} code={playgroundCode}>
+            {#snippet children(values)}
+                <div class="w-full max-w-md">
+                    <Progress
+                        value={values.value}
+                        max={values.max}
+                        indeterminate={values.indeterminate}
+                        aria-label="Release archive upload"
+                    />
+                </div>
+            {/snippet}
+        </Playground>
     </section>
 
-    <!-- ─── Installation ──────────────────────────────────────────── -->
     <section id="installation" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Installation</Typography.H2>
-        <InstallCommand command={installCommand} />
+        <InstallCommand command="pnpm dlx @mielui/svelte add progress" />
     </section>
 
-    <!-- ─── Usage ─────────────────────────────────────────────────── -->
     <section id="usage" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Usage</Typography.H2>
         <Typography.Text>
@@ -65,20 +77,24 @@
             hidden.
         </Typography.Text>
 
-        <CodeBlock
-            code={`import { Progress } from '@mielui/svelte/components/progress';\n\n<Progress value={28} aria-label="Upload progress" />\n<Progress indeterminate aria-label="Waiting for a response" />`}
-            lang="svelte"
-            copy="overlay"
-        />
+        <CodeBlock code={usageCode} lang="svelte" copy="overlay" />
     </section>
 
-    <!-- ─── Examples ──────────────────────────────────────────────── -->
     <section id="examples" class="scroll-mt-20 flex flex-col gap-10">
         <div>
             <Typography.H2 class="docs-section-heading">Examples</Typography.H2>
         </div>
 
-        <!-- Determinate -->
+        <div id="simulated-upload" class="scroll-mt-20 flex flex-col gap-3">
+            <Typography.H3 class="docs-subsection-heading">Simulated upload</Typography.H3>
+            <Typography.Text variant="supporting">
+                The bar, the percentage and the status line follow one value as a transfer runs.
+            </Typography.Text>
+            <ComponentPreview code={UploadSrc}>
+                <Upload />
+            </ComponentPreview>
+        </div>
+
         <div id="determinate" class="scroll-mt-20 flex flex-col gap-3">
             <Typography.H3 class="docs-subsection-heading">Determinate</Typography.H3>
             <ComponentPreview code={DeterminateSrc}>
@@ -86,7 +102,6 @@
             </ComponentPreview>
         </div>
 
-        <!-- Indeterminate -->
         <div id="indeterminate" class="scroll-mt-20 flex flex-col gap-3">
             <Typography.H3 class="docs-subsection-heading">Indeterminate</Typography.H3>
             <ComponentPreview code={IndeterminateSrc}>
@@ -94,7 +109,6 @@
             </ComponentPreview>
         </div>
 
-        <!-- With label -->
         <div id="with-label" class="scroll-mt-20 flex flex-col gap-3">
             <Typography.H3 class="docs-subsection-heading">With label</Typography.H3>
             <ComponentPreview code={WithLabelSrc}>

@@ -4,16 +4,18 @@
 
     let elapsedTenths = $state(0);
     let running = $state(true);
-    let elapsed = $derived(`${(elapsedTenths / 10).toFixed(1)}s`);
+    const elapsed = $derived(`${(elapsedTenths / 10).toFixed(1)}s`);
 
     onMount(() => {
         const id = setInterval(() => {
             elapsedTenths += 1;
+
             if (elapsedTenths >= 24) {
                 running = false;
                 clearInterval(id);
             }
         }, 100);
+
         return () => {
             clearInterval(id);
         };

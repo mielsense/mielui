@@ -9,7 +9,7 @@ export const manifest: Manifest = {
         'components/message/message.svelte',
         'components/message/message-content.svelte',
         'components/message/message-actions.svelte',
-        'components/message/context.svelte.ts',
+        'components/message/context.ts',
         'components/message/message-avatar.svelte',
         'components/message/message-body.svelte',
         'components/message/message-metadata.svelte',
@@ -25,7 +25,7 @@ export const manifest: Manifest = {
         '@floating-ui/dom': '1.7.6',
         '@hugeicons/core-free-icons': '^4.3.0',
         cnfast: '^0.0.8',
-        svelte: '^5.0.0',
+        svelte: '^5.56.0',
         'tailwind-merge': '^3.0.0'
     }
 };

@@ -1,4 +1,4 @@
-import { getContext, setContext } from 'svelte';
+import { createContext } from 'svelte';
 
 type StudioState = {
     mode: string;
@@ -6,12 +6,4 @@ type StudioState = {
     glassBackdrop: boolean;
 };
 
-const studioKey = Symbol('studio');
-
-export function setStudioContext(state: StudioState): void {
-    setContext(studioKey, state);
-}
-
-export function getStudioContext(): StudioState {
-    return getContext<StudioState>(studioKey);
-}
+export const [getStudioContext, setStudioContext] = createContext<StudioState>();

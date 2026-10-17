@@ -102,6 +102,15 @@
                 "inherited": false
             },
             {
+                "name": "labels",
+                "type": "SliderLabels | undefined",
+                "required": false,
+                "bindable": false,
+                "default": null,
+                "description": "Overrides the built-in text and accessible names. Every key is optional and English is the fallback.",
+                "inherited": false
+            },
+            {
                 "name": "aria-label",
                 "type": "string | undefined",
                 "required": false,
@@ -135,15 +144,6 @@
                 "bindable": false,
                 "default": null,
                 "description": "Classes added to the element.",
-                "inherited": false
-            },
-            {
-                "name": "children",
-                "type": "Snippet<[]> | undefined",
-                "required": false,
-                "bindable": false,
-                "default": null,
-                "description": "Content rendered inside.",
                 "inherited": false
             },
             {

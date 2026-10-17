@@ -12,7 +12,7 @@
 
 <Field.Group class="w-full max-w-sm">
     <Field.Root {disabled} {required}>
-        <Field.Label>Seats (required)</Field.Label>
+        <Field.Label>Seats</Field.Label>
         <NumberField.Root bind:value={seats} name="seats" min={1} max={12} {disabled} {required}>
             <NumberField.Group>
                 <NumberField.Decrement />
@@ -29,7 +29,7 @@
         </Field.Description>
     </Field.Root>
     <Field.Root {required}>
-        <Field.Label>Verification code (required)</Field.Label>
+        <Field.Label>Verification code</Field.Label>
         <Field.Control describedBy={`${uid}-code-hint`}>
             {#snippet children(control)}
                 <OTPField.Root {...control} bind:value={code} name="code" length={6} />

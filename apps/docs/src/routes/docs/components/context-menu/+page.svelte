@@ -1,7 +1,8 @@
 <script lang="ts">
     import { CodeBlock } from '@mielui/svelte/components/code-block';
+    import * as ContextMenu from '@mielui/svelte/components/context-menu';
     import * as Typography from '@mielui/svelte/components/typography';
-    import { ComponentPreview, InstallCommand } from '$lib/components/docs';
+    import { ComponentPreview, InstallCommand, Playground } from '$lib/components/docs';
     import InlineText from '$lib/components/docs/inline-text.svelte';
     import PageIntro from '$lib/components/docs/page-intro.svelte';
     import SectionHeading from '$lib/components/docs/section-heading.svelte';
@@ -17,49 +18,97 @@
     import ImageSrc from './examples/image.svelte?raw';
     import TaskCard from './examples/task-card.svelte';
     import TaskCardSrc from './examples/task-card.svelte?raw';
+    import {
+        code as playgroundCode,
+        controls as playgroundControls,
+        TRIGGER_CLASS
+    } from './playground';
 
-    const installCommand = 'pnpm dlx @mielui/svelte add context-menu';
+    let grid = $state(true);
+
+    const usageCode = `<script lang="ts">
+    import * as ContextMenu from '@mielui/svelte/components/context-menu';
+
+    let copied = $state(false);
+</${'script'}>
+
+<ContextMenu.Root>
+    <ContextMenu.Trigger>Right-click here</ContextMenu.Trigger>
+    <ContextMenu.Content>
+        <ContextMenu.Item
+            callback={() => {
+                copied = true;
+            }}
+        >
+            Copy
+        </ContextMenu.Item>
+    </ContextMenu.Content>
+</ContextMenu.Root>`;
 </script>
 
 <svelte:head>
     <title>Mielui · Context Menu</title>
     <meta
         name="description"
-        content="A right-click menu for actions that apply to whatever the user clicked on. It uses the same item grammar as DropdownMenu and opens on right-click."
+        content="A right-click menu of actions, sharing the dropdown menu's item set."
     />
 </svelte:head>
 
 <div data-docs-page class="flex flex-col gap-10">
-    <!-- ─── Header ────────────────────────────────────────────────── -->
     <PageIntro title="Context Menu">
         A right-click menu of actions, sharing the dropdown menu's item set.
     </PageIntro>
 
-    <!-- ─── Hero Example ──────────────────────────────────────────── -->
     <section id="hero" class="scroll-mt-20 flex flex-col gap-4">
-        <ComponentPreview code={HeroSrc}>
-            <Hero />
-        </ComponentPreview>
+        <Playground controls={playgroundControls} code={playgroundCode}>
+            {#snippet children(values)}
+                {const surface = $derived(values.surface === 'theme' ? undefined : values.surface)}
+                <ContextMenu.Root>
+                    <ContextMenu.Trigger class={TRIGGER_CLASS}>
+                        Right-click or press and hold
+                    </ContextMenu.Trigger>
+                    <ContextMenu.Content {surface}>
+                        {#if values.checkbox}
+                            <ContextMenu.CheckboxItem value="grid" bind:checked={grid}>
+                                Show grid
+                            </ContextMenu.CheckboxItem>
+                            <ContextMenu.Separator />
+                        {/if}
+                        <ContextMenu.Item inset={values.inset}>Copy</ContextMenu.Item>
+                        <ContextMenu.Item inset={values.inset} disabled={values.disabledItem}>
+                            Paste
+                        </ContextMenu.Item>
+                        {#if values.submenu}
+                            <ContextMenu.Sub>
+                                <ContextMenu.SubTrigger inset={values.inset}>
+                                    Arrange
+                                </ContextMenu.SubTrigger>
+                                <ContextMenu.SubContent {surface}>
+                                    <ContextMenu.Item>Bring to front</ContextMenu.Item>
+                                    <ContextMenu.Item>Send to back</ContextMenu.Item>
+                                </ContextMenu.SubContent>
+                            </ContextMenu.Sub>
+                        {/if}
+                        <ContextMenu.Separator />
+                        <ContextMenu.Item
+                            inset={values.inset}
+                            variant={values.destructive ? 'destructive' : undefined}
+                        >
+                            Delete
+                        </ContextMenu.Item>
+                    </ContextMenu.Content>
+                </ContextMenu.Root>
+            {/snippet}
+        </Playground>
     </section>
 
-    <!-- ─── Installation ──────────────────────────────────────────── -->
     <section id="installation" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Installation</Typography.H2>
-        <InstallCommand command={installCommand} />
+        <InstallCommand command="pnpm dlx @mielui/svelte add context-menu" />
     </section>
 
-    <!-- ─── Usage ─────────────────────────────────────────────────── -->
     <section id="usage" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Usage</Typography.H2>
-        <Typography.Text variant="supporting">
-            The theme setting chrome.borders chooses "single" or "double" framing. Single is the
-            default. Single removes the extra frame while preserving content padding, composition,
-            and inset variants.
-        </Typography.Text>
-        <Typography.Text variant="supporting">
-            Separators span the inner panel width, including submenus. Menu items retain their
-            padding.
-        </Typography.Text>
         <Typography.Text variant="supporting">
             Bind open to observe or close the root menu, and use onOpenChange for interaction
             callbacks. Pointer and keyboard opening keep the same state.
@@ -70,23 +119,25 @@
             submenus support directional keys. An item onclick handler can call
             event.preventDefault() to cancel selection and dismissal.
         </Typography.Text>
-        <Typography.Text variant="supporting">
-            Import and compose with Root, Trigger, Content, and Item:
-        </Typography.Text>
-        <CodeBlock
-            code={`import * as ContextMenu from '@mielui/svelte/components/context-menu';\n\n<ContextMenu.Root>\n  <ContextMenu.Trigger>\n    <div>Right-click me</div>\n  </ContextMenu.Trigger>\n  <ContextMenu.Content>\n    <ContextMenu.Item callback={handleAction}>Action</ContextMenu.Item>\n  </ContextMenu.Content>\n</ContextMenu.Root>`}
-            lang="svelte"
-            copy="overlay"
-        />
+        <CodeBlock code={usageCode} lang="svelte" copy="overlay" />
     </section>
 
-    <!-- ─── Examples ──────────────────────────────────────────────── -->
     <section id="examples" class="scroll-mt-20 flex flex-col gap-10">
         <SectionHeading title="Examples">
             {#snippet description()}
                 Right-click a target to open its menu.
             {/snippet}
         </SectionHeading>
+
+        <div id="live-actions" class="scroll-mt-20 flex flex-col gap-3">
+            <Typography.H3 class="docs-subsection-heading">Live actions</Typography.H3>
+            <Typography.Text variant="supporting">
+                Each action changes the file in place, and a submenu holds the less common ones.
+            </Typography.Text>
+            <ComponentPreview code={HeroSrc}>
+                <Hero />
+            </ComponentPreview>
+        </div>
 
         <div id="file-row" class="scroll-mt-20 flex flex-col gap-3">
             <Typography.H3 class="docs-subsection-heading">File actions</Typography.H3>
@@ -109,17 +160,19 @@
             </ComponentPreview>
         </div>
     </section>
-    <section id="glass" class="flex flex-col gap-4">
+    <section id="glass" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Glass surface</Typography.H2>
         <Typography.Text variant="supporting">
-            Set surface="glass" on ContextMenu.Content for a translucent background with blur. Omit
-            surface to inherit --mielui-surface from your theme, or set surface="solid" to override
-            it. The glass surface keeps an opaque fallback when backdrop filtering is unavailable
-            and respects reduced-transparency preferences.
+            Set surface="glass" on Content and SubContent for a translucent panel with blur, or
+            surface="solid" for an opaque one. Without surface, the panel follows the theme. Glass
+            falls back to an opaque panel when backdrop filtering is unavailable or reduced
+            transparency is on.
         </Typography.Text>
-        <ComponentPreview code={GlassSrc}><Glass /></ComponentPreview>
+        <ComponentPreview code={GlassSrc}>
+            <Glass />
+        </ComponentPreview>
     </section>
-    <section id="checkbox-items" class="flex flex-col gap-4">
+    <section id="checkbox-items" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Checkbox items</Typography.H2>
         <Typography.Text variant="supporting">
             <InlineText
@@ -130,11 +183,11 @@
             <CheckboxItemsExample />
         </ComponentPreview>
     </section>
-    <section id="items" class="flex flex-col gap-4">
+    <section id="items" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Items and other parts</Typography.H2>
         <Typography.Text variant="supporting">
             <InlineText
-                text={"Item and CheckboxItem are built on [Button](/docs/components/button). `size` changes the row height and `loading` with `loadingLabel`, `successLabel` and `errorLabel` shows progress. `element` binds the DOM node, `unstyled` removes the Button classes, and `onkeydown` runs before the menu handles the key. A row is always a button and does not take `href`. Navigate from `callback`."}
+                text={"Item and CheckboxItem are built on [Button](/docs/components/button), so `loading` with `labels` shows progress. `variant=\"destructive\"` on Item colors the row for an action that removes something and tints the highlight while it is active. Rows always use the menu row style, so Button's other variants, `size` and `unstyled` do not apply. `element` binds the DOM node, and `onkeydown` runs before the menu handles the key. A row is always a button and does not take `href`. Navigate from `callback`."}
             />
         </Typography.Text>
         <Typography.Text variant="supporting">

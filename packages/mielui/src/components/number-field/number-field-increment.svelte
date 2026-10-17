@@ -1,50 +1,8 @@
 <script lang="ts">
-    import { Add01Icon } from '@hugeicons/core-free-icons';
-    import { Button } from '@mielui/svelte/components/button';
-    import HugeiconsIcon from '@mielui/svelte/hugeicons-icon';
-    import { cn } from '@mielui/svelte/utils';
-    import { buttonAttributes } from '../_internal/button-attributes';
     import type { NumberFieldStepperProps } from '.';
-    import { getNumberFieldContext } from './context';
+    import Stepper from './number-field-stepper.svelte';
 
-    let {
-        children,
-        element = $bindable(),
-        disabled,
-        onclick,
-        ...rest
-    }: NumberFieldStepperProps = $props();
-    const context = getNumberFieldContext();
-    const atBound = $derived(
-        context.value !== undefined && context.max !== undefined && context.value >= context.max
-    );
-    function setElement(node: HTMLButtonElement | HTMLAnchorElement | undefined) {
-        element = node?.tagName === 'BUTTON' ? (node as HTMLButtonElement) : undefined;
-    }
+    let { element = $bindable(), ...rest }: NumberFieldStepperProps = $props();
 </script>
-<Button
-    {...buttonAttributes(rest)}
-    bind:element={() => element, setElement}
-    href={undefined}
-    variant="ghost"
-    size="icon"
-    type="button"
-    aria-label={rest['aria-label'] ?? 'Increase value'}
-    disabled={disabled || context.disabled || context.readonly || atBound}
-    class={cn(
-        rest.class,
-        'size-[calc(var(--size-icon-md)-var(--border-size)*2)] min-w-[calc(var(--size-icon-md)-var(--border-size)*2)]'
-    )}
-    onclick={(event) => {
-        onclick?.(event);
-        if (!event.defaultPrevented) {
-            context.change(1);
-        }
-    }}
->
-    {#if children}
-        {@render children()}
-    {:else}
-        <HugeiconsIcon icon={Add01Icon} size={14} aria-hidden="true" />
-    {/if}
-</Button>
+
+<Stepper {...rest} bind:element direction={1} />

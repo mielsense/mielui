@@ -5,15 +5,14 @@
         open = $bindable(false),
         allowClickOutside = true,
         error = false,
-        orientation = 'horizontal' as 'horizontal' | 'vertical',
-        role = 'dialog' as 'dialog' | 'alertdialog'
+        size = 'lg' as 'xs' | 'sm' | 'md' | 'lg' | 'xl'
     } = $props();
 </script>
 
 <button type="button" data-testid="trigger" onclick={() => (open = true)}>Open</button>
 
-<Dialog.Root bind:open {error} {orientation}>
-    <Dialog.Content {allowClickOutside} {role}>
+<Dialog.Root bind:open {error}>
+    <Dialog.Content {allowClickOutside} {size}>
         <Dialog.Header>
             <div class="flex flex-col gap-1.5">
                 <Dialog.Title>Dialog Title</Dialog.Title>

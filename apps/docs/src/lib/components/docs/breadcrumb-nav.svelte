@@ -3,14 +3,14 @@
 
     let {
         items = [],
-        class: classProp = ''
+        class: className = ''
     }: {
         items?: Array<{ label: string; href?: string }>;
         class?: string;
     } = $props();
 </script>
 
-<Breadcrumb.Root class={`text-sm text-foreground-muted ${classProp}`}>
+<Breadcrumb.Root class={`text-sm text-foreground-muted ${className}`}>
     {#each items as item, index (item.label)}
         <Breadcrumb.Item
             href={index < items.length - 1 ? item.href : undefined}

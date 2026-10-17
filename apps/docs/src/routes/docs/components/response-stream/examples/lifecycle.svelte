@@ -4,10 +4,20 @@
     import { Switch } from '@mielui/svelte/components/switch';
     import { onDestroy } from 'svelte';
 
+    type Delivery = 'idle' | 'streaming' | 'complete' | 'stopped' | 'error';
+
     const answer =
         'The release is ready for review. The migration keeps the existing API stable, adds keyboard checks, and documents the rollback steps. Start with the canary region, then compare error rates before widening the rollout.';
+    const messages: Record<Delivery, string> = {
+        idle: 'Start a simulated response. No request leaves your browser.',
+        streaming: 'Receiving response…',
+        complete: 'Response complete.',
+        stopped: 'Stopped. Partial text stays visible.',
+        error: 'Connection lost. Turn off simulated failure and retry.'
+    };
+
     let content = $state('');
-    let delivery = $state<'idle' | 'streaming' | 'complete' | 'stopped' | 'error'>('idle');
+    let delivery = $state<Delivery>('idle');
     let fail = $state(false);
     let timer: ReturnType<typeof setInterval> | undefined;
 
@@ -56,7 +66,5 @@
             <ResponseStream textStream={content} streaming={delivery === 'streaming'} />
         {/if}
     </div>
-    <p role="status" class="text-sm text-foreground-muted">
-        {delivery === 'error' ? 'Connection lost. Turn off simulated failure and retry.' : delivery === 'complete' ? 'Response complete.' : delivery === 'stopped' ? 'Stopped. Partial text stays visible.' : delivery === 'streaming' ? 'Receiving response…' : 'Start a simulated response. No request leaves your browser.'}
-    </p>
+    <p role="status" class="text-sm text-foreground-muted">{messages[delivery]}</p>
 </div>

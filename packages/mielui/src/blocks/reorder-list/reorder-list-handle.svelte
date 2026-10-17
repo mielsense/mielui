@@ -2,7 +2,7 @@
     import { cn } from '@mielui/svelte/utils';
     import { tick } from 'svelte';
     import type { ReorderListHandleProps } from '.';
-    import { getReorderItem, getReorderList } from './context.svelte';
+    import { getReorderListContext, getReorderListItemContext } from './context';
 
     let {
         children,
@@ -15,8 +15,8 @@
         'aria-describedby': describedBy,
         ...rest
     }: ReorderListHandleProps = $props();
-    const root = getReorderList();
-    const item = getReorderItem();
+    const root = getReorderListContext();
+    const item = getReorderListItemContext();
 </script>
 <button
     {...rest}
@@ -52,7 +52,14 @@
         ondragstart?.(event);
         event.preventDefault();
     }}
-    class={cn(className, 'flex size-7 shrink-0 touch-pinch-zoom select-none items-center justify-center rounded-[var(--radius-sm)] text-foreground-muted outline-none hover:text-foreground focus-visible:shadow-[var(--focus-ring)] disabled:cursor-not-allowed', root.lifted(item.id) ? 'cursor-grabbing' : 'cursor-grab')}
+    class={cn(
+        className,
+        // token-lint-disable-next-line no-literal-length: zero floor needs a length unit inside max()
+        'flex size-7 shrink-0 touch-pinch-zoom select-none items-center justify-center rounded-[max(calc(var(--radius-md)-var(--spacing)*1.5),0px)] outline-none transition-[background-color,color,box-shadow] [transition-duration:var(--motion-duration-hover)] ease-[var(--ease-out)] motion-reduce:transition-none enabled:hover:bg-[var(--color-wash)] enabled:hover:text-foreground focus-visible:shadow-[var(--focus-ring)] disabled:cursor-not-allowed',
+        root.lifted(item.id)
+            ? 'cursor-grabbing bg-[var(--color-wash)] text-foreground'
+            : 'cursor-grab text-foreground-muted'
+    )}
 >
     {#if children}
         {@render children()}

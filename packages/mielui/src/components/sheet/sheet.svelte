@@ -2,9 +2,9 @@
     import { Dialog as DialogPrimitive } from 'bits-ui';
     import type { Snippet } from 'svelte';
     import type { SheetProps, SheetState } from '.';
-    import { setSheetContext } from './context.svelte';
+    import { setSheetContext } from './context';
 
-    let { open = $bindable(false), onOpenChange, children }: SheetProps = $props();
+    let { open = $bindable(false), onOpenChange, labels, children }: SheetProps = $props();
 
     const id = $props.id();
     const sheetState = $state<SheetState>({
@@ -22,13 +22,16 @@
     });
     const context = $state({
         id,
+        get labels() {
+            return labels;
+        },
         state: sheetState,
         titleId: undefined as string | undefined,
         descriptionId: undefined as string | undefined,
         footer: undefined as Snippet | undefined
     });
     setSheetContext(context);
-    let wasOpen = $state(false);
+    let wasOpen = false;
 
     $effect.pre(() => {
         if (

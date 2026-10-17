@@ -1,41 +1,5 @@
 [
     {
-        "name": "onsuspendcapture",
-        "type": "EventHandler<Event, HTMLTableElement> | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
-        "name": "on:timeupdate",
-        "type": "EventHandler<Event, HTMLTableElement> | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
-        "name": "ontimeupdate",
-        "type": "EventHandler<Event, HTMLTableElement> | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
-        "name": "ontimeupdatecapture",
-        "type": "EventHandler<Event, HTMLTableElement> | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
         "name": "on:volumechange",
         "type": "EventHandler<Event, HTMLTableElement> | null | undefined",
         "required": false,
@@ -2242,6 +2206,42 @@
     },
     {
         "name": "onbeforetoggle",
+        "type": "ToggleEventHandler<HTMLAnchorElement> | null | ToggleEventHandler<HTMLElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onbeforetogglecapture",
+        "type": "ToggleEventHandler<HTMLAnchorElement> | null | ToggleEventHandler<HTMLElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "on:toggle",
+        "type": "ToggleEventHandler<HTMLAnchorElement> | null | ToggleEventHandler<HTMLElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "ontoggle",
+        "type": "ToggleEventHandler<HTMLAnchorElement> | null | ToggleEventHandler<HTMLElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "ontogglecapture",
         "type": "ToggleEventHandler<HTMLAnchorElement> | null | ToggleEventHandler<HTMLElement> | null | undefined",
         "required": false,
         "bindable": false,

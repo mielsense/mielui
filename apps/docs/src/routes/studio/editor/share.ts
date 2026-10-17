@@ -1,4 +1,5 @@
-const PREFIX = '#theme=';
+/** Marks a Studio link hash that carries a theme. */
+export const SHARE_HASH_PREFIX = '#theme=';
 
 function toBase64Url(bytes: Uint8Array) {
     let binary = '';
@@ -29,16 +30,16 @@ export async function themeShareLink(json: string, origin: string) {
         new CompressionStream('deflate-raw')
     );
 
-    return `${origin}/studio${PREFIX}${toBase64Url(bytes)}`;
+    return `${origin}/studio${SHARE_HASH_PREFIX}${toBase64Url(bytes)}`;
 }
 
 /** Reads the theme JSON from a Studio share link hash, or returns null when there is none. */
 export async function readSharedTheme(hash: string) {
-    if (!hash.startsWith(PREFIX)) {
+    if (!hash.startsWith(SHARE_HASH_PREFIX)) {
         return null;
     }
     const bytes = await pipe(
-        fromBase64Url(hash.slice(PREFIX.length)),
+        fromBase64Url(hash.slice(SHARE_HASH_PREFIX.length)),
         new DecompressionStream('deflate-raw')
     );
 

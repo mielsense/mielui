@@ -23,19 +23,32 @@
         );
     }
 
+    function wheelUnit(event: WheelEvent, scroller: Element) {
+        if (event.deltaMode === WheelEvent.DOM_DELTA_LINE) {
+            return 16;
+        }
+        if (event.deltaMode === WheelEvent.DOM_DELTA_PAGE) {
+            return scroller.clientHeight;
+        }
+
+        return 1;
+    }
+
     function connectFrame() {
         syncTheme();
         detachWheel?.();
-        const document = frame.contentDocument;
-        if (!document) {
+        const frameDocument = frame.contentDocument;
+        if (!frameDocument) {
             return;
         }
+        const frameRoot = frameDocument.documentElement;
+
         function forwardWheel(event: WheelEvent) {
             if (event.defaultPrevented || event.ctrlKey || !event.deltaY) {
                 return;
             }
             let target = event.target as Element | null;
-            while (target && target !== document?.documentElement) {
+            while (target && target !== frameRoot) {
                 if (canScroll(target, event.deltaY)) {
                     return;
                 }
@@ -44,21 +57,15 @@
             let parent = frame.parentElement;
             while (parent) {
                 if (canScroll(parent, event.deltaY)) {
-                    const factor =
-                        event.deltaMode === 1
-                            ? 16
-                            : event.deltaMode === 2
-                              ? parent.clientHeight
-                              : 1;
-                    parent.scrollTop += event.deltaY * factor;
+                    parent.scrollTop += event.deltaY * wheelUnit(event, parent);
                     event.preventDefault();
                     return;
                 }
                 parent = parent.parentElement;
             }
         }
-        document.addEventListener('wheel', forwardWheel, { passive: false });
-        detachWheel = () => document.removeEventListener('wheel', forwardWheel);
+        frameDocument.addEventListener('wheel', forwardWheel, { passive: false });
+        detachWheel = () => frameDocument.removeEventListener('wheel', forwardWheel);
     }
 
     function syncTheme() {

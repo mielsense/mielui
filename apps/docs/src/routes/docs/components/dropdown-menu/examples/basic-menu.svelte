@@ -2,6 +2,7 @@
     import * as DropdownMenu from '@mielui/svelte/components/dropdown-menu';
 
     let order = $state('Newest first');
+
     function sort(value: string) {
         order = value;
     }

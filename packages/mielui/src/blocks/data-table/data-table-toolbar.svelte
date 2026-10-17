@@ -2,19 +2,11 @@
     import { cn } from '@mielui/svelte/utils';
     import { untrack } from 'svelte';
     import type { DataTableToolbarProps } from '.';
-    import { type DataTableToolbarSlot, getDataTableContext } from './context.svelte';
+    import { type DataTableToolbarSlot, findDataTableContext } from './context';
 
     let { children, class: className, ...rest }: DataTableToolbarProps = $props();
 
-    function readContext() {
-        try {
-            return getDataTableContext();
-        } catch {
-            return undefined;
-        }
-    }
-
-    const dataTable = readContext();
+    const dataTable = findDataTableContext();
     const lifted = $derived(dataTable?.variant === 'inset');
     const slot = $state<DataTableToolbarSlot>({
         get children() {

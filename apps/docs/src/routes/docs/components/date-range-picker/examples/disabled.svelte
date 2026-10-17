@@ -12,5 +12,7 @@
             <DateRangePicker.Trigger />
         </div>
     </div>
-    <DateRangePicker.Content align="end"><DateRangePicker.Calendar /></DateRangePicker.Content>
+    <DateRangePicker.Content align="end">
+        <DateRangePicker.Calendar />
+    </DateRangePicker.Content>
 </DateRangePicker.Root>

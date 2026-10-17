@@ -1,9 +1,9 @@
 <script lang="ts">
     import { cn } from '@mielui/svelte/utils';
     import { Tabs as BitsTabs } from 'bits-ui';
-    import { getContext } from 'svelte';
-    import type { TabsContentProps, TabsState } from '.';
-    import { toTabIdPart } from './id';
+    import type { TabsContentProps } from '.';
+    import { getTabsContext } from './context';
+    import { tabContentId, tabTriggerId } from './id';
 
     let {
         children,
@@ -13,15 +13,15 @@
         ...rest
     }: TabsContentProps = $props();
 
-    const tabsState = getContext<TabsState>('tabs');
+    const tabsState = getTabsContext();
 
     const active = $derived(tabsState.value === value);
 </script>
 
 {#if forceMount || active}
     <BitsTabs.Content
-        id={`${tabsState.id}-content-${toTabIdPart(value)}`}
-        aria-labelledby={`${tabsState.id}-trigger-${toTabIdPart(value)}`}
+        id={tabContentId(tabsState.id, value)}
+        aria-labelledby={tabTriggerId(tabsState.id, value)}
         {value}
         data-ui="tabs-content"
         data-state={active ? 'active' : 'inactive'}

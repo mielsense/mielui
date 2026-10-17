@@ -2,12 +2,23 @@
     import * as Select from '@mielui/svelte/components/select';
     import { headerFonts, monoFonts, sansFonts, serifFonts } from './config';
     import { getThemeEditor } from './context';
-    import { weightRow } from './controls.svelte';
+    import { selectTrigger, weightRow } from './controls.svelte';
     import Row from './row.svelte';
     import EditorSection from './section.svelte';
 
+    const roleWeightRows = [
+        { role: 'body', label: 'Body' },
+        { role: 'label', label: 'Label' },
+        { role: 'button', label: 'Button' },
+        { role: 'badge', label: 'Badge' },
+        { role: 'description', label: 'Description' }
+    ] as const;
+
     const editor = getThemeEditor();
-    const trigger = 'h-7 w-auto max-w-44 gap-1.5 px-2';
+
+    const headerFont = $derived(
+        headerFonts.find((font) => font.key === editor.state.selectedHeader)
+    );
 
     function resetFont(
         selected: 'selectedSans' | 'selectedHeader' | 'selectedMono',
@@ -26,18 +37,17 @@
 
         return {
             changed: editor.state.roleWeights[role] !== base,
-            run: () => editor.updateRoleWeight(role, base)
+            run: () => {
+                editor.updateRoleWeight(role, base);
+            }
         };
     }
-    const headerFont = $derived(
-        headerFonts.find((font) => font.key === editor.state.selectedHeader)
-    );
 </script>
 
 <EditorSection title="Fonts" keywords="typography type family typeface">
     <Row label="Sans" reset={resetFont('selectedSans', 'sans')}>
         <Select.Root bind:value={editor.state.selectedSans}>
-            <Select.Trigger class={trigger} variant="ghost" aria-label="Sans font">
+            <Select.Trigger class={selectTrigger} variant="ghost" aria-label="Sans font">
                 <span class="truncate">
                     {sansFonts.find((font) => font.key === editor.state.selectedSans)?.label}
                 </span>
@@ -54,7 +64,7 @@
     </Row>
     <Row label="Header" reset={resetFont('selectedHeader', 'header')}>
         <Select.Root bind:value={editor.state.selectedHeader}>
-            <Select.Trigger class={trigger} variant="ghost" aria-label="Header font">
+            <Select.Trigger class={selectTrigger} variant="ghost" aria-label="Header font">
                 <span class="truncate" style:font-family={headerFont?.value}>
                     {headerFont?.label}
                 </span>
@@ -85,7 +95,7 @@
     <Row label="Mono" reset={resetFont('selectedMono', 'mono')}>
         <Select.Root bind:value={editor.state.selectedMono}>
             <Select.Trigger
-                class={`${trigger} font-mono text-xs`}
+                class={`${selectTrigger} font-mono text-xs`}
                 variant="ghost"
                 aria-label="Monospace font"
             >
@@ -128,27 +138,27 @@
 </EditorSection>
 
 <EditorSection title="Weight" keywords="typography type font bold">
-    {@render weightRow('Header', editor.state.headerWeight, (value) => {
-        editor.state.headerWeight = value;
-    }, {
-        changed: editor.state.headerWeight !== editor.baseline.headerWeight,
-        run: () => {
-            editor.state.headerWeight = editor.baseline.headerWeight;
+    {@render weightRow(
+        'Header',
+        editor.state.headerWeight,
+        (value) => {
+            editor.state.headerWeight = value;
+        },
+        {
+            changed: editor.state.headerWeight !== editor.baseline.headerWeight,
+            run: () => {
+                editor.state.headerWeight = editor.baseline.headerWeight;
+            }
         }
-    })}
-    {@render weightRow('Body', editor.state.roleWeights.body, (value) => {
-        editor.updateRoleWeight('body', value);
-    }, resetWeight('body'))}
-    {@render weightRow('Label', editor.state.roleWeights.label, (value) => {
-        editor.updateRoleWeight('label', value);
-    }, resetWeight('label'))}
-    {@render weightRow('Button', editor.state.roleWeights.button, (value) => {
-        editor.updateRoleWeight('button', value);
-    }, resetWeight('button'))}
-    {@render weightRow('Badge', editor.state.roleWeights.badge, (value) => {
-        editor.updateRoleWeight('badge', value);
-    }, resetWeight('badge'))}
-    {@render weightRow('Description', editor.state.roleWeights.description, (value) => {
-        editor.updateRoleWeight('description', value);
-    }, resetWeight('description'))}
+    )}
+    {#each roleWeightRows as row (row.role)}
+        {@render weightRow(
+            row.label,
+            editor.state.roleWeights[row.role],
+            (value) => {
+                editor.updateRoleWeight(row.role, value);
+            },
+            resetWeight(row.role)
+        )}
+    {/each}
 </EditorSection>

@@ -1,7 +1,9 @@
 <script lang="ts">
+    import { Button } from '@mielui/svelte/components/button';
+    import * as Card from '@mielui/svelte/components/card';
     import { CodeBlock } from '@mielui/svelte/components/code-block';
     import * as Typography from '@mielui/svelte/components/typography';
-    import { ComponentPreview, InstallCommand } from '$lib/components/docs';
+    import { ComponentPreview, InstallCommand, Playground } from '$lib/components/docs';
     import InlineText from '$lib/components/docs/inline-text.svelte';
     import PageIntro from '$lib/components/docs/page-intro.svelte';
     import ContentOnly from './examples/content-only.svelte';
@@ -20,8 +22,27 @@
     import InsetPositionSrc from './examples/inset-position.svelte?raw';
     import Panel from './examples/panel.svelte';
     import PanelSrc from './examples/panel.svelte?raw';
+    import {
+        backdrop as playgroundBackdrop,
+        code as playgroundCode,
+        controls as playgroundControls
+    } from './playground';
 
-    const installCommand = 'pnpm dlx @mielui/svelte add card';
+    const usage = `<script lang="ts">
+    import { Button } from '@mielui/svelte/components/button';
+    import * as Card from '@mielui/svelte/components/card';
+</${'script'}>
+
+<Card.Root>
+    <Card.Header>
+        <Card.Title level={3}>Team plan</Card.Title>
+        <Card.Description>Billed monthly.</Card.Description>
+    </Card.Header>
+    <Card.Content>Five seats, unlimited projects.</Card.Content>
+    <Card.Footer>
+        <Button>Upgrade</Button>
+    </Card.Footer>
+</Card.Root>`;
 </script>
 
 <svelte:head>
@@ -30,65 +51,101 @@
 </svelte:head>
 
 <div data-docs-page class="flex flex-col gap-10">
-    <!-- ─── Header ────────────────────────────────────────────────── -->
     <PageIntro title="Card">
         A surface for grouping related content, composed of header, content, and footer.
     </PageIntro>
 
-    <!-- ─── Hero Example ──────────────────────────────────────────── -->
     <section id="hero" class="scroll-mt-20 flex flex-col gap-4">
-        <ComponentPreview code={HeroSrc}>
-            <Hero />
-        </ComponentPreview>
+        <Playground controls={playgroundControls} code={playgroundCode}>
+            {#snippet children(values)}
+                {const glass = $derived(values.surface === 'glass')}
+                {#snippet card()}
+                    <Card.Root
+                        variant={values.variant}
+                        surface={values.surface}
+                        class={glass ? 'mx-auto w-full max-w-sm' : 'w-full max-w-sm'}
+                    >
+                        {#if values.title || values.description}
+                            <Card.Header>
+                                {#if values.title}
+                                    <Card.Title>Checkout redesign</Card.Title>
+                                {/if}
+                                {#if values.description}
+                                    <Card.Description>
+                                        A shorter payment flow for the web and mobile stores.
+                                    </Card.Description>
+                                {/if}
+                            </Card.Header>
+                        {/if}
+                        {#if values.content}
+                            <Card.Content>
+                                <dl class="m-0 grid grid-cols-2 gap-4 text-sm">
+                                    <div>
+                                        <dt class="text-foreground-muted">Lead</dt>
+                                        <dd class="m-0 mt-1">Ines Moreau</dd>
+                                    </div>
+                                    <div>
+                                        <dt class="text-foreground-muted">Due</dt>
+                                        <dd class="m-0 mt-1">October 30</dd>
+                                    </div>
+                                </dl>
+                            </Card.Content>
+                        {/if}
+                        {#if values.footer}
+                            <Card.Footer>
+                                <Button variant="outline">Share</Button>
+                                <Button>Open project</Button>
+                            </Card.Footer>
+                        {/if}
+                    </Card.Root>
+                {/snippet}
+                {#if glass}
+                    <div class={playgroundBackdrop}>
+                        {@render card()}
+                    </div>
+                {:else}
+                    {@render card()}
+                {/if}
+            {/snippet}
+        </Playground>
     </section>
 
-    <!-- ─── Installation ──────────────────────────────────────────── -->
     <section id="installation" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Installation</Typography.H2>
-        <InstallCommand command={installCommand} />
+        <InstallCommand command="pnpm dlx @mielui/svelte add card" />
     </section>
 
-    <!-- ─── Usage ─────────────────────────────────────────────────── -->
     <section id="usage" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Usage</Typography.H2>
         <Typography.Text variant="supporting">
-            Card.Title defaults to an h2. Set level to match the surrounding heading outline;
-            styling stays the same. Native heading attributes, including id and aria-describedby,
-            reach the heading. Set level to 1 only when the card supplies the page title.
+            <InlineText
+                text={"Title renders an `h2` by default. Set `level` to fit the surrounding heading outline; the styling stays the same. Heading attributes such as `id` reach the element."}
+            />
         </Typography.Text>
         <Typography.Text variant="supporting">
-            An inset Card accepts one Footer and places it beneath the inset surface. Put multiple
-            actions or footer sections inside that single Footer. Other variants render Footer where
-            it appears in the composition.
+            An inset card takes one Footer and places it beneath the inset surface. Put several
+            actions inside that one Footer. Other variants render Footer where you write it.
         </Typography.Text>
-
-        <CodeBlock
-            code={`import * as Card from '@mielui/svelte/components/card';\nimport { Button } from '@mielui/svelte/components/button';\n\n<Card.Root>\n  <Card.Header>\n    <Card.Title level={2}>Title</Card.Title>\n  </Card.Header>\n  <Card.Content>Content here</Card.Content>\n  <Card.Footer>\n    <Button>Action</Button>\n  </Card.Footer>\n</Card.Root>`}
-            lang="svelte"
-            copy="overlay"
-        />
+        <CodeBlock code={usage} lang="svelte" copy="overlay" />
     </section>
 
-    <section id="borders" class="flex flex-col gap-4">
+    <section id="borders" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Borders</Typography.H2>
         <Typography.Text variant="supporting">
-            The theme setting chrome.borders is "single" by default, which removes the extra frame
-            from inset and panel cards. Set it to "double" to show that frame. Content padding and
-            footer composition stay intact. Default cards always have one border. This setting also
-            applies to dialogs, sheets, Notch, Toast, and other inset surfaces; shadows and edge
-            highlights remain independent.
+            <InlineText
+                text={"The theme's `chrome.borders` setting is `single` by default: the inset and panel surfaces meet the frame's border. Set it to `double` to add a gutter between the frame and the recessed content surface. Content padding and the footer stay the same. A default card is one surface with one border either way. The setting also applies to dialogs, sheets, Notch, Toast, and other inset surfaces; shadows and edge highlights are separate settings."}
+            />
         </Typography.Text>
     </section>
 
-    <!-- ─── Examples ──────────────────────────────────────────────── -->
-    <section id="glass" class="flex flex-col gap-4">
+    <section id="glass" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Glass surface</Typography.H2>
         <Typography.Text variant="supporting">
             Set{' '}
             <Typography.InlineCode>surface="glass"</Typography.InlineCode>
             on Root to frost the card so a backdrop behind it shows through. On inset and panel
-            cards only the frame is frosted. The content stays on a solid surface, so text keeps its
-            contrast. A default card has one surface, which turns translucent.
+            cards the frame is frosted and the content surface stays close to opaque, so text keeps
+            its contrast. A default card has one surface, which turns translucent.
         </Typography.Text>
         <Typography.Text variant="supporting">
             Cards are solid unless you ask for glass. They do not follow the theme's glass setting
@@ -101,6 +158,17 @@
     <section id="examples" class="scroll-mt-20 flex flex-col gap-10">
         <div>
             <Typography.H2 class="docs-section-heading">Examples</Typography.H2>
+        </div>
+
+        <div id="project-progress" class="scroll-mt-20 flex flex-col gap-3">
+            <Typography.H3 class="docs-subsection-heading">Project progress</Typography.H3>
+            <Typography.Text variant="supporting">
+                A badge, a progress bar and two actions follow one project. Completing a task
+                updates all three.
+            </Typography.Text>
+            <ComponentPreview code={HeroSrc}>
+                <Hero />
+            </ComponentPreview>
         </div>
 
         <div id="full" class="scroll-mt-20 flex flex-col gap-3">
@@ -178,7 +246,7 @@
             />
         </div>
     </section>
-    <section id="parts" class="flex flex-col gap-4">
+    <section id="parts" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Parts</Typography.H2>
         <Typography.Text variant="supporting">
             <InlineText
@@ -187,7 +255,7 @@
         </Typography.Text>
         <Typography.Text variant="supporting">
             <InlineText
-                text={"Root, Header, Title, Description, Content and Footer render their `children` and accept `class` and `style` like any element."}
+                text={"Every part renders its `children` and takes `class`. Title also passes heading attributes such as `id`."}
             />
         </Typography.Text>
     </section>

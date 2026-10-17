@@ -1,29 +1,18 @@
 <script lang="ts">
     import * as Select from '@mielui/svelte/components/select';
 
-    const priorities = [
-        { value: 'none', label: 'No priority' },
-        { value: 'urgent', label: 'Urgent' },
-        { value: 'high', label: 'High' },
-        { value: 'medium', label: 'Medium' },
-        { value: 'low', label: 'Low' }
-    ];
+    const priorities = ['No priority', 'Urgent', 'High', 'Medium', 'Low'];
 
-    let selectedPriority = $state('medium');
-    const selected = $derived(priorities.find((p) => p.value === selectedPriority));
+    let priority = $state('Medium');
 </script>
 
 <div class="flex flex-col gap-2">
-    <span class="text-sm [font-weight:var(--font-weight-label,500)] text-foreground">Priority</span>
-    <Select.Root bind:value={selectedPriority}>
-        <Select.Trigger aria-label="Priority" class="min-w-[220px]" variant="outline" size="md">
-            {selected?.label ?? 'Select priority'}
-        </Select.Trigger>
+    <span id="glass-priority-label" class="text-sm font-medium">Priority</span>
+    <Select.Root bind:value={priority}>
+        <Select.Trigger aria-labelledby="glass-priority-label" class="min-w-56" />
         <Select.Content surface="glass">
-            {#each priorities as priority (priority.value)}
-                <Select.Item value={priority.value}>
-                    {priority.label}
-                </Select.Item>
+            {#each priorities as option (option)}
+                <Select.Item value={option}>{option}</Select.Item>
             {/each}
         </Select.Content>
     </Select.Root>

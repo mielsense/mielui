@@ -7,12 +7,13 @@
 
     let asking = $state(true);
     let answer = $state('');
+    let chosen = $state('');
     let draft = $state('Keep the migration reversible.');
     let sentPrompt = $state('');
     let shouldFocusQuestion = $state(false);
 
     function answerQuestion(value: string) {
-        answer = value;
+        chosen = value;
         asking = false;
     }
 
@@ -20,6 +21,7 @@
         sentPrompt = value;
         draft = '';
     }
+
     function cancelQuestion() {
         asking = false;
     }
@@ -41,11 +43,9 @@
                     I can continue after I know which environment should receive the first run.
                 </Message.Content>
             </Message.Root>
-            {#if answer}
+            {#if chosen}
                 <Message.Root from="user">
-                    <Message.Content>
-                        Use{Array.isArray(answer) ? answer.join(', ') : answer}.
-                    </Message.Content>
+                    <Message.Content>Use {chosen}.</Message.Content>
                 </Message.Root>
             {/if}
             {#if sentPrompt}

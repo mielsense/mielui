@@ -11,7 +11,7 @@
         type="text"
         bind:value={answer}
         onSubmit={(value) => {
-            submitted = Array.isArray(value) ? value.join(', ') : value;
+            submitted = value;
         }}
     >
         <Question.Content>

@@ -7,9 +7,11 @@
     function cancel() {
         message = 'Changes discarded in this preview.';
     }
+
     function save() {
         message = 'Draft saved in this preview.';
     }
+
     function ontrigger() {
         message = 'Pressed K. Shortcut activated in this preview.';
     }

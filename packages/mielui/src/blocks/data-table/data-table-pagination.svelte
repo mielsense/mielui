@@ -4,10 +4,10 @@
 >
     import { numberShuffle } from '@mielui/svelte/actions/number-shuffle';
     import { cn } from '@mielui/svelte/utils';
-    import { getContext } from 'svelte';
     import { Button } from '../../components/button';
     import Pagination from '../../components/pagination';
-    import type { DataTableLabels, DataTablePaginationProps } from '.';
+    import type { DataTablePaginationProps } from '.';
+    import { findDataTableLabels } from './context';
     import { pagination } from './features';
 
     let {
@@ -16,7 +16,7 @@
         class: className,
         ...rest
     }: DataTablePaginationProps<TFeatures, TData> = $props();
-    const labels = getContext<(() => DataTableLabels | undefined) | undefined>('data-table-labels');
+    const labels = findDataTableLabels();
     const api = $derived(pagination(table));
     const pageCount = $derived(api.getPageCount?.() ?? 0);
     const state = $derived(table.store.get() as { pagination?: { pageIndex: number } });
@@ -44,36 +44,36 @@
                 {/if}
             {/if}
         </span>
-        {#if pageCount >= 0}
-            <fieldset disabled={loading || pageCount === 0} class="m-0 min-w-0 border-0 p-0">
+        {#if pageCount > 0}
+            <fieldset disabled={loading} class="m-0 min-w-0 border-0 p-0">
                 <Pagination
                     {page}
-                    total={Math.max(1, pageCount)}
+                    total={pageCount}
                     onPageChange={(next) => {
                         api.setPageIndex?.(next - 1);
                     }}
                 />
             </fieldset>
-        {:else}
+        {:else if pageCount < 0}
             <Button
                 variant="outline"
                 size="sm"
                 disabled={loading || !api.getCanPreviousPage?.()}
                 onclick={() => {
-                api.previousPage?.();
-            }}
+                    api.previousPage?.();
+                }}
             >
-                Previous
+                {labels?.()?.previous ?? 'Previous'}
             </Button>
             <Button
                 variant="outline"
                 size="sm"
                 disabled={loading || !api.getCanNextPage?.()}
                 onclick={() => {
-                api.nextPage?.();
-            }}
+                    api.nextPage?.();
+                }}
             >
-                Next
+                {labels?.()?.next ?? 'Next'}
             </Button>
         {/if}
     </div>

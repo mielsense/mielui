@@ -1,10 +1,9 @@
 <script lang="ts">
     import { Attachment01Icon as Paperclip } from '@hugeicons/core-free-icons';
     import { cn } from '@mielui/svelte/utils';
-    import { setContext } from 'svelte';
     import HugeiconsIcon from '../../hugeicons-icon.svelte';
-    import type { AttachmentLabels, AttachmentProps } from '.';
-    import { setAttachmentContext } from './context.svelte';
+    import type { AttachmentProps } from '.';
+    import { setAttachmentContext, setAttachmentLabels } from './context';
     import { validateFiles } from './validation';
 
     let {
@@ -24,7 +23,7 @@
         labels,
         ...rest
     }: AttachmentProps = $props();
-    setContext<() => AttachmentLabels | undefined>('attachment-labels', () => labels);
+    setAttachmentLabels(() => labels);
 
     let input: HTMLInputElement | undefined;
     let dragDepth = 0;
@@ -64,9 +63,6 @@
     setAttachmentContext({
         get files() {
             return files;
-        },
-        set files(next: File[]) {
-            files = next;
         },
         get disabled() {
             return disabled;
@@ -158,12 +154,12 @@
             data-ui="attachment-drop-overlay"
             data-state="dragging"
             aria-hidden="true"
-            class="pointer-events-none absolute inset-1 z-10 grid place-items-center rounded-[var(--radius-lg)] border-2 border-dashed border-primary/60 bg-[color-mix(in_srgb,var(--color-primary)_10%,var(--color-card))] text-primary shadow-[var(--elevation-1)]"
+            class="pointer-events-none absolute inset-0 z-10 grid place-items-center rounded-[calc(min(var(--radius-2xl),var(--radius-control)+var(--spacing)*2+var(--border-size))*var(--mielui-squircle,1))] [corner-shape:squircle] border-[length:var(--border-size)] border-dashed border-primary bg-[color-mix(in_srgb,var(--color-primary)_8%,var(--color-card))] text-foreground"
         >
             <span
-                class="flex items-center gap-2 rounded-full bg-card/90 px-3 py-1.5 text-sm font-label"
+                class="flex h-[var(--size-control-sm)] items-center gap-1.5 rounded-[var(--radius-control)] border-[length:var(--border-size)] border-border bg-card px-3 [font-size:var(--font-size-label)] font-label shadow-[var(--elevation-float)]"
             >
-                <HugeiconsIcon icon={Paperclip} size={16} strokeWidth={2} />
+                <HugeiconsIcon icon={Paperclip} size={15} strokeWidth={2} class="text-primary" />
                 {labels?.dropzone ?? 'Drop files to attach'}
             </span>
         </div>

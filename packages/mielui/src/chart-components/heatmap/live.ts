@@ -1,4 +1,5 @@
 import { getCssDuration } from '@mielui/svelte/transition';
+import { observeThemeChanges } from '../../components/_internal/theme-changes';
 
 function observeCalendar(element: HTMLElement) {
     const preference = window.matchMedia('(prefers-reduced-motion: reduce)');
@@ -75,13 +76,7 @@ function observeCalendar(element: HTMLElement) {
         update();
     });
     cellObserver.observe(element, { childList: true, subtree: true });
-    const themeObserver = new MutationObserver(update);
-    for (let ancestor: HTMLElement | null = element; ancestor; ancestor = ancestor.parentElement) {
-        themeObserver.observe(ancestor, {
-            attributes: true,
-            attributeFilter: ['style', 'class']
-        });
-    }
+    const stopThemeChanges = observeThemeChanges(element, update);
     observer.observe(element);
     preference.addEventListener('change', update);
     document.addEventListener('visibilitychange', update);
@@ -92,7 +87,7 @@ function observeCalendar(element: HTMLElement) {
     return () => {
         disposed = true;
         observer.disconnect();
-        themeObserver.disconnect();
+        stopThemeChanges();
         cellObserver.disconnect();
         preference.removeEventListener('change', update);
         document.removeEventListener('visibilitychange', update);

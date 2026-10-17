@@ -18,7 +18,14 @@
             count: 42,
             tone: 3
         },
-        { id: 'archive', index: '003', name: 'Archive', detail: 'Read only', count: 906, tone: 5 }
+        {
+            id: 'archive',
+            index: '003',
+            name: 'Archive',
+            detail: 'Read only',
+            count: 906,
+            tone: 5
+        }
     ] as const;
 
     let selected = $state('Nothing opened yet');

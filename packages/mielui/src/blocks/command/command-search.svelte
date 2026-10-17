@@ -1,27 +1,27 @@
 <script lang="ts">
     import { Search01Icon as Search } from '@hugeicons/core-free-icons';
-    import { numberShuffle } from '@mielui/svelte/actions/number-shuffle';
     import { cn } from '@mielui/svelte/utils';
     import { onMount } from 'svelte';
     import HugeiconsIcon from '../../hugeicons-icon.svelte';
     import type { CommandSearchProps } from '.';
-    import { getCommandContext, getCommandResults } from './context.svelte';
+    import { findCommandLabels, getCommandContext, getCommandResults } from './context';
     import { DEFAULT_COMMAND_SEARCH_THRESHOLD } from './search';
 
     const controller = getCommandContext();
+
+    const labels = findCommandLabels();
     const { state: command } = controller;
 
     let searchInput = $state<HTMLInputElement | undefined>();
     let composing = false;
     let spoken = $state('');
 
-    const {
-        class: classProp,
+    let {
+        class: className,
         threshold = DEFAULT_COMMAND_SEARCH_THRESHOLD,
         icon,
         count,
         announcement,
-        oninput,
         onkeydown,
         oncompositionstart,
         oncompositionend,
@@ -91,15 +91,23 @@
         }
     }
 
+    function defaultAvailable(count: number) {
+        if (count === 0) {
+            return 'No command matches.';
+        }
+
+        return `${count} ${count === 1 ? 'command' : 'commands'} available.`;
+    }
+
     $effect(() => {
         const count = getCommandResults(command).length;
+        const available = labels?.()?.available;
         const timer = setTimeout(() => {
-            spoken =
-                count === 0
-                    ? 'No command matches.'
-                    : `${count} ${count === 1 ? 'command' : 'commands'} available.`;
+            spoken = available ? available(count) : defaultAvailable(count);
         }, 400);
-        return () => clearTimeout(timer);
+        return () => {
+            clearTimeout(timer);
+        };
     });
 </script>
 
@@ -113,7 +121,7 @@
 {/snippet}
 
 {#snippet defaultCount(total: number)}
-    <span use:numberShuffle={{ value: total }}>{total}</span>
+    <span>{total}</span>
 {/snippet}
 
 {#snippet defaultAnnouncement(message: string)}
@@ -128,23 +136,17 @@
         bind:this={searchInput}
         bind:value={command.searchContent}
         class={cn(
-            classProp,
+            className,
             'min-w-0 flex-1 bg-transparent text-[length:var(--font-size-body)] [font-weight:var(--font-weight-body)] [letter-spacing:var(--tracking-body)] text-foreground placeholder:text-foreground-muted focus-visible:outline-none'
         )}
-        placeholder="Type a command or search..."
-        aria-label="Search commands"
+        placeholder={labels?.()?.searchPlaceholder ?? 'Type a command or search...'}
+        aria-label={labels?.()?.search ?? 'Search commands'}
         role="combobox"
         aria-autocomplete="list"
         aria-expanded="true"
         aria-controls={`${command.id}-listbox`}
         aria-activedescendant={command.activeId}
         {...rest}
-        oninput={(event) => {
-            oninput?.(event);
-            if (!event.defaultPrevented) {
-                command.searchContent = event.currentTarget.value;
-            }
-        }}
         onkeydown={handleKeydown}
         oncompositionstart={(event) => {
             composing = true;
@@ -156,7 +158,7 @@
         }}
     />
     <span
-        class="min-w-[3ch] text-right font-mono text-[length:var(--font-size-meta)] tabular-nums text-foreground-muted"
+        class="min-w-[3ch] text-end font-mono text-[length:var(--font-size-meta)] tabular-nums text-foreground-muted"
         aria-hidden="true"
     >
         {@render (count ?? defaultCount)(getCommandResults(command).length)}

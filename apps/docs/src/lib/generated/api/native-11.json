@@ -1,41 +1,5 @@
 [
     {
-        "name": "onkeyupcapture",
-        "type": "KeyboardEventHandler<HTMLFieldSetElement> | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
-        "name": "on:abort",
-        "type": "EventHandler<Event, HTMLFieldSetElement> | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
-        "name": "onabort",
-        "type": "EventHandler<Event, HTMLFieldSetElement> | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
-        "name": "onabortcapture",
-        "type": "EventHandler<Event, HTMLFieldSetElement> | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
         "name": "on:canplay",
         "type": "EventHandler<Event, HTMLFieldSetElement> | null | undefined",
         "required": false,
@@ -2243,6 +2207,42 @@
     {
         "name": "disabled",
         "type": "boolean | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "on:copy",
+        "type": "ClipboardEventHandler<HTMLParagraphElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "oncopy",
+        "type": "ClipboardEventHandler<HTMLParagraphElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "oncopycapture",
+        "type": "ClipboardEventHandler<HTMLParagraphElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "on:cut",
+        "type": "ClipboardEventHandler<HTMLParagraphElement> | null | undefined",
         "required": false,
         "bindable": false,
         "default": null,

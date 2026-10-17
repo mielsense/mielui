@@ -6,6 +6,7 @@
     import HugeiconsIcon from '@mielui/svelte/hugeicons-icon';
 
     const projects = ['Website', 'Dashboard', 'Mobile app'];
+
     let ascending = $state(true);
     let selected = $state<string[]>([]);
     let empty = $state(false);
@@ -16,6 +17,7 @@
                   ascending ? left.localeCompare(right) : right.localeCompare(left)
               )
     );
+
     function selectAll(checked: boolean) {
         selected = checked ? rows : [];
     }

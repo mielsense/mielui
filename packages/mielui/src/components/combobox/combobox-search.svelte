@@ -1,13 +1,12 @@
 <script lang="ts">
     import { Search01Icon as Search } from '@hugeicons/core-free-icons';
     import { Combobox as ComboboxPrimitive } from 'bits-ui';
-    import { getContext, untrack } from 'svelte';
+    import { untrack } from 'svelte';
     import HugeiconsIcon from '../../hugeicons-icon.svelte';
-    import type { ComboboxLabels } from '.';
-    import { getComboboxContext } from './context.svelte';
+    import { findComboboxLabels, getComboboxContext } from './context';
 
     const context = getComboboxContext();
-    const labels = getContext<(() => ComboboxLabels | undefined) | undefined>('combobox-labels');
+    const labels = findComboboxLabels();
 
     let input = $state<HTMLInputElement | null>(null);
 
@@ -27,7 +26,7 @@
 <div
     data-ui="combobox-search"
     data-variant="secondary"
-    class="mx-1 mt-1 flex h-[calc(var(--size-control-sm)+var(--spacing))] shrink-0 items-center gap-2 rounded-[var(--radius-lg)] border-[length:var(--border-size)] border-transparent bg-secondary px-3"
+    class="flex h-[calc(var(--size-control-sm)+var(--spacing))] shrink-0 items-center gap-2 border-b-[length:var(--border-size)] border-border px-[calc(var(--spacing)*3+var(--border-size))]"
 >
     <HugeiconsIcon
         icon={Search}
@@ -46,5 +45,9 @@
         oninput={context.handleInput}
         onkeydown={context.handleKeydown}
         class="min-w-0 flex-1 bg-transparent text-[length:var(--font-size-body)] [font-weight:var(--font-weight-body)] [letter-spacing:var(--tracking-body)] text-foreground outline-none placeholder:text-foreground-muted"
-    />
+    >
+        {#snippet child({ props })}
+            <input {...props} value={context.inputValue} />
+        {/snippet}
+    </ComboboxPrimitive.Input>
 </div>

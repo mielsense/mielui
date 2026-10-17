@@ -7,16 +7,9 @@
         class?: string;
     };
 
-    let props: Props = $props();
+    let { children, class: className, ...rest }: Props = $props();
 </script>
 
-<p
-    {...props}
-    data-ui="menu-label"
-    class={cn(
-        props.class,
-        'mielui-menu-label'
-    )}
->
-    {@render props.children?.()}
+<p {...rest} data-ui="menu-label" class={cn(className, 'mielui-menu-label')}>
+    {@render children?.()}
 </p>

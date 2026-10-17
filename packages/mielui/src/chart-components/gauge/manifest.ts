@@ -2,7 +2,7 @@ import type { Manifest } from '@mielui/svelte/_manifest/types';
 
 export const manifest: Manifest = {
     name: 'gauge',
-    version: '1.0.0',
+    version: '1.1.0',
     visibility: 'public',
     description:
         'Circular meter for bounded quantities such as context remaining, usage limits, storage, and seats.',
@@ -17,10 +17,10 @@ export const manifest: Manifest = {
         'actions/number-shuffle/render.ts'
     ],
     components: ['_internal/utils', 'skeleton'],
-    shared: ['utils.cn'],
+    shared: ['components/_internal/theme-changes', 'transition', 'utils.cn'],
     peerDependencies: {
         '@floating-ui/dom': '1.7.6',
         cnfast: '^0.0.8',
-        svelte: '^5.0.0'
+        svelte: '^5.56.0'
     }
 };

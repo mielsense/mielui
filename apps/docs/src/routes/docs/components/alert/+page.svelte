@@ -1,70 +1,102 @@
 <script lang="ts">
+    import { Megaphone01Icon } from '@hugeicons/core-free-icons';
+    import * as Alert from '@mielui/svelte/components/alert';
+    import { Button } from '@mielui/svelte/components/button';
     import { CodeBlock } from '@mielui/svelte/components/code-block';
     import * as Typography from '@mielui/svelte/components/typography';
-    import { ComponentPreview, InstallCommand } from '$lib/components/docs';
+    import HugeiconsIcon from '@mielui/svelte/hugeicons-icon';
+    import { ComponentPreview, InstallCommand, Playground } from '$lib/components/docs';
     import InlineText from '$lib/components/docs/inline-text.svelte';
     import PageIntro from '$lib/components/docs/page-intro.svelte';
-
-    import Hero from './examples/hero.svelte';
-    import HeroSrc from './examples/hero.svelte?raw';
-
+    import Action from './examples/action.svelte';
+    import ActionSrc from './examples/action.svelte?raw';
     import Variants from './examples/variants.svelte';
     import VariantsSrc from './examples/variants.svelte?raw';
+    import { code as playgroundCode, controls as playgroundControls } from './playground';
 
-    const TITLE = 'Alert';
-    const SLUG = 'alert';
+    const usage = `<script lang="ts">
+    import * as Alert from '@mielui/svelte/components/alert';
+</${'script'}>
 
-    const installCommand = `pnpm dlx @mielui/svelte add ${SLUG}`;
+<Alert.Root variant="success" announcement="polite">
+    <Alert.Title>Changes saved</Alert.Title>
+    <Alert.Description>Your profile is up to date.</Alert.Description>
+</Alert.Root>`;
 </script>
 
 <svelte:head>
-    <title>
-        Mielui ·{' '}
-        {TITLE}
-    </title>
+    <title>Mielui · Alert</title>
     <meta
         name="description"
-        content="Inset callouts for inline status, confirmation, and warnings."
+        content="Notice strips for inline status, confirmation, and warnings."
     />
 </svelte:head>
 
 <div data-docs-page class="flex flex-col gap-10">
-    <!-- ─── Header ────────────────────────────────────────────────── -->
-    <PageIntro title={TITLE}>
+    <PageIntro title="Alert">
         An inset callout with a status icon, a title, and its description on one surface.
     </PageIntro>
 
-    <!-- ─── Hero Example ──────────────────────────────────────────── -->
     <section id="hero" class="scroll-mt-20 flex flex-col gap-4">
-        <ComponentPreview code={HeroSrc}>
-            <Hero />
-        </ComponentPreview>
+        <Playground controls={playgroundControls} code={playgroundCode}>
+            {#snippet children(values)}
+                {#snippet body()}
+                    {#if values.title}
+                        <Alert.Title>Heads up</Alert.Title>
+                    {/if}
+                    {#if values.description}
+                        <Alert.Description>
+                            You can add components to your app using the command line.
+                        </Alert.Description>
+                    {/if}
+                    {#if values.action}
+                        <Button variant="secondary" size="sm" href="/docs/installation">
+                            Read the guide
+                        </Button>
+                    {/if}
+                {/snippet}
+                {#if values.icon === 'custom'}
+                    <Alert.Root variant={values.variant} class="w-full max-w-lg">
+                        {#snippet icon()}
+                            <HugeiconsIcon icon={Megaphone01Icon} size={16} aria-hidden="true" />
+                        {/snippet}
+                        {@render body()}
+                    </Alert.Root>
+                {:else}
+                    <Alert.Root
+                        variant={values.variant}
+                        icon={values.icon === 'hidden' ? false : undefined}
+                        class="w-full max-w-lg"
+                    >
+                        {@render body()}
+                    </Alert.Root>
+                {/if}
+            {/snippet}
+        </Playground>
     </section>
 
-    <!-- ─── Installation ──────────────────────────────────────────── -->
     <section id="installation" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Installation</Typography.H2>
-        <InstallCommand command={installCommand} />
+        <InstallCommand command="pnpm dlx @mielui/svelte add alert" />
     </section>
 
-    <!-- ─── Usage ─────────────────────────────────────────────────── -->
     <section id="usage" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Usage</Typography.H2>
         <Typography.Text variant="supporting">
-            The theme setting chrome.borders chooses "single" or "double" framing. Single is the
-            default. Single removes the extra frame while preserving content padding, composition,
-            and inset variants.
+            An alert is a notice strip with a status icon, a Title, and a muted Description. The
+            variant tints only the icon, never the surface or its border. Put one button or link
+            directly inside Root for a follow-up action. It sits at the end of the strip and moves
+            under the text when the alert is narrow.
         </Typography.Text>
         <Typography.Text variant="supporting">
             Set{' '}
             <Typography.InlineCode>{'icon={false}'}</Typography.InlineCode>
-            to omit the default icon, or supply an icon snippet to replace it. Title and Description
-            remain separate parts.
+            to omit the default icon, or pass an icon snippet to replace it.
         </Typography.Text>
         <Typography.Text variant="supporting">
             Static notices use{' '}
             <Typography.InlineCode>announcement="off"</Typography.InlineCode>
-            by default. Use{' '}
+            by default and announce nothing. Use{' '}
             <Typography.InlineCode>announcement="polite"</Typography.InlineCode>
             for routine updates, such as a successful save.
         </Typography.Text>
@@ -72,29 +104,31 @@
             Reserve{' '}
             <Typography.InlineCode>announcement="assertive"</Typography.InlineCode>
             for urgent updates that should interrupt. Keep the live region mounted while its content
-            changes. The visual variant does not change announcement urgency.
+            changes. The variant does not change announcement urgency.
         </Typography.Text>
-
-        <CodeBlock
-            code={`import * as Alert from '@mielui/svelte/components/alert';\n\n<Alert.Root announcement="polite">\n  <Alert.Title>Title</Alert.Title>\n  <Alert.Description>Description</Alert.Description>\n</Alert.Root>`}
-            lang="svelte"
-            copy="overlay"
-        />
+        <CodeBlock code={usage} lang="svelte" copy="overlay" />
     </section>
 
-    <!-- ─── Examples ──────────────────────────────────────────────── -->
     <section id="examples" class="scroll-mt-20 flex flex-col gap-10">
         <div>
             <Typography.H2 class="docs-section-heading">Examples</Typography.H2>
         </div>
 
-        <!-- Variants — each its own example piece -->
         <div id="variants" class="scroll-mt-20 flex flex-col gap-3">
-            <Typography.H3 class="docs-subsection-heading">Status tones</Typography.H3>
+            <Typography.H3 class="docs-subsection-heading">Variants</Typography.H3>
             <ComponentPreview code={VariantsSrc}><Variants /></ComponentPreview>
         </div>
+
+        <div id="action" class="scroll-mt-20 flex flex-col gap-3">
+            <Typography.H3 class="docs-subsection-heading">With an action</Typography.H3>
+            <Typography.Text variant="supporting">
+                A button or link placed directly in Root becomes the strip's one action. Keep it
+                secondary, and name what it does.
+            </Typography.Text>
+            <ComponentPreview code={ActionSrc}><Action /></ComponentPreview>
+        </div>
     </section>
-    <section id="parts" class="flex flex-col gap-4">
+    <section id="parts" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Parts</Typography.H2>
         <Typography.Text variant="supporting">
             <InlineText
@@ -103,7 +137,7 @@
         </Typography.Text>
         <Typography.Text variant="supporting">
             <InlineText
-                text={"Root, Title and Description render their `children` and accept `class` and `style` like any element."}
+                text={"Root, Title and Description render their `children` and take `class`. Root also passes div attributes, such as `id`, to its element."}
             />
         </Typography.Text>
     </section>

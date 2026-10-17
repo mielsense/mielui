@@ -14,7 +14,7 @@
         disabled,
         variant = 'default',
         size = 'md',
-        class: classProp,
+        class: className,
         onCheckedChange,
         oninput,
         id,
@@ -39,9 +39,10 @@
     function handleChange(event: Event & { currentTarget: EventTarget & HTMLInputElement }) {
         oninput?.(event);
         if (event.defaultPrevented) {
+            event.currentTarget.checked = checked ?? false;
             return;
         }
-        const next = (event.currentTarget as HTMLInputElement).checked;
+        const next = event.currentTarget.checked;
         checked = next;
         onCheckedChange?.(next);
     }
@@ -56,7 +57,13 @@
         function reset(event: Event) {
             clearTimeout(timer);
             timer = setTimeout(() => {
-                if (event.defaultPrevented || checked === initialChecked) {
+                if (event.defaultPrevented) {
+                    return;
+                }
+                if (input) {
+                    input.checked = initialChecked;
+                }
+                if (checked === initialChecked) {
                     return;
                 }
                 checked = initialChecked;
@@ -75,7 +82,7 @@
     for={metadata.controlId}
     data-size={size}
     class={cn(
-        classProp,
+        className,
         'min-h-[var(--size-touch)] md:min-h-0',
         !description && 'items-center',
         checkbox({ variant, disabled: disabled ?? false, checked: checked ?? false })
@@ -89,7 +96,6 @@
         class="peer absolute size-4 opacity-0"
         {disabled}
         {checked}
-        aria-label={rest['aria-label']}
         aria-labelledby={metadata.labelledBy}
         aria-describedby={metadata.describedBy}
         aria-checked={checked}

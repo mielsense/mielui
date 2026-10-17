@@ -5,6 +5,4 @@
     let { class: className, children, ...rest }: DefaultProps = $props();
 </script>
 
-<Dialog.Header {...rest} class={cn(className, 'data-[orientation=vertical]:gap-3')}>
-    {@render children?.()}
-</Dialog.Header>
+<Dialog.Header {...rest} class={cn(className, 'gap-3')}> {@render children?.()} </Dialog.Header>

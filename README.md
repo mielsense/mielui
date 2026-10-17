@@ -26,6 +26,12 @@ Install the Mielui skill for component guidance, API references, and examples:
 npx skills add mielsense/mielui --skill mielui
 ```
 
+Add the design skill for page layout: app shells, dashboards, settings, and marketing sites.
+
+```sh
+npx skills add mielsense/mielui --skill mielui-design
+```
+
 ## Contributing
 
 Please open an issue or pull request to contribute. See [CONTRIBUTING.md](CONTRIBUTING.md) for the workflow and [SETUP.md](SETUP.md) for local setup, deployment, and publishing.

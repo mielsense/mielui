@@ -48,8 +48,11 @@ export type CodeBlockRegistry = {
 };
 
 export type CodeBlockLabels = {
+    /** Accessible name of an untabbed code region. */
     code?: string;
+    /** Tooltip and accessible name of the copy button at rest. */
     copy?: string;
+    /** Tooltip and accessible name of the copy button right after copying. */
     copied?: string;
 };
 
@@ -102,12 +105,7 @@ export type CodeBlockActionsProps = {
     copy?: boolean;
 } & DefaultProps;
 
-export type CodeBlockCopyProps = {
-    /** Tooltip and accessible name of the copy button. */
-    label?: string;
-    /** Label shown right after copying. */
-    copiedLabel?: string;
-} & DefaultProps;
+export type CodeBlockCopyProps = DefaultProps;
 
 export type CodeBlockContentProps = {
     /** Tab id this panel belongs to. */

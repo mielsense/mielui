@@ -1,7 +1,8 @@
 import type { Manifest } from '@mielui/svelte/_manifest/types';
+
 export const manifest: Manifest = {
     name: 'file-upload',
-    version: '1.0.0',
+    version: '1.1.0',
     visibility: 'public',
     description:
         'Upload cards with validation, progress, cancellation, retry, and animated completion.',
@@ -9,7 +10,7 @@ export const manifest: Manifest = {
         'actions/number-shuffle/index.ts',
         'actions/number-shuffle/render.ts',
         'components/file-upload/index.ts',
-        'components/file-upload/context.svelte.ts',
+        'components/file-upload/context.ts',
         'components/file-upload/controller.svelte.ts',
         'components/file-upload/file-upload.svelte',
         'components/file-upload/file-upload-dropzone.svelte',
@@ -25,10 +26,11 @@ export const manifest: Manifest = {
         'components/file-upload/manifest.ts'
     ],
     components: ['button', 'tooltip', 'spinner'],
-    shared: ['hugeicons-icon', 'utils.cn', 'transition'],
+    shared: ['hugeicons-icon', 'utils.cn', 'utils.createContext', 'transition'],
     peerDependencies: {
         '@humanspeak/svelte-motion': '^1.2.1',
         '@hugeicons/core-free-icons': '^4.3.0',
+        cnfast: '^0.0.8',
         svelte: '^5.56.0'
     }
 };

@@ -1,25 +1,18 @@
 <script lang="ts">
     import * as Select from '@mielui/svelte/components/select';
 
-    const roles = [
-        { value: 'viewer', label: 'Viewer' },
-        { value: 'editor', label: 'Editor' },
-        { value: 'billing', label: 'Billing administrator' }
-    ];
+    const roles = ['Viewer', 'Editor', 'Billing administrator'];
 
-    let role = $state('viewer');
-    const selected = $derived(roles.find((r) => r.value === role));
+    let role = $state('Viewer');
 </script>
 
 <div class="flex flex-col gap-2">
-    <span class="text-sm [font-weight:var(--font-weight-label,500)] text-foreground">Role</span>
+    <span id="dynamic-width-label" class="text-sm font-medium">Role</span>
     <Select.Root bind:value={role}>
-        <Select.Trigger aria-label="Role" class="w-40" variant="outline">
-            {selected?.label ?? 'Select role'}
-        </Select.Trigger>
+        <Select.Trigger aria-labelledby="dynamic-width-label" class="w-40" />
         <Select.Content dynamic>
-            {#each roles as option (option.value)}
-                <Select.Item value={option.value}>{option.label}</Select.Item>
+            {#each roles as option (option)}
+                <Select.Item value={option}>{option}</Select.Item>
             {/each}
         </Select.Content>
     </Select.Root>

@@ -5,7 +5,7 @@
             0,
             1,
             2,
-            2681,
+            2677,
             3,
             4,
             5,
@@ -102,7 +102,7 @@
             96,
             97,
             98,
-            4621,
+            4617,
             99,
             100,
             101,
@@ -441,7 +441,7 @@
             0,
             1,
             2,
-            2681,
+            2677,
             3,
             4,
             5,
@@ -538,7 +538,7 @@
             96,
             97,
             98,
-            4621,
+            4617,
             99,
             100,
             101,
@@ -877,7 +877,7 @@
             0,
             1,
             2,
-            2681,
+            2677,
             3,
             4,
             5,
@@ -974,7 +974,7 @@
             96,
             97,
             98,
-            4621,
+            4617,
             99,
             100,
             101,
@@ -1319,7 +1319,7 @@
     {
         "name": "List",
         "properties": [
-            2681,
+            2677,
             0,
             1,
             2,
@@ -1766,7 +1766,7 @@
             0,
             1,
             2,
-            2681,
+            2677,
             3,
             4,
             5,
@@ -1863,7 +1863,7 @@
             96,
             97,
             98,
-            4621,
+            4617,
             99,
             100,
             101,
@@ -2202,7 +2202,7 @@
             0,
             1,
             2,
-            2681,
+            2677,
             3,
             4,
             5,
@@ -2299,7 +2299,7 @@
             96,
             97,
             98,
-            4621,
+            4617,
             99,
             100,
             101,
@@ -2644,7 +2644,7 @@
                 "description": "Content rendered inside.",
                 "inherited": false
             },
-            2681,
+            2677,
             0,
             1,
             2,
@@ -3166,30 +3166,12 @@
                 "inherited": false
             },
             {
-                "name": "loadingLabel",
-                "type": "string | undefined",
+                "name": "labels",
+                "type": "ButtonLabels | undefined",
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "Text shown while `status` is `loading`. The button keeps its width.",
-                "inherited": false
-            },
-            {
-                "name": "successLabel",
-                "type": "string | undefined",
-                "required": false,
-                "bindable": false,
-                "default": null,
-                "description": "Text shown while `status` is `success`.",
-                "inherited": false
-            },
-            {
-                "name": "errorLabel",
-                "type": "string | undefined",
-                "required": false,
-                "bindable": false,
-                "default": null,
-                "description": "Text shown while `status` is `error`.",
+                "description": "Overrides the built-in text and accessible names. Every key is optional and English is the fallback.",
                 "inherited": false
             }
         ]
@@ -3206,7 +3188,7 @@
                 "description": "Content rendered inside.",
                 "inherited": false
             },
-            2681,
+            2677,
             0,
             1,
             2,
@@ -3728,30 +3710,12 @@
                 "inherited": false
             },
             {
-                "name": "loadingLabel",
-                "type": "string | undefined",
+                "name": "labels",
+                "type": "ButtonLabels | undefined",
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "Text shown while `status` is `loading`. The button keeps its width.",
-                "inherited": false
-            },
-            {
-                "name": "successLabel",
-                "type": "string | undefined",
-                "required": false,
-                "bindable": false,
-                "default": null,
-                "description": "Text shown while `status` is `success`.",
-                "inherited": false
-            },
-            {
-                "name": "errorLabel",
-                "type": "string | undefined",
-                "required": false,
-                "bindable": false,
-                "default": null,
-                "description": "Text shown while `status` is `error`.",
+                "description": "Overrides the built-in text and accessible names. Every key is optional and English is the fallback.",
                 "inherited": false
             }
         ]
@@ -3759,7 +3723,7 @@
     {
         "name": "Root",
         "properties": [
-            2681,
+            2677,
             0,
             1,
             2,
@@ -4260,7 +4224,7 @@
             0,
             1,
             2,
-            2681,
+            2677,
             3,
             4,
             5,
@@ -4357,7 +4321,7 @@
             96,
             97,
             98,
-            4621,
+            4617,
             99,
             100,
             101,
@@ -4702,7 +4666,7 @@
                 "description": "Content rendered inside.",
                 "inherited": false
             },
-            2681,
+            2677,
             0,
             1,
             2,
@@ -5224,30 +5188,12 @@
                 "inherited": false
             },
             {
-                "name": "loadingLabel",
-                "type": "string | undefined",
+                "name": "labels",
+                "type": "ButtonLabels | undefined",
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "Text shown while `status` is `loading`. The button keeps its width.",
-                "inherited": false
-            },
-            {
-                "name": "successLabel",
-                "type": "string | undefined",
-                "required": false,
-                "bindable": false,
-                "default": null,
-                "description": "Text shown while `status` is `success`.",
-                "inherited": false
-            },
-            {
-                "name": "errorLabel",
-                "type": "string | undefined",
-                "required": false,
-                "bindable": false,
-                "default": null,
-                "description": "Text shown while `status` is `error`.",
+                "description": "Overrides the built-in text and accessible names. Every key is optional and English is the fallback.",
                 "inherited": false
             }
         ]

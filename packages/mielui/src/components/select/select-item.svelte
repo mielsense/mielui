@@ -7,9 +7,9 @@
     import HugeiconsIcon from '../../hugeicons-icon.svelte';
     import { buttonAttributes } from '../_internal/button-attributes';
     import type { SelectItemProps } from '.';
-    import { getSelectContext } from './context.svelte';
+    import { getSelectContext } from './context';
 
-    const { labels, values } = getSelectContext();
+    const { labels } = getSelectContext();
     let {
         children,
         class: className,
@@ -24,7 +24,6 @@
 
     $effect(() => {
         const itemValue = value;
-        values.add(itemValue);
         const node = element;
         function updateLabel() {
             resolvedLabel =
@@ -41,7 +40,6 @@
         }
         return () => {
             observer.disconnect();
-            values.delete(itemValue);
             labels.delete(itemValue);
         };
     });
@@ -62,11 +60,19 @@
             bind:element
             disabled={disabled ?? undefined}
             unstyled
-            class={cn(className, 'mielui-menu-item')}
+            class={cn(
+                className,
+                'mielui-menu-item',
+                selected
+                    ? '[font-weight:var(--font-weight-label)]'
+                    : '[font-weight:var(--font-weight-body)]'
+            )}
         >
             {@render children?.()}
             {#if selected}
-                <span aria-hidden="true" class="ms-auto"><HugeiconsIcon icon={Check} /></span>
+                <span aria-hidden="true" class="ms-auto ps-2 text-foreground-muted">
+                    <HugeiconsIcon icon={Check} />
+                </span>
             {/if}
         </Button>
     {/snippet}

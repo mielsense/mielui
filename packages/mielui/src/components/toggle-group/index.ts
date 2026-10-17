@@ -44,12 +44,4 @@ export type ToggleGroupItemProps = {
 } & DefaultProps &
     Omit<HTMLButtonAttributes, 'onclick' | 'children' | 'disabled' | 'value'>;
 
-export type ToggleGroupContext = {
-    readonly disabled: boolean;
-    readonly size: ToggleGroupSize;
-    readonly type: 'single' | 'multiple';
-    isActive: (value: string) => boolean;
-    setValue: (value: string) => void;
-};
-
 export { Item, Root };

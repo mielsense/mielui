@@ -3,5 +3,5 @@
 </script>
 
 <div class="flex items-center justify-center">
-    <Checkbox label="Receive updates" checked={false} />
+    <Checkbox label="Receive updates" />
 </div>

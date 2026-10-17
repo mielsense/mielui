@@ -2,11 +2,10 @@
     import { Attachment01Icon as Paperclip } from '@hugeicons/core-free-icons';
     import { Button } from '@mielui/svelte/components/button';
     import { cn } from '@mielui/svelte/utils';
-    import { getContext } from 'svelte';
     import { buttonAttributes } from '../../components/_internal/button-attributes';
     import HugeiconsIcon from '../../hugeicons-icon.svelte';
-    import type { AttachmentLabels, AttachmentTriggerProps } from '.';
-    import { getAttachmentContext } from './context.svelte';
+    import type { AttachmentTriggerProps } from '.';
+    import { findAttachmentLabels, getAttachmentContext } from './context';
 
     let {
         children,
@@ -19,9 +18,7 @@
         onclick,
         ...rest
     }: AttachmentTriggerProps = $props();
-    const labels = getContext<(() => AttachmentLabels | undefined) | undefined>(
-        'attachment-labels'
-    );
+    const labels = findAttachmentLabels();
 
     const context = getAttachmentContext();
 </script>
@@ -42,7 +39,7 @@
             context.open();
         }
     }}
-    class={cn(className, 'rounded-[var(--radius-md)] text-foreground-muted hover:text-foreground')}
+    class={cn(className, 'text-foreground-muted hover:text-foreground')}
 >
     <HugeiconsIcon icon={Paperclip} size={17} strokeWidth={2} aria-hidden="true" />
     {@render children?.()}

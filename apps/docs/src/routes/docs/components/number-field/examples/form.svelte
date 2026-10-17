@@ -5,6 +5,7 @@
     let value = $state<number | undefined>(3);
     let submitted = $state('');
 </script>
+
 <form
     class="flex w-full max-w-64 flex-col gap-4"
     onsubmit={(event) => {

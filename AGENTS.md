@@ -149,6 +149,33 @@ Components must meet a high quality bar:
   the single component), exports a `<Name>Labels` type with every key optional,
   and keeps English as the fallback. Use functions for strings that interpolate
   a value. Do not add one prop per string.
+- Follow the shared state and context conventions:
+  - **Context.** A family's contexts live in `context.ts`, a plain module with
+    no runes. Create each with `createContext` from `@mielui/svelte/utils`,
+    destructure it as `const { set: setXContext, get: getXContext } =
+    createContext<XContext>('x')`, and export the type as `export type
+    XContext`. Use `find` instead of `get` only for parts that can render
+    without their root.
+  - **Built-in text.** Labels reach parts through the family's main context
+    or a `setXLabels(() => labels)` context. Follow the family's existing
+    choice.
+  - **Controllers.** State that outgrows a component goes in
+    `controller.svelte.ts`, exporting `createXController(options)`. A
+    narrower piece takes a role name, such as `frame.svelte.ts` or
+    `stack.svelte.ts`. Pure helpers without runes go in plain `.ts` files.
+  - **Options.** Factory options are a typed `ControllerOptions` (or
+    `FrameOptions`, `StackOptions`...) object of getters: `readonly value: T`
+    for inputs, and a `get`/`set` pair for writable values. Build them at the
+    call site with `get value() { return value; }`. Do not pass
+    `getValue: () => value` callbacks.
+  - **Components.** A component keeps its markup, event wiring, and prop
+    forwarding. Compute with `$derived` and keep `$effect` for DOM and
+    external systems.
+  - **Shared DOM work.** Observers and loops that several components need
+    live in `components/_internal`. Use `observeThemeChanges` to react to
+    theme changes.
+  - **Props.** Name rest props `rest`, and merge classes as
+    `cn(className, ...)`.
 - Keep the component's docs page in sync with its API. New, changed, or
   removed subcomponents, props, and behaviors must be reflected in the page's
   usage prose, examples, and code snippets in the same change — never ship the

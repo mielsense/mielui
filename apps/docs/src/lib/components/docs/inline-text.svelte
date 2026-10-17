@@ -1,5 +1,5 @@
 <script lang="ts" module>
-    export const inlineLinkClass =
+    const inlineLinkClass =
         'text-foreground underline decoration-primary underline-offset-2 [text-decoration-skip-ink:auto] [text-decoration-thickness:from-font] [text-underline-position:from-font] transition-[text-decoration-color] [transition-duration:var(--motion-duration-hover)] ease-[var(--ease-out)] hover:decoration-foreground motion-reduce:transition-none focus-visible:rounded-[var(--radius-sm)] focus-visible:outline-none focus-visible:shadow-[var(--focus-ring)]';
 </script>
 

@@ -4,12 +4,12 @@
     import { DatePicker as DatePickerPrimitive } from 'bits-ui';
     import { overlaySurface } from '../_internal/surface';
     import type { DatePickerContentProps } from '.';
-    import { getDatePickerContext } from './context.svelte';
+    import { getDatePickerContext } from './context';
 
     let {
         children,
         class: className,
-        ref = $bindable(null),
+        element = $bindable(null),
         surface,
         portal = true,
         sideOffset = 6,
@@ -24,7 +24,7 @@
 <DatePickerPrimitive.Portal disabled={!portal}>
     <DatePickerPrimitive.Content
         {...rest}
-        bind:ref
+        bind:ref={element}
         forceMount
         {sideOffset}
         {align}
@@ -40,7 +40,7 @@
                         out:panelOut
                         data-ui="date-picker-content"
                         data-surface={surface}
-                        class={cn(className, overlaySurface(surface), 'z-[130] mielui-modal-frame [--mielui-border-inset-scale:0] max-h-[var(--bits-popover-content-available-height)] max-w-[var(--bits-popover-content-available-width)] overflow-auto text-foreground shadow-[var(--elevation-float)] outline-none origin-[var(--bits-popover-content-transform-origin)] [--mielui-modal-inset:calc(var(--spacing)*0.5*var(--mielui-border-inset-scale,1))]')}
+                        class={cn(className, overlaySurface(surface), 'z-[130] mielui-float-frame max-h-[var(--bits-popover-content-available-height)] max-w-[var(--bits-popover-content-available-width)] overflow-auto text-foreground shadow-[var(--elevation-float)] outline-none origin-[var(--bits-popover-content-transform-origin)]')}
                     >
                         <div class="mielui-inset-surface min-w-0 p-0">
                             {@render children?.()}

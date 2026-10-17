@@ -16,7 +16,7 @@ export const manifest: Manifest = {
         'components/task-steps/task-steps-summary.svelte',
         'components/task-steps/index.ts',
         'components/task-steps/task-steps-item.svelte',
-        'components/task-steps/context.svelte.ts',
+        'components/task-steps/context.ts',
         'components/task-steps/manifest.ts'
     ],
     components: ['_internal/utils', 'spinner'],
@@ -24,6 +24,6 @@ export const manifest: Manifest = {
     peerDependencies: {
         '@floating-ui/dom': '1.7.6',
         cnfast: '^0.0.8',
-        svelte: '^5.0.0'
+        svelte: '^5.56.0'
     }
 };

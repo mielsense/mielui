@@ -1,11 +1,12 @@
 <script lang="ts">
     import { cn } from '@mielui/svelte/utils';
-    import { getPieContext } from './context';
+    import { getPieChartContext } from './context';
     import type { PieChartLabelProps } from './index';
 
     let { children, class: className, ...rest }: PieChartLabelProps = $props();
-    const context = getPieContext();
+    const context = getPieChartContext();
     const active = $derived(context.data.find((item) => item.key === context.active));
+    const totalFormatter = new Intl.NumberFormat();
 </script>
 
 <text
@@ -14,12 +15,15 @@
     y={0}
     text-anchor="middle"
     dominant-baseline="middle"
-    class={cn(className, 'fill-current text-3xl font-semibold tabular-nums')}
+    class={cn(
+        className,
+        'fill-current text-3xl font-medium tabular-nums [letter-spacing:var(--tracking-header)]'
+    )}
     {...rest}
 >
     {#if children}
         {@render children({ total: context.total, active })}
     {:else}
-        {new Intl.NumberFormat().format(context.total)}
+        {totalFormatter.format(context.total)}
     {/if}
 </text>

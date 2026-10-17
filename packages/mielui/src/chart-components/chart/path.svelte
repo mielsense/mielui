@@ -1,9 +1,8 @@
 <script lang="ts">
-    import { cn } from '@mielui/svelte/utils';
-    import { getChartContext } from 'layerchart';
+    import { getChartContext as getLayerChartContext } from 'layerchart';
     import { cubicOut } from 'svelte/easing';
-    import { Tween } from 'svelte/motion';
-    import { getChart } from './context.svelte';
+    import { getChartContext } from './context';
+    import { createChartFollow } from './follow.svelte';
     import { live, reveal, sweep } from './motion';
 
     let {
@@ -12,8 +11,8 @@
         class: className,
         strokeWidth = 2.5
     }: { key: string; area?: boolean; class?: string; strokeWidth?: number } = $props();
-    const chart = getChart();
-    const layer = getChartContext();
+    const chart = getChartContext();
+    const layer = getLayerChartContext();
     const token = Symbol('path');
     $effect.pre(() => chart.register(token, key, area ? 'area' : 'line'));
     const id = $props.id();
@@ -62,25 +61,34 @@
             })
             .join(' ')
     );
-    const marker = Tween.of(
+    const marker = createChartFollow(
+        chart,
         () => {
-            const index = chart.active ?? 0;
-            const value = chart.value(index, key) ?? 0;
+            const index = chart.active;
+            const value = index === null ? null : chart.value(index, key);
+            if (index === null || value === null) {
+                return null;
+            }
+
             return {
                 x: Number(layer.xScale(horizontal ? value : chart.position(index))),
                 y: Number(layer.yScale(horizontal ? chart.position(index) : value))
             };
         },
         {
-            duration: () =>
-                chart.motion && chart.animation !== 'none' ? 120 * chart.motionScale : 0,
+            x: 0,
+            y: 0
+        },
+        {
+            duration: 120,
             easing: cubicOut
         }
     );
 </script>
+
 <g
     data-ui={area ? 'chart-area' : 'chart-line'}
-    class={cn(className)}
+    class={className}
     {@attach (element: SVGElement) => reveal(element, chart, 'line')}
 >
     {#if area}

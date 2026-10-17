@@ -1,18 +1,57 @@
 <script lang="ts">
+    import { Badge } from '@mielui/svelte/components/badge';
     import { CodeBlock } from '@mielui/svelte/components/code-block';
+    import * as DataTable from '@mielui/svelte/components/data-table';
     import * as Typography from '@mielui/svelte/components/typography';
-    import { ComponentPreview, InstallCommand } from '$lib/components/docs';
+    import { createTable, FlexRender } from '@tanstack/svelte-table';
+    import { ComponentPreview, InstallCommand, Playground } from '$lib/components/docs';
     import PageIntro from '$lib/components/docs/page-intro.svelte';
     import Controlled from './examples/controlled.svelte';
     import ControlledSrc from './examples/controlled.svelte?raw';
+    import { columns, features, filters, members } from './examples/data';
     import SetupSrc from './examples/data.ts?raw';
     import Empty from './examples/empty.svelte';
     import EmptySrc from './examples/empty.svelte?raw';
-    import Hero from './examples/hero.svelte';
-    import HeroSrc from './examples/hero.svelte?raw';
     import Inset from './examples/inset.svelte';
     import InsetSrc from './examples/inset.svelte?raw';
+    import { code as playgroundCode, controls as playgroundControls } from './playground';
+
+    const table = createTable({
+        features,
+        columns,
+        data: members,
+        getRowId: (member) => member.id,
+        initialState: {
+            columnVisibility: {
+                joined: false
+            },
+            pagination: {
+                pageIndex: 0,
+                pageSize: 5
+            }
+        }
+    });
+
+    const labelsCode = `<script lang="ts">
+    import * as DataTable from '@mielui/svelte/components/data-table';
+    import type { DataTableLabels } from '@mielui/svelte/components/data-table';
+
+    const labels: DataTableLabels = {
+        empty: 'Aucun résultat.',
+        loading: 'Chargement…',
+        rows: (count) => (count === 1 ? '1 ligne' : \`\${count} lignes\`),
+        selected: (selected, total) => \`\${selected} sur \${total} sélectionnées\`,
+        selectPage: 'Sélectionner les lignes de la page',
+        summarySelected: (count) => \`\${count} choisies\`,
+        sort: 'Trier',
+        previous: 'Précédent',
+        next: 'Suivant'
+    };
+</${'script'}>
+
+<DataTable.Root {table} {labels} />`;
 </script>
+
 <svelte:head>
     <title>Mielui · Data Table</title>
     <meta
@@ -20,16 +59,75 @@
         content="Composable TanStack Table v9 presentation, with sorting, filtering, row selection, and pagination."
     />
 </svelte:head>
+
 <div data-docs-page class="flex flex-col gap-10">
     <PageIntro title="Data Table">
         Sort, filter, and select rows in an inset table. Compose the toolbar and footer around your
         data.
     </PageIntro>
-    <section id="hero" class="flex flex-col gap-4">
-        <ComponentPreview code={HeroSrc} class="w-full"><Hero /></ComponentPreview>
+    <section id="hero" class="scroll-mt-20 flex flex-col gap-4">
+        <Playground controls={playgroundControls} code={playgroundCode} class="w-full">
+            {#snippet children(values)}
+                <DataTable.Root
+                    {table}
+                    variant={values.variant}
+                    loading={values.loading}
+                    class="w-full"
+                >
+                    {#snippet children()}
+                        {#if values.toolbar}
+                            <DataTable.Toolbar>
+                                <DataTable.Filters {table} {filters} class="min-w-0 flex-1">
+                                    <DataTable.Filter
+                                        {table}
+                                        column="name"
+                                        label="Filter members by name"
+                                        placeholder="Filter members…"
+                                        class="min-w-0 flex-1"
+                                    />
+                                </DataTable.Filters>
+                                <DataTable.Sort {table} class="ms-auto" />
+                            </DataTable.Toolbar>
+                        {/if}
+                        <DataTable.View
+                            {table}
+                            loading={values.loading}
+                            selectable={values.selectable}
+                            caption="Workspace members"
+                            rowLabel={(row) => row.original.name}
+                        >
+                            {#snippet cell(cell)}
+                                {#if cell.column.id === 'role'}
+                                    <Badge variant="secondary">{String(cell.getValue())}</Badge>
+                                {:else}
+                                    <FlexRender {cell} />
+                                {/if}
+                            {/snippet}
+                        </DataTable.View>
+                        {#if values.summary || values.pagination}
+                            <div
+                                data-ui="data-table-footer"
+                                class="flex flex-wrap items-center justify-between gap-3"
+                            >
+                                {#if values.summary}
+                                    <DataTable.Summary {table} />
+                                {/if}
+                                {#if values.pagination}
+                                    <DataTable.Pagination
+                                        {table}
+                                        loading={values.loading}
+                                        class="ms-auto"
+                                    />
+                                {/if}
+                            </div>
+                        {/if}
+                    {/snippet}
+                </DataTable.Root>
+            {/snippet}
+        </Playground>
     </section>
-    <section id="installation" class="flex flex-col gap-4">
-        <Typography.H2>Installation</Typography.H2>
+    <section id="installation" class="scroll-mt-20 flex flex-col gap-4">
+        <Typography.H2 class="docs-section-heading">Installation</Typography.H2>
         <InstallCommand command="pnpm dlx @mielui/svelte add data-table" />
         <Typography.Text>
             With Vite SSR, keep the v9.2.4 Svelte adapter in the bundled dependencies so Node can
@@ -37,12 +135,16 @@
         </Typography.Text>
         <CodeBlock
             copy="overlay"
-            code={"export default defineConfig({\n    ssr: { noExternal: ['@tanstack/svelte-table'] }\n});"}
+            code={`export default defineConfig({
+    ssr: {
+        noExternal: ['@tanstack/svelte-table']
+    }
+});`}
             lang="typescript"
         />
     </section>
-    <section id="setup" class="flex flex-col gap-4">
-        <Typography.H2>Create your table</Typography.H2>
+    <section id="setup" class="scroll-mt-20 flex flex-col gap-4">
+        <Typography.H2 class="docs-section-heading">Create your table</Typography.H2>
         <Typography.Text>
             DataTable accepts a table created by @tanstack/svelte-table 9.2.4. Use v9 createTable
             and tableFeatures; v8 createSvelteTable examples use a different API. Register only the
@@ -51,8 +153,8 @@
         </Typography.Text>
         <CodeBlock code={SetupSrc} lang="typescript" copy="overlay" />
     </section>
-    <section id="composition" class="flex flex-col gap-4">
-        <Typography.H2>Compose each region</Typography.H2>
+    <section id="composition" class="scroll-mt-20 flex flex-col gap-4">
+        <Typography.H2 class="docs-section-heading">Compose each region</Typography.H2>
         <Typography.Text>
             Root without children renders View, Summary, and Pagination. The same public parts build
             custom layouts: move Summary into Toolbar, omit pagination, or place controls before and
@@ -81,8 +183,8 @@
             table.
         </Typography.Text>
     </section>
-    <section id="filters" class="flex flex-col gap-4">
-        <Typography.H2>Search and filter</Typography.H2>
+    <section id="filters" class="scroll-mt-20 flex flex-col gap-4">
+        <Typography.H2 class="docs-section-heading">Search and filter</Typography.H2>
         <Typography.Text>
             Place Filter inside Filters to join the search input and Filter button with Group. The
             optional children snippet renders before the button. Active facets and Reset stay
@@ -125,18 +227,20 @@
             by Mielui.
         </Typography.Text>
     </section>
-    <section id="controlled" class="flex flex-col gap-4">
-        <Typography.H2>Own the state and layout</Typography.H2>
+    <section id="controlled" class="scroll-mt-20 flex flex-col gap-4">
+        <Typography.H2 class="docs-section-heading">Own the state and layout</Typography.H2>
         <Typography.Text>
             Use reactive data getters when rows can change. TanStack's createTableState supports
             controlled state slices; pair each controlled slice with its change callback. Table
             atoms and methods participate in Svelte reactivity. This composition reorders its
             summary and omits pagination.
         </Typography.Text>
-        <ComponentPreview code={ControlledSrc}><Controlled /></ComponentPreview>
+        <ComponentPreview code={ControlledSrc}>
+            <Controlled />
+        </ComponentPreview>
     </section>
-    <section id="selection" class="flex flex-col gap-4">
-        <Typography.H2>Selection and stable identity</Typography.H2>
+    <section id="selection" class="scroll-mt-20 flex flex-col gap-4">
+        <Typography.H2 class="docs-section-heading">Selection and stable identity</Typography.H2>
         <Typography.Text>
             Set selectable on Root or View to add a selection column. Register rowSelectionFeature
             and give getRowId a stable record ID. Index-based IDs can select the wrong record when
@@ -158,18 +262,20 @@
             parent/child policy.
         </Typography.Text>
     </section>
-    <section id="empty" class="flex flex-col gap-4">
-        <Typography.H2>Empty and loading states</Typography.H2>
+    <section id="empty" class="scroll-mt-20 flex flex-col gap-4">
+        <Typography.H2 class="docs-section-heading">Empty and loading states</Typography.H2>
         <Typography.Text>
             loading marks the root/table busy and disables pagination. Existing rows remain visible
             during refresh; an empty loading table shows a status message. Override the empty
             snippet for an explanation or recovery action. Error messages and retry policies remain
             application-owned.
         </Typography.Text>
-        <ComponentPreview code={EmptySrc}><Empty /></ComponentPreview>
+        <ComponentPreview code={EmptySrc}>
+            <Empty />
+        </ComponentPreview>
     </section>
-    <section id="server" class="flex flex-col gap-4">
-        <Typography.H2>Server data</Typography.H2>
+    <section id="server" class="scroll-mt-20 flex flex-col gap-4">
+        <Typography.H2 class="docs-section-heading">Server data</Typography.H2>
         <Typography.Text>
             For server filtering, sorting, or pagination, enable the corresponding TanStack manual
             options and pass returned rows through a reactive data getter. Supply rowCount or
@@ -181,30 +287,30 @@
             not fetch or virtualize rows. Use pagination for large lists.
         </Typography.Text>
     </section>
-    <section id="inset" class="flex scroll-mt-20 flex-col gap-4">
-        <Typography.H2>Inset layout</Typography.H2>
+    <section id="inset" class="scroll-mt-20 flex flex-col gap-4">
+        <Typography.H2 class="docs-section-heading">Inset layout</Typography.H2>
         <Typography.Text>
             Set variant="inset" on Root to frame the table with its footer. Toolbar floats above the
             frame as plain controls, wherever you place it inside Root. Place Summary and Pagination
-            in a div with data-ui="data-table-footer" for the strip under the table. A theme with
-            the inset position at the top joins that footer to the table's surface instead. The
-            children snippet lets you omit the toolbar, reorder controls, or replace cells.
-            Pagination uses the shared Pagination component for known page counts.
+            in a div with data-ui="data-table-footer" for the strip under the table. Column headings
+            and that footer sit on the white frame, and the rows sit on the recessed surface between
+            them. The children snippet lets you omit the toolbar, reorder controls, or replace
+            cells. Pagination uses the shared Pagination component for known page counts.
         </Typography.Text>
-        <ComponentPreview code={InsetSrc}><Inset /></ComponentPreview>
+        <ComponentPreview code={InsetSrc}>
+            <Inset />
+        </ComponentPreview>
     </section>
-
-    <section id="labels" class="flex scroll-mt-20 flex-col gap-4">
+    <section id="labels" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Labels</Typography.H2>
         <Typography.Text>
-            Built-in text is English by default. Pass labels to DataTable.Root to translate or
-            reword the empty and loading rows, the summary, pagination, sorting, and filter editors.
-            Every key is optional; omitted keys keep their default.
+            Built-in text is English. Pass a DataTableLabels object to labels on Root to translate
+            or reword the empty and loading rows, the summary, pagination, sorting and the filter
+            editors and the filter button summaries. Text that depends on a count or a name is a
+            function that returns the whole phrase, so a translation can place the number anywhere:
+            rows receives the row count and selected receives the selected and total counts. Every
+            key is optional, and an omitted key keeps its English default.
         </Typography.Text>
-        <CodeBlock
-            code={`<DataTable.Root {table} labels={{ empty: 'Aucun résultat.', loading: 'Chargement…', rows: (total) => (total === 1 ? 'ligne' : 'lignes'), sort: 'Trier' }} />`}
-            lang="svelte"
-            copy="overlay"
-        />
+        <CodeBlock code={labelsCode} lang="svelte" copy="overlay" />
     </section>
 </div>

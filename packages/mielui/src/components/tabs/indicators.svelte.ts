@@ -1,5 +1,5 @@
 import { untrack } from 'svelte';
-import type { TabsState } from '.';
+import type { TabsState } from './context';
 
 type IndicatorOptions = {
     readonly element: HTMLDivElement | null;

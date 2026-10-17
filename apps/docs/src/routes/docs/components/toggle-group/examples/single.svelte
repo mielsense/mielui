@@ -8,7 +8,7 @@
     import HugeiconsIcon from '@mielui/svelte/hugeicons-icon';
 </script>
 
-<ToggleGroup.Root type="single" value="center">
+<ToggleGroup.Root value="center" aria-label="Text alignment">
     <ToggleGroup.Item value="left" aria-label="Align left">
         <HugeiconsIcon icon={AlignLeft} size={14} />
     </ToggleGroup.Item>

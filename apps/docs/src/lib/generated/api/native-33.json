@@ -1,50 +1,5 @@
 [
     {
-        "name": "onmousemovecapture",
-        "type": "MouseEventHandler<HTMLTableRowElement> | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
-        "name": "on:mouseout",
-        "type": "MouseEventHandler<HTMLTableRowElement> | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
-        "name": "onmouseout",
-        "type": "MouseEventHandler<HTMLTableRowElement> | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
-        "name": "onmouseoutcapture",
-        "type": "MouseEventHandler<HTMLTableRowElement> | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
-        "name": "on:mouseover",
-        "type": "MouseEventHandler<HTMLTableRowElement> | null | undefined",
-        "required": false,
-        "bindable": false,
-        "default": null,
-        "description": "",
-        "inherited": true
-    },
-    {
         "name": "onmouseover",
         "type": "MouseEventHandler<HTMLTableRowElement> | null | undefined",
         "required": false,
@@ -2242,6 +2197,51 @@
     },
     {
         "name": "onratechange",
+        "type": "EventHandler<Event, HTMLSelectElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onratechangecapture",
+        "type": "EventHandler<Event, HTMLSelectElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "on:seeked",
+        "type": "EventHandler<Event, HTMLSelectElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onseeked",
+        "type": "EventHandler<Event, HTMLSelectElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "onseekedcapture",
+        "type": "EventHandler<Event, HTMLSelectElement> | null | undefined",
+        "required": false,
+        "bindable": false,
+        "default": null,
+        "description": "",
+        "inherited": true
+    },
+    {
+        "name": "on:seeking",
         "type": "EventHandler<Event, HTMLSelectElement> | null | undefined",
         "required": false,
         "bindable": false,

@@ -1,8 +1,8 @@
 <script lang="ts">
     import { cn } from '@mielui/svelte/utils';
-    import { setContext } from 'svelte';
     import { insetLayout } from '../../components/_internal/inset-layout';
     import type { FileDiffContext, FileDiffRootProps } from '.';
+    import { setFileDiffContext } from './context';
     import Content from './file-diff-content.svelte';
     import Row from './file-diff-row.svelte';
     import TopBar from './file-diff-top-bar.svelte';
@@ -52,7 +52,7 @@
             return theme;
         }
     };
-    setContext('file-diff', context);
+    setFileDiffContext(context);
 </script>
 
 <div
@@ -60,7 +60,7 @@
     data-ui="file-diff"
     class={cn(
         className,
-        'mielui-inset-frame flex w-full flex-col overflow-hidden text-foreground [--mielui-inset-position:top]',
+        'mielui-inset-frame flex w-full flex-col overflow-hidden text-foreground shadow-[var(--elevation-1)] [--mielui-inset-position:top]',
         // token-lint-disable-next-line no-literal-length: file-diff geometry contract
         '[--file-diff-line-height:1.7] [--file-diff-max-height:min(32rem,70vh)]'
     )}

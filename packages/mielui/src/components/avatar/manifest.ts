@@ -6,7 +6,7 @@ export const manifest: Manifest = {
     visibility: 'public',
     description: 'Image avatar with fallback. 4 sizes (sm/md/lg/xl), circle or square shape.',
     files: [
-        'components/avatar/context.svelte.ts',
+        'components/avatar/context.ts',
         'components/avatar/avatar.svelte',
         'components/avatar/avatar-image.svelte',
         'components/avatar/avatar-fallback.svelte',
@@ -21,6 +21,6 @@ export const manifest: Manifest = {
         cnfast: '^0.0.8',
         'tailwind-merge': '^3.0.0',
         'tailwind-variants': '^3.0.0',
-        svelte: '^5.0.0'
+        svelte: '^5.56.0'
     }
 };

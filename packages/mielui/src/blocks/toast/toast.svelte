@@ -6,7 +6,7 @@
     import type { HTMLAttributes } from 'svelte/elements';
     import { insetLayout } from '../../components/_internal/inset-layout';
     import { overlaySurface } from '../../components/_internal/surface';
-    import { setToastContext } from './context.svelte';
+    import { setToastContext } from './context';
     import { pauseToast, resumeToast, type Toast } from './lib.svelte';
     import Actions from './toast-actions.svelte';
     import Close from './toast-close.svelte';
@@ -113,7 +113,9 @@
         onfocusin?.(event);
     }}
     onfocusout={(event: FocusEvent & { currentTarget: EventTarget & HTMLDivElement }) => {
-        focused = event.relatedTarget instanceof Node && event.currentTarget.contains(event.relatedTarget);
+        focused =
+            event.relatedTarget instanceof Node &&
+            event.currentTarget.contains(event.relatedTarget);
         syncTimer();
         onfocusout?.(event);
     }}

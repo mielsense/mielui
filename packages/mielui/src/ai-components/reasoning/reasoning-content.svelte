@@ -1,9 +1,8 @@
 <script lang="ts">
-    import { themedSlide } from '@mielui/svelte/transition';
     import { cn } from '@mielui/svelte/utils';
-    import { onDestroy } from 'svelte';
+    import { disclosureSlide } from '../../components/_internal/disclosure/slide';
     import type { ReasoningContentProps } from '.';
-    import { getReasoningContext } from './context.svelte';
+    import { getReasoningContext } from './context';
 
     let {
         class: className,
@@ -17,7 +16,10 @@
     const reasoning = getReasoningContext();
     const unregister = reasoning.registerContent();
     let transitionRevision = 0;
-    onDestroy(unregister);
+
+    $effect(() => {
+        return unregister;
+    });
 
     type TransitionEvent = CustomEvent<null> & {
         currentTarget: EventTarget & HTMLDivElement;
@@ -51,12 +53,15 @@
         data-ui="reasoning-content"
         inert={!reasoning.open}
         aria-hidden={!reasoning.open}
-        transition:themedSlide={{ durationVar: '--motion-duration-panel', fallback: 220 }}
+        transition:disclosureSlide
         onintrostart={handleIntroStart}
         onintroend={handleIntroEnd}
         onoutrostart={handleOutroStart}
         onoutroend={handleOutroEnd}
-        class={cn(className, 'mt-1 overflow-hidden border-s-[length:var(--border-size)] border-border ps-3 text-sm leading-body text-foreground-muted')}
+        class={cn(
+            className,
+            'mt-1 overflow-hidden border-s-[length:var(--border-size)] border-border ps-3 [font-size:var(--font-size-body)] leading-relaxed text-foreground-muted'
+        )}
     >
         {@render children?.()}
     </div>

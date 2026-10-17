@@ -5,17 +5,16 @@
     let {
         title,
         keywords = '',
-        action,
         children
     }: {
         title: string;
         /** Extra words the settings search matches for every row in this group. */
         keywords?: string;
-        action?: Snippet;
         children: Snippet;
     } = $props();
 
     const filter = getSettingFilter();
+
     let labels = $state<string[]>([]);
 
     setSettingSection({
@@ -44,7 +43,6 @@
 <section class="flex flex-col gap-1.5 [&:not(:has([data-setting-row]))]:hidden">
     <div class="flex h-7 items-center justify-between gap-2 ps-0.5">
         <h2 class="m-0 text-[13px] font-medium text-foreground">{title}</h2>
-        {@render action?.()}
     </div>
     <div class="flex flex-col gap-1.5">
         {@render children()}

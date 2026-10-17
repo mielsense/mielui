@@ -1,17 +1,56 @@
 <script lang="ts">
+    import { CodeBlock } from '@mielui/svelte/components/code-block';
+    import * as NumberField from '@mielui/svelte/components/number-field';
     import * as Typography from '@mielui/svelte/components/typography';
-    import { ComponentPreview, InstallCommand } from '$lib/components/docs';
+    import { ComponentPreview, InstallCommand, Playground } from '$lib/components/docs';
     import InlineText from '$lib/components/docs/inline-text.svelte';
     import PageIntro from '$lib/components/docs/page-intro.svelte';
+    import SectionHeading from '$lib/components/docs/section-heading.svelte';
     import Decimal from './examples/decimal.svelte';
     import DecimalSrc from './examples/decimal.svelte?raw';
     import Disabled from './examples/disabled.svelte';
     import DisabledSrc from './examples/disabled.svelte?raw';
     import Form from './examples/form.svelte';
     import FormSrc from './examples/form.svelte?raw';
-    import Hero from './examples/hero.svelte';
-    import HeroSrc from './examples/hero.svelte?raw';
+    import { code as playgroundCode, controls as playgroundControls } from './playground';
+
+    let playgroundSeats = $state<number | undefined>(2);
+
+    const usageSnippet = `<script lang="ts">
+    import * as NumberField from '@mielui/svelte/components/number-field';
+
+    let seats = $state<number | undefined>(2);
+<${'/'}script>
+
+<NumberField.Root bind:value={seats} min={1} max={12}>
+    <NumberField.Label>Seats</NumberField.Label>
+    <NumberField.Group>
+        <NumberField.Decrement />
+        <NumberField.Input />
+        <NumberField.Increment />
+    </NumberField.Group>
+</NumberField.Root>`;
+
+    const labelsSnippet = `<script lang="ts">
+    import * as NumberField from '@mielui/svelte/components/number-field';
+    import type { NumberFieldLabels } from '@mielui/svelte/components/number-field';
+
+    const labels: NumberFieldLabels = {
+        decrease: 'Diminuer',
+        increase: 'Augmenter'
+    };
+<${'/'}script>
+
+<NumberField.Root {labels}>
+    <NumberField.Label>Places</NumberField.Label>
+    <NumberField.Group>
+        <NumberField.Decrement />
+        <NumberField.Input />
+        <NumberField.Increment />
+    </NumberField.Group>
+</NumberField.Root>`;
 </script>
+
 <svelte:head>
     <title>Mielui · Number Field</title>
     <meta
@@ -19,63 +58,112 @@
         content="Numeric input with native validation and composable step controls."
     />
 </svelte:head>
+
 <div data-docs-page class="flex flex-col gap-10">
     <PageIntro title="Number Field">
         Numeric input with native validation and composable step controls.
     </PageIntro>
-    <section id="hero">
-        <ComponentPreview code={HeroSrc}><Hero /></ComponentPreview>
+
+    <section id="hero" class="scroll-mt-20 flex flex-col gap-4">
+        <Playground controls={playgroundControls} code={playgroundCode}>
+            {#snippet children(values)}
+                <NumberField.Root
+                    bind:value={playgroundSeats}
+                    min={values.min}
+                    max={values.max}
+                    step={values.step}
+                    disabled={values.disabled}
+                    readonly={values.readonly}
+                >
+                    {#if values.label}
+                        <NumberField.Label>Seats</NumberField.Label>
+                    {/if}
+                    <NumberField.Group class="w-36">
+                        {#if values.steppers}
+                            <NumberField.Decrement />
+                        {/if}
+                        <NumberField.Input
+                            aria-label={values.label ? undefined : 'Seats'}
+                            aria-invalid={values.invalid ? 'true' : undefined}
+                        />
+                        {#if values.steppers}
+                            <NumberField.Increment />
+                        {/if}
+                    </NumberField.Group>
+                </NumberField.Root>
+            {/snippet}
+        </Playground>
     </section>
+
     <section id="installation" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Installation</Typography.H2>
         <InstallCommand command="pnpm dlx @mielui/svelte add number-field" />
     </section>
+
     <section id="usage" class="scroll-mt-20 flex flex-col gap-4">
-        <Typography.H2 class="docs-section-heading">Usage and accessibility</Typography.H2>
-        <Typography.Text>
-            NumberField keeps one native number input as the form control. Put name, form, min, max,
-            step, required, disabled, and readonly on Root. Bind value to a number or undefined;
-            clearing the input yields undefined. Native validation handles required values, bounds
-            and step mismatches. Typing does not silently clamp invalid values; increment and
-            decrement follow the browser’s step rules. Invalid step sizes fall back to one.
+        <Typography.H2 class="docs-section-heading">Usage</Typography.H2>
+        <Typography.Text variant="supporting">
+            <InlineText
+                text={"NumberField keeps one native number input as the form control. Put `name`, `form`, `min`, `max`, `step`, `required`, `disabled`, and `readonly` on Root, and bind `value` to a number. Clearing the input sets it to `undefined`."}
+            />
         </Typography.Text>
-        <Typography.Text>
-            Label and Input share an ID. Set Root’s inputId to customize both. When overriding
-            Input’s id directly, also set Label’s for attribute, or use Field.Control to provide the
-            naming relationship. Forward descriptions and errors to Input. Input remains usable if
-            either step button is omitted or reordered.
+        <Typography.Text variant="supporting">
+            <InlineText
+                text={"Native validation reports missing values, bounds, and step mismatches; typing never clamps a value silently. The arrow keys and the step buttons follow the browser's step rules and stop at the bounds, and an invalid `step` falls back to 1. The wheel is left alone. Format read-only totals with `Intl.NumberFormat`; the field does not format currency."}
+            />
         </Typography.Text>
-        <Typography.Text>
-            ArrowUp and ArrowDown adjust the focused input. Step buttons stay independently keyboard
-            reachable, stop at bounds, and respect disabled and readonly. There is no wheel
-            interception. The component uses native numeric entry rather than currency formatting or
-            drag scrubbing. Format read-only totals separately with Intl.NumberFormat.
+        <Typography.Text variant="supporting">
+            <InlineText
+                text={"Label and Input share an id; set `inputId` on Root to choose it. If you set `id` on Input yourself, also set `for` on Label, or name the input with Field.Control. Pass descriptions and errors to Input. With a SvelteKit remote form, put the field `name` on Root, pass the current number as `value`, and update it in `onValueChange`."}
+            />
         </Typography.Text>
-        <Typography.Text>
-            For remote functions, put the numeric field name on Root, pass the remote field’s
-            current number as value, and update it through onValueChange. Keep the remote form
-            attachment on Form.Root; NumberField submits one canonical numeric value. Use
-            Field.Control on Input for descriptions and validation errors.
-        </Typography.Text>
+        <CodeBlock code={usageSnippet} lang="svelte" copy="overlay" />
     </section>
-    <section id="decimal" class="scroll-mt-20 flex flex-col gap-4">
-        <Typography.H2 class="docs-section-heading">Steps and composition</Typography.H2>
-        <ComponentPreview code={DecimalSrc}><Decimal /></ComponentPreview>
+
+    <section id="examples" class="scroll-mt-20 flex flex-col gap-10">
+        <SectionHeading title="Examples">
+            {#snippet description()}
+                Fractional steps, form submission, and a disabled field.
+            {/snippet}
+        </SectionHeading>
+
+        <div id="decimal" class="scroll-mt-20 flex flex-col gap-3">
+            <Typography.H3 class="docs-subsection-heading">Decimal steps</Typography.H3>
+            <Typography.Text variant="supporting">
+                <InlineText
+                    text={"A `step` of 0.25 with both buttons after the input. Each stepper takes its own `aria-label`."}
+                />
+            </Typography.Text>
+            <ComponentPreview code={DecimalSrc}><Decimal /></ComponentPreview>
+        </div>
+
+        <div id="form" class="scroll-mt-20 flex flex-col gap-3">
+            <Typography.H3 class="docs-subsection-heading">Form submission and reset</Typography.H3>
+            <ComponentPreview code={FormSrc}><Form /></ComponentPreview>
+        </div>
+
+        <div id="disabled" class="scroll-mt-20 flex flex-col gap-3">
+            <Typography.H3 class="docs-subsection-heading">Disabled</Typography.H3>
+            <ComponentPreview code={DisabledSrc}><Disabled /></ComponentPreview>
+        </div>
     </section>
-    <section id="form" class="scroll-mt-20 flex flex-col gap-4">
-        <Typography.H2 class="docs-section-heading">Form submission and reset</Typography.H2>
-        <ComponentPreview code={FormSrc}><Form /></ComponentPreview>
-    </section>
-    <section id="disabled" class="scroll-mt-20 flex flex-col gap-4">
-        <Typography.H2 class="docs-section-heading">Disabled</Typography.H2>
-        <ComponentPreview code={DisabledSrc}><Disabled /></ComponentPreview>
-    </section>
-    <section id="parts" class="flex flex-col gap-4">
+
+    <section id="parts" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Parts</Typography.H2>
         <Typography.Text variant="supporting">
             <InlineText
-                text={"Root, Input, Decrement and Increment accept `element` to bind their DOM nodes, for example to focus the input after a reset. Decrement and Increment take `onclick`, which runs before the value steps. Call `preventDefault()` there to cancel the step. Root renders its `children`, so you choose the order of the input and the two buttons."}
+                text={"Root renders its children, so you choose the order of the input and the two buttons, and the input keeps working when a button is left out. Root, Input, Decrement, and Increment take `bind:element`, for example to focus the input after a reset. Decrement and Increment take `onclick`, which runs before the value steps; call `preventDefault()` there to cancel the step."}
             />
         </Typography.Text>
+    </section>
+
+    <section id="labels" class="scroll-mt-20 flex flex-col gap-4">
+        <Typography.H2 class="docs-section-heading">Labels</Typography.H2>
+        <Typography.Text variant="supporting">
+            <InlineText
+                text={"Pass `labels` to Root to translate the accessible names of the two step buttons. Every key of `NumberFieldLabels` is optional; omitted keys keep the English text. An `aria-label` on a button wins."}
+            />
+        </Typography.Text>
+        <CodeBlock code={labelsSnippet} lang="svelte" copy="overlay" />
     </section>
 </div>

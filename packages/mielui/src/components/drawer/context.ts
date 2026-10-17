@@ -1,4 +1,5 @@
-import { getContext, type Snippet, setContext } from 'svelte';
+import { createContext } from '@mielui/svelte/utils';
+import type { Snippet } from 'svelte';
 
 type DrawerContext = {
     close: () => void;
@@ -6,12 +7,6 @@ type DrawerContext = {
     footer: Snippet | undefined;
 };
 
-const key = Symbol('drawer');
+const { set: setDrawerContext, get: getDrawerContext } = createContext<DrawerContext>('drawer');
 
-export function setDrawerContext(context: DrawerContext) {
-    setContext(key, context);
-}
-
-export function getDrawerContext() {
-    return getContext<DrawerContext>(key);
-}
+export { getDrawerContext, setDrawerContext };

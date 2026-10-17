@@ -2,51 +2,50 @@
     import { Button } from '@mielui/svelte/components/button';
     import * as PieChart from '@mielui/svelte/components/pie-chart';
 
-    let state = $state<'loading' | 'empty' | 'ready'>('loading');
+    const records = [
+        { key: 'completed', value: 72 },
+        { key: 'remaining', value: 28 }
+    ];
     const config = {
         completed: { label: 'Completed', color: 'var(--chart-2)' },
         remaining: { label: 'Remaining', color: 'var(--chart-1)' }
     };
-    const data = $derived(
-        state === 'empty'
-            ? []
-            : [
-                  { key: 'completed', value: 72 },
-                  { key: 'remaining', value: 28 }
-              ]
-    );
+
+    let view = $state<'loading' | 'empty' | 'ready'>('loading');
+
+    const data = $derived(view === 'empty' ? [] : records);
 
     function showReady() {
-        state = 'ready';
+        view = 'ready';
     }
 
     function showLoading() {
-        state = 'loading';
+        view = 'loading';
     }
 
     function showEmpty() {
-        state = 'empty';
+        view = 'empty';
     }
 </script>
 
 <div class="w-full max-w-lg">
     <div class="flex flex-wrap justify-center gap-2">
-        <Button variant={state === 'loading' ? 'primary' : 'secondary'} onclick={showLoading}>
+        <Button variant={view === 'loading' ? 'primary' : 'secondary'} onclick={showLoading}>
             Loading
         </Button>
-        <Button variant={state === 'empty' ? 'primary' : 'secondary'} onclick={showEmpty}>
+        <Button variant={view === 'empty' ? 'primary' : 'secondary'} onclick={showEmpty}>
             Empty
         </Button>
-        <Button variant={state === 'ready' ? 'primary' : 'secondary'} onclick={showReady}>
+        <Button variant={view === 'ready' ? 'primary' : 'secondary'} onclick={showReady}>
             Ready
         </Button>
     </div>
-    <PieChart.Root {data} {config} loading={state === 'loading'} aria-label="Checklist completion">
+    <PieChart.Root {data} {config} loading={view === 'loading'} aria-label="Checklist completion">
         <PieChart.Plot>
             <PieChart.Arc />
             <PieChart.Label />
         </PieChart.Plot>
-        {#if state === 'ready'}
+        {#if view === 'ready'}
             <PieChart.Legend />
         {/if}
         <PieChart.Tooltip />

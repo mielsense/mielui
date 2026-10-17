@@ -16,6 +16,7 @@
         target: { label: 'Target', color: 'var(--chart-2)' }
     };
     const data = $derived(dataState === 'empty' ? [] : records);
+
     function changeAnimation(value: string) {
         if (value === 'reveal' || value === 'live' || value === 'none') {
             animation = value;
@@ -42,7 +43,14 @@
                 </Tabs.List>
             </div>
         </Tabs.Root>
-        <Button variant="secondary" onclick={() => { replay += 1; }}>Replay</Button>
+        <Button
+            variant="secondary"
+            onclick={() => {
+                replay += 1;
+            }}
+        >
+            Replay
+        </Button>
     </div>
     {#key `${animation}-${replay}`}
         <Chart.Root

@@ -1,9 +1,21 @@
 <script lang="ts">
+    import type { DateValue } from '@internationalized/date';
     import { CodeBlock } from '@mielui/svelte/components/code-block';
+    import * as RangeCalendar from '@mielui/svelte/components/range-calendar';
     import * as Typography from '@mielui/svelte/components/typography';
-    import { ComponentPreview, InstallCommand } from '$lib/components/docs';
+    import { ComponentPreview, InstallCommand, Playground } from '$lib/components/docs';
     import InlineText from '$lib/components/docs/inline-text.svelte';
     import PageIntro from '$lib/components/docs/page-intro.svelte';
+    import {
+        endDate,
+        isBooked,
+        MAX_DAYS,
+        MIN_DAYS,
+        maxDate,
+        minDate,
+        startDate,
+        weekendMatcher
+    } from '$lib/components/docs/playground/calendar';
     import Constraints from './examples/constraints.svelte';
     import ConstraintsSrc from './examples/constraints.svelte?raw';
     import EventsExample from './examples/events.svelte';
@@ -12,8 +24,32 @@
     import ExcludeDisabledExampleSrc from './examples/exclude-disabled.svelte?raw';
     import Hero from './examples/hero.svelte';
     import HeroSrc from './examples/hero.svelte?raw';
-    import Example0 from './examples/two-months.svelte';
-    import Example0Src from './examples/two-months.svelte?raw';
+    import TwoMonthsExample from './examples/two-months.svelte';
+    import TwoMonthsExampleSrc from './examples/two-months.svelte?raw';
+    import { code as playgroundCode, controls as playgroundControls } from './playground';
+
+    let range = $state<{
+        start: DateValue | undefined;
+        end: DateValue | undefined;
+    }>({
+        start: startDate,
+        end: endDate
+    });
+
+    const usageCode = `<script lang="ts">
+    import type { DateValue } from '@internationalized/date';
+    import * as RangeCalendar from '@mielui/svelte/components/range-calendar';
+
+    let value = $state<{
+        start: DateValue | undefined;
+        end: DateValue | undefined;
+    }>({
+        start: undefined,
+        end: undefined
+    });
+</${'script'}>
+
+<RangeCalendar.Root bind:value calendarLabel="Travel dates" />`;
 </script>
 
 <svelte:head>
@@ -29,7 +65,47 @@
         Choose a start and end date with keyboard navigation and a continuous range highlight.
     </PageIntro>
     <section id="hero" class="scroll-mt-20 flex flex-col gap-4">
-        <ComponentPreview code={HeroSrc}><Hero /></ComponentPreview>
+        <Playground controls={playgroundControls} code={playgroundCode}>
+            {#snippet children(values)}
+                {const root = $derived({
+                    calendarLabel: 'Travel dates',
+                    locale: values.locale,
+                    weekdayFormat: values.weekdayFormat,
+                    numberOfMonths: values.numberOfMonths,
+                    disabled: values.disabled,
+                    minValue: values.bounds ? minDate : undefined,
+                    maxValue: values.bounds ? maxDate : undefined,
+                    isDateDisabled: values.weekends ? weekendMatcher(values.locale) : undefined,
+                    isDateUnavailable: values.unavailable ? isBooked : undefined,
+                    minDays: values.limit ? MIN_DAYS : undefined,
+                    maxDays: values.limit ? MAX_DAYS : undefined
+                })}
+                <div class="mielui-plate max-w-full">
+                    {#if values.header === 'selects'}
+                        <RangeCalendar.Root bind:value={range} {...root}>
+                            {#snippet children({ months, weekdays })}
+                                <RangeCalendar.Header>
+                                    <RangeCalendar.MonthSelect />
+                                    <RangeCalendar.YearSelect />
+                                </RangeCalendar.Header>
+                                <div class="flex max-w-full flex-wrap justify-center gap-3">
+                                    {#each months as month (month.value.toString())}
+                                        <RangeCalendar.Month
+                                            {month}
+                                            {weekdays}
+                                            locale={values.locale}
+                                            showHeading={values.numberOfMonths > 1}
+                                        />
+                                    {/each}
+                                </div>
+                            {/snippet}
+                        </RangeCalendar.Root>
+                    {:else}
+                        <RangeCalendar.Root bind:value={range} {...root} />
+                    {/if}
+                </div>
+            {/snippet}
+        </Playground>
     </section>
     <section id="installation" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Installation</Typography.H2>
@@ -39,16 +115,10 @@
         <Typography.H2 class="docs-section-heading">Usage</Typography.H2>
         <Typography.Text>
             Bind an object with start and end DateValue properties. An incomplete selection has an
-            undefined end. The default view uses the same Header, Month, Cell and Day parts you can
-            compose yourself.
+            undefined end. The default view renders Header, PrevButton, Heading, NextButton and
+            Month, the same parts you can compose yourself.
         </Typography.Text>
-        <CodeBlock
-            code={`import * as RangeCalendar from '@mielui/svelte/components/range-calendar';
-
-<RangeCalendar.Root bind:value calendarLabel="Travel dates" />`}
-            lang="svelte"
-            copy="overlay"
-        />
+        <CodeBlock code={usageCode} lang="svelte" copy="overlay" />
         <Typography.Text variant="supporting">
             Use CalendarDate from @internationalized/date for date-only values, or parseDate for ISO
             date strings. Bind placeholder to control the visible month. An explicit locale and
@@ -59,14 +129,22 @@
     </section>
     <section id="examples" class="scroll-mt-20 flex flex-col gap-8">
         <Typography.H2 class="docs-section-heading">Examples</Typography.H2>
-        <div id="two-months" class="scroll-mt-20 flex flex-col gap-3">
-            <Typography.H3 class="docs-subsection-heading">Across months</Typography.H3>
+        <div id="bound-range" class="scroll-mt-20 flex flex-col gap-3">
+            <Typography.H3 class="docs-subsection-heading">Bound range</Typography.H3>
             <Typography.Text variant="supporting">
-                numberOfMonths controls the visible months. pagedNavigation advances a page at a
-                time. This example has no range-length limit. Optional minDays and maxDays count
-                both endpoints; an out-of-range second selection becomes a new start date.
+                The line under the calendar prints the start and end dates as they change.
             </Typography.Text>
-            <ComponentPreview code={Example0Src}><Example0 /></ComponentPreview>
+            <ComponentPreview code={HeroSrc}><Hero /></ComponentPreview>
+        </div>
+        <div id="two-months" class="scroll-mt-20 flex flex-col gap-3">
+            <Typography.H3 class="docs-subsection-heading">Two months</Typography.H3>
+            <Typography.Text variant="supporting">
+                numberOfMonths shows several months side by side, and pagedNavigation moves the
+                arrows by that many. A range can start in one month and end in the next.
+            </Typography.Text>
+            <ComponentPreview code={TwoMonthsExampleSrc}>
+                <TwoMonthsExample />
+            </ComponentPreview>
         </div>
     </section>
     <section id="composition" class="scroll-mt-20 flex flex-col gap-4">
@@ -79,11 +157,11 @@
             another documented composition.
         </Typography.Text>
         <Typography.Text>
-            Styled parts forward native attributes and expose bind:ref for their underlying element.
-            Arrow keys move between days, Page Up and Page Down change the visible month, and Enter
-            or Space selects. Focus and selection are distinct. Disabled dates cannot be selected;
-            readonly calendars remain navigable. The today indicator and unavailable strike-through
-            provide cues beyond color.
+            Styled parts forward native attributes and expose bind:element for their underlying
+            element. Arrow keys move between days, Page Up and Page Down change the visible month,
+            and Enter or Space selects. Focus and selection are distinct. Disabled dates cannot be
+            selected; readonly calendars remain navigable. The today indicator and unavailable
+            strike-through provide cues beyond color.
         </Typography.Text>
         <Typography.Text>
             The standalone calendar does not create a form field. Add a named hidden input when it
@@ -92,15 +170,16 @@
             changes.
         </Typography.Text>
     </section>
-    <section id="constraints" class="scroll-mt-20 flex flex-col gap-4">
+    <section id="bounds" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Bounds and custom composition</Typography.H2>
         <Typography.Text variant="supporting">
-            Choose two to seven days within September. This composition omits navigation buttons
-            because dates outside the month are unavailable.
+            minDays and maxDays limit a range to two to seven days, counting both ends. A second
+            pick outside that limit starts a new range. minValue and maxValue keep the range in
+            September, so this composition leaves out the navigation buttons.
         </Typography.Text>
         <ComponentPreview code={ConstraintsSrc}><Constraints /></ComponentPreview>
     </section>
-    <section id="range-events" class="flex flex-col gap-4">
+    <section id="range-events" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Range events</Typography.H2>
         <Typography.Text variant="supporting">
             <InlineText
@@ -116,7 +195,7 @@
             <EventsExample />
         </ComponentPreview>
     </section>
-    <section id="unavailable-dates" class="flex flex-col gap-4">
+    <section id="unavailable-dates" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Unavailable and disabled dates</Typography.H2>
         <Typography.Text variant="supporting">
             <InlineText
@@ -132,11 +211,11 @@
             <ExcludeDisabledExample />
         </ComponentPreview>
     </section>
-    <section id="grid-and-formats" class="flex flex-col gap-4">
+    <section id="grid-and-formats" class="scroll-mt-20 flex flex-col gap-4">
         <Typography.H2 class="docs-section-heading">Grid, formats and parts</Typography.H2>
         <Typography.Text variant="supporting">
             <InlineText
-                text={"`weekStartsOn` sets the first column, from 0 for Sunday to 6 for Saturday, and falls back to the locale. `weekdayFormat` picks `narrow`, `short` or `long` weekday names. `fixedWeeks` is on by default and always draws six rows so the height never jumps between months. Turn it off to draw only the weeks a month needs. Days from the neighbouring months fill the grid, and `disableDaysOutsideMonth` makes them unselectable."}
+                text={"`weekStartsOn` sets the first column, from 0 for Sunday to 6 for Saturday, and falls back to the locale. `weekdayFormat` picks `narrow`, `short` or `long` weekday names. `fixedWeeks` is on by default and always draws six rows so the height never jumps between months. Turn it off to draw only the weeks a month needs. Days from the neighbouring months fill the grid and cannot be selected. Set `disableDaysOutsideMonth={false}` to make them selectable."}
             />
         </Typography.Text>
         <Typography.Text variant="supporting">
@@ -148,9 +227,6 @@
             <InlineText
                 text={"When you compose the calendar yourself, every part except Root and Month accepts `child`, a snippet that receives the part's props so you can render your own element with them, and `style` for inline styles. Month takes `showHeading` to print the month name above its grid, which Root turns on by itself when it shows more than one month."}
             />
-        </Typography.Text>
-        <Typography.Text variant="supporting">
-            <InlineText text={"Root also accepts `style`."} />
         </Typography.Text>
     </section>
 </div>

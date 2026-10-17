@@ -154,12 +154,13 @@ describe('Tabs -- variants', () => {
         });
     });
 
-    it('segmented renders an elevated pill as the active indicator', async () => {
+    it('segmented renders the neutral lit pill as the active indicator', async () => {
         render(TabsFixture, { props: { value: 'one', variant: 'segmented' } });
         await waitFor(() => {
             const list = queryRequired(document, '[data-ui="tabs-list"]');
             const indicator = list.querySelector('div[aria-hidden="true"]');
-            expect(indicator?.className).toContain('bg-card');
+            expect(indicator).toHaveClass('mielui-glow', 'mielui-glow-neutral');
+            expect(indicator?.className).toContain('shadow-[var(--mielui-glow-shadow)]');
         });
     });
 
@@ -169,7 +170,7 @@ describe('Tabs -- variants', () => {
         await waitFor(() => {
             const list = queryRequired(document, '[data-ui="tabs-list"]');
             const fill = list.querySelector('div[aria-hidden="true"]');
-            expect(fill?.className).toContain('bg-secondary/70');
+            expect(fill?.className).toContain('bg-[var(--color-wash)]');
         });
         // and the active tab is still conveyed on the trigger itself
         const activeTrigger = required(screen.getByTestId('trig-one').closest('button'));

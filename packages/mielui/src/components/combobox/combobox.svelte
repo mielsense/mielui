@@ -1,14 +1,11 @@
 <script lang="ts">
     import { Combobox as ComboboxPrimitive } from 'bits-ui';
-    import { setContext, untrack } from 'svelte';
-    import type { ComboboxLabels, ComboboxRootProps } from '.';
-    import { setComboboxContext } from './context.svelte';
+    import type { ComboboxRootProps } from '.';
+    import { setComboboxContext, setComboboxLabels } from './context';
     import { createComboboxController } from './controller.svelte';
 
     let {
         children,
-        state_key,
-        stateKey,
         open = $bindable(false),
         value = $bindable<string | string[] | undefined>(undefined),
         onOpenChange,
@@ -21,18 +18,17 @@
         ...selection
     }: ComboboxRootProps = $props();
 
-    setContext<() => ComboboxLabels | undefined>('combobox-labels', () => labels);
+    setComboboxLabels(() => labels);
 
-    const generatedKey = $props.id();
-    const id = untrack(() => stateKey ?? state_key ?? generatedKey);
+    const id = $props.id();
     const controller = createComboboxController({
-        getValue() {
+        get value() {
             return value;
         },
-        getMultiple() {
+        get multiple() {
             return selection.type === 'multiple';
         },
-        setValue(next) {
+        set value(next) {
             if (selection.type === 'multiple' && Array.isArray(next)) {
                 value = next;
                 selection.onValueChange?.(next);
@@ -41,26 +37,26 @@
                 selection.onValueChange?.(next);
             }
         },
-        getOpen() {
+        get open() {
             return open;
         },
-        setOpen(next) {
+        set open(next) {
             open = next;
             onOpenChange?.(next);
         },
-        getPlacement() {
+        get placement() {
             return placement;
         },
-        getInert() {
+        get inert() {
             return inert;
         },
-        getHoverable() {
+        get hoverable() {
             return hoverable;
         },
-        getDelay() {
+        get delay() {
             return Math.max(0, delay);
         },
-        getCloseDelay() {
+        get closeDelay() {
             return Math.max(0, closeDelay);
         }
     });

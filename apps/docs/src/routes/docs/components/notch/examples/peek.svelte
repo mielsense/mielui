@@ -4,6 +4,7 @@
     import * as Notch from '@mielui/svelte/components/notch';
 
     let enabled = $state(false);
+
     function togglePeek() {
         enabled = !enabled;
     }
@@ -27,5 +28,6 @@
                 <span class="text-xs text-foreground-muted">Storage</span>
             </div>
         </Notch.Content>
+        <Notch.Peek>Uploads 72%</Notch.Peek>
     </Notch.Root>
 {/if}

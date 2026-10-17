@@ -25,6 +25,7 @@
 
     const days = ['Today', 'Yesterday'] as const;
     const models = ['Mielui 3.1', 'Mielui Mini'];
+    const id = $props.id();
     const branches = ['main', 'staging', 'release'];
     const iconButton =
         'grid size-7 shrink-0 place-items-center rounded-[var(--radius-sm)] text-foreground-muted transition-colors [transition-duration:var(--motion-duration-hover)] hover:bg-foreground/[0.06] hover:text-foreground focus-visible:outline-none focus-visible:shadow-[var(--focus-ring)] motion-reduce:transition-none';
@@ -268,14 +269,14 @@
             </ul>
             <div class="flex flex-col gap-3">
                 <h5 class="m-0 text-sm font-medium">Checks</h5>
-                <TaskSteps steps={thread.checks} current={checksDone} label="Checks" />
+                <TaskSteps steps={thread.checks} current={checksDone} labels={{ list: 'Checks' }} />
             </div>
             <div class="flex flex-col gap-2">
-                <span id="merge-target-label" class="text-sm font-medium">Merge into</span>
+                <span id={`${id}-target`} class="text-sm font-medium">Merge into</span>
                 <Select.Root bind:value={target}>
                     <Select.Trigger
                         class="w-full font-mono text-xs"
-                        aria-labelledby="merge-target-label"
+                        aria-labelledby={`${id}-target`}
                     >
                         {target}
                     </Select.Trigger>

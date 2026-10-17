@@ -1,7 +1,7 @@
 <script lang="ts">
     import { cn } from '@mielui/svelte/utils';
     import type { AvatarProps } from '.';
-    import { setAvatarContext } from './context.svelte';
+    import { setAvatarContext } from './context';
     import { avatar } from './variants';
 
     let {

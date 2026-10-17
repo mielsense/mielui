@@ -27,9 +27,23 @@
             </p>
         {/if}
     </SkeletonSwap>
-    <Skeleton w={60} h={0.75} unit="%" />
+    <Skeleton w={12} h={0.75} unit="rem" />
     <div class="flex gap-2">
-        <Button variant="outline" onclick={() => load(100)}>Load in 100 ms</Button>
-        <Button variant="outline" onclick={() => load(1500)}>Load in 1.5 s</Button>
+        <Button
+            variant="outline"
+            onclick={() => {
+                load(100);
+            }}
+        >
+            Load in 100 ms
+        </Button>
+        <Button
+            variant="outline"
+            onclick={() => {
+                load(1500);
+            }}
+        >
+            Load in 1.5 s
+        </Button>
     </div>
 </div>

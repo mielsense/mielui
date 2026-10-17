@@ -15,11 +15,9 @@ import Trigger from './dialog-trigger.svelte';
 export type DialogState = {
     open: boolean;
     error: boolean;
-    orientation: DialogOrientation;
 };
 
-export type DialogOrientation = 'horizontal' | 'vertical';
-export type DialogSize = 'sm' | 'md' | 'lg' | 'xl';
+export type DialogSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
 
 export type DialogTriggerProps = ButtonProps;
 export type DialogTitleProps = DefaultProps;
@@ -40,24 +38,28 @@ export type DialogContentProps = {
     allowClickOutside?: boolean;
     /** Lets Escape dismiss the dialog. */
     allowEscape?: boolean;
-    /** ARIA role of the panel. */
-    role?: 'dialog' | 'alertdialog';
-    /** Classes for the positioned dialog element. */
-    contentClass?: string;
     /** Classes for the backdrop. */
     overlayClass?: string;
     /** Classes for the inner surface. */
     surfaceClass?: string;
-    /** Prefix of the generated panel id. */
-    panelIdPrefix?: string;
     /** Shows the close button in the corner. */
     showClose?: boolean;
-    /** Width preset. Vertical layouts remain compact; horizontal layouts are one step wider. */
+    /** Maximum width of the panel. Defaults to `lg`. */
     size?: DialogSize;
 } & DefaultProps &
     Partial<Record<`aria-${string}`, string | boolean | null | undefined>>;
 
+export type DialogLabels = {
+    /** Accessible name of the close button in the corner of the panel. */
+    close?: string;
+};
+
 export type DialogProps = {
+    /**
+     * Overrides the built-in text and accessible names. Every key is optional and English is the
+     * fallback.
+     */
+    labels?: DialogLabels;
     /** Whether it is open. Bind it to control the state from outside. */
     open?: boolean;
     /** Called with the new state whenever it opens or closes. */
@@ -67,8 +69,6 @@ export type DialogProps = {
      * that tint their chrome from the theme color turn it red while the dialog is open.
      */
     error?: boolean;
-    /** Controls the default width and action layout. Defaults to `horizontal`. */
-    orientation?: DialogOrientation;
     /** Content rendered inside. */
     children?: Snippet;
 };

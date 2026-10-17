@@ -1,34 +1,13 @@
 <script lang="ts">
     import { numberShuffle } from '@mielui/svelte/actions/number-shuffle';
-    import { getContext, type Snippet } from 'svelte';
-    import { cubicOut } from 'svelte/easing';
-    import { Tween } from 'svelte/motion';
     import ChartTooltipSurface from '../../components/_internal/chart-tooltip-surface.svelte';
-    import type { ChartLabels } from '.';
-    import { getChart } from './context.svelte';
+    import type { ChartTooltipProps } from '.';
+    import { findChartLabels, getChartContext } from './context';
+    import { createChartFollow } from './follow.svelte';
 
-    let {
-        class: className,
-        children
-    }: {
-        class?: string;
-        children?: Snippet<
-            [
-                {
-                    label: string;
-                    values: {
-                        key: string;
-                        label: string;
-                        value: number;
-                        formatted: string;
-                        color: string;
-                    }[];
-                }
-            ]
-        >;
-    } = $props();
-    const labels = getContext<(() => ChartLabels | undefined) | undefined>('chart-labels');
-    const chart = getChart();
+    let { class: className, children }: ChartTooltipProps = $props();
+    const labels = findChartLabels();
+    const chart = getChartContext();
     const selected = $derived(
         chart.active === null ? null : chart.data[chart.active] ? chart.active : null
     );
@@ -79,9 +58,9 @@
             y: Math.max(8, Math.min(top, bounds.height - height - 8))
         };
     });
-    const position = Tween.of(() => destination, {
-        duration: () => (chart.motion && chart.animation !== 'none' ? 100 * chart.motionScale : 0),
-        easing: cubicOut
+    const position = createChartFollow(chart, () => (selected === null ? null : destination), {
+        x: 0,
+        y: 0
     });
     let tabStop = $state(0);
     const currentTabStop = $derived(Math.min(tabStop, chart.data.length - 1));
@@ -138,6 +117,7 @@
         }
     }
 </script>
+
 {#if !chart.loading && chart.data.length}
     <div
         role="group"
@@ -149,7 +129,7 @@
             <button
                 type="button"
                 tabindex={index === currentTabStop ? 0 : -1}
-                class="rounded-md px-2 py-1 text-xs outline-primary focus-visible:outline-2"
+                class="rounded-[var(--radius-control)] px-2.5 py-1 text-xs tabular-nums text-foreground-muted focus-visible:text-foreground focus-visible:shadow-[var(--focus-ring)] focus-visible:outline-none"
                 onfocus={() => focusCategory(index)}
                 onblur={clearCategory}
                 onkeydown={(event) => handleKeydown(event, index)}
@@ -165,7 +145,7 @@
     <ChartTooltipSurface
         bind:width
         bind:height
-        style={`left: ${position.current.x}px; top: ${position.current.y}px`}
+        style={`left: 0; top: 0; translate: ${position.current.x}px ${position.current.y}px`}
         data-ui="chart-tooltip"
         role="status"
         class={className}
@@ -173,15 +153,21 @@
         {#if children}
             {@render children({ label: chart.label(selected), values })}
         {:else}
-            <div class="mb-2 font-medium">{chart.label(selected)}</div>
+            <div class="mb-2 font-medium text-foreground">{chart.label(selected)}</div>
             <div class="grid gap-2">
-                {#each values as item}
+                {#each values as item (item.key)}
                     <div class="flex items-center gap-2">
-                        <span class="size-2 rounded-full" style:background={item.color}></span>
+                        <span
+                            class="size-2 shrink-0 rounded-full"
+                            style:background={item.color}
+                        ></span>
                         <span class="flex-1 text-foreground-muted">{item.label}</span>
                         <span
                             class="ml-4 font-medium tabular-nums"
-                            use:numberShuffle={{ value: item.value, format: (value) => chart.format(item.key, value) }}
+                            use:numberShuffle={{
+                                value: item.value,
+                                format: (value) => chart.format(item.key, value)
+                            }}
                         >
                             {item.formatted}
                         </span>

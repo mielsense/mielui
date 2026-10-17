@@ -6,6 +6,7 @@
     import HugeiconsIcon from '@mielui/svelte/hugeicons-icon';
 
     let started = $state(false);
+
     function start() {
         started = true;
     }
@@ -19,9 +20,7 @@
     <Button size="md" onclick={start}>Draft a release plan</Button>
 {/snippet}
 
-<Conversation.Root
-    class="h-[22rem] w-full max-w-2xl rounded-[var(--radius-xl)] border-[length:var(--border-size)] border-border bg-panel"
->
+<Conversation.Root class="h-[22rem] w-full max-w-2xl mielui-plate">
     <Conversation.Content aria-label="Release planning conversation">
         {#if started}
             <Message.Root from="user">

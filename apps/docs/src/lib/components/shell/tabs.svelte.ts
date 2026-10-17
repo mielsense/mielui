@@ -2,6 +2,7 @@ import { untrack } from 'svelte';
 import { goto } from '$app/navigation';
 import { page } from '$app/state';
 import { getBreadcrumbs } from '$lib/components/docs/breadcrumbs';
+import { readStorage, writeStorage } from '$lib/storage';
 import { usesDocsSidebar } from './page-icon';
 
 export type DocsTab = {
@@ -53,7 +54,7 @@ export function createDocsTabs() {
 
     function load() {
         try {
-            const stored: unknown = JSON.parse(localStorage.getItem(STORAGE_KEY) ?? 'null');
+            const stored: unknown = JSON.parse(readStorage(STORAGE_KEY) ?? 'null');
             if (typeof stored !== 'object' || stored === null) {
                 return;
             }
@@ -70,11 +71,13 @@ export function createDocsTabs() {
     }
 
     function save() {
-        try {
-            localStorage.setItem(STORAGE_KEY, JSON.stringify({ tabs, active }));
-        } catch {
-            return;
-        }
+        writeStorage(
+            STORAGE_KEY,
+            JSON.stringify({
+                tabs,
+                active
+            })
+        );
     }
 
     function sync(pathname: string) {

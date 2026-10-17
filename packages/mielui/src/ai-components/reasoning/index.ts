@@ -6,9 +6,14 @@ import Content from './reasoning-content.svelte';
 import Trigger from './reasoning-trigger.svelte';
 
 export type ReasoningLabels = {
+    /** Status line while the reasoning is streaming. */
     thinking?: string;
+    /** Status line once the reasoning finishes without a `duration`. */
     thought?: string;
+    /** Status line once the reasoning finishes with a `duration`, such as "Thought for 2.4s". */
     thoughtFor?: (duration: string) => string;
+    /** Summary under the status line while closed when the trigger has no `title`. */
+    title?: string;
 };
 
 export type ReasoningRootProps = {
@@ -31,7 +36,7 @@ export type ReasoningRootProps = {
     Omit<HTMLAttributes<HTMLElement>, 'children'>;
 
 export type ReasoningTriggerProps = {
-    /** Text of the trigger. */
+    /** Summary shown under the status line while the reasoning is closed. */
     title?: string;
     /** A compact summary of the completed reasoning time, such as 2.4s. */
     duration?: string;

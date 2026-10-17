@@ -7,7 +7,7 @@
 
 <div
     {@attach scrollFade({ axis: 'x', size: 40 })}
-    class={`flex h-full min-h-0 w-full gap-5 overflow-x-auto overscroll-x-contain p-4 sm:p-5 ${fadeX}`}
+    class={`flex h-full min-h-0 w-full gap-5 overflow-x-auto overscroll-x-contain p-4 pt-16 sm:p-5 sm:pt-16 ${fadeX}`}
 >
     <h2 class="sr-only">AI components</h2>
     <div class="h-full min-w-[min(100%,52rem)] flex-1">

@@ -1,20 +1,14 @@
 <script lang="ts">
     import { cn } from '@mielui/svelte/utils';
-    import { getContext, onMount, type Snippet } from 'svelte';
+    import type { HoverCardTitleProps } from '.';
+    import { getHoverCardContext } from './context';
 
-    let {
-        children,
-        class: classProp,
-        ...rest
-    }: {
-        children: Snippet;
-        class?: string;
-    } = $props();
-    const context = getContext<{ id: string; state: { title: boolean; description: boolean } }>(
-        'mielui-hover-card'
-    );
-    onMount(() => {
+    let { children, class: className, ...rest }: HoverCardTitleProps = $props();
+    const context = getHoverCardContext();
+
+    $effect(() => {
         context.state.title = true;
+
         return () => {
             context.state.title = false;
         };
@@ -25,7 +19,7 @@
     id={`${context.id}-title`}
     {...rest}
     class={cn(
-        classProp,
+        className,
         'm-0 [font-family:var(--font-header)] [font-size:var(--font-size-body)] [font-weight:var(--font-weight-header)] [letter-spacing:var(--tracking-header)] text-balance leading-tight text-foreground'
     )}
 >

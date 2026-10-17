@@ -1,7 +1,4 @@
-import { getContext, setContext } from 'svelte';
-
-const FILTER_KEY = Symbol('setting-filter');
-const SECTION_KEY = Symbol('setting-section');
+import { createContext } from 'svelte';
 
 type SettingSection = {
     readonly title: string;
@@ -37,18 +34,13 @@ export function createSettingFilter() {
 
 export type SettingFilter = ReturnType<typeof createSettingFilter>;
 
-export function setSettingFilter(filter: SettingFilter) {
-    setContext(FILTER_KEY, filter);
-}
+export const [getSettingFilter, setSettingFilter] = createContext<SettingFilter>();
 
-export function getSettingFilter() {
-    return getContext<SettingFilter>(FILTER_KEY);
-}
+const [getSection, setSettingSection, hasSection] = createContext<SettingSection>();
 
-export function setSettingSection(section: SettingSection) {
-    setContext(SECTION_KEY, section);
-}
-
+/** Rows outside a section, like the token picker's, have no section to report to. */
 export function getSettingSection() {
-    return getContext<SettingSection | undefined>(SECTION_KEY);
+    return hasSection() ? getSection() : undefined;
 }
+
+export { setSettingSection };

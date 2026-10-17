@@ -15,5 +15,11 @@
     bind:ref={element}
     {orientation}
     data-ui="separator"
-    class={cn(className, 'shrink-0 bg-border', orientation === 'horizontal' ? 'h-px w-full' : 'h-full min-h-4 w-px')}
+    class={cn(
+        className,
+        'shrink-0 bg-border',
+        orientation === 'horizontal'
+            ? 'h-[var(--border-size)] w-full'
+            : 'h-full min-h-4 w-[var(--border-size)]'
+    )}
 />

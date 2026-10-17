@@ -44,7 +44,7 @@
         <ContextMenu.Root>
             <ContextMenu.Trigger>
                 <div
-                    class="flex min-h-28 flex-col items-center justify-center gap-2 rounded-[var(--radius-lg)] border border-dashed border-border p-5 text-center"
+                    class="flex min-h-28 flex-col items-center justify-center gap-2 rounded-[var(--radius-xl)] border border-dashed border-border p-5 text-center"
                 >
                     <span class="text-sm">{fileName}</span>
                     <span class="text-xs text-foreground-muted">

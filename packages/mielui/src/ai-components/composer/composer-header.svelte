@@ -1,7 +1,7 @@
 <script lang="ts">
     import { cn } from '@mielui/svelte/utils';
     import type { ComposerHeaderProps } from '.';
-    import { getComposerContext } from './context.svelte';
+    import { getComposerContext } from './context';
 
     let { children, class: className, ...rest }: ComposerHeaderProps = $props();
     const context = getComposerContext();

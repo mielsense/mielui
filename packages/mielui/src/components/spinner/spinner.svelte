@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { Tick02Icon as Check, Loading03Icon as LoaderCircle } from '@hugeicons/core-free-icons';
+    import { Tick02Icon as Check } from '@hugeicons/core-free-icons';
     import { getCssDuration } from '@mielui/svelte/transition';
     import { cn } from '@mielui/svelte/utils';
     import HugeiconsIcon from '../../hugeicons-icon.svelte';
@@ -15,8 +15,8 @@
         size = 16,
         ready = false,
         speed = 1,
-        curved = false,
-        class: classProp,
+        eased = false,
+        class: className,
         'aria-label': ariaLabel,
         'aria-hidden': ariaHidden
     }: SpinnerProps = $props();
@@ -24,6 +24,12 @@
     let indicator = $state<HTMLSpanElement>();
     let phase = $state<SpinnerPhase>('loading');
     let entered = $state(false);
+    const ringStroke = $derived(Math.max(1.5, size / 12));
+    const ringCenter = $derived(size / 2);
+    const ringRadius = $derived(Math.max(0, size * 0.4375 - ringStroke / 2));
+    const ringArc = $derived(
+        `M${ringCenter + ringRadius} ${ringCenter}A${ringRadius} ${ringRadius} 0 0 0 ${ringCenter} ${ringCenter - ringRadius}`
+    );
     const spinDuration = $derived(`${850 / (Number.isFinite(speed) && speed > 0 ? speed : 1)}ms`);
     const showCheckmark = $derived(phase === 'success' || phase === 'exiting');
     const collapsed = $derived(!entered || phase === 'exiting');
@@ -84,23 +90,40 @@
         aria-label={ariaLabel}
         aria-hidden={ariaHidden}
         class={cn(
-            classProp,
+            className,
             'relative inline-flex shrink-0 overflow-hidden transition-[width] duration-[var(--motion-duration-panel)] ease-[var(--ease-out)] motion-reduce:transition-none'
         )}
         style:height={`${size}px`}
         style:width={collapsed ? '0px' : `${size}px`}
     >
-        <HugeiconsIcon
-            icon={LoaderCircle}
-            {size}
+        <svg
+            width={size}
+            height={size}
+            viewBox={`0 0 ${size} ${size}`}
+            fill="none"
             aria-hidden="true"
-            class={`[animation-play-state:var(--mielui-loop-play-state)] absolute inset-0 m-auto ${curved ? 'animate-[mielui-spinner-spin_linear_infinite]' : 'animate-spin'} transition-[filter,opacity,transform,rotate,scale] duration-[var(--motion-duration-panel)] ease-[var(--ease-out)] motion-reduce:animate-none motion-reduce:transition-none ${
+            class={`[animation-play-state:var(--mielui-loop-play-state)] absolute inset-0 m-auto ${eased ? 'animate-[mielui-spinner-spin_linear_infinite]' : 'animate-spin'} transition-[filter,opacity,transform,rotate,scale] duration-[var(--motion-duration-panel)] ease-[var(--ease-out)] motion-reduce:animate-none motion-reduce:transition-none ${
                 showCheckmark || !entered
                     ? '-rotate-90 scale-75 opacity-0'
                     : 'rotate-0 scale-100 opacity-100'
             }`}
             style={`filter: ${loaderBlur}; animation-duration: ${spinDuration};`}
-        />
+        >
+            <circle
+                cx={ringCenter}
+                cy={ringCenter}
+                r={ringRadius}
+                stroke="currentColor"
+                stroke-width={ringStroke}
+                opacity="0.22"
+            />
+            <path
+                d={ringArc}
+                stroke="currentColor"
+                stroke-width={ringStroke}
+                stroke-linecap="round"
+            />
+        </svg>
         <HugeiconsIcon
             icon={Check}
             {size}

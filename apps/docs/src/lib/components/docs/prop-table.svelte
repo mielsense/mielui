@@ -1,6 +1,7 @@
 <script lang="ts">
     import type { ReferenceProperty } from '$lib/server/api-reference';
     import InlineText from './inline-text.svelte';
+    import { insetListClass } from './rows.svelte';
 
     let { properties }: { properties: ReferenceProperty[] } = $props();
 
@@ -10,9 +11,7 @@
 </script>
 
 <div class="mielui-inset-frame @container min-w-0">
-    <ul
-        class="mielui-inset-surface m-0 flex list-none flex-col divide-y-[length:var(--border-size)] divide-[var(--docs-rule,var(--color-border))] overflow-hidden p-0"
-    >
+    <ul class={insetListClass}>
         {#each properties as property (property.name)}
             <li
                 class="grid grid-cols-1 gap-x-6 gap-y-1.5 px-4 py-3 @xl:grid-cols-[minmax(0,12rem)_minmax(0,1fr)]"

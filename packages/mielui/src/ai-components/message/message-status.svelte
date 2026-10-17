@@ -1,13 +1,12 @@
 <script lang="ts">
     import { AlertCircleIcon as CircleAlert } from '@hugeicons/core-free-icons';
     import { cn } from '@mielui/svelte/utils';
-    import { getContext } from 'svelte';
     import HugeiconsIcon from '../../hugeicons-icon.svelte';
-    import type { MessageLabels, MessageStatusProps } from '.';
-    import { getMessageContext } from './context.svelte';
+    import type { MessageStatusProps } from '.';
+    import { findMessageLabels, getMessageContext } from './context';
 
     let { children, class: className, ...rest }: MessageStatusProps = $props();
-    const labels = getContext<(() => MessageLabels | undefined) | undefined>('message-labels');
+    const labels = findMessageLabels();
     const message = getMessageContext();
 </script>
 

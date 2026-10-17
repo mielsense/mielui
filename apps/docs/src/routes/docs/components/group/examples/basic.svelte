@@ -13,8 +13,8 @@
             variant="outline"
             disabled={revision === 0}
             onclick={() => {
-            revision -= 1;
-        }}
+                revision -= 1;
+            }}
         >
             Undo
         </Button>
@@ -23,8 +23,8 @@
             variant="outline"
             disabled={revision === revisions.length - 1}
             onclick={() => {
-            revision += 1;
-        }}
+                revision += 1;
+            }}
         >
             Redo
         </Button>

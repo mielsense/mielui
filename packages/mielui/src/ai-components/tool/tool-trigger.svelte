@@ -7,40 +7,37 @@
     import { numberShuffle } from '@mielui/svelte/actions/number-shuffle';
     import { Spinner } from '@mielui/svelte/components/spinner';
     import { cn, pressable } from '@mielui/svelte/utils';
-    import { getContext } from 'svelte';
     import {
         DISCLOSURE_ICON_SIZE,
         disclosureChevron,
         disclosureTrigger
     } from '../../components/_internal/disclosure/variants';
     import HugeiconsIcon from '../../hugeicons-icon.svelte';
-    import type { ToolLabels, ToolTriggerProps } from '.';
-    import { getToolContext } from './context.svelte';
+    import type { ToolTriggerProps } from '.';
+    import { findToolLabels, getToolContext } from './context';
 
     let { children, class: className, onclick, ...rest }: ToolTriggerProps = $props();
-    const labels = getContext<(() => ToolLabels | undefined) | undefined>('tool-labels');
+    const labels = findToolLabels();
     const tool = getToolContext();
-    const id = tool.id;
-    const open = $derived(tool.open);
-    const state = $derived(tool.state);
-    const name = $derived(tool.name);
-    const duration = $derived(tool.duration);
-    const variant = $derived(tool.variant);
-    const durationMatch = $derived(duration?.match(/^(\d+)(?:\.(\d+))?(ms|s)$/));
-    const numericDuration = $derived(Number.parseFloat(duration ?? ''));
-    const canAnimateDuration = $derived(durationMatch !== null && Number.isFinite(numericDuration));
+    const durationMatch = $derived(tool.duration?.match(/^(\d+)(?:\.(\d+))?(ms|s)$/));
+    const numericDuration = $derived(Number.parseFloat(tool.duration ?? ''));
+    const canAnimateDuration = $derived(Boolean(durationMatch) && Number.isFinite(numericDuration));
+    const label = $derived.by(() => {
+        if (tool.state === 'running') {
+            return labels?.()?.running ?? 'Task running';
+        }
+
+        if (tool.state === 'complete') {
+            return labels?.()?.complete ?? 'Task completed';
+        }
+
+        return labels?.()?.failed ?? 'Task failed';
+    });
 
     function formatDuration(value: number) {
         const precision = Math.min(durationMatch?.[2]?.length ?? 0, 100);
         return `${value.toFixed(precision)}${durationMatch?.[3] ?? ''}`;
     }
-    const label = $derived(
-        state === 'running'
-            ? (labels?.()?.running ?? 'Task running')
-            : state === 'complete'
-              ? (labels?.()?.complete ?? 'Task completed')
-              : (labels?.()?.failed ?? 'Task failed')
-    );
 </script>
 
 <button
@@ -48,8 +45,8 @@
     type="button"
     data-ui="tool-trigger"
     use:pressable
-    aria-expanded={open}
-    aria-controls={`tool-${id}`}
+    aria-expanded={tool.open}
+    aria-controls={`tool-${tool.id}`}
     onclick={(event) => {
         onclick?.(event);
         if (!event.defaultPrevented) {
@@ -60,21 +57,26 @@
         className,
         'text-foreground',
         disclosureTrigger({
-            layout: variant === 'quiet' ? 'inline' : 'row',
-            bleed: variant === 'quiet'
+            layout: tool.variant === 'quiet' ? 'inline' : 'row',
+            bleed: tool.variant === 'quiet'
         })
     )}
 >
     {#if children}
-        {@render children({ open, state, name, duration })}
+        {@render children({
+            open: tool.open,
+            state: tool.state,
+            name: tool.name,
+            duration: tool.duration
+        })}
     {:else}
-        {#if state === 'running'}
+        {#if tool.state === 'running'}
             <Spinner
                 size={DISCLOSURE_ICON_SIZE}
                 aria-hidden="true"
                 class="size-3.5 shrink-0 text-foreground-muted"
             />
-        {:else if state === 'error'}
+        {:else if tool.state === 'error'}
             <HugeiconsIcon
                 icon={CircleAlert}
                 size={DISCLOSURE_ICON_SIZE}
@@ -93,20 +95,20 @@
         <span
             class={cn(
                 'shrink-0 [font-weight:var(--font-weight-label)]',
-                state === 'error' ? 'text-[var(--mielui-error-text)]' : 'text-foreground'
+                tool.state === 'error' ? 'text-[var(--mielui-error-text)]' : 'text-foreground'
             )}
         >
             {label}
         </span>
-        <span class="min-w-0 truncate text-foreground-muted">{name}</span>
-        {#if duration}
+        <span class="min-w-0 truncate text-foreground-muted">{tool.name}</span>
+        {#if tool.duration}
             <span class="shrink-0 font-mono text-xs tabular-nums text-foreground-muted">
                 {#if canAnimateDuration}
                     <span use:numberShuffle={{ value: numericDuration, format: formatDuration }}>
-                        {duration}
+                        {tool.duration}
                     </span>
                 {:else}
-                    {duration}
+                    {tool.duration}
                 {/if}
             </span>
         {/if}
@@ -114,7 +116,10 @@
             icon={ChevronDown}
             size={DISCLOSURE_ICON_SIZE}
             aria-hidden="true"
-            class={cn(variant === 'quiet' ? '' : 'ms-auto', disclosureChevron({ open }))}
+            class={cn(
+                tool.variant === 'quiet' ? '' : 'ms-auto',
+                disclosureChevron({ open: tool.open })
+            )}
         />
     {/if}
 </button>

@@ -36,13 +36,20 @@ import type { Manifest } from '@mielui/svelte/_manifest/types';
  *   3.5.0:
  *           - Add the `quiet` variant for low-emphasis foreground actions without
  *             a background fill or underlined hover treatment.
+ *   3.6.0:
+ *           - Add the `glow` variant for the headline action.
+ *           - Primary, secondary, destructive, and glow are lit pills drawn by
+ *             the shared `.mielui-glow` contract.
+ *   4.0.0:
+ *           - Replace `loadingLabel`, `successLabel`, and `errorLabel` with a
+ *             `labels` object typed by `ButtonLabels`.
  */
 export const manifest: Manifest = {
     name: 'button',
-    version: '3.5.0',
+    version: '4.0.0',
     visibility: 'public',
     description:
-        'Click target with seven variants: primary, secondary, ghost, quiet, outline, destructive, and panel. Quiet matches ghost text color without a hover fill. Supports four sizes and stable loading, success, and error states. Renders as <button> by default or <a> when `href` is provided.',
+        'Click target with eight variants: primary, secondary, glow, ghost, quiet, outline, destructive, and panel. Quiet matches ghost text color without a hover fill. Supports four sizes and stable loading, success, and error states. Renders as <button> by default or <a> when `href` is provided.',
     files: [
         'components/button/button.svelte',
         'components/button/index.ts',
@@ -56,6 +63,6 @@ export const manifest: Manifest = {
         cnfast: '^0.0.8',
         'tailwind-merge': '^3.0.0',
         'tailwind-variants': '^3.0.0',
-        svelte: '^5.0.0'
+        svelte: '^5.56.0'
     }
 };

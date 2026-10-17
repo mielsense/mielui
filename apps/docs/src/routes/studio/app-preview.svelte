@@ -1,6 +1,5 @@
 <script lang="ts">
     import * as Tabs from '@mielui/svelte/components/tabs';
-    import { onDestroy } from 'svelte';
     import DemoFrame from '$lib/components/demos/demo-frame.svelte';
     import FadeScrollArea from '$lib/components/shell/fade-scroll-area.svelte';
     import Header from './app-preview/header.svelte';
@@ -11,12 +10,15 @@
     import Sidebar from './app-preview/sidebar.svelte';
 
     const model = new AppPreviewModel();
-    onDestroy(() => {
-        model.destroy();
+
+    $effect(() => {
+        return () => {
+            model.destroy();
+        };
     });
 </script>
 
-<div class="h-full min-h-0 w-full p-4 sm:p-5">
+<div class="h-full min-h-0 w-full p-4 pt-16 sm:p-5 sm:pt-16">
     <h2 class="sr-only">App preview</h2>
     <DemoFrame title="Ledger app" description="A sidebar, a data table, dialogs, and settings" fill>
         <Tabs.Root bind:value={model.studioView} variant="ghost" class="flex h-full min-h-0">

@@ -2,7 +2,7 @@ import type { Manifest } from '@mielui/svelte/_manifest/types';
 
 export const manifest: Manifest = {
     name: 'context-menu',
-    version: '1.1.0',
+    version: '1.1.1',
     visibility: 'public',
     description:
         'Contextual menu opened by right-click, long-press, or the keyboard, with submenus and checkbox items.',
@@ -17,17 +17,16 @@ export const manifest: Manifest = {
         'components/context-menu/context-menu-sub.svelte',
         'components/context-menu/context-menu-sub-trigger.svelte',
         'components/context-menu/context-menu-sub-content.svelte',
-        'components/context-menu/context.svelte.ts',
+        'components/context-menu/context.ts',
         'components/context-menu/index.ts',
         'components/context-menu/manifest.ts'
     ],
-    components: ['_internal/utils', 'popover', 'button'],
+    components: ['_internal/utils', 'button'],
     shared: [
         'components/_internal/button-attributes',
         'transition',
         'components/_internal/surface',
         'hugeicons-icon',
-        'utils.closeMenuLayers',
         'utils.cn',
         'utils.createContext',
         'utils.travelingHighlight'

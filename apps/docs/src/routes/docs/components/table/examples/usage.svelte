@@ -3,7 +3,7 @@
 </script>
 
 <Table.ScrollArea tabindex={0} aria-label="Invoices">
-    <Table.Root variant="inset">
+    <Table.Root>
         <Table.Caption>September invoices</Table.Caption>
         <Table.Header>
             <Table.Row>

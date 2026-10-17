@@ -2,7 +2,7 @@
     {
         "name": "Root",
         "properties": [
-            2681,
+            2677,
             0,
             1,
             2,
@@ -447,7 +447,7 @@
                 "required": true,
                 "bindable": false,
                 "default": null,
-                "description": "Dated counts to plot.",
+                "description": "Daily counts keyed by ISO date. Missing dates count as zero.",
                 "inherited": false
             },
             {
@@ -456,7 +456,7 @@
                 "required": false,
                 "bindable": false,
                 "default": "26",
-                "description": "Number of weeks shown.",
+                "description": "Number of weeks shown, from 1 to 104.",
                 "inherited": false
             },
             {
@@ -474,7 +474,7 @@
                 "required": false,
                 "bindable": false,
                 "default": "'rows'",
-                "description": "How the cells appear: by rows, by columns, with a running live effect, or not at all.",
+                "description": "`rows` and `columns` stagger the entrance, `live` repeats a column highlight, and `none` is static.",
                 "inherited": false
             },
             {
@@ -483,7 +483,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "Last date shown, written as YYYY-MM-DD. Defaults to today.",
+                "description": "Last date shown. Defaults to the latest supplied date, or today for an empty dataset.",
                 "inherited": false
             },
             {
@@ -492,7 +492,7 @@
                 "required": false,
                 "bindable": false,
                 "default": "0",
-                "description": "First day of the week, where 0 is Sunday.",
+                "description": "First day of each week, from 0 (Sunday) to 6.",
                 "inherited": false
             },
             {
@@ -501,7 +501,7 @@
                 "required": false,
                 "bindable": false,
                 "default": "'en-US'",
-                "description": "BCP 47 locale used for names and number formats.",
+                "description": "Locale for month and weekday names.",
                 "inherited": false
             },
             {
@@ -510,7 +510,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "Called when a day is activated.",
+                "description": "Called with the computed day when a cell is activated.",
                 "inherited": false
             },
             {
@@ -519,7 +519,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "Content rendered inside.",
+                "description": "Custom layout. Omit it for the built-in calendar, receiving the visible days and their total.",
                 "inherited": false
             }
         ]
@@ -530,7 +530,7 @@
             0,
             1,
             2,
-            2681,
+            2677,
             3,
             4,
             5,
@@ -627,7 +627,7 @@
             96,
             97,
             98,
-            4621,
+            4617,
             99,
             100,
             101,
@@ -963,7 +963,7 @@
     {
         "name": "Cell",
         "properties": [
-            2999,
+            2995,
             1062,
             1064,
             1065,
@@ -971,7 +971,7 @@
             1067,
             1068,
             1069,
-            3978,
+            3974,
             1070,
             1071,
             1072,
@@ -980,7 +980,7 @@
             0,
             1,
             2,
-            2681,
+            2677,
             3,
             4,
             5,
@@ -1077,7 +1077,7 @@
             96,
             97,
             98,
-            4621,
+            4617,
             746,
             747,
             748,
@@ -1226,7 +1226,7 @@
             885,
             886,
             887,
-            1728,
+            1724,
             888,
             889,
             890,
@@ -1414,7 +1414,7 @@
                 "required": true,
                 "bindable": false,
                 "default": null,
-                "description": "Day data for this cell.",
+                "description": "Visible day this cell represents.",
                 "inherited": false
             }
         ]
@@ -1422,7 +1422,7 @@
     {
         "name": "Detail",
         "properties": [
-            2681,
+            2677,
             0,
             1,
             2,
@@ -1522,6 +1522,10 @@
             96,
             97,
             98,
+            2996,
+            2997,
+            2998,
+            2999,
             3000,
             3001,
             3002,
@@ -1569,16 +1573,16 @@
             3044,
             3045,
             3046,
-            3047,
-            3048,
-            3049,
-            3050,
             150,
             151,
             152,
             153,
             154,
             155,
+            3047,
+            3048,
+            3049,
+            3050,
             3051,
             3052,
             3053,
@@ -1841,10 +1845,6 @@
             3310,
             3311,
             3312,
-            3313,
-            3314,
-            3315,
-            3316,
             422,
             423,
             424,
@@ -1858,7 +1858,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "Content rendered inside.",
+                "description": "Renders the detail line for the hovered or focused day.",
                 "inherited": false
             }
         ]
@@ -1869,7 +1869,7 @@
             0,
             1,
             2,
-            2681,
+            2677,
             3,
             4,
             5,
@@ -1966,7 +1966,7 @@
             96,
             97,
             98,
-            4621,
+            4617,
             99,
             100,
             101,
@@ -2302,7 +2302,7 @@
     {
         "name": "Grid",
         "properties": [
-            2681,
+            2677,
             0,
             1,
             2,
@@ -2738,7 +2738,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "Content rendered inside.",
+                "description": "Renders the cells. Omit it for one Cell per visible day.",
                 "inherited": false
             }
         ]
@@ -2749,7 +2749,7 @@
             0,
             1,
             2,
-            2681,
+            2677,
             3,
             4,
             5,
@@ -2846,7 +2846,7 @@
             96,
             97,
             98,
-            4621,
+            4617,
             99,
             100,
             101,
@@ -3185,7 +3185,7 @@
             0,
             1,
             2,
-            2681,
+            2677,
             3,
             4,
             5,
@@ -3282,7 +3282,7 @@
             96,
             97,
             98,
-            4621,
+            4617,
             99,
             100,
             101,
@@ -3621,7 +3621,7 @@
             0,
             1,
             2,
-            2681,
+            2677,
             3,
             4,
             5,
@@ -3718,7 +3718,7 @@
             96,
             97,
             98,
-            4621,
+            4617,
             99,
             100,
             101,
@@ -4054,7 +4054,7 @@
     {
         "name": "Summary",
         "properties": [
-            2681,
+            2677,
             0,
             1,
             2,
@@ -4154,6 +4154,10 @@
             96,
             97,
             98,
+            2996,
+            2997,
+            2998,
+            2999,
             3000,
             3001,
             3002,
@@ -4201,16 +4205,16 @@
             3044,
             3045,
             3046,
-            3047,
-            3048,
-            3049,
-            3050,
             150,
             151,
             152,
             153,
             154,
             155,
+            3047,
+            3048,
+            3049,
+            3050,
             3051,
             3052,
             3053,
@@ -4473,10 +4477,6 @@
             3310,
             3311,
             3312,
-            3313,
-            3314,
-            3315,
-            3316,
             422,
             423,
             424,
@@ -4490,7 +4490,7 @@
                 "required": false,
                 "bindable": false,
                 "default": null,
-                "description": "Content rendered inside.",
+                "description": "Renders the summary from the total of the visible days.",
                 "inherited": false
             }
         ]
@@ -4501,7 +4501,7 @@
             0,
             1,
             2,
-            2681,
+            2677,
             3,
             4,
             5,
@@ -4598,7 +4598,7 @@
             96,
             97,
             98,
-            4621,
+            4617,
             99,
             100,
             101,
@@ -4937,7 +4937,7 @@
             0,
             1,
             2,
-            2681,
+            2677,
             3,
             4,
             5,
@@ -5034,7 +5034,7 @@
             96,
             97,
             98,
-            4621,
+            4617,
             99,
             100,
             101,

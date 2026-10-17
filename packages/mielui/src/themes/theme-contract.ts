@@ -57,7 +57,7 @@ export type ThemeTypography = {
 
 export type ThemeChrome = {
     shadows?: boolean;
-    /** Strength of light-catching inset edges, from 0 to 1. Defaults to 0.5. */
+    /** Strength of light-catching inset edges, from 0 to 1. Defaults to 0.33. */
     edgeHighlight?: number;
     borders?: 'double' | 'single';
     /** Shadows on cards, floating menus, and other surfaces (`--elevation-1`, `--elevation-float`). */
@@ -110,19 +110,19 @@ export const DEFAULT_THEME: Theme = {
     version: THEME_VERSION,
     slug: 'default',
     name: 'Default',
-    description: 'The Mielui default. A calm, warm-neutral interface system.',
+    description: 'The Mielui default. White plates on a grey stage, drawn in one ink.',
     publisher: 'mielui',
     brand: '#ba7ca5',
-    neutral: 'warm',
+    neutral: 'true',
     radius: 'default',
     density: 'default',
     motion: 'default',
-    fontSans: "'Manrope', sans-serif",
-    fontMono: "'JetBrains Mono', monospace",
+    fontSans: "'Inter Tight', sans-serif",
+    fontMono: "'Geist Mono', monospace",
     fontHeader: 'var(--font-sans)',
     chrome: {
         borders: 'single',
-        edgeHighlight: 0.5,
+        edgeHighlight: 0.33,
         surfaceShadows: false,
         controlShadows: true,
         dialogShadows: true,
