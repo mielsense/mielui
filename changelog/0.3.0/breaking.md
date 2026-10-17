@@ -18,7 +18,7 @@
 - The default Toolbar paints a grey track behind its keys.
 - Badges take `--radius-control` instead of a pill, and status variants have no colored border.
 - Tag Input renders its tags as secondary badges instead of outline badges.
-- The Checkbox `primary` card row no longer tints with the primary color.
+- The Checkbox card row (`variant="card"`, formerly `primary`) no longer tints with the primary color.
 - Collapsible content is muted and inset to line up with its trigger text.
 - Breadcrumb items are padded, so the trail's text starts one item padding further in.
 - Tooltips reposition instantly when the pointer moves to the next trigger instead of gliding there.

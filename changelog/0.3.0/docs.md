@@ -41,3 +41,4 @@
 - Numeric playground options name their control, so Folder Card's tone reads "Tone 1" instead of "1".
 - Dialog examples use sentence case for their trigger labels.
 - The docs apply your saved Theme Studio theme and docs font before the first paint, instead of showing the default theme until scripts load.
+- Unit tests pass on Node 25 and newer, whose built-in `localStorage` used to shadow jsdom's.

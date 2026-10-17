@@ -2,6 +2,18 @@ import '@testing-library/jest-dom/vitest';
 import { cleanup } from '@testing-library/svelte';
 import { afterEach, beforeAll } from 'vitest';
 
+/*
+ * Node 25+ defines its own `localStorage` and `sessionStorage` globals. Without
+ * `--localstorage-file` they do nothing, and they shadow jsdom's working storage.
+ */
+const jsdomWindow = (globalThis as { jsdom?: { window: Window } }).jsdom?.window;
+for (const name of ['localStorage', 'sessionStorage'] as const) {
+    const storage = jsdomWindow?.[name];
+    if (storage && globalThis[name] !== storage) {
+        Object.defineProperty(globalThis, name, { value: storage, configurable: true });
+    }
+}
+
 if (typeof window !== 'undefined' && typeof window.matchMedia !== 'function') {
     window.matchMedia = (media: string): MediaQueryList => {
         const target = new EventTarget();
