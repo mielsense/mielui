@@ -17,8 +17,8 @@ describe('Spinner', () => {
         expect(loader).toHaveStyle({ animationDuration: '850ms' });
     });
 
-    it('renders the curved spin animation when curved is set', () => {
-        const { container } = render(Spinner, { props: { curved: true } });
+    it('renders the eased spin animation when eased is set', () => {
+        const { container } = render(Spinner, { props: { eased: true } });
         const loader = container.querySelector('[data-ui="spinner"] svg');
         expect(loader?.getAttribute('class')).toContain('animate-[mielui-spinner-spin');
     });

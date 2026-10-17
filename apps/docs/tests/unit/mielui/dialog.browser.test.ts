@@ -156,31 +156,23 @@ describe('Dialog -- close paths actually unmount (P3-F6 disambiguation)', () => 
 });
 
 describe('Dialog -- ARIA contract in browser', () => {
-    it('uses the vertical layout and compact width when requested', async () => {
-        render(DialogFixture, { open: true, orientation: 'vertical' });
+    it('uses the compact width when size is sm', async () => {
+        render(DialogFixture, { open: true, size: 'sm' });
         await flush();
 
         const dialog = document.querySelector('[role="dialog"]') as HTMLElement;
-        const header = dialog.querySelector('[data-orientation]') as HTMLElement;
 
-        expect(dialog.getAttribute('data-orientation')).toBe('vertical');
         expect(dialog.className).toContain('max-w-sm');
-        expect(header.getAttribute('data-orientation')).toBe('vertical');
-        expect(header.className).toContain('flex-col');
         expect(page.getByText('Confirm').element().className).toContain('ml-auto');
     });
 
-    it('uses the horizontal layout and wide width by default', async () => {
+    it('uses the large width by default', async () => {
         render(DialogFixture, { open: true });
         await flush();
 
         const dialog = document.querySelector('[role="dialog"]') as HTMLElement;
-        const header = dialog.querySelector('[data-orientation]') as HTMLElement;
 
-        expect(dialog.getAttribute('data-orientation')).toBe('horizontal');
         expect(dialog.className).toContain('max-w-xl');
-        expect(header.getAttribute('data-orientation')).toBe('horizontal');
-        expect(header.className).toContain('flex-col');
         expect(page.getByText('Confirm').element().className).toContain('ml-auto');
     });
 
@@ -212,13 +204,6 @@ describe('Dialog -- ARIA contract in browser', () => {
         render(DialogFixture, { open: true });
         await flush();
         const dialog = document.querySelector('[role="dialog"]');
-        expect(dialog).toBeInTheDocument();
-    });
-
-    it('honors role="alertdialog" prop', async () => {
-        render(DialogFixture, { open: true, role: 'alertdialog' });
-        await flush();
-        const dialog = document.querySelector('[role="alertdialog"]');
         expect(dialog).toBeInTheDocument();
     });
 

@@ -8,7 +8,7 @@ import { queryRequired, required } from '../../test-utils';
 /*
  * AlertDialog is a thin dialog wrapper post-collapse-safe per pattern
  * guide Sec.16.2 -- it asserts role="alertdialog", defaults allowClickOutside
- * to false, and exposes Exit/Confirm (no close affordance). Tests focus on the
+ * to false, and exposes Close/Confirm (no corner close button). Tests focus on the
  * distinctive wrapper contract, not dialog behavior already covered in
  * dialog.browser.test.ts.
  *
@@ -159,24 +159,21 @@ describe('AlertDialog -- urgency and layout', () => {
         expect(dialog.className).not.toContain('elevation-alert-error');
     });
 
-    it('uses the horizontal width and action layout when requested', async () => {
-        render(AlertDialogFixture, { open: true, orientation: 'horizontal' });
+    it('uses the extra-small width by default', async () => {
+        render(AlertDialogFixture, { open: true });
         await flush();
 
         const dialog = document.querySelector('[role="alertdialog"]') as HTMLElement;
-        const header = dialog.querySelector('[data-orientation]') as HTMLElement;
 
-        expect(dialog.getAttribute('data-orientation')).toBe('horizontal');
-        expect(dialog.className).toContain('max-w-sm');
-        expect(header.className).toContain('flex-col');
+        expect(dialog.className).toContain('max-w-xs');
         expect(page.getByRole('button', { name: 'Delete' }).element().className).toContain(
             'ms-auto'
         );
     });
 });
 
-describe('AlertDialog -- Exit and Confirm buttons (distinctive from Dialog Close/Confirm)', () => {
-    it('Exit button closes the dialog', async () => {
+describe('AlertDialog -- Close and Confirm buttons', () => {
+    it('Close button closes the dialog', async () => {
         render(AlertDialogFixture, { open: true });
         await flush();
         await expect.element(page.getByText('Delete project?')).toBeInTheDocument();
