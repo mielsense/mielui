@@ -1,32 +1,12 @@
 <script lang="ts">
-    import {
-        Mortarboard01Icon as Agent,
-        BookOpen01Icon as Book,
-        PaintBrush01Icon as Brush,
-        Clock01Icon as Clock,
-        Download04Icon as Download,
-        GithubIcon as Github,
-        GridViewIcon as Grid,
-        PaintBoardIcon as Palette,
-        Search01Icon as Search,
-        SwatchIcon as Swatch
-    } from '@hugeicons/core-free-icons';
+    import { Search01Icon as Search } from '@hugeicons/core-free-icons';
     import Kbd from '@mielui/svelte/components/kbd';
     import HugeiconsIcon from '@mielui/svelte/hugeicons-icon';
-    import { resolve } from '$app/paths';
     import { page } from '$app/state';
-    import {
-        componentTypeHref,
-        componentTypes,
-        entryHref,
-        navigationGroups,
-        sanitizeComponent
-    } from '$lib/components';
     import { getSearch } from '$lib/components/search/context';
     import { getShell } from '$lib/components/shell/shell.svelte';
     import TravelingPill from '$lib/components/shell/traveling-pill.svelte';
-    import { componentGuidePages } from '$lib/docs-pages';
-    import { GITHUB_URL } from '$lib/github';
+    import { guides, measurePill, scrollParent, sections, site } from './navigation-items';
 
     let {
         close,
@@ -44,78 +24,7 @@
     const labelClass =
         'flex h-8 items-center rounded-[var(--radius-control)] px-3 text-xs font-medium text-foreground-muted transition-colors [transition-duration:var(--motion-duration-hover)] hover:text-foreground aria-[current=page]:text-foreground motion-reduce:transition-none';
 
-    const guides = [
-        { label: 'Introduction', href: resolve('/docs/introduction'), icon: Book },
-        { label: 'Installation', href: resolve('/docs/installation'), icon: Download },
-        { label: 'Theming', href: resolve('/docs/theming'), icon: Brush },
-        { label: 'Agent skill', href: resolve('/docs/agent-skill'), icon: Agent },
-        { label: 'Components', href: resolve('/docs/components'), icon: Grid }
-    ];
-    const site = [
-        { label: 'Theme Studio', href: resolve('/studio'), icon: Palette },
-        { label: 'Themes', href: resolve('/themes'), icon: Swatch },
-        { label: 'Changelog', href: resolve('/docs/changelog'), icon: Clock },
-        { label: 'GitHub', href: GITHUB_URL, icon: Github }
-    ];
-    const sections = [
-        ...componentTypes.map((type) => ({
-            id: type.id,
-            label: type.heading,
-            href: componentTypeHref(type.id),
-            items: type.items.map((component) => ({
-                href: `/docs/components/${component}`,
-                label: sanitizeComponent(component),
-                nested: false
-            }))
-        })),
-        ...navigationGroups
-            .filter((group) => group.id !== 'components' && group.items.length > 0)
-            .map((group) => ({
-                id: group.id,
-                label: group.heading,
-                href: group.id === 'actions' ? '/docs/actions' : componentTypeHref(group.id),
-                items: group.items.flatMap((component) => [
-                    {
-                        href: entryHref(group.id, component),
-                        label: sanitizeComponent(component),
-                        nested: false
-                    },
-                    ...componentGuidePages
-                        .filter((guide) => guide.component === component)
-                        .map((guide) => ({
-                            href: guide.href,
-                            label: guide.title,
-                            nested: true
-                        }))
-                ])
-            }))
-    ];
-
-    const PILL_PADDING = 12;
-
     let nav = $state<HTMLElement>();
-
-    function measurePill(container: HTMLElement) {
-        const current = container.querySelector<HTMLElement>('[data-nav-row][aria-current="page"]');
-
-        if (!current) {
-            return undefined;
-        }
-
-        const label = current.querySelector<HTMLElement>('[data-nav-label]') ?? current;
-        const lead = current.firstElementChild ?? label;
-        const bounds = container.getBoundingClientRect();
-        const row = current.getBoundingClientRect();
-        const start = Math.max(row.left, lead.getBoundingClientRect().left - PILL_PADDING);
-        const end = Math.min(row.right, label.getBoundingClientRect().right + PILL_PADDING);
-
-        return {
-            top: row.top - bounds.top,
-            left: start - bounds.left,
-            width: end - start,
-            height: current.offsetHeight
-        };
-    }
 
     function isOpen(href: string) {
         return href !== page.url.pathname && shell.tabs.tabs.some((tab) => tab.href === href);
@@ -134,18 +43,6 @@
     function openSearch() {
         close?.();
         search.open = true;
-    }
-
-    function scrollParent(element: HTMLElement) {
-        for (let parent = element.parentElement; parent; parent = parent.parentElement) {
-            if (parent.scrollHeight > parent.clientHeight + 1) {
-                const overflow = getComputedStyle(parent).overflowY;
-                if (overflow === 'auto' || overflow === 'scroll') {
-                    return parent;
-                }
-            }
-        }
-        return undefined;
     }
 
     $effect(() => {
