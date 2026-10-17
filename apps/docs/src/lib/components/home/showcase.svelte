@@ -14,7 +14,7 @@
     import { resolve } from '$app/paths';
 
     const prompts = [
-        { label: 'Release notes', text: 'Write release notes for version 0.2.1.' },
+        { label: 'Release notes', text: 'Write release notes for version 0.3.0.' },
         {
             label: 'Debug',
             text: 'Explain this error: cannot read properties of undefined.'
